@@ -845,24 +845,27 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
     [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
-    [logDisplay release];
+    
+    [configPath                       release]; configPath                       = nil;
+    [displayName                      release]; displayName                      = nil;
+    [connectedSinceDate               release]; connectedSinceDate               = nil;
+    [lastState                        release]; lastState                        = nil;
+    [tunOrTap                         release]; tunOrTap                         = nil;
+    [requestedState                   release]; requestedState                   = nil;
+    [logDisplay                       release]; logDisplay                       = nil;
     [managementSocket close];
     [managementSocket setDelegate: nil];
-    [managementSocket release]; 
-    [lastState release];
-    [tunOrTap release];
-    [configPath release];
-    [displayName release];
-    [connectedSinceDate release];
-    [statistics.lastSet release];
-    [bytecountsUpdated release];
-    [myAuthAgent release];
-    [statusScreen release];
-    [tunnelUpSound release];
-    [tunnelDownSound release];
-	[ipAddressBeforeConnect release];
-	[serverIPAddress release];
-    [argumentsUsedToStartOpenvpnstart release];
+    [myAuthAgent                      release]; myAuthAgent                      = nil;
+    [statusScreen                     release]; statusScreen                     = nil;
+    [forceKillTimer invalidate];
+    [forceKillTimer                   release]; forceKillTimer                   = nil;
+    [tunnelDownSound                  release]; tunnelDownSound                  = nil;
+    [tunnelUpSound                    release]; tunnelUpSound                    = nil;
+	[ipAddressBeforeConnect           release]; ipAddressBeforeConnect           = nil;
+	[serverIPAddress                  release]; serverIPAddress                  = nil;
+    [statistics.lastSet               release]; statistics.lastSet               = nil;
+    [bytecountsUpdated                release]; bytecountsUpdated                = nil;
+    [argumentsUsedToStartOpenvpnstart release]; argumentsUsedToStartOpenvpnstart = nil;
     
     [super dealloc];
 }
@@ -3010,11 +3013,6 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     return lastState;
 }
 
-- (void) setDelegate: (id) newDelegate
-{
-    delegate = newDelegate;
-}
-
 -(BOOL) isConnected
 {
     return [[self state] isEqualToString:@"CONNECTED"];
@@ -3113,7 +3111,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 
     [[NSApp delegate] performSelectorOnMainThread:@selector(setState:) withObject:newState waitUntilDone:NO];
-    [delegate performSelector: @selector(connectionStateDidChange:) withObject: self];    
+    [[NSApp delegate] performSelector: @selector(connectionStateDidChange:) withObject: self];
 }
 
 -(void) speakActivity: (NSString *) activityName

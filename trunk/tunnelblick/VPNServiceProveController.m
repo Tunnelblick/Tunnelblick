@@ -145,20 +145,10 @@
     }
 }
 
-- (void) dealloc
-{
-    [nextButton         release];
-    [backButton         release];
-    [delegate           release];
+- (void) dealloc {
     
-    [proveTFC           release];
-    [captchaTFC         release];
-    [captchaImageView   release];
-    
-	[captchaTF          release];
-    [captchaImage       release];
-    
-    [delegate           release];
+    [captchaImage release]; captcaImage = nil;
+    [delegate release];     delegate = nil;
     
 	[super dealloc];
 }

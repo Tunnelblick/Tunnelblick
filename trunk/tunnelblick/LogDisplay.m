@@ -155,18 +155,21 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) dealloc {
 	
-	[tbLog release];
-    [savedLog release];
-	[configurationPath release];
-    [openvpnLogPath release];
-    [scriptLogPath release];
-	[connection release];
-	[monitorQueue release];
-    [lastOpenvpnEntryTime release];
-    [lastScriptEntryTime release];
-	[lastEntryTime release];
-	[watchdogTimer release];
-	[scrollWatchdogTimer release];
+	[tbLog                release]; tbLog                = nil;
+    [savedLog             release]; savedLog             = nil;
+	[configurationPath    release]; configurationPath    = nil;
+    [openvpnLogPath       release]; openvpnLogPath       = nil;
+    [scriptLogPath        release]; scriptLogPath        = nil;
+	[connection           release]; connection           = nil;
+	[monitorQueue         release]; monitorQueue         = nil;
+    [lastOpenvpnEntryTime release]; lastOpenvpnEntryTime = nil;
+    [lastScriptEntryTime  release]; lastScriptEntryTime  = nil;
+	[lastEntryTime        release]; lastEntryTime        = nil;
+    [watchdogTimer invalidate];
+	[watchdogTimer        release]; watchdogTimer        = nil;
+    [scrollWatchdogTimer invalidate];
+	[scrollWatchdogTimer  release]; scrollWatchdogTimer  = nil;
+	
 	
     [super dealloc];
 }

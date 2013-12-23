@@ -167,12 +167,8 @@ decidePolicyForNavigationAction: (NSDictionary *) actionInformation
 
 - (void) dealloc {
 	
-    [okButton               release];
-    [doNotShowAgainCheckbox release];
-    [welcomeWV              release];
-    [progressIndicator      release];
-	[urlString              release];
-    [delegate               release];
+	[urlString release]; urlString = nil;
+    [delegate  release]; delegate  = nil;
     
 	[super dealloc];
 }

@@ -74,7 +74,6 @@ struct Statistics {
     //                                     directory references are stripped out (e.g., abc/def/ghi.ovpn becomes just "ghi"
 
 	NSDate        * connectedSinceDate; // Initialized to time connection init'ed, set to current time upon connection
-	id              delegate;
 	NSString      * lastState;          // Known get/put externally as "state" and "setState", this is "EXITING", "CONNECTED", "SLEEP", etc.
     NSString      * tunOrTap;           // nil, "tun", or "tap", as determined by parsing the configuration file
     NSString      * requestedState;     // State of connection that was last requested by user (or automation), or that the user is expecting
@@ -203,8 +202,6 @@ struct Statistics {
 -(NSString *)       requestedState;
 
 -(NSString *)       sanitizedConfigurationFileContents;
-
--(void)             setDelegate:                (id)            newDelegate;
 
 -(void)             setState:                   (NSString *)    newState;
 

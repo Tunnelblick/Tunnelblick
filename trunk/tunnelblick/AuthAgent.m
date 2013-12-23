@@ -97,23 +97,23 @@ extern TBUserDefaults  * gTbDefaults;
     [[loginScreen window]       close];
     [[passphraseScreen window]  close];
     
-    [loginScreen                release];
-    [passphraseScreen           release];
-    [displayName                release];
-    [group                      release];
-    [credentialsName            release];
+    [loginScreen                release]; loginScreen             = nil;
+    [passphraseScreen           release]; passphraseScreen        = nil;
+    [authMode                   release]; authMode                = nil;
+    [displayName                release]; displayName             = nil;
+    [group                      release]; group                   = nil;
+    [credentialsName            release]; credentialsName         = nil;
     
-    [passphrase                 release];
-    [username                   release];
-    [password                   release];
-    [authMode                   release];
+    [passphrase                 release]; passphrase              = nil;
+    [username                   release]; username                = nil;
+    [password                   release]; password                = nil;
     
-    [passphraseKeychain         release];
-    [usernameKeychain           release];
-    [passwordKeychain           release];
+    [passphraseKeychain         release]; passphraseKeychain      = nil;
+    [usernameKeychain           release]; usernameKeychain        = nil;
+    [passwordKeychain           release]; passwordKeychain        = nil;
 
-    [passphrasePreferenceKey    release];
-    [usernamePreferenceKey      release];
+    [passphrasePreferenceKey    release]; passphrasePreferenceKey = nil;
+    [usernamePreferenceKey      release]; usernamePreferenceKey   = nil;
 
     [super dealloc];
 }

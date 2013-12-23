@@ -597,22 +597,22 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) dealloc
 {
-    [introScreen                    release];
-    [termsOfServiceScreen           release];
-    [createAccountScreen            release];
-    [loginScreen                    release];
-    [proveScreen                    release];
-    [welcomeScreen                  release];
-    [sorryScreen                    release];
+    [introScreen                    release]; introScreen                  = nil;
+    [termsOfServiceScreen           release]; termsOfServiceScreen         = nil;
+    [createAccountScreen            release]; createAccountScreen          = nil;
+    [loginScreen                    release]; loginScreen                  = nil;
+    [proveScreen                    release]; proveScreen                  = nil;
+    [welcomeScreen                  release]; welcomeScreen                = nil;
+    [sorryScreen                    release]; sorryScreen                  = nil;
     
-    [captchaImage                   release];
-    [sessionToken                   release];
-    [reasonForRegistrationFailure   release];
+    [captchaImage                   release]; captchaImage                 = nil;
+    [sessionToken                   release]; sessionToken                 = nil;
+    [reasonForRegistrationFailure   release]; reasonForRegistrationFailure = nil;
 
-    [emailAddress                   release];
-    [password                       release];
-    [baseUrlString                  release];
-    [tosUrlString                   release];
+    [emailAddress                   release]; emailAddress                 = nil;
+    [password                       release]; password                     = nil;
+    [baseUrlString                  release]; baseUrlString                = nil;
+    [tosUrlString                   release]; tosUrlString                 = nil;
     
     [super dealloc];
 }

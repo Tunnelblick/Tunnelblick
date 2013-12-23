@@ -41,7 +41,7 @@ NSArray * gConfigurationPreferences;
     secondaryDefaults = [inSecondary copy];
     
     if (  inUseUserDefaults  ) {
-        userDefaults = [NSUserDefaults standardUserDefaults];
+        userDefaults = [[NSUserDefaults standardUserDefaults] retain];
         [userDefaults registerDefaults: [NSMutableDictionary dictionary]];
     } else {
         userDefaults = nil;
@@ -51,8 +51,11 @@ NSArray * gConfigurationPreferences;
 }
 
 -(void) dealloc {
-    [forcedDefaults release];
-    [secondaryDefaults release];
+    
+    [forcedDefaults    release]; forcedDefaults    = nil;
+    [secondaryDefaults release]; secondaryDefaults = nil;
+    [userDefaults      release]; userDefaults      = nil;
+    
     [super dealloc];
 }
 

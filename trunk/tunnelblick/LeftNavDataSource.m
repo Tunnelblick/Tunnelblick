@@ -44,7 +44,7 @@ extern NSString       * gDeployPath;
 
 -(void) dealloc {
     
-    [rowsByDisplayName release];
+    [rowsByDisplayName release]; rowsByDisplayName = nil;
     
     [super dealloc];
 }

@@ -541,37 +541,11 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
     [[NSNotificationCenter defaultCenter] removeObserver: self]; 
 	
-	[connectButton release];
-	[disconnectButton release];
-	[configurationNameTFC release];
-	[statusTFC release];
-	[animationIV release];
-	[statisticsView release];
-	[inTFC release];
-	[inRateTFC release];
-	[inRateUnitsTFC release];
-	[inTotalTFC release];
-	[inTotalUnitsTFC release];
-	[outTFC release];
-	[outRateTFC release];
-	[outRateUnitsTFC release];
-	[outTotalTFC release];
-	[outTotalUnitsTFC release];
-	[inTF release];
-	[inRateTF release];
-	[inRateUnitsTF release];
-	[inTotalTF release];
-	[inTotalUnitsTF release];
-	[outTF release];
-	[outRateTF release];
-	[outRateUnitsTF release];
-	[outTotalTF release];
-	[outTotalUnitsTF release];
-	[name release];
-	[status release]; 
-	[connectedSince release];
-	[theAnim release];
-	[delegate release];
+	[name           release]; name           = nil;
+	[status         release]; status         = nil;
+	[connectedSince release]; connectedSince = nil;
+	[theAnim        release]; theAnim        = nil;
+	[delegate       release]; delegate       = nil;
 	
 	[super dealloc];
 }

@@ -129,16 +129,9 @@
     [NSApp activateIgnoringOtherApps:YES];
 }
 
-- (void) dealloc
-{
-    [acceptButton release];
-    [rejectButton release];
+- (void) dealloc {
     
-    [termsOfServiceHeaderTFC release];
-    [termsOfServiceWV        release];
-    [progressIndicator       release];
-    
-    [delegate   release];
+    [delegate release]; delegate = nil;
     
 	[super dealloc];
 }

@@ -56,12 +56,9 @@ extern BOOL gShuttingDownWorkspace;
     [[self window] makeKeyAndOrderFront: self];
 }
 
-- (void) dealloc
-{
-    [iconIV   release];
-    [mainText release];
-    [message  release];
-    [copyrightTFC release];
+- (void) dealloc {
+    
+    [message  release]; message = nil;
     
 	[super dealloc];
 }

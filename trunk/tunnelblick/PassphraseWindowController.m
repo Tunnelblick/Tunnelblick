@@ -143,15 +143,9 @@
     [NSApp stopModal];
 }
 
-- (void) dealloc
-{
-	[iconIV                 release];
-    [mainText               release];
-    [cancelButton           release];
-    [OKButton               release];
-    [passphrase             release];
-    [saveInKeychainCheckbox release];
-    [delegate               release];
+- (void) dealloc {
+    
+    [delegate release]; delegate = nil;
     
 	[super dealloc];
 }
