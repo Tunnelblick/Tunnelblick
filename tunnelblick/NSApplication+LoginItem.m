@@ -272,6 +272,68 @@ extern NSFileManager * gFileMgr;
 }
 
 
+- (BOOL)            wait: (int)        waitSeconds
+     untilNoProcessNamed: (NSString *) processName {
+
+    // Waits up to a specified time for there to be no processes with a specified name
+    // (Modified version of NSApplication+LoginItem's killOtherInstances)
+    // Returns TRUE if process has terminated, otherwise returns FALSE
+
+    int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
+    struct kinfo_proc* info;
+    size_t length;
+    int count, i, j;
+    const char * processNameCString = [processName UTF8String];
+    
+    // KERN_PROC_ALL has 3 elements, all others have 4
+    unsigned level = 3;
+    
+    if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) {
+        NSLog(@"Error: wait:untilNoProcessNamed: sysctl call #1: errno = %d\n%s", errno, strerror(errno));
+        return FALSE;
+    }
+    
+    for (j=0; j<(waitSeconds+1); j++) {   // Check with a one second wait between each test
+        
+        if (  j != 0  ) {       // Don't sleep first time through
+            sleep(1);
+        }
+        // Allocate memory for info structure:
+        if (  (info = NSZoneMalloc(NULL, length)) != 0  ) {
+            
+            if (  sysctl(mib, level, info, &length, NULL, 0) == 0  ) {
+                // Calculate number of processes:
+                count = length / sizeof(struct kinfo_proc);
+                BOOL found = FALSE;
+                for (i = 0; i < count; i++) {
+                    char* command = info[i].kp_proc.p_comm;
+                    if (strncmp(processNameCString, command, MAXCOMLEN)==0) {
+                        found = TRUE;
+                        break;
+                    }
+                }
+                
+                NSZoneFree(NULL, info);
+                
+                if (  ! found  ) {
+                    return TRUE;
+                }
+                
+            } else {
+                NSZoneFree(NULL, info);
+                NSLog(@"Error: wait:untilNoProcessNamed: sysctl call #2: length = %lu errno = %ld\n%s", (long) length, (long) errno, strerror(errno));
+            }
+            
+        } else {
+            NSLog(@"Error: wait:untilNoProcessNamed: NSZoneMalloc failed");
+        }
+    }
+    
+    NSLog(@"Error: Timeout wait:untilNoProcessNamed: '%@' to terminate", processName);
+    return FALSE;
+}
+
+
 +(void) addAppAsLoginItem {
 
     // This method is a modified version of a method at http://cocoatutorial.grapewave.com/2010/02/creating-andor-removing-a-login-item/

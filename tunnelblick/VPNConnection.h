@@ -222,8 +222,7 @@ struct Statistics {
 
 -(IBAction)         toggle:                     (id)            sender;
 
--(void)             tryToHookupToPort:          (unsigned)      inPortNumber
-                 withOpenvpnstartArgs:          (NSString *)    inStartArgs;
+-(void)             tryToHookup:                (NSDictionary *) dict;
 
 -(int)              useDNSStatus;
 

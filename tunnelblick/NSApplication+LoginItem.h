@@ -29,6 +29,9 @@
 - (NSMutableArray *)pIdsForOpenVPNProcesses;
 - (NSMutableArray *)pIdsForOpenVPNMainProcesses;
 
+- (BOOL)            wait:                       (int)               waitSeconds
+     untilNoProcessNamed:                       (NSString *)        processName;
+
 - (BOOL)            waitUntilNoProcessWithID:   (pid_t)             pid;
 
 - (void)            setAutoLaunchOnLogin:       (BOOL)              doAutoLaunch;
