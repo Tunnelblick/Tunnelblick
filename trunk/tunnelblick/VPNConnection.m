@@ -289,27 +289,30 @@ extern NSString * lastPartOfPath(NSString * thePath);
     serverNotClient  = FALSE;
 }
 
--(void) tryToHookupToPort: (unsigned) inPortNumber
-     withOpenvpnstartArgs: (NSString *) inStartArgs
-{
-    NSLog(@"DB-HU: ['%@'] invoked tryToHookupToPort: %lu withOpenvpnstartArgs: '%@'", displayName, (unsigned long)inPortNumber, inStartArgs);
+-(void) tryToHookup: (NSDictionary *) dict {
+    
+    // Call on main thread only
+    
+    unsigned   inPortNumber = [[dict objectForKey: @"port"] intValue];
+    NSString * inStartArgs  =  [dict objectForKey: @"openvpnstartArgs"];
+    
+    NSLog(@"DB-HU: ['%@'] entered tryToHookup: to port %lu with openvpnstart arguments: '%@'", displayName, (unsigned long)inPortNumber, inStartArgs);
 
     if (  portNumber != 0  ) {
-        NSLog(@"Ignoring attempt to 'tryToHookupToPort' for '%@' -- already using port number %d", [self description], portNumber);
+        NSLog(@"Ignoring attempt to 'tryToHookup' for '%@' -- already using port number %d", displayName, portNumber);
         return;
     }
     
     if (  managementSocket  ) {
-        NSLog(@"Ignoring attempt to 'tryToHookupToPort' for '%@' -- already using managementSocket", [self description]);
+        NSLog(@"Ignoring attempt to 'tryToHookup' for '%@' -- already using managementSocket", displayName);
         return;
     }
 
     [self setPort: inPortNumber];
     
-    
     // We set preferences of any configuration that we try to hookup, because this might be a new user who hasn't run Tunnelblick,
     // and they may be hooking up to a configuration that started when the computer starts.
-    NSLog(@"DB-HU: ['%@'] tryToHookupToPort: invoking setPreferencesFromOpenvnpstartArgString:", displayName);
+    NSLog(@"DB-HU: ['%@'] tryToHookup: invoking setPreferencesFromOpenvnpstartArgString:", displayName);
     [self setPreferencesFromOpenvnpstartArgString: inStartArgs];
 
     tryingToHookup = TRUE;

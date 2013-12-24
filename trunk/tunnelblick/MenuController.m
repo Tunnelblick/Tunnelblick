@@ -144,7 +144,7 @@ BOOL needToConvertNonTblks(void);
 -(BOOL)             hasValidSignature;
 -(void)             hookupWatchdogHandler;
 -(void)             hookupWatchdog;
--(BOOL)             hookupToRunningOpenVPNs;
+-(void)             hookupToRunningOpenVPNs;
 -(void)             initialiseAnim;
 -(void)             insertConnectionMenuItem:               (NSMenuItem *)      theItem
                                     IntoMenu:               (NSMenu *)          theMenu
@@ -711,8 +711,8 @@ BOOL needToConvertNonTblks(void);
         while (  (dispNm = [e nextObject])  ) {
             NSString * cfgPath = [[self myConfigDictionary] objectForKey: dispNm];
             // configure connection object:
-            VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: cfgPath
-                                                                    withDisplayName: dispNm];
+            VPNConnection* myConnection = [[[VPNConnection alloc] initWithConfigPath: cfgPath
+																	 withDisplayName: dispNm]autorelease];
             [tempVPNConnectionDictionary setObject: myConnection forKey: dispNm];
         }
         [self setMyVPNConnectionDictionary: [[tempVPNConnectionDictionary copy] autorelease]];
@@ -2075,8 +2075,8 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 						nil, nil, nil);
         return;
     }
-    VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: path
-                                                            withDisplayName: dispNm];
+    VPNConnection* myConnection = [[[VPNConnection alloc] initWithConfigPath: path
+                                                             withDisplayName: dispNm] autorelease];
     
     NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
     [connectionItem setTarget:myConnection]; 
@@ -2085,7 +2085,6 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     OSStatus status = pthread_mutex_lock( &configModifyMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_lock( &configModifyMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
-        return;
     }
     
     status = pthread_mutex_lock( &myVPNMenuMutex );
@@ -4171,30 +4170,92 @@ static void signal_handler(int signalNumber)
     }
 }
 
-// This method tries to "hook up" to any running OpenVPN processes.
-//
-// (If no OpenVPN processes exist, there's nothing to hook up to, so we skip all this)
-//
-// It searches for files in the log directory with names of A.B.C.openvpn.log, where
-// A is the path to the configuration file (with -- instead of dashes and -/ instead of slashes)
-// B is the arguments that openvpnstart was invoked with, separated by underscores
-// C is the management port number
-// The file contains the OpenVPN log.
-//
-// The [connection tryToHookupToPort:] method corresponding to the configuration file is used to set
-// the connection's port # and initiate communications to get the process ID for that instance of OpenVPN
-//
-// Returns TRUE if started trying to hook up to one or more running OpenVPN processes
+static BOOL runningHookupThread = FALSE;
 
--(BOOL) hookupToRunningOpenVPNs
-{
-    BOOL tryingToHookupToOpenVPN = FALSE;
+-(void) hookupToRunningOpenVPNs {
+    // This method starts a thread that tries to "hook up" to any running OpenVPN processes.
+    //
+    // Before doing that, it waits until no "openvpnstart" processes exist. This avoids the situation
+    // of Tunnelblick looking for OpenVPN processes before they have been successfully started.
+    //
+    // (If no OpenVPN processes exist, there's nothing to hook up to, so we skip all this)
+    //
+    // It searches for files in the log directory with names of A.B.C.openvpn.log, where
+    // A is the path to the configuration file (with -- instead of dashes and -/ instead of slashes)
+    // B is the arguments that openvpnstart was invoked with, separated by underscores
+    // C is the management port number
+    // The file contains the OpenVPN log.
+    //
+    // The [connection tryToHookup:] method corresponding to the configuration file is used to set
+    // the connection's port # and initiate communications to get the process ID for that instance of OpenVPN
+    //
+    // Returns TRUE if started trying to hook up to one or more running OpenVPN processes
     
+    // The following mutex is used to protect 'runningHookupThread', which protects against running more than one hookupToRunningOpenVPNsThread
+    static pthread_mutex_t hookupToRunningOpenVPNsMutex = PTHREAD_MUTEX_INITIALIZER;
+    
+    OSStatus status = pthread_mutex_lock( &hookupToRunningOpenVPNsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_lock( &hookupToRunningOpenVPNsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        return;
+    }
+    
+    if (  runningHookupThread  ) {
+        status = pthread_mutex_unlock( &hookupToRunningOpenVPNsMutex );
+        if (  status != EXIT_SUCCESS  ) {
+            NSLog(@"pthread_mutex_unlock( &hookupToRunningOpenVPNsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+            return;
+        }
+        NSLog(@"hookupToRunningOpenVPNs: already running a thread to do that");
+        return;
+    }
+    
+    runningHookupThread = TRUE;
+    
+    status = pthread_mutex_unlock( &hookupToRunningOpenVPNsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &hookupToRunningOpenVPNsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        return;
+    }
+    
+    [NSThread detachNewThreadSelector: @selector(hookupToRunningOpenVPNsThread) toTarget: self withObject: nil];
+}
+
+-(void) hookupToRunningOpenVPNsThread {
+	
+	NSAutoreleasePool * threadPool = [NSAutoreleasePool new];
+    
+    // Sleep for a while to give openvpnstart processes time to be launched by launchd at computer start
+    unsigned sleepTime = [gTbDefaults unsignedIntForKey: @"delayBeforeCheckingForOpenvpnstartProcesses"
+                                                default: 1
+                                                    min: 0
+                                                    max: UINT_MAX];
+    NSLog(@"DB-HU: hookupToRunningOpenVPNs: Delaying %lu seconds before checking for openvpnstart processes. Change"
+          @" this time with the \"delayBeforeCheckingForOpenvpnstartProcesses\" preference", (unsigned long)sleepTime);
+    if (  sleepTime != 0  ) {
+        sleep(sleepTime);
+    }
+    
+    // Wait until there are no "openvpnstart" processes running
+    unsigned waitTime = [gTbDefaults unsignedIntForKey: @"timeToSpendCheckingForOpenvpnstartProcesses"
+                                               default: 30
+                                                   min: 0
+                                                   max: UINT_MAX];
+    if (  ! [NSApp wait: waitTime untilNoProcessNamed: @"openvpnstart"]  ) {
+        NSLog(@"DB-HU: hookupToRunningOpenVPNs: timed out after %lu seconds waiting for openvpnstart processes to terminate; will start trying to hook up to OpenVPN processes anyway. Change"
+              @" this time with the \"timeToSpendCheckingForOpenvpnstartProcesses\" preference", (unsigned long)waitTime);
+    } else {
+        NSLog(@"DB-HU: hookupToRunningOpenVPNs: no openvpnstart processes running");
+    }
+    
+    // Get a list of running OpenVPN processes
     [self setPIDsWeAreTryingToHookUpTo: [NSApp pIdsForOpenVPNMainProcesses]];
     NSLog(@"DB-HU: hookupToRunningOpenVPNs: pIDsWeAreTryingToHookUpTo = '%@'", pIDsWeAreTryingToHookUpTo);
     
-    // Search for the latest log file for each imbedded configuration displayName
     if (  [pIDsWeAreTryingToHookUpTo count] != 0  ) {
+
+        // Search for the latest log file for each imbedded configuration displayName
+        
         NSMutableDictionary * logFileInfo = [[NSMutableDictionary alloc] initWithCapacity: 100];
         // logFileInfo key = displayName; object = NSDictionary with info about the log file for that display name
         NSString * filename;
@@ -4207,10 +4268,10 @@ static void signal_handler(int signalNumber)
                     NSDate * thisFileDate = [[gFileMgr tbFileAttributesAtPath: oldFullPath traverseLink: NO] fileCreationDate];
                     NSLog(@"DB-HU: hookupToRunningOpenVPNs: found OpenVPN log file '%@' created %@", filename, thisFileDate);
                     unsigned port = 0;
-                    NSString * startArguments = nil;
+                    NSString * openvpnstartArgs = nil;
                     NSString * cfgPath = [self deconstructOpenVPNLogPath: oldFullPath
                                                                   toPort: &port
-                                                             toStartArgs: &startArguments];
+                                                             toStartArgs: &openvpnstartArgs];
                     NSString * displayName = displayNameFromPath(cfgPath);
 					if (  displayName  ) {
 						VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
@@ -4220,7 +4281,7 @@ static void signal_handler(int signalNumber)
 								|| (  [thisFileDate isGreaterThan: [bestLogInfoSoFar objectForKey: @"fileCreationDate"]])  ) {
 								NSDictionary * newEntry = [NSDictionary dictionaryWithObjectsAndKeys:
 														   thisFileDate,                    @"fileCreationDate",
-														   startArguments,                  @"openvpnstartArgs",
+														   openvpnstartArgs,                  @"openvpnstartArgs",
 														   [NSNumber numberWithInt: port],  @"port",
 														   connection,                      @"connection",
 														   nil];
@@ -4248,19 +4309,32 @@ static void signal_handler(int signalNumber)
         // Now try to hook up to the OpenVPN process for the latest log file for each displayName
         NSString * displayName;
         NSEnumerator * e = [logFileInfo keyEnumerator];
+		unsigned nQueued = 0;
         while (  (displayName = [e nextObject])  ) {
-            NSDictionary * entry = [logFileInfo objectForKey: displayName];
-            unsigned        port           = [[entry objectForKey: @"port"] intValue];
-            VPNConnection * connection     = [entry objectForKey: @"connection"];
+            NSDictionary  * entry = [logFileInfo objectForKey: displayName];
+			NSNumber      * portAsNumber   = [entry objectForKey: @"port"];
             NSString      * startArguments = [entry objectForKey: @"openvpnstartArgs"];
+			VPNConnection * connection     = [entry objectForKey: @"connection"];
             
-            NSLog(@"DB-HU: hookupToRunningOpenVPNs: will try to hook up '%@' using port %u", displayName, port);
-            [connection tryToHookupToPort: port withOpenvpnstartArgs: startArguments];
-            tryingToHookupToOpenVPN = TRUE;
+            NSLog(@"DB-HU: hookupToRunningOpenVPNs: queueing hook up of '%@' using port %lu", displayName, (unsigned long)[portAsNumber intValue]);
+            
+            NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   portAsNumber,   @"port",
+                                   startArguments, @"openvpnstartArgs",
+                                   nil];
+            [connection performSelectorOnMainThread: @selector(tryToHookup:)  withObject: dict waitUntilDone: NO];
+			nQueued++;
         }
+		
+		[logFileInfo release];
+		
+        NSLog(@"DB-HU: hookupToRunningOpenVPNs: finished queueing %lu hookups for %lu OpenVPN processes", (unsigned long) nQueued, [pIDsWeAreTryingToHookUpTo count]);
     }
     
-    return tryingToHookupToOpenVPN;
+    runningHookupThread = FALSE;
+    
+	[threadPool drain];
+    return;
 }
 
 // Returns a configuration path (and port number and the starting arguments from openvpnstart) from a path created by openvpnstart
@@ -5986,6 +6060,11 @@ void terminateBecauseOfBadConfiguration(void)
     [connectionsToRestoreOnWakeup removeAllObjects];
 }
 
+-(void) waitAfterSleepTimerHandler: (NSTimer *) timer {
+    
+    (void) timer;
+    [self performSelectorOnMainThread: @selector(finishedWakingUpFromSleep) withObject: nil waitUntilDone: NO];
+}
 -(void)wokeUpFromSleep
 {
     [self recreateStatusItemAndMenu]; // Recreate the Tunnelblick icon
@@ -6020,13 +6099,18 @@ void terminateBecauseOfBadConfiguration(void)
 							   connection, @"connection",
 							   threadID,   @"threadID",
 							   nil];
-		NSLog(@"DEBUG: wokeUpFromSleep: will check IP address to determine connectivity");
+		NSLog(@"DEBUG: wokeUpFromSleep: will check IP address to determine connectivity before reconnecting configurations");
         [NSThread detachNewThreadSelector: @selector(checkIPAddressAfterSleepingConnectionThread:) toTarget: self withObject: dict];
     } else {
         unsigned sleepTime = [gTbDefaults unsignedIntForKey: @"delayBeforeReconnectingAfterSleep" default: 5 min: 0 max: 300];
-		NSLog(@"DEBUG: wokeUpFromSleep: cannot check IP address to determine connectivity so sleeping %d seconds", sleepTime);
-        sleep(sleepTime);
-        [self performSelectorOnMainThread: @selector(finishedWakingUpFromSleep) withObject: nil waitUntilDone: NO];
+		NSLog(@"DEBUG: wokeUpFromSleep: cannot check IP address to determine connectivity so waiting %d seconds before reconnecting configurations"
+			  @" (Time may be specified in the \"delayBeforeReconnectingAfterSleep\" preference", sleepTime);
+        NSTimer * waitAfterWakeupTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) (NSTimeInterval) sleepTime
+                                                                          target: self
+                                                                        selector: @selector(waitAfterSleepTimerHandler:)
+                                                                        userInfo: nil
+                                                                         repeats: NO];
+        [waitAfterWakeupTimer tbSetTolerance: -1.0];
     }
 }
 

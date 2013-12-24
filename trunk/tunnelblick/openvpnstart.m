@@ -1910,10 +1910,8 @@ int startVPN(NSString * configFile,
              NSString * leasewatchOptions,
              NSString * openvpnVersion) {
     
-	// Tries to start an openvpn connection.
-    // Returns 0 on success
-    // Returns OPENVPNSTART_MANAGEMENT_PORT_CONFLICT if the "MANAGEMENT: Socket bind failed on local address" error occurs
-    // Exits (having output a message to stderr) if any other error occurs
+	// Tries to start an openvpn connection (up to ten times if port == 0).
+    // Returns OPENVPNSTART_COULD_NOT_START_OPENVPN (having output a message to stderr) if any other error occurs
 	
 	NSString * openvpnPath  = openvpnToUsePath([gResourcesPath stringByAppendingPathComponent: @"openvpn"], openvpnVersion);    
     NSString * downRootPath = [[openvpnPath stringByDeletingLastPathComponent]
@@ -2416,13 +2414,7 @@ int startVPN(NSString * configFile,
                 "More details may be in the Console Log's \"All Messages\"\n",
                 status, (long) errno, strerror(errno), [displayCmdLine UTF8String], [logContents UTF8String]);
         
-        // Special-case a failure to bind the management socket so we can deal with the race condition that results from
-        // multiple processes getting the same free socket for the management interface
-        if (  [logContents rangeOfString: @"MANAGEMENT: Socket bind failed on local address"].length != 0  ) {
-            return OPENVPNSTART_MANAGEMENT_PORT_CONFLICT;
-        }
-        
-        exitOpenvpnstart(236);
+        return OPENVPNSTART_COULD_NOT_START_OPENVPN;
     
     } else {
         fprintf(stderr, "\n"
@@ -2775,27 +2767,24 @@ int main(int argc, char * argv[]) {
 				
                 // Try to start OpenVPN.
                 //
-                // Retry up to 10 times IF  OpenVPN fails because the management port is in use (that is, we tried to use a port which _had_been_ free but is now in use)
-                //                      AND openvpnstart is finding a free port to use as the management port (i.e., is started specifying a port of 0).
+                // Retry up to 10 times IF OpenVPN fails and openvpnstart is finding a free port to use as the management port (i.e., is started specifying a port of 0).
                 //
-                // Such a failure is caused by a race condition with several processes detecting the same free port and then trying to use it.
-                //
-                // This failure could occur if any program (not just Tunnelblick) searches for a free port and then uses it; this will solve the problem for
-                // Tunnelblick, but not for the other program.
-                //
-                // Retrying should solve the problem because it will:
+                // If the failure was caused by a race condition with several processes detecting the same free port and then trying to use it,
+                // retrying should solve the problem because it will:
                 //          (1) get a different free port (because the port that failed to bind is in use); and
                 //          (2) be unlikely to try to find a free port at the same time as another process because of the random delay.
+                //
+                // If the problem is caused by some other transient difficulty, retrying may solve that problem, too.
+                
                 unsigned i;
                 for (  i=0; i<10; i++  ) {
                     
                     if (  i != 0  ) {
-                        // Delay for a random time of up to 1.048576 seconds to make it less likely for multiple processes that are running simultaneously
-                        // to get the same port number (race condition).
+                        // Delay for a random time of up to 1.048576 seconds.
                         // Use a delay that is a power of two to avoid modulo bias (arc4random_uniform is available only on OS X 10.7 and higher)
                         
                         uint32_t randomDelayMicroseconds = arc4random() % (1024*1024);
-                        fprintf(stderr, "Management port conflict detected. Trying to start OpenVPN with a different management port after a delay of %lu microseconds...\n",
+                        fprintf(stderr, "Trying to start OpenVPN again, after a delay of %lu microseconds...\n",
                                 (unsigned long) randomDelayMicroseconds);
 
                         usleep(randomDelayMicroseconds);
@@ -2810,18 +2799,13 @@ int main(int argc, char * argv[]) {
                                        bitMask,
                                        leasewatchOptions,
                                        openvpnVersion);
-                    if (  retCode == 0  ) {                                     // If succeeded, return indicating that success
+                    
+                    if (   (retCode == 0)               // If succeeded, return indicating that success
+                        || (port != 0)  ) {             // If failed and are using a specified port (started by user), return the failure
                         break;
                     }
-                    if (   (retCode != OPENVPNSTART_MANAGEMENT_PORT_CONFLICT)   // If not a management port bind failure
-                        || (port != 0)  ) {                                     // Or we are using a specified port, return the failure
-                        exitOpenvpnstart(OPENVPNSTART_MANAGEMENT_PORT_CONFLICT);
-                    }
-                    //                                                          // Otherwise, try again with a different management port, up to 10 times
-                }
-                
-                if (  retCode == OPENVPNSTART_MANAGEMENT_PORT_CONFLICT) {       // If still have a management port bind failure, explain
-                    fprintf(stderr, "Management port conflict detected. 10 retries with different ports did not resolve the problem.\n");
+
+                    //                                  // Otherwise (failed and started at system start by launchd), try again up to 10 times
                 }
                 
                 syntaxError = FALSE;
