@@ -21,6 +21,7 @@
 
 #import "TBUserDefaults.h"
 #import "MenuController.h"
+#import "helper.h"
 
 
 NSArray * gProgramPreferences;
@@ -173,40 +174,40 @@ NSArray * gConfigurationPreferences;
 
 -(void) setBool: (BOOL) value forKey: (NSString *) key {
     if (  [self forcedObjectForKey: key] != nil  ) {
-        NSLog(@"setBool: forKey: '%@': ignored because the preference is being forced by Deploy/forced-preferences.plist", key);
+        NSLog(@"setBool: forKey: '%@': ignored because the preference is being forced", key);
     } else if (  [secondaryDefaults objectForKey: key] != nil  ) {
         NSLog(@"setBool: forKey: '%@': ignored because the preference is being forced by the secondary dictionary", key);
     } else if (  ! userDefaults  ) {
         NSLog(@"setBool: forKey: '%@': ignored because user preferences are not available", key);
     } else {
         [userDefaults setBool: value forKey: key];
-        [userDefaults synchronize];
+        [self synchronize];
     }
 }
 
 -(void) setObject: (id) value forKey: (NSString *) key {
     if (  [self forcedObjectForKey: key] != nil  ) {
-        NSLog(@"setObject: forKey: '%@': ignored because the preference is being forced by Deploy/forced-preferences.plist", key);
+        NSLog(@"setObject: forKey: '%@': ignored because the preference is being forced", key);
     } else if (  [secondaryDefaults objectForKey: key] != nil  ) {
         NSLog(@"setObject: forKey: '%@': ignored because the preference is being forced by the secondary dictionary", key);
     } else if (  ! userDefaults  ) {
         NSLog(@"setObject: forKey: '%@': ignored because user preferences are not available", key);
     } else {
         [userDefaults setObject: value forKey: key];
-        [userDefaults synchronize];
+        [self synchronize];
     }
 }
 
 -(void) removeObjectForKey: (NSString *) key {
     if (  [self forcedObjectForKey: key] != nil  ) {
-        NSLog(@"removeObjectForKey: '%@': ignored because the preference is being forced by Deploy/forced-preferences.plist", key);
+        NSLog(@"removeObjectForKey: '%@': ignored because the preference is being forced", key);
     } else if (  [secondaryDefaults objectForKey: key] != nil  ) {
         NSLog(@"removeObjectForKey: '%@': ignored because the preference is being forced by the secondary dictionary", key);
     } else if (  ! userDefaults  ) {
         NSLog(@"removeObjectForKey: '%@': ignored because user preferences are not available", key);
     } else {
         [userDefaults removeObjectForKey: key];
-        [userDefaults synchronize];
+        [self synchronize];
     }
 }
 
@@ -216,8 +217,19 @@ NSArray * gConfigurationPreferences;
     NSString * displayName;
     while (  (displayName = [dictEnum nextObject])  ) {
         NSString * fullKey = [displayName stringByAppendingString: key];
-        [self removeObjectForKey: fullKey];
+        if (  [self forcedObjectForKey: fullKey] != nil  ) {
+            NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because the preference is being forced by", fullKey);
+        } else if (  [secondaryDefaults objectForKey: fullKey] != nil  ) {
+            NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because the preference is being forced by the secondary dictionary", fullKey);
+        } else if (  ! userDefaults  ) {
+            NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because user preferences are not available", fullKey);
+        } else {
+            [userDefaults removeObjectForKey: fullKey];
+        }
     }
+    
+    [self synchronize];
+
 }
 
 -(void) addToDictionary: (NSMutableDictionary *) targetDict
@@ -259,7 +271,20 @@ NSArray * gConfigurationPreferences;
 }
 
 -(void) synchronize {
-    [userDefaults synchronize];
+    if (  ! [userDefaults synchronize]  ) { // If fails, try again after sleeping for one second
+        sleep(1);
+        if (  ! [userDefaults synchronize]  ) {
+            NSLog(@"Failed to synchronize preferences in 2 tries");
+            TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
+                            [NSString stringWithFormat:
+                             NSLocalizedString(@"Tunnelblick was unable to save its preferences -- OS X refused to save them.\n\n"
+                                               @"The preferences may have become corrupt; if so you may need to delete the file that contains them. That file is\n\n"
+                                               @"/Users/%@/Library/Preferences/net.tunnelblick.tunnelblick.plist", @"Window text"), NSUserName()],
+                            nil, nil, nil);
+        } else {
+            NSLog(@"Failed to synchronize preferences on first attempt but the retry succeeded");
+        }
+    }
 }
 
 -(BOOL) movePreferencesFrom: (NSString *) sourceDisplayName

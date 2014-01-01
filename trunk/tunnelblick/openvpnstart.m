@@ -1702,7 +1702,7 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
         case CFG_LOC_PRIVATE:
         case CFG_LOC_ALTERNATE:
 			if (  gOriginalUid == 0  ) {
-				fprintf(stderr, "Invalid cfgLocCode (printSanitizedConfigurationFile on alternate configuration not allowed when running as root)\n");
+				fprintf(stderr, "Invalid cfgLocCode (printSanitizedConfigurationFile on a private or alternate configuration not allowed when running as root)\n");
 				exitOpenvpnstart(205);
 			}
 			

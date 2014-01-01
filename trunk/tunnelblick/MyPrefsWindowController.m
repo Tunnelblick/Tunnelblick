@@ -464,13 +464,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     [[configurationsPrefsView setNameserverPopUpButton] selectItemAtIndex: ix];
     [self setSelectedSetNameserverIndex: (unsigned)ix];
     [[configurationsPrefsView setNameserverPopUpButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
-    [settingsSheetWindowController setupPrependDomainNameCheckbox];
-	[settingsSheetWindowController setupFlushDNSCheckbox];
-    [settingsSheetWindowController setupDisconnectOnSleepCheckbox];
-    [settingsSheetWindowController setupReconnectOnWakeFromSleepCheckbox];
-    [settingsSheetWindowController setupResetPrimaryInterfaceAfterDisconnectCheckbox];
-    [settingsSheetWindowController setupRouteAllTrafficThroughVpnCheckbox];
-    [settingsSheetWindowController setupRunMtuTestCheckbox];
+    [settingsSheetWindowController setupSettingsFromPreferences];
 }
 
 -(void) setupNetworkMonitoring: (VPNConnection *) connection
@@ -1187,7 +1181,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     VPNConnection * connection = [self selectedConnection];
     if (  connection  ) {
-        [connection connect: sender userKnows: YES]; 
+        [connection addToLog: @"*Tunnelblick: Disconnecting; VPN Details… window connect button pressed"];
+        [connection connect: sender userKnows: YES];
     } else {
         NSLog(@"connectButtonWasClicked but no configuration selected");
     }
@@ -1200,7 +1195,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
     VPNConnection * connection = [self selectedConnection];
     if (  connection  ) {
-        [connection addToLog: @"*Tunnelblick: Disconnecting; 'disconnect' button pressed"];
+        [connection addToLog: @"*Tunnelblick: Disconnecting; VPN Details… window disconnect button pressed"];
         [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];      
     } else {
         NSLog(@"disconnectButtonWasClicked but no configuration selected");
@@ -2406,13 +2401,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
 		
         [settingsSheetWindowController monitorNetworkForChangesCheckboxChangedForConnection: [self selectedConnection]];
-        [settingsSheetWindowController setupPrependDomainNameCheckbox];
-		[settingsSheetWindowController setupFlushDNSCheckbox];
-        [settingsSheetWindowController setupDisconnectOnSleepCheckbox];
-        [settingsSheetWindowController setupReconnectOnWakeFromSleepCheckbox];
-        [settingsSheetWindowController setupResetPrimaryInterfaceAfterDisconnectCheckbox];
-        [settingsSheetWindowController setupRouteAllTrafficThroughVpnCheckbox];
-        [settingsSheetWindowController setupRunMtuTestCheckbox];
+        [settingsSheetWindowController setupSettingsFromPreferences];
     }
 }
 
@@ -3152,7 +3141,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 	
     NSArray  * arguments = [NSArray arrayWithObject: @"killall"];
     OSStatus status = runOpenvpnstart(arguments, nil, nil);
-    if (  status == 0  ) {
+    if (  status == EXIT_SUCCESS  ) {
         TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
                         NSLocalizedString(@"All OpenVPN process were terminated.", @"Window title"),
                         nil, nil, nil);

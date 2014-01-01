@@ -36,9 +36,8 @@
 
 -(void) dealloc {
 	
-	[listingView release];
-	[heading release];
-	[text    release];
+	[heading release]; heading = nil;
+	[text    release]; text    = nil;
 	
     [super dealloc];
 }
@@ -46,15 +45,11 @@
 -(void) awakeFromNib {
 	
 	[[self window] setTitle: heading];
-	[heading release];
-	heading = nil;
 	
 	NSTextStorage * ts = [listingView textStorage];
 	[ts beginEditing];
 	[ts appendAttributedString: [[[NSAttributedString alloc] initWithString: text] autorelease]];
 	[ts endEditing];
-	[text release];
-	text = nil;
 }
 
 -(void) windowWillClose:(NSNotification *) notification {

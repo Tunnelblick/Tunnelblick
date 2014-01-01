@@ -207,6 +207,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         isHookedup = FALSE;
         tunOrTap = nil;
         areDisconnecting = FALSE;
+        haveConnectedSince = FALSE;
         areConnecting = FALSE;
         loadedOurTap = FALSE;
         loadedOurTun = FALSE;
@@ -282,6 +283,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     tryingToHookup   = FALSE;
     isHookedup       = FALSE;
     areDisconnecting = FALSE;
+    haveConnectedSince = FALSE;
     areConnecting    = FALSE;
     loadedOurTap     = FALSE;
     loadedOurTun     = FALSE;
@@ -495,15 +497,15 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void) didHookup
 {
-    id jkb1 = [[NSApp delegate] logScreen];
-    if (  jkb1  ) {
+    MyPrefsWindowController * vpnDetails = [[NSApp delegate] logScreen];
+    if (  vpnDetails  ) {
         NSLog(@"DB-HU: ['%@'] didHookup invoked; informing VPN Details window", displayName);
+		[vpnDetails hookedUpOrStartedConnection: self];
+		[vpnDetails validateWhenConnectingForConnection: self];
     } else {
         NSLog(@"DB-HU: ['%@'] didHookup invoked; VPN Details window does not exist", displayName);
     }
-    [[[NSApp delegate] logScreen] hookedUpOrStartedConnection: self];
     [self addToLog: @"*Tunnelblick: Established communication with OpenVPN"];
-    [[[NSApp delegate] logScreen] validateWhenConnectingForConnection: self];
 }
 
 -(BOOL) shouldDisconnectWhenBecomeInactiveUser
@@ -1529,7 +1531,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     OSStatus status = runOpenvpnstart(argumentsUsedToStartOpenvpnstart, nil, &errOut);
 	
     NSString * openvpnstartOutput;
-    if (  status != 0  ) {
+    if (  status != EXIT_SUCCESS  ) {
         if (  status == OPENVPNSTART_RETURN_SYNTAX_ERROR  ) {
             openvpnstartOutput = @"Internal Tunnelblick error: openvpnstart syntax error";
         } else {
@@ -1995,9 +1997,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 - (IBAction) toggle: (id) sender
 {
 	if (![self isDisconnected]) {
-        [self addToLog: @"*Tunnelblick: Disconnecting; 'Disconnect' menu command invoked"];
-		[self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];
+        [self addToLog: @"*Tunnelblick: Disconnecting; 'Disconnect' (toggle) menu command invoked"];
+		[self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
 	} else {
+        [self addToLog: @"*Tunnelblick: Disconnecting; 'Connect' (toggle) menu command invoked"];
 		[self connect: sender userKnows: YES];
 	}
 }
@@ -2206,7 +2209,7 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     // 'unusedArgument' is included because this routine is invoked by performSelector:withObject:withObject:
     (void) unusedArgument;
 	
-    NSArray * openvpnPids = [NSApp pIdsForOpenVPNProcesses];
+    NSArray * openvpnPids = [NSApp pIdsForOpenVPNProcessesOnlyMain: NO];
 	if (  [openvpnPids containsObject: pidAsNumber]  ) {
 		NSLog(@"DEBUG: openvpnProcessIsGone: OpenVPN process #%@ still running", pidAsNumber);
         return FALSE;
@@ -2218,13 +2221,13 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
-// The 'pre-connect.sh' and 'post-tun-tap-load.sh' scripts are run by openvpnstart
-// The 'connected.sh' and 'reconnecting.sh' scripts are by this class's setState: method
-// The 'disconnect.sh' script is run here
-//
-// Call on main thread only
--(void) hasDisconnected
-{
+-(void) hasDisconnected {
+    // The 'pre-connect.sh' and 'post-tun-tap-load.sh' scripts are run by openvpnstart
+    // The 'connected.sh' and 'reconnecting.sh' scripts are by this class's setState: method
+    // The 'disconnect.sh' script is run here
+    //
+    // Call on main thread only
+    //
 	// avoidHasDisconnectedDeadlock is used to avoid a deadlock in hasDisconnected:
 	//
 	// Under some circumstances, setState, invoked by hasConnected, can invoke hasDisconnected.
@@ -2281,6 +2284,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     [[NSApp delegate] updateNavigationLabels];
 	
     if (   ( ! [requestedState isEqualToString: @"EXITING"])
+        && [self haveConnectedSince]
 		&& ( ! gShuttingDownTunnelblick)
         && ( ! gComputerIsGoingToSleep)
 		&& [gTbDefaults boolForKey: [[self displayName] stringByAppendingString: @"-keepConnected"]]
@@ -2378,6 +2382,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             [self setConnectedSinceDate: date];
             [self clearStatisticsIncludeTotals: NO];
             [gTbDefaults setBool: YES forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
+           haveConnectedSince = YES;
         }
         
         [self setState: newState];
@@ -3104,6 +3109,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     // The 'disconnect.sh' script is run by this class's hasDisconnected method
     if (   [newState isEqualToString: @"EXITING"]
         && [requestedState isEqualToString: @"CONNECTED"]
+		&& [self haveConnectedSince]
         && ( ! [[NSApp delegate] terminatingAtUserRequest] )  ) {
         if (  speakWhenDisconnected  ) {
             [self speakActivity: @"disconnected"];
@@ -3119,7 +3125,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         // Run the connected script, if any
         [self runScriptNamed: @"connected" openvpnstartCommand: @"connected"];
         [gTbDefaults setObject: displayName forKey: @"lastConnectedDisplayName"];
-    } else if (  [newState isEqualToString: @"RECONNECTING"]  ) {
+    } else if (   [newState isEqualToString: @"RECONNECTING"]
+			   && [self haveConnectedSince]  ) {
         if (  speakWhenDisconnected  ) {
             [self speakActivity: @"disconnected"];
         } else {
@@ -3192,7 +3199,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 			NSString * stdErrString = @"";
 			OSStatus status = runOpenvpnstart(arguments, &stdOutString, &stdErrString);
 			
-			if (   (status == 0)
+			if (   (status == EXIT_SUCCESS)
 				&& [stdOutString hasPrefix: @"No such script exists: "]  ) {
 				[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: No '%@.sh' script to execute", scriptName]];
 			} else {
@@ -3429,6 +3436,8 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,  forceKillTimer, setForceKillTimer)
 TBSYNTHESIZE_OBJECT(retain, NSString *, ipAddressBeforeConnect,      setIpAddressBeforeConnect)
 TBSYNTHESIZE_OBJECT(retain, NSString *, serverIPAddress,             setServerIPAddress)
 TBSYNTHESIZE_NONOBJECT(BOOL,            ipCheckLastHostWasIPAddress, setIpCheckLastHostWasIPAddress)
+TBSYNTHESIZE_NONOBJECT(BOOL,            haveConnectedSince,          setHaveConnectedSince)
+
 
 //*********************************************************************************************************
 //

@@ -26,8 +26,7 @@
 - (void)            killOtherInstances;
 - (int)             countOtherInstances;
 
-- (NSMutableArray *)pIdsForOpenVPNProcesses;
-- (NSMutableArray *)pIdsForOpenVPNMainProcesses;
+-(NSMutableArray *) pIdsForOpenVPNProcessesOnlyMain: (BOOL)         onlyOpenVPN;
 
 - (BOOL)            wait:                       (int)               waitSeconds
      untilNoProcessNamed:                       (NSString *)        processName;

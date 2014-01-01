@@ -115,6 +115,7 @@ struct Statistics {
     BOOL            initialHookupTry;   // True iff this is the initial hookup try (not as a result of a connection attempt)
     BOOL            isHookedup;         // True iff this connection is hooked up to an existing instance of OpenVPN
     BOOL            areDisconnecting;   // True iff the we are in the process of disconnecting
+    BOOL            haveConnectedSince; // True iff the we have succesfully connected since the latter of Tunnelblick launch, computer wakeup, or became active user
     BOOL            areConnecting;      // True iff the we are in the process of connecting
     BOOL            loadedOurTap;       // True iff last connection loaded our tap kext
     BOOL            loadedOurTun;       // True iff last connection loaded our tun kext
@@ -238,6 +239,7 @@ TBPROPERTY(NSTimer *, forceKillTimer, setForceKillTimer)
 TBPROPERTY(NSString *, ipAddressBeforeConnect,      setIpAddressBeforeConnect)
 TBPROPERTY(NSString *, serverIPAddress,             setServerIPAddress)
 TBPROPERTY(BOOL,       ipCheckLastHostWasIPAddress, setIpCheckLastHostWasIPAddress)
+TBPROPERTY(BOOL,       haveConnectedSince,          setHaveConnectedSince)
 
 //*********************************************************************************************************
 //

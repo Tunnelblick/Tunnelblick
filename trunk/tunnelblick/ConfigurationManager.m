@@ -497,8 +497,8 @@ enum state_t {                      // These are the "states" of the guideState 
     NSString * stdOut;
     NSString * stdErrOut;
     OSStatus status = runOpenvpnstart(arguments, &stdOut, &stdErrOut);
-    if (  status == EXIT_FAILURE  ) {
-        NSLog(@"Internal failure of openvpnstart printSanitizedConfigurationFile %@ %d", cfgFile, cfgLoc);
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"Internal failure (%lu) of openvpnstart printSanitizedConfigurationFile %@ %lu", (unsigned long)status, cfgFile, (unsigned long)cfgLoc);
         return nil;
     }
     

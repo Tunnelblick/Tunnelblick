@@ -186,14 +186,7 @@ typedef enum {
 
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 
--(void) setupPrependDomainNameCheckbox;
--(void) setupFlushDNSCheckbox;
--(void) setupDisconnectOnSleepCheckbox;
--(void) setupReconnectOnWakeFromSleepCheckbox;
--(void) setupResetPrimaryInterfaceAfterDisconnectCheckbox;
--(void) setupRouteAllTrafficThroughVpnCheckbox;
--(void) setupRunMtuTestCheckbox;
-
+-(void) setupSettingsFromPreferences;
 
 // Methods for Connecting tab
 

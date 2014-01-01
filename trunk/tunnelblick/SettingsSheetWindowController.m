@@ -332,11 +332,12 @@ extern TBUserDefaults       * gTbDefaults;
 -(void) showSettingsSheet: (id) sender {
 	(void) sender;
 	
+    [self setupSettingsFromPreferences];
+    
     if (  ! settingsSheet  ) {
         [super showWindow: self];
     } else {
         showingSettingsSheet = TRUE;
-        [self setupSettingsFromPreferences];
     }
     
     [[self window] display];
@@ -565,14 +566,16 @@ extern TBUserDefaults       * gTbDefaults;
     // For Connecting tab
     
     [self setupCheckIPAddressAfterConnectOnAdvancedCheckbox];
-    [self setupPrependDomainNameCheckbox];
+    [self setupResetPrimaryInterfaceAfterDisconnectCheckbox];
     [self setupFlushDNSCheckbox];
+    [self setupPrependDomainNameCheckbox];
     [self setupDisconnectOnSleepCheckbox];
     [self setupReconnectOnWakeFromSleepCheckbox];
-    [self setupResetPrimaryInterfaceAfterDisconnectCheckbox];
-    [self setupRouteAllTrafficThroughVpnCheckbox];
-    [self setupRunMtuTestCheckbox];
     
+    [self setupCheckbox: showOnTunnelBlickMenuCheckbox
+                    key: @"-doNotShowOnTunnelblickMenu"
+               inverted: YES];
+
     [self setupCheckbox: disconnectWhenUserSwitchesOutCheckbox
                     key: @"-doNotDisconnectOnFastUserSwitch"
                inverted: YES];
@@ -584,6 +587,10 @@ extern TBUserDefaults       * gTbDefaults;
 	[self setupTunTapButtons];
     
     // For WhileConnected tab
+    
+    [self setupRouteAllTrafficThroughVpnCheckbox];
+    [self setupRunMtuTestCheckbox];
+    
     if (  [[[NSApp delegate] logScreen] forceDisableOfNetworkMonitoring]  ) {
         [monitorNetworkForChangesCheckbox setState: NSOffState];
         [monitorNetworkForChangesCheckbox setEnabled: NO];
