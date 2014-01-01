@@ -711,8 +711,8 @@ BOOL needToConvertNonTblks(void);
         while (  (dispNm = [e nextObject])  ) {
             NSString * cfgPath = [[self myConfigDictionary] objectForKey: dispNm];
             // configure connection object:
-            VPNConnection* myConnection = [[[VPNConnection alloc] initWithConfigPath: cfgPath
-																	 withDisplayName: dispNm]autorelease];
+            VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: cfgPath
+                                                                    withDisplayName: dispNm];
             [tempVPNConnectionDictionary setObject: myConnection forKey: dispNm];
         }
         [self setMyVPNConnectionDictionary: [[tempVPNConnectionDictionary copy] autorelease]];
@@ -2027,7 +2027,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
         
         if (  sameDispNm  ) {
             if (  ! sameFolder  ) {
-                    // Replace a configuration
+                    // Replace a configuration that has changed from private to shared (for example)
                     [self deleteExistingConfig: dispNm];
                     [self addNewConfig: [curConfigsDict objectForKey: dispNm] withDisplayName: dispNm];
                     needToUpdateLogWindow = TRUE;
@@ -2075,8 +2075,8 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 						nil, nil, nil);
         return;
     }
-    VPNConnection* myConnection = [[[VPNConnection alloc] initWithConfigPath: path
-                                                             withDisplayName: dispNm] autorelease];
+    VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: path
+                                                            withDisplayName: dispNm];
     
     NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
     [connectionItem setTarget:myConnection]; 
@@ -2130,7 +2130,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     VPNConnection* myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
     if (  ! [[myConnection state] isEqualTo: @"EXITING"]  ) {
         [myConnection addToLog: @"*Tunnelblick: Disconnecting; user asked to delete the configuration"];
-        [myConnection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
+        [myConnection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];
         
         TBRunAlertPanel([NSString stringWithFormat: NSLocalizedString(@"'%@' has been disconnected", @"Window title"), dispNm],
                         [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick has disconnected '%@' because its configuration file has been removed.", @"Window text"), dispNm],
@@ -3728,7 +3728,7 @@ static void signal_handler(int signalNumber)
                                                 min: 0
                                                 max: 300];
     if (  gHookupTimeout == 0  ) {
-		noUnknownOpenVPNsRunning = ([[NSApp pIdsForOpenVPNMainProcesses] count] == 0);
+		noUnknownOpenVPNsRunning = ([[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] count] == 0);
         return FALSE;
     }
     
@@ -4249,7 +4249,7 @@ static BOOL runningHookupThread = FALSE;
     }
     
     // Get a list of running OpenVPN processes
-    [self setPIDsWeAreTryingToHookUpTo: [NSApp pIdsForOpenVPNMainProcesses]];
+    [self setPIDsWeAreTryingToHookUpTo: [NSApp pIdsForOpenVPNProcessesOnlyMain: YES]];
     NSLog(@"DB-HU: hookupToRunningOpenVPNs: pIDsWeAreTryingToHookUpTo = '%@'", pIDsWeAreTryingToHookUpTo);
     
     if (  [pIDsWeAreTryingToHookUpTo count] != 0  ) {
@@ -5929,6 +5929,16 @@ void terminateBecauseOfBadConfiguration(void)
 //    NSLog(@"DEBUG: TunnelblickShutdownUIHandler: invoked");
 }
 
+-(void)clearAllHaveConnectedSince {
+    
+    // Main loop only
+    
+    VPNConnection * connection;
+    NSEnumerator * e = [myVPNConnectionDictionary objectEnumerator];
+	while (  (connection = [e nextObject])  ) {
+        [connection setHaveConnectedSince: NO];
+    }
+}
 
 -(void)willGoToSleepHandler: (NSNotification *) n
 {
@@ -5969,11 +5979,15 @@ void terminateBecauseOfBadConfiguration(void)
         if (  ! [gTbDefaults boolForKey: @"doNotPutOffSleepUntilOpenVPNsTerminate"] ) {
             // Wait until all OpenVPN processes have terminated
             NSLog(@"Putting off sleep until all OpenVPNs have terminated");
-            while (  [[NSApp pIdsForOpenVPNProcesses] count] != 0  ) {
+            while (  [[NSApp pIdsForOpenVPNProcessesOnlyMain: NO] count] != 0  ) {
                 usleep(100000);
             }
         }
     }
+    
+    // Indicate no configurations have connected since sleep
+    // Done here so it is correct immediately when computer wakes
+    [self performSelectorOnMainThread: @selector(clearAllHaveConnectedSince) withObject: nil waitUntilDone: YES];
     
     NSLog(@"OK to go to sleep");
 }
@@ -6138,6 +6152,10 @@ void terminateBecauseOfBadConfiguration(void)
             [connection reInitialize];
         }
     }
+    
+    // Indicate no configurations have connected since user became actibve
+    // Done here so it is correct immediately when uder becomes active
+    [self performSelectorOnMainThread: @selector(clearAllHaveConnectedSince) withObject: nil waitUntilDone: YES];
 }
 
 -(void)didBecomeActiveUserHandler: (NSNotification *) n
@@ -6554,10 +6572,10 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     VPNConnection * connection = [[self myVPNConnectionDictionary] objectForKey: theName];
     if (  connection  ) {
         if (  choice == statusWindowControllerDisconnectChoice  ) {
-            [connection addToLog: @"*Tunnelblick: Disconnecting; Disconnect button pressed"];
-            [connection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];
+            [connection addToLog: @"*Tunnelblick: Disconnecting; notification window disconnect button pressed"];
+            [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
         } else if (  choice == statusWindowControllerConnectChoice  ) {
-            [connection addToLog: @"*Tunnelblick: Connecting; Connect button pressed"];
+            [connection addToLog: @"*Tunnelblick: Connecting; notification window connect button pressed"];
             [connection connect: self userKnows: YES];
         } else {
             NSLog(@"Invalid choice -- statusWindowController:finishedWithChoice: %d forDisplayName: %@", choice, theName);

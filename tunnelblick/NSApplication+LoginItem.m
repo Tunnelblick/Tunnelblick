@@ -120,11 +120,16 @@ extern NSFileManager * gFileMgr;
     return(returnCount);
 }
 
-// Returns an array of NSNumber objects, each with the pid for an OpenVPN process
-// Returns nil on error, empty array if no OpenVPN processes running
-//  (modified version of countOtherInstances, above)
--(NSMutableArray *) pIdsForOpenVPNProcesses
-{
+-(NSMutableArray *) pIdsForOpenVPNProcessesOnlyMain: (BOOL) onlyMain {
+    
+    // Returns an array of NSNumber objects, each with the pid for an OpenVPN process
+    // Returns nil on error, empty array if no OpenVPN processes running
+    //
+    // if onlyMain is TRUE, returns only processes named 'openvpn'
+    // else returns process whose names _start_ with 'openvpn' (e.g. 'openvpn-down-root')
+    //
+    //  (modified version of countOtherInstances, above)
+    
     NSMutableArray * retArray = [NSMutableArray arrayWithCapacity: 2];
     const char* processName = "openvpn";
     int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
@@ -149,63 +154,17 @@ extern NSFileManager * gFileMgr;
         char* command = info[i].kp_proc.p_comm;
         pid_t pid = info[i].kp_proc.p_pid;
         if (strncmp(processName, command, MAXCOMLEN)==0) {
-            [retArray addObject: [NSNumber numberWithInt: (int) pid]];
+            if (   (! onlyMain)
+                || (strlen(command) == strlen(processName))  ) {
+                [retArray addObject: [NSNumber numberWithInt: (int) pid]];
+            }
         }
-    }    
+    }
     NSZoneFree(NULL, info);
     
     return(retArray);
 }
 
-// Like pIdsForOpenVPNProcesses, but only returns main OpenVPN processes, not down-root processes
--(NSMutableArray *) pIdsForOpenVPNMainProcesses
-{
-    NSMutableArray * inPids = [NSApp pIdsForOpenVPNProcesses];
-    NSMutableArray * outPids = [NSMutableArray arrayWithCapacity: [inPids count]];
-    
-    if (  [inPids count] == 0  ) {
-        return inPids;
-    }
-    
-    unsigned i;
-    for (  i=0; i < [inPids count]; i++  ) {
-        NSNumber * pidAsNSNumber = [inPids objectAtIndex: i];
-        unsigned pid = [pidAsNSNumber unsignedIntValue];
-        
-        NSTask * task = [[[NSTask alloc] init] autorelease];
-        NSPipe * stdPipe = [[[NSPipe alloc] init] autorelease];
-        
-        [task setLaunchPath: @"/bin/ps"];
-        [task setArguments:  [NSArray arrayWithObjects: @"-o", @"rss=", @"-p", [NSString stringWithFormat: @"%u", pid], nil]];
-        [task setStandardOutput: stdPipe];
-        
-        [task launch];
-        [task waitUntilExit];
-        OSStatus status = [task terminationStatus];
-        
-        // Get output from ps command
-        NSFileHandle * file = [stdPipe fileHandleForReading];
-        NSData * data = [file readDataToEndOfFile];
-        [file closeFile];
-        NSString * psOutput = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-        psOutput = [psOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        
-        if (   status == EXIT_SUCCESS  ) {
-            if (  [psOutput length] != 0  ) {
-                unsigned sizeInKB = cvt_atou([psOutput UTF8String], @"sizeInKB (pIdsForOpenVPNMainProcesses: psOutput");
-                if (  sizeInKB >= 1024  ) {  // Assumes OpenVPN itself is >= 1024KB, and openvpn-down-root.so is < 1024KB. In OpenVPN 2.1.4 they are 2300KB and 244KB, respectively
-                    [outPids addObject: pidAsNSNumber];
-                }
-            } else {
-                NSLog(@"'/bin/ps -o rss= -p %u' failed -- no output from the command", pid);
-            }
-        } else {
-            NSLog(@"'/bin/ps -o rss= -p %u' failed with error %d\n'%s'", pid, errno, strerror(errno));
-        }
-    }
-    
-    return outPids;
-}
 
 // Waits up to five seconds for a process to be gone
 // (Modified version of NSApplication+LoginItem's killOtherInstances)
