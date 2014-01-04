@@ -85,7 +85,7 @@
 }
 
 -(void) timerTickHandler: (NSTimer *) timer {
-    NSLog(@"DEBUG: timerTickHandler invoked");
+//    NSLog(@"DEBUG: timerTickHandler invoked");
     [self test: [timer userInfo] timer: timer];
 }
 

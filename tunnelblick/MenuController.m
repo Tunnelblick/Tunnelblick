@@ -223,38 +223,18 @@ BOOL needToConvertNonTblks(void);
         tunCount = 0;
         tapCount = 0;
         
-        connectionsToRestoreOnWakeup = [[NSMutableArray alloc] initWithCapacity: 5];
-        
-        gFileMgr    = [NSFileManager defaultManager];
-        
-        gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
-        createDir(gPrivatePath, PERMS_PRIVATE_SELF);     // Create private configurations folder if necessary
-        
-
-        gConfigDirs = [[NSMutableArray alloc] initWithCapacity: 2];
-        
-		[NSApp setDelegate: self];
-		
-        userIsAnAdmin = isUserAnAdmin();
-        
-        NSBundle * ourBundle   = [NSBundle mainBundle];
-        NSString * ourBundlePath = [ourBundle bundlePath];
-        NSArray  * execComponents = [ourBundlePath pathComponents];
-        if (  [execComponents count] < 1  ) {
-            NSLog(@"Too few execComponents; ourBundlePath = %@", ourBundlePath);
-            exit(1);
-        }
-        NSString * ourAppName = [execComponents lastObject];
-		if (  [ourAppName hasSuffix: @".app"]  ) {
-			ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
-		}
-        gDeployPath = [[[ourBundle resourcePath] stringByAppendingPathComponent: @"Deploy"] copy];
-		
-		// Remove any old "Launch Tunnelblick" link in the private configurations folder
-		NSString * tbLinkPath = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
-		[gFileMgr tbRemoveFileAtPath: tbLinkPath handler: nil];
-        
         gProgramPreferences = [[NSArray arrayWithObjects:
+                                
+                                // Document TBLog() logging options here, but don't store them in the list. That way they will be listed as "unknown" in the log at launch which may help catch typos of them
+                                // @"DB-ALL"     All extra logging
+                                // @"DB-CD",     Extra logging for connect/disconnect
+                                // @"DB-HU",     Extra logging for hookup,
+                                // @"DB-IC",     Extra logging for IP address checking
+                                // @"DB-IT",     Extra logging for IP address check threading
+                                // @"DB-SU",     Extra logging for startup
+                                // @"DB-SD",     Extra logging for shutdown
+                                // @"DB-SW",     Extra logging for sleep/wake
+                                
                                 @"skipWarningAboutReprotectingConfigurationFile",
                                 @"skipWarningAboutSimultaneousConnections",
 								@"skipWarningAboutConvertingToTblks",
@@ -467,6 +447,36 @@ BOOL needToConvertNonTblks(void);
                                       @"-usernameIsSet",
                                       nil] retain];
         
+        connectionsToRestoreOnWakeup = [[NSMutableArray alloc] initWithCapacity: 5];
+        
+        gFileMgr    = [NSFileManager defaultManager];
+        
+        gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
+        createDir(gPrivatePath, PERMS_PRIVATE_SELF);     // Create private configurations folder if necessary
+        
+        gConfigDirs = [[NSMutableArray alloc] initWithCapacity: 2];
+        
+		[NSApp setDelegate: self];
+		
+        userIsAnAdmin = isUserAnAdmin();
+        
+        NSBundle * ourBundle   = [NSBundle mainBundle];
+        NSString * ourBundlePath = [ourBundle bundlePath];
+        NSArray  * execComponents = [ourBundlePath pathComponents];
+        if (  [execComponents count] < 1  ) {
+            NSLog(@"Too few execComponents; ourBundlePath = %@", ourBundlePath);
+            exit(1);
+        }
+        NSString * ourAppName = [execComponents lastObject];
+		if (  [ourAppName hasSuffix: @".app"]  ) {
+			ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
+		}
+        gDeployPath = [[[ourBundle resourcePath] stringByAppendingPathComponent: @"Deploy"] copy];
+		
+		// Remove any old "Launch Tunnelblick" link in the private configurations folder
+		NSString * tbLinkPath = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
+		[gFileMgr tbRemoveFileAtPath: tbLinkPath handler: nil];
+        
         // If this is the first time we are using the new CFBundleIdentifier
         //    Rename the old preferences so we can access them with the new CFBundleIdentifier
         //    And create a link to the new preferences from the old preferences (make the link read-only)
@@ -495,15 +505,12 @@ BOOL needToConvertNonTblks(void);
             }
         }
             
-        // Create a symbolic link to the private configurations folder, after having run the installer (which may have moved the
-        // configuration folder contents to the new place)
-        [self makeSymbolicLink];
-        
         // Set up to override user preferences from Deploy/forced-permissions.plist if it exists,
         NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
         gTbDefaults = [[TBUserDefaults alloc] initWithForcedDictionary: dict
                                                 andSecondaryDictionary: nil
                                                      usingUserDefaults: YES];
+        TBLog(@"DB-SU", @"init: 001")
         
         if (  ! [gTbDefaults boolForKey: @"doNotShowSplashScreen"]  ) {
             splashScreen = [[SplashWindowController alloc] init];
@@ -512,11 +519,13 @@ BOOL needToConvertNonTblks(void);
             [splashScreen showWindow: self];
         }
 		
+        TBLog(@"DB-SU", @"init: 002")
         // Set default preferences as needed
         if (  [gTbDefaults objectForKey: @"showConnectedDurations"] == nil  ) {
             [gTbDefaults setBool: TRUE forKey: @"showConnectedDurations"];
         }
         
+        TBLog(@"DB-SU", @"init: 003")
         // Remove the 'updateCheckBetas' preference if it is the default, so that a later change to stable from beta or to beta from stable will work as expected
         id obj = [gTbDefaults objectForKey: @"updateCheckBetas"];
         if (  [obj respondsToSelector: @selector(boolValue)]  ) {
@@ -525,12 +534,14 @@ BOOL needToConvertNonTblks(void);
             }
         }
 		
+        TBLog(@"DB-SU", @"init: 004")
 		// Convert the old global "openvpnVersion" preference to the per-configuration "*-openvpnVersion"
 		obj = [gTbDefaults objectForKey: @"openvpnVersion"];
 		if (  obj  ) {
 			[gTbDefaults setObject: obj forKey: @"*-openvpnVersion"];
 		}
         
+        TBLog(@"DB-SU", @"init: 005")
 		// Convert the old global "notOKToCheckThatIPAddressDidNotChangeAfterConnection" preference to the per-configuration "*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
 		obj = [gTbDefaults objectForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
 		if (  obj  ) {
@@ -546,6 +557,7 @@ BOOL needToConvertNonTblks(void);
                                 stringByAppendingPathExtension: @"plist"];
         dict = [NSDictionary dictionaryWithContentsOfFile: prefsPath];
         
+        TBLog(@"DB-SU", @"init: 006")
         // Convert the old "-loadTunKext", "-doNotLoadTunKext", "-loadTapKext", and "-doNotLoadTapKext"  to the new '-loadTun' and 'loadTap' equivalents
         // That is, if NOTLOAD set to NEVER
         //          else if LOAD, set to ALWAYS
@@ -598,12 +610,20 @@ BOOL needToConvertNonTblks(void);
             [gTbDefaults setBool: TRUE forKey: @"haveDealtWithOldTunTapPreferences"];
         }
         
+        TBLog(@"DB-SU", @"init: 007")
 		// Scan for unknown preferences
         [gTbDefaults scanForUnknownPreferencesInDictionary: dict displayName: @"Preferences"];
         
+        TBLog(@"DB-SU", @"init: 008")
+        // Create a symbolic link to the private configurations folder, after having run the installer (which may have moved the
+        // configuration folder contents to the new place)
+        [self makeSymbolicLink];
+        
+        TBLog(@"DB-SU", @"init: 009")
         // Check that we can run Tunnelblick from this volume, that it is in /Applications, and that it is secured
         [self initialChecks: ourAppName];    // WE MAY NOT RETURN FROM THIS METHOD (it may install a new copy of Tunnelblick, launch it, and quit)
 		
+        TBLog(@"DB-SU", @"init: 010")
         // If gDeployPath exists and has one or more .tblk packages or .conf or .ovpn files,
         // Then make it the first entry in gConfigDirs
         BOOL isDir;
@@ -631,6 +651,7 @@ BOOL needToConvertNonTblks(void);
             }
         }
         
+        TBLog(@"DB-SU", @"init: 011")
         // If not Deployed, or if Deployed and it is specifically allowed,
         // Then add /Library/Application Support/Tunnelblick/Shared
         //      and ~/Library/Application Support/Tunnelblick/Configurations
@@ -695,15 +716,18 @@ BOOL needToConvertNonTblks(void);
 		
         connectionArray = [[NSArray alloc] init];
         
+        TBLog(@"DB-SU", @"init: 012")
         if (  ! [self loadMenuIconSet]  ) {
             NSLog(@"Unable to load the Menu icon set");
             [self terminateBecause: terminatingBecauseOfError];
         }
         
+        TBLog(@"DB-SU", @"init: 013")
 		[self createStatusItem];
 		
         myConfigDictionary = [[[ConfigurationManager defaultManager] getConfigurations] copy];
         
+        TBLog(@"DB-SU", @"init: 014")
         // set up myVPNConnectionDictionary, which has the same keys as myConfigDictionary, but VPNConnections as objects
         NSMutableDictionary * tempVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
         NSString * dispNm;
@@ -718,11 +742,13 @@ BOOL needToConvertNonTblks(void);
         [self setMyVPNConnectionDictionary: [[tempVPNConnectionDictionary copy] autorelease]];
         [tempVPNConnectionDictionary release];
         
+        TBLog(@"DB-SU", @"init: 015")
 		[self createMenu];
         
         [self setState: @"EXITING"]; // synonym for "Disconnected"
         
-        [[NSNotificationCenter defaultCenter] addObserver: self 
+        TBLog(@"DB-SU", @"init: 016")
+        [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(TunnelblickShutdownUIHandler:) 
                                                      name: @"TunnelblickUIShutdownNotification" 
                                                    object: nil];
@@ -835,10 +861,12 @@ BOOL needToConvertNonTblks(void);
                                                                      object: nil];
         }
         
+        TBLog(@"DB-SU", @"init: 017")
         ignoreNoConfigs = TRUE;    // We ignore the "no configurations" situation until we've processed application:openFiles:
 		
         updater = [[SUUpdater alloc] init];
         myConfigUpdater = [[ConfigurationUpdater alloc] init]; // Set up a separate Sparkle Updater for configurations   
+        TBLog(@"DB-SU", @"init: 018 - LAST")
     }
     
     return self;
@@ -2241,7 +2269,6 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (   (![lastState isEqualToString:@"EXITING"])
         && (![lastState isEqualToString:@"CONNECTED"]))
 	{
-		// NSLog(@"Starting Animation (2)");
 		[theAnim startAnimation];
 	}
 }
@@ -2325,7 +2352,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 {
     // DO NOT put this code inside the mutex: we want to return immediately if computer is shutting down or restarting
     if (  gShuttingDownOrRestartingComputer  ) {
-        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: Computer is shutting down or restarting; OS X will kill OpenVPN instances");
+        TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: Computer is shutting down or restarting; OS X will kill OpenVPN instances")
         return;
     }
     
@@ -2354,7 +2381,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
         }
     }
     
-    NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: has checked for active daemons");
+    TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: has checked for active daemons")
     
     // See if any connections that are not disconnected use down-root
     BOOL noDownRootsActive = YES;
@@ -2364,14 +2391,14 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
             NSString * useDownRootPluginKey = [[connection displayName] stringByAppendingString: @"-useDownRootPlugin"];
             if (   [gTbDefaults boolForKey: useDownRootPluginKey]  ) {
                 noDownRootsActive = NO;
-				NSLog(@"DEBUG: %@ is not disconnected and is using the down-root plugin", [connection displayName]);
+				TBLog(@"DB_SD", @"%@ is not disconnected and is using the down-root plugin", [connection displayName])
                 break;
             }
         }
     }
     
-	NSLog(@"DEBUG: includeDaemons = %d; noUnknownOpenVPNsRunning = %d; noActiveDaemons = %d; noDownRootsActive = %d ",
-		  (int) includeDaemons, (int) noUnknownOpenVPNsRunning, (int) noActiveDaemons, (int) noDownRootsActive);
+	TBLog(@"DB_SD", @"includeDaemons = %d; noUnknownOpenVPNsRunning = %d; noActiveDaemons = %d; noDownRootsActive = %d ",
+		  (int) includeDaemons, (int) noUnknownOpenVPNsRunning, (int) noActiveDaemons, (int) noDownRootsActive)
 	
     if (   ALLOW_OPENVPNSTART_KILLALL
         && ([connectionsToLeaveConnected count] == 0)
@@ -2381,7 +2408,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 			)
 		) {
         
-        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: will use killAll");
+        TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: will use killAll")
 
         // Killing everything, so we use 'killall' to kill all processes named 'openvpn'
         // But first append a log entry for each connection that will be restored
@@ -2391,16 +2418,16 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
         }
         // If we've added any log entries, sleep for one second so they come before OpenVPN entries associated with closing the connections
         if (  [connectionsToRestoreOnWakeup count] != 0  ) {
-            NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: sleeping for logs to settle");
+            TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: sleeping for logs to settle")
             sleep(1);
         }
         
-        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: requested killAll");
+        TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: requested killAll")
         runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
-        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: killAll finished");
+        TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: killAll finished")
     } else {
         
-        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: will kill individually");
+        TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: will kill individually")
         // Killing selected processes only -- those we know about that are not daemons
 		connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
         while (  (connection = [connEnum nextObject])  ) {
@@ -2415,25 +2442,25 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 						if (  procId > 0  ) {
 							[connection addToLog: logMessage];
 							NSArray * arguments = [NSArray arrayWithObjects: @"kill", [NSString stringWithFormat: @"%ld", (long) procId], nil];
-							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: killing '%@'", [connection displayName]);
+							TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: killing '%@'", [connection displayName])
 							runOpenvpnstart(arguments, nil, nil);
-							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: have killed '%@'", [connection displayName]);
+							TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: have killed '%@'", [connection displayName])
 						} else {
 							[connection addToLog: @"*Tunnelblick: Disconnecting; all configurations are being disconnected"];
-							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: disconnecting '%@'", [connection displayName]);
+							TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: disconnecting '%@'", [connection displayName])
 							[connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
-							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: have disconnected '%@'", [connection displayName]);
+							TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: have disconnected '%@'", [connection displayName])
 						}
 					} else {
                         (void) procId;
-						NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: requesting disconnection of '%@' (pid %lu) via disconnectAndWait",
-							  [connection displayName], (long) procId);
+						TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: requesting disconnection of '%@' (pid %lu) via disconnectAndWait",
+							  [connection displayName], (long) procId)
 						[connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
 					}
 				} else {
-					NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: Not requesting disconnection of '%@' (pid %lu) because"
+					TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: Not requesting disconnection of '%@' (pid %lu) because"
 						  @" it is set to connect when the computer starts.",
-						  [connection displayName], (long) [connection pid]);
+						  [connection displayName], (long) [connection pid])
                     ;
 				}
 			}
@@ -2668,7 +2695,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 // Returns TRUE if cleaned up, or FALSE if a cleanup is already taking place
 -(BOOL) cleanup 
 {
-//    NSLog(@"DEBUG: Cleanup: Entering cleanup");
+    TBLog(@"DB_SD", @"cleanup: Entering cleanup")
     
     gShuttingDownTunnelblick = TRUE;
     
@@ -2682,16 +2709,16 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
     
     if ( gShuttingDownOrRestartingComputer ) {
-//        NSLog(@"DEBUG: Cleanup: Skipping cleanup because computer is shutting down or restarting");
+        TBLog(@"DB_SD", @"cleanup: Skipping cleanup because computer is shutting down or restarting")
         // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
         return TRUE;
     }
     
-//    NSLog(@"DEBUG: Cleanup: Setting callDelegateOnNetworkChange: NO");
+    TBLog(@"DB_SD", @"cleanup: Setting callDelegateOnNetworkChange: NO")
     [NSApp callDelegateOnNetworkChange: NO];
     
     if (  ! [lastState isEqualToString:@"EXITING"]) {
-//        NSLog(@"DEBUG: Cleanup: Will killAllConnectionsIncludingDaemons: NO");
+        TBLog(@"DB_SD", @"cleanup: Will killAllConnectionsIncludingDaemons: NO")
         [self killAllConnectionsIncludingDaemons: NO
                                           except: nil
                                       logMessage: @"*Tunnelblick: Tunnelblick is quitting. Closing connection..."];
@@ -2700,25 +2727,25 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
         NSLog(@"Skipping unloading of kexts because of fatal error.");
     } else {
-//        NSLog(@"DEBUG: Cleanup: Unloading kexts");
+        TBLog(@"DB_SD", @"cleanup: Unloading kexts")
         [self unloadKexts];     // Unload .tun and .tap kexts
     }
     
     if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
         NSLog(@"Skipping deleting logs because of fatal error.");
     } else {
-//        NSLog(@"DEBUG: Cleanup: Deleting logs");
+        TBLog(@"DB_SD", @"cleanup: Deleting logs")
         [self deleteLogs];
     }
 
     if ( ! gShuttingDownWorkspace  ) {
         if (  statusItem  ) {
-//            NSLog(@"DEBUG: Cleanup: Removing status bar item");
+            TBLog(@"DB_SD", @"cleanup: Removing status bar item")
             [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
         }
         
         if (  hotKeyEventHandlerIsInstalled && hotKeyModifierKeys != 0  ) {
-//            NSLog(@"DEBUG: Cleanup: Unregistering hotKeyEventHandler");
+            TBLog(@"DB_SD", @"cleanup: Unregistering hotKeyEventHandler")
             UnregisterEventHotKey(hotKeyRef);
         }
     }
@@ -3137,6 +3164,7 @@ static void signal_handler(int signalNumber)
     
 	(void) notification;
 	
+    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 001")
     [myConfigUpdater setup];    // Set up to run the configuration updater
 
     BOOL forcingAutoChecksAndSendProfile = (  ! [gTbDefaults canChangeValueForKey: @"updateCheckAutomatically" ]  )
@@ -3144,6 +3172,7 @@ static void signal_handler(int signalNumber)
     BOOL userIsAdminOrNonAdminsCanUpdate = ( userIsAnAdmin ) || ( ! [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] );
     NSUserDefaults * stdDefaults = [NSUserDefaults standardUserDefaults];
     
+    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 002")
     if (  [gTbDefaults objectForKey: @"haveDealtWithSparkle1dot5b6"] == nil  ) {
         if (  ! forcingAutoChecksAndSendProfile  ) {
             // Haven't done this already and aren't forcing the user's answers, so ask the user (perhaps again) by clearing Sparkle's preferences
@@ -3196,6 +3225,7 @@ static void signal_handler(int signalNumber)
     // the user may do a 'Check for Updates Now' on the first run, and we need to check with the correct Feed URL
     [self updateUpdateFeedURLForceDowngrade: NO];
     
+    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 003")
     // Set up automatic update checking
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
         if (  userIsAdminOrNonAdminsCanUpdate  ) {
@@ -3214,6 +3244,7 @@ static void signal_handler(int signalNumber)
         }
     }
     
+    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 004")
     if (  [updater respondsToSelector: @selector(setAutomaticallyDownloadsUpdates:)]  ) {
         if (  userIsAdminOrNonAdminsCanUpdate  ) {
             if (  [gTbDefaults objectForKey: @"updateAutomatically"] != nil  ) {
@@ -3231,6 +3262,7 @@ static void signal_handler(int signalNumber)
         }
     }
     
+    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 005")
     if (  [updater respondsToSelector: @selector(setSendsSystemProfile:)]  ) {
         if (  [gTbDefaults objectForKey: @"updateSendProfileInfo"] != nil  ) {
             [updater setSendsSystemProfile: [gTbDefaults boolForKey:@"updateSendProfileInfo"]];
@@ -3239,6 +3271,7 @@ static void signal_handler(int signalNumber)
         NSLog(@"Ignoring 'updateSendProfileInfo' preference because Sparkle Updater Updater does not respond to setSendsSystemProfile:");
     }
     
+    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 006")
     id checkInterval = [gTbDefaults objectForKey: @"updateCheckInterval"];
     if (  checkInterval  ) {
         if (  [updater respondsToSelector: @selector(setUpdateCheckInterval:)]  ) {
@@ -3262,6 +3295,7 @@ static void signal_handler(int signalNumber)
         }
     }
     
+    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 007")
     // Set updater's delegate, so we can add our own info to the system profile Sparkle sends to our website
     // Do this even if we haven't set our preferences (see above), so Sparkle will include our data in the list
     // it presents to the user when asking the user for permission to send the data.
@@ -3270,6 +3304,7 @@ static void signal_handler(int signalNumber)
     } else {
         NSLog(@"Cannot set Sparkle delegate because Sparkle Updater does not respond to setDelegate:");
     }
+    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 008 -- LAST")
 }
 
 // If we haven't set up the updateCheckAutomatically, updateSendProfileInfo, and updateAutomatically preferences,
@@ -3398,11 +3433,13 @@ static void signal_handler(int signalNumber)
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
 	(void) notification;
-	
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 001")
+
 	[NSApp callDelegateOnNetworkChange: NO];
     [self installSignalHandler];    
 	[self updateScreenList];
 
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 002")
     // If checking for updates is enabled, we do a check every time Tunnelblick is launched (i.e., now)
     // We also check for updates if we haven't set our preferences yet. (We have to do that so that Sparkle
     // will ask the user whether to check or not, then we set our preferences from that.)
@@ -3420,6 +3457,7 @@ static void signal_handler(int signalNumber)
         }
     }
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 003")
     // Install configuration updates if any are available
     NSString * installFolder = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Resources/Install"];
     if (  [gFileMgr fileExistsAtPath: installFolder]  ) {
@@ -3429,6 +3467,7 @@ static void signal_handler(int signalNumber)
         launchFinished = oldLaunchFinished;
     }
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 004")
     if (  dotTblkFileList  ) {
         BOOL oldIgnoreNoConfigs = ignoreNoConfigs;
         ignoreNoConfigs = TRUE;
@@ -3446,8 +3485,10 @@ static void signal_handler(int signalNumber)
         ignoreNoConfigs = oldIgnoreNoConfigs;
     }
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 005")
     [myConfigUpdater startWithUI: NO];    // Start checking for configuration updates in the background (when the application updater is finished)
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 006")
     // Set up to monitor configuration folders
     myQueue = [UKKQueue sharedFileWatcher];
     if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
@@ -3463,11 +3504,13 @@ static void signal_handler(int signalNumber)
     
     ignoreNoConfigs = NO;    // We should NOT ignore the "no configurations" situation
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 007")
     [self checkNoConfigurations];
 
     [self hookupToRunningOpenVPNs];
     [self setupHookupWatchdogTimer];
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 008")
     // Make sure the '-onSystemStart' preferences for all connections are consistent with the /Library/LaunchDaemons/...plist file for the connection
     NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
     VPNConnection * connection;
@@ -3477,6 +3520,7 @@ static void signal_handler(int signalNumber)
         }
     }
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 009")
     // Make sure we have asked the user if we can check the IP info
     if (  ! [gTbDefaults boolForKey: @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection"]  ) {
         if (  [gTbDefaults canChangeValueForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"]  ) {
@@ -3517,6 +3561,7 @@ static void signal_handler(int signalNumber)
     activeIPCheckThreads = [[NSMutableArray alloc] initWithCapacity: 4];
     cancellingIPCheckThreads = [[NSMutableArray alloc] initWithCapacity: 4];
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 010")
     // Process runOnLaunch item
     if (  customRunOnLaunchPath  ) {
         NSTask* task = [[[NSTask alloc] init] autorelease];
@@ -3534,6 +3579,7 @@ static void signal_handler(int signalNumber)
         }
     }
 
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 011")
     // Process connections that should be restored on relaunch (from updating configurations)
     VPNConnection * myConnection;
     NSArray * restoreList = [gTbDefaults objectForKey: @"connectionsToRestoreOnLaunch"];
@@ -3552,6 +3598,7 @@ static void signal_handler(int signalNumber)
         [gTbDefaults synchronize];
     }
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 012")
     // Process "Automatically connect on launch" checkboxes (but skip any that were restored on relaunch above)
     NSString * dispNm;
     NSEnumerator * e = [[self myConfigDictionary] keyEnumerator];
@@ -3577,9 +3624,11 @@ static void signal_handler(int signalNumber)
                                                 min: 0 /* (none) */
                                                 max: MAX_HOTKEY_IX];
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 013")
     [self setHotKeyIndex: kbsIx];
     
     // Install easy-rsa if it isn't installed already, or update it if appropriate
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 014")
     installOrUpdateOurEasyRsa();
     
     AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
@@ -3597,6 +3646,7 @@ static void signal_handler(int signalNumber)
     }
 #endif
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 015")
     NSString * prefVersion = [gTbDefaults objectForKey: @"*-openvpnVersion"];
     if (   prefVersion
         && ( ! [prefVersion isEqualToString: @"-"] )  ) {
@@ -3616,6 +3666,7 @@ static void signal_handler(int signalNumber)
         }
     }
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 016")
     // Add this Tunnelblick version to the start of the tunnelblickVersionHistory preference array if it isn't already the first entry
     NSDictionary * infoPlist = [[NSBundle mainBundle] infoDictionary];
     NSString * thisVersion = [infoPlist objectForKey: @"CFBundleShortVersionString"];
@@ -3643,16 +3694,21 @@ static void signal_handler(int signalNumber)
         }
     }
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 017")
 	[[self ourMainIconView] setOrRemoveTrackingRect];
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 018")
     NSString * text = NSLocalizedString(@"Tunnelblick is ready.", @"Window text");
     [splashScreen setMessage: text];
 
-    [splashScreen fadeOutAndClose];
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 019")
+   [splashScreen fadeOutAndClose];
     
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 020")
 	[self showWelcomeScreen];
 	
     launchFinished = TRUE;
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 021 -- LAST")
 }
 
 -(NSString *) fileURLStringWithPath: (NSString *) path
@@ -4230,8 +4286,8 @@ static BOOL runningHookupThread = FALSE;
                                                 default: 1
                                                     min: 0
                                                     max: UINT_MAX];
-    NSLog(@"DB-HU: hookupToRunningOpenVPNs: Delaying %lu seconds before checking for openvpnstart processes. Change"
-          @" this time with the \"delayBeforeCheckingForOpenvpnstartProcesses\" preference", (unsigned long)sleepTime);
+    TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: Delaying %lu seconds before checking for openvpnstart processes. Change"
+          @" this time with the \"delayBeforeCheckingForOpenvpnstartProcesses\" preference", (unsigned long)sleepTime)
     if (  sleepTime != 0  ) {
         sleep(sleepTime);
     }
@@ -4242,15 +4298,15 @@ static BOOL runningHookupThread = FALSE;
                                                    min: 0
                                                    max: UINT_MAX];
     if (  ! [NSApp wait: waitTime untilNoProcessNamed: @"openvpnstart"]  ) {
-        NSLog(@"DB-HU: hookupToRunningOpenVPNs: timed out after %lu seconds waiting for openvpnstart processes to terminate; will start trying to hook up to OpenVPN processes anyway. Change"
-              @" this time with the \"timeToSpendCheckingForOpenvpnstartProcesses\" preference", (unsigned long)waitTime);
+        TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: timed out after %lu seconds waiting for openvpnstart processes to terminate; will start trying to hook up to OpenVPN processes anyway. Change"
+              @" this time with the \"timeToSpendCheckingForOpenvpnstartProcesses\" preference", (unsigned long)waitTime)
     } else {
-        NSLog(@"DB-HU: hookupToRunningOpenVPNs: no openvpnstart processes running");
+        TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: no openvpnstart processes running")
     }
     
     // Get a list of running OpenVPN processes
     [self setPIDsWeAreTryingToHookUpTo: [NSApp pIdsForOpenVPNProcessesOnlyMain: YES]];
-    NSLog(@"DB-HU: hookupToRunningOpenVPNs: pIDsWeAreTryingToHookUpTo = '%@'", pIDsWeAreTryingToHookUpTo);
+    TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: pIDsWeAreTryingToHookUpTo = '%@'", pIDsWeAreTryingToHookUpTo)
     
     if (  [pIDsWeAreTryingToHookUpTo count] != 0  ) {
 
@@ -4266,7 +4322,7 @@ static BOOL runningHookupThread = FALSE;
             if (  [[filename pathExtension] isEqualToString: @"log"]) {
                 if (  [[[filename stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]) {
                     NSDate * thisFileDate = [[gFileMgr tbFileAttributesAtPath: oldFullPath traverseLink: NO] fileCreationDate];
-                    NSLog(@"DB-HU: hookupToRunningOpenVPNs: found OpenVPN log file '%@' created %@", filename, thisFileDate);
+                    TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: found OpenVPN log file '%@' created %@", filename, thisFileDate)
                     unsigned port = 0;
                     NSString * openvpnstartArgs = nil;
                     NSString * cfgPath = [self deconstructOpenVPNLogPath: oldFullPath
@@ -4286,25 +4342,25 @@ static BOOL runningHookupThread = FALSE;
 														   connection,                      @"connection",
 														   nil];
 								[logFileInfo setObject: newEntry forKey: displayName];
-								NSLog(@"DB-HU: hookupToRunningOpenVPNs: file is the best so far for '%@'", displayName);
+								TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: file is the best so far for '%@'", displayName)
 							} else {
-								NSLog(@"DB-HU: hookupToRunningOpenVPNs: file is not the best so far for '%@'; skipping it", displayName);
+								TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: file is not the best so far for '%@'; skipping it", displayName)
 							}
 						} else {
-							NSLog(@"DB-HU: hookupToRunningOpenVPNs: no configuration available for '%@' -- ignoring '%@'", displayName, filename);
+							TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: no configuration available for '%@' -- ignoring '%@'", displayName, filename)
 						}
 					} else {
-						NSLog(@"DB-HU: hookupToRunningOpenVPNs: could not extract displayName from '%@' -- ignoring '%@'", cfgPath, filename);
+						TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: could not extract displayName from '%@' -- ignoring '%@'", cfgPath, filename)
 					}
 				} else {
-					NSLog(@"DB-HU: hookupToRunningOpenVPNs: not an OpenVPN log file -- ignoring '%@'", filename);
+					TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: not an OpenVPN log file -- ignoring '%@'", filename)
 				}
 			} else {
-				NSLog(@"DB-HU: hookupToRunningOpenVPNs: not a log file -- ignoring '%@'", filename);
+				TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: not a log file -- ignoring '%@'", filename)
 			}
 		}
         
-        NSLog(@"DB-HU: hookupToRunningOpenVPNs: logFileInfo = %@", logFileInfo);
+        TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: logFileInfo = %@", logFileInfo)
         
         // Now try to hook up to the OpenVPN process for the latest log file for each displayName
         NSString * displayName;
@@ -4316,7 +4372,7 @@ static BOOL runningHookupThread = FALSE;
             NSString      * startArguments = [entry objectForKey: @"openvpnstartArgs"];
 			VPNConnection * connection     = [entry objectForKey: @"connection"];
             
-            NSLog(@"DB-HU: hookupToRunningOpenVPNs: queueing hook up of '%@' using port %lu", displayName, (unsigned long)[portAsNumber intValue]);
+            TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: queueing hook up of '%@' using port %lu", displayName, (unsigned long)[portAsNumber intValue])
             
             NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
                                    portAsNumber,   @"port",
@@ -4328,7 +4384,7 @@ static BOOL runningHookupThread = FALSE;
 		
 		[logFileInfo release];
 		
-        NSLog(@"DB-HU: hookupToRunningOpenVPNs: finished queueing %lu hookups for %lu OpenVPN processes", (unsigned long) nQueued, [pIDsWeAreTryingToHookUpTo count]);
+        TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: finished queueing %lu hookups for %lu OpenVPN processes", (unsigned long) nQueued, [pIDsWeAreTryingToHookUpTo count])
     }
     
     runningHookupThread = FALSE;
@@ -4557,10 +4613,12 @@ BOOL warnAboutNonTblks(void)
 
 -(void) initialChecks: (NSString *) ourAppName
 {
+    TBLog(@"DB-SU", @"initialChecks: 001")
     [NSApp setAutoLaunchOnLogin: NO];
     
     [self checkSystemFoldersAreSecure];
     
+    TBLog(@"DB-SU", @"initialChecks: 002")
 #ifdef TBDebug
 	(void) ourAppName;
 #else
@@ -4634,13 +4692,17 @@ BOOL warnAboutNonTblks(void)
 	}
 #endif
 	
+    TBLog(@"DB-SU", @"initialChecks: 003")
     // If necessary, warn that non-.tblks will be converted
 	gOkToConvertNonTblks = warnAboutNonTblks();
     
+    TBLog(@"DB-SU", @"initialChecks: 004")
     // If necessary, (re)install Tunnelblick in /Applications
     [self relaunchIfNecessary];  // (May not return from this)
     
+    TBLog(@"DB-SU", @"initialChecks: 005")
 	[self secureIfNecessary];
+    TBLog(@"DB-SU", @"initialChecks: 006 - LAST")
 }
 
 -(void) warnIfInvalidOrNoSignatureAllowCheckbox: (BOOL) allowCheckbox
@@ -4789,6 +4851,8 @@ BOOL warnAboutNonTblks(void)
 
 -(void) relaunchIfNecessary
 {
+    TBLog(@"DB-SU", @"relaunchIfNecessary: 001")
+
 	NSString * currentPath = [[NSBundle mainBundle] bundlePath];
 	
 	NSString * contentsPath = [currentPath stringByAppendingPathComponent: @"Contents"];
@@ -4799,6 +4863,7 @@ BOOL warnAboutNonTblks(void)
 		signatureIsInvalid = FALSE;	// (But it might not have one)
 	}
 	
+    TBLog(@"DB-SU", @"relaunchIfNecessary: 002")
     // Move or copy Tunnelblick.app to /Applications if it isn't already there
     
     BOOL canRunOnThisVolume = [self canRunFromVolume: currentPath];
@@ -4821,6 +4886,7 @@ BOOL warnAboutNonTblks(void)
     
     // Not installed in /Applications on a runnable volume. Need to move/install to /Applications
     
+    TBLog(@"DB-SU", @"relaunchIfNecessary: 003")
 	[self warnIfInvalidOrNoSignatureAllowCheckbox: NO];
 	
     //Install into /Applications
@@ -4874,6 +4940,7 @@ BOOL warnAboutNonTblks(void)
         launchWindowText = NSLocalizedString(@"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?", @"Window text");
     }
     
+    TBLog(@"DB-SU", @"relaunchIfNecessary: 004")
     // Get authorization to install and secure
     gAuthorization = [NSApplication getAuthorizationRef:
                       [[[NSLocalizedString(@" Tunnelblick must be installed in Applications.\n\n", @"Window text")
@@ -4886,6 +4953,7 @@ BOOL warnAboutNonTblks(void)
 		[self terminateBecause: terminatingBecauseOfQuit];
 	}
     
+    TBLog(@"DB-SU", @"relaunchIfNecessary: 005")
     // Stop any currently running Tunnelblicks
     int numberOfOthers = [NSApp countOtherInstances];
     while (  numberOfOthers > 0  ) {
@@ -4912,6 +4980,7 @@ BOOL warnAboutNonTblks(void)
         }
     }
     
+    TBLog(@"DB-SU", @"relaunchIfNecessary: 006")
     // If there was a problem finding other instances of Tunnelblick, log it but continue anyway
     if (  numberOfOthers == -1  ) {
         NSLog(@"Error: [NSApp countOtherInstances] returned -1");
@@ -4924,6 +4993,7 @@ BOOL warnAboutNonTblks(void)
     
     [self setPreferencesFromAutoInstallFolders];
     
+    TBLog(@"DB-SU", @"relaunchIfNecessary: 007")
     // Install this program and secure it
     if (  ! [self runInstaller: (  INSTALLER_COPY_APP
                                  | INSTALLER_COPY_BUNDLE
@@ -4945,6 +5015,7 @@ BOOL warnAboutNonTblks(void)
         [self terminateBecause: terminatingBecauseOfError];
     }
 	
+    TBLog(@"DB-SU", @"relaunchIfNecessary: 008")
 	gOkToConvertNonTblks = FALSE;
 	gUserWasAskedAboutConvertNonTblks = FALSE;
     
@@ -4959,6 +5030,7 @@ BOOL warnAboutNonTblks(void)
         launchFinished = oldLaunchFinished;
     }
     
+    TBLog(@"DB-SU", @"relaunchIfNecessary: 009")
     [splashScreen setMessage: NSLocalizedString(@"Installation finished successfully.", @"Window text")];
     int response = TBRunAlertPanel(launchWindowTitle,
                                    launchWindowText,
@@ -4966,8 +5038,10 @@ BOOL warnAboutNonTblks(void)
                                    NSLocalizedString(@"Quit", "Button"), // Alternate button
                                    nil);
     
+    TBLog(@"DB-SU", @"relaunchIfNecessary: 010")
     [splashScreen fadeOutAndClose];
     
+    TBLog(@"DB-SU", @"relaunchIfNecessary: 011")
     if (  response == NSAlertDefaultReturn  ) {
         // Launch the program in /Applications
         if (  ! [[NSWorkspace sharedWorkspace] launchApplication: tbInApplicationsPath]  ) {
@@ -4981,7 +5055,9 @@ BOOL warnAboutNonTblks(void)
     
     // If error, just terminate this instance
     
+    TBLog(@"DB-SU", @"relaunchIfNecessary: 012 - LAST")
     [self terminateBecause: terminatingBecauseOfQuit];
+    TBLog(@"DB-SU", @"relaunchIfNecessary: 013 - LAST after terminateBecause")
 }
 
 -(NSArray *) findTblksToInstallInPath: (NSString *) thePath
@@ -5806,21 +5882,19 @@ void terminateBecauseOfBadConfiguration(void)
 {
     gShuttingDownTunnelblick = TRUE;
     
-//    NSLog(@"DEBUG: shutDownTunnelblick: started.");
+    TBLog(@"DB_SD", @"shutDownTunnelblick: started.")
     terminatingAtUserRequest = TRUE;
     
     if (  [theAnim isAnimating]  ) {
-//        NSLog(@"DEBUG: shutDownTunnelblick: stopping icon animation.");
+        TBLog(@"DB_SD", @"shutDownTunnelblick: stopping icon animation.")
         [theAnim stopAnimation];
     }
     
-//    NSLog(@"DEBUG: shutDownTunnelblick: Starting cleanup.");
+    TBLog(@"DB_SD", @"shutDownTunnelblick: Starting cleanup.");
     if (  [self cleanup]  ) {
-//        NSLog(@"DEBUG: shutDownTunnelblick: Cleanup finished.");
-        ;
+        TBLog(@"DB_SD", @"shutDownTunnelblick: Cleanup finished.")
     } else {
-//        NSLog(@"DEBUG: shutDownTunnelblick: Cleanup already being done.");
-        ;
+        TBLog(@"DB_SD", @"shutDownTunnelblick: Cleanup already being done.")
     }
     
     NSLog(@"Finished shutting down Tunnelblick; allowing termination");
@@ -5842,7 +5916,7 @@ void terminateBecauseOfBadConfiguration(void)
 	(void) n;
 	
     reasonForTermination = terminatingBecauseOfLogout;
-//    NSLog(@"DEBUG: Initiated logout");
+    TBLog(@"DB_SD", @"Initiated logout")
 }
 
 -(void) restartInitiatedHandler: (NSNotification *) n
@@ -5850,7 +5924,7 @@ void terminateBecauseOfBadConfiguration(void)
 	(void) n;
 	
     reasonForTermination = terminatingBecauseOfRestart;
-//    NSLog(@"DEBUG: Initiated computer restart");
+    TBLog(@"DB_SD", @"Initiated computer restart")
 }
 
 -(void) shutdownInitiatedHandler: (NSNotification *) n
@@ -5858,7 +5932,7 @@ void terminateBecauseOfBadConfiguration(void)
 	(void) n;
 	
     reasonForTermination = terminatingBecauseOfShutdown;
-//    NSLog(@"DEBUG: Initiated computer shutdown");
+    TBLog(@"DB_SD", @"Initiated computer shutdown")
 }
 
 -(void) logoutCancelledHandler: (NSNotification *) n
@@ -5866,7 +5940,7 @@ void terminateBecauseOfBadConfiguration(void)
 	(void) n;
 	
     reasonForTermination = terminatingForUnknownReason;
-//    NSLog(@"DEBUG: Cancelled logout, or computer shutdown or restart.");
+    TBLog(@"DB_SD", @"Cancelled logout, or computer shutdown or restart.")
 }
 
 // reasonForTermination should be set before this is invoked
@@ -5908,7 +5982,7 @@ void terminateBecauseOfBadConfiguration(void)
 {
 	(void) n;
 	
-//    NSLog(@"DEBUG: logoutContinuedHandler: Confirmed logout, or computer shutdown or restart.");
+    TBLog(@"DB_SD", @"logoutContinuedHandler: Confirmed logout, or computer shutdown or restart.")
     [self setShutdownVariables];
 }
 
@@ -5917,7 +5991,7 @@ void terminateBecauseOfBadConfiguration(void)
 {
  	(void) n;
 	
-//   NSLog(@"DEBUG: willLogoutOrShutdownHandler: Received 'NSWorkspaceWillPowerOffNotification' notification");
+   TBLog(@"DB_SD", @"willLogoutOrShutdownHandler: Received 'NSWorkspaceWillPowerOffNotification' notification")
     [self setShutdownVariables];
 }
 
@@ -5926,7 +6000,7 @@ void terminateBecauseOfBadConfiguration(void)
 {
 	(void) n;
 	
-//    NSLog(@"DEBUG: TunnelblickShutdownUIHandler: invoked");
+    TBLog(@"DB_SD", @"TunnelblickShutdownUIHandler: invoked")
 }
 
 -(void)clearAllHaveConnectedSince {
@@ -5949,7 +6023,7 @@ void terminateBecauseOfBadConfiguration(void)
     }
     
     gComputerIsGoingToSleep = TRUE;
-//	NSLog(@"DEBUG: willGoToSleepHandler: Setting up connections to restore when computer wakes up");
+	TBLog(@"DB_SW", @"willGoToSleepHandler: Setting up connections to restore when computer wakes up")
     
     [connectionsToRestoreOnWakeup removeAllObjects];
     NSMutableArray * connectionsToLeaveConnected = [NSMutableArray arrayWithCapacity: 10];
@@ -5970,9 +6044,11 @@ void terminateBecauseOfBadConfiguration(void)
         }
     }
     
+    TBLog(@"DB_SW", @"willGoToSleepHandler: connectionsToRestoreOnWakeup = %@\nconnectionsToLeaveConnected = %@", connectionsToRestoreOnWakeup, connectionsToLeaveConnected)
+
     terminatingAtUserRequest = TRUE;
     if (  [connectionsToRestoreOnWakeup count] != 0  ) {
-//        NSLog(@"DEBUG: willGoToSleepHandler: Closing all connections");
+        TBLog(@"DB_SW", @"willGoToSleepHandler: Closing connections")
         [self killAllConnectionsIncludingDaemons: YES
                                           except: connectionsToLeaveConnected
                                       logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connections..."];
@@ -5989,7 +6065,7 @@ void terminateBecauseOfBadConfiguration(void)
     // Done here so it is correct immediately when computer wakes
     [self performSelectorOnMainThread: @selector(clearAllHaveConnectedSince) withObject: nil waitUntilDone: YES];
     
-    NSLog(@"OK to go to sleep");
+    TBLog(@"DB_SW", @"OK to go to sleep")
 }
 -(void) wokeUpFromSleepHandler: (NSNotification *) n
 {
@@ -6008,7 +6084,7 @@ void terminateBecauseOfBadConfiguration(void)
     
     NSAutoreleasePool * threadPool = [NSAutoreleasePool new];
     
-	NSLog(@"DEBUG: checkIPAddressAfterSleepingConnectionThread invoked");
+	TBLog(@"DB-IT", @"checkIPAddressAfterSleepingConnectionThread invoked")
 	
 	VPNConnection * connection = [dict objectForKey: @"connection"];
 	NSString * threadID = [dict objectForKey: @"threadID"];
@@ -6026,7 +6102,7 @@ void terminateBecauseOfBadConfiguration(void)
     // Stop here if on cancelling list
     if (   [self isOnCancellingListIPCheckThread: threadID]  ) {
         [self haveFinishedIPCheckThread: threadID];
-		NSLog(@"DEBUG: checkIPAddressAfterSleepingConnectionThread: cancelled because the thread is on the cancel list");
+		TBLog(@"DB-IT", @"checkIPAddressAfterSleepingConnectionThread: cancelled because the thread is on the cancel list")
         [threadPool drain];
         return;
     }
@@ -6035,7 +6111,7 @@ void terminateBecauseOfBadConfiguration(void)
 		if (  [ipInfo count] < 3  ) {
             NSLog(@"After %.1f seconds, gave up trying to fetch IP address information after sleeping", timeoutToUse);
 		} else {
-			NSLog(@"DEBUG: checkIPAddressAfterSleepingConnectionThread: success");
+			TBLog(@"DB-IT", @"checkIPAddressAfterSleepingConnectionThread: success");
 		}
 
 	} else {
@@ -6054,7 +6130,7 @@ void terminateBecauseOfBadConfiguration(void)
 
 -(void)finishedWakingUpFromSleep {
     
-	NSLog(@"DEBUG: finishedWakingUpFromSleep invoked");
+	TBLog(@"DB-SW", @"finishedWakingUpFromSleep invoked")
 	
 	NSEnumerator *e = [connectionsToRestoreOnWakeup objectEnumerator];
 	VPNConnection *connection;
@@ -6062,11 +6138,11 @@ void terminateBecauseOfBadConfiguration(void)
         NSString * name = [connection displayName];
         NSString * key  = [name stringByAppendingString: @"-doNotReconnectOnWakeFromSleep"];
         if (  ! [gTbDefaults boolForKey: key]  ) {
-			NSLog(@"DEBUG: finishedWakingUpFromSleep: Attempting to connect %@", name);
+			TBLog(@"DB-SW", @"finishedWakingUpFromSleep: Attempting to connect %@", name)
             [connection addToLog: @"*Tunnelblick: Woke up from sleep. Attempting to re-establish connection..."];
             [connection connect:self userKnows: YES];
         } else {
-            NSLog(@"DEBUG: finishedWakingUpFromSleep: Not restoring connection %@ because of '-doNotReconnectOnWakeFromSleep' preference", name);
+            TBLog(@"DB-SW", @"finishedWakingUpFromSleep: Not restoring connection %@ because of '-doNotReconnectOnWakeFromSleep' preference", name)
             [connection addToLog: @"*Tunnelblick: Woke up from sleep. Not attempting to re-establish connection..."];
         }
 	}
@@ -6086,7 +6162,7 @@ void terminateBecauseOfBadConfiguration(void)
     gComputerIsGoingToSleep = FALSE;
 	
     if (  [connectionsToRestoreOnWakeup count]  == 0  ) {
-		NSLog(@"DEBUG: wokeUpFromSleep: no configurations to reconnect");
+		TBLog(@"DB-SW", @"wokeUpFromSleep: no configurations to reconnect")
         return;
     }
     
@@ -6113,13 +6189,13 @@ void terminateBecauseOfBadConfiguration(void)
 							   connection, @"connection",
 							   threadID,   @"threadID",
 							   nil];
-		NSLog(@"DEBUG: wokeUpFromSleep: will check IP address to determine connectivity before reconnecting configurations");
+		TBLog(@"DB-SW", @"wokeUpFromSleep: will check IP address to determine connectivity before reconnecting configurations")
         [NSThread detachNewThreadSelector: @selector(checkIPAddressAfterSleepingConnectionThread:) toTarget: self withObject: dict];
     } else {
         unsigned sleepTime = [gTbDefaults unsignedIntForKey: @"delayBeforeReconnectingAfterSleep" default: 5 min: 0 max: 300];
-		NSLog(@"DEBUG: wokeUpFromSleep: cannot check IP address to determine connectivity so waiting %d seconds before reconnecting configurations"
-			  @" (Time may be specified in the \"delayBeforeReconnectingAfterSleep\" preference", sleepTime);
-        NSTimer * waitAfterWakeupTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) (NSTimeInterval) sleepTime
+		TBLog(@"DB-SW", @"wokeUpFromSleep: cannot check IP address to determine connectivity so waiting %d seconds before reconnecting configurations"
+			  @" (Time may be specified in the \"delayBeforeReconnectingAfterSleep\" preference", sleepTime)
+        NSTimer * waitAfterWakeupTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) sleepTime
                                                                           target: self
                                                                         selector: @selector(waitAfterSleepTimerHandler:)
                                                                         userInfo: nil
@@ -6358,7 +6434,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     [activeIPCheckThreads addObject: threadID];
-//	NSLog(@"DEBUG: addActiveIPCheckThread: threadID '%@' added to the active list", threadID);
+    TBLog(@"DB-IT", @"addActiveIPCheckThread: threadID '%@' added to the active list", threadID)
     
     status = pthread_mutex_unlock( &threadIdsMutex );
     if (  status != EXIT_SUCCESS  ) {
@@ -6379,16 +6455,14 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  ! [cancellingIPCheckThreads containsObject: threadID]  ) {
             [activeIPCheckThreads removeObject: threadID];
             [cancellingIPCheckThreads addObject: threadID];
-//            NSLog(@"DEBUG: cancelIPCheckThread: threadID '%@' removed from the active list and added to the cancelling list", threadID);
-            
+            TBLog(@"DB-IT", @"cancelIPCheckThread: threadID '%@' removed from the active list and added to the cancelling list", threadID)
         } else {
             NSLog(@"cancelIPCheckThread: ERROR: threadID '%@' is on both the active and cancelling lists! Removing from active list", threadID);
             [activeIPCheckThreads removeObject: threadID];
         }
     } else {
         if (  [cancellingIPCheckThreads containsObject: threadID]  ) {
-//            NSLog(@"DEBUG: cancelIPCheckThread: threadID '%@' is already on the cancelling list!", threadID);
-            ;
+            TBLog(@"DB-IT", @"cancelIPCheckThread: threadID '%@' is already on the cancelling list!", threadID)
         } else {
             NSLog(@"cancelIPCheckThread: ERROR: threadID '%@' is not in the the active or cancelling list! Added it to cancelling list", threadID);
             [cancellingIPCheckThreads addObject: threadID];
@@ -6410,7 +6484,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
-//    NSLog(@"DEBUG: cancelAllIPCheckThreadsForConnection: Entered");
+    TBLog(@"DB-IT", @"cancelAllIPCheckThreadsForConnection: Entered")
     // Make a list of threadIDs to cancel
     NSString * prefix = [NSString stringWithFormat: @"%lu-", (long) connection];
     NSMutableArray * threadsToCancel = [NSMutableArray arrayWithCapacity: 5];
@@ -6422,7 +6496,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
 
-//    NSLog(@"DEBUG: cancelAllIPCheckThreadsForConnection: No active threads for connection %lu", (long) connection);
+    TBLog(@"DB-IT", @"cancelAllIPCheckThreadsForConnection: No active threads for connection %lu", (long) connection)
     
     // Then cancel them. (This avoids changing the list while we enumerate it.)
     e = [threadsToCancel objectEnumerator];
@@ -6431,7 +6505,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
             if (  ! [cancellingIPCheckThreads containsObject: threadID]  ) {
                 [activeIPCheckThreads removeObject: threadID];
                 [cancellingIPCheckThreads addObject: threadID];
-//                NSLog(@"DEBUG: cancelAllIPCheckThreadsForConnection: threadID '%@' removed from the active list and added to the cancelling list", threadID);
+                TBLog(@"DB-IT", @"cancelAllIPCheckThreadsForConnection: threadID '%@' removed from the active list and added to the cancelling list", threadID)
 
             } else {
                 NSLog(@"cancelAllIPCheckThreadsForConnection: ERROR: threadID '%@' is on both the active and cancelling lists! Removing from active list", threadID);
@@ -6464,10 +6538,10 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     
     BOOL answer = ([cancellingIPCheckThreads containsObject: threadID] ? YES : NO);
     if (  answer  ) {
-//        NSLog(@"DEBUG: isOnCancellingListIPCheckThread: threadID '%@' is on the the cancelling list", threadID);
+        TBLog(@"DB-IT", @"isOnCancellingListIPCheckThread: threadID '%@' is on the the cancelling list", threadID)
         ;
     } else {
-//        NSLog(@"DEBUG: isOnCancellingListIPCheckThread: threadID '%@' is not on the the cancelling list", threadID);
+        TBLog(@"DB-IT", @"isOnCancellingListIPCheckThread: threadID '%@' is not on the the cancelling list", threadID)
         ;
     }
     
@@ -6489,12 +6563,12 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  [activeIPCheckThreads containsObject: threadID]  ) {
-//        NSLog(@"DEBUG: haveFinishedIPCheckThread: threadID '%@' removed from active list", threadID);
+        TBLog(@"DB-IT", @"haveFinishedIPCheckThread: threadID '%@' removed from active list", threadID)
         [activeIPCheckThreads removeObject: threadID];
     }
     
     if (  [cancellingIPCheckThreads containsObject: threadID]  ) {
-//        NSLog(@"DEBUG: haveFinishedIPCheckThread: threadID '%@' removed from cancelling list", threadID);
+        TBLog(@"DB-IT", @"haveFinishedIPCheckThread: threadID '%@' removed from cancelling list", threadID)
         [cancellingIPCheckThreads removeObject: threadID];
     }
 

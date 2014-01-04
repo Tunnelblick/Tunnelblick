@@ -298,7 +298,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     unsigned   inPortNumber = [[dict objectForKey: @"port"] intValue];
     NSString * inStartArgs  =  [dict objectForKey: @"openvpnstartArgs"];
     
-    NSLog(@"DB-HU: ['%@'] entered tryToHookup: to port %lu with openvpnstart arguments: '%@'", displayName, (unsigned long)inPortNumber, inStartArgs);
+    TBLog(@"DB-HU", @"['%@'] entered tryToHookup: to port %lu with openvpnstart arguments: '%@'", displayName, (unsigned long)inPortNumber, inStartArgs)
 
     if (  portNumber != 0  ) {
         NSLog(@"Ignoring attempt to 'tryToHookup' for '%@' -- already using port number %d", displayName, portNumber);
@@ -314,7 +314,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     
     // We set preferences of any configuration that we try to hookup, because this might be a new user who hasn't run Tunnelblick,
     // and they may be hooking up to a configuration that started when the computer starts.
-    NSLog(@"DB-HU: ['%@'] tryToHookup: invoking setPreferencesFromOpenvnpstartArgString:", displayName);
+    TBLog(@"DB-HU", @"['%@'] tryToHookup: invoking setPreferencesFromOpenvnpstartArgString:", displayName)
     [self setPreferencesFromOpenvnpstartArgString: inStartArgs];
 
     tryingToHookup = TRUE;
@@ -499,11 +499,11 @@ extern NSString * lastPartOfPath(NSString * thePath);
 {
     MyPrefsWindowController * vpnDetails = [[NSApp delegate] logScreen];
     if (  vpnDetails  ) {
-        NSLog(@"DB-HU: ['%@'] didHookup invoked; informing VPN Details window", displayName);
+        TBLog(@"DB-HU", @"['%@'] didHookup invoked; informing VPN Details window", displayName)
 		[vpnDetails hookedUpOrStartedConnection: self];
 		[vpnDetails validateWhenConnectingForConnection: self];
     } else {
-        NSLog(@"DB-HU: ['%@'] didHookup invoked; VPN Details window does not exist", displayName);
+        TBLog(@"DB-HU", @"['%@'] didHookup invoked; VPN Details window does not exist", displayName)
     }
     [self addToLog: @"*Tunnelblick: Established communication with OpenVPN"];
 }
@@ -557,7 +557,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
             if (  status != EXIT_SUCCESS  ) {
                 NSLog(@"Error deleting log files for %@", displayName);
             } else {
-//                NSLog(@"DEBUG: Deleted log files for %@", displayName);
+                TBLog(@"DB-SD", @"Deleted log files for %@", displayName)
                 ;
             }
             
@@ -1008,9 +1008,9 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         NSLog(@"%@: IP address info could not be fetched within %.1f seconds", logHeader, (double) timeoutInterval);
         return [NSArray array];
     } else {
-//        uint64_t elapsedTimeNanoseconds = nowAbsoluteNanoseconds() - startTimeNanoseconds;
-//        long elapsedTimeMilliseconds = (long) ((elapsedTimeNanoseconds + 500000) / 1000000);
-//        NSLog(@"%@: IP address info was fetched in %ld milliseconds", logHeader, elapsedTimeMilliseconds);
+        uint64_t elapsedTimeNanoseconds = nowAbsoluteNanoseconds() - startTimeNanoseconds;
+        long elapsedTimeMilliseconds = (long) ((elapsedTimeNanoseconds + 500000) / 1000000);
+        TBLog(@"DB-IC", @"%@: IP address info was fetched in %ld milliseconds", logHeader, elapsedTimeMilliseconds)
         ;
 	}
     
@@ -1046,7 +1046,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 		return nil;
     }
     
-//    NSLog(@"%@: [%@, %@, %@]", logHeader, [items objectAtIndex: 0], [items objectAtIndex: 1], [items objectAtIndex: 2] );
+    TBLog(@"DB-IC", @"%@: [%@, %@, %@]", logHeader, [items objectAtIndex: 0], [items objectAtIndex: 1], [items objectAtIndex: 2] )
     return items;
 }
 
@@ -1259,7 +1259,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     useconds_t delayMicroseconds = (unsigned)(delay * 1.0e6);
     if (  delayMicroseconds != 0  ) {
-//        NSLog(@"DEBUG: checkIPAddressAfterConnectedThread: Delaying %f seconds before checking connection", delay);
+        TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: Delaying %f seconds before checking connection", delay)
         usleep(delayMicroseconds);
     }
     
@@ -1279,7 +1279,6 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  ! ipInfo  ) {
-//        NSLog(@"DEBUG: An error occured fetching IP address information after connecting");
         NSLog(@"An error occured fetching IP address information after connecting");
         [self performSelectorOnMainThread: @selector(checkIPAddressErrorResultLogMessage:)
                                withObject: @"*Tunnelblick: An error occured fetching IP address information after connecting"
@@ -1290,7 +1289,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  [ipInfo count] > 0  ) {
-//        NSLog(@"DEBUG: checkIPAddressAfterConnectedThread: fetched IP address %@", [ipInfo objectAtIndex:0]);
+        TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: fetched IP address %@", [ipInfo objectAtIndex:0])
         [self performSelectorOnMainThread: @selector(checkIPAddressGoodResult:)
                                withObject: [NSDictionary dictionaryWithObjectsAndKeys: [self ipAddressBeforeConnect], @"before", [ipInfo objectAtIndex: 0], @"after", nil]
                             waitUntilDone: NO];
@@ -1302,7 +1301,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     // Timed out. If the attempt was by IP address, the Internet isn't reachable
     if (  [self ipCheckLastHostWasIPAddress]  ) {
         // URL was already numeric, so it isn't a DNS problem
-//        NSLog(@"DEBUG: Timeout getting IP address using the ipInfo host's IP address");
+        TBLog(@"DB-IC", @"Timeout getting IP address using the ipInfo host's IP address")
         [self performSelectorOnMainThread: @selector(checkIPAddressBadResultLogMessage:)
                                withObject: [NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's IP address after connecting.", timeoutToUse]
 		                    waitUntilDone: NO];
@@ -1312,7 +1311,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     // Timed out by name, try by IP address
-//    NSLog(@"DEBUG: Timeout getting IP address using the ipInfo host's name; retrying by IP address");
+    TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: Timeout getting IP address using the ipInfo host's name; retrying by IP address")
 
     [self performSelectorOnMainThread: @selector(addToLog:)
                            withObject: [NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's name after connecting.", (double) timeoutToUse]
@@ -1327,7 +1326,6 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  ! ipInfo  ) {
-//        NSLog(@"DEBUG: An error occured fetching IP address information after connecting");
         NSLog(@"An error occured fetching IP address information after connecting");
         [self performSelectorOnMainThread: @selector(checkIPAddressErrorResultLogMessage:)
                                withObject: @"*Tunnelblick: An error occured fetching IP address information using the ipInfo host's IP address after connecting"
@@ -1338,7 +1336,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  [ipInfo count] == 0  ) {
-//        NSLog(@"DEBUG: Timeout getting IP address using the ipInfo host's IP address");
+        TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: Timeout getting IP address using the ipInfo host's IP address")
         [self performSelectorOnMainThread: @selector(checkIPAddressBadResultLogMessage:)
                                withObject: [NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's IP address after connecting.", timeoutToUse]
 		                    waitUntilDone: NO];
@@ -1348,7 +1346,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     // Got IP address, even though DNS isn't working
-//    NSLog(@"DEBUG: checkIPAddressAfterConnectedThread: fetched IP address %@ using the ipInfo host's IP address", [ipInfo objectAtIndex:0]);
+    TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: fetched IP address %@ using the ipInfo host's IP address", [ipInfo objectAtIndex:0])
     [self performSelectorOnMainThread: @selector(checkIPAddressNoDNSLogMessage:)
                            withObject: [NSString stringWithFormat: @"*Tunnelblick: fetched IP address information using the ipInfo host's IP address after connecting."]
                         waitUntilDone: NO];
@@ -1375,7 +1373,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 
     if (  ! [lastState isEqualToString: @"EXITING"]  ) {
-        //		NSLog(@"DEBUG: connect: but %@ is not disconnected", [self displayName]);
+        NSLog(@"connect: but %@ is not disconnected", [self displayName]);
         return;
     }
     
@@ -2007,7 +2005,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (void) connectToManagementSocket
 {
-    NSLog(@"DB-HU: ['%@'] connectToManagementSocket: attempting to connect to 127.0.0.1:%lu", displayName, (unsigned long)portNumber);
+    TBLog(@"DB-HU", @"['%@'] connectToManagementSocket: attempting to connect to 127.0.0.1:%lu", displayName, (unsigned long)portNumber)
     [self setManagementSocket: [NetSocket netsocketConnectedToHost: @"127.0.0.1" port: (unsigned short)portNumber]];
 }
 
@@ -2029,7 +2027,7 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
     
     if (  [self isDisconnected]  ) {
-//		NSLog(@"DEBUG: disconnectAndWait but %@ is already disconnected", [self displayName]);
+		NSLog(@"disconnectAndWait but %@ is already disconnected", [self displayName]);
         return;
     }
     
@@ -2053,8 +2051,12 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     NSArray * connectedList = nil;
     
 	NSString * useDownRootPluginKey = [[self displayName] stringByAppendingString: @"-useDownRootPlugin"];
-	BOOL notUsingDownRootPlugin = ! [gTbDefaults boolForKey: useDownRootPluginKey];
-	
+	BOOL notUsingDownRootPlugin     = ! [gTbDefaults boolForKey: useDownRootPluginKey];
+    
+	NSString * connectWhenComputerStartsKey = [[self displayName] stringByAppendingString: @"-onSystemStart"];
+    NSString * autoConnectKey               = [[self displayName] stringByAppendingString: @"autoConnect"];
+	BOOL notConnectWhenComputerStarts       = ! (   [gTbDefaults boolForKey: connectWhenComputerStartsKey]
+                                                 && [gTbDefaults boolForKey: autoConnectKey              ]);
     if (   ALLOW_OPENVPNSTART_KILL
 		&& (thePid > 0)
 		&& notUsingDownRootPlugin  ) {
@@ -2067,6 +2069,7 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     } else if (   ALLOW_OPENVPNSTART_KILLALL
                && (  [(connectedList = [[NSApp delegate] connectionsNotDisconnected]) count] == 1  )
                && (  [connectedList objectAtIndex: 0] == self  )
+               && notConnectWhenComputerStarts
 			   && notUsingDownRootPlugin  ) {
 		[self addToLog: @"*Tunnelblick: Disconnecting using 'killall'"];
         [[NSApp delegate] killAllConnectionsIncludingDaemons: FALSE
@@ -2194,13 +2197,13 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     BOOL satisfied = [[dict objectForKey: @"satisfied"] boolValue];
     if (  satisfied  ) {
         if (  gShuttingDownTunnelblick  ) {
-            NSLog(@"DEBUG: reconnectAfterUnexpectedDisconnection invoked indicating OpenVPN process is gone; but shutting down Tunnelblick, so not reconnecting");
+            TBLog(@"DB-CD", @"reconnectAfterUnexpectedDisconnection invoked indicating OpenVPN process is gone; but shutting down Tunnelblick, so not reconnecting")
         } else {
-            NSLog(@"DEBUG: reconnectAfterUnexpectedDisconnection invoked indicating OpenVPN process is gone; reconnecting...");
+            TBLog(@"DB-CD", @"reconnectAfterUnexpectedDisconnection invoked indicating OpenVPN process is gone; reconnecting...")
             [self connect: self userKnows: YES];
         }
     } else {
-        NSLog(@"DEBUG: reconnectAfterUnexpectedDisconnection invoked indicating OpenVPN process is still running; doing nothing because it has apparently not finished disconnecting");
+        TBLog(@"DB-CD", @"reconnectAfterUnexpectedDisconnection invoked indicating OpenVPN process is still running; doing nothing because it has apparently not finished disconnecting")
     }
 }
 
@@ -2211,10 +2214,10 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	
     NSArray * openvpnPids = [NSApp pIdsForOpenVPNProcessesOnlyMain: NO];
 	if (  [openvpnPids containsObject: pidAsNumber]  ) {
-		NSLog(@"DEBUG: openvpnProcessIsGone: OpenVPN process #%@ still running", pidAsNumber);
+		TBLog(@"DB-CD", @"openvpnProcessIsGone: OpenVPN process #%@ still running", pidAsNumber)
         return FALSE;
 	} else {
-		NSLog(@"DEBUG: openvpnProcessIsGone: OpenVPN process #%@ has terminated", pidAsNumber);
+		TBLog(@"DB-CD", @"openvpnProcessIsGone: OpenVPN process #%@ has terminated", pidAsNumber)
         return TRUE;
 	}
 }
@@ -2295,8 +2298,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                                                              max: 60];
         [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Unexpected disconnection. requestedState = %@; waiting up to %.1f seconds for OpenVPN process %@ to terminate...",
                          requestedState, interval, oldPidAsNumber]];
-		NSLog(@"DEBUG: Unexpected disconnection of %@. requestedState = %@; waiting up to %.1f seconds for OpenVPN process %@ to terminate...",
-			  [self displayName], requestedState, interval, oldPidAsNumber);
+		TBLog(@"DB-CD", @"Unexpected disconnection of %@. requestedState = %@; waiting up to %.1f seconds for OpenVPN process %@ to terminate...",
+			  [self displayName], requestedState, interval, oldPidAsNumber)
         
         [self performSelectorOnMainThread: @selector(reconnectAfterUnexpectedDisconnection:)
                                withObject: @""
@@ -2315,7 +2318,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     NSParameterAssert(socket == managementSocket);
     
-	if (  tryingToHookup  ) NSLog(@"DB-HU: ['%@'] netsocketConnected: invoked ; sending commands to port %lu", displayName, (unsigned long)[managementSocket remotePort]);
+	if (  tryingToHookup  ) TBLog(@"DB-HU", @"['%@'] netsocketConnected: invoked ; sending commands to port %lu", displayName, (unsigned long)[managementSocket remotePort])
 	
     if (NSDebugEnabled) NSLog(@"Tunnelblick connected to management interface on port %d.", [managementSocket remotePort]);
     
@@ -2402,7 +2405,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	
     if (   tryingToHookup
         && ( ! isHookedup )  ) {
-		NSLog(@"DB-HU: ['%@'] indicateWeAreHookedUp: setting isHookedup to TRUE and tryingToHookup to FALSE", displayName);
+		TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp: setting isHookedup to TRUE and tryingToHookup to FALSE", displayName)
 		isHookedup = TRUE;
 		tryingToHookup = FALSE;
 		[self didHookup];
@@ -2413,34 +2416,34 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 			while (  (connection = [e nextObject])  ) {
 				if (  [connection tryingToHookup]  ) {
 					stillTrying = TRUE;
-					NSLog(@"DB-HU: ['%@'] indicateWeAreHookedUp: the '%@' configuration is still trying to hook up", displayName, [connection displayName]);
+					TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp: the '%@' configuration is still trying to hook up", displayName, [connection displayName])
 					break;
 				}
 			}
 			
 			if (  stillTrying  ) {
-				NSLog(@"DB-HU: ['%@'] indicateWeAreHookedUp: one or more configurations are still trying to hook up, so NOT yet invoking app delegate's reconnectAfterBecomeActiveUser", displayName);
+				TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp: one or more configurations are still trying to hook up, so NOT yet invoking app delegate's reconnectAfterBecomeActiveUser", displayName)
             } else {
-				NSLog(@"DB-HU: ['%@'] indicateWeAreHookedUp: no configurations are still trying to hook up, so invoking app delegate's reconnectAfterBecomeActiveUser", displayName);
+				TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp: no configurations are still trying to hook up, so invoking app delegate's reconnectAfterBecomeActiveUser", displayName)
 				[[NSApp delegate] reconnectAfterBecomeActiveUser];
 			}
 		} else {
-			NSLog(@"DB-HU: ['%@'] indicateWeAreHookedUp: '[[NSApp delegate] connectionsToRestoreOnUserActive]' is nil", displayName);
+			TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp: '[[NSApp delegate] connectionsToRestoreOnUserActive]' is nil", displayName)
 		}
 		
 		logFilesMayExist = TRUE;
 	} else if (   isHookedup
 			   && ( ! tryingToHookup )  ) {
-		NSLog(@"DB-HU: ['%@'] indicateWeAreHookedUp invoked but are already hooked up (OK to see this message a few times)", displayName);
+		TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp invoked but are already hooked up (OK to see this message a few times)", displayName)
 	} else {
-		NSLog(@"DB-HU: ['%@'] indicateWeAreHookedUp invoked BUT tryingToHookup = %@ and isHookedUp = %@", displayName, (tryingToHookup ? @"YES" : @"NO"), (isHookedup ? @"YES" : @"NO"));
+		TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp invoked BUT tryingToHookup = %@ and isHookedUp = %@", displayName, (tryingToHookup ? @"YES" : @"NO"), (isHookedup ? @"YES" : @"NO"))
 	}
 }
 
 
 - (void) processLine: (NSString*) line
 {
-    if (  tryingToHookup  ) NSLog(@"DB-HU: ['%@'] invoked processLine:; isHookedUp = %@; line = '%@'", displayName, (isHookedup ? @"YES" : @"NO"), line);
+    if (  tryingToHookup  ) TBLog(@"DB-HU", @"['%@'] invoked processLine:; isHookedUp = %@; line = '%@'", displayName, (isHookedup ? @"YES" : @"NO"), line)
     if (  tryingToHookup  ) {
 		[self indicateWeAreHookedUp];
     }
@@ -2747,7 +2750,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString* line;
     
     if (  tryingToHookup  ) {
-		NSLog(@"DB-HU: ['%@'] entered netsocket:dataAvailable: %lu; queueing indicateWeAreHookedUp", displayName, (unsigned long)inAmount);
+		TBLog(@"DB-HU", @"['%@'] entered netsocket:dataAvailable: %lu; queueing indicateWeAreHookedUp", displayName, (unsigned long)inAmount)
 		[self performSelectorOnMainThread: @selector(indicateWeAreHookedUp) withObject: nil waitUntilDone: NO];
 	}
 
