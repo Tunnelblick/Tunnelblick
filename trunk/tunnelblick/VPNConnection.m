@@ -427,8 +427,10 @@ extern NSString * lastPartOfPath(NSString * thePath);
         prefsChangedOK = prefsChangedOK && [self setPreference: TRUE key: keyAutoConnect];
         prefsChangedOK = prefsChangedOK && [self setPreference: TRUE key: keyOnSystemStart];
     } else {
-        prefsChangedOK = prefsChangedOK && [self setPreference: FALSE key: keyAutoConnect];
-        prefsChangedOK = prefsChangedOK && [self setPreference: FALSE key: keyOnSystemStart];
+        if (  [gTbDefaults boolForKey: keyOnSystemStart]  ) {
+            NSLog(@"Warning: preference '%@' will be changed to FALSE because there is no launch daemon for the configuration", keyOnSystemStart);
+            prefsChangedOK = prefsChangedOK && [self setPreference: FALSE key: keyOnSystemStart];
+        }
     }
     
     if (  ! prefsChangedOK  ) {

@@ -3967,21 +3967,8 @@ static void signal_handler(int signalNumber)
     if (   key
         && newValue  ) {
 		
-		BOOL setPref = TRUE;	// If FALSE, REMOVE the preference instead of SETTING it:
-		//						//	  * if the new value is an empty string, don't set the preference, remove it
-		//						//	  * if the new value is a BOOL and is FALSE, don't set the preference, remove it
-		//						//	  * if the new 'useDNS' value is 1, don't set the preference, remove it
-		if (   [[newValue class] isSubclassOfClass: [NSString class]]
-			&& ( [newValue length] == 0 )  ) {
-			setPref = FALSE;
-		} else if (   isBOOL
-				   && ( ! [newValue boolValue])  ) {
-			setPref = FALSE;
-		} else if (   [key isEqualToString: @"useDNS"]
-				   && (   [newValue intValue] == 1  )  ) {
-			setPref = FALSE;
-		}
-		
+        (void) isBOOL;
+        
 		if (   runningOnSnowLeopardOrNewer()
 			&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
 			ConfigurationsView      * cv     = [[self logScreen] configurationsPrefsView];
@@ -4020,11 +4007,7 @@ static void signal_handler(int signalNumber)
 					NSString * displayName = [item displayName];
 					if (  [displayName length] != 0  ) {	// Ignore folders; just process configurations
 						NSString * actualKey = [displayName stringByAppendingString: key];
-						if (  setPref  ) {
-							[gTbDefaults setObject: newValue forKey: actualKey];
-						} else {
-							[gTbDefaults removeObjectForKey: actualKey];
-						}
+                        [gTbDefaults setObject: newValue forKey: actualKey];
 					}
 				}];
 #endif
@@ -4041,11 +4024,7 @@ static void signal_handler(int signalNumber)
 				NSString * displayName = [displayNames objectAtIndex: selectedIdx];
 				if (  [displayName length] != 0 ) {
 					NSString * actualKey = [displayName stringByAppendingString: key];
-					if (  setPref  ) {
-						[gTbDefaults setObject: newValue forKey: actualKey];
-					} else {
-						[gTbDefaults removeObjectForKey: actualKey];
-					}
+                    [gTbDefaults setObject: newValue forKey: actualKey];
 				} else {
 					NSLog(@"setPreferenceForSelectedConfigurationsWithKey: row %lu is not a configuration", (long) selectedIdx);
 				}
