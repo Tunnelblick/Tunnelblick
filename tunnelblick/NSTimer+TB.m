@@ -42,7 +42,7 @@
 -(void) tbSetTolerance: (NSTimeInterval) tolerance {
     
     if (  [self respondsToSelector: @selector(setTolerance:)]  ) {
-        if (  tolerance == -1.0  ) {
+        if (  tolerance < 0.0  ) {
             NSTimeInterval interval = [self timeInterval];
             if (  interval < 5  ) {
                 tolerance = 0.1 * interval;
