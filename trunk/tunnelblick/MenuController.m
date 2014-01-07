@@ -4271,6 +4271,9 @@ static BOOL runningHookupThread = FALSE;
         sleep(sleepTime);
     }
     
+    // Update the Tunnelblick icon
+    [self performSelectorOnMainThread: @selector(setState:) withObject: nil waitUntilDone: NO];
+    
     // Wait until there are no "openvpnstart" processes running
     unsigned waitTime = [gTbDefaults unsignedIntForKey: @"timeToSpendCheckingForOpenvpnstartProcesses"
                                                default: 30
