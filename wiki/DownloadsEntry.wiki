@@ -50,7 +50,12 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 <table border="1" width="100%"><tbody><tr><td>
  ==Tunnelblick Uninstaller==
  
- For use on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "Mountain Lion"), Intel or PowerPC, 32- or 64-bit.
+ For use on OS X 10.4 - 10.9 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", and "Mavericks"), Intel or PowerPC, 32- or 64-bit.
+
+ <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.1.dmg/download Tunnelblick Uninstaller 1.1]</strong></font> `[`sourceforge.net`]` released 2014-01-08
+  * Removes preferences cache if it is present
+  * Warns user if Tunnelblick or OpenVPN are running
+  * Ready for localization
 
  <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.0.dmg/download Tunnelblick Uninstaller 1.0]</strong></font> `[`sourceforge.net`]` released 2013-03-28
 
