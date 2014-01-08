@@ -156,6 +156,14 @@ end GetMyScriptPath
 
 
 ------------------------------------------------------------------------------------------------------------------
+--IsAppRunning: function returns true if a user process with the specified name exists
+------------------------------------------------------------------------------------------------------------------
+on IsAppRunning(appName)
+    tell application "System Events" to (name of processes) contains appName
+end IsAppRunning
+
+
+------------------------------------------------------------------------------------------------------------------
 -- ProcessFile: Function uninstalls one Tunnelblick.app and displays results to the user
 ------------------------------------------------------------------------------------------------------------------
 on ProcessFile(fullPath, myScriptPath) -- (POSIX path, POSIX path)
@@ -171,7 +179,7 @@ on ProcessFile(fullPath, myScriptPath) -- (POSIX path, POSIX path)
 		display alert ((localized string of "Uninstall failed")) Â
 			message LocalizedFormattedString("There is no application named 'Tunnelblick' in %s (/Applications).\n\nTo uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller.", {"Applications"}) Â
 			as critical Â
-			buttons {localized string of "OK"}
+			buttons {localized string of "Cancel"}
 		return
 	end if
 	
@@ -179,7 +187,7 @@ on ProcessFile(fullPath, myScriptPath) -- (POSIX path, POSIX path)
 		display alert (localized string of "Uninstall failed") Â
 			message LocalizedFormattedString("%s\n\ndoes not exist.\n\nTo uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller, or double-click the installer to uninstall /Applications/Tunnelblick.", {fullPathWithoutFinalSlash}) Â
 			as critical Â
-			buttons {localized string of "OK"}
+			buttons {localized string of "Cancel"}
 		return
 	end if
 	
@@ -197,13 +205,42 @@ on ProcessFile(fullPath, myScriptPath) -- (POSIX path, POSIX path)
 	    end if
 	end if
 	
+    -- Make sure that the program is not running
+    if IsAppRunning(TBName)
+        display alert LocalizedFormattedString("%s is Running", {TBName}) Â
+            message (LocalizedFormattedString("%s cannot be uninstalled while it is running.\n\n" & Â
+            "Please disconnect all configurations, quit %s, and try again.\n\n", Â
+            {TBName, TBName})) Â
+            as critical  Â
+            buttons {localized string of "Cancel"}
+        return
+    end if
+
+    -- Make sure that OpenVPN is not running
+	try
+		set psOutput to do shell script "ps -cA -o command | egrep -c '^openvpn$'"
+	on error
+	    set psOutput to "0"
+	end try
+    if not (psOutput = "0")
+        display alert (localized string of "OpenVPN is Running") Â
+            message (LocalizedFormattedString("%s cannot be uninstalled while OpenVPN is running.\n\n" & Â
+                "OpenVPN is running but %s is not. Probably a configuration is set to connect when the computer starts -- " & Â 
+				"such configurations are not disconnected when you quit %s.\n\n" & Â
+                "Please launch %s, disconnect all configurations, and try again.\n\n", Â
+                {TBName, TBName, TBName, TBName})) Â
+            as critical  Â
+            buttons {localized string of "Cancel"}
+        return
+    end if
+	
 	-- Confirm that the user wants to proceed, and whether to uninstall or to test
 	set alertResult to display alert LocalizedFormattedString("Uninstall %s?", {TBName}) Â
 		message (LocalizedFormattedString("The program at\n\n%s\n\nand all its configuration data, passwords, and preferences for all users of this computer will be removed.\n\n" & Â
 			"You will not be able to recover them afterward.\n\n" & Â
 			"CLICK 'Test' to find out what would be removed in an actual uninstall\n\n" & Â
 			"OR CLICK 'Uninstall' to uninstall %s\n\n" & Â
-			"OR CLICK 'Cancel' and drop a different %s application on the uninstaller.\n\n" & Â
+			"OR CLICK 'Cancel'.\n\n" & Â
 			"Testing or uninstalling may take a long time -- up to several MINUTES -- during which time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall or test is complete.", Â
 			{displayPath, TBName, TBName})) Â
 		as critical  Â
