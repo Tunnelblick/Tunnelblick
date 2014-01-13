@@ -54,7 +54,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.1.dmg/download Tunnelblick Uninstaller 1.1]</strong></font> `[`sourceforge.net`]` released 2014-01-08
   * Removes preferences cache if it is present
-  * Warns user if Tunnelblick or OpenVPN are running
+  * Warns user if Tunnelblick or OpenVPN is running
   * Ready for localization
 
  <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.0.dmg/download Tunnelblick Uninstaller 1.0]</strong></font> `[`sourceforge.net`]` released 2013-03-28
