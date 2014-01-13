@@ -550,6 +550,9 @@ int main(int argc, char *argv[])
         NSString *pncPath                   = [appResourcesPath stringByAppendingPathComponent:@"process-network-changes"                        ];
         NSString *leasewatchPath            = [appResourcesPath stringByAppendingPathComponent:@"leasewatch"                                     ];
         NSString *leasewatch3Path           = [appResourcesPath stringByAppendingPathComponent:@"leasewatch3"                                    ];
+        NSString *pncTemplatePath           = [appResourcesPath stringByAppendingPathComponent:@"ProcessNetworkChanges.plist.template"           ];
+        NSString *leasewatchTemplatePath    = [appResourcesPath stringByAppendingPathComponent:@"LeaseWatch.plist.template"                      ];
+        NSString *leasewatch3TemplatePath   = [appResourcesPath stringByAppendingPathComponent:@"LeaseWatch3.plist.template"                     ];
         NSString *clientUpPath              = [appResourcesPath stringByAppendingPathComponent:@"client.up.osx.sh"                               ];
         NSString *clientDownPath            = [appResourcesPath stringByAppendingPathComponent:@"client.down.osx.sh"                             ];
         NSString *clientNoMonUpPath         = [appResourcesPath stringByAppendingPathComponent:@"client.nomonitor.up.osx.sh"                     ];
@@ -569,6 +572,8 @@ int main(int argc, char *argv[])
         
         okSoFar = okSoFar && checkSetPermissions(infoPlistPath,             0644, YES);
         
+        okSoFar = okSoFar && checkSetPermissions(appResourcesPath,          0755, YES);
+
         okSoFar = okSoFar && checkSetPermissions(openvpnPath,               0755, YES);
         
         okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,         0744, YES);
@@ -577,6 +582,11 @@ int main(int argc, char *argv[])
         okSoFar = okSoFar && checkSetPermissions(leasewatch3Path,           0744, YES);
         okSoFar = okSoFar && checkSetPermissions(pncPath,                   0744, YES);
         okSoFar = okSoFar && checkSetPermissions(ssoPath,                   0744, YES);
+        
+        okSoFar = okSoFar && checkSetPermissions(pncTemplatePath,           0644, YES);
+        okSoFar = okSoFar && checkSetPermissions(leasewatchTemplatePath,    0644, YES);
+        okSoFar = okSoFar && checkSetPermissions(leasewatch3TemplatePath,   0644, YES);
+        
         okSoFar = okSoFar && checkSetPermissions(clientUpPath,              0744, NO);
         okSoFar = okSoFar && checkSetPermissions(clientDownPath,            0744, NO);
         okSoFar = okSoFar && checkSetPermissions(clientNoMonUpPath,         0744, NO);

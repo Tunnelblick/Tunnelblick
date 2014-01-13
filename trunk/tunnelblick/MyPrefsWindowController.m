@@ -1913,6 +1913,20 @@ static BOOL firstTimeShowingWindow = TRUE;
     return string;
 }
 
+-(NSString *) nonAppleKextContents {
+    
+    NSString * kextRawContents = @""; // stdout (ignore stderr)
+	
+    runTool(@"/bin/bash",
+            [NSArray arrayWithObjects:
+             @"-c",
+             @"kextstat | grep -v com.apple", nil],
+            &kextRawContents,
+            nil);
+    
+    return kextRawContents;
+}
+
 -(IBAction) logToClipboardButtonWasClicked: (id) sender {
 
 	(void) sender;
@@ -1951,6 +1965,8 @@ static BOOL firstTimeShowingWindow = TRUE;
             consoleContents = [self tigerConsoleContents];
         }
         
+        NSString * kextContents = [self nonAppleKextContents];
+        
 		NSString * separatorString = @"================================================================================\n\n";
 		
         NSString * output = [NSString stringWithFormat:
@@ -1960,14 +1976,16 @@ static BOOL firstTimeShowingWindow = TRUE;
                              @"Wildcard preferences:\n\n%@\n%@"
                              @"Program preferences:\n\n%@\n%@"
                              @"Tunnelblick Log:\n\n%@\n%@"
-                             @"Console Log:\n\n%@",
+                             @"Console Log:\n\n%@\n%@"
+                             @"Non-Apple kexts that are loaded:\n\n%@",
                              versionContents,
                              [connection configPath], configFileContents, separatorString,
                              configurationPreferencesContents, separatorString,
                              wildcardPreferencesContents, separatorString,
                              programPreferencesContents, separatorString,
                              logContents, separatorString,
-                             consoleContents];
+                             consoleContents, separatorString,
+                             kextContents];
         
         NSPasteboard * pb = [NSPasteboard generalPasteboard];
         [pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];

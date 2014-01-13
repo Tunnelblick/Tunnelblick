@@ -6,7 +6,7 @@
 		<string>net.tunnelblick.openvpn.process-network-changes</string>
 		<key>ProgramArguments</key>
 		<array>
-			<string>${DIR}/process-network-changes</string>
+			<string>/Applications/Tunnelblick.app/Contents/Resources/process-network-changes</string>
 		</array>
 		<key>WatchPaths</key>
 		<array>
