@@ -340,10 +340,7 @@ EOF
 echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.up.tunnelblick.sh: Saved the DNS and WINS configurations for later use" >> "${SCRIPT_LOG_FILE}"
 
 if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-    # Generate an updated plist with a per-configuration path
-    LEASEWATCHER_TEMPLATE_PATH="$(dirname "${0}")/LeaseWatch3.plist.template"
-    sed -e "s|\${DIR}|$(dirname "${0}")|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
-    launchctl load "${LEASEWATCHER_PLIST_PATH}"
+    launchctl load "/Applications/Tunnelblick.app/Contents/Resources/LeaseWatch3.plist"
     echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.up.tunnelblick.sh: Set up to monitor system configuration with leasewatch" >> "${SCRIPT_LOG_FILE}"
 fi
 

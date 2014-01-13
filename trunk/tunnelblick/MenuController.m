@@ -5508,9 +5508,9 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	NSString *ssoPath                   = [resourcesPath stringByAppendingPathComponent: @"standardize-scutil-output"           ];
 	NSString *leasewatchPath            = [resourcesPath stringByAppendingPathComponent: @"leasewatch"                          ];
 	NSString *leasewatch3Path           = [resourcesPath stringByAppendingPathComponent: @"leasewatch3"                         ];
-    NSString *pncTemplatePath           = [resourcesPath stringByAppendingPathComponent: @"ProcessNetworkChanges.plist.template"];
-    NSString *leasewatchTemplatePath    = [resourcesPath stringByAppendingPathComponent: @"LeaseWatch.plist.template"           ];
-    NSString *leasewatch3TemplatePath   = [resourcesPath stringByAppendingPathComponent: @"LeaseWatch3.plist.template"          ];
+    NSString *pncPlistPath              = [resourcesPath stringByAppendingPathComponent: @"ProcessNetworkChanges.plist"         ];
+    NSString *leasewatchPlistPath       = [resourcesPath stringByAppendingPathComponent: @"LeaseWatch.plist"                    ];
+    NSString *leasewatch3PlistPath      = [resourcesPath stringByAppendingPathComponent: @"LeaseWatch3.plist"                   ];
 	NSString *clientUpPath              = [resourcesPath stringByAppendingPathComponent: @"client.up.osx.sh"                    ];
 	NSString *clientDownPath            = [resourcesPath stringByAppendingPathComponent: @"client.down.osx.sh"                  ];
 	NSString *clientNoMonUpPath         = [resourcesPath stringByAppendingPathComponent: @"client.nomonitor.up.osx.sh"          ];
@@ -5653,7 +5653,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	}
     
 	// check files which should be owned by root with 644 permissions
-	NSArray *root644Objects = [NSArray arrayWithObjects: infoPlistPath, pncTemplatePath, leasewatchTemplatePath, leasewatch3TemplatePath, nil];
+	NSArray *root644Objects = [NSArray arrayWithObjects: infoPlistPath, pncPlistPath, leasewatchPlistPath, leasewatch3PlistPath, nil];
 	e = [root644Objects objectEnumerator];
 	while (  (currentPath = [e nextObject])  ) {
         if (  ! checkOwnerAndPermissions(currentPath, 0, 0, 0644)  ) {
