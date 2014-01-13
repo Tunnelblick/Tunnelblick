@@ -6,7 +6,7 @@
 		<string>net.tunnelblick.openvpn.leasewatch</string>
 		<key>ProgramArguments</key>
 		<array>
-			<string>${DIR}/leasewatch</string>
+			<string>/Applications/Tunnelblick.app/Contents/Resources/leasewatch</string>
 		</array>
 		<key>WatchPaths</key>
 		<array>
