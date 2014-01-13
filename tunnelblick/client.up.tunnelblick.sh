@@ -741,25 +741,12 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
         if [ "${ARG_IGNORE_OPTION_FLAGS:0:2}" = "-p" ] ; then
-            # Generate an updated plist with the path for process-network-changes
-            readonly LEASEWATCHER_TEMPLATE_PATH="${TB_RESOURCE_PATH}/ProcessNetworkChanges.plist.template"
             logMessage "Setting up to monitor system configuration with process-network-changes"
+            launchctl load "${TB_RESOURCE_PATH}/ProcessNetworkChanges.plist"
         else
-            # Generate an updated plist with the path for leasewatch
-            readonly LEASEWATCHER_TEMPLATE_PATH="${TB_RESOURCE_PATH}/LeaseWatch.plist.template"
             logMessage "Setting up to monitor system configuration with leasewatch"
+            launchctl load "${TB_RESOURCE_PATH}/LeaseWatch.plist"
         fi
-		cp -f -p "${LEASEWATCHER_TEMPLATE_PATH}" "${LEASEWATCHER_PLIST_PATH}"
-        plist_owner="$(stat -f %u  "${LEASEWATCHER_PLIST_PATH}")"
-		plist_group="$(stat -f %g  "${LEASEWATCHER_PLIST_PATH}")"
-		plist_perms="$(stat -f %Lp "${LEASEWATCHER_PLIST_PATH}")"
-		if [ "${plist_owner}" != "0" -o "${plist_group}" != "0" -o  "${plist_perms}" != "644" ] ; then
-			logMessage "Security warning: repairing invalid ownership and/or permissions (${plist_owner}:${plist_group}/${plist_perms}) to (0:0/644) on ${LEASEWATCHER_PLIST_PATH}"
-			logMessage "                  ls -l output was $(ls -l "${LEASEWATCHER_PLIST_PATH}")"
-			chown root:wheel "${LEASEWATCHER_PLIST_PATH}"
-			chmod 644 "${LEASEWATCHER_PLIST_PATH}"
-		fi
-        launchctl load "${LEASEWATCHER_PLIST_PATH}"
 	fi
 }
 
