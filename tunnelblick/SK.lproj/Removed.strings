@@ -46,3 +46,9 @@
 /* Checkbox name */
 "Use Tunnelblick tun/tap drivers" = "Pre tun/tap použiť ovládače Tunnelblick";
 
+/* Checkbox name */
+"Check if the apparent public IP address changed after connection" = "Kontrolovať, či sa Vaša verejná IP adresa po pripojení zmenila";
+
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Sú dostupné konfigurácie OpenVPN, ale nie je dostupná ani jedna konfigurácia Tunnelblick VPN.\n\nAk chcete používať konfigurácie OpenVPN musíte ich previesť na konfigurácie Tunnelblick VPN.\n\n";
+

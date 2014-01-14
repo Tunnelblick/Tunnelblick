@@ -3,51 +3,72 @@
 
 /* Button */
 "Always load Tun driver" = "Always load Tun driver";
-
 /* Button */
 "Change Only for This Configuration" = "Change Only for This Configuration";
 
 /* Button */
 "Change for the Selected Configurations" = "Change for the Selected Configurations";
-
 /* Button */
 "Help" = "Help";
-
 /* Button */
 "Load Tap driver automatically" = "Load Tap driver automatically";
 
 /* Button */
 "Load Tun driver automatically" = "Load Tun driver automatically";
-
 /* Button */
 "Never load Tap driver" = "Never load Tap driver";
 
 /* Button */
 "Never load Tun driver" = "Never load Tun driver";
-
 /* Button */
 "Open Uninstall Instructions in Browser" = "Open Uninstall Instructions in Browser";
+/* Button */
+"Privacy info..." = "Privacy info…";
+
+/* Button */
+"Show on default screen (%u x %u)" = "Show on default screen (%1$u x %2$u)";
+
+/* Button */
+"Show on screen %u (%u x %u)" = "Show on screen %1$u (%2$u x %3$u)";
+
+/* Button */
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 icon";
+
+/* Checkbox name */
+"Disconnect when computer goes to sleep" = "Disconnect when computer goes to sleep";
+
+/* Checkbox name */
+"Include anonymous profile information" = "Include anonymous profile information";
+
+/* Checkbox name */
+"Keep connected" = "Keep connected";
+
+/* Checkbox name */
+"Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
 
 /* Window title */
 "Change for All Selected Configurations?" = "Change for All Selected Configurations?";
-
 /* Window title */
 "Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "Do you want to make this change for all %1$lu of the selected configurations, or only for '%2$@'?";
-
 /* Window text */
 "%d Info.plist files were found in '%@'. A Tunnelblick VPN Configuration may have at most one Info.plist." = "%1$d Info.plist files were found in '%2$@'. A Tunnelblick VPN Configuration may have at most one Info.plist.";
-
 /* Window text */
 ".tblks are nested too deeply (only one level of .tblk in a .tblk is allowed) in '%@'." = ".tblks are nested too deeply (only one level of .tblk in a .tblk is allowed) in '%@'.";
-
 /* Window text */
 "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
+/* Window text */
+"An internal Tunnelblick error occurred%@%@" = "An internal Tunnelblick error occurred%1$@%2$@";
 
 /* Window text */
-"Line %d of the file contains a non-printable character (0x%02X) which is not allowed." = "Line %1$d of the file contains a non-printable character (0x%2$X) which is not allowed.";
+"File is too large: %@" = "File is too large: %@";
+
+/* Window text */
+"Line %d of the file contains a non-printable character (0x%02X) which is not allowed" = "Line %1$d of the file contains a non-printable character (0x%2$X) which is not allowed";
 
 /* Window text */
 "One or more configurations could not be installed.\n\n%@" = "One or more configurations could not be installed.\n\n%@";
+/* Window text */
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n." = "Path '%1$@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n.";
 
 /* Window text */
 "Program error, please report this as a bug: Invalid dest = %@ for .tblk '%@'." = "Program error, please report this as a bug: Invalid dest = %1$@ for .tblk '%2$@'.";
@@ -57,7 +78,6 @@
 
 /* Window text */
 "Program error, please report this as a bug: Unable to create file at '%@'" = "Program error, please report this as a bug: Unable to create file at '%@'";
-
 /* Window text */
 "The %@ system folder (%@) does not exist." = "The %1$@ system folder (%2$@) does not exist.";
 
@@ -66,7 +86,6 @@
 
 /* Window text */
 "The '%@' configuration cannot be found." = "The '%@' configuration cannot be found.";
-
 /* Window text */
 "The Info.plist in '%@' contains an invalid 'TBPackageVersion' value of '%@' (only '1' is allowed)." = "The Info.plist in '%1$@' contains an invalid 'TBPackageVersion' value of '%2$@' (only '1' is allowed).";
 
@@ -105,12 +124,19 @@
 
 /* Window text */
 "The OpenVPN configuration file in '%@' has a '%@' option that references '%@'. That file has a problem:\n\n%@." = "The OpenVPN configuration file in '%1$@' has a '%2$@' option that references '%3$@'. That file has a problem:\n\n%4$@.";
-
 /* Window text */
 "The Tunnelblick VPN Configuration has NOT been installed.\n\nAn unknown error occured." = "The Tunnelblick VPN Configuration has NOT been installed.\n\nAn unknown error occured.";
+/* Window text */
+"The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files" = "The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files";
 
 /* Window text */
-"The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files." = "The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files.";
+"The file contains characters that are not UTF-8 encoded: %@" = "The file contains characters that are not UTF-8 encoded: %@";
+
+/* Window text */
+"There is a problem in %@: %@" = "There is a problem in %1$@: %2$@";
+
+/* Window text */
+"There was a problem:\n\n%@" = "There was a problem:\n\n%@";
 
 /* Window text */
 "Tunnelblick VPN Configuration '%@' cannot be installed as shared or private because this is a Deployed version of Tunnelblick." = "Tunnelblick VPN Configuration '%@' cannot be installed as shared or private because this is a Deployed version of Tunnelblick.";
@@ -150,13 +176,27 @@
 
 /* Window text */
 "Tunnelblick VPN Configuration '%@', which is contained within a Tunnelblick VPN Configuration, contains a Tunnelblick VPN Configuration, which is not allowed. Only one level of nesting is allowed." = "Tunnelblick VPN Configuration '%@', which is contained within a Tunnelblick VPN Configuration, contains a Tunnelblick VPN Configuration, which is not allowed. Only one level of nesting is allowed.";
-
 /* Window text */
 "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %1$ld; notification = 0x%2$lX";
+/* Window text */
+"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n";
+
+/* Window text */
+"Tunnelblick was unable to save its preferences -- OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. That file is\n\n/Users/%@/Library/Preferences/net.tunnelblick.tunnelblick.plist" = "Tunnelblick was unable to save its preferences -- OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. That file is\n\n/Users/%@/Library/Preferences/net.tunnelblick.tunnelblick.plist";
+
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n";
+
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@";
+
+/* Window text */
+"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n";
 
 /* Window text */
 "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file." = "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.";
-
 /* Window text */
 "\n\nOther problems were also found, but they are likely to be a result of that problem. See the Console Log for details." = "\n\nOther problems were also found, but they are likely to be a result of that problem. See the Console Log for details.";
+/* Credit description */
+"Icon set including Retina images" = "Icon set including Retina images";
 

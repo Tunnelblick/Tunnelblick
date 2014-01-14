@@ -4,3 +4,9 @@
 /* Checkbox name */
 "Use Tunnelblick tun/tap drivers" = "Käytä Tunnelblickin tun/tap ajureita";
 
+/* Checkbox name */
+"Check if the apparent public IP address changed after connection" = "Tarkista ilmeisen julkisen IP-osoitteen muutos yhteyden luomisen jälkeen";
+
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Sinulla on OpenVPN configuraatioita, mutta ei yhtään Tunnelblick VPN Configuratiota.\n\nSinun tulee muuntaa OpenVPN configuratiot  Tunnelblick VPN Configuratioiksi jos haluat käyttää niitä.\n\n";
+

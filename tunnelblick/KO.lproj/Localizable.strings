@@ -172,6 +172,9 @@
 /* Button */
 "OpenVPN Configuration(s)" = "OpenVPN 설정";
 
+/* NEEDS TRANSLATION *//* Button */
+"Privacy info..." = "Privacy info…";
+
 /* Button */
 "Quit All OpenVPN Processes" = "모든 OpenVPN 프로세스 종료";
 
@@ -198,6 +201,12 @@
 
 /* Button */
 "Revert" = "복원";
+
+/* NEEDS TRANSLATION *//* Button */
+"Show on default screen (%u x %u)" = "Show on default screen (%1$u x %2$u)";
+
+/* NEEDS TRANSLATION *//* Button */
+"Show on screen %u (%u x %u)" = "Show on screen %1$u (%2$u x %3$u)";
 
 /* Button */
 "Show when connection status changes" = "연결 상태가 변경될 때 보기";
@@ -228,6 +237,9 @@
 
 /* Button */
 "Try again" = "재시도";
+
+/* NEEDS TRANSLATION *//* Button */
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 icon";
 
 /* Button */
 "Tunnelblick VPN Configuration(s)" = "Tunnelblick VPN 설정";
@@ -307,6 +319,9 @@
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "연결 후에 공인 IP 주소 변경 확인";
 
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Disconnect when computer goes to sleep" = "Disconnect when computer goes to sleep";
+
 /* Checkbox name */
 "Disconnect when user switches out" = "사용자 전환 할 때 연결 해제";
 
@@ -343,6 +358,12 @@
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "연결 후 또는 연결 해제 후 DNS 캐시 지움";
 
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Include anonymous profile information" = "Include anonymous profile information";
+
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Keep connected" = "Keep connected";
+
 /* Checkbox name */
 "Monitor connection" = "연결 감시";
 
@@ -366,6 +387,9 @@
 
 /* Checkbox name */
 "Route all traffic through the VPN" = "VPN을 통한 모든 트래픽 라우트";
+
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
 
 /* Checkbox name */
 "Save in Keychain" = "키체인에 저장";
@@ -826,6 +850,9 @@
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "보안 (복제) 복사본으로 복원하는 동안 오류가 발생했습니다. 자세한 것은 콘솔 로그를 보십시오.\n\n";
 
+/* NEEDS TRANSLATION *//* Window text */
+"An internal Tunnelblick error occurred%@%@" = "An internal Tunnelblick error occurred%1$@%2$@";
+
 /* Window text */
 "Anonymous unique ID" = "익명의 유일한 ID";
 
@@ -919,6 +946,9 @@
 /* Window text */
 "Fast User Switching" = "빠른 사용자 전환";
 
+/* NEEDS TRANSLATION *//* Window text */
+"File is too large: %@" = "File is too large: %@";
+
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "GB" = "GB";
 
@@ -959,7 +989,7 @@
 "Last checked: %@" = "최신 확인: %@";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Line %d of the file contains a non-printable character (0x%02X) which is not allowed." = "Line %1$d of the file contains a non-printable character (0x%2$X) which is not allowed.";
+"Line %d of the file contains a non-printable character (0x%02X) which is not allowed" = "Line %1$d of the file contains a non-printable character (0x%2$X) which is not allowed";
 
 /* Window text */
 "Localization by" = "지역화한 사람들";
@@ -1044,6 +1074,9 @@
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "PB/s" = "PB/s";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n." = "Path '%1$@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n.";
 
 /* Window text */
 "Please enter VPN passphrase." = "VPN 암호를 입력하십시오.";
@@ -1202,7 +1235,10 @@
 "The credentials named %@ could not be removed:\n\n%@" = "인증 이름 %1$@은 삭제할 수 없습니다:\n\n%2$@";
 
 /* NEEDS TRANSLATION *//* Window text */
-"The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files." = "The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files.";
+"The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files" = "The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The file contains characters that are not UTF-8 encoded: %@" = "The file contains characters that are not UTF-8 encoded: %@";
 
 /* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "설치, 삭제, 복원, 복구 중 1개 또는 이상의 Tunnelblick 컴포넌트가 실패했습니다. 자세한 것은 콘솔 로그를 보십시오.";
@@ -1224,6 +1260,12 @@
 
 /* Window text */
 "There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "두 가지 종류의 설정 파일이 있습니다:\n\n  • Tunnelblick VPN 설정 (.tblk 확장자)\n\n  • OpenVPN 설정 (.ovpn 또는 .conf 확장자)\n\n가지고 있는 설정 종류는 무엇입니까?\n\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"There is a problem in %@: %@" = "There is a problem in %1$@: %2$@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"There was a problem:\n\n%@" = "There was a problem:\n\n%@";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "이 '배포된' Tunnelblick 버전은 실행하거나 설치할 수 없습니다. 다시 만들어지지 않았거나 updateFeedURL 또는 SUFeedURL이 없거나 'tunnelblick.net'을 가지고 있기때문입니다. 또는 CFBundleIdentifier가 없거나 'net.tunnelblick'을 가지고 있기때문입니다.\n\n";
@@ -1312,6 +1354,9 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %1$ld; notification = 0x%2$lX";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n";
+
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick이 '%@' 설정을 옮길 수 없습니다. 자세한 것은 콘솔 로그를 보십시오.";
 
@@ -1366,6 +1411,9 @@
 
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick이 기존의 '%1$@' OpenVPN 프로세스와 %2$d 초안에 통신을 연결할 수 없었습니다. 통신 연결 시도가 취소되었습니다.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was unable to save its preferences -- OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. That file is\n\n/Users/%@/Library/Preferences/net.tunnelblick.tunnelblick.plist" = "Tunnelblick was unable to save its preferences -- OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. That file is\n\n/Users/%@/Library/Preferences/net.tunnelblick.tunnelblick.plist";
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick이 %@에 연결하기 위해 OpenVPN을 시작할 수 없습니다. 자세한 것은 VPN 상세… 창에서 로그를 볼 수 있습니다.";
@@ -1427,8 +1475,14 @@
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "연결 해제를 하지 않으면 설정 이름을 바꿀 수 없습니다.";
 
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "OpenVPN 설정이 있지만 Tunnelblick VPN 설정이 없습니다.\n\OpenVPN 설정을 Tunnelblick VPN 설정으로 변환해야 사용할 수 있습니다.\n\n";
+/* NEEDS TRANSLATION *//* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n";
 
 /* Window text */
 "You have asked to duplicate '%@'." = "'%@' 설정을 복사하려고 합니다.";
@@ -1583,6 +1637,9 @@
 
 /* Credit description */
 "Hungarian localization" = "헝가리어 지역화";
+
+/* NEEDS TRANSLATION *//* Credit description */
+"Icon set including Retina images" = "Icon set including Retina images";
 
 /* Credit description */
 "Italian localization" = "이탈리아어 지역화";

@@ -187,6 +187,9 @@
 
 /* Button */
 "OpenVPN Configuration(s)" = "OpenVPN 配置";
+/* NEEDS TRANSLATION *//* Button */
+"Privacy info..." = "Privacy info…";
+
 
 /* Button */
 "Quit All OpenVPN Processes" = "退出所有 OpenVPN 进程";
@@ -217,6 +220,12 @@
 
 /* Button */
 "Revert" = "重置";
+/* NEEDS TRANSLATION *//* Button */
+"Show on default screen (%u x %u)" = "Show on default screen (%1$u x %2$u)";
+
+/* NEEDS TRANSLATION *//* Button */
+"Show on screen %u (%u x %u)" = "Show on screen %1$u (%2$u x %3$u)";
+
 
 /* Button */
 "Show when connection status changes" = "当连接状态改变时显示";
@@ -247,6 +256,9 @@
 
 /* Button */
 "Try again" = "重试";
+/* NEEDS TRANSLATION *//* Button */
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 icon";
+
 
 /* Button */
 "Tunnelblick VPN Configuration(s)" = "Tunnelblick VPN 配置";
@@ -326,6 +338,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "如果在连接后对外显示的 IP 改变了请勾选";
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Disconnect when computer goes to sleep" = "Disconnect when computer goes to sleep";
+
 
 /* Checkbox name */
 "Disconnect when user switches out" = "用户转出时, 断开连接";
@@ -362,6 +377,12 @@
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "连接后或者断开连接后, 清空 DNS 缓存";
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Include anonymous profile information" = "Include anonymous profile information";
+
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Keep connected" = "Keep connected";
+
 
 /* Checkbox name */
 "Monitor connection" = "监控连接";
@@ -385,6 +406,9 @@
 
 /* Checkbox name */
 "Route all traffic through the VPN" = "所有的流量都通过 VPN 连接";
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
+
 
 /* Checkbox name */
 "Save in Keychain" = "储存于 Keychain";
@@ -886,6 +910,9 @@
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "在尝试重置到安全副本的时候发生错误.详情请查看控制台日志.\n\n";
+/* NEEDS TRANSLATION *//* Window text */
+"An internal Tunnelblick error occurred%@%@" = "An internal Tunnelblick error occurred%1$@%2$@";
+
 
 /* Window text */
 "Anonymous unique ID" = "唯一的匿名 ID";
@@ -1000,6 +1027,9 @@
 
 /* Window text */
 "Fast User Switching" = "快速用户转换";
+/* NEEDS TRANSLATION *//* Window text */
+"File is too large: %@" = "File is too large: %@";
+
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "GB" = "GB";
@@ -1043,7 +1073,8 @@
 /* Window text */
 "Last checked: %@" = "上一次查看: %@";
 /* NEEDS TRANSLATION *//* Window text */
-"Line %d of the file contains a non-printable character (0x%02X) which is not allowed." = "Line %1$d of the file contains a non-printable character (0x%2$X) which is not allowed.";
+"Line %d of the file contains a non-printable character (0x%02X) which is not allowed" = "Line %1$d of the file contains a non-printable character (0x%2$X) which is not allowed";
+
 
 
 /* Window text */
@@ -1132,6 +1163,9 @@
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "PB/s" = "PB/s";
+/* NEEDS TRANSLATION *//* Window text */
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n." = "Path '%1$@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n.";
+
 
 /* Window text */
 "Please enter VPN passphrase." = "请输入 VPN 口令.";
@@ -1314,7 +1348,11 @@
 /* Window text VPNService */
 "The email address you entered was not a valid email address." = "你输入的电子邮件地址不是一个有效的电子邮件地址.";
 /* NEEDS TRANSLATION *//* Window text */
-"The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files." = "The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files.";
+"The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files" = "The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The file contains characters that are not UTF-8 encoded: %@" = "The file contains characters that are not UTF-8 encoded: %@";
+
 
 
 /* Window text */
@@ -1342,9 +1380,15 @@
 
 /* Window text */
 "There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "有两种类型的配置文件:\n\n  • Tunnelblick VPN 配置(.tblk 后缀)\n\n  • OpenVPN 配置(.ovpn 或 .conf 后缀)\n\n你有哪种配置文件?\n\n";
+/* NEEDS TRANSLATION *//* Window text */
+"There is a problem in %@: %@" = "There is a problem in %1$@: %2$@";
+
 
 /* Window text VPNService */
 "There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "没有安装名为 '%@' 的配置.\n\n请尝试从磁盘映像重新安装 Tunnelblick.";
+/* NEEDS TRANSLATION *//* Window text */
+"There was a problem:\n\n%@" = "There was a problem:\n\n%@";
+
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "这个 ‘部署版’ 的 Tunnelblick 不能启动或安装是因为它还没有被重塑, 或者 updateFeedURL / SUFeedURL 为空或含有 ‘tunnelblick.net’ 的字眼, 或者 CFBundleIdentifier 为空或含有 ‘net.tunnelblick’ 的字眼 .\n\n";
@@ -1437,6 +1481,9 @@
 "Tunnelblick could not create the sample configuration" = "Tunnelblick 未能新建配置样本";
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %1$ld; notification = 0x%2$lX";
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n";
+
 
 
 /* Window text */
@@ -1493,6 +1540,9 @@
 
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick 已有 %2$d 秒未能与一个现有 OpenVPN 进程建立通讯, 该进程属于 '%1$@'. 已放弃建立通讯的努力.";
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was unable to save its preferences -- OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. That file is\n\n/Users/%@/Library/Preferences/net.tunnelblick.tunnelblick.plist" = "Tunnelblick was unable to save its preferences -- OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. That file is\n\n/Users/%@/Library/Preferences/net.tunnelblick.tunnelblick.plist";
+
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick 无法启动 OpenVPN 连接到 %@. 详情请查看控制台日志…";
@@ -1568,9 +1618,15 @@
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." =
 "你必须断开连接, 才能更改配置的名称.";
+/* NEEDS TRANSLATION *//* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n";
 
-/* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "你有 OpenVPN 格式的配置文件但你没有 Tunnelblick VPN 格式的配置文件.\n\n如果你想使用它们, 你必须将 OpenVPN 格式的配置文件转换为 Tunnelblick VPN 格式的配置文件.\n\n";
+/* NEEDS TRANSLATION *//* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n";
+
 
 
 /* Window text VPNService */
@@ -1745,6 +1801,9 @@
 
 /* Credit description */
 "Hungarian localization" = "匈牙利本地化";
+/* NEEDS TRANSLATION *//* Credit description */
+"Icon set including Retina images" = "Icon set including Retina images";
+
 
 /* Credit description */
 "Italian localization" = "意大利文本地化";

@@ -209,3 +209,6 @@
 /* Checkbox name */
 "Use Tunnelblick tun/tap drivers" = "Использовать Tunnelblick драйверы tun/tap";
 
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "У вас есть конфигурации OpenVPN, но нету ни одной конфигурации Tunnelblick VPN.\n\nВам необходимо преобразовать конфигурации OpenVPN в Tunnelblick VPN чтобы их использовать.\n\n";
+
