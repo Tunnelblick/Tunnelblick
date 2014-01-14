@@ -72,9 +72,6 @@
 // NOTE: tunnelblick-uninstaller.sh refers to the installer log path without using this header file
 #define INSTALLER_LOG_PATH      @"/tmp/tunnelblick-installer-log.txt"
 
-// NOTE: client.up.tunnelblick.sh refers to the leasewatcher plist path without using this header file
-#define LEASEWATCHER_PLIST_PATH @"/Library/Application Support/Tunnelblick/LeaseWatch.plist"
-
 #define TOOL_PATH_FOR_CODESIGN @"/usr/bin/codesign"
 #define TOOL_PATH_FOR_KEXTSTAT @"/usr/sbin/kextstat"
 
