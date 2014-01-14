@@ -127,7 +127,6 @@ sTunnelDevice="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TunnelDevi
 # Remove leasewatcher
 if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 	launchctl unload "${LEASEWATCHER_PLIST_PATH}"
-    rm -f "${LEASEWATCHER_PLIST_PATH}"
 	logMessage "Cancelled monitoring of system configuration changes"
 fi
 

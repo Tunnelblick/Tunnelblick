@@ -742,11 +742,10 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
         if [ "${ARG_IGNORE_OPTION_FLAGS:0:2}" = "-p" ] ; then
             logMessage "Setting up to monitor system configuration with process-network-changes"
-            launchctl load "${TB_RESOURCE_PATH}/ProcessNetworkChanges.plist"
         else
             logMessage "Setting up to monitor system configuration with leasewatch"
-            launchctl load "${TB_RESOURCE_PATH}/LeaseWatch.plist"
         fi
+        launchctl load "${LEASEWATCHER_PLIST_PATH}"
 	fi
 }
 
@@ -1119,7 +1118,13 @@ readonly SCRIPT_LOG_FILE="/Library/Application Support/Tunnelblick/Logs/${CONFIG
 
 readonly TB_RESOURCE_PATH="/Applications/Tunnelblick.app/Contents/Resources"
 
-LEASEWATCHER_PLIST_PATH="/Library/Application Support/Tunnelblick/LeaseWatch.plist"
+if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
+    if [ "${ARG_IGNORE_OPTION_FLAGS:0:2}" = "-p" ] ; then
+        readonly LEASEWATCHER_PLIST_PATH="${TB_RESOURCE_PATH}/ProcessNetworkChanges.plist"
+    else
+        readonly LEASEWATCHER_PLIST_PATH="${TB_RESOURCE_PATH}/LeaseWatch.plist"
+    fi
+fi
 
 set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
