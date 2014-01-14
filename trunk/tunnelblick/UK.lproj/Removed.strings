@@ -28,3 +28,6 @@
 /* Checkbox name */
 "Scan configuration file for problems before connecting" = "Сканувати файли конфігурації на помилки перед з'єднанням";
 
+/* Checkbox name */
+"Check if the apparent public IP address changed after connection" = "Перевіряти чи змінилась публічна IP адреса";
+

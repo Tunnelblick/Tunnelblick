@@ -284,3 +284,6 @@
 
 /* Checkbox name */
 "Use Tunnelblick tun/tap drivers" = "使用 Tunnelblick tun/tap 驱动程序";
+
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "你有 OpenVPN 格式的配置文件但你没有 Tunnelblick VPN 格式的配置文件.\n\n如果你想使用它们, 你必须将 OpenVPN 格式的配置文件转换为 Tunnelblick VPN 格式的配置文件.\n\n";
