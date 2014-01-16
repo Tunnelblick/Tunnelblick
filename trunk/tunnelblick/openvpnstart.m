@@ -184,8 +184,11 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "                            bit  7 is 1 to indicate the domain name should be prepended to the search domains if search domains are not set manually\n"
             "                            bit  8 is 1 to indicate the DNS cache should be flushed after each connection or disconnection\n"
             "                            bit  9 is 1 to indicate the 'redirect-gateway def1' option should be passed to OpenVPN\n"
-            "                            bit 10 is 1 to indicate the primary interface should be reset after disconnect (via ifconfig up; ifconfig down\n"
+            "                            bit 10 is 1 to indicate the primary interface should be reset after disconnect (via ifconfig up; ifconfig down)\n"
             "                            bit 11 is 1 to indicate the --mtu-test option should be added to the command line\n"
+            "                            bit 12 is 1 to indicate that extra logging should be done by the up script\n"
+            "                            bit 13 is 1 to indicate that the default domain ('openvpn') should not be used\n"
+            
             "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
 
             "leasewatchOptions is a string containing characters indicating options for leasewatch.\n\n"
@@ -2199,6 +2202,19 @@ int startVPN(NSString * configFile,
         if (  (bitMask & OPENVPNSTART_RESET_PRIMARY_INTERFACE) != 0  ) {
             [scriptOptions appendString: @" -r"];
         }
+        
+        if (  (bitMask & OPENVPNSTART_EXTRA_LOGGING) != 0  ) {
+            [scriptOptions appendString: @" -l"];
+        }
+        
+        if (  (bitMask & OPENVPNSTART_NO_DEFAULT_DOMAIN) != 0  ) {
+            [scriptOptions appendString: @" -n"];
+        }
+        
+#ifdef TBDebug
+        NSString * appPath = [[gResourcesPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+        [scriptOptions appendString: [@" -t" stringByAppendingString: appPath]];
+#endif
         
         if (  [leasewatchOptions length] > 2  ) {
             [scriptOptions appendString: @" "];

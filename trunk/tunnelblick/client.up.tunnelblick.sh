@@ -25,7 +25,9 @@ logMessage()
 # @param String message - The message to log
 logDebugMessage()
 {
-	echo "${@}" > /dev/null
+    if ${ARG_EXTRA_LOGGING} ; then
+        echo "${@}"
+    fi
 }
 
 ##########################################################################################
@@ -203,7 +205,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 	
 	if echo "${CUR_DNS_CONFIG}" | grep -q "DomainName" ; then
-		readonly CUR_DNS_DN="$(trim "$( echo "${CUR_DNS_CONFIG}" | sed -e 's/^.*DomainName[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )")"
+		readonly CUR_DNS_DN="$(trim "$( echo "${CUR_DNS_CONFIG}" | sed -e 's/^.*DomainName : \([^[:space:]]*\).*$/\1/g' )")"
 	else
 		readonly CUR_DNS_DN="";
 	fi
@@ -371,47 +373,70 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	if "${ARG_PREPEND_DOMAIN_NAME}" ; then
 		if [ "${MAN_DNS_SD}" = "" ] ; then
 			if [ "${DYN_DNS_SD}" != "" ] ; then
-				readonly TMP_DNS_SD="$(trim "${DYN_DNS_SD}" "${CUR_DNS_SD}")"
-				logMessage "Prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
-			else
+                if echo "${CUR_DNS_SD}" | tr ' ' '\n' | grep -q "${DYN_DNS_SD}" ; then
+                    logMessage "Prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
+                    readonly TMP_DNS_SD="$(trim "${DYN_DNS_SD}" "${CUR_DNS_SD}")"
+                else
+                    logMessage "Not prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because it is already there"
+                    readonly TMP_DNS_SD="${CUR_DNS_SD}"
+                fi
+            else
 				readonly TMP_DNS_SD="${CUR_DNS_SD}"
 			fi
-			logMessage "Prepending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
-			readonly FIN_DNS_SD="$(trim "${FIN_DNS_DN}" "${TMP_DNS_SD}")"
+			if [ "${FIN_DNS_DN}" != "" -a  "${FIN_DNS_DN}" != "localdomain" ] ; then
+                if echo "${TMP_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
+                    logMessage "Prepending '${FIN_DNS_DN}' to search domains '${TMP_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
+                    readonly FIN_DNS_SD="$(trim "${FIN_DNS_DN}" "${TMP_DNS_SD}")"
+                else
+                    logMessage "Not prepending '${FIN_DNS_DN}' to search domains '${TMP_DNS_SD}' because it is already there"
+                    readonly FIN_DNS_SD="${TMP_DNS_SD}"
+                fi
+            else
+				readonly FIN_DNS_SD="${TMP_DNS_SD}"
+			fi
 		else
 			if [ "${DYN_DNS_SD}" != "" ] ; then
 				logMessage "Not prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
 			fi
-			logMessage "Not prepending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
+            if [ "${FIN_DNS_DN}" != "" ] ; then
+                logMessage "Not prepending domain '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
+            fi
 			readonly FIN_DNS_SD="${CUR_DNS_SD}"
 		fi
 	else
 		if [ "${DYN_DNS_SD}" != "" ] ; then
 			if [ "${MAN_DNS_SD}" = "" ] ; then
-				readonly FIN_DNS_SD="$(trim "${DYN_DNS_SD}" "${CUR_DNS_SD}")"
 				logMessage "Prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually but were set via OpenVPN and 'Prepend domain name to search domains' was not selected"
+				readonly FIN_DNS_SD="$(trim "${DYN_DNS_SD}" "${CUR_DNS_SD}")"
+            else
+                logMessage "Not prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
+                readonly FIN_DNS_SD="${CUR_DNS_SD}"
 			fi
 		else
-			case "${OSVER}" in
-				10.4 | 10.5 )
-					if echo "${MAN_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
-						logMessage "Not appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because it is already in the search domains that were set manually and 'Prepend domain name to search domains' was not selected"
-						readonly FIN_DNS_SD="${CUR_DNS_SD}"
-					else
-						logMessage "Appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' that were set manually because running under OS X 10.4 or 10.5 and 'Prepend domain name to search domains' was not selected"
-						readonly FIN_DNS_SD="$(trim "${MAN_DNS_SD}" "${FIN_DNS_DN}")"
-					fi
-					;;
-				* )
-					if [ "${MAN_DNS_SD}" = "" ] ; then
-						logMessage "Setting search domains to '${FIN_DNS_DN}' because running under OS X 10.6 or higher and the search domains were not set manually and 'Prepend domain name to search domains' was not selected"
-						readonly FIN_DNS_SD="${FIN_DNS_DN}"
-					else
-						logMessage "Not replacing search domains '${CUR_DNS_SD}' with '${FIN_DNS_DN}' because the search domains were set manually and 'Prepend domain name to search domains' was not selected"
-						readonly FIN_DNS_SD="${CUR_DNS_SD}"
-					fi
-					;;
-			esac
+            if [ "${FIN_DNS_DN}" != "" -a "${FIN_DNS_DN}" != "localdomain" ] ; then
+                case "${OSVER}" in
+                    10.4 | 10.5 )
+                        if echo "${MAN_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
+                            logMessage "Not appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because it is already in the search domains that were set manually and 'Prepend domain name to search domains' was not selected"
+                            readonly FIN_DNS_SD="${CUR_DNS_SD}"
+                        else
+                            logMessage "Appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' that were set manually because running under OS X 10.4 or 10.5 and 'Prepend domain name to search domains' was not selected"
+                            readonly FIN_DNS_SD="$(trim "${MAN_DNS_SD}" "${FIN_DNS_DN}")"
+                        fi
+                        ;;
+                    * )
+                        if [ "${MAN_DNS_SD}" = "" ] ; then
+                            logMessage "Setting search domains to '${FIN_DNS_DN}' because running under OS X 10.6 or higher and the search domains were not set manually and 'Prepend domain name to search domains' was not selected"
+                            readonly FIN_DNS_SD="${FIN_DNS_DN}"
+                        else
+                            logMessage "Not replacing search domains '${CUR_DNS_SD}' with '${FIN_DNS_DN}' because the search domains were set manually and 'Prepend domain name to search domains' was not selected"
+                            readonly FIN_DNS_SD="${CUR_DNS_SD}"
+                        fi
+                        ;;
+                esac
+            else
+                readonly FIN_DNS_SD="${CUR_DNS_SD}"
+            fi
 		fi
 	fi
 		
@@ -564,6 +589,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		d.add PID # ${PPID}
 		d.add Service ${PSID}
 		d.add LeaseWatcherPlistPath "${LEASEWATCHER_PLIST_PATH}"
+		d.add RemoveLeaseWatcherPlist "${REMOVE_LEASEWATCHER_PLIST}"
 		d.add ScriptLogFile         "${SCRIPT_LOG_FILE}"
 		d.add MonitorNetwork        "${ARG_MONITOR_NETWORK_CONFIGURATION}"
 		d.add RestoreOnDNSReset     "${ARG_RESTORE_ON_DNS_RESET}"
@@ -745,6 +771,9 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
         else
             logMessage "Setting up to monitor system configuration with leasewatch"
         fi
+        if [ "${LEASEWATCHER_TEMPLATE_PATH}" != "" ] ; then
+            sed -e "s|/Applications/Tunnelblick/.app/Contents/Resources|${TB_RESOURCES_PATH}|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
+		fi
         launchctl load "${LEASEWATCHER_PLIST_PATH}"
 	fi
 }
@@ -1048,42 +1077,55 @@ logMessage "Start of output from ${OUR_NAME}"
 # They come from Tunnelblick, and come first, before the OpenVPN arguments
 # So we set ARG_ script variables to their values and shift them out of the argument list
 # When we're done, only the OpenVPN arguments remain for the rest of the script to use
-ARG_MONITOR_NETWORK_CONFIGURATION="false"
-ARG_RESTORE_ON_DNS_RESET="false"
-ARG_RESTORE_ON_WINS_RESET="false"
 ARG_TAP="false"
-ARG_PREPEND_DOMAIN_NAME="false"
+ARG_RESTORE_ON_DNS_RESET="false"
 ARG_FLUSH_DNS_CACHE="false"
-ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="false"
 ARG_IGNORE_OPTION_FLAGS=""
+ARG_EXTRA_LOGGING="false"
+ARG_MONITOR_NETWORK_CONFIGURATION="false"
+ARG_DO_NO_USE_DEFAULT_DOMAIN="false"
+ARG_PREPEND_DOMAIN_NAME="false"
+ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="false"
+ARG_TB_PATH="/Applications/Tunnelblick.app"
+ARG_RESTORE_ON_WINS_RESET="false"
 
+# Handle the arguments we know about by setting ARG_ script variables to their values, then shift them out
 while [ {$#} ] ; do
-	if [ "$1" = "-m" ] ; then						# Handle the arguments we know about
-		ARG_MONITOR_NETWORK_CONFIGURATION="true"	# by setting ARG_ script variables to their values
-		shift										# Then shift them out
-	elif [ "$1" = "-d" ] ; then
-		ARG_RESTORE_ON_DNS_RESET="true"
-		shift
-	elif [ "$1" = "-w" ] ; then
-		ARG_RESTORE_ON_WINS_RESET="true"
-		shift
-	elif [ "$1" = "-a" ] ; then
+	if [ "$1" = "-a" ] ; then						# -a = ARG_TAP
 		ARG_TAP="true"
 		shift
-	elif [ "$1" = "-p" ] ; then
-		ARG_PREPEND_DOMAIN_NAME="true"
+    elif [ "$1" = "-d" ] ; then                     # -d = ARG_RESTORE_ON_DNS_RESET
+		ARG_RESTORE_ON_DNS_RESET="true"
 		shift
-    elif [ "$1" = "-f" ] ; then
+    elif [ "$1" = "-f" ] ; then                     # -f = ARG_FLUSH_DNS_CACHE
         ARG_FLUSH_DNS_CACHE="true"
         shift
-    elif [ "$1" = "-r" ] ; then
+	elif [ "${1:0:2}" = "-i" ] ; then				# -i arguments are for leasewatcher
+		ARG_IGNORE_OPTION_FLAGS="${1}"
+		shift
+   elif [ "$1" = "-l" ] ; then                      # -l = ARG_EXTRA_LOGGING
+        ARG_EXTRA_LOGGING="true"
+        shift
+    elif [ "$1" = "-m" ] ; then                     # -m = ARG_MONITOR_NETWORK_CONFIGURATION
+		ARG_MONITOR_NETWORK_CONFIGURATION="true"
+		shift
+    elif [ "$1" = "-n" ] ; then                     # -n = ARG_DO_NO_USE_DEFAULT_DOMAIN
+        ARG_DO_NO_USE_DEFAULT_DOMAIN="true"
+        shift
+    elif [ "$1" = "-p" ] ; then                     # -p = ARG_PREPEND_DOMAIN_NAME
+		ARG_PREPEND_DOMAIN_NAME="true"
+		shift
+    elif [ "${1:0:2}" = "-p" ] ; then				# -p arguments are for process-network-changes
+		ARG_IGNORE_OPTION_FLAGS="${1}"
+		shift
+    elif [ "$1" = "-r" ] ; then                     # -r = ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT
         ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="true"
         shift
-	elif [ "${1:0:2}" = "-i" ] ; then
-		ARG_IGNORE_OPTION_FLAGS="${1}"				# -i arguments are for leasewatcher
-		shift
-	elif [ "${1:0:2}" = "-p" ] ; then
-		ARG_IGNORE_OPTION_FLAGS="${1}"				# -p arguments are for process-network-changes
+    elif [ "${1:0:2}" = "-t" ] ; then
+        ARG_TB_PATH="${1:2}"				        # -t path of Tunnelblick.app
+        shift
+    elif [ "$1" = "-w" ] ; then                     # -w = ARG_RESTORE_ON_WINS_RESET
+		ARG_RESTORE_ON_WINS_RESET="true"
 		shift
 	else
 		if [ "${1:0:1}" = "-" ] ; then				# Shift out Tunnelblick arguments (they start with "-") that we don't understand
@@ -1116,21 +1158,50 @@ fi
 readonly CONFIG_PATH_DASHES_SLASHES="$(echo "${TBCONFIG}" | sed -e 's/-/--/g' | sed -e 's/\//-S/g')"
 readonly SCRIPT_LOG_FILE="/Library/Application Support/Tunnelblick/Logs/${CONFIG_PATH_DASHES_SLASHES}.script.log"
 
-readonly TB_RESOURCE_PATH="/Applications/Tunnelblick.app/Contents/Resources"
+readonly TB_RESOURCES_PATH="${ARG_TB_PATH}/Contents/Resources"
 
-if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-    if [ "${ARG_IGNORE_OPTION_FLAGS:0:2}" = "-p" ] ; then
-        readonly LEASEWATCHER_PLIST_PATH="${TB_RESOURCE_PATH}/ProcessNetworkChanges.plist"
-    else
-        readonly LEASEWATCHER_PLIST_PATH="${TB_RESOURCE_PATH}/LeaseWatch.plist"
-    fi
+# These scripts use a launchd .plist to set up to monitor the network configuration.
+#
+# If Tunnelblick.app is located in /Applications, we load the lanuchd .plist directly from within the .app.
+#
+# If Tunnelblick.app is not located in /Applications (i.e., we are debugging), we create a modified version of the launchd .plist and use
+# that modified copy in the 'launchctl load' command. (The modification is that the path to process-network-changes or leasewatch program
+# in the .plist is changed to point to the copy of the program that is inside the running Tunnelblick.)
+#
+# The variables involved in this are set up here:
+#
+#     LEASEWATCHER_PLIST_PATH    is the path of the .plist to use in the 'launchctl load' command
+#     LEASEWATCHER_TEMPLATE_PATH is an empty string if we load the .plist directly from within the .app,
+#                                or it is the path to the original .plist inside the .app which we copy and modify
+#     REMOVE_LEASEWATCHER_PLIST  is "true" if a modified .plist was used and should be deleted after it is unloaded
+#                                or "false' if the plist was loaded directly from the .app
+#
+#     LEASEWATCHER_PLIST_PATH and REMOVE_LEASEWATCHER_PLIST are passed to the other scripts via the scutil State:/Network/OpenVPN mechanism
+
+if [ "${ARG_IGNORE_OPTION_FLAGS:0:2}" = "-p" ] ; then
+    readonly LEASEWATCHER_PLIST="ProcessNetworkChanges.plist"
+else
+    readonly LEASEWATCHER_PLIST="LeaseWatch.plist"
+fi
+if [ "${ARG_TB_PATH}" = "/Applications/Tunnelblick.app" ] ; then
+    readonly LEASEWATCHER_PLIST_PATH="${TB_RESOURCES_PATH}/${LEASEWATCHER_PLIST}"
+    readonly LEASEWATCHER_TEMPLATE_PATH=""
+    readonly REMOVE_LEASEWATCHER_PLIST="false"
+else
+    readonly LEASEWATCHER_PLIST_PATH="/Library/Application Support/Tunnelblick/${LEASEWATCHER_PLIST}"
+    readonly LEASEWATCHER_TEMPLATE_PATH="${TB_RESOURCES_PATH}/${LEASEWATCHER_SUFFIX}"
+    readonly REMOVE_LEASEWATCHER_PLIST="true"
 fi
 
 set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
 set -e # We instruct bash that it CAN again fail on errors
 
-readonly DEFAULT_DOMAIN_NAME="openvpn"
+if ${ARG_DO_NO_USE_DEFAULT_DOMAIN} ; then
+    readonly DEFAULT_DOMAIN_NAME=""
+else
+    readonly DEFAULT_DOMAIN_NAME="openvpn"
+fi
 
 bRouteGatewayIsDhcp="false"
 

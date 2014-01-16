@@ -148,28 +148,30 @@
 
 //*************************************************************************************************
 // Bit masks for bitMask parameter of openvpnstart's start, loadkexts, and unloadkexts sub-commands
-#define OPENVPNSTART_OUR_TUN_KEXT              0x001u
-#define OPENVPNSTART_OUR_TAP_KEXT              0x002u
+#define OPENVPNSTART_OUR_TUN_KEXT              0x0001u
+#define OPENVPNSTART_OUR_TAP_KEXT              0x0002u
 
-#define OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT   0x003u
-#define OPENVPNSTART_KEXTS_MASK_LOAD_MAX       0x003u
+#define OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT   0x0003u
+#define OPENVPNSTART_KEXTS_MASK_LOAD_MAX       0x0003u
 
-#define OPENVPNSTART_FOO_TUN_KEXT              0x004u
-#define OPENVPNSTART_FOO_TAP_KEXT              0x008u
+#define OPENVPNSTART_FOO_TUN_KEXT              0x0004u
+#define OPENVPNSTART_FOO_TAP_KEXT              0x0008u
 
-#define OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT 0x003u
-#define OPENVPNSTART_KEXTS_MASK_UNLOAD_MAX     0x00Fu
+#define OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT 0x0003u
+#define OPENVPNSTART_KEXTS_MASK_UNLOAD_MAX     0x000Fu
 
-#define OPENVPNSTART_RESTORE_ON_DNS_RESET      0x010u
-#define OPENVPNSTART_RESTORE_ON_WINS_RESET     0x020u
-#define OPENVPNSTART_USE_TAP                   0x040u
-#define OPENVPNSTART_PREPEND_DOMAIN_NAME       0x080u
-#define OPENVPNSTART_FLUSH_DNS_CACHE           0x100u
-#define OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 0x200u
-#define OPENVPNSTART_RESET_PRIMARY_INTERFACE   0x400u
-#define OPENVPNSTART_TEST_MTU                  0x800u
+#define OPENVPNSTART_RESTORE_ON_DNS_RESET      0x0010u
+#define OPENVPNSTART_RESTORE_ON_WINS_RESET     0x0020u
+#define OPENVPNSTART_USE_TAP                   0x0040u
+#define OPENVPNSTART_PREPEND_DOMAIN_NAME       0x0080u
+#define OPENVPNSTART_FLUSH_DNS_CACHE           0x0100u
+#define OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 0x0200u
+#define OPENVPNSTART_RESET_PRIMARY_INTERFACE   0x0400u
+#define OPENVPNSTART_TEST_MTU                  0x0800u
+#define OPENVPNSTART_EXTRA_LOGGING             0x1000u
+#define OPENVPNSTART_NO_DEFAULT_DOMAIN         0x2000u
 
-#define OPENVPNSTART_START_BITMASK_MAX         0xFFFu
+#define OPENVPNSTART_START_BITMASK_MAX         0x3FFFu
 
 
 //*************************************************************************************************
