@@ -421,6 +421,7 @@ BOOL needToConvertNonTblks(void);
 									  @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection",
 									  @"-keepConnected",
                                       @"-doNotDisconnectOnSleep",
+									  @"-doNotUseDefaultDomain",
 									  
                                       @"-changeDNSServersAction",
                                       @"-changeDomainAction",
