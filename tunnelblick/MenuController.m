@@ -231,9 +231,10 @@ BOOL needToConvertNonTblks(void);
                                 // @"DB-HU",     Extra logging for hookup,
                                 // @"DB-IC",     Extra logging for IP address checking
                                 // @"DB-IT",     Extra logging for IP address check threading
-                                // @"DB-SU",     Extra logging for startup
                                 // @"DB-SD",     Extra logging for shutdown
+                                // @"DB-SU",     Extra logging for startup
                                 // @"DB-SW",     Extra logging for sleep/wake
+                                // @"DB-UP",     Extra logging for the up script
                                 
                                 @"skipWarningAboutReprotectingConfigurationFile",
                                 @"skipWarningAboutSimultaneousConnections",

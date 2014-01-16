@@ -362,7 +362,6 @@
 		637A879A13B75694003C1871 /* tb-logo-309x64-2011-06-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tb-logo-309x64-2011-06-26.png"; sourceTree = "<group>"; };
 		637ACF281053EE9B00A49655 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
 		637BE08413A0218A00673909 /* Preferences.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Preferences.png; sourceTree = "<group>"; };
-		6386141C1493AF8B00C3DCCE /* ProcessNetworkChanges.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ProcessNetworkChanges.plist; path = ProcessNetworkChanges.plist.template; sourceTree = "<group>"; };
 		6387F0F4135604240021E41B /* tunnelblick.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; path = tunnelblick.sdef; sourceTree = "<group>"; };
 		6388563C134B7E1C008DF8C1 /* PassphraseWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassphraseWindowController.h; sourceTree = "<group>"; };
 		6388563D134B7E1C008DF8C1 /* PassphraseWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassphraseWindowController.m; sourceTree = "<group>"; };
@@ -406,13 +405,11 @@
 		63D39BF114F9ED13002D1297 /* Configurations.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Configurations.png; sourceTree = "<group>"; };
 		63D9257E135DAEE1001FF627 /* client.3.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.3.down.tunnelblick.sh; sourceTree = "<group>"; };
 		63D9257F135DAEE1001FF627 /* client.3.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.3.up.tunnelblick.sh; sourceTree = "<group>"; };
-		63D92580135DAEE1001FF627 /* LeaseWatch3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = LeaseWatch3.plist; path = LeaseWatch3.plist.template; sourceTree = "<group>"; };
 		63D92581135DAEE1001FF627 /* leasewatch3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch3; sourceTree = "<group>"; };
 		63DAFD5311CBA9F4002F9F91 /* defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defines.h; sourceTree = "<group>"; };
 		63DEC28E13B890F70063CE11 /* NSString+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TB.h"; sourceTree = "<group>"; };
 		63DEC28F13B890F70063CE11 /* NSString+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TB.m"; sourceTree = "<group>"; };
 		63E372660FEB3FF00012DDE7 /* leasewatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch; sourceTree = "<group>"; };
-		63E372670FEB3FF00012DDE7 /* LeaseWatch.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = LeaseWatch.plist; path = LeaseWatch.plist.template; sourceTree = "<group>"; };
 		63E56EBD13848194007E39AB /* VPNServiceCreateAccount.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VPNServiceCreateAccount.xib; sourceTree = "<group>"; };
 		63E56EBE13848194007E39AB /* VPNServiceIntro.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VPNServiceIntro.xib; sourceTree = "<group>"; };
 		63E56EBF13848194007E39AB /* VPNServiceLogin.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VPNServiceLogin.xib; sourceTree = "<group>"; };
@@ -609,9 +606,6 @@
 		29B97314FDCFA39411CA2CEA /* Tunnelblick */ = {
 			isa = PBXGroup;
 			children = (
-				63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */,
-				63C2E19D18846D3800ED0003 /* LeaseWatch3.plist */,
-				63C2E19B18846D2A00ED0003 /* LeaseWatch.plist */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -797,9 +791,9 @@
 				63AF2CAD15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh */,
 				63E372660FEB3FF00012DDE7 /* leasewatch */,
 				63D92581135DAEE1001FF627 /* leasewatch3 */,
-				63E372670FEB3FF00012DDE7 /* LeaseWatch.plist */,
-				6386141C1493AF8B00C3DCCE /* ProcessNetworkChanges.plist */,
-				63D92580135DAEE1001FF627 /* LeaseWatch3.plist */,
+				63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */,
+				63C2E19D18846D3800ED0003 /* LeaseWatch3.plist */,
+				63C2E19B18846D2A00ED0003 /* LeaseWatch.plist */,
 				63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */,
 				63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */,
 				634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */,
