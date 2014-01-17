@@ -9,6 +9,48 @@
 
 ==Version 3.4==
 
+*3.4beta20 (2014-01-16)*
+
+ * Replaces embedded OpenSSL 1.0.1e with 1.0.1f (see [http://www.openssl.org/news/vulnerabilities.html OpenSSL Vulnerabilities]).
+
+ * Checks and corrects ownership/permissions of launchd .plist files when Tunnelblick launches.
+
+ * Adds a list of loaded non-Apple kexts to the 'Diagnostic Info'.
+
+ * Adds detailed logging if the 'DB-ALL' preference is set.
+
+ * Inhibits use of the default 'openvpn' domain if the per-configuration '-doNotUseDefaultDomain' preference is set.
+
+ * Fixes a problem that caused the Tunnelblick icon to show the connection status incorrectly.
+
+ * Fixes two problems that caused settings to change without the user requesting the change.
+
+ * Fixes a problem with the Tunnelblick icon disappearing for five seconds after the computer wakes from sleep if Tunnelblick is not set to check for an apparent public IP address change.
+
+ * Fixes a problem using Tunnelblick after the 'Examine OpenVPN Configuration' command is used.
+
+ * Fixes a problem that caused the incorrect display of the 'Do not show on Tunnelblick menu' checkbox.
+
+ * Fixes a problem with repeated unexpected disconnection sounds when waking from sleep and there is no Internet access and 'Check if the apparent public IP address changed after connecting' is not enabled.
+
+ * Fixes a problem recognizing OpenVPN processes that were running when Tunnelblick was launched.
+
+ * Fixes a problem starting more than one configuration 'when computer starts'.
+
+ * Fixes a problem disconnecting with the disconnect menu command or notification window disconnect button.
+
+ * Fixes a problem disconnecting configurations set to start when the computer starts.
+
+ * Fixes problems when Tunnelblick is launched when more than one configuration is already connecting or connected.
+
+ * Fixes a problem that caused the 'VPN Details…' window to move to the center of the screen when the 'VPN Details…' menu command is clicked.
+
+ * Fixes a problem reconnecting after computer sleep if 'Check if apparent public IP address changes after connecting' is not checked.
+
+ * Fixes several minor memory leaks.
+
+--------------------
+
 *3.4beta18 (2013-12-18)*
 
  * Includes a new status icon (the icon in the menu bar) more in keeping with recent OS X aesthetics and which includes Retina images. (The old icon may be selected as the 'Tunnelblick 3.3 icon' on the Appearance panel of the 'VPN Details…' window.)

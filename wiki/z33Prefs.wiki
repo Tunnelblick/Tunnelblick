@@ -157,6 +157,7 @@ If you wish a forced preference to be used for all configurations, use an asteri
   * *-loadTunKext* (Boolean): If set, the standard tun kext will be loaded.
   * *-doNotShowOnTunnelblickMenu* (Boolean): If set, the configuration will not be displayed in the Tunnelblick menu.
   * *-prependDomainNameToSearchDomains* (Boolean): If set, makes Tunnelblick add the domain name provided by OpenVPN to the start of the list of search domains if the search domains are not manually set.
+  * *-doNotUseDefaultDomain* (Boolean): If cleared, a domain of 'openvpn' will be used if no domain is specified in the OpenVPN configuration or pushed by the OpenVPN server. If set, no default domain will be used. Cleared by default.
   
   The following preferences control what Tunnelblick does when a network setting change occurs. They may have values of 'ignore', 'restore', or 'restart'. 'ignore' will cause the network change to be ignored; 'restore' will cause the network change to be reversed (the setting will be set to the post-VPN setting); and 'restart' will cause the connection to be restarted. They are usually set by controls on the "While Connected" tab of the "Advanced" settings window. They will be ignored (and the controls disabled) if the "-leasewatchOptions" preference is present.
 

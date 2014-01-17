@@ -3,6 +3,20 @@
 
 *<font size="3">News</font>*
 
+2014-01-16: *Tunnelblick 3.4beta20 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Replaces embedded OpenSSL 1.0.1e with 1.0.1f (see [http://www.openssl.org/news/vulnerabilities.html OpenSSL Vulnerabilities]).
+
+ * Checks and corrects ownership/permissions of launchd .plist files when Tunnelblick launches.
+
+ * Adds a list of loaded non-Apple kexts to the 'Diagnostic Info'.
+
+ * Includes several other enhancements and fixes many bugs.
+
+ See the [RlsNotes#Version_3.4 Release Notes] for details.
+
+--------------------
+
 2013-12-18: *Tunnelblick 3.4beta18 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Includes a new status icon (the icon in the menu bar) more in keeping with recent OS X aesthetics and which includes Retina images. (The old icon may be selected as the 'Tunnelblick 3.3 icon' on the Appearance panel of the 'VPN Details…' window.)
