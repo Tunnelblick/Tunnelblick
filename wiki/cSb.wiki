@@ -1,5 +1,5 @@
 #summary Version-independent Sidebar
-<a href="http://code.google.com/p/tunnelblick/wiki/Donate"><img src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate" /></a><br><br>
+<a href="https://code.google.com/p/tunnelblick/wiki/Donate"><img src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate" /></a><br><br>
 *[https://groups.google.com/forum/#!forum/tunnelblick-discuss DISCUSSION GROUP]*<br><br>
 *[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*<br><br>
 *[News News]*<br><br>
