@@ -4,6 +4,11 @@
 
 <hr>
 
+*[DocumentationForTunnelblick_3_3 Tunnelblick 3.3 Highlights]*
+  ALL ARTICLES are available from the side navigation panel on each page.<br><br>
+
+<hr>
+
 *[DocumentationForTunnelblick_3_2 Tunnelblick 3.2 Highlights]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
