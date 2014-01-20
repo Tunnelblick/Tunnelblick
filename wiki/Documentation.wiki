@@ -1,16 +1,14 @@
 #summary Entry page for the Documentation
 #sidebar cSb
 = Documentation =
-
+  ALL ARTICLES are available from the side navigation panel on each page.<br><br>
 <hr>
 
 *[DocumentationForTunnelblick_3_3 Tunnelblick 3.3 Highlights]*
-  ALL ARTICLES are available from the side navigation panel on each page.<br><br>
 
 <hr>
 
 *[DocumentationForTunnelblick_3_2 Tunnelblick 3.2 Highlights]*
-  ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [zQuick Quick Start Guide]<br><br>
     [cInstall Installing Tunnelblick]<br>
@@ -23,7 +21,6 @@
 <hr>
 
 *[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 Highlights]*
-  ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [wQuick Quick Start Guide]<br><br>
     [cInstall Installing Tunnelblick]<br>
@@ -36,7 +33,6 @@
 <hr>
 
 *[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Highlights]*
-  ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [UsingTunnelblick Installing and Using Tunnelblick]<br>
     [GettingVPNService Getting VPN Service]<br>
