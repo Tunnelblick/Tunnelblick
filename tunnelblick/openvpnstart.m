@@ -832,9 +832,8 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
     
 	becomeRoot([NSString stringWithFormat: @"launch %@", [thePath lastPathComponent]]);
 	[task launch];
-    stopBeingRoot();
-
 	[task waitUntilExit];
+    stopBeingRoot();
 	
     [stdFileHandle closeFile];
     [stdFileHandle release];
