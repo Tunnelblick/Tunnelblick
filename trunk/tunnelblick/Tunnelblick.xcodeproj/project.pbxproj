@@ -22,7 +22,6 @@
 		61BC4B7C0E2F9EBC00F24255 /* NetSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B6C0E2F9EBC00F24255 /* NetSocket.m */; };
 		61BC4B7D0E2F9EBC00F24255 /* NetSocket+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B6E0E2F9EBC00F24255 /* NetSocket+Text.m */; };
 		61BC4B7E0E2F9EBC00F24255 /* NSApplication+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B700E2F9EBC00F24255 /* NSApplication+LoginItem.m */; };
-		61BC4B7F0E2F9EBC00F24255 /* NSApplication+NetworkNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B720E2F9EBC00F24255 /* NSApplication+NetworkNotifications.m */; };
 		61BC4B800E2F9EBC00F24255 /* KeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B740E2F9EBC00F24255 /* KeyChain.m */; };
 		61BC4B810E2F9EBC00F24255 /* AuthAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B770E2F9EBC00F24255 /* AuthAgent.m */; };
 		61BC4B910E2F9EDA00F24255 /* UKFNSubscribeFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B8B0E2F9EDA00F24255 /* UKFNSubscribeFileWatcher.m */; };
@@ -283,8 +282,6 @@
 		61BC4B6E0E2F9EBC00F24255 /* NetSocket+Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NetSocket+Text.m"; sourceTree = "<group>"; };
 		61BC4B6F0E2F9EBC00F24255 /* NSApplication+LoginItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+LoginItem.h"; sourceTree = "<group>"; };
 		61BC4B700E2F9EBC00F24255 /* NSApplication+LoginItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+LoginItem.m"; sourceTree = "<group>"; };
-		61BC4B710E2F9EBC00F24255 /* NSApplication+NetworkNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+NetworkNotifications.h"; sourceTree = "<group>"; };
-		61BC4B720E2F9EBC00F24255 /* NSApplication+NetworkNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+NetworkNotifications.m"; sourceTree = "<group>"; };
 		61BC4B730E2F9EBC00F24255 /* NSArray+cArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+cArray.h"; sourceTree = "<group>"; };
 		61BC4B740E2F9EBC00F24255 /* KeyChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChain.m; sourceTree = "<group>"; };
 		61BC4B750E2F9EBC00F24255 /* KeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChain.h; sourceTree = "<group>"; };
@@ -887,8 +884,6 @@
 				61BC4B6E0E2F9EBC00F24255 /* NetSocket+Text.m */,
 				61BC4B6F0E2F9EBC00F24255 /* NSApplication+LoginItem.h */,
 				61BC4B700E2F9EBC00F24255 /* NSApplication+LoginItem.m */,
-				61BC4B710E2F9EBC00F24255 /* NSApplication+NetworkNotifications.h */,
-				61BC4B720E2F9EBC00F24255 /* NSApplication+NetworkNotifications.m */,
 				6305E5D610F7974200E30B11 /* NSApplication+SystemVersion.h */,
 				6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */,
 				61BC4B730E2F9EBC00F24255 /* NSArray+cArray.h */,
@@ -1392,7 +1387,6 @@
 				61BC4B7C0E2F9EBC00F24255 /* NetSocket.m in Sources */,
 				61BC4B7D0E2F9EBC00F24255 /* NetSocket+Text.m in Sources */,
 				61BC4B7E0E2F9EBC00F24255 /* NSApplication+LoginItem.m in Sources */,
-				61BC4B7F0E2F9EBC00F24255 /* NSApplication+NetworkNotifications.m in Sources */,
 				61BC4B800E2F9EBC00F24255 /* KeyChain.m in Sources */,
 				61BC4B810E2F9EBC00F24255 /* AuthAgent.m in Sources */,
 				61BC4B910E2F9EDA00F24255 /* UKFNSubscribeFileWatcher.m in Sources */,

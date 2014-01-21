@@ -1189,7 +1189,7 @@ if [ "${ARG_TB_PATH}" = "/Applications/Tunnelblick.app" ] ; then
     readonly REMOVE_LEASEWATCHER_PLIST="false"
 else
     readonly LEASEWATCHER_PLIST_PATH="/Library/Application Support/Tunnelblick/${LEASEWATCHER_PLIST}"
-    readonly LEASEWATCHER_TEMPLATE_PATH="${TB_RESOURCES_PATH}/${LEASEWATCHER_SUFFIX}"
+    readonly LEASEWATCHER_TEMPLATE_PATH="${TB_RESOURCES_PATH}/${LEASEWATCHER_PLIST}"
     readonly REMOVE_LEASEWATCHER_PLIST="true"
 fi
 

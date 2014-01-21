@@ -32,7 +32,7 @@
 #import "NSFileManager+TB.h"
 
 //**************************************************************************************************************************
-NSAutoreleasePool   * pool;
+NSAutoreleasePool   * pool           = nil;
 
 NSString			* gConfigPath    = nil;     // Path to configuration file
 //                                                 in ~/Library/Application Support/Tunnelblick/Configurations/
@@ -59,7 +59,7 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
-    // returnValue: have used 180-248, plus the values in define.h (249-254)
+    // returnValue: have used 183-247, plus the values in define.h (248-254)
 void exitOpenvpnstart(OSStatus returnValue) {
     [pool drain];
     exit(returnValue);
@@ -69,9 +69,6 @@ void printUsageMessageAndExitOpenvpnstart(void) {
     const char * killStringC;
     if (  ALLOW_OPENVPNSTART_KILL  ) {
         killStringC =
-        "./openvpnstart killall\n"
-        "               to terminate all processes named 'openvpn'\n\n"
-        
         "./openvpnstart kill   processId\n"
         "               to terminate the 'openvpn' process with the specified processID\n\n";
     } else {
@@ -337,16 +334,16 @@ void becomeRootToAccessPath(NSString * path, NSString * reason) {
     if (   (   [path hasPrefix: L_AS_T_USERS]
             && (  [path length] > [L_AS_T_USERS length]  )  )
         || ([path rangeOfString: @".tblk/"].location != NSNotFound) ) {
-            becomeRoot(reason);
-        }
+        becomeRoot(reason);
+    }
 }
 
 void stopBeingRootToAccessPath(NSString * path) {
     if (   (   [path hasPrefix: L_AS_T_USERS]
             && (  [path length] > [L_AS_T_USERS length]  )  )
         || ([path rangeOfString: @".tblk/"].location != NSNotFound)  ) {
-            stopBeingRoot();
-        }
+        stopBeingRoot();
+    }
 }
 
 BOOL fileExistsForRootAtPath(NSString * path) {
@@ -1169,61 +1166,6 @@ int getProcesses(struct kinfo_proc** procs, unsigned * number) {
     return 0;
 }
 
-BOOL isOpenvpn(pid_t pid) {
-	//Returns TRUE if process is an openvpn process (i.e., process name = "openvpn"), otherwise returns FALSE
-	
-	BOOL				is_openvpn	= FALSE;
-	unsigned			count		= 0;
-	unsigned            i			= 0;
-	struct kinfo_proc*	info		= NULL;
-	
-	if (  getProcesses(&info, &count) == 0 ) {
-        for (i = 0; i < count; i++) {
-            char* process_name = info[i].kp_proc.p_comm;
-            pid_t thisPid = info[i].kp_proc.p_pid;
-            if (pid == thisPid) {
-                if (strcmp(process_name, "openvpn")==0) {
-                    is_openvpn = TRUE;
-                } else {
-                    is_openvpn = FALSE;
-                }
-                break;
-            }
-        }    
-        free(info);
-        return is_openvpn;
-    }
-    
-    appendLog([NSString stringWithFormat: @"isOpenvpn(%lu): Unable to get process information via getProcesses()", (long) pid]);
-    exitOpenvpnstart(180);
-    return NO;
-}
-
-BOOL processExists(pid_t pid) {
-	//Returns TRUE if process exists, otherwise returns FALSE
-	
-	BOOL				does_exist	= FALSE;
-	unsigned			count		= 0;
-	unsigned            i           = 0;
-	struct kinfo_proc*	info		= NULL;
-	
-	if (  getProcesses(&info, &count) == 0 ) {
-        for (i = 0; i < count; i++) {
-            pid_t thisPid = info[i].kp_proc.p_pid;
-            if (pid == thisPid) {
-                does_exist = TRUE;
-                break;
-            }
-        }
-        free(info);
-        return does_exist;
-    }
-    
-    appendLog([NSString stringWithFormat: @"processExists(%lu): Unable to get process information via getProcesses()", (long) pid]);
-    exitOpenvpnstart(181);
-    return NO;
-}
-
 void waitUntilAllGone(void) {
 	//Waits until all OpenVPN processes are gone or five seconds, whichever comes first
 	
@@ -1257,8 +1199,8 @@ void waitUntilAllGone(void) {
                 break;
             }
         } else {
-            appendLog(@"waitUntilAllGone(): Unable to get process information via getProcesses()");
-            exitOpenvpnstart(182);
+            fprintf(stderr, "waitUntilAllGone(): Unable to get process information via getProcesses()");
+            exitOpenvpnstart(217);
         }
     }
     
@@ -1268,33 +1210,56 @@ void waitUntilAllGone(void) {
 }
 
 void killOneOpenvpn(pid_t pid) {
-	//Returns having killed an openvpn process, or complains and exits
+    
+	// Sends SIGTERM to the specified openvpn process, or complains and exits with an error
 	
     if (  ! ALLOW_OPENVPNSTART_KILL  ) {
-        fprintf(stderr, "The kill command is no longer allowed\n");
+        fprintf(stderr, "The kill command is not allowed\n");
         exitOpenvpnstart(216);
     }
     
-	int didnotKill;
-	
-    if (  ! processExists(pid)  ) {
-        fprintf(stderr, "Error: Process %ld does not exist\n", (long) pid);
-        exitOpenvpnstart(217);
-    }
+    unsigned count = 0;
+    struct kinfo_proc * info = NULL;
     
-	if(isOpenvpn(pid)) {
-		becomeRoot(@"kill one specific OpenVPN process");
-		didnotKill = kill(pid, SIGTERM);
-        stopBeingRoot();
+    if (  getProcesses(&info, &count) == 0 ) {
+        unsigned i;
+        for (  i = 0; i < count; i++  ) {
+            
+            pid_t process_pid  = info[i].kp_proc.p_pid;
+            if (  pid == process_pid  ) {
+                
+                char* process_name = info[i].kp_proc.p_comm;
+                if (  strcmp(process_name, "openvpn") == 0  ) {
+                    
+                    free(info);
+                    
+                    becomeRoot(@"kill one specified OpenVPN process");
+                    BOOL didKill = (  kill(pid, SIGTERM) == 0  );
+                    stopBeingRoot();
+                    
+                    if (  didKill  ) {
+                        return;
+                    }
+                    
+                    if (  errno == ESRCH  ) {
+                        fprintf(stderr, "killOneOpenvpn(%lu): kill() failed: Process does not exist\n", (unsigned long) pid);
+                        exitOpenvpnstart(OPENVPNSTART_NO_SUCH_OPENVPN_PROCESS);
+                    }
+                    
+                    fprintf(stderr, "killOneOpenvpn(%lu): kill() failed; errno %d: %s\n", (unsigned long) pid, errno, strerror(errno));
+                    exitOpenvpnstart(218);
+                }
+            }
+        }
         
-		if (didnotKill) {
-			fprintf(stderr, "Error: Unable to kill openvpn process %ld\n", (long) pid);
-			exitOpenvpnstart(218);
-		}
-	} else {
-		fprintf(stderr, "Error: Process %ld is not an openvpn process\n", (long) pid);
-		exitOpenvpnstart(219);
-	}
+        free(info);
+        
+        fprintf(stderr, "killOneOpenvpn(%lu): Process does not exist\n", (unsigned long) pid);
+        exitOpenvpnstart(OPENVPNSTART_NO_SUCH_OPENVPN_PROCESS);
+    } else {
+        fprintf(stderr, "killOneOpenvpn(%lu): Unable to get process information via getProcesses()", (unsigned long) pid);
+        exitOpenvpnstart(219);
+    }
 }
 
 void killAllOpenvpn(void) {
