@@ -1745,6 +1745,43 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 // Log tab
 
+-(NSString *) listOfFilesInTblkForConnection: (VPNConnection *) connection {
+    
+    NSString * configPath = [connection configPath];
+    NSString * configPathTail = [configPath lastPathComponent];
+    
+    if (  [configPath hasSuffix: @".tblk"]  ) {
+        if (  [configPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+            NSMutableString * fileListString = [[[NSMutableString alloc] initWithCapacity: 500] autorelease];
+            NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: configPath];
+            NSString * filename;
+            while (  (filename = [dirEnum nextObject])  ) {
+                if (  ! [filename hasPrefix: @"."]  ) {
+					NSString * extension = [filename pathExtension];
+					NSArray * extensionsToSkip = KEY_AND_CRT_EXTENSIONS;
+					if (   ( ! [extensionsToSkip containsObject: extension])
+						&& ( ! [extension isEqualToString: @"ovpn"])  ) {
+						NSString * fullPath = [configPath stringByAppendingPathComponent: filename];
+						BOOL isDir;
+						if (  ! (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+								 && isDir)  ) {
+							[fileListString appendFormat: @"      %@\n", filename];
+						}
+					}
+				}
+			}
+            
+			return (  ([fileListString length] == 0)
+					? [NSString stringWithFormat: @"There are no unusual files in %@\n", configPathTail]
+					: [NSString stringWithFormat: @"Unusual files in %@:\n%@", configPathTail, fileListString]);
+		} else {
+            return [NSString stringWithFormat: @"Cannot list unusual files in %@; not a private configuration\n", configPathTail];
+        }
+    } else {
+        return [NSString stringWithFormat: @"Cannot list unusual files in %@; not a .tblk\n", configPathTail];
+    }
+}
+
 -(NSString *) tigerConsoleContents {
     
     // Tiger doesn't implement the asl API (or not enough of it). So we get the console log from the file if we are running as an admin
@@ -1946,6 +1983,9 @@ static BOOL firstTimeShowingWindow = TRUE;
             configFileContents = @"(No configuration file found!)";
         }
 		
+        // Get list of files in .tblk or message explaining why cannot get list
+        NSString * tblkFileList = [self listOfFilesInTblkForConnection: connection];
+        
         // Get relevant preferences
         NSString * configurationPreferencesContents = [self getPreferences: gConfigurationPreferences prefix: [connection displayName]];
         
@@ -1958,20 +1998,18 @@ static BOOL firstTimeShowingWindow = TRUE;
         NSString * logContents = [store string];
         
 		// Get tail of Console log
-        NSString * consoleContents;
-        if (  runningOnLeopardOrNewer()  ) {
-            consoleContents = [self stringContainingRelevantConsoleLogEntries];
-        } else {
-            consoleContents = [self tigerConsoleContents];
-        }
+        NSString * consoleContents = (  runningOnLeopardOrNewer()
+                                      ? [self stringContainingRelevantConsoleLogEntries]
+                                      : [self tigerConsoleContents]);
         
         NSString * kextContents = [self nonAppleKextContents];
         
 		NSString * separatorString = @"================================================================================\n\n";
 		
         NSString * output = [NSString stringWithFormat:
-							 @"%@\n\n"
+							 @"%@\n\n"  // Version info
                              @"\"Sanitized\" configuration file for %@:\n\n%@\n\n%@"
+                             @"%@\n%@"  // List of unusual files in .tblk (or message why not listing them)
                              @"Configuration preferences:\n\n%@\n%@"
                              @"Wildcard preferences:\n\n%@\n%@"
                              @"Program preferences:\n\n%@\n%@"
@@ -1980,6 +2018,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                              @"Non-Apple kexts that are loaded:\n\n%@",
                              versionContents,
                              [connection configPath], configFileContents, separatorString,
+                             tblkFileList, separatorString,
                              configurationPreferencesContents, separatorString,
                              wildcardPreferencesContents, separatorString,
                              programPreferencesContents, separatorString,
