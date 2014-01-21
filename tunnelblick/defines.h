@@ -23,7 +23,7 @@
 // Misc:
 
 // Set to TRUE to allow Tunnelblick to use openvpnstart's kill and killall subcommands
-#define ALLOW_OPENVPNSTART_KILL    FALSE
+#define ALLOW_OPENVPNSTART_KILL    TRUE
 #define ALLOW_OPENVPNSTART_KILLALL TRUE
 
 // The maximum length of a display name for openvpnstart
@@ -189,6 +189,7 @@
 //*************************************************************************************************
 // Error return codes for openvpnstart
 #define OPENVPNSTART_COMPARE_CONFIG_SAME             0
+#define OPENVPNSTART_NO_SUCH_OPENVPN_PROCESS         248
 #define OPENVPNSTART_REVERT_CONFIG_OK				 249
 #define OPENVPNSTART_REVERT_CONFIG_MISSING			 250
 #define OPENVPNSTART_COULD_NOT_START_OPENVPN         251

@@ -31,7 +31,6 @@
 #import "defines.h"
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
-#import "NSApplication+NetworkNotifications.h"
 #import "NSApplication+SystemVersion.h"
 #import "NSString+TB.h"
 #import "helper.h"
@@ -2510,21 +2509,6 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
     }    
 }
 
--(void) resetActiveConnections {
-	VPNConnection *connection;
-	NSEnumerator* e = [[self connectionArray] objectEnumerator];
-	while (  (connection = [e nextObject])  ) {
-		if ([[connection connectedSinceDate] timeIntervalSinceNow] < -5) {
-			if (NSDebugEnabled) NSLog(@"Resetting connection: %@",[connection displayName]);
-            [connection addToLog: @"*Tunnelblick: Disconnecting; resetting all connections"];
-			[connection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: NO];
-			[connection connect:self userKnows: NO];
-		} else {
-			if (NSDebugEnabled) NSLog(@"Not Resetting connection: %@, waiting...",[connection displayName]);
-		}
-	}
-}
-
 -(NSArray *) connectionsNotDisconnected {
     NSMutableArray * list = [[[NSMutableArray alloc] initWithCapacity:10] autorelease];
     NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
@@ -2686,12 +2670,6 @@ BOOL anyNonTblkConfigs(void)
 	[NSApp activateIgnoringOtherApps:YES];
 }
 
-- (void) networkConfigurationDidChange
-{
-	if (NSDebugEnabled) NSLog(@"Got networkConfigurationDidChange notification!!");
-	[self resetActiveConnections];
-}
-
 static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 
 // Returns TRUE if cleaned up, or FALSE if a cleanup is already taking place
@@ -2715,9 +2693,6 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
         // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
         return TRUE;
     }
-    
-    TBLog(@"DB_SD", @"cleanup: Setting callDelegateOnNetworkChange: NO")
-    [NSApp callDelegateOnNetworkChange: NO];
     
     if (  ! [lastState isEqualToString:@"EXITING"]) {
         TBLog(@"DB_SD", @"cleanup: Will killAllConnectionsIncludingDaemons: NO")
@@ -2906,15 +2881,11 @@ int runUnrecoverableErrorPanel(NSString * msg)
 
 static void signal_handler(int signalNumber)
 {
-    if (signalNumber == SIGHUP) {
-        NSLog(@"SIGHUP received. Restarting active connections");
-        [[NSApp delegate] resetActiveConnections];
-    } else  {
-        if (  signalNumber == SIGTERM ) {
-            if (   gShuttingDownTunnelblick
-                && (   (reasonForTermination == terminatingBecauseOfLogout)
-                    || (reasonForTermination == terminatingBecauseOfRestart)
-                    || (reasonForTermination == terminatingBecauseOfShutdown) )  ) {
+    if (  signalNumber == SIGTERM ) {
+        if (   gShuttingDownTunnelblick
+            && (   (reasonForTermination == terminatingBecauseOfLogout)
+                || (reasonForTermination == terminatingBecauseOfRestart)
+                || (reasonForTermination == terminatingBecauseOfShutdown) )  ) {
                 NSLog(@"Ignoring SIGTERM (signal %d) because Tunnelblick is already terminating", signalNumber);
                 return;
             } else {
@@ -2922,34 +2893,32 @@ static void signal_handler(int signalNumber)
                 [[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
                 return;
             }
-        }
-        
-		const char * siglist = (  signalNumber < NSIG
-								? sys_siglist[signalNumber]
-								: "");
-		
-		id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-						 ? (id) [NSThread callStackSymbols]
-						 : (id) @"not available");
-		
-        NSLog(@"Received fatal signal %s (%d). Stack trace: %@", siglist, signalNumber, stackTrace);
-        
-        if ( reasonForTermination == terminatingBecauseOfFatalError ) {
-            NSLog(@"signal_handler: Error while handling signal.");
-            exit(0);
-        } else {
-            runUnrecoverableErrorPanel([NSString stringWithFormat: NSLocalizedString(@"Received fatal signal %d.", @"Window text"), signalNumber]);
-            reasonForTermination = terminatingBecauseOfFatalError;
-            gShuttingDownTunnelblick = TRUE;
-            NSLog(@"signal_handler: Starting cleanup.");
-            if (  [[NSApp delegate] cleanup]  ) {
-                NSLog(@"signal_handler: Cleanup finished.");
-            } else {
-                NSLog(@"signal_handler: Cleanup already being done.");
-            }
-        }
-        exit(0);	
     }
+    
+    const char * siglist = (  signalNumber < NSIG
+                            ? sys_siglist[signalNumber]
+                            : "");
+    
+    id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
+                     ? (id) [NSThread callStackSymbols]
+                     : (id) @"not available");
+    
+    NSLog(@"Received fatal signal %s (%d). Stack trace: %@", siglist, signalNumber, stackTrace);
+    
+    if ( reasonForTermination == terminatingBecauseOfFatalError ) {
+        NSLog(@"signal_handler: Error while handling signal.");
+    } else {
+        runUnrecoverableErrorPanel([NSString stringWithFormat: NSLocalizedString(@"Received fatal signal %d.", @"Window text"), signalNumber]);
+        reasonForTermination = terminatingBecauseOfFatalError;
+        gShuttingDownTunnelblick = TRUE;
+        NSLog(@"signal_handler: Starting cleanup.");
+        if (  [[NSApp delegate] cleanup]  ) {
+            NSLog(@"signal_handler: Cleanup finished.");
+        } else {
+            NSLog(@"signal_handler: Cleanup already being done.");
+        }
+    }
+    exit(0);
 }
 
 - (void) installSignalHandler
@@ -3437,8 +3406,7 @@ static void signal_handler(int signalNumber)
 	(void) notification;
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 001")
 
-	[NSApp callDelegateOnNetworkChange: NO];
-    [self installSignalHandler];    
+    [self installSignalHandler];
 	[self updateScreenList];
 
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 002")
