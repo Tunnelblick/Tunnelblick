@@ -1903,6 +1903,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	NSRange tsRng = NSMakeRange(0, [tmpString length]);	// range we are looking at currently; start with entire string
     unsigned i;
 	unsigned offset = 2;
+    BOOL fewerThan200LinesInLog = FALSE;
 	for (  i=0; i<201; i++  ) {
 		NSRange nlRng = [tmpString rangeOfString: @"\n"	// range of last newline at end of part we are looking at
 										 options: NSBackwardsSearch
@@ -1910,16 +1911,23 @@ static BOOL firstTimeShowingWindow = TRUE;
 		
 		if (  nlRng.length == 0  ) {    // newline not found (fewer than 200 lines in tmpString);  set up to start at start of string
 			offset = 0;
+            fewerThan200LinesInLog = TRUE;
 			break;
 		}
 		
         if (  nlRng.location == 0  ) {  // newline at start of string (shouldn't happen, but...)
 			offset = 1;					// set up to start _after_ the newline
+            fewerThan200LinesInLog = TRUE;
             break;
         }
         
 		tsRng.length = nlRng.location - 1; // change so looking before that newline 
 	}
+    
+    if (  fewerThan200LinesInLog  ) {
+        tsRng.length = 0;
+    }
+    
 	NSString * tail = [tmpString substringFromIndex: tsRng.length + offset];
 	
 	// Finally, indent continuation lines
