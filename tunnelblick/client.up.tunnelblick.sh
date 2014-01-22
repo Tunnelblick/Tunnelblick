@@ -373,7 +373,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	if "${ARG_PREPEND_DOMAIN_NAME}" ; then
 		if [ "${MAN_DNS_SD}" = "" ] ; then
 			if [ "${DYN_DNS_SD}" != "" ] ; then
-                if echo "${CUR_DNS_SD}" | tr ' ' '\n' | grep -q "${DYN_DNS_SD}" ; then
+                if ! echo "${CUR_DNS_SD}" | tr ' ' '\n' | grep -q "${DYN_DNS_SD}" ; then
                     logMessage "Prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
                     readonly TMP_DNS_SD="$(trim "${DYN_DNS_SD}" "${CUR_DNS_SD}")"
                 else
@@ -384,7 +384,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 				readonly TMP_DNS_SD="${CUR_DNS_SD}"
 			fi
 			if [ "${FIN_DNS_DN}" != "" -a  "${FIN_DNS_DN}" != "localdomain" ] ; then
-                if echo "${TMP_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
+                if ! echo "${TMP_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
                     logMessage "Prepending '${FIN_DNS_DN}' to search domains '${TMP_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
                     readonly FIN_DNS_SD="$(trim "${FIN_DNS_DN}" "${TMP_DNS_SD}")"
                 else
@@ -416,12 +416,12 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
             if [ "${FIN_DNS_DN}" != "" -a "${FIN_DNS_DN}" != "localdomain" ] ; then
                 case "${OSVER}" in
                     10.4 | 10.5 )
-                        if echo "${MAN_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
-                            logMessage "Not appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because it is already in the search domains that were set manually and 'Prepend domain name to search domains' was not selected"
-                            readonly FIN_DNS_SD="${CUR_DNS_SD}"
-                        else
+                        if ! echo "${MAN_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
                             logMessage "Appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' that were set manually because running under OS X 10.4 or 10.5 and 'Prepend domain name to search domains' was not selected"
                             readonly FIN_DNS_SD="$(trim "${MAN_DNS_SD}" "${FIN_DNS_DN}")"
+                        else
+                            logMessage "Not appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because it is already in the search domains that were set manually and 'Prepend domain name to search domains' was not selected"
+                            readonly FIN_DNS_SD="${CUR_DNS_SD}"
                         fi
                         ;;
                     * )
