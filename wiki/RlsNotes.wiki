@@ -9,7 +9,7 @@
 
 ==Version 3.4==
 
-*3.4beta20 (2014-01-16)*
+*3.4beta20 build 3727 (2014-01-16)*
 
  * Replaces embedded OpenSSL 1.0.1e with 1.0.1f (see [http://www.openssl.org/news/vulnerabilities.html OpenSSL Vulnerabilities]).
 
@@ -51,7 +51,7 @@
 
 --------------------
 
-*3.4beta18 (2013-12-18)*
+*3.4beta18 build 3704 (2013-12-18)*
 
  * Includes a new status icon (the icon in the menu bar) more in keeping with recent OS X aesthetics and which includes Retina images. (The old icon may be selected as the 'Tunnelblick 3.3 icon' on the Appearance panel of the 'VPN Details…' window.)
 
@@ -71,7 +71,7 @@
 
 --------------------
 
-*3.4beta16 (2013-11-22)*
+*3.4beta16 build 3679 (2013-11-22)*
 
  * Adds the 'Include anonymous profile information' checkbox to the Preferences panel.
 
@@ -115,7 +115,7 @@
 
 --------------------
 
-*3.4beta14 (2013-10-25)*
+*3.4beta14 build 3649 (2013-10-25)*
 
  * Implements 'Examine OpenVPN Configuration File' for Shared and Deployed configurations.
 
@@ -139,7 +139,7 @@
 
 --------------------
 
-*3.4beta12 (2013-10-17)*
+*3.4beta12 build 3636 (2013-10-17)*
 
  * Logs more information if a sound is not found.
 
@@ -157,7 +157,7 @@
 
 --------------------
 
-*3.4beta10 (2013-10-05)*
+*3.4beta10 build 3614 (2013-10-05)*
 
  * Includes additional security checking when Tunnelblick is launched:
    * Verifies the digital signature of the Sparkle framework.
@@ -189,13 +189,13 @@
 
 --------------------
 
-*3.4beta08 (2013-09-06)*
+*3.4beta08 build 3576 (2013-09-06)*
 
  * Fixes a problem that caused update checks to fail.
 
 --------------------
 
-*3.4beta06 (2013-09-06)*
+*3.4beta06 build 3571 (2013-09-06)*
 
  * Fixes a crash when accessing checkboxes on the 'Advanced' window.
 
@@ -211,7 +211,7 @@
 
 --------------------
 
-*3.4beta04 (2013-08-21)*
+*3.4beta04 build 3555 (2013-08-21)*
 
  * Uses https: for update checks and loading all update information. (Updates are still protected by being digitally signed; this is an additional level of security.)
 
@@ -234,7 +234,7 @@
 
 --------------------
 
-*3.4beta02 (2013-08-07)*
+*3.4beta02 build 3550 (2013-08-07)*
 
  This is the first beta release of Tunnelblick 3.4 and includes fixes for several bugs in 3.3.0:
  
@@ -268,7 +268,7 @@
 
 ==Version 3.3==
 
-*3.3 (2013-07-22)*
+*3.3 build 3518 (2013-07-22)*
 
  This is the first stable release of Tunnelblick 3.3. It is identical to version 3.3beta56 except for version information.
  
@@ -277,7 +277,7 @@
  
 --------------------
 
-*3.3beta56 (2013-07-19)*
+*3.3beta56 build 3515 (2013-07-19)*
 
  Expected to be the last beta before the 3.3 stable release.
  
@@ -305,7 +305,7 @@
 
 --------------------
 
-*3.3beta54 (2013-06-08)*
+*3.3beta54 build 3415 (2013-06-08)*
 
  * Includes complete German, Spanish, and Polish localization.
 
@@ -342,7 +342,7 @@
 
 --------------------
 
-*3.3beta52 (2013-05-20)*
+*3.3beta52 build 3352 (2013-05-20)*
 
  * Fixes problems converting an OpenVPN configuration file that:
    * Uses files with extensions that Tunnelblick does not know how to secure properly; or
@@ -360,7 +360,7 @@
 
 --------------------
 
-*3.3beta50 (2013-05-11)*
+*3.3beta50 build 3302 (2013-05-11)*
 
  * Saves and restores the configuration selected in the configuration list in the 'VPN Details…' window.
 
@@ -378,7 +378,7 @@
  
 --------------------
 
-*3.3beta48 (2013-05-08)*
+*3.3beta48 build 3292 (2013-05-08)*
 
  * Allows install and launch of a 'Deployed' version of Tunnelblick:
    * If it is a 'rebranded' version of Tunnelblick (source code modified to use a different name); and
@@ -408,7 +408,7 @@
  
 --------------------
 
-*3.3beta46 (2013-04-22)*
+*3.3beta46 build 3281 (2013-04-22)*
 
  * <font color="red">Security</font>: Digitally signs Tunnelblick's copies of OpenVPN.
  
@@ -416,7 +416,7 @@
  
 --------------------
 
-*3.3beta44 (2013-04-16)*
+*3.3beta44 build 3276 (2013-04-16)*
 
  * Fixes a problem when converting an OpenVPN configuration with the 'auth-user-pass' option to a Tunnelblick VPN Configuration.
 
@@ -424,7 +424,7 @@
  
 --------------------
 
-*3.3beta42 (2013-04-13)*
+*3.3beta42 build 3270 (2013-04-13)*
 
  * Fixes a problem that caused DHCP over tap connections to fail.
 
@@ -440,13 +440,13 @@
 
 --------------------
 
-*3.3beta40 (2013-04-11)*
+*3.3beta40 build 3265 (2013-04-11)*
 
  * Fixes a problem with Tunnelblick's new 64-bit OpenVPN 2.2.1 by only including the 32-bit versions of OpenVPN.
 
 --------------------
 
-*3.3beta38 (2013-04-09)*
+*3.3beta38 build 3258 (2013-04-09)*
 
  * On OS X 10.6 ('Snow Leopard') and higher, Tunnelblick now displays configurations in a way that is similar to the 'List View' in a Finder window: contents of folders can be hidden or exposed by clicking on a disclosure triangle next to the folder name. This may be disabled (and the old way of displaying configurations used) by setting the 'doNotShowOutlineViewOfConfigurations' preference to 'TRUE'.
 
@@ -488,13 +488,13 @@
 
 --------------------
 
-*3.3beta36 (2013-03-28)*
+*3.3beta36 build 3228 (2013-03-28)*
 
  * Removes uninstaller from disk image.
 
 --------------------
 
-*3.3beta34 (2013-03-27)*
+*3.3beta34 build 3218 (2013-03-27)*
 
  * <font color="red">Security update:</font> Replaces OpenSSL 1.0.1c with 1.0.1e. (See [http://www.openssl.org/news/secadv_20130204.txt http://www.openssl.org/news/secadv_20130204.txt] and [http://www.openssl.org/source/exp/CHANGES http://www.openssl.org/source/exp/CHANGES]).
 
@@ -534,7 +534,7 @@
 
 --------------------
 
-*3.3beta32 (2013-01-05)*
+*3.3beta32 build 3183 (2013-01-05)*
 
  * Fixes several security issues.
 
@@ -548,7 +548,7 @@
 
 --------------------
 
-*3.3beta30 (2012-12-25)*
+*3.3beta30 build 3176 (2012-12-25)*
 
  * Updates the easy-rsa programs to fix bugs in the Tunnelblick patches.
 
@@ -566,7 +566,7 @@
 
 --------------------
 
-*3.3beta28 (2012-10-24)*
+*3.3beta28 build 3153 (2012-10-24)*
 
  * Configurations can share credentials (usernames/passwords and pass phrases) so that the credentials need not be entered separately for each configuration. (This may be set on the 'Advanced' settings window's 'VPN Credentials' tab.)
 
@@ -602,7 +602,7 @@
 
 --------------------
 
-*3.3beta26 (2012-10-12)*
+*3.3beta26 build 3143 (2012-10-12)*
 
  * Installs, and should be used, only if no Deployed versions of Tunnelblick have previously been installed. (This restriction will probably be removed in later releases.)
 
@@ -640,13 +640,13 @@
 
 --------------------
 
-*3.3beta24 (2012-09-13)*
+*3.3beta24 build 3126 (2012-09-13)*
 
  * Fixes problems installing from disk image.
 
 --------------------
 
-*3.3beta22 (2012-09-12)*
+*3.3beta22 build 3117 (2012-09-12)*
 
  * Installs, and should be used, only if:
    * All private configurations are Tunnelblick VPN Configurations (.tblk files);
