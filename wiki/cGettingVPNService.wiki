@@ -29,15 +29,10 @@ If you have a router running DD-WRT, you can use [http://www.dd-wrt.com/wiki/ind
 ==VPN Service Providers==
 Another way to get access to a VPN server is to use a VPN service provider, an organization that makes its VPN servers available (free or for a fee). Some provide you with a customized, and possibly renamed, version of Tunnelblick.
 
-<table><tr><td>
 <table border="1" width="100%"><tr><td>
-The following VPN service provider  contributes a portion of your fees to Tunnelblick if you use this link:
-  * *[http://btguard.com/?a=tunnelblick BTGuard]*
-</td></tr></table>
-
-<table border="1" width="100%"><tr><td>
-The following VPN service providers have donated to Tunnelblick within the past two years
+The following VPN service providers have donated to Tunnelblick
   * *[http://www.tunnelblick.net/to.php?to=https://www.blackvpn.com blackVPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://btguard.com BTGuard]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.hideman.net Hideman.net]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.kovurt.com Kovurt]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.missmysoaps.co.uk MissMySoaps]*
@@ -56,6 +51,7 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://www.banana-vpn.com Banana VPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://cloudnymous.com cloudnymous]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.comodo.com/home/internet-security/wifi-security.php Comodo TrustConnect]*
+  * *[http://www.tunnelblick.net/to.php?to=https://secure.doublevpn.com DoubleVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.frozenway.com FrozenWay]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.goldenfrog.com/vyprvpn Golden Frog Vypr VPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.hostvpn.com/ HostVPN]*
