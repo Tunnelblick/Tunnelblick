@@ -142,7 +142,7 @@ Download the latest uninstaller disk image from the [DownloadsEntry Downloads] p
  * Install (again, that is, re-install) Tunnelblick or the rebranded program (whatever program you want to uninstall). It is important that you install to the same location as the original installation.
  * Launch Tunnelblick, then quit it.
 
-*Now, uninstall Tunnelblick located in /Applications:*
+*Now, to uninstall Tunnelblick located in /Applications:*
  * Quit Tunnelblick<font color="red">`*`</font>
  * Double-click the "Uninstaller"
  * Click on "Test" or "Uninstall"
