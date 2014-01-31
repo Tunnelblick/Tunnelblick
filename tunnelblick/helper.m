@@ -378,6 +378,9 @@ NSDictionary * getOpenVPNVersionForConfigurationNamed(NSString * name)
     }
     if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
         prefVersion = (NSString *) obj;
+        if (  [prefVersion isEqualToString: @""]  ) {
+            prefVersion = nil;
+        }
     }
     
     NSString * useVersion = nil;
@@ -408,9 +411,7 @@ NSDictionary * getOpenVPNVersionForConfigurationNamed(NSString * name)
             }
         }
     } else {
-        if (  versions  ) {
-            useVersion = [versions objectAtIndex: 0];
-        }
+        useVersion = [versions objectAtIndex: 0];
     }
     
     if (  ! useVersion  ) {

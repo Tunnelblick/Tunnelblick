@@ -514,7 +514,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     unsigned openvpnVersionIx = UINT_MAX;   // Flag value as not set
     
-    if ( ! prefVersion  ) {
+    if (   ( ! prefVersion )
+        || [prefVersion isEqualToString: @""]
+            ) {
         openvpnVersionIx = 0;
         
     } else if ( [prefVersion isEqualToString: @"-"]  ) {

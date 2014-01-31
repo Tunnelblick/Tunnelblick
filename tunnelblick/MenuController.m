@@ -3617,23 +3617,24 @@ static void signal_handler(int signalNumber)
 #endif
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 015")
+	NSArray * versions = availableOpenvpnVersions();
+	if (  [versions count] == 0  ) {
+		NSLog(@"Tunnelblick does not include any versions of OpenVPN");
+		[self terminateBecause: terminatingBecauseOfError];
+		return;
+	}
+	
     NSString * prefVersion = [gTbDefaults objectForKey: @"*-openvpnVersion"];
     if (   prefVersion
-        && ( ! [prefVersion isEqualToString: @"-"] )  ) {
-        NSArray * versions = availableOpenvpnVersions();
-        if (  [versions count] == 0  ) {
-            NSLog(@"Tunnelblick does not include any versions of OpenVPN");
-            [self terminateBecause: terminatingBecauseOfError];
-            return;
-        }
-        if (  ! [versions containsObject: prefVersion]  ) {
-            NSString * useVersion = [versions lastObject];
-            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                            [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
-                             prefVersion, useVersion],
-                            nil, nil, nil);
-            [gTbDefaults setObject: @"-" forKey: @"*-openvpnVersion"];
-        }
+        && ( ! [prefVersion isEqualToString: @"-"] )
+        && ( ! [prefVersion isEqualToString: @""] )
+        && ( ! [versions containsObject: prefVersion] )  ) {
+		NSString * useVersion = [versions lastObject];
+		TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						[NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
+						 prefVersion, useVersion],
+						nil, nil, nil);
+		[gTbDefaults setObject: @"-" forKey: @"*-openvpnVersion"];
     }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 016")
