@@ -153,6 +153,8 @@ Download the latest uninstaller disk image from the [DownloadsEntry Downloads] p
  * Drag and drop the application you want to uninstall (Tunnelblick or a rebranded program) to the "Uninstaller" on your Desktop
  * Click on "Test" or "Uninstall"
 
+*Finally, restart your computer.*
+
 <font color="red">`*`</font> If you get a "spinning beachball" when you click the Tunnelblick icon, that usually means that Tunnelblick has a window open and is waiting for your response. Minimize or close the windows of all other applications (and in all Spaces) to expose the window. If Tunnelblick does not have an open window, you will have to force Tunnelblick to quit. Follow the procedure described in [https://groups.google.com/d/topic/tunnelblick-discuss/CcqADLK5Ttg/discussion this discussion] in the Tunnelblick Discussion Group.
 
 ------------------
