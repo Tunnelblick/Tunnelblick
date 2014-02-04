@@ -132,15 +132,13 @@ If you intend to re-install Tunnelblick, be sure you have a backup of your Tunne
 
 The uninstall program can do a "test", which does not uninstall anything, but displays a log of what it would have done if it were uninstalling.
 
-Download the latest uninstaller disk image from the [DownloadsEntry Downloads] page and double-click it. (The uninstall program may be used to uninstall any version of Tunnelblick or any version of any rebranded version of Tunnelblick.)
-
-<font color="red>If you are using OS X 10.9 ("Mavericks"), it is important that you see [https://groups.google.com/d/msg/tunnelblick-discuss/lM-c5lgoLQI/xX98gvmRXQQJ this post] on the Tunnelblick Discussion Group.</font>
+Download an uninstaller disk image from the [DownloadsEntry Downloads] page and double-click it. (The uninstall program may be used to uninstall any version of Tunnelblick or any version of any rebranded version of Tunnelblick.) <font color="red>If you are using OS X 10.9 ("Mavericks")</font> it is important that you use the version 1.0 uninstaller, not the latest 1.1 version.
 
 *First, if you have already partially uninstalled (manually by dragging the application to the Trash, or with !AppCleaner or something similar):
 
  * Quit Tunnelblick (or the rebranded program)<font color="red">`*`</font>
  * Install (again, that is, re-install) Tunnelblick or the rebranded program (whatever program you want to uninstall). It is important that you install to the same location as the original installation.
- * Launch Tunnelblick, then quit it.
+ * Launch Tunnelblick, disconnect from all VPNs, then quit Tunnelblick.
 
 *Now, to uninstall Tunnelblick located in /Applications:*
  * Quit Tunnelblick<font color="red">`*`</font>
@@ -152,6 +150,10 @@ Download the latest uninstaller disk image from the [DownloadsEntry Downloads] p
  * Drag and drop the "Uninstaller" to your Desktop
  * Drag and drop the application you want to uninstall (Tunnelblick or a rebranded program) to the "Uninstaller" on your Desktop
  * Click on "Test" or "Uninstall"
+
+* If you are using version 1.0 of the uninstaller*, type or copy/paste the following command in Terminal (located in /Applications/Utilities):
+
+  rm -f -r ~/Library/Caches/net.tunnelblick.tunnelblick
 
 *Finally, restart your computer.*
 
