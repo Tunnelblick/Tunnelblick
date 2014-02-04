@@ -153,7 +153,7 @@ Download an uninstaller disk image from the [DownloadsEntry Downloads] page and 
 
 * If you are using version 1.0 of the uninstaller*, type or copy/paste the following command in Terminal (located in /Applications/Utilities):
 
-  rm -f -r ~/Library/Caches/net.tunnelblick.tunnelblick
+  rm    -f    -r    ~/Library/Caches/net.tunnelblick.tunnelblick
 
 *Finally, restart your computer.*
 
