@@ -67,6 +67,7 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://www.roadwarriorvpn.com Road Warrior VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.securitykiss.com SecurityKiss]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=https://www.shellfire.net/vpn ShellFireVPN]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.slickvpn.com Slick VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://switchvpn.com SwitchVPN.com]*
@@ -78,7 +79,6 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpnsecure.me VPN.S]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpnservice.ru VPNService.ru]*
   * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
-</td></tr></table>
 </td></tr></table>
 
 
