@@ -157,7 +157,7 @@ Download an uninstaller disk image from the [DownloadsEntry Downloads] page and 
   rm    -f    -r    ~/Library/Caches/net.tunnelblick.tunnelblick
 }}}
 
-NOTE: The above line is not displayed properly in translated versions of this page. There should be four items on the line, each separated by one or more spaces: "rm", "-f", "-r", and "~/Library/Caches/net.tunnelblick.tunnelblick"
+NOTE: The above line is not displayed properly in translated versions of this page. There should be four items on the line, each separated by one or more spaces: "rm", "-f", "-r", and "~/Library/Caches/net.tunnelblick.tunnelblick".
 
 *Finally, restart your computer.*
 
