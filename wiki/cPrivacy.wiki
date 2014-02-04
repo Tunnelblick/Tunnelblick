@@ -13,9 +13,9 @@ Tunnelblick and VPNs are often used for one or more of the following purposes:
  * To protect against eavesdropping and man-in-the-middle attacks when using the Internet to access  a secured network (for example, accessing a corporate network from home)
  * To make websites think your computer is somewhere it isn't (e.g., accessing UK television programs from non-UK locations)
  * To disguise your IP address from websites
- * To provide anonymous Internet access
+ * To provide anonymous Internet access *<font color="red"><== DO NOT use a VPN for this!</font>*
 
-Tunnelblick and VPNs in general are great for the first four, but not good for the last.
+Tunnelblick and VPNs in general are great for the first four purposes, *<font color="red">but should not be used to provide anonymous Internet access.</font>*
 
 For the rest of this document, when discussion VPNs in general, the term "VPN" will be used. When speaking of Tunnelblick in particular, "Tunnelblick" will be used.
 
