@@ -132,34 +132,24 @@ If you intend to re-install Tunnelblick, be sure you have a backup of your Tunne
 
 The uninstall program can do a "test", which does not uninstall anything, but displays a log of what it would have done if it were uninstalling.
 
-Download an uninstaller disk image from the [DownloadsEntry Downloads] page and double-click it. (The uninstall program may be used to uninstall any version of Tunnelblick or any version of any rebranded version of Tunnelblick.) <font color="red>If you are using OS X 10.9 ("Mavericks")</font> it is important that you use the version 1.0 uninstaller, not the latest 1.1 version.
+Download an uninstaller disk image from the [DownloadsEntry Downloads] page and double-click it. (The uninstall program may be used to uninstall any version of Tunnelblick or any version of any rebranded version of Tunnelblick.)
 
 *First, if you have already partially uninstalled (manually by dragging the application to the Trash, or with !AppCleaner or something similar):
 
- * Quit Tunnelblick (or the rebranded program)<font color="red">`*`</font>
+ * Disconnect all configurations and quit Tunnelblick (or the rebranded program)<font color="red">`*`</font>
  * Install (again, that is, re-install) Tunnelblick or the rebranded program (whatever program you want to uninstall). It is important that you install to the same location as the original installation.
  * Launch Tunnelblick, disconnect from all VPNs, then quit Tunnelblick.
 
 *Now, to uninstall Tunnelblick located in /Applications:*
- * Quit Tunnelblick<font color="red">`*`</font>
+ * Disconnect all configurations and quit Tunnelblick<font color="red">`*`</font>
  * Double-click the "Uninstaller"
  * Click on "Test" or "Uninstall"
 
 *Or, to uninstall Tunnelblick located somewhere other than /Applications, or to uninstall RaptorVPN, Urban Shield VPN, or other rebranded Tunnelblick:*
- * Quit Tunnelblick (or the rebranded program)<font color="red">`*`</font>
+ * Disconnect all configurations and quit Tunnelblick (or the rebranded program)<font color="red">`*`</font>
  * Drag and drop the "Uninstaller" to your Desktop
  * Drag and drop the application you want to uninstall (Tunnelblick or a rebranded program) to the "Uninstaller" on your Desktop
  * Click on "Test" or "Uninstall"
-
-* If you are using version 1.0 of the uninstaller*, type the following command in Terminal (located in /Applications/Utilities):
-
-https://www.tunnelblick.net/images/cinstall-uninstall-terminal-command.png
-
-If you are looking at the original, English language version of this page, you may copy/paste from the following:
-
-{{{
-  rm    -f    -r    ~/Library/Caches/net.tunnelblick.tunnelblick
-}}}
 
 *Finally, restart your computer.*
 
