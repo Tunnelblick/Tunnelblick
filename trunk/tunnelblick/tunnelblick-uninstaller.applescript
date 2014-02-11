@@ -242,7 +242,7 @@ on ProcessFile(fullPath, myScriptPath) -- (POSIX path, POSIX path)
 			"OR CLICK 'Uninstall' to uninstall %s\n\n" & Â
 			"OR CLICK 'Cancel'.\n\n" & Â
 			"Testing or uninstalling may take a long time -- up to several MINUTES -- during which time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall or test is complete.", Â
-			{displayPath, TBName, TBName})) Â
+			{displayPath, TBName})) Â
 		as critical  Â
 		buttons {localized string of "Uninstall", localized string of "Test", localized string of "Cancel"}
 	
@@ -327,6 +327,8 @@ end open
 ------------------------------------------------------------------------------------------------------------------
 -- Start of script: If no file was dropped, uninstall /Applications/Tunnelblick.apph
 ------------------------------------------------------------------------------------------------------------------
+
+activate
 
 set IsDefined to true
 try
