@@ -132,7 +132,7 @@ If you intend to re-install Tunnelblick, be sure you have a backup of your Tunne
 
 The uninstall program can do a "test", which does not uninstall anything, but displays a log of what it would have done if it were uninstalling.
 
-Download an uninstaller disk image from the [DownloadsEntry Downloads] page and double-click it. (The uninstall program may be used to uninstall any version of Tunnelblick or any version of any rebranded version of Tunnelblick.)
+Download an uninstaller disk image from the [DownloadsEntry#Tunnelblick_Uninstaller Downloads] page and double-click it. (The uninstall program may be used to uninstall any version of Tunnelblick or any version of any rebranded version of Tunnelblick.)
 
 *First, if you have already partially uninstalled (manually by dragging the application to the Trash, or with !AppCleaner or something similar):
 
