@@ -103,7 +103,26 @@ BOOL runningOnMavericksOrNewer(void)
     return runningOnNewerThan(10, 8);
 }
 
-BOOL runningSeparateMultipleScreensOnMavericksOrNewer(void) {
+BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
+    
+    NSStatusBar *bar = [NSStatusBar systemStatusBar];
+    if (  ! [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]  ) {
+        return YES;
+    }
+    if (  ! [bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]  ) {
+        return YES;
+    }
+    
+    // ***** START OF TEMPORARY CODE UNTIL MAVERICKS BUG IS FIXED
+    
+    // Mavericks, even as of 10.9.2, doesn't seem to correctly implement _insertStatusItem:withPriority:, so we return "YES" when running on Mavericks
+    // The problem is that the status item is inserted sometimes to the left and sometimes to the right of the Spotlight icon, and sometimes it is not inserted at all.
+    
+    if (  runningOnMavericksOrNewer()  ) {
+        return YES;
+    }
+    
+    // ***** END OF TEMPORARY CODE UNTIL MAVERICKS BUG IS FIXED
     
     if (   runningOnMavericksOrNewer()
         && ([[NSScreen screens] count] != 1)  ) {
@@ -118,17 +137,15 @@ BOOL runningSeparateMultipleScreensOnMavericksOrNewer(void) {
                 } else {
                     NSLog(@"The 'spans-displays' preference from %@ does not respond to boolValue", spacesPrefsPath);
                 }
-            } else {
-                NSLog(@"Unable to load 'spans-displays' preference from %@", spacesPrefsPath);
             }
         } else {
             NSLog(@"Unable to load dictionary from %@", spacesPrefsPath);
         }
         
-        return TRUE;
+        return YES;
     }
     
-    return FALSE;
+    return NO;
 }
 
 // Returns an escaped version of a string so it can be sent over the management interface

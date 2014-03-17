@@ -92,6 +92,10 @@
 #define NONBINARY_CONTENTS_EXTENSIONS [NSArray arrayWithObjects: @"crt", @"key", @"pem", @"crl", nil]
 
 //*************************************************************************************************
+// OpenVPN options that are not allowed because they conflict with the operation of Tunnelblick
+#define OPENVPN_OPTIONS_THAT_ARE_PROHIBITED [NSArray arrayWithObjects: @"log", @"log-append", @"syslog", @"management", nil]
+
+//*************************************************************************************************
 // Permissions for files and folders
 //
 // These are used in four places:

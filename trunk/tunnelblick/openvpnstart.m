@@ -1977,13 +1977,24 @@ int startVPN(NSString * configFile,
     deleteLogFiles(configFile, cfgLocCode);
     NSString * logPath = createOpenVPNLog(configFile, cfgLocCode, port);
     
-    // default arguments to openvpn command line
+    // First arguments that go in the OpenVPN command line
 	NSMutableArray* arguments = [NSMutableArray arrayWithObjects:
-								 @"--cd", cdFolderPath,
-								 @"--daemon", 
-								 @"--management", @"127.0.0.1", [NSString stringWithFormat:@"%d", port],  
-								 @"--config", gConfigPath,
-                                 @"--log", logPath,
+								 
+                                 // Specify daemon and log path first, so the config file cannot override them, and specify the working directory for the config
+                                 @"--daemon",
+                                 @"--log",        logPath,
+								 @"--cd",         cdFolderPath,
+                                 
+                                 // Process options in the configuration file
+								 @"--config",     gConfigPath,
+                                 
+                                 // Set the working directory again, in case it was changed in the configuration file
+								 @"--cd",         cdFolderPath,
+                                 
+                                 // Specify the rest of the options after the config file, so they override any correspondng options in it
+								 @"--management", @"127.0.0.1", [NSString stringWithFormat:@"%d", port],
+                                 
+                                 // (Additional options are added to 'arguments' below)
 								 nil];
     
 	// conditionally push additional arguments to array

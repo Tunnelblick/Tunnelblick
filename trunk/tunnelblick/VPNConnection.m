@@ -1556,6 +1556,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                 installerFlags = INSTALLER_SECURE_APP;
             } else {
                 installerFlags = INSTALLER_SECURE_TBLKS;
+				[self invalidateConfigurationParse];
             }
 
             if (  ! [[NSApp delegate] runInstaller: installerFlags
@@ -1618,6 +1619,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			break;
 			
 		case OPENVPNSTART_COMPARE_CONFIG_DIFFERENT:
+			
+			[self invalidateConfigurationParse];
+			
 			if (  ! makeItSo  ) {
 				return NO;
 			}
