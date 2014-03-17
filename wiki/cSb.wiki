@@ -2,7 +2,8 @@
 *[http://translate.google.com/translate?hl=en&sl=en&tl=fr&u=https%3A%2F%2Fcode.google.com%2Fp%2Ftunnelblick%2F&sandbox=1 Website in Other Languages]*
 
 <a href="https://code.google.com/p/tunnelblick/wiki/Donate"><img src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate" /></a><br><br>
-*[https://groups.google.com/forum/#!forum/tunnelblick-discuss DISCUSSION GROUP]*<br><br>
+*[https://groups.google.com/forum/#!forum/tunnelblick-discuss DISCUSSION GROUP]*<br>
+([cBeforeYouPost Read Before You Post])<br><br>
 *[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*<br><br>
 *[News News]*<br><br>
 
