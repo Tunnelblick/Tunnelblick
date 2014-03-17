@@ -505,7 +505,13 @@ enum state_t {                      // These are the "states" of the guideState 
     NSString * cfgContents = [stdOut copy];
     
     NSString * userOption  = [self parseString: cfgContents forOption: @"user" ];
+    if (  [userOption length] == 0  ) {
+        userOption = nil;
+    }
     NSString * groupOption = [self parseString: cfgContents forOption: @"group"];
+    if (  [groupOption length] == 0  ) {
+        groupOption = nil;
+    }
     NSString * useDownRootPluginKey = [[connection displayName] stringByAppendingString: @"-useDownRootPlugin"];
     NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutDownroot"];
     if (   ( ! [gTbDefaults boolForKey: useDownRootPluginKey] )
@@ -513,7 +519,10 @@ enum state_t {                      // These are the "states" of the guideState 
         && ( ! [gTbDefaults boolForKey: skipWarningKey] )  ) {
         
         NSString * downOption  = [self parseString: cfgContents forOption: @"down" ];
-        
+        if (  [downOption length] == 0  ) {
+            downOption = nil;
+        }
+
         if (   (userOption || groupOption)
             && (   downOption
                 || ([connection useDNSStatus] != 0)  )  ) {
@@ -557,6 +566,16 @@ enum state_t {                      // These are the "states" of the guideState 
         }
     }
     
+    NSArray * reservedOptions = OPENVPN_OPTIONS_THAT_ARE_PROHIBITED;
+    NSString * option;
+    NSEnumerator * e = [reservedOptions objectEnumerator];
+    while (  (option = [e nextObject])  ) {
+        NSString * optionValue = [self parseString: cfgContents forOption: option];
+        if (  optionValue  ) {
+            NSLog(@"The configuration file for '%@' contains an OpenVPN '%@' option. That option is reserved for use by Tunnelblick. The option will be ignored", [connection displayName], option);
+		}
+    }
+    
     NSString * devOption = [self parseString: cfgContents forOption: @"dev"];
     NSString * devOptionFirst3Chars = [[devOption copy] autorelease];
     if (  [devOption length] > 3  ) {
@@ -586,6 +605,10 @@ enum state_t {                      // These are the "states" of the guideState 
 
 -(NSString *) parseString: (NSString *) cfgContents
                 forOption: (NSString *) option {
+    
+    // Returns nil if the option is not found in the string that contains the contents of the configuration file
+    // Returns an empty string if the option is found but has no parameters
+    // Otherwise, returns the first parameter
     
     NSCharacterSet * notWhitespace = [[NSCharacterSet whitespaceCharacterSet] invertedSet];
     NSCharacterSet * notWhitespaceNotNewline = [[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet];
@@ -623,6 +646,12 @@ enum state_t {                      // These are the "states" of the guideState 
             restRng = [cfgContents rangeOfCharacterFromSet: notWhitespace
                                                    options: 0
                                                      range: mainRng];
+			
+			// If first thing after whitespace is a LF, then return an empty string
+			if (  [[cfgContents substringWithRange: restRng] isEqualToString: @"\n"]  ) {
+				return @"";
+			}
+			
             if (  restRng.location != mainRng.location  ) {
 				
 				// Whitespace found, so "value" for option is the next token
@@ -669,8 +698,7 @@ enum state_t {                      // These are the "states" of the guideState 
 				
 				return [cfgContents substringWithRange: rolRng];
             }
-            
-            // No whitespace after option, so it is no good (either optionXXX or option\n
+            // No whitespace after option, so it is no good (optionXXX)
         }
         
         // Skip to next \n
@@ -717,6 +745,22 @@ enum state_t {                      // These are the "states" of the guideState 
     NSData * data = [gFileMgr contentsAtPath: cfgPath];
     NSString * cfgContents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     
+    NSString * option;
+
+	// First, check for OpenVPN options that are not allowed at all
+	NSArray * optionsThatAreNotAllowed = OPENVPN_OPTIONS_THAT_ARE_PROHIBITED;
+    NSEnumerator * e = [optionsThatAreNotAllowed objectEnumerator];
+	while (  (option = [e nextObject])  ) {
+        if(  [self parseString: cfgContents forOption: option]  ) {
+			NSLog(@"The OpenVPN configuration file in %@ has a '%@' option, which cannot be used with Tunnelblick.",
+				  tblkName, option);
+			[errMsgs addObject: [NSString stringWithFormat:
+								 NSLocalizedString(@"The OpenVPN configuration file in %@ has a '%@' option, which cannot be used with Tunnelblick.", "Window text"),
+								 tblkName, option]];
+			return FALSE;
+		}
+	}
+	
     // List of OpenVPN options that take a file path
     NSArray * optionsWithPath = [NSArray arrayWithObjects:
 								 // @"askpass",                    // askpass        'file' not supported since we don't compile with --enable-password-save
@@ -732,9 +776,7 @@ enum state_t {                      // These are the "states" of the guideState 
 								 @"tls-auth",                      // Optional 'direction' argument
 								 nil];
     
-    NSString * option;
-    NSEnumerator * e = [optionsWithPath objectEnumerator];
-	
+    e = [optionsWithPath objectEnumerator];
     while (  (option = [e nextObject])  ) {
         NSString * argument = [self parseString: cfgContents forOption: option];
         if (  argument  ) {
@@ -756,6 +798,14 @@ enum state_t {                      // These are the "states" of the guideState 
                 return FALSE;
             }
             if (  ! [argument isEqualToString: @"[inline]"]  ) {
+                if (  [argument length] == 0  ) {
+                    NSLog(@"The OpenVPN configuration file in %@ has a '%@' option with no argument, which is not allowed.",
+                          tblkName, option);
+                    [errMsgs addObject: [NSString stringWithFormat:
+                                         NSLocalizedString(@"The OpenVPN configuration file in %@ has a '%@' option with no argument, which is not allowed.", "Window text"),
+                                         tblkName, option]];
+                    return FALSE;
+                }
                 NSString * newPath = [[cfgPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: [argument lastPathComponent]];
                 if (  [gFileMgr fileExistsAtPath: newPath]  ) {
                     if (  [NONBINARY_CONTENTS_EXTENSIONS containsObject: [newPath pathExtension]]  ) {

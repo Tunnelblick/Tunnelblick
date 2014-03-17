@@ -1030,7 +1030,7 @@ BOOL needToConvertNonTblks(void);
     if (   [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]
         && [bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]
         && (  ! [gTbDefaults boolForKey:@"placeIconInStandardPositionInStatusBar"]  )
-        && (  ! runningSeparateMultipleScreensOnMavericksOrNewer()  )
+        && (  ! mustPlaceIconInStandardPositionInStatusBar()  )
         ) {
         
         // Force icon to the right in Status Bar

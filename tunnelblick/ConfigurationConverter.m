@@ -449,6 +449,9 @@ extern NSString      * gPrivatePath;
     
     tokens = [[self getTokens] copy];
 	
+    // List of OpenVPN options that cannot appear in a Tunnelblick VPN Configuration
+    NSArray * optionsThatAreNotAllowed = OPENVPN_OPTIONS_THAT_ARE_PROHIBITED;
+    
     // List of OpenVPN options that take a file path
     NSArray * optionsWithPath = [NSArray arrayWithObjects:
 //					             @"askpass",                       // askpass        'file' not supported since we don't compile with --enable-password-save
@@ -509,8 +512,6 @@ extern NSString      * gPrivatePath;
     
     // List of OpenVPN options that cannot appear in a Tunnelblick VPN Configuration unless the file they reference has an absolute path
     NSArray * optionsThatRequireAnAbsolutePath = [NSArray arrayWithObjects:
-                                                  @"log",
-                                                  @"log-append",
                                                   @"status",
                                                   @"write-pid",
                                                   @"replay-persist",
@@ -541,7 +542,10 @@ extern NSString      * gPrivatePath;
                 }
             }
             
-            if (  [optionsWithPath containsObject: [firstToken stringValue]]  ) {
+			if (  [optionsThatAreNotAllowed containsObject: [firstToken stringValue]]  ) {
+				[self logMessage: [NSString stringWithFormat: @"The '%@' OpenVPN option is not allowed when using Tunnelblick.", [firstToken stringValue]]];
+				return FALSE;
+			} else if (  [optionsWithPath containsObject: [firstToken stringValue]]  ) {
                 if (  secondToken  ) {
                     // remove leading/trailing single- or double-quotes
 					NSRange r2 = [secondToken range];

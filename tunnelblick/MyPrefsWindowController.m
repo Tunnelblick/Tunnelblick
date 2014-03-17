@@ -2959,7 +2959,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 {
 	[self setupAppearanceIconSetButton];
 
-    if (   runningSeparateMultipleScreensOnMavericksOrNewer()  ) {
+    if (   mustPlaceIconInStandardPositionInStatusBar()  ) {
         NSButton * checkbox = [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox];
         [checkbox setState:   NO];
         [checkbox setEnabled: NO];
