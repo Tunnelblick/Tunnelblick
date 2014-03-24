@@ -4347,9 +4347,11 @@ static BOOL runningHookupThread = FALSE;
 }
 
 // Returns a configuration path (and port number and the starting arguments from openvpnstart) from a path created by openvpnstart
--(NSString *) deconstructOpenVPNLogPath: (NSString *) logPath toPort: (unsigned *) portPtr toStartArgs: (NSString * *) startArgsPtr
+-(NSString *) deconstructOpenVPNLogPath: (NSString *)   logPath
+								 toPort: (unsigned *)   portPtr
+							toStartArgs: (NSString * *) startArgsPtr
 {
-    NSString * prefix = [NSString stringWithFormat:@"%@/", L_AS_T_LOGS];
+    NSString * prefix = L_AS_T_LOGS @"/";       // Compiler concatenates the two strings
     NSString * suffix = @".openvpn.log";
     if (  [logPath hasPrefix: prefix]  ) {
         if (  [logPath hasSuffix: suffix]  ) {
@@ -4371,9 +4373,26 @@ static BOOL runningHookupThread = FALSE;
                 
                 *portPtr = (unsigned)port;
                 
-                NSMutableString * cfg = [[withoutPrefixOrPortOrOpenvpnDotLog stringByDeletingPathExtension] mutableCopy];
-                [cfg replaceOccurrencesOfString: @"-S" withString: @"/" options: 0 range: NSMakeRange(0, [cfg length])];
-                [cfg replaceOccurrencesOfString: @"--" withString: @"-" options: 0 range: NSMakeRange(0, [cfg length])];
+				NSString * constructedPath = [withoutPrefixOrPortOrOpenvpnDotLog stringByDeletingPathExtension];
+				NSMutableString * cfg = [[NSMutableString alloc] initWithCapacity: [constructedPath length]];
+				unsigned i;
+				for (  i=0; i<[constructedPath length]; i++  ) {
+					char c = [constructedPath characterAtIndex: i];
+					if (  c == '-'  ) {
+						i++;
+						c = [constructedPath characterAtIndex: i];
+						if (  c == '-'  ) {
+							[cfg appendString: @"-"];
+						} else if (  c == 'S'  ) {
+							[cfg appendString: @"/"];
+						} else {
+							NSLog(@"deconstructOpenVPNLogPath: invalid log path string has '-%c' (0x%02X) at position %lu in '%@'", c, (unsigned) c, (unsigned long) i, constructedPath);
+							[[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+						}
+					} else {
+						[cfg appendFormat: @"%c", c];
+					}
+				}
                 [cfg replaceOccurrencesOfString: @".tblk/Contents/Resources/config.ovpn" withString: @".tblk" options: 0 range: NSMakeRange(0, [cfg length])];
                 NSString * returnVal = [[cfg copy] autorelease];
                 [cfg release];
@@ -6350,6 +6369,15 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
                 }
             }
         }
+    }
+    
+    if (   showThem
+        && (! showingAny)
+        && (! [gTbDefaults boolForKey: @"doNotShowDisconnectedNotificationWindows"])  ) {
+        NSString * lastConnectionName = [gTbDefaults objectForKey: @"lastConnectedDisplayName"];
+        VPNConnection * lastConnection = [myVPNConnectionDictionary objectForKey: lastConnectionName];
+        [lastConnection showStatusWindow];
+        showingAny = TRUE;
     }
     
     if (  showingAny  ) {

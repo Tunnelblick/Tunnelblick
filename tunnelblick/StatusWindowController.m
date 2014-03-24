@@ -332,8 +332,11 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
 
     [self showWindow: self];
-    [self initialiseAnim];
-    haveLoadedFromNib = TRUE;
+	if (  ! [status isEqualToString:@"EXITING"]  ) {
+		[self initialiseAnim];
+    }
+	
+	haveLoadedFromNib = TRUE;
     [self fadeIn];
 }
 
