@@ -46,19 +46,18 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
-    <td>      Michael Bianco    </td>
-    <td>      Button images    </td>
-  </tr>
-
-  <tr>
     <td>      Michael Schloh von Bennewit    </td>
     <td>      64-bit enabling and testing    </td>
   </tr>
 
   <tr>
     <td>      Stefan Bethke    </td> 
-    <td>      Localization code tweaks
-    </td>
+    <td>      Localization code tweaks    </td>
+  </tr>
+
+  <tr>
+    <td>      Michael Bianco    </td>
+    <td>      Button images    </td>
   </tr>
 
   <tr>
@@ -111,6 +110,10 @@ Tunnelblick is made possible by the efforts of many people:
     <td>      !NetSocket    </td>
   </tr>
 
+  <tr>
+    <td>      Harold Molina-Bulla    </td>
+    <td>      OpenVPN 2.3 and 64-bit integration    </td>
+  </tr>
   <tr>
     <td>      Mattias Nissler    </td>
     <td>      Tuntap    </td>
