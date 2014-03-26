@@ -828,6 +828,29 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
     [task setStandardError: errFileHandle];
     
 	becomeRoot([NSString stringWithFormat: @"launch %@", [thePath lastPathComponent]]);
+    
+    // If starting OpenVPN, add the 'IV_GUI_VER' environment variable
+	// The variable is set to "<bundle-id><space><build-number><space><human-readable-version>"
+    if (  [[thePath lastPathComponent] isEqualToString: @"openvpn"]  ) {
+		// We get the Info.plist contents as follows because NSBundle's objectForInfoDictionaryKey: method returns the object as it was at
+		// compile time, before the TBBUILDNUMBER is replaced by the actual build number (which is done in the final run-script that builds Tunnelblick)
+		// By constructing the path, we force the objects to be loaded with their values at run time.
+		NSString * plistPath    = [[[[NSBundle mainBundle] bundlePath]
+									stringByDeletingLastPathComponent] // Remove /Resources
+								   stringByAppendingPathComponent: @"Info.plist"];
+		NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
+        NSString * bundleId     = [infoDict objectForKey: @"CFBundleIdentifier"];
+        NSString * buildNumber  = [infoDict objectForKey: @"CFBundleVersion"];
+        NSString * fullVersion  = [infoDict objectForKey: @"CFBundleShortVersionString"];
+        NSString * guiVersion   = [NSString stringWithFormat: @"%@ %@ %@", bundleId, buildNumber, fullVersion];
+        NSMutableDictionary * env = [[[task environment] mutableCopy] autorelease];
+		if (  ! env  ) {
+			env = [[[NSMutableDictionary alloc] initWithCapacity: 1] autorelease];
+		}
+		[env setObject: guiVersion forKey: @"IV_GUI_VER"];
+		[task setEnvironment: [NSDictionary dictionaryWithDictionary: env]];
+    }
+    
 	[task launch];
 	[task waitUntilExit];
     stopBeingRoot();
