@@ -115,7 +115,7 @@ extern TBUserDefaults * gTbDefaults;
     NSString * aboutPath    = [[[NSBundle mainBundle] bundlePath] stringByAppendingString: @"/Contents/Resources/about.html"];
 	NSString * htmlFromFile = [NSString stringWithContentsOfFile: aboutPath encoding:NSASCIIStringEncoding error:NULL];
     if (  htmlFromFile  ) {
-        NSString * basedOnHtml  = NSLocalizedString(@"<br>Based on Tunnel" @"blick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>", @"Window text");
+        NSString * basedOnHtml  = NSLocalizedString(@"<br>Based on Tunnel" @"blick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc.", @"Window text");
         NSString * html         = [NSString stringWithFormat:@"%@%@%@%@",
                                    @"<html><body><center><div style=\"font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px\">",
                                    htmlFromFile,
@@ -126,52 +126,51 @@ extern TBUserDefaults * gTbDefaults;
         [[infoDescriptionTV textStorage] setAttributedString: description];
     } else {
         
-        // Create HTML trailer and convert to an mutable attributed string
-        NSString * trailingHTML = @"<br /><center><a href= \"https://www.tunnelblick.net\">https://www.tunnelblick.net</a><br /></center>";
-        NSData * htmlData = [[[NSData alloc] initWithBytes: [trailingHTML UTF8String] length: [trailingHTML length]] autorelease];
-        NSMutableAttributedString * descriptionString = [[[NSMutableAttributedString alloc] initWithHTML: htmlData documentAttributes: nil] autorelease];
-
-        NSAttributedString * contents = [[[NSMutableAttributedString alloc] initWithString:
-                                         NSLocalizedString(@"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@.", @"Window text")] autorelease];
-        
-        // Insert the localized contents before the trailer
-        [descriptionString insertAttributedString: contents atIndex: 0];
+        // Create the base string with localized content (the leading space is needed to keep the prefix from becoming a link; it is removed if the prefix is not needed)
+		NSString * localizedContent = NSLocalizedString(@" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc.", @"Window text");
+        NSMutableAttributedString * descriptionString = [[[NSMutableAttributedString alloc] initWithString: localizedContent] autorelease];
         
         // Replace the placeholders in the localized content with links
         [self replaceString: @"%1$@"
+                 withString: @"Tunnel" @"blick"
+                  urlString: @"https://www.tunnelblick.net"
+                         in: descriptionString];
+        
+        [self replaceString: @"%2$@"
                  withString: @"GNU General Public License version 2"
                   urlString: @"https://www.gnu.org/licenses/gpl-2.0.html"
                          in: descriptionString];
         
-        [self replaceString: @"%2$@"
+        [self replaceString: @"%3$@"
                  withString: @"Free Software Foundation"
                   urlString: @"https://fsf.org"
                          in: descriptionString];
         
+        [self replaceString: @"%4$@"
+                 withString: @"OpenVPN"
+                  urlString: @"https://openvpn.net/"
+                         in: descriptionString];
+		
         [infoDescriptionTV setEditable: NO];
         [infoDescriptionSV setHasHorizontalScroller: NO];
         [infoDescriptionSV setHasVerticalScroller:   NO];
         
-        // If Tunnelblick has been globally replaced with XXX, prefix the license description with "XXX is based on Tunnelblick. "
-        // And change XXX back to Tunnelblick
-        if (  ! [gTbDefaults boolForKey: @"doNotUnrebrandLicenseDescription"]  ) {
-            if (   ! [@"Tunnelblick" isEqualToString: @"Tunnel" @"blick"]  ) {
-                NSString * prefix = [NSString stringWithFormat:
-                                     NSLocalizedString(@"Tunnelblick is based on %@. ", @"Window text"),
-                                     @"Tunnel" @"blick"];
-                
-                NSMutableString * s = [descriptionString mutableString];
-                [s replaceOccurrencesOfString: @"Tunnelblick" withString: @"Tunnel" @"blick" options: 0 range: NSMakeRange(0, [s length])];
-                [descriptionString replaceCharactersInRange: NSMakeRange(0, 0) withString: prefix];
-            }
+        // If Tunnelblick has been globally replaced with XXX, prefix the license description with "XXX is based on Tunnelblick."
+        if (   ( ! [gTbDefaults boolForKey: @"doNotUnrebrandLicenseDescription"]  )
+			&& ( ! [@"Tunnelblick" isEqualToString: @"Tunnel" @"blick"]  )
+			) {
+			NSString * prefix = [NSString stringWithFormat:
+								 NSLocalizedString(@"Tunnelblick is based on %@.", @"Window text"),
+								 @"Tunnel" @"blick"];
+			[descriptionString replaceCharactersInRange: NSMakeRange(0, 0) withString: prefix];
+        } else {
+			[descriptionString deleteCharactersInRange: NSMakeRange(0, 1)];	// Remove leading space
         }
-        
-        [infoDescriptionTV replaceCharactersInRange:NSMakeRange( 0, [[infoDescriptionTV string] length] )
-                                            withRTF:[descriptionString RTFFromRange:
-                                                     NSMakeRange( 0, [descriptionString length] )
-                                                                 documentAttributes:nil]];
+		
+        [infoDescriptionTV replaceCharactersInRange: NSMakeRange( 0, [[infoDescriptionTV string] length] )
+                                            withRTF: [descriptionString RTFFromRange: NSMakeRange( 0, [descriptionString length] ) documentAttributes: nil]];
     }
-
+	
 	// Credits: create HTML, convert to an NSMutableAttributedString, substitute localized strings, and display
 	//
     // Credits data comes from the following arrays:
