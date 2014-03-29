@@ -13,7 +13,7 @@ Please be patient -- we're all volunteers! (For more information about the moder
 
 If you are having a problem with Tunnelblick, it is best to open the "VPN Details…" window and click on the "Log" tab before doing a complete connect/disconnect cycle (if you can) to obtain fresh diagnostic information for your submission.
 
-*If possible, please use the "Copy Diagnostic Info to the Clipboard" button*, then paste into an email or web form and edit out sensitive information. The button available in Tunnelblick 3.3beta38 and higher, and is located on the "Log" tab of the "Preferences" panel of the "VPN Details…" window.
+*If possible, please use the "Copy Diagnostic Info to the Clipboard" button*, then paste into an email or web form and edit out sensitive information. The button is available in Tunnelblick 3.3beta38 and higher, and is located on the "Log" tab of the "Preferences" panel of the "VPN Details…" window.
 
 *Otherwise, please include the following with your question*:
  * the contents of your configuration file;
