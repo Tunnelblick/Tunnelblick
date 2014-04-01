@@ -3,7 +3,7 @@
 
 *<font size="3">News</font>*
 
-2014-04-01: Tunnelblick no longer loads an image from PayPal when it displays an alert that an update is available; the image is instead loaded from tunnelblick.net (via https:). This was a change to the tunnelblick.net website, not the program, so it affects all versions of Tunnelblick. (Note: the image is a "Donate" button.)
+2014-04-01: Tunnelblick no longer loads an image from !PayPal when it displays an alert that an update is available; the image is instead loaded from tunnelblick.net (via https:). This was a change to the tunnelblick.net website, not the program, so it affects all versions of Tunnelblick. (Note: the image is a "Donate" button.)
 
 --------------------
 
