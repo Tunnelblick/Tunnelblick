@@ -3,6 +3,17 @@
 
 *<font size="3">News</font>*
 
+2014-04-08: Yesterday an OpenSSL vulnerability was disclosed (see the [https://www.openssl.org/news/secadv_20140407.txt OpenSSL Security Advisory]).
+
+ Although Tunnelblick includes a version of the OpenSSL library which is vulnerable, James Yonan, creator of OpenVPN, [https://sourceforge.net/p/openvpn/mailman/message/32199276/ has written]:
+  "Using the tls-auth option should protect against this vulnerability (assuming that your tls-auth key is not known to the attacker)."
+
+ A new version of OpenSSL which is not vulnerable has been committed to the Tunnelblick source code (as [https://code.google.com/p/tunnelblick/source/detail?r=2787 r2787]) and will be used in the next release of Tunnelblick.
+
+
+
+--------------------
+
 2014-04-01: Tunnelblick no longer loads an image from !PayPal when it displays an alert that an update is available; the image is instead loaded from tunnelblick.net (via https:). This was a change to the tunnelblick.net website, not the program, so it affects all versions of Tunnelblick. (Note: the image is a "Donate" button.)
 
 --------------------
