@@ -306,6 +306,12 @@
 
 ==Version 3.3==
 
+*3.3.2 build 3518.3792 (2014-04-08)*
+
+ * Includes OpenSSL library version 1.0.1g, which does not have the [https://www.openssl.org/news/secadv_20140407.txt "heartbeat" vulnerability].
+ 
+--------------------
+
 *3.3 build 3518 (2013-07-22)*
 
  This is the first stable release of Tunnelblick 3.3. It is identical to version 3.3beta56 except for version information.

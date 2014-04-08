@@ -14,7 +14,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  For use on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "Mountain Lion"), Intel or PowerPC, 32- or 64-bit.<br /> *<font color="red">DO NOT use on OS X 10.9 ("Mavericks")</font>* -- use the latest [#Tunnelblick_Beta_Release Beta Release].
 
- <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.3.dmg/download Tunnelblick 3.3]</strong></font> `[`sourceforge.net`]` (build 3518) released 2013-07-22 [RlsNotes#Version_3.3 Release Notes] [DocumentationForTunnelblick_3_3  What's New in 3.3]
+ <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.3.2.dmg/download Tunnelblick 3.3.2]</strong></font> `[`sourceforge.net`]` (build 3518.3792) released 2014-04-08 [RlsNotes#Version_3.3 Release Notes] [DocumentationForTunnelblick_3_3  What's New in 3.3]
 
  <strong>You DO NOT need to uninstall</strong> previous versions of Tunnelblick; just install this one.
 
