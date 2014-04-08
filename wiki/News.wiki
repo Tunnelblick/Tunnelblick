@@ -3,14 +3,30 @@
 
 *<font size="3">News</font>*
 
+--------------------
+
+2014-04-08: *Tunnelblick 3.4beta22 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Includes OpenSSL library version 1.0.1g, which does not have the [https://www.openssl.org/news/secadv_20140407.txt "heartbeat" vulnerability].
+ 
+ * Shows a notification window for the most recently connected configuration upon mouseover of the Tunnelblick icon even if no configuration has been connected since Tunnelblick was launched.
+
+ * On OS X 10.9 ('Mavericks'), forces the Tunnelblick icon to be in the standard status icon position (to the left of other icons at the time Tunnelblick is launched). This is a temporary limitation until a bug in OS X is fixed.
+
+ * Allows non-ASCII characters (such as accented characters) in token names, passphrases, usernames, and passwords. (Available only in OpenVPN 2.3 and higher.)
+
+ * Includes several other enhancements and fixes several bugs.
+
+ See the [RlsNotes#Version_3.4 Release Notes] for details.
+
+--------------------
+
 2014-04-08: Yesterday an OpenSSL vulnerability was disclosed (see the [https://www.openssl.org/news/secadv_20140407.txt OpenSSL Security Advisory]).
 
  Although Tunnelblick includes a version of the OpenSSL library which is vulnerable, James Yonan, creator of OpenVPN, [https://sourceforge.net/p/openvpn/mailman/message/32199276/ has written]:
   "Using the tls-auth option should protect against this vulnerability (assuming that your tls-auth key is not known to the attacker)."
 
  A new version of OpenSSL which is not vulnerable has been committed to the Tunnelblick source code (as [https://code.google.com/p/tunnelblick/source/detail?r=2787 r2787]) and will be used in the next release of Tunnelblick.
-
-
 
 --------------------
 

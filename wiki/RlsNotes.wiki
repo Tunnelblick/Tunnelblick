@@ -9,6 +9,44 @@
 
 ==Version 3.4==
 
+*3.4beta22 build 3789 (2014-04-08)*
+
+ * Includes OpenSSL library version 1.0.1g, which does not have the [https://www.openssl.org/news/secadv_20140407.txt "heartbeat" vulnerability].
+ 
+ * Shows a notification window for the most recently connected configuration upon mouseover of the Tunnelblick icon even if no configuration has been connected since Tunnelblick was launched.
+
+ * On OS X 10.9 ('Mavericks'), forces the Tunnelblick icon to be in the standard status icon position (to the left of other icons at the time Tunnelblick is launched). This is a temporary limitation until a bug in OS X is fixed.
+
+ * Allows non-ASCII characters (such as accented characters) in token names, passphrases, usernames, and passwords. (Available only in OpenVPN 2.3 and higher.)
+
+ * Includes version 1.11 of pkcs11-helper.
+
+ * Can use kill() to send SIGTERM to OpenVPN processes.
+
+ * Reorders options to OpenVPN that are required by Tunnelblick so they cannot be overridden by entries in the configuration file.
+
+ * Sets the 'IV_GUI_VER' environment variable when starting OpenVPN.
+
+ * Adds a list of any unusual files in a .tblk to the diagnostic info.
+
+ * Includes additional information in the Tunnelblick log if a script fails.
+
+ * Displays 'OpenVPN is a registered trademark of OpenVPN Technologies, Inc.' on the Info panel.
+
+ * Adds an entry to the Console Log if there are options in the configuration file that will be ignored because they are used by Tunnelblick or are incompatible with Tunnelblick.
+
+ * Fixes problems prepending new search domains and a new domain name to search domains. MANY THANKS TO ANDREW DAUGHERITY FOR FINDING AND FIXING THIS BUG.
+
+ * Fixes a problem that caused some scripts to fail.
+
+ * Fixes a problem selecting the default OpenVPN version for one or more configurations.
+
+ * Fixes a cosmetic error in the output of 'Copy Diagnostic Info to Clipboard'.
+
+ * Fixes a problem with 'Connect when computer starts' configurations that have a name that contains '-S'.
+
+--------------------
+
 *3.4beta20 build 3727 (2014-01-16)*
 
  * Replaces embedded OpenSSL 1.0.1e with 1.0.1f (see [http://www.openssl.org/news/vulnerabilities.html OpenSSL Vulnerabilities]).
