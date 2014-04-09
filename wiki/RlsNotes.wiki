@@ -309,6 +309,123 @@
 *3.3.2 build 3518.3792 (2014-04-08)*
 
  * Includes OpenSSL library version 1.0.1g, which does not have the [https://www.openssl.org/news/secadv_20140407.txt "heartbeat" vulnerability].
+
+ * Implements 'Examine OpenVPN Configuration File' for Shared and Deployed configurations.
+
+ * Includes a better Console log message when a sound is not found.
+
+ * Option-click on a checkbox allows the option of changing a setting for all configurations.
+
+ * Allows .crl files in a .tblk.
+
+ * Allows non-printing characters in comments and single- and double-quotes and after a backslash in OpenVPN configuration files and scripts that are being coverted into Tunnelblick VPN Configurations.
+
+ * Checks that additional system folders are secure.
+
+ * Adds TBAlwaysSetPreference key to Info.plist of a .tblk. It is like TBPreference, but it causes the preference to be set 'always' -- it is reset each time the configuration is connected and when Tunnelblick starts up.
+
+ * Adds a new per-configuration preference, '-openvpnVersion' which can contain an OpenVPN version string (for example, '2.3.2'). If set, it will override the application-wide 'openvpnVersion' preference.
+
+ * Adds the ability to use an asterisk (`*`) in front of the name of a connection-specific preference to indicate that all configurations should use that preference by default. (A specific preference for a configuration will override this default.)
+
+ * Some error messages were made clearer and more specific.
+
+ * Does better error checking and reports problems directly to the user when installing a Tunnelblick VPN Configuration.
+
+ * Clarifies help on the 'Advanced' settings page.
+
+ * Attempts to recover when OpenVPN crashes without having run the 'down' script by running the 'route-pre-down' and 'down' scripts from Tunnelblick and runs the 'route- pre-down' script to release the DHCP lease on a TAP connection if needed.
+
+ * Verifies the digital signature of Sparkle framework.
+
+ * Verifies that kexts and digital signatures are secured.
+
+ * Verifies that everything in the application is only writable by root.
+
+ * Attempts to display an error message in a GUI window if it can't display normal windows.
+
+ * Adds clearer error handling for problems with Applications, Library, and Application Support folders that are insecure.
+
+ * Signs kexts for Mavericks.
+
+ * Includes additional logging of ownership changes made by installer.
+
+ * Catches SIGTRAP if not debugging and add signal name to Console output.
+
+ * Fixes crash when accessing checkboxes on 'Advanced' window.
+
+ * Includes a Sparkle patch to allow downgrades to stable versions from beta versions.
+
+ * Uses https: for update checks and loading all update information and adds the ability check for updates to beta versions and to 'downgrade' from beta to stable. (Updates are still protected by being digitally signed so they cannot be forged; this is an additional level of security.)
+
+ * Uses https: for IP address checks that use a domain name in the URL to test DNS. (Tunnelblick continues to use http: for IP address checks that use an IP address in the URL, which is done if the first IP address check (using a domain name in the URL) fails.)
+
+ * Adds a new checkbox in the 'Updates' section of the 'Preferences' panel: 'Check for updates to beta versions', which controls the 'updateCheckBetas' preference. If checked, Tunnelblick will check for new beta versions of Tunnelblick that are available for update, otherwise, Tunnelblick will check for new stable versions. Checked by default when running a beta version, unchecked by default when running a stable version. Note: If this is un-checked in a beta version, Tunnelblick will offer to install the latest stable version, which may be a 'downgrade' from the beta version to an earlier stable version.
+
+ * Uses new URLs when checking for updates:
+   * 'https://www.tunnelblick.net/appcast-s.rss' to check for new stable versions,
+     and
+   * 'https://www.tunnelblick.net/appcast-b.rss' to check for new beta versions.
+
+   The URL of customized or Deployed versions of Tunnelblick that contain a non- standard update feed URL have '-s' or '-b' appended to the last component of the URL before the extension (e.g. 'http://aaa/bbb/ccc.ddd' becomes 'http://aaa/bbb/ccc-s.ddd' or 'http://aaa/bbb/ccc-b.ddd' to check for stable and beta versions, respectively).
+
+ * Removed unused files English.lproj/Description.rtf and English.lproj/Credits.rtf.
+
+ * Adds stack trace to Console Log on fatal error; removes debugging entries from Console Log.
+
+ * Filters CR characters from .sh, .conf, .ovpn, .crt, .key, and .pem files when installing a .tblk.
+
+ * Corrects the name of Chinese (traditional) (ZH_TW) localizer from 'Pompin Wu' to 'Pomin Wu'.
+
+ * Fixes several problems that caused failures when installing Tunnelblick VPN Configurations.
+
+ * Fixes a problem when installing a Tunnelblick VPN Configuration that includes CR-LF sequences in the OpenVPN configuration file.
+
+ * Fixes a problem on OS X 10.5 and 10.6 ('Leopard' and 'Snow Leopard') that caused spurious 'invalid signature' errors.
+
+ * Fixes a problem that causes the log to 'freeze' under certain conditions.
+
+ * Fixes a problem when Tunnelblick scripts output a lot to stdout or stderr.
+
+ * Fixes a problem with 'Copy Diagnostic Info to Clipboard' on Mountain Lion and Mavericks.
+
+ * Fixes typos in(ZH_CN), Spanish (ES), Finnish (FI), Italian (IT), Norwegian (NB), Dutch (NL), and Chinese (simplified) translations.
+
+ * Fixes a bug that caused settings on the 'While Connected' tab of the 'Advanced' window to be ignored.
+
+ * Fixes a problem on Mavericks that caused Tunnelblick to crash on launch on some systems.
+
+ * Fixes a problem that caused the status window to fail to appear when the pointer is over the Tunnelblick icon after checking or un-checking the 'Place [the Tunnelblick icon] next to Spotlight icon' checkbox in the 'Appearances' panel.
+
+ * Fixes a problem on OS X 10.9 ('Mavericks') that caused Tunnelblick to always launch after login even if it had quit before logging out.
+
+ * Fixes a problem on OS X 10.9 ('Mavericks') that sometimes caused the Tunnelblick icon to disappear from the status bar on a computer with multiple displays.
+
+ * Fixes a problem that caused the status window to fail to appear when the pointer is over the Tunnelblick icon after checking or un-checking the 'Place [the Tunnelblick icon] next to Spotlight icon' checkbox in the 'Appearances' panel.
+
+ * Fixes a problem on OS X 10.9 ('Mavericks') that caused Tunnelblick to always launch after login even if it had quit before logging out.
+
+ * Fixes a problem on OS X 10.9 ('Mavericks') that sometimes caused the Tunnelblick icon to disappear from the status bar on a computer with multiple displays.
+
+ * Fixes problems that cause Tunnelblick to crash or hang if many changes to the configurations are made very quickly.
+
+ * Fixes a problem that caused the 'Welcome to Tunnelblick' window to appear more than once when multiple changes to the configurations are made very quickly.
+
+ * Fixes problems when there are no configurations.
+
+ * Fixes spacing problems on the 'Preferences' tab that occur when there is only one version of OpenPVN included in Tunnelblick.
+
+ * Fixes problems that can lead to a Tunnelblick crash or hang under an unusual OS X error condition.
+
+ * Fixes problems that cause Tunnelblick to crash or hang if many changes to the configurations are made very quickly.
+
+ * Fixes a problem that caused the 'Welcome to Tunnelblick' window to appear more than once when multiple changes to the configurations are made very quickly.
+
+ * Fixes a problem converting or installing configurations with .cer, .cert, .der, .p12, .p7b, .p7c, and .pfx files; (3) Fixes a problem displaying the hex code for invalid characters in files.
+
+ * Fixes a problem that sometimes caused a spurious entry in the Console Log.
+
+ * Fixes a small memory leak.
  
 --------------------
 
