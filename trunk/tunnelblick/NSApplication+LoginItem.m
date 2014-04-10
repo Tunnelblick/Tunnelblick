@@ -363,8 +363,8 @@ extern NSFileManager * gFileMgr;
                             }
                         }
                     } else {
-                        NSLog(@"deleteAppFromLoginItems: LSSharedFileListItemResolve returned status = %ld; url is %@",
-                              (long) status, (url ? @"not NULL" : @"NULL"));
+                        NSLog(@"deleteAppFromLoginItems: LSSharedFileListItemResolve returned status = %ld for itemRef = 0x%lX; url is %@",
+                              (long) status, (unsigned long) itemRef, (url ? @"not NULL" : @"NULL"));
                     }
                     if (  url  ) {
                         CFRelease(url);

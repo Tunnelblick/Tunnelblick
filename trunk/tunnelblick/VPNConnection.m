@@ -211,13 +211,13 @@ extern NSString * lastPartOfPath(NSString * thePath);
         areConnecting = FALSE;
         loadedOurTap = FALSE;
         loadedOurTun = FALSE;
-        logFilesMayExist = FALSE;
         authFailed       = FALSE;
         credentialsAskedFor = FALSE;
         showingStatusWindow = FALSE;
         serverNotClient = FALSE;
         retryingConnectAfterSecuringConfiguration = FALSE;
         ipCheckLastHostWasIPAddress = FALSE;
+        logFilesMayExist = ([[gTbDefaults objectForKey: @"lastConnectedDisplayName"] isEqualToString: displayName]);
 
         userWantsState   = userWantsUndecided;
         

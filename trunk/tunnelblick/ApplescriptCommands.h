@@ -51,3 +51,8 @@
 }
 - (id)performDefaultImplementation;
 @end
+
+@interface ApplescriptQuit : NSScriptCommand {
+}
+- (id)performDefaultImplementation;
+@end

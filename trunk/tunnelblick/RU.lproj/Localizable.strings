@@ -957,7 +957,7 @@
 "Icon:" = "Иконка:";
 
 /* Window text */
-"In:" = "Лн:";
+"In:" = "Входящий:";
 
 /* Window text */
 "Installation finished successfully." = "Установка завершена успешно.";
@@ -1065,7 +1065,7 @@
 "OpenVPN version:" = "Версия OpenVPN:";
 
 /* Window text */
-"Out:" = "Наружу:";
+"Out:" = "Исходящий:";
 
 /* Window text */
 "PB" = "ПБ";
