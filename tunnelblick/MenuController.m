@@ -224,16 +224,15 @@ BOOL needToConvertNonTblks(void);
         
         gProgramPreferences = [[NSArray arrayWithObjects:
                                 
-                                // Document TBLog() logging options here, but don't store them in the list. That way they will be listed as "unknown" in the log at launch which may help catch typos of them
-                                // @"DB-ALL"     All extra logging
-                                // @"DB-CD",     Extra logging for connect/disconnect
-                                // @"DB-HU",     Extra logging for hookup,
-                                // @"DB-IC",     Extra logging for IP address checking
-                                // @"DB-IT",     Extra logging for IP address check threading
-                                // @"DB-SD",     Extra logging for shutdown
-                                // @"DB-SU",     Extra logging for startup
-                                // @"DB-SW",     Extra logging for sleep/wake
-                                // @"DB-UP",     Extra logging for the up script
+                                @"DB-ALL"     // All extra logging
+                                @"DB-CD",     // Extra logging for connect/disconnect
+                                @"DB-HU",     // Extra logging for hookup,
+                                @"DB-IC",     // Extra logging for IP address checking
+                                @"DB-IT",     // Extra logging for IP address check threading
+                                @"DB-SD",     // Extra logging for shutdown
+                                @"DB-SU",     // Extra logging for startup
+                                @"DB-SW",     // Extra logging for sleep/wake
+                                @"DB-UP",     // Extra logging for the up script
                                 
                                 @"skipWarningAboutReprotectingConfigurationFile",
                                 @"skipWarningAboutSimultaneousConnections",
@@ -6375,9 +6374,13 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
         && (! showingAny)
         && (! [gTbDefaults boolForKey: @"doNotShowDisconnectedNotificationWindows"])  ) {
         NSString * lastConnectionName = [gTbDefaults objectForKey: @"lastConnectedDisplayName"];
-        VPNConnection * lastConnection = [myVPNConnectionDictionary objectForKey: lastConnectionName];
-        [lastConnection showStatusWindow];
-        showingAny = TRUE;
+		if (  lastConnectionName  ) {
+			VPNConnection * lastConnection = [myVPNConnectionDictionary objectForKey: lastConnectionName];
+			if (  lastConnection  ) {
+				[lastConnection showStatusWindow];
+				showingAny = TRUE;
+			}
+		}
     }
     
     if (  showingAny  ) {

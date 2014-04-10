@@ -65,5 +65,10 @@
 			<result type="integer" description="Returns the number of configurations for which a disconnection is being attempted."/>
 		</command>
 		
+		<command name="quit" code="TBLKQuit" description="Quit Tunnelblick gracefully.">
+			<cocoa class="ApplescriptQuit"/>
+			<result type="integer" description="Returns 0."/>
+		</command>
+		
 	</suite>
 </dictionary>

@@ -140,3 +140,14 @@ extern TBUserDefaults  * gTbDefaults;
 }
 
 @end
+
+@implementation ApplescriptQuit
+
+- (id)performDefaultImplementation
+{
+    [[NSApp delegate] performSelectorOnMainThread: @selector(quit:) withObject: nil waitUntilDone: NO];
+    return [NSNumber numberWithInt: 0];
+}
+
+
+@end
