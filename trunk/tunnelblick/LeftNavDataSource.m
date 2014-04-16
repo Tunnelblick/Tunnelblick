@@ -366,7 +366,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 		[item setDisplayName: targetDisplayName];
 		
 		// We also need to change the name of the configuration that is selected
-		NSString * pref = [gTbDefaults objectForKey: @"leftNavSelectedDisplayName"];
+		NSString * pref = [gTbDefaults stringForKey: @"leftNavSelectedDisplayName"];
 		if (  [pref isEqualToString: sourceDisplayName]  ) {
 			[gTbDefaults setObject: targetDisplayName forKey: @"leftNavSelectedDisplayName"];
 		}

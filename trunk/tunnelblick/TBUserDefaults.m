@@ -130,6 +130,21 @@ NSArray * gConfigurationPreferences;
     return NO;
 }
 
+-(NSString *) stringForKey: (NSString *) key {
+    
+    // Returns the NSString object associated with a key, or nil if no object exists for the key or the object is not an NSString.
+    
+    id obj = [self objectForKey: key];
+    if (  obj  ) {
+        if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
+            return (NSString *)obj;
+        }
+        NSLog(@"Preference '%@' must be a string; it is a %@", key, [obj class]);
+    }
+    
+    return nil;
+}
+
 -(unsigned) unsignedIntForKey: (NSString *) key
                       default: (unsigned)   defaultValue
                           min: (unsigned)   minValue

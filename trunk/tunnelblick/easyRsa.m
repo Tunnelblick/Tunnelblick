@@ -41,7 +41,7 @@ BOOL usingOurEasyRsa(void) {
 	// Returns YES if we are using Tunnelblick's easy-rsa, and should update it
 	// and secure it.
 	
-	NSString * pathFromPrefs = [gTbDefaults objectForKey: @"easy-rsaPath"];
+	NSString * pathFromPrefs = [gTbDefaults stringForKey: @"easy-rsaPath"];
 	if (  ! pathFromPrefs  ) {
 		return YES;
 	}
@@ -289,33 +289,28 @@ NSString * easyRsaPathToUse(BOOL mustExistAndBeADir) {
     // Note: returns nil if "easy-rsaPath" preference is invalid
     //       returns nil if "mustExistAndBeADir" and it doesn't exist or isn't a directory
     
-    NSString * pathFromPrefs = [gTbDefaults objectForKey: @"easy-rsaPath"];
+    NSString * pathFromPrefs = [gTbDefaults stringForKey: @"easy-rsaPath"];
     if (  pathFromPrefs  ) {
-        if ( [[pathFromPrefs class] isSubclassOfClass: [NSString class]]  ) {
-            pathFromPrefs = [pathFromPrefs stringByExpandingTildeInPath];
-            if (  ! [pathFromPrefs hasPrefix: @"/"]  ) {
-                NSLog(@"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'");
-                return nil;
-            } else {
-                BOOL isDir;
-                BOOL exists = [gFileMgr fileExistsAtPath: pathFromPrefs isDirectory: &isDir];
-                if (  mustExistAndBeADir  ) {
-                    if (  exists && isDir  ) {
-                        return pathFromPrefs;
-                    }
-                    return nil;
-                }
-                if (   (  exists && isDir )
-                    || ( ! exists )  ) {
-                    return pathFromPrefs;
-                } else if (  exists  ) {
-                    NSLog(@"'easy-rsaPath' preference ignored; it does not specify a folder");
-                    return nil;
-                }
-            }
-        } else {
-            NSLog(@"'easy-rsaPath' preference ignored; it must be a string");
+        pathFromPrefs = [pathFromPrefs stringByExpandingTildeInPath];
+        if (  ! [pathFromPrefs hasPrefix: @"/"]  ) {
+            NSLog(@"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'");
             return nil;
+        } else {
+            BOOL isDir;
+            BOOL exists = [gFileMgr fileExistsAtPath: pathFromPrefs isDirectory: &isDir];
+            if (  mustExistAndBeADir  ) {
+                if (  exists && isDir  ) {
+                    return pathFromPrefs;
+                }
+                return nil;
+            }
+            if (   (  exists && isDir )
+                || ( ! exists )  ) {
+                return pathFromPrefs;
+            } else if (  exists  ) {
+                NSLog(@"'easy-rsaPath' preference ignored; it does not specify a folder");
+                return nil;
+            }
         }
     }
     

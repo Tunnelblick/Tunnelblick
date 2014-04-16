@@ -85,7 +85,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		return;
 	}
 	
-    NSWindow *window = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0.0, 0.0, 760.0, 390.0)
+    NSWindow *window = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0.0, 0.0, 920.0, 390.0)
 												    styleMask:(NSTitledWindowMask |
 															   NSClosableWindowMask |
                                                                NSResizableWindowMask |

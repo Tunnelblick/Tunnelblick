@@ -88,6 +88,22 @@ BOOL runningOnSnowLeopardOrNewer(void)
     return runningOnNewerThan(10, 5);
 }
 
+BOOL runningOnSnowLeopardPointEightOrNewer(void) {
+    
+    unsigned major, minor, bugFix;
+    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
+    
+    if (  major < 10  ) {
+        return FALSE;
+    }
+    
+    if (  (major > 10) || (minor > 6)  ) {
+        return TRUE;
+    }
+    
+    return (  (minor == 6) && (bugFix > 7)  );
+}
+
 BOOL runningOnLionOrNewer(void)
 {
     return runningOnNewerThan(10, 6);
@@ -944,16 +960,14 @@ NSString * TBGetDisplayName(NSString * msg,
 
 NSString * credentialsGroupFromDisplayName (NSString * displayName)
 {
-	NSString * allGroup = [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"];
-	if (   allGroup
-		&& [[allGroup class] isSubclassOfClass: [NSString class]]  ) {
+	NSString * allGroup = [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"];
+	if (  [allGroup length] != 0  ) {
 		return allGroup;
 	}
 	
 	NSString * prefKey = [displayName stringByAppendingString: @"-credentialsGroup"];
-	NSString * group = [gTbDefaults objectForKey: prefKey];
-	if (   ( ! group )
-		|| ( [group length] == 0 )  ) {
+	NSString * group = [gTbDefaults stringForKey: prefKey];
+	if (  [group length] == 0  ) {
 		return nil;
 	}
 	

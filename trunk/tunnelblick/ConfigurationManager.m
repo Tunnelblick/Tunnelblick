@@ -264,102 +264,68 @@ enum state_t {                      // These are the "states" of the guideState 
 
 -(BOOL) userCanEditConfiguration: (NSString *) filePath {
     
-    NSString * realPath = filePath;
-    if (  [[filePath pathExtension] isEqualToString: @"tblk"]  ) {
-        realPath = [filePath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
-    }
-    
-    // Must be able to write to parent directory of the file
-    if (  ! [gFileMgr isWritableFileAtPath: [realPath stringByDeletingLastPathComponent]]  ) {
+    NSString * extension = [filePath pathExtension];
+    if (  ! (   [extension isEqualToString: @"tblk"]
+             || [extension isEqualToString: @"ovpn"]
+             || [extension isEqualToString: @"conf"]
+             )  ) {
+        NSLog(@"Internal error: %@ is not a .tblk, .conf, or .ovpn", filePath);
         return NO;
     }
     
-    // If it doesn't exist, user can create it
-    if (  ! [gFileMgr fileExistsAtPath: realPath]  ) {
+    NSString * realPath = (  [extension isEqualToString: @"tblk"]
+						   ? [filePath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"]
+						   : [[filePath retain] autorelease]);
+    
+    // File must exist and we must be able to write to the file and its parent directory
+    if (   [gFileMgr fileExistsAtPath:     realPath]
+		&& [gFileMgr isWritableFileAtPath: realPath]
+        && [gFileMgr isWritableFileAtPath: [realPath stringByDeletingLastPathComponent]]  ) {
         return YES;
     }
     
-    // If it is writable, user can edit it
-    if (  [gFileMgr isWritableFileAtPath: realPath]  ) {
-        return YES;
-    }
-    
-    // Otherwise must be admin or we must allow non-admins to edit configurations
-    return (   [[NSApp delegate] userIsAnAdmin]
-            || ( ! [gTbDefaults boolForKey: @"onlyAdminsCanUnprotectConfigurationFiles"] )   );
+    return NO;
 }
 
--(void) editConfigurationAtPath: (NSString *) thePath
-                  forConnection: (VPNConnection *) connection {
+-(void) examineConfigFileForConnection: (VPNConnection *) connection {
     
-    NSString * targetPath = [[thePath copy] autorelease];
-    if ( ! targetPath  ) {
-        targetPath = [gPrivatePath stringByAppendingPathComponent: @"openvpn.conf"];
-    }
+    // Display the sanitized contents of the configuration file in a window
     
-    NSString * targetConfig;
-    if (  [[targetPath pathExtension] isEqualToString: @"tblk"]  ) {
-        targetConfig = configPathFromTblkPath(targetPath);
-        if (  ! targetConfig  ) {
-            // Doesn't exist; must be protected
-            NSString * configFileContents = [connection sanitizedConfigurationFileContents ];
-            if (  configFileContents  ) {
-                // Display the sanitized contents of the configuration file in a window
-				// NOTE: This controller is allocated here, but is released when the window is closed.
-				//       So we don't release it, and we overwrite it with impunity.
-				NSString * heading = [[connection displayName] stringByAppendingString: @" - Tunnelblick"];
-				listingWindow = [[ListingWindowController alloc] initWithHeading: heading
-                                                                            text: configFileContents];
-				[listingWindow showWindow: self];
-            } else {
-                NSLog(@"editConfigurationAtPath: No configuration file found for %@", [connection displayName]);
-            }
-            
-            return;
-        }
+    NSString * configFileContents = [connection sanitizedConfigurationFileContents];
+    if (  configFileContents  ) {
+        NSString * heading = [NSString stringWithFormat: NSLocalizedString(@"%@ OpenVPN Configuration - Tunnelblick", @"Window title"),[connection displayName]];
+        
+        // NOTE: The window controller is allocated here, but releases itself when the window is closed.
+        //       So _we_ don't release it, and we can overwrite listingWindow with impunity.
+        //       (The class variable 'listingWindow' is used to avoid an analyzer warning about a leak.)
+        listingWindow = [[ListingWindowController alloc] initWithHeading: heading
+                                                                    text: configFileContents];
+        [listingWindow showWindow: self];
     } else {
-        targetConfig = targetPath;
+        TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
+                        NSLocalizedString(@"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details.", @"Window text"),
+                        nil, nil, nil);
+    }
+}
+
+
+-(void) editOrExamineConfigurationForConnection: (VPNConnection *) connection {
+    
+    NSString * targetPath = [connection configPath];
+    if ( ! targetPath  ) {
+        NSLog(@"editOrExamineConfigurationForConnection: No path for configuration %@", [connection displayName]);
+        return;
     }
     
-    // To allow users to edit and save a configuration file, we allow the user to unprotect the file before editing. 
-    // This is because TextEdit cannot save a file if it is protected (owned by root with 644 permissions).
-    // But we only do this if the user can write to the file's parent directory, since TextEdit does that to save
-    if (  [gFileMgr fileExistsAtPath: targetConfig]  ) {
-        BOOL userCanEdit = [self userCanEditConfiguration: targetConfig];
-        BOOL isWritable = [gFileMgr isWritableFileAtPath: targetConfig];
-        if (  userCanEdit && (! isWritable)  ) {
-            // Ask if user wants to unprotect the configuration file
-            int button = TBRunAlertPanelExtended(NSLocalizedString(@"The configuration file is protected", @"Window title"),
-                                                 NSLocalizedString(@"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.", @"Window text"),
-                                                 NSLocalizedString(@"Examine", @"Button"),                  // Default button
-                                                 NSLocalizedString(@"Unprotect and Modify", @"Button"),     // Alternate button
-                                                 NSLocalizedString(@"Cancel", @"Button"),                   // Other button
-                                                 @"skipWarningAboutConfigFileProtectedAndAlwaysExamineIt",  // Preference about seeing this message again
-                                                 NSLocalizedString(@"Do not warn about this again, always 'Examine'", @"Checkbox name"),
-                                                 nil,
-												 NSAlertDefaultReturn);
-            if (   (button == NSAlertOtherReturn)   // No action if cancelled or error occurred
-                || (button == NSAlertErrorReturn)) {
-                return;
-            }
-            if (  button == NSAlertAlternateReturn  ) {
-                if (  ! [[ConfigurationManager defaultManager] unprotectConfigurationFile: targetPath]  ) {
-                    int button = TBRunAlertPanel(NSLocalizedString(@"Examine the configuration file?", @"Window title"),
-                                                 NSLocalizedString(@"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?", @"Window text"),
-                                                 NSLocalizedString(@"Cancel", @"Button"),    // Default button
-                                                 NSLocalizedString(@"Examine", @"Button"),   // Alternate button
-                                                 nil);
-                    if (  button != NSAlertAlternateReturn  ) {   // No action if cancelled or error occurred
-                        return;
-                    }
-                }
-            }
-        }
+    if (  [self userCanEditConfiguration: targetPath]  ) {
+		if (  [[targetPath pathExtension] isEqualToString: @"tblk"]  ) {
+			targetPath = [targetPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
+		}
+        [connection invalidateConfigurationParse];
+        [[NSWorkspace sharedWorkspace] openFile: targetPath withApplication: @"TextEdit"];
+    } else {
+        [self examineConfigFileForConnection: connection];
     }
-    
-    [connection invalidateConfigurationParse];
-    
-    [[NSWorkspace sharedWorkspace] openFile: targetConfig withApplication: @"TextEdit"];
 }
 
 -(void) shareOrPrivatizeAtPath: (NSString *) path {
@@ -414,58 +380,6 @@ enum state_t {                      // These are the "states" of the guideState 
         
         AuthorizationFree(authRef, kAuthorizationFlagDefaults);
     }
-}
-
--(BOOL)unprotectConfigurationFile: (NSString *) filePath {
-    
-    // Unprotect a configuration file without using authorization by replacing the root-owned
-    // file with a user-owned writable copy so it can be edited (keep root-owned file as a backup)
-    // Sets ownership/permissions on the copy to the current user:group/0666 without using authorization
-    // Invoke with path to .ovpn or .conf file or .tblk package
-    // Returns TRUE if succeeded
-    // Returns FALSE if can't find config in .tblk or couldn't change owner/permissions or user doesn't have write access to the parent folder
-    
-    NSString * actualConfigPath = [[filePath copy] autorelease];
-    if (  [[actualConfigPath pathExtension] isEqualToString: @"tblk"]  ) {
-        NSString * actualPath = configPathFromTblkPath(actualConfigPath);
-        if (  ! actualPath  ) {
-            NSLog(@"No configuration file in %@", actualConfigPath);
-            return FALSE;
-        }
-        actualConfigPath = actualPath;
-    }
-    
-    NSString * parentFolder = [filePath stringByDeletingLastPathComponent];
-    if (  ! [gFileMgr isWritableFileAtPath: parentFolder]  ) {
-        NSLog(@"No write permission on configuration file's parent directory %@", parentFolder);
-        return FALSE;
-    }
-    
-    // Copy the actual configuration file (the .ovpn or .conf file) to a temporary copy,
-    // then delete the original and rename the copy back to the original
-    // This changes the ownership from root to the current user
-    // Although the documentation for copyPath:toPath:handler: says that the file's ownership and permissions are copied,
-    // the ownership of a file owned by root is NOT copied.
-    // Instead, the copy's owner is the currently logged-in user:group -- which is *exactly* what we want!
-    NSString * configTempPath   = [actualConfigPath stringByAppendingPathExtension:@"temp"];
-    [gFileMgr tbRemoveFileAtPath:configTempPath handler: nil];
-    
-    if (  ! [gFileMgr tbCopyPath: actualConfigPath toPath: configTempPath handler: nil]  ) {
-        NSLog(@"Unable to copy %@ to %@", actualConfigPath, configTempPath);
-        return FALSE;
-    }
-    
-    if (  ! [gFileMgr tbRemoveFileAtPath: actualConfigPath handler: nil]  ) {
-        NSLog(@"Unable to delete %@", actualConfigPath);
-        return FALSE;
-    }
-    
-    if (  ! [gFileMgr tbMovePath: configTempPath toPath: actualConfigPath handler: nil]  ) {
-        NSLog(@"Unable to rename %@ to %@", configTempPath, actualConfigPath);
-        return FALSE;
-    }
-    
-    return TRUE;
 }
 
 -(NSString *)parseConfigurationPath: (NSString *) cfgPath

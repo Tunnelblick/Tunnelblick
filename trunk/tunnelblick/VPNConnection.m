@@ -171,7 +171,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 		speakWhenConnected    = FALSE;
 		speakWhenDisconnected = FALSE;
         NSString * upSoundKey  = [displayName stringByAppendingString: @"-tunnelUpSoundName"];
-        NSString * upSoundName = [gTbDefaults objectForKey: upSoundKey];
+        NSString * upSoundName = [gTbDefaults stringForKey: upSoundKey];
         if (  upSoundName  ) {
             if (  ! [upSoundName isEqualToString: @"None"]  ) {
                 if (  [upSoundName isEqualToString: @"Speak"]  ) {
@@ -185,7 +185,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
             }
         }
         NSString * downSoundKey  = [displayName stringByAppendingString: @"-tunnelDownSoundName"];
-        NSString * downSoundName = [gTbDefaults objectForKey: downSoundKey];
+        NSString * downSoundName = [gTbDefaults stringForKey: downSoundKey];
         if (  downSoundName  ) {
             if (  ! [downSoundName isEqualToString: @"None"] ) {
                 if (  [downSoundName isEqualToString: @"Speak"]  ) {
@@ -217,7 +217,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         serverNotClient = FALSE;
         retryingConnectAfterSecuringConfiguration = FALSE;
         ipCheckLastHostWasIPAddress = FALSE;
-        logFilesMayExist = ([[gTbDefaults objectForKey: @"lastConnectedDisplayName"] isEqualToString: displayName]);
+        logFilesMayExist = ([[gTbDefaults stringForKey: @"lastConnectedDisplayName"] isEqualToString: displayName]);
 
         userWantsState   = userWantsUndecided;
         
@@ -897,7 +897,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  ! (   gShuttingDownTunnelblick
              || gComputerIsGoingToSleep )  ) {
         if (  ! showingStatusWindow  ) {
-            NSString * statusPref = [gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"];
+            NSString * statusPref = [gTbDefaults stringForKey: @"connectionWindowDisplayCriteria"];
             if (  ! [statusPref isEqualToString: @"neverShow"]  ) {
                 if (  ! statusScreen) {
                     statusScreen = [[StatusWindowController alloc] initWithDelegate: self];
@@ -1777,24 +1777,59 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         bitMask = OPENVPNSTART_USE_TAP;
     }
 
-    NSString * noTapKextKey = [[self displayName] stringByAppendingString: @"-doNotLoadTapKext"];
-    NSString * yesTapKextKey = [[self displayName] stringByAppendingString: @"-loadTapKext"];
-    if (  ! [gTbDefaults boolForKey: noTapKextKey]  ) {
+	NSString * preferenceKey = [displayName stringByAppendingString: @"-loadTap"];
+	NSString * preference = [gTbDefaults stringForKey: preferenceKey];
+	if (  [preference isEqualToString: @"always"]  ) {
+		bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
+	} else if (   (! preference)
+               || ( [preference length] == 0)  ) {
         if (   ( ! tunOrTap )
-            || [tunOrTap isEqualToString: @"tap"]
-            || [gTbDefaults boolForKey: yesTapKextKey]  ) {
+            || [tunOrTap isEqualToString: @"tap"]  ) {
             bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
         }
+    } else if (  ! [preference isEqualToString: @"never"]  ) {
+        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Cannot recognize the %@ preference value of '%@', so Tunnelblick will load the tap kext", preferenceKey, preference]];
+        bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
     }
     
-    NSString * noTunKextKey = [[self displayName] stringByAppendingString: @"-doNotLoadTunKext"];
-    NSString * yesTunKextKey = [[self displayName] stringByAppendingString: @"-loadTunKext"];
-    if (  ! [gTbDefaults boolForKey: noTunKextKey]  ) {
+	preferenceKey = [displayName stringByAppendingString: @"-loadTun"];
+	preference = [gTbDefaults stringForKey: preferenceKey];
+	if (  [preference isEqualToString: @"always"]  ) {
+		bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
+	} else if (   (! preference)
+               || ( [preference length] == 0)  ) {
         if (   ( ! tunOrTap )
-            || [tunOrTap isEqualToString: @"tun"]
-            || [gTbDefaults boolForKey: yesTunKextKey]  ) {
-            bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
+            || [tunOrTap isEqualToString: @"tun"]  ) {
+            // automatic. Use utun -- and don't load the tun kext -- if OpenVPN 2.3.3 or higher and OS X 10.6.8 or higher
+			BOOL useUtun = FALSE;
+            if (  openVPNVersionDict  ) {
+                int intMajor =  [[openVPNVersionDict objectForKey:@"major"]  intValue];
+                int intMinor =  [[openVPNVersionDict objectForKey:@"minor"]  intValue];
+                int intSuffix = [[openVPNVersionDict objectForKey:@"suffix"] intValue];
+                if ( intMajor == 2 ) {
+                    if ( intMinor == 3 ) {
+                        if ( intSuffix > 2 ) {
+                            useUtun = TRUE;
+                        }
+                    } else if ( intMinor > 3 ) {
+                        useUtun = TRUE;
+                    }
+                } else if ( intMajor > 2 ) {
+                    useUtun = TRUE;
+                }
+            }
+            
+            if (  ! runningOnSnowLeopardPointEightOrNewer()  ) {
+                useUtun = FALSE;
+            }
+            
+            if (  ! useUtun  ) {
+                bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
+            }
         }
+    } else if (  ! [preference isEqualToString: @"never"]  ) {
+        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Cannot recognize the %@ preference value of '%@', so Tunnelblick will load the tun kext", preferenceKey, preference]];
+        bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
     }
     
     NSString * runMtuTestKey = [displayName stringByAppendingString: @"-runMtuTest"];
@@ -1817,7 +1852,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * bitMaskString = [NSString stringWithFormat: @"%d", bitMask];
     
     NSString * leasewatchOptionsKey = [displayName stringByAppendingString: @"-leasewatchOptions"];
-    NSString * leasewatchOptions = [gTbDefaults objectForKey: leasewatchOptionsKey];
+    NSString * leasewatchOptions = [gTbDefaults stringForKey: leasewatchOptionsKey];
     if (  leasewatchOptions  ) {
         if (  [leasewatchOptions hasPrefix: @"-i"]  ) {
             NSCharacterSet * optionCharacterSet = [NSCharacterSet characterSetWithCharactersInString: @"dasngw"];
@@ -1892,7 +1927,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     unsigned i;
     for (  i=0; i<[preferenceKeys count]; i++  ) {
         NSString * key = [[self displayName] stringByAppendingString: [preferenceKeys objectAtIndex: i]];
-        NSString * value = [gTbDefaults objectForKey: key];
+        NSString * value = [gTbDefaults stringForKey: key];
         int intValue;
         if (  value  ) {
 			if (  [value isEqualToString:@"ignore"]  ) {

@@ -63,6 +63,8 @@
 
 -(id)   objectForKey:               (NSString *)        key;
 
+-(NSString *) stringForKey:         (NSString *)        key;
+
 -(void) setBool:                    (BOOL)              value
          forKey:                    (NSString *)        key;
 
