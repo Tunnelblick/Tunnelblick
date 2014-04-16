@@ -254,6 +254,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"skipWarningThatInternetIsNotReachable",
 								@"skipWarningAboutInvalidSignature",
 								@"skipWarningAboutNoSignature",
+                                @"skipWarningAboutSystemClock",
                                 
                                 @"timeoutForOpenvpnToTerminateAfterDisconnectBeforeAssumingItIsReconnecting",
                                 @"timeoutForIPAddressCheckBeforeConnection",
@@ -3714,6 +3715,33 @@ static void signal_handler(int signalNumber)
         if (  dirty  ) {
             [gTbDefaults setObject: versions forKey: @"tunnelblickVersionHistory"];
         }
+    }
+    
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 016.1")
+    // Check that the system's clock is working
+    NSTimeInterval nowSinceReferenceDate = [[NSDate date] timeIntervalSinceReferenceDate];
+    id obj = [gTbDefaults objectForKey: @"lastLaunchTime"];
+    if (  [obj respondsToSelector: @selector(doubleValue)]  ) {
+        NSTimeInterval lastLaunchedSincReferenceDate = [obj doubleValue];
+        NSTimeInterval march30TwentyFourteenSinceReferenceDate = [[NSDate dateWithString: @"2014-03-30 00:00:00 +0000"] timeIntervalSinceReferenceDate];
+        
+        if (   (nowSinceReferenceDate > lastLaunchedSincReferenceDate)
+            && (nowSinceReferenceDate > march30TwentyFourteenSinceReferenceDate)) {
+            // Update lastLaunchTime
+            [gTbDefaults setObject: [NSNumber numberWithDouble: nowSinceReferenceDate] forKey: @"lastLaunchTime"];
+        } else {
+            TBRunAlertPanelExtended(NSLocalizedString(@"Warning!", @"Window title"),
+                                    NSLocalizedString(@"Your system clock may not be set correctly.\n\n"
+                                                      @"Some or all of your configurations may not connect unless the system clock has the correct date and time.\n\n", @"Window text"),
+                                    nil, nil, nil,
+                                    @"skipWarningAboutSystemClock",
+                                    NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                                    nil,
+                                    NSAlertDefaultReturn);
+        }
+    } else {
+        // Create lastLaunchTime
+        [gTbDefaults setObject: [NSNumber numberWithDouble: nowSinceReferenceDate] forKey: @"lastLaunchTime"];
     }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 017")
