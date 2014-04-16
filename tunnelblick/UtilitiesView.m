@@ -70,7 +70,7 @@ extern TBUserDefaults * gTbDefaults;
     [utilitiesOpenUninstallInstructionsButton sizeToFit];	
         
     NSString * easyRsaPathMessage;
-    if (  [gTbDefaults objectForKey: @"easy-rsaPath"]  ) {
+    if (  [gTbDefaults stringForKey: @"easy-rsaPath"]  ) {
         easyRsaPathMessage = easyRsaPathToUse(YES);
         if (  ( ! easyRsaPathMessage )  ) {
             easyRsaPathMessage = NSLocalizedString(@"(The 'easy-rsaPath' preference is invalid.)", @"Window text");

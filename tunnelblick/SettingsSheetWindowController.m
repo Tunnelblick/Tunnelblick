@@ -154,9 +154,8 @@ extern TBUserDefaults       * gTbDefaults;
 	
 	NSInteger ix = 0;
 	NSString * prefKey = [configurationName stringByAppendingString: @"-credentialsGroup"];
-	NSString * group = [gTbDefaults objectForKey: prefKey];
-	if (   group
-		&& (  [group length] != 0 )  ) {
+	NSString * group = [gTbDefaults stringForKey: prefKey];
+	if (   [group length] != 0  ) {
         NSArray * listContent = [credentialsGroupArrayController content];
         NSDictionary * dict;
         unsigned i;
@@ -311,16 +310,18 @@ extern TBUserDefaults       * gTbDefaults;
     }
     
 	NSString * key   = [configurationName stringByAppendingString: rawPreferenceKey];
-	NSString * value = [gTbDefaults objectForKey: key];
+	NSString * value = [gTbDefaults stringForKey: key];
 	
-	if (  ! value  ) {
+	if (   ( ! value)
+		|| ( [value length] == 0 )  ) {
 		[button selectItemAtIndex: 0];
 	} else if (  [value isEqualToString: @"always"]  ) {
 		[button selectItemAtIndex: 1];
 	} else if (  [value isEqualToString: @"never"]  ) {
 		[button selectItemAtIndex: 2];
 	} else {
-		NSLog(@"setupTunTapButton: Value '%@' for preference '%@' is invalid and being ignored", value, key);
+		NSLog(@"setupTunTapButton: Value '%@' for preference '%@' is invalid; assuming 'always'", value, key);
+		[button selectItemAtIndex: 1];
 	}
 }
 
@@ -627,7 +628,7 @@ extern TBUserDefaults       * gTbDefaults;
     
 	// Create an array of dictionaries of credentials groups, with both name and value = name of group
  	NSMutableArray * groupsDictionaryArray = [NSMutableArray arrayWithCapacity: [removeNamedCredentialsNames count]];
-	NSString * groupName = [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"];
+	NSString * groupName = [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"];
 	if (  groupName  ) {
 		[groupsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
 									 [NSString stringWithFormat:
@@ -674,7 +675,7 @@ extern TBUserDefaults       * gTbDefaults;
 	
 	[self setupCredentialsGroupButton];
 	
-	NSString * groupFromPrefs = [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"];
+	NSString * groupFromPrefs = [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"];
 	if (  groupFromPrefs  ) {
 		[allConfigurationsUseTheSameCredentialsCheckbox setState: NSOnState];
 		[credentialsGroupButton       setEnabled: NO];
@@ -755,7 +756,7 @@ extern TBUserDefaults       * gTbDefaults;
         doNotModifyPreferences = oldDoNotModifyPreferences;
         
         NSString * leasewatchOptionsKey = [configurationName stringByAppendingString: @"-leasewatchOptions"];
-        NSString * leasewatchOptions = [gTbDefaults objectForKey: leasewatchOptionsKey];
+        NSString * leasewatchOptions = [gTbDefaults stringForKey: leasewatchOptionsKey];
         if (  leasewatchOptions  ) {
             [dnsServersPopUpButton   setEnabled: NO];
             [domainPopUpButton       setEnabled: NO];
@@ -839,7 +840,7 @@ extern TBUserDefaults       * gTbDefaults;
 
     BOOL ignoringBecauseOfLeasewatchOptions = FALSE;
     NSString * leasewatchOptionsKey = [configurationName stringByAppendingString: @"-leasewatchOptions"];
-    NSString * leasewatchOptions = [gTbDefaults objectForKey: leasewatchOptionsKey];
+    NSString * leasewatchOptions = [gTbDefaults stringForKey: leasewatchOptionsKey];
     if (  leasewatchOptions  ) {
         if (  [leasewatchOptions rangeOfString: leasewatchOptionsChar].length != 0) {
             ignoringBecauseOfLeasewatchOptions = TRUE;

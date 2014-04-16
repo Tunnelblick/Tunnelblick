@@ -63,7 +63,7 @@ extern TBUserDefaults  * gTbDefaults;
         username   = nil;
         password   = nil;
         
-		NSString * allUseGroup = [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"];
+		NSString * allUseGroup = [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"];
 		if (  allUseGroup  ) {
 			inGroup = allUseGroup;
 		}

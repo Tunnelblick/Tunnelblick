@@ -74,6 +74,7 @@
 
 #define TOOL_PATH_FOR_CODESIGN @"/usr/bin/codesign"
 #define TOOL_PATH_FOR_KEXTSTAT @"/usr/sbin/kextstat"
+#define TOOL_PATH_FOR_PLUTIL   @"/usr/bin/plutil"
 
 //*************************************************************************************************
 // Characters in a configuration's display name that are not allowed

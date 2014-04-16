@@ -55,8 +55,7 @@
                              usingAuthRefPtr:           (AuthorizationRef *) authRefPtr
                                   warnDialog:           (BOOL)               warn;
 
--(void)                     editConfigurationAtPath:    (NSString *)        thePath
-                                      forConnection:    (VPNConnection *)   connection;
+-(void)                     editOrExamineConfigurationForConnection: (VPNConnection *) connection;
 
 -(void)                     haveNoConfigurationsGuide;
 
@@ -72,8 +71,6 @@
                                      forConnection:     (VPNConnection *)   connection;
 
 -(void)                     shareOrPrivatizeAtPath:     (NSString *)        path;
-
--(BOOL)                     unprotectConfigurationFile: (NSString *)        filePath;
 
 -(BOOL)                     userCanEditConfiguration:   (NSString *)        filePath;
 

@@ -107,6 +107,7 @@ BOOL           mustPlaceIconInStandardPositionInStatusBar(void);
 BOOL           runningOnTigerOrNewer    (void);
 BOOL           runningOnLeopardOrNewer  (void);
 BOOL           runningOnSnowLeopardOrNewer(void);
+BOOL           runningOnSnowLeopardPointEightOrNewer(void);
 BOOL           runningOnLionOrNewer(void);
 BOOL           runningOnMountainLionOrNewer(void);
 BOOL           runningOnMavericksOrNewer(void);

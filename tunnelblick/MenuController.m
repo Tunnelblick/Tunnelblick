@@ -132,6 +132,8 @@ BOOL needToConvertNonTblks(void);
                  notifyDelegate:                            (BOOL)              notifyDelegate;
 
 -(BOOL)             canRunFromVolume:                       (NSString *)        path;
+-(BOOL)             checkPlist:                             (NSString *)        path
+                   renameIfBad:                             (BOOL)              renameIfBad;
 -(NSURL *)          contactURL;
 -(NSString *)       deconstructOpenVPNLogPath:              (NSString *)        logPath
                                        toPort:              (unsigned *)        portPtr
@@ -174,6 +176,8 @@ BOOL needToConvertNonTblks(void);
                     forPath:                                (NSString *)        fpath;
 -(void) relaunchIfNecessary;
 -(void) secureIfNecessary;
+
+TBPROPERTY(NSString *, feedURL, setFeedURL)
 
 @end
 
@@ -451,6 +455,12 @@ BOOL needToConvertNonTblks(void);
         
         gFileMgr    = [NSFileManager defaultManager];
         
+        TBLog(@"DB-SU", @"init: 000")
+        
+        // Check that the preferences are OK or don't exist
+        [self checkPlist: @"/Library/Preferences/net.tunnelblick.tunnelblick.plist" renameIfBad: NO];
+        [self checkPlist: [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Preferences/net.tunnelblick.tunnelblick.plist"] renameIfBad: YES];
+        
         gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
         createDir(gPrivatePath, PERMS_PRIVATE_SELF);     // Create private configurations folder if necessary
         
@@ -472,7 +482,9 @@ BOOL needToConvertNonTblks(void);
 			ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
 		}
         gDeployPath = [[[ourBundle resourcePath] stringByAppendingPathComponent: @"Deploy"] copy];
-		
+        
+        [self checkPlist: [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"] renameIfBad: NO];
+
 		// Remove any old "Launch Tunnelblick" link in the private configurations folder
 		NSString * tbLinkPath = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
 		[gFileMgr tbRemoveFileAtPath: tbLinkPath handler: nil];
@@ -1012,6 +1024,53 @@ BOOL needToConvertNonTblks(void);
     return userIsAnAdmin;
 }
 
+-(BOOL) checkPlist: (NSString *) path renameIfBad: (BOOL) renameIfBad {
+    
+    // Checks the syntax of a .plist using plutil.
+    // If 'renameIfBad' is set and the .plist is bad, renames the .plist to be xxx.plist.bad and displays a warning dialog
+    
+    if (  ! [gFileMgr fileExistsAtPath: path]  ) {
+        TBLog(@"DB-SU", @"No file to check at %@", path)
+        return YES;
+    }
+    
+    if (  ! [gFileMgr fileExistsAtPath: TOOL_PATH_FOR_PLUTIL]  ) {
+        NSLog(@"No 'plutil at %@", TOOL_PATH_FOR_PLUTIL);
+        return YES;
+    }
+    
+    NSArray *  arguments = [NSArray arrayWithObject: path];
+    NSString * stdOutput = nil;
+    NSString * errOutput = nil;
+    OSStatus status = runTool(TOOL_PATH_FOR_PLUTIL, arguments, &stdOutput, &errOutput);
+    if (  status == EXIT_SUCCESS  ) {
+        TBLog(@"DB-SU", @"Preferences OK at %@", path)
+        return YES;
+    }
+    
+    NSLog(@"Preferences are corrupted at %@:\nstdout from plutil:\n%@stderr from plutil:\n%@", path, stdOutput, errOutput);
+    
+    if (  renameIfBad  ) {
+        NSString * dotBadPath = [path stringByAppendingPathExtension: @"bad"];
+        if (  [gFileMgr fileExistsAtPath: dotBadPath]  ) {
+            if (  ! [gFileMgr tbRemoveFileAtPath: dotBadPath handler: nil]  ) {
+                NSLog(@"Unable to delete %@", dotBadPath);
+            }
+        }
+        if (  [gFileMgr tbMovePath: path toPath: dotBadPath handler: nil]  ) {
+            NSLog(@"Renamed %@ to %@", path, [dotBadPath lastPathComponent]);
+        } else {
+            NSLog(@"Unable to rename %@ to %@", path, [dotBadPath lastPathComponent]);
+        }
+        
+        TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
+                        NSLocalizedString(@"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details.", @"Window text"),
+                        nil, nil, nil);
+    }
+    
+    return NO;
+}
+
 - (void) createStatusItem {
     
     // Places an item with our icon in the Status Bar (creating it first if it doesn't already exist)
@@ -1213,7 +1272,7 @@ BOOL needToConvertNonTblks(void);
 -(BOOL) loadMenuIconSet
 {
     // Try with the specified icon set
-    NSString * requestedMenuIconSet = [gTbDefaults objectForKey:@"menuIconSet"];
+    NSString * requestedMenuIconSet = [gTbDefaults stringForKey:@"menuIconSet"];
     if (  requestedMenuIconSet   ) {
         NSString * requestedLargeIconSet = [NSString stringWithFormat: @"large-%@", requestedMenuIconSet];
         if (  [self loadMenuIconSet: requestedMenuIconSet
@@ -1772,26 +1831,21 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     
     // If the 'updateFeedURL' preference is being forced, set the program update FeedURL from it
     if (  ! [gTbDefaults canChangeValueForKey: @"updateFeedURL"]  ) {
-        feedURL = [gTbDefaults objectForKey: @"updateFeedURL"];
-        if (  ! [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
-            NSLog(@"Ignoring 'updateFeedURL' preference from 'forced-preferences.plist' because it is not a string");
-            feedURL = nil;
-        } else {
-            if (  ! [NSURL URLWithString: feedURL]  ) {
-                NSLog(@"Ignoring 'updateFeedURL' preference '%@' from 'forced-preferences.plist' because it could not be converted to a URL", feedURL);
-                feedURL = nil;
-            }
+        [self setFeedURL: [gTbDefaults stringForKey: @"updateFeedURL"]];
+        if (  ! [NSURL URLWithString: feedURL]  ) {
+            NSLog(@"Ignoring 'updateFeedURL' preference '%@' from 'forced-preferences.plist' because it could not be converted to a URL", feedURL);
+            [self setFeedURL: nil];
         }
     }
-    
+
     // Otherwise, use the Info.plist 'SUFeedURL' entry. We don't check the normal preferences because an unprivileged user can set them and thus
     // could send the update check somewhere it shouldn't go.
     if (  feedURL == nil  ) {
-        feedURL = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"SUFeedURL"];
+        [self setFeedURL: [[[NSBundle mainBundle] infoDictionary] objectForKey: @"SUFeedURL"]];
         if (  feedURL ) {
             if (  ! [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
                 NSLog(@"Ignoring 'SUFeedURL' item in Info.plist because it is not a string");
-                feedURL = nil;
+                [self setFeedURL: nil];
             }
         } else {
             NSLog(@"Missing 'SUFeedURL' item in Info.plist");
@@ -1808,7 +1862,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 			
             // Get the URL without the .rss (or whatever) extension.
             // Can't use stringByDeletingPathExtension because it changes double-slashes to single slashes (e.g., changes "https://www" to "https:/www")
-            NSString * withoutExt = [[feedURL retain] autorelease];
+            NSString * withoutExt = [self feedURL];
             NSRange dotRange = [feedURL rangeOfString: @"." options: NSBackwardsSearch range: NSMakeRange(0, [feedURL length])];
             if (  dotRange.location != NSNotFound  ) {
                 NSRange slashRange = [feedURL rangeOfString: @"/" options: NSBackwardsSearch range: NSMakeRange(0, [feedURL length])];
@@ -1840,9 +1894,9 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 			NSString * ext = [feedURL pathExtension];
 			// Can't use stringByAppendingPathExtension because it changes double-slashes to single slashes (e.g., changes "https://www" to "https:/www")
 			if (  [ext length] == 0  ) {
-				feedURL = [withoutExt stringByAppendingString: newSuffix];
+				[self setFeedURL: [withoutExt stringByAppendingString: newSuffix]];
 			} else {
-				feedURL = [NSString stringWithFormat: @"%@%@.%@", withoutExt, newSuffix, ext];
+				[self setFeedURL: [NSString stringWithFormat: @"%@%@.%@", withoutExt, newSuffix, ext]];
 			}
 
             NSURL * url = [NSURL URLWithString: feedURL];
@@ -1851,14 +1905,12 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
                 NSLog(@"Set program update feedURL to %@", feedURL);
             } else {
                 NSLog(@"Not setting program update feedURL because the string '%@' could not be converted to a URL", feedURL);
-                feedURL = nil;
+                [self setFeedURL: nil];
             }
         } else {
             NSLog(@"Not setting program update feedURL because Sparkle Updater does not respond to setFeedURL:");
-            feedURL = nil;
+            [self setFeedURL: nil];
         }
-        
-        [feedURL retain];
     }
 }
 
@@ -2103,8 +2155,8 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 						nil, nil, nil);
         return;
     }
-    VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: path
-                                                            withDisplayName: dispNm];
+    VPNConnection* myConnection = [[[VPNConnection alloc] initWithConfigPath: path
+                                                            withDisplayName: dispNm] autorelease];
     
     NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
     [connectionItem setTarget:myConnection]; 
@@ -3623,7 +3675,7 @@ static void signal_handler(int signalNumber)
 		return;
 	}
 	
-    NSString * prefVersion = [gTbDefaults objectForKey: @"*-openvpnVersion"];
+    NSString * prefVersion = [gTbDefaults stringForKey: @"*-openvpnVersion"];
     if (   prefVersion
         && ( ! [prefVersion isEqualToString: @"-"] )
         && ( ! [prefVersion isEqualToString: @""] )
@@ -3702,7 +3754,7 @@ static void signal_handler(int signalNumber)
         && ( ! isDir )  ) {
         welcomeURLString = [self fileURLStringWithPath: welcomeIndexFile];
     } else if (  ! [gTbDefaults canChangeValueForKey: @"welcomeURL"]  ) {
-        welcomeURLString = [gTbDefaults objectForKey: @"welcomeURL"];
+        welcomeURLString = [gTbDefaults stringForKey: @"welcomeURL"];
     }
 	
 	if (  ! welcomeURLString  ) {
@@ -4152,7 +4204,7 @@ static void signal_handler(int signalNumber)
 {
     NSString * installationIdKey = @"installationUID";
     
-    NSString *uuid = [gTbDefaults objectForKey:installationIdKey];
+    NSString *uuid = [gTbDefaults stringForKey:installationIdKey];
     
     if (uuid == nil) {
         uuid_t buffer;
@@ -4607,7 +4659,7 @@ BOOL warnAboutNonTblks(void)
 		
 		NSString * ourUpdateFeedURLString;
 		if (  ! [gTbDefaults canChangeValueForKey: @"updateFeedURL"]  ) {
-			ourUpdateFeedURLString = [gTbDefaults objectForKey: @"updateFeedURL"];
+			ourUpdateFeedURLString = [gTbDefaults stringForKey: @"updateFeedURL"];
 		} else {
 			ourUpdateFeedURLString = [bundleInfoDict objectForKey: @"SUFeedURL"];
 		}
@@ -6373,7 +6425,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     if (   showThem
         && (! showingAny)
         && (! [gTbDefaults boolForKey: @"doNotShowDisconnectedNotificationWindows"])  ) {
-        NSString * lastConnectionName = [gTbDefaults objectForKey: @"lastConnectedDisplayName"];
+        NSString * lastConnectionName = [gTbDefaults stringForKey: @"lastConnectedDisplayName"];
 		if (  lastConnectionName  ) {
 			VPNConnection * lastConnection = [myVPNConnectionDictionary objectForKey: lastConnectionName];
 			if (  lastConnection  ) {
@@ -6755,6 +6807,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer      *, statisticsWindowTimer,     setStatis
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
 TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
 TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedMainImage,      setHighlightedMainImage)
+TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedURL)
 
 // Event Handlers
 

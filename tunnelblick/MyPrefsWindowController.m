@@ -148,9 +148,9 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(void) setupViews
 {
     
-    currentFrame = NSMakeRect(0.0, 0.0, 760.0, 390.0);
+    currentFrame = NSMakeRect(0.0, 0.0, 920.0, 390.0);
     
-    currentViewName = @"Configurations";
+    currentViewName = NSLocalizedString(@"Configurations", @"Window title");
     
     selectedPerConfigOpenvpnVersionIndex                   = UINT_MAX;
     selectedKeyboardShortcutIndex                          = UINT_MAX;
@@ -386,7 +386,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     [settingsSheetWindowController        release];
     settingsSheetWindowController       = nil;
     [previouslySelectedNameOnLeftNavList  release];
-    previouslySelectedNameOnLeftNavList = [[gTbDefaults objectForKey: @"leftNavSelectedDisplayName"] retain];
+    previouslySelectedNameOnLeftNavList = [[gTbDefaults stringForKey: @"leftNavSelectedDisplayName"] retain];
 
     authorization = 0;
     doNotPlaySounds = FALSE;
@@ -499,7 +499,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     // Select the OpenVPN version
     NSString * key = [[connection displayName] stringByAppendingString: @"-openvpnVersion"];
-    NSString * prefVersion = [gTbDefaults objectForKey: key];
+    NSString * prefVersion = [gTbDefaults stringForKey: key];
     
     NSArrayController * ac = [configurationsPrefsView perConfigOpenvpnVersionArrayController];
     NSArray * list = [ac content];
@@ -824,7 +824,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  connection  ) {
         NSUInteger ix = NSNotFound;
         NSString * key = [[connection displayName] stringByAppendingString: preference];
-        NSString * soundName = [gTbDefaults objectForKey: key];
+        NSString * soundName = [gTbDefaults stringForKey: key];
         if (   soundName
             && ( ! [soundName isEqualToString: @"None"] )  ) {
             NSArray * listContent = [ac content];
@@ -1026,8 +1026,10 @@ static BOOL firstTimeShowingWindow = TRUE;
 //      configname (Shared/Private/Deployed): Status (hh:mm:ss) - Tunnelblick
 // Otherwise, window title is:
 //      tabname - Tunnelblick
-- (NSString *)windowTitle:(NSString *)currentItemLabel
+-(NSString *) windowTitle: (NSString *) currentItemLabel
 {
+	(void) currentItemLabel;
+	
     NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
     NSString *appName = [[NSFileManager defaultManager] displayNameAtPath: bundlePath];
     if (  [appName hasSuffix: @".app"]  ) {
@@ -1036,15 +1038,14 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     NSString * windowLabel = [NSString stringWithFormat: @"%@ - Tunnelblick", localizeNonLiteral(currentViewName, @"Window title")];
 
-    if (  [currentViewName isEqualToString: @"Configurations"]  ) {
+    if (  [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]  ) {
         VPNConnection * connection = [self selectedConnection];
-        if (   connection
-            && [currentItemLabel isEqualToString: @"Configurations"]  ) {
+        if (  connection  ) {
             NSString * status = localizeNonLiteral([connection state], @"Connection status");
-            NSString * connectionTimeString = [connection connectTimeString];
+            NSString * connectionTimeString = @"";
             if (   [connection isConnected]
                 && [gTbDefaults boolForKey: @"showConnectedDurations"]  ) {
-                
+				connectionTimeString = [connection connectTimeString];
             }
             windowLabel = [NSString stringWithFormat: @"%@%@: %@%@ - %@", [connection displayName], [connection displayLocation], status, connectionTimeString, appName];
         }
@@ -1430,7 +1431,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [gTbDefaults setBool: haveCredentials forKey: key];
 		
 		// We also need to change the name of the configuration that is selected
-		NSString * pref = [gTbDefaults objectForKey: @"leftNavSelectedDisplayName"];
+		NSString * pref = [gTbDefaults stringForKey: @"leftNavSelectedDisplayName"];
 		if (  [pref isEqualToString: sourceDisplayName]  ) {
 			[gTbDefaults setObject: targetDisplayName forKey: @"leftNavSelectedDisplayName"];
 		}
@@ -1654,7 +1655,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
     VPNConnection * connection = [self selectedConnection];
     if (connection  ) {
-        [[ConfigurationManager defaultManager] editConfigurationAtPath: [connection configPath] forConnection: connection];
+        [[ConfigurationManager defaultManager] editOrExamineConfigurationForConnection: connection];
     } else {
         NSLog(@"editOpenVPNConfigurationFileMenuItemWasClicked but no configuration selected");
     }
@@ -1990,7 +1991,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		// Get contents of configuration file
         NSString * configFileContents = [connection sanitizedConfigurationFileContents ];
         if (  ! configFileContents  ) {
-            configFileContents = @"(No configuration file found!)";
+            configFileContents = @"(No configuration file found or configuration file could not be sanitized. See the Console Log for details.)";
         }
 		
         // Get list of files in .tblk or message explaining why cannot get list
@@ -2793,9 +2794,9 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 
 -(void) setupAppearanceIconSetButton {
 	
-    NSString * defaultIconSetName    = @"TunnelBlick.TBMenuIcons";
+    NSString * defaultIconSetName = @"TunnelBlick.TBMenuIcons";
     
-    NSString * iconSetToUse = [gTbDefaults objectForKey: @"menuIconSet"];
+    NSString * iconSetToUse = [gTbDefaults stringForKey: @"menuIconSet"];
     if (  ! iconSetToUse  ) {
         iconSetToUse = defaultIconSetName;
     }
@@ -2846,7 +2847,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 
 -(void) setupAppearanceConnectionWindowDisplayCriteriaButton {
 	
-    NSString * displayCriteria = [gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"];
+    NSString * displayCriteria = [gTbDefaults stringForKey: @"connectionWindowDisplayCriteria"];
     if (  ! displayCriteria  ) {
         displayCriteria = @"showWhenConnecting";
     }
