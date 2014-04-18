@@ -5,10 +5,26 @@
 
 --------------------
 
+2014-04-18: *Tunnelblick 3.4beta24 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Includes OpenVPN 2.3.3 (as well as 2.2.1 and 2.3.2).
+
+ * On OS X 10.6.8 and higher when using OpenVPN 2.3.3 and higher in a TUN configuration, Tunnelblick no longer automatically loads the tunnelblick tun kernel extension (kext). In this situation, OpenVPN will use the UTUN device driver built into OS X.
+
+ * Adds additional security checking of programs that Tunnelblick runs as root.
+
+ * Moves the 'Copy Diagnostic Info to Clipboard' to the main part of the 'VPN Details…' window.
+
+ * Adds a 'quit' command for !AppleScript which terminates Tunnelblick properly so it is not launched at the next login.
+
+ * Includes several other enhancements and fixes several problems.
+
+ See the [RlsNotes#Version_3.3 Release Notes] for details.
+
+--------------------
+
 2014-04-08: *Tunnelblick 3.3.2 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
- * Includes OpenSSL library version 1.0.1g, which does not have the [https://www.openssl.org/news/secadv_20140407.txt "heartbeat" vulnerability].
- 
  * Includes OpenSSL library version 1.0.1g, which does not have the [https://www.openssl.org/news/secadv_20140407.txt "heartbeat" vulnerability].
 
  * Implements 'Examine OpenVPN Configuration File' for Shared and Deployed configurations.
@@ -19,7 +35,7 @@
 
  * Includes several other enhancements and fixes many problems.
 
-See the [RlsNotes#Version_3.3 Release Notes] for details.
+ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 

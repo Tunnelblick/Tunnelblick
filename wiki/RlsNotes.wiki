@@ -9,6 +9,42 @@
 
 ==Version 3.4==
 
+*3.4beta24 build 3789 (2014-04-18)*
+
+ * Includes OpenVPN 2.3.3 (as well as 2.2.1 and 2.3.2).
+
+ * Adds additional security checking of programs that Tunnelblick runs as root.
+
+ * Moves the 'Copy Diagnostic Info to Clipboard' to the main part of the 'VPN Details…' window.
+
+ * Adds a 'quit' command for !AppleScript which terminates Tunnelblick properly so it is not launched at the next login.
+
+ * When 'sanitizing' a configuration file for 'Examine OpenVPN Configuration File' and 'Copy Diagnostic Info to Clipboard', Tunnelblick strips lines that appear between lines that contain '-----BEGIN' and '-----END' (even in comments). (This strips certificates and keys created by Open Access.)
+
+ * On OS X 10.6.8 and higher when using OpenVPN 2.3.3 and higher in a TUN configuration, Tunnelblick no longer automatically loads the tunnelblick tun kernel extension (kext). In this situation, OpenVPN will use the UTUN device driver built into OS X.
+
+ * Warns user if the system clock is not set correctly.
+
+ * Checks Tunnelblick preference files for errors.
+
+ * Changes words for 'In:' and 'Out:' in Russian.
+
+ * Adds additional information to a warning message about LSSharedFileListItemResolve returning an error.
+
+ * Fixes a problem that caused the initial notification window to remain visible even when the pointer moved away from the Tunnelblick icon.
+
+ * Fixes a problem that could cause loss of embedded certificates and/or keys when editing a configuration file.
+
+ * Fixes problems that sometimes caused the 'Load tun' and 'Load tap' settings to be ignored.
+
+ * Fixes a problem which sometimes displayed an incomplete window title for the 'VPN Details…' window in languages other than English.
+
+ * Fixes a problem which sometimes caused a crash.
+
+ * Fixes a small memory leak.
+
+--------------------
+
 *3.4beta22 build 3789 (2014-04-08)*
 
  * Includes OpenSSL library version 1.0.1g, which does not have the [https://www.openssl.org/news/secadv_20140407.txt "heartbeat" vulnerability].

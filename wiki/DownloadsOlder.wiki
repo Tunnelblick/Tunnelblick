@@ -11,7 +11,9 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
 
 <font color="red">*If you are having problems with the latest stable or beta version of Tunnelblick, please be sure to report the problems on the [https://groups.google.com/forum/?fromgroups#!forum/tunnelblick-discuss Tunnelblick Discussion Group].*</font>
 
-All deprecated versions of Tunnelblick <font color="red">*contain serious security vulnerabilities*</font>. They are available on the [SecurityRiskDownloads Security Risk Downloads] page.
+    [https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta22.dmg/download Tunnelblick 3.4beta22 (build 3789)] released 2014-04-08 `[`sourceforge.net`]`<br>
+
+All other deprecated versions of Tunnelblick <font color="red">*contain serious security vulnerabilities*</font>. They are available on the [SecurityRiskDownloads Security Risk Downloads] page.
 
 ------------------
 
