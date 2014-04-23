@@ -3,7 +3,7 @@
 
 [http://code.google.com/p/tunnelblick/wiki/cSysReq System Requirements]
 
-==Deprecated Versions of Tunnelblick==
+==Deprecated Downloads==
 
 Deprecated means "superseded and should be avoided".
 
@@ -11,9 +11,40 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
 
 <font color="red">*If you are having problems with the latest stable or beta version of Tunnelblick, please be sure to report the problems on the [https://groups.google.com/forum/?fromgroups#!forum/tunnelblick-discuss Tunnelblick Discussion Group].*</font>
 
-    [https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta22.dmg/download Tunnelblick 3.4beta22 (build 3789)] released 2014-04-08 `[`sourceforge.net`]`<br>
+<table border="1" width="100%"><tbody><tr><td>
+ ==Deprecated Versions of Tunnelblick==
 
-All other deprecated versions of Tunnelblick <font color="red">*contain serious security vulnerabilities*</font>. They are available on the [SecurityRiskDownloads Security Risk Downloads] page.
+ <font size="2"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta22.dmg/download Tunnelblick 3.4beta22 (build 3789)]</strong></font> released 2014-04-08 `[`sourceforge.net`]`
+
+ <font color="red">*All other deprecated versions of Tunnelblick contain serious security vulnerabilities*</font>. They are available on the [SecurityRiskDownloads Security Risk Downloads] page.
+
+</td></tr></tbody></table>
+
+
+<table border="1" width="100%"><tbody><tr><td>
+ ==Deprecated Versions of Tunnelblick Uninstaller==
+<hr />
+ <font size="2"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.1.dmg/download Tunnelblick Uninstaller 1.1]</strong></font> `[`sourceforge.net`]` released 2014-01-08
+  * Removes preferences cache if it is present
+  * Warns user if Tunnelblick or OpenVPN is running
+  * Ready for localization
+
+ For use on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "Mountain Lion"), Intel or PowerPC, 32- or 64-bit. <br /><font color="red">Not for use on OS X 10.9 ("Mavericks").</font>
+
+<hr />
+
+ <font size="2"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.0.dmg/download Tunnelblick Uninstaller 1.0]</strong></font> `[`sourceforge.net`]` released 2013-03-28
+
+ For use on OS X 10.4 - 10.9 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", <font color="red">and "Mavericks"</font>), Intel or PowerPC, 32- or 64-bit.
+
+</td></tr>
+</tbody></table>
+
+
+
+
+
+
 
 ------------------
 
