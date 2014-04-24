@@ -52,6 +52,9 @@
 // Maximum number of entries to keep in the TunnelblickVersionsHistory preference
 #define MAX_VERSIONS_IN_HISTORY 10
 
+// Maximum index for the "Set DNS/WINS" dropdown box. Must be equal to the number of entries minus one.
+#define MAX_SET_DNS_WINS_INDEX 4
+
 //*************************************************************************************************
 // Paths:
 
@@ -94,7 +97,11 @@
 
 //*************************************************************************************************
 // OpenVPN options that are not allowed because they conflict with the operation of Tunnelblick
-#define OPENVPN_OPTIONS_THAT_ARE_PROHIBITED [NSArray arrayWithObjects: @"log", @"log-append", @"syslog", @"management", nil]
+#define OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK [NSArray arrayWithObjects: @"log", @"log-append", @"syslog", @"management", nil]
+
+//*************************************************************************************************
+// OpenVPN options that are not allowed on OS X
+#define OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY [NSArray arrayWithObjects: @"allow-nonadmin", @"cryptoapicert", @"dhcp-release", @"dhcp-renew", @"pause-exit", @"register-dns", @"service", @"show-adapters", @"show-net", @"show-net-up", @"show-valid-subnets", @"tap-sleep", @"win-sys", nil]
 
 //*************************************************************************************************
 // Permissions for files and folders

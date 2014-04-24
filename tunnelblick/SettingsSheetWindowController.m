@@ -175,8 +175,8 @@ extern TBUserDefaults       * gTbDefaults;
 	}
 	
 	[self setSelectedCredentialsGroupIndex: (unsigned) ix];
-	[credentialsGroupButton          setEnabled: (   ( ! [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"] )
-											&& [gTbDefaults canChangeValueForKey: prefKey])];
+	[credentialsGroupButton setEnabled: (   ( ! [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"] )
+                                         && [gTbDefaults canChangeValueForKey: prefKey])];
 	
 	[[NSApp delegate] setDoingSetupOfUI: savedDoingSetupOfUI];
 }
@@ -188,12 +188,11 @@ extern TBUserDefaults       * gTbDefaults;
     }
     
     // Select the appropriate Set nameserver entry
-    int ix = 1; // Default is 'Set nameserver'
     NSString * key = [configurationName stringByAppendingString: @"useDNS"];
-    id obj = [gTbDefaults objectForKey: key];
-	if (  [obj respondsToSelector: @selector(intValue)]  ) {
-		ix = [obj intValue];
-	}
+    int ix = [gTbDefaults unsignedIntForKey: key
+                                    default: 1
+                                        min: 0
+                                        max: MAX_SET_DNS_WINS_INDEX];
     
     if (  ix == 1  ) {
         [self setupCheckbox: prependDomainNameCheckbox
@@ -226,12 +225,11 @@ extern TBUserDefaults       * gTbDefaults;
     }
     
     // Select the appropriate Set nameserver entry
-    int ix = 1; // Default is 'Set nameserver'
     NSString * key = [configurationName stringByAppendingString: @"useDNS"];
-    id obj = [gTbDefaults objectForKey: key];
-	if (  [obj respondsToSelector: @selector(intValue)]  ) {
-		ix = [obj intValue];
-	}
+    int ix = [gTbDefaults unsignedIntForKey: key
+                                    default: 1
+                                        min: 0
+                                        max: MAX_SET_DNS_WINS_INDEX];
     
     if (  ix == 1  ) {
         [self setupCheckbox: flushDnsCacheCheckbox
@@ -660,13 +658,13 @@ extern TBUserDefaults       * gTbDefaults;
 	NSString * prefKey = [[connection displayName] stringByAppendingString: @"-credentialsGroup"];
 	[credentialsGroupArrayController setContent: groupsDictionaryArray];
 	[credentialsGroupButton          sizeToFit];
-	[credentialsGroupButton          setEnabled: (   ( ! [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"] )
-											&& [gTbDefaults canChangeValueForKey: prefKey])];
+	[credentialsGroupButton          setEnabled: (   ( ! [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"] )
+                                                  && [gTbDefaults canChangeValueForKey: prefKey])];
 	
     
     [removeNamedCredentialsButton setMenu: removeCredentialMenu];
 	[removeNamedCredentialsButton sizeToFit];
-	[removeNamedCredentialsButton setEnabled: ! [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"]];
+	[removeNamedCredentialsButton setEnabled: ! [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"]];
 	
 	NSString * groupAllConfigurationsUse = [removeNamedCredentialsNames objectAtIndex: 0];
 	if (  ! groupAllConfigurationsUse  ) {
@@ -872,25 +870,19 @@ extern TBUserDefaults       * gTbDefaults;
 		defaultValue = @"restart";
 	}
 
-    NSString * value = nil;
-    id obj = [gTbDefaults objectForKey: actualKey];
-    if (  obj != nil  ) {
-        if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
-            value = (NSString *) obj;
-            if (  [value isEqualToString: @"ignore"]  ) {
-                return 0;
-            } else if (  [value isEqualToString: @"restore"]  ) {
-                return 1;
-            } else if (  [value isEqualToString: @"restart"]  ) {
-                return 2;
-            } else {
-                NSLog(@"%@ preference '%@' ignored: invalid value; must be 'ignore', 'restore', or 'restart'", actualKey, value);
-            }
-        } else {
-            NSLog(@"%@ preference ignored: invalid value; must be a string", actualKey);
-        }
-    }
-    
+    NSString * value = [gTbDefaults stringForKey: actualKey];
+    if (  value  ) {
+        if (  [value isEqualToString: @"ignore"]  ) {
+			return 0;
+		} else if (  [value isEqualToString: @"restore"]  ) {
+			return 1;
+		} else if (  [value isEqualToString: @"restart"]  ) {
+			return 2;
+		} else {
+			NSLog(@"%@ preference '%@' ignored: invalid value; must be 'ignore', 'restore', or 'restart'", actualKey, value);
+		}
+	}
+
     if (  [defaultValue isEqualToString: @"ignore"]  ) {
         return 0;
     } else if (  [defaultValue isEqualToString: @"restore"]  ) {

@@ -175,9 +175,9 @@ static BOOL firstTimeShowingWindow = TRUE;
         // Set the window's position from preferences (saved when window is closed)
         // But only if the preference's version matches the TB version (since window size could be different in different versions of TB)
         NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-        if (  [tbVersion isEqualToString: [gTbDefaults objectForKey:@"detailsWindowFrameVersion"]]    ) {
-            NSString * mainFrameString  = [gTbDefaults objectForKey: @"detailsWindowFrame"];
-            NSString * leftFrameString  = [gTbDefaults objectForKey: @"detailsWindowLeftFrame"];
+        if (  [tbVersion isEqualToString: [gTbDefaults stringForKey:@"detailsWindowFrameVersion"]]    ) {
+            NSString * mainFrameString  = [gTbDefaults stringForKey: @"detailsWindowFrame"];
+            NSString * leftFrameString  = [gTbDefaults stringForKey: @"detailsWindowLeftFrame"];
             if (   mainFrameString != nil  ) {
                 NSRect mainFrame = NSRectFromString(mainFrameString);
                 [[self window] setFrame: mainFrame display: YES];  // display: YES so stretches properly
@@ -218,9 +218,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     BOOL saveIt = TRUE;
-    if (  [tbVersion isEqualToString: [gTbDefaults objectForKey:@"detailsWindowFrameVersion"]]    ) {
-        if (   [mainFrameString isEqualToString: [gTbDefaults objectForKey:@"detailsWindowFrame"]]
-            && [leftFrameString isEqualToString: [gTbDefaults objectForKey:@"detailsWindowLeftFrame"]]  ) {
+    if (  [tbVersion isEqualToString: [gTbDefaults stringForKey:@"detailsWindowFrameVersion"]]    ) {
+        if (   [mainFrameString isEqualToString: [gTbDefaults stringForKey:@"detailsWindowFrame"]]
+            && [leftFrameString isEqualToString: [gTbDefaults stringForKey:@"detailsWindowLeftFrame"]]  ) {
             saveIt = FALSE;
         }
     }
@@ -232,7 +232,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
         [gTbDefaults setObject: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
                         forKey: @"detailsWindowFrameVersion"];
-        [gTbDefaults synchronize];
     }
 }
 
@@ -438,28 +437,24 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     // Set up setNameserverPopUpButton with localized content that varies with the connection
-    NSInteger ix = 0;
     NSArray * content = [connection modifyNameserverOptionList];
     [[configurationsPrefsView setNameserverArrayController] setContent: content];
     [[configurationsPrefsView setNameserverPopUpButton] sizeToFit];
     
     // Select the appropriate Set nameserver entry
     NSString * key = [[connection displayName] stringByAppendingString: @"useDNS"];
-    id obj = [gTbDefaults objectForKey: key];
-    if (  obj != nil  ) {
-        if (  [obj respondsToSelector: @selector(intValue)]  ) {
-            ix = [obj intValue];
-            if (  (unsigned)ix >= [[[configurationsPrefsView setNameserverArrayController] content] count]  ) {
-                NSLog(@"%@ preference ignored: value %ld too large", key, (long) ix);
-                ix = 0;
-            }
-        } else {
-            NSLog(@"%@ preference ignored: invalid value; must be a number", key);
-        }
-    } else {
-        // Default is "Set namserver"
-        ix = 1;
+
+    unsigned arrayCount = [[[configurationsPrefsView setNameserverArrayController] content] count];
+    if (  (arrayCount - 1) != MAX_SET_DNS_WINS_INDEX) {
+        NSLog(@"MAX_SET_DNS_WINS_INDEX = %u but there are %u entries in the array", (unsigned)MAX_SET_DNS_WINS_INDEX, arrayCount);
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
     }
+    
+    NSInteger ix = [gTbDefaults unsignedIntForKey: key
+                                default: 1
+                                    min: 0
+                                    max: arrayCount - 1];
+    
     
     [[configurationsPrefsView setNameserverPopUpButton] selectItemAtIndex: ix];
     [self setSelectedSetNameserverIndex: (unsigned)ix];
@@ -660,7 +655,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		
 		NSInteger ix = 0;	// Track row # of name we are to display
 
-		NSArray * expandedDisplayNames = [gTbDefaults objectForKey: @"leftNavOutlineViewExpandedDisplayNames"];
+		NSArray * expandedDisplayNames = [gTbDefaults arrayForKey: @"leftNavOutlineViewExpandedDisplayNames"];
         LeftNavViewController * outlineViewController = [configurationsPrefsView outlineViewController];
         NSOutlineView * outlineView = [outlineViewController outlineView];
         [outlineView expandItem: [outlineView itemAtRow: 0]];
@@ -1044,7 +1039,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             NSString * status = localizeNonLiteral([connection state], @"Connection status");
             NSString * connectionTimeString = @"";
             if (   [connection isConnected]
-                && [gTbDefaults boolForKey: @"showConnectedDurations"]  ) {
+                && [gTbDefaults boolWithDefaultYesForKey: @"showConnectedDurations"]  ) {
 				connectionTimeString = [connection connectTimeString];
             }
             windowLabel = [NSString stringWithFormat: @"%@%@: %@%@ - %@", [connection displayName], [connection displayLocation], status, connectionTimeString, appName];
@@ -1946,19 +1941,23 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     NSMutableString * string = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
     
-    NSUInteger i;
-    for (  i=0; i<[prefsArray count]; i++  ) {
-        NSString * keySuffix = [prefsArray objectAtIndex: i];
+    NSEnumerator * e = [prefsArray objectEnumerator];
+    NSString * keySuffix;
+    while (  (keySuffix = [e nextObject])  ) {
         NSString * key = [prefix stringByAppendingString: keySuffix];
-        id obj = [gTbDefaults objectForKey: key];
-        if (  obj  ) {
-            [string appendFormat: @"%@ = %@%@\n", keySuffix, obj, (  [gTbDefaults canChangeValueForKey: key]
-                                                                   ? @""
-                                                                   : @" (forced)")];
-        }
+		id obj = [gTbDefaults objectForKey: key];
+		if (  obj  ) {
+			if (  [key isEqualToString: @"installationUID"]  ) {
+				[string appendFormat: @"%@ (not shown)\n", key];
+			} else {
+				[string appendFormat: @"%@ = %@%@\n", keySuffix, obj, (  [gTbDefaults canChangeValueForKey: key]
+																	   ? @""
+																	   : @" (forced)")];
+			}
+		}
     }
     
-    return string;
+    return [NSString stringWithString: string];
 }
 
 -(NSString *) nonAppleKextContents {
@@ -2623,7 +2622,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     }
     
     if (  logSizeIx == UINT_MAX  ) {
-        NSLog(@"'maxLogDisplaySize' preference value of %ud is not available", prefSize);
+        NSLog(@"'maxLogDisplaySize' preference value of %u is not available", prefSize);
         logSizeIx = 2;  // Second one should be '102400'
     }
     
@@ -2638,11 +2637,10 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 
 -(void) updateLastCheckedDate
 {
-    NSDate * lastCheckedDate = [gTbDefaults objectForKey: @"SULastCheckTime"];
-    NSString * lastChecked = [lastCheckedDate descriptionWithCalendarFormat: @"%Y-%m-%d %H:%M" timeZone: nil locale: [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]];
-    if (  ! lastChecked  ) {
-        lastChecked = NSLocalizedString(@"(Never checked)", @"Window text");
-    }
+    NSDate * lastCheckedDate = [gTbDefaults dateForKey: @"SULastCheckTime"];
+    NSString * lastChecked = (  lastCheckedDate
+                              ? [lastCheckedDate descriptionWithCalendarFormat: @"%Y-%m-%d %H:%M" timeZone: nil locale: [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]]
+                              : NSLocalizedString(@"(Never checked)", @"Window text"));
     [[generalPrefsView updatesLastCheckedTFC] setTitle: [NSString stringWithFormat:
                                                          NSLocalizedString(@"Last checked: %@", @"Window text"),
                                                          lastChecked]];
@@ -2710,7 +2708,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     NSEnumerator * arrayEnum = [gProgramPreferences objectEnumerator];
     while (   (key = [arrayEnum nextObject])  ) {
         if (  [key hasPrefix: @"skipWarning"]  ) {
-            if (  [gTbDefaults objectForKey: key]  ) {
+            if (  [gTbDefaults preferenceExistsForKey: key]  ) {
                 if (  [gTbDefaults canChangeValueForKey: key]  ) {
                     [gTbDefaults removeObjectForKey: key];
                 }
@@ -2879,7 +2877,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 }
 
 -(void) setupDisplayStatisticsWindowCheckbox {
-    if (  [[gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"] isEqualToString: @"neverShow"] ) {
+    if (  [[gTbDefaults stringForKey: @"connectionWindowDisplayCriteria"] isEqualToString: @"neverShow"] ) {
         [[appearancePrefsView appearanceDisplayStatisticsWindowsCheckbox] setState: NSOffState];
         [[appearancePrefsView appearanceDisplayStatisticsWindowsCheckbox] setEnabled: NO];
     } else {
@@ -2891,7 +2889,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 }    
     
 -(void) setupDisplayStatisticsWindowWhenDisconnectedCheckbox {
-    if (  [[gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"] isEqualToString: @"neverShow"] ) {
+    if (  [[gTbDefaults stringForKey: @"connectionWindowDisplayCriteria"] isEqualToString: @"neverShow"] ) {
         [[appearancePrefsView appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox] setState: NSOffState];
         [[appearancePrefsView appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox] setEnabled: NO];
     } else {
@@ -3261,24 +3259,18 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
                    inverted: (BOOL)       inverted
                  defaultsTo: (BOOL)       defaultsTo
 {
-    int value = defaultsTo;
+    BOOL value = (  defaultsTo
+				  ? [gTbDefaults boolWithDefaultYesForKey: preferenceKey]
+				  : [gTbDefaults boolForKey: preferenceKey]
+				  );
+				  
     if (  inverted  ) {
         value = ! value;
     }
     
-    id obj = [gTbDefaults objectForKey: preferenceKey];
-    if (  obj != nil  ) {
-        if (  [obj respondsToSelector: @selector(intValue)]  ) {
-            if (  inverted  ) {
-                value = ( [obj intValue] == 0 );
-            } else {
-                value = ( [obj intValue] != 0 );
-            }
-        } else {
-            NSLog(@"'%@' preference value is '%@', which is not recognized as TRUE or FALSE", preferenceKey, obj);
-        }
-    }
-    [checkbox setState: value];
+    [checkbox setState: (  value
+                         ? NSOnState
+                         : NSOffState)];
     [checkbox setEnabled: [gTbDefaults canChangeValueForKey: preferenceKey]];
 }
 

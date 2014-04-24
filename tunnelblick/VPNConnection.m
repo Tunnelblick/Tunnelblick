@@ -158,7 +158,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
             while (  (key = [e nextObject])  ) {
                 if (  [key hasPrefix: @"TBPreference"]  ) {
                     NSString * preferenceKey = [displayName stringByAppendingString: [key substringFromIndex: [@"TBPreference" length]]];
-                    if (  [gTbDefaults objectForKey: preferenceKey] == nil  ) {
+                    if (  ! [gTbDefaults preferenceExistsForKey: preferenceKey]  ) {
                         [gTbDefaults setObject: [infoDict objectForKey: key] forKey: preferenceKey];
                     }
                 } else if (  [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
@@ -381,18 +381,21 @@ extern NSString * lastPartOfPath(NSString * thePath);
     }
     
     NSString * keyUseDNS = [displayName stringByAppendingString: @"useDNS"];
-    NSNumber * prefUseDNS;
-    if (  prefUseScripts  ) {
-        prefUseDNS = [NSNumber numberWithUnsignedInt: (prefScriptNum+1)];
-    } else {
-        prefUseDNS = [NSNumber numberWithInt: 0];
-    }
-    if (  [prefUseDNS isNotEqualTo: [gTbDefaults objectForKey: keyUseDNS]]  ) {
+    unsigned useDnsFromArgs = (  prefUseScripts
+                               ? prefScriptNum + 1
+                               : 0);
+    
+    unsigned useDnsFromPrefs = [gTbDefaults unsignedIntForKey: keyUseDNS
+                                                      default: 1
+                                                          min: 0
+                                                          max: MAX_SET_DNS_WINS_INDEX];
+    if (  useDnsFromArgs != useDnsFromPrefs  ) {
         if (  [gTbDefaults canChangeValueForKey: keyUseDNS]  ) {
-            [gTbDefaults setObject: prefUseDNS forKey: keyUseDNS];
-            NSLog(@"The '%@' preference was changed to %@ because that was encoded in the filename of the log file", keyUseDNS, prefUseDNS);
+            NSNumber * useDnsFromArgsAsNumber = [NSNumber numberWithUnsignedInt: useDnsFromArgs];
+            [gTbDefaults setObject: useDnsFromArgsAsNumber forKey: keyUseDNS];
+            NSLog(@"The '%@' preference was changed to %u because that was encoded in the filename of the log filename", keyUseDNS, useDnsFromArgs);
         } else {
-            NSLog(@"The '%@' preference could not be changed to %@ (which was encoded in the log filename) because it is a forced preference", keyUseDNS, prefUseDNS);
+            NSLog(@"The '%@' preference could not be changed to %u (which was encoded in the log filename) because it is a forced preference", keyUseDNS, useDnsFromArgs);
             prefsChangedOK = FALSE;
         }
     }
@@ -1132,12 +1135,9 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (BOOL) okToCheckForIPAddressChange {
     
-    NSString * perConfigKey = [displayName stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-    id obj = [gTbDefaults objectForKey: perConfigKey];
-    
-    return (  [obj respondsToSelector: @selector(boolValue)]
-            ? ! [obj boolValue]
-            : TRUE);
+    NSString * key = [displayName stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+	BOOL value = [gTbDefaults boolWithDefaultYesForKey: key];
+    return ! value;
 }
 
 -(void) startCheckingIPAddressBeforeConnected
@@ -1214,12 +1214,10 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     
     NSAutoreleasePool * threadPool = [NSAutoreleasePool new];
     
-    NSTimeInterval timeoutToUse = 30.0;
-    id obj = [gTbDefaults objectForKey: @"timeoutForIPAddressCheckBeforeConnection"];
-    if (   obj
-        && [obj respondsToSelector: @selector(doubleValue)]  ) {
-        timeoutToUse = (NSTimeInterval) [obj doubleValue];
-    }
+    NSTimeInterval timeoutToUse = [gTbDefaults timeIntervalForKey: @"timeoutForIPAddressCheckBeforeConnection"
+                                                          default: 30.0
+                                                              min: 1.0
+                                                              max: 60.0 * 3.0];
 	
     NSArray * ipInfo = [self currentIPInfoWithIPAddress: NO timeoutInterval: timeoutToUse];
     
@@ -1253,24 +1251,21 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 
     NSAutoreleasePool * threadPool = [NSAutoreleasePool new];
 
-    NSTimeInterval delay = 5.0;   // Delay for network settling before we start trying to get the IP info
-    id obj = [gTbDefaults objectForKey: @"delayBeforeIPAddressCheckAfterConnection"];
-    if (   obj
-        && [obj respondsToSelector: @selector(doubleValue)]  ) {
-        delay = (NSTimeInterval) [obj doubleValue];
-    }
+    NSTimeInterval delay = [gTbDefaults timeIntervalForKey: @"delayBeforeIPAddressCheckAfterConnection"
+                                                   default: 5.0
+                                                       min: 0.001
+                                                       max: 60.0 * 3.0];
+
     useconds_t delayMicroseconds = (unsigned)(delay * 1.0e6);
     if (  delayMicroseconds != 0  ) {
         TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: Delaying %f seconds before checking connection", delay)
         usleep(delayMicroseconds);
     }
     
-    NSTimeInterval timeoutToUse = 30.0;  
-    obj = [gTbDefaults objectForKey: @"timeoutForIPAddressCheckAfterConnection"];
-    if (   obj
-        && [obj respondsToSelector: @selector(doubleValue)]  ) {
-        timeoutToUse = (NSTimeInterval) [obj doubleValue];
-    }
+    NSTimeInterval timeoutToUse = [gTbDefaults timeIntervalForKey: @"timeoutForIPAddressCheckAfterConnection"
+                                                          default: 30.0
+                                                              min: 1.0
+                                                              max: 60.0 * 3.0];
     
     NSArray * ipInfo = [self currentIPInfoWithIPAddress: NO timeoutInterval: timeoutToUse];
     if (   [[NSApp delegate] isOnCancellingListIPCheckThread: threadID]
@@ -1532,6 +1527,13 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	
     NSString * openvpnstartOutput;
     if (  status != EXIT_SUCCESS  ) {
+		
+		pthread_mutex_lock( &areConnectingMutex );
+		areConnecting = FALSE;
+		pthread_mutex_unlock( &areConnectingMutex );
+		
+		requestedState =  oldRequestedState;
+        
         if (  status == OPENVPNSTART_RETURN_SYNTAX_ERROR  ) {
             openvpnstartOutput = @"Internal Tunnelblick error: openvpnstart syntax error";
         } else {
@@ -1993,7 +1995,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 -(NSString *) connectTimeString
 {
     // Get connection duration if preferences say to 
-    if (   [gTbDefaults boolForKey:@"showConnectedDurations"]
+    if (   [gTbDefaults boolWithDefaultYesForKey:@"showConnectedDurations"]
         && [[self state] isEqualToString: @"CONNECTED"]    ) {
         NSString * cTimeS = @"";
         NSDate * csd = [self connectedSinceDate];
@@ -3000,13 +3002,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     [[statusScreen outTotalUnitsTFC] setTitle: outTotalUnits];
     
     // Set the time interval we look at (the last xxx seconds)
-    NSTimeInterval rateTimeInterval;
-    id obj = [gTbDefaults objectForKey: @"statisticsRateTimeInterval"];
-    if (  [obj respondsToSelector: @selector(doubleValue)]  ) {
-        rateTimeInterval = [obj doubleValue];
-    } else {
-        rateTimeInterval = 3.0;
-    }
+    NSTimeInterval rateTimeInterval = [gTbDefaults timeIntervalForKey: @"statisticsRateTimeInterval"
+                                                              default: 3.0
+                                                                  min: 1.0
+                                                                  max: 60.0];
     
     NSTimeInterval timeSinceLastSet = [stats.lastSet timeIntervalSinceNow];
     if (  timeSinceLastSet < 0  ) {
@@ -3189,7 +3188,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [self runScriptNamed: @"reconnecting" openvpnstartCommand: @"reconnecting"];
     }
     
-    NSString * statusPref = [gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"];
+    NSString * statusPref = [gTbDefaults stringForKey: @"connectionWindowDisplayCriteria"];
     if (   [statusPref isEqualToString: @"showWhenChanges"]
         || [newState isEqualToString: @"RECONNECTING"]  ) {
         [self showStatusWindow];
@@ -3376,17 +3375,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 -(int) useDNSStatus
 {
 	NSString * key = [[self displayName] stringByAppendingString:@"useDNS"];
-	id useObj = [gTbDefaults objectForKey:key];
-	if (  useObj == nil  ) {
-		return 1;   // Preference is not set, so use default value
-	} else {
-        if (  [useObj respondsToSelector: @selector(intValue)]  ) {
-            return [useObj intValue];
-        } else {
-            NSLog(@"Preference '%@' is not a number; it has value %@. Assuming 'Do not set nameserver'", key, useObj);
-            return 0;
-        }
-    }
+	unsigned ix = [gTbDefaults unsignedIntForKey: key
+                                         default: 1
+                                             min: 0
+                                             max: MAX_SET_DNS_WINS_INDEX];
+    return (int)ix;
 }
 
 // Returns an array of NSDictionary objects with entries for the 'Set nameserver' popup button for this connection

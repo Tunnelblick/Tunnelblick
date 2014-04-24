@@ -59,11 +59,9 @@
 
 // The following methods are implemented. They are like the corresponding NSUserPreferences methods
 
--(BOOL) boolForKey:                 (NSString *)        key;    // Note: returns [object boolValue], which works only on booleans until OS X 10.5
+-(BOOL) boolForKey:                 (NSString *)        key;
 
 -(id)   objectForKey:               (NSString *)        key;
-
--(NSString *) stringForKey:         (NSString *)        key;
 
 -(void) setBool:                    (BOOL)              value
          forKey:                    (NSString *)        key;
@@ -94,10 +92,30 @@
 -(void) scanForUnknownPreferencesInDictionary: (NSDictionary *) dict
                                   displayName: (NSString *) dictName;
 
--(unsigned) unsignedIntForKey:				   (NSString *) key
-                      default:      		   (unsigned)   defaultValue
-                          min:      		   (unsigned)   minValue
-                          max:      		   (unsigned)   maxValue;
+-(BOOL) preferenceExistsForKey:   (NSString * ) key;
+
+-(BOOL) boolWithDefaultYesForKey: (NSString *) key;
+
+-(NSString *) stringForKey:       (NSString *) key;
+
+-(NSArray *) arrayForKey:         (NSString *) key;
+
+-(NSDate *) dateForKey:           (NSString *) key;
+
+-(float) floatForKey: (NSString *) key
+             default: (float)      defaultValue
+                 min: (float)      minValue
+                 max: (float)      maxValue;
+
+-(NSTimeInterval) timeIntervalForKey: (NSString *)     key
+                             default: (NSTimeInterval) defaultValue
+                                 min: (NSTimeInterval) minValue
+                                 max: (NSTimeInterval) maxValue;
+
+-(unsigned) unsignedIntForKey: (NSString *) key
+                      default: (unsigned)   defaultValue
+                          min: (unsigned)   minValue
+                          max: (unsigned)   maxValue;
 
 -(unsigned) numberOfConfigsInCredentialsGroup: (NSString *) groupName;
 

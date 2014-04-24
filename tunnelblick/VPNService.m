@@ -85,10 +85,6 @@ extern TBUserDefaults * gTbDefaults;
         }
 
         [self closeAllScreens];
-        
-        if (  (  [gTbDefaults objectForKey: @"showStatusWindow"])  == nil  ) {
-            [gTbDefaults setBool: TRUE forKey: @"showStatusWindow"];
-        }
     }
     
     return self;

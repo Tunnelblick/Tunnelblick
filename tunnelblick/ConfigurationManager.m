@@ -480,13 +480,30 @@ enum state_t {                      // These are the "states" of the guideState 
         }
     }
     
-    NSArray * reservedOptions = OPENVPN_OPTIONS_THAT_ARE_PROHIBITED;
+    NSArray * reservedOptions = OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK;
     NSString * option;
     NSEnumerator * e = [reservedOptions objectEnumerator];
     while (  (option = [e nextObject])  ) {
         NSString * optionValue = [self parseString: cfgContents forOption: option];
         if (  optionValue  ) {
             NSLog(@"The configuration file for '%@' contains an OpenVPN '%@' option. That option is reserved for use by Tunnelblick. The option will be ignored", [connection displayName], option);
+		}
+    }
+    
+    NSArray * windowsOnlyOptions = OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY;
+    e = [windowsOnlyOptions objectEnumerator];
+    while (  (option = [e nextObject])  ) {
+        NSString * optionValue = [self parseString: cfgContents forOption: option];
+        if (  optionValue  ) {
+            NSLog(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.", [connection displayName], option);
+            NSString * msg = [NSString stringWithFormat:
+                              NSLocalizedString(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.", @"Window text"),
+                              [connection displayName], option];
+            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
+                            msg,
+                            nil, nil, nil);
+            [cfgContents release];
+            return nil;
 		}
     }
     
@@ -661,15 +678,29 @@ enum state_t {                      // These are the "states" of the guideState 
     
     NSString * option;
 
-	// First, check for OpenVPN options that are not allowed at all
-	NSArray * optionsThatAreNotAllowed = OPENVPN_OPTIONS_THAT_ARE_PROHIBITED;
+	// First, check for OpenVPN options that cannot be used with Tunnelblick
+	NSArray * optionsThatAreNotAllowed = OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK;
     NSEnumerator * e = [optionsThatAreNotAllowed objectEnumerator];
 	while (  (option = [e nextObject])  ) {
         if(  [self parseString: cfgContents forOption: option]  ) {
-			NSLog(@"The OpenVPN configuration file in %@ has a '%@' option, which cannot be used with Tunnelblick.",
+			NSLog(@"The OpenVPN configuration file in %@ contains a '%@' option, which cannot be used with Tunnelblick.",
 				  tblkName, option);
 			[errMsgs addObject: [NSString stringWithFormat:
-								 NSLocalizedString(@"The OpenVPN configuration file in %@ has a '%@' option, which cannot be used with Tunnelblick.", "Window text"),
+								 NSLocalizedString(@"The OpenVPN configuration file in %@ contains a '%@' option, which cannot be used with Tunnelblick.", "Window text"),
+								 tblkName, option]];
+			return FALSE;
+		}
+	}
+	
+	// Next, check for OpenVPN options that are not allowed on OS X
+	optionsThatAreNotAllowed = OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY;
+    e = [optionsThatAreNotAllowed objectEnumerator];
+	while (  (option = [e nextObject])  ) {
+        if(  [self parseString: cfgContents forOption: option]  ) {
+			NSLog(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.",
+				  tblkName, option);
+			[errMsgs addObject: [NSString stringWithFormat:
+								 NSLocalizedString(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.", "Window text"),
 								 tblkName, option]];
 			return FALSE;
 		}

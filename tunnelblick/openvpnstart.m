@@ -1755,6 +1755,24 @@ NSArray * tokensFromConfigurationLine(NSString * line) {
     return tokens;
 }
 
+NSString * lineAfterRemovingNulCharacters(NSString * line, NSMutableString * outputString) {
+	
+	NSMutableString * outputLine = [[[NSMutableString alloc] initWithCapacity: [line length]] autorelease];
+	unsigned i;
+	for (  i=0; i<[line length]; i++  ) {
+		NSString * chs = [line substringWithRange: NSMakeRange(i, 1)];
+		if (  ! [chs isEqualToString: @"\0"]  ) {
+			[outputLine appendString: chs];
+		}
+	}
+	
+	if (  [line length] != [outputLine length]  ) {
+        [outputString appendString: @" [At least one NUL character has been removed from the next line]\n"];
+    }
+    
+	return [NSString stringWithString: outputLine];
+}
+
 void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode) {
     NSString * configPrefix = nil;
     switch (cfgLocCode) {
@@ -1831,7 +1849,7 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
     unsigned i;
     for (  i=0; i<[lines count]; i++  ) {
         
-        NSString * line = [lines objectAtIndex: i];
+        NSString * line = lineAfterRemovingNulCharacters([lines objectAtIndex: i], outputString);
         
         [outputString appendFormat: @"%@\n", line];
 
@@ -1840,7 +1858,7 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
             unsigned beginLineNumber = i;   // Line number of '-----BEGIN'
             BOOL foundEnd = FALSE;
 			for (  i=i+1; i<[lines count]; i++  )  {
-                line = [lines objectAtIndex: i];
+                line = lineAfterRemovingNulCharacters([lines objectAtIndex: i], outputString);
 				if (  (foundEnd  = ([line rangeOfString: @"-----END"].length != 0))  ) {
                     if (  i != (beginLineNumber + 1)  ) {
                         [outputString appendFormat: @" [Security-related line(s) omitted]\n"];
@@ -1871,7 +1889,7 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
 						BOOL foundEnd = FALSE;
                         for (  i=i+1; i<[lines count]; i++  ) {
                             
-                            line = [lines objectAtIndex: i];
+                            line = lineAfterRemovingNulCharacters([lines objectAtIndex: i], outputString);
                             
                             tokens = tokensFromConfigurationLine(line);
                             
