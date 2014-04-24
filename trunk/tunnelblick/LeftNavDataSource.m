@@ -246,7 +246,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 	if (  [displayName length] == 0  ) {
 		return;
 	}
-    NSMutableArray * expandedDisplayNames = [[[gTbDefaults objectForKey: @"leftNavOutlineViewExpandedDisplayNames"] mutableCopy] autorelease];
+    NSMutableArray * expandedDisplayNames = [[[gTbDefaults arrayForKey: @"leftNavOutlineViewExpandedDisplayNames"] mutableCopy] autorelease];
     if (  expandedDisplayNames  ) {
 		if (  [expandedDisplayNames containsObject: displayName]  ) {
 			return;
@@ -256,7 +256,6 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     }
     [expandedDisplayNames addObject: displayName];
     [gTbDefaults setObject: expandedDisplayNames forKey:@"leftNavOutlineViewExpandedDisplayNames"];
-    [gTbDefaults synchronize];
 }
 
 -(void) outlineViewItemDidCollapse: (NSNotification *) notification {
@@ -265,12 +264,11 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 	if (  [displayName length] == 0  ) {
 		return;
 	}
-    NSMutableArray * expandedDisplayNames = [[[gTbDefaults objectForKey: @"leftNavOutlineViewExpandedDisplayNames"] mutableCopy] autorelease];
+    NSMutableArray * expandedDisplayNames = [[[gTbDefaults arrayForKey: @"leftNavOutlineViewExpandedDisplayNames"] mutableCopy] autorelease];
     if (  expandedDisplayNames  ) {
 		if (  [expandedDisplayNames containsObject: displayName]  ) {
             [expandedDisplayNames removeObject: displayName];
             [gTbDefaults setObject: expandedDisplayNames forKey:@"leftNavOutlineViewExpandedDisplayNames"];
-            [gTbDefaults synchronize];
         }
     }
 }

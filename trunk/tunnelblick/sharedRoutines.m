@@ -386,7 +386,7 @@ unsigned int getFreePort(void)
         struct sockaddr_in address;
         unsigned len = sizeof(struct sockaddr_in);
         if (  len > UCHAR_MAX  ) {
-            fprintf(stderr, "getFreePort: sizeof(struct sockaddr_in) is %ud, which is > UCHAR_MAX -- can't fit it into address.sin_len", len);
+            fprintf(stderr, "getFreePort: sizeof(struct sockaddr_in) is %u, which is > UCHAR_MAX -- can't fit it into address.sin_len", len);
             close(fd);
             return 0;
         }

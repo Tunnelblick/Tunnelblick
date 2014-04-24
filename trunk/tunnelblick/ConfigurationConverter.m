@@ -450,7 +450,8 @@ extern NSString      * gPrivatePath;
     tokens = [[self getTokens] copy];
 	
     // List of OpenVPN options that cannot appear in a Tunnelblick VPN Configuration
-    NSArray * optionsThatAreNotAllowed = OPENVPN_OPTIONS_THAT_ARE_PROHIBITED;
+    NSArray * optionsThatAreNotAllowedWithTunnelblick = OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK;
+    NSArray * optionsThatAreNotAllowedOnOSX = OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY;
     
     // List of OpenVPN options that take a file path
     NSArray * optionsWithPath = [NSArray arrayWithObjects:
@@ -542,10 +543,17 @@ extern NSString      * gPrivatePath;
                 }
             }
             
-			if (  [optionsThatAreNotAllowed containsObject: [firstToken stringValue]]  ) {
+			if (  [optionsThatAreNotAllowedWithTunnelblick containsObject: [firstToken stringValue]]  ) {
 				[self logMessage: [NSString stringWithFormat: @"The '%@' OpenVPN option is not allowed when using Tunnelblick.", [firstToken stringValue]]];
 				return FALSE;
-			} else if (  [optionsWithPath containsObject: [firstToken stringValue]]  ) {
+			}
+            
+            if (  [optionsThatAreNotAllowedOnOSX containsObject: [firstToken stringValue]]  ) {
+				[self logMessage: [NSString stringWithFormat: @"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option.", [firstToken stringValue]]];
+				return FALSE;
+			}
+            
+            if (  [optionsWithPath containsObject: [firstToken stringValue]]  ) {
                 if (  secondToken  ) {
                     // remove leading/trailing single- or double-quotes
 					NSRange r2 = [secondToken range];

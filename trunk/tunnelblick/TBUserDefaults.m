@@ -117,31 +117,78 @@ NSArray * gConfigurationPreferences;
     return value;
 }
 
--(BOOL) boolForKey: (NSString *) key {
-    id value = [self objectForKey: key];
-    if (  ! value  ) {
-        return NO;
-    }
-    if (  [value respondsToSelector: @selector(boolValue)]  ) {
-        return [value boolValue];
+-(BOOL) boolForKey: (NSString *) key
+           default: (BOOL)       defaultValue {
+    
+    id obj = [self objectForKey: key];
+    
+    if (  obj  ) {
+        if (  [obj respondsToSelector: @selector(boolValue)]  ) {
+            return [obj boolValue];
+        }
+        
+        NSLog(@"boolForKey: Preference '%@' must be a boolean (i.e., an NSNumber), but it is a %@; using a value of %@", key,
+              [[obj class] description], (defaultValue ? @"YES" : @"NO"));
     }
     
-    NSLog(@"boolForKey: Preference '%@' must be a boolean (i.e., an NSNumber), but it is a %@; using a value of NO", key, [[value class] description]);
-    return NO;
+    return defaultValue;
+}
+
+-(BOOL) boolForKey: (NSString *) key {
+    
+    return [self boolForKey: key default: NO];
+}
+
+-(BOOL) boolWithDefaultYesForKey: (NSString *) key {
+    
+    return [self boolForKey: key default: YES];
+}
+
+-(BOOL) preferenceExistsForKey: (NSString * ) key {
+    return ([self objectForKey: key] != nil);
+}
+
+-(NSTimeInterval) timeIntervalForKey: (NSString *)     key
+                             default: (NSTimeInterval) defaultValue
+                                 min: (NSTimeInterval) minValue
+                                 max: (NSTimeInterval) maxValue {
+    
+    id obj = [self objectForKey: key];
+    
+    if (  obj  ) {
+        if (  [obj respondsToSelector: @selector(doubleValue)]  ) {
+            double objDoubleValue = [obj doubleValue];
+            if (  objDoubleValue < minValue  ) {
+                NSLog(@"'%@' preference ignored because it is less than %f. Using %f", key, minValue, defaultValue);
+            } else if (  objDoubleValue > maxValue  ) {
+                NSLog(@"'%@' preference ignored because it is greater than %f. Using %f", key, maxValue, defaultValue);
+            } else {
+                return (NSTimeInterval)objDoubleValue;
+            }
+        } else {
+            NSLog(@"'%@' preference ignored because it is not a number, it is a %@. Using %f", key, [[obj class] description], defaultValue);
+        }
+    }
+    
+    return defaultValue;
 }
 
 -(NSString *) stringForKey: (NSString *) key {
     
-    // Returns the NSString object associated with a key, or nil if no object exists for the key or the object is not an NSString.
+    // Returns the NSString object associated with a key, or nil if no object exists for the key or the object is not an NSString OR IT IS AN EMPTY STRING.
     
     id obj = [self objectForKey: key];
-    if (  obj  ) {
-        if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
-            return (NSString *)obj;
-        }
-        NSLog(@"Preference '%@' must be a string; it is a %@", key, [obj class]);
-    }
-    
+	
+	if (  obj  ) {
+		if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
+			if (  [obj length] != 0  ) {
+				return (NSString *)obj;
+			}
+		} else {
+			NSLog(@"Preference '%@' must be a string; it is a %@ and will be ignored", key, [[obj class] description]);
+		}
+	}
+	
     return nil;
 }
 
@@ -149,31 +196,89 @@ NSArray * gConfigurationPreferences;
                       default: (unsigned)   defaultValue
                           min: (unsigned)   minValue
                           max: (unsigned)   maxValue {
-    unsigned returnValue = defaultValue;
-
+    
     id obj = [self objectForKey: key];
+    
     if (  obj  ) {
-        int      intObValue;
         if (  [obj respondsToSelector: @selector(intValue)]  ) {
-            intObValue = [obj intValue];
+            int intObValue = [obj intValue];
             if (  intObValue < 0  ) {
-                NSLog(@"'%@' preference ignored because it is less than 0. Using %ud", key, defaultValue);
+                NSLog(@"'%@' preference ignored because it is less than 0. Using %u", key, defaultValue);
             } else {
                 unsigned obValue = (unsigned) intObValue;
                 if (  obValue < minValue  ) {
-                    NSLog(@"'%@' preference ignored because it is less than %ud. Using %ud", key, minValue, defaultValue);
+                    NSLog(@"'%@' preference ignored because it is less than %u. Using %u", key, minValue, defaultValue);
                 } else if (  obValue > maxValue  ) {
-                    NSLog(@"'%@' preference ignored because it is greater than %ud. Using %ud", key, maxValue, defaultValue);
+                    NSLog(@"'%@' preference ignored because it is greater than %u. Using %u", key, maxValue, defaultValue);
                 } else {
-                    returnValue = obValue;
+                    return obValue;
                 }
             }
         } else {
-            NSLog(@"'%@' preference ignored because it is not a number. Using %ud", key, defaultValue);
+            NSLog(@"'%@' preference ignored because it is not a number, it is a %@. Using %u", key, [[obj class] description], defaultValue);
         }
     }
     
-    return returnValue;
+    return defaultValue;
+}
+
+-(NSArray *) arrayForKey:    (NSString *) key {
+    
+    // Returns the NSArray object associated with a key, or nil if no object exists for the key or the object is not an NSArray.
+    
+    id obj = [self objectForKey: key];
+	
+	if (  obj  ) {
+		if (  [[obj class] isSubclassOfClass: [NSArray class]]  ) {
+            return (NSArray *)obj;
+		} else {
+			NSLog(@"Preference '%@' must be an array; it is a %@. It will be ignored", key, [[obj class] description]);
+		}
+	}
+	
+    return nil;
+}
+
+-(NSDate *) dateForKey: (NSString *) key {
+    
+    // Returns the NSDate object associated with a key, or nil if no object exists for the key or the object is not an NSDate.
+    
+    id obj = [self objectForKey: key];
+	
+	if (  obj  ) {
+		if (  [[obj class] isSubclassOfClass: [NSDate class]]  ) {
+            return (NSDate *)obj;
+		} else {
+			NSLog(@"Preference '%@' must be an date; it is a %@. It will be ignored", key, [[obj class] description]);
+		}
+	}
+	
+    return nil;
+}
+
+-(float) floatForKey: (NSString *) key
+             default: (float)      defaultValue
+                 min: (float)      minValue
+                 max: (float)      maxValue {
+    
+    id obj = [self objectForKey: key];
+    
+    if (  obj  ) {
+        if (  [obj respondsToSelector: @selector(floatValue)]  ) {
+            float obValue = [obj floatValue];
+            if (  obValue < minValue  ) {
+                NSLog(@"'%@' preference ignored because it is less than %f. Using %f", key, minValue, defaultValue);
+            } else if (  obValue > maxValue  ) {
+                NSLog(@"'%@' preference ignored because it is greater than %f. Using %f", key, maxValue, defaultValue);
+            } else {
+                return obValue;
+            }
+        } else {
+            NSLog(@"'%@' preference ignored because it is not a number, it is a %@. Using %f", key, [[obj class] description], defaultValue);
+        }
+    }
+    
+    return defaultValue;
 }
 
 -(BOOL) canChangeValueForKey: (NSString *) key {

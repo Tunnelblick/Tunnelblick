@@ -228,7 +228,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         
         gProgramPreferences = [[NSArray arrayWithObjects:
                                 
-                                @"DB-ALL"     // All extra logging
+                                @"DB-ALL",    // All extra logging
                                 @"DB-CD",     // Extra logging for connect/disconnect
                                 @"DB-HU",     // Extra logging for hookup,
                                 @"DB-IC",     // Extra logging for IP address checking
@@ -281,6 +281,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection",
                                 @"tunnelblickVersionHistory",
 								@"statusDisplayNumber",
+                                @"lastLaunchTime",
                                 
                                 @"disableAdvancedButton",
                                 @"disableCheckNowButton",
@@ -310,7 +311,6 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"doNotShowSplashScreen",
 								@"doNotShowOutlineViewOfConfigurations",
                                 @"showConnectedDurations",
-                                @"showStatusWindow",
                                 
                                 @"welcomeURL",
                                 @"welcomeWidth",
@@ -533,34 +533,55 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         }
 		
         TBLog(@"DB-SU", @"init: 002")
-        // Set default preferences as needed
-        if (  [gTbDefaults objectForKey: @"showConnectedDurations"] == nil  ) {
-            [gTbDefaults setBool: TRUE forKey: @"showConnectedDurations"];
-        }
-        
-        TBLog(@"DB-SU", @"init: 003")
         // Remove the 'updateCheckBetas' preference if it is the default, so that a later change to stable from beta or to beta from stable will work as expected
         id obj = [gTbDefaults objectForKey: @"updateCheckBetas"];
-        if (  [obj respondsToSelector: @selector(boolValue)]  ) {
-            if (  [obj boolValue] == runningABetaVersion()  ) {
+        if (  obj  ) {
+            if (  [obj respondsToSelector: @selector(boolValue)]  ) {
+                if (  [obj boolValue] == runningABetaVersion()  ) {
+                    [gTbDefaults removeObjectForKey: @"updateCheckBetas"];
+                }
+            } else {
+                NSLog(@"Preference 'updateCheckBetas' is not a boolean; it is being removed");
                 [gTbDefaults removeObjectForKey: @"updateCheckBetas"];
             }
         }
-		
-        TBLog(@"DB-SU", @"init: 004")
-		// Convert the old global "openvpnVersion" preference to the per-configuration "*-openvpnVersion"
-		obj = [gTbDefaults objectForKey: @"openvpnVersion"];
-		if (  obj  ) {
-			[gTbDefaults setObject: obj forKey: @"*-openvpnVersion"];
+        
+        TBLog(@"DB-SU", @"init: 003")
+		// Set the new per-configuration "*-openvpnVersion" preference from the old global "openvpnVersion" preference to
+		NSString * version = [gTbDefaults stringForKey: @"openvpnVersion"];
+		if (  version  ) {
+			if (  ! [[gTbDefaults stringForKey: @"*-openvpnVersion"] isEqualToString: version]  ) {
+				[gTbDefaults setObject: version forKey: @"*-openvpnVersion"];
+				NSLog(@"Set the the new '*-openvpnVersion' preference from the 'openvpnVersion' preference");
+			}
 		}
         
+        TBLog(@"DB-SU", @"init: 004")
+        // Make sure that that OpenVPN version exists in this copy of Tunnelblick
+        version = [gTbDefaults stringForKey: @"*-openvpnVersion"];
+        if (  version  ) {
+            NSArray * versions = availableOpenvpnVersions();
+            if (  ! [versions containsObject: version]  ) {
+                NSLog(@"No OpenVPN version %@ is included in this version of Tunnelblick; the latest version will be used", version);
+                [gTbDefaults setObject: @"-" forKey: @"*-openvpnVersion"];
+            }
+        }
+        
         TBLog(@"DB-SU", @"init: 005")
-		// Convert the old global "notOKToCheckThatIPAddressDidNotChangeAfterConnection" preference to the per-configuration "*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
+		// Set the new per-configuration "*-notOKToCheckThatIPAddressDidNotChangeAfterConnection" preference from the old global "notOKToCheckThatIPAddressDidNotChangeAfterConnection" preference to
 		obj = [gTbDefaults objectForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
 		if (  obj  ) {
-			[gTbDefaults setObject: obj forKey: @"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-		}
-
+            if (  [obj respondsToSelector: @selector(boolValue)]  ) {
+				if (  [obj boolValue] != [gTbDefaults boolForKey: @"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"]  ) {
+					[gTbDefaults setBool: [obj boolValue] forKey: @"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+					NSLog(@"Set the new '*-notOKToCheckThatIPAddressDidNotChangeAfterConnection' preference from the 'notOKToCheckThatIPAddressDidNotChangeAfterConnection' preference");
+				}
+            } else {
+                NSLog(@"Preference 'notOKToCheckThatIPAddressDidNotChangeAfterConnection' is not a boolean; it is being removed");
+				[gTbDefaults removeObjectForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+            }
+        }
+        
         // Set up for the rest
         NSString * bundleId = [[NSBundle mainBundle] bundleIdentifier];
         NSString * prefsPath = [[[[NSHomeDirectory()
@@ -575,7 +596,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         // That is, if NOTLOAD set to NEVER
         //          else if LOAD, set to ALWAYS
         // (Default is automatic, indicated by no preference)
-        if (  ! [gTbDefaults objectForKey: @"haveDealtWithOldTunTapPreferences"]) {
+        if (  ! [gTbDefaults preferenceExistsForKey: @"haveDealtWithOldTunTapPreferences"]) {
 
 			NSMutableArray * loadTunConfigNames      = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
             NSMutableArray * loadTapConfigNames      = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
@@ -690,18 +711,15 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                                      min: MIN_LOG_SIZE_BYTES
                                                      max: MAX_LOG_SIZE_BYTES];
         
-        if (   (obj = [gTbDefaults objectForKey: @"delayToShowStatistics"])
-            && [obj respondsToSelector: @selector(doubleValue)]  ) {
-            gDelayToShowStatistics = [obj doubleValue];
-        } else {
-            gDelayToShowStatistics = 0.5;
-        }
-        if (   (obj = [gTbDefaults objectForKey: @"delayToHideStatistics"])
-            && [obj respondsToSelector: @selector(doubleValue)]  ) {
-            gDelayToHideStatistics = [obj doubleValue];
-        } else {
-            gDelayToHideStatistics = 1.5;
-        }
+        gDelayToShowStatistics = [gTbDefaults timeIntervalForKey: @"delayToShowStatistics"
+                                                         default: 0.5
+                                                             min: 0.0
+                                                             max: 60.0];
+        
+        gDelayToHideStatistics = [gTbDefaults timeIntervalForKey: @"delayToHideStatistics"
+                                                         default: 1.5
+                                                             min: 0.0
+                                                             max: 60.0];
         
         gRateUnits = [[NSArray arrayWithObjects:
                        NSLocalizedString(@"B/s", @"Window text"),
@@ -889,7 +907,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 {
     NSString * name = [n name];
     NSLog(@"NOTIFICATION              : %@", name);
-    if (  [name isEqualToString: [gTbDefaults objectForKey: @"notificationsVerbose"]]  ) {
+    if (   name
+        && [[gTbDefaults stringForKey: @"notificationsVerbose"] isEqualToString: name]  ) {
         NSLog(@"NOTIFICATION              : %@; object = %@; userInfo = %@", [n name], [n object], [n userInfo]);
     }
 }
@@ -898,7 +917,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 {
     NSString * name = [n name];
     NSLog(@"NOTIFICATION (Distributed): %@", name);
-    if (  [name isEqualToString: [gTbDefaults objectForKey: @"notificationsVerbose"]]  ) {
+    if (   name
+        && [[gTbDefaults stringForKey: @"notificationsVerbose"] isEqualToString: name]  ) {
         NSLog(@"NOTIFICATION (Distributed): %@; object = %@; userInfo = %@", [n name], [n object], [n userInfo]);
     }
 }
@@ -907,7 +927,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 {
     NSString * name = [n name];
     NSLog(@"NOTIFICATION   (Workspace): %@", name);
-    if (  [name isEqualToString: [gTbDefaults objectForKey: @"notificationsVerbose"]]  ) {
+    if (   name
+        && [[gTbDefaults stringForKey: @"notificationsVerbose"] isEqualToString: name]  ) {
         NSLog(@"NOTIFICATION   (Workspace): %@; object = %@; userInfo = %@", [n name], [n object], [n userInfo]);
     }
 }
@@ -2047,7 +2068,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     if (  showDurationsTimer  ) {
         // Timer is active. Stop it if not enabled or if no tunnels are connected.
-        if (  [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
+        if (  [gTbDefaults boolWithDefaultYesForKey:@"showConnectedDurations"]  ) {
             VPNConnection * conn;
             NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
             while (  (conn = [connEnum nextObject])  ) {
@@ -2061,7 +2082,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
         [self setShowDurationsTimer: nil];
     } else {
         // Timer is inactive. Start it if enabled and any tunnels are connected
-        if (  [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
+        if (  [gTbDefaults boolWithDefaultYesForKey:@"showConnectedDurations"]  ) {
             VPNConnection * conn;
             NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
             while (  (conn = [connEnum nextObject])  ) {
@@ -2347,7 +2368,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     unsigned major, minor, bugFix;
     [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
     
-    NSArray  * versionHistory     = [gTbDefaults objectForKey: @"tunnelblickVersionHistory"];
+    NSArray  * versionHistory     = [gTbDefaults arrayForKey: @"tunnelblickVersionHistory"];
     NSString * priorVersionString = (  (  [versionHistory count] > 1  )
                                      ? [NSString stringWithFormat: @"; prior version %@", [versionHistory objectAtIndex: 1]]
                                      : @"");
@@ -3196,7 +3217,7 @@ static void signal_handler(int signalNumber)
     NSUserDefaults * stdDefaults = [NSUserDefaults standardUserDefaults];
     
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 002")
-    if (  [gTbDefaults objectForKey: @"haveDealtWithSparkle1dot5b6"] == nil  ) {
+    if (  ! [gTbDefaults preferenceExistsForKey: @"haveDealtWithSparkle1dot5b6"]  ) {
         if (  ! forcingAutoChecksAndSendProfile  ) {
             // Haven't done this already and aren't forcing the user's answers, so ask the user (perhaps again) by clearing Sparkle's preferences
             // EXCEPT we SET "SUHasLaunchedBefore", so the user will be asked right away about checking for updates automatically and sending profile info
@@ -3214,7 +3235,6 @@ static void signal_handler(int signalNumber)
             [stdDefaults synchronize];
             
             [gTbDefaults setBool: YES forKey: @"haveDealtWithSparkle1dot5b6"];
-            [gTbDefaults synchronize];
         }
     }
     
@@ -3252,7 +3272,7 @@ static void signal_handler(int signalNumber)
     // Set up automatic update checking
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
         if (  userIsAdminOrNonAdminsCanUpdate  ) {
-            if (  [gTbDefaults objectForKey: @"updateCheckAutomatically"]  ) {
+            if (  [gTbDefaults preferenceExistsForKey: @"updateCheckAutomatically"]  ) {
                 [updater setAutomaticallyChecksForUpdates: [gTbDefaults boolForKey: @"updateCheckAutomatically"]];
             }
         } else {
@@ -3270,7 +3290,7 @@ static void signal_handler(int signalNumber)
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 004")
     if (  [updater respondsToSelector: @selector(setAutomaticallyDownloadsUpdates:)]  ) {
         if (  userIsAdminOrNonAdminsCanUpdate  ) {
-            if (  [gTbDefaults objectForKey: @"updateAutomatically"] != nil  ) {
+            if (  [gTbDefaults preferenceExistsForKey: @"updateAutomatically"]  ) {
                 [updater setAutomaticallyDownloadsUpdates: [gTbDefaults boolForKey: @"updateAutomatically"]];
             }
         } else {
@@ -3287,7 +3307,7 @@ static void signal_handler(int signalNumber)
     
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 005")
     if (  [updater respondsToSelector: @selector(setSendsSystemProfile:)]  ) {
-        if (  [gTbDefaults objectForKey: @"updateSendProfileInfo"] != nil  ) {
+        if (  [gTbDefaults preferenceExistsForKey: @"updateSendProfileInfo"]  ) {
             [updater setSendsSystemProfile: [gTbDefaults boolForKey:@"updateSendProfileInfo"]];
         }
     } else {
@@ -3295,27 +3315,12 @@ static void signal_handler(int signalNumber)
     }
     
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 006")
-    id checkInterval = [gTbDefaults objectForKey: @"updateCheckInterval"];
-    if (  checkInterval  ) {
-        if (  [updater respondsToSelector: @selector(setUpdateCheckInterval:)]  ) {
-            if (   [[checkInterval class] isSubclassOfClass: [NSNumber class]]
-                || [[checkInterval class] isSubclassOfClass: [NSString class]]  ) {
-                NSTimeInterval d = [checkInterval doubleValue];
-                if (  d == 0.0  ) {
-                    NSLog(@"Ignoring 'updateCheckInterval' preference because it is 0 or is not a valid number");
-                } else {
-                    if (  d < 3600.0  ) {   // Minimum one hour to prevent DOS on the update servers
-                        d = 3600.0;
-                    }
-                    [updater setUpdateCheckInterval: d];
-                }
-                
-            } else {
-                NSLog(@"Ignoring 'updateCheckInterval' preference because it is not a string or a number");
-            }
-        } else {
-            NSLog(@"Ignoring 'updateCheckInterval' preference because Sparkle Updater does not respond to setUpdateCheckInterval:");
-        }
+    if (  [updater respondsToSelector: @selector(setUpdateCheckInterval:)]  ) {
+        NSTimeInterval checkInterval = [gTbDefaults timeIntervalForKey: @"updateCheckInterval"
+                                                               default: 60.0 * 60.0 * 24.0          // Default = 24 hours
+                                                                   min: 60.0 * 60.0                 // Minumum = 1 hour to prevent DOS on the update server
+                                                                   max: 60.0 * 60.0 * 24.0 * 7];    // Maximum = 1 week
+        [updater setUpdateCheckInterval: checkInterval];
     }
     
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 007")
@@ -3336,27 +3341,32 @@ static void signal_handler(int signalNumber)
 {
     NSUserDefaults * stdDefaults = [NSUserDefaults standardUserDefaults];
     
-    if (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] == nil  ) {
-        if (  [stdDefaults objectForKey: @"SUEnableAutomaticChecks"] != nil  ) {
-            [gTbDefaults setBool: [stdDefaults boolForKey: @"SUEnableAutomaticChecks"]
-                          forKey: @"updateCheckAutomatically"];
-            [gTbDefaults synchronize];
+    if (  ! [gTbDefaults preferenceExistsForKey: @"updateCheckAutomatically"]  ) {
+        id obj = [stdDefaults objectForKey: @"SUEnableAutomaticChecks"];
+        if (  obj  ) {
+            if (  [obj respondsToSelector:@selector(boolValue)]) {
+                [gTbDefaults setBool: [obj boolValue] forKey: @"updateCheckAutomatically"];
+            } else {
+                NSLog(@"Preference 'SUEnableAutomaticChecks' is not a boolean and is being ignored by Tunnelblick");
+            }
         }
     }
     
-    if (  [gTbDefaults objectForKey: @"updateSendProfileInfo"] == nil  ) {
-        if (  [stdDefaults objectForKey: @"SUSendProfileInfo"] != nil  ) {
-            [gTbDefaults setBool: [stdDefaults boolForKey: @"SUSendProfileInfo"]
-                          forKey: @"updateSendProfileInfo"];
-            [gTbDefaults synchronize];
+    if (  ! [gTbDefaults preferenceExistsForKey: @"updateSendProfileInfo"]  ) {
+        id obj = [stdDefaults objectForKey: @"SUSendProfileInfo"];
+        if (  obj  ) {
+            if (  [obj respondsToSelector:@selector(boolValue)]  ) {
+                [gTbDefaults setBool: [obj boolValue] forKey: @"updateSendProfileInfo"];
+            } else {
+                NSLog(@"Preference 'SUSendProfileInfo' is not a boolean and is being ignored by Tunnelblick");
+            }
         }
     }
     
     // SUAutomaticallyUpdate may be changed at any time by a checkbox in Sparkle's update window, so we always use Sparkle's version
-    if (  [stdDefaults objectForKey: @"SUAutomaticallyUpdate"] != nil  ) {
+    if (  [stdDefaults objectForKey: @"SUAutomaticallyUpdate"]  ) {
         [gTbDefaults setBool: [updater automaticallyDownloadsUpdates]       // But if it is forced, this setBool will be ignored
                       forKey: @"updateAutomatically"];
-        [gTbDefaults synchronize];
     }
     
 }
@@ -3417,18 +3427,14 @@ static void signal_handler(int signalNumber)
 
 - (NSURL *) getIPCheckURL
 {
-    NSURL * url = nil;
-    NSString * urlString;
-	id obj = [gTbDefaults objectForKey: @"IPCheckURL"];
-	if (   obj
-		&& [[obj class] isSubclassOfClass: [NSString class]]
-		&& ( ! [gTbDefaults canChangeValueForKey: @"IPCheckURL"])  ) {
-		urlString = (NSString *) obj;
-	} else {
+    NSString * urlString = [gTbDefaults stringForKey: @"IPCheckURL"];
+	if (   ( ! urlString)
+        || [gTbDefaults canChangeValueForKey: @"IPCheckURL"]  ) {
         NSDictionary * infoPlist = [[NSBundle mainBundle] infoDictionary];
         urlString = [infoPlist objectForKey: @"IPCheckURL"];
     }
     
+    NSURL * url = nil;
     if (  urlString  ) {
         url = [NSURL URLWithString: urlString];
         if (  ! url  ) {
@@ -3465,8 +3471,8 @@ static void signal_handler(int signalNumber)
     // If checking for updates is enabled, we do a check every time Tunnelblick is launched (i.e., now)
     // We also check for updates if we haven't set our preferences yet. (We have to do that so that Sparkle
     // will ask the user whether to check or not, then we set our preferences from that.)
-    if (      [gTbDefaults boolForKey:   @"updateCheckAutomatically"]
-        || (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] == nil  )
+    if (    [gTbDefaults boolForKey:   @"updateCheckAutomatically"]
+        || ( ! [gTbDefaults preferenceExistsForKey: @"updateCheckAutomatically"]  )
         ) {
         if (  [updater respondsToSelector: @selector(checkForUpdatesInBackground)]  ) {
             if (  feedURL != nil  ) {
@@ -3604,7 +3610,7 @@ static void signal_handler(int signalNumber)
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 011")
     // Process connections that should be restored on relaunch (from updating configurations)
     VPNConnection * myConnection;
-    NSArray * restoreList = [gTbDefaults objectForKey: @"connectionsToRestoreOnLaunch"];
+    NSArray * restoreList = [gTbDefaults arrayForKey: @"connectionsToRestoreOnLaunch"];
     if (   restoreList
         && ( [restoreList count] != 0 )  ) {
         NSString * dispNm;
@@ -3617,7 +3623,6 @@ static void signal_handler(int signalNumber)
             }
         }
         [gTbDefaults removeObjectForKey: @"connectionsToRestoreOnLaunch"];
-        [gTbDefaults synchronize];
     }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 012")
@@ -3695,7 +3700,7 @@ static void signal_handler(int signalNumber)
     NSString * thisVersion = [infoPlist objectForKey: @"CFBundleShortVersionString"];
     if (  thisVersion  ) {
         BOOL dirty = FALSE;
-        NSMutableArray * versions = [[[gTbDefaults objectForKey: @"tunnelblickVersionHistory"] mutableCopy] autorelease];
+        NSMutableArray * versions = [[[gTbDefaults arrayForKey: @"tunnelblickVersionHistory"] mutableCopy] autorelease];
         if (  ! versions  ) {
             versions = [[[NSArray array] mutableCopy] autorelease];
             dirty = TRUE;
@@ -3789,18 +3794,15 @@ static void signal_handler(int signalNumber)
 		return;
 	}
     
-    float welcomeWidth  = 500.0;
-    NSNumber * num = [gTbDefaults objectForKey: @"welcomeWidth"];
-    if (   num
-        && [num respondsToSelector: @selector(floatValue)]  ) {
-        welcomeWidth = [num floatValue];
-    }
-    float welcomeHeight = 500.0;
-    num = [gTbDefaults objectForKey: @"welcomeHeight"];
-    if (   num
-        && [num respondsToSelector: @selector(floatValue)]  ) {
-        welcomeHeight = [num floatValue];
-    }
+    float welcomeWidth = [gTbDefaults floatForKey: @"welcomeWidth"
+                                          default: 500.0
+                                              min: 100.0
+                                              max: 2500.0];
+    
+    float welcomeHeight = [gTbDefaults floatForKey: @"welcomeheight"
+                                           default: 500.0
+                                               min: 100.0
+                                               max: 2500.0];
     
     BOOL showCheckbox = ! [gTbDefaults boolForKey: @"doNotShowWelcomeDoNotShowAgainCheckbox"];
 	
@@ -4007,7 +4009,6 @@ static void signal_handler(int signalNumber)
     
     if (  [restoreList count] != 0) {
         [gTbDefaults setObject: restoreList forKey: @"connectionsToRestoreOnLaunch"];
-        [gTbDefaults synchronize];
     }
 }
 
@@ -4132,7 +4133,6 @@ static void signal_handler(int signalNumber)
         unsigned nMonitorConnection = 0;
         unsigned nPackages          = 0;
         
-        NSString * key;
         NSString * path;
         
         // Count # of .tblk packages
@@ -4146,23 +4146,15 @@ static void signal_handler(int signalNumber)
         }
         
         // Count # of configurations with 'Set nameserver' checked and the # with 'Monitor connection' set
-        e = [[self myConfigDictionary] keyEnumerator];
-        while (  (key = [e nextObject])  ) {
-            NSString * dnsKey = [key stringByAppendingString:@"useDNS"];
-            if (  [gTbDefaults objectForKey: dnsKey]  ) {
-                if (  [gTbDefaults boolForKey: dnsKey]  ) {
-                    nModifyNameserver++;
-                }
-            } else {
+        e = [[self myVPNConnectionDictionary] objectEnumerator];
+        VPNConnection * connection;
+        while (  (connection = [e nextObject])  ) {
+            if (  [connection useDNSStatus] != 0  ) {
                 nModifyNameserver++;
             }
             
-            NSString * mcKey = [key stringByAppendingString:@"-notMonitoringConnection"];
-            if (  [gTbDefaults objectForKey: mcKey]  ) {
-                if (  ! [gTbDefaults boolForKey: mcKey]  ) {
-                    nMonitorConnection++;
-                }
-            } else {
+            NSString * mcKey = [[connection displayName] stringByAppendingString:@"-notMonitoringConnection"];
+            if (  ! [gTbDefaults boolForKey: mcKey]  ) {
                 nMonitorConnection++;
             }
         }
@@ -4859,7 +4851,7 @@ BOOL warnAboutNonTblks(void)
             id obj = [dict objectForKey: key];
             if (  obj  ) {
                 if (  onlyIfNotSetAlready  ) {
-                    if (  [gTbDefaults objectForKey: key]  ) {
+                    if (  [gTbDefaults preferenceExistsForKey: key]  ) {
                         continue;
                     }
                 }
@@ -6147,11 +6139,10 @@ void terminateBecauseOfBadConfiguration(void)
 	VPNConnection * connection = [dict objectForKey: @"connection"];
 	NSString * threadID = [dict objectForKey: @"threadID"];
 	
-    NSTimeInterval timeoutToUse = 30.0;
-    id obj = [gTbDefaults objectForKey: @"timeoutForIPAddressCheckAfterSleeping"];
-    if (  [obj respondsToSelector: @selector(doubleValue)]  ) {
-        timeoutToUse = (NSTimeInterval) [obj doubleValue];
-    }
+    NSTimeInterval timeoutToUse = [gTbDefaults timeIntervalForKey: @"timeoutForIPAddressCheckAfterSleeping"
+                                                          default: 30.0
+                                                              min: 1.0
+                                                              max: 60.0 * 3];
 	
     uint64_t startTimeNanoseconds = nowAbsoluteNanoseconds();
     

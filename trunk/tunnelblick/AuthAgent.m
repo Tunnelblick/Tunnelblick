@@ -162,7 +162,6 @@ extern TBUserDefaults  * gTbDefaults;
                 NSLog(@"Could not store passphrase in Keychain");
             }
             [gTbDefaults setBool: YES forKey: passphrasePreferenceKey];
-            [gTbDefaults synchronize];
         }
     }
     
@@ -271,7 +270,6 @@ extern TBUserDefaults  * gTbDefaults;
                     NSLog(@"Could not save password in Keychain '%@'", [usernameKeychain description]);
                 }
                 [gTbDefaults setBool: YES forKey: usernamePreferenceKey];
-                [gTbDefaults synchronize];
             }
         }
         
@@ -341,7 +339,6 @@ extern TBUserDefaults  * gTbDefaults;
         if (  [gTbDefaults boolForKey:passphrasePreferenceKey]  ) { // Delete saved privateKey from Keychain if it has been saved
             [passphraseKeychain deletePassword];
             [gTbDefaults removeObjectForKey: passphrasePreferenceKey];
-            [gTbDefaults synchronize];
         }
     }
     else if (  [authMode isEqualToString: @"password"]  ) {
@@ -349,7 +346,6 @@ extern TBUserDefaults  * gTbDefaults;
             [usernameKeychain deletePassword];
             [passwordKeychain deletePassword];
             [gTbDefaults removeObjectForKey: usernamePreferenceKey];
-            [gTbDefaults synchronize];
         }
     }        
     else {

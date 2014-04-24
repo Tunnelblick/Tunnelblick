@@ -399,49 +399,34 @@ NSDictionary * getOpenVPNVersionForConfigurationNamed(NSString * name)
     // Returns a dictionary from parseVersion with version info about the currently selected version of OpenVPN
     // for the configuration with displayName "name". If "name" is nil, returns info about the application-wide default version of OpenVPN.
     //
-    // Launches "openvpn --version" for the openvpn version information (so no matter what Tunnelblick uses in the folder name
+    // Launches "openvpn --version" for the openvpn version information, so no matter what Tunnelblick uses in the folder name
     // of the container for OpenVPN, we use OpenVPN's actual version information.
     
     // Uses the version specified for the specific connection (if given) if it is available;
     // If not, uses the first version of OpenVPN found.
-    NSString * prefVersion = nil;
-    id obj = nil;
-    if (  name  ) {
-        obj = [gTbDefaults objectForKey: [name stringByAppendingString: @"-openvpnVersion"]];
-    }
-    if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
-        prefVersion = (NSString *) obj;
-        if (  [prefVersion isEqualToString: @""]  ) {
-            prefVersion = nil;
-        }
-    }
+    NSString * prefVersion = (  name
+                              ? [gTbDefaults stringForKey: [name stringByAppendingString: @"-openvpnVersion"]]
+                              : nil);
     
     NSString * useVersion = nil;
     NSArray  * versions = availableOpenvpnVersions();
     if (  prefVersion  ) {
         if (  [prefVersion isEqualToString: @"-"]  ) {  // "-" means latest version
             useVersion = [versions lastObject];
+        } else if (  [versions containsObject: prefVersion]  ) {
+            useVersion = prefVersion;
         } else {
-            if (  [versions containsObject: prefVersion]  ) {
-                useVersion = prefVersion;
-            } else {
-                if (  [versions count] == 0  ) {
-                    NSLog(@"Tunnelblick does not include any versions of OpenVPN");
-                    return nil;
-                }
-                
-                useVersion = [versions objectAtIndex: [versions count]-1];
-                TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
-                                 prefVersion, useVersion],
-                                nil, nil, nil);
-				if (   name
-					&& obj  ) {
-					[gTbDefaults setObject: useVersion forKey: [name stringByAppendingString: @"-openvpnVersion"]];
-				} else {
-					[gTbDefaults setObject: useVersion forKey: @"*-openvpnVersion"];
-				}
+            if (  [versions count] == 0  ) {
+                NSLog(@"Tunnelblick does not include any versions of OpenVPN");
+                return nil;
             }
+            
+            useVersion = [versions lastObject];
+            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                            [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
+                             prefVersion, useVersion],
+                            nil, nil, nil);
+            [gTbDefaults setObject: useVersion forKey: [name stringByAppendingString: @"-openvpnVersion"]];
         }
     } else {
         useVersion = [versions objectAtIndex: 0];
@@ -712,7 +697,6 @@ int TBRunAlertPanelExtended(NSString * title,
 						&& [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey]
 						&& ( response & CFUserNotificationCheckBoxChecked(0) )  ) {
 						[gTbDefaults setBool: TRUE forKey: doNotShowAgainPreferenceKey];
-						[gTbDefaults synchronize];
 					}
 				}
 			}
@@ -726,7 +710,6 @@ int TBRunAlertPanelExtended(NSString * title,
 						&& [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey]
 						&& ( response & CFUserNotificationCheckBoxChecked(0) )  ) {
 						[gTbDefaults setBool: TRUE forKey: doNotShowAgainPreferenceKey];
-						[gTbDefaults synchronize];
 					}
 				}
 			}
@@ -740,7 +723,6 @@ int TBRunAlertPanelExtended(NSString * title,
 						&& [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey]
 						&& ( response & CFUserNotificationCheckBoxChecked(0) )  ) {
 						[gTbDefaults setBool: TRUE forKey: doNotShowAgainPreferenceKey];
-						[gTbDefaults synchronize];
 					}
 				}
 			}
