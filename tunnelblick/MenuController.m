@@ -229,6 +229,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         gProgramPreferences = [[NSArray arrayWithObjects:
                                 
                                 @"DB-ALL",    // All extra logging
+								@"DB_AU",	  // Extra logging for VPN authorization
                                 @"DB-CD",     // Extra logging for connect/disconnect
                                 @"DB-HU",     // Extra logging for hookup,
                                 @"DB-IC",     // Extra logging for IP address checking
@@ -559,7 +560,9 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         TBLog(@"DB-SU", @"init: 004")
         // Make sure that that OpenVPN version exists in this copy of Tunnelblick
         version = [gTbDefaults stringForKey: @"*-openvpnVersion"];
-        if (  version  ) {
+        if (   version
+            && ( ! [version isEqualToString: @"-"])
+            ) {
             NSArray * versions = availableOpenvpnVersions();
             if (  ! [versions containsObject: version]  ) {
                 NSLog(@"No OpenVPN version %@ is included in this version of Tunnelblick; the latest version will be used", version);
@@ -3282,7 +3285,7 @@ static void signal_handler(int signalNumber)
             [updater setAutomaticallyChecksForUpdates: NO];
         }
     } else {
-        if (  [gTbDefaults boolForKey: @"updateCheckAutomatically"]  ) {
+        if (  [gTbDefaults preferenceExistsForKey: @"updateCheckAutomatically"]  ) {
             NSLog(@"Ignoring 'updateCheckAutomatically' preference because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:");
         }
     }
@@ -3300,7 +3303,7 @@ static void signal_handler(int signalNumber)
             [updater setAutomaticallyDownloadsUpdates: NO];
         }
     } else {
-        if (  [gTbDefaults boolForKey: @"updateAutomatically"]  ) {
+        if (  [gTbDefaults preferenceExistsForKey: @"updateAutomatically"]  ) {
             NSLog(@"Ignoring 'updateAutomatically' preference because Sparkle Updater does not respond to setAutomaticallyDownloadsUpdates:");
         }
     }
@@ -3311,7 +3314,9 @@ static void signal_handler(int signalNumber)
             [updater setSendsSystemProfile: [gTbDefaults boolForKey:@"updateSendProfileInfo"]];
         }
     } else {
-        NSLog(@"Ignoring 'updateSendProfileInfo' preference because Sparkle Updater Updater does not respond to setSendsSystemProfile:");
+        if (  [gTbDefaults preferenceExistsForKey: @"updateSendProfileInfo"]  ) {
+            NSLog(@"Ignoring 'updateSendProfileInfo' preference because Sparkle Updater Updater does not respond to setSendsSystemProfile:");
+        }
     }
     
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 006")
@@ -3321,6 +3326,10 @@ static void signal_handler(int signalNumber)
                                                                    min: 60.0 * 60.0                 // Minumum = 1 hour to prevent DOS on the update server
                                                                    max: 60.0 * 60.0 * 24.0 * 7];    // Maximum = 1 week
         [updater setUpdateCheckInterval: checkInterval];
+    } else {
+        if (  [gTbDefaults preferenceExistsForKey: @"updateCheckInterval"]  ) {
+            NSLog(@"Ignoring 'updateCheckInterval' preference because Sparkle Updater Updater does not respond to setUpdateCheckInterval:");
+        }
     }
     
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 007")
@@ -3471,9 +3480,7 @@ static void signal_handler(int signalNumber)
     // If checking for updates is enabled, we do a check every time Tunnelblick is launched (i.e., now)
     // We also check for updates if we haven't set our preferences yet. (We have to do that so that Sparkle
     // will ask the user whether to check or not, then we set our preferences from that.)
-    if (    [gTbDefaults boolForKey:   @"updateCheckAutomatically"]
-        || ( ! [gTbDefaults preferenceExistsForKey: @"updateCheckAutomatically"]  )
-        ) {
+    if (   [gTbDefaults boolWithDefaultYesForKey: @"updateCheckAutomatically"]  ) {
         if (  [updater respondsToSelector: @selector(checkForUpdatesInBackground)]  ) {
             if (  feedURL != nil  ) {
                 [updater checkForUpdatesInBackground];

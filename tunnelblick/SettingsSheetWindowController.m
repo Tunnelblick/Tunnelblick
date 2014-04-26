@@ -189,10 +189,10 @@ extern TBUserDefaults       * gTbDefaults;
     
     // Select the appropriate Set nameserver entry
     NSString * key = [configurationName stringByAppendingString: @"useDNS"];
-    int ix = [gTbDefaults unsignedIntForKey: key
-                                    default: 1
-                                        min: 0
-                                        max: MAX_SET_DNS_WINS_INDEX];
+    unsigned ix = [gTbDefaults unsignedIntForKey: key
+                                         default: 1
+                                             min: 0
+                                             max: MAX_SET_DNS_WINS_INDEX];
     
     if (  ix == 1  ) {
         [self setupCheckbox: prependDomainNameCheckbox
@@ -226,10 +226,10 @@ extern TBUserDefaults       * gTbDefaults;
     
     // Select the appropriate Set nameserver entry
     NSString * key = [configurationName stringByAppendingString: @"useDNS"];
-    int ix = [gTbDefaults unsignedIntForKey: key
-                                    default: 1
-                                        min: 0
-                                        max: MAX_SET_DNS_WINS_INDEX];
+    unsigned ix = [gTbDefaults unsignedIntForKey: key
+                                         default: 1
+                                             min: 0
+                                             max: MAX_SET_DNS_WINS_INDEX];
     
     if (  ix == 1  ) {
         [self setupCheckbox: flushDnsCacheCheckbox
