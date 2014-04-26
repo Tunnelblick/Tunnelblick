@@ -393,7 +393,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         if (  [gTbDefaults canChangeValueForKey: keyUseDNS]  ) {
             NSNumber * useDnsFromArgsAsNumber = [NSNumber numberWithUnsignedInt: useDnsFromArgs];
             [gTbDefaults setObject: useDnsFromArgsAsNumber forKey: keyUseDNS];
-            NSLog(@"The '%@' preference was changed to %u because that was encoded in the filename of the log filename", keyUseDNS, useDnsFromArgs);
+            NSLog(@"The '%@' preference was changed to %u because that was encoded in the filename of the log file", keyUseDNS, useDnsFromArgs);
         } else {
             NSLog(@"The '%@' preference could not be changed to %u (which was encoded in the log filename) because it is a forced preference", keyUseDNS, useDnsFromArgs);
             prefsChangedOK = FALSE;
@@ -2372,7 +2372,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     
 	if (  tryingToHookup  ) TBLog(@"DB-HU", @"['%@'] netsocketConnected: invoked ; sending commands to port %lu", displayName, (unsigned long)[managementSocket remotePort])
 	
-    if (NSDebugEnabled) NSLog(@"Tunnelblick connected to management interface on port %d.", [managementSocket remotePort]);
+    TBLog(@"DB-ALL", @"Tunnelblick connected to management interface on port %d.", [managementSocket remotePort]);
     
     NS_DURING {
 		[managementSocket writeString: @"pid\r\n"           encoding: NSASCIIStringEncoding];
@@ -2495,10 +2495,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (void) processLine: (NSString*) line
 {
-    if (  tryingToHookup  ) TBLog(@"DB-HU", @"['%@'] invoked processLine:; isHookedUp = %@; line = '%@'", displayName, (isHookedup ? @"YES" : @"NO"), line)
     if (  tryingToHookup  ) {
+		TBLog(@"DB-HU", @"['%@'] invoked processLine:; isHookedUp = %@; line = '%@'", displayName, (isHookedup ? @"YES" : @"NO"), line)
 		[self indicateWeAreHookedUp];
-    }
+    } else {
+		TBLog(@"DB-AU", @"['%@'] invoked processLine:; line = '%@'", displayName, line)
+	}
+
     
     if (  ! [line hasPrefix: @">"]  ) {
         // Output in response to command to OpenVPN
@@ -2513,7 +2516,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         NSRange commandRange = NSMakeRange(1, separatorRange.location-1);
         NSString* command = [line substringWithRange: commandRange];
         NSString* parameterString = [line substringFromIndex: separatorRange.location+1];
-        //NSLog(@"Found command '%@' with parameters: %@", command, parameterString);
+        TBLog(@"DB-ALL", @"Found command '%@' with parameters: %@", command, parameterString);
         
         if ([command isEqualToString: @"STATE"]) {
             NSArray* parameters = [parameterString componentsSeparatedByString: @","];
@@ -2521,9 +2524,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             [self processState: state dated: nil];
             
         } else if ([command isEqualToString: @"PASSWORD"]) {
+			TBLog(@"DB-AU", @"processLine: PASSWORD command received; line = '%@'", line);
             if (   [line rangeOfString: @"Failed"].length
                 || [line rangeOfString: @"failed"].length  ) {
                 
+				TBLog(@"DB-AU", @"processLine: PASSWORD failed");
                 authFailed = TRUE;
                 userWantsState = userWantsUndecided;
                 credentialsAskedFor = FALSE;
@@ -2551,6 +2556,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];      // (User requested it by cancelling)
                 }
                 
+				TBLog(@"DB-AU", @"processLine: queuing afterFailureHandler: for execution in 0.5 seconds");
                 NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
                                                                    target: self
                                                                  selector: @selector(afterFailureHandler:)
@@ -2560,10 +2566,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                                                   repeats: NO];
                 [timer tbSetTolerance: -1.0];
             } else {
-                // Password request from server.
+				TBLog(@"DB-AU", @"processLine: PASSWORD request from server");
                 if (  authFailed  ) {
                     if (  userWantsState == userWantsUndecided  ) {
                         // We don't know what to do yet: repeat this again later
+						TBLog(@"DB-AU", @"processLine: authFailed and userWantsUndecided, queuing credentialsHaveBeenAskedForHandler for execution in 0.5 seconds");
                         credentialsAskedFor = TRUE;
                         NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for user to make decision
                                                                            target: self
@@ -2575,9 +2582,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                         [timer tbSetTolerance: -1.0];
                     } else if (  userWantsState == userWantsRetry  ) {
                         // User wants to retry; send the credentials
+						TBLog(@"DB-AU", @"processLine: authFailed and userWantsRetry, so requesting credentials again");
                         [self provideCredentials: parameterString line: line];
                     } // else user wants to abandon, so just ignore the request for credentials
+					TBLog(@"DB-AU", @"processLine: authFailed and user wants to abandon, so ignoring the request");
                 } else {
+					TBLog(@"DB-AU", @"processLine: auth succeeded so requesting credentials");
                     [self provideCredentials: parameterString line: line];
                 }
             }
@@ -2585,7 +2595,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         } else if ([command isEqualToString:@"NEED-OK"]) {
             // NEED-OK: MSG:Please insert TOKEN
             if ([line rangeOfString: @"Need 'token-insertion-request' confirmation"].length) {
-                if (NSDebugEnabled) NSLog(@"Server wants token.");
+               TBLog(@"DB-AU", @"Server wants token.");
                 NSRange tokenNameRange = [parameterString rangeOfString: @"MSG:"];
                 NSString* tokenName = [parameterString substringFromIndex: tokenNameRange.location+4];
                 int needButtonReturn = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
@@ -2596,10 +2606,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                                        NSLocalizedString(@"Cancel", @"Button"),
                                                        nil);
                 if (needButtonReturn == NSAlertDefaultReturn) {
-                    if (NSDebugEnabled) NSLog(@"Write need ok.");
+                    TBLog(@"DB-AU", @"Write need ok.");
                     [managementSocket writeString:[NSString stringWithFormat:@"needok 'token-insertion-request' ok\r\n"] encoding:NSASCIIStringEncoding];
                 } else {
-                    if (NSDebugEnabled) NSLog(@"Write need cancel.");
+                    TBLog(@"DB-AU", @"Write need cancel.");
                     [managementSocket writeString:[NSString stringWithFormat:@"needok 'token-insertion-request' cancel\r\n"] encoding:NSASCIIStringEncoding];
                 }
             }
@@ -2609,6 +2619,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) afterFailureHandler: (NSTimer *) timer
 {
+	TBLog(@"DB-AU", @"processLine: afterFailureHandler: invoked");
+
     if (  gShuttingDownOrRestartingComputer  ) {
         return;
     }
@@ -2618,6 +2630,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) afterFailure: (NSDictionary *) dict
 {
+	TBLog(@"DB-AU", @"processLine: afterFailure: invoked");
+
     if (   credentialsAskedFor  ) {
         [self credentialsHaveBeenAskedFor: dict];
     } else {
@@ -2654,6 +2668,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) credentialsHaveBeenAskedFor: (NSDictionary *) dict
 {
+	TBLog(@"DB-AU", @"processLine: credentialsHaveBeenAskedFor: invoked");
+	
     // Only do something if the credentials are still being asked for
     // Otherwise, afterFailure has already taken care of things and we can just forget about it
     if (  credentialsAskedFor  ) {
@@ -2701,6 +2717,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) provideCredentials: (NSString *) parameterString line: (NSString *) line
 {
+	TBLog(@"DB-AU", @"processLine: provideCredentials: invoked");
+	
     authFailed = FALSE;
     credentialsAskedFor = FALSE;
     userWantsState = userWantsUndecided;
@@ -2709,7 +2727,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSRange pwrange_need = [parameterString rangeOfString: @"Need \'"];
     NSRange pwrange_password = [parameterString rangeOfString: @"\' password"];
     if (pwrange_need.length && pwrange_password.length) {
-        if (NSDebugEnabled) NSLog(@"Server wants user private key.");
+        TBLog(@"DB-AU", @"Server wants user private key.");
         [myAuthAgent setAuthMode:@"privateKey"];
         [myAuthAgent performAuthentication];
         if (  [myAuthAgent authenticationWasFromKeychain]  ) {
@@ -2718,7 +2736,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         NSString *myPassphrase = [myAuthAgent passphrase];
         NSRange tokenNameRange = NSMakeRange(pwrange_need.length, pwrange_password.location - 6 );
         NSString* tokenName = [parameterString substringWithRange: tokenNameRange];
-        if (NSDebugEnabled) NSLog(@"tokenName is  '%@'", tokenName);
+        TBLog(@"DB-AU", @"tokenName is '%@'", tokenName);
         if(  myPassphrase != nil  ){
             [managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, escaped(myPassphrase)] encoding:NSUTF8StringEncoding];
         } else {
@@ -2727,7 +2745,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         }
         
     } else if ([line rangeOfString: @"Auth"].length) {
-        if (NSDebugEnabled) NSLog(@"Server wants user auth/pass.");
+        TBLog(@"DB-AU", @"Server wants user auth/pass.");
         [myAuthAgent setAuthMode:@"password"];
         [myAuthAgent performAuthentication];
         if (  [myAuthAgent authenticationWasFromKeychain]  ) {

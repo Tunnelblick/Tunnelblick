@@ -404,23 +404,24 @@ NSDictionary * getOpenVPNVersionForConfigurationNamed(NSString * name)
     
     // Uses the version specified for the specific connection (if given) if it is available;
     // If not, uses the first version of OpenVPN found.
+    
+    NSArray  * versions = availableOpenvpnVersions();
+    if (  [versions count] == 0  ) {
+        NSLog(@"Tunnelblick does not include any versions of OpenVPN");
+        return nil;
+    }
+    
+    NSString * useVersion = nil;
+    
     NSString * prefVersion = (  name
                               ? [gTbDefaults stringForKey: [name stringByAppendingString: @"-openvpnVersion"]]
                               : nil);
-    
-    NSString * useVersion = nil;
-    NSArray  * versions = availableOpenvpnVersions();
     if (  prefVersion  ) {
         if (  [prefVersion isEqualToString: @"-"]  ) {  // "-" means latest version
             useVersion = [versions lastObject];
         } else if (  [versions containsObject: prefVersion]  ) {
             useVersion = prefVersion;
         } else {
-            if (  [versions count] == 0  ) {
-                NSLog(@"Tunnelblick does not include any versions of OpenVPN");
-                return nil;
-            }
-            
             useVersion = [versions lastObject];
             TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                             [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
@@ -432,9 +433,7 @@ NSDictionary * getOpenVPNVersionForConfigurationNamed(NSString * name)
         useVersion = [versions objectAtIndex: 0];
     }
     
-    if (  ! useVersion  ) {
-        return nil;
-    }
+    // We have the name of the folder that contains OpenVPN. Get the actual version string by running 'openvpn --version'
     
     NSTask * task = [[NSTask alloc] init];
     

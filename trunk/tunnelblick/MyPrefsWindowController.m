@@ -453,7 +453,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSInteger ix = [gTbDefaults unsignedIntForKey: key
                                 default: 1
                                     min: 0
-                                    max: arrayCount - 1];
+                                    max: MAX_SET_DNS_WINS_INDEX];
     
     
     [[configurationsPrefsView setNameserverPopUpButton] selectItemAtIndex: ix];

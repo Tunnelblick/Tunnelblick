@@ -187,6 +187,8 @@ extern TBUserDefaults  * gTbDefaults;
         usernameLocal= [usernameKeychain password]; // Get username and password from Keychain if they've been saved
         if ( usernameLocal ) {
             passwordLocal = [passwordKeychain password];    // Only try to get password if have username. Avoids second "OK to use Keychain? query if the user says 'no'
+        } else {
+            [gTbDefaults removeObjectForKey: usernamePreferenceKey];
         }
     }
     
@@ -308,6 +310,9 @@ extern TBUserDefaults  * gTbDefaults;
     NSString *passphraseLocal = nil;
     if (  [gTbDefaults boolForKey:passphrasePreferenceKey] && [gTbDefaults canChangeValueForKey: passphrasePreferenceKey]  ) { // Get saved privateKey from Keychain if it has been saved
         passphraseLocal = [passphraseKeychain password];
+        if (  ! passphraseLocal  ) {
+            [gTbDefaults removeObjectForKey: passphrasePreferenceKey];
+        }
     }
     
     if (passphraseLocal == nil) {
