@@ -110,6 +110,7 @@ extern BOOL                   gShuttingDownWorkspace;
         }
     }
     
+	[self autorelease];
     return nil;
 }
 

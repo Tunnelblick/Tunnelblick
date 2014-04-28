@@ -61,7 +61,7 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "Tunnelblick: %s\n", [msg UTF8String]);
 }
 
-    // returnValue: have used 180-247, plus the values in define.h (248-254)
+    // returnValue: have used 178-247, plus the values in define.h (248-254)
 void exitOpenvpnstart(OSStatus returnValue) {
     [pool drain];
     exit(returnValue);
@@ -101,6 +101,9 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "./openvpnstart checkSignature\n"
             "               to verify the application's signature using codesign\n\n"
             
+            "./openvpnstart deleteLogs\n"
+            "               to delete all log files that have the OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS bit set in the bitmask encoded in their filenames.\n\n"
+            
             "./openvpnstart loadKexts     [bitMask]\n"
             "               to load .tun and .tap kexts\n\n"
             
@@ -115,9 +118,6 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             
             "./openvpnstart printSanitizedConfigurationFile   configName   cfgLocCode\n"
             "               to print a configuration file with inline data (such as the data within <cert>...</cert>) removed.\n\n"
-            
-            "./openvpnstart deleteLogs   configName   cfgLocCode\n"
-            "               to delete all log files associated with a configuration.\n\n"
             
             "./openvpnstart postDisconnect  configName  cfgLocCode\n\n"
             "               to run the post-disconnect.sh script inside a .tblk.\n\n"
@@ -187,6 +187,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "                            bit 11 is 1 to indicate the --mtu-test option should be added to the command line\n"
             "                            bit 12 is 1 to indicate that extra logging should be done by the up script\n"
             "                            bit 13 is 1 to indicate that the default domain ('openvpn') should not be used\n"
+            "                            bit 14 is 1 to indicate that the log files may be deleted when Tunnelblick exits\n"
             
             "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
 
@@ -1490,6 +1491,58 @@ NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode) {
     return logPath;
 }
 
+void deleteAllLogFiles() {
+	
+	// Deletes all log files associated with OpenVPN log files that have the OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS bit set in the bitmask encoded in their filenames
+	
+	// Make a list of filename prefixes for files that can be deleted
+	NSMutableArray * prefixes = [NSMutableArray arrayWithCapacity: 10];
+    NSString * filename;
+    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: L_AS_T_LOGS];
+    while (  (filename = [dirEnum nextObject])  ) {
+        [dirEnum skipDescendents];
+		if (  [filename hasSuffix: @".openvpn.log"]  ) {
+			NSString * withStartArgs = [[[filename stringByDeletingPathExtension]   // Remove .log
+										 stringByDeletingPathExtension]				// Remove .openvpn
+										stringByDeletingPathExtension];				// Remove port
+			NSString * startArgsString = [withStartArgs pathExtension];
+			NSArray * startArgs = [startArgsString componentsSeparatedByString: @"_"];
+			if (  [startArgs count] != OPENVPNSTART_LOGNAME_ARG_COUNT  ) {
+				fprintf(stderr, "Tunnelblick: Expected %lu encoded start arguments but found %lu in '%s' for OpenVPN log file %s\n",
+						(unsigned long)[startArgs count], (unsigned long)OPENVPNSTART_LOGNAME_ARG_COUNT, [startArgsString UTF8String], [filename UTF8String]);
+				exitOpenvpnstart(178);
+			}
+			unsigned bitMask = (unsigned)[[startArgs objectAtIndex: OPENVPNSTART_LOGNAME_ARG_BITMASK_IX] intValue];
+			if (  0 != (bitMask & OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS)  ) {
+				NSString * prefix = [withStartArgs stringByDeletingPathExtension];    // Remove openvpnstartArgs
+				[prefixes addObject: prefix];
+			}
+		}
+	}
+	
+	// Delete all files that have one of those prefixes
+	dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: L_AS_T_LOGS];
+    while (  (filename = [dirEnum nextObject])  ) {
+		[dirEnum skipDescendents];
+		
+		// If filename is prefixed by one of the basenames, delete the file
+		NSString * prefix;
+		NSEnumerator * e = [prefixes objectEnumerator];
+		while (  (prefix = [e nextObject])  ) {
+			if (  [filename hasPrefix: prefix]  ) {
+				NSString * fullPath = [L_AS_T_LOGS stringByAppendingPathComponent: filename];
+				becomeRoot(@"delete a log file");
+				BOOL ok = [[NSFileManager defaultManager] tbRemoveFileAtPath: fullPath handler: nil];
+				stopBeingRoot();
+				if (  ! ok  ) {
+					fprintf(stderr, "Tunnelblick: Error occurred trying to delete log file %s\n", [fullPath UTF8String]);
+				}
+				continue;
+			}
+		}
+	}
+}
+
 void deleteLogFiles(NSString * configurationFile, unsigned cfgLocCode) {
 	// Deletes OpenVPN log files and script log files associated with a specified configuration file and location code
 	
@@ -2753,6 +2806,12 @@ int main(int argc, char * argv[]) {
 				syntaxError = FALSE;
 			}
             
+        } else if ( strcmp(command, "deleteLogs") == 0 ) {
+			if (argc == 2) {
+                deleteAllLogFiles();
+                syntaxError = FALSE;
+            }
+            
         } else if (  strcmp(command, "loadKexts") == 0  ) {
 			if (  argc == 2  ) {
                 loadKexts(OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT);
@@ -2829,19 +2888,6 @@ int main(int argc, char * argv[]) {
                 // but just in case, we force an error by NOT setting syntaxError FALSE
             }
             
-        } else if ( strcmp(command, "deleteLogs") == 0 ) {
-			if (argc == 4) {
-                NSString* configFile = [NSString stringWithUTF8String:argv[2]];
-                unsigned cfgLocCode = cvt_atou(argv[3], @"cfgLocCode");
-                validateConfigName(configFile);
-				if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
-					cfgLocCode = CFG_LOC_ALTERNATE;
-				}
-				validateCfgLocCode(cfgLocCode);
-                deleteLogFiles(configFile, cfgLocCode);
-                syntaxError = FALSE;
-            }
-            
         } else if ( strcmp(command, "postDisconnect") == 0) {
             // runScript validates its own arguments
             retCode = runScript(@"post-disconnect.sh", argc, argv);
@@ -2890,6 +2936,11 @@ int main(int argc, char * argv[]) {
                 validateOpenvpnVersion(openvpnVersion);
 				
                 gStartArgs = [[NSString stringWithFormat: @"%u_%u_%u_%u_%u", useScripts, skipScrSec, cfgLocCode, noMonitor, bitMask] copy];
+                if (  OPENVPNSTART_LOGNAME_ARG_COUNT != 5  ) {
+                    fprintf(stderr, "Tunnelblick: openvpnstart internal error: openvpnstart expected OPENVPNSTART_LOGNAME_ARG_COUNT to be 5, but it is %u\n", OPENVPNSTART_LOGNAME_ARG_COUNT);
+
+                    exitOpenvpnstart(179);
+                }
 				
                 // Try to start OpenVPN.
                 //

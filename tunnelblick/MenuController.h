@@ -96,6 +96,11 @@ void * _NSConcreteStackBlock __attribute__((weak));
     NSImage                 * largeConnectedImage;          // Image to display when one or more connections are active
     NSImage                 * largeMainImage;               // Image to display when there are no connections active
     
+    NSArray                 * openvpnVersionNames;          // A sorted array of the names of versions of OpenVPN that are available
+    NSArray                 * openvpnVersionInfo;           // An array of dictionaries corresponding to openvpnVersionNames
+    //                                                      //    Each dictionary contains the following keys:
+    //                                                      //    "full", "preMajor", "major", @"preMinor", "minor", "preSuffix", @"suffix", @"postSuffix"
+    
     MyPrefsWindowController * logScreen;                    // Log window ("VPN Details..." window)
     
     SplashWindowController * splashScreen;                 // Splash window (used for install also)
@@ -313,6 +318,8 @@ TBPROPERTY(NSArray *,      screenList,                setScreenList)
 TBPROPERTY(MainIconView *, ourMainIconView,           setOurMainIconView)
 TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
 TBPROPERTY(NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
+TBPROPERTY(NSArray      *, openvpnVersionNames,       setOpenvpnVersionNames)
+TBPROPERTY(NSArray      *, openvpnVersionInfo,        setOpenvpnVersionInfo)
 TBPROPERTY(NSArray      *, connectionArray,           setConnectionArray)
 TBPROPERTY(NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
 TBPROPERTY(NSTimer      *, showDurationsTimer,        setShowDurationsTimer)

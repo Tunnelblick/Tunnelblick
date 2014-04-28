@@ -35,8 +35,6 @@
 
 - (void) dealloc {
 	
-    [outlineView release];
-    
     [super dealloc];
 }
 

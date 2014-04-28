@@ -32,8 +32,6 @@
 #import "AuthAgent.h"
 
 // PRIVATE FUNCTIONS:
-NSDictionary * parseVersion             (NSString * string);
-NSRange        rangeOfDigits            (NSString * s);
 void           localizableStrings       (void);
 BOOL           copyOrMoveCredentials    (NSString * fromDisplayName,
                                          NSString * toDisplayName,
@@ -363,12 +361,9 @@ NSString * tunnelblickVersion(NSBundle * bundle)
     
     // We must construct the string from what we have in infoShort and infoBuild.
     //Strip "Tunnelblick " from the front of the string if it exists (it may not)
-    NSString * appVersion;
-    if (  [infoShort hasPrefix: @"Tunnelblick "]  ) {
-        appVersion = [infoShort substringFromIndex: [@"Tunnelblick " length]];
-    } else {
-        appVersion = infoShort;
-    }
+    NSString * appVersion = (  [infoShort hasPrefix: @"Tunnelblick "]
+                             ? [infoShort substringFromIndex: [@"Tunnelblick " length]]
+                             : infoShort);
     
     NSString * appVersionWithoutBuild;
     unsigned parenStart;
@@ -392,174 +387,6 @@ NSString * tunnelblickVersion(NSBundle * bundle)
         [version appendFormat: @" (no version information available)"];
     }
     return (version);
-}
-
-NSDictionary * getOpenVPNVersionForConfigurationNamed(NSString * name)
-{
-    // Returns a dictionary from parseVersion with version info about the currently selected version of OpenVPN
-    // for the configuration with displayName "name". If "name" is nil, returns info about the application-wide default version of OpenVPN.
-    //
-    // Launches "openvpn --version" for the openvpn version information, so no matter what Tunnelblick uses in the folder name
-    // of the container for OpenVPN, we use OpenVPN's actual version information.
-    
-    // Uses the version specified for the specific connection (if given) if it is available;
-    // If not, uses the first version of OpenVPN found.
-    
-    NSArray  * versions = availableOpenvpnVersions();
-    if (  [versions count] == 0  ) {
-        NSLog(@"Tunnelblick does not include any versions of OpenVPN");
-        return nil;
-    }
-    
-    NSString * useVersion = nil;
-    
-    NSString * prefVersion = (  name
-                              ? [gTbDefaults stringForKey: [name stringByAppendingString: @"-openvpnVersion"]]
-                              : nil);
-    if (  prefVersion  ) {
-        if (  [prefVersion isEqualToString: @"-"]  ) {  // "-" means latest version
-            useVersion = [versions lastObject];
-        } else if (  [versions containsObject: prefVersion]  ) {
-            useVersion = prefVersion;
-        } else {
-            useVersion = [versions lastObject];
-            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                            [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
-                             prefVersion, useVersion],
-                            nil, nil, nil);
-            [gTbDefaults setObject: useVersion forKey: [name stringByAppendingString: @"-openvpnVersion"]];
-        }
-    } else {
-        useVersion = [versions objectAtIndex: 0];
-    }
-    
-    // We have the name of the folder that contains OpenVPN. Get the actual version string by running 'openvpn --version'
-    
-    NSTask * task = [[NSTask alloc] init];
-    
-	NSString * openvpnFolderName = [@"openvpn-" stringByAppendingString: useVersion];
-    NSString * exePath = [[[[[NSBundle mainBundle] resourcePath]
-                            stringByAppendingPathComponent:@"openvpn"]
-                           stringByAppendingPathComponent: openvpnFolderName]
-                          stringByAppendingPathComponent: @"openvpn"];
-    [task setLaunchPath: exePath];
-    
-    NSArray  *arguments = [NSArray arrayWithObject: @"--version"];
-    [task setArguments: arguments];
-    
-    NSPipe * pipe = [NSPipe pipe];
-    [task setStandardOutput: pipe];
-    
-    NSFileHandle * file = [pipe fileHandleForReading];
-    
-    [task launch];
-    [task waitUntilExit];
-    
-    NSData * data = [file readDataToEndOfFile];
-    
-    [task release];
-    
-    NSString * string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-    
-    // Now extract the version. String should look like "OpenVPN <version> <more-stuff>" with a spaces on the left and right of the version
-    
-    NSRange rng1stSpace = [string rangeOfString: @" "];
-    if (  rng1stSpace.length != 0  ) {
-        NSRange rng2ndSpace = [string rangeOfString: @" " options: 0 range: NSMakeRange(rng1stSpace.location + 1, [string length] - rng1stSpace.location - 1)];
-        if ( rng2ndSpace.length != 0  ) {
-            return parseVersion([string substringWithRange: NSMakeRange(rng1stSpace.location + 1, rng2ndSpace.location - rng1stSpace.location -1)]);
-        }
-    }
-    
-    return nil;
-}
-
-// Given a string with a version number, parses it and returns an NSDictionary with full, preMajor, major, preMinor, minor, preSuffix, suffix, and postSuffix fields
-//              full is the full version string as displayed by openvpn when no arguments are given.
-//              major, minor, and suffix are strings of digits (may be empty strings)
-//              The first string of digits goes in major, the second string of digits goes in minor, the third string of digits goes in suffix
-//              preMajor, preMinor, preSuffix and postSuffix are strings that come before major, minor, and suffix, and after suffix (may be empty strings)
-//              if no digits, everything goes into preMajor
-NSDictionary * parseVersion( NSString * string)
-{
-    NSRange r;
-    NSString * s = string;
-    
-    NSString * preMajor     = @"";
-    NSString * major        = @"";
-    NSString * preMinor     = @"";
-    NSString * minor        = @"";
-    NSString * preSuffix    = @"";
-    NSString * suffix       = @"";
-    NSString * postSuffix   = @"";
-    
-    r = rangeOfDigits(s);
-    if (r.length == 0) {
-        preMajor = s;
-    } else {
-        preMajor = [s substringToIndex:r.location];
-        major = [s substringWithRange:r];
-        s = [s substringFromIndex:r.location+r.length];
-        
-        r = rangeOfDigits(s);
-        if (r.length == 0) {
-            preMinor = s;
-        } else {
-            preMinor = [s substringToIndex:r.location];
-            minor = [s substringWithRange:r];
-            s = [s substringFromIndex:r.location+r.length];
-            
-            r = rangeOfDigits(s);
-            if (r.length == 0) {
-                preSuffix = s;
-             } else {
-                 preSuffix = [s substringToIndex:r.location];
-                 suffix = [s substringWithRange:r];
-                 postSuffix = [s substringFromIndex:r.location+r.length];
-            }
-        }
-    }
-    
-    return (  [NSDictionary dictionaryWithObjectsAndKeys:
-               [[string copy] autorelease], @"full",
-               [[preMajor copy] autorelease], @"preMajor",
-               [[major copy] autorelease], @"major",
-               [[preMinor copy] autorelease], @"preMinor",
-               [[minor copy] autorelease], @"minor",
-               [[preSuffix copy] autorelease], @"preSuffix",
-               [[suffix copy] autorelease], @"suffix",
-               [[postSuffix copy] autorelease], @"postSuffix",
-               nil]  );
-}
-
-
-// Examines an NSString for the first decimal digit or the first series of decimal digits
-// Returns an NSRange that includes all of the digits
-NSRange rangeOfDigits(NSString * s)
-{
-    NSRange r1, r2;
-    // Look for a digit
-    r1 = [s rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet] ];
-    if ( r1.length == 0 ) {
-        
-        // No digits, return that they were not found
-        return (r1);
-    } else {
-        
-        // r1 has range of the first digit. Look for a non-digit after it
-        r2 = [[s substringFromIndex:r1.location] rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
-        if ( r2.length == 0) {
-           
-            // No non-digits after the digits, so return the range from the first digit to the end of the string
-            r1.length = [s length] - r1.location;
-            return (r1);
-        } else {
-            
-            // Have some non-digits, so the digits are between r1 and r2
-            r1.length = r1.location + r2.location - r1.location;
-            return (r1);
-        }
-    }
 }
 
 // Takes the same arguments as, and is similar to, NSRunAlertPanel
@@ -1114,6 +941,31 @@ NSString * stringForLog(NSString * outputString, NSString * header)
     NSMutableString * tempMutableString = [[outputString mutableCopy] autorelease];
     [tempMutableString replaceOccurrencesOfString: @"\n" withString: @"\n     " options: 0 range: NSMakeRange(0, [tempMutableString length])];
 	return [NSString stringWithFormat: @"%@\n", tempMutableString];
+}
+
+NSString * configLocCodeStringForPath(NSString * configPath) {
+    
+    unsigned code;
+    
+    if (  [configPath hasPrefix: [gPrivatePath  stringByAppendingString: @"/"]]  ) {
+        code = CFG_LOC_PRIVATE;
+        
+    } else if (  [configPath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]  ) {
+        code = CFG_LOC_DEPLOY;
+    
+    } else if (  [configPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
+        code = CFG_LOC_SHARED;
+    
+    } else if (  [configPath hasPrefix: [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()] stringByAppendingString: @"/"]]  ) {
+        code = CFG_LOC_ALTERNATE;
+    
+    } else {
+        NSLog(@"configLocCodeStringForPath: unknown path %@", configPath);
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        return [NSString stringWithFormat: @"%u", CFG_LOC_MAX + 1];
+    }
+    
+    return [NSString stringWithFormat: @"%u", code];
 }
 
 OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString ** stderrString)
