@@ -312,6 +312,18 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
     [self setPort: inPortNumber];
     
+    NSArray * startArgs = [inStartArgs componentsSeparatedByString: @"_"];
+    unsigned nArgs = [startArgs count];
+    if (  nArgs != OPENVPNSTART_LOGNAME_ARG_COUNT  ) {
+        NSLog(@"Program error: Expected %lu arguments but have %lu in '%@' (the 'startArgs' portion of log filename for %@)",
+              (long unsigned)OPENVPNSTART_LOGNAME_ARG_COUNT, (long unsigned)nArgs, inStartArgs, [self displayName]);
+		[[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+		return;
+    }
+	
+	connectedUseScripts    = (unsigned)[[startArgs objectAtIndex: OPENVPNSTART_LOGNAME_ARG_USE_SCRIPTS_IX] intValue];
+	[self setConnectedCfgLocCodeString: [startArgs objectAtIndex: OPENVPNSTART_LOGNAME_ARG_CFG_LOC_CODE_IX]];
+    
     // We set preferences of any configuration that we try to hookup, because this might be a new user who hasn't run Tunnelblick,
     // and they may be hooking up to a configuration that started when the computer starts.
     TBLog(@"DB-HU", @"['%@'] tryToHookup: invoking setPreferencesFromOpenvnpstartArgString:", displayName)
@@ -524,58 +536,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
     return ! ( connectWhenComputerStarts || prefToNotDisconnect );
 }
 
-// May be called from cleanup, so only do one at a time
-static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
-
-// Deletes log files if not "on system start"
--(void) deleteLogs
-{
-    if (  logFilesMayExist  ) {
-        NSString * autoConnectKey   = [displayName stringByAppendingString: @"autoConnect"];
-        NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
-        if (   ( ! [gTbDefaults boolForKey: autoConnectKey] )
-            || ( ! [gTbDefaults boolForKey: onSystemStartKey] )  ) {
-            int cfgLocCode;
-            if (  [configPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-                cfgLocCode = CFG_LOC_PRIVATE;
-            } else if (  [configPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
-                cfgLocCode = CFG_LOC_SHARED;
-            } else if (  [configPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
-                cfgLocCode = CFG_LOC_DEPLOY;
-            } else {
-                NSLog(@"Configuration is in unknown location; path is %@", configPath);
-                return;
-            }
-            
-            OSStatus status = pthread_mutex_lock( &deleteLogsMutex );
-            if (  status != EXIT_SUCCESS  ) {
-                NSLog(@"pthread_mutex_lock( &deleteLogsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
-                return;
-            }
-            
-            NSArray * arguments = [NSArray arrayWithObjects:
-								   @"deleteLogs",
-								   lastPartOfPath(configPath),
-								   [NSString stringWithFormat:@"%d", cfgLocCode],
-								   nil];
-            status = runOpenvpnstart(arguments, nil, nil);
-            if (  status != EXIT_SUCCESS  ) {
-                NSLog(@"Error deleting log files for %@", displayName);
-            } else {
-                TBLog(@"DB-SD", @"Deleted log files for %@", displayName)
-                ;
-            }
-            
-            status = pthread_mutex_unlock( &deleteLogsMutex );
-            if (  status != EXIT_SUCCESS  ) {
-                NSLog(@"pthread_mutex_unlock( &deleteLogsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
-                return;
-            }            
-        }
-    }
-}
-
-
 // Returns TRUE if this configuration will be connected when the system starts via a launchd .plist
 -(BOOL) launchdPlistWillConnectOnSystemStart
 {
@@ -785,36 +745,21 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(NSString *) sanitizedConfigurationFileContents {
     
-    unsigned cfgLoc = CFG_LOC_MAX + 1;
-    NSString * cfgPath = [self configPath];
-    if (  [cfgPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-        cfgLoc = CFG_LOC_PRIVATE;
-    } else if (  [cfgPath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]  ) {
-        cfgLoc = CFG_LOC_DEPLOY;
-    } else if (  [cfgPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
-        cfgLoc = CFG_LOC_SHARED;
-    } else {
-        cfgLoc = CFG_LOC_ALTERNATE;
-    }
-    NSString * cfgLocString = [NSString stringWithFormat: @"%u", cfgLoc];
+    NSString * configLocString = configLocCodeStringForPath([self configPath]);
     
     NSString * stdOutString = nil;
     NSString * stdErrString = nil;
-    NSArray  * arguments = [NSArray arrayWithObjects:
-                            @"printSanitizedConfigurationFile",
-                            lastPartOfPath([self configPath]),
-                            cfgLocString,
-                            nil];
+    NSArray  * arguments = [NSArray arrayWithObjects: @"printSanitizedConfigurationFile", lastPartOfPath([self configPath]), configLocString, nil];
     OSStatus status = runOpenvpnstart(arguments, &stdOutString, &stdErrString);
     
     if (  status != EXIT_SUCCESS) {
         NSLog(@"Error status %d returned from 'openvpnstart printSanitizedConfigurationFile %@ %@'",
-              (int) status, [self displayName], cfgLocString);
+              (int) status, [self displayName], configLocString);
     }
     if (   stdErrString
         && ([stdErrString length] != 0)  ) {
         NSLog(@"Error returned from 'openvpnstart printSanitizedConfigurationFile %@ %@':\n%@",
-              [self displayName], cfgLocString, stdErrString);
+              [self displayName], configLocString, stdErrString);
     }
     
     NSString * configFileContents = nil;
@@ -1444,7 +1389,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     [self clearLog];
     
     [self setArgumentsUsedToStartOpenvpnstart: [self argumentsForOpenvpnstartForNow: YES skipFindingFreePort: NO]];
-    [argumentsUsedToStartOpenvpnstart retain];
+    
+    connectedUseScripts    = (unsigned)[[argumentsUsedToStartOpenvpnstart objectAtIndex: OPENVPNSTART_ARG_USE_SCRIPTS_IX] intValue];
+    [self setConnectedCfgLocCodeString: [argumentsUsedToStartOpenvpnstart objectAtIndex: OPENVPNSTART_ARG_CFG_LOC_CODE_IX]];
     
     if (  argumentsUsedToStartOpenvpnstart == nil  ) {
         if (  userKnows  ) {
@@ -1671,6 +1618,45 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	return NO;	// Should never get here, but...
 }
 
+-(NSDictionary *) getOpenVPNVersionInfo
+{
+    // Returns a dictionary with version info about the currently selected version of OpenVPN.
+    //
+    // If a version is specified, uses that if available, or the last version if not available.
+    // If no version os specified, uses the first version.
+    
+    NSArray  * versionNames = [[NSApp delegate] openvpnVersionNames];
+    if (  [versionNames count] == 0  ) {
+        NSLog(@"Tunnelblick does not include any versions of OpenVPN");
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        return nil;
+    }
+    
+    NSString * prefKey = [[self displayName] stringByAppendingString: @"-openvpnVersion"];
+    NSString * prefVersion = [gTbDefaults stringForKey: prefKey];
+    
+    unsigned useVersionIx = 0;  // Default to first
+    if (  prefVersion  ) {
+        if (  [prefVersion isEqualToString: @"-"]  ) {  // "-" means latest version
+            useVersionIx = [versionNames count] - 1;
+        } else {
+            useVersionIx = [versionNames indexOfObject: prefVersion];
+            if (  useVersionIx == NSNotFound  ) {
+                useVersionIx = [versionNames count] - 1;
+                NSString * useVersionName = [versionNames lastObject];
+                TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Changing setting to use the latest version (%@) that is included in this version of Tunnelblick.", @"Window text"),
+                                 prefVersion, useVersionName],
+                                nil, nil, nil);
+                [gTbDefaults setObject: useVersionName forKey: prefKey];
+                NSLog(@"OpenVPN version %@ is not available; using version %@", prefVersion, useVersionName);
+            }
+        }
+    }
+    
+    return [[[NSApp delegate] openvpnVersionInfo] objectAtIndex: useVersionIx];
+}
+
 -(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow
 						skipFindingFreePort: (BOOL) skipFindingFreePort
 {
@@ -1729,7 +1715,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     
     // for OpenVPN v. 2.1_rc9 or higher, clear skipScrSec so we use "--script-security 2"
     NSString *skipScrSec = @"1";
-    NSDictionary * openVPNVersionDict = getOpenVPNVersionForConfigurationNamed([self displayName]);
+    NSDictionary * openVPNVersionDict = [self getOpenVPNVersionInfo];
     if (  openVPNVersionDict  ) {
         int intMajor =  [[openVPNVersionDict objectForKey:@"major"]  intValue];
         int intMinor =  [[openVPNVersionDict objectForKey:@"minor"]  intValue];
@@ -1837,6 +1823,15 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * runMtuTestKey = [displayName stringByAppendingString: @"-runMtuTest"];
     if (  [gTbDefaults boolForKey: runMtuTestKey]  ) {
         bitMask = bitMask | OPENVPNSTART_TEST_MTU;
+    }
+    
+    NSString * autoConnectKey   = [displayName stringByAppendingString: @"autoConnect"];
+    NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
+    BOOL onsystemStart = (   [gTbDefaults boolForKey: autoConnectKey]
+                          && [gTbDefaults boolForKey: onSystemStartKey]);
+    if (   forNow
+        && ( ! onsystemStart )  ) {
+        bitMask = bitMask | OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS;
     }
     
     [self setBit: OPENVPNSTART_RESTORE_ON_WINS_RESET     inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnWinsReset"              inverted: YES];
@@ -3151,11 +3146,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         // If the up script created the flag file at DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH but the down script did not delete it,
         // it means the down script did not run, which probably means that OpenVPN crashed.
         // So OpenVPN did not, and will not, run the down script, so we run the down script here.
-        int useScripts = [(NSString *) [argumentsUsedToStartOpenvpnstart objectAtIndex: 3] intValue];
-        if (  (useScripts & OPENVPNSTART_USE_SCRIPTS_RUN_SCRIPTS) != 0  ) {        //
+        
+        if (  (connectedUseScripts & OPENVPNSTART_USE_SCRIPTS_RUN_SCRIPTS) != 0  ) {        //
             if (  [gFileMgr fileExistsAtPath: DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH]  ) {
                 NSString * scriptNumberString = [NSString stringWithFormat: @"%d",
-                                                 (useScripts & OPENVPNSTART_USE_SCRIPTS_SCRIPT_MASK) >> OPENVPNSTART_USE_SCRIPTS_SCRIPT_SHIFT_COUNT];
+                                                 (connectedUseScripts & OPENVPNSTART_USE_SCRIPTS_SCRIPT_MASK) >> OPENVPNSTART_USE_SCRIPTS_SCRIPT_SHIFT_COUNT];
                 [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: OpenVPN appears to have crashed -- the OpenVPN process has terminated without running a 'down' script, even though it ran an 'up' script. Tunnelblick will run the 'down' script #%@ to attempt to clean up network settings.", scriptNumberString]];
                 if (  [scriptNumberString isEqualToString: @"0"]  ) {
                     [self addToLog: @"*Tunnelblick: Running the 'route-pre-down' script first."];
@@ -3257,58 +3252,51 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) runScriptNamed: (NSString *) scriptName openvpnstartCommand: (NSString *) command
 {
     if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
-		NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES skipFindingFreePort: YES];
-		if (  startArguments  ) {
-			NSArray * arguments = [NSArray arrayWithObjects:
-								   command,
-								   [startArguments objectAtIndex: 1],    // configFile
-								   [startArguments objectAtIndex: 5],    // cfgLocCode
-								   nil];
-			
-			NSString * stdOutString = @"";
-			NSString * stdErrString = @"";
-			OSStatus status = runOpenvpnstart(arguments, &stdOutString, &stdErrString);
-			
-			if (  status == EXIT_SUCCESS  ) {
-				if ( [stdOutString hasPrefix: @"No such script exists: "]  ) {
-                    [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: No '%@.sh' script to execute", scriptName]];
-                } else {
-					[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: The '%@.sh' script executed successfully", scriptName]];
-				}
-			} else {
-				if (  [stdOutString hasSuffix: @"\n"]  ) {
-					stdOutString = [stdOutString substringToIndex: [stdOutString length] - 1];
-				}
-				if (  [stdErrString hasSuffix: @"\n"]  ) {
-					stdErrString = [stdErrString substringToIndex: [stdErrString length] - 1];
-				}
-				
-				NSMutableString * msg = [NSMutableString stringWithCapacity: 1000];
-                [msg appendString: [NSString stringWithFormat: @"*Tunnelblick: The '%@.sh' script failed; 'openvpnstart %@' returned error %ld\n",
-                                    scriptName, command, (long) status]];
-                
-				if (  [stdOutString length] == 0  ) {
-                    [msg appendString: @"There was no stdout output"];
-                } else {
-					[msg appendString: [NSString stringWithFormat: @"Output from stdout:\n%@\n", stdOutString]];
-				}
-                
-                if (  [stdErrString length] == 0  ) {
-                    [msg appendString: @"There was no stderr output"];
-                } else {
-					[msg appendString: [NSString stringWithFormat: @"Output from stderr:\n%@\n", stdErrString]];
-				}
-                
-				[self addToLog: msg];
-                
-                if ( ! [scriptName isEqualToString: @"post-disconnect"]  ) {
-                    [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting because the '%@.sh' script failed", scriptName]];
-                    [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES]; // Disconnect because script failed
-                }
-			}
-		} else {
-			[self addToLog: @"*Tunnelblick: argumentsForOpenvpnstartForNow returned nil"];
-		}
+		NSString * configFile    = lastPartOfPath([self configPath]);
+		NSString * configLocCode = [self connectedCfgLocCodeString];
+        NSArray * arguments = [NSArray arrayWithObjects: command, configFile, configLocCode, nil];
+        
+        NSString * stdOutString = @"";
+        NSString * stdErrString = @"";
+        OSStatus status = runOpenvpnstart(arguments, &stdOutString, &stdErrString);
+        
+        if (  status == EXIT_SUCCESS  ) {
+            if ( [stdOutString hasPrefix: @"No such script exists: "]  ) {
+                [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: No '%@.sh' script to execute", scriptName]];
+            } else {
+                [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: The '%@.sh' script executed successfully", scriptName]];
+            }
+        } else {
+            if (  [stdOutString hasSuffix: @"\n"]  ) {
+                stdOutString = [stdOutString substringToIndex: [stdOutString length] - 1];
+            }
+            if (  [stdErrString hasSuffix: @"\n"]  ) {
+                stdErrString = [stdErrString substringToIndex: [stdErrString length] - 1];
+            }
+            
+            NSMutableString * msg = [NSMutableString stringWithCapacity: 1000];
+            [msg appendString: [NSString stringWithFormat: @"*Tunnelblick: The '%@.sh' script failed; 'openvpnstart %@' returned error %ld\n",
+                                scriptName, command, (long) status]];
+            
+            if (  [stdOutString length] == 0  ) {
+                [msg appendString: @"There was no stdout output"];
+            } else {
+                [msg appendString: [NSString stringWithFormat: @"Output from stdout:\n%@\n", stdOutString]];
+            }
+            
+            if (  [stdErrString length] == 0  ) {
+                [msg appendString: @"There was no stderr output"];
+            } else {
+                [msg appendString: [NSString stringWithFormat: @"Output from stderr:\n%@\n", stdErrString]];
+            }
+            
+            [self addToLog: msg];
+            
+            if ( ! [scriptName isEqualToString: @"post-disconnect"]  ) {
+                [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting because the '%@.sh' script failed", scriptName]];
+                [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES]; // Disconnect because script failed
+            }
+        }
     }
 }
 
@@ -3502,6 +3490,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,  forceKillTimer, setForceKillTimer)
 
 TBSYNTHESIZE_OBJECT(retain, NSString *, ipAddressBeforeConnect,      setIpAddressBeforeConnect)
 TBSYNTHESIZE_OBJECT(retain, NSString *, serverIPAddress,             setServerIPAddress)
+TBSYNTHESIZE_OBJECT(retain, NSString *, connectedCfgLocCodeString,   setConnectedCfgLocCodeString)
 TBSYNTHESIZE_NONOBJECT(BOOL,            ipCheckLastHostWasIPAddress, setIpCheckLastHostWasIPAddress)
 TBSYNTHESIZE_NONOBJECT(BOOL,            haveConnectedSince,          setHaveConnectedSince)
 

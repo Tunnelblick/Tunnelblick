@@ -182,8 +182,9 @@
 #define OPENVPNSTART_TEST_MTU                  0x0800u
 #define OPENVPNSTART_EXTRA_LOGGING             0x1000u
 #define OPENVPNSTART_NO_DEFAULT_DOMAIN         0x2000u
+#define OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS  0x4000u
 
-#define OPENVPNSTART_START_BITMASK_MAX         0x3FFFu
+#define OPENVPNSTART_START_BITMASK_MAX         0x7FFFu
 
 
 //*************************************************************************************************
@@ -208,6 +209,27 @@
 #define OPENVPNSTART_COMPARE_CONFIG_DIFFERENT        252
 #define OPENVPNSTART_RETURN_SYNTAX_ERROR             253
 #define OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR 254
+
+//*************************************************************************************************
+// Indices of arguments that are included in the in 'openvpnstartArgs' part of the name of OpenVPN log files
+// The arguments are all positive integers and are separated by '_' characters for easy parsing via componentsSeparatedByString
+#define OPENVPNSTART_LOGNAME_ARG_USE_SCRIPTS_IX  0
+#define OPENVPNSTART_LOGNAME_ARG_SkIP_SCR_SEC_IX 1
+#define OPENVPNSTART_LOGNAME_ARG_CFG_LOC_CODE_IX 2
+#define OPENVPNSTART_LOGNAME_ARG_NO_MONITOR_IX   3
+#define OPENVPNSTART_LOGNAME_ARG_BITMASK_IX      4
+
+#define OPENVPNSTART_LOGNAME_ARG_COUNT 5
+
+// Indices of the actual arguments to openvpnstart
+#define OPENVPNSTART_ARG_START_KEYWORD_IX 0
+#define OPENVPNSTART_ARG_CONFIG_FILE_IX   1
+#define OPENVPNSTART_ARG_PORT_IX          2
+#define OPENVPNSTART_ARG_USE_SCRIPTS_IX   3
+#define OPENVPNSTART_ARG_SkIP_SCR_SEC_IX  4
+#define OPENVPNSTART_ARG_CFG_LOC_CODE_IX  5
+#define OPENVPNSTART_ARG_NO_MONITOR_IX    6
+#define OPENVPNSTART_ARG_BITMASK_IX       7
 
 
 //*************************************************************************************************

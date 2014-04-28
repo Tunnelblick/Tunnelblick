@@ -34,6 +34,8 @@ BOOL           checkOwnerAndPermissions (NSString * fPath,
                                          gid_t      gid,
                                          mode_t     permsShouldHave);
 
+NSString     * configLocCodeStringForPath(NSString * configPath);
+
 int            createDir                (NSString * d,
                                          unsigned long perms);
 
@@ -61,12 +63,7 @@ NSString     * lastPartOfPath           (NSString * thePath);
 NSString     * displayNameFromPath      (NSString * thePath);
 NSString     * firstPathComponent       (NSString * thePath);
 
-NSString     * deconstructOpenVPNLogPath(NSString * logPath,
-                                         int      * portPtr,
-                                         NSString * * startArgsPtr);
-
 NSString     * tunnelblickVersion       (NSBundle * bundle);
-NSDictionary * getOpenVPNVersionForConfigurationNamed(NSString * name);
 NSArray      * availableOpenvpnVersions (void);
 BOOL           isSanitizedOpenvpnVersion(NSString * s);
 

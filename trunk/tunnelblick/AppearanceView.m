@@ -48,24 +48,6 @@ extern NSString       * gDeployPath;
 
 -(void) dealloc {
 	
-	[appearanceIconTFC release];
-	[appearanceIconSetArrayController release];
-	[appearanceIconSetButton release];
-	[appearancePlaceIconNearSpotlightCheckbox release];
-	[appearanceMenuTFC release];
-	[appearanceDisplayConnectionSubmenusCheckbox release];
-	[appearanceDisplayConnectionTimersCheckbox release];
-	[appearanceSplashTFC release];
-	[appearanceDisplaySplashScreenCheckbox release];
-	[appearanceConnectionWindowDisplayCriteriaTFC release];
-	[appearanceConnectionWindowDisplayCriteriaArrayController release];
-	[appearanceConnectionWindowDisplayCriteriaButton release];
-    [appearanceConnectionWindowScreenArrayController release];
-	[appearanceConnectionWindowScreenButton release];
-	[appearanceDisplayStatisticsWindowsCheckbox release];
-	[appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox release];
-	[appearanceHelpButton release];
-	
 	[super dealloc];
 }
 

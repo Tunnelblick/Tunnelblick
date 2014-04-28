@@ -43,6 +43,8 @@ static LeftNavItem * rootItem = nil;
     [nameToShowInOutlineView release]; nameToShowInOutlineView = nil;
     [parent                  release]; parent                  = nil;
     [children                release]; children                = nil;
+	
+	[rootItem                release]; rootItem                = nil;
     
     [super dealloc];
 }

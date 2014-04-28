@@ -98,6 +98,9 @@ struct Statistics {
     VPNConnectionUserWantsState
                     userWantsState;     // Indicates what the user wants to do about authorization failures
     
+    unsigned        connectedUseScripts;// The value of 'useScripts' when the configuration was connected
+    NSString *      connectedCfgLocCodeString; // The value of 'cfgLocCode' (as a string) when the configuration was connected
+	
     // These variables are updated (outside of the main thread) by netsocket:dataAvailable:
     struct Statistics statistics;
     NSDate        * bytecountsUpdated;  // Time variables were last updated
@@ -152,8 +155,6 @@ struct Statistics {
 
 -(NSArray *)        currentIPInfoWithIPAddress: (BOOL)           useIPAddress
                                timeoutInterval: (NSTimeInterval) timeoutInterval;
--(void)             deleteLogs;
-
 -(void)             disconnectAndWait:          (NSNumber *)    wait
                             userKnows:          (BOOL)          userKnows;
 
@@ -238,6 +239,7 @@ TBPROPERTY(NSArray *, argumentsUsedToStartOpenvpnstart, setArgumentsUsedToStartO
 TBPROPERTY(NSTimer *, forceKillTimer, setForceKillTimer)
 TBPROPERTY(NSString *, ipAddressBeforeConnect,      setIpAddressBeforeConnect)
 TBPROPERTY(NSString *, serverIPAddress,             setServerIPAddress)
+TBPROPERTY(NSString *, connectedCfgLocCodeString,   setConnectedCfgLocCodeString)
 TBPROPERTY(BOOL,       ipCheckLastHostWasIPAddress, setIpCheckLastHostWasIPAddress)
 TBPROPERTY(BOOL,       haveConnectedSince,          setHaveConnectedSince)
 

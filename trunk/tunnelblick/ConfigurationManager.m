@@ -395,24 +395,14 @@ enum state_t {                      // These are the "states" of the guideState 
         return nil;
     }
     
-    unsigned cfgLoc;
     NSString * cfgFile = lastPartOfPath(cfgPath);
-    if (  [cfgPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-        cfgLoc = CFG_LOC_PRIVATE;
-    } else if (  [cfgPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
-        cfgLoc = CFG_LOC_DEPLOY;
-    } else if (  [cfgPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
-        cfgLoc = CFG_LOC_SHARED;
-    } else {
-        cfgLoc = CFG_LOC_ALTERNATE;
-    }
-    
-    NSArray * arguments = [NSArray arrayWithObjects: @"printSanitizedConfigurationFile", cfgFile, [NSString stringWithFormat: @"%u", cfgLoc], nil];
+    NSString * configLocString = configLocCodeStringForPath(cfgPath);
+    NSArray * arguments = [NSArray arrayWithObjects: @"printSanitizedConfigurationFile", cfgFile, configLocString, nil];
     NSString * stdOut;
     NSString * stdErrOut;
     OSStatus status = runOpenvpnstart(arguments, &stdOut, &stdErrOut);
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"Internal failure (%lu) of openvpnstart printSanitizedConfigurationFile %@ %lu", (unsigned long)status, cfgFile, (unsigned long)cfgLoc);
+        NSLog(@"Internal failure (%lu) of openvpnstart printSanitizedConfigurationFile %@ %@", (unsigned long)status, cfgFile, configLocString);
         return nil;
     }
     

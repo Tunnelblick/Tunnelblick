@@ -33,13 +33,6 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) dealloc {
 	
-	[utilitiesKillAllOpenVpnButton release];
-	[utilitiesCopyConsoleLogButton release];
-	[utilitiesOpenUninstallInstructionsButton release];
-	[utilitiesRunEasyRsaButton release];
-	[utilitiesEasyRsaPathTFC release];
-	[utilitiesHelpButton release];
-	
     [super dealloc];
 }
 

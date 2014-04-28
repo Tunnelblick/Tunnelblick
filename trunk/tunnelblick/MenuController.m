@@ -558,18 +558,6 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 		}
         
         TBLog(@"DB-SU", @"init: 004")
-        // Make sure that that OpenVPN version exists in this copy of Tunnelblick
-        version = [gTbDefaults stringForKey: @"*-openvpnVersion"];
-        if (   version
-            && ( ! [version isEqualToString: @"-"])
-            ) {
-            NSArray * versions = availableOpenvpnVersions();
-            if (  ! [versions containsObject: version]  ) {
-                NSLog(@"No OpenVPN version %@ is included in this version of Tunnelblick; the latest version will be used", version);
-                [gTbDefaults setObject: @"-" forKey: @"*-openvpnVersion"];
-            }
-        }
-        
         TBLog(@"DB-SU", @"init: 005")
 		// Set the new per-configuration "*-notOKToCheckThatIPAddressDidNotChangeAfterConnection" preference from the old global "notOKToCheckThatIPAddressDidNotChangeAfterConnection" preference to
 		obj = [gTbDefaults objectForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
@@ -2809,11 +2797,28 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) deleteLogs
 {
-    VPNConnection * connection;
-    NSEnumerator * e = [[self myVPNConnectionDictionary] objectEnumerator];
-    while (  (connection = [e nextObject])  ) {
-        [connection deleteLogs];
-    }
+	// Delete all the log files for each configuration that is not a 'connect when computer starts' configuration.
+    // Because log files are protected, this is done by 'openvpnstart deleteLogs'.
+	
+	// Only run openvpnstart if there is an OpenVPN log file
+	NSString * filename;
+	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_LOGS];
+	while (  (filename = [dirEnum nextObject])  ) {
+		[dirEnum skipDescendents];
+		if (  [filename hasSuffix: @".openvpn.log"]  ) {
+			NSArray  * arguments       = [NSArray arrayWithObject: @"deleteLogs"];
+			NSString * stdoutString    = @"";
+			NSString * stderrString    = @"";
+			OSStatus status = runOpenvpnstart(arguments, &stdoutString, &stderrString);
+			if (  status == EXIT_SUCCESS  ) {
+				TBLog(@"DB-SD", @"Deleted log files");
+			} else {
+				NSLog(@"deleteLogs: Error status %lu deleting log files; stdout from openvpnstart = '%@'; stderr from openvpnstart = '%@'",
+                      (unsigned long) status, stdoutString, stderrString);
+			}
+			break;
+		}
+	}
 }
 
 - (void) setState: (NSString*) newState
@@ -2934,6 +2939,11 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 	
 	gShuttingDownTunnelblick = TRUE;
+    
+    if (   (reason == terminatingBecauseOfError)
+        && [NSThread respondsToSelector: @selector(callStackSymbols)]  ) {
+        NSLog(@"Terminating because of error; stack trace:\n%@", [NSThread callStackSymbols]);
+    }
 	
 	[NSApp terminate: self];
 }
@@ -3468,6 +3478,160 @@ static void signal_handler(int signalNumber)
 	return NO;
 }
 
+// Examines an NSString for the first decimal digit or the first series of decimal digits
+// Returns an NSRange that includes all of the digits
+-(NSRange) rangeOfDigits: (NSString *) s
+{
+    NSRange r1, r2;
+    // Look for a digit
+    r1 = [s rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet] ];
+    if ( r1.length == 0 ) {
+        
+        // No digits, return that they were not found
+        return (r1);
+    } else {
+        
+        // r1 has range of the first digit. Look for a non-digit after it
+        r2 = [[s substringFromIndex:r1.location] rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+        if ( r2.length == 0) {
+            
+            // No non-digits after the digits, so return the range from the first digit to the end of the string
+            r1.length = [s length] - r1.location;
+            return (r1);
+        } else {
+            
+            // Have some non-digits, so the digits are between r1 and r2
+            r1.length = r1.location + r2.location - r1.location;
+            return (r1);
+        }
+    }
+}
+
+// Given a string with a version number, parses it and returns an NSDictionary with full, preMajor, major, preMinor, minor, preSuffix, suffix, and postSuffix fields
+//              full is the full version string as displayed by openvpn when no arguments are given.
+//              major, minor, and suffix are strings of digits (may be empty strings)
+//              The first string of digits goes in major, the second string of digits goes in minor, the third string of digits goes in suffix
+//              preMajor, preMinor, preSuffix and postSuffix are strings that come before major, minor, and suffix, and after suffix (may be empty strings)
+//              if no digits, everything goes into preMajor
+-(NSDictionary *) parseVersionInfoFromString: (NSString *) string
+{
+    NSRange r;
+    NSString * s = string;
+    
+    NSString * preMajor     = @"";
+    NSString * major        = @"";
+    NSString * preMinor     = @"";
+    NSString * minor        = @"";
+    NSString * preSuffix    = @"";
+    NSString * suffix       = @"";
+    NSString * postSuffix   = @"";
+    
+    r = [self rangeOfDigits: s];
+    if (r.length == 0) {
+        preMajor = s;
+    } else {
+        preMajor = [s substringToIndex:r.location];
+        major = [s substringWithRange:r];
+        s = [s substringFromIndex:r.location+r.length];
+        
+        r = [self rangeOfDigits: s];
+        if (r.length == 0) {
+            preMinor = s;
+        } else {
+            preMinor = [s substringToIndex:r.location];
+            minor = [s substringWithRange:r];
+            s = [s substringFromIndex:r.location+r.length];
+            
+            r = [self rangeOfDigits: s];
+            if (r.length == 0) {
+                preSuffix = s;
+            } else {
+                preSuffix = [s substringToIndex:r.location];
+                suffix = [s substringWithRange:r];
+                postSuffix = [s substringFromIndex:r.location+r.length];
+            }
+        }
+    }
+    
+    return (  [NSDictionary dictionaryWithObjectsAndKeys:
+               [[string copy] autorelease], @"full",
+               [[preMajor copy] autorelease], @"preMajor",
+               [[major copy] autorelease], @"major",
+               [[preMinor copy] autorelease], @"preMinor",
+               [[minor copy] autorelease], @"minor",
+               [[preSuffix copy] autorelease], @"preSuffix",
+               [[suffix copy] autorelease], @"suffix",
+               [[postSuffix copy] autorelease], @"postSuffix",
+               nil]  );
+}
+
+-(BOOL) setUpOpenVPNNamesAndVersionInfo {
+    
+    NSMutableArray * nameArray = [[[NSMutableArray alloc] initWithCapacity: 5] autorelease];
+    NSMutableArray * infoArray = [[[NSMutableArray alloc] initWithCapacity: 5] autorelease];
+    
+    NSString * openvpnDirPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"openvpn"];
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnDirPath];
+    NSString * dirName;
+    while (  (dirName = [dirEnum nextObject])  ) {
+        [dirEnum skipDescendents];
+        if (   ( [dirName hasPrefix: @"openvpn-"] )  ) {
+			NSString * versionFromDirName = [dirName substringFromIndex: [@"openvpn-" length]];
+            
+            // Use ./openvpn --version to get the version information
+            NSString * openvpnPath = [[openvpnDirPath stringByAppendingPathComponent: dirName ]
+                                      stringByAppendingPathComponent: @"openvpn"];
+            NSString * stdoutString = @"";
+            NSString * stderrString = @"";
+            OSStatus status = runTool(openvpnPath, [NSArray arrayWithObject: @"--version"], &stdoutString, &stderrString);
+            if (   (status != EXIT_SUCCESS)
+				&& (status != 1)  ) {	//OpenVPN returns a status of 1 when the --version option is used
+                NSLog(@"openvpnstart returned %lu trying to run '%@ --version'; stderr was '%@'; stdout was '%@'", (unsigned long)status, openvpnPath, stderrString, stdoutString);
+                [self terminateBecause: terminatingBecauseOfError];
+                return FALSE;
+            }
+            
+            NSRange rng1stSpace = [stdoutString rangeOfString: @" "];
+            if (  rng1stSpace.length != 0  ) {
+                NSRange rng2ndSpace = [stdoutString rangeOfString: @" " options: 0 range: NSMakeRange(rng1stSpace.location + 1, [stdoutString length] - rng1stSpace.location - 1)];
+                if ( rng2ndSpace.length != 0  ) {
+                    NSString * versionString = [stdoutString substringWithRange: NSMakeRange(rng1stSpace.location + 1, rng2ndSpace.location - rng1stSpace.location -1)];
+					if (  ! [versionString isEqualToString: versionFromDirName]  ) {
+						NSLog(@"OpenVPN version ('%@') reported by the program is not consistent with the version ('%@') derived from the name of folder '%@' in %@", versionString, versionFromDirName, dirName, openvpnDirPath);
+						[self terminateBecause: terminatingBecauseOfError];
+						return FALSE;
+					}
+                    NSDictionary * info = [self parseVersionInfoFromString: versionString];
+                    if (  info  ) {
+                        [nameArray addObject: versionString];
+                        [infoArray addObject: info];
+                        continue;
+                    } else {
+						NSLog(@"Could not parse OpenVPN version string; stderr was '%@'; stdout was '%@'", stderrString, stdoutString);
+						[self terminateBecause: terminatingBecauseOfError];
+						return FALSE;
+                    }
+                }
+            }
+            
+            NSLog(@"Error getting info from '%@ --version': stdout was '%@'", openvpnPath, stdoutString);
+            [self terminateBecause: terminatingBecauseOfError];
+            return FALSE;
+        }
+    }
+    
+    if (  [nameArray count] == 0  ) {
+        NSLog(@"There are no versions of OpenVPN in this copy of Tunnelblick");
+        [self terminateBecause: terminatingBecauseOfError];
+        return FALSE;
+    }
+    
+    [self setOpenvpnVersionNames: [NSArray arrayWithArray: nameArray]];
+    [self setOpenvpnVersionInfo:  [NSArray arrayWithArray: infoArray]];
+    
+    return TRUE;
+}
+
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
 	(void) notification;
@@ -3476,6 +3640,11 @@ static void signal_handler(int signalNumber)
     [self installSignalHandler];
 	[self updateScreenList];
 
+    // Get names and version info for all copies of OpenVPN in ../Resources/openvpn
+    if (  ! [self setUpOpenVPNNamesAndVersionInfo]) {
+        return; // Error already put in log and app terminated
+    }
+    
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 002")
     // If checking for updates is enabled, we do a check every time Tunnelblick is launched (i.e., now)
     // We also check for updates if we haven't set our preferences yet. (We have to do that so that Sparkle
@@ -3681,26 +3850,23 @@ static void signal_handler(int signalNumber)
 #endif
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 015")
-	NSArray * versions = availableOpenvpnVersions();
-	if (  [versions count] == 0  ) {
-		NSLog(@"Tunnelblick does not include any versions of OpenVPN");
-		[self terminateBecause: terminatingBecauseOfError];
-		return;
-	}
-	
     NSString * prefVersion = [gTbDefaults stringForKey: @"*-openvpnVersion"];
     if (   prefVersion
         && ( ! [prefVersion isEqualToString: @"-"] )
-        && ( ! [prefVersion isEqualToString: @""] )
-        && ( ! [versions containsObject: prefVersion] )  ) {
-		NSString * useVersion = [versions lastObject];
-		TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-						[NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
-						 prefVersion, useVersion],
-						nil, nil, nil);
-		[gTbDefaults setObject: @"-" forKey: @"*-openvpnVersion"];
+        && ( ! [[self openvpnVersionNames] containsObject: prefVersion] )  ) {
+		NSString * useVersion = [[self openvpnVersionNames] lastObject];
+        if (  [gTbDefaults canChangeValueForKey: @"*-openvpnVersion"]  ) {
+            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                            [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest (currently version %@) as the default.", @"Window text"),
+                             prefVersion, useVersion],
+                            nil, nil, nil);
+            NSLog(@"OpenVPN version %@ is not available. Using the latest (currently version %@) as the default", prefVersion, useVersion);
+            [gTbDefaults setObject: @"-" forKey: @"*-openvpnVersion"];
+        } else {
+            NSLog(@"'*-openvpnVersion' is being forced to '%@'. That version is not available in this version of Tunnelblick", prefVersion);
+        }
     }
-    
+
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 016")
     // Add this Tunnelblick version to the start of the tunnelblickVersionHistory preference array if it isn't already the first entry
     NSDictionary * infoPlist = [[NSBundle mainBundle] infoDictionary];
@@ -4368,7 +4534,7 @@ static BOOL runningHookupThread = FALSE;
 								|| (  [thisFileDate isGreaterThan: [bestLogInfoSoFar objectForKey: @"fileCreationDate"]])  ) {
 								NSDictionary * newEntry = [NSDictionary dictionaryWithObjectsAndKeys:
 														   thisFileDate,                    @"fileCreationDate",
-														   openvpnstartArgs,                  @"openvpnstartArgs",
+														   openvpnstartArgs,                @"openvpnstartArgs",
 														   [NSNumber numberWithInt: port],  @"port",
 														   connection,                      @"connection",
 														   nil];
@@ -4440,17 +4606,21 @@ static BOOL runningHookupThread = FALSE;
             NSString * startArguments = [withoutPrefixOrPortOrOpenvpnDotLog pathExtension];
             if (  startArguments  ) {
                 if (  ! ( [startArguments isEqualToString: @"ovpn"] || [startArguments isEqualToString: @"conf"] )  ) {
-                    *startArgsPtr = startArguments;
+					if (  startArgsPtr  ) {
+						*startArgsPtr = startArguments;
+					}
                 }
             }
             NSString * portString = [withoutPrefixOrDotOpenvpnDotLog pathExtension];
             int port = [portString intValue];
-            if (   port != 0
-                && port != INT_MAX
-                && port != INT_MIN  ) {
+            if (   (port != 0)
+                && (port != INT_MAX)
+                && (port != INT_MIN)  ) {
                 
-                *portPtr = (unsigned)port;
-                
+				if (  portPtr  ) {
+					*portPtr = (unsigned)port;
+                }
+				
 				NSString * constructedPath = [withoutPrefixOrPortOrOpenvpnDotLog stringByDeletingPathExtension];
 				NSMutableString * cfg = [[NSMutableString alloc] initWithCapacity: [constructedPath length]];
 				unsigned i;
@@ -6821,10 +6991,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMenu *,       myVPNMenu)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, activeIPCheckThreads)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, cancellingIPCheckThreads)
 
-TBSYNTHESIZE_OBJECT(retain, NSArray *,      screenList,                setScreenList)
+TBSYNTHESIZE_OBJECT(retain, NSArray      *, screenList,                setScreenList)
 TBSYNTHESIZE_OBJECT(retain, MainIconView *, ourMainIconView,           setOurMainIconView)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
+TBSYNTHESIZE_OBJECT(retain, NSArray      *, openvpnVersionNames,       setOpenvpnVersionNames)
+TBSYNTHESIZE_OBJECT(retain, NSArray      *, openvpnVersionInfo,        setOpenvpnVersionInfo)
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnectionArray)
 TBSYNTHESIZE_OBJECT(retain, NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
 TBSYNTHESIZE_OBJECT(retain, NSTimer      *, showDurationsTimer,        setShowDurationsTimer)
