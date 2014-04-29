@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -24,14 +24,13 @@
 
 #ifdef INCLUDE_VPNSERVICE
 
-#import <Cocoa/Cocoa.h>
-#import "VPNServiceIntroController.h"
-#import "VPNServiceTermsOfServiceController.h"
-#import "VPNServiceCreateAccountController.h"
-#import "VPNServiceProveController.h"
-#import "VPNServiceLoginController.h"
-#import "VPNServiceWelcomeController.h"
-#import "VPNServiceSorryController.h"
+@class VPNServiceIntroController;
+@class VPNServiceTermsOfServiceController;
+@class VPNServiceCreateAccountController;
+@class VPNServiceProveController;
+@class VPNServiceLoginController;
+@class VPNServiceWelcomeController;
+@class VPNServiceSorryController;
 
 @class MenuController;
 

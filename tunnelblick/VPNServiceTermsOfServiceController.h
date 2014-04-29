@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -24,7 +24,6 @@
 
 #ifdef INCLUDE_VPNSERVICE
 
-#import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 
 @interface VPNServiceTermsOfServiceController : NSWindowController

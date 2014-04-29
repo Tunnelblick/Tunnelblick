@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Jonathan Bullard
+ * Copyright 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,6 +21,7 @@
 
 
 #include "MainIconView.h"
+
 #include "MenuController.h"
 #include "TBUserDefaults.h"
 

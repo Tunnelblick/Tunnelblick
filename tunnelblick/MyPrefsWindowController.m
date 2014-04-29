@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,27 +20,33 @@
  */
 
 
-#import <asl.h>
 #import "MyPrefsWindowController.h"
-#import "TBUserDefaults.h"
+
+#import <asl.h>
+
+#import "easyRsa.h"
+#import "helper.h"
+#import "sharedRoutines.h"
+
+#import "AppearanceView.h"
+#import "AuthAgent.h"
 #import "ConfigurationManager.h"
+#import "ConfigurationsView.h"
+#import "GeneralView.h"
+#import "InfoView.h"
+#import "LeftNavDataSource.h"
+#import "LeftNavItem.h"
+#import "LeftNavViewController.h"
+#import "MainIconView.h"
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
-#import "helper.h"
-#import "ConfigurationsView.h"
-#import "GeneralView.h"
-#import "AppearanceView.h"
-#import "InfoView.h"
-#import "UtilitiesView.h"
 #import "SettingsSheetWindowController.h"
 #import "Sparkle/SUUpdater.h"
-#import "MainIconView.h"
-#import "easyRsa.h"
-#import "LeftNavItem.h"
-#import "LeftNavDataSource.h"
-#import "LeftNavViewController.h"
+#import "TBUserDefaults.h"
+#import "UtilitiesView.h"
+#import "VPNConnection.h"
 
 extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;

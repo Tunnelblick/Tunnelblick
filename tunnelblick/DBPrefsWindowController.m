@@ -1,8 +1,19 @@
 //
 //  DBPrefsWindowController.m
 //
+//  Created by Dave Batton
+//  http://www.Mere-Mortal-Software.com/blog/
+//
+//  Documentation for this class is available here:
+//  http://www.mere-mortal-software.com/blog/details.php?d=2007-03-11
+//
+//  Copyright 2007. Some rights reserved.
+//  This work is licensed under a Creative Commons license:
+//  http://creativecommons.org/licenses/by/3.0/
+//
 
 #import "DBPrefsWindowController.h"
+
 #import "TBUserDefaults.h"
 
 

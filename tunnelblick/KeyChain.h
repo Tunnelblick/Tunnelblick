@@ -1,5 +1,6 @@
 /*
  * Copyright 2004 Angelo Laub
+ * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *

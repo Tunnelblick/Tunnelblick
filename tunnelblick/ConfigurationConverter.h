@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -25,7 +25,8 @@
  *  This class converts OpenVPN configurations (.ovpn and .conf files) to Tunnelblick VPN Configurations (.tblk packages)
  */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
+
 #import "defines.h"
 
 @interface ConfigurationConverter : NSObject {

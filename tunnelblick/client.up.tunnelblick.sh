@@ -9,7 +9,7 @@
 # initialized.
 #
 # Created by: Nick Williams (using original code and parts of old Tblk scripts)
-# Modifed by: Jonathan Bullard for Mountain Lion
+# Modifed by: Jonathan K. Bullard for Mountain Lion
 # 
 # ******************************************************************************************************************
 

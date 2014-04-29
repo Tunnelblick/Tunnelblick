@@ -1,5 +1,5 @@
 /*
- * Copyright 2009, 2010 Jonathan Bullard
+ * Copyright 2009, 2010, 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,8 +20,10 @@
  */
 
 #import "TBUserDefaults.h"
-#import "MenuController.h"
+
 #import "helper.h"
+
+#import "MenuController.h"
 
 
 NSArray * gProgramPreferences;

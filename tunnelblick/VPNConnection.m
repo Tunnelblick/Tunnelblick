@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,23 +21,28 @@
  */
 
 #import <CoreServices/CoreServices.h>
-#import <Foundation/NSDebug.h>
+#import <libkern/OSAtomic.h>
 #import <pthread.h>
 #import <signal.h>
-#import <libkern/OSAtomic.h>
+
+#import "helper.h"
 #import "defines.h"
 #import "sharedRoutines.h"
+
+#import "AuthAgent.h"
 #import "ConfigurationManager.h"
-#import "VPNConnection.h"
-#import "helper.h"
 #import "KeyChain.h"
+#import "LogDisplay.h"
 #import "MenuController.h"
+#import "MyPrefsWindowController.h"
+#import "NetSocket.h"
 #import "NetSocket+Text.h"
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
-#import "TBUserDefaults.h"
-#import "MyPrefsWindowController.h"
 #import "NSTimer+TB.h"
+#import "StatusWindowController.h"
+#import "TBUserDefaults.h"
+#import "VPNConnection.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gPrivatePath;

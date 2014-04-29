@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -19,8 +19,6 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *  or see http://www.gnu.org/licenses/.
  */
-
-#import "sharedRoutines.h"
 
 void           appendLog				 (NSString * msg);
 

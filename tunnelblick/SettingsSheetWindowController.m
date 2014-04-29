@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,13 +21,16 @@
 
 
 #import "SettingsSheetWindowController.h"
-#import "defines.h"
-#import "TBUserDefaults.h"
-#import "MenuController.h"
-#import "ConfigurationManager.h"
-#import "helper.h"
-#import "MyPrefsWindowController.h"
 
+#import "defines.h"
+#import "helper.h"
+#import "sharedRoutines.h"
+
+#import "ConfigurationManager.h"
+#import "MenuController.h"
+#import "MyPrefsWindowController.h"
+#import "TBUserDefaults.h"
+#import "VPNConnection.h"
 
 extern NSString             * gPrivatePath;
 extern NSFileManager        * gFileMgr;

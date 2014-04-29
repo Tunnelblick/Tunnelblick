@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,11 +21,13 @@
  */
 
 #import <Security/Security.h>
+
 #import "TBPerformer.h"
-#import "AuthAgent.h"
-#import "NetSocket.h"
-#import "LogDisplay.h"
-#import "StatusWindowController.h"
+
+@class AuthAgent;
+@class LogDisplay;
+@class NetSocket;
+@class StatusWindowController;
 
 typedef enum
 {

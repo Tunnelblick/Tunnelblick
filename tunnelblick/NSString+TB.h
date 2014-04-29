@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Jonathan Bullard
+ * Copyright (c) 2011, 2012 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,9 +20,6 @@
  */
 
 //*************************************************************************************************
-
-#import <Cocoa/Cocoa.h>
-
 
 @interface NSString(TB)
 

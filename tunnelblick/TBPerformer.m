@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jonathan Bullard
+ * Copyright 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,8 +20,10 @@
  */
 
 #import "TBPerformer.h"
-#import "MenuController.h"
+
 #import "helper.h"
+
+#import "MenuController.h"
 #import "NSTimer+TB.h"
 
 @implementation TBPerformer

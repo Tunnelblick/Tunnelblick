@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011
+ * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011, 2012, 2013, 2014. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,10 +21,13 @@
  */
 
 #import "AuthAgent.h"
+
 #import "helper.h"
-#import "TBUserDefaults.h"
+
+#import "KeyChain.h"
 #import "LoginWindowController.h"
 #import "PassphraseWindowController.h"
+#import "TBUserDefaults.h"
 
 extern TBUserDefaults  * gTbDefaults;
 

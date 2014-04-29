@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jonathan Bullard
+ * Copyright 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,14 +20,17 @@
  */
 
 #import "LeftNavDataSource.h"
+
+#import "helper.h"
+#import "sharedRoutines.h"
+
+#import "ConfigurationManager.h"
 #import "LeftNavItem.h"
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
-#import "TBUserDefaults.h"
-#import "helper.h"
-#import "VPNConnection.h"
 #import "NSApplication+LoginItem.h"
-#import "ConfigurationManager.h"
+#import "TBUserDefaults.h"
+#import "VPNConnection.h"
 
 extern TBUserDefaults * gTbDefaults;
 extern NSString       * gDeployPath;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012 Jonathan Bullard
+ * Copyright 2010, 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -19,15 +19,19 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-#import <pthread.h>
-#import "defines.h"
 #import "LogDisplay.h"
-#import "MenuController.h"
-#import "NSFileManager+TB.h"
-#import "TBUserDefaults.h"
-#import "MyPrefsWindowController.h"
+
+#import <pthread.h>
+
+#import "defines.h"
+
 #import "ConfigurationsView.h"
+#import "MenuController.h"
+#import "MyPrefsWindowController.h"
+#import "NSFileManager+TB.h"
 #import "NSTimer+TB.h"
+#import "TBUserDefaults.h"
+#import "UKKQueue/UKKQueue.h"
 
 #define NUMBER_OF_LINES_TO_KEEP_AT_START_OF_LOG 10
 #define NUMBER_OF_LINES_TO_KEEP_AS_TUNNELBLICK_ENTRIES_AT_START_OF_LOG 3
