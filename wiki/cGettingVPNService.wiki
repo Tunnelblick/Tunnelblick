@@ -55,7 +55,7 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://www.frozenway.com FrozenWay]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.goldenfrog.com/vyprvpn Golden Frog Vypr VPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.hostvpn.com/ HostVPN]*
-  * *[http://www.tunnelblick.net/to.php?to=http://www.ibvpn.com Invisible Browsing VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.ibvpn.com ibVPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.ivpn.net iVPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.leafyvpn.net Leafy VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.my-expat-network.co.uk My Expat Network]*
