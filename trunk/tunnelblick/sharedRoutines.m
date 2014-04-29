@@ -1,5 +1,5 @@
 /*
- * Copyright 2012  Jonathan K. Bullard
+ * Copyright 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -26,11 +26,14 @@
 // append the message to the target's log.
 
 
-#import <sys/types.h>
-#import <sys/stat.h>
-#import <netinet/in.h>
-#import "defines.h"
 #import "sharedRoutines.h"
+
+#import <netinet/in.h>
+#import <sys/stat.h>
+#import <sys/types.h>
+
+#import "defines.h"
+
 #import "NSFileManager+TB.h"
 
 

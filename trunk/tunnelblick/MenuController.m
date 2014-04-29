@@ -3,7 +3,7 @@
  * Contributions by Dirk Theisen <dirk@objectpark.org>,
  *                  Jens Ohlig, 
  *                  Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -23,34 +23,37 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-#import <Foundation/NSDebug.h>
 #import <pthread.h>
 #import <sys/stat.h>
 #import <sys/mount.h>
 #import <uuid/uuid.h>
-#import "defines.h"
+
 #import "MenuController.h"
-#import "NSApplication+LoginItem.h"
-#import "NSApplication+SystemVersion.h"
-#import "NSString+TB.h"
+
+#import "defines.h"
+#import "easyRsa.h"
 #import "helper.h"
-#import "TBUserDefaults.h"
+#import "sharedRoutines.h"
+
 #import "ConfigurationManager.h"
-#import "VPNConnection.h"
-#import "NSFileManager+TB.h"
+#import "ConfigurationsView.h"
+#import "ConfigurationUpdater.h"
+#import "LeftNavItem.h"
+#import "LeftNavViewController.h"
 #import "MainIconView.h"
 #import "MyPrefsWindowController.h"
-#import "SplashWindowController.h"
-#import "ConfigurationUpdater.h"
-#import "UKKQueue/UKKQueue.h"
+#import "NSApplication+LoginItem.h"
+#import "NSApplication+SystemVersion.h"
+#import "NSFileManager+TB.h"
+#import "NSString+TB.h"
+#import "NSTimer+TB.h"
 #import "Sparkle/SUUpdater.h"
+#import "SplashWindowController.h"
+#import "TBUserDefaults.h"
+#import "UKKQueue/UKKQueue.h"
 #import "VPNConnection.h"
 #import "WelcomeController.h"
-#import "easyRsa.h"
-#import "LeftNavViewController.h"
-#import "ConfigurationsView.h"
-#import "LeftNavItem.h"
-#import "NSTimer+TB.h"
+
 
 #ifdef INCLUDE_VPNSERVICE
 #import "VPNService.h"

@@ -4,7 +4,7 @@
 //
 //  Created by Dirk Theisen on Thu Feb 26 2004.
 //  Copyright 2004 Objectpark Software. All rights reserved.
-//  Contributions by Jonathan K. Bullard Copyright 2010, 2011
+//  Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
 //
 //  Permission to use, copy, modify, and distribute this software for any
 //  purpose with or without fee is hereby granted, provided that the above
@@ -19,17 +19,20 @@
 //  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 
+#import "NSApplication+LoginItem.h"
+
 #import <AppKit/AppKit.h>
+#import <signal.h>
 #import <sys/sysctl.h>
 #import <sys/types.h>
 #import <sys/stat.h>
-#import <signal.h>
-#import "NSApplication+LoginItem.h"
+
+#import "defines.h"
+#import "helper.h"
+
+#import "MenuController.h"
 #import "NSArray+cArray.h"
 #import "UKLoginItemRegistry/UKLoginItemRegistry.h"
-#import "helper.h"
-#import "defines.h"
-#import "MenuController.h"
 
 // The following external, global variable is used by functions in this file and must be declared and set elsewhere before the
 // functions in this file are called:

@@ -1,5 +1,5 @@
 /*
-* Copyright 2011 Jonathan Bullard
+* Copyright 2011 Jonathan K. Bullard. All rights reserved.
 *
 *  This file is part of Tunnelblick.
 *
@@ -19,9 +19,7 @@
 *  or see http://www.gnu.org/licenses/.
 */
 
-
-#import <Cocoa/Cocoa.h>
-
+#import "defines.h"
 
 @interface SplashWindowController : NSWindowController
 {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Jonathan K. Bullard
+ * Copyright 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,7 +20,10 @@
  */
 
 #include "easyRsa.h"
+
 #include "helper.h"
+#import "sharedRoutines.h"
+
 #include "NSFileManager+TB.h"
 #include "TBUserDefaults.h"
 

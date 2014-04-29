@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,8 +20,9 @@
  */
 
 
-#import "defines.h"
 #import "PassphraseWindowController.h"
+
+#import "defines.h"
 #import "helper.h"
 
 @interface PassphraseWindowController() // Private methods

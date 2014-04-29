@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -30,8 +30,7 @@
 // do a "performAuthentication" to get the appropriate credential(s) so that
 // they will be returned by the "getters"
 
-#import "KeyChain.h"
-
+@class KeyChain;
 @class LoginWindowController;
 @class PassphraseWindowController;
 

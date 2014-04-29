@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,9 +21,10 @@
 
 
 #import "ApplescriptCommands.h"
+
 #import "MenuController.h"
-#import "VPNConnection.h"
 #import "TBUserDefaults.h"
+#import "VPNConnection.h"
 
 extern TBUserDefaults  * gTbDefaults;
 

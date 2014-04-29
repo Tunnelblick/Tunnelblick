@@ -1,7 +1,7 @@
 /*
  *  Created by Angelo Laub on 7/5/06
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2011
+ * Contributions by Jonathan K. Bullard Copyright 2011, 2012. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *

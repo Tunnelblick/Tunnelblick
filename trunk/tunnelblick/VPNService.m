@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -24,15 +24,17 @@
 
 #ifdef INCLUDE_VPNSERVICE
 
-#import "VPNServiceDefines.h"
 #import "VPNService.h"
-#import "VPNServiceIntroController.h"
-#import "VPNServiceCreateAccountController.h"
-#import "VPNServiceLoginController.h"
-#import "NSApplication+LoginItem.h"
-#import "TBUserDefaults.h"
+
+#import "VPNServiceDefines.h"
+
 #import "KeyChain.h"
 #import "MenuController.h"
+#import "NSApplication+LoginItem.h"
+#import "TBUserDefaults.h"
+#import "VPNServiceCreateAccountController.h"
+#import "VPNServiceIntroController.h"
+#import "VPNServiceLoginController.h"
 
 extern TBUserDefaults * gTbDefaults;
 

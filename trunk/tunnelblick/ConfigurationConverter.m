@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -19,12 +19,15 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-#import <stdio.h>
 #import "ConfigurationConverter.h"
+
+#import <stdio.h>
+
 #import "helper.h"
-#import "NSFileManager+TB.h"
-#import "ConfigurationToken.h"
 #import "sharedRoutines.h"
+
+#import "ConfigurationToken.h"
+#import "NSFileManager+TB.h"
 
 
 extern NSFileManager * gFileMgr;

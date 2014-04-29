@@ -5,14 +5,16 @@
 //  Created by Dustin Mierau
 
 #import "NetSocket.h"
-#import "NSTimer+TB.h"
+
 #import <arpa/inet.h>
+#import <fcntl.h>
+#import <netdb.h>
 #import <sys/socket.h>
 #import <sys/time.h>
 #import <sys/ioctl.h>
-#import <fcntl.h>
-#import <netdb.h>
 #import <unistd.h>
+
+#import "NSTimer+TB.h"
 
 static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType inType, CFDataRef inAddress, const void* inData, void* inContext );
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -18,9 +18,6 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *  or see http://www.gnu.org/licenses/.
  */
-
-
-#import <Cocoa/Cocoa.h>
 
 
 @interface ApplescriptConnect : NSScriptCommand {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2009, 2010 Jonathan Bullard
+ * Copyright 2009, 2010, 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,8 +20,9 @@
  */
 
 #import "TBTextView.h"
-#import "NSApplication+LoginItem.h"
+
 #import "MenuController.h"
+#import "NSApplication+LoginItem.h"
 
 @implementation TBTextView
 

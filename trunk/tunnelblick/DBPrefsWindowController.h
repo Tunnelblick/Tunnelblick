@@ -41,9 +41,6 @@
 //  10 June 2011:   Modified for use in Tunnelblick
 
 
-#import <Cocoa/Cocoa.h>
-
-
 @interface DBPrefsWindowController : NSWindowController <NSAnimationDelegate, NSToolbarDelegate> {
 	NSMutableArray *toolbarIdentifiers;
 	NSMutableDictionary *toolbarViews;

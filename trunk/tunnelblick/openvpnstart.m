@@ -1,7 +1,7 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Angelo Laub
  * Contributions by Dirk Theisen
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,16 +21,18 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-#import <Foundation/Foundation.h>
 #import <CoreServices/CoreServices.h>
-#include <sys/param.h>
-#include <sys/mount.h>
-#import <sys/sysctl.h>
-#import <sys/xattr.h>
-#import <sys/types.h>
+#import <Foundation/Foundation.h>
 #import <sys/acl.h>
+#import <sys/mount.h>
+#import <sys/param.h>
+#import <sys/sysctl.h>
+#import <sys/types.h>
+#import <sys/xattr.h>
+
 #import "defines.h"
 #import "sharedRoutines.h"
+
 #import "NSFileManager+TB.h"
 
 //**************************************************************************************************************************

@@ -741,11 +741,11 @@
 		63E56ED51384831C007E39AB /* VPNService */ = {
 			isa = PBXGroup;
 			children = (
+				63E56EDA13848338007E39AB /* VPNServiceDefines.h */,
 				63E56ED613848338007E39AB /* VPNService.h */,
 				63E56ED713848338007E39AB /* VPNService.m */,
 				63E56ED813848338007E39AB /* VPNServiceCreateAccountController.h */,
 				63E56ED913848338007E39AB /* VPNServiceCreateAccountController.m */,
-				63E56EDA13848338007E39AB /* VPNServiceDefines.h */,
 				63E56EDB13848338007E39AB /* VPNServiceIntroController.h */,
 				63E56EDC13848338007E39AB /* VPNServiceIntroController.m */,
 				63E56EDD13848338007E39AB /* VPNServiceLoginController.h */,
@@ -1036,8 +1036,8 @@
 		B840788F170CE7140002B941 /* Welcome Window */ = {
 			isa = PBXGroup;
 			children = (
-				B85B5DBC15F2430900EDCF95 /* WelcomeController.m */,
 				B85B5DBB15F2430900EDCF95 /* WelcomeController.h */,
+				B85B5DBC15F2430900EDCF95 /* WelcomeController.m */,
 			);
 			name = "Welcome Window";
 			sourceTree = "<group>";

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,9 +21,11 @@
 
 
 #import "InfoView.h"
+
 #import "helper.h"
-#import "TBUserDefaults.h"
+
 #import "NSTimer+TB.h"
+#import "TBUserDefaults.h"
 
 
 extern TBUserDefaults * gTbDefaults;

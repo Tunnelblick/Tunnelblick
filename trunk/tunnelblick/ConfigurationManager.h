@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -32,9 +32,9 @@
  */
 
 #import "defines.h"
-#import "VPNConnection.h"
 
 @class ListingWindowController;
+@class VPNConnection;
 
 @interface ConfigurationManager : NSObject {
 	

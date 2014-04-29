@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,13 +20,16 @@
  */
 
 
-#import <pthread.h>
-#import "defines.h"
 #import "StatusWindowController.h"
-#import "MenuController.h"
-#import "TBUserDefaults.h"
+
+#import <pthread.h>
+
+#import "defines.h"
 #import "helper.h"
+
+#import "MenuController.h"
 #import "NSTimer+TB.h"
+#import "TBUserDefaults.h"
 
 
 TBUserDefaults * gTbDefaults;         // Our preferences

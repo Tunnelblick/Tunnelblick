@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011 Jonathan K. Bullard
+ * Copyright 2010, 2011 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -39,8 +39,10 @@
 
 #import <Foundation/Foundation.h>
 #import <sys/stat.h>
+
 #import "defines.h"
 #import "sharedRoutines.h"
+
 #import "NSFileManager+TB.h"
 
 // Indices into argv[] for items we use. The first is an argument to this program; the other two are arguments to openvpnstart
