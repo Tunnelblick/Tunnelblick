@@ -8,14 +8,20 @@
 *If you <font color="red">are not a member</font> of this group, each of your posts must be approved* by a moderator before it will appear.
 
 Please be patient -- we're all volunteers! (For more information about the moderation process, see [https://groups.google.com/d/topic/tunnelblick-discuss/J6x4mQhSxsQ/discussion this post].)
-
+<hr>
 ==What to Post==
 
-If you are having a problem with Tunnelblick, it is best to open the "VPN Details…" window and click on the "Log" tab before doing a complete connect/disconnect cycle (if you can) to obtain fresh diagnostic information for your submission.
+*If you are having a problem with Tunnelblick, please:*
+ # Open the "VPN Details…" window
+ # Click on the "Log" tab
+ # Click on the "Connect" button
+ # (Wait until the problem occurs)
+ # Click on the "Disconnect" button if the VPN is connected
+ # Click on the "Copy Diagnostic Info to the Clipboard" button
+ # Past into an email or web form
+ # Remove any sensitive information before sending the email or posting the form
 
-*If possible, please use the "Copy Diagnostic Info to the Clipboard" button*, then paste into an email or web form and edit out sensitive information. The button is available in Tunnelblick 3.3beta38 and higher, and is located on the "Log" tab of the "Preferences" panel of the "VPN Details…" window.
-
-*Otherwise, please include the following with your question*:
+The "Copy Diagnostic Info to the Clipboard" button is available in Tunnelblick 3.3beta38 and higher. If you are using a very old version of Tunnelblick, please include the following with your question:
  * the contents of your configuration file;
  * the entire contents of the Tunnelblick log; and
  * the end of the Console log.
@@ -30,7 +36,7 @@ If you are having a problem with Tunnelblick, it is best to open the "VPN Detail
  # Select "Edit OpenVPN Configuration File…" (or possibly "Examine OpenVPN Configuration File…").
  # In !TextEdit you can Edit : Select All and then Edit : Copy to get the contents of the configuration file put into the clipboard.
 
- See the [cOpenVPNLog Tunnelblick Log] and the [cConsoleLog Console Log] for information on the logs.
+ See the [cOpenVPNLog Tunnelblick Log] and the [cConsoleLog Console Log] for information copying the logs.
 
 ------------------
 
