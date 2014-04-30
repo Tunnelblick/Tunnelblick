@@ -532,8 +532,9 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
                 if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
                     result = result && checkSetPermissions(filePath, tblkFolderPerms, YES);
                     
-                } else if (   [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
-                           || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
+                } else if (   [filePath hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/Deploy/"]
+                           || [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
+						   || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
                     result = result && checkSetPermissions(filePath, publicFolderPerms, YES);
                     
                 } else {

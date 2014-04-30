@@ -5688,7 +5688,8 @@ BOOL needToSecureFolderAtPath(NSString * path)
 						return YES;
 					}
 				
-                } else if (   [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
+                } else if (   [filePath hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/Deploy/"]
+                           || [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
                            || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
 					if (  ! checkOwnerAndPermissions(filePath, user, group, publicFolderPerms)  ) {
 						return YES;
