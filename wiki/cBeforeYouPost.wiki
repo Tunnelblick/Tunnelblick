@@ -9,7 +9,7 @@
 
 Please be patient -- we're all volunteers! (For more information about the moderation process, see [https://groups.google.com/d/topic/tunnelblick-discuss/J6x4mQhSxsQ/discussion this post].)
 <hr>
-==What to Post==
+==How and What to Post==
 
 *If you are having a problem with Tunnelblick, please:*
  # Open the "VPN Details…" window
