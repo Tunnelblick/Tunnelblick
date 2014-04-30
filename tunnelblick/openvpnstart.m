@@ -685,7 +685,8 @@ void exitIfTblkNeedsRepair(void) {
                 if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
                     exitIfPathIsNotSecure(filePath, tblkFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
                     
-                } else if (   [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
+                } else if (   [filePath hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/Deploy/"]
+                           ||[filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
                            || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
                     exitIfPathIsNotSecure(filePath, publicFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
                     
