@@ -3,7 +3,7 @@
 
 ==Rebranding Tunnelblick==
 
-_Note: This page has not been updated for a long time; there is a discussion [https://groups.google.com/d/msg/tunnelblick-discuss/PuGg6RJH1og/xAZko1IjAR8J here] that contains some updates and tips for rebranding._
+_Note: This page has not been updated for a long time; there is a discussion [https://groups.google.com/d/msg/tunnelblick-discuss/PuGg6RJH1og/xAZko1IjAR8J here] that contains some updates and tips for rebranding and building Tunnelblick._
 
 After Tunnelblick 3.3beta21, "Deployed" versions of Tunnelblick must be "rebranded" with a different name. This is done to make sure that different versions of Tunnelblick on one computer do not interfere with each other.
 
