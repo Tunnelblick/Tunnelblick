@@ -5,6 +5,8 @@
 
 <wiki:toc max_depth="2" />
 
+_Note: This page has not been updated for a long time; there is a discussion [https://groups.google.com/d/msg/tunnelblick-discuss/PuGg6RJH1og/xAZko1IjAR8J here] that contains some updates and tips for rebranding and building Tunnelblick._
+
 ==INTRODUCTION==
 
 Usually, people install and use a "release" -- an easy-to-use version -- of Tunnelblick. The most recent release is always on the <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">Downloads</a> page and is a .dmg file. It's easy to install Tunnelblick from this .dmg.
