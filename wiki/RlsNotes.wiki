@@ -9,7 +9,43 @@
 
 ==Version 3.4==
 
-*3.4beta24 build 3789 (2014-04-18)*
+*3.4beta26 build 3828 (2014-05-02)*
+
+ * Replaces OpenVPN version 2.3.3 with version 2.3.4. Tunnelblick now contains OpenVPN versions 2.2.1, 2.3.2, and 2.3.4.
+
+ * Quits Tunnelblick faster.
+
+ * Warns about OpenVPN options that are not allowed on OS X because they are allowed only on Windows.
+
+ * Excludes the value of the 'installationUID' preference from the diagnostic info.
+
+ * Includes better OpenVPN version detection.
+
+ * Includes better handling of invalid preferences.
+
+ * Includes additional error logging.
+
+ * Fixes problems with NUL characters in configuration files.
+
+ * Fixes a problem that caused some 'Connect' button presses to be ignored.
+
+ * Fixes a problem that caused some settings to be ignored.
+
+ * Fixes a problem that caused spurious Console log entries about unknown preferences.
+
+ * Fixes a problem with the position of the help button on Preferences panel.
+
+ * Fixes a problem deleting old logs.
+
+ * Fixes a problem with permissions on non-.tblk folders in Deploy.
+
+ * Fixes a non-reachable double-free.
+
+ * Fixes a minor memory leak.
+
+--------------------
+
+*3.4beta24 build 3806 (2014-04-18)*
 
  * Includes OpenVPN 2.3.3 (as well as 2.2.1 and 2.3.2).
 

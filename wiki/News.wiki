@@ -5,6 +5,20 @@
 
 --------------------
 
+2014-05-02: *Tunnelblick 3.4beta26 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Replaces OpenVPN version 2.3.3 with version 2.3.4.
+
+ * Quits Tunnelblick faster.
+
+ * Warns about OpenVPN options that are not allowed on OS X.
+
+ * Includes several other enhancements and fixes several problems.
+
+ See the [RlsNotes#Version_3.3 Release Notes] for details.
+
+--------------------
+
 2014-04-18: *Tunnelblick 3.4beta24 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Includes OpenVPN 2.3.3 (as well as 2.2.1 and 2.3.2).
