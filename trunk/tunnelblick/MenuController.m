@@ -2778,8 +2778,15 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
         NSLog(@"Skipping deleting logs because of fatal error.");
     } else {
-        TBLog(@"DB_SD", @"cleanup: Deleting logs")
-        [self deleteLogs];
+        NSString * ovpnvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+        NSDictionary * attributes = [gFileMgr attributesOfItemAtPath: ovpnvpnstartPath error: nil];
+        NSUInteger permissions = [attributes filePosixPermissions];
+        if (  0 != (permissions & S_ISUID)) {
+            TBLog(@"DB_SD", @"cleanup: Deleting logs")
+            [self deleteLogs];
+        } else {
+            TBLog(@"DB-SD", @"cleanup: Skipping deleting logs because openvpnstart is not SUID");
+        }
     }
 
     if ( ! gShuttingDownWorkspace  ) {
