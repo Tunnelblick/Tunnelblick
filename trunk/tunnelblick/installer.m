@@ -117,7 +117,7 @@ uid_t           gRealUserID;                  // User ID & Group ID for the real
 gid_t           gRealGroupID;
 NSAutoreleasePool * pool;
 
-BOOL makeFileUnlockedAtPath(NSString * path);
+BOOL makeUnlockedAtPath(NSString * path);
 BOOL moveContents(NSString * fromPath, NSString * toPath);
 NSString * firstPartOfPath(NSString * path);
 NSString * lastPartOfPath(NSString * path);
@@ -377,6 +377,7 @@ int main(int argc, char *argv[])
 								appendLog([NSString stringWithFormat: @"Moved contents of %@ to %@", oldConfigDirPath, newConfigDirPath]);
 								secureTblks = TRUE; // We may have moved some .tblks, so we should secure them
 								// Delete the old configuration folder
+								makeUnlockedAtPath(oldConfigDirPath);
 								if (  ! [gFileMgr tbRemoveFileAtPath:oldConfigDirPath handler: nil]  ) {
 									appendLog([NSString stringWithFormat: @"Unable to remove %@", oldConfigDirPath]);
 									errorExit();
@@ -500,7 +501,7 @@ int main(int argc, char *argv[])
                 }
                 
                 // Copy Tunnelblick Configurations.bundle, overwriting any existing one
-                if (  ! makeFileUnlockedAtPath(CONFIGURATION_UPDATES_BUNDLE_PATH)  ) {
+                if (  ! makeUnlockedAtPath(CONFIGURATION_UPDATES_BUNDLE_PATH)  ) {
                     errorExit();
                 }
                 if (  [gFileMgr fileExistsAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH]  ) {
@@ -773,7 +774,7 @@ int main(int argc, char *argv[])
         
         // Make sure we can delete the original if we are moving instead of copying
         if (  moveNotCopy  ) {
-            if (  ! makeFileUnlockedAtPath(targetPath)  ) {
+            if (  ! makeUnlockedAtPath(targetPath)  ) {
                 errorExit();
             }
         }
@@ -883,6 +884,7 @@ int main(int argc, char *argv[])
         if (  [ext isEqualToString: @"tblk"]  ) {
             if (  [gFileMgr fileExistsAtPath: firstPath]  ) {
                 errorExitIfAnySymlinkInPath(firstPath, 6);
+				makeUnlockedAtPath(firstPath);
                 if (  ! [gFileMgr tbRemoveFileAtPath: firstPath handler: nil]  ) {
                     appendLog([NSString stringWithFormat: @"unable to remove %@", firstPath]);
                 } else {
@@ -898,6 +900,7 @@ int main(int argc, char *argv[])
                                                  lastPartOfPath(firstPath)];
                     if (  [gFileMgr fileExistsAtPath: shadowCopyPath]  ) {
                         errorExitIfAnySymlinkInPath(shadowCopyPath, 7);
+						makeUnlockedAtPath(shadowCopyPath);
                         if (  ! [gFileMgr tbRemoveFileAtPath: shadowCopyPath handler: nil]  ) {
                             appendLog([NSString stringWithFormat: @"unable to remove %@", shadowCopyPath]);
                         } else {
@@ -964,6 +967,7 @@ int main(int argc, char *argv[])
             NSString * installFolderPath = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Resources/Install"];
             if (  [gFileMgr fileExistsAtPath: installFolderPath]  ) {
                 if (  ! [gFileMgr tbRemoveFileAtPath: installFolderPath handler: nil]  ) {
+					makeUnlockedAtPath(installFolderPath);
                     appendLog([NSString stringWithFormat: @"unable to remove %@", installFolderPath]);
                 } else {
                     appendLog([NSString stringWithFormat: @"removed %@", installFolderPath]);
@@ -1007,23 +1011,25 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
 	}
     
     // Make sure everything in the copy is unlocked
-    makeFileUnlockedAtPath(dotTempPath);
+    makeUnlockedAtPath(dotTempPath);
     NSString * file;
     NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: dotTempPath];
     while (  (file = [dirEnum nextObject])  ) {
-        makeFileUnlockedAtPath([dotTempPath stringByAppendingPathComponent: file]);
+        makeUnlockedAtPath([dotTempPath stringByAppendingPathComponent: file]);
     }
     
     // Now, if we are doing a move, delete the original file, to avoid a similar race condition that will cause a complaint
     // about duplicate configuration names.
     if (  moveNotCopy  ) {
         errorExitIfAnySymlinkInPath(fromPath, 4);
+		makeUnlockedAtPath(fromPath);
         if (  ! deleteThingAtPath(fromPath)  ) {
             errorExit();
         }
     }
     
     errorExitIfAnySymlinkInPath(toPath, 5);
+	makeUnlockedAtPath(toPath);
     [gFileMgr tbRemoveFileAtPath:toPath handler: nil];
     if (  ! [gFileMgr tbMovePath: dotTempPath toPath: toPath handler: nil]  ) {
         appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@", dotTempPath, toPath]);
@@ -1038,6 +1044,7 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
 BOOL deleteThingAtPath(NSString * path)
 {
     errorExitIfAnySymlinkInPath(path, 8);
+	makeUnlockedAtPath(path);
     if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
         appendLog([NSString stringWithFormat: @"Failed to delete %@", path]);
         return FALSE;
@@ -1075,9 +1082,8 @@ BOOL moveContents(NSString * fromPath, NSString * toPath)
 }
 
 //**************************************************************************************************************************
-BOOL makeFileUnlockedAtPath(NSString * path)
+BOOL makeOneItemUnlockedAtPath(NSString * path)
 {
-    // Make sure the copy is unlocked
     NSDictionary * curAttributes;
     NSDictionary * newAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt:0] forKey: NSFileImmutable];
     
@@ -1103,6 +1109,26 @@ BOOL makeFileUnlockedAtPath(NSString * path)
     return TRUE;
 }
 
+//**************************************************************************************************************************
+BOOL makeUnlockedAtPath(NSString * path)
+{
+	// To make a file hierarchy unlocked, we have to first unlock everything inside the hierarchy
+	
+	BOOL isDir;
+	if (   [gFileMgr fileExistsAtPath: path isDirectory: &isDir]
+		&& isDir  ) {
+		NSString * file;
+		NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
+		while (  (file = [dirEnum nextObject])  ) {
+			makeUnlockedAtPath([path stringByAppendingPathComponent: file]);
+		}
+	}
+	
+	// Then we unlock the root of the hierarchy
+	return makeOneItemUnlockedAtPath(path);
+}
+
+//**************************************************************************************************************************
 void errorExitIfAnySymlinkInPath(NSString * path, int testPoint)
 {
     NSString * curPath = path;
