@@ -31,6 +31,9 @@ extern NSFileManager   * gFileMgr;
 extern TBUserDefaults  * gTbDefaults;
 
 
+BOOL secureOurEasyRsa (void);
+
+
 void easyRsaInstallFailed(NSString * message)
 {
     NSString * fullMessage = [NSString stringWithFormat: NSLocalizedString(@"easy-rsa installation failed: %@", @"Window text"), message];
@@ -81,7 +84,7 @@ BOOL propogateModificationDate(NSString * sourceFilePath,
 	return YES;
 }	
 
-void secureEasyRsaAtPath(NSString * easyRsaPath) {
+BOOL secureEasyRsaAtPath(NSString * easyRsaPath) {
 	
     NSArray * readOnlyList = [NSArray arrayWithObjects:
 							  @"README",
@@ -103,7 +106,10 @@ void secureEasyRsaAtPath(NSString * easyRsaPath) {
     NSNumber * desiredOwner = [NSNumber numberWithInt: getuid()];
     
 	// Check permissions on the parent folder and change if necessary
-	checkSetPermissions(easyRsaPath, folderPerms, YES);
+	if ( ! checkSetPermissions(easyRsaPath, folderPerms, YES)  ) {
+		easyRsaInstallFailed([NSString stringWithFormat: NSLocalizedString(@"Unable to secure %@", @"Window text"), easyRsaPath]);
+		return NO;
+	}
 	
     NSString * file;
     NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: easyRsaPath];
@@ -114,8 +120,8 @@ void secureEasyRsaAtPath(NSString * easyRsaPath) {
             // Check ownership
             NSDictionary * attributesBefore = [gFileMgr tbFileAttributesAtPath: fullPath traverseLink: NO];
             if (  ! [[attributesBefore fileOwnerAccountID] isEqualToNumber: desiredOwner]  ) {
-                NSLog(@"Unable to secure %@ because it is owned by %@", fullPath, [attributesBefore fileOwnerAccountName]);
-                return;
+                easyRsaInstallFailed([NSString stringWithFormat: NSLocalizedString(@"Unable to secure %@ because it is owned by %@", @"Window text"), fullPath, [attributesBefore fileOwnerAccountName]]);
+                return NO;
             }
             
             // Decide on desired permissions
@@ -135,24 +141,29 @@ void secureEasyRsaAtPath(NSString * easyRsaPath) {
             }
             
             // Check permissions and change if necessary
-			checkSetPermissions(fullPath, desiredPermissions, YES);
+			if ( ! checkSetPermissions(fullPath, desiredPermissions, YES)  ) {
+                easyRsaInstallFailed([NSString stringWithFormat: NSLocalizedString(@"Unable to secure %@", @"Window text"), fullPath]);
+				return NO;
+			}
         }
     }
+	
+	return YES;
 }
 
-void copyEasyRsa(NSString * sourcePath,
+BOOL copyEasyRsa(NSString * sourcePath,
 				 NSString * targetPath) {
 	BOOL isDir;
 	if (  [gFileMgr fileExistsAtPath: targetPath isDirectory: &isDir]  ) {
 		if (  ! isDir  ) {
 			easyRsaInstallFailed([NSString stringWithFormat: NSLocalizedString(@"%@ exists but is not a folder", @"Window text"), targetPath]);
-			return;
+			return NO;
 		}
 	} else {
 		if (  ! [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
 			[gFileMgr tbRemoveFileAtPath: targetPath handler: nil];
 			easyRsaInstallFailed([NSString stringWithFormat: NSLocalizedString(@"Could not copy %@ to %@", @"Window text"), sourcePath, targetPath]);
-			return;
+			return NO;
 		}
 		
 		// Propogate the modification dates
@@ -162,12 +173,15 @@ void copyEasyRsa(NSString * sourcePath,
 			if (  itemIsVisible(sourcePath)  ) {
 				NSString * sourceFilePath = [sourcePath stringByAppendingPathComponent: file];
 				NSString * targetFilePath = [targetPath stringByAppendingPathComponent: file];
-				propogateModificationDate(sourceFilePath, targetFilePath);
+				if ( ! propogateModificationDate(sourceFilePath, targetFilePath)  ) {
+                    // (Already did easyRsaInstallFailed)
+                    return NO;
+                }
 			}
 		}
 		
 		NSLog(@"Copied easy-rsa");
-		return;
+		return YES;
 	}
 	
 	// Update, not install, so copy individual files only
@@ -205,13 +219,13 @@ void copyEasyRsa(NSString * sourcePath,
             NSDictionary * fullPermissions = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: (unsigned long) 0700] forKey: NSFilePosixPermissions];
             if (  ! [gFileMgr tbChangeFileAttributes: fullPermissions atPath: targetFilePath]  ) {
 				easyRsaInstallFailed([NSString stringWithFormat: NSLocalizedString(@"Could not make %@ deletable", @"Window text"), targetFilePath]);
-				return;
+				return NO;
             }
         }
 		if (  ! [gFileMgr tbRemoveFileAtPath: targetFilePath handler: nil]  ) {
 			if (  ! [file isEqualToString: @"TB-version.txt"]  ) {
 				easyRsaInstallFailed([NSString stringWithFormat: NSLocalizedString(@"Could not delete %@", @"Window text"), targetFilePath]);
-				return;
+				return NO;
 			}
 		}
 		if (  ! [gFileMgr tbCopyPath: sourceFilePath toPath: targetFilePath handler: nil]  ) {
@@ -219,7 +233,7 @@ void copyEasyRsa(NSString * sourcePath,
 								  NSLocalizedString(@"Could not copy %@ to %@", @"Window text"),
 								  sourceFilePath,
 								  targetFilePath]);
-			return;
+			return NO;
 		} else {
 			propogateModificationDate(sourceFilePath, targetFilePath);
 			
@@ -229,18 +243,19 @@ void copyEasyRsa(NSString * sourcePath,
 	
 	
 	NSLog(@"Finished Update of easy-rsa");
+	return YES;
 }
 
-void installOrUpdateOurEasyRsa(void) {
+BOOL installOrUpdateOurEasyRsa(void) {
     
 	if (  ! usingOurEasyRsa()) {
-		return;
+		return YES;
 	}
 	
     NSString * appEasyRsaPath = [[NSBundle mainBundle] pathForResource: @"easy-rsa-tunnelblick" ofType: @""];
     if (  ! appEasyRsaPath  ) {
         easyRsaInstallFailed(NSLocalizedString(@"Could not find easy-rsa in Tunnelblick.app", @"Window text"));
-        return;
+        return NO;
     }
     
 	NSString * appEasyRsaVersion = nil;
@@ -251,13 +266,13 @@ void installOrUpdateOurEasyRsa(void) {
 	}
     if (  ! appEasyRsaVersion  ) {
         easyRsaInstallFailed(NSLocalizedString(@"Could not find easy-rsa version information in Tunnelblick.app", @"Window text"));
-        return;
+        return NO;
     }
     
     NSString * installedEasyRsaPath = easyRsaPathToUse(NO);
     if (  ! installedEasyRsaPath  ) {
         easyRsaInstallFailed(NSLocalizedString(@"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference", @"Window text"));
-        return;
+        return NO;
     }
     
     NSString * installedEasyRsaVersion = nil;
@@ -277,14 +292,15 @@ void installOrUpdateOurEasyRsa(void) {
     
     NSComparisonResult result = [installedEasyRsaVersion compare: appEasyRsaVersion options: NSNumericSearch];
     if (  result != NSOrderedAscending  ) {
-        return;
+        return YES;
     }
     
-	copyEasyRsa(appEasyRsaPath,         // source
-				installedEasyRsaPath);	// target
+	if (  ! copyEasyRsa(appEasyRsaPath,             // source
+						installedEasyRsaPath)  ) {	// target
+		return NO;
+	}
 	
-	
-	secureEasyRsaAtPath(installedEasyRsaPath);
+	return secureEasyRsaAtPath(installedEasyRsaPath);
 }
 
 NSString * easyRsaPathToUse(BOOL mustExistAndBeADir) {
@@ -296,7 +312,7 @@ NSString * easyRsaPathToUse(BOOL mustExistAndBeADir) {
     if (  pathFromPrefs  ) {
         pathFromPrefs = [pathFromPrefs stringByExpandingTildeInPath];
         if (  ! [pathFromPrefs hasPrefix: @"/"]  ) {
-            NSLog(@"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'");
+            easyRsaInstallFailed(NSLocalizedString(@"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'", @"Window text"));
             return nil;
         } else {
             BOOL isDir;
@@ -311,7 +327,7 @@ NSString * easyRsaPathToUse(BOOL mustExistAndBeADir) {
                 || ( ! exists )  ) {
                 return pathFromPrefs;
             } else if (  exists  ) {
-                NSLog(@"'easy-rsaPath' preference ignored; it does not specify a folder");
+                easyRsaInstallFailed(NSLocalizedString(@"'easy-rsaPath' preference ignored; it does not specify a folder", @"Window text"));
                 return nil;
             }
         }
@@ -334,45 +350,54 @@ NSString * easyRsaPathToUse(BOOL mustExistAndBeADir) {
     return path;
 }
 
-void secureOurEasyRsa(void) {
+BOOL secureOurEasyRsa(void) {
 	
 	if (  ! usingOurEasyRsa()) {
-		return;
+		return YES;
 	}
 	
 	NSString * easyRsaPath = easyRsaPathToUse(YES);
 	if (  easyRsaPath  ) {
-		secureEasyRsaAtPath(easyRsaPath);
+		if ( ! secureEasyRsaAtPath(easyRsaPath)  ) {
+            // (Already did easyRsaInstallFailed)
+            return NO;
+        }
 	}
+    
+    return YES;
 }
 
-void openTerminalWithEasyRsaFolder(NSString * userPath) {
-
-     secureOurEasyRsa();
-     
-     // Run an AppleScript to open Terminal.app and cd to the easy-rsa folder
-     
-     NSArray * applescriptProgram = [NSArray arrayWithObjects:
-                                     [NSString stringWithFormat: @"set cmd to \"cd \\\"%@\\\"\"", userPath],
-                                     @"tell application \"System Events\" to set terminalIsRunning to exists application process \"Terminal\"",
-                                     @"tell application \"Terminal\"",
-                                     @"     activate",
-                                     @"     do script with command cmd",
-                                     @"end tell",
-                                     nil];
-     
-     NSMutableArray * arguments = [[[NSMutableArray alloc] initWithCapacity:6] autorelease];
-     NSEnumerator * e = [applescriptProgram objectEnumerator];
-     NSString * line;
-     while (  (line = [e nextObject])  ) {
-         [arguments addObject: @"-e"];
-         [arguments addObject: line];
-     }
-     
-     NSTask* task = [[[NSTask alloc] init] autorelease];
-     [task setLaunchPath: @"/usr/bin/osascript"];
-     [task setArguments: arguments];
-     [task setCurrentDirectoryPath: @"/tmp"];
-     [task launch];
-     
+BOOL openTerminalWithEasyRsaFolder(NSString * userPath) {
+	
+    if ( ! secureOurEasyRsa()  ) {
+        // (Already did easyRsaInstallFailed)
+        return NO;
+    }
+    
+	// Run an AppleScript to open Terminal.app and cd to the easy-rsa folder
+	
+	NSArray * applescriptProgram = [NSArray arrayWithObjects:
+									[NSString stringWithFormat: @"set cmd to \"cd \\\"%@\\\"\"", userPath],
+									@"tell application \"System Events\" to set terminalIsRunning to exists application process \"Terminal\"",
+									@"tell application \"Terminal\"",
+									@"     activate",
+									@"     do script with command cmd",
+									@"end tell",
+									nil];
+	
+	NSMutableArray * arguments = [[[NSMutableArray alloc] initWithCapacity:6] autorelease];
+	NSEnumerator * e = [applescriptProgram objectEnumerator];
+	NSString * line;
+	while (  (line = [e nextObject])  ) {
+		[arguments addObject: @"-e"];
+		[arguments addObject: line];
+	}
+	
+	NSTask* task = [[[NSTask alloc] init] autorelease];
+	[task setLaunchPath: @"/usr/bin/osascript"];
+	[task setArguments: arguments];
+	[task setCurrentDirectoryPath: @"/tmp"];
+	[task launch];
+	
+	return YES;
 }

@@ -21,8 +21,6 @@
 
 NSString *	easyRsaPathToUse                (BOOL mustExistAndBeADir);
 
-void		installOrUpdateOurEasyRsa       (void);
+BOOL		installOrUpdateOurEasyRsa       (void);
 
-void        openTerminalWithEasyRsaFolder   (NSString * userPath);
-
-void		secureOurEasyRsa                (void);
+BOOL        openTerminalWithEasyRsaFolder   (NSString * userPath);

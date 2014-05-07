@@ -3843,6 +3843,7 @@ static void signal_handler(int signalNumber)
     // Install easy-rsa if it isn't installed already, or update it if appropriate
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 014")
     installOrUpdateOurEasyRsa();
+    // (installOrUpdateOurEasyRsa() informs the user if there was a problem, so we don't do it here)
     
     AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
     gAuthorization = nil;
