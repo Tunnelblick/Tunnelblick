@@ -990,6 +990,8 @@ int main(int argc, char *argv[])
 //**************************************************************************************************************************
 void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveNotCopy)
 {
+	// Copies or moves a folder, but unlocks everything in the copy (or target, if it is a move)
+	
     // Copy the file or package to a ".temp" file/folder first, then rename it
     // This avoids a race condition: folder change handling code runs while copy is being made, so it sometimes can
     // see the .tblk (which has been copied) but not the config.ovpn (which hasn't been copied yet), so it complains.
@@ -1003,6 +1005,14 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
     } else {
 		appendLog([NSString stringWithFormat: @"Copied %@ to %@", fromPath, dotTempPath]);
 	}
+    
+    // Make sure everything in the copy is unlocked
+    makeFileUnlockedAtPath(dotTempPath);
+    NSString * file;
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: dotTempPath];
+    while (  (file = [dirEnum nextObject])  ) {
+        makeFileUnlockedAtPath([dotTempPath stringByAppendingPathComponent: file]);
+    }
     
     // Now, if we are doing a move, delete the original file, to avoid a similar race condition that will cause a complaint
     // about duplicate configuration names.
@@ -1079,13 +1089,17 @@ BOOL makeFileUnlockedAtPath(NSString * path)
             break;
         }
         [gFileMgr tbChangeFileAttributes: newAttributes atPath: path];
-        sleep(1);
-    }
+        appendLog([NSString stringWithFormat: @"Unlocked %@", path]);
+		if (  i != 0  ) {
+			sleep(1);
+		}
+	}
     
     if (  [curAttributes fileIsImmutable]  ) {
         appendLog([NSString stringWithFormat: @"Failed to unlock %@ in %d attempts", path, maxTries]);
         return FALSE;
     }
+	
     return TRUE;
 }
 

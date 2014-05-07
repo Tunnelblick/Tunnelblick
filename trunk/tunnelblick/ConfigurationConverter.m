@@ -384,11 +384,12 @@ extern NSString      * gPrivatePath;
 			return FALSE;
 		}
 		
-        NSString * ext = [outPath pathExtension];
-        if (  [ext isEqualToString: @"sh"]  ) {
-            checkSetPermissions(outPath, PERMS_PRIVATE_SCRIPT, YES);
-        } else {
-            checkSetPermissions(outPath, PERMS_PRIVATE_OTHER,  YES);
+        mode_t perms = (  [[outPath pathExtension] isEqualToString: @"sh"]
+                        ? PERMS_PRIVATE_SCRIPT
+                        : PERMS_PRIVATE_OTHER);
+		if (  ! checkSetPermissions(outPath, perms, YES)  ) {
+			[self logMessage: [NSString stringWithFormat: @"Unable to set permissions on '%@'", outPath]];
+			return FALSE;
         }
     }
 	
