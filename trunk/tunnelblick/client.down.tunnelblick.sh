@@ -73,6 +73,29 @@ flushDNSCache()
 }
 
 ##########################################################################################
+resetPrimaryInterface()
+{
+    set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
+    PINTERFACE="$( scutil <<-EOF |
+        open
+        show State:/Network/Global/IPv4
+        quit
+EOF
+    grep PrimaryInterface | sed -e 's/.*PrimaryInterface : //'
+    )"
+    set -e # resume abort on error
+
+    if [ "${PINTERFACE}" != "" ] ; then
+        logMessage "Resetting primary interface '${PINTERFACE}'..."
+        /sbin/ifconfig "${PINTERFACE}" down
+        sleep 2
+        /sbin/ifconfig "${PINTERFACE}" up
+    else
+        logMessage "Not resetting primary interface because it cannot be found."
+    fi
+}
+
+##########################################################################################
 trap "" TSTP
 trap "" HUP
 trap "" INT
@@ -95,6 +118,9 @@ if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
     logMessage "WARNING: No saved Tunnelblick DNS configuration found; not doing anything."
     logMessage "End of output from ${OUR_NAME}"
     logMessage "**********************************************"
+    if ${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT} ; then
+        resetPrimaryInterface
+    fi
 	exit 0
 fi
 
@@ -279,26 +305,7 @@ scutil <<-EOF
 EOF
 
 if ${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT} ; then
-
-    set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
-    PINTERFACE="$( scutil <<-EOF |
-    open
-    show State:/Network/Global/IPv4
-    quit
-EOF
-    grep PrimaryInterface | sed -e 's/.*PrimaryInterface : //'
-)"
-    set -e # resume abort on error
-
-    if [ "${PINTERFACE}" != "" ] ; then
-        logMessage "Resetting primary interface '${PINTERFACE}'..."
-        /sbin/ifconfig "${PINTERFACE}" down
-        sleep 2
-        /sbin/ifconfig "${PINTERFACE}" up
-    else
-        logMessage "Not resetting primary interface because it cannot be found."
-    fi
-
+    resetPrimaryInterface
 fi
 
 logMessage "End of output from ${OUR_NAME}"
