@@ -1,0 +1,95 @@
+#summary Getting VPN Service
+#sidebar cSb
+
+=<font color="red">This is a preliminary version of a new page.<br />It is not finalized and may contain errors.</font><br />=
+
+==Getting VPN Service==
+To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end.
+
+<font color="red">*The Tunnelblick project does not provide VPN service*
+ -- we only create the free software that many VPN service providers recommend or provide to their clients.</font>
+
+There are several ways to get access to a VPN server:
+
+  * Your employer may provide a VPN server so you can work from home or the road securely.
+  * You can set up your own VPN server at home, and use it to access your home network and the Internet securely when at a remote location. The VPN server could be a program running on a Mac, Windows, or Linux computer, or on your home router.
+  * You can get (free or for a fee) access to a VPN by using a VPN service provider.
+
+<strong>It is strongly recommended that you create a [http://code.google.com/p/tunnelblick/wiki/cConfigT#Creating_and_Installing_a_Tunnelblick_VPN_Configuration Tunnelblick VPN Configuration]</strong> whichever way you get access. It is easy to do, gives you the most flexibility, and _will be required in future releases_.
+
+==Employer-provided VPN Servers==
+Your employer should supply you with an OpenVPN configuration file (.ovpn or .conf file), along with the appropriate certificate and key files, or with a [http://code.google.com/p/tunnelblick/wiki/cConfigT Tunnelblick VPN Configuration] (.tblk, which includes the certificate and key files within it).
+
+Follow the instructions from your employer or in [cInstall Installing Tunnelblick] to install Tunnelblick and configurations.
+
+==Set Up Your Own VPN Server==
+This is more complicated. It involves creating your own OpenVPN configuration file (or modifying the sample file provided by Tunnelblick) and creating your own certificate and key files for encryption. (Tunnelblick versions 3.3 and higher include 'EasyRSA' to help you with creating certificate and key files.) There are tutorials about doing this -- try searching the Internet for "set up openvpn server".
+
+If you want to set up a computer to act solely as a router/bridge/firewall, consider [http://www.zeroshell.net/eng/ ZeroShell]. Untangle has a [http://www.untangle.com/store/openvpn.html free VPN component].
+
+If you have a router running DD-WRT, you can use [http://www.dd-wrt.com/wiki/index.php/OpenVPN#Enable_OpenVPN_in_the_Router OpenVPN on DD-RT]. There is a [http://www.dd-wrt.com/wiki/index.php/VPN_(the_easy_way)_v24%2B tutorial].
+
+==VPN Service Providers==
+Another way to get access to a VPN server is to use a VPN service provider, an organization that makes its VPN servers available (free or for a fee). Some provide you with a customized, and possibly renamed, version of Tunnelblick.
+
+<table border="1" width="100%"><tr><td>
+The following VPN service providers have donated to Tunnelblick
+  * *[http://www.tunnelblick.net/to.php?to=https://www.blackvpn.com blackVPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://btguard.com BTGuard]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.hideman.net Hideman.net]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.kovurt.com Kovurt]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.missmysoaps.co.uk MissMySoaps]*
+  * *[http://www.tunnelblick.net/to.php?to=https://my-private-network.co.uk My Private Network]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.perfect-privacy.com Perfect Privacy]*
+  * *[http://www.tunnelblick.net/to.php?to=http://provpnaccounts.com ProVPNAccounts]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.trilightzone.org/services.html TrilightZone]*
+  * *[http://www.tunnelblick.net/to.php?to=http://vpnv6.com VPNv6]*
+</td></tr></table>
+
+<table border="1" width="100%"><tr><td>
+The following VPN service providers  recommend or use Tunnelblick exclusively for OS X
+  * *[http://www.tunnelblick.net/to.php?to=http://www.acevpn.com Ace VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]* (Free)
+  * *[http://www.tunnelblick.net/to.php?to=http://www.banana-vpn.com Banana VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=https://cloudnymous.com cloudnymous]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.comodo.com/home/internet-security/wifi-security.php Comodo TrustConnect]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.doublevpn.com/ DoubleVPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.frozenway.com FrozenWay]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.goldenfrog.com/vyprvpn Golden Frog Vypr VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.hostvpn.com/ HostVPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.ibvpn.com ibVPN]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.ivpn.net iVPN]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.leafyvpn.net Leafy VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.my-expat-network.co.uk My Expat Network]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.onebuckvpn.com OneBuckVPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.personalvpn.biz Personal VPN Service]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.privateinternetaccess.com Private Internet Access]*
+  * *[http://www.tunnelblick.net/to.php?to=http://proxpn.com ProXPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://info.psmail.net/noah PSMail]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.raptorvpn.com RaptorVPN]* (Free)
+  * *[http://www.tunnelblick.net/to.php?to=http://www.roadwarriorvpn.com Road Warrior VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.shellfire.net/vpn ShellFireVPN]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.slickvpn.com Slick VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://switchvpn.com SwitchVPN.com]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.turnkeyvpn.com TurnKeyVPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.urbanshield.net Urban Shield]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.versavpn.com VersaVPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://vpnfacile.fr VPNFacile]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.vpnmaster.com VPNMaster]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.vpnsecure.me VPN.S]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.vpnservice.ru VPNService.ru]*
+  * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
+</td></tr></table>
+
+
+If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2014-02-11.)
+
+
+Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). They are offered solely for the convenience of those wishing to use Tunnelblick.
+
+------------------
+
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
