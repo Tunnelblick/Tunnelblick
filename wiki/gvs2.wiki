@@ -93,7 +93,6 @@ Another way to get access to a VPN server is to use a VPN service provider, an o
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://switchvpn.com SwitchVPN.com]*</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.turnkeyvpn.com TurnKeyVPN]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.urbanshield.net Urban Shield]*</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.versavpn.com VersaVPN]*</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://vpnfacile.fr VPNFacile]*</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.vpnmaster.com VPNMaster]*</td></tr>
