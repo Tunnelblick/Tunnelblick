@@ -34,6 +34,7 @@ The following VPN service providers have donated to Tunnelblick
   * *[http://www.tunnelblick.net/to.php?to=https://www.blackvpn.com blackVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://btguard.com BTGuard]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.hideman.net Hideman.net]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.ibvpn.com ibVPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.kovurt.com Kovurt]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.missmysoaps.co.uk MissMySoaps]*
   * *[http://www.tunnelblick.net/to.php?to=https://my-private-network.co.uk My Private Network]*
@@ -55,7 +56,6 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://www.frozenway.com FrozenWay]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.goldenfrog.com/vyprvpn Golden Frog Vypr VPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.hostvpn.com/ HostVPN]*
-  * *[http://www.tunnelblick.net/to.php?to=http://www.ibvpn.com ibVPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.ivpn.net iVPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.leafyvpn.net Leafy VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.my-expat-network.co.uk My Expat Network]*
@@ -82,7 +82,7 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
 </td></tr></table>
 
 
-If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2014-02-11.)
+If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2014-05-08.)
 
 
 Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). They are offered solely for the convenience of those wishing to use Tunnelblick.
