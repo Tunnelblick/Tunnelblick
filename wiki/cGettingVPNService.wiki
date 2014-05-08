@@ -48,8 +48,9 @@ The following VPN service providers have donated to Tunnelblick
 <table border="1" width="100%"><tr><td>
 The following VPN service providers  recommend or use Tunnelblick exclusively for OS X
   * *[http://www.tunnelblick.net/to.php?to=http://www.acevpn.com Ace VPN]*
-  * *[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]* (Free)
+  * *[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]* *<font color="red">(Free)</font>*
   * *[http://www.tunnelblick.net/to.php?to=http://www.banana-vpn.com Banana VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.bucklor.com/ Bucklor]* *<font color="red">(Free)</font>*
   * *[http://www.tunnelblick.net/to.php?to=https://cloudnymous.com cloudnymous]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.comodo.com/home/internet-security/wifi-security.php Comodo TrustConnect]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.doublevpn.com/ DoubleVPN]*
@@ -64,7 +65,7 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=https://www.privateinternetaccess.com Private Internet Access]*
   * *[http://www.tunnelblick.net/to.php?to=http://proxpn.com ProXPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://info.psmail.net/noah PSMail]*
-  * *[http://www.tunnelblick.net/to.php?to=http://www.raptorvpn.com RaptorVPN]* (Free)
+  * *[http://www.tunnelblick.net/to.php?to=http://www.raptorvpn.com RaptorVPN]* *<font color="red">(Free)</font>*
   * *[http://www.tunnelblick.net/to.php?to=http://www.roadwarriorvpn.com Road Warrior VPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.shellfire.net/vpn ShellFireVPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.slickvpn.com Slick VPN]*
