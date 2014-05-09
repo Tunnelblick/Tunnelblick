@@ -40,6 +40,7 @@ The following VPN service providers have donated to Tunnelblick
   * *[http://www.tunnelblick.net/to.php?to=https://my-private-network.co.uk My Private Network]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.perfect-privacy.com Perfect Privacy]*
   * *[http://www.tunnelblick.net/to.php?to=http://provpnaccounts.com ProVPNAccounts]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.trilightzone.org/services.html TrilightZone]*
   * *[http://www.tunnelblick.net/to.php?to=http://vpnv6.com VPNv6]*
@@ -69,7 +70,6 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://www.roadwarriorvpn.com Road Warrior VPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.shellfire.net/vpn ShellFireVPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.slickvpn.com Slick VPN]*
-  * *[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://switchvpn.com SwitchVPN.com]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.turnkeyvpn.com TurnKeyVPN]*
