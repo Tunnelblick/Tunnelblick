@@ -44,8 +44,6 @@ static LeftNavItem * rootItem = nil;
     [parent                  release]; parent                  = nil;
     [children                release]; children                = nil;
 	
-	[rootItem                release]; rootItem                = nil;
-    
     [super dealloc];
 }
 
