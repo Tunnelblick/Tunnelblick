@@ -59,7 +59,7 @@ Another way to get access to a VPN server is to use a VPN service provider, an o
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.banana-vpn.com Banana VPN]*</td>                  <td align="right">$19.85</td>    <td align="right"> </td>       <td align="right">$19.85</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.roadwarriorvpn.com Road Warrior VPN]*</td>        <td align="right">$10.00</td>    <td align="right"> </td>       <td align="right">$10.00</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://vpnv6.com VPNv6]*</td>                                <td align="right">$5.00</td>    <td align="right"> </td>       <td align="right">$5.00</td></tr>
-
+<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*</td>                                <td align="right">$3.00</td>    <td align="right">$3.00</td>       <td align="right"> </td></tr>
 </table>
 
 </td></tr></table>
@@ -91,7 +91,6 @@ Another way to get access to a VPN server is to use a VPN service provider, an o
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.raptorvpn.com RaptorVPN]* *<font color="red">(Free)</font>*</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.shellfire.net/vpn ShellFireVPN]*</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.slickvpn.com Slick VPN]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://switchvpn.com SwitchVPN.com]*</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.turnkeyvpn.com TurnKeyVPN]*</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.versavpn.com VersaVPN]*</td></tr>
