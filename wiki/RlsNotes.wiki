@@ -364,7 +364,7 @@
 
  * Fixes a problem that caused the 'Welcome to Tunnelblick' window to appear more than once when multiple changes to the configurations are made very quickly.
 
- * Fixes a problem that caused the status window to fail to appear when the pointer is over the Tunnelblick icon after checking or un-checking the 'Place [the Tunnelblick icon] next to Spotlight icon' checkbox in the 'Appearances' panel.
+ * Fixes a problem that caused the status window to fail to appear when the pointer is over the Tunnelblick icon after checking or un-checking the 'Place `[`the Tunnelblick icon`]` next to Spotlight icon' checkbox in the 'Appearances' panel.
 
  * Fixes a problem on OS X 10.9 ('Mavericks') that caused Tunnelblick to always launch after login even if it had quit before logging out.
 
