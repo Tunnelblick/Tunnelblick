@@ -60,7 +60,7 @@ uint64_t nowAbsoluteNanoseconds (void)
     // The next three lines were adapted from http://shiftedbits.org/2008/10/01/mach_absolute_time-on-the-iphone/
     mach_timebase_info_data_t info;
     mach_timebase_info(&info);
-    uint64_t nowNs = mach_absolute_time() * info.numer / info.denom;
+    uint64_t nowNs = (unsigned long long)mach_absolute_time() * (unsigned long long)info.numer / (unsigned long long)info.denom;
     return nowNs;
 }
 

@@ -237,7 +237,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"DB-HU",     // Extra logging for hookup,
                                 @"DB-IC",     // Extra logging for IP address checking
                                 @"DB-IT",     // Extra logging for IP address check threading
-                                @"DB-SD",     // Extra logging for shutdown
+                                @"DB-MO",     // Extra logging for mouseover (of icon and status windows)
+								@"DB-SD",     // Extra logging for shutdown
                                 @"DB-SU",     // Extra logging for startup
                                 @"DB-SW",     // Extra logging for sleep/wake
                                 @"DB-UP",     // Extra logging for the up script
@@ -6610,6 +6611,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 
 -(void) statisticsWindowsShow: (BOOL) showThem {
 
+	TBLog(@"DB-MO", @"statisticsWindowsShow: %@ entered", (showThem ? @"YES" : @"NO"));
     NSEnumerator * e = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     BOOL showingAny = FALSE;
@@ -6619,28 +6621,41 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
                 if (   (! [gTbDefaults boolForKey: @"doNotShowDisconnectedNotificationWindows"])
                     || ( ! [connection isDisconnected])  ) {
                     [connection showStatusWindow];
+					TBLog(@"DB-MO", @"statisticsWindowsShow: requested show of status window for %@ because log files may exist for it", [connection displayName]);
                     showingAny = TRUE;
                 }
             } else {
                 if (   [connection isConnected]
                     || [connection isDisconnected]  ) {
                     [connection fadeAway];
+					TBLog(@"DB-MO", @"statisticsWindowsShow: requested fade of status window for %@ because it is disconnected or disconnected", [connection displayName]);
                 }
             }
         }
     }
     
+    // If not showing any window yet because nothing is connected, show the window for the last-selected connection
+    // or for the first connection on the list if the last-selected connection doesn't exist
     if (   showThem
         && (! showingAny)
         && (! [gTbDefaults boolForKey: @"doNotShowDisconnectedNotificationWindows"])  ) {
         NSString * lastConnectionName = [gTbDefaults stringForKey: @"lastConnectedDisplayName"];
-		if (  lastConnectionName  ) {
-			VPNConnection * lastConnection = [myVPNConnectionDictionary objectForKey: lastConnectionName];
-			if (  lastConnection  ) {
-				[lastConnection showStatusWindow];
-				showingAny = TRUE;
-			}
-		}
+        VPNConnection * lastConnection = nil;
+        if (  lastConnectionName  ) {
+            lastConnection = [myVPNConnectionDictionary objectForKey: lastConnectionName];
+        }
+        if (  ! lastConnection  ) {
+            NSArray * sortedDisplayNames = [[myConfigDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
+            if (  [sortedDisplayNames count] > 0  ) {
+                lastConnection = [myVPNConnectionDictionary objectForKey: [sortedDisplayNames objectAtIndex: 0]];
+            }
+        }
+        if (  lastConnection  ) {
+            [lastConnection showStatusWindow];
+			[lastConnection setLogFilesMayExist: TRUE];
+			TBLog(@"DB-MO", @"statisticsWindowsShow: requested show of status window for %@ because no other status windows are showing", [lastConnection displayName]);
+            showingAny = TRUE;
+        }
     }
     
     if (  showingAny  ) {
@@ -7033,7 +7048,10 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedUR
     
     if (  [self mouseIsInsideAnyView] ) {
         [self performSelectorOnMainThread: @selector(showStatisticsWindows) withObject: nil waitUntilDone: NO];
-    }
+		TBLog(@"DB-MO", @"showStatisticsWindowsTimerHandler: mouse still inside a view; queueing showStatisticsWindows");
+    } else {
+		TBLog(@"DB-MO", @"showStatisticsWindowsTimerHandler: mouse no longer inside a view; NOT queueing showStatisticsWindows");
+	}
 }
 
 -(void) hideStatisticsWindowsTimerHandler: (NSTimer *) theTimer {
@@ -7047,6 +7065,9 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedUR
     
     if (  ! [self mouseIsInsideAnyView]  ) {
         [self performSelectorOnMainThread: @selector(hideStatisticsWindows) withObject: nil waitUntilDone: NO];
+		TBLog(@"DB-MO", @"hideStatisticsWindowsTimerHandler: mouse NOT back inside a view; queueing hideStatisticsWindows");
+    } else {
+		TBLog(@"DB-MO", @"hideStatisticsWindowsTimerHandler: mouse is back inside a view; NOT queueing hideStatisticsWindows");
 	}
 }        
 
@@ -7064,15 +7085,20 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedUR
     
     NSTimeInterval timeUntilAct;
     if (  timestamp == 0.0  ) {
-        timeUntilAct = 0.0;
-	} else if (  ! runningOnLeopardOrNewer()  ) {
-		timeUntilAct = delay;
+        timeUntilAct = 0.1;
+	} else if (  runningOnSnowLeopardOrNewer()  ) { // nowAbsoluteNanoseconds doesn't seem to give results related to timestamps on 10.4 or 10.5
+        uint64_t nowNanoseconds = nowAbsoluteNanoseconds();
+        NSTimeInterval nowTimeInterval = (  ((NSTimeInterval) nowNanoseconds) / 1.0e9  );
+        timeUntilAct = timestamp + delay - nowTimeInterval;
+		TBLog(@"DB-MO", @"showOrHideStatisticsWindowsAfterDelay: delay = %f; timestamp = %f; nowNanoseconds = %llu; nowTimeInterval = %f; timeUntilAct = %f", delay, timestamp, (unsigned long long) nowNanoseconds, nowTimeInterval, timeUntilAct);
+		if (  timeUntilAct < 0.1) {
+			timeUntilAct = 0.1;
+		}
     } else {
-        uint64_t systemStartNanoseconds = nowAbsoluteNanoseconds();
-        NSTimeInterval systemStart = (  ((NSTimeInterval) systemStartNanoseconds) / 1.0e9  );
-        timeUntilAct = timestamp - systemStart + delay;
+		timeUntilAct = delay;
     }
     
+	TBLog(@"DB-MO", @"Queueing %s in %f seconds", sel_getName(selector), timeUntilAct);
     NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: timeUntilAct
                                                        target: self
                                                      selector: selector
@@ -7090,6 +7116,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedUR
         return;
     }
         
+	TBLog(@"DB-MO", @"Mouse entered main icon");
     mouseIsInMainIcon = TRUE;
     [self showOrHideStatisticsWindowsAfterDelay: gDelayToShowStatistics
                                   fromTimestamp: ( theEvent ? [theEvent timestamp] : 0.0)
@@ -7105,6 +7132,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedUR
         return;
     }
     
+	TBLog(@"DB-MO", @"Mouse exited main icon");
     mouseIsInMainIcon = FALSE;
     [self showOrHideStatisticsWindowsAfterDelay: gDelayToHideStatistics
                                   fromTimestamp: ( theEvent ? [theEvent timestamp] : 0.0)
@@ -7120,6 +7148,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedUR
         return;
     }
     
+	TBLog(@"DB-MO", @"Mouse entered status window");
     mouseIsInStatusWindow = TRUE;
     [self showOrHideStatisticsWindowsAfterDelay: gDelayToShowStatistics
                                   fromTimestamp: ( theEvent ? [theEvent timestamp] : 0.0)
@@ -7135,6 +7164,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedUR
         return;
     }
     
+	TBLog(@"DB-MO", @"Mouse exited status window");
     mouseIsInStatusWindow = FALSE;
     [self showOrHideStatisticsWindowsAfterDelay: gDelayToHideStatistics
                                   fromTimestamp: ( theEvent ? [theEvent timestamp] : 0.0)

@@ -244,6 +244,7 @@ TBPROPERTY(NSString *, serverIPAddress,             setServerIPAddress)
 TBPROPERTY(NSString *, connectedCfgLocCodeString,   setConnectedCfgLocCodeString)
 TBPROPERTY(BOOL,       ipCheckLastHostWasIPAddress, setIpCheckLastHostWasIPAddress)
 TBPROPERTY(BOOL,       haveConnectedSince,          setHaveConnectedSince)
+TBPROPERTY(BOOL,       logFilesMayExist,            setLogFilesMayExist)
 
 //*********************************************************************************************************
 //
