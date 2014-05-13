@@ -3468,11 +3468,6 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     return [logDisplay openvpnLogPath];
 }
 
--(BOOL) logFilesMayExist {
-
-    return logFilesMayExist;
-}
-
 -(void) setSpeakWhenConnected: (BOOL) newValue
 {
 	speakWhenConnected = newValue;
@@ -3498,6 +3493,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, serverIPAddress,             setServerIP
 TBSYNTHESIZE_OBJECT(retain, NSString *, connectedCfgLocCodeString,   setConnectedCfgLocCodeString)
 TBSYNTHESIZE_NONOBJECT(BOOL,            ipCheckLastHostWasIPAddress, setIpCheckLastHostWasIPAddress)
 TBSYNTHESIZE_NONOBJECT(BOOL,            haveConnectedSince,          setHaveConnectedSince)
+TBSYNTHESIZE_NONOBJECT(BOOL,            logFilesMayExist,            setLogFilesMayExist)
 
 
 //*********************************************************************************************************
