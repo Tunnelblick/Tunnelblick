@@ -5,7 +5,7 @@
 
 The following are known problems or limitations in Tunnelblick:
 
-  * The OS X 10.9.3 ("Mavericks") update sometimes causes incorrect permissions to be set on /Users each time the computer is booted, leading Tunnelblick to refuse to launch because the folder is insecure. See the [https://groups.google.com/forum/#!msg/tunnelblick-discuss/H3cYeTP9G_U thread] on the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick DIscussion Group] about this.
+  * iTunes 11.2 sometimes causes incorrect permissions to be set on /Users each time the computer is booted, leading Tunnelblick to refuse to launch because the folder is insecure. Update to iTunes 11.2.1 to resolve this problem.
 
   * The standard script that "Set nameserver" uses handles DNS for most common setups. For other situations, one of the other settings may work, or you can use custom scripts. See [cConfigT#The_%22Set_Nameserver%22_Check_Box_and_DNS_&_WINS_Sett Setting up Configurations] for details.
 
