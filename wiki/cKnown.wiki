@@ -18,7 +18,7 @@ The following are known problems or limitations in Tunnelblick:
 
   * If "Set nameserver" is selected, all "up" and "down" options in the OpenVPN configuration file will be ignored. To work around this, include appropriate parts of the standard up/down scripts in your own scripts and select "Do not set nameserver". (The reason for this is that OpenVPN's "down-pre" option cannot be used with the standard "Set nameserver" down script, but may be used by custom scripts, so the two scripts cannot be used together.)
 
-  * High values for the OpenVPN "verb" option may cause high (99+ %) CPU use by Tunnelblick. Reduce the "verb" value in the OpenVPN configuration file to 3 or lower for best performance.
+  * High values for the OpenVPN "verb" option may cause high (99+ %) CPU use by Tunnelblick. Reduce the "verb" value in the OpenVPN configuration file to 3 or 4 for best performance.
 
   * Beta versions do not include complete localization. If you can help localize Tunnelblick, please contact [http://code.google.com/u/jkbullard/ project owner Jon].
 
