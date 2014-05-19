@@ -49,6 +49,7 @@
 #import "NSTimer+TB.h"
 #import "Sparkle/SUUpdater.h"
 #import "SplashWindowController.h"
+#import "TBUIUpdater.h"
 #import "TBUserDefaults.h"
 #import "UKKQueue/UKKQueue.h"
 #import "VPNConnection.h"
@@ -172,7 +173,7 @@ BOOL needToConvertNonTblks(void);
                         andModifierKeys:                    (UInt32)            modifierKeys;
 -(void)				showWelcomeScreen;
 -(NSStatusItem *)   statusItem;
--(void)             updateNavigationLabels;
+-(void)             updateUI;
 -(BOOL)             validateMenuItem:                       (NSMenuItem *)      anItem;
 -(void)             watcher:                                (UKKQueue *)        kq
        receivedNotification:                                (NSString *)        nm
@@ -221,7 +222,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 		menuIsOpen = FALSE;
         
         dotTblkFileList = nil;
-        showDurationsTimer = nil;
+        uiUpdater = nil;
         customRunOnLaunchPath = nil;
         customRunOnConnectPath = nil;
         customMenuScripts = nil;
@@ -242,6 +243,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"DB-SU",     // Extra logging for startup
                                 @"DB-SW",     // Extra logging for sleep/wake
                                 @"DB-UP",     // Extra logging for the up script
+								@"DB-UU",	  // Extra logging for UI updates
                                 
                                 @"skipWarningAboutReprotectingConfigurationFile",
                                 @"skipWarningAboutSimultaneousConnections",
@@ -270,6 +272,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"delayBeforeIPAddressCheckAfterConnection",
                                 @"hookupTimeout",
                                 @"openvpnTerminationTimeout",
+                                @"displayUpdateInterval",
                                 
                                 @"placeIconInStandardPositionInStatusBar",
                                 @"doNotMonitorConfigurationFolder",
@@ -991,8 +994,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 
 - (void) dealloc
 {
-    [showDurationsTimer invalidate];
-    [showDurationsTimer release];
+    [uiUpdater release];
     [animImages release];
     [connectedImage release];
     [mainImage release];
@@ -1004,6 +1006,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
     
     [gTbDefaults release];
     [connectionArray release];
+    [nondisconnectedConnections release];
     [connectionsToRestoreOnWakeup release];
     [connectionsToRestoreOnUserActive release];
     [dotTblkFileList release];
@@ -1561,11 +1564,13 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
             VPNConnection* myConnection = [[self myVPNConnectionDictionary] objectForKey: dispNm];
             
-            // Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem
+            // Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem and by uiUpdater
             [connectionItem setTarget:myConnection]; 
             [connectionItem setAction:@selector(toggle:)];
             
             [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: dispNm];
+            
+            [myConnection setMenuItem: connectionItem];
         }
     }
     
@@ -2053,57 +2058,46 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) changedDisplayConnectionTimersSettings
 {
-    [self startOrStopDurationsTimer];
-    [self updateNavigationLabels];
+    [self startOrStopUiUpdater];
+    [self updateUI];
 }
 
 // Starts or stops the timer for showing connection durations.
-// Starts it (or lets it continue) if it is enabled and any tunnels are connected; stops it otherwise
--(void) startOrStopDurationsTimer
+// Starts it (or lets it continue) if it is enabled and any tunnels are not disconnected; stops it otherwise
+-(void) startOrStopUiUpdater
 {
-    if (  showDurationsTimer  ) {
-        // Timer is active. Stop it if not enabled or if no tunnels are connected.
+    if (  uiUpdater  ) {
+        // Timer is active. Stop it if not enabled or if all tunnels are disconnected.
         if (  [gTbDefaults boolWithDefaultYesForKey:@"showConnectedDurations"]  ) {
             VPNConnection * conn;
             NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
             while (  (conn = [connEnum nextObject])  ) {
-                if (  [[conn state] isEqualToString: @"CONNECTED"]) {
+                if (  ! [[conn state] isEqualToString: @"EXITING"]) {
                     return;
                 }
             }
         }
         
-        [showDurationsTimer invalidate];
-        [self setShowDurationsTimer: nil];
+		[uiUpdater invalidateAfterNextTick];
+        [self setUiUpdater: nil];
     } else {
-        // Timer is inactive. Start it if enabled and any tunnels are connected
+        // Timer is inactive. Start it if enabled and any tunnels are not disconnected
         if (  [gTbDefaults boolWithDefaultYesForKey:@"showConnectedDurations"]  ) {
             VPNConnection * conn;
             NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
             while (  (conn = [connEnum nextObject])  ) {
-                if (  [[conn state] isEqualToString: @"CONNECTED"]) {
-                    [self setShowDurationsTimer: [NSTimer scheduledTimerWithTimeInterval: 1.0
-                                                                                  target: self
-                                                                                selector: @selector(updateNavigationLabelsTimerTick:)
-                                                                                userInfo: nil
-                                                                                 repeats: YES]];
-                    [showDurationsTimer tbSetTolerance: -1.0];
-                    return;
+                if (  ! [[conn state] isEqualToString: @"EXITING"]) {
+                    [self setUiUpdater: [[[TBUIUpdater alloc] init] autorelease]];
+					return;
                 }
             }
         }
     }
 }
 
--(void)updateNavigationLabels
+-(void)updateUI
 {
-    [[self logScreen] updateNavigationLabels];
-}
-
--(void)updateNavigationLabelsTimerTick: (NSTimer *) timer {
-	
-	(void) timer;
-	[self performSelectorOnMainThread: @selector(updateNavigationLabels) withObject: nil waitUntilDone: NO];
+	[uiUpdater fireTimer];
 }
 
 // If any new config files have been added, add each to the menu and add tabs for each to the Log window.
@@ -2286,7 +2280,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (void)connectionStateDidChange:(id)connection
 {
-	[self updateNavigationLabels];
+	[self updateUI];
     [[self logScreen] validateConnectAndDisconnectButtonsForConnection: connection];
 }
 
@@ -2480,11 +2474,17 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
         TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: will use killAll")
 
         // Killing everything, so we use 'killall' to kill all processes named 'openvpn'
-        // But first append a log entry for each connection that will be restored
-        NSEnumerator * connectionEnum = [connectionsToRestoreOnWakeup objectEnumerator];
+        // But first, indicate they are being disconnected and append a log entry for each connection that will be restored
+        NSEnumerator * connectionEnum = [myVPNConnectionDictionary objectEnumerator];
         while (  (connection = [connectionEnum nextObject])  ) {
-            [connection addToLog: logMessage];
-        }
+			if (   ! [connection isDisconnected]  ) {
+				[connection setState: @"DISCONNECTING"];
+				[connection setConnectedSinceDate: [NSDate date]];
+			}
+			if (  [connectionsToRestoreOnWakeup containsObject: connection]  ) {
+				[connection addToLog: logMessage];
+			}
+		}
         // If we've added any log entries, sleep for one second so they come before OpenVPN entries associated with closing the connections
         if (  [connectionsToRestoreOnWakeup count] != 0  ) {
             TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: sleeping for logs to settle")
@@ -2520,6 +2520,10 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 							[connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
 							TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: have disconnected '%@'", [connection displayName])
 						}
+						
+						[connection setState: @"DISCONNECTING"];
+						[connection setConnectedSinceDate: [NSDate date]];
+					
 					} else {
                         (void) procId;
 						TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: requesting disconnection of '%@' (pid %lu) via disconnectAndWait",
@@ -2885,52 +2889,102 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
         lastState = newDisplayState;
         [self performSelectorOnMainThread:@selector(updateIconImage) withObject:nil waitUntilDone:NO];
     }
+	
+	[uiUpdater fireTimer];
 }
 
 static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
 
--(void)addConnection:(id)sender 
+-(void)addConnection: (VPNConnection *) connection
 {
-	if (  sender != nil  ) {
+	if (  connection  ) {
+        
         OSStatus status = pthread_mutex_trylock( &connectionArrayMutex );
         if (  status != EXIT_SUCCESS  ) {
             NSLog(@"pthread_mutex_trylock( &connectionArrayMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
             return;
         }
-        NSMutableArray * tempConnectionArray = [[self connectionArray] mutableCopy];
-		[tempConnectionArray removeObject:sender];
-		[tempConnectionArray addObject:sender];
-        [self setConnectionArray: tempConnectionArray];
-        [tempConnectionArray release];
+        
+        if (  ! [[self connectionArray] containsObject: connection]  ) {
+            NSMutableArray * tempConnectionArray = [[self connectionArray] mutableCopy];
+            [tempConnectionArray addObject: connection];
+            [self setConnectionArray: [NSArray arrayWithArray: tempConnectionArray]];
+            [tempConnectionArray release];
+        }
+        if (  ! [[self nondisconnectedConnections] containsObject: connection]  ) {
+            NSMutableArray * tempConnectionArray = [[self nondisconnectedConnections] mutableCopy];
+            [tempConnectionArray addObject: connection];
+            [self setNondisconnectedConnections: [NSArray arrayWithArray: tempConnectionArray]];
+            [tempConnectionArray release];
+        }
+        
         status = pthread_mutex_unlock( &connectionArrayMutex );
         if (  status != EXIT_SUCCESS  ) {
             NSLog(@"pthread_mutex_unlock( &connectionArrayMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
             return;
         }    
         
-        [self startOrStopDurationsTimer];
+        [self startOrStopUiUpdater];
 	}
 }
 
--(void)removeConnection:(id)sender
+-(void)addNonconnection: (VPNConnection *) connection
 {
-	if (  sender != nil  ) {
+	if (  connection  ) {
+        
         OSStatus status = pthread_mutex_trylock( &connectionArrayMutex );
         if (  status != EXIT_SUCCESS  ) {
             NSLog(@"pthread_mutex_trylock( &connectionArrayMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
             return;
         }
-        NSMutableArray * tempConnectionArray = [[self connectionArray] mutableCopy];
-        [tempConnectionArray removeObject:sender];
-        [self setConnectionArray: tempConnectionArray];
-        [tempConnectionArray release];
+        
+        if (  ! [[self nondisconnectedConnections] containsObject: connection]  ) {
+            NSMutableArray * tempConnectionArray = [[self nondisconnectedConnections] mutableCopy];
+            [tempConnectionArray removeObject: connection];
+            [tempConnectionArray addObject:    connection];
+            [self setNondisconnectedConnections: [NSArray arrayWithArray: tempConnectionArray]];
+            [tempConnectionArray release];
+        }
+        
+        status = pthread_mutex_unlock( &connectionArrayMutex );
+        if (  status != EXIT_SUCCESS  ) {
+            NSLog(@"pthread_mutex_unlock( &connectionArrayMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+            return;
+        }
+        
+        [self startOrStopUiUpdater];
+	}
+}
+
+-(void)removeConnection: (VPNConnection *) connection
+{
+	if (  connection  ) {
+        OSStatus status = pthread_mutex_trylock( &connectionArrayMutex );
+        if (  status != EXIT_SUCCESS  ) {
+            NSLog(@"pthread_mutex_trylock( &connectionArrayMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+            return;
+        }
+        
+        if (  [[self connectionArray] containsObject: connection]  ) {
+            NSMutableArray * tempConnectionArray = [[self connectionArray] mutableCopy];
+            [tempConnectionArray removeObject: connection];
+            [self setConnectionArray: [NSArray arrayWithArray: tempConnectionArray]];
+            [tempConnectionArray release];
+        }
+        if (  [[self nondisconnectedConnections] containsObject: connection]  ) {
+            NSMutableArray * tempConnectionArray = [[self nondisconnectedConnections] mutableCopy];
+            [tempConnectionArray removeObject: connection];
+            [self setNondisconnectedConnections: [NSArray arrayWithArray: tempConnectionArray]];
+            [tempConnectionArray release];
+        }
+        
         status = pthread_mutex_unlock( &connectionArrayMutex );
         if (  status != EXIT_SUCCESS  ) {
             NSLog(@"pthread_mutex_unlock( &connectionArrayMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
             return;
         }    
         
-        [self startOrStopDurationsTimer];
+        [self startOrStopUiUpdater];
     }
 }
 
@@ -6592,23 +6646,6 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     return [sounds sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
 }
 
--(void) updateStatisticsDisplaysHandler {
-    if (  gShuttingDownWorkspace  ) {
-        [statisticsWindowTimer invalidate];
-        return;
-    }
-    
-    [self performSelectorOnMainThread: @selector(updateStatisticsDisplays) withObject: nil waitUntilDone: NO];
-}
-
--(void) updateStatisticsDisplays {
-    NSEnumerator * e = [connectionArray objectEnumerator];
-    VPNConnection * connection;
-    while (  (connection = [e nextObject])  ) {
-        [connection updateStatisticsDisplay];
-    }
-}
-
 -(void) statisticsWindowsShow: (BOOL) showThem {
 
 	TBLog(@"DB-MO", @"statisticsWindowsShow: %@ entered", (showThem ? @"YES" : @"NO"));
@@ -6656,20 +6693,6 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 			TBLog(@"DB-MO", @"statisticsWindowsShow: requested show of status window for %@ because no other status windows are showing", [lastConnection displayName]);
             showingAny = TRUE;
         }
-    }
-    
-    if (  showingAny  ) {
-        if (  ! statisticsWindowTimer  ) {
-            [self setStatisticsWindowTimer: [NSTimer scheduledTimerWithTimeInterval: 1.0
-                                                                             target: self
-                                                                           selector: @selector(updateStatisticsDisplaysHandler)
-                                                                           userInfo: nil
-                                                                            repeats: YES]];
-            [statisticsWindowTimer tbSetTolerance: -1.0];
-        }
-    } else {
-        [statisticsWindowTimer invalidate];
-        [self setStatisticsWindowTimer: nil];
     }
 }
 
@@ -7013,6 +7036,8 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 	doingSetupOfUI = value;
 }
 
+TBSYNTHESIZE_NONOBJECT_GET(BOOL, menuIsOpen)
+
 TBSYNTHESIZE_OBJECT_GET(retain, NSStatusItem *, statusItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenu *,       myVPNMenu)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, activeIPCheckThreads)
@@ -7025,8 +7050,9 @@ TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myConfigDictionary,        setMyConf
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, openvpnVersionNames,       setOpenvpnVersionNames)
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, openvpnVersionInfo,        setOpenvpnVersionInfo)
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnectionArray)
+TBSYNTHESIZE_OBJECT(retain, NSArray      *, nondisconnectedConnections,setNondisconnectedConnections)
 TBSYNTHESIZE_OBJECT(retain, NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
-TBSYNTHESIZE_OBJECT(retain, NSTimer      *, showDurationsTimer,        setShowDurationsTimer)
+TBSYNTHESIZE_OBJECT(retain, TBUIUpdater  *, uiUpdater,                 setUiUpdater)
 TBSYNTHESIZE_OBJECT(retain, NSTimer      *, configsChangedTimer,       setConfigsChangedTimer)
 TBSYNTHESIZE_OBJECT(retain, NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)

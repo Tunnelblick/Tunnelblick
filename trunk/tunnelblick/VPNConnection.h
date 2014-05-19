@@ -74,6 +74,8 @@ struct Statistics {
 	NSString      * displayName;        // The configuration name, including directory prefix, as sometimes displayed to the user 
     //                                     BUT only sometimes. In the menu and in the left navigation tabs, the leading
     //                                     directory references are stripped out (e.g., abc/def/ghi.ovpn becomes just "ghi"
+    
+    NSMenuItem    * menuItem;           // Menu item in the Tunnelblick icon's menu for this connection
 
 	NSDate        * connectedSinceDate; // Initialized to time connection init'ed, set to current time upon connection
 	NSString      * lastState;          // Known get/put externally as "state" and "setState", this is "EXITING", "CONNECTED", "SLEEP", etc.
@@ -207,6 +209,8 @@ struct Statistics {
 
 -(NSString *)       sanitizedConfigurationFileContents;
 
+-(void)             setConnectedSinceDate:      (NSDate *)          value;
+
 -(void)             setState:                   (NSString *)    newState;
 
 -(BOOL)				shadowIsIdenticalMakeItSo:  (BOOL)		    makeItSo;
@@ -232,10 +236,12 @@ struct Statistics {
 
 -(BOOL)             usedModifyNameserver;
 
+TBPROPERTY_READONLY(StatusWindowController *, statusScreen)
 TBPROPERTY_WRITEONLY(NSSound *, tunnelUpSound, setTunnelUpSound)
 TBPROPERTY_WRITEONLY(NSSound *, tunnelDownSound, setTunnelDownSound)
 TBPROPERTY_WRITEONLY(BOOL, speakWhenConnected, setSpeakWhenConnected)
 TBPROPERTY_WRITEONLY(BOOL, speakWhenDisconnected, setSpeakWhenDisconnected)
+TBPROPERTY(NSMenuItem *, menuItem, setMenuItem)
 TBPROPERTY(NSDate *, bytecountsUpdated, setBytecountsUpdated)
 TBPROPERTY(NSArray *, argumentsUsedToStartOpenvpnstart, setArgumentsUsedToStartOpenvpnstart)
 TBPROPERTY(NSTimer *, forceKillTimer, setForceKillTimer)

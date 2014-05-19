@@ -99,6 +99,7 @@ TBPROPERTY(NSString *, status,         setStatus)
 TBPROPERTY(NSString *, connectedSince, setConnectedSince)
 
 TBPROPERTY_READONLY(BOOL, haveLoadedFromNib)
+TBPROPERTY_READONLY(BOOL, isOpen)
 
 TBPROPERTY_READONLY(NSTextFieldCell *, statusTFC)
 

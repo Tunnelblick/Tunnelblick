@@ -117,33 +117,6 @@ extern TBUserDefaults       * gTbDefaults;
 	}
 }
 
--(void) setStatus: (NSString *) newStatus {
-    
-    if (  newStatus  ) {
-        [configurationStatusTFC setTitle: localizeNonLiteral(newStatus, @"Connection status")];
-    } else {
-        [configurationStatusTFC setTitle: @""];
-    }
-}
-
--(void) updateConnectionStatusAndTime {
-    if ( showingSettingsSheet  ) {
-        if (  connection  ) {
-            NSString * state = [connection state];
-            NSString * localizedStatus = localizeNonLiteral(state, @"Connection status");
-            if (  [state isEqualToString: @"CONNECTED"]  ) {
-                NSString * time = [connection connectTimeString];
-                [configurationStatusTFC setTitle: [NSString stringWithFormat: @"%@%@",
-                                                   localizedStatus, time]];
-            } else {
-                [configurationStatusTFC setTitle: localizedStatus];
-            }
-        } else {
-            [configurationStatusTFC setTitle: @""];
-        }
-    }
-}
-
 - (void) setupCredentialsGroupButton {
     
     if (  ! configurationName  ) {
@@ -445,7 +418,6 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 -(void) initializeStaticContent {
-    [configurationNameTFC setTitle: [NSString stringWithFormat: @"%@:", configurationName]];
     
     // For Connecting tab
 	
@@ -559,9 +531,9 @@ extern TBUserDefaults       * gTbDefaults;
     } else {
         programName = [NSString stringWithFormat: @" - Tunnelblick"];
     }
-    [settingsSheet setTitle: [NSString stringWithFormat: NSLocalizedString(@"%@ Advanced Settings%@", @"Window title"), configurationName, programName]];
-    
-    [self setStatus: [connection state]];
+	
+	NSString * privateSharedDeployed = [connection displayLocation];
+    [settingsSheet setTitle: [NSString stringWithFormat: NSLocalizedString(@"%@%@ Disconnected - Advanced Settings%@", @"Window title"), configurationName, privateSharedDeployed, programName]];
     
 	[self setupCredentialsGroupButton]; // May not need to, but set up this first, so it is set up for the rest
 	
@@ -1380,6 +1352,8 @@ extern TBUserDefaults       * gTbDefaults;
     BOOL enable = [gTbDefaults canChangeValueForKey: actualKey];
     [checkbox setEnabled: enable];
 }
+
+TBSYNTHESIZE_NONOBJECT_GET(BOOL, showingSettingsSheet)
 
 TBSYNTHESIZE_OBJECT(retain, VPNConnection *,         connection, setConnection)
 TBSYNTHESIZE_OBJECT(retain, NSArray *,               removeNamedCredentialsNames, setRemoveNamedCredentialsNames)

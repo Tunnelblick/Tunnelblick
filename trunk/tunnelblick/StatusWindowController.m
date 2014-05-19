@@ -579,11 +579,10 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
     [self setName: theName];
     [self setStatus: theStatus];
-    if (  [theStatus isEqualToString: @"EXITING"]  ) {
-        [self setConnectedSince: @""];
-    } else {
-        [self setConnectedSince: [NSString stringWithFormat: @" %@", theTime]];
-    }
+    [self setConnectedSince: (  (   theTime
+                                 && ( ! [theStatus isEqualToString: @"EXITING"])   )
+                              ? [NSString stringWithFormat: @" %@", theTime]
+                              : @"")];
     
     [configurationNameTFC setStringValue: theName];
     [statusTFC            setStringValue: [NSString stringWithFormat: @"%@%@",
@@ -630,6 +629,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, connectedSince, setConnectedSince)
 -(BOOL) haveLoadedFromNib {
     return haveLoadedFromNib;
 }
+
+TBSYNTHESIZE_NONOBJECT_GET(BOOL, isOpen)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, inTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, inRateTFC)

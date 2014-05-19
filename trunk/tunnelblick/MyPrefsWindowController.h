@@ -89,7 +89,6 @@
 // Methods used by MenuController to update the window
 
 -(void) update;
--(void) updateNavigationLabels;
 -(BOOL) forceDisableOfNetworkMonitoring;
 
 -(void) indicateWaitingForConnection:                         (VPNConnection *) theConnection;
@@ -192,6 +191,8 @@ TBPROPERTY_READONLY(ConfigurationsView *, configurationsPrefsView)
 TBPROPERTY(NSString *, previouslySelectedNameOnLeftNavList, setPreviouslySelectedNameOnLeftNavList)
 
 TBPROPERTY_READONLY(NSUInteger, selectedWhenToConnectIndex)
+
+TBPROPERTY_READONLY(SettingsSheetWindowController *, settingsSheetWindowController)
 
 TBPROPERTY(NSUInteger, selectedLeftNavListIndex,             setSelectedLeftNavListIndex)
 TBPROPERTY(NSUInteger, selectedSetNameserverIndex,           setSelectedSetNameserverIndex)

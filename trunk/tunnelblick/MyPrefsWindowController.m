@@ -422,7 +422,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self setupSoundPopUpButtons:       [self selectedConnection]];
         
         // Set up a timer to update connection times
-        [[NSApp delegate] startOrStopDurationsTimer];
+        [[NSApp delegate] startOrStopUiUpdater];
     }
     
     [self validateDetailsWindowControls];   // Set windows enabled/disabled
@@ -727,17 +727,11 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
--(void)updateNavigationLabels {
-    [self updateConnectionStatusAndTime];
-}
-
-
 -(void) updateConnectionStatusAndTime
 {
 	if (  [super windowHasLoaded]  ) {
 		[[self window] setTitle: [self windowTitle: NSLocalizedString(@"Configurations", @"Window title")]];
 	}
-    [settingsSheetWindowController updateConnectionStatusAndTime];
 }
 
 -(void) doLogScrollingForConnection: (VPNConnection *) theConnection
@@ -3350,6 +3344,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, leftNavDisplayNames)
 TBSYNTHESIZE_OBJECT(retain, NSString *, previouslySelectedNameOnLeftNavList, setPreviouslySelectedNameOnLeftNavList)
 
 TBSYNTHESIZE_OBJECT_GET(retain, ConfigurationsView *, configurationsPrefsView)
+
+TBSYNTHESIZE_OBJECT_GET(retain, SettingsSheetWindowController *, settingsSheetWindowController)
 
 TBSYNTHESIZE_OBJECT_SET(NSString *, currentViewName, setCurrentViewName)
 

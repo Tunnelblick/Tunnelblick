@@ -1181,4 +1181,10 @@ void localizableStrings(void)
     NSLocalizedString(@"TCP_CONNECT",   @"Connection status");
     NSLocalizedString(@"UDP_CONNECT",   @"Connection status");
     NSLocalizedString(@"WAIT",          @"Connection status");
+	
+	// These strings also indicate the status of a connection, but they are set by Tunnelblick itself, not OpenVPN
+	NSLocalizedString(@"PASSWORD_WAIT",    @"Connection status");
+	NSLocalizedString(@"PRIVATE_KEY_WAIT", @"Connection status");
+    NSLocalizedString(@"DISCONNECTING",    @"Connection status");
+
 }

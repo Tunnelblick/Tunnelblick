@@ -416,40 +416,49 @@
 "Double-click to begin" = "Double-click to begin";
 
 /* Connection status */
-"ADD_ROUTES" = "Adding routes";
+"ADD_ROUTES" = "Adding routes";   // Please translate "Adding routes"
 
 /* Connection status */
-"ASSIGN_IP" = "Assigning IP address";
+"ASSIGN_IP" = "Assigning IP address";   // Please translate "Assigning IP address"
 
 /* Connection status */
-"AUTH" = "Authorizing";
+"AUTH" = "Authorizing";   // Please translate "Authorizing"
 
 /* Connection status */
-"CONNECTED" = "Connected";
+"CONNECTED" = "Connected";   // Please translate "Connected"
 
 /* Connection status */
-"CONNECTING" = "Connecting";
+"CONNECTING" = "Connecting";   // Please translate "Connecting"
+
+/* Connection status */
+"DISCONNECTING" = "Disconnecting";     // Please translate "Disconnecting"
 
 /* Connection status */
 "EXITING" = "Disconnected";     // Please translate "Disconnected"
 
 /* Connection status */
-"GET_CONFIG" = "Getting configuration";
+"GET_CONFIG" = "Getting configuration";   // Please translate ""
 
 /* Connection status */
-"RECONNECTING" = "Reconnecting";
+"PASSWORD_WAIT" = "Waiting for password";   // Please translate "Waiting for password"
 
 /* Connection status */
-"RESOLVE" = "Resolving domain name";
+"PRIVATE_KEY_WAIT" = "Waiting for passphrase";   // Please translate "Waiting for password"
+
+/* Connection status */
+"RECONNECTING" = "Reconnecting";   // Please translate ""
+
+/* Connection status */
+"RESOLVE" = "Resolving domain name";   // Please translate ""
 
 /* Connection status */
 "SLEEP" = "Waiting for Daemon process";   // Please translate "Waiting for daemon process"
 
 /* Connection status */
-"TCP_CONNECT" = "Making TCP connection";
+"TCP_CONNECT" = "Making TCP connection";   // Please translate "Making TCP connection"
 
 /* Connection status */
-"UDP_CONNECT" = "Making UDP connection";
+"UDP_CONNECT" = "Making UDP connection";   // Please translate "Making UDP connection"
 
 /* Connection status */
 "WAIT" = "Waiting for server response";   // Please translate "Waiting for Server Response"
@@ -785,7 +794,7 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
 
 /* Window text */
-"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' does not have any credentials (private key or username and password) stored in the Keychain.";
+"'%@' does not have any credentials (passphrase or username and password) stored in the Keychain." = "'%@' does not have any credentials (passphrase or username and password) stored in the Keychain.";
 
 /* Window text */
 "(Never checked)" = "(Never checked)";
@@ -857,10 +866,10 @@
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (passphrase or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (passphrase or username and password) for '%@' that are stored in the Keychain?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?";
+"Are you sure you wish to delete the credentials (passphrase or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (passphrase or username and password) stored in the Keychain for '%@' credentials?";
 
 /* Window text */
 "B" = "B";

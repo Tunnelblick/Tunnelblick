@@ -36,6 +36,7 @@
 @class SplashWindowController;
 @class StatusWindowController;
 @class SUUpdater;
+@class TBUIUpdater;
 @class UKKQueue;
 @class VPNConnection;
 @class WelcomeController;
@@ -113,6 +114,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
     NSDictionary            * myVPNConnectionDictionary;    // List of all VPNConnections. key = display name, value = VPNConnection object for the configuration
     
     NSArray                 * connectionArray;              // VPNConnections that are currently connected
+    NSArray                 * nondisconnectedConnections;   // VPNConnections that are currently not disconnected (any with status != EXITING)
     
     NSMutableArray          * connectionsToRestoreOnWakeup; // VPNConnections to be restored when awakened from sleep
     
@@ -127,7 +129,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
     
     UKKQueue                * myQueue;                      // UKKQueue item for monitoring the configuration file folder
     
-    NSTimer                 * showDurationsTimer;           // Used to periodically update display of connections' durations in the VPNDetails... Window
+    TBUIUpdater             * uiUpdater;                    // Used to periodically update displays
 	
     NSTimer                 * hookupWatchdogTimer;          // Used to check for failures to hookup to openvpn processes, and deal with unknown OpenVPN processes 
 	
@@ -196,7 +198,8 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(IBAction)         quit:                                   (id)                sender;
 
 // General methods
--(void)             addConnection:                          (id)                sender;
+-(void)             addConnection:                          (VPNConnection *)   connection;
+-(void)             addNonconnection:                       (VPNConnection *)   connection;
 -(void)             addNewConfig:                           (NSString *)        path
                  withDisplayName:                           (NSString *)        dispNm;
 -(void)             setPreferenceForSelectedConfigurationsWithKey: (NSString *) key
@@ -242,7 +245,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(BOOL)             mouseIsInsideAnyView;
 -(NSString *)       openVPNLogHeader;
 -(void)             reconnectAfterBecomeActiveUser;
--(void)             removeConnection:                       (id)                sender;
+-(void)             removeConnection:                       (VPNConnection *)   connection;
 -(BOOL)             runInstaller:                           (unsigned)          installerFlags
                   extraArguments:                           (NSArray *)         extraArguments;
 
@@ -267,6 +270,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(void)             hideStatisticsWindows;
 -(void)             updateIconImage;
 -(void)				updateMenuAndDetailsWindow;
+-(void)             updateUI;
 -(void)				updateUpdateFeedURLForceDowngrade:		(BOOL)				forceDowngrade;
 -(void)             terminateBecause:                       (enum TerminationReason) reason;
 
@@ -289,7 +293,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(NSImage *)        largeMainImage;
 -(MyPrefsWindowController *) logScreen;
 -(NSString *)       customRunOnConnectPath;
--(void)             startOrStopDurationsTimer;
+-(void)             startOrStopUiUpdater;
 -(BOOL)             terminatingAtUserRequest;
 -(SUUpdater *)      updater;
 -(BOOL)				doingSetupOfUI;
@@ -311,6 +315,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(NSArray *)        applescriptConfigurationList;
 
 TBPROPERTY_READONLY(NSStatusItem *, statusItem)
+TBPROPERTY_READONLY(BOOL, menuIsOpen)
 TBPROPERTY_READONLY(NSMenu *,		myVPNMenu)
 TBPROPERTY_READONLY(NSMutableArray *, activeIPCheckThreads)
 TBPROPERTY_READONLY(NSMutableArray *, cancellingIPCheckThreads)
@@ -322,8 +327,9 @@ TBPROPERTY(NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
 TBPROPERTY(NSArray      *, openvpnVersionNames,       setOpenvpnVersionNames)
 TBPROPERTY(NSArray      *, openvpnVersionInfo,        setOpenvpnVersionInfo)
 TBPROPERTY(NSArray      *, connectionArray,           setConnectionArray)
+TBPROPERTY(NSArray      *, nondisconnectedConnections,setNondisconnectedConnections)
 TBPROPERTY(NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
-TBPROPERTY(NSTimer      *, showDurationsTimer,        setShowDurationsTimer)
+TBPROPERTY(TBUIUpdater  *, uiUpdater,                 setUiUpdater)
 TBPROPERTY(NSTimer      *, configsChangedTimer,       setConfigsChangedTimer)
 TBPROPERTY(NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
 TBPROPERTY(NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
