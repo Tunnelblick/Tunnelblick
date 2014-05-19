@@ -54,9 +54,6 @@ typedef enum {
     IBOutlet NSTabViewItem       * whileConnectedTabViewItem;
     IBOutlet NSTabViewItem       * credentialsTabViewItem;
     
-    IBOutlet NSTextFieldCell     * configurationNameTFC;
-    IBOutlet NSTextFieldCell     * configurationStatusTFC;
-    
     
     // For Connecting & Disconnecting tab
     
@@ -177,8 +174,6 @@ typedef enum {
 // General methods
 
 -(void) setConfigurationName: (NSString *) newName;
--(void) setStatus:            (NSString *) newStatus;
--(void) updateConnectionStatusAndTime;
 
 -(void) showSettingsSheet:    (id) sender;
 -(void) endSettingsSheet:     (id) sender;
@@ -264,6 +259,8 @@ typedef enum {
 
 
 // Getters & Setters
+
+TBPROPERTY_READONLY(BOOL, showingSettingsSheet)
 
 TBPROPERTY_READONLY(NSButton *, allConfigurationsUseTheSameCredentialsCheckbox)
 

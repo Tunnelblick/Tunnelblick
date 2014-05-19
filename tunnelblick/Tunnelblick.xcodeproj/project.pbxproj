@@ -118,6 +118,7 @@
 		63C2E19E18846D3800ED0003 /* LeaseWatch3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19D18846D3800ED0003 /* LeaseWatch3.plist */; };
 		63C2E1A018846D4600ED0003 /* ProcessNetworkChanges.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */; };
 		63C504291178E21100340D13 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
+		63CC72F91928C5CB00F81220 /* TBUIUpdater.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */; };
 		63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D39B4714F9860E002D1297 /* UtilitiesView.m */; };
 		63D39BF014F9ECC7002D1297 /* Utilities.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 63D39BEF14F9ECC7002D1297 /* Utilities.tiff */; };
 		63D39BF214F9ED13002D1297 /* Configurations.png in Resources */ = {isa = PBXBuildFile; fileRef = 63D39BF114F9ED13002D1297 /* Configurations.png */; };
@@ -396,6 +397,8 @@
 		63C2E19D18846D3800ED0003 /* LeaseWatch3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LeaseWatch3.plist; sourceTree = "<group>"; };
 		63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProcessNetworkChanges.plist; sourceTree = "<group>"; };
 		63C504281178E21100340D13 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		63CC72F71928C5CB00F81220 /* TBUIUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUIUpdater.h; sourceTree = "<group>"; };
+		63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUIUpdater.h.m; sourceTree = "<group>"; };
 		63D39B4614F9860E002D1297 /* UtilitiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilitiesView.h; sourceTree = "<group>"; };
 		63D39B4714F9860E002D1297 /* UtilitiesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilitiesView.m; sourceTree = "<group>"; };
 		63D39BEF14F9ECC7002D1297 /* Utilities.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Utilities.tiff; sourceTree = "<group>"; };
@@ -713,6 +716,7 @@
 		63ABFE901349E370003DEB64 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				63CC72F61928C58600F81220 /* UI Updater */,
 				635ECCF71378886E00F67F8D /* Preferences */,
 				B840788A170CE6A20002B941 /* Main Icon */,
 				B840788B170CE6B60002B941 /* Splash Window */,
@@ -722,6 +726,15 @@
 				B840788F170CE7140002B941 /* Welcome Window */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		63CC72F61928C58600F81220 /* UI Updater */ = {
+			isa = PBXGroup;
+			children = (
+				63CC72F71928C5CB00F81220 /* TBUIUpdater.h */,
+				63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */,
+			);
+			name = "UI Updater";
 			sourceTree = "<group>";
 		};
 		63E56EB71384813C007E39AB /* VPNService xibs */ = {
@@ -1438,6 +1451,7 @@
 				B86D13091811859000FDFB3B /* ListingWindowController.m in Sources */,
 				B82DF4D8182704D800A121DE /* TBPerformer.m in Sources */,
 				B8D807031832EEC400A0B937 /* NSTimer+TB.m in Sources */,
+				63CC72F91928C5CB00F81220 /* TBUIUpdater.h.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -109,8 +109,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
     ifConnectionPreference:                     (NSString *)        keySuffix
                   inverted:                     (BOOL)              invert;
 
--(void)             setConnectedSinceDate:      (NSDate *)          value;
-
 -(void)             setManagementSocket:        (NetSocket *)       socket;
 
 -(void)             setPort:                    (unsigned int)      inPort;
@@ -835,6 +833,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     [statistics.lastSet               release]; statistics.lastSet               = nil;
     [bytecountsUpdated                release]; bytecountsUpdated                = nil;
     [argumentsUsedToStartOpenvpnstart release]; argumentsUsedToStartOpenvpnstart = nil;
+    [menuItem                         release]; menuItem                         = nil;
     
     [super dealloc];
 }
@@ -1549,6 +1548,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             }
         }
         [self setState: @"SLEEP"];
+		[[NSApp delegate] addNonconnection: self];
         [self showStatusWindow];
         [self connectToManagementSocket];
     }
@@ -1996,16 +1996,16 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     // Get connection duration if preferences say to 
     if (   [gTbDefaults boolWithDefaultYesForKey:@"showConnectedDurations"]
-        && [[self state] isEqualToString: @"CONNECTED"]    ) {
+        && ( ! [[self state] isEqualToString: @"EXITING"] )    ) {
         NSString * cTimeS = @"";
         NSDate * csd = [self connectedSinceDate];
         NSTimeInterval ti = [csd timeIntervalSinceNow];
         long cTimeL = (long) round(-ti);
         if ( cTimeL >= 0 ) {
             if ( cTimeL < 3600 ) {
-                cTimeS = [NSString stringWithFormat:@" (%li:%02li)", cTimeL/60, cTimeL%60];
+                cTimeS = [NSString stringWithFormat:@" %li:%02li", cTimeL/60, cTimeL%60];
             } else {
-                cTimeS = [NSString stringWithFormat:@" (%li:%02li:%02li)", cTimeL/3600, (cTimeL/60) % 60, cTimeL%60];
+                cTimeS = [NSString stringWithFormat:@" %li:%02li:%02li", cTimeL/3600, (cTimeL/60) % 60, cTimeL%60];
             }
         }
         return cTimeS;
@@ -2089,6 +2089,9 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  userKnows  ) {
         requestedState = @"EXITING";
     }
+	
+	[self setState: @"DISCONNECTING"];
+	[self setConnectedSinceDate: [NSDate date]];
 
     areDisconnecting = TRUE;
     pthread_mutex_unlock( &areDisconnectingMutex );
@@ -2336,7 +2339,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     // Run the post-disconnect script, if any
     [self runScriptNamed: @"post-disconnect" openvpnstartCommand: @"postDisconnect"];
     
-    [[NSApp delegate] updateNavigationLabels];
+    [[NSApp delegate] updateUI];
 	
     if (   ( ! [requestedState isEqualToString: @"EXITING"])
         && [self haveConnectedSince]
@@ -2442,13 +2445,15 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         
         [self setState: newState];
         
-        if([newState isEqualToString: @"RECONNECTING"]) {
-            [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
-            
-        } else if ([newState isEqualToString: @"CONNECTED"]) {
+        if ([newState isEqualToString: @"CONNECTED"]) {
             [[NSApp delegate] addConnection:self];
             [self startCheckingIPAddressAfterConnected];
             [gTbDefaults setBool: YES forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
+        } else {
+            [[NSApp delegate] addNonconnection: self];
+            if([newState isEqualToString: @"RECONNECTING"]) {
+                [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
+            }
         }
     }
 }
@@ -2728,6 +2733,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSRange pwrange_password = [parameterString rangeOfString: @"\' password"];
     if (pwrange_need.length && pwrange_password.length) {
         TBLog(@"DB-AU", @"Server wants user private key.");
+		[self setState: @"PRIVATE_KEY_WAIT"];
         [myAuthAgent setAuthMode:@"privateKey"];
         [myAuthAgent performAuthentication];
         if (  [myAuthAgent authenticationWasFromKeychain]  ) {
@@ -2746,6 +2752,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         
     } else if ([line rangeOfString: @"Auth"].length) {
         TBLog(@"DB-AU", @"Server wants user auth/pass.");
+		[self setState: @"PASSWORD_WAIT"];
         [myAuthAgent setAuthMode:@"password"];
         [myAuthAgent performAuthentication];
         if (  [myAuthAgent authenticationWasFromKeychain]  ) {
@@ -3087,9 +3094,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) updateStatisticsDisplay {
     
     // Update the connection time string
-    [statusScreen setStatus: [self state] forName: [self displayName] connectedSince: [self timeString]];
-    
-    [self updateDisplayWithNewStatistics];
+	if (  statusScreen) {
+		[statusScreen setStatus: [self state] forName: [self displayName] connectedSince: [self timeString]];
+		[self updateDisplayWithNewStatistics];
+	}
 }
 
 -(NSString *) timeString
@@ -3478,6 +3486,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	speakWhenDisconnected = newValue;
 }
 
+TBSYNTHESIZE_OBJECT_GET(    retain, StatusWindowController *, statusScreen)
+
 TBSYNTHESIZE_OBJECT_SET(    NSSound *,  tunnelUpSound,   setTunnelUpSound)
 
 TBSYNTHESIZE_OBJECT_SET(    NSSound *,  tunnelDownSound, setTunnelDownSound)
@@ -3487,6 +3497,8 @@ TBSYNTHESIZE_OBJECT(retain, NSDate *,   bytecountsUpdated, setBytecountsUpdated)
 TBSYNTHESIZE_OBJECT(retain, NSArray *,  argumentsUsedToStartOpenvpnstart, setArgumentsUsedToStartOpenvpnstart)
 
 TBSYNTHESIZE_OBJECT(retain, NSTimer *,  forceKillTimer, setForceKillTimer)
+
+TBSYNTHESIZE_OBJECT(retain, NSMenuItem *, menuItem, setMenuItem)
 
 TBSYNTHESIZE_OBJECT(retain, NSString *, ipAddressBeforeConnect,      setIpAddressBeforeConnect)
 TBSYNTHESIZE_OBJECT(retain, NSString *, serverIPAddress,             setServerIPAddress)
