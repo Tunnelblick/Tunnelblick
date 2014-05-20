@@ -12,6 +12,8 @@ Tunnelblick checks the security of itself and of the parts of OS X that it uses.
 
 <img src="https://www.tunnelblick.net/images/ApplicationsFolderNotSecure.png" width="50%"><br />
 
+Other problems with system folder security may only appear when you try to connect to a VPN.
+
 Tunnelblick repairs the security of all of its own files and folders, but does not repair files and folders that it does not create, such as system folders.
 
 ===How System Folders Become Insecure===
