@@ -19,7 +19,7 @@ Tunnelblick repairs the security of all of its own files and folders, but does n
 ===How System Folders Become Insecure===
 System folders are secure when OS X is installed, and usually only become insecure as the result of a program installer behaving improperly. System folders could become insecure because of malware, but that is rare:
  * In May 2014, Apple's iTunes 11.2 update caused each system boot to set insecure permissions on /Users and /Users/Shared. This was corrected in iTunes 11.2.1.
- * There are reports that some MacPorts installers makes /usr insecure, and that some SPSS and xQuartz installers and some player application installers for Vulkano streaming video make /Applications insecure.
+ * There are reports that some !MacPorts installers makes /usr insecure, and that some SPSS and xQuartz installers and some player application installers for Vulkano streaming video make /Applications insecure.
 
 ===Repairing System Folder Security===
 On OS X 10.6 and higher, the ownership and permissions of system folders can be repaired by using the "Disk Utility" application (/Applications/Utilities/Disk Utility). Select the boot volume in the list on the left, and do a "Repair Disk Permissions".
