@@ -10,7 +10,7 @@ One aspect of computer security is the security of system files and folders -- f
 
 Tunnelblick checks the security of itself and of the parts of OS X that it uses. That sometimes results in Tunnelblick complaining that a system folder is not secure, and refusing to connect a VPN. For example, you might see the following message after launching Tunnelblick:
 
-<img src="https://www.tunnelblick.net/images/ApplicationsFolderNotSecure.png" width="50%"><br />
+<img src="http://www.tunnelblick.net/images/ApplicationsFolderNotSecure.png" width="50%"><br />
 
 Other problems with system folder security may only appear when you try to connect to a VPN.
 
