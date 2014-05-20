@@ -24,7 +24,7 @@ System folders are secure when OS X is installed, and usually only become insecu
 ===Repairing System Folder Security===
 On OS X 10.6 and higher, the ownership and permissions of system folders can be repaired by using the "Disk Utility" application (/Applications/Utilities/Disk Utility). Select the boot volume in the list on the left, and do a "Repair Disk Permissions".
 
-Disk Utility in OS X 10.5 and lower does not fix the ownership and permissions of system folders; they must be repaired manually in the Terminal application (/Applications/Utilities/Terminal).
+Disk Utility in OS X 10.5 and lower does not fix the ownership and permissions of system folders; they must be repaired manually using the Terminal application (/Applications/Utilities/Terminal).
 
 ===Correct System Folder Ownership and Permissions===
 System folder ownership and permissions vary from folder to folder and from one version of OS X to another. The following table lists the standard (secure) ownership and permissions for selected system folders under various versions of OS X.
