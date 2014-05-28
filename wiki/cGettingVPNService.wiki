@@ -72,6 +72,7 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=https://www.slickvpn.com Slick VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://switchvpn.com SwitchVPN.com]*
+  * *[http://www.tunnelblick.net/to.php?to=https://thesafety.us TheSafety.US]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.turnkeyvpn.com TurnKeyVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.urbanshield.net Urban Shield]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.versavpn.com VersaVPN]*
