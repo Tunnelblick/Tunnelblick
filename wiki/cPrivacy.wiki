@@ -56,7 +56,7 @@ If you do not want this activity logged, disable update checks and, for all of y
 
 When checking for updates, Tunnelblick contacts the tunnelblick.net web server. Tunnelblick uses encrypted https: connections to provide security and privacy, but of course the fact that tunnelblick.net was accessed is available to any eavesdropper. That may be avoided by only doing checks for updates manually when connected to a VPN (which, as described above, will hide from local eavesdroppers the fact that tunnelblick.net was accessed).
 
-These update checks are logged by the tunnelblick.net web server. See tunnelblick.net Logging for details.
+These update checks are logged by the tunnelblick.net web server. See [#tunnelblick.net_Logging tunnelblick.net Logging] for details.
 
 The setting that controls whether Tunnelblick checks for updates _automatically_ (when launched and every 24 hours thereafter, even if no VPN is connected) is the "Check for updates automatically" checkbox on Tunnelblick's "Preferences" panel.
 
@@ -83,7 +83,7 @@ All accesses to tunnelblick.net are logged. The logs are kept by the company tha
 
  __*Update information requests*__: if an update is available, Tunnelblick will send an HTTPS request to the tunnelblick.net website for information about the update that is to be displayed to the user.
 
- __*Update download requests*__: If an update is available and the user agrees, Tunnelblick will download the update from source forge.net. The download may be redirected by sourceforge.net to another website or mirror. The update may be downloaded via HTTP or HTTPS. (Updates are digitally signed for additional security, whether or not HTTPS is used.)
+ __*Update download requests*__: If an update is available and the user agrees, Tunnelblick will download the update from sourceforge.net. The download may be redirected by sourceforge.net to another website or mirror. The update may be downloaded via HTTP or HTTPS. (Updates are digitally signed for additional security, whether or not HTTPS is used.)
 
  __*IP address check requests*__ send the following information to the tunnelblick.net website:
   * The apparent public IP address and port of the computer (or router the computer with which the computer connects to the Internet)
