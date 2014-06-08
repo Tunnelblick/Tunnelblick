@@ -18,7 +18,7 @@ Please be patient -- we're all volunteers! (For more information about the moder
  # (Wait until the problem occurs)
  # Click on the "Disconnect" button if the VPN is connected
  # Click on the "Copy Diagnostic Info to the Clipboard" button
- # Past into an email or web form
+ # Paste into an email or web form
  # Remove any sensitive information before sending the email or posting the form
 
 The "Copy Diagnostic Info to the Clipboard" button is available in Tunnelblick 3.3beta38 and higher. If you are using a very old version of Tunnelblick, please include the following with your question:
