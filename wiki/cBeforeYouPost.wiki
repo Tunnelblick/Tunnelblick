@@ -12,31 +12,18 @@ Please be patient -- we're all volunteers! (For more information about the moder
 ==How and What to Post==
 
 *If you are having a problem with Tunnelblick, please:*
- # Open the "VPN Details…" window
- # Click on the "Log" tab
- # Click on the "Connect" button
- # (Wait until the problem occurs)
- # Click on the "Disconnect" button if the VPN is connected
- # Click on the "Copy Diagnostic Info to the Clipboard" button
- # Paste into an email or web form
- # Remove any sensitive information before sending the email or posting the form
-
-The "Copy Diagnostic Info to the Clipboard" button is available in Tunnelblick 3.3beta38 and higher. If you are using a very old version of Tunnelblick, please include the following with your question:
- * the contents of your configuration file;
- * the entire contents of the Tunnelblick log; and
- * the end of the Console log.
- Be sure to edit out any sensitive information such as server IP addresses and private keys.
-
- To put the contents of your configuration file on the Clipboard so you can paste it into an email, open it in !TextEdit as follows:
- # Click the Tunnelblick icon
- # Click "VPN Details…"
- # Select the "Configurations" panel if it is not already selected
- # Select the configuration whose file you want to look at in the list on the left
- # Click the little "gear" icon at the bottom of the list on the left
- # Select "Edit OpenVPN Configuration File…" (or possibly "Examine OpenVPN Configuration File…").
- # In !TextEdit you can Edit : Select All and then Edit : Copy to get the contents of the configuration file put into the clipboard.
-
- See the [cOpenVPNLog Tunnelblick Log] and the [cConsoleLog Console Log] for information copying the logs.
+ # Open the "VPN Details…" window.
+ # Select the configuration you want to connect in the list on the left.
+ # Click the "Advanced" button on the right; a new window will appear.
+ # Make sure that "Check if the apparent public IP address changed after connecting" is checked.
+ # Close the "Advanced" window.
+ # Click on the "Log" tab.
+ # Click on the "Connect" button.
+ # Wait until the problem occurs. If the problem is that no connection is made, wait at least 70 seconds.
+ # If you can, click on the "Disconnect" button and wait until the disconnection is complete. If the disconnection is not complete within 20 seconds, continue anyway.
+ # Click on the "Copy Diagnostic Info to the Clipboard" button.
+ # Paste into an email or web form.
+ # Remove any sensitive information before sending the email or posting the form.
 
 ------------------
 
