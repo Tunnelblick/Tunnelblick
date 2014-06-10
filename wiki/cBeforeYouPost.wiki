@@ -14,6 +14,7 @@ Please be patient -- we're all volunteers! (For more information about the moder
 *If you are having a problem with Tunnelblick, please:*
  # Open the "VPN Details…" window.
  # Select the configuration you want to connect in the list on the left.
+ # Make sure that "Set DNS/WINS" is set to "Set nameserver". (This is the default setting and will enable extra debugging and logging.)
  # Click the "Advanced" button on the right; a new window will appear.
  # Make sure that "Check if the apparent public IP address changed after connecting" is checked.
  # Close the "Advanced" window.
