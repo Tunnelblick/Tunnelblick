@@ -106,6 +106,7 @@ BOOL           runningOnSnowLeopardPointEightOrNewer(void);
 BOOL           runningOnLionOrNewer(void);
 BOOL           runningOnMountainLionOrNewer(void);
 BOOL           runningOnMavericksOrNewer(void);
+BOOL           runningOnYosemiteOrNewer(void);
 
 BOOL           tunnelblickTestPrivateOnlyHasTblks(void);
 BOOL           tunnelblickTestAppInApplications(void);

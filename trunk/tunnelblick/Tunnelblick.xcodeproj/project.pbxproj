@@ -38,7 +38,6 @@
 		61C03B990ED4E42A00175F22 /* NB.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* NB.lproj */; };
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
 		630210131465CBBC00283B78 /* CS.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 630210121465CBBC00283B78 /* CS.lproj */; };
-		6305E5D810F7974200E30B11 /* NSApplication+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */; };
 		6311306411041B89003435F1 /* LoginItemsAE.c in Sources */ = {isa = PBXBuildFile; fileRef = 6311305F11041B89003435F1 /* LoginItemsAE.c */; };
 		6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311306211041B89003435F1 /* UKLoginItemRegistry.m */; };
 		631310D913CA18870071C110 /* NL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631310D513CA18870071C110 /* NL.lproj */; };
@@ -304,8 +303,6 @@
 		61C03B960ED4E42A00175F22 /* NB.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NB.lproj; sourceTree = "<group>"; };
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
 		630210121465CBBC00283B78 /* CS.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CS.lproj; sourceTree = "<group>"; };
-		6305E5D610F7974200E30B11 /* NSApplication+SystemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+SystemVersion.h"; sourceTree = "<group>"; };
-		6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+SystemVersion.m"; sourceTree = "<group>"; };
 		6311305F11041B89003435F1 /* LoginItemsAE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LoginItemsAE.c; sourceTree = "<group>"; };
 		6311306011041B89003435F1 /* LoginItemsAE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItemsAE.h; sourceTree = "<group>"; };
 		6311306111041B89003435F1 /* UKLoginItemRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKLoginItemRegistry.h; sourceTree = "<group>"; };
@@ -897,8 +894,6 @@
 				61BC4B6E0E2F9EBC00F24255 /* NetSocket+Text.m */,
 				61BC4B6F0E2F9EBC00F24255 /* NSApplication+LoginItem.h */,
 				61BC4B700E2F9EBC00F24255 /* NSApplication+LoginItem.m */,
-				6305E5D610F7974200E30B11 /* NSApplication+SystemVersion.h */,
-				6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */,
 				61BC4B730E2F9EBC00F24255 /* NSArray+cArray.h */,
 				61BC4B680E2F9EBC00F24255 /* NSArray+cArray.m */,
 				63F2AD9912AD5F1600826724 /* NSFileManager+TB.h */,
@@ -1410,7 +1405,6 @@
 				6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */,
 				637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */,
 				638E69611097725500587933 /* TBUserDefaults.m in Sources */,
-				6305E5D810F7974200E30B11 /* NSApplication+SystemVersion.m in Sources */,
 				6311306411041B89003435F1 /* LoginItemsAE.c in Sources */,
 				6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */,
 				63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */,
