@@ -32,7 +32,6 @@
 #import "KeyChain.h"
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
-#import "NSApplication+SystemVersion.h"
 #import "NSFileManager+TB.h"
 #import "TBUserDefaults.h"
 
@@ -72,7 +71,13 @@ BOOL runningABetaVersion (void) {
 BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
 {
     unsigned major, minor, bugFix;
-    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
+    OSStatus status = getSystemVersion(&major, &minor, &bugFix);
+    if (  status != 0) {
+        NSLog(@"getSystemVersion() failed");
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        return FALSE;
+    }
+    
     return ( (major > majorVersion) || (minor > minorVersion) );
 }
 
@@ -94,7 +99,12 @@ BOOL runningOnSnowLeopardOrNewer(void)
 BOOL runningOnSnowLeopardPointEightOrNewer(void) {
     
     unsigned major, minor, bugFix;
-    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
+    OSStatus status = getSystemVersion(&major, &minor, &bugFix);
+    if (  status != 0) {
+        NSLog(@"getSystemVersion() failed");
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        return FALSE;
+    }
     
     if (  major < 10  ) {
         return FALSE;
@@ -120,6 +130,11 @@ BOOL runningOnMountainLionOrNewer(void)
 BOOL runningOnMavericksOrNewer(void)
 {
     return runningOnNewerThan(10, 8);
+}
+
+BOOL runningOnYosemiteOrNewer(void)
+{
+    return runningOnNewerThan(10, 9);
 }
 
 BOOL mustPlaceIconInStandardPositionInStatusBar(void) {

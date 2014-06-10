@@ -39,10 +39,61 @@
 
 extern NSString * gDeployPath;
 
-// External references that must be defined in Tunnelblick, installer, and any other target using this module
-
+// External reference that must be defined in Tunnelblick, installer, and any other target using this module
 void appendLog(NSString * msg);	// Appends a string to the log
 
+
+OSStatus getSystemVersion(unsigned * major, unsigned * minor, unsigned * bugFix) {
+    
+    // There seems to be no good way to do this because Gestalt() was deprecated in 10.8 and although it can give correct
+    // results in 10.10, it displays an annoying message in the Console log. So we do it this way, suggested in
+    // a comment by Jonathan Grynspan at
+    // https://stackoverflow.com/questions/11072804/how-do-i-determine-the-os-version-at-runtime-in-os-x-or-ios-without-using-gesta
+    
+    // Get the version as a string, e.g. "10.8.3"
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: @"/System/Library/CoreServices/SystemVersion.plist"];
+    if (  dict  ) {
+        NSString * productVersion = [dict objectForKey:@"ProductVersion"];
+        
+        NSArray * parts = [productVersion componentsSeparatedByString: @"."];
+        if (   ([parts count] == 3)
+			|| ([parts count] == 2)  ) {
+            NSString * majorS  = [parts objectAtIndex: 0];
+            NSString * minorS  = [parts objectAtIndex: 1];
+            NSString * bugFixS = (  [parts count] == 3
+								  ? [parts objectAtIndex: 2]
+								  : @"0");
+            if (   ([majorS  length] != 0)
+                && ([minorS  length] != 0)
+                && ([bugFixS length] != 0)
+                ) {
+                int majorI  = [majorS  intValue];
+                int minorI  = [minorS  intValue];
+                int bugFixI = [bugFixS intValue];
+                if (   (majorI  == 10)
+                    && (minorI  >= 0)
+                    && (bugFixI >= 0)
+                    ) {
+                    *major  = (unsigned)majorI;
+                    *minor  = (unsigned)minorI;
+                    *bugFix = (unsigned)bugFixI;
+                    return EXIT_SUCCESS;
+                } else {
+                    appendLog([NSString stringWithFormat: @"getSystemVersion: invalid 'ProductVersion': '%@'; majorI = %d; minorI = %d; bugFixI = %d",
+                               productVersion, majorI, minorI, bugFixI]);
+                }
+            } else {
+                appendLog([NSString stringWithFormat: @"getSystemVersion: invalid 'ProductVersion' (one or more empty fields): '%@'", productVersion]);
+            }
+        } else {
+            appendLog([NSString stringWithFormat: @"getSystemVersion: invalid 'ProductVersion' (not n.n.n): '%@'", productVersion]);
+        }
+    } else {
+        appendLog(@"getSystemVersion: could not get dictionary from /System/Library/CoreServices/SystemVersion.plist");
+    }
+    
+    return EXIT_FAILURE;
+}
 
 unsigned cvt_atou(const char * s, NSString * description)
 {

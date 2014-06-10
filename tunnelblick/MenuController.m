@@ -43,7 +43,6 @@
 #import "MainIconView.h"
 #import "MyPrefsWindowController.h"
 #import "NSApplication+LoginItem.h"
-#import "NSApplication+SystemVersion.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
 #import "NSTimer+TB.h"
@@ -2355,15 +2354,16 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 - (NSString *) openVPNLogHeader
 {
     unsigned major, minor, bugFix;
-    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
+    NSString * currentVersionString = (  getSystemVersion(&major, &minor, &bugFix) == EXIT_SUCCESS
+                                       ? [NSString stringWithFormat:@"%d.%d.%d", major, minor, bugFix]
+                                       : @"version is unknown");
     
     NSArray  * versionHistory     = [gTbDefaults arrayForKey: @"tunnelblickVersionHistory"];
     NSString * priorVersionString = (  (  [versionHistory count] > 1  )
                                      ? [NSString stringWithFormat: @"; prior version %@", [versionHistory objectAtIndex: 1]]
                                      : @"");
 
-    return ([NSString stringWithFormat:@"*Tunnelblick: OS X %d.%d.%d; %@%@",
-             major, minor, bugFix, tunnelblickVersion([NSBundle mainBundle]), priorVersionString]);
+    return ([NSString stringWithFormat:@"*Tunnelblick: OS X %@; %@%@", currentVersionString, tunnelblickVersion([NSBundle mainBundle]), priorVersionString]);
 }
 
 - (void) checkForUpdates: (id) sender

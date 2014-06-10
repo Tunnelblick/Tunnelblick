@@ -475,6 +475,8 @@ extern NSFileManager * gFileMgr;
         } else {
             [[self class] deleteAppFromLoginItems];
         }
+        
+        return;
     }
     
     NSString* appPath = [[NSBundle mainBundle] bundlePath];

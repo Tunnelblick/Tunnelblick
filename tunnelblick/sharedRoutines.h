@@ -22,6 +22,8 @@
 #import <Foundation/Foundation.h>
 
 
+OSStatus getSystemVersion(unsigned * major, unsigned * minor, unsigned * bugFix);
+
 unsigned cvt_atou(const char * s, NSString * description);
 
 BOOL checkSetItemOwnership(NSString *     path,

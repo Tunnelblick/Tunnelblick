@@ -1107,19 +1107,18 @@ int checkSignature(void) {
     
     mode_t permissions = 0755;  // Permissions for codesign for Snow Leopard & higher. Leopard has 0555 permissions
     
-    OSErr err;
-    SInt32 systemVersion;
-    if (  (err = Gestalt(gestaltSystemVersion, &systemVersion)) == noErr  ) {
-        if ( systemVersion < 0x1050) {
+    OSStatus err;
+    unsigned major, minor, bugFix;
+    if (  EXIT_SUCCESS == (err = getSystemVersion(&major, &minor, &bugFix))  ) {
+        if ( minor < 5) {
             fprintf(stdout, "Tunnelblick: Assuming digital signature is valid because OS X 10.4 (\"Tiger\") doesn't support digital signatures");
             exitOpenvpnstart(EXIT_SUCCESS);
         }
-        if ( systemVersion < 0x1060) {
+        if ( minor < 6) {
             permissions = 0550;
         }
     } else {
-        fprintf(stderr, "Tunnelblick: Unable to determine OS version; assuming 'codesign' has permissions of 0755. Error = %ld\nError was '%s'",
-                (long) err, strerror(errno));
+        fprintf(stderr, "Tunnelblick: Unable to determine OS version; assuming 'codesign' has permissions of 0755. Error = %ld", (long) err);
     }
     
     if (  ! [[NSFileManager defaultManager] fileExistsAtPath: TOOL_PATH_FOR_CODESIGN]  ) {  // If codesign binary doesn't exist, complain and assume it is NOT valid
@@ -1223,12 +1222,13 @@ NSString * TunTapSuffixToUse(void) {
     //        * Mavericks and higher           SIGNED current version
     
     NSString * suffixToReturn;
-    OSErr err;
-    SInt32 systemVersion;
-    if (  (err = Gestalt(gestaltSystemVersion, &systemVersion)) == noErr  ) {
-        if         ( systemVersion < 0x1060) {
+
+    OSStatus err;
+    unsigned major, minor, bugFix;
+    if (  EXIT_SUCCESS == (err = getSystemVersion(&major, &minor, &bugFix))  ) {
+        if         ( minor < 6) {
             suffixToReturn = @"-20090913.kext";
-        } else if  ( systemVersion < 0x1090) {
+        } else if  ( minor < 9) {
             suffixToReturn = @".kext";
         } else {
             suffixToReturn = @"-signed.kext";

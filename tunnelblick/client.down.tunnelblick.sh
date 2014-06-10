@@ -36,47 +36,69 @@ flushDNSCache()
         set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
         readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
         set -e # We instruct bash that it CAN again fail on errors
-        case "${OSVER}" in
-            10.4 )
-                if [ -f /usr/sbin/lookupd ] ; then
-                    /usr/sbin/lookupd -flushcache
-                    logMessage "Flushed the DNS Cache"
-                else
-                    logMessage "/usr/sbin/lookupd not present. Not flushing the DNS cache"
-                fi
-                ;;
-            10.5 | 10.6 )
-                if [ -f /usr/bin/dscacheutil ] ; then
-                    /usr/bin/dscacheutil -flushcache
-                    logMessage "Flushed the DNS Cache"
-                else
-                    logMessage "/usr/bin/dscacheutil not present. Not flushing the DNS cache"
-                fi
-                ;;
-            * )
-				set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-				hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
-				set -e # We instruct bash that it CAN again fail on errors
-				if [ "${hands_off_ps}" = "" ] ; then
-					if [ -f /usr/bin/killall ] ; then
-						/usr/bin/killall -HUP mDNSResponder
-						logMessage "Flushed the DNS Cache"
-					else
-						logMessage "/usr/bin/killall not present. Not flushing the DNS cache"
-					fi
+	    if [ "${OSVER}" = "10.4" ] ; then
+
+			if [ -f /usr/sbin/lookupd ] ; then
+				set +e # we will catch errors from lookupd
+				/usr/sbin/lookupd -flushcache
+				if [ $? != 0 ] ; then
+					logMessage "Unable to flush the DNS cache via lookupd"
 				else
-					logMessage "Hands Off is running. Not flushing the DNS cache"
+					logMessage "Flushed the DNS cache via lookupd"
 				fi
-                ;;
-        esac
+				set -e # bash should again fail on errors
+			else
+				logMessage "/usr/sbin/lookupd not present. Not flushing the DNS cache"
+			fi
+
+		else
+
+			if [ -f /usr/bin/dscacheutil ] ; then
+				set +e # we will catch errors from dscacheutil
+				/usr/bin/dscacheutil -flushcache
+				if [ $? != 0 ] ; then
+					logMessage "Unable to flush the DNS cache via dscacheutil"
+				else
+					logMessage "Flushed the DNS cache via dscacheutil"
+				fi
+				set -e # bash should again fail on errors
+			else
+				logMessage "/usr/bin/dscacheutil not present. Not flushing the DNS cache via dscacheutil"
+			fi
+		
+			set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
+			hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
+			set -e # We instruct bash that it CAN again fail on errors
+			if [ "${hands_off_ps}" = "" ] ; then
+				if [ -f /usr/bin/killall ] ; then
+					set +e # ignore errors if mDNSResponder isn't currently running
+					/usr/bin/killall -HUP mDNSResponder
+					if [ $? != 0 ] ; then
+						logMessage "mDNSResponder not running. Not notifying it that the DNS cache was flushed"
+					else
+						logMessage "Notified mDNSResponder that the DNS cache was flushed"
+					fi
+					set -e # bash should again fail on errors
+				else
+					logMessage "/usr/bin/killall not present. Not notifying mDNSResponder that the DNS cache was flushed"
+				fi
+			else
+				logMessage "Hands Off is running.  Not notifying mDNSResponder that the DNS cache was flushed"
+			fi
+		
+		fi
     fi
 }
 
 ##########################################################################################
 resetPrimaryInterface()
 {
-    set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
-    PINTERFACE="$( scutil <<-EOF |
+	set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
+	WIFI_INTERFACE="$(networksetup -listallhardwareports | awk '$3=="Wi-Fi" {getline; print $2}')"
+	if [ "${WIFI_INTERFACE}" == "" ] ; then
+		WIFI_INTERFACE="$(networksetup -listallhardwareports | awk '$3=="AirPort" {getline; print $2}')"
+    fi
+	PINTERFACE="$( scutil <<-EOF |
         open
         show State:/Network/Global/IPv4
         quit
@@ -86,10 +108,28 @@ EOF
     set -e # resume abort on error
 
     if [ "${PINTERFACE}" != "" ] ; then
-        logMessage "Resetting primary interface '${PINTERFACE}'..."
-        /sbin/ifconfig "${PINTERFACE}" down
-        sleep 2
-        /sbin/ifconfig "${PINTERFACE}" up
+	    if [ "${PINTERFACE}" == "${WIFI_INTERFACE}" -a "${OSVER}" != "10.4" -a -f /usr/sbin/networksetup ] ; then
+		    if [ "${OSVER}" == "10.5" ] ; then
+			    logMessage "Resetting primary interface '${PINTERFACE}' via networksetup -setairportpower off/on..."
+				/usr/sbin/networksetup -setairportpower off
+				sleep 2
+				/usr/sbin/networksetup -setairportpower on
+			else
+				logMessage "Resetting primary interface '${PINTERFACE}' via networksetup -setairportpower ${PINTERFACE} off/on..."
+				/usr/sbin/networksetup -setairportpower "${PINTERFACE}" off
+				sleep 2
+				/usr/sbin/networksetup -setairportpower "${PINTERFACE}" on
+			fi
+		else
+		    if [ -f /sbin/ifconfig ] ; then
+			    logMessage "Resetting primary interface '${PINTERFACE}' via ifconfig ${PINTERFACE} down/up..."
+                /sbin/ifconfig "${PINTERFACE}" down
+                sleep 2
+			    /sbin/ifconfig "${PINTERFACE}" up
+			else
+				logMessage "Not resetting primary interface because /sbin/ifconfig does not exist."
+			fi
+		fi
     else
         logMessage "Not resetting primary interface because it cannot be found."
     fi
