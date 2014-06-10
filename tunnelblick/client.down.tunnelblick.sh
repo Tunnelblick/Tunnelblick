@@ -112,15 +112,30 @@ if [ -e   "/tmp/tunnelblick-downscript-needs-to-be-run.txt" ] ; then
     rm -f "/tmp/tunnelblick-downscript-needs-to-be-run.txt"
 fi
 
+# Test for the "-r" (Reset primary interface after disconnecting) Tunnelbick option because we _always_ need its value.
+# Usually we get the value for that option (and the other options) from State:/Network/OpenVPN,
+# but that key may not exist (because, for example, there were no DNS changes).
+# So we get the value from the Tunnelbick options passed to this script by OpenVPN.
+ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="false"
+while [ {$#} ] ; do
+    if [ "${1:0:1}" != "-" ] ; then				# Tunnelblick arguments start with "-" and come first
+        break                                   # so if this one doesn't start with "-" we are done processing Tunnelblick arguments
+    fi
+    if [ "$1" = "-r" ] ; then                   # -r = ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT
+        ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="true"
+    fi
+    shift                                       # Shift arguments to examine the next option (if there is one)
+done
+
 # Quick check - is the configuration there?
 if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
-	# Configuration isn't there, so we forget it
-    logMessage "WARNING: No saved Tunnelblick DNS configuration found; not doing anything."
-    logMessage "End of output from ${OUR_NAME}"
-    logMessage "**********************************************"
+	# Configuration isn't there
+    logMessage "WARNING: Not restoring DNS settings because no saved Tunnelblick DNS information was found."
     if ${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT} ; then
         resetPrimaryInterface
     fi
+    logMessage "End of output from ${OUR_NAME}"
+    logMessage "**********************************************"
 	exit 0
 fi
 
