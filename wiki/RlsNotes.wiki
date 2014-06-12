@@ -9,6 +9,32 @@
 
 ==Version 3.4==
 
+*3.4beta28 build 3872 (2014-06-12)*
+
+ * Includes OpenSSL library version 1.0.1h, which fixes several security vulnerabilities (see [http://www.openssl.org/news/secadv_20140605.txt OpenSSL Security Advisory 05 Jun 2014]).
+
+ * Includes (some) preparation for OS X 10.10 ('Yosemite').
+
+ * Fixes a problem that crashes Tunnelblick if the 'VPN Details…' window is displayed when there no configurations.
+
+ * Fixes a problem that caused a failure to update the connection status and statistics.
+
+ * Fixes problems flushing the DNS cache on OS X 10.5 and 10.10 ('Leopard' and 'Yosemite').
+
+ * Fixes problems resetting the primary interface.
+
+ * Fixes problems installing or deleting configurations that contain locked files or folders.
+
+ * Fixes problems that caused the notification window to fail to appear when the pointer hovers over the Tunnelblick icon on OS X 10.5 ('Leopard').
+
+ * Fixes a problem that caused delays and invalid Console log messages on OS X 10.9 and 10.10 ('Mavericks' and 'Yosemite').
+ 
+ * Fixes a problem when a .tblk contains an up.sh or down.sh script.
+
+ * Fixes several minor cosmetic problems, including the mislabeling of the 'Copy Diagnostic Info to Clipboard' button on OS X 10.4 and 10.5 ('Tiger' and 'Leopard').
+
+--------------------
+
 *3.4beta26 build 3828 (2014-05-02)*
 
  * Replaces OpenVPN version 2.3.3 with version 2.3.4. Tunnelblick now contains OpenVPN versions 2.2.1, 2.3.2, and 2.3.4.
@@ -377,6 +403,10 @@
 --------------------
 
 ==Version 3.3==
+
+*3.3.4 build 3518.3872 (2014-06-12)*
+
+ * Includes OpenSSL library version 1.0.1h, which fixes several security vulnerabilities (see [http://www.openssl.org/news/secadv_20140605.txt OpenSSL Security Advisory 05 Jun 2014]).
 
 *3.3.2 build 3518.3792 (2014-04-08)*
 
