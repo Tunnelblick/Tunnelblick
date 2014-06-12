@@ -451,7 +451,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * key = [[connection displayName] stringByAppendingString: @"useDNS"];
 
     unsigned arrayCount = [[[configurationsPrefsView setNameserverArrayController] content] count];
-    if (  (arrayCount - 1) != MAX_SET_DNS_WINS_INDEX) {
+    if (  (arrayCount - 1) > MAX_SET_DNS_WINS_INDEX) {
         NSLog(@"MAX_SET_DNS_WINS_INDEX = %u but there are %u entries in the array", (unsigned)MAX_SET_DNS_WINS_INDEX, arrayCount);
         [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
     }
