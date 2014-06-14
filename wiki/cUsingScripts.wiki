@@ -1,8 +1,8 @@
 #summary Using Scripts
 #sidebar cSb
-<wiki:toc max_depth="2" />
+<h2>Using Scripts</h2>
 
-==Using Scripts==
+<wiki:toc max_depth="2" />
 
 *<font color="red">Most Tunnelblick users do not need to use the information on this page; Tunnelblick uses scripts automatically.</font>*
 
@@ -10,20 +10,21 @@
 
 This document is about the scripts that Tunnelblick uses. Tunnelblick itself may be accessed from !AppleScripts; see [cAppleScriptSupport AppleScript Support].
 
-Tunnelblick uses four types of scripts: Tunnelblick VPN Configuration scripts, up- and down- scripts, the leasewatch script, and executable files (which may be scripts).
+Tunnelblick uses four types of scripts: Tunnelblick VPN Configuration scripts, OpenVPN scripts, the leasewatch script, and executable files (which may be scripts).
 
 ==Tunnelblick VPN Configuration scripts==
 Tunnelblick VPN Configuration scripts are shell scripts that are run by Tunnelblick at particular points in the connection process.
  * They are only available in [cConfigT Tunnelblick VPN Configurations] (available in Tunnelblick 3.1beta06 or later).
  * Tunnelblick does not include any of these scripts; see the [DownloadsEntry Downloads page] for user-contributed scripts.
  * They may be used in special circumstances -- for example, to make modifications to the network configuration when a tunnel is active.
- * The post-disconnect script is not run unless Tunnelblick is running at the time the disconnection occurs. (This may not be the case for 'connect when computer starts' configurations.)
+ * The scripts are not run unless Tunnelblick is running, which may or may not be the case for 'connect when computer starts' configurations.
+ * The scripts are run as "root". (But [#Environment_Variables environment variables] include the actual user's username.)
  * The following scripts may be used (they must have these exact names):
-   * *pre-connect.sh* is executed (as root) before Tunnelblick would unload and/or load the tun or tap kexts (whether or not any unload or load takes place).
-   * *post-tun-tap-load.sh* is executed (as root) after Tunnelblick unloads and/or loads the tun or tap kexts (whether or not any unload or load takes place). Thus, the script is executed immediately before starting OpenVPN. Available in Tunnelblick 3.2beta02 and later only.
-   * *connected.sh* is executed (as root) when a configuration connects. This script is executed only if Tunnelblick is running at the time of the event, which may not be the case for 'when computer starts' configurations. Available in Tunnelblick 3.2beta02 and later only.
-   * *reconnecting.sh* is executed (as root) when OpenVPN loses the VPN connection and is trying to reconnect. This script is executed only if Tunnelblick is running at the time of the event, which may not be the case for 'when computer starts' configurations. Available in Tunnelblick 3.2beta02 and later only.
-   * *post-disconnect.sh* is executed (as root) after OpenVPN has closed the connection. This script is executed only if Tunnelblick is running at the time of the event, which may not be the case for 'when computer starts' configurations.
+   * *pre-connect.sh* is executed before Tunnelblick would unload and/or load the tun or tap kexts (whether or not any unload or load takes place).
+   * *post-tun-tap-load.sh* is executed after Tunnelblick unloads and/or loads the tun or tap kexts (whether or not any unload or load takes place). Thus, the script is executed immediately before starting OpenVPN.
+   * *connected.sh* is executed when a configuration connects.
+   * *reconnecting.sh* is executed when OpenVPN loses the VPN connection and is trying to reconnect.
+   * *post-disconnect.sh* is executed after OpenVPN has closed the connection.
 
 ==OpenVPN scripts==
 OpenVPN scripts are scripts run by OpenVPN directly.
