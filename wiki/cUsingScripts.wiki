@@ -1,5 +1,6 @@
 #summary Using Scripts
 #sidebar cSb
+<wiki:toc max_depth="2" />
 
 ==Using Scripts==
 
@@ -11,7 +12,8 @@ This document is about the scripts that Tunnelblick uses. Tunnelblick itself may
 
 Tunnelblick uses four types of scripts: Tunnelblick VPN Configuration scripts, up- and down- scripts, the leasewatch script, and executable files (which may be scripts).
 
-*Tunnelblick VPN Configuration scripts* shell scripts that are run by Tunnelblick at particular points in the connection process.
+==Tunnelblick VPN Configuration scripts==
+Tunnelblick VPN Configuration scripts are shell scripts that are run by Tunnelblick at particular points in the connection process.
  * They are only available in [cConfigT Tunnelblick VPN Configurations] (available in Tunnelblick 3.1beta06 or later).
  * Tunnelblick does not include any of these scripts; see the [DownloadsEntry Downloads page] for user-contributed scripts.
  * They may be used in special circumstances -- for example, to make modifications to the network configuration when a tunnel is active.
@@ -23,7 +25,12 @@ Tunnelblick uses four types of scripts: Tunnelblick VPN Configuration scripts, u
    * *reconnecting.sh* is executed (as root) when OpenVPN loses the VPN connection and is trying to reconnect. This script is executed only if Tunnelblick is running at the time of the event, which may not be the case for 'when computer starts' configurations. Available in Tunnelblick 3.2beta02 and later only.
    * *post-disconnect.sh* is executed (as root) after OpenVPN has closed the connection. This script is executed only if Tunnelblick is running at the time of the event, which may not be the case for 'when computer starts' configurations.
 
-*up- and down- scripts* are shell scripts that are run by OpenVPN immediately after connecting, and immediately after disconnecting, respectively. 
+==OpenVPN scripts==
+OpenVPN scripts are scripts run by OpenVPN directly.
+
+Tunnelblick tells OpenVPN to run Tunnelblick's up and down scripts if Tunnelblick's "Set DNS/WINS" is set to anything other than "Do not set nameserver".
+
+up- and down- scripts are shell scripts that are run by OpenVPN immediately after connecting, and immediately after disconnecting, respectively. 
   * The scripts are run only when a "Set nameserver" option is selected in the configuration's Settings tab.
   * To run the scripts, Tunnelblick passes OpenVPN "--up", "--down" options. This means that any "up" or "down" options specified in the OpenVPN configuration file are ignored. To use your own custom scripts from within the configuration file, select "Do not set nameserver".
   * Tunnelblick includes a standard up script and a standard down script (client.up.tunnelblick.sh and client.down.tunnelblick.sh, respectively) that are used if no other scripts are present. They are located in Tunnelblick.app/Contents/Resources. The scripts save the current DNS configuration and accept "pushed" configurations from the VPN server when the VPN is connected, and restore the DNS configurations when the VPN is disconnected. If "Monitor connection" is checked, the up script sets up to run the leasewatch script when a network configuration change is detected.
@@ -36,12 +43,14 @@ Tunnelblick uses four types of scripts: Tunnelblick VPN Configuration scripts, u
   * The standard scripts and Deployed scripts may be overridden by including "up.tunnelblick.sh", "down.tunnelblick.sh", and "route-pre-down.tunnelblick.sh" scripts in a [cConfigT Tunnelblick VPN Configuration].
   * For backward compatibility, deprecated scripts named "up.sh", "down.sh", "nomonitor.up.sh", "nomonitor.down.sh" will override any other scripts.
 
+==Other Scripts==
+Tunnelblick uses other scripts, too:
+
 *leasewatch* is a script that is run when a VPN is connected, "Monitor connections" is checked for the configuration, and a network configuration change is detected. It ignores the change, restarts the connection, or restores the VPN's DNS and WINS configuration as appropriate. It is located in Tunnelblick.app/Contents/Resources/leasewatch.
 
 *Executable files*, which may be scripts, are files in /Deploy/Menu (see [cCusDeployed Deploying  Tunnelblick]) which are executed when Tunnelblick launches, when a connection is made, or when the user clicks on additional menu commands. See [cCusDeployed#Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs] for details.
 
-===Script Execution Order===
-
+==Script Execution Order==
 Tunnelblick VPN Configuration scripts and -up and -down scripts are executed as follows:
 
  # USER ASKS for connection (or one is started by 'connect on launch')
@@ -51,8 +60,8 @@ Tunnelblick VPN Configuration scripts and -up and -down scripts are executed as 
  # connect.sh will run if/when the connection is successfully made
  # If OpenVPN detects a problem and attempts to reconnect:
   * reconnect.sh will run
-  * down script will run at the start of the reonnection process
-  * up script wil be run at the end of the reconnection process
+  * If the OpenVPN '--persist-tun' option is not specified, down script will run at the start of the reconnection process
+  * If the OpenVPN '--persist-tun' option is not specified, up script wil be run at the end of the reconnection process
  # connect.sh will run each time (if any) a reconnection attempt is successful
  # USER ASKS for connection to be terminated (or quits Tunnelblicks and it isn't a 'when computer starts' configuration)
  # down script is run 
@@ -63,6 +72,28 @@ Notes:
  * The order of execution of the up script and the connected.sh script is undefined.
  * The order of execution of the down script and the post-disconnect.sh script is undefined.
  * The order of execution of the down and up scripts and the reconnecting.sh script is undefined.
+
+==Environment Variables==
+Tunnelblick VPN Configuration scripts inherit the environment variables from Tunnelblick itself. By default (on OS X 10.8 "Mountain Lion"), they are:
+{{{
+ SHELL=/bin/bash
+ TMPDIR=/var/folders/***
+ Apple_PubSub_Socket_Render=/tmp/***
+ USER=***
+ COMMAND_MODE=unix2003
+ SSH_AUTH_SOCK=/tmp/launch-OVkVOl/Listeners
+ __CF_USER_TEXT_ENCODING=0x1F5:0:0
+ PATH=/usr/bin:/bin:/usr/sbin:/sbin
+ PWD=/private/tmp
+ SHLVL=1
+ HOME=/Users/***
+ LOGNAME=***
+ DISPLAY=/tmp/***
+ _=/usr/bin/env
+}}}
+(where "`*``*``*`" indicates information that varies from login to login or user to user.)
+
+OpenVPN scripts have environment variables set up as specified in the [https://community.openvpn.net/openvpn/wiki/Openvpn22ManPage OpenVPN 2.2 man page] or the [https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage OpenVPN 2.3 man page].
 
 ------------------
 
