@@ -29,9 +29,11 @@
 #import "NSFileManager+TB.h"
 #import "NSTimer+TB.h"
 #import "Sparkle/SUUpdater.h"
+#import "TBUserDefaults.h"
 
 extern NSFileManager        * gFileMgr;
 extern BOOL                   gShuttingDownWorkspace;
+extern TBUserDefaults       * gTbDefaults;
 
 @implementation ConfigurationUpdater
 
@@ -82,7 +84,7 @@ extern BOOL                   gShuttingDownWorkspace;
                                     
                                     [cfgUpdater setDelegate:                      self];
                                     
-                                    [cfgUpdater setAutomaticallyChecksForUpdates: YES];
+                                    [cfgUpdater setAutomaticallyChecksForUpdates: ! [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]];
                                     [cfgUpdater setFeedURL:                       cfgFeedURL];
                                     [cfgUpdater setUpdateCheckInterval:           cfgCheckInterval];
                                     [cfgUpdater setAutomaticallyDownloadsUpdates: NO];                  // MUST BE 'NO' because "Install" on Quit doesn't work properly

@@ -397,12 +397,12 @@ NSArray * gConfigurationPreferences;
         sleep(1);
         if (  ! [userDefaults synchronize]  ) {
             NSLog(@"Failed to synchronize preferences in 2 tries");
-            TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
-                            [NSString stringWithFormat:
-                             NSLocalizedString(@"Tunnelblick was unable to save its preferences -- OS X refused to save them.\n\n"
-                                               @"The preferences may have become corrupt; if so you may need to delete the file that contains them. That file is\n\n"
-                                               @"/Users/%@/Library/Preferences/net.tunnelblick.tunnelblick.plist", @"Window text"), NSUserName()],
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+							  [NSString stringWithFormat:
+							   NSLocalizedString(@"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\n"
+												 @"The preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n"
+												 @"/Users/%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\n"
+                                                 @"If they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them).", @"Window text"), NSUserName()]);
         } else {
             NSLog(@"Failed to synchronize preferences on first attempt but the retry succeeded");
         }
@@ -596,7 +596,7 @@ NSArray * gConfigurationPreferences;
     NSMutableArray * groups = [[[self objectForKey: groupsKey] mutableCopy] autorelease];
     if (  groups  ) {
         if (  [[groups class] isSubclassOfClass: [NSArray class]]  ) {
-            unsigned ix = [groups indexOfObject: groupName];
+            NSUInteger ix = [groups indexOfObject: groupName];
             if (  ix != NSNotFound  ) {
                 [groups removeObjectAtIndex: ix];
 				if (  [groups count] == 0  ) {
@@ -621,7 +621,7 @@ NSArray * gConfigurationPreferences;
         NSMutableArray * groups = [[[self objectForKey: groupsKey] mutableCopy] autorelease];
         if (  groups  ) {
             if (  [[groups class] isSubclassOfClass: [NSArray class]]  ) {
-                unsigned ix = [groups indexOfObject: groupName];
+                NSUInteger ix = [groups indexOfObject: groupName];
                 if (  ix == NSNotFound  ) {
                     [groups addObject: groupName];
                     [self setObject: groups forKey: groupsKey];

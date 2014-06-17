@@ -259,6 +259,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(void)             setHotKeyIndex:                         (unsigned)          newIndex;
 -(void)             setState:                               (NSString *)        newState;
 -(void)             setOurPreferencesFromSparkles;
+-(void)             setupUpdaterAutomaticChecks;
 -(NSArray *)        sortedSounds;
 -(unsigned)         statusScreenIndex;
 -(void)             unloadKexts;

@@ -1026,16 +1026,13 @@ extern NSString * lastPartOfPath(NSString * thePath);
                                         @"Tunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n",
                                         @"Window text"), (double) timeoutToUse, [self displayName]];
 
-    TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window text"),
-                    msg,
-                    nil, nil, nil);
+    TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window text"), msg);
 }
 
 - (void) ipInfoErrorDialog
 {
-    TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window text"),
-                    NSLocalizedString(@"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n", @"Window text"),
-                    nil, nil, nil);
+    TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window text"),
+                      NSLocalizedString(@"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n", @"Window text"));
 }
 
 - (void) ipInfoInternetNotReachableDialog
@@ -1084,9 +1081,12 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 - (BOOL) okToCheckForIPAddressChange {
     
-    NSString * key = [displayName stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-	BOOL value = [gTbDefaults boolWithDefaultYesForKey: key];
-    return ! value;
+	if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]  ) {
+		return NO;
+	}
+	
+	NSString * key = [displayName stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+	return ! [gTbDefaults boolForKey: key];
 }
 
 -(void) startCheckingIPAddressBeforeConnected
@@ -1310,11 +1310,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	
     if (   ( ! [[self configPath] hasPrefix: @"/Library/"] )
         && ( ! [[[self configPath] pathExtension] isEqualToString: @"tblk"] )  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Unavailable", @"Window title"),
-                        NSLocalizedString(@"You may not connect this configuration.\n\n"
-                                          @"If you convert it to a 'Tunnelblick VPN Connection' (.tblk), you"
-                                          @" will be able to connect.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Unavailable", @"Window title"),
+                          NSLocalizedString(@"You may not connect this configuration.\n\n"
+                                            @"If you convert it to a 'Tunnelblick VPN Connection' (.tblk), you"
+                                            @" will be able to connect.", @"Window text"));
         return;
     }
 
@@ -1419,12 +1418,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             if (  status != 0  ) {
                 NSLog(@"Tunnelblick runOnConnect item %@ returned %d; '%@' connect cancelled", path, status, displayName);
                 if (  userKnows  ) {
-                    TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
-                                    [NSString
-                                     stringWithFormat: NSLocalizedString(@"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d.", @"Window text"),
-                                     [self displayName],
-                                     status],
-                                    nil, nil, nil);
+                    TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
+									  [NSString
+									   stringWithFormat: NSLocalizedString(@"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d.", @"Window text"),
+									   [self displayName], status]);
                     requestedState = oldRequestedState;
                 }
                 areConnecting = FALSE;
@@ -1533,11 +1530,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         }
         
 		if (  userKnows  ) {
-            TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
-                            [NSString stringWithFormat:
-                             NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window", @"Window text"),
-                             [self displayName]],
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
+							  [NSString stringWithFormat:
+							   NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window", @"Window text"),
+							   [self displayName]]);
             requestedState = oldRequestedState;
         }
     } else {
@@ -1610,13 +1606,12 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			
 		default:
 			NSLog(@"Internal Tunnelblick error: unknown status %ld from compareShadowCopy(%@)", (long) status, [self displayName]);
-            TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
-                            [NSString stringWithFormat: NSLocalizedString(@"An error (status %ld) ocurred while trying to"
-                                                                          @" check the security of the %@ configuration.\n\n"
-                                                                          @"Please quit and relaunch Tunnelblick. If the problem persists, please"
-                                                                          @" reinstall Tunnelblick.", @"Window text"),
-							 (long) status, [self displayName]],
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+							  [NSString stringWithFormat: NSLocalizedString(@"An error (status %ld) ocurred while trying to"
+																			@" check the security of the %@ configuration.\n\n"
+																			@"Please quit and relaunch Tunnelblick. If the problem persists, please"
+																			@" reinstall Tunnelblick.", @"Window text"),
+							   (long) status, [self displayName]]);
 			return NO;
 	}
 	
@@ -1649,10 +1644,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             if (  useVersionIx == NSNotFound  ) {
                 useVersionIx = [versionNames count] - 1;
                 NSString * useVersionName = [versionNames lastObject];
-                TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Changing setting to use the latest version (%@) that is included in this version of Tunnelblick.", @"Window text"),
-                                 prefVersion, useVersionName],
-                                nil, nil, nil);
+                TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								  [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Changing setting to use the latest version (%@) that is included in this version of Tunnelblick.", @"Window text"),
+								   prefVersion, useVersionName]);
                 [gTbDefaults setObject: useVersionName forKey: prefKey];
                 NSLog(@"OpenVPN version %@ is not available; using version %@", prefVersion, useVersionName);
             }
@@ -2198,14 +2192,13 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) tellUserAboutDisconnectWait
 {
-    TBRunAlertPanel(NSLocalizedString(@"OpenVPN Not Responding", @"Window title"),
-                    [NSString stringWithFormat: NSLocalizedString(@"OpenVPN is not responding to disconnect requests.\n\n"
-                                                                  "There is a known bug in OpenVPN version 2.1 that sometimes"
-                                                                  " causes a delay of one or two minutes before it responds to such requests.\n\n"
-                                                                  "Tunnelblick will continue to try to disconnect for up to %d seconds.\n\n"
-                                                                  "The connection will be unavailable until OpenVPN disconnects or %d seconds elapse,"
-                                                                  " whichever comes first.", @"Window text"), forceKillTimeout, forceKillTimeout],
-                    nil, nil, nil);
+    TBShowAlertWindow(NSLocalizedString(@"OpenVPN Not Responding", @"Window title"),
+					  [NSString stringWithFormat: NSLocalizedString(@"OpenVPN is not responding to disconnect requests.\n\n"
+																	"There is a known bug in OpenVPN version 2.1 that sometimes"
+																	" causes a delay of one or two minutes before it responds to such requests.\n\n"
+																	"Tunnelblick will continue to try to disconnect for up to %d seconds.\n\n"
+																	"The connection will be unavailable until OpenVPN disconnects or %d seconds elapse,"
+																	" whichever comes first.", @"Window text"), forceKillTimeout, forceKillTimeout]);
 }    
 
 -(void) forceKillWatchdogHandler
@@ -2231,12 +2224,11 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
         forceKillWaitSoFar += forceKillInterval;
         if (  forceKillWaitSoFar > forceKillTimeout) {
-            TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
-                            [NSString stringWithFormat: NSLocalizedString(@"OpenVPN has not responded to disconnect requests for %d seconds.\n\n"
-                                                                          "The connection will be considered disconnected, but this computer's"
-                                                                          " network configuration may be in an inconsistent state.", @"Window text"),
-                             forceKillTimeout],
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
+							  [NSString stringWithFormat: NSLocalizedString(@"OpenVPN has not responded to disconnect requests for %d seconds.\n\n"
+																			"The connection will be considered disconnected, but this computer's"
+																			" network configuration may be in an inconsistent state.", @"Window text"),
+							   forceKillTimeout]);
             [forceKillTimer invalidate];
             [self setForceKillTimer: nil];
             [self hasDisconnected];

@@ -163,7 +163,6 @@ extern TBUserDefaults       * gTbDefaults;
         return;
     }
     
-    // Select the appropriate Set nameserver entry
     NSString * key = [configurationName stringByAppendingString: @"useDNS"];
     unsigned ix = [gTbDefaults unsignedIntForKey: key
                                          default: 1
@@ -186,12 +185,14 @@ extern TBUserDefaults       * gTbDefaults;
         return;
     }
     
-    NSString * perConfigKey = [configurationName stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-    [checkIPAddressAfterConnectOnAdvancedCheckbox setState: (  [gTbDefaults boolForKey: perConfigKey]
-                                                             ? NSOffState
-                                                             : NSOnState)];
-    
-    [checkIPAddressAfterConnectOnAdvancedCheckbox setEnabled: [gTbDefaults canChangeValueForKey: perConfigKey]];
+	if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]  ) {
+		[checkIPAddressAfterConnectOnAdvancedCheckbox setState:   NSOffState];
+		[checkIPAddressAfterConnectOnAdvancedCheckbox setEnabled: NO];
+	} else {
+		[self setupCheckbox: checkIPAddressAfterConnectOnAdvancedCheckbox
+						key: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
+				   inverted: YES];
+	}
 }
 
 -(void) setupFlushDNSCheckbox {
@@ -200,7 +201,6 @@ extern TBUserDefaults       * gTbDefaults;
         return;
     }
     
-    // Select the appropriate Set nameserver entry
     NSString * key = [configurationName stringByAppendingString: @"useDNS"];
     unsigned ix = [gTbDefaults unsignedIntForKey: key
                                          default: 1
@@ -250,9 +250,20 @@ extern TBUserDefaults       * gTbDefaults;
         return;
     }
     
-    [self setupCheckbox: resetPrimaryInterfaceAfterDisconnectCheckbox
-                    key: @"-resetPrimaryInterfaceAfterDisconnect"
-               inverted: NO];
+    NSString * key = [configurationName stringByAppendingString: @"useDNS"];
+    unsigned ix = [gTbDefaults unsignedIntForKey: key
+                                         default: 1
+                                             min: 0
+                                             max: MAX_SET_DNS_WINS_INDEX];
+    
+    if (  ix == 1  ) {
+		[self setupCheckbox: resetPrimaryInterfaceAfterDisconnectCheckbox
+						key: @"-resetPrimaryInterfaceAfterDisconnect"
+				   inverted: NO];
+	} else {
+		[resetPrimaryInterfaceAfterDisconnectCheckbox setState:   NSOffState];
+		[resetPrimaryInterfaceAfterDisconnectCheckbox setEnabled: NO];
+	}
 }
 
 - (void) setupRouteAllTrafficThroughVpnCheckbox {
@@ -872,7 +883,7 @@ extern TBUserDefaults       * gTbDefaults;
 
 // Methods for Connecting & Disconnecting tab
 
--(IBAction) reconnectWhenUnexpectedDisconnectCheckboxWasClicked: (id) sender {
+-(IBAction) reconnectWhenUnexpectedDisconnectCheckboxWasClicked: (NSButton *) sender {
     
     // This preference is NOT IMPLEMENTED, nor is there a checkbox in the .xib
     
@@ -882,7 +893,7 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 
--(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (id) sender
+-(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (NSButton *) sender
 {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
 																	 to: ([sender state] == NSOnState)
@@ -890,7 +901,7 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 
--(IBAction) showOnTunnelBlickMenuCheckboxWasClicked: (id) sender
+-(IBAction) showOnTunnelBlickMenuCheckboxWasClicked: (NSButton *) sender
 {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotShowOnTunnelblickMenu"
 																	 to: ([sender state] == NSOnState)
@@ -899,21 +910,21 @@ extern TBUserDefaults       * gTbDefaults;
     [[NSApp delegate] changedDisplayConnectionSubmenusSettings];
 }
 
--(IBAction) flushDnsCacheCheckboxWasClicked: (id) sender {
+-(IBAction) flushDnsCacheCheckboxWasClicked: (NSButton *) sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotFlushCache"
 																	 to: ([sender state] == NSOnState)
 														 inverted: YES];
 }
 
 
--(IBAction) prependDomainNameCheckboxWasClicked:(id)sender {
+-(IBAction) prependDomainNameCheckboxWasClicked: (NSButton *)sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-prependDomainNameToSearchDomains"
 																	 to: ([sender state] == NSOnState)
 														 inverted: NO];
 }
 
 
--(IBAction) disconnectOnSleepCheckboxWasClicked:(id)sender {
+-(IBAction) disconnectOnSleepCheckboxWasClicked: (NSButton *)sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisconnectOnSleep"
 																	 to: ([sender state] == NSOnState)
 														 inverted: YES];
@@ -921,27 +932,27 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 
--(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:(id)sender {
+-(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked: (NSButton *) sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnWakeFromSleep"
 																	 to: ([sender state] == NSOnState)
 														 inverted: YES];
 }
 
 
--(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked:(id)sender {
+-(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked: (NSButton *) sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-resetPrimaryInterfaceAfterDisconnect"
 																	 to: ([sender state] == NSOnState)
 														 inverted: NO];
 }
 
 
--(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:(id)sender {
+-(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked: (NSButton *) sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-routeAllTrafficThroughVpn"
 																	 to: ([sender state] == NSOnState)
 														 inverted: NO];
 }
 
--(IBAction) runMtuTestCheckboxWasClicked:(id)sender {
+-(IBAction) runMtuTestCheckboxWasClicked: (NSButton *) sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-runMtuTest"
 																	 to: ([sender state] == NSOnState)
 														 inverted: NO];
@@ -1002,14 +1013,14 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 
--(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked: (id) sender  {
+-(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked: (NSButton *) sender  {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisconnectOnFastUserSwitch"
 																	 to: ([sender state] == NSOnState)
 														 inverted: YES];
 }
 
 
--(IBAction) reconnectWhenUserSwitchesInCheckboxWasClicked: (id) sender {
+-(IBAction) reconnectWhenUserSwitchesInCheckboxWasClicked: (NSButton *) sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnFastUserSwitch"
 																	 to: ([sender state] == NSOnState)
 														 inverted: YES];
@@ -1038,7 +1049,7 @@ extern TBUserDefaults       * gTbDefaults;
     }
 }
 
--(IBAction) monitorNetworkForChangesCheckboxWasClicked: (id) sender {
+-(IBAction) monitorNetworkForChangesCheckboxWasClicked: (NSButton *) sender {
     
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-notMonitoringConnection"
 																	 to: ([sender state] == NSOnState)
@@ -1258,12 +1269,11 @@ extern TBUserDefaults       * gTbDefaults;
     
 	NSString * errMsg = [gTbDefaults removeNamedCredentialsGroup: groupName];
 	if (  errMsg  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        [NSString stringWithFormat:
-						 NSLocalizedString(@"The credentials named %@ could not be removed:\n\n%@", @"Window text"),
-						 groupName,
-						 errMsg],
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          [NSString stringWithFormat:
+						   NSLocalizedString(@"The credentials named %@ could not be removed:\n\n%@", @"Window text"),
+						   groupName,
+						   errMsg]);
 	} else {
 		[self initializeStaticContent];
 		[self setupSettingsFromPreferences];
@@ -1271,7 +1281,7 @@ extern TBUserDefaults       * gTbDefaults;
 	}
 }
 
--(IBAction) allConfigurationsUseTheSameCredentialsCheckboxWasClicked: (id) sender {
+-(IBAction) allConfigurationsUseTheSameCredentialsCheckboxWasClicked: (NSButton *) sender {
 	NSString * prefKey = @"namedCredentialsThatAllConfigurationsUse";
 	if (  [gTbDefaults canChangeValueForKey: prefKey]  ) {
 		if (  [sender state] == NSOffState) {
@@ -1302,12 +1312,11 @@ extern TBUserDefaults       * gTbDefaults;
 			} else {
 				NSString * errMsg = [gTbDefaults addNamedCredentialsGroup: newName];
 				if (  errMsg  ) {
-					TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
-                                    [NSString stringWithFormat:
-                                     NSLocalizedString(@"The credentials named %@ could not be added:\n\n%@", @"Window text"),
-                                     newName,
-                                     errMsg],
-                                    nil, nil, nil);
+					TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
+                                      [NSString stringWithFormat:
+                                       NSLocalizedString(@"The credentials named %@ could not be added:\n\n%@", @"Window text"),
+                                       newName,
+                                       errMsg]);
 				} else {
 					[self initializeStaticContent];
 					[self setupSettingsFromPreferences];

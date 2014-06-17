@@ -1939,7 +1939,7 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
             if (  [tokens count] > 0  ) {
                 NSString * firstToken = [tokens objectAtIndex: 0];
                 if (  [firstToken hasPrefix: @"<"]  ) {
-                    unsigned j;
+                    NSUInteger j;
                     if (  (j = [beginInlineKeys indexOfObject: firstToken]) != NSNotFound  ) {
                         unsigned beginLineNumber = i;
 						BOOL foundEnd = FALSE;
