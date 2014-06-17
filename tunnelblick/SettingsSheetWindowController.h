@@ -184,19 +184,21 @@ typedef enum {
 
 // Methods for Connecting tab
 
--(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (id) sender;
--(IBAction) showOnTunnelBlickMenuCheckboxWasClicked:          (id) sender;
--(IBAction) flushDnsCacheCheckboxWasClicked:                  (id) sender;
--(IBAction) prependDomainNameCheckboxWasClicked:              (id) sender;
--(IBAction) disconnectOnSleepCheckboxWasClicked:              (id) sender;
--(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:       (id) sender;
--(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked:   (id) sender;
--(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:      (id) sender;
--(IBAction) runMtuTestCheckboxWasClicked:                     (id) sender;
--(IBAction) connectingHelpButtonWasClicked:                   (id) sender;
+-(void) setupCheckIPAddressAfterConnectOnAdvancedCheckbox;
 
--(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked:  (id) sender;
--(IBAction) reconnectWhenUserSwitchesInCheckboxWasClicked:    (id) sender;
+-(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (NSButton *) sender;
+-(IBAction) showOnTunnelBlickMenuCheckboxWasClicked:                (NSButton *) sender;
+-(IBAction) flushDnsCacheCheckboxWasClicked:                        (NSButton *) sender;
+-(IBAction) prependDomainNameCheckboxWasClicked:                    (NSButton *) sender;
+-(IBAction) disconnectOnSleepCheckboxWasClicked:                    (NSButton *) sender;
+-(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:             (NSButton *) sender;
+-(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked: (NSButton *) sender;
+-(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:            (NSButton *) sender;
+-(IBAction) runMtuTestCheckboxWasClicked:                           (NSButton *) sender;
+-(IBAction) connectingHelpButtonWasClicked:                         (id)         sender;
+
+-(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked:  (NSButton *) sender;
+-(IBAction) reconnectWhenUserSwitchesInCheckboxWasClicked:    (NSButton *) sender;
 
 -(IBAction) loadTunAutomaticallyMenuItemWasClicked: (id) sender;
 -(IBAction) loadTapAutomaticallyMenuItemWasClicked: (id)sender;
@@ -208,7 +210,7 @@ typedef enum {
 
 // Methods for While Connected tab
 
--(IBAction)  monitorNetworkForChangesCheckboxWasClicked: (id) sender;
+-(IBAction)  monitorNetworkForChangesCheckboxWasClicked: (NSButton *) sender;
 
 -(IBAction)  whileConnectedHelpButtonWasClicked: (id) sender;
 
@@ -251,7 +253,7 @@ typedef enum {
 
 // Methods for Credentials tab
 
--(IBAction) allConfigurationsUseTheSameCredentialsCheckboxWasClicked: (id) sender;
+-(IBAction) allConfigurationsUseTheSameCredentialsCheckboxWasClicked: (NSButton *) sender;
 
 -(IBAction) addNamedCredentialsButtonWasClicked: (id) sender;
 

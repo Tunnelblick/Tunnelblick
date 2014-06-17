@@ -543,10 +543,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     if (  warnAndUseLatestVersion  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
-                         prefVersion, lastValue],
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						  [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
+						   prefVersion, lastValue]);
         [gTbDefaults setObject: @"-" forKey: key];
         openvpnVersionIx = [list count] - 1;
     }
@@ -1235,25 +1234,22 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
     if (   [gTbDefaults boolForKey: autoConnectKey]
         && [gTbDefaults boolForKey: onSystemStartKey]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        NSLocalizedString(@"You may not delete a configuration which is set to start when the computer starts.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You may not delete a configuration which is set to start when the computer starts.", @"Window text"));
         return;
     }
     
     if (  ! [connection isDisconnected]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Active connection", @"Window title"),
-                        NSLocalizedString(@"You may not delete a configuration unless it is disconnected.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Active connection", @"Window title"),
+                          NSLocalizedString(@"You may not delete a configuration unless it is disconnected.", @"Window text"));
         return;
     }
     
     NSString * configurationPath = [connection configPath];
     
     if (  [configurationPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        NSLocalizedString(@"You may not delete a Deployed configuration.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You may not delete a Deployed configuration.", @"Window text"));
         return;
     }
     
@@ -1350,24 +1346,21 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * onSystemStartKey = [sourceDisplayName stringByAppendingString: @"-onSystemStart"];
     if (   [gTbDefaults boolForKey: autoConnectKey]
         && [gTbDefaults boolForKey: onSystemStartKey]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        NSLocalizedString(@"You may not rename a configuration which is set to start when the computer starts.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You may not rename a configuration which is set to start when the computer starts.", @"Window text"));
         return;
     }
     
     if (  ! [connection isDisconnected]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Active connection", @"Window title"),
-                        NSLocalizedString(@"You cannot rename a configuration unless it is disconnected.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Active connection", @"Window title"),
+                          NSLocalizedString(@"You cannot rename a configuration unless it is disconnected.", @"Window text"));
         return;
     }
     
     NSString * sourcePath = [connection configPath];
     if (  [sourcePath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        NSLocalizedString(@"You may not rename a Deployed configuration.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You may not rename a Deployed configuration.", @"Window text"));
         return;
     }
     
@@ -1416,9 +1409,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         moveCredentials([connection displayName], targetDisplayName); // Do this so "<source>-keychainHasUsernameAndPassword" preference is used
         
         if (  ! [gTbDefaults movePreferencesFrom: [connection displayName] to: targetDisplayName]  ) {
-            TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
-                            NSLocalizedString(@"Warning: One or more preferences could not be renamed. See the Console Log for details.", @"Window text"),
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                              NSLocalizedString(@"Warning: One or more preferences could not be renamed. See the Console Log for details.", @"Window text"));
         }
         
         // moveCredentials deleted "-keychainHasUsernameAndPassword" for the from configuration's preferences, so we restore it to the "to" configuration's preferences
@@ -1458,17 +1450,15 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
     if (   [gTbDefaults boolForKey: autoConnectKey]
         && [gTbDefaults boolForKey: onSystemStartKey]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        NSLocalizedString(@"You may not duplicate a configuration which is set to start when the computer starts.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You may not duplicate a configuration which is set to start when the computer starts.", @"Window text"));
         return;
     }
     
     NSString * source = [connection configPath];
     if (  [source hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        NSLocalizedString(@"You may not duplicate a Deployed configuration.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You may not duplicate a Deployed configuration.", @"Window text"));
         return;
     }
     
@@ -1494,9 +1484,8 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     if (  copyNumber > 99  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
-                        NSLocalizedString(@"Too many duplicate configurations already exist.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                          NSLocalizedString(@"Too many duplicate configurations already exist.", @"Window text"));
         return;
     }
     
@@ -1518,9 +1507,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
         if (  ! [gTbDefaults copyPreferencesFrom: displayName to: targetDisplayName]  ) {
-            TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
-                            NSLocalizedString(@"Warning: One or more preferences could not be duplicated. See the Console Log for details.", @"Window text"),
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                              NSLocalizedString(@"Warning: One or more preferences could not be duplicated. See the Console Log for details.", @"Window text"));
         }
         
         copyCredentials([connection displayName], targetDisplayName);
@@ -1548,17 +1536,15 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
     if (   [gTbDefaults boolForKey: autoConnectKey]
         && [gTbDefaults boolForKey: onSystemStartKey]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        NSLocalizedString(@"You cannot make a configuration private if it is set to start when the computer starts.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You cannot make a configuration private if it is set to start when the computer starts.", @"Window text"));
         return;
     }
     
     NSString * path = [connection configPath];
     if (  ! [[path pathExtension] isEqualToString: @"tblk"]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        NSLocalizedString(@"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk).", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk).", @"Window text"));
         return;
     }
     
@@ -1567,9 +1553,8 @@ static BOOL firstTimeShowingWindow = TRUE;
                           ? NSLocalizedString(@"You cannot make a configuration private unless it is disconnected.", @"Window text")
                           : NSLocalizedString(@"You cannot make a configuration shared unless it is disconnected.", @"Window text")
                           );
-        TBRunAlertPanel(NSLocalizedString(@"Active connection", @"Window title"),
-                        msg,
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Active connection", @"Window title"),
+                          msg);
         return;
     }
     
@@ -1590,18 +1575,16 @@ static BOOL firstTimeShowingWindow = TRUE;
 	NSString * source = [connection configPath];
 
     if (  ! [source hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        NSLocalizedString(@"You may only revert a private configuration.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You may only revert a private configuration.", @"Window text"));
         return;
     }
 	
 	if ( [connection shadowIsIdenticalMakeItSo: NO]  ) {
-		TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-						[NSString stringWithFormat:
-						 NSLocalizedString(@"%@ is already identical to its last secured (shadow) copy.\n\n", @"Window text"),
-						 [connection displayName]],
-						nil, nil, nil);
+		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						  [NSString stringWithFormat:
+						   NSLocalizedString(@"%@ is already identical to its last secured (shadow) copy.\n\n", @"Window text"),
+						   [connection displayName]]);
         return;
 	}
     
@@ -1622,23 +1605,20 @@ static BOOL firstTimeShowingWindow = TRUE;
 	switch (  result  ) {
 			
 		case OPENVPNSTART_REVERT_CONFIG_OK:
-			TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-							[NSString stringWithFormat:
-							 NSLocalizedString(@"%@ has been reverted to its last secured (shadow) copy.\n\n", @"Window text"),
-							 [connection displayName]],
-							nil, nil, nil);
+			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+							  [NSString stringWithFormat:
+							   NSLocalizedString(@"%@ has been reverted to its last secured (shadow) copy.\n\n", @"Window text"),
+							   [connection displayName]]);
 			break;
 			
 		case OPENVPNSTART_REVERT_CONFIG_MISSING:
-			TBRunAlertPanel(NSLocalizedString(@"Configuration Installation Error", @"Window title"),
-							NSLocalizedString(@"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy.", @"Window text"),
-							nil, nil, nil);
+			TBShowAlertWindow(NSLocalizedString(@"Configuration Installation Error", @"Window title"),
+							  NSLocalizedString(@"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy.", @"Window text"));
 			break;
 			
 		default:
-			TBRunAlertPanel(NSLocalizedString(@"Configuration Installation Error", @"Window title"),
-							NSLocalizedString(@"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n", @"Window text"),
-							nil, nil, nil);
+			TBShowAlertWindow(NSLocalizedString(@"Configuration Installation Error", @"Window title"),
+							  NSLocalizedString(@"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n", @"Window text"));
 			break;
 	}
 }
@@ -1670,9 +1650,8 @@ static BOOL firstTimeShowingWindow = TRUE;
             result = [[NSWorkspace sharedWorkspace] selectFile: path inFileViewerRootedAtPath: @""];
         }
         if (  ! result  ) {
-            TBRunAlertPanel(NSLocalizedString(@"File not found", @"Window title"),
-                            NSLocalizedString(@"The OpenVPN log does not yet exist or has been deleted.", @"Window text"),
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"File not found", @"Window title"),
+                              NSLocalizedString(@"The OpenVPN log does not yet exist or has been deleted.", @"Window text"));
         }
     } else {
         NSLog(@"showOpenvpnLogMenuItemWasClicked but no configuration selected");
@@ -1728,11 +1707,10 @@ static BOOL firstTimeShowingWindow = TRUE;
                 }
             }
         } else {
-            TBRunAlertPanel(NSLocalizedString(@"No Credentials", @"Window title"),
-                            [NSString stringWithFormat:
-                             NSLocalizedString(@"'%@' does not have any credentials (private key or username and password) stored in the Keychain.", @"Window text"),
-                             name],
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"No Credentials", @"Window title"),
+                             [NSString stringWithFormat:
+                              NSLocalizedString(@"'%@' does not have any credentials (private key or username and password) stored in the Keychain.", @"Window text"),
+                             name]);
         }
         
     } else {
@@ -2082,18 +2060,16 @@ static BOOL firstTimeShowingWindow = TRUE;
             selectedWhenToConnectIndex = 2;
             [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: (int)ix];
             [self setSelectedWhenToConnectIndex: ix];
-            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                            NSLocalizedString(@"Private configurations cannot connect when the computer starts.\n\n"
-                                              "First make the configuration shared, then change this setting.", @"Window text"),
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"Private configurations cannot connect when the computer starts.\n\n"
+                                                "First make the configuration shared, then change this setting.", @"Window text"));
         } else if (  ! [[configurationPath pathExtension] isEqualToString: @"tblk"]  ) {
             NSUInteger ix = selectedWhenToConnectIndex;
             selectedWhenToConnectIndex = 2;
             [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: (int)ix];
             [self setSelectedWhenToConnectIndex: ix];
-            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                            NSLocalizedString(@"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.", @"Window text"),
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.", @"Window text"));
         } else {
             [self setSelectedWhenToConnectIndex: 2];
         }
@@ -2143,7 +2119,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
--(IBAction) monitorNetworkForChangesCheckboxWasClicked: (id) sender
+-(IBAction) monitorNetworkForChangesCheckboxWasClicked: (NSButton *) sender
 {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-notMonitoringConnection"
 																	 to: ([sender state] == NSOnState)
@@ -2152,7 +2128,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     [settingsSheetWindowController monitorNetworkForChangesCheckboxChangedForConnection: [self selectedConnection]];
 }
 
--(IBAction) keepConnectedCheckboxWasClicked: (id) sender
+-(IBAction) keepConnectedCheckboxWasClicked: (NSButton *) sender
 {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-keepConnected"
 																	 to: ([sender state] == NSOnState)
@@ -2370,11 +2346,10 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     if (  failedToFixPreferences  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        [NSString stringWithFormat: 
-                         NSLocalizedString(@"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log", @"Window text"),
-                         displayName],
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          [NSString stringWithFormat: 
+                           NSLocalizedString(@"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log", @"Window text"),
+                           displayName]);
     }
     if (  fixedPreferences || cancelledFixPlist || fixedPlist) {
         ; // Avoid analyzer warnings about unused variables
@@ -2555,29 +2530,48 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 
 //***************************************************************************************************************
 
--(void) setupGeneralView
-{
-	[[NSApp delegate] setOurPreferencesFromSparkles]; // Sparkle may have changed it's preferences so we update ours
+-(void) setupUpdatesCheckboxes {
 	
     // Set values for the update checkboxes
-    [self setValueForCheckbox: [generalPrefsView updatesCheckAutomaticallyCheckbox]
-                preferenceKey: @"updateCheckAutomatically"
-                     inverted: NO
-                   defaultsTo: FALSE];
-    
-    [self setValueForCheckbox: [generalPrefsView updatesCheckForBetaUpdatesCheckbox]
-                preferenceKey: @"updateCheckBetas"
-                     inverted: NO
-                   defaultsTo: runningABetaVersion()];
-    
-    [self setValueForCheckbox: [generalPrefsView updatesSendProfileInfoCheckbox]
-                preferenceKey: @"updateSendProfileInfo"
-                     inverted: NO
-                   defaultsTo: FALSE];
+	
+	if (  [gTbDefaults boolForKey:@"inhibitOutboundTunneblickTraffic"]  ) {
+		NSButton * checkbox = [generalPrefsView updatesCheckAutomaticallyCheckbox];
+		[checkbox setState:   NSOffState];
+		[checkbox setEnabled: NO];
+		
+	} else {
+		[self setValueForCheckbox: [generalPrefsView updatesCheckAutomaticallyCheckbox]
+					preferenceKey: @"updateCheckAutomatically"
+						 inverted: NO
+					   defaultsTo: FALSE];
+    }
+	
+	[self setValueForCheckbox: [generalPrefsView updatesCheckForBetaUpdatesCheckbox]
+				preferenceKey: @"updateCheckBetas"
+					 inverted: NO
+				   defaultsTo: runningABetaVersion()];
+	
+	[self setValueForCheckbox: [generalPrefsView updatesSendProfileInfoCheckbox]
+				preferenceKey: @"updateSendProfileInfo"
+					 inverted: NO
+				   defaultsTo: FALSE];
     
     // Set the last update date/time
     [self updateLastCheckedDate];
 
+}
+
+-(void) setupGeneralView
+{
+	[[NSApp delegate] setOurPreferencesFromSparkles]; // Sparkle may have changed it's preferences so we update ours
+	
+	[self setValueForCheckbox: [generalPrefsView inhibitOutboundTunnelblickTrafficCheckbox]
+				preferenceKey: @"inhibitOutboundTunneblickTraffic"
+					 inverted: NO
+				   defaultsTo: FALSE];
+	
+	[self setupUpdatesCheckboxes];
+	
     // Select the keyboard shortcut
     
     unsigned kbsCount = [[[generalPrefsView keyboardShortcutArrayController] content] count];
@@ -2647,7 +2641,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 }
 
 
--(IBAction) updatesSendProfileInfoCheckboxWasClicked: (id) sender
+-(IBAction) updatesSendProfileInfoCheckboxWasClicked: (NSButton *) sender
 {
     SUUpdater * updater = [[NSApp delegate] updater];
     if (  [updater respondsToSelector: @selector(setSendsSystemProfile:)]  ) {
@@ -2661,29 +2655,32 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 }
 
 
--(IBAction) updatesCheckAutomaticallyCheckboxWasClicked: (id) sender
+-(IBAction) inhibitOutboundTunnelblickTrafficCheckboxWasClicked: (NSButton *) sender
 {
- 	(void) sender;
+	[gTbDefaults setBool: [sender state] forKey: @"inhibitOutboundTunneblickTraffic"];
 	
-   SUUpdater * updater = [[NSApp delegate] updater];
+	[self setupUpdatesCheckboxes];
+	[settingsSheetWindowController setupCheckIPAddressAfterConnectOnAdvancedCheckbox];
+	
+    [[NSApp delegate] changedCheckForBetaUpdatesSettings];
+}
+
+
+-(IBAction) updatesCheckAutomaticallyCheckboxWasClicked: (NSButton *) sender
+{
+    SUUpdater * updater = [[NSApp delegate] updater];
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
         [[NSApp delegate] setOurPreferencesFromSparkles]; // Sparkle may have changed it's preferences so we update ours
-        if (  ! [gTbDefaults boolForKey:@"updateCheckAutomatically"]  ) {
-            // Was OFF, trying to change to ON
-            [gTbDefaults setBool: TRUE forKey: @"updateCheckAutomatically"];
-            [updater setAutomaticallyChecksForUpdates: YES];
-        } else {
-            // Was ON, change to OFF
-            [gTbDefaults setBool: FALSE forKey: @"updateCheckAutomatically"];
-            [updater setAutomaticallyChecksForUpdates: NO];
-        }
+		
+        [gTbDefaults setBool: [sender state] forKey: @"updateCheckAutomatically"];
+		[[NSApp delegate] setupUpdaterAutomaticChecks];
     } else {
-        NSLog(@"'Automatically Check for Updates' change ignored because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:");
+        NSLog(@"'Automatically Check for Updates' change ignored because the updater does not respond to setAutomaticallyChecksForUpdates:");
     }
 }
 
 
--(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked: (id) sender
+-(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked: (NSButton *) sender
 {
     [gTbDefaults setBool: [sender state] forKey: @"updateCheckBetas"];
     
@@ -2993,66 +2990,38 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 	//                which is invoked by setupAppearanceConnectionWindowDisplayCriteriaButton
 }
 
--(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (id) sender
+-(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (NSButton *) sender
 {
-	if (  [sender state]  ) {
-		[gTbDefaults setBool: FALSE forKey:@"doNotShowConnectionSubmenus"];
-	} else {
-		[gTbDefaults setBool: TRUE  forKey:@"doNotShowConnectionSubmenus"];
-	}
-    
+    [gTbDefaults setBool: ! [sender state] forKey:@"doNotShowConnectionSubmenus"];
     [[NSApp delegate] changedDisplayConnectionSubmenusSettings];
 }
 
--(IBAction) appearanceDisplayConnectionTimersCheckboxWasClicked: (id) sender
+-(IBAction) appearanceDisplayConnectionTimersCheckboxWasClicked: (NSButton *) sender
 {
-	if (  [sender state]  ) {
-		[gTbDefaults setBool: TRUE  forKey:@"showConnectedDurations"];
-	} else {
-		[gTbDefaults setBool: FALSE forKey:@"showConnectedDurations"];
-	}
-    
+    [gTbDefaults setBool: [sender state]  forKey:@"showConnectedDurations"];
     [[NSApp delegate] changedDisplayConnectionTimersSettings];
 }
 
--(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked: (id) sender
+-(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked: (NSButton *) sender
 {
-	if (  [sender state]  ) {
-		[gTbDefaults setBool: FALSE forKey:@"doNotShowSplashScreen"];
-	} else {
-		[gTbDefaults setBool: TRUE  forKey:@"doNotShowSplashScreen"];
-	}
+	[gTbDefaults setBool: ! [sender state] forKey:@"doNotShowSplashScreen"];
 }
 
--(IBAction) appearancePlaceIconNearSpotlightCheckboxWasClicked: (id) sender
+-(IBAction) appearancePlaceIconNearSpotlightCheckboxWasClicked: (NSButton *) sender
 {
-	if (  [sender state]  ) {
-		[gTbDefaults setBool: FALSE forKey:@"placeIconInStandardPositionInStatusBar"];
-	} else {
-		[gTbDefaults setBool: TRUE  forKey:@"placeIconInStandardPositionInStatusBar"];
-	}
-    
-    // Start using the new setting
+	[gTbDefaults setBool: ! [sender state] forKey:@"placeIconInStandardPositionInStatusBar"];
     [[NSApp delegate] recreateStatusItemAndMenu];
 }
 
--(IBAction) appearanceDisplayStatisticsWindowsCheckboxWasClicked: (id) sender
+-(IBAction) appearanceDisplayStatisticsWindowsCheckboxWasClicked: (NSButton *) sender
 {
-	if (  [sender state]  ) {
-		[gTbDefaults setBool: FALSE forKey:@"doNotShowNotificationWindowOnMouseover"];
-	} else {
-		[gTbDefaults setBool: TRUE  forKey:@"doNotShowNotificationWindowOnMouseover"];
-	}
+	[gTbDefaults setBool: ! [sender state] forKey:@"doNotShowNotificationWindowOnMouseover"];
     [[[NSApp delegate] ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
 }
 
 -(IBAction) appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked: (NSButton *) sender
 {
-	if (  [sender state]  ) {
-		[gTbDefaults setBool: FALSE forKey:@"doNotShowDisconnectedNotificationWindows"];
-	} else {
-		[gTbDefaults setBool: TRUE  forKey:@"doNotShowDisconnectedNotificationWindows"];
-	}
+	[gTbDefaults setBool: ! [sender state] forKey:@"doNotShowDisconnectedNotificationWindows"];
     [[[NSApp delegate] ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
 }
 
@@ -3208,13 +3177,11 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     NSArray  * arguments = [NSArray arrayWithObject: @"killall"];
     OSStatus status = runOpenvpnstart(arguments, nil, nil);
     if (  status == EXIT_SUCCESS  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
-                        NSLocalizedString(@"All OpenVPN process were terminated.", @"Window title"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
+                          NSLocalizedString(@"All OpenVPN process were terminated.", @"Window title"));
     } else {
-        TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
-                        NSLocalizedString(@"One or more OpenVPN processes could not be terminated.", @"Window title"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
+                          NSLocalizedString(@"One or more OpenVPN processes could not be terminated.", @"Window title"));
     }
 }
 

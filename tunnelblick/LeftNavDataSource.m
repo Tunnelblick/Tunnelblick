@@ -290,13 +290,11 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     }
 	
 	if (  invalidConfigurationName(newName, PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING)  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        [NSString stringWithFormat:
-						 NSLocalizedString(@"Names may not include any of the following characters: %s\n\n%@", @"Window text"),
-						 PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING,
-						 @""],
-						
-						nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						  [NSString stringWithFormat:
+						   NSLocalizedString(@"Names may not include any of the following characters: %s\n\n%@", @"Window text"),
+						   PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING,
+						   @""]);
         return;
     }
 	
@@ -307,24 +305,21 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     NSString * onSystemStartKey = [sourceDisplayName stringByAppendingString: @"-onSystemStart"];
     if (   [gTbDefaults boolForKey: autoConnectKey]
         && [gTbDefaults boolForKey: onSystemStartKey]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        NSLocalizedString(@"You may not rename a configuration which is set to start when the computer starts.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						  NSLocalizedString(@"You may not rename a configuration which is set to start when the computer starts.", @"Window text"));
         return;
     }
     
     if (  ! [connection isDisconnected]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Active connection", @"Window title"),
-                        NSLocalizedString(@"You cannot rename a configuration unless it is disconnected.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Active connection", @"Window title"),
+						  NSLocalizedString(@"You cannot rename a configuration unless it is disconnected.", @"Window text"));
         return;
     }
     
     NSString * sourcePath = [connection configPath];
     if (  [sourcePath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        NSLocalizedString(@"You may not rename a Deployed configuration.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						  NSLocalizedString(@"You may not rename a Deployed configuration.", @"Window text"));
         return;
     }
     
@@ -354,9 +349,8 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
         moveCredentials([connection displayName], targetDisplayName); // Do this so "<source>-keychainHasUsernameAndPassword" preference is used
         
         if (  ! [gTbDefaults movePreferencesFrom: [connection displayName] to: targetDisplayName]  ) {
-            TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
-                            NSLocalizedString(@"Warning: One or more preferences could not be renamed. See the Console Log for details.", @"Window text"),
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                              NSLocalizedString(@"Warning: One or more preferences could not be renamed. See the Console Log for details.", @"Window text"));
         }
         
         // moveCredentials deleted "-keychainHasUsernameAndPassword" for the from configuration's preferences, so we restore it to the "to" configuration's preferences

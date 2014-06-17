@@ -273,6 +273,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"openvpnTerminationTimeout",
                                 @"displayUpdateInterval",
                                 
+								@"inhibitOutboundTunneblickTraffic",
                                 @"placeIconInStandardPositionInStatusBar",
                                 @"doNotMonitorConfigurationFolder",
 								@"doNotLaunchOnLogin",
@@ -1082,9 +1083,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
             NSLog(@"Unable to rename %@ to %@", path, [dotBadPath lastPathComponent]);
         }
         
-        TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
-                        NSLocalizedString(@"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+						 NSLocalizedString(@"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details.", @"Window text"));
     }
     
     return NO;
@@ -2157,12 +2157,11 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) addNewConfig: (NSString *) path withDisplayName: (NSString *) dispNm
 {
     if (  invalidConfigurationName(dispNm, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
-		TBRunAlertPanel(NSLocalizedString(@"Name not allowed", @"Window title"),
-						[NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' will be ignored because its"
-																	  @" name contains characters that are not allowed.\n\n"
-																	  @"Characters that are not allowed: '%s'\n\n", @"Window text"),
-						 dispNm, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING],
-						nil, nil, nil);
+		TBShowAlertWindow(NSLocalizedString(@"Name not allowed", @"Window title"),
+						 [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' will be ignored because its"
+																	   @" name contains characters that are not allowed.\n\n"
+																	   @"Characters that are not allowed: '%s'\n\n", @"Window text"),
+						  dispNm, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING]);
         return;
     }
     VPNConnection* myConnection = [[[VPNConnection alloc] initWithConfigPath: path
@@ -2222,9 +2221,8 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         [myConnection addToLog: @"*Tunnelblick: Disconnecting; user asked to delete the configuration"];
         [myConnection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];
         
-        TBRunAlertPanel([NSString stringWithFormat: NSLocalizedString(@"'%@' has been disconnected", @"Window title"), dispNm],
-                        [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick has disconnected '%@' because its configuration file has been removed.", @"Window text"), dispNm],
-                        nil, nil, nil);
+        TBShowAlertWindow([NSString stringWithFormat: NSLocalizedString(@"'%@' has been disconnected", @"Window title"), dispNm],
+						 [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick has disconnected '%@' because its configuration file has been removed.", @"Window text"), dispNm]);
     }
     
     OSStatus status = pthread_mutex_lock( &configModifyMutex );
@@ -3269,6 +3267,32 @@ static void signal_handler(int signalNumber)
     return TRUE;
 }
 
+-(void) setupUpdaterAutomaticChecks {
+    
+    if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
+        if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]  ) {
+            [updater setAutomaticallyChecksForUpdates: NO];
+        } else {
+            BOOL userIsAdminOrNonAdminsCanUpdate = (   userIsAnAdmin
+                                                    || ( ! [gTbDefaults boolForKey:@"onlyAdminCanUpdate"])  );
+			if (  userIsAdminOrNonAdminsCanUpdate  ) {
+				if (  [gTbDefaults preferenceExistsForKey: @"updateCheckAutomatically"]  ) {
+					[updater setAutomaticallyChecksForUpdates: [gTbDefaults boolForKey: @"updateCheckAutomatically"]];
+				}
+			} else {
+				if (  [gTbDefaults boolForKey: @"updateCheckAutomatically"]  ) {
+					NSLog(@"Automatic check for updates will not be performed because user is not allowed to administer this computer and 'onlyAdminCanUpdate' preference is set");
+				}
+				[updater setAutomaticallyChecksForUpdates: NO];
+			}
+		}
+    } else {
+        if (  [gTbDefaults preferenceExistsForKey: @"updateCheckAutomatically"]  ) {
+            NSLog(@"Automatic check for updates will not be performed because the updater does not respond to setAutomaticallyChecksForUpdates:");
+        }
+	}
+}
+
 - (void) applicationWillFinishLaunching: (NSNotification *)notification
 {
     // Sparkle Updater 1.5b6 allows system profiles to be sent to Tunnelblick's website.
@@ -3347,24 +3371,9 @@ static void signal_handler(int signalNumber)
     [self updateUpdateFeedURLForceDowngrade: NO];
     
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 003")
-    // Set up automatic update checking
-    if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
-        if (  userIsAdminOrNonAdminsCanUpdate  ) {
-            if (  [gTbDefaults preferenceExistsForKey: @"updateCheckAutomatically"]  ) {
-                [updater setAutomaticallyChecksForUpdates: [gTbDefaults boolForKey: @"updateCheckAutomatically"]];
-            }
-        } else {
-            if (  [gTbDefaults boolForKey: @"updateCheckAutomatically"]  ) {
-                NSLog(@"Automatic check for updates will not be performed because user is not allowed to administer this computer and 'onlyAdminCanUpdate' preference is set");
-            }
-            [updater setAutomaticallyChecksForUpdates: NO];
-        }
-    } else {
-        if (  [gTbDefaults preferenceExistsForKey: @"updateCheckAutomatically"]  ) {
-            NSLog(@"Ignoring 'updateCheckAutomatically' preference because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:");
-        }
-    }
     
+    [self setupUpdaterAutomaticChecks];
+	
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 004")
     if (  [updater respondsToSelector: @selector(setAutomaticallyDownloadsUpdates:)]  ) {
         if (  userIsAdminOrNonAdminsCanUpdate  ) {
@@ -3922,10 +3931,9 @@ static void signal_handler(int signalNumber)
         && ( ! [[self openvpnVersionNames] containsObject: prefVersion] )  ) {
 		NSString * useVersion = [[self openvpnVersionNames] lastObject];
         if (  [gTbDefaults canChangeValueForKey: @"*-openvpnVersion"]  ) {
-            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                            [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest (currently version %@) as the default.", @"Window text"),
-                             prefVersion, useVersion],
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+							 [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest (currently version %@) as the default.", @"Window text"),
+							  prefVersion, useVersion]);
             NSLog(@"OpenVPN version %@ is not available. Using the latest (currently version %@) as the default", prefVersion, useVersion);
             [gTbDefaults setObject: @"-" forKey: @"*-openvpnVersion"];
         } else {
@@ -4214,15 +4222,14 @@ static void signal_handler(int signalNumber)
                NSLog(@"Ignoring error return from TBRunAlertPanelExtended; not killing unknown OpenVPN processes");
            }
        } else {
-		   TBRunAlertPanel(NSLocalizedString(@"Warning: Unknown OpenVPN processes", @"Window title"),
-						   NSLocalizedString(@"One or more OpenVPN processes are running but are unknown"
-											 @" to Tunnelblick. If you are not running OpenVPN separately"
-											 @" from Tunnelblick, this usually means that an earlier"
-											 @" launch of Tunnelblick was unable to shut them down"
-											 @" properly and you should terminate them. They are likely"
-											 @" to interfere with Tunnelblick's operation.\n\n"
-											 @"They can be terminated in the 'Activity Monitor' application.\n\n", @"Window text"),
-						   nil, nil, nil);
+		   TBShowAlertWindow(NSLocalizedString(@"Warning: Unknown OpenVPN processes", @"Window title"),
+							 NSLocalizedString(@"One or more OpenVPN processes are running but are unknown"
+											   @" to Tunnelblick. If you are not running OpenVPN separately"
+											   @" from Tunnelblick, this usually means that an earlier"
+											   @" launch of Tunnelblick was unable to shut them down"
+											   @" properly and you should terminate them. They are likely"
+											   @" to interfere with Tunnelblick's operation.\n\n"
+											   @"They can be terminated in the 'Activity Monitor' application.\n\n", @"Window text"));
 		   noUnknownOpenVPNsRunning = NO;
 	   }
    } else {
@@ -5619,9 +5626,8 @@ BOOL warnAboutNonTblks(void)
     }
     
     NSLog(@"Installation or repair failed; Log:\n%@", installerLog);
-    TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
-                    NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
-                    nil, nil, nil);
+    TBShowAlertWindow(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
+                      NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"));
     [installerLog release];
     if (  authRefIsLocal  ) {
         AuthorizationFree(localAuthRef, kAuthorizationFlagDefaults);
@@ -6461,25 +6467,28 @@ void terminateBecauseOfBadConfiguration(void)
     
     // See if any connections that we are waking up allow us to check the IP address after connecting
     VPNConnection * connectionToCheckIpAddress = nil;
-    NSEnumerator *e = [connectionsToRestoreOnWakeup objectEnumerator];
-	VPNConnection *connection;
-	while (  (connection = [e nextObject])  ) {
-        NSString * name = [connection displayName];
-        NSString * key  = [name stringByAppendingString: @"-doNotReconnectOnWakeFromSleep"];
-        if (  ! [gTbDefaults boolForKey: key]  ) {
-            key = [name stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-            if (  ! [gTbDefaults boolForKey: key]  ) {
-                connectionToCheckIpAddress = [[connection retain] autorelease];
-                break;
-            }
-        }
-    }
-    
+
+	if (  ! [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"] ) {
+		NSEnumerator *e = [connectionsToRestoreOnWakeup objectEnumerator];
+		VPNConnection *connection;
+		while (  (connection = [e nextObject])  ) {
+			NSString * name = [connection displayName];
+			NSString * key  = [name stringByAppendingString: @"-doNotReconnectOnWakeFromSleep"];
+			if (  ! [gTbDefaults boolForKey: key]  ) {
+				key = [name stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+				if (  ! [gTbDefaults boolForKey: key]  ) {
+					connectionToCheckIpAddress = [[connection retain] autorelease];
+					break;
+				}
+			}
+		}
+	}
+	
     if (  connectionToCheckIpAddress  ) {
         NSString * threadID = [NSString stringWithFormat: @"%lu-%llu", (long) self, (long long) nowAbsoluteNanoseconds()];
         [self addActiveIPCheckThread: threadID];
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-							   connection, @"connection",
+							   connectionToCheckIpAddress, @"connection",
 							   threadID,   @"threadID",
 							   nil];
 		TBLog(@"DB-SW", @"wokeUpFromSleep: will check IP address to determine connectivity before reconnecting configurations")

@@ -187,14 +187,9 @@ decidePolicyForNavigationAction: (NSDictionary *) actionInformation
 	[[self delegate] welcomeOKButtonWasClicked];
 }
 
--(IBAction)   doNotShowAgainCheckboxWasClicked: sender
+-(IBAction)   doNotShowAgainCheckboxWasClicked: (NSButton *) sender
 {
-    (void) sender;
-	if (  [doNotShowAgainCheckbox state] == NSOnState  ) {
-		[gTbDefaults setBool: YES forKey: @"skipWelcomeScreen"];
-	} else {
-		[gTbDefaults setBool: NO  forKey: @"skipWelcomeScreen"];
-	}
+    [gTbDefaults setBool: [sender state] forKey: @"skipWelcomeScreen"];
 }
 
 -(NSButton *) doNotShowAgainCheckbox

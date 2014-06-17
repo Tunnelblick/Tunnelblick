@@ -28,6 +28,7 @@
 #import "defines.h"
 #import "sharedRoutines.h"
 
+#import "AlertWindowController.h"
 #import "AuthAgent.h"
 #import "KeyChain.h"
 #import "MenuController.h"
@@ -408,6 +409,23 @@ NSString * tunnelblickVersion(NSBundle * bundle)
     }
     return (version);
 }
+
+void TBShowAlertWindow (NSString * title,
+						NSString * msg) {
+	
+	// Displays an alert window and returns immediately, so it doesn't block the main thread.
+	// Used for informational messages that do not return a choice or have any side effects.
+	
+	AlertWindowController * awc = [[[AlertWindowController alloc] init] autorelease];
+	[awc setHeadline: title];
+	[awc setMessage:  msg];
+	NSWindow * win = [awc window];
+    [win center];
+	[awc showWindow:  nil];
+	[win makeKeyAndOrderFront: nil];
+    [NSApp activateIgnoringOtherApps: YES];
+}
+
 
 // Takes the same arguments as, and is similar to, NSRunAlertPanel
 // DOES NOT BEHAVE IDENTICALLY to NSRunAlertPanel:

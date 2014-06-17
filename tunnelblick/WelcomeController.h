@@ -52,7 +52,7 @@
 showDoNotShowAgainCheckbox: (BOOL) showTheCheckbox;
 
 -(IBAction)   okButtonWasClicked: sender;
--(IBAction)   doNotShowAgainCheckboxWasClicked: sender;
+-(IBAction)   doNotShowAgainCheckboxWasClicked: (NSButton *) sender;
 -(NSButton *) doNotShowAgainCheckbox;
 
 @end

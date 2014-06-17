@@ -74,6 +74,9 @@ NSString     * TBGetString				(NSString * msg,
 NSString     * TBGetDisplayName         (NSString * msg,
                                          NSString * sourcePath);
 
+void           TBShowAlertWindow        (NSString * title,
+                                         NSString * msg);
+
 int            TBRunAlertPanel          (NSString * title,
                                          NSString * msg,
                                          NSString * defaultButtonLabel,

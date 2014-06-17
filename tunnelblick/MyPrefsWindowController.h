@@ -125,9 +125,9 @@
 
 -(IBAction) configurationsHelpButtonWasClicked:       (id)  sender;
 
--(IBAction) monitorNetworkForChangesCheckboxWasClicked: (id) sender;
+-(IBAction) monitorNetworkForChangesCheckboxWasClicked: (NSButton *) sender;
 
--(IBAction) keepConnectedCheckboxWasClicked: (id) sender;
+-(IBAction) keepConnectedCheckboxWasClicked:            (NSButton *) sender;
 
 -(void)		validateDetailsWindowControls;
 
@@ -140,10 +140,11 @@
 
 // Methods for GeneralView
 
--(IBAction) updatesCheckAutomaticallyCheckboxWasClicked:  (id) sender;
--(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked: (id) sender;
--(IBAction) updatesSendProfileInfoCheckboxWasClicked:     (id) sender;
--(IBAction) updatesCheckNowButtonWasClicked:              (id) sender;
+-(IBAction) inhibitOutboundTunnelblickTrafficCheckboxWasClicked: (NSButton *) sender;
+-(IBAction) updatesCheckAutomaticallyCheckboxWasClicked:         (NSButton *) sender;
+-(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked:        (NSButton *) sender;
+-(IBAction) updatesSendProfileInfoCheckboxWasClicked:            (NSButton *) sender;
+-(IBAction) updatesCheckNowButtonWasClicked:                     (id) sender;
 
 -(IBAction) resetDisabledWarningsButtonWasClicked:        (id) sender;
 
@@ -152,16 +153,16 @@
 
 // Methods for AppearanceView
 
--(IBAction) appearancePlaceIconNearSpotlightCheckboxWasClicked:    (id) sender;
+-(IBAction) appearancePlaceIconNearSpotlightCheckboxWasClicked:    (NSButton *) sender;
 
--(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (id) sender;
--(IBAction) appearanceDisplayConnectionTimersCheckboxWasClicked:   (id) sender;
+-(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (NSButton *) sender;
+-(IBAction) appearanceDisplayConnectionTimersCheckboxWasClicked:   (NSButton *) sender;
 
--(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked:       (id) sender;
+-(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked:       (NSButton *) sender;
 
--(IBAction) appearanceDisplayStatisticsWindowsCheckboxWasClicked:  (id) sender;
+-(IBAction) appearanceDisplayStatisticsWindowsCheckboxWasClicked:  (NSButton *) sender;
 
--(IBAction) appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked: (id) sender;
+-(IBAction) appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked: (NSButton *) sender;
 
 -(IBAction) appearanceHelpButtonWasClicked:                        (id) sender;
 

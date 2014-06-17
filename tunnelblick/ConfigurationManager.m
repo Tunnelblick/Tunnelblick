@@ -205,12 +205,11 @@ enum state_t {                      // These are the "states" of the guideState 
             
             if (  addIt  ) {
                 if (  invalidConfigurationName(dispName, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
-                    TBRunAlertPanel(NSLocalizedString(@"Name not allowed", @"Window title"),
-                                    [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' will be ignored because its"
-                                                                                  @" name contains characters that are not allowed.\n\n"
-																				  @"Characters that are not allowed: '%s'\n\n", @"Window text"),
-									 dispName, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING],
-                                    nil, nil, nil);
+                    TBShowAlertWindow(NSLocalizedString(@"Name not allowed", @"Window title"),
+                                      [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' will be ignored because its"
+                                                                                    @" name contains characters that are not allowed.\n\n"
+																			        @"Characters that are not allowed: '%s'\n\n", @"Window text"),
+									   dispName, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING]);
                 } else {
                     if (  [dict objectForKey: dispName]  ) {
                         NSLog(@"Tunnelblick Configuration ignored: The name is already being used: %@", fullPath);
@@ -307,9 +306,8 @@ enum state_t {                      // These are the "states" of the guideState 
                                                                     text: configFileContents];
         [listingWindow showWindow: self];
     } else {
-        TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
-                        NSLocalizedString(@"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                          NSLocalizedString(@"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details.", @"Window text"));
     }
 }
 
@@ -494,9 +492,8 @@ enum state_t {                      // These are the "states" of the guideState 
             NSString * msg = [NSString stringWithFormat:
                               NSLocalizedString(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.", @"Window text"),
                               [connection displayName], option];
-            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
-                            msg,
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
+                              msg);
             [cfgContents release];
             return nil;
 		}
@@ -806,12 +803,11 @@ enum state_t {                      // These are the "states" of the guideState 
         }
     }
     if (  tooBigMsg  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
-                        [NSString stringWithFormat:
-						 NSLocalizedString(@"There was a problem:\n\n"
-										   @"%@", "Window text"),
-						 tooBigMsg],
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+                          [NSString stringWithFormat:
+						   NSLocalizedString(@"There was a problem:\n\n"
+										     @"%@", "Window text"),
+						   tooBigMsg]);
         if (  notifyDelegate  ) {
             [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
         }
@@ -819,9 +815,8 @@ enum state_t {                      // These are the "states" of the guideState 
     }
     
     if (  [gTbDefaults boolForKey: @"doNotOpenDotTblkFiles"]  )  {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
-                        NSLocalizedString(@"Installation of .tblk packages is not allowed", "Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+                          NSLocalizedString(@"Installation of .tblk packages is not allowed", "Window text"));
         if (  notifyDelegate  ) {
             [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
         }
@@ -840,9 +835,8 @@ enum state_t {                      // These are the "states" of the guideState 
     
     if (  ! installToPrivateOK  ) {
         if (  ! installToSharedOK  ) {
-            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
-                            NSLocalizedString(@"Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick.", "Window text"),
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+                              NSLocalizedString(@"Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick.", "Window text"));
             if (  notifyDelegate  ) {
                 [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
             }
@@ -981,9 +975,8 @@ enum state_t {                      // These are the "states" of the guideState 
             msg = [msg stringByAppendingString:NSLocalizedString(@"\n\nOther problems were also found, but they are likely to be a result of that problem. See the Console Log for details.", @"Window text")];
         }
         
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
-                        msg,
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+                          msg);
         if (  notifyDelegate  ) {
             [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
         }
@@ -1103,9 +1096,8 @@ enum state_t {                      // These are the "states" of the guideState 
             msg = [NSString stringWithFormat: NSLocalizedString(@"%d configurations were not installed. See the Console Log for details.", "Window text"),
                    nErrors];
         }
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
-                        msg,
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+                          msg);
         if (  notifyDelegate  ) {
             [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
         }
@@ -1138,9 +1130,8 @@ enum state_t {                      // These are the "states" of the guideState 
         }
         
         if (  ! skipResultMsg  ) {
-            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation", @"Window title"),
-                            msg,
-                            nil, nil, nil);
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation", @"Window title"),
+                              msg);
         }
         if (  notifyDelegate  ) {
             [NSApp replyToOpenOrPrint: NSApplicationDelegateReplySuccess];
@@ -1165,9 +1156,8 @@ enum state_t {                      // These are the "states" of the guideState 
         || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]
         || [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]  ) {
         NSLog(@"Configuration installer: Tunnelblick VPN Configuration is already installed: %@", filePath);
-        TBRunAlertPanel(NSLocalizedString(@"Configuration Installation Error", @"Window title"),
-                        NSLocalizedString(@"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Configuration Installation Error", @"Window title"),
+                          NSLocalizedString(@"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy.", @"Window text"));
         return nil;
     }
 	
@@ -2004,7 +1994,7 @@ enum state_t {                      // These are the "states" of the guideState 
         if (  warn  ) {
             NSString * title = NSLocalizedString(@"Could Not Copy Configuration", @"Window title");
             NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy the '%@' configuration. See the Console Log for details.", @"Window text"), name];
-            TBRunAlertPanel(title, msg, nil, nil, nil);
+            TBShowAlertWindow(title, msg);
         }
         
         return FALSE;
@@ -2014,7 +2004,7 @@ enum state_t {                      // These are the "states" of the guideState 
         if (  warn  ) {
             NSString * title = NSLocalizedString(@"Could Not Move Configuration", @"Window title");
             NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not move the '%@' configuration. See the Console Log for details.", @"Window text"), name];
-            TBRunAlertPanel(title, msg, nil, nil, nil);
+            TBShowAlertWindow(title, msg);
         }
         
         return FALSE;
@@ -2040,7 +2030,7 @@ enum state_t {                      // These are the "states" of the guideState 
         if (  warn  ) {
             NSString * title = NSLocalizedString(@"Could Not Uninstall Configuration", @"Window title");
             NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details.", @"Window text"), name];
-            TBRunAlertPanel(title, msg, nil, nil, nil);
+            TBShowAlertWindow(title, msg);
         }
         return FALSE;
     }
@@ -2159,9 +2149,8 @@ enum state_t {                      // These are the "states" of the guideState 
                 
                 if (  createDir(targetPath, 0755) == -1  ) {
                     NSLog(@"Installation failed. Not able to create %@", targetPath);
-                    TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
-                                    NSLocalizedString(@"Tunnelblick could not create the empty configuration folder", @"Window text"),
-                                    nil, nil, nil);
+                    TBShowAlertWindow(NSLocalizedString(@"Installation failed", @"Window title"),
+                                      NSLocalizedString(@"Tunnelblick could not create the empty configuration folder", @"Window text"));
                     return;
                 }
                 
@@ -2170,9 +2159,8 @@ enum state_t {                      // These are the "states" of the guideState 
                 NSString * sourcePath = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
                 if (  ! [gFileMgr tbCopyPath: sourcePath toPath: targetConfigPath handler: nil]  ) {
                     NSLog(@"Installation failed. Not able to copy %@ to %@", sourcePath, targetConfigPath);
-                    TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
-                                    NSLocalizedString(@"Tunnelblick could not create the sample configuration", @"Window text"),
-                                    nil, nil, nil);
+                    TBShowAlertWindow(NSLocalizedString(@"Installation failed", @"Window title"),
+                                      NSLocalizedString(@"Tunnelblick could not create the sample configuration", @"Window text"));
                     return;
                 }
                 
@@ -2181,26 +2169,25 @@ enum state_t {                      // These are the "states" of the guideState 
                 [[NSWorkspace sharedWorkspace] openFile: targetConfigPath withApplication: @"TextEdit"];
                 
                 // Display guidance about what to do after editing the sample configuration file
-                TBRunAlertPanel(NSLocalizedString(@"Sample Configuration Created", @"Window title"),
-                                NSLocalizedString(@"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened "
-                                                  "in TextEdit so you can modify the file for your VPN setup.\n\n"
-                                                  "When you have finished editing the OpenVPN configuration file and saved the changes, please\n\n"
-                                                  
-                                                  "1. Move or copy any key or certificate files associated with the configuration "
-                                                  "into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n"
-                                                  "(This folder has been opened in a Finder window so you can drag the files to it.)\n\n"
-                                                  
-                                                  "2. Change the folder's name to a name of your choice. "
-                                                  "This will be the name that Tunnelblick uses for the configuration.\n\n"
-                                                  
-                                                  "3. Add .tblk to the end of the folder's name.\n\n"
-                                                  
-                                                  "4. Double-click the folder to install the configuration.\n\n"
-                                                  
-                                                  "The new configuration will be available in Tunnelblick immediately.",
-                                                  
-                                                  @"Window text"),
-                                nil, nil, nil);
+                TBShowAlertWindow(NSLocalizedString(@"Sample Configuration Created", @"Window title"),
+								  NSLocalizedString(@"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened "
+													"in TextEdit so you can modify the file for your VPN setup.\n\n"
+													"When you have finished editing the OpenVPN configuration file and saved the changes, please\n\n"
+													
+													"1. Move or copy any key or certificate files associated with the configuration "
+													"into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n"
+													"(This folder has been opened in a Finder window so you can drag the files to it.)\n\n"
+													
+													"2. Change the folder's name to a name of your choice. "
+													"This will be the name that Tunnelblick uses for the configuration.\n\n"
+													
+													"3. Add .tblk to the end of the folder's name.\n\n"
+													
+													"4. Double-click the folder to install the configuration.\n\n"
+													
+													"The new configuration will be available in Tunnelblick immediately.",
+													
+													@"Window text"));
                 return;
                 
                 
@@ -2314,9 +2301,8 @@ enum state_t {                      // These are the "states" of the guideState 
                 
                 if (    createDir(targetPath, 0755) == -1    ) {
                     NSLog(@"Installation failed. Not able to create %@", targetPath);
-                    TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
-                                    NSLocalizedString(@"Tunnelblick could not create the empty configuration folder", @"Window text"),
-                                    nil, nil, nil);
+                    TBShowAlertWindow(NSLocalizedString(@"Installation failed", @"Window title"),
+                                      NSLocalizedString(@"Tunnelblick could not create the empty configuration folder", @"Window text"));
                     return;
                 }
                 

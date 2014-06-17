@@ -38,6 +38,10 @@
     IBOutlet NSTextField        * warningsTF;
     IBOutlet NSButton           * resetDisabledWarningsButton;
     
+    IBOutlet NSTextFieldCell    * tbInternetAccessTFC;
+    IBOutlet NSTextField        * tbInternetAccessTF;
+	IBOutlet NSButton           * inhibitOutboundTunnelblickTrafficCheckbox;
+	
     IBOutlet NSTextFieldCell    * updatesUpdatesTFC;
     IBOutlet NSTextField        * updatesUpdatesTF;
     IBOutlet NSButton           * updatesCheckAutomaticallyCheckbox;
@@ -49,6 +53,11 @@
     
     IBOutlet NSButton           * preferencesGeneralHelpButton;
 }
+
+TBPROPERTY_READONLY(NSTextFieldCell *,   tbInternetAccessTFC)
+TBPROPERTY_READONLY(NSTextField *,       tbInternetAccessTF)
+TBPROPERTY_READONLY(NSButton *,          inhibitOutboundTunnelblickTrafficCheckbox)
+
 
 TBPROPERTY_READONLY(NSTextFieldCell *,   updatesUpdatesTFC)
 TBPROPERTY_READONLY(NSTextField *,       updatesUpdatesTF)

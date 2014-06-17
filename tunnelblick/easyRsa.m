@@ -38,9 +38,8 @@ void easyRsaInstallFailed(NSString * message)
 {
     NSString * fullMessage = [NSString stringWithFormat: NSLocalizedString(@"easy-rsa installation failed: %@", @"Window text"), message];
     NSLog(@"%@", fullMessage);
-    TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
-                    fullMessage,
-                    nil, nil, nil);
+    TBShowAlertWindow(NSLocalizedString(@"Installation failed", @"Window title"),
+                      fullMessage);
 }
 
 BOOL usingOurEasyRsa(void) {
