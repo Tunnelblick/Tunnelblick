@@ -6,6 +6,9 @@
 #                        than 2.3alpha1, and to build ppc, i386, and x86_64 architectures for them.
 #                        2.3alpha1 and lower continue to be built only for ppc and i386 because
 #                        64-bit 2.2.1 builds have problems with certain OpenVPN setups.
+# Modified 2014-06-30 by Harold Molina-Bulla to identify correctly the machine hardware name in 
+#                        openvpn --version option. Also modified LZO and pkcs-helper machine identifier.
+#
 
 CC=gcc-4.0
 MACOSX_DEPLOYMENT_TARGET=10.4
@@ -86,7 +89,7 @@ built-pkcs11-helper: built-openssl
 		cd $(PKCS11_DIR); \
 		@echo Forcefully be clean; \
 		$(MAKE) clean; \
-		OPENSSL_CFLAGS="-I$(OPENSSL_DEST_DIR)/include/$$a" OPENSSL_LIBS="-L$(OPENSSL_DEST_DIR)/lib -lssl -lcrypto -lz" CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./configure --enable-static --enable-shared=no --disable-dependency-tracking --prefix=$$(pwd)/staging_$$a --includedir=$$(pwd)/staging/include; \
+		OPENSSL_CFLAGS="-I$(OPENSSL_DEST_DIR)/include/$$a" OPENSSL_LIBS="-L$(OPENSSL_DEST_DIR)/lib -lssl -lcrypto -lz" CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./configure --build=$$a-apple-darwin --enable-static --enable-shared=no --disable-dependency-tracking --prefix=$$(pwd)/staging_$$a --includedir=$$(pwd)/staging/include; \
 		@echo Build PKCS11-Helper; \
 		$(MAKE); \
 		@echo Install to $(PKCS11_TUNNELBLICK_STAGING_DIR)_$$a; \
@@ -110,7 +113,7 @@ built-lzo:
 		cd $(LZO_DIR); \
 		@echo Forcefully be clean; \
 		$(MAKE) clean; \
-		CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./configure --disable-dependency-tracking --disable-asm --prefix=$$(pwd)/staging_$$a/ --includedir=$$(pwd)/staging/include/; \
+		CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./configure --build=$$a-apple-darwin --disable-dependency-tracking --disable-asm --prefix=$$(pwd)/staging_$$a/ --includedir=$$(pwd)/staging/include/; \
 		@echo Build LZO; \
 		$(MAKE); \
 		@echo Install to $(LZO_DIR)/staging_$$a; \
@@ -166,7 +169,7 @@ built-openvpn: built-openvpn-patch built-lzo built-pkcs11-helper built-openssl
 			for a in $(TARGET_ARCHS); do \
 				$(MAKE) clean; \
 				autoreconf -i -v; \
-				CC="$(CC)" CFLAGS="$(CFLAGS) -arch $$a" LZO_CFLAGS="-I$(LZO_DIR)/staging/include" LZO_LIBS="-L$(LZO_DIR)/staging/lib -llzo2" OPENSSL_SSL_CFLAGS="-I$(OPENSSL_DEST_DIR)/include/$$a" OPENSSL_SSL_LIBS="$(OPENSSL_DEST_DIR)/lib/libssl.a" OPENSSL_CRYPTO_CFLAGS="-I$(OPENSSL_DEST_DIR)/include/$$a" OPENSSL_CRYPTO_LIBS="$(OPENSSL_DEST_DIR)/lib/libcrypto.a -lz" PKCS11_HELPER_CFLAGS="-I$(PKCS11_TUNNELBLICK_STAGING_DIR)/include/"  PKCS11_HELPER_LIBS="-L$(PKCS11_TUNNELBLICK_STAGING_DIR)/lib -lpkcs11-helper" ./configure --enable-static=yes --enable-shared --enable-pkcs11 --disable-debug --disable-plugin-auth-pam --disable-dependency-tracking --enable-crypto --enable-ssl ; \
+				CC="$(CC)" CFLAGS="$(CFLAGS) -arch $$a" LZO_CFLAGS="-I$(LZO_DIR)/staging/include" LZO_LIBS="-L$(LZO_DIR)/staging/lib -llzo2" OPENSSL_SSL_CFLAGS="-I$(OPENSSL_DEST_DIR)/include/$$a" OPENSSL_SSL_LIBS="$(OPENSSL_DEST_DIR)/lib/libssl.a" OPENSSL_CRYPTO_CFLAGS="-I$(OPENSSL_DEST_DIR)/include/$$a" OPENSSL_CRYPTO_LIBS="$(OPENSSL_DEST_DIR)/lib/libcrypto.a -lz" PKCS11_HELPER_CFLAGS="-I$(PKCS11_TUNNELBLICK_STAGING_DIR)/include/"  PKCS11_HELPER_LIBS="-L$(PKCS11_TUNNELBLICK_STAGING_DIR)/lib -lpkcs11-helper" OS_VERSION=`uname -r` ./configure --build=$$a-apple-darwin --enable-static=yes --enable-shared --enable-pkcs11 --disable-debug --disable-plugin-auth-pam --disable-dependency-tracking --enable-crypto --enable-ssl ; \
 				echo "Compiling openvpn"; \
 				$(MAKE) LIBS="$(OPENSSL_TARGET_FILES) -L$(PKCS11_TUNNELBLICK_STAGING_DIR)/lib -lpkcs11-helper -L$(LZO_DIR)/staging/lib -llzo2"; \
 				echo "Fixing down-root plugin" ; \
@@ -182,7 +185,7 @@ built-openvpn: built-openvpn-patch built-lzo built-pkcs11-helper built-openssl
 			for a in $(TARGET_ARCHS_2_2); do \
 				$(MAKE) clean; \
 				autoreconf -i -v; \
-				CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./configure --with-lzo-headers=$(LZO_DIR)/staging/include --with-lzo-lib=$(LZO_DIR)/staging/lib --with-pkcs11-helper-headers=$(PKCS11_TUNNELBLICK_STAGING_DIR)/include --with-pkcs11-helper-lib=$(PKCS11_TUNNELBLICK_STAGING_DIR)/lib --with-ssl-headers=$(OPENSSL_DEST_DIR)/include/$$a --with-ssl-lib=$(OPENSSL_DEST_DIR)/lib --disable-dependency-tracking; \
+				CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" OS_VERSION=`uname -r` ./configure --build=$$a-apple-darwin --with-lzo-headers=$(LZO_DIR)/staging/include --with-lzo-lib=$(LZO_DIR)/staging/lib --with-pkcs11-helper-headers=$(PKCS11_TUNNELBLICK_STAGING_DIR)/include --with-pkcs11-helper-lib=$(PKCS11_TUNNELBLICK_STAGING_DIR)/lib --with-ssl-headers=$(OPENSSL_DEST_DIR)/include/$$a --with-ssl-lib=$(OPENSSL_DEST_DIR)/lib --disable-dependency-tracking; \
 				$(MAKE) LIBS="$(OPENSSL_TARGET_FILES) -lpkcs11-helper -llzo2 -lz"; \
 				mv openvpn ../openvpn_tblk_$$a; \
 			done; \
