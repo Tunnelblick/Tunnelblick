@@ -119,6 +119,9 @@ An up or down script contains an error. Common causes:
  * The use of a script file that does not have execute permission for root.
  * The use of a script file with syntax errors.
 
+==Various problems when waking from computer sleep==
+There are several problems that can occur when the computer wakes from sleep. One solution to most problems is to set the configuration to "Disconnect when the computer goes to sleep" but NOT "Reconnect when the computer wakes from sleep", and reconnect manually when you wake up the computer. If that doesn't work, you may have to manually disconnect the VPN before putting the computer to sleep and then manually reconnect it when the computer wakes up. This problem is being worked on and should be fixed "soon" (maybe sometime in July 2014).
+
 ------------------
 
 ===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
