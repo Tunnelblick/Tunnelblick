@@ -23,6 +23,7 @@
     [cConfigT Setting up Tunnelblick]<br>
     [cConfigO Configuring OpenVPN]<br>
     [cIpInfo IP Address Changes]<br>
+    [cCvtDeployed Converting a Deployed Version]<br>
     [cServer Tunnelblick as a VPN Server]<br><br>
 *Troubleshooting*
     [cKnown Known Issues]<br>
