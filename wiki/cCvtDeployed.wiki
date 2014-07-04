@@ -1,0 +1,62 @@
+#summary Converting a "Deployed" Version of Tunnelblick to a "regular" Version
+#sidebar cSb
+
+<h3>Converting a "Deployed" version of Tunnelblick to a "regular" Version</h3>
+
+<wiki:toc max_depth="2" />
+
+<hr>
+==Why You May Want to Do This==
+
+The latest versions of Tunnelblick include important security changes. These changes modified the way that "Deployed" versions of Tunnelblick are created and are difficult for some VPN service providers to implement, so some of them continue to supply old "Deployed" versions to their users.
+
+If you are using such an older "Deployed" version of Tunnelblick, you may want to convert to using a non-Deployed version so that you can use the latest versions of Tunnelblick which include the security changes.
+
+_Note: Installing a Deployed version of Tunnelblick will "poison" an already-installed "regular" version. If you do so, it will be necessary to follow these instructions again, especially the "completely uninstall Tunnelblick" part of the instructions._
+
+If you are a VPN service provider distributing older Deployed versions of Tunnelblick, you may want to update them or change to using "automatically installed" configurations with a regular version of Tunnelblick. See [cDistribute Distributing Tunnelblick] for details.
+
+<hr>
+==How To for Experts==
+ # Copy (do not move)<br>*Tunnelblick.app/Contents/Resources/Deploy*<br>to the Desktop.<br>
+ # [cInstall#Uninstalling_Tunnelblick Completely uninstall Tunnelblick].<br>
+ # Install the latest version of Tunnelblick from [DownloadsEntry Tunnelblick Downloads]. Launch Tunnelblick and proceed normally; quit when you are asked about configurations
+ # Copy the contents of the Deploy folder (not the folder itself) on the Desktop into<br> *~/Library/Application Support/Tunnelblick/Configurations* _(note the "~")_
+ # Launch Tunnelblick and allow the configurations to be converted.
+ # Enjoy!
+<hr>
+==How To for Everyone Else==
+You can use the following instructions to convert from using a Deployed version of Tunnelblick to using a "regular" version. These are extremely detailed, click-by-click instructions:
+
+ # Extract the configurations from the Deployed version of Tunnelblick and save them:
+  # Find the copy of Tunnelblick.app that you are using. It may be in /Applications, but older versions of Tunnelblick (before version 3.3beta22) can be installed anywhere.
+  # Control-click (hold down the "control" key on the keyboard and click) on Tunnelblick.app and select "Show Package Contents". A new Finder window will appear with the single folder "Contents".
+  # Double-click on "Contents", and the window will change to include several items.
+  # Double-click on "Resources", and the window will change to include many items (usually more than 70)
+  # Find the folder named "Deploy" and Option-drag it to an empty space on the Desktop (that is, drag the folder while holding down the "option" key). This will create a new copy of the folder on the Desktop.
+ # Completely uninstall Tunnelblick, *using the instructions at [cInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick]*. <font color="red">*<== CRITICAL*</font>
+ # Install a recent version of Tunnelblick:
+  # Download a new version of Tunnelblick from [DownloadsEntry Tunnelblick Downloads].
+  # Install it by double-clicking on the "Tunnelblick.app" icon. (Depending on your browser, you may need to find and double-click on the downloaded Tunnelblick.dmg file first.)
+  # When asked for your username and/or password, provide your computer administrator username/password, not your VPN password.
+  # Answer the questions about updating Tunnelblick and checking for IP address changes as you wish.
+  # Quit Tunnelblick when you are asked a question about configurations.
+ # Prepare to use the saved VPN configurations you saved in step 1.
+  # Open the user's "Library/Application Support/Tunnelblick/Configurations" folder:
+   # Open a new Finder window.
+   # Hold down the "option" key on the keyboard and click on the "Go" menu item. Keeping the "option" key held down, click on "Library", then release the "option" key. The Finder window will change to show the "Library" folder.
+   # Double-click the "Application Support" folder.
+   # Double-click the "Tunnelblick folder".
+   # Double-click the "Configurations" folder. The window should be empty because there are no configurations.
+  # Double-click the "Deploy" folder on your Desktop. A Finder window will appear with the files and folders that contain your VPN configurations.
+  # Option-drag everything in that window to the empty "Configurations" Finder window.
+ # Convert the OpenVPN configurations to be Tunnelblick VPN Configurations:
+  # Launch Tunnelblick. You will be asked if you want to convert the configurations. Click the button to "Convert".
+  # (There is no step 2!)
+ # Enjoy!
+
+Please report any problems with these instructions to the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group]. 
+
+------------------
+
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
