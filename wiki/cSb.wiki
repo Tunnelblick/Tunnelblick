@@ -13,6 +13,7 @@
     [cWhatIs What is Tunnelblick?]<br>
     [cWhatElse What else you need]<br>
     [cGettingVPNService Getting VPN Service]<br>
+    [cHelp Getting Help]<br>
     [cPrivacy Privacy and Security]<br>
     [cHowHelp How you can help]<br>
     [cFAQ FAQ]<br>
