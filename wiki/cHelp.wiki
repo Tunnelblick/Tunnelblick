@@ -1,3 +1,6 @@
+#summary Getting Help
+#sidebar cSb
+
 ===Getting Help===
 *There are three primary resources for help with Tunnelblick:*<br />
 
