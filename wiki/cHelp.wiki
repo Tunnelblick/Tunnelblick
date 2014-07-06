@@ -19,7 +19,7 @@
 <tr><td width="20%"></td><td>[http://openvpn.net/index.php/open-source/documentation.html OpenVPN Documentation]</td></tr>
 <tr><td width="20%"></td><td>[https://forums.openvpn.net/ OpenVPN Users Forum]</td></tr>
 <tr><td width="20%"></td><td>[https://lists.sourceforge.net/lists/listinfo/openvpn-users OpenVPN Users Mailing List]</td></tr>
-</table><br />
+</table>
 
  * *[https://groups.google.com/forum/#!forum/tunnelblick-discuss The Tunnelblick Discussion Group] is the best place to ask and answer questions*.
   * Searching the discussion group is often the fastest way to find the solution to a problem -- someone else may have already solved it!
