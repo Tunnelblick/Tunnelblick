@@ -1,23 +1,22 @@
-#summary How to Get Help
-#sidebar cSb
+===Getting Help===
+*There are three primary resources for help with Tunnelblick:*<br />
 
-Your first resource for help should be the person or organization that set up your VPN:
- * If you are using a [cCusDeployed "Deployed" version] of Tunnelblick or a [cConfigT Tunnelblick VPN Configuration], the person or organization you received Tunnelblick or the Tunnelblick VPN Configuration from should provide you with help.
+ * *Your VPN service provider is the best place to go if your VPN was set up by someone else*.
+  * Your VPN service provider is the organization which gave you your configuration files, and perhaps a username and password, and to which you are probably paying a fee for VPN service.
+  * Tunnelblick is just the free software that many VPN service providers recommend or supply to their customers. We do not provide VPN service, just software.
+  * For a list of Mac-friendly VPN service providers, see [cGettingVPNService Getting VPN Service].
 
- * If you get VPN service from a VPN service provider, they should provide you with help.
+ * *[Documentation Tunnelblick Documentation] is the best place to go if you set up your own VPN*.
+  * This is the place to find both general information about Tunnelblick and specific reference material about how to set up Tunnelblick configurations.
+  * This is *_not_* the place for information about *OpenVPN* or *OpenVPN configurations*, for that, see:
+<table width="100%">
+<tr><td width="20%"></td><td>[https://community.openvpn.net/openvpn/wiki/FAQ OpenVPN FAQ]</td></tr>
+<tr><td width="20%"></td><td>[http://openvpn.net/index.php/open-source/documentation/howto.html OpenVPN HOWTO]</td></tr>
+<tr><td width="20%"></td><td>[https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage OpenVPN 2.3 Man Page]</td></tr>
+<tr><td width="20%"></td><td>[http://openvpn.net/index.php/open-source/documentation.html OpenVPN Documentation]</td></tr>
+<tr><td width="20%"></td><td>[https://forums.openvpn.net/ OpenVPN Users Forum]</td></tr>
+<tr><td width="20%"></td><td>[https://lists.sourceforge.net/lists/listinfo/openvpn-users OpenVPN Users Mailing List]</td></tr>
+</table><br />
 
- * If you get VPN service from a corporate or other network, your network manager or IT department should provide you with help.
-
-Next, try searching the Internet for your problem.
-
-If you can't find anything by searching the Internet, try asking your question on the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group]. When you ask your question, if it has anything to do with a connection (almost all questions do) it is very helpful if you can include
- * The contents of the OpenVPN configuration file (.ovpn or .conf file)
-
- * The complete contents of the OpenVPN log.
-Be sure to X out any sensitive IP addresses and keys or certificates.
-
-The first time you post a question, it will have to be approved before it appears. This is not an attempt to censor anyone -- it is needed to prevent the group from being inundated with spam. As long as your question isn't spam, it will be approved. (We reserve the right to not approve abusive or illegal posts, but that has never happened.) Please be patient -- approval may take anywhere from a few seconds to a few hours. It requires a human, and although we have moderators spread across several time zones, there are times when we are all busy with other things. After your first post is approved, subsequent posts should appear in the discussion group immediately.
-
-------------------
-
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
+ * *[https://groups.google.com/forum/#!forum/tunnelblick-discuss The Tunnelblick Discussion Group] is the best place to ask and answer questions*.
+  * Searching the discussion group is often the fastest way to find the solution to a problem -- someone else may have already solved it!
