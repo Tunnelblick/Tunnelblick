@@ -4,43 +4,50 @@
 
 ==Introduction==
 A Tunnelblick VPN Configuration (a "Configuration") is a folder with an extension of .tblk that contains information about one or more VPN configurations.
- * Configurations provide a convenient way to distribute VPN configurations separate from the Tunnelblick application itself.
+ * Configurations provide a convenient way to distribute VPN configurations separately from the Tunnelblick application itself.
  * Configurations may be installed to be private to a single user or shared by all users of the computer.
- * Configurations may be automatically installed when Tunnelblick is installed by including them in the Tunnelblick disk image.
- * Configurations may be set up to connect when the computer starts, and persist through logins and logouts.
+ * Configurations may be automatically installed when Tunnelblick is installed.
  * Configurations may contain identification and version information to assist in version control.
  * Configurations may contain scripts that are run at particular points in the connection process.
- * Installing a Configuration "secures" it by setting ownership and permissions on its contents.
  * Installing a Configuration requires a computer administrator username/password (as does Tunnelblick installation).
- * A Configuration installed as private will be "shadow copied" to the boot drive if it is on a volume which cannot be secured (e.g., a network volume or a volume on an external drive) or if the "Use Shadow Copies" preference is set.
  * The configuration file of a Configuration that is private may be edited. The configuration file of a Configuration that is shared may only be examined.
 
-Tunnelblick VPN Configurations are available in Tunnelblick 3.1 and up.
+Configurations are available in Tunnelblick 3.1 and up. Some features of Configurations described in this document may only be available on Tunnelblick 3.4beta30 and higher.
 
-*Configurations must be installed before they can be used.* Install a Configuration by double-clicking it. (Tunnelblick must have been installed _before_ the Configuration is double-clicked.)
+*Configurations must be installed before they can be used.* Install a Configuration by double-clicking it. (The Tunnelblick application must have been installed _before_ the Configuration is double-clicked.)
 
 ==Creation and Modification==
 
-Tunnelblick VPN Configurations are easily created and modified. See [cConfigT#Creating_and_Installing_Tunnelblick_VPN_Configuration Creating and Installing a Tunnelblick VPN Configuration] and [cConfigT#Modifying_a_Tunnelblick_VPN_Configuration Modifying a Tunnelblick VPN Configuration].
-
-==File References in the OpenVPN Configuration File==
-Within the OpenVPN configuration file itself, refer to other files, such as key or certificate files, without using a path or path prefix -- just use the name of the file.
-
-Example: Refer to the "xyz.key" file in the OpenVPN configuration file as "key xyz.key", not "key abc/xyz.key".
+See [cConfigT#Creating_and_Installing_Tunnelblick_VPN_Configuration Creating and Installing a Tunnelblick VPN Configuration] and [cConfigT#Modifying_a_Tunnelblick_VPN_Configuration Modifying a Tunnelblick VPN Configuration].
 
 ==Installation==
-Installation of a Configuration can be done manually by double-clicking it or by dragging it to a Tunnelblick icon in Finder. (A Configuration _cannot_ be dragged to the Tunnelblick icon in the Status Bar.) Installation can also be done automatically when Tunnelblick is installed from a disk image or certain other other volumes (see [cPkgs#Automatic_Installation Automatic Installation]).
+A Configuration is installed by double-clicking it. A configuration can be installed automatically when Tunnelblick is installed from a disk image or a folder expanded from a .zip file (see [cPkgs#Automatic_Installation Automatic Installation]).
 
-When a Configuration is installed, it's contents are copied and arranged in a specific way and the copy is secured by setting ownership and permissions on the copy's contents.
+If there is only one OpenVPN configuration file inside a .tblk, a single Configuration will be installed and will have the name of the .tblk -- the name of the configuration file will be ignored.
 
-An installed Configuration may be shared or private. Configurations to be shared are copied to `/Library/Application Support/Tunnelblick/Shared`, and Configurations to be kept private are copied to `~/Library/Application Support/Tunnelblick/Configurations`.
+If there is more than one OpenVPN configuration file inside a .tblk, a Configuration will be installed for each configuration file, and will have the name of the configuration file.
+
+When a Configuration is installed, it's contents are copied and arranged in a special way and the copy is secured by setting the ownership and permissions on the copy's contents.
+
+Unless specified otherwise in an [#Info.plist Info.plist], when a Configuration is installed the user will be asked whether the Configuration is to be shared or private (for only that user). Configurations to be shared are copied to `/Library/Application Support/Tunnelblick/Shared`; Configurations to be kept private are copied to `~/Library/Application Support/Tunnelblick/Configurations`. 
+
+=="Nested" Configurations==
+"Nested" Configurations make it easy to distribute many configurations in a single file.
+
+Configurations may be nested one level deep. That is, a Configuration may contain within it other Configurations (and may also contain OpenVPN configuration files that are not in a Configuration). When such a Configuration is installed, everything within it is installed. The Configurations within a Configuration may not themselves include Configurations, however -- only one level of included Configurations is allowed.
 
 ==Format==
 Tunnelblick Configurations are folders with an extension of ".tblk". The extension causes OS X to treat the folder as a "package" -- in most cases it is treated as if it were a single file. To look at the contents of a package (i.e. inside what was the folder), control-click or right-click the package and select "Show Package Contents".
 
-Configurations may be nested one level deep. That is, a Configuration may contain within it other Configurations. When such a Configuration is installed, it installs all of the Configurations within it. The Configurations within it may not include Configurations, however -- only one level of included Configurations is allowed.
+*Before installation*, a Tunnelblick VPN Configuration can contain files and folders including:
+ * An Info.plist file (see [#Info.plist Info.plist]).
+ * One or more "nested" Tunnelblick VPN Configurations
+ * One or more OpenVPN configurations (files with .ovpn or .conf extensions).
+ * One or more key, certificate, or script files.
+ 
+If configurations are in subfolders, the structure of the subfolders will be replicated when the configurations are installed.
 
-The contents of a Tunnelblick VPN Configuration are arranged as follows *after installation*. Before installation all files can be this way, or, for a .tblk that is being installed as a configuration -- not one that is enclosing other .tblks -- all files can just be at the top level of the .tblk (that is, without the "Contents/Resources" structure).
+*After installation*, the contents of a Tunnelblick VPN Configuration are arranged as follows. Before installation all files can be arranged this way, or all files can be at the top level of the .tblk (that is, without the "Contents/Resources" structure).
 
 {{{
     sample.tblk/
@@ -48,15 +55,11 @@ The contents of a Tunnelblick VPN Configuration are arranged as follows *after i
             (Optional) Info.plist
             Resources/
                 config.ovpn, containing OpenVPN configuration information
-                (Optional) up/down shell scripts
-                (Optional) Tunnelblick shell scripts
-                (Optional, deprecated shell scripts) up.sh, down.sh, nomonitor.up.sh, and/or nomonitor.down.sh
-                (Optional) key, certificate, and/or other shell script files
+                (Optional) up/down scripts
+                (Optional) Tunnelblick scripts
+                (Optional, deprecated scripts) up.sh, down.sh, nomonitor.up.sh, and/or nomonitor.down.sh
+                (Optional) key, certificate, and/or other script files
 }}}
-
-The configuration file inside the .tblk may have any name; the name is ignored.
-
-The name of the Configuration (without ".tblk") is used as the display name of the configuration unless it conflicts with an existing name (see [cPkgs#Name_Conflicts_During_Installation Name Conflicts During Installation]).
 
 ==Info.plist==
 Info.plist is optional. If it exists, it must be an OS X property list file, with keys from the following table. The only mandatory key is TBPackageVersion; all others are optional.
@@ -76,18 +79,18 @@ A Configuration's Info.plist may also optionally contain entries (strings, numbe
 
 In a Deployed version of Tunnelblick, the forced-preferences in Deploy will override any Configuration-specified preferences. 
 
-==Up/Down Shell Scripts==
-If the Configuration contains up.tunnelblick.sh, down.tunnelblick.sh, up.sh, down.sh, nomonitor.up.sh, and/or nomonitor.down.sh, those shell scripts will be used instead of Tunnelblick's standard scripts, or scripts in Deploy, when connecting with the Configuration and "Set nameserver" is selected for the Configuration's configuration.
+==Up/Down Scripts==
+If the Configuration contains up.tunnelblick.sh, down.tunnelblick.sh, up.sh, down.sh, nomonitor.up.sh, and/or nomonitor.down.sh, those scripts will be used instead of Tunnelblick's standard scripts, or scripts in Deploy, when connecting with the Configuration and "Set nameserver" is selected for the Configuration's configuration.
 
 For backward compatibility, scripts other than up.tunnelblick.sh and down.tunnelblick.sh will be used if they exist.
 
 In a Deployed version of Tunnelblick, a Configuration's up/down scripts will override the corresponding scripts in Deploy.
 
-==Tunnelblick Shell Scripts==
+==Tunnelblick Scripts==
 If the Configuration includes pre-connect.sh, post-tun-tap-load.sh, connected.sh, reconnecting.sh, post-disconnect.sh scripts, they will be executed (as root) at the corresponding point in the connection process. This allows manipulation of kexts and/or the network configuration and user notification of events. (If the scripts load special kexts, you can use the "-doNotLoadTapKext" and "-doNotLoadTunKext" preferences to cause Tunnelblick to not try to load its own kexts.) post-tun-tap-load.sh, connected.sh, and reconnecting.sh are available in Tunnelblick 3.2beta02 and later only. See [cUsingScripts Using Scripts] for more details.
 
 ==Automatic Installation==
-When Tunnelblick itself is installed by double-clicking a Tunnelblick.app that is not in /Applications, all Configurations in the "auto-install" and ".auto-install" folders that are in the same folder that contains the Tunnelblick.app being installed are installed (subject to [cPkgs#CFBundleIdentifier_Conflicts CFBundleIdentifier Conflicts] and [cPkgs#Name_Conflicts_During_Installation Name Conflicts During Installation]).
+When Tunnelblick is installed by double-clicking a Tunnelblick.app that is not in /Applications, all Configurations in the "auto-install" and ".auto-install" folders that are in the same folder that contains the Tunnelblick.app being installed are installed (subject to [cPkgs#CFBundleIdentifier_Conflicts CFBundleIdentifier Conflicts] and [cPkgs#Name_Conflicts_During_Installation Name Conflicts During Installation]).
 
 The "auto-install" and ".auto-install" folders can also contain a file named "preferences.plist". It may contain a "set-only-if-not-present" key and/or a "always-set" key. The value for each key should be a dictionary containing preferences to be set under the specified conditions.
 

@@ -2,14 +2,27 @@
 #sidebar cSb
 
 Tunnelblick is made available under the [http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2]  ("GPL"). It can be freely distributed within the restrictions of that license.
+<hr>
+*An easy way to distribute Tunnelblick to multiple clients or servers is to distribute your configurations bundled together with Tunnelblick*. Your configurations will be installed automatically when the user installs the Tunnelblick application.
 
-If you are distributing Tunnelblick to multiple clients or servers, you might want to consider using a [cCusDeployed "Deployed" version] of Tunnelblick:
+A simple way to do that is to:
+ * Create an empty folder.
+ * Copy Tunnelblick.app into the folder.
+ * Create a subfolder named ".auto-install" or "auto-install".
+ * Copy your configuration files into the subfolder.
+ * Rename the folder to end with ".tblk" extension.
+ * Control-click the folder and select "Compress..." (or compress the folder with any compression utility).
+The resulting .zip file may be distributed to users. When the user double-click on the Tunnelblick icon in the expanded folder, the user will be asked for a username and password to install both the program and the configurations.
+
+For more details, see [cPkgs Tunnelblick VPN Configurations], especially the [cPkgs#Automatic_Installation Automatic Installation] and [cPkgs#Info.plist Info.plist] sections.
+<hr>
+
+A more complex way of distributing configurations along with Tunnelblick is to create a [cCusDeployed "Deployed" version] of Tunnelblick:
  * Deployed versions of Tunnelblick *must be [cBuild built] from [cRebranding rebranded] source code* and the rebranded source code must be made available to anyone to whom a binary is "distributed" as defined by the GPL.
  * A "Deployed" version contains, within the Tunnelblick application itself, all of the configurations, certificates, keys, and scripts needed for the connection(s) that you wish to make available.
  * A "Deployed" version can also contain "forced" preferences, which the user is not allowed to override, which can avoid problems caused by users inadvertently changing critical configuration parameters.
+ * Because a "Deployed" version contains the configurations within the program,  when the program is updated, the configurations are updated.
  * Any user of the computer can connect using the configuration(s).
-
-*If you would prefer not to build your own version of Tunnelblick*, you should consider using "standard" Tunnelblick bundled together with your [cConfigT#Creating_and_Installing_a_Tunnelblick_VPN_Configuration Tunnelblick VPN Configurations]. This avoids the need to build a rebranded version of Tunnelblick. Tunnelblick VPN Configurations which are contained on a disk image or .zip file used to distribute the application may be automatically installed when the application itself is installed. See [cPkgs Tunnelblick VPN Configurations] for detailed information.
 
 ------------------
 

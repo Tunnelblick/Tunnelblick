@@ -9,6 +9,44 @@
 
 ==Version 3.4==
 
+*3.4beta30 build 3893 (2014-07-08)*
+
+ * Includes major enhancements to installing configurations:
+    * Installs OpenVPN configuration files ('.ovpn' or '.conf' files) when they are double-clicked.
+    * Installs OpenVPN configuration files automatically if they are in a 'auto-install' or '.auto-install' folder when Tunnelblick is installed.
+    * Multiple OpenVPN configuration files may be included in a Tunnelblick VPN Configuration ('.tblk'); when the .tblk is installed, each of the OpenVPN configurations will be installed as a separate configuration.
+    * Does more extensive checking of OpenVPN configuration files:
+       * They must have correct paths (relative or absolute) to key, certificate, and other files.
+       * They must not contain 'Windows only' options.
+       * They must not contain options reserved for use by Tunnelblick.
+    * Adds an 'Apply to all' checkbox when installing configurations.
+    * Allows non-printable characters (such as Unicode characters) anywhere in an OpenVPN configuration file.
+
+ * Adds a condensed copy of the configuration file (without comments or empty lines) to the diagnostic info.
+
+ * Includes preparation for updatable .tblk configurations.
+
+ * Includes LZO version 2.08.
+
+ * Changes many warning dialogs so they do not block other Tunnelblick operations.
+
+ * Includes a new 'Inhibit automatic update checking and IP Address checking' checkbox on the 'Preferences' page. Checking it disables all Internet activity by the Tunnelblick program itself (but not by OpenVPN), overriding any other settings that allow such activity. The checkbox is unchecked by default.
+
+ * Disables the 'Reset the primary interface after disconnecting' checkbox if 'Set DNS/WINS' is not set to 'Set nameserver'.
+
+ * Includes changes to avoid compiler warnings on Xcode 5 and 6.
+
+ * Fixes a problem with OpenVPN mis-identifying an x86_64 build as an i386 build. (Thanks to Harold Molina-Bulla.)
+
+ * Fixes a problem with names of OpenVPN folders.
+
+ * Fixes a misleading message in the installer log.
+
+ * Fixes several problems with Unicode characters.
+
+
+--------------------
+
 *3.4beta28 build 3872 (2014-06-12)*
 
  * Includes OpenSSL library version 1.0.1h, which fixes several security vulnerabilities (see [http://www.openssl.org/news/secadv_20140605.txt OpenSSL Security Advisory 05 Jun 2014]).

@@ -17,31 +17,32 @@ The rest of this document is for everyone else.
 It is not enough to install Tunnelblick:  you also need to tell Tunnelblick *_how to connect_* to a VPN.
 
 You tell Tunnelblick how to connect to a VPN with a configuration file. Tunnelblick can use two types of configuration files:
-  * *Tunnelblick VPN Configurations.* A Tunnelblick VPN Configuration contains all of the information Tunnelblick needs to connect to a VPN. A Tunnelblick VPN Configuration contains an OpenVPN configuration file, and may contain key, certificate, and script files. Everything needed is contained within the Tunnelblick VPN Configuration. (Tunnelblick VPN Configurations are available only on Tunnelblick 3.1 and up.)
+  * *Tunnelblick VPN Configurations.* A Tunnelblick VPN Configuration contains all of the information Tunnelblick needs to connect to one or more VPNs. A Tunnelblick VPN Configuration contains one or more OpenVPN configuration files, and may contain key, certificate, and script files. Everything needed is contained within the Tunnelblick VPN Configuration. (Tunnelblick VPN Configurations are available only on Tunnelblick 3.1 and up.)
   * *OpenVPN configuration files.* These are plain text files with extensions of .ovpn or .conf. These files usually contain only the configuration information; keys and certificates are held in separate files. *For more information about setting up Tunnelblick using OpenVPN configuration files, see [cConfigO Configuring OpenVPN].*
 
-*We strongly suggest that you use a Tunnelblick VPN Configuration* because you can do more with it and recent versions of Tunnelblick require it. For example, you can share it with all users of your computer, and you can set it up to start when your computer starts -- even before you log in. It is also more secure because any key and certificate files within it are made inaccessible except to the OpenVPN program, and because any script files within it are protected against accidental or deliberate misuse. Tunnelblick VPN Configurations may also contain other information, including information about default preferences for the configuration and identification and version information for the configuration itself that make managing widespread distribution easier. For details, see [cPkgs Tunnelblick VPN Configurations Details].
+Tunnelblick VPN Configurations may also contain other information, including information about default preferences for the configuration and identification and version information for the configuration itself that make managing widespread distribution easier. For details, see [cPkgs Tunnelblick VPN Configurations Details].
 
 ==Converting OpenVPN Configurations to Tunnelblick VPN Configurations==
 Tunnelblick version 3.3beta22 and higher can convert OpenVPN configurations to Tunnelblick VPN Configurations. This is primarily used to transition to newer versions of Tunnelblick. When you launch Tunnelblick and have private OpenVPN configurations, Tunnelblick will offer to convert them to Tunnelblick VPN Configurations. Two important points:
  * The OpenVPN configurations must be "valid" -- that is, any key and certificate files that are referenced must exist; and
  * Any OpenVPN configurations that are not converted are not available for use.
 
+(You can also double-click an OpenVPN configuration and it will be installed as a Tunnelblick VPN Configuration.)
+
 ==Creating and Installing a Tunnelblick VPN Configuration==
 To create a Tunnelblick VPN Configuration:
 
  # Create a folder anywhere (on your Desktop works well);
- # Name the folder with the name you want the configuration known by in Tunnelblick;
- # Copy all the files related to the connection into the folder (see [#Files_Contained_in_a_Tunnelblick_VPN_Configuration Files Contained in a Tunnelblick VPN Configuration], below);
- # Remove path information from "ca", "key", "cert", "tls-auth", and other lines in the configuration file (the .conf or .ovpn file), so they look like "ca xxx.crt" instead of "ca keys/xxx.crt";
+ # If you have only one OpenVPN configuration file, name the folder with the name you want the configuration known by in Tunnelblick. (Otherwise, each configuration will be known in Tunnelblick by the name of the OpenVPN configuration file that it uses);
+ # Copy all the files related to the configuration(s) into the folder (see [#Files_Contained_in_a_Tunnelblick_VPN_Configuration Files Contained in a Tunnelblick VPN Configuration], below);
  # Add an extension of ".tblk" at the end of the folder name. When you do this the icon for folder will change into a Tunnelblick VPN Configuration.
  # Double-click the folder's new icon to install it.
 
-When you double-click it, you will be asked if you want the configuration to be private or shared. A private configuration may only be used when you are logged onto the computer. A shared configuration may be used by anyone who is logged into the computer. If the name you have given conflicts with the name of an existing installed configuration, you will be given the opportunity to change the name.
+When you double-click it, you will be asked if you want each configuration to be private or shared. A private configuration may only be used when you are logged onto the computer. A shared configuration may be used by anyone who is logged into the computer. If the name you have given conflicts with the name of an existing installed configuration, you will be given the opportunity to change the name.
 
-The process of installation will copy the .tblk to a special location on your computer (see  [cFileLocations File Locations]) and make critical changes to it so it can be used. You can then delete the original .tblk you created, or move it somewhere convenient as a backup, or copy or move it to another computer and double-click it on that computer to install it. (The Tunnelblick program must be installed on any computer before you double-click a .tblk on that computer.)
+The process of installation will copy the .tblk to a special location on your computer (see  [cFileLocations File Locations]) and make changes to it so it can be used securely. You can then delete the original .tblk you created, or move it somewhere convenient as a backup, or copy or move it to another computer and double-click it on that computer to install it. (The Tunnelblick program must be installed on any computer before you double-click a .tblk on that computer.)
 
-That's it! You are done. The configuration will be available immediately in Tunnelblick.
+That's it! You are done. The configuration(s) will be available immediately in Tunnelblick.
 
 ==Modifying a Tunnelblick VPN Configuration==
 You can modify a Tunnelblick VPN Configuration two ways:
@@ -53,24 +54,9 @@ You can modify a Tunnelblick VPN Configuration two ways:
 
 ==Files Contained in a Tunnelblick VPN Configuration==
 The files that should be contained in a Tunnelblick VPN Configuration (the "files related to the connection" in 3. above) should all be "plain text" files:
- * One (and only one) OpenVPN configuration file (a .ovpn or .conf file).
- * Any certificate or key files for that configuration (.key, .crt, .pem, .cer, .der, .p12, .p7b, .p7c, and .pfx files); and
- * Any script files for the configuration. Script files must must have a .sh extension so that Tunnelblick can secure them and use them properly.
-
-There is one more requirement: the OpenVPN configuration file (.ovpn or .conf file) must refer to the other files by their names and extensions only, without path information. In other words, the OpenVPN configuration file must have lines that look like
-
- key name.key<br>
- ca ca.crt<br>
- cert client26.crt<br>
- tls-auth ta.key 1<br>
- up up.sh<br>
- down down.sh
-
-and not like
-
- key ~/Documents/name.key<br>
- ca VPN/ca.crt<br>
- cert /Test/123/456/client26.crt<br>
+ * One or more OpenVPN configuration files (.ovpn or .conf files).
+ * Any certificate or key files for the configurations (.key, .crt, .pem, .cer, .der, .p12, .p7b, .p7c, and .pfx files); and
+ * Any script files for the configurations. Script files must must have a .sh extension so that Tunnelblick can secure them and use them properly.
 
 ==The "Set Nameserver" Check Box and DNS & WINS Settings==
 If you are using DHCP, wish to use DNS and WINS servers at the far end of the tunnel when connected, and the VPN server you are connecting to "pushes" DNS and WINS settings to your client, select "Set nameserver". (This is the situation for most users.)
