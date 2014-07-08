@@ -39,6 +39,7 @@
 #import "NetSocket+Text.h"
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
+#import "NSString+TB.h"
 #import "NSTimer+TB.h"
 #import "StatusWindowController.h"
 #import "TBUserDefaults.h"
@@ -915,9 +916,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
         }
     }
 	
-    NSCharacterSet * charset = [NSCharacterSet characterSetWithCharactersInString: @"0123456789."];
-    [self setIpCheckLastHostWasIPAddress: ( [[url host] rangeOfCharacterFromSet: [charset invertedSet]].length == 0 )];
-    
+    [self setIpCheckLastHostWasIPAddress: [[url host] containsOnlyCharactersInString: @"0123456789."]];
+
     // Create an NSURLRequest
     NSString * tbVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"];
     
@@ -987,9 +987,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         return nil;
     }
     
-    charset = [NSCharacterSet characterSetWithCharactersInString: @"0123456789.,"];
-    NSRange rng = [response rangeOfCharacterFromSet: [charset invertedSet]];
-    if (  rng.length != 0  ) {
+    if (  ! [response containsOnlyCharactersInString: @"0123456789.,"]  ) {
         NSLog(@"%@: Response had invalid characters. response = %@", logHeader, response);
 		return nil;
     }
@@ -1509,8 +1507,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 				[self invalidateConfigurationParse];
             }
 
-            if (  ! [[NSApp delegate] runInstaller: installerFlags
-                                    extraArguments: nil]  ) {
+            NSInteger installerResult = [[NSApp delegate] runInstaller: installerFlags
+                                    extraArguments: nil];
+			if (  installerResult != 0  ) {
                 // the user cancelled or an error occurred
 				// if an error occurred, runInstaller has already put up an error dialog and put a message in the console log
                 areConnecting = FALSE;
@@ -1589,11 +1588,11 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			NSString * altCfgPath = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
 									 stringByAppendingPathComponent: lastPartOfPath(cfgPath)];
 			
-			if ( [[ConfigurationManager defaultManager] copyConfigPath: cfgPath
-																toPath: altCfgPath
-													   usingAuthRefPtr: &authRef
-															warnDialog: YES
-														   moveNotCopy: NO] ) {    // Copy the config to the alt config
+			if ( [[ConfigurationManager manager] copyConfigPath: cfgPath
+                                                         toPath: altCfgPath
+                                                usingAuthRefPtr: &authRef
+                                                     warnDialog: YES
+                                                    moveNotCopy: NO] ) {    // Copy the config to the alt config
 				AuthorizationFree(authRef, kAuthorizationFlagDefaults);
 				NSLog(@"Created or updated secure (shadow) copy of configuration file %@", cfgPath);
 				return YES;
@@ -1686,7 +1685,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     
     // Parse configuration file to catch "user" or "group" options and get tun/tap key
     if (  ! tunOrTap  ) {
-        tunOrTap = [[[ConfigurationManager defaultManager] parseConfigurationPath: configPath forConnection: self] copy];
+        tunOrTap = [[[ConfigurationManager manager] parseConfigurationPath: configPath forConnection: self] copy];
         // tunOrTap == 'Cancel' means we cancel whatever we're doing
         if (  [tunOrTap isEqualToString: @"Cancel"]  ) {
             [tunOrTap release];
@@ -2604,10 +2603,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                                        nil);
                 if (needButtonReturn == NSAlertDefaultReturn) {
                     TBLog(@"DB-AU", @"Write need ok.");
-                    [managementSocket writeString:[NSString stringWithFormat:@"needok 'token-insertion-request' ok\r\n"] encoding:NSASCIIStringEncoding];
+                    [managementSocket writeString: @"needok 'token-insertion-request' ok\r\n" encoding: NSASCIIStringEncoding];
                 } else {
                     TBLog(@"DB-AU", @"Write need cancel.");
-                    [managementSocket writeString:[NSString stringWithFormat:@"needok 'token-insertion-request' cancel\r\n"] encoding:NSASCIIStringEncoding];
+                    [managementSocket writeString: @"needok 'token-insertion-request' cancel\r\n" encoding: NSASCIIStringEncoding];
                 }
             }
         }

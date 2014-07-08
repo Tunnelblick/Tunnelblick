@@ -888,7 +888,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             [[configurationsPrefsView makePrivateOrSharedMenuItem] setTitle: NSLocalizedString(@"Make Configuration Shared..."  , @"Menu Item")];
         }
         
-        if (  [[ConfigurationManager defaultManager] userCanEditConfiguration: [connection configPath]]  ) {
+        if (  [[ConfigurationManager manager] userCanEditConfiguration: [connection configPath]]  ) {
             [[configurationsPrefsView editOpenVPNConfigurationFileMenuItem] setTitle: NSLocalizedString(@"Edit OpenVPN Configuration File...", @"Menu Item")];
         } else {
             [[configurationsPrefsView editOpenVPNConfigurationFileMenuItem] setTitle: NSLocalizedString(@"Examine OpenVPN Configuration File...", @"Menu Item")];
@@ -1214,7 +1214,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
 	(void) sender;
 	
-    [[ConfigurationManager defaultManager] addConfigurationGuide];
+    [[ConfigurationManager manager] addConfigurationGuide];
 }
 
 
@@ -1304,9 +1304,9 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
     }
     
-    if (  [[ConfigurationManager defaultManager] deleteConfigPath: configurationPath
-                                                  usingAuthRefPtr: &authorization
-                                                       warnDialog: YES]  ) {
+    if (  [[ConfigurationManager manager] deleteConfigPath: configurationPath
+                                           usingAuthRefPtr: &authorization
+                                                warnDialog: YES]  ) {
         //Remove credentials
 		if (  removeCredentials  ) {
 			AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: group credentialsGroup: group] autorelease];
@@ -1396,11 +1396,11 @@ static BOOL firstTimeShowingWindow = TRUE;
         localAuthorization = TRUE;
     }
     
-    if (  [[ConfigurationManager defaultManager] copyConfigPath: sourcePath
-                                                         toPath: targetPath
-                                                usingAuthRefPtr: &authorization
-                                                     warnDialog: YES
-                                                    moveNotCopy: YES]  ) {
+    if (  [[ConfigurationManager manager] copyConfigPath: sourcePath
+                                                  toPath: targetPath
+                                         usingAuthRefPtr: &authorization
+                                              warnDialog: YES
+                                             moveNotCopy: YES]  ) {
         
         // We copy "-keychainHasUsernameAndPassword" because it is deleted by moveCredentials
         NSString * key = [[connection displayName] stringByAppendingString: @"-keychainHasUsernameAndPassword"];
@@ -1499,11 +1499,11 @@ static BOOL firstTimeShowingWindow = TRUE;
         localAuthorization = TRUE;
     }
     
-    if (  [[ConfigurationManager defaultManager] copyConfigPath: source
-                                                         toPath: target
-                                                usingAuthRefPtr: &authorization
-                                                     warnDialog: YES
-                                                    moveNotCopy: NO]  ) {
+    if (  [[ConfigurationManager manager] copyConfigPath: source
+                                                  toPath: target
+                                         usingAuthRefPtr: &authorization
+                                              warnDialog: YES
+                                             moveNotCopy: NO]  ) {
         
         NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
         if (  ! [gTbDefaults copyPreferencesFrom: displayName to: targetDisplayName]  ) {
@@ -1558,7 +1558,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         return;
     }
     
-    [[ConfigurationManager defaultManager] shareOrPrivatizeAtPath: path];
+    [[ConfigurationManager manager] shareOrPrivatizeAtPath: path];
 }
 
 
@@ -1630,7 +1630,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
     VPNConnection * connection = [self selectedConnection];
     if (connection  ) {
-        [[ConfigurationManager defaultManager] editOrExamineConfigurationForConnection: connection];
+        [[ConfigurationManager manager] editOrExamineConfigurationForConnection: connection];
     } else {
         NSLog(@"editOpenVPNConfigurationFileMenuItemWasClicked but no configuration selected");
     }
@@ -1952,6 +1952,29 @@ static BOOL firstTimeShowingWindow = TRUE;
     return kextRawContents;
 }
 
+-(NSString *) condensedConfigFileContentsFromString: (NSString *) fullString {
+	
+	// Returns a string from an OpenVPN configuration file with empty lines and comments removed
+	
+	NSArray * lines = [fullString componentsSeparatedByString: @"\n"];
+	
+	NSMutableString * outString = [[[NSMutableString alloc] initWithCapacity: [fullString length]] autorelease];
+	NSString * line;
+	NSEnumerator * e = [lines objectEnumerator];
+	while (  (line = [e nextObject])  ) {
+        line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+		if (  [line length] != 0  ) {
+			NSString * firstChar = [line substringToIndex: 1];
+			if (   ( ! [firstChar isEqualToString: @";"] )
+				&& ( ! [firstChar isEqualToString: @"#"] )  ) {
+				[outString appendFormat: @"%@\n", line];
+			}
+		}
+	}
+	
+	return [NSString stringWithString: outString];
+}
+
 -(IBAction) logToClipboardButtonWasClicked: (id) sender {
 
 	(void) sender;
@@ -1970,6 +1993,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         if (  ! configFileContents  ) {
             configFileContents = @"(No configuration file found or configuration file could not be sanitized. See the Console Log for details.)";
         }
+		
+		NSString * condensedConfigFileContents = [self condensedConfigFileContentsFromString: configFileContents];
 		
         // Get list of files in .tblk or message explaining why cannot get list
         NSString * tblkFileList = [self listOfFilesInTblkForConnection: connection];
@@ -1996,7 +2021,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 		
         NSString * output = [NSString stringWithFormat:
 							 @"%@\n\n"  // Version info
-                             @"\"Sanitized\" configuration file for %@:\n\n%@\n\n%@"
+                             @"\"Sanitized\" condensed configuration file for %@:\n\n%@\n\n%@"
+							 @"\"Sanitized\" full configuration file\n\n%@\n\n%@"
                              @"%@\n%@"  // List of unusual files in .tblk (or message why not listing them)
                              @"Configuration preferences:\n\n%@\n%@"
                              @"Wildcard preferences:\n\n%@\n%@"
@@ -2005,7 +2031,8 @@ static BOOL firstTimeShowingWindow = TRUE;
                              @"Console Log:\n\n%@\n%@"
                              @"Non-Apple kexts that are loaded:\n\n%@",
                              versionContents,
-                             [connection configPath], configFileContents, separatorString,
+                             [connection configPath], condensedConfigFileContents, separatorString,
+							 configFileContents, separatorString,
                              tblkFileList, separatorString,
                              configurationPreferencesContents, separatorString,
                              wildcardPreferencesContents, separatorString,

@@ -35,6 +35,7 @@
 
 #import "NSFileManager+TB.h"
 
+
 //**************************************************************************************************************************
 NSAutoreleasePool   * pool           = nil;
 
@@ -1873,7 +1874,7 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
         exit(EXIT_FAILURE);
     }
     
-    NSString * cfgContents = [[[NSString alloc] initWithData: data encoding: NSASCIIStringEncoding] autorelease];
+    NSString * cfgContents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     NSArray * lines = [cfgContents componentsSeparatedByString: @"\n"];
     
     NSMutableString * outputString = [[[NSMutableString alloc] initWithCapacity: [cfgContents length]] autorelease];
@@ -2565,7 +2566,7 @@ int startVPN(NSString * configFile,
         NSData * logData = [[NSFileManager defaultManager] contentsAtPath: logPath];
         
         if (  logData  ) {
-            logContents = [[[NSString alloc] initWithData: logData encoding: NSASCIIStringEncoding] autorelease];
+            logContents = [[[NSString alloc] initWithData: logData encoding: NSUTF8StringEncoding] autorelease];
             if (  ! logContents  ) {
                 logContents = @"";
             }
@@ -2725,10 +2726,8 @@ void validateLeasewatchOptions(NSString * leasewatchOptions) {
 }
 
 void validateOpenvpnVersion(NSString * s) {
-    NSCharacterSet * badChars = [[NSCharacterSet characterSetWithCharactersInString:
-                                  @"._-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"]
-                                 invertedSet];
-    if (  [s rangeOfCharacterFromSet: badChars].length != 0  ) {
+    
+    if (  ! isSanitizedOpenvpnVersion(s)  ) {
         fprintf(stderr, "Tunnelblick: the openvpnVersion argument may only contain a-z, A-Z, 0-9, periods, underscores, and hyphens\n");
         exitOpenvpnstart(241);
     }

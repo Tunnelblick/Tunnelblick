@@ -754,7 +754,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         TBLog(@"DB-SU", @"init: 013")
 		[self createStatusItem];
 		
-        myConfigDictionary = [[[ConfigurationManager defaultManager] getConfigurations] copy];
+        myConfigDictionary = [[[ConfigurationManager manager] getConfigurations] copy];
         
         TBLog(@"DB-SU", @"init: 014")
         // set up myVPNConnectionDictionary, which has the same keys as myConfigDictionary, but VPNConnections as objects
@@ -2107,7 +2107,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     
     NSString * dispNm;
     
-    NSDictionary * curConfigsDict = [[ConfigurationManager defaultManager] getConfigurations];
+    NSDictionary * curConfigsDict = [[ConfigurationManager manager] getConfigurations];
     
     // Add new configurations and replace updated ones
 	NSEnumerator * e = [curConfigsDict keyEnumerator];
@@ -2668,13 +2668,13 @@ BOOL anyNonTblkConfigs(void)
 		}
 		
 		if (  response == NSAlertDefaultReturn  ) {
-            if (  [self runInstaller: INSTALLER_CONVERT_NON_TBLKS
-                      extraArguments: nil
-                     usingAuthRefPtr: &gAuthorization
-                             message: nil
-                   installTblksFirst: nil]  ) {
-                
-                // Installation succeeded. If there are no configurations even after the install, UKKQueue will cause configFilesChanged to be invoked again
+			NSInteger installerResult = [self runInstaller: INSTALLER_CONVERT_NON_TBLKS
+											extraArguments: nil
+										   usingAuthRefPtr: &gAuthorization
+												   message: nil
+										 installTblksFirst: nil];
+            if (  installerResult != -1  ) {
+                // Installation succeeded or was cancelled. If there are no configurations even after the install, UKKQueue will cause configFilesChanged to be invoked again
                 return;
             }
             
@@ -2682,14 +2682,14 @@ BOOL anyNonTblkConfigs(void)
         }
 	}
 	
-    [[ConfigurationManager defaultManager] haveNoConfigurationsGuide];
+    [[ConfigurationManager manager] haveNoConfigurationsGuide];
 }
 
 -(IBAction) addConfigurationWasClicked: (id) sender
 {
  	(void) sender;
 	
-	[[ConfigurationManager defaultManager] addConfigurationGuide];
+	[[ConfigurationManager manager] addConfigurationGuide];
 }
 
 -(IBAction) disconnectAllMenuItemWasClicked: (id) sender
@@ -3227,8 +3227,8 @@ static void signal_handler(int signalNumber)
     }
 }
 
-// Invoked when the user double-clicks on one or more .tblk packages,
-//                  or drags and drops one or more .tblk package(s) onto Tunnelblick
+// Invoked when the user double-clicks on one or more .tblk packages or .ovpn or .conf files,
+//                  or drags and drops one or more .of them onto Tunnelblick
 - (BOOL)application: (NSApplication * )theApplication
           openFiles: (NSArray * )filePaths
 {
@@ -3250,11 +3250,10 @@ static void signal_handler(int signalNumber)
     if (  launchFinished  ) {
         BOOL oldIgnoreNoConfigs = ignoreNoConfigs;
         ignoreNoConfigs = TRUE;
-        [[ConfigurationManager defaultManager] openDotTblkPackages: filePaths
-                                                         usingAuth: gAuthorization
-                                           skipConfirmationMessage: skipConfirmMsg
-                                                 skipResultMessage: skipResultMsg
-                                                    notifyDelegate: notifyDelegate];
+        [[ConfigurationManager manager] installConfigurations: filePaths
+                                      skipConfirmationMessage: skipConfirmMsg
+                                            skipResultMessage: skipResultMsg
+                                               notifyDelegate: notifyDelegate];
         ignoreNoConfigs = oldIgnoreNoConfigs;
     } else {
         if (  ! dotTblkFileList  ) {
@@ -3752,11 +3751,10 @@ static void signal_handler(int signalNumber)
         NSString * text = NSLocalizedString(@"Installing Tunnelblick VPN Configurations...", @"Window text");
         [splashScreen setMessage: text];
 
-        [[ConfigurationManager defaultManager] openDotTblkPackages: dotTblkFileList
-                                                         usingAuth: gAuthorization
-                                           skipConfirmationMessage: YES
-                                                 skipResultMessage: YES
-                                                    notifyDelegate: YES];
+        [[ConfigurationManager manager] installConfigurations: dotTblkFileList
+                                      skipConfirmationMessage: YES
+                                            skipResultMessage: YES
+                                               notifyDelegate: YES];
         text = NSLocalizedString(@"Installation finished successfully.", @"Window text");
         [splashScreen setMessage: text];
 
@@ -5058,38 +5056,41 @@ BOOL warnAboutNonTblks(void)
 	}
 }
 
--(int) countTblks: (NSArray *) tblksToInstallPaths {
+-(int) countConfigurations: (NSArray *) tblksToInstallPaths {
     
-    // Given an array of paths to .tblks to be installed, counts how many will be installed, including nested .tblks
-
-    int counter = 0;
+    // Given an array of paths to .tblks, .ovpns, and/or .confs to be installed
+    // Returns how many configurations will be installed, including nested .tblks and .ovpn and .conf configuration
+    //
+    // (Slightly tricky because if there is a .conf and a .ovpn with the same name, only the .ovpn will be installed)
     
+    NSMutableArray * configPaths = [NSMutableArray arrayWithCapacity: [tblksToInstallPaths count]];
     unsigned i;
     for (  i=0; i<[tblksToInstallPaths count]; i++) {
-        BOOL innerTblksFound = FALSE;
         NSString * outerPath = [tblksToInstallPaths objectAtIndex: i];
-        if (  [outerPath hasSuffix: @".tblk"]  ) {
-            NSString * file;
-            NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: outerPath];
-            while (  (file = [dirEnum nextObject])  ) {
+        NSString * file;
+        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: outerPath];
+        while (  (file = [dirEnum nextObject])  ) {
+            if (   [file hasSuffix: @".ovpn"]
+                || [file hasSuffix: @".conf"]  ) {
                 NSString * fullPath = [outerPath stringByAppendingPathComponent: file];
-                if (   itemIsVisible( fullPath)
-                    && [file hasSuffix: @".tblk"]  ) {
-                    [dirEnum skipDescendents];
-                    counter++;
-                    innerTblksFound = TRUE;
+                NSString * fullPathNoExt = [fullPath stringByDeletingPathExtension];
+                NSString * fullPathConf  = [fullPathNoExt stringByAppendingPathExtension: @"conf"];
+                NSString * fullPathOvpn  = [fullPathNoExt stringByAppendingPathExtension: @"ovpn"];
+                if (  [fullPath isEqualToString: fullPathOvpn]  ) {
+                    if (  [configPaths containsObject: fullPathConf]  ) {
+                        [configPaths removeObject: fullPathConf];
+                    }
+                    [configPaths addObject:    fullPathOvpn];
+                } else if (  [fullPath isEqualToString: fullPathConf]  ) {
+                    if (  ! [configPaths containsObject: fullPathOvpn]  ) {
+                        [configPaths addObject: fullPathConf];
+                    }
                 }
             }
-            
-            if (  ! innerTblksFound  ) {
-                counter++;
-            }
-        } else {
-            NSLog(@"%@ is not a .tblk and can't be installed", outerPath);
         }
     }
     
-    return counter;
+    return [configPaths count];
 }
 
 -(void) setPreferencesFromDictionary: (NSDictionary *) dict
@@ -5189,7 +5190,7 @@ BOOL warnAboutNonTblks(void)
     NSArray * tblksToInstallPaths = [self findTblksToInstallInPath: [currentPath stringByDeletingLastPathComponent]];
     if (  tblksToInstallPaths  ) {
         tblksMsg = [NSString stringWithFormat: NSLocalizedString(@"\n\nand install %ld Tunnelblick VPN Configurations", @"Window text"),
-                    (long) [self countTblks: tblksToInstallPaths]];
+                    (long) [self countConfigurations: tblksToInstallPaths]];
     } else {
         tblksMsg = @"";
     }
@@ -5288,23 +5289,23 @@ BOOL warnAboutNonTblks(void)
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 007")
     // Install this program and secure it
-    if (  ! [self runInstaller: (  INSTALLER_COPY_APP
-                                 | INSTALLER_COPY_BUNDLE
-                                 | INSTALLER_SECURE_APP
-                                 | INSTALLER_SECURE_TBLKS
-                                 | (gOkToConvertNonTblks
-                                    ? INSTALLER_CONVERT_NON_TBLKS
-                                    : 0)
-                                 | (needToMoveLibraryOpenVPN()
-                                    ? INSTALLER_MOVE_LIBRARY_OPENVPN
-                                    : 0)
-                                 )
-                extraArguments: nil
-               usingAuthRefPtr: &gAuthorization
-                       message: nil
-              installTblksFirst: tblksToInstallPaths]
-        ) {
-        // An error dialog and a message in the console log have already been displayed if an error occurred
+	NSInteger installerResult = [self runInstaller: (  INSTALLER_COPY_APP
+													 | INSTALLER_COPY_BUNDLE
+													 | INSTALLER_SECURE_APP
+													 | INSTALLER_SECURE_TBLKS
+													 | (gOkToConvertNonTblks
+														? INSTALLER_CONVERT_NON_TBLKS
+														: 0)
+													 | (needToMoveLibraryOpenVPN()
+														? INSTALLER_MOVE_LIBRARY_OPENVPN
+														: 0)
+													 )
+									extraArguments: nil
+								   usingAuthRefPtr: &gAuthorization
+										   message: nil
+								 installTblksFirst: tblksToInstallPaths];
+    if (  installerResult != 0  ) {
+        // Error occurred or the user cancelled. An error dialog and a message in the console log have already been displayed if an error occurred
         [self terminateBecause: terminatingBecauseOfError];
     }
 	
@@ -5416,10 +5417,11 @@ BOOL warnAboutNonTblks(void)
         
         [splashScreen setMessage: NSLocalizedString(@"Securing Tunnelblick...", @"Window text")];
         
-        if (  ! [self runInstaller: installFlags
-                    extraArguments: nil]  ) {
+        NSInteger installerResult = [self runInstaller: installFlags
+										extraArguments: nil];
+		if (  installerResult != 0  ) {
             
-			// An error dialog and a message in the console log have already been displayed if an error occurred
+			// An error occurred or the user cancelled. An error dialog and a message in the console log have already been displayed if an error occurred
             [self terminateBecause: terminatingBecauseOfError];
         }
 		
@@ -5465,24 +5467,26 @@ BOOL warnAboutNonTblks(void)
     [configsChangedTimer tbSetTolerance: -1.0];
 }
 
--(BOOL) runInstaller: (unsigned) installFlags
-      extraArguments: (NSArray *) extraArguments
+-(NSInteger) runInstaller: (unsigned) installFlags
+		   extraArguments: (NSArray *) extraArguments
 {
     return [self runInstaller: installFlags extraArguments: extraArguments usingAuthRefPtr: &gAuthorization message: nil installTblksFirst: nil];
 }
 
--(BOOL) runInstaller: (unsigned) installFlags
-      extraArguments: (NSArray *) extraArguments
-     usingAuthRefPtr: (AuthorizationRef *) authRefPtr
-             message: (NSString *) message
-   installTblksFirst: (NSArray *) tblksToInstallFirst
+-(NSInteger) runInstaller: (unsigned) installFlags
+		   extraArguments: (NSArray *) extraArguments
+		  usingAuthRefPtr: (AuthorizationRef *) authRefPtr
+				  message: (NSString *) message
+		installTblksFirst: (NSArray *) tblksToInstallFirst
 {
-    // Returns TRUE if installer ran successfully and does not need to be run again, FALSE otherwise
-    
+    // Returns 1 if the user cancelled the installation
+	//         0 if installer ran successfully and does not need to be run again
+	//        -1 if an error occurred
+	
     if (   (installFlags == 0)
 		&& (extraArguments == nil)  ) {
 		NSLog(@"runInstaller:extraArguments invoked but no action specified");
-        return YES;
+        return -1;
     }
     
     if (  installFlags & INSTALLER_COPY_APP  ) {
@@ -5498,7 +5502,7 @@ BOOL warnAboutNonTblks(void)
         authRefIsLocal = FALSE;
     }
     
-    if (  *authRefPtr == nil  ) {
+    if (  *authRefPtr == NULL  ) {
         NSMutableString * msg;
         if (  message  ) {
             msg = [[message mutableCopy] autorelease];
@@ -5528,7 +5532,7 @@ BOOL warnAboutNonTblks(void)
         *authRefPtr = [NSApplication getAuthorizationRef: msg];
         if(  *authRefPtr == NULL  ) {
             NSLog(@"Installation or repair cancelled");
-            return FALSE;
+            return 1;
         }
         
         // NOTE: We do NOT free gAuthorization here. It may be used to install .tblk packages, so we free it when we
@@ -5622,7 +5626,7 @@ BOOL warnAboutNonTblks(void)
             AuthorizationFree(localAuthRef, kAuthorizationFlagDefaults);
         }
         
-        return TRUE;
+        return 0;
     }
     
     NSLog(@"Installation or repair failed; Log:\n%@", installerLog);
@@ -5632,7 +5636,7 @@ BOOL warnAboutNonTblks(void)
     if (  authRefIsLocal  ) {
         AuthorizationFree(localAuthRef, kAuthorizationFlagDefaults);
     }
-    return FALSE;
+    return -1;
 }
 
 // Checks whether the installer needs to be run
@@ -5704,7 +5708,7 @@ BOOL needToMoveLibraryOpenVPN(void)
 
 BOOL needToSecureFolderAtPath(NSString * path)
 {
-    // Returns YES if the folder (a Deploy folder in the app needs to be secured
+    // Returns YES if the folder needs to be secured
     //
     // There is a SIMILAR function in openvpnstart: exitIfTblkNeedsRepair
     //
@@ -5722,7 +5726,11 @@ BOOL needToSecureFolderAtPath(NSString * path)
 	uid_t user = 0;
 	gid_t group = 0;
 	
-    selfPerms		   = PERMS_SECURED_SELF;
+	if (  [path hasPrefix: L_AS_T_TBLKS "/"]  ) {
+		selfPerms   = PERMS_SECURED_PUBLIC_FOLDER;
+	} else {
+		selfPerms   = PERMS_SECURED_SELF;
+	}
     tblkFolderPerms    = PERMS_SECURED_TBLK_FOLDER;
     privateFolderPerms = PERMS_SECURED_PRIVATE_FOLDER;
     publicFolderPerms  = PERMS_SECURED_PUBLIC_FOLDER;
@@ -5745,14 +5753,23 @@ BOOL needToSecureFolderAtPath(NSString * path)
             
             NSString * ext  = [file pathExtension];
             
-            if (  [ext isEqualToString: @"tblk"]  ) {
+            if (   [ext isEqualToString: @"tblk"]
+				&& ( ! [path hasPrefix: L_AS_T_TBLKS] )  ) {
                 if (  ! checkOwnerAndPermissions(filePath, user, group, tblkFolderPerms)  ) {
                     return YES;
                 }
             
-            } else if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir] && isDir  ) {
+            } else if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
+                       && isDir  ) {
 			
-                if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
+                // Special case: folders in L_AS_T_TBLKS are visible to all users, even though they are inside a .tblk
+                if (  [filePath hasPrefix: [L_AS_T_TBLKS stringByAppendingString: @"/"]]  ) {
+                    if (  ! checkOwnerAndPermissions(filePath, user, group, publicFolderPerms)  ) {
+						return YES;
+					}
+                
+                // Folders inside a .tblk anywhere else are visible only to the owner & group
+                } else if(  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
 					if (  ! checkOwnerAndPermissions(filePath, user, group, tblkFolderPerms)  ) {
 						return YES;
 					}
@@ -5780,7 +5797,10 @@ BOOL needToSecureFolderAtPath(NSString * path)
                     return YES;
                 }
             
-            } else if ( [file isEqualToString:@"forced-preferences.plist"]  ) {
+            // Files within L_AS_T_TBLKS are visible to all users (even if they are in a .tblk)
+            } else if (   [file isEqualToString:@"forced-preferences.plist"]
+                       || [filePath hasPrefix: [L_AS_T_TBLKS stringByAppendingString: @"/"]]
+                       ) {
                 if (  ! checkOwnerAndPermissions(filePath, user, group, forcedPrefsPerms)  ) {
                     return YES;
                 }

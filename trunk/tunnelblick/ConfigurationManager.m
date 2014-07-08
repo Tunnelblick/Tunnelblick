@@ -34,6 +34,7 @@
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
+#import "NSString+TB.h"
 #import "TBUserDefaults.h"
 #import "VPNConnection.h"
 
@@ -53,108 +54,53 @@ enum state_t {                      // These are the "states" of the guideState 
     stateGoBack,                    // (This can only be a nextState, never an actual state)
     stateHasNoConfigurations,
     stateMakeSampleConfiguration,
-    stateMakeEmptyConfiguration,
     stateHasConfigurations,
-    stateShowTbInstructions,
 };
-
-@interface ConfigurationManager() // PRIVATE METHODS
-
--(BOOL)         addConfigsFromPath:         (NSString *)                folderPath
-                   thatArePackages:         (BOOL)                      onlyPkgs
-                            toDict:         (NSMutableDictionary * )    dict
-                      searchDeeply:         (BOOL)                      deep;
-
--(NSString *)   displayNameForPath:         (NSString *)                thePath;
-
--(NSString *)   getLowerCaseStringForKey:   (NSString *)                key
-                            inDictionary:   (NSDictionary *)            dict
-                               defaultTo:   (id)                        replacement;
-
--(void)         guideState:                 (enum state_t)              state;
-
--(NSString *)   getPackageToInstall:        (NSString *)                thePath
-                          errorMsgs:        (NSMutableArray *)          errMsgs;
-
--(BOOL)         isSampleConfigurationAtPath:(NSString *)                cfgPath
-								  errorMsgs: (NSMutableArray *)         errMsgs;
-
--(NSString *)   makeEmptyTblk:              (NSString *)                thePath;
-
--(NSArray *) checkOneDotTblkPackage:		(NSString *)				filePath
-		   overrideReplaceIdentical:		(NSString *)				overrideReplaceIdentical
-			   overrideSharePackage:		(NSString *)				overrideSharePackage
-				  overrideUninstall:		(NSString *)				overrideUninstall
-                          errorMsgs:        (NSMutableArray *)          errMsgs;
-
--(NSString *)   parseString:                (NSString *)                cfgContents
-                  forOption:                (NSString *)                option;
-
-@end
 
 @implementation ConfigurationManager
 
-+(id)   defaultManager {
+TBSYNTHESIZE_OBJECT(retain, NSString *, applyToAllSharedPrivate, setApplyToAllSharedPrivate)
+TBSYNTHESIZE_OBJECT(retain, NSString *, applyToAllUninstall,     setApplyToAllUninstall)
+TBSYNTHESIZE_OBJECT(retain, NSString *, applyToAllReplaceSkip,   setApplyToAllReplaceSkip)
+
+TBSYNTHESIZE_OBJECT(retain, NSMutableString *, errorLog,         setErrorLog)
+
+TBSYNTHESIZE_OBJECT(retain, NSString *, tempDirPath,             setTempDirPath)
+
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, installSources,    setInstallSources)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, installTargets,    setInstallTargets)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, replaceSources,    setReplaceSources)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, replaceTargets,    setReplaceTargets)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, updateSources,     setUpdateSources)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, updateTargets,     setUpdateTargets)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, deletions,         setDeletions)
+
+TBSYNTHESIZE_NONOBJECT(BOOL, inhibitCheckbox,        setInhibitCheckbox)
+TBSYNTHESIZE_NONOBJECT(BOOL, installToSharedOK,      setInstallToSharedOK)
+TBSYNTHESIZE_NONOBJECT(BOOL, installToPrivateOK,     setInstallToPrivateOK)
+TBSYNTHESIZE_NONOBJECT(BOOL, authWasNull,            setAuthWasNull)
+TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
+
++(id)   manager {
     
     return [[[ConfigurationManager alloc] init] autorelease];
 }
 
--(NSMutableDictionary *) getConfigurations {
+-(void) dealloc {
     
-    // Returns a dictionary with information about the configuration files in gConfigDirs.
-    // The key for each entry is the display name for the configuration; the object is the path to the configuration file
-    // (which may be a .tblk package or a .ovpn or .conf file) for the configuration
-    //
-    // Only searches folders that are in gConfigDirs.
-    //
-    // First, it goes through gDeploy looking for packages,
-    //           then through gDeploy looking for configs NOT in packages,
-    //           then through L_AS_T_SHARED looking for packages (does not look for configs that are not in packages in L_AS_T_SHARED)
-    //           then through gPrivatePath looking for packages,
-    //           then through gPrivatePath looking for configs NOT in packages
+    [applyToAllSharedPrivate release];
+    [applyToAllUninstall     release];
+    [applyToAllReplaceSkip   release];
+    [tempDirPath             release];
+    [installSources          release];
+    [installTargets          release];
+    [replaceSources          release];
+    [replaceTargets          release];
+    [deletions               release];
     
-    NSMutableDictionary * dict = [[[NSMutableDictionary alloc] init] autorelease];
-    BOOL noneIgnored = TRUE;
+    // listingWindow IS NOT RELEASED because it needs to exist after this instance of ConfigurationManager is gone. It releases itself when the window closes.
     
-    noneIgnored = [self addConfigsFromPath: gDeployPath  thatArePackages: YES toDict: dict searchDeeply: YES ] && noneIgnored;
-    noneIgnored = [self addConfigsFromPath: gDeployPath  thatArePackages:  NO toDict: dict searchDeeply: YES ] && noneIgnored;
-    noneIgnored = [self addConfigsFromPath: L_AS_T_SHARED  thatArePackages: YES toDict: dict searchDeeply: YES ] && noneIgnored;
-    noneIgnored = [self addConfigsFromPath: gPrivatePath thatArePackages:   YES toDict: dict searchDeeply: YES ] && noneIgnored;
-    
-    if (  ! noneIgnored  ) {
-        TBRunAlertPanelExtended(NSLocalizedString(@"Configuration(s) Ignored", @"Window title"),
-                                NSLocalizedString(@"One or more configurations are being ignored. See the Console Log for details.", @"Window text"),
-                                nil, nil, nil,
-                                @"skipWarningAboutIgnoredConfigurations",          // Preference about seeing this message again
-                                NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                nil,
-								NSAlertDefaultReturn);
-    }
-    return dict;
-}
-
--(NSString *) extractTblkNameFromPath: (NSString *) path {
-    
-    // Given a path, returns the name of the .tblk that encloses it (without the .tblk)
-    // If path is a .tblk, returns the path (without the .tblk)
-    // If path is not a .tblk and is not enclosed in a .tblk, returns the path
-    
-    // Find ".tblk" so we can ignore it and everything after it
-    NSRange rng1 = [path rangeOfString: @".tblk" options: NSBackwardsSearch];
-    if (  rng1.location == NSNotFound  ) { // if no ".tblk", don't ignore anything
-        rng1.location = [path length];
-    }
-    
-    // Then find the "/" before that so we can include everything after it
-    NSRange rng2 = [path rangeOfString: @"/" options: NSBackwardsSearch range: NSMakeRange(0, rng1.location)];
-	if (  rng2.location == NSNotFound  ) {
-		rng2.location = 0;  // No "/", so include from start of string
-	} else {
-		rng2.location += 1; // Otherwise, don't include the "/" itself
-	}
-	
-    NSString * returnString = [path substringWithRange: NSMakeRange(rng2.location, rng1.location - rng2.location)];
-    return returnString;
+    [super dealloc];
 }
 
 -(BOOL)  addConfigsFromPath: (NSString *)               folderPath
@@ -266,6 +212,64 @@ enum state_t {                      // These are the "states" of the guideState 
     return  ! ignored;
 }            
 
+-(NSMutableDictionary *) getConfigurations {
+    
+    // Returns a dictionary with information about the configuration files in gConfigDirs.
+    // The key for each entry is the display name for the configuration; the object is the path to the configuration file
+    // (which may be a .tblk package or a .ovpn or .conf file) for the configuration
+    //
+    // Only searches folders that are in gConfigDirs.
+    //
+    // First, it goes through gDeploy looking for packages,
+    //           then through gDeploy looking for configs NOT in packages,
+    //           then through L_AS_T_SHARED looking for packages (does not look for configs that are not in packages in L_AS_T_SHARED)
+    //           then through gPrivatePath looking for packages,
+    //           then through gPrivatePath looking for configs NOT in packages
+    
+    NSMutableDictionary * dict = [[[NSMutableDictionary alloc] init] autorelease];
+    BOOL noneIgnored = TRUE;
+    
+    noneIgnored = [self addConfigsFromPath: gDeployPath  thatArePackages: YES toDict: dict searchDeeply: YES ] && noneIgnored;
+    noneIgnored = [self addConfigsFromPath: gDeployPath  thatArePackages:  NO toDict: dict searchDeeply: YES ] && noneIgnored;
+    noneIgnored = [self addConfigsFromPath: L_AS_T_SHARED  thatArePackages: YES toDict: dict searchDeeply: YES ] && noneIgnored;
+    noneIgnored = [self addConfigsFromPath: gPrivatePath thatArePackages:   YES toDict: dict searchDeeply: YES ] && noneIgnored;
+    
+    if (  ! noneIgnored  ) {
+        TBRunAlertPanelExtended(NSLocalizedString(@"Configuration(s) Ignored", @"Window title"),
+                                NSLocalizedString(@"One or more configurations are being ignored. See the Console Log for details.", @"Window text"),
+                                nil, nil, nil,
+                                @"skipWarningAboutIgnoredConfigurations",          // Preference about seeing this message again
+                                NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                                nil,
+								NSAlertDefaultReturn);
+    }
+    return dict;
+}
+
+-(NSString *) extractTblkNameFromPath: (NSString *) path {
+    
+    // Given a path, returns the name of the .tblk that encloses it (without the .tblk)
+    // If path is a .tblk, returns the path (without the .tblk)
+    // If path is not a .tblk and is not enclosed in a .tblk, returns the path
+    
+    // Find ".tblk" so we can ignore it and everything after it
+    NSRange rng1 = [path rangeOfString: @".tblk" options: NSBackwardsSearch];
+    if (  rng1.location == NSNotFound  ) { // if no ".tblk", don't ignore anything
+        rng1.location = [path length];
+    }
+    
+    // Then find the "/" before that so we can include everything after it
+    NSRange rng2 = [path rangeOfString: @"/" options: NSBackwardsSearch range: NSMakeRange(0, rng1.location)];
+	if (  rng2.location == NSNotFound  ) {
+		rng2.location = 0;  // No "/", so include from start of string
+	} else {
+		rng2.location += 1; // Otherwise, don't include the "/" itself
+	}
+	
+    NSString * returnString = [path substringWithRange: NSMakeRange(rng2.location, rng1.location - rng2.location)];
+    return returnString;
+}
+
 -(BOOL) userCanEditConfiguration: (NSString *) filePath {
     
     NSString * extension = [filePath pathExtension];
@@ -310,7 +314,6 @@ enum state_t {                      // These are the "states" of the guideState 
                           NSLocalizedString(@"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details.", @"Window text"));
     }
 }
-
 
 -(void) editOrExamineConfigurationForConnection: (VPNConnection *) connection {
     
@@ -383,147 +386,6 @@ enum state_t {                      // These are the "states" of the guideState 
         
         AuthorizationFree(authRef, kAuthorizationFlagDefaults);
     }
-}
-
--(NSString *)parseConfigurationPath: (NSString *) cfgPath
-                      forConnection: (VPNConnection *) connection {
-    
-    // Parses the configuration file.
-    // Gives user the option of adding the down-root plugin if appropriate
-    // Returns with device type: "tun" or "tap", or nil if it can't be determined
-    // Returns with string "Cancel" if user cancelled
-	
-    NSString * doNotParseKey = [[connection displayName] stringByAppendingString: @"-doNotParseConfigurationFile"];
-    if (  [gTbDefaults boolForKey: doNotParseKey]  ) {
-        return nil;
-    }
-    
-    NSString * cfgFile = lastPartOfPath(cfgPath);
-    NSString * configLocString = configLocCodeStringForPath(cfgPath);
-    NSArray * arguments = [NSArray arrayWithObjects: @"printSanitizedConfigurationFile", cfgFile, configLocString, nil];
-    NSString * stdOut;
-    NSString * stdErrOut;
-    OSStatus status = runOpenvpnstart(arguments, &stdOut, &stdErrOut);
-    if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"Internal failure (%lu) of openvpnstart printSanitizedConfigurationFile %@ %@", (unsigned long)status, cfgFile, configLocString);
-        return nil;
-    }
-    
-    NSString * cfgContents = [stdOut copy];
-    
-    NSString * userOption  = [self parseString: cfgContents forOption: @"user" ];
-    if (  [userOption length] == 0  ) {
-        userOption = nil;
-    }
-    NSString * groupOption = [self parseString: cfgContents forOption: @"group"];
-    if (  [groupOption length] == 0  ) {
-        groupOption = nil;
-    }
-    NSString * useDownRootPluginKey = [[connection displayName] stringByAppendingString: @"-useDownRootPlugin"];
-    NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutDownroot"];
-    if (   ( ! [gTbDefaults boolForKey: useDownRootPluginKey] )
-        &&     [gTbDefaults canChangeValueForKey: useDownRootPluginKey]
-        && ( ! [gTbDefaults boolForKey: skipWarningKey] )  ) {
-        
-        NSString * downOption  = [self parseString: cfgContents forOption: @"down" ];
-        if (  [downOption length] == 0  ) {
-            downOption = nil;
-        }
-
-        if (   (userOption || groupOption)
-            && (   downOption
-                || ([connection useDNSStatus] != 0)  )  ) {
-                
-                NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?", @"Window text"),
-                                  [connection displayName]];
-                
-                int result = TBRunAlertPanelExtended(NSLocalizedString(@"Use 'down-root' plugin for OpenVPN?", @"Window title"), 
-                                                     msg,
-                                                     NSLocalizedString(@"Do not use the plugin", @"Button"),
-                                                     NSLocalizedString(@"Always use the plugin", @"Button"),
-                                                     NSLocalizedString(@"Cancel", @"Button"), 
-                                                     skipWarningKey, 
-                                                     NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"), 
-                                                     nil,
-													 NSAlertDefaultReturn);
-                if (  result == NSAlertAlternateReturn  ) {
-                    [gTbDefaults setBool: TRUE forKey: useDownRootPluginKey];
-                } else if (  result != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
-                    [cfgContents release];
-                    return @"Cancel";
-                }
-            }
-    }
-    
-    if (   (   [gTbDefaults boolForKey: useDownRootPluginKey]
-            && [gTbDefaults canChangeValueForKey: useDownRootPluginKey] )
-        && (! (userOption || groupOption))  ) {
-        [gTbDefaults removeObjectForKey: useDownRootPluginKey];
-        NSLog(@"Removed '%@' preference", useDownRootPluginKey);
-    }
-    
-    NSString * devTypeOption = [[self parseString: cfgContents forOption: @"dev-type"] lowercaseString];
-    if (  devTypeOption  ) {
-        if (   [devTypeOption isEqualToString: @"tun"]
-            || [devTypeOption isEqualToString: @"tap"]  ) {
-            [cfgContents release];
-            return devTypeOption;
-        } else {
-            NSLog(@"The configuration file for '%@' contains a 'dev-type' option, but the argument is not 'tun' or 'tap'. It has been ignored", [connection displayName]);
-        }
-    }
-    
-    NSArray * reservedOptions = OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK;
-    NSString * option;
-    NSEnumerator * e = [reservedOptions objectEnumerator];
-    while (  (option = [e nextObject])  ) {
-        NSString * optionValue = [self parseString: cfgContents forOption: option];
-        if (  optionValue  ) {
-            NSLog(@"The configuration file for '%@' contains an OpenVPN '%@' option. That option is reserved for use by Tunnelblick. The option will be ignored", [connection displayName], option);
-		}
-    }
-    
-    NSArray * windowsOnlyOptions = OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY;
-    e = [windowsOnlyOptions objectEnumerator];
-    while (  (option = [e nextObject])  ) {
-        NSString * optionValue = [self parseString: cfgContents forOption: option];
-        if (  optionValue  ) {
-            NSLog(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.", [connection displayName], option);
-            NSString * msg = [NSString stringWithFormat:
-                              NSLocalizedString(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.", @"Window text"),
-                              [connection displayName], option];
-            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
-                              msg);
-            [cfgContents release];
-            return nil;
-		}
-    }
-    
-    NSString * devOption = [self parseString: cfgContents forOption: @"dev"];
-    NSString * devOptionFirst3Chars = [[devOption copy] autorelease];
-    if (  [devOption length] > 3  ) {
-        devOptionFirst3Chars = [devOption substringToIndex: 3];
-    }
-    devOptionFirst3Chars = [devOptionFirst3Chars lowercaseString];
-	
-    if (   ( ! devOption )
-        || ( ! (   [devOptionFirst3Chars isEqualToString: @"tun"]
-                || [devOptionFirst3Chars isEqualToString: @"tap"]  )  )  ) {
-        NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.", @"Window text"),
-						  [connection displayName]];
-        NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutNoTunOrTap"];
-        TBRunAlertPanelExtended(NSLocalizedString(@"No 'dev tun' or 'dev tap' found", @"Window title"), 
-                                msg,
-                                nil, nil, nil,
-                                skipWarningKey, 
-                                NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"), 
-                                nil,
-								NSAlertDefaultReturn);
-        [cfgContents release];
-        return nil;
-    }
-    [cfgContents release];
-    return devOptionFirst3Chars;
 }
 
 -(NSString *) parseString: (NSString *) cfgContents
@@ -638,1322 +500,145 @@ enum state_t {                      // These are the "states" of the guideState 
     return nil;
 }
 
--(BOOL) fileSizeOKAtPath: (NSString *)       path
-             inTblkNamed: (NSString *)       tblkName
-                 errMsgs: (NSMutableArray *) errMsgs {
+-(NSString *)parseConfigurationPath: (NSString *) cfgPath
+                      forConnection: (VPNConnection *) connection {
     
-    NSString * errMsg = fileIsReasonableSize(path);
-    if (  errMsg  ) {
-        NSLog(@"%@", errMsg);
-        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"There is a problem in %@: %@", "Window text"),
-                             tblkName, errMsg]];
-        return FALSE;
-    }
-    
-    return  TRUE;
-}
-
--(BOOL) fileReferencesInConfigAreOk: (NSString *)       cfgPath
-						  errorMsgs: (NSMutableArray *) errMsgs {
-    
-	NSString * tblkName = [[[[cfgPath stringByDeletingLastPathComponent]
-							 stringByDeletingLastPathComponent]
-							stringByDeletingLastPathComponent]
-						   lastPathComponent];
-    
-    if (  ! [self fileSizeOKAtPath: cfgPath inTblkNamed: tblkName errMsgs: errMsgs]  ) {
-        return FALSE;
-    }
-    
-    NSData * data = [gFileMgr contentsAtPath: cfgPath];
-    NSString * cfgContents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-    
-    NSString * option;
-
-	// First, check for OpenVPN options that cannot be used with Tunnelblick
-	NSArray * optionsThatAreNotAllowed = OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK;
-    NSEnumerator * e = [optionsThatAreNotAllowed objectEnumerator];
-	while (  (option = [e nextObject])  ) {
-        if(  [self parseString: cfgContents forOption: option]  ) {
-			NSLog(@"The OpenVPN configuration file in %@ contains a '%@' option, which cannot be used with Tunnelblick.",
-				  tblkName, option);
-			[errMsgs addObject: [NSString stringWithFormat:
-								 NSLocalizedString(@"The OpenVPN configuration file in %@ contains a '%@' option, which cannot be used with Tunnelblick.", "Window text"),
-								 tblkName, option]];
-			return FALSE;
-		}
-	}
+    // Parses the configuration file.
+    // Gives user the option of adding the down-root plugin if appropriate
+    // Returns with device type: "tun" or "tap", or nil if it can't be determined
+    // Returns with string "Cancel" if user cancelled
 	
-	// Next, check for OpenVPN options that are not allowed on OS X
-	optionsThatAreNotAllowed = OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY;
-    e = [optionsThatAreNotAllowed objectEnumerator];
-	while (  (option = [e nextObject])  ) {
-        if(  [self parseString: cfgContents forOption: option]  ) {
-			NSLog(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.",
-				  tblkName, option);
-			[errMsgs addObject: [NSString stringWithFormat:
-								 NSLocalizedString(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.", "Window text"),
-								 tblkName, option]];
-			return FALSE;
-		}
-	}
-	
-    // List of OpenVPN options that take a file path
-    NSArray * optionsWithPath = [NSArray arrayWithObjects:
-								 // @"askpass",                    // askpass        'file' not supported since we don't compile with --enable-password-save
-								 // @"auth-user-pass",             // auth-user-pass 'file' not supported since we don't compile with --enable-password-save
-								 @"ca",
-								 @"cert",
-								 @"dh",
-								 @"extra-certs",
-								 @"key",
-								 @"pkcs12",
-								 @"crl-verify",                    // Optional 'direction' argument
-								 @"secret",                        // Optional 'direction' argument
-								 @"tls-auth",                      // Optional 'direction' argument
-								 nil];
-    
-    e = [optionsWithPath objectEnumerator];
-    while (  (option = [e nextObject])  ) {
-        NSString * argument = [self parseString: cfgContents forOption: option];
-        if (  argument  ) {
-            if (   ([argument rangeOfString: @".."].length != 0)  ) {
-				NSLog(@"The OpenVPN configuration file in %@ has a '%@' option with argument '%@' which includes \"..\", which is not allowed.",
-					  tblkName, option, argument);
-				[errMsgs addObject: [NSString stringWithFormat:
-									 NSLocalizedString(@"The OpenVPN configuration file in %@ has a '%@' option with argument '%@' that includes \"..\", which is not allowed.", "Window text"),
-									 tblkName, option, argument]];
-                return FALSE;
-            }
-            if (   [argument hasPrefix: @"/"]
-                || [argument hasPrefix: @"~"]  ) {
-				NSLog(@"The OpenVPN configuration file in %@ has a '%@' option with argument '%@' which begins with \"%@\", which is not allowed.",
-					  tblkName, option, argument, [argument substringWithRange: NSMakeRange(0, 1)]);
-				[errMsgs addObject: [NSString stringWithFormat:
-									  NSLocalizedString(@"The OpenVPN configuration file in %@ has a '%@' option with argument '%@' that begins with \"%@\", which is not allowed.", "Window text"),
-									  tblkName, option, argument, [argument substringWithRange: NSMakeRange(0, 1)]]];
-                return FALSE;
-            }
-            if (  ! [argument isEqualToString: @"[inline]"]  ) {
-                if (  [argument length] == 0  ) {
-                    NSLog(@"The OpenVPN configuration file in %@ has a '%@' option with no argument, which is not allowed.",
-                          tblkName, option);
-                    [errMsgs addObject: [NSString stringWithFormat:
-                                         NSLocalizedString(@"The OpenVPN configuration file in %@ has a '%@' option with no argument, which is not allowed.", "Window text"),
-                                         tblkName, option]];
-                    return FALSE;
-                }
-                NSString * newPath = [[cfgPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: [argument lastPathComponent]];
-                if (  [gFileMgr fileExistsAtPath: newPath]  ) {
-                    if (  [NONBINARY_CONTENTS_EXTENSIONS containsObject: [newPath pathExtension]]  ) {
-                        if (  ! [self fileSizeOKAtPath: newPath inTblkNamed: tblkName errMsgs: errMsgs]  ) {
-                            return FALSE;
-                        }
-                        NSString * errorText = errorIfNotPlainTextFileAtPath(newPath, YES, nil); // No comments in these files
-                        if (  errorText  ) {
-                            NSLog(@"Error in %@ (referenced in %@): %@", newPath, tblkName, errorText);
-							[errMsgs addObject: [NSString stringWithFormat:
-												 NSLocalizedString(@"The OpenVPN configuration file in '%@' has a '%@' option that references '%@'. That file has a problem:\n\n%@.", "Window text"),
-												 [tblkName stringByDeletingPathExtension], option, argument, errorText]];
-                            return FALSE;
-                        }
-                    }
-                } else {
-                    NSLog(@"The OpenVPN configuration file in %@ has a '%@' option with file '%@' which cannot be found.",
-                          tblkName, option, argument);
-					[errMsgs addObject: [NSString stringWithFormat:
-										 NSLocalizedString(@"The OpenVPN configuration file in '%@' has a '%@' option that references '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk).", "Window text"),
-										 [tblkName stringByDeletingPathExtension], option, argument]];
-                    return FALSE;
-                }
-            }
-        }
-    }
-    
-    return TRUE;
-}
-
--(NSDictionary *) infoPlistForTblkAtPath: (NSString *) path {
-    
-    NSString * infoPlistPath = [path stringByAppendingPathComponent:@"/Contents/Info.plist"];
-    
-    if (  ! [gFileMgr fileExistsAtPath: infoPlistPath]  ) {
-        infoPlistPath = [path stringByAppendingPathComponent:@"Info.plist"];
-    }
-    
-    return [NSDictionary dictionaryWithContentsOfFile: infoPlistPath];
-}
-
--(void) openDotTblkPackages: (NSArray *) filePaths
-                  usingAuth: (AuthorizationRef) authRef
-    skipConfirmationMessage: (BOOL) skipConfirmMsg
-          skipResultMessage: (BOOL) skipResultMsg
-             notifyDelegate: (BOOL) notifyDelegate {
-    
-    // The filePaths array entries are NSStrings with the path to a .tblk to install.
-    
-    // Make sure all files inside each .tblk are reasonable
-    NSString * tooBigMsg = nil;
-    NSString * path;
-    NSEnumerator * e = [filePaths objectEnumerator];
-    while (  (path = [e nextObject])  ) {
-		tooBigMsg = allFilesAreReasonableIn(path);
-        if (  tooBigMsg  ) {
-			break;
-        }
-    }
-    if (  tooBigMsg  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
-                          [NSString stringWithFormat:
-						   NSLocalizedString(@"There was a problem:\n\n"
-										     @"%@", "Window text"),
-						   tooBigMsg]);
-        if (  notifyDelegate  ) {
-            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
-        }
-        return;
-    }
-    
-    if (  [gTbDefaults boolForKey: @"doNotOpenDotTblkFiles"]  )  {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
-                          NSLocalizedString(@"Installation of .tblk packages is not allowed", "Window text"));
-        if (  notifyDelegate  ) {
-            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
-        }
-        return;
-    }
-    
-    BOOL isDeployed = [gFileMgr fileExistsAtPath: gDeployPath];
-    BOOL installToPrivateOK = (   (! isDeployed)
-                               || (   [gTbDefaults boolForKey: @"usePrivateConfigurationsWithDeployedOnes"]
-                                   && ( ! [gTbDefaults canChangeValueForKey: @"usePrivateConfigurationsWithDeployedOnes"])
-                                   )  );
-    BOOL installToSharedOK = (   (! isDeployed)
-                              || (   [gTbDefaults boolForKey: @"useSharedConfigurationsWithDeployedOnes"]
-                                  && ( ! [gTbDefaults canChangeValueForKey: @"useSharedConfigurationsWithDeployedOnes"])
-                                  )  );
-    
-    if (  ! installToPrivateOK  ) {
-        if (  ! installToSharedOK  ) {
-            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
-                              NSLocalizedString(@"Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick.", "Window text"));
-            if (  notifyDelegate  ) {
-                [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
-            }
-            return;
-        }
-    }
-    
-    NSMutableArray * sourceList = [NSMutableArray arrayWithCapacity: [filePaths count]];        // Paths to source of files OK to install
-    NSMutableArray * targetList = [NSMutableArray arrayWithCapacity: [filePaths count]];        // Paths to destination to install them
-    NSMutableArray * deleteList = [NSMutableArray arrayWithCapacity: [filePaths count]];        // Paths to delete
-    NSMutableArray * errMsgs    = [NSMutableArray arrayWithCapacity: 30];                       // Array of strings with error messages
-    
-    // Go through the array, check each .tblk package, and add it to the install list if it is OK
-    NSArray * dest;
-    NSMutableArray * innerTblksAlreadyProcessed = [NSMutableArray arrayWithCapacity: 10];
-    unsigned i;
-    for (i=0; i < [filePaths count]; i++) {
-        NSString * path = [filePaths objectAtIndex: i];
-        
-        NSString * overrideReplaceIdentical = nil;
-		NSString * overrideSharePackage     = nil;
-		NSString * overrideUninstall        = nil;
-		
-        // Set up overrides for TBReplaceIdentical, TBSharePackage, and TBUninistall
-        if (  [path hasSuffix: @".tblk"]  ) {
-            NSDictionary * infoPlist = [self infoPlistForTblkAtPath: path];
-            
-            overrideReplaceIdentical = [infoPlist objectForKey: @"TBReplaceIdentical"];
-			if (  overrideReplaceIdentical  ) {
-				NSArray * okValues = [NSArray arrayWithObjects: @"yes", @"no", @"ask", @"force", nil];
-				if (  ! [okValues containsObject: overrideReplaceIdentical]  ) {
-                    NSLog(@"Configuration installer: The Info.plist in %@ contains an invalid TBReplaceIdentical value of '%@'", path, overrideReplaceIdentical);
-                    [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The Info.plist in '%@' contains an invalid 'TBReplaceIdentical' value of '%@'.\n\nThe value must be 'yes', 'no', 'ask', or 'force'.", @"Window text"), [self extractTblkNameFromPath: path], overrideReplaceIdentical]];
-					overrideReplaceIdentical = nil;
-				}
-			}
-			
-            overrideSharePackage = [infoPlist objectForKey: @"TBSharePackage"];
-			if (  overrideSharePackage  ) {
-				NSArray * okValues = [NSArray arrayWithObjects: @"private", @"shared", @"ask", nil];
-				if (  ! [okValues containsObject: overrideSharePackage]  ) {
-                    NSLog(@"Configuration installer: The Info.plist in %@ contains an invalid TBSharePackage value of '%@'", path, overrideSharePackage);
-                    [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The Info.plist in '%@' contains an invalid 'TBSharePackage' value of '%@'.\n\nThe value must be 'private', 'shared', or 'ask'.", @"Window text"), [self extractTblkNameFromPath: path], overrideSharePackage]];
-					overrideSharePackage = nil;
-				}
-			}
-			
-            overrideUninstall = [infoPlist objectForKey: @"TBUninstall"];
-        }
-        
-        // Deal with nested .tblks -- i.e., .tblks inside of a .tblk. One level of that is processed.
-        // If there are any .tblks inside the .tblk, the .tblk itself is not created, only the inner .tblks
-        // The inner .tblks may be inside subfolders of the outer .tblk, in which case they
-        // will be installed into subfolders of the private or shared configurations folder.
-        NSString * innerFileName;
-        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
-        while (  (innerFileName = [dirEnum nextObject])  ) {
-            NSString * fullInnerPath = [path stringByAppendingPathComponent: innerFileName];
-            if (   [[innerFileName pathExtension] isEqualToString: @"tblk"]  ) {
-                
-                // If have already processed a .tblk that contains this one, it is an error
-                // because it is a second level of enclosed .tblks.
-                // A message is inserted into the log, and the inner-most .tblk is skipped.
-                NSString * testPath;
-                BOOL nestedTooDeeply = FALSE;
-                NSEnumerator * arrayEnum = [innerTblksAlreadyProcessed objectEnumerator];
-                while (  (testPath = [arrayEnum nextObject])  ) {
-                    if (  [fullInnerPath hasPrefix: testPath]  ) {
-                        NSLog(@"Configuration installer: .tblks are nested too deeply (only one level of .tblk in a .tblk is allowed) in %@", path);
-                        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@".tblks are nested too deeply (only one level of .tblk in a .tblk is allowed) in '%@'.", @"Window text"), [self extractTblkNameFromPath: path]]];
-                        nestedTooDeeply = TRUE;
-                        break;
-                    }
-                }
-                
-                if (  ! nestedTooDeeply  ) {
-                    // This .tblk is not nested too deeply, so process it
-                    dest = [self checkOneDotTblkPackage: fullInnerPath
-							   overrideReplaceIdentical: overrideReplaceIdentical
-								   overrideSharePackage: overrideSharePackage
-									  overrideUninstall: overrideUninstall
-                                              errorMsgs: errMsgs];
-                    if (  dest  ) {
-                        if (  [dest count] == 2  ) {
-                            [sourceList addObject: [dest objectAtIndex: 0]];
-                            [targetList addObject: [dest objectAtIndex: 1]];
-                        } else if (  [dest count] == 1  ) {
-                            [deleteList addObject: [dest objectAtIndex: 0]];
-                        } else if (  [dest count] > 2  ) {
-                            NSLog(@"Configuration installer: Program error, please report this as a bug: Invalid dest = %@ for .tblk %@", dest, fullInnerPath);
-                            [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"Program error, please report this as a bug: Invalid dest = %@ for .tblk '%@'.", @"Window text"), dest, fullInnerPath]];
-                        }
-                    }
-                    [innerTblksAlreadyProcessed addObject: fullInnerPath];
-                }
-            }
-        }
-        
-        if (  [innerTblksAlreadyProcessed count] == 0  ) {
-            dest = [self checkOneDotTblkPackage: path
-                       overrideReplaceIdentical: nil    // Don't override the .tblk itself!
-                           overrideSharePackage: nil
-                              overrideUninstall: nil
-                                      errorMsgs: errMsgs];
-            if (  dest  ) {
-                if (  [dest count] == 2  ) {
-                    [sourceList addObject: [dest objectAtIndex: 0]];
-                    [targetList addObject: [dest objectAtIndex: 1]];
-                } else if (  [dest count] == 1  ) {
-                    [deleteList addObject: [dest objectAtIndex: 0]];
-                } else if (  [dest count] > 2  ) {
-                    NSLog(@"Configuration installer: Program error, please report this as a bug: Invalid dest = %@ for .tblk %@", dest, path);
-                    [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"Program error, please report this as a bug: Invalid dest = %@ for .tblk '%@'.", @"Window text"), dest, path]];
-                }
-            }
-        } else {
-            [innerTblksAlreadyProcessed removeAllObjects];
-        }
-    }
-    
-    if (   ([deleteList count] == 0)
-        && ([sourceList count] == 0)  ) {
-        
-        if (  [errMsgs count] == 0  ) {
-            if (  notifyDelegate  ) {
-                [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyCancel];
-				return;
-            }
-        }
-    }
-    
-    if (  [errMsgs count] != 0  ) {
-        NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"One or more configurations could not be installed.\n\n%@", @"Window text"), [errMsgs objectAtIndex: 0]];
-		
-        if (  [errMsgs count] != 1  ) {
-            msg = [msg stringByAppendingString:NSLocalizedString(@"\n\nOther problems were also found, but they are likely to be a result of that problem. See the Console Log for details.", @"Window text")];
-        }
-        
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
-                          msg);
-        if (  notifyDelegate  ) {
-            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
-        }
-        return;
-    }
-    
-    // **************************************************************************************
-    // Ask, and then install the packages
-    
-	NSString * windowHeaderText = ([deleteList count] == 0
-								   ? NSLocalizedString(@"Install?", @"Window title")
-								   : ([sourceList count] == 0
-                                      ? NSLocalizedString(@"Uninstall?", @"Window title")
-                                      : NSLocalizedString(@"Install and Uninstall?", @"Window title")
-                                      )
-                                   );
-    
-    NSString * windowText = NSLocalizedString(@"Tunnelblick needs to:\n\n", @"Window text");
-    
-    if (  [deleteList count] == 1  ) {
-        windowText = [windowText stringByAppendingString:
-					  NSLocalizedString(@"  • Uninstall one configuration\n\n", @"Window text")];
-    } else if (  [deleteList count] > 1  ) {
-        windowText = [windowText stringByAppendingFormat:
-					  NSLocalizedString(@"  • Uninstall %ld configurations\n\n", @"Window text"),
-					  (unsigned long) [deleteList count]];
-    }
-    
-    if (  [sourceList count] == 1  ) {
-        windowText = [windowText stringByAppendingString:
-					  NSLocalizedString(@"  • Install one configuration\n\n", @"Window text")];
-    } else if (  [sourceList count] > 0  ) {
-        windowText = [windowText stringByAppendingFormat:
-					  NSLocalizedString(@"  • Install %ld configurations\n\n", @"Window text"),
-					  (unsigned long) [sourceList count]];
-    }
-    
-    AuthorizationRef localAuth = authRef;
-    if (  authRef  ) {
-        
-        // We have an AuthorizationRef, but ask ask the user for confirmation anyway (but don't ask for a password)
-        if (   ( ! skipConfirmMsg )  ) {
-            int result = TBRunAlertPanel(windowHeaderText,
-                                         windowText,
-                                         NSLocalizedString(@"OK", @"Button"),       // Default
-                                         nil,                                       // Alternate
-                                         NSLocalizedString(@"Cancel", @"Button"));  // Other
-            if (  result != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
-                if (  notifyDelegate  ) {
-                    [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyCancel];
-                }
-                
-                return;
-            }
-        }
-    } else {
-        
-        // We don't have an AuthorizationRef, so get one
-        localAuth = [NSApplication getAuthorizationRef: windowText];
-    }
-    
-    if (  ! localAuth  ) {
-        NSLog(@"Configuration installer: The Tunnelblick VPN Configuration installation was cancelled by the user.");
-        if (  notifyDelegate  ) {
-            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyCancel];
-        }
-        return;
-    }
-    
-    int nErrors = 0;
-	
-    for (  i=0; i < [deleteList count]; i++  ) {
-        NSString * target = [deleteList objectAtIndex: i];
-        if (  ! [self deleteConfigPath: target
-                       usingAuthRefPtr: &localAuth
-                            warnDialog: NO]  ) {
-            nErrors++;
-        }
-    }
-    
-    for (  i=0; i < [sourceList count]; i++  ) {
-        NSString * source = [sourceList objectAtIndex: i];
-        NSString * target = [targetList objectAtIndex: i];
-		NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
-		NSDictionary * connDict = [[NSApp delegate] myVPNConnectionDictionary];
-		BOOL replacedTblk = (nil != [connDict objectForKey: targetDisplayName]);
-        if (  ! [self copyConfigPath: source
-                              toPath: target
-                     usingAuthRefPtr: &localAuth
-                          warnDialog: NO
-                         moveNotCopy: NO]  ) {
-            nErrors++;
-            [gFileMgr tbRemoveFileAtPath:target handler: nil];
-        }
-        NSRange r = [source rangeOfString: @"/TunnelblickTemporaryDotTblk-"];
-        if (  r.length != 0  ) {
-            [gFileMgr tbRemoveFileAtPath:[source stringByDeletingLastPathComponent] handler: nil];
-        }
-        
-		if (  replacedTblk  ) {
-            // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items it its Info.plist
-            [[NSApp delegate] deleteExistingConfig: targetDisplayName ];
-            [[NSApp delegate] addNewConfig: target withDisplayName: targetDisplayName];
-            [[[NSApp delegate] logScreen] update];
-		}
-    }
-    
-    if (  ! authRef  ) {    // If we weren't given an AuthorizationRef, free the one we got
-        AuthorizationFree(localAuth, kAuthorizationFlagDefaults);
-    }
-    
-    if (  nErrors != 0  ) {
-        NSString * msg;
-        if (  nErrors == 1) {
-            msg = NSLocalizedString(@"A configuration was not installed. See the Console log for details.", @"Window text");
-        } else {
-            msg = [NSString stringWithFormat: NSLocalizedString(@"%d configurations were not installed. See the Console Log for details.", "Window text"),
-                   nErrors];
-        }
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
-                          msg);
-        if (  notifyDelegate  ) {
-            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
-        }
-    } else {
-        unsigned nOK = [sourceList count];
-        unsigned nUninstalled = [deleteList count];
-        NSString * msg;
-        if (  nUninstalled == 1  ) {
-            msg = NSLocalizedString(@"One Tunnelblick VPN Configuration was uninstalled successfully.", @"Window text");
-        } else {
-            msg = [NSString stringWithFormat: NSLocalizedString(@"%d Tunnelblick VPN Configurations were uninstalled successfully.", @"Window text"), nUninstalled];
-        }
-        if (  nOK > 0  ) {
-            if (  nOK == 1  ) {
-                if (  nUninstalled  == 0  ) {
-                    msg = NSLocalizedString(@"One Tunnelblick VPN Configuration was installed successfully.", @"Window text");
-                } else {
-                    msg = [msg stringByAppendingString:
-                           NSLocalizedString(@"\n\nOne Tunnelblick VPN Configuration was installed successfully.", @"Window text")];
-                }
-            } else {
-                if (  nUninstalled  == 0  ) {
-                    msg = [NSString stringWithFormat: NSLocalizedString(@"%d Tunnelblick VPN Configurations were installed successfully.", @"Window text"), nOK];
-                } else {
-                    msg = [msg stringByAppendingString:
-                           [NSString stringWithFormat:
-                            NSLocalizedString(@"\n\n%d Tunnelblick VPN Configurations were installed successfully.", @"Window text"), nOK]];
-                }
-            }
-        }
-        
-        if (  ! skipResultMsg  ) {
-            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation", @"Window title"),
-                              msg);
-        }
-        if (  notifyDelegate  ) {
-            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplySuccess];
-        }
-    }
-}
-
--(NSArray *) checkOneDotTblkPackage: (NSString *)       filePath
-		   overrideReplaceIdentical: (NSString *)       overrideReplaceIdentical
-			   overrideSharePackage: (NSString *)       overrideSharePackage
-				  overrideUninstall: (NSString *)       overrideUninstall
-                          errorMsgs: (NSMutableArray *) errMsgs {
-    
-    // Checks one .tblk package to make sure it should be installed
-    //     Returns an array with [source, dest] paths if it should be installed
-    //     Returns an array with [source] if it should be UNinstalled
-    //     Returns an empty array if the user cancelled the installation
-    //     Returns nil if an error occurred
-    // If filePath is a nested .tblk (i.e., a .tblk contained within another .tblk), the destination path will be a subfolder of the private or shared configurations folder
-    
-    if (   [filePath hasPrefix: [gPrivatePath  stringByAppendingString: @"/"]]
-        || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]
-        || [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]  ) {
-        NSLog(@"Configuration installer: Tunnelblick VPN Configuration is already installed: %@", filePath);
-        TBShowAlertWindow(NSLocalizedString(@"Configuration Installation Error", @"Window title"),
-                          NSLocalizedString(@"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy.", @"Window text"));
-        return nil;
-    }
-	
-    NSString * subfolder = nil;
-    NSString * filePathWithoutTblk = [filePath stringByDeletingLastPathComponent];
-    NSRange outerTblkRange = [filePathWithoutTblk rangeOfString: @".tblk/"];
-    if (  outerTblkRange.length != 0  ) {
-        subfolder = [filePathWithoutTblk substringWithRange: NSMakeRange(outerTblkRange.location + outerTblkRange.length, [filePathWithoutTblk length] - outerTblkRange.location - outerTblkRange.length)];
-        if (  [subfolder isEqualToString: @"Contents/Resources"]  ) {
-            subfolder = nil;
-        }
-    }
-	
-    BOOL pkgIsOK = TRUE;     // Assume it is OK to install/uninstall the package
-    
-    NSString * tryDisplayName;      // Try to use this display name, but deal with conflicts
-    tryDisplayName = [[filePath lastPathComponent] stringByDeletingPathExtension];
-    
-    // Do some preliminary checking to see if this is a well-formed .tblk. Return with path to .tblk to use
-    // (which might be a temporary file with a "fixed" version of the .tblk).
-    NSString * pathToTblk = [self getPackageToInstall: filePath errorMsgs: errMsgs];
-    if (  ! pathToTblk  ) {
-        return nil;                     // Error occured
-    }
-    if (  [pathToTblk length] == 0) {
-        return [NSArray array];         // User cancelled
-    }
-    
-    // **************************************************************************************
-    // Get the following data from Info.plist (and make sure nothing else is in it except TBPreference*** and TBAlwaysSetPreference***):
-    
-    NSString * pkgId;
-    NSString * pkgVersion;
-//  NSString * pkgShortVersionString;
-    NSString * pkgPkgVersion;
-    NSString * pkgReplaceIdentical;
-    NSString * pkgSharePackage;
-    BOOL       pkgDoUninstall = FALSE;
-    BOOL       pkgUninstallFailOK = FALSE;
-    
-    NSDictionary * infoDict = [self infoPlistForTblkAtPath: pathToTblk];
-    
-    if (  infoDict  ) {
-        
-        pkgId = [self getLowerCaseStringForKey: @"CFBundleIdentifier" inDictionary: infoDict defaultTo: nil];
-        
-        pkgVersion = [self getLowerCaseStringForKey: @"CFBundleVersion" inDictionary: infoDict defaultTo: nil];
-        
-        //  pkgShortVersionString = [self getLowerCaseStringForKey: @"CFBundleShortVersionString" inDictionary: infoDict defaultTo: nil];
-        
-        pkgPkgVersion = [self getLowerCaseStringForKey: @"TBPackageVersion" inDictionary: infoDict defaultTo: nil];
-        if (  pkgPkgVersion  ) {
-            if (  ! [pkgPkgVersion isEqualToString: @"1"]  ) {
-                NSLog(@"Configuration installer: The Info.plist in '%@' contains an invalid 'TBPackageVersion' value of '%@' (only '1' is allowed)", pathToTblk, pkgPkgVersion);
-                [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The Info.plist in '%@' contains an invalid 'TBPackageVersion' value of '%@' (only '1' is allowed).", @"Window text"), [self extractTblkNameFromPath: pathToTblk], pkgPkgVersion]];
-                pkgIsOK = FALSE;
-            }
-        } else {
-            NSLog(@"Configuration installer: Missing 'TBPackageVersion' in Info.plist in %@", pathToTblk);
-            [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The Info.plist in '%@' does not contain a 'TBPackageVersion' entry.", @"Window text"), [self extractTblkNameFromPath: pathToTblk]]];
-            pkgIsOK = FALSE;
-        }
-        
-        pkgReplaceIdentical = [self getLowerCaseStringForKey: @"TBReplaceIdentical" inDictionary: infoDict defaultTo: @"ask"];
-        NSArray * okValues = [NSArray arrayWithObjects: @"no", @"yes", @"force", @"ask", nil];
-        if ( ! [okValues containsObject: pkgReplaceIdentical]  ) {
-            NSLog(@"Configuration installer: Invalid value '%@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical' in Info.plist in %@", pkgReplaceIdentical, pathToTblk);
-            [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The Info.plist in '%@' has an invalid value of '%@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical'.", @"Window text"), [self extractTblkNameFromPath: pathToTblk], pkgReplaceIdentical]];
-            pkgIsOK = FALSE;
-        }
-        
-        pkgSharePackage = [self getLowerCaseStringForKey: @"TBSharePackage" inDictionary: infoDict defaultTo: @"ask"];
-        okValues = [NSArray arrayWithObjects: @"private", @"shared", @"ask", nil];
-        if ( ! [okValues containsObject: pkgSharePackage]  ) {
-            NSLog(@"Configuration installer: Invalid value '%@' (only 'shared', 'private', or 'ask' are allowed) for 'TBSharePackage' in Info.plist in %@", pkgSharePackage, pathToTblk);
-            [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The Info.plist in '%@' has an invalid value of '%@' (only 'shared', 'private', or 'ask' are allowed) for 'TBSharePackage'.", @"Window text"), [self extractTblkNameFromPath: pathToTblk], pkgSharePackage]];
-            pkgIsOK = FALSE;
-        }
-        
-        id obj = [infoDict objectForKey: @"TBUninstall"];
-        if (  [obj respondsToSelector:@selector(isEqualToString:)]  ) {
-            pkgDoUninstall = TRUE;
-            if (  [obj isEqualToString: @"ignoreError"]  ) {
-                pkgUninstallFailOK = TRUE;
-            }
-        }
-        
-        NSString * key;
-        NSArray * validKeys = [NSArray arrayWithObjects: @"CFBundleIdentifier", @"CFBundleVersion", @"CFBundleShortVersionString",
-                               @"TBPackageVersion", @"TBReplaceIdentical", @"TBSharePackage", @"TBUninstall", nil];
-        NSEnumerator * e = [infoDict keyEnumerator];
-        while (  (key = [e nextObject])  ) {
-            if (  ! [validKeys containsObject: key]  ) {
-                if (   [key hasPrefix: @"TBPreference"]
-                    || [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
-                    NSString * keySuffix = (  [key hasPrefix: @"TBPreference"]
-                                            ? [key substringFromIndex: [@"TBPreference"          length]]
-                                            : [key substringFromIndex: [@"TBAlwaysSetPreference" length]]);
-                    if (  ! [gConfigurationPreferences containsObject: keySuffix]  ) {
-                        NSLog(@"Configuration installer: Unknown preference '%@' in TBPreference or TBAlwaysSetPreference key in Info.plist in %@", keySuffix, pathToTblk);
-                        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The Info.plist in '%@' has a TBPreference or TBAlwaysSetPreference key which refers to an unknown preference '%@'.", @"Window text"), [self extractTblkNameFromPath: pathToTblk], keySuffix]];
-                        pkgIsOK = FALSE;
-                    }
-                } else {
-                    NSLog(@"Configuration installer: Unknown key '%@' in Info.plist in %@", key, pathToTblk);
-                    [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The Info.plist in '%@' has an unknown key '%@'.", @"Window text"), [self extractTblkNameFromPath: pathToTblk], key]];
-                    pkgIsOK = FALSE;
-                }
-            }
-        }
-    } else {
-        // No Info.plist, so use default values
-        pkgId                       = nil;
-        pkgVersion                  = nil;
-        pkgReplaceIdentical         = @"ask";
-        pkgSharePackage             = @"ask";
-        pkgDoUninstall              = NO;
-//        pkgInstallWhenInstalling    = @"ask";
-    }
-	
-	if (  overrideReplaceIdentical  ) {
-		if (   pkgReplaceIdentical  ) {
-			NSLog(@"Overriding TBReplaceIdentical in %@", filePath);
-		}
-		pkgReplaceIdentical = [[overrideReplaceIdentical retain] autorelease];
-	}
-	
-	if (  overrideSharePackage  ) {
-		if (   pkgSharePackage  ) {
-			NSLog(@"Overriding TBSharePackage in %@", filePath);
-		}
-		pkgSharePackage = [[overrideSharePackage retain] autorelease];
-	}
-    
-	if (  overrideUninstall  ) {
-		if (  ! pkgDoUninstall  ) {
-			NSLog(@"Overriding absence of TBUninstall in %@", filePath);
-		}
-		pkgDoUninstall = TRUE;
-		if (  [overrideUninstall isEqualToString: @"ignoreError"]  ) {
-			pkgUninstallFailOK = TRUE;
-		}
-	}
-    
-    // **************************************************************************************
-    // Make sure the configuration file is not the sample file
-    NSString * pathToConfigFile = [pathToTblk stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
-    if (   ( ! pkgDoUninstall)
-        && [self isSampleConfigurationAtPath: pathToConfigFile errorMsgs: errMsgs]  ) {
-        pkgIsOK = FALSE;            // have already informed the user of the problem
-    }
-    
-    // **************************************************************************************
-    // Make sure the configuration file is not too large
-    if (  ! [self fileSizeOKAtPath: pathToConfigFile inTblkNamed: tryDisplayName errMsgs: errMsgs]  ) {
-        pkgIsOK = FALSE;
-    }
-    // **************************************************************************************
-    // Make sure the .tblk contains all key/cert/etc. files that are in the configuration file
-
-	if (   pathToConfigFile
-        && ( ! pkgDoUninstall)
-		&& ( ! [self fileReferencesInConfigAreOk: pathToConfigFile errorMsgs: errMsgs] )  ) {
-        pkgIsOK = FALSE;            // have already informed the user of the problem
-    }
-    
-    if ( ! pkgIsOK  ) {
+    NSString * doNotParseKey = [[connection displayName] stringByAppendingString: @"-doNotParseConfigurationFile"];
+    if (  [gTbDefaults boolForKey: doNotParseKey]  ) {
         return nil;
     }
     
-    // **************************************************************************************
-    // See if there is a package with the same CFBundleIdentifier and deal with that
-    NSString * replacementPath = nil;   // Complete path of package to be uninstalled or that this one is replacing, or nil if not replacing
-	
-    if (  pkgId  ) {
-        NSString * key;
-        NSEnumerator * e = [[[NSApp delegate] myConfigDictionary] keyEnumerator];
-        while (  (key = [e nextObject])  ) {
-            NSString * path = [[[NSApp delegate] myConfigDictionary] objectForKey: key];
-            NSString * last = lastPartOfPath(path);
-            NSString * oldDisplayFirstPart = firstPathComponent(last);
-            if (  [[oldDisplayFirstPart pathExtension] isEqualToString: @"tblk"]  ) {
-                NSDictionary * oldInfo = [self infoPlistForTblkAtPath: path];
-                NSString * oldVersion = [oldInfo objectForKey: @"CFBundleVersion"];
-                NSString * oldIdentifier = [self getLowerCaseStringForKey: @"CFBundleIdentifier" inDictionary: oldInfo defaultTo: nil];
-                if (  [oldIdentifier isEqualToString: pkgId]) {
-                    if (  [pkgReplaceIdentical isEqualToString: @"no"]  ) {
-                        NSLog(@"Configuration installer: Tunnelblick VPN Configuration %@ has NOT been %@installed: TBReplaceOption=NO.",
-                              tryDisplayName, (pkgDoUninstall ? @"un" : @""));
-                        if (  pkgUninstallFailOK  ) {
-                            return [NSArray array];
-                        } else {
-                            [errMsgs addObject: [NSString stringWithFormat:
-                                                 (  pkgDoUninstall
-                                                  ? NSLocalizedString(@"Tunnelblick VPN Configuration '%@' has NOT been uninstalled because TBReplaceOption=NO.", @"Window text")
-                                                  : NSLocalizedString(@"Tunnelblick VPN Configuration '%@' has NOT been installed because TBReplaceOption=NO.", @"Window text")),
-                                                 tryDisplayName]];
-                            return nil;
-                        }
-                    } else if (  [pkgReplaceIdentical isEqualToString: @"force"]  ) {
-                        // Fall through to install
-                    } else if (  [pkgReplaceIdentical isEqualToString: @"yes"]  ) {
-                        if (  [oldVersion compare: pkgVersion options: NSNumericSearch] == NSOrderedDescending  ) {
-                            NSLog(@"Configuration installer: Tunnelblick VPN Configuration %@ has NOT been %@installed: it has a lower version number.",
-                                  tryDisplayName, (pkgDoUninstall ? @"un" : @""));
-                            if (  pkgUninstallFailOK  ) {
-                                return [NSArray array];
-                            } else {
-                                [errMsgs addObject: [NSString stringWithFormat:
-                                                     (  pkgDoUninstall
-                                                      ? NSLocalizedString(@"Tunnelblick VPN Configuration '%@' has NOT been uninstalled because it has a lower version number.", @"Window text")
-                                                      : NSLocalizedString(@"Tunnelblick VPN Configuration '%@' has NOT been installed because it has a lower version number.", @"Window text")),
-                                                     tryDisplayName]];
-                                return nil;
-                            }
-                        } else {
-                            // Fall through to (un)install
-                        }
-                    } else if (  [pkgReplaceIdentical isEqualToString: @"ask"]  ) {
-                        NSString * msg;
-                        replacementPath = [[[NSApp delegate] myConfigDictionary] objectForKey: key];
-                        NSString * sharedPrivateDeployed;
-                        if (  [replacementPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
-                            sharedPrivateDeployed = NSLocalizedString(@" (Shared)", @"Window title");
-                        } else if (  [replacementPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-                            sharedPrivateDeployed = NSLocalizedString(@" (Private)", @"Window title");
-                        } else if (  [replacementPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
-                            sharedPrivateDeployed = NSLocalizedString(@" (Deployed)", @"Window title");
-                        } else {
-                            sharedPrivateDeployed = NSLocalizedString(@" (?)", @"Window title");
-                        }
-                        if (  pkgDoUninstall  ) {
-                            msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to uninstall '%@'%@ version %@?", @"Window text"),
-                                   tryDisplayName,
-                                   sharedPrivateDeployed,
-                                   oldVersion];
-                        } else {
-                            if (  [oldVersion compare: pkgVersion options: NSNumericSearch] == NSOrderedSame  ) {
-                                msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to reinstall '%@'%@ version %@?", @"Window text"),
-                                       tryDisplayName,
-                                       sharedPrivateDeployed,
-                                       pkgVersion];
-                            } else {
-                                msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to replace '%@'%@ version %@ with version %@?", @"Window text"),
-                                       tryDisplayName,
-                                       sharedPrivateDeployed,
-                                       pkgVersion,
-                                       oldVersion];
-                            }
-                        }
-                        
-                        NSString * header;
-                        if (  pkgDoUninstall  ) {
-                            header = NSLocalizedString(@"Uninstall Tunnelblick VPN Configuration", @"Window title");
-                        } else {
-                            header = NSLocalizedString(@"Replace Tunnelblick VPN Configuration", @"Window title");
-                        }
-						
-                        int result = TBRunAlertPanel(header,
+    NSString * cfgFile = lastPartOfPath(cfgPath);
+    NSString * configLocString = configLocCodeStringForPath(cfgPath);
+    NSArray * arguments = [NSArray arrayWithObjects: @"printSanitizedConfigurationFile", cfgFile, configLocString, nil];
+    NSString * stdOut;
+    NSString * stdErrOut;
+    OSStatus status = runOpenvpnstart(arguments, &stdOut, &stdErrOut);
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"Internal failure (%lu) of openvpnstart printSanitizedConfigurationFile %@ %@", (unsigned long)status, cfgFile, configLocString);
+        return nil;
+    }
+    
+    NSString * cfgContents = [stdOut copy];
+    
+    NSString * userOption  = [self parseString: cfgContents forOption: @"user" ];
+    if (  [userOption length] == 0  ) {
+        userOption = nil;
+    }
+    NSString * groupOption = [self parseString: cfgContents forOption: @"group"];
+    if (  [groupOption length] == 0  ) {
+        groupOption = nil;
+    }
+    NSString * useDownRootPluginKey = [[connection displayName] stringByAppendingString: @"-useDownRootPlugin"];
+    NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutDownroot"];
+    if (   ( ! [gTbDefaults boolForKey: useDownRootPluginKey] )
+        &&     [gTbDefaults canChangeValueForKey: useDownRootPluginKey]
+        && ( ! [gTbDefaults boolForKey: skipWarningKey] )  ) {
+        
+        NSString * downOption  = [self parseString: cfgContents forOption: @"down" ];
+        if (  [downOption length] == 0  ) {
+            downOption = nil;
+        }
+        
+        if (   (userOption || groupOption)
+            && (   downOption
+                || ([connection useDNSStatus] != 0)  )  ) {
+                
+                NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?", @"Window text"),
+                                  [connection displayName]];
+                
+                int result = TBRunAlertPanelExtended(NSLocalizedString(@"Use 'down-root' plugin for OpenVPN?", @"Window title"),
                                                      msg,
-                                                     NSLocalizedString(@"Replace", @"Button"),  // Default
-                                                     NSLocalizedString(@"Cancel", @"Button"),   // Alternate
-                                                     nil);
-                        if (  result != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
-                            NSLog(@"Configuration installer: Tunnelblick VPN Configuration %@ (un)installation declined by user.", tryDisplayName);
-                            return [NSArray array];
-                        }
-                    }
-                    
-                    tryDisplayName = [last stringByDeletingPathExtension];
-                    replacementPath = [[[NSApp delegate] myConfigDictionary] objectForKey: key];
-                    if (  [replacementPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
-                        pkgSharePackage = @"shared";
-                    } else {
-                        pkgSharePackage = @"private";
-                    }
-                    break;
+                                                     NSLocalizedString(@"Do not use the plugin", @"Button"),
+                                                     NSLocalizedString(@"Always use the plugin", @"Button"),
+                                                     NSLocalizedString(@"Cancel", @"Button"),
+                                                     skipWarningKey,
+                                                     NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"),
+                                                     nil,
+													 NSAlertDefaultReturn);
+                if (  result == NSAlertAlternateReturn  ) {
+                    [gTbDefaults setBool: TRUE forKey: useDownRootPluginKey];
+                } else if (  result != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
+                    [cfgContents release];
+                    return @"Cancel";
                 }
             }
-        }
     }
     
-    // **************************************************************************************
-    // Check for name conflicts if not replacing or uninstalling a package
-    if (   (! replacementPath )
-        && (! pkgDoUninstall )  ) {
-        NSString * curPath;
-        while (   (curPath = [[[NSApp delegate] myConfigDictionary] objectForKey: tryDisplayName])
-			   || ([tryDisplayName length] == 0)
-			   ) {
-			if (   [pkgReplaceIdentical isEqualToString: @"force"]
-                || [pkgReplaceIdentical isEqualToString: @"yes"]
-                ) {
-				replacementPath = curPath;
-				if (  [replacementPath hasPrefix: [L_AS_T_SHARED stringByAppendingPathComponent: @"/"]]  ) {
-					pkgSharePackage = @"shared";
-				} else {
-					pkgSharePackage = @"private";
-				}
-                break;
- 			}
-            NSString * msg;
-            if (  [tryDisplayName length] == 0  ) {
-                msg = NSLocalizedString(@"The VPN name cannot be empty.\n\nPlease enter a new name.", @"Window text");
-            } else {
-                msg = [NSString stringWithFormat: NSLocalizedString(@"The VPN name '%@' is already in use.\n\nPlease enter a new name.", @"Window text"), tryDisplayName];
-            }
-            
-            NSMutableDictionary* panelDict = [[NSMutableDictionary alloc] initWithCapacity:6];
-            [panelDict setObject:NSLocalizedString(@"Name In Use", @"Window title")   forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
-            [panelDict setObject:msg                                                forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-            [panelDict setObject:@""                                                forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
-            [panelDict setObject:NSLocalizedString(@"OK", @"Button")                forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
-            [panelDict setObject:NSLocalizedString(@"Cancel", @"Button")            forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
-            
-            // If neither old nor new .tblks have a CFBundleIdentifier, allow replacement
-            // (The situation when they both have a CFBundleIdentifer was processed above)
-			NSString * oldCFBundleIdentifier = [[self infoPlistForTblkAtPath: curPath] objectForKey: @"CFBundleIdentifier"];
-            if (   ( ! pkgId  )
-                && ( ! oldCFBundleIdentifier )
-                && ( ! [pkgReplaceIdentical isEqualToString: @"no"])  ) {
-                [panelDict setObject:NSLocalizedString(@"Replace Existing Configuration", @"Button") forKey:(NSString *)kCFUserNotificationOtherButtonTitleKey];
-            }
-            
-            [panelDict setObject:[NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                                         pathForResource:@"tunnelblick"
-                                                         ofType: @"icns"]]               forKey:(NSString *)kCFUserNotificationIconURLKey];
-            SInt32 error;
-            CFUserNotificationRef notification;
-            CFOptionFlags response;
-            
-            // Get a name from the user
-            notification = CFUserNotificationCreate(NULL, 30.0, 0, &error, (CFDictionaryRef)panelDict);
-            [panelDict release];
-            
-            if((error) || (CFUserNotificationReceiveResponse(notification, 0.0, &response))) {
-                CFRelease(notification);    // Couldn't receive a response
-                NSLog(@"Configuration installer: The Tunnelblick VPN Configuration has NOT been installed.\n\nAn unknown error occured.");
-                [errMsgs addObject: NSLocalizedString(@"The Tunnelblick VPN Configuration has NOT been installed.\n\nAn unknown error occured.", @"Window text")];
-                return nil;
-            }
-            
-            if((response & 0x3) == kCFUserNotificationOtherResponse) {
-                CFRelease(notification);    // User clicked "Replace Existing Configuration"
-                replacementPath = curPath;
-				if (  [replacementPath hasPrefix: [L_AS_T_SHARED stringByAppendingPathComponent: @"/"]]  ) {
-					pkgSharePackage = @"shared";
-				} else {
-					pkgSharePackage = @"private";
-				}
-                break;
-            }
-            
-            if((response & 0x3) != kCFUserNotificationDefaultResponse) {
-                CFRelease(notification);    // User clicked "Cancel"
-                NSLog(@"Configuration installer: Installation of Tunnelblick VPN Package %@ has been cancelled.", tryDisplayName);
-                return [NSArray array];
-            }
-            
-            // Get the new name from the textfield
-            tryDisplayName = [(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey, 0)
-                              stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            CFRelease(notification);
-            if (  [[tryDisplayName pathExtension] isEqualToString: @"tblk"]  ) {
-                tryDisplayName = [tryDisplayName stringByDeletingPathExtension];
-            }
-        }
+    if (   (   [gTbDefaults boolForKey: useDownRootPluginKey]
+            && [gTbDefaults canChangeValueForKey: useDownRootPluginKey] )
+        && (! (userOption || groupOption))  ) {
+        [gTbDefaults removeObjectForKey: useDownRootPluginKey];
+        NSLog(@"Removed '%@' preference", useDownRootPluginKey);
     }
     
-    if (   pkgIsOK ) {
-        if (  pkgDoUninstall  ) {
-            if (  ! replacementPath  ) {
-                
-                NSString * pathSuffix = [(subfolder
-										  ? [subfolder stringByAppendingPathComponent: tryDisplayName]
-										  : tryDisplayName
-										  )
-										 stringByAppendingPathExtension: @"tblk"];
-				NSString * tblkInPrivate = [gPrivatePath  stringByAppendingPathComponent: pathSuffix];
-				NSString * tblkInShared  = [L_AS_T_SHARED stringByAppendingPathComponent: pathSuffix];
-				if (  [gFileMgr fileExistsAtPath: tblkInPrivate]  ) {
-					replacementPath = tblkInPrivate;
-				} else if (  [gFileMgr fileExistsAtPath: tblkInShared]  ) {
-					replacementPath = tblkInShared;
-				} else {
-                    NSLog(@"Configuration installer: Cannot find configuration %@ to be uninstalled.", pathSuffix);
-                    if (  pkgUninstallFailOK  ) {
-                        return [NSArray array];
-                    } else {
-                        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The '%@' configuration cannot be found.", @"Window text"), tryDisplayName]];
-                        return nil;
-                    }
-                }
-            }
-            
-            return [NSArray arrayWithObject: replacementPath];
-        }
-        
-        // **************************************************************************************
-        // Ask if it should be shared or private
-        if ( ! replacementPath  ) {
-            if (  [pkgSharePackage isEqualToString: @"ask"]  ) {
-                BOOL isDeployed = [gFileMgr fileExistsAtPath: gDeployPath];
-                BOOL installToPrivateOK = (   (! isDeployed)
-                                           || (   [gTbDefaults boolForKey: @"usePrivateConfigurationsWithDeployedOnes"]
-                                               && ( ! [gTbDefaults canChangeValueForKey: @"usePrivateConfigurationsWithDeployedOnes"])
-                                               )  );
-                BOOL installToSharedOK = (   (! isDeployed)
-                                          || (   [gTbDefaults boolForKey: @"useSharedConfigurationsWithDeployedOnes"]
-                                              && ( ! [gTbDefaults canChangeValueForKey: @"useSharedConfigurationsWithDeployedOnes"])
-                                              )  );
-                
-                int result;
-                if (  installToPrivateOK  ) {
-                    if (  installToSharedOK  ) {
-                        result = TBRunAlertPanel(NSLocalizedString(@"Install Configuration For All Users?", @"Window title"),
-                                                 [NSString stringWithFormat: NSLocalizedString(@"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n", @"Window text"), tryDisplayName],
-                                                 NSLocalizedString(@"Only Me", @"Button"),      // Default button
-                                                 NSLocalizedString(@"All Users", @"Button"),    // Alternate button
-                                                 NSLocalizedString(@"Cancel", @"Button"));      // Other button);
-                    } else {
-                        NSLog(@"Configuration installer: Forcing install of %@ as private because Deployed version of Tunnelblick and 'useSharedConfigurationsWithDeployedOnes' preference is not forced", tryDisplayName);
-                        result = NSAlertDefaultReturn;
-                    }
-                } else {
-                    if (  installToSharedOK  ) {
-                        NSLog(@"Configuration installer: Forcing install of %@ as shared because Deployed version of Tunnelblick and 'usePrivateConfigurationsWithDeployedOnes' preference is not forced", tryDisplayName);
-                        result = NSAlertAlternateReturn;
-                    } else {
-                        NSLog(@"Configuration installer: %@ cannot be installed as shared or private because this is a Deployed version of Tunnelblick.", tryDisplayName);
-                        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick VPN Configuration '%@' cannot be installed as shared or private because this is a Deployed version of Tunnelblick.", @"Window text"), tryDisplayName]];
-                        return nil;
-                    }
-                }
-                if (  result == NSAlertDefaultReturn  ) {
-                    pkgSharePackage = @"private";
-                } else if (  result == NSAlertAlternateReturn  ) {
-                    pkgSharePackage = @"shared";
-                } else {   // No action if cancelled or error occurred
-                    NSLog(@"Configuration installer: Installation of Tunnelblick VPN Package %@ has been cancelled.", tryDisplayName);
-                    return [NSArray array];
-                }
-            }
-        }
-        
-        // **************************************************************************************
-        // Indicate the package is to be installed
-        NSString * tblkName = [tryDisplayName stringByAppendingPathExtension: @"tblk"];
-        NSString * pathPrefix;
-        if (  [pkgSharePackage isEqualToString: @"private"]  ) {
-            pathPrefix = gPrivatePath;
+    NSString * devTypeOption = [[self parseString: cfgContents forOption: @"dev-type"] lowercaseString];
+    if (  devTypeOption  ) {
+        if (   [devTypeOption isEqualToString: @"tun"]
+            || [devTypeOption isEqualToString: @"tap"]  ) {
+            [cfgContents release];
+            return devTypeOption;
         } else {
-            pathPrefix = L_AS_T_SHARED;
+            NSLog(@"The configuration file for '%@' contains a 'dev-type' option, but the argument is not 'tun' or 'tap'. It has been ignored", [connection displayName]);
         }
-        if (  subfolder  ) {
-            pathPrefix = [pathPrefix stringByAppendingPathComponent: subfolder];
-        }
-        return [NSArray arrayWithObjects: pathToTblk, [pathPrefix stringByAppendingPathComponent: tblkName], nil];
     }
     
-    return nil;
-}
-
--(NSString *) getLowerCaseStringForKey: (NSString *) key
-                          inDictionary: (NSDictionary *) dict
-                             defaultTo: (id) replacement {
+    NSArray * reservedOptions = OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK;
+    NSString * option;
+    NSEnumerator * e = [reservedOptions objectEnumerator];
+    while (  (option = [e nextObject])  ) {
+        NSString * optionValue = [self parseString: cfgContents forOption: option];
+        if (  optionValue  ) {
+            NSLog(@"The configuration file for '%@' contains an OpenVPN '%@' option. That option is reserved for use by Tunnelblick. The option will be ignored", [connection displayName], option);
+		}
+    }
     
-    id retVal;
-    retVal = [[dict objectForKey: key] lowercaseString];
-    if (  retVal  ) {
-        if (  ! [[retVal class] isSubclassOfClass: [NSString class]]  ) {
-            NSLog(@"The value for Info.plist key '%@' is not a string. The entry will be ignored.", key);
+    NSArray * windowsOnlyOptions = OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY;
+    e = [windowsOnlyOptions objectEnumerator];
+    while (  (option = [e nextObject])  ) {
+        NSString * optionValue = [self parseString: cfgContents forOption: option];
+        if (  optionValue  ) {
+            NSLog(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.", [connection displayName], option);
+            NSString * msg = [NSString stringWithFormat:
+                              NSLocalizedString(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.", @"Window text"),
+                              [connection displayName], option];
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
+                              msg);
+            [cfgContents release];
             return nil;
-        }
-    } else {
-        retVal = replacement;
-    }
-	
-    return retVal;
-}
-
--(NSString *) getPackageToInstall: (NSString *)       thePath
-                        errorMsgs: (NSMutableArray *) errMsgs {
-    
-    // Does simple checks on a .tblk package.
-    // If it can be "fixed", returns the path to a temporary copy with the problems fixed.
-    // Otherwise, returns nil to indicate an error;
-    
-    NSString * tblkName = [self extractTblkNameFromPath: thePath];
-    
-    NSArray * keyAndCrtExtensions = KEY_AND_CRT_EXTENSIONS;
-	
-    // *******************************************************************************
-    // Look through the package and create a list of files in it that should be copied
-    // The list consists of paths relative to 'thePath'
-    
-    NSMutableArray * pkgList = [[NSMutableArray alloc] initWithCapacity: 10];   // NOT autorelease, need through user interactions!!!
-    
-    // Keep track of the sorts of files that will be copied
-    
-    unsigned int nConfConfigs = 0;   // # of ".conf" configuration files we've seen
-    unsigned int nOvpnConfigs = 0;   // # of ".ovpn" configuration files we've seen
-    unsigned int nInfos       = 0;   // # of Info.plist files we've seen
-    BOOL isDir;
-    
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: thePath];
-    NSString * thisItem;
-    while (  (thisItem = [dirEnum nextObject])  ) {
-        
-        NSString * itemPath = [thePath stringByAppendingPathComponent: thisItem];
-        
-        if (  ! itemIsVisible(itemPath)  ) {
-            continue;
-        }
-        
-        NSString * ext = [itemPath pathExtension];
-        
-        if (   [gFileMgr fileExistsAtPath: itemPath isDirectory: &isDir]
-            && ( ! isDir )  ) {
-            if (  [ext isEqualToString: @"ovpn"]  ) {
-                nOvpnConfigs++;
-            } else if (  [ext isEqualToString: @"conf"]  ) {
-                nConfConfigs++;
-            } else if (  [[itemPath lastPathComponent] isEqualToString: @"Info.plist"]  ) {
-                nInfos++;
-                if (  nInfos > 1  ) {
-                    continue;   // Don't add additional Info.plists to pkgList
-                }
-            } else if (  [ext isEqualToString: @"sh"]  ) {
-                ;
-            } else if (  ! [keyAndCrtExtensions containsObject: ext]  ) {
-                
-                NSMutableString * allowedExtensionsString = [[[NSMutableString alloc] initWithCapacity: 200] autorelease];
-                [allowedExtensionsString appendString: @"ovpn, conf, tblk, sh, "];
-                unsigned j;
-                for (  j=0; j<[keyAndCrtExtensions count]-1; j++) {
-                    [allowedExtensionsString appendFormat: @"%@, ", [keyAndCrtExtensions objectAtIndex: j]];
-                }
-                [allowedExtensionsString appendFormat: @"and %@", [keyAndCrtExtensions lastObject]];
-                
-                if (  [ext length] == 0  ) {
-                    NSLog(@"Configuration installer: File '%@' does not have an extension. Each file in a Tunnelblick VPN Configuration must have an extension. Tunnelblick uses the extension to determine how to secure the file properly.", itemPath);
-                    [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick VPN Configuration '%@' contains file '%@', which does not have an extension. Each file in a Tunnelblick VPN Configuration must have an extension. Tunnelblick uses extensions to determine how to secure files properly.\n\nThe extensions that are allowed are: %@.", @"Window text"),
-                                         tblkName, [self extractTblkNameFromPath: thisItem], allowedExtensionsString]];
-                } else {
-                    NSLog(@"Configuration installer: File '%@' has an extension that may not appear in a Tunnelblick VPN Configuration. Tunnelblick uses the extension to determine how to secure the file properly.", itemPath);
-                    [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick VPN Configuration '%@' contains file '%@', which has an extension that may not appear in a Tunnelblick VPN Configuration. Tunnelblick uses extensions to determine how to secure files properly.\n\nThe extensions that are allowed are: %@.", @"Window text"),
-                                         tblkName, [self extractTblkNameFromPath: thisItem], allowedExtensionsString]];
-                }
-                
-                // Because we copy all files "flat" into the Contents/Resources folder, not into subfolders, we don't allow files with the same names (even if they are in different folders)
-                // So we check for duplicate names before inserting items into pkgList
-                BOOL skipThisItem = FALSE;
-                NSString * subfolderItem;
-                NSEnumerator * e = [pkgList objectEnumerator];
-                while (  (subfolderItem = [e nextObject])  ) {
-                    NSString * fileName = [subfolderItem lastPathComponent];
-                    if (  [thisItem isEqualToString: fileName]  ) {
-                        NSLog(@"Configuration installer: Tunnelblick VPN Configuration '%@', contains multiple files named '%@'. All file names must be unique, even if they are in different subfolders.", thePath, fileName);
-                        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick VPN Configuration '%@', contains multiple files named '%@'. All file names must be unique, even if they are in different subfolders.", @"Window text"), tblkName, fileName]];
-                        skipThisItem = TRUE;
-						break;
-                    }
-                }
-				
-				if (  skipThisItem  ) {
-					continue;
-				}
-            }
-
-			[pkgList addObject: thisItem];
-			
-        } else if (  [[itemPath pathExtension] isEqualToString: @"tblk"]  ) {
-            NSLog(@"Configuration installer: .tblks are nested too deeply in %@.", thePath);
-            [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick VPN Configuration '%@', which is contained within a Tunnelblick VPN Configuration, contains a Tunnelblick VPN Configuration, which is not allowed. Only one level of nesting is allowed.", @"Window text"), tblkName]];
-            [dirEnum skipDescendents];
-        } else {
-            ;  // Folder -- ignore it (but we will process everything inside it)
-        }
+		}
     }
     
-    // *******************************************************************************
-    // Do some simple checks
-    
-    // If empty package, make a sample config
-    if (  [pkgList count] == 0  ) {
-		[errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick VPN Configuration '%@' is empty.", @"Window text"),
-							 tblkName]];
-		[pkgList release];
-		return @"";
-	}
-	
-    BOOL copyTheConfConfig = FALSE;
-    
-    if (  nOvpnConfigs != 1  ) {
-        
-        copyTheConfConfig = TRUE;
-        
-        if (  nOvpnConfigs > 1  ) {
-            NSLog(@"Configuration installer: Tunnelblick VPN Configuration '%@' has more than one OpenVPN configuration file with an 'ovpn' extension. A Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension .If it does not, it must have exactly one with a 'conf' extension.", thePath);
-            [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick VPN Configuration '%@' has more than one OpenVPN configuration file with an 'ovpn' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension. If it does not, it must have exactly one with a 'conf' extension.", @"Window text"), tblkName]];
-            [pkgList release];
-            return nil;
-        }
-        if (  nConfConfigs != 1  ) {
-            if (  nConfConfigs == 0  ) {
-                NSLog(@"Configuration installer: Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with an 'ovpn' or 'conf' extension. A Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension .If it does not, it must have exactly one with a 'conf' extension.", thePath);
-                [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with an 'ovpn' or 'conf' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension. If it does not, it must have exactly one with a 'conf' extension.", @"Window text"), tblkName]];
-                [pkgList release];
-                return nil;
-            } else {
-                NSLog(@"Configuration installer: Tunnelblick VPN Configuration '%@' has %d OpenVPN configuration files with a 'conf' extension. A Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension .If it does not, it must have exactly one with a 'conf' extension.", thePath, nConfConfigs);
-                [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with a 'ovpn' extension, and has more than one with a 'conf' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension .If it does not, it must have exactly one with a 'conf' extension.", @"Window text"), tblkName]];
-                [pkgList release];
-                return nil;
-            }
-        }
+    NSString * devOption = [self parseString: cfgContents forOption: @"dev"];
+    NSString * devOptionFirst3Chars = [[devOption copy] autorelease];
+    if (  [devOption length] > 3  ) {
+        devOptionFirst3Chars = [devOption substringToIndex: 3];
     }
-    
-    if (  nInfos > 1  ) {
-        NSLog(@"Configuration installer: A Tunnelblick VPN Configuration may have at most one Info.plist, %d Info.plist files were found in %@", nInfos, thePath);
-        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"%d Info.plist files were found in '%@'. A Tunnelblick VPN Configuration may have at most one Info.plist.", @"Window text"), nInfos, tblkName]];
-        [pkgList release];
+    devOptionFirst3Chars = [devOptionFirst3Chars lowercaseString];
+	
+    if (   ( ! devOption )
+        || ( ! (   [devOptionFirst3Chars isEqualToString: @"tun"]
+                || [devOptionFirst3Chars isEqualToString: @"tap"]  )  )  ) {
+        NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.", @"Window text"),
+						  [connection displayName]];
+        NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutNoTunOrTap"];
+        TBRunAlertPanelExtended(NSLocalizedString(@"No 'dev tun' or 'dev tap' found", @"Window title"),
+                                msg,
+                                nil, nil, nil,
+                                skipWarningKey,
+                                NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"),
+                                nil,
+								NSAlertDefaultReturn);
+        [cfgContents release];
         return nil;
     }
-
-    // *******************************************************************************
-	// Create an empty .tblk and copy the files to its Contents/Resources folder
-	// Except only one OpenVPN configuration file is copied (and it is copied as "config.ovpn")
-    // The Info.plist is copied to Contents.
-    // All other files are copied "flat" into the Contents/Resources folder (that is, not into subfolders)
-
-    NSString * emptyTblk = [self makeEmptyTblk: thePath];
-    if (  ! emptyTblk  ) {
-        [pkgList release];
-        return nil;
-    }
-    
-    NSString * emptyResources = [emptyTblk stringByAppendingPathComponent: @"Contents/Resources"];
-    unsigned i;
-    for (i=0; i < [pkgList count]; i++) {
-        NSString * oldPath = [thePath stringByAppendingPathComponent: [pkgList objectAtIndex: i]];
-        
-        NSString * newPath = nil;
-        NSString * ext = [oldPath pathExtension];
-        
-        if (  [ext isEqualToString: @"ovpn"]  ) {
-            newPath = [emptyResources stringByAppendingPathComponent: @"config.ovpn"];
-        } else if (   [ext isEqualToString: @"conf"]  ) {
-            if ( copyTheConfConfig  ) {
-                newPath = [emptyResources stringByAppendingPathComponent: @"config.ovpn"];
-            } else {
-                continue;   // Skip  copying .conf because we're using a .ovpn
-            }
-        } else if (  [[oldPath lastPathComponent] isEqualToString: @"Info.plist"]  ) {
-            newPath = [[emptyResources stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];  // Goes in Contents, not Resources
-        } else {
-            newPath = [emptyResources stringByAppendingPathComponent: [oldPath lastPathComponent]];
-        }
-        
-        BOOL doCopy = TRUE; // Assume we don't remove/replace CR characeters, so we do need to copy the file
-        
-        // Filter CR characters out of any script files, OpenVPN configuration files, and other non-binary files
-        NSString * theExtension = [oldPath pathExtension];
-        NSArray * otherExtensions = [NSArray arrayWithObjects: @"sh", @"ovpn", @"conf", nil];
-        NSArray * nonBinaryExtensions = NONBINARY_CONTENTS_EXTENSIONS;
-        if (   [nonBinaryExtensions containsObject: theExtension]
-            || [otherExtensions    containsObject: theExtension]  ) {
-            NSData * data = [gFileMgr contentsAtPath: oldPath];
-            if (  data  ) {
-                NSString * scriptContents = [[[NSString alloc] initWithData: data encoding: NSASCIIStringEncoding] autorelease];
-                if (  [scriptContents rangeOfString: @"\r"].length != 0  ) {
-                    doCopy = FALSE;
-                    NSLog(@"Configuration installer: CR characters are being removed or replaced with LF characters in the installed copy of %@", oldPath);
-                    NSMutableString * ms = [[scriptContents mutableCopy] autorelease];
-					[ms replaceOccurrencesOfString: @"\r\n"
-										withString: @"\n"
-										   options: 0
-											 range: NSMakeRange(0, [ms length])];
-					[ms replaceOccurrencesOfString: @"\r"
-										withString: @"\n"
-										   options: 0
-											 range: NSMakeRange(0, [ms length])];
-					data = [ms dataUsingEncoding: NSUTF8StringEncoding];
-					if (  ! data  ) {
-                        NSLog(@"Configuration installer: Invalid encoding in %@", newPath);
-                        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The file contains characters that are not UTF-8 encoded: %@", @"Window text"), [newPath lastPathComponent]]];
-                        [pkgList release];
-                        return nil;
-					}
-                    if (  ! [gFileMgr createFileAtPath: newPath contents: data attributes: nil]  ) {
-                        NSLog(@"Configuration installer: Unable to create file at %@", newPath);
-                        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"Program error, please report this as a bug: Unable to create file at '%@'", @"Window text"), newPath]];
-                        [pkgList release];
-                        return nil;
-                    }
-                }
-            }
-        }
-        
-        if (  doCopy  ) {
-            if (  ! [gFileMgr tbCopyPath: oldPath toPath: newPath handler: nil]  ) {
-                NSLog(@"Configuration installer: Unable to copy %@ to %@", oldPath, newPath);
-                [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"Program error, please report this as a bug: Unable to copy '%@' to '%@'", @"Window text"), oldPath, newPath]];
-                [pkgList release];
-                return nil;
-            }
-        }
-    }
-    
-    // *******************************************************************************
-    // Strip any path information from arguments of relevant options in the OpenVPN configuration file
-    // (because we took all the files the options reference out of folders and put them into the .tblk)
-
-    NSString * newConfigPath = [emptyResources stringByAppendingPathComponent: @"config.ovpn"];
-    
-    NSString * tempFilePath = [newTemporaryDirectoryPath() stringByAppendingPathComponent: @"log.txt"];
-    FILE * logFile = fopen([tempFilePath fileSystemRepresentation], "w");
-    if (  logFile == nil  ) {
-        NSLog(@"Configuration installer: unable to create temporary log file '%@'", tempFilePath);
-    }
-    
-    ConfigurationConverter * converter = [[ConfigurationConverter alloc] init];     // NOT autorelease!!!
-    
-    if (  ! [converter convertConfigPath: newConfigPath
-                              outputPath: nil
-                                 logFile: logFile
-                    includePathNameInLog: NO]  ) {
-        fclose(logFile);
-        NSData * data = [gFileMgr contentsAtPath: tempFilePath];
-        NSString * errText = (  data
-                              ? [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease]
-                              : @"");
-        NSLog(@"Configuration installer: Failed to parse configuration path '%@':\n%@", newConfigPath, errText);
-        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The OpenVPN configuration file in '%@' could not be processed:\n\n%@", @"Window text"),
-                             [self extractTblkNameFromPath: newConfigPath], errText]];
-		emptyTblk = nil;	// return error
-    } else {
-        fclose(logFile);
-    }
-    
-    NSString * tempFolderPath = [tempFilePath stringByDeletingLastPathComponent];
-    if (  ! [gFileMgr tbRemoveFileAtPath: tempFolderPath handler: nil]  ) {
-        NSLog(@"Configuration installer: unable to delete temporary folder '%@'", tempFolderPath);
-    }
-    
-    [converter release];
-    
-    [pkgList release];
-    return emptyTblk;
-}
-
--(NSString *) makeEmptyTblk: (NSString *) thePath {
-    
-    // Creates an "empty" .tblk with name taken from input argument, and with Contents/Resources created,
-    // in a newly-created temporary folder
-    // Returns nil on error, or with the path to the .tblk
-    
-    NSString * tempFolder = newTemporaryDirectoryPath();
-    NSString * tempTblk = [tempFolder stringByAppendingPathComponent: [thePath lastPathComponent]];
-    
-    NSString * tempResources = [tempTblk stringByAppendingPathComponent: @"Contents/Resources"];
-    
-    int result = createDir(tempResources, 0755);    // Creates intermediate directory "Contents", too
-    
-    [tempFolder release];
-    
-    if (  result == -1  ) {
-        return nil;
-    }
-    
-    return tempTblk;
-}
-
--(BOOL) isSampleConfigurationAtPath: (NSString *)       cfgPath
-						  errorMsgs: (NSMutableArray *) errMsgs {
-    
-    NSString * samplePath = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
-    if (  [[cfgPath pathExtension] isEqualToString: @"tblk"]  ) {
-        if (  ! [gFileMgr contentsEqualAtPath: [cfgPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"] andPath: samplePath]  ) {
-            return FALSE;
-        }
-    } else {
-        if (  ! [gFileMgr contentsEqualAtPath: cfgPath andPath: samplePath]  ) {
-            return FALSE;
-        }
-    }
-    
-    [errMsgs addObject: NSLocalizedString(@"You have tried to install a configuration file that is a sample"
-										  @" configuration file. The configuration file must"
-										  @" be modified to connect to a VPN. You may also need other files, such as"
-										  @" certificate or key files, to connect to the VPN.\n\n"
-										  @"Consult your network administrator or your VPN service provider to obtain"
-										  @" configuration and other files or the information you need to modify the"
-										  @" sample file.", @"Window text")];
-	 return TRUE;
+    [cfgContents release];
+    return devOptionFirst3Chars;
 }
 
 -(BOOL) copyConfigPath: (NSString *) sourcePath
@@ -1971,9 +656,7 @@ enum state_t {                      // These are the "states" of the guideState 
         return FALSE;
     }
     
-	NSString * errMsg = (  [sourcePath hasSuffix: @".tblk"]
-						 ? allFilesAreReasonableIn(sourcePath)
-						 : fileIsReasonableSize(sourcePath));
+	NSString * errMsg = allFilesAreReasonableIn(sourcePath);
 	if (  errMsg  ) {
 		NSLog(@"%@", errMsg);
 		return FALSE;
@@ -1984,9 +667,18 @@ enum state_t {                      // These are the "states" of the guideState 
                          : 0);
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, sourcePath, nil];
     
-    if (  [[NSApp delegate] runInstaller: firstArg extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil installTblksFirst: nil]  ) {
+    NSInteger installerResult = [[NSApp delegate] runInstaller: firstArg
+												extraArguments: arguments
+											   usingAuthRefPtr: authRefPtr
+													   message: nil
+											 installTblksFirst: nil];
+	if (  installerResult == 0  ) {
         return TRUE;
     }
+	
+	if (  installerResult == 1  ) {
+		return FALSE;
+	}
     
 	NSString * name = lastPartOfPath(targetPath);
     if (  ! moveInstead  ) {
@@ -2037,19 +729,6 @@ enum state_t {                      // These are the "states" of the guideState 
 	
     NSLog(@"Uninstalled configuration file %@", targetPath);
     return TRUE;
-}
-
--(void) haveNoConfigurationsGuide {
-    // There are no configurations installed. Guide the user
-    
-    [self guideState: entryNoConfigurations];
-}
-
--(void) addConfigurationGuide {
-    
-    // Guide the user through the process of adding a configuration (.tblk or .ovpn/.conf)
-    
-    [self guideState: entryAddConfiguration];
 }
 
 -(void) guideState: (enum state_t) state {
@@ -2192,137 +871,20 @@ enum state_t {                      // These are the "states" of the guideState 
                 
                 
             case entryAddConfiguration:
-                // Entry from addConfigurationGuide
+            case stateHasConfigurations:
                 button = TBRunAlertPanel(NSLocalizedString(@"Add a Configuration", @"Window title"),
-                                         NSLocalizedString(@"Configurations are usually installed from files that are supplied to you by your network manager "
+                                         NSLocalizedString(@"Configurations are installed from files that are supplied to you by your network manager "
                                                            "or VPN service provider.\n\n"
                                                            "Configuration files have extensions of .tblk, .ovpn, or .conf.\n\n"
                                                            "(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\n"
-                                                           "Do you have any configuration files?\n",
+                                                           "To install a configuration file, double-click it.\n\n"
+                                                           "The new configuration will be available in Tunnelblick immediately.",
                                                            @"Window text"),
-                                         NSLocalizedString(@"I have configuration files", @"Button"),       // Default button
-                                         NSLocalizedString(@"Cancel", @"Button"),                           // Alternate button
-                                         NSLocalizedString(@"I DO NOT have configuration files", @"Button") // Other button
-                                         );
-                
-                if (   (button == NSAlertAlternateReturn)   // No action if cancelled or error occurred
-                    || (button == NSAlertErrorReturn)  ) {
-                    // User selected Cancel
-                    return;
-                }
-                
-                if (  button == NSAlertDefaultReturn  ) {
-                    // User has configuration files and wishes to add them
-                    nextState = stateHasConfigurations;
-                    break;
-                }
-                
-                // User does not have configuration files
-                nextState = stateHasNoConfigurations;
-                break;
-                
-                
-            case stateHasConfigurations:
-                
-                // User has configuration files and wishes to add them
-                button = TBRunAlertPanel(NSLocalizedString(@"Which Type of Configuration Do You Have?", @"Window title"),
-                                         NSLocalizedString(@"There are two types of configuration files:\n\n"
-                                                           "  • Tunnelblick VPN Configurations (.tblk extension)\n\n"
-                                                           "  • OpenVPN Configurations (.ovpn or .conf extension)\n\n"
-                                                           "Which type of configuration file do have?\n\n",
-                                                           @"Window text"),
-                                         NSLocalizedString(@"Tunnelblick VPN Configuration(s)", @"Button"),    // Default button
-                                         NSLocalizedString(@"Back", @"Button"),                             // Alternate button
-                                         NSLocalizedString(@"OpenVPN Configuration(s)", @"Button")             // Other button
-                                         );
-                
-                if (   (button == NSAlertAlternateReturn)   // User selected Back or error occurred
-                    || (button == NSAlertErrorReturn)  ) {
-                    nextState = stateGoBack;
-                    break;
-                }
-                
-                if (  button == NSAlertOtherReturn) {
-                    // User selected OPEPNVPN VPN CONFIGURATION
-                    nextState = stateMakeEmptyConfiguration;
-                    break;
-                }
-                
-                // User selected TUNNELBLICK VPN CONFIGURATION
-                nextState = stateShowTbInstructions;
-                break;
-                
-                
-            case stateShowTbInstructions:
-				
-                // User selected TUNNELBLICK VPN CONFIGURATION
-                button = TBRunAlertPanel(NSLocalizedString(@"Installing a Tunnelblick VPN Configuration", @"Window title"),
-                                         NSLocalizedString(@"To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\n"
-                                                           "The new configuration will be available in Tunnelblick immediately.", @"Window text"),
                                          NSLocalizedString(@"Done", @"Button"),    // Default button
                                          NSLocalizedString(@"Back", @"Button"),  // Alternate button
                                          nil
                                          );
                 
-                if (  button == NSAlertAlternateReturn  ) {
-                    // User selected Back
-                    nextState = stateGoBack;
-                    break;
-                }
-                
-                // Treat error as "Done"
-                
-                return;
-                
-                
-            case stateMakeEmptyConfiguration:
-                
-                // User wants to create an empty configuration
-                ; // Weird, but without this semicolon (i.e., empty statement) the compiler generates a syntax error for the next line!
-                NSString * emptyConfigFolderName = NSLocalizedString(@"Empty Tunnelblick VPN Configuration", @"Folder name");
-                targetPath = [[NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: emptyConfigFolderName];
-                if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-                    button = TBRunAlertPanel(NSLocalizedString(@"Replace Existing File?", @"Window title"),
-                                             [NSString stringWithFormat: NSLocalizedString(@"'%@' already exists on the Desktop.\n\n"
-                                                                                           "Would you like to replace it?",
-                                                                                           @"Window text"), targetPath],
-                                             NSLocalizedString(@"Replace", @"Button"),  // Default button
-                                             NSLocalizedString(@"Back", @"Button"),     // Alternate button
-                                             nil);                                      // Other button
-                    
-                    if (   (button == NSAlertAlternateReturn)   // User selected Back or error occurred
-                        || (button == NSAlertErrorReturn)  ) {
-                        nextState = stateGoBack;
-                        break;
-                    }
-                    
-                    [gFileMgr tbRemoveFileAtPath:targetPath handler: nil];
-                }
-                
-                if (    createDir(targetPath, 0755) == -1    ) {
-                    NSLog(@"Installation failed. Not able to create %@", targetPath);
-                    TBShowAlertWindow(NSLocalizedString(@"Installation failed", @"Window title"),
-                                      NSLocalizedString(@"Tunnelblick could not create the empty configuration folder", @"Window text"));
-                    return;
-                }
-                
-                [[NSWorkspace sharedWorkspace] openFile: targetPath];
-                
-                button = TBRunAlertPanel(NSLocalizedString(@"An Empty Tunnelblick VPN Configuration Has Been Created", @"Window title"),
-                                         NSLocalizedString(@"To install it as a Tunnelblick VPN Configuration:\n\n"
-                                                           "1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick "
-                                                           "VPN Configuration' folder which has been created on the Desktop.\n\n"
-                                                           "2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n"
-                                                           "3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n"
-                                                           "4. Add an extension of .tblk to the end of the name of the folder.\n\n"
-                                                           "5. Double-click the folder to install it.\n\n"
-                                                           "The new configuration will be available in Tunnelblick immediately.\n\n"
-                                                           "(For your convenience, the folder has been opened in a Finder window.)",
-                                                           @"Window text"),
-                                         NSLocalizedString(@"Done", @"Button"),    // Default button
-                                         NSLocalizedString(@"Back", @"Button"),    // Alternate button
-                                         nil
-                                         );
                 if (  button == NSAlertAlternateReturn  ) {
                     // User selected Back
                     nextState = stateGoBack;
@@ -2352,11 +914,1405 @@ enum state_t {                      // These are the "states" of the guideState 
             [history addObject: [NSNumber numberWithInt: (int) state]];
             state = nextState;
         }
-    } 
+    }
 }
 
--(NSString *) displayNameForPath: (NSString *) thePath {
-    return [lastPartOfPath(thePath) stringByDeletingPathExtension];
+-(void) haveNoConfigurationsGuide {
+    // There are no configurations installed. Guide the user
+    
+    [self guideState: entryNoConfigurations];
+}
+
+-(void) addConfigurationGuide {
+    
+    // Guide the user through the process of adding a configuration (.tblk or .ovpn/.conf)
+    
+    [self guideState: entryAddConfiguration];
+}
+
+// *********************************************************************************************
+// Configuration installation methods
+
+-(NSString *) checkForSampleConfigurationAtPath: (NSString *) cfgPath {
+    
+    // Returns nil or a localized error message
+    
+    NSString * samplePath = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
+    if (  [gFileMgr fileExistsAtPath: cfgPath]  ) {
+        if (  ! [gFileMgr contentsEqualAtPath: cfgPath andPath: samplePath]  ) {
+            return nil;
+        }
+    } else {
+        return [NSString stringWithFormat: NSLocalizedString(@"Cannot find configuration file at %@", @"Window text"), cfgPath];
+    }
+    
+    return [NSString stringWithFormat: NSLocalizedString(@"You have tried to install a configuration file that is a sample"
+                                                         @" configuration file. The configuration file must"
+                                                         @" be modified to connect to a VPN. You may also need other files, such as"
+                                                         @" certificate or key files, to connect to the VPN.\n\n"
+                                                         @"Consult your network administrator or your VPN service provider to obtain"
+                                                         @" configuration and other files or the information you need to modify the"
+                                                         @" sample file.\n\n"
+                                                         @"The configuration file is at\n%@\n\n", @"Window text"), cfgPath];
+    return nil;
+}
+
+-(NSString *) confirmReplace: (NSString *) displayName
+                          in: (NSString *) sharedOrPrivate {
+    
+    // Returns "skip" if user want to skip this one configuration
+    // Returns "cancel" if user cancelled
+    // Returns "shared" or "private" to indicate where the configuration should be replaced
+    // Otherwise, returns a localized error message
+    
+    if (  [[self applyToAllSharedPrivate] isEqualToString: sharedOrPrivate]  ) {
+        return sharedOrPrivate;
+    }
+    
+    int result = TBRunAlertPanel(NSLocalizedString(@"Replace Configuration?", @"Window title"),
+                                 [NSString stringWithFormat: NSLocalizedString(@"Do you wish to replace the '%@' configuration?\n\n", @"Window text"), displayName],
+                                 NSLocalizedString(@"Replace"  , @"Button"),    // Default button
+                                 NSLocalizedString(@"Skip"     , @"Button"),    // Alternate button
+                                 NSLocalizedString(@"Cancel"   , @"Button"));   // Other button
+    switch (  result  ) {
+            
+        case NSAlertDefaultReturn:
+            return sharedOrPrivate;
+            
+        case NSAlertAlternateReturn:
+            return @"skip";
+            
+        case NSAlertOtherReturn:
+            return @"cancel";
+            
+        default:
+            return NSLocalizedString(@"TBRunAlertPanel returned an error", @"Window text");
+    }
+}
+
+-(NSString *) askSharedOrPrivateForConfig: (NSString *) displayName {
+    
+    // Returns "cancel" if user cancelled
+    // Returns "shared" or "private" to indicate user's choice of where to install
+    // Anything else is a localized error message
+    //
+    // Sets *shareAllPtr or *privateAllPtr if the user checked the corresponding checkbox
+    
+    NSString * allSharedPrivate = [self applyToAllSharedPrivate];
+    if (  allSharedPrivate  ) {
+        return allSharedPrivate;
+    }
+    
+    BOOL applyToAllCheckboxChecked = FALSE;
+    
+    NSString * applyToAllCheckboxLabel = (  ! [self inhibitCheckbox]
+                                          ? NSLocalizedString(@"Apply to all", @"Checkbox name")
+                                          : nil);
+    
+    BOOL * applyToAllCheckboxCheckedPtr = (  ! [self inhibitCheckbox]
+                                           ? &applyToAllCheckboxChecked
+                                           : nil);
+    
+    int result = TBRunAlertPanelExtended(NSLocalizedString(@"Install Configuration For All Users?", @"Window title"),
+                                         [NSString stringWithFormat: NSLocalizedString(@"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n", @"Window text"), displayName],
+                                         NSLocalizedString(@"Only Me"  , @"Button"),    // Default button
+                                         NSLocalizedString(@"All Users", @"Button"),    // Alternate button
+                                         NSLocalizedString(@"Cancel"   , @"Button"),    // Other button
+                                         nil,
+                                         applyToAllCheckboxLabel,
+                                         applyToAllCheckboxCheckedPtr,
+                                         NSAlertDefaultReturn);
+    
+    switch (  result  ) {
+            
+        case NSAlertDefaultReturn:
+            if (  applyToAllCheckboxChecked  ) {
+                [self setApplyToAllSharedPrivate: @"private"];
+            }
+            return @"private";
+            
+        case NSAlertAlternateReturn:
+            if (  applyToAllCheckboxChecked  ) {
+                [self setApplyToAllSharedPrivate: @"shared"];
+            }
+            return @"shared";
+            
+        case NSAlertOtherReturn:
+            return @"cancel";
+            
+        default:
+            return NSLocalizedString(@"TBRunAlertPanel returned an error", @"Window text");
+    }
+}
+
+-(BOOL) cfBundleIdentifierIsValid: (NSString *) s {
+    
+    // Returns TRUE if the CFBundleVersion is a valid version number, FALSE otherwise
+    return (   [s containsOnlyCharactersInString: ALLOWED_DOMAIN_NAME_CHARACTERS]
+            && ( 0 == [s rangeOfString: @".."].length )
+            && (! [s hasSuffix: @"."])
+            && (! [s hasPrefix: @"."])  );
+    }
+
+-(BOOL) cfBundleVersionIsValid: (NSString *) bundleVersion {
+    
+    // Returns TRUE if the CFBundleVersion is a valid version number, FALSE otherwise
+	
+	if (   [bundleVersion containsOnlyCharactersInString: @"01234567890."]
+		&& ([bundleVersion length] != 0)
+		&& ( ! [bundleVersion hasPrefix: @"."])
+		&& ( ! [bundleVersion hasSuffix: @"."]) ) {
+		
+		return TRUE;
+	}
+	
+	return FALSE;
+}
+
+-(NSString *) checkPlistEntries: (NSDictionary *) dict
+                       fromPath: (NSString *)     path {
+    
+    // Returns nil or a localized error message
+    
+    if (  dict  ) {
+        NSArray * stringKeys = [NSArray arrayWithObjects:       // List of keys for string values
+                                @"CFBundleIdentifier",
+                                @"CFBundleVersion",
+                                @"CFBundleShortVersionString",
+                                @"TBPackageVersion",
+                                @"TBReplaceIdentical",
+                                @"TBSharePackage",
+                                @"TBPreference",
+                                @"TBAlwaysSetPreference",
+								@"SUFeedURL",
+                                nil];
+        NSArray * replaceValues = [NSArray arrayWithObjects:    // List of valid values for TBReplaceIdentical
+                                   @"ask",
+                                   @"yes",
+                                   @"no",
+                                   @"force",
+                                   nil];
+        NSArray * shareValues = [NSArray arrayWithObjects:      // List of valid values for TBReplaceIdentical
+                                 @"ask",
+                                 @"private",
+                                 @"shared",
+                                 nil];
+        
+		BOOL hasTBPackageVersion = NO;
+        NSString * key;
+        NSEnumerator * e = [dict keyEnumerator];
+        while (  (key = [e nextObject])  ) {
+            if (  [stringKeys containsObject: key]  ) {
+                id obj = [dict objectForKey: key];
+                if (  ! [[obj class] isSubclassOfClass: [NSString class]]  ) {
+                    return [NSString stringWithFormat: NSLocalizedString(@"Non-string value for '%@' in %@", @"Window text"), key, path];
+                }
+				NSString * value = (NSString *)obj;
+                if (  [key isEqualToString: @"TBPackageVersion"]  ) {
+                    if (  ! [value isEqualToString: @"1"]  ) {
+                        return [NSString stringWithFormat: NSLocalizedString(@"Invalid value '%@' for '%@' in %@", @"Window text"), value, key, path];
+                    }
+					hasTBPackageVersion = TRUE;
+                    
+                } else if (  [key isEqualToString: @"CFBundleIdentifier"]  ) {
+                    if (  ! [self cfBundleIdentifierIsValid: value]  ) {
+                        return [NSString stringWithFormat: NSLocalizedString(@"Invalid value '%@' for '%@' in %@", @"Window text"), value, key, path];
+                    }
+                    
+                } else if (  [key isEqualToString: @"CFBundleVersion"]  ) {
+                    if (  ! [self cfBundleVersionIsValid: value]  ) {
+                        return [NSString stringWithFormat: NSLocalizedString(@"Invalid value '%@' for '%@' in %@", @"Window text"), value, key, path];
+                    }
+                    
+                    
+                } else if (  [key isEqualToString: @"TBReplaceIdentical"]  ) {
+                    if (  ! [replaceValues containsObject: value]  ) {
+                        return [NSString stringWithFormat: NSLocalizedString(@"Unknown value '%@' for '%@' in %@", @"Window text"), value, key, path];
+                    }
+                    
+                } else if (  [key isEqualToString: @"TBSharePackage"]  ) {
+                    if (  ! [shareValues containsObject: value]  ) {
+                        return [NSString stringWithFormat: NSLocalizedString(@"Unknown value '%@' for '%@' in %@", @"Window text"), value, key, path];
+                    }
+                } else if (  [key isEqualToString: @"SUFeedURL"]  ) {
+					if (  ! [NSURL URLWithString: value]  ) {
+                        return [NSString stringWithFormat: NSLocalizedString(@"'%@' value '%@' is not a valid URL in %@", @"Window text"), key, value, path];
+                    }
+                } // Don't test values for the other keys; as long as they are strings we will install the .plist
+            } else if (  ! [key isEqualToString: @"TBUninstall"]  ) {
+                return [NSString stringWithFormat: NSLocalizedString(@"Unknown key '%@' in %@", @"Window text"), key, path];
+            }
+        }
+		
+		if (  ! hasTBPackageVersion  ) {
+			return [NSString stringWithFormat: NSLocalizedString(@"No 'TBPackageVersion' in %@", @"Window text"), path];
+		}
+    }
+	
+    return nil;
+}
+
+-(id) plistInTblkAtPath: (NSString *) path {
+    
+    // Returns an NSDictionary with the contents of the .plist
+    // or     an NSString with an error message, or
+    // or      nil if there is no .plist, or
+    
+    NSString * directPath     = [path stringByAppendingPathComponent: @"Info.plist"];
+    NSString * inContentsPath = [path stringByAppendingPathComponent: @"Contents/Info.plist"];
+    BOOL       haveDirect     = [gFileMgr fileExistsAtPath: directPath];
+    BOOL       haveInContents = [gFileMgr fileExistsAtPath: inContentsPath];
+    
+    NSString * plistPath;
+    if (  haveDirect  ) {
+        if (  haveInContents  ) {
+            return [NSString stringWithFormat: @"Conflict: Both %@ and .../Contents/Info.plist exist", directPath];
+        }
+        plistPath = directPath;
+    } else {
+        if (  haveInContents  ) {
+            plistPath = inContentsPath;
+        } else {
+            return nil;
+        }
+    }
+    
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
+    if (  ! dict  ) {
+        return [NSString stringWithFormat: @"%@ is corrupted and cannot be processed", plistPath];
+    }
+    
+    NSString * result = [self checkPlistEntries: dict fromPath: plistPath];
+    if (  result  ) {
+        return result;
+    }
+    
+    return dict;
+}
+
+-(NSString *) targetPathToReplaceForDisplayName: (NSString *)     displayName
+                                       inFolder: (NSString *)     folder
+                                  infoPlistDict: (NSDictionary *) infoPlistDict
+                             cfBundleIdentifier: (NSString *)     cfBundleIdentifier
+                                cfBundleVersion: (NSString *)     cfBundleVersion {
+    
+    // Uses cfBundleIdentifier and cfBundleVersion to check for a configuration that should be replaced.
+    //
+    // Returns nil if should decide replacement some other way
+    // Returns "skip" to skip this one configuration
+    // Returns "cancel" if user cancelled
+    // Returns a string beginning with "/" containing the path to which the .tblk should be installed
+    // Anything else that is returned is a localized error message
+    
+    if (  ! (   cfBundleIdentifier
+             && cfBundleVersion)  ) {
+        return nil;
+    }
+    
+    NSString * file;
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: folder];
+    while (  (file = [dirEnum nextObject])  ) {
+        NSString * ext = [file pathExtension];
+        if (  [ext isEqualToString: @"tblk"]  ) {
+            
+            [dirEnum skipDescendents];
+            
+            NSString * fullPath = [folder stringByAppendingPathComponent: file];
+            
+            NSDictionary * plist = [self plistInTblkAtPath: fullPath];
+            if (  [[plist class] isSubclassOfClass: [NSString class]]  ) {
+                return (NSString *)plist;
+            }
+            if (  ! plist  ) {
+                return nil;
+            }
+            
+            NSString * cfBI   = [plist objectForKey: @"CFBundleIdentifier"];
+            NSString * cfBV   = [plist objectForKey: @"CFBundleVersion"];
+            if (  ! (   cfBI
+                     && cfBV)  ) {
+                continue;
+            }
+            
+            if (  [cfBI isNotEqualTo: cfBundleIdentifier]  ) {
+                continue;
+            }
+            
+            BOOL doUninstall = (nil != [infoPlistDict objectForKey: @"TBUninstall"]);
+            
+            NSString * tbReplaceIdentical = [infoPlistDict objectForKey: @"TBReplaceIdentical"];
+            
+            if (  [tbReplaceIdentical isEqualToString: @"no"]  ) {
+                NSLog(@"Tunnelblick VPN Configuration %@ will NOT be %@installed: TBReplaceOption=NO.", displayName, (doUninstall ? @"un" : @""));
+                return nil;
+                
+            }
+            
+            if (  [tbReplaceIdentical isEqualToString: @"yes"]  ) {
+                if (  [cfBV compare: cfBundleVersion options: NSNumericSearch] == NSOrderedDescending  ) {
+                    NSLog(@"Tunnelblick VPN Configuration %@ will NOT be %@installed: it has a lower version number.",
+                          displayName, (doUninstall ? @"un" : @""));
+                    return nil;
+                }
+            }
+            
+            if (  [tbReplaceIdentical isEqualToString: @"ask"]  ) {
+                
+                NSString * msg;
+                NSString * buttonName;
+                if (  doUninstall  ) {
+                    msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to uninstall '%@' version %@?", @"Window text"),
+                           displayName,
+                           cfBV];
+                    buttonName = NSLocalizedString(@"Uninstall", @"Button");
+                } else {
+                    if (  [cfBV isEqualToString: cfBundleVersion]  ) {
+                        msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to reinstall '%@' version %@?", @"Window text"),
+                               displayName,
+                               cfBundleVersion];
+                        buttonName = NSLocalizedString(@"Reinstall", @"Button");
+                    } else {
+                        msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to replace '%@' version %@ with version %@?", @"Window text"),
+                               displayName,
+                               cfBundleVersion,
+                               cfBV];
+                        buttonName = NSLocalizedString(@"Replace", @"Button");
+                    }
+                }
+                
+                int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Configuration Installer", @"Window title"),
+                                             msg,
+                                             buttonName,                                    // Default button
+                                             NSLocalizedString(@"Skip"     , @"Button"),    // Alternate button
+                                             NSLocalizedString(@"Cancel"   , @"Button"));   // Other button
+                switch (  result  ) {
+                        
+                    case NSAlertDefaultReturn:
+                        return fullPath;
+                        
+                    case NSAlertAlternateReturn:
+                        return @"skip";
+                        
+                    case NSAlertOtherReturn:
+                        return @"cancel";
+                        
+                    default:
+                        return NSLocalizedString(@"TBRunAlertPanel returned an error", @"Window text");
+                }
+            }
+			
+            // Fell through, so tbReplaceIdentical == "force", so do the (un)install
+            return fullPath;
+        }
+    }
+    
+    return nil;
+}
+
+-(NSString *) targetPathForDisplayName: (NSString *)     displayName
+                         infoPlistDict: (NSDictionary *) infoPlistDict
+                    cfBundleIdentifier: (NSString *)     cfBundleIdentifier
+                       cfBundleVersion: (NSString *)     cfBundleVersion {
+    
+    // Uses cfBundleIdentifier and cfBundleVersion to check for a configuration that should be replaced.
+    //
+    // Returns nil if should decide replacement using the displayName
+    // Returns "skip" to skip this one configuration
+    // Returns "cancel" if user cancelled
+    // Returns a string beginning with "/" containing the path to which the .tblk should be installed
+    // Anything else that is returned is a localized error message
+    
+    NSString * path = [self targetPathToReplaceForDisplayName: displayName
+                                                     inFolder: gDeployPath
+                                                infoPlistDict: infoPlistDict
+                                           cfBundleIdentifier: cfBundleIdentifier
+                                              cfBundleVersion: cfBundleVersion];
+    if (  path  ) {
+        return path;
+    }
+    
+    path = [self targetPathToReplaceForDisplayName: displayName
+                                          inFolder: L_AS_T_SHARED
+                                     infoPlistDict: infoPlistDict
+                                cfBundleIdentifier: cfBundleIdentifier
+                                   cfBundleVersion: cfBundleVersion];
+    if (  path  ) {
+        return path;
+    }
+    
+    path = [self targetPathToReplaceForDisplayName: displayName
+                                          inFolder: gPrivatePath
+                                     infoPlistDict: infoPlistDict
+                                cfBundleIdentifier: cfBundleIdentifier
+                                   cfBundleVersion: cfBundleVersion];
+    return path;
+}
+
+-(NSString *) targetPathForDisplayName: (NSString *)     displayName
+                         infoPlistDict: (NSDictionary *) infoPlistDict {
+    
+    // Returns "skip" if user want to skip this one configuration
+    // Returns "cancel" if user cancelled
+    // Returns a string beginning with "/" containing the path to which the .tblk should be installed
+    // Anything else that is returned is a localized error message
+    //
+    // Note: infoPlistDict can be nil
+    
+    // If the Info.plist for this .tblk has CFBundleIdentifier and CFBundleVersion entries
+    //    then see if we should replace based on them
+    NSString * cfBundleIdentifier = [infoPlistDict objectForKey: @"CFBundleIdentifier"];
+    NSString * cfBundleVersion    = [infoPlistDict objectForKey: @"CFBundleVersion"];
+    if (   cfBundleIdentifier
+        && cfBundleVersion  ) {
+        NSString * result = [self targetPathForDisplayName: displayName
+                                             infoPlistDict: infoPlistDict
+                                        cfBundleIdentifier: cfBundleIdentifier
+                                           cfBundleVersion: cfBundleVersion];
+        if (  result  ) {
+            return result;
+        }
+    }
+    
+    // Otherwise, see if we should replace based on the displayName
+    NSString * nameWithTblkExtension = [displayName stringByAppendingPathExtension: @"tblk"];
+    NSString * fileInSharedPath      = [L_AS_T_SHARED stringByAppendingPathComponent: nameWithTblkExtension];
+    NSString * fileInPrivatePath     = [gPrivatePath  stringByAppendingPathComponent: nameWithTblkExtension];
+    
+    BOOL replaceShared  = [gFileMgr fileExistsAtPath: fileInSharedPath];
+    BOOL replacePrivate = [gFileMgr fileExistsAtPath: fileInPrivatePath];
+    
+    if (   replacePrivate
+        && ( ! [self installToPrivateOK])  ) {
+        return NSLocalizedString(@"You are not allowed to replace a private configuration", @"Window text");
+    }
+    if (   replaceShared
+        && ( ! [self installToSharedOK])  ) {
+        return NSLocalizedString(@"You are not allowed to replace a shared configuration", @"Window text");
+    }
+    
+    NSString * tbSharePackage     = [infoPlistDict objectForKey: @"TBSharePackage"];
+    NSString * tbReplaceIdentical = [infoPlistDict objectForKey: @"TBReplaceIdentical"];
+    
+    NSString * sharedOrPrivate;
+    if (   replaceShared
+        && replacePrivate  ) {
+        if (   (   [tbSharePackage isEqualToString: @"shared"]
+                || [tbSharePackage isEqualToString: @"private"] )
+            && (  ! [tbReplaceIdentical isEqualToString: @"ask"] )
+            ) {
+            sharedOrPrivate = tbSharePackage;
+        } else {
+            sharedOrPrivate =  [self askSharedOrPrivateForConfig: displayName];
+        }
+    } else  if (  replacePrivate  ) {
+        if (  ! [tbReplaceIdentical isEqualToString: @"ask"]  ) {
+            sharedOrPrivate = @"private";
+        } else {
+            sharedOrPrivate = [self confirmReplace: displayName in: @"private"];
+        }
+    } else if (  replaceShared  ) {
+        if (  ! [tbReplaceIdentical isEqualToString: @"ask"]  ) {
+            sharedOrPrivate = @"shared";
+        } else {
+            sharedOrPrivate = [self confirmReplace: displayName in: @"shared"];
+        }
+    } else {
+        if (  [self installToPrivateOK]  ) {
+            if (  [self installToSharedOK]  ) {
+                if (   [tbSharePackage isEqualToString: @"private"]
+                    || [tbSharePackage isEqualToString: @"shared"] ) {
+                    sharedOrPrivate = tbSharePackage;
+                } else {
+                    sharedOrPrivate =  [self askSharedOrPrivateForConfig: displayName];
+                }
+            } else {
+                sharedOrPrivate = @"private";
+            }
+        } else {
+            if (  [self installToSharedOK]  ) {
+                sharedOrPrivate =  @"shared";
+            } else {
+                sharedOrPrivate =  NSLocalizedString(@"Cannot install configurations to either shared or private locations", @"Window text");
+            }
+        }
+    }
+    
+    NSString * displayNameWithTblkExtension = [displayName stringByAppendingPathExtension: @"tblk"];
+    NSString * targetPath = nil;
+    if (  [sharedOrPrivate isEqualToString: @"private"]  ) {
+        targetPath = [gPrivatePath  stringByAppendingPathComponent: displayNameWithTblkExtension];
+    } else if (  [sharedOrPrivate isEqualToString: @"shared"]  ) {
+        targetPath = [L_AS_T_SHARED stringByAppendingPathComponent: displayNameWithTblkExtension];
+    } else {
+        targetPath = sharedOrPrivate; // Error or user cancelled or said to skip
+    }
+    
+    return targetPath;
+}
+
+-(NSString *) convertOvpnOrConfAtPath: (NSString *) path
+                         toTblkAtPath: (NSString *) toPath
+				 nameForErrorMessages: (NSString *) nameForErrorMessages
+							 fromTblk: (BOOL)       fromTblk {
+    
+    // Returns nil or a localized string with an error message or the conversion log
+    
+    NSString * result = [self checkForSampleConfigurationAtPath: path];
+    if (  result  ) {
+        return result;
+    }
+    
+    NSString * ext  = [path pathExtension];
+    if (   [ext isEqualToString: @"ovpn"]
+        || [ext isEqualToString: @"conf"]  ) {
+        
+        // Convert the .ovpn or .conf to a .tblk
+        ConfigurationConverter * converter = [[ConfigurationConverter alloc] init];
+        NSString * result = [converter convertConfigPath: path
+                                              outputPath: toPath
+                                                 logFile: NULL
+									nameForErrorMessages: nameForErrorMessages
+												fromTblk: fromTblk];
+        [converter release];
+        
+		return result;
+    } else {
+        return [NSString stringWithFormat: NSLocalizedString(@"Not a .ovpn or .conf: %@", @"Window text"), path];
+    }
+}
+
+-(NSString *) convertInnerTblkAtPath: (NSString *)     innerFilePath
+                       outerTblkPath: (NSString *)     outerTblkPath
+                  outerTblkInfoPlist: (NSDictionary *) outerTblkInfoPlist
+                         displayName: (NSString *)     displayName {
+    
+    // Converts a .tblk or .ovpn/.conf at outerTblkPath/innerFilePath to a .tblk
+    //
+    // Returns nil, "cancel" or "skip" to indicate the user cancelled or wants to skip this configuration, or a string with a localized error message.
+    
+    
+    NSString * fullPath = [outerTblkPath stringByAppendingPathComponent: innerFilePath];
+    
+    // Assume this is a .ovpn/.conf and not an inner .tblk
+    NSDictionary * mergedInfoPlist = [NSDictionary dictionaryWithDictionary: outerTblkInfoPlist];
+    NSString * configPath = [NSString stringWithString: fullPath];
+    
+    if (  [[fullPath pathExtension] isEqualToString: @"tblk" ]  ) {
+        
+        // Get the inner .tblk's .plist (if any)
+        id obj = [self plistInTblkAtPath: fullPath];
+        if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
+            return (NSString *) obj;
+        }
+        NSDictionary * innerTblkInfoPlist = (NSDictionary *)obj;
+        
+        // Create a merged .plist -- outer with any entries replaced by inner
+        if (  outerTblkInfoPlist  ) {
+			NSArray * allowedInnerPlistReplacementKeys = [NSArray arrayWithObjects: @"TBReplaceIdentical", @"TBSharePackage", @"TBPackageVersion", @"TBUninstall",  nil];
+            NSMutableDictionary * mDict = [[outerTblkInfoPlist mutableCopy] autorelease];
+            NSEnumerator * e = [innerTblkInfoPlist keyEnumerator];
+            NSString * key;
+            while (  (key = [e nextObject])  ) {
+				id obj = [innerTblkInfoPlist objectForKey: key];
+				if (  [key hasPrefix: @"SU"]  ) {
+					return [NSString stringWithFormat: NSLocalizedString(@"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed because the Info.plist for an \"inner\" .tblk may not contain \"updatable\" .tblk entries.", @"Window text"), key, fullPath];
+				} else 	if (   [allowedInnerPlistReplacementKeys containsObject: key]
+							|| [key hasPrefix: @"TBPreference"]
+							|| [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
+					[mDict setObject: obj forKey: key];
+				} else if (  ! [[mDict objectForKey: key] isEqualTo: obj ]) {
+					return [NSString stringWithFormat: NSLocalizedString(@"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk.", @"Window text"), key, fullPath];
+				}
+			}
+            mergedInfoPlist = [NSDictionary dictionaryWithDictionary: mDict];
+        } else {
+            mergedInfoPlist = innerTblkInfoPlist;
+        }
+        
+        // Get a relative path to the configuration file. If both a ".ovpn" and a ".conf" file exist, use the ".ovpn" file
+        
+        // (Put all the config files in a list, then look at the list)
+        NSMutableArray * configFiles = [NSMutableArray arrayWithCapacity: 2];
+        NSString * file;
+        NSDirectoryEnumerator * innerEnum = [gFileMgr enumeratorAtPath: fullPath];
+        while (  (file = [innerEnum nextObject])  ) {
+            NSString * ext = [file pathExtension];
+            if (   [ext isEqualToString: @"ovpn"]
+                || [ext isEqualToString: @"conf"]
+                ) {
+                [configFiles addObject: file];
+            } else if (  [ext isEqualToString: @"tblk"]  ) {
+                return [NSString stringWithFormat: NSLocalizedString(@"A Tunnelblick VPN Configuration is nested too deeply in '%@'", @"Window text"), fullPath];
+            }
+        }
+        
+        NSString * configFile;
+        if (  [configFiles count] == 0  ) {
+            return [NSString stringWithFormat: NSLocalizedString(@"There is not an OpenVPN configuration file in '%@'", @"Window text"), fullPath];
+        }
+        if (  [configFiles count] == 1  ) {
+            configFile = [configFiles objectAtIndex: 0];
+            
+        } else if (  [configFiles count] == 2  ) {
+            NSString * first  = [configFiles objectAtIndex: 0];
+            NSString * second = [configFiles objectAtIndex: 1];
+            if (  [[first stringByDeletingPathExtension] isEqualToString: [second stringByDeletingPathExtension]]  ) {
+                configFile = (  [[first pathExtension] isEqualToString: @"ovpn"]
+                              ? first
+                              : second);
+            } else {
+                return [NSString stringWithFormat: NSLocalizedString(@"Too many configuration files in '%@'", @"Window text"), fullPath];
+            }
+            
+        } else {
+            return [NSString stringWithFormat: NSLocalizedString(@"Too many configuration files in '%@'", @"Window text"), fullPath];
+        }
+        
+        configPath = [fullPath stringByAppendingPathComponent: configFile];
+    }
+    
+    // Do the conversion
+    NSString * displayNameWithTblkExtension = [displayName stringByAppendingPathExtension: @"tblk"];
+    NSString * outTblkPath = [[self tempDirPath] stringByAppendingPathComponent: displayNameWithTblkExtension];
+    
+    NSString * result = [self convertOvpnOrConfAtPath: configPath
+                                         toTblkAtPath: outTblkPath
+								 nameForErrorMessages: (  [self multipleConfigurations]
+                                                        ? displayName
+                                                        : nil)
+											 fromTblk: YES];
+    if (  result  ) {
+        return result;
+    }
+    
+    NSString * targetPath = [self targetPathForDisplayName: displayName
+                                             infoPlistDict: mergedInfoPlist];
+    if (  targetPath  ) {
+        if (  [targetPath hasPrefix: @"/"]  ) {
+            // It is a path
+			if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+				[[self replaceSources] addObject: outTblkPath];
+				[[self replaceTargets] addObject: targetPath];
+			} else {
+				[[self installSources] addObject: outTblkPath];
+				[[self installTargets] addObject: targetPath];
+			}
+			
+        } else {
+            return  targetPath; // Error or user cancelled or said to skip this one
+        }
+    }
+    
+    return nil;
+}
+
+-(id) updatablePlistIn: (NSString *) path {
+	
+	// Returns nil or, if the .tblk at path is updatable, its .plist, or if there is an error in the .plist, a string with the localized error message
+	
+	id obj = [self plistInTblkAtPath: path];
+	
+	// Not updatable if no .plist
+	if (  ! obj  ) {
+		return nil;
+	}
+	
+	// Not updatable if .plist contains errors
+	if (  ! [[obj class] isSubclassOfClass: [NSDictionary class]]  ) {
+		return obj;
+	}
+	
+	NSDictionary * plist = (NSDictionary *)obj;
+	
+	// Not updatable if doesn't have CFBundleIdentifier, CFBundleVersion, and SUFeedURL
+	NSString * cfBI   = [plist objectForKey: @"CFBundleIdentifier"];
+	NSString * cfBV   = [plist objectForKey: @"CFBundleVersion"];
+	NSString * cfFURL = [plist objectForKey: @"SUFeedURL"];
+	if (  ( ! (   cfBI
+			   && cfBV
+			   && cfFURL))  ) {
+		return nil;
+	}
+	
+	// It is updatable; return its .plist
+	return plist;
+}
+
+-(NSString *) convertOuterTblk: (NSString *) outerTblkPath
+			   haveOvpnOrConfs: (BOOL)       haveOvpnOrConfs {
+    
+    // Returns nil, or "cancel" if the user cancelled, or a string with a localized error message.
+    
+    // A .tblk (or a subfolder within it) can have both a .conf and a .ovpn file, in which case we ignore the .conf and only process the .ovpn
+    // We do that by building a list of all of the .conf and .ovpn files as we iterate through the outer .tblk's directory structure
+    // Then, after we've finished that, we create a new list without any .conf files that have corresponding .ovpn files.
+    // Finally, we iterate over that array processing the .tblk, .ovpn, and .conf files.
+    
+	
+	BOOL thisIsTheLastTblk = [self inhibitCheckbox];  // This outer .tblk is the last .tblk in the tblkPaths array
+	
+    // Get, and check, the .plist for this outer .tblk if there is one
+    id obj = [self plistInTblkAtPath: outerTblkPath];
+    if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
+        return (NSString *) obj;
+    }
+    NSDictionary * outerTblkPlist = (NSDictionary *)obj;
+    
+    // Build lists of .tblks and of .ovpn/.conf files
+    NSMutableArray * ovpnAndConfInnerFilePartialPaths = [NSMutableArray arrayWithCapacity: 100];
+    NSMutableArray * tblkInnerFilePartialPaths        = [NSMutableArray arrayWithCapacity: 100];
+    
+    NSString * innerFilePartialPath;
+    NSDirectoryEnumerator * outerEnum = [gFileMgr enumeratorAtPath: outerTblkPath];
+    while (  (innerFilePartialPath = [outerEnum nextObject])  ) {
+        NSString * ext = [innerFilePartialPath pathExtension];
+        if (  [ext isEqualToString: @"tblk"]  ) {
+            [outerEnum skipDescendents]; // Don't look inside the .tblk
+            [tblkInnerFilePartialPaths addObject: innerFilePartialPath];
+            
+        } else if (   [ext isEqualToString: @"ovpn"]
+                   || [ext isEqualToString: @"conf"]  ) {
+            [ovpnAndConfInnerFilePartialPaths addObject: innerFilePartialPath];
+        }
+    }
+    
+    // Remove .conf files from the list if the corresponding .ovpn file is on the list
+    NSEnumerator * e = [ovpnAndConfInnerFilePartialPaths objectEnumerator];
+    while (  (innerFilePartialPath = [e nextObject])  ) {
+        NSString * withoutExt = [innerFilePartialPath stringByDeletingPathExtension];
+        NSString * ovpnFilePath = [withoutExt stringByAppendingPathExtension: @"ovpn"];
+        NSString * confFilePath = [withoutExt stringByAppendingPathExtension: @"conf"];
+        if (   [ovpnAndConfInnerFilePartialPaths containsObject: ovpnFilePath]
+            && [ovpnAndConfInnerFilePartialPaths containsObject: confFilePath]  ) {
+            [ovpnAndConfInnerFilePartialPaths removeObject: confFilePath];
+        }
+    }
+    
+    // Complain if nothing to convert
+	if (   ([tblkInnerFilePartialPaths       count] == 0)
+		&& ([ovpnAndConfInnerFilePartialPaths count] == 0)  ) {
+		if (  [self multipleConfigurations]  ) {
+			return [NSString stringWithFormat: NSLocalizedString(@"In %@:\n\nThere are no OpenVPN configurations to install.", @"Window text"), outerTblkPath];
+		} else {
+			return NSLocalizedString(@"There are no OpenVPN configurations to install.", @"Window text");
+		}
+	}
+	
+    // Convert .ovpn/.conf files
+    NSUInteger ix;
+    for (  ix=0; ix<[ovpnAndConfInnerFilePartialPaths count]; ix++  ) {
+        
+        [self setInhibitCheckbox: (   thisIsTheLastTblk
+								   && ( ! haveOvpnOrConfs)
+                                   && ( ix == [ovpnAndConfInnerFilePartialPaths count] - 1)
+								   && ( [tblkInnerFilePartialPaths count] == 0)   )];
+		
+        NSString * configPartialPath = [ovpnAndConfInnerFilePartialPaths objectAtIndex: ix];
+        
+		NSString * result =[self convertInnerTblkAtPath: configPartialPath
+										  outerTblkPath: outerTblkPath
+									 outerTblkInfoPlist: nil
+                                            displayName: (  ([ovpnAndConfInnerFilePartialPaths count] > 1)
+                                                          ? [configPartialPath stringByDeletingPathExtension]
+                                                          : [[outerTblkPath lastPathComponent] stringByDeletingPathExtension])];
+        if (   result  ) {
+            if (  [result isEqualToString: @"skip"]  ) {
+                return nil;
+            }
+            return result;
+        }
+    }
+    
+	// Convert .tblks
+    for (  ix=0; ix<[tblkInnerFilePartialPaths count]; ix++  ) {
+        
+        [self setInhibitCheckbox: (   thisIsTheLastTblk
+								   && ( ! haveOvpnOrConfs)
+								   && (ix == [tblkInnerFilePartialPaths count] - 1)  )];
+		
+        innerFilePartialPath   = [tblkInnerFilePartialPaths objectAtIndex: ix];
+        NSString * displayName = [innerFilePartialPath stringByDeletingPathExtension];
+        
+        NSString * result = [self convertInnerTblkAtPath: innerFilePartialPath
+                                           outerTblkPath: outerTblkPath
+                                      outerTblkInfoPlist: outerTblkPlist
+                                             displayName: displayName];
+        if (   result  ) {
+            if (  [result isEqualToString: @"skip"]  ) {
+                continue;
+            }
+            return result;
+        }
+    }
+	
+	// If this outer .tblk is an updatable .tblk, create a "stub" .tblk and add it to 'updateSources' and 'updateTargets'
+	obj = [self updatablePlistIn: outerTblkPath];
+	if (  obj  ) {
+		if (  ! [[obj class] isSubclassOfClass: [NSDictionary class]]  ) {
+			return (NSString *)obj; // An error message
+		}
+		
+		// Create a stub .tblk in the temporary folder's "Updatables" subfolder.
+		// A stub consists only of a .plist inside a "Contents" folder inside a .tblk.
+		NSDictionary * plist = (NSDictionary *)obj;
+		NSString * cfBI = [plist objectForKey: @"CFBundleIdentifier"];
+		NSString * tblkName = [cfBI stringByAppendingPathExtension: @"tblk"];
+		NSString * tblkStubPath = [[[self tempDirPath] stringByAppendingPathComponent: @"Updatables"]
+								   stringByAppendingPathComponent: tblkName];
+		if (  [gFileMgr fileExistsAtPath: tblkStubPath]  ) {
+            return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n", @"Window text"), cfBI];
+		}
+		
+		NSString * contentsPath = [tblkStubPath stringByAppendingPathComponent: @"Contents"];
+		if (  ! createDir(contentsPath, PERMS_SECURED_PUBLIC_FOLDER)  ) {
+            return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because a stub .tblk could not be created\n", @"Window text"), cfBI];
+		}
+		
+		NSString * plistPath = [contentsPath stringByAppendingPathComponent: @"Info.plist"];
+		if (  ! [plist writeToFile: plistPath atomically: YES]  ) {
+            return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because its .plist could not be stored in the stub .tblk\n", @"Window text"), cfBI];
+		}
+        NSDictionary * attributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: 0744] forKey: NSFilePosixPermissions];
+		if (  ! [gFileMgr tbChangeFileAttributes: attributes atPath: plistPath]  ) {
+            return [NSString stringWithFormat: NSLocalizedString(@"Failed to set permissions on %@\n", @"Window text"), plistPath];
+        }
+        
+		NSString * targetPath = [L_AS_T_TBLKS stringByAppendingPathComponent: tblkName];
+		[[self updateSources] addObject: tblkStubPath];
+		[[self updateTargets] addObject: targetPath];
+	}
+    
+    return nil;
+}
+
+-(NSString *) setupToInstallTblks: (NSArray *)  tblkPaths
+				  haveOvpnOrConfs: (BOOL)       haveOvpnOrConfs {
+    
+    // Converts non-normalized .tblks to normalized .tblks (with Contents/Resources) in the temporary folder at tempDirPath
+    // Adds paths of .tblks that are to be UNinstalled to the 'deletions' array
+    // Adds paths of .tblks that are to be installed   to the 'installSources' or 'replaceSources' array and targets (in private or shared) to the 'installTargets' or 'replaceTargets' array
+    //
+    // Returns nil      if converted with no problem
+    // Returns "cancel" if the user cancelled
+    // Returns "skip"   if the user skipped the last configuration
+    // Otherwise returns a string with a localized error message
+    
+    NSUInteger ix;
+    for (  ix=0; ix<[tblkPaths count]; ix++  ) {
+        
+        // If there are no more configurations to set up, don't show the 'Apply to all' checkbox
+        [self setInhibitCheckbox: (ix == [tblkPaths count] - 1)];
+        
+        NSString * path = [tblkPaths objectAtIndex: ix];
+        
+        NSString * result = [self convertOuterTblk: path haveOvpnOrConfs: haveOvpnOrConfs];
+        if (   result
+            && [result isNotEqualTo: @"skip"]  ) {
+			return result;
+        }
+    }
+    
+    return nil;
+}
+
+-(NSString *) setupToInstallOvpnsAndConfs: (NSArray *)  ovpnPaths {
+    
+    // Converts .ovpns and/or .confs to normalized .tblks (with Contents/Resources) in the temporary folder at tempDirPath
+    // Adds paths of .tblks that are to be installed   to the 'installSources' or 'replaceSources' array and targets (in private or shared) to the 'installTargets' or 'replaceTargets' array
+    //
+    // Returns nil      if converted with no problem
+    // Returns "cancel" if the user cancelled
+    // Returns "skip"   if the user skipped the last configuration
+    // Otherwise returns a string with a localized error message
+    
+    NSUInteger ix;
+    for (  ix=0; ix<[ovpnPaths count]; ix++  ) {
+        
+        // If there are no more configurations to set up, don't show the 'Apply to all' checkbox
+        [self setInhibitCheckbox: (ix == [ovpnPaths count] - 1)];
+        
+        NSString * path = [ovpnPaths objectAtIndex: ix];
+		NSString * fileName = [path lastPathComponent];
+		NSString * displayName = [fileName stringByDeletingPathExtension];
+		NSString * displayNameWithTblkExtension = [displayName stringByAppendingPathExtension: @"tblk"];
+		NSString * outTblkPath = [[self tempDirPath] stringByAppendingPathComponent: displayNameWithTblkExtension];
+		
+		// Do the conversion
+        NSString * result = [self convertOvpnOrConfAtPath: path
+                                             toTblkAtPath: outTblkPath
+									 nameForErrorMessages: (  [self multipleConfigurations]
+                                                            ? displayName
+                                                            : nil)
+												 fromTblk: NO];
+        if (  result  ) {
+			return result;
+        }
+		
+        NSString * targetPath = [self targetPathForDisplayName: displayName
+                                                 infoPlistDict: nil];
+        if (  targetPath  ) {
+            if (  [targetPath hasPrefix: @"/"]  ) {
+                // It is a path
+				if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+					[[self replaceSources] addObject: outTblkPath];
+					[[self replaceTargets] addObject: targetPath];
+				} else {
+					[[self installSources] addObject: outTblkPath];
+					[[self installTargets] addObject: targetPath];
+				}
+            } else if (  [targetPath isNotEqualTo: @"skip"]  ) {
+                return targetPath; // Error or user cancelled
+            }
+        }
+    }
+    
+ 	return nil;
+}
+
+-(BOOL) checkFilesAreReasonable: (NSArray *) paths {
+    
+    NSString * tooBigMsg = nil;
+    NSString * path;
+    NSEnumerator * e = [paths objectEnumerator];
+    while (  (path = [e nextObject])  ) {
+		tooBigMsg = allFilesAreReasonableIn(path);
+        if (  tooBigMsg  ) {
+			break;
+        }
+    }
+    if (  tooBigMsg  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+                          [NSString stringWithFormat:
+						   NSLocalizedString(@"There was a problem:\n\n"
+										     @"%@", "Window text"),
+						   tooBigMsg]);
+        return FALSE;
+    }
+    
+    return TRUE;
+}
+
+-(void) cleanupInstallAndNotifyDelegate: (BOOL)                       notifyDelegate
+                    delegateNotifyValue: (NSApplicationDelegateReply) delegateNotifyValue {
+    
+    if (   [self authWasNull]
+        && (gAuthorization != NULL)  ) {
+        AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
+        gAuthorization = NULL;
+    }
+    
+    NSString * path = [self tempDirPath];
+	if (  [gFileMgr fileExistsAtPath: path]  ) {
+		if (  [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
+			NSLog(@"Deleted directory %@", path);
+		} else {
+			NSLog(@"Unable to delete directory %@", path);
+		}
+	}
+    
+    if (  notifyDelegate  ) {
+        [NSApp replyToOpenOrPrint: delegateNotifyValue];
+    }
+}
+
+-(NSApplicationDelegateReply) doUninstallslReplacementsInstallsSkipConfirmMsg: (BOOL) skipConfirmMsg
+																skipResultMsg: (BOOL) skipResultMsg {
+    
+	// Does the work to uninstall, replace, and/or install configurations from the 'deletions', 'installSource', 'replaceSource', etc. arrays
+	//
+	// Returns the value that the delegate should use as an argument to '[NSApp replyToOpenOrPrint:]' (whether or not it will be needed)
+	
+    NSUInteger nToUninstall = [[self deletions]      count];
+    NSUInteger nToInstall   = [[self installSources] count];
+	NSUInteger nToReplace   = [[self replaceSources] count];
+    
+    // If there's nothing to do, just return as if the user cancelled
+	if (  (nToUninstall + nToInstall + nToReplace) == 0  ) {
+		return NSApplicationDelegateReplyCancel;
+	}
+    
+    // If there is no gAuthorization currently, get one (it is release by cleanupInstall:); otherwise confirm what we are about to do
+	
+    NSString * uninstallMsg = (  (nToUninstall == 0)
+                               ? @""
+                               : (  (nToUninstall == 1)
+                                  ? NSLocalizedString(@"    • Uninstall one configuration\n", @"Window text: 'Tunnelblick needs to: *'")
+                                  : [NSString stringWithFormat: NSLocalizedString(@"    • Uninstall %lu configurations\n\n", @"Window text: 'Tunnelblick needs to: *'"), (unsigned long)nToUninstall]));
+    NSString * replaceMsg   = (  (nToReplace == 0)
+                               ? @""
+                               : (  (nToReplace == 1)
+                                  ? NSLocalizedString(@"    • Replace one configuration\n", @"Window text: 'Tunnelblick needs to: *'")
+                                  : [NSString stringWithFormat: NSLocalizedString(@"    • Replace %lu configurations\n\n", @"Window text: 'Tunnelblick needs to: *'"), (unsigned long)nToReplace]));
+    NSString * installMsg   = (  (nToInstall == 0)
+                               ? @""
+                               : (  (nToInstall == 1)
+                                  ? NSLocalizedString(@"    • Install one configuration\n", @"Window text: 'Tunnelblick needs to: *'")
+                                  : [NSString stringWithFormat: NSLocalizedString(@"    • Install %lu configurations\n\n", @"Window text: 'Tunnelblick needs to: *'"), (unsigned long)nToInstall]));
+    NSString * authMsg = [NSString stringWithFormat: @"Tunnelblick needs to:\n\n%@%@%@", uninstallMsg, replaceMsg, installMsg];
+    
+ 	if ( gAuthorization == NULL  ) {
+        
+        gAuthorization = [NSApplication getAuthorizationRef: authMsg];
+        if (  gAuthorization == NULL  ) {
+			return NSApplicationDelegateReplyCancel;
+        }
+	} else {
+        
+        if (  ! skipConfirmMsg  ) {
+            int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Configuration Installer", @"Window title"),
+                                         authMsg,
+                                         NSLocalizedString(@"OK",      @"Button"),   // Default button
+                                         NSLocalizedString(@"Cancel",  @"Button"),   // Alternate button
+                                         nil);                                       // Other button
+            if (  result == NSAlertAlternateReturn  ) {
+				return NSApplicationDelegateReplyCancel;
+            }
+        }
+    }
+    
+    // Do the actual installs and uninstalls
+    
+    NSUInteger nUninstallErrors = 0;
+    NSUInteger nInstallErrors   = 0;
+	NSUInteger nReplaceErrors   = 0;
+	NSUInteger nUpdateErrors    = 0;
+    
+	NSMutableString * installerErrorMessages = [NSMutableString stringWithCapacity: 1000];
+    
+	NSUInteger ix;
+	
+    // Un-install .tblks in 'deletions'
+	for (  ix=0; ix<[[self deletions] count]; ix++  ) {
+		
+		NSString * target = [[self deletions] objectAtIndex: ix];
+		
+		if (  ! [self deleteConfigPath: target
+					   usingAuthRefPtr: &gAuthorization
+							warnDialog: NO]  ) {
+			nUninstallErrors++;
+			NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
+			[installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to uninstall the '%@' configuration\n", @"Window text"), targetDisplayName]];
+		}
+	}
+    
+    // Install .tblks in 'installSources' to 'installTargets'
+    for (  ix=0; ix<[[self installSources] count]; ix++  ) {
+        
+        NSString * source = [[self installSources] objectAtIndex: ix];
+        NSString * target = [[self installTargets] objectAtIndex: ix];
+        NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
+        
+        if (  [self copyConfigPath: source
+                            toPath: target
+                   usingAuthRefPtr: &gAuthorization
+                        warnDialog: NO
+                       moveNotCopy: NO]  ) {
+			
+            NSDictionary * connDict = [[NSApp delegate] myVPNConnectionDictionary];
+            BOOL replacedTblk = (nil != [connDict objectForKey: targetDisplayName]);
+            if (  replacedTblk  ) {
+                // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
+                [[NSApp delegate] deleteExistingConfig: targetDisplayName ];
+                [[NSApp delegate] addNewConfig: target withDisplayName: targetDisplayName];
+                [[[NSApp delegate] logScreen] update];
+            }
+            
+        } else {
+            nInstallErrors++;
+            NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
+            [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to install the '%@' configuration\n", @"Window text"), targetDisplayName]];
+        }
+    }
+    
+    // Install .tblks in 'replaceSources' to 'replaceTargets'
+    for (  ix=0; ix<[[self replaceSources] count]; ix++  ) {
+        
+        NSString * source = [[self replaceSources] objectAtIndex: ix];
+        NSString * target = [[self replaceTargets] objectAtIndex: ix];
+        NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
+        
+        if (  [self copyConfigPath: source
+                            toPath: target
+                   usingAuthRefPtr: &gAuthorization
+                        warnDialog: NO
+                       moveNotCopy: NO]  ) {
+			
+            NSDictionary * connDict = [[NSApp delegate] myVPNConnectionDictionary];
+            BOOL replacedTblk = (nil != [connDict objectForKey: targetDisplayName]);
+            if (  replacedTblk  ) {
+                // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
+                [[NSApp delegate] deleteExistingConfig: targetDisplayName ];
+                [[NSApp delegate] addNewConfig: target withDisplayName: targetDisplayName];
+                [[[NSApp delegate] logScreen] update];
+            }
+            
+        } else {
+            nReplaceErrors++;
+            NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
+            [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to replace the '%@' configuration\n", @"Window text"), targetDisplayName]];
+        }
+    }
+	
+	// Copy updatable .tblk stubs in L_AS_T_TBLKS
+    for (  ix=0; ix<[[self updateSources] count]; ix++  ) {
+        
+        NSString * source = [[self updateSources] objectAtIndex: ix];
+        NSString * target = [[self updateTargets] objectAtIndex: ix];
+		NSArray * arguments = [NSArray arrayWithObjects: target, source, nil];
+		NSInteger installerResult = [[NSApp delegate] runInstaller: 0
+													extraArguments: arguments];
+		if (  installerResult != 0  ) {
+            nUpdateErrors++;
+            [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to store updatable configuration stub at %@\n", @"Window text"), target]];
+			continue;
+		}
+	}
+	
+	// Construct and display a window with the results of the uninstalls/replacements/installs
+	
+	NSUInteger nTotalErrors = nUninstallErrors + nInstallErrors + nReplaceErrors + nUpdateErrors;
+	
+	if (   (nTotalErrors != 0)
+		|| ( ! skipResultMsg )  ) {
+		
+		NSString * msg = nil;
+		
+		NSUInteger nNetUninstalls   = nToUninstall - nUninstallErrors;
+		NSUInteger nNetInstalls     = nToInstall   - nInstallErrors;
+		NSUInteger nNetReplacements = nToReplace   - nReplaceErrors;
+		
+		uninstallMsg = (  (nNetUninstalls == 0)
+						? @""
+						: (  (nNetUninstalls == 1)
+						   ? NSLocalizedString(@"     • Uninstalled one configuration\n\n", @"Window text: 'Tunnelblick succesfully: *'")
+						   : [NSString stringWithFormat: NSLocalizedString(@"     • Uninstalled %lu configurations\n\n", @"Window text: 'Tunnelblick succesfully: *'"), (unsigned long)nNetUninstalls]));
+		replaceMsg   = (  (nNetReplacements == 0)
+						? @""
+						: (  (nNetReplacements == 1)
+						   ? NSLocalizedString(@"     • Replaced one configuration\n\n", @"Window text: 'Tunnelblick succesfully: *'")
+						   : [NSString stringWithFormat: NSLocalizedString(@"     • Replaced %lu configurations\n\n", @"Window text: 'Tunnelblick succesfully: *'"), (unsigned long)nNetReplacements]));
+		installMsg   = (  (nNetInstalls == 0)
+						? @""
+						: (  (nNetInstalls == 1)
+						   ? NSLocalizedString(@"     • Installed one configuration\n\n", @"Window text: 'Tunnelblick succesfully: *'")
+						   : [NSString stringWithFormat: NSLocalizedString(@"     • Installed %lu configurations\n\n", @"Window text: 'Tunnelblick succesfully: *'"), (unsigned long)nNetInstalls]));
+		
+		NSString * headerMsg  = (  ([uninstallMsg length] + [replaceMsg length] + [installMsg length]) == 0
+								 ? @""
+								 : NSLocalizedString(@"Tunnelblick successfully:\n\n", @"Window text: '* Installed/Replaced/Uninstalled'"));
+		
+		if (  nTotalErrors == 0  ) {
+			msg = [NSString stringWithFormat: @"%@%@%@%@", headerMsg, uninstallMsg, replaceMsg, installMsg];
+		} else {
+			msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@", @"Window text"),
+				   (unsigned long)nTotalErrors, installerErrorMessages, headerMsg, uninstallMsg, replaceMsg, installMsg];
+		}
+		
+		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Configuration Installer", @"Window title"), msg);
+	}
+	
+    return (  nTotalErrors == 0
+			? NSApplicationDelegateReplySuccess
+			: NSApplicationDelegateReplyFailure);
+}
+
+-(BOOL) multipleInstallableConfigurations: (NSArray *) filePaths {
+	
+	// Returns TRUE if there are multiple configurations to be installed from paths in filePaths
+	// Returns FALSE if there is only one configuration to be installed.
+	//
+	// Note: if there is a .conf and a .ovpn in the same folder, only one will be installed; this method takes that into account
+	
+	NSString * firstConfigPath = nil;
+	NSString * mainPath;
+	NSEnumerator * e = [filePaths objectEnumerator];
+	while (  (mainPath = [e nextObject])  ) {
+		
+		NSString * ext = [mainPath pathExtension];
+		
+		if (   [ext isEqualToString: @"ovpn"]
+			|| [ext isEqualToString: @"conf"]  ) {
+			NSString * fullPathWithoutExtension = [mainPath stringByDeletingPathExtension];
+			if (  firstConfigPath  ) {
+				if (  ! [firstConfigPath isEqualToString: fullPathWithoutExtension]  ) {
+					return TRUE;
+				}
+			} else {
+				firstConfigPath = fullPathWithoutExtension;
+			}
+		}
+		
+		NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: mainPath];
+		NSString * file;
+		while (  (file = [dirEnum nextObject])  ) {
+			
+			ext = [file pathExtension];
+			
+			if (   [ext isEqualToString: @"ovpn"]
+				|| [ext isEqualToString: @"conf"]  ) {
+				NSString * fullPathWithoutExtension = [[mainPath stringByAppendingPathComponent: file] stringByDeletingPathExtension];
+				if (  firstConfigPath  ) {
+					if (  ! [firstConfigPath isEqualToString: fullPathWithoutExtension]  ) {
+						return TRUE;
+					}
+				} else {
+					firstConfigPath = fullPathWithoutExtension;
+				}
+				
+			}
+		}
+	}
+	
+	return FALSE;
+}
+		   
+// *********************************************************************************************
+// EXTERNAL ENTRY for .tblk, .ovpn, and .conf installation
+
+-(void) installConfigurations: (NSArray *) filePaths
+      skipConfirmationMessage: (BOOL)      skipConfirmMsg
+            skipResultMessage: (BOOL)      skipResultMsg
+               notifyDelegate: (BOOL)      notifyDelegate {
+    
+    // The filePaths array entries are paths to a .tblk, .ovpn, or .conf to install.
+    
+    if (  [filePaths count] == 0) {
+        if (  notifyDelegate  ) {
+            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplySuccess];
+        }
+        
+        return;
+    }
+    
+    if (  ! [self checkFilesAreReasonable: filePaths]  ) {
+        if (  notifyDelegate  ) {
+            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+        }
+        
+        return;
+    }
+    
+    // Set up instance variables that we use
+    
+    BOOL isDeployed = [gFileMgr fileExistsAtPath: gDeployPath];
+    [self setInstallToPrivateOK: (   (! isDeployed)
+                                  || (   [gTbDefaults boolForKey: @"usePrivateConfigurationsWithDeployedOnes"]
+                                      && ( ! [gTbDefaults canChangeValueForKey: @"usePrivateConfigurationsWithDeployedOnes"])
+                                      )
+                                  )];
+    [self setInstallToSharedOK: (   (! isDeployed)
+                                 || (   [gTbDefaults boolForKey: @"useSharedConfigurationsWithDeployedOnes"]
+                                     && ( ! [gTbDefaults canChangeValueForKey: @"useSharedConfigurationsWithDeployedOnes"])
+                                     )
+                                 )];
+    if (   [gTbDefaults boolForKey: @"doNotOpenDotTblkFiles"]
+        || (   ( ! [self installToPrivateOK] )
+            && ( ! [self installToSharedOK]  )
+            )
+        ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+                          NSLocalizedString(@"Installing configurations is not allowed", "Window text"));
+        if (  notifyDelegate  ) {
+            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+        }
+        return;
+    }
+    
+    [self setInstallSources:   [[NSMutableArray alloc]  initWithCapacity: 100]];
+    [self setInstallTargets:   [[NSMutableArray alloc]  initWithCapacity: 100]];
+    [self setReplaceSources:   [[NSMutableArray alloc]  initWithCapacity: 100]];
+    [self setReplaceTargets:   [[NSMutableArray alloc]  initWithCapacity: 100]];
+    [self setUpdateSources:    [[NSMutableArray alloc]  initWithCapacity: 100]];
+    [self setUpdateTargets:    [[NSMutableArray alloc]  initWithCapacity: 100]];
+    [self setDeletions:        [[NSMutableArray alloc]  initWithCapacity: 100]];
+    
+    [self setErrorLog:  [[NSMutableString alloc] initWithCapacity: 1000]];
+    
+    [self setInhibitCheckbox:        FALSE];
+    [self setAuthWasNull:            (gAuthorization == NULL) ];
+    [self setMultipleConfigurations: [self multipleInstallableConfigurations: filePaths]];
+	
+    NSString * path = [newTemporaryDirectoryPath() autorelease];
+    if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
+        NSLog(@"Unable to delete %@", path);
+        if (  notifyDelegate  ) {
+            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+        }
+        return;
+    }
+    if (  ! createDirWithPermissionAndOwnership(path, PERMS_PRIVATE_SELF, getuid(), getgid())  ) {
+        NSLog(@"Unable to create %@", path);
+        if (  notifyDelegate  ) {
+            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+        }
+        return;
+    }
+    [self setTempDirPath: path];
+    
+    //
+    //
+    // From here on, we need to use cleanupInstallAndNotifyDelegate: so the temporary directory is removed
+    //
+    //
+    
+    // Separate the file list into .tblks and .ovpn/.conf
+    NSMutableArray * tblkPaths = [NSMutableArray arrayWithCapacity: [filePaths count]];
+    NSMutableArray * ovpnPaths = [NSMutableArray arrayWithCapacity: [filePaths count]];
+	NSString * file;
+	NSEnumerator * e = [filePaths objectEnumerator];
+	while (  (file = [e nextObject])  ) {
+		NSString * ext = [file pathExtension];
+		if (  [ext isEqualToString: @"tblk"]  ) {
+            [tblkPaths addObject: file];
+		} else if (   [ext isEqualToString: @"ovpn"]
+				   || [ext isEqualToString: @"conf"]  ) {
+			[ovpnPaths addObject: file];
+		}  // Ignore anything else
+	}
+    
+    // Set up to install .tblk packages
+    if (  [tblkPaths count] != 0  ) {
+        NSString * result = [self setupToInstallTblks: tblkPaths haveOvpnOrConfs: ([ovpnPaths count] != 0)];
+        if (  result  ) {
+            if ( [result isEqualToString: @"cancel"]  ) {
+				[self cleanupInstallAndNotifyDelegate: notifyDelegate delegateNotifyValue: NSApplicationDelegateReplyCancel];
+				return;
+			} else if (  [result isNotEqualTo: @"skip"]  ) {
+				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Configuration Installation Error", @"Window title"),
+								  [NSString stringWithFormat:
+								   NSLocalizedString(@"Installation failed:\n\n%@", "Window text"),
+								   result]);
+				[self cleanupInstallAndNotifyDelegate: notifyDelegate delegateNotifyValue: NSApplicationDelegateReplyFailure];
+				return;
+			}
+        }
+    }
+    
+    // Set up to install .ovpn and .conf files
+	if (  [ovpnPaths count] != 0  ) {
+        NSString * result = [self setupToInstallOvpnsAndConfs: ovpnPaths];
+        if (  result  ) {
+            if ( [result isEqualToString: @"cancel"]  ) {
+				[self cleanupInstallAndNotifyDelegate: notifyDelegate delegateNotifyValue: NSApplicationDelegateReplyCancel];
+				return;
+			} else if (  [result isNotEqualTo: @"skip"]  ) {
+				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Configuration Installation Error", @"Window title"),
+								  [NSString stringWithFormat:
+								   NSLocalizedString(@"Installation failed:\n\n%@", "Window text"),
+								   result]);
+				[self cleanupInstallAndNotifyDelegate: notifyDelegate delegateNotifyValue: NSApplicationDelegateReplyFailure];
+				return;
+			}
+        }
+    }
+	
+	// Do the uninstalls/replacements/uninstalls
+	NSApplicationDelegateReply reply = [self doUninstallslReplacementsInstallsSkipConfirmMsg: skipConfirmMsg
+																			   skipResultMsg: skipResultMsg];
+	
+    [self cleanupInstallAndNotifyDelegate: notifyDelegate delegateNotifyValue: reply];
+	
+    return;
 }
 
 @end

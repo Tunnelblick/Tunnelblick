@@ -336,7 +336,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
         return;
     }
     
-    if (  [[ConfigurationManager defaultManager] copyConfigPath: sourcePath
+    if (  [[ConfigurationManager manager] copyConfigPath: sourcePath
                                                          toPath: targetPath
                                                 usingAuthRefPtr: &authorization
                                                      warnDialog: YES

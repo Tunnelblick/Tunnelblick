@@ -246,10 +246,10 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(NSString *)       openVPNLogHeader;
 -(void)             reconnectAfterBecomeActiveUser;
 -(void)             removeConnection:                       (VPNConnection *)   connection;
--(BOOL)             runInstaller:                           (unsigned)          installerFlags
+-(NSInteger)        runInstaller:                           (unsigned)          installerFlags
                   extraArguments:                           (NSArray *)         extraArguments;
 
--(BOOL)             runInstaller: (unsigned) installFlags
+-(NSInteger)        runInstaller: (unsigned) installFlags
                   extraArguments: (NSArray *) extraArguments
                  usingAuthRefPtr: (AuthorizationRef *) authRef
                          message: (NSString *) message

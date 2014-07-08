@@ -641,7 +641,7 @@ NSString * newTemporaryDirectoryPath(void)
     // Start of code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
     // Modified to check for malloc returning NULL, use strlcpy, use gFileMgr, and use more readable length for stringWithFileSystemRepresentation
     
-    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"TunnelblickTemporaryDotTblk-XXXXXX"];
+    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"Tunnelblick-XXXXXX"];
     const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
     
     size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
@@ -909,20 +909,6 @@ NSString * copyrightNotice()
     return [NSString stringWithFormat:
             NSLocalizedString(@"Copyright © 2004-%@ Angelo Laub and others.", @"Window text"),
             year];
-}
-
-BOOL isSanitizedOpenvpnVersion(NSString * s)
-{
-    unsigned i;
-    for (i=0; i<[s length]; i++) {
-        unichar ch = [s characterAtIndex: i];
-        if ( strchr("01234567890._-abcdefghijklmnopqrstuvwxyz", ch) == NULL  ) {
-            NSLog(@"An OpenVPN version string may only contain a-z, 0-9, periods, underscores, and hyphens");
-            return NO;
-        }
-    }
-    
-    return YES;
 }
 
 NSArray * availableOpenvpnVersions (void)

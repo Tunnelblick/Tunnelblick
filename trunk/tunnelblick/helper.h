@@ -63,8 +63,6 @@ NSString     * firstPathComponent       (NSString * thePath);
 
 NSString     * tunnelblickVersion       (NSBundle * bundle);
 NSArray      * availableOpenvpnVersions (void);
-BOOL           isSanitizedOpenvpnVersion(NSString * s);
-
 NSString     * localizeNonLiteral        (NSString * status,
                                          NSString * type);
 

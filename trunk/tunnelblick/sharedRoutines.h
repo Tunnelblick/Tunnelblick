@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -25,6 +25,8 @@
 OSStatus getSystemVersion(unsigned * major, unsigned * minor, unsigned * bugFix);
 
 unsigned cvt_atou(const char * s, NSString * description);
+
+BOOL isSanitizedOpenvpnVersion(NSString * s);
 
 BOOL checkSetItemOwnership(NSString *     path,
 						   NSDictionary * atts,
@@ -58,8 +60,6 @@ unsigned int getFreePort(void);
 BOOL itemIsVisible(NSString * path);
 
 BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser);
-
-NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK, NSString * charactersThatCommentsStartWith);
 
 OSStatus runTool(NSString * launchPath,
                  NSArray * arguments,

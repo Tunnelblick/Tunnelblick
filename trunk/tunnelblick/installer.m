@@ -327,6 +327,11 @@ int main(int argc, char *argv[])
         errorExit();
     }
     
+    if (  ! createDirWithPermissionAndOwnership(L_AS_T_TBLKS,
+                                                0755, 0, 0)  ) {
+        errorExit();
+    }
+    
     if (  ! createDirWithPermissionAndOwnership(L_AS_T_USERS,
                                                 0750, 0, 0)  ) {
         errorExit();
@@ -801,6 +806,8 @@ int main(int argc, char *argv[])
                                              NSUserName(),
                                              lastPartOfTarget];
             
+			errorExitIfAnySymlinkInPath(shadowTargetPath, 2);
+			
             BOOL deletedOldShadowCopy = FALSE;
 			if (  [gFileMgr fileExistsAtPath: shadowTargetPath]  ) {
 				if (  ! deleteThingAtPath(shadowTargetPath)  ) {
@@ -808,6 +815,14 @@ int main(int argc, char *argv[])
 				}
                 
                 deletedOldShadowCopy = TRUE;
+			}
+			
+			// Create container for shadow copy
+			enclosingFolder = [shadowTargetPath stringByDeletingLastPathComponent];
+			if (   ( ! [gFileMgr fileExistsAtPath: shadowTargetPath isDirectory: &isDir])
+				&& isDir  ) {
+				errorExitIfAnySymlinkInPath(enclosingFolder, 2);
+				createDirWithPermissionAndOwnership(enclosingFolder, PERMS_SECURED_PRIVATE_FOLDER, 0, 0);
 			}
 			
 			safeCopyOrMovePathToPath(targetPath, shadowTargetPath, FALSE);
@@ -1006,9 +1021,8 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
         appendLog([NSString stringWithFormat: @"Failed to copy %@ to %@", fromPath, dotTempPath]);
         [gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
         errorExit();
-    } else {
-		appendLog([NSString stringWithFormat: @"Copied %@ to %@", fromPath, dotTempPath]);
 	}
+	appendLog([NSString stringWithFormat: @"Copied %@ to %@", fromPath, dotTempPath]);
     
     // Make sure everything in the copy is unlocked
     makeUnlockedAtPath(dotTempPath);
@@ -1035,9 +1049,9 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
         appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@", dotTempPath, toPath]);
         [gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
         errorExit();
-    } else {
-        appendLog([NSString stringWithFormat: @"%@ %@ to %@", (moveNotCopy ? @"Moved" : @"Copied"), dotTempPath, toPath]);
     }
+    
+    appendLog([NSString stringWithFormat: @"Moved %@ to %@", dotTempPath, toPath]);
 }
 
 //**************************************************************************************************************************
@@ -1239,8 +1253,6 @@ BOOL convertAllPrivateOvpnAndConfToTblk(void)
     [gFileMgr tbRemoveFileAtPath: logPath   handler: nil];
     [gFileMgr tbRemoveFileAtPath: newFolder handler: nil];
     
-	ConfigurationConverter * converter = [[ConfigurationConverter alloc] init];
-	
 	BOOL haveDoneConversion = FALSE;
 	
     NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
@@ -1269,7 +1281,6 @@ BOOL convertAllPrivateOvpnAndConfToTblk(void)
 					if (   [gFileMgr fileExistsAtPath: outTblkPath]
 						|| [gFileMgr fileExistsAtPath: outTblkPathButInExistingConfigurationsFolder]  ) {
 						appendLog([NSString stringWithFormat: @"Unable to construct name for a .tblk for %@", file]);
-						[converter release];
 						return FALSE;
 					}
 				}
@@ -1277,17 +1288,19 @@ BOOL convertAllPrivateOvpnAndConfToTblk(void)
                 
 				if (  ! createDirWithPermissionAndOwnership(newFolder, PERMS_PRIVATE_SELF, gRealUserID, ADMIN_GROUP_ID)  ) {
                     appendLog([NSString stringWithFormat: @"Unable to create %@", newFolder]);
-					[converter release];
                     return FALSE;
                 };
                 
-				BOOL convertedOK = [converter convertConfigPath: inConfPath
-													 outputPath: outTblkPath
-													    logFile: gLogFile
-                                           includePathNameInLog: YES];
-                if (  ! convertedOK  ) {
-                    appendLog([NSString stringWithFormat: @"Unable to convert %@ to a Tunnelblick private Configuration", inConfPath]);
-                    [converter release];
+                ConfigurationConverter * converter = [[ConfigurationConverter alloc] init];
+				NSString * conversionResults = [converter convertConfigPath: inConfPath
+																 outputPath: outTblkPath
+																	logFile: gLogFile
+													   nameForErrorMessages: inConfPath
+																   fromTblk: NO];
+                [converter release];
+                
+                if (  conversionResults  ) {
+                    appendLog([NSString stringWithFormat: @"Unable to convert %@ to a Tunnelblick private Configuration: %@", inConfPath, conversionResults]);
                     return FALSE;
                 }
 				
@@ -1296,8 +1309,6 @@ BOOL convertAllPrivateOvpnAndConfToTblk(void)
         }
     }
 	
-	[converter release];
-    
 	if (  haveDoneConversion  ) {
 		if ( ! copyTblksToNewFolder(newFolder)  ) {
             appendLog(@"Unable to copy existing private .tblk configurations");
