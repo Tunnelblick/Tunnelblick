@@ -26,7 +26,6 @@
 #import "helper.h"
 #import "sharedRoutines.h"
 
-#import "ConfigurationManager.h"
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
 #import "TBUserDefaults.h"

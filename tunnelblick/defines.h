@@ -55,6 +55,7 @@
 // Maximum index for the "Set DNS/WINS" dropdown box. Must be equal to the number of entries minus one.
 #define MAX_SET_DNS_WINS_INDEX 4
 
+
 //*************************************************************************************************
 // Paths:
 
@@ -63,6 +64,8 @@
 
 #define L_AS_T_SHARED @"/Library/Application Support/Tunnelblick/Shared"
 #define L_AS_T_USERS  @"/Library/Application Support/Tunnelblick/Users"
+
+#define L_AS_T_TBLKS  @"/Library/Application Support/Tunnelblick/Tblks"
 
 #define AUTHORIZED_RUNNING_PATH @"/tmp/tunnelblick-authorized-running"
 #define AUTHORIZED_ERROR_PATH   @"/tmp/tunnelblick-authorized-error"
@@ -85,10 +88,20 @@
 #define PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING                 "#&;:~|*?'\"~<>^[]{}$%"
 #define PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING "#&;:~|*?'\"~<>^[]{}$%/"
 
+// Characters that are allowed in a domain name (and thus, a CFBundleIdentifier)
+#define ALLOWED_DOMAIN_NAME_CHARACTERS @".-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
+// Characters that are allowed in an OpenVPN version folder name
+#define ALLOWED_OPENVPN_VERSION_CHARACTERS @"._-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
 //*************************************************************************************************
 // Extensions that (for private configurations) require 640 permissions and ownership by Admin group
 // (Shared, Deploy, and alternate configurations are 0:0/600)
 #define KEY_AND_CRT_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", nil]
+
+//*************************************************************************************************
+// Extensions for files that should be copied when installing a .tblk
+#define TBLK_INSTALL_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", @"sh", nil]
 
 //*************************************************************************************************
 // Extensions that indicate that a file is in non-binary format -- ASCII, not binary
@@ -116,6 +129,7 @@
 //                             (These folders are owned by <user>:Admin)
 //
 // _SECURED... entries are for /Library/Application Support/Tunnelblick/Shared/,
+//                             /Library/Application Support/Tunnelblick/Tblks,
 //                             /Library/Application Support/Tunnelblick/Users/username/,
 //                             /Library/Application Support/Tunnelblick/Backup/
 //                             /Applications/XXXXX.app/Contents/Resources/Deploy/

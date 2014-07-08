@@ -101,7 +101,7 @@ extern TBUserDefaults * gTbDefaults;
     
     [logTabViewItem setLabel: NSLocalizedString(@"Log", @"Window title")];
     
-    [self setTitle: NSLocalizedString(@"Copy Diagnostic Info to Clipboard", @"Button") ofControl: logToClipboardButton   ];
+    [self setTitle: NSLocalizedString(@"Copy Diagnostic Info to Clipboard", @"Button") ofControl: logToClipboardButton];
     
     
     // Right split view - Settings tab

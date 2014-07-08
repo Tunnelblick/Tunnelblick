@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2012 Jonathan K. Bullard. All rights reserved.
+ * Copyright (c) 2011, 2012, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -26,13 +26,26 @@
 
 @implementation NSString(TB)
 
--(NSComparisonResult) caseInsensitiveNumericCompare: (NSString*) theString
-{
+-(NSComparisonResult) caseInsensitiveNumericCompare: (NSString*) theString {
+    
     return [self compare: theString options: NSCaseInsensitiveSearch | NSNumericSearch];
 }
 
--(unsigned) unsignedIntValue
-{
+-(BOOL) containsOnlyCharactersInString: (NSString *) allowed {
+    
+    unsigned i;
+    for (  i=0; i<[self length]; i++  ) {
+        unichar ch = [self characterAtIndex: i];
+        if ( strchr([allowed UTF8String], ch) == NULL  ) {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
+-(unsigned) unsignedIntValue {
+    
     int i = [self intValue];
     if (  i < 0  ) {
         NSLog(@"unsignedIntValue: Negative value %d is invalid in this context", i);

@@ -35,6 +35,7 @@
 #import "defines.h"
 
 #import "NSFileManager+TB.h"
+#import "NSString+TB.h"
 
 
 extern NSString * gDeployPath;
@@ -105,6 +106,14 @@ unsigned cvt_atou(const char * s, NSString * description)
     }
     u = (unsigned) i;
     return u;
+}
+
+BOOL isSanitizedOpenvpnVersion(NSString * s) {
+    
+    return (   [s containsOnlyCharactersInString: ALLOWED_OPENVPN_VERSION_CHARACTERS]
+            && ( 0 == [s rangeOfString: @".."].length )
+            && (! [s hasSuffix: @"."])
+            && (! [s hasPrefix: @"."])  );
 }
 
 BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_t gid, BOOL traverseLink)
@@ -354,9 +363,68 @@ NSString * fileIsReasonableSize(NSString * path) {
     return nil;
 }
 
+NSString * fileIsReasonableAt(NSString * path) {
+    
+    // Returns nil or a localized error message
+
+    if (  ! path  ) {
+        NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
+                             @": allFilesAreReasonableIn: path is nil", @""]; // (Empty string 2nd arg so we can use commmon error message that takes two args)
+        appendLog(errMsg);
+        return errMsg;
+    }
+    
+	if (  invalidConfigurationName(path, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
+		NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"Path '%@' contains characters that are not allowed.\n\n"
+                                                                          @"Characters that are not allowed: '%s'\n\n", @"Window text"),
+                             path, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING];
+        appendLog(errMsg);
+        return errMsg;
+	}
+    
+    NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: NO];
+    if (  ! atts  ) {
+        NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
+                             @": allFilesAreReasonableIn: Cannot get attributes: ", path];
+        appendLog(errMsg);
+        return errMsg;
+    }
+    
+    NSString * fileType = [atts objectForKey: NSFileType];
+    if (  ! fileType  ) {
+        NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
+                             @": allFilesAreReasonableIn: Cannot get type: ", path];
+        appendLog(errMsg);
+        return errMsg;
+    }
+    
+    if (  ! [[NSFileManager defaultManager] isReadableFileAtPath: path]  ) {
+		NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"You do not have permission to read '%@'.\n\n", @"Window text"),
+                             path];
+        appendLog(errMsg);
+        return errMsg;
+    }
+    
+    if (  [fileType isEqualToString: NSFileTypeRegular]  ) {
+        NSString * errMsg = fileIsReasonableSize(path);
+        if (  errMsg  ) {
+            appendLog(errMsg);
+            return errMsg;
+        }
+    } else if (  ! [fileType isEqualToString: NSFileTypeDirectory]  ) {
+        NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
+                             @": allFilesAreReasonableIn: Not a folder or regular file: ", path];
+        appendLog(errMsg);
+        return errMsg;
+    }
+    
+    return nil;
+}
+
 NSString * allFilesAreReasonableIn(NSString * path) {
 	
-    // Returns nil if all files in a folder are 10MB or smaller and have safe paths, otherwise returns a localized string with an error messsage
+    // Returns nil if a configuration file (.conf or .ovpn), or all files in a folder, are 10MB or smaller, have safe paths, and are readable.
+    // Returns a localized string with an error messsage otherwise.
     
     if (  ! path  ) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
@@ -373,6 +441,25 @@ NSString * allFilesAreReasonableIn(NSString * path) {
         return errMsg;
 	}
     
+    NSString * ext = [path pathExtension];
+    
+    // Process .ovpn and .conf files
+    if (   [ext isEqualToString: @"ovpn"]
+        || [ext isEqualToString: @"conf"]  ) {
+        return fileIsReasonableAt(path);
+    }
+    
+    // Process a folder
+    BOOL isDir = FALSE;
+    if (   [[NSFileManager defaultManager] fileExistsAtPath: path isDirectory: &isDir]
+        && ( ! isDir)  ) {
+        NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
+                             @": allFilesAreReasonableIn: Not a folder, .conf, or .ovpn: ", path];
+        appendLog(errMsg);
+        return errMsg;
+    }
+    
+    NSString * file;
     NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: path];
     if (  ! dirEnum  ) {
 		NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
@@ -381,43 +468,11 @@ NSString * allFilesAreReasonableIn(NSString * path) {
         return errMsg;
     }
     
-    NSString * file;
-    
     while (  (file = [dirEnum nextObject])  ) {
-        
-        NSString * fullPath = [path stringByAppendingPathComponent: file];
-        
-        if (  invalidConfigurationName(fullPath, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING "%")  ) {
-            NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"Path '%@' contains characters that are not allowed.\n\n"
-                                                                              @"Characters that are not allowed: '%s'\n\n.", @"Window text"),
-                                 fullPath, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING "%"];
-            appendLog(errMsg);
-            return errMsg;
+        NSString * msg = fileIsReasonableAt([path stringByAppendingPathComponent: file]);
+        if (  msg  ) {
+            return msg;
         }
-        
-        NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: fullPath traverseLink: NO];
-        if (  ! atts  ) {
-            NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
-                                 @": allFilesAreReasonableIn: Cannot get attributes: ", fullPath];
-            appendLog(errMsg);
-            return errMsg;
-        }
-        
-        NSString * fileType = [atts objectForKey: NSFileType];
-        if (  ! fileType  ) {
-            NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
-                                 @": allFilesAreReasonableIn: Cannot get type: ", fullPath];
-            appendLog(errMsg);
-            return errMsg;
-        }
-
-        if (  [fileType isEqualToString: NSFileTypeRegular]  ) {
-            NSString * errMsg = fileIsReasonableSize([path stringByAppendingPathComponent: file]);
-            if (  errMsg  ) {
-                appendLog(errMsg);
-                return errMsg;
-			}
-		}
     }
     
     return nil;
@@ -543,8 +598,8 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
     } else {
         user  = 0;                      // Secured files are owned by root:wheel
         group = 0;
-        if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
-            selfPerms   = PERMS_SECURED_TBLK_FOLDER;
+		if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
+			selfPerms   = PERMS_SECURED_TBLK_FOLDER;
         } else {
             selfPerms   = PERMS_SECURED_SELF;
         }
@@ -559,6 +614,8 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
     
 	if (  [path hasPrefix: L_AS_T_USERS]  ) {
 		selfPerms = PERMS_SECURED_PRIVATE_FOLDER;
+	} else if (  [path hasPrefix: L_AS_T_TBLKS]  ) {
+		selfPerms   = PERMS_SECURED_PUBLIC_FOLDER;
 	}
 	
     BOOL result = checkSetOwnership(path, YES, user, group);
@@ -575,12 +632,19 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
             
             NSString * ext  = [file pathExtension];
             
-            if (  [ext isEqualToString: @"tblk"]  ) {
+            if (   [ext isEqualToString: @"tblk"]
+				&& ( ! [path hasPrefix: L_AS_T_TBLKS] )  ) {
                 result = result && checkSetPermissions(filePath, tblkFolderPerms, YES);
                 
-            } else if (   [[NSFileManager defaultManager] fileExistsAtPath: filePath isDirectory: &isDir] && isDir  ) {
+            } else if (   [[NSFileManager defaultManager] fileExistsAtPath: filePath isDirectory: &isDir]
+                       && isDir  ) {
                 
-                if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
+                // Special case: folders in L_AS_T_TBLKS are visible to all users, even though they are inside a .tblk
+                if (  [filePath hasPrefix: [L_AS_T_TBLKS stringByAppendingString: @"/"] ]  ) {
+                    result = result && checkSetPermissions(filePath, publicFolderPerms, YES);
+                
+                // Folders inside a .tblk anywhere else are visible only to the owner & group
+                } else if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
                     result = result && checkSetPermissions(filePath, tblkFolderPerms, YES);
                     
                 } else if (   [filePath hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/Deploy/"]
@@ -598,7 +662,10 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
             } else if ( [ext isEqualToString:@"executable"]  ) {
 				result = result && checkSetPermissions(filePath, executablePerms, YES);
                 
-            } else if ( [file isEqualToString:@"forced-preferences.plist"]  ) {
+            // Files within L_AS_T_TBLKS are visible to all users (even if they are in a .tblk)
+            } else if (   [file isEqualToString:@"forced-preferences.plist"]
+                       || [filePath hasPrefix: [L_AS_T_TBLKS  stringByAppendingString: @"/"]]
+                       ) {
 				result = result && checkSetPermissions(filePath, forcedPrefsPerms, YES);
                 
             } else {
@@ -608,100 +675,6 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
     }
     
 	return result;
-}
-
-NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK, NSString * charactersThatCommentsStartWith) {
-    
-    // Returns nil if the file at path is a plain text file, or a string describing the error if it isn't
-    //
-    // If 'crOK' is TRUE, CR (0x0D) characters are allowed.
-    // Note: all files except script files can have CR characters.
-    //
-    // If 'charactersThatCommentsStartWith' is not nil, it is a string of characters that can start comments (which end at the next LF).
-    // _ANY_ character in a comment is allowed.
-    //
-    // This routine is fooled by some bash constructs. For example, in the following two lines, everything after the #
-    // is considered a comment, and is not checked for "bad" characters:
-    //      echo ${PATH#*:}
-    //      echo $(( 2#101011 ))
- 
-    
-    NSData * data = [[NSFileManager defaultManager] contentsAtPath: path];
-	
-	if (  ! data  ) {
-		return @"The file is missing";
-	}
-    
-	if (  [data length] == 0  ) {
-		return @"The file is empty";
-	}
-    
-    const unsigned char * chars = [data bytes];
-    
-    if (   chars[0] == '{'  ) {
-        return NSLocalizedString(@"The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files", @"Window text");
-    }
-    
-    BOOL inComment     = FALSE;
-    BOOL inDoubleQuote = FALSE;
-    BOOL inSingleQuote = FALSE;
-    BOOL inBackslash   = FALSE;
-    unsigned i;
-    unsigned lineNumber = 1;
-    for (  i=0; i<[data length]; i++  ) {
-        unsigned char c = chars[i];
-        if (   ( ! inComment)
-            && ( ! inDoubleQuote)
-            && ( ! inSingleQuote)
-            && ( ! inBackslash)  ) {
-            if (   ((c & 0x80) != 0)   // If high bit set
-                || (c == 0x7F)         // Or DEL
-                || (   (c == 0x0D)     // Or CR and CR is not allowed
-                    && (! crIsOK))
-                || (   (c < 0x20)      // Or a control character
-                    && (c != 0x09)     //    but not an HTAB
-                    && (c != 0x0A)     //            or LF
-                    && (c != 0x0D)     //            or CR
-                    )
-                ) {
-                return [NSString stringWithFormat: NSLocalizedString(@"Line %d of the file contains a non-printable character (0x%02X) which is not allowed", @"Window text"),
-                        lineNumber, (unsigned int)c];
-            }
-        }
-    
-        if (  charactersThatCommentsStartWith  ) {
-            if (  inDoubleQuote  ) {
-                if (  c == '"'  ) {
-                    inDoubleQuote = FALSE;
-                }
-            } else if (  inSingleQuote  ) {
-                if (  c == '\''  ) {
-                    inSingleQuote = FALSE;
-                }
-            } else if (  inBackslash  ) {
-                inBackslash = FALSE;
-                
-            } else if (  c == '\\'  ) {
-                inBackslash = TRUE;
-            } else if (  c == '"'  ) {
-                inDoubleQuote = TRUE;
-            } else if (  c == '\''  ) {
-                inSingleQuote = TRUE;
-            } else  if (  [charactersThatCommentsStartWith rangeOfString: [NSString stringWithFormat: @"%c", c]].length != 0 ) {
-                inComment = TRUE;
-            }
-        }
-        
-        if (  c == 0x0A  ) {
-            inComment     = FALSE;
-            inDoubleQuote = FALSE;
-            inSingleQuote = FALSE;
-            inBackslash   = FALSE;
-            lineNumber++;
-        }
-    }
-    
-    return nil;
 }
 
 NSData * availableDataOrError(NSFileHandle * file) {
