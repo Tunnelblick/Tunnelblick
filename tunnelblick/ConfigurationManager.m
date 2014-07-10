@@ -2240,7 +2240,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
         return;
     }
-    if (  ! createDirWithPermissionAndOwnership(path, PERMS_PRIVATE_SELF, getuid(), getgid())  ) {
+    if (  ! createDir(path, PERMS_PRIVATE_SELF)  ) {
         NSLog(@"Unable to create %@", path);
         if (  notifyDelegate  ) {
             [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
