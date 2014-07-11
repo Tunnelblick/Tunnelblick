@@ -470,8 +470,12 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         [self checkPlist: @"/Library/Preferences/net.tunnelblick.tunnelblick.plist" renameIfBad: NO];
         [self checkPlist: [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Preferences/net.tunnelblick.tunnelblick.plist"] renameIfBad: YES];
         
+		// Create private configurations folder if necessary
         gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
-        createDir(gPrivatePath, PERMS_PRIVATE_SELF);     // Create private configurations folder if necessary
+        if (  createDir(gPrivatePath, PERMS_PRIVATE_SELF) == -1  ) {
+			NSLog(@"Unable to create %@", gPrivatePath);
+			exit(1);
+		}
         
         gConfigDirs = [[NSMutableArray alloc] initWithCapacity: 2];
         

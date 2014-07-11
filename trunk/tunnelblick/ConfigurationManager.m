@@ -1764,7 +1764,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		}
 		
 		NSString * contentsPath = [tblkStubPath stringByAppendingPathComponent: @"Contents"];
-		if (  ! createDir(contentsPath, PERMS_SECURED_PUBLIC_FOLDER)  ) {
+		if (  createDir(contentsPath, PERMS_SECURED_PUBLIC_FOLDER) == -1 ) {
             return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because a stub .tblk could not be created\n", @"Window text"), cfBI];
 		}
 		
@@ -2240,7 +2240,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
         return;
     }
-    if (  ! createDir(path, PERMS_PRIVATE_SELF)  ) {
+    if (  createDir(path, PERMS_PRIVATE_SELF) == -1  ) {
         NSLog(@"Unable to create %@", path);
         if (  notifyDelegate  ) {
             [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];

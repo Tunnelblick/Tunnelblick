@@ -26,6 +26,9 @@ OSStatus getSystemVersion(unsigned * major, unsigned * minor, unsigned * bugFix)
 
 unsigned cvt_atou(const char * s, NSString * description);
 
+int            createDir(NSString * d,
+						 unsigned long perms);
+
 BOOL isSanitizedOpenvpnVersion(NSString * s);
 
 BOOL checkSetItemOwnership(NSString *     path,
