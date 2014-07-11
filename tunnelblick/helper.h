@@ -34,9 +34,6 @@ BOOL           checkOwnerAndPermissions (NSString * fPath,
 
 NSString     * configLocCodeStringForPath(NSString * configPath);
 
-int            createDir                (NSString * d,
-                                         unsigned long perms);
-
 NSString     * credentialsGroupFromDisplayName (NSString * displayName);
 
 BOOL           copyCredentials          (NSString * fromDisplayName,
