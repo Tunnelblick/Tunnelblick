@@ -92,10 +92,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [applyToAllUninstall     release];
     [applyToAllReplaceSkip   release];
     [tempDirPath             release];
+	[errorLog			     release];
     [installSources          release];
     [installTargets          release];
     [replaceSources          release];
     [replaceTargets          release];
+    [updateSources           release];
+    [updateTargets           release];
     [deletions               release];
     
     // listingWindow IS NOT RELEASED because it needs to exist after this instance of ConfigurationManager is gone. It releases itself when the window closes.
@@ -1085,7 +1088,20 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                 @"TBPreference",
                                 @"TBAlwaysSetPreference",
 								@"SUFeedURL",
-                                nil];
+								@"SUPublicDSAKeyFile",
+								nil];
+		
+		NSArray * booleanKeys = [NSArray arrayWithObjects:
+								 @"SUAllowsAutomaticUpdates",
+								 @"SUEnableAutomaticChecks",
+								 @"SUEnableSystemProfiling",
+								 @"SUShowReleaseNotes",
+								 nil];
+		
+		NSArray * numberKeys = [NSArray arrayWithObjects:
+								@"SUScheduledCheckInterval",
+								nil];
+		
         NSArray * replaceValues = [NSArray arrayWithObjects:    // List of valid values for TBReplaceIdentical
                                    @"ask",
                                    @"yes",
@@ -1139,7 +1155,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                         return [NSString stringWithFormat: NSLocalizedString(@"'%@' value '%@' is not a valid URL in %@", @"Window text"), key, value, path];
                     }
                 } // Don't test values for the other keys; as long as they are strings we will install the .plist
-            } else if (  ! [key isEqualToString: @"TBUninstall"]  ) {
+            } else if (  [booleanKeys containsObject: key]  ) {
+                id obj = [dict objectForKey: key];
+                if (  ! [obj respondsToSelector: @selector(boolValue)]  ) {
+                    return [NSString stringWithFormat: NSLocalizedString(@"Non-boolean value for '%@' in %@", @"Window text"), key, path];
+                }
+			} else if (  [numberKeys containsObject: key]  ) {
+				id obj = [dict objectForKey: key];
+				if (  ! [obj respondsToSelector: @selector(intValue)]  ) {
+					return [NSString stringWithFormat: NSLocalizedString(@"Non-number value for '%@' in %@", @"Window text"), key, path];
+				}
+			} else if (  ! [key isEqualToString: @"TBUninstall"]  ) {
                 return [NSString stringWithFormat: NSLocalizedString(@"Unknown key '%@' in %@", @"Window text"), key, path];
             }
         }
@@ -1627,13 +1653,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	// Not updatable if doesn't have CFBundleIdentifier, CFBundleVersion, and SUFeedURL
 	NSString * cfBI   = [plist objectForKey: @"CFBundleIdentifier"];
 	NSString * cfBV   = [plist objectForKey: @"CFBundleVersion"];
-	NSString * cfFURL = [plist objectForKey: @"SUFeedURL"];
-	if (  ( ! (   cfBI
-			   && cfBV
-			   && cfFURL))  ) {
-		return nil;
-	}
+	NSString * suFURL = [plist objectForKey: @"SUFeedURL"];
 	
+    if (  ! (   [[cfBI   class] isSubclassOfClass: [NSString class]]
+             && [[cfBV   class] isSubclassOfClass: [NSString class]]
+             && [[suFURL class] isSubclassOfClass: [NSString class]]
+             )  ) {
+        return nil;
+    }
+    
 	// It is updatable; return its .plist
 	return plist;
 }
@@ -1732,6 +1760,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		
         innerFilePartialPath   = [tblkInnerFilePartialPaths objectAtIndex: ix];
         NSString * displayName = [innerFilePartialPath stringByDeletingPathExtension];
+		if (  [displayName hasPrefix: @"Contents/Resources"]  ) {
+			displayName = [displayName substringFromIndex: [@"Contents/Resources" length]];
+		}
         
         NSString * result = [self convertInnerTblkAtPath: innerFilePartialPath
                                            outerTblkPath: outerTblkPath
@@ -1753,30 +1784,79 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		}
 		
 		// Create a stub .tblk in the temporary folder's "Updatables" subfolder.
-		// A stub consists only of a .plist inside a "Contents" folder inside a .tblk.
+		// A stub consists of a .plist inside a "Contents" folder inside a .tblk.
+        // A "Resources" folder inside the "Contents" folder may contain a DSA key file if there is one.
+        
+        // Get the path at which to create the stub .tblk.
 		NSDictionary * plist = (NSDictionary *)obj;
 		NSString * cfBI = [plist objectForKey: @"CFBundleIdentifier"];
 		NSString * tblkName = [cfBI stringByAppendingPathExtension: @"tblk"];
 		NSString * tblkStubPath = [[[self tempDirPath] stringByAppendingPathComponent: @"Updatables"]
 								   stringByAppendingPathComponent: tblkName];
+        
+        // Make sure we haven't processed a configuration with that CFBundleIdentifier already
 		if (  [gFileMgr fileExistsAtPath: tblkStubPath]  ) {
             return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n", @"Window text"), cfBI];
 		}
 		
+        // Create the Contents directory
 		NSString * contentsPath = [tblkStubPath stringByAppendingPathComponent: @"Contents"];
 		if (  createDir(contentsPath, PERMS_SECURED_PUBLIC_FOLDER) == -1 ) {
-            return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because a stub .tblk could not be created\n", @"Window text"), cfBI];
+            return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n", @"Window text"), cfBI];
 		}
 		
+        // Copy the Info.plist into the Contents directory and set its permissions
 		NSString * plistPath = [contentsPath stringByAppendingPathComponent: @"Info.plist"];
 		if (  ! [plist writeToFile: plistPath atomically: YES]  ) {
-            return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because its .plist could not be stored in the stub .tblk\n", @"Window text"), cfBI];
+            return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n", @"Window text"), cfBI];
 		}
-        NSDictionary * attributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: 0744] forKey: NSFilePosixPermissions];
+        NSDictionary * attributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: PERMS_SECURED_FORCED_PREFS] forKey: NSFilePosixPermissions];
 		if (  ! [gFileMgr tbChangeFileAttributes: attributes atPath: plistPath]  ) {
             return [NSString stringWithFormat: NSLocalizedString(@"Failed to set permissions on %@\n", @"Window text"), plistPath];
         }
         
+        // If there is a DSA key file, copy that, too, but into "Contents/Resources", and set its permissions
+        id obj = [plist objectForKey: @"SUPublicDSAKeyFile"];
+        if (  obj  ) {
+			if (  ! [[obj class] isSubclassOfClass: [NSString class]]  ) {
+                return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n", @"Window text"), cfBI];
+			}
+            NSString * suDSAKeyFileName = (NSString *)obj;
+            if (  ! [suDSAKeyFileName isEqualToString: [suDSAKeyFileName lastPathComponent]]  ) {
+                return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n", @"Window text"), cfBI];
+            }
+            // Look for the key file first in the outer .tblk, then in the outer .tblk's Contents/Resources folder
+            NSString * dsaKeyFilePath = [outerTblkPath stringByAppendingPathComponent: suDSAKeyFileName];
+            if (  ! [gFileMgr fileExistsAtPath: dsaKeyFilePath]  ) {
+                dsaKeyFilePath = [[[outerTblkPath stringByAppendingPathComponent: @"Contents"]
+                                   stringByAppendingPathComponent: @"Resources"]
+                                  stringByAppendingPathComponent: suDSAKeyFileName];
+                if (  ! [gFileMgr fileExistsAtPath: dsaKeyFilePath]  ) {
+                    return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n", @"Window text"), cfBI, suDSAKeyFileName];
+                }
+            }
+            
+            NSString * resourcesPath = [contentsPath stringByAppendingPathComponent: @"Resources"];
+            if (  createDir(resourcesPath, PERMS_SECURED_PUBLIC_FOLDER) == -1 ) {
+                return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n", @"Window text"), cfBI];
+            }
+            NSString * targetDSAKeyPath = [resourcesPath stringByAppendingPathComponent: suDSAKeyFileName];
+            if (  ! [gFileMgr tbCopyPath: dsaKeyFilePath toPath: targetDSAKeyPath handler: nil]  ) {
+                return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n", @"Window text"), cfBI, dsaKeyFilePath, targetDSAKeyPath];
+            }
+            if (  ! [gFileMgr tbChangeFileAttributes: attributes atPath: targetDSAKeyPath]  ) {
+                return [NSString stringWithFormat: NSLocalizedString(@"Failed to set permissions on %@\n", @"Window text"), targetDSAKeyPath];
+            }
+        } else {
+            // No DSA key file. SUFeedURL must be https://
+            id obj = [plist objectForKey: @"SUFeedURL"];
+            if (   ( ! obj)
+                || ( ! [[obj class] isSubclassOfClass: [NSString class]] )
+                || ( ! [(NSString *)obj hasPrefix: @"https://"]  )  ) {
+                return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n", @"Window text"), cfBI];
+            }
+        }
+
 		NSString * targetPath = [L_AS_T_TBLKS stringByAppendingPathComponent: tblkName];
 		[[self updateSources] addObject: tblkStubPath];
 		[[self updateTargets] addObject: targetPath];
@@ -1903,9 +1983,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     NSString * path = [self tempDirPath];
 	if (  [gFileMgr fileExistsAtPath: path]  ) {
-		if (  [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
-			NSLog(@"Deleted directory %@", path);
-		} else {
+		if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
 			NSLog(@"Unable to delete directory %@", path);
 		}
 	}
@@ -2218,15 +2296,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return;
     }
     
-    [self setInstallSources:   [[NSMutableArray alloc]  initWithCapacity: 100]];
-    [self setInstallTargets:   [[NSMutableArray alloc]  initWithCapacity: 100]];
-    [self setReplaceSources:   [[NSMutableArray alloc]  initWithCapacity: 100]];
-    [self setReplaceTargets:   [[NSMutableArray alloc]  initWithCapacity: 100]];
-    [self setUpdateSources:    [[NSMutableArray alloc]  initWithCapacity: 100]];
-    [self setUpdateTargets:    [[NSMutableArray alloc]  initWithCapacity: 100]];
-    [self setDeletions:        [[NSMutableArray alloc]  initWithCapacity: 100]];
+    installSources =   [[NSMutableArray alloc]  initWithCapacity: 100];
+    installTargets =   [[NSMutableArray alloc]  initWithCapacity: 100];
+    replaceSources =   [[NSMutableArray alloc]  initWithCapacity: 100];
+    replaceTargets =   [[NSMutableArray alloc]  initWithCapacity: 100];
+    updateSources  =   [[NSMutableArray alloc]  initWithCapacity: 100];
+    updateTargets  =   [[NSMutableArray alloc]  initWithCapacity: 100];
+    deletions      =   [[NSMutableArray alloc]  initWithCapacity: 100];
     
-    [self setErrorLog:  [[NSMutableString alloc] initWithCapacity: 1000]];
+    errorLog       =   [[NSMutableString alloc] initWithCapacity: 1000];
     
     [self setInhibitCheckbox:        FALSE];
     [self setAuthWasNull:            (gAuthorization == NULL) ];

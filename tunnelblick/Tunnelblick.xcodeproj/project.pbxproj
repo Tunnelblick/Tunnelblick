@@ -116,6 +116,7 @@
 		63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BF3E1010A2ED7F00AC8A59 /* CA.lproj */; };
 		63C043E61023660900E6C1D0 /* IconSets in Resources */ = {isa = PBXBuildFile; fileRef = 63C043DC1023660900E6C1D0 /* IconSets */; };
+		63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C055121970253E007AE8BE /* ConfigurationMultiUpdater.m */; };
 		63C2E19C18846D2A00ED0003 /* LeaseWatch.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19B18846D2A00ED0003 /* LeaseWatch.plist */; };
 		63C2E19E18846D3800ED0003 /* LeaseWatch3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19D18846D3800ED0003 /* LeaseWatch3.plist */; };
 		63C2E1A018846D4600ED0003 /* ProcessNetworkChanges.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */; };
@@ -396,6 +397,8 @@
 		63BD86E41205BA39005B8E38 /* IT.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IT.lproj; sourceTree = "<group>"; };
 		63BF3E1010A2ED7F00AC8A59 /* CA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CA.lproj; sourceTree = "<group>"; };
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
+		63C055111970253E007AE8BE /* ConfigurationMultiUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationMultiUpdater.h; sourceTree = "<group>"; };
+		63C055121970253E007AE8BE /* ConfigurationMultiUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationMultiUpdater.m; sourceTree = "<group>"; };
 		63C2E19B18846D2A00ED0003 /* LeaseWatch.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LeaseWatch.plist; sourceTree = "<group>"; };
 		63C2E19D18846D3800ED0003 /* LeaseWatch3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LeaseWatch3.plist; sourceTree = "<group>"; };
 		63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProcessNetworkChanges.plist; sourceTree = "<group>"; };
@@ -896,6 +899,8 @@
 				B87F82911612964D008E0EB1 /* ConfigurationConverter.m */,
 				63E8427A117A147500529DE2 /* ConfigurationManager.h */,
 				633DF4581312B13100B8606C /* ConfigurationManager.m */,
+				63C055111970253E007AE8BE /* ConfigurationMultiUpdater.h */,
+				63C055121970253E007AE8BE /* ConfigurationMultiUpdater.m */,
 				B81C3475161E6A8300C2AF6E /* ConfigurationToken.h */,
 				B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */,
 				63FB74EC1311D4BC002F4E7F /* ConfigurationUpdater.h */,
@@ -1466,6 +1471,7 @@
 				B8D807031832EEC400A0B937 /* NSTimer+TB.m in Sources */,
 				63CC72F91928C5CB00F81220 /* TBUIUpdater.h.m in Sources */,
 				632BB9E8194F2CFA006CD7DA /* AlertWindowController.m in Sources */,
+				63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
