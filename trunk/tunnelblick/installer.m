@@ -51,10 +51,6 @@
 //
 //     INSTALLER_SECURE_APP:    set to secure Tunnelblick.app and all of its contents
 //                                  (also set if INSTALLER_COPY_APP)
-//     INSTALLER_COPY_BUNDLE:   set to copy this app's Resources/Tunnelblick Configurations.bundle to /Library/Application Support/Tunnelblick/Configuration Updates
-//                                  (Will only be done if this app's Tunnelblick Configurations.bundle's version # is higher, or INSTALLER_COPY_APP is set)
-//
-//
 //     INSTALLER_SECURE_TBLKS:  set to secure all .tblk packages in Configurations, Shared, and the alternate configuration path
 //
 //	   INSTALLER_CONVERT_NON_TBLKS: set to convert all .ovpn and .conf files (and their associated keys, scripts, etc.) to .tblk packages
@@ -64,15 +60,6 @@
 //     INSTALLER_MOVE_NOT_COPY: set to move, instead of copy, if target path and source path are supplied
 //
 //     INSTALLER_DELETE:        set to delete target path
-//
-//     INSTALLER_SET_VERSION:   set to store bundleVersion as a new value for CFBundleVersion 
-//                                       and bundleVersionString as a new value for CFBundleShortVersionString
-//                                     in /Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle/Contents/Into.plist
-//                                     and remove Contents/Installer of the bundle
-//
-// bundleVersion       is a string to replace the CFBundleVersion
-// bundleVersionString is a string to replace the CFBundleShortVersionString
-//                                    in /Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle/Contents/Into.plist
 //
 // targetPath          is the path to a configuration (.ovpn or .conf file, or .tblk package) to be secured
 // sourcePath          is the path to be copied or moved to targetPath before securing targetPath
@@ -84,7 +71,7 @@
 //          and replaces it with a symlink to the new location.
 //      (3) If INSTALLER_CONVERT_NON_TBLKS, all private .ovpn or .conf files are converted to .tblks
 //      (4) If INSTALLER_COPY_APP, this app is copied to /Applications
-//      (5) If INSTALLER_COPY_BUNDLE, if /Resources/Tunnelblick Configurations.bundle exists, copies it to /Library/Application Support/T/Configuration Updates
+//      (5) (REMOVED)
 //      (6) If INSTALLER_SECURE_APP, secures Tunnelblick.app by setting the ownership and permissions of its components.
 //      (7) (Removed)
 //      (8) If INSTALLER_SECURE_TBLKS, secures all .tblk packages in the following folders:
@@ -92,14 +79,12 @@
 //           ~/Library/Application Support/Tunnelblick/Configurations
 //           /Library/Application Support/Tunnelblick/Users/<username>
 //
-//      (9) If INSTALLER_SET_VERSION is clear and INSTALLER_DELETE is clear and sourcePath is given,
+//      (9) If INSTALLER_DELETE is clear and sourcePath is given,
 //             copies or moves sourcePath to targetPath. Copies unless INSTALLER_MOVE_NOT_COPY is set.  (Also copies or moves the shadow copy if deleting a private configuration)
-//     (10) If INSTALLER_SET_VERSION is clear and INSTALLER_DELETE is clear and targetPath is given,
+//     (10) If INSTALLER_DELETE is clear and targetPath is given,
 //             secures the .ovpn or .conf file or a .tblk package at targetPath
-//     (11) If INSTALLER_SET_VERSION is clear and INSTALLER_DELETE is set and targetPath is given,
+//     (11) If INSTALLER_DELETE is set and targetPath is given,
 //             deletes the .ovpn or .conf file or .tblk package at targetPath (also deletes the shadow copy if deleting a private configuration)
-//     (12) If INSTALLER_SET_VERSION is set, copies the bundleVersion into the CFBundleVersion entry and bundleShortVersionString into the CFBundleShortVersionString entry
-//                                           in /Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle/Contents/Into.plist
 //
 // When finished (or if an error occurs), the file /tmp/tunnelblick-authorized-running is deleted to indicate the program has finished
 //
@@ -219,13 +204,10 @@ int main(int argc, char *argv[])
     BOOL copyApp          = (arg1 & INSTALLER_COPY_APP) != 0;
 	
     BOOL secureApp        = copyApp || ( (arg1 & INSTALLER_SECURE_APP) != 0 );
-    BOOL copyBundle       = (arg1 & INSTALLER_COPY_BUNDLE) != 0;
     BOOL secureTblks      = (arg1 & INSTALLER_SECURE_TBLKS) != 0;		// secureTblks will also be set if any private .ovpn or .conf configurations were converted to .tblks
 	BOOL convertNonTblks  = (arg1 & INSTALLER_CONVERT_NON_TBLKS) != 0;
 	BOOL moveLibOpenvpn   = (arg1 & INSTALLER_MOVE_LIBRARY_OPENVPN) != 0;
 
-	
-    BOOL setBundleVersion = (arg1 & INSTALLER_SET_VERSION) != 0;
     BOOL moveNotCopy      = (arg1 & INSTALLER_MOVE_NOT_COPY) != 0;
     BOOL deleteConfig     = (arg1 & INSTALLER_DELETE) != 0;
     
@@ -294,21 +276,6 @@ int main(int argc, char *argv[])
         }
     }
     
-    NSString * bundleVersion            = firstPath;    // 2nd argument has two uses
-    NSString * bundleShortVersionString = secondPath;      // 3rd argument has two uses
-    if (  setBundleVersion  ) {
-        if (  [bundleVersion isEqualToString: @""]  ) {
-            bundleVersion = nil;
-        }
-        if (  [bundleShortVersionString isEqualToString: @""]  ) {
-            bundleShortVersionString = nil;
-        }
-        if (   ( ! bundleVersion )
-            || ( ! bundleShortVersionString )  ) {
-            appendLog(@"Both a CFBundleVersion and a CFBundleShortVersionString are required to set the bundle version");
-        }
-    }
-	
     //**************************************************************************************************************************
     // (1) Create directories or repair their ownership/permissions as needed
     
@@ -459,79 +426,7 @@ int main(int argc, char *argv[])
     }
     
     //**************************************************************************************************************************
-    // (5)
-    // If INSTALLER_COPY_BUNDLE is set and the bundle exists and INSTALLER_COPY_APP is set
-    //                                                           or the application's bundleVersion is a higher version number
-    //    Copy Resources/Tunnelblick Configurations.bundle to /Library/Application Support/Tunnelblick/Configuration Updates
-    if (  copyBundle  ) {
-        if (   [gFileMgr fileExistsAtPath: gAppConfigurationsBundlePath isDirectory: &isDir]
-            && isDir  ) {
-            
-            BOOL doCopy = FALSE;
-            
-            if (  [gFileMgr fileExistsAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH]  ) {
-                NSString * appPlistPath = [gAppConfigurationsBundlePath stringByAppendingPathComponent: @"Contents/Info.plist"];
-                NSString * libPlistPath = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Info.plist"];
-                NSDictionary * appDict = [NSDictionary dictionaryWithContentsOfFile: appPlistPath];
-                NSDictionary * libDict = [NSDictionary dictionaryWithContentsOfFile: libPlistPath];
-                NSString * appVersion = [appDict objectForKey: @"CFBundleVersion"];
-                NSString * libVersion = [libDict objectForKey: @"CFBundleVersion"];
-                if (  appVersion  ) {
-                    if (  libVersion  ) {
-                        if (   copyApp  ) {
-                            doCopy = TRUE;
-                        } else {
-                            NSComparisonResult result = [appVersion compare: libVersion options: NSNumericSearch];
-                            if (   result  == NSOrderedDescending  ) {
-                                doCopy = TRUE;
-                            }
-                        }
-                    } else {
-                        doCopy = TRUE;  // No version info in library copy
-                    }
-                } else {
-                    appendLog([NSString stringWithFormat: @"No CFBundleVersion in %@", gAppConfigurationsBundlePath]);
-                    errorExit();
-                }
-            } else {
-                doCopy = TRUE;  // No existing Tunnelblick Configurations.bundle in /Library...
-            }
-            
-            if (  doCopy  ) {
-                // Create the folder that holds Tunnelblick Configurations.bundle if it doesn't already exist
-                // This must be writable by all users so Sparkle can store the update there
-                NSString * configurationBundleHolderPath = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByDeletingLastPathComponent];
-                if (  ! createDirWithPermissionAndOwnership(configurationBundleHolderPath, 0755, 0, 0)  ) {
-                    errorExit();
-                }
-                
-                // Copy Tunnelblick Configurations.bundle, overwriting any existing one
-                if (  ! makeUnlockedAtPath(CONFIGURATION_UPDATES_BUNDLE_PATH)  ) {
-                    errorExit();
-                }
-                if (  [gFileMgr fileExistsAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH]  ) {
-                    if (  ! [gFileMgr tbRemoveFileAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH handler: nil]  ) {
-                        appendLog([NSString stringWithFormat: @"Unable to delete %@", CONFIGURATION_UPDATES_BUNDLE_PATH]);
-                        errorExit();
-                    }
-                }
-                if (  ! [gFileMgr tbCopyPath: gAppConfigurationsBundlePath toPath: CONFIGURATION_UPDATES_BUNDLE_PATH handler: nil]  ) {
-                    appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", gAppConfigurationsBundlePath, CONFIGURATION_UPDATES_BUNDLE_PATH]);
-                    errorExit();
-                } else {
-                    appendLog([NSString stringWithFormat: @"Copied %@ to %@", gAppConfigurationsBundlePath, CONFIGURATION_UPDATES_BUNDLE_PATH]);
-                }
-                
-                // Set ownership and permissions
-                if ( ! checkSetOwnership(CONFIGURATION_UPDATES_BUNDLE_PATH, YES, 0, 0)  ) {
-                    errorExit();
-                }
-                if ( ! checkSetPermissions(CONFIGURATION_UPDATES_BUNDLE_PATH, 0755, YES)  ) {
-                    errorExit();
-                }
-            }
-        }
-    }
+    // (5) (REMOVED)
     
     //**************************************************************************************************************************
     // (6)
@@ -740,8 +635,7 @@ int main(int argc, char *argv[])
     // Like the NSFileManager "movePath:toPath:handler" method, we move by copying, then deleting, because we may be moving
     // from one disk to another (e.g., home folder on network to local hard drive)
     if (   secondPath
-        && ( ! deleteConfig )
-        && ( ! setBundleVersion )  ) {
+        && ( ! deleteConfig )  ) {
 		
 		NSString * sourcePath = [[secondPath copy] autorelease];
 		NSString * targetPath = [[firstPath  copy] autorelease];
@@ -857,9 +751,8 @@ int main(int argc, char *argv[])
     // (10)
     // If requested, secure a single file or .tblk package
     if (   firstPath
-        && ( ! secondPath )
-        && ( ! deleteConfig )
-        && ( ! setBundleVersion )  ) {
+        && ( ! secondPath   )
+        && ( ! deleteConfig )  ) {
         
         // Make sure we are dealing with .tblks
         if (  ! [[firstPath pathExtension] isEqualToString: @"tblk"]  ) {
@@ -893,8 +786,7 @@ int main(int argc, char *argv[])
     // (11)
     // If requested, delete a single file or .tblk package (also deletes the shadow copy if deleting a private configuration)
     if (   firstPath
-        && deleteConfig
-        && ( ! setBundleVersion )  ) {
+        && deleteConfig  ) {
         NSString * ext = [firstPath pathExtension];
         if (  [ext isEqualToString: @"tblk"]  ) {
             if (  [gFileMgr fileExistsAtPath: firstPath]  ) {
@@ -931,69 +823,6 @@ int main(int argc, char *argv[])
             errorExit();
         }
     }
-    
-    //**************************************************************************************************************************
-    // (12) If requested, copies the bundleVersion into the CFBundleVersion entry
-    //                           and bundleShortVersionString into the CFBundleShortVersionString
-    //                               in /Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle/Contents/Into.plist
-    //                    and removes /Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle/Contents/Resources/Install
-    //
-    //                    This is done after installing updated .tblks so that Sparkle will not try to update again and we won't try to install the updates again
-    
-    if (  setBundleVersion  ) {
-        if (  [gFileMgr fileExistsAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH]  ) {
-            NSString * libPlistPath = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Info.plist"];
-            NSMutableDictionary * libDict = [NSDictionary dictionaryWithContentsOfFile: libPlistPath];
-            
-            BOOL changed = FALSE;
-            
-            NSString * libVersion = [libDict objectForKey: @"CFBundleVersion"];
-            if (  libVersion  ) {
-                if (  ! [libVersion isEqualToString: bundleVersion]  ) {
-                    [libDict removeObjectForKey: @"CFBundleVersion"];
-                    [libDict setObject: bundleVersion forKey: @"CFBundleVersion"];
-                    changed = TRUE;
-                    appendLog([NSString stringWithFormat: @"Tunnelblick Configurations.bundle CFBundleVersion has been set to %@", bundleVersion]);
-                } else {
-                    appendLog([NSString stringWithFormat: @"Tunnelblick Configurations.bundle CFBundleVersion is %@", bundleVersion]);
-                }
-            } else {
-                appendLog([NSString stringWithFormat: @"no CFBundleVersion in %@", libPlistPath]);
-            }
-            
-            libVersion = [libDict objectForKey: @"CFBundleShortVersionString"];
-            if (  libVersion  ) {
-                if (  ! [libVersion isEqualToString: bundleShortVersionString]  ) {
-                    [libDict removeObjectForKey: @"CFBundleShortVersionString"];
-                    [libDict setObject: bundleShortVersionString forKey: @"CFBundleShortVersionString"];
-                    changed = TRUE;
-                    appendLog([NSString stringWithFormat: @"Tunnelblick Configurations.bundle CFBundleShortVersionString has been set to %@", bundleShortVersionString]);
-                } else {
-                    appendLog([NSString stringWithFormat: @"Tunnelblick Configurations.bundle CFBundleShortVersionString is %@", bundleShortVersionString]);
-                }
-            } else {
-                appendLog([NSString stringWithFormat: @"no CFBundleShortVersionString in %@", libPlistPath]);
-            }
-            
-            if (  changed  ) {
-                [libDict writeToFile: libPlistPath atomically: YES];
-            }
-
-            NSString * installFolderPath = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Resources/Install"];
-            if (  [gFileMgr fileExistsAtPath: installFolderPath]  ) {
-                if (  ! [gFileMgr tbRemoveFileAtPath: installFolderPath handler: nil]  ) {
-					makeUnlockedAtPath(installFolderPath);
-                    appendLog([NSString stringWithFormat: @"unable to remove %@", installFolderPath]);
-                } else {
-                    appendLog([NSString stringWithFormat: @"removed %@", installFolderPath]);
-                }
-            }
-                
-        } else {
-            appendLog([NSString stringWithFormat: @"could not find %@", CONFIGURATION_UPDATES_BUNDLE_PATH]);
-        }
-    }
-    
     
     //**************************************************************************************************************************
     // DONE

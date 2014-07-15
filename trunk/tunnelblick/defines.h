@@ -254,14 +254,14 @@
 #define INSTALLER_COPY_APP              0x0002u
 
 #define INSTALLER_SECURE_APP            0x0004u
-#define INSTALLER_COPY_BUNDLE           0x0008u
+//                                      0x0008u // UNUSED, WAS INSTALLER_COPY_BUNDLE
 #define INSTALLER_SECURE_TBLKS          0x0010u
 #define INSTALLER_CONVERT_NON_TBLKS     0x0020u
 #define INSTALLER_MOVE_LIBRARY_OPENVPN  0x0040u
 
 #define INSTALLER_MOVE_NOT_COPY         0x1000u
 #define INSTALLER_DELETE                0x2000u
-#define INSTALLER_SET_VERSION           0x4000u
+//                                      0x4000u // UNUSED, WAS INSTALLER_SET_VERSION
 
 
 //*************************************************************************************************
