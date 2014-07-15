@@ -29,7 +29,7 @@
 #import "defines.h"
 
 
-@class ConfigurationUpdater;
+@class ConfigurationMultiUpdater;
 @class MainIconView;
 @class MyPrefsWindowController;
 @class NetSocket;
@@ -141,7 +141,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 
     NSString                * feedURL;                      // URL to send program update requests to
     
-    ConfigurationUpdater    * myConfigUpdater;              // Our class used to check for updates to the configurations
+    ConfigurationMultiUpdater * myConfigMultiUpdater;       // Checks for configuration updates
     
     BOOL                      launchFinished;               // Flag that we have executed "applicationDidFinishLaunching"
     

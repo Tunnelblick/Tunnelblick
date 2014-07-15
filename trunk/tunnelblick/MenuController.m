@@ -36,6 +36,7 @@
 #import "sharedRoutines.h"
 
 #import "ConfigurationManager.h"
+#import "ConfigurationMultiUpdater.h"
 #import "ConfigurationsView.h"
 #import "ConfigurationUpdater.h"
 #import "LeftNavItem.h"
@@ -241,6 +242,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 								@"DB-SD",     // Extra logging for shutdown
                                 @"DB-SU",     // Extra logging for startup
                                 @"DB-SW",     // Extra logging for sleep/wake
+                                @"DB-UC",     // Extra logging for updating configurations
                                 @"DB-UP",     // Extra logging for the up script
 								@"DB-UU",	  // Extra logging for UI updates
                                 
@@ -898,7 +900,6 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         ignoreNoConfigs = TRUE;    // We ignore the "no configurations" situation until we've processed application:openFiles:
 		
         updater = [[SUUpdater alloc] init];
-        myConfigUpdater = [[ConfigurationUpdater alloc] init]; // Set up a separate Sparkle Updater for configurations   
         TBLog(@"DB-SU", @"init: 018 - LAST")
     }
     
@@ -1023,7 +1024,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
     [hookupWatchdogTimer release];
     [theAnim release];
     [updater release];
-    [myConfigUpdater release];
+    [myConfigMultiUpdater release];
     [customMenuScripts release];
     [customRunOnLaunchPath release];
     [customRunOnConnectPath release];
@@ -2392,6 +2393,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
                         return;
                     }
                 }
+                
                 [updater checkForUpdates: self];
             } else {
                 NSLog(@"'Check for Updates Now' ignored because no FeedURL has been set");
@@ -2401,7 +2403,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
             NSLog(@"'Check for Updates Now' ignored because Sparkle Updater does not respond to checkForUpdates:");
         }
         
-        [myConfigUpdater startWithUI: YES]; // Display the UI
+        [myConfigMultiUpdater startAllCheckingWithUI: YES]; // Display the UI
     }
 }
 
@@ -3112,123 +3114,10 @@ static void signal_handler(int signalNumber)
         return;
     }
     
-    // Get version of bundle whose contents we are installing, so we can (later) update /Library/Application Support/.../Tunnelblick Configurations.bundle
-    NSString * plistPath = [path stringByAppendingPathComponent: @"Contents/Info.plist"];
-    NSDictionary * dict  = [NSDictionary dictionaryWithContentsOfFile: plistPath];
-    NSString * version   = [dict objectForKey: @"CFBundleVersion"];
-    if (  ! version  ) {
-        NSLog(@"Configuration update installer: Not installing configurations update: No version information in %@", plistPath);
-        return;
-    }
-    NSString * versionShortString = [dict objectForKey: @"CFBundleShortVersionString"];
-    
     // Install the updated configurations
-    BOOL gotMyAuth = FALSE;
-    
-    BOOL isDir;
-    NSString * installFolder = [path stringByAppendingPathComponent: @"Contents/Resources/Install"];
-    if (  [gFileMgr fileExistsAtPath: installFolder isDirectory: &isDir]
-        && isDir  ) {
-        // Install folder should consist of zero or more .tblks -- make an array of their paths
-        NSMutableArray * paths = [NSMutableArray arrayWithCapacity: 16];
-        NSString * fileName;
-        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: installFolder];
-        while (  (fileName = [dirEnum nextObject])  ) {
-            [dirEnum skipDescendents];
-            NSString * fullPath = [installFolder stringByAppendingPathComponent: fileName];
-            if (  itemIsVisible(fullPath)  ) {
-                if (  [[fileName pathExtension] isEqualToString: @"tblk"]  ) {
-                    [paths addObject: fullPath];
-                } else {
-                    NSLog(@"Configuration update installer: Item %@ is not a .tblk and has been ignored", fullPath);
-                }
-            }
-        }
-        
-        if (  [paths count] != 0  ) {
-            if ( ! gAuthorization  ) {
-                NSString * msg = NSLocalizedString(@"Tunnelblick needs to install one or more Tunnelblick VPN Configurations.", @"Window text");
-                gAuthorization = [NSApplication getAuthorizationRef: msg];
-                gotMyAuth = TRUE;
-            }
-            
-            if (  ! gAuthorization  ) {
-                NSLog(@"Configuration update installer: The Tunnelblick installation was cancelled by the user.");
-                return;
-            }
-            
-            [self installTblks: paths skipConfirmationMessage: YES skipResultMessage: YES notifyDelegate: NO];   // Install .tblks
-            
-        } else {
-            NSLog(@"Configuration update installer: Not installing update: No items to install in %@", installFolder);
-            return;
-        }
-    } else {
-        NSLog(@"Configuration update installer: Not installing update: %@ does not exist", installFolder);
-        return;
-    }
-    
-    // Set the version # in /Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle/Contents/Info.plist
-    // and remove the bundle's Contents/Resources/Install folder that contains the updates so we don't update with them again
-    if ( ! gAuthorization  ) {
-        NSString * msg = NSLocalizedString(@"Tunnelblick needs to install one or more Tunnelblick VPN Configurations.", @"Window text");
-        gAuthorization = [NSApplication getAuthorizationRef: msg];
-        gotMyAuth = TRUE;
-    }
-    
-    if (  ! gAuthorization  ) {
-        NSLog(@"Configuration update installer: The Tunnelblick installation was cancelled by the user.");
-        return;
-    }
-    
-    NSString * masterPlistPath = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Info.plist"];
-
-    NSString *launchPath = [[NSBundle mainBundle] pathForResource:@"installer" ofType:nil];
-    NSArray * arguments = [NSArray arrayWithObjects: [NSString stringWithFormat: @"%u", INSTALLER_SET_VERSION], version, versionShortString, nil];
-    
-    BOOL okNow = FALSE; // Assume failure
-    unsigned i;
-    for (i=0; i<5; i++) {
-        if (  i != 0  ) {
-            usleep( i * 500000 );
-            NSLog(@"Configuration update installer: Retrying execution of installer");
-        }
-        
-        if (  [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: gAuthorization] ) {
-            // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
-            // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
-            useconds_t sleepTime;
-            for (sleepTime=50000; sleepTime < 7000000; sleepTime=sleepTime*2) {
-                usleep(sleepTime);
-                
-                NSDictionary * masterDict = [NSDictionary dictionaryWithContentsOfFile: masterPlistPath];
-                if (  (okNow = [version isEqualToString: [masterDict objectForKey: @"CFBundleVersion"]])  ) {
-                    break;
-                }
-            }
-            
-            if (  okNow  ) {
-                break;
-            } else {
-                NSLog(@"Configuration update installer: installer did not make the necessary changes");
-            }
-        } else {
-            NSLog(@"Configuration update installer: Failed to execute %@: %@", launchPath, arguments);
-        }
-    }
-    
-    
-    if (   ! okNow  ) {
-        NSDictionary * masterDict = [NSDictionary dictionaryWithContentsOfFile: masterPlistPath];
-        if (  ! [version isEqualToString: [masterDict objectForKey: @"CFBundleVersion"]]  ) {
-            NSLog(@"Configuration update installer: Unable to update CFBundleVersion in %@", masterPlistPath);
-        }
-    }
-    
-    if (  gotMyAuth  ) {
-        AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
-        gAuthorization = nil;
-    }
+	[self application: NSApp openFiles: [NSArray arrayWithObject: path]];
+	
+	[myConfigMultiUpdater restartUpdatingUpdatableTblkAtPath: path];
 }
 
 // Invoked when the user double-clicks on one or more .tblk packages or .ovpn or .conf files,
@@ -3314,8 +3203,7 @@ static void signal_handler(int signalNumber)
 	(void) notification;
 	
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 001")
-    [myConfigUpdater setup];    // Set up to run the configuration updater
-
+    
     BOOL forcingAutoChecksAndSendProfile = (  ! [gTbDefaults canChangeValueForKey: @"updateCheckAutomatically" ]  )
     && ( ! [gTbDefaults canChangeValueForKey: @"updateSendProfileInfo"]  );
     BOOL userIsAdminOrNonAdminsCanUpdate = ( userIsAnAdmin ) || ( ! [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] );
@@ -3766,7 +3654,8 @@ static void signal_handler(int signalNumber)
     }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 005")
-    [myConfigUpdater startWithUI: NO];    // Start checking for configuration updates in the background (when the application updater is finished)
+    myConfigMultiUpdater = [[ConfigurationMultiUpdater alloc] init]; // Set up separate Sparkle Updaters for configurations
+    [myConfigMultiUpdater startAllCheckingWithUI: NO];    // Start checking for configuration updates in the background (when the application updater is finished)
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 006")
     // Set up to monitor configuration folders
@@ -6724,7 +6613,6 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
             [lastConnection showStatusWindow];
 			[lastConnection setLogFilesMayExist: TRUE];
 			TBLog(@"DB-MO", @"statisticsWindowsShow: requested show of status window for %@ because no other status windows are showing", [lastConnection displayName]);
-            showingAny = TRUE;
         }
     }
 }

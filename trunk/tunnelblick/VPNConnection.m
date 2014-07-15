@@ -836,6 +836,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
     [argumentsUsedToStartOpenvpnstart release]; argumentsUsedToStartOpenvpnstart = nil;
     [menuItem                         release]; menuItem                         = nil;
     
+	[statistics.lastSet               release]; statistics.lastSet               = nil;
+	
     [super dealloc];
 }
 

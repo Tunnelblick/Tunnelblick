@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2014 Jonathan Bullard
  *
  *  This file is part of Tunnelblick.
  *
@@ -19,29 +19,14 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-#import "defines.h"
 
-@class SUUpdater;
-
-@interface ConfigurationUpdater : NSObject {
+@interface ConfigurationMultiUpdater : NSObject {
     
-    NSString       * cfgBundlePath;
-    SUUpdater      * cfgUpdater;
-    BOOL             cancelling;
-	BOOL			 checking;
-	BOOL			 checkingWithUI;
+    NSMutableArray * configUpdaters; // List of ConfigurationUpdater objects, one for each updatable .tblk
 }
 
-// Sets up the updater for later use
--(ConfigurationUpdater *) initWithPath: (NSString *) path;
+-(void) startAllCheckingWithUI: (BOOL) withUI;
 
--(void) startCheckingWithUI: (NSNumber *) withUI;
-
--(void) stopChecking;
-
--(NSString *) cfgBundlePath;
-
-TBPROPERTY_READONLY(BOOL, checking)
-TBPROPERTY_READONLY(BOOL, checkingWithUI)
+-(void) restartUpdatingUpdatableTblkAtPath: (NSString *) path;
 
 @end
