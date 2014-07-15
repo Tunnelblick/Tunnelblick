@@ -100,7 +100,6 @@ unsigned needToRunInstaller(BOOL inApplications);
 BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications);
 BOOL needToMoveLibraryOpenVPN(void);
 BOOL needToRepairPackages(void);
-BOOL needToCopyBundle(void);
 BOOL needToConvertNonTblks(void);
 
 @interface NSStatusBar (NSStatusBar_Private)
@@ -2999,7 +2998,6 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
     if (   (reason != terminatingBecauseOfLogout)
         && (reason != terminatingBecauseOfRestart)
         && (reason != terminatingBecauseOfShutdown)  ) {
-        [NSApp setAutoLaunchOnLogin: NO];
         terminatingAtUserRequest = TRUE;
     }
     
@@ -5183,7 +5181,6 @@ BOOL warnAboutNonTblks(void)
     TBLog(@"DB-SU", @"relaunchIfNecessary: 007")
     // Install this program and secure it
 	NSInteger installerResult = [self runInstaller: (  INSTALLER_COPY_APP
-													 | INSTALLER_COPY_BUNDLE
 													 | INSTALLER_SECURE_APP
 													 | INSTALLER_SECURE_TBLKS
 													 | (gOkToConvertNonTblks
@@ -5406,8 +5403,7 @@ BOOL warnAboutNonTblks(void)
             if (    installFlags & INSTALLER_MOVE_LIBRARY_OPENVPN  ) [msg appendString: NSLocalizedString(@"  • Move the private configurations folder\n", @"Window text")];
             if (    tblksToInstallFirst                            ) [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n", @"Window text")];
             if (    installFlags & INSTALLER_CONVERT_NON_TBLKS     ) [msg appendString: NSLocalizedString(@"  • Convert OpenVPN configurations\n", @"Window text")];
-            if (   (installFlags & INSTALLER_SECURE_TBLKS)
-                || (installFlags & INSTALLER_COPY_BUNDLE)          ) [msg appendString: NSLocalizedString(@"  • Secure configurations\n", @"Window text")];
+            if (    installFlags & INSTALLER_SECURE_TBLKS          ) [msg appendString: NSLocalizedString(@"  • Secure configurations\n", @"Window text")];
         }
         
 #ifdef TBDebug
@@ -5482,7 +5478,6 @@ BOOL warnAboutNonTblks(void)
             okNow = (0 == (   installFlags
                            & (  INSTALLER_COPY_APP
                               | INSTALLER_SECURE_APP
-                              | INSTALLER_COPY_BUNDLE
                               | INSTALLER_SECURE_TBLKS
                               | INSTALLER_CONVERT_NON_TBLKS
                               | INSTALLER_MOVE_LIBRARY_OPENVPN
@@ -5535,7 +5530,7 @@ BOOL warnAboutNonTblks(void)
 // Checks whether the installer needs to be run
 // Sets bits in a flag for use by the runInstaller:extraArguments method, and, ultimately, by the installer program
 //
-// DOES NOT SET INSTALLER_COPY_APP (or INSTALLER_MOVE_NOT_COPY, INSTALLER_DELETE, or INSTALLER_SET_VERSION)
+// DOES NOT SET INSTALLER_COPY_APP (or INSTALLER_MOVE_NOT_COPY, or INSTALLER_DELETE)
 //
 // Returns an unsigned containing INSTALLER_... bits set appropriately
 unsigned needToRunInstaller(BOOL inApplications)
@@ -5543,7 +5538,6 @@ unsigned needToRunInstaller(BOOL inApplications)
     unsigned flags = 0;
     
     if (  needToChangeOwnershipAndOrPermissions(inApplications)  ) flags = flags | INSTALLER_SECURE_APP;
-    if (  needToCopyBundle()                                     ) flags = flags | INSTALLER_COPY_BUNDLE;
     if (  needToRepairPackages()                                 ) flags = flags | INSTALLER_SECURE_TBLKS;
     if (  needToConvertNonTblks()                                ) flags = flags | INSTALLER_CONVERT_NON_TBLKS;
     if (  needToMoveLibraryOpenVPN()                             ) flags = flags | INSTALLER_MOVE_LIBRARY_OPENVPN;
@@ -6001,42 +5995,6 @@ BOOL needToRepairPackages(void)
     return NO;
 }
 
-BOOL needToCopyBundle()
-{
-    NSString * appConfigurationsBundlePath = [[[NSBundle mainBundle] resourcePath]
-                                              stringByAppendingPathComponent: @"Tunnelblick Configurations.bundle"];
-    
-    BOOL isDir;
-    
-    if (   [gFileMgr fileExistsAtPath: appConfigurationsBundlePath isDirectory: &isDir]
-        && isDir  ) {
-        
-        NSString * appConfigBundlePlistPath = [appConfigurationsBundlePath stringByAppendingPathComponent: @"Contents/Info.plist"];
-        NSDictionary * appDict = [NSDictionary dictionaryWithContentsOfFile: appConfigBundlePlistPath];
-        NSString * appVersion = [appDict objectForKey: @"CFBundleVersion"];
-        if (  appVersion  ) {
-            if (  [gFileMgr fileExistsAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH]  ) {
-                NSString * libPlistPath = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Info.plist"];
-                NSDictionary * libDict = [NSDictionary dictionaryWithContentsOfFile: libPlistPath];
-                NSString * libVersion = [libDict objectForKey: @"CFBundleVersion"];
-                if (  libVersion  ) {
-                    if (  [appVersion compare: libVersion options: NSNumericSearch]  == NSOrderedDescending  ) {
-                        return YES;  // App has higher version than /Library...
-                    }
-                } else {
-                    return YES;  // No version info in /Library... copy
-                }
-            } else {
-                return YES;  // No /Library... copy
-            }
-        } else {
-            NSLog(@"No CFBundleVersion in %@", appConfigurationsBundlePath);
-        }
-    }
-    
-    return NO;
-}
-
 BOOL needToConvertNonTblks(void)
 {
 	if (  gUserWasAskedAboutConvertNonTblks  ) {		// Have already asked
@@ -6098,6 +6056,12 @@ void terminateBecauseOfBadConfiguration(void)
     TBLog(@"DB_SD", @"shutDownTunnelblick: started.")
     terminatingAtUserRequest = TRUE;
     
+	if (   (reasonForTermination != terminatingBecauseOfLogout)
+		&& (reasonForTermination != terminatingBecauseOfRestart)
+		&& (reasonForTermination != terminatingBecauseOfShutdown)  ) {
+		[NSApp setAutoLaunchOnLogin: NO];
+	}
+	
     if (  [theAnim isAnimating]  ) {
         TBLog(@"DB_SD", @"shutDownTunnelblick: stopping icon animation.")
         [theAnim stopAnimation];

@@ -295,95 +295,74 @@ extern NSFileManager * gFileMgr;
     return FALSE;
 }
 
-
-+(void) addAppAsLoginItem {
-
-    // This method is a modified version of a method at http://cocoatutorial.grapewave.com/2010/02/creating-andor-removing-a-login-item/
-    
-	NSString * appPath = [[NSBundle mainBundle] bundlePath];
-    
-	// This will retrieve the path for the application
-	// For example, /Applications/test.app
-	CFURLRef url = (CFURLRef)[NSURL fileURLWithPath: appPath];
-    
-    if (  url  ) {
-        // Create a reference to the shared file list.
-        // We are adding it to the current user only.
-        // If we want to add it all users, use
-        // kLSSharedFileListGlobalLoginItems instead of
-        //kLSSharedFileListSessionLoginItems
-        LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-        
-        if (  loginItems  ) {
-            //Insert an item to the list.
-            LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems,
-                                                                         kLSSharedFileListItemLast, NULL, NULL,
-                                                                         url, NULL, NULL);
-            if (  item  ){
-                CFRelease(item);
-            } else {
-                NSLog(@"addAppAsLoginItem: LSSharedFileListInsertItemURL() returned NULL");
-            }
-            
-            CFRelease(loginItems);
-        } else {
-            NSLog(@"addAppAsLoginItem: LSSharedFileListCreate() returned NULL");
-        }
-    } else {
-        NSLog(@"addAppAsLoginItem: [NSURL fileURLWithPath: @\"%@\"] returned NULL", appPath);
-    }
-}
-
-+(void) deleteAppFromLoginItems {
-    
-    // This method is a modified version of a method at http://cocoatutorial.grapewave.com/2010/02/creating-andor-removing-a-login-item/
-    
-	NSString * appPath = [[NSBundle mainBundle] bundlePath];
-    
-    // Create a reference to the shared file list.
-    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-    
-    if (  loginItems  ) {
-        UInt32 seedValue;
-        //Retrieve the list of Login Items and cast them to
-        // a NSArray so that it will be easier to iterate.
-        NSArray * loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
-        
-        if (  loginItemsArray  ) {
-            unsigned i;
-            for (  i=0 ; i<[loginItemsArray count]; i++  ) {
-                LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)[loginItemsArray objectAtIndex:i];
-                if (  itemRef  ) {
-                    //Resolve the item with URL
-                    CFURLRef url = NULL;
-                    OSStatus status = LSSharedFileListItemResolve(itemRef, 0, &url, NULL);
-                    if (  status == noErr  ) {
-                        NSString * urlPath = [(NSURL*)url path];
-                        if (  [urlPath isEqualToString: appPath]  ){
-                            status = LSSharedFileListItemRemove(loginItems,itemRef);
-                            if (  status != noErr  ) {
-                                NSLog(@"deleteAppFromLoginItems: LSSharedFileListItemRemove returned status = %ld for loginItem for %@", (long) status, appPath);
-                            }
-                        }
-                    } else {
-                        NSLog(@"deleteAppFromLoginItems: LSSharedFileListItemResolve returned status = %ld for itemRef = 0x%lX; url is %@",
-                              (long) status, (unsigned long) itemRef, (url ? @"not NULL" : @"NULL"));
-                    }
-                    if (  url  ) {
-                        CFRelease(url);
-                        url = NULL;
-                    }
-                } else {
-                    NSLog(@"deleteAppFromLoginItems: loginItemsArray contains a NULL object");
-                }
-            }
-            CFRelease((CFArrayRef)loginItemsArray);
-        } else {
-            NSLog(@"deleteAppFromLoginItems: LSSharedFileListCopySnapshot() returned NULL");
-        }
-    } else {
-        NSLog(@"deleteAppFromLoginItems: LSSharedFileListCreate() returned NULL");
-    }
++(void) setStartAtLogin: (NSURL *) itemURL
+				enabled: (BOOL) enabled {
+	
+	// This is a modified version of a method from http://blog.originate.com/blog/2013/10/07/answers-to-common-questions-in-cocoa-development/
+	
+	OSStatus status;
+	LSSharedFileListItemRef existingItem = NULL;
+	
+	LSSharedFileListRef lsLoginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+	if (  lsLoginItems  ) {
+		UInt32 seed = 0U;
+		CFArrayRef lsLoginItemsSnapshot = LSSharedFileListCopySnapshot(lsLoginItems, &seed);
+		NSArray * currentLoginItems = (NSArray *)lsLoginItemsSnapshot;
+		if (  currentLoginItems  ) {
+			NSUInteger ix;
+			for (  ix=0; ix<[currentLoginItems count]; ix++  ) {
+				LSSharedFileListItemRef item = (LSSharedFileListItemRef)[currentLoginItems objectAtIndex: ix];
+				
+				UInt32 resolutionFlags = kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes;
+				CFURLRef URL = NULL;
+				status = LSSharedFileListItemResolve(item, resolutionFlags, &URL, /*outRef*/ NULL);
+				if (  status == noErr  ) {
+					if (  ! URL  ) {
+						NSLog(@"setStartAtLogin:enabled: loginItemsArray contains a NULL object");
+					}
+					Boolean foundIt = CFEqual(URL, (CFTypeRef)(itemURL));
+					CFRelease(URL);
+					
+					if (  foundIt  ) {
+						existingItem = item;
+						break;
+					}
+				} else {
+					NSLog(@"setStartAtLogin:enabled: LSSharedFileListItemResolve returned status = %ld for item = 0x%lX; url was %@",
+						  (long) status, (unsigned long) item, (URL ? @"not NULL" : @"NULL"));
+				}
+			}
+			
+			if (   enabled
+				&& (existingItem == NULL)  ) {
+				LSSharedFileListItemRef lsItem = LSSharedFileListInsertItemURL(lsLoginItems, kLSSharedFileListItemLast,
+																			   NULL, NULL, (CFURLRef)itemURL, NULL, NULL);
+				if (  lsItem    ) {
+					CFRelease(lsItem);
+				} else {
+					NSLog(@"setStartAtLogin:enabled: LSSharedFileListInsertItemURL returned NULL for loginItem for %@", itemURL);
+				}
+				
+				
+			} else if (   ( ! enabled )
+					   && (existingItem != NULL)) {
+				status = LSSharedFileListItemRemove(lsLoginItems, existingItem);
+				if (  status != noErr  ) {
+					NSLog(@"setStartAtLogin:enabled: LSSharedFileListItemRemove returned status = %ld for loginItem for %@", (long) status, itemURL);
+				}
+			}
+			
+			CFRelease(lsLoginItemsSnapshot);
+			
+		} else {
+            NSLog(@"setStartAtLogin:enabled: LSSharedFileListCopySnapshot() returned NULL");
+		}
+		
+		CFRelease(lsLoginItems);
+		
+	} else {
+        NSLog(@"setStartAtLogin:enabled: LSSharedFileListCreate() returned NULL");
+	}
 }
 
 + (BOOL)setAutoLaunchPathTiger:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch
@@ -465,22 +444,13 @@ extern NSFileManager * gFileMgr;
 
 - (void) setAutoLaunchOnLogin: (BOOL) doAutoLaunch
 {
-    // Before Mavericks, setAutoLaunchPath:onLogin: worked. According to the docs,
-    // the new methods addAppAsLoginItem and deleteAppFromLoginItems should
-    // work on Leopard and higher, but to "not fix what ain't broken", we only use
-    // the new methods on Mavericks.
-    if (  runningOnMavericksOrNewer()  ) {
-        if (  doAutoLaunch) {
-            [[self class] addAppAsLoginItem];
-        } else {
-            [[self class] deleteAppFromLoginItems];
-        }
-        
-        return;
+    if (  runningOnLeopardOrNewer()  ) {
+        [[self class] setStartAtLogin: [[NSBundle mainBundle] bundleURL]
+							  enabled: doAutoLaunch];
+    } else {
+        NSString* appPath = [[NSBundle mainBundle] bundlePath];
+        [[self class] setAutoLaunchPath: appPath onLogin: doAutoLaunch];
     }
-    
-    NSString* appPath = [[NSBundle mainBundle] bundlePath];
-    [[self class] setAutoLaunchPath: appPath onLogin: doAutoLaunch];
 }
 
 +(AuthorizationRef)getAuthorizationRef: (NSString *) msg {
