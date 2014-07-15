@@ -67,6 +67,24 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
     * *Scripts to Monitor Connection Time and Bandwidth Use*:  _*[http://code.google.com/p/tunnelblick/downloads/detail?name=user-contributed-003-monitor-uptime-and-bandwidth.zip user-contributed-003-monitor-uptime-and-bandwidth.zip]*_ Contributed by "vkapovit". These scripts  provide a mechanism for the user to be alerted when the VPN has been up for more than 20 minutes or when bandwidth has exceeded 100MB. See [https://groups.google.com/d/msg/tunnelblick-discuss/7lGWKR1-rC4/OGHhCfmrXfgJ this post] on the Tunnelblick Discussion Group for details. Requires Growl. Must be used in a Tunnelblick VPN Configuration (.tblk package) with Tunnelblick 3.1beta06 or higher. <strong><font color="red">Includes compiled binaries; use at your own risk.</font></strong>
 </td></tr></tbody></table>
 
+<table border="1" width="100%"><tbody><tr><td>
+ ==Verifying Downloads with SHA1 and MD5 Hashes==
+ Verifying downloads is a good idea. Even though the .dmg format and the application's OS X digital signature provide some protection from corruption, you can also compare the SHA1 and MD5 hashes of your downloaded file with the file's published hashes.
+
+ To compute the hashes of a file you've downloaded, type the following into /Applications/Utilities/Terminal:
+  openssl sha1 _path-to-the-file_
+ and
+  openssl md5 _path-to-the-file_
+
+ The published hashes of recent Tunnelblick binaries are available on !SourceForge, which hosts the binaries. To see the hashes for a particular file, go to
+
+ [https://sourceforge.net/projects/tunnelblick/files/All%20files https://sourceforge.net/projects/tunnelblick/files/All files]
+
+ and find the file you want the hashes of in the list. Click on the little "information" icon (the white "i" in a dark circle) to the right of the file's name in the line. The SHA1 and MD5 hashes of the file will be displayed along with some other information.
+
+ _Note: There are two files for each download, an X.dmg and an X-updater.dmg. The files are identical. Downloads from Tunnelblick's Google Code website use X.dmg and updates from within the Tunnelblick application use X-updater.dmg._
+</td></tr></tbody></table>
+
 ------------------
 
 ===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
