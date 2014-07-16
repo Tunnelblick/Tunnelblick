@@ -1085,9 +1085,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                 @"TBPackageVersion",
                                 @"TBReplaceIdentical",
                                 @"TBSharePackage",
-                                @"TBPreference",
-                                @"TBAlwaysSetPreference",
-								@"SUFeedURL",
+                                @"SUFeedURL",
 								@"SUPublicDSAKeyFile",
 								nil];
 		
@@ -1164,6 +1162,16 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 				id obj = [dict objectForKey: key];
 				if (  ! [obj respondsToSelector: @selector(intValue)]  ) {
 					return [NSString stringWithFormat: NSLocalizedString(@"Non-number value for '%@' in %@", @"Window text"), key, path];
+				}
+			} else if (  [key hasPrefix: @"TBPreference"]  ) {
+				NSString * pref = [key substringFromIndex: [@"TBPreference" length]];
+				if (  ! [gConfigurationPreferences containsObject: pref]  ) {
+					return [NSString stringWithFormat: NSLocalizedString(@"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@", @"Window text"), pref, path];
+				}
+			} else if (  [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
+				NSString * pref = [key substringFromIndex: [@"TBAlwaysSetPreference" length]];
+				if (  ! [gConfigurationPreferences containsObject: pref]  ) {
+					return [NSString stringWithFormat: NSLocalizedString(@"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@", @"Window text"), pref, path];
 				}
 			} else if (  ! [key isEqualToString: @"TBUninstall"]  ) {
                 return [NSString stringWithFormat: NSLocalizedString(@"Unknown key '%@' in %@", @"Window text"), key, path];
