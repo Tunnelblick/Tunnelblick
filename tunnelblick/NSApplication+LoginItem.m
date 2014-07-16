@@ -444,7 +444,7 @@ extern NSFileManager * gFileMgr;
 
 - (void) setAutoLaunchOnLogin: (BOOL) doAutoLaunch
 {
-    if (  runningOnLeopardOrNewer()  ) {
+    if (  runningOnMavericksOrNewer()  ) {
         [[self class] setStartAtLogin: [[NSBundle mainBundle] bundleURL]
 							  enabled: doAutoLaunch];
     } else {
