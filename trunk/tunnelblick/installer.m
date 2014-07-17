@@ -457,6 +457,8 @@ int main(int argc, char *argv[])
         NSString *pncPlistPath              = [appResourcesPath stringByAppendingPathComponent:@"ProcessNetworkChanges.plist"                    ];
         NSString *leasewatchPlistPath       = [appResourcesPath stringByAppendingPathComponent:@"LeaseWatch.plist"                               ];
         NSString *leasewatch3PlistPath      = [appResourcesPath stringByAppendingPathComponent:@"LeaseWatch3.plist"                              ];
+		NSString *launchAtLoginPlistPath    = [appResourcesPath stringByAppendingPathComponent:@"net.tunnelblick.tunnelblick.LaunchAtLogin.plist"];
+		NSString *launchAtLoginScriptPath   = [appResourcesPath stringByAppendingPathComponent:@"launchAtLogin.sh"                               ];
         NSString *clientUpPath              = [appResourcesPath stringByAppendingPathComponent:@"client.up.osx.sh"                               ];
         NSString *clientDownPath            = [appResourcesPath stringByAppendingPathComponent:@"client.down.osx.sh"                             ];
         NSString *clientNoMonUpPath         = [appResourcesPath stringByAppendingPathComponent:@"client.nomonitor.up.osx.sh"                     ];
@@ -480,6 +482,8 @@ int main(int argc, char *argv[])
 
         okSoFar = okSoFar && checkSetPermissions(openvpnPath,               0755, YES);
         
+        okSoFar = okSoFar && checkSetPermissions(launchAtLoginScriptPath,   0755, YES);
+		
         okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,         0744, YES);
         okSoFar = okSoFar && checkSetPermissions(installerPath,             0744, YES);
         okSoFar = okSoFar && checkSetPermissions(leasewatchPath,            0744, YES);
@@ -490,6 +494,7 @@ int main(int argc, char *argv[])
         okSoFar = okSoFar && checkSetPermissions(pncPlistPath,              0644, YES);
         okSoFar = okSoFar && checkSetPermissions(leasewatchPlistPath,       0644, YES);
         okSoFar = okSoFar && checkSetPermissions(leasewatch3PlistPath,      0644, YES);
+        okSoFar = okSoFar && checkSetPermissions(launchAtLoginPlistPath,    0644, YES);
         
         okSoFar = okSoFar && checkSetPermissions(clientUpPath,              0744, NO);
         okSoFar = okSoFar && checkSetPermissions(clientDownPath,            0744, NO);

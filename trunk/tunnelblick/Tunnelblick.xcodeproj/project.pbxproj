@@ -38,6 +38,7 @@
 		61C03B990ED4E42A00175F22 /* NB.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* NB.lproj */; };
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
 		630210131465CBBC00283B78 /* CS.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 630210121465CBBC00283B78 /* CS.lproj */; };
+		6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */; };
 		6311306411041B89003435F1 /* LoginItemsAE.c in Sources */ = {isa = PBXBuildFile; fileRef = 6311305F11041B89003435F1 /* LoginItemsAE.c */; };
 		6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311306211041B89003435F1 /* UKLoginItemRegistry.m */; };
 		631310D913CA18870071C110 /* NL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631310D513CA18870071C110 /* NL.lproj */; };
@@ -79,6 +80,7 @@
 		635ECE631378EA4000F67F8D /* AppearanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ECE621378EA4000F67F8D /* AppearanceView.m */; };
 		635ECE6C1378EA7000F67F8D /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ECE6B1378EA7000F67F8D /* InfoView.m */; };
 		63611FD113CE2A8B000240F0 /* RU.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63611FCD13CE2A8B000240F0 /* RU.lproj */; };
+		636BB3F8197776A900FDC5DE /* launchAtLogin.sh in Resources */ = {isa = PBXBuildFile; fileRef = 636BB3F7197776A900FDC5DE /* launchAtLogin.sh */; };
 		6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */; };
 		6375FB4B1387F0E20034CB78 /* SettingsSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */; };
 		637A871913B74B81003C1871 /* SplashWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A871813B74B81003C1871 /* SplashWindowController.m */; };
@@ -307,6 +309,7 @@
 		61C03B960ED4E42A00175F22 /* NB.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NB.lproj; sourceTree = "<group>"; };
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
 		630210121465CBBC00283B78 /* CS.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CS.lproj; sourceTree = "<group>"; };
+		6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = net.tunnelblick.tunnelblick.LaunchAtLogin.plist; sourceTree = "<group>"; };
 		6311305F11041B89003435F1 /* LoginItemsAE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LoginItemsAE.c; sourceTree = "<group>"; };
 		6311306011041B89003435F1 /* LoginItemsAE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItemsAE.h; sourceTree = "<group>"; };
 		6311306111041B89003435F1 /* UKLoginItemRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKLoginItemRegistry.h; sourceTree = "<group>"; };
@@ -355,6 +358,7 @@
 		635ECE6A1378EA7000F67F8D /* InfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoView.h; sourceTree = "<group>"; };
 		635ECE6B1378EA7000F67F8D /* InfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoView.m; sourceTree = "<group>"; };
 		63611FCD13CE2A8B000240F0 /* RU.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RU.lproj; sourceTree = "<group>"; };
+		636BB3F7197776A900FDC5DE /* launchAtLogin.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = launchAtLogin.sh; sourceTree = "<group>"; };
 		6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsSheetWindowController.m; sourceTree = "<group>"; };
 		6375FB471387F0270034CB78 /* SettingsSheetWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsSheetWindowController.h; sourceTree = "<group>"; };
 		6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSheet.xib; sourceTree = "<group>"; };
@@ -820,12 +824,14 @@
 				63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */,
 				63C2E19D18846D3800ED0003 /* LeaseWatch3.plist */,
 				63C2E19B18846D2A00ED0003 /* LeaseWatch.plist */,
+				6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */,
+				63D9257E135DAEE1001FF627 /* client.3.down.tunnelblick.sh */,
 				63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */,
 				63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */,
 				634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */,
 				634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */,
 				63D9257F135DAEE1001FF627 /* client.3.up.tunnelblick.sh */,
-				63D9257E135DAEE1001FF627 /* client.3.down.tunnelblick.sh */,
+				636BB3F7197776A900FDC5DE /* launchAtLogin.sh */,
 			);
 			name = Scripts;
 			sourceTree = "<group>";
@@ -1323,6 +1329,8 @@
 				B8F888461710704700978A35 /* Preferences-pre-10.6.xib in Resources */,
 				B86D1314181186E900FDFB3B /* ListingWindow.xib in Resources */,
 				632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */,
+				6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */,
+				636BB3F8197776A900FDC5DE /* launchAtLogin.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

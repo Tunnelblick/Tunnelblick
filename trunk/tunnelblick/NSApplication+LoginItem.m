@@ -29,22 +29,18 @@
 
 #import "defines.h"
 #import "helper.h"
+#import "sharedRoutines.h"
 
 #import "MenuController.h"
 #import "NSArray+cArray.h"
+#import "NSFileManager+TB.h"
+#import "TBUserDefaults.h"
 #import "UKLoginItemRegistry/UKLoginItemRegistry.h"
 
 // The following external, global variable is used by functions in this file and must be declared and set elsewhere before the
 // functions in this file are called:
-extern NSFileManager * gFileMgr;
-
-@interface NSApplication (LoginItemPrivate)
-
-+ (BOOL)            setAutoLaunchPath:          (NSString *)        path        onLogin: (BOOL) doAutoLaunch;
-+ (BOOL)            setAutoLaunchPathTiger:     (NSString *)        path        onLogin: (BOOL) doAutoLaunch;
-+ (BOOL)            setAutoLaunchPathLeopard:   (NSString *)        path        onLogin: (BOOL) doAutoLaunch;
-
-@end
+extern NSFileManager  * gFileMgr;
+extern TBUserDefaults * gTbDefaults;
 
 @implementation NSApplication (LoginItem)
 
@@ -168,7 +164,6 @@ extern NSFileManager * gFileMgr;
     return(retArray);
 }
 
-
 // Waits up to five seconds for a process to be gone
 // (Modified version of NSApplication+LoginItem's killOtherInstances)
 // Returns TRUE if process has terminated, otherwise returns FALSE
@@ -233,7 +228,6 @@ extern NSFileManager * gFileMgr;
     return FALSE;
 }
 
-
 - (BOOL)            wait: (int)        waitSeconds
      untilNoProcessNamed: (NSString *) processName {
 
@@ -295,11 +289,19 @@ extern NSFileManager * gFileMgr;
     return FALSE;
 }
 
-+(void) setStartAtLogin: (NSURL *) itemURL
-				enabled: (BOOL) enabled {
+-(void) haveDealtWithOldLoginItem  {
+    
+    // Invoked on main thread because gTbDefaults may not be thread-safe
 	
+	[gTbDefaults setBool: TRUE forKey: @"haveDealtWithOldLoginItem"];
+}
+
+-(void) deleteOurLoginItemLeopardOrNewer {
+    
 	// This is a modified version of a method from http://blog.originate.com/blog/2013/10/07/answers-to-common-questions-in-cocoa-development/
 	
+    NSURL * ourURL = [NSURL fileURLWithPath: @"/Applications/Tunnelblick.app/"];
+    
 	OSStatus status;
 	LSSharedFileListItemRef existingItem = NULL;
 	
@@ -318,139 +320,148 @@ extern NSFileManager * gFileMgr;
 				status = LSSharedFileListItemResolve(item, resolutionFlags, &URL, /*outRef*/ NULL);
 				if (  status == noErr  ) {
 					if (  ! URL  ) {
-						NSLog(@"setStartAtLogin:enabled: loginItemsArray contains a NULL object");
+						NSLog(@"deleteOurLoginItem: loginItemsArray contains a NULL object");
 					}
-					Boolean foundIt = CFEqual(URL, (CFTypeRef)(itemURL));
-					CFRelease(URL);
+					BOOL foundIt = CFEqual(URL, (CFTypeRef)(ourURL));
 					
 					if (  foundIt  ) {
 						existingItem = item;
 						break;
 					}
-				} else {
-					NSLog(@"setStartAtLogin:enabled: LSSharedFileListItemResolve returned status = %ld for item = 0x%lX; url was %@",
-						  (long) status, (unsigned long) item, (URL ? @"not NULL" : @"NULL"));
+				} else if (  status != -35 /* nsvErr -- no such volume */  ) {
+					NSLog(@"deleteOurLoginItem: LSSharedFileListItemResolve returned status = %ld for item = 0x%lX; url was %@",
+						  (long) status, (unsigned long) item, ((URL == NULL) ? @"NULL" : @"not NULL"));
+				}
+				if (  URL  ) {
+					CFRelease(URL);
 				}
 			}
 			
-			if (   enabled
-				&& (existingItem == NULL)  ) {
-				LSSharedFileListItemRef lsItem = LSSharedFileListInsertItemURL(lsLoginItems, kLSSharedFileListItemLast,
-																			   NULL, NULL, (CFURLRef)itemURL, NULL, NULL);
-				if (  lsItem    ) {
-					CFRelease(lsItem);
-				} else {
-					NSLog(@"setStartAtLogin:enabled: LSSharedFileListInsertItemURL returned NULL for loginItem for %@", itemURL);
-				}
-				
-				
-			} else if (   ( ! enabled )
-					   && (existingItem != NULL)) {
+			if (   existingItem == NULL  ) {
+				NSLog(@"No old login item to remove");
+                [self performSelectorOnMainThread: @selector(haveDealtWithOldLoginItem) withObject: nil waitUntilDone: NO];
+            } else {
 				status = LSSharedFileListItemRemove(lsLoginItems, existingItem);
-				if (  status != noErr  ) {
-					NSLog(@"setStartAtLogin:enabled: LSSharedFileListItemRemove returned status = %ld for loginItem for %@", (long) status, itemURL);
+				if (  status == noErr  ) {
+					NSLog(@"Succesfully removed the old login item");
+                    [self performSelectorOnMainThread: @selector(haveDealtWithOldLoginItem) withObject: nil waitUntilDone: NO];
+                } else {
+					NSLog(@"deleteOurLoginItem: LSSharedFileListItemRemove returned status = %ld for loginItem for %@", (long) status, ourURL);
 				}
 			}
 			
 			CFRelease(lsLoginItemsSnapshot);
 			
 		} else {
-            NSLog(@"setStartAtLogin:enabled: LSSharedFileListCopySnapshot() returned NULL");
+            NSLog(@"deleteOurLoginItem: LSSharedFileListCopySnapshot() returned NULL");
 		}
 		
 		CFRelease(lsLoginItems);
 		
 	} else {
-        NSLog(@"setStartAtLogin:enabled: LSSharedFileListCreate() returned NULL");
+        NSLog(@"deleteOurLoginItem: LSSharedFileListCreate() returned NULL");
 	}
 }
 
-+ (BOOL)setAutoLaunchPathTiger:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch
-{
-    NSMutableArray *loginItems;
-    unsigned i;
+-(void) deleteOurLoginItemTiger {
     
     // Read the loginwindow preferences:
-    loginItems = [(id) CFPreferencesCopyValue((CFStringRef)@"AutoLaunchedApplicationDictionary", 
-                                              (CFStringRef)@"loginwindow", 
-                                              kCFPreferencesCurrentUser, 
-                                              kCFPreferencesAnyHost) autorelease];
+    CFArrayRef cfItems = CFPreferencesCopyValue((CFStringRef)@"AutoLaunchedApplicationDictionary",
+                                                (CFStringRef)@"loginwindow",
+                                                kCFPreferencesCurrentUser,
+                                                kCFPreferencesAnyHost);
     
-    loginItems = [[loginItems mutableCopy] autorelease];
+    NSMutableArray * loginItems = [[(NSArray *)cfItems mutableCopy] autorelease];
     
-    // Look, if the application is in the loginItems already:    
-    for (i = 0; i < [loginItems count]; i++) 
-    {
+    // Delete our login item (if there is one)
+    BOOL dirty = FALSE;
+    NSUInteger ix;
+    for (  ix = 0; ix < [loginItems count]; ix++  ) {
+        
         NSDictionary *item;
-        
-        item = [loginItems objectAtIndex:i];
-        if ([[[item objectForKey:@"Path"] lastPathComponent] isEqualToString:[itemPath lastPathComponent]]) 
-        {
-            [loginItems removeObjectAtIndex:i];
-            i--; // stay on position
+        item = [loginItems objectAtIndex: ix];
+        if (  [[item objectForKey: @"Path"] isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
+            [loginItems removeObjectAtIndex: ix];
+            dirty = TRUE;
+            break;
         }
     }
     
-    if (doAutoLaunch) 
-    {
-        NSDictionary *loginDict;
+    // If we deleted anything, write the loginwindow preferences back out
+    if (  dirty  ) {
+        CFPreferencesSetValue((CFStringRef)@"AutoLaunchedApplicationDictionary",
+                              loginItems,
+                              (CFStringRef)@"loginwindow",
+                              kCFPreferencesCurrentUser,
+                              kCFPreferencesAnyHost);
         
-        loginDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                     itemPath, @"Path", 
-                     [NSNumber numberWithBool:NO], @"Hide", 
-                     nil, nil];
-        [loginItems addObject:loginDict];
-    } 
-    
-    // Write the loginwindow preferences:
-    CFPreferencesSetValue((CFStringRef)@"AutoLaunchedApplicationDictionary", 
-                          loginItems, 
-                          (CFStringRef)@"loginwindow", 
-                          kCFPreferencesCurrentUser, 
-                          kCFPreferencesAnyHost);
-    
-    CFPreferencesSynchronize((CFStringRef) @"loginwindow", 
-                             kCFPreferencesCurrentUser, 
-                             kCFPreferencesAnyHost);
-    return YES;    
-}
-
-+ (BOOL)setAutoLaunchPathLeopard:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch 
-{
-    BOOL alreadyWillLaunch = ( -1 != [UKLoginItemRegistry indexForLoginItemWithPath: itemPath]);
-    
-    if (  doAutoLaunch  ) {
-        if (  alreadyWillLaunch  ) {
-            return YES;
-        }        
-        return [UKLoginItemRegistry addLoginItemWithPath: itemPath hideIt: NO];
-
-    } else {
-        if (  alreadyWillLaunch  ) {
-            return [UKLoginItemRegistry removeLoginItemWithPath: itemPath];
-        }
-        return YES;
+        CFPreferencesSynchronize((CFStringRef) @"loginwindow",
+                                 kCFPreferencesCurrentUser,
+                                 kCFPreferencesAnyHost);
     }
+    
+    CFRelease(cfItems);
+	
+	if (  dirty  ) {
+		NSLog(@"Succesfully removed the old login item");
+	} else {
+		NSLog(@"No old login item to remove");
+	}
+	
+	[self performSelectorOnMainThread: @selector(haveDealtWithOldLoginItem) withObject: nil waitUntilDone: NO];
 }
 
-+ (BOOL)setAutoLaunchPath:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch 
-{
+-(void) deleteOurLoginItemThread {
+	
+	// This runs in a separate thread because deleteOurLoginItemLeopardAndUp can stall for a long time on network access
+	// to a non-existing network resource (even though kLSSharedFileListDoNotMountVolumes is specified).
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
     if (  runningOnLeopardOrNewer()  ) {
-        return [[self class] setAutoLaunchPathLeopard: itemPath onLogin: doAutoLaunch];
+        [self deleteOurLoginItemLeopardOrNewer];
     } else {
-        return [[self class] setAutoLaunchPathTiger:   itemPath onLogin: doAutoLaunch];
+        [self deleteOurLoginItemTiger];
     }
+    
+    [pool drain];
 }
 
-- (void) setAutoLaunchOnLogin: (BOOL) doAutoLaunch
-{
-    if (  runningOnMavericksOrNewer()  ) {
-        [[self class] setStartAtLogin: [[NSBundle mainBundle] bundleURL]
-							  enabled: doAutoLaunch];
-    } else {
-        NSString* appPath = [[NSBundle mainBundle] bundlePath];
-        [[self class] setAutoLaunchPath: appPath onLogin: doAutoLaunch];
+-(void) setupNewAutoLaunchOnLogin {
+    
+    // Set up the new mechanism for controlling whether Tunnelblick is launched when the user logs in.
+    
+	
+    // If the 'haveDealtWithOldLoginItem' preference does not exist, we should remove the Tunnelblick login item if there is one.
+    // We do it in a separate thread because it can stall on network access (even though kLSSharedFileListDoNotMountVolumes is specified).
+    // When the old login item has been dealt with, deleteOurLoginItemThread will invoke haveDealtWithOldLoginItem, which will set the preference.
+    
+    if (  ! [gTbDefaults objectForKey: @"haveDealtWithOldLoginItem"]  ) {
+        NSLog(@"Launching a thread to remove the old login item (if any) so we can use the new mechanism that controls Tunnelblick's launch on login");
+        [NSThread detachNewThreadSelector: @selector(deleteOurLoginItemThread) toTarget: NSApp withObject: nil];
     }
+	
+    // If the installed 'net.tunnelblick.tunnelblick.LaunchAtLogin.plist' is not the same as ours, update it.
+    
+#ifdef TBDebug
+	NSLog(@"DEBUG VERSION DOES NOT UPDATE LaunchAtLogin.plist.");
+#else
+    NSString * ourPlistPath = @"/Applications/Tunnelblick.app/Contents/Resources/net.tunnelblick.tunnelblick.LaunchAtLogin.plist";
+    NSString * launchAgentsPath = [[NSHomeDirectory() stringByAppendingPathComponent: @"Library"]
+								   stringByAppendingPathComponent: @"LaunchAgents"];
+	NSString * installedPlistPath = [launchAgentsPath stringByAppendingPathComponent: @"net.tunnelblick.tunnelblick.LaunchAtLogin.plist"];
+    if (  ! [gFileMgr contentsEqualAtPath: ourPlistPath andPath: installedPlistPath]  ) {
+		if (   ( createDir(launchAgentsPath, 0700) == -1  )
+			|| ( ! [gFileMgr tbCopyPath: ourPlistPath toPath: installedPlistPath handler: nil] )  ) {
+            NSLog(@"Failed to copy: %@ to %@", ourPlistPath, installedPlistPath);
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"Tunnelblick could not set up to be able to launch itself when you log in.\n\n"
+                                                @"See the Console log for details.", @"Window text"));
+        } else {
+            NSLog(@"Copied our 'net.tunnelblick.tunnelblick.LaunchAtLogin.plist' into ~/Library/LaunchAgents");
+        }
+    }
+#endif
 }
 
 +(AuthorizationRef)getAuthorizationRef: (NSString *) msg {

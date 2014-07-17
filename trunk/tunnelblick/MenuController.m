@@ -232,7 +232,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         gProgramPreferences = [[NSArray arrayWithObjects:
                                 
                                 @"DB-ALL",    // All extra logging
-								@"DB_AU",	  // Extra logging for VPN authorization
+								@"DB-AU",	  // Extra logging for VPN authorization
                                 @"DB-CD",     // Extra logging for connect/disconnect
                                 @"DB-HU",     // Extra logging for hookup,
                                 @"DB-IC",     // Extra logging for IP address checking
@@ -277,7 +277,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 								@"inhibitOutboundTunneblickTraffic",
                                 @"placeIconInStandardPositionInStatusBar",
                                 @"doNotMonitorConfigurationFolder",
-								@"doNotLaunchOnLogin",
+								@"doNotLaunchOnLogin", // DISABLE the ability to launch on login provided by launchAtNextLogin
+                                @"launchAtNextLogin",
                                 @"onlyAdminsCanUnprotectConfigurationFiles",
                                 @"standardApplicationPath",
                                 @"doNotCreateLaunchTunnelblickLinkinConfigurations",
@@ -368,6 +369,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 
                                 @"haveDealtWithSparkle1dot5b6",
                                 @"haveDealtWithOldTunTapPreferences",
+                                @"haveDealtWithOldLoginItem",
                                 
                                 @"SUEnableAutomaticChecks",
                                 @"SUFeedURL",
@@ -2418,7 +2420,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 {
     // DO NOT put this code inside the mutex: we want to return immediately if computer is shutting down or restarting
     if (  gShuttingDownOrRestartingComputer  ) {
-        TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: Computer is shutting down or restarting; OS X will kill OpenVPN instances")
+        TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: Computer is shutting down or restarting; OS X will kill OpenVPN instances")
         return;
     }
     
@@ -2447,7 +2449,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
         }
     }
     
-    TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: has checked for active daemons")
+    TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: has checked for active daemons")
     
     // See if any connections that are not disconnected use down-root
     BOOL noDownRootsActive = YES;
@@ -2457,13 +2459,13 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
             NSString * useDownRootPluginKey = [[connection displayName] stringByAppendingString: @"-useDownRootPlugin"];
             if (   [gTbDefaults boolForKey: useDownRootPluginKey]  ) {
                 noDownRootsActive = NO;
-				TBLog(@"DB_SD", @"%@ is not disconnected and is using the down-root plugin", [connection displayName])
+				TBLog(@"DB-SD", @"%@ is not disconnected and is using the down-root plugin", [connection displayName])
                 break;
             }
         }
     }
     
-	TBLog(@"DB_SD", @"includeDaemons = %d; noUnknownOpenVPNsRunning = %d; noActiveDaemons = %d; noDownRootsActive = %d ",
+	TBLog(@"DB-SD", @"includeDaemons = %d; noUnknownOpenVPNsRunning = %d; noActiveDaemons = %d; noDownRootsActive = %d ",
 		  (int) includeDaemons, (int) noUnknownOpenVPNsRunning, (int) noActiveDaemons, (int) noDownRootsActive)
 	
     if (   ALLOW_OPENVPNSTART_KILLALL
@@ -2474,7 +2476,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 			)
 		) {
         
-        TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: will use killAll")
+        TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: will use killAll")
 
         // Killing everything, so we use 'killall' to kill all processes named 'openvpn'
         // But first, indicate they are being disconnected and append a log entry for each connection that will be restored
@@ -2490,16 +2492,16 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 		}
         // If we've added any log entries, sleep for one second so they come before OpenVPN entries associated with closing the connections
         if (  [connectionsToRestoreOnWakeup count] != 0  ) {
-            TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: sleeping for logs to settle")
+            TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: sleeping for logs to settle")
             sleep(1);
         }
         
-        TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: requested killAll")
+        TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: requested killAll")
         runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
-        TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: killAll finished")
+        TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: killAll finished")
     } else {
         
-        TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: will kill individually")
+        TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: will kill individually")
         // Killing selected processes only -- those we know about that are not daemons
 		connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
         while (  (connection = [connEnum nextObject])  ) {
@@ -2514,14 +2516,14 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 						if (  procId > 0  ) {
 							[connection addToLog: logMessage];
 							NSArray * arguments = [NSArray arrayWithObjects: @"kill", [NSString stringWithFormat: @"%ld", (long) procId], nil];
-							TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: killing '%@'", [connection displayName])
+							TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: killing '%@'", [connection displayName])
 							runOpenvpnstart(arguments, nil, nil);
-							TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: have killed '%@'", [connection displayName])
+							TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: have killed '%@'", [connection displayName])
 						} else {
 							[connection addToLog: @"*Tunnelblick: Disconnecting; all configurations are being disconnected"];
-							TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: disconnecting '%@'", [connection displayName])
+							TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: disconnecting '%@'", [connection displayName])
 							[connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
-							TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: have disconnected '%@'", [connection displayName])
+							TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: have disconnected '%@'", [connection displayName])
 						}
 						
 						[connection setState: @"DISCONNECTING"];
@@ -2529,12 +2531,12 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 					
 					} else {
                         (void) procId;
-						TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: requesting disconnection of '%@' (pid %lu) via disconnectAndWait",
+						TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: requesting disconnection of '%@' (pid %lu) via disconnectAndWait",
 							  [connection displayName], (long) procId)
 						[connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
 					}
 				} else {
-					TBLog(@"DB_SD", @"killAllConnectionsIncludingDaemons: Not requesting disconnection of '%@' (pid %lu) because"
+					TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: Not requesting disconnection of '%@' (pid %lu) because"
 						  @" it is set to connect when the computer starts.",
 						  [connection displayName], (long) [connection pid])
                     ;
@@ -2750,7 +2752,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 // Returns TRUE if cleaned up, or FALSE if a cleanup is already taking place
 -(BOOL) cleanup 
 {
-    TBLog(@"DB_SD", @"cleanup: Entering cleanup")
+    TBLog(@"DB-SD", @"cleanup: Entering cleanup")
     
     gShuttingDownTunnelblick = TRUE;
     
@@ -2764,13 +2766,13 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
     
     if ( gShuttingDownOrRestartingComputer ) {
-        TBLog(@"DB_SD", @"cleanup: Skipping cleanup because computer is shutting down or restarting")
+        TBLog(@"DB-SD", @"cleanup: Skipping cleanup because computer is shutting down or restarting")
         // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
         return TRUE;
     }
     
     if (  ! [lastState isEqualToString:@"EXITING"]) {
-        TBLog(@"DB_SD", @"cleanup: Will killAllConnectionsIncludingDaemons: NO")
+        TBLog(@"DB-SD", @"cleanup: Will killAllConnectionsIncludingDaemons: NO")
         [self killAllConnectionsIncludingDaemons: NO
                                           except: nil
                                       logMessage: @"*Tunnelblick: Tunnelblick is quitting. Closing connection..."];
@@ -2779,7 +2781,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
         NSLog(@"Skipping unloading of kexts because of fatal error.");
     } else {
-        TBLog(@"DB_SD", @"cleanup: Unloading kexts")
+        TBLog(@"DB-SD", @"cleanup: Unloading kexts")
         [self unloadKexts];     // Unload .tun and .tap kexts
     }
     
@@ -2790,7 +2792,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
         NSDictionary * attributes = [gFileMgr attributesOfItemAtPath: ovpnvpnstartPath error: nil];
         NSUInteger permissions = [attributes filePosixPermissions];
         if (  0 != (permissions & S_ISUID)) {
-            TBLog(@"DB_SD", @"cleanup: Deleting logs")
+            TBLog(@"DB-SD", @"cleanup: Deleting logs")
             [self deleteLogs];
         } else {
             TBLog(@"DB-SD", @"cleanup: Skipping deleting logs because openvpnstart is not SUID");
@@ -2799,12 +2801,12 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 
     if ( ! gShuttingDownWorkspace  ) {
         if (  statusItem  ) {
-            TBLog(@"DB_SD", @"cleanup: Removing status bar item")
+            TBLog(@"DB-SD", @"cleanup: Removing status bar item")
             [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
         }
         
         if (  hotKeyEventHandlerIsInstalled && hotKeyModifierKeys != 0  ) {
-            TBLog(@"DB_SD", @"cleanup: Unregistering hotKeyEventHandler")
+            TBLog(@"DB-SD", @"cleanup: Unregistering hotKeyEventHandler")
             UnregisterEventHotKey(hotKeyRef);
         }
     }
@@ -3094,7 +3096,6 @@ static void signal_handler(int signalNumber)
         NSLog(@"Warning: setting signal handler failed: '%s'", strerror(errno));
     }	
 }
-
 
 // Invoked by Tunnelblick modifications to Sparkle with the path to a .bundle with updated configurations to install
 -(void) installConfigurationsUpdateInBundleAtPathHandler: (NSString *) path
@@ -3602,6 +3603,8 @@ static void signal_handler(int signalNumber)
 
     [self installSignalHandler];
 	[self updateScreenList];
+    
+    [NSApp setupNewAutoLaunchOnLogin];
 
     // Get names and version info for all copies of OpenVPN in ../Resources/openvpn
     if (  ! [self setUpOpenVPNNamesAndVersionInfo]) {
@@ -3782,7 +3785,7 @@ static void signal_handler(int signalNumber)
     }
     
 	if (  ! [gTbDefaults boolForKey: @"doNotLaunchOnLogin"]  ) {
-		[NSApp setAutoLaunchOnLogin: YES];
+        [gTbDefaults setBool: YES forKey: @"launchAtNextLogin"];
 	}
 	
     unsigned kbsIx = [gTbDefaults unsignedIntForKey: @"keyboardShortcutIndex"
@@ -4339,7 +4342,7 @@ static void signal_handler(int signalNumber)
 	
 	reasonForTermination = terminatingBecauseOfQuit;
     
-    [NSApp setAutoLaunchOnLogin: NO];
+    [gTbDefaults setBool: NO forKey: @"launchAtNextLogin"];
     terminatingAtUserRequest = TRUE;
 
     NSLog(@"updater:willInstallUpdate: Starting cleanup.");
@@ -4796,7 +4799,7 @@ BOOL warnAboutNonTblks(void)
 -(void) initialChecks: (NSString *) ourAppName
 {
     TBLog(@"DB-SU", @"initialChecks: 001")
-    [NSApp setAutoLaunchOnLogin: NO];
+    [gTbDefaults setBool: NO forKey: @"launchAtNextLogin"];
     
     [self checkSystemFoldersAreSecure];
     
@@ -5729,6 +5732,8 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     NSString *pncPlistPath              = [resourcesPath stringByAppendingPathComponent: @"ProcessNetworkChanges.plist"         ];
     NSString *leasewatchPlistPath       = [resourcesPath stringByAppendingPathComponent: @"LeaseWatch.plist"                    ];
     NSString *leasewatch3PlistPath      = [resourcesPath stringByAppendingPathComponent: @"LeaseWatch3.plist"                   ];
+    NSString *launchAtLoginPlistPath    = [resourcesPath stringByAppendingPathComponent: @"net.tunnelblick.tunnelblick.LaunchAtLogin.plist"];
+    NSString *launchAtLoginScriptPath   = [resourcesPath stringByAppendingPathComponent: @"launchAtLogin.sh"                    ];
 	NSString *clientUpPath              = [resourcesPath stringByAppendingPathComponent: @"client.up.osx.sh"                    ];
 	NSString *clientDownPath            = [resourcesPath stringByAppendingPathComponent: @"client.down.osx.sh"                  ];
 	NSString *clientNoMonUpPath         = [resourcesPath stringByAppendingPathComponent: @"client.nomonitor.up.osx.sh"          ];
@@ -5871,7 +5876,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	}
     
 	// check files which should be owned by root with 644 permissions
-	NSArray *root644Objects = [NSArray arrayWithObjects: infoPlistPath, pncPlistPath, leasewatchPlistPath, leasewatch3PlistPath, nil];
+	NSArray *root644Objects = [NSArray arrayWithObjects: infoPlistPath, pncPlistPath, leasewatchPlistPath, leasewatch3PlistPath, launchAtLoginPlistPath, nil];
 	e = [root644Objects objectEnumerator];
 	while (  (currentPath = [e nextObject])  ) {
         if (  ! checkOwnerAndPermissions(currentPath, 0, 0, 0644)  ) {
@@ -5879,6 +5884,11 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         }
 	}
     
+	// check files which should  be owned by root with 755 permissions
+    if (  ! checkOwnerAndPermissions(launchAtLoginScriptPath, 0, 0, 0755)  ) {
+        return YES; // NSLog already called
+    }
+	
     // check that log directory exists and has proper ownership and permissions
     if (  ! (   [gFileMgr fileExistsAtPath: L_AS_T_LOGS isDirectory: &isDir]
              && isDir )  ) {
@@ -6053,25 +6063,25 @@ void terminateBecauseOfBadConfiguration(void)
 {
     gShuttingDownTunnelblick = TRUE;
     
-    TBLog(@"DB_SD", @"shutDownTunnelblick: started.")
+    TBLog(@"DB-SD", @"shutDownTunnelblick: started.")
     terminatingAtUserRequest = TRUE;
     
 	if (   (reasonForTermination != terminatingBecauseOfLogout)
 		&& (reasonForTermination != terminatingBecauseOfRestart)
 		&& (reasonForTermination != terminatingBecauseOfShutdown)  ) {
-		[NSApp setAutoLaunchOnLogin: NO];
+        [gTbDefaults setBool: NO forKey: @"launchAtNextLogin"];
 	}
 	
     if (  [theAnim isAnimating]  ) {
-        TBLog(@"DB_SD", @"shutDownTunnelblick: stopping icon animation.")
+        TBLog(@"DB-SD", @"shutDownTunnelblick: stopping icon animation.")
         [theAnim stopAnimation];
     }
     
-    TBLog(@"DB_SD", @"shutDownTunnelblick: Starting cleanup.");
+    TBLog(@"DB-SD", @"shutDownTunnelblick: Starting cleanup.");
     if (  [self cleanup]  ) {
-        TBLog(@"DB_SD", @"shutDownTunnelblick: Cleanup finished.")
+        TBLog(@"DB-SD", @"shutDownTunnelblick: Cleanup finished.")
     } else {
-        TBLog(@"DB_SD", @"shutDownTunnelblick: Cleanup already being done.")
+        TBLog(@"DB-SD", @"shutDownTunnelblick: Cleanup already being done.")
     }
     
     NSLog(@"Finished shutting down Tunnelblick; allowing termination");
@@ -6093,7 +6103,7 @@ void terminateBecauseOfBadConfiguration(void)
 	(void) n;
 	
     reasonForTermination = terminatingBecauseOfLogout;
-    TBLog(@"DB_SD", @"Initiated logout")
+    TBLog(@"DB-SD", @"Initiated logout")
 }
 
 -(void) restartInitiatedHandler: (NSNotification *) n
@@ -6101,7 +6111,7 @@ void terminateBecauseOfBadConfiguration(void)
 	(void) n;
 	
     reasonForTermination = terminatingBecauseOfRestart;
-    TBLog(@"DB_SD", @"Initiated computer restart")
+    TBLog(@"DB-SD", @"Initiated computer restart")
 }
 
 -(void) shutdownInitiatedHandler: (NSNotification *) n
@@ -6109,7 +6119,7 @@ void terminateBecauseOfBadConfiguration(void)
 	(void) n;
 	
     reasonForTermination = terminatingBecauseOfShutdown;
-    TBLog(@"DB_SD", @"Initiated computer shutdown")
+    TBLog(@"DB-SD", @"Initiated computer shutdown")
 }
 
 -(void) logoutCancelledHandler: (NSNotification *) n
@@ -6117,7 +6127,7 @@ void terminateBecauseOfBadConfiguration(void)
 	(void) n;
 	
     reasonForTermination = terminatingForUnknownReason;
-    TBLog(@"DB_SD", @"Cancelled logout, or computer shutdown or restart.")
+    TBLog(@"DB-SD", @"Cancelled logout, or computer shutdown or restart.")
 }
 
 // reasonForTermination should be set before this is invoked
@@ -6159,7 +6169,7 @@ void terminateBecauseOfBadConfiguration(void)
 {
 	(void) n;
 	
-    TBLog(@"DB_SD", @"logoutContinuedHandler: Confirmed logout, or computer shutdown or restart.")
+    TBLog(@"DB-SD", @"logoutContinuedHandler: Confirmed logout, or computer shutdown or restart.")
     [self setShutdownVariables];
 }
 
@@ -6168,7 +6178,7 @@ void terminateBecauseOfBadConfiguration(void)
 {
  	(void) n;
 	
-   TBLog(@"DB_SD", @"willLogoutOrShutdownHandler: Received 'NSWorkspaceWillPowerOffNotification' notification")
+   TBLog(@"DB-SD", @"willLogoutOrShutdownHandler: Received 'NSWorkspaceWillPowerOffNotification' notification")
     [self setShutdownVariables];
 }
 
@@ -6177,7 +6187,7 @@ void terminateBecauseOfBadConfiguration(void)
 {
 	(void) n;
 	
-    TBLog(@"DB_SD", @"TunnelblickShutdownUIHandler: invoked")
+    TBLog(@"DB-SD", @"TunnelblickShutdownUIHandler: invoked")
 }
 
 -(void)clearAllHaveConnectedSince {
@@ -6200,7 +6210,7 @@ void terminateBecauseOfBadConfiguration(void)
     }
     
     gComputerIsGoingToSleep = TRUE;
-	TBLog(@"DB_SW", @"willGoToSleepHandler: Setting up connections to restore when computer wakes up")
+	TBLog(@"DB-SW", @"willGoToSleepHandler: Setting up connections to restore when computer wakes up")
     
     [connectionsToRestoreOnWakeup removeAllObjects];
     NSMutableArray * connectionsToLeaveConnected = [NSMutableArray arrayWithCapacity: 10];
@@ -6221,11 +6231,11 @@ void terminateBecauseOfBadConfiguration(void)
         }
     }
     
-    TBLog(@"DB_SW", @"willGoToSleepHandler: connectionsToRestoreOnWakeup = %@\nconnectionsToLeaveConnected = %@", connectionsToRestoreOnWakeup, connectionsToLeaveConnected)
+    TBLog(@"DB-SW", @"willGoToSleepHandler: connectionsToRestoreOnWakeup = %@\nconnectionsToLeaveConnected = %@", connectionsToRestoreOnWakeup, connectionsToLeaveConnected)
 
     terminatingAtUserRequest = TRUE;
     if (  [connectionsToRestoreOnWakeup count] != 0  ) {
-        TBLog(@"DB_SW", @"willGoToSleepHandler: Closing connections")
+        TBLog(@"DB-SW", @"willGoToSleepHandler: Closing connections")
         [self killAllConnectionsIncludingDaemons: YES
                                           except: connectionsToLeaveConnected
                                       logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connections..."];
@@ -6242,7 +6252,7 @@ void terminateBecauseOfBadConfiguration(void)
     // Done here so it is correct immediately when computer wakes
     [self performSelectorOnMainThread: @selector(clearAllHaveConnectedSince) withObject: nil waitUntilDone: YES];
     
-    TBLog(@"DB_SW", @"OK to go to sleep")
+    TBLog(@"DB-SW", @"OK to go to sleep")
 }
 -(void) wokeUpFromSleepHandler: (NSNotification *) n
 {
