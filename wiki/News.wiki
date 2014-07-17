@@ -5,6 +5,18 @@
 
 --------------------
 
+2014-07-17: *Tunnelblick 3.4beta32 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Adds the ability to have Tunnelblick VPN Configurations updated the same way that Tunnelblick is updated.
+
+ * Uses launchd instead of login items to control the launch of Tunnelblick when the user logs in.
+
+ * Fixes several problems.
+ 
+ See the [RlsNotes#Version_3.4 Release Notes] for details.
+
+--------------------
+
 2014-07-08: *Tunnelblick 3.4beta30 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Includes major enhancements to installing configurations.

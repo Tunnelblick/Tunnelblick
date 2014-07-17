@@ -43,6 +43,7 @@
 *Distributing Tunnelblick*
     [cDistribute Distributing Tunnelblick]<br>
     [cPkgs#Automatic_Installation Automatic Installation]<br>
+    [cUpdatableConfigurations Updatable Configurations]<br>
     [cDmg Modifying the Disk Image]<br>
 *Customized Versions*
     [cCusDeployed "Deployed" versions]<br>

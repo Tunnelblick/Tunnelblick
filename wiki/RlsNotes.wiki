@@ -9,6 +9,27 @@
 
 ==Version 3.4==
 
+*3.4beta32 build 3904 (2014-07-17)*
+
+ * Adds the ability to have Tunnelblick VPN Configurations updated the same way that Tunnelblick is updated. See [cUpdatableConfigurations Updatable Configurations] for details.
+
+ * Uses launchd instead of login items to control the launch of Tunnelblick when the user logs in.
+
+ * Fixes a problem installing configurations with 'TBPreference...' or 'TBAlwaysSetPreference' Info.plist entries.
+
+ * Fixes a problem installing configurations that that are inside Contents/Resources folders.
+
+ * Fixes a problem installing configurations when logged in as a 'standard' user (i.e., a non-administrator).
+
+ * Fixes a problem on OS X 10.9 and higher which caused Tunnelblick to try to access login items that were on network volumes.
+
+ * Fixes a problem which caused Tunnelblick to launch at login if the user had last quit Tunnelblick via Command-Q instead of using the 'Quit Tunnelblick' menu command.
+
+ * Fixes a minor memory leak.
+
+
+--------------------
+
 *3.4beta30 build 3893 (2014-07-08)*
 
  * Includes major enhancements to installing configurations:

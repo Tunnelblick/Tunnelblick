@@ -16,9 +16,10 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  For use on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "Mountain Lion"), Intel or PowerPC, 32- or 64-bit.<br /> *<font color="red">DO NOT use on OS X 10.9 or 10.10 ("Mavericks" or "Yosemite")</font>* -- use the latest [#Tunnelblick_Beta_Release Beta Release].
 
- <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.3.4.dmg/download Tunnelblick 3.3.4]</strong></font> `[`sourceforge.net`]` (build 3518.3872) released 2014-06-12 [RlsNotes#Version_3.3 Release Notes] [DocumentationForTunnelblick_3_3  What's New in 3.3]
+ <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.3.4.dmg/download Tunnelblick 3.3.4]</strong></font> `[`sourceforge.net`]` (build 3518.3872) released 2014-06-12 [RlsNotes#Version_3.3 Release Notes] [DocumentationForTunnelblick_3_3  What's New in 3.3]<br />
+ _*SHA1*_: 2c4472c58af7d32b831c9299688d0bad5906e1c2 _*MD5*_: 7fef70caa8b0ca9eed456ba6d253e630 _*(See [#Verifying_Downloads Verifying Downloads])*_
  
- NOTE: This version will refuse to install or launch on a computer that has ever had a "[cCusDeployed Deployed]" version installed unless that version has been completely [cInstall#Uninstalling_Tunnelblick uninstalled]. Uninstalling will delete all Tunnelblick VPNs from your system. To update a "[cCusDeployed Deployed]" version, you must obtain a new version from the person or organization that provided you with your original "[cCusDeployed Deployed]" version. The Tunnelblick project does <em>not</em> provide "[cCusDeployed Deployed]" versions. The latest version that may be used as a "Deployed" version without being rebranded is 3.3beta21b (Unsigned). It may be found on the [SecurityRiskDownloads Security Risk Downloads] page.
+ NOTE: This version will refuse to install or launch on a computer that has ever had a "[cCusDeployed Deployed]" version installed unless that version has been completely [cInstall#Uninstalling_Tunnelblick uninstalled]. Uninstalling will delete all Tunnelblick VPNs from your system. To update a "[cCusDeployed Deployed]" version, you must obtain a new version from the person or organization that provided you with your original "[cCusDeployed Deployed]" version. The Tunnelblick project does <em>not</em> provide "[cCusDeployed Deployed]" versions. The latest version of Tunnelblick that may be used as a "Deployed" version without being rebranded is 3.3beta21b (Unsigned). It may be found on the [SecurityRiskDownloads Security Risk Downloads] page.
 
 </td></tr></tbody></table>
 
@@ -28,9 +29,10 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.
  
- <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta30.dmg/download Tunnelblick 3.4beta30]</strong></font> `[`sourceforge.net`]` (build 3893) released 2014-07-08 [RlsNotes#Version_3.4 Release Notes]
+ <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta32.dmg/download Tunnelblick 3.4beta32]</strong></font> `[`sourceforge.net`]` (build 3904) released 2014-07-17 [RlsNotes#Version_3.4 Release Notes]<br />
+ _*SHA1*_: 9e67cba861028570db98aa93b4cd05c7f9bf8bed _*MD5*_: 05e346e9f3ce65453cf3eb340b791b32 _*(See [#Verifying_Downloads Verifying Downloads])*_
 
-  NOTE: This version will refuse to install or launch on a computer that has ever had a "[cCusDeployed Deployed]" version installed unless that version has been completely [cInstall#Uninstalling_Tunnelblick uninstalled]. Uninstalling will delete all Tunnelblick VPNs from your system. To update a "[cCusDeployed Deployed]" version, you must obtain a new version from the person or organization that provided you with your original "[cCusDeployed Deployed]" version. The Tunnelblick project does <em>not</em> provide "[cCusDeployed Deployed]" versions. The latest version that may be used as a "Deployed" version without being rebranded is 3.3beta21b (Unsigned). It may be found on the [SecurityRiskDownloads Security Risk Downloads] page.
+  NOTE: This version will refuse to install or launch on a computer that has ever had a "[cCusDeployed Deployed]" version installed unless that version has been completely [cInstall#Uninstalling_Tunnelblick uninstalled]. Uninstalling will delete all Tunnelblick VPNs from your system. To update a "[cCusDeployed Deployed]" version, you must obtain a new version from the person or organization that provided you with your original "[cCusDeployed Deployed]" version. The Tunnelblick project does <em>not</em> provide "[cCusDeployed Deployed]" versions. The latest version of Tunnelblick that may be used as a "Deployed" version without being rebranded is 3.3beta21b (Unsigned). It may be found on the [SecurityRiskDownloads Security Risk Downloads] page.
  
 </td></tr></tbody></table>
 
@@ -40,7 +42,9 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.
 
- <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.2.dmg/download Tunnelblick Uninstaller 1.2]</strong></font> `[`sourceforge.net`]` released 2014-02-11
+ <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.2.dmg/download Tunnelblick Uninstaller 1.2]</strong></font> `[`sourceforge.net`]` released 2014-02-11<br />
+ _*SHA1*_: 906c725e48aefedf984cd53eede3ce5ca79c1d0a _*MD5*_: 41964cd08ab1f2e4f4ba4e7b044bde74 _*(See [#Verifying_Downloads Verifying Downloads])*_
+
   * Fixes a problem causing "application is damaged" warnings on Mavericks
   * Fixes a problem with text being repeated in the opening window
   * Fixes a problem with the opening window not appearing until the Uninstaller icon in the Dock is clicked
@@ -68,21 +72,24 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 </td></tr></tbody></table>
 
 <table border="1" width="100%"><tbody><tr><td>
- ==Verifying Downloads with SHA1 and MD5 Hashes==
- Verifying downloads is a good idea. Even though the .dmg format and the application's OS X digital signature provide some protection from corruption, you can also compare the SHA1 and MD5 hashes of your downloaded file with the file's published hashes.
+ ==Verifying Downloads==
+ Verifying downloads is a good idea. Even though the .dmg format and the application's OS X digital signature provide some protection, you can also compare the SHA1 checksum and the MD5 hash of your downloaded file with the official published ones.
 
- To compute the hashes of a file you've downloaded, type the following into /Applications/Utilities/Terminal:
+ To compute the checksum and hash of a file you've downloaded, type the following into /Applications/Utilities/Terminal:
   openssl sha1 _path-to-the-file_
  and
   openssl md5 _path-to-the-file_
 
- The published hashes of recent Tunnelblick binaries are available on !SourceForge, which hosts the binaries. To see the hashes for a particular file, go to
-
- [https://sourceforge.net/projects/tunnelblick/files/All%20files https://sourceforge.net/projects/tunnelblick/files/All files]
-
- and find the file you want the hashes of in the list. Click on the little "information" icon (the white "i" in a dark circle) to the right of the file's name in the line. The SHA1 and MD5 hashes of the file will be displayed along with some other information.
+ The SHA1 checksum and the MD5 hash of current Tunnelblick binaries are shown above, under the link to the binaries.
+ 
+ For older binaries hosted on !SourceForge, go to
+  [https://sourceforge.net/projects/tunnelblick/files/All%20files https://sourceforge.net/projects/tunnelblick/files/All files]
+ and find the file in the list. Click on the little "information" icon (the white "i" in a dark circle) to the right of the file's name in the line. The SHA1 checksum and MD5 hash of the file will be displayed along with some other information.
 
  _Note: There are two files for each download, an X.dmg and an X-updater.dmg. The files are identical. Downloads from Tunnelblick's Google Code website use X.dmg and updates from within the Tunnelblick application use X-updater.dmg._
+ 
+ For even older binaries hosted on Google Code, the SHA1 checksum is shown on the page with the download.
+ 
 </td></tr></tbody></table>
 
 ------------------
