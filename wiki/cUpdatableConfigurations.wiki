@@ -104,9 +104,7 @@ Notes on the appcast entries:
 
 *_length="1234"_*
 
- The length in bytes of the .tblk. (Determined by Finder's Get Info command or by "stat -f %z configurations.tblk".
-
-(Note that the DSA signature is computed on the .zip or .dmg, but the length is the length of the .tblk.)
+ The length in bytes of the update file -- the .dmg or .zip. Use "stat -f %z configurations.zip" to get the length.
 
 ==Update Notes==
 The update notes are just an HTML file that is presented to the user when an update is available.
