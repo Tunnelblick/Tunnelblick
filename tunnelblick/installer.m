@@ -1128,8 +1128,11 @@ BOOL convertAllPrivateOvpnAndConfToTblk(void)
                 ConfigurationConverter * converter = [[ConfigurationConverter alloc] init];
 				NSString * conversionResults = [converter convertConfigPath: inConfPath
 																 outputPath: outTblkPath
-																	logFile: gLogFile
+                                                          replacingTblkPath: nil
+                                                                displayName: nil
 													   nameForErrorMessages: inConfPath
+                                                           useExistingFiles: nil
+																	logFile: gLogFile
 																   fromTblk: NO];
                 [converter release];
                 

@@ -55,14 +55,21 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 
 -(void) dealloc {
     
-    [outputPath         release]; outputPath         = nil;
-    [configPath         release]; configPath         = nil;
-    [configString       release]; configString       = nil;
-    [tokens             release]; tokens             = nil;
-    [tokensToReplace    release]; tokensToReplace    = nil;
-    [replacementStrings release]; replacementStrings = nil;
-    [pathsAlreadyCopied release]; pathsAlreadyCopied = nil;
-    [logString          release]; logString          = nil;
+    [outputPath           release]; outputPath           = nil;
+    [configPath           release]; configPath           = nil;
+    [replacingTblkPath    release]; replacingTblkPath    = nil;
+    [displayName          release]; displayName          = nil;
+    [nameForErrorMessages release]; nameForErrorMessages = nil;
+    [useExistingFiles     release]; useExistingFiles     = nil;
+    
+    [logString            release]; logString            = nil;
+    [localizedLogString   release]; localizedLogString   = nil;
+    [configString         release]; configString         = nil;
+    [tokens               release]; tokens               = nil;
+    [tokensToReplace      release]; tokensToReplace      = nil;
+    [replacementStrings   release]; replacementStrings   = nil;
+    [pathsAlreadyCopied   release]; pathsAlreadyCopied   = nil;
+    [logString            release]; logString            = nil;
     
     [super dealloc];
 }
@@ -511,6 +518,38 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 	return nil;	// Make the analyzer happy
 }
 
+-(BOOL) existingFilesList: (NSArray *)  list
+             hasAMatchFor: (NSString *) name {
+    
+    if (  ! list  ) {
+        return NO;
+    }
+    
+    if (  [list containsObject: name]  ) {
+        return YES;
+    }
+    
+    NSString * entry;
+    NSEnumerator * e = [list objectEnumerator];
+    while (  (entry = [e nextObject])  ) {
+        NSRange rng = [entry rangeOfString: @"*"];
+        if (  rng.length != 0  ) {
+            NSString * prefix = [entry substringToIndex:   rng.location];
+            NSString * suffix = [entry substringFromIndex: rng.location + 1];
+            NSString * restOfName = [name substringFromIndex: [prefix length]];
+            if (   (   ([prefix length] == 0 )
+                    || [name hasPrefix: prefix] )
+                && (   ([suffix length] == 0 )
+                    || [restOfName hasSuffix: suffix] )
+                ) {
+                return YES;
+            }
+        }
+    }
+    
+    return NO;
+}
+
 -(NSString *) processPathRange: (NSRange) rng
 	   removeBackslashes: (BOOL) removeBackslashes
         needsShExtension: (BOOL) needsShExtension
@@ -539,8 +578,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 	
     // Process that pathString into an absolute path to access the file right now
 	NSString * inPath = [[inPathString copy] autorelease];
-	if (  ! [inPath hasPrefix: @"/"]  ) {
-		if (  [inPath hasPrefix: @"~"]  ) {
+    BOOL pathIsAbsolute         = [inPath hasPrefix: @"/"];
+    BOOL pathIsInHomeFolder     = [inPath hasPrefix: @"~"];
+    BOOL pathIsRelativeToTblk = ! (pathIsAbsolute || pathIsInHomeFolder);
+	if (  ! pathIsAbsolute  ) {
+		if (  pathIsInHomeFolder  ) {
 			inPath = [inPath stringByExpandingTildeInPath];
 		} else {
 			NSString * baseFolder = [configPath stringByDeletingLastPathComponent];
@@ -555,12 +597,38 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     
     if (  ! fileExists  ) {
         if (  ! okIfNoFile  ) {
-			if (  [inPath isEqualToString: inPathString]  ) {
-				return [self logMessage: [NSString stringWithFormat: @"The configuration file refers to a file '%@', which does not exist.", inPathString]
-                              localized: [NSString stringWithFormat: NSLocalizedString(@"The configuration file refers to a file\n\n%@\n\nwhich does not exist.", @"Window text"), inPathString]];
+            // Deal with TBKeepExistingFilesList -- see if the file exists in the existing unsecured .tblk/Contents/Resources
+            NSString * fileName = [inPath lastPathComponent];
+            if (   useExistingFiles
+                && [self existingFilesList: useExistingFiles hasAMatchFor: fileName]
+                && ( ! [fileName hasSuffix: @".sh"] )
+                && pathIsRelativeToTblk  ) {
+                NSString * existingPrivatePath = [[[replacingTblkPath stringByAppendingPathComponent: @"Contents"]
+                                                   stringByAppendingPathComponent: @"Resources"]
+                                                  stringByAppendingPathComponent: fileName];
+                fileExists = [gFileMgr fileExistsAtPath: existingPrivatePath];
+                if (  fileExists  ) {
+                    // Yes, so use the existing file as the inPath
+                    inPath = existingPrivatePath;
+                    [self logMessage: [NSString stringWithFormat: @"The configuration file refers to a file '%@', which does not exist in the new configuration, so the existing unsecured file has been used.", inPathString]
+                           localized: [NSString stringWithFormat: NSLocalizedString(@"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used.", @"Window text"), inPathString]];
+                } else {
+                    if (  pathIsRelativeToTblk  ) {
+                        return [self logMessage: [NSString stringWithFormat: @"The configuration file refers to a file '%@', which does not exist (even in the configuration being replaced).", inPathString]
+                                      localized: [NSString stringWithFormat: NSLocalizedString(@"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced).", @"Window text"), inPathString]];
+                    } else {
+                        return [self logMessage: [NSString stringWithFormat: @"The configuration file refers to a file '%@' which should be located at '%@' but the file does not exist (even in the configuration being replaced).", inPathString, inPath]
+                                      localized: [NSString stringWithFormat: NSLocalizedString(@"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced).", @"Window text"), inPathString, inPath]];
+                    }
+                }
             } else {
-                return [self logMessage: [NSString stringWithFormat: @"The configuration file refers to a file '%@' which should be located at '%@' but the file does not exist.", inPathString, inPath]
-                              localized: [NSString stringWithFormat: NSLocalizedString(@"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist.", @"Window text"), inPathString, inPath]];
+                if (  [inPath isEqualToString: inPathString]  ) {
+                    return [self logMessage: [NSString stringWithFormat: @"The configuration file refers to a file '%@', which does not exist.", inPathString]
+                                  localized: [NSString stringWithFormat: NSLocalizedString(@"The configuration file refers to a file\n\n%@\n\nwhich does not exist.", @"Window text"), inPathString]];
+                } else {
+                    return [self logMessage: [NSString stringWithFormat: @"The configuration file refers to a file '%@' which should be located at '%@' but the file does not exist.", inPathString, inPath]
+                                  localized: [NSString stringWithFormat: NSLocalizedString(@"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist.", @"Window text"), inPathString, inPath]];
+                }
             }
         }
     }
@@ -740,14 +808,21 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 	
 -(NSString *) convertConfigPath: (NSString *) theConfigPath
 					 outputPath: (NSString *) theOutputPath
-						logFile: (FILE *)     theLogFile
+              replacingTblkPath: (NSString *) theReplacingTblkPath
+                    displayName: (NSString *) theDisplayName
 		   nameForErrorMessages: (NSString *) theNameForErrorMessages
+               useExistingFiles: (NSArray *)  theUseExistingFiles
+						logFile: (FILE *)     theLogFile
 					   fromTblk: (BOOL)       theFromTblk {
     
     // Converts a configuration file for use in a .tblk by removing all path information from ca, cert, etc. options.
     //
 	// If outputPath is specified, it is created as a .tblk and the configuration file and keys and certificates are copied into it.
     // If outputPath is nil, the configuration file's contents are replaced after removing path information.
+    //
+    // If displayName is specified and is in useExistingFiles, files referenced in the OpenVPN config that do not exist in the
+    // configuration being installed are copied from the secured (alternate, shadow copy) of the existing private configuration.
+    // If any files in the new configuration exist and are in useExistingFiles, that is an error.
     //
 	// If logFile is NULL, NSLog is used
 	//   * When invoked from installer to convert existing .ovpn/.conf files to .tblks,
@@ -764,20 +839,18 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 	//
     // Returns nil if no error; otherwise returns a localized error message
 	
-    configPath = [theConfigPath copy];
-    outputPath = [theOutputPath copy];
-    logFile    = theLogFile;
+    configPath           = [theConfigPath           copy];
+    outputPath           = [theOutputPath           copy];
+    replacingTblkPath    = [theReplacingTblkPath    copy];
+    displayName          = [theDisplayName          copy];
     nameForErrorMessages = [theNameForErrorMessages copy];
-    
-    inputIx         = 0;
-    inputLineNumber = 0;
-    
+    useExistingFiles     = [theUseExistingFiles     copy];
+    logFile    = theLogFile;
 	fromTblk = theFromTblk;
-	
-	tokensToReplace    = [[NSMutableArray alloc] initWithCapacity: 8];
-	replacementStrings = [[NSMutableArray alloc] initWithCapacity: 8];
-	pathsAlreadyCopied = [[NSMutableArray alloc] initWithCapacity: 8];
-	
+    
+    logString          = [[NSMutableString alloc] init];
+    localizedLogString = [[NSMutableString alloc] init];
+    
     NSString * errMsg = [self fileIsReasonableSize: theConfigPath];
     if (  errMsg  ) {
         return errMsg;
@@ -801,7 +874,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                       localized: [NSString stringWithFormat: NSLocalizedString(@"One or more problems were detected:\n\n%@", @"Window text"), [self localizedLogString]]];
 	}
 	
-	
+    tokensToReplace    = [[NSMutableArray alloc] initWithCapacity: 8];
+	replacementStrings = [[NSMutableArray alloc] initWithCapacity: 8];
+	pathsAlreadyCopied = [[NSMutableArray alloc] initWithCapacity: 8];
+    inputIx         = 0;
+    inputLineNumber = 0;
+    
     // List of OpenVPN options that cannot appear in a Tunnelblick VPN Configuration
     NSArray * optionsThatAreNotAllowedWithTunnelblick = OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK;
     NSArray * optionsThatAreNotAllowedOnOSX = OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY;
