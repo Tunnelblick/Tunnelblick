@@ -1078,39 +1078,44 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     // Returns nil or a localized error message
     
     if (  dict  ) {
-        NSArray * stringKeys = [NSArray arrayWithObjects:       // List of keys for string values
-                                @"CFBundleIdentifier",
-                                @"CFBundleVersion",
-                                @"CFBundleShortVersionString",
-                                @"TBPackageVersion",
-                                @"TBReplaceIdentical",
-                                @"TBSharePackage",
-                                @"SUFeedURL",
-								@"SUPublicDSAKeyFile",
-								nil];
+        NSArray * stringKeys    = [NSArray arrayWithObjects:       // List of keys for string values
+                                   @"CFBundleIdentifier",
+                                   @"CFBundleVersion",
+                                   @"CFBundleShortVersionString",
+                                   @"TBPackageVersion",
+                                   @"TBReplaceIdentical",
+                                   @"TBSharePackage",
+                                   @"SUFeedURL",
+                                   @"SUPublicDSAKeyFile",
+                                   nil];
 		
-		NSArray * booleanKeys = [NSArray arrayWithObjects:
-								 @"SUAllowsAutomaticUpdates",
-								 @"SUEnableAutomaticChecks",
-								 @"SUEnableSystemProfiling",
-								 @"SUShowReleaseNotes",
-								 nil];
+		NSArray * booleanKeys   = [NSArray arrayWithObjects:
+                                   @"SUAllowsAutomaticUpdates",
+                                   @"SUEnableAutomaticChecks",
+                                   @"SUEnableSystemProfiling",
+                                   @"SUShowReleaseNotes",
+                                   nil];
 		
-		NSArray * numberKeys = [NSArray arrayWithObjects:
-								@"SUScheduledCheckInterval",
-								nil];
+		NSArray * numberKeys    = [NSArray arrayWithObjects:
+                                   @"SUScheduledCheckInterval",
+                                   nil];
 		
+        NSArray * arrayKeys     = [NSArray arrayWithObjects:
+                                   @"TBKeepExistingFilesList",
+                                   nil];
+        
         NSArray * replaceValues = [NSArray arrayWithObjects:    // List of valid values for TBReplaceIdentical
                                    @"ask",
                                    @"yes",
                                    @"no",
                                    @"force",
                                    nil];
-        NSArray * shareValues = [NSArray arrayWithObjects:      // List of valid values for TBReplaceIdentical
-                                 @"ask",
-                                 @"private",
-                                 @"shared",
-                                 nil];
+        
+        NSArray * shareValues   = [NSArray arrayWithObjects:      // List of valid values for TBSharePackage
+                                   @"ask",
+                                   @"private",
+                                   @"shared",
+                                   nil];
         
 		BOOL hasTBPackageVersion = NO;
         NSString * key;
@@ -1162,6 +1167,20 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 				id obj = [dict objectForKey: key];
 				if (  ! [obj respondsToSelector: @selector(intValue)]  ) {
 					return [NSString stringWithFormat: NSLocalizedString(@"Non-number value for '%@' in %@", @"Window text"), key, path];
+				}
+			} else if (  [arrayKeys containsObject: key]  ) {
+				id obj = [dict objectForKey: key];
+				if (  obj  ) {
+                    if (  ! [obj respondsToSelector: @selector(objectEnumerator)]  ) {
+						return [NSString stringWithFormat: NSLocalizedString(@"Non-array value for '%@' in %@", @"Window text"), key, path];
+					}
+					id item;
+					NSEnumerator * itemEnum = [obj objectEnumerator];
+					while (  (item = [itemEnum nextObject])  ) {
+						if (  ! [[item class] isSubclassOfClass: [NSString class]] ) {
+							return [NSString stringWithFormat: NSLocalizedString(@"Non-string value for an item in '%@' in %@", @"Window text"), key, path];
+						}
+					}
 				}
 			} else if (  [key hasPrefix: @"TBPreference"]  ) {
 				NSString * pref = [key substringFromIndex: [@"TBPreference" length]];
@@ -1224,9 +1243,39 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return dict;
 }
 
+-(NSString *) findReplacingTblkPathCfBundleIdentifier: (NSString *) cfBundleIdentifier {
+    
+    if (  ! cfBundleIdentifier  ) {
+        return nil;
+    }
+    
+    NSArray * dirList = [NSArray arrayWithObjects: gDeployPath, L_AS_T_SHARED, gPrivatePath, nil];
+    
+    NSString * folderPath;
+    NSEnumerator * e = [dirList objectEnumerator];
+    while (  (folderPath = [e nextObject])  ) {
+        
+        NSString * filename;
+        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: folderPath];
+        while (  (filename = [dirEnum nextObject])  ) {
+            if (  [filename hasSuffix: @".tblk"]  ) {
+                NSString * fullPath = [folderPath stringByAppendingPathComponent: filename];
+                NSDictionary * fileInfoPlist = [self plistInTblkAtPath: fullPath];
+                NSString * fileCfBundleIdentifier = [fileInfoPlist objectForKey: @"CFBundleIdentifier"];
+                if (  [fileCfBundleIdentifier isEqualToString: cfBundleIdentifier]  ) {
+                    return fullPath;
+                }
+            }
+        }
+    }
+    
+    return nil;
+}
+
 -(NSString *) targetPathToReplaceForDisplayName: (NSString *)     displayName
                                        inFolder: (NSString *)     folder
                                   infoPlistDict: (NSDictionary *) infoPlistDict
+                              replacingTblkPath: (NSString *)     replacingTblkPath
                              cfBundleIdentifier: (NSString *)     cfBundleIdentifier
                                 cfBundleVersion: (NSString *)     cfBundleVersion {
     
@@ -1290,6 +1339,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 }
             }
             
+            if (   replacingTblkPath
+                && ( ! [replacingTblkPath isEqualToString: fullPath] )  ) {
+                return [NSString stringWithFormat:
+                         NSLocalizedString(@"targetPathToReplaceForDisplayName: %@ was found to replace the configuration with CFBundleIdentifer %@, but earlier, %@ was found to replace it.", @"Window text"),
+                        fullPath, cfBundleIdentifier, replacingTblkPath];
+            }
+            
             if (  [tbReplaceIdentical isEqualToString: @"ask"]  ) {
                 
                 NSString * msg;
@@ -1345,6 +1401,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 -(NSString *) targetPathForDisplayName: (NSString *)     displayName
                          infoPlistDict: (NSDictionary *) infoPlistDict
+                     replacingTblkPath: (NSString *)     replacingTblkPath
                     cfBundleIdentifier: (NSString *)     cfBundleIdentifier
                        cfBundleVersion: (NSString *)     cfBundleVersion {
     
@@ -1359,6 +1416,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * path = [self targetPathToReplaceForDisplayName: displayName
                                                      inFolder: gDeployPath
                                                 infoPlistDict: infoPlistDict
+                                            replacingTblkPath: (NSString *)     replacingTblkPath
                                            cfBundleIdentifier: cfBundleIdentifier
                                               cfBundleVersion: cfBundleVersion];
     if (  path  ) {
@@ -1368,6 +1426,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     path = [self targetPathToReplaceForDisplayName: displayName
                                           inFolder: L_AS_T_SHARED
                                      infoPlistDict: infoPlistDict
+                                 replacingTblkPath: (NSString *)     replacingTblkPath
                                 cfBundleIdentifier: cfBundleIdentifier
                                    cfBundleVersion: cfBundleVersion];
     if (  path  ) {
@@ -1377,13 +1436,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     path = [self targetPathToReplaceForDisplayName: displayName
                                           inFolder: gPrivatePath
                                      infoPlistDict: infoPlistDict
+                                 replacingTblkPath: (NSString *)     replacingTblkPath
                                 cfBundleIdentifier: cfBundleIdentifier
                                    cfBundleVersion: cfBundleVersion];
     return path;
 }
 
 -(NSString *) targetPathForDisplayName: (NSString *)     displayName
-                         infoPlistDict: (NSDictionary *) infoPlistDict {
+                         infoPlistDict: (NSDictionary *) infoPlistDict
+                     replacingTblkPath: (NSString *)     replacingTblkPath {
     
     // Returns "skip" if user want to skip this one configuration
     // Returns "cancel" if user cancelled
@@ -1400,6 +1461,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         && cfBundleVersion  ) {
         NSString * result = [self targetPathForDisplayName: displayName
                                              infoPlistDict: infoPlistDict
+                                         replacingTblkPath: replacingTblkPath
                                         cfBundleIdentifier: cfBundleIdentifier
                                            cfBundleVersion: cfBundleVersion];
         if (  result  ) {
@@ -1486,7 +1548,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 -(NSString *) convertOvpnOrConfAtPath: (NSString *) path
                          toTblkAtPath: (NSString *) toPath
+                    replacingTblkPath: (NSString *) replacingTblkPath
+                          displayName: (NSString *) theDisplayName
 				 nameForErrorMessages: (NSString *) nameForErrorMessages
+                     useExistingFiles: (NSArray *)  useExistingFiles
 							 fromTblk: (BOOL)       fromTblk {
     
     // Returns nil or a localized string with an error message or the conversion log
@@ -1504,9 +1569,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         ConfigurationConverter * converter = [[ConfigurationConverter alloc] init];
         NSString * result = [converter convertConfigPath: path
                                               outputPath: toPath
+                                       replacingTblkPath: replacingTblkPath
+                                             displayName: theDisplayName
+                                    nameForErrorMessages: nameForErrorMessages
+                                        useExistingFiles: useExistingFiles
                                                  logFile: NULL
-									nameForErrorMessages: nameForErrorMessages
-												fromTblk: fromTblk];
+                                                fromTblk: fromTblk];
         [converter release];
         
 		return result;
@@ -1542,7 +1610,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         // Create a merged .plist -- outer with any entries replaced by inner
         if (  outerTblkInfoPlist  ) {
-			NSArray * allowedInnerPlistReplacementKeys = [NSArray arrayWithObjects: @"TBReplaceIdentical", @"TBSharePackage", @"TBPackageVersion", @"TBUninstall",  nil];
+			NSArray * allowedInnerPlistReplacementKeys = [NSArray arrayWithObjects:
+                                                          @"TBReplaceIdentical",
+                                                          @"TBSharePackage",
+                                                          @"TBPackageVersion",
+                                                          @"TBKeepExistingFilesList",
+                                                          @"TBUninstall",
+                                                          nil];
             NSMutableDictionary * mDict = [[outerTblkInfoPlist mutableCopy] autorelease];
             NSEnumerator * e = [innerTblkInfoPlist keyEnumerator];
             NSString * key;
@@ -1608,19 +1682,26 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     // Do the conversion
     NSString * displayNameWithTblkExtension = [displayName stringByAppendingPathExtension: @"tblk"];
     NSString * outTblkPath = [[self tempDirPath] stringByAppendingPathComponent: displayNameWithTblkExtension];
+    NSArray * useExistingFiles = [mergedInfoPlist objectForKey: @"TBKeepExistingFilesList"];
+    
+    NSString  * replacingTblkPath = [self findReplacingTblkPathCfBundleIdentifier: [mergedInfoPlist objectForKey: @"CFBundleIdentifier"]];
     
     NSString * result = [self convertOvpnOrConfAtPath: configPath
                                          toTblkAtPath: outTblkPath
+                                    replacingTblkPath: replacingTblkPath
+                                          displayName: displayName
 								 nameForErrorMessages: (  [self multipleConfigurations]
                                                         ? displayName
                                                         : nil)
+                                     useExistingFiles: useExistingFiles
 											 fromTblk: YES];
     if (  result  ) {
         return result;
     }
     
     NSString * targetPath = [self targetPathForDisplayName: displayName
-                                             infoPlistDict: mergedInfoPlist];
+                                             infoPlistDict: mergedInfoPlist
+                                         replacingTblkPath: replacingTblkPath];
     if (  targetPath  ) {
         if (  [targetPath hasPrefix: @"/"]  ) {
             // It is a path
@@ -1747,7 +1828,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
 		NSString * result =[self convertInnerTblkAtPath: configPartialPath
 										  outerTblkPath: outerTblkPath
-									 outerTblkInfoPlist: nil
+									 outerTblkInfoPlist: outerTblkPlist
                                             displayName: (  ([ovpnAndConfInnerFilePartialPaths count] > 1)
                                                           ? [configPartialPath stringByDeletingPathExtension]
                                                           : [[outerTblkPath lastPathComponent] stringByDeletingPathExtension])];
@@ -1928,16 +2009,21 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		// Do the conversion
         NSString * result = [self convertOvpnOrConfAtPath: path
                                              toTblkAtPath: outTblkPath
-									 nameForErrorMessages: (  [self multipleConfigurations]
+                                        replacingTblkPath: nil
+                                              displayName: nil
+                                     nameForErrorMessages: (  [self multipleConfigurations]
                                                             ? displayName
                                                             : nil)
-												 fromTblk: NO];
+                                         useExistingFiles: nil
+                                                 fromTblk: NO];
+        
         if (  result  ) {
 			return result;
         }
 		
         NSString * targetPath = [self targetPathForDisplayName: displayName
-                                                 infoPlistDict: nil];
+                                                 infoPlistDict: nil
+                                             replacingTblkPath: nil];
         if (  targetPath  ) {
             if (  [targetPath hasPrefix: @"/"]  ) {
                 // It is a path

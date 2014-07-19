@@ -33,11 +33,14 @@
 
 	NSString        * outputPath;           // Path to output .tblk to be created or nil to not create a .tblk or copy files
 	NSString        * configPath;           // Path to .ovpn or .conf file to be converted
-	
-	FILE            * logFile;              // Log FILE
-	
+	NSString        * replacingTblkPath;    // Path to the .tblk that this configuration will be replacing (must be a path to a private config or nil)
+    NSString        * displayName;          // Display name of the output .tblk
 	NSString        * nameForErrorMessages; // nil or displayName or path to use in localized error messages presented to the user
+    NSArray *         useExistingFiles;     // If a file is missing and this install is replacing a configuration and the filename is on this list, use the file from the old configuration
+    FILE            * logFile;              // Log FILE
+	BOOL              fromTblk;				// Include sibling files and files in sibling folders (i.e., config path is in a .tblk
     
+
 	NSMutableString * logString;			// Contains a copy of log entries
 	NSMutableString * localizedLogString;	// Contains a copy of log entries that have been localized
 	
@@ -52,14 +55,15 @@
 
 	unsigned          inputLineNumber;		// Line number we are parsing in the configuration file
 	unsigned          inputIx;				// Index of current parse point in configString
-	
-	BOOL              fromTblk;				// Include sibling files and files in sibling folders (i.e., config path is in a .tblk
 }
 
 -(NSString *) convertConfigPath: (NSString *) theConfigPath
 					 outputPath: (NSString *) theOutputPath
-						logFile: (FILE *)     theLogFile
+              replacingTblkPath: (NSString *) theReplacingTblkPath
+                    displayName: (NSString *) theDisplayName
 		   nameForErrorMessages: (NSString *) theNameForErrorMessages
+               useExistingFiles: (NSArray *)  theUseExistingFiles
+						logFile: (FILE *)     theLogFile
 					   fromTblk: (BOOL)       theFromTblk;
 
 @end
