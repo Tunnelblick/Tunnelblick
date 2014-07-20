@@ -44,7 +44,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.3.dmg/download Tunnelblick Uninstaller 1.3]</strong></font> `[`sourceforge.net`]` released 2014-07-20<br />
  _*SHA1*_: 897f78e3f585da6da6abc1a0982efe0bc9dc65cc _*MD5*_: bb13478caeeef69b5791a99dc54db1ff _*(See [#Verifying_Downloads Verifying Downloads])*_
-  * Removes the new entry in ~/Library/LaunchAgents made by Tunnelblick 3.4beta32 and higher
+  * Removes the new entry in ~/Library/!LaunchAgents made by Tunnelblick 3.4beta32 and higher
 
 </td></tr></tbody></table>
 
