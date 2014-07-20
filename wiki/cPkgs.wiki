@@ -70,6 +70,7 @@ Info.plist is optional. If it exists, it must be an OS X property list file, wit
 ||TBPackageVersion (*required*)||A string with the Configuration version number||1||The string "1" (without the quotation marks)||
 ||TBReplaceIdentical||A string specifying whether to install the Configuration over a Configuration with the same CFBundleIdentifier. Must be "yes", "no", "ask", or "force" (without the quotation marks)||ask||yes||
 ||TBSharePackage||A string specifying whether to install the Configuration as shared or private, or to ask the user. Must be "shared", "private", or "ask" (without the quotation marks)||ask||ask||
+||TBKeepExistingFilesList||An array of filenames. Used for a configuration that is replacing an existing configuration. Each array entry is the filename (without path information) of a file that is not in the configuration being installed and which should be left as it is in the existing configuration that is being replaced. A single *`*`* character in the filename will match any number of any characters in the name. (Available in 3.4beta33 build 3908 and higher.)||(None)||client.key, client`*`.key, `*`.key, client.`*`, client`*`, `*`||
 ||TBPreference||See [cPkgs#Preferences Preferences]|| ||TBPreferenceuseDNS||
 ||TBAlwaysSetPreference||See [cPkgs#Preferences Preferences]|| ||TBAlwaysSetPreferenceuseDNS||
 ||TBUninstall||If present (with any value), the .tblk will be uninstalled|| || ||
@@ -99,7 +100,7 @@ Thus, one can construct a disk image (or a .zipped folder) which contains Tunnel
 == CFBundleIdentifier Conflicts==
 On automatic or manual installation of a Configuration, if a Configuration with an identical CFBundleIdentifier is already installed:
   * If the new Configuration's "TBReplaceIdentical" is "no", the Configuration will not be installed.
-  * If the new Configuration's "TBReplaceIdentical" is "yes", the existing Configuration will be replaced without notifying the user if it has an equal or higher "CFBundleVersion" than the existing installed Configuration. If it has a lower "CFBundleVersion", the Configuration will not be installed.
+  * If the new Configuration's "TBReplaceIdentical" is "yes", the existing Configuration will be replaced without notifying the user if it has an equal or higher "CFBundleVersion" than the existing installed Configuration. If it has a lower "CFBundleVersion", the Configuration will not be installed.||(None)||client.key, client*.key, client.*||
   * If the new Configuration's "TBReplaceIdentical" is "force", the existing Configuration will be replaced without notifying the user.
   * If the new Configuration's "TBReplaceIdentical" is "ask", the existing Configuration will be replaced only after getting the user's consent.
 
