@@ -28,6 +28,14 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
 <table border="1" width="100%"><tbody><tr><td>
  ==Deprecated Versions of Tunnelblick Uninstaller==
 <hr />
+ <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.2.dmg/download Tunnelblick Uninstaller 1.2]</strong></font> `[`sourceforge.net`]` released 2014-02-11<br />
+ _*SHA1*_: 906c725e48aefedf984cd53eede3ce5ca79c1d0a _*MD5*_: 41964cd08ab1f2e4f4ba4e7b044bde74 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
+  * Fixes a problem causing "application is damaged" warnings on Mavericks
+  * Fixes a problem with text being repeated in the opening window
+  * Fixes a problem with the opening window not appearing until the Uninstaller icon in the Dock is clicked
+
+ For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.
+<hr />
  <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.1.dmg/download Tunnelblick Uninstaller 1.1]</strong></font> `[`sourceforge.net`]` released 2014-01-08
   * Removes preferences cache if it is present
   * Warns user if Tunnelblick or OpenVPN is running
