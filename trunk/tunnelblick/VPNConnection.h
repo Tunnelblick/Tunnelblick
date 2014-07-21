@@ -24,6 +24,7 @@
 
 #import "TBPerformer.h"
 
+@class AlertWindowController;
 @class AuthAgent;
 @class LogDisplay;
 @class NetSocket;
@@ -85,16 +86,15 @@ struct Statistics {
     LogDisplay    * logDisplay;         // Used to store and display the OpenVPN log
 	NetSocket     * managementSocket;   // Used to communicate with the OpenVPN process created for this connection
 	AuthAgent     * myAuthAgent;
-    NSTimer       * forceKillTimer;     // Used to keep trying to kill a (temporarily, we hope) non-responsive OpenVPN process
     NSSound       * tunnelDownSound;    // Sound to play when tunnel is broken down
     NSSound       * tunnelUpSound;      // Sound to play when tunnel is established
     NSString      * ipAddressBeforeConnect; // IP address of client (this computer) obtained from webpage before a connection was last attempted
     //                                      // (Webpage URL is from the forced-preference "IPCheckURL" string, or from the "IPCheckURL" string in Info.plist)
     NSString      * serverIPAddress;        // IP address of IPCheck server obtained from webpage before a connection was last attempted
     StatusWindowController * statusScreen;    // Status window, may or may not be displayed
-    unsigned int    forceKillTimeout;   // Number of seconds to wait before forcing a disconnection
-    unsigned int    forceKillInterval;  // Number of seconds between tries to kill a non-responsive OpenVPN process
-    unsigned int    forceKillWaitSoFar; // Number of seconds since forceKillTimer was first set for this disconnection attempt
+    
+    AlertWindowController * slowDisconnectWindowController;
+    
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
     volatile int32_t avoidHasDisconnectedDeadlock; // See note at start of 'hasDisconnected' method
@@ -122,6 +122,9 @@ struct Statistics {
     BOOL            initialHookupTry;   // True iff this is the initial hookup try (not as a result of a connection attempt)
     BOOL            isHookedup;         // True iff this connection is hooked up to an existing instance of OpenVPN
     BOOL            areDisconnecting;   // True iff the we are in the process of disconnecting
+	BOOL            disconnectWhenStateChanges; // True iff we should disconnect when a state changes. This is needed because OpenVPN doesn't respond
+    //                                          // to SIGTERM when doing name resolution and so a SIGTERM while doing a reconnect can be lost. By trying
+    //                                          // to disconnect each time the state changes, we can catch OpenVPN when it is not in the "RESOLVE" state.
     BOOL            haveConnectedSince; // True iff the we have succesfully connected since the latter of Tunnelblick launch, computer wakeup, or became active user
     BOOL            areConnecting;      // True iff the we are in the process of connecting
     BOOL            loadedOurTap;       // True iff last connection loaded our tap kext
@@ -159,12 +162,15 @@ struct Statistics {
 
 -(NSArray *)        currentIPInfoWithIPAddress: (BOOL)           useIPAddress
                                timeoutInterval: (NSTimeInterval) timeoutInterval;
--(void)             disconnectAndWait:          (NSNumber *)    wait
-                            userKnows:          (BOOL)          userKnows;
+-(BOOL)             startDisconnectingUserKnows: (NSNumber *)    userKnows;
+
+-(BOOL)             waitUntilDisconnected;
 
 -(NSString *)       displayLocation;
 
 -(NSString *)       displayName;
+
+-(void)             displaySlowDisconnectionDialogLater;
 
 -(void)             fadeAway;
 
@@ -185,6 +191,8 @@ struct Statistics {
 -(BOOL)             isConnected;
 
 -(BOOL)             isDisconnected;
+
+-(BOOL)             noOpenvpnProcess;
 
 -(BOOL)             launchdPlistWillConnectOnSystemStart;
 
@@ -236,21 +244,21 @@ struct Statistics {
 
 -(BOOL)             usedModifyNameserver;
 
-TBPROPERTY_READONLY(StatusWindowController *, statusScreen)
-TBPROPERTY_WRITEONLY(NSSound *, tunnelUpSound, setTunnelUpSound)
-TBPROPERTY_WRITEONLY(NSSound *, tunnelDownSound, setTunnelDownSound)
-TBPROPERTY_WRITEONLY(BOOL, speakWhenConnected, setSpeakWhenConnected)
-TBPROPERTY_WRITEONLY(BOOL, speakWhenDisconnected, setSpeakWhenDisconnected)
-TBPROPERTY(NSMenuItem *, menuItem, setMenuItem)
-TBPROPERTY(NSDate *, bytecountsUpdated, setBytecountsUpdated)
-TBPROPERTY(NSArray *, argumentsUsedToStartOpenvpnstart, setArgumentsUsedToStartOpenvpnstart)
-TBPROPERTY(NSTimer *, forceKillTimer, setForceKillTimer)
-TBPROPERTY(NSString *, ipAddressBeforeConnect,      setIpAddressBeforeConnect)
-TBPROPERTY(NSString *, serverIPAddress,             setServerIPAddress)
-TBPROPERTY(NSString *, connectedCfgLocCodeString,   setConnectedCfgLocCodeString)
-TBPROPERTY(BOOL,       ipCheckLastHostWasIPAddress, setIpCheckLastHostWasIPAddress)
-TBPROPERTY(BOOL,       haveConnectedSince,          setHaveConnectedSince)
-TBPROPERTY(BOOL,       logFilesMayExist,            setLogFilesMayExist)
+TBPROPERTY_READONLY( StatusWindowController *, statusScreen)
+TBPROPERTY_WRITEONLY(NSSound *,                tunnelUpSound,                    setTunnelUpSound)
+TBPROPERTY_WRITEONLY(NSSound *,                tunnelDownSound,                  setTunnelDownSound)
+TBPROPERTY_WRITEONLY(BOOL,                     speakWhenConnected,               setSpeakWhenConnected)
+TBPROPERTY_WRITEONLY(BOOL,                     speakWhenDisconnected,            setSpeakWhenDisconnected)
+TBPROPERTY(          NSMenuItem *,             menuItem,                         setMenuItem)
+TBPROPERTY(          NSDate *,                 bytecountsUpdated,                setBytecountsUpdated)
+TBPROPERTY(          NSArray *,                argumentsUsedToStartOpenvpnstart, setArgumentsUsedToStartOpenvpnstart)
+TBPROPERTY(          AlertWindowController *,  slowDisconnectWindowController,   setSlowDisconnectWindowController)
+TBPROPERTY(          NSString *,               ipAddressBeforeConnect,           setIpAddressBeforeConnect)
+TBPROPERTY(          NSString *,               serverIPAddress,                  setServerIPAddress)
+TBPROPERTY(          NSString *,               connectedCfgLocCodeString,        setConnectedCfgLocCodeString)
+TBPROPERTY(          BOOL,                     ipCheckLastHostWasIPAddress,      setIpCheckLastHostWasIPAddress)
+TBPROPERTY(          BOOL,                     haveConnectedSince,               setHaveConnectedSince)
+TBPROPERTY(          BOOL,                     logFilesMayExist,                 setLogFilesMayExist)
 
 //*********************************************************************************************************
 //

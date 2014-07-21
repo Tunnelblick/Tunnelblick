@@ -49,6 +49,7 @@ extern NSString        * gPrivatePath;
 extern NSString        * gDeployPath;
 extern NSFileManager   * gFileMgr;
 extern TBUserDefaults  * gTbDefaults;
+extern CFUserNotificationRef gUserNotification;
 
 void appendLog(NSString * msg)
 {
@@ -355,11 +356,14 @@ NSString * tunnelblickVersion(NSBundle * bundle)
     return (version);
 }
 
-void TBShowAlertWindow (NSString * title,
+AlertWindowController * TBShowAlertWindow (NSString * title,
 						NSString * msg) {
 	
-	// Displays an alert window and returns immediately, so it doesn't block the main thread.
+	// Displays an alert window and returns the window controller immediately, so it doesn't block the main thread.
 	// Used for informational messages that do not return a choice or have any side effects.
+    //
+    // The window controller is returned so that it can be closed programmatically if the conditions that caused
+    // the window to be opened change.
 	
 	AlertWindowController * awc = [[[AlertWindowController alloc] init] autorelease];
 	[awc setHeadline: title];
@@ -369,6 +373,7 @@ void TBShowAlertWindow (NSString * title,
 	[awc showWindow:  nil];
 	[win makeKeyAndOrderFront: nil];
     [NSApp activateIgnoringOtherApps: YES];
+	return awc;
 }
 
 
@@ -404,11 +409,11 @@ int TBRunAlertPanelExtended(NSString * title,
         return notShownReturnValue;
     }
     
-    NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                  msg,  kCFUserNotificationAlertMessageKey,
-                                  [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"tunnelblick" ofType: @"icns"]],
-                                        kCFUserNotificationIconURLKey,
-                                  nil];
+    NSMutableDictionary * dict = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                   msg,  kCFUserNotificationAlertMessageKey,
+                                   [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"tunnelblick" ofType: @"icns"]],
+                                   kCFUserNotificationIconURLKey,
+                                   nil] autorelease];
     if ( title ) {
         [dict setObject: title
                  forKey: (NSString *)kCFUserNotificationAlertHeaderKey];
@@ -444,7 +449,6 @@ int TBRunAlertPanelExtended(NSString * title,
     }
     
     SInt32 error = 0;
-    CFUserNotificationRef notification = NULL;
     CFOptionFlags response = 0;
 
     CFOptionFlags checkboxChecked = 0;
@@ -455,11 +459,33 @@ int TBRunAlertPanelExtended(NSString * title,
     }
     
     [NSApp activateIgnoringOtherApps:YES];
-	
-    notification = CFUserNotificationCreate(NULL, 0.0, checkboxChecked, &error, (CFDictionaryRef) dict);
-    if (  error  ) {
-		NSLog(@"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX, so TBRunAlertExtended is returning NSAlertErrorReturn",
-              (long) error, (long) notification);
+	if (  gUserNotification  ) {
+        NSLog(@"TBRunAlertExtended called but a panel already exists!");
+        CFRelease(gUserNotification);
+        gUserNotification = NULL;
+    }
+    
+    gUserNotification = CFUserNotificationCreate(NULL, 0.0, checkboxChecked, &error, (CFDictionaryRef) dict);
+    
+    if (   error
+        || (gUserNotification == NULL)
+        ) {
+        
+		NSLog(@"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX, so TBRunAlertExtended is terminating Tunnelblick after attempting to display an error window using CFUserNotificationDisplayNotice",
+              (long) error, (long) gUserNotification);
+        if (  gUserNotification != NULL  ) {
+            CFRelease(gUserNotification);
+            gUserNotification = NULL;
+        }
+        
+        // Try showing a regular window (but it will disappear when Tunnelblick terminates)
+        TBShowAlertWindow(NSLocalizedString(@"Alert", @"Window title"),
+                          [NSString stringWithFormat:
+                           NSLocalizedString(@"Tunnelblick could not display a window.\n\n"
+                                             @"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX", @"Window text"),
+                           (long) error, (unsigned long) gUserNotification]);
+        
+        // Try showing a modal alert window
         SInt32 status = CFUserNotificationDisplayNotice(60.0,
                                                         kCFUserNotificationStopAlertLevel,
                                                         NULL,
@@ -469,20 +495,23 @@ int TBRunAlertPanelExtended(NSString * title,
                                                         (CFStringRef) [NSString stringWithFormat:
                                                                        NSLocalizedString(@"Tunnelblick could not display a window.\n\n"
                                                                                          @"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX", @"Window text"),
-                                                                       (long) error, (long) notification],
+                                                                       (long) error, (long) gUserNotification],
                                                         NULL);
         NSLog(@"CFUserNotificationDisplayNotice() returned %ld", (long) status);
-		if (  notification  ) {
-			CFRelease(notification);
-		}
-        [dict release];
-        return NSAlertErrorReturn;
+        if (  gUserNotification != NULL  ) {
+            CFRelease(gUserNotification);
+            gUserNotification = NULL;
+        }
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        return NSAlertErrorReturn; // Make the Xcode code analyzer happy
     }
     
-	SInt32 responseReturnCode = CFUserNotificationReceiveResponse(notification, 0.0, &response);
+	SInt32 responseReturnCode = CFUserNotificationReceiveResponse(gUserNotification, 0.0, &response);
     
-    CFRelease(notification);
-    [dict release];
+    if (  gUserNotification != NULL  ) {
+        CFRelease(gUserNotification);
+        gUserNotification = NULL;
+    }
     
     if (  responseReturnCode  ) {
         NSLog(@"CFUserNotificationReceiveResponse() returned %ld with response = %ld, so TBRunAlertExtended is returning NSAlertErrorReturn",

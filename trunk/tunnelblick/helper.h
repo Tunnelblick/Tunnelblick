@@ -20,6 +20,8 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
+@class AlertWindowController;
+
 void           appendLog				 (NSString * msg);
 
 uint64_t       nowAbsoluteNanoseconds    (void);
@@ -69,8 +71,8 @@ NSString     * TBGetString				(NSString * msg,
 NSString     * TBGetDisplayName         (NSString * msg,
                                          NSString * sourcePath);
 
-void           TBShowAlertWindow        (NSString * title,
-                                         NSString * msg);
+AlertWindowController * TBShowAlertWindow(NSString * title,
+                                          NSString * msg);
 
 int            TBRunAlertPanel          (NSString * title,
                                          NSString * msg,

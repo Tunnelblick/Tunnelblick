@@ -1193,7 +1193,11 @@ static BOOL firstTimeShowingWindow = TRUE;
     VPNConnection * connection = [self selectedConnection];
     if (  connection  ) {
         [connection addToLog: @"*Tunnelblick: Disconnecting; VPN Details… window disconnect button pressed"];
-        [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];      
+		NSString * oldRequestedState = [connection requestedState];
+        [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+        if (  [oldRequestedState isEqualToString: @"EXITING"]  ) {
+			[connection displaySlowDisconnectionDialogLater];
+        }
     } else {
         NSLog(@"disconnectButtonWasClicked but no configuration selected");
     }
