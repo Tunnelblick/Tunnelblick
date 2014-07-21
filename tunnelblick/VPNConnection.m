@@ -29,6 +29,7 @@
 #import "defines.h"
 #import "sharedRoutines.h"
 
+#import "AlertWindowController.h"
 #import "AuthAgent.h"
 #import "ConfigurationManager.h"
 #import "KeyChain.h"
@@ -53,9 +54,10 @@ extern TBUserDefaults       * gTbDefaults;
 extern unsigned               gHookupTimeout;
 extern BOOL                   gShuttingDownTunnelblick;
 extern BOOL                   gShuttingDownOrRestartingComputer;
-extern BOOL                   gComputerIsGoingToSleep;
 extern NSArray              * gRateUnits;
 extern NSArray              * gTotalUnits;
+extern volatile int32_t       gSleepWakeState;
+extern volatile int32_t       gActiveInactiveState;
 
 extern NSString * firstPartOfPath(NSString * thePath);
 
@@ -79,10 +81,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
 -(void)             didHookup;
 
 -(void)             disconnectFromManagmentSocket;
-
--(void)             forceKillWatchdogHandler;
-
--(void)             forceKillWatchdog;
 
 -(BOOL)             hasLaunchDaemon;
 
@@ -118,8 +116,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(BOOL)             setPreference:              (BOOL)              value
                               key:              (NSString *)        key;
-
--(void)             tellUserAboutDisconnectWait;
 
 -(NSString *)       timeString;
 
@@ -213,6 +209,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         areDisconnecting = FALSE;
         haveConnectedSince = FALSE;
         areConnecting = FALSE;
+		disconnectWhenStateChanges = FALSE;
         loadedOurTap = FALSE;
         loadedOurTun = FALSE;
         authFailed       = FALSE;
@@ -289,6 +286,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     areDisconnecting = FALSE;
     haveConnectedSince = FALSE;
     areConnecting    = FALSE;
+	disconnectWhenStateChanges = FALSE;
     loadedOurTap     = FALSE;
     loadedOurTun     = FALSE;
     logFilesMayExist = FALSE;
@@ -811,7 +809,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 - (void) dealloc
 {
-    [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
+    [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
     [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
     
     [configPath                       release]; configPath                       = nil;
@@ -823,14 +821,14 @@ extern NSString * lastPartOfPath(NSString * thePath);
     [logDisplay                       release]; logDisplay                       = nil;
     [managementSocket close];
     [managementSocket setDelegate: nil];
+    [managementSocket                 release]; managementSocket                 = nil;
     [myAuthAgent                      release]; myAuthAgent                      = nil;
     [statusScreen                     release]; statusScreen                     = nil;
-    [forceKillTimer invalidate];
-    [forceKillTimer                   release]; forceKillTimer                   = nil;
     [tunnelDownSound                  release]; tunnelDownSound                  = nil;
     [tunnelUpSound                    release]; tunnelUpSound                    = nil;
 	[ipAddressBeforeConnect           release]; ipAddressBeforeConnect           = nil;
 	[serverIPAddress                  release]; serverIPAddress                  = nil;
+    [statusScreen                     release]; statusScreen                     = nil;
     [statistics.lastSet               release]; statistics.lastSet               = nil;
     [bytecountsUpdated                release]; bytecountsUpdated                = nil;
     [argumentsUsedToStartOpenvpnstart release]; argumentsUsedToStartOpenvpnstart = nil;
@@ -849,8 +847,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void) showStatusWindow
 {
-    if (  ! (   gShuttingDownTunnelblick
-             || gComputerIsGoingToSleep )  ) {
+    if (   (! gShuttingDownTunnelblick)
+        && (  gSleepWakeState == noSleepState)
+        && (  gActiveInactiveState == active)   ) {
         if (  ! showingStatusWindow  ) {
             NSString * statusPref = [gTbDefaults stringForKey: @"connectionWindowDisplayCriteria"];
             if (  ! [statusPref isEqualToString: @"neverShow"]  ) {
@@ -1191,6 +1190,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         [self ipInfoErrorDialog];
     }
     
+	[[NSApp delegate] haveFinishedIPCheckThread: threadID];
     [threadPool drain];
 }
 
@@ -1331,6 +1331,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     
     areConnecting = TRUE;
     pthread_mutex_unlock( &areConnectingMutex );
+    
+	disconnectWhenStateChanges = FALSE;
     
     NSString * oldRequestedState = requestedState;
     if (  userKnows  ) {
@@ -1636,7 +1638,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * prefKey = [[self displayName] stringByAppendingString: @"-openvpnVersion"];
     NSString * prefVersion = [gTbDefaults stringForKey: prefKey];
     
-    unsigned useVersionIx = 0;  // Default to first
+    NSUInteger useVersionIx = 0;  // Default to first
     if (  prefVersion  ) {
         if (  [prefVersion isEqualToString: @"-"]  ) {  // "-" means latest version
             useVersionIx = [versionNames count] - 1;
@@ -2039,7 +2041,11 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 {
 	if (![self isDisconnected]) {
         [self addToLog: @"*Tunnelblick: Disconnecting; 'Disconnect' (toggle) menu command invoked"];
-		[self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
+		NSString * oldRequestedState = [self requestedState];
+		[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+		if (  [oldRequestedState isEqualToString: @"EXITING"]  ) {
+			[self displaySlowDisconnectionDialogLater];
+		}
 	} else {
         [self addToLog: @"*Tunnelblick: Disconnecting; 'Connect' (toggle) menu command invoked"];
 		[self connect: sender userKnows: YES];
@@ -2061,122 +2067,181 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         managementSocket = nil;
     }
 }
+
+-(void) cancelDisplayOfSlowDisconnectionDialog {
+	
+    if (  ! [self slowDisconnectWindowController]  ) {
+        TBLog(@"DB-CD", @"Do not need to close the slow disconnection dialog for %@ because it is not being displayed", [self displayName]);
+        return;
+    }
+    
+	[[slowDisconnectWindowController window] close];
+	TBLog(@"DB-CD", @"Canceled the slow disconnection dialog");
+    [self setSlowDisconnectWindowController: nil];
+}
+
+-(void) displaySlowDisconnectionDialog {
+	
+	AlertWindowController * sdwc = [self slowDisconnectWindowController];
+	
+	if (  [[self state] isEqualToString: @"EXITING"]  ) {
+		if (  sdwc  ) {
+			[self cancelDisplayOfSlowDisconnectionDialog];
+			TBLog(@"DB-CD", @"Cancelled display of slow disconnection dialog for %@ because it is disconnected", [self displayName]);
+		} else {
+			TBLog(@"DB-CD", @"Not displaying slow disconnection dialog for %@ because it is disconnected", [self displayName]);
+		}
+        return;
+	}
+    
+    if (  sdwc  ) {
+        TBLog(@"DB-CD", @"Replacing the slow disconnection dialog for %@", [self displayName]);
+		[self cancelDisplayOfSlowDisconnectionDialog];
+        [self setSlowDisconnectWindowController: nil];
+    } else {
+		TBLog(@"DB-CD", @"Displaying slow disconnection dialog for %@", [self displayName]);
+	}
+	
+    NSString * headline = NSLocalizedString(@"OpenVPN is Not Responding", @"Window title");
+	
+    NSString * message = [NSString stringWithFormat:
+						  NSLocalizedString(@"OpenVPN is not responding to requests to disconnect %@.\n\n"
+											"Tunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\n"
+											"THIS MAY TAKE UP TO TWO MINUTES certain unusual circumstances.\n\n"
+											"The connection will be unavailable until it is disconnected.", @"Window text"),
+						  [self displayName]];
+    
+	sdwc = TBShowAlertWindow(headline, message);
+	[self setSlowDisconnectWindowController: sdwc];
+}
+
+-(void) displaySlowDisconnectionDialogHandler {
+	[self performSelectorOnMainThread: @selector(displaySlowDisconnectionDialog) withObject: nil waitUntilDone: NO];
+}
+
+-(void) displaySlowDisconnectionDialogLater {
+	
+    NSTimeInterval delay = (NSTimeInterval) [gTbDefaults unsignedIntForKey: @"delayBeforeSlowDisconnectDialog" default: 1 min: 0 max: 300];
+    
+    if (  delay != 0.0  ) {
+        TBLog(@"DB-CD", @"Setting up to display slow connection dialog in %f seconds", delay);
+        [self performSelector: @selector(displaySlowDisconnectionDialogHandler) withObject: nil afterDelay: delay];
+    } else {
+        TBLog(@"DB-CD", @"Not displaying slow connection dialog because 'delayBeforeSlowDisconnectDialog' preference is 0");
+    }
+}
+
 static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
-// Start disconnecting by killing the OpenVPN process or signaling through the management interface
-// Waits for up to 5 seconds for the disconnection to occur if "wait" is TRUE
-- (void) disconnectAndWait: (NSNumber *) wait userKnows:(BOOL)userKnows
-{
+- (BOOL) startDisconnectingUserKnows: (NSNumber *) userKnows {
+	
+    // Start disconnecting by killing the OpenVPN process or signaling through the management interface
+	
     [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
     
     if (  [self isDisconnected]  ) {
-		NSLog(@"disconnectAndWait but %@ is already disconnected", [self displayName]);
-        return;
+		NSLog(@"startDisconnectingUserKnows but %@ is already disconnected. Will attempt to rety disconnection.", [self displayName]);
     }
     
     pthread_mutex_lock( &areDisconnectingMutex );
     if (  areDisconnecting  ) {
-        pthread_mutex_unlock( &areDisconnectingMutex );
-        NSLog(@"disconnect: while disconnecting");
-        return;
-    }
+        NSLog(@"startDisconnectingUserKnows: while already disconnecting '%@'; OpenVPN state = '%@'", [self displayName], [self state]);
+		if (  ! disconnectWhenStateChanges  ) {
+            if (  [[self state] isEqualToString: @"RECONNECTING"]  ) {
+				[self performSelector: @selector(displaySlowDisconnectionDialog) withObject: nil afterDelay: 1.0];
+			}
+		}
+	}
     
-    if (  userKnows  ) {
+    if (  [userKnows boolValue]  ) {
         requestedState = @"EXITING";
     }
 	
 	[self setState: @"DISCONNECTING"];
 	[self setConnectedSinceDate: [NSDate date]];
-
+	
     areDisconnecting = TRUE;
     pthread_mutex_unlock( &areDisconnectingMutex );
     
-    BOOL disconnectionComplete = FALSE;
-
-    pid_t thePid = pid; // Avoid pid changing between this if statement and the invokation of waitUntilNoProcessWithID (pid can change outside of main thread)
+	if (  [[self state] isEqualToString: @"RECONNECTING"]  ) {
+		if (  ! disconnectWhenStateChanges  ) {
+			disconnectWhenStateChanges = TRUE;
+			TBLog(@"DB-CD", "setting disconnectWhenStateChanges to TRUE for '%@' because state = RECONNECTING", [self displayName]);
+		}
+	}
+	
+	pid_t thePid = pid; // Avoid pid changing between this if statement and the invokation of waitUntilNoProcessWithID (pid can change outside of main thread)
     NSArray * connectedList = nil;
-    
-	NSString * useDownRootPluginKey = [[self displayName] stringByAppendingString: @"-useDownRootPlugin"];
-	BOOL notUsingDownRootPlugin     = ! [gTbDefaults boolForKey: useDownRootPluginKey];
     
 	NSString * connectWhenComputerStartsKey = [[self displayName] stringByAppendingString: @"-onSystemStart"];
     NSString * autoConnectKey               = [[self displayName] stringByAppendingString: @"autoConnect"];
 	BOOL notConnectWhenComputerStarts       = ! (   [gTbDefaults boolForKey: connectWhenComputerStartsKey]
                                                  && [gTbDefaults boolForKey: autoConnectKey              ]);
     if (   ALLOW_OPENVPNSTART_KILL
-		&& (thePid > 0)
-		&& notUsingDownRootPlugin  ) {
+		&& (thePid > 0)  ) {
 		[self addToLog: @"*Tunnelblick: Disconnecting using 'kill'"];
+        TBLog(@"DB-CD", @"Disconnecting '%@' using 'kill'", [self displayName]);
         [self killProcess];
-        if (  [wait boolValue]  ) {
-            // Wait up to five seconds for the OpenVPN process to disappear
-            disconnectionComplete = [NSApp waitUntilNoProcessWithID: thePid];
-        }
     } else if (   ALLOW_OPENVPNSTART_KILLALL
                && (  [(connectedList = [[NSApp delegate] connectionsNotDisconnected]) count] == 1  )
                && (  [connectedList objectAtIndex: 0] == self  )
-               && notConnectWhenComputerStarts
-			   && notUsingDownRootPlugin  ) {
+               && notConnectWhenComputerStarts  ) {
 		[self addToLog: @"*Tunnelblick: Disconnecting using 'killall'"];
-        [[NSApp delegate] killAllConnectionsIncludingDaemons: FALSE
-													  except: nil
-												  logMessage: [NSString stringWithFormat: @"Using 'killall' to disconnect %@", [self displayName]]];
-		disconnectionComplete = [NSApp waitUntilNoProcessWithID: thePid];
+        TBLog(@"DB-CD", @"Disconnecting '%@' using 'killall'", [self displayName]);
+        runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
+        TBLog(@"DB-CD", @"Using 'killall' to disconnect %@", [self displayName])
+    } else if (  [managementSocket isConnected]  ) {
+		[self addToLog: @"*Tunnelblick: Disconnecting using management interface"];
+        TBLog(@"DB-CD", @"Disconnecting '%@' using management interface", [self displayName]);
+        [managementSocket writeString: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
     } else {
-        if([managementSocket isConnected]) {
-            NSLog(@"Disconnecting via management interface");
-            [managementSocket writeString: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
-            
-            if (  [wait boolValue]  ) {
-                // Wait up to five seconds for the management socket to disappear
-                unsigned i;
-                for (i=0; i<5; i++) {
-                    if (  managementSocket == nil  ) {
-                        break;
-                    }
-                    sleep(1);
-                }
-            }
+        NSLog(@"No way to disconnect '%@': pid = %lu; connectedList = %@; notConnectWhenComputerStarts = %@; [managementSocket isConnected = %@",
+              [self displayName], (unsigned long) thePid, connectedList,
+              (notConnectWhenComputerStarts   ? @"YES" : @"NO"),
+              ([managementSocket isConnected] ? @"YES" : @"NO"));
+        return NO;
+    }
+    
+    return YES;
+}
 
-            disconnectionComplete = (managementSocket == nil) || ( ! [managementSocket isConnected]);
-			if (   ( ! disconnectionComplete )
-				&& (thePid > 0)   ) {
-				// Wait up to five seconds for the OpenVPN process to disappear
-				disconnectionComplete = [NSApp waitUntilNoProcessWithID: thePid];
-			}
-        }
+-(BOOL) waitUntilDisconnected {
+    
+    if (  [self isDisconnected]  ) {
+        return YES;
+    }
+    
+    BOOL disconnectionComplete = FALSE;
+    if (  pid > 0  ) {
+        disconnectionComplete = [NSApp waitUntilNoProcessWithID: pid];
     }
     
     if (  disconnectionComplete  ) {
-        [self performSelectorOnMainThread: @selector(hasDisconnected) withObject: nil waitUntilDone: NO];
-    } else {
-
-        if (  [wait boolValue]  ) {
-            forceKillInterval = [gTbDefaults unsignedIntForKey: @"openvpnTerminationInterval"
-                                                       default: 10
-                                                           min: 0
-                                                           max: UINT_MAX];
-            
-            forceKillTimeout = [gTbDefaults unsignedIntForKey: @"openvpnTerminationTimeout"
-                                                      default: 10
-                                                          min: 0
-                                                          max: UINT_MAX];
-            
-            if (  forceKillInterval  != 0) {
-                if ( forceKillTimeout != 0  ) {
-                    forceKillWaitSoFar = 0;
-                    [self setForceKillTimer: [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) forceKillInterval
-                                                                              target: self
-                                                                            selector: @selector(forceKillWatchdogHandler)
-                                                                            userInfo: nil
-                                                                             repeats: YES]];
-                    [forceKillTimer tbSetTolerance: -1.0];
-                    [self performSelectorOnMainThread: @selector(tellUserAboutDisconnectWait) withObject: nil waitUntilDone: NO];
-                }
-            }
+        return YES;
+    }
+    
+    if (  ! disconnectWhenStateChanges  ) {
+        if (  [[self state] isEqualToString: @"RECONNECTING"]  ) {
+            [self displaySlowDisconnectionDialog];
         }
     }
+    
+    while (  ! disconnectionComplete  ) {
+        disconnectionComplete = FALSE;
+        if (  pid > 0  ) {
+            disconnectionComplete = [NSApp waitUntilNoProcessWithID: pid];
+        }
+        
+        if (  disconnectionComplete  ) {
+            return YES;
+        }
+        
+        usleep(100000);
+    }
+	
+    return YES;
 }
+
 // Tries to kill the OpenVPN process associated with this connection, if any
 -(void)killProcess 
 {
@@ -2188,55 +2253,6 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	} else {
         NSLog(@"killProcess invoked but ALLOW_OPENVPNSTART_KILL = %@ and pid = %lu", (ALLOW_OPENVPNSTART_KILL ? @"TRUE" : @"FALSE"), (unsigned long) pid);
         [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
-    }
-}
-
--(void) tellUserAboutDisconnectWait
-{
-    TBShowAlertWindow(NSLocalizedString(@"OpenVPN Not Responding", @"Window title"),
-					  [NSString stringWithFormat: NSLocalizedString(@"OpenVPN is not responding to disconnect requests.\n\n"
-																	"There is a known bug in OpenVPN version 2.1 that sometimes"
-																	" causes a delay of one or two minutes before it responds to such requests.\n\n"
-																	"Tunnelblick will continue to try to disconnect for up to %d seconds.\n\n"
-																	"The connection will be unavailable until OpenVPN disconnects or %d seconds elapse,"
-																	" whichever comes first.", @"Window text"), forceKillTimeout, forceKillTimeout]);
-}    
-
--(void) forceKillWatchdogHandler
-{
-    if (  gShuttingDownOrRestartingComputer  ) {
-        return;
-    }
-    
-    [self performSelectorOnMainThread: @selector(forceKillWatchdog) withObject: nil waitUntilDone: NO];
-}
-
--(void) forceKillWatchdog
-{
-    if (  ! [self isDisconnected]  ) {
-        
-        if (  ALLOW_OPENVPNSTART_KILL && (pid > 0)  ) {
-            [self killProcess];
-        } else {
-            if([managementSocket isConnected]) {
-                [managementSocket writeString: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
-            }
-        }
-
-        forceKillWaitSoFar += forceKillInterval;
-        if (  forceKillWaitSoFar > forceKillTimeout) {
-            TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
-							  [NSString stringWithFormat: NSLocalizedString(@"OpenVPN has not responded to disconnect requests for %d seconds.\n\n"
-																			"The connection will be considered disconnected, but this computer's"
-																			" network configuration may be in an inconsistent state.", @"Window text"),
-							   forceKillTimeout]);
-            [forceKillTimer invalidate];
-            [self setForceKillTimer: nil];
-            [self hasDisconnected];
-        }
-    } else {
-        [forceKillTimer invalidate];
-        [self setForceKillTimer: nil];
     }
 }
 
@@ -2288,8 +2304,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	// they will return without invoking setState.)
 	
     if (  ! OSAtomicCompareAndSwap32Barrier(0, 1, &avoidHasDisconnectedDeadlock)  ) {
+		TBLog(@"DB-CD", @"hasDisconnected: '%@' skipped to avoid deadlock", [self displayName]);
         return;
     }
+    
+	TBLog(@"DB-CD", @"hasDisconnected: '%@' invoked", [self displayName]);
+	
+	[self cancelDisplayOfSlowDisconnectionDialog];
     
     [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
 
@@ -2299,6 +2320,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  [lastState isEqualToString: @"EXITING"]  ) {
         pthread_mutex_unlock( &lastStateMutex );
         avoidHasDisconnectedDeadlock = 0;
+		TBLog(@"DB-CD", @"hasDisconnected: '%@' skipped because state = EXITING", [self displayName]);
         return;
     }
     [self setState:@"EXITING"];
@@ -2315,6 +2337,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     areConnecting    = FALSE;
     isHookedup       = FALSE;
     tryingToHookup   = FALSE;
+	disconnectWhenStateChanges = FALSE;
     
     [[NSApp delegate] removeConnection:self];
     
@@ -2334,10 +2357,15 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     
     [[NSApp delegate] updateUI];
 	
+	[[NSApp delegate] updateIconImage];
+	
+	[[[NSApp delegate] logScreen] validateDetailsWindowControls];
+	
     if (   ( ! [requestedState isEqualToString: @"EXITING"])
         && [self haveConnectedSince]
 		&& ( ! gShuttingDownTunnelblick)
-        && ( ! gComputerIsGoingToSleep)
+        && ( gSleepWakeState == noSleepState)
+        && ( gActiveInactiveState == active)
 		&& [gTbDefaults boolForKey: [[self displayName] stringByAppendingString: @"-keepConnected"]]
 		) {
         NSTimeInterval interval = (NSTimeInterval)[gTbDefaults unsignedIntForKey: @"timeoutForOpenvpnToTerminateAfterDisconnectBeforeAssumingItIsReconnecting"
@@ -2423,6 +2451,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [self hasDisconnected];                     // Sets lastState and does processing only once
     } else {
         
+        if (  disconnectWhenStateChanges  ) {
+            TBLog(@"DB-CD", @"Requesting disconnect of '%@' because disconnectWhenStateChanges is TRUE", [self displayName]);
+            [self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+        }
+		
         if ([newState isEqualToString: @"CONNECTED"]) {
             NSDate *date; 
             if (  dateTime) {
@@ -2551,7 +2584,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 } else {
                     userWantsState = userWantsAbandon;              // User wants to cancel or an error happened, so disconnect
                     [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization or there was an error obtaining authorization"];
-                    [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];      // (User requested it by cancelling)
+                    [self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
                 }
                 
 				TBLog(@"DB-AU", @"processLine: queuing afterFailureHandler: for execution in 0.5 seconds");
@@ -2740,7 +2773,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             [managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, escaped(myPassphrase)] encoding:NSUTF8StringEncoding];
         } else {
             [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
-            [self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      // (User requested it by cancelling)
+            [self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
         }
         
     } else if ([line rangeOfString: @"Auth"].length) {
@@ -2758,7 +2791,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUTF8StringEncoding];
         } else {
             [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
-            [self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      // (User requested it by cancelling)
+            [self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
         }
         
     } else {
@@ -2916,12 +2949,18 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+-(void) performHasDisconnectedOnMainThread {
+	
+	[self performSelectorOnMainThread: @selector(hasDisconnected) withObject: nil waitUntilDone: NO];
+}
+
 - (void) netsocketDisconnected: (NetSocket*) inSocket
 {
     if (inSocket==managementSocket) {
+		TBLog(@"DB-CD", @"netsocketDisconnected '%@'", [self displayName]);
         [self setManagementSocket: nil];
         [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
-        [self performSelectorOnMainThread: @selector(hasDisconnected) withObject: nil waitUntilDone: NO];
+		[self performSelector: @selector(performHasDisconnectedOnMainThread) withObject: nil afterDelay: 1.0];
     }
 }
 
@@ -3138,6 +3177,17 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     return [[self state] isEqualToString:@"EXITING"];
 }
 
+-(BOOL) noOpenvpnProcess
+{
+    pid_t thePid = pid;
+    
+    if (  thePid > 0  ) {
+        return ( ! [[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] containsObject: [NSNumber numberWithInt: thePid]]);
+    }
+    
+    return YES;
+}
+
 -(BOOL) authFailed
 {
     return authFailed;
@@ -3300,7 +3350,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             
             if ( ! [scriptName isEqualToString: @"post-disconnect"]  ) {
                 [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting because the '%@.sh' script failed", scriptName]];
-                [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES]; // Disconnect because script failed
+				[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
             }
         }
     }
@@ -3308,8 +3358,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) fadeAway
 {
-    if (  ! (   gShuttingDownTunnelblick
-             || gComputerIsGoingToSleep )  ) {
+    if (   (! gShuttingDownTunnelblick)
+        && (  gSleepWakeState == noSleepState)
+        && (  gActiveInactiveState == active)   ) {
         BOOL okToFade = TRUE;   // Assume OK to fade, but don't fade if any connection is being attempted or any auth failed
         VPNConnection * connection;
         NSEnumerator * connectionEnum = [[[NSApp delegate] connectionArray] objectEnumerator];
@@ -3479,26 +3530,26 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	speakWhenDisconnected = newValue;
 }
 
-TBSYNTHESIZE_OBJECT_GET(    retain, StatusWindowController *, statusScreen)
+TBSYNTHESIZE_OBJECT_GET(retain, StatusWindowController *, statusScreen)
 
-TBSYNTHESIZE_OBJECT_SET(    NSSound *,  tunnelUpSound,   setTunnelUpSound)
+TBSYNTHESIZE_OBJECT_SET(        NSSound *,                tunnelUpSound,                    setTunnelUpSound)
 
-TBSYNTHESIZE_OBJECT_SET(    NSSound *,  tunnelDownSound, setTunnelDownSound)
+TBSYNTHESIZE_OBJECT_SET(        NSSound *,                tunnelDownSound,                  setTunnelDownSound)
 
-TBSYNTHESIZE_OBJECT(retain, NSDate *,   bytecountsUpdated, setBytecountsUpdated)
+TBSYNTHESIZE_OBJECT(retain,     NSDate *,                 bytecountsUpdated,                setBytecountsUpdated)
 
-TBSYNTHESIZE_OBJECT(retain, NSArray *,  argumentsUsedToStartOpenvpnstart, setArgumentsUsedToStartOpenvpnstart)
+TBSYNTHESIZE_OBJECT(retain,     NSArray *,                argumentsUsedToStartOpenvpnstart, setArgumentsUsedToStartOpenvpnstart)
 
-TBSYNTHESIZE_OBJECT(retain, NSTimer *,  forceKillTimer, setForceKillTimer)
+TBSYNTHESIZE_OBJECT(retain,     NSMenuItem *,             menuItem,                         setMenuItem)
 
-TBSYNTHESIZE_OBJECT(retain, NSMenuItem *, menuItem, setMenuItem)
+TBSYNTHESIZE_OBJECT(retain,     AlertWindowController *,  slowDisconnectWindowController,   setSlowDisconnectWindowController)
 
-TBSYNTHESIZE_OBJECT(retain, NSString *, ipAddressBeforeConnect,      setIpAddressBeforeConnect)
-TBSYNTHESIZE_OBJECT(retain, NSString *, serverIPAddress,             setServerIPAddress)
-TBSYNTHESIZE_OBJECT(retain, NSString *, connectedCfgLocCodeString,   setConnectedCfgLocCodeString)
-TBSYNTHESIZE_NONOBJECT(BOOL,            ipCheckLastHostWasIPAddress, setIpCheckLastHostWasIPAddress)
-TBSYNTHESIZE_NONOBJECT(BOOL,            haveConnectedSince,          setHaveConnectedSince)
-TBSYNTHESIZE_NONOBJECT(BOOL,            logFilesMayExist,            setLogFilesMayExist)
+TBSYNTHESIZE_OBJECT(retain,     NSString *,               ipAddressBeforeConnect,           setIpAddressBeforeConnect)
+TBSYNTHESIZE_OBJECT(retain,     NSString *,               serverIPAddress,                  setServerIPAddress)
+TBSYNTHESIZE_OBJECT(retain,     NSString *,               connectedCfgLocCodeString,        setConnectedCfgLocCodeString)
+TBSYNTHESIZE_NONOBJECT(         BOOL,                     ipCheckLastHostWasIPAddress,      setIpCheckLastHostWasIPAddress)
+TBSYNTHESIZE_NONOBJECT(         BOOL,                     haveConnectedSince,               setHaveConnectedSince)
+TBSYNTHESIZE_NONOBJECT(         BOOL,                     logFilesMayExist,                 setLogFilesMayExist)
 
 
 //*********************************************************************************************************

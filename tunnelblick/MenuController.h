@@ -56,6 +56,20 @@ enum TerminationReason {
     terminatingBecauseOfFatalError = 6
 };
 
+enum SleepWakeState {
+    noSleepState         = 0,
+    gettingReadyForSleep = 1,
+    readyForSleep        = 2,
+    wakingUp             = 3
+};
+
+enum ActiveInactiveState {
+    active                  = 0,
+    gettingReadyForInactive = 1,
+    readyForInactive        = 2,
+    gettingReadyforActive   = 3
+};
+
 // The following line is needed to avoid a crash on load on 10.4 and 10.5. The crash is caused by the use of "block" structures in the code,
 // even though the block structures are not used when running under 10.4 or 10.5.
 // The code that uses blocks is the line
@@ -118,7 +132,9 @@ void * _NSConcreteStackBlock __attribute__((weak));
     
     NSMutableArray          * connectionsToRestoreOnWakeup; // VPNConnections to be restored when awakened from sleep
     
-    NSArray                 * connectionsToRestoreOnUserActive; // VPNConnections to be restored when user becomes active again
+    NSMutableArray          * connectionsToRestoreOnUserActive; // VPNConnections to be restored when user becomes active again
+    
+    NSMutableArray          * connectionsToWaitForDisconnectOnWakeup; // VPNConnections to be waited for disconnection from when awakened from sleep
     
     NSMutableArray          * pIDsWeAreTryingToHookUpTo;    // List of process IDs for processes we are trying to hookup to
     
@@ -225,9 +241,6 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(unsigned)         decrementTunCount;
 -(unsigned)         incrementTapCount;
 -(unsigned)         incrementTunCount;
--(void)             killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons
-                                                except:     (NSArray *)         connectionsToLeaveConnected
-                                            logMessage:     (NSString *)        logMessage;
 -(BOOL)             loadMenuIconSet;
 -(BOOL)             loadMenuIconSet:                        (NSString *)        iconSetName
                                main:                        (NSImage **)        ptrMainImage
@@ -288,7 +301,6 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(NSArray *)        animImages;
 -(NSImage *)        connectedImage;
 -(NSImage *)        mainImage;
--(NSArray *)        connectionsToRestoreOnUserActive;
 -(NSMutableArray *) largeAnimImages;
 -(NSImage *)        largeConnectedImage;
 -(NSImage *)        largeMainImage;
@@ -336,5 +348,8 @@ TBPROPERTY(NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
 TBPROPERTY(NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
 TBPROPERTY(NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
 TBPROPERTY(NSImage      *, highlightedMainImage,      setHighlightedMainImage)
+TBPROPERTY(NSMutableArray *, connectionsToRestoreOnUserActive, setConnectionsToRestoreOnUserActive)
+TBPROPERTY(NSMutableArray *, connectionsToRestoreOnWakeup,     setConnectionsToRestoreOnWakeup)
+TBPROPERTY(NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
 
 @end

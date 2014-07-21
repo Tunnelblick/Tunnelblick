@@ -287,7 +287,7 @@ typedef enum
 
 //*************************************************************************************************
 // Debugging macro to NSLog if a specified preference is TRUE
-#define TBLog(preference_key, ...)     if (  [gTbDefaults boolForKey: preference_key] || [gTbDefaults boolForKey: @"DB-ALL"]  ) NSLog(@"DB: " __VA_ARGS__);
+#define TBLog(preference_key, ...)     if (  [gTbDefaults boolForKey: preference_key] || [gTbDefaults boolForKey: @"DB-ALL"]  ) NSLog(preference_key @": "  __VA_ARGS__);
 
 //*************************************************************************************************
 // Tiger-compatible macros that implement something like @property and @synthesize

@@ -23,6 +23,7 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
+#import <libkern/OSAtomic.h>
 #import <pthread.h>
 #import <sys/stat.h>
 #import <sys/mount.h>
@@ -72,7 +73,6 @@ NSArray               * gConfigurationPreferences = nil; // E.g., '-onSystemStar
 BOOL                    gShuttingDownTunnelblick = FALSE;// TRUE if applicationShouldTerminate: has been invoked
 BOOL                    gShuttingDownWorkspace = FALSE;
 BOOL                    gShuttingDownOrRestartingComputer = FALSE;
-BOOL                    gComputerIsGoingToSleep = FALSE;// Flag that the computer is going to sleep
 BOOL                    gUserWasAskedAboutConvertNonTblks = FALSE;// Flag that the user has been asked to convert non-.tblk configurations
 BOOL                    gOkToConvertNonTblks = FALSE; // Flag that the user has agreed to convert non-.tblk configurations
 unsigned                gHookupTimeout = 0;           // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
@@ -82,9 +82,12 @@ NSArray               * gRateUnits = nil;             // Array of strings with l
 NSArray               * gTotalUnits = nil;            // Array of strings with localized data rate units (KB,   MB,   GB,   etc.)
 NSTimeInterval          gDelayToShowStatistics = 0.0; // Time delay from mouseEntered icon or statistics window until showing the statistics window
 NSTimeInterval          gDelayToHideStatistics = 0.0; // Time delay from mouseExited icon or statistics window until hiding the statistics window
+CFUserNotificationRef   gUserNotification = NULL;     // NULL or the ref of the user alert panel currently being displayed
 
+volatile int32_t        gSleepWakeState = noSleepState;// Describes sleep/wake state
+volatile int32_t        gActiveInactiveState = active;// Describes active/inactive
 
-enum TerminationReason  reasonForTermination;   // Why we are terminating execution
+enum TerminationReason  reasonForTermination;         // Why we are terminating execution
 
 UInt32 fKeyCode[16] = {0x7A, 0x78, 0x63, 0x76, 0x60, 0x61, 0x62, 0x64,        // KeyCodes for F1...F16
     0x65, 0x6D, 0x67, 0x6F, 0x69, 0x6B, 0x71, 0x6A};
@@ -214,7 +217,6 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         gShuttingDownTunnelblick = FALSE;
         gShuttingDownOrRestartingComputer = FALSE;
         gShuttingDownWorkspace = FALSE;
-        gComputerIsGoingToSleep = FALSE;
         
         noUnknownOpenVPNsRunning = NO;   // We assume there are unattached processes until we've had time to hook up to them
 		
@@ -240,7 +242,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"DB-MO",     // Extra logging for mouseover (of icon and status windows)
 								@"DB-SD",     // Extra logging for shutdown
                                 @"DB-SU",     // Extra logging for startup
-                                @"DB-SW",     // Extra logging for sleep/wake
+                                @"DB-SW",     // Extra logging for sleep/wake and inactive user/active user
                                 @"DB-UC",     // Extra logging for updating configurations
                                 @"DB-UP",     // Extra logging for the up script
 								@"DB-UU",	  // Extra logging for UI updates
@@ -270,8 +272,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"delayBeforeReconnectingAfterSleep",
                                 @"delayBeforeReconnectingAfterSleepAndIpaFetchError",
                                 @"delayBeforeIPAddressCheckAfterConnection",
+								@"delayBeforeSlowDisconnectDialog",
                                 @"hookupTimeout",
-                                @"openvpnTerminationTimeout",
                                 @"displayUpdateInterval",
                                 
 								@"inhibitOutboundTunneblickTraffic",
@@ -283,7 +285,6 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"standardApplicationPath",
                                 @"doNotCreateLaunchTunnelblickLinkinConfigurations",
                                 @"useShadowConfigurationFiles",
-                                @"openvpnTerminationInterval",
                                 @"menuIconSet",
                                 @"easy-rsaPath",
                                 @"IPAddressCheckURL",
@@ -2225,7 +2226,8 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     VPNConnection* myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
     if (  ! [[myConnection state] isEqualTo: @"EXITING"]  ) {
         [myConnection addToLog: @"*Tunnelblick: Disconnecting; user asked to delete the configuration"];
-        [myConnection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];
+        [myConnection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+        [myConnection waitUntilDisconnected];
         
         TBShowAlertWindow([NSString stringWithFormat: NSLocalizedString(@"'%@' has been disconnected", @"Window title"), dispNm],
 						 [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick has disconnected '%@' because its configuration file has been removed.", @"Window text"), dispNm]);
@@ -2408,149 +2410,272 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
-// May be called from cleanup or willGoToSleepHandler, so only do one at a time
-static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_INITIALIZER;
+//*********************************************************************************************************
+// Disconnecting on quit, computer sleep, or become inactive user
+
+-(NSMutableArray *) startDisconnecting: (NSArray *)  disconnectList
+					  disconnectingAll: (BOOL)       disconnectingAll
+                   quittingTunnelblick: (BOOL)       quittingTunnelblick
+                            logMessage: (NSString *) logMessage {
     
-// If possible, we try to use 'killall' to kill all processes named 'openvpn'
-// But if there are unknown open processes that the user wants running, or we have active daemon processes,
-//     then we must use 'kill' to kill each individual process that should be killed
--(void) killAllConnectionsIncludingDaemons: (BOOL)       includeDaemons
-                                    except: (NSArray *)  connectionsToLeaveConnected
-                                logMessage: (NSString *) logMessage
-{
-    // DO NOT put this code inside the mutex: we want to return immediately if computer is shutting down or restarting
-    if (  gShuttingDownOrRestartingComputer  ) {
-        TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: Computer is shutting down or restarting; OS X will kill OpenVPN instances")
-        return;
-    }
+    // Disconnect zero or more configurations.
+    // If 'disconnectingAll', will be disconnecting all configurations, so can use 'killall' if that is allowed and no unknown instances of OpenVPN are running
+	//
+    // Returns a (possibly empty) mutable array of connections that have started to disconnect
     
-    OSStatus status = pthread_mutex_lock( &killAllConnectionsIncludingDaemonsMutex );
-    if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_lock( &killAllConnectionsIncludingDaemonsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
-        return;
-    }
+    NSMutableArray * disconnections = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
     
-    NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
-    VPNConnection * connection;
-    
-    BOOL noActiveDaemons = YES;
-    if (  ! includeDaemons  ) {
-        // See if any of our daemons are active -- i.e., have a process ID (they may be in the process of connecting or disconnecting)
-        while (  (connection = [connEnum nextObject])  ) {
-            NSString* onSystemStartKey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
-            NSString* autoConnectKey = [[connection displayName] stringByAppendingString: @"autoConnect"];
-            if (   [gTbDefaults boolForKey: onSystemStartKey]
-                && [gTbDefaults boolForKey: autoConnectKey]  ) {
-                if (  [connection pid] != 0  ) {
-                    noActiveDaemons = NO;
-                    break;
+	if (  [disconnectList count] != 0  ) {
+		
+        BOOL useKillAll = (   disconnectingAll
+                           && noUnknownOpenVPNsRunning
+                           && ALLOW_OPENVPNSTART_KILLALL  );
+        
+        // Fill the disconnections array, start disconnecting individually if not using killall, and log the disconnect/kill
+        VPNConnection * connection;
+        NSEnumerator * e = [disconnectList objectEnumerator];
+        while (  (connection = [e nextObject])  ) {
+            if (  ! [connection isDisconnected]  ) {
+                
+                [disconnections addObject: connection];
+                
+                // Append a Tunnelblick log entry for each connection that is being disconnected unless shutting down the workspace or computer or quitting Tunnelblick
+                if (   ( ! gShuttingDownWorkspace)
+                    && ( ! gShuttingDownOrRestartingComputer)
+                    && ( ! quittingTunnelblick)  ) {
+                    [connection addToLog: [NSString stringWithFormat: @"*Tunnelblick: %@", logMessage]];
+                }
+                
+                // Console-log the kill/disconnect and start the disconnect if not using killall
+                if (  useKillAll  ) {
+                    TBLog(@"DB_SD", @"startDisconnecting:disconnectingAll:logMessage: will use killall to disconnect %@", [connection displayName])
+                } else {
+                    TBLog(@"DB_SD", @"startDisconnecting:disconnectingAll:logMessage: starting disconnect of %@", [connection displayName])
+                    [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
                 }
             }
         }
+		
+        // Use killall if not killing individually
+		if (   useKillAll  ) {
+			TBLog(@"DB_SD", @"startDisconnecting:disconnectingAll:logMessage: starting killAll")
+			runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
+			TBLog(@"DB_SD", @"startDisconnecting:disconnectingAll:logMessage: finished killAll")
+		}
+        
+	} else {
+		TBLog(@"DB-CD", @"startDisconnecting:disconnectingAll:logMessage: no configurations are to be disconnected")
+	}
+	
+    return disconnections;
+}
+
+-(void) waitForDisconnection: (NSMutableArray *) connectionsList {
+    
+    // Notes: Removes items from the mutable array
+	//        May return before all are disconnected if the computer is shutting down or restarting
+    
+	if (  [connectionsList count] != 0  ) {
+		
+		TBLog(@"DB-CD", @"Waiting for %lu configurations to disconnect: %@", (unsigned long)[connectionsList count], connectionsList)
+		
+		while (  [connectionsList count] != 0  ) {
+			
+			// Create a copy of connectionsList which will not be modified inside the inner loop
+			NSMutableArray * listNotModifiedInInnerLoop = [[NSMutableArray alloc] initWithCapacity: [connectionsList count]];
+			VPNConnection * connection;
+			NSEnumerator * e = [connectionsList objectEnumerator];
+			while (  (connection = [e nextObject])  ) {
+				[listNotModifiedInInnerLoop addObject: connection];
+			}
+			
+			e = [listNotModifiedInInnerLoop objectEnumerator];
+			while (  (connection = [e nextObject])  ) {
+				
+				if (  gShuttingDownOrRestartingComputer  ) {
+					NSLog(@"waitForDisconnection: Computer is shutting down or restarting; OS X will wait for OpenVPN instances to terminate");
+					[listNotModifiedInInnerLoop release];
+					return;
+				}
+				
+				// Since this method runs in the main thread, it blocks the processing that sets the variables that 'isDisconnected' checks
+				// So we check for disconnection with the 'noOpenvpnProcess' method, too. That works because the OpenVPN process quits independently of
+				// Tunnelblick's main thread.
+				if (   [connection isDisconnected]
+					|| [connection noOpenvpnProcess]  ) {
+					[connectionsList removeObject: connection];
+					TBLog(@"DB-CD", @"%@ has disconnected", [connection displayName])
+				}
+			}
+			
+			[listNotModifiedInInnerLoop release];
+			
+			if (  [connectionsList count] != 0  ) {
+				usleep(100000);
+			}
+		}
+		
+		TBLog(@"DB-CD", @"Disconnections complete")
+	} else {
+		TBLog(@"DB-CD", @"No disconnections to wait for")
+	}
+}
+
+// Access only one mass disconnection at a time
+static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
+
+-(void) doDisconnectionsForQuittingTunnelblick {
+    
+    // DO NOT put this code inside the mutex: we want to return immediately if computer is shutting down or restarting
+    if (  gShuttingDownOrRestartingComputer  ) {
+        NSLog(@"Computer is shutting down or restarting; OS X will kill OpenVPN instances");
+        return;
     }
     
-    TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: has checked for active daemons")
+    OSStatus status = pthread_mutex_lock( &doDisconnectionsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"doDisconnectionsForQuittingTunnelblick: pthread_mutex_lock( &doDisconnectionsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        return;
+    }
     
-    // See if any connections that are not disconnected use down-root
-    BOOL noDownRootsActive = YES;
-    connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
-    while (  (connection = [connEnum nextObject])  ) {
+    NSMutableArray * disconnectList = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
+    
+    BOOL disconnectingAll = TRUE; // Assume we disconnect everything
+    
+    // Add connections to disconnectList if they are not disconnected and not set to connect when the computer starts
+    VPNConnection * connection;
+    NSEnumerator * e = [[self myVPNConnectionDictionary] objectEnumerator];
+    while (  (connection = [e nextObject])  ) {
+        
         if (  ! [connection isDisconnected]  ) {
-            NSString * useDownRootPluginKey = [[connection displayName] stringByAppendingString: @"-useDownRootPlugin"];
-            if (   [gTbDefaults boolForKey: useDownRootPluginKey]  ) {
-                noDownRootsActive = NO;
-				TBLog(@"DB-SD", @"%@ is not disconnected and is using the down-root plugin", [connection displayName])
-                break;
+            
+            NSString* onSystemStartKey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
+            NSString* autoConnectKey   = [[connection displayName] stringByAppendingString: @"autoConnect"];
+            
+            if (  ! (   [gTbDefaults boolForKey: onSystemStartKey]
+                     && [gTbDefaults boolForKey: autoConnectKey]
+                     )
+                ) {
+                [disconnectList addObject: connection];
+            } else {
+                disconnectingAll = FALSE;
             }
         }
     }
     
-	TBLog(@"DB-SD", @"includeDaemons = %d; noUnknownOpenVPNsRunning = %d; noActiveDaemons = %d; noDownRootsActive = %d ",
-		  (int) includeDaemons, (int) noUnknownOpenVPNsRunning, (int) noActiveDaemons, (int) noDownRootsActive)
-	
-    if (   ALLOW_OPENVPNSTART_KILLALL
-        && ([connectionsToLeaveConnected count] == 0)
-		&& noDownRootsActive
-		&& ( includeDaemons
-			|| ( noUnknownOpenVPNsRunning && noActiveDaemons )
-			)
-		) {
-        
-        TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: will use killAll")
-
-        // Killing everything, so we use 'killall' to kill all processes named 'openvpn'
-        // But first, indicate they are being disconnected and append a log entry for each connection that will be restored
-        NSEnumerator * connectionEnum = [myVPNConnectionDictionary objectEnumerator];
-        while (  (connection = [connectionEnum nextObject])  ) {
-			if (   ! [connection isDisconnected]  ) {
-				[connection setState: @"DISCONNECTING"];
-				[connection setConnectedSinceDate: [NSDate date]];
-			}
-			if (  [connectionsToRestoreOnWakeup containsObject: connection]  ) {
-				[connection addToLog: logMessage];
-			}
-		}
-        // If we've added any log entries, sleep for one second so they come before OpenVPN entries associated with closing the connections
-        if (  [connectionsToRestoreOnWakeup count] != 0  ) {
-            TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: sleeping for logs to settle")
-            sleep(1);
-        }
-        
-        TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: requested killAll")
-        runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
-        TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: killAll finished")
-    } else {
-        
-        TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: will kill individually")
-        // Killing selected processes only -- those we know about that are not daemons
-		connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
-        while (  (connection = [connEnum nextObject])  ) {
-            if (   ( ! [connection isDisconnected])
-                && ( ! [connectionsToLeaveConnected containsObject: connection])  ) {
-                NSString* onSystemStartKey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
-                NSString* autoConnectKey = [[connection displayName] stringByAppendingString: @"autoConnect"];
-                if (   ( ! [gTbDefaults boolForKey: onSystemStartKey]  )
-                    || ( ! [gTbDefaults boolForKey: autoConnectKey]    )  ) {
-                    pid_t procId = [connection pid];
-					if (  ALLOW_OPENVPNSTART_KILL  ) {
-						if (  procId > 0  ) {
-							[connection addToLog: logMessage];
-							NSArray * arguments = [NSArray arrayWithObjects: @"kill", [NSString stringWithFormat: @"%ld", (long) procId], nil];
-							TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: killing '%@'", [connection displayName])
-							runOpenvpnstart(arguments, nil, nil);
-							TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: have killed '%@'", [connection displayName])
-						} else {
-							[connection addToLog: @"*Tunnelblick: Disconnecting; all configurations are being disconnected"];
-							TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: disconnecting '%@'", [connection displayName])
-							[connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
-							TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: have disconnected '%@'", [connection displayName])
-						}
-						
-						[connection setState: @"DISCONNECTING"];
-						[connection setConnectedSinceDate: [NSDate date]];
-					
-					} else {
-                        (void) procId;
-						TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: requesting disconnection of '%@' (pid %lu) via disconnectAndWait",
-							  [connection displayName], (long) procId)
-						[connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
-					}
-				} else {
-					TBLog(@"DB-SD", @"killAllConnectionsIncludingDaemons: Not requesting disconnection of '%@' (pid %lu) because"
-						  @" it is set to connect when the computer starts.",
-						  [connection displayName], (long) [connection pid])
-                    ;
-				}
-			}
-        }
-    }
+    NSMutableArray * connectionsToWaitFor = [self startDisconnecting: disconnectList
+                                                    disconnectingAll: disconnectingAll
+                                                 quittingTunnelblick: YES
+                                                          logMessage: @"Disconnecting because quitting Tunnelblick"];
+    [self waitForDisconnection: connectionsToWaitFor];
     
-    status = pthread_mutex_unlock( &killAllConnectionsIncludingDaemonsMutex );
+    status = pthread_mutex_unlock( &doDisconnectionsMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_unlock( &killAllConnectionsIncludingDaemonsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        NSLog(@"doDisconnectionsForQuittingTunnelblick: pthread_mutex_unlock( &doDisconnectionsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
     }
-}    
+}
+
+-(void) startDisconnectionsForSleeping {
     
+    // Starts disconnecting appropriate configurations and sets connectionsToWaitForDisconnectOnWakeup and connectionsToRestoreOnWakeup
+    
+    // DO NOT put this code inside the mutex: we want to return immediately if computer is shutting down or restarting
+    if (  gShuttingDownOrRestartingComputer  ) {
+        NSLog(@"Computer is shutting down or restarting; OS X will kill OpenVPN instances");
+        return;
+    }
+    
+    NSMutableArray * disconnectList = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
+    [self setConnectionsToRestoreOnWakeup: [[[NSMutableArray alloc] initWithCapacity: 10] autorelease]];
+    
+    BOOL disconnectingAll = TRUE; // Assume we disconnect everything
+    
+    // Add connections to the DISCONNECT list if they ARE NOT disconnected and should DISCONNECT when the computer GOES TO SLEEP
+	// Add connections to the  RECONNECT list if they WILL BE disconnected and should RECONNECT  when the computer WAKES UP
+    VPNConnection * connection;
+    NSEnumerator * e = [[self myVPNConnectionDictionary] objectEnumerator];
+    while (  (connection = [e nextObject])  ) {
+        
+        if (  ! [connection isDisconnected]  ) {
+            
+            NSString* keepConnectedForSleepKey = [[connection displayName] stringByAppendingString: @"-doNotDisconnectOnSleep"];
+            if (  ! [gTbDefaults boolForKey: keepConnectedForSleepKey]  ) {
+                [disconnectList addObject: connection];
+                NSString * doNotReconnectAfterSleepKey = [[connection displayName] stringByAppendingString: @"-doNotReconnectOnWakeFromSleep"];
+                if (  ! [gTbDefaults boolForKey: doNotReconnectAfterSleepKey]  ) {
+                    [connectionsToRestoreOnWakeup addObject: connection];
+                }
+            } else {
+                disconnectingAll = FALSE;
+            }
+        }
+    }
+    
+    NSMutableArray * connectionsToWaitFor = [self startDisconnecting: disconnectList
+                                                    disconnectingAll: disconnectingAll
+                                                 quittingTunnelblick: NO
+                                                          logMessage: @"Disconnecting because computer is going to sleep"];
+	
+	[self setConnectionsToWaitForDisconnectOnWakeup: connectionsToWaitFor];
+    
+    return;
+}
+
+-(NSArray *) doDisconnectionsForBecameInactiveUser {
+    
+    // Returns array of connections to connect when become inactive
+    
+    // DO NOT put this code inside the mutex: we want to return immediately if computer is shutting down or restarting
+    if (  gShuttingDownOrRestartingComputer  ) {
+        TBLog(@"DB_SD", @"doDisconnectionsForBecameInactiveUser: Computer is shutting down or restarting; OS X will kill OpenVPN instances")
+        return nil;
+    }
+    
+    OSStatus status = pthread_mutex_lock( &doDisconnectionsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"doDisconnectionsForBecameInactiveUser: pthread_mutex_lock( &doDisconnectionsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        return nil;
+    }
+    
+    NSMutableArray * reconnectList  = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
+    NSMutableArray * disconnectList = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
+    
+    BOOL disconnectingAll = TRUE; // Assume we disconnect everything
+    
+    // Add connections to disconnectList if they are not disconnected and should disconnect when the user becomes inactive
+    VPNConnection * connection;
+    NSEnumerator * e = [[self myVPNConnectionDictionary] objectEnumerator];
+    while (  (connection = [e nextObject])  ) {
+        
+        if (  ! [connection isDisconnected]  ) {
+            
+            NSString* keepConnectedForInactiveKey = [[connection displayName] stringByAppendingString: @"-doNotDisconnectOnFastUserSwitch"];
+            if (  ! [gTbDefaults boolForKey: keepConnectedForInactiveKey]  ) {
+                [disconnectList addObject: connection];
+            } else {
+                NSString* doNotReconnectAfterInactiveKey = [[connection displayName] stringByAppendingString: @"-doNotReconnectOnFastUserSwitch"];
+                if (  ! [gTbDefaults boolForKey: doNotReconnectAfterInactiveKey]  ) {
+                    [reconnectList addObject: connection];
+                }
+                disconnectingAll = FALSE;
+            }
+        }
+    }
+    
+    NSMutableArray * connectionsToWaitFor = [self startDisconnecting: disconnectList
+                                                    disconnectingAll: disconnectingAll
+                                                 quittingTunnelblick: NO
+                                                          logMessage: @"Disconnecting because user is becoming inactive"];
+    [self waitForDisconnection: connectionsToWaitFor];
+    
+    status = pthread_mutex_unlock( &doDisconnectionsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"doDisconnectionsForBecameInactiveUser: pthread_mutex_unlock( &doDisconnectionsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+    }
+    
+    return reconnectList;
+}
+
 // May be called from cleanup, so only do one at a time
 static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
 
@@ -2708,7 +2833,7 @@ BOOL anyNonTblkConfigs(void)
     while (  (connection = [connEnum nextObject])  ) {
         if (  ! [connection isDisconnected]  ) {
             [connection addToLog: @"*Tunnelblick: Disconnecting; 'Disconnect all' menu command invoked"];
-            [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
+            [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
         }
     }
 }
@@ -2771,11 +2896,12 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
         return TRUE;
     }
     
-    if (  ! [lastState isEqualToString:@"EXITING"]) {
-        TBLog(@"DB-SD", @"cleanup: Will killAllConnectionsIncludingDaemons: NO")
-        [self killAllConnectionsIncludingDaemons: NO
-                                          except: nil
-                                      logMessage: @"*Tunnelblick: Tunnelblick is quitting. Closing connection..."];
+    [self doDisconnectionsForQuittingTunnelblick];
+	
+    if (  gUserNotification  ) {
+        NSLog(@"Closing a CFUserNotification window");
+        CFRelease(gUserNotification);
+        gUserNotification = NULL;
     }
     
     if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
@@ -2800,14 +2926,14 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 
     if ( ! gShuttingDownWorkspace  ) {
-        if (  statusItem  ) {
-            TBLog(@"DB-SD", @"cleanup: Removing status bar item")
-            [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
+        if (  hotKeyEventHandlerIsInstalled && hotKeyModifierKeys != 0  ) {
+            TBLog(@"DB_SD", @"cleanup: Unregistering hotKeyEventHandler")
+            UnregisterEventHotKey(hotKeyRef);
         }
         
-        if (  hotKeyEventHandlerIsInstalled && hotKeyModifierKeys != 0  ) {
-            TBLog(@"DB-SD", @"cleanup: Unregistering hotKeyEventHandler")
-            UnregisterEventHotKey(hotKeyRef);
+        if (  statusItem  ) {
+            TBLog(@"DB_SD", @"cleanup: Removing status bar item")
+            [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
         }
     }
     
@@ -4186,7 +4312,7 @@ static void signal_handler(int signalNumber)
 				
 // The Xcode 3.2 analyzer cannot deal with blocks, so to analyze (the rest of) MenuController, we don't compile the one section of code that has a block
 #ifdef TBAnalyzeONLY
-                #warning "NOT AN EXECUTABLE -- ANALYZE ONLY"
+				#warning "NOT AN EXECUTABLE -- ANALYZE ONLY but does not fully analyze code in setPreferenceForSelectedConfigurationsWithKey:to:isBool:"
 				(void) idxSet;
 #else
 				[idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
@@ -4546,7 +4672,7 @@ static BOOL runningHookupThread = FALSE;
 		
 		[logFileInfo release];
 		
-        TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: finished queueing %lu hookups for %lu OpenVPN processes", (unsigned long) nQueued, [pIDsWeAreTryingToHookUpTo count])
+        TBLog(@"DB-HU", @"hookupToRunningOpenVPNs: finished queueing %lu hookups for %lu OpenVPN processes", (unsigned long)nQueued, (unsigned long)[pIDsWeAreTryingToHookUpTo count])
     }
     
     runningHookupThread = FALSE;
@@ -6204,61 +6330,53 @@ void terminateBecauseOfBadConfiguration(void)
 -(void)willGoToSleepHandler: (NSNotification *) n
 {
  	(void) n;
-	
-   if (  gShuttingDownOrRestartingComputer  ) {
+    
+    if (  gShuttingDownOrRestartingComputer  ) {
+		TBLog(@"DB-SW", @"willGoToSleepHandler: ignored because computer is shutting down or restarting");
         return;
     }
     
-    gComputerIsGoingToSleep = TRUE;
-	TBLog(@"DB-SW", @"willGoToSleepHandler: Setting up connections to restore when computer wakes up")
-    
-    [connectionsToRestoreOnWakeup removeAllObjects];
-    NSMutableArray * connectionsToLeaveConnected = [NSMutableArray arrayWithCapacity: 10];
-    VPNConnection * connection; 
-	NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
-    while (  (connection = [connEnum nextObject])  ) {
-        NSString * name = [connection displayName];
-        if (  ! [[connection requestedState] isEqualToString: @"EXITING"]  ) {
-            BOOL disconnectOnSleep = ! [gTbDefaults boolForKey: [name stringByAppendingString: @"-doNotDisconnectOnSleep"]];
-            if (   disconnectOnSleep  ) {
-                BOOL reconnectOnWake   = ! [gTbDefaults boolForKey: [name stringByAppendingString: @"-doNotReconnectOnWakeFromSleep"]];
-                if (  reconnectOnWake  ) {
-                    [connectionsToRestoreOnWakeup addObject: connection];
-                }
-            } else {
-                [connectionsToLeaveConnected addObject: connection];
-            }
-        }
+    if (  OSAtomicCompareAndSwap32Barrier(noSleepState, gettingReadyForSleep, &gSleepWakeState)  ) {
+		TBLog(@"DB-SW", "willGoToSleepHandler: state = gettingReadyForSleep");
+	} else {
+		NSLog(@"willGoToSleepHandler: ignored because gSleepWakeState was not 'noSleepState' (it is %ld)", (long) gSleepWakeState);
+        return;
     }
     
-    TBLog(@"DB-SW", @"willGoToSleepHandler: connectionsToRestoreOnWakeup = %@\nconnectionsToLeaveConnected = %@", connectionsToRestoreOnWakeup, connectionsToLeaveConnected)
-
     terminatingAtUserRequest = TRUE;
-    if (  [connectionsToRestoreOnWakeup count] != 0  ) {
-        TBLog(@"DB-SW", @"willGoToSleepHandler: Closing connections")
-        [self killAllConnectionsIncludingDaemons: YES
-                                          except: connectionsToLeaveConnected
-                                      logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connections..."];
-        if (  ! [gTbDefaults boolForKey: @"doNotPutOffSleepUntilOpenVPNsTerminate"] ) {
-            // Wait until all OpenVPN processes have terminated
-            NSLog(@"Putting off sleep until all OpenVPNs have terminated");
-            while (  [[NSApp pIdsForOpenVPNProcessesOnlyMain: NO] count] != 0  ) {
-                usleep(100000);
-            }
-        }
-    }
+    
+	TBLog(@"DB_SW", @"willGoToSleepHandler: Setting up to go to sleep")
+	[self startDisconnectionsForSleeping];
     
     // Indicate no configurations have connected since sleep
     // Done here so it is correct immediately when computer wakes
     [self performSelectorOnMainThread: @selector(clearAllHaveConnectedSince) withObject: nil waitUntilDone: YES];
     
-    TBLog(@"DB-SW", @"OK to go to sleep")
+    if (  [[self connectionsToWaitForDisconnectOnWakeup] count] == 0  ) {
+		TBLog(@"DB-SW", @"willGoToSleepHandler: no configurations to disconnect before sleep")
+    } else {
+		TBLog(@"DB-SW", @"willGoToSleepHandler: waiting for %lu configurations to disconnect before sleep", (unsigned long)[[self connectionsToWaitForDisconnectOnWakeup] count]);
+		[self waitForDisconnection: connectionsToWaitForDisconnectOnWakeup];
+		[self setConnectionsToWaitForDisconnectOnWakeup: nil];
+		TBLog(@"DB-SW", @"willGoToSleepHandler: configurations have disconnected")
+	}
+	
+    if (  OSAtomicCompareAndSwap32Barrier(gettingReadyForSleep, readyForSleep, &gSleepWakeState)  ) {
+		TBLog(@"DB-SW", "willGoToSleepHandler: state = readyForSleep");
+	} else {
+		NSLog(@"willGoToSleepHandler: Ready to sleep but gSleepWakeState was not 'gettingReadyForSleep' (it is %ld)", (long) gSleepWakeState);
+        return;
+    }
+	
+    TBLog(@"DB_SW", @"willGoToSleepHandler: OK to go to sleep")
 }
+
 -(void) wokeUpFromSleepHandler: (NSNotification *) n
 {
  	(void) n;
-	
-   if (  gShuttingDownOrRestartingComputer  ) {
+    
+    if (  gShuttingDownOrRestartingComputer  ) {
+		TBLog(@"DB-SW", @"wokeUpFromSleepHandler: ignored because computer is shutting down or restarting");
         return;
     }
     
@@ -6310,13 +6428,14 @@ void terminateBecauseOfBadConfiguration(void)
         }
     }
     
-    [self performSelectorOnMainThread: @selector(finishedWakingUpFromSleep) withObject: nil waitUntilDone: NO];
+    [self performSelectorOnMainThread: @selector(finishWakingUpFromSleep) withObject: nil waitUntilDone: NO];
+	[self haveFinishedIPCheckThread: threadID];
     [threadPool drain];
 }
 
--(void)finishedWakingUpFromSleep {
+-(void)finishWakingUpFromSleep {
     
-	TBLog(@"DB-SW", @"finishedWakingUpFromSleep invoked")
+	TBLog(@"DB-SW", @"finishWakingUpFromSleep invoked")
 	
 	NSEnumerator *e = [connectionsToRestoreOnWakeup objectEnumerator];
 	VPNConnection *connection;
@@ -6324,72 +6443,111 @@ void terminateBecauseOfBadConfiguration(void)
         NSString * name = [connection displayName];
         NSString * key  = [name stringByAppendingString: @"-doNotReconnectOnWakeFromSleep"];
         if (  ! [gTbDefaults boolForKey: key]  ) {
-			TBLog(@"DB-SW", @"finishedWakingUpFromSleep: Attempting to connect %@", name)
+			TBLog(@"DB-SW", @"finishWakingUpFromSleep: Attempting to connect %@", name)
             [connection addToLog: @"*Tunnelblick: Woke up from sleep. Attempting to re-establish connection..."];
             [connection connect:self userKnows: YES];
         } else {
-            TBLog(@"DB-SW", @"finishedWakingUpFromSleep: Not restoring connection %@ because of '-doNotReconnectOnWakeFromSleep' preference", name)
+            TBLog(@"DB-SW", @"finishWakingUpFromSleep: Not restoring connection %@ because of '-doNotReconnectOnWakeFromSleep' preference", name)
             [connection addToLog: @"*Tunnelblick: Woke up from sleep. Not attempting to re-establish connection..."];
         }
 	}
     
-    [connectionsToRestoreOnWakeup removeAllObjects];
+    [self setConnectionsToRestoreOnWakeup: nil];
+    
+    if (  OSAtomicCompareAndSwap32Barrier(wakingUp, noSleepState, &gSleepWakeState)  ) {
+		TBLog(@"DB-SW", "finishWakingUpFromSleep: state = noSleepState");
+	} else {
+        NSLog(@"finishWakingUpFromSleep: gSleepWakeState was not 'wakingUp' (it is %ld)", (long) gSleepWakeState);
+    }
 }
 
 -(void) waitAfterSleepTimerHandler: (NSTimer *) timer {
     
     (void) timer;
-    [self performSelectorOnMainThread: @selector(finishedWakingUpFromSleep) withObject: nil waitUntilDone: NO];
+    [self performSelectorOnMainThread: @selector(finishWakingUpFromSleep) withObject: nil waitUntilDone: NO];
 }
+
 -(void)wokeUpFromSleep
 {
-    [self recreateStatusItemAndMenu]; // Recreate the Tunnelblick icon
+    // Runs on main thread
     
-    gComputerIsGoingToSleep = FALSE;
-	
-    if (  [connectionsToRestoreOnWakeup count]  == 0  ) {
-		TBLog(@"DB-SW", @"wokeUpFromSleep: no configurations to reconnect")
+    if (  gSleepWakeState == gettingReadyForSleep   ) {
+		TBLog(@"DB-SW", @"wokeUpFromSleep: being queued to execute again in 0.5 second -- still finishing operations that were started before computer went to sleep");
+        [self performSelector: @selector(wokeUpFromSleepHandler:) withObject: nil afterDelay: 0.5];
         return;
     }
     
-    // See if any connections that we are waking up allow us to check the IP address after connecting
-    VPNConnection * connectionToCheckIpAddress = nil;
-
-	if (  ! [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"] ) {
-		NSEnumerator *e = [connectionsToRestoreOnWakeup objectEnumerator];
-		VPNConnection *connection;
-		while (  (connection = [e nextObject])  ) {
-			NSString * name = [connection displayName];
-			NSString * key  = [name stringByAppendingString: @"-doNotReconnectOnWakeFromSleep"];
-			if (  ! [gTbDefaults boolForKey: key]  ) {
-				key = [name stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-				if (  ! [gTbDefaults boolForKey: key]  ) {
-					connectionToCheckIpAddress = [[connection retain] autorelease];
-					break;
-				}
-			}
-		}
+    if (  OSAtomicCompareAndSwap32Barrier(readyForSleep, wakingUp, &gSleepWakeState)  ) {
+		TBLog(@"DB-SW", "wokeUpFromSleep: state = wakingUp");
+	} else {
+        NSLog(@"wokeUpFromSleep: ignored because gSleepWakeState was not 'gettingReadyForSleep' or 'readyForSleep' (it is %ld)", (long) gSleepWakeState);
+        return;
+    }
+    
+    TBLog(@"DB-SW", @"wokeUpFromSleep: Finished all needed activity before computer went to sleep");
+    
+    [self recreateStatusItemAndMenu]; // Recreate the Tunnelblick icon
+    
+    if (  [[self connectionsToWaitForDisconnectOnWakeup] count] == 0  ) {
+		TBLog(@"DB-SW", @"wokeUpFromSleep: no configurations to disconnect on wakeup")
+    } else {
+		[self waitForDisconnection: connectionsToWaitForDisconnectOnWakeup];
+		[self setConnectionsToWaitForDisconnectOnWakeup: nil];
 	}
 	
-    if (  connectionToCheckIpAddress  ) {
-        NSString * threadID = [NSString stringWithFormat: @"%lu-%llu", (long) self, (long long) nowAbsoluteNanoseconds()];
-        [self addActiveIPCheckThread: threadID];
-		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-							   connectionToCheckIpAddress, @"connection",
-							   threadID,   @"threadID",
-							   nil];
-		TBLog(@"DB-SW", @"wokeUpFromSleep: will check IP address to determine connectivity before reconnecting configurations")
-        [NSThread detachNewThreadSelector: @selector(checkIPAddressAfterSleepingConnectionThread:) toTarget: self withObject: dict];
+    if (  [[self connectionsToRestoreOnWakeup] count] == 0  ) {
+		TBLog(@"DB-SW", @"wokeUpFromSleep: no configurations to reconnect on wakeup, so finished waking up")
+		if (  OSAtomicCompareAndSwap32Barrier(wakingUp, noSleepState, &gSleepWakeState)  ) {
+			TBLog(@"DB-SW", "wokeUpFromSleep: state = noSleepState");
+		} else {
+			NSLog(@"wokeUpFromSleep: ignored because gSleepWakeState was not 'wakingUp' (it is %ld)", (long) gSleepWakeState);
+			return;
+		}
+		
     } else {
-        unsigned sleepTime = [gTbDefaults unsignedIntForKey: @"delayBeforeReconnectingAfterSleep" default: 5 min: 0 max: 300];
-		TBLog(@"DB-SW", @"wokeUpFromSleep: cannot check IP address to determine connectivity so waiting %d seconds before reconnecting configurations"
-			  @" (Time may be specified in the \"delayBeforeReconnectingAfterSleep\" preference", sleepTime)
-        NSTimer * waitAfterWakeupTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) sleepTime
-                                                                          target: self
-                                                                        selector: @selector(waitAfterSleepTimerHandler:)
-                                                                        userInfo: nil
-                                                                         repeats: NO];
-        [waitAfterWakeupTimer tbSetTolerance: -1.0];
+        
+        // See if any connections that we are waking up allow us to check the IP address after connecting
+        VPNConnection * connectionToCheckIpAddress = nil;
+        
+        if (  ! [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"] ) {
+            NSEnumerator *e = [connectionsToRestoreOnWakeup objectEnumerator];
+            VPNConnection *connection;
+            while (  (connection = [e nextObject])  ) {
+                NSString * name = [connection displayName];
+                NSString * key  = [name stringByAppendingString: @"-doNotReconnectOnWakeFromSleep"];
+                if (  ! [gTbDefaults boolForKey: key]  ) {
+                    key = [name stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+                    if (  ! [gTbDefaults boolForKey: key]  ) {
+                        connectionToCheckIpAddress = [[connection retain] autorelease];
+                        break;
+                    }
+                }
+            }
+        }
+        
+        if (  connectionToCheckIpAddress  ) {
+            NSString * threadID = [NSString stringWithFormat: @"%lu-%llu", (long) self, (long long) nowAbsoluteNanoseconds()];
+            [self addActiveIPCheckThread: threadID];
+            NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   connectionToCheckIpAddress, @"connection",
+                                   threadID,   @"threadID",
+                                   nil];
+            [NSThread detachNewThreadSelector: @selector(checkIPAddressAfterSleepingConnectionThread:) toTarget: self withObject: dict];
+			
+            TBLog(@"DB-SW", @"wokeUpFromSleep: exiting; checking IP address to determine connectivity before reconnecting configurations")
+        } else {
+            unsigned sleepTime = [gTbDefaults unsignedIntForKey: @"delayBeforeReconnectingAfterSleep" default: 5 min: 0 max: 300];
+            TBLog(@"DB-SW", @"wokeUpFromSleep: cannot check IP address to determine connectivity so waiting %d seconds before reconnecting configurations"
+                  @" (Time may be specified in the \"delayBeforeReconnectingAfterSleep\" preference", sleepTime)
+            NSTimer * waitAfterWakeupTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) sleepTime
+                                                                              target: self
+                                                                            selector: @selector(waitAfterSleepTimerHandler:)
+                                                                            userInfo: nil
+                                                                             repeats: NO];
+            [waitAfterWakeupTimer tbSetTolerance: -1.0];
+			
+			TBLog(@"DB-SW", @"wokeUpFromSleep: exiting; waitAfterSleepTimerHandler: is queued to execute in %f seconds", sleepTime);
+        }
     }
 }
 
@@ -6402,25 +6560,61 @@ void terminateBecauseOfBadConfiguration(void)
 
 -(void)didBecomeInactiveUser
 {
-    // Remember current connections so they can be restored if/when we become the active user
-    connectionsToRestoreOnUserActive = [[self connectionArray] copy];
+	if (  gShuttingDownOrRestartingComputer  ) {
+		TBLog(@"DB-SW", @"didBecomeInactiveUser: ignored because computer is shutting down or restarting");
+        return;
+    }
     
-    // For each open connection, either reInitialize it or disconnect it
-    NSEnumerator * e = [[self connectionArray] objectEnumerator];
+    if (  OSAtomicCompareAndSwap32Barrier(active, gettingReadyForInactive, &gActiveInactiveState)  ) {
+		TBLog(@"DB-SW", "didBecomeInactiveUser: state = gettingReadyForInactive");
+	} else {
+		NSLog(@"didBecomeInactiveUser: ignored because gActiveInactiveState was not 'active' (it is %ld)", (long) gActiveInactiveState);
+        return;
+    }
+    
+    terminatingAtUserRequest = TRUE;
+    
+	TBLog(@"DB_SW", @"didBecomeInactiveUser: Setting up to become an inactive user")
+	
+    // For each open connection, either reInitialize it or start disconnecting it
+    // Remember connections that should be restored if/when we become the active user
+    [self setConnectionsToRestoreOnUserActive: [[[NSMutableArray alloc] initWithCapacity: 10] autorelease]];
+    NSMutableArray * disconnectionsWeAreWaitingFor = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
 	VPNConnection * connection;
+    NSEnumerator * e = [[self myVPNConnectionDictionary] objectEnumerator];
 	while (  (connection = [e nextObject])  ) {
-        if (  [connection shouldDisconnectWhenBecomeInactiveUser]  ) {
+        if (   [connection shouldDisconnectWhenBecomeInactiveUser]
+            && ( ! [connection isDisconnected])  ) {
             [connection addToLog: @"*Tunnelblick: Disconnecting; user became inactive"];
-            [connection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];
+            [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+            [disconnectionsWeAreWaitingFor addObject: connection];
+            NSString * key = [[connection displayName] stringByAppendingString: @"-doNotReconnectOnFastUserSwitch"];
+            if (  ! [gTbDefaults boolForKey: key]  ) {
+                [connectionsToRestoreOnUserActive addObject: connection];
+				TBLog(@"DB-SW", "didBecomeInactiveUser: started disconnecting %@; will reconnect when become active user", [connection displayName]);
+            } else {
+				TBLog(@"DB-SW", "didBecomeInactiveUser: started disconnecting %@; will not reconnect when become active user", [connection displayName]);
+			}
         } else {
             [connection addToLog: @"*Tunnelblick: Stopping communication with OpenVPN because user became inactive"];
             [connection reInitialize];
-        }
+			if (  ! [connection isDisconnected]  ) {
+				TBLog(@"DB-SW", "didBecomeInactiveUser: stopping communication with OpenVPN for %@ because user became inactive", [connection displayName]);
+			}
+		}
     }
     
-    // Indicate no configurations have connected since user became actibve
-    // Done here so it is correct immediately when uder becomes active
+    // Indicate no configurations have connected since user became active
+    // Done here so it is correct immediately when the user becomes active again
     [self performSelectorOnMainThread: @selector(clearAllHaveConnectedSince) withObject: nil waitUntilDone: YES];
+    
+    [self waitForDisconnection: disconnectionsWeAreWaitingFor];
+	
+    if (  OSAtomicCompareAndSwap32Barrier(gettingReadyForInactive, readyForInactive, &gActiveInactiveState)  ) {
+		TBLog(@"DB-SW", "didBecomeInactiveUser: state = readyForInactive");
+	} else {
+		NSLog(@"didBecomeInactiveUser: cannot set readyForActive because gActiveInactiveState was not 'gettingReadyForInactive' (it is %ld)", (long) gActiveInactiveState);
+    }
 }
 
 -(void)didBecomeActiveUserHandler: (NSNotification *) n
@@ -6432,8 +6626,29 @@ void terminateBecauseOfBadConfiguration(void)
 
 -(void)didBecomeActiveUser
 {
+	TBLog(@"DB-SW", @"didBecomeActiveUser: entered")
+	
+	if (  gActiveInactiveState == active  ) {
+		TBLog(@"DB-SW", @"didBecomeActiveUser: ignored because already active");
+		return;
+	}
+	
+    if (  gActiveInactiveState != readyForInactive   ) {
+		TBLog(@"DB-SW", @"didBecomeActiveUser: being queued to execute again in 0.5 second -- still finishing operations that were started before user became inactive");
+        [self performSelector: @selector(didBecomeActiveUser) withObject: nil afterDelay: 0.5];
+        return;
+    }
+    
+    if (  OSAtomicCompareAndSwap32Barrier(readyForInactive, gettingReadyforActive, &gActiveInactiveState)  ) {
+		TBLog(@"DB-SW", "didBecomeActiveUser: state = gettingReadyforActive");
+	} else {
+        NSLog(@"didBecomeActiveUser: ignored because gActiveInactiveState was not 'readyForInactive' (it is %ld)", (long) gActiveInactiveState);
+        return;
+    }
+    
     [self hookupToRunningOpenVPNs];
     if (  [self setupHookupWatchdogTimer]  ) {
+		TBLog(@"DB-SW", "didBecomeActiveUser: hooking up to running OpenVPN processes; will check for recconnections afterward");
         return; // reconnectAfterBecomeActiveUser will be done when the hookup timer times out or there are no more hookups pending
     }
     
@@ -6445,22 +6660,32 @@ void terminateBecauseOfBadConfiguration(void)
 
 -(void)reconnectAfterBecomeActiveUser
 {
-   // Reconnect configurations that were connected before this user was switched out and that aren't connected now
-    NSEnumerator * e = [connectionsToRestoreOnUserActive objectEnumerator];
-	VPNConnection * connection;
-	while (  (connection = [e nextObject])  ) {
-        if (  ! [connection isHookedup]  ) {
-            NSString * key = [[connection displayName] stringByAppendingString: @"-doNotReconnectOnFastUserSwitch"];
-            if (  ! [gTbDefaults boolForKey: key]  ) {
-                [connection stopTryingToHookup];
-                [connection addToLog: @"*Tunnelblick: Attempting to reconnect because user became active"];
-                [connection connect: self userKnows: YES];
-            }
-        }
-    }
-    
-    [connectionsToRestoreOnUserActive release];
-    connectionsToRestoreOnUserActive = nil;
+    // Reconnect configurations that were connected before this user was switched out and that aren't connected now
+	
+	if (  [[self connectionsToRestoreOnUserActive] count] == 0  ) {
+		TBLog(@"DB-SW", "reconnectAfterBecomeActiveUser: Nothing to reconnect after becoming active");
+	} else {
+		NSEnumerator * e = [[self connectionsToRestoreOnUserActive] objectEnumerator];
+		VPNConnection * connection;
+		while (  (connection = [e nextObject])  ) {
+			if (  ! [connection isHookedup]  ) {
+				[connection stopTryingToHookup];
+				[connection addToLog: @"*Tunnelblick: Attempting to reconnect because user became active"];
+				[connection connect: self userKnows: YES];
+				TBLog(@"DB-SW", "reconnectAfterBecomeActiveUser: Attempting to reconnect '%@' because user became active", [connection displayName]);
+			}
+		}
+	}
+	
+    [self setConnectionsToRestoreOnUserActive: nil];
+	
+	if (  gActiveInactiveState != active  ) {
+		if (  OSAtomicCompareAndSwap32Barrier(gettingReadyforActive, active, &gActiveInactiveState)  ) {
+			TBLog(@"DB-SW", "reconnectAfterBecomeActiveUser: state = active");
+		} else {
+			NSLog(@"reconnectAfterBecomeActiveUser: warning: gActiveInactiveState was not 'gettingReadyforActive' (it is %ld)", (long) gActiveInactiveState);
+		}
+	}
 }
 
 -(void) setHotKeyIndex: (unsigned) newIndex
@@ -6561,7 +6786,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
                 if (   [connection isConnected]
                     || [connection isDisconnected]  ) {
                     [connection fadeAway];
-					TBLog(@"DB-MO", @"statisticsWindowsShow: requested fade of status window for %@ because it is disconnected or disconnected", [connection displayName]);
+					TBLog(@"DB-MO", @"statisticsWindowsShow: requested fade of status window for %@ because it is connected or disconnected", [connection displayName]);
                 }
             }
         }
@@ -6606,6 +6831,9 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     
     return mouseIsInStatusWindow || mouseIsInMainIcon;
 }
+
+//*********************************************************************************************************
+// IPCheckThread methods:
 
 static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 
@@ -6668,7 +6896,6 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
-    TBLog(@"DB-IT", @"cancelAllIPCheckThreadsForConnection: Entered")
     // Make a list of threadIDs to cancel
     NSString * prefix = [NSString stringWithFormat: @"%lu-", (long) connection];
     NSMutableArray * threadsToCancel = [NSMutableArray arrayWithCapacity: 5];
@@ -6746,16 +6973,24 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
+	BOOL removedFromOneOfTheLists = FALSE;
+	
     if (  [activeIPCheckThreads containsObject: threadID]  ) {
         TBLog(@"DB-IT", @"haveFinishedIPCheckThread: threadID '%@' removed from active list", threadID)
         [activeIPCheckThreads removeObject: threadID];
+		removedFromOneOfTheLists = TRUE;
     }
     
     if (  [cancellingIPCheckThreads containsObject: threadID]  ) {
         TBLog(@"DB-IT", @"haveFinishedIPCheckThread: threadID '%@' removed from cancelling list", threadID)
         [cancellingIPCheckThreads removeObject: threadID];
+		removedFromOneOfTheLists = TRUE;
     }
-
+    
+	if (  ! removedFromOneOfTheLists  ) {
+		TBLog(@"DB-IT", @"haveFinishedIPCheckThread: threadID '%@' was not on the active list or the cancelling list", threadID)
+	}
+	
     status = pthread_mutex_unlock( &threadIdsMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_unlock( &threadIdsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
@@ -6831,7 +7066,11 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  connection  ) {
         if (  choice == statusWindowControllerDisconnectChoice  ) {
             [connection addToLog: @"*Tunnelblick: Disconnecting; notification window disconnect button pressed"];
-            [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
+			NSString * oldRequestedState = [connection requestedState];
+			[connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+			if (  [oldRequestedState isEqualToString: @"EXITING"]  ) {
+				[connection displaySlowDisconnectionDialogLater];
+			}
         } else if (  choice == statusWindowControllerConnectChoice  ) {
             [connection addToLog: @"*Tunnelblick: Connecting; notification window connect button pressed"];
             [connection connect: self userKnows: YES];
@@ -6886,11 +7125,6 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 -(SUUpdater *) updater
 {
     return [[updater retain] autorelease];
-}
-
--(NSArray *) connectionsToRestoreOnUserActive
-{
-    return [[connectionsToRestoreOnUserActive retain] autorelease];
 }
 
 -(NSMutableArray *) largeAnimImages
@@ -6953,6 +7187,9 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer      *, statisticsWindowTimer,     setStatis
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
 TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
 TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedMainImage,      setHighlightedMainImage)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnUserActive, setConnectionsToRestoreOnUserActive)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnWakeup,     setConnectionsToRestoreOnWakeup)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
 TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedURL)
 
 // Event Handlers
