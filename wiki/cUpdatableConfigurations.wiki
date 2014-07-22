@@ -1,6 +1,8 @@
 #summary Updatable Tunnelblick VPN Configurations
 #sidebar cSb
 
+<wiki:toc max_depth="2" />
+
 ==Updatable Configurations==
 A Tunnelblick VPN Configuration ("Configuration") can be updated the same way that the Tunnelblick application itself is updated. Because a Configuration can contain any number of Configurations within it, you can have a single Configuration that updates all of your VPN configurations at once.
 
