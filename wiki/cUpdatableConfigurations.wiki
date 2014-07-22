@@ -184,7 +184,7 @@ Debugging updates is difficult partly because there are so many parts to the upd
 
  * A Console log entry like "DB-UC: Starting update check without UI for configuration 'com.example.config.001'; URL = https://example.com/config.001/appcast.rss" should appear when Tunnelblick launches. It indicates the start of a silent ("without UI" means "without user interface") update check.
 
- * A Console log entry like "DB-UC: cfgUpdater 0x8a377b0: didFinishLoadingAppcast" means that Sparkle successfully found the appcast for a configuration. If no error messages from Sparkle appear following this, it means that the version number in the appcast was not higher than the version number in the Configuration that is installed (i.e., the version number in the Info.plist in /Library/Application Support/Tunnelblick/Tblks/xxx.yyy.zzz.tblk).
+ * A Console log entry like "DB-UC: cfgUpdater 0x8a377b0: didFinishLoadingAppcast" means that Sparkle successfully found and downloaded the appcast for a configuration from the website. If no error messages from Sparkle appear following this, it means that the version number in the appcast was not higher than the version number in the Configuration that is installed (i.e., the version number in the Info.plist in /Library/Application Support/Tunnelblick/Tblks/xxx.yyy.zzz.tblk).
 
 ==More Information==
 For more information about the update process or these files, see the [http://sparkle-project.org Sparkle Updater website]. (Please note that Tunnelblick uses a customized version of Sparkle 1.5b6 so some features in newer versions of Sparkle may not be available.)
