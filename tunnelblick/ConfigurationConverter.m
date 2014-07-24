@@ -196,7 +196,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 			}
 		}
 		
-		if (  c == '#'  ) {
+		if (   (c == '#')
+			|| (c == ';')  ) {
 			inputIx--;		// Skip to, but not over, the next newline (if any)
 			do {
 				inputIx++;
@@ -763,6 +764,17 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     
     // Go through the folder that contains the config file, looking for more files to copy into the final .tblk
     NSString * container = [configPath stringByDeletingLastPathComponent];
+	
+	// If the config file is in Resources, and there is an Info.plist file in the folder that contains Resources (presumably Contents),
+	// then remember that path and copy it ino the final .tblk if we don't copy a different one from the same folder as the config file
+	NSString * infoPlistPath = nil;
+	if (  [[container lastPathComponent] isEqualToString: @"Resources"]  ) {
+		infoPlistPath = [[container stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
+		if (  ! [gFileMgr fileExistsAtPath: infoPlistPath]  ) {
+			infoPlistPath = nil;
+		}
+	}
+	
     dirEnum = [gFileMgr enumeratorAtPath: container];
 	BOOL isDir;
     while (  (file = [dirEnum nextObject])  ) {
@@ -799,6 +811,23 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 					   && ( ! isDir )  ) {
 				return [self logMessage: [NSString stringWithFormat: @"Unknown file type '%@' for %@", ext, fullPath]
 							  localized: [NSString stringWithFormat: NSLocalizedString(@"Unknown extension '%@' for %@", @"Window text"), ext, fullPath]];
+			}
+		}
+	}
+	
+	// If there is an Info.plist in Resources (one level up in the path), and there isn't an Info.plist from the same folder as the config file
+	// Then copy the one from Resources into the .tblk
+	if (  infoPlistPath  ) {
+		NSString * target = [[resourcesPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
+		if (   [filesAlreadyInTblk containsObject: @"Info.plist"]
+			|| [gFileMgr fileExistsAtPath: target]
+			) {
+			NSLog(@"Ignoring Info.plist in %@ because we have already copied the Info.plist in Resources", [[target stringByDeletingLastPathComponent] lastPathComponent]);
+		} else {
+			NSString * result = [self duplicateFileFrom: infoPlistPath toPath: target];
+			if (  result  ) {
+				return [self logMessage: [NSString stringWithFormat: @"The file in which the error occurred was %@", infoPlistPath] 
+							  localized: [NSString stringWithFormat: NSLocalizedString(@"There was a problem with\n\n%@:\n\n%@", @"Window text"), infoPlistPath, result]];
 			}
 		}
 	}

@@ -332,6 +332,7 @@ TBPROPERTY_READONLY(BOOL, menuIsOpen)
 TBPROPERTY_READONLY(NSMenu *,		myVPNMenu)
 TBPROPERTY_READONLY(NSMutableArray *, activeIPCheckThreads)
 TBPROPERTY_READONLY(NSMutableArray *, cancellingIPCheckThreads)
+TBPROPERTY_READONLY(ConfigurationMultiUpdater *, myConfigMultiUpdater)
 
 TBPROPERTY(NSArray *,      screenList,                setScreenList)
 TBPROPERTY(MainIconView *, ourMainIconView,           setOurMainIconView)

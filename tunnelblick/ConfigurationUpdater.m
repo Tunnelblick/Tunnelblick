@@ -214,7 +214,7 @@ TBSYNTHESIZE_NONOBJECT(         BOOL,        checkingWithUI, setCheckingWithUI)
     
     (void) bundle;
 	
-    TBLog(@"DB-UC", @"cfgUpdater 0x%lx: updaterShouldPromptForPermissionToCheckForUpdates", (unsigned long)self);
+    TBLog(@"DB-UC", @"updaterShouldPromptForPermissionToCheckForUpdates for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
     return NO;
 }
 
@@ -225,7 +225,7 @@ TBSYNTHESIZE_NONOBJECT(         BOOL,        checkingWithUI, setCheckingWithUI)
 	
     (void) updater;
 	
-    TBLog(@"DB-UC", @"cfgUpdater 0x%lx: updaterShouldRelaunchApplication", (unsigned long)self);
+    TBLog(@"DB-UC", @"updaterShouldRelaunchApplication for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
 	
     if (   gShuttingDownWorkspace
         || cancelling  ) {
@@ -248,7 +248,7 @@ didFinishLoadingAppcast: (SUAppcast *) appcast {
     (void) updater;
     (void) appcast;
     
-    TBLog(@"DB-UC", @"cfgUpdater 0x%lx: didFinishLoadingAppcast", (unsigned long)self);
+    TBLog(@"DB-UC", @"didFinishLoadingAppcast for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
 }
 
 -(void)    updater: (SUUpdater *)    updater
@@ -259,7 +259,7 @@ didFindValidUpdate:(SUAppcastItem *) update {
     (void) updater;
     (void) update;
     
-    TBLog(@"DB-UC", @"cfgUpdater 0x%lx: didFindValidUpdate", (unsigned long)self);
+    TBLog(@"DB-UC", @"didFindValidUpdate for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
 }
 
 -(void) updaterDidNotFindUpdate: (SUUpdater *) update {
@@ -268,7 +268,7 @@ didFindValidUpdate:(SUAppcastItem *) update {
     
     (void) update;
     
-    TBLog(@"DB-UC", @"cfgUpdater 0x%lx: updaterDidNotFindUpdate", (unsigned long)self);
+    TBLog(@"DB-UC", @"updaterDidNotFindUpdate for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
 }
 
 - (void)updater:(SUUpdater *)updater willInstallUpdate:(SUAppcastItem *)update {
@@ -276,14 +276,14 @@ didFindValidUpdate:(SUAppcastItem *) update {
 	(void) updater;
     (void) update;
 	
-    TBLog(@"DB-UC", @"cfgUpdater 0x%lx: willInstallUpdate", (unsigned long)self);
+    TBLog(@"DB-UC", @"willInstallUpdate for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
 }
 
 - (void)installerFinishedForHost:(SUHost *)host {
 	
 	(void) host;
 	
-    TBLog(@"DB-UC", @"cfgUpdater 0x%lx: installerFinishedForHost", (unsigned long)self);
+    TBLog(@"DB-UC", @"installerFinishedForHost for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
 }
 
 - (NSString *)pathToRelaunchForUpdater:(SUUpdater *)updater {
@@ -292,7 +292,7 @@ didFindValidUpdate:(SUAppcastItem *) update {
     
 	(void) updater;
 	
-    TBLog(@"DB-UC", @"cfgUpdater 0x%lx: pathToRelaunchForUpdater", (unsigned long)self);
+    TBLog(@"DB-UC", @"pathToRelaunchForUpdater for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
 	return nil;
 }
 
@@ -302,7 +302,7 @@ didFindValidUpdate:(SUAppcastItem *) update {
     
     (void) updater;
     
-    TBLog(@"DB-UC", @"cfgUpdater 0x%lx: updaterWillRelaunchApplication", (unsigned long)self);
+    TBLog(@"DB-UC", @"updaterWillRelaunchApplication for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
 }
 
 @end

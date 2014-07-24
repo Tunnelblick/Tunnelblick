@@ -2868,6 +2868,11 @@ BOOL anyNonTblkConfigs(void)
 		logScreen = (MyPrefsWindowController *)[[MyPrefsWindowController sharedPrefsWindowController] retain];
 	}
 	
+    NSUInteger flags = [[NSApp currentEvent] modifierFlags];
+    if (  flags & NSAlternateKeyMask  ) {
+        [[logScreen window] center];
+    }
+
 	[logScreen showWindow: nil];
 	[NSApp activateIgnoringOtherApps:YES];
 }
@@ -3242,7 +3247,7 @@ static void signal_handler(int signalNumber)
     // Install the updated configurations
 	[self application: NSApp openFiles: [NSArray arrayWithObject: path]];
 	
-	[myConfigMultiUpdater restartUpdatingUpdatableTblkAtPath: path];
+	[myConfigMultiUpdater restartUpdaterForTblkAtPath: path];
 }
 
 // Invoked when the user double-clicks on one or more .tblk packages or .ovpn or .conf files,
@@ -3289,12 +3294,19 @@ static void signal_handler(int signalNumber)
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
         if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]  ) {
             [updater setAutomaticallyChecksForUpdates: NO];
+			[myConfigMultiUpdater stopAllChecking];
         } else {
             BOOL userIsAdminOrNonAdminsCanUpdate = (   userIsAnAdmin
                                                     || ( ! [gTbDefaults boolForKey:@"onlyAdminCanUpdate"])  );
 			if (  userIsAdminOrNonAdminsCanUpdate  ) {
 				if (  [gTbDefaults preferenceExistsForKey: @"updateCheckAutomatically"]  ) {
-					[updater setAutomaticallyChecksForUpdates: [gTbDefaults boolForKey: @"updateCheckAutomatically"]];
+					BOOL startChecking = [gTbDefaults boolForKey: @"updateCheckAutomatically"];
+					[updater setAutomaticallyChecksForUpdates: startChecking];
+					if (  startChecking) {
+						[myConfigMultiUpdater startAllCheckingWithUI: NO];
+					} else {
+						[myConfigMultiUpdater stopAllChecking];
+					}
 				}
 			} else {
 				if (  [gTbDefaults boolForKey: @"updateCheckAutomatically"]  ) {
@@ -3305,7 +3317,7 @@ static void signal_handler(int signalNumber)
 		}
     } else {
         if (  [gTbDefaults preferenceExistsForKey: @"updateCheckAutomatically"]  ) {
-            NSLog(@"Automatic check for updates will not be performed because the updater does not respond to setAutomaticallyChecksForUpdates:");
+            NSLog(@"Automatic checks for updates will not be performed because the updater does not respond to setAutomaticallyChecksForUpdates:");
         }
 	}
 }
@@ -7167,10 +7179,11 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 TBSYNTHESIZE_NONOBJECT_GET(BOOL, menuIsOpen)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSStatusItem *, statusItem)
-TBSYNTHESIZE_OBJECT_GET(retain, NSMenu *,       myVPNMenu)
-TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, activeIPCheckThreads)
-TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, cancellingIPCheckThreads)
+TBSYNTHESIZE_OBJECT_GET(retain, NSStatusItem *,              statusItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenu *,                    myVPNMenu)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            activeIPCheckThreads)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            cancellingIPCheckThreads)
+TBSYNTHESIZE_OBJECT_GET(retain, ConfigurationMultiUpdater *, myConfigMultiUpdater)
 
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, screenList,                setScreenList)
 TBSYNTHESIZE_OBJECT(retain, MainIconView *, ourMainIconView,           setOurMainIconView)

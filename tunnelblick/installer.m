@@ -805,7 +805,6 @@ int main(int argc, char *argv[])
                 
                 // Delete shadow copy, too, if it exists
                 if (  [firstPartOfPath(firstPath) isEqualToString: gPrivatePath]  ) {
-                    appendLog([NSString stringWithFormat: @"DEBUG 005: firstPath prefix DID match:\n     %@\n     %@", firstPath, gPrivatePath]);
                     NSString * shadowCopyPath = [NSString stringWithFormat: @"%@/%@/%@",
                                                  L_AS_T_USERS,
                                                  NSUserName(),
@@ -819,8 +818,6 @@ int main(int argc, char *argv[])
                             appendLog([NSString stringWithFormat: @"removed %@", shadowCopyPath]);
                         }
                     }
-                } else {
-                    appendLog([NSString stringWithFormat: @"DEBUG 005: firstPath prefix DID NOT match:\n     %@\n     %@", firstPath, gPrivatePath]);
                 }
             }
         } else {

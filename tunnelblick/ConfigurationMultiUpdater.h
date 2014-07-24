@@ -27,6 +27,13 @@
 
 -(void) startAllCheckingWithUI: (BOOL) withUI;
 
--(void) restartUpdatingUpdatableTblkAtPath: (NSString *) path;
+-(void) stopAllChecking;
+
+-(void) restartUpdaterForTblkAtPath: (NSString *) path;
+
+-(void) addUpdaterForTblkAtPath: (NSString *) path
+               bundleIdentifier: (NSString *) bundleId;
+
+-(void) removeUpdaterForTblkWithBundleIdentifier: (NSString *) bundleId;
 
 @end

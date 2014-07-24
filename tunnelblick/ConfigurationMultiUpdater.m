@@ -137,7 +137,7 @@ extern void _CFBundleFlushBundleCaches(CFBundleRef bundle) __attribute__((weak_i
     }
 }
 
--(void) restartUpdatingUpdatableTblkAtPath: (NSString *) path {
+-(void) restartUpdaterForTblkAtPath: (NSString *) path {
     
     ConfigurationUpdater * configUpdater;
     NSEnumerator * e = [configUpdaters objectEnumerator];
@@ -186,6 +186,73 @@ extern void _CFBundleFlushBundleCaches(CFBundleRef bundle) __attribute__((weak_i
 	
 	NSLog(@"After restarting the updating, there is no entry in configurationMultiUpdater for %@", path);
     return;
+}
+
+-(void) stopAllChecking {
+	
+	ConfigurationUpdater * configUpdater;
+    NSEnumerator * e = [configUpdaters objectEnumerator];
+    while (  (configUpdater = [e nextObject])  ) {
+		[configUpdater stopChecking];
+    }
+}
+
+-(void) addUpdaterForTblkAtPath: (NSString *) path
+               bundleIdentifier: (NSString *) bundleId {
+	
+	// See if we already have a ConfigurationUpdater for this bundle ID
+	NSString * name = [bundleId stringByAppendingPathExtension: @"tblk"];
+	ConfigurationUpdater * configUpdater;
+    NSEnumerator * e = [configUpdaters objectEnumerator];
+    while (  (configUpdater = [e nextObject])  ) {
+		NSString * existingBundlePath = [configUpdater cfgBundlePath];
+		NSString * existingName = [existingBundlePath lastPathComponent];
+		if (  [existingName isEqualToString: name]  ) {
+            [configUpdater performSelector: @selector(startCheckingWithUI:) withObject: [NSNumber numberWithBool: NO] afterDelay: 5.0];
+			TBLog(@"DB-UC", @"addUpdatableTblkWithBundleId: Already have a ConfigurationUpdater for '%@', so scheduled it start checkinging for updates in 5 seconds", bundleId);
+			return;
+		}
+    }
+	
+	// Do not have a ConfigurationUpdater, so create one
+	configUpdater = [self addTblkAtPath: path];
+	[configUpdater performSelector: @selector(startCheckingWithUI:) withObject: [NSNumber numberWithBool: NO] afterDelay: 5.0];
+	TBLog(@"DB-UC", @"addUpdatableTblkWithBundleId: Created new ConfigurationUpdater for '%@' and scheduled it start checkinging for updates in 5 seconds", bundleId);
+}
+
+-(void) removeUpdaterForTblkWithBundleIdentifier: (NSString *) bundleId {
+	
+	NSString * name = [bundleId stringByAppendingPathExtension: @"tblk"];
+	NSUInteger ix;
+	for (  ix=0; ix<[configUpdaters count]; ix++  ) {
+		ConfigurationUpdater * configUpdater = [configUpdaters objectAtIndex: ix];
+		NSString * existingBundlePath = [configUpdater cfgBundlePath];
+		NSString * existingName = [existingBundlePath lastPathComponent];
+		if (  [existingName isEqualToString: name]  ) {
+			
+			[configUpdater stopChecking];
+			TBLog(@"DB-UC", @"removeUpdaterForTblkWithBundleIdentifier: Stopped checking for updates for '%@'", bundleId);
+            
+			[configUpdaters removeObjectAtIndex: ix];
+			TBLog(@"DB-UC", @"removeUpdaterForTblkWithBundleIdentifier: Removed '%@' from configUpdaters", bundleId);
+			
+			if (  [gFileMgr fileExistsAtPath: existingBundlePath]  ) {
+				if (  [gFileMgr tbRemoveFileAtPath: existingBundlePath handler: nil]  ) {
+					TBLog(@"DB-UC", @"removeUpdaterForTblkWithBundleIdentifier: Removed %@", existingBundlePath);
+				} else {
+					NSLog(@"Unable to remove %@", existingBundlePath);
+					return;
+				}
+			} else {
+				NSLog(@"removeUpdaterForTblkWithBundleIdentifier: Path does not exist: %@", existingBundlePath);
+			}
+			
+			TBLog(@"DB-UC", @"removeUpdaterForTblkWithBundleIdentifier: Removed ConfigurationUpdater for '%@'", bundleId);
+			return;
+		}
+    }
+	
+	TBLog(@"DB-UC", @"removeUpdaterForTblkWithBundleIdentifier: Cound not find ConfigurationUpdater for '%@'", bundleId);
 }
 
 @end

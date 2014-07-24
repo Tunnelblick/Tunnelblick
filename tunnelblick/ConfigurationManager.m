@@ -30,6 +30,7 @@
 #import "sharedRoutines.h"
 
 #import "ConfigurationConverter.h"
+#import "ConfigurationMultiUpdater.h"
 #import "ListingWindowController.h"
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
@@ -714,10 +715,24 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     // Returns TRUE if succeeded
     // Returns FALSE if failed, having already output an error message to the console log
     
-    unsigned firstArg = INSTALLER_DELETE;
+    // If it is a .tblk and has a SUFeedURL Info.plist entry, remember its CFBundleIdentifier (if it has one) for later
+    NSString * bundleId = nil;
+    if (  [targetPath hasSuffix: @".tblk"]  ) {
+        NSString * infoPlistPath = [[targetPath stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Info.plist"];
+        NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: infoPlistPath];
+        if (  [infoDict objectForKey: @"SUFeedURL"]  ) {
+            bundleId = [infoDict objectForKey: @"CFBundleIdentifier"];
+            if (   bundleId
+                && (! [[bundleId class] isSubclassOfClass: [NSString class]])  ) {
+                NSLog(@"Updatable .tblk at '%@' has Info.plist SUFeedURL and CFBundleIdentifier entries, but the CFBundleIdentifer '%@' is not a string, it is a '%@'", targetPath, bundleId, [bundleId class]);
+                bundleId = nil;
+            }
+        }
+    }
+    
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, nil];
     
-    [[NSApp delegate] runInstaller: firstArg extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil installTblksFirst: nil];
+    [[NSApp delegate] runInstaller: INSTALLER_DELETE extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil installTblksFirst: nil];
     
     if ( [gFileMgr fileExistsAtPath: targetPath]  ) {
         NSString * name = [[targetPath lastPathComponent] stringByDeletingPathExtension];
@@ -731,6 +746,34 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 	
     NSLog(@"Uninstalled configuration file %@", targetPath);
+    
+    if (  bundleId  ) {
+        
+          // Stop updating and remove the local user copy of the stub .tblk if this bundleId is actually updating or has a local user copy of the stub .tblk
+		[[[NSApp delegate] myConfigMultiUpdater] removeUpdaterForTblkWithBundleIdentifier: bundleId];
+		
+        // Delete the master copy of the stub .tblk if it exists
+        NSString * stubTblkPath = [[L_AS_T_TBLKS stringByAppendingPathComponent: bundleId] stringByAppendingPathExtension: @"tblk"];
+        if ( [gFileMgr fileExistsAtPath: stubTblkPath]  ) {
+            arguments = [NSArray arrayWithObjects: stubTblkPath, nil];
+            [[NSApp delegate] runInstaller: INSTALLER_DELETE extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil installTblksFirst: nil];
+            if (  [gFileMgr fileExistsAtPath: stubTblkPath]  ) {
+                NSString * name = [[targetPath lastPathComponent] stringByDeletingPathExtension];
+                NSLog(@"Could not delete \"stub\" .tblk %@", stubTblkPath);
+                if (  warn  ) {
+                    NSString * title = NSLocalizedString(@"Could Not Uninstall Configuration", @"Window title");
+                    NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details.", @"Window text"), name];
+                    TBShowAlertWindow(title, msg);
+                }
+                return FALSE;
+            } else {
+                TBLog(@"DB-UC", @"Deleted %@", stubTblkPath);
+            }
+        }
+        
+		NSLog(@"Uninstalled updatable master \"stub\" .tblk for %@", bundleId);
+    }
+    
     return TRUE;
 }
 
@@ -2233,11 +2276,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		NSArray * arguments = [NSArray arrayWithObjects: target, source, nil];
 		NSInteger installerResult = [[NSApp delegate] runInstaller: 0
 													extraArguments: arguments];
-		if (  installerResult != 0  ) {
+		if (  installerResult == 0  ) {
+            NSString * bundleId = [[target lastPathComponent] stringByDeletingPathExtension];
+			[[[NSApp delegate] myConfigMultiUpdater] addUpdaterForTblkAtPath: target bundleIdentifier: bundleId];
+            NSLog(@"Installed updatable master \"stub\" .tblk for %@", bundleId);
+        } else {
             nUpdateErrors++;
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to store updatable configuration stub at %@\n", @"Window text"), target]];
-			continue;
-		}
+        }
 	}
 	
 	// Construct and display a window with the results of the uninstalls/replacements/installs
