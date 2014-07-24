@@ -1552,6 +1552,27 @@ static BOOL firstTimeShowingWindow = TRUE;
         return;
     }
     
+    NSString * infoPlistPath = [[path stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Info.plist"];
+	NSString * fileName = [[[NSDictionary dictionaryWithContentsOfFile: infoPlistPath] objectForKey: @"CFBundleIdentifier"] stringByAppendingPathExtension: @"tblk"];
+	if (  fileName  ) {
+		BOOL isUpdatable = FALSE;
+		NSString * name;
+		NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
+		while (  (name = [dirEnum nextObject])  ) {
+			[dirEnum skipDescendents];
+			if (  [name isEqualToString: fileName]  ) {
+				isUpdatable = TRUE;
+				break;
+			}
+		}
+		if (  isUpdatable  ) {
+			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+							  NSLocalizedString(@"You cannot make a configuration shared if it is itself an updatable configuration.\n\n"
+                                                @"Note that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared.", @"Window text"));
+			return;
+		}
+	}
+    
     if (  ! [connection isDisconnected]  ) {
         NSString * msg = (  [path hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]
                           ? NSLocalizedString(@"You cannot make a configuration private unless it is disconnected.", @"Window text")
@@ -2693,7 +2714,13 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 	[self setupUpdatesCheckboxes];
 	[settingsSheetWindowController setupCheckIPAddressAfterConnectOnAdvancedCheckbox];
 	
-    [[NSApp delegate] changedCheckForBetaUpdatesSettings];
+    SUUpdater * updater = [[NSApp delegate] updater];
+    if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
+        [[NSApp delegate] setOurPreferencesFromSparkles]; // Sparkle may have changed it's preferences so we update ours
+ 		[[NSApp delegate] setupUpdaterAutomaticChecks];
+    } else {
+        NSLog(@"'Inhibit automatic update checking and IP address checking' change ignored because the updater does not respond to setAutomaticallyChecksForUpdates:");
+	}
 }
 
 

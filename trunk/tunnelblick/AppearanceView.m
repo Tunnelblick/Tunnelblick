@@ -22,6 +22,8 @@
 
 #import "AppearanceView.h"
 
+#import "helper.h"
+
 #import "MenuController.h"
 #import "NSFileManager+TB.h"
 
@@ -97,7 +99,11 @@ extern NSString       * gDeployPath;
     
     
     // Icon placement checkbox
-    [appearancePlaceIconNearSpotlightCheckbox setTitle: NSLocalizedString(@"Place next to Spotlight icon", @"Checkbox name")];
+	if (  runningOnMavericksOrNewer()  ) {
+		[appearancePlaceIconNearSpotlightCheckbox setTitle: NSLocalizedString(@"Place next to Spotlight icon (not available on Mavericks or Yosemite)", @"Checkbox name")];
+	} else {
+		[appearancePlaceIconNearSpotlightCheckbox setTitle: NSLocalizedString(@"Place next to Spotlight icon", @"Checkbox name")];
+	}
     
     
     // Menu checkboxes

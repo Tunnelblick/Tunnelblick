@@ -41,7 +41,8 @@
 
 -(NSString *) cfgBundlePath;
 
-TBPROPERTY_READONLY(BOOL, checking)
-TBPROPERTY_READONLY(BOOL, checkingWithUI)
+TBPROPERTY_READONLY(NSString *, cfgBundlePath)
+TBPROPERTY_READONLY(BOOL,       checking)
+TBPROPERTY_READONLY(BOOL,       checkingWithUI)
 
 @end

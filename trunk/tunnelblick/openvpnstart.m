@@ -1753,7 +1753,8 @@ NSArray * tokensFromConfigurationLine(NSString * line) {
 			}
 		}
 		
-		if (  c == '#'  ) {
+		if (   (c == '#')
+			|| (c == ';')  ) {
             if (  inToken  ) {
                 [tokens addObject: [line substringWithRange: tokenRange]];  // comment marks end of token but is not part of the token
                 inToken = FALSE;
