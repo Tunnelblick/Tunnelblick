@@ -17,7 +17,7 @@ To be updatable, a Configuration must contain an [cPkgs#Info.plist Info.plist], 
  * *CFBundleIdentifier*, a string containng a reverse-domain uniquely identifying the Configuration. For example, "com.example.tunnelblick.updatable-configurations.001".
  * *CFBundleVersion*, a string containing a version number consisting only of the digits 0-9 and periods. For example, "1.0", "1.3.1", etc.
  * *TBPackageVersion*, a string "1". (This is required in any Configuration Info.plist, whether or not it is updatable.)
- * *SUFeedURL*, a string with the URL for the "appcast" that gives information about updates to the Configuration. For example, "https`:``/``/`example.com`/`tunnelblick`/`configs`/`001`/`appcast`.`rss". If this is not an "https:" URL, the SUPublicDSAKeyFile entry and associated file are required. _*This is the entry which makes a Configuration updatable.*_
+ * *SUFeedURL*, a string with the URL for the "appcast" that gives information about updates to the Configuration. For example, "https`:``/``/`example.com`/`tunnelblick`/`configs`/`001`/`appcast`.`rss". If this is not an "https:" URL, the SUPublicDSAKeyFile entry and associated file are required.
 
 Optional Info.plist entries include those normally allowed in the Info.plist of a Configuration -- *TBReplaceIdentical*, *TBSharePackage*, etc.
 
