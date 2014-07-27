@@ -34,6 +34,25 @@ The other optional Info.plist entries for an updatable Configuration are all [ht
  * *SUShowReleaseNotes*: If present, must be a binary "YES".
 (Some of these "must be" restrictions may be relaxed in a later version of Tunnelblick.)
 
+==Nested Configurations==
+An updatable configuration should be constructed using "nested" configurations, that is, as VPN configurations inside the updatable configuration. A typical updatable configuration might have a structure like this:
+ * Updatable.tblk
+  * Info.plist
+  * dsa_pub.pem
+  * Config1.tblk
+   * Info.plist
+   * NameForConfig1.ovpn
+   * client.crt
+   * client.key
+   * _(other files such as CA certificates, scripts, etc.)_
+  * Config2.tblk
+   * Info.plist
+   * NameForConfig1.ovpn
+   * client.crt
+   * client.key
+   * _(other files such as CA certificates, scripts, etc.)_
+
+
 ==The Update Server==
 The update mechanism uses a web server to provide update information. Minimally, that web server serves the following files:
  * The appcast: An XML file which contains information about available updates.
@@ -172,8 +191,15 @@ For more information on digitally signing the update, see the [http://sparkle-pr
 
 ==Debugging Configuration Updates==
 Debugging updates is difficult partly because there are so many parts to the update and partly because Sparkle's error messages don't usually say what is wrong. Here are some hints:
+
+ * First, make sure that your initial configuration installs correctly by double-clicking it, then make sure that your updated configuration installs properly by double-clicking it. Because the update process simulates a double-click on the update, these installs must work before updates will work. Making sure that the initial and update configurations work as configurations themselves, before trying to use them as updatable configurations will help isolate problems. 
+
  * Copy/paste the following command into Terminal to set a Tunnelblick preference which will add debugging info to the Console log:
   _defaults write net.tunnelblick.tunnelblick DB-UC -bool yes_
+ To remove the preference, copy/paste:
+  _defaults delete net.tunnelblick.tunnelblick DB-UC_
+ The debugging information includes a lot of entries that are about the internal procedures that Tunnelblick uses to implement updatable configurations; most of these can be ignored.
+ 
  * Use the "Check Now" button on the "Preferences" panel of the "VPN Details…" window to test for updates. Although Tunnelblick will check for updates when it is launched, when doing that update check Sparkle will ignore errors and not complain about them. If you do a "Check Now" check, you will get either a window saying the item is up-to-date, an offer of an update, or an indication that an error occurred. Note: "Check Now" will first do a check for updates to the Tunnelblick application, and after you click "OK" to acknowledge that you have received that, it will check for configuration updates.
 
  * After you have installed a Configuration which is updatable, there should be a folder in /Library/Application Support/Tunnelblick/Tblks named "xxx.yyy.zzz.tblk", where "xxx.yyy.zzz" is the CFBundleIdentifier for the updatable .tblk. That folder is a "stub" .tblk and contains only a Contents folder which contains a copy of the Info.plist for the updatable .tblk, and (if a DSA signature file was specified with *SUPublicDSAKeyFile*), a "Resources" folder with the DSA signature file. If the xxx.yyy.zzz.tblk folder is not present, Tunnelblick did not recognize that the configuration was updatable.
