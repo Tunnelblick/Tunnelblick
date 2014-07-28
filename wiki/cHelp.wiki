@@ -13,7 +13,7 @@
   * This is the place to find both general information about Tunnelblick and specific reference material about how to set up Tunnelblick configurations.
   * Tunnelblick's documentation is is *_not_* the place for information about *OpenVPN* or *OpenVPN configurations*.
 
- * *OpenVPN's documentation and support:*
+ * *OpenVPN documentation and support:*
 <table width="100%">
 <tr><td width="20%"></td><td>[https://community.openvpn.net/openvpn/wiki/FAQ OpenVPN FAQ]</td></tr>
 <tr><td width="20%"></td><td>[http://openvpn.net/index.php/open-source/documentation/howto.html OpenVPN HOWTO]</td></tr>
