@@ -402,13 +402,13 @@ int main(int argc, char *argv[])
     
     if (  copyApp  ) {
         NSString * currentPath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
-        NSString * targetPath = [@"/Applications" stringByAppendingPathComponent: [ourAppName stringByAppendingPathExtension: @"app"]];
+        NSString * targetPath  = @"/Applications/Tunnelblick.app";
         if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
             errorExitIfAnySymlinkInPath(targetPath, 1);
             if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
                                                                source: @"/Applications"
                                                           destination: @""
-                                                                files: [NSArray arrayWithObject: [ourAppName stringByAppendingPathExtension: @"app"]]
+                                                                files: [NSArray arrayWithObject: @"Tunnelblick.app"]
                                                                   tag: nil]  ) {
                 appendLog([NSString stringWithFormat: @"Moved %@ to the Trash", targetPath]);
             } else {
