@@ -5200,11 +5200,11 @@ BOOL warnAboutNonTblks(void)
         [self warnIfInvalidOrNoSignatureAllowCheckbox: YES];
         return;
 #endif
-        if (  [[currentPath stringByDeletingLastPathComponent] isEqualToString: @"/Applications"]  ) {
+        if (  [currentPath isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
 			[self warnIfInvalidOrNoSignatureAllowCheckbox: YES];
             return;
         } else {
-            NSLog(@"Tunnelblick can only run when it is in /Applications; path = %@.", currentPath);
+            NSLog(@"Tunnelblick can only run when it is /Applications/Tunnelblick.app; path = %@.", currentPath);
         }
     } else {
         NSLog(@"Tunnelblick cannot run when it is on /%@ because the volume has the MNT_NOSUID statfs flag set.", [[currentPath pathComponents] objectAtIndex: 1]);
@@ -5539,7 +5539,7 @@ BOOL warnAboutNonTblks(void)
             msg = [[message mutableCopy] autorelease];
         } else {
             msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text")];
-            if (    installFlags & INSTALLER_COPY_APP              ) [msg appendString: NSLocalizedString(@"  • Be installed in /Applications\n", @"Window text")];
+            if (    installFlags & INSTALLER_COPY_APP              ) [msg appendString: NSLocalizedString(@"  • Be installed in /Applications as Tunnelblick\n", @"Window text")];
             if (    installFlags & INSTALLER_SECURE_APP            ) [msg appendString: NSLocalizedString(@"  • Change ownership and permissions of the program to secure it\n", @"Window text")];
             if (    installFlags & INSTALLER_MOVE_LIBRARY_OPENVPN  ) [msg appendString: NSLocalizedString(@"  • Move the private configurations folder\n", @"Window text")];
             if (    tblksToInstallFirst                            ) [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n", @"Window text")];
