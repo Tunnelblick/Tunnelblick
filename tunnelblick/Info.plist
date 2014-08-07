@@ -68,7 +68,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.4beta33 (build TBBUILDNUMBER)</string>
+	<string>3.4beta35 (build TBBUILDNUMBER)</string>
 	<key>CFBundleSignature</key>
 	<string>OVPN</string>
 	<key>CFBundleVersion</key>
