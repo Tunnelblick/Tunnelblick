@@ -9,6 +9,27 @@
 
 ==Version 3.4==
 
+*3.4beta34 build 3935 (2014-08-07)*
+
+ * *<font color="red">SECURITY UPDATE:</font>* Updates Tunnelblick's embedded OpenSSL to version 1.0.1i from version 1.0.1h. See [https://www.openssl.org/news/secadv_20140806.txt https://www.openssl.org/news/secadv_20140806.txt] and [https://community.openvpn.net/openvpn/wiki/VulnerabilitiesFixedInOpenSSL1.0.1i https://community.openvpn.net/openvpn/wiki/VulnerabilitiesFixedInOpenSSL1.0.1i] for details.
+
+ * Includes better handling of computer sleep/wake and fast user switching.
+
+ * Holding down the 'Option' key while triple-clicking the Tunnelblick icon opens the 'VPN Details...' window centered on the display.
+ 
+ * Includes a new key, 'TBKeepExistingFilesList', for updatable configurations.
+
+ * Fixes a problem which caused the Info.plist in certain Tunnelblick VPN Configurations to be ignored while installing the Configuration.
+
+ * Fixes a problem that caused Tunnelblick to not recognize a semicolon (';') character as the start of a comment in an OpenVPN configuration file.
+
+ * Fixes a problem that mistakenly allowed Tunnelblick to run and generate errors if it was in /Applications but its name was not Tunnelblick.app.
+
+ * Fixes several problems with updatable configurations.
+
+
+--------------------
+
 *3.4beta32 build 3904 (2014-07-17)*
 
  * Adds the ability to have Tunnelblick VPN Configurations updated the same way that Tunnelblick is updated. See [cUpdatableConfigurations Updatable Configurations] for details.

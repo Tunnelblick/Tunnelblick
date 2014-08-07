@@ -36,22 +36,23 @@ The other optional Info.plist entries for an updatable Configuration are all [ht
 
 ==Nested Configurations==
 An updatable configuration should be constructed using "nested" configurations, that is, as VPN configurations inside the updatable configuration. A typical updatable configuration might have a structure like this:
- * Updatable.tblk
+ * _Name for the updatable configuration_.tblk
   * Info.plist
-  * dsa_pub.pem
-  * Config1.tblk
+  * dsa_pub.pem _(recommended; not required)_
+  * _Name for VPN configuration #1_.tblk
    * Info.plist
-   * NameForConfig1.ovpn
+   * _This name is ignored_.ovpn _-- the OpenVPN configuration file for VPN configuration #1_
    * client.crt
    * client.key
    * _(other files such as CA certificates, scripts, etc.)_
-  * Config2.tblk
+  * _Name for VPN configuration #2_.tblk
    * Info.plist
-   * NameForConfig1.ovpn
+   * _This name is ignored, too_.ovpn _-- the OpenVPN configuration file for VPN configuration #2_
    * client.crt
    * client.key
    * _(other files such as CA certificates, scripts, etc.)_
 
+The Info.plist of the nested configurations must include a CFBundleIdentifier which is distinct from the CFBundleIdentifier for the outer configuration, and must also include a CFBundleVersion entry, along with a TBPackageVersion entry.
 
 ==The Update Server==
 The update mechanism uses a web server to provide update information. Minimally, that web server serves the following files:
