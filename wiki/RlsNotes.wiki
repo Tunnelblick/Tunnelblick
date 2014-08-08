@@ -15,6 +15,8 @@
 
  * Includes better handling of computer sleep/wake and fast user switching.
 
+ * Removes OpenVPN version 2.2.3, leaving 2.2.1 and 2.3.4.
+
  * Holding down the 'Option' key while triple-clicking the Tunnelblick icon opens the 'VPN Details...' window centered on the display.
  
  * Includes a new key, 'TBKeepExistingFilesList', for updatable configurations.
