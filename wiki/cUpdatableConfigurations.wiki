@@ -86,7 +86,6 @@ Here is a sample appcast.rss:
 				sparkle:version="1.2.3"
 				sparkle:shortVersionString="VPN Configurations 1.2.3"
 				sparkle:dsaSignature="MCwCFE6twQrvEOeFyXLMCJsClV2tM7RGAhQ53VjexE4Gf0SSswNUSMkg3UeXZg=="
-				length="1234"
 				type="application/octet-stream"
 			/>
 		</item>
@@ -127,10 +126,6 @@ Notes on the appcast entries:
 *_sparkle:dsaSignature="MCwCFE6twQrvEOeFyXLMCJsClV2tM7RGAhQ53VjexE4Gf0SSswNUSMkg3UeXZg=="_*
 
  The DSA signature of the update file. (The signature of the .zip or .dmg file.)
-
-*_length="1234"_*
-
- The length in bytes of the update file -- the .dmg or .zip. Use "stat -f %z configurations.zip" to get the length.
 
 ==Update Notes==
 The update notes are just an HTML file that is presented to the user when an update is available.
