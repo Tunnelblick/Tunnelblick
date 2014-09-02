@@ -5,6 +5,15 @@
 
 --------------------
 
+2014-09-02: *Tunnelblick 3.4beta36 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Fixes a problem on OS X 10.9.5 ('Mavericks') and 10.10 ('Yosemite') that causes spurious warnings that 'This version has been tampered with'.
+
+ * Re-enables the 'Place icon next to Spotlight icon' checkbox on OS X 10.9 ('Mavericks') and higher.
+
+
+--------------------
+
 2014-08-07: *Tunnelblick 3.4beta34 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Updates Tunnelblick's embedded OpenSSL to version 1.0.1i from version 1.0.1h. See [https://www.openssl.org/news/secadv_20140806.txt https://www.openssl.org/news/secadv_20140806.txt] and [https://community.openvpn.net/openvpn/wiki/VulnerabilitiesFixedInOpenSSL1.0.1i https://community.openvpn.net/openvpn/wiki/VulnerabilitiesFixedInOpenSSL1.0.1i] for details.
