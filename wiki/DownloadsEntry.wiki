@@ -17,7 +17,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
  For use on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "Mountain Lion"), Intel or PowerPC, 32- or 64-bit.<br /> *<font color="red">DO NOT use on OS X 10.9 or 10.10 ("Mavericks" or "Yosemite")</font>* -- use the latest [#Tunnelblick_Beta_Release Beta Release].
 
  <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.3.4.dmg/download Tunnelblick 3.3.4]</strong></font> `[`sourceforge.net`]` (build 3518.3872) released 2014-06-12 [RlsNotes#Version_3.3 Release Notes] [DocumentationForTunnelblick_3_3  What's New in 3.3]<br />
- _*SHA1*_: 2c4472c58af7d32b831c9299688d0bad5906e1c2 _*MD5*_: 7fef70caa8b0ca9eed456ba6d253e630 _*(See [#Verifying_Downloads Verifying Downloads])*_
+ _*SHA1*_: 2c4472c58af7d32b831c9299688d0bad5906e1c2 _*MD5*_: 7fef70caa8b0ca9eed456ba6d253e630 _*(See [DownloadEntry#Verifying_Downloads Verifying Downloads])*_
  
  NOTE: This version will refuse to install or launch on a computer that has ever had a "[cCusDeployed Deployed]" version installed unless that version has been completely [cInstall#Uninstalling_Tunnelblick uninstalled]. Uninstalling will delete all Tunnelblick VPNs from your system. To update a "[cCusDeployed Deployed]" version, you must obtain a new version from the person or organization that provided you with your original "[cCusDeployed Deployed]" version. The Tunnelblick project does <em>not</em> provide "[cCusDeployed Deployed]" versions. The latest version of Tunnelblick that may be used as a "Deployed" version without being rebranded is 3.3beta21b (Unsigned). It may be found on the [SecurityRiskDownloads Security Risk Downloads] page.
 
