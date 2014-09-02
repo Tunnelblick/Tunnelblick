@@ -15,9 +15,9 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
  ==Deprecated Versions of Tunnelblick==
 <hr />
  <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta34_r2935.dmg/download Tunnelblick 3.4beta34]</strong></font> `[`sourceforge.net`]` (build 3905) released 2014-08-07
-  _*SHA1*_: fbcdd75a38753de6c08e083b8926ac864d9aa0ae _*MD5*_: 2b7c6e3004200e4826d726e44e24c6f4 _*(See [DownloadEntry#Verifying_Downloads Verifying Downloads])*_<br />
+  _*SHA1*_: fbcdd75a38753de6c08e083b8926ac864d9aa0ae _*MD5*_: 2b7c6e3004200e4826d726e44e24c6f4 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_<br />
  <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta32_r2904.dmg/download Tunnelblick 3.4beta32]</strong></font> `[`sourceforge.net`]` (build 3904) released 2014-07-17
-  _*SHA1*_: 9e67cba861028570db98aa93b4cd05c7f9bf8bed _*MD5*_: 05e346e9f3ce65453cf3eb340b791b32 _*(See [DownloadEntry#Verifying_Downloads Verifying Downloads])*_
+  _*SHA1*_: 9e67cba861028570db98aa93b4cd05c7f9bf8bed _*MD5*_: 05e346e9f3ce65453cf3eb340b791b32 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
  <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta30.dmg/download Tunnelblick 3.4beta30]</strong></font> `[`sourceforge.net`]` (build 3893) released 2014-07-08<br />
  <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta28.dmg/download Tunnelblick 3.4beta28]</strong></font> `[`sourceforge.net`]` (build 3872) released 2014-06-12
  
