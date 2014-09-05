@@ -99,12 +99,7 @@ extern NSString       * gDeployPath;
     
     
     // Icon placement checkbox
-	if (  runningOnMavericksOrNewer()  ) {
-		[appearancePlaceIconNearSpotlightCheckbox setTitle: NSLocalizedString(@"Place next to Spotlight icon (not available on Mavericks or Yosemite)", @"Checkbox name")];
-	} else {
-		[appearancePlaceIconNearSpotlightCheckbox setTitle: NSLocalizedString(@"Place next to Spotlight icon", @"Checkbox name")];
-	}
-    
+    [appearancePlaceIconNearSpotlightCheckbox setTitle: NSLocalizedString(@"Place next to Spotlight icon", @"Checkbox name")];
     
     // Menu checkboxes
     [appearanceMenuTFC setTitle: NSLocalizedString(@"Menu:", @"Window text")];
