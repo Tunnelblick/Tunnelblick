@@ -1837,7 +1837,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
     
     // Remove .conf files from the list if the corresponding .ovpn file is on the list
-    NSEnumerator * e = [ovpnAndConfInnerFilePartialPaths objectEnumerator];
+	NSArray * partialPathsImmutable = [NSArray arrayWithArray: ovpnAndConfInnerFilePartialPaths];
+    NSEnumerator * e = [partialPathsImmutable objectEnumerator];
     while (  (innerFilePartialPath = [e nextObject])  ) {
         NSString * withoutExt = [innerFilePartialPath stringByDeletingPathExtension];
         NSString * ovpnFilePath = [withoutExt stringByAppendingPathExtension: @"ovpn"];
