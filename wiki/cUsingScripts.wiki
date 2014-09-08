@@ -26,6 +26,8 @@ Tunnelblick VPN Configuration scripts are shell scripts that are run by Tunnelbl
    * *reconnecting.sh* is executed when OpenVPN loses the VPN connection and is trying to reconnect.
    * *post-disconnect.sh* is executed after OpenVPN has closed the connection.
 
+The scripts will be executed automatically if they are included in the Tunnelblick VPN Configuration (".tblk").
+
 ==OpenVPN scripts==
 OpenVPN scripts are scripts run by OpenVPN directly.
 
