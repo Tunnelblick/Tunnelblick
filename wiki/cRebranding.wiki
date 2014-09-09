@@ -19,7 +19,7 @@ Next, edit Info.plist:
  * Change CFBundleIdentifier to something that doesn't include "net.tunnelblick" -- something like "com.YOUR_COMPANY_NAME.NEWPROJECTNAME.deployed-application"
  * Change SUFeedURL to something that doesn't include "tunnelblick.net". It should be the URL for an "appcast.rss" used by the Sparkle updater module of Tunnelblick to check for available updates. See the [http://sparkle.andymatuschak.org Sparkle] documentation for details on the contents of "appacast.rss". (If you override this setting with a forced-preference for "updateURL", that URL cannot contain "tunnelblick.net" either.)
 
-Finally, edit the source code as follows:
+Next, edit the source code as follows:
 
 Start Xcode 3.2.2 on Snow Leopard by double-clicking Tunnelblick.xcodeproj
 
@@ -66,6 +66,32 @@ Double-click NEWPROJECTNAME.xcodeproj
  (wait for it to finish)<br>
  Quit Xcode, saving all changes (it is important to quit the PROGRAM completely, not just close all the  windows).
 
+When rebranding Tunnelblick build 3957 and higher, also change the bundle identifier globally:
+
+ Double-click NEWPROJECTNAME.xcodeproj
+
+  In left pane, collapse and highlight Classes, Other Sources, and Resources
+
+  Edit | Find | Find in Project (opens "Project Find" window)
+
+  Find:    net.tunnelblick.tunnelblick<br>
+  Replace: YOUR_OWN_BUNDLE_IDENTIFIER _(such as "com.example.mac-vpn-client")_<br>
+  In Selected Project Items<br>
+  Textual<br>
+  Contains<br>
+  Un-check Ignore case<br>
+  Click "Find"
+
+  (wait, it should get 6107 occurrences (for build 3297))<br>
+  Click "Replace"
+
+  Do you really want to replace 6107 (of 6107)…<br>
+  Click "Replace"
+
+  (wait for it to finish)<br>
+  Quit Xcode, saving all changes (it is important to quit the PROGRAM completely, not just close all the  windows).
+
+Finally, if you are not signing the application yourself, after you have built the rebranded application, copy "tun-signed.kext" and "tap-signed.kext" from the latest beta version of Tunnelblick into your application's "Contents/Resources" folder.
 ------------------
 
 ===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
