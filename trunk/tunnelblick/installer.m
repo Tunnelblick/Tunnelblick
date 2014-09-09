@@ -71,7 +71,8 @@
 //          and replaces it with a symlink to the new location.
 //      (3) If INSTALLER_CONVERT_NON_TBLKS, all private .ovpn or .conf files are converted to .tblks
 //      (4) If INSTALLER_COPY_APP, this app is copied to /Applications
-//      (5) (REMOVED)
+//      (5) Renames /Library/LaunchDaemons/net.tunnelblick.startup.*
+//               to                        net.tunnelblick.tunnelblick.startup.*
 //      (6) If INSTALLER_SECURE_APP, secures Tunnelblick.app by setting the ownership and permissions of its components.
 //      (7) (Removed)
 //      (8) If INSTALLER_SECURE_TBLKS, secures all .tblk packages in the following folders:
@@ -426,7 +427,29 @@ int main(int argc, char *argv[])
     }
     
     //**************************************************************************************************************************
-    // (5) (REMOVED)
+    //      (5) Renames /Library/LaunchDaemons/net.tunnelblick.startup.*
+    //               to                        net.tunnelblick.tunnelblick.startup.*
+    
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: @"/Library/LaunchDaemons"];
+    NSString * file;
+    NSString * oldPrefix = @"net.tunnelblick.startup.";
+    NSString * newPrefix = @"net.tunnelblick.tunnelblick.startup.";
+    while (  (file = [dirEnum nextObject])  ) {
+        [dirEnum skipDescendents];
+        if (  [file hasPrefix:  oldPrefix]) {
+            NSString * newFile = [newPrefix stringByAppendingString: [file substringFromIndex: [oldPrefix length]]];
+            NSString * newPath = [@"/Library/LaunchDaemons" stringByAppendingPathComponent: newFile];
+            NSString * oldPath = [@"/Library/LaunchDaemons" stringByAppendingPathComponent: file];
+            if (  0 == rename([oldPath fileSystemRepresentation], [newPath fileSystemRepresentation])  ) {
+                appendLog([NSString stringWithFormat: @"Renamed %@ to %@", oldPath, newFile]);
+            } else {
+                appendLog([NSString stringWithFormat: @"Unable to rename %@ to %@; error = '%s' (%ld)",
+                           oldPath, newFile, strerror(errno), (long)errno]);
+                errorExit();
+            }
+            
+        }
+    }
     
     //**************************************************************************************************************************
     // (6)
@@ -457,7 +480,8 @@ int main(int argc, char *argv[])
         NSString *pncPlistPath              = [appResourcesPath stringByAppendingPathComponent:@"ProcessNetworkChanges.plist"                    ];
         NSString *leasewatchPlistPath       = [appResourcesPath stringByAppendingPathComponent:@"LeaseWatch.plist"                               ];
         NSString *leasewatch3PlistPath      = [appResourcesPath stringByAppendingPathComponent:@"LeaseWatch3.plist"                              ];
-		NSString *launchAtLoginPlistPath    = [appResourcesPath stringByAppendingPathComponent:@"net.tunnelblick.tunnelblick.LaunchAtLogin.plist"];
+        // The name of our LaunchAtLogin.plist file does not change when rebranded
+		NSString *launchAtLoginPlistPath    = [appResourcesPath stringByAppendingPathComponent:@"net.tunnelblick.tunnel" @"blick.LaunchAtLogin.plist"];
 		NSString *launchAtLoginScriptPath   = [appResourcesPath stringByAppendingPathComponent:@"launchAtLogin.sh"                               ];
         NSString *clientUpPath              = [appResourcesPath stringByAppendingPathComponent:@"client.up.osx.sh"                               ];
         NSString *clientDownPath            = [appResourcesPath stringByAppendingPathComponent:@"client.down.osx.sh"                             ];

@@ -446,7 +446,8 @@ extern TBUserDefaults * gTbDefaults;
 #ifdef TBDebug
 	NSLog(@"DEBUG VERSION DOES NOT UPDATE LaunchAtLogin.plist.");
 #else
-    NSString * ourPlistPath = @"/Applications/Tunnelblick.app/Contents/Resources/net.tunnelblick.tunnelblick.LaunchAtLogin.plist";
+    // The name of the LaunchAtLogin.plist file in Resources does not change when rebranded
+    NSString * ourPlistPath = @"/Applications/Tunnelblick.app/Contents/Resources/net.tunnelblick.tunnel" @"blick.LaunchAtLogin.plist";
     NSString * launchAgentsPath = [[NSHomeDirectory() stringByAppendingPathComponent: @"Library"]
 								   stringByAppendingPathComponent: @"LaunchAgents"];
 	NSString * installedPlistPath = [launchAgentsPath stringByAppendingPathComponent: @"net.tunnelblick.tunnelblick.LaunchAtLogin.plist"];
