@@ -482,7 +482,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(BOOL) hasLaunchDaemon
 {
-    NSString * daemonPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/net.tunnelblick.startup.%@.plist", encodeSlashesAndPeriods([self displayName])];
+    NSString * daemonPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/net.tunnelblick.tunnelblick.startup.%@.plist", encodeSlashesAndPeriods([self displayName])];
     return [gFileMgr fileExistsAtPath: daemonPath];
 }
 
@@ -544,7 +544,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     // Encode slashes and periods in the displayName so the result can act as a single component in a file name
     NSMutableString * daemonNameWithoutSlashes = encodeSlashesAndPeriods([self displayName]);
     
-    NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.startup.%@", daemonNameWithoutSlashes];
+    NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.tunnelblick.startup.%@", daemonNameWithoutSlashes];
     
     NSString * plistPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/%@.plist", daemonLabel];
     
@@ -566,7 +566,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     // Encode slashes and periods in the displayName so the result can act as a single component in a file name
     NSMutableString * daemonNameWithoutSlashes = encodeSlashesAndPeriods([self displayName]);
     
-    NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.startup.%@", daemonNameWithoutSlashes];
+    NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.tunnelblick.startup.%@", daemonNameWithoutSlashes];
     
     NSString * plistPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/%@.plist", daemonLabel];
 

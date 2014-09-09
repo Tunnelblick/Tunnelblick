@@ -10,12 +10,15 @@
 #
 # This script does everything to uninstall Tunnelblick or a rebranded version of Tunnelblick:
 #
+#    (Uses the appropriate CFBundleIdentifier if it is not net.tunnelblick.tunnelblick)
+#
 #    1. Removes the following files and folders:
 #          /Applications/Tunnelblick.app (or other copy of Tunnelblick)
 #          /Library/Application Support/Tunnelblick
 #          /Library/Logs/CrashReporter/Tunnelblick_*.crash
 #          /Library/Logs/CrashReporter/openvpnstart_*.crash
-#		   /Library/LaunchDaemons/net.tunnelblick.startup.*
+#		   /Library/LaunchDaemons/net.tunnelblick.startup.* (ONLY IF uninstalling a NON-REBRANDED version of Tunnelblick)
+#		   /Library/LaunchDaemons/net.tunnelblick.tunnelblick.startup.*
 #
 #    2. Removes the following for each user:
 #          Login items
@@ -29,7 +32,6 @@
 #		   ~/Library/Logs/CrashReporter/Tunnelblick_*.crash
 #		   ~/Library/Logs/CrashReporter/openvpnstart_*.crash
 #
-#      (Uses the appropriate CFBundleIdentifier if it is not net.tunnelblick.tunnelblick)
 #
 # For a usage message, run this script with no arguments.
 #
@@ -605,9 +607,21 @@ uninstall_tb_remove_item_at_path  "/Library/Application Support/${uninstall_tb_a
 fi
 
 # Remove Tunnelblick LaunchDaemons
-for path in `ls /Library/LaunchDaemons/net.tunnelblick.startup.* 2> /dev/null` ; do
-  uninstall_tb_remove_item_at_path "${path}"
-done
+# Special-case old LaunchDaemons that use net.tunnelblick.startup as the prefix when removing a NON-REBRANDED Tunnelblick
+# (Create tbBundleId variable so it does _not_ get changed by rebranding
+tempTbBundleId="net.tunnelblick"
+tempTbBundleId="${tbBundleId}.tunnelblick"
+if [ "${uninstall_tb_bundle_identifier}" == "${tempTbBundleId}" ] ; then
+  for path in `ls /Library/LaunchDaemons/net.tunnelblick.startup.* 2> /dev/null` ; do
+    uninstall_tb_remove_item_at_path "${path}"
+  done
+fi
+# Remove new LaunchDaemons that use the (possibly rebranded) CFBundleIdentifier as the prefix
+if [ "${uninstall_tb_bundle_identifier}" != "" ] ; then
+  for path in `ls /Library/LaunchDaemons/${uninstall_tb_bundle_identifier}".startup.* 2> /dev/null` ; do
+    uninstall_tb_remove_item_at_path "${path}"
+  done
+fi
 
 # Remove the installer log
 uninstall_tb_remove_item_at_path  "/tmp/tunnelblick-installer-log.txt"

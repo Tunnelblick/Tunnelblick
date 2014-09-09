@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
     [sanitizedDaemonName replaceOccurrencesOfString: @"." withString: @"-D" options: 0 range: NSMakeRange(0, [sanitizedDaemonName length])];
     [sanitizedDaemonName replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [sanitizedDaemonName length])];
     
-    NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.startup.%@", sanitizedDaemonName];
+    NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.tunnelblick.startup.%@", sanitizedDaemonName];
     
     NSString * plistPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/%@.plist", daemonLabel];
     
