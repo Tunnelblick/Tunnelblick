@@ -721,6 +721,7 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
             // Files within L_AS_T_TBLKS are visible to all users (even if they are in a .tblk)
             } else if (   [file isEqualToString:@"forced-preferences.plist"]
                        || [filePath hasPrefix: [L_AS_T_TBLKS  stringByAppendingString: @"/"]]
+                       || [filePath hasPrefix: [gDeployPath stringByAppendingPathComponent: @"Welcome"]]
                        ) {
 				result = result && checkSetPermissions(filePath, forcedPrefsPerms, YES);
                 

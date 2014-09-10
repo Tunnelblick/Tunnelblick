@@ -5826,6 +5826,7 @@ BOOL needToSecureFolderAtPath(NSString * path)
             // Files within L_AS_T_TBLKS are visible to all users (even if they are in a .tblk)
             } else if (   [file isEqualToString:@"forced-preferences.plist"]
                        || [filePath hasPrefix: [L_AS_T_TBLKS stringByAppendingString: @"/"]]
+                       || [filePath hasPrefix: [gDeployPath stringByAppendingPathComponent: @"Welcome"]]
                        ) {
                 if (  ! checkOwnerAndPermissions(filePath, user, group, forcedPrefsPerms)  ) {
                     return YES;
