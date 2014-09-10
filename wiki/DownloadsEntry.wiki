@@ -44,7 +44,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.4.dmg/download Tunnelblick Uninstaller 1.4]</strong></font> `[`sourceforge.net`]` released 2014-09-10<br />
  _*SHA1*_: 29345ed4cc8a95953f10e59759fec7fc0aa57af6 _*MD5*_: 95c6104cf4dac5bf38075fe8d8d8bdca _*(See [#Verifying_Downloads Verifying Downloads])*_
-  * Removes the new entries in/Library/!LaunchDaemons made by Tunnelblick 3.4beta37 (build 2957) and higher
+  * Removes the new entries in /Library/!LaunchDaemons made by Tunnelblick 3.4beta37 (build 2957) and higher
 
 </td></tr></tbody></table>
 
