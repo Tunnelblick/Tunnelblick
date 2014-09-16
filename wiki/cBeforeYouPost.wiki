@@ -2,6 +2,7 @@
 #sidebar cSb
 
 ==Before You Post to the Tunnelblick Discussion Group==
+<hr>
 
 *If you <font color="red">are a member</font> of this group, your first post must be approved* by a moderator before it will appear.
 
