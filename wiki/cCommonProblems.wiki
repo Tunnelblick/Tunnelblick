@@ -90,6 +90,8 @@ To find out if this is what is causing the problem, use the "kextstat" command i
   * com.cisco.cscotun: This is Cisco !AnyConnect SSL VPN kext. Cisco's installer causes it to be loaded when the computer starts.
   * com.viscosityvpn.Viscosity.tun and com.viscosityvpn.Viscosity.tap: These are kexts used by the Viscosity VPN client.
   * com.pogoplug.xcetun: This kext is associated with Pogoplug.
+  * anchorfree.tun: This kext is associated with HotSpot Shield VPN.
+But any non-Apple kext with "tun" or "tap" in its name is likely to be causing the problem.
 
 To unload kexts and allow Tunnelblick to load its own kexts, use the 'kextunload" Terminal command to unload each loaded tun and tap kext individually. For example, to unload com.viscosityvpn.Viscosity.tun, type the following:
 
