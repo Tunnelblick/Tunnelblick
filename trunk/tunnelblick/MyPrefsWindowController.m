@@ -1970,7 +1970,8 @@ static BOOL firstTimeShowingWindow = TRUE;
     runTool(@"/bin/bash",
             [NSArray arrayWithObjects:
              @"-c",
-             @"kextstat | grep -v com.apple", nil],
+             [TOOL_PATH_FOR_KEXTSTAT stringByAppendingString: @" | grep -v com.apple"],
+             nil],
             &kextRawContents,
             nil);
     
