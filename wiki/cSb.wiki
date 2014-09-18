@@ -49,7 +49,8 @@
     [cCusDeployed "Deployed" versions]<br>
     [cRebranding Rebranding Tunnelblick]<br>
     [cBuild Building from Source]<br>
-    [cIconAnimation Icon Animation]<br>
+    [cSigningTunnelbliick Signing the Application]<br>
+   [cIconAnimation Icon Animation]<br>
 *Localization & Translation*
     [cLocalize Localizing Tunnelblick]<br>
     [cTranslateStrings Translating .strings Files]<br>
