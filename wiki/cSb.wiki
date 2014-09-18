@@ -50,7 +50,7 @@
     [cRebranding Rebranding Tunnelblick]<br>
     [cBuild Building from Source]<br>
     [cSigningTunnelbliick Signing the Application]<br>
-   [cIconAnimation Icon Animation]<br>
+    [cIconAnimation Icon Animation]<br>
 *Localization & Translation*
     [cLocalize Localizing Tunnelblick]<br>
     [cTranslateStrings Translating .strings Files]<br>
