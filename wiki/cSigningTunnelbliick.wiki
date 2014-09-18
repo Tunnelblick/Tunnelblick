@@ -1,0 +1,40 @@
+#summary Digitally Signing the Tunnelblick application
+#sidebar cSb
+
+*HOW TO DIGITALLY SIGN THE TUNNELBLICK APPLICATION*
+
+<wiki:toc max_depth="2" />
+
+_Note: This page describes how to digitally sign the Tunnelblick application or a rebranded version. Please read [cDigitalSignatures Digital Signatures]_ before the rest of this page.
+
+==WHAT YOU NEED==
+
+To digitally sign the application (Tunnelblick or a rebranded version), you need:
+ * A copy of the unsigned application;
+ * A code signing certificate;
+ * An optional "designated requirement" binary.
+
+===Unsigned Application==
+To get an unsigned version of Tunnelblick or your rebranded version, build an "Unsigned Release" of the source code using the instructions at [https://code.google.com/p/tunnelblick/wiki/cBuild Building From Source].
+
+===Code signing Certificate==
+The code signing certificate can be a "self-signed" certificate or a certificate from Apple. There is one difference: if you use a self-signed certificate, Gatekeeper in OS X 10.8 ("Mountain Lion") and higher may not allow the first run of the self-signed application by double-clicking it. The user will need to Control-click or right-click and select "Open". That is because the Gatekeeper default is to allow the first launch of an application only if it is signed by an Apple-recognized developer.
+
+To get a self-signed code signing certificate, use the OS X Keychain Assistant application. Apple used to have instructions on doing this but they have disappeared. They may be accessed from the Internet Archive using [http://web.archive.org/web/20090119080759/http://developer.apple.com/documentation/Security/Conceptual/CodeSigningGuide/Procedures/chapter_3_section_2.html this link],
+
+To get an certificate from Apple, you must be an [https://developer.apple.com Apple Developer].
+
+There is a useful article at [http://successfulsoftware.net/2012/08/30/how-to-sign-your-mac-os-x-app-for-gatekeeper How to Sign Your Mac OS X App for Gatekeeper].
+
+===Designated Requirement Binary==
+You can use a "designated requirement binary" to set requirements for how an application is to be signed. For example, you can require that the Info.plist's CFBundleIdentifier be "com.example.foo". Generating this binary can be done in Xcode, consult Apple's documentation (sorry, no link). The only catch is that requirements created in some versions of Xcode are considered invalid by OS X 10.5 ("Lion") and will cause problems. Tunnelblick uses a signing requirements binary created on an older version of Xcode that does not cause this problem. See [http://fetchsoftworks.com/fetch/blog/gatekeeper-vs-leopard-an-ongoing-tale Gatekeeper vs. Leopard: an ongoing tale].
+
+==STEP 1==
+
+=====
+
+
+
+------------------
+
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
