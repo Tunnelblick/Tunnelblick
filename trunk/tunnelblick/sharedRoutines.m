@@ -259,14 +259,12 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
         NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: path];
         while (  (file = [dirEnum nextObject])  ) {
             NSString * filePath = [path stringByAppendingPathComponent: file];
-            if (  itemIsVisible(filePath)  ) {
-                atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: filePath traverseLink: NO];
-				changedDeep = checkSetItemOwnership(filePath, atts, uid, gid, NO) || changedDeep;
-				if (  [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-					changedDeep = checkSetItemOwnership(filePath, atts, uid, gid, YES) || changedDeep;
-				} else {
-				}
-            }
+			atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: filePath traverseLink: NO];
+			changedDeep = checkSetItemOwnership(filePath, atts, uid, gid, NO) || changedDeep;
+			if (  [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+				changedDeep = checkSetItemOwnership(filePath, atts, uid, gid, YES) || changedDeep;
+			} else {
+			}
         }
     }
     
@@ -684,50 +682,47 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
 	
     while (  (file = [dirEnum nextObject])  ) {
         NSString * filePath = [path stringByAppendingPathComponent: file];
-        if (  itemIsVisible(filePath)  ) {
+		NSString * ext  = [file pathExtension];
+        
+        if (   [ext isEqualToString: @"tblk"]
+            && ( ! [path hasPrefix: L_AS_T_TBLKS] )  ) {
+            result = result && checkSetPermissions(filePath, tblkFolderPerms, YES);
             
-            NSString * ext  = [file pathExtension];
+        } else if (   [[NSFileManager defaultManager] fileExistsAtPath: filePath isDirectory: &isDir]
+                   && isDir  ) {
             
-            if (   [ext isEqualToString: @"tblk"]
-				&& ( ! [path hasPrefix: L_AS_T_TBLKS] )  ) {
-                result = result && checkSetPermissions(filePath, tblkFolderPerms, YES);
-                
-            } else if (   [[NSFileManager defaultManager] fileExistsAtPath: filePath isDirectory: &isDir]
-                       && isDir  ) {
-                
-                // Special case: folders in L_AS_T_TBLKS are visible to all users, even though they are inside a .tblk
-                if (  [filePath hasPrefix: [L_AS_T_TBLKS stringByAppendingString: @"/"] ]  ) {
-                    result = result && checkSetPermissions(filePath, publicFolderPerms, YES);
+            // Special case: folders in L_AS_T_TBLKS are visible to all users, even though they are inside a .tblk
+            if (  [filePath hasPrefix: [L_AS_T_TBLKS stringByAppendingString: @"/"] ]  ) {
+                result = result && checkSetPermissions(filePath, publicFolderPerms, YES);
                 
                 // Folders inside a .tblk anywhere else are visible only to the owner & group
-                } else if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
-                    result = result && checkSetPermissions(filePath, tblkFolderPerms, YES);
-                    
-                } else if (   [filePath hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/Deploy/"]
-                           || [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
-						   || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
-                    result = result && checkSetPermissions(filePath, publicFolderPerms, YES);
-                    
-                } else {
-                    result = result && checkSetPermissions(filePath, privateFolderPerms, YES);
-				}
+            } else if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
+                result = result && checkSetPermissions(filePath, tblkFolderPerms, YES);
                 
-            } else if ( [ext isEqualToString:@"sh"]  ) {
-				result = result && checkSetPermissions(filePath, scriptPerms, YES);
-                
-            } else if ( [ext isEqualToString:@"executable"]  ) {
-				result = result && checkSetPermissions(filePath, executablePerms, YES);
-                
-            // Files within L_AS_T_TBLKS are visible to all users (even if they are in a .tblk)
-            } else if (   [file isEqualToString:@"forced-preferences.plist"]
-                       || [filePath hasPrefix: [L_AS_T_TBLKS  stringByAppendingString: @"/"]]
-                       || [filePath hasPrefix: [gDeployPath stringByAppendingPathComponent: @"Welcome"]]
-                       ) {
-				result = result && checkSetPermissions(filePath, forcedPrefsPerms, YES);
+            } else if (   [filePath hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/Deploy/"]
+                       || [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
+                       || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
+                result = result && checkSetPermissions(filePath, publicFolderPerms, YES);
                 
             } else {
-				result = result && checkSetPermissions(filePath, otherPerms, YES);
+                result = result && checkSetPermissions(filePath, privateFolderPerms, YES);
             }
+            
+        } else if ( [ext isEqualToString:@"sh"]  ) {
+            result = result && checkSetPermissions(filePath, scriptPerms, YES);
+            
+        } else if ( [ext isEqualToString:@"executable"]  ) {
+            result = result && checkSetPermissions(filePath, executablePerms, YES);
+            
+            // Files within L_AS_T_TBLKS are visible to all users (even if they are in a .tblk)
+        } else if (   [file isEqualToString:@"forced-preferences.plist"]
+                   || [filePath hasPrefix: [L_AS_T_TBLKS  stringByAppendingString: @"/"]]
+                   || [filePath hasPrefix: [gDeployPath stringByAppendingPathComponent: @"Welcome"]]
+                   ) {
+            result = result && checkSetPermissions(filePath, forcedPrefsPerms, YES);
+            
+        } else {
+            result = result && checkSetPermissions(filePath, otherPerms, YES);
         }
     }
     

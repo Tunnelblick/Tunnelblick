@@ -151,16 +151,16 @@
 #define PERMS_PRIVATE_SCRIPT         0740
 #define PERMS_PRIVATE_EXECUTABLE     0740
 #define PERMS_PRIVATE_FORCED_PREFS   0740
-#define PERMS_PRIVATE_OTHER          0640
+#define PERMS_PRIVATE_OTHER          0740
 
 #define PERMS_SECURED_SELF           0755
 #define PERMS_SECURED_TBLK_FOLDER    0750
 #define PERMS_SECURED_PRIVATE_FOLDER 0750
 #define PERMS_SECURED_PUBLIC_FOLDER  0755
 #define PERMS_SECURED_SCRIPT         0700
-#define PERMS_SECURED_EXECUTABLE     0711
-#define PERMS_SECURED_FORCED_PREFS   0644
-#define PERMS_SECURED_OTHER          0600
+#define PERMS_SECURED_EXECUTABLE     0755
+#define PERMS_SECURED_FORCED_PREFS   0744
+#define PERMS_SECURED_OTHER          0700
 
 
 //*************************************************************************************************

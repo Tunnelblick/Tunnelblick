@@ -5775,67 +5775,64 @@ BOOL needToSecureFolderAtPath(NSString * path)
 	
     while (  (file = [dirEnum nextObject])  ) {
         NSString * filePath = [path stringByAppendingPathComponent: file];
-        if (  itemIsVisible(filePath)  ) {
+        NSString * ext  = [file pathExtension];
+        
+        if (   [ext isEqualToString: @"tblk"]
+            && ( ! [path hasPrefix: L_AS_T_TBLKS] )  ) {
+            if (  ! checkOwnerAndPermissions(filePath, user, group, tblkFolderPerms)  ) {
+                return YES;
+            }
             
-            NSString * ext  = [file pathExtension];
-            
-            if (   [ext isEqualToString: @"tblk"]
-				&& ( ! [path hasPrefix: L_AS_T_TBLKS] )  ) {
+        } else if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
+                   && isDir  ) {
+			
+            // Special case: folders in L_AS_T_TBLKS are visible to all users, even though they are inside a .tblk
+            if (  [filePath hasPrefix: [L_AS_T_TBLKS stringByAppendingString: @"/"]]  ) {
+                if (  ! checkOwnerAndPermissions(filePath, user, group, publicFolderPerms)  ) {
+                    return YES;
+                }
+                
+                // Folders inside a .tblk anywhere else are visible only to the owner & group
+            } else if(  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
                 if (  ! checkOwnerAndPermissions(filePath, user, group, tblkFolderPerms)  ) {
                     return YES;
                 }
-            
-            } else if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
-                       && isDir  ) {
-			
-                // Special case: folders in L_AS_T_TBLKS are visible to all users, even though they are inside a .tblk
-                if (  [filePath hasPrefix: [L_AS_T_TBLKS stringByAppendingString: @"/"]]  ) {
-                    if (  ! checkOwnerAndPermissions(filePath, user, group, publicFolderPerms)  ) {
-						return YES;
-					}
-                
-                // Folders inside a .tblk anywhere else are visible only to the owner & group
-                } else if(  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
-					if (  ! checkOwnerAndPermissions(filePath, user, group, tblkFolderPerms)  ) {
-						return YES;
-					}
 				
-                } else if (   [filePath hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/Deploy/"]
-                           || [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
-                           || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
-					if (  ! checkOwnerAndPermissions(filePath, user, group, publicFolderPerms)  ) {
-						return YES;
-					}
-				
-                } else {
-					if (  ! checkOwnerAndPermissions(filePath, user, group, privateFolderPerms)  ) {
-						return YES;
-					}
-				}
-			
-            } else if ( [ext isEqualToString:@"sh"]  ) {
-                if (  ! checkOwnerAndPermissions(filePath, user, group, scriptPerms)  ) {
+            } else if (   [filePath hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/Deploy/"]
+                       || [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
+                       || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
+                if (  ! checkOwnerAndPermissions(filePath, user, group, publicFolderPerms)  ) {
                     return YES;
                 }
-            
-            } else if ( [ext isEqualToString:@"executable"]  ) {
-                if (  ! checkOwnerAndPermissions(filePath, user, group, executablePerms)  ) {
+				
+            } else {
+                if (  ! checkOwnerAndPermissions(filePath, user, group, privateFolderPerms)  ) {
                     return YES;
                 }
+            }
+			
+        } else if ( [ext isEqualToString:@"sh"]  ) {
+            if (  ! checkOwnerAndPermissions(filePath, user, group, scriptPerms)  ) {
+                return YES;
+            }
+            
+        } else if ( [ext isEqualToString:@"executable"]  ) {
+            if (  ! checkOwnerAndPermissions(filePath, user, group, executablePerms)  ) {
+                return YES;
+            }
             
             // Files within L_AS_T_TBLKS are visible to all users (even if they are in a .tblk)
-            } else if (   [file isEqualToString:@"forced-preferences.plist"]
-                       || [filePath hasPrefix: [L_AS_T_TBLKS stringByAppendingString: @"/"]]
-                       || [filePath hasPrefix: [gDeployPath stringByAppendingPathComponent: @"Welcome"]]
-                       ) {
-                if (  ! checkOwnerAndPermissions(filePath, user, group, forcedPrefsPerms)  ) {
-                    return YES;
-                }
-                
-            } else {
-                if (  ! checkOwnerAndPermissions(filePath, user, group, otherPerms)  ) {
-                    return YES;
-                }
+        } else if (   [file isEqualToString:@"forced-preferences.plist"]
+                   || [filePath hasPrefix: [L_AS_T_TBLKS stringByAppendingString: @"/"]]
+                   || [filePath hasPrefix: [gDeployPath stringByAppendingPathComponent: @"Welcome"]]
+                   ) {
+            if (  ! checkOwnerAndPermissions(filePath, user, group, forcedPrefsPerms)  ) {
+                return YES;
+            }
+            
+        } else {
+            if (  ! checkOwnerAndPermissions(filePath, user, group, otherPerms)  ) {
+                return YES;
             }
         }
     }

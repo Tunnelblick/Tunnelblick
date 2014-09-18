@@ -674,33 +674,30 @@ void exitIfTblkNeedsRepair(void) {
 	
     while (  (file = [dirEnum nextObject])  ) {
         NSString * filePath = [gConfigPath stringByAppendingPathComponent: file];
-        if (  itemIsVisible(filePath)  ) {
+        NSString * ext  = [file pathExtension];
+        
+        if (  [ext isEqualToString: @"tblk"]  ) {
+            exitIfPathIsNotSecure(filePath, tblkFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
             
-            NSString * ext  = [file pathExtension];
+        } else if (   [[NSFileManager defaultManager] fileExistsAtPath: filePath isDirectory: &isDir] && isDir  ) {
             
-            if (  [ext isEqualToString: @"tblk"]  ) {
+            if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
                 exitIfPathIsNotSecure(filePath, tblkFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
                 
-            } else if (   [[NSFileManager defaultManager] fileExistsAtPath: filePath isDirectory: &isDir] && isDir  ) {
-                
-                if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
-                    exitIfPathIsNotSecure(filePath, tblkFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
-                    
-                } else if (   [filePath hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/Deploy/"]
-                           ||[filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
-                           || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
-                    exitIfPathIsNotSecure(filePath, publicFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
-                    
-                } else {
-                    exitIfPathIsNotSecure(filePath, privateFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
-				}
-                
-            } else if ( [ext isEqualToString:@"sh"]  ) {
-                exitIfPathIsNotSecure(filePath, scriptPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
+            } else if (   [filePath hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/Deploy/"]
+                       ||[filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
+                       || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
+                exitIfPathIsNotSecure(filePath, publicFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
                 
             } else {
-                exitIfPathIsNotSecure(filePath, otherPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
+                exitIfPathIsNotSecure(filePath, privateFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
             }
+            
+        } else if ( [ext isEqualToString:@"sh"]  ) {
+            exitIfPathIsNotSecure(filePath, scriptPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
+            
+        } else {
+            exitIfPathIsNotSecure(filePath, otherPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
         }
     }
     
