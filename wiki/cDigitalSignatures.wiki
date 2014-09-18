@@ -18,7 +18,7 @@ Digital signatures are also used by the Gatekeeper on OS X 10.8 ("Mountain Lion"
 ==How Application Signatures Can Cause Problems for Deployed Versions of Tunnelblick==
 If an application is digitally signed, and a change is made to the application, the signature becomes invalid. That can cause problems for [cCusDeployed Deployed] versions of Tunnelblick, because the process of creating a Deployed version involves changing the application by adding a folder inside the application itself. If such a folder is added to a signed version of Tunnelblick, the signature becomes invalid. OS X 10.8 and higher will not allow the user to install Tunnelblick, and OS X 10.5 and higher will refuse the program access to it's Keychain items, without asking the user. 
 
-The way to solve this problem is to add the folder to an _unsigned_ version of Tunnelblick,  then sign the unsigned, already modified Tunnelblick. That will give users the benefits of digital signatures.
+The way to solve this problem is to add the folder to an _unsigned_ version of Tunnelblick,  then sign the unsigned, already modified Tunnelblick. That will give users the benefits of digital signatures. See [cSigningTunnelblick Signing Tunnelblick] for details on how to digitally sign Tunnelblick or a rebranded version of Tunnelblick.
 
 ==Update Signatures==
 Whenever Tunnelblick is updated by the built-in update process, the update itself will only be digitally signed under certain circumstances.
