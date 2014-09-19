@@ -228,7 +228,9 @@ int main(int argc, char *argv[])
 	if (  [ourAppName hasSuffix: @".app"]  ) {
 		ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
 	}
-	gDeployPath = [[resourcesPath stringByAppendingPathComponent: @"Deploy"] copy];
+    
+    // We use Deploy located in the Tunnelblick in /Applications, even if we are running from some other location and copying the application there
+	gDeployPath = @"/Applications/Tunnelblick/Contents/Resources/Deploy";
     
 	// Log the arguments installer was started with
 	unsigned long firstArg = strtoul(argv[1], NULL, 10);
@@ -468,7 +470,6 @@ int main(int argc, char *argv[])
         
         NSString *contentsPath				= [appResourcesPath stringByDeletingLastPathComponent];
         NSString *infoPlistPath				= [contentsPath stringByAppendingPathComponent: @"Info.plist"];
-        NSString *deployPath                = [appResourcesPath stringByAppendingPathComponent:@"Deploy"                                         ];
         NSString *openvpnstartPath          = [appResourcesPath stringByAppendingPathComponent:@"openvpnstart"                                   ];
         NSString *openvpnPath               = [appResourcesPath stringByAppendingPathComponent:@"openvpn"                                        ];
         NSString *atsystemstartPath         = [appResourcesPath stringByAppendingPathComponent:@"atsystemstart"                                  ];
@@ -594,9 +595,9 @@ int main(int argc, char *argv[])
 		}
 		
 		// Check/set the app's Deploy folder
-        if (   [gFileMgr fileExistsAtPath: deployPath isDirectory: &isDir]
+        if (   [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
             && isDir  ) {
-            okSoFar = okSoFar && secureOneFolder(deployPath, NO, 0);
+			okSoFar = okSoFar && secureOneFolder(gDeployPath, NO, 0);
         }
 		
 		// Save this for last, so if something goes wrong, it isn't SUID inside a damaged app

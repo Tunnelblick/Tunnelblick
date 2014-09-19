@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="519"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -39,7 +39,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="921957018">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -882,9 +882,9 @@
 																						<string key="NSKeyEquivalent"/>
 																						<int key="NSPeriodicDelay">400</int>
 																						<int key="NSPeriodicInterval">75</int>
-																						<object class="NSMenuItem" key="NSMenuItem" id="639001791">
+																						<object class="NSMenuItem" key="NSMenuItem" id="353304543">
 																							<reference key="NSMenu" ref="874407798"/>
-																							<string key="NSTitle">1.2.3</string>
+																							<string key="NSTitle">4.5.6$</string>
 																							<string key="NSKeyEquiv"/>
 																							<int key="NSKeyEquivModMask">1048576</int>
 																							<int key="NSMnemonicLoc">2147483647</int>
@@ -899,10 +899,9 @@
 																							<string key="NSTitle">OtherViews</string>
 																							<object class="NSMutableArray" key="NSMenuItems">
 																								<bool key="EncodedWithXMLCoder">YES</bool>
-																								<reference ref="639001791"/>
-																								<object class="NSMenuItem" id="353304543">
+																								<object class="NSMenuItem" id="639001791">
 																									<reference key="NSMenu" ref="874407798"/>
-																									<string key="NSTitle">4.5.6</string>
+																									<string key="NSTitle">1.2.3$</string>
 																									<string key="NSKeyEquiv"/>
 																									<int key="NSKeyEquivModMask">1048576</int>
 																									<int key="NSMnemonicLoc">2147483647</int>
@@ -911,9 +910,11 @@
 																									<string key="NSAction">_popUpItemAction:</string>
 																									<reference key="NSTarget" ref="652962379"/>
 																								</object>
+																								<reference ref="353304543"/>
 																							</object>
 																							<reference key="NSMenuFont" ref="644301394"/>
 																						</object>
+																						<int key="NSSelectedIndex">1</int>
 																						<int key="NSPreferredEdge">1</int>
 																						<bool key="NSUsesItemFromMenu">YES</bool>
 																						<bool key="NSAltersState">YES</bool>
@@ -1018,9 +1019,9 @@
 																						<string key="NSKeyEquivalent"/>
 																						<int key="NSPeriodicDelay">400</int>
 																						<int key="NSPeriodicInterval">75</int>
-																						<object class="NSMenuItem" key="NSMenuItem" id="496606676">
+																						<object class="NSMenuItem" key="NSMenuItem" id="892974976">
 																							<reference key="NSMenu" ref="481061174"/>
-																							<string key="NSTitle">Never$</string>
+																							<string key="NSTitle">Automatically$</string>
 																							<string key="NSKeyEquiv"/>
 																							<int key="NSKeyEquivModMask">1048576</int>
 																							<int key="NSMnemonicLoc">2147483647</int>
@@ -1035,10 +1036,9 @@
 																							<string key="NSTitle">OtherViews</string>
 																							<object class="NSMutableArray" key="NSMenuItems">
 																								<bool key="EncodedWithXMLCoder">YES</bool>
-																								<reference ref="496606676"/>
-																								<object class="NSMenuItem" id="892974976">
+																								<object class="NSMenuItem" id="496606676">
 																									<reference key="NSMenu" ref="481061174"/>
-																									<string key="NSTitle">Automatically$</string>
+																									<string key="NSTitle">Never$</string>
 																									<string key="NSKeyEquiv"/>
 																									<int key="NSKeyEquivModMask">1048576</int>
 																									<int key="NSMnemonicLoc">2147483647</int>
@@ -1047,9 +1047,10 @@
 																									<string key="NSAction">_popUpItemAction:</string>
 																									<reference key="NSTarget" ref="317765645"/>
 																								</object>
+																								<reference ref="892974976"/>
 																								<object class="NSMenuItem" id="443363744">
 																									<reference key="NSMenu" ref="481061174"/>
-																									<string key="NSTitle">Like Tunnelblick 3.1$</string>
+																									<string key="NSTitle">Like TB 3.1$</string>
 																									<string key="NSKeyEquiv"/>
 																									<int key="NSKeyEquivModMask">1048576</int>
 																									<int key="NSMnemonicLoc">2147483647</int>
@@ -1060,7 +1061,7 @@
 																								</object>
 																								<object class="NSMenuItem" id="483114999">
 																									<reference key="NSMenu" ref="481061174"/>
-																									<string key="NSTitle">Like Tunnelblick 3.1 alternate$</string>
+																									<string key="NSTitle">Like TB 3.1 alternate$</string>
 																									<string key="NSKeyEquiv"/>
 																									<int key="NSKeyEquivModMask">1048576</int>
 																									<int key="NSMnemonicLoc">2147483647</int>
@@ -1071,7 +1072,7 @@
 																								</object>
 																								<object class="NSMenuItem" id="207577038">
 																									<reference key="NSMenu" ref="481061174"/>
-																									<string key="NSTitle">Like Tunnelblick 3.0b10$</string>
+																									<string key="NSTitle">Like TB 3.0b10$</string>
 																									<string key="NSKeyEquiv"/>
 																									<int key="NSKeyEquivModMask">1048576</int>
 																									<int key="NSMnemonicLoc">2147483647</int>
@@ -1083,6 +1084,7 @@
 																							</object>
 																							<reference key="NSMenuFont" ref="644301394"/>
 																						</object>
+																						<int key="NSSelectedIndex">1</int>
 																						<int key="NSPreferredEdge">1</int>
 																						<bool key="NSUsesItemFromMenu">YES</bool>
 																						<bool key="NSAltersState">YES</bool>
@@ -1106,9 +1108,9 @@
 																						<string key="NSKeyEquivalent"/>
 																						<int key="NSPeriodicDelay">400</int>
 																						<int key="NSPeriodicInterval">75</int>
-																						<object class="NSMenuItem" key="NSMenuItem" id="871051543">
+																						<object class="NSMenuItem" key="NSMenuItem" id="217347970">
 																							<reference key="NSMenu" ref="767938736"/>
-																							<string key="NSTitle">Manually$</string>
+																							<string key="NSTitle">When TB launches$</string>
 																							<string key="NSKeyEquiv"/>
 																							<int key="NSKeyEquivModMask">1048576</int>
 																							<int key="NSMnemonicLoc">2147483647</int>
@@ -1123,10 +1125,9 @@
 																							<string key="NSTitle">OtherViews</string>
 																							<object class="NSMutableArray" key="NSMenuItems">
 																								<bool key="EncodedWithXMLCoder">YES</bool>
-																								<reference ref="871051543"/>
-																								<object class="NSMenuItem" id="217347970">
+																								<object class="NSMenuItem" id="871051543">
 																									<reference key="NSMenu" ref="767938736"/>
-																									<string key="NSTitle">When Tunnelblick launches$</string>
+																									<string key="NSTitle">Manually$</string>
 																									<string key="NSKeyEquiv"/>
 																									<int key="NSKeyEquivModMask">1048576</int>
 																									<int key="NSMnemonicLoc">2147483647</int>
@@ -1135,6 +1136,7 @@
 																									<string key="NSAction">_popUpItemAction:</string>
 																									<reference key="NSTarget" ref="908378538"/>
 																								</object>
+																								<reference ref="217347970"/>
 																								<object class="NSMenuItem" id="815900401">
 																									<reference key="NSMenu" ref="767938736"/>
 																									<string key="NSTitle">When computer starts$</string>
@@ -1149,6 +1151,7 @@
 																							</object>
 																							<reference key="NSMenuFont" ref="644301394"/>
 																						</object>
+																						<int key="NSSelectedIndex">1</int>
 																						<int key="NSPreferredEdge">1</int>
 																						<bool key="NSUsesItemFromMenu">YES</bool>
 																						<bool key="NSAltersState">YES</bool>
@@ -1298,7 +1301,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{916, 390}</string>
-				<reference key="NSSuperview"/>
 				<string key="NSClassName">ConfigurationsView</string>
 			</object>
 			<object class="NSViewController" id="370127558"/>
@@ -1371,7 +1373,7 @@
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 			</object>
 			<object class="NSCustomView" id="179044330">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">269</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1616,7 +1618,7 @@
 						<object class="NSButtonCell" key="NSCell" id="685169758">
 							<int key="NSCellFlags">-2080244224</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Inhibit outbound Tunnelblick Internet access...</string>
+							<string key="NSContents">Inhibit outbound TB Internet access...</string>
 							<reference key="NSSupport" ref="644301394"/>
 							<reference key="NSControlView" ref="298087897"/>
 							<int key="NSButtonFlags">1211912703</int>
@@ -1757,6 +1759,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{920, 390}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">GeneralView</string>
 			</object>
 			<object class="NSArrayController" id="1012200162">
@@ -4794,22 +4797,6 @@
 					<int key="connectionID">1211</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">inhibitOutboundTunnelblickTrafficCheckboxWasClicked:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="298087897"/>
-					</object>
-					<int key="connectionID">1213</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">inhibitOutboundTunnelblickTrafficCheckbox</string>
-						<reference key="source" ref="179044330"/>
-						<reference key="destination" ref="298087897"/>
-					</object>
-					<int key="connectionID">1214</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">tbInternetAccessTF</string>
 						<reference key="source" ref="179044330"/>
@@ -4824,6 +4811,22 @@
 						<reference key="destination" ref="495102957"/>
 					</object>
 					<int key="connectionID">1216</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">inhibitOutboundTBTrafficCheckboxWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="298087897"/>
+					</object>
+					<int key="connectionID">1217</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">inhibitOutboundTBTrafficCheckbox</string>
+						<reference key="source" ref="179044330"/>
+						<reference key="destination" ref="298087897"/>
+					</object>
+					<int key="connectionID">1218</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -6886,7 +6889,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{694, 448}, {285, 43}}</string>
+					<string>{{948, 645}, {285, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -7178,7 +7181,7 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAABDPAAAwrwAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{468, 842}, {286, 63}}</string>
+					<string>{{947, 685}, {286, 63}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -7187,7 +7190,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{468, 768}, {286, 103}}</string>
+					<string>{{947, 615}, {286, 103}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -7259,7 +7262,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{108, 62}, {427, 293}}</string>
+					<string>{{602, 279}, {427, 183}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -7358,7 +7361,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1216</int>
+			<int key="maxID">1218</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7544,7 +7547,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>inhibitOutboundTunnelblickTrafficCheckbox</string>
+							<string>inhibitOutboundTBTrafficCheckbox</string>
 							<string>keyboardShortcutArrayController</string>
 							<string>keyboardShortcutButton</string>
 							<string>keyboardShortcutTF</string>
@@ -7676,7 +7679,7 @@
 							<string>editOpenVPNConfigurationFileMenuItemWasClicked:</string>
 							<string>generalHelpButtonWasClicked:</string>
 							<string>infoHelpButtonWasClicked:</string>
-							<string>inhibitOutboundTunnelblickTrafficCheckboxWasClicked:</string>
+							<string>inhibitOutboundTBTrafficCheckboxWasClicked:</string>
 							<string>keepConnectedCheckboxWasClicked:</string>
 							<string>logToClipboardButtonWasClicked:</string>
 							<string>makePrivateOrSharedMenuItemWasClicked:</string>

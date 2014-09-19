@@ -91,7 +91,7 @@ extern TBUserDefaults * gTbDefaults;
     [resetDisabledWarningsButton setEnabled:  ! [gTbDefaults boolForKey: @"disableResetDisabledWarningsButton"]];
 
     [tbInternetAccessTFC                       setTitle: NSLocalizedString(@"Tunnelblick Internet Use:",                       @"Window text")];
-    [inhibitOutboundTunnelblickTrafficCheckbox setTitle: NSLocalizedString(@"Inhibit automatic update checking and IP Address checking", @"Checkbox name")];
+    [inhibitOutboundTBTrafficCheckbox setTitle: NSLocalizedString(@"Inhibit automatic update checking and IP Address checking", @"Checkbox name")];
 
     [updatesUpdatesTFC                  setTitle: NSLocalizedString(@"Updates:",                                      @"Window text")];
     [updatesCheckAutomaticallyCheckbox  setTitle: NSLocalizedString(@"Check for updates automatically",               @"Checkbox name")];
@@ -115,7 +115,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          maximumLogSizeButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   tbInternetAccessTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       tbInternetAccessTF)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          inhibitOutboundTunnelblickTrafficCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          inhibitOutboundTBTrafficCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesUpdatesTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       updatesUpdatesTF)
