@@ -140,7 +140,7 @@
 
 // Methods for GeneralView
 
--(IBAction) inhibitOutboundTunnelblickTrafficCheckboxWasClicked: (NSButton *) sender;
+-(IBAction) inhibitOutboundTBTrafficCheckboxWasClicked: (NSButton *) sender;
 -(IBAction) updatesCheckAutomaticallyCheckboxWasClicked:         (NSButton *) sender;
 -(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked:        (NSButton *) sender;
 -(IBAction) updatesSendProfileInfoCheckboxWasClicked:            (NSButton *) sender;

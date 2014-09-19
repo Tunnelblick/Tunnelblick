@@ -2618,7 +2618,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 {
 	[[NSApp delegate] setOurPreferencesFromSparkles]; // Sparkle may have changed it's preferences so we update ours
 	
-	[self setValueForCheckbox: [generalPrefsView inhibitOutboundTunnelblickTrafficCheckbox]
+	[self setValueForCheckbox: [generalPrefsView inhibitOutboundTBTrafficCheckbox]
 				preferenceKey: @"inhibitOutboundTunneblickTraffic"
 					 inverted: NO
 				   defaultsTo: FALSE];
@@ -2708,7 +2708,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 }
 
 
--(IBAction) inhibitOutboundTunnelblickTrafficCheckboxWasClicked: (NSButton *) sender
+-(IBAction) inhibitOutboundTBTrafficCheckboxWasClicked: (NSButton *) sender
 {
 	[gTbDefaults setBool: [sender state] forKey: @"inhibitOutboundTunneblickTraffic"];
 	
