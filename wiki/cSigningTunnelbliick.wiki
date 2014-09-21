@@ -32,9 +32,17 @@ To get an certificate from Apple, you must be an [https://developer.apple.com Ap
 
 Use following script to sign Tunnelblick or a rebranded version of Tunnelblick. The command line is:
 
+{{{
  ./script-name        app-path     certificate-name
+}}}
 
-_(Be sure to "chmod +x" the script before attempting to execute it.)_
+Notes:
+ # _Be sure to "chmod +x" the script before attempting to execute it._
+ # _If you get error messages that "Agreeing to the Xcode/iOS license requires admin privileges, please re-run as root via sudo.", type the following into Terminal:
+{{{
+      sudo codesign
+}}}
+ before running the script._
 
 {{{
 #!/bin/bash
