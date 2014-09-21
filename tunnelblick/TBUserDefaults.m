@@ -295,9 +295,13 @@ NSArray * gConfigurationPreferences;
 }
 
 -(void) setBool: (BOOL) value forKey: (NSString *) key {
-    if (  [self forcedObjectForKey: key] != nil  ) {
-        NSLog(@"setBool: forKey: '%@': ignored because the preference is being forced", key);
-    } else if (  [secondaryDefaults objectForKey: key] != nil  ) {
+	id forcedValue = [self forcedObjectForKey: key];
+    if (  forcedValue  ) {
+		if (   ( ! [forcedValue respondsToSelector: @selector(boolValue)])
+			|| ( [forcedValue boolValue] != value )  ) {
+			NSLog(@"setBool: %@ forKey: '%@': ignored because the preference is being forced to %@", (value ? @"YES" : @"NO"), key, forcedValue);
+		}
+	} else if (  [secondaryDefaults objectForKey: key] != nil  ) {
         NSLog(@"setBool: forKey: '%@': ignored because the preference is being forced by the secondary dictionary", key);
     } else if (  ! userDefaults  ) {
         NSLog(@"setBool: forKey: '%@': ignored because user preferences are not available", key);
@@ -308,8 +312,11 @@ NSArray * gConfigurationPreferences;
 }
 
 -(void) setObject: (id) value forKey: (NSString *) key {
-    if (  [self forcedObjectForKey: key] != nil  ) {
-        NSLog(@"setObject: forKey: '%@': ignored because the preference is being forced", key);
+	id forcedValue = [self forcedObjectForKey: key];
+    if (  forcedValue  ) {
+		if (  [forcedValue isNotEqualTo: value]  ) {
+			NSLog(@"setObject: %@ forKey: '%@': ignored because the preference is being forced to %@", value, key, forcedValue);
+		}
     } else if (  [secondaryDefaults objectForKey: key] != nil  ) {
         NSLog(@"setObject: forKey: '%@': ignored because the preference is being forced by the secondary dictionary", key);
     } else if (  ! userDefaults  ) {
