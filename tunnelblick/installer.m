@@ -204,15 +204,13 @@ int main(int argc, char *argv[])
 	
     BOOL copyApp          = (arg1 & INSTALLER_COPY_APP) != 0;
 	
-    BOOL secureApp        = copyApp || ( (arg1 & INSTALLER_SECURE_APP) != 0 );
-    BOOL secureTblks      = (arg1 & INSTALLER_SECURE_TBLKS) != 0;		// secureTblks will also be set if any private .ovpn or .conf configurations were converted to .tblks
+    BOOL secureApp        = copyApp || ( (arg1 & INSTALLER_SECURE_APP)   != 0 );
+    BOOL secureTblks      = copyApp || ( (arg1 & INSTALLER_SECURE_TBLKS) != 0 );		// secureTblks will also be set if any private .ovpn or .conf configurations were converted to .tblks
 	BOOL convertNonTblks  = (arg1 & INSTALLER_CONVERT_NON_TBLKS) != 0;
 	BOOL moveLibOpenvpn   = (arg1 & INSTALLER_MOVE_LIBRARY_OPENVPN) != 0;
 
     BOOL moveNotCopy      = (arg1 & INSTALLER_MOVE_NOT_COPY) != 0;
     BOOL deleteConfig     = (arg1 & INSTALLER_DELETE) != 0;
-    
-    // secureTblks will be set if any private .ovpn or .conf configurations were converted to .tblks
 	
 	openLog(  clearLog  );
 	
@@ -727,7 +725,7 @@ int main(int argc, char *argv[])
 		NSString * lastPartOfTarget = lastPartOfPath(targetPath);
 		
         if (   [targetPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-			secureOneFolder(targetPath, YES, getuid());
+			secureOneFolder(targetPath, YES, gRealUserID);
 			
             NSString * shadowTargetPath   = [NSString stringWithFormat: @"%@/%@/%@",
                                              L_AS_T_USERS,
