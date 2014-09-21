@@ -229,8 +229,12 @@ int main(int argc, char *argv[])
 		ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
 	}
     
-    // We use Deploy located in the Tunnelblick in /Applications, even if we are running from some other location and copying the application there
-	gDeployPath = @"/Applications/Tunnelblick/Contents/Resources/Deploy";
+    // We use Deploy located in the Tunnelblick in /Applications, even if we are running from some other location and are copying the application there
+#ifndef TBDebug
+	gDeployPath = @"/Applications/Tunnelblick.app/Contents/Resources/Deploy";
+#else
+	gDeployPath = [resourcesPath stringByAppendingPathComponent: @"Deploy"];
+#endif
     
 	// Log the arguments installer was started with
 	unsigned long firstArg = strtoul(argv[1], NULL, 10);
