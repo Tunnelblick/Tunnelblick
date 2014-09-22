@@ -5733,7 +5733,7 @@ BOOL needToMoveLibraryOpenVPN(void)
     return NO;  // Nothing needs to be done
 }
 
-BOOL needToSecureFolderAtPath(NSString * path)
+BOOL needToSecureFolderAtPath(NSString * path, BOOL isDeployFolder)
 {
     // Returns YES if the folder needs to be secured
     //
@@ -5799,8 +5799,7 @@ BOOL needToSecureFolderAtPath(NSString * path)
                     return YES;
                 }
 				
-            } else if (   [filePath hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/Deploy/"]
-                       || [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
+            } else if (   isDeployFolder
                        || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
                 if (  ! checkOwnerAndPermissions(filePath, user, group, publicFolderPerms)  ) {
                     return YES;
@@ -5825,7 +5824,8 @@ BOOL needToSecureFolderAtPath(NSString * path)
             // Files within L_AS_T_TBLKS are visible to all users (even if they are in a .tblk)
         } else if (   [file isEqualToString:@"forced-preferences.plist"]
                    || [filePath hasPrefix: [L_AS_T_TBLKS stringByAppendingString: @"/"]]
-                   || [filePath hasPrefix: [gDeployPath stringByAppendingPathComponent: @"Welcome"]]
+                   || (   isDeployFolder
+					   && [filePath hasPrefix: [path stringByAppendingPathComponent: @"Welcome"]])
                    ) {
             if (  ! checkOwnerAndPermissions(filePath, user, group, forcedPrefsPerms)  ) {
                 return YES;
@@ -6048,7 +6048,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     // check permissions of files in Resources/Deploy (if it exists)
     if (  [gFileMgr fileExistsAtPath: deployPath isDirectory: &isDir]
         && isDir  ) {
-        if (  needToSecureFolderAtPath(deployPath)  ) {
+        if (  needToSecureFolderAtPath(deployPath, TRUE)  ) {
             return YES;
         }
     }
