@@ -63,10 +63,10 @@ Double-click NEWPROJECTNAME.xcodeproj
  Un-check Ignore case<br>
  Click "Find"
 
- (wait, it should find 12000+ occurrences (for build 3983))<br>
+ (wait, it should find 12,034 occurrences (for build 3983))<br>
  Click "Replace"
 
- Do you really want to replace 12000+ (of 1200+)…<br>
+ Do you really want to replace 12,034 (of 12,034)…<br>
  Click "Replace"
 
  (wait for it to finish)<br>
