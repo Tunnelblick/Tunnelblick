@@ -197,8 +197,9 @@
 #define OPENVPNSTART_EXTRA_LOGGING             0x1000u
 #define OPENVPNSTART_NO_DEFAULT_DOMAIN         0x2000u
 #define OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS  0x4000u
+#define OPENVPNSTART_USE_ROUTE_UP_NOT_UP       0x8000u
 
-#define OPENVPNSTART_START_BITMASK_MAX         0x7FFFu
+#define OPENVPNSTART_START_BITMASK_MAX         0xFFFFu
 
 
 //*************************************************************************************************

@@ -211,8 +211,30 @@ extern TBUserDefaults       * gTbDefaults;
                         key: @"-doNotFlushCache"
                    inverted: YES];
     } else {
-        [flushDnsCacheCheckbox setState: NSOffState];
+        [flushDnsCacheCheckbox setState:   NSOffState];
         [flushDnsCacheCheckbox setEnabled: NO];
+    }
+}
+
+-(void) setupUseRouteUpInsteadOfUpCheckbox {
+    
+    if (  ! configurationName  ) {
+        return;
+    }
+    
+    NSString * key = [configurationName stringByAppendingString: @"useDNS"];
+    unsigned ix = [gTbDefaults unsignedIntForKey: key
+                                         default: 1
+                                             min: 0
+                                             max: MAX_SET_DNS_WINS_INDEX];
+    
+    if (  ix == 1  ) {
+        [self setupCheckbox: useRouteUpInsteadOfUpCheckbox
+                        key: @"-useRouteUpInsteadOfUp"
+                   inverted: NO];
+    } else {
+        [useRouteUpInsteadOfUpCheckbox setState:   NSOffState];
+        [useRouteUpInsteadOfUpCheckbox setEnabled: NO];
     }
 }
 
@@ -435,14 +457,15 @@ extern TBUserDefaults       * gTbDefaults;
     
     [checkIPAddressAfterConnectOnAdvancedCheckbox setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connecting", @"Checkbox name")];
     
-    [showOnTunnelBlickMenuCheckbox          setTitle: NSLocalizedString(@"Show configuration on Tunnelblick menu", @"Checkbox name")];
+    [showOnTunnelBlickMenuCheckbox          setTitle: NSLocalizedString(@"Show configuration on Tunnelblick menu"                , @"Checkbox name")];
     [flushDnsCacheCheckbox                  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting"     , @"Checkbox name")];
+    [useRouteUpInsteadOfUpCheckbox          setTitle: NSLocalizedString(@"Set DNS after routes are set instead of before routes are set", @"Checkbox name")];
     [prependDomainNameCheckbox              setTitle: NSLocalizedString(@"Prepend domain name to search domains"                 , @"Checkbox name")];
-    [disconnectOnSleepCheckbox              setTitle: NSLocalizedString(@"Disconnect when computer goes to sleep", @"Checkbox name")];
+    [disconnectOnSleepCheckbox              setTitle: NSLocalizedString(@"Disconnect when computer goes to sleep"                , @"Checkbox name")];
     [reconnectOnWakeFromSleepCheckbox       setTitle: NSLocalizedString(@"Reconnect when computer wakes from sleep (if connected when computer went to sleep)", @"Checkbox name")];
-    [resetPrimaryInterfaceAfterDisconnectCheckbox setTitle: NSLocalizedString(@"Reset the primary interface after disconnecting", @"Checkbox name")];
-    [routeAllTrafficThroughVpnCheckbox      setTitle: NSLocalizedString(@"Route all traffic through the VPN", @"Checkbox name")];
-    [runMtuTestCheckbox                     setTitle: NSLocalizedString(@"Run MTU maximum size test after connecting", @"Checkbox name")];
+    [resetPrimaryInterfaceAfterDisconnectCheckbox setTitle: NSLocalizedString(@"Reset the primary interface after disconnecting" , @"Checkbox name")];
+    [routeAllTrafficThroughVpnCheckbox      setTitle: NSLocalizedString(@"Route all traffic through the VPN"                     , @"Checkbox name")];
+    [runMtuTestCheckbox                     setTitle: NSLocalizedString(@"Run MTU maximum size test after connecting"            , @"Checkbox name")];
     
     [fastUserSwitchingBox                   setTitle: NSLocalizedString(@"Fast User Switching"                  , @"Window text")];
 	
@@ -555,7 +578,8 @@ extern TBUserDefaults       * gTbDefaults;
     [self setupPrependDomainNameCheckbox];
     [self setupDisconnectOnSleepCheckbox];
     [self setupReconnectOnWakeFromSleepCheckbox];
-    
+	[self setupUseRouteUpInsteadOfUpCheckbox];
+
     [self setupCheckbox: showOnTunnelBlickMenuCheckbox
                     key: @"-doNotShowOnTunnelblickMenu"
                inverted: YES];
@@ -888,7 +912,7 @@ extern TBUserDefaults       * gTbDefaults;
     
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnUnexpectedDisconnect"
 																	 to: ([sender state] == NSOnState)
-														 inverted: YES];
+                                                               inverted: YES];
 }
 
 
@@ -896,7 +920,7 @@ extern TBUserDefaults       * gTbDefaults;
 {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
 																	 to: ([sender state] == NSOnState)
-														 inverted: YES];
+                                                               inverted: YES];
 }
 
 
@@ -904,7 +928,7 @@ extern TBUserDefaults       * gTbDefaults;
 {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotShowOnTunnelblickMenu"
 																	 to: ([sender state] == NSOnState)
-														 inverted: YES];
+                                                               inverted: YES];
     
     [[NSApp delegate] changedDisplayConnectionSubmenusSettings];
 }
@@ -912,21 +936,28 @@ extern TBUserDefaults       * gTbDefaults;
 -(IBAction) flushDnsCacheCheckboxWasClicked: (NSButton *) sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotFlushCache"
 																	 to: ([sender state] == NSOnState)
-														 inverted: YES];
+                                                               inverted: YES];
+}
+
+
+-(IBAction) useRouteUpInsteadOfUpCheckboxWasClicked:(NSButton *)sender {
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-useRouteUpInsteadOfUp"
+																	 to: ([sender state] == NSOnState)
+                                                               inverted: NO];
 }
 
 
 -(IBAction) prependDomainNameCheckboxWasClicked: (NSButton *)sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-prependDomainNameToSearchDomains"
 																	 to: ([sender state] == NSOnState)
-														 inverted: NO];
+                                                               inverted: NO];
 }
 
 
 -(IBAction) disconnectOnSleepCheckboxWasClicked: (NSButton *)sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisconnectOnSleep"
 																	 to: ([sender state] == NSOnState)
-														 inverted: YES];
+                                                               inverted: YES];
     [self setupReconnectOnWakeFromSleepCheckbox];
 }
 
@@ -934,27 +965,27 @@ extern TBUserDefaults       * gTbDefaults;
 -(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked: (NSButton *) sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnWakeFromSleep"
 																	 to: ([sender state] == NSOnState)
-														 inverted: YES];
+                                                               inverted: YES];
 }
 
 
 -(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked: (NSButton *) sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-resetPrimaryInterfaceAfterDisconnect"
 																	 to: ([sender state] == NSOnState)
-														 inverted: NO];
+                                                               inverted: NO];
 }
 
 
 -(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked: (NSButton *) sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-routeAllTrafficThroughVpn"
 																	 to: ([sender state] == NSOnState)
-														 inverted: NO];
+                                                               inverted: NO];
 }
 
 -(IBAction) runMtuTestCheckboxWasClicked: (NSButton *) sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-runMtuTest"
 																	 to: ([sender state] == NSOnState)
-														 inverted: NO];
+                                                               inverted: NO];
 }
 
 -(void) setTunTapKey: (NSString *) key

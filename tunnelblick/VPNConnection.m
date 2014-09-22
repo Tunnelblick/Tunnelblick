@@ -1840,6 +1840,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setBit: OPENVPNSTART_RESTORE_ON_DNS_RESET      inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnDnsReset"               inverted: YES];
     [self setBit: OPENVPNSTART_PREPEND_DOMAIN_NAME       inMask: &bitMask ifConnectionPreference: @"-prependDomainNameToSearchDomains"     inverted: NO];
     [self setBit: OPENVPNSTART_FLUSH_DNS_CACHE           inMask: &bitMask ifConnectionPreference: @"-doNotFlushCache"                      inverted: YES];
+    [self setBit: OPENVPNSTART_USE_ROUTE_UP_NOT_UP       inMask: &bitMask ifConnectionPreference: @"-useRouteUpInsteadOfUp"                inverted: NO];
     [self setBit: OPENVPNSTART_RESET_PRIMARY_INTERFACE   inMask: &bitMask ifConnectionPreference: @"-resetPrimaryInterfaceAfterDisconnect" inverted: NO];
     [self setBit: OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 inMask: &bitMask ifConnectionPreference: @"-routeAllTrafficThroughVpn"            inverted: NO];
     [self setBit: OPENVPNSTART_NO_DEFAULT_DOMAIN         inMask: &bitMask ifConnectionPreference: @"-doNotUseDefaultDomain"                inverted: NO];

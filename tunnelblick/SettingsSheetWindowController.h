@@ -60,6 +60,7 @@ typedef enum {
     IBOutlet NSButton            * checkIPAddressAfterConnectOnAdvancedCheckbox;
     IBOutlet NSButton            * showOnTunnelBlickMenuCheckbox;
     IBOutlet NSButton            * flushDnsCacheCheckbox;
+    IBOutlet NSButton            * useRouteUpInsteadOfUpCheckbox;
     IBOutlet NSButton            * prependDomainNameCheckbox;
     IBOutlet NSButton            * disconnectOnSleepCheckbox;
     IBOutlet NSButton            * reconnectOnWakeFromSleepCheckbox;
@@ -189,6 +190,7 @@ typedef enum {
 -(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (NSButton *) sender;
 -(IBAction) showOnTunnelBlickMenuCheckboxWasClicked:                (NSButton *) sender;
 -(IBAction) flushDnsCacheCheckboxWasClicked:                        (NSButton *) sender;
+-(IBAction) useRouteUpInsteadOfUpCheckboxWasClicked:                (NSButton *) sender;
 -(IBAction) prependDomainNameCheckboxWasClicked:                    (NSButton *) sender;
 -(IBAction) disconnectOnSleepCheckboxWasClicked:                    (NSButton *) sender;
 -(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:             (NSButton *) sender;
