@@ -418,6 +418,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                       @"-routeAllTrafficThroughVpn",
                                       @"-runMtuTest",
                                       @"-doNotFlushCache",
+                                      @"-useRouteUpInsteadOfUp",
                                       @"-useDownRootPlugin",
                                       @"-keychainHasPrivateKey",
                                       @"-keychainHasUsernameAndPassword",

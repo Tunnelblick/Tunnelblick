@@ -2413,16 +2413,19 @@ int startVPN(NSString * configFile,
             fprintf(stderr, "Tunnelblick: Warning: Path for up and/or down script is very long. OpenVPN truncates the command line that starts each script to 255 characters, which may cause problems. Examine the OpenVPN log in Tunnelblick's \"VPN Details...\" window carefully.\n");
         }
         
+		NSString * upOrRouteUpOption = (  ((bitMask & OPENVPNSTART_USE_ROUTE_UP_NOT_UP) != 0)
+                                        ? @"--route-up"
+                                        : @"--up");
         if (  (useScripts & OPENVPNSTART_USE_SCRIPTS_USE_DOWN_ROOT) != 0  ) {
             [arguments addObjectsFromArray: [NSArray arrayWithObjects:
-                                             @"--up", upscriptCommand,
+                                             upOrRouteUpOption, upscriptCommand,
                                              @"--plugin", downRootPath, downscriptCommand,
                                              nil
                                              ]
              ];
         } else {
             [arguments addObjectsFromArray: [NSArray arrayWithObjects:
-                                             @"--up", upscriptCommand,
+                                             upOrRouteUpOption, upscriptCommand,
                                              @"--down", downscriptCommand,
                                              nil
                                              ]
