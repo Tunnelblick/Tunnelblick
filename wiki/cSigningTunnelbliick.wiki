@@ -37,6 +37,7 @@ Use following script to sign Tunnelblick or a rebranded version of Tunnelblick. 
 }}}
 
 Notes:
+ # _Be sure the script has "Unix" line endings -- OS X chokes on Windows line endings in bash scripts. You can use the excellent freeware [https://lionel.kr.hs-niederrhein.de//~dalitz/data/software/macosx/#tools ConvertNewLines program] to force Unix line endings._
  # _Be sure to "chmod +x" the script before attempting to execute it._
  # _If you get error messages that "Agreeing to the Xcode/iOS license requires admin privileges, please re-run as root via sudo.", type the following into Terminal:
 {{{
