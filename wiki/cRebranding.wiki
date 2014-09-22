@@ -21,14 +21,14 @@ Start Xcode 3.2.2 on Snow Leopard by double-clicking Tunnelblick.xcodeproj
 
  Click on the disclosure triangle to the left of the "Resources" folder in the left-most column.
 
- Click on "Info.plist" under "Resources"
- In the right-most column in the document in the right side:
+ Click on "Info.plist" under "Resources" to select it
 
-  Change "net.tunnelblick.tunnelblick" to something that doesn't include "net.tunnelblick" -- something like "com.YOUR_COMPANY_NAME.NEWPROJECTNAME.deployed-application"
+ In the right-most column in the document in the right side, change "net.tunnelblick.tunnelblick" to something that doesn't include "net.tunnelblick" -- something like "com.YOUR_COMPANY_NAME.NEWPROJECTNAME.deployed-application"
 
-  Change "https://www.tunnelblick.net/appcast.rss" to something that doesn't include "tunnelblick.net". It should be the URL for an "appcast.rss" used by the Sparkle updater module of Tunnelblick to check for available updates. See the [http://sparkle.andymatuschak.org Sparkle] documentation for details on the contents of "appacast.rss". (If you override this setting with a forced-preference for "updateURL", that URL cannot contain "tunnelblick.net" either.)
+ In the right-most column in the document in the right side, change "https://www.tunnelblick.net/appcast.rss" to something that doesn't include "tunnelblick.net". It should be the URL for an "appcast.rss" used by the Sparkle updater module of Tunnelblick to check for available updates. See the [http://sparkle.andymatuschak.org Sparkle] documentation for details on the contents of "appacast.rss". (If you override this setting with a forced-preference for "updateURL", that URL cannot contain "tunnelblick.net" either.)
 
-Click on "Tunnelbick" at the top of the list in the left-most column
+ Click on "Tunnelbick" at the top of the list in the left-most column to select it
+
  Project | Rename<br>
  (wait for it to fill in the big white box)
 
@@ -38,7 +38,9 @@ Click on "Tunnelbick" at the top of the list in the left-most column
  (wait for it to finish)<br>
  Click "OK"
 
- Close the window; if Xcode says it failed to save NEWPROJECTNAME.xcodeproj, click "Close"
+ Close the window
+
+ If Xcode says it failed to save NEWPROJECTNAME.xcodeproj, click "Close"
 
  If an alert window pops up, click "Save"
 
