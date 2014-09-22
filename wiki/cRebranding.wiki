@@ -15,14 +15,20 @@ To rebrand Tunnelblick you need to be able to build Tunnelblick from the source 
 
 First, make sure there are NO SPACES in the path to the source.
 
-Next, edit Info.plist:
- * Change CFBundleIdentifier to something that doesn't include "net.tunnelblick" -- something like "com.YOUR_COMPANY_NAME.NEWPROJECTNAME.deployed-application"
- * Change SUFeedURL to something that doesn't include "tunnelblick.net". It should be the URL for an "appcast.rss" used by the Sparkle updater module of Tunnelblick to check for available updates. See the [http://sparkle.andymatuschak.org Sparkle] documentation for details on the contents of "appacast.rss". (If you override this setting with a forced-preference for "updateURL", that URL cannot contain "tunnelblick.net" either.)
-
 Next, edit the source code as follows:
 
 Start Xcode 3.2.2 on Snow Leopard by double-clicking Tunnelblick.xcodeproj
 
+ Click on the disclosure triangle to the left of the "Resources" folder in the left-most column.
+
+ Click on "Info.plist" under "Resources"
+ In the right-most column in the document in the right side:
+
+  Change "net.tunnelblick.tunnelblick" to something that doesn't include "net.tunnelblick" -- something like "com.YOUR_COMPANY_NAME.NEWPROJECTNAME.deployed-application"
+
+  Change "https://www.tunnelblick.net/appcast.rss" to something that doesn't include "tunnelblick.net". It should be the URL for an "appcast.rss" used by the Sparkle updater module of Tunnelblick to check for available updates. See the [http://sparkle.andymatuschak.org Sparkle] documentation for details on the contents of "appacast.rss". (If you override this setting with a forced-preference for "updateURL", that URL cannot contain "tunnelblick.net" either.)
+
+Click on "Tunnelbick" at the top of the list in the left-most column
  Project | Rename<br>
  (wait for it to fill in the big white box)
 
@@ -32,11 +38,9 @@ Start Xcode 3.2.2 on Snow Leopard by double-clicking Tunnelblick.xcodeproj
  (wait for it to finish)<br>
  Click "OK"
 
- Close the window; Xcode will say it failed to save NEWPROJECTNAME.xcodeproj.<br>
- Click "Close"
+ Close the window; if Xcode says it failed to save NEWPROJECTNAME.xcodeproj, click "Close"
 
- An alert window will pop up.<br>
- Click "Save"
+ If an alert window pops up, click "Save"
 
  Quit Xcode (it is important to quit the PROGRAM completely, not just close all the windows)
 
@@ -57,10 +61,10 @@ Double-click NEWPROJECTNAME.xcodeproj
  Un-check Ignore case<br>
  Click "Find"
 
- (wait, it should get 6107 occurrences (for build 3297))<br>
+ (wait, it should find 12000+ occurrences (for build 3983))<br>
  Click "Replace"
 
- Do you really want to replace 6107 (of 6107)…<br>
+ Do you really want to replace 12000+ (of 1200+)…<br>
  Click "Replace"
 
  (wait for it to finish)<br>
@@ -82,10 +86,10 @@ When rebranding Tunnelblick build 3957 and higher, also change the bundle identi
   Un-check Ignore case<br>
   Click "Find"
 
-  (wait, it should get 6107 occurrences (for build 3297))<br>
+  (wait, it should get 110 occurrences (for build 3983))<br>
   Click "Replace"
 
-  Do you really want to replace 6107 (of 6107)…<br>
+  Do you really want to replace 110 (of 110)…<br>
   Click "Replace"
 
   (wait for it to finish)<br>
