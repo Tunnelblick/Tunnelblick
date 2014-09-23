@@ -1,7 +1,7 @@
 #summary Generating an HMAC Signature
 #sidebar cSb
 
-You can generate an HMAC signature (key file) for OpenVPN's "--tls-auth" option on your Mac, using a copy of the Openvpn program included in Tunnelblick.
+If you are setting up your own OpenVPN server and clients, using the OpenVPN "--tls-auth" option is [https://openvpn.net/index.php/open-source/documentation/howto.html#security recommended] as one way of "hardening" the security of your OpenVPN setup. The option requires an HMAC signature file, which you can generate on your Mac using the OpenVPN program included in Tunnelblick.
 
 <hr>
 ==tldr Commands to Generate an HMAC key==
