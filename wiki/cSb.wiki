@@ -71,6 +71,7 @@
     [cConfigT Tunnelblick VPN Configurations]<br>
     [cFileLocations File Locations]<br>
     [cDigitalSignatures Digital Signatures]<br>
+    [cHmacSignature Generating HMAC Signatures]<br>
     [cTranslationStatus Translation Status]<br><br>
     [Preferences Preferences 3.0]<br>
     [wPrefs Preferences 3.1]<br>
