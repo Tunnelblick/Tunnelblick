@@ -452,6 +452,7 @@ extern TBUserDefaults * gTbDefaults;
 								   stringByAppendingPathComponent: @"LaunchAgents"];
 	NSString * installedPlistPath = [launchAgentsPath stringByAppendingPathComponent: @"net.tunnelblick.tunnelblick.LaunchAtLogin.plist"];
     if (  ! [gFileMgr contentsEqualAtPath: ourPlistPath andPath: installedPlistPath]  ) {
+		[gFileMgr tbRemoveFileAtPath: installedPlistPath handler: nil];
 		if (   ( createDir(launchAgentsPath, 0700) == -1  )
 			|| ( ! [gFileMgr tbCopyPath: ourPlistPath toPath: installedPlistPath handler: nil] )  ) {
             NSLog(@"Failed to copy: %@ to %@", ourPlistPath, installedPlistPath);
