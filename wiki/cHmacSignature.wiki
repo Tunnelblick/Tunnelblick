@@ -12,7 +12,7 @@ First, install the latest beta version of Tunnelblick, then use the following co
 
 {{{
      cd ~/Library/Application\ Support/Tunnelblick/easy-rsa/keys
-     /Applications/Tunnelblick.app/Contents/Resources/openvpn/openvpn-2.3.4/openvpn genkey --secret ta.key
+     /Applications/Tunnelblick.app/Contents/Resources/openvpn/openvpn-2.3.4/openvpn --genkey --secret ta.key
      cd ..
 }}}
 
