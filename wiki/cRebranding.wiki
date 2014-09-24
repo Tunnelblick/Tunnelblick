@@ -17,23 +17,27 @@ First, make sure there are NO SPACES in the path to the source.
 
 Next, edit the source code as follows:
 
-Start Xcode 3.2.2 on Snow Leopard by double-clicking Tunnelblick.xcodeproj
+Start Xcode 3.2.2 on Snow Leopard by double-clicking Tunnelblick.xcodeproj.
 
- Click on the disclosure triangle to the left of the "Resources" folder in the left-most column.
+ Click on the disclosure triangle to the left of the "Resources" folder in the left-most column to expand "Resources"
 
- Click on "Info.plist" under "Resources" to select it
+ Click on "Info.plist" under "Resources" to select it.
 
  In the right-most column in the document in the right side, change "net.tunnelblick.tunnelblick" to something that doesn't include "net.tunnelblick" -- something like "com.YOUR_COMPANY_NAME.NEWPROJECTNAME.deployed-application"
 
  In the right-most column in the document in the right side, change "https://www.tunnelblick.net/appcast.rss" to something that doesn't include "tunnelblick.net". It should be the URL for an "appcast.rss" used by the Sparkle updater module of Tunnelblick to check for available updates. See the [http://sparkle.andymatuschak.org Sparkle] documentation for details on the contents of "appacast.rss". (If you override this setting with a forced-preference for "updateURL", that URL cannot contain "tunnelblick.net" either.)
 
+ Quit Xcode, saving all changes (it is important to quit the PROGRAM completely, not just close all the windows)
+
+Start Xcode 3.2.2 on Snow Leopard by double-clicking Tunnelblick.xcodeproj.
+
  Click on "Tunnelbick" at the top of the list in the left-most column to select it
 
  Project | Rename<br>
- (wait for it to fill in the big white box)
+ (wait for it to fill in the big box; there will be four items to change  (for r3000, which is build 4000))
 
  Rename project to: NEWPROJECTNAME<br>
- Click "OK"
+ Click "Rename"
 
  (wait for it to finish)<br>
  Click "OK"
@@ -49,9 +53,9 @@ Start Xcode 3.2.2 on Snow Leopard by double-clicking Tunnelblick.xcodeproj
 Remove ....../tunnelblick/build/Tunnelblick.build
 
 
-Double-click NEWPROJECTNAME.xcodeproj
+Double-click NEWPROJECTNAME.xcodeproj.
 
- In left pane, collapse and highlight Classes, Other Sources, and Resources
+ In left pane, collapse Classes, Other Sources, and Resources, and then select all three.
 
  Edit | Find | Find in Project (opens "Project Find" window)
 
@@ -63,10 +67,10 @@ Double-click NEWPROJECTNAME.xcodeproj
  Un-check Ignore case<br>
  Click "Find"
 
- (wait, it should find 12,034 occurrences (for build 3983))<br>
+ (wait, it should find 12,035 occurrences (for r3000, which is build 4000))<br>
  Click "Replace"
 
- Do you really want to replace 12,034 (of 12,034)…<br>
+ Do you really want to replace 12,035 (of 12,035)…<br>
  Click "Replace"
 
  (wait for it to finish)<br>
@@ -88,10 +92,10 @@ When rebranding Tunnelblick build 3957 and higher, also change the bundle identi
   Un-check Ignore case<br>
   Click "Find"
 
-  (wait, it should get 110 occurrences (for build 3983))<br>
+  (wait, it should get 108 occurrences (for r3000, which is build 4000))<br>
   Click "Replace"
 
-  Do you really want to replace 110 (of 110)…<br>
+  Do you really want to replace 108 (of 108)…<br>
   Click "Replace"
 
   (wait for it to finish)<br>
