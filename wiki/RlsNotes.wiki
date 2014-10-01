@@ -13,6 +13,8 @@
 
  * *<font color="red">SECURITY UPDATE:</font>* Fixes several security vulnerabilities.
 
+ * Removes OpenVPN 2.2.1. Includes OpenVPN 2.3.4 only.
+
  * Adds a 'Set DNS after routes have been set up' checkbox to the 'Advanced' settings window.
 
  * Secures all configurations (shared, private, and shadow) when Tunnelblick is installed.
