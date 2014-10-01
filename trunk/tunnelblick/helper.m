@@ -577,37 +577,21 @@ int TBRunAlertPanelExtended(NSString * title,
 
 BOOL isUserAnAdmin(void)
 {
-    //Launch "id -Gn" to get a list of names of the groups the user is a member of, and put the result into an NSString:
-    
-    NSTask * task = [[NSTask alloc] init];
-    
-    NSString * exePath = @"/usr/bin/id";
-    [task setLaunchPath: exePath];
-    
-    NSArray  *arguments = [NSArray arrayWithObjects: @"-Gn", nil];
-    [task setArguments: arguments];
-    
-    NSPipe * pipe = [NSPipe pipe];
-    [task setStandardOutput: pipe];
-    
-    NSFileHandle * file = [pipe fileHandleForReading];
-    
-    [task launch];
-    
-    NSData * data = [file readDataToEndOfFile];
-    
-    [task release];
-    
-    NSString * string1 = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    
-    // If the "admin" group appears, the user is a member of the "admin" group, so they are an admin.
+    // Run "id -Gn" to get a list of names of the groups the user is a member of
+	NSString * stdoutString = nil;
+	NSArray  * arguments = [NSArray arrayWithObjects: @"-Gn", nil];
+	OSStatus status = runTool(TOOL_PATH_FOR_ID, arguments, &stdoutString, nil);
+	if (  status != 0  ) {
+		NSLog(@"Assuming user is not an administrator because '%@ -Gn' returned status %ld", TOOL_PATH_FOR_ID, (long)status);
+		return NO;
+	}
+	
+    // If the "admin" group appears in the output, the user is a member of the "admin" group, so they are an admin.
     // Group names don't include spaces and are separated by spaces, so this is easy. We just have to
     // handle admin being at the start or end of the output by pre- and post-fixing a space.
     
-    NSString * string2 = [NSString stringWithFormat:@" %@ ", [string1 stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-    NSRange rng = [string2 rangeOfString:@" admin "];
-    [string1 release];
-    
+    NSString * groupNames = [NSString stringWithFormat:@" %@ ", [stdoutString stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    NSRange rng = [groupNames rangeOfString:@" admin "];
     return (rng.location != NSNotFound);
 }
 
@@ -976,96 +960,30 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
         return -1;
     }
     
-    // Send stdout and stderr to temporary files, and read the files after the task completes
-    NSString * dirPath = newTemporaryDirectoryPath();
+	NSString * myStdoutString = nil;
+	NSString * myStderrString = nil;
 	
-    NSString * stdPath = [dirPath stringByAppendingPathComponent: @"runOpenvpnstartStdOut"];
-    if (  [gFileMgr fileExistsAtPath: stdPath]  ) {
-        NSLog(@"runOpenvpnstart: File exists at %@", stdPath);
-        [dirPath release];
-        return -1;
-    }
-    if (  ! [gFileMgr createFileAtPath: stdPath contents: nil attributes: nil]  ) {
-        NSLog(@"runOpenvpnstart: Unable to create %@", stdPath);
-        [dirPath release];
-        return -1;
-    }
-    NSFileHandle * stdFileHandle = [[NSFileHandle fileHandleForWritingAtPath: stdPath] retain];
-    if (  ! stdFileHandle  ) {
-        NSLog(@"runOpenvpnstart: Unable to get NSFileHandle for %@", stdPath);
-        [dirPath release];
-        return -1;
-    }
-    
-    NSString * errPath = [dirPath stringByAppendingPathComponent: @"runOpenvpnstartErrOut"];
-    if (  [gFileMgr fileExistsAtPath: errPath]  ) {
-        NSLog(@"runOpenvpnstart: File exists at %@", errPath);
-		[stdFileHandle release];
-        [dirPath release];
-        return -1;
-    }
-    if (  ! [gFileMgr createFileAtPath: errPath contents: nil attributes: nil]  ) {
-        NSLog(@"runOpenvpnstart: Unable to create %@", errPath);
-		[stdFileHandle release];
-        [dirPath release];
-        return -1;
-    }
-    NSFileHandle * errFileHandle = [[NSFileHandle fileHandleForWritingAtPath: errPath] retain];
-    if (  ! errFileHandle  ) {
-        NSLog(@"runOpenvpnstart: Unable to get NSFileHandle for %@", errPath);
-		[stdFileHandle release];
-        [dirPath release];
-        return -1;
-    }
-    
-    NSTask * task = [[[NSTask alloc] init] autorelease];
-    [task setLaunchPath: path];
-    [task setArguments:arguments];
-    [task setStandardOutput: stdFileHandle];
-    [task setStandardError:  errFileHandle];
-    [task setCurrentDirectoryPath: @"/tmp"];
-    [task launch];
-    [task waitUntilExit];
-    
-    [stdFileHandle closeFile];
-    [stdFileHandle release];
-    [errFileHandle closeFile];
-    [errFileHandle release];
-    
-	OSStatus status = [task terminationStatus];
-    
+	OSStatus status = runTool(path, arguments, &myStdoutString, &myStderrString);
+	
     NSString * subcommand = ([arguments count] > 0
                              ? [arguments objectAtIndex: 0]
                              : @"(no subcommand!)");
     
-    NSFileHandle * file = [NSFileHandle fileHandleForReadingAtPath: stdPath];
-    NSData * data = [file readDataToEndOfFile];
-    [file closeFile];
-    NSString * outputString = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     if (  stdoutString  ) {
-        *stdoutString = outputString;
+        *stdoutString = myStdoutString;
     } else {
-        if (  [outputString length] != 0  ) {
-            NSLog(@"openvpnstart stdout from %@:\n%@", subcommand, outputString);
+        if (  [myStdoutString length] != 0  ) {
+            NSLog(@"openvpnstart stdout from %@:\n%@", subcommand, myStdoutString);
         }
     }
     
-    file = [NSFileHandle fileHandleForReadingAtPath: errPath];
-    data = [file readDataToEndOfFile];
-    [file closeFile];
-    outputString = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     if (  stderrString  ) {
-        *stderrString = outputString;
+        *stderrString = myStderrString;
     } else {
-        if (  [outputString length] != 0  ) {
-            NSLog(@"openvpnstart stderr from %@:\n%@", subcommand, outputString);
+        if (  [myStderrString length] != 0  ) {
+            NSLog(@"openvpnstart stderr from %@:\n%@", subcommand, myStderrString);
         }
     }
-	
-    if (  ! [gFileMgr tbRemoveFileAtPath: dirPath handler: nil]  ) {
-        NSLog(@"Unable to remove temporary folder at %@", dirPath);
-    }
-    [dirPath release];
 
     if (   (status != EXIT_SUCCESS)
         && ( ! stderrString)  ) {

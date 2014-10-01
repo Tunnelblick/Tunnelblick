@@ -199,6 +199,8 @@ void * _NSConcreteStackBlock __attribute__((weak));
     
     WelcomeController       * welcomeScreen;                // Controller for welcome window
     
+	NSBundle                * deployLocalizationBundle;	    // Bundle for Deploy/Localization.bundle
+	
 #ifdef INCLUDE_VPNSERVICE
     VPNService              * vpnService;                   // VPNService object. if it responds to doVPNService, doVPNService is invoked at end of
     //                                                      // application:didFinishLaunching. The object persists until Tunnelblick terminates
@@ -246,7 +248,9 @@ void * _NSConcreteStackBlock __attribute__((weak));
                                main:                        (NSImage **)        ptrMainImage
                          connecting:                        (NSImage **)        ptrConnectedImage
                                anim:                        (NSMutableArray **) ptrAnimImages;
-- (void)            recreateStatusItemAndMenu;
+-(NSString *)       localizedConfigNameFromPath:            (NSString *)        tblkPath
+									displayName:            (NSString *)        displayName;
+-(void)             recreateStatusItemAndMenu;
 -(void)             mouseEnteredMainIcon:                   (id)                control
                                    event:                   (NSEvent *)         theEvent;
 -(void)             mouseExitedMainIcon:                    (id)                windowController
@@ -352,5 +356,5 @@ TBPROPERTY(NSImage      *, highlightedMainImage,      setHighlightedMainImage)
 TBPROPERTY(NSMutableArray *, connectionsToRestoreOnUserActive, setConnectionsToRestoreOnUserActive)
 TBPROPERTY(NSMutableArray *, connectionsToRestoreOnWakeup,     setConnectionsToRestoreOnWakeup)
 TBPROPERTY(NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
-
+TBPROPERTY(NSBundle       *, deployLocalizationBundle,               setDeployLocalizationBundle)
 @end

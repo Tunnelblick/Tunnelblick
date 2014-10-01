@@ -1789,7 +1789,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	NSString * consoleRawContents = @""; // stdout (ignore stderr)
 	
 	if (  isUserAnAdmin()  ) {
-		runTool(@"/bin/bash",
+		runTool(TOOL_PATH_FOR_BASH,
                 [NSArray arrayWithObjects:
                  @"-c",
                  [NSString stringWithFormat: @"cat /Library/Logs/Console/%d/console.log | grep -i -E 'tunnelblick|openvpn' | tail -n 100", getuid()],
@@ -1967,7 +1967,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     NSString * kextRawContents = @""; // stdout (ignore stderr)
 	
-    runTool(@"/bin/bash",
+    runTool(TOOL_PATH_FOR_BASH,
             [NSArray arrayWithObjects:
              @"-c",
              [TOOL_PATH_FOR_KEXTSTAT stringByAppendingString: @" | grep -v com.apple"],

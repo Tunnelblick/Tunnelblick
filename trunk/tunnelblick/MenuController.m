@@ -173,7 +173,7 @@ BOOL needToConvertNonTblks(void);
 -(BOOL)             setupHookupWatchdogTimer;
 -(void)             setupHotKeyWithCode:                    (UInt32)            keyCode
                         andModifierKeys:                    (UInt32)            modifierKeys;
--(void)				showWelcomeScreen;
+-(BOOL)				showWelcomeScreenForWelcomePath:        (NSString *)        welcomePath;
 -(NSStatusItem *)   statusItem;
 -(void)             updateUI;
 -(BOOL)             validateMenuItem:                       (NSMenuItem *)      anItem;
@@ -188,6 +188,81 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 @end
 
 @implementation MenuController
+
+-(NSString *) localizedString: (NSString *) key
+				   fromBundle: (NSBundle *) bundle {
+	
+	if (  key) {
+		if (  bundle  ) {
+			return [bundle localizedStringForKey: key value: nil table: @"Localizable"];
+		}
+		
+		return [[key copy] autorelease];
+	}
+	
+	id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
+					 ? (id) [NSThread callStackSymbols]
+					 : (id) @"not available");
+	
+	NSLog(@"MenuController:localizedString: key is nil. Stack trace: %@", stackTrace);
+	return @"";
+}
+
+-(NSString *) localizedString: (NSString *) key {
+	
+	return [self localizedString: key fromBundle: [self deployLocalizationBundle]];
+}
+
+
+-(NSString *) localizedString: (NSString *) key
+			   fromBundlePath: (NSString *) bundlePath {
+	
+	NSBundle * bundle = [NSBundle bundleWithPath: bundlePath];
+	if (  ! bundle) {
+		NSLog(@"Not a bundle: %@", bundlePath);
+		return @"Invalid bundle";
+	}
+	
+	return [self localizedString: key fromBundle: bundle];
+}
+
+-(NSString *) localizedString: (NSString *) key
+				   fromBundle: (NSBundle *) firstBundle
+				     orBundle: (NSBundle *) secondBundle {
+	
+	NSString * localizedName = [[key copy] autorelease];
+	
+	if (  firstBundle  ) {
+		localizedName = [self localizedString: key fromBundle: firstBundle];
+		if (  ! [localizedName isEqualToString: key]  ) {
+			return localizedName;
+		}
+	}
+	
+	return [self localizedString: key fromBundle: secondBundle];
+}
+
+-(NSString *) localizedConfigNameFromPath: (NSString *) tblkPath
+							  displayName: (NSString *) displayName {
+	
+	NSBundle * bundle = [NSBundle bundleWithPath: tblkPath];
+	
+	// Construct and set localizedName
+	NSMutableString * localName = [NSMutableString stringWithCapacity: 2 * [displayName length]];
+	NSArray * components = [displayName componentsSeparatedByString: @"/"];
+	if (  [components count] > 1  ) {
+		NSUInteger i;
+		for (  i=0; i<[components count] - 1; i++  ) {
+			NSString * nonLocalizedName = [components objectAtIndex: i];
+			
+			[localName appendFormat: @"%@/", [self localizedString: nonLocalizedName fromBundle: bundle orBundle: [self deployLocalizationBundle]]];
+		}
+	}
+	
+	NSString * nonLocalizedName = [components lastObject];
+	[localName appendString: [self localizedString: nonLocalizedName fromBundle: bundle orBundle: [self deployLocalizationBundle]]];
+	return [NSString stringWithString: localName];
+}
 
 -(id) init
 {	
@@ -688,6 +763,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                     }
                 }
             }
+			
+			[self setDeployLocalizationBundle: [NSBundle bundleWithPath: [gDeployPath stringByAppendingPathComponent: @"Localization.bundle"]]];
         }
         
         TBLog(@"DB-SU", @"init: 011")
@@ -1573,7 +1650,8 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             [connectionItem setTarget:myConnection]; 
             [connectionItem setAction:@selector(toggle:)];
             
-            [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: dispNm];
+			NSString * menuItemName = [myConnection localizedName];
+            [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: menuItemName];
             
             [myConnection setMenuItem: connectionItem];
         }
@@ -1634,7 +1712,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             } else if (  [[menuItem title] isEqualToString: NSLocalizedString(@"Add a VPN...", @"Menu item")]  ) {
                 break;
             } else {                                                            // item is a connection item
-                menuItemTitle = [[menuItem target] displayName];
+                menuItemTitle = [[menuItem target] localizedName];
             }
             
 			NSString * menuItemTitleWithoutSlash = [menuItemTitle lastPathComponent];
@@ -1786,7 +1864,8 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     NSMenu * subMenu = [[[NSMenu alloc] init] autorelease];
     if (  [self addCustomMenuItemsFromFolder: [folder stringByAppendingPathComponent: file] toMenu: subMenu]  ) {
         NSMenuItem * subMenuItem = [[[NSMenuItem alloc] init] autorelease];
-        [subMenuItem setTitle: localizeNonLiteral([self menuNameFromFilename: file], @"Menu item")];
+		NSString * localizedName = [self localizedString: [self menuNameFromFilename: file]];
+        [subMenuItem setTitle: localizedName];
         [subMenuItem setSubmenu: subMenu];
         [theMenu addItem: subMenuItem];
         return TRUE;
@@ -1798,7 +1877,8 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) addOneCustomMenuItem: (NSString *) file fromFolder: (NSString *) folder toMenu: (NSMenu *) theMenu
 {
     NSMenuItem * item = [[[NSMenuItem alloc] init] autorelease];
-    [item setTitle: localizeNonLiteral([self menuNameFromFilename: file], @"Menu item")];
+	NSString * localizedName = [self localizedString: [self menuNameFromFilename: file]];
+    [item setTitle: localizedName];
     [item setTarget: self];
     [item setAction: @selector(runCustomMenuItem:)];
     [item setTag: customMenuScriptIndex++];
@@ -1843,15 +1923,14 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  tag < 0  ) {
         NSLog(@"runCustomMenuItem: tag %d is < 0", tag);
     }
+	
     NSString * scriptPath = [customMenuScripts objectAtIndex: (unsigned)tag];
-    NSTask* task = [[[NSTask alloc] init] autorelease];
-	[task setLaunchPath: scriptPath];
-	[task setArguments: [NSArray array]];
-	[task setCurrentDirectoryPath: [scriptPath stringByDeletingLastPathComponent]];
-	[task launch];
-    if (  [[[scriptPath stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]) {
-        [task waitUntilExit];
-    }
+
+	if (  [[[scriptPath stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]  ) {
+		runTool(scriptPath, [NSArray array], nil, nil);
+	} else {
+		startTool(scriptPath, [NSArray array]);
+	}
 }
 
 -(void) updateUpdateFeedURLForceDowngrade: (BOOL) forceDowngrade {
@@ -2199,7 +2278,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         [myVPNMenu removeItemAtIndex: itemIx];
     }
     
-    [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: [[connectionItem target] displayName]];
+    [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: [[connectionItem target] localizedName]];
     
     // Add connection to myConfigDictionary
     NSMutableDictionary * tempConfigDictionary = [myConfigDictionary mutableCopy];
@@ -3533,15 +3612,10 @@ static void signal_handler(int signalNumber)
         return FALSE;
     }
     
-    NSArray *arguments = [NSArray arrayWithObjects: @"-v", appPath, nil];
-    
-    NSTask* task = [[[NSTask alloc] init] autorelease];
-    [task setCurrentDirectoryPath: @"/tmp"];    // Won't be used, but we should specify something
-    [task setLaunchPath: TOOL_PATH_FOR_CODESIGN];
-    [task setArguments:arguments];
-    [task launch];
-    [task waitUntilExit];
-    OSStatus status = [task terminationStatus];
+    NSArray *arguments = (  runningOnLionOrNewer()
+                          ? [NSArray arrayWithObjects: @"--deep", @"-v", appPath, nil]
+                          : [NSArray arrayWithObjects: @"-v", appPath, nil]);
+    OSStatus status = runTool(TOOL_PATH_FOR_CODESIGN, arguments, nil, nil);
     return (status == EXIT_SUCCESS);
 }
 
@@ -3871,19 +3945,15 @@ static void signal_handler(int signalNumber)
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 010")
     // Process runOnLaunch item
     if (  customRunOnLaunchPath  ) {
-        NSTask* task = [[[NSTask alloc] init] autorelease];
-        [task setLaunchPath: customRunOnLaunchPath];
-        [task setArguments: [NSArray array]];
-        [task setCurrentDirectoryPath: [customRunOnLaunchPath stringByDeletingLastPathComponent]];
-        [task launch];
-        if (  [[[customRunOnLaunchPath stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]) {
-            [task waitUntilExit];
-            int status = [task terminationStatus];
+		if (  [[[customRunOnLaunchPath stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]  ) {
+			OSStatus status = runTool(customRunOnLaunchPath, [NSArray array], nil, nil);
             if (  status != 0  ) {
-                NSLog(@"Tunnelblick runOnLaunch item %@ returned %d; Tunnelblick launch cancelled", customRunOnLaunchPath, status);
+                NSLog(@"Tunnelblick runOnLaunch item %@ returned %ld; Tunnelblick launch cancelled", customRunOnLaunchPath, (long)status);
                 [self terminateBecause: terminatingBecauseOfError];
             }
-        }
+		} else {
+			startTool(customRunOnLaunchPath, [NSArray array]);
+		}
     }
 
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 011")
@@ -4036,7 +4106,7 @@ static void signal_handler(int signalNumber)
    [splashScreen fadeOutAndClose];
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 020")
-	[self showWelcomeScreen];
+	[self showWelcomeScreenForWelcomePath: [gDeployPath stringByAppendingPathComponent: @"Welcome"]];
 	
     launchFinished = TRUE;
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 021 -- LAST")
@@ -4048,26 +4118,51 @@ static void signal_handler(int signalNumber)
     return urlString;
 }
 
--(void) showWelcomeScreen
-{
+-(BOOL) showWelcomeScreenForWelcomePath: (NSString *) welcomePath {
+    
+    // Shows localized welcome screen from the bundle at the specified path (do not include the ".bundle") if available,
+	// otherwise shows non-localized welcome screen from the specified path if available,
+	// else shows welcome screen specified in welcomeURL forced preference
+	
+	// Returns TRUE if the screen was shown; FALSE otherwise
+	
 	if (  [gTbDefaults boolForKey: @"skipWelcomeScreen"]  ) {
-		return;
+		return FALSE;
 	}
 	
     NSString * welcomeURLString = nil;
-    NSString * welcomeIndexFile = [[gDeployPath
-                                    stringByAppendingPathComponent: @"Welcome"]
-                                   stringByAppendingPathComponent: @"index.html"];
-    BOOL isDir;
-    if (   [gFileMgr fileExistsAtPath: welcomeIndexFile isDirectory: &isDir]
-        && ( ! isDir )  ) {
-        welcomeURLString = [self fileURLStringWithPath: welcomeIndexFile];
-    } else if (  ! [gTbDefaults canChangeValueForKey: @"welcomeURL"]  ) {
-        welcomeURLString = [gTbDefaults stringForKey: @"welcomeURL"];
-    }
+    NSBundle * welcomeBundle = [NSBundle bundleWithPath: [welcomePath stringByAppendingPathExtension: @"bundle"]];
+    if (   welcomeBundle  ) {
+        NSArray * preferredLanguagesList = [welcomeBundle preferredLocalizations];
+        if (  [preferredLanguagesList count] < 1  ) {
+            NSLog(@"Unable to get perferred localization for %@", [welcomeBundle bundlePath]);
+			return FALSE;
+        }
+        NSString * preferredLanguage = [preferredLanguagesList objectAtIndex: 0];
+        NSString * welcomeIndexHtmlPath = [[[[[welcomeBundle bundlePath]
+                                              stringByAppendingPathComponent: @"Contents"]
+                                             stringByAppendingPathComponent: @"Resources"]
+                                            stringByAppendingPathComponent: [preferredLanguage stringByAppendingPathExtension: @"lproj"]]
+                                           stringByAppendingPathComponent: @"index.html"];
+		if (  ! [gFileMgr fileExistsAtPath: welcomeIndexHtmlPath]  ) {
+            NSLog(@"Unable to show Welcome window becaue file does not exist at %@", welcomeIndexHtmlPath);
+			return FALSE;
+		}
+        welcomeURLString = [@"file://" stringByAppendingString: welcomeIndexHtmlPath];
+        
+    } else {
+        NSString * welcomeIndexHtmlPath = [welcomePath stringByAppendingPathComponent: @"index.html"];
+		if (  [gFileMgr fileExistsAtPath: welcomeIndexHtmlPath]  ) {
+			welcomeURLString = [@"file://" stringByAppendingString: welcomeIndexHtmlPath];
+		} else {
+			if (  ! [gTbDefaults canChangeValueForKey: @"welcomeURL"]  ) {
+				welcomeURLString = [gTbDefaults stringForKey: @"welcomeURL"];
+			}
+		}
+	}
 	
 	if (  ! welcomeURLString  ) {
-		return;
+		return FALSE;
 	}
     
     float welcomeWidth = [gTbDefaults floatForKey: @"welcomeWidth"
@@ -4083,13 +4178,16 @@ static void signal_handler(int signalNumber)
     BOOL showCheckbox = ! [gTbDefaults boolForKey: @"doNotShowWelcomeDoNotShowAgainCheckbox"];
 	
     welcomeScreen = [[[WelcomeController alloc]
-					  initWithDelegate: self
-					  urlString: welcomeURLString
-					  windowWidth: welcomeWidth
-					  windowHeight: welcomeHeight
-					  showDoNotShowAgainCheckbox: showCheckbox] retain];
+					  initWithDelegate:           self
+					  urlString:                  welcomeURLString
+					  windowWidth:                welcomeWidth
+					  windowHeight:               welcomeHeight
+					  showDoNotShowAgainCheckbox: showCheckbox]
+                     retain];
 	
 	[welcomeScreen showWindow: self];
+    
+    return TRUE;
 }
 
 -(void) welcomeOKButtonWasClicked
@@ -5825,7 +5923,9 @@ BOOL needToSecureFolderAtPath(NSString * path, BOOL isDeployFolder)
         } else if (   [file isEqualToString:@"forced-preferences.plist"]
                    || [filePath hasPrefix: [L_AS_T_TBLKS stringByAppendingString: @"/"]]
                    || (   isDeployFolder
-					   && [filePath hasPrefix: [path stringByAppendingPathComponent: @"Welcome"]])
+					   && (   [filePath hasPrefix: [path stringByAppendingPathComponent: @"Welcome"]]  //
+						   || [filePath hasPrefix: [path stringByAppendingPathComponent: @"Localization.bundle"]])
+					   )
                    ) {
             if (  ! checkOwnerAndPermissions(filePath, user, group, forcedPrefsPerms)  ) {
                 return YES;
@@ -7202,6 +7302,7 @@ TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnUserActive, 
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnWakeup,     setConnectionsToRestoreOnWakeup)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
 TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedURL)
+TBSYNTHESIZE_OBJECT(retain, NSBundle     *, deployLocalizationBundle,  setDeployLocalizationBundle)
 
 // Event Handlers
 

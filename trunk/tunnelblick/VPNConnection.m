@@ -142,6 +142,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
         if (  ! logDisplay  ) {
             return nil;
         }
+        
+		[self setLocalizedName: [[NSApp delegate] localizedConfigNameFromPath: inPath displayName: inDisplayName]];
+		
         [logDisplay setConnection: self];
 		[logDisplay clear];
 		
@@ -1409,27 +1412,24 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     // Process runOnConnect item
     NSString * path = [[NSApp delegate] customRunOnConnectPath];
     if (  path  ) {
-        NSTask* task = [[[NSTask alloc] init] autorelease];
-        [task setLaunchPath: path];
-        [task setArguments: argumentsUsedToStartOpenvpnstart];
-        [task setCurrentDirectoryPath: [path stringByDeletingLastPathComponent]];
-        [task launch];
-        if (  [[[path stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]) {
-            [task waitUntilExit];
-            int status = [task terminationStatus];
-            if (  status != 0  ) {
-                NSLog(@"Tunnelblick runOnConnect item %@ returned %d; '%@' connect cancelled", path, status, displayName);
+		
+		if (  [[[path stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]  ) {
+			OSStatus status = runTool(path, argumentsUsedToStartOpenvpnstart, nil, nil);
+			if (  status != 0  ) {
+				NSLog(@"Tunnelblick runOnConnect item %@ returned %ld; Tunnelblick launch cancelled", path, (long)status);
                 if (  userKnows  ) {
                     TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
 									  [NSString
-									   stringWithFormat: NSLocalizedString(@"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d.", @"Window text"),
-									   [self displayName], status]);
+									   stringWithFormat: NSLocalizedString(@"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld.", @"Window text"),
+									   [self displayName], (long)status]);
                     requestedState = oldRequestedState;
                 }
                 areConnecting = FALSE;
-               return;
-            }
-        }
+				return;
+			}
+		} else {
+			startTool(path, argumentsUsedToStartOpenvpnstart);
+		}
     }
     
     [gTbDefaults setBool: NO forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
@@ -3418,7 +3418,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         }
         
         // Remove submenu prefix if using submenus
-        NSString * itemName = [connection displayName];
+        NSString * itemName = [connection localizedName];
         NSRange lastSlashRange = [itemName rangeOfString: @"/" options: NSBackwardsSearch range: NSMakeRange(0, [itemName length] - 1)];
         if (   (lastSlashRange.length != 0)
             && ( ! [gTbDefaults boolForKey: @"doNotShowConnectionSubmenus"])  ) {
@@ -3548,6 +3548,8 @@ TBSYNTHESIZE_OBJECT(retain,     AlertWindowController *,  slowDisconnectWindowCo
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               ipAddressBeforeConnect,           setIpAddressBeforeConnect)
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               serverIPAddress,                  setServerIPAddress)
 TBSYNTHESIZE_OBJECT(retain,     NSString *,               connectedCfgLocCodeString,        setConnectedCfgLocCodeString)
+TBSYNTHESIZE_OBJECT(retain,     NSString *,               localizedName,                    setLocalizedName)
+
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     ipCheckLastHostWasIPAddress,      setIpCheckLastHostWasIPAddress)
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     haveConnectedSince,               setHaveConnectedSince)
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     logFilesMayExist,                 setLogFilesMayExist)

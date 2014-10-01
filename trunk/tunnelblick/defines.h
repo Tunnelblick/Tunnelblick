@@ -78,9 +78,19 @@
 // NOTE: tunnelblick-uninstaller.sh refers to the installer log path without using this header file
 #define INSTALLER_LOG_PATH      @"/tmp/tunnelblick-installer-log.txt"
 
-#define TOOL_PATH_FOR_CODESIGN @"/usr/bin/codesign"
-#define TOOL_PATH_FOR_KEXTSTAT @"/usr/sbin/kextstat"
-#define TOOL_PATH_FOR_PLUTIL   @"/usr/bin/plutil"
+#define TOOL_PATH_FOR_BASH       @"/bin/bash"
+#define TOOL_PATH_FOR_CODESIGN   @"/usr/bin/codesign"
+#define TOOL_PATH_FOR_ID         @"/usr/bin/id"
+#define TOOL_PATH_FOR_KEXTLOAD   @"/sbin/kextload"
+#define TOOL_PATH_FOR_KEXTSTAT   @"/usr/sbin/kextstat"
+#define TOOL_PATH_FOR_KEXTUNLOAD @"/sbin/kextunload"
+#define TOOL_PATH_FOR_KILLALL    @"/usr/bin/killall"
+#define TOOL_PATH_FOR_OSASCRIPT  @"/usr/bin/osascript"
+#define TOOL_PATH_FOR_PLUTIL     @"/usr/bin/plutil"
+#define TOOL_PATH_FOR_SCUTIL     @"/usr/sbin/scutil"
+
+// Path with which tools are launched
+#define STANDARD_PATH            @"/usr/bin:/bin:/usr/sbin:/sbin"
 
 //*************************************************************************************************
 // Characters in a configuration's display name that are not allowed

@@ -23,6 +23,8 @@
 #import <Foundation/Foundation.h>
 #import <signal.h>
 
+#import "defines.h"
+
 NSAutoreleasePool * gPool;
 
 void appendToLog(NSString * msg);
@@ -402,6 +404,27 @@ NSString * getKeyFromScDictionary(NSString * key, NSString * dictionary)
     return @"";
 }
 
+NSDictionary * getSafeEnvironment() {
+	
+	// (This is a pared-down version of the routine in SharedRoutines)
+    //
+    // Create our own environment to guard against Shell Shock (BashDoor) and similar vulnerabilities in bash
+    //
+    // This environment consists of several standard shell variables
+    
+    NSDictionary * env = [NSDictionary dictionaryWithObjectsAndKeys:
+						  STANDARD_PATH,          @"PATH",
+						  NSTemporaryDirectory(), @"TMPDIR",
+						  NSUserName(),           @"USER",
+						  NSUserName(),           @"LOGNAME",
+						  NSHomeDirectory(),      @"HOME",
+						  TOOL_PATH_FOR_BASH,     @"SHELL",
+						  @"unix2003",            @"COMMAND_MODE",
+						  nil];
+    
+    return env;
+}
+
 NSString * getScKey(NSString * key)
 {
     // Returns a key read via scutil
@@ -427,7 +450,8 @@ NSString * getScKey(NSString * key)
     NSArray * arguments = [NSArray array];
     [task setArguments: arguments];
     
-    [task setCurrentDirectoryPath: @"/"];
+    [task setCurrentDirectoryPath: @"/private/tmp"];
+	[task setEnvironment: getSafeEnvironment()];
     [task launch];
     [task waitUntilExit];
     
@@ -458,7 +482,7 @@ void scCommand(NSString * command)
     
     NSTask* task = [[[NSTask alloc] init] autorelease];
     
-    [task setLaunchPath: @"/usr/sbin/scutil"];
+    [task setLaunchPath: TOOL_PATH_FOR_SCUTIL];
     
     NSPipe * errPipe = [[NSPipe alloc] init];
     [task setStandardError: errPipe];
@@ -477,7 +501,8 @@ void scCommand(NSString * command)
     NSArray * arguments = [NSArray array];
     [task setArguments: arguments];
     
-    [task setCurrentDirectoryPath: @"/"];
+    [task setCurrentDirectoryPath: @"/private/tmp"];
+	[task setEnvironment: getSafeEnvironment()];
     [task launch];
     [task waitUntilExit];
     

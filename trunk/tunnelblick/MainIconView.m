@@ -20,10 +20,10 @@
  */
 
 
-#include "MainIconView.h"
+#import "MainIconView.h"
 
-#include "MenuController.h"
-#include "TBUserDefaults.h"
+#import "MenuController.h"
+#import "TBUserDefaults.h"
 
 extern  TBUserDefaults * gTbDefaults;
 extern BOOL              gShuttingDownWorkspace;
