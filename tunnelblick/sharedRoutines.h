@@ -64,9 +64,14 @@ BOOL itemIsVisible(NSString * path);
 
 BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser);
 
+NSDictionary * getSafeEnvironment(bool includeIV_GUI_VER);
+
 OSStatus runTool(NSString * launchPath,
-                 NSArray * arguments,
+                 NSArray  * arguments,
                  NSString * * stdOut,
                  NSString * * stdErr);
+
+void startTool(NSString * launchPath,
+			   NSArray *  arguments);
 
 unsigned getLoadedKextsMask(void);

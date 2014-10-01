@@ -72,10 +72,12 @@ struct Statistics {
     // or   /Library/Application Support/Tunnelblick/Shared
     // or   /Library/Application Support/Tunnelblick/Users/<username>
     // or a subdirectory of one of them
-	NSString      * displayName;        // The configuration name, including directory prefix, as sometimes displayed to the user 
+	NSString      * displayName;        // The configuration name, including directory prefix, as sometimes displayed to the user NON-LOCALIZED
     //                                     BUT only sometimes. In the menu and in the left navigation tabs, the leading
     //                                     directory references are stripped out (e.g., abc/def/ghi.ovpn becomes just "ghi"
     
+	NSString      * localizedName;      // The configuration name, localized
+	
     NSMenuItem    * menuItem;           // Menu item in the Tunnelblick icon's menu for this connection
 
 	NSDate        * connectedSinceDate; // Initialized to time connection init'ed, set to current time upon connection
@@ -259,6 +261,7 @@ TBPROPERTY(          NSString *,               connectedCfgLocCodeString,       
 TBPROPERTY(          BOOL,                     ipCheckLastHostWasIPAddress,      setIpCheckLastHostWasIPAddress)
 TBPROPERTY(          BOOL,                     haveConnectedSince,               setHaveConnectedSince)
 TBPROPERTY(          BOOL,                     logFilesMayExist,                 setLogFilesMayExist)
+TBPROPERTY(          NSString *,               localizedName,                    setLocalizedName)
 
 //*********************************************************************************************************
 //

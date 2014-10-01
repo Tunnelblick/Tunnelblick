@@ -64,7 +64,7 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "Tunnelblick: %s\n", [msg UTF8String]);
 }
 
-    // returnValue: have used 178-247, plus the values in define.h (248-254)
+    // returnValue: have used 175-247, plus the values in define.h (248-254)
 void exitOpenvpnstart(OSStatus returnValue) {
     [pool drain];
     exit(returnValue);
@@ -847,7 +847,7 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
     
     exitIfPathIsNotSecure(thePath, permissions, 210);
     
-	NSTask* task = [[[NSTask alloc] init] autorelease];
+	NSTask * task = [[[NSTask alloc] init] autorelease];
 	[task setLaunchPath:thePath];
 	[task setArguments:theArguments];
 	
@@ -898,29 +898,11 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
     }
     [task setStandardError: errFileHandle];
     
-	becomeRoot([NSString stringWithFormat: @"launch %@", [thePath lastPathComponent]]);
+    [task setCurrentDirectoryPath: @"/private/tmp"];
     
-    // If starting OpenVPN, add the 'IV_GUI_VER' environment variable
-	// The variable is set to "<bundle-id><space><build-number><space><human-readable-version>"
-    if (  [[thePath lastPathComponent] isEqualToString: @"openvpn"]  ) {
-		// We get the Info.plist contents as follows because NSBundle's objectForInfoDictionaryKey: method returns the object as it was at
-		// compile time, before the TBBUILDNUMBER is replaced by the actual build number (which is done in the final run-script that builds Tunnelblick)
-		// By constructing the path, we force the objects to be loaded with their values at run time.
-		NSString * plistPath    = [[[[NSBundle mainBundle] bundlePath]
-									stringByDeletingLastPathComponent] // Remove /Resources
-								   stringByAppendingPathComponent: @"Info.plist"];
-		NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
-        NSString * bundleId     = [infoDict objectForKey: @"CFBundleIdentifier"];
-        NSString * buildNumber  = [infoDict objectForKey: @"CFBundleVersion"];
-        NSString * fullVersion  = [infoDict objectForKey: @"CFBundleShortVersionString"];
-        NSString * guiVersion   = [NSString stringWithFormat: @"%@ %@ %@", bundleId, buildNumber, fullVersion];
-        NSMutableDictionary * env = [[[task environment] mutableCopy] autorelease];
-		if (  ! env  ) {
-			env = [[[NSMutableDictionary alloc] initWithCapacity: 1] autorelease];
-		}
-		[env setObject: guiVersion forKey: @"IV_GUI_VER"];
-		[task setEnvironment: [NSDictionary dictionaryWithDictionary: env]];
-    }
+    [task setEnvironment: getSafeEnvironment([[thePath lastPathComponent] isEqualToString: @"openvpn"])];
+    
+	becomeRoot([NSString stringWithFormat: @"launch %@", [thePath lastPathComponent]]);
     
 	[task launch];
 	[task waitUntilExit];
@@ -1365,7 +1347,7 @@ void killAllOpenvpn(void) {
     }
     
     NSArray  * arguments = [NSArray arrayWithObject: @"openvpn"];
-    runAsRoot(@"/usr/bin/killall", arguments, 0755);
+    runAsRoot(TOOL_PATH_FOR_KILLALL, arguments, 0755);
 	
     waitUntilAllGone();
 }
@@ -2016,7 +1998,7 @@ void loadKexts(unsigned int bitMask) {
     int status;
     unsigned i;
     for (i=0; i < 5; i++) {
-        status = runAsRoot(@"/sbin/kextload", arguments, 0755);
+        status = runAsRoot(TOOL_PATH_FOR_KEXTLOAD, arguments, 0755);
         if (  status == 0  ) {
             break;
         }
@@ -2053,7 +2035,7 @@ void unloadKexts(unsigned int bitMask) {
         [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"foo.tun", nil]];
     }
     
-    runAsRoot(@"/sbin/kextunload", arguments, 0755);
+    runAsRoot(TOOL_PATH_FOR_KEXTUNLOAD, arguments, 0755);
 }
 
 //**************************************************************************************************************************
@@ -2549,10 +2531,6 @@ int startVPN(NSString * configFile,
 		}
     }
 	
-	NSTask* task = [[[NSTask alloc] init] autorelease];
-	[task setLaunchPath:openvpnPath];
-	[task setArguments:arguments];
-    
     int status = runAsRoot(openvpnPath, arguments, 0755);
     
     NSMutableString * displayCmdLine = [NSMutableString stringWithFormat: @"     %@\n", openvpnPath];
@@ -2734,6 +2712,46 @@ void validateOpenvpnVersion(NSString * s) {
     }
 }
 
+void validateEnvironment(void) {
+	
+	NSDictionary * env = [[NSProcessInfo processInfo] environment];
+	
+	// Check that the PATH starts with known system directories
+	NSString * envPath = [env objectForKey:@"PATH"];	
+    if (  envPath  ) {
+		if (  ! [envPath hasPrefix: STANDARD_PATH]  ) {
+			fprintf(stderr, "Tunnelblick: the PATH environment variable must start with '%s'; it is '%s'\n", [STANDARD_PATH UTF8String], [envPath UTF8String]);
+			exitOpenvpnstart(177);
+		}
+	} else {
+		fprintf(stderr, "Tunnelblick: the PATH environment variable is missing; it must be '%s'\n", [envPath UTF8String]);
+		exitOpenvpnstart(176);
+	}
+	
+	// Check some other environment variables for exact matches but allow them to be undefined
+	NSDictionary * envVarsList = [NSDictionary dictionaryWithObjectsAndKeys:
+								  NSTemporaryDirectory(), @"TMPDIR",
+								  NSUserName(),           @"USER",
+								  NSUserName(),           @"LOGNAME",
+								  NSHomeDirectory(),      @"HOME",
+								  TOOL_PATH_FOR_BASH,     @"SHELL",
+								  @"unix2003",            @"COMMAND_MODE",
+								  nil];
+	
+	NSEnumerator * e = [envVarsList keyEnumerator];
+	NSString * key;
+	while (  (key = [e nextObject])  ) {
+		NSString * valueInEnv = [env objectForKey: key];
+		if (   valueInEnv  ) {
+			NSString * goodValue = [envVarsList objectForKey: key];
+			if (  ! [valueInEnv isEqualToString: goodValue]  ) {
+				fprintf(stderr, "Tunnelblick: if present, the %s environment variable must be set to '%s'; it is '%s'\n", [key UTF8String], [goodValue UTF8String], [valueInEnv UTF8String]);
+				exitOpenvpnstart(175);
+			}
+		}
+	}
+}
+
 //**************************************************************************************************************************
 int main(int argc, char * argv[]) {
     pool = [[NSAutoreleasePool alloc] init];
@@ -2782,6 +2800,8 @@ int main(int argc, char * argv[]) {
         exitOpenvpnstart(244);
     }
 #endif
+	
+	validateEnvironment();
 	
     // Process arguments
     

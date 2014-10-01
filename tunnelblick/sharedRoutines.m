@@ -717,7 +717,8 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
             // Files within L_AS_T_TBLKS are visible to all users (even if they are in a .tblk)
         } else if (   [file isEqualToString:@"forced-preferences.plist"]
                    || [filePath hasPrefix: [L_AS_T_TBLKS  stringByAppendingString: @"/"]]
-                   || [filePath hasPrefix: [gDeployPath stringByAppendingPathComponent: @"Welcome"]]
+                   || [filePath hasPrefix: [gDeployPath stringByAppendingPathComponent: @"Welcome"]] // also catches Welcome.bundle
+                   || [filePath hasPrefix: [gDeployPath stringByAppendingPathComponent: @"Localization.bundle"]]
                    ) {
             result = result && checkSetPermissions(filePath, forcedPrefsPerms, YES);
             
@@ -749,6 +750,47 @@ NSData * availableDataOrError(NSFileHandle * file) {
 	}
 }
 
+NSDictionary * getSafeEnvironment(bool includeIV_GUI_VER) {
+    
+    // Create our own environment to guard against Shell Shock (BashDoor) and similar vulnerabilities in bash
+    // (Even if bash is not being launched directly, whatever is being launched could invoke bash;
+	//  for example, openvpnstart launches openvpn which can invoke bash for scripts)
+    //
+    // This environment consists of several standard shell variables
+    // If specified, we add the 'IV_GUI_VER' environment variable,
+    //                          which is set to "<bundle-id><space><build-number><space><human-readable-version>"
+    //
+	// A pared-down version of this routine is in process-network-changes
+	
+    NSMutableDictionary * env = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                 STANDARD_PATH,          @"PATH",
+                                 NSTemporaryDirectory(), @"TMPDIR",
+                                 NSUserName(),           @"USER",
+                                 NSUserName(),           @"LOGNAME",
+                                 NSHomeDirectory(),      @"HOME",
+                                 TOOL_PATH_FOR_BASH,     @"SHELL",
+                                 @"unix2003",            @"COMMAND_MODE",
+                                 nil];
+    
+    if (  includeIV_GUI_VER  ) {
+        // We get the Info.plist contents as follows because NSBundle's objectForInfoDictionaryKey: method returns the object as it was at
+        // compile time, before the TBBUILDNUMBER is replaced by the actual build number (which is done in the final run-script that builds Tunnelblick)
+        // By constructing the path, we force the objects to be loaded with their values at run time.
+        NSString * plistPath    = [[[[NSBundle mainBundle] bundlePath]
+                                    stringByDeletingLastPathComponent] // Remove /Resources
+                                   stringByAppendingPathComponent: @"Info.plist"];
+        NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
+        NSString * bundleId     = [infoDict objectForKey: @"CFBundleIdentifier"];
+        NSString * buildNumber  = [infoDict objectForKey: @"CFBundleVersion"];
+        NSString * fullVersion  = [infoDict objectForKey: @"CFBundleShortVersionString"];
+        NSString * guiVersion   = [NSString stringWithFormat: @"%@ %@ %@", bundleId, buildNumber, fullVersion];
+        
+        [env setObject: guiVersion forKey: @"IV_GUI_VER"];
+    }
+    
+    return [NSDictionary dictionaryWithDictionary: env];
+}
+
 OSStatus runTool(NSString * launchPath,
                  NSArray  * arguments,
                  NSString * * stdOut,
@@ -756,10 +798,12 @@ OSStatus runTool(NSString * launchPath,
 	
 	// Runs a command or script, returning the execution status of the command, stdout, and stderr
 	
-	NSTask * task = [[NSTask alloc] init];
+    NSTask * task = [[[NSTask alloc] init] autorelease];
     
     [task setLaunchPath: launchPath];
     [task setArguments:  arguments];
+    
+    [task setCurrentDirectoryPath: @"/private/tmp"];
     
 	NSPipe * stdOutPipe = nil;
 	NSPipe * errOutPipe = nil;
@@ -774,29 +818,36 @@ OSStatus runTool(NSString * launchPath,
 		[task setStandardError: errOutPipe];
 	}
 	
+    [task setEnvironment: getSafeEnvironment([[launchPath lastPathComponent] isEqualToString: @"openvpn"])];
+    
     [task launch];
 	
-	// The following is a heavily modified version of code from http://dev.notoptimal.net/search/label/NSTask
+	// The following loop drains the pipes as the task runs, so a pipe doesn't get full and block the task
     
 	NSFileHandle * outFile = [stdOutPipe fileHandleForReading];
 	NSFileHandle * errFile = [errOutPipe fileHandleForReading];
 	
-	NSString * stdOutString = @"";
-	NSString * stdErrString = @"";
+	NSMutableData * stdOutData = (stdOut ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
+	NSMutableData * errOutData = (stdErr ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
 	
+    BOOL taskIsActive = [task isRunning];
 	NSData * outData = availableDataOrError(outFile);
 	NSData * errData = availableDataOrError(errFile);
+    
 	while (   ([outData length] > 0)
 		   || ([errData length] > 0)
-		   || [task isRunning]  ) {
+		   || taskIsActive  ) {
         
 		if (  [outData length] > 0  ) {
-			stdOutString = [stdOutString stringByAppendingString: [[[NSString alloc] initWithData: outData encoding:NSUTF8StringEncoding] autorelease]];
+            [stdOutData appendData: outData];
 		}
 		if (  [errData length] > 0  ) {
-			stdErrString = [stdErrString stringByAppendingString: [[[NSString alloc] initWithData: errData encoding:NSUTF8StringEncoding] autorelease]];
+            [errOutData appendData: errData];
 		}
+        
+        usleep(100000); // Wait 0.1 seconds
 		
+        taskIsActive = [task isRunning];
 		outData = availableDataOrError(outFile);
 		errData = availableDataOrError(errFile);
 	}
@@ -804,23 +855,36 @@ OSStatus runTool(NSString * launchPath,
 	[outFile closeFile];
 	[errFile closeFile];
 	
-	// End of code from http://dev.notoptimal.net/search/label/NSTask
-    
     [task waitUntilExit];
     
 	OSStatus status = [task terminationStatus];
 	
 	if (  stdOut  ) {
-		*stdOut = stdOutString;
+		*stdOut = [[[NSString alloc] initWithData: stdOutData encoding: NSUTF8StringEncoding] autorelease];
 	}
+    [stdOutData release];
 	
 	if (  stdErr  ) {
-		*stdErr = stdErrString;
+		*stdErr = [[[NSString alloc] initWithData: errOutData encoding: NSUTF8StringEncoding] autorelease];
 	}
-	
-    [task release];
+    [errOutData release];
     
 	return status;
+}
+
+void startTool(NSString * launchPath,
+			   NSArray  * arguments) {
+	
+	// Launches a command or script, returning immediately
+	
+    NSTask * task = [[[NSTask alloc] init] autorelease];
+    
+    [task setLaunchPath: launchPath];
+    [task setArguments:  arguments];
+    [task setCurrentDirectoryPath: @"/private/tmp"];
+    [task setEnvironment: getSafeEnvironment([[launchPath lastPathComponent] isEqualToString: @"openvpn"])];
+    
+    [task launch];
 }
 
 // Returns with a bitmask of kexts that are loaded that can be unloaded

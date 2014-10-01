@@ -19,13 +19,14 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-#include "easyRsa.h"
+#import "easyRsa.h"
 
-#include "helper.h"
+#import "defines.h"
+#import "helper.h"
 #import "sharedRoutines.h"
 
-#include "NSFileManager+TB.h"
-#include "TBUserDefaults.h"
+#import "NSFileManager+TB.h"
+#import "TBUserDefaults.h"
 
 extern NSFileManager   * gFileMgr;
 extern TBUserDefaults  * gTbDefaults;
@@ -376,6 +377,7 @@ BOOL openTerminalWithEasyRsaFolder(NSString * userPath) {
 	// Run an AppleScript to open Terminal.app and cd to the easy-rsa folder
 	
 	NSArray * applescriptProgram = [NSArray arrayWithObjects:
+                                    
 									[NSString stringWithFormat: @"set cmd to \"cd \\\"%@\\\"\"", userPath],
 									@"tell application \"System Events\" to set terminalIsRunning to exists application process \"Terminal\"",
 									@"tell application \"Terminal\"",
@@ -392,11 +394,6 @@ BOOL openTerminalWithEasyRsaFolder(NSString * userPath) {
 		[arguments addObject: line];
 	}
 	
-	NSTask* task = [[[NSTask alloc] init] autorelease];
-	[task setLaunchPath: @"/usr/bin/osascript"];
-	[task setArguments: arguments];
-	[task setCurrentDirectoryPath: @"/tmp"];
-	[task launch];
-	
+	startTool(TOOL_PATH_FOR_OSASCRIPT, arguments);
 	return YES;
 }
