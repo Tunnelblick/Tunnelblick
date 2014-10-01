@@ -5,6 +5,18 @@
 
 --------------------
 
+2014-10-01: *Tunnelblick 3.4beta38 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * *<font color="red">SECURITY UPDATE:</font>* Fixes several security vulnerabilities.
+
+ * Adds a 'Set DNS after routes have been set up' checkbox to the 'Advanced' settings window.
+
+ * Includes additional enhancements and fixes several bugs.
+
+ See the [RlsNotes#Version_3.4 Release Notes] for details.
+
+--------------------
+
 2014-09-02: *Tunnelblick 3.4beta36 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Fixes a problem on OS X 10.9.5 ('Mavericks') and 10.10 ('Yosemite') that causes spurious warnings that 'This version has been tampered with'.

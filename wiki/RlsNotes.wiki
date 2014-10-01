@@ -9,6 +9,29 @@
 
 ==Version 3.4==
 
+*3.4beta38 build 4002 (2014-10-01)*
+
+ * *<font color="red">SECURITY UPDATE:</font>* Fixes several security vulnerabilities.
+
+ * Adds a 'Set DNS after routes have been set up' checkbox to the 'Advanced' settings window.
+
+ * Secures all configurations (shared, private, and shadow) when Tunnelblick is installed.
+
+ * Removes a message that the 'Place icon next to Spotlight icon' checkbox is not available on OS X 10.9 ('Mavericks') and higher.
+
+ * Includes better logging when a forced preference overrides a user-specified preference.
+
+ * Includes preparation for localizing configuration names and Deployed menu commands and Welcome windows.
+
+ * Fixes a problem installing configurations that have both .ovpn and .conf files.
+
+ * Fixes a problem that causes graphic artifacts to appear in the list of configurations in the VPN Details window.
+
+ * Fixes several problems involving rebranded and "Deployed" versions of Tunnelblick.
+
+
+--------------------
+
 *3.4beta36 build 3945 (2014-09-02)*
 
  * Fixes a problem on OS X 10.9.5 ('Mavericks') and 10.10 ('Yosemite') that causes spurious warnings that 'This version has been tampered with'.
