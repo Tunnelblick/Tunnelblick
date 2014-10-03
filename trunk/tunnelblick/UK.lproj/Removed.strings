@@ -31,3 +31,60 @@
 /* Checkbox name */
 "Check if the apparent public IP address changed after connection" = "Перевіряти чи змінилась публічна IP адреса";
 
+/* Button */
+"Examine" = "Перевірити";
+
+/* Button */
+"OpenVPN Configuration(s)" = "Конфігурації OpenVPN";
+
+/* Button */
+"Replace Existing Configuration" = "Замінити існуючу конфігурацію";
+
+/* Button */
+"Tunnelblick VPN Configuration(s)" = "Конфигурація(ї) Tunnelblick VPN Configuration(s)";
+
+/* Button */
+"Unprotect and Modify" = "Розблокувати та редагувати";
+
+/* Checkbox name */
+"Do not warn about this again, always 'Examine'" = "Більше не попереджувати про це, завжди 'Перевіряти'";
+
+/* Window title */
+"%@ Advanced Settings%@" = "%1$@ Додаткові налаштування%2$@";
+
+/* Window title */
+"Examine the configuration file?" = "Перевірити файл конфігурації?";
+
+/* Window title */
+"Install and Uninstall?" = "Встановлення та відалення?";
+
+/* Window title */
+"Install?" = "Встановити?";
+
+/* Window title */
+"Installing a Tunnelblick VPN Configuration" = "Встановлення конфігурації VPN";
+
+/* Window title */
+"Name In Use" = "Ім'я використовується";
+
+/* Window title */
+"OpenVPN Not Responding" = "OpenVPN не відповідає";
+
+/* Window title */
+"Replace Tunnelblick VPN Configuration" = "Замінити VPN конфігурацію Tunnelblick";
+
+/* Window title */
+"Uninstall?" = "Видалити?";
+
+/* Window text */
+"  • Be installed in /Applications\n" = "  • Буде встановлено до /Applications\n";
+
+/* Window text */
+"A configuration was not installed. See the Console log for details." = "Конфігурацію не встановлено. Для подробиць подивіться лог консолі.";
+
+/* Window text */
+"Do you wish to reinstall '%@'%@ version %@?" = "Бажаєте перевстановити '%1$@'%2$@ версія %3$@?";
+
+/* Window text */
+"Installation of .tblk packages is not allowed" = "Інсталяція пакетів .tblk не дозволена";
+
