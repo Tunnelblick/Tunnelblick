@@ -1,0 +1,9 @@
+/* Checkbox name */
+"Scan configuration file for problems before connecting" = "Vor dem Verbinden die Konfigurationsdatei auf Fehler überprüfen";
+
+/* Checkbox name */
+"Use Tunnelblick tun/tap drivers" = "Tunnelblicks TUN/TAP-Treiber verwenden";
+
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Sie haben OpenVPN Konfigurationen, aber Sie haben keine Tunnelblick VPN Konfigurationen.\n\nSie müssen die OpenVPN Konfigurationen in Tunnelblick VPN Konfigurationen konvertieren, wenn Sie sie nutzen möchten.\n\n";
+
