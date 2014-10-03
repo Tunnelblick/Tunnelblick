@@ -43,3 +43,141 @@
 /* Checkbox name */
 "Scan configuration file for problems before connecting" = "連接前掃描設定檔的問題";
 
+/* Button */
+"Examine" = "檢查";
+
+/* Button */
+"OpenVPN Configuration(s)" = "OpenVPN設定檔";
+
+/* Button */
+"Replace Existing Configuration" = "取代現有設定";
+
+/* Button */
+"Tunnelblick VPN Configuration(s)" = "Tunnelblick VPN設定檔";
+
+/* Button */
+"Unprotect and Modify" = "移除保護並修改";
+
+/* Checkbox name */
+"Do not warn about this again, always 'Examine'" = "不要再警告, 永遠'檢查'";
+
+/* Folder name */
+"Empty Tunnelblick VPN Configuration" = "清空Tunnelblick VPN設定檔";
+
+/* Window title */
+"%@ Advanced Settings%@" = "%1$@ 進階設定%2$@";
+
+/* Window title */
+"An Empty Tunnelblick VPN Configuration Has Been Created" = "一個空白Tunnelblick VPN設定檔被創建";
+
+/* Window title */
+"Examine the configuration file?" = "檢查設定檔?";
+
+/* Window title */
+"Install and Uninstall?" = "安裝及卸載?";
+
+/* Window title */
+"Install?" = "安裝?";
+
+/* Window title */
+"Installing a Tunnelblick VPN Configuration" = "正在安裝Tunnelblick VPN設定檔";
+
+/* Window title */
+"Name In Use" = "名稱正在使用中";
+
+/* Window title */
+"OpenVPN Not Responding" = "OpenVPN沒有回應";
+
+/* Window title */
+"Replace Tunnelblick VPN Configuration" = "取代Tunnelblick VPN設定";
+
+/* Window title */
+"The configuration file is protected" = "設定檔被保護";
+
+/* Window title */
+"Uninstall Tunnelblick VPN Configuration" = "卸載Tunnelblick VPN設定檔";
+
+/* Window title */
+"Uninstall?" = "卸載?";
+
+/* Window title */
+"Which Type of Configuration Do You Have?" = "您有哪一種設定檔?";
+
+/* Window text */
+"  • Be installed in /Applications\n" = "  • 安裝到 /Applications\n";
+
+/* Window text */
+"%d Tunnelblick VPN Configurations were installed successfully." = "%d Tunnelblick VPN設定 已被安裝成功.";
+
+/* Window text */
+"%d Tunnelblick VPN Configurations were uninstalled successfully." = "%d Tunnelblick VPN設定已被卸載成功.";
+
+/* Window text */
+"%d configurations were not installed. See the Console Log for details." = "%d 設定未被安裝 詳情請參見控制台日誌";
+
+/* Window text */
+"A configuration was not installed. See the Console log for details." = "A configuration was not installed. 詳情請參見控制台日誌";
+
+/* Window text */
+"Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "設定 are usually installed from files that are supplied to you by your network manager或VPN service provider.\n\n設定檔have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any設定檔?\n";
+
+/* Window text */
+"Do you wish to reinstall '%@'%@ version %@?" = "您是否想重裝'%1$@'%2$@版本%3$@?";
+
+/* Window text */
+"Do you wish to replace '%@'%@ version %@ with version %@?" = "您是否想以%4$@版本取代'%1$@'%2$@的%3$@版本?";
+
+/* Window text */
+"Do you wish to uninstall '%@'%@ version %@?" = "您是否想卸載'%1$@'%2$@的%3$@版本?";
+
+/* Window text */
+"Installation of .tblk packages is not allowed" = "安裝.tblk packages is not allowed";
+
+/* Window text */
+"Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick." = "因為此是Tunnelblick Deployed版本所以不淮安裝Tunnelblick VPN設定檔.";
+
+/* Window text */
+"One Tunnelblick VPN Configuration was installed successfully." = "一個Tunnelblick VPN設定檔被成功安裝.";
+
+/* Window text */
+"One Tunnelblick VPN Configuration was uninstalled successfully." = "一個Tunnelblick VPN設定檔被成功反安裝.";
+
+/* Window text */
+"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one或two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %1$d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %2$d seconds elapse, whichever comes first.";
+
+/* Window text */
+"The VPN name '%@' is already in use.\n\nPlease enter a new name." = "VPN名稱'%@'已被使用.\n\n請輸入一個新名稱.";
+
+/* Window text */
+"The VPN name cannot be empty.\n\nPlease enter a new name." = "VPN名稱不能是空白.\n\n請輸入一個新名稱.";
+
+/* Window text */
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "The attempt to connect %1$@ 被取消: the runOnConnect script returned status: %2$d.";
+
+/* Window text */
+"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "There are two types of設定檔s:\n\n  • Tunnelblick VPN 設定 (.tblk extension)\n\n  • OpenVPN 設定 (.ovpn或.conf extension)\n\nWhich type of configuration file do have?\n\n";
+
+/* Window text */
+"To install it as a Tunnelblick VPN Configuration:\n\n1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)" = "To install it as a Tunnelblick VPN Configuration:\n\n1. 移動或複製one OpenVPN設定檔 (.ovpn或.conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. 移動或複製any key或certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)";
+
+/* Window text */
+"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick 無法解除設定檔保護 詳情請參見控制台日誌.\n\n您是否想檢查設定檔就算你無法修改其內容?";
+
+/* Window text */
+"Tunnelblick is based on %@. " = "Tunnelblick建基於%@. ";
+
+/* Window text */
+"Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "Tunnelblick需要安裝一個或多個Tunnelblick VPN設定.";
+
+/* Window text */
+"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "You cannot install a Tunnelblick VPN設定 from an installed 複製本.\n\nAn administrator can 複製the 安裝 及install from the 複製本.";
+
+/* Window text */
+"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "You may 檢查設定檔, but if you plan to modify it, you must unprotect it now. If you unprotect 設定檔 now, you will 需要provide an administrator 用戶名及密碼 the next time you connect using it.";
+
+/* Window text */
+"\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\n%d Tunnelblick VPN 設定檔已被成功安裝.";
+
+/* Window text */
+"\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\n一個Tunnelblick VPN設定檔被安裝成功.";
+

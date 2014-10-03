@@ -287,3 +287,174 @@
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "你有 OpenVPN 格式的配置文件但你没有 Tunnelblick VPN 格式的配置文件.\n\n如果你想使用它们, 你必须将 OpenVPN 格式的配置文件转换为 Tunnelblick VPN 格式的配置文件.\n\n";
+
+/* Button */
+"Examine" = "检查";
+
+/* Button */
+"OpenVPN Configuration(s)" = "OpenVPN 配置";
+
+/* Button */
+"Replace Existing Configuration" = "替换已存在的配置";
+
+/* Button */
+"Tunnelblick VPN Configuration(s)" = "Tunnelblick VPN 配置";
+
+/* Button */
+"Unprotect and Modify" = "解除只读保护，并且编辑";
+
+/* Checkbox name */
+"Do not warn about this again, always 'Examine'" = "不再发出此警告, 总是 '查看'";
+
+/* Folder name */
+"Empty Tunnelblick VPN Configuration" = "空白 Tunnelblick VPN 配置";
+
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
+" (?)" = " (?)";
+
+/* Window title */
+"%@ Advanced Settings%@" = "%1$@ 高级选项 %2$@";
+
+/* Window title */
+"An Empty Tunnelblick VPN Configuration Has Been Created" = "一个空白 Tunnelblick VPN 配置新建成功";
+
+/* Window title */
+"Examine the configuration file?" = "要查看配置文件吗?";
+
+/* Window title */
+"Install and Uninstall?" = "安装和卸载?";
+
+/* Window title */
+"Install?" = "安装?";
+
+/* Window title */
+"Installing a Tunnelblick VPN Configuration" = "正在安装一个 Tunnelblick VPN 配置";
+
+/* Window title */
+"Name In Use" = "名字已经被使用";
+
+/* Window title */
+"OpenVPN Not Responding" = "OpenVPN 没有回应";
+
+/* Window title */
+"Replace Tunnelblick VPN Configuration" = "取得 Tunnelblick VPN 配置";
+
+/* Window title */
+"The configuration file is protected" = "配置文件受保护";
+
+/* Window title */
+"Uninstall Tunnelblick VPN Configuration" = "卸载 Tunnelblick VPN 配置";
+
+/* Window title */
+"Uninstall?" = "卸载?";
+
+/* Window title */
+"Which Type of Configuration Do You Have?" = "你有哪种配置?";
+
+/* Window text */
+"  • Be installed in /Applications\n" = "  • 已经被安装到 /应用程序 目录\n";
+
+/* Window text */
+"  • Install %ld configurations\n\n" = "  • 安装配置文件: %ld \n\n";
+
+/* Window text */
+"  • Install one configuration\n\n" = "  • 安装一个配置文件\n\n";
+
+/* Window text */
+"  • Uninstall %ld configurations\n\n" = "  • 卸载配置文件: %ld \n\n";
+
+/* Window text */
+"  • Uninstall one configuration\n\n" = "  • 卸载一个配置文件\n\n";
+
+
+/* Window text */
+"%d Tunnelblick VPN Configurations were installed successfully." = "%d 个 Tunnelblick VPN 配置已经安装成功.";
+
+/* Window text */
+"%d Tunnelblick VPN Configurations were uninstalled successfully." = "%d 个 Tunnelblick VPN 配置已经卸载成功.";
+
+/* Window text */
+"%d configurations were not installed. See the Console Log for details." = "%d 个配置未能安装. 详情请查看控制台日志.";
+
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>基于 Tunnelblick, 是一款免费的软件, 可以在这里找到<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+
+/* Window text */
+"A configuration was not installed. See the Console log for details." = "一个配置未能安装. 详情请查看控制台日志.";
+
+/* Window text */
+"Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "配置文件通常会由你的网络管理员或 VPN 服务提供者提供.\n\n配置文件的后缀包括 .tblk, .ovpn, 或 .conf.\n\n(其它相关文件会有不同后缀; 暂时不要理会这些文件.)\n\n你有配置文件吗?\n";
+
+/* Window text */
+"Do you wish to reinstall '%@'%@ version %@?" = "你想重装 '%1$@'%2$@ (版本号 %3$@) 吗?";
+
+/* Window text */
+"Do you wish to replace '%@'%@ version %@ with version %@?" = "你想用版本号 %4$@ 的 '%1$@'%2$@ 取代版本号 %3$@ 吗?";
+
+/* Window text */
+"Do you wish to uninstall '%@'%@ version %@?" = "你想要卸载 '%1$@'%2$@ (版本号 %3$@) 吗?";
+
+/* Window text */
+"Installation of .tblk packages is not allowed" = "不允许安装 .tblk 软件包";
+
+/* Window text */
+"Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick." = "这个部署版的 Tunnelblick 禁止安装这个 Tunnelblick 的 VPN 配置.";
+
+/* Window text */
+"One Tunnelblick VPN Configuration was installed successfully." = "一个 Tunnelblick VPN 配置已经安装成功.";
+
+/* Window text */
+"One Tunnelblick VPN Configuration was uninstalled successfully." = "一个 Tunnelblick VPN 配置已经卸载成功.";
+
+/* Window text */
+"OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN 未回应断开连接的请求, 时间已经超过 %d 秒.\n\n连接会被当作已经断开, 但是计算机的网络配置或许处于一种不一致的状态中.";
+
+/* Window text */
+"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN 没有回应断开连接的请求.\n\nOpenVPN 2.1版中有一个已知的错误, 有时会造成在回应此请求时延迟1至2分钟.\n\nTunnelblick将继续用 %1$d 秒的时间来试图断开连接.\n\n当 OpenVPN 断开连接后, 或者%2$d秒后(两者较早者为准), 连接才能重新使用.";
+
+
+/* Window text */
+"The VPN name '%@' is already in use.\n\nPlease enter a new name." = "VPN 名字 '%@' 已被使用.\n\n请输入一个新的名字.";
+
+/* Window text */
+"The VPN name cannot be empty.\n\nPlease enter a new name." = "VPN 名字不能为空.\n\n请输入一个新的名字.";
+
+/* Window text */
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "连接 %1$@ 的尝试已经取消: runOnConnect 脚本返回的状态为: %2$d.";
+
+/* Window text */
+"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "有两种类型的配置文件:\n\n  • Tunnelblick VPN 配置(.tblk 后缀)\n\n  • OpenVPN 配置(.ovpn 或 .conf 后缀)\n\n你有哪种配置文件?\n\n";
+
+/* Window text */
+"To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "通过双击来安装 Tunnelblick VPN 配置 (.tblk 后缀) .\n\n新的配置将立即能够在 Tunnelblick 中使用.";
+
+/* Window text */
+"To install it as a Tunnelblick VPN Configuration:\n\n1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)" = "将其安装为 Tunnelblick VPN 配置:\n\n1. 移动或复制一个 OpenVPN 配置文件 (.ovpn 或 .conf 后缀) 到桌面上新建的 '空白 Tunnelblick VPN 配置' 文件夹.\n\n2.与将此配置文件相关的密钥或证书文件移动或复制到此文件夹.\n\n3. 将文件夹重命名为你想要的名字. 新的名字将是此配置在 Tunnelblick 中的名字.\n\n4. 此文件夹的后缀改为  .tblk.\n\n5. 双击此文件夹, 这将安装此配置.\n\n新的配置将立即能够在 Tunnelblick 中使用.\n\n(为了方便起见, 此文件夹已在一个 Finder 窗口中打开.)";
+
+/* Window text */
+"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick 未能取消配置文件的只读保护. 详情请查看控制台日志.\n\n你将不能修改配置文件, 你想查看配置文件?";
+
+/* Window text */
+"Tunnelblick is based on %@. " = "Tunnelblick 基于 %@. ";
+/* Window text */
+"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick 是一款免费软件. 你可以重新发布或者修改此软件, 但是需要遵守 %2$@ 发表的 %1$@ 的条款.";
+
+/* Window text */
+"Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "Tunnelblick 需要安装一个或多个 Tunnelblick VPN 配置.";
+
+/* Window text */
+"Tunnelblick needs to:\n\n" = "Tunnelblick 需要:\n\n";
+
+/* Window text */
+"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "你不能由已安装的配置来安装 Tunnelblick VPN 配置.\n\n管理员可以复制已安装的配置, 然后安装.";
+
+
+/* Window text */
+"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "你可以查看配置文件, 不过如果你想要修改此文件, 你必须现在就解除只读保护. 解除只读保护时, 你需要提供一个计算机管理员的用户名和密码. 解除只读保护后, 在使用此配置进行连接之前, 你必须再次提供计算机管理员的用户名和密码.";
+
+/* Window text */
+"\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\n%d 个 Tunnelblick VPN 配置已经安装成功.";
+
+/* Window text */
+"\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\n一个 Tunnelblick VPN 配置已经安装成功.";

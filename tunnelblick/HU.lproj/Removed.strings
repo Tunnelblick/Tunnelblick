@@ -7,3 +7,171 @@
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Csak OpenVPN konfigurációk találhatók és Tunnelblick VPN konfigurációk nem.\n\nAz OpenVPN konfigurációk csak akkor használhatók fel, ha azok Tunnelblick VPN konfigurációvá lesznek konvertálva.\n\n";
 
+/* Button */
+"Examine" = "Vizsgál";
+
+/* Button */
+"OpenVPN Configuration(s)" = "OpenVPN Konfiguráció(k)";
+
+/* Button */
+"Replace Existing Configuration" = "Meglévő konfiguráció lecserélése";
+
+/* Button */
+"Tunnelblick VPN Configuration(s)" = "Tunnelblick VPN Konfiguráció(k)";
+
+/* Button */
+"Unprotect and Modify" = "Védelem kikapcsolása és módosítás";
+
+/* Checkbox name */
+"Do not warn about this again, always 'Examine'" = "Ne figyelmeztessen ismét, mindig 'Ellenőrizzen'";
+
+/* Folder name */
+"Empty Tunnelblick VPN Configuration" = "Üres Tunnelblick VPN Konfiguráció";
+
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
+" (?)" = " (?)";
+
+/* Window title */
+"%@ Advanced Settings%@" = "%1$@ Haladó Beállítások%2$@";
+
+/* Window title */
+"An Empty Tunnelblick VPN Configuration Has Been Created" = "Elkészült egy üres Tunnelblick VPN konfigurációs fájl";
+
+/* Window title */
+"Examine the configuration file?" = "Konfigurációs állomány ellenőrzése?";
+
+/* Window title */
+"Install and Uninstall?" = "Telepítés és eltávolítás?";
+
+/* Window title */
+"Install?" = "Telepítés?";
+
+/* Window title */
+"Installing a Tunnelblick VPN Configuration" = "Egy Tunnelblick VPN konfiguráció telepítése";
+
+/* Window title */
+"Name In Use" = "Ez a név foglalt";
+
+/* Window title */
+"OpenVPN Not Responding" = "Az OpenVPN nem válaszol";
+
+/* Window title */
+"Replace Tunnelblick VPN Configuration" = "Tunnelblick VPN Konfiguráció lecserélése";
+
+/* Window title */
+"The configuration file is protected" = "A konfigurációs állomány védett";
+
+/* Window title */
+"Uninstall Tunnelblick VPN Configuration" = "Tunnelblick VPN Konfiguráció eltávolítása";
+
+/* Window title */
+"Uninstall?" = "Eltávolítás?";
+
+/* Window title */
+"Which Type of Configuration Do You Have?" = "Milyen típusú konfigurációval rendelkezik?";
+
+/* Window text */
+"  • Be installed in /Applications\n" = "  • Legyen telepítve a /Alkalmazások mappába\n";
+
+/* Window text */
+"  • Install %ld configurations\n\n" = "  • A(z) %ld konfiguráció telepítése\n\n";
+
+/* Window text */
+"  • Install one configuration\n\n" = "  • Egy konfiguráció telepítése\n\n";
+
+/* Window text */
+"  • Uninstall %ld configurations\n\n" = "  • A(z) %ld konfiguráció eltávolítása\n\n";
+
+/* Window text */
+"  • Uninstall one configuration\n\n" = "  • Egy konfiguráció eltávolítása\n\n";
+
+/* Window text */
+"%d Tunnelblick VPN Configurations were installed successfully." = "%d Tunnelblick VPN konfiguráció telepítése sikeres volt.";
+
+/* Window text */
+"%d Tunnelblick VPN Configurations were uninstalled successfully." = "%d Tunnelblick VPN konfiguráció eltávolítása sikerült.";
+
+/* Window text */
+"%d configurations were not installed. See the Console Log for details." = "%d nevű konfiguráció nincsen telepítve. Nézze meg a Konzol log-ot a részletekért.";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Tunnelblick alapú, szabad szoftver, előrhető a: <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a> címen";
+
+/* Window text */
+"A configuration was not installed. See the Console log for details." = "Egy konfigurációt nem sikerült telepíteni. Nézzem meg a Konzol log-ot a részletekért.";
+
+/* Window text */
+"Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "A konfigurációs állományokat rendszerint a hálózati adminisztrátortól vagy a VPN szolgáltatótól kaphatja meg.\n\nAz állományok kiterjesztése általában .tblk, .ovpn, vagy .conf.\n\n(Lehetséges, hogy más állományokat is kapott a konfigurációhoz, azokat egyelőre hagyja figyelmen kívül)\n\nTalált további konfigurációs állományokat?\n";
+
+/* Window text */
+"Do you wish to reinstall '%@'%@ version %@?" = "Szeretné újratelepíteni a(z) '%1$@'%2$@ verziót %3$@?";
+
+/* Window text */
+"Do you wish to replace '%@'%@ version %@ with version %@?" = "Szeretné lecserélni a(z) '%1$@'%2$@ verziót %3$@ a(z) %4$@ verzióval?";
+
+/* Window text */
+"Do you wish to uninstall '%@'%@ version %@?" = "Valóban szeretné eltávolítani a(z) '%1$@'%2$@ verzió: %3$@?";
+
+/* Window text */
+"Installation of .tblk packages is not allowed" = "A .tblk csomagok telepítése nem engedélyezett";
+
+/* Window text */
+"Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick." = "A Tunnelblick VPN konfiguráció telepítése nem engedélyezett, mert ez egy harmadgyártó által készített változat.";
+
+/* Window text */
+"One Tunnelblick VPN Configuration was installed successfully." = "Sikeresen telepítve lett egy Tunnelblick VPN konfiguráció.";
+
+/* Window text */
+"One Tunnelblick VPN Configuration was uninstalled successfully." = "Egy Tunnelblick VPN konfiguráció sikeresen el lett távolítva.";
+
+/* Window text */
+"OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "Az OpenVPN nem válaszolt a leállítási kérelemre %d mp után sem.\n\nA kapcsolat befejezettnek tekinthető, de előfordulhat, hogy a számítógép hálózati beállításai nem  konzisztensek.";
+
+/* Window text */
+"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "Az OpenVPN nem válaszol a leválasztási kérelemre.\n\nEgy ismert hiba található az OpenVPN v2.1-ben ami okozhat egy vagy akár két perces válaszidőt is erre a kérelemre.\n\nA Tunnelblick folytatja a próbálkozást %1$d másodpercig.\n\nA kapcsolat nem lesz elérhető amíg az OpenVPN le nem választódik vagy %2$d másodpercig, amelyik előbb bekövetkezik.";
+
+/* Window text */
+"The VPN name '%@' is already in use.\n\nPlease enter a new name." = "A(z) '%@' nevű VPN már létezik.\n\nKérem adjon meg egy új nevet.";
+
+/* Window text */
+"The VPN name cannot be empty.\n\nPlease enter a new name." = "A VPN név nem lehet üres.\n\nKérem adjon meg egy nevet.";
+
+/* Window text */
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "A csatlakozás a(z) %1$@ konfigurációval meghiúsult, mert a runOnConnect szkript státusza: %2$d.";
+
+/* Window text */
+"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Két konfigurációs típus létezik:\n\n  • Tunnelblick VPN konfiguráció (.tblk kiterjesztéssel)\n\n  • OpenVPN konfiguráció (.ovpn vagy .conf kiterjesztéssel)\n\nMilyen típusú konfigurációs állománnyal rendelkezik?\n\n";
+
+/* Window text */
+"To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Egy Tunnelblick VPN Konfiguráció telepítéséhez (.tblk kiterjesztésű fájl), kattintson duplán a fájlra.\n\nAz új konfiguráció azonnal elérhető lesz a Tunnelblick-ben.";
+
+/* Window text */
+"To install it as a Tunnelblick VPN Configuration:\n\n1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)" = "Ahhoz, hogy egy Tunnelblick VPN konfigurációként telepíthesse, a következőket kell tennie:\n\n1. Mozgassa vagy másolja a konfigurációs fájlt (.ovpn vagy .conf kiterjesztésű) az 'Üres Tunnelblick VPN Konfiguráció' könyvtárba ami az Íróasztalon található\n\n2. Minden kulcs- és tanúsítványfájlt ami a konfigurációhoz tartozik mozgasson szintén a könyvtárba.\n\n3. Nevezze át a könyvtárat a kívánt névre, amit a Tunnelblick-ben is használni szeretne.\n\n4. Adjon a könyvtárnak .tblk végződést (kiterjesztést).\n\n5. Kattintson duplán a mappára, hogy az települjön automatikusan.\n\nAz új konfiguráció azonnal elérhető lesz a Tunnelblick-ben.\n\n(A kényelem érdekében a könyvtár nyitva van egy Finder ablakban.)";
+
+/* Window text */
+"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "A Tunnelblick nem tudta feloldani a védelmet a konfigurációs fájlon. Részletek a Konzol log-ban.\n\nSzeretné megvizsgálni a konfigurációs állományt, annak ellenére, hogy nem módosíthatja azt?";
+
+/* Window text */
+"Tunnelblick is based on %@. " = "A Tunnelblick %@ alapú. ";
+
+/* Window text */
+"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "A Tunnelblick egy ingyenes szoftver: továbbadható és/vagy módosítható a %1$@ alatt, amit a %2$@ tesz közzé és kezel.";
+
+/* Window text */
+"Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "A Tunnelblick telepítene egy vagy több Tunnelblick VPN konfigurációt";
+
+/* Window text */
+"Tunnelblick needs to:\n\n" = "A Tunnelblickhez szükséges:\n\n";
+
+/* Window text */
+"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "Nem telepíthet egy  Tunnelblick VPN konfigurációt egy már telepített másolatból.\n\nCsak egy Adminisztrátor tud másolatot készíteni, és tudja azt telepíteni.";
+
+/* Window text */
+"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "Lehet, hogy van jogosultsága megtekinteni a konfigurációs fájlt, de ha annak módosítását is tervezi, előbb ki kell kapcsolnia a fájl védelmét. Ha kikapcsolta a védelmet, a következő csatlakozás előtt meg kell adnia egy adminisztrátor jogosultságú felhasználónevet és jelszót.";
+
+/* Window text */
+"\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\n%d Tunnelblick VPN Konfiguráció sikeresen feltelepült.";
+
+/* Window text */
+"\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\nEgy Tunnelblick Konfiguráció sikeresen települt.";
+

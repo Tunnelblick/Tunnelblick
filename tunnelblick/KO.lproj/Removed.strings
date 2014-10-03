@@ -7,3 +7,172 @@
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "OpenVPN 설정이 있지만 Tunnelblick VPN 설정이 없습니다.\n\OpenVPN 설정을 Tunnelblick VPN 설정으로 변환해야 사용할 수 있습니다.\n\n";
 
+/* Button */
+"Examine" = "검토";
+
+/* Button */
+"OpenVPN Configuration(s)" = "OpenVPN 설정";
+
+/* Button */
+"Replace Existing Configuration" = "기존 설정 교체";
+
+/* Button */
+"Tunnelblick VPN Configuration(s)" = "Tunnelblick VPN 설정";
+
+/* Button */
+"Unprotect and Modify" = "잠금 해제 및 수정";
+
+/* Checkbox name */
+"Do not warn about this again, always 'Examine'" = "이 경고를 다시 하지 않고 계속 '검토'";
+
+/* TRANSLATION SAME AS DEVELOPMENT *//* Folder name */
+"Empty Tunnelblick VPN Configuration" = "빈 Tunnelblick VPN 설정";
+
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
+" (?)" = " (?)";
+
+/* Window title */
+"%@ Advanced Settings%@" = "%1$@ 고급 설정%2$@";
+
+/* Window title */
+"An Empty Tunnelblick VPN Configuration Has Been Created" = "비어있는 Tunnelblick VPN 설정이 만들어졌습니다";
+
+/* Window title */
+"Examine the configuration file?" = "설정 파일을 검토하겠습니까?";
+
+/* Window title */
+"Install and Uninstall?" = "설치 및 삭제?";
+
+/* Window title */
+"Install?" = "설치?";
+
+/* Window title */
+"Installing a Tunnelblick VPN Configuration" = "Tunnelblick VPN 설정 설치";
+
+/* Window title */
+"Name In Use" = "사용 중인 이름";
+
+/* Window title */
+"OpenVPN Not Responding" = "OpenVPN 응답 없음";
+
+/* Window title */
+"Replace Tunnelblick VPN Configuration" = "Tunnelblick VPN 설정 교체";
+
+/* Window title */
+"The configuration file is protected" = "설정 파일이 잠겨있습니다";
+
+/* Window title */
+"Uninstall Tunnelblick VPN Configuration" = "Tunnelblick VPN 설정을 삭제합니다";
+
+/* Window title */
+"Uninstall?" = "삭제?";
+
+/* Window title */
+"Which Type of Configuration Do You Have?" = "가지고 있는 설정 종류는 무엇입니까?";
+
+/* Window text */
+"  • Be installed in /Applications\n" = "  • /Applications에 설치되어야 한다\n";
+
+/* Window text */
+"  • Install %ld configurations\n\n" = "  • %ld개 설정 설치\n\n";
+
+/* Window text */
+"  • Install one configuration\n\n" = "  • 1개 설정 설치\n\n";
+
+/* Window text */
+"  • Uninstall %ld configurations\n\n" = "  • %ld개 설정 삭제\n\n";
+
+/* Window text */
+"  • Uninstall one configuration\n\n" = "  • 1개 설정 삭제\n\n";
+
+/* Window text */
+"%d Tunnelblick VPN Configurations were installed successfully." = "%d개 Tunnelblick VPN 설정이 올바르게 설치되었습니다.";
+
+/* Window text */
+"%d Tunnelblick VPN Configurations were uninstalled successfully." = "%d개 Tunnelblick VPN 설정이 올바르게 삭제되었습니다.";
+
+/* Window text */
+"%d configurations were not installed. See the Console Log for details." = "%d개 설정이 설치되지 못했습니다. 자세한 것은 콘솔 로그를 보십시오.";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Tunnelblick 기반의 자유 소프트웨어는 <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>에서 구할 수 있습니다.";
+
+/* Window text */
+"A configuration was not installed. See the Console log for details." = "설정이 설치되지 않았습니다. 자세한 것은 콘솔 로그을 보십시오.";
+
+/* Window text */
+"Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "일반적으로 네트워크 관리자 또는 VPN 서비스 제공자가 제공한 파일로 설정을 설치합니다.\n\n설정 파일은 .tblk 나 .ovpn 또는 .conf 확장자를 가집니다.\n\n(설정과 연관이 있는 다른 파일들은 다른 확장자를 가질 수 있습니다. 지금은 무시하십시오)\n\n설정 파일을 가지고 있습니까?\n";
+
+/* Window text */
+"Do you wish to reinstall '%@'%@ version %@?" = "'%1$@'%2$@ 버전 %3$@을 재설치하겠습니까?";
+
+/* Window text */
+"Do you wish to replace '%@'%@ version %@ with version %@?" = "'%1$@'%2$@ 버전 %3$@을 버전 %4$@으로 교체하겠습니까?";
+
+/* Window text */
+"Do you wish to uninstall '%@'%@ version %@?" = "'%1$@'%2$@ 버전 %3$@을 삭제하겠습니까?";
+
+/* Window text */
+"Installation of .tblk packages is not allowed" = ".tblk 패키지 설치가 허용되지 않습니다.";
+
+/* Window text */
+"Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick." = "배포된 Tunnelblick 버전이기 때문에 Tunnelblick VPN 설정의 설치가 허용되지 않습니다.";
+
+/* Window text */
+"One Tunnelblick VPN Configuration was installed successfully." = "1개의 Tunnelblick VPN 설정이 올바르게 설치되었습니다.";
+
+/* Window text */
+"One Tunnelblick VPN Configuration was uninstalled successfully." = "1개의 Tunnelblick VPN 설정이 올바르게 삭제되었습니다.";
+
+/* Window text */
+"OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "연결 해제 요청에 OpenVPN이 %d초 동안 응답하지 않았습니다.\n\n연결은 연결 해제된 것으로 생각할 수 있습니다. 하지만 컴퓨터 네트워크 설정은 일치하지 않은 상태일 수 있습니다.";
+
+/* Window text */
+"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "연결 해제 요청에 OpenVPN이 응답하지 않았습니다.\n\nOpenVPN 버전 2.1은 알려진 문제가 있습니다. 그래서 때대로 요청에 응답하기까지 1분에서 2분 정도의 지연이 될 수 있습니다.\n\nTunnelblick은 %1$d초 까지 연결 해제를 시도할 것입니다.\n\nOpenVPN 연결 해제가 되거나 %2$d초 초과가 될 때 까지 연결은 사용할 수 없습니다.";
+
+/* Window text */
+"The VPN name '%@' is already in use.\n\nPlease enter a new name." = "VPN 이름 '%@'은 이미 사용 중입니다.\n\n새 이름을 입력하십시오.";
+
+/* Window text */
+"The VPN name cannot be empty.\n\nPlease enter a new name." = "VPN 이름이 필요합니다.\n\n새 이름을 입력하십시오.";
+
+/* Window text */
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "%1$@ 연결 시도가 취소되었습니다: runOnConnect 스크립트가 %2$d 상태를 반환했습니다.";
+
+/* Window text */
+"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "두 가지 종류의 설정 파일이 있습니다:\n\n  • Tunnelblick VPN 설정 (.tblk 확장자)\n\n  • OpenVPN 설정 (.ovpn 또는 .conf 확장자)\n\n가지고 있는 설정 종류는 무엇입니까?\n\n";
+
+/* Window text */
+"To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Tunnelblick VPN 설정 (.tblk 확장자)을 설치하려면 이 것을 이중 클릭합니다.\n\n새 설정은 즉시 Tunnelblick에서 사용할 수 있습니다.";
+
+/* Window text */
+"To install it as a Tunnelblick VPN Configuration:\n\n1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)" = "Tunnelblick VPN 설정으로 설치하려면:\n\n1. 1개의 OpenVPN 설정 파일 (.ovpn 또는 .conf 확장자)을 Desktop에 만들어진 'Empty Tunnelblick VPN Configuration' 폴더로 옮기거나 복사한다.\n\n2. 관련된 모든 키와 인증서를 폴더 안으로 옮기거나 복사한다.\n\n3. Tunnelblick에서 설정으로 사용할 이름으로 폴더 이름을 변경한다.\n\n4. 폴더 이름 끝에 .tblk 확장자를 추가한다.\n\n5. 설치하기위해 폴더를 이중 클릭한다.\n\n새 설정은 즉시 Tunnelblick에서 사용할 수 있다.\n\n(편의를 위해 Finder 창으로 폴더가 열려있다)";
+
+/* Window text */
+"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick이 설정 파일을 잠금 해제 할 수 없습니다. 자세한 것은 콘솔 로그에 있습니다.\n\n설정을 수정할 수 없어도 설정 파일을 검토하겠습니까?";
+
+/* Window text */
+"Tunnelblick is based on %@. " = "Tunnelblick은 %@을 기반으로 되어있습니다. ";
+
+/* Window text */
+"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick은 자유 소프트웨어입니다. %2$@에서 만든 %1$@의 약관에 따라 이 소프트웨어를 재배포할 수 있고 변형 할 수 있습니다.
+";
+
+/* Window text */
+"Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "Tunnelblick이 1개 또는 이상의 Tunnelblick VPN 설정을 설치하려고 합니다.";
+
+/* Window text */
+"Tunnelblick needs to:\n\n" = "Tunnelblick이 아래와 같이 하려고 합니다:\n\n";
+
+/* Window text */
+"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "설치된 복사본에서 Tunnelblick VPN 설정을 설치할 수 없습니다.\n\n관리자는 설치를 복사할 수 있고 복사본에서 설치할 수 있습니다.";
+
+/* Window text */
+"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "설정 파일을 검토할 수 있습니다. 하지만 수정하려면 지금 설정을 잠금해제해야 합니다. 설정 파일을 지금 잠금 해제하면 다음에 이 설정으로 연결 할 때 관리자 사용자 계정과 암호를 입력해야 합니다.";
+
+/* Window text */
+"\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\n%d개 Tunnelblick VPN 설정이 올바르게 설치되었습니다.";
+
+/* Window text */
+"\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\1개 Tunnelblick VPN 설정이 올바르게 설치되었습니다.";
+

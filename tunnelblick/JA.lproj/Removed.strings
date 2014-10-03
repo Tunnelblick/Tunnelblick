@@ -7,3 +7,171 @@
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "OpenVPN 設定ファイルがいくつかありますが、Tunnelblick VPN 設定ファイルはありません。\n\nOpenVPN 設定ファイルを使いたい時は、これらを Tunnelblick VPN 設定ファイルに変換する必要があります。\n\n";
 
+/* Button */
+"Examine" = "表示";
+
+/* Button */
+"OpenVPN Configuration(s)" = "OpenVPN 設定ファイル";
+
+/* Button */
+"Replace Existing Configuration" = "接続先を置き換える";
+
+/* Button */
+"Tunnelblick VPN Configuration(s)" = "Tunnelblick VPN 設定ファイル";
+
+/* Button */
+"Unprotect and Modify" = "保護解除して変更";
+
+/* Checkbox name */
+"Do not warn about this again, always 'Examine'" = "次回からこの警告を表示せず、常に設定ファイルを表示する";
+
+/* TRANSLATION SAME AS DEVELOPMENT *//* Folder name */
+"Empty Tunnelblick VPN Configuration" = "Empty Tunnelblick VPN Configuration";
+
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
+" (?)" = " (?)";
+
+/* Window title */
+"%@ Advanced Settings%@" = "%1$@ 詳細設定%2$@";
+
+/* Window title */
+"An Empty Tunnelblick VPN Configuration Has Been Created" = "「Empty Tunnelblick VPN Configuration」(空のVPN接続先設定ファイル)を作成しました";
+
+/* Window title */
+"Examine the configuration file?" = "接続先設定ファイルを表示しますか？";
+
+/* Window title */
+"Install and Uninstall?" = "インストールとアンインストール？";
+
+/* Window title */
+"Install?" = "インストール？";
+
+/* Window title */
+"Installing a Tunnelblick VPN Configuration" = "Tunnelblick VPN 設定ファイルのインストール";
+
+/* Window title */
+"Name In Use" = "その名前は既に使われています";
+
+/* Window title */
+"OpenVPN Not Responding" = "OpenVPN からの応答がありません";
+
+/* Window title */
+"Replace Tunnelblick VPN Configuration" = "Tunnelblick VPN 接続先を置き換えます";
+
+/* Window title */
+"The configuration file is protected" = "この接続先設定ファイルは保護されています";
+
+/* Window title */
+"Uninstall Tunnelblick VPN Configuration" = "Tunnelblick VPN 接続先のアンインストール";
+
+/* Window title */
+"Uninstall?" = "アンインストール？";
+
+/* Window title */
+"Which Type of Configuration Do You Have?" = "どのタイプの接続先を持っていますか？";
+
+/* Window text */
+"  • Be installed in /Applications\n" = "  • アプリケーションフォルダにインストールされます\n";
+
+/* Window text */
+"  • Install %ld configurations\n\n" = "  • %ld 個の接続先をインストールします\n\n";
+
+/* Window text */
+"  • Install one configuration\n\n" = "  • 1 個の接続先をインストールします\n\n";
+
+/* Window text */
+"  • Uninstall %ld configurations\n\n" = "  • %ld 個の接続先をアンインストールします\n\n";
+
+/* Window text */
+"  • Uninstall one configuration\n\n" = "  • 1 個の接続先をアンインストールします\n\n";
+
+/* Window text */
+"%d Tunnelblick VPN Configurations were installed successfully." = "Tunnelblick VPN の接続先を %d 個、インストールしました。";
+
+/* Window text */
+"%d Tunnelblick VPN Configurations were uninstalled successfully." = "Tunnelblick VPN の接続先を %d 個、アンインストールしました。";
+
+/* Window text */
+"%d configurations were not installed. See the Console Log for details." = "%d 個の接続先はインストールされませんでした。詳細は Console Log を参照してください。";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Tunnelblickを元にしたフリーソフトが以下から利用可能です。<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+
+/* Window text */
+"A configuration was not installed. See the Console log for details." = "接続先はインストールされませんでした。詳細は Console log を参照してください。";
+
+/* Window text */
+"Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "接続先は、一般的に接続先のネットワーク管理者か VPN サービスプロバイダから提供される設定ファイルを使ってインストールします。\n\n設定ファイルの拡張子は .tblk か .ovpn か .conf のいずれかです。\n\n(それ以外の拡張子を持つ設定ファイルは無視されます。)\n\n設定ファイルはありますか？\n";
+
+/* Window text */
+"Do you wish to reinstall '%@'%@ version %@?" = "「%1$@」%2$@ バージョン %3$@ を再インストールしますか？";
+
+/* Window text */
+"Do you wish to replace '%@'%@ version %@ with version %@?" = "「%1$@」%2$@ バージョン %3$@ を、バージョン %4$@ で置き換えてもよいですか？";
+
+/* Window text */
+"Do you wish to uninstall '%@'%@ version %@?" = "「%1$@」%2$@ バージョン %3$@ をアンインストールしてもよいですか？";
+
+/* Window text */
+"Installation of .tblk packages is not allowed" = ".tblk パッケージのインストールはできません";
+
+/* Window text */
+"Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick." = "Tunnelblick VPN 設定ファイルのインストールはできません。これは配付用の Tunnelblick です。";
+
+/* Window text */
+"One Tunnelblick VPN Configuration was installed successfully." = "Tunnelblick VPN の接続先をインストールしました。";
+
+/* Window text */
+"One Tunnelblick VPN Configuration was uninstalled successfully." = "Tunnelblick VPN の接続先をアンインストールしました。";
+
+/* Window text */
+"OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "切断のリクエストに対して%d秒間 OpenVPN の返事がありません。\n\n接続は切断されますが、ネットワーク設定の整合性がなくなる可能性があります。";
+
+/* Window text */
+"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "切断のリクエストに対して OpenVPN の返事がありません。\n\nOpenVPN のバージョン2.1には既知のバグがあり、このようなリクエストへの返事が1、2分程度遅延することが時々あります。\n\nTunnelblick では、あと%1$d秒間切断を試みます。\n\nOpenVPN が切断するか%2$d秒が過ぎるまでこの接続は使用できません。";
+
+/* Window text */
+"The VPN name '%@' is already in use.\n\nPlease enter a new name." = "VPN 名「%@」は既に使われています。\n\n新しい名前を入力してください。";
+
+/* Window text */
+"The VPN name cannot be empty.\n\nPlease enter a new name." = "VPN 名が必要です。\n\n新しい名前を入力してください。";
+
+/* Window text */
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "%1$@ への接続がキャンセルされました: runOnConnect スクリプトの終了ステータス: %2$d.";
+
+/* Window text */
+"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "設定ファイルのタイプには2種類あります:\n\n  • Tunnelblick VPN 設定ファイル (拡張子が .tblk)\n\n  • OpenVPN 設定ファイル (拡張子が .ovpn または .conf)\n\nお手持ちの設定ファイルはどちらのタイプですか？\n\n";
+
+/* Window text */
+"To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Tunnelblick VPN の接続先設定ファイル (拡張子が .tblk) をインストールするには、ダブルクリックしてください。\n\n新しい接続先が Tunnelblick ですぐに使用可能になります。";
+
+/* Window text */
+"To install it as a Tunnelblick VPN Configuration:\n\n1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)" = "Tunnelblick VPN の接続先としてインストールするには:\n\n1. OpenVPN の接続先設定ファイル (拡張子が .ovpn または .conf) を一つ、デスクトップにある「Empty Tunnelblick VPN Configuration」フォルダへ移動またはコピーしてください。\n\n2. その接続先に必要な鍵ファイルや証明書ファイルも、そのフォルダへ移動またはコピーしてください。\n\n3. Tunnelblick の接続先として使用したい名前に、フォルダ名を変更してください。\n\n4. フォルダ名の最後に .tblk という拡張子を追加してください。\n\n5. フォルダをダブルクリックしてインストールしてください。\n\n新しい接続先として Tunnelblick ですぐに利用可能になります。\n\n(作業がしやすいように、そのフォルダのファインダーウィンドウを開いてあります。)";
+
+/* Window text */
+"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "設定ファイルの保護を解除することができません。詳細はコンソールログにあります。\n\nこの設定ファイルは修正できませんが、それでも表示しますか？";
+
+/* Window text */
+"Tunnelblick is based on %@. " = "Tunnelblick は %@ を元にしています。";
+
+/* Window text */
+"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick はフリー・ソフトウェアです。%2$@ が定めた %1$@ の条件に従って本アプリケーションを再配布または変更することができます。";
+
+/* Window text */
+"Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "いくつかの接続先をインストールする必要があります。";
+
+/* Window text */
+"Tunnelblick needs to:\n\n" = "Tunnelblick では以下の変更が必要です:\n\n";
+
+/* Window text */
+"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "インストール済の接続先を、再度 Tunnelblick VPN の接続先としてインストールすることはできません。\n\n管理者に設定ファイルをコピーしてもらい、そのファイルからインストールしてください。";
+
+/* Window text */
+"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "接続先設定ファイルを表示することはできますが、変更するためには保護解除する必要があります。もし今、保護解除した場合には、次回接続時に管理者のユーザー名とパスワードが必要になります。";
+
+/* Window text */
+"\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\nTunnelblick VPN の接続先を %d 個インストールしました。";
+
+/* Window text */
+"\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\nTunnelblick VPN の接続先をインストールしました。";
+
