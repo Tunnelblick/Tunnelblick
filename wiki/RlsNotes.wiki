@@ -9,6 +9,13 @@
 
 ==Version 3.4==
 
+*3.40 build 4007 (2014-10-03)*
+
+ * *<font color="red">SECURITY UPDATE:</font>* Identical to 3.4beta38 (except for version and build numbers).
+
+
+--------------------
+
 *3.4beta38 build 4002 (2014-10-01)*
 
  * *<font color="red">SECURITY UPDATE:</font>* Fixes several security vulnerabilities.

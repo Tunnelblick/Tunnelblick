@@ -5,6 +5,14 @@
 
 --------------------
 
+2014-10-03: *Tunnelblick 3.4.0 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * *<font color="red">SECURITY UPDATE:</font>* Identical to 3.4beta38 (except for version and build numbers).
+ 
+ See the [RlsNotes#Version_3.4 Release Notes] for details.
+
+--------------------
+
 2014-10-01: *Tunnelblick 3.4beta38 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Fixes several security vulnerabilities.
