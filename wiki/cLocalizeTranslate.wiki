@@ -1,0 +1,22 @@
+#summary Localizing and Translating Tunnelblick
+#sidebar cSb
+
+<hr>
+
+*Localizing and Translating Tunnelblick*
+
+Tunnelblick is localized using [https://crowdin.com crowdin.com], a translation management site that provides free service for open source projects such as Tunnelblick.
+
+*To join the translation team, please email jkbullard at gmail.* You can help a little or a lot, all help is welcome!
+
+<hr>
+
+*Working with crowdin*
+
+Working with crowdin is self-explanatory and they have a good help function.
+
+
+
+------------------
+
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
