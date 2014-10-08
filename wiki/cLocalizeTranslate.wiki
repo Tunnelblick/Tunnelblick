@@ -5,17 +5,19 @@
 
 *Localizing and Translating Tunnelblick*
 
- * This page describes the _new_ way that official releases of Tunnelblick are localized.
+ * The _new_ waay of localizing Tunnelblick is described on this page.
 
  * The _old_ way of localizing is described in [cLocalize Localizing Tunnelblick] and [cTranslateStrings Translating .strings Files].
 
-<hr>
-
- * Tunnelblick is localized using [https://crowdin.com/project/tunnelblick crowdin.com], a translation management site that provides free service for open source projects such as Tunnelblick. Everything is done in your browser.
+ * Tunnelblick is localized on [https://crowdin.com/project/tunnelblick crowdin.com], a translation management site that provides free service for open source projects such as Tunnelblick. Crowdin does not do the actual translations; it only provides the infrastructure in which translators can work and a way of managing those translators.
 
  * For Tunnelblick, localization consists solely of translating strings. No graphic manipulation or spacing or moving of text is required.
 
- * *To join the localization team, please email project owner jkbullard at gmail.* You can help a little or a lot, all help is welcome! Everyone who makes a meaningful contribution will be credited on Tunnelbilck's [cThanks Thanks page] and on the "Info" panel of the application itself.
+ * All translation work is done in a specialized translation editor in your browser.
+
+ * *To join the localization team, please email project owner jkbullard at gmail.*
+  * You can help a little or a lot, all help is welcome!
+  * Everyone who makes a meaningful contribution will be credited on Tunnelbilck's [cThanks Thanks page] and on the "Info" panel of the application itself.
 
 <hr>
 
@@ -25,15 +27,17 @@ Working with crowdin is self-explanatory for the most part. Here a a few things 
 
  * All the translations for Tunnelblick 3.3 have been imported into crowdin as approved translations.
 
- * Most languages have about 200 new strings to translate for Tunnelblick 3.4, although the new languages, Danish and Bulgarian, have more. A couple of languages were not complete in Tunnelblick 3.3, so there are more translations to do for those languages.
+ * Most languages have about 200 new strings to translate for Tunnelblick 3.4, although a few languages which were not completely translated in Tunnelblick 3.3 have more. The new languages, Danish and Bulgarian, have several hundred strings.
 
- * "Voting" and "Approval"
-  * Translators can "vote" for different translations of a string, and proofreaders can "approve" a translation for a string. Since Tunnelblick has a very small number of translators, voting is probably not very helpful, but that can be decided by each language's translators.
-  * Currently crowdin is set up to require that a second translator (a crowdin "proofreader") *approve all _new_ translations*. This is done to ensure that translations are appropriate.
-  * Every translator will be set up as a proofreader to facilitate this. Of course, this won't work for languages that only have one translator, and it may even be difficult for languages that have several translators. It doesn't seem to be a per-language option, so I will probably remove the requirement for everyone. If anyone has suggestions about how to deal with this, please start a crowdin discussion about this or email project owner Jon (jkbullard at gmail).
+ * Translators can "vote" for different translations of a string, but because most Tunnelblick languages have a very small number of translators (many have only one), voting is probably not very helpful, but that is up to each language's translators.
 
- * If/when you would like access to a version of Tunnelblick with newly-translated strings, email project owner Jon at jkbullard at gmail. I probably will do weekly builds so translators can see their progress, but will adjust that as needed. These weekly builds (and all builds that are not released as official Tunnelblick releases (stable or beta)) will include translations that have not been approved.
+ * Crowdin can be set up to require that a "proofreader" approve all new translations, to ensure that translations are appropriate. However, that means a lot more work for translators. So currently that feature is disabled. That may be changed in the future.
 
+ * Weekly builds of Tunnelblick will be created so translators can see their progress, but the schedule can be adjusted as needed and they can be made "on demand" if necessary. To request a build with updated translations, email project owner Jon at jkbullard at gmail. 
+
+<hr>
+
+*"Odd" characters in Strings*
  * Some of the strings have character sequences of "\n". This causes a line break when the text is displayed. A sequence of "\n\n" would cause a line break followed by an empty line.
 
  * Some of the strings have %@, %d, or other special sequences of characters. They indicate a place where some other item (a filename, a number, etc.) will be inserted into the string. Usually that's all there is to it. However, when there are two or more such items in one string, the target language may need to use them in a different order than English uses.
@@ -45,6 +49,10 @@ Working with crowdin is self-explanatory for the most part. Here a a few things 
  we would translate that into Yoda's English by changing it to
 
   "Sometimes, %2$@ the %1$@ is."
+
+ or possibly
+
+  "%2$@ the %1$@ is, sometimes."
 
 
 ------------------
