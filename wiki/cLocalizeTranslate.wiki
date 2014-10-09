@@ -5,9 +5,11 @@
 
 *Localizing and Translating Tunnelblick*
 
- * The _new_ waay of localizing Tunnelblick is described on this page.
+ * The _new_ way of localizing Tunnelblick is described on this page.
 
  * The _old_ way of localizing is described in [cLocalize Localizing Tunnelblick] and [cTranslateStrings Translating .strings Files].
+
+<hr>
 
  * Tunnelblick is localized on [https://crowdin.com/project/tunnelblick crowdin.com], a translation management site that provides free service for open source projects such as Tunnelblick. Crowdin does not do the actual translations; it only provides the infrastructure in which translators can work and a way of managing those translators.
 
@@ -29,7 +31,7 @@ Working with crowdin is self-explanatory for the most part. Here a a few things 
 
  * Most languages have about 200 new strings to translate for Tunnelblick 3.4, although a few languages which were not completely translated in Tunnelblick 3.3 have more. The new languages, Danish and Bulgarian, have several hundred strings.
 
- * Translators can "vote" for different translations of a string, but because most Tunnelblick languages have a very small number of translators (many have only one), voting is probably not very helpful, but that is up to each language's translators.
+ * Translators can "vote" for different translations of a string, but because most Tunnelblick languages have a very small number of translators (many languages have only one translator), voting is probably not very helpful, but that is up to each language's translators.
 
  * Crowdin can be set up to require that a "proofreader" approve all new translations, to ensure that translations are appropriate. However, that means a lot more work for translators. So currently that feature is disabled. That may be changed in the future.
 
