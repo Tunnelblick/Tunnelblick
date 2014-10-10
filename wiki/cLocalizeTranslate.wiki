@@ -10,7 +10,7 @@
  * The _old_ way of localizing is described in [cLocalize Localizing Tunnelblick] and [cTranslateStrings Translating .strings Files].
 
 <hr>
-
+*The _new_ Way*
  * Tunnelblick is localized on [https://crowdin.com/project/tunnelblick crowdin.com], a translation management site that provides free service for open source projects such as Tunnelblick. Crowdin does not do the actual translations; it only provides the infrastructure in which translators can work and a way of managing those translators.
 
  * For Tunnelblick, localization consists solely of translating strings. No graphic manipulation or spacing or moving of text is required.
