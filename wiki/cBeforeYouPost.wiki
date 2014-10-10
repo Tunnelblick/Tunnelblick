@@ -25,6 +25,6 @@ Please be patient -- we're all volunteers! (For more information about the moder
  # Wait until the problem occurs. If the problem is that no connection is made, wait at least 70 seconds.
  # If you can, click on the "Disconnect" button and wait until the disconnection is complete. If the disconnection is not complete within 20 seconds, continue anyway.
  # Click on the "Copy Diagnostic Info to the Clipboard" button.
- # Close Tunnelblick and post to the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group]
+ # Close Tunnelblick and send to the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group]
  # Paste into an email or web form.
- # Remove any sensitive information before sending the email or posting the form.
+ # Remove any sensitive information before sending the email or the form.
