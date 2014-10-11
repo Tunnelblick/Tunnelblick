@@ -509,7 +509,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     // Parses the configuration file.
     // Gives user the option of adding the down-root plugin if appropriate
-    // Returns with device type: "tun" or "tap", or nil if it can't be determined
+    // Returns with device type: "tun", "tap", "utun", "tunOrUtun", or nil if it can't be determined
     // Returns with string "Cancel" if user cancelled
 	
     NSString * doNotParseKey = [[connection displayName] stringByAppendingString: @"-doNotParseConfigurationFile"];
@@ -528,7 +528,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return nil;
     }
     
-    NSString * cfgContents = [stdOut copy];
+    NSString * cfgContents = [[stdOut copy] autorelease];
     
     NSString * userOption  = [self parseString: cfgContents forOption: @"user" ];
     if (  [userOption length] == 0  ) {
@@ -568,7 +568,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 if (  result == NSAlertAlternateReturn  ) {
                     [gTbDefaults setBool: TRUE forKey: useDownRootPluginKey];
                 } else if (  result != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
-                    [cfgContents release];
                     return @"Cancel";
                 }
             }
@@ -579,17 +578,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         && (! (userOption || groupOption))  ) {
         [gTbDefaults removeObjectForKey: useDownRootPluginKey];
         NSLog(@"Removed '%@' preference", useDownRootPluginKey);
-    }
-    
-    NSString * devTypeOption = [[self parseString: cfgContents forOption: @"dev-type"] lowercaseString];
-    if (  devTypeOption  ) {
-        if (   [devTypeOption isEqualToString: @"tun"]
-            || [devTypeOption isEqualToString: @"tap"]  ) {
-            [cfgContents release];
-            return devTypeOption;
-        } else {
-            NSLog(@"The configuration file for '%@' contains a 'dev-type' option, but the argument is not 'tun' or 'tap'. It has been ignored", [connection displayName]);
-        }
     }
     
     NSArray * reservedOptions = OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK;
@@ -613,36 +601,66 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                               [connection displayName], option];
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
                               msg);
-            [cfgContents release];
-            return nil;
 		}
     }
     
-    NSString * devOption = [self parseString: cfgContents forOption: @"dev"];
-    NSString * devOptionFirst3Chars = [[devOption copy] autorelease];
-    if (  [devOption length] > 3  ) {
-        devOptionFirst3Chars = [devOption substringToIndex: 3];
+    // If there is a "dev-node" entry, return that device type (tun, utun, tap)
+	NSString * devNodeOption = [self parseString: cfgContents forOption: @"dev-node"];
+	if (  devNodeOption  ) {
+		if (  [devNodeOption hasPrefix: @"tun"]  ) {
+			return @"tun";
+		}
+		if (  [devNodeOption hasPrefix: @"utun"]  ) {
+			return @"utun";
+		}
+		if (  [devNodeOption hasPrefix: @"tap"]  ) {
+			return @"tap";
+		}
+		NSLog(@"The configuration file for '%@' contains a 'dev-node' option, but the argument does not begin with 'tun', 'tap', or 'utun'. It has been ignored", [connection displayName]);
+	}
+    
+    // If there is a "dev-type" entry, return that device type (tun, utun, tap)
+    NSString * devTypeOption = [self parseString: cfgContents forOption: @"dev-type"];
+    if (  devTypeOption  ) {
+        if (  [devTypeOption isEqualToString: @"tun"]  ) {
+            return @"tun";
+        }
+        if (  [devTypeOption isEqualToString: @"utun"]  ) {
+            return @"utun";
+        }
+        if (  [devTypeOption isEqualToString: @"tap"]  ) {
+            return @"tap";
+        }
+        NSLog(@"The configuration file for '%@' contains a 'dev-type' option, but the argument is not 'tun' or 'tap'. It has been ignored", [connection displayName]);
     }
-    devOptionFirst3Chars = [devOptionFirst3Chars lowercaseString];
-	
-    if (   ( ! devOption )
-        || ( ! (   [devOptionFirst3Chars isEqualToString: @"tun"]
-                || [devOptionFirst3Chars isEqualToString: @"tap"]  )  )  ) {
-        NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.", @"Window text"),
-						  [connection displayName]];
-        NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutNoTunOrTap"];
-        TBRunAlertPanelExtended(NSLocalizedString(@"No 'dev tun' or 'dev tap' found", @"Window title"),
+    
+    // If there is a "dev" entry, return that device type for 'tap' or 'utun' but for 'tun', return 'tunOrUtun' so that will be decided when connecting (depends on OS X version and OpenVPN version)
+    NSString * devOption = [self parseString: cfgContents forOption: @"dev"];
+    if (  devOption  ) {
+		if (  [devOption hasPrefix: @"tun"]  ) {
+			return @"tunOrUtun";                    // Uses utun if available (OS X 10.6.8+ and OpenVPN 2.3.3+)
+		}
+		if (  [devOption hasPrefix: @"utun"]  ) {
+			return @"utun";
+		}
+		if (  [devOption hasPrefix: @"tap"]  ) {
+			return @"tap";
+		}
+        
+        NSLog(@"The configuration file for '%@' contains a 'dev' option, but the argument does not begin with 'tun', 'tap', or 'utun'. It has been ignored", [connection displayName]);
+        NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.", @"Window text"),
+                          [connection displayName]];
+        skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutNoTunOrTap"];
+        TBRunAlertPanelExtended(NSLocalizedString(@"No 'dev tun', 'dev utun', or 'dev tap' found", @"Window title"),
                                 msg,
                                 nil, nil, nil,
                                 skipWarningKey,
                                 NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"),
                                 nil,
-								NSAlertDefaultReturn);
-        [cfgContents release];
-        return nil;
+                                NSAlertDefaultReturn);
     }
-    [cfgContents release];
-    return devOptionFirst3Chars;
+    
+    return nil;
 }
 
 -(BOOL) copyConfigPath: (NSString *) sourcePath

@@ -1788,8 +1788,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
 	} else if (   (! preference)
                || ( [preference length] == 0)  ) {
-        if (   ( ! tunOrTap )
-            || [tunOrTap isEqualToString: @"tun"]  ) {
+        if (  [tunOrTap isEqualToString: @"tun"]  ) {
+            bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
+        } else if (   ( ! tunOrTap )
+                   || [tunOrTap isEqualToString: @"tunOrUtun"]  ) {
             // automatic. Use utun -- and don't load the tun kext -- if OpenVPN 2.3.3 or higher and OS X 10.6.8 or higher
 			BOOL useUtun = FALSE;
             if (  openVPNVersionDict  ) {
