@@ -5,23 +5,15 @@
 
 <wiki:toc max_depth="2" />
 
-This document provides some notes about specific strings that are being translated.
- * For an overview of how to localize Tunnelblick, see [cLocalize Localizing Tunnelblick].
- * For instructions on editing the .strings files, see [cTranslateStrings Translating .strings Files]
- * For the current status of translations, see [cTranslationStatus Translation Status].
-
 <hr>
 
 This document has comments about some sets of strings with common characteristics and some strings that appear more than one time within other strings, followed by comments on full strings.
 
 <hr>
 
-There is a series of "Window text" strings: *"B"*, *"KB"*, *"MB"*, *"GB"*, *"TB"*, *"PB"*, *"EB"*, and *"ZB"*. These are abbreviations for bytes, kilobytes, megabytes, gigabytes, terrabytes, petabytes, exabytes, and zetabytes, respectively. If they are not translated for your language you should prefix the <font color="green">/`*` Window text `*`/</font> comment with a <font color="green">/`*` TRANSLATION SAME AS DEVELOPMENT `*`/</font> comment for each such string --like the following:
+There is a series of "Window text" strings: *"B"*, *"KB"*, *"MB"*, *"GB"*, *"TB"*, *"PB"*, *"EB"*, and *"ZB"*. These are abbreviations for bytes, kilobytes, megabytes, gigabytes, terrabytes, petabytes, exabytes, and zetabytes, respectively.
 
- <font color="green">/`*` TRANSLATION SAME AS DEVELOPMENT `*`//`*` Window text `*`/</font><br>
- <font color="red">"GB"</font> = <font color="red">"GB"</font>;
-
-There is a similar series of strings: *"B/s"*, *"KB/s"*, *"MB/s"*, etc., which refer to byes per second, kilobytes per second, megabytes per second, etc. They should be treated similarly, but they probably are translated for most languages (because the abbreviation for second is different than the "s" used in English).
+There is a similar series of strings: *"B/s"*, *"KB/s"*, *"MB/s"*, etc., which refer to byes per second, kilobytes per second, megabytes per second, etc.
 
 Several strings refer to the "*apparent public IP address*". That is the address that the computer presents when it requests something on the Internet (its return address, if you will). When a computer asks for a web page, for example, it tells the web server to reply to a public IP address. I use the word "apparent" because it isn't the IP address of the computer itself (which may be on a LAN and have a private IP address such as 192.168.0.123), but it is the IP address of the computer as far as the outside world is concerned.
 
@@ -29,7 +21,7 @@ Several strings refer to something as *"being forced."*. They refer to a setting
 
 <hr>
 
-*" (?)" Window title* is used only if an internal error in Tunnelblick has made a string unavailable. (The user should never see it, but you never know…) You should prefix the <font color="green">/`*` Window title `*`/</font> comment with a <font color="green">/`*` TRANSLATION SAME AS DEVELOPMENT `*`/</font> comment if the "?" is appropriate in your language.
+*" (?)" Window title* is used only if an internal error in Tunnelblick has made a string unavailable. (The user should never see it, but you never know…).
 
 *"Check for a change" Button* is in response to a dialog window with a long message that starts
  "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't"
