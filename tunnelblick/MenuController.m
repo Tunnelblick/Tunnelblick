@@ -242,12 +242,10 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 	return [self localizedString: key fromBundle: secondBundle];
 }
 
--(NSString *) localizedConfigNameFromPath: (NSString *) tblkPath
-							  displayName: (NSString *) displayName {
+-(NSString *) localizedNameforDisplayName: (NSString *) displayName
+                                 tblkPath: (NSString *) tblkPath  {
 	
 	NSBundle * bundle = [NSBundle bundleWithPath: tblkPath];
-	
-	// Construct and set localizedName
 	NSMutableString * localName = [NSMutableString stringWithCapacity: 2 * [displayName length]];
 	NSArray * components = [displayName componentsSeparatedByString: @"/"];
 	if (  [components count] > 1  ) {
@@ -262,6 +260,17 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 	NSString * nonLocalizedName = [components lastObject];
 	[localName appendString: [self localizedString: nonLocalizedName fromBundle: bundle orBundle: [self deployLocalizationBundle]]];
 	return [NSString stringWithString: localName];
+}
+
+-(NSString *) localizedNameForDisplayName: (NSString *) displayName {
+    
+    NSString * path = [myConfigDictionary objectForKey: displayName];
+    if (  ! path  ) {
+        NSLog(@"localNameFromDisplayName: '%@' is not a known displayName", displayName);
+        return displayName;
+    }
+    
+    return [self localizedNameforDisplayName: displayName tblkPath: path];
 }
 
 -(id) init
@@ -552,7 +561,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         
 		// Create private configurations folder if necessary
         gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
-        if (  createDir(gPrivatePath, PERMS_PRIVATE_SELF) == -1  ) {
+        if (  createDir(gPrivatePath, PERMS_PRIVATE_FOLDER) == -1  ) {
 			NSLog(@"Unable to create %@", gPrivatePath);
 			exit(1);
 		}
@@ -2033,7 +2042,8 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
                                fromMenu: (NSMenu *)   theMenu
                              afterIndex: (int)        theIndex
 {
-    [self removeConnectionWithDisplayName: theName fromMenu: theMenu afterIndex: theIndex workingName: [[theName copy] autorelease]];
+	NSString * localName = [self localizedNameForDisplayName: theName];
+    [self removeConnectionWithDisplayName: theName fromMenu: theMenu afterIndex: theIndex workingName: localName];
 }
 
 -(void) removeConnectionWithDisplayName: (NSString *) theName
@@ -4406,11 +4416,12 @@ static void signal_handler(int signalNumber)
 				if  (  [idxSet count] > 1  ) {
 					LeftNavItem * item = [ov itemAtRow: selectedIdx];
 					NSString * displayName = [item displayName];
+                    NSString * localName = [self localizedNameForDisplayName: displayName];
 					int result = TBRunAlertPanel(NSLocalizedString(@"Change for All Selected Configurations?", @"Window title"),
 												 [NSString stringWithFormat:
 												  NSLocalizedString(@"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?", @"Window title"),
 												  (unsigned long) [idxSet count],
-												  displayName],
+												  localName],
 												 NSLocalizedString(@"Change for the Selected Configurations", @"Button"),
 												 NSLocalizedString(@"Change Only for This Configuration", @"Button"),
 												 nil);
@@ -5837,34 +5848,24 @@ BOOL needToSecureFolderAtPath(NSString * path, BOOL isDeployFolder)
     //
     // There is a SIMILAR function in openvpnstart: exitIfTblkNeedsRepair
     //
-    // There is a SIMILAR function in installer: secureOneFolder, that secures a folder with these permissions
+    // There is a SIMILAR function in sharedRoutines: secureOneFolder, that secures a folder with these permissions
     
-    mode_t selfPerms;           //  For the folder itself (if not a .tblk)
-    mode_t tblkFolderPerms;     //  For a .tblk itself and any folders inside it
-    mode_t privateFolderPerms;  //  For folders in /Library/Application Support/Tunnelblick/Users/...
-    mode_t publicFolderPerms;   //  For all other folders
+    mode_t folderPerms;         //  For folders
     mode_t scriptPerms;         //  For files with .sh extensions
     mode_t executablePerms;     //  For files with .executable extensions (only appear in a Deploy folder
-    mode_t forcedPrefsPerms;    //  For files named forced-preferences (only appear in a Deploy folder
+    mode_t publicReadablePerms; //  For files named Info.plist (and forced-preferences.plist in a Deploy folder)
     mode_t otherPerms;          //  For all other files
     
 	uid_t user = 0;
 	gid_t group = 0;
 	
-	if (  [path hasPrefix: L_AS_T_TBLKS "/"]  ) {
-		selfPerms   = PERMS_SECURED_PUBLIC_FOLDER;
-	} else {
-		selfPerms   = PERMS_SECURED_SELF;
-	}
-    tblkFolderPerms    = PERMS_SECURED_TBLK_FOLDER;
-    privateFolderPerms = PERMS_SECURED_PRIVATE_FOLDER;
-    publicFolderPerms  = PERMS_SECURED_PUBLIC_FOLDER;
-    scriptPerms        = PERMS_SECURED_SCRIPT;
-    executablePerms    = PERMS_SECURED_EXECUTABLE;
-    forcedPrefsPerms   = PERMS_SECURED_FORCED_PREFS;
-    otherPerms         = PERMS_SECURED_OTHER;
-
-    if (  ! checkOwnerAndPermissions(path, 0, 0, selfPerms)  ) {
+    folderPerms         = PERMS_SECURED_FOLDER;
+    scriptPerms         = PERMS_SECURED_SCRIPT;
+    executablePerms     = PERMS_SECURED_EXECUTABLE;
+    publicReadablePerms = PERMS_SECURED_READABLE;
+    otherPerms          = PERMS_SECURED_OTHER;
+    
+    if (  ! checkOwnerAndPermissions(path, 0, 0, folderPerms)  ) {
         return YES;
     }
     
@@ -5876,59 +5877,37 @@ BOOL needToSecureFolderAtPath(NSString * path, BOOL isDeployFolder)
         NSString * filePath = [path stringByAppendingPathComponent: file];
         NSString * ext  = [file pathExtension];
         
-        if (   [ext isEqualToString: @"tblk"]
-            && ( ! [path hasPrefix: L_AS_T_TBLKS] )  ) {
-            if (  ! checkOwnerAndPermissions(filePath, user, group, tblkFolderPerms)  ) {
+        if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
+            && isDir  ) {
+            if (  ! checkOwnerAndPermissions(filePath, user, group, folderPerms)  ) {
                 return YES;
             }
             
-        } else if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
-                   && isDir  ) {
-			
-            // Special case: folders in L_AS_T_TBLKS are visible to all users, even though they are inside a .tblk
-            if (  [filePath hasPrefix: [L_AS_T_TBLKS stringByAppendingString: @"/"]]  ) {
-                if (  ! checkOwnerAndPermissions(filePath, user, group, publicFolderPerms)  ) {
-                    return YES;
-                }
-                
-                // Folders inside a .tblk anywhere else are visible only to the owner & group
-            } else if(  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
-                if (  ! checkOwnerAndPermissions(filePath, user, group, tblkFolderPerms)  ) {
-                    return YES;
-                }
-				
-            } else if (   isDeployFolder
-                       || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
-                if (  ! checkOwnerAndPermissions(filePath, user, group, publicFolderPerms)  ) {
-                    return YES;
-                }
-				
-            } else {
-                if (  ! checkOwnerAndPermissions(filePath, user, group, privateFolderPerms)  ) {
-                    return YES;
-                }
-            }
-			
         } else if ( [ext isEqualToString:@"sh"]  ) {
             if (  ! checkOwnerAndPermissions(filePath, user, group, scriptPerms)  ) {
                 return YES;
             }
             
-        } else if ( [ext isEqualToString:@"executable"]  ) {
-            if (  ! checkOwnerAndPermissions(filePath, user, group, executablePerms)  ) {
+        } else if (   [ext isEqualToString: @"strings"]
+                   || [[file lastPathComponent] isEqualToString:@"Info.plist"]  ) {
+            if (  ! checkOwnerAndPermissions(filePath, user, group, publicReadablePerms)  ) {
                 return YES;
             }
             
-            // Files within L_AS_T_TBLKS are visible to all users (even if they are in a .tblk)
-        } else if (   [file isEqualToString:@"forced-preferences.plist"]
-                   || [filePath hasPrefix: [L_AS_T_TBLKS stringByAppendingString: @"/"]]
-                   || (   isDeployFolder
-					   && (   [filePath hasPrefix: [path stringByAppendingPathComponent: @"Welcome"]]  //
-						   || [filePath hasPrefix: [path stringByAppendingPathComponent: @"Localization.bundle"]])
-					   )
-                   ) {
-            if (  ! checkOwnerAndPermissions(filePath, user, group, forcedPrefsPerms)  ) {
-                return YES;
+        } else if (  isDeployFolder  ) {
+            if (   [[file lastPathComponent] isEqualToString:@"forced-preferences.plist"]
+                || [filePath hasPrefix: [path stringByAppendingPathComponent: @"Welcome"]]  ) {
+                if (  ! checkOwnerAndPermissions(filePath, user, group, publicReadablePerms)  ) {
+                    return YES;
+                }
+            } else if ( [ext isEqualToString:@"executable"]  ) {
+                if (  ! checkOwnerAndPermissions(filePath, user, group, executablePerms)  ) {
+                    return YES;
+                }
+            } else {
+                if (  ! checkOwnerAndPermissions(filePath, user, group, otherPerms)  ) {
+                    return YES;
+                }
             }
             
         } else {
@@ -6656,7 +6635,7 @@ void terminateBecauseOfBadConfiguration(void)
                                                                              repeats: NO];
             [waitAfterWakeupTimer tbSetTolerance: -1.0];
 			
-			TBLog(@"DB-SW", @"wokeUpFromSleep: exiting; waitAfterSleepTimerHandler: is queued to execute in %f seconds", sleepTime);
+			TBLog(@"DB-SW", @"wokeUpFromSleep: exiting; waitAfterSleepTimerHandler: is queued to execute in %lu seconds", (unsigned long)sleepTime);
         }
     }
 }

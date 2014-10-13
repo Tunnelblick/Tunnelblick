@@ -305,7 +305,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     NSString * configFileContents = [connection sanitizedConfigurationFileContents];
     if (  configFileContents  ) {
-        NSString * heading = [NSString stringWithFormat: NSLocalizedString(@"%@ OpenVPN Configuration - Tunnelblick", @"Window title"),[connection displayName]];
+        NSString * heading = [NSString stringWithFormat: NSLocalizedString(@"%@ OpenVPN Configuration - Tunnelblick", @"Window title"),[connection localizedName]];
         
         // NOTE: The window controller is allocated here, but releases itself when the window is closed.
         //       So _we_ don't release it, and we can overwrite listingWindow with impunity.
@@ -554,7 +554,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 || ([connection useDNSStatus] != 0)  )  ) {
                 
                 NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?", @"Window text"),
-                                  [connection displayName]];
+                                  [connection localizedName]];
                 
                 int result = TBRunAlertPanelExtended(NSLocalizedString(@"Use 'down-root' plugin for OpenVPN?", @"Window title"),
                                                      msg,
@@ -598,7 +598,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             NSLog(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.", [connection displayName], option);
             NSString * msg = [NSString stringWithFormat:
                               NSLocalizedString(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.", @"Window text"),
-                              [connection displayName], option];
+                              [connection localizedName], option];
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
                               msg);
 		}
@@ -649,7 +649,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         NSLog(@"The configuration file for '%@' contains a 'dev' option, but the argument does not begin with 'tun', 'tap', or 'utun'. It has been ignored", [connection displayName]);
         NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.", @"Window text"),
-                          [connection displayName]];
+                          [connection localizedName]];
         skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutNoTunOrTap"];
         TBRunAlertPanelExtended(NSLocalizedString(@"No 'dev tun', 'dev utun', or 'dev tap' found", @"Window title"),
                                 msg,
@@ -1021,7 +1021,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return nil;
 }
 
--(NSString *) confirmReplace: (NSString *) displayName
+-(NSString *) confirmReplace: (NSString *) localizedName
                           in: (NSString *) sharedOrPrivate {
     
     // Returns "skip" if user want to skip this one configuration
@@ -1034,7 +1034,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
     
     int result = TBRunAlertPanel(NSLocalizedString(@"Replace Configuration?", @"Window title"),
-                                 [NSString stringWithFormat: NSLocalizedString(@"Do you wish to replace the '%@' configuration?\n\n", @"Window text"), displayName],
+                                 [NSString stringWithFormat: NSLocalizedString(@"Do you wish to replace the '%@' configuration?\n\n", @"Window text"), localizedName],
                                  NSLocalizedString(@"Replace"  , @"Button"),    // Default button
                                  NSLocalizedString(@"Skip"     , @"Button"),    // Alternate button
                                  NSLocalizedString(@"Cancel"   , @"Button"));   // Other button
@@ -1054,7 +1054,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 }
 
--(NSString *) askSharedOrPrivateForConfig: (NSString *) displayName {
+-(NSString *) askSharedOrPrivateForConfig: (NSString *) localizedName {
     
     // Returns "cancel" if user cancelled
     // Returns "shared" or "private" to indicate user's choice of where to install
@@ -1078,7 +1078,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                            : nil);
     
     int result = TBRunAlertPanelExtended(NSLocalizedString(@"Install Configuration For All Users?", @"Window title"),
-                                         [NSString stringWithFormat: NSLocalizedString(@"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n", @"Window text"), displayName],
+                                         [NSString stringWithFormat: NSLocalizedString(@"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n", @"Window text"), localizedName],
                                          NSLocalizedString(@"Only Me"  , @"Button"),    // Default button
                                          NSLocalizedString(@"All Users", @"Button"),    // Alternate button
                                          NSLocalizedString(@"Cancel"   , @"Button"),    // Other button
@@ -1141,6 +1141,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     if (  dict  ) {
         NSArray * stringKeys    = [NSArray arrayWithObjects:       // List of keys for string values
                                    @"CFBundleIdentifier",
+								   @"CFBundleDevelopmentRegion",
+                                   @"CFBundleInfoDictionaryVersion",
+								   @"CFBundlePackageType",
                                    @"CFBundleVersion",
                                    @"CFBundleShortVersionString",
                                    @"TBPackageVersion",
@@ -1409,26 +1412,25 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             
             if (  [tbReplaceIdentical isEqualToString: @"ask"]  ) {
                 
+                NSString * localName = [[NSApp delegate] localizedNameforDisplayName: displayName tblkPath: fullPath];
                 NSString * msg;
                 NSString * buttonName;
                 if (  doUninstall  ) {
                     msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to uninstall '%@' version %@?", @"Window text"),
-                           displayName,
+                           localName,
                            cfBV];
                     buttonName = NSLocalizedString(@"Uninstall", @"Button");
+                } else if (  [cfBV isEqualToString: cfBundleVersion]  ) {
+                    msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to reinstall '%@' version %@?", @"Window text"),
+                           localName,
+                           cfBundleVersion];
+                    buttonName = NSLocalizedString(@"Reinstall", @"Button");
                 } else {
-                    if (  [cfBV isEqualToString: cfBundleVersion]  ) {
-                        msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to reinstall '%@' version %@?", @"Window text"),
-                               displayName,
-                               cfBundleVersion];
-                        buttonName = NSLocalizedString(@"Reinstall", @"Button");
-                    } else {
-                        msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to replace '%@' version %@ with version %@?", @"Window text"),
-                               displayName,
-                               cfBundleVersion,
-                               cfBV];
-                        buttonName = NSLocalizedString(@"Replace", @"Button");
-                    }
+                    msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to replace '%@' version %@ with version %@?", @"Window text"),
+                           localName,
+                           cfBundleVersion,
+                           cfBV];
+                    buttonName = NSLocalizedString(@"Replace", @"Button");
                 }
                 
                 int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Configuration Installer", @"Window title"),
@@ -1505,7 +1507,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 -(NSString *) targetPathForDisplayName: (NSString *)     displayName
                          infoPlistDict: (NSDictionary *) infoPlistDict
-                     replacingTblkPath: (NSString *)     replacingTblkPath {
+                     replacingTblkPath: (NSString *)     replacingTblkPath
+							  fromPath: (NSString *)     replacementTblkPath {
     
     // Returns "skip" if user want to skip this one configuration
     // Returns "cancel" if user cancelled
@@ -1550,6 +1553,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * tbSharePackage     = [infoPlistDict objectForKey: @"TBSharePackage"];
     NSString * tbReplaceIdentical = [infoPlistDict objectForKey: @"TBReplaceIdentical"];
     
+	
+	NSString * localizedName = [[NSApp delegate] localizedNameforDisplayName: displayName tblkPath: replacementTblkPath];
+	
     NSString * sharedOrPrivate;
     if (   replaceShared
         && replacePrivate  ) {
@@ -1559,19 +1565,19 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             ) {
             sharedOrPrivate = tbSharePackage;
         } else {
-            sharedOrPrivate =  [self askSharedOrPrivateForConfig: displayName];
+            sharedOrPrivate =  [self askSharedOrPrivateForConfig: localizedName];
         }
     } else  if (  replacePrivate  ) {
         if (  ! [tbReplaceIdentical isEqualToString: @"ask"]  ) {
             sharedOrPrivate = @"private";
         } else {
-            sharedOrPrivate = [self confirmReplace: displayName in: @"private"];
+            sharedOrPrivate = [self confirmReplace: localizedName in: @"private"];
         }
     } else if (  replaceShared  ) {
         if (  ! [tbReplaceIdentical isEqualToString: @"ask"]  ) {
             sharedOrPrivate = @"shared";
         } else {
-            sharedOrPrivate = [self confirmReplace: displayName in: @"shared"];
+            sharedOrPrivate = [self confirmReplace: localizedName in: @"shared"];
         }
     } else {
         if (  [self installToPrivateOK]  ) {
@@ -1580,7 +1586,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                     || [tbSharePackage isEqualToString: @"shared"] ) {
                     sharedOrPrivate = tbSharePackage;
                 } else {
-                    sharedOrPrivate =  [self askSharedOrPrivateForConfig: displayName];
+                    sharedOrPrivate =  [self askSharedOrPrivateForConfig: localizedName];
                 }
             } else {
                 sharedOrPrivate = @"private";
@@ -1762,7 +1768,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     NSString * targetPath = [self targetPathForDisplayName: displayName
                                              infoPlistDict: mergedInfoPlist
-                                         replacingTblkPath: replacingTblkPath];
+                                         replacingTblkPath: replacingTblkPath
+												  fromPath: fullPath];
     if (  targetPath  ) {
         if (  [targetPath hasPrefix: @"/"]  ) {
             // It is a path
@@ -1952,7 +1959,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		
         // Create the Contents directory
 		NSString * contentsPath = [tblkStubPath stringByAppendingPathComponent: @"Contents"];
-		if (  createDir(contentsPath, PERMS_SECURED_PUBLIC_FOLDER) == -1 ) {
+		if (  createDir(contentsPath, PERMS_SECURED_FOLDER) == -1 ) {
             return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n", @"Window text"), cfBI];
 		}
 		
@@ -1961,7 +1968,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		if (  ! [plist writeToFile: plistPath atomically: YES]  ) {
             return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n", @"Window text"), cfBI];
 		}
-        NSDictionary * attributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: PERMS_SECURED_FORCED_PREFS] forKey: NSFilePosixPermissions];
+        NSDictionary * attributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: PERMS_SECURED_READABLE] forKey: NSFilePosixPermissions];
 		if (  ! [gFileMgr tbChangeFileAttributes: attributes atPath: plistPath]  ) {
             return [NSString stringWithFormat: NSLocalizedString(@"Failed to set permissions on %@\n", @"Window text"), plistPath];
         }
@@ -1988,7 +1995,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             }
             
             NSString * resourcesPath = [contentsPath stringByAppendingPathComponent: @"Resources"];
-            if (  createDir(resourcesPath, PERMS_SECURED_PUBLIC_FOLDER) == -1 ) {
+            if (  createDir(resourcesPath, PERMS_SECURED_FOLDER) == -1 ) {
                 return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n", @"Window text"), cfBI];
             }
             NSString * targetDSAKeyPath = [resourcesPath stringByAppendingPathComponent: suDSAKeyFileName];
@@ -2085,7 +2092,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		
         NSString * targetPath = [self targetPathForDisplayName: displayName
                                                  infoPlistDict: nil
-                                             replacingTblkPath: nil];
+                                             replacingTblkPath: nil
+													  fromPath: outTblkPath];
         if (  targetPath  ) {
             if (  [targetPath hasPrefix: @"/"]  ) {
                 // It is a path
@@ -2224,8 +2232,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 					   usingAuthRefPtr: &gAuthorization
 							warnDialog: NO]  ) {
 			nUninstallErrors++;
-			NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
-			[installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to uninstall the '%@' configuration\n", @"Window text"), targetDisplayName]];
+			NSString * targetDisplayName   = [lastPartOfPath(target) stringByDeletingPathExtension];
+            NSString * targetLocalizedName = [[NSApp delegate] localizedNameforDisplayName: targetDisplayName tblkPath: target];
+			[installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to uninstall the '%@' configuration\n", @"Window text"), targetLocalizedName]];
 		}
 	}
     
@@ -2254,7 +2263,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         } else {
             nInstallErrors++;
             NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
-            [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to install the '%@' configuration\n", @"Window text"), targetDisplayName]];
+            NSString * targetLocalizedName = [[NSApp delegate] localizedNameforDisplayName: targetDisplayName tblkPath: target];
+            [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to install the '%@' configuration\n", @"Window text"), targetLocalizedName]];
         }
     }
     
@@ -2283,7 +2293,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         } else {
             nReplaceErrors++;
             NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
-            [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to replace the '%@' configuration\n", @"Window text"), targetDisplayName]];
+            NSString * targetLocalizedName = [[NSApp delegate] localizedNameforDisplayName: targetDisplayName tblkPath: target];
+            [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to replace the '%@' configuration\n", @"Window text"), targetLocalizedName]];
         }
     }
 	
@@ -2477,7 +2488,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
         return;
     }
-    if (  createDir(path, PERMS_PRIVATE_SELF) == -1  ) {
+    if (  createDir(path, PERMS_PRIVATE_FOLDER) == -1  ) {
         NSLog(@"Unable to create %@", path);
         if (  notifyDelegate  ) {
             [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];

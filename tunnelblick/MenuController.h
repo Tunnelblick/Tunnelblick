@@ -248,8 +248,9 @@ void * _NSConcreteStackBlock __attribute__((weak));
                                main:                        (NSImage **)        ptrMainImage
                          connecting:                        (NSImage **)        ptrConnectedImage
                                anim:                        (NSMutableArray **) ptrAnimImages;
--(NSString *)       localizedConfigNameFromPath:            (NSString *)        tblkPath
-									displayName:            (NSString *)        displayName;
+-(NSString *)       localizedNameForDisplayName:            (NSString *)        displayName;
+-(NSString *)       localizedNameforDisplayName:            (NSString *)        displayName
+                                       tblkPath:            (NSString *)        tblkPath;
 -(void)             recreateStatusItemAndMenu;
 -(void)             mouseEnteredMainIcon:                   (id)                control
                                    event:                   (NSEvent *)         theEvent;

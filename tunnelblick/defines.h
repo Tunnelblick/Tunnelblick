@@ -111,7 +111,7 @@
 
 //*************************************************************************************************
 // Extensions for files that should be copied when installing a .tblk
-#define TBLK_INSTALL_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", @"sh", nil]
+#define TBLK_INSTALL_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", @"sh", @"lproj", nil]
 
 //*************************************************************************************************
 // Extensions that indicate that a file is in non-binary format -- ASCII, not binary
@@ -145,32 +145,24 @@
 //                             /Applications/XXXXX.app/Contents/Resources/Deploy/
 //                             (These folders are owned by root:wheel)
 //
-// _SELF           entries are for the folder itself (if not a .tblk folder
-// _TBLK_FOLDER    entries are for folders with the .tblk extension and their subfolders
-// _PRIVATE_FOLDER entries are for folders IN .../Users/username/
-// _PUBLIC_FOLDER  entries are for all other folders
-// _SCRIPT         entries are for files with the .sh extension
-// _EXECUTABLE     entries are for files with the .executable extension (in Deploy folders only)
-// _OTHER          entries are for all other files
+// _FOLDER     entries are for folders
+// _SCRIPT     entries are for files with the .sh extension
+// _EXECUTABLE entries are for files with the .executable extension (in Deploy folders only)
+// _READABLE   entries are for files (such as Info.plist files) that should be readable (by owner/group in private configurations, by everyone everywhere else)
+// _OTHER      entries are for all other files
 
 
-#define PERMS_PRIVATE_SELF           0750
-#define PERMS_PRIVATE_TBLK_FOLDER    0750
-#define PERMS_PRIVATE_PRIVATE_FOLDER 0750
-#define PERMS_PRIVATE_PUBLIC_FOLDER  0750
-#define PERMS_PRIVATE_SCRIPT         0740
-#define PERMS_PRIVATE_EXECUTABLE     0740
-#define PERMS_PRIVATE_FORCED_PREFS   0740
-#define PERMS_PRIVATE_OTHER          0740
+#define PERMS_PRIVATE_FOLDER     0750
+#define PERMS_PRIVATE_SCRIPT     0740
+#define PERMS_PRIVATE_EXECUTABLE 0740
+#define PERMS_PRIVATE_READABLE   0740
+#define PERMS_PRIVATE_OTHER      0740
 
-#define PERMS_SECURED_SELF           0755
-#define PERMS_SECURED_TBLK_FOLDER    0750
-#define PERMS_SECURED_PRIVATE_FOLDER 0750
-#define PERMS_SECURED_PUBLIC_FOLDER  0755
-#define PERMS_SECURED_SCRIPT         0700
-#define PERMS_SECURED_EXECUTABLE     0755
-#define PERMS_SECURED_FORCED_PREFS   0744
-#define PERMS_SECURED_OTHER          0700
+#define PERMS_SECURED_FOLDER     0755
+#define PERMS_SECURED_SCRIPT     0700
+#define PERMS_SECURED_EXECUTABLE 0755
+#define PERMS_SECURED_READABLE   0744
+#define PERMS_SECURED_OTHER      0700
 
 
 //*************************************************************************************************

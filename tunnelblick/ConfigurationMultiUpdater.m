@@ -64,7 +64,7 @@ extern void _CFBundleFlushBundleCaches(CFBundleRef bundle) __attribute__((weak_i
 					}
 				}
 				NSString * updatableTblkContainerPath = [updatableTblkPath stringByDeletingLastPathComponent];
-				if (  createDir(updatableTblkContainerPath, PERMS_PRIVATE_TBLK_FOLDER) == -1  ) {
+				if (  createDir(updatableTblkContainerPath, PERMS_PRIVATE_FOLDER) == -1  ) {
 					NSLog(@"Unable to create %@", updatableTblkContainerPath);
 					return nil;
 				}

@@ -140,7 +140,7 @@ extern TBUserDefaults * gTbDefaults;
 			BOOL showingAdvancedWindow  = [advancedWc showingSettingsSheet];
 			if (   vpnDetailsWindow
 				|| showingAdvancedWindow  ) {
-				NSString * name = [connection displayName];
+				NSString * name = [connection localizedName];
 				NSString * privateSharedDeployed = [connection displayLocation];
 				NSString * state = localizeNonLiteral([connection state], @"Connection status");
 				NSString * timeString = [connection connectTimeString];

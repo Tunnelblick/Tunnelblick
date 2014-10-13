@@ -130,7 +130,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     [self fadeIn];
 }
 
-// Sets the frame for the window so the entire title (name of connection) is visible
+// Sets the frame for the window so the entire title (localized name of connection) is visible
 // and the window is in the upper-right corner of the screen
 -(void) setSizeAndPosition
 {
@@ -147,7 +147,8 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     if (  currentWidth == 0.0  ) {
         currentWidth = [NSWindow minFrameWidthWithTitle: [panel title] styleMask: NSHUDWindowMask];
     }
-    CGFloat newWidth = [NSWindow minFrameWidthWithTitle: name styleMask: NSHUDWindowMask];
+    
+    CGFloat newWidth = [NSWindow minFrameWidthWithTitle: localName styleMask: NSHUDWindowMask];
     if (  newWidth < originalWidth  ) {
         newWidth = originalWidth;
     }
@@ -548,6 +549,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     [[NSNotificationCenter defaultCenter] removeObserver: self]; 
 	
 	[name           release]; name           = nil;
+    [localName      release]; localName      = nil;
 	[status         release]; status         = nil;
 	[connectedSince release]; connectedSince = nil;
 	[theAnim        release]; theAnim        = nil;
@@ -577,14 +579,14 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         return;
     }
     
-    [self setName: theName];
+    [self setName: theName]; // Also sets "localName"
     [self setStatus: theStatus];
     [self setConnectedSince: (  (   theTime
                                  && ( ! [theStatus isEqualToString: @"EXITING"])   )
                               ? [NSString stringWithFormat: @" %@", theTime]
                               : @"")];
     
-    [configurationNameTFC setStringValue: theName];
+    [configurationNameTFC setStringValue: localName];
     [statusTFC            setStringValue: [NSString stringWithFormat: @"%@%@",
                                            localizeNonLiteral(theStatus, @"Connection status"),
                                            [self connectedSince]]];
@@ -619,10 +621,23 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     return [[delegate retain] autorelease];
 }
 
+-(NSString *) name {
+    return [[name retain] autorelease];
+}
+
+-(void) setName:(NSString *)newValue {
+    if (  ! [name isEqualToString: newValue]  ) {
+        [newValue retain];
+        [name release];
+        name = newValue;
+        [self setLocalName: [delegate localizedName]];
+    }
+}
+
 // *******************************************************************************************
 // Getters & Setters
 
-TBSYNTHESIZE_OBJECT(retain, NSString *, name,           setName)
+TBSYNTHESIZE_OBJECT(retain, NSString *, localName,      setLocalName)
 TBSYNTHESIZE_OBJECT(retain, NSString *, status,         setStatus)
 TBSYNTHESIZE_OBJECT(retain, NSString *, connectedSince, setConnectedSince)
 
