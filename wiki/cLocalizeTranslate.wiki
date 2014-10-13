@@ -7,7 +7,7 @@
 
  * The _new_ way of localizing Tunnelblick is described on this page.
 
- * Some comments about specific strings used in Tunnelblick are on the [cTranslationNotes Translation Notes] page.
+ * Comments about specific strings used in Tunnelblick are on the [cTranslationNotes Translation Notes] page.
 
  * The _old_ way of localizing is described in [cLocalize Localizing Tunnelblick] and [cTranslateStrings Translating .strings Files].
 
