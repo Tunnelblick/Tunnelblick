@@ -23,6 +23,17 @@
 
 <hr>
 
+*Translating to a "New" Language*
+
+Translating Tunnelblick to a language that it has not been translated for looks more difficult than it is. Please don't be discouraged!
+
+Although there are more than 600 strings to translate, most of them are for warnings or errors that most users will never see. By translating a hundred or so strings that all users see, you will have done most of the work needed to make Tunnelblick usable in the language.
+
+These highly-visible strings all contain Crowdin "Context" that contains "*CRITICAL*", so you can use Crowdin's search facility to get a list of them and translate them first. (See below.)
+
+
+<hr>
+
 *Working with Crowdin*
 
 Working with Crowdin is self-explanatory for the most part. Here a a few things to keep in mind about the way Tunnelblick is using Crowdin:
@@ -36,6 +47,8 @@ Working with Crowdin is self-explanatory for the most part. Here a a few things 
  * Translators can "vote" for different translations of a string, but because most Tunnelblick languages have a very small number of translators (many languages have only one translator), voting is probably not very helpful.
 
  * Crowdin can be set up to require that a "proofreader" approve all new translations, to ensure that translations are appropriate. However, that means a lot more work for translators. So currently that feature is disabled. That may be changed in the future.
+
+ * You can use Crowdin's "search" facility to search for strings which include "*CRITICAL*" (without the quote marks but with the asterisks) in their Crowdin "context". These strings are important to translate, because most users see them. (Some strings are only seen by users when unusual conditions occur.)
 
  * Weekly builds of Tunnelblick will be created so translators can see their progress, but the schedule can be adjusted as needed and they can be made "on demand" if necessary. To request a build with updated translations, email project owner Jon at jkbullard at gmail. 
 
