@@ -5,9 +5,9 @@
 
 <wiki:toc max_depth="2" />
 
-<hr>
+ * This document has comments about some particular strings that are used in Tunnelblick.
 
-This document has comments about some sets of strings with common characteristics and some strings that appear more than one time within other strings, followed by comments on full strings.
+ * For an overview of how Tunnelblick is localized, see [cLocalizeTranslate Tunnelblick Localization].
 
 <hr>
 
