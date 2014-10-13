@@ -631,7 +631,7 @@ int main(int argc, char *argv[])
                 NSString * privateTblkPath = [gPrivatePath stringByAppendingPathComponent: file];
                 NSString * altTblkPath     = [altPath stringByAppendingPathComponent: file];
                 if (  ! [gFileMgr fileExistsAtPath: altTblkPath]  ) {
-					if (  ! createDirWithPermissionAndOwnership([altTblkPath stringByDeletingLastPathComponent], PERMS_SECURED_PRIVATE_FOLDER, 0, 0)  ) {
+					if (  ! createDirWithPermissionAndOwnership([altTblkPath stringByDeletingLastPathComponent], PERMS_PRIVATE_FOLDER, 0, 0)  ) {
 						errorExit();
 					}
                     if (  [gFileMgr tbCopyPath: privateTblkPath toPath: altTblkPath handler: nil]  ) {
@@ -688,14 +688,14 @@ int main(int argc, char *argv[])
         gid_t  grp   = 0;
 		mode_t perms;
 		if (  [targetPath hasPrefix: [L_AS_T_USERS stringByAppendingString: @"/"]]  ) {
-			perms = PERMS_SECURED_PRIVATE_FOLDER;
+			perms = PERMS_SECURED_FOLDER;
 		} else {
-			perms = PERMS_SECURED_PUBLIC_FOLDER;
+			perms = PERMS_SECURED_FOLDER;
 		}
         if (  [targetPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
             own   = gRealUserID;
             grp   = ADMIN_GROUP_ID;
-			perms = PERMS_PRIVATE_PRIVATE_FOLDER;
+			perms = PERMS_PRIVATE_FOLDER;
         }
         errorExitIfAnySymlinkInPath(enclosingFolder, 2);
         
@@ -748,7 +748,7 @@ int main(int argc, char *argv[])
 			if (   ( ! [gFileMgr fileExistsAtPath: shadowTargetPath isDirectory: &isDir])
 				&& isDir  ) {
 				errorExitIfAnySymlinkInPath(enclosingFolder, 2);
-				createDirWithPermissionAndOwnership(enclosingFolder, PERMS_SECURED_PRIVATE_FOLDER, 0, 0);
+				createDirWithPermissionAndOwnership(enclosingFolder, PERMS_SECURED_FOLDER, 0, 0);
 			}
 			
 			safeCopyOrMovePathToPath(targetPath, shadowTargetPath, FALSE);
@@ -770,8 +770,10 @@ int main(int argc, char *argv[])
                                                  L_AS_T_USERS,
                                                  NSUserName(),
                                                  lastPartOfSource];
-                if (  ! deleteThingAtPath(shadowSourcePath)  ) {
-                    errorExit();
+				if (  [gFileMgr fileExistsAtPath: shadowSourcePath]  ) {
+					if (  ! deleteThingAtPath(shadowSourcePath)  ) {
+						errorExit();
+					}
                 }
 				appendLog([NSString stringWithFormat: @"Deleted secure (shadow) copy of %@", lastPartOfSource]);
             }
@@ -1084,7 +1086,7 @@ BOOL copyTblksToNewFolder(NSString * newFolder)
             if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
                 NSString * outPath = [newFolder stringByAppendingPathComponent: file];
 				NSString * outPathFolder = [outPath stringByDeletingLastPathComponent];
-				if (  ! createDirWithPermissionAndOwnership(outPathFolder, PERMS_PRIVATE_PRIVATE_FOLDER, gRealUserID, ADMIN_GROUP_ID)  ) {
+				if (  ! createDirWithPermissionAndOwnership(outPathFolder, PERMS_PRIVATE_FOLDER, gRealUserID, ADMIN_GROUP_ID)  ) {
                     appendLog([NSString stringWithFormat: @"Unable to create %@", outPathFolder]);
                     return FALSE;
 				}
@@ -1144,7 +1146,7 @@ BOOL convertAllPrivateOvpnAndConfToTblk(void)
 				}
 				NSString * inConfPath = [gPrivatePath stringByAppendingPathComponent: file];
                 
-				if (  ! createDirWithPermissionAndOwnership(newFolder, PERMS_PRIVATE_SELF, gRealUserID, ADMIN_GROUP_ID)  ) {
+				if (  ! createDirWithPermissionAndOwnership(newFolder, PERMS_PRIVATE_FOLDER, gRealUserID, ADMIN_GROUP_ID)  ) {
                     appendLog([NSString stringWithFormat: @"Unable to create %@", newFolder]);
                     return FALSE;
                 };

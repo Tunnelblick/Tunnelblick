@@ -637,7 +637,12 @@ void exitIfNotRootWithPermissions(NSString * fPath, mode_t permsShouldHave) {
 void exitIfTblkNeedsRepair(void) {
     // There is a SIMILAR function in MenuController: needToSecureFolderAtPath
     //
-    // There is a SIMILAR function in sharedRoutines: secureOneFolder, that SECURES a .tblk
+    // There is a SIMILAR function in sharedRoutines: secureOneFolder, that SECURES a folder and can be used on a .tblk
+    //
+    ////////
+    // NOTES: THIS ROUTINE DOES NOT DEAL WITH PRIVATE CONFIGURATIONS, since you can't connect them
+    //        THIS ROUTINE DOES NOT DEAL WIth forced-preferences.plist or .executable files, since they can't appear inside a .tblk that can be connected
+    ////////
     
     // If it isn't an existing folder, then it can't be secured!
     if (  ! folderExistsForRootAtPath(gConfigPath)  ) {
@@ -645,26 +650,13 @@ void exitIfTblkNeedsRepair(void) {
         exitOpenvpnstart(202);
     }
     
-    //                          // Permissions:
-    mode_t selfPerms;           //  For the folder itself (if not a .tblk)
-    mode_t tblkFolderPerms;     //  For a .tblk itself and any subfolders
-    mode_t privateFolderPerms;  //  For folders in /Library/Application Support/Tunnelblick/Users/...
-    mode_t publicFolderPerms;   //  For all other folders
-    mode_t scriptPerms;         //  For files with .sh extensions
-    mode_t otherPerms;          //  For all other files
+    // Permissions:
+    mode_t folderPerms         = PERMS_SECURED_FOLDER;
+    mode_t scriptPerms         = PERMS_SECURED_SCRIPT;
+    mode_t publicReadablePerms = PERMS_SECURED_READABLE;
+    mode_t otherPerms          = PERMS_SECURED_OTHER;
     
-    if (  [[gConfigPath pathExtension] isEqualToString: @"tblk"]  ) {
-        selfPerms   = PERMS_SECURED_TBLK_FOLDER;
-    } else {
-        selfPerms   = PERMS_SECURED_SELF;
-    }
-    tblkFolderPerms    = PERMS_SECURED_TBLK_FOLDER;
-    privateFolderPerms = PERMS_SECURED_PRIVATE_FOLDER;
-    publicFolderPerms  = PERMS_SECURED_PUBLIC_FOLDER;
-    scriptPerms        = PERMS_SECURED_SCRIPT;
-    otherPerms         = PERMS_SECURED_OTHER;
-
-    exitIfPathIsNotSecure(gConfigPath, selfPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
+    exitIfPathIsNotSecure(gConfigPath, folderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
     
     becomeRootToAccessPath(gConfigPath, [NSString stringWithFormat: @"check if needs repair: %@", [gConfigPath lastPathComponent]]);
     
@@ -674,27 +666,19 @@ void exitIfTblkNeedsRepair(void) {
 	
     while (  (file = [dirEnum nextObject])  ) {
         NSString * filePath = [gConfigPath stringByAppendingPathComponent: file];
-        NSString * ext  = [file pathExtension];
+        NSString * ext = [file pathExtension];
         
-        if (  [ext isEqualToString: @"tblk"]  ) {
-            exitIfPathIsNotSecure(filePath, tblkFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
+        if (   [[NSFileManager defaultManager] fileExistsAtPath: filePath isDirectory: &isDir]
+            && isDir  ) {
             
-        } else if (   [[NSFileManager defaultManager] fileExistsAtPath: filePath isDirectory: &isDir] && isDir  ) {
-            
-            if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
-                exitIfPathIsNotSecure(filePath, tblkFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
-                
-            } else if (   [filePath hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/Deploy/"]
-                       ||[filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
-                       || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
-                exitIfPathIsNotSecure(filePath, publicFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
-                
-            } else {
-                exitIfPathIsNotSecure(filePath, privateFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
-            }
+            exitIfPathIsNotSecure(filePath, folderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
             
         } else if ( [ext isEqualToString:@"sh"]  ) {
             exitIfPathIsNotSecure(filePath, scriptPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
+            
+        } else if (   [ext isEqualToString: @"strings"]
+                   || [[file lastPathComponent] isEqualToString:@"Info.plist"]  ) {
+            exitIfPathIsNotSecure(filePath, publicReadablePerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
             
         } else {
             exitIfPathIsNotSecure(filePath, otherPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);

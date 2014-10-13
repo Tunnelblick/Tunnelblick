@@ -91,7 +91,8 @@ haveSameParent: (unsigned)  theLevel {
     while (  *theIxPtr < [theKeys count]  ) {
         unsigned currentIx = *theIxPtr;
         NSString * displayName = [theKeys objectAtIndex: currentIx];
-        NSArray * components = [displayName pathComponents];
+        NSString * localName   = [[NSApp delegate] localizedNameForDisplayName: displayName];
+        NSArray * components = [localName pathComponents];
         unsigned nComponents = [components count];
 		if (   firstOfThisParent
 			|| [self keys: theKeys atIndex: currentIx haveSameParent: theLevel]  ) {

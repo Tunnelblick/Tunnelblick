@@ -62,7 +62,7 @@
 
     NSString * text = [NSString stringWithFormat:
                        NSLocalizedString(@"A username and password are required to connect to\n  %@%@", @"Window text"),
-                       displayName,
+                       [[self delegate] localizedName],
 					   groupMsg];
 	
     [mainText setTitle: text];

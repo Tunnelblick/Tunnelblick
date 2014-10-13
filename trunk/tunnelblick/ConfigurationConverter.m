@@ -982,7 +982,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     if (  outputPath  ) {
 		NSString * tblkResourcesPath = [[outputPath stringByAppendingPathComponent: @"Contents"]
                                         stringByAppendingPathComponent: @"Resources"];
-        if (  createDir(tblkResourcesPath, PERMS_PRIVATE_TBLK_FOLDER) == -1  ) {
+        if (  createDir(tblkResourcesPath, PERMS_PRIVATE_FOLDER) == -1  ) {
             return [self logMessage: [NSString stringWithFormat: @"Unable to create %@ owned by %ld:%ld with %lo permissions",
                                       tblkResourcesPath, (long) getuid(), (long) ADMIN_GROUP_ID, (long) PERMS_PRIVATE_OTHER]
                           localized: [NSString stringWithFormat: NSLocalizedString(@"Unable to create %@ owned by %ld:%ld with %lo permissions", @"Window text"),

@@ -143,7 +143,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
             return nil;
         }
         
-		[self setLocalizedName: [[NSApp delegate] localizedConfigNameFromPath: inPath displayName: inDisplayName]];
+		[self setLocalizedName: [[NSApp delegate] localizedNameforDisplayName: inDisplayName tblkPath: inPath]];
 		
         [logDisplay setConnection: self];
 		[logDisplay clear];
@@ -502,7 +502,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
             NSLog(@"Stopped trying to establish communications with an existing OpenVPN process for '%@' after %d seconds", [self displayName], gHookupTimeout);
             NSString * msg = [NSString stringWithFormat:
                               NSLocalizedString(@"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned.", @"Window text"),
-                              [self displayName],
+                              [self localizedName],
                               gHookupTimeout];
             NSString * prefKey = [NSString stringWithFormat: @"%@-skipWarningUnableToToEstablishOpenVPNLink", [self displayName]];
             
@@ -624,11 +624,11 @@ extern NSString * lastPartOfPath(NSString * thePath);
         if (  startIt  ) {
             msg = [NSString stringWithFormat:
                    NSLocalizedString(@" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts.", @"Window text"),
-                   [self displayName]];
+                   [self localizedName]];
         } else {
             msg = [NSString stringWithFormat:
                    NSLocalizedString(@" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts.", @"Window text"),
-                   [self displayName]];
+                   [self localizedName]];
         }
         
         inAuthRef= [NSApplication getAuthorizationRef: msg];
@@ -1010,7 +1010,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 {
     NSString * msg = [NSString stringWithFormat:
                       NSLocalizedString(@"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n", @"Window text"),
-                      [self displayName]];
+                      [self localizedName]];
     
     TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window text"),
                             msg,
@@ -1026,7 +1026,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     NSString * msg = [NSString stringWithFormat:
                       NSLocalizedString(@"After %.1f seconds, gave up trying to fetch IP address information.\n\n"
                                         @"Tunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n",
-                                        @"Window text"), (double) timeoutToUse, [self displayName]];
+                                        @"Window text"), (double) timeoutToUse, [self localizedName]];
 
     TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window text"), msg);
 }
@@ -1041,7 +1041,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 {
     NSString * msg = [NSString stringWithFormat:
                       NSLocalizedString(@"After connecting to %@, the Internet does not appear to be reachable.\n\n"
-                                        @"This may mean that your VPN is not configured correctly.\n\n", @"Window text"), [self displayName]];
+                                        @"This may mean that your VPN is not configured correctly.\n\n", @"Window text"), [self localizedName]];
     
     TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window text"),
                             msg,
@@ -1056,7 +1056,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 {
     NSString * msg = [NSString stringWithFormat:
                       NSLocalizedString(@"After connecting to %@, DNS does not appear to be working.\n\n"
-                                        @"This may mean that your VPN is not configured correctly.\n\n", @"Window text"), [self displayName]];
+                                        @"This may mean that your VPN is not configured correctly.\n\n", @"Window text"), [self localizedName]];
     
     TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window text"),
                             msg,
@@ -1071,7 +1071,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 {
     NSString * msg = [NSString stringWithFormat:
                       NSLocalizedString(@"This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\n"
-                                        @"This may mean that your VPN is not configured correctly.\n\n", @"Window text"), [self displayName], beforeConnect];
+                                        @"This may mean that your VPN is not configured correctly.\n\n", @"Window text"), [self localizedName], beforeConnect];
     TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window text"),
                             msg,
                             nil, nil, nil,
@@ -1421,7 +1421,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                     TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
 									  [NSString
 									   stringWithFormat: NSLocalizedString(@"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld.", @"Window text"),
-									   [self displayName], (long)status]);
+									   [self localizedName], (long)status]);
                     requestedState = oldRequestedState;
                 }
                 areConnecting = FALSE;
@@ -1536,7 +1536,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
 							  [NSString stringWithFormat:
 							   NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window", @"Window text"),
-							   [self displayName]]);
+							   [self localizedName]]);
             requestedState = oldRequestedState;
         }
     } else {
@@ -1614,7 +1614,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 																			@" check the security of the %@ configuration.\n\n"
 																			@"Please quit and relaunch Tunnelblick. If the problem persists, please"
 																			@" reinstall Tunnelblick.", @"Window text"),
-							   (long) status, [self displayName]]);
+							   (long) status, [self localizedName]]);
 			return NO;
 	}
 	
@@ -2110,9 +2110,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * message = [NSString stringWithFormat:
 						  NSLocalizedString(@"OpenVPN is not responding to requests to disconnect %@.\n\n"
 											"Tunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\n"
-											"THIS MAY TAKE UP TO TWO MINUTES certain unusual circumstances.\n\n"
+											"THIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\n"
 											"The connection will be unavailable until it is disconnected.", @"Window text"),
-						  [self displayName]];
+						  [self localizedName]];
     
 	sdwc = TBShowAlertWindow(headline, message);
 	[self setSlowDisconnectWindowController: sdwc];
@@ -2573,7 +2573,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                         buttonWithDifferentCredentials = NSLocalizedString(@"Try again with different credentials", @"Button");
                     }
                 }
-                int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self displayName], NSLocalizedString(@"Authentication failed", @"Window title")],
+                int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self localizedName], NSLocalizedString(@"Authentication failed", @"Window title")],
                                                NSLocalizedString(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server.", @"Window text"),
                                                NSLocalizedString(@"Try again", @"Button"),  // Default
                                                buttonWithDifferentCredentials,              // Alternate
@@ -2633,7 +2633,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 NSRange tokenNameRange = [parameterString rangeOfString: @"MSG:"];
                 NSString* tokenName = [parameterString substringFromIndex: tokenNameRange.location+4];
                 int needButtonReturn = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
-                                                        [self displayName],
+                                                        [self localizedName],
                                                         NSLocalizedString(@"Please insert token", @"Window title")],
                                                        [NSString stringWithFormat:NSLocalizedString(@"Please insert token \"%@\", then click \"OK\"", @"Window text"), tokenName],
                                                        nil,
@@ -3292,11 +3292,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  [activityName isEqualToString: @"connected"]  ) {
         speech = [NSString stringWithFormat:
                   NSLocalizedString(@"Connected to %@", @"Speak string"),
-                  [self displayName]];
+                  [self localizedName]];
     } else if (  [activityName isEqualToString: @"disconnected"]  ) {
         speech = [NSString stringWithFormat:
                   NSLocalizedString(@"Disconnected from %@", @"Speak string"),
-                  [self displayName]];
+                  [self localizedName]];
     } else {
 		NSLog(@"speakActivity: No activity '%@'", activityName);
 		return;

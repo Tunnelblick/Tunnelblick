@@ -565,8 +565,9 @@ extern TBUserDefaults       * gTbDefaults;
         programName = [NSString stringWithFormat: @" - Tunnelblick"];
     }
 	
+	NSString * localName = [[NSApp delegate] localizedNameForDisplayName: configurationName];
 	NSString * privateSharedDeployed = [connection displayLocation];
-    [settingsSheet setTitle: [NSString stringWithFormat: NSLocalizedString(@"%@%@ Disconnected - Advanced Settings%@", @"Window title"), configurationName, privateSharedDeployed, programName]];
+    [settingsSheet setTitle: [NSString stringWithFormat: NSLocalizedString(@"%@%@ Disconnected - Advanced Settings%@", @"Window title"), localName, privateSharedDeployed, programName]];
     
 	[self setupCredentialsGroupButton]; // May not need to, but set up this first, so it is set up for the rest
 	

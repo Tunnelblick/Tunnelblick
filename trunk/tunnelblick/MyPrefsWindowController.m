@@ -1041,7 +1041,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                 && [gTbDefaults boolWithDefaultYesForKey: @"showConnectedDurations"]  ) {
 				connectionTimeString = [connection connectTimeString];
             }
-            windowLabel = [NSString stringWithFormat: @"%@%@: %@%@ - %@", [connection displayName], [connection displayLocation], status, connectionTimeString, appName];
+            windowLabel = [NSString stringWithFormat: @"%@%@: %@%@ - %@", [connection localizedName], [connection displayLocation], status, connectionTimeString, appName];
         }
     }
     
@@ -1759,9 +1759,15 @@ static BOOL firstTimeShowingWindow = TRUE;
             while (  (filename = [dirEnum nextObject])  ) {
                 if (  ! [filename hasPrefix: @"."]  ) {
 					NSString * extension = [filename pathExtension];
+					NSString * nameOnly = [filename lastPathComponent];
 					NSArray * extensionsToSkip = KEY_AND_CRT_EXTENSIONS;
 					if (   ( ! [extensionsToSkip containsObject: extension])
-						&& ( ! [extension isEqualToString: @"ovpn"])  ) {
+						&& ( ! [extension isEqualToString: @"ovpn"])
+						&& ( ! [extension isEqualToString: @"lproj"])
+						&& ( ! [extension isEqualToString: @"strings"])
+						&& ( ! [nameOnly  isEqualToString: @"Info.plist"])
+						&& ( ! [nameOnly  isEqualToString: @".DS_Store"])
+						) {
 						NSString * fullPath = [configPath stringByAppendingPathComponent: filename];
 						BOOL isDir;
 						if (  ! (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
@@ -2047,6 +2053,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		
         NSString * output = [NSString stringWithFormat:
 							 @"%@\n\n"  // Version info
+                             @"Configuration %@\n\n"
                              @"\"Sanitized\" condensed configuration file for %@:\n\n%@\n\n%@"
 							 @"\"Sanitized\" full configuration file\n\n%@\n\n%@"
                              @"%@\n%@"  // List of unusual files in .tblk (or message why not listing them)
@@ -2057,7 +2064,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                              @"Console Log:\n\n%@\n%@"
                              @"Non-Apple kexts that are loaded:\n\n%@",
                              versionContents,
-                             [connection configPath], condensedConfigFileContents, separatorString,
+                             [connection localizedName], [connection configPath], condensedConfigFileContents, separatorString,
 							 configFileContents, separatorString,
                              tblkFileList, separatorString,
                              configurationPreferencesContents, separatorString,

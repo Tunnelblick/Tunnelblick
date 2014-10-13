@@ -60,6 +60,7 @@
     //                                               // which is a static variable defined at the start of StatusWindowController.m
     
     NSString                 * name;            // Name we are displaying - displayName of configuration
+    NSString                 * localName;       // localizedName of configuration
     NSString                 * status;          // Status (e.g., "EXITING") of the configuration
     NSString                 * connectedSince;  // Time has been connected
     
@@ -95,6 +96,7 @@
          connectedSince:              (NSString *) time;
 
 TBPROPERTY(NSString *, name,           setName)
+TBPROPERTY(NSString *, localName,      setLocalName)
 TBPROPERTY(NSString *, status,         setStatus)
 TBPROPERTY(NSString *, connectedSince, setConnectedSince)
 
