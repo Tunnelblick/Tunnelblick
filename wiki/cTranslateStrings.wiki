@@ -3,14 +3,15 @@
 
 * Translating .strings Files*
 
-<wiki:toc max_depth="2" />
+This document gives an overview of the _old_ way to localize Tunnelblick, editing .strings files.
+
+For a description of the _new_ way to localize Tunnelblick, see [cLocalizeTranslate Localizing Tunnelblick].
+
+For notes about specific strings that are being translated, see [cTranslationNotes Translation Notes].
 
 <hr>
 
-This document describes how to translate .strings files, one of the the two types of files that Tunnelblick uses for translation.
- * For an overview of how to localize Tunnelblick, see [cLocalize Localizing Tunnelblick].
- * For notes about specific strings that are being translated, see [cTranslationNotes Translation Notes].
- * For the current status of translations, see [cTranslationStatus Translation Status].
+<wiki:toc max_depth="2" />
 
 <hr>
 
