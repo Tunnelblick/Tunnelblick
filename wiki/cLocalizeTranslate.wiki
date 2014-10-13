@@ -41,8 +41,6 @@ Working with Crowdin is self-explanatory for the most part. Here a a few things 
 
  * Crowdin can be set up to require that a "proofreader" approve all new translations, to ensure that translations are appropriate. However, that means a lot more work for translators. So currently that feature is disabled. That may be changed in the future.
 
- * You can use Crowdin's "search" facility to search for strings which include "*CRITICAL*" (without the quote marks but with the asterisks) in their Crowdin "context". These strings are important to translate, because most users see them. (Some strings are only seen by users when unusual conditions occur.)
-
  * Weekly builds of Tunnelblick will be created so translators can see their progress, but the schedule can be adjusted as needed and they can be made "on demand" if necessary. To request a build with updated translations, email project owner Jon at jkbullard at gmail. 
 
 <hr>
