@@ -23,17 +23,6 @@
 
 <hr>
 
-*Translating to a "New" Language*
-
-Translating Tunnelblick to a language that it has not been translated for looks more difficult than it is. Please don't be discouraged!
-
-Although there are more than 600 strings to translate, most of them are for warnings or errors that most users will never see. By translating a hundred or so strings that all users see, you will have done most of the work needed to make Tunnelblick usable in the language.
-
-These highly-visible strings all contain Crowdin "Context" that contains "*CRITICAL*", so you can use Crowdin's search facility to get a list of them and translate them first. (See below.)
-
-
-<hr>
-
 *Working with Crowdin*
 
 Working with Crowdin is self-explanatory for the most part. Here a a few things to keep in mind about the way Tunnelblick is using Crowdin:
