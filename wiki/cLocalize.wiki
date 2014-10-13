@@ -5,10 +5,13 @@
 
 <hr>
 
-This document gives an overview of how to localize Tunnelblick.
- * For instructions on editing the .strings files, see [cTranslateStrings Translating .strings Files]
- * For notes about specific strings that are being translated, see [cTranslationNotes Translation Notes].
- * For the current status of translations, see [cTranslationStatus Translation Status].
+This document gives an overview of the _old_ way to localize Tunnelblick.
+
+For an overview of the _new_ way to localize Tunnelblick, see [cLocalizeTranslate Localizing Tunnelblick].
+
+For instructions on editing the .strings files, see [cTranslateStrings Translating .strings Files].
+
+For notes about specific strings that are being translated, see [cTranslationNotes Translation Notes].
 
 <hr>
 
