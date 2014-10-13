@@ -35,7 +35,7 @@ Working with Crowdin is self-explanatory for the most part. Here a a few things 
 
  * When working on Crowdin, it is tempting to click the copy source button, translate the strgin, and then click the double arrow button next to it to move to the next one. However, *clicking the double arrow button loses your translation* when it moves you to the next string to translate. Instead, *click the commit button* when you want to save your translation. That will also move you to the next string to translate. (Thanks to Jarmo Isotalo for this tip!)
 
- * Please make all Crowdin "comments" and "issues" in English because they are seen by all translators.
+ * Please write all Crowdin "comments" and "issues" in English because they are seen by all translators.
 
  * Translators can "vote" for different translations of a string, but because most Tunnelblick languages have a very small number of translators (many languages have only one translator), voting is probably not very helpful.
 
