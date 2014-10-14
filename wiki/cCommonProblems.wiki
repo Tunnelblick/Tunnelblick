@@ -86,11 +86,11 @@ This means that Tunnelblick was unable to load the tun and/or tap kexts (device 
 
 To find out if this is what is causing the problem, use the "kextstat" command in a Terminal window. It will list all of the loaded kexts. Usually the tun and/or tap kexts show up at or near the end of the list. Common tun/taps are:
   * net.tunnelblick.tun and net.tunnelblick.tap: These are the kexts used by current versions of Tunnelblick. The appropriate one (tun or tap) is loaded when a connection is requested, and unloaded when it is disconnected.
-  * foo.tun and foo.tap: These are obsolete Tunnelblick kexts, loaded when an older version of Tunnelblick is launched (and unloaded when the computer restarts). If Tunnelblick detects them, it will offer to unload them before connecting.
+  * foo.tun and foo.tap: These are kexts for obsolete Cisco and Tunnelblick VPN clients (and some others), loaded when an older version of Tunnelblick is launched (and unloaded when the computer restarts). If Tunnelblick detects them, it will offer to unload them before connecting.
   * com.cisco.cscotun: This is Cisco !AnyConnect SSL VPN kext. Cisco's installer causes it to be loaded when the computer starts.
   * com.viscosityvpn.Viscosity.tun and com.viscosityvpn.Viscosity.tap: These are kexts used by the Viscosity VPN client.
   * com.pogoplug.xcetun: This kext is associated with Pogoplug.
-  * anchorfree.tun: This kext is associated with HotSpot Shield VPN.
+  * anchorfree.tun: This kext is associated with !HotSpot Shield VPN.
 But any non-Apple kext with "tun" or "tap" in its name is likely to be causing the problem.
 
 To unload kexts and allow Tunnelblick to load its own kexts, use the 'kextunload" Terminal command to unload each loaded tun and tap kext individually. For example, to unload com.viscosityvpn.Viscosity.tun, type the following:
