@@ -312,7 +312,7 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
-    <td>      Feetu Nyrhine      </td>
+    <td>      Feetu Nyrhinen      </td>
     <td>      Finnish    </td>
   </tr>
 
