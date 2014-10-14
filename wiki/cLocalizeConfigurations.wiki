@@ -1,0 +1,44 @@
+#summary Localizing Tunnelblick
+#sidebar cSb
+
+<hr>
+
+*Localizing Tunnelblick VPN Configurations*
+
+Configuration names (and the names of the folders that contain them) can be localized (as of build 4039).
+
+Configurations can include localization information for itself, or, in a Deployed version of Tunnelblick,  localization information may be contained in the Deploy folder.
+
+For a configuration to include localization information, the configuration must include an Info.plist file and one or more "lproj" folders.
+
+If localization is done via the Deploy folder, that folder must contain an OS X bundle named "Localization.bundle". That bundle must include a Contents folder, which must contain an Info.plist file and a "Resources" folder, which must contain one or more "lproj" folders.
+
+<hr>
+
+The Info.plist file must include the following entries:
+ * CFBundleDevelopmentRegion, a string "English"
+ * CFBundleInfoDictionaryVersion, a string "6.0"
+ * CFBundlePackageType, a string "APPL"
+ * CFBundleIdentifier, a string reverse-domain, for example, com.example.tunnelblick.configuration.001"
+
+<hr>
+
+Each "lproj" folder (except English) has as its name the [http://www.loc.gov/standards/iso639-2/php/code_list.php ISO-639-1] two-letter abbreviation of the language and an extension of "lproj". For example, "JA.lproj" is the folder with Japanese strings, "ES.lproj" is the folder with Spanish strings, etc. The one exception is English, which is named English.lproj. The folder should contain a single file named "Localizable.strings".
+
+Each "Localizable.strings" file should be a UTF-8 encoded text file with lines of the following format:
+
+ "file or folder name"="translated name";
+
+For example, if you have configurations in folders named "USA" and "China", and each configuration contains a "
+
+
+
+
+
+
+ * Each component of a configuration's name is translated separately.
+
+
+------------------
+
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
