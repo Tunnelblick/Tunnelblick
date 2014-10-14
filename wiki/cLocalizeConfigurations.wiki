@@ -9,11 +9,10 @@ Configuration names (and the names of the folders that contain them) can be loca
 
 A configurations can include localization information for itself, or, in a Deployed version of Tunnelblick,  localization information may be contained in the Deploy folder and used for all configurations.
 
-For a configuration to include localization information, the configuration must include an [cPkgs#Info.plist Info.plist] file and one or more "lproj" folders.
-
-If localization is done via the Deploy folder, the Deploy folder must contain an OS X bundle (a folder with a special structure) named "Localization.bundle". That bundle must include a Contents folder, which must contain an Info.plist file and a "Resources" folder, which must contain one or more "lproj" folders.
+For a configuration to include localization information itself, the configuration must include an [cPkgs#Info.plist Info.plist] file and one or more "lproj" folders.
 
 <hr>
+*Info.plist* 
 
 The Info.plist file may contain any of the entries normally allowed in a [cPkgs#Info.plist .tblk Info.plist], but for localization the file must include the following entries (each value is a string):
  * CFBundleDevelopmentRegion, "English"
@@ -21,6 +20,7 @@ The Info.plist file may contain any of the entries normally allowed in a [cPkgs#
  * CFBundleIdentifier, a reverse-domain, for example, "com.example.tunnelblick.configuration.001"
 
 <hr>
+*".proj" folders"
 
 Each "lproj" folder (except English) has as its name the [http://www.loc.gov/standards/iso639-2/php/code_list.php ISO-639-1] two-letter abbreviation of the language and an extension of "lproj". For example, "JA.lproj" is the folder with Japanese strings, "ES.lproj" is the folder with Spanish strings, etc. One exception is English, which is named English.lproj. Other exceptions include Chinese and other languages for which there are multiple dilalects. See [http://commons.oreilly.com/wiki/index.php/Learning_Cocoa_with_Objective-C/Miscellaneous_Topics/Localization#Localizing_Resources Localizing Resources] or examine the "lproj" folders in /Applications/Tunnelblick.app/Contents/Resources.
 
@@ -45,6 +45,16 @@ The file for Spanish (in ES.lproj) might look like the following (Spanish speake
  "San Juan"="San Juan";<br>
 
 You can download a [http://sourceforge.net/projects/tunnelblick/files/All%20files/Misc/LocalizationWithSubfolderExample.tblk.zip/download download sample of a "nested" .tblk] which contains a regular configuration and a configuration in a subfolder. The sample configurations are localized for English, German, and Spanish as described above.
+
+<hr>
+*Localizing a Deployed Setup*
+
+Deployed setups may also be localized, with a single file for each language containing translations for all configurations, folders, and added menu items. A separate "Welcome.bundle" can contain localized versions of the Welcome window.
+
+If localization is done via the Deploy folder, the Deploy folder must contain an OS X bundle (a folder with a special structure) named "Localization.bundle". That bundle must include a Contents folder, which must contain an Info.plist file with the three entries described above (no other entries are needed) and a "Resources" folder, which must contain one or more "lproj" folders. The "lproj" folders are as described above. In a Deployed "lproj" folder, menu command names may be included along with file and folder names.
+
+The "Welcome.bundle" consists of a "Contents" folder which contains an Info.plist file with the three entries described above (no other entries are needed) and a "Resources" folder. The "Resources" folder should contain one or more "lproj" folders with names as described above. However, the contents of each "lproj" folder should be an "index.html" file which contains the "Welcome" page for a particular language (and any other files such as images that "index.html" refers to).
+
 
 ------------------
 
