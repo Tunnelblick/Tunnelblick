@@ -5,7 +5,9 @@
 
 *Localizing and Translating Tunnelblick*
 
- * The _new_ way of localizing Tunnelblick is described on this page.
+ * The _new_ way of localizing the Tunnelblick application is described on this page.
+
+ * Localizing the names of configurations and other content that can be added to Tunnelblick is described in [cLocalizeConfigurations Localizing Configurations].
 
  * Comments about specific strings used in Tunnelblick are on the [cTranslationNotes Translation Notes] page.
 
