@@ -1,8 +1,6 @@
 #summary Localizing and Translating Tunnelblick
 #sidebar cSb
 
-<hr>
-
 *Localizing and Translating Tunnelblick*
 
  * The _new_ way of localizing the Tunnelblick application is described on this page.
