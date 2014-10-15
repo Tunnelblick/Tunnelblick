@@ -3,18 +3,18 @@
 
 ==Translation Status==
 
-As of 2014-10-13, all of Tunnelblick's languages are incompletely translated for the current release, Tunnelblick 3.4. Work is being done to complete all translations for Tunnelblick 3.5.
+All of Tunnelblick's languages are incompletely translated for the current release, Tunnelblick 3.4. Work is being done to complete all translations for Tunnelblick 3.5.
 
-Tunnelblick is developed in English and currently translated into 22 languages:
+Tunnelblick is developed in English and currently being translated into 22 languages for Tunnelblick 3.5 (<font color="green">*complete*</font>/<font color="red">incomplete</font>):
 
-|| Bulgarian|| French|| Portuguese||
-|| Catalan|| German|| Russian||
-|| Chinese (Simplified)|| Hungarian|| Slovak||
-|| Chinese (Traditional)|| Italian|| Spanish||
-|| Czech|| Japanese|| Swedish||
-|| Danish || Korean|| Ukrainian||
-|| Dutch|| Norwegian|| ||
-|| Finnish|| Polish|| ||
+|| <font color="red">Bulgarian</font>|| <font color="red">French</font>|| <font color="red">Portuguese</font>||
+|| <font color="red">Catalan</font>|| <font color="green">*German*</font>|| <font color="red">Russian</font>||
+|| <font color="red">Chinese (Simplified)</font>|| <font color="red">Hungarian</font>|| <font color="red">Slovak</font>||
+|| <font color="red">Chinese (Traditional)</font>|| <font color="red">Italian</font>|| <font color="red">Spanish</font>||
+|| <font color="red">Czech</font>|| <font color="red">Japanese</font>|| <font color="red">Swedish</font>||
+|| <font color="red">Danish</font> || <font color="red">Korean</font>|| <font color="red">Ukrainian</font>||
+|| <font color="red">Dutch</font>|| <font color="red">Norwegian</font>|| ||
+|| <font color="red">Finnish</font>|| <font color="red">Polish</font>|| ||
 
 *Please contact project owner Jon via email at jkbullard at gmail to volunteer to work on translating Tunnelblick*.
 
