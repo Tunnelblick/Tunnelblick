@@ -3,7 +3,9 @@
 
 ==Translation Status==
 
-Tunnelblick is developed in English and translated into 22 languages:
+As of 2014-10-13, all of Tunnelblick's languages are incompletely translated for the current release, Tunnelblick 3.4. Work is being done to complete all translations for Tunnelblick 3.5.
+
+Tunnelblick is developed in English and currently translated into 22 languages:
 
 || Bulgarian|| French|| Portuguese||
 || Catalan|| German|| Russian||
@@ -14,12 +16,7 @@ Tunnelblick is developed in English and translated into 22 languages:
 || Dutch|| Norwegian|| ||
 || Finnish|| Polish|| ||
 
-
-
-
 *Please contact project owner Jon via email at jkbullard at gmail to volunteer to work on translating Tunnelblick*.
-
-As of 2014-10-13, all of Tunnelblick's languages are incompletely translated for the current release, Tunnelblick 3.4. Work is being done to complete all translations for Tunnelblick 3.5.
 
 _Note: Help is not currently being translated, pending a rewrite of the English version._
 
