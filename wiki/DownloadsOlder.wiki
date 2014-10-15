@@ -14,6 +14,10 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
 <table border="1" width="100%"><tbody><tr><td>
  ==Deprecated Versions of Tunnelblick==
 <hr />
+
+ <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4.0_r3007.dmg/download Tunnelblick 3.4.0]</strong></font> `[`sourceforge.net`]` (build 4007) released 2014-10-03 [RlsNotes#Version_3.4 Release Notes] [DocumentationForTunnelblick_3_4  What's New in 3.4]<br />
+ _*SHA1*_: c87574e8310b402938d0c59c3508caf4d5779b01 _*MD5*_: 586b9044a767c9fffab98e27dfb3a739 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
+
  <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta38_r3002.dmg/download Tunnelblick 3.4beta38]</strong></font> `[`sourceforge.net`]` (build 4002) released 2014-10-01 [RlsNotes#Version_3.4 Release Notes]<br />
  _*SHA1*_: 476676758b463dc3f2ad4f9d9ff8449900266e24 _*MD5*_: 1e95df3991ca2fe689ec704f94ac9473 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
  

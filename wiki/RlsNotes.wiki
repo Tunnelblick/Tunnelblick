@@ -9,7 +9,14 @@
 
 ==Version 3.4==
 
-*3.40 build 4007 (2014-10-03)*
+*3.4.1 build 4054 (2014-10-15)*
+
+ * *<font color="red">SECURITY UPDATE:</font>* Includes OpenSSL 1.0.1j. See [https://www.openssl.org/news/secadv_20141015.txt OpenSSL Security Advisory (15 Oct 2014)].
+
+
+--------------------
+
+*3.4.0 build 4007 (2014-10-03)*
 
  * *<font color="red">SECURITY UPDATE:</font>* Identical to 3.4beta38 (except for version and build numbers).
 
