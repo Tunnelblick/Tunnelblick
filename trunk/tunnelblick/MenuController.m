@@ -377,6 +377,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"tunnelblickVersionHistory",
 								@"statusDisplayNumber",
                                 @"lastLaunchTime",
+                                @"runOnConnectScriptAcceptsLanguageAsFirstArgument",
                                 
                                 @"disableAdvancedButton",
                                 @"disableCheckNowButton",
@@ -1934,11 +1935,11 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 	
     NSString * scriptPath = [customMenuScripts objectAtIndex: (unsigned)tag];
-
+	NSArray  * arguments = [NSArray arrayWithObject: [self languageAtLaunch]];
 	if (  [[[scriptPath stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]  ) {
-		runTool(scriptPath, [NSArray array], nil, nil);
+		runTool(scriptPath, arguments, nil, nil);
 	} else {
-		startTool(scriptPath, [NSArray array]);
+		startTool(scriptPath, arguments);
 	}
 }
 
@@ -3953,16 +3954,34 @@ static void signal_handler(int signalNumber)
     cancellingIPCheckThreads = [[NSMutableArray alloc] initWithCapacity: 4];
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 010")
+	
+	// Set languageAtLaunch
+	CFArrayRef allLocalizationsCF = CFBundleCopyBundleLocalizations(CFBundleGetMainBundle());
+	CFArrayRef languagesCF        = CFBundleCopyPreferredLocalizationsFromArray(allLocalizationsCF);
+	
+	NSArray  * languages = (NSArray *) languagesCF;
+	id language = [[[languages objectAtIndex: 0] copy] autorelease];
+	
+	if (  [[language class] isSubclassOfClass: [NSString class]]  ) {
+		[self setLanguageAtLaunch: [language lowercaseString]];
+	} else {
+		[self setLanguageAtLaunch: @"english"];
+	}
+	
+	CFRelease(allLocalizationsCF);
+	CFRelease(languagesCF);
+	
     // Process runOnLaunch item
     if (  customRunOnLaunchPath  ) {
+		NSArray * arguments = [NSArray arrayWithObject: languageAtLaunch];
 		if (  [[[customRunOnLaunchPath stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]  ) {
-			OSStatus status = runTool(customRunOnLaunchPath, [NSArray array], nil, nil);
+			OSStatus status = runTool(customRunOnLaunchPath, arguments, nil, nil);
             if (  status != 0  ) {
                 NSLog(@"Tunnelblick runOnLaunch item %@ returned %ld; Tunnelblick launch cancelled", customRunOnLaunchPath, (long)status);
                 [self terminateBecause: terminatingBecauseOfError];
             }
 		} else {
-			startTool(customRunOnLaunchPath, [NSArray array]);
+			startTool(customRunOnLaunchPath, arguments);
 		}
     }
 
@@ -7282,6 +7301,8 @@ TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnWakeup,     
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
 TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedURL)
 TBSYNTHESIZE_OBJECT(retain, NSBundle     *, deployLocalizationBundle,  setDeployLocalizationBundle)
+TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLanguageAtLaunch)
+
 
 // Event Handlers
 

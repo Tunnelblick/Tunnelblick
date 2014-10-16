@@ -408,8 +408,8 @@ NSArray * gConfigurationPreferences;
 							  [NSString stringWithFormat:
 							   NSLocalizedString(@"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\n"
 												 @"The preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n"
-												 @"/Users/%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\n"
-                                                 @"If they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them).", @"Window text"), NSUserName()]);
+												 @"%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\n"
+                                                 @"If they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them).", @"Window text"), NSHomeDirectory()]);
         } else {
             NSLog(@"Failed to synchronize preferences on first attempt but the retry succeeded");
         }
