@@ -1413,8 +1413,17 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * path = [[NSApp delegate] customRunOnConnectPath];
     if (  path  ) {
 		
+		NSMutableArray * arguments = [NSMutableArray arrayWithCapacity: [argumentsUsedToStartOpenvpnstart count] + 1];
+        
+        // First argument to the runOnConnect program is the language code IFF there is a Localization.bundle in Deploy
+        if (  [gFileMgr fileExistsAtPath: [gDeployPath stringByAppendingPathComponent: @"Localization.bundle"]]  ) {
+            [arguments addObject: [[NSApp delegate] languageAtLaunch]];
+        }
+        
+		[arguments addObjectsFromArray: argumentsUsedToStartOpenvpnstart];
+		
 		if (  [[[path stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]  ) {
-			OSStatus status = runTool(path, argumentsUsedToStartOpenvpnstart, nil, nil);
+			OSStatus status = runTool(path, arguments, nil, nil);
 			if (  status != 0  ) {
 				NSLog(@"Tunnelblick runOnConnect item %@ returned %ld; Tunnelblick launch cancelled", path, (long)status);
                 if (  userKnows  ) {
@@ -1428,7 +1437,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 				return;
 			}
 		} else {
-			startTool(path, argumentsUsedToStartOpenvpnstart);
+			startTool(path, arguments);
 		}
     }
     
