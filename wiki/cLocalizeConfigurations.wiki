@@ -1,6 +1,8 @@
 #summary Localizing Tunnelblick Configurations
 #sidebar cSb
 
+===Other Localization===
+
 As of build 4039, configurations, welcome windows, and added menu commands may be localized.
 
 <wiki:toc max_depth="2" />
