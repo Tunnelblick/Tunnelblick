@@ -377,7 +377,6 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"tunnelblickVersionHistory",
 								@"statusDisplayNumber",
                                 @"lastLaunchTime",
-                                @"runOnConnectScriptAcceptsLanguageAsFirstArgument",
                                 
                                 @"disableAdvancedButton",
                                 @"disableCheckNowButton",
