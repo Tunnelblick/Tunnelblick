@@ -21,7 +21,7 @@
 
  * *To join the localization team, please email project owner jkbullard at gmail.*
   * You can help a little or a lot, all help is welcome!
-  * Everyone who makes a meaningful contribution will be credited on Tunnelbilck's [cThanks Thanks page] and on the "Info" panel of the application itself.
+  * Everyone who makes a meaningful contribution will be credited on Tunnelblick's [cThanks Thanks page] and on the "Info" panel of the application itself.
 
 <hr>
 
