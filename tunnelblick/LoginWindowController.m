@@ -25,6 +25,8 @@
 #import "defines.h"
 #import "helper.h"
 
+#import "MenuController.h"
+
 @interface LoginWindowController() // Private methods
 
 -(void) setTitle: (NSString *) newTitle ofControl: (id) theControl;
@@ -59,10 +61,11 @@
 	} else {
 		groupMsg = @"";
 	}
-
-    NSString * text = [NSString stringWithFormat:
+	
+    NSString * localName = [[NSApp delegate] localizedNameForDisplayName: displayName];
+	NSString * text = [NSString stringWithFormat:
                        NSLocalizedString(@"A username and password are required to connect to\n  %@%@", @"Window text"),
-                       [[self delegate] localizedName],
+                       localName,
 					   groupMsg];
 	
     [mainText setTitle: text];

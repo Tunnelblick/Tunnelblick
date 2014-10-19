@@ -230,12 +230,12 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 				   fromBundle: (NSBundle *) firstBundle
 				     orBundle: (NSBundle *) secondBundle {
 	
-	NSString * localizedName = [[key copy] autorelease];
+	NSString * localName = [[key copy] autorelease];
 	
 	if (  firstBundle  ) {
-		localizedName = [self localizedString: key fromBundle: firstBundle];
-		if (  ! [localizedName isEqualToString: key]  ) {
-			return localizedName;
+		localName = [self localizedString: key fromBundle: firstBundle];
+		if (  ! [localName isEqualToString: key]  ) {
+			return localName;
 		}
 	}
 	
@@ -1873,8 +1873,8 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     NSMenu * subMenu = [[[NSMenu alloc] init] autorelease];
     if (  [self addCustomMenuItemsFromFolder: [folder stringByAppendingPathComponent: file] toMenu: subMenu]  ) {
         NSMenuItem * subMenuItem = [[[NSMenuItem alloc] init] autorelease];
-		NSString * localizedName = [self localizedString: [self menuNameFromFilename: file]];
-        [subMenuItem setTitle: localizedName];
+		NSString * localName = [self localizedString: [self menuNameFromFilename: file]];
+        [subMenuItem setTitle: localName];
         [subMenuItem setSubmenu: subMenu];
         [theMenu addItem: subMenuItem];
         return TRUE;
@@ -1886,8 +1886,8 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) addOneCustomMenuItem: (NSString *) file fromFolder: (NSString *) folder toMenu: (NSMenu *) theMenu
 {
     NSMenuItem * item = [[[NSMenuItem alloc] init] autorelease];
-	NSString * localizedName = [self localizedString: [self menuNameFromFilename: file]];
-    [item setTitle: localizedName];
+	NSString * localName = [self localizedString: [self menuNameFromFilename: file]];
+    [item setTitle: localName];
     [item setTarget: self];
     [item setAction: @selector(runCustomMenuItem:)];
     [item setTag: customMenuScriptIndex++];
