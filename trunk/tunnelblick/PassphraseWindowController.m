@@ -25,6 +25,8 @@
 #import "defines.h"
 #import "helper.h"
 
+#import "MenuController.h"
+
 @interface PassphraseWindowController() // Private methods
 
 -(void) setTitle: (NSString *) newTitle ofControl: (id) theControl;
@@ -60,9 +62,10 @@
 		groupMsg = @"";
 	}
 	
+    NSString * localName = [[NSApp delegate] localizedNameForDisplayName: displayName];
     NSString * text = [NSString stringWithFormat:
                        NSLocalizedString(@"A passphrase is required to connect to\n  %@%@", @"Window text"),
-                       [[self delegate] localizedName],
+                       localName,
 					   groupMsg];
     [mainText setTitle: text];
     
