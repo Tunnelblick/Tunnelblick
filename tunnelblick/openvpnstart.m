@@ -1079,7 +1079,7 @@ int checkSignature(void) {
             exitOpenvpnstart(EXIT_SUCCESS);
         }
         if ( minor < 6) {
-            permissions = 0550;
+            permissions = 0555;
         }
     } else {
         fprintf(stderr, "Tunnelblick: Unable to determine OS version; assuming 'codesign' has permissions of 0755. Error = %ld", (long) err);
