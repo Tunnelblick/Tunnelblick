@@ -1870,32 +1870,42 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(BOOL) addOneCustomMenuSubmenu: (NSString *) file fromFolder: (NSString *) folder toMenu: (NSMenu *) theMenu
 {
-    NSMenu * subMenu = [[[NSMenu alloc] init] autorelease];
-    if (  [self addCustomMenuItemsFromFolder: [folder stringByAppendingPathComponent: file] toMenu: subMenu]  ) {
-        NSMenuItem * subMenuItem = [[[NSMenuItem alloc] init] autorelease];
-		NSString * localName = [self localizedString: [self menuNameFromFilename: file]];
-        [subMenuItem setTitle: localName];
-        [subMenuItem setSubmenu: subMenu];
-        [theMenu addItem: subMenuItem];
-        return TRUE;
+    NSString * itemName = [self menuNameFromFilename: file];
+    if (  [itemName length] != 0  ) {
+        NSString * localName = [self localizedString: itemName];
+        if (  [localName length] != 0  ) {
+            NSMenu * subMenu = [[[NSMenu alloc] init] autorelease];
+            if (  [self addCustomMenuItemsFromFolder: [folder stringByAppendingPathComponent: file] toMenu: subMenu]  ) {
+                NSMenuItem * subMenuItem = [[[NSMenuItem alloc] init] autorelease];
+                [subMenuItem setTitle: localName];
+                [subMenuItem setSubmenu: subMenu];
+                [theMenu addItem: subMenuItem];
+                return TRUE;
+            }
+        }
     }
-    
+
     return FALSE;
 }
 
 -(void) addOneCustomMenuItem: (NSString *) file fromFolder: (NSString *) folder toMenu: (NSMenu *) theMenu
 {
-    NSMenuItem * item = [[[NSMenuItem alloc] init] autorelease];
-	NSString * localName = [self localizedString: [self menuNameFromFilename: file]];
-    [item setTitle: localName];
-    [item setTarget: self];
-    [item setAction: @selector(runCustomMenuItem:)];
-    [item setTag: customMenuScriptIndex++];
-
-    NSString * scriptPath = [folder stringByAppendingPathComponent: file];
-    [customMenuScripts addObject: scriptPath];
-    
-    [theMenu addItem: item];
+    NSString * itemName = [self menuNameFromFilename: file];
+    if (  [itemName length] != 0  ) {
+        NSString * localName = [self localizedString: itemName];
+        if (  [localName length] != 0  ) {
+            NSMenuItem * item = [[[NSMenuItem alloc] init] autorelease];
+            [item setTitle: localName];
+            [item setTarget: self];
+            [item setAction: @selector(runCustomMenuItem:)];
+            [item setTag: customMenuScriptIndex++];
+            
+            NSString * scriptPath = [folder stringByAppendingPathComponent: file];
+            [customMenuScripts addObject: scriptPath];
+            
+            [theMenu addItem: item];
+        }
+    }
 }
 
 // Strips off .addToMenu, .wait, and .executable from the end of a string, and everything up to and including the first underscore
