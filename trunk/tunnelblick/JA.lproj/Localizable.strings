@@ -7,6 +7,9 @@
 /* Status message */
 "No Active Connections" = "接続なし";
 
+/* Textbox name */
+"Username:" = "ユーザー名:";
+
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
@@ -34,17 +37,13 @@
 /* Button */
 "Always use the plugin" = "常にプラグインを使用する";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Back" = "戻る";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Cancel" = "キャンセル";
 
-/* Button */
+/* Menu item */ /* Button */
 "Check For Updates Now" = "更新を今すぐ確認";
 
 /* Button */
@@ -113,11 +112,6 @@
 /* Button */
 "Launch" = "起動";
 
-/* Button VPNService
-   Window title  VPNService
-*/
-"Login" = "ログイン";
-
 /* Button */
 "Manually" = "手動接続";
 
@@ -145,9 +139,7 @@
 /* Button */
 "Quit All OpenVPN Processes" = "全ての OpenVPN プロセスを終了";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Quit" = "終了";
 
 /* Button */
@@ -297,7 +289,7 @@
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "接続/切断後に DNS キャッシュをクリアする";
 
-/* Checkbox name */
+/* Checkbox name */ /* System profile item */
 "Monitor connection" = "接続を監視する";
 
 /* Checkbox name */
@@ -345,7 +337,7 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "ネームサーバーを設定 (alternate 1)";
 
-/* PopUpButton */
+/* PopUpButton *//* System profile item */
 "Set nameserver" = "ネームサーバーを設定";
 
 /* Text on disk image */
@@ -389,6 +381,15 @@
 
 /* Connection status */
 "WAIT" = "サーバーの返事を待っています"; // Please translate "Waiting for Server Response"
+
+/* System profile item */
+"Computer admin" = "コンピュータの管理者";
+
+/* System profile item */
+"Configurations" = "接続先";
+
+/* System profile item */
+"Deployed" = "配付用";
 
 /* Window title */
 " (Deployed)" = " (配付用)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -484,9 +485,6 @@
 "New Feature" = "新しい機能";
 
 /* Window title */
-"No 'dev tun' or 'dev tap' found" = "「dev tun」または「dev tap」がありません";
-
-/* Window title */
 "No Credentials" = "認証情報がありません";
 
 /* Window title */
@@ -497,9 +495,6 @@
 
 /* Window title */
 "Please Confirm" = "確認";
-
-/* Window title */
-"Please enter VPN passphrase." = "VPNのパスフレーズを入力して下さい。";
 
 /* Window title */
 "Please enter a username and password." = "ユーザー名とパスワードを入力してください";
@@ -563,6 +558,9 @@
 
 /* Window title */
 "Warning!" = "警告!";
+
+/* Window title */
+"Warning" = "警告";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "警告: 不明な OpenVPN プロセス";
@@ -691,15 +689,7 @@
 "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "キーチェーンに保存されている認証情報「%@」(秘密鍵またはユーザー名とパスワード)を本当に削除してもよいですか？";
 
 /* Window text */
-"Computer admin" = "コンピュータの管理者";
-
-/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "名前に使用できない文字が含まれているため、接続先「%1$@」は無視されます。\n\nこれらの文字は使用できません: %2$s\n\n";
-
-/* Window text
-   Window title
-*/
-"Configurations" = "接続先";
 
 /* Window text */
 "Connect:" = "接続方法:";
@@ -736,9 +726,6 @@
 
 /* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "接続先はすぐに削除され、元に戻すことができません。\n\nこの接続先の設定も全て削除されます。\n\n%1$@%2$@\n\n本当に接続先「%3$@」を削除しますか？";
-
-/* Window text */
-"Deployed" = "配付用";
 
 /* Window text */
 "Do you wish to delete the %@ credentials?" = "認証情報「%@」を削除しますか？";
@@ -833,10 +820,11 @@
 /* Window text */
 "Out:" = "アウト:";
 
-/* Window text
-   Window text VPNService
-*/
+/* Window text */
 "Password:" = "パスワード:";
+
+/* Window text */
+"Please enter VPN passphrase." = "VPNのパスフレーズを入力して下さい。";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "名前を入れて、「了解」または「キャンセル」をクリックしてください。\n\n";
@@ -903,9 +891,6 @@
 
 /* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "接続先「%@」の設定ファイルで「user」と「group」オプションが使用されており、かつダウンスクリプトも使われています（「ネームサーバーを変更しない」が選択されていない、または設定ファイルで「down」オプションが使われています）。\n\nOpenVPN用「openvpn-down-root.so」プラグインを使わないと（接続が切れた時の自動的な）接続再開が失敗します。\n\nこのプラグインを使用しますか？";
-
-/* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "接続先「%@」の設定ファイルには「dev tun」や「dev tap」オプションがありません。Tunnelblickが正しく動作するにはいずれかのオプションが必要です。ネットワーク管理者に相談するか OpenVPN ドキュメントで確認してください。";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "認証情報（パスフレーズまたはユーザー名とパスワード）が相手側 VPN サーバーで受理されませんでした。";
@@ -1025,18 +1010,10 @@
 "Updates:" = "更新:";
 
 /* Window text */
-"Username:" = "ユーザー名:";
-
-/* Window text */
 "VPN Connections" = "VPN 接続";
 
 /* Window text */
 "WINS servers:" = "WINS サーバー:";
-
-/* Window text
-   Window title
-*/
-"Warning" = "警告";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "警告:「%@」は既にキーチェーン項目名になっています。";
@@ -1286,6 +1263,9 @@
 
 /* Button VPNService */
 "Get Different Image" = "別の画像を取得";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "ログイン";
 
 /* Button VPNService */
 "Next" = "次へ";

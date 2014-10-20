@@ -7,6 +7,9 @@
 /* Status message */
 "No Active Connections" = "Geen Actieve Verbindingen";
 
+/* Textbox name */
+"Username:" = "Gebruikersnaam:";
+
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F %2$d (Command + Option + F %3$d)";
 
@@ -40,14 +43,10 @@
 /* Button */
 "Always use the plugin" = "Altijd de plugin gebruiken";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Back" = "Terug";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Cancel" = "Annuleren";
 
 /* Button */
@@ -56,7 +55,7 @@
 /* Button */
 "Change for the Selected Configurations" = "Wijzig voor de geselecteerde configuraties";
 
-/* Button */
+/* Menu item */ /* Button */
 "Check For Updates Now" = "Nu Controleren op Updates";
 
 /* Button */
@@ -134,11 +133,6 @@
 /* Button */
 "Load Tun driver automatically" = "Laad Tun driver automatisch";
 
-/* Button VPNService
-   Window title  VPNService
-*/
-"Login" = "Aanmelden";
-
 /* Button */
 "Manually" = "Handmatig";
 
@@ -178,9 +172,7 @@
 /* Button */
 "Quit All OpenVPN Processes" = "Stop Alle OpenVPN Processen";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Quit" = "Stoppen";
 
 /* Button */
@@ -363,7 +355,7 @@
 /* Checkbox name */
 "Keep connected" = "Verbonden blijven";
 
-/* Checkbox name */
+/* Checkbox name */ /* System profile item */
 "Monitor connection" = "Verbinding controleren";
 
 /* Checkbox name */
@@ -417,7 +409,7 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "nameserver bepalen (alternatief 1)";
 
-/* PopUpButton */
+/* PopUpButton *//* System profile item */
 "Set nameserver" = "nameserver configureren";
 
 /* Text on disk image */
@@ -473,6 +465,15 @@
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Voorbeeld Tunnelblick VPN Configuratie";
+
+/* System profile item */
+"Computer admin" = "Computerbeheerder";
+
+/* System profile item */
+"Configurations" = "Configuraties";
+
+/* System profile item */
+"Deployed" = "Ingezet";
 
 /* Window title */
 " (Deployed)" = " (Ingezet)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -580,7 +581,7 @@
 "New Feature" = "Nieuwe functie";
 
 /* Window title */
-"No 'dev tun' or 'dev tap' found" = "Geen 'dev tun' of 'dev tap' gevonden";
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "Geen 'dev tun', 'dev utun' of 'dev tap' gevonden";
 
 /* Window title */
 "No Credentials" = "Geen Aanmeldgegevens";
@@ -596,9 +597,6 @@
 
 /* Window title */
 "Please Confirm" = "Bevestigen aub";
-
-/* Window title */
-"Please enter VPN passphrase." = "Voer a.u.b. de VPN wachtzin in.";
 
 /* Window title */
 "Please enter a username and password." = "Een Gebruikersnaam en wachtwoord invullen a.u.b.";
@@ -674,6 +672,9 @@
 
 /* Window title */
 "Warning!" = "Waarschuwing!";
+
+/* Window title */
+"Warning" = "Waarschuwing";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "Waarschuwing: Onbekende OpenVPN processen";
@@ -910,18 +911,10 @@
 "Cannot install configurations to either shared or private locations" = "Configuraties kunnen niet geïnstalleerd worden in publieke of privé locaties";
 
 /* Window text */
-"Computer admin" = "Computerbeheerder";
-
-/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuratie '%1$@' zal genegeerd worden, omdat de naam karakters bevat die niet zijn toegestaan.\n\nKarakters die niet zijn toegestaan: '%2$s'\n\n";
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Configuraties worden geïnstalleerd vanuit bestanden die worden geleverd door uw netwerkbeheerder of VPN serviceprovider.\n\nConfiguratiebestanden hebben de extensies .tblk, .ovpn, of. conf. \n\n(Er kunnen bestanden gekoppeld zijn aan de configuratie die andere extensies hebben; deze dienen genegeerd voor nu.)  \n\nDubbelklik op een configuratiebestand om het te installeren. \n\nDe nieuwe configuratie is direct beschikbaar in Tunnelblick.";
-
-/* Window text
-   Window title
-*/
-"Configurations" = "Configuraties";
 
 /* Window text */
 "Connect:" = "Verbinding maken:";
@@ -979,9 +972,6 @@
 
 /* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "Verwijderen van een configuratie is permanent en kan niet ongedaan worden gemaakt.\n\nAlle instellingen voor de configuratie zullen ook permanent worden verwijderd.\n\n%1$@%2$@\n\nWeet u zeker dat u configuratie '%3$@' wilt verwijderen?";
-
-/* Window text */
-"Deployed" = "Ingezet";
 
 /* Window text */
 "Did not need to modify configuration file; no path information to remove" = "Het was niet nodig om het configuratiebestand te wijzigen; geen pad informatie om te verwijderen";
@@ -1188,7 +1178,7 @@
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Enkel een Tunnelblick VPN Configuratie (.tblk) kan starten wanneer de computer opstart.";
 
 /* Window text */
-"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN reageert niet op aanvragen om te verbreken %@.  \n\nTunnelblick zal de verbinding verbreken zodra OpenVPN reageert op verzoeken om de verbinding te verbreken.\n\nDit kan tot twee minuten duren onder bepaalde omstandigheden.\n\nDe verbinding is niet beschikbaar totdat het wordt volledig verbroken is.";
+"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN reageert niet op aanvragen om te verbreken %@.  \n\nTunnelblick zal de verbinding verbreken zodra OpenVPN reageert op verzoeken om de verbinding te verbreken.\n\nDit kan tot twee minuten duren onder bepaalde omstandigheden.\n\nDe verbinding is niet beschikbaar totdat het volledig verbroken is.";
 
 /* Window text */
 "OpenVPN version %@ is not available. Changing setting to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN versie %1$@ is niet beschikbaar. De instellingen worden aangepast om de laatste versie (%2$@) te gebruiken, welke is opgenomen in deze versie van Tunnelblick.";
@@ -1211,16 +1201,14 @@
 /* Window text */
 "PB/s" = "PB/s";
 
-/* Window text
-   Window text VPNService
-*/
+/* Window text */
 "Password:" = "Wachtwoord:";
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Pad ' %1$@ \"bevat tekens die niet zijn toegestaan.  \n\nDe tekens die niet worden toegestaan zijn: '%2$s'\n\n";
 
 /* Window text */
-"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n." = "Pad ' %1$@ \"bevat tekens die niet zijn toegestaan.  \n\nDe tekens die niet worden toegestaan zijn: '%2$s'\n\n.";
+"Please enter VPN passphrase." = "Voer a.u.b. de VPN wachtzin in.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Voer a.u.b. een naam in en druk op \"OK\" of \"Annuleren\".\n\n";
@@ -1334,7 +1322,7 @@
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Het configuratiebestand voor '%@' blijkt de 'user' en/of 'group' opties te gebruiken, en gebruikt een down script ('Do not set nameserver' werd niet geselecteerd, ofwel er staat een 'down' optie in het configuratiebestand).\n\nWellicht mislukt hierdoor het maken van een nieuwe verbinding (dit gebeurt automatisch wanneer een verbinding werd verbroken) tenzij u de 'openvpn-down-root.so' plugin voor OpenVPN gebruikt.\n\nWilt u deze plugin gebruiken?";
 
 /* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Het configuratiebestand voor '%@' blijkt geen 'dev tun' of 'dev tap' optie te bevatten. Deze optie is wellicht nodig voor een goede werking van Tunnelblick. Raadpleeg uw netwerkbeheerder of de OpenVPN documentatie.";
+"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Het configuratiebestand voor '%@' blijkt geen 'dev tun', 'dev utun' of 'dev tap' optie te bevatten. Deze optie is wellicht nodig voor een goede werking van Tunnelblick. Raadpleeg uw netwerkbeheerder of de OpenVPN documentatie.";
 
 /* Window text */
 "The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "Het configuratiebestand verwijst naar een bestand \n\n%@ \n\nwelke niet bestaat (zelfs in de configuratie is deze vervangen).";
@@ -1505,7 +1493,7 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick slaagde er niet in om te communiceren met een bestaand OpenVPN proces voor '%1$@' gedurende %2$d seconden. De poging tot communicatie is gestaakt.";
 
 /* Window text */
-"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n/Users/%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nIf they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them)." = "Tunnelblick kon haar voorkeuren niet opslaan omdat OS X weigerde op te slaan.\n\nDe voorkeuren kunnen beschadigd zijn; als dit het geval is moeten het bestand wat de voorkeuren bevat verwijderd worden. De voorkeuren zijn te vinden in:\n /Users/%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.  \n\nAls ze voorkeuren beschadigd zijn, dan worden ze automatisch gewist de volgende keer dat u Tunnelblick start (na het maken van een back-up).";
+"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nIf they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them)." = "Tunnelblick kon haar voorkeuren niet opslaan omdat OS X weigerde deze op te slaan.\n\nDe voorkeuren kunnen beschadigd zijn; als dit het geval is moeten het bestand wat de voorkeuren bevat verwijderd worden. De voorkeuren zijn te vinden in:\n\n %@/Library/Preferences/net.tunnelblick.tunnelblick.plist.  \n\nAls de voorkeuren beschadigd zijn, dan worden ze automatisch gewist de volgende keer dat u Tunnelblick start (na het maken van een back-up).";
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick kon OpenVPN niet opstarten om een verbinding te maken %@. Voor details, bekijk het log in het VPN Details… scherm";
@@ -1592,18 +1580,10 @@
 "Updates:" = "Updates:";
 
 /* Window text */
-"Username:" = "Gebruikersnaam:";
-
-/* Window text */
 "VPN Connections" = "VPN verbindingen";
 
 /* Window text */
 "WINS servers:" = "WINS servers:";
-
-/* Window text
-   Window title
-*/
-"Warning" = "Waarschuwing";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "Waarschuwing: '%@' is al een benoemd aanmeldgegeven.";
@@ -1898,6 +1878,9 @@
 
 /* Button VPNService */
 "Get Different Image" = "Ander Image ophalen";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Aanmelden";
 
 /* Button VPNService */
 "Next" = "Volgende";

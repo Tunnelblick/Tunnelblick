@@ -7,6 +7,9 @@
 /* Status message */
 "No Active Connections" = "Nenhuma Conexão Ativa";
 
+/* Textbox name */
+"Username:" = "Usuário:";
+
 /* Button */
 "(None available)" = "(Nenhum disponível)";
 
@@ -19,17 +22,13 @@
 /* Button */
 "Always use the plugin" = "Sempre utilizar o plugin";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Back" = "Retornar";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Cancel" = "Cancelar";
 
-/* Button */
+/* Menu item */ /* Button */
 "Check For Updates Now" = "Verificar Atualizações Agora";
 
 /* Button */
@@ -119,9 +118,7 @@
 /* Button */
 "Quit All OpenVPN Processes" = "Encerrar Todos os Processos OpenVPN";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Quit" = "Encerrar";
 
 /* Button */
@@ -271,7 +268,7 @@
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Limpar o cache DNS depois de conectar ou desconectar";
 
-/* Checkbox name */
+/* Checkbox name */ /* System profile item */
 "Monitor connection" = "Monitorar conexão";
 
 /* Checkbox name */
@@ -319,7 +316,7 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Definir nameserver (alternativa 1)";
 
-/* PopUpButton */
+/* PopUpButton *//* System profile item */
 "Set nameserver" = "Definir nameserver";
 
 /* Text on disk image */
@@ -366,6 +363,15 @@
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Configuração de VPN do Tunnelblick de amostra";
+
+/* System profile item */
+"Computer admin" = "Admin do computador";
+
+/* System profile item */
+"Configurations" = "Configurações";
+
+/* System profile item */
+"Deployed" = "Implantado";
 
 /* Window title */
 " (Deployed)" = " (Implantado)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -455,9 +461,6 @@
 "New Feature" = "Nova Característica";
 
 /* Window title */
-"No 'dev tun' or 'dev tap' found" = "Nenhum 'dev tun' ou 'dev tap' encontrado";
-
-/* Window title */
 "No Credentials" = "Nenhuma Credencial";
 
 /* Window title */
@@ -468,9 +471,6 @@
 
 /* Window title */
 "Please Confirm" = "Por favor Confirmar";
-
-/* Window title */
-"Please enter VPN passphrase." = "Favor digitar a senha da VPN.";
 
 /* Window title */
 "Please enter a username and password." = "Favor digitar um usuário e senha.";
@@ -534,6 +534,9 @@
 
 /* Window title */
 "Warning!" = "Aviso!";
+
+/* Window title */
+"Warning" = "Aviso";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "Aviso: Processos do OpenVPN desconhecidos";
@@ -662,15 +665,7 @@
 "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Tem certeza que você deseja apagar as credenciais (chave privada ou usuário e senha) armazenadas em Chaves para as credenciais '%@'?";
 
 /* Window text */
-"Computer admin" = "Admin do computador";
-
-/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuração '%1$@' será ignorada porque seu nome contem caracteres que não são permitidos.\n\nCaracteres que não são permitidos: '%2$s'\n\n";
-
-/* Window text
-   Window title
-*/
-"Configurations" = "Configurações";
 
 /* Window text */
 "Connect:" = "Conectar:";
@@ -710,9 +705,6 @@
 
 /* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "A remoção de uma configuração é permanente e não pode ser desfeita.\n\nTodos os ajustes para a configuração também será removido permanentemente.\n\n%1$@%2$@\n\nVocê tem certeza que deseja apagar a configuração '%3$@'?";
-
-/* Window text */
-"Deployed" = "Implantado";
 
 /* Window text */
 "Do you wish to delete the %@ credentials?" = "Deseja apagar as credenciais %@?";
@@ -804,10 +796,11 @@
 /* Window text */
 "Out:" = "Saída:";
 
-/* Window text
-   Window text VPNService
-*/
+/* Window text */
 "Password:" = "Senha:";
+
+/* Window text */
+"Please enter VPN passphrase." = "Favor digitar a senha da VPN.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Por favor digite um nome e clique \"OK\" ou clique \"Cancelar\".\n\n";
@@ -874,9 +867,6 @@
 
 /* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "O arquivo de configuração para '%@' parece utilizar as opções 'user' e/ou 'group' e está utilizando um down script ('Não definir nameserver' não está selecionado, ou existe uma opção 'down' no arquivo de configuração).\n\nÉ provável que ao reiniciar a conexão (realizado automaticamente quando a conexão é perdida) irá falhar a não ser que o plugin 'openvpn-down-root.so' para o OpenVPN seja utilizado.\n\nDeseja utilizar o plugin?";
-
-/* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "O arquivo de configuração para '%@' não parece conter uma opção 'dev tun' ou 'dev tap'. Esta opção pode ser necessária para operação adequada do Tunnelblick. Consulte seu administrador de rede ou a documentação do OpenVPN.";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "As credenciais (senha ou usuário/senha) não foram aceitas pelo servidor remoto de VPN.";
@@ -996,18 +986,10 @@
 "Updates:" = "Atualizações:";
 
 /* Window text */
-"Username:" = "Usuário:";
-
-/* Window text */
 "VPN Connections" = "Conexões VPN";
 
 /* Window text */
 "WINS servers:" = "Servidores WINS:";
-
-/* Window text
-   Window title
-*/
-"Warning" = "Aviso";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "Aviso: '%@' já é uma credencial nominal.";

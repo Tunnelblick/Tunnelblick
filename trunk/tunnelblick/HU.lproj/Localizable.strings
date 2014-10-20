@@ -7,6 +7,9 @@
 /* Status message */
 "No Active Connections" = "Nincsen aktív kapcsolat";
 
+/* Textbox name */
+"Username:" = "Felhasználónév:";
+
 /* Button */
 "(None available)" = "(Nincs ilyen)";
 
@@ -37,14 +40,10 @@
 /* Button */
 "Always use the plugin" = "Mindig a plugin-t használja";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Back" = "Vissza";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Cancel" = "Mégsem";
 
 /* Button */
@@ -53,7 +52,7 @@
 /* Button */
 "Change for the Selected Configurations" = "A kijelölt konfigurációkon cserél";
 
-/* Button */
+/* Menu item */ /* Button */
 "Check For Updates Now" = "Frissítések ellenőrzése";
 
 /* Button */
@@ -131,11 +130,6 @@
 /* Button */
 "Load Tun driver automatically" = "Tun driver automatikus betöltése";
 
-/* Button VPNService
-   Window title  VPNService
-*/
-"Login" = "Bejelentkezés";
-
 /* Button */
 "Manually" = "Kézi";
 
@@ -175,9 +169,7 @@
 /* Button */
 "Quit All OpenVPN Processes" = "Minden OpenVPN folyamat bezárása";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Quit" = "Kilépés";
 
 /* Button */
@@ -351,7 +343,7 @@
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "DNS cache ürítése kapcsolódás vagy szétkapcsolás során";
 
-/* Checkbox name */
+/* Checkbox name */ /* System profile item */
 "Monitor connection" = "Kapcsolatok figyelése";
 
 /* Checkbox name */
@@ -399,7 +391,7 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Névszerver beállítása (alternate 1)";
 
-/* PopUpButton */
+/* PopUpButton *//* System profile item */
 "Set nameserver" = "Névszerver beállítása";
 
 /* Text on disk image */
@@ -449,6 +441,15 @@
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Minta Tunnelblick VPN Konfiguráció";
+
+/* System profile item */
+"Computer admin" = "Számítógép adminisztrátor";
+
+/* System profile item */
+"Configurations" = "Konfigurációk";
+
+/* System profile item */
+"Deployed" = "Telepített";
 
 /* Window title */
 " (Deployed)" = " (Telepített)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -544,9 +545,6 @@
 "New Feature" = "Új funkció";
 
 /* Window title */
-"No 'dev tun' or 'dev tap' found" = "Nem található 'dev tun' vagy 'dev tap'";
-
-/* Window title */
 "No Credentials" = "Nem található hitelesítőadat";
 
 /* Window title */
@@ -560,9 +558,6 @@
 
 /* Window title */
 "Please Confirm" = "Kérem, erősítse meg";
-
-/* Window title */
-"Please enter VPN passphrase." = "Kérem adja meg VPN jelmondatát.";
 
 /* Window title */
 "Please enter a username and password." = "Kérem adja meg a felhasználónevet és jelszót";
@@ -629,6 +624,9 @@
 
 /* Window title */
 "Warning!" = "Figyelmeztetés!";
+
+/* Window title */
+"Warning" = "Figyelmeztetés";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "Figyelem: Ismeretlen OpenVPN folyamat";
@@ -769,15 +767,7 @@
 "Cannot install configurations to either shared or private locations" = "Nem telepíthető sem privát sem közös konfigurációs fájl";
 
 /* Window text */
-"Computer admin" = "Számítógép adminisztrátor";
-
-/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "A(z) '%1$@' nevű konfiguráció figyelmen kívül lesz hagyva, mert a neve tiltott karaktereket tartalmaz.\n\nA tiltott karakterek: '%2$s'\n\n";
-
-/* Window text
-   Window title
-*/
-"Configurations" = "Konfigurációk";
 
 /* Window text */
 "Connect:" = "Kapcsolódás:";
@@ -826,9 +816,6 @@
 
 /* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "A konfiguráció törlése végleges és visszavonhatatlan.\n\nMinden hozzá tartozó beállítás szintén törlődik.\n\n%1$@%2$@\n\nBiztosan törölni kívánja a(z) '%3$@' konfigurációt?";
-
-/* Window text */
-"Deployed" = "Telepített";
 
 /* Window text */
 "Do you wish to delete the %@ credentials?" = "El kívánja távolítani a(z) %@ hitelesítőadatokat?";
@@ -962,10 +949,11 @@
 /* Window text */
 "PB/s" = "PB/s";
 
-/* Window text
-   Window text VPNService
-*/
+/* Window text */
 "Password:" = "Jelszó:";
+
+/* Window text */
+"Please enter VPN passphrase." = "Kérem adja meg VPN jelmondatát.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Kérem adjon meg egy nevet és kattintson az \"OK\" gombra vagy kattintson a \"Mégse\" gombra.\n\n";
@@ -1050,9 +1038,6 @@
 
 /* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Az állomány a(z) '%@' konfigurációhoz tartalmazza a 'user' és/vagy 'group' opciót és használ egy down szkriptet ('Ne állítsa be a névszervert' nincsen kiválasztva, vagy van 'down' opció a konfigurációs fájlban).\n\nEz azt eredményezi, hogy a kapcsolat újraindítás (automatikusan történik, ha a kapcsolat megszakadt) hibás lesz, amíg nem tölti be a 'openvpn-down-root.so' plugin-t hogy az OpenVPN használhassa.\n\nSzeretné használni a plugin-t?";
-
-/* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "A(z) '%@' konfigurációhoz tartozó állományban nincsen 'dev tun' vagy 'dev tap' opció. Ez pedig feltétlen szükséges a Tunnelblick kapcsolathoz. Kérem tájékoztassa a hibáról a Hálózati Adminisztrátort, vagy tekintse meg az OpenVPN dokumentációt.";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "A hitelesítőadatokat (jelmondat vagy felhasználónév/jelszó) nem fogadta el a távoli VPN szerver";
@@ -1187,18 +1172,10 @@
 "Updates:" = "Frissítések:";
 
 /* Window text */
-"Username:" = "Felhasználónév:";
-
-/* Window text */
 "VPN Connections" = "VPN Kapcsolatok";
 
 /* Window text */
 "WINS servers:" = "WINS szerverek:";
-
-/* Window text
-   Window title
-*/
-"Warning" = "Figyelmeztetés";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "Figyelem: '%@' néven már létezik hitelesítőadat.";
@@ -1466,6 +1443,9 @@
 
 /* Button VPNService */
 "Get Different Image" = "Új képet kérek";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Bejelentkezés";
 
 /* Button VPNService */
 "Next" = "Tovább";

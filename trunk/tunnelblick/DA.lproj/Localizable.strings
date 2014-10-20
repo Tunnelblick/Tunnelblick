@@ -7,6 +7,9 @@
 /* Status message */
 "No Active Connections" = "Ingen aktive forbindelser";
 
+/* Textbox name */
+"Username:" = "Brugernavn:";
+
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (CMD-ALT-F%3$d)";
 
@@ -40,14 +43,10 @@
 /* Button */
 "Always use the plugin" = "Brug altid pluginnet";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Back" = "Tilbage";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Cancel" = "Afbryd";
 
 /* Button */
@@ -56,7 +55,7 @@
 /* Button */
 "Change for the Selected Configurations" = "Skift kun for de valgte konfigurationer";
 
-/* Button */
+/* Menu item */ /* Button */
 "Check For Updates Now" = "Søg efter opdateringer nu";
 
 /* Button */
@@ -134,11 +133,6 @@
 /* Button */
 "Load Tun driver automatically" = "Indlæs Tun driveren automatisk";
 
-/* Button VPNService
-   Window title  VPNService
-*/
-"Login" = "Log ind";
-
 /* Button */
 "Manually" = "Manuelt";
 
@@ -178,9 +172,7 @@
 /* Button */
 "Quit All OpenVPN Processes" = "Afslut alle OpenVPN processer";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Quit" = "Afslut";
 
 /* Button */
@@ -358,9 +350,12 @@
 "Include anonymous profile information" = "Inkluder anonym profiloplysninger";
 
 /* Checkbox name */
-"Keep connected" = "Forbliv forbundet";
+"Inhibit automatic update checking and IP Address checking" = "Inhiber automatisk opdaterings kontrollering og IP addresse kontrollering";
 
 /* Checkbox name */
+"Keep connected" = "Forbliv forbundet";
+
+/* Checkbox name */ /* System profile item */
 "Monitor connection" = "Overvåg forbindelse";
 
 /* Checkbox name */
@@ -368,6 +363,9 @@
 
 /* Checkbox name */
 "Place next to Spotlight icon" = "Placer ved siden af Spotlight ikonet";
+
+/* Checkbox name */
+"Prepend domain name to search domains" = "Foranstil domæne navnet til søge domæner";
 
 /* Checkbox name */
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Genopret forbindelse når computeren vækkes fra slumretilstand (hvis forbundet da compuren gik i slumretilstand)";
@@ -411,7 +409,7 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Sæt navneserveren (Alternativ 1)";
 
-/* PopUpButton */
+/* PopUpButton *//* System profile item */
 "Set nameserver" = "Sæt navneserver";
 
 /* Text on disk image */
@@ -467,6 +465,15 @@
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Tunnelblick VPN eksempelskonfiguration";
+
+/* System profile item */
+"Computer admin" = "Administrator";
+
+/* System profile item */
+"Configurations" = "Konfigurationer";
+
+/* System profile item */
+"Deployed" = "Implementeret";
 
 /* Window title */
 " (Deployed)" = " (Implementeret)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -574,7 +581,7 @@
 "New Feature" = "Ny funktion";
 
 /* Window title */
-"No 'dev tun' or 'dev tap' found" = "Ingen 'dev tun' eller 'dev tap' blev fundet";
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "Ingen 'dev tun', 'dev utun' eller 'dev tap' blev fundet";
 
 /* Window title */
 "No Credentials" = "Ingen legitimationsoplysninger";
@@ -590,9 +597,6 @@
 
 /* Window title */
 "Please Confirm" = "Bekræft venligst";
-
-/* Window title */
-"Please enter VPN passphrase." = "Indtast VPN adgangskoden.";
 
 /* Window title */
 "Please enter a username and password." = "Indtast venligst et brugernavn og adgangskoden.";
@@ -668,6 +672,9 @@
 
 /* Window title */
 "Warning!" = "Advarsel!";
+
+/* Window title */
+"Warning" = "Advarsel";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "Advarsel: Ukendte OpenVPN processer";
@@ -904,18 +911,10 @@
 "Cannot install configurations to either shared or private locations" = "Kan ikke installere konfigurationer til enten delte eller private placeringer";
 
 /* Window text */
-"Computer admin" = "Administrator";
-
-/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguration '%1$@' ignoreres, da navnet indeholder tegn der ikke er tilladt.\n\nFølgende tegn er ikke tilladt: '%2$s'\n\n";
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Konfigurationer er installeret fra filer, der leveres til dig af din netværksadministrator eller VPN udbyder.\n\nKonfigurationsfiler har filnavnsendelserne .tblk, .ovpn, eller. conf.  (Der kan være andre filer forbundet med konfigurationen, der har andre endelser; men lad os ignorere dem for nu.)\n\nHvis du vil installere en konfigurationsfil, skal du dobbeltklikke på den.\n\nDen nye konfiguration vil være tilgængelig i Tunnelblick med det samme.";
-
-/* Window text
-   Window title
-*/
-"Configurations" = "Konfigurationer";
 
 /* Window text */
 "Connect:" = "Tilslut:";
@@ -973,9 +972,6 @@
 
 /* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "Slettelse af en konfiguration er permanent og kan ikke fortrydes.\n\nAlle indstillinger for konfiguration vil blive slettet permanent.\n\n%1$@%2$@ er du sikker på at du ønsker at slette konfigurationen '%3$@'?";
-
-/* Window text */
-"Deployed" = "Implementeret";
 
 /* Window text */
 "Did not need to modify configuration file; no path information to remove" = "Behøvede ikke at ændre konfigurationsfilen; ingen oplysninger om stien at fjerne";
@@ -1182,7 +1178,7 @@
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Kun en Tunnelblick VPN Konfiguration (.tblk) kan startes sammen med computeren.";
 
 /* Window text */
-"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN svarer ikke på anmodninger om at afbryde forbindelsen til %@\n\nTunnelblick vil afbryde når OpenVPN begynder på at svare til afbrydelsesanmodninger.\n\nDETTE KAN TAGE OP TIL TO MINUTTER under visse omstændigheder.\n\nForbindelsen vil være utilgængelig indtil at den er blevet afbrudt.";
+"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN reagerer ikke på anmodningen om at afbryde forbindelsen til %@.\n\nTunnelblick vil afbryde når OpenVPN begynder at svare på anmodningerne.\n\nForbindelsen vil være utilgængelig indtil at den er blevet afbrudt.";
 
 /* Window text */
 "OpenVPN version %@ is not available. Changing setting to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN version %1$@ er ikke tilgængelig. Skifter indstilling til at bruge den nyeste version (%2$@), som er inkluderet med denne version af Tunnelblick.";
@@ -1205,16 +1201,14 @@
 /* Window text */
 "PB/s" = "PB/s";
 
-/* Window text
-   Window text VPNService
-*/
+/* Window text */
 "Password:" = "Kodeord:";
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Stien '%1$@' indeholder tegn, der ikke er tilladt.\n\nTegn, som ikke er tilladt: '%2$s'\n\n";
 
 /* Window text */
-"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n." = "Stien '%1$@' indeholder tegn, der ikke er tilladt.\n\nTegn, som ikke er tilladt: '%2$s'\n\n.";
+"Please enter VPN passphrase." = "Indtast VPN adgangskoden.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Indtast venligst et navn og tryk \"OK\" eller tryk på \"Annuller\".\n\n";
@@ -1245,6 +1239,12 @@
 
 /* Window text */
 "Set DNS/WINS:" = "Indstil DNS/WINS:";
+
+/* Window text */
+"Single-quote missing in line %u" = "Apostrof mangler ved linje %u";
+
+/* Window text */
+"Skipped copying %@ because a file with that name and contents has already been copied." = "Sprunget over kopiering %@, fordi en fil med samme navn og indhold allerede er blevet kopieret.";
 
 /* Window text */
 "Starting Tunnelblick..." = "Starter Tunnelblick…";
@@ -1292,10 +1292,94 @@
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "Legimitationsoplysningerne '%@' kan ikke blive tilføjet, da der er en tvungen liste af navngivne legimitationsoplysninger.";
 
 /* Window text */
+"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "\"%@' legitimationsoplysningerne kan ikke slettes, fordi en eller flere konfigurationer er blevet tvunget til at bruge dem.";
+
+/* Window text */
+"The '%@' credentials may not be deleted because the list of named credentials is being forced." = "Legimitationsoplysningerne '%@' kan ikke blive tilføjet, da der er en tvungen liste af navngivne legimitationsoplysninger.";
+
+/* Window text */
+"The '%@' option is not allowed in an OpenVPN configuration file that is in a Tunnelblick VPN Configuration unless the file it references is specified with an absolute path." = "Valgmuligheden '%@' er ikke tilladt i en OpenVPN konfigurationsfil der er inde i en Tunnelblick VPN konfiguration jo mindre at filen den referer til er angivet som den fulde sti.";
+
+/* Window text */
+"The 'credentialsNames' preference must be an array of strings." = "'credentialsNames' præferencen skal være en tabel af strenge.";
+
+/* Window text */
+"The 'namedCredentialsNames' preference must be an array of strings" = "'namedCredentialsNames' præferencen skal være en tabel af strenge";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "OpenVPN konfigurationens filen ved %1$@ indeholder en '%2$@' indstilling, hvilket kun kan bruges til Windows. Den kan ikke bruges i OS X.";
+
+/* Window text */
+"The OpenVPN log does not yet exist or has been deleted." = "OpenVPN loggen eksisterer ikke eller er blevet slettet.";
+
+/* Window text */
+"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "Tunnelblick indstillinger er blevet beskadiget eller er blevet ryddet. (De gamle indstillinger er blevet omdøbt.)\n\nSe Konsollens Log for flere detaljer.";
+
+/* Window text */
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "Forsøget på at tilslutte til %1$@ er blevet afbrudt: runOnConnect scriptet gav fejlen: %2$ld.";
+
+/* Window text */
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Konfigurationsfilen til '%@' ser ud som om at den bruger 'bruger' og/eller 'gruppe' indstillinger og bruger et down (afbrydnings) script ('Sæt ikke navneserveren' er valgt, eller der er en 'down' indstilling i konfigurationsfilen).\n\nDet er sandsynligt at når du genstarter forbindelsen (som sker automatisk når forbindelsen bliver afbrudt), at den vil fejle jo mindre pluginnet 'openvpn-down-root.so' til OpenVPN er taget i brug.\n\nØnsker du at bruge pluginnet?";
+
+/* Window text */
+"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Konfigurationsfilen til '%@' ser ikke ud som om at den indeholder en 'dev tun', 'dev utun' eller en 'dev tap' indstilling. Dette skal bruges for at Tunnelblick kan tages i brug.\nKonsulter din netværksadministrator eller OpenVPN dokumentationen.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "Konfigurationsfilen refererer til filen\n\n%@\n\nsom ikke eksisterer (selv i konfigurationen som bliver erstattet).";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "Konfigurationsfilen refererer til filen\n\n%@\n\nsom ikke eksisterer i den nye konfiguration, så den gamle usikre fil er blevet taget i brug.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "Konfigurationsfilen refererer til filen\n\n%@\n\nsom ikke eksisterer.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced)." = "Konfigurationsfilen refererer til filen\n\n%1$@\n\nsom skulle kunne findes ved\n\n%2$@\n\nmen filen findes ikke (selv i konfigurationen der bliver erstattet).";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "Konfigurationsfilen refererer til filen\n\n%1$@\n\nsom burde kunne findes ved\n\n%2$@\n\nmen filen eksisterer ikke.";
+
+/* Window text */
+"The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Legitimationsoplysningerne (kodeord eller brugernavn/adgangskode) blev ikke accepteret af VPN-serveren.";
+
+/* Window text */
+"The credentials named %@ could not be added:\n\n%@" = "De legitimationsoplysninger, navngivet %1$@ kunne ikke tilføjes:\n\n%2$@";
+
+/* Window text */
+"The credentials named %@ could not be removed:\n\n%@" = "De legitimationsoplysninger, navngivet %1$@ kunne ikke slettes:\n\n%2$@";
+
+/* Window text */
 "The file %@ is empty" = "Filen %@ er tom";
 
 /* Window text */
 "The file %@ is missing" = "Filen %@ mangler";
+
+/* Window text */
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Installationen, fjernelsen, nyttiggørelsen eller reparationen af en eller flere Tunnelblick komponenter mislykkedes. Se konsollens log for detaljer.";
+
+/* Window text */
+"The passphrase must not be empty!\nPlease enter VPN passphrase." = "Sikkerhedskoden må ikke være tom!\nIndtast venligst en VPN sikkerhedskode.";
+
+/* Window text */
+"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Den private konfiguration er aldrig blevet sikret, så du ikke kan vende tilbage til den sikrede (shadow) kopi.";
+
+/* Window text */
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "Eksempelskonfigurationen er blevet oprettet på dit Skrivebord, og OpenVPN konfigurationsfilen er blevet åbnet i TextEdit så du kan sætte filen til at passe sammen med din VPN opsætning.\n\nNår du er færdig med at redigere i OpenVPN konfigurationsfilen og har gemt dine ændringer, så\n\n1. Flyt eller kopier nøgle- og certifikatsfilerne tilhørende konfigurationen ind i 'Sample Tunnelblick VPN Configuration' mappen på dit Skrivebord.\n\n(Denne mappe er blevet åbnet i et Finder vindue så du kan hive filerne ind i mappen.)\n\n2. Skift mappens navn til det du vil kalde din VPN forbindelse. Dette er navnet som vil dukke op i Tunnelblick.\n\n3. Tilføj .tblk til slutningen af mappens navn.\n\n4. Dobbelt-klik på mappen for at installere konfigurationen.";
+
+/* Window text */
+"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Brugernavn og adgangskode må ikke være blanke!\nIndtast venligt en VPN brugernavn/adgangskode kombination.";
+
+/* Window text */
+"There are no OpenVPN configurations to install." = "Der er ingen OpenVPN konfigurationer at installere.";
+
+/* Window text */
+"There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Der er ingen VPN konfigurationer installeret.\n\nTunnelblick skal bruge en eller flere installerede konfigurationerne for at tilslutte til en VPN.\nKonfigurationerne er installeret fra filer der typisk er blevet udleveret fra din netværksleder. Filerne skal installeres for at blive taget i brug.\n\nKonfigurationsfilerne har endelserne .tblk, .ovpn eller .conf.\n\n(Der kan evt. være andre filer forbundet med konfigurationen der har andre endelser; ignorer dem for nu.)\n\nHar du nogle konfigurationsfiler?\n";
+
+/* Window text */
+"There is not an OpenVPN configuration file in '%@'" = "Der er ikke nogen OpenVPN konfigurationsfil i '%@'";
+
+/* Window text */
+"There was a problem with\n\n%@:\n\n%@" = "Der opstod et problem med\n\n%1$@:\n\n%2$@";
 
 /* Window text */
 "There was a problem:\n\n%@" = "Der opstod et problem:\n\n%@";
@@ -1331,6 +1415,15 @@
 "Tunnelblick could not create the empty configuration folder" = "Tunnelblick kunne ikke oprette en tom konfigurationsmappe";
 
 /* Window text */
+"Tunnelblick could not create the sample configuration" = "Tunnelblick kunne ikke oprette en eksempelskonfiguration";
+
+/* Window text */
+"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick kunne ikke skaffe IP addresse information før forbindelsen til %@ blev oprettet.\n\n";
+
+/* Window text */
+"Tunnelblick has been secured successfully." = "Tunnelblick er blevet sikret.";
+
+/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick har afbrudt forbindelsen til '%@' fordi dens konfigurationsfil er blevet fjernet.";
 
 /* Window text */
@@ -1345,11 +1438,47 @@
 /* Window text */
 "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick kræver OS X 10.4 eller nyere\n (\"Tiger\", \"Leopard\" eller \"Snow Leopard\")";
 
+/* Window text: '* Installed/Replaced/Uninstalled' */
+"Tunnelblick successfully:\n\n" = "Det lykkedes Tunnelblick at:\n\n";
+
+/* Window text */
+"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?" = "Tunnelblick blev installeret korrekt.\n\nØnsker du at starte Tunnelblick nu?";
+
+/* Window text */
+"Tunnelblick was successfully replaced.\n\nDo you wish to launch the new version of Tunnelblick now?" = "Tunnelblick blev erstattet med en nyere version.\n\nØnsker du at starte Tunnelblick?";
+
+/* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick kunne ikke kontakte den eksisterende OpenVPN proces tilhørende '%1$@' inden for %2$d sekunder. Forsøget på at kontakte processen er blevet droppet.";
+
+/* Window text */
+"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nIf they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them)." = "Tunnelblick kunne ikke gemme indstillingerne fordi OS X nægtede at gemme dem.\n\nIndstillingerne kan være blevet beskadiget; hvis dette er tilfældet, kan det være at du bliver nød til at slette filen der indeholder indstillingerne. Indstillingerne kan findes i\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nHvis de er beskadigede, vil indstillingerne automatisk blive ryddet næste gang du starter Tunnelblick (efter du har lavet en backup af dem).";
+
+/* Window text */
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick kunne ikke starte OpenVPN for at tilslutte til %@. For at se detaljerne, så kig på loggen i VPN detaljer… vinduet";
+
 /* Window text */
 "Unable to Establish Communication" = "Det lykkedes ikke at etablere en forbindelse";
 
 /* Window text */
 "Unable to convert OpenVPN configuration" = "Kunne ikke konvertere OpenVPN konfigurationen";
+
+/* Window text */
+"Unable to copy file at '%@' to '%@' because the same name is used for different contents" = "Kunne ikke kopiere filen ved '%1$@' til '%2$@', da navnet er i brug med andet indhold";
+
+/* Window text */
+"Unable to create %@ owned by %ld:%ld with %lo permissions" = "Kan ikke oprette %1$@ ejet af %2$ld:%3$ld med %4$lo tilladelser";
+
+/* Window text */
+"Unable to install the '%@' configuration\n" = "Kunne ikke installere '%@' konfigurationen\n";
+
+/* Window text */
+"Unable to open configuration file for modification" = "Kan ikke åbne konfigurationsfilen for at ændre i den";
+
+/* Window text */
+"Unable to replace the '%@' configuration\n" = "Kan ikke erstatte '%@' konfigurationen\n";
+
+/* Window text */
+"Unable to secure %@ because it is owned by %@" = "Kan ikke sikre %1$@, da den er ejet af %2$@";
 
 /* Window text */
 "Unable to secure %@" = "Kunne ikke sikre %@";
@@ -1358,24 +1487,55 @@
 "Unable to set permissions on '%@'" = "Kunne ikke sætte tilladelser på '%@'";
 
 /* Window text */
+"Unable to store updatable configuration stub at %@\n" = "Kan ikke opbevare den opdaterbare konfigurations stub ved %@\n";
+
+/* Window text */
+"Unable to uninstall the '%@' configuration\n" = "Kan ikke afinstallere konfigurationen '%@'\n";
+
+/* Window text */
+"Unable to write to configuration file for modification" = "Kan ikke skrive til konfigurationsfilen for at lave ændringer";
+
+/* Window text */
 "Unexpected disconnection:" = "Uventet afbrydelse:";
 
 /* Window text */
-"Updates:" = "Opdateringer:";
+"Unknown extension '%@' for %@" = "Ukendt endelse '%1$@' til %2$@";
 
 /* Window text */
-"Username:" = "Brugernavn:";
+"Unknown key '%@' in %@" = "Ukendt nøgle '%1$@' i %2$@";
+
+/* Window text */
+"Unknown value '%@' for '%@' in %@" = "Ukendt værdi '%1$@' for '%2$@' i %3$@";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Den opdaterbare konfiguration '%1$@' blev ikke opbevaret som opdaterbar fordi %2$@ ikke kunne findes\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Den opdaterbare konfiguration '%1$@' blev ikke gemt som opdaterbar fordi '%2$@' ikke kunne kopieres til '%3$@'\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Den opdaterbare konfiguration '%@' blev ikke gemt som opdaterbar fordi 'Contents' i stubben .tblk ikke kunne oprettes\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Den opdaterbare konfiguration '%@' blev ikke gemt som opdaterbar fordi 'Contents/Resources' i stubben .tblk ikke kunne oprettes\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Den opdaterbare konfiguration '%@' kunne ikke gemmes som opdaterbar fordi SUPublicDSAKeyFile' ikke er et filnavn med en valgfri endelse\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Den opdaterbare konfiguration '%@' blev ikke gemt som opdaterbar fordi 'SUPublicDSAKeyFile' ikke er en streng\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Den opdaterbare konfiguration '%@' blev ikke gemt som opdaterbar fordi dens Info.plist 'SUFeedURL' ikke starter med 'https://' og der ikke var nogen 'SUPublicDSAKeyFile' post\n";
+
+/* Window text */
+"Updates:" = "Opdateringer:";
 
 /* Window text */
 "VPN Connections" = "VPN forbindelser";
 
 /* Window text */
 "WINS servers:" = "WINS servere:";
-
-/* Window text
-   Window title
-*/
-"Warning" = "Advarsel";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "Advarsel: '%@' er allerede i brug.";
@@ -1665,6 +1825,9 @@
 /* Button VPNService */
 "Get Different Image" = "Få et andet billede";
 
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Log ind";
+
 /* Button VPNService */
 "Next" = "Næste";
 
@@ -1811,4 +1974,7 @@
 
 /* Window text VPNService */
 "You must type the characters in the image to proceed." = "Du skal skrive tegnene i billedet for at fortsætte.";
+
+/* Window text VPNService */
+"Your account status could not be verified:\n     %@." = "Din konto's status kunne ikke blive verificeres:\n     %@.";
 

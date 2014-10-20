@@ -7,6 +7,9 @@
 /* Status message */
 "No Active Connections" = "활성 연결 없음";
 
+/* Textbox name */
+"Username:" = "사용자 계정:";
+
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (커맨드-옵션-F%3$d)";
 
@@ -40,14 +43,10 @@
 /* Button */
 "Always use the plugin" = "언제나 플러그인 사용";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Back" = "이전";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Cancel" = "취소";
 
 /* Button */
@@ -56,7 +55,7 @@
 /* Button */
 "Change for the Selected Configurations" = "선택한 설정만 변경";
 
-/* Button */
+/* Menu item */ /* Button */
 "Check For Updates Now" = "지금 업데이트 확인";
 
 /* Button */
@@ -134,11 +133,6 @@
 /* Button */
 "Load Tun driver automatically" = "자동으로 Tun 드라이버 로드";
 
-/* Button VPNService
-   Window title  VPNService
-*/
-"Login" = "로그인";
-
 /* Button */
 "Manually" = "수동으로";
 
@@ -178,9 +172,7 @@
 /* Button */
 "Quit All OpenVPN Processes" = "모든 OpenVPN 프로세스 종료";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Quit" = "종료";
 
 /* Button */
@@ -363,7 +355,7 @@
 /* Checkbox name */
 "Keep connected" = "연결 유지";
 
-/* Checkbox name */
+/* Checkbox name */ /* System profile item */
 "Monitor connection" = "연결 감시";
 
 /* Checkbox name */
@@ -417,7 +409,7 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "네임서버 (alternate 1)로 설정";
 
-/* PopUpButton */
+/* PopUpButton *//* System profile item */
 "Set nameserver" = "네임서버로 설정";
 
 /* Text on disk image */
@@ -473,6 +465,15 @@
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "예제 Tunnelblick VPN 설정";
+
+/* System profile item */
+"Computer admin" = "컴퓨터 관리";
+
+/* System profile item */
+"Configurations" = "설정";
+
+/* System profile item */
+"Deployed" = "배포됨";
 
 /* Window title */
 " (Deployed)" = " (배포됨)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -580,9 +581,6 @@
 "New Feature" = "새 기능";
 
 /* Window title */
-"No 'dev tun' or 'dev tap' found" = "'dev tun'이나 'dev tap'이 없읍니다";
-
-/* Window title */
 "No Credentials" = "인증이 없음";
 
 /* Window title */
@@ -596,9 +594,6 @@
 
 /* Window title */
 "Please Confirm" = "승인하십시오";
-
-/* Window title */
-"Please enter VPN passphrase." = "VPN 암호를 입력하십시오.";
 
 /* Window title */
 "Please enter a username and password." = "사용자 계정과 비밀번호를 입력하십시오";
@@ -674,6 +669,9 @@
 
 /* Window title */
 "Warning!" = "경고!";
+
+/* Window title */
+"Warning" = "경고";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "경고: 알 수 없는 OpenVPN 프로세스";
@@ -868,15 +866,7 @@
 "Cannot install configurations to either shared or private locations" = "공유 또는 개인 위치에 설정을 설치할 수 없습니다";
 
 /* Window text */
-"Computer admin" = "컴퓨터 관리";
-
-/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "이름에 허용되지 않는 문자가 있어서 설정 '%1$@'은 무시됩니다.\n\n다음 문자는 허용되지 않습니다: '%2$s'\n\n";
-
-/* Window text
-   Window title
-*/
-"Configurations" = "설정";
 
 /* Window text */
 "Connect:" = "연결하기:";
@@ -928,9 +918,6 @@
 
 /* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "설정 삭제는 영구적이며 취소할 수 없습니다.\n\n설정의 모든 값도 영구적으로 삭제됩니다.\n\n%1$@%2$@\n\n설정 '%3$@'을 삭제하겠습니까?";
-
-/* Window text */
-"Deployed" = "배포됨";
 
 /* Window text */
 "Did not need to modify configuration file; no path information to remove" = "설정 파일을 수정할 필요가 없습니다. 삭제할 경로 정보가 없습니다.";
@@ -1112,10 +1099,11 @@
 /* Window text */
 "PB/s" = "PB/s";
 
-/* Window text
-   Window text VPNService
-*/
+/* Window text */
 "Password:" = "암호:";
+
+/* Window text */
+"Please enter VPN passphrase." = "VPN 암호를 입력하십시오.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "이름을 입력하고 \"확인\" 또는 \"취소\"를 클릭하십시오.\n\n";
@@ -1206,9 +1194,6 @@
 
 /* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "'%@' 설정 파일은 '사용자'나 또는 '그룹' 옵션을 사용하는 것 같습니다. 그리고 설정 파일은 '네임 서버 설정 안함'을 선택하지 않았거나 설정 파일 안에 'down' 옵션이 있는 다운 스크립트를 사용합니다.\n\nOpenVPN 용 'openvpn-down-root.so' 플러그인을 사용하지 않으면 연결이 끊어졌을 때 자동으로 다시 연결되지 않을 것입니다.\n\n이 플러그인을 사용하겠습니까?";
-
-/* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "'%@' 설정 파일은 'dev tun' 또는 'dev tap' 옵션을 가지고 있지 않는 것 같습니다. 이 옵션은 Tunnelblick 동작에 필요할 수 있습니다. 네트워크 관리자에게 문의하거나 OpenVPN 문서를 참고하십시오.";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "외부 VPN 서버가 인증 (암호 또는 사용자 계정과 암호)을 수락하지 않았습니다.";
@@ -1379,18 +1364,10 @@
 "Updates:" = "업데이트:";
 
 /* Window text */
-"Username:" = "사용자 계정:";
-
-/* Window text */
 "VPN Connections" = "VPN 연결";
 
 /* Window text */
 "WINS servers:" = "WINS 서버:";
-
-/* Window text
-   Window title
-*/
-"Warning" = "경고";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "경고: '%@'은 이미 지정된 인증입니다.";
@@ -1664,6 +1641,9 @@
 
 /* Button VPNService */
 "Get Different Image" = "다른 이미지 받기";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "로그인";
 
 /* Button VPNService */
 "Next" = "다음";

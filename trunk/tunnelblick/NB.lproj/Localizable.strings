@@ -7,6 +7,9 @@
 /* Status message */
 "No Active Connections" = "Ingen aktive oppkoblinger";
 
+/* Textbox name */
+"Username:" = "Brukernavn";
+
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Kommando-Option-F%3$d)";
 
@@ -22,17 +25,13 @@
 /* Button */
 "Always use the plugin" = "Bruk alltid plugin";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Back" = "Tilbake";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Cancel" = "Avbryt";
 
-/* Button */
+/* Menu item */ /* Button */
 "Check For Updates Now" = "Sjekk etter oppdateringer nå";
 
 /* Button */
@@ -101,11 +100,6 @@
 /* Button */
 "Launch" = "Åpne";
 
-/* Button VPNService
-   Window title  VPNService
-*/
-"Login" = "Logg inn";
-
 /* Button */
 "Manually" = "Manuell";
 
@@ -130,9 +124,7 @@
 /* Button */
 "Quit All OpenVPN Processes" = "Avslutt alle OpenVPN prosesser";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Quit" = "Avslutte";
 
 /* Button */
@@ -282,7 +274,7 @@
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Tøm DNS cache etter opp- eller ned- kobling";
 
-/* Checkbox name */
+/* Checkbox name */ /* System profile item */
 "Monitor connection" = "Overvåk oppkobling";
 
 /* Checkbox name */
@@ -330,7 +322,7 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Sett navnetjener (alternate 1)";
 
-/* PopUpButton */
+/* PopUpButton *//* System profile item */
 "Set nameserver" = "Sett Navntjener";
 
 /* Text on disk image */
@@ -377,6 +369,15 @@
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Eksempel Tunnelblick VPN Konfigurasjon";
+
+/* System profile item */
+"Computer admin" = "Datamaskin administrator";
+
+/* System profile item */
+"Configurations" = "Konfigurasjoner";
+
+/* System profile item */
+"Deployed" = "Utrullet";
 
 /* Window title */
 " (Deployed)" = " (Utrullet)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -469,9 +470,6 @@
 "New Feature" = "Ny egenskap";
 
 /* Window title */
-"No 'dev tun' or 'dev tap' found" = "Ingen 'dev tun' eller 'dev tap' funnet";
-
-/* Window title */
 "No Credentials" = "Ingen brukeropplysninger";
 
 /* Window title */
@@ -482,9 +480,6 @@
 
 /* Window title */
 "Please Confirm" = "Vennligst bekreft";
-
-/* Window title */
-"Please enter VPN passphrase." = "Skriv in ditt passord.";
 
 /* Window title */
 "Please enter a username and password." = "Vennligst skriv inn brukernavn og passord.";
@@ -548,6 +543,9 @@
 
 /* Window title */
 "Warning!" = "Advarsel!";
+
+/* Window title */
+"Warning" = "Advarsel";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "Advarsel: Ukjente OpenVPN prosesser";
@@ -676,15 +674,7 @@
 "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Er du sikker på at du vil slette brukeropplysningene (private nøkkel eller brukernavn og passord) lagret i nøkkelringen for '%@'?";
 
 /* Window text */
-"Computer admin" = "Datamaskin administrator";
-
-/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurasjonen '%1$@' vil bli ignorert fordi navnet inneholder tegn som ikke er tillatt.\n\nTegn som ikke er tillatt: '%2$s'\n\n";
-
-/* Window text
-   Window title
-*/
-"Configurations" = "Konfigurasjoner";
 
 /* Window text */
 "Connect:" = "Koble til:";
@@ -724,9 +714,6 @@
 
 /* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "Sletting av en konfigurasjon er permanent og kan ikke angres.\n\nAlle innstillinger for konfigurasjonen vil også slettes permanent.\n\n%1$@%2$@\n\nEr du sikker på at du ønsker og slette konfigurasjonen '%3$@'?";
-
-/* Window text */
-"Deployed" = "Utrullet";
 
 /* Window text */
 "Do you wish to delete the %@ credentials?" = "Vil du slette %@ brukeropplysninger?";
@@ -821,10 +808,11 @@
 /* Window text */
 "Out:" = "Ut:";
 
-/* Window text
-   Window text VPNService
-*/
+/* Window text */
 "Password:" = "Passord:";
+
+/* Window text */
+"Please enter VPN passphrase." = "Skriv in ditt passord.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Vennligst skriv inn et navn og klikk \"OK\" eller klikk \"Avbryt\".\n\n";
@@ -891,9 +879,6 @@
 
 /* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Konfigurasjonsfilen for '%@' ser ut til å benytte 'bruker' og/eller 'gruppe' opsjoner og bruker et 'down' skript ('Ikke sett navnetjener' er ikke valgt, eller det finnes en 'down' opsjon i konfigurasjonsfilen).\n\nDet er sannsynlig at en omstart av oppkoblingen (gjøres automatisk hvis oppkoblingen mister forbindelse) vil feile hvis ikke 'openvpn-down-root.so' plugin for OpenVPN er benyttet.\n\nØnsker du og bruke denne plugin?";
-
-/* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Konfigurasjonen '%@' ser ikke ut til å inneholde noen 'dev tun' eller 'dev tap' opsjon. Denne opsjonen kan godt være et krav for tilfredstillende Tunnelblick funksjonalitet. Rådfør deg med din nettverksadministrator, eller OpenVPN dokumentasjonen.";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Passordet eller brukernavn/passord ble ikke godkjent av VPN serveren du vil koble til.";
@@ -1013,18 +998,10 @@
 "Updates:" = "Oppdateringer:";
 
 /* Window text */
-"Username:" = "Brukernavn";
-
-/* Window text */
 "VPN Connections" = "VPN Koblinger";
 
 /* Window text */
 "WINS servers:" = "WINS tjenere:";
-
-/* Window text
-   Window title
-*/
-"Warning" = "Advarsel";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "Advarsel: '%@' er allerede benyttet for å navngi brukeropplysninger.";
@@ -1271,6 +1248,9 @@
 
 /* Button VPNService */
 "Get Different Image" = "Hent et nytt bilde";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Logg inn";
 
 /* Button VPNService */
 "Next" = "Neste";

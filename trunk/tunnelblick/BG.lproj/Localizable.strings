@@ -1,0 +1,387 @@
+/* Status message */
+"Disconnect All (%@)" = "Прекъсни всички (%@)";
+
+/* Status message */
+"Disconnect All (%d Connections)" = "Изключете всички (%d връзки)";
+
+/* Status message */
+"No Active Connections" = "Няма активни връзки";
+
+/* Button */
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
+
+/* Button */
+"(None available)" = "(Няма налични)";
+
+/* Button */
+"1 MB" = "1 MB";
+
+/* Button */
+"10 KB" = "10 KB";
+
+/* Button */
+"10 MB" = "10 MB";
+
+/* Button */
+"100 KB" = "100 KB";
+
+/* Button */
+"Advanced..." = "Разширени...";
+
+/* Button */
+"All Users" = "Всички потребители";
+
+/* Button */
+"Always load Tap driver" = "Винаги зареждай Tap устройство";
+
+/* Button */
+"Always load Tun driver" = "Винаги зареждай Tun устройство";
+
+/* Button */
+"Always use the plugin" = "Винаги използвай добавката";
+
+/* Button */
+"Back" = "Назад";
+
+/* Button */
+"Cancel" = "Отказ";
+
+/* Button */
+"Change Only for This Configuration" = "Промяна само за тази конфигурация";
+
+/* Button */
+"Change for the Selected Configurations" = "Промяна на избраните конфигурации";
+
+/* Menu item */ /* Button */
+"Check For Updates Now" = "Провери за актуализации сега";
+
+/* Button */
+"Check Now" = "Провери сега";
+
+/* Button */
+"Check for a change" = "Проверка за промяна";
+
+/* Button */
+"Close VPN Connections and Stop Tunnelblick" = "Затвори VPN връзки и спри Tunnelblick";
+
+/* Button */
+"Connect" = "Свързване";
+
+/* Button */
+"Continue" = "Продължи";
+
+/* Button */
+"Convert Configurations" = "Конвертиране на конфигурации";
+
+/* Button */
+"Copy Console Log to Clipboard" = "Копиране на лога от конзолата в клипборда";
+
+/* Button */
+"Copy Diagnostic Info to Clipboard" = "Копира диагностична информация в клипборда";
+
+/* Button */
+"Create sample configuration and edit it" = "Създаване на примерна конфигурация и редактиране";
+
+/* Button */
+"Default (%@)" = "По подразбиране (%@)";
+
+/* Button */
+"Delete Credentials" = "Изтриване на идентификационни данни";
+
+/* Button */
+"Delete" = "Изтриване";
+
+/* Button */
+"Disconnect" = "Прекъсване на връзката";
+
+/* Button */
+"Do not check for a change" = "Да не се проверява за промяна";
+
+/* Button */
+"Do not use the plugin" = "Не изплозвай добавката";
+
+/* Button */
+"Done" = "Готово";
+
+/* Button */
+"Download" = "Изтегляне";
+
+/* Button */
+"Help" = "Помощ";
+
+/* Button */
+"I DO NOT have configuration files" = "Нямам конфигурационни файлове";
+
+/* Button */
+"I have configuration files" = "Имам конфигурационни файлове";
+
+/* Button */
+"Ignore" = "Игнориране";
+
+/* Button */
+"Latest (%@)" = "Последна (%@)";
+
+/* Button */
+"Launch" = "Стартиране";
+
+/* Button */
+"Load Tap driver automatically" = "Автоматично зареждане на TAP устройство";
+
+/* Button */
+"Load Tun driver automatically" = "Зареди Tun устройство автоматично";
+
+/* Button */
+"Manually" = "Ръчно";
+
+/* Button */
+"Monochrome icon" = "Монохромна икона";
+
+/* Button */
+"Never load Tap driver" = "Никога не зареждайте TAP устройство";
+
+/* Button */
+"Never load Tun driver" = "Никога не зареждайте TUN устройство";
+
+/* Button */
+"Never show" = "Никога не показвай";
+
+/* Checkbox name */
+"Apply to all" = "Приложи към всички";
+
+/* Checkbox name */
+"Check for updates automatically" = "Автоматична проверка за актуализации";
+
+/* Checkbox name */
+"Check for updates to beta versions" = "Проверка за актуализации на бета версии";
+
+/* Checkbox name */
+"Check if the apparent public IP address changed after connecting" = "Проверка дали публичено видимия IP адрес се променя след свързване";
+
+/* Checkbox name */
+"Disconnect when computer goes to sleep" = "Прекъсне, когато компютъра заспи";
+
+/* Checkbox name */
+"Disconnect when user switches out" = "Прекъсване когато потребителя се смени";
+
+/* Checkbox name */
+"Display connection submenus" = "Показване на подменюта за свързване";
+
+/* Checkbox name */
+"Display connection timers" = "Показване на таймери на връзките";
+
+/* Checkbox name */
+"Display window while Tunnelblick is starting up" = "Показване на прозореца докато Tunnelblick стартира";
+
+/* Checkbox name */
+"Do not ask again, always 'Ignore'" = "Не питай повече, винаги \"Игнорирай\"";
+
+/* Checkbox name */
+"Do not ask again, always Continue" = "Не питай повече, винаги 'Продължавам'";
+
+/* Checkbox name */
+"Do not ask again, always convert" = "Не питай повече, винаги конвертиране";
+
+/* Checkbox name */
+"Do not check for IP address changes" = "Не проверявай за променя на IP адреса";
+
+/* Checkbox name */
+"Do not warn about this again for this configuration" = "Не предупреждавай отново за тази конфигурация";
+
+/* Checkbox name */
+"Do not warn about this again" = "Не предупреждавай за това отново";
+
+/* Checkbox name */
+"Flush DNS cache after connecting or disconnecting" = "Изтриване на DNS кеша след свързване или прекъсване на връзката";
+
+/* Checkbox name */
+"Include anonymous profile information" = "Добави анонимна информация за профила";
+
+/* Checkbox name */
+"Inhibit automatic update checking and IP Address checking" = "Забрани автоматичната проверка за актуализация и проверка на IP адрес";
+
+/* Checkbox name */
+"Keep connected" = "Поддъжай свързан";
+
+/* Checkbox name */ /* System profile item */
+"Monitor connection" = "Следене на връзката";
+
+/* Checkbox name */
+"Monitor network settings" = "Следене на мрежовите настройки";
+
+/* Checkbox name */
+"Place next to Spotlight icon" = "Постави до иконата на Spotlight";
+
+/* Checkbox name */
+"Prepend domain name to search domains" = "Добавяне на домейна към домейни за търсене";
+
+/* Checkbox name */
+"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Свържи се отново, когато компютърът се събуди от сън (ако е бил свързан когато компютъра е заспал)";
+
+/* Checkbox name */
+"Reconnect when user switches in" = "Свържи отново, когато потребителят превключи обратно";
+
+/* Checkbox name */
+"Reset the primary interface after disconnecting" = "Възстановяване на основния интерфейс след прекъсване на връзката";
+
+/* Checkbox name */
+"Route all traffic through the VPN" = "Изпрати всичкия трафик през VPN-а";
+
+/* Checkbox name */
+"Run MTU maximum size test after connecting" = "Изпълни тест за максималния размер на MTU след свързване";
+
+/* Checkbox name */
+"Save in Keychain" = "Запази в Keychain";
+
+/* Checkbox name */
+"Set DNS after routes are set instead of before routes are set" = "Задаване на DNS след  завадане на маршрутите вместо преди това";
+
+/* Checkbox name */
+"Show configuration on Tunnelblick menu" = "Покажи конфигурация в Tunnelblick меню";
+
+/* Checkbox name */
+"Show when disconnected" = "Показване когато не е свързан";
+
+/* Checkbox name */
+"Show when the pointer is over the Tunnelblick icon" = "Покажи когато показалецът е върху иконата на Tunnelblick";
+
+/* PopUpButton */
+"Do not set nameserver" = "Не задавай DNS";
+
+/* PopUpButton */
+"Set nameserver (3.0b10)" = "Задай DNS (3.0b10)";
+
+/* PopUpButton */
+"Set nameserver (3.1)" = "Задай DNS (3.1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 1)" = "Задай DNS (алтернативa 1)";
+
+/* PopUpButton *//* System profile item */
+"Set nameserver" = "Задай DNS";
+
+/* Text on disk image */
+"Double-click to begin" = "Двойно щракване за да започне";
+
+/* Connection status */
+"ADD_ROUTES" = "Добавяне на маршрути"; // Please translate "Adding routes"
+
+/* Connection status */
+"ASSIGN_IP" = "Присвояване на IP адрес"; // Please translate "Assigning IP address"
+
+/* Connection status */
+"AUTH" = "Уторизиране"; // Please translate "Authorizing"
+
+/* Connection status */
+"CONNECTED" = "Свързан"; // Please translate "Connected"
+
+/* Connection status */
+"CONNECTING" = "Свързване"; // Please translate "Connecting"
+
+/* Connection status */
+"DISCONNECTING" = "Прекъсване на връзката"; // Please translate "Disconnecting"
+
+/* Connection status */
+"EXITING" = "Изключен"; // Please translate "Disconnected"
+
+/* Connection status */
+"GET_CONFIG" = "Получаване на конфигурация"; // Please translate ""
+
+/* Connection status */
+"PASSWORD_WAIT" = "Изчакване за парола"; // Please translate "Waiting for password"
+
+/* Connection status */
+"PRIVATE_KEY_WAIT" = "Очакване на фраза за достъп"; // Please translate "Waiting for password"
+
+/* Connection status */
+"RECONNECTING" = "Повторно свързване"; // Please translate ""
+
+/* Window title */
+"Preferences" = "Предпочитания";
+
+/* Window title */
+"Replace Configuration?" = "Замени конфигурация?";
+
+/* Window title */
+"Replace Existing Configuration?" = "Замести съществуващите конфигурация?";
+
+/* Window title */
+"Replace Existing File?" = "Замести съществуващия файл?";
+
+/* Window title */
+"Sample Configuration Created" = "Създадена е примерна конфигурация";
+
+/* Window title */
+"Settings" = "Настройки";
+
+/* Window title */
+"System Requirements Not Met" = "Системни изисквания не са изпълнени";
+
+/* Window title */
+"Tunnelblick Configuration Installation Error" = "Грешка при инсталиране на конфигурация за Tunnelblick";
+
+/* Window title */
+"Tunnelblick Configuration Installer" = "Инсталатор за конфигурация на Tunnelblick";
+
+/* Window title */
+"Tunnelblick Configuration Problem" = "Проблем с конфигурацията на Tunnelblick";
+
+/* Window title */
+"Tunnelblick Error" = "Tunnelblick грешка";
+
+/* Window title */
+"Tunnelblick VPN Configuration Installation Error" = "Грешка при инсталиране на Tunnelblick VPN конфигурация";
+
+/* Window title */
+"Tunnelblick VPN Configuration Installation" = "Tunnelblick VPN конфигурация инсталация";
+
+/* Window title */
+"Tunnelblick is currently running" = "Tunnelblick работи в момента";
+
+/* Window title */
+"Tunnelblick" = "Tunnelblick";
+
+/* Window title */
+"Tunnelblick: Login Required" = "Tunnelblick: Изисква се уторизация";
+
+/* Window title */
+"Tunnelblick: Passphrase Required" = "Tunnelblick: Фраза за достъп се изисква";
+
+/* Window title */
+"Unable to launch Tunnelblick" = "Не може се стартира Tunnelblick";
+
+/* Window title */
+"Unavailable" = "Недостъпен";
+
+/* Window title */
+"Use 'down-root' plugin for OpenVPN?" = "Използвай 'down-root' добавка за OpenVPN?";
+
+/* Window title */
+"Utilities" = "Инструменти";
+
+/* Window title */
+"VPN Credentials" = "VPN идентификационни данни";
+
+/* Window title */
+"Warning!" = "Внимание!";
+
+/* Window title */
+"Warning: Unknown OpenVPN processes" = "Внимание: Неизвестни OpenVPN процеси";
+
+/* Window title */
+"Welcome to Tunnelblick" = "Добре дошли в Tunnelblick";
+
+/* Window title */
+"Welcome" = "Добре дошли";
+
+/* Window title */
+"While Connected" = "Докато сте свързани";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Installed %lu configurations\n\n" = "     • Инсталирани %lu конфигурации\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Installed one configuration\n\n" = "     • Инсталирана една конфигурация  \n\n";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Вход";
+
