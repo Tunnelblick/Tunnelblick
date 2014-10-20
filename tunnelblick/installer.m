@@ -596,6 +596,17 @@ int main(int argc, char *argv[])
 			}
 		}
 		
+        // Secure IconSets
+        NSString * iconSetsPath = [[gDeployPath stringByDeletingLastPathComponent]
+                                   stringByAppendingPathComponent: @"IconSets"];
+        if (   [gFileMgr fileExistsAtPath: iconSetsPath isDirectory: &isDir]
+            && isDir  ) {
+			okSoFar = okSoFar && secureOneFolder(iconSetsPath, NO, 0);
+        } else {
+            appendLog([NSString stringWithFormat: @"Missing IconSets folder, which should be at %@", iconSetsPath]);
+            errorExit();
+        }
+        
 		// Check/set the app's Deploy folder
         if (   [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
             && isDir  ) {
