@@ -7,6 +7,9 @@
 /* Status message */
 "No Active Connections" = "Нет активных соединений";
 
+/* Textbox name */
+"Username:" = "Имя пользователя:";
+
 /* Button */
 "(None available)" = "(Недоступно)";
 
@@ -37,14 +40,10 @@
 /* Button */
 "Always use the plugin" = "Всегда использовать это дополнение";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Back" = "Назад";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Cancel" = "Отменить";
 
 /* Button */
@@ -53,7 +52,7 @@
 /* Button */
 "Change for the Selected Configurations" = "Изменить только для выбранных конфигураций";
 
-/* Button */
+/* Menu item */ /* Button */
 "Check For Updates Now" = "Проверить наличие обновлений";
 
 /* Button */
@@ -131,11 +130,6 @@
 /* Button */
 "Load Tun driver automatically" = "Автозагрузка драйвера Tun";
 
-/* Button VPNService
-   Window title  VPNService
-*/
-"Login" = "Вход";
-
 /* Button */
 "Manually" = "Вручную";
 
@@ -175,9 +169,7 @@
 /* Button */
 "Quit All OpenVPN Processes" = "Завершить все процессы OpenVPN";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Quit" = "Выйти";
 
 /* Button */
@@ -360,7 +352,7 @@
 /* Checkbox name */
 "Keep connected" = "Поддерживать подключение";
 
-/* Checkbox name */
+/* Checkbox name */ /* System profile item */
 "Monitor connection" = "Отслеживать соединение";
 
 /* Checkbox name */
@@ -414,7 +406,7 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Установка DNS сервера (вариант 1)";
 
-/* PopUpButton */
+/* PopUpButton *//* System profile item */
 "Set nameserver" = "Установка DNS сервера";
 
 /* Text on disk image */
@@ -470,6 +462,15 @@
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Образец конфигурации Tunnelblick VPN";
+
+/* System profile item */
+"Computer admin" = "Администратор компьютера";
+
+/* System profile item */
+"Configurations" = "Конфигурации";
+
+/* System profile item */
+"Deployed" = "Развёрнутые";
 
 /* Window title */
 " (Deployed)" = " (Развёрнутые)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -577,9 +578,6 @@
 "New Feature" = "Новая функция";
 
 /* Window title */
-"No 'dev tun' or 'dev tap' found" = "Параметры конфигурации 'dev tun' или 'dev tap' не найдены";
-
-/* Window title */
 "No Credentials" = "Нет учётных данных";
 
 /* Window title */
@@ -593,9 +591,6 @@
 
 /* Window title */
 "Please Confirm" = "Пожалуйста подтвердите";
-
-/* Window title */
-"Please enter VPN passphrase." = "Пожалуйста введите секретную фразу VPN.";
 
 /* Window title */
 "Please enter a username and password." = "Пожалуйста введите имя пользователя и пароль.";
@@ -671,6 +666,9 @@
 
 /* Window title */
 "Warning!" = "Предупреждение!";
+
+/* Window title */
+"Warning" = "Предупреждение";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "Предупреждение: Неизвестный процесс OpenVPN";
@@ -859,15 +857,7 @@
 "Cannot find configuration file at %@" = "Конфигурационный файл %@ не найден";
 
 /* Window text */
-"Computer admin" = "Администратор компьютера";
-
-/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Конфигурация '%1$@' будет проигнорирована, поскольку её имя содержит недопустимые символы.\n\nСимволы, которые нельзя использовать: '%2$s'\n\n";
-
-/* Window text
-   Window title
-*/
-"Configurations" = "Конфигурации";
 
 /* Window text */
 "Connect:" = "Соединиться:";
@@ -919,9 +909,6 @@
 
 /* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "Удаление конфигурации необратимо и не может быть отменено\n\nВсе настройки конфигурации также будут безвозвратно удалены.\n\n%1$@%2$@\n\nВы действительно хотите удалить конфигурацию '%3$@'?";
-
-/* Window text */
-"Deployed" = "Развёрнутые";
 
 /* Window text */
 "Did not need to modify configuration file; no path information to remove" = "Необходимость модификации файла конфигурации отсутствует. Нет информации о путях, подлежащей удалению";
@@ -1079,10 +1066,11 @@
 /* Window text */
 "PB/s" = "ПБ/с";
 
-/* Window text
-   Window text VPNService
-*/
+/* Window text */
 "Password:" = "Пароль:";
+
+/* Window text */
+"Please enter VPN passphrase." = "Пожалуйста введите секретную фразу VPN.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Пожалуйста, введите имя и нажмите \"OK\", либо нажмите \"Отмена\".\n\n";
@@ -1155,9 +1143,6 @@
 
 /* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "В конфигурационном файле для '%@' присутствуют параметры 'user' и/или 'group', а также используется скрипт отключения ('Do not set nameserver' не выбрал, либо в конфигурационном файле есть параметр 'down').\n\nИз-за этого переподключение (осуществляемое автоматически при обрыве соедниения) не будет работать, пока не будет использоваться дополнение 'openvpn-down-root.so' для OpenVPN.\n\nХотите использовать это дополнение?";
-
-/* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Файл конфигурации для '%@' не содержит параметр 'dev tun' или 'dev tap'. Этот параметр может быть необходим для корректной работы Tunnelblick. Проконсультируйтесь со своим администратором или обратитесь к документации OpenVPN.";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Учётные данные (секретная фраза или связка имя пользователя/пароль) не были приняты удалённым сервером VPN.";
@@ -1271,9 +1256,6 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick не смог установить связь с существующим процессом OpenVPN '%1$@' в течении %2$d секунд. Больше попыток установить связь не делается.";
 
 /* Window text */
-"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n/Users/%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nIf they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them)." = "Tunnelblick не смог сохранить свои настройки по причине отказа со стороны операционной системы.\n\nВ результате файл настроек может быть поврежден. Если это так, то следует удалить этот файл:\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nЕсли Tunnelblick обнаружит ошибки в файле настроек - они будут автоматически очищены при следующем запуске (при этом будет сохранена резервная копия поврежденного файла настроек).";
-
-/* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick не удалось запустить OpenVPN, чтобы подключиться к %@. Для подробностей обратитесь к журналу в окне Детали VPN…";
 
 /* Window text */
@@ -1286,18 +1268,10 @@
 "Updates:" = "Обновления:";
 
 /* Window text */
-"Username:" = "Имя пользователя:";
-
-/* Window text */
 "VPN Connections" = "VPN соединения:";
 
 /* Window text */
 "WINS servers:" = "WINS сервера:";
-
-/* Window text
-   Window title
-*/
-"Warning" = "Предупреждение";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "Предупреждение: '%@' уже является именованными учётными данными.";
@@ -1553,6 +1527,9 @@
 
 /* Button VPNService */
 "Get Different Image" = "Получить другое изображение";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Вход";
 
 /* Button VPNService */
 "Next" = "Далее";

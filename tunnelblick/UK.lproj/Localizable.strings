@@ -7,6 +7,9 @@
 /* Status message */
 "No Active Connections" = "Немає Активних З'єднань";
 
+/* Textbox name */
+"Username:" = "Користувач:";
+
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Команда-Опція-F%3$d)";
 
@@ -34,17 +37,13 @@
 /* Button */
 "Always use the plugin" = "Завжди використовувати плагін";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Back" = "Назад";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Cancel" = "Скасувати";
 
-/* Button */
+/* Menu item */ /* Button */
 "Check For Updates Now" = "Перевірити оновлення";
 
 /* Button */
@@ -110,11 +109,6 @@
 /* Button */
 "Launch" = "Запустити";
 
-/* Button VPNService
-   Window title  VPNService
-*/
-"Login" = "Увійти";
-
 /* Button */
 "Manually" = "Власноруч";
 
@@ -142,9 +136,7 @@
 /* Button */
 "Quit All OpenVPN Processes" = "Закрити всі процеси OpenVPN";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Quit" = "Вийти";
 
 /* Button */
@@ -288,7 +280,7 @@
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Очистити кеш DNS після з'єднання чи роз'єднання";
 
-/* Checkbox name */
+/* Checkbox name */ /* System profile item */
 "Monitor connection" = "Спостерігати за з'єднанням";
 
 /* Checkbox name */
@@ -303,7 +295,7 @@
 /* Checkbox name */
 "Save in Keychain" = "Зберегти в ключах";
 
-/* PopUpButton */
+/* PopUpButton *//* System profile item */
 "Set nameserver" = "Встановити сервер імен";
 
 /* Connection status */
@@ -400,9 +392,6 @@
 "New Feature" = "Нова функція";
 
 /* Window title */
-"No 'dev tun' or 'dev tap' found" = "Не знайдено 'dev tun' або 'dev tap'";
-
-/* Window title */
 "No Credentials" = "Немає повноважень";
 
 /* Window title */
@@ -410,9 +399,6 @@
 
 /* Window title */
 "Please Confirm" = "Необхідно підтвердження";
-
-/* Window title */
-"Please enter VPN passphrase." = "Будь ласка введіть VPN фразу пароль.";
 
 /* Window title */
 "Please enter a username and password." = "Будь ласка введіть ім'я користувача та пароль.";
@@ -467,6 +453,9 @@
 
 /* Window title */
 "Warning!" = "Зауваження!";
+
+/* Window title */
+"Warning" = "Зауваження";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "Зауваження: Невідомі OpenVPN процеси";
@@ -600,10 +589,11 @@
 /* Window text */
 "OpenVPN version:" = "Версія OpenVPN:";
 
-/* Window text
-   Window text VPNService
-*/
+/* Window text */
 "Password:" = "Пароль:";
+
+/* Window text */
+"Please enter VPN passphrase." = "Будь ласка введіть VPN фразу пароль.";
 
 /* Window text */
 "Search domain:" = "Шукати домен:";
@@ -622,14 +612,6 @@
 
 /* Window text */
 "Thanks for your Tunnelblick donation" = "Дякуємо за пожуртвування для Tunnelblick";
-
-/* Window text */
-"Username:" = "Користувач:";
-
-/* Window text
-   Window title
-*/
-"Warning" = "Зауваження";
 
 /* Suffix for a duplicate of a file */
 " copy %d" = " копія %d";
@@ -657,6 +639,9 @@
 
 /* Button VPNService */
 "Get Different Image" = "Інша картинка";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Увійти";
 
 /* Button VPNService */
 "Next" = "Далі";

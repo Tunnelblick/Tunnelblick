@@ -7,6 +7,9 @@
 /* Status message */
 "No Active Connections" = "没有已建立的连接";
 
+/* Textbox name */
+"Username:" = "用户名:";
+
 /* Button */
 "(None available)" = "(无)";
 
@@ -19,17 +22,13 @@
 /* Button */
 "Always use the plugin" = "总是使用插件";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Back" = "返回";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Cancel" = "取消";
 
-/* Button */
+/* Menu item */ /* Button */
 "Check For Updates Now" = "现在检查更新";
 
 /* Button */
@@ -98,11 +97,6 @@
 /* Button */
 "Launch" = "启动";
 
-/* Button VPNService
-   Window title  VPNService
-*/
-"Login" = "登入";
-
 /* Button */
 "Manually" = "手动";
 
@@ -130,9 +124,7 @@
 /* Button */
 "Quit All OpenVPN Processes" = "退出所有 OpenVPN 进程";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Quit" = "退出";
 
 /* Button */
@@ -279,7 +271,7 @@
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "连接后或者断开连接后, 清空 DNS 缓存";
 
-/* Checkbox name */
+/* Checkbox name */ /* System profile item */
 "Monitor connection" = "监控连接";
 
 /* Checkbox name */
@@ -327,7 +319,7 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "选择域名服务器 (选择 1)";
 
-/* PopUpButton */
+/* PopUpButton *//* System profile item */
 "Set nameserver" = "选择域名服务器";
 
 /* Text on disk image */
@@ -374,6 +366,15 @@
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Tunnelblick VPN 配置样本";
+
+/* System profile item */
+"Computer admin" = "计算机管理员";
+
+/* System profile item */
+"Configurations" = "配置";
+
+/* System profile item */
+"Deployed" = "已经部署";
 
 /* Window title */
 " (Deployed)" = " (已经部署)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -469,9 +470,6 @@
 "New Feature" = "新的特性";
 
 /* Window title */
-"No 'dev tun' or 'dev tap' found" = "未找到 'dev tun' 或 'dev tap'";
-
-/* Window title */
 "No Credentials" = "没有认证信息";
 
 /* Window title */
@@ -482,9 +480,6 @@
 
 /* Window title */
 "Please Confirm" = "请确认";
-
-/* Window title */
-"Please enter VPN passphrase." = "请输入 VPN 口令.";
 
 /* Window title */
 "Please enter a username and password." = "请输入一个用户名和密码.";
@@ -548,6 +543,9 @@
 
 /* Window title */
 "Warning!" = "警告!";
+
+/* Window title */
+"Warning" = "警告";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "警告: 未知 OpenVPN 进程";
@@ -676,15 +674,7 @@
 "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "你确定要删除存储在 Keychain 中的 '%@' 的认证信息(私钥或用户名和密码) 吗?";
 
 /* Window text */
-"Computer admin" = "计算机管理员";
-
-/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "配置 '%1$@'将会被忽略，因为它的名字里含有禁止的字符.\n\n不合法的字符是: '%2$s'\n\n";
-
-/* Window text
-   Window title
-*/
-"Configurations" = "配置";
 
 /* Window text */
 "Connect:" = "连接:";
@@ -724,9 +714,6 @@
 
 /* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "删除一个配置文件是彻底删除并且不可撤销的.\n\n这个配置文件里的所有的设定同样会被彻底删除.\n\n%1$@%2$@\n\n你确定你要删除配置文件 '%3$@' 吗?";
-
-/* Window text */
-"Deployed" = "已经部署";
 
 /* Window text */
 "Do you wish to delete the %@ credentials?" = "你确定要删除 %@ 的认证信息吗?";
@@ -818,10 +805,11 @@
 /* Window text */
 "Out:" = "流出:";
 
-/* Window text
-   Window text VPNService
-*/
+/* Window text */
 "Password:" = "密码:";
+
+/* Window text */
+"Please enter VPN passphrase." = "请输入 VPN 口令.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "请输入一个名字, 然后点击\"确定\" 或者点击\"取消\".\n\n";
@@ -888,9 +876,6 @@
 
 /* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "'%@' 配置文件似乎使用了 'user' 和/或 'group' 的选项, 并且使用了一个停机脚本 ('不设定域名服务器' 选项没有被选, 或者在配置文件中有一个'停机'选项).\n\n重新建立连接的尝试 (连接断开时自动尝试)有可能会失败, 除非有使用 OpenVPN 的 'openvpn-down-root.so' 插件.\n\n你想要使用这个插件吗?";
-
-/* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "'%@' 的配置文件似乎没有 'dev tun' 或 'dev tap' 选项. 为了 Tunnelblick 的正常运行, 这个选项是必须的. 咨询你的网络管理员或查看 OpenVPN 文档.";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "认证信息 (口令, 或用户名/密码) 不受远端 VPN 服务器认可.";
@@ -1010,18 +995,10 @@
 "Updates:" = "更新:";
 
 /* Window text */
-"Username:" = "用户名:";
-
-/* Window text */
 "VPN Connections" = "VPN 连接";
 
 /* Window text */
 "WINS servers:" = "WINS 服务器:";
-
-/* Window text
-   Window title
-*/
-"Warning" = "警告";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "警告: 已经存在命名为 '%@' 的认证信息.";
@@ -1268,6 +1245,9 @@
 
 /* Button VPNService */
 "Get Different Image" = "另给一个图片";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "登入";
 
 /* Button VPNService */
 "Next" = "下一步";

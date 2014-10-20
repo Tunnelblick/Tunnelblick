@@ -7,6 +7,9 @@
 /* Status message */
 "No Active Connections" = "No hi ha connexions actives";
 
+/* Textbox name */
+"Username:" = "Nom d'usuari:";
+
 /* Button */
 "(None available)" = "(Cap disponible)";
 
@@ -31,17 +34,13 @@
 /* Button */
 "Always use the plugin" = "Utilitza sempre el plugin";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Back" = "Enrere";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Cancel" = "Cancel·lar";
 
-/* Button */
+/* Menu item */ /* Button */
 "Check For Updates Now" = "Cercar actualitzacions ara";
 
 /* Button */
@@ -137,9 +136,7 @@
 /* Button */
 "Quit All OpenVPN Processes" = "Sortir de Tots els Processos OpenVPN";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Quit" = "Sortir";
 
 /* Button */
@@ -289,7 +286,7 @@
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Neteja la cache DNS després de connectar o desconnectar";
 
-/* Checkbox name */
+/* Checkbox name */ /* System profile item */
 "Monitor connection" = "Monitoritzar la connexió";
 
 /* Checkbox name */
@@ -337,7 +334,7 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Configura el servidor de noms (alt. 1)";
 
-/* PopUpButton */
+/* PopUpButton *//* System profile item */
 "Set nameserver" = "Configurar el servidor de noms";
 
 /* Text on disk image */
@@ -384,6 +381,15 @@
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Configuració VPN de guia de Tunnelblick";
+
+/* System profile item */
+"Computer admin" = "Administrador de la computadora";
+
+/* System profile item */
+"Configurations" = "Configuracions";
+
+/* System profile item */
+"Deployed" = "Desplegat";
 
 /* Window title */
 " (Deployed)" = " (Desplegada)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -476,9 +482,6 @@
 "New Feature" = "Nova funcionalitat";
 
 /* Window title */
-"No 'dev tun' or 'dev tap' found" = "No s'ha trobat cap 'dev tun' o 'dev tap'";
-
-/* Window title */
 "No Credentials" = "No existeixen credencials";
 
 /* Window title */
@@ -489,9 +492,6 @@
 
 /* Window title */
 "Please Confirm" = "Confirma si us plau:";
-
-/* Window title */
-"Please enter VPN passphrase." = "Si us plau entra el mot clau de la connexió VPN.";
 
 /* Window title */
 "Please enter a username and password." = "Si us plau entra un nom d'usuari i una contrasenya.";
@@ -555,6 +555,9 @@
 
 /* Window title */
 "Warning!" = "Avís!";
+
+/* Window title */
+"Warning" = "Avís";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "Avís: processos OpenVPN desconeguts";
@@ -683,15 +686,7 @@
 "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Estàs segur que desitges eliminar les credencials (clau privada o nom d'usuari i contrasenya) emmagatzemades en el Clauer per les credencials '%@'?";
 
 /* Window text */
-"Computer admin" = "Administrador de la computadora";
-
-/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "La configuració '%1$@' serà ignorada ja que el seu nom conté caràcters no permesos.\n\nEls caràcters no permesos: '%2$s'\n\n";
-
-/* Window text
-   Window title
-*/
-"Configurations" = "Configuracions";
 
 /* Window text */
 "Connect:" = "Connectar:";
@@ -731,9 +726,6 @@
 
 /* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "L'esborrat d'una configuració es permanent i no és pot desfer.\n\nTotes les preferències de la configuració també s'eliminaran permanentment.\n\n%1$@%2$@\n\nEstàs segur que desitges eliminar la configuració '%3$@'?";
-
-/* Window text */
-"Deployed" = "Desplegat";
 
 /* Window text */
 "Do you wish to delete the %@ credentials?" = "Desitges eliminar les credencials %@?";
@@ -828,10 +820,11 @@
 /* Window text */
 "Out:" = "Sortida:";
 
-/* Window text
-   Window text VPNService
-*/
+/* Window text */
 "Password:" = "Contrasenya:";
+
+/* Window text */
+"Please enter VPN passphrase." = "Si us plau entra el mot clau de la connexió VPN.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Entra un nom i fes click a \"OK\" or a \"Cancel\", si us plau.\n\n";
@@ -898,9 +891,6 @@
 
 /* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "L'arxiu de configuració de '%@' sembla que utilitza les opcions 'user' i/o 'group' i utilitza un 'down script' ('No configuris el servidor de noms' no està seleccionat, o existeix l'opció 'down' a l'arxiu de configuració).\n\nÉs probable que reiniciant la connexió (fet automàticament quan la connexió es perd) falli a menys que s'utilitzi el plugin per a OpenVPN 'openvpn-down-root.so'.\n\nDesitges utilitzar el plugin?";
-
-/* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "L'arxiu de configuració per '%@' no sembla contenir les opcions 'dev tun' o 'dev tap'. Aquesta opció és necessària per a un bon funcionament de Tunnelblick. Consulta amb el teu administrador de xarxa o la documentació d'OpenVPN.";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Les credencials (mot clau o nom d'usuari/contrasenya) no han estat acceptades pel servidor VPN remot.";
@@ -1020,18 +1010,10 @@
 "Updates:" = "Actualitzacions:";
 
 /* Window text */
-"Username:" = "Nom d'usuari:";
-
-/* Window text */
 "VPN Connections" = "Connexions VPN";
 
 /* Window text */
 "WINS servers:" = "Servidors WINS:";
-
-/* Window text
-   Window title
-*/
-"Warning" = "Avís";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "Avís: '%@' ja es tracta d'una credencial.";

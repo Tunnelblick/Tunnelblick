@@ -7,6 +7,9 @@
 /* Status message */
 "No Active Connections" = "Ninguna conexión activa";
 
+/* Textbox name */
+"Username:" = "Usuario:";
+
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Comando-Opción-F%3$d)";
 
@@ -40,14 +43,10 @@
 /* Button */
 "Always use the plugin" = "Siempre usar el plugin";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Back" = "Atrás";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Cancel" = "Cancelar";
 
 /* Button */
@@ -56,7 +55,7 @@
 /* Button */
 "Change for the Selected Configurations" = "Cambiar para configuraciones seleccionadas";
 
-/* Button */
+/* Menu item */ /* Button */
 "Check For Updates Now" = "Chequear Por Actualizaciones Ahora";
 
 /* Button */
@@ -134,11 +133,6 @@
 /* Button */
 "Load Tun driver automatically" = "Cargar controlador Tun automáticamente";
 
-/* Button VPNService
-   Window title  VPNService
-*/
-"Login" = "Identificarse";
-
 /* Button */
 "Manually" = "Manualmente";
 
@@ -178,9 +172,7 @@
 /* Button */
 "Quit All OpenVPN Processes" = "Cerrar todos los procesos de OpenVPN";
 
-/* Button
-   Button VPNService
-*/
+/* Button */
 "Quit" = "Salir";
 
 /* Button */
@@ -307,6 +299,9 @@
 "VPN Details..." = "Detalles de VPN…";
 
 /* Checkbox name */
+"Apply to all" = "Aplicar a todas";
+
+/* Checkbox name */
 "Check for updates automatically" = "Chequear actualizaciones automaticamente";
 
 /* Checkbox name */
@@ -354,7 +349,7 @@
 /* Checkbox name */
 "Include anonymous profile information" = "Incluir información de perfil anónima";
 
-/* Checkbox name */
+/* Checkbox name */ /* System profile item */
 "Monitor connection" = "Monitorear conexión";
 
 /* Checkbox name */
@@ -402,7 +397,7 @@
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Asignar servidores de nombre (alternativa 1)";
 
-/* PopUpButton */
+/* PopUpButton *//* System profile item */
 "Set nameserver" = "Usar DNS";
 
 /* Text on disk image */
@@ -449,6 +444,15 @@
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Configuración VPN Tunnelblick de Ejemplo";
+
+/* System profile item */
+"Computer admin" = "Administrador de Computadora";
+
+/* System profile item */
+"Configurations" = "Configuraciones";
+
+/* System profile item */
+"Deployed" = "Desplegado";
 
 /* Window title */
 " (Deployed)" = " (Desplegado)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -544,9 +548,6 @@
 "New Feature" = "Nueva funcionalidad";
 
 /* Window title */
-"No 'dev tun' or 'dev tap' found" = "No 'dev tun' or 'dev tap' encontrado";
-
-/* Window title */
 "No Credentials" = "No Hay Credenciales";
 
 /* Window title */
@@ -557,9 +558,6 @@
 
 /* Window title */
 "Please Confirm" = "Favor de Confirmar";
-
-/* Window title */
-"Please enter VPN passphrase." = "Por favor ingrese la clave secreta del VPN.";
 
 /* Window title */
 "Please enter a username and password." = "Por favor ingrese un nombre de usuario y contraseña.";
@@ -623,6 +621,9 @@
 
 /* Window title */
 "Warning!" = "!Advertencia!";
+
+/* Window title */
+"Warning" = "Advertencia";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "Advertencia: Procesos OpenVPN desconocidos";
@@ -751,15 +752,7 @@
 "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Está seguro de querer eliminar las credenciales (clave privada o usuario y contraseña) guardadas en el Llavero de '%@’?";
 
 /* Window text */
-"Computer admin" = "Administrador de Computadora";
-
-/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "La configuración '%1$@' Será ignorada porque su nombre contiene caracteres no permitidos.\n\\Caracteres no permitidos: '%2$s'\n\n";
-
-/* Window text
-   Window title
-*/
-"Configurations" = "Configuraciones";
 
 /* Window text */
 "Connect:" = "Conectar:";
@@ -799,9 +792,6 @@
 
 /* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "Borrar una configuración es permanente e irrecuperable.\n\nTodos los datos de esta configuración serán también eliminados permanentemente.\n\n%1$@%2$@\n\nEsta seguro de eliminar la configuración '%3$@'?";
-
-/* Window text */
-"Deployed" = "Desplegado";
 
 /* Window text */
 "Do you wish to delete the %@ credentials?" = "Quiere eliminar las credenciales de %@?";
@@ -896,10 +886,11 @@
 /* Window text */
 "Out:" = "Salida:";
 
-/* Window text
-   Window text VPNService
-*/
+/* Window text */
 "Password:" = "Clave:";
+
+/* Window text */
+"Please enter VPN passphrase." = "Por favor ingrese la clave secreta del VPN.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Por favor ingrese un nombre y de click a \"OK\" o de click a \"Cancelar\".\n\n";
@@ -966,9 +957,6 @@
 
 /* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "El archivo de configuración para '%@' parece usar las opciones 'user' y/o 'group' y está usando un script de desconexión ('Do not set nameserver' no seleccionado, o hay una opción 'down' en el archivo de configuración).\n\nEs probable que reiniciar la conexión (hecho automaticamente cuando la conexión se pierde) falle a menos que el plugin 'openvpn-down-root.so' para OpenVPN se use.\n\n¿Desea usar el plugin?";
-
-/* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "El archivo de configuración para '%@' no parece contener una opción 'dev tun' o 'dev tap'. Esta opción puede ser necesaria para la operación propia de Tunnelblick. Consulte con su administrador de red o la documentacion de OpenVPN.";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Los credenciales (clave secreta o usuario/clave) no fueron aceptados por el servidor de VPN.";
@@ -1088,18 +1076,10 @@
 "Updates:" = "Actualizaciones:";
 
 /* Window text */
-"Username:" = "Usuario:";
-
-/* Window text */
 "VPN Connections" = "Conexiones VPN";
 
 /* Window text */
 "WINS servers:" = "Servidores WINS:";
-
-/* Window text
-   Window title
-*/
-"Warning" = "Advertencia";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "Advertencia: '%@' ya es una credencial nombrada.";
@@ -1349,6 +1329,9 @@
 
 /* Button VPNService */
 "Get Different Image" = "Obtener una imagen diferente";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Identificarse";
 
 /* Button VPNService */
 "Next" = "Siguiente";
