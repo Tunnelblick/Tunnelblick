@@ -176,6 +176,8 @@ struct Statistics {
 
 -(void)             fadeAway;
 
+-(NSUInteger)       getOpenVPNVersionIxToUse;
+
 -(void)             hasDisconnected;
 
 -(void)             readStatisticsTo:           (struct Statistics *)  returnValue;

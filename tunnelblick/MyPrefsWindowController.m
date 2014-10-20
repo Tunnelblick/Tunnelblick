@@ -498,10 +498,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         return;
     }
     
-    // Select the OpenVPN version
-    NSString * key = [[connection displayName] stringByAppendingString: @"-openvpnVersion"];
-    NSString * prefVersion = [gTbDefaults stringForKey: key];
-    
     NSArrayController * ac = [configurationsPrefsView perConfigOpenvpnVersionArrayController];
     NSArray * list = [ac content];
     
@@ -509,52 +505,22 @@ static BOOL firstTimeShowingWindow = TRUE;
         return; // Have not set up the list yet
     }
     
-    NSString * lastValue = [[list objectAtIndex: [list count] - 2] objectForKey: @"value"]; // don't get "latest (xxx)" -- get last real OpenVPN version number
+    NSArray  * versionNames = [[NSApp delegate] openvpnVersionNames];
+    NSUInteger versionIx    = [connection getOpenVPNVersionIxToUse];
     
-    BOOL warnAndUseLatestVersion = FALSE;
+    NSString * key = [[connection displayName] stringByAppendingString: @"-openvpnVersion"];
+    NSString * prefVersion = [gTbDefaults stringForKey: key];
     
-    unsigned openvpnVersionIx = UINT_MAX;   // Flag value as not set
-    
-    if (   ( ! prefVersion )
-        || [prefVersion isEqualToString: @""]
-            ) {
-        openvpnVersionIx = 0;
-        
-    } else if ( [prefVersion isEqualToString: @"-"]  ) {
-        openvpnVersionIx = [list count] - 1;
-        
-    } else if (  ! isSanitizedOpenvpnVersion(prefVersion)  ) {
-        warnAndUseLatestVersion = TRUE;
-        
-    } else {
-        unsigned i;
-        for (  i=1; i<[list count]-1; i++  ) {                      // 1st array entry is "default (xxx)", last is "latest (xxx)", so don't try to match them
-            NSDictionary * dict = [list objectAtIndex: i];
-            NSString * thisValue = [dict objectForKey: @"value"];
-            if (  [thisValue isEqualToString: prefVersion]  ) {
-                openvpnVersionIx = i;
-                break;
-            }
-        }
-        
-        if (  openvpnVersionIx == UINT_MAX  ) {
-            warnAndUseLatestVersion = TRUE;
+    NSUInteger listIx = 0;                              // Default to the first entry -- "Default (x.y.z)"
+    if (  prefVersion  ) {
+        if (  [prefVersion isEqualToString: @"-"]  ) {
+            listIx = [versionNames count] + 1;          // Use the last entry -- "Latest (x.y.z)" (the list has 2 more entries than # of versions)
+        } else {
+            listIx = versionIx + 1;                     // Use the specific entry "x.y.z" (the list has 1 entry ("Default (x.y.z)") first)
         }
     }
     
-    if (  warnAndUseLatestVersion  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-						  [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
-						   prefVersion, lastValue]);
-        [gTbDefaults setObject: @"-" forKey: key];
-        openvpnVersionIx = [list count] - 1;
-    }
-    
-    if (  openvpnVersionIx < [list count]  ) {
-        [self setSelectedPerConfigOpenvpnVersionIndex: openvpnVersionIx];
-    } else {
-        NSLog(@"setupPerConfigOpenvpnVersion: Invalid openvpnVersionIx %d; maximum is %ld", openvpnVersionIx, (long) [list count]-1);
-    }
+    [self setSelectedPerConfigOpenvpnVersionIndex: listIx];
     
     [[configurationsPrefsView perConfigOpenvpnVersionButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
     

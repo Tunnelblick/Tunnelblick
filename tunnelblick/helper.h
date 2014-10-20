@@ -61,7 +61,6 @@ NSString     * displayNameFromPath      (NSString * thePath);
 NSString     * firstPathComponent       (NSString * thePath);
 
 NSString     * tunnelblickVersion       (NSBundle * bundle);
-NSArray      * availableOpenvpnVersions (void);
 NSString     * localizeNonLiteral        (NSString * status,
                                          NSString * type);
 

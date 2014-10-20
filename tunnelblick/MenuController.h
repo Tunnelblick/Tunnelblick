@@ -238,6 +238,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(void)             createMenu;
 -(void)             createStatusItem;
 -(unsigned)         decrementTapCount;
+-(NSUInteger)       defaultOpenVPNVersionIx;
 -(void)             deleteExistingConfig:                   (NSString *)        dispNm;
 -(NSURL *)          getIPCheckURL;
 -(void)             installConfigurationsUpdateInBundleAtPathHandler: (NSString *)path;

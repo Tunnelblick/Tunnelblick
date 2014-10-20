@@ -1630,25 +1630,15 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	return NO;	// Should never get here, but...
 }
 
--(NSDictionary *) getOpenVPNVersionInfo
-{
-    // Returns a dictionary with version info about the currently selected version of OpenVPN.
-    //
-    // If a version is specified, uses that if available, or the last version if not available.
-    // If no version os specified, uses the first version.
+-(NSUInteger) getOpenVPNVersionIxToUse {
     
-    NSArray  * versionNames = [[NSApp delegate] openvpnVersionNames];
-    if (  [versionNames count] == 0  ) {
-        NSLog(@"Tunnelblick does not include any versions of OpenVPN");
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
-        return nil;
-    }
+    NSUInteger useVersionIx = [[NSApp delegate] defaultOpenVPNVersionIx];
     
     NSString * prefKey = [[self displayName] stringByAppendingString: @"-openvpnVersion"];
     NSString * prefVersion = [gTbDefaults stringForKey: prefKey];
     
-    NSUInteger useVersionIx = 0;  // Default to first
     if (  prefVersion  ) {
+        NSArray  * versionNames = [[NSApp delegate] openvpnVersionNames];
         if (  [prefVersion isEqualToString: @"-"]  ) {  // "-" means latest version
             useVersionIx = [versionNames count] - 1;
         } else {
@@ -1656,16 +1646,30 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             if (  useVersionIx == NSNotFound  ) {
                 useVersionIx = [versionNames count] - 1;
                 NSString * useVersionName = [versionNames lastObject];
-                TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								  [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Changing setting to use the latest version (%@) that is included in this version of Tunnelblick.", @"Window text"),
-								   prefVersion, useVersionName]);
-                [gTbDefaults setObject: useVersionName forKey: prefKey];
+                
+                TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                        [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick.", @"Window text"),
+                                         prefVersion, useVersionName],
+                                        nil, nil, nil,
+                                        @"skipWarningAboutUnavailableOpenvpnVersions",
+                                        NSLocalizedString(@"Do not show again for any configuration", @"Checkbox name on a warning dialog"),
+                                        nil,
+                                        NSAlertDefaultReturn);
+                
+                [gTbDefaults setObject: @"-" forKey: prefKey];
                 NSLog(@"OpenVPN version %@ is not available; using version %@", prefVersion, useVersionName);
             }
         }
     }
     
-    return [[[NSApp delegate] openvpnVersionInfo] objectAtIndex: useVersionIx];
+    return useVersionIx;
+}
+
+-(NSDictionary *) getOpenVPNVersionInfo
+{
+    // Returns a dictionary with version info about the currently selected version of OpenVPN.
+    
+    return [[[NSApp delegate] openvpnVersionInfo] objectAtIndex: [self getOpenVPNVersionIxToUse]];
 }
 
 -(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow

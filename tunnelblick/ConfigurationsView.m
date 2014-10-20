@@ -121,24 +121,24 @@ extern TBUserDefaults * gTbDefaults;
 	
     [keepConnectedCheckbox setTitle: NSLocalizedString(@"Keep connected", @"Checkbox name")];
     
-    // OpenVPN Version popup
+    // OpenVPN Version popup. Default depends on version of OS X
     
     [perConfigOpenvpnVersionTFC setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text")];
     
-    NSArray * versions = availableOpenvpnVersions();
-    if (  ! versions  ) {
-        NSLog(@"No versions of OpenVPN are included in this copy of Tunnelblick.");
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
-    }
+    NSArray  * versions  = [[NSApp delegate] openvpnVersionNames];
+    NSUInteger defaultIx = [[NSApp delegate] defaultOpenVPNVersionIx];
     
-    NSString * ver = [versions objectAtIndex:0];
-    NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: 10];
+    NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: [versions count] + 2];
+    
+    NSString * ver = [versions objectAtIndex: defaultIx];
     [ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                           [NSString stringWithFormat: NSLocalizedString(@"Default (%@)", @"Button"), ver], @"name",
                           @"", @"value",    // Empty name means default
                           nil]];
-    NSEnumerator * e = [versions objectEnumerator];
-    while (  (ver = [e nextObject])  ) {
+    
+    NSUInteger ix;
+    for (  ix=0; ix<[versions count]; ix++  ) {
+        ver = [versions objectAtIndex: ix];
         [ovContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
                                ver, @"name",
                                ver, @"value",
