@@ -871,50 +871,6 @@ NSString * copyrightNotice()
             year];
 }
 
-NSArray * availableOpenvpnVersions (void)
-{
-    static BOOL haveNotWarned = TRUE;       // Have we warned about ALL the bad folder names already
-    BOOL haveWarnedThisTimeThrough = FALSE; // Have we warned about any folder names this time through
-    
-    // Get a sorted list of the versions
-    NSMutableArray * list = [[[NSMutableArray alloc] initWithCapacity: 12] autorelease];
-    NSString * dir;
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: nil]];
-    while (  (dir = [dirEnum nextObject])  ) {
-        [dirEnum skipDescendents];
-        if (  [dir hasPrefix: @"openvpn-"]  ) {
-            NSString * version = [dir substringFromIndex: [@"openvpn-" length]];
-            if (  isSanitizedOpenvpnVersion(version)  ) {
-                unsigned i;
-                for (  i=0; i<[list count]; i++  ) {
-                    if (  [version compare: [list objectAtIndex: i] options: NSNumericSearch] == NSOrderedAscending  ) {
-                        [list insertObject: version atIndex: i];
-                        break;
-                    }
-                }
-                if (  i == [list count]  ) {
-                    [list addObject: version];
-                }
-            } else {
-                if (  haveNotWarned  ) {
-                    NSLog(@"OpenVPN version folder names may only contain a-z, 0-9, periods, and hyphens. %@ has been ignored.", dir);
-                    haveWarnedThisTimeThrough = TRUE;
-                }
-            }
-        }
-    }
-    
-    if (  haveWarnedThisTimeThrough  ) {
-        haveNotWarned = FALSE;
-    }
-    
-    if (  [list count] == 0  ) {
-        return nil;
-    }
-    
-    return list;
-}
-
 NSString * stringForLog(NSString * outputString, NSString * header)
 {
     outputString = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

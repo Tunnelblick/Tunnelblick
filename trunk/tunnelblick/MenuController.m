@@ -348,6 +348,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 								@"skipWarningAboutInvalidSignature",
 								@"skipWarningAboutNoSignature",
                                 @"skipWarningAboutSystemClock",
+                                @"skipWarningAboutUnavailableOpenvpnVersions",
                                 
                                 @"timeoutForOpenvpnToTerminateAfterDisconnectBeforeAssumingItIsReconnecting",
                                 @"timeoutForIPAddressCheckBeforeConnection",
@@ -3829,6 +3830,46 @@ static void signal_handler(int signalNumber)
     [self setOpenvpnVersionInfo:  [NSArray arrayWithArray: infoArray]];
     
     return TRUE;
+}
+
+-(NSUInteger) defaultOpenVPNVersionIx {
+    
+    // Returns the index into the openvpnVersionNames and openvpnVersionInfo arrays of the version of OpenVPN to use for this version of OS X
+    //         On 10.6 & up,   use lowest non-2.2.x if it is available, otherwise, lowest version
+    //         On 10.4 & 10.5, use 2.2.1            if it is available, otherwise, lowest version
+    
+    NSArray  * versionNames = [self openvpnVersionNames];
+    if (  [versionNames count] == 0  ) {
+        NSLog(@"Tunnelblick does not include any versions of OpenVPN");
+        [self terminateBecause: terminatingBecauseOfError];
+        return 0;
+    }
+    
+    NSUInteger useVersionIx = 0; // Default to lowest version
+    
+    if (  runningOnSnowLeopardOrNewer()  ) {
+        // Search for an OpenVPN that isn't 2.2-something
+        NSUInteger ixForOpenVPN_Non_2_2 = NSNotFound;
+        NSUInteger ix;
+        for (  ix=0; ix < [versionNames count]; ix++  ) {
+            if (  ! [[versionNames objectAtIndex: ix] hasPrefix: @"2.2"]  ) {
+                ixForOpenVPN_Non_2_2 = ix;
+                break;
+            }
+        }
+        if (  ixForOpenVPN_Non_2_2 != NSNotFound  ) {
+            useVersionIx = ixForOpenVPN_Non_2_2;
+        }
+    } else {
+        NSUInteger ixForOpenVPN_2_2_1 = [versionNames indexOfObject: @"2.2.1"];
+        if (  ixForOpenVPN_2_2_1 != NSNotFound  ) {
+            useVersionIx = ixForOpenVPN_2_2_1;
+        } else {
+            NSLog(@"On OS X 10.4 or 10.5 but OpenVPN version 2.2.1 is not available. Using version %@", [versionNames objectAtIndex: 0]);
+        }
+    }
+    
+    return useVersionIx;
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
