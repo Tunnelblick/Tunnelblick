@@ -1521,8 +1521,12 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         if (  itemIsVisible(fullPath)  ) {
             if ([gFileMgr fileExistsAtPath:fullPath]) {
                 NSImage *frame = [[NSImage alloc] initWithContentsOfFile:fullPath];
-                [*ptrAnimImages addObject:frame];
-                [frame release];
+                if (  frame  ) {
+                    [*ptrAnimImages addObject:frame];
+                    [frame release];
+                } else {
+                    NSLog(@"Unable to load status icon image (possible incorrect permissions) at %@", fullPath);
+                }
             }
         }
     }
