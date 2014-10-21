@@ -1322,6 +1322,12 @@
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Konfiguračný súbor '%@' zdanlivo používa nastavenia 'user' a/alebo 'group' a používa script na odpojenie (nebola zvolená voľba 'Nenastavovať nameserver', alebo v konfiguračnom súbore existuje voľba 'down').\n\nJe pravdepodobné, že reštartovanie spojenia (vykonané automaticky pri strate spojenia) nebude úspešné, ak sa pre OpenVPN používa plugin 'openvpn-down-root.so'.\n\nSkutočne si prajete použiť tento plugin?";
 
 /* Window text */
+"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Konfiguračný súbor \"%@\" nezdá obsahujú \"dev tun\", \"dev utun\" alebo \"dev tap\" nastavenia. Tieto nastavenia môžu byť potrebné pre správne fungovanie aplikácie Tunnelblick. Obrátte sa na Vášho správcu siete alebo konzultujte OpenVPN dokumentáciu.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "Konfiguračný súbor sa odlazuje na súbor\n\n %@\n\n ktorý neexistuje (dokonca ani v konfigurácii ktorú si prajete nahradiť).";
+
+/* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Vzdialený VPN server neprijal poskytnuté prístupové údaje (identifikačné slovo alebo meno/heslo).";
 
 /* Window text */
@@ -1532,10 +1538,19 @@
 "Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Vill du\n\n  • Skapa en exempelkonfiguration på skrivbordet\n             och\n  • Öppna konfigurationens OpenVPN-konfigurationsfil i Textredigeraren så att du kan modifiera den till att ansluta till din VPN?\n\n";
 
 /* Window text */
+"You are not allowed to replace a private configuration" = "Nemáte oprávnenie prepísať privátnu konfiguráciu";
+
+/* Window text */
+"You are not allowed to replace a shared configuration" = "Nemáte oprávnenie nahradiť zdieľanú konfiguráciu";
+
+/* Window text */
 "You cannot make a configuration private if it is set to start when the computer starts." = "Nie je možné nastaviť konfiguráciu ako súkromnú, ak je určená na spustenie pri štarte systému.";
 
 /* Window text */
 "You cannot make a configuration private unless it is disconnected." = "Nie je možné nastaviť konfiguráciu ako súkromnú, ak je pripojená.";
+
+/* Window text */
+"You cannot make a configuration shared if it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "Nie je možné zmeniť konfiguráciu na zdielanú, pokial sa jedná o aktualizovateľnú konfiguráciu.\n\nJe potrebné poznamenať, že konfiguráciu Tunnelblick VPN, ktorá sa nachádza vo vnútri aktualizovateľnej konfigurácie je už možné zdielať.";
 
 /* Window text */
 "You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "Nie je možné nastaviť konfiguráciu ako zdieľanú, ak táto konfigurácia nie je konfigurácia Tunnelblick VPN (.tblk).";
@@ -1545,6 +1560,18 @@
 
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "Nie je možné premenovať konfiguráciu, ak je pripojená.";
+
+/* Window text */
+"You do not have permission to read '%@'.\n\n" = "Nemáte povolenie na čítanie \"%@\".  ";
+
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Máte konigurácie OpenVPN ale nemáte žiadne konfigurácie Tunnelblick VPN.\n\nPokiaľ tieto OpenVPN konfigurácie chcete použiť, musia byt zkonvertované do formátu Tunnelblick VPN konfigurácií.";
+
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "Máte konigurácie OpenVPN ale nemáte žiadne konfigurácie Tunnelblick VPN.\n\nPokiaľ tieto OpenVPN konfigurácie chcete použiť, musia byt zkonvertované do formátu Tunnelblick VPN konfigurácií.\n\nBohužiaľ Tunnelblick nedokázal skonvertovať Vaše konfigurácie, nakoľko sa vyskytol problém:\n\n%@\n";
+
+/* Window text */
+"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Máte konigurácie OpenVPN.\n\nPokiaľ tieto konfigurácie chcete použiť, musia byt zkonvertované do formátu Tunnelblick VPN konfigurácií.\n\nBohužiaľ Tunnelblick nedokázal skonvertovať Vaše konfigurácie, nakoľko sa vyskytol problém:\n\n%@\n\nPokiaľ zvolíte možnost 'Ignorovať', konfigurácie nebudú dostupné.\n";
 
 /* Window text */
 "You have asked to duplicate '%@'." = "Vyžiadali ste si duplikáciu '%@'.";
@@ -1560,6 +1587,9 @@
 
 /* Window text */
 "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Du har en eller flera OpenVPN anslutningar som inte kommer att vara tillgängliga när du använder denna version av Tunnelblick. Du kan:\n\n  • Låta Tunnelblick konvertera dessa OpenVPN konfigurationer till Tunnelblick VPN konfigurationer; eller\n  • Avsluta och installera en annan version av Tunnelblick; eller\n  • Ignorera detta och fortsätta utan att konvertera.\n\nOm du väljer 'Ignorera' kommer konfigurationen inte att vara tillgänglig!\n\n";
+
+/* Window text */
+"You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Pokúsili ste sa nainštalovať konfiguračný súbor, ktorý je ukážkovým konfiguračným súborom. Konfiguračný súbor musíte upraviť tak, aby bolo možné pripojenie k sieti VPN. Je pravdepodobné, že budete potrebovať aj ďalšie súbory, napr certifikát alebo kľúč, pre váše pripojenie k VPN.  \n\nObráťte sa na správcu siete alebo Vášho poskytovateľa VPN služieb, ktorý Vám poskytne potrebné konfiguráčné súbory alebo informácie, ktoré potrebujete pre upravenie vzorového súboru.  \n\nKonfiguračný súbor sa nachádza v\n %@  ";
 
 /* Window text */
 "You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect." = "Túto konfiguráciu nie je možné pripojiť.\n\nPripojiť sa bude možné po prevedení konfigurácie na konfiguráciu vo formáte 'Spojenie Tunnelblick VPN' (s koncovkou .tblk).";
@@ -1595,10 +1625,19 @@
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Bez zadania prihlasovacieho mena a hesla správcu nebude možné po aktualizácii aplikáciu Tunnelblick použiť.\n\nSkutočne si prajete skontrolovať aktualizácie?";
 
 /* Window text */
+"Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Vaše systémové hodiny nemusia byť správne nastavené.\n\nJe možné že sa niektoré alebo všetky vaše konfigurácie nebudú môcť pripojiť, pokiaľ systémové hodiný nenastavíte na správny dátum a čas.  ";
+
+/* Window text */
 "ZB" = "ZB";
 
 /* Window text */
 "ZB/s" = "ZB/s";
+
+/* Window text */
+"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed because the Info.plist for an \"inner\" .tblk may not contain \"updatable\" .tblk entries." = "\"%1$@\" v in Info.plist pre\n\n%2$@\n\nnie je povolené, pretože Info.plist pre  \"vnútorné\".tblk pravdepodobne neobsahuje \"aktualizovateľné\" .tblk položky.";
+
+/* Window text */
+"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" v in Info.plist pre\n\n%2$@\n\nnie je povolené v \"vnútorné\".tblk ale je v konflikte s rovnakým záznamom v  \"vonkajšie\" .tblk.";
 
 /* Window text */
 "\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n UPOZORNENIE: TÁTO KÓPIA APLIKÁCIE TUNNELBLICK BOLA NEODBORNE UPRAVENÁ.\n";
