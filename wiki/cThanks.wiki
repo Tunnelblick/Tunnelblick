@@ -227,6 +227,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Takatoh Herminghaus    </td>
+    <td>      German    </td>
+  </tr>
+
+   <tr>
     <td>      Oliver Hill    </td>
     <td>      French    </td>
   </tr>
@@ -302,6 +307,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Luigi Martini    </td>
+    <td>      Italian    </td>
+  </tr>
+
+   <tr>
     <td>      Denis Volpato Martins    </td>
     <td>      Portuguese    </td>
   </tr>
