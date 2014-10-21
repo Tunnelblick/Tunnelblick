@@ -1385,6 +1385,21 @@
 "There was a problem:\n\n%@" = "Der opstod et problem:\n\n%@";
 
 /* Window text */
+"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Denne lancerede version af Tunnelblick kunne ikke startes eller installeres fordi den er blevet rebranded, eller updateFeedURL eller SUFeedURL mangler eller indeholder 'tunnelblick.net', eller CFBundleIdentifier mangler og indeholder 'net.tunnelblick'.\n\n";
+
+/* Window text */
+"This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Denne lancerede version af Tunnelblick kunne startes eller blive installeret fordi den mangler Info.plist.\n\n";
+
+/* Window text */
+"This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Denne computer's tilsyneladende offentlige IP adresse blev ikke ændret efter du tilsluttede dig til %1$@. Den er stadig %2$@.\n\nDette kan betyde, at din VPN ikke er konfigureret korrekt.\n\n";
+
+/* Window text */
+"This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Denne kopi af Tunnelblick er blevet manipuleret med (dens digitale signatur er ugyldig).\n\nTjek om udbyderen af denne kopi af Tunnelblick er 'lovlig' før at du tager den i brug.\n\n";
+
+/* Window text */
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "Denne kopi er ikke blevet digitalt signeret.\n\nDer er ingen måde at tjekke om denne kopi er blevet manipuleret med.\n\n Tjek om udbyderen af denne kopi af Tunnelblick er 'lovlig' før at du tager den i brug.\n\n";
+
+/* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Denne version af Tunnelblick kan ikke startes eller installeres, fordi det har en ugyldig opdaterings URL.\n\n";
 
 /* Window text */
@@ -1418,7 +1433,31 @@
 "Tunnelblick could not create the sample configuration" = "Tunnelblick kunne ikke oprette en eksempelskonfiguration";
 
 /* Window text */
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick kunne ikke vise vinduet.\n\nCFUserNotificationCreate() gav fejlen error = %1$ld; notification = 0x%2$lX";
+
+/* Window text */
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick kunne ikke skaffe IP addresse information før forbindelsen til %@ blev oprettet.\n\n";
+
+/* Window text */
+"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick kunne ikke finde konfigurationsfilen eller konfigurationsfilen kunne ikke ryddet for sikker information. Se Konsollens Log for detaljer.";
+
+/* Window text */
+"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick kunne ikke flytte '%@' konfigurationen. Tjek Konsollens Log for detaljer.";
+
+/* Window text */
+"Tunnelblick could not set up to be able to launch itself when you log in.\n\nSee the Console log for details." = "Tunnelblick kunne ikke sætte sig selv til at automatisk starte når du logger ind.\n\nSe Konsollens Log for detaljer.";
+
+/* Window text */
+"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick kunne ikke afinstallere '%@' konfigurationen. Se Konsollens Log for detaljer.";
+
+/* Window text */
+"Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@" = "Der opstod en fatal fejl.\n\nGeninstallering af Tunnelblick kan muligvis fikse problemet. Problemet var:\n\n%@";
+
+/* Window text */
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick fandt fejl med %1$lu konfigurationer:\n\n%2$@%3$@%4$@%5$@";
+
+/* Window text */
+"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Det mislykkedes at fikse problemerne med indstillingerne for '%@'. Detaljerne er i Konsollens Log";
 
 /* Window text */
 "Tunnelblick has been secured successfully." = "Tunnelblick er blevet sikret.";
@@ -1431,6 +1470,9 @@
 
 /* Window text */
 "Tunnelblick is ready." = "Tunnelblick er klar.";
+
+/* Window text */
+"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick skal lave eller opdatere en sikker (skygge) kopi af konfigurationsfilen.";
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick skal:\n";
@@ -1527,6 +1569,12 @@
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Den opdaterbare konfiguration '%@' blev ikke gemt som opdaterbar fordi dens Info.plist 'SUFeedURL' ikke starter med 'https://' og der ikke var nogen 'SUPublicDSAKeyFile' post\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Den opdaterbare konfiguration '%@' blev ikke opbevaret som opdaterbar fordi dens Info.plist kunne ikke blive opbevaret i stubben .tblk\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n" = "Den opdaterbare konfiguration '%@' blev ikke opbevaret som opdaterbar fordi CFBundleIdentifier er blevet bearbejdet\n";
 
 /* Window text */
 "Updates:" = "Opdateringer:";
@@ -1684,6 +1732,9 @@
 /* Window text */
 "easy-rsa installation failed: %@" = "easy-rsa installationen fejlede: %@";
 
+/* Window text */
+"targetPathToReplaceForDisplayName: %@ was found to replace the configuration with CFBundleIdentifer %@, but earlier, %@ was found to replace it." = "targetPathToReplaceForDisplayName: %1$@ blev ikke fundet til at erstatte konfigurationen med CFBundleIdentifier %2$@, men tidligere blev %3$@ fundet til at erstatte den.";
+
 /* Suffix for a duplicate of a file */
 " copy %d" = " kopier %d";
 
@@ -1764,6 +1815,9 @@
 
 /* [name of your language] localization */
 "LANGUAGE_LOCALIZATION" = "Dansk oversættelse";
+
+/* Names of lead translators */
+"LEAD_TRANSLATORS" = "Jakob Bo Søndergaard Madsen";
 
 /* Credit description */
 "Localization code tweaks" = "Oversættelses kode justeringer";

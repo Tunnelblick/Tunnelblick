@@ -35,6 +35,12 @@
 "All Users" = "全ユーザ用";
 
 /* Button */
+"Always load Tap driver" = "Tap ドライバーを常にロードする";
+
+/* Button */
+"Always load Tun driver" = "Tun ドライバーを常にロードする";
+
+/* Button */
 "Always use the plugin" = "常にプラグインを使用する";
 
 /* Button */
@@ -161,6 +167,12 @@
 "Revert" = "変更を取り消す";
 
 /* Button */
+"Show on default screen (%u x %u)" = "デフォルトスクリーン (%1$u x %2$u) に表示する";
+
+/* Button */
+"Show on screen %u (%u x %u)" = "スクリーン %1$u (%2$u x %3$u) に表示する";
+
+/* Button */
 "Show when connection status changes" = "接続状況が変化した時に表示する";
 
 /* Button */
@@ -189,6 +201,9 @@
 
 /* Button */
 "Try again" = "もう一度試す";
+
+/* Button */
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 アイコン";
 
 /* Button */
 "When Tunnelblick launches" = "Tunnelblick 起動時に接続";
