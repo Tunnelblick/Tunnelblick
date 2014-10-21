@@ -337,6 +337,9 @@
 /* Checkbox name */
 "Do not check for IP address changes" = "Do not check for IP address changes";
 
+/* Checkbox name on a warning dialog */
+"Do not show again for any configuration" = "Do not show again for any configuration";
+
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Do not warn about this again for this configuration";
 
@@ -1181,13 +1184,10 @@
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Changing setting to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN version %1$@ is not available. Changing setting to use the latest version (%2$@) that is included in this version of Tunnelblick.";
+"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN version %1$@ is not available. Changing this configuration to use the latest version (%2$@) that is included in this version of Tunnelblick.";
 
 /* Window text */
 "OpenVPN version %@ is not available. Using the latest (currently version %@) as the default." = "OpenVPN version %1$@ is not available. Using the latest (currently version %2$@) as the default.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN version %1$@ is not available. Using the latest, version %2$@";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN version:";
@@ -1751,6 +1751,9 @@
 "Animation and icon sets code" = "Animation and icon sets code";
 
 /* Credit description */
+"Bulgarian localization" = "Bulgarian localization";
+
+/* Credit description */
 "Button images" = "Button images";
 
 /* Credit description */
@@ -1776,6 +1779,9 @@
 
 /* Credit description */
 "Czech localization" = "Czech localization";
+
+/* Credit description */
+"Danish localization" = "Danish localization";
 
 /* Speak string */
 "Disconnected from %@" = "Disconnected from %@";
