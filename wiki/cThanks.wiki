@@ -302,6 +302,16 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Tom Kacmary    </td>
+    <td>      Slovak    </td>
+  </tr>
+
+  <tr>
+    <td>      Jakob Bo Søndergaard Madsen    </td>
+    <td>      Danish    </td>
+  </tr>
+
+  <tr>
     <td>      Tim Malmström    </td>
     <td>      Swedish    </td>
   </tr>
@@ -314,6 +324,11 @@ Tunnelblick is made possible by the efforts of many people:
    <tr>
     <td>      Denis Volpato Martins    </td>
     <td>      Portuguese    </td>
+  </tr>
+
+   <tr>
+    <td>      Boian Mihailov    </td>
+    <td>      Bulgarian    </td>
   </tr>
 
   <tr>
@@ -339,6 +354,11 @@ Tunnelblick is made possible by the efforts of many people:
  <tr>
     <td>      Matteo Pillon   </td>
     <td>      Italian    </td>
+  </tr>
+
+ <tr>
+    <td>      Alexander Prikhodko   </td>
+    <td>      Russian    </td>
   </tr>
 
   <tr>
@@ -392,7 +412,7 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
-    <td>      Wojtek Sromek      </td>
+    <td>      Wojciech Sromek      </td>
     <td>      Polish    </td>
   </tr>
 
