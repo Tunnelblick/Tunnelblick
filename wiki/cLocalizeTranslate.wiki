@@ -3,6 +3,10 @@
 
 *Localizing and Translating Tunnelblick*
 
+<font color="red">*Translators are needed for Bulgarian, Catalan, Chinese, Hungarian, Japanese, Norwegian Bokmal, Portuguese, Russian, Spanish, Swedish, and Ukrainian.*</font>
+
+
+
  * The _new_ way of localizing the Tunnelblick application is described on this page.
 
  * Localizing the names of configurations and other content that can be added to Tunnelblick is described in [cLocalizeConfigurations Localizing Configurations].
