@@ -19,7 +19,7 @@
 
  * All translation work is done in a specialized translation editor in your browser.
 
- * *To join the localization team, please email project owner jkbullard at gmail.*
+ * *<font color="red">To join the localization team, please email project owner jkbullard at gmail.</font>*
   * You can help a little or a lot, all help is welcome!
   * Everyone who makes a meaningful contribution will be credited on Tunnelblick's [cThanks Thanks page] and on the "Info" panel of the application itself.
 
