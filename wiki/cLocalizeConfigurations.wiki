@@ -13,7 +13,7 @@ As of build 4039, configurations, welcome windows, and added menu commands may b
 
 Configuration names and the names of the folders that contain configurations can be localized.
 
-A configurations can include localization information for itself, or, in a Deployed version of Tunnelblick,  localization information may be contained in the Deploy folder and used for all configurations.
+A configuration can include localization information for itself. In a Deployed version of Tunnelblick,  localization information may be contained in the Deploy folder and used for all configurations.
 
 For a configuration to include localization information itself, the configuration must include an [cPkgs#Info.plist Info.plist] file and one or more "lproj" folders.
 
@@ -23,7 +23,7 @@ For a configuration to include localization information itself, the configuratio
 The Info.plist file may contain any of the entries normally allowed in a [cPkgs#Info.plist .tblk Info.plist], but for localization the file must include the following entries (each value is a string):
  * CFBundleDevelopmentRegion, "English"
  * CFBundleInfoDictionaryVersion, "6.0"
- * CFBundleIdentifier, a reverse-domain, for example, "com.example.tunnelblick.configuration.001"
+ * CFBundleIdentifier, a reverse-domain identifier which must be unique for each configuration, for example, "com.example.tunnelblick.configuration.001"
 
 <hr>
 *".proj" folders"
@@ -55,13 +55,13 @@ You can download a [http://sourceforge.net/projects/tunnelblick/files/All%20file
 <hr>
 ==Localizing a Deployed Version==
 
-Deployed versions of Tunnelblick may also be localized. That can be done with per-configuration localization as described above, or with a single file for each language containing translations for all configurations, folders, and added menu items. A separate "Welcome.bundle" can contain localized versions of the Welcome window. Programs launched by added menu items are sent the current language as an argument, so even simple scripts can be localized.
+Deployed versions of Tunnelblick may also be localized. That can be done with per-configuration localization as described above, or with a single folder for each language containing translations for all configurations, folders, and added menu items. Programs launched by added menu items are sent the current language as an argument, so even simple scripts can be localized.
  
-If localization of configuration and folder names is done via the Deploy folder, the Deploy folder must contain an OS X bundle (a folder with a special structure) named "Localization.bundle". That bundle must include a Contents folder, which must contain an Info.plist file with the three entries described above (no other entries are needed) and a "Resources" folder, which must contain one or more "lproj" folders. The "lproj" folders are as described above.
+To localize configuration and folder names and the names of added menu commands, the Deploy folder must contain an OS X bundle (a folder with a special structure) named "Localization.bundle". That bundle must include a Contents folder, which must contain an Info.plist file with the three entries described above (no other entries are needed) and a "Resources" folder, which must contain one or more "lproj" folders. The "lproj" folders are as described above.
+
+To localize the names of added menu commands, include them in the "Localized.bundle" described above without any extensions (e.g., "foo", not "foo.addTo.Menu.executable"). Programs launched by added menu commands will be launched with the a lower-case version of user's current language as the first argument -- for example, "english", "cs", "zh_cn". Programs launched at Tunnelblick launch will also have the language as the first argument, but programs launched upon connection will only have the language as the first argument if the "Localized.bundle" exists (so as to not break existing setups, which might expect other arguments).
 
 The "Welcome Window" can also be localized. The "Welcome.bundle" is similar to the "Localized.bundle". It consists of a "Contents" folder which contains an Info.plist file with the three entries described above (no other entries are needed) and a "Resources" folder. The "Resources" folder should contain one or more "lproj" folders with names as described above. However, the contents of each "lproj" folder should be an "index.html" file which contains the "Welcome" page for a particular language (and any other files such as images that "index.html" refers to).
-
-To localize the names of added menu commands, include them in the "Localized.bundle" described above, without any extensions (e.g., "foo", not "foo.addTo.Menu.executable"). Programs launched by added menu commands will be launched with the a lower-case version of user's current language as the first argument -- for example, "english", "cs", "zh_cn". Programs launched at Tunnelblick launch will also have the language as the first argument, but programs launched upon connection will only have the language as the first argument if the "Localized.bundle" exists (so as to not break existing setups).
 
 Note: If a Deploy folder and an individual configuration contain conflicting localizations, the individual configuration's localization will be used.
 
