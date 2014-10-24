@@ -337,6 +337,9 @@
 /* Checkbox name */
 "Do not check for IP address changes" = "Nekontrolovat změny IP adresy";
 
+/* Checkbox name on a warning dialog */
+"Do not show again for any configuration" = "Nezobrazovat znovu v žádné konfiguraci";
+
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Pro tuto konfiguraci nezobrazovat znovu toto varování";
 
@@ -1028,6 +1031,9 @@
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Vypadá to, že soubor '%@' je ve formátu 'rich text', protože začíná znakem '{'. Všechny soubory pro OpenVPN musí být v prostém textu 'plain text' nebo v 'UTF-8'.";
 
 /* Window text */
+"File '%@' ends with a backslash, which is not allowed." = "Soubor '%@' končí zpětným lomítkem, což není povoleno.";
+
+/* Window text */
 "File '%@' has an extension which is not known to Tunnelblick." = "Soubor '%@' má příponu, kterou Tunnelblick nezná.";
 
 /* Window text */
@@ -1175,7 +1181,13 @@
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Pouze konfigurace VPN Tunnelblicku (.tblk) může nastartovat pouze při spuštění počítače.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "Verze OpenVPN %1$@ není dostupná. Použiji poslední, verzi %2$@";
+"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN neodpovídá na žádosti o odpojeníi %@.\n\nTunnelblick se odpojí, pokud OpenVPN začne odpovídat na žádosti o odpojení .\n\nTO MŮŽE V NĚKTERÝCH NEOBVYKLÝCH SITUACÍCH TRVAT AŽ DVĚ MINUTYHIS MAY TAKE UP TO TWO MINUTES.\n\nSpojení bude nedostupné dokud není odpojeno.";
+
+/* Window text */
+"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN verze %1$@ není dostupná. Změňte tuto konfiguraci, aby použila poslední verzi (%2$@) , která je obsažena v této verzi Tunnelblick.";
+
+/* Window text */
+"OpenVPN version %@ is not available. Using the latest (currently version %@) as the default." = "OpenVPN verze %1$@ není dostupná. Použije se poslední (aktuální verze %2$@) jako předvolená verze.";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN verze:";
@@ -1184,7 +1196,16 @@
 "Out:" = "Výstup:";
 
 /* Window text */
+"PB" = "PB";
+
+/* Window text */
+"PB/s" = "PB/s";
+
+/* Window text */
 "Password:" = "Heslo:";
+
+/* Window text */
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Cesta '%1$@' obsahuje znaky, které nejsou povoleny.\n\nNepovolené znaky jsou: '%2$s'\n\n";
 
 /* Window text */
 "Please enter VPN passphrase." = "Prosím zadejte heslo VPN.";
@@ -1208,6 +1229,9 @@
 "Received fatal signal %d." = "Přijat fatální signál %d.";
 
 /* Window text */
+"Resolved symbolic link at '%@' to '%@'" = "Nalezen symbolický link z '%1$@' na '%2$@'";
+
+/* Window text */
 "Search domain:" = "Prohledávaná doména:";
 
 /* Window text */
@@ -1217,10 +1241,28 @@
 "Set DNS/WINS:" = "Nastavit DNS/WINS:";
 
 /* Window text */
+"Single-quote missing in line %u" = "Chybí apostrof na řádku %u";
+
+/* Window text */
+"Skipped copying %@ because a file with that name and contents has already been copied." = "Kopítování %@ bylo přeskočeno, protože soubor soubor tohoto jména a obsahu již byl kopírován.";
+
+/* Window text */
 "Starting Tunnelblick..." = "Startuji Tunnelblick…";
 
 /* Window text */
 "Startup window:" = "Startovací okno:";
+
+/* Window text */
+"Symbolic links nested too deeply. Gave up at %@" = "Symbolické odkazy jsou vnořeny příliš hluboko. Přerušeno na %@";
+
+/* Window text */
+"TB" = "TB";
+
+/* Window text */
+"TB/s" = "TB/s";
+
+/* Window text */
+"TBRunAlertPanel returned an error" = "TBRunAlertPanel vrátil chybu";
 
 /* Window text */
 "TUNNELBLICK is brought to you by" = "TUNNELBLICK Vám přináší";
@@ -1235,6 +1277,18 @@
 "That name is being used.\n\n" = "Toto jméno je již použito.\n\n";
 
 /* Window text */
+"The %@ system folder (%@) does not exist." = "Systémová složka %1$@ (%2$@) neexistuje.";
+
+/* Window text */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "Systémová složka %1$@ (%2$@) není bezpečná.\n\nTunnelblick nemusí pracovat korektně, dokud nebude napraveno.\n\nFunkce 'Opravit práva disku' z Diskové Utility by měla problém opravit.";
+
+/* Window text */
+"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "Volba '%@' OpenVPN není na OS X povolena. Tato volba je jen pro 'Windows'.";
+
+/* Window text */
+"The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Volba '%@' OpenVPN není povolena, když je používán Tunnelblick.";
+
+/* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "'%@' přístupové údaje nemusí jít přidat, poněvadž seznam pojmenovaných přístupových údajů je vynucen.";
 
 /* Window text */
@@ -1244,16 +1298,34 @@
 "The '%@' credentials may not be deleted because the list of named credentials is being forced." = "'%@' přístupových údajů nelze smazat, poněvadž seznam pojmenovaných přístupových údajů je vynucen.";
 
 /* Window text */
+"The '%@' option is not allowed in an OpenVPN configuration file that is in a Tunnelblick VPN Configuration unless the file it references is specified with an absolute path." = "Volba '%@' není povolena v konfiguračním souboru OpenVPN, který je v konfiguraci Tunnelblick VPN, pokud je odkaz na soubor určen absolutní cestou.";
+
+/* Window text */
 "The 'credentialsNames' preference must be an array of strings." = "Nastavení 'credentialsNames' musí být pole řetězců.";
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "Nastavení 'namedCredentialsNames' musí být pole řetězců";
 
 /* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "Konfigurační soubor OpenVPN v %1$@ obsahuje volbu '%2$@', která je pouze pro Windows. Na OS X ji nelze použít.";
+
+/* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "Log OpenVPN neexistuje, nebo byl vymazán.";
 
 /* Window text */
+"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "Preference Tunnelblicku byly poškozeny a byly proto vymazány. (Staré preference byly přejmenovány.)\n\nDetaily naleznete v logu konzoly.";
+
+/* Window text */
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "Pokus o spojení %1$@ byl zrušen: skript runOnConnect vrátil stav: %2$ld.";
+
+/* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Vypadá to, že konfigurační soubor pro '%@' využívá možnosti 'user' a nebo 'group' a používá ukončovací skript(Není vybráno 'Nenastavit nameserver' nebo je možnost 'down' v konfiguračním souboru).\n\nTo obvykle způsobí, že restart spojení (proveden automaticky při při ztrátě spojení) zhavaruje. Řešením je použít pro OpenVPN zásuvný modul 'openvpn-down-root.so'.\n\nChcete použít zásuvný modul?";
+
+/* Window text */
+"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Vypadá to, že konfigurační soubor pro '%@' neobsahuje  volbu 'dev tun', 'dev utun', nebo 'dev tap' . Tato volba může být potřeba pro správné fungování operací Tunnelblicku. Konzultujte to s administrátorem, neboConsult with your network administrator or the OpenVPN documentation.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "Konfigurační soubor odkazuje na soubor\n\n%@\n\nKterý neexistuj(ani v nahrazováné konfiguraci).";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Přístupové údaje (heslo nebo uživatelské jméno/heslo) nebylo akceptováno vzdáleným VPN serverem.";

@@ -11,13 +11,34 @@
 "Username:" = "Usuário:";
 
 /* Button */
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
+
+/* Button */
 "(None available)" = "(Nenhum disponível)";
+
+/* Button */
+"1 MB" = "1 MB";
+
+/* Button */
+"10 KB" = "10 KB";
+
+/* Button */
+"10 MB" = "10 MB";
+
+/* Button */
+"100 KB" = "100 KB";
 
 /* Button */
 "Advanced..." = "Avançado…";
 
 /* Button */
 "All Users" = "Todos os Usuários";
+
+/* Button */
+"Always load Tap driver" = "Sempre carregar o driver Tap";
+
+/* Button */
+"Always load Tun driver" = "Sempre carregar o driver Tun";
 
 /* Button */
 "Always use the plugin" = "Sempre utilizar o plugin";
@@ -27,6 +48,12 @@
 
 /* Button */
 "Cancel" = "Cancelar";
+
+/* Button */
+"Change Only for This Configuration" = "Mudar Apenas para Esta Configuração";
+
+/* Button */
+"Change for the Selected Configurations" = "Mudar para as Configurações Selecionadas";
 
 /* Menu item */ /* Button */
 "Check For Updates Now" = "Verificar Atualizações Agora";
@@ -80,6 +107,12 @@
 "Done" = "Pronto";
 
 /* Button */
+"Download" = "Baixar";
+
+/* Button */
+"Help" = "Ajuda";
+
+/* Button */
 "I DO NOT have configuration files" = "EU NÃO tenho arquivos de configuração";
 
 /* Button */
@@ -95,10 +128,22 @@
 "Launch" = "Iniciar";
 
 /* Button */
+"Load Tap driver automatically" = "Carregar o driver Tap automaticamente";
+
+/* Button */
+"Load Tun driver automatically" = "Carregar o driver Tun automaticamente";
+
+/* Button */
 "Manually" = "Manualmente";
 
 /* Button */
 "Monochrome icon" = "Ícone monocromático";
+
+/* Button */
+"Never load Tap driver" = "Nunca carregar o driver Tap";
+
+/* Button */
+"Never load Tun driver" = "Nunca carregar o driver Tun";
 
 /* Button */
 "Never show" = "Nunca exibir";
@@ -110,16 +155,28 @@
 "No sound" = "Sem som";
 
 /* Button */
+"OK" = "OK";
+
+/* Button */
 "Only Me" = "Somente Eu";
 
 /* Button */
+"Open Uninstall Instructions in Browser" = "Abrir as instruções de desinstalação no Navegador";
+
+/* Button */
 "Open easy-rsa in Terminal" = "Abrir easy-rsa no Terminal";
+
+/* Button */
+"Privacy info..." = "Informações de Privacidade…";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Encerrar Todos os Processos OpenVPN";
 
 /* Button */
 "Quit" = "Encerrar";
+
+/* Button */
+"Reinstall" = "Reinstalar";
 
 /* Button */
 "Remove Credentials" = "Remover Credenciais";
@@ -140,10 +197,19 @@
 "Revert" = "Reverter";
 
 /* Button */
+"Show on default screen (%u x %u)" = "Mostrar na tela padrão (%1$u x %2$u)";
+
+/* Button */
+"Show on screen %u (%u x %u)" = "Mostrar na tela %1$u (%2$u x %3$u)";
+
+/* Button */
 "Show when connection status changes" = "Exibir quando o estado da conexão mudar";
 
 /* Button */
 "Show while connecting" = "Exibir enquanto conecta";
+
+/* Button */
+"Skip" = "Pular";
 
 /* Button */
 "Speak" = "Falar";
@@ -168,6 +234,12 @@
 
 /* Button */
 "Try again" = "Tentar novamente";
+
+/* Button */
+"Tunnelblick 3.3 icon" = "Ícone Tunnelblick 3.3";
+
+/* Button */
+"Uninstall" = "Desinstalar";
 
 /* Button */
 "When Tunnelblick launches" = "Quando o Tunnelblick iniciar";
@@ -227,6 +299,9 @@
 "VPN Details..." = "Informações da VPN…";
 
 /* Checkbox name */
+"Apply to all" = "Aplicar a todos";
+
+/* Checkbox name */
 "Check for updates automatically" = "Verificar atualizações automaticamente";
 
 /* Checkbox name */
@@ -234,6 +309,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Verificar se o endereço IP público mudou após conexão";
+
+/* Checkbox name */
+"Disconnect when computer goes to sleep" = "Desligar quando o computador entrar em modo Sleep";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Desconectar quando o usuário sair";
@@ -259,6 +337,9 @@
 /* Checkbox name */
 "Do not check for IP address changes" = "Não verificar por mudanças de endereço IP";
 
+/* Checkbox name on a warning dialog */
+"Do not show again for any configuration" = "Não mostrar novamente para qualquer configuração";
+
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Não avisar sobre isso novamente para esta configuração";
 
@@ -267,6 +348,15 @@
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Limpar o cache DNS depois de conectar ou desconectar";
+
+/* Checkbox name */
+"Include anonymous profile information" = "Incluir informações de perfil anônimo";
+
+/* Checkbox name */
+"Inhibit automatic update checking and IP Address checking" = "Inibir a verificação de atualização automática e verificação de endereço IP";
+
+/* Checkbox name */
+"Keep connected" = "Manter conectado";
 
 /* Checkbox name */ /* System profile item */
 "Monitor connection" = "Monitorar conexão";
@@ -293,7 +383,13 @@
 "Route all traffic through the VPN" = "Rotear todo o tráfego através da VPN";
 
 /* Checkbox name */
+"Run MTU maximum size test after connecting" = "Testar tamanho máximo de MTU após conectar";
+
+/* Checkbox name */
 "Save in Keychain" = "Salvar em Chaves";
+
+/* Checkbox name */
+"Set DNS after routes are set instead of before routes are set" = "Definir DNS depois de configurar as rotas ao invés de antes";
 
 /* Checkbox name */
 "Show configuration on Tunnelblick menu" = "Exibir configuração no menu do Tunnelblick";
@@ -338,10 +434,19 @@
 "CONNECTING" = "Conectando"; // Please translate "Connecting"
 
 /* Connection status */
+"DISCONNECTING" = "Desconectando"; // Please translate "Disconnecting"
+
+/* Connection status */
 "EXITING" = "Desconectado"; // Please translate "Disconnected"
 
 /* Connection status */
 "GET_CONFIG" = "Obtendo configuração"; // Please translate ""
+
+/* Connection status */
+"PASSWORD_WAIT" = "Esperando a senha"; // Please translate "Waiting for password"
+
+/* Connection status */
+"PRIVATE_KEY_WAIT" = "Esperando a palavra-chave"; // Please translate "Waiting for password"
 
 /* Connection status */
 "RECONNECTING" = "Reconectando"; // Please translate ""
@@ -383,6 +488,12 @@
 " (Shared)" = " (Compartilhado)"; // Indicates a shared configuration
 
 /* Window title */
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ Configuração OpenVPN - Tunnelblick";
+
+/* Window title */
+"%@%@ Disconnected - Advanced Settings%@" = "Desconectado de %1$@%2$@ - Configurações avançadas%3$@";
+
+/* Window title */
 "'%@' has been disconnected" = "'%@' foi desconectado";
 
 /* Window title */
@@ -410,6 +521,9 @@
 "Authentication failed" = "Autenticação falhou";
 
 /* Window title */
+"Change for All Selected Configurations?" = "Mudar para Todas as Configurações Selecionadas?";
+
+/* Window title */
 "Configuration Installation Error" = "Erro de Instalação de Configuração";
 
 /* Window title */
@@ -434,10 +548,16 @@
 "Details - Tunnelblick" = "Informações - Tunnelblick";
 
 /* Window title */
+"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "Você quer aplicar esta mudança para todos as %1$lu configurações selecionadas, ou apenas para ' %2$@'?";
+
+/* Window title */
 "Do you wish to connect?" = "Deseja conectar?";
 
 /* Window title */
 "File not found" = "Arquivo não encontrado";
+
+/* Window title */
+"Info" = "Informação";
 
 /* Window title */
 "Install Configuration For All Users?" = "Instalar Configuração Para Todos os Usuários?";
@@ -452,6 +572,9 @@
 "Installation succeeded" = "Instalado com sucesso";
 
 /* Window title */
+"Log" = "Log";
+
+/* Window title */
 "Name Required" = "Nome Obrigatório";
 
 /* Window title */
@@ -461,6 +584,9 @@
 "New Feature" = "Nova Característica";
 
 /* Window title */
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "Não foi encontrado 'dev tun', 'dev utun' ou 'dev tap'";
+
+/* Window title */
 "No Credentials" = "Nenhuma Credencial";
 
 /* Window title */
@@ -468,6 +594,9 @@
 
 /* Window title */
 "Only computer administrators should update Tunnelblick" = "Somente administradores do computador devem atualizar o Tunnelblick";
+
+/* Window title */
+"OpenVPN is Not Responding" = "OpenVPN não está respondendo";
 
 /* Window title */
 "Please Confirm" = "Por favor Confirmar";
@@ -480,6 +609,9 @@
 
 /* Window title */
 "Preferences" = "Preferências";
+
+/* Window title */
+"Replace Configuration?" = "Substituir a configuração?";
 
 /* Window title */
 "Replace Existing Configuration?" = "Substituir Configuração Existente?";
@@ -497,6 +629,12 @@
 "System Requirements Not Met" = "Requisitos de Sistema Não Atendidos";
 
 /* Window title */
+"Tunnelblick Configuration Installation Error" = "Erro de Instalação da Configuração de VPN no Tunnelblick";
+
+/* Window title */
+"Tunnelblick Configuration Installer" = "Instalador de configuração do Tunnelblick";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Problema de Configuração do Tunnelblick";
 
 /* Window title */
@@ -510,6 +648,9 @@
 
 /* Window title */
 "Tunnelblick is currently running" = "Tunnelblick está sendo executado";
+
+/* Window title */
+"Tunnelblick" = "Tunnelblick";
 
 /* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: Login Exigido";
@@ -550,6 +691,45 @@
 /* Window title */
 "While Connected" = "Enquanto Conectado";
 
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Installed %lu configurations\n\n" = "     • Configuração %lu instalada\n\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Installed one configuration\n\n" = "     • Instalada uma configuração\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Replaced %lu configurations\n\n" = "     • Substituída(s) %lu configurações\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Replaced one configuration\n\n" = "     • Substituiu uma configuração\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Uninstalled %lu configurations\n\n" = "     • Desinstalou a Configuração %lu\n\n\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Uninstalled one configuration\n\n" = "     • Desinstalou uma configuração\n\n\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install %lu configurations\n\n" = "    • Instalar configurações de %lu\n\n\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install one configuration\n" = "    • Instalar uma configuração\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace %lu configurations\n\n" = "    • Substituir configurações em %lu\n\n\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace one configuration\n" = "    • Substituir uma configuração\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall %lu configurations\n\n" = "    • Desinstalar configurações de %lu\n\n\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall one configuration\n" = "    • Desinstalar uma configuração\n\n";
+
+/* Window text */
+"  • Be installed in /Applications as Tunnelblick\n" = "  • Ser instalado em /Applications como Tunnelblick\n\n";
+
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Mudar propriedade e permissões do  programa e assegurá-lo\n";
 
@@ -564,6 +744,9 @@
 
 /* Window text */
 "  • Secure configurations\n" = "  • Configurações seguras\n";
+
+/* Window text */
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ é um software livre: você pode redistribuí-lo e/ou modificá-lo sob os termos do %2$@ como publicado pela %3$@.\n\n%4$@ é uma marca registrada da OpenVPN Technologies, Inc.";
 
 /* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Configurações podem ser apagadas apenas por um administrador do computador.\n\n A remoção é imediata e permanente. Todos os ajustes para '%1$@' também será removida permanentemente.%2$@%3$@";
@@ -786,9 +969,6 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Somente uma Configuração VPN do Tunnelblick (.tblk) pode iniciar quando o computador iniciar.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "Versão do OpenVPN  %1$@ não disponível. Usando a última, versão %2$@";
 
 /* Window text */
 "OpenVPN version:" = "Versão do OpenVPN:";

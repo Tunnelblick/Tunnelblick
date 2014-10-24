@@ -1085,9 +1085,6 @@
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "오직 Tunnelblick VPN 설정 (.tblk)만 컴퓨터가 시작할 때 실행될 수 있습니다.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN 버전 %1$@은 사용할 수 없습니다. 최신 버전 %2$@을 사용하십시오.";
-
-/* Window text */
 "OpenVPN version:" = "OpenVPN 버전:";
 
 /* Window text */

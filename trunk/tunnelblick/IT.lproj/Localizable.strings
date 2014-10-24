@@ -337,6 +337,9 @@
 /* Checkbox name */
 "Do not check for IP address changes" = "Non verificare le modifiche all’indirizzo IP";
 
+/* Checkbox name on a warning dialog */
+"Do not show again for any configuration" = "Non mostrare nuovamente per qualsiasi configurazione";
+
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Non ti preoccupare di nuovo per questa configurazione";
 
@@ -629,7 +632,7 @@
 "Tunnelblick Configuration Installation Error" = "Errore nell'installazione della Configurazione Tunnelblick";
 
 /* Window title */
-"Tunnelblick Configuration Installer" = "Installazione di Configurazione Tunnelblick";
+"Tunnelblick Configuration Installer" = "Installatore Configurazioni Tunnelblick";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Problema di configurazione di Tunnelblick";
@@ -707,7 +710,7 @@
 "     • Uninstalled one configuration\n\n" = "     • Disinstallato una configurazione  \n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install %lu configurations\n\n" = "    • Installare %lu configurazioni\n\n";
+"    • Install %lu configurations\n\n" = "    • installare %lu configurazioni\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Install one configuration\n" = "    • Installare una configurazione\n";
@@ -725,7 +728,7 @@
 "    • Uninstall one configuration\n" = "    • Disinstallare una configurazione\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Installa in /Applicazioni come Tunnelblick\n";
+"  • Be installed in /Applications as Tunnelblick\n" = "  • essere installato nella cartella Applicazioni come Tunnelblick\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Modificare proprietario e permessi del programma per aumentarne la sicurezza\n";
@@ -1181,13 +1184,10 @@
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "Il servizio OpenVPN non risponde alla richiesta di disconnettere %@.\n\nTunnelblick si disconnetterà quando OpenVPN sarà in grado di rispondere correttamente alle richieste di disconnessione.\n\nIn alcune circostanze POSSONO ESSERE NECESSARI FINO A DUE MINUTI.\n\nLa connessione non sarà disponibile finché non sarà disconnessa.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Changing setting to use the latest version (%@) that is included in this version of Tunnelblick." = "La versione %1$@ di OpenVPN non è disponibile. Le impostazioni verranno modificate per utilizzare l'ultima versione (%2$@) che è inclusa in questa versione di Tunnelblick.";
+"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN versione %1$@ non è disponibile. Sto modificando questa configurazione per utilizzare la versione più recente (%2$@) che è inclusa in questa versione di Tunnelblick.";
 
 /* Window text */
 "OpenVPN version %@ is not available. Using the latest (currently version %@) as the default." = "La versione %1$@ di OpenVPN non è disponibile. Verrà utilizzata l'ultima versione (%2$@) come default.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "La versione %1$@ di OpenVPN non è disponibile. Verrà utilizzata l’ultima versione (%2$@)";
 
 /* Window text */
 "OpenVPN version:" = "Versione di OpenVPN:";
@@ -1751,6 +1751,9 @@
 "Animation and icon sets code" = "Animazioni, codice del set di icone";
 
 /* Credit description */
+"Bulgarian localization" = "Traduzione in Bulgaro";
+
+/* Credit description */
 "Button images" = "Immagini dei pulsanti";
 
 /* Credit description */
@@ -1776,6 +1779,9 @@
 
 /* Credit description */
 "Czech localization" = "Localizzazione ceca";
+
+/* Credit description */
+"Danish localization" = "Traduzione in Danese";
 
 /* Speak string */
 "Disconnected from %@" = "Disconnesso da %@";

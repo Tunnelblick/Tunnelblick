@@ -83,6 +83,9 @@
 "Download" = "下载";
 
 /* Button */
+"Help" = "帮助";
+
+/* Button */
 "I DO NOT have configuration files" = "我没有配置文件";
 
 /* Button */
@@ -128,6 +131,9 @@
 "Quit" = "退出";
 
 /* Button */
+"Reinstall" = "重新安装";
+
+/* Button */
 "Remove Credentials" = "删除证书";
 
 /* Button */
@@ -152,6 +158,9 @@
 "Show while connecting" = "当建立连接时显示";
 
 /* Button */
+"Skip" = "跳过";
+
+/* Button */
 "Standard icon" = "标准图标";
 
 /* Button */
@@ -171,6 +180,12 @@
 
 /* Button */
 "Try again" = "重试";
+
+/* Button */
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 图标";
+
+/* Button */
+"Uninstall" = "卸载";
 
 /* Button */
 "When Tunnelblick launches" = "当 Tunnelblick 启动时";
@@ -230,6 +245,9 @@
 "VPN Details..." = "VPN 详情…";
 
 /* Checkbox name */
+"Apply to all" = "应用于全部";
+
+/* Checkbox name */
 "Check for updates automatically" = "自动检查更新";
 
 /* Checkbox name */
@@ -270,6 +288,9 @@
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "连接后或者断开连接后, 清空 DNS 缓存";
+
+/* Checkbox name */
+"Keep connected" = "保持连接";
 
 /* Checkbox name */ /* System profile item */
 "Monitor connection" = "监控连接";
@@ -341,10 +362,19 @@
 "CONNECTING" = "正在建立连接"; // Please translate "Connecting"
 
 /* Connection status */
+"DISCONNECTING" = "正在断开连线"; // Please translate "Disconnecting"
+
+/* Connection status */
 "EXITING" = "正在断开连接"; // Please translate "Disconnected"
 
 /* Connection status */
 "GET_CONFIG" = "正在获取设定"; // Please translate ""
+
+/* Connection status */
+"PASSWORD_WAIT" = "正等待输入密码"; // Please translate "Waiting for password"
+
+/* Connection status */
+"PRIVATE_KEY_WAIT" = "正等待输入密码"; // Please translate "Waiting for password"
 
 /* Connection status */
 "RECONNECTING" = "正在重新连接"; // Please translate ""
@@ -479,6 +509,9 @@
 "Only computer administrators should update Tunnelblick" = "只有计算机管理员可以更新 Tunnelblick";
 
 /* Window title */
+"OpenVPN is Not Responding" = "OpenVPN 没有响应";
+
+/* Window title */
 "Please Confirm" = "请确认";
 
 /* Window title */
@@ -489,6 +522,9 @@
 
 /* Window title */
 "Preferences" = "偏好";
+
+/* Window title */
+"Replace Configuration?" = "替换配置吗？";
 
 /* Window title */
 "Replace Existing Configuration?" = "取代已有配置吗?";
@@ -519,6 +555,9 @@
 
 /* Window title */
 "Tunnelblick is currently running" = "Tunnelblick 正在运行";
+
+/* Window title */
+"Tunnelblick" = "Tunnelblick";
 
 /* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: 需要登入";
@@ -795,9 +834,6 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "只有 Tunnelblick 私人配置 (.tblk) 可以在计算机启动时启动.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN 的版本: %1$@ 不可用. 请使用最新版: %2$@";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN 版本:";

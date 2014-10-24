@@ -809,9 +809,6 @@
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Endast en Tunnelblick VPN-konfiguration (.tblk) kan starta när datorn startas.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN version %1$@ finns inte. Använder den nyaste, version %2$@";
-
-/* Window text */
 "OpenVPN version:" = "OpenVPN-version:";
 
 /* Window text */
