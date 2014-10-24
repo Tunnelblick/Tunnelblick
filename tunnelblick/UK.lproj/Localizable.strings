@@ -35,6 +35,12 @@
 "All Users" = "Всі користувачі";
 
 /* Button */
+"Always load Tap driver" = "Завжди завантажувати Tap драйвер";
+
+/* Button */
+"Always load Tun driver" = "Завжди завантажувати Tun драйвер";
+
+/* Button */
 "Always use the plugin" = "Завжди використовувати плагін";
 
 /* Button */
@@ -42,6 +48,12 @@
 
 /* Button */
 "Cancel" = "Скасувати";
+
+/* Button */
+"Change Only for This Configuration" = "Змінити лише для цієї конфігурації";
+
+/* Button */
+"Change for the Selected Configurations" = "Змінити для обраних конфігурацій";
 
 /* Menu item */ /* Button */
 "Check For Updates Now" = "Перевірити оновлення";
@@ -98,6 +110,9 @@
 "Download" = "Завантажити";
 
 /* Button */
+"Help" = "Допомога";
+
+/* Button */
 "I DO NOT have configuration files" = "У мене НЕМАЄ файлів конфігурації";
 
 /* Button */
@@ -107,13 +122,28 @@
 "Ignore" = "Ігнорувати";
 
 /* Button */
+"Latest (%@)" = "Остання (%@)";
+
+/* Button */
 "Launch" = "Запустити";
+
+/* Button */
+"Load Tap driver automatically" = "Завантажувати Tap драйвер автоматично";
+
+/* Button */
+"Load Tun driver automatically" = "Завантажувати Tun дравер автоматично";
 
 /* Button */
 "Manually" = "Власноруч";
 
 /* Button */
 "Monochrome icon" = "Монохромна іконка";
+
+/* Button */
+"Never load Tap driver" = "Ніколи не завантажувати Tap драйвер";
+
+/* Button */
+"Never load Tun driver" = "Ніколи не завантажувати Tun драйвер";
 
 /* Button */
 "Never show" = "Не показувати";
@@ -131,6 +161,9 @@
 "Only Me" = "Тільки Я";
 
 /* Button */
+"Open Uninstall Instructions in Browser" = "Відкрити інструкцію з деінсталяції у браузері";
+
+/* Button */
 "Open easy-rsa in Terminal" = "Відкрити easy-rsa в терміналі";
 
 /* Button */
@@ -138,6 +171,9 @@
 
 /* Button */
 "Quit" = "Вийти";
+
+/* Button */
+"Reinstall" = "Перевстановити";
 
 /* Button */
 "Remove Credentials" = "Видалити Повноваження";
@@ -158,10 +194,19 @@
 "Revert" = "Повернути";
 
 /* Button */
+"Show on default screen (%u x %u)" = "Показувати на екрані по замовчуванню  (%1$u x %2$u)";
+
+/* Button */
+"Show on screen %u (%u x %u)" = "Показувати на екрані %1$u (%2$u x %3$u)";
+
+/* Button */
 "Show when connection status changes" = "Повідомити коли статус з'єднання зміниться";
 
 /* Button */
 "Show while connecting" = "Показувати в процесі з'єднання";
+
+/* Button */
+"Skip" = "Пропустити";
 
 /* Button */
 "Speak" = "Говорити";
@@ -186,6 +231,12 @@
 
 /* Button */
 "Try again" = "Спробуйте знову";
+
+/* Button */
+"Tunnelblick 3.3 icon" = "Іконка Tunnelblick 3.3";
+
+/* Button */
+"Uninstall" = "Деінсталювати";
 
 /* Button */
 "When Tunnelblick launches" = "При запуску Tunnelblick";
@@ -245,10 +296,19 @@
 "VPN Details..." = "Деталі VPN…";
 
 /* Checkbox name */
+"Apply to all" = "Застосувати до всіх";
+
+/* Checkbox name */
 "Check for updates automatically" = "Автоматична перевірка оновлень";
 
 /* Checkbox name */
 "Check for updates to beta versions" = "Перевіряти оновлення до бета версій";
+
+/* Checkbox name */
+"Check if the apparent public IP address changed after connecting" = "Перевіряти, чи змінилася зовнішня IP адреса після з’єднання";
+
+/* Checkbox name */
+"Disconnect when computer goes to sleep" = "Від’єднуватися, коли ком’ютер переходить у режим сну";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Роз'єднати коли користувач вимикається";
@@ -258,6 +318,9 @@
 
 /* Checkbox name */
 "Display connection timers" = "Показати таймер з'єднання";
+
+/* Checkbox name */
+"Display window while Tunnelblick is starting up" = "Показувати вікно під час запуску Tunnelblick";
 
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Не запитувати знову, завжди 'Ігнорувати'";
@@ -271,6 +334,9 @@
 /* Checkbox name */
 "Do not check for IP address changes" = "Не перевіряти змину IP адреси";
 
+/* Checkbox name on a warning dialog */
+"Do not show again for any configuration" = "Не показувати більше для будь-якої конфігурації";
+
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Більше не попереджувати для цієї конфігурації";
 
@@ -279,6 +345,12 @@
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Очистити кеш DNS після з'єднання чи роз'єднання";
+
+/* Checkbox name */
+"Inhibit automatic update checking and IP Address checking" = "Заборонити автоматичну перевірку оновлень та IP-адреси";
+
+/* Checkbox name */
+"Keep connected" = "Підтримувати з’єднання";
 
 /* Checkbox name */ /* System profile item */
 "Monitor connection" = "Спостерігати за з'єднанням";
@@ -290,13 +362,55 @@
 "Place next to Spotlight icon" = "Встановити після іконки Spotlight";
 
 /* Checkbox name */
+"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Під’єднуватися знову після виходу комп’ютера з режиму сну (у разі, якщо було встановленно з’єднання до входу комп’ютера в режим сну)";
+
+/* Checkbox name */
+"Reconnect when user switches in" = "Під’єднуватися знову при вході користувача";
+
+/* Checkbox name */
+"Reset the primary interface after disconnecting" = "Скидати налаштування основного інтерфейсу після роз’єднання";
+
+/* Checkbox name */
 "Route all traffic through the VPN" = "Спрямувати весь трафік через VPN";
+
+/* Checkbox name */
+"Run MTU maximum size test after connecting" = "Перевіряти максимальний розмір MTU після з’єднання";
 
 /* Checkbox name */
 "Save in Keychain" = "Зберегти в ключах";
 
+/* Checkbox name */
+"Set DNS after routes are set instead of before routes are set" = "Встановлювати DNS після маршрутизації";
+
+/* Checkbox name */
+"Show configuration on Tunnelblick menu" = "Показувати конфігурацію в меню Tunnelblick";
+
+/* Checkbox name */
+"Show when disconnected" = "Показувати при розірванні з’єднання";
+
+/* Checkbox name */
+"Show when the pointer is over the Tunnelblick icon" = "Показувати, при наведенні на іконку Tunnelblick";
+
+/* PopUpButton */
+"Do not set nameserver" = "Не встановлювати DNS";
+
+/* PopUpButton */
+"Set nameserver (3.0b10)" = "Встановити DNS сервер (3.0b10)";
+
+/* PopUpButton */
+"Set nameserver (3.1)" = "Встановити DNS сервер (3.1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 1)" = "Встановити DNS сервер (варіант 1)";
+
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Встановити сервер імен";
+
+/* Text on disk image */
+"Double-click to begin" = "Клікніть двічі для початку";
+
+/* Connection status */
+"ADD_ROUTES" = "Додавання маршрутів"; // Please translate "Adding routes"
 
 /* Connection status */
 "ASSIGN_IP" = "Призначення IP адреси"; // Please translate "Assigning IP address"
@@ -311,10 +425,64 @@
 "CONNECTING" = "З'єднання"; // Please translate "Connecting"
 
 /* Connection status */
+"DISCONNECTING" = "Від’єднання"; // Please translate "Disconnecting"
+
+/* Connection status */
 "EXITING" = "Роз'єднано"; // Please translate "Disconnected"
+
+/* Connection status */
+"GET_CONFIG" = "Отримування конфігурації"; // Please translate ""
+
+/* Connection status */
+"PASSWORD_WAIT" = "Очікування на ввод паролю"; // Please translate "Waiting for password"
+
+/* Connection status */
+"PRIVATE_KEY_WAIT" = "Очікування на ввод паролю"; // Please translate "Waiting for password"
+
+/* Connection status */
+"RECONNECTING" = "Перепідключення"; // Please translate ""
+
+/* Connection status */
+"RESOLVE" = "Визначення доменного імені"; // Please translate ""
+
+/* Connection status */
+"SLEEP" = "Очікування процесу служби"; // Please translate "Waiting for daemon process"
+
+/* Connection status */
+"TCP_CONNECT" = "Виконується TCP з’єднання"; // Please translate "Making TCP connection"
+
+/* Connection status */
+"UDP_CONNECT" = "Виконується UDP з’єднання"; // Please translate "Making UDP connection"
+
+/* Connection status */
+"WAIT" = "Очікування відповіді сервера"; // Please translate "Waiting for Server Response"
+
+/* Folder name */
+"Sample Tunnelblick VPN Configuration" = "Зразок конфігурації Tunnelblick VPN";
+
+/* System profile item */
+"Computer admin" = "Адміністратор комп’ютера";
+
+/* System profile item */
+"Configurations" = "Конфігурації";
+
+/* System profile item */
+"Deployed" = "Розгорнуті";
+
+/* Window title */
+" (Deployed)" = " (Розгорнута)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
 
 /* Window title */
 " (Private)" = " (Приватно)";
+
+/* Window title */
+" (Shared)" = " (Загальна)"; // Indicates a shared configuration
+
+/* Window title */
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ конфігурація OpenVPN - Tunnelblick";
+
+/* Window title */
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Роз’єднано - Додаткові налаштування%3$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' було роз'єднано";
@@ -344,7 +512,13 @@
 "Authentication failed" = "Невдала аутентифікація";
 
 /* Window title */
+"Change for All Selected Configurations?" = "Змінити для всіх обраних конфігурацій?";
+
+/* Window title */
 "Configuration Installation Error" = "Помилка встановлення конфігурації";
+
+/* Window title */
+"Configuration(s) Ignored" = "Конфігурації проігноровані";
 
 /* Window title */
 "Connecting & Disconnecting" = "З'єнання та роз'єднання";
@@ -365,16 +539,25 @@
 "Details - Tunnelblick" = "Деталі - Tunnelblick";
 
 /* Window title */
+"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "Застосувати для всіх %1$lu обраних конфігурацій, чи лише для '%2$@'?";
+
+/* Window title */
 "Do you wish to connect?" = "Бажаєте з'єднатись?";
 
 /* Window title */
 "File not found" = "Файл не знайдено";
 
 /* Window title */
+"Info" = "Інформація";
+
+/* Window title */
 "Install Configuration For All Users?" = "Встановити конфігурацію для всіх користувачів?";
 
 /* Window title */
 "Installation failed" = "Невдале встановлення";
+
+/* Window title */
+"Installation or Repair Failed" = "Інсталяція або Випралення не вдалося";
 
 /* Window title */
 "Installation succeeded" = "Успішне встановлення";
@@ -392,10 +575,19 @@
 "New Feature" = "Нова функція";
 
 /* Window title */
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "Не знайдено 'dev tun', 'dev utun' або 'dev tap'";
+
+/* Window title */
 "No Credentials" = "Немає повноважень";
 
 /* Window title */
 "One or more OpenVPN processes could not be terminated." = "Один або декілька OpenVPN процесів неможливо припинити.";
+
+/* Window title */
+"Only computer administrators should update Tunnelblick" = "Тільки адміністратори комп’ютера повинні оновлювати Tunnelblick";
+
+/* Window title */
+"OpenVPN is Not Responding" = "OpenVPN не відповідає";
 
 /* Window title */
 "Please Confirm" = "Необхідно підтвердження";
@@ -408,6 +600,9 @@
 
 /* Window title */
 "Preferences" = "Преференції";
+
+/* Window title */
+"Replace Configuration?" = "Замінити конфігурацію?";
 
 /* Window title */
 "Replace Existing Configuration?" = "Замінити існуючу конфігурацію?";
@@ -425,10 +620,28 @@
 "System Requirements Not Met" = "Системні вимоги незадоволені";
 
 /* Window title */
+"Tunnelblick Configuration Installation Error" = "Помилка встановлення конфігурації Tunnelblick";
+
+/* Window title */
+"Tunnelblick Configuration Installer" = "Майстер встановлення конфігурацій Tunnelblick";
+
+/* Window title */
+"Tunnelblick Configuration Problem" = "Помилка конфігурації Tunnelblick";
+
+/* Window title */
 "Tunnelblick Error" = "Помилка Tunnelblick";
 
 /* Window title */
+"Tunnelblick VPN Configuration Installation Error" = "Помилка встановлення конфігурації Tunnelblick VPN";
+
+/* Window title */
+"Tunnelblick VPN Configuration Installation" = "Встановлення конфігурації Tunnelblick VPN";
+
+/* Window title */
 "Tunnelblick is currently running" = "Tunnelblick запущений";
+
+/* Window title */
+"Tunnelblick" = "Tunnelblick";
 
 /* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: Потрібно ім'я користвача";
@@ -469,6 +682,45 @@
 /* Window title */
 "While Connected" = "Під час з'єднання";
 
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Installed %lu configurations\n\n" = "     • Встановлено %lu конфігурацій\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Installed one configuration\n\n" = "     • Встановлена одна конфігурація\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Replaced %lu configurations\n\n" = "     • Замінено %lu конфігурацій\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Replaced one configuration\n\n" = "     • Замінена одна конфігурація\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Uninstalled %lu configurations\n\n" = "     • Видалено %lu конфігурацій\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Uninstalled one configuration\n\n" = "     • Видалена одна конфігурація\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install %lu configurations\n\n" = "    • Встановити %lu конфігурацій\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install one configuration\n" = "    • Встановити одну конфігурацію\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace %lu configurations\n\n" = "    • Замінити %lu конфігурацій\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace one configuration\n" = "    • Замінити одну конфігурацію\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall %lu configurations\n\n" = "    • Видалити %lu конфігурацій\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall one configuration\n" = "    • Видалено одну конфігурацію\n";
+
+/* Window text */
+"  • Be installed in /Applications as Tunnelblick\n" = "  • бути встановлений до /Applications як Tunnelblick\n";
+
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Конвертувати конфігурації OpenVPN\n";
 
@@ -480,6 +732,9 @@
 
 /* Window text */
 "  • Secure configurations\n" = "  • Безпечні конфігурації\n";
+
+/* Window text */
+" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Конфігурації можуть бути видалені тільки користувачем з правами адміністратора.\n\n Видалення є миттєвим і остаточним. Всі налаштування для '%1$@' будуть також повністю видалені.%2$@%3$@";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Ви бажаєте встановити %1$@ в %2$@%3$@?\n\n";
@@ -494,16 +749,43 @@
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick повинен бути встановлений в 'Програмах'.\n\n";
 
 /* Window text */
+" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick потрібні права адміністратора для для автоматичного з’єднання '%@' при завантаженні комп’ютера.";
+
+/* Window text */
+" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick потрібні права адміністратора для відключення автоматичного з’єднання '%@' при завантаженні комп’ютера.";
+
+/* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " УВАГА: Копію Tunnelblick було підроблено.\n\n";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ існує, але це не папка";
 
 /* Window text */
+"'%@' value '%@' is not a valid URL in %@" = "Значення '%2$@' параметра '%1$@', що вказане в %3$@, не є дійсною URL-адресою";
+
+/* Window text */
+"'%@' was not terminated." = "Не закритий тег '%@'.";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "параметр 'easy-rsaPath' був проігнорований - вказане значення не вказує на папку";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "параметр 'easy-rsaPath' був проігнорований - значення має вказувати на абсолютний шлях, або починатися з '~'";
+
+/* Window text */
 "(Never checked)" = "(Не перевірялось)";
 
 /* Window text */
 "(The 'easy-rsaPath' preference is invalid.)" = "(Преференція 'easy-rsaPath' є невірною.)";
+
+/* Window text */
+"(if connected when user switched out)" = "(за умови підключення на момент виходу користувача)";
+
+/* Window text */
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Ключ TBPreference або TBAlwaysSetPreference має посилання на невідомий параметр '%1$@' в %2$@";
+
+/* Window text */
+"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Занадто велика вкладеність конфігурації Tunnelblick VPN в '%@'";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Фраза пароль необхідна для з'єднання з\n  %1$@%2$@";

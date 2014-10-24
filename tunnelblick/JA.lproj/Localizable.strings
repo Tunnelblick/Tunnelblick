@@ -104,6 +104,9 @@
 "Download" = "ダウンロード";
 
 /* Button */
+"Help" = "ヘルプ";
+
+/* Button */
 "I DO NOT have configuration files" = "設定ファイルがない";
 
 /* Button */
@@ -149,6 +152,9 @@
 "Quit" = "終了";
 
 /* Button */
+"Reinstall" = "再インストール";
+
+/* Button */
 "Remove Credentials" = "認証を削除";
 
 /* Button */
@@ -179,6 +185,9 @@
 "Show while connecting" = "接続が完了するまで表示する";
 
 /* Button */
+"Skip" = "スキップ";
+
+/* Button */
 "Speak" = "読み上げ";
 
 /* Button */
@@ -204,6 +213,9 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 アイコン";
+
+/* Button */
+"Uninstall" = "アンインストール";
 
 /* Button */
 "When Tunnelblick launches" = "Tunnelblick 起動時に接続";
@@ -551,6 +563,9 @@
 "Tunnelblick is currently running" = "Tunnelblick は実行中です";
 
 /* Window title */
+"Tunnelblick" = "Tunnelblick";
+
+/* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: ログインが必要です";
 
 /* Window title */
@@ -825,9 +840,6 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "コンピュータ起動時に接続できる Tunnelblick VPN の接続先 (.tblk) は1つだけです。";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN バージョン %1$@ は利用できません。最新の %2$@ を使用します";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN バージョン:";

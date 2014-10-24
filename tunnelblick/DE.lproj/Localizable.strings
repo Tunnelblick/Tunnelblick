@@ -337,6 +337,9 @@
 /* Checkbox name */
 "Do not check for IP address changes" = "IP-Adresse überwachen";
 
+/* Checkbox name on a warning dialog */
+"Do not show again for any configuration" = "Für keine Konfiguration mehr anzeigen";
+
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Für diese Konfiguration nicht mehr darauf hinweisen";
 
@@ -1181,13 +1184,10 @@
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN reagiert nicht auf die Anfragen %@ zu trennen. \n\nTunnelblick wird die Verbindung trennen, wenn OpenVPN anfängt auf diese Trennungs-Anfragen zu reagieren.\n\nDies KANN unter besonderen Umständen BIS ZU ZWEI MINUTEN DAUERN.\n\nDie Verbindung wird nicht verfügbar sein, bis sie unterbrochen wurde.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Changing setting to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN-Version %1$@ ist nicht verfügbar. Ändere die Einstellung, um die neuste Version (%2$@) zu verwenden, die in dieser Version von Tunnelblick enthalten ist.";
+"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN Version %1$@ ist nicht verfügbar. Diese Konfiguration wird für die Verwendung der neuesten Version (%2$@) angepasst, die in dieser Version von Tunnelblick enthalten ist.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest (currently version %@) as the default." = "OpenVPN-Version %1$@ ist nicht verfügbar. Nutze die neuste Version (derzeit Version %2$@) als Standard.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN Version %1$@ ist nicht verfügbar. Nutze die neuste Version %2$@";
+"OpenVPN version %@ is not available. Using the latest (currently version %@) as the default." = "OpenVPN Version %1$@ ist nicht verfügbar. Nutze die neuste Version (derzeit Version %2$@) als Standard.";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN Version:";
@@ -1751,6 +1751,9 @@
 "Animation and icon sets code" = "Animationen, Icon Sets Code";
 
 /* Credit description */
+"Bulgarian localization" = "Bulgarische Lokalisierung";
+
+/* Credit description */
 "Button images" = "Button Grafiken";
 
 /* Credit description */
@@ -1776,6 +1779,9 @@
 
 /* Credit description */
 "Czech localization" = "Tschechische Lokalisierung";
+
+/* Credit description */
+"Danish localization" = "Dänische Lokalisierung";
 
 /* Speak string */
 "Disconnected from %@" = "Getrennt von %@";

@@ -17,10 +17,28 @@
 "(None available)" = "(Ingen tilgjengelig)";
 
 /* Button */
+"1 MB" = "1 MB";
+
+/* Button */
+"10 KB" = "10 KB";
+
+/* Button */
+"10 MB" = "10 MB";
+
+/* Button */
+"100 KB" = "100 KB";
+
+/* Button */
 "Advanced..." = "Avansert…";
 
 /* Button */
 "All Users" = "Alle brukere";
+
+/* Button */
+"Always load Tap driver" = "Last alltid inn Tap driver";
+
+/* Button */
+"Always load Tun driver" = "Last alltid inn Tun driver";
 
 /* Button */
 "Always use the plugin" = "Bruk alltid plugin";
@@ -30,6 +48,12 @@
 
 /* Button */
 "Cancel" = "Avbryt";
+
+/* Button */
+"Change Only for This Configuration" = "Endre kun for denne konfigurasjon";
+
+/* Button */
+"Change for the Selected Configurations" = "Endre kun for de valgte konfigurasjoner";
 
 /* Menu item */ /* Button */
 "Check For Updates Now" = "Sjekk etter oppdateringer nå";
@@ -86,6 +110,9 @@
 "Download" = "Last ned";
 
 /* Button */
+"Help" = "Hjelp";
+
+/* Button */
 "I DO NOT have configuration files" = "Jeg HAR IKKE konfigurasjonsfiler";
 
 /* Button */
@@ -101,10 +128,22 @@
 "Launch" = "Åpne";
 
 /* Button */
+"Load Tap driver automatically" = "Last inn Tap driver automatisk";
+
+/* Button */
+"Load Tun driver automatically" = "Last inn Tun driver automatisk";
+
+/* Button */
 "Manually" = "Manuell";
 
 /* Button */
 "Monochrome icon" = "Gråtone ikon";
+
+/* Button */
+"Never load Tap driver" = "Last aldri inn Tap driver";
+
+/* Button */
+"Never load Tun driver" = "Last aldri inn Tun driver";
 
 /* Button */
 "Never show" = "Vis aldri";
@@ -114,6 +153,9 @@
 
 /* Button */
 "No sound" = "Ingen lyd";
+
+/* Button */
+"OK" = "OK";
 
 /* Button */
 "Only Me" = "Kun meg";
@@ -798,9 +840,6 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Det er kun en Tunnelblick VPN Konfigurasjon (.tblk) som kan startes automatisk når datamaskinen starter.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN versjon %1$@ er ikke tilgjengelig. Bruk den siste, versjon %2$@";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN versjon:";

@@ -337,6 +337,9 @@
 /* Checkbox name */
 "Do not check for IP address changes" = "No verificar cambios de dirección IP";
 
+/* Checkbox name on a warning dialog */
+"Do not show again for any configuration" = "No mostrar de nuevo para ninguna configuración";
+
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "No advertir nuevamente acerca de esto  para está configuración";
 
@@ -348,6 +351,12 @@
 
 /* Checkbox name */
 "Include anonymous profile information" = "Incluir información de perfil anónima";
+
+/* Checkbox name */
+"Inhibit automatic update checking and IP Address checking" = "Prevenir verificación de actualizaciones automática y verificación de dirección IP";
+
+/* Checkbox name */
+"Keep connected" = "Mantener conexión";
 
 /* Checkbox name */ /* System profile item */
 "Monitor connection" = "Monitorear conexión";
@@ -374,7 +383,13 @@
 "Route all traffic through the VPN" = "Rutear todo el tráfico por la VPN";
 
 /* Checkbox name */
+"Run MTU maximum size test after connecting" = "Hacer prueba de tamaño máximo de MTU después de conectar";
+
+/* Checkbox name */
 "Save in Keychain" = "Guardar en el Keychain";
+
+/* Checkbox name */
+"Set DNS after routes are set instead of before routes are set" = "Establecer DNS después de que las rutas sean establecidas en vez de antes";
 
 /* Checkbox name */
 "Show configuration on Tunnelblick menu" = "Mostrar configuración en el menú de Tunnelblick";
@@ -419,10 +434,19 @@
 "CONNECTING" = "Conectando"; // Please translate "Connecting"
 
 /* Connection status */
+"DISCONNECTING" = "Desconectando"; // Please translate "Disconnecting"
+
+/* Connection status */
 "EXITING" = "Desconectado"; // Please translate "Disconnected"
 
 /* Connection status */
 "GET_CONFIG" = "Cargando configuración"; // Please translate ""
+
+/* Connection status */
+"PASSWORD_WAIT" = "Esperando contraseña"; // Please translate "Waiting for password"
+
+/* Connection status */
+"PRIVATE_KEY_WAIT" = "Esperando frase de contraseña"; // Please translate "Waiting for password"
 
 /* Connection status */
 "RECONNECTING" = "Reconectando"; // Please translate ""
@@ -464,6 +488,9 @@
 " (Shared)" = " (Compartida)"; // Indicates a shared configuration
 
 /* Window title */
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Desconectada - Configuración Avanzada%3$@";
+
+/* Window title */
 "'%@' has been disconnected" = "'%@' ha sido desconectado";
 
 /* Window title */
@@ -489,6 +516,9 @@
 
 /* Window title */
 "Authentication failed" = "Error de Autenticación";
+
+/* Window title */
+"Change for All Selected Configurations?" = "¿Cambiar para todas las configuraciones seleccionadas?";
 
 /* Window title */
 "Configuration Installation Error" = "Error de Instalación de Configuración";
@@ -876,9 +906,6 @@
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Sólo una Configuración VPN de Tunnelblick (.tblk) puede iniciar cunado la computadora inicia.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "La versión %1$@ de OpenVPN no está disponible. Se usará la última versión: %2$@";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN versión:";

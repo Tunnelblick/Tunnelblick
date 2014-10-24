@@ -11,6 +11,9 @@
 "Username:" = "Имя пользователя:";
 
 /* Button */
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
+
+/* Button */
 "(None available)" = "(Недоступно)";
 
 /* Button */
@@ -334,6 +337,9 @@
 /* Checkbox name */
 "Do not check for IP address changes" = "Не проверять на изменение IP адреса";
 
+/* Checkbox name on a warning dialog */
+"Do not show again for any configuration" = "Больше не показывать для любой конфигурации";
+
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Больше не предупреждать для этой конфигурации";
 
@@ -578,6 +584,9 @@
 "New Feature" = "Новая функция";
 
 /* Window title */
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "Не найдено ни одного 'dev tun', 'dev utun', или 'dev tap'";
+
+/* Window title */
 "No Credentials" = "Нет учётных данных";
 
 /* Window title */
@@ -785,6 +794,12 @@
 "'%@' was not terminated." = "Открывающий тэг '%@' не закрыт.";
 
 /* Window text */
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "параметр 'easy-rsaPath' проигнорирован; путь не указывает на папку";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "параметр 'easy-rsaPath' проигнорирован; параметр должен содержать полный путь, или начинаться с символа '~'";
+
+/* Window text */
 "(Never checked)" = "(Никогда не отмечен)";
 
 /* Window text */
@@ -794,16 +809,34 @@
 "(if connected when user switched out)" = "(при подключении, когда пользователь отключён)";
 
 /* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>На основе Tunnelblick, бесплатное программное обеспечение доступно по адресу<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN зарегистрированный товарный знак OpenVPN Technologies, Inc.";
+
+/* Window text */
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Ключ TBPreference или TBAlwaysSetPreference ссылается на неизвестный параметр '%1$@' в %2$@";
+
+/* Window text */
+"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Вложенность конфигурации Tunnelblick  слишком большая '%@'";
+
+/* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Секретная фраза необходима для подключения к\n  %1$@%2$@";
 
 /* Window text */
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Личная конфигурация '%@' уже существует.\n\nВы хотите заменить её Общей конфигурацией?";
 
 /* Window text */
+"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Возникла проблема при проверке внешнего IP-адреса этого компьютера.  \n\nПодробности в журнале Консоли.\n\n";
+
+/* Window text */
 "A username and password are required to connect to\n  %@%@" = "Для подключения к \n  %1$@%2$@ нужны имя пользователя и пароль";
 
 /* Window text */
 "Add Credentials..." = "Добавить учётные данные…";
+
+/* Window text */
+"Added '.sh' extension to %@ so it will be secured properly" = "Для обеспечения безопасности к %@ добавлено расширение «.sh»";
+
+/* Window text */
+"Added a 'key' extension to %@ so it will be secured properly" = "Для обеспечения безопасности к %@ добавлено расширение 'key'";
 
 /* Window text */
 "Additional contributions by" = "При дополнительной поддуржке";
@@ -833,6 +866,24 @@
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "При попытке отката к безопасной (теневой) копии произошла ошибка . Посмотрите Журнал Событий для более подробной информации.\n\n";
 
 /* Window text */
+"An internal Tunnelblick error occurred%@%@" = "Произошла внутренняя ошибка Tunnelblick %1$@%2$@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "Произошла внутренняя ошибка Tunnelblick: fileIsReasonableSize: не удаётся получить атрибуты: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "Произошла внутренняя ошибка Tunnelblick: fileIsReasonableSize: не удаётся получить размер: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "Произошла внутренняя ошибка Tunnelblick: fileIsReasonableSize: не удаётся получить тип: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "Произошла внутренняя ошибка Tunnelblick: fileIsReasonableSize: неверный тип файла: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Произошла внутренняя ошибка Tunnelblick: fileIsReasonableSize: пустой путь (nil)";
+
+/* Window text */
 "Anonymous unique ID" = "Уникальный ID анонимного пользователя";
 
 /* Window text */
@@ -843,6 +894,9 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Вы уверены, что хотите удалить все учётные данные (приватные ключи или имена пользователей с паролями) из Keychain для '%@'?";
+
+/* Window text */
+"At line %lu of the OpenVPN configuration file: %@" = "В строке %1$lu файла конфигурации OpenVPN: %2$@";
 
 /* Window text */
 "B" = "Б";
@@ -857,7 +911,13 @@
 "Cannot find configuration file at %@" = "Конфигурационный файл %@ не найден";
 
 /* Window text */
+"Cannot install configurations to either shared or private locations" = "Не удаётся установить конфигурации ни в общие, ни в личные месторасположения";
+
+/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Конфигурация '%1$@' будет проигнорирована, поскольку её имя содержит недопустимые символы.\n\nСимволы, которые нельзя использовать: '%2$s'\n\n";
+
+/* Window text */
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Конфигурации устанавливаются из файлов, которые поставляет вам ваш администратор сети или поставщик услуг VPN.\n\nФайлы конфигурации имеют расширения .tblk, .ovpn, или. conf.  (Там могут быть другие файлы, связанные с конфигурацией, которые имеют другие расширения; сейчас их можно проигнорировать).\n\nФайл конфигурации можно установить двойным щелчком мыши по нему.\n\nНовая конфигурация будет доступна в Tunnelblick тотчас.";
 
 /* Window text */
 "Connect:" = "Соединиться:";
@@ -867,6 +927,12 @@
 
 /* Window text */
 "Converted OpenVPN configuration" = "Конвертация конфигурации OpenVPN завершена";
+
+/* Window text */
+"Converting %@ at line %lu: %@" = "Преобразование %1$@ в строке %2$lu: %3$@";
+
+/* Window text */
+"Converting %@: %@" = "Преобразование %1$@: %2$@";
 
 /* Window text */
 "Copied %@" = "Скопировано %@";
@@ -920,16 +986,37 @@
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Вы хотите установить конфигурацию '%@' так, чтобы использовать её могли все пользователи или только вы?\n\n";
 
 /* Window text */
+"Do you wish to reinstall '%@' version %@?" = "Желаете переустановить '%1$@' версия %2$@?";
+
+/* Window text */
+"Do you wish to replace '%@' version %@ with version %@?" = "Желаете заменить '%1$@' версия %2$@ версией %3$@?";
+
+/* Window text */
+"Do you wish to replace the '%@' configuration?\n\n" = "Желаете заменить конфигурацию '%@'?\n\n";
+
+/* Window text */
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Вы действительно хотите откатить конфигурацию '%@' на её последнюю безопасную копию?\n\n";
 
 /* Window text */
+"Do you wish to uninstall '%@' version %@?" = "Желаете удалить '%1$@' версии %2$@?";
+
+/* Window text */
 "Domain:" = "Домен:";
+
+/* Window text */
+"Double-quote missing in line %u" = "Отсутствуют двойные кавычки в строке %u";
 
 /* Window text */
 "EB" = "ЕБ";
 
 /* Window text */
 "EB/s" = "ЕБ/с";
+
+/* Window text */
+"Expected command not found for '%@'" = "Не найдена ожидаемая команда для ' %@'";
+
+/* Window text */
+"Expected path not found for '%@'" = "Не найден ожидаемый путь для '%@'";
 
 /* Window text */
 "Failed to copy %@ to %@" = "Ошибка копирования %1$@ в %2$@";
@@ -968,7 +1055,19 @@
 "Icon:" = "Иконка:";
 
 /* Window text */
+"In %@:\n\nThere are no OpenVPN configurations to install." = "В %@:\n\nКонфигурации OpenVPN для установки отсутствуют.";
+
+/* Window text */
+"In the OpenVPN configuration file for '%@' at line %lu: %@" = "В файле конфигурации OpenVPN для ' %1$@' в строке %2$lu: %3$@";
+
+/* Window text */
+"In the OpenVPN configuration file for '%@': %@" = "В файле конфигурации OpenVPN для '%1$@': %2$@";
+
+/* Window text */
 "In:" = "Входящий:";
+
+/* Window text */
+"Installation failed:\n\n%@" = "Ошибка установки:\n\n%@";
 
 /* Window text */
 "Installation finished successfully." = "Установка завершена успешно.";
@@ -978,6 +1077,12 @@
 
 /* Window text */
 "Installing and securing Tunnelblick..." = "Установка и защита Tunnelblick…";
+
+/* Window text */
+"Installing configurations is not allowed" = "Устанавливаемые конфигурации не разрешены";
+
+/* Window text */
+"Invalid value '%@' for '%@' in %@" = "Неверное значение '%1$@' для '%2$@' в %3$@";
 
 /* Window text */
 "KB" = "КБ";
@@ -990,6 +1095,9 @@
 
 /* Window text */
 "Last checked: %@" = "Последняя проверка: %@";
+
+/* Window text */
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Строка %1$d файла '%2$@' содержит непечатный символ (0x%3$X), который не разрешён.\n\n";
 
 /* Window text */
 "Localization by" = "Локализовано";
@@ -1005,6 +1113,9 @@
 
 /* Window text */
 "Menu:" = "Меню:";
+
+/* Window text */
+"Modified configuration file to remove path information" = "Изменённый файл конфигурации для удаления сведений о пути";
 
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Будут созданы несколько соединений (%1$d с 'Установкой DNS', %2$d без 'Установки DNS').";
@@ -1025,7 +1136,25 @@
 "Network setting" = "Сетевые настройки";
 
 /* Window text */
+"No 'TBPackageVersion' in %@" = "Отсутствует 'TBPackageVersion' в %@";
+
+/* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Нет пути к easy-rsa. Скорее всего проблема в параметре'easy-rsaPath'";
+
+/* Window text */
+"Non-array value for '%@' in %@" = "Значение для '%1$@' в %2$@ не явялется массивом (Non-array)";
+
+/* Window text */
+"Non-boolean value for '%@' in %@" = "Значение для '%1$@' в %2$@ не является булевым (Non-boolean)";
+
+/* Window text */
+"Non-number value for '%@' in %@" = "Значение '%1$@' в %2$@ не является числом (Non-number)";
+
+/* Window text */
+"Non-string value for '%@' in %@" = "Значение для '%1$@' в %2$@ не является строкой (Non-string)";
+
+/* Window text */
+"Non-string value for an item in '%@' in %@" = "Значение для элемента в '%1$@' в %2$@ не является строкой (Non-string)";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Файл %@ не является файлом конфигурации (.ovpn или .conf)";
@@ -1046,13 +1175,10 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Одна или более конфигураций были проигнорированы. Обратитесь к Журналу Событий для более подробной информации.";
 
 /* Window text */
+"One or more problems were detected:\n\n%@" = "Были выявлены некоторые проблемы:\n\n%@";
+
+/* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Только конфигуация Tunnelblick VPN (.tblk) может стартовать при запуске компьютера.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Changing setting to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN версии %1$@ не доступен. Настройка изменена на использование последней версии (%2$@), включенной в поставку Tunnelblick.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN версии %1$@ недоступна. Используем последнюю доступную, версию %2$@";
 
 /* Window text */
 "OpenVPN version:" = "Версия OpenVPN:";
@@ -1098,6 +1224,9 @@
 
 /* Window text */
 "Set DNS/WINS:" = "Установите DNS/WINS:";
+
+/* Window text */
+"Single-quote missing in line %u" = "Отсутствует одинарная кавычка в строке %u";
 
 /* Window text */
 "Starting Tunnelblick..." = "Запуск Tunnelblick…";
@@ -1262,7 +1391,40 @@
 "Unable to Establish Communication" = "Не удаётся установить связь";
 
 /* Window text */
+"Unable to install the '%@' configuration\n" = "Не удаётся установить конфигурацию '%@'\n";
+
+/* Window text */
+"Unable to open configuration file for modification" = "Не удаётся открыть файл конфигурации для изменения";
+
+/* Window text */
+"Unable to replace the '%@' configuration\n" = "Не удаётся заменить конфигурацию '%@'\n";
+
+/* Window text */
+"Unable to secure %@ because it is owned by %@" = "Не удаётся обеспечить безопасность %1$@ потому что владелец %2$@";
+
+/* Window text */
+"Unable to secure %@" = "Не удаётся обеспечить безопасность %@";
+
+/* Window text */
+"Unable to set permissions on '%@'" = "Не удаётся задать разрешения на '%@'";
+
+/* Window text */
+"Unable to store updatable configuration stub at %@\n" = "В %@ не получается хранить обновляемые элементы конфигурации\n";
+
+/* Window text */
 "Unexpected disconnection:" = "Неожиданный обрыв соединения:";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Обновляемая конфигурация '%@' не была сохранена как обновляемая, так как 'SUPublicDSAKeyFile' не был строкой\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Обновляемая конфигурация '%@' не была сохранена как обновляемая, так как параметр 'SUFeedURL' в её Info.plist не начинался с 'https://', и отсутствовал параметр 'SUPublicDSAKeyFile'\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Обновляемая конфигурация '%@' не была сохранена как обновляемая, так как её Info.plist не может храниться в элементе .tblk\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n" = "Обновляемая конфигурация '%@' не была сохранена как обновляемая, так как был обработан CFBundleIdentifier\n";
 
 /* Window text */
 "Updates:" = "Обновления:";
@@ -1296,6 +1458,12 @@
 
 /* Window text */
 "Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Желаете ли вы\n\n  • Создать конфигурацию с примером на Рабочем столе\n             и\n  • Открыть конфигурационный файл OpenVPN в TextEdit с тем, чтобы вы могли его поправить для соединения с вашим VPN?\n\n";
+
+/* Window text */
+"You are not allowed to replace a private configuration" = "Вам не позволено заменять личную конфигурацию";
+
+/* Window text */
+"You are not allowed to replace a shared configuration" = "Вам не позволено заменять общую конфигурацию";
 
 /* Window text */
 "You cannot make a configuration private if it is set to start when the computer starts." = "Конфигурацию нельзя сделать личной, если она используется при запуске компьютера.";
@@ -1403,6 +1571,9 @@
 "Animation and icon sets code" = "Анимация и наборы иконок";
 
 /* Credit description */
+"Bulgarian localization" = "Перевод на болгарский";
+
+/* Credit description */
 "Button images" = "Изображения на кнопках";
 
 /* Credit description */
@@ -1429,6 +1600,9 @@
 /* Credit description */
 "Czech localization" = "Перевод на чешский";
 
+/* Credit description */
+"Danish localization" = "Перевод на датский";
+
 /* Speak string */
 "Disconnected from %@" = "Отключено от %@";
 
@@ -1452,6 +1626,9 @@
 
 /* Credit description */
 "Hungarian localization" = "Перевод на венгерский";
+
+/* Credit description */
+"Icon set including Retina images" = "Набор иконок, включая изображения для экрана Retina";
 
 /* Credit description */
 "Italian localization" = "Перевод на итальянский";

@@ -337,6 +337,9 @@
 /* Checkbox name */
 "Do not check for IP address changes" = "Tjek ikke efter IP-adresse ændringer";
 
+/* Checkbox name on a warning dialog */
+"Do not show again for any configuration" = "Vis ikke igen for denne konfiguration";
+
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Advar ikke om dette igen for denne konfiguration";
 
@@ -1181,13 +1184,10 @@
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN reagerer ikke på anmodningen om at afbryde forbindelsen til %@.\n\nTunnelblick vil afbryde når OpenVPN begynder at svare på anmodningerne.\n\nForbindelsen vil være utilgængelig indtil at den er blevet afbrudt.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Changing setting to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN version %1$@ er ikke tilgængelig. Skifter indstilling til at bruge den nyeste version (%2$@), som er inkluderet med denne version af Tunnelblick.";
+"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN version %1$@ er ikke tilgængelig. Ændrer denne konfiguration til at bruge den nyeste version (%2$@), som er inkluderet med denne version af Tunnelblick.";
 
 /* Window text */
 "OpenVPN version %@ is not available. Using the latest (currently version %@) as the default." = "OpenVPN version %1$@ er ikke tilgængelig. Bruger den nyeste (nuværende version %2$@) som standard.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN version %1$@ er ikke tilgængelig. Brug den nyeste, version %2$@";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN version:";
@@ -1751,6 +1751,9 @@
 "Animation and icon sets code" = "Animation og ikonsætskode";
 
 /* Credit description */
+"Bulgarian localization" = "Bulgarisk oversættelse";
+
+/* Credit description */
 "Button images" = "Knap billeder";
 
 /* Credit description */
@@ -1776,6 +1779,9 @@
 
 /* Credit description */
 "Czech localization" = "Tjekkiske lokalisering";
+
+/* Credit description */
+"Danish localization" = "Dansk oversættelse";
 
 /* Speak string */
 "Disconnected from %@" = "Afbrudt fra %@";

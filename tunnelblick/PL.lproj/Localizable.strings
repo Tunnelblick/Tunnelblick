@@ -337,6 +337,9 @@
 /* Checkbox name */
 "Do not check for IP address changes" = "Nie sprawdzaj zmiany adresu IP";
 
+/* Checkbox name on a warning dialog */
+"Do not show again for any configuration" = "Nie pokazuj ponownie dla żadnej konfiguracji";
+
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Nie ostrzegaj ponownie dla tej konfiguracji";
 
@@ -914,7 +917,7 @@
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguracja '%1$@' zostanie zignorowana, ponieważ jej nazwa zawiera niedozwolone znaki.\n\nZnaki niedozwolone to: '%2$s'\n\n";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Konfiguracje są instalowane z plików, które są dostarczane przez twojego zarządcę sieci bądź povidera usługi VPN.  \n\nPliki konfiguracyjne mają rozszerzenia .tblk, .ovpn, lub. conf.  \n\n(Mogą istnieć inne pliki związane z konfiguracją, które mają inne rozszerzenia; na tą chwilę proszę je zignorować.)  \n\nAby zainstalować plik konfiguracji, kliknij go dwukrotnie.  \n\nNowa konfiguracja będzie natychmiast dostępna w Tunnelblick.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Konfiguracje są instalowane z plików, które są dostarczane przez twojego zarządcę sieci bądź providera usługi VPN.  \n\nPliki konfiguracyjne mają rozszerzenia .tblk, .ovpn, lub. conf.  \n\n(Mogą istnieć inne pliki związane z konfiguracją, które mają inne rozszerzenia; na tę chwilę proszę je zignorować.)  \n\nAby zainstalować plik konfiguracji, kliknij go dwukrotnie.  \n\nNowa konfiguracja będzie natychmiast dostępna w Tunnelblick.";
 
 /* Window text */
 "Connect:" = "Połącz:";
@@ -1181,13 +1184,10 @@
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN nie odpowiada na żądanie rozłączenia %@.\n\nTunnelblick rozłączy się gdy OpenVPN zacznie odpowiadać na żądania.\n\nW NIEKTÓRYCH SYTUACJACH MOŻE TO ZAJĄĆ DO DWÓCH MINUT.\n\nTo połączenie będzie niedostępne do chwili w której uda się je rozłączyć.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Changing setting to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN w wersji %1$@ nie jest dostępny. Zmieniam ustawienia w celu korzystania z najnowszej wersji (%2$@) zawartej w tej wersji Tunnelblick.";
+"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN w wersji %1$@ nie jest dostępny. Zmieniam wersję używaną przez tę konfigurację na najnowszą (%2$@) zawartą w tej wersji Tunnelblick.";
 
 /* Window text */
 "OpenVPN version %@ is not available. Using the latest (currently version %@) as the default." = "OpenVPN w wersji %1$@ nie jest dostępny. Korzystam z najnowszej wersji (aktualnie %2$@) jako domyślnej.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN w wersji %1$@ nie jest dostępny. Użyta zostanie wersja najnowsza %2$@";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN wersja:";
@@ -1751,6 +1751,9 @@
 "Animation and icon sets code" = "animacja, kod implementacji zestawów ikon";
 
 /* Credit description */
+"Bulgarian localization" = "Bułgarska wersja językowa";
+
+/* Credit description */
 "Button images" = "projekt przycisków (buttons)";
 
 /* Credit description */
@@ -1776,6 +1779,9 @@
 
 /* Credit description */
 "Czech localization" = "czeski wersja językowa";
+
+/* Credit description */
+"Danish localization" = "Duńska wersja językowa";
 
 /* Speak string */
 "Disconnected from %@" = "Rozłączono z %@";

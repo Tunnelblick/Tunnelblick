@@ -128,10 +128,10 @@
 "Launch" = "Starten";
 
 /* Button */
-"Load Tap driver automatically" = "Laad Tap driver automatisch";
+"Load Tap driver automatically" = "Tap stuurprogramma automatisch laden";
 
 /* Button */
-"Load Tun driver automatically" = "Laad Tun driver automatisch";
+"Load Tun driver automatically" = "Tun stuurprogramma automatisch laden";
 
 /* Button */
 "Manually" = "Handmatig";
@@ -140,10 +140,10 @@
 "Monochrome icon" = "Monochroom icoon";
 
 /* Button */
-"Never load Tap driver" = "Nooit Tap driver laden";
+"Never load Tap driver" = "Nooit Tap stuurprogramma laden";
 
 /* Button */
-"Never load Tun driver" = "Nooit Tun driver laden";
+"Never load Tun driver" = "Nooit Tun stuurprogramma laden";
 
 /* Button */
 "Never show" = "Nooit tonen";
@@ -155,13 +155,13 @@
 "No sound" = "Geen geluid";
 
 /* Button */
-"OK" = "Oké";
+"OK" = "Ok";
 
 /* Button */
 "Only Me" = "Alleen Ik";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Open deïnstallatie instructies in browser";
+"Open Uninstall Instructions in Browser" = "Open Verwijder Instructies in Browser";
 
 /* Button */
 "Open easy-rsa in Terminal" = "Open easy-rsa in Terminal";
@@ -236,10 +236,10 @@
 "Try again" = "Opnieuw proberen";
 
 /* Button */
-"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 icoon";
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 pictogram";
 
 /* Button */
-"Uninstall" = "Deïnstalleren";
+"Uninstall" = "Verwijderen";
 
 /* Button */
 "When Tunnelblick launches" = "Wanneer Tunnelblick start";
@@ -336,6 +336,9 @@
 
 /* Checkbox name */
 "Do not check for IP address changes" = "Niet controleren op IP adres wijzigingen";
+
+/* Checkbox name on a warning dialog */
+"Do not show again for any configuration" = "Niet meer weergeven voor elke configuratie";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Waarschuw mij niet nog een keer hiervoor in deze configuratie";
@@ -1181,13 +1184,10 @@
 "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN reageert niet op aanvragen om te verbreken %@.  \n\nTunnelblick zal de verbinding verbreken zodra OpenVPN reageert op verzoeken om de verbinding te verbreken.\n\nDit kan tot twee minuten duren onder bepaalde omstandigheden.\n\nDe verbinding is niet beschikbaar totdat het volledig verbroken is.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Changing setting to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN versie %1$@ is niet beschikbaar. De instellingen worden aangepast om de laatste versie (%2$@) te gebruiken, welke is opgenomen in deze versie van Tunnelblick.";
+"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN versie %1$@ is niet beschikbaar. Deze configuratie zal gebruik maken van de nieuwste versie (%2$@) welke is opgenomen in deze versie van Tunnelblick.";
 
 /* Window text */
 "OpenVPN version %@ is not available. Using the latest (currently version %@) as the default." = "OpenVPN versie %1$@ is niet beschikbaar. Er wordt gebruik gemaakt van de nieuwste (momenteel versie %2$@) als standaardwaarde.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN versie %1$@ is niet beschikbaar. De meest recente versie %2$@ wordt gebruikt";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN versie:";
@@ -1751,6 +1751,9 @@
 "Animation and icon sets code" = "Animatie, pictogrammen sets code";
 
 /* Credit description */
+"Bulgarian localization" = "Bulgaarse vertaling";
+
+/* Credit description */
 "Button images" = "Afbeeldingen voor knoppen";
 
 /* Credit description */
@@ -1776,6 +1779,9 @@
 
 /* Credit description */
 "Czech localization" = "Tsjechische vertaling";
+
+/* Credit description */
+"Danish localization" = "Deense vertaling";
 
 /* Speak string */
 "Disconnected from %@" = "Verbroken met %@";
