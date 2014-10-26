@@ -78,6 +78,7 @@
 // NOTE: tunnelblick-uninstaller.sh refers to the installer log path without using this header file
 #define INSTALLER_LOG_PATH      @"/tmp/tunnelblick-installer-log.txt"
 
+#define TOOL_PATH_FOR_ARCH       @"/usr/bin/arch"
 #define TOOL_PATH_FOR_BASH       @"/bin/bash"
 #define TOOL_PATH_FOR_CODESIGN   @"/usr/bin/codesign"
 #define TOOL_PATH_FOR_ID         @"/usr/bin/id"
@@ -176,32 +177,32 @@
 
 //*************************************************************************************************
 // Bit masks for bitMask parameter of openvpnstart's start, loadkexts, and unloadkexts sub-commands
-#define OPENVPNSTART_OUR_TUN_KEXT              0x0001u
-#define OPENVPNSTART_OUR_TAP_KEXT              0x0002u
+#define OPENVPNSTART_OUR_TUN_KEXT              0x00001u
+#define OPENVPNSTART_OUR_TAP_KEXT              0x00002u
 
-#define OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT   0x0003u
-#define OPENVPNSTART_KEXTS_MASK_LOAD_MAX       0x0003u
+#define OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT   0x00003u
+#define OPENVPNSTART_KEXTS_MASK_LOAD_MAX       0x00003u
 
-#define OPENVPNSTART_FOO_TUN_KEXT              0x0004u
-#define OPENVPNSTART_FOO_TAP_KEXT              0x0008u
+#define OPENVPNSTART_FOO_TUN_KEXT              0x00004u
+#define OPENVPNSTART_FOO_TAP_KEXT              0x00008u
 
-#define OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT 0x0003u
-#define OPENVPNSTART_KEXTS_MASK_UNLOAD_MAX     0x000Fu
+#define OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT 0x00003u
+#define OPENVPNSTART_KEXTS_MASK_UNLOAD_MAX     0x0000Fu
 
-#define OPENVPNSTART_RESTORE_ON_DNS_RESET      0x0010u
-#define OPENVPNSTART_RESTORE_ON_WINS_RESET     0x0020u
-#define OPENVPNSTART_USE_TAP                   0x0040u
-#define OPENVPNSTART_PREPEND_DOMAIN_NAME       0x0080u
-#define OPENVPNSTART_FLUSH_DNS_CACHE           0x0100u
-#define OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 0x0200u
-#define OPENVPNSTART_RESET_PRIMARY_INTERFACE   0x0400u
-#define OPENVPNSTART_TEST_MTU                  0x0800u
-#define OPENVPNSTART_EXTRA_LOGGING             0x1000u
-#define OPENVPNSTART_NO_DEFAULT_DOMAIN         0x2000u
-#define OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS  0x4000u
-#define OPENVPNSTART_USE_ROUTE_UP_NOT_UP       0x8000u
-
-#define OPENVPNSTART_START_BITMASK_MAX         0xFFFFu
+#define OPENVPNSTART_RESTORE_ON_DNS_RESET      0x00010u
+#define OPENVPNSTART_RESTORE_ON_WINS_RESET     0x00020u
+#define OPENVPNSTART_USE_TAP                   0x00040u
+#define OPENVPNSTART_PREPEND_DOMAIN_NAME       0x00080u
+#define OPENVPNSTART_FLUSH_DNS_CACHE           0x00100u
+#define OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 0x00200u
+#define OPENVPNSTART_RESET_PRIMARY_INTERFACE   0x00400u
+#define OPENVPNSTART_TEST_MTU                  0x00800u
+#define OPENVPNSTART_EXTRA_LOGGING             0x01000u
+#define OPENVPNSTART_NO_DEFAULT_DOMAIN         0x02000u
+#define OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS  0x04000u
+#define OPENVPNSTART_USE_ROUTE_UP_NOT_UP       0x08000u
+#define OPENVPNSTART_USE_I386_OPENVPN          0x10000u
+#define OPENVPNSTART_START_BITMASK_MAX         0x1FFFFu
 
 
 //*************************************************************************************************

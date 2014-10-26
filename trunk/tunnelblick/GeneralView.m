@@ -96,7 +96,7 @@ extern TBUserDefaults * gTbDefaults;
     [updatesUpdatesTFC                  setTitle: NSLocalizedString(@"Updates:",                                      @"Window text")];
     [updatesCheckAutomaticallyCheckbox  setTitle: NSLocalizedString(@"Check for updates automatically",               @"Checkbox name")];
     [updatesCheckForBetaUpdatesCheckbox setTitle: NSLocalizedString(@"Check for updates to beta versions",            @"Checkbox name")];
-    [updatesSendProfileInfoCheckbox     setTitle: NSLocalizedString(@"Include anonymous profile information",         @"Checkbox name")];
+    [updatesSendProfileInfoCheckbox     setTitle: NSLocalizedString(@"Send anonymous profile information when checking", @"Checkbox name")];
     [updatesCheckNowButton              setTitle: NSLocalizedString(@"Check Now",                                     @"Button")];
     [updatesCheckNowButton sizeToFit];
     [updatesCheckNowButton setEnabled:  ! [gTbDefaults boolForKey: @"disableCheckNowButton"]];

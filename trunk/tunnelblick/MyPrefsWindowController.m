@@ -1603,12 +1603,12 @@ static BOOL firstTimeShowingWindow = TRUE;
 			break;
 			
 		case OPENVPNSTART_REVERT_CONFIG_MISSING:
-			TBShowAlertWindow(NSLocalizedString(@"Configuration Installation Error", @"Window title"),
+			TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation Error", @"Window title"),
 							  NSLocalizedString(@"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy.", @"Window text"));
 			break;
 			
 		default:
-			TBShowAlertWindow(NSLocalizedString(@"Configuration Installation Error", @"Window title"),
+			TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation Error", @"Window title"),
 							  NSLocalizedString(@"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n", @"Window text"));
 			break;
 	}
@@ -2676,7 +2676,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
         [gTbDefaults setBool: newValue forKey: @"updateSendProfileInfo"];
         [updater setSendsSystemProfile: newValue];
     } else {
-        NSLog(@"'Send anonymous profile info' change ignored because Sparkle Updater does not respond to setSendsSystemProfile:");
+        NSLog(@"'Send anonymous profile information when checking' change ignored because Sparkle Updater does not respond to setSendsSystemProfile:");
     }
 }
 

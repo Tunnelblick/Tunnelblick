@@ -190,7 +190,9 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "                            bit 11 is 1 to indicate the --mtu-test option should be added to the command line\n"
             "                            bit 12 is 1 to indicate that extra logging should be done by the up script\n"
             "                            bit 13 is 1 to indicate that the default domain ('openvpn') should not be used\n"
-            "                            bit 14 is 1 to indicate that the log files may be deleted when Tunnelblick exits\n"
+            "                            bit 14 is 1 to indicate that the program is not being started when the computer starts\n"
+            "                            bit 15 is 1 to indicate that the up script should be started with --route-up instead of --up\n"
+            "                            bit 16 is 1 to indicate that the i386 version of the OpenVPN universal binary should be used\n"
             
             "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
 
@@ -741,18 +743,17 @@ void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
             }
 
 		} else if (  [path hasPrefix: @"/s"]  ) {
-			if (   [path isEqualToString: @"/sbin/kextload"    ]
-		   	 	|| [path isEqualToString: @"/sbin/kextunload"  ]
+			if (   [path isEqualToString: TOOL_PATH_FOR_KEXTLOAD    ]
+		   	 	|| [path isEqualToString: TOOL_PATH_FOR_KEXTUNLOAD  ]
 			    ) {
                 notOk = FALSE;
             }
 
 		} else if (  [path hasPrefix: @"/u"]  ) {
-			if (   [path isEqualToString: @"/usr/bin/dscacheutil"]
-		   	 	|| [path isEqualToString: @"/usr/bin/killall"    ]
-		    	|| [path isEqualToString: @"/usr/sbin/lookupd"   ]
-		   	 	|| [path isEqualToString: TOOL_PATH_FOR_CODESIGN ]
+			if (   [path isEqualToString: TOOL_PATH_FOR_ARCH     ]
+                || [path isEqualToString: TOOL_PATH_FOR_CODESIGN ]
 		   	 	|| [path isEqualToString: TOOL_PATH_FOR_KEXTSTAT ]
+                || [path isEqualToString: TOOL_PATH_FOR_KILLALL  ]
 			    ) {
                 notOk = FALSE;
             }
@@ -1461,6 +1462,7 @@ NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode) {
 void deleteAllLogFiles() {
 	
 	// Deletes all log files associated with OpenVPN log files that have the OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS bit set in the bitmask encoded in their filenames
+    // Also deletes all log files that have a "last modified" date earlier than one week ago
 	
 	// Make a list of filename prefixes for files that can be deleted
 	NSMutableArray * prefixes = [NSMutableArray arrayWithCapacity: 10];
@@ -1468,6 +1470,8 @@ void deleteAllLogFiles() {
     NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: L_AS_T_LOGS];
     while (  (filename = [dirEnum nextObject])  ) {
         [dirEnum skipDescendents];
+		
+        // Add OpenVPN log files that have the "OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS" bit set
 		if (  [filename hasSuffix: @".openvpn.log"]  ) {
 			NSString * withStartArgs = [[[filename stringByDeletingPathExtension]   // Remove .log
 										 stringByDeletingPathExtension]				// Remove .openvpn
@@ -1485,6 +1489,16 @@ void deleteAllLogFiles() {
 				[prefixes addObject: prefix];
 			}
 		}
+        
+        // Add any file that has not been modified in the last week
+        NSString * fullPath = [L_AS_T_LOGS stringByAppendingPathComponent: filename];
+        NSDictionary * dict = [[NSFileManager defaultManager] tbFileAttributesAtPath: fullPath traverseLink: NO];
+        NSDate * modificationDate = [dict fileModificationDate];
+        NSDate * oneWeekAgo = [[NSDate date] dateByAddingTimeInterval: -7.0 * 24.0 * 60.0 * 60.0 ];
+        NSComparisonResult result = [modificationDate compare: oneWeekAgo];
+        if (  result == NSOrderedAscending  ) {
+            [prefixes addObject: filename];
+        }
 	}
 	
 	// Delete all files that have one of those prefixes
@@ -2515,7 +2529,17 @@ int startVPN(NSString * configFile,
 		}
     }
 	
-    int status = runAsRoot(openvpnPath, arguments, 0755);
+    int status;
+    
+    if (  (bitMask & OPENVPNSTART_USE_I386_OPENVPN) != 0  ) {
+        appendLog(@"Launching the 32-bit Intel version of OpenVPN instead of default version for this CPU");
+        // Use 'arch i386 <openvpnPath> <arguments>
+        [arguments insertObject: openvpnPath atIndex: 0];
+        [arguments insertObject: @"-i386"    atIndex: 0];
+        status = runAsRoot(TOOL_PATH_FOR_ARCH, arguments, 0555);
+    } else {
+        status = runAsRoot(openvpnPath, arguments, 0755);
+    }
     
     NSMutableString * displayCmdLine = [NSMutableString stringWithFormat: @"     %@\n", openvpnPath];
     unsigned i;

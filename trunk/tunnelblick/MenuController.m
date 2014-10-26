@@ -378,6 +378,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"tunnelblickVersionHistory",
 								@"statusDisplayNumber",
                                 @"lastLaunchTime",
+                                @"allow64BitIntelOpenvpnOnTigerOrLeopard",
                                 
                                 @"disableAdvancedButton",
                                 @"disableCheckNowButton",
@@ -3834,9 +3835,8 @@ static void signal_handler(int signalNumber)
 
 -(NSUInteger) defaultOpenVPNVersionIx {
     
-    // Returns the index into the openvpnVersionNames and openvpnVersionInfo arrays of the version of OpenVPN to use for this version of OS X
-    //         On 10.6 & up,   use lowest non-2.2.x if it is available, otherwise, lowest version
-    //         On 10.4 & 10.5, use 2.2.1            if it is available, otherwise, lowest version
+    // Returns the index into the openvpnVersionNames and openvpnVersionInfo arrays of the version of OpenVPN to use
+    // That is, the lowest non-2.2.x version if one is available, otherwise, returns the lowest version
     
     NSArray  * versionNames = [self openvpnVersionNames];
     if (  [versionNames count] == 0  ) {
@@ -3847,7 +3847,6 @@ static void signal_handler(int signalNumber)
     
     NSUInteger useVersionIx = 0; // Default to lowest version
     
-    if (  runningOnSnowLeopardOrNewer()  ) {
         // Search for an OpenVPN that isn't 2.2-something
         NSUInteger ixForOpenVPN_Non_2_2 = NSNotFound;
         NSUInteger ix;
@@ -3860,14 +3859,6 @@ static void signal_handler(int signalNumber)
         if (  ixForOpenVPN_Non_2_2 != NSNotFound  ) {
             useVersionIx = ixForOpenVPN_Non_2_2;
         }
-    } else {
-        NSUInteger ixForOpenVPN_2_2_1 = [versionNames indexOfObject: @"2.2.1"];
-        if (  ixForOpenVPN_2_2_1 != NSNotFound  ) {
-            useVersionIx = ixForOpenVPN_2_2_1;
-        } else {
-            NSLog(@"On OS X 10.4 or 10.5 but OpenVPN version 2.2.1 is not available. Using version %@", [versionNames objectAtIndex: 0]);
-        }
-    }
     
     return useVersionIx;
 }
@@ -4114,9 +4105,9 @@ static void signal_handler(int signalNumber)
 		NSString * useVersion = [[self openvpnVersionNames] lastObject];
         if (  [gTbDefaults canChangeValueForKey: @"*-openvpnVersion"]  ) {
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-							 [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest (currently version %@) as the default.", @"Window text"),
+							 [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest version (%@) as the default.", @"Window text"),
 							  prefVersion, useVersion]);
-            NSLog(@"OpenVPN version %@ is not available. Using the latest (currently version %@) as the default", prefVersion, useVersion);
+            NSLog(@"OpenVPN version %@ is not available. Using the latest version (%@) as the default", prefVersion, useVersion);
             [gTbDefaults setObject: @"-" forKey: @"*-openvpnVersion"];
         } else {
             NSLog(@"'*-openvpnVersion' is being forced to '%@'. That version is not available in this version of Tunnelblick", prefVersion);
@@ -4991,7 +4982,7 @@ BOOL warnAboutNonTblks(void)
             return NO;
         }
 
-		int response = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick VPN Configuration Installation", @"Window title"),
+		int response = TBRunAlertPanelExtended(NSLocalizedString(@"VPN Configuration Installation", @"Window title"),
 											   NSLocalizedString(@"You have one or more OpenVPN configurations that will not be available"
                                                                  @" when using this version of Tunnelblick. You can:\n\n"
 																 @"  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n"
@@ -5015,7 +5006,7 @@ BOOL warnAboutNonTblks(void)
 			return YES;
 		}
         
-        response = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation", @"Window title"),
+        response = TBRunAlertPanel(NSLocalizedString(@"VPN Configuration Installation", @"Window title"),
 								   NSLocalizedString(@"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\n"
 													 @"CONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n", @"Window text"),
 								   NSLocalizedString(@"Convert Configurations", @"Button"), // Default return

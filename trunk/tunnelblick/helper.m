@@ -24,6 +24,7 @@
 
 #import <unistd.h>
 #import <mach/mach_time.h>
+#import <sys/sysctl.h>
 
 #import "defines.h"
 #import "sharedRoutines.h"
@@ -137,6 +138,34 @@ BOOL runningOnMavericksOrNewer(void)
 BOOL runningOnYosemiteOrNewer(void)
 {
     return runningOnNewerThan(10, 9);
+}
+
+BOOL runningOnIntel(void) {
+    
+    // Returns NO if it can be determined that this is a PowerPC, YES otherwise
+    
+	unsigned value = 0;
+	unsigned long length = sizeof(value);
+	
+	int error = sysctlbyname("hw.cputype", &value, &length, NULL, 0);
+	if (  error == 0 ) {
+		switch(value) {
+			case 7:
+                return YES; // Intel
+                break;
+                
+			case 18:
+                return NO;  // PPC
+                break;
+                
+			default:
+                NSLog(@"Unknown CPU type %u; assuming Intel", value);
+                return YES;
+		}
+	}
+    
+    NSLog(@"An error occured trying to detect CPU type with sysctlbyname; assuming Intel; error was %lu: %s", (long)errno, strerror(errno));
+    return YES;
 }
 
 BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
@@ -335,7 +364,7 @@ NSString * tunnelblickVersion(NSBundle * bundle)
                              : infoShort);
     
     NSString * appVersionWithoutBuild;
-    unsigned parenStart;
+    NSUInteger parenStart;
     if (  ( parenStart = ([appVersion rangeOfString: @" ("].location) ) == NSNotFound  ) {
         // No " (" in version, so it doesn't have a build # in it
         appVersionWithoutBuild   = appVersion;

@@ -457,7 +457,7 @@ extern TBUserDefaults * gTbDefaults;
 			|| ( ! [gFileMgr tbCopyPath: ourPlistPath toPath: installedPlistPath handler: nil] )  ) {
             NSLog(@"Failed to copy: %@ to %@", ourPlistPath, installedPlistPath);
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                              NSLocalizedString(@"Tunnelblick could not set up to be able to launch itself when you log in.\n\n"
+                              NSLocalizedString(@"Tunnelblick could not be configured to automatically launch itself after you log in.\n\n"
                                                 @"See the Console log for details.", @"Window text"));
         } else {
             NSLog(@"Copied our 'net.tunnelblick.tunnelblick.LaunchAtLogin.plist' into ~/Library/LaunchAgents");
