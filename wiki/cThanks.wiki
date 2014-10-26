@@ -5,34 +5,43 @@
 Tunnelblick is made possible by the efforts of many people:
 
 <table>
-   <tr>
-    <td colspan="2">
-<font size="4"><strong>Program and Documentation</strong></font></td>
-  </tr>
-
- <tr>
-    <td>      Name    </td>
-    <td>      Contribution    </td>
+  <tr>
+    <td colspan="2"><font size="4"><strong>Program and Documentation</strong></font></td>
   </tr>
 
   <tr>
-    <td>      Angelo Laub    </td>
+    <td>      <table><tr><td></td></tr></table>   </td>
+    <td>      <table><tr><td></td></tr></table>    </td>
+  </tr>
+
+<tr>
+    <td>      _Name_    </td>
+    <td>      _Contribution_    </td>
+  </tr>
+
+  <tr>
+    <td>      <table><tr><td></td></tr></table>   </td>
+    <td>      <table><tr><td></td></tr></table>    </td>
+  </tr>
+
+  <tr>
+    <td>      *Angelo Laub*    </td>
     <td>      Founder, original program and documentation    </td>
   </tr>
 
   <tr>
-    <td>      James Yonan    </td>
+    <td>      *James Yonan*    </td>
     <td>      OpenVPN    </td>
   </tr>
 
   <tr>
-    <td>      Dirk Theisen    </td>
+    <td>      *Dirk Theisen*    </td>
     <td>      Contributed much to the early code    </td>
   </tr>
 
   <tr>
-    <td>      Jonathan Bullard    </td>
-    <td>      Program and documentation enhancements and maintenance after version 3.0b10    </td>
+    <td>      *Jonathan Bullard*    </td>
+    <td>      Program and documentation enhancements and maintenance since 2009    </td>
   </tr>
 
   <tr>
@@ -146,14 +155,28 @@ Tunnelblick is made possible by the efforts of many people:
     </td>
   </tr>
 
+  <tr>
+    <td>      <table><tr><td></td></tr></table>   </td>
+    <td>      <table><tr><td></td></tr></table>    </td>
+  </tr>
+
  <tr>
-    <td colspan="2">
-<font size="4"><strong>Localization</strong></font></td>
+    <td colspan="2"><font size="4"><strong>Localization</strong></font></td>
+ </tr>
+
+ <tr>
+    <td>      <table><tr><td></td></tr></table>   </td>
+    <td>      <table><tr><td></td></tr></table>    </td>
+  </tr>
+
+<tr>
+    <td>      _Name_    </td>
+    <td>      _Language_    </td>
   </tr>
 
   <tr>
-    <td>      Name    </td>
-    <td>      Language    </td>
+    <td>      <table><tr><td></td></tr></table>   </td>
+    <td>      <table><tr><td></td></tr></table>    </td>
   </tr>
 
   <tr>
