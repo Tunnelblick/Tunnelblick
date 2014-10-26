@@ -9,7 +9,7 @@
 
  * The _new_ way of localizing the Tunnelblick application is described on this page.
 
- * Localizing the names of configurations and other content that can be added to Tunnelblick is described in [cLocalizeConfigurations Localizing Configurations].
+ * Localizing the names of configurations and other content that can be added to Tunnelblick is described in [cLocalizeConfigurations Other Localization].
 
  * Comments about specific strings used in Tunnelblick are on the [cTranslationNotes Translation Notes] page.
 
@@ -27,49 +27,7 @@
   * You can help a little or a lot, all help is welcome!
   * Everyone who makes a meaningful contribution will be credited on Tunnelblick's [cThanks Thanks page] and on the "Info" panel of the application itself.
 
-<hr>
-
-*Working with Crowdin*
-
-Working with Crowdin is self-explanatory for the most part. Here a a few things to keep in mind about the way Tunnelblick is using Crowdin:
-
- * All the translations for Tunnelblick 3.3 have been imported into Crowdin as approved translations.
-
- * Most languages have about 200 new strings to translate for Tunnelblick 3.4, although a few languages which were not completely translated in Tunnelblick 3.3 have more. The new languages, Danish and Bulgarian, have several hundred strings.
-
- * When working on Crowdin, it is tempting to click the copy source button, translate the strgin, and then click the double arrow button next to it to move to the next one. However, *clicking the double arrow button loses your translation* when it moves you to the next string to translate. Instead, *click the commit button* when you want to save your translation. That will also move you to the next string to translate. (Thanks to Jarmo Isotalo for this tip!)
-
- * When you write or reply to a Crowdin "comment" or "issue", if you include "@name" (where "name" is someone's Crowdin name) somewhere in your text, that person will get an email notifying them of the comment/issue. If there is anything you want to notify the translation manager, include "@Tunnelbick" somewhere in the comment/issue or in your reply.
-
- * Please write all Crowdin "comments" and "issues" in English because they are seen by all translators.
-
- * Translators can "vote" for different translations of a string, but because most Tunnelblick languages have a very small number of translators (many languages have only one translator), voting is probably not very helpful.
-
- * Crowdin can be set up to require that a "proofreader" approve all new translations, to ensure that translations are appropriate. However, that means a lot more work for translators. So currently that feature is disabled. That may be changed in the future.
-
- * Weekly builds of Tunnelblick will be created so translators can see their progress, but the schedule can be adjusted as needed and they can be made "on demand" if necessary. To request a build with updated translations, email project owner Jon at jkbullard at gmail. 
-
-<hr>
-
-*"Odd" characters in Strings*
- * Some of the strings have character sequences of "\n". This causes a line break when the text is displayed. A sequence of "\n\n" would cause a line break followed by an empty line.
-
- * Some of the strings have %@, %d, or other special sequences of characters. They indicate a place where some other item (a filename, a number, etc.) will be inserted into the string. Usually that's all there is to it.
-
-However, when there are two or more such items in one string, the target language may need to use them in a different order than English uses.
-
- Here's an example: for English speakers, one of the distinctive features of the character Yoda in _Star Wars_ was the way he spoke -- he spoke "backwards". For example, he would say "Hot the food is", when the usual way to express that in English is "The food is hot". If the string is
-
- "Sometimes, the %1$@ is %2$@.";
-
- we would translate that into Yoda's English by changing it to
-
-  "Sometimes, %2$@ the %1$@ is."
-
- or possibly
-
-  "%2$@ the %1$@ is, sometimes."
-
+  * See [cUsingCrowdin Using Crowdin] for specific procedures that the Tunnelblick Crowdin project uses to sign up for and use Crowdin.
 
 ------------------
 
