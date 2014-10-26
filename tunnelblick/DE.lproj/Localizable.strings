@@ -350,9 +350,6 @@
 "Flush DNS cache after connecting or disconnecting" = "DNS-Cache nach dem Verbinden oder Trennen löschen";
 
 /* Checkbox name */
-"Include anonymous profile information" = "Anonyme Profilinformationen beifügen";
-
-/* Checkbox name */
 "Inhibit automatic update checking and IP Address checking" = "Automatische Suche nach Updates und IP-Adressen-Überprüfung unterbinden";
 
 /* Checkbox name */
@@ -380,13 +377,16 @@
 "Reset the primary interface after disconnecting" = "Das primäre Interface nach dem Trennen der Verbindung zurücksetzen";
 
 /* Checkbox name */
-"Route all traffic through the VPN" = "Gesamten Netzwerkverkehr über die VPN-Verbindung leiten";
+"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
 
 /* Checkbox name */
 "Run MTU maximum size test after connecting" = "MTU nach Verbindungsaufbau automatisch bestimmen";
 
 /* Checkbox name */
 "Save in Keychain" = "Im Schlüsselbund sichern";
+
+/* Checkbox name */
+"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "DNS nach dem Routen statt vor dem Routen festlegen";
@@ -524,9 +524,6 @@
 "Change for All Selected Configurations?" = "Für alle ausgewählten Konfigurationen ändern?";
 
 /* Window title */
-"Configuration Installation Error" = "Fehler bei der Installation der Konfiguration";
-
-/* Window title */
 "Configuration(s) Ignored" = "Konfiguration(en) ignoriert";
 
 /* Window title */
@@ -611,13 +608,10 @@
 "Preferences" = "Einstellungen";
 
 /* Window title */
-"Replace Configuration?" = "Konfiguration ersetzen?";
-
-/* Window title */
-"Replace Existing Configuration?" = "Vorhandene Konfiguration ersetzen?";
-
-/* Window title */
 "Replace Existing File?" = "Vorhandene Datei ersetzen?";
+
+/* Window title */
+"Replace VPN Configuration?" = "Replace VPN Configuration?";
 
 /* Window title */
 "Sample Configuration Created" = "Beispielkonfiguration erstellt";
@@ -629,22 +623,10 @@
 "System Requirements Not Met" = "Systemvoraussetzungen nicht erfüllt";
 
 /* Window title */
-"Tunnelblick Configuration Installation Error" = "Installationsfehler bei Tunnelblick-Konfiguration";
-
-/* Window title */
-"Tunnelblick Configuration Installer" = "Tunnelblick Konfigurations-Installer";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick-Konfigurationsproblem";
 
 /* Window title */
 "Tunnelblick Error" = "Tunnelblick-Fehler";
-
-/* Window title */
-"Tunnelblick VPN Configuration Installation Error" = "Installationsfehler mit Tunnelblick-VPN-Konfiguration";
-
-/* Window title */
-"Tunnelblick VPN Configuration Installation" = "Installation der Tunnelblick-VPN-Konfiguration";
 
 /* Window title */
 "Tunnelblick is currently running" = "Tunnelblick wird gerade ausgeführt";
@@ -669,6 +651,12 @@
 
 /* Window title */
 "Utilities" = "Dienstprogramme";
+
+/* Window title */
+"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+
+/* Window title */
+"VPN Configuration Installation" = "VPN Configuration Installation";
 
 /* Window title */
 "VPN Credentials" = "VPN-Zugangsdaten";
@@ -827,7 +815,10 @@
 "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Fehler beim Überprüfen der Public IP dieser Maschine.\n\nDetails sind im Konsolen-Log zu finden.\n\n";
 
 /* Window text */
-"A username and password are required to connect to\n  %@%@" = "Für eine Verbindung mit\n  %1$@%2$@\nwerden ein Benutzername und ein Kennwort benötigt.";
+"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
+
+/* Window text */
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
 
 /* Window text */
 "Add Credentials..." = "Zugangsdaten hinzufügen…";
@@ -836,7 +827,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "'.sh' Erweiterung zu %@ hinzugefügt, um Sicherung zu gewährleisten";
 
 /* Window text */
-"Added a 'key' extension to %@ so it will be secured properly" = "'key' Erweiterung zu %@ hinzugefügt, um Sicherung zu gewährleisten";
+"Added a '.key' extension to %@ so it will be secured properly" = "Added a '.key' extension to %@ so it will be secured properly";
 
 /* Window text */
 "Additional contributions by" = "Mit zusätzlichen Beiträgen von";
@@ -1187,7 +1178,7 @@
 "OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN Version %1$@ ist nicht verfügbar. Diese Konfiguration wird für die Verwendung der neuesten Version (%2$@) angepasst, die in dieser Version von Tunnelblick enthalten ist.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest (currently version %@) as the default." = "OpenVPN Version %1$@ ist nicht verfügbar. Nutze die neuste Version (derzeit Version %2$@) als Standard.";
+"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN version %1$@ is not available. Using the latest version (%2$@) as the default.";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN Version:";
@@ -1418,6 +1409,9 @@
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick kann prüfen, ob sich die scheinbare öffentliche IP Ihres Computers bei der Verbindungsherstellung zu einem VPN ändert und Sie warnen, falls dies nicht geschieht.\n\nDies kann Tunnelblick dabei helfen, Probleme mit Ihrer Verbindung zu diagnostizieren.\n\nDieser Prozess versucht auf \n%@ zuzugreifen\n\nMöchten Sie solche IP Adresswechsel überwachen lassen?\n";
 
 /* Window text */
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details.";
+
+/* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick konnte wegen einem Problem mit der Konfiguration nicht starten (Näheres in der Konsole).";
 
 /* Window text */
@@ -1443,9 +1437,6 @@
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick kann die Konfiguration „%@“ nicht bewegen (Näheres in der Konsole).";
-
-/* Window text */
-"Tunnelblick could not set up to be able to launch itself when you log in.\n\nSee the Console log for details." = "Tunnelblick konnte nicht so eingerichtet werden, dass es sich selbst starten kann, wenn Sie sich anmelden.\n\nDetails sind im Konsolen-Log zu finden.";
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick konnte die '%@' Konfiguration nicht deinstallieren (Näheres in der Konsole).";
@@ -1805,6 +1796,9 @@
 "German localization" = "Deutsche Lokalisierung";
 
 /* Credit description */
+"Greek localization" = "Greek localization";
+
+/* Credit description */
 "Hungarian localization" = "Ungarischen Lokalisierung";
 
 /* Credit description */
@@ -1844,7 +1838,7 @@
 "Polish localization" = "Polnische Lokalisierung";
 
 /* Credit description */
-"Portuguese localization" = "Portugiesische Lokalisierung";
+"Portuguese (Brazilian) localization" = "Portuguese (Brazilian) localization";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Erweiterungen im Programm und der Dokumentation ab Version 3.0b10";
