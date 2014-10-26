@@ -57,12 +57,11 @@
 	NSString * group = credentialsGroupFromDisplayName(displayName);
 	NSString * text;
     if (  group  ) {
-		text = [NSString stringWithFormat:
-                    NSLocalizedString(@"A username and password are required to connect to\n  %@\n(using '%@' credentials)", @"Window text"),
-                    localName, group];
+		text = [NSString stringWithFormat: NSLocalizedString(@"A username and password are required to connect to\n  %@\n(using '%@' credentials)", @"Window text"),
+				localName, group];
     } else {
         text = [NSString stringWithFormat: NSLocalizedString(@"A username and password are required to connect to\n  %@", @"Window text"),
-                group];
+                localName];
     }
     
     [mainText setTitle: text];
