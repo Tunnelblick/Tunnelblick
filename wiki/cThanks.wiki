@@ -182,6 +182,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Diego Silva Cogo     </td>
+    <td>      Portuguese (Brazilian)    </td>
+  </tr>
+
+  <tr>
     <td>      Mats Cronqvist     </td>
     <td>      Swedish    </td>
   </tr>
@@ -242,8 +247,8 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
    <tr>
-    <td>      Evandro Hora   </td>
-    <td>      Portuguese    </td>
+    <td>      Evandro Curvelo Hora   </td>
+    <td>      Portuguese (Brazilian)    </td>
   </tr>
 
   <tr>
@@ -254,6 +259,11 @@ Tunnelblick is made possible by the efforts of many people:
    <tr>
     <td>      Jarmo Isotalo      </td>
     <td>      Finnish    </td>
+  </tr>
+
+  <tr>
+    <td>      Tom Kacmary    </td>
+    <td>      Slovak    </td>
   </tr>
 
   <tr>
@@ -302,11 +312,6 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
-    <td>      Tom Kacmary    </td>
-    <td>      Slovak    </td>
-  </tr>
-
-  <tr>
     <td>      Jakob Bo Søndergaard Madsen    </td>
     <td>      Danish    </td>
   </tr>
@@ -323,7 +328,7 @@ Tunnelblick is made possible by the efforts of many people:
 
    <tr>
     <td>      Denis Volpato Martins    </td>
-    <td>      Portuguese    </td>
+    <td>      Portuguese (Brazilian)    </td>
   </tr>
 
    <tr>
@@ -347,6 +352,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Tzanos Panagiotis      </td>
+    <td>      Greek    </td>
+  </tr>
+
+  <tr>
     <td>      Petra Penttila      </td>
     <td>      Finnish    </td>
   </tr>
@@ -367,8 +377,8 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
    <tr>
-    <td>      Ricardo Rezende    </td>
-    <td>      Portuguese    </td>
+    <td>      Ricardo Rezende de Deus Barbosa    </td>
+    <td>      Portuguese (Brazilian)    </td>
   </tr>
 
  <tr>
@@ -419,6 +429,11 @@ Tunnelblick is made possible by the efforts of many people:
   <tr>
     <td>      Marcell Szabo      </td>
     <td>      Hungarian    </td>
+  </tr>
+
+  <tr>
+    <td>      TheFrog      </td>
+    <td>      Slovak    </td>
   </tr>
 
   <tr>
