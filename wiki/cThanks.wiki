@@ -432,7 +432,7 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
-    <td>      TheFrog      </td>
+    <td>      !TheFrog      </td>
     <td>      Slovak    </td>
   </tr>
 
