@@ -53,21 +53,18 @@
     [iconIV setImage: [NSApp applicationIconImage]];
     
 	NSString * displayName = [[self delegate] displayName];
-	NSString * groupMsg;
-	NSString * group = credentialsGroupFromDisplayName(displayName);
-	if (  group  ) {
-		groupMsg = [NSString stringWithFormat: NSLocalizedString(@"\nusing %@ credentials.", @"Window text"),
-					group];
-	} else {
-		groupMsg = @"";
-	}
-	
     NSString * localName = [[NSApp delegate] localizedNameForDisplayName: displayName];
-	NSString * text = [NSString stringWithFormat:
-                       NSLocalizedString(@"A username and password are required to connect to\n  %@%@", @"Window text"),
-                       localName,
-					   groupMsg];
-	
+	NSString * group = credentialsGroupFromDisplayName(displayName);
+	NSString * text;
+    if (  group  ) {
+		text = [NSString stringWithFormat:
+                    NSLocalizedString(@"A username and password are required to connect to\n  %@\n(using '%@' credentials)", @"Window text"),
+                    localName, group];
+    } else {
+        text = [NSString stringWithFormat: NSLocalizedString(@"A username and password are required to connect to\n  %@", @"Window text"),
+                group];
+    }
+    
     [mainText setTitle: text];
     
     [usernameTFC setTitle: NSLocalizedString(@"Username:", @"Window text")];

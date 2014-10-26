@@ -1864,6 +1864,15 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         bitMask = bitMask | OPENVPNSTART_EXTRA_LOGGING;
     }
     
+    // There is a bug in the 64-bit Intel version of OS X 10.5 libresolv that causes some versions of OpenVPN to crash.
+    // It isn't clear if the same bug exists in 10.4.4 and higher, which support Intel, but we assume it does.
+    // So we force use of the 32-bit version of OpenVPN if running under 10.4 or 10.5 on Intel unless the user specifies the 64-bit version is OK
+    if (   ( ! [gTbDefaults boolForKey: @"allow64BitIntelOpenvpnOnTigerOrLeopard"])
+        && ( ! runningOnSnowLeopardOrNewer())
+        && runningOnIntel()  ) {
+        bitMask = bitMask | OPENVPNSTART_USE_I386_OPENVPN;
+    }
+    
     NSString * bitMaskString = [NSString stringWithFormat: @"%d", bitMask];
     
     NSString * leasewatchOptionsKey = [displayName stringByAppendingString: @"-leasewatchOptions"];

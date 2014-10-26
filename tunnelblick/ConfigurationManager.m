@@ -355,7 +355,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             if (   [gFileMgr fileExistsAtPath: [gPrivatePath stringByAppendingPathComponent: last]]
                 || [gFileMgr fileExistsAtPath: [gPrivatePath stringByAppendingPathComponent: lastButOvpn]]
                 || [gFileMgr fileExistsAtPath: [gPrivatePath stringByAppendingPathComponent: lastButConf]]  ) {
-                int result = TBRunAlertPanel(NSLocalizedString(@"Replace Existing Configuration?", @"Window title"),
+                int result = TBRunAlertPanel(NSLocalizedString(@"Replace VPN Configuration?", @"Window title"),
                                              [NSString stringWithFormat: NSLocalizedString(@"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?", @"Window text"), name],
                                              NSLocalizedString(@"Replace", @"Button"),
                                              NSLocalizedString(@"Cancel" , @"Button"),
@@ -1033,7 +1033,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return sharedOrPrivate;
     }
     
-    int result = TBRunAlertPanel(NSLocalizedString(@"Replace Configuration?", @"Window title"),
+    int result = TBRunAlertPanel(NSLocalizedString(@"Replace VPN Configuration?", @"Window title"),
                                  [NSString stringWithFormat: NSLocalizedString(@"Do you wish to replace the '%@' configuration?\n\n", @"Window text"), localizedName],
                                  NSLocalizedString(@"Replace"  , @"Button"),    // Default button
                                  NSLocalizedString(@"Skip"     , @"Button"),    // Alternate button
@@ -1433,7 +1433,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                     buttonName = NSLocalizedString(@"Replace", @"Button");
                 }
                 
-                int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Configuration Installer", @"Window title"),
+                int result = TBRunAlertPanel(NSLocalizedString(@"VPN Configuration Installation", @"Window title"),
                                              msg,
                                              buttonName,                                    // Default button
                                              NSLocalizedString(@"Skip"     , @"Button"),    // Alternate button
@@ -2125,7 +2125,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
     }
     if (  tooBigMsg  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+        TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation Error", @"Window title"),
                           [NSString stringWithFormat:
 						   NSLocalizedString(@"There was a problem:\n\n"
 										     @"%@", "Window text"),
@@ -2201,7 +2201,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	} else {
         
         if (  ! skipConfirmMsg  ) {
-            int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Configuration Installer", @"Window title"),
+            int result = TBRunAlertPanel(NSLocalizedString(@"VPN Configuration Installation", @"Window title"),
                                          authMsg,
                                          NSLocalizedString(@"OK",      @"Button"),   // Default button
                                          NSLocalizedString(@"Cancel",  @"Button"),   // Alternate button
@@ -2356,7 +2356,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 				   (unsigned long)nTotalErrors, installerErrorMessages, headerMsg, uninstallMsg, replaceMsg, installMsg];
 		}
 		
-		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Configuration Installer", @"Window title"), msg);
+		TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation", @"Window title"), msg);
 	}
 	
     return (  nTotalErrors == 0
@@ -2458,7 +2458,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             && ( ! [self installToSharedOK]  )
             )
         ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+        TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation Error", @"Window title"),
                           NSLocalizedString(@"Installing configurations is not allowed", "Window text"));
         if (  notifyDelegate  ) {
             [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
@@ -2526,7 +2526,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 				[self cleanupInstallAndNotifyDelegate: notifyDelegate delegateNotifyValue: NSApplicationDelegateReplyCancel];
 				return;
 			} else if (  [result isNotEqualTo: @"skip"]  ) {
-				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Configuration Installation Error", @"Window title"),
+				TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation Error", @"Window title"),
 								  [NSString stringWithFormat:
 								   NSLocalizedString(@"Installation failed:\n\n%@", "Window text"),
 								   result]);
@@ -2544,7 +2544,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 				[self cleanupInstallAndNotifyDelegate: notifyDelegate delegateNotifyValue: NSApplicationDelegateReplyCancel];
 				return;
 			} else if (  [result isNotEqualTo: @"skip"]  ) {
-				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick Configuration Installation Error", @"Window title"),
+				TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation Error", @"Window title"),
 								  [NSString stringWithFormat:
 								   NSLocalizedString(@"Installation failed:\n\n%@", "Window text"),
 								   result]);

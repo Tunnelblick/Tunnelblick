@@ -660,8 +660,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                 || ( ! [KEY_AND_CRT_EXTENSIONS containsObject: extension] )  ) {
                 fileWithNeededExtension = [file stringByAppendingPathExtension: @"key"];
                 inPathWithAddedExtension = [inPath stringByAppendingPathExtension: @"sh"];
-                [self logMessage: [NSString stringWithFormat: @"Added a 'key' extension to %@ so it will be secured properly", file]
-                       localized: [NSString stringWithFormat: NSLocalizedString(@"Added a 'key' extension to %@ so it will be secured properly", @"Window text"), file]];
+                [self logMessage: [NSString stringWithFormat: @"Added a '.key' extension to %@ so it will be secured properly", file]
+                       localized: [NSString stringWithFormat: NSLocalizedString(@"Added a '.key' extension to %@ so it will be secured properly", @"Window text"), file]];
             }
         }
 		

@@ -464,7 +464,7 @@ extern TBUserDefaults       * gTbDefaults;
     [disconnectOnSleepCheckbox              setTitle: NSLocalizedString(@"Disconnect when computer goes to sleep"                , @"Checkbox name")];
     [reconnectOnWakeFromSleepCheckbox       setTitle: NSLocalizedString(@"Reconnect when computer wakes from sleep (if connected when computer went to sleep)", @"Checkbox name")];
     [resetPrimaryInterfaceAfterDisconnectCheckbox setTitle: NSLocalizedString(@"Reset the primary interface after disconnecting" , @"Checkbox name")];
-    [routeAllTrafficThroughVpnCheckbox      setTitle: NSLocalizedString(@"Route all traffic through the VPN"                     , @"Checkbox name")];
+    [routeAllTrafficThroughVpnCheckbox      setTitle: NSLocalizedString(@"Route all IPv4 traffic through the VPN"                , @"Checkbox name")];
     [runMtuTestCheckbox                     setTitle: NSLocalizedString(@"Run MTU maximum size test after connecting"            , @"Checkbox name")];
     
     [fastUserSwitchingBox                   setTitle: NSLocalizedString(@"Fast User Switching"                  , @"Window text")];
