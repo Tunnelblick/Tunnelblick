@@ -350,9 +350,6 @@
 "Flush DNS cache after connecting or disconnecting" = "Azzera la cache del DNS dopo esserti connesso o disconnesso";
 
 /* Checkbox name */
-"Include anonymous profile information" = "Includi informazioni anonime sul profilo";
-
-/* Checkbox name */
 "Inhibit automatic update checking and IP Address checking" = "Disabilita la ricerca automatica di aggiornamenti e la verifica dell'indirizzo IP";
 
 /* Checkbox name */
@@ -380,13 +377,16 @@
 "Reset the primary interface after disconnecting" = "Reimposta l’interfaccia primaria dopo la disconnessione";
 
 /* Checkbox name */
-"Route all traffic through the VPN" = "Instrada tutto il traffico attraverso la VPN";
+"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
 
 /* Checkbox name */
 "Run MTU maximum size test after connecting" = "Esegui il test per determinare la massima dimensione dei pacchetti (MTU) da utilizzare dopo la connessione";
 
 /* Checkbox name */
 "Save in Keychain" = "Salva nel Portachiavi";
+
+/* Checkbox name */
+"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "Imposta il server DNS dopo che le route sono state impostate anziché prima";
@@ -524,9 +524,6 @@
 "Change for All Selected Configurations?" = "Applica la modifica per tutte le Configurazioni selezionate?";
 
 /* Window title */
-"Configuration Installation Error" = "Errore di installazione della configurazione";
-
-/* Window title */
 "Configuration(s) Ignored" = "Configurazione ignorata";
 
 /* Window title */
@@ -611,13 +608,10 @@
 "Preferences" = "Preferenze";
 
 /* Window title */
-"Replace Configuration?" = "Sostituisci la Configurazione?";
-
-/* Window title */
-"Replace Existing Configuration?" = "Sostituire la configurazione esistente?";
-
-/* Window title */
 "Replace Existing File?" = "Sostituire il file esistente?";
+
+/* Window title */
+"Replace VPN Configuration?" = "Replace VPN Configuration?";
 
 /* Window title */
 "Sample Configuration Created" = "Configurazione di esempio creata";
@@ -629,22 +623,10 @@
 "System Requirements Not Met" = "Requisiti di sistema non soddisfatti";
 
 /* Window title */
-"Tunnelblick Configuration Installation Error" = "Errore nell'installazione della Configurazione Tunnelblick";
-
-/* Window title */
-"Tunnelblick Configuration Installer" = "Installatore Configurazioni Tunnelblick";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Problema di configurazione di Tunnelblick";
 
 /* Window title */
 "Tunnelblick Error" = "Errore di Tunnelblick";
-
-/* Window title */
-"Tunnelblick VPN Configuration Installation Error" = "Errore nell'installazione della configurazione VPN di Tunnelblick";
-
-/* Window title */
-"Tunnelblick VPN Configuration Installation" = "Installazione della configurazione VPN di Tunnelblick";
 
 /* Window title */
 "Tunnelblick is currently running" = "Tunnelblick è in esecuzione";
@@ -669,6 +651,12 @@
 
 /* Window title */
 "Utilities" = "Utilità";
+
+/* Window title */
+"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+
+/* Window title */
+"VPN Configuration Installation" = "VPN Configuration Installation";
 
 /* Window title */
 "VPN Credentials" = "Credenziali VPN";
@@ -827,7 +815,10 @@
 "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Si è verificato un errore durante la verifica dell'indirizzo IP pubblico.\n\nDettagli disponibili attraverso l'applicazione 'Console'.\n\n";
 
 /* Window text */
-"A username and password are required to connect to\n  %@%@" = "È necessario inserire un nome utente ed una password per connettersi a\n  %1$@%2$@";
+"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
+
+/* Window text */
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
 
 /* Window text */
 "Add Credentials..." = "Aggiungi Credenziali…";
@@ -836,7 +827,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "È stata aggiunta l'estensione '.sh' a %@ in modo da aumentarne la sicurezza";
 
 /* Window text */
-"Added a 'key' extension to %@ so it will be secured properly" = "L'estensione '.key' è stata aggiunta a %@ in modo da migliorarne la sicurezza";
+"Added a '.key' extension to %@ so it will be secured properly" = "Added a '.key' extension to %@ so it will be secured properly";
 
 /* Window text */
 "Additional contributions by" = "Con i contributi di";
@@ -1187,7 +1178,7 @@
 "OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN versione %1$@ non è disponibile. Sto modificando questa configurazione per utilizzare la versione più recente (%2$@) che è inclusa in questa versione di Tunnelblick.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest (currently version %@) as the default." = "La versione %1$@ di OpenVPN non è disponibile. Verrà utilizzata l'ultima versione (%2$@) come default.";
+"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN version %1$@ is not available. Using the latest version (%2$@) as the default.";
 
 /* Window text */
 "OpenVPN version:" = "Versione di OpenVPN:";
@@ -1418,6 +1409,9 @@
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick può verificare che l’indirizzo IP pubblico del computer vari quando ci si connette ad una VPN e segnalare qualora non lo faccia.\n\nQuesto può aiutare  Tunnelblick a diagnosticare problemi con la connessione.\n\nDurante questa procedura verrà tentato l’accesso a \n%@\n\nVuoi verificare che questo indirizzo IP cambi?\n";
 
 /* Window text */
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details.";
+
+/* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick non riesce ad avviarsi a causa di un problema con la configurazione. Per favore esamina la Console per maggiori informazioni.";
 
 /* Window text */
@@ -1443,9 +1437,6 @@
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick non riesce a spostare la configurazione '%@'. Dai un occhio alla Console per i dettagli.";
-
-/* Window text */
-"Tunnelblick could not set up to be able to launch itself when you log in.\n\nSee the Console log for details." = "Tunnelblick non è riuscito ad impostare l'avvio automatico al login.\n\nÈ possibile consultare il log della Console per i dettagli.";
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick non riesce a disinstallare la configurazione '%@'. Dai un occhio alla Console per i dettagli.";
@@ -1805,6 +1796,9 @@
 "German localization" = "Localizzazione tedesca";
 
 /* Credit description */
+"Greek localization" = "Greek localization";
+
+/* Credit description */
 "Hungarian localization" = "Localizzazione ungherese";
 
 /* Credit description */
@@ -1844,7 +1838,7 @@
 "Polish localization" = "Localizzazione polacca";
 
 /* Credit description */
-"Portuguese localization" = "Localizzazione portoghese";
+"Portuguese (Brazilian) localization" = "Portuguese (Brazilian) localization";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Migliorie al programma ed alla documentazione dopo la versione 3.0b10";

@@ -350,9 +350,6 @@
 "Flush DNS cache after connecting or disconnecting" = "Vymazať vyrovnávaciu pamäť DNS po pripojení a odpojení";
 
 /* Checkbox name */
-"Include anonymous profile information" = "Priložiť anonymné informácie o profile";
-
-/* Checkbox name */
 "Inhibit automatic update checking and IP Address checking" = "Zabrániť automatickej kontrole aktualizácií a IP adresy";
 
 /* Checkbox name */
@@ -380,13 +377,16 @@
 "Reset the primary interface after disconnecting" = "Obnoviť nastavenia hlavného sieťového rozhrania po odpojení";
 
 /* Checkbox name */
-"Route all traffic through the VPN" = "Smerovať celú komunikáciu cez VPN";
+"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
 
 /* Checkbox name */
 "Run MTU maximum size test after connecting" = "Po pripojení spustiť test maximálnej veľkosti MTU";
 
 /* Checkbox name */
 "Save in Keychain" = "Uložiť v Kľúčenke";
+
+/* Checkbox name */
+"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "Nastaviť DNS po nastavení smerovania - namiesto pred";
@@ -524,9 +524,6 @@
 "Change for All Selected Configurations?" = "Zmeniť pre všetky vybrané konfigurácie?";
 
 /* Window title */
-"Configuration Installation Error" = "Chyba pri inštalácii konfigurácie";
-
-/* Window title */
 "Configuration(s) Ignored" = "Konfigurácie ignorované";
 
 /* Window title */
@@ -611,13 +608,10 @@
 "Preferences" = "Možnosti";
 
 /* Window title */
-"Replace Configuration?" = "Nahradiť konfiguráciu?";
-
-/* Window title */
-"Replace Existing Configuration?" = "Nahradiť existujúcu konfiguráciu?";
-
-/* Window title */
 "Replace Existing File?" = "Nahradiť existujúci súbor?";
+
+/* Window title */
+"Replace VPN Configuration?" = "Replace VPN Configuration?";
 
 /* Window title */
 "Sample Configuration Created" = "Vzorová konfigurácia vytvorená";
@@ -629,22 +623,10 @@
 "System Requirements Not Met" = "Systémové požiadavky programu neboli naplnené";
 
 /* Window title */
-"Tunnelblick Configuration Installation Error" = "Chyba pri inštalácii konfigurácie Tunnelblick";
-
-/* Window title */
-"Tunnelblick Configuration Installer" = "Tunnelblick Inštalátor konfigurácií";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Chyba konfigurácie Tunnelblick";
 
 /* Window title */
 "Tunnelblick Error" = "Chyba aplikácie Tunnelblick";
-
-/* Window title */
-"Tunnelblick VPN Configuration Installation Error" = "Chyba pri inštalácii konfigurácie Tunnelblick VPN";
-
-/* Window title */
-"Tunnelblick VPN Configuration Installation" = "Inštalácia konfigurácie Tunnelblick VPN";
 
 /* Window title */
 "Tunnelblick is currently running" = "Tunnelblick je spustený";
@@ -669,6 +651,12 @@
 
 /* Window title */
 "Utilities" = "Nástroje";
+
+/* Window title */
+"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+
+/* Window title */
+"VPN Configuration Installation" = "VPN Configuration Installation";
 
 /* Window title */
 "VPN Credentials" = "Prístupové údaje VPN";
@@ -827,7 +815,10 @@
 "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Vyskytol sa problém počas kontroly verejnej IP adresy tohto počítača.  Pozri Podrobnosti v denníku konzoly.  ";
 
 /* Window text */
-"A username and password are required to connect to\n  %@%@" = "Vyžaduje sa prihlasovacie meno a heslo pre pripojenie k \n  %1$@%2$@";
+"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
+
+/* Window text */
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
 
 /* Window text */
 "Add Credentials..." = "Pridať prístupové údaje…";
@@ -836,7 +827,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Priradená prípona \".sh\" k %@ , čím bude správne zabezpečená ";
 
 /* Window text */
-"Added a 'key' extension to %@ so it will be secured properly" = "Priradená prípona \"key\" k %@ , čím bude správne zabezpečená";
+"Added a '.key' extension to %@ so it will be secured properly" = "Added a '.key' extension to %@ so it will be secured properly";
 
 /* Window text */
 "Additional contributions by" = "Ďalší prispievatelia";
@@ -1187,7 +1178,7 @@
 "OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN verzie %1$@ nie je k dispozícii. Táto konfigurácia bude pozmenená tak, aby sa použila najnovšia verzia  (%2$@), ktorá je zahrnutá v tejto verzii programu Tunnelblick.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest (currently version %@) as the default." = "OpenVPN verzie %1$@ nie je k dispozícii. Použije sa posledná (aktuálna verzia %2$@) ako predvolená verzia.";
+"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN version %1$@ is not available. Using the latest version (%2$@) as the default.";
 
 /* Window text */
 "OpenVPN version:" = "Verzia OpenVPN:";
@@ -1418,6 +1409,9 @@
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick dokáže skontrolovať, či sa verejná IP adresa Vášho počítača po pripojení k VPN zmenila a varovať Vás, ak sa nezmenila.\n\nTo môže pomôcť aplikácii Tunnelblick pri diagnóze problémov použitého spojenia.\n\nTento proces vyžiadaje prístup k\n%@\n\nPrajete si skontrolovať zmeny súčasnej IP adresy?\n";
 
 /* Window text */
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details.";
+
+/* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Nebolo možné spustiť Tunnelblick kvôli problému s konfiguráciou. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
 
 /* Window text */
@@ -1443,9 +1437,6 @@
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Aplikácii Tunnelblick sa nepodarilo premiestniť konfiguráciu '%@'. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
-
-/* Window text */
-"Tunnelblick could not set up to be able to launch itself when you log in.\n\nSee the Console log for details." = "Nebolo možné nakonfigurovať Tunnelblick tak, aby sa automaticky spustil pri každom prihlásení užívateľa.\n\nPozri Podrobnosti v denníku konzoly.";
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Aplikácii Tunnelblick sa nepodarilo odinštalovať konfiguráciu '%@'. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
@@ -1805,6 +1796,9 @@
 "German localization" = "Preklad nemčiny";
 
 /* Credit description */
+"Greek localization" = "Greek localization";
+
+/* Credit description */
 "Hungarian localization" = "Preklad maďarčiny";
 
 /* Credit description */
@@ -1844,7 +1838,7 @@
 "Polish localization" = "Preklad do poľštiny";
 
 /* Credit description */
-"Portuguese localization" = "Preklad do portugalčiny";
+"Portuguese (Brazilian) localization" = "Portuguese (Brazilian) localization";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Vylepšenia programu a dokumentácie a obsluha od verzie 3.0b10";

@@ -350,9 +350,6 @@
 "Flush DNS cache after connecting or disconnecting" = "Tyhjennä DNS-välimuisti ennen yhteyden muodostamista tai katkaisemista";
 
 /* Checkbox name */
-"Include anonymous profile information" = "Sisällytä anonyymiä profiilitietoa";
-
-/* Checkbox name */
 "Inhibit automatic update checking and IP Address checking" = "Estä automaattinen päivitysten ja IP-osoitteen tarkistus";
 
 /* Checkbox name */
@@ -380,13 +377,16 @@
 "Reset the primary interface after disconnecting" = "Nollaa pääkäyttöliittymä yhteyden katkaisemisen jälkeen";
 
 /* Checkbox name */
-"Route all traffic through the VPN" = "Reititä kaikki liikenne VPN:n kautta";
+"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
 
 /* Checkbox name */
 "Run MTU maximum size test after connecting" = "Testaa MTU:n maksimikoko yhteydenmuodostuksen jälkeen";
 
 /* Checkbox name */
 "Save in Keychain" = "Tallenna Avainnippuun";
+
+/* Checkbox name */
+"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "Aseta DNS sen jälkeen, kun reitit on asetettu, sen sijaan, että se asetettaisiin ennen reittien asetusta";
@@ -524,9 +524,6 @@
 "Change for All Selected Configurations?" = "Muuta kaikille valituille konfiguraatioille?";
 
 /* Window title */
-"Configuration Installation Error" = "Virhe asennettaessa konfiguraatiota";
-
-/* Window title */
 "Configuration(s) Ignored" = "Konfiguraatio(t) jätetty huomiotta";
 
 /* Window title */
@@ -611,13 +608,10 @@
 "Preferences" = "Asetukset";
 
 /* Window title */
-"Replace Configuration?" = "Haluatko korvata vanhan konfiguraation?";
-
-/* Window title */
-"Replace Existing Configuration?" = "Korvaa olemassa oleva konfiguraatio?";
-
-/* Window title */
 "Replace Existing File?" = "Korvaa olemassa oleva tiedosto?";
+
+/* Window title */
+"Replace VPN Configuration?" = "Replace VPN Configuration?";
 
 /* Window title */
 "Sample Configuration Created" = "Mallikonfiguraatio luotu";
@@ -629,22 +623,10 @@
 "System Requirements Not Met" = "Järjestelmävaatimukset eivät täyty";
 
 /* Window title */
-"Tunnelblick Configuration Installation Error" = "Virhe asennettaessa Tunnelblick-konfiguraatiota";
-
-/* Window title */
-"Tunnelblick Configuration Installer" = "Tunnelblick-konfiguraation asentaja";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick-konfiguraatio-ongelma";
 
 /* Window title */
 "Tunnelblick Error" = "Tunnelblick-virhe";
-
-/* Window title */
-"Tunnelblick VPN Configuration Installation Error" = "Virhe asennettaessa Tunnelblick VPN-konfiguraatiota";
-
-/* Window title */
-"Tunnelblick VPN Configuration Installation" = "Tunnelblick VPN-konfiguraation asennus";
 
 /* Window title */
 "Tunnelblick is currently running" = "Tunnelblick on parhaillaan käynnissä";
@@ -669,6 +651,12 @@
 
 /* Window title */
 "Utilities" = "Työkalut";
+
+/* Window title */
+"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+
+/* Window title */
+"VPN Configuration Installation" = "VPN Configuration Installation";
 
 /* Window title */
 "VPN Credentials" = "VPN-käyttäjätunnukset";
@@ -827,7 +815,10 @@
 "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Tapahtui virhe, kun tarkistettiin tietokoneen julkista IP-osoitetta.\n\n\nKatso konsolilokista lisätietoja.\n\n";
 
 /* Window text */
-"A username and password are required to connect to\n  %@%@" = "Käyttäjätunnus ja salasana vaaditaan yhteyden muodostamiseen kohteeseen \n  %1$@%2$@";
+"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
+
+/* Window text */
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
 
 /* Window text */
 "Add Credentials..." = "Lisää käyttäjätunnus…";
@@ -836,7 +827,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Lisättiin '.sh' tiedostopääte kohteeseen %@, jotta se suojataan kunnolla";
 
 /* Window text */
-"Added a 'key' extension to %@ so it will be secured properly" = "Lisätiin pääte 'key' kohteeseen %@, jotta se suojataan kunnolla";
+"Added a '.key' extension to %@ so it will be secured properly" = "Added a '.key' extension to %@ so it will be secured properly";
 
 /* Window text */
 "Additional contributions by" = "Lisä kontribuutiot";
@@ -1187,7 +1178,7 @@
 "OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN versio %1$@ ei ole saatavilla. Muunnetaan konfiguraatio käyttämään uusinta versiota (%2$@), joka on sisällytetty tähän Tunnelblick-versioon.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest (currently version %@) as the default." = "OpenVPN-versio %1$@ ei ole saatavilla. Käytetään uusinta versiota (tällä hetkellä versio %2$@) oletuksena.";
+"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN version %1$@ is not available. Using the latest version (%2$@) as the default.";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN-versio:";
@@ -1418,6 +1409,9 @@
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick voi tarkistaa, että tietokoneen julkinen IP-osoite muuttuu, kun muodostat VPN-yhteyden ja varoittaa sinua, jos se ei muutu.\n\nTämä voi auttaa Tunnelblickiä diagnostisoimaan ongelmia yhteytesi kanssa.\n\nTämä prosessi yrittää käyttää \n%@\n\nHaluatko tarkistaa tämän IP-osoitteen muuttamisen?\n";
 
 /* Window text */
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details.";
+
+/* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblickiä ei voitu käynnistää konfiguraatio-ongelman vuoksi.  Tutki päätelokista lisätietoja.";
 
 /* Window text */
@@ -1443,9 +1437,6 @@
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt siirtämään konfiguraatiota '%@'. Katso päätelokista lisätietoja.";
-
-/* Window text */
-"Tunnelblick could not set up to be able to launch itself when you log in.\n\nSee the Console log for details." = "Tunnelblick ei pystynyt asettamaan itseään automaattisesti käynnistettäväksi voidakseen käynnistää itsensä, kun kirjaudut sisään.\n\nKatso lisätietoja konsolilokista.";
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt poistamaan konfiguraatiota '%@'. Katso päätelokista lisätietoja.";
@@ -1805,6 +1796,9 @@
 "German localization" = "Saksalainen käännös";
 
 /* Credit description */
+"Greek localization" = "Greek localization";
+
+/* Credit description */
 "Hungarian localization" = "Unkarilainen käännös";
 
 /* Credit description */
@@ -1844,7 +1838,7 @@
 "Polish localization" = "Puolalainen käännös";
 
 /* Credit description */
-"Portuguese localization" = "Portugalilainen käännös";
+"Portuguese (Brazilian) localization" = "Portuguese (Brazilian) localization";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Ohjelman ja dokumentaation kehitys ja ylläpito version 3.0b10 jälkeen";
