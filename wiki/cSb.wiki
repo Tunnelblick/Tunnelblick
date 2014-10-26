@@ -53,6 +53,7 @@
     [cIconAnimation Icon Animation]<br>
 *Localization & Translation*
     [cLocalizeTranslate Localizing Tunnelblick]<br>
+    [cUsingCrowdin Using Crowdin]<br>
     [cLocalizeConfigurations Other Localization]<br>
     [cTranslationNotes Translation Notes]<br>
     [cTranslationStatus Translation Status]<br><br>
