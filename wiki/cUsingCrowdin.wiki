@@ -35,7 +35,9 @@ Working with Crowdin is self-explanatory for the most part. Here a a few things 
 
  * When you write or reply to a Crowdin "comment" or "issue", if you include "@name" (where "name" is someone's Crowdin name) somewhere in your text, that person will get an email notifying them of the comment/issue.
 
- * Translators can "vote" for different translations of a string, but because most Tunnelblick languages have a very small number of translators (many languages have only one translator), voting is probably not very helpful.
+ * For each string, the translation with the most votes will be used.
+
+ * Please notify an administrator if you propose a new translation for a string that already has an "approved" translation (indicated by a green check mark).
 
  * Crowdin can be set up to require that a "proofreader" approve all new translations, to ensure that translations are appropriate, but that means a lot more work for translators or proofreaders, so currently that feature is disabled. That may be changed in the future.
 
