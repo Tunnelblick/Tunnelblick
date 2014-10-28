@@ -26,6 +26,10 @@
 #import "helper.h"
 
 #import "MenuController.h"
+#import "TBUserDefaults.h"
+
+
+extern TBUserDefaults * gTbDefaults;
 
 @interface PassphraseWindowController() // Private methods
 
@@ -42,7 +46,17 @@
         return nil;
     }
     
-    delegate = [theDelegate retain];    
+	[[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(applicationDidChangeScreenParametersNotificationHandler:)
+                                                 name: NSApplicationDidChangeScreenParametersNotification
+                                               object: nil];
+    
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
+                                                           selector: @selector(wokeUpFromSleepHandler:)
+                                                               name: NSWorkspaceDidWakeNotification
+                                                             object: nil];
+    
+    delegate = [theDelegate retain];
     return self;
 }
 
@@ -147,9 +161,31 @@
     [NSApp stopModal];
 }
 
-- (void) dealloc {
+-(void) applicationDidChangeScreenParametersNotificationHandler: (NSNotification *) n
+{
+ 	(void) n;
+    
+	if (  [gTbDefaults boolForKey: @"redisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"]  ) {
+		NSLog(@"PassphraseWindowController: applicationDidChangeScreenParametersNotificationHandler: redisplaying passphrase window");
+		[self redisplay];
+	}
+}
+
+-(void) wokeUpFromSleepHandler: (NSNotification *) n
+{
+ 	(void) n;
+    
+	if (  [gTbDefaults boolForKey: @"redisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"]  ) {
+		NSLog(@"PassphraseWindowController: didWakeUpFromSleepHandler: redisplaying passphrase window");
+		[self redisplay];
+	}
+}
+
+-(void) dealloc {
     
     [delegate release]; delegate = nil;
+    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver: self];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
     
 	[super dealloc];
 }

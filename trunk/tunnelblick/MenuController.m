@@ -379,6 +379,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 								@"statusDisplayNumber",
                                 @"lastLaunchTime",
                                 @"allow64BitIntelOpenvpnOnTigerOrLeopard",
+								@"redisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep",
                                 
                                 @"disableAdvancedButton",
                                 @"disableCheckNowButton",
