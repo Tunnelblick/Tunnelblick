@@ -543,7 +543,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) setupLeftNavigationToDisplayName: (NSString *) displayNameToSelect
 {
-    int leftNavIndexToSelect = NSNotFound;
+    NSUInteger leftNavIndexToSelect = NSNotFound;
     
     NSMutableArray * currentFolders = [NSMutableArray array]; // Components of folder enclosing most-recent leftNavList/leftNavDisplayNames entry
     NSArray * allConfigsSorted = [[[[NSApp delegate] myVPNConnectionDictionary] allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
