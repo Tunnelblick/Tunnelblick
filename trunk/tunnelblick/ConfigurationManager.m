@@ -936,29 +936,16 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 
             case entryAddConfiguration:
             case stateHasConfigurations:
-                button = TBRunAlertPanel(NSLocalizedString(@"Add a Configuration", @"Window title"),
-                                         NSLocalizedString(@"Configurations are installed from files that are supplied to you by your network manager "
-                                                           "or VPN service provider.\n\n"
-                                                           "Configuration files have extensions of .tblk, .ovpn, or .conf.\n\n"
-                                                           "(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\n"
-                                                           "To install a configuration file, double-click it.\n\n"
-                                                           "The new configuration will be available in Tunnelblick immediately.",
-                                                           @"Window text"),
-                                         NSLocalizedString(@"Done", @"Button"),    // Default button
-                                         NSLocalizedString(@"Back", @"Button"),  // Alternate button
-                                         nil
-                                         );
-                
-                if (  button == NSAlertAlternateReturn  ) {
-                    // User selected Back
-                    nextState = stateGoBack;
-                    break;
-                }
-                
-                // Treat error as "Done"
+                TBShowAlertWindow(NSLocalizedString(@"Add a Configuration", @"Window title"),
+                                  NSLocalizedString(@"Configurations are installed from files that are supplied to you by your network manager "
+                                                    "or VPN service provider.\n\n"
+                                                    "Configuration files have extensions of .tblk, .ovpn, or .conf.\n\n"
+                                                    "(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\n"
+                                                    "To install a configuration file, double-click it.\n\n"
+                                                    "The new configuration will be available in Tunnelblick immediately.",
+                                                    @"Window text"));
                 
                 return;
-                
                 
             default:
                 NSLog(@"guideState: invalid state = %d", state);
