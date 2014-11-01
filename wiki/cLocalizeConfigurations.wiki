@@ -50,7 +50,7 @@ The file for Spanish (in ES.lproj) might look like the following (Spanish speake
  "New York"="Nueva York";<br>
  "San Juan"="San Juan";<br>
 
-You can download a [http://sourceforge.net/projects/tunnelblick/files/All%20files/Misc/LocalizationWithSubfolderExample.tblk.zip/download download sample of a "nested" .tblk] which contains a regular configuration and a configuration in a subfolder. The sample configurations are localized for English, German, and Spanish as described above.
+You can download a [http://sourceforge.net/projects/tunnelblick/files/All%20files/Misc/LocalizationWithSubfolderExample.tblk.zip/download sample of a "nested" .tblk] which contains a regular configuration and a configuration in a subfolder. The sample configurations are localized for English, German, and Spanish as described above.
 
 <hr>
 ==Localizing a Deployed Version==
