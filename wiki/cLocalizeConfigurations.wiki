@@ -36,7 +36,7 @@ Each "Localizable.strings" file should be a UTF-8 encoded text file with lines o
 
  "file or folder name"="translated name";
 
-For example, if you have configurations in folders named "fast" and "slow", and each configuration contains a "New York" and "San Juan" folder, you would have a Localizable.strings file in each "lproj" folder. The file for English (in English.lproj) might look like the following:
+For example, if you have configurations in folders named "fast" and "slow", and each folder contains a "New York" and "San Juan" configuration, you would have a Localizable.strings file in each "lproj" folder. The file for English (in English.lproj) might look like the following:
 
  "fast"="fast";<br>
  "slow"="slow";<br>
