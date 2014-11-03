@@ -340,7 +340,9 @@ set -e # resume abort on error
 logDebugMessage "DEBUG:"
 logDebugMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
 
+set +e # scutil --dns will return error status in case dns is already down, so don't fail if no dns found
 scutil_dns="$( scutil --dns)"
+set -e # resume abort on error
 logDebugMessage "DEBUG:"
 logDebugMessage "DEBUG: scutil --dns = ${scutil_dns}"
 logDebugMessage "DEBUG:"
