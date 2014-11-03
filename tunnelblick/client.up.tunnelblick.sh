@@ -556,7 +556,9 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
     logDebugMessage "DEBUG: /etc/resolve = ${original_resolver_contents}"
     logDebugMessage "DEBUG:"
 
+	set +e # scutil --dns will return error status in case dns is already down, so don't fail if no dns found
 	scutil_dns="$( scutil --dns)"
+	set -e # resume abort on error
 	logDebugMessage "DEBUG:"
 	logDebugMessage "DEBUG: scutil --dns BEFORE CHANGES = ${scutil_dns}"
 	logDebugMessage "DEBUG:"
@@ -749,7 +751,9 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
     logDebugMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
     logDebugMessage "DEBUG:"
 
+	set +e # scutil --dns will return error status in case dns is already down, so don't fail if no dns found
 	scutil_dns="$( scutil --dns)"
+	set -e # resume abort on error
 	logDebugMessage "DEBUG:"
 	logDebugMessage "DEBUG: scutil --dns AFTER CHANGES = ${scutil_dns}"
 	logDebugMessage "DEBUG:"
