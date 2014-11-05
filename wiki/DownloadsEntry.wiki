@@ -16,7 +16,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.
 
- <font color="red">*Translators are needed for Bulgarian, Chinese (traditional), Japanese, Norwegian Bokmal, Swedish, and Ukrainian.* [cLocalizeTranslate Details]</font>
+ <font color="red">*Translators are needed for Bulgarian, Chinese (traditional), Japanese, Norwegian Bokmal, and Swedish.* [cLocalizeTranslate Details]</font>
 
  <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4.1_r3054.dmg/download Tunnelblick 3.4.1]</strong></font> `[`sourceforge.net`]` (build 4054) released 2014-10-15 [RlsNotes#Version_3.4 Release Notes]<br />
  _*SHA1*_: a43c2a82168fcd8249d66e46db460f634f7dce8c _*MD5*_: 191591980fddfa8537a9f0298c3e8259 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
