@@ -55,6 +55,8 @@ NSString * fileIsReasonableSize(NSString * path);
 
 NSString * allFilesAreReasonableIn(NSString * path);
 
+NSDictionary * highestEditionForEachBundleIdinL_AS_T(void);
+
 BOOL invalidConfigurationName (NSString * name,
                                const char badChars[]);
 
@@ -75,3 +77,5 @@ void startTool(NSString * launchPath,
 			   NSArray *  arguments);
 
 unsigned getLoadedKextsMask(void);
+
+NSString * sanitizedConfigurationContents(NSString * cfgContents);

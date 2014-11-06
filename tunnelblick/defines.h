@@ -70,8 +70,6 @@
 #define AUTHORIZED_RUNNING_PATH @"/tmp/tunnelblick-authorized-running"
 #define AUTHORIZED_ERROR_PATH   @"/tmp/tunnelblick-authorized-error"
 
-#define CONFIGURATION_UPDATES_BUNDLE_PATH  @"/Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle"
-
 // NOTE: some up and down scripts refer to the following path without using this header file
 #define DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH @"/tmp/tunnelblick-downscript-needs-to-be-run.txt"
 

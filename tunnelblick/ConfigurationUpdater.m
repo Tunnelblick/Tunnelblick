@@ -24,7 +24,10 @@
 
 #import "defines.h"
 #import "helper.h"
+#import "sharedRoutines.h"
+#import "NSString+TB.h"
 
+#import "ConfigurationManager.h"
 #import "ConfigurationMultiUpdater.h"
 #import "MenuController.h"
 #import "NSFileManager+TB.h"
@@ -40,44 +43,50 @@ extern TBUserDefaults       * gTbDefaults;
 
 TBSYNTHESIZE_OBJECT_GET(retain, SUUpdater *, cfgUpdater)
 TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgBundlePath)
-TBSYNTHESIZE_NONOBJECT(         BOOL,        checking,       setChecking)
-TBSYNTHESIZE_NONOBJECT(         BOOL,        checkingWithUI, setCheckingWithUI)
+TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgBundleId)
+TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgName)
 
+-(NSString *) edition {
+	
+	return [[[self cfgBundlePath] stringByDeletingLastPathComponent] pathEdition];
+}
 
 -(ConfigurationUpdater *) initWithPath: (NSString *) path {
     
-    // Returns nil if not a valid bundle at 'path' or no valid Info.plist in the bundle, or no valid SUFeedURL or no CFBundleVersion in the Info.plist
+    // Returns nil if error
     
-    NSString * plistPath = [[path stringByAppendingPathComponent: @"Contents"]
-                            stringByAppendingPathComponent: @"Info.plist"];
-    NSDictionary * infoPlist = [NSDictionary dictionaryWithContentsOfFile: plistPath];
+    if (  ! [path hasSuffix: @".tblk"]  ) {
+        NSLog(@"%@ is not a .tblk", path);
+        return nil;
+    }
+    
+    NSBundle * bundle = [NSBundle bundleWithPath: path];
+	if (  ! bundle  ) {
+        NSLog(@"%@ is not a valid bundle", path);
+        return nil;
+    }
+    
+    NSDictionary * infoPlist = [ConfigurationManager plistInTblkAtPath: path];
+    
     if (  ! infoPlist  ) {
-        NSLog(@"%@ exists, but does not contain a valid Info.plist", path);
+        NSLog(@"The .tblk at %@ does not contain a valid Info.plist", path);
         return nil;
     }
     
-    id obj = [infoPlist objectForKey: @"CFBundleIdentifier"];
-    if (   ( ! obj)
-        || ( ! [[obj class] isSubclassOfClass: [NSString class]])  ) {
-        NSLog(@"%@ does not contain a CFBundleIdentifier string", plistPath);
-        return nil;
-    }
-    obj = [infoPlist objectForKey: @"CFBundleVersion"];
-    if (   ( ! obj)
-        || ( ! [[obj class] isSubclassOfClass: [NSString class]])  ) {
-        NSLog(@"%@ does not contain CFBundleVersion string", plistPath);
+    NSString * bundleId      = [infoPlist objectForKey: @"CFBundleIdentifier"];
+    NSString * bundleVersion = [infoPlist objectForKey: @"CFBundleVersion"];
+    NSString * feedURLString = [infoPlist objectForKey: @"SUFeedURL"];
+    
+    if (  ! (   bundleId
+             && bundleVersion
+             && feedURLString)  ) {
+        NSLog(@"Missing CFBundleIdentifier, CFBundleVersion, or SUFeedURL in Info.plist for .tblk at %@", path);
         return nil;
     }
     
-    obj = [infoPlist objectForKey: @"SUFeedURL"];
-    if (   ( ! obj)
-        || ( ! [[obj class] isSubclassOfClass: [NSString class]])  ) {
-        NSLog(@"%@ does not contain SUFeedURL string", plistPath);
-        return nil;
-    }
-    NSURL * feedURL = [NSURL URLWithString: (NSString *) obj];
+    NSURL * feedURL = [NSURL URLWithString: feedURLString];
     if (  ! feedURL  ) {
-        NSLog(@"SUFeedURL in %@ is not a valid URL", plistPath);
+        NSLog(@"SUFeedURL in Info.plist for .tblk at %@ is not a valid URL", path);
         return nil;
     }
     
@@ -87,34 +96,32 @@ TBSYNTHESIZE_NONOBJECT(         BOOL,        checkingWithUI, setCheckingWithUI)
         if (  [checkInterval respondsToSelector: @selector(intValue)]  ) {
             NSTimeInterval i = (NSTimeInterval) [checkInterval intValue];
             if (  i <= 60.0  ) {
-                NSLog(@"SUScheduledCheckInterval in %@ is less than 60 seconds; using 60 minutes.", plistPath);
+                NSLog(@"SUScheduledCheckInterval in Info.plist for the .tblk at %@ is less than 60 seconds; using 60 minutes.", path);
             } else {
                 interval = i;
             }
         } else {
-            NSLog(@"SUScheduledCheckInterval in %@ is invalid; using 60 minutes", plistPath);
+            NSLog(@"SUScheduledCheckInterval in Info.plist for the .tblk at %@ is invalid (does not respond to intValue); using 3600 seconds (60 minutes)", path);
         }
     }
     
-    NSBundle * bundle = [NSBundle bundleWithPath: path];
-	if (  ! bundle  ) {
-        NSLog(@"%@ is not a valid bundle", path);
-        return nil;
-    }
-    
     if (  (self = [super init])  ) {
-        cfgBundlePath  = [path retain];
-        cfgUpdater     = [SUUpdater updaterForBundle: bundle];
-        cancelling     = FALSE;
-		checking       = FALSE;
-		checkingWithUI = FALSE;
         
-        [cfgUpdater setDelegate:                      self];
-        [cfgUpdater setFeedURL:                       feedURL];
-        [cfgUpdater setUpdateCheckInterval:           interval];
-        [cfgUpdater setAutomaticallyChecksForUpdates: NO];      // Don't start checking yet
-        [cfgUpdater setAutomaticallyDownloadsUpdates: NO];      // MUST BE 'NO' because "Install" on Quit doesn't work properly
-        [cfgUpdater setSendsSystemProfile:            NO];      // See https://answers.edge.launchpad.net/sparkle/+question/88790
+        cfgBundlePath = [path retain];
+        cfgBundleId   = [bundleId retain];
+        cfgName       = [[path lastPathComponent] retain];
+        
+        cfgUpdater    = [[SUUpdater updaterForBundle: [NSBundle bundleWithPath: path]] retain];
+        if (  cfgUpdater  ) {
+            [cfgUpdater setAutomaticallyChecksForUpdates: NO];      // Don't start checking yet
+            [cfgUpdater setAutomaticallyDownloadsUpdates: NO];      // MUST BE 'NO' because "Install" on Quit doesn't work properly
+            [cfgUpdater setSendsSystemProfile:            NO];      // See https://answers.edge.launchpad.net/sparkle/+question/88790
+            [cfgUpdater setUpdateCheckInterval:           interval];
+            [cfgUpdater setDelegate:                      self];
+            [cfgUpdater setFeedURL:                       feedURL];
+        } else {
+            NSLog(@"Unable to create an updater for %@", path);
+        }
         
         return self;
     }
@@ -125,84 +132,94 @@ TBSYNTHESIZE_NONOBJECT(         BOOL,        checkingWithUI, setCheckingWithUI)
 -(void) dealloc {
     
 	[cfgBundlePath release]; cfgBundlePath = nil;
-    [cfgUpdater    release]; cfgUpdater    = nil;
+	[cfgBundleId   release]; cfgBundleId   = nil;
+	[cfgName       release]; cfgName       = nil;
+	[cfgUpdater    release]; cfgUpdater    = nil;
     
     [super dealloc];
 }
 
--(NSString *) cfgBundleIdentifier {
-    
-    return [[cfgBundlePath lastPathComponent] stringByDeletingPathExtension];
-}
-
--(void) startCheckingWithUI {
+-(void) startUpdateCheckingWithUI {
 	
-	[self setChecking:       YES];
-	[self setCheckingWithUI: YES];
+	if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]) {
+		return;
+	}
 	
-	TBLog(@"DB-UC", @"Starting update check with UI for configuration '%@'; URL = %@", [self cfgBundleIdentifier], [cfgUpdater feedURL]);
-    
-	[cfgUpdater checkForUpdates: self];
-	[cfgUpdater resetUpdateCycle];
+	[[self cfgUpdater] resetUpdateCycle];
+	[[self cfgUpdater] checkForUpdates: self];
+	
+	TBLog(@"DB-UC", @"Started update check with UI for configuration '%@' (%@); URL = %@", [self cfgBundleId], [self edition], [cfgUpdater feedURL]);
 }
 
 -(void) startCheckingWithoutUI {
 	
-	[self setChecking:       YES];
-	[self setCheckingWithUI: NO];
+	if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]) {
+		return;
+	}
 	
-	TBLog(@"DB-UC", @"Starting update check without UI for configuration '%@'; URL = %@", [self cfgBundleIdentifier], [cfgUpdater feedURL]);
-    
-	[cfgUpdater checkForUpdatesInBackground];
-	[cfgUpdater resetUpdateCycle];
+	NSString * action = (  [[self cfgUpdater] automaticallyChecksForUpdates]
+						 ? @"Restarted"
+						 : @"Started");
+	
+	[[self cfgUpdater] resetUpdateCycle];
+	[[self cfgUpdater] checkForUpdatesInBackground];
+	
+	TBLog(@"DB-UC", @"%@ update checks without UI for configuration '%@' (%@); URL = %@", action, [self cfgBundleId], [self edition], [cfgUpdater feedURL]);
 }
 
--(void) startCheckingWithUIThread: (NSNumber *) withUINumber {
+-(void) startUpdateCheckingWithUIThread: (NSNumber *) withUINumber {
     
-    // Waits until the app is not being updated, then starts the updater checking for updates
-    // [withUINumber boolValue] should be TRUE to present the UI, FALSE to check in the background
-    //
     // Invoked in a new thread. Waits until the app isn't being updated, then schedules itself to start checking on the main thread, then exits the thread.
+    // [withUINumber boolValue] should be TRUE to present the UI, FALSE to check in the background
 
     NSAutoreleasePool * threadPool = [NSAutoreleasePool new];
     
-    if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]) {
+    if (  ! [withUINumber respondsToSelector: @selector(boolValue)]  ) {
+        NSLog(@"startUpdateCheckingWithUIThread: invalid argument '%@' (a '%@' does not respond to 'boolValue')", withUINumber, [withUINumber className]);
 		[threadPool drain];
         return;
     }
     
-    if (  ! [withUINumber respondsToSelector: @selector(boolValue)]  ) {
-        NSLog(@"startCheckingWithUIThread: invalid argument '%@' (a '%@' does not respond to 'boolValue')", withUINumber, [withUINumber className]);
-		[threadPool drain];
-        return;
-    }
     BOOL withUI = [withUINumber boolValue];
     
     // Wait until the application is not being updated
     SUUpdater * appUpdater = [[NSApp delegate] updater];
     while (  [appUpdater updateInProgress]  ) {
-        TBLog(@"DB-UC", @"Delaying start of update check for configuration set %@", [self cfgBundleIdentifier]);
+        
+		if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]) {
+			[threadPool drain];
+			return;
+		}
+        TBLog(@"DB-UC", @"Delaying start of update checks for configuration '%@' (%@)", [self cfgBundleId], [self edition]);
         sleep(1);
+        
     }
     
     if (  withUI  ) {
-		[self performSelectorOnMainThread: @selector(startCheckingWithUI)    withObject: nil waitUntilDone: NO];
+		[self performSelectorOnMainThread: @selector(startUpdateCheckingWithUI) withObject: nil waitUntilDone: NO];
     } else {
-		[self performSelectorOnMainThread: @selector(startCheckingWithoutUI) withObject: nil waitUntilDone: NO];
+		[self performSelectorOnMainThread: @selector(startCheckingWithoutUI)    withObject: nil waitUntilDone: NO];
     }
     
     [threadPool drain];
 }
 
--(void) startCheckingWithUI: (NSNumber *) withUI {
+-(void) startUpdateCheckingWithUI: (NSNumber *) withUI {
 	
-	[NSThread detachNewThreadSelector: @selector(startCheckingWithUIThread:) toTarget: self withObject: withUI];
+	if (  ! [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]) {
+        [NSThread detachNewThreadSelector: @selector(startUpdateCheckingWithUIThread:) toTarget: self withObject: withUI];
+    }
 }
 
 -(void) stopChecking {
     
-	[cfgUpdater setAutomaticallyChecksForUpdates: NO];
-	TBLog(@"DB-UC", @"Removed Sparkle updater for %@", [cfgBundlePath lastPathComponent]);
+	if (  [[self cfgUpdater] automaticallyChecksForUpdates]  ) {
+		[[self cfgUpdater] setAutomaticallyChecksForUpdates: NO];
+		TBLog(@"DB-UC", @"Stopped update checks for configuration '%@' (%@)", [self cfgBundleId], [self edition]);
+	} else {
+		TBLog(@"DB-UC", @"Update checks are already stopped for configuration '%@' (%@)", [self cfgBundleId], [self edition]);
+	}
+
 }
 
 //************************************************************************************************************
@@ -214,7 +231,7 @@ TBSYNTHESIZE_NONOBJECT(         BOOL,        checkingWithUI, setCheckingWithUI)
     
     (void) bundle;
 	
-    TBLog(@"DB-UC", @"updaterShouldPromptForPermissionToCheckForUpdates for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
+    TBLog(@"DB-UC", @"updaterShouldPromptForPermissionToCheckForUpdates for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
     return NO;
 }
 
@@ -225,10 +242,9 @@ TBSYNTHESIZE_NONOBJECT(         BOOL,        checkingWithUI, setCheckingWithUI)
 	
     (void) updater;
 	
-    TBLog(@"DB-UC", @"updaterShouldRelaunchApplication for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
+    TBLog(@"DB-UC", @"updaterShouldRelaunchApplication for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
 	
-    if (   gShuttingDownWorkspace
-        || cancelling  ) {
+    if (  gShuttingDownWorkspace  ) {
         return NO;
     }
     
@@ -248,7 +264,7 @@ didFinishLoadingAppcast: (SUAppcast *) appcast {
     (void) updater;
     (void) appcast;
     
-    TBLog(@"DB-UC", @"didFinishLoadingAppcast for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
+    TBLog(@"DB-UC", @"didFinishLoadingAppcast for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
 }
 
 -(void)    updater: (SUUpdater *)    updater
@@ -259,7 +275,7 @@ didFindValidUpdate:(SUAppcastItem *) update {
     (void) updater;
     (void) update;
     
-    TBLog(@"DB-UC", @"didFindValidUpdate for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
+    TBLog(@"DB-UC", @"didFindValidUpdate for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
 }
 
 -(void) updaterDidNotFindUpdate: (SUUpdater *) update {
@@ -268,7 +284,7 @@ didFindValidUpdate:(SUAppcastItem *) update {
     
     (void) update;
     
-    TBLog(@"DB-UC", @"updaterDidNotFindUpdate for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
+    TBLog(@"DB-UC", @"updaterDidNotFindUpdate for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
 }
 
 - (void)updater:(SUUpdater *)updater willInstallUpdate:(SUAppcastItem *)update {
@@ -276,14 +292,14 @@ didFindValidUpdate:(SUAppcastItem *) update {
 	(void) updater;
     (void) update;
 	
-    TBLog(@"DB-UC", @"willInstallUpdate for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
+    TBLog(@"DB-UC", @"willInstallUpdate for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
 }
 
 - (void)installerFinishedForHost:(SUHost *)host {
 	
 	(void) host;
 	
-    TBLog(@"DB-UC", @"installerFinishedForHost for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
+    TBLog(@"DB-UC", @"installerFinishedForHost for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
 }
 
 - (NSString *)pathToRelaunchForUpdater:(SUUpdater *)updater {
@@ -292,7 +308,7 @@ didFindValidUpdate:(SUAppcastItem *) update {
     
 	(void) updater;
 	
-    TBLog(@"DB-UC", @"pathToRelaunchForUpdater for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
+    TBLog(@"DB-UC", @"pathToRelaunchForUpdater for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
 	return nil;
 }
 
@@ -302,7 +318,7 @@ didFindValidUpdate:(SUAppcastItem *) update {
     
     (void) updater;
     
-    TBLog(@"DB-UC", @"updaterWillRelaunchApplication for '%@'", [[[self cfgBundlePath] lastPathComponent] stringByDeletingPathExtension]);
+    TBLog(@"DB-UC", @"updaterWillRelaunchApplication for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
 }
 
 @end

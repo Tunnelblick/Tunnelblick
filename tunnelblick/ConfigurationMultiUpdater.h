@@ -25,15 +25,16 @@
     NSMutableArray * configUpdaters; // List of ConfigurationUpdater objects, one for each updatable .tblk
 }
 
--(void) startAllCheckingWithUI: (BOOL) withUI;
++(NSArray *) pathsForMasterStubTblkContainersWithBundleIdentifier: (NSString *) bundleId;
 
--(void) stopAllChecking;
+-(void) startAllUpdateCheckingWithUI: (BOOL) withUI;
 
--(void) restartUpdaterForTblkAtPath: (NSString *) path;
+-(void) stopAllUpdateChecking;
 
--(void) addUpdaterForTblkAtPath: (NSString *) path
-               bundleIdentifier: (NSString *) bundleId;
+-(void) addUpdateCheckingForStubTblkAtPath: (NSString *) path;
 
--(void) removeUpdaterForTblkWithBundleIdentifier: (NSString *) bundleId;
+-(void) stopUpdateCheckingForAllStubTblksWithBundleIdentifier: (NSString *) bundleId;
+
+-(void) stopUpdateCheckingForAllStubTblksLikeTheOneAtPath: (NSString *) bundleId;
 
 @end

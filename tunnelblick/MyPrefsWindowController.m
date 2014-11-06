@@ -1522,15 +1522,26 @@ static BOOL firstTimeShowingWindow = TRUE;
 	NSString * fileName = [[[NSDictionary dictionaryWithContentsOfFile: infoPlistPath] objectForKey: @"CFBundleIdentifier"] stringByAppendingPathExtension: @"tblk"];
 	if (  fileName  ) {
 		BOOL isUpdatable = FALSE;
-		NSString * name;
+        BOOL isDir;
+		NSString * bundleIdAndEdition;
 		NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
-		while (  (name = [dirEnum nextObject])  ) {
+		while (  (bundleIdAndEdition = [dirEnum nextObject])  ) {
 			[dirEnum skipDescendents];
-			if (  [name isEqualToString: fileName]  ) {
-				isUpdatable = TRUE;
-				break;
-			}
-		}
+            NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
+            if (   ( ! [bundleIdAndEdition hasPrefix: @"."] )
+                && ( ! [bundleIdAndEdition hasSuffix: @".tblk"] )
+                && [[NSFileManager defaultManager] fileExistsAtPath: containerPath isDirectory: &isDir]
+                && isDir  ) {
+                NSString * name;
+                NSDirectoryEnumerator * innerEnum = [gFileMgr enumeratorAtPath: containerPath];
+                while (  (name = [innerEnum nextObject] )  ) {
+                    if (  [name isEqualToString: fileName]  ) {
+                        isUpdatable = TRUE;
+                        break;
+                    }
+                }
+            }
+        }
 		if (  isUpdatable  ) {
 			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
 							  NSLocalizedString(@"You cannot make a configuration shared if it is itself an updatable configuration.\n\n"
@@ -1718,38 +1729,34 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * configPathTail = [configPath lastPathComponent];
     
     if (  [configPath hasSuffix: @".tblk"]  ) {
-        if (  [configPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-            NSMutableString * fileListString = [[[NSMutableString alloc] initWithCapacity: 500] autorelease];
-            NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: configPath];
-            NSString * filename;
-            while (  (filename = [dirEnum nextObject])  ) {
-                if (  ! [filename hasPrefix: @"."]  ) {
-					NSString * extension = [filename pathExtension];
-					NSString * nameOnly = [filename lastPathComponent];
-					NSArray * extensionsToSkip = KEY_AND_CRT_EXTENSIONS;
-					if (   ( ! [extensionsToSkip containsObject: extension])
-						&& ( ! [extension isEqualToString: @"ovpn"])
-						&& ( ! [extension isEqualToString: @"lproj"])
-						&& ( ! [extension isEqualToString: @"strings"])
-						&& ( ! [nameOnly  isEqualToString: @"Info.plist"])
-						&& ( ! [nameOnly  isEqualToString: @".DS_Store"])
-						) {
-						NSString * fullPath = [configPath stringByAppendingPathComponent: filename];
-						BOOL isDir;
-						if (  ! (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
-								 && isDir)  ) {
-							[fileListString appendFormat: @"      %@\n", filename];
-						}
-					}
-				}
-			}
-            
-			return (  ([fileListString length] == 0)
-					? [NSString stringWithFormat: @"There are no unusual files in %@\n", configPathTail]
-					: [NSString stringWithFormat: @"Unusual files in %@:\n%@", configPathTail, fileListString]);
-		} else {
-            return [NSString stringWithFormat: @"Cannot list unusual files in %@; not a private configuration\n", configPathTail];
+        NSMutableString * fileListString = [[[NSMutableString alloc] initWithCapacity: 500] autorelease];
+        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: configPath];
+        NSString * filename;
+        while (  (filename = [dirEnum nextObject])  ) {
+            if (  ! [filename hasPrefix: @"."]  ) {
+                NSString * extension = [filename pathExtension];
+                NSString * nameOnly = [filename lastPathComponent];
+                NSArray * extensionsToSkip = KEY_AND_CRT_EXTENSIONS;
+                if (   ( ! [extensionsToSkip containsObject: extension])
+                    && ( ! [extension isEqualToString: @"ovpn"])
+                    && ( ! [extension isEqualToString: @"lproj"])
+                    && ( ! [extension isEqualToString: @"strings"])
+                    && ( ! [nameOnly  isEqualToString: @"Info.plist"])
+                    && ( ! [nameOnly  isEqualToString: @".DS_Store"])
+                    ) {
+                    NSString * fullPath = [configPath stringByAppendingPathComponent: filename];
+                    BOOL isDir;
+                    if (  ! (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+                             && isDir)  ) {
+                        [fileListString appendFormat: @"      %@\n", filename];
+                    }
+                }
+            }
         }
+        
+        return (  ([fileListString length] == 0)
+                ? [NSString stringWithFormat: @"There are no unusual files in %@\n", configPathTail]
+                : [NSString stringWithFormat: @"Unusual files in %@:\n%@", configPathTail, fileListString]);
     } else {
         return [NSString stringWithFormat: @"Cannot list unusual files in %@; not a .tblk\n", configPathTail];
     }

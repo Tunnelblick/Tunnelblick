@@ -34,6 +34,7 @@
 #import "sharedRoutines.h"
 
 #import "NSFileManager+TB.h"
+#import "NSString+TB.h"
 
 
 //**************************************************************************************************************************
@@ -45,7 +46,7 @@ NSString			* gConfigPath    = nil;     // Path to configuration file
 //                                                 or /Library/Application Support/Tunnelblick/Shared
 //                                                 or /Applications/XXXXX.app/Contents/Resources/Deploy
 NSString			* gResourcesPath = nil;     // Path to Tunnelblick.app/Contents/Resources
-NSString            * gDeployPath    = nil;     // Path to /Library/Application Support/Tunnelblick/Deploy/<application name>
+NSString            * gDeployPath    = nil;     // Path to Tunnelblick.app/Contents/Resources/Deploy
 NSString            * gStartArgs     = nil;     // String with an underscore-delimited list of the following arguments to openvpnstart's start
 //                                              // subcommand: useScripts, skipScrSec, cfgLocCode, noMonitor, and bitMask
 
@@ -112,6 +113,9 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             
             "./openvpnstart unloadKexts   [bitMask]\n"
             "               to unload the .tun and .tap kexts\n\n"
+            
+            "./openvpnstart secureUpdate name\n"
+            "               to secure the specified update folder in /Library/Application Support/Tunnelblick/Tblks.\n\n"
             
             "./openvpnstart down scriptNumber\n"
             "               to run Tunnelblick's scriptNumber down script\n\n"
@@ -1270,6 +1274,33 @@ void waitUntilAllGone(void) {
     }
 }
 
+void secureUpdate(NSString * name) {
+    
+    // Secures an update in L_AS_T_TBLKS
+    
+    if (  ! [name containsOnlyCharactersInString: ALLOWED_DOMAIN_NAME_CHARACTERS @"_"]  ) {
+        fprintf(stderr, "Tunnelblick: Invalid name for secureUpdate\n");
+        exitOpenvpnstart(175);
+    }
+    
+    NSString * path = [L_AS_T_TBLKS stringByAppendingPathComponent: name];
+    BOOL isDir;
+    if (  ! (   [[NSFileManager defaultManager] fileExistsAtPath: path isDirectory: &isDir]
+             && isDir )  ) {
+        fprintf(stderr, "Tunnelblick: Folder does not exist for secureUpdate\n");
+        exitOpenvpnstart(176);
+    }
+    
+	becomeRoot([NSString stringWithFormat: @"Secure %@", path]);
+	BOOL ok = secureOneFolder(path, NO, 0);
+	stopBeingRoot();
+	
+    if (  ! ok  ) {
+        fprintf(stderr, "Tunnelblick: Folder could not be secured by secureUpdate\n");
+        exitOpenvpnstart(177);
+    }
+}
+
 void killOneOpenvpn(pid_t pid) {
     
 	// Sends SIGTERM to the specified openvpn process, or complains and exits with an error
@@ -1660,154 +1691,6 @@ void revertToShadow (NSString * fileName) {
 	}
 }
 
-//**************************************************************************************************************************
-
-NSArray * tokensFromConfigurationLine(NSString * line) {
-	// Returns an array of whitespace-separated tokens from one line of
-	// a configuration file, skipping comments.
-    //
-    // Ignores errors such as unbalanced quotes or a backslash at the end of the line
-    
-    NSMutableArray * tokens = [[[NSMutableArray alloc] initWithCapacity: 10]  autorelease];
-    
-    BOOL inSingleQuote = FALSE;
-    BOOL inDoubleQuote = FALSE;
-    BOOL inBackslash   = FALSE;
-    BOOL inToken       = FALSE;
-    
-    // No token so far
-	NSRange tokenRange = NSMakeRange(NSNotFound, 0);
-    
-    unsigned inputIx = 0;
-	while (  inputIx < [line length]  ) {
-        
-		unichar c = [line characterAtIndex: inputIx];
-        
-        // If have started token, mark the end of the token as the current position (for now)
-        if (  inToken  ) {
-            tokenRange.length = inputIx - tokenRange.location;
-        }
-        
-        inputIx++;
-        
-        if ( inBackslash  ) {
-            inBackslash = FALSE;
-            continue;
-        }
-        
-		if (  inDoubleQuote  ) {
-			if (  c == '"'  ) {
-                tokenRange.length++;  // double-quote marks end of token and is part of the token
-                [tokens addObject: [line substringWithRange: tokenRange]];
-                inDoubleQuote = FALSE;
-                inToken = FALSE;
-                tokenRange = NSMakeRange(NSNotFound, 0);
-            }
-            
-            continue;
-        }
-        
-        if (  inSingleQuote  ) {
-            if (  c == '\''  ) {
-                tokenRange.length++;  // single-quote marks end of token and is part of the token
-                [tokens addObject: [line substringWithRange: tokenRange]];
-                inSingleQuote = FALSE;
-                inToken = FALSE;
-                tokenRange = NSMakeRange(NSNotFound, 0);
-            }
-            
-            continue;
-        }
-		
-		if (  [[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember: c]  ) {
-			if (  inToken  ) {
-                [tokens addObject: [line substringWithRange: tokenRange]];  // whitespace marks end of token but is not part of the token
-                inToken = FALSE;
-                tokenRange = NSMakeRange(NSNotFound, 0);
-                continue;
-			} else {
-				continue;           // whitespace comes before token, so just skip past it
-			}
-		}
-		
-		if (   (c == '#')
-			|| (c == ';')  ) {
-            if (  inToken  ) {
-                [tokens addObject: [line substringWithRange: tokenRange]];  // comment marks end of token but is not part of the token
-                inToken = FALSE;
-                tokenRange = NSMakeRange(NSNotFound, 0);
-            }
-            break;
-		}
-		
-        if (  c == '"'  ) {
-            if (  inToken  ) {
-                inputIx--;          // next time through, start with double-quote
-                [tokens addObject: [line substringWithRange: tokenRange]];  // double-quote marks end of token but is not part of the token
-                inToken = FALSE;
-                tokenRange = NSMakeRange(NSNotFound, 0);
-                continue;
-            }
-            
-            inDoubleQuote = TRUE;				// processing a double-quote string
-			tokenRange.location = inputIx - 1;  // This is the start of the token
-			tokenRange.length   = 1;
-			inToken = TRUE;
-			continue;
-            
-        } else if (  c == '\''  ) {
-            if (   inToken  ) {
-                inputIx--;						// next time through, start with single-quote
-                [tokens addObject: [line substringWithRange: tokenRange]];  // single-quote marks end of token
-                inToken = FALSE;
-                tokenRange = NSMakeRange(NSNotFound, 0);
-                continue;
-            }
-            
-            inSingleQuote = TRUE;				// processing a single-quote string
-			tokenRange.location = inputIx - 1;  // This is the start of the token
-			tokenRange.length   = 1;
-			inToken = TRUE;
-            continue;
-            
-        } else if (  c == '\\'  ) {
-            inBackslash = TRUE;
-        } else {
-            if (  inToken  ) {
-                tokenRange.length = inputIx - tokenRange.location; // Have started token: include this character in it
-            } else {
-                tokenRange.location = inputIx - 1;                 // Have NOT started token: this is the start of the token
-                tokenRange.length   = 1;
-                inToken = TRUE;
-            }
-		}
-    }
-    
-    if ( inToken  ) {
-        [tokens addObject: [line substringWithRange: tokenRange]];  // single-quote marks end of token
-    }
-    
-    return tokens;
-}
-
-NSString * lineAfterRemovingNulCharacters(NSString * line, NSMutableString * outputString) {
-	
-	NSMutableString * outputLine = [[[NSMutableString alloc] initWithCapacity: [line length]] autorelease];
-	unsigned i;
-	for (  i=0; i<[line length]; i++  ) {
-		NSString * chs = [line substringWithRange: NSMakeRange(i, 1)];
-		if (  ! [chs isEqualToString: @"\0"]  ) {
-			[outputLine appendString: chs];
-		}
-	}
-	
-	if (  [line length] != [outputLine length]  ) {
-        [outputString appendString: @" [At least one NUL character has been removed from the next line]\n"];
-    }
-    
-	return [NSString stringWithString: outputLine];
-}
-
 void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode) {
     NSString * configPrefix = nil;
     switch (cfgLocCode) {
@@ -1853,108 +1736,14 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
     }
     
     NSString * cfgContents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-    NSArray * lines = [cfgContents componentsSeparatedByString: @"\n"];
     
-    NSMutableString * outputString = [[[NSMutableString alloc] initWithCapacity: [cfgContents length]] autorelease];
-    
-    NSArray * beginInlineKeys = [NSArray arrayWithObjects:
-                                 @"<auth-user-pass>",
-								 @"<ca>",
-                                 @"<cert>",
-                                 @"<dh>",
-                                 @"<extra-certs>",
-                                 @"<key>",
-                                 @"<pkcs12>",
-                                 @"<secret>",
-                                 @"<tls-auth>",
-                                 nil];
-
-    NSArray * endInlineKeys = [NSArray arrayWithObjects:
-							   @"</auth-user-pass>",
-                               @"</ca>",
-                               @"</cert>",
-                               @"</dh>",
-                               @"</extra-certs>",
-                               @"</key>",
-                               @"</pkcs12>",
-                               @"</secret>",
-                               @"</tls-auth>",
-                               nil];
-    
-    unsigned i;
-    for (  i=0; i<[lines count]; i++  ) {
-        
-        NSString * line = lineAfterRemovingNulCharacters([lines objectAtIndex: i], outputString);
-        
-        [outputString appendFormat: @"%@\n", line];
-
-        if (  [line rangeOfString: @"-----BEGIN"].length != 0  ) {
-            // Have something that looks like a certificate or key; skip to the end of it and insert a message about it.
-            unsigned beginLineNumber = i;   // Line number of '-----BEGIN'
-            BOOL foundEnd = FALSE;
-			for (  i=i+1; i<[lines count]; i++  )  {
-                line = lineAfterRemovingNulCharacters([lines objectAtIndex: i], outputString);
-				if (  (foundEnd  = ([line rangeOfString: @"-----END"].length != 0))  ) {
-                    if (  i != (beginLineNumber + 1)  ) {
-                        [outputString appendFormat: @" [Security-related line(s) omitted]\n"];
-                    }
-                    [outputString appendFormat: @"%@\n", line];
-					break;
-				}
-            }
-            if (  ! foundEnd  ) {
-                fprintf(stderr, "Tunnelblick: Error parsing configuration at line %u; unterminated '-----BEGIN' at line %u\n", i+1, beginLineNumber+1);
-                exit(EXIT_FAILURE);
-            }
-        } else {
-            
-            NSArray * tokens = tokensFromConfigurationLine(line);
-            
-            if (  ! tokens  ) {
-                fprintf(stderr, "Tunnelblick: Error parsing configuration at line %u\n", i+1);
-                exit(EXIT_FAILURE);
-            }
-            
-            if (  [tokens count] > 0  ) {
-                NSString * firstToken = [tokens objectAtIndex: 0];
-                if (  [firstToken hasPrefix: @"<"]  ) {
-                    NSUInteger j;
-                    if (  (j = [beginInlineKeys indexOfObject: firstToken]) != NSNotFound  ) {
-                        unsigned beginLineNumber = i;
-						BOOL foundEnd = FALSE;
-                        for (  i=i+1; i<[lines count]; i++  ) {
-                            
-                            line = lineAfterRemovingNulCharacters([lines objectAtIndex: i], outputString);
-                            
-                            tokens = tokensFromConfigurationLine(line);
-                            
-                            if (  ! tokens  ) {
-                                fprintf(stderr, "Tunnelblick: Error parsing configuration at line %u\n", i+1);
-                                exit(EXIT_FAILURE);
-                            }
-                            
-                            if (  [tokens count] > 0  ) {
-                                if (  (foundEnd = [[tokens objectAtIndex: 0] isEqualToString: [endInlineKeys objectAtIndex: j]])  ) {
-									if (  i != (beginLineNumber + 1)  ) {
-										[outputString appendFormat: @" [Security-related line(s) omitted]\n"];
-									}
-                                    [outputString appendFormat: @"%@\n", line];
-                                    break;
-                                }
-                            }
-                        }
-                        
-                        if (  ! foundEnd  ) {
-                            fprintf(stderr, "Tunnelblick: Error parsing configuration at line %u; unterminated %s at line %u\n", i+1, [[beginInlineKeys objectAtIndex: j] UTF8String], beginLineNumber+1);
-                            exit(EXIT_FAILURE);
-                        }
-                    }
-                }
-            }
-        }
+    NSString * sanitizedCfgContents = sanitizedConfigurationContents(cfgContents);
+    if (  ! sanitizedCfgContents  ) {
+        fprintf(stderr, "Tunnelblick: There was a problem in the configuration file at %s\n", [actualConfigPath UTF8String]);
+        exit(EXIT_FAILURE);
     }
-
-    fprintf(stdout, "%s", [outputString UTF8String]);
+    
+    fprintf(stdout, "%s", [sanitizedCfgContents UTF8String]);
     exit(EXIT_SUCCESS);
 }
 
@@ -2789,7 +2578,14 @@ int main(int argc, char * argv[]) {
 	gDeployPath = [[gResourcesPath stringByAppendingPathComponent: @"Deploy"] copy];
 	
 #ifdef TBDebug
-    fprintf(stderr, "Tunnelblick: WARNING: This is an insecure copy of openvpnstart to be used for debugging only!\n");
+	NSMutableString * args = [NSMutableString stringWithCapacity: 1000];
+	if (  argc > 0  ) {
+		int ix;
+		for (  ix=1; ix<argc; ix++  ) {
+			[args appendFormat: @" %s", argv[ix]];
+		}
+	}
+    fprintf(stderr, "Tunnelblick: WARNING: This is an insecure copy of openvpnstart to be used for debugging only!\nopenvpnstart arguments: %s\n", [args UTF8String]);
 #else
     if (   ([execComponents count] != 5)
         || [[execComponents objectAtIndex: 0] isNotEqualTo: @"/"]
@@ -2871,6 +2667,13 @@ int main(int argc, char * argv[]) {
                     unloadKexts(kextMask);
                     syntaxError = FALSE;
                 }
+			}
+            
+        } else if ( strcmp(command, "secureUpdate") == 0) {
+			if (argc == 3) {
+                NSString * name = [NSString stringWithUTF8String: argv[2]];
+                secureUpdate(name); // Will validate its own argument
+				syntaxError = FALSE;
 			}
             
         } else if ( ALLOW_OPENVPNSTART_KILL && (strcmp(command, "kill") == 0) ) {

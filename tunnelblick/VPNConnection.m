@@ -131,6 +131,28 @@ extern NSString * lastPartOfPath(NSString * thePath);
 									   credentialsGroup: group];
 }
 
+-(void) reloadPreferencesFromTblk {
+	
+	// If a package, set preferences that haven't been defined yet or that should always be set
+	if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
+		NSString * infoPath = [configPath stringByAppendingPathComponent: @"Contents/Info.plist"];
+		NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: infoPath];
+		NSString * key;
+		NSEnumerator * e = [infoDict keyEnumerator];
+		while (  (key = [e nextObject])  ) {
+			if (  [key hasPrefix: @"TBPreference"]  ) {
+				NSString * preferenceKey = [displayName stringByAppendingString: [key substringFromIndex: [@"TBPreference" length]]];
+				if (  ! [gTbDefaults preferenceExistsForKey: preferenceKey]  ) {
+					[gTbDefaults setObject: [infoDict objectForKey: key] forKey: preferenceKey];
+				}
+			} else if (  [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
+				NSString * preferenceKey = [displayName stringByAppendingString: [key substringFromIndex: [@"TBAlwaysSetPreference" length]]];
+				[gTbDefaults setObject: [infoDict objectForKey: key] forKey: preferenceKey];
+			}
+		}
+	}
+}
+
 -(id) initWithConfigPath: (NSString *) inPath withDisplayName: (NSString *) inDisplayName
 {	
     if (  (self = [super init])  ) {
@@ -152,24 +174,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
         requestedState = @"EXITING";
 		[self initializeAuthAgent];
 		
-        // If a package, set preferences that haven't been defined yet or that should always be set
-        if (  [[inPath pathExtension] isEqualToString: @"tblk"]  ) {
-            NSString * infoPath = [inPath stringByAppendingPathComponent: @"Contents/Info.plist"];
-            NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: infoPath];
-            NSString * key;
-            NSEnumerator * e = [infoDict keyEnumerator];
-            while (  (key = [e nextObject])  ) {
-                if (  [key hasPrefix: @"TBPreference"]  ) {
-                    NSString * preferenceKey = [displayName stringByAppendingString: [key substringFromIndex: [@"TBPreference" length]]];
-                    if (  ! [gTbDefaults preferenceExistsForKey: preferenceKey]  ) {
-                        [gTbDefaults setObject: [infoDict objectForKey: key] forKey: preferenceKey];
-                    }
-                } else if (  [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
-                    NSString * preferenceKey = [displayName stringByAppendingString: [key substringFromIndex: [@"TBAlwaysSetPreference" length]]];
-                    [gTbDefaults setObject: [infoDict objectForKey: key] forKey: preferenceKey];
-                }
-            }
-        }
+        // Set preferences that haven't been defined yet or that should always be set
+		[self reloadPreferencesFromTblk];
         
 		speakWhenConnected    = FALSE;
 		speakWhenDisconnected = FALSE;

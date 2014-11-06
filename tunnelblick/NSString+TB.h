@@ -30,6 +30,12 @@
 
 -(BOOL) containsOnlyCharactersInString: (NSString *) allowed;
 
+-(NSString *) pathEdition;
+
+-(NSString *) stringByAppendingPathEdition: (NSString *) edition;
+
+-(NSString *) stringByDeletingPathEdition;
+
 -(unsigned) unsignedIntValue;
 
 @end
