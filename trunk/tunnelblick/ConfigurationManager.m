@@ -1407,7 +1407,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 				if (  [cfBV compare: cfBundleVersion options: NSNumericSearch] == NSOrderedDescending  ) {
 					NSLog(@"VPN Configuration %@ will NOT be installed: it has a lower version number.", displayName);
 					TBShowAlertWindow(@"Tunnelblick", 
-									  [NSString stringWithFormat: NSLocalizedString(@"VPN Configuration %@ will NOT be installed because  it has a lower version number.", @"Window text"), localName]);
+									  [NSString stringWithFormat: NSLocalizedString(@"VPN Configuration %@ will NOT be installed because it has a lower version number.", @"Window text"), localName]);
 					return @"skip";
 				}
 			}

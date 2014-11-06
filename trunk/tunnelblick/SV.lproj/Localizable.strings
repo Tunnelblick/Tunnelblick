@@ -104,9 +104,6 @@
 "Do not use the plugin" = "Använd inte detta plugin";
 
 /* Button */
-"Done" = "Klart";
-
-/* Button */
 "Download" = "Ladda ner";
 
 /* Button */
@@ -128,10 +125,10 @@
 "Launch" = "Kör";
 
 /* Button */
-"Load Tap driver automatically" = "Load Tap driver automatically";
+"Load Tap driver automatically" = "Automatladda drivrutinen för Tap";
 
 /* Button */
-"Load Tun driver automatically" = "Load Tun driver automatically";
+"Load Tun driver automatically" = "Automatladda drivrutinen för Tun";
 
 /* Button */
 "Manually" = "Manuellt";
@@ -140,10 +137,10 @@
 "Monochrome icon" = "Svartvit ikon";
 
 /* Button */
-"Never load Tap driver" = "Never load Tap driver";
+"Never load Tap driver" = "Ladda aldrig drivrutinen för Tun";
 
 /* Button */
-"Never load Tun driver" = "Never load Tun driver";
+"Never load Tun driver" = "Ladda aldrig drivrutinen för Tun";
 
 /* Button */
 "Never show" = "Visa aldrig";
@@ -161,13 +158,13 @@
 "Only Me" = "Bara jag";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Open Uninstall Instructions in Browser";
+"Open Uninstall Instructions in Browser" = "Visa intruktioner för avinstallation i webbläsaren";
 
 /* Button */
 "Open easy-rsa in Terminal" = "Öppna easy-rsa i Terminal";
 
 /* Button */
-"Privacy info..." = "Privacy info…";
+"Privacy info..." = "Sekretessinformation…";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Avsluta Alla OpenVPN Processer";
@@ -176,7 +173,7 @@
 "Quit" = "Avsluta";
 
 /* Button */
-"Reinstall" = "Reinstall";
+"Reinstall" = "Ominstallera";
 
 /* Button */
 "Remove Credentials" = "Ta Bort Användaruppgifter";
@@ -197,10 +194,10 @@
 "Revert" = "Ångra";
 
 /* Button */
-"Show on default screen (%u x %u)" = "Show on default screen (%1$u x %2$u)";
+"Show on default screen (%u x %u)" = "Visa på standardskärmen (%1$u x %2$u)";
 
 /* Button */
-"Show on screen %u (%u x %u)" = "Show on screen %1$u (%2$u x %3$u)";
+"Show on screen %u (%u x %u)" = "Visa på skärmen %1$u (%2$u x %3$u)";
 
 /* Button */
 "Show when connection status changes" = "Visa när anslutningsstatus ändras";
@@ -209,7 +206,7 @@
 "Show while connecting" = "Visa vid anslutning";
 
 /* Button */
-"Skip" = "Skip";
+"Skip" = "Hoppa över";
 
 /* Button */
 "Speak" = "Tala";
@@ -236,10 +233,7 @@
 "Try again" = "Försök igen";
 
 /* Button */
-"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 icon";
-
-/* Button */
-"Uninstall" = "Uninstall";
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikon";
 
 /* Button */
 "When Tunnelblick launches" = "När Tunnelblick startar";
@@ -299,7 +293,7 @@
 "VPN Details..." = "VPN-inställningar…";
 
 /* Checkbox name */
-"Apply to all" = "Apply to all";
+"Apply to all" = "Applicera på alla";
 
 /* Checkbox name */
 "Check for updates automatically" = "Sök efter uppdateringar automatiskt";
@@ -311,7 +305,7 @@
 "Check if the apparent public IP address changed after connecting" = "Kontrollera om den synliga IP adressen har förändrats";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "Disconnect when computer goes to sleep";
+"Disconnect when computer goes to sleep" = "Koppla bort när datorn försätts i vila";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Koppla från vid användarbyte";
@@ -338,7 +332,7 @@
 "Do not check for IP address changes" = "Kontrollera inte förändringar av IP adress";
 
 /* Checkbox name on a warning dialog */
-"Do not show again for any configuration" = "Do not show again for any configuration";
+"Do not show again for any configuration" = "Visa inte igen för någon konfiguration";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Varna inte igen för denna konfiguraion";
@@ -350,10 +344,10 @@
 "Flush DNS cache after connecting or disconnecting" = "Töm DNS cache efter anslutning eller frånkoppling";
 
 /* Checkbox name */
-"Inhibit automatic update checking and IP Address checking" = "Inhibit automatic update checking and IP Address checking";
+"Inhibit automatic update checking and IP Address checking" = "Stäng av kontroller för automatisk uppdatering och IP-adress";
 
 /* Checkbox name */
-"Keep connected" = "Keep connected";
+"Keep connected" = "Upprätthåll förbindelsen";
 
 /* Checkbox name */ /* System profile item */
 "Monitor connection" = "Övervaka anslutning";
@@ -377,19 +371,19 @@
 "Reset the primary interface after disconnecting" = "Återställ det primära nätverket efter att ha kopplat ifrån";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
+"Route all IPv4 traffic through the VPN" = "Vidarebefordra alla IPv4-trafik genom VPN";
 
 /* Checkbox name */
-"Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
+"Run MTU maximum size test after connecting" = "Testa maxstorleken på MTU efter anslutning";
 
 /* Checkbox name */
 "Save in Keychain" = "Spara i Nyckelhanterare";
 
 /* Checkbox name */
-"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
+"Send anonymous profile information when checking" = "Skicka anonym profilinformation vid kontroll";
 
 /* Checkbox name */
-"Set DNS after routes are set instead of before routes are set" = "Set DNS after routes are set instead of before routes are set";
+"Set DNS after routes are set instead of before routes are set" = "Konfigurera DNS efter routes";
 
 /* Checkbox name */
 "Show configuration on Tunnelblick menu" = "Visa konfiguraion i Tunnelblick meny";
@@ -434,7 +428,7 @@
 "CONNECTING" = "Ansluter"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "Disconnecting"; // Please translate "Disconnecting"
+"DISCONNECTING" = "Kopplar ifrån"; // Please translate "Disconnecting"
 
 /* Connection status */
 "EXITING" = "Kopplar från"; // Please translate "Disconnected"
@@ -443,10 +437,10 @@
 "GET_CONFIG" = "Hämtar konfiguration"; // Please translate ""
 
 /* Connection status */
-"PASSWORD_WAIT" = "Waiting for password"; // Please translate "Waiting for password"
+"PASSWORD_WAIT" = "Väntar på lösenord"; // Please translate "Waiting for password"
 
 /* Connection status */
-"PRIVATE_KEY_WAIT" = "Waiting for passphrase"; // Please translate "Waiting for password"
+"PRIVATE_KEY_WAIT" = "Väntar på lösenfras"; // Please translate "Waiting for password"
 
 /* Connection status */
 "RECONNECTING" = "Återansluter"; // Please translate ""
@@ -488,10 +482,10 @@
 " (Shared)" = " (Delad)"; // Indicates a shared configuration
 
 /* Window title */
-"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Configuration - Tunnelblick";
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN-konfiguration - Tunnelblick";
 
 /* Window title */
-"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Disconnected - Advanced Settings%3$@";
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ frånkopplad - avancerade inställningar %3$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' har kopplats från";
@@ -521,7 +515,7 @@
 "Authentication failed" = "Auktorisering misslyckades";
 
 /* Window title */
-"Change for All Selected Configurations?" = "Change for All Selected Configurations?";
+"Change for All Selected Configurations?" = "Ändra alla valda konfigurationer?";
 
 /* Window title */
 "Configuration(s) Ignored" = "Konfiguration(er) ignorerade";
@@ -545,7 +539,7 @@
 "Details - Tunnelblick" = "Detaljer - Tunnelblick";
 
 /* Window title */
-"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "Do you want to make this change for all %1$lu of the selected configurations, or only for '%2$@'?";
+"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "Vill du göra den här ändringen för de %1$lu valda konfigurationerna, eller bara för ' %2$@ \"?";
 
 /* Window title */
 "Do you wish to connect?" = "Vill du ansluta?";
@@ -554,7 +548,7 @@
 "File not found" = "Filen kan inte hittas";
 
 /* Window title */
-"Info" = "Info";
+"Info" = "Information";
 
 /* Window title */
 "Install Configuration For All Users?" = "Installera konfiguration för alla användare?";
@@ -581,7 +575,7 @@
 "New Feature" = "Ny funktionalitet";
 
 /* Window title */
-"No 'dev tun', 'dev utun', or 'dev tap' found" = "No 'dev tun', 'dev utun', or 'dev tap' found";
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "Kunde inte hitta \"dev tun\", \"dev utun\" eller \"dev tap\"";
 
 /* Window title */
 "No Credentials" = "Inga användaruppgifter";
@@ -593,7 +587,7 @@
 "Only computer administrators should update Tunnelblick" = "Endast administratörer bör uppdatera Tunnelblick";
 
 /* Window title */
-"OpenVPN is Not Responding" = "OpenVPN is Not Responding";
+"OpenVPN is Not Responding" = "OpenVPN svarar inte";
 
 /* Window title */
 "Please Confirm" = "Var god bekräfta";
@@ -611,7 +605,7 @@
 "Replace Existing File?" = "Ersätt existerande fil?";
 
 /* Window title */
-"Replace VPN Configuration?" = "Replace VPN Configuration?";
+"Replace VPN Configuration?" = "Ersätta VPN-konfigurationen?";
 
 /* Window title */
 "Sample Configuration Created" = "Exempelkonfiguration skapad";
@@ -653,10 +647,10 @@
 "Utilities" = "Verktyg";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "Installationen av VPN-konfigurationen misslyckades";
 
 /* Window title */
-"VPN Configuration Installation" = "VPN Configuration Installation";
+"VPN Configuration Installation" = "Installation av VPN-konfigurationen";
 
 /* Window title */
 "VPN Credentials" = "Användaruppgifter för VPN";
@@ -680,31 +674,31 @@
 "While Connected" = "Ansluten";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Installed %lu configurations\n\n" = "     • Installed %lu configurations\n\n";
+"     • Installed %lu configurations\n\n" = "     • Installerade %lu VPN-konfigurationer\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Installed one configuration\n\n" = "     • Installed one configuration\n\n";
+"     • Installed one configuration\n\n" = "     • Installerade en konfiguration\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Replaced %lu configurations\n\n" = "     • Replaced %lu configurations\n\n";
+"     • Replaced %lu configurations\n\n" = "     • Ersatte %lu konfigurationer\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Replaced one configuration\n\n" = "     • Replaced one configuration\n\n";
+"     • Replaced one configuration\n\n" = "     • Ersatte en konfiguration\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Uninstalled %lu configurations\n\n" = "     • Uninstalled %lu configurations\n\n";
+"     • Uninstalled %lu configurations\n\n" = "     • Avinstallerade %lu konfigurationer\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Uninstalled one configuration\n\n" = "     • Uninstalled one configuration\n\n";
+"     • Uninstalled one configuration\n\n" = "     • Avinstallerade en konfiguration\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install %lu configurations\n\n" = "    • Install %lu configurations\n\n";
+"    • Install %lu configurations\n\n" = "    • Installera %lu konfigurationer\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install one configuration\n" = "    • Install one configuration\n";
+"    • Install one configuration\n" = "    • Installera en konfiguration\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Replace %lu configurations\n\n" = "    • Replace %lu configurations\n\n";
+"    • Replace %lu configurations\n\n" = "    • Ersätt %lu konfigurationer\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Replace one configuration\n" = "    • Replace one configuration\n";
@@ -774,9 +768,6 @@
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' har inte några användaruppgifter (privat nyckel eller användarnamn och lösenord) lagrade i Nyckelhanteraren.";
-
-/* Window text */
-"'%@' value '%@' is not a valid URL in %@" = "'%1$@' value '%2$@' is not a valid URL in %3$@";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' was not terminated.";
@@ -905,6 +896,15 @@
 "Cannot install configurations to either shared or private locations" = "Cannot install configurations to either shared or private locations";
 
 /* Window text */
+"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+
+/* Window text */
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+
+/* Window text */
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+
+/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurationen '%1$@' kommer att ignoreras eftersom dess namn innehåller otillåtna tecken.\n\nOtillåtna tecken: '%2$s'\n\n";
 
 /* Window text */
@@ -989,9 +989,6 @@
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Vill du återställa konfigurationen '%@' till sin senaste säkerhetskopia?\n\n";
 
 /* Window text */
-"Do you wish to uninstall '%@' version %@?" = "Do you wish to uninstall '%1$@' version %2$@?";
-
-/* Window text */
 "Domain:" = "Domän:";
 
 /* Window text */
@@ -1013,6 +1010,12 @@
 "Failed to copy %@ to %@" = "Failed to copy %1$@ to %2$@";
 
 /* Window text */
+"Failed to create folder at %@" = "Failed to create folder at %@";
+
+/* Window text */
+"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
+
+/* Window text */
 "Failed to set permissions on %@\n" = "Failed to set permissions on %@\n";
 
 /* Window text */
@@ -1022,19 +1025,19 @@
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
 
 /* Window text */
-"File '%@' ends with a backslash, which is not allowed." = "File '%@' ends with a backslash, which is not allowed.";
+"File '%@' ends with a backslash, which is not allowed." = "Filnamnet \"%@\" slutar med ett omvänt snedstreck, vilket inte är tillåtet.";
 
 /* Window text */
-"File '%@' has an extension which is not known to Tunnelblick." = "File '%@' has an extension which is not known to Tunnelblick.";
+"File '%@' has an extension which is not known to Tunnelblick." = "\"%@\" har en filändelse som Tunnelblick inte känner till.";
 
 /* Window text */
-"File '%@' is empty" = "File '%@' is empty";
+"File '%@' is empty" = "Filen \"%@\" är tom";
 
 /* Window text */
-"File '%@' is missing" = "File '%@' is missing";
+"File '%@' is missing" = "Filen \"%@\" saknas";
 
 /* Window text */
-"File is too large: %@" = "File is too large: %@";
+"File is too large: %@" = "Filen är för stor: %@";
 
 /* Window text */
 "GB" = "GB";
@@ -1046,19 +1049,19 @@
 "Icon:" = "Ikon:";
 
 /* Window text */
-"In %@:\n\nThere are no OpenVPN configurations to install." = "In %@:\n\nThere are no OpenVPN configurations to install.";
+"In %@:\n\nThere are no OpenVPN configurations to install." = "I %@: det finns inga OpenVPN-konfigurationer att installera.";
 
 /* Window text */
-"In the OpenVPN configuration file for '%@' at line %lu: %@" = "In the OpenVPN configuration file for '%1$@' at line %2$lu: %3$@";
+"In the OpenVPN configuration file for '%@' at line %lu: %@" = "I OpenVPN-konfigurationsfilen för '%1$@' på rad %2$lu: %3$@";
 
 /* Window text */
-"In the OpenVPN configuration file for '%@': %@" = "In the OpenVPN configuration file for '%1$@': %2$@";
+"In the OpenVPN configuration file for '%@': %@" = "I OpenVPN-konfigurationsfilen för ' %1$@': %2$@";
 
 /* Window text */
-"In:" = "In:";
+"In:" = "I:";
 
 /* Window text */
-"Installation failed:\n\n%@" = "Installation failed:\n\n%@";
+"Installation failed:\n\n%@" = "Installationen misslyckades: %@";
 
 /* Window text */
 "Installation finished successfully." = "Installationen lyckades.";
@@ -1070,10 +1073,10 @@
 "Installing and securing Tunnelblick..." = "Installerar och säkrar Tunnelblick…";
 
 /* Window text */
-"Installing configurations is not allowed" = "Installing configurations is not allowed";
+"Installing configurations is not allowed" = "Installation av konfigurationer är inte tillåtet";
 
 /* Window text */
-"Invalid value '%@' for '%@' in %@" = "Invalid value '%1$@' for '%2$@' in %3$@";
+"Invalid value '%@' for '%@' in %@" = "Ogiltigt värde '%1$@' för '%2$@' i %3$@";
 
 /* Window text */
 "KB" = "KB";
@@ -1088,7 +1091,7 @@
 "Last checked: %@" = "Senast kontrollerad: %@";
 
 /* Window text */
-"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Line %1$d of file '%2$@' contains a non-printable character (0x%3$X) which is not allowed.\n\n";
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Rad %1$d i filen ' %2$@' innehåller ett otillåtet icke-utskrivbart tecken (0x%3$X).\n\n";
 
 /* Window text */
 "Localization by" = "Översättning av";
@@ -1104,6 +1107,12 @@
 
 /* Window text */
 "Menu:" = "Meny:";
+
+/* Window text */
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+
+/* Window text */
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
 
 /* Window text */
 "Modified configuration file to remove path information" = "Modified configuration file to remove path information";
@@ -1138,8 +1147,8 @@
 /* Window text */
 "Non-boolean value for '%@' in %@" = "Non-boolean value for '%1$@' in %2$@";
 
-/* Window text */
-"Non-number value for '%@' in %@" = "Non-number value for '%1$@' in %2$@";
+/* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
+"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
 
 /* Window text */
 "Non-string value for '%@' in %@" = "Non-string value for '%1$@' in %2$@";
@@ -1149,6 +1158,9 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Not a .ovpn or .conf: %@";
+
+/* Window text */
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
 
 /* Window text */
 "Notification window:" = "Statusfönster:";
@@ -1565,13 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
 
 /* Window text */
 "Updates:" = "Uppdateringar:";
 
 /* Window text */
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+
+/* Window text */
 "VPN Connections" = "VPN-anslutningar";
+
+/* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
+"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
 
 /* Window text */
 "WINS servers:" = "WINS-servrar:";
@@ -1623,9 +1644,6 @@
 
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "En konfiguration kan bara döpas om när den är frånkopplad.";
-
-/* Window text */
-"You do not have permission to read '%@'.\n\n" = "You do not have permission to read '%@'.\n\n";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n";

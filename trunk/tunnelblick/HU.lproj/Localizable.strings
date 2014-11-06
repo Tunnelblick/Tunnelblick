@@ -104,9 +104,6 @@
 "Do not use the plugin" = "Ne használja a plugin-t";
 
 /* Button */
-"Done" = "Kész";
-
-/* Button */
 "Download" = "Letöltés";
 
 /* Button */
@@ -237,9 +234,6 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick v3.3 ikon";
-
-/* Button */
-"Uninstall" = "Eltávolítás";
 
 /* Button */
 "When Tunnelblick launches" = "Amikor a Tunnelblick indul";
@@ -377,7 +371,7 @@
 "Reset the primary interface after disconnecting" = "Az elsődleges interfész újrainicializálása szétkapcsolás után";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
+"Route all IPv4 traffic through the VPN" = "Minden IPv4 forgalom VPN-en keresztül történő irányítása";
 
 /* Checkbox name */
 "Run MTU maximum size test after connecting" = "Csatlakozás után tesztelje az MTU maximális méretét";
@@ -386,7 +380,7 @@
 "Save in Keychain" = "Mentés a kulcstartóra";
 
 /* Checkbox name */
-"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
+"Send anonymous profile information when checking" = "Névtelen profil információ küldése ellenőrzéskor";
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "DNS beállítása az útvonalak beállítása után és nem előtte";
@@ -611,7 +605,7 @@
 "Replace Existing File?" = "Lecseréli a meglévő állományt?";
 
 /* Window title */
-"Replace VPN Configuration?" = "Replace VPN Configuration?";
+"Replace VPN Configuration?" = "Kicseréli a VPN konfigurációt?";
 
 /* Window title */
 "Sample Configuration Created" = "A minta konfiguráció létrejött";
@@ -653,10 +647,10 @@
 "Utilities" = "Segédprogramok";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "Hiba történt a VPN konfiguráció telepítése közben";
 
 /* Window title */
-"VPN Configuration Installation" = "VPN Configuration Installation";
+"VPN Configuration Installation" = "VPN konfiguráció telepítése";
 
 /* Window title */
 "VPN Credentials" = "VPN hitelesítőadatok";
@@ -776,9 +770,6 @@
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' Nem található hitelesítőadat (privát kulcs vagy felhasználónév és jelszó) a kulcstartón.";
 
 /* Window text */
-"'%@' value '%@' is not a valid URL in %@" = "A '%1$@'  ' %2$@' érték egy nem érvényes URL a %3$@ konfigurációban";
-
-/* Window text */
 "'%@' was not terminated." = "'%@' nem lett befejezve.";
 
 /* Window text */
@@ -815,10 +806,10 @@
 "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Egy probléma adódott a számítógép látszólagos nyilvános IP-címe ellenőrzése közben.\n\nLásd a konzol log-ot a részletekért.\n\n";
 
 /* Window text */
-"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
+"A username and password are required to connect to\n  %@" = "Felhasználónév és jelszó szükséges a következőhöz való kapcsolódáshoz:\n  %@";
 
 /* Window text */
-"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Felhasználónév és jelszó szükséges a következőhöz való kapcsolódáshoz:\n  %1$@\n('%2$@' hozzáférés használatával)";
 
 /* Window text */
 "Add Credentials..." = "Hitelesítőadatok hozzáadása…";
@@ -827,7 +818,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "'.sh' kiterjesztés a(z) %@ -hoz hozzáadva, így az megfelelő biztonságban van";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "Added a '.key' extension to %@ so it will be secured properly";
+"Added a '.key' extension to %@ so it will be secured properly" = ".key kiterjesztés hozzáadva a következőhöz a megfelelő biztonság érdekében: %@";
 
 /* Window text */
 "Additional contributions by" = "További segítők és fejlesztők";
@@ -903,6 +894,15 @@
 
 /* Window text */
 "Cannot install configurations to either shared or private locations" = "Nem telepíthető sem privát sem közös konfigurációs fájl";
+
+/* Window text */
+"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+
+/* Window text */
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+
+/* Window text */
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "A(z) '%1$@' nevű konfiguráció figyelmen kívül lesz hagyva, mert a neve tiltott karaktereket tartalmaz.\n\nA tiltott karakterek: '%2$s'\n\n";
@@ -983,13 +983,10 @@
 "Do you wish to replace '%@' version %@ with version %@?" = "Cseréli a(z) ' %1$@' verzió %2$@ erre a verzióra %3$@?";
 
 /* Window text */
-"Do you wish to replace the '%@' configuration?\n\n" = "Do you wish to replace the '%@' configuration?\n\n";
+"Do you wish to replace the '%@' configuration?\n\n" = "Ki szeretné cserélni a '%@' konfigurációt?\n\n";
 
 /* Window text */
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Vissza kívánja állítani a(z) '%@' konfigurációt biztonsági másolatból?\n\n";
-
-/* Window text */
-"Do you wish to uninstall '%@' version %@?" = "Do you wish to uninstall '%1$@' version %2$@?";
 
 /* Window text */
 "Domain:" = "Domain:";
@@ -1004,16 +1001,22 @@
 "EB/s" = "EB/s";
 
 /* Window text */
-"Expected command not found for '%@'" = "Expected command not found for '%@'";
+"Expected command not found for '%@'" = "A várt parancs nem található a következőhöz: '%@'";
 
 /* Window text */
-"Expected path not found for '%@'" = "Expected path not found for '%@'";
+"Expected path not found for '%@'" = "A várt elérési út nem található a következőhöz: '%@'";
 
 /* Window text */
-"Failed to copy %@ to %@" = "Failed to copy %1$@ to %2$@";
+"Failed to copy %@ to %@" = "A %1$@ másolása sikertelen ide: %2$@";
 
 /* Window text */
-"Failed to set permissions on %@\n" = "Failed to set permissions on %@\n";
+"Failed to create folder at %@" = "Failed to create folder at %@";
+
+/* Window text */
+"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
+
+/* Window text */
+"Failed to set permissions on %@\n" = "Jogosultságok beállítása sikertelen a következőn: %@\n";
 
 /* Window text */
 "Fast User Switching" = "Gyors felhasználó váltás";
@@ -1025,16 +1028,16 @@
 "File '%@' ends with a backslash, which is not allowed." = "File '%@' ends with a backslash, which is not allowed.";
 
 /* Window text */
-"File '%@' has an extension which is not known to Tunnelblick." = "File '%@' has an extension which is not known to Tunnelblick.";
+"File '%@' has an extension which is not known to Tunnelblick." = "A '%@' kiterjesztése ismeretlen a Tunnelblick számára.";
 
 /* Window text */
-"File '%@' is empty" = "File '%@' is empty";
+"File '%@' is empty" = "A '%@' üres";
 
 /* Window text */
-"File '%@' is missing" = "File '%@' is missing";
+"File '%@' is missing" = "A '%@' hiányzik";
 
 /* Window text */
-"File is too large: %@" = "File is too large: %@";
+"File is too large: %@" = "Fájl mérete túl nagy: %@";
 
 /* Window text */
 "GB" = "GB";
@@ -1046,19 +1049,19 @@
 "Icon:" = "Ikon:";
 
 /* Window text */
-"In %@:\n\nThere are no OpenVPN configurations to install." = "In %@:\n\nThere are no OpenVPN configurations to install.";
+"In %@:\n\nThere are no OpenVPN configurations to install." = "A %@-ban:\n\nNem található telepítendő OpenVPN konfiguráció.";
 
 /* Window text */
-"In the OpenVPN configuration file for '%@' at line %lu: %@" = "In the OpenVPN configuration file for '%1$@' at line %2$lu: %3$@";
+"In the OpenVPN configuration file for '%@' at line %lu: %@" = "Az OpenVPN konfigurációs fájlban a következőre: '%1$@' a %2$lu: %3$@ sorban";
 
 /* Window text */
-"In the OpenVPN configuration file for '%@': %@" = "In the OpenVPN configuration file for '%1$@': %2$@";
+"In the OpenVPN configuration file for '%@': %@" = "Az OpenVPN konfigurációs fájlban a következőhöz: '%1$@': %2$@";
 
 /* Window text */
 "In:" = "Be:";
 
 /* Window text */
-"Installation failed:\n\n%@" = "Installation failed:\n\n%@";
+"Installation failed:\n\n%@" = "A telepítés sikertelen volt: \n\n%@";
 
 /* Window text */
 "Installation finished successfully." = "A telepítés sikeresen véget ért.";
@@ -1070,10 +1073,10 @@
 "Installing and securing Tunnelblick..." = "Tunnelblick telepítése és biztosítása…";
 
 /* Window text */
-"Installing configurations is not allowed" = "Installing configurations is not allowed";
+"Installing configurations is not allowed" = "Konfigurációk telepítése nem engedélyezett";
 
 /* Window text */
-"Invalid value '%@' for '%@' in %@" = "Invalid value '%1$@' for '%2$@' in %3$@";
+"Invalid value '%@' for '%@' in %@" = "Érvénytelen a(z) '%1$@' érték a következőre: '%2$@' itt: %3$@";
 
 /* Window text */
 "KB" = "KB";
@@ -1088,7 +1091,7 @@
 "Last checked: %@" = "Utoljára ellenőrizve: %@";
 
 /* Window text */
-"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Line %1$d of file '%2$@' contains a non-printable character (0x%3$X) which is not allowed.\n\n";
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "A '%2$@' fájl %1$d sora egy nem nyomtatható karaktert tartalmaz (0x%3$X), ami nem megengedett.\n\n";
 
 /* Window text */
 "Localization by" = "A honosításokat készítették:";
@@ -1106,7 +1109,13 @@
 "Menu:" = "Menü:";
 
 /* Window text */
-"Modified configuration file to remove path information" = "Modified configuration file to remove path information";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+
+/* Window text */
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+
+/* Window text */
+"Modified configuration file to remove path information" = "Módosította a konfigurációs fájlt az elérési útról kapott információ törlése érdekében";
 
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Több egyidejű kapcsolat készült (%1$d a 'Névszerver beállítás'-sal, %2$d 'Névszerver beállítás' nélkül).";
@@ -1127,28 +1136,31 @@
 "Network setting" = "Hálózati beállítások";
 
 /* Window text */
-"No 'TBPackageVersion' in %@" = "No 'TBPackageVersion' in %@";
+"No 'TBPackageVersion' in %@" = "Nem található 'TBPackageVersion' ebben: %@";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Nincsen path az easy-rsa-hoz. Valószínű, hogy az 'easy-rsaPath' tulajdonsággal van probléma";
 
 /* Window text */
-"Non-array value for '%@' in %@" = "Non-array value for '%1$@' in %2$@";
+"Non-array value for '%@' in %@" = "Nem-tömb érték erre: '%1$@', itt: %2$@";
 
 /* Window text */
-"Non-boolean value for '%@' in %@" = "Non-boolean value for '%1$@' in %2$@";
+"Non-boolean value for '%@' in %@" = "Nem-boolean érték erre: '%1$@', itt: %2$@";
+
+/* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
+"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
 
 /* Window text */
-"Non-number value for '%@' in %@" = "Non-number value for '%1$@' in %2$@";
+"Non-string value for '%@' in %@" = "Nem szöveg érték erre: '%1$@', itt: %2$@";
 
 /* Window text */
-"Non-string value for '%@' in %@" = "Non-string value for '%1$@' in %2$@";
-
-/* Window text */
-"Non-string value for an item in '%@' in %@" = "Non-string value for an item in '%1$@' in %2$@";
+"Non-string value for an item in '%@' in %@" = "Nem-tömb érték egy elemre itt: '%1$@', %2$@";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Nem egy .ovpn vagy .conf fájl: %@";
+
+/* Window text */
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
 
 /* Window text */
 "Notification window:" = "Figyelmeztető ablak:";
@@ -1565,13 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
 
 /* Window text */
 "Updates:" = "Frissítések:";
 
 /* Window text */
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+
+/* Window text */
 "VPN Connections" = "VPN Kapcsolatok";
+
+/* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
+"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
 
 /* Window text */
 "WINS servers:" = "WINS szerverek:";
@@ -1623,9 +1644,6 @@
 
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "Nem nevezhető át egy konfiguráció amíg a kapcsolat él.";
-
-/* Window text */
-"You do not have permission to read '%@'.\n\n" = "Nincsen jogosultsága olvasni a következőt: '%@'.\n\n";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n";
