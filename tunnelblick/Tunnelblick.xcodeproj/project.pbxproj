@@ -38,6 +38,7 @@
 		61C03B990ED4E42A00175F22 /* NB.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* NB.lproj */; };
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
 		630210131465CBBC00283B78 /* CS.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 630210121465CBBC00283B78 /* CS.lproj */; };
+		63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */; };
 		6311306411041B89003435F1 /* LoginItemsAE.c in Sources */ = {isa = PBXBuildFile; fileRef = 6311305F11041B89003435F1 /* LoginItemsAE.c */; };
 		6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311306211041B89003435F1 /* UKLoginItemRegistry.m */; };
@@ -1396,6 +1397,7 @@
 			files = (
 				61BC4D9E0E2FA2F300F24255 /* installer.m in Sources */,
 				63F2AD9D12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
+				63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */,
 				B86422B616153F8100ABD492 /* ConfigurationConverter.m in Sources */,
 				B81C3477161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
 				B8045A0A161EF26700609C98 /* sharedRoutines.m in Sources */,
