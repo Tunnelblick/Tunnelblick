@@ -156,6 +156,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 				inputIx--;				  // back up so newline will be processed by skipToNextLine
 				return NSMakeRange(0, 0); // newline marks end of token but is not part of the token
 			}
+			inBackslash = FALSE;
             continue;
         }
         
@@ -674,7 +675,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 		}
 	}
     
-    if (  outputPath  ) {
+    if (   fileExists
+		&& outputPath  ) {
 
         NSString * outPath = [[[outputPath stringByAppendingPathComponent: @"Contents"]
                                stringByAppendingPathComponent: @"Resources"]
@@ -727,7 +729,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 		[pathsAlreadyCopied addObject: inPath];
     }
 	
-	if (  ! [inPathString isEqualToString: fileWithNeededExtension]  ) {
+	if (   fileExists
+		&& ( ! [inPathString isEqualToString: fileWithNeededExtension])  ) {
 		[tokensToReplace  addObject: [[[ConfigurationToken alloc]
                                        initWithRange: rng
                                        inString:      configString
@@ -834,7 +837,74 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 	
 	return nil;
 }
+
+-(NSString *) processNonReadableConfiguration {
+    
+    // Create the .tblk structure in the output file
+	NSString * contentsPath  = [outputPath stringByAppendingPathComponent: @"Contents"];
+	NSString * resourcesPath = [contentsPath stringByAppendingPathComponent: @"Resources"];
+	if (  ! createDir(resourcesPath, PERMS_SECURED_FOLDER)  ) {
+		appendLog([NSString stringWithFormat: @"Failed to create folder at %@", resourcesPath]);
+		return [NSString stringWithFormat: NSLocalizedString(@"Failed to create folder at %@", @"Window text"), resourcesPath];
+	}
 	
+	// Create symlinks to everything in the .tblk
+	NSString * configContainer = [configPath stringByDeletingLastPathComponent];
+	NSString * file;
+	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: configContainer];
+	while (  (file = [dirEnum nextObject])  ) {
+		NSString * fullPath = [configContainer stringByAppendingPathComponent: file];
+		BOOL isDir;
+		if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+			&& ( ! isDir)
+			&& ( ! [file hasPrefix: @"."])  ) {
+			NSString * sourcePath = [configContainer stringByAppendingPathComponent: file];
+			NSString * targetPath = (  [file isEqualToString: @"Info.plist"]
+									 ? [contentsPath    stringByAppendingPathComponent: file]
+									 : [resourcesPath   stringByAppendingPathComponent: file]);
+			if (  [gFileMgr tbCreateSymbolicLinkAtPath: targetPath pathContent: sourcePath]  ) {
+				appendLog([NSString stringWithFormat: @"Created symlink\n  to %@\n  at %@", sourcePath, targetPath]);
+			} else {
+				appendLog([NSString stringWithFormat: @"Failed to create symlink\n  to %@\n  at %@", sourcePath, targetPath]);
+				return [NSString stringWithFormat: NSLocalizedString(@"Failed to create symlink\n  to %@\n  at %@", @"Window text"), sourcePath, targetPath];
+			}
+		}
+	}
+	
+	// Create symlinks to files in useExistingFiles from the existing configuration
+	NSString * existingConfigContainer = [[replacingTblkPath stringByAppendingPathComponent: @"Contents"]
+										  stringByAppendingPathComponent: @"Resources"];
+	if (   existingConfigContainer
+		&& ([useExistingFiles count] != 0)) {
+		NSString * file;
+		NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: existingConfigContainer];
+		while (  (file = [dirEnum nextObject])  ) {
+			NSString * fullPath = [existingConfigContainer stringByAppendingPathComponent: file];
+			BOOL isDir;
+			if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+				&& ( ! isDir)
+				&& ( ! [file hasPrefix: @"."] )
+				&&  [self existingFilesList: useExistingFiles hasAMatchFor: file]  ) {
+				NSString * sourcePath = [existingConfigContainer stringByAppendingPathComponent: file];
+				NSString * targetPath = [resourcesPath           stringByAppendingPathComponent: [file lastPathComponent]];
+				if (  [gFileMgr tbCreateSymbolicLinkAtPath: targetPath pathContent: sourcePath]  ) {
+					appendLog([NSString stringWithFormat: @"Created symlink\n  to %@\n  at %@", sourcePath, targetPath]);
+				} else {
+					appendLog([NSString stringWithFormat: @"Failed to create symlink\n  to %@\n  at %@", sourcePath, targetPath]);
+					return [NSString stringWithFormat: NSLocalizedString(@"Failed to create symlink\n  to %@\n  at %@", @"Window text"), sourcePath, targetPath];
+				}
+			}
+		}
+	} else {
+		if (  [useExistingFiles count] != 0  ) {
+			appendLog([NSString stringWithFormat: @"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'", nameForErrorMessages]);
+			return [NSString stringWithFormat: NSLocalizedString(@"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'", @"Window text"), nameForErrorMessages];
+		}
+	}
+	
+	return nil;
+}
+
 -(NSString *) convertConfigPath: (NSString *) theConfigPath
 					 outputPath: (NSString *) theOutputPath
               replacingTblkPath: (NSString *) theReplacingTblkPath
@@ -866,6 +936,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 	//   * When invoked to convert a configuration file inside a .tblk being installed, this should be TRUE
 	//     Otherwise, it should be FALSE.
 	//
+    // Notwithstanding the foregoing, if we are installing from L_AS_T/Tblks, a symlink is created for all files in the source .tblk and all
+	// files referenced in "TBKeepExistingFilesList".
+    //
     // Returns nil if no error; otherwise returns a localized error message
 	
     configPath           = [theConfigPath           copy];
@@ -883,6 +956,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     NSString * errMsg = [self fileIsReasonableSize: theConfigPath];
     if (  errMsg  ) {
         return errMsg;
+    }
+    
+    if (  [theConfigPath hasPrefix: L_AS_T_TBLKS]  ) {
+        return [self processNonReadableConfiguration];
     }
     
     errMsg = [self errorIfBadCharactersInFileAtPath: theConfigPath ];
@@ -1133,11 +1210,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     }
 
 	// Write out the (possibly modified) configuration file
-	NSString * outputConfigPath;
     if (  outputPath  ) {
-        outputConfigPath= [[[outputPath stringByAppendingPathComponent: @"Contents"]
-                            stringByAppendingPathComponent: @"Resources"]
-                           stringByAppendingPathComponent: @"config.ovpn"];
+        NSString * outputConfigPath= [[[outputPath stringByAppendingPathComponent: @"Contents"]
+                                       stringByAppendingPathComponent: @"Resources"]
+                                      stringByAppendingPathComponent: @"config.ovpn"];
         NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                      [NSNumber numberWithUnsignedLong: (unsigned long) getuid()],            NSFileOwnerAccountID,
                                      [NSNumber numberWithUnsignedLong: (unsigned long) ADMIN_GROUP_ID],      NSFileGroupOwnerAccountID,

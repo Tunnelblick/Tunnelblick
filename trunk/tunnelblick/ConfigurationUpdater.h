@@ -25,24 +25,20 @@
 
 @interface ConfigurationUpdater : NSObject {
     
-    NSString       * cfgBundlePath;
-    SUUpdater      * cfgUpdater;
-    BOOL             cancelling;
-	BOOL			 checking;
-	BOOL			 checkingWithUI;
+    NSString  * cfgBundlePath;
+    SUUpdater * cfgUpdater;
+    NSString  * cfgBundleId;
+    NSString  * cfgName;
 }
 
-// Sets up the updater for later use
 -(ConfigurationUpdater *) initWithPath: (NSString *) path;
 
--(void) startCheckingWithUI: (NSNumber *) withUI;
+-(void) startUpdateCheckingWithUI: (NSNumber *) withUI;
 
 -(void) stopChecking;
 
 -(NSString *) cfgBundlePath;
 
-TBPROPERTY_READONLY(NSString *, cfgBundlePath)
-TBPROPERTY_READONLY(BOOL,       checking)
-TBPROPERTY_READONLY(BOOL,       checkingWithUI)
+TBPROPERTY_READONLY(NSString *, cfgBundleId)
 
 @end

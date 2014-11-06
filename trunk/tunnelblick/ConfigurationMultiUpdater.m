@@ -35,86 +35,96 @@ extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;
 extern BOOL             gShuttingDownWorkspace;
 
-extern void _CFBundleFlushBundleCaches(CFBundleRef bundle) __attribute__((weak_import));
-
 @implementation ConfigurationMultiUpdater
 
--(ConfigurationUpdater *) addTblkAtPath: (NSString *) path {
+TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, configUpdaters)
+
+
++(NSArray *) pathsForMasterStubTblkContainersWithBundleIdentifier: (NSString *) bundleId {
     
-    NSString * tblkName = [path lastPathComponent];
-    NSString * ext  = [tblkName pathExtension];
+    NSMutableArray * paths = [NSMutableArray arrayWithCapacity: 10];
     
-    if (  [ext isEqualToString: @"tblk"]  ) {
-        if (   ( [tblkName containsOnlyCharactersInString: ALLOWED_DOMAIN_NAME_CHARACTERS])
-            && ( [tblkName rangeOfString: @".."].length == 0)  ) {
-            
-			// Copy the /Library copy of the updatable .tblk to a per-user copy so it can be secured for the user instead of root
-			NSString * updatableTblkPath = [[[[[NSHomeDirectory() stringByAppendingPathComponent: @"Library"]
-											   stringByAppendingPathComponent: @"Application Support"]
-											  stringByAppendingPathComponent: @"Tunnelblick"]
-											 stringByAppendingPathComponent: @"Tblks"]
-											stringByAppendingPathComponent: tblkName];
-			
-			// But not if we are called with the per-user copy
-			if (  ! [updatableTblkPath isEqualToString: path]  ) {
-				if (  [gFileMgr fileExistsAtPath: updatableTblkPath]  ) {
-					if (  ! [gFileMgr tbRemoveFileAtPath: updatableTblkPath handler: nil]  ) {
-						NSLog(@"Unable to remove %@", updatableTblkPath);
-						return nil;
-					}
-				}
-				NSString * updatableTblkContainerPath = [updatableTblkPath stringByDeletingLastPathComponent];
-				if (  createDir(updatableTblkContainerPath, PERMS_PRIVATE_FOLDER) == -1  ) {
-					NSLog(@"Unable to create %@", updatableTblkContainerPath);
-					return nil;
-				}
-				if (  [gFileMgr tbCopyPath: path toPath: updatableTblkPath handler: nil]  ) {
-					TBLog(@"DB-UC", @"Copied updatable configuration '%@' to local user folder", tblkName);
-				} else {
-					TBLog(@"DB-UC", @"Unable to copy %@ to %@", path, updatableTblkPath);
-					return nil;
-				}
-			}
-            
-            // NOTE: Updaters are NOT created with autoRelease. If we auto-released them, they would not be
-            // deallocated (and thus stopped) until the end of the current run loop, and that might be later than we want.
-            
-            ConfigurationUpdater * configUpdater = [[ConfigurationUpdater alloc] initWithPath: updatableTblkPath];
-            
-            if (  configUpdater  ) {
-                [configUpdaters addObject: configUpdater];                  // This will make the retain count 2 because it is retained by configUpdaters
-                [configUpdater release];                                    // This will make the retain count 1, because it is still retained by configUpdaters
-                return configUpdater;
-            } else {
-                NSLog(@"Unable to create configuration updater for %@", tblkName);
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
+    NSString * bundleIdAndEdition;
+    while (  (bundleIdAndEdition = [dirEnum nextObject])  ) {
+        [dirEnum skipDescendents];
+        NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
+        BOOL isDir;
+        if (   ( ! [bundleIdAndEdition hasPrefix: @"."] )
+            && ( ! [bundleIdAndEdition hasSuffix: @".tblk"] )
+            && [gFileMgr fileExistsAtPath: containerPath isDirectory: &isDir]
+            && isDir  ) {
+            NSString * thisBundleId = [bundleIdAndEdition stringByDeletingPathEdition];
+            if (  [bundleId isEqualToString: thisBundleId]  ) {
+                [paths addObject: containerPath];
             }
-        } else {
-            NSLog(@"addUpdaterForSet: Ignoring updatable '%@' because of illegal characters in its name (not 0-9, a-z, A-Z, '.', or '-') or the name contains '..'", tblkName);
         }
-    } else {
-        NSLog(@"addUpdaterForSet: Ignoring updatable '%@' because of it is not a .tblk", tblkName);
     }
     
-    return nil;
+    return [NSArray arrayWithArray: paths];
+}
+
++(NSDictionary *) highestEditionNumber {
+	
+    // Find the highest edition number for each bundleId_edition folder in L_AS_T_TBLKS
+    NSMutableDictionary * bundleIdVersions = [[[NSMutableDictionary alloc] initWithCapacity: 10] autorelease]; // Key = bundleId; object = edition
+    
+    NSDirectoryEnumerator * outerDirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
+    NSString * bundleIdAndEdition;
+    while (  (bundleIdAndEdition = [outerDirEnum nextObject])  ) {
+        [outerDirEnum skipDescendents];
+        NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
+        BOOL isDir;
+        if (   ( ! [bundleIdAndEdition hasPrefix: @"."] )
+            && ( ! [bundleIdAndEdition hasSuffix: @".tblk"] )
+            && [gFileMgr fileExistsAtPath: containerPath isDirectory: &isDir]
+            && isDir  ) {
+            NSString * bundleId = [bundleIdAndEdition stringByDeletingPathEdition];
+            NSString * edition  = [bundleIdAndEdition pathEdition];
+            NSString * highestEdition = [bundleIdVersions objectForKey: bundleId];
+            if (   ( ! highestEdition)
+                || ( [highestEdition compare: edition options: NSNumericSearch] == NSOrderedAscending )  ) {
+                [bundleIdVersions setObject: edition forKey: bundleId];
+            }
+        }
+    }
+    
+	return [NSDictionary dictionaryWithDictionary: bundleIdVersions];
 }
 
 -(id) init {
     
     self = [super init];
-    if (  self  ) {
-        
-        //
-        // NOTE: Do not use [NSMutableArray arrayWithCapacity:] because we need to control the release more closely than autoRelease allows
-        //
-        
-        configUpdaters = [[NSMutableArray alloc] initWithCapacity: 10];
-        
-        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
-        NSString * file;
-        while (  (file = [dirEnum nextObject])  ) {
-            [dirEnum skipDescendents];
-            NSString * tblkPath = [L_AS_T_TBLKS stringByAppendingPathComponent: file];
-            [self addTblkAtPath: tblkPath];
+    if (  ! self  ) {
+        return nil;
+    }
+    
+	NSDictionary * bundleIdVersions = [ConfigurationMultiUpdater highestEditionNumber];
+    
+	// Create a ConfigurationUpdater for the highest edition of each bundleId and put it into configUpdaters
+    configUpdaters = [[NSMutableArray alloc] initWithCapacity: 10]; // Entries: ConfigurationUpdater *
+    
+    NSEnumerator * e = [bundleIdVersions keyEnumerator];
+    NSString * bundleId;
+    while (  (bundleId = [e nextObject])  ) {
+        NSString * edition = [bundleIdVersions objectForKey: bundleId];
+        NSString * bundleIdAndEdition = [bundleId stringByAppendingPathEdition: edition];
+        NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
+        NSDirectoryEnumerator * innerDirEnum = [gFileMgr enumeratorAtPath: containerPath];
+        NSString * name;
+        while (  (name = [innerDirEnum nextObject])  ) {
+            [innerDirEnum skipDescendents];
+            if (  [name hasSuffix: @".tblk"]  ) {
+                NSString * masterPath = [containerPath stringByAppendingPathComponent: name];
+                ConfigurationUpdater * configUpdater = [[[ConfigurationUpdater alloc] initWithPath: masterPath] autorelease];
+                if (  configUpdater  ) {
+                    [configUpdaters addObject: configUpdater];
+                    TBLog(@"DB-UC", @"Added configuration updater for '%@' (%@)", bundleId, edition);
+                } else {
+                    NSLog(@"Could not create a new ConfigurationUpdater with path '%@'", masterPath);
+                    return nil;
+                }
+            }
         }
     }
     
@@ -128,131 +138,73 @@ extern void _CFBundleFlushBundleCaches(CFBundleRef bundle) __attribute__((weak_i
     [super dealloc];
 }
 
--(void) startAllCheckingWithUI: (BOOL) withUI {
+-(void) startAllUpdateCheckingWithUI: (BOOL) withUI {
     
     ConfigurationUpdater * configUpdater;
-    NSEnumerator * e = [configUpdaters objectEnumerator];
+    NSEnumerator * e = [[self configUpdaters] objectEnumerator];
     while (  (configUpdater = [e nextObject])  ) {
-        [configUpdater startCheckingWithUI: [NSNumber numberWithBool: withUI]];
-    }
-}
-
--(void) restartUpdaterForTblkAtPath: (NSString *) path {
-    
-    ConfigurationUpdater * configUpdater;
-    NSEnumerator * e = [configUpdaters objectEnumerator];
-    while (  (configUpdater = [e nextObject])  ) {
-        if (  [[configUpdater cfgBundlePath] isEqualToString: path]  ) {
-			
-			// Remember state so we can restore it
-			BOOL checking = [configUpdater checking];
-			BOOL withUI   = [configUpdater checkingWithUI];
-			
-			// Stop checking with that updater
-			[configUpdater stopChecking];
-			
-			NSString * fileName = [path lastPathComponent];
-			
-			// Remove the old updater
-			[configUpdaters removeObject: configUpdater];
-			TBLog(@"DB-UC", @"Removed old updater for %@", fileName);
-            
-            // Flushing the bundle cache is important. If it is not done, Sparkle will get the old .plist info, and think the old configuration is still there
-            // If the private call disappears, a workaround would be to uniquely name each temporary bundle we create in addTblkAtPath, using an incrementing serial number
-            if (_CFBundleFlushBundleCaches != NULL) {
-                TBLog(@"DB-UC", @"Flushing bundle cache for %@", fileName);
-                CFBundleRef cfBundle = CFBundleCreate(nil, (CFURLRef)[[NSBundle bundleWithPath: path] bundleURL]);
-                _CFBundleFlushBundleCaches(cfBundle);
-                CFRelease(cfBundle);
-            } else {
-                NSLog(@"_CFBundleFlushBundleCaches does not exist on this system");
-            }
-			
-			// Create a new updater
-			configUpdater = [self addTblkAtPath: path];
-			if (  configUpdater  ) {
-                // Restore the updater's state
-				if (  checking  ) {
-					[configUpdater performSelector: @selector(startCheckingWithUI:) withObject: [NSNumber numberWithBool: withUI] afterDelay: 5.0];
-					return;
-				}
-			} else {
-				NSLog(@"Unable to add updatable .tblk at %@", path);
-			}
-			
-			return;
+		
+		// Only start checking for the highest edition of each bundle ID
+		NSString * bundleId = [configUpdater cfgBundleId];
+		NSDictionary * bundleIdVersions = [ConfigurationMultiUpdater highestEditionNumber];
+		NSString * highestEdition = [bundleIdVersions objectForKey: bundleId];
+		NSString * bundlePath = [configUpdater cfgBundlePath];
+		NSString * containerPath = [bundlePath stringByDeletingLastPathComponent];
+		NSString * bundleEdition = [containerPath pathEdition];
+		if (  [bundleEdition isEqualToString: highestEdition]  ) {
+			[configUpdater startUpdateCheckingWithUI: [NSNumber numberWithBool: withUI]];
 		}
 	}
-	
-	NSLog(@"After restarting the updating, there is no entry in configurationMultiUpdater for %@", path);
-    return;
 }
 
--(void) stopAllChecking {
+-(void) stopAllUpdateChecking {
 	
 	ConfigurationUpdater * configUpdater;
-    NSEnumerator * e = [configUpdaters objectEnumerator];
+    NSEnumerator * e = [[self configUpdaters] objectEnumerator];
     while (  (configUpdater = [e nextObject])  ) {
 		[configUpdater stopChecking];
     }
 }
 
--(void) addUpdaterForTblkAtPath: (NSString *) path
-               bundleIdentifier: (NSString *) bundleId {
+-(void) addUpdateCheckingForStubTblkAtPath: (NSString *) path {
 	
-	// See if we already have a ConfigurationUpdater for this bundle ID
-	NSString * name = [bundleId stringByAppendingPathExtension: @"tblk"];
-	ConfigurationUpdater * configUpdater;
-    NSEnumerator * e = [configUpdaters objectEnumerator];
-    while (  (configUpdater = [e nextObject])  ) {
-		NSString * existingBundlePath = [configUpdater cfgBundlePath];
-		NSString * existingName = [existingBundlePath lastPathComponent];
-		if (  [existingName isEqualToString: name]  ) {
-            [configUpdater performSelector: @selector(startCheckingWithUI:) withObject: [NSNumber numberWithBool: NO] afterDelay: 5.0];
-			TBLog(@"DB-UC", @"addUpdatableTblkWithBundleId: Already have a ConfigurationUpdater for '%@', so scheduled it start checkinging for updates in 5 seconds", bundleId);
-			return;
-		}
+	// Create a new ConfigurationUpdater, add it to the list, and start it checking for updates without a UI in five seconds
+	
+    ConfigurationUpdater * configUpdater = [[[ConfigurationUpdater alloc] initWithPath: path] autorelease];
+    if (  configUpdater  ) {
+        [[self configUpdaters] addObject: configUpdater];
+	    [configUpdater performSelector: @selector(startUpdateCheckingWithUI:) withObject: [NSNumber numberWithBool: NO] afterDelay: 5.0];
+        NSString * bundleIdAndEdition = [[path stringByDeletingLastPathComponent] lastPathComponent];
+        NSString * bundleId           = [bundleIdAndEdition stringByDeletingPathEdition];
+        NSString * edition            = [bundleIdAndEdition pathEdition];
+		TBLog(@"DB-UC", @"Added configuration updater for '%@' (%@) and scheduled it to start checking for updates in 5 seconds", bundleId, edition);
+    } else {
+        TBLog(@"DB-UC", @"addUpdateCheckingForStubTblkAtPath: Could not create a new ConfigurationUpdater with path '%@'", path);
     }
-	
-	// Do not have a ConfigurationUpdater, so create one
-	configUpdater = [self addTblkAtPath: path];
-	[configUpdater performSelector: @selector(startCheckingWithUI:) withObject: [NSNumber numberWithBool: NO] afterDelay: 5.0];
-	TBLog(@"DB-UC", @"addUpdatableTblkWithBundleId: Created new ConfigurationUpdater for '%@' and scheduled it start checkinging for updates in 5 seconds", bundleId);
 }
 
--(void) removeUpdaterForTblkWithBundleIdentifier: (NSString *) bundleId {
+-(void) stopUpdateCheckingForAllStubTblksWithBundleIdentifier: (NSString *) bundleId {
 	
-	NSString * name = [bundleId stringByAppendingPathExtension: @"tblk"];
+	BOOL stopped = FALSE;
 	NSUInteger ix;
-	for (  ix=0; ix<[configUpdaters count]; ix++  ) {
-		ConfigurationUpdater * configUpdater = [configUpdaters objectAtIndex: ix];
-		NSString * existingBundlePath = [configUpdater cfgBundlePath];
-		NSString * existingName = [existingBundlePath lastPathComponent];
-		if (  [existingName isEqualToString: name]  ) {
-			
-			[configUpdater stopChecking];
-			TBLog(@"DB-UC", @"removeUpdaterForTblkWithBundleIdentifier: Stopped checking for updates for '%@'", bundleId);
-            
-			[configUpdaters removeObjectAtIndex: ix];
-			TBLog(@"DB-UC", @"removeUpdaterForTblkWithBundleIdentifier: Removed '%@' from configUpdaters", bundleId);
-			
-			if (  [gFileMgr fileExistsAtPath: existingBundlePath]  ) {
-				if (  [gFileMgr tbRemoveFileAtPath: existingBundlePath handler: nil]  ) {
-					TBLog(@"DB-UC", @"removeUpdaterForTblkWithBundleIdentifier: Removed %@", existingBundlePath);
-				} else {
-					NSLog(@"Unable to remove %@", existingBundlePath);
-					return;
-				}
-			} else {
-				NSLog(@"removeUpdaterForTblkWithBundleIdentifier: Path does not exist: %@", existingBundlePath);
-			}
-			
-			TBLog(@"DB-UC", @"removeUpdaterForTblkWithBundleIdentifier: Removed ConfigurationUpdater for '%@'", bundleId);
-			return;
+	for (  ix=0; ix<[[self configUpdaters] count]; ix++  ) {
+		ConfigurationUpdater * configUpdater = [[self configUpdaters] objectAtIndex: ix];
+		NSString * thisBundleId = [configUpdater cfgBundleId];
+		if (  [thisBundleId isEqualToString: bundleId]  ) {
+            [configUpdater stopChecking];
+			stopped = TRUE;
 		}
     }
 	
-	TBLog(@"DB-UC", @"removeUpdaterForTblkWithBundleIdentifier: Cound not find ConfigurationUpdater for '%@'", bundleId);
+	if (  ! stopped  ) {
+		TBLog(@"DB-UC", @"Did not need to stop update checking for configuration '%@' because it does not have an entry in the configUpdaters array.", bundleId);
+	}
+}
+
+-(void) stopUpdateCheckingForAllStubTblksLikeTheOneAtPath: (NSString *) path {
+    
+    NSString * bundleId = [[[path stringByDeletingLastPathComponent] lastPathComponent] stringByDeletingPathEdition];
+    [self stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
 }
 
 @end

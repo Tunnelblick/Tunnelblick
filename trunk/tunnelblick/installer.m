@@ -30,6 +30,7 @@
 
 #import "ConfigurationConverter.h"
 #import "NSFileManager+TB.h"
+#import "NSString+TB.h"
 
 // NOTE: THIS PROGRAM MUST BE RUN AS ROOT VIA executeAuthorized
 //
@@ -66,6 +67,7 @@
 //
 // It does the following:
 //      (1) ALWAYS creates directories or repair their ownership/permissions as needed
+//             and converts old entries in L_AS_T_TBLKS to the new format, with an bundleId_edition folder enclosing a .tblk
 //      (2) if INSTALLER_MOVE_LIBRARY_OPENVPN, moves the contents of the old configuration folder
 //          at ~/Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
 //          and replaces it with a symlink to the new location.
@@ -74,7 +76,7 @@
 //      (5) Renames /Library/LaunchDaemons/net.tunnelblick.startup.*
 //               to                        net.tunnelblick.tunnelblick.startup.*
 //      (6) If INSTALLER_SECURE_APP, secures Tunnelblick.app by setting the ownership and permissions of its components.
-//      (7) (Removed)
+//      (7) If INSTALLER_COPY_APP, L_AS_T_TBLKS is pruned by removing all but the highest edition of each container
 //      (8) If INSTALLER_SECURE_TBLKS, secures all .tblk packages in the following folders:
 //           /Library/Application Support/Tunnelblick/Shared
 //           ~/Library/Application Support/Tunnelblick/Configurations
@@ -180,12 +182,157 @@ void deleteFlagFile(NSString * path) {
 
 void errorExit() {
     
+#ifdef TBDebug
+	id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
+                     ? (id) [NSThread callStackSymbols]
+                     : (id) @"not available");
+    appendLog([NSString stringWithFormat: @"installer: errorExit: Stack trace: %@", stackTrace]);
+#endif
+	
     // Leave AUTHORIZED_ERROR_PATH to indicate an error occurred
     deleteFlagFile(AUTHORIZED_RUNNING_PATH);
 	closeLog();
     
     [pool drain];
     exit(EXIT_FAILURE);
+}
+
+void pruneL_AS_T_TBLKS() {
+    
+    // Prune L_AS_T_TblKS by removing all but the highest edition of each container
+    
+    NSDictionary * bundleIdEditions = highestEditionForEachBundleIdinL_AS_T(); // Key = bundleId; object = edition
+    
+	if (  [bundleIdEditions count] != 0  ) {
+		NSString * bundleIdAndEdition;
+		NSDirectoryEnumerator * outerDirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
+		while (  (bundleIdAndEdition = [outerDirEnum nextObject])  ) {
+			[outerDirEnum skipDescendents];
+			NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
+			BOOL isDir;
+			if (   ( ! [bundleIdAndEdition hasPrefix: @"."] )
+                && ( ! [bundleIdAndEdition hasSuffix: @".tblk"] )
+				&& [gFileMgr fileExistsAtPath: containerPath isDirectory: &isDir]
+				&& isDir  ) {
+				NSString * bundleId = [bundleIdAndEdition stringByDeletingPathEdition];
+				if (  ! bundleId  ) {
+					appendLog([NSString stringWithFormat: @"Container path does not have a bundleId: %@", containerPath]);
+					break;
+				}
+				NSString * edition  = [bundleIdAndEdition pathEdition];
+				if (  ! edition  ) {
+					appendLog([NSString stringWithFormat: @"Container path does not have an edition: %@", containerPath]);
+					break;
+				}
+				NSString * highestEdition = [bundleIdEditions objectForKey: bundleId];
+				if (  ! highestEdition  ) {
+					appendLog(@"New entry in L_AS_T_TBLKS appeared during pruning");
+					break;
+				}
+				if (  ! [edition isEqualToString: highestEdition]  ) {
+					if (  ! [gFileMgr tbRemoveFileAtPath: containerPath handler: nil]  ) {
+						appendLog([NSString stringWithFormat: @"While pruning L_AS_T_TBLKS, could not remove %@", containerPath]);
+						errorExit();
+					}
+					
+					appendLog([NSString stringWithFormat: @"Pruned L_AS_T_TBLKS by removing %@", containerPath]);
+				}
+			}
+		}
+	}
+}
+
+void resolveSymlinksInPath(NSString * targetPath) {
+	
+	// There are symlinks in a .tblk for files which are not readable by the user but should be propagated from one configuration to another when installing an updated configuration.
+	// These symlinks need to be replaced by the files to which they point.
+	//
+	// This is safe to do as root because only Tunnelblick or an admin can invoke the installer as root, and Tunnelblick allows only its own symlinks.
+	// (Tunnelblick resolves symlinks provided by the user while running as the user.)
+	//
+	// Because the target is a temporary copy, we replace the symlinks with the file contents in a file owned by root:wheel with permissions 0700, so the file cannot be read except by root.
+	// The final, possibly less restrictive, ownership and permissions will be set later.
+	
+	if (  ! [targetPath hasSuffix: @".tblk"] ) {
+		return;
+	}
+	
+	NSString * file;
+	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: targetPath];
+	while (  (file = [dirEnum nextObject])  ) {
+		NSString * fullPath = [targetPath stringByAppendingPathComponent: file];
+		NSDictionary * fullPathAttributes = [gFileMgr tbFileAttributesAtPath: fullPath traverseLink: NO];
+		if (  [fullPathAttributes fileType] == NSFileTypeSymbolicLink  ) {
+			
+			NSString * resolvedPath = [gFileMgr tbPathContentOfSymbolicLinkAtPath: fullPath];
+			
+			NSData * data = [gFileMgr contentsAtPath: resolvedPath];
+			
+			if (  ! data  ) {
+				appendLog([NSString stringWithFormat: @"Could not get contents of %@", resolvedPath]);
+				errorExit();
+			}
+			
+			if (  ! [gFileMgr tbRemoveFileAtPath: fullPath handler: nil]  ) {
+				appendLog([NSString stringWithFormat: @"Could not remove (before replacing): %@", fullPath]);
+				errorExit();
+			}
+			
+			NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+										 [NSNumber numberWithInt: 0], NSFileOwnerAccountID,
+										 [NSNumber numberWithInt: 0], NSFileGroupOwnerAccountID,
+										 [NSNumber numberWithInt: 0700], NSFilePosixPermissions,
+										 nil];
+            
+			if (  [gFileMgr createFileAtPath: fullPath contents: data attributes: attributes]  ) {
+				appendLog([NSString stringWithFormat: @"Replaced symlink at %@\n with copy of %@", fullPath, resolvedPath]);
+			} else {
+				appendLog([NSString stringWithFormat: @"Could not replace symlink at %@\n     with a copy of %@", fullPath, resolvedPath]);
+				errorExit();
+            }
+		}
+	}
+}
+
+void convertOldUpdatableConfigurations(void) {
+    
+    // Converts the "old" setup for updatable configurations to the new setup.
+    //
+    // The old setup was that an updatable configuration was stored in L_AS_T_TBLKS as a bundle-id.tblk.
+    // The problem with that is that the configurations could note really be named (the bundle-id was used as the name).
+    // To correct that problem and to implement having the L_AS_T_TBLKS copy be the copy that is updated by Sparkle, the
+    // new structure is to have a folder in L_AS_T_TBLKS for each updatable configuration, with a folder name consisting
+    // of bundle-id_edition. (The bundle-id, as a domain name, cannot have an underscore character) where the edition is
+    // a monotonically increasing integer, incremented for each updatable configuration. That folder contains a .tblk with
+    // a user-specified name.
+    
+    NSString * edition = @"0";
+	NSString * tblkFilename;
+    NSDirectoryEnumerator * outerDirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
+    while (  (tblkFilename = [outerDirEnum nextObject])  ) {
+        [outerDirEnum skipDescendents];
+        NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: tblkFilename];
+        BOOL isDir;
+        if (   ( ! [tblkFilename hasPrefix: @"."] )
+            && [tblkFilename hasSuffix: @".tblk"]
+            && [gFileMgr fileExistsAtPath: containerPath isDirectory: &isDir]
+            && isDir  ) {
+            NSString * newContainerPath = [[containerPath stringByDeletingPathExtension]	// Remove .tblk
+										   stringByAppendingPathEdition: edition];          // Add _<edition>
+			
+            edition  = [NSString stringWithFormat: @"%u", [edition intValue] + 1]; 			// Increment the edition #
+            
+
+            createDirWithPermissionAndOwnership(newContainerPath, PERMS_SECURED_FOLDER, 0, 0);
+            int status = rename([containerPath fileSystemRepresentation],
+								[[newContainerPath stringByAppendingPathComponent: tblkFilename] fileSystemRepresentation]);
+            if (  status != 0  ) {
+                appendLog([NSString stringWithFormat: @"Could not rename %@ to %@; error was %d = '%s'", containerPath, newContainerPath, errno, strerror(errno)]);
+                errorExit();
+            }
+			appendLog([NSString stringWithFormat: @"Enclosed %@ in %@", tblkFilename, newContainerPath]);
+        }
+    }
 }
 
 int main(int argc, char *argv[])
@@ -239,7 +386,7 @@ int main(int argc, char *argv[])
 	NSMutableString * argString = [NSMutableString stringWithFormat: @" 0x%04lx", firstArg];
 	int i;
 	for (  i=2; i<argc; i++  ) {
-		[argString appendFormat: @" %@", [NSString stringWithUTF8String: argv[i]]];
+		[argString appendFormat: @"\n     %@", [NSString stringWithUTF8String: argv[i]]];
 	}
 	NSCalendarDate * date = [NSCalendarDate date];
 	NSString * dateMsg = [date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"];
@@ -283,6 +430,7 @@ int main(int argc, char *argv[])
     
     //**************************************************************************************************************************
     // (1) Create directories or repair their ownership/permissions as needed
+    //        and convert old entries in L_AS_T_TBLKS to the new format, with an bundleId_edition folder enclosing a .tblk
     
     if (  ! createDirWithPermissionAndOwnership(@"/Library/Application Support/Tunnelblick",
                                                 0755, 0, 0)  ) {
@@ -305,13 +453,12 @@ int main(int argc, char *argv[])
     }
     
     if (  ! createDirWithPermissionAndOwnership(L_AS_T_USERS,
-                                                0750, 0, 0)  ) {
+                                                PERMS_SECURED_FOLDER, 0, 0)  ) {
         errorExit();
     }
     
-    if (  ! createDirWithPermissionAndOwnership([L_AS_T_USERS
-                                                 stringByAppendingPathComponent: NSUserName()],
-                                                0750, 0, 0)  ) {
+    if (  ! createDirWithPermissionAndOwnership([L_AS_T_USERS stringByAppendingPathComponent: NSUserName()],
+                                                PERMS_SECURED_FOLDER, 0, 0)  ) {
         errorExit();
     }
     
@@ -321,15 +468,16 @@ int main(int argc, char *argv[])
                                  stringByAppendingPathComponent: @"Tunnelblick"];
     
     if (  ! createDirWithPermissionAndOwnership(userL_AS_T_Path,
-                                                0750, gRealUserID, ADMIN_GROUP_ID)  ) {
+                                                PERMS_PRIVATE_FOLDER, gRealUserID, ADMIN_GROUP_ID)  ) {
         errorExit();
     }
     
-    if (  ! createDirWithPermissionAndOwnership([userL_AS_T_Path
-                                                 stringByAppendingPathComponent: @"Configurations"],
-                                                0750, gRealUserID, ADMIN_GROUP_ID)  ) {
+    if (  ! createDirWithPermissionAndOwnership([userL_AS_T_Path stringByAppendingPathComponent: @"Configurations"],
+                                                PERMS_PRIVATE_FOLDER, gRealUserID, ADMIN_GROUP_ID)  ) {
         errorExit();
     }
+	
+	convertOldUpdatableConfigurations();
     
     //**************************************************************************************************************************
     // (2)
@@ -625,7 +773,11 @@ int main(int argc, char *argv[])
     }
     
     //**************************************************************************************************************************
-    // (7) (Removed)
+    // (7) If INSTALLER_COPY_APP, L_AS_T_TBLKS is pruned by removing all but the highest edition of each container
+    
+    if (  copyApp  ) {
+        pruneL_AS_T_TBLKS();
+    }
     
     //**************************************************************************************************************************
     // (8)
@@ -642,7 +794,7 @@ int main(int argc, char *argv[])
                 NSString * privateTblkPath = [gPrivatePath stringByAppendingPathComponent: file];
                 NSString * altTblkPath     = [altPath stringByAppendingPathComponent: file];
                 if (  ! [gFileMgr fileExistsAtPath: altTblkPath]  ) {
-					if (  ! createDirWithPermissionAndOwnership([altTblkPath stringByDeletingLastPathComponent], PERMS_PRIVATE_FOLDER, 0, 0)  ) {
+					if (  ! createDirWithPermissionAndOwnership([altTblkPath stringByDeletingLastPathComponent], PERMS_SECURED_FOLDER, 0, 0)  ) {
 						errorExit();
 					}
                     if (  [gFileMgr tbCopyPath: privateTblkPath toPath: altTblkPath handler: nil]  ) {
@@ -697,12 +849,8 @@ int main(int argc, char *argv[])
         NSString * enclosingFolder = [targetPath stringByDeletingLastPathComponent];
         uid_t  own   = 0;
         gid_t  grp   = 0;
-		mode_t perms;
-		if (  [targetPath hasPrefix: [L_AS_T_USERS stringByAppendingString: @"/"]]  ) {
-			perms = PERMS_SECURED_FOLDER;
-		} else {
-			perms = PERMS_SECURED_FOLDER;
-		}
+		mode_t perms = PERMS_SECURED_FOLDER;
+		
         if (  [targetPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
             own   = gRealUserID;
             grp   = ADMIN_GROUP_ID;
@@ -721,6 +869,8 @@ int main(int argc, char *argv[])
             }
         }
         
+		// Resolve symlinks
+		//
         // Do the move or copy
         //
         // If   we MOVED OR COPIED TO PRIVATE
@@ -731,7 +881,18 @@ int main(int argc, char *argv[])
         // If   we MOVED FROM PRIVATE
         // Then delete the shadow copy of the source
 
+        resolveSymlinksInPath(sourcePath);
+		
         safeCopyOrMovePathToPath(sourcePath, targetPath, moveNotCopy);
+		
+		BOOL isDir;
+		if (  [gFileMgr fileExistsAtPath: targetPath isDirectory: &isDir]  ) {
+			BOOL isPrivate = [targetPath hasPrefix: gPrivatePath];
+			uid_t uid = (  isPrivate
+						 ? gRealUserID
+						 : 0);
+			secureOneFolder(targetPath, isPrivate, uid);
+		}
         
 		NSString * lastPartOfTarget = lastPartOfPath(targetPath);
 		
@@ -762,8 +923,10 @@ int main(int argc, char *argv[])
 				createDirWithPermissionAndOwnership(enclosingFolder, PERMS_SECURED_FOLDER, 0, 0);
 			}
 			
-			safeCopyOrMovePathToPath(targetPath, shadowTargetPath, FALSE);
+			safeCopyOrMovePathToPath(sourcePath, shadowTargetPath, FALSE);
+            
             secureOneFolder(shadowTargetPath, NO, 0);
+            
             if (  deletedOldShadowCopy  ) {
                 appendLog([NSString stringWithFormat: @"Updated secure (shadow) copy of %@", lastPartOfTarget]);
             } else {
@@ -893,7 +1056,7 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
         [gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
         errorExit();
 	}
-	appendLog([NSString stringWithFormat: @"Copied %@ to %@", fromPath, dotTempPath]);
+	appendLog([NSString stringWithFormat: @"Copied %@\n    to %@", fromPath, dotTempPath]);
     
     // Make sure everything in the copy is unlocked
     makeUnlockedAtPath(dotTempPath);
@@ -916,13 +1079,14 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
     errorExitIfAnySymlinkInPath(toPath, 5);
 	makeUnlockedAtPath(toPath);
     [gFileMgr tbRemoveFileAtPath:toPath handler: nil];
-    if (  ! [gFileMgr tbMovePath: dotTempPath toPath: toPath handler: nil]  ) {
-        appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@", dotTempPath, toPath]);
+    int status = rename([dotTempPath fileSystemRepresentation], [toPath fileSystemRepresentation]);
+    if (  status != 0 ) {
+        appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@; error was %d: '%s'", dotTempPath, toPath, errno, strerror(errno)]);
         [gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
         errorExit();
     }
     
-    appendLog([NSString stringWithFormat: @"Moved %@ to %@", dotTempPath, toPath]);
+    appendLog([NSString stringWithFormat: @"Renamed %@\n     to %@", dotTempPath, toPath]);
 }
 
 //**************************************************************************************************************************

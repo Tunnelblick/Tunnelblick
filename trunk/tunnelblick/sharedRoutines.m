@@ -320,7 +320,6 @@ BOOL checkSetPermissions(NSString * path, mode_t permsShouldHave, BOOL fileMustE
     return YES;
 }
 
-
 BOOL createDirWithPermissionAndOwnershipWorker(NSString * dirPath, mode_t permissions, uid_t owner, gid_t group, unsigned level)
 {
 	// Function to create a directory with specified ownership and permissions
@@ -452,22 +451,16 @@ NSString * fileIsReasonableAt(NSString * path) {
         return errMsg;
     }
     
-    if (  ! [[NSFileManager defaultManager] isReadableFileAtPath: path]  ) {
-		NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"You do not have permission to read '%@'.\n\n", @"Window text"),
-                             path];
-        appendLog(errMsg);
-        return errMsg;
-    }
-    
     if (  [fileType isEqualToString: NSFileTypeRegular]  ) {
         NSString * errMsg = fileIsReasonableSize(path);
         if (  errMsg  ) {
             appendLog(errMsg);
             return errMsg;
         }
-    } else if (  ! [fileType isEqualToString: NSFileTypeDirectory]  ) {
+    } else if (   ( ! [fileType isEqualToString: NSFileTypeDirectory])
+               && ( ! [fileType isEqualToString: NSFileTypeSymbolicLink]  )  ) {
         NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
-                             @": allFilesAreReasonableIn: Not a folder or regular file: ", path];
+                             @": allFilesAreReasonableIn: Not a regular file, folder, or symlink: ", path];
         appendLog(errMsg);
         return errMsg;
     }
@@ -532,6 +525,47 @@ NSString * allFilesAreReasonableIn(NSString * path) {
     return nil;
 }
 
+NSDictionary * highestEditionForEachBundleIdinL_AS_T(void) {
+	
+	// Returns a dictionary with keys = bundle IDs that appear in L_AS_T.
+	// The object for each key is a string with the highest edition of that bundle that appears in L_AS_T.
+	
+	NSMutableDictionary * bundleIdEditions = [[[NSMutableDictionary alloc] initWithCapacity: 10] autorelease]; // Key = bundleId; object = edition
+    
+	NSDirectoryEnumerator * outerDirEnum = [[NSFileManager defaultManager] enumeratorAtPath: L_AS_T_TBLKS];
+    NSString * bundleIdAndEdition;
+    while (  (bundleIdAndEdition = [outerDirEnum nextObject])  ) {
+        [outerDirEnum skipDescendents];
+        NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
+        BOOL isDir;
+        if (   ( ! [bundleIdAndEdition hasPrefix: @"."] )
+            && ( ! [bundleIdAndEdition hasSuffix: @".tblk"] )
+            && [[NSFileManager defaultManager] fileExistsAtPath: containerPath isDirectory: &isDir]
+            && isDir  ) {
+            NSString * bundleId = [bundleIdAndEdition stringByDeletingPathEdition];
+            if (  ! bundleId  ) {
+                appendLog([NSString stringWithFormat: @"Container path does not have a bundleId: %@", containerPath]);
+            }
+            NSString * edition  = [bundleIdAndEdition pathEdition];
+            if (  ! edition  ) {
+                appendLog([NSString stringWithFormat: @"Container path does not have an edition: %@", containerPath]);
+				continue;
+            }
+            NSString * highestEdition = [bundleIdEditions objectForKey: bundleId];
+            if (   ( ! highestEdition)
+                || ( [highestEdition compare: edition options: NSNumericSearch] == NSOrderedAscending )  ) {
+                [bundleIdEditions setObject: edition forKey: bundleId];
+            }
+        } else {
+            if (  ! [containerPath hasSuffix: @".tblk"]  ) {
+				appendLog([NSString stringWithFormat: @"Container path is invisible or not a folder: %@", containerPath]);
+			}
+        }
+    }
+	
+	return bundleIdEditions;
+}
+
 unsigned int getFreePort(void)
 {
 	// Returns a free port or 0 if no free port is available
@@ -549,12 +583,12 @@ unsigned int getFreePort(void)
         struct sockaddr_in address;
         unsigned len = sizeof(struct sockaddr_in);
         if (  len > UCHAR_MAX  ) {
-            fprintf(stderr, "getFreePort: sizeof(struct sockaddr_in) is %u, which is > UCHAR_MAX -- can't fit it into address.sin_len", len);
+            appendLog([NSString stringWithFormat: @"getFreePort: sizeof(struct sockaddr_in) is %u, which is > UCHAR_MAX -- can't fit it into address.sin_len", len]);
             close(fd);
             return 0;
         }
         if (  resultPort == 65535  ) {
-            fprintf(stderr, "getFreePort: cannot get a free port between 1335 and 65536");
+            appendLog(@"getFreePort: cannot get a free port between 1335 and 65536");
             close(fd);
             return 0;
         }
@@ -754,8 +788,8 @@ NSDictionary * getSafeEnvironment(bool includeIV_GUI_VER) {
 
 OSStatus runTool(NSString * launchPath,
                  NSArray  * arguments,
-                 NSString * * stdOut,
-                 NSString * * stdErr) {
+                 NSString * * stdOutStringPtr,
+                 NSString * * stdErrStringPtr) {
 	
 	// Runs a command or script, returning the execution status of the command, stdout, and stderr
 	
@@ -769,16 +803,17 @@ OSStatus runTool(NSString * launchPath,
 	NSPipe * stdOutPipe = nil;
 	NSPipe * errOutPipe = nil;
 	
-	if (  stdOut  ) {
+	if (  stdOutStringPtr  ) {
 		stdOutPipe = [NSPipe pipe];
 		[task setStandardOutput: stdOutPipe];
 	}
     
-    if (  stdErr  ) {
+    if (  stdErrStringPtr  ) {
 		errOutPipe = [NSPipe pipe];
 		[task setStandardError: errOutPipe];
 	}
 	
+    [task setCurrentDirectoryPath: @"/tmp"];
     [task setEnvironment: getSafeEnvironment([[launchPath lastPathComponent] isEqualToString: @"openvpn"])];
     
     [task launch];
@@ -788,8 +823,8 @@ OSStatus runTool(NSString * launchPath,
 	NSFileHandle * outFile = [stdOutPipe fileHandleForReading];
 	NSFileHandle * errFile = [errOutPipe fileHandleForReading];
 	
-	NSMutableData * stdOutData = (stdOut ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
-	NSMutableData * errOutData = (stdErr ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
+	NSMutableData * stdOutData = (stdOutStringPtr ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
+	NSMutableData * errOutData = (stdErrStringPtr ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
 	
     BOOL taskIsActive = [task isRunning];
 	NSData * outData = availableDataOrError(outFile);
@@ -820,13 +855,13 @@ OSStatus runTool(NSString * launchPath,
     
 	OSStatus status = [task terminationStatus];
 	
-	if (  stdOut  ) {
-		*stdOut = [[[NSString alloc] initWithData: stdOutData encoding: NSUTF8StringEncoding] autorelease];
+	if (  stdOutStringPtr  ) {
+		*stdOutStringPtr = [[[NSString alloc] initWithData: stdOutData encoding: NSUTF8StringEncoding] autorelease];
 	}
     [stdOutData release];
 	
-	if (  stdErr  ) {
-		*stdErr = [[[NSString alloc] initWithData: errOutData encoding: NSUTF8StringEncoding] autorelease];
+	if (  stdErrStringPtr  ) {
+		*stdErrStringPtr = [[[NSString alloc] initWithData: errOutData encoding: NSUTF8StringEncoding] autorelease];
 	}
     [errOutData release];
     
@@ -879,4 +914,257 @@ unsigned getLoadedKextsMask(void) {
     }
     
     return bitMask;
+}
+
+NSArray * tokensFromConfigurationLine(NSString * line) {
+	// Returns an array of whitespace-separated tokens from one line of
+	// a configuration file, skipping comments.
+    //
+    // Ignores errors such as unbalanced quotes or a backslash at the end of the line
+    
+    NSMutableArray * tokens = [[[NSMutableArray alloc] initWithCapacity: 10]  autorelease];
+    
+    BOOL inSingleQuote = FALSE;
+    BOOL inDoubleQuote = FALSE;
+    BOOL inBackslash   = FALSE;
+    BOOL inToken       = FALSE;
+    
+    // No token so far
+	NSRange tokenRange = NSMakeRange(NSNotFound, 0);
+    
+    unsigned inputIx = 0;
+	while (  inputIx < [line length]  ) {
+        
+		unichar c = [line characterAtIndex: inputIx];
+        
+        // If have started token, mark the end of the token as the current position (for now)
+        if (  inToken  ) {
+            tokenRange.length = inputIx - tokenRange.location;
+        }
+        
+        inputIx++;
+        
+        if ( inBackslash  ) {
+            inBackslash = FALSE;
+            continue;
+        }
+        
+		if (  inDoubleQuote  ) {
+			if (  c == '"'  ) {
+                tokenRange.length++;  // double-quote marks end of token and is part of the token
+                [tokens addObject: [line substringWithRange: tokenRange]];
+                inDoubleQuote = FALSE;
+                inToken = FALSE;
+                tokenRange = NSMakeRange(NSNotFound, 0);
+            }
+            
+            continue;
+        }
+        
+        if (  inSingleQuote  ) {
+            if (  c == '\''  ) {
+                tokenRange.length++;  // single-quote marks end of token and is part of the token
+                [tokens addObject: [line substringWithRange: tokenRange]];
+                inSingleQuote = FALSE;
+                inToken = FALSE;
+                tokenRange = NSMakeRange(NSNotFound, 0);
+            }
+            
+            continue;
+        }
+		
+		if (  [[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember: c]  ) {
+			if (  inToken  ) {
+                [tokens addObject: [line substringWithRange: tokenRange]];  // whitespace marks end of token but is not part of the token
+                inToken = FALSE;
+                tokenRange = NSMakeRange(NSNotFound, 0);
+                continue;
+			} else {
+				continue;           // whitespace comes before token, so just skip past it
+			}
+		}
+		
+		if (   (c == '#')
+			|| (c == ';')  ) {
+            if (  inToken  ) {
+                [tokens addObject: [line substringWithRange: tokenRange]];  // comment marks end of token but is not part of the token
+                inToken = FALSE;
+                tokenRange = NSMakeRange(NSNotFound, 0);
+            }
+            break;
+		}
+		
+        if (  c == '"'  ) {
+            if (  inToken  ) {
+                inputIx--;          // next time through, start with double-quote
+                [tokens addObject: [line substringWithRange: tokenRange]];  // double-quote marks end of token but is not part of the token
+                inToken = FALSE;
+                tokenRange = NSMakeRange(NSNotFound, 0);
+                continue;
+            }
+            
+            inDoubleQuote = TRUE;				// processing a double-quote string
+			tokenRange.location = inputIx - 1;  // This is the start of the token
+			tokenRange.length   = 1;
+			inToken = TRUE;
+			continue;
+            
+        } else if (  c == '\''  ) {
+            if (   inToken  ) {
+                inputIx--;						// next time through, start with single-quote
+                [tokens addObject: [line substringWithRange: tokenRange]];  // single-quote marks end of token
+                inToken = FALSE;
+                tokenRange = NSMakeRange(NSNotFound, 0);
+                continue;
+            }
+            
+            inSingleQuote = TRUE;				// processing a single-quote string
+			tokenRange.location = inputIx - 1;  // This is the start of the token
+			tokenRange.length   = 1;
+			inToken = TRUE;
+            continue;
+            
+        } else if (  c == '\\'  ) {
+            inBackslash = TRUE;
+        } else {
+            if (  inToken  ) {
+                tokenRange.length = inputIx - tokenRange.location; // Have started token: include this character in it
+            } else {
+                tokenRange.location = inputIx - 1;                 // Have NOT started token: this is the start of the token
+                tokenRange.length   = 1;
+                inToken = TRUE;
+            }
+		}
+    }
+    
+    if ( inToken  ) {
+        [tokens addObject: [line substringWithRange: tokenRange]];  // single-quote marks end of token
+    }
+    
+    return tokens;
+}
+
+NSString * lineAfterRemovingNulCharacters(NSString * line, NSMutableString * outputString) {
+	
+	NSMutableString * outputLine = [[[NSMutableString alloc] initWithCapacity: [line length]] autorelease];
+	unsigned i;
+	for (  i=0; i<[line length]; i++  ) {
+		NSString * chs = [line substringWithRange: NSMakeRange(i, 1)];
+		if (  ! [chs isEqualToString: @"\0"]  ) {
+			[outputLine appendString: chs];
+		}
+	}
+	
+	if (  [line length] != [outputLine length]  ) {
+        [outputString appendString: @" [At least one NUL character has been removed from the next line]\n"];
+    }
+    
+	return [NSString stringWithString: outputLine];
+}
+
+NSString * sanitizedConfigurationContents(NSString * cfgContents) {
+    
+    
+    NSArray * lines = [cfgContents componentsSeparatedByString: @"\n"];
+    
+    NSMutableString * outputString = [[[NSMutableString alloc] initWithCapacity: [cfgContents length]] autorelease];
+    
+    NSArray * beginInlineKeys = [NSArray arrayWithObjects:
+                                 @"<auth-user-pass>",
+								 @"<ca>",
+                                 @"<cert>",
+                                 @"<dh>",
+                                 @"<extra-certs>",
+                                 @"<key>",
+                                 @"<pkcs12>",
+                                 @"<secret>",
+                                 @"<tls-auth>",
+                                 nil];
+    
+    NSArray * endInlineKeys = [NSArray arrayWithObjects:
+							   @"</auth-user-pass>",
+                               @"</ca>",
+                               @"</cert>",
+                               @"</dh>",
+                               @"</extra-certs>",
+                               @"</key>",
+                               @"</pkcs12>",
+                               @"</secret>",
+                               @"</tls-auth>",
+                               nil];
+    
+    unsigned i;
+    for (  i=0; i<[lines count]; i++  ) {
+        
+        NSString * line = lineAfterRemovingNulCharacters([lines objectAtIndex: i], outputString);
+        
+        [outputString appendFormat: @"%@\n", line];
+        
+        if (  [line rangeOfString: @"-----BEGIN"].length != 0  ) {
+            // Have something that looks like a certificate or key; skip to the end of it and insert a message about it.
+            unsigned beginLineNumber = i;   // Line number of '-----BEGIN'
+            BOOL foundEnd = FALSE;
+			for (  i=i+1; i<[lines count]; i++  )  {
+                line = lineAfterRemovingNulCharacters([lines objectAtIndex: i], outputString);
+				if (  (foundEnd  = ([line rangeOfString: @"-----END"].length != 0))  ) {
+                    if (  i != (beginLineNumber + 1)  ) {
+                        [outputString appendFormat: @" [Security-related line(s) omitted]\n"];
+                    }
+                    [outputString appendFormat: @"%@\n", line];
+					break;
+				}
+            }
+            if (  ! foundEnd  ) {
+                appendLog([NSString stringWithFormat: @"Tunnelblick: Error parsing configuration at line %u; unterminated '-----BEGIN' at line %u\n", i+1, beginLineNumber+1]);
+                return nil;
+            }
+        } else {
+            
+            NSArray * tokens = tokensFromConfigurationLine(line);
+            
+            if (  ! tokens  ) {
+                appendLog([NSString stringWithFormat: @"Tunnelblick: Error parsing configuration at line %u\n", i+1]);
+                return nil;
+            }
+            
+            if (  [tokens count] > 0  ) {
+                NSString * firstToken = [tokens objectAtIndex: 0];
+                if (  [firstToken hasPrefix: @"<"]  ) {
+                    NSUInteger j;
+                    if (  (j = [beginInlineKeys indexOfObject: firstToken]) != NSNotFound  ) {
+                        unsigned beginLineNumber = i;
+						BOOL foundEnd = FALSE;
+                        for (  i=i+1; i<[lines count]; i++  ) {
+                            
+                            line = lineAfterRemovingNulCharacters([lines objectAtIndex: i], outputString);
+                            
+                            tokens = tokensFromConfigurationLine(line);
+                            
+                            if (  ! tokens  ) {
+                                appendLog([NSString stringWithFormat: @"Tunnelblick: Error parsing configuration at line %u\n", i+1]);
+                                return nil;
+                            }
+                            
+                            if (  [tokens count] > 0  ) {
+                                if (  (foundEnd = [[tokens objectAtIndex: 0] isEqualToString: [endInlineKeys objectAtIndex: j]])  ) {
+									if (  i != (beginLineNumber + 1)  ) {
+										[outputString appendFormat: @" [Security-related line(s) omitted]\n"];
+									}
+                                    [outputString appendFormat: @"%@\n", line];
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        if (  ! foundEnd  ) {
+                            appendLog([NSString stringWithFormat: @"Tunnelblick: Error parsing configuration at line %u; unterminated %s at line %u\n", i+1, [[beginInlineKeys objectAtIndex: j] UTF8String], beginLineNumber+1]);
+                            return nil;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    return [NSString stringWithString: outputString];
 }

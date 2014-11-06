@@ -49,7 +49,20 @@
 -(BOOL) tbCopyPath:(NSString *)source toPath:(NSString *)destination handler:(id)handler
 {
     if (  [self respondsToSelector:@selector (copyItemAtPath:toPath:error:)]  ) {
-        return [self copyItemAtPath:source toPath:destination error:NULL];
+		
+		NSError * er = nil;
+        BOOL ok = [self copyItemAtPath:source toPath:destination error: &er];
+        
+#ifdef TBDebug
+		if (  ! ok  ) {
+			NSString * errMsg = [NSString stringWithFormat: @"Error in tbCopyPath: %@", er];
+			void appendLog(NSString * errMsg);
+			appendLog(errMsg);
+		}
+#endif
+		
+		return ok;
+		
     } else if (  [self respondsToSelector:@selector (copyPath:toPath:handler:)]  ) {
         return [self copyPath:source toPath:destination handler:handler];
     } else {

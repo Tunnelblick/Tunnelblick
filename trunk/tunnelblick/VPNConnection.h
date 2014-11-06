@@ -180,6 +180,8 @@ struct Statistics {
 
 -(void)             hasDisconnected;
 
+-(void)             reloadPreferencesFromTblk;
+
 -(void)             readStatisticsTo:           (struct Statistics *)  returnValue;
 
 -(void)				initializeAuthAgent;

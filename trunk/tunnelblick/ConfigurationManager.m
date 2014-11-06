@@ -107,6 +107,245 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [super dealloc];
 }
 
++(NSString *) checkForSampleConfigurationAtPath: (NSString *) cfgPath {
+    
+    // Returns nil or a localized error message
+    
+    NSString * samplePath = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
+    if (  [gFileMgr fileExistsAtPath: cfgPath]  ) {
+        if (  ! [gFileMgr contentsEqualAtPath: cfgPath andPath: samplePath]  ) {
+            return nil;
+        }
+    } else {
+        return [NSString stringWithFormat: NSLocalizedString(@"Cannot find configuration file at %@", @"Window text"), cfgPath];
+    }
+    
+    return [NSString stringWithFormat: NSLocalizedString(@"You have tried to install a configuration file that is a sample"
+                                                         @" configuration file. The configuration file must"
+                                                         @" be modified to connect to a VPN. You may also need other files, such as"
+                                                         @" certificate or key files, to connect to the VPN.\n\n"
+                                                         @"Consult your network administrator or your VPN service provider to obtain"
+                                                         @" configuration and other files or the information you need to modify the"
+                                                         @" sample file.\n\n"
+                                                         @"The configuration file is at\n%@\n\n", @"Window text"), cfgPath];
+    return nil;
+}
+
++(BOOL) bundleIdentifierIsValid: (id) bundleIdentifier {
+    
+    // Returns TRUE if the CFBundleVersion is a valid version number, FALSE otherwise
+    
+    return (   [[bundleIdentifier class] isSubclassOfClass: [NSString class]]
+            && ([bundleIdentifier length] != 0)
+			&& [bundleIdentifier containsOnlyCharactersInString: ALLOWED_DOMAIN_NAME_CHARACTERS]
+            && ( 0 == [bundleIdentifier rangeOfString: @".."].length )
+            && ( ! [bundleIdentifier hasSuffix: @"."])
+            && ( ! [bundleIdentifier hasPrefix: @"."])  );
+}
+
++(BOOL) bundleVersionIsValid: (id) bundleVersion {
+    
+    // Returns TRUE if the CFBundleVersion is a valid version number, FALSE otherwise
+	
+	if (   [[bundleVersion class] isSubclassOfClass: [NSString class]]
+        && [bundleVersion containsOnlyCharactersInString: @"01234567890."]
+		&& ([bundleVersion length] != 0)
+		&& ( ! [bundleVersion hasPrefix: @"."])
+		&& ( ! [bundleVersion hasSuffix: @"."]) ) {
+		
+		return TRUE;
+	}
+	
+	return FALSE;
+}
+
++(NSString *) checkPlistEntries: (NSDictionary *) dict
+                       fromPath: (NSString *)     path {
+    
+    // Returns nil or a localized error message
+    
+    if (  dict  ) {
+        NSArray * stringKeys    = [NSArray arrayWithObjects:       // List of keys for string values
+                                   @"CFBundleIdentifier",
+                                   @"CFBundleVersion",
+                                   @"CFBundleShortVersionString",
+                                   @"TBPackageVersion",
+                                   @"TBReplaceIdentical",
+                                   @"TBSharePackage",
+                                   @"SUFeedURL",
+                                   @"SUPublicDSAKeyFile",
+                                   nil];
+		
+		NSArray * booleanKeys   = [NSArray arrayWithObjects:
+                                   @"SUAllowsAutomaticUpdates",
+                                   @"SUEnableAutomaticChecks",
+                                   @"SUEnableSystemProfiling",
+                                   @"SUShowReleaseNotes",
+                                   nil];
+		
+		NSArray * numberKeys    = [NSArray arrayWithObjects:
+                                   @"SUScheduledCheckInterval",
+                                   nil];
+		
+        NSArray * arrayKeys     = [NSArray arrayWithObjects:
+                                   @"TBKeepExistingFilesList",
+                                   nil];
+        
+        NSArray * replaceValues = [NSArray arrayWithObjects:    // List of valid values for TBReplaceIdentical
+                                   @"ask",
+                                   @"yes",
+                                   @"no",
+                                   @"force",
+                                   nil];
+        
+        NSArray * shareValues   = [NSArray arrayWithObjects:      // List of valid values for TBSharePackage
+                                   @"ask",
+                                   @"private",
+                                   @"shared",
+                                   @"deploy",
+                                   nil];
+        
+		BOOL hasTBPackageVersion = NO;
+        NSString * key;
+        NSEnumerator * e = [dict keyEnumerator];
+        while (  (key = [e nextObject])  ) {
+            if (  [stringKeys containsObject: key]  ) {
+                id obj = [dict objectForKey: key];
+                if (  ! [[obj class] isSubclassOfClass: [NSString class]]  ) {
+                    return [NSString stringWithFormat: NSLocalizedString(@"Non-string value for '%@' in %@", @"Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file"), key, path];
+                }
+				NSString * value = (NSString *)obj;
+                if (  [key isEqualToString: @"TBPackageVersion"]  ) {
+                    if (  ! [value isEqualToString: @"1"]  ) {
+                        return [NSString stringWithFormat: NSLocalizedString(@"Invalid value '%@' for '%@' in %@", @"Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair"), value, key, path];
+                    }
+					hasTBPackageVersion = TRUE;
+                    
+                } else if (  [key isEqualToString: @"CFBundleIdentifier"]  ) {
+                    if (  ! [ConfigurationManager bundleIdentifierIsValid: value]  ) {
+                        return [NSString stringWithFormat: NSLocalizedString(@"Invalid value '%@' for '%@' in %@", @"Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair"), value, key, path];
+                    }
+                    
+                } else if (  [key isEqualToString: @"CFBundleVersion"]  ) {
+                    if (  ! [ConfigurationManager bundleVersionIsValid: value]  ) {
+                        return [NSString stringWithFormat: NSLocalizedString(@"Invalid value '%@' for '%@' in %@", @"Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair"), value, key, path];
+                    }
+                    
+                    
+                } else if (  [key isEqualToString: @"TBReplaceIdentical"]  ) {
+                    if (  ! [replaceValues containsObject: value]  ) {
+                        return [NSString stringWithFormat: NSLocalizedString(@"Unknown value '%@' for '%@' in %@", @"Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair"), value, key, path];
+                    }
+                    
+                } else if (  [key isEqualToString: @"TBSharePackage"]  ) {
+                    if (  ! [shareValues containsObject: value]  ) {
+                        return [NSString stringWithFormat: NSLocalizedString(@"Unknown value '%@' for '%@' in %@", @"Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair"), value, key, path];
+                    }
+                } else if (  [key isEqualToString: @"SUFeedURL"]  ) {
+					if (  ! [NSURL URLWithString: value]  ) {
+                        return [NSString stringWithFormat: NSLocalizedString(@"Value '%@' for '%@' is not a valid URL in %@", @"Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair"), value, key, path];
+                    }
+                } // Don't test values for the other string keys; as long as they are strings we will install the .plist
+            } else if (  [booleanKeys containsObject: key]  ) {
+                id obj = [dict objectForKey: key];
+                if (  ! [obj respondsToSelector: @selector(boolValue)]  ) {
+                    return [NSString stringWithFormat: NSLocalizedString(@"Non-boolean value for '%@' in %@", @"Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file"), key, path];
+                }
+			} else if (  [numberKeys containsObject: key]  ) {
+				id obj = [dict objectForKey: key];
+				if (  ! [obj respondsToSelector: @selector(intValue)]  ) {
+					return [NSString stringWithFormat: NSLocalizedString(@"Non-integer value for '%@' in %@", @"Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file"), key, path];
+				}
+			} else if (  [arrayKeys containsObject: key]  ) {
+				id obj = [dict objectForKey: key];
+				if (  obj  ) {
+                    if (  ! [obj respondsToSelector: @selector(objectEnumerator)]  ) {
+						return [NSString stringWithFormat: NSLocalizedString(@"Non-array value for '%@' in %@", @"Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file"), key, path];
+					}
+					id item;
+					NSEnumerator * itemEnum = [obj objectEnumerator];
+					while (  (item = [itemEnum nextObject])  ) {
+						if (  ! [[item class] isSubclassOfClass: [NSString class]] ) {
+							return [NSString stringWithFormat: NSLocalizedString(@"Non-string value for an item in '%@' in %@", @"Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file"), key, path];
+						}
+					}
+				}
+			} else if (  [key hasPrefix: @"TBPreference"]  ) {
+				NSString * pref = [key substringFromIndex: [@"TBPreference" length]];
+				if (  ! [gConfigurationPreferences containsObject: pref]  ) {
+					return [NSString stringWithFormat: NSLocalizedString(@"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@", @"Window text"), pref, path];
+				}
+			} else if (  [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
+				NSString * pref = [key substringFromIndex: [@"TBAlwaysSetPreference" length]];
+				if (  ! [gConfigurationPreferences containsObject: pref]  ) {
+					return [NSString stringWithFormat: NSLocalizedString(@"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@", @"Window text"), pref, path];
+				}
+			} else if (  ! [key isEqualToString: @"TBUninstall"]  ) {
+                return [NSString stringWithFormat: NSLocalizedString(@"Unknown key '%@' in %@", @"Window text"), key, path];
+            }
+        }
+		
+		if (  ! hasTBPackageVersion  ) {
+			return [NSString stringWithFormat: NSLocalizedString(@"No 'TBPackageVersion' in %@", @"Window text"), path];
+		}
+    }
+	
+    return nil;
+}
+
++(id) plistOrErrorMessageInTblkAtPath: (NSString *) path {
+    
+    // Returns an NSDictionary with the contents of the .plist
+    // or     an NSString with an error message, or
+    // or      nil if there is no .plist, or
+    
+    NSString * directPath     = [path stringByAppendingPathComponent: @"Info.plist"];
+    NSString * inContentsPath = [path stringByAppendingPathComponent: @"Contents/Info.plist"];
+    BOOL       haveDirect     = [gFileMgr fileExistsAtPath: directPath];
+    BOOL       haveInContents = [gFileMgr fileExistsAtPath: inContentsPath];
+    
+    NSString * plistPath;
+    if (  haveDirect  ) {
+        if (  haveInContents  ) {
+            return [NSString stringWithFormat: @"Conflict: Both %@ and .../Contents/Info.plist exist", directPath];
+        }
+        plistPath = directPath;
+    } else {
+        if (  haveInContents  ) {
+            plistPath = inContentsPath;
+        } else {
+            return nil;
+        }
+    }
+    
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
+    if (  ! dict  ) {
+        return [NSString stringWithFormat: @"%@ is corrupted and cannot be processed", plistPath];
+    }
+    
+    NSString * result = [ConfigurationManager checkPlistEntries: dict fromPath: plistPath];
+    if (  result  ) {
+        return result;
+    }
+    
+    return dict;
+}
+
++(NSDictionary *) plistInTblkAtPath: (NSString *) path {
+    
+    // Returns an NSDictionary with the contents of the plist
+    // or nil if there is a problem (an error message was logged)
+    
+    id obj = [ConfigurationManager plistOrErrorMessageInTblkAtPath: path];
+    if (   ( ! obj)
+        || [[obj class] isSubclassOfClass: [NSDictionary class]]  ) {
+        return (NSDictionary *) obj;
+    }
+    
+    NSLog(@"Ignoring Info.plist:\n%@", obj);
+    return nil;
+}
+
 -(BOOL)  addConfigsFromPath: (NSString *)               folderPath
             thatArePackages: (BOOL)                     onlyPkgs
                      toDict: (NSMutableDictionary *)    dict
@@ -733,18 +972,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     // Returns TRUE if succeeded
     // Returns FALSE if failed, having already output an error message to the console log
     
-    // If it is a .tblk and has a SUFeedURL Info.plist entry, remember its CFBundleIdentifier (if it has one) for later
+    // If it is a .tblk and has a SUFeedURL, CFBundleVersion, and CFBundleIdentifier Info.plist entries, remember the CFBundleIdentifier for later
     NSString * bundleId = nil;
     if (  [targetPath hasSuffix: @".tblk"]  ) {
-        NSString * infoPlistPath = [[targetPath stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Info.plist"];
-        NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: infoPlistPath];
-        if (  [infoDict objectForKey: @"SUFeedURL"]  ) {
+        NSDictionary * infoDict = [ConfigurationManager plistInTblkAtPath: targetPath];
+        if (   [infoDict objectForKey: @"SUFeedURL"]
+            && [infoDict objectForKey: @"CFBundleVersion"]  ) {
             bundleId = [infoDict objectForKey: @"CFBundleIdentifier"];
-            if (   bundleId
-                && (! [[bundleId class] isSubclassOfClass: [NSString class]])  ) {
-                NSLog(@"Updatable .tblk at '%@' has Info.plist SUFeedURL and CFBundleIdentifier entries, but the CFBundleIdentifer '%@' is not a string, it is a '%@'", targetPath, bundleId, [bundleId class]);
-                bundleId = nil;
-            }
         }
     }
     
@@ -767,29 +1001,32 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     if (  bundleId  ) {
         
-          // Stop updating and remove the local user copy of the stub .tblk if this bundleId is actually updating or has a local user copy of the stub .tblk
-		[[[NSApp delegate] myConfigMultiUpdater] removeUpdaterForTblkWithBundleIdentifier: bundleId];
+          // Stop updating any configurations with this bundleId
+		[[[NSApp delegate] myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
 		
-        // Delete the master copy of the stub .tblk if it exists
-        NSString * stubTblkPath = [[L_AS_T_TBLKS stringByAppendingPathComponent: bundleId] stringByAppendingPathExtension: @"tblk"];
-        if ( [gFileMgr fileExistsAtPath: stubTblkPath]  ) {
-            arguments = [NSArray arrayWithObjects: stubTblkPath, nil];
-            [[NSApp delegate] runInstaller: INSTALLER_DELETE extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil installTblksFirst: nil];
-            if (  [gFileMgr fileExistsAtPath: stubTblkPath]  ) {
-                NSString * name = [[targetPath lastPathComponent] stringByDeletingPathExtension];
-                NSLog(@"Could not delete \"stub\" .tblk %@", stubTblkPath);
+        // Delete all master stub .tblk containers with this bundleId
+        NSArray * stubTblkPaths = [ConfigurationMultiUpdater pathsForMasterStubTblkContainersWithBundleIdentifier: bundleId];
+        NSString * containerPath;
+        NSEnumerator * e = [stubTblkPaths objectEnumerator];
+        while (  (containerPath = [e nextObject])) {
+            arguments = [NSArray arrayWithObjects: containerPath, nil];
+            [[NSApp delegate] runInstaller: INSTALLER_DELETE
+                            extraArguments: arguments
+                           usingAuthRefPtr: authRefPtr
+                                   message: nil
+                         installTblksFirst: nil];
+            if (  [gFileMgr fileExistsAtPath: containerPath]  ) {
+                NSLog(@"Could not delete \"stub\" .tblk container %@", containerPath);
                 if (  warn  ) {
                     NSString * title = NSLocalizedString(@"Could Not Uninstall Configuration", @"Window title");
-                    NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details.", @"Window text"), name];
+                    NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details.", @"Window text"), lastPartOfPath(targetPath)];
                     TBShowAlertWindow(title, msg);
                 }
                 return FALSE;
             } else {
-                TBLog(@"DB-UC", @"Deleted %@", stubTblkPath);
+                NSLog(@"Uninstalled master \"stub\" .tblk for %@", bundleId);
             }
         }
-        
-		NSLog(@"Uninstalled updatable master \"stub\" .tblk for %@", bundleId);
     }
     
     return TRUE;
@@ -984,30 +1221,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 // *********************************************************************************************
 // Configuration installation methods
 
--(NSString *) checkForSampleConfigurationAtPath: (NSString *) cfgPath {
-    
-    // Returns nil or a localized error message
-    
-    NSString * samplePath = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
-    if (  [gFileMgr fileExistsAtPath: cfgPath]  ) {
-        if (  ! [gFileMgr contentsEqualAtPath: cfgPath andPath: samplePath]  ) {
-            return nil;
-        }
-    } else {
-        return [NSString stringWithFormat: NSLocalizedString(@"Cannot find configuration file at %@", @"Window text"), cfgPath];
-    }
-    
-    return [NSString stringWithFormat: NSLocalizedString(@"You have tried to install a configuration file that is a sample"
-                                                         @" configuration file. The configuration file must"
-                                                         @" be modified to connect to a VPN. You may also need other files, such as"
-                                                         @" certificate or key files, to connect to the VPN.\n\n"
-                                                         @"Consult your network administrator or your VPN service provider to obtain"
-                                                         @" configuration and other files or the information you need to modify the"
-                                                         @" sample file.\n\n"
-                                                         @"The configuration file is at\n%@\n\n", @"Window text"), cfgPath];
-    return nil;
-}
-
 -(NSString *) confirmReplace: (NSString *) localizedName
                           in: (NSString *) sharedOrPrivate {
     
@@ -1096,209 +1309,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 }
 
--(BOOL) cfBundleIdentifierIsValid: (NSString *) s {
+-(NSString *) pathOfTblkToReplaceWithBundleIdentifier: (NSString *) bundleIdentifier {
     
-    // Returns TRUE if the CFBundleVersion is a valid version number, FALSE otherwise
-    return (   [s containsOnlyCharactersInString: ALLOWED_DOMAIN_NAME_CHARACTERS]
-            && ( 0 == [s rangeOfString: @".."].length )
-            && (! [s hasSuffix: @"."])
-            && (! [s hasPrefix: @"."])  );
-    }
-
--(BOOL) cfBundleVersionIsValid: (NSString *) bundleVersion {
-    
-    // Returns TRUE if the CFBundleVersion is a valid version number, FALSE otherwise
-	
-	if (   [bundleVersion containsOnlyCharactersInString: @"01234567890."]
-		&& ([bundleVersion length] != 0)
-		&& ( ! [bundleVersion hasPrefix: @"."])
-		&& ( ! [bundleVersion hasSuffix: @"."]) ) {
-		
-		return TRUE;
-	}
-	
-	return FALSE;
-}
-
--(NSString *) checkPlistEntries: (NSDictionary *) dict
-                       fromPath: (NSString *)     path {
-    
-    // Returns nil or a localized error message
-    
-    if (  dict  ) {
-        NSArray * stringKeys    = [NSArray arrayWithObjects:       // List of keys for string values
-                                   @"CFBundleIdentifier",
-								   @"CFBundleDevelopmentRegion",
-                                   @"CFBundleInfoDictionaryVersion",
-								   @"CFBundlePackageType",
-                                   @"CFBundleVersion",
-                                   @"CFBundleShortVersionString",
-                                   @"TBPackageVersion",
-                                   @"TBReplaceIdentical",
-                                   @"TBSharePackage",
-                                   @"SUFeedURL",
-                                   @"SUPublicDSAKeyFile",
-                                   nil];
-		
-		NSArray * booleanKeys   = [NSArray arrayWithObjects:
-                                   @"SUAllowsAutomaticUpdates",
-                                   @"SUEnableAutomaticChecks",
-                                   @"SUEnableSystemProfiling",
-                                   @"SUShowReleaseNotes",
-                                   nil];
-		
-		NSArray * numberKeys    = [NSArray arrayWithObjects:
-                                   @"SUScheduledCheckInterval",
-                                   nil];
-		
-        NSArray * arrayKeys     = [NSArray arrayWithObjects:
-                                   @"TBKeepExistingFilesList",
-                                   nil];
-        
-        NSArray * replaceValues = [NSArray arrayWithObjects:    // List of valid values for TBReplaceIdentical
-                                   @"ask",
-                                   @"yes",
-                                   @"no",
-                                   @"force",
-                                   nil];
-        
-        NSArray * shareValues   = [NSArray arrayWithObjects:      // List of valid values for TBSharePackage
-                                   @"ask",
-                                   @"private",
-                                   @"shared",
-                                   nil];
-        
-		BOOL hasTBPackageVersion = NO;
-        NSString * key;
-        NSEnumerator * e = [dict keyEnumerator];
-        while (  (key = [e nextObject])  ) {
-            if (  [stringKeys containsObject: key]  ) {
-                id obj = [dict objectForKey: key];
-                if (  ! [[obj class] isSubclassOfClass: [NSString class]]  ) {
-                    return [NSString stringWithFormat: NSLocalizedString(@"Non-string value for '%@' in %@", @"Window text"), key, path];
-                }
-				NSString * value = (NSString *)obj;
-                if (  [key isEqualToString: @"TBPackageVersion"]  ) {
-                    if (  ! [value isEqualToString: @"1"]  ) {
-                        return [NSString stringWithFormat: NSLocalizedString(@"Invalid value '%@' for '%@' in %@", @"Window text"), value, key, path];
-                    }
-					hasTBPackageVersion = TRUE;
-                    
-                } else if (  [key isEqualToString: @"CFBundleIdentifier"]  ) {
-                    if (  ! [self cfBundleIdentifierIsValid: value]  ) {
-                        return [NSString stringWithFormat: NSLocalizedString(@"Invalid value '%@' for '%@' in %@", @"Window text"), value, key, path];
-                    }
-                    
-                } else if (  [key isEqualToString: @"CFBundleVersion"]  ) {
-                    if (  ! [self cfBundleVersionIsValid: value]  ) {
-                        return [NSString stringWithFormat: NSLocalizedString(@"Invalid value '%@' for '%@' in %@", @"Window text"), value, key, path];
-                    }
-                    
-                    
-                } else if (  [key isEqualToString: @"TBReplaceIdentical"]  ) {
-                    if (  ! [replaceValues containsObject: value]  ) {
-                        return [NSString stringWithFormat: NSLocalizedString(@"Unknown value '%@' for '%@' in %@", @"Window text"), value, key, path];
-                    }
-                    
-                } else if (  [key isEqualToString: @"TBSharePackage"]  ) {
-                    if (  ! [shareValues containsObject: value]  ) {
-                        return [NSString stringWithFormat: NSLocalizedString(@"Unknown value '%@' for '%@' in %@", @"Window text"), value, key, path];
-                    }
-                } else if (  [key isEqualToString: @"SUFeedURL"]  ) {
-					if (  ! [NSURL URLWithString: value]  ) {
-                        return [NSString stringWithFormat: NSLocalizedString(@"'%@' value '%@' is not a valid URL in %@", @"Window text"), key, value, path];
-                    }
-                } // Don't test values for the other keys; as long as they are strings we will install the .plist
-            } else if (  [booleanKeys containsObject: key]  ) {
-                id obj = [dict objectForKey: key];
-                if (  ! [obj respondsToSelector: @selector(boolValue)]  ) {
-                    return [NSString stringWithFormat: NSLocalizedString(@"Non-boolean value for '%@' in %@", @"Window text"), key, path];
-                }
-			} else if (  [numberKeys containsObject: key]  ) {
-				id obj = [dict objectForKey: key];
-				if (  ! [obj respondsToSelector: @selector(intValue)]  ) {
-					return [NSString stringWithFormat: NSLocalizedString(@"Non-number value for '%@' in %@", @"Window text"), key, path];
-				}
-			} else if (  [arrayKeys containsObject: key]  ) {
-				id obj = [dict objectForKey: key];
-				if (  obj  ) {
-                    if (  ! [obj respondsToSelector: @selector(objectEnumerator)]  ) {
-						return [NSString stringWithFormat: NSLocalizedString(@"Non-array value for '%@' in %@", @"Window text"), key, path];
-					}
-					id item;
-					NSEnumerator * itemEnum = [obj objectEnumerator];
-					while (  (item = [itemEnum nextObject])  ) {
-						if (  ! [[item class] isSubclassOfClass: [NSString class]] ) {
-							return [NSString stringWithFormat: NSLocalizedString(@"Non-string value for an item in '%@' in %@", @"Window text"), key, path];
-						}
-					}
-				}
-			} else if (  [key hasPrefix: @"TBPreference"]  ) {
-				NSString * pref = [key substringFromIndex: [@"TBPreference" length]];
-				if (  ! [gConfigurationPreferences containsObject: pref]  ) {
-					return [NSString stringWithFormat: NSLocalizedString(@"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@", @"Window text"), pref, path];
-				}
-			} else if (  [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
-				NSString * pref = [key substringFromIndex: [@"TBAlwaysSetPreference" length]];
-				if (  ! [gConfigurationPreferences containsObject: pref]  ) {
-					return [NSString stringWithFormat: NSLocalizedString(@"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@", @"Window text"), pref, path];
-				}
-			} else if (  ! [key isEqualToString: @"TBUninstall"]  ) {
-                return [NSString stringWithFormat: NSLocalizedString(@"Unknown key '%@' in %@", @"Window text"), key, path];
-            }
-        }
-		
-		if (  ! hasTBPackageVersion  ) {
-			return [NSString stringWithFormat: NSLocalizedString(@"No 'TBPackageVersion' in %@", @"Window text"), path];
-		}
-    }
-	
-    return nil;
-}
-
--(id) plistInTblkAtPath: (NSString *) path {
-    
-    // Returns an NSDictionary with the contents of the .plist
-    // or     an NSString with an error message, or
-    // or      nil if there is no .plist, or
-    
-    NSString * directPath     = [path stringByAppendingPathComponent: @"Info.plist"];
-    NSString * inContentsPath = [path stringByAppendingPathComponent: @"Contents/Info.plist"];
-    BOOL       haveDirect     = [gFileMgr fileExistsAtPath: directPath];
-    BOOL       haveInContents = [gFileMgr fileExistsAtPath: inContentsPath];
-    
-    NSString * plistPath;
-    if (  haveDirect  ) {
-        if (  haveInContents  ) {
-            return [NSString stringWithFormat: @"Conflict: Both %@ and .../Contents/Info.plist exist", directPath];
-        }
-        plistPath = directPath;
-    } else {
-        if (  haveInContents  ) {
-            plistPath = inContentsPath;
-        } else {
-            return nil;
-        }
-    }
-    
-    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
-    if (  ! dict  ) {
-        return [NSString stringWithFormat: @"%@ is corrupted and cannot be processed", plistPath];
-    }
-    
-    NSString * result = [self checkPlistEntries: dict fromPath: plistPath];
-    if (  result  ) {
-        return result;
-    }
-    
-    return dict;
-}
-
--(NSString *) findReplacingTblkPathCfBundleIdentifier: (NSString *) cfBundleIdentifier {
-    
-    if (  ! cfBundleIdentifier  ) {
-        return nil;
-    }
     
     NSArray * dirList = [NSArray arrayWithObjects: gDeployPath, L_AS_T_SHARED, gPrivatePath, nil];
     
@@ -1310,10 +1322,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: folderPath];
         while (  (filename = [dirEnum nextObject])  ) {
             if (  [filename hasSuffix: @".tblk"]  ) {
-                NSString * fullPath = [folderPath stringByAppendingPathComponent: filename];
-                NSDictionary * fileInfoPlist = [self plistInTblkAtPath: fullPath];
+				[dirEnum skipDescendents];
+				NSString * fullPath = [folderPath stringByAppendingPathComponent: filename];
+                NSDictionary * fileInfoPlist = [ConfigurationManager plistInTblkAtPath: fullPath];
                 NSString * fileCfBundleIdentifier = [fileInfoPlist objectForKey: @"CFBundleIdentifier"];
-                if (  [fileCfBundleIdentifier isEqualToString: cfBundleIdentifier]  ) {
+                if (  [fileCfBundleIdentifier isEqualToString: bundleIdentifier]  ) {
                     return fullPath;
                 }
             }
@@ -1353,7 +1366,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             
             NSString * fullPath = [folder stringByAppendingPathComponent: file];
             
-            NSDictionary * plist = [self plistInTblkAtPath: fullPath];
+            NSDictionary * plist = [ConfigurationManager plistOrErrorMessageInTblkAtPath: fullPath];
             if (  [[plist class] isSubclassOfClass: [NSString class]]  ) {
                 return (NSString *)plist;
             }
@@ -1374,22 +1387,31 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             
             BOOL doUninstall = (nil != [infoPlistDict objectForKey: @"TBUninstall"]);
             
-            NSString * tbReplaceIdentical = [infoPlistDict objectForKey: @"TBReplaceIdentical"];
-            
-            if (  [tbReplaceIdentical isEqualToString: @"no"]  ) {
-                NSLog(@"Tunnelblick VPN Configuration %@ will NOT be %@installed: TBReplaceOption=NO.", displayName, (doUninstall ? @"un" : @""));
-                return nil;
-                
-            }
-            
-            if (  [tbReplaceIdentical isEqualToString: @"yes"]  ) {
-                if (  [cfBV compare: cfBundleVersion options: NSNumericSearch] == NSOrderedDescending  ) {
-                    NSLog(@"Tunnelblick VPN Configuration %@ will NOT be %@installed: it has a lower version number.",
-                          displayName, (doUninstall ? @"un" : @""));
-                    return nil;
-                }
-            }
-            
+			if (  doUninstall  ) {
+				return fullPath;
+			}
+			
+            NSString * localName = [[NSApp delegate] localizedNameforDisplayName: displayName tblkPath: fullPath];
+
+			NSString * tbReplaceIdentical = [infoPlistDict objectForKey: @"TBReplaceIdentical"];
+			
+			if (  [tbReplaceIdentical isEqualToString: @"no"]  ) {
+				NSLog(@"Tunnelblick VPN Configuration %@ will NOT be installed: TBReplaceOption=NO.", displayName);
+				TBShowAlertWindow(@"Tunnelblick", 
+								  [NSString stringWithFormat: NSLocalizedString(@"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.", @"Window text"), localName]);
+				return @"skip";
+				
+			}
+			
+			if (  [tbReplaceIdentical isEqualToString: @"yes"]  ) {
+				if (  [cfBV compare: cfBundleVersion options: NSNumericSearch] == NSOrderedDescending  ) {
+					NSLog(@"VPN Configuration %@ will NOT be installed: it has a lower version number.", displayName);
+					TBShowAlertWindow(@"Tunnelblick", 
+									  [NSString stringWithFormat: NSLocalizedString(@"VPN Configuration %@ will NOT be installed because  it has a lower version number.", @"Window text"), localName]);
+					return @"skip";
+				}
+			}
+			
             if (   replacingTblkPath
                 && ( ! [replacingTblkPath isEqualToString: fullPath] )  ) {
                 return [NSString stringWithFormat:
@@ -1399,26 +1421,20 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             
             if (  [tbReplaceIdentical isEqualToString: @"ask"]  ) {
                 
-                NSString * localName = [[NSApp delegate] localizedNameforDisplayName: displayName tblkPath: fullPath];
                 NSString * msg;
                 NSString * buttonName;
-                if (  doUninstall  ) {
-                    msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to uninstall '%@' version %@?", @"Window text"),
-                           localName,
-                           cfBV];
-                    buttonName = NSLocalizedString(@"Uninstall", @"Button");
-                } else if (  [cfBV isEqualToString: cfBundleVersion]  ) {
-                    msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to reinstall '%@' version %@?", @"Window text"),
-                           localName,
-                           cfBundleVersion];
-                    buttonName = NSLocalizedString(@"Reinstall", @"Button");
-                } else {
-                    msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to replace '%@' version %@ with version %@?", @"Window text"),
-                           localName,
-                           cfBundleVersion,
-                           cfBV];
-                    buttonName = NSLocalizedString(@"Replace", @"Button");
-                }
+                if (  [cfBV compare: cfBundleVersion options: NSNumericSearch] == NSOrderedSame  ) {
+					msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to reinstall '%@' version %@?", @"Window text"),
+						   localName,
+						   cfBundleVersion];
+					buttonName = NSLocalizedString(@"Reinstall", @"Button");
+				} else {
+					msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to replace '%@' version %@ with version %@?", @"Window text"),
+						   localName,
+						   cfBundleVersion,
+						   cfBV];
+					buttonName = NSLocalizedString(@"Replace", @"Button");
+				}
                 
                 int result = TBRunAlertPanel(NSLocalizedString(@"VPN Configuration Installation", @"Window title"),
                                              msg,
@@ -1463,20 +1479,26 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     // Returns a string beginning with "/" containing the path to which the .tblk should be installed
     // Anything else that is returned is a localized error message
     
-    NSString * path = [self targetPathToReplaceForDisplayName: displayName
-                                                     inFolder: gDeployPath
-                                                infoPlistDict: infoPlistDict
-                                            replacingTblkPath: (NSString *)     replacingTblkPath
-                                           cfBundleIdentifier: cfBundleIdentifier
-                                              cfBundleVersion: cfBundleVersion];
-    if (  path  ) {
-        return path;
-    }
-    
+    NSString * path;
+	
+	BOOL doUninstall = (nil != [infoPlistDict objectForKey: @"TBUninstall"]);
+
+	if (  ! doUninstall  ) {
+		path = [self targetPathToReplaceForDisplayName: displayName
+											  inFolder: gDeployPath
+										 infoPlistDict: infoPlistDict
+									 replacingTblkPath: replacingTblkPath
+									cfBundleIdentifier: cfBundleIdentifier
+									   cfBundleVersion: cfBundleVersion];
+		if (  path  ) {
+			return path;
+		}
+	}
+	
     path = [self targetPathToReplaceForDisplayName: displayName
                                           inFolder: L_AS_T_SHARED
                                      infoPlistDict: infoPlistDict
-                                 replacingTblkPath: (NSString *)     replacingTblkPath
+                                 replacingTblkPath: replacingTblkPath
                                 cfBundleIdentifier: cfBundleIdentifier
                                    cfBundleVersion: cfBundleVersion];
     if (  path  ) {
@@ -1486,7 +1508,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     path = [self targetPathToReplaceForDisplayName: displayName
                                           inFolder: gPrivatePath
                                      infoPlistDict: infoPlistDict
-                                 replacingTblkPath: (NSString *)     replacingTblkPath
+                                 replacingTblkPath: replacingTblkPath
                                 cfBundleIdentifier: cfBundleIdentifier
                                    cfBundleVersion: cfBundleVersion];
     return path;
@@ -1540,7 +1562,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * tbSharePackage     = [infoPlistDict objectForKey: @"TBSharePackage"];
     NSString * tbReplaceIdentical = [infoPlistDict objectForKey: @"TBReplaceIdentical"];
     
-	
 	NSString * localizedName = [[NSApp delegate] localizedNameforDisplayName: displayName tblkPath: replacementTblkPath];
 	
     NSString * sharedOrPrivate;
@@ -1567,6 +1588,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             sharedOrPrivate = [self confirmReplace: localizedName in: @"shared"];
         }
     } else {
+		id obj = [infoPlistDict objectForKey: @"TBUninstall"];
+		if (  obj  ) {
+			return nil;	// Uninstalling but no such configuration
+		}
         if (  [self installToPrivateOK]  ) {
             if (  [self installToSharedOK]  ) {
                 if (   [tbSharePackage isEqualToString: @"private"]
@@ -1610,7 +1635,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     // Returns nil or a localized string with an error message or the conversion log
     
-    NSString * result = [self checkForSampleConfigurationAtPath: path];
+    NSString * result = [ConfigurationManager checkForSampleConfigurationAtPath: path];
     if (  result  ) {
         return result;
     }
@@ -1640,7 +1665,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 -(NSString *) convertInnerTblkAtPath: (NSString *)     innerFilePath
                        outerTblkPath: (NSString *)     outerTblkPath
                   outerTblkInfoPlist: (NSDictionary *) outerTblkInfoPlist
-                         displayName: (NSString *)     displayName {
+                         displayName: (NSString *)     displayName
+                 isInAnUpdatableTblk: (BOOL)           isInAnUpdatableTblk {
     
     // Converts a .tblk or .ovpn/.conf at outerTblkPath/innerFilePath to a .tblk
     //
@@ -1649,34 +1675,51 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     NSString * fullPath = [outerTblkPath stringByAppendingPathComponent: innerFilePath];
     
-    // Assume this is a .ovpn/.conf and not an inner .tblk
     NSDictionary * mergedInfoPlist = [NSDictionary dictionaryWithDictionary: outerTblkInfoPlist];
     NSString * configPath = [NSString stringWithString: fullPath];
     
     if (  [[fullPath pathExtension] isEqualToString: @"tblk" ]  ) {
         
         // Get the inner .tblk's .plist (if any)
-        id obj = [self plistInTblkAtPath: fullPath];
+        id obj = [ConfigurationManager plistOrErrorMessageInTblkAtPath: fullPath];
         if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
             return (NSString *) obj;
         }
+        if (  isInAnUpdatableTblk  ) {
+            if (  ! obj  ) {
+                return [NSString stringWithFormat: NSLocalizedString(@"Missing Info.plist for\n\n%@\n\n"
+                                                                     @"This VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.", @"Window text"), fullPath];
+            }
+        }
         NSDictionary * innerTblkInfoPlist = (NSDictionary *)obj;
         
-        // Create a merged .plist -- outer with any entries replaced by inner
+        // Create a merged .plist -- outer with entries replaced by inner
         if (  outerTblkInfoPlist  ) {
 			NSArray * allowedInnerPlistReplacementKeys = [NSArray arrayWithObjects:
+														  @"CFBundleIdentifier",
+														  @"CFBundleVersion",
+														  @"CFBundleShortVersionString",
+                                                          @"TBPackageVersion",
                                                           @"TBReplaceIdentical",
                                                           @"TBSharePackage",
-                                                          @"TBPackageVersion",
                                                           @"TBKeepExistingFilesList",
                                                           @"TBUninstall",
                                                           nil];
+            
+            NSString * innerBundleIdentifier = nil;
+            NSString * innerBundleVersion    = nil;
             NSMutableDictionary * mDict = [[outerTblkInfoPlist mutableCopy] autorelease];
             NSEnumerator * e = [innerTblkInfoPlist keyEnumerator];
             NSString * key;
             while (  (key = [e nextObject])  ) {
 				id obj = [innerTblkInfoPlist objectForKey: key];
-				if (  [key hasPrefix: @"SU"]  ) {
+                if (  [key isEqualToString: @"CFBundleIdentifier"]  ) {
+                    innerBundleIdentifier = (NSString *)obj;
+					[mDict setObject: obj forKey: key];
+                } else if (  [key isEqualToString: @"CFBundleVersion"]  ) {
+                    innerBundleVersion    = (NSString *)obj;
+					[mDict setObject: obj forKey: key];
+				} else if (  [key hasPrefix: @"SU"]  ) {
 					return [NSString stringWithFormat: NSLocalizedString(@"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed because the Info.plist for an \"inner\" .tblk may not contain \"updatable\" .tblk entries.", @"Window text"), key, fullPath];
 				} else 	if (   [allowedInnerPlistReplacementKeys containsObject: key]
 							|| [key hasPrefix: @"TBPreference"]
@@ -1686,6 +1729,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 					return [NSString stringWithFormat: NSLocalizedString(@"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk.", @"Window text"), key, fullPath];
 				}
 			}
+            
+            if ( isInAnUpdatableTblk  ) {
+                if (  ! (   innerBundleIdentifier
+                         && innerBundleVersion)  )  {
+                    return [NSString stringWithFormat: NSLocalizedString(@"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\n"
+                                                                         @"This VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.", @"Window text"), fullPath];
+                }
+            }
+            
             mergedInfoPlist = [NSDictionary dictionaryWithDictionary: mDict];
         } else {
             mergedInfoPlist = innerTblkInfoPlist;
@@ -1738,7 +1790,49 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * outTblkPath = [[self tempDirPath] stringByAppendingPathComponent: displayNameWithTblkExtension];
     NSArray * useExistingFiles = [mergedInfoPlist objectForKey: @"TBKeepExistingFilesList"];
     
-    NSString  * replacingTblkPath = [self findReplacingTblkPathCfBundleIdentifier: [mergedInfoPlist objectForKey: @"CFBundleIdentifier"]];
+    NSString  * replacingTblkPath = [self pathOfTblkToReplaceWithBundleIdentifier: [mergedInfoPlist objectForKey: @"CFBundleIdentifier"]];
+    
+    // Warn if the configuration is connected and contains scripts. If the scripts are replaced with new ones, that could cause problems.
+    if (  replacingTblkPath  ) {
+        BOOL warnConfigurationIsConnected = FALSE;
+        NSDictionary * configDict = [[NSApp delegate] myConfigDictionary];
+        NSEnumerator * keyEnum = [configDict keyEnumerator];
+        NSString * key;
+        while (  (key = [keyEnum nextObject])  ) {
+            if (  [key isEqualToString: replacingTblkPath]  ) {
+                VPNConnection * connection = [configDict objectForKey: key];
+                if (  ! [connection isDisconnected]  ) {
+                    
+                    NSString * file;
+                    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: replacingTblkPath];
+                    while (  (file = [dirEnum nextObject])  ) {
+                        if (  [file hasSuffix: @".sh"]) {
+                            warnConfigurationIsConnected = TRUE;
+                            break;
+                        }
+                    }
+                }
+                
+                break;
+            }
+        }
+        
+        if (  warnConfigurationIsConnected  ) {
+            NSString * localName = [[NSApp delegate] localizedNameforDisplayName: displayName tblkPath: replacingTblkPath];
+            int result = TBRunAlertPanel(NSLocalizedString(@"VPN Configuration Installation", @"Window title"),
+                                         [NSString stringWithFormat:
+                                          NSLocalizedString(@"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\n"
+                                                            @"Do you wish to replace the configuration?",
+                                                            @"Window text"),
+                                          localName],
+                                         NSLocalizedString(@"Replace", @"Button"),   // Default button
+                                         NSLocalizedString(@"Cancel",  @"Button"),   // Alternate button
+                                         nil);                                       // Other button
+            if (  result == NSAlertAlternateReturn  ) {
+				return @"cancel";
+            }
+        }
+    }
     
     NSString * result = [self convertOvpnOrConfAtPath: configPath
                                          toTblkAtPath: outTblkPath
@@ -1757,20 +1851,33 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                              infoPlistDict: mergedInfoPlist
                                          replacingTblkPath: replacingTblkPath
 												  fromPath: fullPath];
+	
+	BOOL uninstall = (  [mergedInfoPlist objectForKey: @"TBUninstall"]
+					  ? TRUE
+					  : FALSE);
     if (  targetPath  ) {
         if (  [targetPath hasPrefix: @"/"]  ) {
             // It is a path
-			if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-				[[self replaceSources] addObject: outTblkPath];
-				[[self replaceTargets] addObject: targetPath];
+			if (  uninstall  ) {
+				[[self deletions] addObject: targetPath];
 			} else {
-				[[self installSources] addObject: outTblkPath];
-				[[self installTargets] addObject: targetPath];
+				if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+					[[self replaceSources] addObject: outTblkPath];
+					[[self replaceTargets] addObject: targetPath];
+				} else {
+					[[self installSources] addObject: outTblkPath];
+					[[self installTargets] addObject: targetPath];
+				}
 			}
 			
         } else {
             return  targetPath; // Error or user cancelled or said to skip this one
         }
+	} else {
+		if (  uninstall  ) {
+            NSString * localName = [[NSApp delegate] localizedNameforDisplayName: displayName tblkPath: fullPath];
+			return [NSString stringWithFormat: NSLocalizedString(@"Cannot uninstall configuration '%@' because it is not installed.", @"Window text"), localName];
+		}
     }
     
     return nil;
@@ -1780,7 +1887,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	
 	// Returns nil or, if the .tblk at path is updatable, its .plist, or if there is an error in the .plist, a string with the localized error message
 	
-	id obj = [self plistInTblkAtPath: path];
+	id obj = [ConfigurationManager plistOrErrorMessageInTblkAtPath: path];
 	
 	// Not updatable if no .plist
 	if (  ! obj  ) {
@@ -1795,13 +1902,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	NSDictionary * plist = (NSDictionary *)obj;
 	
 	// Not updatable if doesn't have CFBundleIdentifier, CFBundleVersion, and SUFeedURL
-	NSString * cfBI   = [plist objectForKey: @"CFBundleIdentifier"];
-	NSString * cfBV   = [plist objectForKey: @"CFBundleVersion"];
-	NSString * suFURL = [plist objectForKey: @"SUFeedURL"];
-	
-    if (  ! (   [[cfBI   class] isSubclassOfClass: [NSString class]]
-             && [[cfBV   class] isSubclassOfClass: [NSString class]]
-             && [[suFURL class] isSubclassOfClass: [NSString class]]
+    if (  ! (   [plist objectForKey: @"CFBundleIdentifier"]
+             && [plist objectForKey: @"CFBundleVersion"]
+             && [plist objectForKey: @"SUFeedURL"]
              )  ) {
         return nil;
     }
@@ -1824,12 +1927,20 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	BOOL thisIsTheLastTblk = [self inhibitCheckbox];  // This outer .tblk is the last .tblk in the tblkPaths array
 	
     // Get, and check, the .plist for this outer .tblk if there is one
-    id obj = [self plistInTblkAtPath: outerTblkPath];
+    id obj = [ConfigurationManager plistOrErrorMessageInTblkAtPath: outerTblkPath];
     if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
         return (NSString *) obj;
     }
     NSDictionary * outerTblkPlist = (NSDictionary *)obj;
     
+	obj = [self updatablePlistIn: outerTblkPath];
+	if (  obj  ) {
+		if (  ! [[obj class] isSubclassOfClass: [NSDictionary class]]  ) {
+			return (NSString *)obj; // An error message
+		}
+    }
+	NSDictionary * outerUpdatablePlist = (NSDictionary *)obj;
+		
     // Build lists of .tblks and of .ovpn/.conf files
     NSMutableArray * ovpnAndConfInnerFilePartialPaths = [NSMutableArray arrayWithCapacity: 100];
     NSMutableArray * tblkInnerFilePartialPaths        = [NSMutableArray arrayWithCapacity: 100];
@@ -1849,8 +1960,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
     
     // Remove .conf files from the list if the corresponding .ovpn file is on the list
-	NSArray * partialPathsImmutable = [NSArray arrayWithArray: ovpnAndConfInnerFilePartialPaths];
-    NSEnumerator * e = [partialPathsImmutable objectEnumerator];
+    NSEnumerator * e = [ovpnAndConfInnerFilePartialPaths objectEnumerator];
     while (  (innerFilePartialPath = [e nextObject])  ) {
         NSString * withoutExt = [innerFilePartialPath stringByDeletingPathExtension];
         NSString * ovpnFilePath = [withoutExt stringByAppendingPathExtension: @"ovpn"];
@@ -1887,7 +1997,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 									 outerTblkInfoPlist: outerTblkPlist
                                             displayName: (  ([ovpnAndConfInnerFilePartialPaths count] > 1)
                                                           ? [configPartialPath stringByDeletingPathExtension]
-                                                          : [[outerTblkPath lastPathComponent] stringByDeletingPathExtension])];
+                                                          : [[outerTblkPath lastPathComponent] stringByDeletingPathExtension])
+                                    isInAnUpdatableTblk: (outerUpdatablePlist != nil)];
         if (   result  ) {
             if (  [result isEqualToString: @"skip"]  ) {
                 return nil;
@@ -1912,7 +2023,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * result = [self convertInnerTblkAtPath: innerFilePartialPath
                                            outerTblkPath: outerTblkPath
                                       outerTblkInfoPlist: outerTblkPlist
-                                             displayName: displayName];
+                                             displayName: displayName
+                                     isInAnUpdatableTblk: (outerUpdatablePlist != nil)];
         if (   result  ) {
             if (  [result isEqualToString: @"skip"]  ) {
                 continue;
@@ -1922,26 +2034,20 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 	
 	// If this outer .tblk is an updatable .tblk, create a "stub" .tblk and add it to 'updateSources' and 'updateTargets'
-	obj = [self updatablePlistIn: outerTblkPath];
-	if (  obj  ) {
-		if (  ! [[obj class] isSubclassOfClass: [NSDictionary class]]  ) {
-			return (NSString *)obj; // An error message
-		}
-		
+    if (  outerUpdatablePlist  ) {
 		// Create a stub .tblk in the temporary folder's "Updatables" subfolder.
-		// A stub consists of a .plist inside a "Contents" folder inside a .tblk.
+		// A stub consists of an Info.plist file and a "uninstalled" file inside a "Contents" folder inside a .tblk.
         // A "Resources" folder inside the "Contents" folder may contain a DSA key file if there is one.
         
         // Get the path at which to create the stub .tblk.
-		NSDictionary * plist = (NSDictionary *)obj;
-		NSString * cfBI = [plist objectForKey: @"CFBundleIdentifier"];
+		NSString * cfBI = [outerUpdatablePlist objectForKey: @"CFBundleIdentifier"];
 		NSString * tblkName = [cfBI stringByAppendingPathExtension: @"tblk"];
 		NSString * tblkStubPath = [[[self tempDirPath] stringByAppendingPathComponent: @"Updatables"]
 								   stringByAppendingPathComponent: tblkName];
         
         // Make sure we haven't processed a configuration with that CFBundleIdentifier already
 		if (  [gFileMgr fileExistsAtPath: tblkStubPath]  ) {
-            return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n", @"Window text"), cfBI];
+            return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n", @"Window text"), cfBI];
 		}
 		
         // Create the Contents directory
@@ -1952,16 +2058,22 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		
         // Copy the Info.plist into the Contents directory and set its permissions
 		NSString * plistPath = [contentsPath stringByAppendingPathComponent: @"Info.plist"];
-		if (  ! [plist writeToFile: plistPath atomically: YES]  ) {
+		if (  ! [outerUpdatablePlist writeToFile: plistPath atomically: YES]  ) {
             return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n", @"Window text"), cfBI];
 		}
         NSDictionary * attributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: PERMS_SECURED_READABLE] forKey: NSFilePosixPermissions];
 		if (  ! [gFileMgr tbChangeFileAttributes: attributes atPath: plistPath]  ) {
             return [NSString stringWithFormat: NSLocalizedString(@"Failed to set permissions on %@\n", @"Window text"), plistPath];
         }
-        
+		
+		// Create the "uninstalled" file in the Contents directory
+		NSString * uninstalledFilePath = [contentsPath stringByAppendingPathComponent: @"installed"];
+		if (  ! [gFileMgr createFileAtPath: uninstalledFilePath contents: [NSData data] attributes: attributes]  ) {
+            return [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n", @"Window text"), cfBI];
+		}
+		
         // If there is a DSA key file, copy that, too, but into "Contents/Resources", and set its permissions
-        id obj = [plist objectForKey: @"SUPublicDSAKeyFile"];
+        id obj = [outerUpdatablePlist objectForKey: @"SUPublicDSAKeyFile"];
         if (  obj  ) {
 			if (  ! [[obj class] isSubclassOfClass: [NSString class]]  ) {
                 return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n", @"Window text"), cfBI];
@@ -1994,7 +2106,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             }
         } else {
             // No DSA key file. SUFeedURL must be https://
-            id obj = [plist objectForKey: @"SUFeedURL"];
+            id obj = [outerUpdatablePlist objectForKey: @"SUFeedURL"];
             if (   ( ! obj)
                 || ( ! [[obj class] isSubclassOfClass: [NSString class]] )
                 || ( ! [(NSString *)obj hasPrefix: @"https://"]  )  ) {
@@ -2002,7 +2114,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             }
         }
 
-		NSString * targetPath = [L_AS_T_TBLKS stringByAppendingPathComponent: tblkName];
+		NSString * targetPath = [[L_AS_T_TBLKS stringByAppendingPathComponent: cfBI]
+                                 stringByAppendingPathComponent: [outerTblkPath lastPathComponent]];
 		[[self updateSources] addObject: tblkStubPath];
 		[[self updateTargets] addObject: targetPath];
 	}
@@ -2269,11 +2382,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                        moveNotCopy: NO]  ) {
 			
             NSDictionary * connDict = [[NSApp delegate] myVPNConnectionDictionary];
-            BOOL replacedTblk = (nil != [connDict objectForKey: targetDisplayName]);
-            if (  replacedTblk  ) {
+            VPNConnection * connection = [connDict objectForKey: targetDisplayName];
+            if (  connection  ) {
                 // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
-                [[NSApp delegate] deleteExistingConfig: targetDisplayName ];
-                [[NSApp delegate] addNewConfig: target withDisplayName: targetDisplayName];
+				[connection reloadPreferencesFromTblk];
                 [[[NSApp delegate] logScreen] update];
             }
             
@@ -2285,18 +2397,58 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
     }
 	
-	// Copy updatable .tblk stubs in L_AS_T_TBLKS
+	// Copy updatable stub .tblks into L_AS_T_TBLKS
+    
+    // We need to modify target paths to insert the edition number (a unique integer).
+    // So it changes from   /something/.../com.example.something/something
+    //                 to   /something/.../com.example.something_EDITION/something
+    // We set each new edition number to one more than the highest existing edition number
+    
+    // So first, we find the highest existing edition number
+    NSString * highestEdition = nil;
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
+    NSString * file;
+    while (  (file = [dirEnum nextObject])  ) {
+        [dirEnum skipDescendents];
+        if (   ( ! [file hasPrefix: @"."] )
+            && ( ! [file hasSuffix: @".tblk"] )  ) {
+            NSString * edition = [file pathEdition];
+            if (   ( [edition length] != 0 )
+                && (   ( ! highestEdition )
+                    || [edition caseInsensitiveNumericCompare: highestEdition] == NSOrderedDescending )  ) {
+                    highestEdition = edition;
+                }
+        }
+    }
+	if (  ! highestEdition  ) {
+		highestEdition = @"-1";
+	}
+    
+    // Now go through and copy the stub .tblks, modifying each target path as we go
+    
     for (  ix=0; ix<[[self updateSources] count]; ix++  ) {
         
         NSString * source = [[self updateSources] objectAtIndex: ix];
         NSString * target = [[self updateTargets] objectAtIndex: ix];
+        
+        // Insert the new edition into the target path as a suffix to the next-to-last path component
+        
+        NSString * targetLast        = [target lastPathComponent];
+        NSString * targetWithoutLast = [target stringByDeletingLastPathComponent];
+        NSString * bundleId          = [targetWithoutLast lastPathComponent];
+        
+        highestEdition = [NSString stringWithFormat: @"%u", (unsigned)[highestEdition intValue] + 1];
+        
+        target = [[targetWithoutLast
+                   stringByAppendingFormat: @"_%@", highestEdition]
+                  stringByAppendingPathComponent: targetLast];
+        
 		NSArray * arguments = [NSArray arrayWithObjects: target, source, nil];
 		NSInteger installerResult = [[NSApp delegate] runInstaller: 0
 													extraArguments: arguments];
 		if (  installerResult == 0  ) {
-            NSString * bundleId = [[target lastPathComponent] stringByDeletingPathExtension];
-			[[[NSApp delegate] myConfigMultiUpdater] addUpdaterForTblkAtPath: target bundleIdentifier: bundleId];
-            NSLog(@"Installed updatable master \"stub\" .tblk for %@", bundleId);
+ 			[[[NSApp delegate] myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
+            [[[NSApp delegate] myConfigMultiUpdater] addUpdateCheckingForStubTblkAtPath: target];
         } else {
             nUpdateErrors++;
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to store updatable configuration stub at %@\n", @"Window text"), target]];

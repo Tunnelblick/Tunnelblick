@@ -306,7 +306,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 		
 		menuIsOpen = FALSE;
         
-        dotTblkFileList = nil;
+        dotTblkFileList = [[NSMutableArray arrayWithCapacity: 10] retain];
         uiUpdater = nil;
         customRunOnLaunchPath = nil;
         customRunOnConnectPath = nil;
@@ -597,25 +597,27 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         // If this is the first time we are using the new CFBundleIdentifier
         //    Rename the old preferences so we can access them with the new CFBundleIdentifier
         //    And create a link to the new preferences from the old preferences (make the link read-only)
-        NSString * oldPreferencesPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/com.openvpn.tunnelblick.plist"];
-        NSString * newPreferencesPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/net.tunnelblick.tunnelblick.plist"];
-        if (  ! [gFileMgr fileExistsAtPath: newPreferencesPath]  ) {
-            if (  [gFileMgr fileExistsAtPath: oldPreferencesPath]  ) {
-                if (  [gFileMgr tbMovePath: oldPreferencesPath toPath: newPreferencesPath handler: nil]  ) {
-                    NSLog(@"Renamed existing preferences from %@ to %@", [oldPreferencesPath lastPathComponent], [newPreferencesPath lastPathComponent]);
-                    if (  [gFileMgr tbCreateSymbolicLinkAtPath: oldPreferencesPath
-                                                   pathContent: newPreferencesPath]  ) {
-                        NSLog(@"Created a symbolic link from old preferences at %@ to %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
-                        if (  lchmod([oldPreferencesPath fileSystemRepresentation], S_IRUSR+S_IRGRP+S_IROTH) == EXIT_SUCCESS  ) {
-                            NSLog(@"Made the symbolic link read-only at %@", oldPreferencesPath);
+        if (  [[[NSBundle mainBundle] bundleIdentifier] isEqualToString: @"net.tunnelblick.tunnelblick"]  ) {
+            NSString * oldPreferencesPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/com.openvpn.tunnelblick.plist"];
+            NSString * newPreferencesPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/net.tunnelblick.tunnelblick.plist"];
+            if (  ! [gFileMgr fileExistsAtPath: newPreferencesPath]  ) {
+                if (  [gFileMgr fileExistsAtPath: oldPreferencesPath]  ) {
+                    if (  [gFileMgr tbMovePath: oldPreferencesPath toPath: newPreferencesPath handler: nil]  ) {
+                        NSLog(@"Renamed existing preferences from %@ to %@", [oldPreferencesPath lastPathComponent], [newPreferencesPath lastPathComponent]);
+                        if (  [gFileMgr tbCreateSymbolicLinkAtPath: oldPreferencesPath
+                                                       pathContent: newPreferencesPath]  ) {
+                            NSLog(@"Created a symbolic link from old preferences at %@ to %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
+							if (  lchmod([oldPreferencesPath fileSystemRepresentation], S_IRUSR+S_IRGRP+S_IROTH) == EXIT_SUCCESS  ) {
+								NSLog(@"Made the symbolic link read-only at %@", oldPreferencesPath);
+							} else {
+								NSLog(@"Warning: Unable to make the symbolic link read-only at %@", oldPreferencesPath);
+							}
                         } else {
-                            NSLog(@"Warning: Unable to make the symbolic link read-only at %@", oldPreferencesPath);
+                            NSLog(@"Warning: Unable to create a symbolic link from the old preferences at %@ to the new preferences %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
                         }
                     } else {
-                        NSLog(@"Warning: Unable to create a symbolic link from the old preferences at %@ to the new preferences %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
+                        NSLog(@"Warning: Unable to rename old preferences at %@ to %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
                     }
-                } else {
-                    NSLog(@"Warning: Unable to rename old preferences at %@ to %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
                 }
             }
         }
@@ -2511,7 +2513,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
             NSLog(@"'Check for Updates Now' ignored because Sparkle Updater does not respond to checkForUpdates:");
         }
         
-        [myConfigMultiUpdater startAllCheckingWithUI: YES]; // Display the UI
+        [myConfigMultiUpdater startAllUpdateCheckingWithUI: YES]; // Display the UI
     }
 }
 
@@ -3337,6 +3339,7 @@ static void signal_handler(int signalNumber)
 -(void) installConfigurationsUpdateInBundleAtPathHandler: (NSString *) path
 {
     // This handler SHOULD proceed even if the computer is shutting down
+	TBLog(@"DB-UC", @"Scheduling installation of updated configurations at '%@'", path);
     [self performSelectorOnMainThread: @selector(installConfigurationsUpdateInBundleAtPath:)
                            withObject: path 
                         waitUntilDone: YES];
@@ -3344,15 +3347,27 @@ static void signal_handler(int signalNumber)
 
 -(void) installConfigurationsUpdateInBundleAtPath: (NSString *) path
 {
-    if (  ! path  ) {
+    NSArray * components = [path componentsSeparatedByString: @"/"];
+    if (   ( [components count] !=  7)
+        || ( ! [path hasPrefix: L_AS_T_TBLKS])
+        ) {
         NSLog(@"Configuration update installer: Not installing configurations update: Invalid path to update");
         return;
     }
     
+    // Secure the update (which makes Info.plist readable by everyone and all folders searchable by everyone)
+    NSArray * args = [NSArray arrayWithObjects:
+                      @"secureUpdate",
+                      [components objectAtIndex: 5],
+                      nil];
+    OSStatus status = runOpenvpnstart(args, nil, nil);
+    if (  status != 0  ) {
+        NSLog(@"Could not secure the update; openvpnstart status was %ld", (long)status);
+    }
+    
     // Install the updated configurations
+	TBLog(@"DB-UC", @"Installing updated configurations at '%@'", path);
 	[self application: NSApp openFiles: [NSArray arrayWithObject: path]];
-	
-	[myConfigMultiUpdater restartUpdaterForTblkAtPath: path];
 }
 
 // Invoked when the user double-clicks on one or more .tblk packages or .ovpn or .conf files,
@@ -3384,11 +3399,7 @@ static void signal_handler(int signalNumber)
                                                notifyDelegate: notifyDelegate];
         ignoreNoConfigs = oldIgnoreNoConfigs;
     } else {
-        if (  ! dotTblkFileList  ) {
-            dotTblkFileList = [NSMutableArray arrayWithArray: filePaths];
-        } else {
-            [dotTblkFileList addObjectsFromArray: filePaths];
-        }
+        [dotTblkFileList addObjectsFromArray: filePaths];
     }
     
     return TRUE;
@@ -3399,7 +3410,7 @@ static void signal_handler(int signalNumber)
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
         if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]  ) {
             [updater setAutomaticallyChecksForUpdates: NO];
-			[myConfigMultiUpdater stopAllChecking];
+			[myConfigMultiUpdater stopAllUpdateChecking];
         } else {
             BOOL userIsAdminOrNonAdminsCanUpdate = (   userIsAnAdmin
                                                     || ( ! [gTbDefaults boolForKey:@"onlyAdminCanUpdate"])  );
@@ -3408,9 +3419,9 @@ static void signal_handler(int signalNumber)
 					BOOL startChecking = [gTbDefaults boolForKey: @"updateCheckAutomatically"];
 					[updater setAutomaticallyChecksForUpdates: startChecking];
 					if (  startChecking) {
-						[myConfigMultiUpdater startAllCheckingWithUI: NO];
+						[myConfigMultiUpdater startAllUpdateCheckingWithUI: NO];
 					} else {
-						[myConfigMultiUpdater stopAllChecking];
+						[myConfigMultiUpdater stopAllUpdateChecking];
 					}
 				}
 			} else {
@@ -3834,6 +3845,50 @@ static void signal_handler(int signalNumber)
     return TRUE;
 }
 
+-(NSArray *) uninstalledConfigurationUpdates {
+	
+	NSDictionary * highestEditions = highestEditionForEachBundleIdinL_AS_T();
+	
+    NSMutableArray * configsToInstall = [NSMutableArray arrayWithCapacity: 10];
+    NSString * bundleIdAndEdition;
+    NSDirectoryEnumerator * containerEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
+    while (  (bundleIdAndEdition = [containerEnum nextObject])  ) {
+        [containerEnum skipDescendents];
+        
+        if (   [bundleIdAndEdition hasPrefix: @"."]
+            || [bundleIdAndEdition hasSuffix: @".tblk"]  ) {
+            continue;
+        }
+        
+		NSString * bundleId = [bundleIdAndEdition stringByDeletingPathEdition];
+		NSString * edition  = [bundleIdAndEdition pathEdition];
+		NSString * highest  = [highestEditions objectForKey: bundleId];
+		if (   highest
+			&& [edition isEqualToString: highest]  ) {
+			
+			NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
+			NSString * tblkFileName;
+			NSDirectoryEnumerator * innerEnum = [gFileMgr enumeratorAtPath: containerPath];
+			while (  (tblkFileName = [innerEnum nextObject])  ) {
+				[innerEnum skipDescendents];
+				if (  [tblkFileName hasSuffix: @".tblk"]  ) {
+					NSString * tblkPath = [containerPath stringByAppendingPathComponent: tblkFileName];
+					NSString * installedFilePath = [[tblkPath
+													 stringByAppendingPathComponent: @"Contents"]
+													stringByAppendingPathComponent: @"installed"];
+					if (  ! [gFileMgr fileExistsAtPath: installedFilePath]  ) {
+						TBLog(@"DB-UC", @"Found uninstalled configuration update in %@", bundleIdAndEdition);
+						[configsToInstall addObject: tblkPath];
+						break; // out of inner loop only
+					}
+				}
+			}
+		}
+	}
+    
+    return [NSArray arrayWithArray: configsToInstall];
+}
+
 -(NSUInteger) defaultOpenVPNVersionIx {
     
     // Returns the index into the openvpnVersionNames and openvpnVersionInfo arrays of the version of OpenVPN to use
@@ -3896,17 +3951,13 @@ static void signal_handler(int signalNumber)
     }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 003")
-    // Install configuration updates if any are available
-    NSString * installFolder = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Resources/Install"];
-    if (  [gFileMgr fileExistsAtPath: installFolder]  ) {
-        BOOL oldLaunchFinished = launchFinished;    // Fake out installTblks so it installs the .tblk(s) immediately
-        launchFinished = TRUE;
-        [self installConfigurationsUpdateInBundleAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH];
-        launchFinished = oldLaunchFinished;
-    }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 004")
-    if (  dotTblkFileList  ) {
+    
+    NSArray * configs = [self uninstalledConfigurationUpdates];
+    [dotTblkFileList addObjectsFromArray: configs];
+    
+    if (  [dotTblkFileList count] != 0  ) {
         BOOL oldIgnoreNoConfigs = ignoreNoConfigs;
         ignoreNoConfigs = TRUE;
         NSString * text = NSLocalizedString(@"Installing Tunnelblick VPN Configurations...", @"Window text");
@@ -3924,7 +3975,7 @@ static void signal_handler(int signalNumber)
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 005")
     myConfigMultiUpdater = [[ConfigurationMultiUpdater alloc] init]; // Set up separate Sparkle Updaters for configurations
-    [myConfigMultiUpdater startAllCheckingWithUI: NO];    // Start checking for configuration updates in the background (when the application updater is finished)
+    [myConfigMultiUpdater startAllUpdateCheckingWithUI: NO];    // Start checking for configuration updates in the background (when the application updater is finished)
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 006")
     // Set up to monitor configuration folders
@@ -5517,17 +5568,6 @@ BOOL warnAboutNonTblks(void)
 	gOkToConvertNonTblks = FALSE;
 	gUserWasAskedAboutConvertNonTblks = FALSE;
     
-    // Install configurations from Tunnelblick Configurations.bundle if any were copied
-    NSString * installFolder = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Resources/Install"];
-    if (  [gFileMgr fileExistsAtPath: installFolder]  ) {
-        NSString * text = NSLocalizedString(@"Installing Tunnelblick VPN Configurations...", @"Window text");
-        [splashScreen setMessage: text];
-        BOOL oldLaunchFinished = launchFinished;    // Fake out installTblks so it installs the .tblk(s) immediately
-        launchFinished = TRUE;
-        [self installConfigurationsUpdateInBundleAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH];
-        launchFinished = oldLaunchFinished;
-    }
-    
     TBLog(@"DB-SU", @"relaunchIfNecessary: 009")
     [splashScreen setMessage: NSLocalizedString(@"Installation finished successfully.", @"Window text")];
     int response = TBRunAlertPanel(launchWindowTitle,
@@ -6035,19 +6075,19 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         return YES;
 	}
     
-    if (  ! checkOwnerAndPermissions(tunnelblickPath, 0, 0, 0755)  ) {
+    if (  ! checkOwnerAndPermissions(tunnelblickPath, 0, 0, PERMS_SECURED_FOLDER)  ) {
         return YES; // NSLog already called
     }
     
-    if (  ! checkOwnerAndPermissions(contentsPath,    0, 0, 0755)  ) {
+    if (  ! checkOwnerAndPermissions(contentsPath,    0, 0, PERMS_SECURED_FOLDER)  ) {
         return YES; // NSLog already called
     }
     
-    if (  ! checkOwnerAndPermissions(resourcesPath,   0, 0, 0755)  ) {
+    if (  ! checkOwnerAndPermissions(resourcesPath,   0, 0, PERMS_SECURED_FOLDER)  ) {
         return YES; // NSLog already called
     }
     
-	// check openvpnstart owned by root with suid and 544 permissions
+	// check openvpnstart owned by root with suid and 555 permissions
 	const char *path = [gFileMgr fileSystemRepresentationWithPath: openvpnstartPath];
     struct stat sb;
 	if (  stat(path, &sb)  != 0  ) {
@@ -6060,7 +6100,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	}
 	
     // check openvpn folder
-    if (  ! checkOwnerAndPermissions(openvpnFolderPath, 0, 0, 0755)  ) {
+    if (  ! checkOwnerAndPermissions(openvpnFolderPath, 0, 0, PERMS_SECURED_FOLDER)  ) {
         return YES; // NSLog already called
     }
     
@@ -6073,18 +6113,18 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         NSString * fullPath = [openvpnFolderPath stringByAppendingPathComponent: file];
         if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
             && isDir  ) {
+            if (  ! checkOwnerAndPermissions(fullPath, 0, 0, PERMS_SECURED_FOLDER)  ) {
+                return YES;
+            }
+            
             if (  [file hasPrefix: @"openvpn-"]  ) {
-                if (  ! checkOwnerAndPermissions(fullPath, 0, 0, 0755)  ) {
-                    return YES;
-                }
-                
                 NSString * thisOpenvpnPath = [fullPath stringByAppendingPathComponent: @"openvpn"];
-                if (  ! checkOwnerAndPermissions(thisOpenvpnPath, 0, 0, 0755)  ) {
+                if (  ! checkOwnerAndPermissions(thisOpenvpnPath, 0, 0, PERMS_SECURED_EXECUTABLE)  ) {
                     return YES;
                 }
                 
                 NSString * thisOpenvpnDownRootPath = [fullPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
-                if (  ! checkOwnerAndPermissions(thisOpenvpnDownRootPath, 0, 0, 0744)  ) {
+                if (  ! checkOwnerAndPermissions(thisOpenvpnDownRootPath, 0, 0, PERMS_SECURED_READABLE)  ) {
                     return YES;
                 }
             }
@@ -6095,7 +6135,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	NSString * codeSigPath = [contentsPath stringByAppendingPathComponent: @"_CodeSignature"];
 	if (   [gFileMgr fileExistsAtPath: codeSigPath isDirectory: &isDir]
 		&& isDir  ) {
-		if (  ! checkOwnerAndPermissions(codeSigPath, 0, 0, 0755)  ) {
+		if (  ! checkOwnerAndPermissions(codeSigPath, 0, 0, PERMS_SECURED_FOLDER)  ) {
 			return YES;
 		}
 		dirEnum = [gFileMgr enumeratorAtPath: codeSigPath];
@@ -6185,7 +6225,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         NSLog(@"Need to create Users directory '%@'", L_AS_T_USERS);
         return YES;
     }
-    if (  ! checkOwnerAndPermissions(L_AS_T_USERS, 0, 0, 0750)  ) {
+    if (  ! checkOwnerAndPermissions(L_AS_T_USERS, 0, 0, PERMS_SECURED_FOLDER)  ) {
         return YES; // NSLog already called
     }
     
@@ -6691,8 +6731,8 @@ void terminateBecauseOfBadConfiguration(void)
             TBLog(@"DB-SW", @"wokeUpFromSleep: exiting; checking IP address to determine connectivity before reconnecting configurations")
         } else {
             unsigned sleepTime = [gTbDefaults unsignedIntForKey: @"delayBeforeReconnectingAfterSleep" default: 5 min: 0 max: 300];
-            TBLog(@"DB-SW", @"wokeUpFromSleep: cannot check IP address to determine connectivity so waiting %d seconds before reconnecting configurations"
-                  @" (Time may be specified in the \"delayBeforeReconnectingAfterSleep\" preference", sleepTime)
+            TBLog(@"DB-SW", @"wokeUpFromSleep: cannot check IP address to determine connectivity so waiting %lu seconds before reconnecting configurations"
+                  @" (Time may be specified in the \"delayBeforeReconnectingAfterSleep\" preference", (unsigned long)sleepTime)
             NSTimer * waitAfterWakeupTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) sleepTime
                                                                               target: self
                                                                             selector: @selector(waitAfterSleepTimerHandler:)

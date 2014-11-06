@@ -64,6 +64,8 @@
 
 +(id)                       manager;
 
++(NSDictionary *)           plistInTblkAtPath:          (NSString *)         path;
+
 -(void)                     addConfigurationGuide;
 
 -(BOOL)                     copyConfigPath:             (NSString *)         sourcePath
