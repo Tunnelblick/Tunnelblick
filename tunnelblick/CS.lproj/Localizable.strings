@@ -104,9 +104,6 @@
 "Do not use the plugin" = "Nepoužívat zásuvný modul";
 
 /* Button */
-"Done" = "Hotovo";
-
-/* Button */
 "Download" = "Stáhnout";
 
 /* Button */
@@ -237,9 +234,6 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Ikona Tunnelblicku 3.3";
-
-/* Button */
-"Uninstall" = "Odinstalovat";
 
 /* Button */
 "When Tunnelblick launches" = "Když se Tunnelblick spustí";
@@ -377,7 +371,7 @@
 "Reset the primary interface after disconnecting" = "Resetovat primární interface po odpojení";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
+"Route all IPv4 traffic through the VPN" = "Směrovat všechen přenos IPv4 přes VPN";
 
 /* Checkbox name */
 "Run MTU maximum size test after connecting" = "Po připojení spustit test maximální velikosti MTU";
@@ -386,7 +380,7 @@
 "Save in Keychain" = "Uložit do Klíčenky";
 
 /* Checkbox name */
-"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
+"Send anonymous profile information when checking" = "Při kontrole odeslat informace o anonymním profilu";
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "Nastavit DNS po nastavení směrování - místo před";
@@ -611,7 +605,7 @@
 "Replace Existing File?" = "Přepsat existující soubor?";
 
 /* Window title */
-"Replace VPN Configuration?" = "Replace VPN Configuration?";
+"Replace VPN Configuration?" = "Přepsat konfiguraci VPN?";
 
 /* Window title */
 "Sample Configuration Created" = "Vytvořen příklad konfigurace";
@@ -653,10 +647,10 @@
 "Utilities" = "Utility";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "Chyba při instalaci konfigurace VPN";
 
 /* Window title */
-"VPN Configuration Installation" = "VPN Configuration Installation";
+"VPN Configuration Installation" = "Instalace konfigurace VPN";
 
 /* Window title */
 "VPN Credentials" = "Přístupové údaje VPN";
@@ -776,9 +770,6 @@
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' nemá přístupové údaje (privátní klíč nebo uživatelské jméno a heslo) uloženy v Klíčence.";
 
 /* Window text */
-"'%@' value '%@' is not a valid URL in %@" = "'%1$@' hodnota '%2$@' není platné URL v %3$@";
-
-/* Window text */
 "'%@' was not terminated." = "'%@' nebylo ukončeno.";
 
 /* Window text */
@@ -815,10 +806,10 @@
 "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Vyskytl se problém při kontrole veřejné IP adresy tohoto počítače.\n\nVíce informací je v logu konzoly.\n\n";
 
 /* Window text */
-"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
+"A username and password are required to connect to\n  %@" = "Je potřeba zadat uživatelské jméno a heslo pro připojení k\n  %@";
 
 /* Window text */
-"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Je nutné uživatelské jméno a heslo, aby bylo možné se připojit k\n  %1$@\n(při použití '%2$@' )";
 
 /* Window text */
 "Add Credentials..." = "Přidat přístupové údaje…";
@@ -827,7 +818,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Přidána přípona '.sh' k %@ , takže bude správně zabezpečen";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "Added a '.key' extension to %@ so it will be secured properly";
+"Added a '.key' extension to %@ so it will be secured properly" = "Přidána přípona '.key' k %@ . Takže bude správně zabezpečeno";
 
 /* Window text */
 "Additional contributions by" = "Další přispěvatelé";
@@ -903,6 +894,15 @@
 
 /* Window text */
 "Cannot install configurations to either shared or private locations" = "Nelze instalovat konfigurace do sdíleného ani do soukromého umístění";
+
+/* Window text */
+"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+
+/* Window text */
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+
+/* Window text */
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurace '%1$@' bude ignorována, protože její jméno obsahuje nepovolené znaky.\n\nNepovolené znaky jsou: '%2$s'\n\n";
@@ -989,9 +989,6 @@
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Přejete si vrátit konfiguraci '%@' do poslední bezpečné (stínové) kopie?\n\n";
 
 /* Window text */
-"Do you wish to uninstall '%@' version %@?" = "Přejete si odinstalovat '%1$@' verze %2$@?";
-
-/* Window text */
 "Domain:" = "Doména:";
 
 /* Window text */
@@ -1011,6 +1008,12 @@
 
 /* Window text */
 "Failed to copy %@ to %@" = "Nepodařilo se zkopírovat %1$@ do %2$@";
+
+/* Window text */
+"Failed to create folder at %@" = "Failed to create folder at %@";
+
+/* Window text */
+"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Nepodařilo se nastavit oprávnění na %@\n";
@@ -1106,6 +1109,12 @@
 "Menu:" = "Nabídka:";
 
 /* Window text */
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+
+/* Window text */
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+
+/* Window text */
 "Modified configuration file to remove path information" = "Modifikoval konfigurační soubor, aby odstranil informaci o souborové cestě";
 
 /* Window text */
@@ -1138,8 +1147,8 @@
 /* Window text */
 "Non-boolean value for '%@' in %@" = "Hodnota pro '%1$@' v %2$@ není boolean";
 
-/* Window text */
-"Non-number value for '%@' in %@" = "Hodnota pro '%1$@' v %2$@ není číslo";
+/* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
+"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
 
 /* Window text */
 "Non-string value for '%@' in %@" = "Hodnota pro '%1$@' v %2$@ není řetězec";
@@ -1149,6 +1158,9 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Není .ovpn ani .conf: %@";
+
+/* Window text */
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
 
 /* Window text */
 "Notification window:" = "Okno upozornění:";
@@ -1178,7 +1190,7 @@
 "OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN verze %1$@ není dostupná. Změňte tuto konfiguraci, aby použila poslední verzi (%2$@) , která je obsažena v této verzi Tunnelblick.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN version %1$@ is not available. Using the latest version (%2$@) as the default.";
+"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "Verze OpenVPN %1$@ není dostupná. Jako předvolenu použiji poslední verzi (%2$@).";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN verze:";
@@ -1409,7 +1421,7 @@
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick může zkontrolovat, zda zdánlivá veřejná IP adresa vašeho počítače se změní po připojení k VPN, a bude varovat pokud tak nenastane.\n\nTo může pomoci Tunnelblicku detekovat problémy se spojením.\n\nTento proces se pokouší přistupovat\n%@\n\nPřejete si provádět tuto kontrolu?\n";
 
 /* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details.";
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick nebylo možné nakonfigurovat tak, aby se automaticky spustil po přihlášení.\n\nDetaily jsou v logu konzole.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Díky problému s konfigurací nelze spustit Tunnelblick. Zkontrolujte detaily v logu konzoly.";
@@ -1565,13 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Aktualizovatelná konfigurace '%@' nebyla uložena jako aktualizovatelná, protože Info.plist nemohl být uložen do části .tblk\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n" = "Aktualizovatelná konfigurace '%@' nebyla uložena jako aktualizovatelná, protože CFBundleIdentifier byl zpracován\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
 
 /* Window text */
 "Updates:" = "Aktualizace:";
 
 /* Window text */
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+
+/* Window text */
 "VPN Connections" = "VPN spojení";
+
+/* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
+"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
 
 /* Window text */
 "WINS servers:" = "WINS servery:";
@@ -1623,9 +1644,6 @@
 
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "Nelze přejmenovat konfiguraci, pokud je navázané spojení.";
-
-/* Window text */
-"You do not have permission to read '%@'.\n\n" = "Nemáte oprávnění ke čtení '%@'.\n\n";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Máte konfigurace OpenVPN, ale nemáte žádné konfigurace Tunnelblick VPN.\n\nPokud je chcete použít, pak musí být konfigurace OpenVPN zkonvertovány do konfigurací Tunnelblick VPN.\n\n";
@@ -1796,7 +1814,7 @@
 "German localization" = "Německá lokalizace";
 
 /* Credit description */
-"Greek localization" = "Greek localization";
+"Greek localization" = "Řecká lokalizace";
 
 /* Credit description */
 "Hungarian localization" = "Maďarská lokalizace";
@@ -1838,7 +1856,7 @@
 "Polish localization" = "Polská lokalizace";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Portuguese (Brazilian) localization";
+"Portuguese (Brazilian) localization" = "Portugalská (Brazilská) lokalizace";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Programování a vylepšení dokumentace verzí vyšších než 3.0b10";

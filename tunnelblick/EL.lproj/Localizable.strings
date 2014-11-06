@@ -104,9 +104,6 @@
 "Do not use the plugin" = "Μη χρήση επιπροσθέτων";
 
 /* Button */
-"Done" = "Επικύρωση";
-
-/* Button */
 "Download" = "Κατέβασμα";
 
 /* Button */
@@ -237,9 +234,6 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Εικονίδιο Tunnelblick 3.3";
-
-/* Button */
-"Uninstall" = "Απεγκατάσταση";
 
 /* Button */
 "When Tunnelblick launches" = "Όταν το Tunnelblick εκκινηθεί";
@@ -377,7 +371,7 @@
 "Reset the primary interface after disconnecting" = "Επαναφορά κύριου περιβάλλοντος μετά την αποσύνδεση";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
+"Route all IPv4 traffic through the VPN" = "Δρομολόγιση όλης της κίνησης του IPv4 μέσω του VPN";
 
 /* Checkbox name */
 "Run MTU maximum size test after connecting" = "Μετά την σύνδεση εκκίνηση δοκιμής MTU μέγιστου όγκου";
@@ -386,7 +380,7 @@
 "Save in Keychain" = "Αποθήκευση στην Κλειδοθήκη";
 
 /* Checkbox name */
-"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
+"Send anonymous profile information when checking" = "Αποστολή ανώνυμα πληροφορίες προφίλ κατά τον έλεγχο";
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "Ορισμός DNS μετά τον ορισμό των διαδρομών και όχι πριν";
@@ -611,7 +605,7 @@
 "Replace Existing File?" = "Αντικατάσταση υπάρχων αρχείου;";
 
 /* Window title */
-"Replace VPN Configuration?" = "Replace VPN Configuration?";
+"Replace VPN Configuration?" = "Αντικατάσταση παραμέτρων VPN;";
 
 /* Window title */
 "Sample Configuration Created" = "Δήγμα παραμέτρων δημιουργήθηκε";
@@ -653,10 +647,10 @@
 "Utilities" = "Βοηθητικά";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "Σφάλμα εγκατάστασης παραμέτρων VPN";
 
 /* Window title */
-"VPN Configuration Installation" = "VPN Configuration Installation";
+"VPN Configuration Installation" = "Εγκατάσταση παραμέτρων VPN";
 
 /* Window title */
 "VPN Credentials" = "Πιστοποιητικά VPN";
@@ -776,9 +770,6 @@
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "Το '%@' δεν έχει κανένα πιστοποιητικό (ιδιωτικό κλειδί ή όνομα χρήστη και κωδικό) αποθηκευμένο στην Κλειδοθήκη.";
 
 /* Window text */
-"'%@' value '%@' is not a valid URL in %@" = "Το '%1$@' έχει τιμή '%2$@' που δεν είναι έγκυρο URL στο %3$@";
-
-/* Window text */
 "'%@' was not terminated." = "Η παράμετρος '%@' τερματίστηκε.";
 
 /* Window text */
@@ -815,10 +806,10 @@
 "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Παρουσιάστηκε πρόβλημα καθώς ελεγχόταν η διεύθυνση IP του υπολογιστή.\n\nΔείτε στο ιστορικό Κονσόλας για λεπτομέρειες.\n\n";
 
 /* Window text */
-"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
+"A username and password are required to connect to\n  %@" = "Απαιτείτε ένα όνομα χρήστη και ένας κωδικός για σύνδεση στο\n  %@";
 
 /* Window text */
-"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Απαιτείτε ένα όνομα χρήστη και ένας κωδικός για σύνδεση στο\n  %1$@\n(για χρήση στο '%2$@')";
 
 /* Window text */
 "Add Credentials..." = "Προσθήκη πιστοποιητικού…";
@@ -827,7 +818,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Προσθέστε την κατάληξη '.sh' στο %@ για να είναι σωστά ασφαλισμένο";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "Added a '.key' extension to %@ so it will be secured properly";
+"Added a '.key' extension to %@ so it will be secured properly" = "Προσθέστε την κατάληξη '.key' στο %@ για να είναι σωστά ασφαλισμένο";
 
 /* Window text */
 "Additional contributions by" = "Επιπρόσθετη συνεισφορά από";
@@ -903,6 +894,15 @@
 
 /* Window text */
 "Cannot install configurations to either shared or private locations" = "Αδυναμία εγκατάστασης παραμέτρων σε κοινόχρηστες ή ιδιωτικές θέσεις";
+
+/* Window text */
+"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+
+/* Window text */
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+
+/* Window text */
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Οι παράμετροι το '%1$@' θα αγνοηθούν επειδή το όνομα περιέχει χαρακτήρες που δεν επιτρέπονται.\n\nΟι χαρακτήρες που δεν επιτρέπονται είναι:'%2$s'\n\n";
@@ -989,9 +989,6 @@
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Θέλετε να επαναφέρετε την παράμετρο '%@' απο το αντίγραφο ασφαλείας του (κρυφό);\n\n";
 
 /* Window text */
-"Do you wish to uninstall '%@' version %@?" = "Θέλετε να απεγκαταστήσετε '%1$@' έκδοση %2$@;";
-
-/* Window text */
 "Domain:" = "Διακομιστής:";
 
 /* Window text */
@@ -1011,6 +1008,12 @@
 
 /* Window text */
 "Failed to copy %@ to %@" = "Απέτυχε η αντιγραφή %1$@ σε %2$@";
+
+/* Window text */
+"Failed to create folder at %@" = "Failed to create folder at %@";
+
+/* Window text */
+"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Αποτυχία ορισμού δικαιωμάτων στο %@\n";
@@ -1106,6 +1109,12 @@
 "Menu:" = "Μενού:";
 
 /* Window text */
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+
+/* Window text */
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+
+/* Window text */
 "Modified configuration file to remove path information" = "Τροποποίηση αρχείου παραμέτρων για αφαίρεση πληροφοριών διαδρομής";
 
 /* Window text */
@@ -1138,8 +1147,8 @@
 /* Window text */
 "Non-boolean value for '%@' in %@" = "Μη δυαδική τιμή για ' %1$@' σε %2$@";
 
-/* Window text */
-"Non-number value for '%@' in %@" = "Μη αριθμητικές τιμές για '%1$@' σε %2$@";
+/* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
+"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
 
 /* Window text */
 "Non-string value for '%@' in %@" = "Μη συμβολοσειρά τιμών για '%1$@' σε %2$@";
@@ -1149,6 +1158,9 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Δεν είναι .ovpn ή .conf: %@";
+
+/* Window text */
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
 
 /* Window text */
 "Notification window:" = "Παράθυρο ειδοποιήσεων:";
@@ -1178,7 +1190,7 @@
 "OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "Η έκδοση OpenVPN %1$@ δεν είναι διαθέσιμη. Αλλάξτε αυτή τη παράμετρο για χρήση της τελευταίας έκδοσης (%2$@) που περιλαμβάνεται σε αυτήν την έκδοση του Tunnelblick.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN version %1$@ is not available. Using the latest version (%2$@) as the default.";
+"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "Η OpenVPN έκδοση %1$@ δεν είναι διαθέσιμη. Θα χρησιμοποιηθεί τελευταία έκδοση (%2$@) ως προεπιλογή.";
 
 /* Window text */
 "OpenVPN version:" = "Έκδοση OpenVPN:";
@@ -1409,7 +1421,7 @@
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Το Tunnelblick μπορεί να ελέγξει ότι η εμφανιζόμενη διεύθυνση ΙΡ του υπολογιστή σας αλλάζει όταν συνδέεστε σε ένα VPN, και να σας ενημερώνει όταν δεν γίνετε.\n\nΑυτό μπορεί να βοηθήσει το Tunnelblick να διαγνώσει προβλήματα με την σύνδεση σας.\n\nΑυτή η διαδικασία προσπαθεί να έχει πρόσβαση στο\n%@\n\nΘέλετε να γίνετε έλεγχος για αυτές της αλλαγές της διεύθυνσης ΙΡ;\n";
 
 /* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details.";
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Το Tunnelblick δεν θα μπόρεσε να ρυθμιστεί αυτόματα κατά την εκκίνηση, μετά την σύνδεση σας.  \n\nΑνατρέξτε στο αρχείο καταγραφής κονσόλα για λεπτομέρειες.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Το Tunnelblick δεν μπορεί να εκκινηθεί λόγο ενός προβλήματος στης παραμέτρους. Παρακαλούμε εξετάστε το ημερολόγιο Κονσόλας για πληροφορίες.";
@@ -1565,13 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Ενημερωμένες παράμετροι '%@' δεν αποθηκεύτηκαν ως ενημερωμένες επειδή το Info.plist δεν αποθηκεύτηκε στο στέλεχος του .tblk\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n" = "Ενημερωμένες παράμετροι '%@' δεν αποθηκεύτηκαν ως ενημερωμένες επειδή το CFBundleIdentifier ήταν σε λειτουργία\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
 
 /* Window text */
 "Updates:" = "Ενημερώσεις:";
 
 /* Window text */
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+
+/* Window text */
 "VPN Connections" = "Συνδέσεις VPN";
+
+/* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
+"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
 
 /* Window text */
 "WINS servers:" = "Διακομιστές WINS:";
@@ -1623,9 +1644,6 @@
 
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "Δεν μπορείτε να αλλάξετε όνομα σε μια παράμετρο εάν δεν αποσυνδεθείτε.";
-
-/* Window text */
-"You do not have permission to read '%@'.\n\n" = "Δεν έχετε άδεια να διαβάσετε το '%@'.\n\n";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Έχετε παραμέτρους OpenVPN αλλά δεν έχετε καμία παραμέτρων VPN Tunnelblick.\n\nΟι παράμετροι OpenVPN πρέπει να μετατραπούν σε παράμετροι VPN του Tunnelblick αν θέλετε να της χρησιμοποιήσετε.\n\n";
@@ -1796,7 +1814,7 @@
 "German localization" = "Προσαρμογή Γερμανικά";
 
 /* Credit description */
-"Greek localization" = "Greek localization";
+"Greek localization" = "Ελληνική μετάφραση";
 
 /* Credit description */
 "Hungarian localization" = "Προσαρμογή Ουγγρικά";
@@ -1838,7 +1856,7 @@
 "Polish localization" = "Προσαρμογή Πολωνικά";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Portuguese (Brazilian) localization";
+"Portuguese (Brazilian) localization" = "Πορτογαλικά (Βραζιλίας) μετάφραση";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Βελτιωμένο πρόγραμμα και εγχειρίδια όπως και συντήρηση μετά την έκδοση 3.0b10";

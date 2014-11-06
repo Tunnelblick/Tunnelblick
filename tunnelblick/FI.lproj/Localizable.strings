@@ -11,7 +11,7 @@
 "Username:" = "Käyttäjätunnus:";
 
 /* Button */
-"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Optio-F%3$d)";
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Komento-Optio-F%3$d)";
 
 /* Button */
 "(None available)" = "(Ei yhtään käytettävissä)";
@@ -102,9 +102,6 @@
 
 /* Button */
 "Do not use the plugin" = "Älä käytä liitännäistä";
-
-/* Button */
-"Done" = "Valmis";
 
 /* Button */
 "Download" = "Lataa";
@@ -237,9 +234,6 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 -ikoni";
-
-/* Button */
-"Uninstall" = "Poista asennus";
 
 /* Button */
 "When Tunnelblick launches" = "Tunnelblickin käynnistyessä";
@@ -377,7 +371,7 @@
 "Reset the primary interface after disconnecting" = "Nollaa pääkäyttöliittymä yhteyden katkaisemisen jälkeen";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
+"Route all IPv4 traffic through the VPN" = "Ohjaa kaikki IPv4-liikenne VPN:n läpi";
 
 /* Checkbox name */
 "Run MTU maximum size test after connecting" = "Testaa MTU:n maksimikoko yhteydenmuodostuksen jälkeen";
@@ -386,7 +380,7 @@
 "Save in Keychain" = "Tallenna Avainnippuun";
 
 /* Checkbox name */
-"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
+"Send anonymous profile information when checking" = "Lähetä anonyymi profilitieto tarkistettaessa päivityksiä";
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "Aseta DNS sen jälkeen, kun reitit on asetettu, sen sijaan, että se asetettaisiin ennen reittien asetusta";
@@ -611,7 +605,7 @@
 "Replace Existing File?" = "Korvaa olemassa oleva tiedosto?";
 
 /* Window title */
-"Replace VPN Configuration?" = "Replace VPN Configuration?";
+"Replace VPN Configuration?" = "Korvaa VPN konfiguraatio?";
 
 /* Window title */
 "Sample Configuration Created" = "Mallikonfiguraatio luotu";
@@ -653,10 +647,10 @@
 "Utilities" = "Työkalut";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "VPN konfiguraation asennus virhe";
 
 /* Window title */
-"VPN Configuration Installation" = "VPN Configuration Installation";
+"VPN Configuration Installation" = "VPN konfiguraation asennus";
 
 /* Window title */
 "VPN Credentials" = "VPN-käyttäjätunnukset";
@@ -776,9 +770,6 @@
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@':lla ei ole käyttäjätunnuksia (yksityinen avain tai käyttäjätunnus ja salasana) tallennettuna Avainnippuun.";
 
 /* Window text */
-"'%@' value '%@' is not a valid URL in %@" = "Kohteen '%1$@' arvo '%2$@' ei ole validi URL konfiguraatiossa %3$@";
-
-/* Window text */
 "'%@' was not terminated." = "'%@' ei katkaistu.";
 
 /* Window text */
@@ -815,10 +806,10 @@
 "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Tapahtui virhe, kun tarkistettiin tietokoneen julkista IP-osoitetta.\n\n\nKatso konsolilokista lisätietoja.\n\n";
 
 /* Window text */
-"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
+"A username and password are required to connect to\n  %@" = "Käyttäjätunnus ja salasana vaaditaan yhdistääksesi\n  %@";
 
 /* Window text */
-"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Käyttäjätunnus ja salasana tarvitaan yhteyden muodostamiseksi kohteeseen %1$@ (käyttäen tunnuksia '%2$@')";
 
 /* Window text */
 "Add Credentials..." = "Lisää käyttäjätunnus…";
@@ -827,7 +818,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Lisättiin '.sh' tiedostopääte kohteeseen %@, jotta se suojataan kunnolla";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "Added a '.key' extension to %@ so it will be secured properly";
+"Added a '.key' extension to %@ so it will be secured properly" = "Lisättiin pääte '.key' kohteeseen %@, jotta se suojataan kunnolla";
 
 /* Window text */
 "Additional contributions by" = "Lisä kontribuutiot";
@@ -905,10 +896,19 @@
 "Cannot install configurations to either shared or private locations" = "Konfiguraatioita ei voida asentaa joko jaettuihin tai yksityisiin paikkoihin";
 
 /* Window text */
+"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+
+/* Window text */
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+
+/* Window text */
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+
+/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguraatio '%1$@' jätetään huomiotta, koska sen nimi sisältää ei-sallittuja merkkejä.\n\nEi-sallitut merkit: '%2$s'\n\n";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Konfiguraatiot on asennettu tiedostoista, jotka tarjoaa verkkosi valvoja tai VPN-yhteyden tarjoajasi.\n\nKonfiguraatiotiedostojen päätteenä .tblk, .ovpn, tai .conf.\n\n(Voi olla muitakin tiedostoja, jotka liittyvät konfiguraatioon, ja joilla on muita päätteitä; jätä ne nyt huomiotta.)\n\nKaksoisnapauta konfiguraatiotiedostoa asentaaksesi sen.\n\nUusi konfiguraatio on Tunnelblickin käytettävissä välittömästi.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Konfiguraatiot asennetaan tiedostoista, jotka tarjoaa verkkosi valvoja tai VPN-yhteyden tarjoajasi.\n\nKonfiguraatiotiedostojen päätteenä on .tblk, .ovpn, tai .conf.\n\n(Voi olla muitakin tiedostoja, jotka liittyvät konfiguraatioon, ja joilla on muita päätteitä; jätä ne nyt huomiotta.)\n\nKaksoisnapauta konfiguraatiotiedostoa asentaaksesi sen.\n\nUusi konfiguraatio on Tunnelblickin käytettävissä välittömästi.";
 
 /* Window text */
 "Connect:" = "Muodosta yhteys:";
@@ -989,9 +989,6 @@
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Haluatko palauttaa konfiguraation '%@'viimeisimpään tallennettuun (varjo)kopioon?\n\n";
 
 /* Window text */
-"Do you wish to uninstall '%@' version %@?" = "Haluatko poistaa kohteen '%1$@' version %2$@?";
-
-/* Window text */
 "Domain:" = "Domain:";
 
 /* Window text */
@@ -1011,6 +1008,12 @@
 
 /* Window text */
 "Failed to copy %@ to %@" = "Ei voitu kopioida objektia %1$@ kohteeseen %2$@";
+
+/* Window text */
+"Failed to create folder at %@" = "Failed to create folder at %@";
+
+/* Window text */
+"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Ei voitu asettaa käyttöoikeuksia kohteelle %@\n";
@@ -1106,6 +1109,12 @@
 "Menu:" = "Valikko:";
 
 /* Window text */
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+
+/* Window text */
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+
+/* Window text */
 "Modified configuration file to remove path information" = "Konfiguraatiotiedostoa muokattiin polkutiedon poistamiseksi";
 
 /* Window text */
@@ -1138,8 +1147,8 @@
 /* Window text */
 "Non-boolean value for '%@' in %@" = "Ei-boolean arvo objektilla %1$@ kohteessa %2$@";
 
-/* Window text */
-"Non-number value for '%@' in %@" = "Ei-numeroarvo objektilla %1$@ kohteessa %2$@";
+/* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
+"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
 
 /* Window text */
 "Non-string value for '%@' in %@" = "Ei-merkkijonomuotoinen arvo objektilla %1$@ kohteessa %2$@";
@@ -1149,6 +1158,9 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Ei .ovpn tai .conf: %@";
+
+/* Window text */
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
 
 /* Window text */
 "Notification window:" = "Ilmoitusikkuna:";
@@ -1178,7 +1190,7 @@
 "OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN versio %1$@ ei ole saatavilla. Muunnetaan konfiguraatio käyttämään uusinta versiota (%2$@), joka on sisällytetty tähän Tunnelblick-versioon.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN version %1$@ is not available. Using the latest version (%2$@) as the default.";
+"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN-versio %1$@ ei ole käytettävissä. Käytetään uusinta versio (%2$@) oletuksena.";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN-versio:";
@@ -1409,7 +1421,7 @@
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick voi tarkistaa, että tietokoneen julkinen IP-osoite muuttuu, kun muodostat VPN-yhteyden ja varoittaa sinua, jos se ei muutu.\n\nTämä voi auttaa Tunnelblickiä diagnostisoimaan ongelmia yhteytesi kanssa.\n\nTämä prosessi yrittää käyttää \n%@\n\nHaluatko tarkistaa tämän IP-osoitteen muuttamisen?\n";
 
 /* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details.";
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblickiä ei voitu konfiguroida käynnistämään itsensä automaattisesti, kun kirjaudut sisään.  Katso lisätietoja konsolilokista.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblickiä ei voitu käynnistää konfiguraatio-ongelman vuoksi.  Tutki päätelokista lisätietoja.";
@@ -1565,13 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska sen info.plist-tiedostoa ei voitu tallentaa tynkätiedostoon .tblk\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska CFBundleIdentifier on käsitelty\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
 
 /* Window text */
 "Updates:" = "Päivitykset:";
 
 /* Window text */
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+
+/* Window text */
 "VPN Connections" = "VPN-yhteydet";
+
+/* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
+"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
 
 /* Window text */
 "WINS servers:" = "WINS palvelimet:";
@@ -1623,9 +1644,6 @@
 
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "Et voi uudelleennimetä konfiguraatiota, ellei sitä oteta pois käytöstä.";
-
-/* Window text */
-"You do not have permission to read '%@'.\n\n" = "Sinulla ei ole oikeutta lukea '%@'.\n\n";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Sinulla on OpenVPN-konfiguraatioita, mutta sinulla ei ole yhtään Tunnelblick VPN -konfiguraatiota. \n\nOpenVPN-konfiguraatiot on muunnettava Tunnelblick VPN -konfiguraatioiksi, mikäli haluat käyttää niitä.\n\n";
@@ -1796,13 +1814,13 @@
 "German localization" = "Saksalainen käännös";
 
 /* Credit description */
-"Greek localization" = "Greek localization";
+"Greek localization" = "Kreikkalainen käännös";
 
 /* Credit description */
 "Hungarian localization" = "Unkarilainen käännös";
 
 /* Credit description */
-"Icon set including Retina images" = "Ikonijoukko, joka sisältää Retina-kuvat";
+"Icon set including Retina images" = "Ikonikokoelma, joka sisältää Retina-kuvat";
 
 /* Credit description */
 "Italian localization" = "Italialainen käännös";
@@ -1838,7 +1856,7 @@
 "Polish localization" = "Puolalainen käännös";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Portuguese (Brazilian) localization";
+"Portuguese (Brazilian) localization" = "Portugalilainen (Brasilia) käännös";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Ohjelman ja dokumentaation kehitys ja ylläpito version 3.0b10 jälkeen";

@@ -104,9 +104,6 @@
 "Do not use the plugin" = "プラグインを使用しない";
 
 /* Button */
-"Done" = "完了";
-
-/* Button */
 "Download" = "ダウンロード";
 
 /* Button */
@@ -237,9 +234,6 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 アイコン";
-
-/* Button */
-"Uninstall" = "アンインストール";
 
 /* Button */
 "When Tunnelblick launches" = "Tunnelblick 起動時に接続";
@@ -776,9 +770,6 @@
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "「%@」に対応する認証情報(秘密鍵、またはユーザー名とパスワード)がありません。";
 
 /* Window text */
-"'%@' value '%@' is not a valid URL in %@" = "'%1$@' value '%2$@' is not a valid URL in %3$@";
-
-/* Window text */
 "'%@' was not terminated." = "'%@' was not terminated.";
 
 /* Window text */
@@ -905,6 +896,15 @@
 "Cannot install configurations to either shared or private locations" = "Cannot install configurations to either shared or private locations";
 
 /* Window text */
+"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+
+/* Window text */
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+
+/* Window text */
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+
+/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "名前に使用できない文字が含まれているため、接続先「%1$@」は無視されます。\n\nこれらの文字は使用できません: %2$s\n\n";
 
 /* Window text */
@@ -989,9 +989,6 @@
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "接続先「%@」の変更を取り消し、最新かつ安全な(シャドー)コピーまで戻しますか？\n\n";
 
 /* Window text */
-"Do you wish to uninstall '%@' version %@?" = "Do you wish to uninstall '%1$@' version %2$@?";
-
-/* Window text */
 "Domain:" = "ドメイン:";
 
 /* Window text */
@@ -1011,6 +1008,12 @@
 
 /* Window text */
 "Failed to copy %@ to %@" = "Failed to copy %1$@ to %2$@";
+
+/* Window text */
+"Failed to create folder at %@" = "Failed to create folder at %@";
+
+/* Window text */
+"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Failed to set permissions on %@\n";
@@ -1106,6 +1109,12 @@
 "Menu:" = "メニュー:";
 
 /* Window text */
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+
+/* Window text */
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+
+/* Window text */
 "Modified configuration file to remove path information" = "Modified configuration file to remove path information";
 
 /* Window text */
@@ -1138,8 +1147,8 @@
 /* Window text */
 "Non-boolean value for '%@' in %@" = "Non-boolean value for '%1$@' in %2$@";
 
-/* Window text */
-"Non-number value for '%@' in %@" = "Non-number value for '%1$@' in %2$@";
+/* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
+"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
 
 /* Window text */
 "Non-string value for '%@' in %@" = "Non-string value for '%1$@' in %2$@";
@@ -1149,6 +1158,9 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Not a .ovpn or .conf: %@";
+
+/* Window text */
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
 
 /* Window text */
 "Notification window:" = "通知ウィンドウ:";
@@ -1565,13 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
 
 /* Window text */
 "Updates:" = "更新:";
 
 /* Window text */
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+
+/* Window text */
 "VPN Connections" = "VPN 接続";
+
+/* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
+"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
 
 /* Window text */
 "WINS servers:" = "WINS サーバー:";
@@ -1623,9 +1644,6 @@
 
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "接続を切断するまで、接続先の名称を変更できません。";
-
-/* Window text */
-"You do not have permission to read '%@'.\n\n" = "You do not have permission to read '%@'.\n\n";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n";

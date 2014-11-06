@@ -104,9 +104,6 @@
 "Do not use the plugin" = "No utilitzar el plugin";
 
 /* Button */
-"Done" = "Fet";
-
-/* Button */
 "Download" = "Descarregar";
 
 /* Button */
@@ -237,9 +234,6 @@
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Icona del Tunnelblick 3.3";
-
-/* Button */
-"Uninstall" = "Desinstal·lar";
 
 /* Button */
 "When Tunnelblick launches" = "Quan Tunnelblick s'iniciï";
@@ -377,7 +371,7 @@
 "Reset the primary interface after disconnecting" = "Restableix la interfície primària després de desconnectar";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
+"Route all IPv4 traffic through the VPN" = "Enruta tot el trànsit IPv4 per la VPN";
 
 /* Checkbox name */
 "Run MTU maximum size test after connecting" = "Executa el test de mida màxima de MTU després de connectar";
@@ -386,7 +380,7 @@
 "Save in Keychain" = "Guardar en el gestor de claus";
 
 /* Checkbox name */
-"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
+"Send anonymous profile information when checking" = "Enviar informació del perfil anònima en comprovar";
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "Establir el DNS després que les rutes s'hagin establert o abans";
@@ -611,7 +605,7 @@
 "Replace Existing File?" = "Substituir l'arxiu existent?";
 
 /* Window title */
-"Replace VPN Configuration?" = "Replace VPN Configuration?";
+"Replace VPN Configuration?" = "Reemplaçar la configuració VPN?";
 
 /* Window title */
 "Sample Configuration Created" = "Arxiu de configuració de guia creat";
@@ -653,10 +647,10 @@
 "Utilities" = "Utilitats";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "Error d'instal·lació en configurar VPN";
 
 /* Window title */
-"VPN Configuration Installation" = "VPN Configuration Installation";
+"VPN Configuration Installation" = "Configuració d'instal·lació VPN";
 
 /* Window title */
 "VPN Credentials" = "Credencials VPN";
@@ -710,10 +704,10 @@
 "    • Replace one configuration\n" = "    • Substituir una configuració\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall %lu configurations\n\n" = "    • Uninstall %lu configurations\n\n";
+"    • Uninstall %lu configurations\n\n" = "    • Desinstal·lar %lu configuracions\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall one configuration\n" = "    • Uninstall one configuration\n";
+"    • Uninstall one configuration\n" = "    • Desinstal·lar una configuració\n";
 
 /* Window text */
 "  • Be installed in /Applications as Tunnelblick\n" = "  • Be installed in /Applications as Tunnelblick\n";
@@ -774,9 +768,6 @@
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' no disposa de credencials (clau privada o nom d'usuari i contrasenya) al Gestor de Claus.";
-
-/* Window text */
-"'%@' value '%@' is not a valid URL in %@" = "'%1$@' value '%2$@' is not a valid URL in %3$@";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' was not terminated.";
@@ -905,6 +896,15 @@
 "Cannot install configurations to either shared or private locations" = "Cannot install configurations to either shared or private locations";
 
 /* Window text */
+"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+
+/* Window text */
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+
+/* Window text */
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+
+/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "La configuració '%1$@' serà ignorada ja que el seu nom conté caràcters no permesos.\n\nEls caràcters no permesos: '%2$s'\n\n";
 
 /* Window text */
@@ -989,9 +989,6 @@
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Desitges reverir la configuració '%@' a la seva darrera còpia shadow disponible?\n\n";
 
 /* Window text */
-"Do you wish to uninstall '%@' version %@?" = "Do you wish to uninstall '%1$@' version %2$@?";
-
-/* Window text */
 "Domain:" = "Domini:";
 
 /* Window text */
@@ -1011,6 +1008,12 @@
 
 /* Window text */
 "Failed to copy %@ to %@" = "Failed to copy %1$@ to %2$@";
+
+/* Window text */
+"Failed to create folder at %@" = "Failed to create folder at %@";
+
+/* Window text */
+"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Failed to set permissions on %@\n";
@@ -1106,6 +1109,12 @@
 "Menu:" = "Menú:";
 
 /* Window text */
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+
+/* Window text */
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+
+/* Window text */
 "Modified configuration file to remove path information" = "Arxiu de configuració modificat per eliminar informació de camí";
 
 /* Window text */
@@ -1138,8 +1147,8 @@
 /* Window text */
 "Non-boolean value for '%@' in %@" = "Valor diferent de booleà per a '%1$@' a %2$@";
 
-/* Window text */
-"Non-number value for '%@' in %@" = "Valor diferent de nombre per a '%1$@' a %2$@";
+/* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
+"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
 
 /* Window text */
 "Non-string value for '%@' in %@" = "Valor diferent de cadena per a '%1$@' a %2$@";
@@ -1149,6 +1158,9 @@
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "No es tracta d'un .ovpn o d'un .conf: %@";
+
+/* Window text */
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
 
 /* Window text */
 "Notification window:" = "Finestra de notificació:";
@@ -1565,13 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has been processed\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
 
 /* Window text */
 "Updates:" = "Actualitzacions:";
 
 /* Window text */
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+
+/* Window text */
 "VPN Connections" = "Connexions VPN";
+
+/* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
+"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
 
 /* Window text */
 "WINS servers:" = "Servidors WINS:";
@@ -1623,9 +1644,6 @@
 
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "Una configuració no es pot renombrar a menys que es trobi desconnectada.";
-
-/* Window text */
-"You do not have permission to read '%@'.\n\n" = "You do not have permission to read '%@'.\n\n";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n";
