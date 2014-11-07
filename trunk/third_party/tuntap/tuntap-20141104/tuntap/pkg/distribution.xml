@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<installer-gui-script minSpecVersion="1">
+    <title>TunTap Installer package</title>
+    <options customize="allow" require-scripts="false" hostArchitectures="x86_64"/>
+    <domains enable_anywhere="false" enable_currentUserHome="false" enable_localSystem="true"/>
+    <os-version min="10.9"/>
+    <welcome file="welcome.rtfd" mime="text/rtfd"/>
+    <license file="license.rtfd" mime="text/rtfd"/>
+    <pkg-ref id="tap" auth="root">tap.pkg</pkg-ref>
+    <pkg-ref id="tun" auth="root">tun.pkg</pkg-ref>
+    <choices-outline>
+        <line choice="tap"/>
+        <line choice="tun"/>
+    </choices-outline>
+    <choice id="tap" title="Ethertap kernel extension" description="The ethertap kernel extensions allows applications to connect simulated ethernet segments to the kernel via virtual ethernet interfaces.">
+        <pkg-ref id="tap"/>
+    </choice>
+    <choice id="tun" title="IP Tunnel kernel extension" description="Provides virtual network interfaces allowing applications to exchange IP packets with the kernel.">
+        <pkg-ref id="tun"/>
+    </choice>
+</installer-gui-script>
