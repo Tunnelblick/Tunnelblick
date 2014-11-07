@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Old versions resided in /System/Library, remove.
+rm -rf /System/Library/Extensions/tun.kext
+
+# Remove startup item installed by old versions.
+rm -rf /Library/StartupItems/tun
+
+# Unload an old extension (might fail).
+kextunload -b foo.tun
+kextunload -b net.sf.tuntaposx.tun
+
+# Load the new version.
+kextload /Library/Extensions/tun.kext
+

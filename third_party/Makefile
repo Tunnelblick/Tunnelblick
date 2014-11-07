@@ -36,7 +36,8 @@ LZO_DIR=$(TOPDIR)/lzo-2.08
 PKCS11_DIR=pkcs11-helper-1.11
 PKCS11_TUNNELBLICK_STAGING_DIR=$(TOPDIR)/$(PKCS11_DIR)/staging
 TUNTAP_20090913_DIR=tuntap-20090913
-TUNTAP_CURRENT_DIR=tuntap-20111101
+TUNTAP_20111101_DIR=tuntap-20111101
+TUNTAP_CURRENT_DIR=tuntap-20141104
 
 all: built-tuntap built-sparkle built-openvpn
 	@echo "Made all third_party for Tunnelblick"
@@ -226,6 +227,9 @@ built-tuntap: built-tuntap-patch
 	$(MAKE) -C tuntap/$(TUNTAP_20090913_DIR)/tuntap/; \
 	mv tuntap/$(TUNTAP_20090913_DIR)/tuntap/tap.kext tap-20090913.kext; \
 	mv tuntap/$(TUNTAP_20090913_DIR)/tuntap/tun.kext tun-20090913.kext; \
+	$(MAKE) -C tuntap/$(TUNTAP_20111101_DIR)/tuntap/; \
+	mv tuntap/$(TUNTAP_20111101_DIR)/tuntap/tap.kext tap-20111101.kext; \
+	mv tuntap/$(TUNTAP_20111101_DIR)/tuntap/tun.kext tun-20111101.kext; \
 	$(MAKE) -C tuntap/$(TUNTAP_CURRENT_DIR)/tuntap/; \
 	mv tuntap/$(TUNTAP_CURRENT_DIR)/tuntap/tap.kext tap.kext; \
 	mv tuntap/$(TUNTAP_CURRENT_DIR)/tuntap/tun.kext tun.kext
@@ -235,6 +239,9 @@ built-tuntap-clean:
 	$(MAKE) -C tuntap/$(TUNTAP_20090913_DIR)/tuntap/ clean; \
 	rm -f -R tap-20090913.kext; \
 	rm -f -R tun-20090913.kext; \
+	$(MAKE) -C tuntap/$(TUNTAP_20111101_DIR)/tuntap/ clean; \
+	rm -f -R tap-20111101.kext; \
+	rm -f -R tun-20111101.kext; \
 	$(MAKE) -C tuntap/$(TUNTAP_CURRENT_DIR)/tuntap/ clean; \
 	rm -f -R tap.kext; \
 	rm -f -R tun.kext

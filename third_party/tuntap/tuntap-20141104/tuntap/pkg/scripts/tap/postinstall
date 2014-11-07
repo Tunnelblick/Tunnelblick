@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Old versions resided in /System/Library, remove.
+rm -rf /System/Library/Extensions/tap.kext
+
+# Remove startup item installed by old versions.
+rm -rf /Library/StartupItems/tap
+
+# Unload an old extension (might fail).
+kextunload -b foo.tap
+kextunload -b net.sf.tuntaposx.tap
+
+# Load the new version.
+kextload /Library/Extensions/tap.kext
+
