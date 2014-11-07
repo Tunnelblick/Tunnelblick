@@ -1198,13 +1198,13 @@ NSString * TunTapSuffixToUse(void) {
         if         ( minor < 6) {
             suffixToReturn = @"-20090913.kext";
         } else if  ( minor < 9) {
-            suffixToReturn = @".kext";
+            suffixToReturn = @"-20111101.kext";
         } else {
             suffixToReturn = @"-signed.kext";
         }
     } else {
-        fprintf(stderr, "Tunnelblick: Unable to determine OS version; assuming earlier than Snow Leopard, so using Tuntap version 20090913. Error status returned = %ld", (long) err);
-        suffixToReturn = @"-20090913.kext";
+        fprintf(stderr, "Tunnelblick: Unable to determine OS version; using signed Tuntap kexts. Error status returned = %ld", (long) err);
+        suffixToReturn = @"-signed.kext";
     }
     
     return suffixToReturn;
