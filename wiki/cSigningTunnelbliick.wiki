@@ -28,6 +28,8 @@ To get a self-signed code signing certificate, use the OS X Keychain Assistant a
 
 To get an certificate from Apple, you must be an [https://developer.apple.com Apple Developer]. Request your Apple certificate and install it into your Keychain. You can do this from a recent version of Xcode running on OS X 10.9 ("Mavericks") or higher.
 
+To sign the kexts, your certificate must be a "kext-signing" certificate. If you do not have one and Apple will not give you one, you can just copy the two signed kexts from a recent version of Tunnelblick; they are signed with a "kext-signing" certificate.
+
 ==SIGNING SCRIPT==
 
 Use following script to sign Tunnelblick or a rebranded version of Tunnelblick. The command line is:
@@ -148,7 +150,7 @@ echo "Done. The application has been digitally signed."
 
 }}}
 
-
+Note that this assumes you have a "kext-signing" certificate; if you don't, modify the script to copy the "tun-signed.kext" and "tap-signed.kext" from a recent copy of Tunnelblick into your rebranded application.
 ------------------
 
 ===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
