@@ -83,7 +83,8 @@ void * _NSConcreteStackBlock __attribute__((weak));
 {
     IBOutlet NSMenu         * myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
     NSStatusItem            * statusItem;                   // Our place in the Status Bar
-    MainIconView            * ourMainIconView;                 // View for the main icon
+    NSButton                * statusItemButton;             // Or nil if not on 10.10 or higher
+    MainIconView            * ourMainIconView;              // View for the main icon
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
     NSMenuItem              * vpnDetailsItem;               //    "VPN Details..." item for menu
@@ -160,6 +161,8 @@ void * _NSConcreteStackBlock __attribute__((weak));
     ConfigurationMultiUpdater * myConfigMultiUpdater;       // Checks for configuration updates
 	
 	NSString                * languageAtLaunch;				// Lower-case version of the language we are using. Passed on to runOnConnect, runOnLaunch, and Menu command scripts
+    
+    NSTrackingRectTag         iconTrackingRectTag;          // Used to track mouseEntered and mouseExited events for statusItemButton
     
     BOOL                      launchFinished;               // Flag that we have executed "applicationDidFinishLaunching"
     
@@ -342,7 +345,8 @@ TBPROPERTY_READONLY(NSMutableArray *, activeIPCheckThreads)
 TBPROPERTY_READONLY(NSMutableArray *, cancellingIPCheckThreads)
 TBPROPERTY_READONLY(ConfigurationMultiUpdater *, myConfigMultiUpdater)
 
-TBPROPERTY(NSArray *,      screenList,                setScreenList)
+TBPROPERTY(NSButton     *, statusItemButton,          setStatusItemButton)
+TBPROPERTY(NSArray      *, screenList,                setScreenList)
 TBPROPERTY(MainIconView *, ourMainIconView,           setOurMainIconView)
 TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
 TBPROPERTY(NSDictionary *, myConfigDictionary,        setMyConfigDictionary)

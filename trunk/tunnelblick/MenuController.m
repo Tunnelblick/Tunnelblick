@@ -314,6 +314,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                 
         tunCount = 0;
         tapCount = 0;
+		
+		iconTrackingRectTag = 0;
         
         gProgramPreferences = [[NSArray arrayWithObjects:
                                 
@@ -1197,6 +1199,10 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 	NSStatusBar *bar = [NSStatusBar systemStatusBar];
 	
     if (  statusItem  ) {
+        if (   iconTrackingRectTag != 0  ) {
+			[statusItemButton removeTrackingRect: iconTrackingRectTag];
+            iconTrackingRectTag = 0;
+        }
         [bar removeStatusItem: statusItem];
         [statusItem release];
     }
@@ -1222,6 +1228,21 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         if (  ! (statusItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
             NSLog(@"Can't insert icon in Status Bar in standard position");
         }
+    }
+	
+    if (  [statusItem respondsToSelector: @selector(button)]  ) {
+        [self setStatusItemButton: [statusItem performSelector: @selector(button) withObject: nil]];
+		[statusItemButton setImage: mainImage];  // Set image so that frame is set up so we can set the tracking rectangle
+        if (  ! [gTbDefaults boolForKey: @"doNotShowNotificationWindowOnMouseover"]  ) {
+            NSRect frame = [statusItemButton frame];
+            NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
+            iconTrackingRectTag = [statusItemButton addTrackingRect: trackingRect
+                                                              owner: self
+                                                           userData: nil
+                                                       assumeInside: NO];
+        }
+    } else {
+        [self setStatusItemButton: nil];
     }
 }
 
@@ -1458,7 +1479,14 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
     
     return NO;
 }
+
+-(void) markImage: (NSImage *) image asTemplate: (BOOL) isTemplate {
     
+    if (   isTemplate
+        && [image respondsToSelector: @selector(setTemplate:)]  ) {
+        [image setTemplate: TRUE];
+    }
+}
 -(BOOL) loadMenuIconSet: (NSString *)        iconSetName
                    main: (NSImage **)        ptrMainImage
              connecting: (NSImage **)        ptrConnectedImage
@@ -1482,6 +1510,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         }
     }
     
+    BOOL usingTemplates = [gFileMgr fileExistsAtPath: [iconSetDir stringByAppendingPathComponent: @"templates"]];
+    
     unsigned nFrames = 0;
     NSString *file;
     NSString *fullPath;
@@ -1503,10 +1533,12 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                 if (  [name isEqualToString:@"closed"]) {
                     [*ptrMainImage release];
                     *ptrMainImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
+                    [self markImage: *ptrMainImage asTemplate: usingTemplates];
                     
                 } else if(  [name isEqualToString:@"open"]) {
                     [*ptrConnectedImage release];
                     *ptrConnectedImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
+                    [self markImage: *ptrConnectedImage asTemplate: usingTemplates];
                     
                 } else {
                     if(  [[file lastPathComponent] isEqualToString:@"0.png"]) {  //[name intValue] returns 0 on failure, so make sure we find the first frame
@@ -1525,10 +1557,11 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         fullPath = [iconSetDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.png", i]];
         if (  itemIsVisible(fullPath)  ) {
             if ([gFileMgr fileExistsAtPath:fullPath]) {
-                NSImage *frame = [[NSImage alloc] initWithContentsOfFile:fullPath];
-                if (  frame  ) {
-                    [*ptrAnimImages addObject:frame];
-                    [frame release];
+                NSImage * img = [[NSImage alloc] initWithContentsOfFile:fullPath];
+                if (  img  ) {
+                    [self markImage: img asTemplate: usingTemplates];
+                    [*ptrAnimImages addObject: img];
+                    [img release];
                 } else {
                     NSLog(@"Unable to load status icon image (possible incorrect permissions) at %@", fullPath);
                 }
@@ -1646,18 +1679,24 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 	myVPNMenu = [[NSMenu alloc] init];
     [myVPNMenu setDelegate:self];
 
-    [self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 24.0, 22.0)] autorelease]];
-    [statusItem setView: [self ourMainIconView]];
-    
 	[myVPNMenu addItem:statusMenuItem];
-	
     [myVPNMenu addItem:[NSMenuItem separatorItem]];
+    
+	BOOL showVpnDetailsAtTop = (   ( ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"] )
+								&& ( ! [gTbDefaults boolForKey:@"putVpnDetailsAtBottom"] ) );
+    if (  showVpnDetailsAtTop  ) {
+        [myVPNMenu addItem: vpnDetailsItem];
+        [myVPNMenu addItem: [NSMenuItem separatorItem]];
+	}
     
     // Add each connection to the menu
     NSString * dispNm;
     NSArray *keyArray = [[[self myConfigDictionary] allKeys]
 						 sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
 	NSEnumerator * e = [keyArray objectEnumerator];
+	NSUInteger itemsToSkip = (  showVpnDetailsAtTop
+							  ? 4
+							  : 2);
     while (  (dispNm = [e nextObject])  ) {
         if (  ! [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"-doNotShowOnTunnelblickMenu"]]  ) {
             // configure connection object:
@@ -1669,7 +1708,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             [connectionItem setAction:@selector(toggle:)];
             
 			NSString * menuItemName = [myConnection localizedName];
-            [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: menuItemName];
+            [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: itemsToSkip withName: menuItemName];
             
             [myConnection setMenuItem: connectionItem];
         }
@@ -1698,17 +1737,54 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
         [myVPNMenu addItem: [NSMenuItem separatorItem]];
     }
     
-    if (  ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"]  ) {
+    if (   ( ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"] )
+        && [gTbDefaults boolForKey:@"putVpnDetailsAtBottom"]  ) {
         [myVPNMenu addItem: vpnDetailsItem];
         [myVPNMenu addItem: [NSMenuItem separatorItem]];
 	}
     
     [myVPNMenu addItem: quitItem];
     
+    if (  statusItemButton  ) {
+        // Yosemite statusItem is very different!
+		[statusItemButton setImage: mainImage];
+        [statusItem setMenu: myVPNMenu];
+	} else {
+		[self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 24.0, 22.0)] autorelease]];
+		[statusItem setView: [self ourMainIconView]];
+    }
+	
     status = pthread_mutex_unlock( &myVPNMenuMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_unlock( &myVPNMenuMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
     }
+}
+
+// *******************************************************************************************
+// Event Handlers for the main icon on Yosemite
+
+-(void) mouseEntered: (NSEvent *) theEvent
+{
+    // Event handler; NOT on MainThread
+    // Mouse entered the tracking area of the Tunnelblick icon
+	
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
+    [self mouseEnteredMainIcon: self event: theEvent];
+}
+
+-(void) mouseExited: (NSEvent *) theEvent
+{
+    // Event handler; NOT on MainThread
+    // Mouse exited the tracking area of the Tunnelblick icon
+	
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
+    [self mouseExitedMainIcon: self event: theEvent];
 }
 
 // LOCK configModifyMutex BEFORE INVOKING THIS METHOD
@@ -1727,7 +1803,8 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             NSString * menuItemTitle;
             if (   [menuItem submenu]  ) {    // item is a submenu
                 menuItemTitle = [menuItem title];
-            } else if (  [[menuItem title] isEqualToString: NSLocalizedString(@"Add a VPN...", @"Menu item")]  ) {
+            } else if (   [[menuItem title] isEqualToString: NSLocalizedString(@"Add a VPN...",   @"Menu item")]
+					   || [[menuItem title] isEqualToString: NSLocalizedString(@"VPN Details...", @"Menu item")]  ) {
                 break;
             } else {                                                            // item is a connection item
                 menuItemTitle = [[menuItem target] localizedName];
@@ -2307,7 +2384,12 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         [myVPNMenu removeItemAtIndex: itemIx];
     }
     
-    [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: [[connectionItem target] localizedName]];
+	BOOL showVpnDetailsAtTop = ( ( ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"] )
+								&& ( ! [gTbDefaults boolForKey:@"putVpnDetailsAtBottom"] ) );
+	NSUInteger itemsToSkip = (  showVpnDetailsAtTop
+							  ? 4
+							  : 2);
+    [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: itemsToSkip withName: [[connectionItem target] localizedName]];
     
     // Add connection to myConfigDictionary
     NSMutableDictionary * tempConfigDictionary = [myConfigDictionary mutableCopy];
@@ -2419,15 +2501,23 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 			[theAnim stopAnimation];
 		}
         
-        if (  [lastState isEqualToString:@"CONNECTED"]  ) {
-            [[self ourMainIconView] setImage: (  menuIsOpen
-											   ? highlightedConnectedImage
-											   : connectedImage)];
-        } else {
-            [[self ourMainIconView] setImage: (  menuIsOpen
-											   ? highlightedMainImage
-											   : mainImage)];
-        }
+		if (  statusItemButton  ) {
+			if (  [lastState isEqualToString:@"CONNECTED"]  ) {
+				[statusItemButton setImage: connectedImage];
+			} else {
+				[statusItemButton setImage: mainImage];
+			}
+		} else {
+			if (  [lastState isEqualToString:@"CONNECTED"]  ) {
+				[[self ourMainIconView] setImage: (  menuIsOpen
+												   ? highlightedConnectedImage
+												   : connectedImage)];
+			} else {
+				[[self ourMainIconView] setImage: (  menuIsOpen
+												   ? highlightedMainImage
+												   : mainImage)];
+			}
+		}
 	}
 }
 
@@ -2455,12 +2545,19 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
-	NSMutableArray * images = (  menuIsOpen
-							   ? highlightedAnimImages
-							   : animImages);
-    
 	if (animation == theAnim) {
-        [[self ourMainIconView] performSelectorOnMainThread:@selector(setImage:) withObject:[images objectAtIndex: (unsigned) (lround(progress * [images count]) - 1)] waitUntilDone:YES];
+        NSMutableArray * images = (  statusItemButton
+                                   ? animImages
+                                   : (  menuIsOpen
+                                      ? highlightedAnimImages
+                                      : animImages)
+                                   );
+        NSImage * img = [images objectAtIndex: (unsigned) (lround(progress * [images count]) - 1)];
+		if (  statusItemButton  ) {
+			[statusItemButton performSelectorOnMainThread:@selector(setImage:) withObject: img waitUntilDone:YES];
+		} else {
+			[[self ourMainIconView] performSelectorOnMainThread:@selector(setImage:) withObject:img waitUntilDone:YES];
+		}
 	}
 }
 
@@ -6922,12 +7019,19 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 {
 	(void) nextHandler;
 	(void) theEvent;
+	(void) userData;
 	
     // When the hotKey is pressed, pop up the Tunnelblick menu from the Status Bar
-    MenuController * menuC = (MenuController *) userData;
-    NSStatusItem * statusI = [menuC statusItem];
-    [statusI popUpStatusItemMenu: [[NSApp delegate] myVPNMenu]];
-    return noErr;
+    MenuController * menuC = [NSApp delegate];
+	NSButton * statusButton = [menuC statusItemButton];
+	if (  statusButton  ) {
+		[statusButton performClick: nil];
+	} else {
+		NSStatusItem * statusI = [menuC statusItem];
+		[statusI popUpStatusItemMenu: [menuC myVPNMenu]];
+	}
+	
+	return noErr;
 }
 
 -(NSArray *) sortedSounds
@@ -7367,6 +7471,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            activeIPCheckThread
 TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            cancellingIPCheckThreads)
 TBSYNTHESIZE_OBJECT_GET(retain, ConfigurationMultiUpdater *, myConfigMultiUpdater)
 
+TBSYNTHESIZE_OBJECT(retain, NSButton     *, statusItemButton,          setStatusItemButton)
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, screenList,                setScreenList)
 TBSYNTHESIZE_OBJECT(retain, MainIconView *, ourMainIconView,           setOurMainIconView)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
