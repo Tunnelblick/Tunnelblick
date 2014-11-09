@@ -101,6 +101,9 @@ When rebranding Tunnelblick build 3957 and higher, also change the bundle identi
   (wait for it to finish)<br>
   Quit Xcode, saving all changes (it is important to quit the PROGRAM completely, not just close all the  windows).
 
+Deal with Sparkle update signatures (see [cDigitalSignatures Digital Signatures]):
+ * If you are signing the Sparkle updates, replace ....../tunnelblick/dsa_pub.pem file with your own file.
+ * If you are not signing the Sparkle updates, remove the "SUPublicDSAKeyFile" entry from ....../tunnelblick/Info.plist.
 Finally, if you are not signing the application yourself, after you have built the rebranded application, copy "tun-signed.kext" and "tap-signed.kext" from the latest beta version of Tunnelblick into your application's "Contents/Resources" folder.
 ------------------
 
