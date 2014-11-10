@@ -141,6 +141,7 @@ BOOL needToConvertNonTblks(void);
 -(BOOL)             checkPlist:                             (NSString *)        path
                    renameIfBad:                             (BOOL)              renameIfBad;
 -(NSURL *)          contactURL;
+-(void)             createStatusItem;
 -(NSString *)       deconstructOpenVPNLogPath:              (NSString *)        logPath
                                        toPort:              (unsigned *)        portPtr
                                   toStartArgs:              (NSString * *)      startArgsPtr;
@@ -1298,10 +1299,17 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 	return returnValue;
 }
 
+- (void) recreateMenu
+{
+    [self createMenu];
+    [self updateIconImage];
+    [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
+}
+
 -(void) screenParametersChanged {
     
     [self updateScreenList];
-    [self recreateStatusItemAndMenu];
+    [self recreateMenu];
 	[[self logScreen] setupAppearanceConnectionWindowScreenButton];
 }
 
@@ -1324,7 +1332,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         return;
     }
     
-	[self performSelectorOnMainThread: @selector(recreateStatusItemAndMenu) withObject: nil waitUntilDone: NO];
+	[self performSelectorOnMainThread: @selector(recreateMenu) withObject: nil waitUntilDone: NO];
 }
 
 - (void) menuExtrasWereAddedHandler: (NSNotification*) n
@@ -1335,7 +1343,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         return;
     }
     
-	[self performSelectorOnMainThread: @selector(recreateStatusItemAndMenu) withObject: nil waitUntilDone: NO];
+	[self performSelectorOnMainThread: @selector(recreateMenu) withObject: nil waitUntilDone: NO];
 }
 
 - (void) recreateStatusItemAndMenu
@@ -2137,7 +2145,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) changedDisplayConnectionSubmenusSettings
 {
-    [self recreateStatusItemAndMenu];
+    [self recreateMenu];
 }
 
 -(void) removeConnectionWithDisplayName: (NSString *) theName
@@ -6783,7 +6791,8 @@ void terminateBecauseOfBadConfiguration(void)
     
     TBLog(@"DB-SW", @"wokeUpFromSleep: Finished all needed activity before computer went to sleep");
     
-    [self recreateStatusItemAndMenu]; // Recreate the Tunnelblick icon
+    [self updateIconImage];
+    [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
     
     if (  [[self connectionsToWaitForDisconnectOnWakeup] count] == 0  ) {
 		TBLog(@"DB-SW", @"wokeUpFromSleep: no configurations to disconnect on wakeup")
