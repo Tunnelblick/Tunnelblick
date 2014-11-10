@@ -1510,18 +1510,24 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         }
     }
     
-    BOOL usingTemplates = [gFileMgr fileExistsAtPath: [iconSetDir stringByAppendingPathComponent: @"templates"]];
-    
     unsigned nFrames = 0;
     NSString *file;
     NSString *fullPath;
     NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: iconSetDir];
     NSArray *allObjects = [dirEnum allObjects];
     
+	BOOL usingTemplates = FALSE;
+    NSUInteger i=0;
+    for(  i=0; i<[allObjects count]; i++  ) {
+        file = [allObjects objectAtIndex: i];
+		if (  [file hasPrefix: @"templates."]  ) {
+			usingTemplates = TRUE;
+		}
+	}	
+	
     [*ptrAnimImages release];
     *ptrAnimImages = [[NSMutableArray alloc] init];
     
-    unsigned i=0;
     for(i=0;i<[allObjects count];i++) {
         file = [allObjects objectAtIndex:i];
         fullPath = [iconSetDir stringByAppendingPathComponent:file];
