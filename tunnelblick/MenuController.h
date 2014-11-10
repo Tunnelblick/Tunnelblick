@@ -239,7 +239,6 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(BOOL)             cleanup;
 -(NSArray *)        connectionsNotDisconnected;
 -(void)             createMenu;
--(void)             createStatusItem;
 -(unsigned)         decrementTapCount;
 -(NSUInteger)       defaultOpenVPNVersionIx;
 -(void)             deleteExistingConfig:                   (NSString *)        dispNm;
