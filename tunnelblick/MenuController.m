@@ -231,11 +231,10 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 				   fromBundle: (NSBundle *) firstBundle
 				     orBundle: (NSBundle *) secondBundle {
 	
-	NSString * localName = [[key copy] autorelease];
-	
 	if (  firstBundle  ) {
-		localName = [self localizedString: key fromBundle: firstBundle];
-		if (  ! [localName isEqualToString: key]  ) {
+		NSString * localName = [self localizedString: key fromBundle: firstBundle];
+		if (   localName
+			&& ( ! [localName isEqualToString: key] )  ) {
 			return localName;
 		}
 	}
@@ -2384,6 +2383,10 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     status = pthread_mutex_lock( &myVPNMenuMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_lock( &myVPNMenuMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+		status = pthread_mutex_unlock( &configModifyMutex );
+		if (  status != EXIT_SUCCESS  ) {
+			NSLog(@"pthread_mutex_unlock( &configModifyMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+		}
         return;
     }
     
@@ -2414,6 +2417,10 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     status = pthread_mutex_unlock( &myVPNMenuMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_unlock( &myVPNMenuMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+		status = pthread_mutex_unlock( &configModifyMutex );
+		if (  status != EXIT_SUCCESS  ) {
+			NSLog(@"pthread_mutex_unlock( &configModifyMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+		}
         return;
     }
     status = pthread_mutex_unlock( &configModifyMutex );
@@ -2427,13 +2434,15 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) deleteExistingConfig: (NSString *) dispNm
 {
     VPNConnection* myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
-    if (  ! [[myConnection state] isEqualTo: @"EXITING"]  ) {
+    if (   myConnection
+		&& ( ! [[myConnection state] isEqualTo: @"EXITING"] )  ) {
         [myConnection addToLog: @"*Tunnelblick: Disconnecting; user asked to delete the configuration"];
         [myConnection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
         [myConnection waitUntilDisconnected];
         
-        TBShowAlertWindow([NSString stringWithFormat: NSLocalizedString(@"'%@' has been disconnected", @"Window title"), dispNm],
-						 [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick has disconnected '%@' because its configuration file has been removed.", @"Window text"), dispNm]);
+		NSString * localName = [myConnection localizedName];
+        TBShowAlertWindow([NSString stringWithFormat: NSLocalizedString(@"'%@' has been disconnected", @"Window title"), localName],
+						 [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick has disconnected '%@' because its configuration file has been removed.", @"Window text"), localName]);
     }
     
     OSStatus status = pthread_mutex_lock( &configModifyMutex );
@@ -2445,6 +2454,10 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     status = pthread_mutex_lock( &myVPNMenuMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_lock( &myVPNMenuMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+		status = pthread_mutex_unlock( &configModifyMutex );
+		if (  status != EXIT_SUCCESS  ) {
+			NSLog(@"pthread_mutex_unlock( &configModifyMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+		}
         return;
     }
     
@@ -2453,8 +2466,11 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     [tempVPNConnectionDictionary removeObjectForKey: dispNm];
     [self setMyVPNConnectionDictionary: [[tempVPNConnectionDictionary copy] autorelease]];
     [tempVPNConnectionDictionary release];
-        
-    [self removeConnectionWithDisplayName: dispNm fromMenu: myVPNMenu afterIndex: 2];
+	
+	BOOL showVpnDetailsAtTop = (   ( ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"] )
+								&& ( ! [gTbDefaults boolForKey:@"putVpnDetailsAtBottom"] ) );
+	int itemsToSkip = ( showVpnDetailsAtTop ? 4 : 2 );
+    [self removeConnectionWithDisplayName: dispNm fromMenu: myVPNMenu afterIndex: itemsToSkip];
 
     // Remove connection from myConfigDictionary
     NSMutableDictionary * tempConfigDictionary = [myConfigDictionary mutableCopy];
@@ -2478,6 +2494,10 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     status = pthread_mutex_unlock( &myVPNMenuMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_unlock( &myVPNMenuMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+		status = pthread_mutex_unlock( &configModifyMutex );
+		if (  status != EXIT_SUCCESS  ) {
+			NSLog(@"pthread_mutex_unlock( &configModifyMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+		}
         return;
     }
     status = pthread_mutex_unlock( &configModifyMutex );
