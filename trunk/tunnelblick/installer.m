@@ -265,7 +265,15 @@ void resolveSymlinksInPath(NSString * targetPath) {
 		if (  [fullPathAttributes fileType] == NSFileTypeSymbolicLink  ) {
 			
 			NSString * resolvedPath = [gFileMgr tbPathContentOfSymbolicLinkAtPath: fullPath];
-			
+			if (  ! (   [resolvedPath hasPrefix: L_AS_T_SHARED]
+                     || [resolvedPath hasPrefix: L_AS_T_TBLKS]
+                     || [resolvedPath hasPrefix: L_AS_T_USERS]
+                     || [resolvedPath hasPrefix: gDeployPath]
+                     )  ) {
+                appendLog([NSString stringWithFormat: @"Symlink is not to an allowed path: %@", resolvedPath]);
+                errorExit();
+            }
+            
 			NSData * data = [gFileMgr contentsAtPath: resolvedPath];
 			
 			if (  ! data  ) {
@@ -873,31 +881,28 @@ int main(int argc, char *argv[])
 		//
         // Do the move or copy
         //
+		// Secure the target
+		//
         // If   we MOVED OR COPIED TO PRIVATE
-        // Then secure the target
-		//      create a shadow copy of the target and secure the shadow copy
-        // Else secure the target
+        // Then create a shadow copy of the target and secure the shadow copy
         //
         // If   we MOVED FROM PRIVATE
-        // Then delete the shadow copy of the source
+        // Then delete the shadow copy of the target
 
         resolveSymlinksInPath(sourcePath);
 		
         safeCopyOrMovePathToPath(sourcePath, targetPath, moveNotCopy);
 		
-		BOOL isDir;
-		if (  [gFileMgr fileExistsAtPath: targetPath isDirectory: &isDir]  ) {
-			BOOL isPrivate = [targetPath hasPrefix: gPrivatePath];
-			uid_t uid = (  isPrivate
-						 ? gRealUserID
-						 : 0);
-			secureOneFolder(targetPath, isPrivate, uid);
-		}
+		BOOL targetIsPrivate = [targetPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]];
+		uid_t uid = (  targetIsPrivate
+					 ? gRealUserID
+					 : 0);
+		secureOneFolder(targetPath, targetIsPrivate, uid);
+
         
 		NSString * lastPartOfTarget = lastPartOfPath(targetPath);
 		
-        if (   [targetPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-			secureOneFolder(targetPath, YES, gRealUserID);
+        if (   targetIsPrivate  ) {
 			
             NSString * shadowTargetPath   = [NSString stringWithFormat: @"%@/%@/%@",
                                              L_AS_T_USERS,
@@ -923,7 +928,7 @@ int main(int argc, char *argv[])
 				createDirWithPermissionAndOwnership(enclosingFolder, PERMS_SECURED_FOLDER, 0, 0);
 			}
 			
-			safeCopyOrMovePathToPath(sourcePath, shadowTargetPath, FALSE);
+			safeCopyOrMovePathToPath(targetPath, shadowTargetPath, FALSE);	// Copy the target because the source may have _moved_ to the target
             
             secureOneFolder(shadowTargetPath, NO, 0);
             
@@ -932,9 +937,6 @@ int main(int argc, char *argv[])
             } else {
                 appendLog([NSString stringWithFormat: @"Created secure (shadow) copy of %@", lastPartOfTarget]);
             }
-            
-        } else {
-            secureOneFolder(targetPath, NO, 0);
         }
         
         if (  [sourcePath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
