@@ -6,6 +6,8 @@
 ==Updatable Configurations==
 A Tunnelblick VPN Configuration ("Configuration") can be updated the same way that the Tunnelblick application itself is updated. Because a Configuration can contain any number of Configurations within it, you can have a single Configuration that updates all of your VPN configurations at once.
 
+Combined with [cPkgs#Automatic_Installation automatic installation], this allows you to distribute Tunnelblick to your users with configurations that are updated separately from the program. You do not need to rebrand Tunnelblick, or build it from source -- you can use the standard Tunnelblick binary.
+
 By adding a few entries to a a Configuration's Info.plist file, a Configuration will become "updatable". When launched, and periodically afterward, Tunnelblick will check a webpage for information about updates to the configuration. If a new version of the Configuration is available, the user will be asked for permission to update it. If granted, the new configuration will be installed and available for use immediately, without relaunching Tunnelblick.
 
 Configuration updates are handled by [http://sparkle-project.org Sparkle Updater], just like Tunnelblick updates. (Sparkle is built into Tunnelblick.)
