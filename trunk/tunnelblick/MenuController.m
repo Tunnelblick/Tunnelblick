@@ -3158,7 +3158,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
         NSLog(@"Skipping deleting logs because of fatal error.");
     } else {
         NSString * ovpnvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-        NSDictionary * attributes = [gFileMgr attributesOfItemAtPath: ovpnvpnstartPath error: nil];
+        NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: ovpnvpnstartPath traverseLink: NO];
         NSUInteger permissions = [attributes filePosixPermissions];
         if (  0 != (permissions & S_ISUID)) {
             TBLog(@"DB-SD", @"cleanup: Deleting logs")
@@ -3750,27 +3750,35 @@ static void signal_handler(int signalNumber)
     // But Deployed versions need to run codesign as root, so codesign will "see" the .tblk contents that
     // are owned by root and not accessible to other users (like keys and certificates)
     //
-    // "openvpnstart checkSignature" runs codesign as root, but it can only be used if openvpnstart has been set SUID by the
+    // "openvpnstart checkSignature" runs codesign as root, but it can only be used if openvpnstart has been set SUID root by the
     // installation process.
     //
     // So if a Deployed Tunnelblick hasn't been installed yet (e.g., it is running from .dmg), we don't check the signature here.
     //
-    // There could be a separate check for an invalid signature in installer, when it is not run from /Applications, since it could run
-    // codesign as root using the installer's authorization. However, installer runs without a UI, so it is complicated to provide the ability
+    // There could be a separate check for an invalid signature in installer, since installer could run codesign as root
+    // using the installer's authorization. However, installer runs without a UI, so it is complicated to provide the ability
     // to report a failure and provide the option to continue. Considering that the first run after installation will catch an invalid
     // signature, this separate check has a low priority.
     
-    NSString * appPath = [[NSBundle mainBundle] bundlePath];
-    
     if (  [gFileMgr fileExistsAtPath: gDeployPath]  ) {
-        NSString * appContainer = [appPath stringByDeletingLastPathComponent];
-        if (  ! [appContainer isEqualToString: @"/Applications"]  ) {
-            // Deployed but not in /Applications
-            // Return TRUE because we must check the signature as root but we can't because openvpnstart isn't suid
-            return YES;
+        NSString * ovpnvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+        NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: ovpnvpnstartPath traverseLink: NO];
+        id obj = [attributes fileOwnerAccountID];
+        if (   ( ! obj)
+            || ( [obj unsignedLongValue] != 0)  ) {
+            return YES;     // openvpnstart is not owned by root:wheel, so it can't check the signature properly
         }
-        
-        // Deployed and in /Applications, so openvpnstart has SUID root, so we can run it to check the signature
+        obj = [attributes fileGroupOwnerAccountID];
+        if (   ( ! obj)
+            || ( [obj unsignedLongValue] != 0)  ) {
+            return YES;     // openvpnstart is not owned by root:wheel, so it can't check the signature properly
+        }
+        NSUInteger permissions = [attributes filePosixPermissions];
+        if (  0 == (permissions & S_ISUID)  ) {
+            return YES;     // openvpnstart is not SUID, so it can't check the signature properly
+        }
+
+        // Deployed and openvpnstart has SUID root, so we can run it to check the signature
         OSStatus status = runOpenvpnstart([NSArray arrayWithObject: @"checkSignature"], nil, nil);
         return (status == EXIT_SUCCESS);
     }
@@ -3781,6 +3789,7 @@ static void signal_handler(int signalNumber)
         return FALSE;
     }
     
+    NSString * appPath = [[NSBundle mainBundle] bundlePath];
     NSArray *arguments = (  runningOnLionOrNewer()
                           ? [NSArray arrayWithObjects: @"--deep", @"-v", appPath, nil]
                           : [NSArray arrayWithObjects: @"-v", appPath, nil]);
