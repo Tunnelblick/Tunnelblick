@@ -3,11 +3,11 @@
 
 ==Rebranding Tunnelblick==
 
-_Note: There is a discussion [https://groups.google.com/d/msg/tunnelblick-discuss/PuGg6RJH1og/xAZko1IjAR8J here] that contains some additional information for rebranding and building Tunnelblick, but note that it is older than this page._
+_Note 1: There is an alternate method of distributing Tunnelblick that allows configurations to be automatically installed when Tunnelblick is installed and updated from your web server but does not require rebranding and uses the standard, digitally-signed Tunnelblick application. See [cAutoInstall Auto-Install Configurations] and [cUpdatableConfigurations Updatable Configurations]._
+
+_Note 2: There is a discussion [https://groups.google.com/d/msg/tunnelblick-discuss/PuGg6RJH1og/xAZko1IjAR8J here] that contains some additional information for rebranding and building Tunnelblick, but note that it is older than this page._
 
 After Tunnelblick 3.3beta21, "Deployed" versions of Tunnelblick must be "rebranded" with a different name. This is done to make sure that different versions of Tunnelblick on one computer do not interfere with each other.
-
-There is an alternate method of distributing Tunnelblick with configurations that will be installed automatically when Tunnelblick itself is installed. The alternate does not require rebranding and uses a standard, digitally-signed Tunnelblick.app, however, it cannot update configurations the way that a "Deployed" version can. See [cAutoInstall Auto-Install Configurations].
 
 Creating a Deployed Tunnelblick without rebranding (by removing the source code that checks for rebranding) can cause unpredictable behavior, may be less secure, can lead to problems with updating, and can interfere with other installations of Tunnelblick on the same computer. Please don't do it!
 
