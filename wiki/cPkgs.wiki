@@ -31,7 +31,7 @@ When a Configuration is installed, it's contents are copied and arranged in a sp
 
 Unless specified otherwise in an [#Info.plist Info.plist], when a Configuration is installed the user will be asked whether the Configuration is to be shared or private (for only that user). Configurations to be shared are copied to `/Library/Application Support/Tunnelblick/Shared`; Configurations to be kept private are copied to `~/Library/Application Support/Tunnelblick/Configurations`. 
 
-=="Nested" Configurations==
+==Nested Configurations==
 "Nested" Configurations make it easy to distribute many configurations in a single file.
 
 Configurations may be nested one level deep. That is, a Configuration may contain within it other Configurations (and may also contain OpenVPN configuration files that are not in a Configuration). When such a Configuration is installed, everything within it is installed. The Configurations within a Configuration may not themselves include Configurations, however -- only one level of included Configurations is allowed.
