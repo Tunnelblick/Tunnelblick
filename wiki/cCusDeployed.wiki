@@ -15,6 +15,8 @@ Until this page is updated, please note that:
 <wiki:toc max_depth="2" />
 
 ==What is a Deployed Version?==
+_*Note: There is an alternate method of distributing Tunnelblick that allows configurations to be automatically installed when Tunnelblick is installed and updated from your web server but does not require rebranding and uses the standard, digitally-signed Tunnelblick application. See [cAutoInstall Auto-Install Configurations] and [cUpdatableConfigurations Updatable Configurations].*_
+
 A deployed version of Tunnelblick is a customized version of `Tunnelblick.app` which can include everything necessary to install and run Tunnelblick and connect to one or more VPNs. In particular, it may include one or more OpenVPN configuration files, and, usually, certificate and key files for authentication. It can also include shell scripts and text that will appear in Tunnelblick's "about" window, and can specify user preferences that are forced to particular values and are read-only.
 
 A Deployed version can specify additional commands and submenus to be added to the Tunnelblick menu, including specific programs to be run when a menu item is chosen. A Deployed version can also specify programs to be run at the end of the Tunnelblick launch process and/or before a connection is attempted. These features are described in [#Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs].
