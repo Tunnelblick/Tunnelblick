@@ -5901,12 +5901,12 @@ BOOL warnAboutNonTblks(void)
         }
         
 #ifdef TBDebug
-        [msg appendString: NSLocalizedString(@"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE."
+        [msg appendString: NSLocalizedString(@"\n WARNING: This copy of Tunnelblick makes your computer insecure."
                                              @" It is for debugging purposes only.\n", @"Window text")];
 #endif
 		
 		if (  signatureIsInvalid  ) {
-			[msg appendString: NSLocalizedString(@"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n", @"Window text")];
+			[msg appendString: NSLocalizedString(@"\n WARNING: This copy of Tunnelblick has been tampered with.\n", @"Window text")];
 		}
         
 		NSLog(@"%@", msg);
