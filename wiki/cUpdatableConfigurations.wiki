@@ -6,7 +6,7 @@
 ==Updatable Configurations==
 A Tunnelblick VPN Configuration ("Configuration") can be updated the same way that the Tunnelblick application itself is updated. Because a Configuration can contain any number of Configurations within it, you can have a single Configuration that updates all of your VPN configurations at once.
 
-Combined with [cPkgs#Automatic_Installation automatic installation], this allows you to distribute Tunnelblick to your users with configurations that are updated separately from the program. You do not need to rebrand Tunnelblick, or build it from source -- you can use the standard Tunnelblick binary.
+Combined with [cPkgs#Automatic_Installation automatic installation], this allows you to distribute Tunnelblick to your users with configurations that are updated separately from the program. You do not need to rebrand Tunnelblick, or build it from source -- you can use the standard Tunnelblick application.
 
 By adding a few entries to a a Configuration's Info.plist file, a Configuration will become "updatable". When launched, and periodically afterward, Tunnelblick will check a webpage for information about updates to the configuration. If a new version of the Configuration is available, the user will be asked for permission to update it. If granted, the new configuration will be installed and available for use immediately, without relaunching Tunnelblick.
 
@@ -200,13 +200,13 @@ Debugging updates is difficult partly because there are so many parts to the upd
  
  * Use the "Check Now" button on the "Preferences" panel of the "VPN Details…" window to test for updates. Although Tunnelblick will check for updates when it is launched, when doing that update check Sparkle will ignore errors and not complain about them. If you do a "Check Now" check, you will get either a window saying the item is up-to-date, an offer of an update, or an indication that an error occurred. Note: "Check Now" will first do a check for updates to the Tunnelblick application, and after you click "OK" to acknowledge that you have received that, it will check for configuration updates.
 
- * After you have installed a Configuration which is updatable, there should be a folder in /Library/Application Support/Tunnelblick/Tblks named "xxx.yyy.zzz.tblk", where "xxx.yyy.zzz" is the CFBundleIdentifier for the updatable .tblk. That folder is a "stub" .tblk and contains only a Contents folder which contains a copy of the Info.plist for the updatable .tblk, and (if a DSA signature file was specified with *SUPublicDSAKeyFile*), a "Resources" folder with the DSA signature file. If the xxx.yyy.zzz.tblk folder is not present, Tunnelblick did not recognize that the configuration was updatable.
+ * After you have installed a Configuration which is updatable, there should be a folder in /Library/Application Support/Tunnelblick/Tblks named "xxx.yyy.zzz_nn", where "xxx.yyy.zzz" is the CFBundleIdentifier for the updatable .tblk and "nnn" is a number. That folder contains a "stub" .tblk whcin contains only a Contents folder which contains a copy of the Info.plist for the updatable .tblk, and (if a DSA signature file was specified with *SUPublicDSAKeyFile*), a "Resources" folder with the DSA signature file. If the xxx.yyy.zzz.tblk_nnn is not present, Tunnelblick did not recognize that the configuration was updatable.
 
  * A Console log entry like "DB-UC: Copied updatable configuration 'com.example.config.001.tblk' to local user folder" should appear when Tunnelblick launches. (It means the corresponding folder in /Library/Application Support/Tunnelblick/Tblks was found.)
 
  * A Console log entry like "DB-UC: Delaying start of update check for configuration set com.example.config.001 may appear when Tunnelblick launches. It is normal -- update checks for configurations are delayed until after the update check for the Tunnelblick application.
 
- * A Console log entry like "DB-UC: Starting update check without UI for configuration 'com.example.config.001'; URL = https://example.com/config.001/appcast.rss" should appear when Tunnelblick launches. It indicates the start of a silent ("without UI" means "without user interface") update check.
+ * A Console log entry like "DB-UC: Starting update check without UI for configuration 'com.example.config.001'; URL = https://example.com/config.001/appcast.rss" should appear when Tunnelblick launches. It indicates the start of a silent update check ("without UI" means "without user interface").
 
  * A Console log entry like "DB-UC: cfgUpdater 0x8a377b0: didFinishLoadingAppcast" means that Sparkle successfully found and downloaded the appcast for a configuration from the website. If no error messages from Sparkle appear following this, it means that the version number in the appcast was not higher than the version number in the Configuration that is installed (i.e., the version number in the Info.plist in /Library/Application Support/Tunnelblick/Tblks/xxx.yyy.zzz.tblk).
 
