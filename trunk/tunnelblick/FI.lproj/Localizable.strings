@@ -896,13 +896,13 @@
 "Cannot install configurations to either shared or private locations" = "Konfiguraatioita ei voida asentaa joko jaettuihin tai yksityisiin paikkoihin";
 
 /* Window text */
-"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+"Cannot uninstall configuration '%@' because it is not installed." = "Konfiguraation '%@' poistaminen ei onnistu, koska sitä ei ole asennettu.";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfiguraatio '%@' sisältää yhden tai useamman skriptin, joka voi aiheuttaa ongelmia, jos korvaat tai poistat konfiguraation, kun yhteys on muodostettuna.\n\nHaluatko korvata konfiguraation?";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfiguraatiota '%@' ei voi päivittää, koska sitä ei ole merkitty 'päivitettävissä olevaksi'.\n";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguraatio '%1$@' jätetään huomiotta, koska sen nimi sisältää ei-sallittuja merkkejä.\n\nEi-sallitut merkit: '%2$s'\n\n";
@@ -1010,10 +1010,10 @@
 "Failed to copy %@ to %@" = "Ei voitu kopioida objektia %1$@ kohteeseen %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Failed to create folder at %@";
+"Failed to create folder at %@" = "Kansion %@ luominen ei onnistunut";
 
 /* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
+"Failed to create symlink\n  to %@\n  at %@" = "Ei voitu luoda symbolista linkkiä\n  kohteeseen %1$@\n  paikkaan %2$@";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Ei voitu asettaa käyttöoikeuksia kohteelle %@\n";
@@ -1109,10 +1109,10 @@
 "Menu:" = "Valikko:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Puuttuva CFBundleIdentifier tai CFBundleVersion kohteessa Info.plist objektille\n\n%@\n\nTämä VPN-konfiguraatio on sisällytetty päivitettävissä olevaan ulkoiseen VPN-konfiguraatioon, joten sen on sisällytettävä oma CFBundleIdentifer ja CFBundleVersion.";
 
 /* Window text */
-"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Puuttuva Info.plist kohteelle\n\n%@\n\nTämä VPN-konfiguraatio sisältyy päivitettävissä olevaan ulkoiseen VPN-konfiguraatioon, joten sen sisällytettävä Info.plist.";
 
 /* Window text */
 "Modified configuration file to remove path information" = "Konfiguraatiotiedostoa muokattiin polkutiedon poistamiseksi";
@@ -1148,7 +1148,7 @@
 "Non-boolean value for '%@' in %@" = "Ei-boolean arvo objektilla %1$@ kohteessa %2$@";
 
 /* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
-"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
+"Non-integer value for '%@' in %@" = "Ei-kokonaislukumuotoinen arvo objektille '%1$@' kohteessa %2$@";
 
 /* Window text */
 "Non-string value for '%@' in %@" = "Ei-merkkijonomuotoinen arvo objektilla %1$@ kohteessa %2$@";
@@ -1160,7 +1160,7 @@
 "Not a .ovpn or .conf: %@" = "Ei .ovpn tai .conf: %@";
 
 /* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Olemassa olevaa konfiguraatiota ei korvata, joten konfiguraatio '%@' ei voi käyttää 'TBKeepExistingFilesList'";
 
 /* Window text */
 "Notification window:" = "Ilmoitusikkuna:";
@@ -1577,22 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska sen info.plist-tiedostoa ei voitu tallentaa tynkätiedostoon .tblk\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska CFBundleIdentifier on jo käsitelty\n";
 
 /* Window text */
 "Updates:" = "Päivitykset:";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN-konfiguraatiota %@ EI asenneta, koska sillä on pienempi versionumero.";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN-konfiguraatiota %@ EI asenneta, koska konfiguraatio on jo olemassa ja sitä ei pitäisi korvata.";
 
 /* Window text */
 "VPN Connections" = "VPN-yhteydet";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
-"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
+"Value '%@' for '%@' is not a valid URL in %@" = "Arvo ' %1$@' objektille ' %2$@' ei ole kelvollinen URL kohteessa %3$@";
 
 /* Window text */
 "WINS servers:" = "WINS palvelimet:";
@@ -1721,10 +1721,10 @@
 "\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" tiedostossa Info.plist kohteelle\n\n%2$@\n\nei ole sallittu \"sisäisessä\" .tblk:ssa tai on ristiriidassa saman kohteen kanssa \"ulkoisessa\" .tblk:ssa.";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n VAROITUS: TÄTÄ TUNNELBLICKING KOPIOTA ON PEUKALOITU.\n";
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n VAROITUS: Tätä Tunnelblicking kopiota on peukaloitu.\n";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n VAROITUS: TÄMÄ TUNNELBLICKIN KOPIO TEKEE TIETOKONEESTA TURVATTOMAN. Se on tarkoitettu pelkästään debuggaus-tarkoituksiin.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n  Varoitus: Tämä kopio Tunnelblick tekee tietokoneen epävarma. Se on vain vianetsintätarkoituksiin.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Huomaa: Konfiguraatioon liitettyjä tiedostoja, kuten avain- ja varmennetiedostoja, ei poisteta.";

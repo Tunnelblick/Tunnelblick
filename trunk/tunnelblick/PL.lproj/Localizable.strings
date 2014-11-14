@@ -1721,10 +1721,10 @@
 "\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" w Info.plist \n\n%2$@ \n\nnie jest dozwolone w \"wewnętrznym\" .tblk lub konfliktuje z tym samym wpisem w \"zewnętrznym\".tblk.";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n UWAGA: TA KOPIA TUNNELBLICKA ZOSTAŁA PODDANA NIEAUTORYZOWANYM ZMIANOM.\n";
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n WARNING: This copy of Tunnelblick has been tampered with.\n";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n UWAGA: TA KOPIA TUNNELBLICKA POWODUJE OSŁABIENIE BEZPIECZEŃSTWA TWOJEGO KOMPUTERA. Ta kopia służy do testów.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Uwaga: Pliki powiązane z konfiguracją, takie jak pliki kluczy lub certyfikatów, nie mogą zostać usunięte.";

@@ -371,7 +371,7 @@
 "Reset the primary interface after disconnecting" = "Nullstill hovedoppkoblingen etter nedkobling";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
+"Route all IPv4 traffic through the VPN" = "Styr all IPv4 traffic through the VPN";
 
 /* Checkbox name */
 "Run MTU maximum size test after connecting" = "Kjør test av maksimumstørrelse på MTU etter oppkobling";
@@ -605,7 +605,7 @@
 "Replace Existing File?" = "Erstatte eksisterende fil?";
 
 /* Window title */
-"Replace VPN Configuration?" = "Replace VPN Configuration?";
+"Replace VPN Configuration?" = "Erstatt VPN konfigurasjon?";
 
 /* Window title */
 "Sample Configuration Created" = "Eksempel konfigurasjon opprettet";
@@ -647,10 +647,10 @@
 "Utilities" = "Verktøy";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "Installasjonsfeil for VPN-konfigurasjon";
 
 /* Window title */
-"VPN Configuration Installation" = "VPN Configuration Installation";
+"VPN Configuration Installation" = "VPN konfigurasjonen installasjon";
 
 /* Window title */
 "VPN Credentials" = "VPN brukeropplysninger";
@@ -806,10 +806,10 @@
 "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Det oppstod et problem under kontroll av datamaskinens offentlige IP-adress.\n\nSe konsoll logg for detaljer.  ";
 
 /* Window text */
-"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
+"A username and password are required to connect to\n  %@" = "Brukernavn og passord krever for å koble til %@";
 
 /* Window text */
-"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Brukernavn og passord kreves for å koble til %1$@ (med ' %2$@' påloggingsinformasjon)";
 
 /* Window text */
 "Add Credentials..." = "Oppgi brukeropplysninger…";
@@ -818,7 +818,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Lagt '.sh' filendelsen til %@ så den vil være sikret skikkelig";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "Added a '.key' extension to %@ so it will be secured properly";
+"Added a '.key' extension to %@ so it will be secured properly" = "Lagt til '.key' filendelsen til %@ så den vil være sikret skikkelig";
 
 /* Window text */
 "Additional contributions by" = "Ytterligere bidrag av";
@@ -896,19 +896,19 @@
 "Cannot install configurations to either shared or private locations" = "Kan ikke installere konfigurasjoner til hverken delte eller private lokasjoner";
 
 /* Window text */
-"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+"Cannot uninstall configuration '%@' because it is not installed." = "Kan ikke avinstallere konfigurasjonen '%@' fordi den er ikke installert.";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfigurasjonen '%@' inneholder én eller flere skripter som kan forårsake problemer hvis du erstatter eller avinstallerer konfigurasjonen mens den er tilkoblet.\n\nØnsker du å erstatte konfigurasjonen?";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfigurasjon '%@' er ikke oppdaterbar fordi den kunne ikke markeres som oppdaterbar. ";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurasjonen '%1$@' vil bli ignorert fordi navnet inneholder tegn som ikke er tillatt.\n\nTegn som ikke er tillatt: '%2$s'\n\n";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Konfigurasjoner installeres fra filer som leveres til deg av din nettverks leverandør eller VPN-leverandør.\n\nKonfigurasjonsfiler har filendelser som .tblk, .ovpn, fil eller. conf.\n\n(Det kan være andre filer tilknyttet konfigurasjonen som har andre filendelser; ignorerer dem nå.)\n\nFor å installere en konfigurasjonsfil, dobbeltklikker du på den.\n\nDen nye konfigurasjonen vil være tilgjengelig i Tunnelblick umiddelbart.";
 
 /* Window text */
 "Connect:" = "Koble til:";
@@ -917,19 +917,19 @@
 "Connection:" = "Oppkobling:";
 
 /* Window text */
-"Converted OpenVPN configuration" = "Converted OpenVPN configuration";
+"Converted OpenVPN configuration" = "Konverterte OpenVPN konfiguration";
 
 /* Window text */
-"Converting %@ at line %lu: %@" = "Converting %1$@ at line %2$lu: %3$@";
+"Converting %@ at line %lu: %@" = "Konverterer %1$@ på linje %2$lu: %3$@";
 
 /* Window text */
-"Converting %@: %@" = "Converting %1$@: %2$@";
+"Converting %@: %@" = "Konverterer %1$@: %2$@";
 
 /* Window text */
-"Copied %@" = "Copied %@";
+"Copied %@" = "Kopierte %@";
 
 /* Window text */
-"Copied %@, removing CR characters" = "Copied %@, removing CR characters";
+"Copied %@, removing CR characters" = "Kopierte %@, fjerner CR-tegn";
 
 /* Window text */
 "Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub med fler.";
@@ -1031,13 +1031,13 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "File '%@' has an extension which is not known to Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "File '%@' is empty";
+"File '%@' is empty" = "Filen '%@' er tom";
 
 /* Window text */
-"File '%@' is missing" = "File '%@' is missing";
+"File '%@' is missing" = "Filen '%@' mangler";
 
 /* Window text */
-"File is too large: %@" = "File is too large: %@";
+"File is too large: %@" = "Filen er for stor: %@";
 
 /* Window text */
 "GB" = "GB";
@@ -1151,7 +1151,7 @@
 "Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
 
 /* Window text */
-"Non-string value for '%@' in %@" = "Non-string value for '%1$@' in %2$@";
+"Non-string value for '%@' in %@" = "Ikke-strengverdi for ' %1$@' i %2$@";
 
 /* Window text */
 "Non-string value for an item in '%@' in %@" = "Non-string value for an item in '%1$@' in %2$@";
@@ -1721,10 +1721,10 @@
 "\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" in the Info.plist for\n\n%2$@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk.";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n ADVARSEL: DENNE KOPIEN AV TUNNELBLICK HAR BLITT TUKLET MED.\n";
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n WARNING: This copy of Tunnelblick has been tampered with.\n";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n ADVARSEL: DENNE KOPIEN AV TUNNELBLICK GJØR DIN DATAMASKIN USIKKER. Den er kun for test og feilsøking.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Note: filer assosiert med konfigurasjonen, som nøkkel- eller sertifikatfiler, vil ikke bli slettet.";

@@ -143,7 +143,7 @@
 "Never load Tun driver" = "从不加载 Tun 驱动程序";
 
 /* Button */
-"Never show" = "不显示";
+"Never show" = "始终不显示";
 
 /* Button */
 "No keyboard shortcut" = "不使用键盘快捷键";
@@ -896,13 +896,13 @@
 "Cannot install configurations to either shared or private locations" = "无法安装配置到共享或私有路径";
 
 /* Window text */
-"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+"Cannot uninstall configuration '%@' because it is not installed." = "无法卸载 '%@' 配置文件，因为它就没被安装过";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "配置文件 '%@' 含有一个或多个如果你在连接的时候替换或者卸载配置文件可能导致问题的脚本\n\n你真的想替换这个配置文件吗？";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "配置文件 '%@' 是不能自动更新的，因为它不能被标记为为 '可自动更新的'\n";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "配置 '%1$@'将会被忽略，因为它的名字里含有禁止的字符.\n\n不合法的字符是: '%2$s'\n\n";
@@ -1010,10 +1010,10 @@
 "Failed to copy %@ to %@" = "未能将 %1$@ 复制到 %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Failed to create folder at %@";
+"Failed to create folder at %@" = "无法创建文件夹 %@";
 
 /* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
+"Failed to create symlink\n  to %@\n  at %@" = "无法创建软连接\n 到 %1$@\n 在 %2$@ 中";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "未能在 %@ 上设置权限\n";
@@ -1109,10 +1109,10 @@
 "Menu:" = "菜单:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "在 Info.plist 中缺少用于 %@ 的 CFBundleIdentifier 或 CFBundleVersion 的值\n\n这个 VPN 配置文件被包含在一个可自动更新的、外部的 VPN 配置文件中，所以它必须包含属于它自己的 CFBundleIdentifer 和 CFBundleVerion";
 
 /* Window text */
-"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "缺少用于 %@ 的 Info.plist\n\n这个 VPN 配置文件被包含在一个可自动更新的、外部的 VPN 配置文件中，所以它必须包含一个 Info.plist";
 
 /* Window text */
 "Modified configuration file to remove path information" = "修改了配置文件以删除路径信息";
@@ -1148,7 +1148,7 @@
 "Non-boolean value for '%@' in %@" = "在 %2$@ 中 '%1$@' 是一个非布尔值";
 
 /* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
-"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
+"Non-integer value for '%@' in %@" = "在 %2$@ 中用于 '%1$@' 的非整数值";
 
 /* Window text */
 "Non-string value for '%@' in %@" = "在 %2$@ 中 '%1$@' 是一个非字符串的值";
@@ -1160,7 +1160,7 @@
 "Not a .ovpn or .conf: %@" = "不是.ovpn 或.conf 文件： %@";
 
 /* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "不替换现有的配置，所以配置 ' %@' 不能使用 'TBKeepExistingFilesList'";
 
 /* Window text */
 "Notification window:" = "通知窗口:";
@@ -1577,22 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "可自动更新的配置文件 '%@' 没有储存为可更新的配置，因为它的 Info.plist 不能储存到 stub .tblk 中\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "可自动更新的配置文件 '%@' 没有被储存为可自动更新的配置，因为 CFBundleIdentifier 已经被处理过\n";
 
 /* Window text */
 "Updates:" = "更新:";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "因为它有一个较低的版本号码，所以无法安装 VPN 配置 %@。";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "因为配置已经存在，而且不应该被替换，所以将不安装 VPN 配置 %@。";
 
 /* Window text */
 "VPN Connections" = "VPN 连接";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
-"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
+"Value '%@' for '%@' is not a valid URL in %@" = "在 %3$@ 中用于 '%2$@' 的值 '%1$@' 不是一个有效的 URL";
 
 /* Window text */
 "WINS servers:" = "WINS 服务器:";
@@ -1721,10 +1721,10 @@
 "\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "为了 %2$@ 在 info.plist 里的 \"%1$@\" ，是不允许在一个 \"内部\" 的 .tblk ，或在一个有相同的条目冲突的 \"外部\" 的 .tblk 中的。";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n 警告: 这个版本的 Tunnelblick 已经被篡改.\n";
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n 警告: 这个版本的 Tunnelblick 已经被篡改.\n";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n警告: 这个版本的 Tunnelblick 会令到你的电脑不安全. 这是一个只用于 debug 的版本.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n警告: 这个版本的 Tunnelblick 会令到你的电脑不安全. 这是一个只用于 debug 的版本.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n 注意: 跟此配置相关的文件, 比如密钥文件和证书文件, 将不会被删除.";

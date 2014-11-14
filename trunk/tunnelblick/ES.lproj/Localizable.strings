@@ -896,10 +896,10 @@
 "Cannot install configurations to either shared or private locations" = "No es posible instalar las configuraciones a lugares privados o compartidos";
 
 /* Window text */
-"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+"Cannot uninstall configuration '%@' because it is not installed." = "No se puede desinstalar la configuración '%@' because porque no está instalada.";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "La configuración '%@' contiene uno o más scripts que pueden causar problemas si tu reemplazas o desinstalas la configuración mientras este conectado.\n\n¿Deseas reemplazar la configuración?";
 
 /* Window text */
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
@@ -1721,10 +1721,10 @@
 "\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" en el Info.plist para\n\n%2$@\n\nno está permitido en un .tblk \"interno\" o tiene conflictos con la misma entrada de un .tblk \"externo\".";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n ADVERTENCIA: ESTA COPIA DE TUNNELBLICK FUE MANIPULADA.\n";
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n WARNING: This copy of Tunnelblick has been tampered with.\n";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n ADVERTENCIA: ESTA COPIA DE TUNNELBLICK HACE QUE SU COMPUTADORA SEA INSEGURA. Debería ser utilizada solamente con fines de depurar.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Nota: Archivos asociados con la configuración, tales como archivos llave o de certificado, no serán eliminados.";

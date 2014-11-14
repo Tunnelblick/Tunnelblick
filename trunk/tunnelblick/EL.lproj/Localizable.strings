@@ -896,13 +896,13 @@
 "Cannot install configurations to either shared or private locations" = "Αδυναμία εγκατάστασης παραμέτρων σε κοινόχρηστες ή ιδιωτικές θέσεις";
 
 /* Window text */
-"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+"Cannot uninstall configuration '%@' because it is not installed." = "Αδυναμία απεγκατάσταση παραμέτρων ' %@' επειδή δεν έχει εγκατασταθεί.";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Η παράμετρος '%@' περιέχει ένα ή περισσότερα σενάρια τα οποία μπορεί να προκαλέσουν προβλήματα αν αντικαταστήσει ή να απεγκαταστήσετε την παράμετρο, ενώ είστε συνδεδεμένοι.\n\nΘέλετε να αντικαταστήσετε την παράμετρο;";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Η παράμετρος '%@' δεν είναι ενημερώσιμη επειδή δεν μπορεί να δηλωθεί ως \"ενημερώσιμη\".\n";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Οι παράμετροι το '%1$@' θα αγνοηθούν επειδή το όνομα περιέχει χαρακτήρες που δεν επιτρέπονται.\n\nΟι χαρακτήρες που δεν επιτρέπονται είναι:'%2$s'\n\n";
@@ -1010,10 +1010,10 @@
 "Failed to copy %@ to %@" = "Απέτυχε η αντιγραφή %1$@ σε %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Failed to create folder at %@";
+"Failed to create folder at %@" = "Αδυναμία δημιουργίας φακέλου %@";
 
 /* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
+"Failed to create symlink\n  to %@\n  at %@" = "Αποτυχία δημιουργίας symlink \n   στο %1$@ \n   στο %2$@";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Αποτυχία ορισμού δικαιωμάτων στο %@\n";
@@ -1109,10 +1109,10 @@
 "Menu:" = "Μενού:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Λείπει το CFBundleIdentifier ή CFBundleVersion στο Info.plist για \n\n%@ \n\nΑυτή η διαμόρφωση VPN συμπεριλαμβάνετε σε μια εξερχόμενη ενημερώσιμη διαμόρφωση VPN, έτσι θα πρέπει να συμπεριλαμβάνεται από μονό του στα CFBundleIdentifer και CFBundleVerion.";
 
 /* Window text */
-"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Λείπει το Info.plist για \n\n%@ \n\nΑυτή η διαμόρφωση VPN συμπεριλαμβάνετε σε μια εξερχόμενη ενημερώσιμη διαμόρφωση VPN, έτσι θα πρέπει να συμπεριλαμβάνει μια Info.plis.";
 
 /* Window text */
 "Modified configuration file to remove path information" = "Τροποποίηση αρχείου παραμέτρων για αφαίρεση πληροφοριών διαδρομής";
@@ -1148,7 +1148,7 @@
 "Non-boolean value for '%@' in %@" = "Μη δυαδική τιμή για ' %1$@' σε %2$@";
 
 /* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
-"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
+"Non-integer value for '%@' in %@" = "Μη ακέραια τιμή για ' %1$@' στο %2$@";
 
 /* Window text */
 "Non-string value for '%@' in %@" = "Μη συμβολοσειρά τιμών για '%1$@' σε %2$@";
@@ -1160,7 +1160,7 @@
 "Not a .ovpn or .conf: %@" = "Δεν είναι .ovpn ή .conf: %@";
 
 /* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Δεν αντικαταστάθηκε η υπάρχουσα διαμόρφωση, έτσι διαμόρφωση '%@' δεν μπορεί να χρησιμοποιήσει το TBKeepExistingFilesList";
 
 /* Window text */
 "Notification window:" = "Παράθυρο ειδοποιήσεων:";
@@ -1577,22 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Ενημερωμένες παράμετροι '%@' δεν αποθηκεύτηκαν ως ενημερωμένες επειδή το Info.plist δεν αποθηκεύτηκε στο στέλεχος του .tblk\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Ενημερώσιμες παράμετροι '%@' δεν αποθηκεύτηκαν ως ενημερώσιμες επειδή το CFBundleIdentifier ήταν σε λειτουργία\n";
 
 /* Window text */
 "Updates:" = "Ενημερώσεις:";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "Η διαμόρφωση VPN %@ δεν θα εγκατασταθεί επειδή έχει παλιότερο αριθμό έκδοσης.";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "Η διαμόρφωση VPN %@ δεν θα εγκατασταθεί επειδή η ρύθμιση παραμέτρων υπάρχει ήδη και δεν θα πρέπει να αντικατασταθεί.";
 
 /* Window text */
 "VPN Connections" = "Συνδέσεις VPN";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
-"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
+"Value '%@' for '%@' is not a valid URL in %@" = "Η τιμή '%1$@' για το '%2$@' δεν είναι έγκυρη διεύθυνση URL στο %3$@";
 
 /* Window text */
 "WINS servers:" = "Διακομιστές WINS:";
@@ -1721,10 +1721,10 @@
 "\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" μέσα στο Info.plist για\n\n%2$@\n\nδεν επιτρέπετε σε ένα \"εισερχόμενο\" .tblk ή έρχεται σε σύγκρουση με μια παρόμοια εγγραφή  σε ένα \"εξερχόμενη\" .tblk.";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n ΕΙΔΟΠΟΙΗΣΗ: ΑΥΤΟ ΤΟ ΑΝΤΙΓΡΑΦΟ ΤΟΥ TUNNELBLICK ΕΙΝΑΙ ΤΡΟΠΟΠΟΙΗΜΕΝΟ.\n";
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n ΠΡΟΣΟΧΗ: Αυτό το αντίγραφο του Tunnelblick είναι πλαστό.\n";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n ΕΙΔΟΠΟΙΗΣΗ: ΑΥΤΟ ΤΟ ΑΝΤΙΓΡΑΦΟ ΤΟΥ TUNNELBLICK ΚΑΝΕΙ ΤΟΝ ΥΠΟΛΟΓΙΣΤΗ ΜΗ ΑΣΦΑΛΗ. Είναι για χρήση διόρθωσης σφαλμάτων μόνο.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Σημείωση: Αρχεία συνεργαζόμενα με την παράμετρο, όπως κλειδιά ή πιστοποιητικά, δεν θα διαγραφούν.";
