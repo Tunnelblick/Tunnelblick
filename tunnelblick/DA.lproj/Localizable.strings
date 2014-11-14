@@ -896,13 +896,13 @@
 "Cannot install configurations to either shared or private locations" = "Kan ikke installere konfigurationer til enten delte eller private placeringer";
 
 /* Window text */
-"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+"Cannot uninstall configuration '%@' because it is not installed." = "Kan ikke afinstallere konfigurationen '%@' da den ikke er installeret.";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfiguration ' %@' indeholder et eller flere scripts, som kan forårsage problemer, hvis du erstatter eller afinstallere konfigurationen, mens den er tilsluttet.\n\nVil du erstatte konfigurationen?";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfiguration ' %@' er ikke opdaterebar, da den ikke kunne markeres som 'opdaterebar'.\n";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguration '%1$@' ignoreres, da navnet indeholder tegn der ikke er tilladt.\n\nFølgende tegn er ikke tilladt: '%2$s'\n\n";
@@ -1010,10 +1010,10 @@
 "Failed to copy %@ to %@" = "Kunne ikke kopiere %1$@ %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Failed to create folder at %@";
+"Failed to create folder at %@" = "Kunne ikke oprette mappen ved %@";
 
 /* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
+"Failed to create symlink\n  to %@\n  at %@" = "Det mislykkedes at lave et symlink\n  til %1$@\n  ved %2$@";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Det lykkedes ikke at sætte tilladelserne på %@\n";
@@ -1109,10 +1109,10 @@
 "Menu:" = "Menu:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Mangler CFBundleIdentifier eller CFBundleVersion i Info.plist til\n\n%@\n\nDenne VPN konfiguration er lukket inde i en ydre opdaterbar VPN konfiguration, og skal derfor inkludere sin egen CFBundleIdentifer og CFBundleVersion.";
 
 /* Window text */
-"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Mangler Info.plist til\n\n%@\n\nDenne VPN konfiguration er lukket inde i en ydre opdaterbar VPN konfiguration, og skal derfor inkludere sin egen Info.plist.";
 
 /* Window text */
 "Modified configuration file to remove path information" = "Modificerede konfigurationsfil til at fjerne oplysninger om stien";
@@ -1148,7 +1148,7 @@
 "Non-boolean value for '%@' in %@" = "Ikke-boolean værdi for '%1$@' i %2$@";
 
 /* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
-"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
+"Non-integer value for '%@' in %@" = "Ikke-heltals værdi '%1$@' i %2$@";
 
 /* Window text */
 "Non-string value for '%@' in %@" = "Værdien '%1$@' i %2$@ er ikke en streng";
@@ -1160,7 +1160,7 @@
 "Not a .ovpn or .conf: %@" = "Ikke en .ovpn eller .conf: %@";
 
 /* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Erstatter ikke en eksisterende konfiguration, så konfigurationen '%@' kan ikke bruge 'TBKeepExistingFilesList'";
 
 /* Window text */
 "Notification window:" = "Notifikationsvindue:";
@@ -1577,22 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Den opdaterbare konfiguration '%@' blev ikke opbevaret som opdaterbar fordi dens Info.plist kunne ikke blive opbevaret i stubben .tblk\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Den opdaterbare konfiguration '%@' blev ikke opbevaret som opdaterbar fordi CFBundleIdentifier er allerede blevet bearbejdet\n";
 
 /* Window text */
 "Updates:" = "Opdateringer:";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN-konfiguration %@ bliver ikke installeret, fordi det har et lavere versionsnummer.";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN-konfiguration %@ bliver IKKE installeret, fordi konfigurationen allerede findes og ikke bør erstattes.";
 
 /* Window text */
 "VPN Connections" = "VPN forbindelser";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
-"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
+"Value '%@' for '%@' is not a valid URL in %@" = "Værdien '%1$@' til '%2$@' er ikke en gyldig URL-adresse i %3$@";
 
 /* Window text */
 "WINS servers:" = "WINS servere:";
@@ -1721,10 +1721,10 @@
 "\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" i Info.plist for \n\n%2$@\n\ner ikke tilladt i en \"indre\" .tblk eller er i konflikt med den samme post i en \"ydre\" .tblk.";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n ADVARSEL: DENNE KOPI AF TUNNELBLICK ER BLEVET MANIPULERET MED.";
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n ADVARSEL: Denne kopi AF Tunnelblick er blevet manipuleret med.\n";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n ADVARSEL: DENNE KOPI AF TUNNELBLICK GØR DIN COMPUTER USIKKER. Det er kun til fejlfindingsformål.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n  Advarsel: Denne kopi af Tunnelblick gør din computer usikre. Det er til fejlfindingsformål kun.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\nBemærk: Filer forbundet med denne konfiguration, som fx nøgle eller certifikat filer, vil ikke blive slettet.";

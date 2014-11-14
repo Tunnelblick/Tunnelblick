@@ -896,13 +896,13 @@
 "Cannot install configurations to either shared or private locations" = "Impossibile installare configurazioni sia private che condivise";
 
 /* Window text */
-"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+"Cannot uninstall configuration '%@' because it is not installed." = "Impossibile disinstallare la configurazione '%@' poiché non è installata.";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "La configurazione '%@' contiene uno o più script i quali potrebbero causare problemi nel caso in cui la configurazione fosse sostituita o rimossa quando connessa.\n\nVuoi veramente sostituire la configurazione?";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "La configurazione '%@' non è aggiornabile poiché non può essere contrassegnata come 'aggiornabile'.\n";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "La configurazione '%1$@' sarà ignorata poiché il suo nome contiene caratteri che non sono permessi.\n\nCaratteri che non sono permessi: '%2$s'\n\n";
@@ -1010,10 +1010,10 @@
 "Failed to copy %@ to %@" = "Errore durante la copia di %1$@ in %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Failed to create folder at %@";
+"Failed to create folder at %@" = "Impossibile creare la cartella %@";
 
 /* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
+"Failed to create symlink\n  to %@\n  at %@" = "Impossibile creare il link simbolico\n  verso %1$@\n  in %2$@";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Errore durante l'impostazione dei permessi su %@\n";
@@ -1109,10 +1109,10 @@
 "Menu:" = "Menu:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Impossibile trovare CFBundleIdentifier e CFBundleVersion nel file Info.plist per\n\n%@\n\nQuesta configurazione VPN appartiene ad una configurazione VPN esterna, e per questo motivo deve includere i propri CFBundleIdentifer e CFBundleVerion.";
 
 /* Window text */
-"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Il file Info.plist non è presente per\n\n%@\n\nQuesta configurazione VPN appartiene ad una configurazione VPN esterna, e per questo motivo deve includere un file Info.plist.";
 
 /* Window text */
 "Modified configuration file to remove path information" = "modificato il file di configurazione per rimuovere le informazioni di percorso";
@@ -1148,7 +1148,7 @@
 "Non-boolean value for '%@' in %@" = "Il valore specificato per '%1$@'  non è un booleano in %2$@";
 
 /* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
-"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
+"Non-integer value for '%@' in %@" = "Il valore specificato per '%1$@' non è un numero intero in %2$@";
 
 /* Window text */
 "Non-string value for '%@' in %@" = "Il valore specificato per '%1$@'  non è una stringa in %2$@";
@@ -1160,7 +1160,7 @@
 "Not a .ovpn or .conf: %@" = "Il file non è .ovpn or .conf: %@";
 
 /* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Nel processo di sostituzione di una configurazione precedente la configurazione '%@' non può usare 'TBKeepExistingFilesList'";
 
 /* Window text */
 "Notification window:" = "Finestra di notifica:";
@@ -1577,22 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Non è stato possibile impostare la configurazione '%@' come aggiornabile automaticamente poiché non è possibile memorizzare il corrispondente file info.plist all'interno dello stub .tblk\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "La configurazione aggiornabile '%@' non è stata memorizzata come aggiornabile poiché il corrispondente CFBundleIdentifier è già stato processato\n";
 
 /* Window text */
 "Updates:" = "Aggiornamenti:";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "La configurazione VPN %@ non sarà installata poiché ha un numero di versione inferiore.";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "La configurazione VPN %@ non sarà installata poiché la stessa configurazione esiste già e non può essere sostituita.";
 
 /* Window text */
 "VPN Connections" = "Connessioni VPN";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
-"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
+"Value '%@' for '%@' is not a valid URL in %@" = "Il valore '%1$@' per '%2$@' non è una URL valida in %3$@";
 
 /* Window text */
 "WINS servers:" = "Server WINS:";
@@ -1721,10 +1721,10 @@
 "\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" nel file Info.plist per\n\n%2$@\n\nnon è consentita in un .tblk \"interno\" oppure è in conflitto con lo stesso elemento in un  .tblk \"esterno\".";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n ATTENZIONE: QUESTA COPIA DI TUNNELBLICK È STATA ALTERATA.\n";
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n  ATTENZIONE: Questa copia di Tunnelblick è stata alterata.\n";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n ATTENZIONE: QUESTA COPIA DI TUNNELBLICK RENDE INSICURO IL TUO COMPUTER. È una versione unicamente per lo sviluppo.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n  Attenzione: Questa copia di Tunnelblick fa computer insicuri. È solo scopo di debug.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Nota: i file associati con la confgiurazione, come chiavi e certificati, non saranno cancellati.";

@@ -1721,10 +1721,10 @@
 "\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" in the Info.plist for\n\n%2$@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk.";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n FIGYELEM: A TUNNELBLICK EZEN PÉLDÁNYÁT MEGHAMISÍTOTTÁK.\n";
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n FIGYELEM: A Tunnelblick ezen példányát meghamisították.\n";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n FIGYELEM: A TUNNELBLICK EZEN PÉLDÁNYA NEM BIZTONSÁGOS. Csak hibakeresési célokra használja.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Megjegyzés: A konfigurációhoz tartozó egyéb fájlok, úgymint kulcs- és tanúsítványfájlok, nem kerülnek törlésre.";
