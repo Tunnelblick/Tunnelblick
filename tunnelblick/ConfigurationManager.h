@@ -66,6 +66,10 @@
 
 +(NSDictionary *)           plistInTblkAtPath:          (NSString *)         path;
 
++(void)                     renameConfigurationFromPath: (NSString *)         sourcePath
+                                                 toPath: (NSString *)         targetPath
+                                       authorizationPtr: (AuthorizationRef *) authorizationPtr;
+
 -(void)                     addConfigurationGuide;
 
 -(BOOL)                     copyConfigPath:             (NSString *)         sourcePath

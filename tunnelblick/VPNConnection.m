@@ -2573,6 +2573,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 
     // "Real time" output from OpenVPN.
+	if (  [line isEqualToString: @">FATAL:Error: private key password verification failed"]  ) {
+		// Private key verification failed. Rewrite the message to be similar to the regular password failed message so we can use the same code
+		line = @">PASSPHRASE:Verification Failed";
+	}
+	
      NSRange separatorRange = [line rangeOfString: @":"];
     if (separatorRange.length) {
         NSRange commandRange = NSMakeRange(1, separatorRange.location-1);
@@ -2585,12 +2590,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             NSString* state = [parameters objectAtIndex: 1];
             [self processState: state dated: nil];
             
-        } else if ([command isEqualToString: @"PASSWORD"]) {
-			TBLog(@"DB-AU", @"processLine: PASSWORD command received; line = '%@'", line);
+        } else if (   [command isEqualToString: @"PASSWORD"]
+				   || [command isEqualToString: @"PASSPHRASE"]  ) {
+			TBLog(@"DB-AU", @"processLine: %@ command received; line = '%@'", command, line);
             if (   [line rangeOfString: @"Failed"].length
                 || [line rangeOfString: @"failed"].length  ) {
                 
-				TBLog(@"DB-AU", @"processLine: PASSWORD failed");
+				TBLog(@"DB-AU", @"processLine: %@ failed", command);
                 authFailed = TRUE;
                 userWantsState = userWantsUndecided;
                 credentialsAskedFor = FALSE;
