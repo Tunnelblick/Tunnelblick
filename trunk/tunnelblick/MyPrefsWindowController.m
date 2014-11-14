@@ -331,7 +331,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
-    -(BOOL) tabView: (NSTabView *) inTabView shouldSelectTabViewItem: (NSTabViewItem *) tabViewItem
+-(BOOL) tabView: (NSTabView *) inTabView shouldSelectTabViewItem: (NSTabViewItem *) tabViewItem
 {
 	(void) inTabView;
 	(void) tabViewItem;
@@ -1312,34 +1312,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     NSString * sourceDisplayName = [connection displayName];
-    NSString * autoConnectKey = [sourceDisplayName stringByAppendingString: @"autoConnect"];
-    NSString * onSystemStartKey = [sourceDisplayName stringByAppendingString: @"-onSystemStart"];
-    if (   [gTbDefaults boolForKey: autoConnectKey]
-        && [gTbDefaults boolForKey: onSystemStartKey]  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          NSLocalizedString(@"You may not rename a configuration which is set to start when the computer starts.", @"Window text"));
-        return;
-    }
-    
-    if (  ! [connection isDisconnected]  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Active connection", @"Window title"),
-                          NSLocalizedString(@"You cannot rename a configuration unless it is disconnected.", @"Window text"));
-        return;
-    }
-    
     NSString * sourcePath = [connection configPath];
-    if (  [sourcePath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          NSLocalizedString(@"You may not rename a Deployed configuration.", @"Window text"));
-        return;
-    }
-    
-    NSString * sourceFolder = [sourcePath stringByDeletingLastPathComponent];
-    NSString * sourceLast = [sourcePath  lastPathComponent];
-    NSString * sourceExtension = [sourceLast pathExtension];
     
     // Get the new name
-    
     NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Please enter a new name for '%@'.", @"Window text"), [sourceDisplayName lastPathComponent]];
     NSString * newName = TBGetDisplayName(prompt, sourcePath);
     
@@ -1347,62 +1322,16 @@ static BOOL firstTimeShowingWindow = TRUE;
         return;             // User cancelled
     }
     
+    NSString * sourceFolder = [sourcePath stringByDeletingLastPathComponent];
     NSString * targetPath = [sourceFolder stringByAppendingPathComponent: newName];
-    NSArray * goodExtensions = [NSArray arrayWithObjects: @"tblk", @"ovpn", @"conf", nil];
     NSString * newExtension = [newName pathExtension];
-    if (  ! [goodExtensions containsObject: newExtension]  ) {
-        targetPath = [targetPath stringByAppendingPathExtension: sourceExtension];
-    }
-
-    NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-    
-    BOOL localAuthorization = FALSE;
-    if (  authorization == nil  ) {
-        NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to rename '%@' to '%@'.", @"Window text"), sourceDisplayName, targetDisplayName];
-        authorization = [NSApplication getAuthorizationRef: msg];
-        if ( authorization == nil ) {
-            return;
-        }
-        localAuthorization = TRUE;
+    if (  ! [newExtension isEqualToString: @"tblk"]  ) {
+        targetPath = [targetPath stringByAppendingPathExtension: @"tblk"];
     }
     
-    if (  [[ConfigurationManager manager] copyConfigPath: sourcePath
-                                                  toPath: targetPath
-                                         usingAuthRefPtr: &authorization
-                                              warnDialog: YES
-                                             moveNotCopy: YES]  ) {
-        
-        // We copy "-keychainHasUsernameAndPassword" because it is deleted by moveCredentials
-        NSString * key = [[connection displayName] stringByAppendingString: @"-keychainHasUsernameAndPassword"];
-        BOOL haveCredentials = [gTbDefaults boolForKey: key];
-        
-        moveCredentials([connection displayName], targetDisplayName); // Do this so "<source>-keychainHasUsernameAndPassword" preference is used
-        
-        if (  ! [gTbDefaults movePreferencesFrom: [connection displayName] to: targetDisplayName]  ) {
-            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
-                              NSLocalizedString(@"Warning: One or more preferences could not be renamed. See the Console Log for details.", @"Window text"));
-        }
-        
-        // moveCredentials deleted "-keychainHasUsernameAndPassword" for the from configuration's preferences, so we restore it to the "to" configuration's preferences
-        key = [targetDisplayName stringByAppendingString: @"-keychainHasUsernameAndPassword"];
-        [gTbDefaults setBool: haveCredentials forKey: key];
-		
-		// We also need to change the name of the configuration that is selected
-		NSString * pref = [gTbDefaults stringForKey: @"leftNavSelectedDisplayName"];
-		if (  [pref isEqualToString: sourceDisplayName]  ) {
-			[gTbDefaults setObject: targetDisplayName forKey: @"leftNavSelectedDisplayName"];
-		}
-		
-		[[[NSApp delegate] logScreen] setPreviouslySelectedNameOnLeftNavList: targetDisplayName];
-		
-		[[NSApp delegate] updateMenuAndDetailsWindow];
-		
-    }
-    
-    if (  localAuthorization  ) {
-        AuthorizationFree(authorization, kAuthorizationFlagDefaults);
-        authorization = nil;
-    }
+    [ConfigurationManager renameConfigurationFromPath: sourcePath
+                                               toPath: targetPath
+                                     authorizationPtr: &authorization];
 }
 
 -(IBAction) duplicateConfigurationMenuItemWasClicked: (id) sender

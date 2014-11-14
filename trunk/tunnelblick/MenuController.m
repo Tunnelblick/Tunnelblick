@@ -1567,7 +1567,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
     // don't choke on a bad set of files, e.g., {0.png, 1abc.png, 2abc.png, 3.png, 4.png, 6.png}
     // (won't necessarily find all files, but won't try to load files that don't exist)
     for(i=0;i<nFrames;i++) {
-        fullPath = [iconSetDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.png", i]];
+        fullPath = [iconSetDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%lu.png", (unsigned long)i]];
         if (  itemIsVisible(fullPath)  ) {
             if ([gFileMgr fileExistsAtPath:fullPath]) {
                 NSImage * img = [[NSImage alloc] initWithContentsOfFile:fullPath];

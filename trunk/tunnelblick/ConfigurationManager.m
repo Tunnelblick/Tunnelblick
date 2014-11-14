@@ -33,6 +33,7 @@
 #import "ConfigurationMultiUpdater.h"
 #import "ListingWindowController.h"
 #import "MenuController.h"
+#import "MyPrefsWindowController.h"
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
@@ -344,6 +345,93 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     NSLog(@"Ignoring Info.plist:\n%@", obj);
     return nil;
+}
+
++(void) renameConfigurationFromPath: (NSString *)         sourcePath
+                             toPath: (NSString *)         targetPath
+                   authorizationPtr: (AuthorizationRef *) authorizationPtr {
+    
+    NSString * sourceName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+    NSString * targetName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
+    
+    VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: sourceName];
+    if (  ! connection  ) {
+        NSLog(@"renameConfigurationMenuItemWasClicked or name change on leftNav list but no configuration has been selected");
+        return;
+    }
+    
+    if (  ! [connection isDisconnected]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Active connection", @"Window title"),
+                          NSLocalizedString(@"You cannot rename a configuration unless it is disconnected.", @"Window text"));
+        return;
+    }
+    
+    NSString * autoConnectKey = [sourceName stringByAppendingString: @"autoConnect"];
+    NSString * onSystemStartKey = [sourceName stringByAppendingString: @"-onSystemStart"];
+    if (   [gTbDefaults boolForKey: autoConnectKey]
+        && [gTbDefaults boolForKey: onSystemStartKey]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You may not rename a configuration which is set to start when the computer starts.", @"Window text"));
+        return;
+    }
+    
+    if (  [sourcePath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You may not rename a Deployed configuration.", @"Window text"));
+        return;
+    }
+    
+    AuthorizationRef  localAuthorization = NULL;
+	
+	AuthorizationRef *authPtrToUse = (  authorizationPtr
+									   ? authorizationPtr
+									   : &localAuthorization);
+	
+	if (  ! *authPtrToUse  ) {
+		NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to rename '%@' to '%@'.", @"Window text"), sourceName, targetName];
+		*authPtrToUse = [NSApplication getAuthorizationRef: msg];
+		if ( *authPtrToUse   == NULL ) {
+			return;
+		}
+	}
+
+    if (  [[ConfigurationManager manager] copyConfigPath: sourcePath
+                                                  toPath: targetPath
+                                         usingAuthRefPtr: authPtrToUse
+                                              warnDialog: YES
+                                             moveNotCopy: YES]  ) {
+        
+        // Save status of "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" because they are deleted by moveCredentials
+        BOOL havePwCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
+	    BOOL havePpCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasPrivateKey"]];
+        
+        moveCredentials(sourceName, targetName);
+        
+        if (  ! [gTbDefaults movePreferencesFrom: sourceName to: targetName]  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                              NSLocalizedString(@"Warning: One or more preferences could not be renamed. See the Console Log for details.", @"Window text"));
+        }
+        
+        // Restore "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" to the new configuration's preferences because they were not transferred by moveCredentials
+        [gTbDefaults setBool: havePwCredentials forKey: [targetName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
+		[gTbDefaults setBool: havePpCredentials forKey: [targetName stringByAppendingString: @"-keychainHasPrivateKey"]];
+        
+		// We also need to change the name of the configuration that is selected
+		NSString * pref = [gTbDefaults stringForKey: @"leftNavSelectedDisplayName"];
+		if (  [pref isEqualToString: sourceName]  ) {
+			[gTbDefaults setObject: targetName forKey: @"leftNavSelectedDisplayName"];
+		}
+		
+		[[[NSApp delegate] logScreen] setPreviouslySelectedNameOnLeftNavList: targetName];
+		
+		[[NSApp delegate] updateMenuAndDetailsWindow];
+		
+    }
+    
+    if (  authPtrToUse == &localAuthorization  ) {
+        AuthorizationFree(localAuthorization, kAuthorizationFlagDefaults);
+        localAuthorization = NULL;
+    }
 }
 
 -(BOOL)  addConfigsFromPath: (NSString *)               folderPath
