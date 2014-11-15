@@ -1822,7 +1822,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 if (  ! (   innerBundleIdentifier
                          && innerBundleVersion)  )  {
                     return [NSString stringWithFormat: NSLocalizedString(@"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\n"
-                                                                         @"This VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.", @"Window text"), fullPath];
+                                                                         @"This VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion.", @"Window text"), fullPath];
                 }
             }
             
