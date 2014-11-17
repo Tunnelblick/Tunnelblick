@@ -1791,7 +1791,13 @@ static BOOL firstTimeShowingWindow = TRUE;
                     }
                 } else if (  [keyString isEqualToString: [NSString stringWithUTF8String: ASL_KEY_MSG]]  ) {
                     if (   ([string rangeOfString: @"Tunnelblick"].length != 0)
-                        || ([string rangeOfString: @"tunnelblick"].length != 0)  ) {
+                        || ([string rangeOfString: @"tunnelblick"].length != 0)
+                        || ([string rangeOfString: @"Saved crash report for openvpn"].length != 0)
+                        || ([string rangeOfString: @"Saved crash report for installer"].length != 0)
+                        || ([string rangeOfString: @"Saved crash report for atsystemstart"].length != 0)
+                        || ([string rangeOfString: @"Saved crash report for process-network-changes"].length != 0)
+                        || ([string rangeOfString: @"Saved crash report for standardize-scutil-output"].length != 0)
+                        ) {
                         includeDict = TRUE;
                     }
                 }
