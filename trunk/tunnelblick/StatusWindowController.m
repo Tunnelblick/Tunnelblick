@@ -336,10 +336,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
 
     [self showWindow: self];
-	if (  ! [status isEqualToString:@"EXITING"]  ) {
-		[self initialiseAnim];
-    }
-	
+    [self initialiseAnim];
 	haveLoadedFromNib = TRUE;
     [self fadeIn];
 }
@@ -414,8 +411,16 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
             NSAnimationProgress p = ((float)i)/((float)[[[NSApp delegate] largeAnimImages] count]);
             [theAnim addProgressMark: p];
         }
+		
         [theAnim setAnimationBlockingMode:  NSAnimationNonblocking];
-        [theAnim startAnimation];
+		
+        if (  [status isEqualToString:@"EXITING"]  ) {
+            [animationIV setImage: [[NSApp delegate] largeMainImage]];
+        } else if (  [status isEqualToString:@"CONNECTED"]  ) {
+            [animationIV setImage: [[NSApp delegate] largeConnectedImage]];
+		} else {
+			[theAnim startAnimation];
+		}
     }
 }
 
