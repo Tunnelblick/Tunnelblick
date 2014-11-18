@@ -195,6 +195,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Martin Bratteng      </td>
+    <td>      Norwegian    </td>
+  </tr>
+
+  <tr>
     <td>      Sergio Andrés Castro Cárdenas      </td>
     <td>      Spanish    </td>
   </tr>
@@ -325,6 +330,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Mikael Kolkinn    </td>
+    <td>      Norwegian    </td>
+  </tr>
+
+  <tr>
     <td>      Kovurt    </td>
     <td>      Chinese (simplified)    </td>
   </tr>
@@ -382,6 +392,11 @@ Tunnelblick is made possible by the efforts of many people:
    <tr>
     <td>      Boian Mihailov    </td>
     <td>      Bulgarian    </td>
+  </tr>
+
+   <tr>
+    <td>      Richárd Murvai    </td>
+    <td>      Hungarian    </td>
   </tr>
 
   <tr>
@@ -530,6 +545,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
    <tr>
+    <td>      Zoltan Lanyi Webmegoldasok      </td>
+    <td>      Hungarian    </td>
+  </tr>
+
+   <tr>
     <td>      Pomin Wu      </td>
     <td>      Chinese (traditional)    </td>
   </tr>
@@ -542,6 +562,11 @@ Tunnelblick is made possible by the efforts of many people:
  <tr>
     <td>      Magdelena Zajac      </td>
     <td>      Polish    </td>
+  </tr>
+
+ <tr>
+    <td>      Nikolay Zhelev      </td>
+    <td>      Bulgarian    </td>
   </tr>
 
 </table>
