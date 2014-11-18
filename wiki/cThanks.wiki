@@ -205,6 +205,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Vadim Chumachenkon     </td>
+    <td>      Ukrainian    </td>
+  </tr>
+
+  <tr>
     <td>      Diego Silva Cogo     </td>
     <td>      Portuguese (Brazilian)    </td>
   </tr>
@@ -279,6 +284,11 @@ Tunnelblick is made possible by the efforts of many people:
     <td>      Finnish    </td>
   </tr>
 
+  <tr>
+    <td>      Christophe Icard      </td>
+    <td>      French    </td>
+  </tr>
+
    <tr>
     <td>      Jarmo Isotalo      </td>
     <td>      Finnish    </td>
@@ -305,8 +315,18 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Alexander Kaydannik     </td>
+    <td>      Ukrainian    </td>
+  </tr>
+
+  <tr>
     <td>      Kyoungmin Kim    </td>
     <td>      Korean    </td>
+  </tr>
+
+  <tr>
+    <td>      Kovurt    </td>
+    <td>      Chinese (simplified)    </td>
   </tr>
 
   <tr>
@@ -349,6 +369,11 @@ Tunnelblick is made possible by the efforts of many people:
     <td>      Italian    </td>
   </tr>
 
+  <tr>
+    <td>      Klaus Marx    </td>
+    <td>      German    </td>
+  </tr>
+
    <tr>
     <td>      Denis Volpato Martins    </td>
     <td>      Portuguese (Brazilian)    </td>
@@ -362,6 +387,11 @@ Tunnelblick is made possible by the efforts of many people:
   <tr>
     <td>      Johan Nilsson    </td>
     <td>      Swedish    </td>
+  </tr>
+
+  <tr>
+    <td>      André Neves    </td>
+    <td>      Portuguese (Brazilian)    </td>
   </tr>
 
   <tr>
@@ -455,6 +485,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Paul Taykalo      </td>
+    <td>      Ukrainian    </td>
+  </tr>
+
+  <tr>
     <td>      !TheFrog      </td>
     <td>      Slovak    </td>
   </tr>
@@ -497,6 +532,11 @@ Tunnelblick is made possible by the efforts of many people:
    <tr>
     <td>      Pomin Wu      </td>
     <td>      Chinese (traditional)    </td>
+  </tr>
+
+   <tr>
+    <td>      Kun Xi      </td>
+    <td>      Chinese (simplified)    </td>
   </tr>
 
  <tr>
