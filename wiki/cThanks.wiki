@@ -401,7 +401,7 @@ Tunnelblick is made possible by the efforts of many people:
 
   <tr>
     <td>      Peter K. O'Connor    </td>
-    <td>      Chinese (Simplified)    </td>
+    <td>      Chinese (simplified)    </td>
   </tr>
 
   <tr>
