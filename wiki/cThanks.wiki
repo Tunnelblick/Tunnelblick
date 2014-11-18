@@ -490,7 +490,7 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
    <tr>
-    <td>      Cristiano Verendini      </td>
+    <td>      Cristiano Verondini      </td>
     <td>      Italian    </td>
   </tr>
 
