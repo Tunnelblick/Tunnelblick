@@ -166,7 +166,7 @@ extern TBUserDefaults * gTbDefaults;
 {
  	(void) n;
     
-	if (  [gTbDefaults boolForKey: @"redisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"]  ) {
+	if (  ! [gTbDefaults boolForKey: @"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"]  ) {
 		NSLog(@"LoginWindowController: applicationDidChangeScreenParametersNotificationHandler: redisplaying login window");
 		[self redisplay];
 	}
@@ -176,7 +176,7 @@ extern TBUserDefaults * gTbDefaults;
 {
  	(void) n;
     
-	if (  [gTbDefaults boolForKey: @"redisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"]  ) {
+	if (  ! [gTbDefaults boolForKey: @"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"]  ) {
 		NSLog(@"LoginWindowController: didWakeUpFromSleepHandler: redisplaying login window");
 		[self redisplay];
 	}
