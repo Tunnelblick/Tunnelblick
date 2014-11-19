@@ -66,6 +66,27 @@ flushDNSCache()
 				logMessage "/usr/bin/dscacheutil not present. Not flushing the DNS cache via dscacheutil"
 			fi
 		
+			if [ -f /usr/sbin/discoveryutil ] ; then
+				set +e # we will catch errors from discoveryutil
+				logMessage "Will flush the DNS cache via discoveryutil udnsflushcaches..."
+				/usr/sbin/discoveryutil udnsflushcaches
+				if [ $? != 0 ] ; then
+					logMessage "Unable to flush the DNS cache via discoveryutil udnsflushcaches"
+				else
+					logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
+				fi
+				logMessage "Will flush the DNS cache via discoveryutil mdnsflushcache..."
+				/usr/sbin/discoveryutil mdnsflushcache
+				if [ $? != 0 ] ; then
+					logMessage "Unable to flush the DNS cache via discoveryutil mdnsflushcache"
+				else
+					logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
+				fi
+				set -e # bash should again fail on errors
+			else
+				logMessage "/usr/sbin/discoveryutil not present. Not flushing the DNS cache via discoveryutil"
+			fi
+			
 			set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 			hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
 			set -e # We instruct bash that it CAN again fail on errors
