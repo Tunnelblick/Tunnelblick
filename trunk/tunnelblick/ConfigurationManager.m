@@ -403,7 +403,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         // Save status of "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" because they are deleted by moveCredentials
         BOOL havePwCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
-	    BOOL havePpCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasPrivateKey"]];
+        BOOL haveUnCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasUsername"]];
+	    BOOL havePkCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasPrivateKey"]];
         
         moveCredentials(sourceName, targetName);
         
@@ -414,7 +415,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         // Restore "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" to the new configuration's preferences because they were not transferred by moveCredentials
         [gTbDefaults setBool: havePwCredentials forKey: [targetName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
-		[gTbDefaults setBool: havePpCredentials forKey: [targetName stringByAppendingString: @"-keychainHasPrivateKey"]];
+        [gTbDefaults setBool: haveUnCredentials forKey: [targetName stringByAppendingString: @"-keychainHasUsername"]];
+		[gTbDefaults setBool: havePkCredentials forKey: [targetName stringByAppendingString: @"-keychainHasPrivateKey"]];
         
 		// We also need to change the name of the configuration that is selected
 		NSString * pref = [gTbDefaults stringForKey: @"leftNavSelectedDisplayName"];

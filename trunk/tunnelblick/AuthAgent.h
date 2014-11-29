@@ -30,6 +30,8 @@
 // do a "performAuthentication" to get the appropriate credential(s) so that
 // they will be returned by the "getters"
 
+#import "defines.h"
+
 @class KeyChain;
 @class LoginWindowController;
 @class PassphraseWindowController;
@@ -56,14 +58,17 @@
     KeyChain * usernameKeychain;
     KeyChain * passwordKeychain;
     
-    // We store a flag in preferences if we've stored a passphrase or username/password in the Keychain so we can avoid
-    // accessing the Keychain (which requires permission the first time) unless we've stored something in it
+    // These preferences have two functions:
+    //      * If not forced, they are used by Tunnelblick to indicate that the corresponding item is stored in the Keychain. This allows Tunnelblick
+    //                to avoid accessing the Keychain unnecessarily, since Keychain accesses can require user approval.
+    //      * If they are forced (with any value), they prevent Tunnelblick from offerring to store the corresponding item in the Keychain.
+    //
     // These are keys for the preferences.
-    NSString * passphrasePreferenceKey;     // Keys for accessing user preference for passphrase and username that indicates that they are stored in the keychain
-    NSString * usernamePreferenceKey;       // We don't need one for the password because if the username is stored, so is the password
+    NSString * passphrasePreferenceKey;
+    NSString * usernameAndPasswordPreferenceKey;
+    NSString * usernamePreferenceKey;
     
-    BOOL wasFromKeychain;                   // Last performAuthentication data came from the Keychain
-    BOOL usedUniversalCredentials;          // Last performAuthentication used the "Universal" credentials
+    BOOL authenticationWasFromKeychain;     // Last performAuthentication data came from the Keychain
 }
 
 // PUBLIC METHODS:
@@ -72,21 +77,20 @@
 -(id)           initWithConfigName:                 (NSString *)inConfigName
 				credentialsGroup:					(NSString *)inGroup;
 
--(NSString *)   authMode;
--(void)         setAuthMode:                        (NSString *)value;
--(NSString *)   passphrase;
--(NSString *)   password;
--(NSString *)   username;
--(NSString *)   displayName;
--(void)         setPassphrase:                      (NSString *)value;
--(void)         setPassword:                        (NSString *)value;
--(void)         setUsername:                        (NSString *)value;
-
--(void)         deleteCredentialsFromKeychain;
+-(void)         deleteCredentialsFromKeychainIncludingUsername: (BOOL) includeUsername;
 
 -(void)         performAuthentication;
--(BOOL)         keychainHasCredentials;
--(BOOL)         authenticationWasFromKeychain;
--(BOOL)         usedUniversalCredentials;
+-(BOOL)         keychainHasAnyCredentials;
+
+-(NSString *)   usernameFromKeychain;
+
+TBPROPERTY(NSString *, authMode,        setAuthMode)
+TBPROPERTY(NSString *, username,        setUsername)
+TBPROPERTY(NSString *, password,        setPassword)
+TBPROPERTY(NSString *, passphrase,      setPassphrase)
+
+TBPROPERTY_READONLY(NSString *, displayName)
+TBPROPERTY_READONLY(BOOL,       authenticationWasFromKeychain)
+
 
 @end

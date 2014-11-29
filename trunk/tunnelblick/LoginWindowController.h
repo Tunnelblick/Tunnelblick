@@ -19,6 +19,7 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
+#include "defines.h"
 
 @interface LoginWindowController : NSWindowController <NSWindowDelegate>
 {
@@ -35,25 +36,29 @@
     IBOutlet NSTextFieldCell    * usernameTFC;
     IBOutlet NSTextFieldCell    * passwordTFC;
     
-    IBOutlet NSButton           * saveInKeychainCheckbox;
+    IBOutlet NSButton           * saveUsernameInKeychainCheckbox;
+    IBOutlet NSButton           * savePasswordInKeychainCheckbox;
     
     id                            delegate;
 }
 
--(id)           initWithDelegate:       (id)            theDelegate;
--(void)         redisplay;
+-(id)       initWithDelegate:       (id)            theDelegate;
+-(void)     redisplay;
 
--(IBAction)     cancelButtonWasClicked: (id)            sender;
--(IBAction)     OKButtonWasClicked:     (id)            sender;
+-(IBAction) cancelButtonWasClicked: (id)            sender;
+-(IBAction) OKButtonWasClicked:     (id)            sender;
 
--(NSTextField *)username;
--(void)         setUsername:            (NSTextField *) newValue;
+-(IBAction) saveUsernameInKeychainCheckboxWasClicked: (id) sender;
 
--(NSTextField *)password;
--(void)         setPassword:            (NSTextField *) newValue;
+-(BOOL)     isSaveUsernameInKeychainChecked;
+-(BOOL)     isSavePasswordInKeychainChecked;
 
--(BOOL)         saveInKeychain;
+TBPROPERTY_READONLY(NSTextField *,       username)
+TBPROPERTY_READONLY(NSSecureTextField *, password)
 
--(id)           delegate;
+TBPROPERTY_READONLY(NSButton *,    saveUsernameInKeychainCheckbox)
+TBPROPERTY_READONLY(NSButton *,    savePasswordInKeychainCheckbox)
+
+TBPROPERTY_READONLY(id, delegate)
 
 @end

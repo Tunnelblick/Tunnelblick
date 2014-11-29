@@ -830,52 +830,74 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
     NSString * myUsername = nil;
     NSString * myPassword = nil;
     
-    AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: fromDisplayName credentialsGroup: nil] autorelease];
-    [myAuthAgent setAuthMode: @"privateKey"];
-    if (  [myAuthAgent keychainHasCredentials]  ) {
-        [myAuthAgent performAuthentication];
-        myPassphrase = [myAuthAgent passphrase];
-        if (  moveNotCopy) {
-            [myAuthAgent deleteCredentialsFromKeychain];
+    NSString * fromPassphraseKey          = [fromDisplayName stringByAppendingString: @"%@-keychainHasPrivateKey"];
+    NSString * fromUsernameKey            = [fromDisplayName stringByAppendingString: @"%@-keychainHasUsername"];
+    NSString * fromUsernameAndPasswordKey = [fromDisplayName stringByAppendingString: @"%@-keychainHasUsernameAndPassword"];
+    
+    BOOL haveFromPassphrase          = [gTbDefaults boolForKey: fromPassphraseKey] && [gTbDefaults canChangeValueForKey: fromPassphraseKey];
+    BOOL haveFromUsername            = [gTbDefaults boolForKey: fromPassphraseKey] && [gTbDefaults canChangeValueForKey: fromUsernameKey];
+    BOOL haveFromUsernameAndPassword = [gTbDefaults boolForKey: fromPassphraseKey] && [gTbDefaults canChangeValueForKey: fromUsernameAndPasswordKey];
+    
+    if (   haveFromPassphrase
+        || haveFromUsername
+        || haveFromUsernameAndPassword  ) {
+        
+        AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: fromDisplayName credentialsGroup: nil] autorelease];
+        
+        if (  haveFromPassphrase  ) {
+            [myAuthAgent setAuthMode: @"privateKey"];
+            [myAuthAgent performAuthentication];
+            myPassphrase = [myAuthAgent passphrase];
+            if (  moveNotCopy) {
+                [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+            }
         }
-    }
-    [myAuthAgent setAuthMode: @"password"];
-    if (  [myAuthAgent keychainHasCredentials]  ) {
-        [myAuthAgent performAuthentication];
-        myUsername = [myAuthAgent username];
-        myPassword   = [myAuthAgent password];
-        if (  moveNotCopy) {
-            [myAuthAgent deleteCredentialsFromKeychain];
+        
+        if (  haveFromUsernameAndPassword  ) {
+            [myAuthAgent setAuthMode: @"password"];
+            [myAuthAgent performAuthentication];
+            myUsername = [myAuthAgent username];
+            myPassword = [myAuthAgent password];
+            if (  moveNotCopy) {
+                [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+            }
+        } else  if (  haveFromUsername  ) {
+            [myAuthAgent setAuthMode: @"password"];
+            [myAuthAgent performAuthentication];
+            myUsername = [myAuthAgent username];
+            if (  moveNotCopy) {
+                [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+            }
+        }
+        
+        if (  myPassphrase  ) {
+            KeyChain * passphraseKeychain = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"privateKey" ];
+            [passphraseKeychain deletePassword];
+            if (  [passphraseKeychain setPassword: myPassphrase] != 0  ) {
+                NSLog(@"Could not store passphrase in Keychain");
+            }
+            [passphraseKeychain release];
+        }
+        
+        if (  myUsername  ) {
+            KeyChain * usernameKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"username"   ];
+            [usernameKeychain deletePassword];
+            if (  [usernameKeychain setPassword: myUsername] != 0  ) {
+                NSLog(@"Could not store username in Keychain");
+            }
+            [usernameKeychain   release];
+        }
+        
+        if (  myPassword  ) {
+            KeyChain * passwordKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"password"   ];
+            [passwordKeychain deletePassword];
+            if (  [passwordKeychain setPassword: myPassword] != 0  ) {
+                NSLog(@"Could not store password in Keychain");
+            }
+            [passwordKeychain   release];
         }
     }
     
-    KeyChain * passphraseKeychain = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"privateKey" ];
-    KeyChain * usernameKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"username"   ];
-    KeyChain * passwordKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"password"   ];
-    
-    if (  myPassphrase  ) {
-        [passphraseKeychain deletePassword];
-        if (  [passphraseKeychain setPassword: myPassphrase] != 0  ) {
-            NSLog(@"Could not store passphrase in Keychain");
-        }
-    }
-    if (  myUsername  ) {
-        [usernameKeychain deletePassword];
-        if (  [usernameKeychain setPassword: myUsername] != 0  ) {
-            NSLog(@"Could not store username in Keychain");
-        }
-    }
-    if (  myPassword  ) {
-        [passwordKeychain deletePassword];
-        if (  [passwordKeychain setPassword: myPassword] != 0  ) {
-            NSLog(@"Could not store password in Keychain");
-        }
-    }
-    
-    [passphraseKeychain release];
-    [usernameKeychain   release];
-    [passwordKeychain   release];
-     
     return TRUE;
 }
 

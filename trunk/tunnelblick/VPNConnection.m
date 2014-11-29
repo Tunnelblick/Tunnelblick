@@ -2603,7 +2603,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 
                 id buttonWithDifferentCredentials = nil;
                 if (  [myAuthAgent authMode]  ) {               // Handle "auto-login" --  we were never asked for credentials, so authMode was never set
-                    if ([myAuthAgent keychainHasCredentials]) { //                         so credentials in Keychain (if any) were never used, so we needn't delete them to rery
+                    if ([myAuthAgent keychainHasAnyCredentials]) { //                         so credentials in Keychain (if any) were never used, so we needn't delete them to rery
                         buttonWithDifferentCredentials = NSLocalizedString(@"Try again with different credentials", @"Button");
                     }
                 }
@@ -2616,7 +2616,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     userWantsState = userWantsRetry;                // User wants to retry
                     
                 } else if (alertVal == NSAlertAlternateReturn) {
-                    [myAuthAgent deleteCredentialsFromKeychain];    // User wants to retry after deleting credentials
+                    [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: NO];    // User wants to retry after deleting credentials
                     userWantsState = userWantsRetry;
                 } else {
                     userWantsState = userWantsAbandon;              // User wants to cancel or an error happened, so disconnect

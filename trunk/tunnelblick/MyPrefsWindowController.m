@@ -1282,12 +1282,12 @@ static BOOL firstTimeShowingWindow = TRUE;
 			AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: group credentialsGroup: group] autorelease];
 			
 			[myAuthAgent setAuthMode: @"privateKey"];
-			if (  [myAuthAgent keychainHasCredentials]  ) {
-				[myAuthAgent deleteCredentialsFromKeychain];
+			if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+				[myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
 			}
 			[myAuthAgent setAuthMode: @"password"];
-			if (  [myAuthAgent keychainHasCredentials]  ) {
-				[myAuthAgent deleteCredentialsFromKeychain];
+			if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+				[myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
 			}
 		}
 		
@@ -1601,17 +1601,14 @@ static BOOL firstTimeShowingWindow = TRUE;
 		NSString * group = credentialsGroupFromDisplayName(name);
 		AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: name credentialsGroup: group] autorelease];
 		
-        BOOL hasCredentials = FALSE;
         [myAuthAgent setAuthMode: @"privateKey"];
-        if (  [myAuthAgent keychainHasCredentials]  ) {
-            hasCredentials = TRUE;
-        }
-        [myAuthAgent setAuthMode: @"password"];
-        if (  [myAuthAgent keychainHasCredentials]  ) {
-            hasCredentials = TRUE;
-        }
+        BOOL havePrivateKeyCredentials = [myAuthAgent keychainHasAnyCredentials];
         
-        if (  hasCredentials  ) {
+        [myAuthAgent setAuthMode: @"password"];
+        BOOL haveUsernameCredentials = [myAuthAgent keychainHasAnyCredentials];
+        
+        if (   havePrivateKeyCredentials
+            || haveUsernameCredentials  ) {
 			NSString * msg;
 			if (  group  ) {
 				msg =[NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private"
@@ -1628,13 +1625,13 @@ static BOOL firstTimeShowingWindow = TRUE;
                                          nil);
             
             if (  button == NSAlertAlternateReturn  ) {
-                [myAuthAgent setAuthMode: @"privateKey"];
-                if (  [myAuthAgent keychainHasCredentials]  ) {
-                    [myAuthAgent deleteCredentialsFromKeychain];
+                if (  havePrivateKeyCredentials  ) {
+                    [myAuthAgent setAuthMode: @"privateKey"];
+                    [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
                 }
-                [myAuthAgent setAuthMode: @"password"];
-                if (  [myAuthAgent keychainHasCredentials]  ) {
-                    [myAuthAgent deleteCredentialsFromKeychain];
+                if (  haveUsernameCredentials  ) {
+                    [myAuthAgent setAuthMode: @"password"];
+                    [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
                 }
             }
         } else {
