@@ -22,11 +22,11 @@
 
 #import "LoginWindowController.h"
 
-#import "defines.h"
 #import "helper.h"
 
 #import "MenuController.h"
 #import "TBUserDefaults.h"
+#import "AuthAgent.h"
 
 
 extern TBUserDefaults * gTbDefaults;
@@ -38,6 +38,12 @@ extern TBUserDefaults * gTbDefaults;
 @end
 
 @implementation LoginWindowController
+
+TBSYNTHESIZE_OBJECT(retain, NSTextField *,       username, setUsername)
+TBSYNTHESIZE_OBJECT(retain, NSSecureTextField *, password, setPassword)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, saveUsernameInKeychainCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
 
 -(id) initWithDelegate: (id) theDelegate
 {
@@ -83,16 +89,37 @@ extern TBUserDefaults * gTbDefaults;
     [usernameTFC setTitle: NSLocalizedString(@"Username:", @"Window text")];
     [passwordTFC setTitle: NSLocalizedString(@"Password:", @"Window text")];
 
-    [saveInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain", @"Checkbox name")];
+    [saveUsernameInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain", @"Checkbox name")];
+    [savePasswordInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain", @"Checkbox name")];
 
-    [self setTitle: NSLocalizedString(@"OK"    , @"Button") ofControl: OKButton ];
-    [self setTitle: NSLocalizedString(@"Cancel", @"Button") ofControl: cancelButton ];
+    [self setTitle: NSLocalizedString(@"OK"    , @"Button") ofControl: OKButton];
+    [self setTitle: NSLocalizedString(@"Cancel", @"Button") ofControl: cancelButton];
     
     [self redisplay];
 }
 
 -(void) redisplay
 {
+    // If we have saved a username, load the textbox with it and check the "Save in Keychain" checkbox for it
+	NSString * displayName = [[self delegate] displayName];
+    NSString * usernamePreferenceKey             = [displayName stringByAppendingString: @"-keychainHasUsername"];
+    BOOL haveSavedUsername = (   [gTbDefaults boolForKey: usernamePreferenceKey]
+							  && [gTbDefaults canChangeValueForKey: usernamePreferenceKey] );
+	NSString * usernameLocal = [delegate usernameFromKeychain];
+	if (  [usernameLocal length] == 0  ) {
+		usernameLocal = @"";
+	}
+	[[self username] setStringValue: usernameLocal];
+	BOOL enableSaveUsernameCheckbox = (  haveSavedUsername
+									   ? NSOnState
+									   : NSOffState);
+    [[self saveUsernameInKeychainCheckbox] setState: enableSaveUsernameCheckbox];
+	
+    // Always clear the password textbox and set up its "Save in Keychain" checkbox
+	[[self password] setStringValue: @""];
+	[[self savePasswordInKeychainCheckbox] setState:   NSOffState];
+	[[self savePasswordInKeychainCheckbox] setEnabled: enableSaveUsernameCheckbox];
+	
     [cancelButton setEnabled: YES];
     [OKButton setEnabled: YES];
     [[self window] center];
@@ -162,6 +189,20 @@ extern TBUserDefaults * gTbDefaults;
     [NSApp stopModal];
 }
 
+-(IBAction) saveUsernameInKeychainCheckboxWasClicked: (id) sender {
+	
+	(void) sender;
+	
+	if (  [saveUsernameInKeychainCheckbox state] == NSOnState  ) {
+		[[self savePasswordInKeychainCheckbox] setState:   NSOffState];
+		[[self savePasswordInKeychainCheckbox] setEnabled: YES];
+	} else {
+		[[self savePasswordInKeychainCheckbox] setState:   NSOffState];
+		[[self savePasswordInKeychainCheckbox] setEnabled: NO];
+	}
+}
+
+
 -(void) applicationDidChangeScreenParametersNotificationHandler: (NSNotification *) n
 {
  	(void) n;
@@ -196,40 +237,14 @@ extern TBUserDefaults * gTbDefaults;
     return [NSString stringWithFormat:@"%@", [self class]];
 }
 
--(NSTextField *) username
+-(BOOL) isSaveUsernameInKeychainChecked
 {
-    return [[username retain] autorelease];
+    return (  [saveUsernameInKeychainCheckbox state] == NSOnState  );
 }
-
--(void) setUsername: (NSTextField *) newValue
+		  
+-(BOOL) isSavePasswordInKeychainChecked
 {
-    if (  username != newValue  ) {
-        [username release];
-        username = [newValue retain];
-    }
-}
-
-
--(NSTextField *) password
-{
-    return [[password retain] autorelease];
-}
-
--(void) setPassword: (NSTextField *) newValue
-{
-    if (  password != newValue  ) {
-        [password release];
-        password = (NSSecureTextField *) [newValue retain];
-    }
-}
-
--(BOOL) saveInKeychain
-{
-    if (  [saveInKeychainCheckbox state] == NSOnState  ) {
-        return TRUE;
-    } else {
-        return FALSE;
-    }
+    return (  [savePasswordInKeychainCheckbox state] == NSOnState  );
 }
 
 -(id) delegate

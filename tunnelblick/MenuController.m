@@ -511,6 +511,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                       @"-useDownRootPlugin",
                                       @"-keychainHasPrivateKey",
                                       @"-keychainHasUsernameAndPassword",
+                                      @"-keychainHasUsername",
                                       @"-doNotParseConfigurationFile",
                                       @"-disableEditConfiguration",
                                       @"-disableConnectButton",
