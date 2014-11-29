@@ -29,7 +29,7 @@
 "100 KB" = "100 KB";
 
 /* Button */
-"Advanced..." = "Edistyneet…";
+"Advanced..." = "Lisävalinnat…";
 
 /* Button */
 "All Users" = "Kaikki käyttäjät";
@@ -353,7 +353,7 @@
 "Monitor connection" = "Valvo yhteyttä";
 
 /* Checkbox name */
-"Monitor network settings" = "Valvo verkko-asetuksia";
+"Monitor network settings" = "Valvo verkkoasetuksia";
 
 /* Checkbox name */
 "Place next to Spotlight icon" = "Aseta Spotlight-ikonin viereen";
@@ -413,7 +413,7 @@
 "Double-click to begin" = "Tuplaklikkaa aloittaaksesi";
 
 /* Connection status */
-"ADD_ROUTES" = "Lisää reittejä"; // Please translate "Adding routes"
+"ADD_ROUTES" = "Lisätään reittejä"; // Please translate "Adding routes"
 
 /* Connection status */
 "ASSIGN_IP" = "Asettaa IP-osoitetta"; // Please translate "Assigning IP address"
@@ -821,7 +821,7 @@
 "Added a '.key' extension to %@ so it will be secured properly" = "Lisättiin pääte '.key' kohteeseen %@, jotta se suojataan kunnolla";
 
 /* Window text */
-"Additional contributions by" = "Lisä kontribuutiot";
+"Additional contributions by" = "Muut avustajat";
 
 /* Window text */
 "After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "%1$.1f sekunnin jälkeen luovuin IP-osoitetietojen hakemisesta.\n\nTunnelblick ei tarkista tämän tietokoneen IP-osoitemuutoksia, kun %2$@ on kytkeytyneenä.\n\n";
@@ -1094,7 +1094,7 @@
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Rivillä %1$d tiedostossa '%2$@' on ei-tulostuva merkki (0 x %3$X), mikä ei ole sallittua.\n\n";
 
 /* Window text */
-"Localization by" = "Kääntetty";
+"Localization by" = "Kääntäjät";
 
 /* Window text */
 "MB" = "Mt";
@@ -1109,7 +1109,7 @@
 "Menu:" = "Valikko:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Puuttuva CFBundleIdentifier tai CFBundleVersion kohteessa Info.plist objektille\n\n%@\n\nTämä VPN-konfiguraatio on sisällytetty päivitettävissä olevaan ulkoiseen VPN-konfiguraatioon, joten sen on sisällytettävä oma CFBundleIdentifer ja CFBundleVersion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Puuttuva CFBundleIdentifier tai CFBundleVersion kohteessa Info.plist objektille\n\n%@\n\nTämä VPN-konfiguraatio on sisällytetty päivitettävissä olevaan ulkoiseen VPN-konfiguraatioon, joten sen on sisällytettävä oma CFBundleIdentifier ja CFBundleVersion.";
 
 /* Window text */
 "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Puuttuva Info.plist kohteelle\n\n%@\n\nTämä VPN-konfiguraatio sisältyy päivitettävissä olevaan ulkoiseen VPN-konfiguraatioon, joten sen sisällytettävä Info.plist.";
@@ -1241,7 +1241,7 @@
 "Securing Tunnelblick..." = "Varmistetaan Tunnelblick…";
 
 /* Window text */
-"Set DNS/WINS:" = "Asetetaan DNS/WINS:";
+"Set DNS/WINS:" = "Aseta DNS/WINS:";
 
 /* Window text */
 "Single-quote missing in line %u" = "Heittomerkki puuttuu riviltä %u";
@@ -1781,10 +1781,10 @@
 "Connected to %@" = "Muodostettu yhteys kohteeseen %@";
 
 /* Credit description */
-"Contributed much to the early code" = "Osallistunut paljon aikaisen koodin tuottamiseen";
+"Contributed much to the early code" = "Tuottanut paljon koodia alkuaikoina";
 
 /* Credit description */
-"Contributed to early code" = "Osallistunut aikaisen koodin tuottamiseen";
+"Contributed to early code" = "Tuottanut koodia alkuaikoina";
 
 /* Credit description */
 "Czech localization" = "Tshekkiläinen käännös";
@@ -1805,7 +1805,7 @@
 "Finnish localization" = "Suomalainen käännös";
 
 /* Credit description */
-"Founder, original program and documentation" = "Perustaja, originaali ohjelma ja dokumentaatio";
+"Founder, original program and documentation" = "Perustaja, alkuperäinen ohjelma ja dokumentaatio";
 
 /* Credit description */
 "French localization" = "Ranskalainen käännös";
@@ -1832,16 +1832,16 @@
 "Korean localization" = "Korealainen käännös";
 
 /* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "Suomalainen käännö";
+"LANGUAGE_LOCALIZATION" = "Suomalainen käännös";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Jesse Hulkko, Jarmo Isotalo, Kalle Kärkkäinen, Feetu Nyrhine, Petra Penttila, Mikko Toivola";
 
 /* Credit description */
-"Localization code tweaks" = "Lokalisaatio koodin muokkaukset";
+"Localization code tweaks" = "Lokalisaatiokoodin muokkaukset";
 
 /* Credit description */
-"Multiple configuration folders" = "Useat konfiguraatio kansiot";
+"Multiple configuration folders" = "Useat konfiguraatiokansiot";
 
 /* Credit description */
 "Norwegian localization" = "Norjalainen käännös";
@@ -1868,25 +1868,25 @@
 "Slovak localization" = "Slovakialainen käännös";
 
 /* Credit description */
-"Spanish localization" = "Espanialainen käännös";
+"Spanish localization" = "Espanjalainen käännös";
 
 /* Credit description */
 "Swedish localization" = "Ruotsalainen käännös";
 
 /* Credit description */
-"Tunnelblick icon" = "Tunnelblick kuvake";
+"Tunnelblick icon" = "Tunnelblick-kuvake";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue ja UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Ukranialainen käännös";
+"Ukrainian localization" = "Ukrainalainen käännös";
 
 /* Credit description */
-"Up and Down scripts" = "Yhteyden muodostus ja katkaisu skriptit";
+"Up and Down scripts" = "Yhteydenmuodostus- ja katkaisuskriptit";
 
 /* Credit description */
-"Xcode help and OpenSSL integration" = "Xcode apu ja OpenSSL integraatio";
+"Xcode help and OpenSSL integration" = "Xcode-apu ja OpenSSL-integraatio";
 
 /* Button VPNService */
 "Accept" = "Hyväksy";

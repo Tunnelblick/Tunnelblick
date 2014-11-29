@@ -80,7 +80,7 @@
 "Copy Console Log to Clipboard" = "Kopiëer Console Log naar Klembord";
 
 /* Button */
-"Copy Diagnostic Info to Clipboard" = "Kopiëer Diagnostische Informatie naar Klembord";
+"Copy Diagnostic Info to Clipboard" = "Kopiëer diagnostische informatie naar klembord";
 
 /* Button */
 "Create sample configuration and edit it" = "Voorbeeld-configuratie aanmaken en bewerken";
@@ -167,7 +167,7 @@
 "Privacy info..." = "Informatie over privacy…";
 
 /* Button */
-"Quit All OpenVPN Processes" = "Stop Alle OpenVPN Processen";
+"Quit All OpenVPN Processes" = "Stop alle OpenVPN processen";
 
 /* Button */
 "Quit" = "Stoppen";
@@ -182,7 +182,7 @@
 "Replace" = "Vervangen";
 
 /* Button */
-"Reset Disabled Warnings" = "Uitgeschakelde Waarschuwingen Herstellen";
+"Reset Disabled Warnings" = "Uitgeschakelde waarschuwingen herstellen";
 
 /* Button */
 "Restart connection" = "Verbinding herstarten";
@@ -263,7 +263,7 @@
 "Edit OpenVPN Configuration File..." = "OpenVPN Configuratiebestand Bewerken…";
 
 /* Menu Item */
-"Examine OpenVPN Configuration File..." = "OpenVPN Configuratiebestand Onderzoeken…";
+"Examine OpenVPN Configuration File..." = "OpenVPN configuratiebestand onderzoeken…";
 
 /* Menu Item */
 "Make Configuration Private..." = "Configuratie Persoonlijk Maken…";
@@ -287,7 +287,7 @@
 "Show OpenVPN Log in Finder" = "Toon OpenVPN Log in Finder";
 
 /* Menu item */
-"Suggestion or Bug Report..." = "Suggestie of Foutrapport…";
+"Suggestion or Bug Report..." = "Suggestie of foutrapport…";
 
 /* Menu item */
 "VPN Details..." = "VPN Details…";
@@ -524,7 +524,7 @@
 "Connecting & Disconnecting" = "Verbinden & Verbreken";
 
 /* Window title */
-"Could Not Copy Configuration" = "Configuratie Kon Niet Worden gekopiëerd";
+"Could Not Copy Configuration" = "Configuratie kon niet worden gekopiëerd";
 
 /* Window title */
 "Could Not Move Configuration" = "Configuratie Kon Niet Worden Verplaatst";
@@ -1109,7 +1109,7 @@
 "Menu:" = "Menu:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Er ontbreken CFBundleIdentifier of CFBundleVersion in Info.plist voor\n\n %@\n\nDeze VPN-configuratie is ingesloten in een bijgewerkt buitenste VPN-configuratie en moet een eigen CFBundleIdentifer en CFBundleVersion bevatten.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Er ontbreken CFBundleIdentifier of CFBundleVersion in Info.plist voor\n\n %@\n\nDeze VPN-configuratie is ingesloten in een bijgewerkt buitenste VPN-configuratie en moet een eigen CFBundleIdentifier en CFBundleVersion bevatten.";
 
 /* Window text */
 "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Ontbrekende Info.plist voor\n\n%@\n\nDe VPN-configuratie is ingesloten in een bijgewerkt buitenste VPN-configuratie, dus moet de configuratie een Info.plist bevatten.";
@@ -1430,7 +1430,7 @@
 "Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de configuratie ' %@' niet volledig deïnstalleren. Zie het logboek van de console voor meer informatie.";
 
 /* Window text */
-"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de '%@' configuratie niet kopiëren. Zie het Console Log voor details.";
+"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de '%@' configuratie niet kopiëren. Zie het console log voor details.";
 
 /* Window text */
 "Tunnelblick could not create the empty configuration folder" = "Tunnelblick kon geen lege configuratiemap aanmaken";
@@ -1895,7 +1895,7 @@
 "Create a Free Account" = "Creëer een gratis account";
 
 /* Button VPNService */
-"Get Different Image" = "Ander Image ophalen";
+"Get Different Image" = "Andere afbeelding gebruiken";
 
 /* Button VPNService *//* Window title VPNService */
 "Login" = "Aanmelden";

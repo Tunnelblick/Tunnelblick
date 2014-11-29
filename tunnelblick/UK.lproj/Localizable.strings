@@ -17,19 +17,19 @@
 "(None available)" = "(Немає доступних)";
 
 /* Button */
-"1 MB" = "1 Мб";
+"1 MB" = "1 МБ";
 
 /* Button */
-"10 KB" = "10 Кб";
+"10 KB" = "10 КБ";
 
 /* Button */
-"10 MB" = "10 Мб";
+"10 MB" = "10 МБ";
 
 /* Button */
-"100 KB" = "100 Кб";
+"100 KB" = "100 КБ";
 
 /* Button */
-"Advanced..." = "Додаково…";
+"Advanced..." = "Додатково…";
 
 /* Button */
 "All Users" = "Всі користувачі";
@@ -56,19 +56,19 @@
 "Change for the Selected Configurations" = "Змінити для обраних конфігурацій";
 
 /* Menu item */ /* Button */
-"Check For Updates Now" = "Перевірити оновлення";
+"Check For Updates Now" = "Перевірити наявність оновлень";
 
 /* Button */
-"Check Now" = "Перевірити";
+"Check Now" = "Перевірити зараз";
 
 /* Button */
-"Check for a change" = "Перевірити зміни";
+"Check for a change" = "Перевірити на зміни";
 
 /* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Закрити VPN з'єднання та зупинити Tunnelblick";
 
 /* Button */
-"Connect" = "З'єднати";
+"Connect" = "Під’єднатися";
 
 /* Button */
 "Continue" = "Продовжити";
@@ -77,13 +77,13 @@
 "Convert Configurations" = "Конвертувати Конфігурації";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Скопіювати лог Консолі";
+"Copy Console Log to Clipboard" = "Скопіювати лог Консолі дл буфера обміну";
 
 /* Button */
-"Copy Diagnostic Info to Clipboard" = "Скопіювати Діагностичну Інформацію";
+"Copy Diagnostic Info to Clipboard" = "Скопіювати Діагностичну Інформацію до буфера обміну";
 
 /* Button */
-"Create sample configuration and edit it" = "Створити приклад конфігурації для редагування";
+"Create sample configuration and edit it" = "Створити приклад конфігурації та почати його редагувати";
 
 /* Button */
 "Default (%@)" = "За замовченням (%@)";
@@ -269,7 +269,7 @@
 "Make Configuration Private..." = "Зробити конфігурацію приватною…";
 
 /* Menu Item */
-"Make Configuration Shared..." = "Зробити конфігурацію загальною…";
+"Make Configuration Shared..." = "Зробити конфігурацію спільною…";
 
 /* Menu item */
 "No VPN Configurations Available" = "Немає доступних конфігурацій VPN";
@@ -596,7 +596,7 @@
 "Please enter a username and password." = "Будь ласка введіть ім'я користувача та пароль.";
 
 /* Window title */
-"Please insert token" = "Будь ласка вставте Тoken";
+"Please insert token" = "Будь ласка, вставте токен";
 
 /* Window title */
 "Preferences" = "Преференції";
@@ -1109,7 +1109,7 @@
 "Menu:" = "Меню:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Відсутній CFBundleIdentifier або CFBundleVersion у Info.plist для\n\n%@\n\nЦя конфігурація VPN додана до оновлюваної зовнішньої конфігурації VPN, тож повинна містити власні CFBundleIdentifier та CFBundleVersion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Відсутній CFBundleIdentifier або CFBundleVersion у Info.plist для\n\n%@\n\nЦя конфігурація VPN додана до оновлюваної зовнішньої конфігурації VPN, тож повинна містити власні CFBundleIdentifier та CFBundleVersion.";
 
 /* Window text */
 "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Відсутній info.plist для\n\n%@\n\nЦя конфігурація VPN додана до оновлюваної зовнішньої  конфігурації VPN, тому вона повинна містити info.plist.";
@@ -1721,10 +1721,10 @@
 "\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" у файлі info.plist для\n\n%2$@\n\nне допускається у \"внутрішньому\" .tblk або конфліктує з тим самим записом у \"зовнішньому\" .tblk.";
 
 /* Window text */
-"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n УВАГА: Копію Tunnelblick було підроблено.\n";
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n УВАГА: Цю копію Tunnelblick було підроблено.\n";
 
 /* Window text */
-"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\nУвага: Ця копія Tunnelblick робить ваш комп'ютер небезпечним. Вона призначена тільки для потреб відлагодження.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Примітка: Файли, пов'язані з конфігурацією, такі як файл ключа або файл сертифіката, не видалятимуться.";
@@ -1835,7 +1835,7 @@
 "LANGUAGE_LOCALIZATION" = "Переклад українською";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Aleksey Likholob";
+"LEAD_TRANSLATORS" = "Aleksey Likholob, Vadim Chumachenko";
 
 /* Credit description */
 "Localization code tweaks" = "Тонкі налаштування коду локалізації";

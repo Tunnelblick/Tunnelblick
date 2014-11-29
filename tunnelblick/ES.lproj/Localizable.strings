@@ -1,5 +1,5 @@
 /* Status message */
-"Disconnect All (%@)" = "Desconectar Todos (%@)";
+"Disconnect All (%@)" = "Desconectar Todas (%@)";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Desconectar Todos (%d Conexiones)";
@@ -902,7 +902,7 @@
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "La configuración '%@' contiene uno o más scripts que pueden causar problemas si tu reemplazas o desinstalas la configuración mientras este conectado.\n\n¿Deseas reemplazar la configuración?";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "La configuration '%@' no se puede actualizar porque no pudo ser marcada como 'actualizable'.\n";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "La configuración '%1$@' Será ignorada porque su nombre contiene caracteres no permitidos.\n\\Caracteres no permitidos: '%2$s'\n\n";
@@ -1010,10 +1010,10 @@
 "Failed to copy %@ to %@" = "Error al copiar %1$@ a %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Failed to create folder at %@";
+"Failed to create folder at %@" = "No se pudo crear la carpeta en %@";
 
 /* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
+"Failed to create symlink\n  to %@\n  at %@" = "No se pudo crear el enlace simbólico\n  a %1$@\n  de %2$@";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Error al establecer permisos en %@\n";
@@ -1109,10 +1109,10 @@
 "Menu:" = "Menú:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Falta CFBundleIdentifier o CFBundleVersion en Info.plist para\n\n%@\n\nEsta configuración VPN está dentro de una configuración VPN actualizable, así que debe incluir su propio CFBundleIdentifier y CFBundleVersion.";
 
 /* Window text */
-"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Falta Info.plist para\n\n%@\n\nEsta configuración VPN está dentro de una configuración VPN actualizable, así que debe incluir un archivo info.plist.";
 
 /* Window text */
 "Modified configuration file to remove path information" = "Se modificó el archivo de configuración para eliminar información de la ruta";
@@ -1148,7 +1148,7 @@
 "Non-boolean value for '%@' in %@" = "El valor no es un booleano para  '%1$@' en %2$@";
 
 /* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
-"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
+"Non-integer value for '%@' in %@" = "Valor no entero para '%1$@' en %2$@";
 
 /* Window text */
 "Non-string value for '%@' in %@" = "El valor no es una cadena para  '%1$@' en %2$@";
@@ -1160,7 +1160,7 @@
 "Not a .ovpn or .conf: %@" = "No es .ovpn o .conf: %@";
 
 /* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "No se está reemplazando una configuración existente, por lo tanto la configuración '%@' no puede usar 'TBKeepExistingFilesList'";
 
 /* Window text */
 "Notification window:" = "Ventana de notificación:";
@@ -1577,22 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "La configuración actualizable '%@' no pudo ser guardada como actualizable porque su Info.plist no pudo ser guardado en el borrador .tblk\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "La configuración actualizable '%@' no fue guardada como actualizable porque ese  CFBundleIdentifier ya había sido procesado\n";
 
 /* Window text */
 "Updates:" = "Actualizaciones:";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "La configuración VPN %@ NO será instalada porque tiene un número de versión más bajo.";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "La configuración VPN %@  NO será instalada porque la configuración ya existe y no debería ser reemplazada.";
 
 /* Window text */
 "VPN Connections" = "Conexiones VPN";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
-"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
+"Value '%@' for '%@' is not a valid URL in %@" = "El valor '%1$@' para '%2$@' no es una URL válida en %3$@";
 
 /* Window text */
 "WINS servers:" = "Servidores WINS:";
@@ -1721,10 +1721,10 @@
 "\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" en el Info.plist para\n\n%2$@\n\nno está permitido en un .tblk \"interno\" o tiene conflictos con la misma entrada de un .tblk \"externo\".";
 
 /* Window text */
-"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n WARNING: This copy of Tunnelblick has been tampered with.\n";
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n ADVERTENCIA: Esta copia de Tunnelblick ha sido manipulada.\n";
 
 /* Window text */
-"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n ADVERTENCIA: Esta copia de Tunnelblick hace insegura tu computadora. Es sólo para propósitos de prueba de errores.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Nota: Archivos asociados con la configuración, tales como archivos llave o de certificado, no serán eliminados.";

@@ -911,7 +911,7 @@
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Οι παράμετροι εγκαταστάθηκαν από αρχεία που προμηθευτήκατε από τον διαχειριστή του δικτύου σας ή από τον παροχέα υπηρεσίας του VPN σας.\n\nΤα αρχεία παραμέτρων έχουν καταλήξεις .tblk, .ovpn, ή .conf.\n\n(Μπορεί να υπάρχουν άλλα συνεργαζόμενα αρχεία παραμέτρων που να έχουν άλλες καταλήξεις, αγνοήστε τα επί του παρόντος.)\n\nΓια την εγκατάσταση αρχείου ρυθμίσεων κάντε διπλό κλίκ.\n\nΟι νέες παράμετροι θα είναι άμεσα διαθέσιμοι στο Tunnelblick.";
 
 /* Window text */
-"Connect:" = "Συνδεδεμένο:";
+"Connect:" = "Σύνδεση:";
 
 /* Window text */
 "Connection:" = "Σύνδεση:";
@@ -1103,13 +1103,13 @@
 "MB/s" = "MB/δ";
 
 /* Window text */
-"Maximum log display size:" = "Μέγιστη διάσταση οθόνης:";
+"Maximum log display size:" = "Μέγιστο μέγεθος αρχείου καταγραφής:";
 
 /* Window text */
 "Menu:" = "Μενού:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Λείπει το CFBundleIdentifier ή CFBundleVersion στο Info.plist για \n\n%@ \n\nΑυτή η διαμόρφωση VPN συμπεριλαμβάνετε σε μια εξερχόμενη ενημερώσιμη διαμόρφωση VPN, έτσι θα πρέπει να συμπεριλαμβάνεται από μονό του στα CFBundleIdentifer και CFBundleVerion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Λείπει το CFBundleIdentifier ή CFBundleVersion στο Info.plist για \n\n%@ \n\nΑυτή η διαμόρφωση VPN συμπεριλαμβάνετε σε μια εξερχόμενη ενημερώσιμη διαμόρφωση VPN, έτσι θα πρέπει να συμπεριλαμβάνεται από μονό του στα CFBundleIdentifier και CFBundleVersion.";
 
 /* Window text */
 "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Λείπει το Info.plist για \n\n%@ \n\nΑυτή η διαμόρφωση VPN συμπεριλαμβάνετε σε μια εξερχόμενη ενημερώσιμη διαμόρφωση VPN, έτσι θα πρέπει να συμπεριλαμβάνει μια Info.plis.";
@@ -1724,7 +1724,7 @@
 "\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n ΠΡΟΣΟΧΗ: Αυτό το αντίγραφο του Tunnelblick είναι πλαστό.\n";
 
 /* Window text */
-"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n  Προειδοποίηση: Αυτό το αντίγραφο του Tunnelblick ίσος να μη είναι ανασφαλής για τον υπολογιστή σας. Είναι μόνο για τον εντοπισμό σφαλμάτων.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Σημείωση: Αρχεία συνεργαζόμενα με την παράμετρο, όπως κλειδιά ή πιστοποιητικά, δεν θα διαγραφούν.";

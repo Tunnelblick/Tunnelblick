@@ -1,0 +1,36 @@
+/* Status message */
+"Disconnect All (%@)" = "قطع كافة الاتصالات (%@)";
+
+/* Status message */
+"Disconnect All (%d Connections)" = "قطع كافة الإتصالات (وصلات%d)";
+
+/* Status message */
+"No Active Connections" = "لا يوجد اتصالات نشطة";
+
+/* Textbox name */
+"Username:" = "اسم المستخدم:";
+
+/* Button */
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (خيار-الأمر-F%3$d)";
+
+/* Button */
+"(None available)" = "(غير متاح)";
+
+/* Button */
+"1 MB" = "1 ميغا بايت";
+
+/* Button */
+"10 KB" = "10 كيلو بايت";
+
+/* Button */
+"10 MB" = "10 ميغابايت";
+
+/* Button */
+"100 KB" = "100 كيلو بايت";
+
+/* Button */
+"Advanced..." = "متقدم...";
+
+/* Button */
+"All Users" = "جميع المستخدمين";
+

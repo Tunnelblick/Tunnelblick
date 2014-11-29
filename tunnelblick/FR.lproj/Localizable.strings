@@ -1109,7 +1109,7 @@
 "Menu:" = "Menu :";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Im manque CFBundleIdentifier ou CFBundleVersion dans Info.plist pour\n\n%@\n\nCette configuration VPN est inclue dans une configuration VPN externe modifiable, donc elle doit inclure ses propres CFBundleIdentifer et CFBundleVersion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Im manque CFBundleIdentifier ou CFBundleVersion dans Info.plist pour\n\n%@\n\nCette configuration VPN est inclue dans une configuration VPN externe modifiable, donc elle doit inclure ses propres CFBundleIdentifier et CFBundleVersion.";
 
 /* Window text */
 "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Il manque le fichier Info.plist pour\n\n%@\n\nCette configuration VPN est inclue dans une configuration VPN externe modifiable, donc elle doit inclure un Info.plist.";
@@ -1700,7 +1700,7 @@
 "You may only revert a private configuration." = "Vous pouvez uniquement revenir a une configuration privée.";
 
 /* Window text */
-"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "Vous devez arrêter le processus Tunnelblick qui est actif maintenant afin de lancer la nouvelle version.\n\\Veuillez cliquer sur « Fermer les connexions VPN et arrêter Tunnelblick » pour fermer toutes les connexions VPN et quitter le processus Tunnelblick actif maintenant avant de lancer Tunnelblick.";
+"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "Vous devez arrêter le processus Tunnelblick qui est actif afin de lancer la nouvelle version.\n\nVeuillez cliquer sur « Fermer les connexions VPN et arrêter Tunnelblick » pour fermer toutes les connexions VPN et quitter le processus Tunnelblick actif avant de lancer Tunnelblick.";
 
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Vous n’allez pas pouvoir utiliser Tunnelblick après la mise a jour, à moins que vous fournissiez un nom et un mot de passe d’un compte d’administrateur.\n\nÊtes-vous vraiment certain(e) de vouloir rechercher des mises à jour ?";

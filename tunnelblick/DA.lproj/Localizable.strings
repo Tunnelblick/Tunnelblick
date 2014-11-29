@@ -1109,7 +1109,7 @@
 "Menu:" = "Menu:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Mangler CFBundleIdentifier eller CFBundleVersion i Info.plist til\n\n%@\n\nDenne VPN konfiguration er lukket inde i en ydre opdaterbar VPN konfiguration, og skal derfor inkludere sin egen CFBundleIdentifer og CFBundleVersion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Mangler CFBundleIdentifier eller CFBundleVersion i Info.plist til\n\n%@\n\nDenne VPN konfiguration er lukket inde i en ydre opdaterbar VPN konfiguration, og skal derfor inkludere sin egen CFBundleIdentifier og CFBundleVersion.";
 
 /* Window text */
 "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Mangler Info.plist til\n\n%@\n\nDenne VPN konfiguration er lukket inde i en ydre opdaterbar VPN konfiguration, og skal derfor inkludere sin egen Info.plist.";

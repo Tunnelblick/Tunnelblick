@@ -509,10 +509,10 @@
 "All configuration files removed" = "所以配置文件都已删除";
 
 /* Window title */
-"Appearance" = "外表";
+"Appearance" = "外观";
 
 /* Window title */
-"Authentication failed" = "认证失败";
+"Authentication failed" = "身份验证失败";
 
 /* Window title */
 "Change for All Selected Configurations?" = "你想改变所有选定的配置吗？";
@@ -545,7 +545,7 @@
 "Do you wish to connect?" = "你要连接吗?";
 
 /* Window title */
-"File not found" = "未能找到文件";
+"File not found" = "找不到文件";
 
 /* Window title */
 "Info" = "信息";
@@ -1094,7 +1094,7 @@
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "文件 '%2$@' 中的 %1$d 行不能含有一个非打印字符 (0x%3$X)\n\n";
 
 /* Window text */
-"Localization by" = "由本地化";
+"Localization by" = "翻译人员";
 
 /* Window text */
 "MB" = "MB";
@@ -1109,7 +1109,7 @@
 "Menu:" = "菜单:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "在 Info.plist 中缺少用于 %@ 的 CFBundleIdentifier 或 CFBundleVersion 的值\n\n这个 VPN 配置文件被包含在一个可自动更新的、外部的 VPN 配置文件中，所以它必须包含属于它自己的 CFBundleIdentifer 和 CFBundleVerion";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "在 Info.plist 中缺少用于 %@ 的 CFBundleIdentifier 或 CFBundleVersion 的值\n\n这个 VPN 配置文件被包含在一个可自动更新的、外部的 VPN 配置文件中，所以它必须包含属于它自己的 CFBundleIdentifier 和 CFBundleVersion";
 
 /* Window text */
 "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "缺少用于 %@ 的 Info.plist\n\n这个 VPN 配置文件被包含在一个可自动更新的、外部的 VPN 配置文件中，所以它必须包含一个 Info.plist";
@@ -1766,13 +1766,13 @@
 "Button images" = "按键的图片";
 
 /* Credit description */
-"Catalan localization" = "加泰罗尼亚文本地化";
+"Catalan localization" = "加泰罗尼亚语翻译";
 
 /* Credit description */
-"Chinese (simplified) localization" = "中文 (简体) 本地化";
+"Chinese (simplified) localization" = "中文 (简体) 翻译";
 
 /* Credit description */
-"Chinese (traditional) localization" = "中文 (繁体) 本地化";
+"Chinese (traditional) localization" = "中文 (繁体) 翻译";
 
 /* Credentials name */
 "Common" = "通用";
@@ -1787,7 +1787,7 @@
 "Contributed to early code" = "早期代码";
 
 /* Credit description */
-"Czech localization" = "捷克本地化";
+"Czech localization" = "捷克语翻译";
 
 /* Credit description */
 "Danish localization" = "丹麦语翻译";
@@ -1799,40 +1799,40 @@
 "Do not show this again" = "不再显示";
 
 /* Credit description */
-"Dutch localization" = "荷兰文本地化";
+"Dutch localization" = "荷兰语翻译";
 
 /* Credit description */
-"Finnish localization" = "芬兰本地化";
+"Finnish localization" = "芬兰语翻译";
 
 /* Credit description */
 "Founder, original program and documentation" = "创始人, 原始程序和文档";
 
 /* Credit description */
-"French localization" = "法文本地化";
+"French localization" = "法语翻译";
 
 /* Credit description */
-"German localization" = "德文本地化";
+"German localization" = "德语翻译";
 
 /* Credit description */
 "Greek localization" = "希腊语翻译";
 
 /* Credit description */
-"Hungarian localization" = "匈牙利本地化";
+"Hungarian localization" = "匈牙利语翻译";
 
 /* Credit description */
 "Icon set including Retina images" = "图标集包括视网膜图像";
 
 /* Credit description */
-"Italian localization" = "意大利文本地化";
+"Italian localization" = "意大利语翻译";
 
 /* Credit description */
-"Japanese localization" = "日本的本地化";
+"Japanese localization" = "日语翻译";
 
 /* Credit description */
-"Korean localization" = "韩文本地化";
+"Korean localization" = "韩语翻译";
 
 /* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "中文 (简体) 本地化";
+"LANGUAGE_LOCALIZATION" = "中文 (简体) 翻译";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Peter K. O'Connor and 陈湛翀";
@@ -1844,7 +1844,7 @@
 "Multiple configuration folders" = "多重设置文件夹";
 
 /* Credit description */
-"Norwegian localization" = "挪威文本地化";
+"Norwegian localization" = "挪威语翻译";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 和 64 位的集成";
@@ -1853,7 +1853,7 @@
 "PKCS#11 support" = "PKCS#11 的支持";
 
 /* Credit description */
-"Polish localization" = "波兰文本地化";
+"Polish localization" = "波兰语翻译";
 
 /* Credit description */
 "Portuguese (Brazilian) localization" = "葡萄牙语 (巴西语) 翻译";
@@ -1862,16 +1862,16 @@
 "Program and documentation enhancements and maintenance after version 3.0b10" = "3.0b10 版本后对程序和文档的改进";
 
 /* Credit description */
-"Russian localization" = "俄罗斯本地化";
+"Russian localization" = "俄罗斯语翻译";
 
 /* Credit description */
-"Slovak localization" = "斯洛伐克本地化";
+"Slovak localization" = "斯洛伐克语翻译";
 
 /* Credit description */
-"Spanish localization" = "西班牙文本地化";
+"Spanish localization" = "西班牙语翻译";
 
 /* Credit description */
-"Swedish localization" = "波兰文本地化";
+"Swedish localization" = "瑞典语翻译";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick 图标";
@@ -1880,7 +1880,7 @@
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue 和 UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "乌克兰本地化";
+"Ukrainian localization" = "乌克兰语翻译";
 
 /* Credit description */
 "Up and Down scripts" = "启动后/关闭后执行脚本";
