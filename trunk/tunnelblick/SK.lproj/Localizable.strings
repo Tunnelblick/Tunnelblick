@@ -50,10 +50,10 @@
 "Cancel" = "Zrušiť";
 
 /* Button */
-"Change Only for This Configuration" = "Zmeň iba pre túto konfiguráciu";
+"Change Only for This Configuration" = "Zmeniť iba pre túto konfiguráciu";
 
 /* Button */
-"Change for the Selected Configurations" = "Zmeň iba pre označené konfigurácie";
+"Change for the Selected Configurations" = "Zmeniť pre označené konfigurácie";
 
 /* Menu item */ /* Button */
 "Check For Updates Now" = "Skontrolovať novú verziu";
@@ -302,10 +302,10 @@
 "Check for updates to beta versions" = "Kontrolovať aktualizácie na beta verziu";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connecting" = "Kontrollera om den synliga IP adressen har förändrats";
+"Check if the apparent public IP address changed after connecting" = "Kontrolovať, či sa po pripojení zmenila verejná IP adresa";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "Odpojiť, keď počítač prejde do režimu spánku";
+"Disconnect when computer goes to sleep" = "Odpojiť pri prechode do režimu spánku";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Odpojiť pri zmene aktívneho užívateľa v systéme";
@@ -896,13 +896,13 @@
 "Cannot install configurations to either shared or private locations" = "Nemožno nainštalovať konfigurácieu ani do spoločného a ani do súkromného umiestnenia";
 
 /* Window text */
-"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+"Cannot uninstall configuration '%@' because it is not installed." = "Nemôžete odinštalovať konfiguráciu \"%@\" pretože táto nie je nainštalovaná.";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfigurácia \"%@\" obsahuje jeden alebo viac skriptov, ktoré môžu spôsobiť problémy v prípade ak  nahradite alebo odinštalujete konfiguráciu, zatiaľ čo je aktívne pripojená.  Prajete si nahradiť konfiguráciu?";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfigurácia \"%@\" nie je možné aktualizovať, pretože nie je označená ako \"aktualizovateľná\". ";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurácia '%@' bude ignorovaná, pretože jej názov obsahuje neprípustné znaky..\n\nNepovolené znaky: '%2$s'\n\n";
@@ -1010,10 +1010,10 @@
 "Failed to copy %@ to %@" = "Nepodarilo sa kopírovať %1$@ do %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Failed to create folder at %@";
+"Failed to create folder at %@" = "Nepodarilo sa vytvoriť priečinok v %@";
 
 /* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
+"Failed to create symlink\n  to %@\n  at %@" = "Nepodarilo sa vytvoriť symbolický odkaz na %1$@ v %2$@";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Nepodarilo sa nastaviť povolenia pre %@ ";
@@ -1109,10 +1109,10 @@
 "Menu:" = "Meny:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "V Info.plist chýba CFBundleIdentifier alebo CFBundleVersion pre\n\n%@\n\nTáto konfigurácia VPN je zahrnutá v aktualizovateľnej konfigurácii VPN, takže musí obsahovať vlastný identifikátor  CFBundleIdentifier a CFBundleVersion.";
 
 /* Window text */
-"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Chýba súbor Info.plist pro\n\n%@\n\nTáto konfigurace VPN Je už zahrnutá v aktualizovateľnej konfigurácii VPN, takže musí obsahovať súbor Info.plist.";
 
 /* Window text */
 "Modified configuration file to remove path information" = "Modifikoval sa konfiguračný soubor tak, aby sa odstránila informacia o ceste";
@@ -1148,7 +1148,7 @@
 "Non-boolean value for '%@' in %@" = "Hodnota pre '%1$@' v %2$@ nie je boolean";
 
 /* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
-"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
+"Non-integer value for '%@' in %@" = "Neplatná celočíselná hodnota pre '%1$@' v %2$@";
 
 /* Window text */
 "Non-string value for '%@' in %@" = "Hodnota pre '%1$@' v %2$@ nie je reťazec";
@@ -1160,7 +1160,7 @@
 "Not a .ovpn or .conf: %@" = "Nie .ovpn alebo .conf: %@";
 
 /* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Existujúca konfigurácie nebude nahradena, takže konfigurácia '%@' nemôže používať 'TBKeepExistingFilesList'";
 
 /* Window text */
 "Notification window:" = "Okno hlásení:";
@@ -1577,22 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Aktualizovateľná konfigurácia  '%@' nebola uložená ako aktualizovateľná, pretože Info.plist nebolo možné uložiť v časti .tblk";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Aktualizovateľná konfigurácia  '%@' nebola uložená ako aktualizovateľná, pretože CFBundleIdentifier už bol spracovaný\n";
 
 /* Window text */
 "Updates:" = "Aktualizácie:";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "Konfigurácia VPN %@ nebude nainštalovaná, pretože má nižsie číslo verzie.";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "Konfigurácia VPN %@ nebude nenainštalovaná, pretože táto konfigurácia už existuje a nie je určená k náhrade.";
 
 /* Window text */
 "VPN Connections" = "Spojenia VPN";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
-"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
+"Value '%@' for '%@' is not a valid URL in %@" = "Hodnota \"%1$@\" pre \"%2$@\" je nie je platnou adresou URL v %3$@";
 
 /* Window text */
 "WINS servers:" = "Servery WINS:";
@@ -1721,10 +1721,10 @@
 "\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" v in Info.plist pre\n\n%2$@\n\nnie je povolené v \"vnútorné\".tblk ale je v konflikte s rovnakým záznamom v  \"vonkajšie\" .tblk.";
 
 /* Window text */
-"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n WARNING: This copy of Tunnelblick has been tampered with.\n";
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "  Upozornenie: Táto kópia Tunnelblick bol upravovaná. ";
 
 /* Window text */
-"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "  Upozornenie: Táto kópia Tunnelblick urobí váš počítač nezabezpečeným. Je určená na odlaďovacie účely. ";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Poznámka: Súbory súvisiace s touto konfiguráciou (súbory kľúčov a certifikátov), nebudú vymazané.";

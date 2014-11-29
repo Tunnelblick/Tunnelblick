@@ -371,7 +371,7 @@
 "Reset the primary interface after disconnecting" = "Zresetuj podstawowy interfejs po rozłączeniu";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
+"Route all IPv4 traffic through the VPN" = "Kieruj cały ruch IPv4 przez VPN";
 
 /* Checkbox name */
 "Run MTU maximum size test after connecting" = "Po nawiązaniu połączenia sprawdź maksymalne MTU";
@@ -380,7 +380,7 @@
 "Save in Keychain" = "Zapisz w programie Keychain";
 
 /* Checkbox name */
-"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
+"Send anonymous profile information when checking" = "Sprawdzając wyślij anonimowe informacje o profilu";
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "Ustaw DNS po zastosowaniu tras, zamiast przed ich zastosowaniem";
@@ -605,7 +605,7 @@
 "Replace Existing File?" = "Zastąp istniejący plik?";
 
 /* Window title */
-"Replace VPN Configuration?" = "Replace VPN Configuration?";
+"Replace VPN Configuration?" = "Czy zastąpić konfigurację VPN?";
 
 /* Window title */
 "Sample Configuration Created" = "Utworzono przykładową konfigurację";
@@ -647,10 +647,10 @@
 "Utilities" = "Narzędzia";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "Błąd instalacji konfiguracji VPN";
 
 /* Window title */
-"VPN Configuration Installation" = "VPN Configuration Installation";
+"VPN Configuration Installation" = "Instalacja konfiguracji VPN";
 
 /* Window title */
 "VPN Credentials" = "Dane logowania VPN";
@@ -806,10 +806,10 @@
 "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Wystąpił problem podczas sprawdzania faktycznego, publicznego adresu IP tego komputera.  Sprawdź dziennik konsoli aby uzyskać szczegółowe informacje.  ";
 
 /* Window text */
-"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
+"A username and password are required to connect to\n  %@" = "Nazwa użytkownika i hasło są wymagane do połączenia z\n  %@";
 
 /* Window text */
-"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Nazwa użytkownika i hasło są wymagane do połączenia z\n   %1$@\n(przy użyciu ' %2$@ \"poświadczenia)";
 
 /* Window text */
 "Add Credentials..." = "Dodaj dane logownaia…";
@@ -818,7 +818,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "W celu właściwego zabezpieczenia, dodano do  %@ rozszerzenie \".sh\"";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "Added a '.key' extension to %@ so it will be secured properly";
+"Added a '.key' extension to %@ so it will be secured properly" = "W celu właściwego zabezpieczenia, dodano do  %@ rozszerzenie \".key\"";
 
 /* Window text */
 "Additional contributions by" = "przy współudziale następujących osób";
@@ -896,13 +896,13 @@
 "Cannot install configurations to either shared or private locations" = "Nie można zainstalować konfiguracji we współdzielonej lub prywatnej  lokalizacji";
 
 /* Window text */
-"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+"Cannot uninstall configuration '%@' because it is not installed." = "Nie można odinstalować konfiguracji '%@' ponieważ nie jest zainstalowana.";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfiguracja '%@' zawiera jeden lub więcej skryptów, które mogą powodować problemy, jeśli zastąpisz lub odinstalujesz konfigurację podczas gdy połączenie będzie aktywne.  \n\nCzy chcesz zastąpić tę konfigurację?";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfiguracja '%@' nie jest aktualizowalna, ponieważ nie mogła zostać oznaczona jako aktualizowalna.\n";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguracja '%1$@' zostanie zignorowana, ponieważ jej nazwa zawiera niedozwolone znaki.\n\nZnaki niedozwolone to: '%2$s'\n\n";
@@ -1010,10 +1010,10 @@
 "Failed to copy %@ to %@" = "Nie można skopiować %1$@ do %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Failed to create folder at %@";
+"Failed to create folder at %@" = "Nie udało się utworzyć folderu %@";
 
 /* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
+"Failed to create symlink\n  to %@\n  at %@" = "Nie udało się utworzyć dowiązania symbolicznego do %1$@ w %2$@";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Nie można ustawić uprawnień dla %@\n";
@@ -1109,10 +1109,10 @@
 "Menu:" = "Menu:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifer and CFBundleVerion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Brak CFBundleIdentifier lub CFBundleVersion w Info.plist \n\n%@ \n\nta konfiguracja sieci VPN jest zawarta w nadrzędnej konfiguracji aktualizowalnej, więc musi zawierać własne CFBundleIdentifier i CFBundleVersion.";
 
 /* Window text */
-"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Brakuje Info.plist \n\n%@ \n\nta konfiguracja sieci VPN jest zawarta w nadrzędnej konfiguracji aktualizowalnej, więc musi zawierać własne Info.plist.";
 
 /* Window text */
 "Modified configuration file to remove path information" = "Zmodyfikowano plik konfiguracji w celu usunięcia informacji o ścieżce";
@@ -1148,7 +1148,7 @@
 "Non-boolean value for '%@' in %@" = "Wartość nie jest wartością logiczną dla '%1$@' w %2$@";
 
 /* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
-"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
+"Non-integer value for '%@' in %@" = "Nie numeryczna wartość '%1$@' w %2$@";
 
 /* Window text */
 "Non-string value for '%@' in %@" = "Wartość nie jest stringiem dla '%1$@' w %2$@";
@@ -1160,7 +1160,7 @@
 "Not a .ovpn or .conf: %@" = "Plik nie ma rozszerzenia .ovpn bądź .conf: %@";
 
 /* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Nie zastępuję istniejącej konfiguracji, więc konfiguracja '%@' nie może używać \"TBKeepExistingFilesList\"";
 
 /* Window text */
 "Notification window:" = "Okno powiadomień:";
@@ -1190,7 +1190,7 @@
 "OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN w wersji %1$@ nie jest dostępny. Zmieniam wersję używaną przez tę konfigurację na najnowszą (%2$@) zawartą w tej wersji Tunnelblick.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN version %1$@ is not available. Using the latest version (%2$@) as the default.";
+"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN w wersji %1$@ nie jest dostępny. Używam najnowszej wersji (%2$@) jako domyślnej.";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN wersja:";
@@ -1421,7 +1421,7 @@
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick może sprawdzać, czy Twój publiczny adres IP ulega zmianie w chwili podpięcia do VPN i ostrzec Cię, jeśli adres ten nie zostanie zmieniony.\n\nMoże to pomóc Tunnelblick'owi w ustaleniu przyczyn ewentualnych problemów z połączeniem.\n\nProces ten potrzebuje dostępu do\n%@\n\nCzy chcesz, żeby Tunnelblick pilnował zmiany adresu IP?\n";
 
 /* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details.";
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick nie mógł zostać dodany do autostartu.\n \nZobacz Dziennik konsoli, aby uzyskać szczegółowe informacje.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick nie mógł zostać włączony z powodu problemu w konfiguracji. Więcej informacji znajdziesz w logu.";
@@ -1577,22 +1577,22 @@
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Aktualizowalna konfiguracja '%@' nie została zapisana jako aktualizowalna, ponieważ nie można było zapisać jej Info.plist w pliku szkieletowym .tblk\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Aktualizowalna konfiguracja '%@' nie została zapisana jako aktualizowalna, ponieważ jej CFBundleIdentifier został już przetworzony\n";
 
 /* Window text */
 "Updates:" = "Aktualizacje:";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "Konfiguracja %@ nie zostanie zainstalowana ponieważ ma niższy numer wersji.";
 
 /* Window text */
-"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "Konfiguracja %@ nie zostanie zainstalowana ponieważ już istnieje i nie należy jej zastępować.";
 
 /* Window text */
 "VPN Connections" = "Połączenia VPN";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
-"Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
+"Value '%@' for '%@' is not a valid URL in %@" = "Wartość '%1$@' dla '%2$@' nie jest prawidłowym URL w %3$@";
 
 /* Window text */
 "WINS servers:" = "serwery WINS:";
@@ -1721,10 +1721,10 @@
 "\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" w Info.plist \n\n%2$@ \n\nnie jest dozwolone w \"wewnętrznym\" .tblk lub konfliktuje z tym samym wpisem w \"zewnętrznym\".tblk.";
 
 /* Window text */
-"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n WARNING: This copy of Tunnelblick has been tampered with.\n";
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n UWAGA: Ta kopia Tunnelblicka została poddana nieautoryzowanym zmianon.\n";
 
 /* Window text */
-"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n";
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n UWAGA: Ta kopia Tunnelblicka wprowadza znane problemy z bezpieczeństwem. Powinna być wykorzystywana jedynie jako debug.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Uwaga: Pliki powiązane z konfiguracją, takie jak pliki kluczy lub certyfikatów, nie mogą zostać usunięte.";
@@ -1814,7 +1814,7 @@
 "German localization" = "niemiecka wersja językowa";
 
 /* Credit description */
-"Greek localization" = "Greek localization";
+"Greek localization" = "Grecka wersją językowa";
 
 /* Credit description */
 "Hungarian localization" = "węgierskiej wersji językowej";
@@ -1856,7 +1856,7 @@
 "Polish localization" = "polska wersja językowa";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Portuguese (Brazilian) localization";
+"Portuguese (Brazilian) localization" = "Portugalska (brazylisjka) wersja językowa";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "ulepszenia w programie i dokumentacji po wersji 3.0b10";
