@@ -3,7 +3,7 @@
 
 *Localizing and Translating Tunnelblick*
 
-<font color="red">*Translators are needed for Bulgarian, Chinese (traditional), Japanese, Norwegian Bokmal, and Swedish.*</font>
+ <font color="red">*Translators are needed for Arabic, Bulgarian, Chinese (traditional), Japanese, Korean, and Swedish.* [cLocalizeTranslate Details]</font>
 
 
 
