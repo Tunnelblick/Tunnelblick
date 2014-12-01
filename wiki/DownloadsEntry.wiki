@@ -18,8 +18,8 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  <font color="red">*Translators are needed for Arabic, Bulgarian, Chinese (traditional), Japanese, Korean, and Swedish.* [cLocalizeTranslate Details]</font>
 
- <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4.1_r3054.dmg/download Tunnelblick 3.4.1]</strong></font> `[`sourceforge.net`]` (build 4054) released 2014-10-15 [RlsNotes#Version_3.4 Release Notes]<br />
- _*SHA1*_: a43c2a82168fcd8249d66e46db460f634f7dce8c _*MD5*_: 191591980fddfa8537a9f0298c3e8259 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
+ <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4.2_build_4055.4161.dmg/download Tunnelblick 3.4.2]</strong></font> `[`sourceforge.net`]` (build 4055.4161) released 2014-12-01 [RlsNotes#Version_3.4 Release Notes]<br />
+ _*SHA1*_: 532282f663d97431e0e37c3853eeaba5aef12e31 _*MD5*_: dfd3ee9f6266779331d1029e511e5e03 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
  
  NOTE: This version will refuse to install or launch on a computer that has ever had a "[cCusDeployed Deployed]" version installed unless that version has been completely [cInstall#Uninstalling_Tunnelblick uninstalled]. Uninstalling will delete all Tunnelblick VPNs from your system. To update a "[cCusDeployed Deployed]" version, you must obtain a new version from the person or organization that provided you with your original "[cCusDeployed Deployed]" version. The Tunnelblick project does <em>not</em> provide "[cCusDeployed Deployed]" versions. The latest version of Tunnelblick that may be used as a "Deployed" version without being rebranded is 3.3beta21b (Unsigned). It may be found on the [SecurityRiskDownloads Security Risk Downloads] page.
 
@@ -30,6 +30,8 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
  <i>(A beta release is a version that has been tested internally and is ready for testing by the wider community. It usually has bug fixes and new features that are subject to change and need testing, and may have different bugs or limitations.)</i>
 
  There are no beta releases available.
+
+ There may be "snapshots" (pre-release versions of Tunnelblick) available. Contact project owner Jon at jkbullard (Gmail) for a link to current snapshots.
  
 </td></tr></tbody></table>
 

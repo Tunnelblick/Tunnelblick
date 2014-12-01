@@ -15,18 +15,7 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
  ==Deprecated Versions of Tunnelblick==
 <hr />
 
- <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4.0_r3007.dmg/download Tunnelblick 3.4.0]</strong></font> `[`sourceforge.net`]` (build 4007) released 2014-10-03 [RlsNotes#Version_3.4 Release Notes] [DocumentationForTunnelblick_3_4  What's New in 3.4]<br />
- _*SHA1*_: c87574e8310b402938d0c59c3508caf4d5779b01 _*MD5*_: 586b9044a767c9fffab98e27dfb3a739 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
-
- <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta38_r3002.dmg/download Tunnelblick 3.4beta38]</strong></font> `[`sourceforge.net`]` (build 4002) released 2014-10-01 [RlsNotes#Version_3.4 Release Notes]<br />
- _*SHA1*_: 476676758b463dc3f2ad4f9d9ff8449900266e24 _*MD5*_: 1e95df3991ca2fe689ec704f94ac9473 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
- 
- For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.
-
-  NOTE: This version will refuse to install or launch on a computer that has ever had a "[cCusDeployed Deployed]" version installed unless that version has been completely [cInstall#Uninstalling_Tunnelblick uninstalled]. Uninstalling will delete all Tunnelblick VPNs from your system. To update a "[cCusDeployed Deployed]" version, you must obtain a new version from the person or organization that provided you with your original "[cCusDeployed Deployed]" version. The Tunnelblick project does <em>not</em> provide "[cCusDeployed Deployed]" versions. The latest version of Tunnelblick that may be used as a "Deployed" version without being rebranded is 3.3beta21b (Unsigned). It may be found on the [SecurityRiskDownloads Security Risk Downloads] page.
-
-<hr />
- <font color="red">*All other deprecated versions of Tunnelblick contain serious security vulnerabilities*</font>.<br />They are available on the [SecurityRiskDownloads Security Risk Downloads] page.
+ <font color="red">*All deprecated versions of Tunnelblick contain serious security vulnerabilities*</font>.<br />They are available on the [SecurityRiskDownloads Security Risk Downloads] page.
 
 </td></tr></tbody></table>
 
