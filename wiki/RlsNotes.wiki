@@ -17,7 +17,7 @@
  * Includes new status icon animation which clarifies the connected/connecting/disconnected VPN status -- thanks to William Faulk.
  * Adds the ability to save only the VPN username to the Keychain without saving the VPN password.
  * Adds ability to localize configuration names (and folder names).
- * Moves the 'VPN Details&hellip;' menu item to be above the configurations. May be disabled with the 'putVpnDetailsAtBottom' preference is set TRUE.
+ * Moves the 'VPN Details…' menu item to be above the configurations. May be disabled with the 'putVpnDetailsAtBottom' preference is set TRUE.
  * Recreates the status icon only when necessary.
  * Centers the login or passphrase window in the new screen when a screen change occurs or if the computer awakens from sleep unless the 'doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep' preference is set to TRUE.
  * Deletes log files not modified in the last week.
