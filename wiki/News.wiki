@@ -10,9 +10,11 @@
  * *<font color="red">SECURITY UPDATE:</font>* Includes OpenVPN 2.3.6. See [https://community.openvpn.net/openvpn/wiki/SecurityAnnouncement-97597e732b OpenVPN Security Announcement-97597e732b].
  * Includes complete localization in 18 languages including Danish and Greek and partial localization in 7 others, including Arabic and Bulgarian.
  * Adds the ability to save only the VPN username to the Keychain without saving the VPN password.
- * Moves the 'VPN Details&hellip;' menu item to be above the configurations. May be disabled with the 'putVpnDetailsAtBottom' preference is set TRUE.
+ * Moves the 'VPN Details…' menu item to be above the configurations. May be disabled with the 'putVpnDetailsAtBottom' preference is set TRUE.
  * Includes several other enhancements and fixes several bugs.
   
+   See the [RlsNotes#Version_3.5 Release Notes] for details.
+
 --------------------
 
 2014-12-01: *Tunnelblick 3.4.2 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
