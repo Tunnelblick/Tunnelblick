@@ -1835,7 +1835,7 @@
 "LANGUAGE_LOCALIZATION" = "Переклад українською";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Aleksey Likholob, Vadim Chumachenko";
+"LEAD_TRANSLATORS" = "Aleksey Likholob i Vadim Chumachenko";
 
 /* Credit description */
 "Localization code tweaks" = "Тонкі налаштування коду локалізації";

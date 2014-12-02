@@ -1835,7 +1835,7 @@
 "LANGUAGE_LOCALIZATION" = "ЕЗИКОВА_ ЛОКАЛИЗАЦИЯ";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Boian Mihailov";
+"LEAD_TRANSLATORS" = "Boian Mihailov и Nikolay Zhelev";
 
 /* Credit description */
 "Localization code tweaks" = "Настройване на локализиращия код";
