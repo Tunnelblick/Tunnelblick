@@ -1835,7 +1835,7 @@
 "LANGUAGE_LOCALIZATION" = "Norsk oversettelse";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Jon Luberth";
+"LEAD_TRANSLATORS" = "Jon Luberth og Mikael Kolkinn";
 
 /* Credit description */
 "Localization code tweaks" = "Lokaliseringskode triksing";
