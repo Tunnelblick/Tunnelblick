@@ -3,19 +3,16 @@
 
 ==Translation Status==
 
-Tunnelblick is developed in English and is currently being translated into 24 languages for Tunnelblick 3.5.
+Tunnelblick is developed in English and is currently being translated into 25 languages for Tunnelblick 3.5.
 
 <font color="green">*complete*</font> / <font color="red">incomplete</font>
 
-|| <font color="red">Bulgarian</font>|| <font color="green">*French*</font>|| <font color="green">*Polish*</font>||
-|| <font color="green">*Catalan*</font>|| <font color="green">*German*</font>|| <font color="red">Portuguese</font>||
-|| <font color="green">*Chinese (Simplified)*</font>|| <font color="green">*Greek*</font>|| <font color="green">*Portuguese (Brazilian)*</font> ||
-|| <font color="red">Chinese (Traditional)</font>|| <font color="green">*Hungarian*</font>|| <font color="green">*Russian*</font> ||
-|| <font color="green">*Czech*</font>|| <font color="green">*Italian*</font>|| <font color="green">*Slovak*</font> ||
-|| <font color="green">*Danish*</font> || <font color="red">Japanese</font>|| <font color="green">*Spanish*</font> ||
-|| <font color="green">*Dutch*</font>|| <font color="red">Korean</font>||<font color="red">Swedish</font> ||
-|| <font color="green">*Finnish*</font>|| <font color="green">*Norwegian (Bokmål)*</font>|| <font color="green">*Ukrainian*</font> ||
-*
+|| <font color="red">Arabic</font>                   || <font color="green">*Czech*</font>   || <font color="green">*German*</font>    || <font color="red">Korean</font>                     || <font color="green">*Russian*</font>   ||
+|| <font color="red">Bulgarian</font>                || <font color="green">*Danish*</font>  || <font color="green">*Greek*</font>     || <font color="green">*Norwegian (Bokmål)*</font>     || <font color="green">*Slovak*</font>    ||
+|| <font color="green">*Catalan*</font>              || <font color="green">*Dutch*</font>   || <font color="green">*Hungarian*</font> || <font color="green">*Polish*</font>                 || <font color="green">*Spanish*</font>   ||
+|| <font color="green">*Chinese (Simplified)*</font> || <font color="green">*Finnish*</font> || <font color="green">*Italian*</font>   || <font color="red">Portuguese</font>                 ||<font color="red">Swedish</font>        ||
+|| <font color="red">Chinese (Traditional)</font>    || <font color="green">*French*</font>  || <font color="red">Japanese</font>      || <font color="green">*Portuguese (Brazilian)*</font> || <font color="green">*Ukrainian*</font> ||
+
 *Please contact project owner Jon via email at jkbullard at gmail to volunteer to work on translating Tunnelblick*.
 
 _Note: Help is not currently being translated, pending a rewrite of the English version._

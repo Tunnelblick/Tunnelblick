@@ -14,8 +14,9 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
  ==Tunnelblick Stable Release==
  <i>(A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features and bug fixes of a beta release, but may be more reliable.)</i>
 
- For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.
-
+ For use on OS X 10.6 - 10.10 ("Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.<br>
+ <font color="red">Not for use on OS X 10.4 or 10.5 ("Tiger", "Leopard"). (Use the latest beta version instead.)</font>
+ 
  <font color="red">*Translators are needed for Arabic, Bulgarian, Chinese (traditional), Japanese, Korean, and Swedish.* [cLocalizeTranslate Details]</font>
 
  <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4.2_build_4055.4161.dmg/download Tunnelblick 3.4.2]</strong></font> `[`sourceforge.net`]` (build 4055.4161) released 2014-12-01 [RlsNotes#Version_3.4 Release Notes]<br />
@@ -29,7 +30,14 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
  ==Tunnelblick Beta Release==
  <i>(A beta release is a version that has been tested internally and is ready for testing by the wider community. It usually has bug fixes and new features that are subject to change and need testing, and may have different bugs or limitations.)</i>
 
- There are no beta releases available.
+ For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.<br>
+
+ <font color="red">*Translators are needed for Arabic, Bulgarian, Chinese (traditional), Japanese, Korean, and Swedish.* [cLocalizeTranslate Details]</font>
+
+ <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.5beta02_build_4165.dmg/download Tunnelblick 3.5beta02]</strong></font> `[`sourceforge.net`]` (build 4165) released 2014-12-02 [RlsNotes#Version_3.4 Release Notes]<br />
+ _*SHA1*_: a7d78b8624d71e8775c53f7772eea06abbe7a745 _*MD5*_: cd454582a91e4e05ed7cdb1f30608b70 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
+ 
+ NOTE: This version will refuse to install or launch on a computer that has ever had a "[cCusDeployed Deployed]" version installed unless that version has been completely [cInstall#Uninstalling_Tunnelblick uninstalled]. Uninstalling will delete all Tunnelblick VPNs from your system. To update a "[cCusDeployed Deployed]" version, you must obtain a new version from the person or organization that provided you with your original "[cCusDeployed Deployed]" version. The Tunnelblick project does <em>not</em> provide "[cCusDeployed Deployed]" versions. The latest version of Tunnelblick that may be used as a "Deployed" version without being rebranded is 3.3beta21b (Unsigned). It may be found on the [SecurityRiskDownloads Security Risk Downloads] page.
 
  There may be "snapshots" (pre-release versions of Tunnelblick) available. Contact project owner Jon at jkbullard (Gmail) for a link to current snapshots.
  

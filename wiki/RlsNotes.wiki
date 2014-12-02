@@ -7,6 +7,38 @@
 
 --------------------
 
+==Version 3.5==
+
+*3.5beta02 build 4165 (2014-12-02)*
+
+ * *<font color="red">SECURITY UPDATE:</font>* Includes OpenVPN 2.3.6.  See [https://community.openvpn.net/openvpn/wiki/SecurityAnnouncement-97597e732b OpenVPN Security Announcement-97597e732b].
+ * Includes complete localization in 18 languages including Danish and Greek and partial localization in 7 others, including Arabic and Bulgarian.
+ * Uses new (2014-11-04) tun/tap kexts when on OS X 10.9 or 10.10 ("Mavericks" or "Yosemite").
+ * Includes new status icon animation which clarifies the connected/connecting/disconnected VPN status -- thanks to William Faulk.
+ * Adds the ability to save only the VPN username to the Keychain without saving the VPN password.
+ * Adds ability to localize configuration names (and folder names).
+ * Moves the 'VPN Details&hellip;' menu item to be above the configurations. May be disabled with the 'putVpnDetailsAtBottom' preference is set TRUE.
+ * Recreates the status icon only when necessary.
+ * Centers the login or passphrase window in the new screen when a screen change occurs or if the computer awakens from sleep unless the 'doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep' preference is set to TRUE.
+ * Deletes log files not modified in the last week.
+ * An empty name for an 'added menu item' (or the name after translation) causes the item to be skipped.
+ * Adds crash report log entries for Tunnelblick components such as openvpn and atsystemstart to the 'Diagnostic Info'.
+ * Flushes DNS cache via 'discoveryutil udnsflushcaches' and 'discoveryutil mdnsflushcache' if available.
+ * Fixes several problems with Tunnelblick's handling of 'private keys' (passphrases).
+ * Fixes a problem with updates to Deployed versions of Tunnelblick and a problem causing failures on OS X 10.4 ('Tiger').
+ * Fixes a problem renaming configurations.  
+ * Fixes visibility problems with the standard status icon in 'dark mode' on OS X 10.10 ('Yosemite').
+ * Fixes problems on OS X 10.4 and 10.5 Intel machines using OpenVPN versions higher than 2.2.1.
+ * Fixes a problem with invalid permissions in IconSets contents.
+ * Fixes problems that caused digital signature checking to fail on OS X 10.5.
+ * Fixes a problem with password and passphrase windows.
+ * Fixes status window icon animation.
+ * Fixes typo of Feetu Nyrhinen's name on the Info panel.
+ * Fixes a problem that caused the 'tun' kext to not be loaded even if 'dev-node tun' was specified in the OpenVPN configuration file.
+
+
+--------------------
+
 ==Version 3.4==
 
 *3.4.2 build 4055.4161 (2014-12-01)*

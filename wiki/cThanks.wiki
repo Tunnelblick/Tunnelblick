@@ -460,6 +460,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Ole Christian Rynning    </td>
+    <td>      Norwegian    </td>
+  </tr>
+
+  <tr>
     <td>      Markus Schneider    </td>
     <td>      German    </td>
   </tr>
