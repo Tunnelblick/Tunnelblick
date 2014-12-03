@@ -210,7 +210,7 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
-    <td>      Vadim Chumachenkon     </td>
+    <td>      Vadim Chumachenko     </td>
     <td>      Ukrainian    </td>
   </tr>
 
