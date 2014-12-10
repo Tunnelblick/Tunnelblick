@@ -190,6 +190,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Klas Meder Boqvist      </td>
+    <td>      Swedish    </td>
+  </tr>
+
+  <tr>
     <td>      Olivier Borowski      </td>
     <td>      French    </td>
   </tr>
@@ -485,6 +490,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Stjepan Siljac      </td>
+    <td>      Swedish    </td>
+  </tr>
+
+  <tr>
     <td>      Tjalling Soldaat    </td>
     <td>      Dutch    </td>
   </tr>
@@ -497,6 +507,11 @@ Tunnelblick is made possible by the efforts of many people:
   <tr>
     <td>      Wojciech Sromek      </td>
     <td>      Polish    </td>
+  </tr>
+
+  <tr>
+    <td>      Mihail Stoynov      </td>
+    <td>      Bulgarian    </td>
   </tr>
 
   <tr>
