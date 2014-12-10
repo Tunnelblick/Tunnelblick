@@ -11,7 +11,7 @@
 "Username:" = "Brugernavn:";
 
 /* Button */
-"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (CMD-ALT-F%3$d)";
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Cmd-Alt-F%3$d)";
 
 /* Button */
 "(None available)" = "(Ingen tilgængelig)";
@@ -65,7 +65,7 @@
 "Check for a change" = "Kontroller for ændringer";
 
 /* Button */
-"Close VPN Connections and Stop Tunnelblick" = "Luk alle VPN forbindelser og Luk Tunneblick";
+"Close VPN Connections and Stop Tunnelblick" = "Luk alle VPN forbindelser og Luk Tunnelblick";
 
 /* Button */
 "Connect" = "Tilslut";
@@ -248,7 +248,7 @@
 "Connect %@%@" = "Tilslut %@%@";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "Slette konfigurations legitimationsoplysninger i nøglering…";
+"Delete Configuration's Credentials in Keychain..." = "Slet konfigurations legitimationsoplysninger i nøglering…";
 
 /* Menu item tooltip */
 "Disabled because this setting is being forced" = "Deaktiver fordi denne indstilling er påtvunget";
@@ -290,7 +290,7 @@
 "Suggestion or Bug Report..." = "Forslag eller fejlrapport…";
 
 /* Menu item */
-"VPN Details..." = "VPN detaljer…";
+"VPN Details..." = "VPN Detaljer…";
 
 /* Checkbox name */
 "Apply to all" = "Anvend for alle";
@@ -299,7 +299,7 @@
 "Check for updates automatically" = "Søg efter opdateringer automatisk";
 
 /* Checkbox name */
-"Check for updates to beta versions" = "Tjek for opdatering til beta versioner";
+"Check for updates to beta versions" = "Tjek for opdateringer til beta versioner";
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Tjek om den offentlige IP addresse har ændret sig efter du er blevet forbundet";
@@ -314,7 +314,7 @@
 "Display connection submenus" = "Vis forbindelses undermenuer";
 
 /* Checkbox name */
-"Display connection timers" = "Vis forbindelse timere";
+"Display connection timers" = "Vis forbindelses timere";
 
 /* Checkbox name */
 "Display window while Tunnelblick is starting up" = "Vis vindue når Tunnelblick starter";
@@ -362,16 +362,16 @@
 "Prepend domain name to search domains" = "Foranstil domæne navnet til søge domæner";
 
 /* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Genopret forbindelse når computeren vækkes fra slumretilstand (hvis forbundet da compuren gik i slumretilstand)";
+"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Genopret forbindelse når computeren vækkes fra slumretilstand (hvis forbundet da computeren gik i slumretilstand)";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Genopret forbindelse når brugeren skifter tilbage";
 
 /* Checkbox name */
-"Reset the primary interface after disconnecting" = "Nulstille den primære grænseflade efter frakobling";
+"Reset the primary interface after disconnecting" = "Nulstil den primære grænseflade efter frakobling";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Rute al IPv4-trafikken gennem VPN";
+"Route all IPv4 traffic through the VPN" = "Kør al IPv4-trafikken gennem VPN";
 
 /* Checkbox name */
 "Run MTU maximum size test after connecting" = "Kør MTU maksimums størrelse testen efter du er tilsluttet";
@@ -386,7 +386,7 @@
 "Set DNS after routes are set instead of before routes are set" = "Sæt DNS efter ruterne er sat i stedet for før";
 
 /* Checkbox name */
-"Show configuration on Tunnelblick menu" = "Vis konfiguration i Tunneblick menuen";
+"Show configuration on Tunnelblick menu" = "Vis konfiguration i Tunnelblick menuen";
 
 /* Checkbox name */
 "Show when disconnected" = "Vis når du er frakoblet";
@@ -419,7 +419,7 @@
 "ASSIGN_IP" = "Tildeler IP addresse"; // Please translate "Assigning IP address"
 
 /* Connection status */
-"AUTH" = "Autoriserer"; // Please translate "Authorizing"
+"AUTH" = "Godkender"; // Please translate "Authorizing"
 
 /* Connection status */
 "CONNECTED" = "Tilsluttet"; // Please translate "Connected"

@@ -35,7 +35,7 @@
 "All Users" = "모든 사용자";
 
 /* Button */
-"Always load Tap driver" = "항상 Tab 드라이버 로드";
+"Always load Tap driver" = "항상 Tap 드라이버 로드";
 
 /* Button */
 "Always load Tun driver" = "항상 Tun 드라이버 로드";
@@ -791,10 +791,10 @@
 "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Tunnelblick을 기반으로 제공되는 무료 소프트웨어는 아래 주소에서 배포됩니다<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN 은 OpenVPN Technologies, Inc.의 등록상표입니다.";
 
 /* Window text */
-"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%1$@' in %2$@";
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference 또는 TBAlwaysSetPreference 키가 %2$@ 에서 알 수 없는 설정 '%1$@' 를 참조하고 있습니다.";
 
 /* Window text */
-"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "A Tunnelblick VPN Configuration is nested too deeply in '%@'";
+"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblick VPN 설정이 '%@' 에서 너무 깊이 중첩되어있습니다.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "다음과 연결하기 위해 암호가 필요합니다\n  %1$@%2$@";
@@ -809,7 +809,7 @@
 "A username and password are required to connect to\n  %@" = "다음과 연결하기 위해 사용자명과 암호가 필요합니다\n%@";
 
 /* Window text */
-"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "%1$@ 에 접속하기 위해 사용자이름과 암호가 필요합니다.\n('%2$@' 인증 사용중)";
 
 /* Window text */
 "Add Credentials..." = "인증 추가…";
@@ -902,7 +902,7 @@
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "설정 '%@'의 스크립트중 일부분은 연결중에 대체 및 제거시 문제를 일으킬 수 있습니다.\n\n설정을 대체하시겠습니까?";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "'%@' 설정은 수정 할 수 없습니다. '수정 가능' 으로 설정할 수 없기 때문입니다.\n";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "이름에 허용되지 않는 문자가 있어서 설정 '%1$@'은 무시됩니다.\n\n다음 문자는 허용되지 않습니다: '%2$s'\n\n";
@@ -1013,7 +1013,7 @@
 "Failed to create folder at %@" = "%@에 폴더 만들기 실패";
 
 /* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
+"Failed to create symlink\n  to %@\n  at %@" = "%1$@ 의 심볼릭 링크를\n%2$@ 에 만들 수 없습니다.";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "%@에 권한 설정 실패\n";
@@ -1022,13 +1022,13 @@
 "Fast User Switching" = "빠른 사용자 전환";
 
 /* Window text */
-"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "'%@' 파일은 '{' 문자로 시작하기 때문에 '리치 텍스트' 인 것 같습니다. 모든 OpenVPN 관련 파일들은 '일반 텍스트' 또는 'UTF-8' 파일이어야합니다.";
 
 /* Window text */
-"File '%@' ends with a backslash, which is not allowed." = "File '%@' ends with a backslash, which is not allowed.";
+"File '%@' ends with a backslash, which is not allowed." = "파일 '%@' 끝에 백슬래시는 허용 되지 않습니다.";
 
 /* Window text */
-"File '%@' has an extension which is not known to Tunnelblick." = "File '%@' has an extension which is not known to Tunnelblick.";
+"File '%@' has an extension which is not known to Tunnelblick." = "'%@' 의 확장자를 알 수 없습니다.";
 
 /* Window text */
 "File '%@' is empty" = "'%@' 파일은 비었습니다";
@@ -1055,7 +1055,7 @@
 "In the OpenVPN configuration file for '%@' at line %lu: %@" = "'%1$@' OpenVPN 설정 파일 줄 %2$lu: %3$@";
 
 /* Window text */
-"In the OpenVPN configuration file for '%@': %@" = "In the OpenVPN configuration file for '%1$@': %2$@";
+"In the OpenVPN configuration file for '%@': %@" = "'%1$@' 의 OpenVPN 설정 파일 : %2$@";
 
 /* Window text */
 "In:" = "입력:";
@@ -1076,7 +1076,7 @@
 "Installing configurations is not allowed" = "설정 설치는 허용되지 않습니다";
 
 /* Window text */
-"Invalid value '%@' for '%@' in %@" = "Invalid value '%1$@' for '%2$@' in %3$@";
+"Invalid value '%@' for '%@' in %@" = "%3$@ 의 '%2$@' 에 대한 유효하지 않는 값 '%1$@'";
 
 /* Window text */
 "KB" = "KB";
@@ -1109,10 +1109,10 @@
 "Menu:" = "메뉴:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "다음에 대한 CFBundleIdentifier 또는 CFBundleVersion 가 Info.plist 에 존재하지 않습니다.\n\n%@\n\n이 VPN 설정은 변경가능한 외부 VPN 설정에 포함되어 있기 때문에 CFBundleIdentifier 와 CFBundleVersion 를 포함해야 합니다.";
 
 /* Window text */
-"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "다음에 대한 Info.plist 가 없습니다.\n\n%@\n\n이 VPN 설정은 변경가능한 외부 VPN 설정에 포함되어 있기 때문에 Info.plist를 포함해야 합니다.";
 
 /* Window text */
 "Modified configuration file to remove path information" = "경로 정보를 삭제하기 위해 설정 파일을 변경하였습니다";
@@ -1136,22 +1136,22 @@
 "Network setting" = "네트워크 설정";
 
 /* Window text */
-"No 'TBPackageVersion' in %@" = "No 'TBPackageVersion' in %@";
+"No 'TBPackageVersion' in %@" = "%@에 'TBPackageVersion' 가 없습니다.";
 
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "경로에 easy-rsa가 없습니다. 'easy-rsaPath' 설정 값을 확인하십시오.";
 
 /* Window text */
-"Non-array value for '%@' in %@" = "Non-array value for '%1$@' in %2$@";
+"Non-array value for '%@' in %@" = "%2$@에서 '%1$@' 에 배열이 아닌 값";
 
 /* Window text */
-"Non-boolean value for '%@' in %@" = "Non-boolean value for '%1$@' in %2$@";
+"Non-boolean value for '%@' in %@" = "%2$@에서 '%1$@' 에 boolean이 아닌 값";
 
 /* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
-"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
+"Non-integer value for '%@' in %@" = "%2$@에서 '%1$@' 에 정수가 아닌 값";
 
 /* Window text */
-"Non-string value for '%@' in %@" = "Non-string value for '%1$@' in %2$@";
+"Non-string value for '%@' in %@" = "%2$@에서 '%1$@' 에 문자열이 아닌 값";
 
 /* Window text */
 "Non-string value for an item in '%@' in %@" = "Non-string value for an item in '%1$@' in %2$@";

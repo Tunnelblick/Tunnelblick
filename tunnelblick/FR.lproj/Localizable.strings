@@ -2,7 +2,7 @@
 "Disconnect All (%@)" = "Tout déconnecter (%@)";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "Déconnecter toutes (%d connexions)";
+"Disconnect All (%d Connections)" = "Tout déconnecter (%d connexions)";
 
 /* Status message */
 "No Active Connections" = "Aucune connexion active";
@@ -11,10 +11,10 @@
 "Username:" = "Nom d’utilisateur :";
 
 /* Button */
-"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Option + Commande + F%3$d)";
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Commande + Option + F%3$d)";
 
 /* Button */
-"(None available)" = "(Pas disponible)";
+"(None available)" = "(Indisponible)";
 
 /* Button */
 "1 MB" = "1 Mo";
@@ -41,7 +41,7 @@
 "Always load Tun driver" = "Toujours charger le pilote Tun";
 
 /* Button */
-"Always use the plugin" = "Utiliser toujours l’extension";
+"Always use the plugin" = "Toujours utiliser l’extension";
 
 /* Button */
 "Back" = "Revenir";
@@ -65,7 +65,7 @@
 "Check for a change" = "Vérifier les changements";
 
 /* Button */
-"Close VPN Connections and Stop Tunnelblick" = "Fermer les connexions VPN et terminer Tunnelblick";
+"Close VPN Connections and Stop Tunnelblick" = "Fermer les connexions VPN et quiter Tunnelblick";
 
 /* Button */
 "Connect" = "Connecter";
@@ -215,7 +215,7 @@
 "Standard icon" = "Icône par défaut";
 
 /* Button */
-"Terminate All OpenVPN processes" = "Forcer toutes les tâches OpenVPN à quitter";
+"Terminate All OpenVPN processes" = "Quitter toutes les tâches OpenVPN";
 
 /* Button */
 "Terminate" = "Terminer";
@@ -227,7 +227,7 @@
 "This configuration uses %@ credentials" = "Cette configuration utilise %@ comme authentification";
 
 /* Button */
-"Try again with different credentials" = "Réessayez avec une identité différente";
+"Try again with different credentials" = "Réessayez avec une informations d’authentification différente";
 
 /* Button */
 "Try again" = "Veuillez réessayer";
@@ -236,7 +236,7 @@
 "Tunnelblick 3.3 icon" = "Icône Tunnelblick 3.3";
 
 /* Button */
-"When Tunnelblick launches" = "Quand Tunnelblick se lance";
+"When Tunnelblick launches" = "Au démarrage de Tunnelblick";
 
 /* Button */
 "When computer starts" = "Quand l’ordinateur démarre";
@@ -386,7 +386,7 @@
 "Set DNS after routes are set instead of before routes are set" = "Configurer les DNS après le routage au lieu de le faire avant";
 
 /* Checkbox name */
-"Show configuration on Tunnelblick menu" = "Afficher dans le menu Tunnelblick";
+"Show configuration on Tunnelblick menu" = "Afficher la configuration dans le menu Tunnelblick";
 
 /* Checkbox name */
 "Show when disconnected" = "Afficher lorsque déconnecté";
@@ -407,7 +407,7 @@
 "Set nameserver (alternate 1)" = "Changer le serveur de noms (alternative 1)";
 
 /* PopUpButton *//* System profile item */
-"Set nameserver" = "Utiliser le serveur de noms distant";
+"Set nameserver" = "Changer le serveur de noms";
 
 /* Text on disk image */
 "Double-click to begin" = "Double-cliquez pour commencer";
@@ -446,7 +446,7 @@
 "RECONNECTING" = "Reconnecte"; // Please translate ""
 
 /* Connection status */
-"RESOLVE" = "Résolution de nom de domaine"; // Please translate ""
+"RESOLVE" = "Résolution du nom de domaine"; // Please translate ""
 
 /* Connection status */
 "SLEEP" = "En veille"; // Please translate "Waiting for daemon process"

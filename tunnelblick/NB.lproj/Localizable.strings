@@ -134,7 +134,7 @@
 "Manually" = "Manuell";
 
 /* Button */
-"Monochrome icon" = "Gråtone ikon";
+"Monochrome icon" = "Gråtoneikon";
 
 /* Button */
 "Never load Tap driver" = "Last aldri inn Tap-driver";
@@ -194,13 +194,13 @@
 "Revert" = "Hent tilbake";
 
 /* Button */
-"Show on default screen (%u x %u)" = "Vis på Standardskjermbildet (%1$u x %2$u)";
+"Show on default screen (%u x %u)" = "Vis på hovedskjermen (%1$u x %2$u)";
 
 /* Button */
-"Show on screen %u (%u x %u)" = "Vis på skjermen %1$u (%2$u x %3$u)";
+"Show on screen %u (%u x %u)" = "Vis på skjerm %1$u (%2$u x %3$u)";
 
 /* Button */
-"Show when connection status changes" = "Vis når en oppkoblings status endres";
+"Show when connection status changes" = "Vis når en oppkoblingsstatus endres";
 
 /* Button */
 "Show while connecting" = "Vis mens det kobles opp";
@@ -212,7 +212,7 @@
 "Speak" = "Uttal";
 
 /* Button */
-"Standard icon" = "Standar ikon";
+"Standard icon" = "Standardikon";
 
 /* Button */
 "Terminate All OpenVPN processes" = "Terminer alle OpenVPN prosesser";
@@ -302,7 +302,7 @@
 "Check for updates to beta versions" = "Se etter oppdateringer på beta versjoner";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connecting" = "Sjekk om den offisielle ip-adressen har endretseg etter oppkobling";
+"Check if the apparent public IP address changed after connecting" = "Sjekk om den offisielle IP-adressen har endret seg etter oppkobling";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Koble fra når maskinen går i dvale";
@@ -311,10 +311,10 @@
 "Disconnect when user switches out" = "Koble fra når bruker byttes";
 
 /* Checkbox name */
-"Display connection submenus" = "Vis oppkobling undermenyer";
+"Display connection submenus" = "Vis undermenyer for oppkobling";
 
 /* Checkbox name */
-"Display connection timers" = "Vis oppkoblings tidsur";
+"Display connection timers" = "Vis oppkoblingstidsur";
 
 /* Checkbox name */
 "Display window while Tunnelblick is starting up" = "Vis et vindu når Tunnelblick starter";
@@ -341,7 +341,7 @@
 "Do not warn about this again" = "Ikke advar meg om dette igjen";
 
 /* Checkbox name */
-"Flush DNS cache after connecting or disconnecting" = "Tøm DNS cache etter opp- eller ned- kobling";
+"Flush DNS cache after connecting or disconnecting" = "Tøm DNS-cache etter opp- eller nedkobling";
 
 /* Checkbox name */
 "Inhibit automatic update checking and IP Address checking" = "Unngå automatisk sjekk av oppdateringer og ip-adresse sjekk";
@@ -356,7 +356,7 @@
 "Monitor network settings" = "Overvåk nettverksinnstillinger";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Plasser ved siden av Spotlight ikonet";
+"Place next to Spotlight icon" = "Plasser ved siden av Spotlight-ikonet";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Legg til domenenavn i starten av søkedomene";
@@ -407,7 +407,7 @@
 "Set nameserver (alternate 1)" = "Sett navnetjener (alternate 1)";
 
 /* PopUpButton *//* System profile item */
-"Set nameserver" = "Sett Navntjener";
+"Set nameserver" = "Sett navnetjener";
 
 /* Text on disk image */
 "Double-click to begin" = "Dobbelt-klikk for å starte";
