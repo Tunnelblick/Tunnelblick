@@ -137,7 +137,7 @@ Download an uninstaller disk image from the [DownloadsEntry#Tunnelblick_Uninstal
 *First, if you have already partially uninstalled (manually by dragging the application to the Trash, or with !AppCleaner or something similar):
 
  * Disconnect all configurations and quit Tunnelblick (or the rebranded program)<font color="red">`*`</font>
- * Install (again, that is, re-install) Tunnelblick or the rebranded program (whatever program you want to uninstall). It is important that you install to the same location as the original installation.
+ * Install (again, that is, re-install) Tunnelblick or the rebranded program (whatever program you want to uninstall). It is important that you install to the same location as the original installation. If you are uninstalling a "Deployed" version of Tunnelblick, you must install [https://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta21b.dmg Tunnelblick 3.3beta21b (build 3114.3185)], which can be installed even if there is a "Deployed" version installed or partially installed.
  * Launch Tunnelblick, disconnect from all VPNs, then quit Tunnelblick.
 
 *Now, to uninstall Tunnelblick located in /Applications:*
