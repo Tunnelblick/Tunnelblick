@@ -26,6 +26,8 @@
 
 #import <Security/Security.h>
 
+#import "helper.h"
+
 @implementation KeyChain
 
 -(id) initWithService:(NSString *)sName
@@ -63,7 +65,11 @@
 
 - (NSString*) password 
 {
-    char *passData;
+	// Returns a password if it exists.
+	// Returns an empty string if the Keychain can be accessed but the password is empty or does not exist
+	// Returns nil if the Keychain can't be accessed
+	
+	char *passData;
     UInt32 passLength = 0;
     const char* service   = [serviceName UTF8String];
     const char* account   = [accountName UTF8String];
@@ -86,16 +92,28 @@
         } else {
             SecKeychainItemFreeContent(NULL,passData);
             NSLog(@"Zero-length Keychain item retrieved for service = '%@' account = '%@'", serviceName, accountName);
+			return @"";
         }
     } else {
         if (  status == errKCItemNotFound  ) {
             NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@' because it does not exist", serviceName, accountName);
+			return @"";
+        } else if (  status == errSecAuthFailed  ) {
+            NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@' because the Keychain could not be accessed", serviceName, accountName);
+			return nil;
         } else {
-            NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@'; status was %ld; error was %ld:\n'%s'", serviceName, accountName, (long) status, (long) errno, strerror(errno));
+			CFStringRef errMsg = NULL;
+			if (  runningOnLeopardOrNewer()  ) {
+				errMsg = SecCopyErrorMessageString(status, NULL);
+				NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@'; status was %ld; error was '%@'", serviceName, accountName, (long) status, (NSString *)errMsg);
+				CFRelease(errMsg);
+            } else {
+				NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@'; status was %ld", serviceName, accountName, (long) status);
+				CFRelease(errMsg);
+			}
+			return @"";
         }
     }
-    
-    return nil;
 }
 
 - (int)setPassword:(NSString *)password

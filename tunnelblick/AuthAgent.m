@@ -214,7 +214,11 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       authenticationWasFromKeychain)
     NSString * passwordLocal = nil;
 
     if (  [self usernameIsInKeychain]  ) {
-        usernameLocal= [usernameKeychain password];
+        usernameLocal = [usernameKeychain password];
+		if (  ! usernameLocal  ) {
+			NSLog(@"User did not allow access to the Keychain to get VPN username");
+			return nil;
+		}
     }
     if (  [usernameLocal length] == 0  ) {
         [gTbDefaults removeObjectForKey: usernamePreferenceKey];
@@ -223,11 +227,13 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       authenticationWasFromKeychain)
         // (Only get password if we have a username)
         if (  [self passwordIsInKeychain]  ) {
             passwordLocal = [passwordKeychain password];
-        }
-        if (  [passwordLocal length] == 0  ) {
-            [gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
-        }
-    }
+			if (  ! passwordLocal  ) {
+				NSLog(@"User did not allow access to the Keychain to get VPN password");
+			} else if (  [passwordLocal length] == 0  ) {
+				[gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
+			}
+		}
+	}
     
     if (  [passwordLocal length] == 0  ) {
         
@@ -348,11 +354,13 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       authenticationWasFromKeychain)
     if (  [gTbDefaults boolForKey:passphrasePreferenceKey] && [gTbDefaults canChangeValueForKey: passphrasePreferenceKey]  ) { // Get saved privateKey from Keychain if it has been saved
         passphraseLocal = [passphraseKeychain password];
         if (  ! passphraseLocal  ) {
-            [gTbDefaults removeObjectForKey: passphrasePreferenceKey];
+			NSLog(@"User did not allow access to the Keychain to get passphrase");
+            [self setPassphrase: nil];
+            return;
         }
     }
     
-    if (passphraseLocal == nil) {
+    if (  [passphraseLocal length] == 0  ) {
         passphraseLocal = [self askForPrivateKey];
         authenticationWasFromKeychain = FALSE;
     } else {
