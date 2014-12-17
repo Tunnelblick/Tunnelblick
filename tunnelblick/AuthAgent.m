@@ -361,6 +361,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       authenticationWasFromKeychain)
     }
     
     if (  [passphraseLocal length] == 0  ) {
+        [gTbDefaults removeObjectForKey: passphrasePreferenceKey];
         passphraseLocal = [self askForPrivateKey];
         authenticationWasFromKeychain = FALSE;
     } else {

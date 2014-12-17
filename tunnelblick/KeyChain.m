@@ -67,7 +67,7 @@
 {
 	// Returns a password if it exists.
 	// Returns an empty string if the Keychain can be accessed but the password is empty or does not exist
-	// Returns nil if the Keychain can't be accessed
+	// Returns nil if the Keychain can't be accessed (user cancelled)
 	
 	char *passData;
     UInt32 passLength = 0;
@@ -98,18 +98,20 @@
         if (  status == errKCItemNotFound  ) {
             NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@' because it does not exist", serviceName, accountName);
 			return @"";
-        } else if (  status == errSecAuthFailed  ) {
-            NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@' because the Keychain could not be accessed", serviceName, accountName);
+        } else if (   (status == errSecAuthFailed)  // -128 found by user experimentation -- not in Keychain Services Reference or CSSM references,
+                   || (status == -128)  ) {         // but it is 'userCanceledErr' in OS 9 and earlier (!)
+            NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@' because access to the Keychain was cancelled by the user", serviceName, accountName);
 			return nil;
         } else {
-			CFStringRef errMsg = NULL;
+            // Apple docs are inconsistent; Xcode says SecCopyErrorMessageString is available on 10.5+, Keychain Services Reference says 10.3+, so we play it safe
 			if (  runningOnLeopardOrNewer()  ) {
-				errMsg = SecCopyErrorMessageString(status, NULL);
+                CFStringRef errMsg = SecCopyErrorMessageString(status, NULL);
 				NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@'; status was %ld; error was '%@'", serviceName, accountName, (long) status, (NSString *)errMsg);
-				CFRelease(errMsg);
+				if (  errMsg  ) {
+                    CFRelease(errMsg);
+                }
             } else {
 				NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@'; status was %ld", serviceName, accountName, (long) status);
-				CFRelease(errMsg);
 			}
 			return @"";
         }
