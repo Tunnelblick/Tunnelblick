@@ -33,9 +33,11 @@ Working with Crowdin is self-explanatory for the most part. Here a a few things 
 
  * When working on Crowdin, it is tempting to click the copy source button, translate the string, and then click the double arrow button next to it to move to the next one. However, *clicking the double arrow button loses your translation* when it moves you to the next string to translate. Instead, *click the commit button* when you want to save your translation. That will also move you to the next string to translate. (Thanks to Jarmo Isotalo for this tip!)
 
+ * If you have a better translation for a string that has an "approved" translation (a translation with a green check mark -- most strings have them), please create a Crowdin "Comment" and make the comment a Crowdin "Issue". Otherwise your translation will be ignored.
+
  * When you write or reply to a Crowdin "comment" or "issue", if you include "@name" (where "name" is someone's Crowdin name) somewhere in your text, that person will get an email notifying them of the comment/issue.
 
- * For each string, the translation with the most votes will be used.
+ * For each string, the "approved" translation will be used. If there is no "approved" translation, the translation with the most votes will be used and will be "approved" in the next build.
 
  * Please notify an administrator if you propose a new translation for a string that already has an "approved" translation (indicated by a green check mark).
 
