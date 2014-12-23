@@ -67,8 +67,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void)             afterFailureHandler:            (NSTimer *)     timer;
 
--(NSArray *)        argumentsForOpenvpnstartForNow: (BOOL)          forNow
-							   skipFindingFreePort: (BOOL)          skipFindingFreePort;
+-(NSArray *)        argumentsForOpenvpnstartForNow: (BOOL)          forNow;
 
 -(void)             clearStatisticsRatesDisplay;
 
@@ -720,7 +719,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 -(BOOL) makeDictionary: (NSDictionary * *)  dict withLabel: (NSString *) daemonLabel openvpnstartArgs: (NSMutableArray * *) openvpnstartArgs
 {
 	NSString * openvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-    *openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO skipFindingFreePort: YES] mutableCopy] autorelease];
+    *openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO] mutableCopy] autorelease];
     if (  ! (*openvpnstartArgs)  ) {
         return NO;
     }
@@ -1402,7 +1401,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
     [self clearLog];
     
-    [self setArgumentsUsedToStartOpenvpnstart: [self argumentsForOpenvpnstartForNow: YES skipFindingFreePort: NO]];
+    [self setArgumentsUsedToStartOpenvpnstart: [self argumentsForOpenvpnstartForNow: YES]];
     
     connectedUseScripts    = (unsigned)[[argumentsUsedToStartOpenvpnstart objectAtIndex: OPENVPNSTART_ARG_USE_SCRIPTS_IX] intValue];
     [self setConnectedCfgLocCodeString: [argumentsUsedToStartOpenvpnstart objectAtIndex: OPENVPNSTART_ARG_CFG_LOC_CODE_IX]];
@@ -1679,7 +1678,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 -(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow
-						skipFindingFreePort: (BOOL) skipFindingFreePort
 {
     NSString * cfgPath = [self configPath];
 
@@ -1693,18 +1691,20 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     BOOL useDeploy     = [cfgPath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]];
     BOOL useShared     = [cfgPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]];
     
-    NSString *portString;
-	if (   forNow
-		&& ( ! skipFindingFreePort)  ) {
-        int thePort = getFreePort();
+    // "port" argument to openvpnstart is the port to use if "forNow" (starting from the GUI) so we find one now
+    //                    otherwise it is the starting port to use when searching for a free port when not starting without the GUI
+    unsigned int thePort;
+    unsigned int startingPort = [gTbDefaults unsignedIntForKey: @"managmentPortStartingPortNumber" default: 1337 min: 1 max: 65535];
+    if (  forNow  ) {
+        thePort = getFreePort(startingPort);
         if (  thePort == 0  ) {
             return nil;
         }
-        [self setPort: thePort];
-        portString = [NSString stringWithFormat:@"%d", portNumber];
+        [self setPort: thePort]; // GUI active, so remember the port number
     } else {
-        portString = @"0";
+        thePort = startingPort;
     }
+    NSString *portString = [NSString stringWithFormat:@"%u", thePort];
     
     // Parse configuration file to catch "user" or "group" options and get tun/tap key
     if (  ! tunOrTap  ) {

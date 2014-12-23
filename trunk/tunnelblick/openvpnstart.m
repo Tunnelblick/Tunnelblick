@@ -147,8 +147,9 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             
             "configName is the name of the configuration file (a .conf or .ovpn file, or .tblk package)\n\n"
             
-            "mgtPort    is the port number (0-65535) to use for managing the connection\n"
-            "           or 0 to use a free port and create a log file encoding the configuration path and port number\n\n"
+            "mgtPort    is the port number (1-65535) to use for managing the connection if bitMask bit 14 is 1 (i.e., from the GUI)\n"
+            "           or 0 to use a free port (starting the search at port 1337) and create a log file encoding the configuration path and port number\n\n"
+            "           or the port number (1-65535) to use a free port (starting the search at the specified port number) and create a log file encoding the configuration path and port number\n\n"
             
             "useScripts has three fields (weird, but backward compatible):\n"
             "           bit 0 is 0 to not run scripts when the tunnel goes up or down (scripts may still be used in the configuration file)\n"
@@ -1836,7 +1837,7 @@ int startVPN(NSString * configFile,
              NSString * leasewatchOptions,
              NSString * openvpnVersion) {
     
-	// Tries to start an openvpn connection (up to ten times if port == 0).
+	// Tries to start an openvpn connection (up to ten times if not starting from GUI).
     // Returns OPENVPNSTART_COULD_NOT_START_OPENVPN (having output a message to stderr) if any other error occurs
 	
 	NSString * openvpnPath  = openvpnToUsePath([gResourcesPath stringByAppendingPathComponent: @"openvpn"], openvpnVersion);    
@@ -1922,14 +1923,14 @@ int startVPN(NSString * configFile,
         }
     }
     
-    BOOL withoutGUI = FALSE;
     if ( port == 0) {
-        withoutGUI = TRUE;
-        port = getFreePort();
-        if (  port == 0  ) {
-            fprintf(stderr, "Tunnelblick: Unable to find a free port to connect to the management interface\n");
-            exitOpenvpnstart(248);
-        }
+        port = getFreePort(1337);   // If port number is zero, preserve old default behavior: start looking for a free port starting with 1337
+    } else if (  (bitMask & OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS) != 0  ) {
+        port = getFreePort(port);   // If no GUI, start looking for a free port with the specified starting port number
+    }                               // Otherwise, use the specified port
+    if (  port == 0  ) {
+        fprintf(stderr, "Tunnelblick: Unable to find a free port to connect to the management interface\n");
+        exitOpenvpnstart(248);
     }
     
     // Delete old OpenVPN log files and script log files for this configuration, and create a new, empty OpenVPN log file (we create the script log later)
@@ -1951,7 +1952,7 @@ int startVPN(NSString * configFile,
 								 @"--cd",         cdFolderPath,
                                  
                                  // Specify the rest of the options after the config file, so they override any correspondng options in it
-								 @"--management", @"127.0.0.1", [NSString stringWithFormat:@"%d", port],
+								 @"--management", @"127.0.0.1", [NSString stringWithFormat:@"%u", port],
                                  
                                  // (Additional options are added to 'arguments' below)
 								 nil];
@@ -1962,7 +1963,7 @@ int startVPN(NSString * configFile,
         [arguments addObject: @"--mtu-test"];
     }
     
-	if ( ! withoutGUI ) {
+    if (  (bitMask & OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS) != 0  ) {
         [arguments addObject: @"--management-query-passwords"];
         [arguments addObject: @"--management-hold"];
     }
@@ -2414,7 +2415,7 @@ void validateConfigName(NSString * name) {
 }
 
 void validatePort(unsigned port) {
-    if (  port > 65534  ) {
+    if (  port > 65535  ) {
         fprintf(stderr, "Tunnelblick: port value of %u is too large\n", port);
         printUsageMessageAndExitOpenvpnstart();
     }
@@ -2778,7 +2779,7 @@ int main(int argc, char * argv[]) {
 				
                 // Try to start OpenVPN.
                 //
-                // Retry up to 10 times IF OpenVPN fails and openvpnstart is finding a free port to use as the management port (i.e., is started specifying a port of 0).
+                // Retry up to 10 times IF OpenVPN fails and openvpnstart is not using the GUI.
                 //
                 // If the failure was caused by a race condition with several processes detecting the same free port and then trying to use it,
                 // retrying should solve the problem because it will:
@@ -2812,11 +2813,11 @@ int main(int argc, char * argv[]) {
                                        openvpnVersion);
                     
                     if (   (retCode == 0)               // If succeeded, return indicating that success
-                        || (port != 0)  ) {             // If failed and are using a specified port (started by user), return the failure
+                        || ((bitMask & OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS) != 0)  ) {// If failed and are using the GUI, return the failure
                         break;
                     }
 
-                    //                                  // Otherwise (failed and started at system start by launchd), try again up to 10 times
+                    //                                  // Otherwise (failed and started at system start without a GUI), try again up to 10 times
                 }
                 
                 syntaxError = FALSE;
