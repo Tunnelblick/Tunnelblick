@@ -566,11 +566,16 @@ NSDictionary * highestEditionForEachBundleIdinL_AS_T(void) {
 	return bundleIdEditions;
 }
 
-unsigned int getFreePort(void)
+unsigned int getFreePort(unsigned int startingPort)
 {
 	// Returns a free port or 0 if no free port is available
 	
-    unsigned int resultPort = 1336; // start port
+    if (  startingPort > 65535  ) {
+        appendLog([NSString stringWithFormat: @"getFreePort: startingPort must be < 65536; it was %u", startingPort]);
+        return 0;
+    }
+    
+    unsigned int resultPort = startingPort - 1;
 
     int fd = socket(AF_INET, SOCK_STREAM, 0);
     if (  fd == -1  ) {
@@ -587,8 +592,8 @@ unsigned int getFreePort(void)
             close(fd);
             return 0;
         }
-        if (  resultPort == 65535  ) {
-            appendLog(@"getFreePort: cannot get a free port between 1335 and 65536");
+        if (  resultPort >= 65535  ) {
+            appendLog([NSString stringWithFormat: @"getFreePort: cannot get a free port between %u and 65536", startingPort - 1]);
             close(fd);
             return 0;
         }
