@@ -655,6 +655,7 @@ int main(int argc, char *argv[])
         NSString *clientNewAlt2DownPath     = [appResourcesPath stringByAppendingPathComponent:@"client.2.down.tunnelblick.sh"                   ];
         NSString *clientNewAlt3UpPath       = [appResourcesPath stringByAppendingPathComponent:@"client.3.up.tunnelblick.sh"                     ];
         NSString *clientNewAlt3DownPath     = [appResourcesPath stringByAppendingPathComponent:@"client.3.down.tunnelblick.sh"                   ];
+        NSString *freePublicDnsServersPath  = [appResourcesPath stringByAppendingPathComponent:@"FreePublicDnsServersList.txt"                   ];
         
         NSString *tunnelblickPath = [contentsPath stringByDeletingLastPathComponent];
         BOOL okSoFar = checkSetOwnership(tunnelblickPath, YES, 0, 0);
@@ -678,6 +679,7 @@ int main(int argc, char *argv[])
         okSoFar = okSoFar && checkSetPermissions(leasewatchPlistPath,       0644, YES);
         okSoFar = okSoFar && checkSetPermissions(leasewatch3PlistPath,      0644, YES);
         okSoFar = okSoFar && checkSetPermissions(launchAtLoginPlistPath,    0644, YES);
+        okSoFar = okSoFar && checkSetPermissions(freePublicDnsServersPath,  0644, YES);
         
         okSoFar = okSoFar && checkSetPermissions(clientUpPath,              0744, NO);
         okSoFar = okSoFar && checkSetPermissions(clientDownPath,            0744, NO);

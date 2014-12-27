@@ -116,6 +116,7 @@
 		63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31811E34D69007D99DB /* tunnelblick.icns */; };
 		63B5E31B11E34D7B007D99DB /* tunnelblick_package.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */; };
 		63B9CFA5132C73DD009EC6D0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B9CFA4132C73DD009EC6D0 /* WebKit.framework */; };
+		63BA895C1A4DBA960083458D /* FreePublicDnsServersList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63BA895B1A4DBA960083458D /* FreePublicDnsServersList.txt */; };
 		63BD86E81205BA39005B8E38 /* IT.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BD86E41205BA39005B8E38 /* IT.lproj */; };
 		63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BF3E1010A2ED7F00AC8A59 /* CA.lproj */; };
@@ -404,6 +405,7 @@
 		63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick_package.icns; sourceTree = "<group>"; };
 		63B78AD41102419800734D73 /* dmgFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dmgFiles; sourceTree = "<group>"; };
 		63B9CFA4132C73DD009EC6D0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		63BA895B1A4DBA960083458D /* FreePublicDnsServersList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FreePublicDnsServersList.txt; sourceTree = "<group>"; };
 		63BD86E41205BA39005B8E38 /* IT.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IT.lproj; sourceTree = "<group>"; };
 		63BF3E1010A2ED7F00AC8A59 /* CA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CA.lproj; sourceTree = "<group>"; };
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
@@ -663,6 +665,8 @@
 			isa = PBXGroup;
 			children = (
 				8D1107310486CEB800E47090 /* Info.plist */,
+				6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */,
+				63BA895B1A4DBA960083458D /* FreePublicDnsServersList.txt */,
 				63EA8CD913A3DB1E0034F47C /* Images */,
 				63EA8CDC13A3DBD50034F47C /* Scripts */,
 				63EA8CE613A3DC330034F47C /* Localization */,
@@ -833,7 +837,6 @@
 				63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */,
 				63C2E19D18846D3800ED0003 /* LeaseWatch3.plist */,
 				63C2E19B18846D2A00ED0003 /* LeaseWatch.plist */,
-				6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */,
 				63D9257E135DAEE1001FF627 /* client.3.down.tunnelblick.sh */,
 				63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */,
 				63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */,
@@ -1348,6 +1351,7 @@
 				63DC245719FA73E3006B1BDF /* BG.lproj in Resources */,
 				631494A519FA7B9E009057D1 /* PT_PT.lproj in Resources */,
 				6365698A1A2A565200A4A7FE /* AR.lproj in Resources */,
+				63BA895C1A4DBA960083458D /* FreePublicDnsServersList.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

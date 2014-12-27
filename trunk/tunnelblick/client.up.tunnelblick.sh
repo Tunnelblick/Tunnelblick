@@ -35,10 +35,17 @@ logDebugMessage()
 # @param String filters - empty, or one or two '#' if not performing the change
 # @param String name of setting that is being changed
 # @param String new value
+# @param String old value
 logChange()
 {
 	if [ "$1" = "" ] ; then
-		echo "Set $2 to $3"
+		if [ "$3" = "$4" ] ; then
+			echo "Did not change $2 setting of '$3' (but re-set it)"
+		else
+			echo "Changed $2 setting from '$4' to '$3'"
+		fi
+	else
+		echo "Did not change $2 setting of '$4'"
 	fi
 }
 
@@ -247,7 +254,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	if [ "${DYN_DNS_DN}" != "" ] ; then
 		if [ "${MAN_DNS_DN}" != "" ] ; then
-			logMessage "DomainName '$DYN_DNS_DN' ignored because DomainName was set manually"
+			logMessage "Ignoring DomainName '$DYN_DNS_DN' because DomainName was set manually"
 			readonly FIN_DNS_DN="${MAN_DNS_DN}"
 		else
 			readonly FIN_DNS_DN="${DYN_DNS_DN}"
@@ -258,7 +265,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	
 	if [ "${DYN_SMB_NN}" != "" ] ; then
 		if [ "${MAN_SMB_NN}" != "" ] ; then
-			logMessage "NetBIOSName '$DYN_SMB_NN' ignored because NetBIOSName was set manually"
+			logMessage "Ignoring NetBIOSName '$DYN_SMB_NN' because NetBIOSName was set manually"
 			readonly FIN_SMB_NN="${MAN_SMB_NN}"
 		else
 			readonly FIN_SMB_NN="${DYN_SMB_NN}"
@@ -269,7 +276,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	
 	if [ "${DYN_SMB_WG}" != "" ] ; then
 		if [ "${MAN_SMB_WG}" != "" ] ; then
-			logMessage "Workgroup '$DYN_SMB_WG' ignored because Workgroup was set manually"
+			logMessage "Ignoring Workgroup '$DYN_SMB_WG' because Workgroup was set manually"
 			readonly FIN_SMB_WG="${MAN_SMB_WG}"
 		else
 			readonly FIN_SMB_WG="${DYN_SMB_WG}"
@@ -283,7 +290,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		readonly FIN_DNS_SA="${CUR_DNS_SA}"
 	else
 		if [ "${MAN_DNS_SA}" != "" ] ; then
-			logMessage "ServerAddresses '$DYN_DNS_SA' ignored because ServerAddresses was set manually"
+			logMessage "Ignoring ServerAddresses '$DYN_DNS_SA' because ServerAddresses was set manually"
 			readonly FIN_DNS_SA="${CUR_DNS_SA}"
 		else
 			case "${OSVER}" in
@@ -318,7 +325,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		readonly FIN_SMB_WA="${CUR_SMB_WA}"
 	else
 		if [ "${MAN_SMB_WA}" != "" ] ; then
-			logMessage "WINSAddresses '$DYN_SMB_WA' ignored because WINSAddresses was set manually"
+			logMessage "Ignoring WINSAddresses '$DYN_SMB_WA' because WINSAddresses was set manually"
 			readonly FIN_SMB_WA="${MAN_SMB_WA}"
 		else
 		case "${OSVER}" in
@@ -760,13 +767,15 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	
 	logMessage "Saved the DNS and SMB configurations so they can be restored"
 	
-    logChange "${SKP_DNS}${SKP_DNS_SA}" "ServerAddresses" "${FIN_DNS_SA}"
-    logChange "${SKP_DNS}${SKP_DNS_SD}" "SearchDomains  " "${FIN_DNS_SD}"
-    logChange "${SKP_DNS}${SKP_DNS_DN}" "DomainName      " "${FIN_DNS_DN}"
-    logChange "${SKP_SMB}${SKP_SMB_NN}" "NetBIOSName    " "${FIN_SMB_SA}"
-    logChange "${SKP_SMB}${SKP_SMB_WG}" "Workgroup       " "${FIN_SMB_WG}"
-    logChange "${SKP_SMB}${SKP_SMB_WA}" "WINSAddresses  " "${FIN_SMB_WA}"
+    logChange "${SKP_DNS}${SKP_DNS_SA}" "DNS ServerAddresses"   "${FIN_DNS_SA}"   "${CUR_DNS_SA}"
+    logChange "${SKP_DNS}${SKP_DNS_SD}" "DNS SearchDomains"     "${FIN_DNS_SD}"   "${CUR_DNS_SD}"
+    logChange "${SKP_DNS}${SKP_DNS_DN}" "DNS DomainName"        "${FIN_DNS_DN}"   "${CUR_DNS_DN}"
+    logChange "${SKP_SMB}${SKP_SMB_NN}" "SMB NetBIOSName"       "${FIN_SMB_SA}"   "${CUR_SMB_SA}"
+    logChange "${SKP_SMB}${SKP_SMB_WG}" "SMB Workgroup"         "${FIN_SMB_WG}"   "${CUR_SMB_WG}"
+    logChange "${SKP_SMB}${SKP_SMB_WA}" "SMB WINSAddresses"     "${FIN_SMB_WA}"   "${CUR_SMB_WA}"
 
+	logDnsInfo "${MAN_DNS_SA}" "${FIN_DNS_SA}"
+	
 	flushDNSCache
 
 	if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
@@ -913,17 +922,21 @@ configureDhcpDns()
 		logMessage "Retrieved OpenVPN (DHCP): name server [ $sNameServer ] and no SMB servers or search domains, and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
 		setDnsServersAndDomainName aNameServers[@] "$DEFAULT_DOMAIN_NAME" aWinsServers[@] aSearchDomains[@]
 	elif [ "$sDomainName" ]; then
-		logMessage "WARNING: Retrieved domain name [ $sDomainName ] but no name servers from OpenVPN (DHCP), which is not sufficient to make network/DNS configuration changes."
+		logMessage "WARNING: Retrieved domain name [ $sDomainName ] but no name servers from OpenVPN via DHCP, which is not sufficient to make network/DNS configuration changes."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 			logMessage "Will NOT monitor for other network configuration changes."
 		fi
+        logDnsInfoNoChanges
+        FlushDNSCache
 	else
-		logMessage "WARNING: No DNS information received from OpenVPN (DHCP), so no network/DNS configuration changes need to be made."
+		logMessage "WARNING: No DNS information received from OpenVPN via DHCP, so no network/DNS configuration changes need to be made."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 			logMessage "Will NOT monitor for other network configuration changes."
 		fi
+        logDnsInfoNoChanges
+        FlushDNSCache
 	fi
-	
+
 	return 0
 }
 
@@ -1056,14 +1069,12 @@ flushDNSCache()
 			
 			if [ -f /usr/sbin/discoveryutil ] ; then
 				set +e # we will catch errors from discoveryutil
-				logMessage "Will flush the DNS cache via discoveryutil udnsflushcaches..."
 				/usr/sbin/discoveryutil udnsflushcaches
 				if [ $? != 0 ] ; then
 					logMessage "Unable to flush the DNS cache via discoveryutil udnsflushcaches"
 				else
 					logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
 				fi
-				logMessage "Will flush the DNS cache via discoveryutil mdnsflushcache..."
 				/usr/sbin/discoveryutil mdnsflushcache
 				if [ $? != 0 ] ; then
 					logMessage "Unable to flush the DNS cache via discoveryutil mdnsflushcache"
@@ -1097,6 +1108,97 @@ flushDNSCache()
 		
 		fi
     fi
+}
+
+
+##########################################################################################
+# log information about the DNS settings
+# @param String Manual DNS_SA
+# @param String New DNS_SA
+logDnsInfo() {
+
+	log_dns_info_manual_dns_sa="$1"
+	log_dns_info_new_dns_sa="$2"
+	
+	if [ "${log_dns_info_manual_dns_sa}" != "" ] ; then
+        logMessage "DNS servers '${log_dns_info_manual_dns_sa}' were set manually"
+    fi
+
+    if [ "${log_dns_info_new_dns_sa}" != "" ] ; then
+        logMessage "DNS servers '${log_dns_info_new_dns_sa}' will be used for DNS queries when the VPN is active"
+		if [ "${log_dns_info_new_dns_sa}" == "127.0.0.1" ] ; then
+			logMessage "DNS server 127.0.0.1 often is used inside virtual machines (e.g., 'VirtualBox', 'Parallels', or 'VMWare'). The actual VPN server may be specified by the host machine. This DNS server setting may cause DNS queries to fail or be intercepted or falsified. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
+		else
+			set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
+			serversContainLoopback="`echo "${log_dns_info_new_dns_sa}" | grep "127.0.0.1"`"
+			set -e # We instruct bash that it CAN again fail on errors
+			if [ "${serversContainLoopback}" != "" ] ; then
+				logMessage "DNS server 127.0.0.1 often is used inside virtual machines (e.g., 'VirtualBox', 'Parallels', or 'VMWare'). The actual VPN server may be specified by the host machine. If used, 127.0.0.1 may cause DNS queries to fail or be intercepted or falsified. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
+			else
+				readonly knownPublicDnsServers="`cat "${FREE_PUBLIC_DNS_SERVERS_LIST_PATH}"`"
+				knownDnsServerNotFound="true"
+				unknownDnsServerFound="false"
+				for server in ${log_dns_info_new_dns_sa} ; do
+					set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
+					serverIsKnown="`echo "${knownPublicDnsServers}" | grep "${server}"`"
+					set -e # We instruct bash that it CAN again fail on errors
+					if [ "${serverIsKnown}" != "" ] ; then
+						knownDnsServerNotFound="false"
+					else
+						unknownDnsServerFound="true"
+					fi
+				done
+				if ${knownDnsServerNotFound} ; then
+					logMessage "The DNS servers do not include any free public DNS servers known to Tunnelblick. This may cause DNS queries to fail or be intercepted or falsified even if they are directed through the VPN. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
+				else
+					if ${unknownDnsServerFound} ; then
+						logMessage "The DNS servers include one or more free public DNS servers known to Tunnelblick and one or more DNS servers not known to Tunnelblick. If used, the DNS servers not known to Tunnelblick may cause DNS queries to fail or be intercepted or falsified even if they are directed through the VPN. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
+					else
+						logMessage "The DNS servers include only free public DNS servers known to Tunnelblick."
+					fi
+				fi
+			fi
+		fi
+    else
+        logMessage "There are no DNS servers in this computer's new network configuration. This computer or a DHCP server that this computer uses may be configured incorrectly."
+    fi
+}
+
+logDnsInfoNoChanges() {
+# log information about DNS settings if they are not changing
+
+    set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
+
+    PSID="$( scutil <<-EOF |
+        open
+        show State:/Network/Global/IPv4
+        quit
+EOF
+grep PrimaryService | sed -e 's/.*PrimaryService : //'
+)"
+
+    readonly LOGDNSINFO_MAN_DNS_CONFIG="$( scutil <<-EOF |
+        open
+        show Setup:/Network/Service/${PSID}/DNS
+        quit
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+)"
+
+    readonly LOGDNSINFO_CUR_DNS_CONFIG="$( scutil <<-EOF |
+        open
+        show State:/Network/Global/DNS
+        quit
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+)"
+
+	readonly LOGDNSINFO_MAN_DNS_SA="`echo "${LOGDNSINFO_MAN_DNS_CONFIG}" | grep -q "ServerAddresses"`"
+	readonly LOGDNSINFO_CUR_DNS_SA="`echo "${LOGDNSINFO_CUR_DNS_CONFIG}" | grep -q "ServerAddresses"`"
+
+    set -e # resume abort on error
+
+	logDnsInfo "${LOGDNSINFO_MAN_DNS_SA}" "${LOGDNSINFO_CUR_DNS_SA}"
 }
 
 ##########################################################################################
@@ -1202,6 +1304,7 @@ readonly CONFIG_PATH_DASHES_SLASHES="$(echo "${TBCONFIG}" | sed -e 's/-/--/g' | 
 readonly SCRIPT_LOG_FILE="/Library/Application Support/Tunnelblick/Logs/${CONFIG_PATH_DASHES_SLASHES}.script.log"
 
 readonly TB_RESOURCES_PATH="${ARG_TB_PATH}/Contents/Resources"
+readonly FREE_PUBLIC_DNS_SERVERS_LIST_PATH="${TB_RESOURCES_PATH}/FreePublicDnsServersList.txt"
 
 # These scripts use a launchd .plist to set up to monitor the network configuration.
 #
@@ -1282,6 +1385,8 @@ if ${ARG_TAP} ; then
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 			logMessage "Will NOT monitor for other network configuration changes."
 		fi
+        logDnsInfoNoChanges
+        flushDNSCache
 	else
 		logMessage "Configuring tap DNS via OpenVPN"
 		configureOpenVpnDns
@@ -1293,6 +1398,8 @@ else
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 			logMessage "Will NOT monitor for other network configuration changes."
 		fi
+        logDnsInfoNoChanges
+        flushDNSCache
 	else
 		configureOpenVpnDns
 		EXIT_CODE=$?
