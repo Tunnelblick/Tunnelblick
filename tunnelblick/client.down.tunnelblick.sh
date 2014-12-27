@@ -68,14 +68,12 @@ flushDNSCache()
 		
 			if [ -f /usr/sbin/discoveryutil ] ; then
 				set +e # we will catch errors from discoveryutil
-				logMessage "Will flush the DNS cache via discoveryutil udnsflushcaches..."
 				/usr/sbin/discoveryutil udnsflushcaches
 				if [ $? != 0 ] ; then
 					logMessage "Unable to flush the DNS cache via discoveryutil udnsflushcaches"
 				else
 					logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
 				fi
-				logMessage "Will flush the DNS cache via discoveryutil mdnsflushcache..."
 				/usr/sbin/discoveryutil mdnsflushcache
 				if [ $? != 0 ] ; then
 					logMessage "Unable to flush the DNS cache via discoveryutil mdnsflushcache"
@@ -173,17 +171,24 @@ if [ -e   "/tmp/tunnelblick-downscript-needs-to-be-run.txt" ] ; then
     rm -f "/tmp/tunnelblick-downscript-needs-to-be-run.txt"
 fi
 
-# Test for the "-r" (Reset primary interface after disconnecting) Tunnelbick option because we _always_ need its value.
+# Test for the "-r" Tunnelbick option (Reset primary interface after disconnecting) because we _always_ need its value.
 # Usually we get the value for that option (and the other options) from State:/Network/OpenVPN,
 # but that key may not exist (because, for example, there were no DNS changes).
-# So we get the value from the Tunnelbick options passed to this script by OpenVPN.
+# So we get the value from the Tunnelblick options passed to this script by OpenVPN.
+#
+# We do the same thing for the -f Tunnelblick option (Flush DNS cache after connecting or disconnecting)
 ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="false"
+ARG_FLUSH_DNS_CACHE="false"
 while [ {$#} ] ; do
     if [ "${1:0:1}" != "-" ] ; then				# Tunnelblick arguments start with "-" and come first
         break                                   # so if this one doesn't start with "-" we are done processing Tunnelblick arguments
     fi
-    if [ "$1" = "-r" ] ; then                   # -r = ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT
+    if [ "$1" = "-r" ] ; then
         ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="true"
+    else
+	    if [ "$1" = "-f" ] ; then
+            ARG_FLUSH_DNS_CACHE="true"
+        fi
     fi
     shift                                       # Shift arguments to examine the next option (if there is one)
 done
@@ -192,15 +197,16 @@ done
 if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
 	# Configuration isn't there
     logMessage "WARNING: Not restoring DNS settings because no saved Tunnelblick DNS information was found."
-    if ${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT} ; then
+	
+	FlushDNSCache
+    
+	if ${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT} ; then
         resetPrimaryInterface
     fi
     logMessage "End of output from ${OUR_NAME}"
     logMessage "**********************************************"
 	exit 0
 fi
-
-# NOTE: This script does not use any arguments passed to it by OpenVPN, so it doesn't shift Tunnelblick options out of the argument list
 
 # Get info saved by the up script
 TUNNELBLICK_CONFIG="$( scutil <<-EOF
