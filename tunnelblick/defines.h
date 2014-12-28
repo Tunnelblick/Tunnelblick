@@ -200,7 +200,8 @@
 #define OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS  0x04000u
 #define OPENVPNSTART_USE_ROUTE_UP_NOT_UP       0x08000u
 #define OPENVPNSTART_USE_I386_OPENVPN          0x10000u
-#define OPENVPNSTART_START_BITMASK_MAX         0x1FFFFu
+#define OPENVPNSTART_WAIT_FOR_DHCP_IF_TAP      0x20000u
+#define OPENVPNSTART_START_BITMASK_MAX         0x3FFFFu
 
 
 //*************************************************************************************************
