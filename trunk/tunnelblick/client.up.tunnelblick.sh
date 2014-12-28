@@ -1223,6 +1223,7 @@ logMessage "Start of output from ${OUR_NAME}"
 # So we set ARG_ script variables to their values and shift them out of the argument list
 # When we're done, only the OpenVPN arguments remain for the rest of the script to use
 ARG_TAP="false"
+ARG_WAIT_FOR_DHCP_IF_TAP="false"
 ARG_RESTORE_ON_DNS_RESET="false"
 ARG_FLUSH_DNS_CACHE="false"
 ARG_IGNORE_OPTION_FLAGS=""
@@ -1239,9 +1240,12 @@ while [ {$#} ] ; do
 	if [ "$1" = "-a" ] ; then						# -a = ARG_TAP
 		ARG_TAP="true"
 		shift
+    elif [ "$1" = "-b" ] ; then                     # -b = ARG_WAIT_FOR_DHCP_IF_TAP
+        ARG_WAIT_FOR_DHCP_IF_TAP="true"
+        shift
     elif [ "$1" = "-d" ] ; then                     # -d = ARG_RESTORE_ON_DNS_RESET
-		ARG_RESTORE_ON_DNS_RESET="true"
-		shift
+        ARG_RESTORE_ON_DNS_RESET="true"
+        shift
     elif [ "$1" = "-f" ] ; then                     # -f = ARG_FLUSH_DNS_CACHE
         ARG_FLUSH_DNS_CACHE="true"
         shift
@@ -1376,10 +1380,15 @@ if ${ARG_TAP} ; then
 		logDebugMessage "DEBUG: About to 'ipconfig set \"$dev\" DHCP"
 		ipconfig set "$dev" DHCP
 		logDebugMessage "DEBUG: Did 'ipconfig set \"$dev\" DHCP"
-		
-		logMessage "Configuring tap DNS via DHCP asynchronously"
-		configureDhcpDns & # This must be run asynchronously; the DHCP lease will not complete until this script exits
-		EXIT_CODE=0
+
+        if ${ARG_WAIT_FOR_DHCP_IF_TAP} ; then
+            logMessage "Configuring tap DNS via DHCP synchronously"
+            configureDhcpDns
+        else
+    		logMessage "Configuring tap DNS via DHCP asynchronously"
+		    configureDhcpDns & # This must be run asynchronously; the DHCP lease will not complete until this script exits
+		    EXIT_CODE=0
+        fi
 	elif [ "$foreign_option_1" == "" ]; then
 		logMessage "No network configuration changes need to be made."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then

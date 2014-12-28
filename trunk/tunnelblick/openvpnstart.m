@@ -198,6 +198,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "                            bit 14 is 1 to indicate that the program is not being started when the computer starts\n"
             "                            bit 15 is 1 to indicate that the up script should be started with --route-up instead of --up\n"
             "                            bit 16 is 1 to indicate that the i386 version of the OpenVPN universal binary should be used\n"
+            "                            bit 17 is 1 to indicate that return from the 'up' script should be delayed until DHCP information has been received in a tap connection\n"
             
             "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
 
@@ -2110,40 +2111,44 @@ int startVPN(NSString * configFile,
         // Process script options if scripts are "new" scripts
         NSMutableString * scriptOptions = [[[NSMutableString alloc] initWithCapacity: 16] autorelease];
         
-        if (  ! noMonitor  ) {
-            [scriptOptions appendString: @" -m"];
+        if (  (bitMask & OPENVPNSTART_USE_TAP) != 0  ) {
+            [scriptOptions appendString: @" -a"];   // TAP only
         }
         
-        if (  (bitMask & OPENVPNSTART_RESTORE_ON_WINS_RESET) != 0  ) {
-            [scriptOptions appendString: @" -w"];
+        if (  (bitMask & OPENVPNSTART_WAIT_FOR_DHCP_IF_TAP) != 0  ) {
+			[scriptOptions appendString: @" -b"];
         }
         
         if (  (bitMask & OPENVPNSTART_RESTORE_ON_DNS_RESET) != 0  ) {
             [scriptOptions appendString: @" -d"];
         }
         
-        if (  (bitMask & OPENVPNSTART_USE_TAP) != 0  ) {
-            [scriptOptions appendString: @" -a"];   // TAP only
-        }
-        
-        if (  (bitMask & OPENVPNSTART_PREPEND_DOMAIN_NAME) != 0  ) {
-            [scriptOptions appendString: @" -p"];
-        }
-        
         if (  (bitMask & OPENVPNSTART_FLUSH_DNS_CACHE) != 0  ) {
             [scriptOptions appendString: @" -f"];
-        }
-        
-        if (  (bitMask & OPENVPNSTART_RESET_PRIMARY_INTERFACE) != 0  ) {
-            [scriptOptions appendString: @" -r"];
         }
         
         if (  (bitMask & OPENVPNSTART_EXTRA_LOGGING) != 0  ) {
             [scriptOptions appendString: @" -l"];
         }
         
+        if (  ! noMonitor  ) {
+            [scriptOptions appendString: @" -m"];
+        }
+        
         if (  (bitMask & OPENVPNSTART_NO_DEFAULT_DOMAIN) != 0  ) {
             [scriptOptions appendString: @" -n"];
+        }
+        
+        if (  (bitMask & OPENVPNSTART_PREPEND_DOMAIN_NAME) != 0  ) {
+            [scriptOptions appendString: @" -p"];
+        }
+        
+        if (  (bitMask & OPENVPNSTART_RESET_PRIMARY_INTERFACE) != 0  ) {
+            [scriptOptions appendString: @" -r"];
+        }
+        
+        if (  (bitMask & OPENVPNSTART_RESTORE_ON_WINS_RESET) != 0  ) {
+            [scriptOptions appendString: @" -w"];
         }
         
 #ifdef TBDebug
@@ -2753,12 +2758,12 @@ int main(int argc, char * argv[]) {
 			if (  (argc > 3) && (argc <= OPENVPNSTART_MAX_ARGC)  ) {
                 
                 if (  strlen(argv[3]) <= DISPLAY_NAME_LENGTH_MAX                      ) configFile = [NSString stringWithUTF8String:argv[2]];
-                if (  (argc >  3) && (strlen(argv[ 3]) <  6)                          ) port = cvt_atou(argv[3], @"port");
-                if (  (argc >  4) && (strlen(argv[ 4]) <  6)                          ) useScripts = cvt_atou(argv[4], @"useScripts");
-                if (  (argc >  5) && (strlen(argv[ 5]) <  6) && (atoi(argv[5]) == 1)  ) skipScrSec = TRUE;
-                if (  (argc >  6) && (strlen(argv[ 6]) <  6)                          ) cfgLocCode = cvt_atou(argv[6], @"cfgLocCode");
-                if (  (argc >  7) && (strlen(argv[ 7]) <  6) && (atoi(argv[7]) == 1)  ) noMonitor  = TRUE;
-                if (  (argc >  8) && (strlen(argv[ 8]) <  6)                          ) bitMask = cvt_atou(argv[8], @"bitMask");
+                if (  (argc >  3) && (strlen(argv[ 3]) <  8)                          ) port = cvt_atou(argv[3], @"port");
+                if (  (argc >  4) && (strlen(argv[ 4]) <  8)                          ) useScripts = cvt_atou(argv[4], @"useScripts");
+                if (  (argc >  5) && (strlen(argv[ 5]) <  8) && (atoi(argv[5]) == 1)  ) skipScrSec = TRUE;
+                if (  (argc >  6) && (strlen(argv[ 6]) <  8)                          ) cfgLocCode = cvt_atou(argv[6], @"cfgLocCode");
+                if (  (argc >  7) && (strlen(argv[ 7]) <  8) && (atoi(argv[7]) == 1)  ) noMonitor  = TRUE;
+                if (  (argc >  8) && (strlen(argv[ 8]) <  8)                          ) bitMask = cvt_atou(argv[8], @"bitMask");
                 if (  (argc >  9) && (strlen(argv[ 9]) < 16)                          ) leasewatchOptions = [NSString stringWithUTF8String: argv[9]]; 
                 if (  (argc > 10) && (strlen(argv[10]) < 32)                          ) openvpnVersion    = [NSString stringWithUTF8String: argv[10]];
                 

@@ -1865,6 +1865,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setBit: OPENVPNSTART_RESET_PRIMARY_INTERFACE   inMask: &bitMask ifConnectionPreference: @"-resetPrimaryInterfaceAfterDisconnect" inverted: NO];
     [self setBit: OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 inMask: &bitMask ifConnectionPreference: @"-routeAllTrafficThroughVpn"            inverted: NO];
     [self setBit: OPENVPNSTART_NO_DEFAULT_DOMAIN         inMask: &bitMask ifConnectionPreference: @"-doNotUseDefaultDomain"                inverted: NO];
+    [self setBit: OPENVPNSTART_WAIT_FOR_DHCP_IF_TAP      inMask: &bitMask ifConnectionPreference: @"-waitForDHCPInfoIfTap"                 inverted: NO];
     
     if (  [gTbDefaults boolForKey: @"DB-UP"] || [gTbDefaults boolForKey: @"DB-ALL"]  ) {
         bitMask = bitMask | OPENVPNSTART_EXTRA_LOGGING;

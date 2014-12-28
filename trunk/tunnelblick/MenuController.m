@@ -528,6 +528,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 									  @"-keepConnected",
                                       @"-doNotDisconnectOnSleep",
 									  @"-doNotUseDefaultDomain",
+                                      @"-waitForDHCPInfoIfTap",
 									  
                                       @"-changeDNSServersAction",
                                       @"-changeDomainAction",
