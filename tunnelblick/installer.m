@@ -100,7 +100,6 @@ FILE          * gLogFile;					  // FILE for log
 NSFileManager * gFileMgr;                     // [NSFileManager defaultManager]
 NSString      * gPrivatePath;                 // Path to ~/Library/Application Support/Tunnelblick/Configurations
 NSString      * gDeployPath;                  // Path to Tunnelblick.app/Contents/Resources/Deploy
-NSString      * gAppConfigurationsBundlePath; // Path to Tunnelblick.app/Contents/Resources/Tunnelblick Configurations.bundle (after copy if INSTALLER_COPY_APP is set)
 uid_t           gRealUserID;                  // User ID & Group ID for the real user (i.e., not "root:wheel", which is what we are running as)
 gid_t           gRealGroupID;
 NSAutoreleasePool * pool;
@@ -414,8 +413,6 @@ int main(int argc, char *argv[])
 
                                    : [[resourcesPath copy] autorelease]);
     
-    gAppConfigurationsBundlePath    = [appResourcesPath stringByAppendingPathComponent:@"Tunnelblick Configurations.bundle"];
-
     gRealUserID  = getuid();
     gRealGroupID = getgid();
     
