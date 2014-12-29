@@ -39,10 +39,12 @@ TUNTAP_20090913_DIR=tuntap-20090913
 TUNTAP_20111101_DIR=tuntap-20111101
 TUNTAP_CURRENT_DIR=tuntap-20141104
 
-all: built-tuntap built-sparkle built-openvpn
+EASY_RSA_3_DIR = easy-rsa-3.0.0-rc2
+
+all: built-easy-rsa-tunnelblick built-tuntap built-sparkle built-openvpn
 	@echo "Made all third_party for Tunnelblick"
 
-clean: built-tuntap-clean built-sparkle-clean built-lzo-clean built-pkcs11-helper-clean built-openvpn-clean
+clean: built-easy-rsa-tunnelblick-clean built-tuntap-clean built-sparkle-clean built-lzo-clean built-pkcs11-helper-clean built-openvpn-clean
 	rm -rf $(BUILD_DIR)
 
 built-openssl-patch:
@@ -289,3 +291,23 @@ built-sparkle-clean:
 	xcodebuild -project Sparkle.xcodeproj -target Sparkle -configuration Release clean; \
 	cd ../../../
 	rm -f built-sparkle
+
+built-easy-rsa-tunnelblick:
+	rm -f -r "easy-rsa-tunnelblick"
+	mkdir "easy-rsa-tunnelblick"
+	rsync -aq --exclude=".*"    "easy-rsa/easy-rsa-2-tunnelblick/" "easy-rsa-tunnelblick"
+	mkdir                                                          "easy-rsa-tunnelblick/EasyRSA-3"
+	cp -X -f -R "easy-rsa/$(EASY_RSA_3_DIR)/doc"                   "easy-rsa-tunnelblick/EasyRSA-3"
+	cp -X -f -R "easy-rsa/$(EASY_RSA_3_DIR)/easyrsa3"              "easy-rsa-tunnelblick/EasyRSA-3"
+	cp -X -f -R "easy-rsa/$(EASY_RSA_3_DIR)/Licensing"             "easy-rsa-tunnelblick/EasyRSA-3"
+	cp -X -f    "easy-rsa/$(EASY_RSA_3_DIR)/ChangeLog"             "easy-rsa-tunnelblick/EasyRSA-3"
+	cp -X -f    "easy-rsa/$(EASY_RSA_3_DIR)/COPYING"               "easy-rsa-tunnelblick/EasyRSA-3"
+	cp -X -f    "easy-rsa/$(EASY_RSA_3_DIR)/KNOWN_ISSUES"          "easy-rsa-tunnelblick/EasyRSA-3"
+	cp -X -f    "easy-rsa/$(EASY_RSA_3_DIR)/README"                "easy-rsa-tunnelblick/EasyRSA-3"
+	cp -X -f    "easy-rsa/$(EASY_RSA_3_DIR)/README.quickstart.md"  "easy-rsa-tunnelblick/EasyRSA-3"
+	echo "$(EASY_RSA_3_DIR)"  |  sed -e 's/easy-rsa\-//'  >        "easy-rsa-tunnelblick/v3version.txt"
+	touch built-easy-rsa-tunnelblick
+	
+built-easy-rsa-tunnelblick-clean:
+	rm -f -r "easy-rsa-tunnelblick"
+	rm -f built-easy-rsa-tunnelblick
