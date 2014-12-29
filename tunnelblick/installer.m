@@ -653,6 +653,7 @@ int main(int argc, char *argv[])
         NSString *clientNewAlt3UpPath       = [appResourcesPath stringByAppendingPathComponent:@"client.3.up.tunnelblick.sh"                     ];
         NSString *clientNewAlt3DownPath     = [appResourcesPath stringByAppendingPathComponent:@"client.3.down.tunnelblick.sh"                   ];
         NSString *freePublicDnsServersPath  = [appResourcesPath stringByAppendingPathComponent:@"FreePublicDnsServersList.txt"                   ];
+        NSString *iconSetsPath              = [appResourcesPath stringByAppendingPathComponent:@"IconSets"                                       ];
         
         NSString *tunnelblickPath = [contentsPath stringByDeletingLastPathComponent];
         BOOL okSoFar = checkSetOwnership(tunnelblickPath, YES, 0, 0);
@@ -752,8 +753,6 @@ int main(int argc, char *argv[])
 		}
 		
         // Secure IconSets
-        NSString * iconSetsPath = [[gDeployPath stringByDeletingLastPathComponent]
-                                   stringByAppendingPathComponent: @"IconSets"];
         if (   [gFileMgr fileExistsAtPath: iconSetsPath isDirectory: &isDir]
             && isDir  ) {
 			okSoFar = okSoFar && secureOneFolder(iconSetsPath, NO, 0);
