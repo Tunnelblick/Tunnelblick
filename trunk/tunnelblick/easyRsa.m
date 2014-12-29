@@ -82,13 +82,35 @@ BOOL propogateModificationDate(NSString * sourceFilePath,
 	}
 	
 	return YES;
-}	
+}
 
 BOOL secureEasyRsaAtPath(NSString * easyRsaPath) {
 	
     NSArray * readOnlyList = [NSArray arrayWithObjects:
 							  @"README",
 							  @"TB-version.txt",
+                              @"v3version.txt",
+                              
+							  @"EasyRSA-3/ChangeLog",
+							  @"EasyRSA-3/COPYING",
+							  @"EasyRSA-3/KNOWN_ISSUES",
+							  @"EasyRSA-3/README",
+							  @"EasyRSA-3/README.quickstart.md",
+                              
+							  @"EasyRSA-3/doc/EasyRSA-Advanced.md",
+							  @"EasyRSA-3/doc/EasyRSA-Readme.md",
+                              @"EasyRSA-3/doc/EasyRSA-Upgrade-Notes.md",
+							  @"EasyRSA-3/doc/Hacking.md",
+							  @"EasyRSA-3/doc/Intro-To-PKI.md",
+							  @"EasyRSA-3/doc/TODO",
+                              
+							  @"EasyRSA-3/easyrsa3/x509-types/ca",
+							  @"EasyRSA-3/easyrsa3/x509-types/client",
+							  @"EasyRSA-3/easyrsa3/x509-types/COMMON",
+							  @"EasyRSA-3/easyrsa3/x509-types/server",
+							  @"EasyRSA-3/easyrsa3/vars.example",
+                              
+							  @"EasyRSA-3/Licensing/gpl-2.0.txt",
 							  nil];
 	
     NSArray * readWriteList = [NSArray arrayWithObjects:
@@ -96,6 +118,7 @@ BOOL secureEasyRsaAtPath(NSString * easyRsaPath) {
                                @"openssl-0.9.8.cnf",
                                @"openssl-1.0.0.cnf",
                                @"vars",
+							   @"EasyRSA-3/easyrsa3/openssl-1.0.cnf",
                                nil];
 	
 	mode_t folderPerms    = 0700;	// also for anything in keys subfolder
@@ -206,6 +229,32 @@ BOOL copyEasyRsa(NSString * sourcePath,
 						  @"sign-req",
 						  @"whichopensslcnf",
 						  @"README",
+                          
+                          @"EasyRSA-3/ChangeLog",
+                          @"EasyRSA-3/COPYING",
+                          @"EasyRSA-3/KNOWN_ISSUES",
+                          @"EasyRSA-3/README",
+                          @"EasyRSA-3/README.quickstart.md",
+                          
+                          @"EasyRSA-3/doc/EasyRSA-Advanced.md",
+                          @"EasyRSA-3/doc/EasyRSA-Readme.md",
+                          @"EasyRSA-3/doc/EasyRSA-Upgrade-Notes.md",
+                          @"EasyRSA-3/doc/Hacking.md",
+                          @"EasyRSA-3/doc/Intro-To-PKI.md",
+                          @"EasyRSA-3/doc/TODO",
+                          
+                          @"EasyRSA-3/easyrsa3/x509-types/ca",
+                          @"EasyRSA-3/easyrsa3/x509-types/client",
+                          @"EasyRSA-3/easyrsa3/x509-types/COMMON",
+                          @"EasyRSA-3/easyrsa3/x509-types/server",
+                          @"EasyRSA-3/easyrsa3/vars.example",
+                          
+                          @"EasyRSA-3/Licensing/gpl-2.0.txt",
+
+						  @"EasyRSA-3/easyrsa3/openssl-1.0.cnf",
+						  @"EasyRSA-3/easyrsa3/easyrsa",
+                          
+                          @"v3version.txt",
 						  @"TB-version.txt",
 						  nil];
 	
@@ -214,20 +263,34 @@ BOOL copyEasyRsa(NSString * sourcePath,
 	while (  (file = [e nextObject])  ) {
 		NSString * sourceFilePath = [sourcePath stringByAppendingPathComponent: file];
 		NSString * targetFilePath = [targetPath stringByAppendingPathComponent: file];
-        if (   [gFileMgr fileExistsAtPath: targetFilePath]
-			&& ( ! [gFileMgr isWritableFileAtPath: targetFilePath] )  ) {
-            NSDictionary * fullPermissions = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: (unsigned long) 0700] forKey: NSFilePosixPermissions];
-            if (  ! [gFileMgr tbChangeFileAttributes: fullPermissions atPath: targetFilePath]  ) {
-				easyRsaInstallFailed([NSString stringWithFormat: NSLocalizedString(@"Could not make %@ deletable", @"Window text"), targetFilePath]);
-				return NO;
-            }
-        }
-		if (  ! [gFileMgr tbRemoveFileAtPath: targetFilePath handler: nil]  ) {
-			if (  ! [file isEqualToString: @"TB-version.txt"]  ) {
-				easyRsaInstallFailed([NSString stringWithFormat: NSLocalizedString(@"Could not delete %@", @"Window text"), targetFilePath]);
-				return NO;
+		
+		// If the target specifies a path, make sure that all folders in that path have been created
+		NSString * pathInfo  = [file stringByDeletingLastPathComponent];
+		if (  [pathInfo length] != 0  ) {
+			NSString * targetDirPath  = [targetFilePath stringByDeletingLastPathComponent];
+			if (  ! [gFileMgr fileExistsAtPath: targetDirPath]  ) {
+				if (  ! createDir(targetDirPath, 0700l) != 0  ) {
+					easyRsaInstallFailed([NSString stringWithFormat: NSLocalizedString(@"Could not create %@", @"Window text"), targetDirPath]);
+					return NO;
+				}
 			}
 		}
+		
+		NSString * action;
+        if (  [gFileMgr fileExistsAtPath: targetFilePath]  ) {
+			action = @"Updated";
+			if (  [gFileMgr contentsEqualAtPath: sourceFilePath andPath: targetFilePath]  ) {
+				continue;
+			}
+			if (  ! [gFileMgr tbRemoveFileAtPath: targetFilePath handler: nil]  ) {
+                easyRsaInstallFailed([NSString stringWithFormat: NSLocalizedString(@"Could not delete %@", @"Window text"), targetFilePath]);
+                return NO;
+			}
+			
+		} else {
+			action = @"Created";
+		}
+		
 		if (  ! [gFileMgr tbCopyPath: sourceFilePath toPath: targetFilePath handler: nil]  ) {
 			easyRsaInstallFailed([NSString stringWithFormat:
 								  NSLocalizedString(@"Could not copy %@ to %@", @"Window text"),
@@ -237,10 +300,9 @@ BOOL copyEasyRsa(NSString * sourcePath,
 		} else {
 			propogateModificationDate(sourceFilePath, targetFilePath);
 			
-			NSLog(@"Updated %@", targetFilePath);
+			NSLog(@"%@ %@", action, targetFilePath);
 		}
 	}
-	
 	
 	NSLog(@"Finished Update of easy-rsa");
 	return YES;
