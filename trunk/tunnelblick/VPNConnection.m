@@ -1694,7 +1694,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     // "port" argument to openvpnstart is the port to use if "forNow" (starting from the GUI) so we find one now
     //                    otherwise it is the starting port to use when searching for a free port when not starting without the GUI
     unsigned int thePort;
-    unsigned int startingPort = [gTbDefaults unsignedIntForKey: @"managmentPortStartingPortNumber" default: 1337 min: 1 max: 65535];
+    unsigned int startingPort = [gTbDefaults unsignedIntForKey: @"managementPortStartingPortNumber" default: 1337 min: 1 max: 65535];
     if (  forNow  ) {
         thePort = getFreePort(startingPort);
         if (  thePort == 0  ) {
