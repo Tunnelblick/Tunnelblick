@@ -362,6 +362,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 								@"delayBeforeSlowDisconnectDialog",
                                 @"hookupTimeout",
                                 @"displayUpdateInterval",
+                                @"managementPortStartingPortNumber",
                                 
 								@"inhibitOutboundTunneblickTraffic",
                                 @"placeIconInStandardPositionInStatusBar",
