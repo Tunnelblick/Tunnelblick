@@ -9,6 +9,9 @@
   <tr><td valign="middle">
     <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=10.00">*Donate $10 USD*</a>
   </td></tr>
+  <tr><td valign="middle">
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=20.00">*Donate $20 USD*</a>
+  </td></tr>
  <tr><td valign="middle">
     <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=0.00">*Donate an amount of your choice*</a>
   </td></tr>
