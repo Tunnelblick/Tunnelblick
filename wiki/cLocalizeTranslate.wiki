@@ -3,9 +3,7 @@
 
 *Localizing and Translating Tunnelblick*
 
- <font color="red">*Translators are needed for Arabic, Bulgarian, Chinese (traditional), Japanese, Korean, and Swedish.* [cLocalizeTranslate Details]</font>
-
-
+ <font color="red">*Translators are needed for Arabic, Chinese (traditional), Japanese, and Korean.* [cLocalizeTranslate Details]</font>
 
  * The _new_ way of localizing the Tunnelblick application is described on this page.
 
