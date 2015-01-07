@@ -26,7 +26,7 @@ The Info.plist file may contain any of the entries normally allowed in a [cPkgs#
  * CFBundleIdentifier, a reverse-domain identifier which must be unique for each configuration, for example, "com.example.tunnelblick.configuration.001"
 
 <hr>
-*".proj" folders"
+*".lproj" folders"
 
 Each "lproj" folder (except English) has as its name the [http://www.loc.gov/standards/iso639-2/php/code_list.php ISO-639-1] two-letter abbreviation of the language and an extension of "lproj". For example, "JA.lproj" is the folder with Japanese strings, "ES.lproj" is the folder with Spanish strings, etc. One exception is English, which is named English.lproj. Other exceptions include Chinese and other languages for which there are multiple dilalects. See [http://commons.oreilly.com/wiki/index.php/Learning_Cocoa_with_Objective-C/Miscellaneous_Topics/Localization#Localizing_Resources Localizing Resources] or examine the "lproj" folders in /Applications/Tunnelblick.app/Contents/Resources.
 
