@@ -100,12 +100,12 @@ To unload kexts and allow Tunnelblick to load its own kexts, use the 'kextunload
 (The "sudo" is necessary because this command modifies the device driver. You will be asked for your administrator password, which will not appear (even as asterisks) when you type it.)
 
 If you find that restarting your computer reloads the kext you might need to find where it is being loaded from. Common locations are
- * /Users/_your username_/Library/LaunchDaemons
- * /Users/_your username_/Library/LaunchAgents
- * /Library/LaunchDaemons
- * /Library/LaunchAgents
- * /System/Library/LaunchDaemons
- * /System/Library/LaunchAgents
+ * /Users/_your username_/Library/!LaunchDaemons
+ * /Users/_your username_/Library/!LaunchAgents
+ * /Library/!LaunchDaemons
+ * /Library/!LaunchAgents
+ * /System/Library/!LaunchDaemons
+ * /System/Library/!LaunchAgents
 
 There are a user-contributed scripts on the <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">Downloads</a> page that will automatically unload the Cisco kext when Tunnelblick makes a connection, and reload the Cisco kext when the connection is disconnected. 
 
