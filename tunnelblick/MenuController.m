@@ -6015,12 +6015,15 @@ BOOL warnAboutNonTblks(void)
     }
     
     NSLog(@"Installation or repair failed; Log:\n%@", installerLog);
-    TBShowAlertWindow(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
-                      NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"));
-    [installerLog release];
+    
+	[installerLog release];
     if (  authRefIsLocal  ) {
         AuthorizationFree(localAuthRef, kAuthorizationFlagDefaults);
     }
+	
+    TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
+					NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
+					nil, nil, nil);
     return -1;
 }
 

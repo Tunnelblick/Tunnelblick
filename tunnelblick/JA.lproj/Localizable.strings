@@ -125,10 +125,10 @@
 "Launch" = "起動";
 
 /* Button */
-"Load Tap driver automatically" = "Load Tap driver automatically";
+"Load Tap driver automatically" = "Tap ドライバーを自動的に読み込む";
 
 /* Button */
-"Load Tun driver automatically" = "Load Tun driver automatically";
+"Load Tun driver automatically" = "Tun ドライバーを自動的に読み込む";
 
 /* Button */
 "Manually" = "手動接続";
@@ -137,10 +137,10 @@
 "Monochrome icon" = "白黒アイコン";
 
 /* Button */
-"Never load Tap driver" = "Never load Tap driver";
+"Never load Tap driver" = "Tap ドライバーを読み込まない";
 
 /* Button */
-"Never load Tun driver" = "Never load Tun driver";
+"Never load Tun driver" = "Tun ドライバーを読み込まない";
 
 /* Button */
 "Never show" = "表示しない";
@@ -158,13 +158,13 @@
 "Only Me" = "個人用";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Open Uninstall Instructions in Browser";
+"Open Uninstall Instructions in Browser" = "アンインストールの仕方をブラウザで表示する";
 
 /* Button */
 "Open easy-rsa in Terminal" = "ターミナルで easy-rsa を開く";
 
 /* Button */
-"Privacy info..." = "Privacy info…";
+"Privacy info..." = "プライバシー情報";
 
 /* Button */
 "Quit All OpenVPN Processes" = "全ての OpenVPN プロセスを終了";
@@ -293,7 +293,7 @@
 "VPN Details..." = "VPN の詳細…";
 
 /* Checkbox name */
-"Apply to all" = "Apply to all";
+"Apply to all" = "全員に適用";
 
 /* Checkbox name */
 "Check for updates automatically" = "更新を自動的にチェックする";
@@ -305,7 +305,7 @@
 "Check if the apparent public IP address changed after connecting" = "接続後に見かけ上のグローバルIPアドレスが変わったかチェックする";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "Disconnect when computer goes to sleep";
+"Disconnect when computer goes to sleep" = "スリープ時に接続を切断する";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "切り替え時に切断する";
@@ -344,10 +344,10 @@
 "Flush DNS cache after connecting or disconnecting" = "接続/切断後に DNS キャッシュをクリアする";
 
 /* Checkbox name */
-"Inhibit automatic update checking and IP Address checking" = "Inhibit automatic update checking and IP Address checking";
+"Inhibit automatic update checking and IP Address checking" = "アップデート確認およびIPアドレスの変更確認を自動で行わない";
 
 /* Checkbox name */
-"Keep connected" = "Keep connected";
+"Keep connected" = "接続を維持する";
 
 /* Checkbox name */ /* System profile item */
 "Monitor connection" = "接続を監視する";
@@ -371,16 +371,16 @@
 "Reset the primary interface after disconnecting" = "切断後にプライマリインターフェースをリセットする";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
+"Route all IPv4 traffic through the VPN" = "すべてのトラフィックをVPN経由で接続する";
 
 /* Checkbox name */
-"Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
+"Run MTU maximum size test after connecting" = "接続後にMTUの最大サイズをテストする";
 
 /* Checkbox name */
 "Save in Keychain" = "キーチェーンに保存する";
 
 /* Checkbox name */
-"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
+"Send anonymous profile information when checking" = "プロファイル情報を匿名で送信する";
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "Set DNS after routes are set instead of before routes are set";
@@ -428,7 +428,7 @@
 "CONNECTING" = "接続しています"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "Disconnecting"; // Please translate "Disconnecting"
+"DISCONNECTING" = "切断中"; // Please translate "Disconnecting"
 
 /* Connection status */
 "EXITING" = "接続されていません"; // Please translate "Disconnected"
@@ -437,10 +437,10 @@
 "GET_CONFIG" = "設定を取得しています"; // Please translate ""
 
 /* Connection status */
-"PASSWORD_WAIT" = "Waiting for password"; // Please translate "Waiting for password"
+"PASSWORD_WAIT" = "パスワードを待っています"; // Please translate "Waiting for password"
 
 /* Connection status */
-"PRIVATE_KEY_WAIT" = "Waiting for passphrase"; // Please translate "Waiting for password"
+"PRIVATE_KEY_WAIT" = "パスフレーズを待っています"; // Please translate "Waiting for password"
 
 /* Connection status */
 "RECONNECTING" = "再接続しています"; // Please translate ""
@@ -461,7 +461,7 @@
 "WAIT" = "サーバーの返事を待っています"; // Please translate "Waiting for Server Response"
 
 /* Folder name */
-"Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
+"Sample Tunnelblick VPN Configuration" = "Tunnelblick VPN 設定サンプル";
 
 /* System profile item */
 "Computer admin" = "コンピュータの管理者";
@@ -482,10 +482,10 @@
 " (Shared)" = " (共有)"; // Indicates a shared configuration
 
 /* Window title */
-"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Configuration - Tunnelblick";
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN の設定 - Tunnelblick";
 
 /* Window title */
-"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Disconnected - Advanced Settings%3$@";
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ 切断 - 詳細設定 %3$@";
 
 /* Window title */
 "'%@' has been disconnected" = "「%@」を切断しました";
@@ -515,7 +515,7 @@
 "Authentication failed" = "認証に失敗しました";
 
 /* Window title */
-"Change for All Selected Configurations?" = "Change for All Selected Configurations?";
+"Change for All Selected Configurations?" = "選択されたすべての設定を変更しますか？";
 
 /* Window title */
 "Configuration(s) Ignored" = "接続先を無視しました";
@@ -539,7 +539,7 @@
 "Details - Tunnelblick" = "詳細 - Tunnelblick";
 
 /* Window title */
-"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "Do you want to make this change for all %1$lu of the selected configurations, or only for '%2$@'?";
+"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "選択された %1$lu つの設定を変更しますか？または、'%2$@' だけを変更しますか？";
 
 /* Window title */
 "Do you wish to connect?" = "接続しますか？";
@@ -587,7 +587,7 @@
 "Only computer administrators should update Tunnelblick" = "コンピュータの管理者だけが Tunnelblick を更新できます";
 
 /* Window title */
-"OpenVPN is Not Responding" = "OpenVPN is Not Responding";
+"OpenVPN is Not Responding" = "OpenVPN が応答しません";
 
 /* Window title */
 "Please Confirm" = "確認";
@@ -605,7 +605,7 @@
 "Replace Existing File?" = "既にあるファイルを置き換えますか？";
 
 /* Window title */
-"Replace VPN Configuration?" = "Replace VPN Configuration?";
+"Replace VPN Configuration?" = "VPN 設定を置き換えますか？";
 
 /* Window title */
 "Sample Configuration Created" = "サンプルの接続先を作成しました";
@@ -647,10 +647,10 @@
 "Utilities" = "ユーティリティ";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "VPN 接続設定インストールエラー";
 
 /* Window title */
-"VPN Configuration Installation" = "VPN Configuration Installation";
+"VPN Configuration Installation" = "VPN 接続設定インストール";
 
 /* Window title */
 "VPN Credentials" = "VPN 認証";
@@ -674,7 +674,7 @@
 "While Connected" = "接続中";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Installed %lu configurations\n\n" = "     • Installed %lu configurations\n\n";
+"     • Installed %lu configurations\n\n" = "     • %lu つの設定がインストールされました\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
 "     • Installed one configuration\n\n" = "     • Installed one configuration\n\n";
@@ -728,7 +728,7 @@
 "  • Secure configurations\n" = "  • 接続先設定ファイルを安全にします\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ はフリーウェアです。%3$@ によって発行された %2$@ に基づき、再配布や改変が可能です。\n\n%4$@ は OpenVPN Technologies, Inc. の登録商標です。";
 
 /* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " 接続先は管理者のみ削除可能です。\n\n 削除はすぐに実行され、取り消すことができません。「%1$@」に関する全ての設定は削除されます。%2$@%3$@";
@@ -1758,6 +1758,9 @@
 
 /* Credit description */
 "Animation and icon sets code" = "アニメーションとアイコンセットコード";
+
+/* Credit description */
+"Arabic localization" = "Arabic localization";
 
 /* Credit description */
 "Bulgarian localization" = "Bulgarian localization";
