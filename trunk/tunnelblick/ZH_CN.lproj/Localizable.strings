@@ -302,7 +302,7 @@
 "Check for updates to beta versions" = "检查 beta 版的更新";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connecting" = "如果在连接后对外显示的 IP 改变了请勾选";
+"Check if the apparent public IP address changed after connecting" = "Check if the apparent public IP address changed after connecting";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "当计算机休眠时断开连接";
@@ -1758,6 +1758,9 @@
 
 /* Credit description */
 "Animation and icon sets code" = "动画, 图标的定位代码";
+
+/* Credit description */
+"Arabic localization" = "阿拉伯语翻译";
 
 /* Credit description */
 "Bulgarian localization" = "保加利亚语翻译";
