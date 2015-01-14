@@ -29,8 +29,10 @@
 #import "sharedRoutines.h"
 
 #import <netinet/in.h>
+#import <sys/socket.h>
 #import <sys/stat.h>
 #import <sys/types.h>
+#import <sys/un.h>
 
 #import "defines.h"
 
@@ -294,6 +296,7 @@ BOOL checkSetPermissions(NSString * path, mode_t permsShouldHave, BOOL fileMustE
 	
     if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
         if (  fileMustExist  ) {
+			appendLog([NSString stringWithFormat: @"File '%@' must exist but does not", path]);
             return NO;
         }
         return YES;
@@ -708,11 +711,13 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
             result = result && checkSetPermissions(filePath, scriptPerms, YES);
             
         } else if (   [ext isEqualToString: @"strings"]
-                   || [ext isEqualToString: @"png"]
                    || [[file lastPathComponent] isEqualToString:@"Info.plist"]  ) {
             result = result && checkSetPermissions(filePath, publicReadablePerms, YES);
             
-        } else if (  [path hasPrefix: gDeployPath]  ) {
+        } else if (  [ext isEqualToString: @"png"]  ) {
+            result = result && checkSetPermissions(filePath, PERMS_SECURED_PLIST, YES);
+			
+		} else if (  [path hasPrefix: gDeployPath]  ) {
             if (   [filePath hasPrefix: [gDeployPath stringByAppendingPathComponent: @"Welcome"]]
                 || [[file lastPathComponent] isEqualToString:@"forced-preferences.plist"]  ) {
                 result = result && checkSetPermissions(filePath, publicReadablePerms, YES);
@@ -818,7 +823,6 @@ OSStatus runTool(NSString * launchPath,
 		[task setStandardError: errOutPipe];
 	}
 	
-    [task setCurrentDirectoryPath: @"/tmp"];
     [task setEnvironment: getSafeEnvironment([[launchPath lastPathComponent] isEqualToString: @"openvpn"])];
     
     [task launch];
@@ -1065,6 +1069,145 @@ NSString * lineAfterRemovingNulCharacters(NSString * line, NSMutableString * out
     }
     
 	return [NSString stringWithString: outputLine];
+}
+
+BOOL tunnelblickdIsLoaded(void) {
+	
+	return (   [[NSFileManager defaultManager] fileExistsAtPath: TUNNELBLICKD_PLIST_PATH]
+            && [[NSFileManager defaultManager] fileExistsAtPath: TUNNELBLICKD_SOCKET_PATH]);
+    
+}
+
+OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString ** stderrString) {
+    
+    int sockfd;
+    int n;
+    
+    const char * requestToServer = [[NSString stringWithFormat: @"%s%@", TUNNELBLICKD_OPENVPNSTART_HEADER_C, command] UTF8String];
+    const char * socketPath = [TUNNELBLICKD_SOCKET_PATH UTF8String];
+    
+#define SOCKET_BUF_SIZE 1024
+	char buffer[SOCKET_BUF_SIZE];
+    
+    struct sockaddr_un socket_data;
+    
+    // Create a Unix domain socket as a stream
+    sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
+    if (  sockfd < 0  ) {
+        NSLog(@"runTunnelblickd: Error creating Unix domain socket; errno = %u; error was '%s'", errno, strerror(errno));
+        goto error2;
+    }
+    
+    // Connect to the tunnelblickd server's socket
+    bzero((char *) &socket_data, sizeof(socket_data));
+    socket_data.sun_len    = sizeof(socket_data);
+    socket_data.sun_family = AF_UNIX;
+    if (  sizeof(socket_data.sun_path) <= strlen(socketPath)  ) {
+        NSLog(@"runTunnelblickd: socketPath is %lu bytes long but there is only room for %lu bytes in socket_data.sun_path", strlen(socketPath), sizeof(socket_data.sun_path));
+        goto error1;
+    }
+    memmove((char *)&socket_data.sun_path, (char *)socketPath, strlen(socketPath));
+    if (  connect(sockfd, (struct sockaddr *)&socket_data, sizeof(socket_data)  ) < 0) {
+        NSLog(@"runTunnelblickd: Error connecting to tunnelblickd server socket; errno = %u; error was '%s'", errno, strerror(errno));
+        goto error1;
+    }
+    
+    // Send our request to the socket
+    const char * buf_ptr = requestToServer;
+    size_t bytes_to_write = strlen(requestToServer);
+    while (  bytes_to_write != 0  ) {
+        n = write(sockfd, buf_ptr, bytes_to_write);
+        if (  n < 0  ) {
+            NSLog(@"runTunnelblickd: Error writing to tunnelblickd server socket; errno = %u; error was '%s'", errno, strerror(errno));
+            goto error1;
+        }
+        
+        buf_ptr += n;
+        bytes_to_write -= n;
+        //        NSLog(@"runTunnelblickd: Wrote %lu bytes to tunnelblickd server socket: '%@'", (unsigned long)n, command);
+    }
+    
+    // Receive from the socket until we receive a \0
+    // Must receive all data within 10 seconds or we assume tunnelblickd is not responding properly and abort
+    
+    // Set the socket to use non-blocking I/O (but we've already done the output, so we're really just doing non-blocking input)
+    if (  -1 == fcntl(sockfd, F_SETFL,  O_NONBLOCK)  ) {
+        NSLog(@"runTunnelblickd: Error from fcntl(sockfd, F_SETFL,  O_NONBLOCK) with tunnelblickd server socket; errno = %u; error was '%s'", errno, strerror(errno));
+        goto error1;
+    }
+    
+    NSMutableString * output = [NSMutableString stringWithCapacity: 4096];
+    
+    BOOL foundZeroByte = FALSE;
+    
+    NSDate * timeoutDate = [NSDate dateWithTimeIntervalSinceNow: 10.0];
+    
+    while (  [[NSDate date] isLessThanOrEqualTo: timeoutDate]  ) {
+        bzero((char *)buffer, SOCKET_BUF_SIZE);
+        n = read(sockfd, (char *)buffer, SOCKET_BUF_SIZE - 1);
+        if (   (n     == -1)
+            && (errno == EAGAIN)  ) {
+            //            NSLog(@"runTunnelblickd: no data available from tunnelblickd socket; sleeping 0.1 seconds...");
+            usleep(100000); // 0.1 seconds
+            continue;
+        } else if (  n < 0  ) {
+            NSLog(@"runTunnelblickd: Error reading from tunnelblickd socket; errno = %u; error was '%s'", errno, strerror(errno));
+            goto error1;
+        }
+        buffer[n] = '\0';
+        [output appendString: [NSString stringWithUTF8String: buffer]];
+        if (  strchr(buffer, '\0') != (buffer + n)  ) {
+            if (  strchr(buffer, '\0') != (buffer + n - 1)  ) {
+                NSLog(@"runTunnelblickd: Data from tunnelblickd after the zero byte that should terminate the data");
+                goto error1;
+            }
+            foundZeroByte = TRUE;
+            break;
+        }
+    }
+    
+    shutdown(sockfd, SHUT_RDWR);
+    close(sockfd);
+    
+    if (  ! foundZeroByte  ) {
+        NSLog(@"runTunnelblickd: tunnelblickd is not responding; received only %lu bytes", [output length]);
+        goto error2;
+    }
+    
+    NSRange rngNl = [output rangeOfString: @"\n"];
+    if (  rngNl.length == 0  ) {
+        NSLog(@"Invalid output from tunnelblickd: no newline; full output = '%@'", output);
+        goto error2;
+    }
+    NSString * header = [output substringWithRange: NSMakeRange(0, rngNl.location)];
+    NSArray * headerComponents = [header componentsSeparatedByString: @" "];
+    if (  [headerComponents count] != 3) {
+        NSLog(@"Invalid output from tunnelblickd: header line does not have three components; full output = '%@'", output);
+        goto error2;
+    }
+    OSStatus status = [((NSString *)[headerComponents objectAtIndex: 0]) intValue];
+    int   stdOutLen = [((NSString *)[headerComponents objectAtIndex: 1]) intValue];
+    int   stdErrLen = [((NSString *)[headerComponents objectAtIndex: 2]) intValue];
+    NSRange stdOutRng = NSMakeRange(rngNl.location + 1, stdOutLen);
+    NSRange stdErrRng = NSMakeRange(rngNl.location + 1 + stdOutLen, stdErrLen);
+    NSString * stdOutContents = [output substringWithRange: stdOutRng];
+    NSString * stdErrContents = [output substringWithRange: stdErrRng];
+    //    NSLog(@"runTunnelblickd: Output from tunnelblickd server: status = %d\nstdout = '%@'\nstderr = '%@'", status, stdOutContents, stdErrContents);
+    if (  stdoutString ) {
+        *stdoutString = stdOutContents;
+    }
+    if (  stderrString ) {
+        *stderrString = stdErrContents;
+    }
+    
+    return status;
+    
+error1:
+    shutdown(sockfd, SHUT_RDWR);
+    close(sockfd);
+    
+error2:
+    return -1;
 }
 
 NSString * sanitizedConfigurationContents(NSString * cfgContents) {

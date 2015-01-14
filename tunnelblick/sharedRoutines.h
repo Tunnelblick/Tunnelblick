@@ -76,6 +76,10 @@ OSStatus runTool(NSString * launchPath,
 void startTool(NSString * launchPath,
 			   NSArray *  arguments);
 
+BOOL tunnelblickdIsLoaded(void);
+
+OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString ** stderrString);
+
 unsigned getLoadedKextsMask(void);
 
 NSString * sanitizedConfigurationContents(NSString * cfgContents);

@@ -55,6 +55,8 @@
 // Maximum index for the "Set DNS/WINS" dropdown box. Must be equal to the number of entries minus one.
 #define MAX_SET_DNS_WINS_INDEX 4
 
+// Header for commands to tunnelblickd that are to be handled by openvpnstart (note that this is a C-string, not an NSString)
+#define TUNNELBLICKD_OPENVPNSTART_HEADER_C "openvpnstart: "
 
 //*************************************************************************************************
 // Paths:
@@ -76,6 +78,18 @@
 // NOTE: tunnelblick-uninstaller.sh refers to the installer log path without using this header file
 #define INSTALLER_LOG_PATH      @"/tmp/tunnelblick-installer-log.txt"
 
+// NOTE: net.tunnelblick.tunnelblick.tunnelblickd.plist and tunnelblick-uninstaller.sh refer to the tunnelblickd log path without using this header file
+// NOTE: The "_C" strings are C-strings, not NSStrings
+#define TUNNELBLICKD_LOG_FOLDER @"/var/log/Tunnelblick"
+#define TUNNELBLICKD_LOG_PATH_C "/var/log/Tunnelblick/tunnelblickd.log"
+#define TUNNELBLICKD_PREVIOUS_LOG_PATH_C "/var/log/Tunnelblick/tunnelblickd.previous.log"
+
+// NOTE: net.tunnelblick.tunnelblick.tunnelblickd.plist and tunnelblick-uninstaller.sh refer to the tunnelblickd socket path without using this header file
+#define TUNNELBLICKD_SOCKET_PATH @"/var/run/net.tunnelblick.tunnelblick.tunnelblickd.socket"
+
+// NOTE: tunnelblick-uninstaller.sh refers to the .plist path without using this header file
+#define TUNNELBLICKD_PLIST_PATH @"/Library/LaunchDaemons/net.tunnelblick.tunnelblick.tunnelblickd.plist"
+
 #define TOOL_PATH_FOR_ARCH       @"/usr/bin/arch"
 #define TOOL_PATH_FOR_BASH       @"/bin/bash"
 #define TOOL_PATH_FOR_CODESIGN   @"/usr/bin/codesign"
@@ -84,6 +98,7 @@
 #define TOOL_PATH_FOR_KEXTSTAT   @"/usr/sbin/kextstat"
 #define TOOL_PATH_FOR_KEXTUNLOAD @"/sbin/kextunload"
 #define TOOL_PATH_FOR_KILLALL    @"/usr/bin/killall"
+#define TOOL_PATH_FOR_LAUNCHCTL  @"/bin/launchctl"
 #define TOOL_PATH_FOR_OSASCRIPT  @"/usr/bin/osascript"
 #define TOOL_PATH_FOR_PLUTIL     @"/usr/bin/plutil"
 #define TOOL_PATH_FOR_SCUTIL     @"/usr/sbin/scutil"
@@ -160,8 +175,11 @@
 #define PERMS_SECURED_FOLDER     0755
 #define PERMS_SECURED_SCRIPT     0700
 #define PERMS_SECURED_EXECUTABLE 0755
+#define PERMS_SECURED_ROOT_EXEC  0744
 #define PERMS_SECURED_READABLE   0744
+#define PERMS_SECURED_PLIST      0644
 #define PERMS_SECURED_OTHER      0700
+#define PERMS_SECURED_SUID       04555
 
 
 //*************************************************************************************************
@@ -257,7 +275,7 @@
 #define INSTALLER_COPY_APP              0x0002u
 
 #define INSTALLER_SECURE_APP            0x0004u
-//                                      0x0008u // UNUSED, WAS INSTALLER_COPY_BUNDLE
+#define INSTALLER_HELPER_IS_TO_BE_SUID  0x0008u
 #define INSTALLER_SECURE_TBLKS          0x0010u
 #define INSTALLER_CONVERT_NON_TBLKS     0x0020u
 #define INSTALLER_MOVE_LIBRARY_OPENVPN  0x0040u

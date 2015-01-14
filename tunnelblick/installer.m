@@ -88,6 +88,7 @@
 //             secures the .ovpn or .conf file or a .tblk package at targetPath
 //     (11) If INSTALLER_DELETE is set and targetPath is given,
 //             deletes the .ovpn or .conf file or .tblk package at targetPath (also deletes the shadow copy if deleting a private configuration)
+//     (12) Set up tunnelblickd
 //
 // When finished (or if an error occurs), the file /tmp/tunnelblick-authorized-running is deleted to indicate the program has finished
 //
@@ -127,7 +128,9 @@ void debugLog(NSString * string) {
 	//
 	// "string" is a string identifier indicating where debugLog was called from.
 	
-	NSString * path = [NSString stringWithFormat: @"/tmp/0-tunnelblick-installer-debug-point-%@.txt", string];
+	static unsigned int debugLogMessageCounter = 0;
+	
+	NSString * path = [NSString stringWithFormat: @"/tmp/0-%u-tunnelblick-installer-%@.txt", ++debugLogMessageCounter, string];
 	[[NSFileManager defaultManager] createFileAtPath: path contents: [NSData data] attributes: nil];
 }
 
@@ -194,6 +197,17 @@ void errorExit() {
     
     [pool drain];
     exit(EXIT_FAILURE);
+}
+
+void freeAuthRef(AuthorizationRef authRef) {
+	
+	if (  authRef != NULL  ) {
+		OSStatus status = AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+		if (  status != errAuthorizationSuccess  ) {
+			appendLog([NSString stringWithFormat: @"AuthorizationFree(0x%lx) returned %ld", (unsigned long)authRef, (long)status]);
+			errorExit();
+		}
+	}
 }
 
 void pruneL_AS_T_TBLKS() {
@@ -342,6 +356,123 @@ void convertOldUpdatableConfigurations(void) {
     }
 }
 
+void loadLaunchDaemonUsingLaunchctl(void) {
+	
+	// Must have uid=0 (not merely euid=0) for runTool(launchctl) to work properly
+    if (  setuid(0)  ) {
+		appendLog([NSString stringWithFormat: @"setuid(0) failed; error was %d: '%s'", errno, strerror(errno)]);
+		errorExit();
+	}
+	if (  setgid(0)  ) {
+		appendLog([NSString stringWithFormat: @"setgid(0) failed; error was %d: '%s'", errno, strerror(errno)]);
+		errorExit();
+	}
+ 	
+	NSString * stdoutString = @"";
+	NSString * stderrString = @"";
+	
+	if (  [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH]  ) {
+		NSArray * arguments = [NSArray arrayWithObjects: @"unload", TUNNELBLICKD_PLIST_PATH, nil];
+		OSStatus status = runTool(TOOL_PATH_FOR_LAUNCHCTL, arguments, &stdoutString, &stderrString);
+		if (  status != EXIT_SUCCESS  ) {
+			appendLog([NSString stringWithFormat: @"launchctl unload %@ failed; error was %d: '%s'\nstdout = '%@'\nstderr='%@'", TOOL_PATH_FOR_LAUNCHCTL, errno, strerror(errno), stdoutString, stderrString]);
+			// Continue even after the error. If we can load, it doesn't matter that we didn't unload.
+		}
+		
+		stdoutString = @"";
+		stderrString = @"";
+	}
+	
+	NSArray * arguments = [NSArray arrayWithObjects: @"load", TUNNELBLICKD_PLIST_PATH, nil];
+	OSStatus status = runTool(TOOL_PATH_FOR_LAUNCHCTL, arguments, &stdoutString, &stderrString);
+	if (  status != EXIT_SUCCESS  ) {
+		appendLog([NSString stringWithFormat: @"launchctl load %@ failed; error was %d: '%s'\nstdout = '%@'\nstderr='%@'", TOOL_PATH_FOR_LAUNCHCTL, errno, strerror(errno), stdoutString, stderrString]);
+		errorExit();
+	}
+}
+
+/* DISABLED BECAUSE THIS IS NOT AVAILABLE ON 10.4 and 10.5
+ *
+ * When/if this is enabled, must add the ServiceManagement framework, too, via the following line at the start of this file:
+ *
+ *      #import <ServiceManagement/ServiceManagement.h>
+ *
+ * That framework is not on 10.4, and the SMJobSubmit() function is not available on 10.5
+ 
+void  loadLaunchDaemonUsingSMJobSubmit(NSDictionary * newPlistContents) {
+	
+	// Obtain the right to change the system launchd domain
+	AuthorizationItem right;
+	right.name = kSMRightModifySystemDaemons;
+	right.valueLength = 0;
+	right.value = NULL;
+	right.flags = 0;
+	
+	AuthorizationRights requestedRights;
+	requestedRights.count = 1;
+	requestedRights.items = &right;
+	
+	AuthorizationRef authRef = NULL;
+	
+	OSStatus status = AuthorizationCreate(&requestedRights,
+										  kAuthorizationEmptyEnvironment,
+										  (  kAuthorizationFlagDefaults
+										   | kAuthorizationFlagExtendRights),
+										  &authRef);
+	if (  errAuthorizationSuccess != status  ) {
+		appendLog([NSString stringWithFormat: @"Unable to create an AuthorizationRef with the 'kSMRightModifySystemDaemons' right; status = %d", status]);
+		freeAuthRef(authRef);
+		errorExit();
+	}
+	
+	// Unload the existing LaunchDaemon if if is loaded
+	NSString * daemonLabel = @"net.tunnelblick.tunnelblick.tunnelblickd";
+	CFErrorRef removeError = NULL;
+	if (  ! SMJobRemove(kSMDomainSystemLaunchd, (CFStringRef)daemonLabel, authRef, TRUE , &removeError)) {	// TRUE = do not return until removed
+		if (  CFErrorGetCode(removeError) != kSMErrorJobNotFound ) {
+			appendLog([NSString stringWithFormat: @"Unable to unload %@; error: %@", daemonLabel, (NSError *)removeError]);
+			if (  removeError  ) CFRelease(removeError);
+			freeAuthRef(authRef);
+			errorExit();
+		}
+		appendLog([NSString stringWithFormat: @"Do not need to unload old %@", daemonLabel]);
+	} else {
+		appendLog([NSString stringWithFormat: @"Unloaded old %@", daemonLabel]);
+	}
+	if (  removeError  ) CFRelease(removeError);
+	
+	// Load the new daemon
+	CFDictionaryRef cfPlist = (CFDictionaryRef)[NSDictionary dictionaryWithDictionary: newPlistContents];
+	CFErrorRef submitError = NULL;
+	if (  ! SMJobSubmit(kSMDomainSystemLaunchd, cfPlist, authRef, &submitError)  ) {
+		appendLog([NSString stringWithFormat: @"SMJobSubmit failed to load %@; error: %@", daemonLabel, (NSError *)submitError]);
+		if (  submitError  ) CFRelease(submitError);
+		freeAuthRef(authRef);
+		errorExit();
+	} else {
+		appendLog([NSString stringWithFormat: @"Loaded new %@", daemonLabel]);
+	}
+	if (  submitError  ) CFRelease(submitError);
+	
+	freeAuthRef(authRef);
+}
+
+ */
+
+void loadLaunchDaemon (NSDictionary * newPlistContents) {
+	
+	// 'runningOnSnowLeopardOrNewer' is not in sharedRoutines, so we don't use it -- we load the launch daemon the old way, with 'launchctl load'
+	// Left the new code in to make it easy to implement the new way -- with 'SMJobSubmit()' on 10.6.8 and higher -- in case a later version of OS X messes with 'launchctl load'
+	// To implement the new way, too, just move 'runningOnSnowLeopardOrNewer' to sharedRoutines and un-comment the code below to use it.
+	//
+//  if (  runningOnSnowLeopardOrNewer()  ) {
+//      loadLaunchDaemonUsingSMJobSubmit(newPlistContents);
+// 	} else {
+	(void) newPlistContents;  // Can remove this if the above lines are un-commmented
+		loadLaunchDaemonUsingLaunchctl();
+//	}
+}
+
 int main(int argc, char *argv[])
 {
 	pool = [NSAutoreleasePool new];
@@ -366,8 +497,9 @@ int main(int argc, char *argv[])
     BOOL moveNotCopy      = (arg1 & INSTALLER_MOVE_NOT_COPY) != 0;
     BOOL deleteConfig     = (arg1 & INSTALLER_DELETE) != 0;
 	
+    BOOL helperIsToBeSuid = (arg1 & INSTALLER_HELPER_IS_TO_BE_SUID) != 0;
+    
 	openLog(  clearLog  );
-	
 	
 	NSBundle * ourBundle = [NSBundle mainBundle];
 	NSString * resourcesPath = [ourBundle bundlePath]; // (installer itself is in Resources)
@@ -438,22 +570,27 @@ int main(int argc, char *argv[])
     //        and convert old entries in L_AS_T_TBLKS to the new format, with an bundleId_edition folder enclosing a .tblk
     
     if (  ! createDirWithPermissionAndOwnership(@"/Library/Application Support/Tunnelblick",
-                                                0755, 0, 0)  ) {
+                                                PERMS_SECURED_FOLDER, 0, 0)  ) {
         errorExit();
     }
     
     if (  ! createDirWithPermissionAndOwnership(L_AS_T_LOGS,
-                                                0755, 0, 0)  ) {
+                                                PERMS_SECURED_FOLDER, 0, 0)  ) {
+        errorExit();
+    }
+    
+    if (  ! createDirWithPermissionAndOwnership(TUNNELBLICKD_LOG_FOLDER,
+                                                PERMS_SECURED_FOLDER, 0, 0)  ) {
         errorExit();
     }
     
     if (  ! createDirWithPermissionAndOwnership(L_AS_T_SHARED,
-                                                0755, 0, 0)  ) {
+                                                PERMS_SECURED_FOLDER, 0, 0)  ) {
         errorExit();
     }
     
     if (  ! createDirWithPermissionAndOwnership(L_AS_T_TBLKS,
-                                                0755, 0, 0)  ) {
+                                                PERMS_SECURED_FOLDER, 0, 0)  ) {
         errorExit();
     }
     
@@ -610,17 +747,7 @@ int main(int argc, char *argv[])
     
     //**************************************************************************************************************************
     // (6)
-    // If requested, secure Tunnelblick.app by setting ownership of Info.plist and Resources and its contents to root:wheel,
-    // and setting permissions as follows:
-    //        Info.plist is set to 0644
-    //        openvpnstart is set to 04555 (SUID)
-    //        openvpn is set to 0755
-    //        Other executables and standard scripts are set to 0744
-    //        For the contents of /Resources/Deploy and its subfolders:
-    //            folders are set to 0755
-    //            certificate & key files (various extensions) are set to 0640
-    //            shell scripts (*.sh) are set to 0744
-    //            all other files are set to 0644
+    // If requested, secure Tunnelblick.app by setting the ownership and permissions of it and all its components
     if ( secureApp ) {
         
         NSString *contentsPath				= [appResourcesPath stringByDeletingLastPathComponent];
@@ -631,13 +758,13 @@ int main(int argc, char *argv[])
         NSString *installerPath             = [appResourcesPath stringByAppendingPathComponent:@"installer"                                      ];
         NSString *ssoPath                   = [appResourcesPath stringByAppendingPathComponent:@"standardize-scutil-output"                      ];
         NSString *pncPath                   = [appResourcesPath stringByAppendingPathComponent:@"process-network-changes"                        ];
+        NSString *tunnelblickdPath          = [appResourcesPath stringByAppendingPathComponent:@"tunnelblickd"                                   ];
+        NSString *tunnelblickHelperPath     = [appResourcesPath stringByAppendingPathComponent:@"tunnelblick-helper"                             ];
         NSString *leasewatchPath            = [appResourcesPath stringByAppendingPathComponent:@"leasewatch"                                     ];
         NSString *leasewatch3Path           = [appResourcesPath stringByAppendingPathComponent:@"leasewatch3"                                    ];
         NSString *pncPlistPath              = [appResourcesPath stringByAppendingPathComponent:@"ProcessNetworkChanges.plist"                    ];
         NSString *leasewatchPlistPath       = [appResourcesPath stringByAppendingPathComponent:@"LeaseWatch.plist"                               ];
         NSString *leasewatch3PlistPath      = [appResourcesPath stringByAppendingPathComponent:@"LeaseWatch3.plist"                              ];
-        // The name of our LaunchAtLogin.plist file does not change when rebranded
-		NSString *launchAtLoginPlistPath    = [appResourcesPath stringByAppendingPathComponent:@"net.tunnelblick.tunnel" @"blick.LaunchAtLogin.plist"];
 		NSString *launchAtLoginScriptPath   = [appResourcesPath stringByAppendingPathComponent:@"launchAtLogin.sh"                               ];
         NSString *clientUpPath              = [appResourcesPath stringByAppendingPathComponent:@"client.up.osx.sh"                               ];
         NSString *clientDownPath            = [appResourcesPath stringByAppendingPathComponent:@"client.down.osx.sh"                             ];
@@ -655,43 +782,52 @@ int main(int argc, char *argv[])
         NSString *freePublicDnsServersPath  = [appResourcesPath stringByAppendingPathComponent:@"FreePublicDnsServersList.txt"                   ];
         NSString *iconSetsPath              = [appResourcesPath stringByAppendingPathComponent:@"IconSets"                                       ];
         
+        // The names of our launchd .plists file should not change when rebranded, so we break the strings so that global search/replace doesn't see them
+		NSString *launchAtLoginPlistPath    = [appResourcesPath stringByAppendingPathComponent:@"net.tunnelblick.tunnel" @"blick.LaunchAtLogin.plist"];
+		NSString *tunnelblickdPlistPath     = [appResourcesPath stringByAppendingPathComponent:@"net.tunnelblick.tunnel" @"blick.tunnelblickd.plist"];
+        
         NSString *tunnelblickPath = [contentsPath stringByDeletingLastPathComponent];
-        BOOL okSoFar = checkSetOwnership(tunnelblickPath, YES, 0, 0);
         
-        okSoFar = okSoFar && checkSetPermissions(infoPlistPath,             0644, YES);
+		BOOL okSoFar = checkSetOwnership(tunnelblickPath, YES, 0, 0);
         
-        okSoFar = okSoFar && checkSetPermissions(appResourcesPath,          0755, YES);
+        okSoFar = okSoFar && checkSetPermissions(infoPlistPath,             PERMS_SECURED_PLIST,      YES);
+        
+        okSoFar = okSoFar && checkSetPermissions(appResourcesPath,          PERMS_SECURED_FOLDER,     YES);
 
-        okSoFar = okSoFar && checkSetPermissions(openvpnPath,               0755, YES);
+        okSoFar = okSoFar && checkSetPermissions(openvpnPath,               PERMS_SECURED_FOLDER,     YES);
+
+        okSoFar = okSoFar && checkSetPermissions(openvpnstartPath,          PERMS_SECURED_EXECUTABLE, YES);
         
-        okSoFar = okSoFar && checkSetPermissions(launchAtLoginScriptPath,   0755, YES);
+        okSoFar = okSoFar && checkSetPermissions(launchAtLoginScriptPath,   PERMS_SECURED_EXECUTABLE, YES);
 		
-        okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,         0744, YES);
-        okSoFar = okSoFar && checkSetPermissions(installerPath,             0744, YES);
-        okSoFar = okSoFar && checkSetPermissions(leasewatchPath,            0744, YES);
-        okSoFar = okSoFar && checkSetPermissions(leasewatch3Path,           0744, YES);
-        okSoFar = okSoFar && checkSetPermissions(pncPath,                   0744, YES);
-        okSoFar = okSoFar && checkSetPermissions(ssoPath,                   0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,         PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(installerPath,             PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(leasewatchPath,            PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(leasewatch3Path,           PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(pncPath,                   PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(ssoPath,                   PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(tunnelblickdPath,          PERMS_SECURED_ROOT_EXEC,  YES);
         
-        okSoFar = okSoFar && checkSetPermissions(pncPlistPath,              0644, YES);
-        okSoFar = okSoFar && checkSetPermissions(leasewatchPlistPath,       0644, YES);
-        okSoFar = okSoFar && checkSetPermissions(leasewatch3PlistPath,      0644, YES);
-        okSoFar = okSoFar && checkSetPermissions(launchAtLoginPlistPath,    0644, YES);
-        okSoFar = okSoFar && checkSetPermissions(freePublicDnsServersPath,  0644, YES);
+        okSoFar = okSoFar && checkSetPermissions(pncPlistPath,              PERMS_SECURED_PLIST,      YES);
+        okSoFar = okSoFar && checkSetPermissions(leasewatchPlistPath,       PERMS_SECURED_PLIST,      YES);
+        okSoFar = okSoFar && checkSetPermissions(leasewatch3PlistPath,      PERMS_SECURED_PLIST,      YES);
+        okSoFar = okSoFar && checkSetPermissions(launchAtLoginPlistPath,    PERMS_SECURED_PLIST,      YES);
+        okSoFar = okSoFar && checkSetPermissions(tunnelblickdPlistPath,     PERMS_SECURED_PLIST,      YES);
+        okSoFar = okSoFar && checkSetPermissions(freePublicDnsServersPath,  PERMS_SECURED_PLIST,      YES);
         
-        okSoFar = okSoFar && checkSetPermissions(clientUpPath,              0744, NO);
-        okSoFar = okSoFar && checkSetPermissions(clientDownPath,            0744, NO);
-        okSoFar = okSoFar && checkSetPermissions(clientNoMonUpPath,         0744, NO);
-        okSoFar = okSoFar && checkSetPermissions(clientNoMonDownPath,       0744, NO);
-        okSoFar = okSoFar && checkSetPermissions(clientNewUpPath,           0744, YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewDownPath,         0744, YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewRoutePreDownPath, 0744, YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt1UpPath,       0744, YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt1DownPath,     0744, YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt2UpPath,       0744, YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt2DownPath,     0744, YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt3UpPath,       0744, YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt3DownPath,     0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(clientUpPath,              PERMS_SECURED_ROOT_EXEC,  NO);
+        okSoFar = okSoFar && checkSetPermissions(clientDownPath,            PERMS_SECURED_ROOT_EXEC,  NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNoMonUpPath,         PERMS_SECURED_ROOT_EXEC,  NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNoMonDownPath,       PERMS_SECURED_ROOT_EXEC,  NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNewUpPath,           PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewDownPath,         PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewRoutePreDownPath, PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt1UpPath,       PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt1DownPath,     PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt2UpPath,       PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt2DownPath,     PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt3UpPath,       PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt3DownPath,     PERMS_SECURED_ROOT_EXEC,  YES);
         
         // Check/set OpenVPN version folders and openvpn and openvpn-down-root.so in them
         NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnPath];
@@ -703,13 +839,13 @@ int main(int argc, char *argv[])
             if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
                 && isDir  ) {
                 if (  [file hasPrefix: @"openvpn-"]  ) {
-                    okSoFar = okSoFar && checkSetPermissions(fullPath, 0755, YES);
+                    okSoFar = okSoFar && checkSetPermissions(fullPath, PERMS_SECURED_FOLDER, YES);
                     
                     NSString * thisOpenvpnPath = [fullPath stringByAppendingPathComponent: @"openvpn"];
-                    okSoFar = okSoFar && checkSetPermissions(thisOpenvpnPath, 0755, YES);
+                    okSoFar = okSoFar && checkSetPermissions(thisOpenvpnPath, PERMS_SECURED_EXECUTABLE, YES);
                     
                     NSString * thisOpenvpnDownRootPath = [fullPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
-                    okSoFar = okSoFar && checkSetPermissions(thisOpenvpnDownRootPath, 0744, NO);
+                    okSoFar = okSoFar && checkSetPermissions(thisOpenvpnDownRootPath, PERMS_SECURED_ROOT_EXEC, NO);
                 }
             }
         }
@@ -718,7 +854,7 @@ int main(int argc, char *argv[])
 		NSString * codeSigPath = [contentsPath stringByAppendingPathComponent: @"_CodeSignature"];
 		if (   [gFileMgr fileExistsAtPath: codeSigPath isDirectory: &isDir]
 			&& isDir  ) {
-			okSoFar = okSoFar && checkSetPermissions(codeSigPath, 0755, YES);
+			okSoFar = okSoFar && checkSetPermissions(codeSigPath, PERMS_SECURED_FOLDER, YES);
 			dirEnum = [gFileMgr enumeratorAtPath: codeSigPath];
 			while (  (file = [dirEnum nextObject])  ) {
 				NSString * itemPath = [codeSigPath stringByAppendingPathComponent: file];
@@ -761,7 +897,7 @@ int main(int argc, char *argv[])
             errorExit();
         }
         
-		// Check/set the app's Deploy folder
+		// Secure the app's Deploy folder
         if (   [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
             && isDir  ) {
 			okSoFar = okSoFar && secureOneFolder(gDeployPath, NO, 0);
@@ -769,9 +905,9 @@ int main(int argc, char *argv[])
 		
 		// Save this for last, so if something goes wrong, it isn't SUID inside a damaged app
 		if (  okSoFar  ) {
-			okSoFar = checkSetPermissions(openvpnstartPath, 04555, YES);
-		}
-		
+            okSoFar = okSoFar && checkSetPermissions(tunnelblickHelperPath, (helperIsToBeSuid ? PERMS_SECURED_SUID : PERMS_SECURED_EXECUTABLE), YES);
+        }
+        
 		if (  ! okSoFar  ) {
             appendLog(@"Unable to secure Tunnelblick.app");
             errorExit();
@@ -1030,8 +1166,52 @@ int main(int argc, char *argv[])
     }
     
     //**************************************************************************************************************************
+    // (12) Set up tunnelblickd to load when the computer starts
+	
+    // Check to see if the tunnelblickd .plist file is up-to-date
+	// If we are debugging, it needs the 'Debug' key set and the the 'Program' value pointing to our copy of tunnelblickd
+    
+	// NOTE: The name of the tunnelblickd .plist file in Resources does not change when rebranded, hence the split constant strings when referring to it
+    NSString * ourPlistPath = [resourcesPath stringByAppendingPathComponent: @"net.tunnel" @"blick.tunnel" @"blick.tunnelblickd.plist"];
+	
+    NSMutableDictionary * newPlistContents = [NSDictionary dictionaryWithContentsOfFile: ourPlistPath];
+    
+#ifdef TBDebug
+	NSString * daemonPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
+	[newPlistContents setObject: daemonPath                     forKey: @"Program"];
+	[newPlistContents setObject: [NSNumber numberWithBool: YES] forKey: @"Debug"];
+    NSDictionary * installedPlistContents = nil; // Force install or replace of plist
+#else
+    NSDictionary * installedPlistContents = [NSDictionary dictionaryWithContentsOfFile: TUNNELBLICKD_PLIST_PATH];
+#endif
+	
+	if (  ! [installedPlistContents isEqualToDictionary: newPlistContents]  ) {
+        
+        // Install or replace the tunnelblickd .plist in /Library/LaunchDaemons
+        
+        BOOL hadExistingPlist = [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH];
+        if (  hadExistingPlist  ) {
+            if (  ! [gFileMgr tbRemoveFileAtPath: TUNNELBLICKD_PLIST_PATH handler: nil]  ) {
+                appendLog([NSString stringWithFormat: @"Unable to delete %@", TUNNELBLICKD_PLIST_PATH]);
+                errorExit();
+            }
+        }
+        if (  [newPlistContents writeToFile: TUNNELBLICKD_PLIST_PATH atomically: YES] ) {
+            appendLog([NSString stringWithFormat: @"%@ %@", (hadExistingPlist ? @"Replaced" : @"Installed"), TUNNELBLICKD_PLIST_PATH]);
+        } else {
+            appendLog([NSString stringWithFormat: @"Unable to create %@", TUNNELBLICKD_PLIST_PATH]);
+            errorExit();
+        }
+        
+		// We must load the new launch daemon, too, so it is used immediately, even before the next system start
+		loadLaunchDaemon(newPlistContents);
+    }
+	
+    //**************************************************************************************************************************
     // DONE
     
+	appendLog(@"Tunnelblick installer finished without error");
+	
     deleteFlagFile(AUTHORIZED_ERROR_PATH);
     deleteFlagFile(AUTHORIZED_RUNNING_PATH);
 	closeLog();

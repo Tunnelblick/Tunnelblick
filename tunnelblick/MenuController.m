@@ -322,6 +322,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"DB-ALL",    // All extra logging
 								@"DB-AU",	  // Extra logging for VPN authorization
                                 @"DB-CD",     // Extra logging for connect/disconnect
+                                @"DB-TD",     // Extra logging for tunnelblickd interactions,
                                 @"DB-HU",     // Extra logging for hookup,
                                 @"DB-IC",     // Extra logging for IP address checking
                                 @"DB-IT",     // Extra logging for IP address check threading
@@ -3151,24 +3152,14 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
-        NSLog(@"Skipping unloading of kexts because of fatal error.");
-    } else {
+        NSLog(@"Not unloading of kexts and not deleting logs because of fatal error.");
+    } else if (  ! tunnelblickdIsLoaded()  ) {
+        NSLog(@"Not unloading of kexts and not deleting logs because tunnelblickd is not loaded.");
+	} else {
         TBLog(@"DB-SD", @"cleanup: Unloading kexts")
-        [self unloadKexts];     // Unload .tun and .tap kexts
-    }
-    
-    if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
-        NSLog(@"Skipping deleting logs because of fatal error.");
-    } else {
-        NSString * ovpnvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-        NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: ovpnvpnstartPath traverseLink: NO];
-        NSUInteger permissions = [attributes filePosixPermissions];
-        if (  0 != (permissions & S_ISUID)) {
-            TBLog(@"DB-SD", @"cleanup: Deleting logs")
-            [self deleteLogs];
-        } else {
-            TBLog(@"DB-SD", @"cleanup: Skipping deleting logs because openvpnstart is not SUID");
-        }
+        [self unloadKexts];
+        TBLog(@"DB-SD", @"cleanup: Deleting logs")
+        [self deleteLogs];
     }
 
     if ( ! gShuttingDownWorkspace  ) {
@@ -5931,6 +5922,10 @@ BOOL warnAboutNonTblks(void)
         [self installTblks: tblksToInstallFirst skipConfirmationMessage: YES skipResultMessage: YES notifyDelegate: NO];
         launchFinished = oldLaunchFinished;
     }
+    
+    if (  ! runningOnLeopardOrNewer()  ) {
+        installFlags = installFlags | INSTALLER_HELPER_IS_TO_BE_SUID;
+    }
         
     NSLog(@"Beginning installation or repair");
 
@@ -6038,6 +6033,7 @@ unsigned needToRunInstaller(BOOL inApplications)
     unsigned flags = 0;
     
     if (  needToChangeOwnershipAndOrPermissions(inApplications)  ) flags = flags | INSTALLER_SECURE_APP;
+	if (  ! tunnelblickdIsLoaded()                               ) flags = flags | INSTALLER_SECURE_APP;
     if (  needToRepairPackages()                                 ) flags = flags | INSTALLER_SECURE_TBLKS;
     if (  needToConvertNonTblks()                                ) flags = flags | INSTALLER_CONVERT_NON_TBLKS;
     if (  needToMoveLibraryOpenVPN()                             ) flags = flags | INSTALLER_MOVE_LIBRARY_OPENVPN;
@@ -6195,9 +6191,12 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	NSString *leasewatchPath            = [resourcesPath stringByAppendingPathComponent: @"leasewatch"                          ];
 	NSString *leasewatch3Path           = [resourcesPath stringByAppendingPathComponent: @"leasewatch3"                         ];
     NSString *pncPlistPath              = [resourcesPath stringByAppendingPathComponent: @"ProcessNetworkChanges.plist"         ];
+    NSString *tunnelblickdPath          = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"                        ];
+    NSString *tunnelblickHelperPath     = [resourcesPath stringByAppendingPathComponent: @"tunnelblick-helper"                  ];
     NSString *leasewatchPlistPath       = [resourcesPath stringByAppendingPathComponent: @"LeaseWatch.plist"                    ];
     NSString *leasewatch3PlistPath      = [resourcesPath stringByAppendingPathComponent: @"LeaseWatch3.plist"                   ];
-    // The name of the LaunchAtLogin.plist file in Resources does not change when rebranded
+    // The names of the plist files in Resources do not change when rebranded, so we break their strings into pieces so global search/replace doesn't find them
+    NSString *tunnelblickdPlistPath     = [resourcesPath stringByAppendingPathComponent: @"net.tunnel" @"blick.tunnelblick.tunnel" "blickd.plist"];
     NSString *launchAtLoginPlistPath    = [resourcesPath stringByAppendingPathComponent: @"net.tunnel" @"blick.tunnelblick.LaunchAtLogin.plist"];
     NSString *launchAtLoginScriptPath   = [resourcesPath stringByAppendingPathComponent: @"launchAtLogin.sh"                    ];
 	NSString *clientUpPath              = [resourcesPath stringByAppendingPathComponent: @"client.up.osx.sh"                    ];
@@ -6234,16 +6233,12 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         return YES; // NSLog already called
     }
     
-	// check openvpnstart owned by root with suid and 555 permissions
-	const char *path = [gFileMgr fileSystemRepresentationWithPath: openvpnstartPath];
-    struct stat sb;
-	if (  stat(path, &sb)  != 0  ) {
-        NSLog(@"Unable to determine status of %s\nError was '%s'", path, strerror(errno));
-        return YES;
+    if (  ! checkOwnerAndPermissions(openvpnstartPath, 0, 0, PERMS_SECURED_EXECUTABLE)  ) {
+        return YES; // NSLog already called
 	}
-	if (   (sb.st_uid != 0)
-        || ((sb.st_mode & 07777) != 04555)  ) {
-        return YES;
+	
+    if (  ! checkOwnerAndPermissions(tunnelblickHelperPath, 0, 0, (runningOnLeopardOrNewer() ? PERMS_SECURED_EXECUTABLE : PERMS_SECURED_SUID))  ) {
+        return YES; // NSLog already called
 	}
 	
     // check openvpn folder
@@ -6324,29 +6319,30 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         }
     }
     
-	// check files which should be owned by root with 744 permissions
-	NSArray *root744Objects = [NSArray arrayWithObjects:
-                               atsystemstartPath, installerPath, ssoPath, leasewatchPath, leasewatch3Path,
-                               clientUpPath, clientDownPath,
-                               clientNoMonUpPath, clientNoMonDownPath,
-                               clientNewUpPath, clientNewDownPath, clientNewRoutePreDownPath,
-                               clientNewAlt1UpPath, clientNewAlt1DownPath,
-                               clientNewAlt2UpPath, clientNewAlt2DownPath,
-                               clientNewAlt3UpPath, clientNewAlt3DownPath,
-                               nil];
-	NSEnumerator *e = [root744Objects objectEnumerator];
+	// check files which should be executable by root (only)
+	NSArray *rootExecutableObjects = [NSArray arrayWithObjects:
+									  atsystemstartPath, installerPath, ssoPath, tunnelblickdPath,
+									  leasewatchPath, leasewatch3Path,
+									  clientUpPath, clientDownPath,
+									  clientNoMonUpPath, clientNoMonDownPath,
+									  clientNewUpPath, clientNewDownPath, clientNewRoutePreDownPath,
+									  clientNewAlt1UpPath, clientNewAlt1DownPath,
+									  clientNewAlt2UpPath, clientNewAlt2DownPath,
+									  clientNewAlt3UpPath, clientNewAlt3DownPath,
+									  nil];
+	NSEnumerator *e = [rootExecutableObjects objectEnumerator];
 	NSString *currentPath;
 	while (  (currentPath = [e nextObject])  ) {
-        if (  ! checkOwnerAndPermissions(currentPath, 0, 0, 0744)  ) {
+        if (  ! checkOwnerAndPermissions(currentPath, 0, 0, PERMS_SECURED_ROOT_EXEC)  ) {
             return YES; // NSLog already called
         }
 	}
     
 	// check files which should be owned by root with 644 permissions
-	NSArray *root644Objects = [NSArray arrayWithObjects: infoPlistPath, pncPlistPath, leasewatchPlistPath, leasewatch3PlistPath, launchAtLoginPlistPath, freePublicDnsServersPath, nil];
+	NSArray *root644Objects = [NSArray arrayWithObjects: infoPlistPath, pncPlistPath, leasewatchPlistPath, leasewatch3PlistPath, launchAtLoginPlistPath, tunnelblickdPlistPath, freePublicDnsServersPath, nil];
 	e = [root644Objects objectEnumerator];
 	while (  (currentPath = [e nextObject])  ) {
-        if (  ! checkOwnerAndPermissions(currentPath, 0, 0, 0644)  ) {
+        if (  ! checkOwnerAndPermissions(currentPath, 0, 0, PERMS_SECURED_PLIST)  ) {
             return YES; // NSLog already called
         }
 	}
