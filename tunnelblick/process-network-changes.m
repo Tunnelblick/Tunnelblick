@@ -24,6 +24,7 @@
 #import <signal.h>
 
 #import "defines.h"
+#import "NSFileManager+TB.h"
 
 NSAutoreleasePool * gPool;
 
@@ -69,7 +70,7 @@ void dumpMsg(NSString * msg) {
     static int msgNum = 0;
     NSString * filePath = [NSString stringWithFormat: @"/tmp/Tunnelblick-process-network-changes-%d.txt", msgNum++];
     NSFileManager * fm = [[[NSFileManager alloc] init] autorelease];
-    [fm removeFileAtPath: filePath handler: nil];
+    [fm tbRemoveFileAtPath: filePath handler: nil];
     [fm createFileAtPath: filePath contents: [NSData dataWithBytes: [msg UTF8String] length: [msg length]] attributes: nil];    
 }    
 

@@ -412,7 +412,7 @@ const char * fileSystemRepresentation(NSString * path) {
     // The NSString "fileSystemRepresentation" method throws an exception if the path is empty or has characters that can’t be
     // represented in the file system’s encoding, so we catch that exception here and fail.
     
-    const char * fsr;
+    const char * fsr = NULL;
     
     @try {
         fsr = [path fileSystemRepresentation];
