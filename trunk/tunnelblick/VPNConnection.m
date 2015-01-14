@@ -909,7 +909,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 			NSMutableString * tempMutableString = [[urlString mutableCopy] autorelease];
             // Can't access by IP address with https: (because https: needs to verify the domain name)
             if (  [tempMutableString hasPrefix: @"https://"]  ) {
-                [tempMutableString deleteCharactersInRange: NSMakeRange(0, 8)];
+                [tempMutableString deleteCharactersInRange: NSMakeRange(4, 1)];	// Change https: to http:
             }
 			NSRange rng = [tempMutableString rangeOfString: hostName];	// Just replace the first occurance of host
             [tempMutableString replaceOccurrencesOfString: hostName withString: serverIPAddress options: 0 range: rng];
@@ -938,7 +938,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
     }
     [req setValue: userAgent forHTTPHeaderField: @"User-Agent"];
 	[req setValue: hostName  forHTTPHeaderField: @"Host"];
-    [req setTimeoutInterval: timeoutInterval];
     if (  runningOnLeopardOrNewer()  ) {
         [req setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
     } else {
@@ -948,27 +947,38 @@ extern NSString * lastPartOfPath(NSString * thePath);
 	// Make the request synchronously. Make it asynchronous (in effect) by invoking this method from a separate thread.
     //
 	// Implements the timeout and times the requests
-    NSHTTPURLResponse * urlResponse;
+    NSHTTPURLResponse * urlResponse = nil;
+	NSError * requestError = nil;
 	NSData * data = nil;
-	NSTimeInterval checkEvery = 0.01;
-	useconds_t usleepTime = (useconds_t) (checkEvery * 1.0e6);
 	BOOL firstTimeThru = TRUE;
     uint64_t startTimeNanoseconds = nowAbsoluteNanoseconds();
-    uint64_t timeoutNanoseconds = (uint64_t)(timeoutInterval * 1.0e9);
+    uint64_t timeoutNanoseconds = (uint64_t)((timeoutInterval + 2.0) * 1.0e9);	// (Add a couple of seconds for overhead)
     uint64_t endTimeNanoseconds = startTimeNanoseconds + timeoutNanoseconds;
+	
+	// On OS X 10.10 ("Yosemite"), the first request seems to always fail, so we retry several times, starting with a 1 second timeout for the request,
+	// and doubling the timeout each time it fails (to 2, 4, 8, etc.)
+	NSTimeInterval internalTimeOut = 1.0;
 	while (   (! data)
            && (nowAbsoluteNanoseconds() < endTimeNanoseconds)  ) {
 		if (  firstTimeThru  ) {
 			firstTimeThru = FALSE;
 		} else {
-			usleep(usleepTime);
+			// Failed; sleep for one second and double the request timeout
+			sleep(1);
+			internalTimeOut *= 2.0;
 		}
+		[req setTimeoutInterval: internalTimeOut];
+		data = nil;
+		requestError = nil;
+		urlResponse  = nil;
+		TBLog(@"DB-IC", @"%@: Set timeout to %f and made request to %@", logHeader, internalTimeOut, [url absoluteString]);
 		data = [NSURLConnection sendSynchronousRequest: req
 									 returningResponse: &urlResponse
-												 error: NULL];
+												 error: &requestError];
+		TBLog(@"DB-IC", @"%@: IP address check: error was '%@'; response was '%@'; data was %@", logHeader, requestError, urlResponse, data);
 	}
-    if ( ! data  ) {
-        NSLog(@"%@: IP address info could not be fetched within %.1f seconds", logHeader, (double) timeoutInterval);
+	if ( ! data  ) {
+        NSLog(@"%@: IP address info could not be fetched within %.1f seconds; the error was '%@'; the response was '%@'", logHeader, (double) internalTimeOut, requestError, urlResponse);
         return [NSArray array];
     } else {
         uint64_t elapsedTimeNanoseconds = nowAbsoluteNanoseconds() - startTimeNanoseconds;
