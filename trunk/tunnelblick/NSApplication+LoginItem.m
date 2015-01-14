@@ -516,8 +516,7 @@ extern TBUserDefaults * gTbDefaults;
 	myStatus = AuthorizationCreate(NULL, &myEnvironment, myFlags, &myAuthorizationRef);
 	if (myStatus != errAuthorizationSuccess)
 		return nil;
-	AuthorizationItem myItems = {kAuthorizationRightExecute, 0,
-		NULL, 0};
+	AuthorizationItem myItems = {kAuthorizationRightExecute, 0, NULL, 0};
 	AuthorizationRights myRights = {1, &myItems};
 	myFlags = kAuthorizationFlagDefaults |
 		kAuthorizationFlagInteractionAllowed |
@@ -536,12 +535,7 @@ extern TBUserDefaults * gTbDefaults;
 	char **myArguments = [arguments cArray];
 	OSStatus myStatus;
 	AuthorizationFlags myFlags = kAuthorizationFlagDefaults;
-	// 13
-	myStatus = AuthorizationExecuteWithPrivileges
-		// 14
-		(myAuthorizationRef, myToolPath, myFlags, myArguments,
-		 // 15
-		 NULL);
+	myStatus = AuthorizationExecuteWithPrivileges(myAuthorizationRef, myToolPath, myFlags, myArguments, NULL);
 	freeCArray(myArguments);
     if (  myStatus != 0  ) {
         NSLog(@"AuthorizationExecuteWithPrivileges returned status = %ld", (long) myStatus);

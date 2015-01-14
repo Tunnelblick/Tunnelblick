@@ -22,9 +22,10 @@
 
 #import "helper.h"
 
-#import <unistd.h>
 #import <mach/mach_time.h>
+#import <sys/stat.h>
 #import <sys/sysctl.h>
+#import <unistd.h>
 
 #import "defines.h"
 #import "sharedRoutines.h"
@@ -961,26 +962,45 @@ NSString * configLocCodeStringForPath(NSString * configPath) {
 
 OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString ** stderrString)
 {
-    NSString * path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-    if (  ! path  ) {
-        NSLog(@"Unable to find openvpnstart");
-        return -1;
-    }
+	// Make sure no arguments include a \t or \0
+	NSUInteger i;
+	for (  i=0; i<[arguments count]; i++  ) {
+        NSString * arg = [arguments objectAtIndex: i];
+		if (   ([arg rangeOfString: @"\t"].length != 0)
+            || ([arg rangeOfString: @"\0"].length != 0)  ) {
+			NSLog(@"runOpenvpnstart: Argument %lu contains one or more HTAB (ASCII 0x09) or NULL (ASCII (0x00) characters. They are not allowed in arguments. Arguments = %@", (unsigned long)i, arguments);
+			return -1;
+		}
+	}
     
+    OSStatus status = -1;
 	NSString * myStdoutString = nil;
 	NSString * myStderrString = nil;
-	
-	OSStatus status = runTool(path, arguments, &myStdoutString, &myStderrString);
-	
+    
+    if (  runningOnLeopardOrNewer()  ) {
+        NSString * command = [[arguments componentsJoinedByString: @"\t"] stringByAppendingString: @"\n"];
+        status = runTunnelblickd(command, &myStdoutString, &myStderrString);
+    } else {
+        NSString * tunnelblickHelperPath = [[NSBundle mainBundle] pathForResource: @"tunnelblick-helper" ofType: nil];
+        unsigned long perms = [[gFileMgr tbFileAttributesAtPath: tunnelblickHelperPath traverseLink: NO] filePosixPermissions];
+        if (  (perms & S_ISUID) == 0  ) {
+            NSLog(@"runOpenvpnstart: This program has not been secured. Launch Tunnelblick to secure this program.");
+            return -1;
+        }
+        status = runTool(tunnelblickHelperPath, arguments, &myStdoutString, &myStderrString);
+    }
+    
     NSString * subcommand = ([arguments count] > 0
                              ? [arguments objectAtIndex: 0]
                              : @"(no subcommand!)");
+    
+    NSMutableString * logMsg = [NSMutableString stringWithCapacity: 100 + [myStdoutString length] + [myStderrString length]];
     
     if (  stdoutString  ) {
         *stdoutString = myStdoutString;
     } else {
         if (  [myStdoutString length] != 0  ) {
-            NSLog(@"openvpnstart stdout from %@:\n%@", subcommand, myStdoutString);
+            [logMsg appendFormat: @"tunnelblickd stdout:\n'%@'\n", myStdoutString];
         }
     }
     
@@ -988,13 +1008,14 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
         *stderrString = myStderrString;
     } else {
         if (  [myStderrString length] != 0  ) {
-            NSLog(@"openvpnstart stderr from %@:\n%@", subcommand, myStderrString);
+            [logMsg appendFormat: @"tunnelblickd stderr:\n'%@'\n", myStderrString];
         }
     }
-
-    if (   (status != EXIT_SUCCESS)
-        && ( ! stderrString)  ) {
-        NSLog(@"openvpnstart status from %@: %ld", subcommand, (long) status);
+    
+    if (  status != EXIT_SUCCESS ) {
+        NSString * header = [NSString stringWithFormat: @"tunnelblickd status from %@: %ld\n", subcommand, (long) status];
+        [logMsg insertString: header atIndex: 0];
+        NSLog(@"%@", logMsg);
     }
 	
     return status;

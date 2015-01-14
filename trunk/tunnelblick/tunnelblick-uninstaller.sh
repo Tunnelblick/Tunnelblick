@@ -607,7 +607,8 @@ uninstall_tb_remove_item_at_path  "/Library/Application Support/${uninstall_tb_a
 fi
 
 # Remove Tunnelblick LaunchDaemons
-# Special-case old LaunchDaemons that use net.tunnelblick.startup as the prefix when removing a NON-REBRANDED Tunnelblick
+
+# Special-case old startup launch daemons that use net.tunnelblick.startup as the prefix when removing a NON-REBRANDED Tunnelblick
 # (Create tbBundleId variable so it does _not_ get changed by rebranding
 tempTbBundleId="net.tunnelblick"
 tempTbBundleId="${tbBundleId}.tunnelblick"
@@ -616,15 +617,32 @@ if [ "${uninstall_tb_bundle_identifier}" == "${tempTbBundleId}" ] ; then
     uninstall_tb_remove_item_at_path "${path}"
   done
 fi
-# Remove new LaunchDaemons that use the (possibly rebranded) CFBundleIdentifier as the prefix
+
+# Remove new startup launch daemons that use the (possibly rebranded) CFBundleIdentifier as the prefix
 if [ "${uninstall_tb_bundle_identifier}" != "" ] ; then
   for path in `ls /Library/LaunchDaemons/${uninstall_tb_bundle_identifier}".startup.* 2> /dev/null` ; do
     uninstall_tb_remove_item_at_path "${path}"
   done
 fi
 
+# Remove tunnelblickd launch daemon
+if [ "${uninstall_tb_bundle_identifier}" != "" ] ; then
+  # Remove the socket
+  path="/var/run/${uninstall_tb_bundle_identifier}.tunnelblickd.socket"
+  uninstall_tb_remove_item_at_path "${path}"
+  # Unload, then remove the .plist
+  path="/Library/LaunchDaemons/${uninstall_tb_bundle_identifier}.tunnelblickd.plist"
+  if [ -f "${path}" ] ; then
+    launchctl unload "${path}"
+    uninstall_tb_remove_item_at_path "${path}"
+  fi
+fi
+
+# Remove tunnelblickd log(s)
+uninstall_tb_remove_item_at_path "/var/log/Tunnelblick"
+
 # Remove the installer log
-uninstall_tb_remove_item_at_path  "/tmp/tunnelblick-installer-log.txt"
+uninstall_tb_remove_item_at_path "/tmp/tunnelblick-installer-log.txt"
 
 # Remove non-per-user CrashReporter files
 if [ "${uninstall_tb_app_name}" != "" ] ; then
