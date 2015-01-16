@@ -27,6 +27,7 @@
 
 #import "MenuController.h"
 #import "TBUserDefaults.h"
+#import "AuthAgent.h"
 
 
 extern TBUserDefaults * gTbDefaults;
@@ -89,6 +90,15 @@ extern TBUserDefaults * gTbDefaults;
     [self setTitle: NSLocalizedString(@"Cancel", @"Button") ofControl: cancelButton ];
     
     [self redisplay];
+}
+
+-(void) redisplayIfShowing
+{
+    if (  [delegate showingPassphraseWindow]  ) {
+        [self redisplay];
+    } else {
+        NSLog(@"Cancelled redisplay of passphrase window because it is no longer showing");
+    }
 }
 
 -(void) redisplay
@@ -165,9 +175,10 @@ extern TBUserDefaults * gTbDefaults;
 {
  	(void) n;
     
-	if (  ! [gTbDefaults boolForKey: @"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"]  ) {
+	if (   [delegate showingPassphraseWindow]
+		&& (! [gTbDefaults boolForKey: @"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"])  ) {
 		NSLog(@"PassphraseWindowController: applicationDidChangeScreenParametersNotificationHandler: redisplaying passphrase window");
-		[self redisplay];
+        [self performSelectorOnMainThread: @selector(redisplayIfShowing) withObject: nil waitUntilDone: NO];
 	}
 }
 
@@ -175,9 +186,10 @@ extern TBUserDefaults * gTbDefaults;
 {
  	(void) n;
     
-	if (  ! [gTbDefaults boolForKey: @"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"]  ) {
-		NSLog(@"PassphraseWindowController: didWakeUpFromSleepHandler: redisplaying passphrase window");
-		[self redisplay];
+	if (   [delegate showingPassphraseWindow]
+		&& (! [gTbDefaults boolForKey: @"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"])  ) {
+		NSLog(@"PassphraseWindowController: didWakeUpFromSleepHandler: requesting redisplay of passphrase window");
+        [self performSelectorOnMainThread: @selector(redisplayIfShowing) withObject: nil waitUntilDone: NO];
 	}
 }
 

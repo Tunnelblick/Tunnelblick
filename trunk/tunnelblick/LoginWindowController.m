@@ -98,6 +98,15 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
     [self redisplay];
 }
 
+-(void) redisplayIfShowing
+{
+    if (  [delegate showingLoginWindow]  ) {
+        [self redisplay];
+    } else {
+        NSLog(@"Cancelled redisplay of login window because it is no longer showing");
+    }
+}
+
 -(void) redisplay
 {
     // If we have saved a username, load the textbox with it and check the "Save in Keychain" checkbox for it
@@ -207,9 +216,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
 {
  	(void) n;
     
-	if (  ! [gTbDefaults boolForKey: @"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"]  ) {
-		NSLog(@"LoginWindowController: applicationDidChangeScreenParametersNotificationHandler: redisplaying login window");
-		[self redisplay];
+	if (   [delegate showingLoginWindow]
+		&& (! [gTbDefaults boolForKey: @"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"])  ) {
+		NSLog(@"LoginWindowController: applicationDidChangeScreenParametersNotificationHandler: requesting redisplay of login window");
+        [self performSelectorOnMainThread: @selector(redisplayIfShowing) withObject: nil waitUntilDone: NO];
 	}
 }
 
@@ -217,9 +227,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
 {
  	(void) n;
     
-	if (  ! [gTbDefaults boolForKey: @"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"]  ) {
-		NSLog(@"LoginWindowController: didWakeUpFromSleepHandler: redisplaying login window");
-		[self redisplay];
+	if (   [delegate showingLoginWindow]
+		&& (! [gTbDefaults boolForKey: @"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"])  ) {
+		NSLog(@"LoginWindowController: didWakeUpFromSleepHandler: requesting redisplay of login window");
+        [self performSelectorOnMainThread: @selector(redisplayIfShowing) withObject: nil waitUntilDone: NO];
 	}
 }
 

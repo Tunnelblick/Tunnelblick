@@ -69,6 +69,8 @@
     NSString * usernamePreferenceKey;
     
     BOOL authenticationWasFromKeychain;     // Last performAuthentication data came from the Keychain
+	BOOL showingLoginWindow;
+	BOOL showingPassphraseWindow;
 }
 
 // PUBLIC METHODS:
@@ -91,6 +93,8 @@ TBPROPERTY(NSString *, passphrase,      setPassphrase)
 
 TBPROPERTY_READONLY(NSString *, displayName)
 TBPROPERTY_READONLY(BOOL,       authenticationWasFromKeychain)
+TBPROPERTY_READONLY(BOOL,       showingLoginWindow)
+TBPROPERTY_READONLY(BOOL,       showingPassphraseWindow)
 
 
 @end
