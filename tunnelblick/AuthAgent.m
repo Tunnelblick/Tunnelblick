@@ -59,6 +59,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, group,           setGroup)
 TBSYNTHESIZE_OBJECT(retain, NSString *, credentialsName, setCredentialsName)
 
 TBSYNTHESIZE_NONOBJECT_GET( BOOL,       authenticationWasFromKeychain)
+TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingLoginWindow)
+TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 
 -(id) initWithConfigName: (NSString *)inConfigName
 		credentialsGroup: (NSString *)inGroup
@@ -95,6 +97,9 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       authenticationWasFromKeychain)
 		passphrasePreferenceKey            = [[NSString alloc] initWithFormat: @"%@-keychainHasPrivateKey",          [self credentialsName]];
         usernamePreferenceKey              = [[NSString alloc] initWithFormat: @"%@-keychainHasUsername",            [self credentialsName]];
         usernameAndPasswordPreferenceKey   = [[NSString alloc] initWithFormat: @"%@-keychainHasUsernameAndPassword", [self credentialsName]];
+		
+		showingLoginWindow      = FALSE;
+		showingPassphraseWindow = FALSE;
     }
     return self;
 }
@@ -148,7 +153,9 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       authenticationWasFromKeychain)
     // Always clear the passphrase
     [[passphraseScreen passphrase] setStringValue: @""];
     
+	showingPassphraseWindow = TRUE;
     NSInteger result = [NSApp runModalForWindow: [passphraseScreen window]];
+    showingPassphraseWindow = FALSE;
     
     if (   (result != NSRunStoppedResponse)
         && (result != NSRunAbortedResponse)  ) {
@@ -246,7 +253,9 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       authenticationWasFromKeychain)
 			[loginScreen redisplay];
 		}
         
+		showingLoginWindow = TRUE;
         NSInteger result = [NSApp runModalForWindow: [loginScreen window]];
+		showingLoginWindow = FALSE;
         
         if (   (result != NSRunStoppedResponse)
             && (result != NSRunAbortedResponse)  ) {
