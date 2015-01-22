@@ -15,7 +15,8 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
  ==Deprecated Versions of Tunnelblick==
 <hr />
 
- <font color="red">*All deprecated versions of Tunnelblick contain serious security vulnerabilities*</font>.<br />They are available on the [SecurityRiskDownloads Security Risk Downloads] page.
+ <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.5beta04_build_4198.dmg/download Tunnelblick 3.5beta04]</strong></font> `[`sourceforge.net`]` (build 4198) released 2015-01-08 [RlsNotes#Version_3.5 Release Notes]<br />
+ _*SHA1*_: 6bb3f9df5bee2d29ed430257ea5f8d507fea9932 _*MD5*_: d78b984c1d127cf8007138f3b1c5ffbd _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
 
 </td></tr></tbody></table>
 
@@ -23,12 +24,21 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
 <table border="1" width="100%"><tbody><tr><td>
  ==Deprecated Versions of Tunnelblick Uninstaller==
 <hr />
+ <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.4.dmg/download Tunnelblick Uninstaller 1.4]</strong></font> `[`sourceforge.net`]` released 2014-09-10<br />
+ _*SHA1*_: 29345ed4cc8a95953f10e59759fec7fc0aa57af6 _*MD5*_: 95c6104cf4dac5bf38075fe8d8d8bdca _*(See [#Verifying_Downloads Verifying Downloads])*_
+  * Removes the new entries in /Library/!LaunchDaemons made by Tunnelblick 3.4beta37 (build 2957) and higher
+
+ <font color="red">_Older versions of Tunnelblick contain security vulnerabilities. They are on the [SecurityRiskDownloads Security Risk Downloads page]._</font>
+<hr />
+
  <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.3.dmg/download Tunnelblick Uninstaller 1.3]</strong></font> `[`sourceforge.net`]` released 2014-07-10<br />
  _*SHA1*_: 897f78e3f585da6da6abc1a0982efe0bc9dc65cc _*MD5*_: bb13478caeeef69b5791a99dc54db1ff _(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])_
   * Removes the new entry in ~/Library/LaunchAgents made by Tunnelblick 3.4beta32 and higher
 
  For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.
+
 <hr />
+
  <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.2.dmg/download Tunnelblick Uninstaller 1.2]</strong></font> `[`sourceforge.net`]` released 2014-02-11<br />
  _*SHA1*_: 906c725e48aefedf984cd53eede3ce5ca79c1d0a _*MD5*_: 41964cd08ab1f2e4f4ba4e7b044bde74 _(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])_
   * Fixes a problem causing "application is damaged" warnings on Mavericks
@@ -36,7 +46,9 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
   * Fixes a problem with the opening window not appearing until the Uninstaller icon in the Dock is clicked
 
  For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.
+
 <hr />
+
  <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.1.dmg/download Tunnelblick Uninstaller 1.1]</strong></font> `[`sourceforge.net`]` released 2014-01-08
   * Removes preferences cache if it is present
   * Warns user if Tunnelblick or OpenVPN is running

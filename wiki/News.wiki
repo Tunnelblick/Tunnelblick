@@ -5,6 +5,16 @@
 
 --------------------
 
+2015-01-22: *Tunnelblick 3.5beta06 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Uses a launchd daemon instead of an SUID helper to start OpenVPN on OS X Version 10.5 ("Lion") and higher.
+ * Updates Arabic, Japanese, and Chinese (traditional) localization.
+ * Fixes several problems.
+  
+   See the [RlsNotes#Version_3.5 Release Notes] for details.
+
+--------------------
+
 2015-01-08: *Tunnelblick 3.5beta04 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Includes OpenSSL 1.0.1k. See [https://www.openssl.org/news/secadv_20150108.txt OpenSSL Security Advisory 08 Jan 2015].
@@ -1209,4 +1219,7 @@ New features include:
 
  * *Tunnelblick deals with the .tun and .tap kexts more flexibly*.
 
-*Please give feedback on the new features* or report problems in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===

@@ -9,6 +9,20 @@
 
 ==Version 3.5==
 
+*3.5beta06 build 4211 (2015-01-22)*
+
+ * Uses a launchd daemon instead of an SUID helper to start OpenVPN on OS X Version 10.5 ("Lion") and higher.
+ * Updates Arabic, Japanese, and Chinese (traditional) localization.
+ * Fixes problems with IP address checking on OS X 10.10 ("Yosemite").
+ * Fixes problems with the VPN login or passphrase window appearing when waking from sleep or the displays change.
+ * Fixes a problem that caused an older version of the tun/tap kexts to be used on OS X 10.6-10.8.
+ * Fixes problems with certain malformed updates to Tunnelblick or to configurations.
+ * Fixes a problem if certain errors occurred during an update.
+ * Fixes a problem showing the failure notification window when an install fails. 
+ * Fixes a minor memory leak.
+
+--------------------
+
 *3.5beta04 build 4198 (2015-01-08)*
 
  * *<font color="red">SECURITY UPDATE:</font>* Includes OpenSSL 1.0.1k. See [https://www.openssl.org/news/secadv_20150108.txt OpenSSL Security Advisory 08 Jan 2015].
@@ -23,6 +37,7 @@
 
 
 --------------------
+
 *3.5beta02 build 4165 (2014-12-02)*
 
  * *<font color="red">SECURITY UPDATE:</font>* Includes OpenVPN 2.3.6.  See [https://community.openvpn.net/openvpn/wiki/SecurityAnnouncement-97597e732b OpenVPN Security Announcement-97597e732b].
