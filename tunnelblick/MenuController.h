@@ -76,8 +76,9 @@ enum ActiveInactiveState {
 //      [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
 // which appears in the setPreferenceForSelectedConfigurationsWithKey:to:isBOOL: method.
 // This fix was found at http://lists.apple.com/archives/xcode-users/2009/Oct/msg00608.html
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
 void * _NSConcreteStackBlock __attribute__((weak));
-
+#endif
 
 @interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate>
 {

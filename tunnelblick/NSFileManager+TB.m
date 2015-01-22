@@ -33,145 +33,200 @@
 
 @implementation NSFileManager (TB)
 
--(BOOL) tbChangeFileAttributes:(NSDictionary *)attributes atPath:(NSString *)path
-{
+-(BOOL) tbChangeFileAttributes:(NSDictionary *)attributes atPath:(NSString *)path {
+    
     if (  [self respondsToSelector:@selector (setAttributes:ofItemAtPath:error:)]  ) {
-        return [self setAttributes:attributes ofItemAtPath:path error:NULL];
-    } else if (  [self respondsToSelector:@selector (changeFileAttributes:atPath:)]  ) {
-        return [self changeFileAttributes:attributes atPath:path];
-    } else {
-        NSLog(@"No implementation for changeFileAttributes:atPath:");
-        return NO;
+        return [self setAttributes:attributes ofItemAtPath:path error: NULL];
     }
+    
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+    
+    if (  [self respondsToSelector:@selector (changeFileAttributes:atPath:)]  ) {
+        return [self changeFileAttributes:attributes atPath:path];
+    }
+    
+#endif
+    
+    NSLog(@"No implementation for changeFileAttributes:atPath:");
+    return NO;
 }
 
 
--(BOOL) tbCopyPath:(NSString *)source toPath:(NSString *)destination handler:(id)handler
-{
+-(BOOL) tbCopyPath:(NSString *)source toPath:(NSString *)destination handler:(id)handler {
+    
+    (void) handler;
+    
     if (  [self respondsToSelector:@selector (copyItemAtPath:toPath:error:)]  ) {
-		
 		NSError * er = nil;
         BOOL ok = [self copyItemAtPath:source toPath:destination error: &er];
         
 #ifdef TBDebug
+        
 		if (  ! ok  ) {
 			NSString * errMsg = [NSString stringWithFormat: @"Error in tbCopyPath: %@", er];
 			void appendLog(NSString * errMsg);
 			appendLog(errMsg);
 		}
+        
 #endif
 		
 		return ok;
-		
-    } else if (  [self respondsToSelector:@selector (copyPath:toPath:handler:)]  ) {
-        return [self copyPath:source toPath:destination handler:handler];
-    } else {
-        NSLog(@"No implementation for copyPath:toPath:handler:");
-        return NO;
     }
+    
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+    
+    if (  [self respondsToSelector:@selector (copyPath:toPath:handler:)]  ) {
+        return [self copyPath:source toPath:destination handler:handler];
+    }
+    
+#endif
+    
+    NSLog(@"No implementation for copyPath:toPath:handler:");
+    return NO;
 }
 
 
--(BOOL) tbCreateDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes
-{
+-(BOOL) tbCreateDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes {
+    
+    if (  [self respondsToSelector:@selector (createDirectoryAtPath:withIntermediateDirectories:attributes:error:)]  ) {
+        return [self createDirectoryAtPath:path withIntermediateDirectories:NO attributes:attributes error: NULL];
+    }
+    
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+    
     if (  [self respondsToSelector:@selector (createDirectoryAtPath:attributes:)]  ) {
         return [self createDirectoryAtPath:path attributes:attributes];
-    } else if (  [self respondsToSelector:@selector (createDirectoryAtPath:withIntermediateDirectories:attributes:error:)]  ) {
-        return [self createDirectoryAtPath:path withIntermediateDirectories:NO attributes:attributes error:NULL];
-    } else {
-        NSLog(@"No implementation for createDirectoryAtPath:attributes:");
-        return NO;
     }
+    
+#endif
+    
+    NSLog(@"No implementation for createDirectoryAtPath:attributes:");
+    return NO;
 }
 
--(BOOL) tbCreateSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherPath
-{
+-(BOOL) tbCreateSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherPath {
+    
+    if (  [self respondsToSelector:@selector (createSymbolicLinkAtPath:withDestinationPath:error:)]  ) {
+        return [self createSymbolicLinkAtPath:path withDestinationPath:otherPath error: NULL];
+    }
+    
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+    
     if (  [self respondsToSelector:@selector (createSymbolicLinkAtPath:pathContent:)]  ) {
         return [self createSymbolicLinkAtPath:path pathContent:otherPath];
-    } else if (  [self respondsToSelector:@selector (createSymbolicLinkAtPath:withDestinationPath:error:)]  ) {
-        return [self createSymbolicLinkAtPath:path withDestinationPath:otherPath error:NULL];
-    } else {
-        NSLog(@"No implementation for createSymbolicLinkAtPath:pathContent:");
-        return NO;
     }
+    
+#endif
+    
+    NSLog(@"No implementation for createSymbolicLinkAtPath:pathContent:");
+    return NO;
 }
 
 
--(NSArray *) tbDirectoryContentsAtPath:(NSString *)path
-{
+-(NSArray *) tbDirectoryContentsAtPath:(NSString *)path {
+    
+    if (  [self respondsToSelector:@selector (contentsOfDirectoryAtPath:error:)]  ) {
+        return [self contentsOfDirectoryAtPath:path error: NULL];
+    }
+    
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+    
     if (  [self respondsToSelector:@selector (directoryContentsAtPath:)]  ) {
         return [self directoryContentsAtPath:path];
-    } else if (  [self respondsToSelector:@selector (contentsOfDirectoryAtPath:error:)]  ) {
-        return [self contentsOfDirectoryAtPath:path error:NULL];
-    } else {
-        NSLog(@"No implementation for directoryContentsAtPath:");
-        return nil;
     }
+    
+#endif
+    
+    NSLog(@"No implementation for directoryContentsAtPath:");
+    return nil;
 }
 
 
--(NSDictionary *) tbFileAttributesAtPath:(NSString *)path traverseLink:(BOOL)flag
-{
-    if (  [self respondsToSelector:@selector (fileAttributesAtPath:traverseLink:)]  ) {
-        return [self fileAttributesAtPath:path traverseLink:flag];
-    } else if (  [self respondsToSelector:@selector (attributesOfItemAtPath:error:)]  ) {
-        // Apple documents say this will not traverse the last link in 10.5 and 10.6, but
-        // has a note that "This behavior may change in a future version of the Mac OS X."
-        // If it doesn't traverse the last link, and we want it to, we can -- and do --
-        // traverse it in the code below.
-        // But if it is a link, and we don't want to traverse it, and OS X TRAVERSES IT,
-        // then we'll have to go to using BSD file access to implement this
+-(NSDictionary *) tbFileAttributesAtPath:(NSString *)path traverseLink:(BOOL)flag {
+    
+    if (  [self respondsToSelector:@selector (attributesOfItemAtPath:error:)]  ) {
         NSDictionary * attributes = [self attributesOfItemAtPath:path error: NULL];
         while (   flag
-            && [[attributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink] ) {
+               && [[attributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink] ) {
             NSString * realPath = [self tbPathContentOfSymbolicLinkAtPath:path];
-            attributes = [self attributesOfItemAtPath:realPath error:NULL];
+            attributes = [self attributesOfItemAtPath:realPath error: NULL];
         }
         return attributes;
-    } else {
-        NSLog(@"No implementation for fileAttributesAtPath:traverseLink:");
-        return nil;
     }
+    
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+    
+    if (  [self respondsToSelector:@selector (fileAttributesAtPath:traverseLink:)]  ) {
+        return [self fileAttributesAtPath:path traverseLink:flag];
+    }
+    
+#endif
+    
+    NSLog(@"No implementation for fileAttributesAtPath:traverseLink:");
+    return nil;
 }
 
 
--(BOOL) tbMovePath:(NSString *)source toPath:(NSString *)destination handler:(id)handler
-{
-    if (  [self respondsToSelector:@selector (movePath:toPath:handler:)]  ) {
-        return [self movePath:source toPath:destination handler:handler];
-    } else if (  [self respondsToSelector:@selector (moveItemAtPath:toPath:error:)]  ) {
+-(BOOL) tbMovePath:(NSString *)source toPath:(NSString *)destination handler:(id)handler {
+    
+    (void) handler;
+    
+    if (  [self respondsToSelector:@selector (moveItemAtPath:toPath:error:)]  ) {
         // The apple docs are vague about what this does compared to movePath:toPath:handler:.
         // So we hope it works the same. (Regarding same-device moves, for example.)
-        return [self moveItemAtPath:source toPath:destination error:NULL];
-    } else {
-        NSLog(@"No implementation for movePath:toPath:handler:");
-        return NO;
+        return [self moveItemAtPath:source toPath:destination error: NULL];
     }
+    
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+    
+    if (  [self respondsToSelector:@selector (movePath:toPath:handler:)]  ) {
+        return [self movePath:source toPath:destination handler:handler];
+    }
+    
+#endif
+    
+    NSLog(@"No implementation for movePath:toPath:handler:");
+    return NO;
 }
 
 
--(BOOL) tbRemoveFileAtPath:(NSString *)path handler:(id)handler
-{
+-(BOOL) tbRemoveFileAtPath:(NSString *)path handler:(id)handler {
+    
+    (void) handler;
+    
+    if (  [self respondsToSelector:@selector (removeItemAtPath:error:)]  ) {
+        return [self removeItemAtPath:path error: NULL];
+    }
+    
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+    
     if (  [self respondsToSelector:@selector (removeFileAtPath:handler:)]  ) {
         return [self removeFileAtPath:path handler:handler];
-    } else if (  [self respondsToSelector:@selector (removeItemAtPath:error:)]  ) {
-        return [self removeItemAtPath:path error:NULL];
-    } else {
-        NSLog(@"No implementation for removeFileAtPath:handler:");
-        return NO;
     }
+    
+#endif
+    
+    NSLog(@"No implementation for removeFileAtPath:handler:");
+    return NO;
 }
 
 
--(NSString *) tbPathContentOfSymbolicLinkAtPath:(NSString *)path
-{
+-(NSString *) tbPathContentOfSymbolicLinkAtPath:(NSString *)path {
+    
+    if (  [self respondsToSelector:@selector (destinationOfSymbolicLinkAtPath:error:)]  ) {
+        return [self destinationOfSymbolicLinkAtPath:path error: NULL];
+    }
+    
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+    
     if (  [self respondsToSelector:@selector (pathContentOfSymbolicLinkAtPath:)]  ) {
         return [self pathContentOfSymbolicLinkAtPath:path];
-    } else if (  [self respondsToSelector:@selector (destinationOfSymbolicLinkAtPath:error:)]  ) {
-        return [self destinationOfSymbolicLinkAtPath:path error:NULL];
-    } else {
-        NSLog(@"No implementation for pathContentOfSymbolicLinkAtPath:");
-        return nil;
     }
+    
+#endif
+    
+    NSLog(@"No implementation for pathContentOfSymbolicLinkAtPath:");
+    return nil;
 }
+
 @end

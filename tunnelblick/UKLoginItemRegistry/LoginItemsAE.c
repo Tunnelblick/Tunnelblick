@@ -56,6 +56,8 @@ First checked in.
 
 #include "LoginItemsAE.h"
 
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+
 // System interfaces
 
 // We need to pull in all of Carbon just to get the definition of 
@@ -833,3 +835,5 @@ extern OSStatus LIAERemove(CFIndex itemIndex)
     
     return err;
 }
+
+#endif

@@ -179,19 +179,6 @@ BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
         return YES;
     }
     
-/*
-    // ***** START OF TEMPORARY CODE UNTIL MAVERICKS BUG IS FIXED
-    
-    // Mavericks, even as of 10.9.2, doesn't seem to correctly implement _insertStatusItem:withPriority:, so we return "YES" when running on Mavericks
-    // The problem is that the status item is inserted sometimes to the left and sometimes to the right of the Spotlight icon, and sometimes it is not inserted at all.
-    
-    if (  runningOnMavericksOrNewer()  ) {
-        return YES;
-    }
-    
-    // ***** END OF TEMPORARY CODE UNTIL MAVERICKS BUG IS FIXED
-*/
-    
     if (   runningOnMavericksOrNewer()
         && ([[NSScreen screens] count] != 1)  ) {
         

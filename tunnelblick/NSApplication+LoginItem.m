@@ -363,6 +363,8 @@ extern TBUserDefaults * gTbDefaults;
 	}
 }
 
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+
 -(void) deleteOurLoginItemTiger {
     
     // Read the loginwindow preferences:
@@ -411,6 +413,8 @@ extern TBUserDefaults * gTbDefaults;
 	[self performSelectorOnMainThread: @selector(haveDealtWithOldLoginItem) withObject: nil waitUntilDone: NO];
 }
 
+#endif
+
 -(void) deleteOurLoginItemThread {
 	
 	// This runs in a separate thread because deleteOurLoginItemLeopardAndUp can stall for a long time on network access
@@ -418,12 +422,15 @@ extern TBUserDefaults * gTbDefaults;
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
     if (  runningOnLeopardOrNewer()  ) {
         [self deleteOurLoginItemLeopardOrNewer];
     } else {
         [self deleteOurLoginItemTiger];
     }
-    
+#else
+    [self deleteOurLoginItemLeopardOrNewer];
+#endif
     [pool drain];
 }
 
