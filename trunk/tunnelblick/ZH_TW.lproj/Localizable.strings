@@ -371,28 +371,28 @@
 "Reset the primary interface after disconnecting" = "斷線後重設primary網絡介面卡";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
+"Route all IPv4 traffic through the VPN" = "所有IPv4的流量都經由VPN傳送";
 
 /* Checkbox name */
-"Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
+"Run MTU maximum size test after connecting" = "連接後測試最大的MTU size";
 
 /* Checkbox name */
 "Save in Keychain" = "於Keychain內儲存";
 
 /* Checkbox name */
-"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
+"Send anonymous profile information when checking" = "檢查時傳送匿名資料";
 
 /* Checkbox name */
-"Set DNS after routes are set instead of before routes are set" = "Set DNS after routes are set instead of before routes are set";
+"Set DNS after routes are set instead of before routes are set" = "設定路徑後才設定DNS";
 
 /* Checkbox name */
-"Show configuration on Tunnelblick menu" = "Show configuration on Tunnelblick menu";
+"Show configuration on Tunnelblick menu" = "在Tunnelblick選單上顯示設定";
 
 /* Checkbox name */
 "Show when disconnected" = "斷線時顯示";
 
 /* Checkbox name */
-"Show when the pointer is over the Tunnelblick icon" = "Show when the pointer is over the Tunnelblick icon";
+"Show when the pointer is over the Tunnelblick icon" = "鼠標放在圖示上時顯示";
 
 /* PopUpButton */
 "Do not set nameserver" = "不要設定域名解析器";
@@ -428,7 +428,7 @@
 "CONNECTING" = "連線中"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "Disconnecting"; // Please translate "Disconnecting"
+"DISCONNECTING" = "正在斷開連線"; // Please translate "Disconnecting"
 
 /* Connection status */
 "EXITING" = "離線"; // Please translate "Disconnected"
@@ -437,10 +437,10 @@
 "GET_CONFIG" = "獲取設定中"; // Please translate ""
 
 /* Connection status */
-"PASSWORD_WAIT" = "Waiting for password"; // Please translate "Waiting for password"
+"PASSWORD_WAIT" = "正在等候密碼"; // Please translate "Waiting for password"
 
 /* Connection status */
-"PRIVATE_KEY_WAIT" = "Waiting for passphrase"; // Please translate "Waiting for password"
+"PRIVATE_KEY_WAIT" = "正在等候密匙"; // Please translate "Waiting for password"
 
 /* Connection status */
 "RECONNECTING" = "重新連線"; // Please translate ""
@@ -482,10 +482,10 @@
 " (Shared)" = " (共享)"; // Indicates a shared configuration
 
 /* Window title */
-"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Configuration - Tunnelblick";
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN 設定 - Tunnelblick";
 
 /* Window title */
-"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Disconnected - Advanced Settings%3$@";
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ 斷開連接 - 高級設定 %3$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@'已中斷連線";
@@ -515,7 +515,7 @@
 "Authentication failed" = "認證失敗";
 
 /* Window title */
-"Change for All Selected Configurations?" = "Change for All Selected Configurations?";
+"Change for All Selected Configurations?" = "改變所有已選擇的配置嗎？";
 
 /* Window title */
 "Configuration(s) Ignored" = "設定檔被忽略";
@@ -539,7 +539,7 @@
 "Details - Tunnelblick" = "詳情 - Tunnelblick";
 
 /* Window title */
-"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "Do you want to make this change for all %1$lu of the selected configurations, or only for '%2$@'?";
+"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "你是否要將此變更套用到所有 %1$lu 個被選取的設定，或是只套用到「%2$@」？";
 
 /* Window title */
 "Do you wish to connect?" = "要再次連線嗎?";
@@ -575,7 +575,7 @@
 "New Feature" = "新功能";
 
 /* Window title */
-"No 'dev tun', 'dev utun', or 'dev tap' found" = "No 'dev tun', 'dev utun', or 'dev tap' found";
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "未找到「dev tun」、「dev utun」或「dev tap」";
 
 /* Window title */
 "No Credentials" = "沒有證書";
@@ -587,7 +587,7 @@
 "Only computer administrators should update Tunnelblick" = "只有電腦管理員可以更新Tunnelblick";
 
 /* Window title */
-"OpenVPN is Not Responding" = "OpenVPN is Not Responding";
+"OpenVPN is Not Responding" = "OpenVPN 沒有回應";
 
 /* Window title */
 "Please Confirm" = "請確定";
@@ -641,16 +641,16 @@
 "Unavailable" = "不可用";
 
 /* Window title */
-"Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
+"Use 'down-root' plugin for OpenVPN?" = "在 OpenVPN 中使用外掛程式「down-root」嗎？";
 
 /* Window title */
-"Utilities" = "Utilities";
+"Utilities" = "工具";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "VPN 設定檔安裝錯誤";
 
 /* Window title */
-"VPN Configuration Installation" = "VPN Configuration Installation";
+"VPN Configuration Installation" = "VPN 設定檔安裝";
 
 /* Window title */
 "VPN Credentials" = "VPN證書";
@@ -674,46 +674,46 @@
 "While Connected" = "當已連接";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Installed %lu configurations\n\n" = "     • Installed %lu configurations\n\n";
+"     • Installed %lu configurations\n\n" = "     • 已安裝 %lu 個設定檔\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Installed one configuration\n\n" = "     • Installed one configuration\n\n";
+"     • Installed one configuration\n\n" = "     • 已安裝一個設定檔\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Replaced %lu configurations\n\n" = "     • Replaced %lu configurations\n\n";
+"     • Replaced %lu configurations\n\n" = "     • 已更換 %lu 個設定檔\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Replaced one configuration\n\n" = "     • Replaced one configuration\n\n";
+"     • Replaced one configuration\n\n" = "     • 已更換一個設定檔\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Uninstalled %lu configurations\n\n" = "     • Uninstalled %lu configurations\n\n";
+"     • Uninstalled %lu configurations\n\n" = "     • 已移除 %lu 設定檔\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Uninstalled one configuration\n\n" = "     • Uninstalled one configuration\n\n";
+"     • Uninstalled one configuration\n\n" = "     • 已移除一個設定檔\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install %lu configurations\n\n" = "    • Install %lu configurations\n\n";
+"    • Install %lu configurations\n\n" = "    • 安裝 %lu 個設定檔\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install one configuration\n" = "    • Install one configuration\n";
+"    • Install one configuration\n" = "    • 安裝一個設定檔\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Replace %lu configurations\n\n" = "    • Replace %lu configurations\n\n";
+"    • Replace %lu configurations\n\n" = "    • 更換 %lu 個設定檔\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Replace one configuration\n" = "    • Replace one configuration\n";
+"    • Replace one configuration\n" = "    • 更換一個設定檔\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall %lu configurations\n\n" = "    • Uninstall %lu configurations\n\n";
+"    • Uninstall %lu configurations\n\n" = "    • 移除 %lu 設定檔\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall one configuration\n" = "    • Uninstall one configuration\n";
+"    • Uninstall one configuration\n" = "    • 移除一個設定檔\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Be installed in /Applications as Tunnelblick\n";
+"  • Be installed in /Applications as Tunnelblick\n" = "  • 被安裝在 /Applications";
 
 /* Window text */
-"  • Change ownership and permissions of the program to secure it\n" = "  • Change ownership and permissions of the program to secure it\n";
+"  • Change ownership and permissions of the program to secure it\n" = "  • 更改程式的擁有人及權限以加固此程序";
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • 轉換OpenVPN 設定\n";
