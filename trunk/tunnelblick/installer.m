@@ -1174,7 +1174,7 @@ int main(int argc, char *argv[])
 	// NOTE: The name of the tunnelblickd .plist file in Resources does not change when rebranded, hence the split constant strings when referring to it
     NSString * ourPlistPath = [resourcesPath stringByAppendingPathComponent: @"net.tunnel" @"blick.tunnel" @"blick.tunnelblickd.plist"];
 	
-    NSMutableDictionary * newPlistContents = [NSDictionary dictionaryWithContentsOfFile: ourPlistPath];
+    NSMutableDictionary * newPlistContents = [[[NSDictionary dictionaryWithContentsOfFile: ourPlistPath] mutableCopy] autorelease];
     
 #ifdef TBDebug
 	NSString * daemonPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];

@@ -13,6 +13,8 @@
 #import <Foundation/Foundation.h>
 #import "LoginItemsAE.h"
 
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+
 /*
 	This class is a wrapper around Apple's LoginItemsAE sample code.
 	
@@ -53,3 +55,5 @@
 +(BOOL)		removeLoginItemWithPath: (NSString*)path;
 
 @end
+
+#endif

@@ -106,7 +106,7 @@ BOOL needToRepairPackages(void);
 BOOL needToConvertNonTblks(void);
 
 @interface NSStatusBar (NSStatusBar_Private)
-- (id)_statusItemWithLength:(float)l withPriority:(int)p;
+- (id)_statusItemWithLength:(CGFloat)l withPriority:(NSInteger)p;
 - (id)_insertStatusItem:(NSStatusItem *)i withPriority:(int)p;
 @end
 
@@ -868,8 +868,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         while (  (dispNm = [e nextObject])  ) {
             NSString * cfgPath = [[self myConfigDictionary] objectForKey: dispNm];
             // configure connection object:
-            VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: cfgPath
-                                                                    withDisplayName: dispNm];
+            VPNConnection* myConnection = [[[VPNConnection alloc] initWithConfigPath: cfgPath
+                                                                     withDisplayName: dispNm] autorelease];
             [tempVPNConnectionDictionary setObject: myConnection forKey: dispNm];
         }
         [self setMyVPNConnectionDictionary: [[tempVPNConnectionDictionary copy] autorelease]];

@@ -59,6 +59,8 @@
 
 #include <ApplicationServices/ApplicationServices.h>
 
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+
 /////////////////////////////////////////////////////////////////
 
 #ifdef __cplusplus
@@ -97,6 +99,8 @@ extern "C" {
     
 #ifdef __cplusplus
 }
+#endif
+
 #endif
 
 #endif

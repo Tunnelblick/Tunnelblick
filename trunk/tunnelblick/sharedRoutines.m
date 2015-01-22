@@ -548,6 +548,7 @@ NSDictionary * highestEditionForEachBundleIdinL_AS_T(void) {
             NSString * bundleId = [bundleIdAndEdition stringByDeletingPathEdition];
             if (  ! bundleId  ) {
                 appendLog([NSString stringWithFormat: @"Container path does not have a bundleId: %@", containerPath]);
+                continue;
             }
             NSString * edition  = [bundleIdAndEdition pathEdition];
             if (  ! edition  ) {
