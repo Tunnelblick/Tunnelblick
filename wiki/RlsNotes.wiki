@@ -11,7 +11,7 @@
 
 *3.5beta06 build 4211 (2015-01-22)*
 
- * Uses a launchd daemon instead of an SUID helper to start OpenVPN on OS X Version 10.5 ("Lion") and higher.
+ * Uses a launchd daemon instead of an SUID helper to start OpenVPN on OS X Version 10.5 ("Leopard") and higher.
  * Updates Arabic, Japanese, and Chinese (traditional) localization.
  * Fixes problems with IP address checking on OS X 10.10 ("Yosemite").
  * Fixes problems with the VPN login or passphrase window appearing when waking from sleep or the displays change.
