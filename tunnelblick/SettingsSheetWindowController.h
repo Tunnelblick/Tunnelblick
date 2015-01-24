@@ -134,19 +134,19 @@ typedef enum {
     IBOutlet NSArrayController   * othernetBiosNameArrayController;
     IBOutlet NSArrayController   * otherworkgroupArrayController;
     
-    IBOutlet NSInteger             selectedDnsServersIndex;
-    IBOutlet NSInteger             selectedDomainIndex;
-    IBOutlet NSInteger             selectedSearchDomainIndex;
-    IBOutlet NSInteger             selectedWinsServersIndex;
-    IBOutlet NSInteger             selectedNetBiosNameIndex;
-    IBOutlet NSInteger             selectedWorkgroupIndex;
+    IBOutlet NSNumber            * selectedDnsServersIndex;
+    IBOutlet NSNumber            * selectedDomainIndex;
+    IBOutlet NSNumber            * selectedSearchDomainIndex;
+    IBOutlet NSNumber            * selectedWinsServersIndex;
+    IBOutlet NSNumber            * selectedNetBiosNameIndex;
+    IBOutlet NSNumber            * selectedWorkgroupIndex;
     
-    IBOutlet NSInteger             selectedOtherdnsServersIndex;
-    IBOutlet NSInteger             selectedOtherdomainIndex;
-    IBOutlet NSInteger             selectedOthersearchDomainIndex;
-    IBOutlet NSInteger             selectedOtherwinsServersIndex;
-    IBOutlet NSInteger             selectedOthernetBiosNameIndex;
-    IBOutlet NSInteger             selectedOtherworkgroupIndex;
+    IBOutlet NSNumber            * selectedOtherdnsServersIndex;
+    IBOutlet NSNumber            * selectedOtherdomainIndex;
+    IBOutlet NSNumber            * selectedOthersearchDomainIndex;
+    IBOutlet NSNumber            * selectedOtherwinsServersIndex;
+    IBOutlet NSNumber            * selectedOthernetBiosNameIndex;
+    IBOutlet NSNumber            * selectedOtherworkgroupIndex;
     
     IBOutlet NSTextFieldCell     * dnsServersTFC;
     IBOutlet NSTextFieldCell     * domainTFC;
@@ -164,7 +164,7 @@ typedef enum {
     
     IBOutlet NSButton            * credentialsGroupButton;
     IBOutlet NSArrayController   * credentialsGroupArrayController;
-	IBOutlet NSInteger             selectedCredentialsGroupIndex;
+	IBOutlet NSNumber            * selectedCredentialsGroupIndex;
 	
 	IBOutlet NSButton            * addNamedCredentialsButton;
 	
@@ -216,41 +216,44 @@ typedef enum {
 
 -(IBAction)  whileConnectedHelpButtonWasClicked: (id) sender;
 
--(NSInteger) selectedDnsServersIndex;
--(void)      setSelectedDnsServersIndex:   (NSInteger) newValue;
+-(NSNumber *) selectedDnsServersIndex;
+-(void)      setSelectedDnsServersIndex:   (NSNumber *) newValue;
 
--(NSInteger) selectedDomainIndex;
--(void)      setSelectedDomainIndex:       (NSInteger) newValue;
+-(NSNumber *) selectedDomainIndex;
+-(void)      setSelectedDomainIndex:       (NSNumber *) newValue;
 
--(NSInteger) selectedSearchDomainIndex;
--(void)      setSelectedSearchDomainIndex: (NSInteger) newValue;
+-(NSNumber *) selectedSearchDomainIndex;
+-(void)      setSelectedSearchDomainIndex: (NSNumber *) newValue;
 
--(NSInteger) selectedWinsServersIndex;
--(void)      setSelectedWinsServersIndex:  (NSInteger) newValue;
+-(NSNumber *) selectedWinsServersIndex;
+-(void)      setSelectedWinsServersIndex:  (NSNumber *) newValue;
 
--(NSInteger) selectedNetBiosNameIndex;
--(void)      setSelectedNetBiosNameIndex:  (NSInteger) newValue;
+-(NSNumber *) selectedNetBiosNameIndex;
+-(void)      setSelectedNetBiosNameIndex:  (NSNumber *) newValue;
 
--(NSInteger) selectedWorkgroupIndex;
--(void)      setSelectedWorkgroupIndex:    (NSInteger) newValue;
+-(NSNumber *) selectedWorkgroupIndex;
+-(void)      setSelectedWorkgroupIndex:    (NSNumber *) newValue;
 
--(NSInteger) selectedOtherdnsServersIndex;
--(void)      setSelectedOtherdnsServersIndex:   (NSInteger) newValue;
+-(NSNumber *) selectedOtherdnsServersIndex;
+-(void)      setSelectedOtherdnsServersIndex:   (NSNumber *) newValue;
 
--(NSInteger) selectedOtherdomainIndex;
--(void)      setSelectedOtherdomainIndex:       (NSInteger) newValue;
+-(NSNumber *) selectedOtherdomainIndex;
+-(void)      setSelectedOtherdomainIndex:       (NSNumber *) newValue;
 
--(NSInteger) selectedOthersearchDomainIndex;
--(void)      setSelectedOthersearchDomainIndex: (NSInteger) newValue;
+-(NSNumber *) selectedOthersearchDomainIndex;
+-(void)      setSelectedOthersearchDomainIndex: (NSNumber *) newValue;
 
--(NSInteger) selectedOtherwinsServersIndex;
--(void)      setSelectedOtherwinsServersIndex:  (NSInteger) newValue;
+-(NSNumber *) selectedOtherwinsServersIndex;
+-(void)      setSelectedOtherwinsServersIndex:  (NSNumber *) newValue;
 
--(NSInteger) selectedOthernetBiosNameIndex;
--(void)      setSelectedOthernetBiosNameIndex:  (NSInteger) newValue;
+-(NSNumber *) selectedOthernetBiosNameIndex;
+-(void)      setSelectedOthernetBiosNameIndex:  (NSNumber *) newValue;
 
--(NSInteger) selectedOtherworkgroupIndex;
--(void)      setSelectedOtherworkgroupIndex:    (NSInteger) newValue;
+-(NSNumber *) selectedOtherworkgroupIndex;
+-(void)      setSelectedOtherworkgroupIndex:    (NSNumber *) newValue;
+
+-(NSNumber *) selectedCredentialsGroupIndex;
+-(void)      setSelectedCredentialsGroupIndex:    (NSNumber *) newValue;
 
 
 // Methods for Credentials tab
@@ -275,7 +278,6 @@ TBPROPERTY(NSArray *,           removeNamedCredentialsNames, setRemoveNamedCrede
 
 TBPROPERTY_READONLY(NSButton *,            credentialsGroupButton)
 TBPROPERTY_READONLY(NSArrayController *,   credentialsGroupArrayController)
-TBPROPERTY(NSUInteger, selectedCredentialsGroupIndex,    setSelectedCredentialsGroupIndex)
 
 TBPROPERTY_READONLY(NSButton *, addNamedCredentialsButton)
 

@@ -113,7 +113,7 @@ extern TBUserDefaults * gTbDefaults;
         // plus
         //      Connections that have been removed since the last tick
         
-        MenuController * mc = [NSApp delegate];
+        MenuController * mc = ((MenuController *)[NSApp delegate]);
         NSArray * notDisconnected = [mc nondisconnectedConnections];
         
         NSUInteger maxSize = [notDisconnected count] + [nonDisconnectedConnectionsAtPreviousTick count];

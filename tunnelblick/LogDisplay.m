@@ -237,7 +237,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
         [self doLogScrolling];
     }
 	
-	[self addToLog: [[NSApp delegate] openVPNLogHeader]];
+	[self addToLog: [((MenuController *)[NSApp delegate]) openVPNLogHeader]];
 }
 
 -(void) doLogScrolling
@@ -294,7 +294,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
-    [[[NSApp delegate] logScreen] doLogScrollingForConnection: [self connection]];
+    [[((MenuController *)[NSApp delegate]) logScreen] doLogScrollingForConnection: [self connection]];
 }
 
 // Starts (or restarts) monitoring newly-created log files.
@@ -407,7 +407,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
         return;             // Don't do anything if we aren't displaying the log for this connection
     }
     
-    [[[NSApp delegate] logScreen] indicateWaitingForConnection: [self connection]];
+    [[((MenuController *)[NSApp delegate]) logScreen] indicateWaitingForConnection: [self connection]];
     
     // Save, then clear, the current contents of the tbLog
     NSString * tunnelblickString = [[self tbLog] copy];
@@ -611,7 +611,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     [tunnelblickString release];
     
     [self doLogScrolling];
-    [[[NSApp delegate] logScreen] indicateNotWaitingForConnection: [self connection]];
+    [[((MenuController *)[NSApp delegate]) logScreen] indicateNotWaitingForConnection: [self connection]];
 }
 
 -(NSUInteger) indexAfter: (NSUInteger) n string: (NSString *) s inString: (NSString *) text range: (NSRange) r
@@ -1328,7 +1328,7 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
 // BUT only if it is the log for this configuration. (If not, returns nil.)
 -(NSTextStorage *) logStorage
 {
-    MyPrefsWindowController * wc = [[NSApp delegate] logScreen];
+    MyPrefsWindowController * wc = [((MenuController *)[NSApp delegate]) logScreen];
     if (  wc  ) {
         if (  [self connection] == [wc selectedConnection]  ) {
             ConfigurationsView      * cv = [wc configurationsPrefsView];

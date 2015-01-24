@@ -69,20 +69,20 @@
     NSUInteger                     selectedWhenToConnectIndex;
     
     NSUInteger                     selectedLeftNavListIndex;
-    IBOutlet NSUInteger            selectedSetNameserverIndex;
-    IBOutlet NSUInteger            selectedSoundOnConnectIndex;
-    IBOutlet NSUInteger            selectedSoundOnDisconnectIndex;    
-    IBOutlet NSUInteger            selectedPerConfigOpenvpnVersionIndex;
+    IBOutlet NSNumber            * selectedSetNameserverIndex;
+    IBOutlet NSNumber            * selectedSoundOnConnectIndex;
+    IBOutlet NSNumber            * selectedSoundOnDisconnectIndex;
+    IBOutlet NSNumber            * selectedPerConfigOpenvpnVersionIndex;
     
     
     // For GeneralView
-    IBOutlet NSUInteger            selectedKeyboardShortcutIndex;
-    IBOutlet NSUInteger            selectedMaximumLogSizeIndex;
+    IBOutlet NSNumber            * selectedKeyboardShortcutIndex;
+    IBOutlet NSNumber            * selectedMaximumLogSizeIndex;
     
     // For AppearanceView
-    IBOutlet NSUInteger            selectedAppearanceIconSetIndex;
-    IBOutlet NSUInteger            selectedAppearanceConnectionWindowDisplayCriteriaIndex;
-    IBOutlet NSUInteger            selectedAppearanceConnectionWindowScreenIndex;
+    IBOutlet NSNumber            * selectedAppearanceIconSetIndex;
+    IBOutlet NSNumber            * selectedAppearanceConnectionWindowDisplayCriteriaIndex;
+    IBOutlet NSNumber            * selectedAppearanceConnectionWindowScreenIndex;
 }
 
 
@@ -196,16 +196,17 @@ TBPROPERTY_READONLY(NSUInteger, selectedWhenToConnectIndex)
 TBPROPERTY_READONLY(SettingsSheetWindowController *, settingsSheetWindowController)
 
 TBPROPERTY(NSUInteger, selectedLeftNavListIndex,             setSelectedLeftNavListIndex)
-TBPROPERTY(NSUInteger, selectedSetNameserverIndex,           setSelectedSetNameserverIndex)
-TBPROPERTY(NSUInteger, selectedPerConfigOpenvpnVersionIndex, setSelectedPerConfigOpenvpnVersionIndex)
-TBPROPERTY(NSUInteger, selectedSoundOnConnectIndex,          setSelectedSoundOnConnectIndex)
-TBPROPERTY(NSUInteger, selectedSoundOnDisconnectIndex,       setSelectedSoundOnDisconnectIndex)
 
-TBPROPERTY(NSUInteger, selectedKeyboardShortcutIndex, setSelectedKeyboardShortcutIndex)
-TBPROPERTY(NSUInteger, selectedMaximumLogSizeIndex,   setSelectedMaximumLogSizeIndex)
+TBPROPERTY(NSNumber *, selectedSetNameserverIndex,           setSelectedSetNameserverIndex)
+TBPROPERTY(NSNumber *, selectedPerConfigOpenvpnVersionIndex, setSelectedPerConfigOpenvpnVersionIndex)
+TBPROPERTY(NSNumber *, selectedSoundOnConnectIndex,          setSelectedSoundOnConnectIndex)
+TBPROPERTY(NSNumber *, selectedSoundOnDisconnectIndex,       setSelectedSoundOnDisconnectIndex)
 
-TBPROPERTY(NSUInteger, selectedAppearanceIconSetIndex,                         setSelectedAppearanceIconSetIndex)
-TBPROPERTY(NSUInteger, selectedAppearanceConnectionWindowDisplayCriteriaIndex, setSelectedAppearanceConnectionWindowDisplayCriteriaIndex)
-TBPROPERTY(NSUInteger, selectedAppearanceConnectionWindowScreenIndex, setSelectedAppearanceConnectionWindowScreenIndex)
+TBPROPERTY(NSNumber *, selectedKeyboardShortcutIndex, setSelectedKeyboardShortcutIndex)
+TBPROPERTY(NSNumber *, selectedMaximumLogSizeIndex,   setSelectedMaximumLogSizeIndex)
+
+TBPROPERTY(NSNumber *, selectedAppearanceIconSetIndex,                         setSelectedAppearanceIconSetIndex)
+TBPROPERTY(NSNumber *, selectedAppearanceConnectionWindowDisplayCriteriaIndex, setSelectedAppearanceConnectionWindowDisplayCriteriaIndex)
+TBPROPERTY(NSNumber *, selectedAppearanceConnectionWindowScreenIndex,          setSelectedAppearanceConnectionWindowScreenIndex)
 
 @end

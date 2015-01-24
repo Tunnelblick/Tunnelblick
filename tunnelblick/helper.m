@@ -78,7 +78,7 @@ BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
     OSStatus status = getSystemVersion(&major, &minor, &bugFix);
     if (  status != 0) {
         NSLog(@"getSystemVersion() failed");
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
         return FALSE;
     }
     
@@ -106,7 +106,7 @@ BOOL runningOnSnowLeopardPointEightOrNewer(void) {
     OSStatus status = getSystemVersion(&major, &minor, &bugFix);
     if (  status != 0) {
         NSLog(@"getSystemVersion() failed");
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
         return FALSE;
     }
     
@@ -521,7 +521,7 @@ int TBRunAlertPanelExtended(NSString * title,
             CFRelease(gUserNotification);
             gUserNotification = NULL;
         }
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
         return NSAlertErrorReturn; // Make the Xcode code analyzer happy
     }
     
@@ -625,7 +625,7 @@ NSString * newTemporaryDirectoryPath(void)
     char * tempDirectoryNameCString = (char *) malloc( bufferLength );
     if (  ! tempDirectoryNameCString  ) {
         NSLog(@"Unable to allocate memory for a temporary directory name");
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
         return nil;
     }
     
@@ -634,7 +634,7 @@ NSString * newTemporaryDirectoryPath(void)
     char * dirPath = mkdtemp(tempDirectoryNameCString);
     if (  ! dirPath  ) {
         NSLog(@"Unable to create a temporary directory");
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
     }
     
     NSString *tempFolder = [gFileMgr stringWithFileSystemRepresentation: tempDirectoryNameCString
@@ -771,7 +771,7 @@ NSString * TBGetDisplayName(NSString * msg,
         } else {
             NSString * targetPath = [[[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: newName] stringByAppendingPathExtension: @"conf"]; // (Don't use the .conf, but may need it for lastPartOfPath)
             NSString * dispNm = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-            if (  nil == [[[NSApp delegate] myConfigDictionary] objectForKey: dispNm]  ) {
+            if (  nil == [[((MenuController *)[NSApp delegate]) myConfigDictionary] objectForKey: dispNm]  ) {
                 break;
             }
             newName = TBGetString([NSLocalizedString(@"That name is being used.\n\n", @"Window text") stringByAppendingString: msg], nameToPrefill);
@@ -940,7 +940,7 @@ NSString * configLocCodeStringForPath(NSString * configPath) {
     
     } else {
         NSLog(@"configLocCodeStringForPath: unknown path %@", configPath);
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
         return [NSString stringWithFormat: @"%u", CFG_LOC_MAX + 1];
     }
     

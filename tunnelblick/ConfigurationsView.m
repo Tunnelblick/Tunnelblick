@@ -67,8 +67,8 @@ extern TBUserDefaults * gTbDefaults;
     [self setTitle: NSLocalizedString(@"Connect"   , @"Button") ofControl: connectButton   ];
     [self setTitle: NSLocalizedString(@"Disconnect", @"Button") ofControl: disconnectButton];
     
-	BOOL savedDoingSetupOfUI = [[NSApp delegate] doingSetupOfUI];
-    [[NSApp delegate] setDoingSetupOfUI: TRUE];
+	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
+    [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
 	
     // Left split view -- list of configurations and configuration manipulation
     
@@ -82,7 +82,7 @@ extern TBUserDefaults * gTbDefaults;
         [ov expandItem: [ov itemAtRow: 0]];
 	} else {
 		[[[self outlineViewController] view] setHidden: YES];
-		[leftNavTableView setDelegate: [[NSApp delegate] logScreen]];
+		[leftNavTableView setDelegate: [((MenuController *)[NSApp delegate]) logScreen]];
  	}
 	
 	[[leftNavTableColumn headerCell] setTitle: NSLocalizedString(@"Configurations", @"Window text")];
@@ -125,8 +125,8 @@ extern TBUserDefaults * gTbDefaults;
     
     [perConfigOpenvpnVersionTFC setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text")];
     
-    NSArray  * versions  = [[NSApp delegate] openvpnVersionNames];
-    NSUInteger defaultIx = [[NSApp delegate] defaultOpenVPNVersionIx];
+    NSArray  * versions  = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
+    NSUInteger defaultIx = [((MenuController *)[NSApp delegate]) defaultOpenVPNVersionIx];
     
     NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: [versions count] + 2];
     
@@ -160,7 +160,7 @@ extern TBUserDefaults * gTbDefaults;
     [self setTitle: NSLocalizedString(@"Advanced..." , @"Button") ofControl: advancedButton];
     [advancedButton setEnabled: ! [gTbDefaults boolForKey: @"disableAdvancedButton"]];
 	
-	[[NSApp delegate] setDoingSetupOfUI: savedDoingSetupOfUI];
+	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 
