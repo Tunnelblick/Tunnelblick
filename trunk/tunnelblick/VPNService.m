@@ -116,7 +116,7 @@ extern TBUserDefaults * gTbDefaults;
             && ( ! [emailAddress isEqualToString: @""] )
             && ( ! [password     isEqualToString: @""] )  ) {
             if (  [gTbDefaults boolForKey: @"Tunnelblick-lastConnectionSucceeded"]  ) {
-                if (  [[NSApp delegate] tryToConnect: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
+                if (  [((MenuController *)[NSApp delegate]) tryToConnect: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
                     return;
                 }
             }
@@ -351,7 +351,7 @@ extern TBUserDefaults * gTbDefaults;
             [self setEmailAddress: [loginScreen emailAddress]];
             [self setPassword:     [loginScreen password    ]];
             [self storeCredentialsInKeychain];
-            if (  [[NSApp delegate] tryToConnect: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
+            if (  [((MenuController *)[NSApp delegate]) tryToConnect: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
                 [[loginScreen window] close];
             }
             break;
@@ -579,7 +579,7 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) quit
 {
-    [[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
+    [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
 }
 
 -(void) closeAllScreens

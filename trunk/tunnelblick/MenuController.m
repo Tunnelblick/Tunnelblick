@@ -577,7 +577,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         
         gConfigDirs = [[NSMutableArray alloc] initWithCapacity: 2];
         
-		[NSApp setDelegate: self];
+		[NSApp setDelegate: (id)self];
 		
         userIsAnAdmin = isUserAnAdmin();
         
@@ -3408,7 +3408,7 @@ static void signal_handler(int signalNumber)
                 return;
             } else {
                 NSLog(@"SIGTERM (signal %d) received", signalNumber);
-                [[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
+                [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
                 return;
             }
     }
@@ -3430,7 +3430,7 @@ static void signal_handler(int signalNumber)
         reasonForTermination = terminatingBecauseOfFatalError;
         gShuttingDownTunnelblick = TRUE;
         NSLog(@"signal_handler: Starting cleanup.");
-        if (  [[NSApp delegate] cleanup]  ) {
+        if (  [((MenuController *)[NSApp delegate]) cleanup]  ) {
             NSLog(@"signal_handler: Cleanup finished.");
         } else {
             NSLog(@"signal_handler: Cleanup already being done.");
@@ -4728,7 +4728,7 @@ static void signal_handler(int signalNumber)
     
     // This is invoked directly when a checkbox is clicked, so we check we are not doing setup of UI here
 	
-    if ( ! [[NSApp delegate] doingSetupOfUI]  ) {
+    if ( ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
 		
 		BOOL state = (  inverted
 					  ? ! newValue
@@ -5096,7 +5096,7 @@ static BOOL runningHookupThread = FALSE;
 							[cfg appendString: @"/"];
 						} else {
 							NSLog(@"deconstructOpenVPNLogPath: invalid log path string has '-%c' (0x%02X) at position %lu in '%@'", c, (unsigned) c, (unsigned long) i, constructedPath);
-							[[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+							[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
 						}
 					} else {
 						[cfg appendFormat: @"%c", c];
@@ -5160,7 +5160,7 @@ BOOL warnAboutNonTblks(void)
                                          NSLocalizedString(@"Quit", @"Button"),      // Alternate
                                          nil);
             if (  result == NSAlertAlternateReturn  ) {
-                [[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
+                [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
             }
             
             gUserWasAskedAboutConvertNonTblks = YES;
@@ -5185,7 +5185,7 @@ BOOL warnAboutNonTblks(void)
 		gUserWasAskedAboutConvertNonTblks = TRUE;
 		if (   (response == NSAlertOtherReturn)
             || (response == NSAlertErrorReturn)  ) {  // Quit if "Quit" or error
-			[[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
+			[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
 		}
 		
 		if (  response == NSAlertDefaultReturn  ) {
@@ -5199,7 +5199,7 @@ BOOL warnAboutNonTblks(void)
 								   NSLocalizedString(@"Ignore", @"Button"),                 // Alternate return
 								   NSLocalizedString(@"Quit", @"Button"));                  // Other return
 		if (  response == NSAlertOtherReturn  ) {
-			[[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
+			[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
 		}
 		
 		if (  response == NSAlertDefaultReturn  ) {
@@ -6494,7 +6494,7 @@ void terminateBecauseOfBadConfiguration(void)
     TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Configuration Problem", @"Window title"),
                     NSLocalizedString(@"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.", @"Window text"),
                     nil, nil, nil);
-    [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+    [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
 }
 
 -(NSApplicationTerminateReply) applicationShouldTerminate: (NSApplication *) sender
@@ -7069,7 +7069,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 	(void) userData;
 	
     // When the hotKey is pressed, pop up the Tunnelblick menu from the Status Bar
-    MenuController * menuC = [NSApp delegate];
+    MenuController * menuC = ((MenuController *)[NSApp delegate]);
 	NSButton * statusButton = [menuC statusItemButton];
 	if (  statusButton  ) {
 		[statusButton performClick: nil];

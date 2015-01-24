@@ -91,7 +91,7 @@ haveSameParent: (unsigned)  theLevel {
     while (  *theIxPtr < [theKeys count]  ) {
         unsigned currentIx = *theIxPtr;
         NSString * displayName = [theKeys objectAtIndex: currentIx];
-        NSString * localName   = [[NSApp delegate] localizedNameForDisplayName: displayName];
+        NSString * localName   = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
         NSArray * components = [localName pathComponents];
         unsigned nComponents = [components count];
 		if (   firstOfThisParent
@@ -148,7 +148,7 @@ displayNameForTableColumn: (NSTableColumn *) tableColumn
     
     [rowsByDisplayName removeAllObjects];
     
-    NSArray * sortedDisplayNames = [[[[NSApp delegate] myConfigDictionary] allKeys]
+    NSArray * sortedDisplayNames = [[[((MenuController *)[NSApp delegate]) myConfigDictionary] allKeys]
                                     sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
     
     // We create a new rootItem, but will only use it's children variable
@@ -240,7 +240,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 {
 	(void) notification;
 	
-	MyPrefsWindowController * mpwc = [[NSApp delegate] logScreen]; 
+	MyPrefsWindowController * mpwc = [((MenuController *)[NSApp delegate]) logScreen]; 
     [mpwc performSelectorOnMainThread: @selector(selectedLeftNavListIndexChanged) withObject: nil waitUntilDone: NO];
 }
 
@@ -300,7 +300,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     }
     
 	NSString * sourceDisplayName = [item displayName];
-    VPNConnection * connection   = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: sourceDisplayName];
+    VPNConnection * connection   = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceDisplayName];
     if (  ! connection  ) {
         NSLog(@"Tried to rename configuration but no configuration has been selected");
         return;

@@ -61,15 +61,26 @@ extern TBUserDefaults       * gTbDefaults;
                               newPreference: (NSString *)      preference
                               oldPreference: (NSString *)      oldPreference
                       leasewatchOptionsChar: (NSString *)      leasewatchOptionsChar;
-
--(void) setDnsWinsIndex: (NSInteger *) index
-                     to: (NSInteger)   newValue
-             preference: (NSString *)  key;
-
 @end
 
 
 @implementation SettingsSheetWindowController
+
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedDnsServersIndex,        setSelectedDnsServersIndexDirect)
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedDomainIndex,            setSelectedDomainIndexDirect)
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedSearchDomainIndex,      setSelectedSearchDomainIndexDirect)
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedWinsServersIndex,       setSelectedWinsServersIndexDirect)
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedNetBiosNameIndex,       setSelectedNetBiosNameIndexDirect)
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedWorkgroupIndex,         setSelectedWorkgroupIndexDirect)
+
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedOtherdnsServersIndex,   setSelectedOtherdnsServersIndexDirect)
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedOtherdomainIndex,       setSelectedOtherdomainIndexDirect)
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedOthersearchDomainIndex, setSelectedOthersearchDomainIndexDirect)
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedOtherwinsServersIndex,  setSelectedOtherwinsServersIndexDirect)
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedOthernetBiosNameIndex,  setSelectedOthernetBiosNameIndexDirect)
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedOtherworkgroupIndex,    setSelectedOtherworkgroupIndexDirect)
+
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelectedCredentialsGroupIndexDirect)
 
 -(id) init {
     self = [super initWithWindowNibName:@"SettingsSheet"];
@@ -104,7 +115,7 @@ extern TBUserDefaults       * gTbDefaults;
         configurationName = [newName retain];
 		
 		if (  newName  ) {
-			[self setConnection: [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: configurationName]];
+			[self setConnection: [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: configurationName]];
 		} else {
 			[self setConnection: nil];
 		}
@@ -122,10 +133,10 @@ extern TBUserDefaults       * gTbDefaults;
         return;
     }
     
-	BOOL savedDoingSetupOfUI = [[NSApp delegate] doingSetupOfUI];
-	[[NSApp delegate] setDoingSetupOfUI: TRUE];
+	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
+	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
 	
-	selectedCredentialsGroupIndex = NSNotFound;
+	[self setSelectedCredentialsGroupIndexDirect: [NSNumber numberWithUnsignedInteger: NSNotFound]];
 	
 	NSInteger ix = 0;
 	NSString * prefKey = [configurationName stringByAppendingString: @"-credentialsGroup"];
@@ -149,11 +160,11 @@ extern TBUserDefaults       * gTbDefaults;
         }
 	}
 	
-	[self setSelectedCredentialsGroupIndex: (unsigned) ix];
+	[self setSelectedCredentialsGroupIndex: [NSNumber numberWithUnsignedInteger: ix]];
 	[credentialsGroupButton setEnabled: (   ( ! [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"] )
                                          && [gTbDefaults canChangeValueForKey: prefKey])];
 	
-	[[NSApp delegate] setDoingSetupOfUI: savedDoingSetupOfUI];
+	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 - (void) setupPrependDomainNameCheckbox {
@@ -555,8 +566,8 @@ extern TBUserDefaults       * gTbDefaults;
         return;
     }
 	
-	BOOL savedDoingSetupOfUI = [[NSApp delegate] doingSetupOfUI];
-	[[NSApp delegate] setDoingSetupOfUI: TRUE];
+	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
+	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
 	
     NSString * programName;
     if (  [configurationName isEqualToString: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
@@ -565,7 +576,7 @@ extern TBUserDefaults       * gTbDefaults;
         programName = [NSString stringWithFormat: @" - Tunnelblick"];
     }
 	
-	NSString * localName = [[NSApp delegate] localizedNameForDisplayName: configurationName];
+	NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: configurationName];
 	NSString * privateSharedDeployed = [connection displayLocation];
     [settingsSheet setTitle: [NSString stringWithFormat: NSLocalizedString(@"%@%@ Disconnected - Advanced Settings%@", @"Window title"), localName, privateSharedDeployed, programName]];
     
@@ -600,7 +611,7 @@ extern TBUserDefaults       * gTbDefaults;
     [self setupRouteAllTrafficThroughVpnCheckbox];
     [self setupRunMtuTestCheckbox];
     
-    if (  [[[NSApp delegate] logScreen] forceDisableOfNetworkMonitoring]  ) {
+    if (  [[((MenuController *)[NSApp delegate]) logScreen] forceDisableOfNetworkMonitoring]  ) {
         [monitorNetworkForChangesCheckbox setState: NSOffState];
         [monitorNetworkForChangesCheckbox setEnabled: NO];
     } else {
@@ -702,16 +713,16 @@ extern TBUserDefaults       * gTbDefaults;
 														 groupAllConfigurationsUse]];
 	[allConfigurationsUseTheSameCredentialsCheckbox sizeToFit];
 	
-	[[NSApp delegate] setDoingSetupOfUI: savedDoingSetupOfUI];
+	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 -(void) setupMonitoringOptions {
 	
-	BOOL savedDoingSetupOfUI = [[NSApp delegate] doingSetupOfUI];
-	[[NSApp delegate] setDoingSetupOfUI: TRUE];
+	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
+	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
 	
     if (   connection
-        && ( ! [[[NSApp delegate] logScreen] forceDisableOfNetworkMonitoring] )
+        && ( ! [[((MenuController *)[NSApp delegate]) logScreen] forceDisableOfNetworkMonitoring] )
         && ( ! [gTbDefaults boolForKey: [configurationName stringByAppendingString: @"-notMonitoringConnection"]] )  ) {
         
         [dnsServersPopUpButton   setEnabled: YES];
@@ -747,19 +758,19 @@ extern TBUserDefaults       * gTbDefaults;
         [othernetBiosNamePopUpButton selectItemAtIndex:  [self indexForMonitoringOptionButton: othernetBiosNamePopUpButton  newPreference: @"-changeOtherNetBIOSNameAction"  oldPreference: nil leasewatchOptionsChar: @"n"]];
         [otherworkgroupPopUpButton selectItemAtIndex:    [self indexForMonitoringOptionButton: otherworkgroupPopUpButton    newPreference: @"-changeOtherWorkgroupAction"    oldPreference: nil leasewatchOptionsChar: @"g"]];
         
-        [self setSelectedDnsServersIndex:   [self indexForMonitoringOptionButton: dnsServersPopUpButton   newPreference: @"-changeDNSServersAction"   oldPreference: @"-doNotRestoreOnDnsReset"  leasewatchOptionsChar: @"a"]];
-        [self setSelectedDomainIndex:       [self indexForMonitoringOptionButton: domainPopUpButton       newPreference: @"-changeDomainAction"       oldPreference: @"-doNotRestoreOnDnsReset"  leasewatchOptionsChar: @"d"]];
-        [self setSelectedSearchDomainIndex: [self indexForMonitoringOptionButton: searchDomainPopUpButton newPreference: @"-changeSearchDomainAction" oldPreference: @"-doNotRestoreOnDnsReset"  leasewatchOptionsChar: @"s"]];
-        [self setSelectedWinsServersIndex:  [self indexForMonitoringOptionButton: winsServersPopUpButton  newPreference: @"-changeWINSServersAction"  oldPreference: @"-doNotRestoreOnWinsReset" leasewatchOptionsChar: @"w"]];
-        [self setSelectedNetBiosNameIndex:  [self indexForMonitoringOptionButton: netBiosNamePopUpButton  newPreference: @"-changeNetBIOSNameAction"  oldPreference: @"-doNotRestoreOnWinsReset" leasewatchOptionsChar: @"n"]];
-        [self setSelectedWorkgroupIndex:    [self indexForMonitoringOptionButton: workgroupPopUpButton    newPreference: @"-changeWorkgroupAction"    oldPreference: @"-doNotRestoreOnWinsReset" leasewatchOptionsChar: @"g"]];
+        [self setSelectedDnsServersIndex:   [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: dnsServersPopUpButton   newPreference: @"-changeDNSServersAction"   oldPreference: @"-doNotRestoreOnDnsReset"  leasewatchOptionsChar: @"a"]]];
+        [self setSelectedDomainIndex:       [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: domainPopUpButton       newPreference: @"-changeDomainAction"       oldPreference: @"-doNotRestoreOnDnsReset"  leasewatchOptionsChar: @"d"]]];
+        [self setSelectedSearchDomainIndex: [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: searchDomainPopUpButton newPreference: @"-changeSearchDomainAction" oldPreference: @"-doNotRestoreOnDnsReset"  leasewatchOptionsChar: @"s"]]];
+        [self setSelectedWinsServersIndex:  [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: winsServersPopUpButton  newPreference: @"-changeWINSServersAction"  oldPreference: @"-doNotRestoreOnWinsReset" leasewatchOptionsChar: @"w"]]];
+        [self setSelectedNetBiosNameIndex:  [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: netBiosNamePopUpButton  newPreference: @"-changeNetBIOSNameAction"  oldPreference: @"-doNotRestoreOnWinsReset" leasewatchOptionsChar: @"n"]]];
+        [self setSelectedWorkgroupIndex:    [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: workgroupPopUpButton    newPreference: @"-changeWorkgroupAction"    oldPreference: @"-doNotRestoreOnWinsReset" leasewatchOptionsChar: @"g"]]];
         
-        [self setSelectedOtherdnsServersIndex:   [self indexForMonitoringOptionButton: otherdnsServersPopUpButton   newPreference: @"-changeOtherDNSServersAction"   oldPreference: nil leasewatchOptionsChar: @"a"]];
-        [self setSelectedOtherdomainIndex:       [self indexForMonitoringOptionButton: otherdomainPopUpButton       newPreference: @"-changeOtherDomainAction"       oldPreference: nil leasewatchOptionsChar: @"d"]];
-        [self setSelectedOthersearchDomainIndex: [self indexForMonitoringOptionButton: othersearchDomainPopUpButton newPreference: @"-changeOtherSearchDomainAction" oldPreference: nil leasewatchOptionsChar: @"s"]];
-        [self setSelectedOtherwinsServersIndex:  [self indexForMonitoringOptionButton: otherwinsServersPopUpButton  newPreference: @"-changeOtherWINSServersAction"  oldPreference: nil leasewatchOptionsChar: @"w"]];
-        [self setSelectedOthernetBiosNameIndex:  [self indexForMonitoringOptionButton: othernetBiosNamePopUpButton  newPreference: @"-changeOtherNetBIOSNameAction"  oldPreference: nil leasewatchOptionsChar: @"n"]];
-        [self setSelectedOtherworkgroupIndex:    [self indexForMonitoringOptionButton: otherworkgroupPopUpButton    newPreference: @"-changeOtherWorkgroupAction"    oldPreference: nil leasewatchOptionsChar: @"g"]];
+        [self setSelectedOtherdnsServersIndex:   [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: otherdnsServersPopUpButton   newPreference: @"-changeOtherDNSServersAction"   oldPreference: nil leasewatchOptionsChar: @"a"]]];
+        [self setSelectedOtherdomainIndex:       [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: otherdomainPopUpButton       newPreference: @"-changeOtherDomainAction"       oldPreference: nil leasewatchOptionsChar: @"d"]]];
+        [self setSelectedOthersearchDomainIndex: [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: othersearchDomainPopUpButton newPreference: @"-changeOtherSearchDomainAction" oldPreference: nil leasewatchOptionsChar: @"s"]]];
+        [self setSelectedOtherwinsServersIndex:  [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: otherwinsServersPopUpButton  newPreference: @"-changeOtherWINSServersAction"  oldPreference: nil leasewatchOptionsChar: @"w"]]];
+        [self setSelectedOthernetBiosNameIndex:  [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: othernetBiosNamePopUpButton  newPreference: @"-changeOtherNetBIOSNameAction"  oldPreference: nil leasewatchOptionsChar: @"n"]]];
+        [self setSelectedOtherworkgroupIndex:    [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: otherworkgroupPopUpButton    newPreference: @"-changeOtherWorkgroupAction"    oldPreference: nil leasewatchOptionsChar: @"g"]]];
         
         doNotModifyPreferences = oldDoNotModifyPreferences;
         
@@ -805,19 +816,19 @@ extern TBUserDefaults       * gTbDefaults;
         [othernetBiosNamePopUpButton  selectItemAtIndex: 0];
         [otherworkgroupPopUpButton    selectItemAtIndex: 0];
         
-        [self setSelectedDnsServersIndex:   0];
-        [self setSelectedDomainIndex:       0];
-        [self setSelectedSearchDomainIndex: 0];
-        [self setSelectedWinsServersIndex:  0];
-        [self setSelectedNetBiosNameIndex:  0];
-        [self setSelectedWorkgroupIndex:    0];
+        [self setSelectedDnsServersIndex:   [NSNumber numberWithUnsignedInteger: 0]];
+        [self setSelectedDomainIndex:       [NSNumber numberWithUnsignedInteger: 0]];
+        [self setSelectedSearchDomainIndex: [NSNumber numberWithUnsignedInteger: 0]];
+        [self setSelectedWinsServersIndex:  [NSNumber numberWithUnsignedInteger: 0]];
+        [self setSelectedNetBiosNameIndex:  [NSNumber numberWithUnsignedInteger: 0]];
+        [self setSelectedWorkgroupIndex:    [NSNumber numberWithUnsignedInteger: 0]];
         
-        [self setSelectedOtherdnsServersIndex:   0];
-        [self setSelectedOtherdomainIndex:       0];
-        [self setSelectedOthersearchDomainIndex: 0];
-        [self setSelectedOtherwinsServersIndex:  0];
-        [self setSelectedOthernetBiosNameIndex:  0];
-        [self setSelectedOtherworkgroupIndex:    0];
+        [self setSelectedOtherdnsServersIndex:   [NSNumber numberWithUnsignedInteger: 0]];
+        [self setSelectedOtherdomainIndex:       [NSNumber numberWithUnsignedInteger: 0]];
+        [self setSelectedOthersearchDomainIndex: [NSNumber numberWithUnsignedInteger: 0]];
+        [self setSelectedOtherwinsServersIndex:  [NSNumber numberWithUnsignedInteger: 0]];
+        [self setSelectedOthernetBiosNameIndex:  [NSNumber numberWithUnsignedInteger: 0]];
+        [self setSelectedOtherworkgroupIndex:    [NSNumber numberWithUnsignedInteger: 0]];
         
         doNotModifyPreferences = oldDoNotModifyPreferences;
         // *********************************************************************************
@@ -837,7 +848,7 @@ extern TBUserDefaults       * gTbDefaults;
         [otherworkgroupPopUpButton    setEnabled: NO];
     }
 	
-	[[NSApp delegate] setDoingSetupOfUI: savedDoingSetupOfUI];
+	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 -(NSInteger) indexForMonitoringOptionButton: (NSPopUpButton *) button
@@ -911,7 +922,7 @@ extern TBUserDefaults       * gTbDefaults;
     
     // This preference is NOT IMPLEMENTED, nor is there a checkbox in the .xib
     
-    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnUnexpectedDisconnect"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnUnexpectedDisconnect"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: YES];
 }
@@ -919,7 +930,7 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (NSButton *) sender
 {
-    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: YES];
 }
@@ -927,36 +938,36 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(IBAction) showOnTunnelBlickMenuCheckboxWasClicked: (NSButton *) sender
 {
-    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotShowOnTunnelblickMenu"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotShowOnTunnelblickMenu"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: YES];
     
-    [[NSApp delegate] changedDisplayConnectionSubmenusSettings];
+    [((MenuController *)[NSApp delegate]) changedDisplayConnectionSubmenusSettings];
 }
 
 -(IBAction) flushDnsCacheCheckboxWasClicked: (NSButton *) sender {
-    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotFlushCache"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotFlushCache"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: YES];
 }
 
 
 -(IBAction) useRouteUpInsteadOfUpCheckboxWasClicked:(NSButton *)sender {
-    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-useRouteUpInsteadOfUp"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-useRouteUpInsteadOfUp"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: NO];
 }
 
 
 -(IBAction) prependDomainNameCheckboxWasClicked: (NSButton *)sender {
-    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-prependDomainNameToSearchDomains"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-prependDomainNameToSearchDomains"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: NO];
 }
 
 
 -(IBAction) disconnectOnSleepCheckboxWasClicked: (NSButton *)sender {
-    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisconnectOnSleep"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisconnectOnSleep"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: YES];
     [self setupReconnectOnWakeFromSleepCheckbox];
@@ -964,27 +975,27 @@ extern TBUserDefaults       * gTbDefaults;
 
 
 -(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked: (NSButton *) sender {
-    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnWakeFromSleep"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnWakeFromSleep"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: YES];
 }
 
 
 -(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked: (NSButton *) sender {
-    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-resetPrimaryInterfaceAfterDisconnect"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-resetPrimaryInterfaceAfterDisconnect"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: NO];
 }
 
 
 -(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked: (NSButton *) sender {
-    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-routeAllTrafficThroughVpn"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-routeAllTrafficThroughVpn"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: NO];
 }
 
 -(IBAction) runMtuTestCheckboxWasClicked: (NSButton *) sender {
-    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-runMtuTest"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-runMtuTest"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: NO];
 }
@@ -992,12 +1003,12 @@ extern TBUserDefaults       * gTbDefaults;
 -(void) setTunTapKey: (NSString *) key
 		 value: (NSString *) value {
     
-	if ( ! [[NSApp delegate] doingSetupOfUI]  ) {
+	if ( ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 						 value,  @"NewValue",
 						 key,    @"PreferenceName",
 						 nil];
-		[[NSApp delegate] performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+		[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
 	}
 }
 
@@ -1045,14 +1056,14 @@ extern TBUserDefaults       * gTbDefaults;
 
 
 -(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked: (NSButton *) sender  {
-    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisconnectOnFastUserSwitch"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisconnectOnFastUserSwitch"
 																	 to: ([sender state] == NSOnState)
 														 inverted: YES];
 }
 
 
 -(IBAction) reconnectWhenUserSwitchesInCheckboxWasClicked: (NSButton *) sender {
-    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnFastUserSwitch"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnFastUserSwitch"
 																	 to: ([sender state] == NSOnState)
 														 inverted: YES];
 }
@@ -1065,7 +1076,7 @@ extern TBUserDefaults       * gTbDefaults;
     
     if (   connection
         && (connection == theConnection)  ) {
-        if (  [[[NSApp delegate] logScreen] forceDisableOfNetworkMonitoring]  ) {
+        if (  [[((MenuController *)[NSApp delegate]) logScreen] forceDisableOfNetworkMonitoring]  ) {
             [monitorNetworkForChangesCheckbox setState: NSOffState];
             [monitorNetworkForChangesCheckbox setEnabled: NO];
         } else {
@@ -1082,117 +1093,21 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(IBAction) monitorNetworkForChangesCheckboxWasClicked: (NSButton *) sender {
     
-    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-notMonitoringConnection"
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-notMonitoringConnection"
 																	 to: ([sender state] == NSOnState)
 														 inverted: YES];
     
     [self setupMonitoringOptions];
     
-    [[[NSApp delegate] logScreen] monitorNetworkForChangesCheckboxChangedForConnection: connection];
+    [[((MenuController *)[NSApp delegate]) logScreen] monitorNetworkForChangesCheckboxChangedForConnection: connection];
 }
 
--(NSInteger) selectedDnsServersIndex {
-    return selectedDnsServersIndex;
-}
-
--(void) setSelectedDnsServersIndex: (NSInteger) newValue {
-    [self setDnsWinsIndex: &selectedDnsServersIndex to: newValue preference: @"-changeDNSServersAction"];
-}
-
--(NSInteger) selectedDomainIndex {
-    return selectedDomainIndex;
-}
-
--(void) setSelectedDomainIndex: (NSInteger) newValue {
-    [self setDnsWinsIndex: &selectedDomainIndex to: newValue preference: @"-changeDomainAction"];
-}
-
--(NSInteger) selectedSearchDomainIndex {
-    return selectedSearchDomainIndex;
-}
-
--(void) setSelectedSearchDomainIndex: (NSInteger) newValue {
-    [self setDnsWinsIndex: &selectedSearchDomainIndex to: newValue preference: @"-changeSearchDomainAction"];
-}
-
--(NSInteger) selectedWinsServersIndex {
-    return selectedWinsServersIndex;
-}
-
--(void) setSelectedWinsServersIndex: (NSInteger) newValue {
-    [self setDnsWinsIndex: &selectedWinsServersIndex to: newValue preference: @"-changeWINSServersAction"];
-}
-
--(NSInteger) selectedNetBiosNameIndex {
-    return selectedNetBiosNameIndex;
-}
-
--(void) setSelectedNetBiosNameIndex: (NSInteger) newValue {
-    [self setDnsWinsIndex: &selectedNetBiosNameIndex to: newValue preference: @"-changeNetBIOSNameAction"];
-}
-
--(NSInteger) selectedWorkgroupIndex {
-    return selectedWorkgroupIndex;
-}
-
--(void) setSelectedWorkgroupIndex: (NSInteger) newValue {
-    [self setDnsWinsIndex: &selectedWorkgroupIndex to: newValue preference: @"-changeWorkgroupAction"];
-}
-
--(NSInteger) selectedOtherdnsServersIndex {
-    return selectedDnsServersIndex;
-}
-
--(void) setSelectedOtherdnsServersIndex: (NSInteger) newValue {
-    [self setDnsWinsIndex: &selectedDnsServersIndex to: newValue preference: @"-changeOtherDNSServersAction"];
-}
-
--(NSInteger) selectedOtherdomainIndex {
-    return selectedDomainIndex;
-}
-
--(void) setSelectedOtherdomainIndex: (NSInteger) newValue {
-    [self setDnsWinsIndex: &selectedDomainIndex to: newValue preference: @"-changeOtherDomainAction"];
-}
-
--(NSInteger) selectedOthersearchDomainIndex {
-    return selectedSearchDomainIndex;
-}
-
--(void) setSelectedOthersearchDomainIndex: (NSInteger) newValue {
-    [self setDnsWinsIndex: &selectedSearchDomainIndex to: newValue preference: @"-changeOtherSearchDomainAction"];
-}
-
--(NSInteger) selectedOtherwinsServersIndex {
-    return selectedWinsServersIndex;
-}
-
--(void) setSelectedOtherwinsServersIndex: (NSInteger) newValue {
-    [self setDnsWinsIndex: &selectedWinsServersIndex to: newValue preference: @"-changeOtherWINSServersAction"];
-}
-
--(NSInteger) selectedOthernetBiosNameIndex {
-    return selectedNetBiosNameIndex;
-}
-
--(void) setSelectedOthernetBiosNameIndex: (NSInteger) newValue {
-    [self setDnsWinsIndex: &selectedNetBiosNameIndex to: newValue preference: @"-changeOtherNetBIOSNameAction"];
-}
-
--(NSInteger) selectedOtherworkgroupIndex {
-    return selectedWorkgroupIndex;
-}
-
--(void) setSelectedOtherworkgroupIndex: (NSInteger) newValue {
-    [self setDnsWinsIndex: &selectedWorkgroupIndex to: newValue preference: @"-changeOtherWorkgroupAction"];
-}
-
--(void) setDnsWinsIndex: (NSInteger *) index
-                     to: (NSInteger)   newValue
-             preference: (NSString *)  key {
+-(void) setDnsWinsIndexTo: (NSNumber *)   newValue
+               preference: (NSString *)   key {
+    
     if (  ! doNotModifyPreferences  ) {
         NSString * newSetting = nil;
-        switch (  newValue  ) {
+        switch (  [newValue unsignedIntegerValue]  ) {
             case 0:
                 newSetting = @"ignore";
                 break;
@@ -1203,46 +1118,109 @@ extern TBUserDefaults       * gTbDefaults;
                 newSetting = @"restart";
                 break;
             default:
-                NSLog(@"setDnsWinsIndex: ignoring invalid value %ld", (long) newValue);
+                NSLog(@"setDnsWinsIndex: ignoring invalid value %ld", (long) [newValue unsignedIntegerValue]);
         }
         if (  newSetting != nil  ) {
-            NSString * defaultValue;
-            if (  [key hasPrefix: @"-changeOther"]  ) {
-                defaultValue = @"restart";
-            } else {
-                defaultValue = @"restore";
-            }
+            NSString * defaultValue = (  [key hasPrefix: @"-changeOther"]
+                                       ? @"restart"
+                                       : @"restore");
             
-			if ( ! [[NSApp delegate] doingSetupOfUI]  ) {
-				NSString * newValue = (  [newSetting isEqualToString: defaultValue]
-								 ? @""
-								 : newSetting
-								 );
+			if ( ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
+				NSString * newStringValue = (  [newSetting isEqualToString: defaultValue]
+                                             ? @""
+                                             : newSetting
+                                             );
 				NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-								 newValue,  @"NewValue",
-								 key,    @"PreferenceName",
-								 nil];
-				[[NSApp delegate] performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+                                       newStringValue,  @"NewValue",
+                                       key,    @"PreferenceName",
+                                       nil];
+				[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
 			}
 		}
     }
+}
+
+-(void) setSelectedDnsServersIndex: (NSNumber *) newValue {
     
-    *index = newValue;
+    [self setDnsWinsIndexTo: newValue preference: @"-changeDNSServersAction"];
+    [self setSelectedDnsServersIndexDirect: newValue];
 }
 
--(NSUInteger) selectedCredentialsGroupIndex {
-	return (unsigned)selectedCredentialsGroupIndex;
+-(void) setSelectedDomainIndex: (NSNumber *) newValue {
+    
+    [self setDnsWinsIndexTo: newValue preference: @"-changeDomainAction"];
+    [self setSelectedDomainIndexDirect: newValue];
 }
 
--(void) setSelectedCredentialsGroupIndex: (NSUInteger) newValue {
+-(void) setSelectedSearchDomainIndex: (NSNumber *) newValue {
+    
+    [self setDnsWinsIndexTo: newValue preference: @"-changeSearchDomainAction"];
+    [self setSelectedSearchDomainIndexDirect: newValue];
+}
+
+-(void) setSelectedWinsServersIndex: (NSNumber *) newValue {
+    
+    [self setDnsWinsIndexTo: newValue preference: @"-changeWINSServersAction"];
+    [self setSelectedWinsServersIndexDirect: newValue];
+}
+
+-(void) setSelectedNetBiosNameIndex: (NSNumber *) newValue {
+    
+    [self setDnsWinsIndexTo: newValue preference: @"-changeNetBIOSNameAction"];
+    [self setSelectedNetBiosNameIndexDirect: newValue];
+}
+
+-(void) setSelectedWorkgroupIndex: (NSNumber *) newValue {
+    
+    [self setDnsWinsIndexTo: newValue preference: @"-changeWorkgroupAction"];
+    [self setSelectedWorkgroupIndexDirect: newValue];
+}
+
+-(void) setSelectedOtherdnsServersIndex: (NSNumber *) newValue {
+    
+    [self setDnsWinsIndexTo: newValue preference: @"-changeOtherDNSServersAction"];
+    [self setSelectedOtherdnsServersIndexDirect: newValue];
+}
+
+-(void) setSelectedOtherdomainIndex: (NSNumber *) newValue {
+    
+    [self setDnsWinsIndexTo: newValue preference: @"-changeOtherDomainAction"];
+    [self setSelectedOtherdomainIndexDirect: newValue];
+}
+
+-(void) setSelectedOthersearchDomainIndex: (NSNumber *) newValue {
+    
+    [self setDnsWinsIndexTo: newValue preference: @"-changeOtherSearchDomainAction"];
+    [self setSelectedOthersearchDomainIndexDirect: newValue];
+}
+
+-(void) setSelectedOtherwinsServersIndex: (NSNumber *) newValue {
+    
+    [self setDnsWinsIndexTo: newValue preference: @"-changeOtherWINSServersAction"];
+    [self setSelectedOtherwinsServersIndexDirect: newValue];
+}
+
+-(void) setSelectedOthernetBiosNameIndex: (NSNumber *) newValue {
+    
+    [self setDnsWinsIndexTo: newValue preference: @"-changeOtherNetBIOSNameAction"];
+    [self setSelectedOthernetBiosNameIndexDirect: newValue];
+}
+
+-(void) setSelectedOtherworkgroupIndex: (NSNumber *) newValue {
+    
+    [self setDnsWinsIndexTo: newValue preference: @"-changeOtherWorkgroupAction"];
+    [self setSelectedOtherworkgroupIndexDirect: newValue];
+}
+
+-(void) setSelectedCredentialsGroupIndex: (NSNumber *) newValue {
 	
     NSArray * contents = [credentialsGroupArrayController content];
-    if (  newValue < [contents count]  ) {
+    if (  [newValue unsignedIntegerValue] < [contents count]  ) {
 		NSString * groupValue = nil;
-        if (  newValue == 0) {
+        if (  [newValue unsignedIntegerValue] == 0) {
 			groupValue = @"";
         } else {
-            NSString * groupName = [[contents objectAtIndex: newValue] objectForKey: @"value"];
+            NSString * groupName = [[contents objectAtIndex: [newValue unsignedIntegerValue]] objectForKey: @"value"];
 			NSArray * groups = [gTbDefaults sortedCredentialsGroups];
             if (  [groups containsObject: groupName]  ) {
 				groupValue = groupName;
@@ -1252,20 +1230,20 @@ extern TBUserDefaults       * gTbDefaults;
         }
 		
 		if (  groupValue  ) {
-			if (  ! [[NSApp delegate] doingSetupOfUI]  ) {
+			if (  ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
 				NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 								 groupValue, @"NewValue",
 								 @"-credentialsGroup", @"PreferenceName",
 								 nil];
-				[[NSApp delegate] performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+				[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
 			}
 		}
 		
-		selectedCredentialsGroupIndex = (int)newValue;
+		[self setSelectedCredentialsGroupIndexDirect: newValue];
 		[connection initializeAuthAgent];
 		
     } else if (  [contents count] != 0  ) {
-        NSLog(@"setSelectedCredentialsGroupIndex: %ld but there are only %ld groups", (long) newValue, (long) ([contents count] - 1));
+        NSLog(@"setSelectedCredentialsGroupIndex: %ld but there are only %ld groups", (long) [newValue unsignedIntegerValue], (long) ([contents count] - 1));
     }
 }
 

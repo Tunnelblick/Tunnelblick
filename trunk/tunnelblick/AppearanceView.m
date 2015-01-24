@@ -124,7 +124,7 @@ extern NSString       * gDeployPath;
     // Connection window screen assignment popup
     NSMutableArray * cwsContent = [NSMutableArray arrayWithCapacity: [[NSScreen screens] count] + 1];
     
-    NSArray * screens = [[NSApp delegate] screenList];
+    NSArray * screens = [((MenuController *)[NSApp delegate]) screenList];
     
     NSDictionary * dict = [screens objectAtIndex: 0];
     unsigned width  = [[dict objectForKey: @"DisplayWidth"]  unsignedIntValue];

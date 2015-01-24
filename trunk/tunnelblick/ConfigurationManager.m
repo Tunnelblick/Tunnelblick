@@ -354,7 +354,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * sourceName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
     NSString * targetName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
     
-    VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: sourceName];
+    VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceName];
     if (  ! connection  ) {
         NSLog(@"renameConfigurationMenuItemWasClicked or name change on leftNav list but no configuration has been selected");
         return;
@@ -424,9 +424,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			[gTbDefaults setObject: targetName forKey: @"leftNavSelectedDisplayName"];
 		}
 		
-		[[[NSApp delegate] logScreen] setPreviouslySelectedNameOnLeftNavList: targetName];
+		[[((MenuController *)[NSApp delegate]) logScreen] setPreviouslySelectedNameOnLeftNavList: targetName];
 		
-		[[NSApp delegate] updateMenuAndDetailsWindow];
+		[((MenuController *)[NSApp delegate]) updateMenuAndDetailsWindow];
 		
     }
     
@@ -1018,7 +1018,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                          : 0);
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, sourcePath, nil];
     
-    NSInteger installerResult = [[NSApp delegate] runInstaller: firstArg
+    NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: firstArg
 												extraArguments: arguments
 											   usingAuthRefPtr: authRefPtr
 													   message: nil
@@ -1074,7 +1074,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, nil];
     
-    [[NSApp delegate] runInstaller: INSTALLER_DELETE extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil installTblksFirst: nil];
+    [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil installTblksFirst: nil];
     
     if ( [gFileMgr fileExistsAtPath: targetPath]  ) {
         NSString * name = [[targetPath lastPathComponent] stringByDeletingPathExtension];
@@ -1092,7 +1092,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     if (  bundleId  ) {
         
           // Stop updating any configurations with this bundleId
-		[[[NSApp delegate] myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
+		[[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
 		
         // Delete all master stub .tblk containers with this bundleId
         NSArray * stubTblkPaths = [ConfigurationMultiUpdater pathsForMasterStubTblkContainersWithBundleIdentifier: bundleId];
@@ -1100,7 +1100,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSEnumerator * e = [stubTblkPaths objectEnumerator];
         while (  (containerPath = [e nextObject])) {
             arguments = [NSArray arrayWithObjects: containerPath, nil];
-            [[NSApp delegate] runInstaller: INSTALLER_DELETE
+            [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE
                             extraArguments: arguments
                            usingAuthRefPtr: authRefPtr
                                    message: nil
@@ -1156,7 +1156,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 
                 if (   (button == NSAlertAlternateReturn)   // Quit if quit or error occurred
                     || (button == NSAlertErrorReturn)  ) {
-                    [[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
+                    [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
                 }
                 
                 if (  button == NSAlertDefaultReturn  ) {
@@ -1481,7 +1481,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 				return fullPath;
 			}
 			
-            NSString * localName = [[NSApp delegate] localizedNameforDisplayName: displayName tblkPath: fullPath];
+            NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: displayName tblkPath: fullPath];
 
 			NSString * tbReplaceIdentical = [infoPlistDict objectForKey: @"TBReplaceIdentical"];
 			
@@ -1652,7 +1652,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * tbSharePackage     = [infoPlistDict objectForKey: @"TBSharePackage"];
     NSString * tbReplaceIdentical = [infoPlistDict objectForKey: @"TBReplaceIdentical"];
     
-	NSString * localizedName = [[NSApp delegate] localizedNameforDisplayName: displayName tblkPath: replacementTblkPath];
+	NSString * localizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: displayName tblkPath: replacementTblkPath];
 	
     NSString * sharedOrPrivate;
     if (   replaceShared
@@ -1885,7 +1885,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     // Warn if the configuration is connected and contains scripts. If the scripts are replaced with new ones, that could cause problems.
     if (  replacingTblkPath  ) {
         BOOL warnConfigurationIsConnected = FALSE;
-        NSDictionary * configDict = [[NSApp delegate] myConfigDictionary];
+        NSDictionary * configDict = [((MenuController *)[NSApp delegate]) myConfigDictionary];
         NSEnumerator * keyEnum = [configDict keyEnumerator];
         NSString * key;
         while (  (key = [keyEnum nextObject])  ) {
@@ -1908,7 +1908,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
         
         if (  warnConfigurationIsConnected  ) {
-            NSString * localName = [[NSApp delegate] localizedNameforDisplayName: displayName tblkPath: replacingTblkPath];
+            NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: displayName tblkPath: replacingTblkPath];
             int result = TBRunAlertPanel(NSLocalizedString(@"VPN Configuration Installation", @"Window title"),
                                          [NSString stringWithFormat:
                                           NSLocalizedString(@"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\n"
@@ -1965,7 +1965,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
 	} else {
 		if (  uninstall  ) {
-            NSString * localName = [[NSApp delegate] localizedNameforDisplayName: displayName tblkPath: fullPath];
+            NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: displayName tblkPath: fullPath];
 			return [NSString stringWithFormat: NSLocalizedString(@"Cannot uninstall configuration '%@' because it is not installed.", @"Window text"), localName];
 		}
     }
@@ -2423,7 +2423,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 							warnDialog: NO]  ) {
 			nUninstallErrors++;
 			NSString * targetDisplayName   = [lastPartOfPath(target) stringByDeletingPathExtension];
-            NSString * targetLocalizedName = [[NSApp delegate] localizedNameforDisplayName: targetDisplayName tblkPath: target];
+            NSString * targetLocalizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: targetDisplayName tblkPath: target];
 			[installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to uninstall the '%@' configuration\n", @"Window text"), targetLocalizedName]];
 		}
 	}
@@ -2441,19 +2441,19 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                         warnDialog: NO
                        moveNotCopy: NO]  ) {
 			
-            NSDictionary * connDict = [[NSApp delegate] myVPNConnectionDictionary];
+            NSDictionary * connDict = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
             BOOL replacedTblk = (nil != [connDict objectForKey: targetDisplayName]);
             if (  replacedTblk  ) {
                 // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
-                [[NSApp delegate] deleteExistingConfig: targetDisplayName ];
-                [[NSApp delegate] addNewConfig: target withDisplayName: targetDisplayName];
-                [[[NSApp delegate] logScreen] update];
+                [((MenuController *)[NSApp delegate]) deleteExistingConfig: targetDisplayName ];
+                [((MenuController *)[NSApp delegate]) addNewConfig: target withDisplayName: targetDisplayName];
+                [[((MenuController *)[NSApp delegate]) logScreen] update];
             }
             
         } else {
             nInstallErrors++;
             NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
-            NSString * targetLocalizedName = [[NSApp delegate] localizedNameforDisplayName: targetDisplayName tblkPath: target];
+            NSString * targetLocalizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: targetDisplayName tblkPath: target];
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to install the '%@' configuration\n", @"Window text"), targetLocalizedName]];
         }
     }
@@ -2471,18 +2471,18 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                         warnDialog: NO
                        moveNotCopy: NO]  ) {
 			
-            NSDictionary * connDict = [[NSApp delegate] myVPNConnectionDictionary];
+            NSDictionary * connDict = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
             VPNConnection * connection = [connDict objectForKey: targetDisplayName];
             if (  connection  ) {
                 // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
 				[connection reloadPreferencesFromTblk];
-                [[[NSApp delegate] logScreen] update];
+                [[((MenuController *)[NSApp delegate]) logScreen] update];
             }
             
         } else {
             nReplaceErrors++;
             NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
-            NSString * targetLocalizedName = [[NSApp delegate] localizedNameforDisplayName: targetDisplayName tblkPath: target];
+            NSString * targetLocalizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: targetDisplayName tblkPath: target];
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to replace the '%@' configuration\n", @"Window text"), targetLocalizedName]];
         }
     }
@@ -2534,11 +2534,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                   stringByAppendingPathComponent: targetLast];
         
 		NSArray * arguments = [NSArray arrayWithObjects: target, source, nil];
-		NSInteger installerResult = [[NSApp delegate] runInstaller: 0
+		NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: 0
 													extraArguments: arguments];
 		if (  installerResult == 0  ) {
- 			[[[NSApp delegate] myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
-            [[[NSApp delegate] myConfigMultiUpdater] addUpdateCheckingForStubTblkAtPath: target];
+ 			[[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
+            [[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] addUpdateCheckingForStubTblkAtPath: target];
         } else {
             nUpdateErrors++;
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to store updatable configuration stub at %@\n", @"Window text"), target]];

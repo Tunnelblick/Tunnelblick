@@ -35,7 +35,7 @@ extern TBUserDefaults  * gTbDefaults;
 {
     NSString * displayName = [self directParameter];
     
-    NSDictionary * myVPNConnectionDictionary = [[NSApp delegate] myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
     VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
     
     if (  connection  ) {
@@ -56,7 +56,7 @@ extern TBUserDefaults  * gTbDefaults;
 {
     NSString * displayName = [self directParameter];
     
-    NSDictionary * myVPNConnectionDictionary = [[NSApp delegate] myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
     VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
     
     if (  connection  ) {
@@ -77,7 +77,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (id)performDefaultImplementation
 {
-    NSDictionary * myVPNConnectionDictionary = [[NSApp delegate] myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     int nConnecting = 0;
@@ -98,7 +98,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (id)performDefaultImplementation
 {
-    NSDictionary * myVPNConnectionDictionary = [[NSApp delegate] myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     int nDisconnecting = 0;
@@ -120,7 +120,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (id)performDefaultImplementation
 {
-    NSDictionary * myVPNConnectionDictionary = [[NSApp delegate] myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     int nDisconnecting = 0;
@@ -146,7 +146,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (id)performDefaultImplementation
 {
-    [[NSApp delegate] performSelectorOnMainThread: @selector(quit:) withObject: nil waitUntilDone: NO];
+    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(quit:) withObject: nil waitUntilDone: NO];
     return [NSNumber numberWithInt: 0];
 }
 

@@ -104,15 +104,15 @@
     
 	if (  ! doArgument  ) {
 		NSLog(@"performSelectorOnMainThread:withObject:whenTrueIsReturnedBySelector:.. doArgument cannot be nil");
-		[[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+		[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
 	}
 	if (  ! whenArgument1  ) {
 		NSLog(@"performSelectorOnMainThread:withObject:whenTrueIsReturnedBySelector:.. whenArgument1 cannot be nil");
-		[[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+		[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
 	}
 	if (  ! whenArgument2  ) {
 		NSLog(@"performSelectorOnMainThread:withObject:whenTrueIsReturnedBySelector:.. whenArgument2 cannot be nil");
-		[[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+		[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
 	}
     if (  interval < 0.1  ) {
         interval = 0.1;

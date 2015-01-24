@@ -183,7 +183,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgName)
     BOOL withUI = [withUINumber boolValue];
     
     // Wait until the application is not being updated
-    SUUpdater * appUpdater = [[NSApp delegate] updater];
+    SUUpdater * appUpdater = [((MenuController *)[NSApp delegate]) updater];
     while (  [appUpdater updateInProgress]  ) {
         
 		if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]) {
@@ -248,7 +248,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgName)
         return NO;
     }
     
-	[[NSApp delegate] performSelectorOnMainThread: @selector(installConfigurationsUpdateInBundleAtPathHandler:) withObject: [self cfgBundlePath] waitUntilDone: NO];
+	[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(installConfigurationsUpdateInBundleAtPathHandler:) withObject: [self cfgBundlePath] waitUntilDone: NO];
 	return NO;
 }
 

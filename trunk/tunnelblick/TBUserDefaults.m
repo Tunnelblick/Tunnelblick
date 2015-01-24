@@ -342,7 +342,7 @@ NSArray * gConfigurationPreferences;
 
 -(void) removeAllObjectsWithSuffix: (NSString *) key {
     // Brute force -- try to remove key ending with the suffix for all configurations
-    NSEnumerator * dictEnum = [[[NSApp delegate] myConfigDictionary] keyEnumerator];
+    NSEnumerator * dictEnum = [[((MenuController *)[NSApp delegate]) myConfigDictionary] keyEnumerator];
     NSString * displayName;
     while (  (displayName = [dictEnum nextObject])  ) {
         NSString * fullKey = [displayName stringByAppendingString: key];

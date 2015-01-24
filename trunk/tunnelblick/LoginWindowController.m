@@ -73,7 +73,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
     [iconIV setImage: [NSApp applicationIconImage]];
     
 	NSString * displayName = [[self delegate] displayName];
-    NSString * localName = [[NSApp delegate] localizedNameForDisplayName: displayName];
+    NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
 	NSString * group = credentialsGroupFromDisplayName(displayName);
 	NSString * text;
     if (  group  ) {

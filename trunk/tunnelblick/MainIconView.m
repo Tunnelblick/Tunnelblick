@@ -47,10 +47,10 @@ extern BOOL              gShuttingDownWorkspace;
 	//        Third click comes here and (if within 1 second of first click) opens VPN Details… window
 	NSTimeInterval thisTime = [theEvent timestamp];
 	if (  (mainIconLastClickTime + 1.0) > thisTime  ) {
-		[[NSApp delegate] openPreferencesWindow: self];
+		[((MenuController *)[NSApp delegate]) openPreferencesWindow: self];
 	} else {
-		NSStatusItem * statusI = [[NSApp delegate] statusItem];
-		NSMenu       * menu    = [[NSApp delegate] myVPNMenu];
+		NSStatusItem * statusI = [((MenuController *)[NSApp delegate]) statusItem];
+		NSMenu       * menu    = [((MenuController *)[NSApp delegate]) myVPNMenu];
 		[statusI popUpStatusItemMenu: menu];
 	}
 	
@@ -103,7 +103,7 @@ extern BOOL              gShuttingDownWorkspace;
 		mainIconTrackingRectTagIsValid = FALSE;
     }
     
-    [[NSApp delegate] mouseExitedMainIcon: self event: nil];
+    [((MenuController *)[NSApp delegate]) mouseExitedMainIcon: self event: nil];
     
     [super dealloc];
 }
@@ -121,7 +121,7 @@ extern BOOL              gShuttingDownWorkspace;
         return;
     }
     
-    [[NSApp delegate] mouseEnteredMainIcon: self event: theEvent];
+    [((MenuController *)[NSApp delegate]) mouseEnteredMainIcon: self event: theEvent];
 }
 
 -(void) mouseExited: (NSEvent *) theEvent
@@ -133,7 +133,7 @@ extern BOOL              gShuttingDownWorkspace;
         return;
     }
     
-    [[NSApp delegate] mouseExitedMainIcon: self event: theEvent];
+    [((MenuController *)[NSApp delegate]) mouseExitedMainIcon: self event: theEvent];
 }
 
 -(void) mouseDown: (NSEvent *) theEvent
