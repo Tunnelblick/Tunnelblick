@@ -53,6 +53,7 @@
  * An empty name for an 'added menu item' (or the name after translation) causes the item to be skipped.
  * Adds crash report log entries for Tunnelblick components such as openvpn and atsystemstart to the 'Diagnostic Info'.
  * Flushes DNS cache via 'discoveryutil udnsflushcaches' and 'discoveryutil mdnsflushcache' if available.
+ * Fixes a problem that caused double-clicks on configurations to not be processed when a window was left open.
  * Fixes several problems with Tunnelblick's handling of 'private keys' (passphrases).
  * Fixes a problem with updates to Deployed versions of Tunnelblick and a problem causing failures on OS X 10.4 ('Tiger').
  * Fixes a problem renaming configurations.  
