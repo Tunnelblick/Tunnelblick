@@ -58,7 +58,7 @@
  * Fixes a problem renaming configurations.  
  * Fixes visibility problems with the standard status icon in 'dark mode' on OS X 10.10 ('Yosemite').
  * Fixes problems on OS X 10.4 and 10.5 Intel machines using OpenVPN versions higher than 2.2.1.
- * Fixes a problem with invalid permissions in IconSets contents.
+ * Fixes a problem with invalid permissions in !IconSets contents.
  * Fixes problems that caused digital signature checking to fail on OS X 10.5.
  * Fixes a problem with password and passphrase windows.
  * Fixes status window icon animation.
