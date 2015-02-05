@@ -1,8 +1,0 @@
-pkcs11h_openssl_createSession
-pkcs11h_openssl_freeSession
-pkcs11h_openssl_getCleanupHook
-pkcs11h_openssl_getX509
-pkcs11h_openssl_session_getRSA
-pkcs11h_openssl_session_getEVP
-pkcs11h_openssl_session_getX509
-pkcs11h_openssl_setCleanupHook

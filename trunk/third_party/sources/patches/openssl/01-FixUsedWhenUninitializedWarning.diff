@@ -1,0 +1,18 @@
+diff -u -r -x .svn -x .DS_Store openssl-1.0.1k/crypto/pem/pem_lib.c openssl-1.0.1k-patched/crypto/pem/pem_lib.c
+--- openssl-1.0.1k/crypto/pem/pem_lib.c	2015-01-08 19:35:52.000000000 -0500
++++ openssl-1.0.1k-patched/crypto/pem/pem_lib.c	2015-01-19 19:57:36.000000000 -0500
+@@ -477,13 +477,12 @@
+ 	EVP_CIPHER_CTX_cleanup(&ctx);
+ 	OPENSSL_cleanse((char *)buf,sizeof(buf));
+ 	OPENSSL_cleanse((char *)key,sizeof(key));
+-	j+=i;
+ 	if (!o)
+ 		{
+ 		PEMerr(PEM_F_PEM_DO_HEADER,PEM_R_BAD_DECRYPT);
+ 		return(0);
+ 		}
+-	*plen=j;
++	*plen=j+i;
+ 	return(1);
+ 	}
+ 
