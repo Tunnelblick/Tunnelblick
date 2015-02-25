@@ -76,7 +76,7 @@ BOOL runningOnLeopardOrNewer(void)
     unsigned major, minor, bugFix;
     OSStatus status = getSystemVersion(&major, &minor, &bugFix);
     if (  status != 0) {
-        NSLog(@"getSystemVersion() failed");
+        fprintf(stderr, "getSystemVersion() failed");
         return FALSE;
     }
     
@@ -2342,7 +2342,7 @@ int startVPN(NSString * configFile,
     int status;
     
     if (  (bitMask & OPENVPNSTART_USE_I386_OPENVPN) != 0  ) {
-        appendLog(@"Launching the 32-bit Intel version of OpenVPN instead of default version for this CPU");
+        fprintf(stderr, "Launching the 32-bit Intel version of OpenVPN instead of default version for this CPU");
         // Use 'arch i386 <openvpnPath> <arguments>
         [arguments insertObject: openvpnPath atIndex: 0];
         [arguments insertObject: @"-i386"    atIndex: 0];
@@ -2621,7 +2621,7 @@ int main(int argc, char * argv[]) {
     gResourcesPath  = [[ourBundle bundlePath] copy];
     NSArray  * execComponents = [gResourcesPath pathComponents];
     if (  [execComponents count] < 3  ) {
-        NSLog(@"Too few execComponents; gResourcesPath = %@", gResourcesPath);
+        fprintf(stderr, "Too few execComponents; gResourcesPath = %s", [gResourcesPath UTF8String]);
         exitOpenvpnstart(242);
     }
 	gDeployPath = [[gResourcesPath stringByAppendingPathComponent: @"Deploy"] copy];

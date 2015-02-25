@@ -1807,18 +1807,26 @@ static BOOL firstTimeShowingWindow = TRUE;
                 }
                 if (  [keyString isEqualToString: [NSString stringWithUTF8String: ASL_KEY_SENDER]]  ) {
                     if (   [string isEqualToString: @"Tunnelblick"]
+                        || [string isEqualToString: @"atsystemstart"]
+                        || [string isEqualToString: @"installer"]
                         || [string isEqualToString: @"openvpnstart"]
-                        || [string isEqualToString: @"atsystemstart"]  ) {
+                        || [string isEqualToString: @"process-network-changes"]
+                        || [string isEqualToString: @"standardize-scutil-output"]
+                        || [string isEqualToString: @"tunnelblickd"]
+                        || [string isEqualToString: @"tunnelblick-helper"]
+                        ) {
                         includeDict = TRUE;
                     }
                 } else if (  [keyString isEqualToString: [NSString stringWithUTF8String: ASL_KEY_MSG]]  ) {
                     if (   ([string rangeOfString: @"Tunnelblick"].length != 0)
                         || ([string rangeOfString: @"tunnelblick"].length != 0)
+                        || ([string rangeOfString: @"Tunnel" "blick"].length != 0)      // Include non-rebranded references to Tunnelblick
+                        || ([string rangeOfString: @"atsystemstart"].length != 0)
+                        || ([string rangeOfString: @"installer"].length != 0)
+                        || ([string rangeOfString: @"openvpnstart"].length != 0)
                         || ([string rangeOfString: @"Saved crash report for openvpn"].length != 0)
-                        || ([string rangeOfString: @"Saved crash report for installer"].length != 0)
-                        || ([string rangeOfString: @"Saved crash report for atsystemstart"].length != 0)
-                        || ([string rangeOfString: @"Saved crash report for process-network-changes"].length != 0)
-                        || ([string rangeOfString: @"Saved crash report for standardize-scutil-output"].length != 0)
+                        || ([string rangeOfString: @"process-network-changes"].length != 0)
+                        || ([string rangeOfString: @"standardize-scutil-output"].length != 0)
                         ) {
                         includeDict = TRUE;
                     }
