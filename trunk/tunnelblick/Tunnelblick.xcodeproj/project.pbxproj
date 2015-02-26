@@ -59,6 +59,8 @@
 		63432573140D7F5A00015CE0 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63432572140D7F5A00015CE0 /* CoreServices.framework */; };
 		63432577140D7F6F00015CE0 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63432572140D7F5A00015CE0 /* CoreServices.framework */; };
 		6345F210120BB1DA009C6222 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6345F20F120BB1DA009C6222 /* Carbon.framework */; };
+		634616871A9B85C60049C16C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634616861A9B85C60049C16C /* SystemConfiguration.framework */; };
+		6346168A1A9B85D30049C16C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634616861A9B85C60049C16C /* SystemConfiguration.framework */; };
 		634B02DF12553E5400A9D978 /* client.2.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */; };
 		634B02E012553E5400A9D978 /* client.2.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */; };
 		634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */; };
@@ -373,6 +375,7 @@
 		6341C39313D6DE6200B9CE2B /* DA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DA.lproj; sourceTree = "<group>"; };
 		63432572140D7F5A00015CE0 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		6345F20F120BB1DA009C6222 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		634616861A9B85C60049C16C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		63490251139F9C6B00025BD5 /* ConfigurationsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationsView.h; sourceTree = "<group>"; };
 		634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.down.tunnelblick.sh; sourceTree = "<group>"; };
 		634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.up.tunnelblick.sh; sourceTree = "<group>"; };
@@ -592,6 +595,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6346168A1A9B85D30049C16C /* SystemConfiguration.framework in Frameworks */,
 				63C375761A4510D000D51E81 /* Foundation.framework in Frameworks */,
 				63C375751A4510CA00D51E81 /* CoreServices.framework in Frameworks */,
 			);
@@ -618,6 +622,7 @@
 				63B9CFA5132C73DD009EC6D0 /* WebKit.framework in Frameworks */,
 				63432573140D7F5A00015CE0 /* CoreServices.framework in Frameworks */,
 				637B0A1E1A81DC2100210900 /* Sparkle.framework in Frameworks */,
+				634616871A9B85C60049C16C /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,6 +705,7 @@
 				63432572140D7F5A00015CE0 /* CoreServices.framework */,
 				63F0A8B21507D24800526AF9 /* MainIcon.xib */,
 				63B4DCE41A409DF300F6A74C /* ServiceManagement.framework */,
+				634616861A9B85C60049C16C /* SystemConfiguration.framework */,
 			);
 			name = Tunnelblick;
 			sourceTree = "<group>";

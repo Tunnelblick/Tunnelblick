@@ -549,6 +549,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                       @"-tunnelUpSoundName",
                                       @"-doNotDisconnectWhenTunnelblickQuits",
                                       @"-prependDomainNameToSearchDomains",
+                                      @"-doNotWaitForInternetAtBoot",
                                       @"-doNotReconnectOnUnexpectedDisconnect", // This preference is NOT IMPLEMENTED and it is not in the .xib
 
                                       @"-doNotShowOnTunnelblickMenu",

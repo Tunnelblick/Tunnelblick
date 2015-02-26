@@ -145,10 +145,10 @@ int createDir(NSString * dirPath, unsigned long permissions) {
             if (  [[NSFileManager defaultManager] tbChangeFileAttributes: permissionsAsAttribute atPath: dirPath] ) {
                 return 1;
             }
-            NSLog(@"Warning: Unable to change permissions on %@ from %lo to %lo", dirPath, [oldPermissionsAsNumber longValue], permissions);
+            appendLog([NSString stringWithFormat: @"Warning: Unable to change permissions on %@ from %lo to %lo", dirPath, [oldPermissionsAsNumber longValue], permissions]);
             return 0;
         } else {
-            NSLog(@"Error: %@ exists but is not a directory", dirPath);
+            appendLog([NSString stringWithFormat: @"Error: %@ exists but is not a directory", dirPath]);
             return -1;
         }
     }
@@ -163,10 +163,10 @@ int createDir(NSString * dirPath, unsigned long permissions) {
     if (  ! [[NSFileManager defaultManager] tbCreateDirectoryAtPath: dirPath attributes: permissionsAsAttribute] ) {
         if (   [[NSFileManager defaultManager] fileExistsAtPath: dirPath isDirectory: &isDir]
             && isDir  ) {
-            NSLog(@"Warning: Created directory %@ but unable to set permissions to %lo", dirPath, permissions);
+            appendLog([NSString stringWithFormat: @"Warning: Created directory %@ but unable to set permissions to %lo", dirPath, permissions]);
             return 1;
         } else {
-            NSLog(@"Error: Unable to create directory %@ with permissions %lo", dirPath, permissions);
+            appendLog([NSString stringWithFormat: @"Error: Unable to create directory %@ with permissions %lo", dirPath, permissions]);
             return -1;
         }
     }
@@ -231,7 +231,7 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
     BOOL changedDeep = FALSE;
     
     if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
-        NSLog(@"checkSetOwnership: '%@' does not exist", path);
+        appendLog([NSString stringWithFormat: @"checkSetOwnership: '%@' does not exist", path]);
         return NO;
     }
     
@@ -1095,7 +1095,7 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     // Create a Unix domain socket as a stream
     sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
     if (  sockfd < 0  ) {
-        NSLog(@"runTunnelblickd: Error creating Unix domain socket; errno = %u; error was '%s'", errno, strerror(errno));
+        appendLog([NSString stringWithFormat: @"runTunnelblickd: Error creating Unix domain socket; errno = %u; error was '%s'", errno, strerror(errno)]);
         goto error2;
     }
     
@@ -1104,12 +1104,12 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     socket_data.sun_len    = sizeof(socket_data);
     socket_data.sun_family = AF_UNIX;
     if (  sizeof(socket_data.sun_path) <= strlen(socketPath)  ) {
-        NSLog(@"runTunnelblickd: socketPath is %lu bytes long but there is only room for %lu bytes in socket_data.sun_path", strlen(socketPath), sizeof(socket_data.sun_path));
+        appendLog([NSString stringWithFormat: @"runTunnelblickd: socketPath is %lu bytes long but there is only room for %lu bytes in socket_data.sun_path", strlen(socketPath), sizeof(socket_data.sun_path)]);
         goto error1;
     }
     memmove((char *)&socket_data.sun_path, (char *)socketPath, strlen(socketPath));
     if (  connect(sockfd, (struct sockaddr *)&socket_data, sizeof(socket_data)  ) < 0) {
-        NSLog(@"runTunnelblickd: Error connecting to tunnelblickd server socket; errno = %u; error was '%s'", errno, strerror(errno));
+        appendLog([NSString stringWithFormat: @"runTunnelblickd: Error connecting to tunnelblickd server socket; errno = %u; error was '%s'", errno, strerror(errno)]);
         goto error1;
     }
     
@@ -1119,13 +1119,13 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     while (  bytes_to_write != 0  ) {
         n = write(sockfd, buf_ptr, bytes_to_write);
         if (  n < 0  ) {
-            NSLog(@"runTunnelblickd: Error writing to tunnelblickd server socket; errno = %u; error was '%s'", errno, strerror(errno));
+            appendLog([NSString stringWithFormat: @"runTunnelblickd: Error writing to tunnelblickd server socket; errno = %u; error was '%s'", errno, strerror(errno)]);
             goto error1;
         }
         
         buf_ptr += n;
         bytes_to_write -= n;
-        //        NSLog(@"runTunnelblickd: Wrote %lu bytes to tunnelblickd server socket: '%@'", (unsigned long)n, command);
+//		appendLog([NSString stringWithFormat: @"runTunnelblickd: Wrote %lu bytes to tunnelblickd server socket: '%@'", (unsigned long)n, command]);
     }
     
     // Receive from the socket until we receive a \0
@@ -1133,7 +1133,7 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     
     // Set the socket to use non-blocking I/O (but we've already done the output, so we're really just doing non-blocking input)
     if (  -1 == fcntl(sockfd, F_SETFL,  O_NONBLOCK)  ) {
-        NSLog(@"runTunnelblickd: Error from fcntl(sockfd, F_SETFL,  O_NONBLOCK) with tunnelblickd server socket; errno = %u; error was '%s'", errno, strerror(errno));
+        appendLog([NSString stringWithFormat: @"runTunnelblickd: Error from fcntl(sockfd, F_SETFL,  O_NONBLOCK) with tunnelblickd server socket; errno = %u; error was '%s'", errno, strerror(errno)]);
         goto error1;
     }
     
@@ -1141,25 +1141,30 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     
     BOOL foundZeroByte = FALSE;
     
-    NSDate * timeoutDate = [NSDate dateWithTimeIntervalSinceNow: 10.0];
-    
-    while (  [[NSDate date] isLessThanOrEqualTo: timeoutDate]  ) {
+    NSDate * timeoutDate = [NSDate dateWithTimeIntervalSinceNow: 45.0];
+	useconds_t sleepTimeMicroseconds = 50000;	// 0.05 seconds; first sleep and each sleep thereafter will be doubled, up to 5.0 seconds
+	
+    while (  [(NSDate *)[NSDate date] compare: timeoutDate] == NSOrderedAscending  ) {
         bzero((char *)buffer, SOCKET_BUF_SIZE);
         n = read(sockfd, (char *)buffer, SOCKET_BUF_SIZE - 1);
         if (   (n     == -1)
             && (errno == EAGAIN)  ) {
-            //            NSLog(@"runTunnelblickd: no data available from tunnelblickd socket; sleeping 0.1 seconds...");
-            usleep(100000); // 0.1 seconds
+			sleepTimeMicroseconds *= 2;
+			if (  sleepTimeMicroseconds > 5000000  ) {
+				sleepTimeMicroseconds = 5000000;
+			}
+            appendLog([NSString stringWithFormat: @"runTunnelblickd: no data available from tunnelblickd socket; sleeping %f seconds...", ((float)sleepTimeMicroseconds)/1000000.0]);
+            usleep(sleepTimeMicroseconds);
             continue;
         } else if (  n < 0  ) {
-            NSLog(@"runTunnelblickd: Error reading from tunnelblickd socket; errno = %u; error was '%s'", errno, strerror(errno));
+            appendLog([NSString stringWithFormat: @"runTunnelblickd: Error reading from tunnelblickd socket; errno = %u; error was '%s'", errno, strerror(errno)]);
             goto error1;
         }
         buffer[n] = '\0';
         [output appendString: [NSString stringWithUTF8String: buffer]];
         if (  strchr(buffer, '\0') != (buffer + n)  ) {
             if (  strchr(buffer, '\0') != (buffer + n - 1)  ) {
-                NSLog(@"runTunnelblickd: Data from tunnelblickd after the zero byte that should terminate the data");
+                appendLog([NSString stringWithFormat: @"runTunnelblickd: Data from tunnelblickd after the zero byte that should terminate the data"]);
                 goto error1;
             }
             foundZeroByte = TRUE;
@@ -1171,19 +1176,19 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     close(sockfd);
     
     if (  ! foundZeroByte  ) {
-        NSLog(@"runTunnelblickd: tunnelblickd is not responding; received only %lu bytes", [output length]);
+        appendLog([NSString stringWithFormat: @"runTunnelblickd: tunnelblickd is not responding; received only %lu bytes", [output length]]);
         goto error2;
     }
     
     NSRange rngNl = [output rangeOfString: @"\n"];
     if (  rngNl.length == 0  ) {
-        NSLog(@"Invalid output from tunnelblickd: no newline; full output = '%@'", output);
+        appendLog([NSString stringWithFormat: @"Invalid output from tunnelblickd: no newline; full output = '%@'", output]);
         goto error2;
     }
     NSString * header = [output substringWithRange: NSMakeRange(0, rngNl.location)];
     NSArray * headerComponents = [header componentsSeparatedByString: @" "];
     if (  [headerComponents count] != 3) {
-        NSLog(@"Invalid output from tunnelblickd: header line does not have three components; full output = '%@'", output);
+        appendLog([NSString stringWithFormat: @"Invalid output from tunnelblickd: header line does not have three components; full output = '%@'", output]);
         goto error2;
     }
     OSStatus status = [((NSString *)[headerComponents objectAtIndex: 0]) intValue];
@@ -1193,7 +1198,7 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     NSRange stdErrRng = NSMakeRange(rngNl.location + 1 + stdOutLen, stdErrLen);
     NSString * stdOutContents = [output substringWithRange: stdOutRng];
     NSString * stdErrContents = [output substringWithRange: stdErrRng];
-    //    NSLog(@"runTunnelblickd: Output from tunnelblickd server: status = %d\nstdout = '%@'\nstderr = '%@'", status, stdOutContents, stdErrContents);
+//    appendLog([NSString stringWithFormat: @"runTunnelblickd: Output from tunnelblickd server: status = %d\nstdout = '%@'\nstderr = '%@'", status, stdOutContents, stdErrContents]);
     if (  stdoutString ) {
         *stdoutString = stdOutContents;
     }
