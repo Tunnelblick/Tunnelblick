@@ -29,6 +29,7 @@
 #import <sys/sysctl.h>
 #import <sys/types.h>
 #import <sys/xattr.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 
 #import "defines.h"
 #import "sharedRoutines.h"
@@ -2340,6 +2341,50 @@ int startVPN(NSString * configFile,
     }
 	
     int status;
+    
+    // If launching OpenVPN when the computer starts, delay until the Internet can be reached
+    // Test for that by checking the reachability of the program update server (so rebranded versions check for their own update servers)
+    if (   ((bitMask & OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS) == 0)
+		&& ((bitMask & OPENVPNSTART_DO_NOT_WAIT_FOR_INTERNET) == 0)  ) {
+		NSString * infoPlistPath = [[gResourcesPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
+		NSDictionary * infoPlist = [NSDictionary dictionaryWithContentsOfFile: infoPlistPath];
+		NSString * feedURLString = [infoPlist objectForKey: @"SUFeedURL"];
+		if (  feedURLString  ) {
+			NSURL * feedURL = [NSURL URLWithString: feedURLString];
+			NSString * host = [feedURL host];
+			if (  host  ) {
+				
+                NSDate * timeoutDate = [NSDate dateWithTimeIntervalSinceNow: 30.0];
+				do {
+					SCNetworkReachabilityRef target = SCNetworkReachabilityCreateWithName(NULL, [host UTF8String]);
+					SCNetworkReachabilityFlags flags = 0;
+					BOOL canDetermineReachability = (  SCNetworkReachabilityGetFlags(target, &flags)
+													 ? TRUE
+													 : FALSE);
+					
+					CFRelease(target);
+					if (   canDetermineReachability
+						&& ((flags & kSCNetworkReachabilityFlagsReachable) != 0)
+						&& ((flags & kSCNetworkReachabilityFlagsConnectionRequired) == 0)  ) {
+						appendLog([NSString stringWithFormat: @"The Internet (host '%@') is reachable; flags = 0x%lx", host, (unsigned long)flags]);
+						break;
+					}
+					if (  [(NSDate *)[NSDate date] compare: timeoutDate] == NSOrderedDescending  ) {
+						appendLog(@"Timed out waiting for the Internet to be reachable");
+						break;
+					}
+					appendLog([NSString stringWithFormat: @"Waiting for the Internet (host '%@') to become reachable (%@ determine reachability; flags = 0x%lx)...",
+							   host, (canDetermineReachability ? @"Can" : @"Cannot"), (unsigned long)flags]);
+					sleep(1);
+				}
+				while (  TRUE  );
+			} else {
+				appendLog([NSString stringWithFormat: @"Not delaying until the Internet is available because the SUFeedURL ('%@') in Info.plist could not be parsed for a host", [feedURL absoluteString]]);
+			}
+		} else {
+			appendLog(@"Not delaying until the Internet is available because there is no Info.plist or there is no SUFeedURL entry in it");
+		}
+	}
     
     if (  (bitMask & OPENVPNSTART_USE_I386_OPENVPN) != 0  ) {
         fprintf(stderr, "Launching the 32-bit Intel version of OpenVPN instead of default version for this CPU");

@@ -38,7 +38,7 @@ BOOL runningOnLeopardOrNewer(void)
     unsigned major, minor, bugFix;
     OSStatus status = getSystemVersion(&major, &minor, &bugFix);
     if (  status != 0) {
-        NSLog(@"getSystemVersion() failed");
+        fprintf(stderr, "getSystemVersion() failed");
         return FALSE;
     }
     
@@ -90,6 +90,7 @@ int main(int argc, char * argv[]) {
     
     if (  errFound  ) {
         [pool drain];
+		fprintf(stderr, "Exiting openvpnstart before any processing");
         exit(-1);
     }
     
@@ -107,9 +108,12 @@ int main(int argc, char * argv[]) {
         NSString * tunnelblickHelperPath = [[NSBundle mainBundle] pathForResource: @"tunnelblick-helper" ofType: nil];
         status = runTool(tunnelblickHelperPath, [NSArray arrayWithObject: command], &stdoutString, &stderrString);
     }
-    fprintf(stdout, "%s", [stdoutString UTF8String]);
-    fprintf(stderr, "%s", [stderrString UTF8String]);
-    
+	if (  stdoutString  ) {
+		fprintf(stdout, "%s", [stdoutString UTF8String]);
+	}
+	if (  stderrString  ) {
+		fprintf(stderr, "%s", [stderrString UTF8String]);
+	}
 	[pool drain];
 	exit(status);
 }
