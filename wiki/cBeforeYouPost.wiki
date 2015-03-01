@@ -13,6 +13,9 @@ Please be patient -- we're all volunteers! (For more information about the moder
 ==How and What to Post==
 
 *If you are having a problem with Tunnelblick, please:*
+
+ If possible, use the latest "beta" version of Tunnelblick, which has additional logging that can help show the cause of problems.
+
  # Make sure you do not have manually set DNS server addresses in OS X System Preferences : Network (select the primary interface, click the "Advanced..." button, then the DNS tab; there should be no addresses on the left that are not dimmed).
  # Open the "VPN Details…" window.
  # Select the configuration you want to connect in the list on the left.
