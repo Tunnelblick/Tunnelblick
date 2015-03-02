@@ -62,6 +62,7 @@
 #endif
 
 // These are global variables rather than class variables to make access to them easier
+NSThread              * gMainThread = nil;            // Used on 10.4 because [NSThread isMainThread] is not available
 NSMutableArray        * gConfigDirs = nil;            // Array of paths to configuration directories currently in use
 NSString              * gPrivatePath = nil;           // Path to ~/Library/Application Support/Tunnelblick/Configurations
 NSString              * gDeployPath = nil;            // Path to Tunnelblick.app/Contents/Resources/Deploy
@@ -4061,6 +4062,17 @@ static void signal_handler(int signalNumber)
 
     [self installSignalHandler];
 	[self updateScreenList];
+    
+    // gMainThread is used on OS X 10.4 because [NSThread isMainThread] is not available.
+    // This use of gMainThread assumes that
+    //      (1) applicationDidFinishLaunching is launched on the main thread; and
+    //      (2) the main thread does not change in the course of the program's execution.
+    // Both of these assumptions appear true based on testing on OS X 10.4
+    if (  gMainThread  ) {
+        NSLog(@"Ignoring extra invocation of applicationDidFinishLaunching:");
+        return;
+    }
+    gMainThread = [NSThread currentThread];
     
     [NSApp setupNewAutoLaunchOnLogin];
 

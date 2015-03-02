@@ -724,14 +724,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 	}
 }
 
--(void) doLogScrollingForConnection: (VPNConnection *) theConnection
-{
-    if (  theConnection == [self selectedConnection]  ) {
-        NSTextView * textView = [[((MenuController *)[NSApp delegate]) logScreen] logView];
-        [textView scrollRangeToVisible: NSMakeRange([[textView string] length], 0)];
-    }
-}
-
 -(void) indicateWaitingForConnection: (VPNConnection *) theConnection
 {
     if (  theConnection == [self selectedConnection]  ) {

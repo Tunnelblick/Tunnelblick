@@ -98,6 +98,9 @@ BOOL           isUserAnAdmin            (void);
 BOOL           runningABetaVersion      (void);
 
 BOOL           mustPlaceIconInStandardPositionInStatusBar(void);
+
+BOOL           runningOnMainThread      (void);
+
 BOOL           runningOnTigerOrNewer    (void);
 BOOL           runningOnLeopardOrNewer  (void);
 BOOL           runningOnSnowLeopardOrNewer(void);

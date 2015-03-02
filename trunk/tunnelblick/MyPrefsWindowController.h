@@ -97,7 +97,6 @@
 -(void) validateWhenConnectingForConnection:                  (VPNConnection *) theConnection;
 -(void) validateConnectAndDisconnectButtonsForConnection:     (VPNConnection *) theConnection;
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
--(void) doLogScrollingForConnection:                          (VPNConnection *) theConnection;
 -(void) setupAppearanceConnectionWindowScreenButton;
 
 // Used by LogDisplay to scroll to the current point in the log
