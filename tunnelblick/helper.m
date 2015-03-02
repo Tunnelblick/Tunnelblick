@@ -51,6 +51,7 @@ extern NSString        * gPrivatePath;
 extern NSString        * gDeployPath;
 extern NSFileManager   * gFileMgr;
 extern TBUserDefaults  * gTbDefaults;
+extern NSThread        * gMainThread;
 extern CFUserNotificationRef gUserNotification;
 
 void appendLog(NSString * msg)
@@ -70,6 +71,15 @@ uint64_t nowAbsoluteNanoseconds (void)
 BOOL runningABetaVersion (void) {
     NSString * version = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"];
     return ([version rangeOfString: @"beta"].length != 0);
+}
+
+BOOL runningOnMainThread (void) {
+    
+    if (  runningOnLeopardOrNewer()  ) {
+        return [NSThread isMainThread];
+    }
+    
+    return (  gMainThread == [NSThread currentThread]  );
 }
 
 BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
