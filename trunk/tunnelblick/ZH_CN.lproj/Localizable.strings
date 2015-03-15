@@ -938,6 +938,9 @@
 "Could not copy %@ to %@" = "不能将 %1$@ 复制到 %2$@";
 
 /* Window text */
+"Could not create %@" = "Could not create %@";
+
+/* Window text */
 "Could not delete %@" = "不能删除 %@";
 
 /* Window text */
@@ -951,9 +954,6 @@
 
 /* Window text */
 "Could not get modification date of %@" = "无法获取 %@ 的修改时间";
-
-/* Window text */
-"Could not make %@ deletable" = "无法令到 %@ 可被删除";
 
 /* Window text */
 "Could not resolve symbolic link at %@" = "无法解析符号链接 %@ ";
@@ -1805,6 +1805,9 @@
 "Dutch localization" = "荷兰语翻译";
 
 /* Credit description */
+"Estonian localization" = "Estonian localization";
+
+/* Credit description */
 "Finnish localization" = "芬兰语翻译";
 
 /* Credit description */
@@ -1862,6 +1865,9 @@
 "Portuguese (Brazilian) localization" = "葡萄牙语 (巴西语) 翻译";
 
 /* Credit description */
+"Portuguese localization" = "Portuguese localization";
+
+/* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "3.0b10 版本后对程序和文档的改进";
 
 /* Credit description */
@@ -1878,6 +1884,9 @@
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick 图标";
+
+/* Credit description */
+"Turkish localization" = "Turkish localization";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue 和 UKLoginItemRegistry";

@@ -938,6 +938,9 @@
 "Could not copy %@ to %@" = "%1$@ から %2$@ へコピーできません";
 
 /* Window text */
+"Could not create %@" = "Could not create %@";
+
+/* Window text */
 "Could not delete %@" = "%@ を削除できません";
 
 /* Window text */
@@ -951,9 +954,6 @@
 
 /* Window text */
 "Could not get modification date of %@" = "%@ の修正時刻が取得できません";
-
-/* Window text */
-"Could not make %@ deletable" = "%@ を削除可能にできません";
 
 /* Window text */
 "Could not resolve symbolic link at %@" = "%@ のシンボリックリンクが見つかりません。";
@@ -980,10 +980,10 @@
 "Do you wish to reinstall '%@' version %@?" = "本当に %1$@ のバージョン %2$@ を再インストールしますか？";
 
 /* Window text */
-"Do you wish to replace '%@' version %@ with version %@?" = "Do you wish to replace '%1$@' version %2$@ with version %3$@?";
+"Do you wish to replace '%@' version %@ with version %@?" = "%1$@ のバージョン %2$@ をバージョン %3$@ にしますか？";
 
 /* Window text */
-"Do you wish to replace the '%@' configuration?\n\n" = "Do you wish to replace the '%@' configuration?\n\n";
+"Do you wish to replace the '%@' configuration?\n\n" = "設定 '%@' を上書きしますか？\n\n";
 
 /* Window text */
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "接続先「%@」の変更を取り消し、最新かつ安全な(シャドー)コピーまで戻しますか？\n\n";
@@ -1001,7 +1001,7 @@
 "EB/s" = "EB/s";
 
 /* Window text */
-"Expected command not found for '%@'" = "Expected command not found for '%@'";
+"Expected command not found for '%@'" = "%@ の相応のコマンドが見つかりません";
 
 /* Window text */
 "Expected path not found for '%@'" = "予期したパス %@ が見つかりません";
@@ -1025,7 +1025,7 @@
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "ファイル '%@' はリッチテキストフォーマットと思われます。OpenVPNで使用するファイルはプレーンテキスト(ASCIIもしくはUTF-8)である必要があります。";
 
 /* Window text */
-"File '%@' ends with a backslash, which is not allowed." = "File '%@' ends with a backslash, which is not allowed.";
+"File '%@' ends with a backslash, which is not allowed." = "ファイル'%@' はバックスラッシュで終わってます、これは対応できないです。";
 
 /* Window text */
 "File '%@' has an extension which is not known to Tunnelblick." = "ファイル '%@' には不明な拡張子が付けられています。";
@@ -1055,7 +1055,7 @@
 "In the OpenVPN configuration file for '%@' at line %lu: %@" = "%1$@ のOpenVPN設定ファイルの %2$lu:%3$@ に";
 
 /* Window text */
-"In the OpenVPN configuration file for '%@': %@" = "In the OpenVPN configuration file for '%1$@': %2$@";
+"In the OpenVPN configuration file for '%@': %@" = "'%1$@' のOpenVPN設定ファイル: %2$@";
 
 /* Window text */
 "In:" = "イン:";
@@ -1076,7 +1076,7 @@
 "Installing configurations is not allowed" = "設定のインストールが許可されていません";
 
 /* Window text */
-"Invalid value '%@' for '%@' in %@" = "Invalid value '%1$@' for '%2$@' in %3$@";
+"Invalid value '%@' for '%@' in %@" = "%3$@の'%2$@'に'%1$@'は不正な値です。";
 
 /* Window text */
 "KB" = "KB";
@@ -1184,13 +1184,13 @@
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "コンピュータ起動時に接続できる Tunnelblick VPN の接続先 (.tblk) は1つだけです。";
 
 /* Window text */
-"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected.";
+"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "%@ の切断要求にOpenVPNが応答しません。\n\nTunnelblickは、OpenVPNが切断要求を処理し始めるまでは切断されません。\n\nこれは2分程度かかる場合があります。\n\n切断が完了するまでは接続出来ません。";
 
 /* Window text */
-"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN version %1$@ is not available. Changing this configuration to use the latest version (%2$@) that is included in this version of Tunnelblick.";
+"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPNのバージョン %1$@ は利用出来ません。Tunnelblickに含まれている最新バージョン(%2$@)を使用するように設定を変更します。";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN version %1$@ is not available. Using the latest version (%2$@) as the default.";
+"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPNのバージョン %1$@ は利用出来ません。最新バージョン(%2$@)を使用します。";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN バージョン:";
@@ -1208,7 +1208,7 @@
 "Password:" = "パスワード:";
 
 /* Window text */
-"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Path '%1$@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "パス '%1$@' に許可されていない文字が含まれています。\n\n以下の文字は許可されていません: '%2$s'\n\n";
 
 /* Window text */
 "Please enter VPN passphrase." = "VPNのパスフレーズを入力して下さい。";
@@ -1247,7 +1247,7 @@
 "Single-quote missing in line %u" = "%u行目: シングルクオートがありません";
 
 /* Window text */
-"Skipped copying %@ because a file with that name and contents has already been copied." = "Skipped copying %@ because a file with that name and contents has already been copied.";
+"Skipped copying %@ because a file with that name and contents has already been copied." = "%@ は既にコピーされているためスキップします。";
 
 /* Window text */
 "Starting Tunnelblick..." = "Tunnelblickを起動しています…";
@@ -1526,10 +1526,10 @@
 "Unable to secure %@ because it is owned by %@" = "Unable to secure %1$@ because it is owned by %2$@";
 
 /* Window text */
-"Unable to secure %@" = "Unable to secure %@";
+"Unable to secure %@" = "%@ の安全性を保てません";
 
 /* Window text */
-"Unable to set permissions on '%@'" = "Unable to set permissions on '%@'";
+"Unable to set permissions on '%@'" = "'%@' に対するパーミッションの設定ができません";
 
 /* Window text */
 "Unable to store updatable configuration stub at %@\n" = "Unable to store updatable configuration stub at %@\n";
@@ -1547,13 +1547,13 @@
 "Unknown extension '%@' for %@" = "%2$@ は未知な拡張子 %1$@ があります。";
 
 /* Window text */
-"Unknown key '%@' in %@" = "Unknown key '%1$@' in %2$@";
+"Unknown key '%@' in %@" = "%2$@ の未知のキー '%1$@'";
 
 /* Window text */
 "Unknown value '%@' for '%@' in %@" = "%3$@ に含まれる '%2$@' の値 '%1$@' は正しい値ではありません。";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Updatable configuration '%1$@' was not stored as updatable because %2$@ could not be found\n";
+"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "自動更新可能な設定 '%1$@' は %2$@ が見つからなかったため、自動更新可能な設定として保存されませんでした\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Updatable configuration '%1$@' was not stored as updatable because '%2$@' could not be copied to '%3$@'\n";
@@ -1805,6 +1805,9 @@
 "Dutch localization" = "オランダ語翻訳";
 
 /* Credit description */
+"Estonian localization" = "Estonian localization";
+
+/* Credit description */
 "Finnish localization" = "フィンランド語翻訳";
 
 /* Credit description */
@@ -1862,6 +1865,9 @@
 "Portuguese (Brazilian) localization" = "ポルトガル語(ブラジル)翻訳";
 
 /* Credit description */
+"Portuguese localization" = "Portuguese localization";
+
+/* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "バージョン3.0b10以降のプログラムとドキュメントの拡張";
 
 /* Credit description */
@@ -1878,6 +1884,9 @@
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblickアイコン";
+
+/* Credit description */
+"Turkish localization" = "Turkish localization";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueueとUKLoginItemRegistry";

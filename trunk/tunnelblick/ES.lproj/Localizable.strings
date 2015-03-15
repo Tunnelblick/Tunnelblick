@@ -938,6 +938,9 @@
 "Could not copy %@ to %@" = "No se pudo copiar %1$@ a %2$@";
 
 /* Window text */
+"Could not create %@" = "Could not create %@";
+
+/* Window text */
 "Could not delete %@" = "No se pudo eliminar %@";
 
 /* Window text */
@@ -951,9 +954,6 @@
 
 /* Window text */
 "Could not get modification date of %@" = "No se pudo obtener la fecha de modificación de %@";
-
-/* Window text */
-"Could not make %@ deletable" = "No se pudo hacer que %@ sea eliminable";
 
 /* Window text */
 "Could not resolve symbolic link at %@" = "No puedo resolver el enlace simbólico en %@";
@@ -1805,6 +1805,9 @@
 "Dutch localization" = "Traducción al neerlandés";
 
 /* Credit description */
+"Estonian localization" = "Estonian localization";
+
+/* Credit description */
 "Finnish localization" = "Traducción al finlandés";
 
 /* Credit description */
@@ -1862,6 +1865,9 @@
 "Portuguese (Brazilian) localization" = "Traducción al portugués (brasileño)";
 
 /* Credit description */
+"Portuguese localization" = "Portuguese localization";
+
+/* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Mejoras de programa y documentación después de la versión 3.0b10";
 
 /* Credit description */
@@ -1878,6 +1884,9 @@
 
 /* Credit description */
 "Tunnelblick icon" = "Icono de Tunnelblick";
+
+/* Credit description */
+"Turkish localization" = "Turkish localization";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue & UKLoginItemRegistry";
