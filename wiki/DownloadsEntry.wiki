@@ -16,7 +16,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  For use on OS X 10.6 - 10.10 ("Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.<br />
  <font color="red">*Not for use on OS X 10.4 or 10.5*</font> ("Tiger" or "Leopard") -- use the latest [#Tunnelblick_Beta_Release beta version] instead.<br />
- <font color="red">*Translators are needed for Arabic, Chinese (traditional), Estonian, Japanese, and Korean.* [cLocalizeTranslate Details]</font>
+ <font color="red">*Translators are needed for Arabic, Chinese (traditional), Estonian, Japanese, Korean, and Turkish.* [cLocalizeTranslate Details]</font>
 
  <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4.3_build_4055.4198.dmg/download Tunnelblick 3.4.3]</strong></font> `[`sourceforge.net`]` (build 4055.4198) released 2015-01-08 [RlsNotes#Version_3.4 Release Notes]<br />
  _*SHA1*_: bebd707e618c7a4a851741de2c82b4f8b2b4db03 _*MD5*_:  d22b07ead63b58cf0fc9b4015b357592 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
@@ -30,7 +30,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
  <i>(A beta release is a version that has been tested internally and is ready for testing by the wider community. It usually has bug fixes and new features that are subject to change and need testing, and may have different bugs or limitations.)</i>
 
  For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.<br />
- <font color="red">*Translators are needed for Arabic, Chinese (traditional), Estonian, Japanese, and Korean.* [cLocalizeTranslate Details]</font>
+ <font color="red">*Translators are needed for Arabic, Chinese (traditional), Estonian, Japanese, Korean, and Turkish.* [cLocalizeTranslate Details]</font>
 
  <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.5beta06_build_4211.dmg/download Tunnelblick 3.5beta06]</strong></font> `[`sourceforge.net`]` (build 4211) released 2015-01-22 [RlsNotes#Version_3.5 Release Notes]<br />
  _*SHA1*_: cdd924381f29c3e4a8bbe59682246eac6e35e62f _*MD5*_: 8c752b3ed2825d4b1610f36df529bcc3 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
