@@ -180,6 +180,16 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Khalid Alhumud     </td>
+    <td>      Arabic    </td>
+  </tr>
+
+  <tr>
+    <td>      b123400     </td>
+    <td>      Chinese (traditional)    </td>
+  </tr>
+
+  <tr>
     <td>      Matej Bačík     </td>
     <td>      Slovak    </td>
   </tr>
@@ -202,6 +212,11 @@ Tunnelblick is made possible by the efforts of many people:
   <tr>
     <td>      Martin Bratteng      </td>
     <td>      Norwegian    </td>
+  </tr>
+
+  <tr>
+    <td>      Alican Cakil      </td>
+    <td>      Turkish    </td>
   </tr>
 
   <tr>
@@ -345,8 +360,23 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      kskmt    </td>
+    <td>      Japanese    </td>
+  </tr>
+
+  <tr>
+    <td>      Henry Kuo    </td>
+    <td>      Chinese (tradional)    </td>
+  </tr>
+
+  <tr>
     <td>      Daniel Kvist    </td>
     <td>      Swedish    </td>
+  </tr>
+
+ <tr>
+    <td>      Isaac Kwan      </td>
+    <td>      Chinese (traditional)    </td>
   </tr>
 
  <tr>
@@ -420,6 +450,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Kenji Obata    </td>
+    <td>      Japanese    </td>
+  </tr>
+
+  <tr>
     <td>      Peter K. O'Connor    </td>
     <td>      Chinese (simplified)    </td>
   </tr>
@@ -467,6 +502,11 @@ Tunnelblick is made possible by the efforts of many people:
   <tr>
     <td>      Ole Christian Rynning    </td>
     <td>      Norwegian    </td>
+  </tr>
+
+  <tr>
+    <td>      Ranal Saron    </td>
+    <td>      Estonian    </td>
   </tr>
 
   <tr>
@@ -540,6 +580,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      André Torres      </td>
+    <td>      Portuguese    </td>
+  </tr>
+
+  <tr>
     <td>      Eugene Trufanov      </td>
     <td>      Russian    </td>
   </tr>
@@ -577,6 +622,16 @@ Tunnelblick is made possible by the efforts of many people:
    <tr>
     <td>      Kun Xi      </td>
     <td>      Chinese (simplified)    </td>
+  </tr>
+
+   <tr>
+    <td>      Andrew Ying      </td>
+    <td>      Chinese (traditional)    </td>
+  </tr>
+
+   <tr>
+    <td>      游精展      </td>
+    <td>      Chinese (traditional)    </td>
   </tr>
 
  <tr>
