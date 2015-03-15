@@ -186,7 +186,7 @@ Tunnelblick is made possible by the efforts of many people:
 
   <tr>
     <td>      b123400     </td>
-    <td>      Chinese (traditional)    </td>
+    <td>      Chinese (traditional) & Japanese    </td>
   </tr>
 
   <tr>
