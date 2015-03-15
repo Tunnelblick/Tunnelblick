@@ -938,6 +938,9 @@
 "Could not copy %@ to %@" = "Kunde inte kopiera %1$@ till %2$@";
 
 /* Window text */
+"Could not create %@" = "Could not create %@";
+
+/* Window text */
 "Could not delete %@" = "Kunde inte ta bort %@";
 
 /* Window text */
@@ -951,9 +954,6 @@
 
 /* Window text */
 "Could not get modification date of %@" = "Kunde inte hitta ändringsdatum för %@";
-
-/* Window text */
-"Could not make %@ deletable" = "Kunde inte göra %@ raderbar";
 
 /* Window text */
 "Could not resolve symbolic link at %@" = "Kunde inte slå upp symbolisk länk %@";
@@ -1805,6 +1805,9 @@
 "Dutch localization" = "Holländsk lokalanpassning";
 
 /* Credit description */
+"Estonian localization" = "Estonian localization";
+
+/* Credit description */
 "Finnish localization" = "Finsk lokalanpassning";
 
 /* Credit description */
@@ -1862,6 +1865,9 @@
 "Portuguese (Brazilian) localization" = "Portugisiska (brasiliansk) lokalanpassning";
 
 /* Credit description */
+"Portuguese localization" = "Portuguese localization";
+
+/* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program- och dokumentationsförbättringar efter version 3.0b10";
 
 /* Credit description */
@@ -1878,6 +1884,9 @@
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblickikon";
+
+/* Credit description */
+"Turkish localization" = "Turkish localization";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue & UKLoginItemRegistry";

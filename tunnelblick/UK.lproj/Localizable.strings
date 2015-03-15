@@ -938,6 +938,9 @@
 "Could not copy %@ to %@" = "Неможливо скопіювати %1$@ до %2$@";
 
 /* Window text */
+"Could not create %@" = "Could not create %@";
+
+/* Window text */
 "Could not delete %@" = "Неможливо видалити %@";
 
 /* Window text */
@@ -951,9 +954,6 @@
 
 /* Window text */
 "Could not get modification date of %@" = "Неможливо отримати дату модифікації %@";
-
-/* Window text */
-"Could not make %@ deletable" = "Неможливо підготувати %@ до видалення";
 
 /* Window text */
 "Could not resolve symbolic link at %@" = "Не можливо використати символічне посилання на %@";
@@ -1805,6 +1805,9 @@
 "Dutch localization" = "Голландський переклад";
 
 /* Credit description */
+"Estonian localization" = "Estonian localization";
+
+/* Credit description */
 "Finnish localization" = "Фінський переклад";
 
 /* Credit description */
@@ -1862,6 +1865,9 @@
 "Portuguese (Brazilian) localization" = "Португальський (бразильський) переклад";
 
 /* Credit description */
+"Portuguese localization" = "Portuguese localization";
+
+/* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Поліпшення програми та документації з версії 3.0b10";
 
 /* Credit description */
@@ -1878,6 +1884,9 @@
 
 /* Credit description */
 "Tunnelblick icon" = "Значок Tunnelblick";
+
+/* Credit description */
+"Turkish localization" = "Turkish localization";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue та UKLoginItemRegistry";

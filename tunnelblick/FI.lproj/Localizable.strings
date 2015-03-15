@@ -938,6 +938,9 @@
 "Could not copy %@ to %@" = "Objektin %1$@ kopiointi kohteeseen %2$@ epäonnistui";
 
 /* Window text */
+"Could not create %@" = "Could not create %@";
+
+/* Window text */
 "Could not delete %@" = "Ei voinut poistaa objektia %@";
 
 /* Window text */
@@ -951,9 +954,6 @@
 
 /* Window text */
 "Could not get modification date of %@" = "Kohteen %@ muokkauspäivää ei saatu";
-
-/* Window text */
-"Could not make %@ deletable" = "Kohteen %@ poistoa ei pystytty mahdollistamaan";
 
 /* Window text */
 "Could not resolve symbolic link at %@" = "Ei voitu selvittää symbolista linkkiä kohteessa %@";
@@ -1805,6 +1805,9 @@
 "Dutch localization" = "Hollantilainen käännös";
 
 /* Credit description */
+"Estonian localization" = "Estonian localization";
+
+/* Credit description */
 "Finnish localization" = "Suomalainen käännös";
 
 /* Credit description */
@@ -1862,6 +1865,9 @@
 "Portuguese (Brazilian) localization" = "Portugalilainen (Brasilia) käännös";
 
 /* Credit description */
+"Portuguese localization" = "Portuguese localization";
+
+/* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Ohjelman ja dokumentaation kehitys ja ylläpito version 3.0b10 jälkeen";
 
 /* Credit description */
@@ -1878,6 +1884,9 @@
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick-kuvake";
+
+/* Credit description */
+"Turkish localization" = "Turkish localization";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue ja UKLoginItemRegistry";

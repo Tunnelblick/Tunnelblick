@@ -938,6 +938,9 @@
 "Could not copy %@ to %@" = "A(z) %1$@ nem másolható a(z) %2$@ helyre";
 
 /* Window text */
+"Could not create %@" = "Could not create %@";
+
+/* Window text */
 "Could not delete %@" = "%@ nem törölhető";
 
 /* Window text */
@@ -951,9 +954,6 @@
 
 /* Window text */
 "Could not get modification date of %@" = "A(z) %@ módosítás dátuma nem ismert";
-
-/* Window text */
-"Could not make %@ deletable" = "A(z) %@ nem állítható törölhetőre";
 
 /* Window text */
 "Could not resolve symbolic link at %@" = "Nem sikerült feloldani a következő szimbolikus linket: %@";
@@ -1805,6 +1805,9 @@
 "Dutch localization" = "Dutch(holland) honosítás";
 
 /* Credit description */
+"Estonian localization" = "Estonian localization";
+
+/* Credit description */
 "Finnish localization" = "Finn honosítás";
 
 /* Credit description */
@@ -1862,6 +1865,9 @@
 "Portuguese (Brazilian) localization" = "Portugál (brazil) lokalizáció";
 
 /* Credit description */
+"Portuguese localization" = "Portuguese localization";
+
+/* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program fejlesztések és dokumentáció a 3.0b10 verzió után";
 
 /* Credit description */
@@ -1878,6 +1884,9 @@
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick ikon";
+
+/* Credit description */
+"Turkish localization" = "Turkish localization";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue és UKLoginItemRegistry";
