@@ -938,7 +938,7 @@
 "Could not copy %@ to %@" = "Objektin %1$@ kopiointi kohteeseen %2$@ epäonnistui";
 
 /* Window text */
-"Could not create %@" = "Could not create %@";
+"Could not create %@" = "Ei voitu luoda %@";
 
 /* Window text */
 "Could not delete %@" = "Ei voinut poistaa objektia %@";
@@ -1805,7 +1805,7 @@
 "Dutch localization" = "Hollantilainen käännös";
 
 /* Credit description */
-"Estonian localization" = "Estonian localization";
+"Estonian localization" = "Virolainen lokalisaatio";
 
 /* Credit description */
 "Finnish localization" = "Suomalainen käännös";
@@ -1841,7 +1841,7 @@
 "LANGUAGE_LOCALIZATION" = "Suomalainen käännös";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Jesse Hulkko, Jarmo Isotalo, Kalle Kärkkäinen, Feetu Nyrhine, Petra Penttila, Mikko Toivola";
+"LEAD_TRANSLATORS" = "Jesse Hulkko, Jarmo Isotalo, Kalle Kärkkäinen, Feetu Nyrhinen, Petra Penttila, Mikko Toivola";
 
 /* Credit description */
 "Localization code tweaks" = "Lokalisaatiokoodin muokkaukset";
@@ -1865,7 +1865,7 @@
 "Portuguese (Brazilian) localization" = "Portugalilainen (Brasilia) käännös";
 
 /* Credit description */
-"Portuguese localization" = "Portuguese localization";
+"Portuguese localization" = "Portugalilainen lokalisaatio";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Ohjelman ja dokumentaation kehitys ja ylläpito version 3.0b10 jälkeen";
@@ -1886,7 +1886,7 @@
 "Tunnelblick icon" = "Tunnelblick-kuvake";
 
 /* Credit description */
-"Turkish localization" = "Turkish localization";
+"Turkish localization" = "Turkkilainen lokalisaatio";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue ja UKLoginItemRegistry";

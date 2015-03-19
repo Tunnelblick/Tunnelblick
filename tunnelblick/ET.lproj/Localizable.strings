@@ -266,55 +266,55 @@
 "Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File…";
 
 /* Menu Item */
-"Make Configuration Private..." = "Make Configuration Private…";
+"Make Configuration Private..." = "Muuda konfiguratsioon privaatseks…";
 
 /* Menu Item */
-"Make Configuration Shared..." = "Make Configuration Shared…";
+"Make Configuration Shared..." = "Muuda konfiguratsioon jagatuks…";
 
 /* Menu item */
-"No VPN Configurations Available" = "No VPN Configurations Available";
+"No VPN Configurations Available" = "Ühtegi VPN konfiguratsiooni pole saadaval";
 
 /* Menu item */
-"Quit Tunnelblick" = "Quit Tunnelblick";
+"Quit Tunnelblick" = "Sulge Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Rename Configuration…";
+"Rename Configuration..." = "Muuda konfiguratsiooni nime…";
 
 /* Menu Item */
-"Revert Configuration..." = "Revert Configuration…";
+"Revert Configuration..." = "Ennista konfiguratsioon…";
 
 /* Menu Item */
-"Show OpenVPN Log in Finder" = "Show OpenVPN Log in Finder";
+"Show OpenVPN Log in Finder" = "Näita OpenVPN logi Finderis";
 
 /* Menu item */
 "Suggestion or Bug Report..." = "Suggestion or Bug Report…";
 
 /* Menu item */
-"VPN Details..." = "VPN Details…";
+"VPN Details..." = "VPN-i detailid…";
 
 /* Checkbox name */
 "Apply to all" = "Apply to all";
 
 /* Checkbox name */
-"Check for updates automatically" = "Check for updates automatically";
+"Check for updates automatically" = "Otsi uuendusi automaatselt";
 
 /* Checkbox name */
-"Check for updates to beta versions" = "Check for updates to beta versions";
+"Check for updates to beta versions" = "Otsi uuendusi beeta versioonidele";
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Check if the apparent public IP address changed after connecting";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "Disconnect when computer goes to sleep";
+"Disconnect when computer goes to sleep" = "Katkesta ühendus kui arvuti läheb unerežiimi";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Disconnect when user switches out";
 
 /* Checkbox name */
-"Display connection submenus" = "Display connection submenus";
+"Display connection submenus" = "Näita ühenduste alam-menüüsid";
 
 /* Checkbox name */
-"Display connection timers" = "Display connection timers";
+"Display connection timers" = "Näita ühenduste taimereid";
 
 /* Checkbox name */
 "Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
@@ -347,16 +347,16 @@
 "Inhibit automatic update checking and IP Address checking" = "Inhibit automatic update checking and IP Address checking";
 
 /* Checkbox name */
-"Keep connected" = "Keep connected";
+"Keep connected" = "Hoia ühendus aktiivsena";
 
 /* Checkbox name */ /* System profile item */
-"Monitor connection" = "Monitor connection";
+"Monitor connection" = "Jälgi ühendust";
 
 /* Checkbox name */
 "Monitor network settings" = "Monitor network settings";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Place next to Spotlight icon";
+"Place next to Spotlight icon" = "Aseta Spotlight ikooni kõrvale";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Prepend domain name to search domains";
@@ -377,7 +377,7 @@
 "Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
 
 /* Checkbox name */
-"Save in Keychain" = "Save in Keychain";
+"Save in Keychain" = "Salvesta Keychainis";
 
 /* Checkbox name */
 "Send anonymous profile information when checking" = "Send anonymous profile information when checking";
@@ -410,7 +410,7 @@
 "Set nameserver" = "Set nameserver";
 
 /* Text on disk image */
-"Double-click to begin" = "Double-click to begin";
+"Double-click to begin" = "Topeltklikk alustamiseks";
 
 /* Connection status */
 "ADD_ROUTES" = "Adding routes"; // Please translate "Adding routes"

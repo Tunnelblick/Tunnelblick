@@ -302,7 +302,7 @@
 "Check for updates to beta versions" = "检查 beta 版的更新";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connecting" = "Check if the apparent public IP address changed after connecting";
+"Check if the apparent public IP address changed after connecting" = "连接后检查外部IP地址是否有所改变";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "当计算机休眠时断开连接";
@@ -938,7 +938,7 @@
 "Could not copy %@ to %@" = "不能将 %1$@ 复制到 %2$@";
 
 /* Window text */
-"Could not create %@" = "Could not create %@";
+"Could not create %@" = "无法创建%@";
 
 /* Window text */
 "Could not delete %@" = "不能删除 %@";
@@ -1805,7 +1805,7 @@
 "Dutch localization" = "荷兰语翻译";
 
 /* Credit description */
-"Estonian localization" = "Estonian localization";
+"Estonian localization" = "爱沙尼亚语翻译";
 
 /* Credit description */
 "Finnish localization" = "芬兰语翻译";
@@ -1865,7 +1865,7 @@
 "Portuguese (Brazilian) localization" = "葡萄牙语 (巴西语) 翻译";
 
 /* Credit description */
-"Portuguese localization" = "Portuguese localization";
+"Portuguese localization" = "葡萄牙语翻译";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "3.0b10 版本后对程序和文档的改进";
@@ -1886,7 +1886,7 @@
 "Tunnelblick icon" = "Tunnelblick 图标";
 
 /* Credit description */
-"Turkish localization" = "Turkish localization";
+"Turkish localization" = "土耳其语翻译";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue 和 UKLoginItemRegistry";

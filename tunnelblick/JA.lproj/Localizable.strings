@@ -383,7 +383,7 @@
 "Send anonymous profile information when checking" = "プロファイル情報を匿名で送信する";
 
 /* Checkbox name */
-"Set DNS after routes are set instead of before routes are set" = "DNS設定を経路設定の後にする";
+"Set DNS after routes are set instead of before routes are set" = "DNS設定をルート設定前の代わりに後にする";
 
 /* Checkbox name */
 "Show configuration on Tunnelblick menu" = "接続先を Tunnelblick のメニューに表示する";
@@ -677,19 +677,19 @@
 "     • Installed %lu configurations\n\n" = "     • %lu つの設定がインストールされました\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Installed one configuration\n\n" = "     設定を一つインストールしました\n\n";
+"     • Installed one configuration\n\n" = "     • 設定をインストールしました\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
 "     • Replaced %lu configurations\n\n" = "     設定を%luつ上書きしました\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Replaced one configuration\n\n" = "     設定を一つ上書きしました\n\n";
+"     • Replaced one configuration\n\n" = "     • 設定を上書きしました\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Uninstalled %lu configurations\n\n" = "     設定を%luつ削除しました\n\n";
+"     • Uninstalled %lu configurations\n\n" = "     • %lu個の設定を削除しました\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Uninstalled one configuration\n\n" = "     設定を一つ削除しました\n\n";
+"     • Uninstalled one configuration\n\n" = "     • 1個の設定を削除しました\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Install %lu configurations\n\n" = "    • %lu 個の設定をインストール\n\n";
@@ -710,7 +710,7 @@
 "    • Uninstall one configuration\n" = "    設定を一つ削除しました\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  /Applications に Tunnelblick という名前でインストールされました\n";
+"  • Be installed in /Applications as Tunnelblick\n" = "  •  「 /アプリケーション」に「Tunnelblick」という名前でインストール\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • アプリケーションの所有者とアクセス権限を安全にする\n";
@@ -938,7 +938,7 @@
 "Could not copy %@ to %@" = "%1$@ から %2$@ へコピーできません";
 
 /* Window text */
-"Could not create %@" = "Could not create %@";
+"Could not create %@" = "%@を制作できませんでした";
 
 /* Window text */
 "Could not delete %@" = "%@ を削除できません";
@@ -1058,7 +1058,7 @@
 "In the OpenVPN configuration file for '%@': %@" = "'%1$@' のOpenVPN設定ファイル: %2$@";
 
 /* Window text */
-"In:" = "イン:";
+"In:" = "受信：";
 
 /* Window text */
 "Installation failed:\n\n%@" = "インストールに失敗しました:\n\n%@";
@@ -1154,13 +1154,13 @@
 "Non-string value for '%@' in %@" = "%2$@ の %1$@ は文字列ではありません";
 
 /* Window text */
-"Non-string value for an item in '%@' in %@" = "Non-string value for an item in '%1$@' in %2$@";
+"Non-string value for an item in '%@' in %@" = "%2$@では'%1$@'に非文字列データ型があります";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "拡張子が .ovpn でも .conf でもありません: %@";
 
 /* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "存在する設定を上書きしない為、'%@'は'TBKeepExistingFilesList'を使えません";
 
 /* Window text */
 "Notification window:" = "通知ウィンドウ:";
@@ -1196,7 +1196,7 @@
 "OpenVPN version:" = "OpenVPN バージョン:";
 
 /* Window text */
-"Out:" = "アウト:";
+"Out:" = "送信：";
 
 /* Window text */
 "PB" = "PB";
@@ -1319,7 +1319,7 @@
 "The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "Tunnelblick設定が壊れており初期化できません(古い設定がリネームされました)。\n\n詳細はコンソールログを参照してください。";
 
 /* Window text */
-"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "The attempt to connect %1$@ has been cancelled: the runOnConnect script returned status: %2$ld.";
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "%1$@への接続が停止されました。runOnConnectスクリプトの復帰コードは：%2$ld";
 
 /* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "接続先「%@」の設定ファイルで「user」と「group」オプションが使用されており、かつダウンスクリプトも使われています（「ネームサーバーを変更しない」が選択されていない、または設定ファイルで「down」オプションが使われています）。\n\nOpenVPN用「openvpn-down-root.so」プラグインを使わないと（接続が切れた時の自動的な）接続再開が失敗します。\n\nこのプラグインを使用しますか？";
@@ -1334,7 +1334,7 @@
 "The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used.";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "The configuration file refers to a file\n\n%@\n\nwhich does not exist.";
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "設定ファイルには\n\n%@\n\nへの参照ありますが、存在しません";
 
 /* Window text */
 "The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced)." = "The configuration file refers to a file\n\n%1$@\n\nwhich should be located at\n\n%2$@\n\nbut the file does not exist (even in the configuration being replaced).";
@@ -1427,7 +1427,7 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "接続先に問題があったため、起動できませんでした。詳細はコンソールログで検証してください。";
 
 /* Window text */
-"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details.";
+"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "%@の設定を完全にアンインストールできませんでした。詳細はコンソールログをご覧ください。";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "接続先「%@」をコピーできませんでした。詳細はコンソールログを参照してください。";
@@ -1514,13 +1514,13 @@
 "Unable to create %@ owned by %ld:%ld with %lo permissions" = "Unable to create %1$@ owned by %2$ld:%3$ld with %4$lo permissions";
 
 /* Window text */
-"Unable to install the '%@' configuration\n" = "Unable to install the '%@' configuration\n";
+"Unable to install the '%@' configuration\n" = "%@の設定をインストールできませんでした\n";
 
 /* Window text */
 "Unable to open configuration file for modification" = "Unable to open configuration file for modification";
 
 /* Window text */
-"Unable to replace the '%@' configuration\n" = "Unable to replace the '%@' configuration\n";
+"Unable to replace the '%@' configuration\n" = "%@の設定を取り替えられません\n";
 
 /* Window text */
 "Unable to secure %@ because it is owned by %@" = "Unable to secure %1$@ because it is owned by %2$@";
@@ -1805,7 +1805,7 @@
 "Dutch localization" = "オランダ語翻訳";
 
 /* Credit description */
-"Estonian localization" = "Estonian localization";
+"Estonian localization" = "エストニア語地域化";
 
 /* Credit description */
 "Finnish localization" = "フィンランド語翻訳";
@@ -1865,7 +1865,7 @@
 "Portuguese (Brazilian) localization" = "ポルトガル語(ブラジル)翻訳";
 
 /* Credit description */
-"Portuguese localization" = "Portuguese localization";
+"Portuguese localization" = "ポルトガル語地域化";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "バージョン3.0b10以降のプログラムとドキュメントの拡張";
@@ -1886,7 +1886,7 @@
 "Tunnelblick icon" = "Tunnelblickアイコン";
 
 /* Credit description */
-"Turkish localization" = "Turkish localization";
+"Turkish localization" = "トルコ語地域化";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueueとUKLoginItemRegistry";
