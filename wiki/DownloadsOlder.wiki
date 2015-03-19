@@ -15,7 +15,7 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
  ==Deprecated Versions of Tunnelblick==
 <hr />
 
-All old versions of Tunnelblick contain serious security vulnerabilities.
+ All old versions of Tunnelblick contain serious security vulnerabilities.
 
 </td></tr></tbody></table>
 
