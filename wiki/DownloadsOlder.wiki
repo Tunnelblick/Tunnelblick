@@ -15,15 +15,8 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
  ==Deprecated Versions of Tunnelblick==
 <hr />
 
- <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.5beta06_build_4211.dmg/download Tunnelblick 3.5beta06]</strong></font> `[`sourceforge.net`]` (build 4211) released 2015-01-22 [RlsNotes#Version_3.5 Release Notes]<br />
- _*SHA1*_: cdd924381f29c3e4a8bbe59682246eac6e35e62f _*MD5*_: 8c752b3ed2825d4b1610f36df529bcc3 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
- 
- <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.5beta04_build_4198.dmg/download Tunnelblick 3.5beta04]</strong></font> `[`sourceforge.net`]` (build 4198) released 2015-01-08 [RlsNotes#Version_3.5 Release Notes]<br />
- _*SHA1*_: 6bb3f9df5bee2d29ed430257ea5f8d507fea9932 _*MD5*_: d78b984c1d127cf8007138f3b1c5ffbd _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
+All old versions of Tunnelblick contain serious security vulnerabilities.
 
- <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4.3_build_4055.4198.dmg/download Tunnelblick 3.4.3]</strong></font> `[`sourceforge.net`]` (build 4055.4198) released 2015-01-08 [RlsNotes#Version_3.4 Release Notes]<br />
- _*SHA1*_: bebd707e618c7a4a851741de2c82b4f8b2b4db03 _*MD5*_:  d22b07ead63b58cf0fc9b4015b357592 _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
- 
 </td></tr></tbody></table>
 
 

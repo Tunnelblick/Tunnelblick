@@ -15,6 +15,7 @@ For details see
  * [vulnerability20141001FAQ 2014-10-01 Tunnelblick Vulnerability FAQ].
  * [vulnerability20141201FAQ 2014-12-01 Tunnelblick Vulnerability FAQ].
  * [vulnerability20150108FAQ 2015-01-08 Tunnelblick Vulnerability FAQ].
+ * [vulnerability20150319FAQ 2015-03-19 Tunnelblick Vulnerability FAQ].
  
 <font color="red">
 *DO NOT USE OR INSTALL THESE VERSIONS!*
@@ -24,9 +25,12 @@ Tunnelblick versions that are NOT vulnerable are available on the [DownloadsEntr
 
 Note: Unsigned versions should be used only for creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details.
 
- [https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.5beta02_build_4165.dmg/download Tunnelblick 3.5beta02 (build 4165)]       released 2014-12-02     `[`sourceforge.net`]`<br>
-    
- [https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4.2_build_4055.4161.dmg/download Tunnelblick 3.4.2    (build 4055.4161)]  released 2014-12-01     `[`sourceforge.net`]`<br>
+ [https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.5beta06_build_4211.dmg/download Tunnelblick 3.5beta06 (build 4211)] released 2015-01-22 `[`sourceforge.net`]`<br />
+ [https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.5beta04_build_4198.dmg/download Tunnelblick 3.5beta04 (build 4198)] released 2015-01-08 `[`sourceforge.net`]`<br />
+ [https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.5beta02_build_4165.dmg/download Tunnelblick 3.5beta02 (build 4165)] released 2014-12-02 `[`sourceforge.net`]`<br>
+
+ [https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4.3_build_4055.4198.dmg/download Tunnelblick 3.4.3  (build 4055.4198)] released 2015-01-08     `[`sourceforge.net`]`<br>
+ [https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4.2_build_4055.4161.dmg/download Tunnelblick 3.4.2  (build 4055.4161)] released 2014-12-01     `[`sourceforge.net`]`<br>
  [https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4.1_r3054.dmg/download Tunnelblick 3.4.1            (build 4054)]      released 2014-10-15     `[`sourceforge.net`]`<br>
  [https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4.0_r3007.dmg/download Tunnelblick 3.4.0            (build 4007)]      released 2014-10-03     `[`sourceforge.net`]`<br>
  [https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta38_r3002.dmg/download Tunnelblick 3.4beta38    (build 4002)]      released 2014-10-01     `[`sourceforge.net`]`<br>
