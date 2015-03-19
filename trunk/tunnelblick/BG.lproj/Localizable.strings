@@ -938,7 +938,7 @@
 "Could not copy %@ to %@" = "Не може да копира %1$@ в %2$@";
 
 /* Window text */
-"Could not create %@" = "Could not create %@";
+"Could not create %@" = "Не може да създаде %@";
 
 /* Window text */
 "Could not delete %@" = "Не може да изтрие %@";
@@ -1805,7 +1805,7 @@
 "Dutch localization" = "Холандска локализация";
 
 /* Credit description */
-"Estonian localization" = "Estonian localization";
+"Estonian localization" = "Локализация на Естонски";
 
 /* Credit description */
 "Finnish localization" = "Финландска локализация";
@@ -1865,7 +1865,7 @@
 "Portuguese (Brazilian) localization" = "Португалска (Бразилска) локализация";
 
 /* Credit description */
-"Portuguese localization" = "Portuguese localization";
+"Portuguese localization" = "Локализация на Португалски";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Подобрения в програмата, документация и поддръжка след версия 3.0b10";
@@ -1886,7 +1886,7 @@
 "Tunnelblick icon" = "Tunnelblick икона";
 
 /* Credit description */
-"Turkish localization" = "Turkish localization";
+"Turkish localization" = "Локализация на Турски";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue и UKLoginItemRegistry";

@@ -2,10 +2,10 @@
 "Disconnect All (%@)" = "Tüm bağlantıyı kes (%@)";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "Disconnect All (%d Connections)";
+"Disconnect All (%d Connections)" = "Bağlantıları Kes (%d Bağlantının tümü)";
 
 /* Status message */
-"No Active Connections" = "No Active Connections";
+"No Active Connections" = "Aktif bağlantı yok";
 
 /* Textbox name */
 "Username:" = "Kullanıcı Adı:";
@@ -50,10 +50,10 @@
 "Cancel" = "Vazgeç";
 
 /* Button */
-"Change Only for This Configuration" = "Change Only for This Configuration";
+"Change Only for This Configuration" = "Sadece bu konfigürasyonu değiştir";
 
 /* Button */
-"Change for the Selected Configurations" = "Change for the Selected Configurations";
+"Change for the Selected Configurations" = "Seçili olan konfigürasyonu değiştir";
 
 /* Menu item */ /* Button */
 "Check For Updates Now" = "Güncellemeleri kontrol et";
@@ -65,7 +65,7 @@
 "Check for a change" = "Değişiklikleri kontrol et";
 
 /* Button */
-"Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
+"Close VPN Connections and Stop Tunnelblick" = "Vpn bağlantılarını kapat ve Tunnelblick'i durdur";
 
 /* Button */
 "Connect" = "Bağlan";
@@ -74,22 +74,22 @@
 "Continue" = "Devam et";
 
 /* Button */
-"Convert Configurations" = "Convert Configurations";
+"Convert Configurations" = "Konfigürasyonu dönüştür";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Copy Console Log to Clipboard";
+"Copy Console Log to Clipboard" = "Konsol log'unu panoya koplaya";
 
 /* Button */
-"Copy Diagnostic Info to Clipboard" = "Copy Diagnostic Info to Clipboard";
+"Copy Diagnostic Info to Clipboard" = "Tanı ileti bilgisini panoya koplaya";
 
 /* Button */
-"Create sample configuration and edit it" = "Create sample configuration and edit it";
+"Create sample configuration and edit it" = "Örnek konfigürasyon oluştur ve düzenle";
 
 /* Button */
 "Default (%@)" = "Varsayılan (%@)";
 
 /* Button */
-"Delete Credentials" = "Delete Credentials";
+"Delete Credentials" = "Kimlik bilgilerini sil";
 
 /* Button */
 "Delete" = "Sil";
@@ -101,7 +101,7 @@
 "Do not check for a change" = "Do not check for a change";
 
 /* Button */
-"Do not use the plugin" = "Do not use the plugin";
+"Do not use the plugin" = "Eklentiyi kullanma";
 
 /* Button */
 "Download" = "İndir";
@@ -176,13 +176,13 @@
 "Reinstall" = "Tekrar kur";
 
 /* Button */
-"Remove Credentials" = "Remove Credentials";
+"Remove Credentials" = "Kimlik bilgilerini kaldır";
 
 /* Button */
 "Replace" = "Değiştir";
 
 /* Button */
-"Reset Disabled Warnings" = "Reset Disabled Warnings";
+"Reset Disabled Warnings" = "Sıfırlama iptal uyarıları";
 
 /* Button */
 "Restart connection" = "Tekrar bağlan";
@@ -194,13 +194,13 @@
 "Revert" = "Eski Haline Döndür";
 
 /* Button */
-"Show on default screen (%u x %u)" = "Show on default screen (%1$u x %2$u)";
+"Show on default screen (%u x %u)" = "Varsayılan ekran üzerinde göster (%1$u x %2$u)";
 
 /* Button */
-"Show on screen %u (%u x %u)" = "Show on screen %1$u (%2$u x %3$u)";
+"Show on screen %u (%u x %u)" = "Ekran%1$u üzerinde göster (%2$u x %3$u)";
 
 /* Button */
-"Show when connection status changes" = "Show when connection status changes";
+"Show when connection status changes" = "Bağlantı durumu değişitiğinde göster";
 
 /* Button */
 "Show while connecting" = "Bağlanırken göster";
@@ -215,16 +215,16 @@
 "Standard icon" = "Standart simge";
 
 /* Button */
-"Terminate All OpenVPN processes" = "Terminate All OpenVPN processes";
+"Terminate All OpenVPN processes" = "Tüm OpenVPN işlemlerini kapat";
 
 /* Button */
 "Terminate" = "Sonlandır";
 
 /* Button */
-"This configuration has its own separate credentials" = "This configuration has its own separate credentials";
+"This configuration has its own separate credentials" = "Bu konfigürasyona ait ayrı kimlik bilgileri bulunmaktadır";
 
 /* Button */
-"This configuration uses %@ credentials" = "This configuration uses %@ credentials";
+"This configuration uses %@ credentials" = "Bu konfigürasyon %@ kimlik bilgisini kullanmaktadır";
 
 /* Button */
 "Try again with different credentials" = "Try again with different credentials";

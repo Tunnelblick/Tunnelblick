@@ -938,7 +938,7 @@
 "Could not copy %@ to %@" = "Αδυναμία αντιγραφής %1$@ στο %2$@";
 
 /* Window text */
-"Could not create %@" = "Could not create %@";
+"Could not create %@" = "Αδυναμία δημιουργίας %@";
 
 /* Window text */
 "Could not delete %@" = "Αδυναμία διαγραφής %@";
@@ -1805,7 +1805,7 @@
 "Dutch localization" = "Προσαρμογή Δανέζικα";
 
 /* Credit description */
-"Estonian localization" = "Estonian localization";
+"Estonian localization" = "Προσαρμογή στα Εσθονικά";
 
 /* Credit description */
 "Finnish localization" = "Προσαρμογή Φιλανδικά";
@@ -1865,7 +1865,7 @@
 "Portuguese (Brazilian) localization" = "Πορτογαλικά (Βραζιλίας) μετάφραση";
 
 /* Credit description */
-"Portuguese localization" = "Portuguese localization";
+"Portuguese localization" = "Προσαρμογή στα Πορτογαλικά";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Βελτιωμένο πρόγραμμα και εγχειρίδια όπως και συντήρηση μετά την έκδοση 3.0b10";
@@ -1886,7 +1886,7 @@
 "Tunnelblick icon" = "Εικονίδιο Tunnelblick";
 
 /* Credit description */
-"Turkish localization" = "Turkish localization";
+"Turkish localization" = "Προσαρμογή στα Τούρκικα";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue και UKLoginItemRegistry";
