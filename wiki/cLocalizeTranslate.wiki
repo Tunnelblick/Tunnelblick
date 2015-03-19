@@ -3,7 +3,11 @@
 
 *Localizing and Translating Tunnelblick*
 
- <font color="red">*Translators are needed for Arabic, Estonian, Japanese, Korean, and Turkish.* [cLocalizeTranslate Details]</font>
+ <font color="red">*Translators are needed for Arabic, Estonian, Japanese, Korean, and Turkish.*</font>
+
+  <font color="red"></font>*To join the localization team, please email project owner jkbullard at gmail.*
+   * You can help a little or a lot, all help is welcome!
+   * Everyone who makes a meaningful contribution will be credited on Tunnelblick's [cThanks Thanks page] and on the "Info" panel of the application itself.
 
  * The _new_ way of localizing the Tunnelblick application is described on this page.
 
@@ -20,12 +24,7 @@
  * For Tunnelblick, localization consists solely of translating strings. No graphic manipulation or spacing or moving of text is required.
 
  * All translation work is done in a specialized translation editor in your browser.
-
- * *<font color="red">To join the localization team, please email project owner jkbullard at gmail.</font>*
-  * You can help a little or a lot, all help is welcome!
-  * Everyone who makes a meaningful contribution will be credited on Tunnelblick's [cThanks Thanks page] and on the "Info" panel of the application itself.
-
-  * See [cUsingCrowdin Using Crowdin] for specific procedures that the Tunnelblick Crowdin project uses to sign up for and use Crowdin.
+ * See [cUsingCrowdin Using Crowdin] for specific procedures that the Tunnelblick Crowdin project uses to sign up for and use Crowdin.
 
 ------------------
 
