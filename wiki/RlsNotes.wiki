@@ -9,6 +9,18 @@
 
 ==Version 3.5==
 
+*3.5beta08 build 4236 (2015-03-19)*
+
+ * *<font color="red">SECURITY UPDATE:</font>* Includes OpenSSL 1.0.1m. See [https://www.openssl.org/news/secadv_20150319.txt OpenSSL Security Advisory 19 Mar 2015].
+ * Updates localization for several languages.
+ * Adds partial localization for Estonian and Turkish.
+ * Adds log entries from helper programs to the output of 'Copy Diagnostic Info to Log'.
+ * Fixes problems with configurations that connect when the computer starts.
+ * Fixes problems scrolling the log in the 'VPN Details...' window.
+ * Fixes problems that caused log entries to not be logged properly.
+ 
+--------------------
+
 *3.5beta06 build 4211 (2015-01-22)*
 
  * Uses a launchd daemon instead of an SUID helper to start OpenVPN on OS X Version 10.5 ("Leopard") and higher.
@@ -70,6 +82,13 @@
 --------------------
 
 ==Version 3.4==
+
+*3.4.4 build 4055.4236 (2015-03-19)*
+
+ * *<font color="red">SECURITY UPDATE:</font>* Includes OpenSSL 1.0.1m. See [https://www.openssl.org/news/secadv_20150319.txt OpenSSL Security Advisory 19 Mar 2015].
+
+
+--------------------
 
 *3.4.3 build 4055.4198 (2015-01-08)*
 

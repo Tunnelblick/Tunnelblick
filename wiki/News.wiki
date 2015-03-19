@@ -5,6 +5,25 @@
 
 --------------------
 
+2015-03-19: *Tunnelblick 3.5beta08 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * *<font color="red">SECURITY UPDATE:</font>* Includes OpenSSL 1.0.1m. See [https://www.openssl.org/news/secadv_20150319.txt OpenSSL Security Advisory 19 Mar 2015].
+ * Updates localization for several languages.
+ * Adds log entries from helper programs to the output of 'Copy Diagnostic Info to Log'.
+ * Fixes several problems.
+ 
+   See the [RlsNotes#Version_3.5 Release Notes] for details.
+
+--------------------
+
+2015-03-19: *Tunnelblick 3.4.4 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * *<font color="red">SECURITY UPDATE:</font>* Includes OpenSSL 1.0.1m. See [https://www.openssl.org/news/secadv_20150319.txt OpenSSL Security Advisory 19 Mar 2015].
+  
+   See the [RlsNotes#Version_3.4 Release Notes] for details.
+
+--------------------
+
 2015-01-22: *Tunnelblick 3.5beta06 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Uses a launchd daemon instead of an SUID helper to start OpenVPN on OS X Version 10.5 ("Leopard") and higher.
