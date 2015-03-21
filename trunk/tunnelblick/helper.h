@@ -70,6 +70,10 @@ NSString     * TBGetString				(NSString * msg,
 NSString     * TBGetDisplayName         (NSString * msg,
                                          NSString * sourcePath);
 
+NSNumber     * tbNumberWithInteger      (NSInteger number);
+NSNumber     * tbNumberWithUnsignedInteger(NSUInteger number);
+NSUInteger     tbUnsignedIntegerValue   (NSNumber * number);
+
 AlertWindowController * TBShowAlertWindow(NSString * title,
                                           NSString * msg);
 

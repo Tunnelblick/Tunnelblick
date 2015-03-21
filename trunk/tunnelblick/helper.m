@@ -59,6 +59,32 @@ void appendLog(NSString * msg)
 	NSLog(@"%@", msg);
 }
 
+NSNumber * tbNumberWithInteger (NSInteger number)
+{
+    if (  runningOnLeopardOrNewer()  ) {
+        return [NSNumber numberWithInteger: number];
+    }
+    
+    return [NSNumber numberWithInt: (unsigned int)number];
+}
+
+NSNumber * tbNumberWithUnsignedInteger (NSUInteger number)
+{
+    if (  runningOnLeopardOrNewer()  ) {
+        return [NSNumber numberWithUnsignedInteger: number];
+    }
+    
+    return [NSNumber numberWithUnsignedInt: (int)number];
+}
+
+NSUInteger tbUnsignedIntegerValue(NSNumber * number)
+{
+    if (  runningOnLeopardOrNewer()  ) {
+        return [number unsignedIntegerValue];
+    }
+    
+    return [number unsignedIntValue];
+}
 uint64_t nowAbsoluteNanoseconds (void)
 {
     // The next three lines were adapted from http://shiftedbits.org/2008/10/01/mach_absolute_time-on-the-iphone/
@@ -653,13 +679,11 @@ NSString * newTemporaryDirectoryPath(void)
 	if (  [tempFolder hasPrefix: @"/var/"]  ) {
 		NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: @"/var" traverseLink: NO];
 		if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-			if (   ( ! [gFileMgr respondsToSelector: @selector(destinationOfSymbolicLinkAtPath:error:)] )
-				|| [[gFileMgr destinationOfSymbolicLinkAtPath: @"/var" error: NULL]
-					isEqualToString: @"private/var"]  ) {
+			if ( [[gFileMgr tbPathContentOfSymbolicLinkAtPath: @"/var"] isEqualToString: @"private/var"]  ) {
 					NSString * afterVar = [tempFolder substringFromIndex: 5];
 					tempFolder = [@"/private/var" stringByAppendingPathComponent:afterVar];
 			} else {
-				NSLog(@"Warning: /var is not a symlink to /private/var so it is being left intact");
+				NSLog(@"Warning: /var is a symlink but not to /private/var so it is being left intact");
 			}
 		}
 	}

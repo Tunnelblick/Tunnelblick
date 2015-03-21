@@ -174,7 +174,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     //      (3) If scrolling to the end of the log, must scroll each time a line is added, before any other lines are added
     // If these conditions are not all met, the display does not always update properly.
     
-    NSUInteger ix = [index unsignedIntegerValue];
+    NSUInteger ix = tbUnsignedIntegerValue(index);
     
     NSArray * lines = [line componentsSeparatedByString: @"\n"];
     NSUInteger lineCount = [lines count];
@@ -205,8 +205,8 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     // Appends a line to the end of the log. If this log is currently being displayed, do it on the main thread.
     
     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                           line,                                        @"line",
-                           [NSNumber numberWithUnsignedInteger: index], @"index",
+                           line,                               @"line",
+                           tbNumberWithUnsignedInteger(index), @"index",
                            nil];
     [self insertLogEntry: dict];
 }

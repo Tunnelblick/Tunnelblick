@@ -38,6 +38,13 @@ extern TBUserDefaults  * gTbDefaults;
 
 @implementation WelcomeController
 
+-(NSString *) stringValue {
+    
+    // Implemented ONLY to work with "takeStringURLFrom:" in awakeFromNib
+    
+    return [[urlString copy] autorelease];
+}
+
 -(id)     initWithDelegate: (id) theDelegate
 				 urlString: (NSString *) theUrlString
 			   windowWidth: (float) windowWidth
@@ -87,7 +94,15 @@ showDoNotShowAgainCheckbox: (BOOL) showTheCheckbox
     [doNotShowAgainCheckbox setTitle: NSLocalizedString(@"Do not show this again", @"Checkbox")];
 	
 	[progressIndicator startAnimation: self];
-    [welcomeWV setMainFrameURL: urlString];
+    
+    // respondsToSelector is used because OS X 10.4.11 and higher respond to setMainFrameURL:, so runningOnLeopardOrNewer() won't test what we want
+    // But when we stop building for Tiger we can remove the test and the "else" clause and the "stingValue" definition (above)
+    if (  [welcomeWV respondsToSelector:@selector(setMainFrameURL:)]  ) {
+        [welcomeWV setMainFrameURL: urlString];
+    } else {
+        [welcomeWV takeStringURLFrom: self]; // Weird, but the only easy way to do it, since takeStringUrlFrom: invokes stringValue on its argument.
+    }
+    
     [welcomeWV setFrameLoadDelegate: self];
 	
 	if (  ! showCheckbox  ) {
