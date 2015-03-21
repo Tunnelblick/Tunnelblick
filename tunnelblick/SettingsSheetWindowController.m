@@ -136,7 +136,7 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
 	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
 	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
 	
-	[self setSelectedCredentialsGroupIndexDirect: [NSNumber numberWithUnsignedInteger: NSNotFound]];
+	[self setSelectedCredentialsGroupIndexDirect: tbNumberWithUnsignedInteger(NSNotFound)];
 	
 	NSInteger ix = 0;
 	NSString * prefKey = [configurationName stringByAppendingString: @"-credentialsGroup"];
@@ -160,7 +160,7 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
         }
 	}
 	
-	[self setSelectedCredentialsGroupIndex: [NSNumber numberWithUnsignedInteger: ix]];
+	[self setSelectedCredentialsGroupIndex: tbNumberWithUnsignedInteger(ix)];
 	[credentialsGroupButton setEnabled: (   ( ! [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"] )
                                          && [gTbDefaults canChangeValueForKey: prefKey])];
 	
@@ -758,19 +758,19 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
         [othernetBiosNamePopUpButton selectItemAtIndex:  [self indexForMonitoringOptionButton: othernetBiosNamePopUpButton  newPreference: @"-changeOtherNetBIOSNameAction"  oldPreference: nil leasewatchOptionsChar: @"n"]];
         [otherworkgroupPopUpButton selectItemAtIndex:    [self indexForMonitoringOptionButton: otherworkgroupPopUpButton    newPreference: @"-changeOtherWorkgroupAction"    oldPreference: nil leasewatchOptionsChar: @"g"]];
         
-        [self setSelectedDnsServersIndex:   [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: dnsServersPopUpButton   newPreference: @"-changeDNSServersAction"   oldPreference: @"-doNotRestoreOnDnsReset"  leasewatchOptionsChar: @"a"]]];
-        [self setSelectedDomainIndex:       [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: domainPopUpButton       newPreference: @"-changeDomainAction"       oldPreference: @"-doNotRestoreOnDnsReset"  leasewatchOptionsChar: @"d"]]];
-        [self setSelectedSearchDomainIndex: [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: searchDomainPopUpButton newPreference: @"-changeSearchDomainAction" oldPreference: @"-doNotRestoreOnDnsReset"  leasewatchOptionsChar: @"s"]]];
-        [self setSelectedWinsServersIndex:  [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: winsServersPopUpButton  newPreference: @"-changeWINSServersAction"  oldPreference: @"-doNotRestoreOnWinsReset" leasewatchOptionsChar: @"w"]]];
-        [self setSelectedNetBiosNameIndex:  [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: netBiosNamePopUpButton  newPreference: @"-changeNetBIOSNameAction"  oldPreference: @"-doNotRestoreOnWinsReset" leasewatchOptionsChar: @"n"]]];
-        [self setSelectedWorkgroupIndex:    [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: workgroupPopUpButton    newPreference: @"-changeWorkgroupAction"    oldPreference: @"-doNotRestoreOnWinsReset" leasewatchOptionsChar: @"g"]]];
+        [self setSelectedDnsServersIndex:   tbNumberWithUnsignedInteger([self indexForMonitoringOptionButton: dnsServersPopUpButton   newPreference: @"-changeDNSServersAction"   oldPreference: @"-doNotRestoreOnDnsReset"  leasewatchOptionsChar: @"a"])];
+        [self setSelectedDomainIndex:       tbNumberWithUnsignedInteger([self indexForMonitoringOptionButton: domainPopUpButton       newPreference: @"-changeDomainAction"       oldPreference: @"-doNotRestoreOnDnsReset"  leasewatchOptionsChar: @"d"])];
+        [self setSelectedSearchDomainIndex: tbNumberWithUnsignedInteger([self indexForMonitoringOptionButton: searchDomainPopUpButton newPreference: @"-changeSearchDomainAction" oldPreference: @"-doNotRestoreOnDnsReset"  leasewatchOptionsChar: @"s"])];
+        [self setSelectedWinsServersIndex:  tbNumberWithUnsignedInteger([self indexForMonitoringOptionButton: winsServersPopUpButton  newPreference: @"-changeWINSServersAction"  oldPreference: @"-doNotRestoreOnWinsReset" leasewatchOptionsChar: @"w"])];
+        [self setSelectedNetBiosNameIndex:  tbNumberWithUnsignedInteger([self indexForMonitoringOptionButton: netBiosNamePopUpButton  newPreference: @"-changeNetBIOSNameAction"  oldPreference: @"-doNotRestoreOnWinsReset" leasewatchOptionsChar: @"n"])];
+        [self setSelectedWorkgroupIndex:    tbNumberWithUnsignedInteger([self indexForMonitoringOptionButton: workgroupPopUpButton    newPreference: @"-changeWorkgroupAction"    oldPreference: @"-doNotRestoreOnWinsReset" leasewatchOptionsChar: @"g"])];
         
-        [self setSelectedOtherdnsServersIndex:   [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: otherdnsServersPopUpButton   newPreference: @"-changeOtherDNSServersAction"   oldPreference: nil leasewatchOptionsChar: @"a"]]];
-        [self setSelectedOtherdomainIndex:       [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: otherdomainPopUpButton       newPreference: @"-changeOtherDomainAction"       oldPreference: nil leasewatchOptionsChar: @"d"]]];
-        [self setSelectedOthersearchDomainIndex: [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: othersearchDomainPopUpButton newPreference: @"-changeOtherSearchDomainAction" oldPreference: nil leasewatchOptionsChar: @"s"]]];
-        [self setSelectedOtherwinsServersIndex:  [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: otherwinsServersPopUpButton  newPreference: @"-changeOtherWINSServersAction"  oldPreference: nil leasewatchOptionsChar: @"w"]]];
-        [self setSelectedOthernetBiosNameIndex:  [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: othernetBiosNamePopUpButton  newPreference: @"-changeOtherNetBIOSNameAction"  oldPreference: nil leasewatchOptionsChar: @"n"]]];
-        [self setSelectedOtherworkgroupIndex:    [NSNumber numberWithUnsignedInteger: [self indexForMonitoringOptionButton: otherworkgroupPopUpButton    newPreference: @"-changeOtherWorkgroupAction"    oldPreference: nil leasewatchOptionsChar: @"g"]]];
+        [self setSelectedOtherdnsServersIndex:   tbNumberWithUnsignedInteger([self indexForMonitoringOptionButton: otherdnsServersPopUpButton   newPreference: @"-changeOtherDNSServersAction"   oldPreference: nil leasewatchOptionsChar: @"a"])];
+        [self setSelectedOtherdomainIndex:       tbNumberWithUnsignedInteger([self indexForMonitoringOptionButton: otherdomainPopUpButton       newPreference: @"-changeOtherDomainAction"       oldPreference: nil leasewatchOptionsChar: @"d"])];
+        [self setSelectedOthersearchDomainIndex: tbNumberWithUnsignedInteger([self indexForMonitoringOptionButton: othersearchDomainPopUpButton newPreference: @"-changeOtherSearchDomainAction" oldPreference: nil leasewatchOptionsChar: @"s"])];
+        [self setSelectedOtherwinsServersIndex:  tbNumberWithUnsignedInteger([self indexForMonitoringOptionButton: otherwinsServersPopUpButton  newPreference: @"-changeOtherWINSServersAction"  oldPreference: nil leasewatchOptionsChar: @"w"])];
+        [self setSelectedOthernetBiosNameIndex:  tbNumberWithUnsignedInteger([self indexForMonitoringOptionButton: othernetBiosNamePopUpButton  newPreference: @"-changeOtherNetBIOSNameAction"  oldPreference: nil leasewatchOptionsChar: @"n"])];
+        [self setSelectedOtherworkgroupIndex:    tbNumberWithUnsignedInteger([self indexForMonitoringOptionButton: otherworkgroupPopUpButton    newPreference: @"-changeOtherWorkgroupAction"    oldPreference: nil leasewatchOptionsChar: @"g"])];
         
         doNotModifyPreferences = oldDoNotModifyPreferences;
         
@@ -816,19 +816,19 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
         [othernetBiosNamePopUpButton  selectItemAtIndex: 0];
         [otherworkgroupPopUpButton    selectItemAtIndex: 0];
         
-        [self setSelectedDnsServersIndex:   [NSNumber numberWithUnsignedInteger: 0]];
-        [self setSelectedDomainIndex:       [NSNumber numberWithUnsignedInteger: 0]];
-        [self setSelectedSearchDomainIndex: [NSNumber numberWithUnsignedInteger: 0]];
-        [self setSelectedWinsServersIndex:  [NSNumber numberWithUnsignedInteger: 0]];
-        [self setSelectedNetBiosNameIndex:  [NSNumber numberWithUnsignedInteger: 0]];
-        [self setSelectedWorkgroupIndex:    [NSNumber numberWithUnsignedInteger: 0]];
+        [self setSelectedDnsServersIndex:   tbNumberWithUnsignedInteger(0)];
+        [self setSelectedDomainIndex:       tbNumberWithUnsignedInteger(0)];
+        [self setSelectedSearchDomainIndex: tbNumberWithUnsignedInteger(0)];
+        [self setSelectedWinsServersIndex:  tbNumberWithUnsignedInteger(0)];
+        [self setSelectedNetBiosNameIndex:  tbNumberWithUnsignedInteger(0)];
+        [self setSelectedWorkgroupIndex:    tbNumberWithUnsignedInteger(0)];
         
-        [self setSelectedOtherdnsServersIndex:   [NSNumber numberWithUnsignedInteger: 0]];
-        [self setSelectedOtherdomainIndex:       [NSNumber numberWithUnsignedInteger: 0]];
-        [self setSelectedOthersearchDomainIndex: [NSNumber numberWithUnsignedInteger: 0]];
-        [self setSelectedOtherwinsServersIndex:  [NSNumber numberWithUnsignedInteger: 0]];
-        [self setSelectedOthernetBiosNameIndex:  [NSNumber numberWithUnsignedInteger: 0]];
-        [self setSelectedOtherworkgroupIndex:    [NSNumber numberWithUnsignedInteger: 0]];
+        [self setSelectedOtherdnsServersIndex:   tbNumberWithUnsignedInteger(0)];
+        [self setSelectedOtherdomainIndex:       tbNumberWithUnsignedInteger(0)];
+        [self setSelectedOthersearchDomainIndex: tbNumberWithUnsignedInteger(0)];
+        [self setSelectedOtherwinsServersIndex:  tbNumberWithUnsignedInteger(0)];
+        [self setSelectedOthernetBiosNameIndex:  tbNumberWithUnsignedInteger(0)];
+        [self setSelectedOtherworkgroupIndex:    tbNumberWithUnsignedInteger(0)];
         
         doNotModifyPreferences = oldDoNotModifyPreferences;
         // *********************************************************************************
@@ -1107,7 +1107,7 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
     
     if (  ! doNotModifyPreferences  ) {
         NSString * newSetting = nil;
-        switch (  [newValue unsignedIntegerValue]  ) {
+        switch (  tbUnsignedIntegerValue(newValue)  ) {
             case 0:
                 newSetting = @"ignore";
                 break;
@@ -1118,7 +1118,7 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
                 newSetting = @"restart";
                 break;
             default:
-                NSLog(@"setDnsWinsIndex: ignoring invalid value %ld", (long) [newValue unsignedIntegerValue]);
+                NSLog(@"setDnsWinsIndex: ignoring invalid value %ld", (long) tbUnsignedIntegerValue(newValue));
         }
         if (  newSetting != nil  ) {
             NSString * defaultValue = (  [key hasPrefix: @"-changeOther"]
@@ -1215,12 +1215,12 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
 -(void) setSelectedCredentialsGroupIndex: (NSNumber *) newValue {
 	
     NSArray * contents = [credentialsGroupArrayController content];
-    if (  [newValue unsignedIntegerValue] < [contents count]  ) {
+    if (  tbUnsignedIntegerValue(newValue) < [contents count]  ) {
 		NSString * groupValue = nil;
-        if (  [newValue unsignedIntegerValue] == 0) {
+        if (  tbUnsignedIntegerValue(newValue) == 0) {
 			groupValue = @"";
         } else {
-            NSString * groupName = [[contents objectAtIndex: [newValue unsignedIntegerValue]] objectForKey: @"value"];
+            NSString * groupName = [[contents objectAtIndex: tbUnsignedIntegerValue(newValue)] objectForKey: @"value"];
 			NSArray * groups = [gTbDefaults sortedCredentialsGroups];
             if (  [groups containsObject: groupName]  ) {
 				groupValue = groupName;
@@ -1243,7 +1243,7 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
 		[connection initializeAuthAgent];
 		
     } else if (  [contents count] != 0  ) {
-        NSLog(@"setSelectedCredentialsGroupIndex: %ld but there are only %ld groups", (long) [newValue unsignedIntegerValue], (long) ([contents count] - 1));
+        NSLog(@"setSelectedCredentialsGroupIndex: %ld but there are only %ld groups", (long) tbUnsignedIntegerValue(newValue), (long) ([contents count] - 1));
     }
 }
 

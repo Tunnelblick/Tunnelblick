@@ -183,12 +183,12 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     currentViewName = NSLocalizedString(@"Configurations", @"Window title");
     
-    [self setSelectedPerConfigOpenvpnVersionIndexDirect:                   [NSNumber numberWithInteger: NSNotFound]];
-    [self setSelectedKeyboardShortcutIndexDirect:                          [NSNumber numberWithInteger: NSNotFound]];
-    [self setSelectedMaximumLogSizeIndexDirect:                            [NSNumber numberWithInteger: NSNotFound]];
-    [self setSelectedAppearanceIconSetIndexDirect:                         [NSNumber numberWithInteger: NSNotFound]];
-    [self setSelectedAppearanceConnectionWindowDisplayCriteriaIndexDirect: [NSNumber numberWithInteger: NSNotFound]];
-    [self setSelectedAppearanceConnectionWindowScreenIndexDirect:          [NSNumber numberWithInteger: NSNotFound]];
+    [self setSelectedPerConfigOpenvpnVersionIndexDirect:                   tbNumberWithInteger(NSNotFound)];
+    [self setSelectedKeyboardShortcutIndexDirect:                          tbNumberWithInteger(NSNotFound)];
+    [self setSelectedMaximumLogSizeIndexDirect:                            tbNumberWithInteger(NSNotFound)];
+    [self setSelectedAppearanceIconSetIndexDirect:                         tbNumberWithInteger(NSNotFound)];
+    [self setSelectedAppearanceConnectionWindowDisplayCriteriaIndexDirect: tbNumberWithInteger(NSNotFound)];
+    [self setSelectedAppearanceConnectionWindowScreenIndexDirect:          tbNumberWithInteger(NSNotFound)];
     
     [self setupConfigurationsView];
     [self setupGeneralView];
@@ -401,10 +401,10 @@ static BOOL firstTimeShowingWindow = TRUE;
 	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
 	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
 
-    [self setSelectedSetNameserverIndexDirect:           [NSNumber numberWithInteger: NSNotFound]];   // Force a change when first set
-    [self setSelectedPerConfigOpenvpnVersionIndexDirect: [NSNumber numberWithInteger: NSNotFound]];
-    [self setSelectedSoundOnConnectIndexDirect:          [NSNumber numberWithInteger: NSNotFound]];
-    [self setSelectedSoundOnDisconnectIndexDirect:       [NSNumber numberWithInteger: NSNotFound]];
+    [self setSelectedSetNameserverIndexDirect:           tbNumberWithInteger(NSNotFound)];   // Force a change when first set
+    [self setSelectedPerConfigOpenvpnVersionIndexDirect: tbNumberWithInteger(NSNotFound)];
+    [self setSelectedSoundOnConnectIndexDirect:          tbNumberWithInteger(NSNotFound)];
+    [self setSelectedSoundOnDisconnectIndexDirect:       tbNumberWithInteger(NSNotFound)];
     selectedWhenToConnectIndex     = NSNotFound;
 
     selectedLeftNavListIndex = 0;
@@ -488,7 +488,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     
     [[configurationsPrefsView setNameserverPopUpButton] selectItemAtIndex: ix];
-    [self setSelectedSetNameserverIndex: [NSNumber numberWithInteger: ix]];
+    [self setSelectedSetNameserverIndex: tbNumberWithInteger(ix)];
     [[configurationsPrefsView setNameserverPopUpButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
     [settingsSheetWindowController setupSettingsFromPreferences];
 }
@@ -545,7 +545,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
     }
     
-    [self setSelectedPerConfigOpenvpnVersionIndex: [NSNumber numberWithInteger: listIx]];
+    [self setSelectedPerConfigOpenvpnVersionIndex: tbNumberWithInteger(listIx)];
     
     [[configurationsPrefsView perConfigOpenvpnVersionButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
     
@@ -829,9 +829,9 @@ static BOOL firstTimeShowingWindow = TRUE;
         doNotPlaySounds = TRUE;
         
         if (  button == [configurationsPrefsView soundOnConnectButton]) {
-            [self setSelectedSoundOnConnectIndex:    [NSNumber numberWithUnsignedInteger: ix]];
+            [self setSelectedSoundOnConnectIndex:    tbNumberWithUnsignedInteger(ix)];
         } else {
-            [self setSelectedSoundOnDisconnectIndex: [NSNumber numberWithUnsignedInteger: ix]];
+            [self setSelectedSoundOnDisconnectIndex: tbNumberWithUnsignedInteger(ix)];
         }
         
         doNotPlaySounds = oldDoNotPlaySounds;
@@ -1098,7 +1098,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(BOOL) forceDisableOfNetworkMonitoring
 {
     NSArray * content = [[configurationsPrefsView setNameserverArrayController] content];
-    NSUInteger ix = [selectedSetNameserverIndex unsignedIntegerValue];
+    NSUInteger ix = tbUnsignedIntegerValue(selectedSetNameserverIndex);
     if (   ([content count] < 4)
         || (ix > 2)
         || (ix == 0)  ) {
@@ -2073,13 +2073,13 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  [newValue isNotEqualTo: [self selectedPerConfigOpenvpnVersionIndex]]  ) {
         NSArrayController * ac = [configurationsPrefsView perConfigOpenvpnVersionArrayController];
         NSArray * list = [ac content];
-        if (  [newValue unsignedIntegerValue] < [list count]  ) {
+        if (  tbUnsignedIntegerValue(newValue) < [list count]  ) {
             
             [self setSelectedPerConfigOpenvpnVersionIndexDirect: newValue];
             
             // Set the preference if this isn't just the initialization
             if (  ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
-                NSString * newPreferenceValue = [[list objectAtIndex: [newValue unsignedIntegerValue]] objectForKey: @"value"];
+                NSString * newPreferenceValue = [[list objectAtIndex: tbUnsignedIntegerValue(newValue)] objectForKey: @"value"];
 				NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 									   newPreferenceValue, @"NewValue",
 									   @"-openvpnVersion", @"PreferenceName",
@@ -2123,7 +2123,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) setSelectedSoundOnConnectIndex: (NSNumber *) newValue
 {
-    [self setupSoundIndexTo: [newValue unsignedIntegerValue] preference: @"-tunnelUpSoundName"];
+    [self setupSoundIndexTo: tbUnsignedIntegerValue(newValue) preference: @"-tunnelUpSoundName"];
     
     [self setSelectedSoundOnConnectIndexDirect: newValue];
 }
@@ -2131,7 +2131,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) setSelectedSoundOnDisconnectIndex: (NSNumber *) newValue
 {
-    [self setupSoundIndexTo: [newValue unsignedIntegerValue] preference: @"-tunnelDownSoundName"];
+    [self setupSoundIndexTo: tbUnsignedIntegerValue(newValue) preference: @"-tunnelDownSoundName"];
     
     [self setSelectedSoundOnDisconnectIndexDirect: newValue];
 }
@@ -2405,8 +2405,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self setSelectedSetNameserverIndexDirect: newValue];
         
         // If script doesn't support monitoring, indicate it is off and disable it
-        if (   ([newValue unsignedIntegerValue] > 2)
-            || ([newValue unsignedIntegerValue] == 0)
+        if (   (tbUnsignedIntegerValue(newValue) > 2)
+            || (tbUnsignedIntegerValue(newValue) == 0)
             || ([[[configurationsPrefsView setNameserverArrayController] content] count] < 4)  ) {
             [[configurationsPrefsView monitorNetworkForChangesCheckbox] setState: NSOffState];
             [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: NO];
@@ -2591,7 +2591,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     if (  logSizeIx < [list count]  ) {
-        [self setSelectedMaximumLogSizeIndex: [NSNumber numberWithUnsignedInteger: logSizeIx]];
+        [self setSelectedMaximumLogSizeIndex: tbNumberWithUnsignedInteger(logSizeIx)];
     } else {
         NSLog(@"Invalid selectedMaximumLogSizeIndex %lu; maximum is %ld", (unsigned long)logSizeIx, (long) [list count]-1);
     }
@@ -2711,12 +2711,12 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  [newValue isNotEqualTo: [self selectedKeyboardShortcutIndex]]  ) {
         NSArrayController * ac = [generalPrefsView keyboardShortcutArrayController];
         NSArray * list = [ac content];
-        if (  [newValue unsignedIntegerValue] < [list count]  ) {
+        if (  tbUnsignedIntegerValue(newValue) < [list count]  ) {
             
             [self setSelectedKeyboardShortcutIndexDirect: newValue];
             
             // Select the new size
-            [ac setSelectionIndex: [newValue unsignedIntegerValue]];
+            [ac setSelectionIndex: tbUnsignedIntegerValue(newValue)];
             
             // Set the preference
             [gTbDefaults setObject: newValue forKey: @"keyboardShortcutIndex"];
@@ -2732,16 +2732,16 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  [newValue isNotEqualTo: [self selectedMaximumLogSizeIndex]]  ) {
         NSArrayController * ac = [generalPrefsView maximumLogSizeArrayController];
         NSArray * list = [ac content];
-        if (  [newValue unsignedIntegerValue] < [list count]  ) {
+        if (  tbUnsignedIntegerValue(newValue) < [list count]  ) {
             
             // Set the index
             [self setSelectedMaximumLogSizeIndexDirect: newValue];
             
             // Select the new size
-            [ac setSelectionIndex: [newValue unsignedIntegerValue]];
+            [ac setSelectionIndex: tbUnsignedIntegerValue(newValue)];
             
             // Set the preference
-            NSString * newPref = [[list objectAtIndex: [newValue unsignedIntegerValue]] objectForKey: @"value"];
+            NSString * newPref = [[list objectAtIndex: tbUnsignedIntegerValue(newValue)] objectForKey: @"value"];
             [gTbDefaults setObject: newPref forKey: @"maxLogDisplaySize"];
             
             // Set the value we use
@@ -2797,9 +2797,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     if (  iconSetIx == NSNotFound  ) {
 		[NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"(None available)", @"Button"), @"name", @"", @"value", nil];
-        [self setSelectedAppearanceIconSetIndex: [NSNumber numberWithUnsignedInteger: 0]];
+        [self setSelectedAppearanceIconSetIndex: tbNumberWithUnsignedInteger(0)];
     } else {
-        [self setSelectedAppearanceIconSetIndex: [NSNumber numberWithUnsignedInteger: iconSetIx]];
+        [self setSelectedAppearanceIconSetIndex: tbNumberWithUnsignedInteger(iconSetIx)];
     }
     
     [[appearancePrefsView appearanceIconSetButton] setEnabled: [gTbDefaults canChangeValueForKey: @"menuIconSet"]];
@@ -2830,7 +2830,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     if (  displayCriteriaIx < [list count]  ) {
-        [self setSelectedAppearanceConnectionWindowDisplayCriteriaIndex: [NSNumber numberWithUnsignedInteger: displayCriteriaIx]];
+        [self setSelectedAppearanceConnectionWindowDisplayCriteriaIndex: tbNumberWithUnsignedInteger(displayCriteriaIx)];
     } else {
         NSLog(@"Invalid displayCriteriaIx %lu; maximum is %ld", (unsigned long)displayCriteriaIx, (long) [list count]-1);
     }
@@ -2864,17 +2864,17 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) setupAppearanceConnectionWindowScreenButton {
 	
-    [self setSelectedAppearanceConnectionWindowScreenIndexDirect: [NSNumber numberWithUnsignedInteger: NSNotFound]];
+    [self setSelectedAppearanceConnectionWindowScreenIndexDirect: tbNumberWithUnsignedInteger(NSNotFound)];
 	
     NSArray * screens = [((MenuController *)[NSApp delegate]) screenList];
     
     if (   ([screens count] < 2)
-		|| ([[self selectedAppearanceConnectionWindowDisplayCriteriaIndex] isEqualTo: [NSNumber numberWithUnsignedInteger:0]]  )  ) {
+		|| ([[self selectedAppearanceConnectionWindowDisplayCriteriaIndex] isEqualTo: tbNumberWithUnsignedInteger(0)]  )  ) {
         
 		// Show the default screen, but don't change the preference
 		BOOL wereDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
 		[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
-        [self setSelectedAppearanceConnectionWindowScreenIndex: [NSNumber numberWithUnsignedInteger: 0]];
+        [self setSelectedAppearanceConnectionWindowScreenIndex: tbNumberWithUnsignedInteger(0)];
 		[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: wereDoingSetupOfUI];
 		
         [[appearancePrefsView appearanceConnectionWindowScreenButton] setEnabled: NO];
@@ -2910,7 +2910,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             screenIxToSelect = 0;
         }
         
-        [self setSelectedAppearanceConnectionWindowScreenIndex: [NSNumber numberWithUnsignedInteger: screenIxToSelect]];
+        [self setSelectedAppearanceConnectionWindowScreenIndex: tbNumberWithUnsignedInteger(screenIxToSelect)];
         
         [[appearancePrefsView appearanceConnectionWindowScreenButton] setEnabled: [gTbDefaults canChangeValueForKey: @"statusDisplayNumber"]];
     }
@@ -3002,17 +3002,17 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  [newValue isNotEqualTo: [self selectedAppearanceIconSetIndex]]  ) {
         NSArrayController * ac = [appearancePrefsView appearanceIconSetArrayController];
         NSArray * list = [ac content];
-        if (  [newValue unsignedIntegerValue] < [list count]  ) {
+        if (  tbUnsignedIntegerValue(newValue) < [list count]  ) {
             
             [self setSelectedAppearanceIconSetIndexDirect: newValue];
             
             // Select the new index
-            [ac setSelectionIndex: [newValue unsignedIntegerValue]];
+            [ac setSelectionIndex: tbUnsignedIntegerValue(newValue)];
             
             // Set the preference
-            if (  [newValue unsignedIntegerValue] != NSNotFound  ) {
+            if (  tbUnsignedIntegerValue(newValue) != NSNotFound  ) {
                 // Set the preference
-                NSString * iconSetName = [[[list objectAtIndex: [newValue unsignedIntegerValue]] objectForKey: @"value"] lastPathComponent];
+                NSString * iconSetName = [[[list objectAtIndex: tbUnsignedIntegerValue(newValue)] objectForKey: @"value"] lastPathComponent];
                 if (  [iconSetName isEqualToString: @"TunnelBlick.TBMenuIcons"]  ) {
                     [gTbDefaults removeObjectForKey: @"menuIconSet"];
                 } else {
@@ -3035,15 +3035,15 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  [newValue isNotEqualTo: [self selectedAppearanceConnectionWindowDisplayCriteriaIndex]]  ) {
         NSArrayController * ac = [appearancePrefsView appearanceConnectionWindowDisplayCriteriaArrayController];
         NSArray * list = [ac content];
-        if (  [newValue unsignedIntegerValue] < [list count]  ) {
+        if (  tbUnsignedIntegerValue(newValue) < [list count]  ) {
             
             [self setSelectedAppearanceConnectionWindowDisplayCriteriaIndexDirect: newValue];
             
             // Select the new index
-            [ac setSelectionIndex: [newValue unsignedIntegerValue]];
+            [ac setSelectionIndex: tbUnsignedIntegerValue(newValue)];
             
             // Set the preference
-            NSDictionary * dict = [list objectAtIndex: [newValue unsignedIntegerValue]];
+            NSDictionary * dict = [list objectAtIndex: tbUnsignedIntegerValue(newValue)];
             NSString * preferenceValue = [dict objectForKey: @"value"];
             [gTbDefaults setObject: preferenceValue forKey: @"connectionWindowDisplayCriteria"];
             
@@ -3060,17 +3060,17 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  [newValue isNotEqualTo: [self selectedAppearanceConnectionWindowScreenIndex]]  ) {
         NSArrayController * ac = [appearancePrefsView appearanceConnectionWindowScreenArrayController];
         NSArray * list = [ac content];
-        if (  [newValue unsignedIntegerValue] < [list count]  ) {
+        if (  tbUnsignedIntegerValue(newValue) < [list count]  ) {
             
             [self setSelectedAppearanceConnectionWindowScreenIndexDirect: newValue];
             
             // Select the new size
-            [ac setSelectionIndex: [newValue unsignedIntegerValue]];
+            [ac setSelectionIndex: tbUnsignedIntegerValue(newValue)];
             
             // Set the preference if this isn't just the initialization
             if (  ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
                 // Set the preference
-                NSNumber * displayNumber = [[list objectAtIndex: [newValue unsignedIntegerValue]] objectForKey: @"value"];
+                NSNumber * displayNumber = [[list objectAtIndex: tbUnsignedIntegerValue(newValue)] objectForKey: @"value"];
 				[gTbDefaults setObject: displayNumber forKey: @"statusDisplayNumber"];
             }
         }
