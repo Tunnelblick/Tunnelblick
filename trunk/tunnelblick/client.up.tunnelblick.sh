@@ -1028,8 +1028,10 @@ configureOpenVpnDns()
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 			logMessage "Will NOT monitor for other network configuration changes."
 		fi
+        logDnsInfoNoChanges
+        FlushDNSCache
 	fi
-	
+
 	return 0
 }
 
@@ -1122,6 +1124,9 @@ logDnsInfo() {
 	
 	if [ "${log_dns_info_manual_dns_sa}" != "" ] ; then
         logMessage "DNS servers '${log_dns_info_manual_dns_sa}' were set manually"
+        if [ "${log_dns_info_manual_dns_sa}" != "${log_dns_info_new_dns_sa}" ] ; then
+            logMessage "But that setting is being ignored by OS X; '${log_dns_info_new_dns_sa}' is being used."
+        fi
     fi
 
     if [ "${log_dns_info_new_dns_sa}" != "" ] ; then
@@ -1193,8 +1198,17 @@ EOF
 sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 )"
 
-	readonly LOGDNSINFO_MAN_DNS_SA="$( echo "${LOGDNSINFO_MAN_DNS_CONFIG}" | grep -q "ServerAddresses" )"
-	readonly LOGDNSINFO_CUR_DNS_SA="$( echo "${LOGDNSINFO_CUR_DNS_CONFIG}" | grep -q "ServerAddresses" )"
+	if echo "${LOGDNSINFO_MAN_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
+		readonly LOGDNSINFO_MAN_DNS_SA="$( trim "$( echo "${LOGDNSINFO_MAN_DNS_CONFIG}" | sed -e 's/^.*ServerAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
+	else
+		readonly LOGDNSINFO_MAN_DNS_SA="";
+	fi
+
+	if echo "${LOGDNSINFO_CUR_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
+		readonly LOGDNSINFO_CUR_DNS_SA="$( trim "$( echo "${LOGDNSINFO_CUR_DNS_CONFIG}" | sed -e 's/^.*ServerAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )" )"
+	else
+		readonly LOGDNSINFO_CUR_DNS_SA="";
+	fi
 
     set -e # resume abort on error
 
