@@ -6,7 +6,11 @@
 --     application dropped on it. After doing minimal sanity checking, the 'tunnelblick-uninstaller.sh'
 --     bash script is invoked with authorization to do the actual uninstall.
 --
---     Copyright © 2013 Jonathan K. Bullard. All rights reserved
+--     Copyright © 2013, 2015 Jonathan K. Bullard. All rights reserved
+--
+--
+--      NOTE: If this file is modified, it must be compiled on OS X 10.4 and its droplet saved as
+--            tunnelblick-uninstaller-droplet-compiled-on-tiger. See tunnelblick-uninstaller-droplet-note.txt.
 --
 ------------------------------------------------------------------------------------------------------------------
 

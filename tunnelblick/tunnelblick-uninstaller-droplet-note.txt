@@ -1,0 +1,25 @@
+Tunnelblick is built on OS X 10.6.8.
+
+However, the "osacompile" command on 10.6.8 creates binaries that do not work on PowerPC G4 processors.
+
+(A 'lipo -info' of such binaries shows the architectures as 'x86_64 i386 ppc7400', even when the "-a"
+option is used to try to set the architecture.)
+
+So a droplet for the uninstaller was created on OS X 10.4 ("Tiger"). The droplet is stored as
+     tunnelblick/tunnelblick-uninstaller-droplet-compiled-on-tiger
+
+In the last build phase script, after compiling the uninstaller application, the newly-created droplet
+(which is for 'x86_64 i386 ppc7400') is replaced by the compiled-on-tiger ('ppc i386') droplet.
+
+When 'tunnelblick-uninstaller.applescript' is modified, the droplet should be recreated on
+OS X 10.4 and should replace tunnelblick/tunnelblick-uninstaller-droplet-compiled-on-tiger.
+
+To recreate the droplet on Tiger:
+
+    cd to the Tunnelblick source folder (that is, the folder that contains the "tunnelblick" and "third_party" folders)
+	
+	osacompile -output tunnelblick/TigerUninstaller.app -x tunnelblick/tunnelblick-uninstaller.applescript
+	
+	cp -p -f tunnelblick/TigerUninstaller.app/Contents/MacOS/droplet tunnelblick/tunnelblick-uninstaller-droplet-compiled-on-tiger
+	
+	rm -f tunnelblick/TigerUninstaller.app
