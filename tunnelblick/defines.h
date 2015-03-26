@@ -94,6 +94,7 @@
 #define TOOL_PATH_FOR_BASH       @"/bin/bash"
 #define TOOL_PATH_FOR_CODESIGN   @"/usr/bin/codesign"
 #define TOOL_PATH_FOR_ID         @"/usr/bin/id"
+#define TOOL_PATH_FOR_IFCONFIG   @"/sbin/ifconfig"
 #define TOOL_PATH_FOR_KEXTLOAD   @"/sbin/kextload"
 #define TOOL_PATH_FOR_KEXTSTAT   @"/usr/sbin/kextstat"
 #define TOOL_PATH_FOR_KEXTUNLOAD @"/sbin/kextunload"

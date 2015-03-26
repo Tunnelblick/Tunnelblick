@@ -1899,6 +1899,18 @@ static BOOL firstTimeShowingWindow = TRUE;
     return [NSString stringWithString: string];
 }
 
+-(NSString *) stringWithIfconfigOutput {
+    
+    NSString * ifconfigOutput = @""; // stdout (ignore stderr)
+	
+    runTool(TOOL_PATH_FOR_IFCONFIG,
+            [NSArray array],
+            &ifconfigOutput,
+            nil);
+    
+    return ifconfigOutput;
+}
+
 -(NSString *) nonAppleKextContents {
     
     NSString * kextRawContents = @""; // stdout (ignore stderr)
@@ -1972,6 +1984,9 @@ static BOOL firstTimeShowingWindow = TRUE;
         NSTextStorage * store = [[configurationsPrefsView logView] textStorage];
         NSString * logContents = [store string];
         
+        // Get output of "ifconfig"
+        NSString * ifconfigOutput = [self stringWithIfconfigOutput];
+        
 		// Get tail of Console log
         NSString * consoleContents = (  runningOnLeopardOrNewer()
                                       ? [self stringContainingRelevantConsoleLogEntries]
@@ -1991,6 +2006,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                              @"Wildcard preferences:\n\n%@\n%@"
                              @"Program preferences:\n\n%@\n%@"
                              @"Tunnelblick Log:\n\n%@\n%@"
+                             @"ifconfig output:\n\n%@\n%@"
                              @"Console Log:\n\n%@\n%@"
                              @"Non-Apple kexts that are loaded:\n\n%@",
                              versionContents,
@@ -2001,6 +2017,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                              wildcardPreferencesContents, separatorString,
                              programPreferencesContents, separatorString,
                              logContents, separatorString,
+                             ifconfigOutput, separatorString,
                              consoleContents, separatorString,
                              kextContents];
         
