@@ -22,18 +22,27 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
 <table border="1" width="100%"><tbody><tr><td>
  ==Deprecated Versions of Tunnelblick Uninstaller==
 <hr />
+ <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.5.dmg/download Tunnelblick Uninstaller 1.5]</strong></font> `[`sourceforge.net`]` released 2015-01-14<br />
+ _*SHA1*_: f574ab946eda33cee2fca675e5ae6097018692fd _*MD5*_: f32c25ff4a6ae3d4fa38fe97464214c2 _*(See [#Verifying_Downloads Verifying Downloads])*_
+  * Removes the new entry in /Library/!LaunchDaemons made by Tunnelblick 3.4beta05 (build 4204) and higher
+
+ For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC G4, 32- or 64-bit.
+
+<hr />
+
  <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.4.dmg/download Tunnelblick Uninstaller 1.4]</strong></font> `[`sourceforge.net`]` released 2014-09-10<br />
  _*SHA1*_: 29345ed4cc8a95953f10e59759fec7fc0aa57af6 _*MD5*_: 95c6104cf4dac5bf38075fe8d8d8bdca _*(See [#Verifying_Downloads Verifying Downloads])*_
   * Removes the new entries in /Library/!LaunchDaemons made by Tunnelblick 3.4beta37 (build 2957) and higher
 
- <font color="red">_Older versions of Tunnelblick contain security vulnerabilities. They are on the [SecurityRiskDownloads Security Risk Downloads page]._</font>
+ For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC G4, 32- or 64-bit.
+
 <hr />
 
  <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.3.dmg/download Tunnelblick Uninstaller 1.3]</strong></font> `[`sourceforge.net`]` released 2014-07-10<br />
  _*SHA1*_: 897f78e3f585da6da6abc1a0982efe0bc9dc65cc _*MD5*_: bb13478caeeef69b5791a99dc54db1ff _(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])_
   * Removes the new entry in ~/Library/LaunchAgents made by Tunnelblick 3.4beta32 and higher
 
- For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.
+ For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC G4, 32- or 64-bit.
 
 <hr />
 
@@ -43,7 +52,7 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
   * Fixes a problem with text being repeated in the opening window
   * Fixes a problem with the opening window not appearing until the Uninstaller icon in the Dock is clicked
 
- For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.
+ For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC G4, 32- or 64-bit.
 
 <hr />
 
@@ -52,13 +61,13 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
   * Warns user if Tunnelblick or OpenVPN is running
   * Ready for localization
 
- For use on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "Mountain Lion"), Intel or PowerPC, 32- or 64-bit. <br /><font color="red">Not for use on OS X 10.9 ("Mavericks").</font>
+ For use on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "Mountain Lion"), Intel or PowerPC G4, 32- or 64-bit. <br /><font color="red">Not for use on OS X 10.9 ("Mavericks").</font>
 
 <hr />
 
  <font size="3"><strong>[http://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.0.dmg/download Tunnelblick Uninstaller 1.0]</strong></font> `[`sourceforge.net`]` released 2013-03-28
 
- For use on OS X 10.4 - 10.9 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", <font color="red">and "Mavericks"</font>), Intel or PowerPC, 32- or 64-bit.
+ For use on OS X 10.4 - 10.9 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", <font color="red">and "Mavericks"</font>), Intel or PowerPC G4, 32- or 64-bit.
 
 </td></tr>
 </tbody></table>

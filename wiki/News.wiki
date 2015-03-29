@@ -5,6 +5,12 @@
 
 --------------------
 
+2015-03-29: *Tunnelblick Uninstaller 1.6 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Fixes problems when run on a PowerPC G3 processor.
+ 
+--------------------
+
 2015-03-19: *Tunnelblick 3.5beta08 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Includes OpenSSL 1.0.1m. See [https://www.openssl.org/news/secadv_20150319.txt OpenSSL Security Advisory 19 Mar 2015].

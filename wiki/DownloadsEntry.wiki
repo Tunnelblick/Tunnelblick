@@ -45,9 +45,9 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.
 
- <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.5.dmg/download Tunnelblick Uninstaller 1.5]</strong></font> `[`sourceforge.net`]` released 2015-01-14<br />
- _*SHA1*_: f574ab946eda33cee2fca675e5ae6097018692fd _*MD5*_: f32c25ff4a6ae3d4fa38fe97464214c2 _*(See [#Verifying_Downloads Verifying Downloads])*_
-  * Removes the new entry in /Library/!LaunchDaemons made by Tunnelblick 3.4beta05 (build 4204) and higher
+ <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Uninstaller/Tunnelblick_Uninstaller_1.6.dmg/download Tunnelblick Uninstaller 1.6]</strong></font> `[`sourceforge.net`]` released 2015-03-29<br />
+ _*SHA1*_: b840c987fa2034ce7996bb2408a1c6e9b917177d _*MD5*_: dc74107576866319ee2af99e1f7d4823 _*(See [#Verifying_Downloads Verifying Downloads])*_
+  * Fixes problems when run on a PowerPC G3 processor.
 
 </td></tr></tbody></table>
 
