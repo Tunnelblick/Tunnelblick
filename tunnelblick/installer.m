@@ -356,6 +356,39 @@ void convertOldUpdatableConfigurations(void) {
     }
 }
 
+BOOL isLaunchDaemonLoaded(void) {
+	
+	// Must have uid=0 (not merely euid=0) for runTool(launchctl) to work properly
+    if (  setuid(0)  ) {
+		appendLog([NSString stringWithFormat: @"setuid(0) failed; error was %d: '%s'", errno, strerror(errno)]);
+		errorExit();
+	}
+	if (  setgid(0)  ) {
+		appendLog([NSString stringWithFormat: @"setgid(0) failed; error was %d: '%s'", errno, strerror(errno)]);
+		errorExit();
+	}
+ 	
+	if (  ! [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH]  ) {
+		appendLog([NSString stringWithFormat: @"No file at %@; assuming tunnelblickd is not loaded", TUNNELBLICKD_PLIST_PATH]);
+		return NO;
+	}
+	
+	NSString * stdoutString = @"";
+	NSString * stderrString = @"";
+	NSArray * arguments = [NSArray arrayWithObject: @"list"];
+	OSStatus status = runTool(TOOL_PATH_FOR_LAUNCHCTL, arguments, &stdoutString, &stderrString);
+	if (   (status != EXIT_SUCCESS)
+		|| [stdoutString isEqualToString: @""]  ) {
+        
+        appendLog([NSString stringWithFormat: @"'%@ list' failed or had no output; assuming tunnelblickd is not loaded; error was %d: '%s'\nstdout = '%@'\nstderr='%@'",
+                   TOOL_PATH_FOR_LAUNCHCTL, errno, strerror(errno), stdoutString, stderrString]);
+		return NO;
+	}
+	
+	BOOL result = ([stdoutString rangeOfString: @"net.tunnelblick.tunnelblick.tunnelblickd"].length != 0);
+	return result;
+}
+
 void loadLaunchDaemonUsingLaunchctl(void) {
 	
 	// Must have uid=0 (not merely euid=0) for runTool(launchctl) to work properly
@@ -375,7 +408,8 @@ void loadLaunchDaemonUsingLaunchctl(void) {
 		NSArray * arguments = [NSArray arrayWithObjects: @"unload", TUNNELBLICKD_PLIST_PATH, nil];
 		OSStatus status = runTool(TOOL_PATH_FOR_LAUNCHCTL, arguments, &stdoutString, &stderrString);
 		if (  status != EXIT_SUCCESS  ) {
-			appendLog([NSString stringWithFormat: @"launchctl unload %@ failed; error was %d: '%s'\nstdout = '%@'\nstderr='%@'", TOOL_PATH_FOR_LAUNCHCTL, errno, strerror(errno), stdoutString, stderrString]);
+			appendLog([NSString stringWithFormat: @"'%@ unload' failed; error was %d: '%s'\nstdout = '%@'\nstderr='%@'",
+                       TOOL_PATH_FOR_LAUNCHCTL, errno, strerror(errno), stdoutString, stderrString]);
 			// Continue even after the error. If we can load, it doesn't matter that we didn't unload.
 		}
 		
@@ -385,8 +419,11 @@ void loadLaunchDaemonUsingLaunchctl(void) {
 	
 	NSArray * arguments = [NSArray arrayWithObjects: @"load", TUNNELBLICKD_PLIST_PATH, nil];
 	OSStatus status = runTool(TOOL_PATH_FOR_LAUNCHCTL, arguments, &stdoutString, &stderrString);
-	if (  status != EXIT_SUCCESS  ) {
-		appendLog([NSString stringWithFormat: @"launchctl load %@ failed; error was %d: '%s'\nstdout = '%@'\nstderr='%@'", TOOL_PATH_FOR_LAUNCHCTL, errno, strerror(errno), stdoutString, stderrString]);
+	if (  status == EXIT_SUCCESS  ) {
+		appendLog(@"Used launchctl to load tunnelblickd");
+	} else {
+		appendLog([NSString stringWithFormat: @"'%@ load' failed; error was %d: '%s'\nstdout = '%@'\nstderr='%@'",
+                   TOOL_PATH_FOR_LAUNCHCTL, errno, strerror(errno), stdoutString, stderrString]);
 		errorExit();
 	}
 }
@@ -459,18 +496,21 @@ void  loadLaunchDaemonUsingSMJobSubmit(NSDictionary * newPlistContents) {
 
  */
 
-void loadLaunchDaemon (NSDictionary * newPlistContents) {
+void loadLaunchDaemon (NSDictionary * newPlistContents, BOOL forceLoad) {
 	
 	// 'runningOnSnowLeopardOrNewer' is not in sharedRoutines, so we don't use it -- we load the launch daemon the old way, with 'launchctl load'
 	// Left the new code in to make it easy to implement the new way -- with 'SMJobSubmit()' on 10.6.8 and higher -- in case a later version of OS X messes with 'launchctl load'
-	// To implement the new way, too, just move 'runningOnSnowLeopardOrNewer' to sharedRoutines and un-comment the code below to use it.
-	//
-//  if (  runningOnSnowLeopardOrNewer()  ) {
-//      loadLaunchDaemonUsingSMJobSubmit(newPlistContents);
-// 	} else {
-	(void) newPlistContents;  // Can remove this if the above lines are un-commmented
+	// To implement the new way, too, move 'runningOnSnowLeopardOrNewer' to sharedRoutines and un-comment the code below to use 'loadLaunchDaemonUsingSMJobSubmit'.
+	
+	if (   forceLoad
+        || (! isLaunchDaemonLoaded())  ) {
+//      if (  runningOnSnowLeopardOrNewer()  ) {
+//          loadLaunchDaemonUsingSMJobSubmit(newPlistContents);
+// 	    } else {
+	    (void) newPlistContents;  // Can remove this if the above lines are un-commmented
 		loadLaunchDaemonUsingLaunchctl();
-//	}
+//	    }
+	}
 }
 
 int main(int argc, char *argv[])
@@ -498,6 +538,8 @@ int main(int argc, char *argv[])
     BOOL deleteConfig     = (arg1 & INSTALLER_DELETE) != 0;
 	
     BOOL helperIsToBeSuid = (arg1 & INSTALLER_HELPER_IS_TO_BE_SUID) != 0;
+    
+    BOOL forceLoadLaunchDaemon = copyApp || secureApp;
     
 	openLog(  clearLog  );
 	
@@ -1168,44 +1210,46 @@ int main(int argc, char *argv[])
     //**************************************************************************************************************************
     // (12) Set up tunnelblickd to load when the computer starts
 	
-    // Check to see if the tunnelblickd .plist file is up-to-date
-	// If we are debugging, it needs the 'Debug' key set and the the 'Program' value pointing to our copy of tunnelblickd
-    
-	// NOTE: The name of the tunnelblickd .plist file in Resources does not change when rebranded, hence the split constant strings when referring to it
-    NSString * ourPlistPath = [resourcesPath stringByAppendingPathComponent: @"net.tunnel" @"blick.tunnel" @"blick.tunnelblickd.plist"];
-	
-    NSMutableDictionary * newPlistContents = [[[NSDictionary dictionaryWithContentsOfFile: ourPlistPath] mutableCopy] autorelease];
-    
+	if (  ! helperIsToBeSuid  ) {
+		// Check to see if the tunnelblickd .plist file is up-to-date
+		// If we are debugging, it needs the 'Debug' key set and the the 'Program' value pointing to our copy of tunnelblickd
+		
+		// NOTE: The name of the tunnelblickd .plist file in Resources does not change when rebranded, hence the split constant strings when referring to it
+		NSString * ourPlistPath = [resourcesPath stringByAppendingPathComponent: @"net.tunnel" @"blick.tunnel" @"blick.tunnelblickd.plist"];
+		
+		NSMutableDictionary * newPlistContents = [[[NSDictionary dictionaryWithContentsOfFile: ourPlistPath] mutableCopy] autorelease];
+		
 #ifdef TBDebug
-	NSString * daemonPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
-	[newPlistContents setObject: daemonPath                     forKey: @"Program"];
-	[newPlistContents setObject: [NSNumber numberWithBool: YES] forKey: @"Debug"];
-    NSDictionary * installedPlistContents = nil; // Force install or replace of plist
+		NSString * daemonPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
+		[newPlistContents setObject: daemonPath                     forKey: @"Program"];
+		[newPlistContents setObject: [NSNumber numberWithBool: YES] forKey: @"Debug"];
+		NSDictionary * installedPlistContents = nil; // Force install or replace of plist
 #else
-    NSDictionary * installedPlistContents = [NSDictionary dictionaryWithContentsOfFile: TUNNELBLICKD_PLIST_PATH];
+		NSDictionary * installedPlistContents = [NSDictionary dictionaryWithContentsOfFile: TUNNELBLICKD_PLIST_PATH];
 #endif
-	
-	if (  ! [installedPlistContents isEqualToDictionary: newPlistContents]  ) {
-        
-        // Install or replace the tunnelblickd .plist in /Library/LaunchDaemons
-        
-        BOOL hadExistingPlist = [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH];
-        if (  hadExistingPlist  ) {
-            if (  ! [gFileMgr tbRemoveFileAtPath: TUNNELBLICKD_PLIST_PATH handler: nil]  ) {
-                appendLog([NSString stringWithFormat: @"Unable to delete %@", TUNNELBLICKD_PLIST_PATH]);
-                errorExit();
-            }
-        }
-        if (  [newPlistContents writeToFile: TUNNELBLICKD_PLIST_PATH atomically: YES] ) {
-            appendLog([NSString stringWithFormat: @"%@ %@", (hadExistingPlist ? @"Replaced" : @"Installed"), TUNNELBLICKD_PLIST_PATH]);
-        } else {
-            appendLog([NSString stringWithFormat: @"Unable to create %@", TUNNELBLICKD_PLIST_PATH]);
-            errorExit();
-        }
-        
-		// We must load the new launch daemon, too, so it is used immediately, even before the next system start
-		loadLaunchDaemon(newPlistContents);
-    }
+		
+		if (  ! [installedPlistContents isEqualToDictionary: newPlistContents]  ) {
+			
+			// Install or replace the tunnelblickd .plist in /Library/LaunchDaemons
+			
+			BOOL hadExistingPlist = [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH];
+			if (  hadExistingPlist  ) {
+				if (  ! [gFileMgr tbRemoveFileAtPath: TUNNELBLICKD_PLIST_PATH handler: nil]  ) {
+					appendLog([NSString stringWithFormat: @"Unable to delete %@", TUNNELBLICKD_PLIST_PATH]);
+					errorExit();
+				}
+			}
+			if (  [newPlistContents writeToFile: TUNNELBLICKD_PLIST_PATH atomically: YES] ) {
+				appendLog([NSString stringWithFormat: @"%@ %@", (hadExistingPlist ? @"Replaced" : @"Installed"), TUNNELBLICKD_PLIST_PATH]);
+			} else {
+				appendLog([NSString stringWithFormat: @"Unable to create %@", TUNNELBLICKD_PLIST_PATH]);
+				errorExit();
+			}
+		}
+		
+        // We must load the new launch daemon, too, so it is used immediately, even before the next system start
+        loadLaunchDaemon(newPlistContents, forceLoadLaunchDaemon);
+	}
 	
     //**************************************************************************************************************************
     // DONE
