@@ -54,6 +54,8 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 <table border="1" width="100%"><tbody><tr><td>
  ==Older Downloads==
  <font color="red">*All other versions of Tunnelblick contain serious security vulnerabilities*</font>.<br />They are available on the [SecurityRiskDownloads Security Risk Downloads] page.
+
+ Older versions of Tunnelblick Uninstaller may be found on the [DownloadsOlder Deprecated Downloads] page.
 </td></tr></tbody></table>
 
 <table border="1" width="100%"><tbody><tr><td>
