@@ -645,18 +645,6 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         }
 		
         TBLog(@"DB-SU", @"init: 002")
-        // Remove the 'updateCheckBetas' preference if it is the default, so that a later change to stable from beta or to beta from stable will work as expected
-        id obj = [gTbDefaults objectForKey: @"updateCheckBetas"];
-        if (  obj  ) {
-            if (  [obj respondsToSelector: @selector(boolValue)]  ) {
-                if (  [obj boolValue] == runningABetaVersion()  ) {
-                    [gTbDefaults removeObjectForKey: @"updateCheckBetas"];
-                }
-            } else {
-                NSLog(@"Preference 'updateCheckBetas' is not a boolean; it is being removed");
-                [gTbDefaults removeObjectForKey: @"updateCheckBetas"];
-            }
-        }
         
         TBLog(@"DB-SU", @"init: 003")
 		// Set the new per-configuration "*-openvpnVersion" preference from the old global "openvpnVersion" preference to
@@ -671,7 +659,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         TBLog(@"DB-SU", @"init: 004")
         TBLog(@"DB-SU", @"init: 005")
 		// Set the new per-configuration "*-notOKToCheckThatIPAddressDidNotChangeAfterConnection" preference from the old global "notOKToCheckThatIPAddressDidNotChangeAfterConnection" preference to
-		obj = [gTbDefaults objectForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+		id obj = [gTbDefaults objectForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
 		if (  obj  ) {
             if (  [obj respondsToSelector: @selector(boolValue)]  ) {
 				if (  [obj boolValue] != [gTbDefaults boolForKey: @"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"]  ) {
