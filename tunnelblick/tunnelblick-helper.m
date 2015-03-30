@@ -1543,7 +1543,7 @@ void deleteAllLogFiles() {
         NSString * fullPath = [L_AS_T_LOGS stringByAppendingPathComponent: filename];
         NSDictionary * dict = [[NSFileManager defaultManager] tbFileAttributesAtPath: fullPath traverseLink: NO];
         NSDate * modificationDate = [dict fileModificationDate];
-        NSDate * oneWeekAgo = [[NSDate date] dateByAddingTimeInterval: -7.0 * 24.0 * 60.0 * 60.0 ];
+        NSDate * oneWeekAgo = [NSDate dateWithTimeIntervalSinceNow: -7.0 * 24.0 * 60.0 * 60.0 ];
         NSComparisonResult result = [modificationDate compare: oneWeekAgo];
         if (  result == NSOrderedAscending  ) {
             [prefixes addObject: filename];
