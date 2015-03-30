@@ -32,8 +32,8 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
  For use on OS X 10.4 - 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite"), Intel or PowerPC, 32- or 64-bit.<br />
  <font color="red">*Translators are needed for Arabic, Estonian, Japanese, Korean, and Turkish.* [cLocalizeTranslate Details]</font>
 
- <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.5beta08_build_4236.dmg/download Tunnelblick 3.5beta08]</strong></font> `[`sourceforge.net`]` (build 4236) released 2015-03-19 [RlsNotes#Version_3.5 Release Notes]<br />
- _*SHA1*_: 7a31c4c5574313180604b2847bbc9f5275e583b1 _*MD5*_:  38fc3e845f5871a2d5c83798526c1cad _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
+ <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.5beta10_build_4262.dmg/download Tunnelblick 3.5beta10]</strong></font> `[`sourceforge.net`]` (build 4262) released 2015-03-30 [RlsNotes#Version_3.5 Release Notes]<br />
+ _*SHA1*_: 6a268622d221c9aac113a2333ec0e850885243b8 _*MD5*_:  b4a7c63f6bd8a5734f41884d5b68f9cc _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
  
  NOTE: This version will refuse to install or launch on a computer that has ever had a "[cCusDeployed Deployed]" version installed unless that version has been completely [cInstall#Uninstalling_Tunnelblick uninstalled]. Uninstalling will delete all Tunnelblick VPNs from your system. To update a "[cCusDeployed Deployed]" version, you must obtain a new version from the person or organization that provided you with your original "[cCusDeployed Deployed]" version. The Tunnelblick project does <em>not</em> provide "[cCusDeployed Deployed]" versions. The latest version of Tunnelblick that may be used as a "Deployed" version without being rebranded is 3.3beta21b (Unsigned). It may be found on the [SecurityRiskDownloads Security Risk Downloads] page.
  
@@ -53,9 +53,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
 <table border="1" width="100%"><tbody><tr><td>
  ==Older Downloads==
- <font color="red">*All other versions of Tunnelblick contain serious security vulnerabilities*</font>.<br />They are available on the [SecurityRiskDownloads Security Risk Downloads] page.
-
- Older versions of Tunnelblick Uninstaller may be found on the [DownloadsOlder Deprecated Downloads] page.
+ Older versions of Tunnelblick and Tunnelblick Uninstaller may be found on the [DownloadsOlder Deprecated Downloads] page.
 </td></tr></tbody></table>
 
 <table border="1" width="100%"><tbody><tr><td>

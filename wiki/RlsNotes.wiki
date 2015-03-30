@@ -9,6 +9,16 @@
 
 ==Version 3.5==
 
+*3.5beta10 build 4262 (2015-03-30)*
+
+ * Updates localization and credits.
+ * Adds output from the 'ipconfig' command to the diagnostic info.
+ * Fixes a problem that caused Tunnelblick to incorrectly report that there are no DNS settings.
+ * Fixes a problem that caused Tunnelblick to be unable to perform privileged activity.
+ * Fixes several problems when running on OS X 10.4 and 10.5 ("Tiger" and "Leopard").
+ 
+--------------------
+
 *3.5beta08 build 4236 (2015-03-19)*
 
  * *<font color="red">SECURITY UPDATE:</font>* Includes OpenSSL 1.0.1m. See [https://www.openssl.org/news/secadv_20150319.txt OpenSSL Security Advisory 19 Mar 2015].

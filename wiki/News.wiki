@@ -5,6 +5,16 @@
 
 --------------------
 
+2015-03-30: *Tunnelblick 3.5beta10 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Updates localization and credits.
+ * Adds output from the 'ipconfig' command to the diagnostic info.
+ * Fixes several problems.
+ 
+   See the [RlsNotes#Version_3.5 Release Notes] for details.
+
+--------------------
+
 2015-03-29: *Tunnelblick Uninstaller 1.6 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Fixes problems when run on a PowerPC G3 processor.

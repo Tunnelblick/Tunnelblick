@@ -15,7 +15,11 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
  ==Deprecated Versions of Tunnelblick==
 <hr />
 
- <font color="red"><strong>All old versions of Tunnelblick contain serious security vulnerabilities.</strong></font> They are available on the [SecurityRiskDownloads Security Risk Downloads] page.
+ <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.5beta08_build_4236.dmg/download Tunnelblick 3.5beta08]</strong></font> `[`sourceforge.net`]` (build 4236) released 2015-03-19 [RlsNotes#Version_3.5 Release Notes]<br />
+ _*SHA1*_: 7a31c4c5574313180604b2847bbc9f5275e583b1 _*MD5*_:  38fc3e845f5871a2d5c83798526c1cad _*(See [DownloadsEntry#Verifying_Downloads Verifying Downloads])*_
+ 
+ <font color="red"><strong>All other deprecated versions of Tunnelblick contain serious security vulnerabilities.</strong></font> They are available on the [SecurityRiskDownloads Security Risk Downloads] page.
+
 </td></tr></tbody></table>
 
 
