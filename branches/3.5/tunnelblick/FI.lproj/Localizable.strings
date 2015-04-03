@@ -1,0 +1,2064 @@
+/* Status message */
+"Disconnect All (%@)" = "Katkaise kaikki (%@)";
+
+/* Status message */
+"Disconnect All (%d Connections)" = "Katkaise kaikki (%d yhteyttä)";
+
+/* Status message */
+"No Active Connections" = "Ei aktiivisia yhteyksiä";
+
+/* Textbox name */
+"Username:" = "Käyttäjätunnus:";
+
+/* Button */
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Komento-Optio-F%3$d)";
+
+/* Button */
+"(None available)" = "(Ei yhtään käytettävissä)";
+
+/* Button */
+"1 MB" = "1 MB";
+
+/* Button */
+"10 KB" = "10 KB";
+
+/* Button */
+"10 MB" = "10 MB";
+
+/* Button */
+"100 KB" = "100 KB";
+
+/* Button */
+"Advanced..." = "Lisävalinnat…";
+
+/* Button */
+"All Users" = "Kaikki käyttäjät";
+
+/* Button */
+"Always load Tap driver" = "Lataa aina TAP-ajuri";
+
+/* Button */
+"Always load Tun driver" = "Lataa aina TUN-ajuri";
+
+/* Button */
+"Always use the plugin" = "Käytä aina liitännäistä";
+
+/* Button */
+"Back" = "Takaisin";
+
+/* Button */
+"Cancel" = "Peruuta";
+
+/* Button */
+"Change Only for This Configuration" = "Muuta vain tälle konfiguraatiolle";
+
+/* Button */
+"Change for the Selected Configurations" = "Muuta valituille konfiguraatioille";
+
+/* Menu item */ /* Button */
+"Check For Updates Now" = "Tarkista päivitykset";
+
+/* Button */
+"Check Now" = "Tarkista heti";
+
+/* Button */
+"Check for a change" = "Tarkista muutos";
+
+/* Button */
+"Close VPN Connections and Stop Tunnelblick" = "Sulje VPN-yhteydet ja keskeytä Tunnelblick";
+
+/* Button */
+"Connect" = "Yhdistä";
+
+/* Button */
+"Continue" = "Jatka";
+
+/* Button */
+"Convert Configurations" = "Muunna asetukset";
+
+/* Button */
+"Copy Console Log to Clipboard" = "Kopioi loki leikepöydälle";
+
+/* Button */
+"Copy Diagnostic Info to Clipboard" = "Kopioi diagnostiikkatiedot leikepöydälle";
+
+/* Button */
+"Create sample configuration and edit it" = "Luo mallikonfiguraatio ja muokkaa sitä";
+
+/* Button */
+"Default (%@)" = "Oletus (%@)";
+
+/* Button */
+"Delete Credentials" = "Poista käyttäjätunnukset";
+
+/* Button */
+"Delete" = "Poista";
+
+/* Button */
+"Disconnect" = "Sulje yhteys";
+
+/* Button */
+"Do not check for a change" = "Älä tarkista muutosta";
+
+/* Button */
+"Do not use the plugin" = "Älä käytä liitännäistä";
+
+/* Button */
+"Download" = "Lataa";
+
+/* Button */
+"Help" = "Ohje";
+
+/* Button */
+"I DO NOT have configuration files" = "Minulla EI OLE asetustiedostoja";
+
+/* Button */
+"I have configuration files" = "Minulla on asetustiedostot";
+
+/* Button */
+"Ignore" = "Ohita";
+
+/* Button */
+"Latest (%@)" = "Viimeisin (%@)";
+
+/* Button */
+"Launch" = "Käynnistä";
+
+/* Button */
+"Load Tap driver automatically" = "Lataa TAP-ajuri automaattisesti";
+
+/* Button */
+"Load Tun driver automatically" = "Lataa TUN-ajuri automaattisesti";
+
+/* Button */
+"Manually" = "Manuaalisesti";
+
+/* Button */
+"Monochrome icon" = "Mustavalkoinen ikoni";
+
+/* Button */
+"Never load Tap driver" = "Älä lataa TAP-ajuria koskaan";
+
+/* Button */
+"Never load Tun driver" = "Älä lataa TUN-ajuria koskaan";
+
+/* Button */
+"Never show" = "Älä näytä";
+
+/* Button */
+"No keyboard shortcut" = "Ei näppäimistöoikotietä";
+
+/* Button */
+"No sound" = "Ei ääntä";
+
+/* Button */
+"OK" = "OK";
+
+/* Button */
+"Only Me" = "Vain minulle";
+
+/* Button */
+"Open Uninstall Instructions in Browser" = "Avaa asennuksen poisto-ohjeet selaimessa";
+
+/* Button */
+"Open easy-rsa in Terminal" = "Avaa easy-rsa Päätteessä";
+
+/* Button */
+"Privacy info..." = "Tietoja yksityisyydensuojasta…";
+
+/* Button */
+"Quit All OpenVPN Processes" = "Lopeta kaikki OpenVPN-prosessit";
+
+/* Button */
+"Quit" = "Lopeta";
+
+/* Button */
+"Reinstall" = "Asenna uudelleen";
+
+/* Button */
+"Remove Credentials" = "Poista käyttäjätunnukset";
+
+/* Button */
+"Replace" = "Vaihda";
+
+/* Button */
+"Reset Disabled Warnings" = "Nollaa käytöstä poistetut varoitukset";
+
+/* Button */
+"Restart connection" = "Muodosta yhteys uudelleen";
+
+/* Button */
+"Restore" = "Palauta";
+
+/* Button */
+"Revert" = "Palauta aiempi";
+
+/* Button */
+"Show on default screen (%u x %u)" = "Näytä oletusnäytöllä (%1$u x %2$u)";
+
+/* Button */
+"Show on screen %u (%u x %u)" = "Näytä näytöllä %1$u (%2$u x %3$u)";
+
+/* Button */
+"Show when connection status changes" = "Ilmoita yhteyden tilan muuttuessa";
+
+/* Button */
+"Show while connecting" = "Ilmoita yhteyttä luotaessa";
+
+/* Button */
+"Skip" = "Ohita";
+
+/* Button */
+"Speak" = "Puhu";
+
+/* Button */
+"Standard icon" = "Standardi-ikoni";
+
+/* Button */
+"Terminate All OpenVPN processes" = "Lopeta kaikki OpenVPN-prosessit";
+
+/* Button */
+"Terminate" = "Lopeta";
+
+/* Button */
+"This configuration has its own separate credentials" = "Tällä konfiguraatiolla on omat erilliset käyttäjätunnukset";
+
+/* Button */
+"This configuration uses %@ credentials" = "Tämä konfiguraatio käyttää %@ käyttäjätunnuksia";
+
+/* Button */
+"Try again with different credentials" = "Yritä uudelleen eri käyttäjätunnuksilla";
+
+/* Button */
+"Try again" = "Koeta uudelleen";
+
+/* Button */
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 -ikoni";
+
+/* Button */
+"When Tunnelblick launches" = "Tunnelblickin käynnistyessä";
+
+/* Button */
+"When computer starts" = "Tietokoneen käynnistyessä";
+
+/* Menu item */
+"Add a VPN..." = "Lisää VPN…";
+
+/* Menu item */
+"Connect %@%@" = "Yhdistä %@%@";
+
+/* Menu Item */
+"Delete Configuration's Credentials in Keychain..." = "Poista konfiguraation käyttäjätunnukset Avainnipusta…";
+
+/* Menu item tooltip */
+"Disabled because this setting is being forced" = "Poistettu käytöstä, koska tämä asetus on pakollinen";
+
+/* Menu item */
+"Disconnect %@%@" = "Sulje yhteys %@%@";
+
+/* Menu Item */
+"Duplicate Configuration..." = "Kopioi asetukset…";
+
+/* Menu Item */
+"Edit OpenVPN Configuration File..." = "Muokkaa OpenVPN-asetustiedostoa…";
+
+/* Menu Item */
+"Examine OpenVPN Configuration File..." = "Näytä OpenVPN-asetustiedosto…";
+
+/* Menu Item */
+"Make Configuration Private..." = "Tee asetuksista yksityisiä…";
+
+/* Menu Item */
+"Make Configuration Shared..." = "Jaa asetukset…";
+
+/* Menu item */
+"No VPN Configurations Available" = "Ei VPN-asetuksia saatavilla";
+
+/* Menu item */
+"Quit Tunnelblick" = "Lopeta Tunnelblick";
+
+/* Menu Item */
+"Rename Configuration..." = "Nimeä asetukset uudelleen…";
+
+/* Menu Item */
+"Revert Configuration..." = "Peruuta konfiguraatio…";
+
+/* Menu Item */
+"Show OpenVPN Log in Finder" = "Näytä OpenVPN-loki Finderissa";
+
+/* Menu item */
+"Suggestion or Bug Report..." = "Kehitysehdotukset ja virheraportit…";
+
+/* Menu item */
+"VPN Details..." = "VPN-yksityiskohdat…";
+
+/* Checkbox name */
+"Apply to all" = "Käytä kaikille";
+
+/* Checkbox name */
+"Check for updates automatically" = "Tarkista päivitykset automaattisesti";
+
+/* Checkbox name */
+"Check for updates to beta versions" = "Salli päivitykset beta-versioihin";
+
+/* Checkbox name */
+"Check if the apparent public IP address changed after connecting" = "Tarkista, vaihtuiko julkinen IP-osoite yhteydenmuodostuksen jälkeen";
+
+/* Checkbox name */
+"Disconnect when computer goes to sleep" = "Katkaise yhteys, kun tietokone menee unitilaan";
+
+/* Checkbox name */
+"Disconnect when user switches out" = "Sulje yhteys käyttäjän vaihtuessa";
+
+/* Checkbox name */
+"Display connection submenus" = "Näytä yhteyden alivalikot";
+
+/* Checkbox name */
+"Display connection timers" = "Näytä yhteyden ajat";
+
+/* Checkbox name */
+"Display window while Tunnelblick is starting up" = "Näytä ikkuna Tunnelblickin käynnistyessä";
+
+/* Checkbox name */
+"Do not ask again, always 'Ignore'" = "Älä kysy uudelleen, oleta 'Jätä huomiotta'";
+
+/* Checkbox name */
+"Do not ask again, always Continue" = "Älä kysy uudelleen, oleta ‘Jatka’";
+
+/* Checkbox name */
+"Do not ask again, always convert" = "Älä kysy uudestaan, muunna aina";
+
+/* Checkbox name */
+"Do not check for IP address changes" = "Älä tarkista IP-osoitteen muutosta";
+
+/* Checkbox name on a warning dialog */
+"Do not show again for any configuration" = "Älä näytä uudestaan millekään konfiguraatiolle";
+
+/* Checkbox name */
+"Do not warn about this again for this configuration" = "Älä varoita tästä enää tällä asetustiedostolla";
+
+/* Checkbox name */
+"Do not warn about this again" = "Älä varoita tästä enää";
+
+/* Checkbox name */
+"Flush DNS cache after connecting or disconnecting" = "Tyhjennä DNS-välimuisti ennen yhteyden muodostamista tai katkaisemista";
+
+/* Checkbox name */
+"Inhibit automatic update checking and IP Address checking" = "Estä automaattinen päivitysten ja IP-osoitteen tarkistus";
+
+/* Checkbox name */
+"Keep connected" = "Säilytä yhteys";
+
+/* Checkbox name */ /* System profile item */
+"Monitor connection" = "Valvo yhteyttä";
+
+/* Checkbox name */
+"Monitor network settings" = "Valvo verkkoasetuksia";
+
+/* Checkbox name */
+"Place next to Spotlight icon" = "Aseta Spotlight-ikonin viereen";
+
+/* Checkbox name */
+"Prepend domain name to search domains" = "Liitä domain-nimi etsittyihin";
+
+/* Checkbox name */
+"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Yhdistä uudelleen kun tietokone herää lepotilasta (jos kytketty, kun tietokone meni nukkumaan)";
+
+/* Checkbox name */
+"Reconnect when user switches in" = "Yhdistä uudelleen sisäänkirjautuessa";
+
+/* Checkbox name */
+"Reset the primary interface after disconnecting" = "Nollaa pääkäyttöliittymä yhteyden katkaisemisen jälkeen";
+
+/* Checkbox name */
+"Route all IPv4 traffic through the VPN" = "Ohjaa kaikki IPv4-liikenne VPN:n läpi";
+
+/* Checkbox name */
+"Run MTU maximum size test after connecting" = "Testaa MTU:n maksimikoko yhteydenmuodostuksen jälkeen";
+
+/* Checkbox name */
+"Save in Keychain" = "Tallenna Avainnippuun";
+
+/* Checkbox name */
+"Send anonymous profile information when checking" = "Lähetä anonyymi profilitieto tarkistettaessa päivityksiä";
+
+/* Checkbox name */
+"Set DNS after routes are set instead of before routes are set" = "Aseta DNS sen jälkeen, kun reitit on asetettu, sen sijaan, että se asetettaisiin ennen reittien asetusta";
+
+/* Checkbox name */
+"Show configuration on Tunnelblick menu" = "Näytä asetukset Tunnelblick-valikossa";
+
+/* Checkbox name */
+"Show when disconnected" = "Näytä yhteyden ollessa poikki";
+
+/* Checkbox name */
+"Show when the pointer is over the Tunnelblick icon" = "Näytä osoittimen ollessa Tunnelblick ikonin yllä";
+
+/* PopUpButton */
+"Do not set nameserver" = "Älä aseta nimipalvelinta";
+
+/* PopUpButton */
+"Set nameserver (3.0b10)" = "Aseta nimipalvelin (3.0b10)";
+
+/* PopUpButton */
+"Set nameserver (3.1)" = "Aseta nimipalvelin (3.1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 1)" = "Aseta nimipalvelin (vaihtoehto 1)";
+
+/* PopUpButton *//* System profile item */
+"Set nameserver" = "Aseta nimipalvelin";
+
+/* Text on disk image */
+"Double-click to begin" = "Tuplaklikkaa aloittaaksesi";
+
+/* Connection status */
+"ADD_ROUTES" = "Lisätään reittejä"; // Please translate "Adding routes"
+
+/* Connection status */
+"ASSIGN_IP" = "Asettaa IP-osoitetta"; // Please translate "Assigning IP address"
+
+/* Connection status */
+"AUTH" = "Varmentaa"; // Please translate "Authorizing"
+
+/* Connection status */
+"CONNECTED" = "Yhdistetty"; // Please translate "Connected"
+
+/* Connection status */
+"CONNECTING" = "Yhdistää"; // Please translate "Connecting"
+
+/* Connection status */
+"DISCONNECTING" = "Yhteyttä katkaistaan"; // Please translate "Disconnecting"
+
+/* Connection status */
+"EXITING" = "Yhteys suljettu"; // Please translate "Disconnected"
+
+/* Connection status */
+"GET_CONFIG" = "Hakee asetuksia"; // Please translate ""
+
+/* Connection status */
+"PASSWORD_WAIT" = "Odottaa salasanaa"; // Please translate "Waiting for password"
+
+/* Connection status */
+"PRIVATE_KEY_WAIT" = "Odottaa salasanalausetta"; // Please translate "Waiting for password"
+
+/* Connection status */
+"RECONNECTING" = "Yhdistää uudelleen"; // Please translate ""
+
+/* Connection status */
+"RESOLVE" = "Selvittää domain-nimeä"; // Please translate ""
+
+/* Connection status */
+"SLEEP" = "Odottaa taustaprosessia"; // Please translate "Waiting for daemon process"
+
+/* Connection status */
+"TCP_CONNECT" = "Luo TCP-yhteyttä"; // Please translate "Making TCP connection"
+
+/* Connection status */
+"UDP_CONNECT" = "Luo UDP-yhteyttä"; // Please translate "Making UDP connection"
+
+/* Connection status */
+"WAIT" = "Odottaa palvelimen vastausta"; // Please translate "Waiting for Server Response"
+
+/* Folder name */
+"Sample Tunnelblick VPN Configuration" = "Malli Tunnelblick VPN-asetustiedosto";
+
+/* System profile item */
+"Computer admin" = "Tietokoneen pääkäyttäjä";
+
+/* System profile item */
+"Configurations" = "Konfiguraatiot";
+
+/* System profile item */
+"Deployed" = "Otettu käyttöön";
+
+/* Window title */
+" (Deployed)" = " (Otettu käyttöön)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+
+/* Window title */
+" (Private)" = " (Yksityinen)";
+
+/* Window title */
+" (Shared)" = " (Jaettu)"; // Indicates a shared configuration
+
+/* Window title */
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN-Konfiguraatio - Tunnelblick";
+
+/* Window title */
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Yhteys katkaistu - Lisäasetukset%3$@";
+
+/* Window title */
+"'%@' has been disconnected" = "'%@' on katkaistu";
+
+/* Window title */
+"Active connection" = "Aktiivinen yhteys";
+
+/* Window title */
+"Add a Configuration" = "Lisää konfiguraatio";
+
+/* Window title */
+"Alert sounds" = "Huomioäänet";
+
+/* Window title */
+"Alert" = "Huomio";
+
+/* Window title */
+"All OpenVPN process were terminated." = "Kaikki OpenVPN-prosessit lopetettiin.";
+
+/* Window title */
+"All configuration files removed" = "Kaikki asetustiedostot poistettu";
+
+/* Window title */
+"Appearance" = "Ulkoasu";
+
+/* Window title */
+"Authentication failed" = "Varmennus epäonnistui";
+
+/* Window title */
+"Change for All Selected Configurations?" = "Muuta kaikille valituille konfiguraatioille?";
+
+/* Window title */
+"Configuration(s) Ignored" = "Konfiguraatio(t) jätetty huomiotta";
+
+/* Window title */
+"Connecting & Disconnecting" = "Yhteyden luominen & katkaiseminen";
+
+/* Window title */
+"Could Not Copy Configuration" = "Konfiguraation kopiointi epäonnistui";
+
+/* Window title */
+"Could Not Move Configuration" = "Konfiguraation siirtäminen epäonnistui";
+
+/* Window title */
+"Could Not Uninstall Configuration" = "Konfiguraation poisto epäonnistui";
+
+/* Window title */
+"Create and Edit a Sample Configuration?" = "Luo tai muokkaa mallikonfiguraatiota?";
+
+/* Window title */
+"Details - Tunnelblick" = "Yksityiskohdat - Tunnelblick";
+
+/* Window title */
+"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "Haluatko ottaa muutoksen käyttöön kaikille %1$lu valituille konfiguraatioille vai ainoastaan  '%2$@':lle?";
+
+/* Window title */
+"Do you wish to connect?" = "Haluatko yhdistää?";
+
+/* Window title */
+"File not found" = "Tiedostoa ei löydy";
+
+/* Window title */
+"Info" = "Tietoja";
+
+/* Window title */
+"Install Configuration For All Users?" = "Asenna konfiguraatio kaikille käyttäjille?";
+
+/* Window title */
+"Installation failed" = "Asennus epäonnistui";
+
+/* Window title */
+"Installation or Repair Failed" = "Asennus tai korjaus epäonnistui";
+
+/* Window title */
+"Installation succeeded" = "Asennus onnistui";
+
+/* Window title */
+"Log" = "Loki";
+
+/* Window title */
+"Name Required" = "Nimi vaaditaan";
+
+/* Window title */
+"Name not allowed" = "Nimi ei ole sallittu";
+
+/* Window title */
+"New Feature" = "Uusi ominaisuus";
+
+/* Window title */
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "Ei löydetty kohdetta 'dev tun', 'dev utun', tai 'dev tap'";
+
+/* Window title */
+"No Credentials" = "Ei käyttäjätunnuksia";
+
+/* Window title */
+"One or more OpenVPN processes could not be terminated." = "Yhtä tai useampaa OpenVPN-prosessia ei voitu lopettaa.";
+
+/* Window title */
+"Only computer administrators should update Tunnelblick" = "Vain tietokoneen pääkäyttäjien pitäisi päivittää Tunnelblick";
+
+/* Window title */
+"OpenVPN is Not Responding" = "OpenVPN ei vastaa";
+
+/* Window title */
+"Please Confirm" = "Vahvista";
+
+/* Window title */
+"Please enter a username and password." = "Kirjoita käyttäjänimi ja salasana.";
+
+/* Window title */
+"Please insert token" = "Aseta tunnus";
+
+/* Window title */
+"Preferences" = "Asetukset";
+
+/* Window title */
+"Replace Existing File?" = "Korvaa olemassa oleva tiedosto?";
+
+/* Window title */
+"Replace VPN Configuration?" = "Korvaa VPN konfiguraatio?";
+
+/* Window title */
+"Sample Configuration Created" = "Mallikonfiguraatio luotu";
+
+/* Window title */
+"Settings" = "Asetukset";
+
+/* Window title */
+"System Requirements Not Met" = "Järjestelmävaatimukset eivät täyty";
+
+/* Window title */
+"Tunnelblick Configuration Problem" = "Tunnelblick-konfiguraatio-ongelma";
+
+/* Window title */
+"Tunnelblick Error" = "Tunnelblick-virhe";
+
+/* Window title */
+"Tunnelblick is currently running" = "Tunnelblick on parhaillaan käynnissä";
+
+/* Window title */
+"Tunnelblick" = "Tunnelblick";
+
+/* Window title */
+"Tunnelblick: Login Required" = "Tunnelblick: sisäänkirjautuminen vaaditaan";
+
+/* Window title */
+"Tunnelblick: Passphrase Required" = "Tunnelblick: salasana vaaditaan";
+
+/* Window title */
+"Unable to launch Tunnelblick" = "Tunnelblickin käynnistys epäonnistui";
+
+/* Window title */
+"Unavailable" = "Ei käytettävissä";
+
+/* Window title */
+"Use 'down-root' plugin for OpenVPN?" = "Käytä 'down-root'-liitännäistä OpenVPN:lle?";
+
+/* Window title */
+"Utilities" = "Työkalut";
+
+/* Window title */
+"VPN Configuration Installation Error" = "VPN konfiguraation asennus virhe";
+
+/* Window title */
+"VPN Configuration Installation" = "VPN konfiguraation asennus";
+
+/* Window title */
+"VPN Credentials" = "VPN-käyttäjätunnukset";
+
+/* Window title */
+"Warning!" = "Varoitus!";
+
+/* Window title */
+"Warning" = "Varoitus";
+
+/* Window title */
+"Warning: Unknown OpenVPN processes" = "Varoitus: Tuntemattomia OpenVPN-prosesseja";
+
+/* Window title */
+"Welcome to Tunnelblick" = "Tervetuloa Tunnelblickiin";
+
+/* Window title */
+"Welcome" = "Tervetuloa";
+
+/* Window title */
+"While Connected" = "Kun yhteys muodostettuna";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Installed %lu configurations\n\n" = "     • Asennettu %lu konfiguraatiota\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Installed one configuration\n\n" = "     • Asennettu yksi konfiguraatio\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Replaced %lu configurations\n\n" = "     • Korvattu %lu konfiguraatiota\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Replaced one configuration\n\n" = "     • Korvattu yksi konfiguraatio\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Uninstalled %lu configurations\n\n" = "     • Poistettu %lu konfiguraatiota\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Uninstalled one configuration\n\n" = "     • Poistettu yksi konfiguraatio\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install %lu configurations\n\n" = "    • asentaa %lu konfiguraatiota\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install one configuration\n" = "    • Asentaa yksi konfiguraatio\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace %lu configurations\n\n" = "    • Korvata %lu konfiguraatiota\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace one configuration\n" = "    • Korvata yksi konfiguraatio\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall %lu configurations\n\n" = "    • Poistaa %lu konfiguraatiota\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall one configuration\n" = "    • Poistaa yksi konfiguraatio\n";
+
+/* Window text */
+"  • Be installed in /Applications as Tunnelblick\n" = "  • Asennetaan hakemistoon /Applications nimellä Tunnelblick\n";
+
+/* Window text */
+"  • Change ownership and permissions of the program to secure it\n" = "  • Muuta ohjelman omistaja ja käyttöoikeuksia turvataksesi sen\n";
+
+/* Window text */
+"  • Convert OpenVPN configurations\n" = "  • Muunna OpenVPN-konfiguraatiot\n";
+
+/* Window text */
+"  • Install or update configuration(s)\n" = "  • Asenna tai päivitä konfiguraatio(t)\n";
+
+/* Window text */
+"  • Move the private configurations folder\n" = "  • Siirrä yksityisten konfiguraatioiden kansio\n";
+
+/* Window text */
+"  • Secure configurations\n" = "  • Suojaa konfiguraatiot\n";
+
+/* Window text */
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ on vapaa ohjelma: voit levittää sitä ja/tai muuttaa sitä %2$@ ehtojen mukaisesti sellaisena kuin ne on julkaissut %3$@.\n\n%4$@ on OpenVPN Technologies, Inc.:n omistama rekisteröity tavaramerkki.";
+
+/* Window text */
+" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Vain tietokoneen pääkäyttäjä voi poistaa konfiguraatioita.\n\n Poistaminen on välitön ja pysyvä. Kaikki '%1$@':n asetukset tuhotaan myös pysyvästi.%2$@%3$@";
+
+/* Window text */
+" Do you wish to install %@ to %@%@?\n\n" = " Haluatko asentaa %1$@  %2$@%3$@:iin?\n\n";
+
+/* Window text */
+" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Haluatko korvata\n    %1$@:n\n     %2$@:ssa\n  %3$@%4$@:lla?\n\n";
+
+/* Window text */
+" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Huomaa: OpenVPN-konfiguraatiot muunnetaan Tunnelblick VPN-konfiguraatioiksi.\n\n";
+
+/* Window text */
+" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick on asennettava Ohjelmat-kansioon.\n\n";
+
+/* Window text */
+" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick tarvitsee tietokoneen pääkäyttäjän oikeudet, jotta se voi muodostaa automaattisesti yhteyden '%@', kun tietokone käynnistyy.";
+
+/* Window text */
+" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick tarvitsee tietokoneen pääkäyttäjän oikeudet, jotta se lopettaa automaattisesti yhteyden muodostuksen'%@', kun tietokone käynnistyy.";
+
+/* Window text */
+" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " VAROITUS: Tätä on Tunnelblickin kopiota on peukaloitu.\n\n";
+
+/* Window text */
+"%@ exists but is not a folder" = "%@ on olemassa, mutta se on kansio";
+
+/* Window text */
+"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ on palautettu viimeisimpään tallennettuun (varjo)kopioon.\n\n";
+
+/* Window text */
+"%@ is already identical to its last secured (shadow) copy.\n\n" = "%@ on jo identtinen siitä tallennetun viimeisimmän (varjo)kopion kanssa.\n\n";
+
+/* Window text */
+"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' on jo olemassa Työpöydällä.\n\nHaluatko korvata sen?";
+
+/* Window text */
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@':lla ei ole käyttäjätunnuksia (yksityinen avain tai käyttäjätunnus ja salasana) tallennettuna Avainnippuun.";
+
+/* Window text */
+"'%@' was not terminated." = "'%@' ei katkaistu.";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath'-asetus jätettiin huomiotta; se ei määritä kansiota";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath'-asetus jätetty huomiotta; sen täytyy olla absoluuttinen polku tai alkaa merkillä '~'";
+
+/* Window text */
+"(Never checked)" = "(Ei koskaan tarkasteta)";
+
+/* Window text */
+"(The 'easy-rsaPath' preference is invalid.)" = "('easy-rsaPath'-asetus on virheellinen.)";
+
+/* Window text */
+"(if connected when user switched out)" = "(jos yhteys on muodostettuna, kun käyttäjä on vaihdettu)";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Perustuu Tunnelblickiin, ilmainen ohjelma saatavissa osoitteesta<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN on  OpenVPN Technologies, Inc. rekisteröity tuotemerkki.";
+
+/* Window text */
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Avain TBPreference tai TBAlwaysSetPreference viittaa tuntemattomaan asetukseen '%1$@' kohteessa %2$@";
+
+/* Window text */
+"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblickin VPN-konfiguraatio on upotettu liian syvällte kohteeseen '%@'";
+
+/* Window text */
+"A passphrase is required to connect to\n  %@%@" = "Salasana vaaditaan yhteyden muodostamiseen kohteeseen \n  %1$@%2$@";
+
+/* Window text */
+"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Yksityinen konfiguraatio nimellä '%@' on jo olemassa.\n\nHaluatko korvata sen jaetulla konfiguraatiolla?";
+
+/* Window text */
+"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Tapahtui virhe, kun tarkistettiin tietokoneen julkista IP-osoitetta.\n\n\nKatso konsolilokista lisätietoja.\n\n";
+
+/* Window text */
+"A username and password are required to connect to\n  %@" = "Käyttäjätunnus ja salasana vaaditaan yhdistääksesi\n  %@";
+
+/* Window text */
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Käyttäjätunnus ja salasana tarvitaan yhteyden muodostamiseksi kohteeseen %1$@ (käyttäen tunnuksia '%2$@')";
+
+/* Window text */
+"Add Credentials..." = "Lisää käyttäjätunnus…";
+
+/* Window text */
+"Added '.sh' extension to %@ so it will be secured properly" = "Lisättiin '.sh' tiedostopääte kohteeseen %@, jotta se suojataan kunnolla";
+
+/* Window text */
+"Added a '.key' extension to %@ so it will be secured properly" = "Lisättiin pääte '.key' kohteeseen %@, jotta se suojataan kunnolla";
+
+/* Window text */
+"Additional contributions by" = "Muut avustajat";
+
+/* Window text */
+"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "%1$.1f sekunnin jälkeen luovuin IP-osoitetietojen hakemisesta.\n\nTunnelblick ei tarkista tämän tietokoneen IP-osoitemuutoksia, kun %2$@ on kytkeytyneenä.\n\n";
+
+/* Window text */
+"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Kohteeseen %@ tehdyn yhteydenmuodostuksen jälkeen DNS ei näytä toimivan.\n\nTämä voi tarkoittaa, ettei VPN ole konfiguroitu oikein.\n\n";
+
+/* Window text */
+"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Kohteeseen %@ tehdyn yhteydenmuodostuksen jälkeen Internet-yhteys ei näytä olevan käytettävissä.\n\nTämä voi tarkoittaa, ettei VPN ole konfiguroitu oikein.\n\n";
+
+/* Window text */
+"All configuration files have been removed. Tunnelblick must quit." = "Kaikki konfiguraatiotiedostot on poistettu. Tunnelblick suljetaan.";
+
+/* Window text */
+"All configurations use %@ credentials" = "Kaikki konfiguraatiot käyttävät tunnuksia %@";
+
+/* Window text */
+"An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Virhe (status %1$ld) tapahtui, kun yritettiin tarkistaa konfiguraation %2$@ turvallisuutta.\n\\Käynnistä Tunnelblick uudestaan. Mikäli ongelma jatkuu, asenna Tunnelblick uudestaan.";
+
+/* Window text */
+"An error occurred while trying to launch %@" = "Virhe tapahtui, kun yritettiin käynnistää %@";
+
+/* Window text */
+"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Virhe tapahtui, kun yritettiin palauttaa varmistettu (varjo)kopio. Katso päätelokista lisätietoja.\n\n";
+
+/* Window text */
+"An internal Tunnelblick error occurred%@%@" = "Sisäinen Tunnelblick-virhe tapahtui%1$@%2$@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "Sisäinen Tunnelblick-virhe tapahtui: fileIsReasonableSize: Ei saada attribuutteja: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "Sisäinen Tunnelblick-virhe tapahtui: fileIsReasonableSize: Ei saada kokoa: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "Sisäinen Tunnelblick-virhe tapahtui: fileIsReasonableSize: Ei saada tyyppiä: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "Sisäinen Tunnelblick-virhe tapahtui: fileIsReasonableSize: virheellinen tiedostotyyppi: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Sisäinen Tunnelblick-virhe tapahtui: fileIsReasonableSize: polku on tyhjä";
+
+/* Window text */
+"Anonymous unique ID" = "Anonyymi yksikäsitteinen ID";
+
+/* Window text */
+"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Oletko varma, että et halua muuntaa OpenVPN konfiguraatioita Tunnekblick VPN konfiguraatioiksi?\n\nKONFIGURAATIOT EIVÄT OLE KÄYTÖSSÄ JOS ET MUUNNA NIITÄ!\n\n";
+
+/* Window text */
+"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Oletko varma, että haluat tuhota käyttäjätunnukset (yksityinen avain tai käyttäjätunnus ja salasana) tallennettuna käyttäjän '%@' Avainnippuun?";
+
+/* Window text */
+"Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Oletko varma, että haluat tuhota käyttäjätunnukset (yksityinen avain tai käyttäjätunnus ja salasana) tallennettuna käyttäjän '%@' Avainnippuun?";
+
+/* Window text */
+"At line %lu of the OpenVPN configuration file: %@" = "Rivillä %1$lu OpenVPN-konfiguraatiotiedostossa: %2$@";
+
+/* Window text */
+"B" = "B";
+
+/* Window text */
+"B/s" = "B/s";
+
+/* Window text */
+"Backslash at end of line %u is not allowed" = "Kenoviiva rivin %u lopussa ei ole sallittu";
+
+/* Window text */
+"Cannot find configuration file at %@" = "Konfiguraatiotiedostoa kohteessa %@ ei löydy";
+
+/* Window text */
+"Cannot install configurations to either shared or private locations" = "Konfiguraatioita ei voida asentaa joko jaettuihin tai yksityisiin paikkoihin";
+
+/* Window text */
+"Cannot uninstall configuration '%@' because it is not installed." = "Konfiguraation '%@' poistaminen ei onnistu, koska sitä ei ole asennettu.";
+
+/* Window text */
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfiguraatio '%@' sisältää yhden tai useamman skriptin, joka voi aiheuttaa ongelmia, jos korvaat tai poistat konfiguraation, kun yhteys on muodostettuna.\n\nHaluatko korvata konfiguraation?";
+
+/* Window text */
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfiguraatiota '%@' ei voi päivittää, koska sitä ei ole merkitty 'päivitettävissä olevaksi'.\n";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguraatio '%1$@' jätetään huomiotta, koska sen nimi sisältää ei-sallittuja merkkejä.\n\nEi-sallitut merkit: '%2$s'\n\n";
+
+/* Window text */
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Konfiguraatiot asennetaan tiedostoista, jotka tarjoaa verkkosi valvoja tai VPN-yhteyden tarjoajasi.\n\nKonfiguraatiotiedostojen päätteenä on .tblk, .ovpn, tai .conf.\n\n(Voi olla muitakin tiedostoja, jotka liittyvät konfiguraatioon, ja joilla on muita päätteitä; jätä ne nyt huomiotta.)\n\nKaksoisnapauta konfiguraatiotiedostoa asentaaksesi sen.\n\nUusi konfiguraatio on Tunnelblickin käytettävissä välittömästi.";
+
+/* Window text */
+"Connect:" = "Muodosta yhteys:";
+
+/* Window text */
+"Connection:" = "Yhteys:";
+
+/* Window text */
+"Converted OpenVPN configuration" = "OpenVPN-konfiguraatio muunnettiin";
+
+/* Window text */
+"Converting %@ at line %lu: %@" = "Muunnetaan %1$@ rivillä %2$lu: %3$@";
+
+/* Window text */
+"Converting %@: %@" = "Muunnetaan %1$@: %2$@";
+
+/* Window text */
+"Copied %@" = "Kopioitiin %@";
+
+/* Window text */
+"Copied %@, removing CR characters" = "Kopioitiin %@, poistettiin rivinvaihtomerkit";
+
+/* Window text */
+"Copyright © 2004-%@ Angelo Laub and others." = "Oikeudet pidätetään © 2004-%@ Angelo Laub ja muut.";
+
+/* Window text */
+"Could not copy %@ to %@" = "Objektin %1$@ kopiointi kohteeseen %2$@ epäonnistui";
+
+/* Window text */
+"Could not create %@" = "Ei voitu luoda %@";
+
+/* Window text */
+"Could not delete %@" = "Ei voinut poistaa objektia %@";
+
+/* Window text */
+"Could not find easy-rsa in Tunnelblick.app" = "Easy-rsa:ta ei löytynyt Tunnelblick.app-paketista";
+
+/* Window text */
+"Could not find easy-rsa version information in Tunnelblick.app" = "Easy-rsa-versiotietoa ei löytynyt Tunnelblick.app-paketista";
+
+/* Window text */
+"Could not get attributes of %@" = "Kohteen %@ attribuutteja ei saatu";
+
+/* Window text */
+"Could not get modification date of %@" = "Kohteen %@ muokkauspäivää ei saatu";
+
+/* Window text */
+"Could not resolve symbolic link at %@" = "Ei voitu selvittää symbolista linkkiä kohteessa %@";
+
+/* Window text */
+"Could not set modification date of %@ to %@" = "Kohteen Could %1$@ muokkauspäivämäärää ei pystytty asettamaan arvoon %2$@";
+
+/* Window text */
+"DNS servers:" = "DNS-palvelimet:";
+
+/* Window text */
+"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "Konfiguraation poisto on pysyvää eikä sitä voi peruuttaa.\n\nKaikki konfiguraation asetukset poistetaan myös pysyvästi.\n\n%1$@%2$@\n\nOletko varma, että haluat poistaa konfiguraation'%3$@'?";
+
+/* Window text */
+"Did not need to modify configuration file; no path information to remove" = "Konfiguraatiotiedostoa ei tarvinnut muokata; ei polkutietoa poistettavana";
+
+/* Window text */
+"Do you wish to delete the %@ credentials?" = "Haluatko poistaa käyttäjätunnukset %@?";
+
+/* Window text */
+"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Haluatko asentaa konfiguraation '%@', niin että kaikki käyttäjät voivat käyttää sitä vai niin, että vain sinä voit käyttää sitä?\n\n";
+
+/* Window text */
+"Do you wish to reinstall '%@' version %@?" = "Haluatko asentaa uudelleen '%1$@', versio %2$@?";
+
+/* Window text */
+"Do you wish to replace '%@' version %@ with version %@?" = "Haluatko korvata kohteen '%1$@' version %2$@ versiolla %3$@?";
+
+/* Window text */
+"Do you wish to replace the '%@' configuration?\n\n" = "Haluatko korvata konfiguraation '%@'?\n\n";
+
+/* Window text */
+"Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Haluatko palauttaa konfiguraation '%@'viimeisimpään tallennettuun (varjo)kopioon?\n\n";
+
+/* Window text */
+"Domain:" = "Domain:";
+
+/* Window text */
+"Double-quote missing in line %u" = "Lainausmerkit puuttuvat riviltä %u";
+
+/* Window text */
+"EB" = "EB";
+
+/* Window text */
+"EB/s" = "EB/s";
+
+/* Window text */
+"Expected command not found for '%@'" = "Odotettua komentoa ei löydy kohteelle '%@'";
+
+/* Window text */
+"Expected path not found for '%@'" = "Odotettua polkua ei löydy kohteelle '%@'";
+
+/* Window text */
+"Failed to copy %@ to %@" = "Ei voitu kopioida objektia %1$@ kohteeseen %2$@";
+
+/* Window text */
+"Failed to create folder at %@" = "Kansion %@ luominen ei onnistunut";
+
+/* Window text */
+"Failed to create symlink\n  to %@\n  at %@" = "Ei voitu luoda symbolista linkkiä\n  kohteeseen %1$@\n  paikkaan %2$@";
+
+/* Window text */
+"Failed to set permissions on %@\n" = "Ei voitu asettaa käyttöoikeuksia kohteelle %@\n";
+
+/* Window text */
+"Fast User Switching" = "Nopea käyttäjien vaihto";
+
+/* Window text */
+"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Tiedosto '%@' näyttää olevan 'rich text' -muodossa, koska se alkaa '{'-merkillä. Kaikkien OpenVPN:ään liittyvät tiedostojen on oltava 'pelkkä teksti'- tai 'UTF-8'-tiedostoja.";
+
+/* Window text */
+"File '%@' ends with a backslash, which is not allowed." = "Tiedosto '%@' päättyy kenoviivaan, mikä ei ole sallittua.";
+
+/* Window text */
+"File '%@' has an extension which is not known to Tunnelblick." = "Tiedostolla \"%@\" on pääte, jota Tunnelblick ei tunne.";
+
+/* Window text */
+"File '%@' is empty" = "Tiedosto \"%@\" on tyhjä";
+
+/* Window text */
+"File '%@' is missing" = "Tiedosto \"%@\" puuttuu";
+
+/* Window text */
+"File is too large: %@" = "Tiedosto on liian suuri: %@";
+
+/* Window text */
+"GB" = "GB";
+
+/* Window text */
+"GB/s" = "GB/s";
+
+/* Window text */
+"Icon:" = "Ikoni:";
+
+/* Window text */
+"In %@:\n\nThere are no OpenVPN configurations to install." = "Kohteessa %@:\n\nEi ole OpenVPN-konfiguraatioita asennettavaksi.";
+
+/* Window text */
+"In the OpenVPN configuration file for '%@' at line %lu: %@" = "OpenVPN-konfiguraatiotiedostossa kohteelle '%1$@' rivillä %2$lu: %3$@";
+
+/* Window text */
+"In the OpenVPN configuration file for '%@': %@" = "OpenVPN-konfiguraatiotiedostossa kohteelle '%1$@': %2$@";
+
+/* Window text */
+"In:" = "Sisään:";
+
+/* Window text */
+"Installation failed:\n\n%@" = "Asennus epäonnistui: %@";
+
+/* Window text */
+"Installation finished successfully." = "Asennus onnistui.";
+
+/* Window text */
+"Installing Tunnelblick VPN Configurations..." = "Asentaa Tunnelblick VPN-konfiguraatioita…";
+
+/* Window text */
+"Installing and securing Tunnelblick..." = "Asentaa ja suojaa Tunnelblickiä…";
+
+/* Window text */
+"Installing configurations is not allowed" = "Konfiguraatioiden asentaminen ei ole sallittua";
+
+/* Window text */
+"Invalid value '%@' for '%@' in %@" = "Virheellinen arvo '%1$@' objektille '%2$@' kohteessa %3$@";
+
+/* Window text */
+"KB" = "kt";
+
+/* Window text */
+"KB/s" = "kt/s";
+
+/* Window text */
+"Keyboard shortcut:" = "Näppäinoikotie:";
+
+/* Window text */
+"Last checked: %@" = "Viimeksi tarkistettu: %@";
+
+/* Window text */
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Rivillä %1$d tiedostossa '%2$@' on ei-tulostuva merkki (0 x %3$X), mikä ei ole sallittua.\n\n";
+
+/* Window text */
+"Localization by" = "Kääntäjät";
+
+/* Window text */
+"MB" = "Mt";
+
+/* Window text */
+"MB/s" = "Mt/s";
+
+/* Window text */
+"Maximum log display size:" = "Maksimi lokin koko:";
+
+/* Window text */
+"Menu:" = "Valikko:";
+
+/* Window text */
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Puuttuva CFBundleIdentifier tai CFBundleVersion kohteessa Info.plist objektille\n\n%@\n\nTämä VPN-konfiguraatio on sisällytetty päivitettävissä olevaan ulkoiseen VPN-konfiguraatioon, joten sen on sisällytettävä oma CFBundleIdentifier ja CFBundleVersion.";
+
+/* Window text */
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Puuttuva Info.plist kohteelle\n\n%@\n\nTämä VPN-konfiguraatio sisältyy päivitettävissä olevaan ulkoiseen VPN-konfiguraatioon, joten sen sisällytettävä Info.plist.";
+
+/* Window text */
+"Modified configuration file to remove path information" = "Konfiguraatiotiedostoa muokattiin polkutiedon poistamiseksi";
+
+/* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Useita samanaikaisia yhteyksiä luotaisiin (%1$d optiolla 'Set nameserver', %2$d ilman optiota 'Set nameserver').";
+
+/* Window text */
+"Named Credentials" = "Nimetyt käyttäjätunnukset";
+
+/* Window text */
+"Names may not include any of the following characters: %s\n\n%@" = "Nimet eivät voi sisältää mitään seuraavista merkeistä: %1$s\n\n%2$@";
+
+/* Window text */
+"Names may not include any of the following characters: %s\n\nPlease enter a name for the new credentials:\n\n" = "Nimet eivät voi sisältää mitään seuraavista merkeistä: %s\n\nKirjoita nimi uusille käyttäjätunnuksille:\n\n";
+
+/* Window text */
+"NetBIOS name:" = "NetBIOS-nimi:";
+
+/* Window text */
+"Network setting" = "Verkkoasetus";
+
+/* Window text */
+"No 'TBPackageVersion' in %@" = "Ei 'TBPackageVersion' kohteessa %@";
+
+/* Window text */
+"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Ei polkua easy-rsa:han. Todennäköisin syy on ongelma 'easy-rsaPath'-asetuksessa";
+
+/* Window text */
+"Non-array value for '%@' in %@" = "Ei-taulukkoarvo objektilla '%1$@' kohteessa %2$@";
+
+/* Window text */
+"Non-boolean value for '%@' in %@" = "Ei-boolean arvo objektilla %1$@ kohteessa %2$@";
+
+/* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
+"Non-integer value for '%@' in %@" = "Ei-kokonaislukumuotoinen arvo objektille '%1$@' kohteessa %2$@";
+
+/* Window text */
+"Non-string value for '%@' in %@" = "Ei-merkkijonomuotoinen arvo objektilla %1$@ kohteessa %2$@";
+
+/* Window text */
+"Non-string value for an item in '%@' in %@" = "Ei-merkkijonomuotinen arvo objektilla '%1$@' kohteessa %2$@";
+
+/* Window text */
+"Not a .ovpn or .conf: %@" = "Ei .ovpn tai .conf: %@";
+
+/* Window text */
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Olemassa olevaa konfiguraatiota ei korvata, joten konfiguraatio '%@' ei voi käyttää 'TBKeepExistingFilesList'";
+
+/* Window text */
+"Notification window:" = "Ilmoitusikkuna:";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Yksi tai useampi OpenVPN-prosessi on käynnissä, mutta ne ovat tuntemattomia Tunnelblickille. Jos et suorita OpenVPN:ää erillään Tunnelblickistä, tämä yleensä tarkoittaa, että Tunnelblickin aiempi suoritus ei päättynyt kunnolla ja sinun pitäisi tuhota ne. Ne aiheuttavat todennäköisesti häiriöitä Tunnelblickin toiminnalle. Haluatko tuhota kaikki OpenVPN-prosessit?";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Yksi tai useampi OpenVPN-prosessi on käynnissä, mutta ne ovat tuntemattomia Tunnelblickille. Jos et suorita OpenVPN:ää erillään Tunnelblickistä, tämä yleensä tarkoittaa, että Tunnelblickin aiempi suoritus ei päättynyt kunnolla ja sinun pitäisi tuhota ne. Ne aiheuttavat todennäköisesti häiriöitä Tunnelblickin toiminnalle. Haluatko tuhota ne?";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Yksi tai useampi OpenVPN-prosessi on käynnissä, mutta ne ovat tuntemattomia Tunnelblickille. Jos et suorita OpenVPN:ää erillään Tunnelblickistä, tämä yleensä tarkoittaa, että Tunnelblickin aiempi suoritus ei päättynyt kunnolla ja sinun pitäisi tuhota ne. Ne aiheuttavat todennäköisesti häiriöitä Tunnelblickin toiminnalle.\n\nNe voidaan tuhota 'Järjestelmän valvonta'-sovelluksessa.\n\n";
+
+/* Window text */
+"One or more configurations are being ignored. See the Console Log for details." = "Yksi tai useampi konfiguraatio jätetään huomiotta. Katso päätelokista lisätietoja.";
+
+/* Window text */
+"One or more problems were detected:\n\n%@" = "Yksi tai useampia ongelmia havaittiin:\n\n%@";
+
+/* Window text */
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Vain Tunnelblick VPN-yhteys (.tblk) voi käynnistyä, kun tietokone käynnistyy.";
+
+/* Window text */
+"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN ei vastaa yhteydenkatkaisupyyntöihin %@.\n\nTunnelblick katkaisee yhteyden, kun OpenVPN alkaa vastata katkaisupyyntöihin.\n\nTÄMÄ VOI KESTÄÄ JOPA KAKSI MINUUTTIA tietyissä epätavallisissa olosuhteissa.\n\nYhteys on pois käytöstä, kunnes se on katkaistu.";
+
+/* Window text */
+"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN versio %1$@ ei ole saatavilla. Muunnetaan konfiguraatio käyttämään uusinta versiota (%2$@), joka on sisällytetty tähän Tunnelblick-versioon.";
+
+/* Window text */
+"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN-versio %1$@ ei ole käytettävissä. Käytetään uusinta versio (%2$@) oletuksena.";
+
+/* Window text */
+"OpenVPN version:" = "OpenVPN-versio:";
+
+/* Window text */
+"Out:" = "Ulos:";
+
+/* Window text */
+"PB" = "PB";
+
+/* Window text */
+"PB/s" = "PB/s";
+
+/* Window text */
+"Password:" = "Salasana:";
+
+/* Window text */
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Polku '%1$@' sisältää merkkejä, joita ei sallita.\n\nEi-sallittuja merkkejä: '%2$s'\n\n";
+
+/* Window text */
+"Please enter VPN passphrase." = "Kirjoita VPN-salasana.";
+
+/* Window text */
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Kirjoita nimi ja klikkaa \"OK\" tai klikkaa \"Cancel\".\n\n";
+
+/* Window text */
+"Please enter a name for the credentials:\n\n" = "Kirjoita nimi käyttäjätunnuksille:\n\n";
+
+/* Window text */
+"Please enter a new name for '%@'." = "Kirjoita uusi nimi kohteelle '%@'.";
+
+/* Window text */
+"Please insert token \"%@\", then click \"OK\"" = "Aseta tunniste \"%@\", sitten klikkaa \"OK\"";
+
+/* Window text */
+"Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Yksityiset konfiguraatiot eivät voi muodostaa yhteyttä, kun tietokone käynnistyy.\n\nJaa ensin konfiguraatio ja sitten muuta tämä asetus.";
+
+/* Window text */
+"Received fatal signal %d." = "Vastaanotettiin kohtalokas signaali %d.";
+
+/* Window text */
+"Resolved symbolic link at '%@' to '%@'" = "Selvitetään symbolinen linkki kohteesta '%1$@' sijaintiin '%2$@'";
+
+/* Window text */
+"Search domain:" = "Haku-domain:";
+
+/* Window text */
+"Securing Tunnelblick..." = "Varmistetaan Tunnelblick…";
+
+/* Window text */
+"Set DNS/WINS:" = "Aseta DNS/WINS:";
+
+/* Window text */
+"Single-quote missing in line %u" = "Heittomerkki puuttuu riviltä %u";
+
+/* Window text */
+"Skipped copying %@ because a file with that name and contents has already been copied." = "Ohitettiin kohteen %@ kopiointi, koska sen niminen ja sisältöinen tiedosto on jo kopioitu.";
+
+/* Window text */
+"Starting Tunnelblick..." = "Käynnistetään Tunnelblick…";
+
+/* Window text */
+"Startup window:" = "Käynnistysikkuna:";
+
+/* Window text */
+"Symbolic links nested too deeply. Gave up at %@" = "Symboliset linkit ulottuvat liian syvälle. Lopettiin kohdassa %@";
+
+/* Window text */
+"TB" = "TB";
+
+/* Window text */
+"TB/s" = "TB/s";
+
+/* Window text */
+"TBRunAlertPanel returned an error" = "TBRunAlertPanel palautti virheen";
+
+/* Window text */
+"TUNNELBLICK is brought to you by" = "TUNNELBLICKin tarjoaa sinulle";
+
+/* Window text */
+"Thank you very much for your donation to the TunnelblickProject." = "Suuret kiitokset lahjoituksestasi Tunnelblick-projektille.";
+
+/* Window text */
+"Thanks for your Tunnelblick donation" = "Kiitos Tunnelblick-lahjoituksestasi";
+
+/* Window text */
+"That name is being used.\n\n" = "Tätä nimeä käytetään.\n\n";
+
+/* Window text */
+"The %@ system folder (%@) does not exist." = "%1$@ järjestelmäkansiota (%2$@) ei ole olemassa.";
+
+/* Window text */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "%1$@ järjestelmäkansio (%2$@) ei ole suojattu.\n\nTunnelblick ei ehkä toimi oikein, ennen kuin tämä on korjattu.\n\nLevytyökalun 'Korjaa levyn oikeudet' -toiminto voi pystyä korjaamaan ongelman.";
+
+/* Window text */
+"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "OpenVPN-optio '%@' ei ole sallittu OS X:ssä. Se on vain Windowsia koskeva optio.";
+
+/* Window text */
+"The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN-optio '%@' ei ole sallittu Tunnelblickiä käytettäessä.";
+
+/* Window text */
+"The '%@' credentials may not be added because the list of named credentials is being forced." = "Käyttäjätunnuksia '%@' ei pystytä lisäämään, koska nimettyjen tunnusten lista on pakotettu.";
+
+/* Window text */
+"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "Käyttäjätunnuksia '%@' ei voida poistaa, koska yksi tai useampi konfiguraatio on pakotettu käyttämään niitä.";
+
+/* Window text */
+"The '%@' credentials may not be deleted because the list of named credentials is being forced." = "Käyttäjätunnuksia '%@' ei voida poistaa, koska nimettyjen käyttäjätunnusten lista on pakotettu.";
+
+/* Window text */
+"The '%@' option is not allowed in an OpenVPN configuration file that is in a Tunnelblick VPN Configuration unless the file it references is specified with an absolute path." = "Optio '%@' ei ole sallittu OpenVPN-konfiguraatiotiedostossa, joka on Tunnelblick VPN -konfiguraatiossa, ellei sen viittaamalla tiedostolla ole absoluuttinen polku.";
+
+/* Window text */
+"The 'credentialsNames' preference must be an array of strings." = "Asetus 'credentialsNames' täytyy olla merkkijonotaulukko.";
+
+/* Window text */
+"The 'namedCredentialsNames' preference must be an array of strings" = "Asetus 'namedCredentialsNames' täytyy olla merkkijonotaulukko";
+
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "OpenVPN-konfiguraatiotiedosto kohteessa %1$@ sisältää option '%2$@', joka on vain Windowsia koskeva. Sitä ei voida käyttää OS X:ssä.";
+
+/* Window text */
+"The OpenVPN log does not yet exist or has been deleted." = "OpenVPN-lokia ei ole vielä olemassa tai se on tuhottu.";
+
+/* Window text */
+"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "Tunnelblick-asetukset olivat korruptoituneet ja ne on nollattu. (Vanhat asetukset nimettiin uudelleen.)\n\nKatso konsolilokista lisätietoja.";
+
+/* Window text */
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "Yritys muodostaa yhteys %1$@ on peruutettu: runOnConnect-skripti palautti statuksen: %2$ld.";
+
+/* Window text */
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "'%@':n konfiguraatiotiedosto vaikuttaa käyttävän 'käyttäjä’- ja/tai 'ryhmä'-optioita ja käyttää kumousskriptiä ('Älä aseta nimipalvelinta' ei valittuna tai konfiguraatiotiedostossa on olemassa 'kumoa'-optio).\n\nOn todennäköistä, että yhteyden uudelleenmuodostus (tehdään automaattisesti, kun yhteys katkeaa) epäonnistuu ellei 'openvpn-down-root.so'-liitännäistä OpenVPN:lle käytetään.\n\nHaluatko käyttää liitännäistä?";
+
+/* Window text */
+"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Konfiguraatiotiedosto kohteelle '%@' ei näytä sisältävän optiota 'dev tun' tai 'dev tap'. Tätä optiota voidaan tarvita Tunnelblickin oikeaan toimintaan. Varmista asia verkkosi ylläpitäjältä tai OpenVPN-dokumentaatiosta.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "Konfiguraatiotiedosto viittaa tiedostoon \n\n%@\n\njota ei ole olemassa (edes konfiguraatiossa, jota ollaan korvaamassa).";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "Konfiguraatiotiedosto viittaa tiedostoon \n\n%@\n\njota ei ole olemassa uudessa konfiguraatiossa, joten olemassaolevaa suojaamatonta tiedostoa on käytetty.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "Konfiguraatiotiedosto viittaa tiedostoon \n\n%@\n\njota ei ole olemassa.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced)." = "Konfiguraatiotiedosto viittaa tiedostoon \n\n%1$@\n\njonka pitäisi sijaita kohteessa \n\n%2$@\n\nmutta tiedostoa ei ole olemassa (edes konfiguraatiossa, jota ollaan korvaamassa).";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "Konfiguraatiotiedosto viittaa tiedostoon \n\n%1$@\n\njonka pitäisi sijaita kohteessa \n\n%2$@\n\nmutta tiedostoa ei ole olemassa.";
+
+/* Window text */
+"The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Etä-VPN-palvelin ei hyväksynyt käyttäjävaltuutusta (salasana tai käyttäjätunnus/salasana).";
+
+/* Window text */
+"The credentials named %@ could not be added:\n\n%@" = "Nimettyjä tunnuksia %1$@ ei voitu lisätä:\n\n%2$@";
+
+/* Window text */
+"The credentials named %@ could not be removed:\n\n%@" = "Nimettyjä tunnuksia %1$@ ei voitu poistaa:\n\n%2$@";
+
+/* Window text */
+"The file %@ is empty" = "Tiedosto %@ on tyhjä";
+
+/* Window text */
+"The file %@ is missing" = "Tiedosto %@ puuttuu";
+
+/* Window text */
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Yhden tai useamman Tunnelblick-komponentin asennus, poisto, palauttaminen tai korjaaminen epäonnistui. Katso lisätietoja päätelokista.";
+
+/* Window text */
+"The passphrase must not be empty!\nPlease enter VPN passphrase." = "Salasana ei saa olle tyhjä!\nKirjoita VPN-salasana.";
+
+/* Window text */
+"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Yksityistä konfiguraatiota ei ole varmistettu koskaan, joten et voi palauttaa varmistettua (varjo)kopiota.";
+
+/* Window text */
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "Mallikonfiguraatiokansio on luotu Työpöydälle ja OpenVPN-konfiguraatiotiedosto on avattu Texturissa, joten voit muokata tiedostoa VPN-asetuksiasi varten.\n\nKun olet lopettanut OpenVPN-konfiguraatiotiedoston muokkaamisen ja tallentanut muutokset,\n\n1. Siirrä tai kopioi avain- tai varmennetiedostot, jotka liittyvät konfiguraatioon kansioon ‘'Sample Tunnelblick VPN Configuration' Työpöydällä.\n\n(Tämä kansio on avattu Finder-ikkunassa, joten voit raahata tiedostot sinne. )\n\n2. Muuta kansion nimi haluamaksesi. Tämä on nimi, jota Tunnelblick käyttää konfiguraatiolle.\n\n3. Lisää pääte .tblk kansion nimeen.\n\n4. Tuplaklikkaa kansiota asentaaksesi konfiguraation.\n\nUusi konfiguraatio on Tunnelblickissä käytettävissä välittömästi.";
+
+/* Window text */
+"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Käyttäjätunnus ja salasana eivät saa olla tyhjiä!\nKirjoita VPN-käyttäjätunnus/-salasanayhdistelmä.";
+
+/* Window text */
+"There are no OpenVPN configurations to install." = "Ei ole asennettavia OpenVPN-konfiguraatioita.";
+
+/* Window text */
+"There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "VPN-konfiguraatioita ei ole asennettuna.\n\nTunnelblick tarvitsee yhden tai useamman asennetun konfiguraation muodostaakseen VPN-yhteyden. Konfiguraatiot asennetaan tiedostoista, jotka useimmiten toimittaa sinulle verkkosi ylläpitäjä tai VPN-yhteyden tarjoaja. Tiedostot on asennettava, jotta niitä voidaan käyttää.\n\nKonfiguraatiotiedostoilla on päätteenä .tblk, .ovpn, tai .conf.\n\n(Konfiguraatioon voi liittyä muita tiedostoja, joilla on muita tiedostopäätteitä; jätä ne huomiotta tässä vaiheessa.)\n\nOnko sinulla konfiguraatiotiedostoja?\n";
+
+/* Window text */
+"There is not an OpenVPN configuration file in '%@'" = "OpenVPN-konfiguraatiotiedostoa ei ole kohteessa '%@'";
+
+/* Window text */
+"There was a problem with\n\n%@:\n\n%@" = "Kohteessa havaittiin ongelma:\n\n%1$@:\n\n%2$@";
+
+/* Window text */
+"There was a problem:\n\n%@" = "Havaittiin ongelma:\n\n%@";
+
+/* Window text */
+"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Tätä 'Käyttöönotettua' Tunnelblickin versiota ei voida käynnistää tai asentaa, koska sitä ei ole uudelleenbrändätty tai updateFeedURL tai SUFeedURL puuttuvat tai sisältävät 'tunnelblick.net' tai CFBundleIdentifier puuttuu tai sisältää 'net.tunnelblick'.\n\n";
+
+/* Window text */
+"This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Tätä 'Käyttöönotettua’' Tunnelblickin versiota ei voida käynnistää tai asentaa, koska sillä ei ole tiedostoa Info.plist.\n\n";
+
+/* Window text */
+"This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Tämän tietokoneen julkinen IP-osoite ei muuttunut, kun yhteys muodostettin kohteeseen %1$@. Se on edelleen %2$@.\n\nTämä voi tarkoittaa, että VPN:si ei ole oikein konfiguroitu.\n\n";
+
+/* Window text */
+"This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Tätä Tunnelblickin kopiota on sormeiltu (digitaalinen allekirjoitus on epäkelpo).\n\nOta yhteyttä tämän Tunnelblickin kopion tarjoajaan ennen käyttöä.\n\n";
+
+/* Window text */
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "Tämä Tunnelblickin kopio ei ole digitaalisesti allekirjoitettu.\n\nEi ole mahdollisuutta varmistaa, onko tätä kopiota sormeiltu.\n\n Ota yhteyttä tämän Tunnelblickin kopion tarjoajaan ennen käyttöä.\n\n";
+
+/* Window text */
+"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Tätä Tunnelblickin versiota ei voida käynnistää tai asentaa, koska sillä on epäkelpo päivitys-URL.\n\n";
+
+/* Window text */
+"This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Tätä versiota Tunnelblickistä ei voida käynnistää tai asentaa, koska se ei ole 'Deployed' versio, ja yksi tai useampi 'Deployed' versio Tunnelblickistä on aiemmin asennettu.\n\n";
+
+/* Window text */
+"Too many configuration files in '%@'" = "Liian monia konfiguraatiotiedostoja kohteessa '%@'";
+
+/* Window text */
+"Too many duplicate configurations already exist." = "Liian monta kopiokonfiguraatiota on jo olemassa.";
+
+/* Window text */
+"Tunnelblick Internet Use:" = "Tunnelblickin Internet-yhteyden käyttö:";
+
+/* Window text */
+"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick voi tarkistaa, että tietokoneen julkinen IP-osoite muuttuu, kun muodostat VPN-yhteyden ja varoittaa sinua, jos se ei muutu.\n\nTämä voi auttaa Tunnelblickiä diagnostisoimaan ongelmia yhteytesi kanssa.\n\nTämä prosessi yrittää käyttää \n%@\n\nHaluatko tarkistaa tämän IP-osoitteen muuttamisen?\n";
+
+/* Window text */
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblickiä ei voitu konfiguroida käynnistämään itsensä automaattisesti, kun kirjaudut sisään.  Katso lisätietoja konsolilokista.";
+
+/* Window text */
+"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblickiä ei voitu käynnistää konfiguraatio-ongelman vuoksi.  Tutki päätelokista lisätietoja.";
+
+/* Window text */
+"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt poistamaan täysin konfiguraatiota '%@'. Katso lisätietoja konsolilokista.";
+
+/* Window text */
+"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt kopioimaan konfiguraatiota '%@'. Katso päätelokista lisätietoja.";
+
+/* Window text */
+"Tunnelblick could not create the empty configuration folder" = "Tunnelblick ei pystynyt luomaan tyhjää konfiguraatiokansiota";
+
+/* Window text */
+"Tunnelblick could not create the sample configuration" = "Tunnelblick ei pystynyt luomaan mallikonfiguraatiota";
+
+/* Window text */
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick ei pasty näyttämään ikkunaa.\n\nCFUserNotificationCreate() palautti virheen = %1$ld; ilmoitus = 0x%2$lX";
+
+/* Window text */
+"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick ei pystynyt noutamaan IP-osoitetietoa ennen kuin yhteys kohteeseen %@ muodostettiin.\n\n";
+
+/* Window text */
+"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick ei pystynyt löytämään konfiguraatiotiedostoa tai konfiguraatiotiedostoa ei pystytty siivoamaan. Katso lisätietoja konsolilokista.";
+
+/* Window text */
+"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt siirtämään konfiguraatiota '%@'. Katso päätelokista lisätietoja.";
+
+/* Window text */
+"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt poistamaan konfiguraatiota '%@'. Katso päätelokista lisätietoja.";
+
+/* Window text */
+"Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@" = "Tunnelblick kohtasi kohtalokkaan virheen.\n\nTunnelblickin uudelleenasennus voi korjata tämän ongelman. Ongelma oli:\n\n%@";
+
+/* Window text */
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick kohtasi virheitä %1$lu konfiguraatioissa:\n\n%2$@%3$@%4$@%5$@";
+
+/* Window text */
+"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick ei onnistunut korjaamaan ongelmia %@':n asetuksissa. Lisätiedot ovat päätelokissa";
+
+/* Window text */
+"Tunnelblick has been secured successfully." = "Tunnelblick on turvattu onnistuneesti.";
+
+/* Window text */
+"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick on katkaissut yhteyden '%@', koska sen konfiguraatiotiedosto on poistettu.";
+
+/* Window text */
+"Tunnelblick is based on %@." = "Tunnelblick perustuu %@.";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick is valmis.";
+
+/* Window text */
+"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblickin on luotava tai päivitettävä turvallinen (varjo)kopio konfiguraatiotiedostosta.";
+
+/* Window text */
+"Tunnelblick needs to:\n" = "Tunnelblickin tarvitsee:\n";
+
+/* Window text */
+"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick vaatii OS X 10.4 tai uudemman\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
+
+/* Window text: '* Installed/Replaced/Uninstalled' */
+"Tunnelblick successfully:\n\n" = "Tunnelblick onnistuneesti:\n\n";
+
+/* Window text */
+"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?" = "Tunnelblick asennettiin onnistuneesti.\n\nHaluatko käynnistää Tunnelblickin nyt?";
+
+/* Window text */
+"Tunnelblick was successfully replaced.\n\nDo you wish to launch the new version of Tunnelblick now?" = "Tunnelblick korvattiin onnistuneesti.\n\nHaluatko käynnistää Tunnelblickin uuden version nyt?";
+
+/* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick ei pystynyt muodostamaan yhteyttä olemassa olevaan OpenVPN-prosessiin  '%1$@'  %2$d sekunnin sisällä. Yritys muodostaa yhteyksiä on hylätty.";
+
+/* Window text */
+"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nIf they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them)." = "Tunnelblick ei pystynyt tallentamaan asetuksiaan, koska OS X kieltäytyi tallentamasta niitä. \n\nAsetukset ovat voineet korruptoitua; jos niin on tapahtunut, sinun on ehkä poistettava tiedosto, joka sisältää ne. Asetukset sijaitsevat kohteessa \n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nJos ne ovat korruptoituneet, asetukset nollataan automaattisesti, kun seuraavan kerran käynnistät Tunnelblickin (sen jälkeen, kun niistä on tehty varmuuskopio).";
+
+/* Window text */
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick ei pystynyt käynnistämään OpenVPN:ää muodostaakseen yhteyden %@. Katso lisätietoja lokitiedoista kohdasta VPN-Tiedot… ikkuna";
+
+/* Window text */
+"Unable to Establish Communication" = "Ei pystytä muodostamaan yhteyttä";
+
+/* Window text */
+"Unable to convert OpenVPN configuration" = "Ei pystytty muuntamaan OpenVPN-konfiguraatiota";
+
+/* Window text */
+"Unable to copy file at '%@' to '%@' because the same name is used for different contents" = "Ei pystytty kopioimaan tiedostoa kohteesta  '%1$@' kohteeseen '%2$@', koska samaa nimeä on käytetty eri sisällöille";
+
+/* Window text */
+"Unable to create %@ owned by %ld:%ld with %lo permissions" = "Ei pystytty luomaan %1$@, jonka omistaa %2$ld:%3$ld, jolla on oikeudet %4$lo";
+
+/* Window text */
+"Unable to install the '%@' configuration\n" = "Ei pystytty asentamaan '%@'-konfiguraatiota\n";
+
+/* Window text */
+"Unable to open configuration file for modification" = "Ei pystytty avaamaan konfiguraatiotiedostoa muokkausta varten";
+
+/* Window text */
+"Unable to replace the '%@' configuration\n" = "Ei pystytty korvaamaan konfiguraatiota '%@'\n";
+
+/* Window text */
+"Unable to secure %@ because it is owned by %@" = "Ei pystytty suojaamaan kohdetta %1$@, koska sen omistaa %2$@";
+
+/* Window text */
+"Unable to secure %@" = "Ei pystytty suojaamaan kohdetta %@";
+
+/* Window text */
+"Unable to set permissions on '%@'" = "Käyttöoikeuksien määrittäminen kohteelle '%@' epäonnistui";
+
+/* Window text */
+"Unable to store updatable configuration stub at %@\n" = "Päivitettävissä olevan konfiguraation tynkää kohteessa %@ ei voitu tallentaa\n";
+
+/* Window text */
+"Unable to uninstall the '%@' configuration\n" = "Konfiguraation '%@' poisto epäonnistui\n";
+
+/* Window text */
+"Unable to write to configuration file for modification" = "Ei pystytä kirjoittamaan konfiguraatiotiedostoon muokkauksien tekemiseksi";
+
+/* Window text */
+"Unexpected disconnection:" = "Odottamaton yhteyden katkeaminen:";
+
+/* Window text */
+"Unknown extension '%@' for %@" = "Tuntematon pääte '%1$@' kohteelle %2$@";
+
+/* Window text */
+"Unknown key '%@' in %@" = "Tuntematon avain '%1$@' kohteessa %2$@";
+
+/* Window text */
+"Unknown value '%@' for '%@' in %@" = "Tuntematon arvo '%1$@' objektille '%2$@' kohteessa %3$@";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Päivitettävissä olevaa konfiguraatiota '%1$@' ei tallennettu päivitettävissä olevana, koska kohdetta %2$@ ei löydetty\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Päivitettävissä olevaa konfiguraatiota '%1$@' ei tallennettu päivitettävissä olevana, koska kohdetta %2$@ ei pystytty kopioimaan kohteeseen '%3$@'\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska 'Contents' tynkätiedostossa .tblk ei pystytty luomaan\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska 'Contents/Resources' tynkätiedostossa .tblk ei pystytty luomaan\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska 'SUPublicDSAKeyFile' ei ollut tiedostonimi, jolla on valinnainen pääte\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu, koska 'SUPublicDSAKeyFile' ei ole merkkijono\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska sen tiedosto info.plist 'SUFeedURL' ei alkanut 'https://', ja koska siinä ei ollut kohtaa 'SUPublicDSAKeyFile'\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska sen info.plist-tiedostoa ei voitu tallentaa tynkätiedostoon .tblk\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska CFBundleIdentifier on jo käsitelty\n";
+
+/* Window text */
+"Updates:" = "Päivitykset:";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN-konfiguraatiota %@ EI asenneta, koska sillä on pienempi versionumero.";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN-konfiguraatiota %@ EI asenneta, koska konfiguraatio on jo olemassa ja sitä ei pitäisi korvata.";
+
+/* Window text */
+"VPN Connections" = "VPN-yhteydet";
+
+/* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
+"Value '%@' for '%@' is not a valid URL in %@" = "Arvo ' %1$@' objektille ' %2$@' ei ole kelvollinen URL kohteessa %3$@";
+
+/* Window text */
+"WINS servers:" = "WINS palvelimet:";
+
+/* Window text */
+"Warning: '%@' is already a named credential." = "Varoitus: '%@' on jo nimetty käyttäjätunnus.";
+
+/* Window text */
+"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Varoitus: Yhtä tai useampia asetuksia ei pystytty monistamaan. Katso päätelokista lisätietoja.";
+
+/* Window text */
+"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Varoitus: Yhtä tai useampia asetuksia ei pystytty uudelleennimeämään. Katso päätelokista lisätietoja.";
+
+/* Window text */
+"Warnings:" = "Varoitukset:";
+
+/* Window text */
+"When changes to anything else" = "Muuttuessa miksi tahansa muuksi";
+
+/* Window text */
+"When changes to pre-VPN value" = "Muuttuessa esi-VPN-arvoon";
+
+/* Window text */
+"Workgroup:" = "Työryhmä:";
+
+/* Window text */
+"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Haluatko \n\n  • Luoda mallikonfiguraation Työpöydälle\n             ja\n  • Avata sen OpenVPN-konfiguraatiotiedoston Texturiin, jotta voit muokata sitä VPN-yhteyden muodostamiseksi?\n\n";
+
+/* Window text */
+"You are not allowed to replace a private configuration" = "Sinulla ei ole oikeuksia korvata yksityistä konfiguraatiota";
+
+/* Window text */
+"You are not allowed to replace a shared configuration" = "Sinulla ei ole oikeuksia korvata jaettua konfiguraatiota";
+
+/* Window text */
+"You cannot make a configuration private if it is set to start when the computer starts." = "Et voi tehdä konfiguraatiosta yksityistä, jos se on määritetty käynnistymään, kun tietokone käynnistyy.";
+
+/* Window text */
+"You cannot make a configuration private unless it is disconnected." = "Et voi tehdä konfiguraatiosta yksityistä ellei sitä ole otettu pois käytöstä.";
+
+/* Window text */
+"You cannot make a configuration shared if it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "Et voi jakaa konfiguraatiota, jos se itsessään on päivitettävä konfiguraatio. \n\nHuomaa, että Tunnelblick VPN -konfiguraatio, joka on päivitettävissä olevan Tunnelblick VPN -konfiguraation sisällä, voidaan jakaa.";
+
+/* Window text */
+"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "Et voi jakaa konfiguraatiota, jos se ei ole Tunnelblick VPN-konfiguraatio (.tblk).";
+
+/* Window text */
+"You cannot make a configuration shared unless it is disconnected." = "Et voi jakaa konfiguraatiota, ellei sitä oteta pois käytöstä.";
+
+/* Window text */
+"You cannot rename a configuration unless it is disconnected." = "Et voi uudelleennimetä konfiguraatiota, ellei sitä oteta pois käytöstä.";
+
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Sinulla on OpenVPN-konfiguraatioita, mutta sinulla ei ole yhtään Tunnelblick VPN -konfiguraatiota. \n\nOpenVPN-konfiguraatiot on muunnettava Tunnelblick VPN -konfiguraatioiksi, mikäli haluat käyttää niitä.\n\n";
+
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "Sinulla on OpenVPN-konfiguraatioita, mutta sinulla ei ole yhtään Tunnelblick VPN -konfiguraatiota. \n\nOpenVPN-konfiguraatiot on muunnettava Tunnelblick VPN -konfiguraatioiksi, mikäli haluat käyttää niitä.\n\nTunnelblick ei kuitenkaan pysty muuntamaan niitä, koska kohdattiin ongelma:\n\n%@";
+
+/* Window text */
+"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Sinulla on OpenVPN-konfiguraatioita.\n\nOpenVPN-konfiguraatiot on muunnettava Tunnelblick VPN -konfiguraatioiksi, mikäli haluat käyttää niitä.\n\nTunnelblick ei kuitenkaan pysty muuntamaan niitä, koska kohdattiin ongelma:\n\n%@\n\nJos valitset 'Jätä huomiotta', konfiguraatiot eivät ole käytettävissä!\n\n";
+
+/* Window text */
+"You have asked to duplicate '%@'." = "Olet pyytänyt monistamaan kohteen '%@'.";
+
+/* Window text */
+"You have asked to make the '%@' configuration private, instead of shared." = "Olet pyytänyt tekemään konfiguraation '%@' yksityiseksi, sen sijaan, että se olisi jaettu.";
+
+/* Window text */
+"You have asked to make the '%@' configuration shared, instead of private." = "Olet pyytänyt tekemään konfiguraatiosta '%@' jaetun, sen sijaan, että se olisi yksityinen.";
+
+/* Window text */
+"You have asked to rename '%@' to '%@'." = "Olet pyytänyt uudelleennimeämään kohteen '%1$@'  '%2$@':ksi.";
+
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Sinulla OpenVPN-kokoonpanoja, jotka eivät ole käytettävissä, jos käytetään Tunnelblickin tätä versiota. Voit: \n\n• Antaa Tunnelblickin muuntaa nämä OpenVPN-konfiguraatiot Tunnelblick VPN -konfiguraatioiksi;tai \n• Lopettaa ja asentaa Tunnelblickin eri version; tai \n• Jättää tämän huomiotta ja jatkaa muuntamatta.  \n\nJos valitset \"Jätä huomiotta\" konfiguraatiot eivät ole käytettävissä!\n\n";
+
+/* Window text */
+"You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "Olet yrittänyt asentaa konfiguraatiotiedoston, joka on mallikonfiguraatiotiedosto. Konfiguraatiotiedosto on muunnettava VPN-yhteyden muodostamiseksi. Voit tarvita myös muita tiedostoja, kuten varmenne- tai avaintiedostoja, VPN-yhteyden muodostamiseksi. \n\nOta yhteyttä verkon ylläpitäjääsi tai VPN-yhteydentarjoajaasi saadaksesi konfiguraatio- ja muut tiedostostot tai tiedot, jotka tarvitset mallitiedoston muokkaamiseksi. \n\nKonfiguraatiotiedosto sijaitsee kohteessa \n%@\n\n";
+
+/* Window text */
+"You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect." = "Et voi ottaa käyttöön tätä konfiguraatiota.\n\nJos muunnat sen muotoon 'Tunnelblick VPN-Yhteys (.tblk), pystyt ottamaan sen käyttöön.";
+
+/* Window text */
+"You may not delete a Deployed configuration." = "Et voi poistaa käyttöönotettua konfiguraatiota.";
+
+/* Window text */
+"You may not delete a configuration unless it is disconnected." = "Et voi poistaa konfiguraatiota ellei sitä ole poistettu käytöstä.";
+
+/* Window text */
+"You may not delete a configuration which is set to start when the computer starts." = "Et voi poistaa konfiguraatiota, joka on määritetty käynnistymään tietokoneen käynnistyessä.";
+
+/* Window text */
+"You may not duplicate a Deployed configuration." = "Et voi monistaa käyttöönotettua konfiguraatiota.";
+
+/* Window text */
+"You may not duplicate a configuration which is set to start when the computer starts." = "Et voi monistaa konfiguraatiota, joka on määritetty käynnistymään tietokoneen käynnistyessä.";
+
+/* Window text */
+"You may not rename a Deployed configuration." = "Et voi uudelleennimetä käyttöönotettua konfiguraatiota.";
+
+/* Window text */
+"You may not rename a configuration which is set to start when the computer starts." = "Et voi uudelleennimetä konfiguraatiota, joka on määritetty käynnistymään tietokoneen käynnistyessä.";
+
+/* Window text */
+"You may only revert a private configuration." = "Voit palauttaa ainoastaan yksityisen konfiguraation.";
+
+/* Window text */
+"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "Sinun on lopetettava tällä hetkellä käynnissä oleva Tunnelblick avataksesi uuden kopion.\n\nKlikkaa \"Sulje VPN-yhteydet ja lopeta Tunnelblick\" sulkeaksesi kaikki VPN-yhteydet ja lopettaa tällä hetkellä käynnissä oleva Tunnelblick ennen Tunnelblickin uudelleenkäynnistystä.";
+
+/* Window text */
+"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Et pysty käyttämään Tunnelblickiä päivittämisen jälkeen ellet anna pääkäyttäjän käyttäjätunnusta ja salasanaa.\n\nOletko varma, että haluat tarkistaa päivitykset?";
+
+/* Window text */
+"Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Järjestelmäsi kello ei ehkä ole oikein asetettu.\n\nJotkin konfiguraatioistasi tai kaikki eivät välttämättä mahdollista yhteyden muodostamista ellei järjestelmän kellolla ole oikea päivämäärä ja aika.\n\n";
+
+/* Window text */
+"ZB" = "ZB";
+
+/* Window text */
+"ZB/s" = "ZB/s";
+
+/* Window text */
+"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed because the Info.plist for an \"inner\" .tblk may not contain \"updatable\" .tblk entries." = "\"%1$@\" tiedostossa Info.plist kohteelle\n\n%2$@\n\nei ole sallittu, koska Info.plist \"sisäiselle\" .tblk:lle ei voi sisältää \"päivitettäviä\" .tblk-kohteita.";
+
+/* Window text */
+"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" tiedostossa Info.plist kohteelle\n\n%2$@\n\nei ole sallittu \"sisäisessä\" .tblk:ssa tai on ristiriidassa saman kohteen kanssa \"ulkoisessa\" .tblk:ssa.";
+
+/* Window text */
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n VAROITUS: Tätä Tunnelblicking kopiota on peukaloitu.\n";
+
+/* Window text */
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n  Varoitus: Tämä kopio Tunnelblick tekee tietokoneen epävarma. Se on vain vianetsintätarkoituksiin.\n";
+
+/* Window text */
+"\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Huomaa: Konfiguraatioon liitettyjä tiedostoja, kuten avain- ja varmennetiedostoja, ei poisteta.";
+
+/* Window text */
+"\n\nNote: The configuration's group credentials will not be deleted because other configurations use them." = "\n\nNote: Konfiguraation ryhmätunnuksia ei poisteta, koska muut konfiguraatiot käyttävät niitä.";
+
+/* Window text */
+"\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nja asentaa %ld Tunnelblick VPN-konfiguraatiota";
+
+/* Window text */
+"\nusing %@ credentials." = "\nkäytetään tunnuksia %@.";
+
+/* Window text */
+"easy-rsa installation failed: %@" = "easy-rsa-asennus epäonnistui: %@";
+
+/* Window text */
+"targetPathToReplaceForDisplayName: %@ was found to replace the configuration with CFBundleIdentifer %@, but earlier, %@ was found to replace it." = "targetPathToReplaceForDisplayName: %1$@ todettiin korvaavan konfiguraatio objektilla CFBundleIdentifer %2$@, mutta aiemmin havaittiin, että %3$@ korvaa sen.";
+
+/* Suffix for a duplicate of a file */
+" copy %d" = " kopio %d";
+
+/* Suffix for a duplicate of a file */
+" copy" = " kopio";
+
+/* Tooltip */
+"%d days %d:%02d:%02d" = "%1$d päivää %2$d:%3$02d:%4$02d";
+
+/* Credit description */
+"64-bit enabling and testing" = "64-bit tuki ja testaus";
+
+/* Credit description */
+"Animation and icon sets code" = "Animaatiot ja ikoniryhmien koodi";
+
+/* Credit description */
+"Arabic localization" = "Arabialainen käännös";
+
+/* Credit description */
+"Bulgarian localization" = "Bulgarialainen käännös";
+
+/* Credit description */
+"Button images" = "Painikkeiden kuvat";
+
+/* Credit description */
+"Catalan localization" = "Katalonialainen käännös";
+
+/* Credit description */
+"Chinese (simplified) localization" = "Kiinalainen (yksinkertaistettu) käännös";
+
+/* Credit description */
+"Chinese (traditional) localization" = "Kiinalainen (perinteinen) käännös";
+
+/* Credentials name */
+"Common" = "Yhteinen";
+
+/* Speak string */
+"Connected to %@" = "Muodostettu yhteys kohteeseen %@";
+
+/* Credit description */
+"Contributed much to the early code" = "Tuottanut paljon koodia alkuaikoina";
+
+/* Credit description */
+"Contributed to early code" = "Tuottanut koodia alkuaikoina";
+
+/* Credit description */
+"Czech localization" = "Tshekkiläinen käännös";
+
+/* Credit description */
+"Danish localization" = "Tanskalainen käännös";
+
+/* Speak string */
+"Disconnected from %@" = "Yhteys katkaistu kohteesta %@";
+
+/* Checkbox */
+"Do not show this again" = "Älä näytä tätä enää uudestaan";
+
+/* Credit description */
+"Dutch localization" = "Hollantilainen käännös";
+
+/* Credit description */
+"Estonian localization" = "Virolainen lokalisaatio";
+
+/* Credit description */
+"Finnish localization" = "Suomalainen käännös";
+
+/* Credit description */
+"Founder, original program and documentation" = "Perustaja, alkuperäinen ohjelma ja dokumentaatio";
+
+/* Credit description */
+"French localization" = "Ranskalainen käännös";
+
+/* Credit description */
+"German localization" = "Saksalainen käännös";
+
+/* Credit description */
+"Greek localization" = "Kreikkalainen käännös";
+
+/* Credit description */
+"Hungarian localization" = "Unkarilainen käännös";
+
+/* Credit description */
+"Icon set including Retina images" = "Ikonikokoelma, joka sisältää Retina-kuvat";
+
+/* Credit description */
+"Italian localization" = "Italialainen käännös";
+
+/* Credit description */
+"Japanese localization" = "Japanilainen käännös";
+
+/* Credit description */
+"Korean localization" = "Korealainen käännös";
+
+/* [name of your language] localization */
+"LANGUAGE_LOCALIZATION" = "Suomalainen käännös";
+
+/* Names of lead translators */
+"LEAD_TRANSLATORS" = "Jesse Hulkko, Jarmo Isotalo, Kalle Kärkkäinen, Feetu Nyrhinen, Petra Penttila, Mikko Toivola";
+
+/* Credit description */
+"Localization code tweaks" = "Lokalisaatiokoodin muokkaukset";
+
+/* Credit description */
+"Multiple configuration folders" = "Useat konfiguraatiokansiot";
+
+/* Credit description */
+"Norwegian localization" = "Norjalainen käännös";
+
+/* Credit description */
+"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 ja 64-bit integraatio";
+
+/* Credit description */
+"PKCS#11 support" = "PKCS#11 tuki";
+
+/* Credit description */
+"Polish localization" = "Puolalainen käännös";
+
+/* Credit description */
+"Portuguese (Brazilian) localization" = "Portugalilainen (Brasilia) käännös";
+
+/* Credit description */
+"Portuguese localization" = "Portugalilainen lokalisaatio";
+
+/* Credit description */
+"Program and documentation enhancements and maintenance after version 3.0b10" = "Ohjelman ja dokumentaation kehitys ja ylläpito version 3.0b10 jälkeen";
+
+/* Credit description */
+"Russian localization" = "Venäläinen käännös";
+
+/* Credit description */
+"Slovak localization" = "Slovakialainen käännös";
+
+/* Credit description */
+"Spanish localization" = "Espanjalainen käännös";
+
+/* Credit description */
+"Swedish localization" = "Ruotsalainen käännös";
+
+/* Credit description */
+"Tunnelblick icon" = "Tunnelblick-kuvake";
+
+/* Credit description */
+"Turkish localization" = "Turkkilainen lokalisaatio";
+
+/* Credit description */
+"UKKQueue and UKLoginItemRegistry" = "UKKQueue ja UKLoginItemRegistry";
+
+/* Credit description */
+"Ukrainian localization" = "Ukrainalainen käännös";
+
+/* Credit description */
+"Up and Down scripts" = "Yhteydenmuodostus- ja katkaisuskriptit";
+
+/* Credit description */
+"Xcode help and OpenSSL integration" = "Xcode-apu ja OpenSSL-integraatio";
+
+/* Button VPNService */
+"Accept" = "Hyväksy";
+
+/* Button VPNService */
+"Create a Free Account" = "Luo ilmainen tili";
+
+/* Button VPNService */
+"Get Different Image" = "Ota eri kuva";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Sisäänkirjautuminen";
+
+/* Button VPNService */
+"Next" = "Seuraava";
+
+/* Button VPNService */
+"Reject" = "Hylkää";
+
+/* Menu item VPNService */
+"Register for Tunnelblick..." = "Rekisteröi Tunnelblick…";
+
+/* Window title  VPNService */
+"Cannot obtain image" = "Ei saa kuvaa";
+
+/* Window title  VPNService */
+"Cannot register" = "Ei voida rekisteröidä";
+
+/* Window title  VPNService */
+"Email not verified" = "Sähköpostia ei vahvistettu";
+
+/* Window title  VPNService */
+"Entries required" = "Objekteja vaaditaan";
+
+/* Window title  VPNService */
+"Failed to load Terms of Service" = "Käyttöehtojen lataaminen epäonnistui";
+
+/* Window title VPNService */
+"No configuration available" = "Ei konfiguraatiota saatavilla";
+
+/* Window title  VPNService */
+"Password entries must match" = "Salasanat eivät täsmää";
+
+/* Window title  VPNService */
+"Prove You are Human" = "Osoita olevasi ihminen";
+
+/* Window title  VPNService */
+"Register with Tunnelblick" = "Rekisteröidy Tunnelblickiin";
+
+/* Window title  VPNService */
+"Sorry" = "Pahoittelut";
+
+/* Window title  VPNService */
+"Terms of Service" = "Käyttöehdot";
+
+/* Window title  VPNService */
+"Tunnelblick - Free VPN" = "Tunnelblick - Vapaa VPN";
+
+/* Window title  VPNService */
+"Welcome!" = "Tervetuloa!";
+
+/* Window title  VPNService */
+"You Must Type the Characters" = "Sinun on kirjoitettava merkit";
+
+/* Window text VPNService */
+"Confirm password:" = "Vahvista salasana:";
+
+/* Window text VPNService */
+"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Onnittelut! Tilisi on luotu. Sinun pitäisi saada sähköpostia Tunnelblickiltä pian. Seuraa sähköpostiviestin ohjeita vahvistaaksesi sähköpostiosoitteesi ja sitten klikkaa ‘Seuraava’.";
+
+/* Window text VPNService */
+"Could not check registration" = "Rekisteröinnin tarkistus epäonnistui";
+
+/* Window text VPNService */
+"Could not get a captcha image" = "Captcha-kuvan saaminen epäonnistui";
+
+/* Window text VPNService */
+"Could not get a session token" = "Istuntotunnisteen saaminen epäonnistui";
+
+/* Window text VPNService */
+"Email address %@ is already registered for an account" = "Sähköpostiosoite %@ on jo rekisteröity käyttäjätiliin";
+
+/* Window text VPNService */
+"Email address:" = "Sähköpostiosoite:";
+
+/* Window text VPNService */
+"Invalid URL: %@" = "Epäkelpo URL: %@";
+
+/* Window text VPNService */
+"No valid session token." = "Ei voimassa olevaa istuntotunnistetta.";
+
+/* Window text VPNService */
+"Please read our Terms of Service and indicate your acceptance or rejection of them." = "Lue käyttöehtomme ja ilmoita, hyväksytkö vai hylkäätkö ne.";
+
+/* Window text VPNService */
+"Please type the characters in the image and click next." = "Kirjoita kuvassa olevat merkit ja klikkaa seuraava.";
+
+/* Window text VPNService */
+"Session token requires encoding" = "Istuntotunniste vaatii koodauksen";
+
+/* Window text VPNService */
+"Session token too long" = "Istuntotunniste liian pitkä";
+
+/* Window text VPNService */
+"Sorry, but your request for an account could not be processed:\n     %@" = "Pahoittelut, mutta tilipyyntöäsi ei voitu käsitellä:\n     %@";
+
+/* Window text VPNService */
+"Terms of service are unavailable." = "Toimitusehtoja ei ole saatavilla";
+
+/* Window text VPNService */
+"The Terms of Service could not be loaded:" = "Toimitusehtoja ei voitu ladata:";
+
+/* Window text VPNService */
+"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "Sähköpostiosoitetta ei ole varmennettu.\n\nEt pysty kirjautumaan sisään ja käyttämään VPN:ää, kunnes sähköpostiosoite on varmennettu noudattamalla ohjeita viestissä, jonka Tunnelblick on lähettänyt sinulle, kun rekisteröidyit palveluun.";
+
+/* Window text VPNService */
+"The email address you entered was not a valid email address." = "Sähköpostiosoitteesi ei kelpaa, syötä kelvollinen osoite.";
+
+/* Window text VPNService */
+"The password entries must match to proceed." = "Salasanojen on vastattava toisiaan jatkaaksesi.";
+
+/* Window text VPNService */
+"The text you entered did not match the text in the Captcha image." = "Antamasi merkit eivät vastaa Captcha-kuvaa.";
+
+/* Window text VPNService */
+"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "Konfiguraatiota nimeltään '%@' ei ole asennettuna.\n\nYritä uudelleenasentaa Tunnelblick levykuvasta.";
+
+/* Window text VPNService */
+"To create your free Tunnelblick account we need your email address and a password of your choosing." = "Tunnelblick-tilin luontiin tarvitset sähköpostiosoitteesi ja haluamasi salasanan.";
+
+/* Window text VPNService */
+"Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblickin avulla voit tutkia Internettiä vapaasti ilman rajoituksia samalla suojaten yhteytesi.";
+
+/* Window text VPNService */
+"Type the characters above:" = "Kirjoita ylläolevat merkit:";
+
+/* Window text VPNService */
+"Unable to check account status:\n     %@" = "Tilin tilaa ei voida varmistaa:\n     %@";
+
+/* Window text VPNService */
+"Unable to check registration for empty email address" = "Rekisteröitymistä ei voida tarkistaa, koska sähköpostiosoite puuttuu";
+
+/* Window text VPNService */
+"Unable to connect to server" = "Palvelimeen ei saada yhteyttä";
+
+/* Window text VPNService */
+"You have already registered but not yet confirmed your email address." = "Olet jo rekisteröity, mutta et ole varmistanut sähköpostiosoitettasi.";
+
+/* Window text VPNService */
+"You have already registered." = "Olet jo rekisteröitynyt.";
+
+/* Window text VPNService */
+"You must enter an email address and password to login." = "Anna sähköpostiosoitteesi ja salasanasi kirjautuaksesi sisään.";
+
+/* Window text VPNService */
+"You must enter an email address, password, and password confirmation to proceed." = "Anna sähköpostiosoitteesi ja salasanasi kahteen kertaan jatkaaksesi.";
+
+/* Window text VPNService */
+"You must type the characters in the image to proceed." = "Kirjoita kuvan merkit jatkaaksesi.";
+
+/* Window text VPNService */
+"Your account status could not be verified:\n     %@." = "Tilisi tilaa ei voitu varmentaa:\n     %@.";
+
