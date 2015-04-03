@@ -5,6 +5,17 @@
 
 --------------------
 
+2015-04-03: *Tunnelblick 3.5.0 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * This is the first stable version of Tunnelblick 3.5 -- many thanks to our tens-of-thousands of beta testers!
+ * It is identical to 3.5beta10 except for version and build numbers.
+ 
+ See [cThreeFiveHighlights Major Changes from Version 3.4 to Version 3.5].
+ 
+ See the [RlsNotes#Version_3.5 Release Notes] for details.
+
+--------------------
+
 2015-03-30: *Tunnelblick 3.5beta10 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Updates localization and credits.
