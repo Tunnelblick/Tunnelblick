@@ -198,7 +198,7 @@ if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
 	# Configuration isn't there
     logMessage "WARNING: Not restoring DNS settings because no saved Tunnelblick DNS information was found."
 	
-	FlushDNSCache
+	flushDNSCache
     
 	if ${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT} ; then
         resetPrimaryInterface
