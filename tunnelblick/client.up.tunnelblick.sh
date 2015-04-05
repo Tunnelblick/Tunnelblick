@@ -927,14 +927,14 @@ configureDhcpDns()
 			logMessage "Will NOT monitor for other network configuration changes."
 		fi
         logDnsInfoNoChanges
-        FlushDNSCache
+        flushDNSCache
 	else
 		logMessage "WARNING: No DNS information received from OpenVPN via DHCP, so no network/DNS configuration changes need to be made."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 			logMessage "Will NOT monitor for other network configuration changes."
 		fi
         logDnsInfoNoChanges
-        FlushDNSCache
+        flushDNSCache
 	fi
 
 	return 0
@@ -1029,7 +1029,7 @@ configureOpenVpnDns()
 			logMessage "Will NOT monitor for other network configuration changes."
 		fi
         logDnsInfoNoChanges
-        FlushDNSCache
+        flushDNSCache
 	fi
 
 	return 0
