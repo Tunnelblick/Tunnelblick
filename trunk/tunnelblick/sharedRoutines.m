@@ -1129,7 +1129,7 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     }
     
     // Receive from the socket until we receive a \0
-    // Must receive all data within 10 seconds or we assume tunnelblickd is not responding properly and abort
+    // Must receive all data within 30 seconds or we assume tunnelblickd is not responding properly and abort
     
     // Set the socket to use non-blocking I/O (but we've already done the output, so we're really just doing non-blocking input)
     if (  -1 == fcntl(sockfd, F_SETFL,  O_NONBLOCK)  ) {
@@ -1141,19 +1141,19 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     
     BOOL foundZeroByte = FALSE;
     
-    NSDate * timeoutDate = [NSDate dateWithTimeIntervalSinceNow: 45.0];
-	useconds_t sleepTimeMicroseconds = 50000;	// 0.05 seconds; first sleep and each sleep thereafter will be doubled, up to 5.0 seconds
+    NSDate * timeoutDate = [NSDate dateWithTimeIntervalSinceNow: 30.0];
+	useconds_t sleepTimeMicroseconds = 10000;	// First sleep is 0.10 seconds; each sleep thereafter will be doubled, up to 5.0 seconds
 	
     while (  [(NSDate *)[NSDate date] compare: timeoutDate] == NSOrderedAscending  ) {
         bzero((char *)buffer, SOCKET_BUF_SIZE);
         n = read(sockfd, (char *)buffer, SOCKET_BUF_SIZE - 1);
-        if (   (n     == -1)
+        if (   (n == -1)
             && (errno == EAGAIN)  ) {
 			sleepTimeMicroseconds *= 2;
 			if (  sleepTimeMicroseconds > 5000000  ) {
 				sleepTimeMicroseconds = 5000000;
+                appendLog([NSString stringWithFormat: @"runTunnelblickd: no data available from tunnelblickd socket; sleeping %f seconds...", ((float)sleepTimeMicroseconds)/1000000.0]);
 			}
-            appendLog([NSString stringWithFormat: @"runTunnelblickd: no data available from tunnelblickd socket; sleeping %f seconds...", ((float)sleepTimeMicroseconds)/1000000.0]);
             usleep(sleepTimeMicroseconds);
             continue;
         } else if (  n < 0  ) {
