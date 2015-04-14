@@ -40,8 +40,8 @@ Another way to get access to a VPN server is to use a VPN service provider, an o
 <tr><td> </td><td> </td><td> </td><td> </td></tr>
 <tr><td> </td><td> </td><td> </td><td> </td></tr>
 
+<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.kovurt.com Kovurt]*</td>                         <td align="right">$1050.00</td>  <td align="right"> $200.00</td>       <td align="right">$850.00</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=https://my-private-network.co.uk My Private Network]*</td>   <td align="right">$1000.00</td> <td align="right"> </td> <td align="right">$1000.00</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.kovurt.com Kovurt]*</td>                         <td align="right">$850.00</td>  <td align="right"> </td>       <td align="right">$850.00</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://btguard.com BTGuard]*</td>                            <td align="right">$770.00</td>        <td align="right"> </td>       <td align="right">$770.00</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*</td>   <td align="right">$300.00</td>  <td align="right"> </td>       <td align="right">$300.00</td></tr>
 <tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.ibvpn.com ibVPN]*</td>                            <td align="right">$187.00</td>    <td align="right"> </td>       <td align="right">$187.00</td></tr>
