@@ -990,18 +990,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		return TRUE;
 	
 	} else if (  [anItem action] == @selector(whenToConnectOnComputerStartMenuItemWasClicked:)  ) {
-		VPNConnection * conn = [self selectedConnection];
-		if (  ! conn  ) {
-			return NO;  // No connection selected
-		}
-		NSString * configurationPath = [conn configPath];
-		if (  [configurationPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-			return NO;  // Private paths may not start when computer starts
-		}
-		if (  ! [[configurationPath pathExtension] isEqualToString: @"tblk"]  ) {
-			return NO;  // Only .tblks may start when computer starts
-		}
-		return YES;
+		return [[self selectedConnection] mayConnectWhenComputerStarts];
 	}
 
 	NSLog(@"MyPrefsWindowController:validateMenuItem: Unknown menuItem %@", [anItem description]);
@@ -1518,6 +1507,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     [[ConfigurationManager manager] shareOrPrivatizeAtPath: path];
+    [connection invalidateConfigurationParse];
 }
 
 
@@ -1580,6 +1570,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 							  NSLocalizedString(@"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n", @"Window text"));
 			break;
 	}
+    
+    [connection invalidateConfigurationParse];
 }
 
 
@@ -1594,6 +1586,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         NSLog(@"editOpenVPNConfigurationFileMenuItemWasClicked but no configuration selected");
     }
     
+    [connection invalidateConfigurationParse];
 }
 
 
@@ -2065,6 +2058,13 @@ static BOOL firstTimeShowingWindow = TRUE;
             [self setSelectedWhenToConnectIndex: ix];
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                               NSLocalizedString(@"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.", @"Window text"));
+        } else if (  ! [[self selectedConnection] mayConnectWhenComputerStarts]  ) {
+            NSUInteger ix = selectedWhenToConnectIndex;
+            selectedWhenToConnectIndex = 2;
+            [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: (int)ix];
+            [self setSelectedWhenToConnectIndex: ix];
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts.", @"Window text"));
         } else {
             [self setSelectedWhenToConnectIndex: 2];
         }
@@ -2172,10 +2172,9 @@ static BOOL firstTimeShowingWindow = TRUE;
         return;
     }
     
-    NSString * configurationPath = [connection configPath];
     NSString * displayName = [connection displayName];
     
-    BOOL enableWhenComputerStarts = ! [configurationPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]];
+    BOOL enableWhenComputerStarts = [connection mayConnectWhenComputerStarts];
     
     NSString * autoConnectKey = [displayName stringByAppendingString: @"autoConnect"];
     BOOL autoConnect   = [gTbDefaults boolForKey: autoConnectKey];
@@ -2195,7 +2194,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  autoConnect && onSystemStart  ) {
         if (  enableWhenComputerStarts  ) {
             if (  launchdPlistWillConnectOnSystemStart  ) {
-                // All is OK -- prefs say to connect when system starts and launchd .plist agrees and it isn't a private configuration
+                // All is OK -- prefs say to connect when system starts and launchd .plist agrees and it isn't a private configuration and has no credentials
                 ix = 2;
             } else {
                 // No launchd .plist -- try to create one
@@ -2227,10 +2226,10 @@ static BOOL firstTimeShowingWindow = TRUE;
                 }
             }
         } else {
-            // Private configuration
+            // Private configuration or has credentials
             if (  ! launchdPlistWillConnectOnSystemStart  ) {
-                // Prefs, but not launchd, says will connnect on system start but it is a private configuration
-                NSLog(@"Preferences for '%@' say it should connect when the computer starts but it is a private configuration. Attempting to repair preferences...", displayName);
+                // Prefs, but not launchd, says will connnect on system start but it is a private configuration or has credentials
+                NSLog(@"Preferences for '%@' say it should connect when the computer starts but it is a private configuration or has credentials. Attempting to repair preferences...", displayName);
                 [gTbDefaults setBool: FALSE forKey: autoConnectKey];
                 if (  ! [gTbDefaults boolForKey: autoConnectKey]  ) {
                     NSLog(@"Succesfully set '%@' preference to FALSE", autoConnectKey);
@@ -2253,10 +2252,10 @@ static BOOL firstTimeShowingWindow = TRUE;
                 if (  [connection checkConnectOnSystemStart: FALSE withAuth: nil]  ) {
                     // User cancelled attempt to make it NOT connect when computer starts
                     cancelledFixPlist = TRUE;
-                    NSLog(@"Preferences for '%@' say it should connect when the computer starts and a launchd .plist exists for that, but it is a private configuration. User cancelled attempt to repair.", displayName);
+                    NSLog(@"Preferences for '%@' say it should connect when the computer starts and a launchd .plist exists for that, but it is a private configuration or has credentials. User cancelled attempt to repair.", displayName);
                     ix = 2;
                 } else {
-                    NSLog(@"Preferences for '%@' say it should connect when the computer starts and a launchd .plist exists for that, but it is a private configuration. The launchd .plist has been removed. Attempting to repair preferences...", displayName);
+                    NSLog(@"Preferences for '%@' say it should connect when the computer starts and a launchd .plist exists for that, but it is a private configuration or has credentials. The launchd .plist has been removed. Attempting to repair preferences...", displayName);
                     [gTbDefaults setBool: FALSE forKey: autoConnectKey];
                     if (  ! [gTbDefaults boolForKey: autoConnectKey]  ) {
                         NSLog(@"Succesfully set '%@' preference to FALSE", autoConnectKey);
