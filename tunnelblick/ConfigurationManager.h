@@ -95,7 +95,8 @@
 
 -(NSString *)               parseConfigurationPath:     (NSString *)        cfgPath
                                      forConnection:     (VPNConnection *)   connection
-                                       hasScramble:     (BOOL *)            hasScramble;
+                                       hasScramble:     (BOOL *)            hasScramble
+                                   hasAuthUserPass:     (BOOL *)            hasAuthUserPass;
 
 -(void)                     shareOrPrivatizeAtPath:     (NSString *)        path;
 

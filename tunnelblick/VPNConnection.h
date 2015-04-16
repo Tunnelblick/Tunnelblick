@@ -138,6 +138,7 @@ struct Statistics {
 	BOOL            speakWhenDisconnected; // True iff should speak that we are disconnected
     BOOL            retryingConnectAfterSecuringConfiguration; // True only during such an attempt, to avoid infinte recursion if securing the config fails
     BOOL            hasScramble;        // True iff configuration has a 'scramble' option. VALID ONLY IF tunOrTap is not nil
+    BOOL            hasAuthUserPass;    // True iff configuration has a 'auth-user-pass' option. VALID ONLY IF tunOrTap is not nil
 }
 
 // PUBLIC METHODS:
@@ -204,6 +205,8 @@ struct Statistics {
 -(BOOL)             launchdPlistWillConnectOnSystemStart;
 
 -(BOOL)             logFilesMayExist;
+
+-(BOOL)             mayConnectWhenComputerStarts;
 
 -(NSArray *)        modifyNameserverOptionList;
 

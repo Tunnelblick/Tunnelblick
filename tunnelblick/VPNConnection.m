@@ -1645,10 +1645,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	return NO;	// Should never get here, but...
 }
 
--(NSString *) setTunOrTapAndHasScramble {
+-(NSString *) setTunOrTapAndHasScrambleAndHasAuthUserPass {
     
     if (  ! tunOrTap  ) {
-        tunOrTap = [[[ConfigurationManager manager] parseConfigurationPath: configPath forConnection: self hasScramble: &hasScramble] copy];
+        tunOrTap = [[[ConfigurationManager manager] parseConfigurationPath: configPath forConnection: self hasScramble: &hasScramble hasAuthUserPass: &hasAuthUserPass] copy];
         
         // tunOrTap == 'Cancel' means we cancel whatever we're doing; we've already set hasScramble
         if (  [tunOrTap isEqualToString: @"Cancel"]  ) {
@@ -1662,8 +1662,47 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(BOOL) hasScramble {
     
-    [self setTunOrTapAndHasScramble];
+    [self setTunOrTapAndHasScrambleAndHasAuthUserPass];
     return hasScramble;
+}
+
+-(BOOL) hasAuthUserPass {
+    
+    [self setTunOrTapAndHasScrambleAndHasAuthUserPass];
+    return hasAuthUserPass;
+}
+
+-(BOOL) hasAnySavedCredentials {
+    
+    NSString * name = [self displayName];
+    NSString * hasUsernameKey            = [name stringByAppendingString: @"-keychainHasUsername"];
+    NSString * hasUsernameAndPasswordKey = [name stringByAppendingString: @"-keychainHasUsernameAndPassword"];
+    NSString * hasPrivateKeyKey          = [name stringByAppendingString: @"-keychainHasPrivateKey"];
+    return (   [gTbDefaults boolForKey: hasUsernameKey]
+            || [gTbDefaults boolForKey: hasUsernameAndPasswordKey]
+            || [gTbDefaults boolForKey: hasPrivateKeyKey]  );
+}
+
+-(BOOL) mayConnectWhenComputerStarts {
+    
+    NSString * configurationPath = [self configPath];
+    if (   [configurationPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+        return NO;  // Private paths may not start when computer starts
+    }
+    
+    if (  ! [[configurationPath pathExtension] isEqualToString: @"tblk"]  ) {
+        return NO;  // Only .tblks may start when computer starts
+    }
+    
+    if (  [self hasAnySavedCredentials]  ) {
+        return NO;  // Can't start when computer starts if have credentials
+    }
+    
+    if (  [self hasAuthUserPass]  ) {
+        return NO;  // Can't start when computer starts if have auth-user-pass unless it is from a file
+    }
+    
+    return YES;
 }
 
 -(NSUInteger) getOpenVPNScrambleVersionIxFromIx: (NSUInteger) ix {
@@ -1676,9 +1715,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
     NSString * name = [versionNames objectAtIndex: ix];
     BOOL openvpnHasScramblePatch = [name hasSuffix: @"txp"];
-    [self setTunOrTapAndHasScramble];
     
-    if (  hasScramble  ) {
+    if (  [self hasScramble]  ) {
         
         if (  openvpnHasScramblePatch  ) {
             // Need scramble patch and current version of OpenVPN has it
@@ -1838,7 +1876,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString *portString = [NSString stringWithFormat:@"%u", thePort];
     
     // Parse configuration file to catch "user" or "group" options and get tun/tap key
-    [self setTunOrTapAndHasScramble];
+    [self setTunOrTapAndHasScrambleAndHasAuthUserPass];
     if (  ! tunOrTap  ) {
             return nil;
     }
