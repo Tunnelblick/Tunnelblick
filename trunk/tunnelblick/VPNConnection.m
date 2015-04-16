@@ -977,14 +977,14 @@ extern NSString * lastPartOfPath(NSString * thePath);
 												 error: &requestError];
 		TBLog(@"DB-IC", @"%@: IP address check: error was '%@'; response was '%@'; data was %@", logHeader, requestError, urlResponse, data);
 	}
+    
+    uint64_t elapsedTimeNanoseconds = nowAbsoluteNanoseconds() - startTimeNanoseconds;
+    long elapsedTimeMilliseconds = (long) ((elapsedTimeNanoseconds + 500000) / 1000000);
 	if ( ! data  ) {
-        NSLog(@"%@: IP address info could not be fetched within %.1f seconds; the error was '%@'; the response was '%@'", logHeader, (double) internalTimeOut, requestError, urlResponse);
+        NSLog(@"%@: IP address info could not be fetched within %.1f seconds; the error was '%@'; the response was '%@'", logHeader, ((double)elapsedTimeMilliseconds)/1000.0, requestError, urlResponse);
         return [NSArray array];
     } else {
-        uint64_t elapsedTimeNanoseconds = nowAbsoluteNanoseconds() - startTimeNanoseconds;
-        long elapsedTimeMilliseconds = (long) ((elapsedTimeNanoseconds + 500000) / 1000000);
-        TBLog(@"DB-IC", @"%@: IP address info was fetched in %ld milliseconds", logHeader, elapsedTimeMilliseconds)
-        ;
+        TBLog(@"DB-IC", @"%@: IP address info was fetched in %ld milliseconds", logHeader, elapsedTimeMilliseconds);
 	}
     
     // If checking via IP address, we don't care about the data that is returned.
