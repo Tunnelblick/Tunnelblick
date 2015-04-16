@@ -530,19 +530,30 @@ static BOOL firstTimeShowingWindow = TRUE;
         return; // Have not set up the list yet
     }
     
-    NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
-    NSUInteger versionIx    = [connection getOpenVPNVersionIxToUse];
+    NSUInteger versionIx    = [connection getOpenVPNVersionIxToUseAdjustForScramble: NO];
     
     NSString * key = [[connection displayName] stringByAppendingString: @"-openvpnVersion"];
     NSString * prefVersion = [gTbDefaults stringForKey: key];
-    
     NSUInteger listIx = 0;                              // Default to the first entry -- "Default (x.y.z)"
-    if (  prefVersion  ) {
-        if (  [prefVersion isEqualToString: @"-"]  ) {
-            listIx = [versionNames count] + 1;          // Use the last entry -- "Latest (x.y.z)" (the list has 2 more entries than # of versions)
+
+    if (  [prefVersion length] == 0  ) {
+        // Use default; if actually using it, show we are using default (1st entry), otherwise show what we are using
+        if (  versionIx == 0  ) {
+            listIx = 0;
         } else {
-            listIx = versionIx + 1;                     // Use the specific entry "x.y.z" (the list has 1 entry ("Default (x.y.z)") first)
+            listIx = versionIx + 1; // + 1 to skip over the 1st entry (default)
         }
+    } else if (  [prefVersion isEqualToString: @"-"]  ) {
+        // Use latest. If we are actually using it, show we are using latest (last entry), otherwise show what we are using
+        NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
+        if (  versionIx == [versionNames count] - 1  ) {
+            listIx = versionIx + 2; // + 2 to skip over the 1st entry (default) and the specific entry, to get to "Latest (version)"
+        } else {
+            listIx = versionIx + 1; // + 1 to skip over the 1st entry (default)
+        }
+    } else {
+        // Using a specific version, but show what we are actually using instead
+        listIx = versionIx + 1; // + 1 to skip over the 1st entry (default)
     }
     
     [self setSelectedPerConfigOpenvpnVersionIndex: tbNumberWithInteger(listIx)];
@@ -2106,7 +2117,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
     }
 }
-
 
 // Checkbox was changed by another window
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection

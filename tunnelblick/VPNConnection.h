@@ -137,6 +137,7 @@ struct Statistics {
 	BOOL            speakWhenConnected; // True iff should speak that we are connected
 	BOOL            speakWhenDisconnected; // True iff should speak that we are disconnected
     BOOL            retryingConnectAfterSecuringConfiguration; // True only during such an attempt, to avoid infinte recursion if securing the config fails
+    BOOL            hasScramble;        // True iff configuration has a 'scramble' option. VALID ONLY IF tunOrTap is not nil
 }
 
 // PUBLIC METHODS:
@@ -176,7 +177,7 @@ struct Statistics {
 
 -(void)             fadeAway;
 
--(NSUInteger)       getOpenVPNVersionIxToUse;
+-(NSUInteger)       getOpenVPNVersionIxToUseAdjustForScramble: (BOOL) adjustForScramble;
 
 -(void)             hasDisconnected;
 

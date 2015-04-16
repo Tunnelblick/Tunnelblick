@@ -81,6 +81,7 @@
 <li class="li3">If you choose the "Default" version, the earliest version of OpenVPN will be used.</li>
 <li class=li3>If you choose the "Latest" version, the latest version of OpenVPN will be used.</li>
 <li class=li3>If you choose a specific version of OpenVPN, that version will be used. You will be warned if that version is not available.</li>
+<li class=li3>A "txp" version is a version of OpenVPN which has been patched to support <a href="https://forums.openvpn.net/topic12605.html">the "scramble" option</a>. This patch is not recommended or supported by the OpenVPN developers, but is used by many VPNs. Tunnelblick contains two versions of OpenVPN, one with the patch and one without the patch, and chooses the patched version automatically if the configuration contains a "scramble" option. Tunnelblick uses its own version of "openvpn_xorpatch", modified to correct problems with the original patch, which is located at <a href="https://github.com/clayface/openvpn_xorpatch/blob/master/openvpn_xor.patch">https://github.com/clayface/openvpn_xorpatch/blob/master/openvpn_xor.patch</a>.</li>
 </ul>
 </li><br>
   <li class="li3"><b>Monitor network settings</b> determines whether or not Tunnelblick will monitor network settings for changes while the selected configuration is connected. This may be done to react to DHCP renewals or other network changes.</li><br>

@@ -833,10 +833,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return nil;
 }
 
--(NSString *)parseConfigurationPath: (NSString *) cfgPath
-                      forConnection: (VPNConnection *) connection {
+-(NSString *)parseConfigurationPath: (NSString *)      cfgPath
+                      forConnection: (VPNConnection *) connection
+                        hasScramble: (BOOL *)          hasScramble {
     
     // Parses the configuration file.
+    // Sets 'hasScramble' TRUE if configuration has a 'scramble' option; FALSE otherwise
     // Gives user the option of adding the down-root plugin if appropriate
     // Returns with device type: "tun", "tap", "utun", "tunOrUtun", or nil if it can't be determined
     // Returns with string "Cancel" if user cancelled
@@ -859,6 +861,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     NSString * cfgContents = [[stdOut copy] autorelease];
     
+    NSString * scrambleOption = [self parseString: cfgContents forOption: @"scramble" ];
+    *hasScramble = scrambleOption != nil;
+
     NSString * userOption  = [self parseString: cfgContents forOption: @"user" ];
     if (  [userOption length] == 0  ) {
         userOption = nil;
