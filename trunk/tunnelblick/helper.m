@@ -239,6 +239,29 @@ BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
     return NO;
 }
 
+NSString *condensedConfigFileContentsFromString(NSString * fullString) {
+	
+	// Returns a string from an OpenVPN configuration file with empty lines and comments removed
+	
+	NSArray * lines = [fullString componentsSeparatedByString: @"\n"];
+	
+	NSMutableString * outString = [[[NSMutableString alloc] initWithCapacity: [fullString length]] autorelease];
+	NSString * line;
+	NSEnumerator * e = [lines objectEnumerator];
+	while (  (line = [e nextObject])  ) {
+        line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		if (  [line length] != 0  ) {
+			NSString * firstChar = [line substringToIndex: 1];
+			if (   ( ! [firstChar isEqualToString: @";"] )
+				&& ( ! [firstChar isEqualToString: @"#"] )  ) {
+				[outString appendFormat: @"%@\n", line];
+			}
+		}
+	}
+	
+	return [NSString stringWithString: outString];
+}
+
 // Returns an escaped version of a string so it can be sent over the management interface
 NSString * escaped(NSString *string)
 {
