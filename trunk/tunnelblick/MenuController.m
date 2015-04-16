@@ -353,6 +353,10 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 								@"skipWarningAboutNoSignature",
                                 @"skipWarningAboutSystemClock",
                                 @"skipWarningAboutUnavailableOpenvpnVersions",
+                                @"skipWarningAboutUsingOpenvpnTxpVersion",
+                                @"skipWarningAboutUsingOpenvpnNonTxpVersion",
+                                @"skipWarningAboutNoOpenvpnTxpVersion",
+                                @"skipWarningAboutOnlyOpenvpnTxpVersion",
                                 
                                 @"timeoutForOpenvpnToTerminateAfterDisconnectBeforeAssumingItIsReconnecting",
                                 @"timeoutForIPAddressCheckBeforeConnection",

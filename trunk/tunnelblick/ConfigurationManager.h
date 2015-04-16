@@ -94,7 +94,8 @@
                                    notifyDelegate:      (BOOL)              notifyDelegate;
 
 -(NSString *)               parseConfigurationPath:     (NSString *)        cfgPath
-                                     forConnection:     (VPNConnection *)   connection;
+                                     forConnection:     (VPNConnection *)   connection
+                                       hasScramble:     (BOOL *)            hasScramble;
 
 -(void)                     shareOrPrivatizeAtPath:     (NSString *)        path;
 
