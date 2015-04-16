@@ -512,8 +512,10 @@ int main(void) {
 //					(unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
 		}
         
-		// Log the status from executing the command
-		asl_log(asl, log_msg, ASL_LEVEL_NOTICE, "Status = %ld from tunnelblick-helper command '%s'", (long) status, [commandToDisplay UTF8String]);
+        if (  status != 0  ) {
+            // Log the status from executing the command
+            asl_log(asl, log_msg, ASL_LEVEL_NOTICE, "Status = %ld from tunnelblick-helper command '%s'", (long) status, [commandToDisplay UTF8String]);
+        }
 		
 		// Send the status, stdout, and stderr to the client as a UTF-8-encoded string which is terminated by a \0.
 		//

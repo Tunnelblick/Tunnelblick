@@ -851,15 +851,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * cfgFile = lastPartOfPath(cfgPath);
     NSString * configLocString = configLocCodeStringForPath(cfgPath);
     NSArray * arguments = [NSArray arrayWithObjects: @"printSanitizedConfigurationFile", cfgFile, configLocString, nil];
-    NSString * stdOut;
-    NSString * stdErrOut;
+    NSString * stdOut = nil;
+    NSString * stdErrOut = nil;
     OSStatus status = runOpenvpnstart(arguments, &stdOut, &stdErrOut);
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"Internal failure (%lu) of openvpnstart printSanitizedConfigurationFile %@ %@", (unsigned long)status, cfgFile, configLocString);
         return nil;
     }
     
-    NSString * cfgContents = [[stdOut copy] autorelease];
+    NSString * cfgContents = condensedConfigFileContentsFromString(stdOut);
     
     NSString * scrambleOption = [self parseString: cfgContents forOption: @"scramble" ];
     *hasScramble = scrambleOption != nil;

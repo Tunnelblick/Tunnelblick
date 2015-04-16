@@ -1937,29 +1937,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     return kextRawContents;
 }
 
--(NSString *) condensedConfigFileContentsFromString: (NSString *) fullString {
-	
-	// Returns a string from an OpenVPN configuration file with empty lines and comments removed
-	
-	NSArray * lines = [fullString componentsSeparatedByString: @"\n"];
-	
-	NSMutableString * outString = [[[NSMutableString alloc] initWithCapacity: [fullString length]] autorelease];
-	NSString * line;
-	NSEnumerator * e = [lines objectEnumerator];
-	while (  (line = [e nextObject])  ) {
-        line = [line stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
-		if (  [line length] != 0  ) {
-			NSString * firstChar = [line substringToIndex: 1];
-			if (   ( ! [firstChar isEqualToString: @";"] )
-				&& ( ! [firstChar isEqualToString: @"#"] )  ) {
-				[outString appendFormat: @"%@\n", line];
-			}
-		}
-	}
-	
-	return [NSString stringWithString: outString];
-}
-
 -(IBAction) logToClipboardButtonWasClicked: (id) sender {
 
 	(void) sender;
@@ -1979,7 +1956,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             configFileContents = @"(No configuration file found or configuration file could not be sanitized. See the Console Log for details.)";
         }
 		
-		NSString * condensedConfigFileContents = [self condensedConfigFileContentsFromString: configFileContents];
+		NSString * condensedConfigFileContents = condensedConfigFileContentsFromString(configFileContents);
 		
         // Get list of files in .tblk or message explaining why cannot get list
         NSString * tblkFileList = [self listOfFilesInTblkForConnection: connection];
@@ -2011,26 +1988,26 @@ static BOOL firstTimeShowingWindow = TRUE;
 							 @"%@\n\n"  // Version info
                              @"Configuration %@\n\n"
                              @"\"Sanitized\" condensed configuration file for %@:\n\n%@\n\n%@"
-							 @"\"Sanitized\" full configuration file\n\n%@\n\n%@"
+                             @"Non-Apple kexts that are loaded:\n\n%@\n%@"
                              @"%@\n%@"  // List of unusual files in .tblk (or message why not listing them)
                              @"Configuration preferences:\n\n%@\n%@"
                              @"Wildcard preferences:\n\n%@\n%@"
                              @"Program preferences:\n\n%@\n%@"
                              @"Tunnelblick Log:\n\n%@\n%@"
+							 @"\"Sanitized\" full configuration file\n\n%@\n\n%@"
                              @"ifconfig output:\n\n%@\n%@"
-                             @"Console Log:\n\n%@\n%@"
-                             @"Non-Apple kexts that are loaded:\n\n%@",
+                             @"Console Log:\n\n%@\n",
                              versionContents,
                              [connection localizedName], [connection configPath], condensedConfigFileContents, separatorString,
-							 configFileContents, separatorString,
+                             kextContents, separatorString,
                              tblkFileList, separatorString,
                              configurationPreferencesContents, separatorString,
                              wildcardPreferencesContents, separatorString,
                              programPreferencesContents, separatorString,
                              logContents, separatorString,
+							 configFileContents, separatorString,
                              ifconfigOutput, separatorString,
-                             consoleContents, separatorString,
-                             kextContents];
+                             consoleContents];
         
         NSPasteboard * pb = [NSPasteboard generalPasteboard];
         [pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];

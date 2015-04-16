@@ -34,6 +34,8 @@ BOOL           checkOwnerAndPermissions (NSString * fPath,
                                          gid_t      gid,
                                          mode_t     permsShouldHave);
 
+NSString     * condensedConfigFileContentsFromString(NSString * fullString);
+
 NSString     * configLocCodeStringForPath(NSString * configPath);
 
 NSString     * credentialsGroupFromDisplayName (NSString * displayName);
