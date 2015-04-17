@@ -6,7 +6,7 @@
 ==The Tunnelblick Application==
 The Tunnelblick application, Tunnelblick.app, is usually stored in /Applications on the startup volume. However, it may be located anywhere on any volume whose filesystem has appropriate security support. In general, that means any local hard drive. For security reasons, Tunnelblick can only run from a volume whose filesystem supports 'suid'. Thus it cannot be run from network drives, external drives including thumb or flash drives, or CD/DVD drives. Any attempt to run Tunnelblick from such a drive will result in an error message and an offer to install Tunnelblick in /Applications on the startup drive.
 
-==OpenVPN, Drivers, and Scripts==
+==OpenVPN, Drivers, and Standard Scripts==
 The OpenVPN program, openvpn-down-root.so, the "tun" and "tap" kext driver files, and standard client up/down scripts are included with, and contained within, Tunnelblick.app.
 
 ==Log Files==
@@ -24,7 +24,7 @@ There are two types of configuration files:
 
   * OpenVPN configuration files (.ovpn and .conf files). Keys, certificates, and scripts associated with a configuration file are often stored as separate files, but may be included within the configuration file itself.
 
-<font color="red">Note: Tunnelblick VPN Configurations should always be installed by double-clicking them.</font> If you just move or copy them they may not work properly.
+<font color="red">Note: Configurations should always be installed by double-clicking them.</font> If you just move or copy them they may not work properly.
 
 There are five places configuration files may be stored:
 
@@ -39,6 +39,30 @@ There are five places configuration files may be stored:
   * Backup copies of Deployed configurations are stored in subfolders of /Library/Application Support/Tunnelblick/Backup. These configurations will be restored if a version of Tunnelblick which is not a Deployed version is installed, making it into a Deployed version.
 
 Note: Prior to Tunnelblick version 3.0b24, private configuration files were stored in ~/Library/openvpn. Version 3.0b24 and later versions automatically move that folder to its new location, and replace it with a symbolic link to the new location.
+
+==Custom Scripts==
+There are two types of custom scripts that can be run at certain pints in the connect/disconnect process:
+ * Scripts supported by OpenVPN: Scripts referred to in the OpenVPN configuration file may be included in a Tunnelblick VPN configuration; use filenames without any path information to refer to them in the OpenVPN configuration file. These scripts include:
+  * up: Executed after TCP/UDP socket bind and TUN/TAP open. 
+  * tls-verify: Executed when we have a still untrusted remote peer. 
+  * ipchange: Executed after connection authentication, or remote IP address change. 
+  * client-connect: Executed in --mode server mode immediately after client authentication. 
+  * route-up: Executed after connection authentication, either immediately after, or some number of seconds after as defined by the --route-delay option. 
+  * route-pre-down: Executed right before the routes are removed. 
+  * client-disconnect: Executed in --mode server mode on client instance shutdown. 
+  * down: Executed after TCP/UDP and TUN/TAP close. 
+  * learn-address: Executed in --mode server mode whenever an IPv4 address/route or MAC address is added to OpenVPN's internal routing table. 
+  * auth-user-pass-verify: Executed in --mode server mode on new client connections, when the client is still untrusted. 
+ Note that these scripts may have any name; the script name is given as a parameter of the corresponding OpenVPN option. For example, "route-pre-down foo.bar" tells OpenVPN to run the script "foo.bar" during the disconnection process, immediately before the routes are removed.
+
+ (Many if not all of the OpenVPN options actually accept a command line, which may include any valid commands, not a script name, but typically they just name a script to be executed.)
+ * Scripts supported by Tunnelblick: Tunnelblick VPN Configurations (".tblk"s) can contain custom scripts that will be run at other points in the connect/disconnect process. The following scripts may be used (they must have these exact names):
+   * *pre-connect.sh* is executed before Tunnelblick would unload and/or load the tun or tap kexts (whether or not any unload or load takes place).
+   * *post-tun-tap-load.sh* is executed after Tunnelblick unloads and/or loads the tun or tap kexts (whether or not any unload or load takes place). Thus, the script is executed immediately before starting OpenVPN.
+   * *connected.sh* is executed when a configuration connects.
+   * *reconnecting.sh* is executed when OpenVPN loses the VPN connection and is trying to reconnect.
+   * *post-disconnect.sh* is executed after OpenVPN has closed the connection.
+For more information, see [cUsingScripts Using Scripts].
 
 ==!LaunchDaemons==
 If a configurations are set to connect when the computer starts, it has a .plist file located in /Library/!LaunchDaemons. These .plist files are all named starting with "net.tunnelblick.startup."
