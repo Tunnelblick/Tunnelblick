@@ -43,7 +43,8 @@ Note: Prior to Tunnelblick version 3.0b24, private configuration files were stor
 ==Custom Scripts==
 There are two types of custom scripts that can be run at certain points in the connect/disconnect process:
  * Scripts supported by OpenVPN: Scripts referred to in the OpenVPN configuration file may be included in a Tunnelblick VPN configuration; use filenames without any path information to refer to them in the OpenVPN configuration file.
- * Scripts supported by Tunnelblick: Tunnelblick VPN Configurations (".tblk"s) can contain custom scripts that will be run at other points in the connect/disconnect process.
+
+ * Scripts supported by Tunnelblick: Tunnelblick VPN Configurations (".tblk"s) can contain custom scripts that will be run automatically at other points in the connect/disconnect process.
 
 These scripts should be located in a Tunnelblick VPN Configurations without any folder structure, and references to them should not contain any path information.
 
