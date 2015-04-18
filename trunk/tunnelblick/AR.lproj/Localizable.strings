@@ -317,7 +317,7 @@
 "Display connection timers" = "عرض المؤقت عند الاتصال";
 
 /* Checkbox name */
-"Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
+"Display window while Tunnelblick is starting up" = "أظهر الشاشة عند بدأ البرنامج";
 
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "لا تسألني مرة أخرى، ودائما 'تجاهل'";
@@ -341,10 +341,10 @@
 "Do not warn about this again" = "لا تحذر حول هذا مرة أخرى";
 
 /* Checkbox name */
-"Flush DNS cache after connecting or disconnecting" = "Flush DNS cache after connecting or disconnecting";
+"Flush DNS cache after connecting or disconnecting" = "وفر أسماء النطاقات المخبأة عند بدأ أو قطع الإتصال";
 
 /* Checkbox name */
-"Inhibit automatic update checking and IP Address checking" = "Inhibit automatic update checking and IP Address checking";
+"Inhibit automatic update checking and IP Address checking" = "إمنع خاصيتي تحقيق التحديث و رقم النطاق";
 
 /* Checkbox name */
 "Keep connected" = "ابق على اتصال";
@@ -356,10 +356,10 @@
 "Monitor network settings" = "راقب إعدادات الشبكة";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Place next to Spotlight icon";
+"Place next to Spotlight icon" = "يظهر بجانب شريط البحث (SpotLight)";
 
 /* Checkbox name */
-"Prepend domain name to search domains" = "Prepend domain name to search domains";
+"Prepend domain name to search domains" = "اضافة نطاق الموقع الى بداية نطاق البحث";
 
 /* Checkbox name */
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "إعادة الإتصال عندما يستيقظ الكمبيوتر من وضع السكون (إذا كان متصلا عندما يكون الكمبيوتر في حالة السكون)";
@@ -371,7 +371,7 @@
 "Reset the primary interface after disconnecting" = "إعادة تعيين الواجهة الأساسية بعد انقطاع الإتصال";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
+"Route all IPv4 traffic through the VPN" = "تحويل حركة سيرالمعلومات عبر الشبكة الخاصة الافتراضية (VPN)";
 
 /* Checkbox name */
 "Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
@@ -407,7 +407,7 @@
 "Set nameserver (alternate 1)" = "Set nameserver (alternate 1)";
 
 /* PopUpButton *//* System profile item */
-"Set nameserver" = "Set nameserver";
+"Set nameserver" = "اعداد خادم أسماء النطاقات (DNS)";
 
 /* Text on disk image */
 "Double-click to begin" = "Double-click to begin";
@@ -653,7 +653,7 @@
 "VPN Configuration Installation" = "VPN Configuration Installation";
 
 /* Window title */
-"VPN Credentials" = "VPN Credentials";
+"VPN Credentials" = "بيانات الاعتماد للاتصال بالشبكة الخاصة الافتراضية (VPN)";
 
 /* Window title */
 "Warning!" = "تحذير!";
@@ -795,6 +795,9 @@
 
 /* Window text */
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "A Tunnelblick VPN Configuration is nested too deeply in '%@'";
+
+/* Window text */
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "A passphrase is required to connect to\n  %1$@%2$@";
@@ -1290,6 +1293,18 @@
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "The '%@' OpenVPN option is not allowed when using Tunnelblick.";
+
+/* Window text */
+"The '%@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %@ without the patch will be used.\n\nThis may mean that OpenVPN will not start." = "The '%1$@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %2$@ without the patch will be used.\n\nThis may mean that OpenVPN will not start.";
+
+/* Window text */
+"The '%@' configuration contains a 'scramble' option, so OpenVPN version %@ with the scramble patch will be used." = "The '%1$@' configuration contains a 'scramble' option, so OpenVPN version %2$@ with the scramble patch will be used.";
+
+/* Window text */
+"The '%@' configuration does not contain a 'scramble' option, so OpenVPN version %@ without the scramble patch will be used." = "The '%1$@' configuration does not contain a 'scramble' option, so OpenVPN version %2$@ without the scramble patch will be used.";
+
+/* Window text */
+"The '%@' configuration does not need a version of OpenVPN with the 'scramble' patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "The '%1$@' configuration does not need a version of OpenVPN with the 'scramble' patch, but a version without the patch is not available, so version %2$@ which contains the patch will be used.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "The '%@' credentials may not be added because the list of named credentials is being forced.";
