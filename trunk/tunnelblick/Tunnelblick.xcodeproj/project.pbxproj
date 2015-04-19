@@ -38,6 +38,8 @@
 		630210131465CBBC00283B78 /* CS.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 630210121465CBBC00283B78 /* CS.lproj */; };
 		63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */; };
+		6309A4A91AE42224006C118E /* TR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6309A4A61AE42224006C118E /* TR.lproj */; };
+		6309A4AD1AE4224D006C118E /* ET.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6309A4AA1AE4224D006C118E /* ET.lproj */; };
 		6311306411041B89003435F1 /* LoginItemsAE.c in Sources */ = {isa = PBXBuildFile; fileRef = 6311305F11041B89003435F1 /* LoginItemsAE.c */; };
 		6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311306211041B89003435F1 /* UKLoginItemRegistry.m */; };
 		631310D913CA18870071C110 /* NL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631310D513CA18870071C110 /* NL.lproj */; };
@@ -352,6 +354,8 @@
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
 		630210121465CBBC00283B78 /* CS.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CS.lproj; sourceTree = "<group>"; };
 		6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = net.tunnelblick.tunnelblick.LaunchAtLogin.plist; sourceTree = "<group>"; };
+		6309A4A61AE42224006C118E /* TR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TR.lproj; sourceTree = "<group>"; };
+		6309A4AA1AE4224D006C118E /* ET.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ET.lproj; sourceTree = "<group>"; };
 		6311305F11041B89003435F1 /* LoginItemsAE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LoginItemsAE.c; sourceTree = "<group>"; };
 		6311306011041B89003435F1 /* LoginItemsAE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItemsAE.h; sourceTree = "<group>"; };
 		6311306111041B89003435F1 /* UKLoginItemRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKLoginItemRegistry.h; sourceTree = "<group>"; };
@@ -931,6 +935,7 @@
 				63DC245019FA73A9006B1BDF /* EL.lproj */,
 				615F74900ED3A4FA007F6F0A /* DE.lproj */,
 				6391992210449804001FA1BC /* ES.lproj */,
+				6309A4AA1AE4224D006C118E /* ET.lproj */,
 				B896C2DF1767B753004D9A21 /* FI.lproj */,
 				615F748C0ED3A4E5007F6F0A /* FR.lproj */,
 				63903D12145EAD49006627C9 /* HU.lproj */,
@@ -945,6 +950,7 @@
 				63611FCD13CE2A8B000240F0 /* RU.lproj */,
 				B8051F4C1754DA630024841C /* SK.lproj */,
 				63EA676913DF326600E77443 /* SV.lproj */,
+				6309A4A61AE42224006C118E /* TR.lproj */,
 				B87C59DA17982F3900FFE540 /* UK.lproj */,
 				635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */,
 				635CBBE010F3B3E700BF529B /* ZH_TW.lproj */,
@@ -1462,6 +1468,8 @@
 				63ED903A1A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist in Resources */,
 				6375C6571A4EDF11007A42E8 /* FreePublicDnsServersList.txt in Resources */,
 				635713A61A6709D800709670 /* AR.lproj in Resources */,
+				6309A4A91AE42224006C118E /* TR.lproj in Resources */,
+				6309A4AD1AE4224D006C118E /* ET.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
