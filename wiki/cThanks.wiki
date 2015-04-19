@@ -190,6 +190,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Onur Babacan     </td>
+    <td>      Turkish    </td>
+  </tr>
+
+  <tr>
     <td>      Matej Bačík     </td>
     <td>      Slovak    </td>
   </tr>
@@ -222,6 +227,11 @@ Tunnelblick is made possible by the efforts of many people:
   <tr>
     <td>      Sergio Andrés Castro Cárdenas      </td>
     <td>      Spanish    </td>
+  </tr>
+
+  <tr>
+    <td>      Iris Coeligena     </td>
+    <td>      Turkish    </td>
   </tr>
 
   <tr>
@@ -355,6 +365,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Emin Kura    </td>
+    <td>      Turkish    </td>
+  </tr>
+
+  <tr>
     <td>      Kovurt    </td>
     <td>      Chinese (simplified)    </td>
   </tr>
@@ -422,6 +437,11 @@ Tunnelblick is made possible by the efforts of many people:
    <tr>
     <td>      Denis Volpato Martins    </td>
     <td>      Portuguese (Brazilian)    </td>
+  </tr>
+
+   <tr>
+    <td>      Atakan Meray    </td>
+    <td>      Turkish    </td>
   </tr>
 
    <tr>
@@ -535,6 +555,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Ercan Solak    </td>
+    <td>      Turkish    </td>
+  </tr>
+
+  <tr>
     <td>      Tjalling Soldaat    </td>
     <td>      Dutch    </td>
   </tr>
@@ -592,6 +617,11 @@ Tunnelblick is made possible by the efforts of many people:
   <tr>
     <td>      Dennis Ukhanov      </td>
     <td>      Russian    </td>
+  </tr>
+
+  <tr>
+    <td>      Caglar Ulkuderner      </td>
+    <td>      Turkish    </td>
   </tr>
 
   <tr>
