@@ -1,0 +1,20 @@
+#summary openvpn_xorpatch
+#sidebar cSb
+
+*<font size="3">Tunnelblick and openvpn_xorpatch</font>*
+
+<wiki:toc max_depth="2" />
+
+--------------------
+
+==Version 3.5==
+
+A patch to add an option to OpenVPN has been published. The option can be useful to avoid having OpenVPN traffic detected by monitoring or censoring mechanisms such as the Great Firewall of China.
+
+However, the patch is controversial: it was not accepted as an addition to OpenVPN by the OpenVPN developers. There is a long [https://forums.openvpn.net/topic12605.html discussion of the patch] on the OpenVPN Community Support Forum.
+
+
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
