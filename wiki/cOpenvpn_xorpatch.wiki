@@ -7,13 +7,350 @@
 
 --------------------
 
-==Version 3.5==
+==The openvpn_xorpatch Controversy==
+A patch to add a "scramble" option to OpenVPN was [https://forums.openvpn.net/topic12605.html proposed] in April, 2013. The option can be useful to avoid having OpenVPN traffic detected by monitoring or censoring mechanisms such as the Great Firewall of China. The option "scrambles" each buffer of traffic before it is sent between the OpenVPN client and server.
 
-A patch to add an option to OpenVPN has been published. The option can be useful to avoid having OpenVPN traffic detected by monitoring or censoring mechanisms such as the Great Firewall of China.
+However, the patch is controversial: it was not accepted as an addition to OpenVPN by the OpenVPN developers. There is a long [https://forums.openvpn.net/topic12605.html discussion of the patch] on the OpenVPN Community Support Forum. The last post is:
 
-However, the patch is controversial: it was not accepted as an addition to OpenVPN by the OpenVPN developers. There is a long [https://forums.openvpn.net/topic12605.html discussion of the patch] on the OpenVPN Community Support Forum.
+ We (OpenVPN developers) do not encourage people building their own versions of OpenVPN changing the wire-protocol like this, without the patch being through a proper patch review and having evaluated possible security risks related to such a change.
 
+ And we especially discourage using such an approach when there exists a far better solution, used by the TOR community. It is called obfsproxy and can be used together with OpenVPN without needing any re-compilation of OpenVPN.
 
+ For more information, have a look at these URLs<br>
+ http://community.openvpn.net/openvpn/wiki/TrafficObfuscation<br>
+ https://www.torproject.org/projects/obfsproxy.html.en
+
+ To avoid confusing users further going for a possibly insecure setup , this thread will be locked now.
+
+==Tunnelblick's View==
+Regardless of the OpenVPN developers decision not to include the patch in OpenVPN, the patch is attractive because it is so easy to implement: simply apply the patch to both the OpenVPN server and the OpenVPN client and add a single, identical option to the configuration files for each. Using obfsproxy is more complicated because it involves running another, separate program on both the server and the client.
+
+Because the patch is so easy to implement, as of <a href="https://code.google.com/p/tunnelblick/source/detail?r=3274">r3274</a>, Tunnelblick includes a copy of OpenVPN with the patch. Tunnelblick continues to include an unpatched copy of OpenVPN, too, and that copy is used unless the patch's "scramble" option appears in the OpenVPN configuration file. So nobody who does not explicitly use the "scramble" option uses a patched version of OpenVPN.
+
+The original post proposing the patch claims that using the patch is sufficient to secure communications and that no other encryption is necessary:
+ With this obfuscate option, I think that it is ok to use "cipher none", because working out the method used would take a lot of cryptoanalysis. The obfuscate option is also much easier on the CPU than any cipher options This is incase you are using ddwrt or openwrt or have a low speed cpu.
+However, without more detailed analysis by cryptographers, it seems best to ignore this advice. Beware of cryptographic advice from amateur cryptographers!
+
+It is possible that if the "scramble" option becomes widely used, large organizations will have the ability and power to "unscramble" traffic and detect. That will probably be the case for configurations that use an identical `<`xor_string`>` or  `<`password`>` for many customers. This is another reason to continue to encrypt the VPN traffic using OpenVPN's `<`cipher`>` option.
+
+==Tunnelblick Modifications to the Patch==
+As the OpenVPN developers point out, the patch has never been through a thorough review for security, coding, etc. However, the Tunnelblick developer has reviewed the patch, found some problems, and modified it in Tunnelblick to resolve those problems. The problems that were found and fixed involved insufficient parameter validation and a buffer overflow. Some defensive programming was also added to the modified version of the patch to increase its robustness.
+
+I invite anyone/everyone to review the patch and report any problems to me (either to the Tunnelblick Discussion Group or to me privately at my Gmail address, jkbullard). The patch is shown [#The_patch_as_Modified_for_Use_in_Tunnelblick below], and is located in the Tunnelblick source code (as of <a href="https://code.google.com/p/tunnelblick/source/detail?r=3274">r3274</a>) at<br>
+ third_party/sources/openvpn/openvpn-2.3.6txp/patches/02-tunnelblick-openvpn_xorpatch.diff<br>
+(The "txp" suffix stands for "Tunnelblick xor patch".)
+
+==Scramble Option Syntax==
+Note: The "scramble" option and parameters in the server and client configuration files must match.
+
+ <code>scramble `<`xor_string`>`
+scramble xormask `<`xor_string`>`</code><br>
+ These optiona xor the bytes in each buffer with `<`xor_string`>`.
+<br>
+
+ <code>scramble reverse</code><br>
+ This option reverses order of the bytes in each buffer (except that the first byte is unchanged). So "abcde" becomes "aedcb".
+<br>
+
+ <code>scramble xorptrpos</code><br>
+ This option xors each byte of the buffer of traffic with the position in the buffer.
+<br>
+
+ <code>scramble obfuscate <password></code><br>
+ This option performs several of the above steps, using `<`password`>` as the `<`xor_string`>` in one of the steps.
+
+==The patch as Modified for Use in Tunnelblick==
+The following is the modified patch, as used in Tunnelblick as of [https://code.google.com/p/tunnelblick/source/detail?r=3274" r3274].<br>
+This version of the patch is based on the most recent version of the [https://github.com/clayface/openvpn_xorpatch/blob/master/openvpn_xor.patch patch] for OpenVPN 2.3.6 as of April, 2015.
+
+{{{
+diff -u -r openvpn-2.3.6/src/openvpn/forward.c openvpn-2.3.6_/src/openvpn/forward.c
+--- openvpn-2.3.6/src/openvpn/forward.c	2014-11-29 10:00:35.000000000 -0500
++++ openvpn-2.3.6_/src/openvpn/forward.c	2015-04-07 22:38:20.000000000 -0400
+@@ -674,7 +674,10 @@
+   status = link_socket_read (c->c2.link_socket,
+ 			     &c->c2.buf,
+ 			     MAX_RW_SIZE_LINK (&c->c2.frame),
+-			     &c->c2.from);
++			     &c->c2.from,
++			     c->options.ce.xormethod,
++			     c->options.ce.xormask,
++			     c->options.ce.xormasklen);
+ 
+   if (socket_connection_reset (c->c2.link_socket, status))
+     {
+@@ -1150,7 +1153,10 @@
+ 	    /* Send packet */
+ 	    size = link_socket_write (c->c2.link_socket,
+ 				      &c->c2.to_link,
+-				      to_addr);
++				      to_addr,
++				      c->options.ce.xormethod,
++				      c->options.ce.xormask,
++				      c->options.ce.xormasklen);
+ 
+ #ifdef ENABLE_SOCKS
+ 	    /* Undo effect of prepend */
+diff -u -r openvpn-2.3.6/src/openvpn/options.c openvpn-2.3.6_/src/openvpn/options.c
+--- openvpn-2.3.6/src/openvpn/options.c	2014-11-29 10:00:35.000000000 -0500
++++ openvpn-2.3.6_/src/openvpn/options.c	2015-04-09 12:56:32.000000000 -0400
+@@ -785,6 +785,9 @@
+   o->max_routes = MAX_ROUTES_DEFAULT;
+   o->resolve_retry_seconds = RESOLV_RETRY_INFINITE;
+   o->proto_force = -1;
++  o->ce.xormethod = 0;
++  o->ce.xormask ="\0";
++  o->ce.xormasklen = 1;
+ #ifdef ENABLE_OCC
+   o->occ = true;
+ #endif
+@@ -903,6 +906,9 @@
+   setenv_int_i (es, "local_port", e->local_port, i);
+   setenv_str_i (es, "remote", e->remote, i);
+   setenv_int_i (es, "remote_port", e->remote_port, i);
++  setenv_int_i (es, "xormethod", e->xormethod, i);
++  setenv_str_i (es, "xormask", e->xormask, i);
++  setenv_int_i (es, "xormasklen", e->xormasklen, i);
+ 
+ #ifdef ENABLE_HTTP_PROXY
+   if (e->http_proxy_options)
+@@ -1348,6 +1354,9 @@
+   SHOW_INT (connect_retry_seconds);
+   SHOW_INT (connect_timeout);
+   SHOW_INT (connect_retry_max);
++  SHOW_INT (xormethod);
++  SHOW_STR (xormask);
++  SHOW_INT (xormasklen);
+ 
+ #ifdef ENABLE_HTTP_PROXY
+   if (o->http_proxy_options)
+@@ -5049,6 +5058,46 @@
+       options->proto_force = proto_force;
+       options->force_connection_list = true;
+     }
++  else if (streq (p[0], "scramble") && p[1])
++    {
++      VERIFY_PERMISSION (OPT_P_GENERAL|OPT_P_CONNECTION);
++      if (streq (p[1], "xormask") && p[2] && (!p[3]))
++	{
++	  options->ce.xormethod = 1;
++	  options->ce.xormask = p[2];
++	  options->ce.xormasklen = strlen(options->ce.xormask);
++	}
++      else if (streq (p[1], "xorptrpos") && (!p[2]))
++	{
++	  options->ce.xormethod = 2;
++	  options->ce.xormask = NULL;
++	  options->ce.xormasklen = 0;
++	}
++      else if (streq (p[1], "reverse") && (!p[2]))
++	{
++	  options->ce.xormethod = 3;
++	  options->ce.xormask = NULL;
++	  options->ce.xormasklen = 0;
++	}
++      else if (streq (p[1], "obfuscate") && p[2] && (!p[3]))
++	{
++	  options->ce.xormethod = 4;
++	  options->ce.xormask = p[2];
++	  options->ce.xormasklen = strlen(options->ce.xormask);
++	}
++      else if (!p[2])
++	{
++	  msg (M_WARN, "WARNING: No recognized 'scramble' method specified; using 'scramble xormask \"%s\"'", p[1]);
++	  options->ce.xormethod = 1;
++	  options->ce.xormask = p[1];
++	  options->ce.xormasklen = strlen(options->ce.xormask);
++	}
++      else
++	{
++	  msg (msglevel, "No recognized 'scramble' method specified or extra parameters for 'scramble'");
++	  goto err;
++	}
++    }
+ #ifdef ENABLE_HTTP_PROXY
+   else if (streq (p[0], "http-proxy") && p[1])
+     {
+diff -u -r openvpn-2.3.6/src/openvpn/options.h openvpn-2.3.6_/src/openvpn/options.h
+--- openvpn-2.3.6/src/openvpn/options.h	2014-11-29 10:00:35.000000000 -0500
++++ openvpn-2.3.6_/src/openvpn/options.h	2015-04-07 22:38:20.000000000 -0400
+@@ -100,6 +100,9 @@
+   int connect_retry_max;
+   int connect_timeout;
+   bool connect_timeout_defined;
++  int xormethod;
++  const char *xormask;
++  int xormasklen;
+ #ifdef ENABLE_HTTP_PROXY
+   struct http_proxy_options *http_proxy_options;
+ #endif  
+diff -u -r openvpn-2.3.6/src/openvpn/socket.c openvpn-2.3.6_/src/openvpn/socket.c
+--- openvpn-2.3.6/src/openvpn/socket.c	2014-11-29 10:00:35.000000000 -0500
++++ openvpn-2.3.6_/src/openvpn/socket.c	2015-04-09 08:48:01.000000000 -0400
+@@ -52,6 +52,51 @@
+   IPv6_TCP_HEADER_SIZE,
+ };
+ 
++int buffer_mask (struct buffer *buf, const char *mask, int xormasklen) {
++	int i;
++	uint8_t *b;
++	for (i = 0, b = BPTR (buf); i < BLEN(buf); i++, b++) {
++		*b = *b ^ mask[i % xormasklen];
++	}
++	return BLEN (buf);
++}
++
++int buffer_xorptrpos (struct buffer *buf) {
++	int i;
++	uint8_t *b;
++	for (i = 0, b = BPTR (buf); i < BLEN(buf); i++, b++) {
++		*b = *b ^ i+1;
++	}
++	return BLEN (buf);
++}
++
++int buffer_reverse (struct buffer *buf) {
++/* This function has been rewritten for Tunnelblick. The buffer_reverse function at
++ * https://github.com/clayface/openvpn_xorpatch
++ * makes a copy of the buffer and it writes to the byte **after** the
++ * buffer contents, so if the buffer is full then it writes outside of the buffer.
++ * This rewritten version does neither.
++ *
++ * For interoperability, this rewritten version preserves the behavior of the original
++ * function: it does not modify the first character of the buffer. So it does not
++ * actually reverse the contents of the buffer. Instead, it changes 'abcde' to 'aedcb'.
++ * (Of course, the actual buffer contents are bytes, and not necessarily characters.)
++ */
++  int len = BLEN(buf);
++  if (  len > 2  ) {                           /* Leave '', 'a', and 'ab' alone */
++    int i;
++    uint8_t *b_start = BPTR (buf) + 1;	        /* point to first byte to swap */
++    uint8_t *b_end   = BPTR (buf) + (len - 1); /* point to last byte to swap */
++    uint8_t tmp;
++    for (i = 0; i < (len-1)/2; i++, b_start++, b_end--) {
++      tmp = *b_start;
++      *b_start = *b_end;
++      *b_end = tmp;
++    }
++  }
++  return len;
++}
++
+ /*
+  * Convert sockflags/getaddr_flags into getaddr_flags
+  */
+diff -u -r openvpn-2.3.6/src/openvpn/socket.h openvpn-2.3.6_/src/openvpn/socket.h
+--- openvpn-2.3.6/src/openvpn/socket.h	2014-11-29 10:00:35.000000000 -0500
++++ openvpn-2.3.6_/src/openvpn/socket.h	2015-04-08 20:12:02.000000000 -0400
+@@ -250,6 +250,10 @@
+ #endif
+ };
+ 
++int buffer_mask (struct buffer *buf, const char *xormask, int xormasklen);
++int buffer_xorptrpos (struct buffer *buf);
++int buffer_reverse (struct buffer *buf);
++
+ /*
+  * Some Posix/Win32 differences.
+  */
+@@ -875,30 +879,56 @@
+ link_socket_read (struct link_socket *sock,
+ 		  struct buffer *buf,
+ 		  int maxsize,
+-		  struct link_socket_actual *from)
++		  struct link_socket_actual *from,
++		  int xormethod,
++		  const char *xormask,
++		  int xormasklen)
+ {
++  int res;
+   if (proto_is_udp(sock->info.proto)) /* unified UDPv4 and UDPv6 */
+     {
+-      int res;
+ 
+ #ifdef WIN32
+       res = link_socket_read_udp_win32 (sock, buf, from);
+ #else
+       res = link_socket_read_udp_posix (sock, buf, maxsize, from);
+ #endif
+-      return res;
+     }
+   else if (proto_is_tcp(sock->info.proto)) /* unified TCPv4 and TCPv6 */
+     {
+       /* from address was returned by accept */
+       addr_copy_sa(&from->dest, &sock->info.lsa->actual.dest);
+-      return link_socket_read_tcp (sock, buf);
++      res = link_socket_read_tcp (sock, buf);
+     }
+   else
+     {
+       ASSERT (0);
+       return -1; /* NOTREACHED */
+     }
++  switch(xormethod)
++    {
++      case 0:
++       break;
++      case 1:
++       buffer_mask(buf,xormask,xormasklen);
++       break;
++      case 2:
++       buffer_xorptrpos(buf);
++       break;
++      case 3:
++       buffer_reverse(buf);
++       break;
++      case 4:
++       buffer_mask(buf,xormask,xormasklen);
++       buffer_xorptrpos(buf);
++       buffer_reverse(buf);
++       buffer_xorptrpos(buf);
++       break;
++      default:
++       ASSERT (0);
++       return -1; /* NOTREACHED */
++    }
++  return res;
+ }
+ 
+ /*
+@@ -982,8 +1012,34 @@
+ static inline int
+ link_socket_write (struct link_socket *sock,
+ 		   struct buffer *buf,
+-		   struct link_socket_actual *to)
++		   struct link_socket_actual *to,
++		   int xormethod,
++		   const char *xormask,
++		   int xormasklen)
+ {
++  switch(xormethod)
++    {
++      case 0:
++       break;
++      case 1:
++       buffer_mask(buf,xormask,xormasklen);
++       break;
++      case 2:
++       buffer_xorptrpos(buf);
++       break;
++      case 3:
++       buffer_reverse(buf);
++       break;
++      case 4:
++       buffer_xorptrpos(buf);
++       buffer_reverse(buf);
++       buffer_xorptrpos(buf);
++       buffer_mask(buf,xormask,xormasklen);
++       break;
++      default:
++       ASSERT (0);
++       return -1; /* NOTREACHED */
++    }
+   if (proto_is_udp(sock->info.proto)) /* unified UDPv4 and UDPv6 */
+     {
+       return link_socket_write_udp (sock, buf, to);
+}}}
 
 ------------------
 
