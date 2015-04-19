@@ -85,6 +85,12 @@ extern TBUserDefaults * gTbDefaults;
     [mainText setTitle: text];
     
     [saveInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain", @"Checkbox name")];
+    
+    NSString * autoConnectKey   = [displayName stringByAppendingString: @"autoConnect"];
+    NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
+    BOOL connectOnSystemStart = (   [gTbDefaults boolForKey: autoConnectKey]
+                                 && [gTbDefaults boolForKey: onSystemStartKey] );
+    [saveInKeychainCheckbox setEnabled: ! connectOnSystemStart];
 
     [self setTitle: NSLocalizedString(@"OK"    , @"Button") ofControl: OKButton ];
     [self setTitle: NSLocalizedString(@"Cancel", @"Button") ofControl: cancelButton ];

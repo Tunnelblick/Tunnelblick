@@ -66,6 +66,15 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
     return self;
 }
 
+-(BOOL) connectWhenSystemStarts {
+    
+	NSString * displayName = [[self delegate] displayName];
+    NSString * autoConnectKey   = [displayName stringByAppendingString: @"autoConnect"];
+    NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
+    return (   [gTbDefaults boolForKey: autoConnectKey]
+            && [gTbDefaults boolForKey: onSystemStartKey] );
+}
+
 -(void) awakeFromNib
 {
     [[self window] setTitle: NSLocalizedString(@"Tunnelblick: Login Required", @"Window title")];
@@ -109,9 +118,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
 
 -(void) redisplay
 {
-    // If we have saved a username, load the textbox with it and check the "Save in Keychain" checkbox for it
+    // If we have saved a username, load the textbox with it and check the "Save in Keychain" checkbox for it (unless this is a "when computer starts" configuration)
 	NSString * displayName = [[self delegate] displayName];
-    NSString * usernamePreferenceKey             = [displayName stringByAppendingString: @"-keychainHasUsername"];
+    NSString * usernamePreferenceKey = [displayName stringByAppendingString: @"-keychainHasUsername"];
     BOOL haveSavedUsername = (   [gTbDefaults boolForKey: usernamePreferenceKey]
 							  && [gTbDefaults canChangeValueForKey: usernamePreferenceKey] );
 	NSString * usernameLocal = [delegate usernameFromKeychain];
@@ -119,15 +128,16 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
 		usernameLocal = @"";
 	}
 	[[self username] setStringValue: usernameLocal];
-	BOOL enableSaveUsernameCheckbox = (  haveSavedUsername
-									   ? NSOnState
-									   : NSOffState);
-    [[self saveUsernameInKeychainCheckbox] setState: enableSaveUsernameCheckbox];
+	BOOL enableSaveCheckbox = ! [self connectWhenSystemStarts];
+
+    [[self saveUsernameInKeychainCheckbox] setState:   (   haveSavedUsername
+                                                        && enableSaveCheckbox ? NSOnState : NSOffState)];  // Defaults to "checked" if have already saved username and not "connect when system starts"
+    [[self saveUsernameInKeychainCheckbox] setEnabled: enableSaveCheckbox];
 	
     // Always clear the password textbox and set up its "Save in Keychain" checkbox
 	[[self password] setStringValue: @""];
-	[[self savePasswordInKeychainCheckbox] setState:   NSOffState];
-	[[self savePasswordInKeychainCheckbox] setEnabled: enableSaveUsernameCheckbox];
+	[[self savePasswordInKeychainCheckbox] setState:   NSOffState];          // Defaults to "not checked"
+	[[self savePasswordInKeychainCheckbox] setEnabled: enableSaveCheckbox];  // Enabled if password is already saved or will be saved
 	
     [cancelButton setEnabled: YES];
     [OKButton setEnabled: YES];
@@ -175,7 +185,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
 {
  	(void) sender;
 	
-   [cancelButton setEnabled: NO];
+    [cancelButton setEnabled: NO];
     [OKButton setEnabled: NO];
     [NSApp abortModal];
 }
@@ -202,7 +212,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
 	
 	(void) sender;
 	
-	if (  [saveUsernameInKeychainCheckbox state] == NSOnState  ) {
+	if (  (   ([saveUsernameInKeychainCheckbox state] == NSOnState)
+           && ( ! [self connectWhenSystemStarts])) ) {
 		[[self savePasswordInKeychainCheckbox] setState:   NSOffState];
 		[[self savePasswordInKeychainCheckbox] setEnabled: YES];
 	} else {
