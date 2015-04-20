@@ -1772,14 +1772,14 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                 return newIx; // Don't need scramble patch; using an OpenVPN version without it
             }
             TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                    [NSString stringWithFormat: NSLocalizedString(@"The '%@' configuration does not need a version of OpenVPN with the 'scramble' patch, but a version without the patch is not available, so version %@ which contains the patch will be used.", @"Window text"),
+                                    [NSString stringWithFormat: NSLocalizedString(@"The '%@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used.", @"Window text"),
                                      [self displayName], name],
                                     nil, nil, nil,
                                     @"skipWarningAboutOnlyOpenvpnTxpVersion",
                                     NSLocalizedString(@"Do not show again for any configuration", @"Checkbox name on a warning dialog"),
                                     nil,
                                     NSAlertDefaultReturn);
-            NSLog(@"The %@ configuration does not need a version of OpenVPN with the 'scramble' patch, but a version without the patch is not available, so version %@ which contains the patch will be used.", [self displayName], name);
+            NSLog(@"The %@ configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used.", [self displayName], name);
             return ix; // Don't need scramble patch but don't have a version of OpenVPN without it
         }
         
