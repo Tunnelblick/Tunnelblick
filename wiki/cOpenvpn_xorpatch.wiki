@@ -36,7 +36,7 @@ It is possible that if the "scramble" option becomes widely used, large organiza
 ==Tunnelblick Modifications to the Patch==
 As the OpenVPN developers point out, the patch has never been through a thorough review for security, coding, etc. However, the Tunnelblick developer has reviewed the patch, found some problems, and modified it in Tunnelblick to resolve those problems. The problems that were found and fixed involved insufficient parameter validation and a buffer overflow. Some defensive programming was also added to the modified version of the patch to increase its robustness.
 
-I invite anyone/everyone to review the patch and report any problems to me (either to the Tunnelblick Discussion Group or to me privately at my Gmail address, jkbullard). The patch is shown [#The_patch_as_Modified_for_Use_in_Tunnelblick below], and is located in the Tunnelblick source code (as of <a href="https://code.google.com/p/tunnelblick/source/detail?r=3274">r3274</a>) at<br>
+I invite anyone/everyone to review the patch and report any problems to me (either to the Tunnelblick Discussion Group or to me privately at my Gmail address, jkbullard). The patch is shown [cOpenvpn_xorpatch#The_Patch_as_Modified_for_Use_in_Tunnelblick below], and is located in the Tunnelblick source code (as of <a href="https://code.google.com/p/tunnelblick/source/detail?r=3274">r3274</a>) at<br>
  third_party/sources/openvpn/openvpn-2.3.6txp/patches/02-tunnelblick-openvpn_xorpatch.diff<br>
 (The "txp" suffix stands for "Tunnelblick xor patch".)
 
