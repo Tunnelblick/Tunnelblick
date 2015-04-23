@@ -1,4 +1,12 @@
-Tunnelblick comes set up to be built using Xcode 3.2.2 on OS X 10.6.8.
+Tunnelblick comes set up to be built using Xcode 3.2.2 on OS X 10.6.8 but can be built
+with Xcode 5.1.1 on OS X 10.8.5 or Xcode 6.3 and higher on OS X 10.10.3 or higher.
+
+ * PowerPC and Intel processors and OS X 10.4 - 10.10 are supported only when Tunnelblick
+   is built using Xcode 3.2.2 on OS X 10.6.8.
+
+ * Xcode 5.1.1 and 6.3 and higher only generate 64-bit Intel code and are for use on
+   OS X 10.6 - 10.10 and higher only.
+
 
 To use Xcode 3.2.2 on OS X 10.6.8:
 
