@@ -832,7 +832,7 @@ int main(int argc, char *argv[])
         
 		BOOL okSoFar = checkSetOwnership(tunnelblickPath, YES, 0, 0);
         
-        okSoFar = okSoFar && checkSetPermissions(infoPlistPath,             PERMS_SECURED_PLIST,      YES);
+        okSoFar = okSoFar && checkSetPermissions(infoPlistPath,             PERMS_SECURED_READABLE,   YES);
         
         okSoFar = okSoFar && checkSetPermissions(appResourcesPath,          PERMS_SECURED_FOLDER,     YES);
 
@@ -850,12 +850,12 @@ int main(int argc, char *argv[])
         okSoFar = okSoFar && checkSetPermissions(ssoPath,                   PERMS_SECURED_ROOT_EXEC,  YES);
         okSoFar = okSoFar && checkSetPermissions(tunnelblickdPath,          PERMS_SECURED_ROOT_EXEC,  YES);
         
-        okSoFar = okSoFar && checkSetPermissions(pncPlistPath,              PERMS_SECURED_PLIST,      YES);
-        okSoFar = okSoFar && checkSetPermissions(leasewatchPlistPath,       PERMS_SECURED_PLIST,      YES);
-        okSoFar = okSoFar && checkSetPermissions(leasewatch3PlistPath,      PERMS_SECURED_PLIST,      YES);
-        okSoFar = okSoFar && checkSetPermissions(launchAtLoginPlistPath,    PERMS_SECURED_PLIST,      YES);
-        okSoFar = okSoFar && checkSetPermissions(tunnelblickdPlistPath,     PERMS_SECURED_PLIST,      YES);
-        okSoFar = okSoFar && checkSetPermissions(freePublicDnsServersPath,  PERMS_SECURED_PLIST,      YES);
+        okSoFar = okSoFar && checkSetPermissions(pncPlistPath,              PERMS_SECURED_READABLE,   YES);
+        okSoFar = okSoFar && checkSetPermissions(leasewatchPlistPath,       PERMS_SECURED_READABLE,   YES);
+        okSoFar = okSoFar && checkSetPermissions(leasewatch3PlistPath,      PERMS_SECURED_READABLE,   YES);
+        okSoFar = okSoFar && checkSetPermissions(launchAtLoginPlistPath,    PERMS_SECURED_READABLE,   YES);
+        okSoFar = okSoFar && checkSetPermissions(tunnelblickdPlistPath,     PERMS_SECURED_READABLE,   YES);
+        okSoFar = okSoFar && checkSetPermissions(freePublicDnsServersPath,  PERMS_SECURED_READABLE,   YES);
         
         okSoFar = okSoFar && checkSetPermissions(clientUpPath,              PERMS_SECURED_ROOT_EXEC,  NO);
         okSoFar = okSoFar && checkSetPermissions(clientDownPath,            PERMS_SECURED_ROOT_EXEC,  NO);

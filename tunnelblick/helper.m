@@ -388,7 +388,8 @@ BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, mode_t per
         return YES;
     }
     
-    NSLog(@"File %@ has permissions: %lo, is owned by %@:%@ and needs repair", fPath, perms, fileOwner, fileGroup);
+    NSLog(@"File %@ is owned by %@:%@ with permissions: %lo but must be owned by %ld:%ld with permissions %lo",
+          fPath, fileOwner, fileGroup, perms, (long)uid, (long)gid, (long)permsShouldHave);
     return NO;
 }
 
