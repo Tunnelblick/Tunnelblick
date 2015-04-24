@@ -30,6 +30,11 @@ Second, you must download and install Xcode 3.2.2 if it isn't already installed 
 
 Xcode versions later than 3.2.2 may be used, but they do not generate code for PowerPC processors.
 
+If Xcode does not download and install the command line tools, you should execute the following in a Terminal window:
+ {{{xcode-select --install}}}
+which will open a user dialog to install the command line tools.
+
+
 ==DOWNLOAD THE SOURCE CODE==
 Third, you must download the Tunnelblick source code. Start a terminal session (double-click "Terminal" in the Applications folder). Type the following into the Terminal window: "cd " (without the quotes). That is, the letter c, the letter d, and a space. Open a new Finder window by clicking on Finder in the Dock. Navigate to the place you would like to save the Tunnelblick source code (your Documents folder, for example, or the Desktop) and then hold down the command key on the keyboard (the cloverleaf or apple key) and press the up-arrow key once. You now have a view of the folder which contains the folder you want to store the source code in (and it contains other things, too). Drag the folder in which you want to store the source code to the Terminal window, then let release it. The path to the folder you want to store the source code will be automatically typed for you! Click on the Terminal window, then press the "return" key. Click and drag the following line into the terminal window, too:
 
