@@ -712,12 +712,10 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
             result = result && checkSetPermissions(filePath, scriptPerms, YES);
             
         } else if (   [ext isEqualToString: @"strings"]
+                   || [ext isEqualToString: @"png"]
                    || [[file lastPathComponent] isEqualToString:@"Info.plist"]  ) {
             result = result && checkSetPermissions(filePath, publicReadablePerms, YES);
             
-        } else if (  [ext isEqualToString: @"png"]  ) {
-            result = result && checkSetPermissions(filePath, PERMS_SECURED_PLIST, YES);
-			
 		} else if (  [path hasPrefix: gDeployPath]  ) {
             if (   [filePath hasPrefix: [gDeployPath stringByAppendingPathComponent: @"Welcome"]]
                 || [[file lastPathComponent] isEqualToString:@"forced-preferences.plist"]  ) {

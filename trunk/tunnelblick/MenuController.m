@@ -6141,6 +6141,7 @@ BOOL needToSecureFolderAtPath(NSString * path, BOOL isDeployFolder)
             }
             
         } else if (   [ext isEqualToString: @"strings"]
+                   || [ext isEqualToString: @"png"]
                    || [[file lastPathComponent] isEqualToString:@"Info.plist"]  ) {
             if (  ! checkOwnerAndPermissions(filePath, user, group, publicReadablePerms)  ) {
                 return YES;
@@ -6271,7 +6272,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
                 }
                 
                 NSString * thisOpenvpnDownRootPath = [fullPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
-                if (  ! checkOwnerAndPermissions(thisOpenvpnDownRootPath, 0, 0, PERMS_SECURED_READABLE)  ) {
+                if (  ! checkOwnerAndPermissions(thisOpenvpnDownRootPath, 0, 0, PERMS_SECURED_ROOT_EXEC)  ) {
                     return YES;
                 }
             }
@@ -6347,7 +6348,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	NSArray *root644Objects = [NSArray arrayWithObjects: infoPlistPath, pncPlistPath, leasewatchPlistPath, leasewatch3PlistPath, launchAtLoginPlistPath, tunnelblickdPlistPath, freePublicDnsServersPath, nil];
 	e = [root644Objects objectEnumerator];
 	while (  (currentPath = [e nextObject])  ) {
-        if (  ! checkOwnerAndPermissions(currentPath, 0, 0, PERMS_SECURED_PLIST)  ) {
+        if (  ! checkOwnerAndPermissions(currentPath, 0, 0, PERMS_SECURED_READABLE)  ) {
             return YES; // NSLog already called
         }
 	}
