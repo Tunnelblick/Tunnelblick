@@ -14,7 +14,7 @@
 		<string>https://tunnelblick.googlecode.com/svn/trunk</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>tunnelblick/Tunnelblick.xcodeproj/project.xcworkspace</string>
+	<string>project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>39B1ED35-C2B5-4357-A4DB-186277723DEE</key>
