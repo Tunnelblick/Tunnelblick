@@ -288,6 +288,25 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
             
         }
         
+#if MAC_OS_X_VERSION_MIN_REQUIRED != MAC_OS_X_VERSION_10_4
+        if (  ! runningOn64BitKernel()  ) {
+            if (  runningOnSnowLeopardPointEightOrNewer()  ) {
+                TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window title"),
+                                        NSLocalizedString(@"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts.", @"Window text"),
+                                        nil, nil, nil,
+                                        @"skipWarningAbout64BitVersionOnSnowLeopardPointEight", // Preference about seeing this message again
+                                        NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                                        nil,
+                                        NSAlertDefaultReturn);
+            } else {
+                TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
+                                NSLocalizedString(@"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.", @"Window text"),
+                                nil, nil, nil);
+                [self terminateBecause: terminatingBecauseOfError];
+            }
+        }
+#endif //MACOSX_DEPLOYMENT_TARGET > MAC_OS_X_VERSION_10_4
+        
 		doingSetupOfUI = FALSE;
         launchFinished = FALSE;
         hotKeyEventHandlerIsInstalled = FALSE;
@@ -357,6 +376,10 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"skipWarningAboutUsingOpenvpnNonTxpVersion",
                                 @"skipWarningAboutNoOpenvpnTxpVersion",
                                 @"skipWarningAboutOnlyOpenvpnTxpVersion",
+                                @"skipWarningAbout64BitVersionOnSnowLeopardPointEight",
+                                @"skipWarningAbout64BitVersionWithTap",
+                                @"skipWarningAbout64BitVersionWithTunOnSnowLeopardPointEight",
+                                @"skipWarningAbout64BitVersionOnNonSnowLeopardPointEight",
                                 
                                 @"timeoutForOpenvpnToTerminateAfterDisconnectBeforeAssumingItIsReconnecting",
                                 @"timeoutForIPAddressCheckBeforeConnection",

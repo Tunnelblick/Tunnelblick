@@ -25,6 +25,7 @@
 #import <mach/mach_time.h>
 #import <sys/stat.h>
 #import <sys/sysctl.h>
+#import <sys/utsname.h>
 #import <unistd.h>
 
 #import "defines.h"
@@ -204,6 +205,31 @@ BOOL runningOnIntel(void) {
     NSLog(@"An error occured trying to detect CPU type with sysctlbyname; assuming Intel; error was %lu: %s", (long)errno, strerror(errno));
     return YES;
 }
+
+#if MAC_OS_X_VERSION_MIN_REQUIRED != MAC_OS_X_VERSION_10_4
+BOOL runningOn64BitKernel(void) {
+    
+    // Returns NO if it can be determined that this is a 32-bit kernel, YES otherwise
+    
+    struct utsname name;
+    
+    int error = uname(&name);
+    
+	if (  error == 0 ) {
+        NSString * version = [NSString stringWithUTF8String: name.version];
+        if (  [version rangeOfString: @"i386"].length != 0  ) {
+            return NO;
+        }
+        if (  [version rangeOfString: @"X86_64"].length == 0  ) {
+            NSLog(@"Unable to determine  32- or 64-bit kernel with uname(), assuming 64-bit kernel; version was '%@'", version);
+        }
+	} else {
+        NSLog(@"An error occured trying to determine 32- or 64-bit kernel with uname(), assuming 64-bit kernel; error was %lu: %s", (long)errno, strerror(errno));
+    }
+    
+    return YES;
+}
+#endif //MACOSX_DEPLOYMENT_TARGET > MAC_OS_X_VERSION_10_4
 
 BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
     

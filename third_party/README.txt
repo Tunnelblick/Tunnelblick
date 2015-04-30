@@ -46,13 +46,24 @@ problems with the build the error may be ignored.
 
 THE THIRD PARTY PROGRAMS
 
-Two programs are built and used by Tunnelblick directly:
+Three programs are built and used by Tunnelblick directly:
 
     OpenVPN:   This is the program that creates VPNs. Tunnelblick launches it when a user
                asks to connect to a VPN.
 
+    openvpn-down-root.so: This is a "helper" program used by OpenVPN. It is launched by
+               OpenVPN when invoked with a certain options Tunnelblick passes to OpenVPN.
+
     tuntaposx: This program consists of tun and tap kexts which are loaded by Tunnelblick
                on demand.
+
+There may be several different versions of OpenVPN in the third_party/tunnelblick folder.
+There are two different copies of each version of OpenVPN: one copy is created normally,
+the other is created with the Tunnelblick OpenVPN Xor Patch (see
+https://code.google.com/p/tunnelblick/wiki/cOpenvpn_xorpatch).
+
+There are several different versions of the tun and tap kexts created for use with different
+versions of OS X.
 
 Two programs are used slightly differently:
 
@@ -114,7 +125,7 @@ The third_party folder contains the following files and folders:
         cause a clean build of the third party programs by deleting this file and then
         building Tunnelblick.
 
-    built-***
+    built-*
         Files with names starting with "built-" are created as part of the build process
         to indicate which programs have been built. This is particularly useful when
         debugging a problem building a particular program: by deleting this file, the
@@ -198,6 +209,17 @@ current Tunnelblick source code.
                 file should not contain any CR or LF characters. The options should be
                 separated by spaces.
 
+	openvpn-x.y.ztxp
+	    This folder contains the source code and patches for version x.y.z of OpenVPN,
+	    but the patches include the Tunnelblick OpenVPN Xor Patch (see
+            https://code.google.com/p/tunnelblick/wiki/cOpenvpn_xorpatch), and a patch so
+	    that OpenVPN returns it's version identifier as "x.y.ztxp".
+
+	Note: When launched, Tunnelblick checks that the version identifier reported by
+	each copy of OpenVPN is the same as the name of the folder that encloses it.
+	(That's why the "txp" version is patched to return its version identifier as
+	"x.y.ztxp".)
+
     easy-rsa
 
         This folder contains three folders that are used to create the final
@@ -242,10 +264,13 @@ To add a new version of OpenVPN:
     3. If necessary, or create or modify a 'configuration-options.txt' file to specify
        the options used to configure the version of OpenVPN, and copy the file into the
        subfolder.
+    4. Copy the subfolder as "openvpn-x.y.ztxp", and add the patch files for the
+       Tunnelblick OpenVPN Xor Patch and to modify the version information to "x.y.ztxp".
+
     No changes to Makefile-common are needed.
 
 To remove a version of OpenVPN:
-    Remove the version's folder from /third_party/openvpn.
+    Remove the version's folders (normal and "tcp") from /third_party/openvpn.
     No changes to Makefile-common are needed.
     
 To add a new version of tuntap:
@@ -256,6 +281,8 @@ To add a new version of tuntap:
        copy the .diff file into the appropriate subfolder in third_party/patches.
     4. Modify Makefile-common to create the newer version. This will involve changes in
        several places in Makefile-common.
+    5. Other changes may be needed in the Tunnelblick source code to use the new version
+       (for example, if it is only for specific versions of OS X).
 
 To replace an older version of Sparkle:
     
