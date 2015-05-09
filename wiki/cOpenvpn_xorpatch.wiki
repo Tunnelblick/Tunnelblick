@@ -25,13 +25,14 @@ However, the patch is controversial: it was not accepted as an addition to OpenV
 ==Tunnelblick's View==
 Regardless of the OpenVPN developers decision not to include the patch in OpenVPN, the patch is attractive because it is so easy to implement: simply apply the patch to both the OpenVPN server and the OpenVPN client and add a single, identical option to the configuration files for each. Using obfsproxy is more complicated because it involves running another, separate program on both the server and the client.
 
-Because the patch is so easy to implement, as of <a href="https://code.google.com/p/tunnelblick/source/detail?r=3274">r3274</a>, Tunnelblick includes a copy of OpenVPN with the patch. Tunnelblick continues to include an unpatched copy of OpenVPN, too, and that copy is used unless the patch's "scramble" option appears in the OpenVPN configuration file. So nobody who does not explicitly use the "scramble" option uses a patched version of OpenVPN.
+Because the patch is so easy to implement, as of <a href="https://code.google.com/p/tunnelblick/source/detail?r=3274">r3274</a>, Tunnelblick includes a copy of OpenVPN with the patch. Tunnelblick continues to include an unpatched copy of OpenVPN, too, and that copy is used unless the patch's "scramble" option appears in the OpenVPN configuration file. So only a configuration which specifies a "scramble" option will be connected using a patched version of OpenVPN; others will connect using an unmodified version of OpenVPN.
 
 The original post proposing the patch claims that using the patch is sufficient to secure communications and that no other encryption is necessary:
  With this obfuscate option, I think that it is ok to use "cipher none", because working out the method used would take a lot of cryptoanalysis. The obfuscate option is also much easier on the CPU than any cipher options This is incase you are using ddwrt or openwrt or have a low speed cpu.
-However, without more detailed analysis by cryptographers, it seems best to ignore this advice. Beware of cryptographic advice from amateur cryptographers!
 
-It is possible that if the "scramble" option becomes widely used, large organizations will have the ability and power to "unscramble" traffic and detect. That will probably be the case for configurations that use an identical `<`xor_string`>` or  `<`password`>` for many customers. This is another reason to continue to encrypt the VPN traffic using OpenVPN's `<`cipher`>` option.
+*Do not take this advice!* The obfuscation provided by this patch appears to be extremely rudimentary. Beware of cryptographic advice from amateur cryptographers!
+
+Large organizations have the ability and power to "unscramble" traffic and detect it as OpenVPN traffic, and the obfuscation provided by this patch is so rudimentary that relatively simple cryptanalysis will probably be able to unscramble the content, too.
 
 ==Tunnelblick Modifications to the Patch==
 As the OpenVPN developers point out, the patch has never been through a thorough review for security, coding, etc. However, the Tunnelblick developer has reviewed the patch, found some problems, and modified it in Tunnelblick to resolve those problems. The problems that were found and fixed involved insufficient parameter validation, null pointer dereferences, division by zero errors, and a buffer overflow. Some defensive programming was also added to the modified version of the patch to increase its robustness.
@@ -43,21 +44,18 @@ I invite anyone/everyone to review the patch and report any problems to me (eith
 ==Scramble Option Syntax==
 Note: The "scramble" option and parameters in the server and client configuration files must match.
 
- <code>scramble `<`xor_string`>`
-scramble xormask `<`xor_string`>`</code><br>
- These options XOR the bytes in each buffer with `<`xor_string`>`.
-<br>
+ scramble _xor_string_<br>
+ scramble xormask _xor_string_<br>
+   These options XOR the bytes in each buffer with _xor_string_.
 
- <code>scramble reverse</code><br>
- The "reverse" option reverses order of the bytes in each buffer (except that the first byte is unchanged). So "abcde" becomes "aedcb".
-<br>
+ scramble reverse<br>
+  The "reverse" option reverses order of the bytes in each buffer (except that the first byte is unchanged). So "abcde" becomes "aedcb".
 
- <code>scramble xorptrpos</code><br>
- The "xorptrpos" option xors each byte of the buffer of traffic with the position in the buffer.
-<br>
+ scramble xorptrpos<br>
+  The "xorptrpos" option XORs each byte of the buffer of traffic with the position in the buffer.
 
- <code>scramble obfuscate <password></code><br>
- The "obfuscate" option performs several of the above steps, using `<`password`>` as the `<`xor_string`>` in one of the steps.
+ scramble obfuscate _password_<br>
+  The "obfuscate" option performs several of the above steps, using _password_ as the _xor_string_ in one of the steps.
 
 ==The Patch as Modified for Use in Tunnelblick==
 The following is the modified patch, as used in Tunnelblick as of [https://code.google.com/p/tunnelblick/source/detail?r=3304 r3304]. A history of the modified patch can be found on the [https://code.google.com/p/tunnelblick/source/list?path=/trunk/third_party/sources/openvpn/openvpn-2.3.6txp/patches/02-tunnelblick-openvpn_xorpatch.diff version control page for the patch].
