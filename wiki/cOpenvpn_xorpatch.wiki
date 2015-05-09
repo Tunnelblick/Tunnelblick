@@ -60,7 +60,7 @@ scramble xormask `<`xor_string`>`</code><br>
  The "obfuscate" option performs several of the above steps, using `<`password`>` as the `<`xor_string`>` in one of the steps.
 
 ==The Patch as Modified for Use in Tunnelblick==
-The following is the modified patch, as used in Tunnelblick as of [https://code.google.com/p/tunnelblick/source/detail?r=3304" r3304]. (The original commit of the modified patch was  [https://code.google.com/p/tunnelblick/source/detail?r=3274" r3274].)<br>
+The following is the modified patch, as used in Tunnelblick as of [https://code.google.com/p/tunnelblick/source/detail?r=3304" r3304]. A history of the modified patch can be found on the [https://code.google.com/p/tunnelblick/source/list?path=/trunk/third_party/sources/openvpn/openvpn-2.3.6txp/patches/02-tunnelblick-openvpn_xorpatch.diff version control page for the patch].<br>
 This version of the patch is based on the most recent version of the [https://github.com/clayface/openvpn_xorpatch/blob/master/openvpn_xor.patch patch] for OpenVPN 2.3.6 as of April, 2015.
 
 {{{
