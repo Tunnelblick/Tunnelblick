@@ -1,20 +1,20 @@
 /* Status message */
-"Disconnect All (%@)" = "Disconnect All (%@)";
+"Disconnect All (%@)" = "Atvienot visus (%@)";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "Disconnect All (%d Connections)";
+"Disconnect All (%d Connections)" = "Atvienot visus  (%d Savienojumus)";
 
 /* Status message */
-"No Active Connections" = "No Active Connections";
+"No Active Connections" = "Nav aktīvu savienojumu";
 
 /* Textbox name */
-"Username:" = "Username:";
+"Username:" = "Lietotājvārds:";
 
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* Button */
-"(None available)" = "(None available)";
+"(None available)" = "(Nav pieejams)";
 
 /* Button */
 "1 MB" = "1 MB";
@@ -32,7 +32,7 @@
 "Advanced..." = "Advanced…";
 
 /* Button */
-"All Users" = "All Users";
+"All Users" = "Visi lietotāji";
 
 /* Button */
 "Always load Tap driver" = "Always load Tap driver";
@@ -41,37 +41,37 @@
 "Always load Tun driver" = "Always load Tun driver";
 
 /* Button */
-"Always use the plugin" = "Always use the plugin";
+"Always use the plugin" = "Vienmēr izmantot spraudni";
 
 /* Button */
-"Back" = "Back";
+"Back" = "Atpakaļ";
 
 /* Button */
-"Cancel" = "Cancel";
+"Cancel" = "Atcelt";
 
 /* Button */
-"Change Only for This Configuration" = "Change Only for This Configuration";
+"Change Only for This Configuration" = "Izmainīt tikai šajā konfigurācijā";
 
 /* Button */
 "Change for the Selected Configurations" = "Change for the Selected Configurations";
 
 /* Menu item */ /* Button */
-"Check For Updates Now" = "Check For Updates Now";
+"Check For Updates Now" = "Pārbaudīt atjauninājumus";
 
 /* Button */
-"Check Now" = "Check Now";
+"Check Now" = "Pārbaudīt tagad";
 
 /* Button */
-"Check for a change" = "Check for a change";
+"Check for a change" = "Pārbaudīt vai ir izmaiņas";
 
 /* Button */
-"Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
+"Close VPN Connections and Stop Tunnelblick" = "Aizvērt VPN savienojumu un apturēt Tunnelblick";
 
 /* Button */
-"Connect" = "Connect";
+"Connect" = "Savienot";
 
 /* Button */
-"Continue" = "Continue";
+"Continue" = "Turpināt";
 
 /* Button */
 "Convert Configurations" = "Convert Configurations";
@@ -92,37 +92,37 @@
 "Delete Credentials" = "Delete Credentials";
 
 /* Button */
-"Delete" = "Delete";
+"Delete" = "Dzēst";
 
 /* Button */
-"Disconnect" = "Disconnect";
+"Disconnect" = "Atvienot";
 
 /* Button */
 "Do not check for a change" = "Do not check for a change";
 
 /* Button */
-"Do not use the plugin" = "Do not use the plugin";
+"Do not use the plugin" = "Neizmantot spraudni";
 
 /* Button */
-"Download" = "Download";
+"Download" = "Lejuplādēt";
 
 /* Button */
-"Help" = "Help";
+"Help" = "Palīdzība";
 
 /* Button */
-"I DO NOT have configuration files" = "I DO NOT have configuration files";
+"I DO NOT have configuration files" = "Man nav konfigurācijas faili";
 
 /* Button */
-"I have configuration files" = "I have configuration files";
+"I have configuration files" = "Man ir konfigurācijas faili";
 
 /* Button */
-"Ignore" = "Ignore";
+"Ignore" = "Ignorēt";
 
 /* Button */
-"Latest (%@)" = "Latest (%@)";
+"Latest (%@)" = "Jaunākā (%@)";
 
 /* Button */
-"Launch" = "Launch";
+"Launch" = "Palaist";
 
 /* Button */
 "Load Tap driver automatically" = "Load Tap driver automatically";
@@ -131,7 +131,7 @@
 "Load Tun driver automatically" = "Load Tun driver automatically";
 
 /* Button */
-"Manually" = "Manually";
+"Manually" = "Manuāli";
 
 /* Button */
 "Monochrome icon" = "Monochrome icon";
@@ -143,25 +143,25 @@
 "Never load Tun driver" = "Never load Tun driver";
 
 /* Button */
-"Never show" = "Never show";
+"Never show" = "Nerādīt nekad";
 
 /* Button */
-"No keyboard shortcut" = "No keyboard shortcut";
+"No keyboard shortcut" = "Nav klaviatūras īsceļi";
 
 /* Button */
-"No sound" = "No sound";
+"No sound" = "Bez skaņas";
 
 /* Button */
-"OK" = "OK";
+"OK" = "Labi";
 
 /* Button */
-"Only Me" = "Only Me";
+"Only Me" = "Tikai es ";
 
 /* Button */
 "Open Uninstall Instructions in Browser" = "Open Uninstall Instructions in Browser";
 
 /* Button */
-"Open easy-rsa in Terminal" = "Open easy-rsa in Terminal";
+"Open easy-rsa in Terminal" = "Atvērt easy-rsa komandrindā";
 
 /* Button */
 "Privacy info..." = "Privacy info…";
@@ -170,7 +170,7 @@
 "Quit All OpenVPN Processes" = "Quit All OpenVPN Processes";
 
 /* Button */
-"Quit" = "Quit";
+"Quit" = "Iziet";
 
 /* Button */
 "Reinstall" = "Reinstall";
@@ -179,19 +179,19 @@
 "Remove Credentials" = "Remove Credentials";
 
 /* Button */
-"Replace" = "Replace";
+"Replace" = "Aizstāt";
 
 /* Button */
 "Reset Disabled Warnings" = "Reset Disabled Warnings";
 
 /* Button */
-"Restart connection" = "Restart connection";
+"Restart connection" = "Pārstartēt savienojumu";
 
 /* Button */
-"Restore" = "Restore";
+"Restore" = "Atjaunot";
 
 /* Button */
-"Revert" = "Revert";
+"Revert" = "Atgriezt";
 
 /* Button */
 "Show on default screen (%u x %u)" = "Show on default screen (%1$u x %2$u)";
@@ -203,22 +203,22 @@
 "Show when connection status changes" = "Show when connection status changes";
 
 /* Button */
-"Show while connecting" = "Show while connecting";
+"Show while connecting" = "Rādīt kamēr savienojas";
 
 /* Button */
-"Skip" = "Skip";
+"Skip" = "Izlaist";
 
 /* Button */
-"Speak" = "Speak";
+"Speak" = "Runa";
 
 /* Button */
-"Standard icon" = "Standard icon";
+"Standard icon" = "Standarta ikona";
 
 /* Button */
-"Terminate All OpenVPN processes" = "Terminate All OpenVPN processes";
+"Terminate All OpenVPN processes" = "Pārtraukt visus OpenVPN procesus";
 
 /* Button */
-"Terminate" = "Terminate";
+"Terminate" = "Pārtraukt";
 
 /* Button */
 "This configuration has its own separate credentials" = "This configuration has its own separate credentials";
@@ -230,7 +230,7 @@
 "Try again with different credentials" = "Try again with different credentials";
 
 /* Button */
-"Try again" = "Try again";
+"Try again" = "Mēģināt vēlreiz";
 
 /* Button */
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 icon";
@@ -239,13 +239,13 @@
 "When Tunnelblick launches" = "When Tunnelblick launches";
 
 /* Button */
-"When computer starts" = "When computer starts";
+"When computer starts" = "Kad dators tiek ieslēgts";
 
 /* Menu item */
-"Add a VPN..." = "Add a VPN…";
+"Add a VPN..." = "Pievienot VPN...";
 
 /* Menu item */
-"Connect %@%@" = "Connect %@%@";
+"Connect %@%@" = "Pieslēgties %@%@";
 
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "Delete Configuration's Credentials in Keychain…";
@@ -296,7 +296,7 @@
 "Apply to all" = "Apply to all";
 
 /* Checkbox name */
-"Check for updates automatically" = "Check for updates automatically";
+"Check for updates automatically" = "Automātiski pārbaudīt vai ir atjauninājumi";
 
 /* Checkbox name */
 "Check for updates to beta versions" = "Check for updates to beta versions";
@@ -320,16 +320,16 @@
 "Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
 
 /* Checkbox name */
-"Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
+"Do not ask again, always 'Ignore'" = "Nejautāt, vienmēr 'ignorēt'";
 
 /* Checkbox name */
-"Do not ask again, always Continue" = "Do not ask again, always Continue";
+"Do not ask again, always Continue" = "Nejautāt, vienmēr Turpināt";
 
 /* Checkbox name */
-"Do not ask again, always convert" = "Do not ask again, always convert";
+"Do not ask again, always convert" = "Nejautāt, vienmēr mainīt";
 
 /* Checkbox name */
-"Do not check for IP address changes" = "Do not check for IP address changes";
+"Do not check for IP address changes" = "Nepārbaudīt IP adreses izmaiņas";
 
 /* Checkbox name on a warning dialog */
 "Do not show again for any configuration" = "Do not show again for any configuration";
@@ -350,7 +350,7 @@
 "Keep connected" = "Keep connected";
 
 /* Checkbox name */ /* System profile item */
-"Monitor connection" = "Monitor connection";
+"Monitor connection" = "Monitorēt savienojumu";
 
 /* Checkbox name */
 "Monitor network settings" = "Monitor network settings";
@@ -377,7 +377,7 @@
 "Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
 
 /* Checkbox name */
-"Save in Keychain" = "Save in Keychain";
+"Save in Keychain" = "Saglabāt atslēgu saišķī";
 
 /* Checkbox name */
 "Send anonymous profile information when checking" = "Send anonymous profile information when checking";
@@ -413,52 +413,52 @@
 "Double-click to begin" = "Double-click to begin";
 
 /* Connection status */
-"ADD_ROUTES" = "Adding routes";   // Please translate "Adding routes"
+"ADD_ROUTES" = "Adding routes"; // Please translate "Adding routes"
 
 /* Connection status */
-"ASSIGN_IP" = "Assigning IP address";   // Please translate "Assigning IP address"
+"ASSIGN_IP" = "Piešķir IP adresi"; // Please translate "Assigning IP address"
 
 /* Connection status */
-"AUTH" = "Authorizing";   // Please translate "Authorizing"
+"AUTH" = "Autorizējas"; // Please translate "Authorizing"
 
 /* Connection status */
-"CONNECTED" = "Connected";   // Please translate "Connected"
+"CONNECTED" = "Savienots"; // Please translate "Connected"
 
 /* Connection status */
-"CONNECTING" = "Connecting";   // Please translate "Connecting"
+"CONNECTING" = "Savienojas"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "Disconnecting";     // Please translate "Disconnecting"
+"DISCONNECTING" = "Disconnecting"; // Please translate "Disconnecting"
 
 /* Connection status */
-"EXITING" = "Disconnected";     // Please translate "Disconnected"
+"EXITING" = "Disconnected"; // Please translate "Disconnected"
 
 /* Connection status */
-"GET_CONFIG" = "Getting configuration";   // Please translate ""
+"GET_CONFIG" = "Getting configuration"; // Please translate ""
 
 /* Connection status */
-"PASSWORD_WAIT" = "Waiting for password";   // Please translate "Waiting for password"
+"PASSWORD_WAIT" = "Waiting for password"; // Please translate "Waiting for password"
 
 /* Connection status */
-"PRIVATE_KEY_WAIT" = "Waiting for passphrase";   // Please translate "Waiting for password"
+"PRIVATE_KEY_WAIT" = "Waiting for passphrase"; // Please translate "Waiting for password"
 
 /* Connection status */
-"RECONNECTING" = "Reconnecting";   // Please translate ""
+"RECONNECTING" = "Reconnecting"; // Please translate ""
 
 /* Connection status */
-"RESOLVE" = "Resolving domain name";   // Please translate ""
+"RESOLVE" = "Resolving domain name"; // Please translate ""
 
 /* Connection status */
-"SLEEP" = "Waiting for Daemon process";   // Please translate "Waiting for daemon process"
+"SLEEP" = "Waiting for Daemon process"; // Please translate "Waiting for daemon process"
 
 /* Connection status */
-"TCP_CONNECT" = "Making TCP connection";   // Please translate "Making TCP connection"
+"TCP_CONNECT" = "Making TCP connection"; // Please translate "Making TCP connection"
 
 /* Connection status */
-"UDP_CONNECT" = "Making UDP connection";   // Please translate "Making UDP connection"
+"UDP_CONNECT" = "Making UDP connection"; // Please translate "Making UDP connection"
 
 /* Connection status */
-"WAIT" = "Waiting for server response";   // Please translate "Waiting for Server Response"
+"WAIT" = "Waiting for server response"; // Please translate "Waiting for Server Response"
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
@@ -473,13 +473,13 @@
 "Deployed" = "Deployed";
 
 /* Window title */
-" (Deployed)" = " (Deployed)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
+" (Deployed)" = " (Deployed)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
 
 /* Window title */
 " (Private)" = " (Private)";
 
 /* Window title */
-" (Shared)" = " (Shared)"; /* Indicates a shared configuration */
+" (Shared)" = " (Shared)"; // Indicates a shared configuration
 
 /* Window title */
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Configuration - Tunnelblick";
@@ -1871,7 +1871,7 @@
 "LANGUAGE_LOCALIZATION" = "LANGUAGE_LOCALIZATION";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";
+"LEAD_TRANSLATORS" = "Emīls Skujiņš";
 
 /* Credit description */
 "Latvian localization" = "Latvian localization";
