@@ -797,7 +797,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "A Tunnelblick VPN konfiguráció túl mélyen beágyazott a(z) \"%@\" fájlban";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts.";
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Egy konfigurációs fájl, amely jelmondatot (privát kulcs) vagy felhasználónevet és jelszót igényel nem tudott elindulni a számítógép indulásánál.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Egy jelmondat szükséges a(z)\n  %1$@%2$@ csatlakozáshoz";
@@ -941,7 +941,7 @@
 "Could not copy %@ to %@" = "A(z) %1$@ nem másolható a(z) %2$@ helyre";
 
 /* Window text */
-"Could not create %@" = "Could not create %@";
+"Could not create %@" = "A fájl létrehozása sikertelen: %@";
 
 /* Window text */
 "Could not delete %@" = "%@ nem törölhető";
@@ -1295,16 +1295,16 @@
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "A(z) '%@' OpenVPN opció nem engedélyezett a Tunnelblickben.";
 
 /* Window text */
-"The '%@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %@ without the patch will be used.\n\nThis may mean that OpenVPN will not start." = "The '%1$@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %2$@ without the patch will be used.\n\nThis may mean that OpenVPN will not start.";
+"The '%@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %@ without the patch will be used.\n\nThis may mean that OpenVPN will not start." = "A %1$@ konfiguráció tartalmaz egy \"scramble\" opciót, de nem található ezt a javítást tartalmazó OpenVPN verzió. A %2$@ javítás nélküli verzió lesz használva.\n\nEz jelentheti, hogy az OpenVPN nem fog elindulni.";
 
 /* Window text */
-"The '%@' configuration contains a 'scramble' option, so OpenVPN version %@ with the scramble patch will be used." = "The '%1$@' configuration contains a 'scramble' option, so OpenVPN version %2$@ with the scramble patch will be used.";
+"The '%@' configuration contains a 'scramble' option, so OpenVPN version %@ with the scramble patch will be used." = "A %1$@ konfiguráció tartalmaz egy \"scramble\" opciót, ezáltal a %2$@ javított OpenVPN verzió lesz használva.";
 
 /* Window text */
-"The '%@' configuration does not contain a 'scramble' option, so OpenVPN version %@ without the scramble patch will be used." = "The '%1$@' configuration does not contain a 'scramble' option, so OpenVPN version %2$@ without the scramble patch will be used.";
+"The '%@' configuration does not contain a 'scramble' option, so OpenVPN version %@ without the scramble patch will be used." = "A %1$@ konfiguráció nem tartalmaz \"scramble\" opciót, ezáltal a %2$@ javítás nélküli OpenVPN verzió lesz használva.";
 
 /* Window text */
-"The '%@' configuration does not need a version of OpenVPN with the 'scramble' patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "The '%1$@' configuration does not need a version of OpenVPN with the 'scramble' patch, but a version without the patch is not available, so version %2$@ which contains the patch will be used.";
+"The '%@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "A %1$@ konfiguráció számára nem szükséges egy a scramble javítást tartalmazó OpenVPN verzió, de nem érhető el a javítás nélküli verzió így a %2$@ javított verzió lesz használva.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "A(z) '%@' hitelesítőadat nem vehető fel, mert a lista kényszerített.";
@@ -1416,6 +1416,21 @@
 
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "A Tunnelblick ezen példánya nincsen digitálisan aláírva.\n\nNincsen lehetőség az állomány eredetének ellenőrzésére.\n\n Ellenőrizze a Tunnelblick ezen példányának forrását mielőtt használja.\n\n";
+
+/* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts.";
+
+/* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead.";
+
+/* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead.";
+
+/* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation.";
+
+/* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "A Tunnelblick ezen verziója nem indítható vagy telepíthető, mert nem megfelelő a frissítési URL\n\n";
@@ -1820,7 +1835,7 @@
 "Dutch localization" = "Dutch(holland) honosítás";
 
 /* Credit description */
-"Estonian localization" = "Estonian localization";
+"Estonian localization" = "Észt honosítás";
 
 /* Credit description */
 "Finnish localization" = "Finn honosítás";
@@ -1859,6 +1874,9 @@
 "LEAD_TRANSLATORS" = "Marcell Szabo";
 
 /* Credit description */
+"Latvian localization" = "Latvian localization";
+
+/* Credit description */
 "Localization code tweaks" = "Honosító kód hangolása";
 
 /* Credit description */
@@ -1880,7 +1898,7 @@
 "Portuguese (Brazilian) localization" = "Portugál (brazil) lokalizáció";
 
 /* Credit description */
-"Portuguese localization" = "Portuguese localization";
+"Portuguese localization" = "Portugál honosítás";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program fejlesztések és dokumentáció a 3.0b10 verzió után";
@@ -1901,7 +1919,7 @@
 "Tunnelblick icon" = "Tunnelblick ikon";
 
 /* Credit description */
-"Turkish localization" = "Turkish localization";
+"Turkish localization" = "Török honosítás";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue és UKLoginItemRegistry";

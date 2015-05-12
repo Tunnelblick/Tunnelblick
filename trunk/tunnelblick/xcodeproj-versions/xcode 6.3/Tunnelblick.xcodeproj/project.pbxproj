@@ -84,6 +84,7 @@
 		635ECE631378EA4000F67F8D /* AppearanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ECE621378EA4000F67F8D /* AppearanceView.m */; };
 		635ECE6C1378EA7000F67F8D /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ECE6B1378EA7000F67F8D /* InfoView.m */; };
 		63611FD113CE2A8B000240F0 /* RU.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63611FCD13CE2A8B000240F0 /* RU.lproj */; };
+		636A16721B0242490005DD0A /* LV.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 636A16711B0242490005DD0A /* LV.lproj */; };
 		636BB3F8197776A900FDC5DE /* launchAtLogin.sh in Resources */ = {isa = PBXBuildFile; fileRef = 636BB3F7197776A900FDC5DE /* launchAtLogin.sh */; };
 		6375C6571A4EDF11007A42E8 /* FreePublicDnsServersList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6375C6561A4EDF11007A42E8 /* FreePublicDnsServersList.txt */; };
 		6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */; };
@@ -408,6 +409,7 @@
 		635ECE6A1378EA7000F67F8D /* InfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoView.h; sourceTree = "<group>"; };
 		635ECE6B1378EA7000F67F8D /* InfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoView.m; sourceTree = "<group>"; };
 		63611FCD13CE2A8B000240F0 /* RU.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RU.lproj; sourceTree = "<group>"; };
+		636A16711B0242490005DD0A /* LV.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LV.lproj; sourceTree = "<group>"; };
 		636BB3F7197776A900FDC5DE /* launchAtLogin.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = launchAtLogin.sh; sourceTree = "<group>"; };
 		6375C6561A4EDF11007A42E8 /* FreePublicDnsServersList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FreePublicDnsServersList.txt; sourceTree = "<group>"; };
 		6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsSheetWindowController.m; sourceTree = "<group>"; };
@@ -932,6 +934,7 @@
 		63EA8CE613A3DC330034F47C /* Localization */ = {
 			isa = PBXGroup;
 			children = (
+				636A16711B0242490005DD0A /* LV.lproj */,
 				615F74860ED3A4C2007F6F0A /* English.lproj */,
 				635713A31A6709D800709670 /* AR.lproj */,
 				63DC245419FA73E3006B1BDF /* BG.lproj */,
@@ -1454,6 +1457,7 @@
 				63E56EC813848194007E39AB /* VPNServiceSorry.xib in Resources */,
 				63E56EC913848194007E39AB /* VPNServiceTermsOfService.xib in Resources */,
 				63E56ECA13848194007E39AB /* VPNServiceWelcome.xib in Resources */,
+				636A16721B0242490005DD0A /* LV.lproj in Resources */,
 				6375FB4B1387F0E20034CB78 /* SettingsSheet.xib in Resources */,
 				637BE08513A0218A00673909 /* Preferences.png in Resources */,
 				633C881D13A3B770000F5E94 /* ActionMenuButtonImage.tiff in Resources */,

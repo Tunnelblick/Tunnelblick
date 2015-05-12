@@ -281,6 +281,7 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"Emma Segev",                    NSLocalizedString(@"Dutch localization",                   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Jeremy Sherman",                NSLocalizedString(@"French localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Stjepan Siljac",                NSLocalizedString(@"Swedish localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Emīls Skujiņš",                 NSLocalizedString(@"Latvian localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Tjalling Soldaat",              NSLocalizedString(@"Dutch localization",                   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Petr Šrajer",                   NSLocalizedString(@"Czech localization",                   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Wojciech Sromek",               NSLocalizedString(@"Polish localization",                  @"Credit description"), nil],

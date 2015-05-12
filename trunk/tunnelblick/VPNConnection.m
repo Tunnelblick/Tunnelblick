@@ -2024,7 +2024,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         if (   loadOurTun  ) {
             if (  runningOnSnowLeopardPointEightOrNewer()  ) {
                 TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window title"),
-                                        NSLocalizedString(@"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a univeral version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation.", @"Window text"),
+                                        NSLocalizedString(@"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation.", @"Window text"),
                                         nil, nil, nil,
                                         @"skipWarningAbout64BitVersionWithTunOnSnowLeopardPointEight", // Preference about seeing this message again
                                         NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),

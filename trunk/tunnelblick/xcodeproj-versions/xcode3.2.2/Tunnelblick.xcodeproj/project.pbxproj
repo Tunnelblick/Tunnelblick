@@ -49,6 +49,7 @@
 		631795FC118DC79B0057ACAF /* atsystemstart in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 6317943E118D7E820057ACAF /* atsystemstart */; };
 		63216D90125778C0004EDB57 /* client.1.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */; };
 		63216D91125778C0004EDB57 /* client.1.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */; };
+		632886D51B022BF9000BA527 /* LV.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 632886D21B022BF9000BA527 /* LV.lproj */; };
 		632BB9E8194F2CFA006CD7DA /* AlertWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 632BB9E7194F2CFA006CD7DA /* AlertWindowController.m */; };
 		632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 632BB9E9194F2D13006CD7DA /* AlertWindow.xib */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
@@ -366,6 +367,7 @@
 		63179443118D7EC20057ACAF /* atsystemstart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = atsystemstart.m; sourceTree = "<group>"; };
 		63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.down.tunnelblick.sh; sourceTree = "<group>"; };
 		63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.up.tunnelblick.sh; sourceTree = "<group>"; };
+		632886D21B022BF9000BA527 /* LV.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LV.lproj; sourceTree = "<group>"; };
 		632BB9E6194F2CFA006CD7DA /* AlertWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWindowController.h; sourceTree = "<group>"; };
 		632BB9E7194F2CFA006CD7DA /* AlertWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWindowController.m; sourceTree = "<group>"; };
 		632BB9E9194F2D13006CD7DA /* AlertWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertWindow.xib; sourceTree = "<group>"; };
@@ -942,6 +944,7 @@
 				63BD86E41205BA39005B8E38 /* IT.lproj */,
 				615F74930ED3A4FA007F6F0A /* JA.lproj */,
 				615F74960ED3A4FA007F6F0A /* KO.lproj */,
+				632886D21B022BF9000BA527 /* LV.lproj */,
 				61C03B960ED4E42A00175F22 /* NB.lproj */,
 				631310D513CA18870071C110 /* NL.lproj */,
 				63AE8596116CCF7A00D36CB1 /* PL.lproj */,
@@ -1470,6 +1473,7 @@
 				635713A61A6709D800709670 /* AR.lproj in Resources */,
 				6309A4A91AE42224006C118E /* TR.lproj in Resources */,
 				6309A4AD1AE4224D006C118E /* ET.lproj in Resources */,
+				632886D51B022BF9000BA527 /* LV.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1503,7 +1507,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# This build phase builds the third party items used by Tunnelblick.\n#\n# Because these items rarely change but take a lot of time to build, they are not\n# \"cleaned\" when the Tunnelblick project is cleaned using Xcode.\n#\n# However, there are times when it is convenient to clean them. This can be accomplished\n# by removing the third_party/do-not-clean file which was created when the third party\n# items were last built.\n#\n# So, to do a clean build of the third party items, make sure that the\n# third_party/do-not-clean file does not exist, and then build Tunnelblick normally.\n\n# Make sure we have the correct version of tunnelblick.xcodeproj for the version of Xcode that we are using\nif [ \"${XCODE_VERSION_MAJOR}\" != \"0300\" ] ; then\n  outer_dir=\"${PWD%/*}\"\n  echo \"This is the wrong .xcodeproj to use unless you are using Xcode 3.2.2. See ${outer_dir}/README.txt\"\n  exit 1\nfi\n\ncd ../third_party/\n\n# The following line is needed so make openssl build without error\nCOMMAND_MODE=unix2003\n\n# The following line is needed so up-to-date autotools are used\nPATH=\"/usr/local/bin:$PATH\"\n\n# Test for version 2.69 of autoconf\nautoconf_version=\"$(autoconf --version | grep autoconf | sed -e 's/autoconf (GNU Autoconf) //')\"\nif [ \"${autoconf_version}\" != \"2.69\" ] ; then\necho \"warning: autoconf is version '${autoconf_version}'; expected version 2.69. Autotools may be out-of-date which can cause problems building some of the third_party programs\"\nfi\n\n# Test for version 1.9 of automake\nautomake_version=\"$(automake --version | grep automake | sed -e 's/automake (GNU automake) //')\"\nif [ \"${automake_version}\" != \"1.9\" ] ; then\necho \"warning: automake is version '${automake_version}'; expected version 1.9. Autotools may be out-of-date which can cause problems building some of the third_party programs\"\nfi\n\nif [ ! -e do-not-clean ]; then\nmake clean\nfi\n\nmake\n\ntouch do-not-clean\n";
+			shellScript = "# This build phase builds the third party items used by Tunnelblick.\n#\n# Because these items rarely change but take a lot of time to build, they are not\n# \"cleaned\" when the Tunnelblick project is cleaned using Xcode.\n#\n# However, there are times when it is convenient to clean them. This can be accomplished\n# by removing the third_party/do-not-clean file which was created when the third party\n# items were last built.\n#\n# So, to do a clean build of the third party items, make sure that the\n# third_party/do-not-clean file does not exist, and then build Tunnelblick normally.\n\ncd ../third_party/\n\n# The following line is needed so make openssl build without error\nCOMMAND_MODE=unix2003\n\n# The following line is needed so up-to-date autotools are used\nPATH=\"/usr/local/bin:$PATH\"\n\n# Test for version 2.69 of autoconf\nautoconf_version=\"$(autoconf --version | grep autoconf | sed -e 's/autoconf (GNU Autoconf) //')\"\nif [ \"${autoconf_version}\" != \"2.69\" ] ; then\necho \"warning: autoconf is version '${autoconf_version}'; expected version 2.69. Autotools may be out-of-date which can cause problems building some of the third_party programs\"\nfi\n\n# Test for version 1.9 of automake\nautomake_version=\"$(automake --version | grep automake | sed -e 's/automake (GNU automake) //')\"\nif [ \"${automake_version}\" != \"1.9\" ] ; then\necho \"warning: automake is version '${automake_version}'; expected version 1.9. Autotools may be out-of-date which can cause problems building some of the third_party programs\"\nfi\n\nif [ ! -e do-not-clean ]; then\nmake clean\nfi\n\nmake\n\ntouch do-not-clean\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -797,7 +797,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "En Tunnelblick VPN-konfiguration er indlejret for dybt i '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts.";
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "En konfiguration som kræver et kodeord (privat nøgle) eller et brugernavn og kodeord kan ikke automatisk starte sammen med computeren.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Et adgangsudtryk er forpligtet til at oprette forbindelse til\n  %1$@%2$@";
@@ -941,7 +941,7 @@
 "Could not copy %@ to %@" = "Kunne ikke kopiere %1$@ til %2$@";
 
 /* Window text */
-"Could not create %@" = "Could not create %@";
+"Could not create %@" = "Kunne ikke skabe %@";
 
 /* Window text */
 "Could not delete %@" = "Kunne ikke slette %@";
@@ -1295,16 +1295,16 @@
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN muligheden '%@' er ikke tilladt når du bruger Tunnelblick.";
 
 /* Window text */
-"The '%@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %@ without the patch will be used.\n\nThis may mean that OpenVPN will not start." = "The '%1$@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %2$@ without the patch will be used.\n\nThis may mean that OpenVPN will not start.";
+"The '%@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %@ without the patch will be used.\n\nThis may mean that OpenVPN will not start." = "'%1$@' konfigurationen indeholder en 'scramble' indstilling, men ingen version af OpenVPN har scramble opdateringen, så version %2$@ uden opdateringen vil blive brugt.\n\nDette kan betyde at OpenVPN ikke kan starte.";
 
 /* Window text */
-"The '%@' configuration contains a 'scramble' option, so OpenVPN version %@ with the scramble patch will be used." = "The '%1$@' configuration contains a 'scramble' option, so OpenVPN version %2$@ with the scramble patch will be used.";
+"The '%@' configuration contains a 'scramble' option, so OpenVPN version %@ with the scramble patch will be used." = "'%1$@' konfigurationen indeholder en 'scramble' indstilling, så OpenVPN version %2$@ med scramble opdateringen vil blive brugt.";
 
 /* Window text */
-"The '%@' configuration does not contain a 'scramble' option, so OpenVPN version %@ without the scramble patch will be used." = "The '%1$@' configuration does not contain a 'scramble' option, so OpenVPN version %2$@ without the scramble patch will be used.";
+"The '%@' configuration does not contain a 'scramble' option, so OpenVPN version %@ without the scramble patch will be used." = "'%1$@' konfigurationen indeholder ikke en 'scramble' funktion, så OpenVPN version %2$@ uden scramble opdateringen vil blive brugt.";
 
 /* Window text */
-"The '%@' configuration does not need a version of OpenVPN with the 'scramble' patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "The '%1$@' configuration does not need a version of OpenVPN with the 'scramble' patch, but a version without the patch is not available, so version %2$@ which contains the patch will be used.";
+"The '%@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "'%1$@' konfigurationen behøver ikke en version af OpenVPN med scramble opdateringen, men en version uden opdateringen er ikke tilgængelig, så version %2$@, som indeholder opdateringen vil blive brugt.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "Legimitationsoplysningerne '%@' kan ikke blive tilføjet, da der er en tvungen liste af navngivne legimitationsoplysninger.";
@@ -1416,6 +1416,21 @@
 
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "Denne kopi er ikke blevet digitalt signeret.\n\nDer er ingen måde at tjekke om denne kopi er blevet manipuleret med.\n\n Tjek om udbyderen af denne kopi af Tunnelblick er 'lovlig' før at du tager den i brug.\n\n";
+
+/* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts.";
+
+/* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead.";
+
+/* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead.";
+
+/* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation.";
+
+/* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Denne version af Tunnelblick kan ikke startes eller installeres, fordi det har en ugyldig opdaterings URL.\n\n";
@@ -1820,7 +1835,7 @@
 "Dutch localization" = "Hollandsk oversættelse";
 
 /* Credit description */
-"Estonian localization" = "Estonian localization";
+"Estonian localization" = "Estisk oversættelse";
 
 /* Credit description */
 "Finnish localization" = "Finsk oversættelse";
@@ -1859,6 +1874,9 @@
 "LEAD_TRANSLATORS" = "Jakob Bo Søndergaard Madsen";
 
 /* Credit description */
+"Latvian localization" = "Latvian localization";
+
+/* Credit description */
 "Localization code tweaks" = "Oversættelses kode justeringer";
 
 /* Credit description */
@@ -1880,7 +1898,7 @@
 "Portuguese (Brazilian) localization" = "Portugisisk (brasiliansk) oversættelse";
 
 /* Credit description */
-"Portuguese localization" = "Portuguese localization";
+"Portuguese localization" = "Portugesisk oversættelse";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Forbedringer af programmet og dokumentation og vedligeholdelse efter version 3.0b10";
@@ -1901,7 +1919,7 @@
 "Tunnelblick icon" = "Tunnelblick ikon";
 
 /* Credit description */
-"Turkish localization" = "Turkish localization";
+"Turkish localization" = "Tyrkisk oversættelse";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue og UKLoginItemRegistry";

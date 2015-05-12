@@ -77,10 +77,10 @@
 "Convert Configurations" = "Konfigürasyonları dönüştür";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Konsol log'unu panoya koplaya";
+"Copy Console Log to Clipboard" = "Konsol Kayıtlarını Panoya Koplaya";
 
 /* Button */
-"Copy Diagnostic Info to Clipboard" = "Tanı ileti bilgisini panoya koplaya";
+"Copy Diagnostic Info to Clipboard" = "Tanı Bilgisini Panoya Koplaya";
 
 /* Button */
 "Create sample configuration and edit it" = "Örnek konfigürasyon oluştur ve düzenle";
@@ -158,10 +158,10 @@
 "Only Me" = "Saadece ben";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Kaldırma adımlarını Tarayıcıda aç";
+"Open Uninstall Instructions in Browser" = "Kaldırma Adımlarını Tarayıcıda Aç";
 
 /* Button */
-"Open easy-rsa in Terminal" = "easy-rsa'ı terminal içinde aç";
+"Open easy-rsa in Terminal" = "easy-rsa'ı Terminalde Aç";
 
 /* Button */
 "Privacy info..." = "Gizlilik bilgisi…";
@@ -182,7 +182,7 @@
 "Replace" = "Değiştir";
 
 /* Button */
-"Reset Disabled Warnings" = "Sıfırlama iptal uyarıları";
+"Reset Disabled Warnings" = "İptal uyarılarını sıfırla";
 
 /* Button */
 "Restart connection" = "Tekrar bağlan";
@@ -275,7 +275,7 @@
 "No VPN Configurations Available" = "Aktif VPN Konfigürasyon'u yok";
 
 /* Menu item */
-"Quit Tunnelblick" = "Tunnelblick den çık";
+"Quit Tunnelblick" = "Tunnelblick'ten Çık";
 
 /* Menu Item */
 "Rename Configuration..." = "Konfigürasyon'un adını değiştir…";
@@ -302,22 +302,22 @@
 "Check for updates to beta versions" = "Deneme sürümü güncellemesini kontrol et";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connecting" = "Mevcut IP adresin, bağlantıdan sonra değişip değişmediğini kontrol et";
+"Check if the apparent public IP address changed after connecting" = "Mevcut IP adresinin, bağlantıdan sonra değişip değişmediğini kontrol et";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "Bilgisayar uyku moduna geçgiğinde bağlantıyı kes";
+"Disconnect when computer goes to sleep" = "Bilgisayar uyku moduna geçtiğinde bağlantıyı kes";
 
 /* Checkbox name */
-"Disconnect when user switches out" = "Kullanıcı farklı birine geçtiğinde bağlantıyı kes";
+"Disconnect when user switches out" = "Kullanıcı değiştirilirse bağlantıyı kes";
 
 /* Checkbox name */
-"Display connection submenus" = "Bağlantı altmenulerini göster";
+"Display connection submenus" = "Bağlantı altmenülerini göster";
 
 /* Checkbox name */
 "Display connection timers" = "Bağlantı sayacını göster";
 
 /* Checkbox name */
-"Display window while Tunnelblick is starting up" = "Tunnelblick başlatılıyorken pencereyi görüntüle";
+"Display window while Tunnelblick is starting up" = "Tunnelblick başlatılırken pencereyi göster";
 
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Tekrar sorma, Her zaman \"Yoksay\"";
@@ -341,7 +341,7 @@
 "Do not warn about this again" = "Bunun hakkında beni tekrar uyarma";
 
 /* Checkbox name */
-"Flush DNS cache after connecting or disconnecting" = "Bağlantı yada bağlantı kesintisi sonrası DNS önbelliğini temizle";
+"Flush DNS cache after connecting or disconnecting" = "DNS önbelliğini bağlanınca veya bağlantıyı kesince temizle";
 
 /* Checkbox name */
 "Inhibit automatic update checking and IP Address checking" = "Otomatik güncelleme ve Ip adres kontrollerini engelle";
@@ -353,25 +353,25 @@
 "Monitor connection" = "Bağlantıyı izle";
 
 /* Checkbox name */
-"Monitor network settings" = "İzleme ağ ayarları";
+"Monitor network settings" = "Ağ ayarlarını izle";
 
 /* Checkbox name */
 "Place next to Spotlight icon" = "Spotligh ikonunun  yanına koy";
 
 /* Checkbox name */
-"Prepend domain name to search domains" = "Alan adını aranan alan adlarının başına ekle";
+"Prepend domain name to search domains" = "Alan adını etki alanına ekleyerek oluştur";
 
 /* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Bilgisayar uykudan uyandıktan sonra tekarar bağlan (Eğer uykudan önce zaten bağlıysanız)";
+"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Bilgisayar uykudan uyandıktan sonra tekarar bağlan (Uykudan önce zaten bağlıysanız)";
 
 /* Checkbox name */
-"Reconnect when user switches in" = "Kullanıcı çevrimiçi olduğunda tekrar bağlan";
+"Reconnect when user switches in" = "Kullanıcı geri geldiğinde tekrar bağlan";
 
 /* Checkbox name */
-"Reset the primary interface after disconnecting" = "Bağlantı kesildikten sonra ana arayüzü sıfırla";
+"Reset the primary interface after disconnecting" = "Bağlantı kesildikten sonra ağ kartını sıfırla";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "IP4v trafiğin tümünü VPN üzerinden yönlendir";
+"Route all IPv4 traffic through the VPN" = "IPv4 trafiğinin tamamını VPN üzerinden yönlendir";
 
 /* Checkbox name */
 "Run MTU maximum size test after connecting" = "Bağlantı sonrası MTU maksimum boyut testini çalıştır";
@@ -383,7 +383,7 @@
 "Send anonymous profile information when checking" = "Kontrol ederken anonim profil bilgisi gönder";
 
 /* Checkbox name */
-"Set DNS after routes are set instead of before routes are set" = "DNS bilgilerini rotalar ayarlanmadan önce yerine ayarlandıktan sonra yapılandır";
+"Set DNS after routes are set instead of before routes are set" = "DNS bilgilerini, rotalardan önce ayarlamak yerine rotalardan sonra ayarla";
 
 /* Checkbox name */
 "Show configuration on Tunnelblick menu" = "Tunnelblick menüsünde yapılandırmayı göster";
@@ -521,7 +521,7 @@
 "Configuration(s) Ignored" = "Yoksayılan Yapılandırma(lar)";
 
 /* Window title */
-"Connecting & Disconnecting" = "Bağlanıyor & Bağlantı kesiliyor";
+"Connecting & Disconnecting" = "Bağlanma & Bağlantı kesme";
 
 /* Window title */
 "Could Not Copy Configuration" = "Konfigürasyon koplanamadı";
@@ -839,7 +839,7 @@
 "All configuration files have been removed. Tunnelblick must quit." = "Tüm yapılandırma dosyaları silindi. Tunnelblick kapatılmalı.";
 
 /* Window text */
-"All configurations use %@ credentials" = "Tüm yapılandırma ayarları %@ kimlik bilgisini kullansın";
+"All configurations use %@ credentials" = "Tüm yapılandırmalar %@ kimlik bilgisini kullansın";
 
 /* Window text */
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "%2$@ yapılandırmasının güvenliği kontrol edilirken bir hata oluştu. (Hata kodu  %1$ld) \n\nTunnelblick 'i kapatıp tekrar açın. Eğer sorun devam ederse, Tunnelblick 'i kaldırıp tekrar yükleyin.";
@@ -992,7 +992,7 @@
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "'%@' konfigürasyonunu en son güvenli (gölge) kopyasına geri döndürmek mi istiyorsunuz?\n\n";
 
 /* Window text */
-"Domain:" = "Domain:";
+"Domain:" = "Alan adı:";
 
 /* Window text */
 "Double-quote missing in line %u" = "%u satırında tırnak işareti yok";
@@ -1106,7 +1106,7 @@
 "MB/s" = "MB/s";
 
 /* Window text */
-"Maximum log display size:" = "Maksimum log gösterim boyutu:";
+"Maximum log display size:" = "Maksimum sistem günlüğü gösterim boyutu:";
 
 /* Window text */
 "Menu:" = "Menü:";
@@ -1238,13 +1238,13 @@
 "Resolved symbolic link at '%@' to '%@'" = "'%1$@' deki sembolik bağ '%2$@' ye çözüldü";
 
 /* Window text */
-"Search domain:" = "Arama alanadı:";
+"Search domain:" = "Etki alanı:";
 
 /* Window text */
 "Securing Tunnelblick..." = "Tunnelblick'i güvenli hale getirme…";
 
 /* Window text */
-"Set DNS/WINS:" = "DNS/WINS Kur:";
+"Set DNS/WINS:" = "DNS/WINS Ayarla:";
 
 /* Window text */
 "Single-quote missing in line %u" = "%u satırında tek tırnak işareti yok";
@@ -1304,7 +1304,7 @@
 "The '%@' configuration does not contain a 'scramble' option, so OpenVPN version %@ without the scramble patch will be used." = "'%1$@' yapılandırması 'scramble' seçeneğini içermiyor. Bu nedenle Openvpn %2$@ versionu scramble yaması olmadan kullanılacak.";
 
 /* Window text */
-"The '%@' configuration does not need a version of OpenVPN with the 'scramble' patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "'%1$@' yapılandırması OpenVPN'in 'scramble' yamasına ihtiyaç duymuyor. Ancak yamasız versiyon mevcut değil. Bu nedenle scramble yaması %2$@ versionu ile kullanılacak.";
+"The '%@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "'%1$@' yapılandırması OpenVPN'in scramble yamasına ihtiyaç duymuyor. Ancak yamasız versiyon mevcut değil. Bu nedenle scramble yaması %2$@ versionu ile kullanılacak.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "Kimlik bilgileri listesi değiştirilmeye izin verilmediği için, '%@' kimlik bilgisi eklenemez.";
@@ -1418,6 +1418,21 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "Bu Tunnelblick kopyası dijital olarak imzalanmamış.\n\nBu kopyanın değişip değişmediğini anlamanın bir yolu yok.\n\n Lütfen kullanmadan önce Tunnelblick kopyasını sağlayıcısından doğrulayın.\n\n";
 
 /* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts.";
+
+/* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead.";
+
+/* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead.";
+
+/* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation.";
+
+/* Window text */
+"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.";
+
+/* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Yanlış güncelleme URL adresi olduğu için bu Tunnelblick versiyonu çalıştırılamıyor yada yüklenmiyor.\n\n";
 
 /* Window text */
@@ -1430,7 +1445,7 @@
 "Too many duplicate configurations already exist." = "Çok fazla çift yapılandırma mevcut.";
 
 /* Window text */
-"Tunnelblick Internet Use:" = "Tunnelblick in internet kullanımı:";
+"Tunnelblick Internet Use:" = "Tunnelblick'in internet kullanımı:";
 
 /* Window text */
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick VPN'e bağlandığınızda görünen genel IP adresinizin değişip değişmediğini kontrol edip, değişmemişse sizi uyarabilir.\n\nBu Tunnelblick'e bağantı problemlerinizi tanımalamakta yardımcı olabilir.\n\nBu işlem şuraya erişmeye çalışacak\n%@\n\nBu IP adres değişikliğinin kontrol edilmesini ister misiniz?\n";
@@ -1625,10 +1640,10 @@
 "Warnings:" = "Uyarılar:";
 
 /* Window text */
-"When changes to anything else" = "Başka herhangi bir şey olduğunda";
+"When changes to anything else" = "Başka bir şeye değiştirilirse";
 
 /* Window text */
-"When changes to pre-VPN value" = "VPN öncesi değer olduğunda";
+"When changes to pre-VPN value" = "VPN öncesi değere dönülürse";
 
 /* Window text */
 "Workgroup:" = "Çalışma Grubu:";
@@ -1715,7 +1730,7 @@
 "You may only revert a private configuration." = "Yanlızca özel yapılandırmaya dönebilirsiniz.";
 
 /* Window text */
-"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "Yeni kopya çalıştırabilmek için çalışan Tunnelblick'i durdurmalısınız.\n\nTunnelblick'i başlatmadan önce, tüm VPN bağlantılarını kapatmak için \"VPN Bağlantılarını Durdur ve Tunnelblick'i Kapat\" düğmesine tıklayın ve çalışan Tunnelblick'i kapatın.";
+"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "Yeni kopya çalıştırabilmek için çalışan Tunnelblick'i durdurmalısınız.\n\nTunnelblick'i başlatmadan önce, tüm VPN bağlantılarını kapatmak için \"VPN Bağlantılarını kapat ve Tunnelblick'i durdur\" düğmesine tıklayın ve çalışan Tunnelblick'i kapatın.";
 
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Güncellemeden sonra yönetici kullanıcı adı ve parolası girilmeden Tunnelblick kullanılamaz.\n\nGüncellemeleri kontrol etmek istediğinizden emin misiniz?";
@@ -1793,7 +1808,7 @@
 "Chinese (traditional) localization" = "Geleneksel Çince çevirisi";
 
 /* Credentials name */
-"Common" = "Yaygın isim";
+"Common" = "Ortak";
 
 /* Speak string */
 "Connected to %@" = "%@ Bağlan";
@@ -1857,6 +1872,9 @@
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Alican Cakil, Iris Coeligena, Emin Kura ve Caglar Ulkuderner";
+
+/* Credit description */
+"Latvian localization" = "Latvian localization";
 
 /* Credit description */
 "Localization code tweaks" = "Yerelleştirme kodu ince ayarları";
