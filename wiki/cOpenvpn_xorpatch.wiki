@@ -27,6 +27,7 @@ Regardless of the OpenVPN developers decision not to include the patch in OpenVP
 
 Because the patch is so easy to implement, as of <a href="https://code.google.com/p/tunnelblick/source/detail?r=3274">r3274</a>, Tunnelblick includes a copy of OpenVPN with the patch. Tunnelblick continues to include an unpatched copy of OpenVPN, too, and that copy is used unless the patch's "scramble" option appears in the OpenVPN configuration file. So only a configuration which specifies a "scramble" option will be connected using a patched version of OpenVPN; others will connect using an unmodified version of OpenVPN.
 
+==Critical Warning==
 The original post proposing the patch claims that using the patch is sufficient to secure communications and that no other encryption is necessary:
  With this obfuscate option, I think that it is ok to use "cipher none", because working out the method used would take a lot of cryptoanalysis. The obfuscate option is also much easier on the CPU than any cipher options This is incase you are using ddwrt or openwrt or have a low speed cpu.
 
