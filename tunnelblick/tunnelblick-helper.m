@@ -1962,6 +1962,10 @@ int startVPN(NSString * configFile,
                                  @"--log",        logPath,
 								 @"--cd",         cdFolderPath,
                                  
+                                 // Specify verb 3 before the configuration file, so the configuration file can override it
+                                 // In effect, this changes the default from verb 1 to verb 3
+								 @"--verb",       @"3",
+                                 
                                  // Process options in the configuration file
 								 @"--config",     gConfigPath,
                                  
