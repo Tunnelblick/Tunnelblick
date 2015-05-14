@@ -8,7 +8,7 @@
 --------------------
 
 ==The openvpn_xorpatch Controversy==
-A patch to add a "scramble" option to OpenVPN was [https://forums.openvpn.net/topic12605.html proposed] in April, 2013. The option can be useful to avoid having OpenVPN traffic detected by monitoring or censoring mechanisms such as the Great Firewall of China. The option "scrambles" each buffer of traffic before it is sent between the OpenVPN client and server.
+A [https://github.com/clayface/openvpn_xorpatch/blob/master/openvpn_xor.patch patch] to add a "scramble" option to OpenVPN was proposed in April, 2013. The option can be useful to avoid having OpenVPN traffic detected by monitoring or censoring mechanisms such as the Great Firewall of China. The option "scrambles" each buffer of traffic before it is sent between the OpenVPN client and server.
 
 However, the patch is controversial: it was not accepted as an addition to OpenVPN by the OpenVPN developers. There is a long [https://forums.openvpn.net/topic12605.html discussion of the patch] on the OpenVPN Community Support Forum. The last post is:
 
