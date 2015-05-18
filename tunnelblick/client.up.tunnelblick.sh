@@ -1011,7 +1011,7 @@ configureOpenVpnDns()
 				let nWinsServerIndex++
 				;;
             *   )
-                logMessage "ERROR: 'foreign_option_${nOptionIndex}' = '${vOptions[nOptionIndex-1]}' ignored"
+                logMessage "WARNING: 'foreign_option_${nOptionIndex}' = '${vOptions[nOptionIndex-1]}' ignored"
                 ;;
 		esac
 		let nOptionIndex++
