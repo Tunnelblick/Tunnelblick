@@ -42,13 +42,13 @@ flushDNSCache()
 				set +e # we will catch errors from lookupd
 				/usr/sbin/lookupd -flushcache
 				if [ $? != 0 ] ; then
-					logMessage "Unable to flush the DNS cache via lookupd"
+					logMessage "WARNING: Unable to flush the DNS cache via lookupd"
 				else
 					logMessage "Flushed the DNS cache via lookupd"
 				fi
 				set -e # bash should again fail on errors
 			else
-				logMessage "/usr/sbin/lookupd not present. Not flushing the DNS cache"
+				logMessage "WARNING: /usr/sbin/lookupd not present. Not flushing the DNS cache"
 			fi
 
 		else
@@ -57,26 +57,26 @@ flushDNSCache()
 				set +e # we will catch errors from dscacheutil
 				/usr/bin/dscacheutil -flushcache
 				if [ $? != 0 ] ; then
-					logMessage "Unable to flush the DNS cache via dscacheutil"
+					logMessage "WARNING: Unable to flush the DNS cache via dscacheutil"
 				else
 					logMessage "Flushed the DNS cache via dscacheutil"
 				fi
 				set -e # bash should again fail on errors
 			else
-				logMessage "/usr/bin/dscacheutil not present. Not flushing the DNS cache via dscacheutil"
+				logMessage "WARNING: /usr/bin/dscacheutil not present. Not flushing the DNS cache via dscacheutil"
 			fi
 		
 			if [ -f /usr/sbin/discoveryutil ] ; then
 				set +e # we will catch errors from discoveryutil
 				/usr/sbin/discoveryutil udnsflushcaches
 				if [ $? != 0 ] ; then
-					logMessage "Unable to flush the DNS cache via discoveryutil udnsflushcaches"
+					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil udnsflushcaches"
 				else
 					logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
 				fi
 				/usr/sbin/discoveryutil mdnsflushcache
 				if [ $? != 0 ] ; then
-					logMessage "Unable to flush the DNS cache via discoveryutil mdnsflushcache"
+					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil mdnsflushcache"
 				else
 					logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
 				fi
@@ -99,10 +99,10 @@ flushDNSCache()
 					fi
 					set -e # bash should again fail on errors
 				else
-					logMessage "/usr/bin/killall not present. Not notifying mDNSResponder that the DNS cache was flushed"
+					logMessage "WARNING: /usr/bin/killall not present. Not notifying mDNSResponder that the DNS cache was flushed"
 				fi
 			else
-				logMessage "Hands Off is running.  Not notifying mDNSResponder that the DNS cache was flushed"
+				logMessage "WARNING: Hands Off is running.  Not notifying mDNSResponder that the DNS cache was flushed"
 			fi
 		
 		fi
@@ -146,11 +146,11 @@ EOF
                 sleep 2
 			    /sbin/ifconfig "${PINTERFACE}" up
 			else
-				logMessage "Not resetting primary interface because /sbin/ifconfig does not exist."
+				logMessage "WARNING: Not resetting primary interface because /sbin/ifconfig does not exist."
 			fi
 		fi
     else
-        logMessage "Not resetting primary interface because it cannot be found."
+        logMessage "WARNING: Not resetting primary interface because it cannot be found."
     fi
 }
 
@@ -249,13 +249,13 @@ if ${ARG_TAP} ; then
                 # If $dev is not defined, then use TunnelDevice, which was set from $dev by client.up.tunnelblick.sh
                 # ($def is not defined when this script is called from MenuController to clean up when exiting Tunnelblick)
                 if [ -n "${sTunnelDevice}" ]; then
-                    logMessage "\$dev not defined; using TunnelDevice: ${sTunnelDevice}"
+                    logMessage "WARNING: \$dev not defined; using TunnelDevice: ${sTunnelDevice}"
                     set +e
                     ipconfig set "${sTunnelDevice}" NONE 2>/dev/null
                     set -e
                     logMessage "Released the DHCP lease via ipconfig set ${sTunnelDevice} NONE."
                 else
-                    logMessage "Cannot configure TAP interface to NONE without \$dev or State:/Network/OpenVPN/TunnelDevice being defined. Device may not have disconnected properly."
+                    logMessage "WARNING: Cannot configure TAP interface to NONE without \$dev or State:/Network/OpenVPN/TunnelDevice being defined. Device may not have disconnected properly."
                 fi
             else
                 set +e

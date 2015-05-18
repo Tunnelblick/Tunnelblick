@@ -135,6 +135,49 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     return nil;
 }
 
+-(NSColor *) redColorForHighlighting {
+	
+	return [NSColor colorWithCalibratedRed: 1.0 green: 0.0 blue: 0.0 alpha: 0.4];
+}
+
+-(NSColor *) yellowColorForHighlighting {
+	
+	return [NSColor colorWithCalibratedRed: 1.0 green: 1.0 blue: 0.0 alpha: 0.4];
+}
+
+-(NSColor *) blueColorForHighlighting {
+	
+	return [NSColor colorWithCalibratedRed: 0.0 green: 0.1 blue: 1.0 alpha: 0.2];
+}
+
+// Highlights errors with red, warnings with yellow, notes with blue
+-(NSMutableAttributedString *) attributedStringFromLine: (NSString *) line {
+    
+    NSMutableAttributedString * string = [[[NSMutableAttributedString alloc] initWithString: line] autorelease];
+    
+    NSRange lineRange = NSMakeRange(0, [line length]);
+	
+    NSRange issueRange = [line rangeOfString: @"WARNING:" options: NSCaseInsensitiveSearch];
+    if (  issueRange.length != 0  ) {
+		NSColor * color = [self yellowColorForHighlighting];
+        [string addAttribute: NSBackgroundColorAttributeName value: color range: lineRange];
+    }
+    
+    issueRange = [line rangeOfString: @"ERROR:" options: NSCaseInsensitiveSearch];
+    if (  issueRange.length != 0  ) {
+		NSColor * color = [self redColorForHighlighting];
+        [string addAttribute: NSBackgroundColorAttributeName value: color range: lineRange];
+    }
+    
+    issueRange = [line rangeOfString: @"NOTE:" options: NSCaseInsensitiveSearch];
+    if (  issueRange.length != 0  ) {
+		NSColor * color = [self blueColorForHighlighting];
+        [string addAttribute: NSBackgroundColorAttributeName value: color range: lineRange];
+    }
+    
+    return string;
+}
+
 -(void) insertLogEntry: (NSDictionary *) dict {
     
     // MUST call with logStorageMutex locked
@@ -186,7 +229,8 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     for (  i=0; i < lineCount; i++) {
         NSString * singleLine = [[lines objectAtIndex: i] stringByAppendingString: @"\n"];
         [ts beginEditing];
-        [[ts mutableString] insertString: singleLine atIndex: ix];
+		NSMutableAttributedString * string = [self attributedStringFromLine: singleLine];
+		[ts insertAttributedString: string atIndex: ix];
         [ts endEditing];
         ix = ix + [singleLine length];
         
@@ -902,7 +946,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     }
     NSTextStorage * logStore = [self logStorage];
     if (  logStore  ) {
-        NSAttributedString * msgAS = [[[NSAttributedString alloc] initWithString: line] autorelease];
+        NSMutableAttributedString * msgAS = [self attributedStringFromLine: line];
         [logStore beginEditing];
         [logStore appendAttributedString: msgAS];
         [logStore endEditing];
