@@ -74,7 +74,7 @@ EOF
 grep Service | sed -e 's/.*Service : //'
 )"
         if [ "${PSID}" != "${PSID_CURRENT}" ] ; then
-            logMessage "Ignoring change of Network Primary Service from ${PSID} to ${PSID_CURRENT}"
+            logMessage "WARNING: Ignoring change of Network Primary Service from ${PSID} to ${PSID_CURRENT}"
         fi
 
         # Remove leasewatcher
@@ -101,13 +101,13 @@ EOF
             # If $dev is not defined, then use TunnelDevice, which was set from $dev by client.up.tunnelblick.sh
             # ($dev is not defined when this script is called from MenuController to clean up when OpenVPN has crashed)
             if [ -n "${sTunnelDevice}" ]; then
-                logMessage "DEBUG: \$dev not defined; using TunnelDevice: ${sTunnelDevice}"
+                logMessage "ERROR: \$dev not defined; using TunnelDevice: ${sTunnelDevice}"
                 set +e
                 ipconfig set "${sTunnelDevice}" NONE 2>/dev/null
                 set -e
                 logMessage "Released the DHCP lease via ipconfig set \"${sTunnelDevice}\" NONE."
             else
-                logMessage "Cannot release the DHCP lease without \$dev or State:/Network/OpenVPN/TunnelDevice being defined. Device may not have disconnected properly."
+                logMessage "WARNING: Cannot release the DHCP lease without \$dev or State:/Network/OpenVPN/TunnelDevice being defined. Device may not have disconnected properly."
             fi
         else
             set +e
@@ -126,7 +126,7 @@ EOF
         quit
 EOF
     else
-        logMessage "No action by ${OUR_NAME} is needed because this TAP connection does not use DHCP via the TAP device."
+        logMessage "NOTE: No action by ${OUR_NAME} is needed because this TAP connection does not use DHCP via the TAP device."
 	fi
 else
     logMessage "No action by ${OUR_NAME} is needed because this is not a TAP connection."

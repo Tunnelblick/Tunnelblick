@@ -254,7 +254,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	if [ "${DYN_DNS_DN}" != "" ] ; then
 		if [ "${MAN_DNS_DN}" != "" ] ; then
-			logMessage "Ignoring DomainName '$DYN_DNS_DN' because DomainName was set manually"
+			logMessage "WARNING: Ignoring DomainName '$DYN_DNS_DN' because DomainName was set manually"
 			readonly FIN_DNS_DN="${MAN_DNS_DN}"
 		else
 			readonly FIN_DNS_DN="${DYN_DNS_DN}"
@@ -265,7 +265,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	
 	if [ "${DYN_SMB_NN}" != "" ] ; then
 		if [ "${MAN_SMB_NN}" != "" ] ; then
-			logMessage "Ignoring NetBIOSName '$DYN_SMB_NN' because NetBIOSName was set manually"
+			logMessage "WARNING: Ignoring NetBIOSName '$DYN_SMB_NN' because NetBIOSName was set manually"
 			readonly FIN_SMB_NN="${MAN_SMB_NN}"
 		else
 			readonly FIN_SMB_NN="${DYN_SMB_NN}"
@@ -276,7 +276,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	
 	if [ "${DYN_SMB_WG}" != "" ] ; then
 		if [ "${MAN_SMB_WG}" != "" ] ; then
-			logMessage "Ignoring Workgroup '$DYN_SMB_WG' because Workgroup was set manually"
+			logMessage "WARNING: Ignoring Workgroup '$DYN_SMB_WG' because Workgroup was set manually"
 			readonly FIN_SMB_WG="${MAN_SMB_WG}"
 		else
 			readonly FIN_SMB_WG="${DYN_SMB_WG}"
@@ -290,7 +290,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		readonly FIN_DNS_SA="${CUR_DNS_SA}"
 	else
 		if [ "${MAN_DNS_SA}" != "" ] ; then
-			logMessage "Ignoring ServerAddresses '$DYN_DNS_SA' because ServerAddresses was set manually"
+			logMessage "WARNING: Ignoring ServerAddresses '$DYN_DNS_SA' because ServerAddresses was set manually"
 			readonly FIN_DNS_SA="${CUR_DNS_SA}"
 		else
 			case "${OSVER}" in
@@ -325,7 +325,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		readonly FIN_SMB_WA="${CUR_SMB_WA}"
 	else
 		if [ "${MAN_SMB_WA}" != "" ] ; then
-			logMessage "Ignoring WINSAddresses '$DYN_SMB_WA' because WINSAddresses was set manually"
+			logMessage "WARNING: Ignoring WINSAddresses '$DYN_SMB_WA' because WINSAddresses was set manually"
 			readonly FIN_SMB_WA="${MAN_SMB_WA}"
 		else
 		case "${OSVER}" in
@@ -403,10 +403,10 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 			fi
 		else
 			if [ "${DYN_DNS_SD}" != "" ] ; then
-				logMessage "Not prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
+				logMessage "WARNING: Not prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
 			fi
             if [ "${FIN_DNS_DN}" != "" ] ; then
-                logMessage "Not prepending domain '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
+                logMessage "WARNING: Not prepending domain '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
             fi
 			readonly FIN_DNS_SD="${CUR_DNS_SD}"
 		fi
@@ -416,7 +416,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 				logMessage "Prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually but were set via OpenVPN and 'Prepend domain name to search domains' was not selected"
 				readonly FIN_DNS_SD="$( trim "${DYN_DNS_SD}" "${CUR_DNS_SD}" )"
             else
-                logMessage "Not prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
+                logMessage "WARNING: Not prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
                 readonly FIN_DNS_SD="${CUR_DNS_SD}"
 			fi
 		else
@@ -924,14 +924,14 @@ configureDhcpDns()
 	elif [ "$sDomainName" ]; then
 		logMessage "WARNING: Retrieved domain name [ $sDomainName ] but no name servers from OpenVPN via DHCP, which is not sufficient to make network/DNS configuration changes."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-			logMessage "Will NOT monitor for other network configuration changes."
+			logMessage "WARNING: Will NOT monitor for other network configuration changes."
 		fi
         logDnsInfoNoChanges
         flushDNSCache
 	else
 		logMessage "WARNING: No DNS information received from OpenVPN via DHCP, so no network/DNS configuration changes need to be made."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-			logMessage "Will NOT monitor for other network configuration changes."
+			logMessage "WARNING: Will NOT monitor for other network configuration changes."
 		fi
         logDnsInfoNoChanges
         flushDNSCache
@@ -1011,7 +1011,7 @@ configureOpenVpnDns()
 				let nWinsServerIndex++
 				;;
             *   )
-                logMessage "UNKNOWN: 'foreign_option_${nOptionIndex}' = '${vOptions[nOptionIndex-1]}' ignored"
+                logMessage "ERROR: 'foreign_option_${nOptionIndex}' = '${vOptions[nOptionIndex-1]}' ignored"
                 ;;
 		esac
 		let nOptionIndex++
@@ -1024,9 +1024,9 @@ configureOpenVpnDns()
 		logMessage "Retrieved from OpenVPN: name server(s) [ ${aNameServers[@]} ], search domain(s) [ ${aSearchDomains[@]} ] and SMB server(s) [ ${aWinsServers[@]} ] and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
 		setDnsServersAndDomainName aNameServers[@] "$DEFAULT_DOMAIN_NAME" aWinsServers[@] aSearchDomains[@]
 	else
-		logMessage "No DNS information received from OpenVPN, so no network configuration changes need to be made."
+		logMessage "WARNING: No DNS information received from OpenVPN, so no network configuration changes need to be made."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-			logMessage "Will NOT monitor for other network configuration changes."
+			logMessage "WARNING: Will NOT monitor for other network configuration changes."
 		fi
         logDnsInfoNoChanges
         flushDNSCache
@@ -1045,13 +1045,13 @@ flushDNSCache()
 				set +e # we will catch errors from lookupd
 				/usr/sbin/lookupd -flushcache
 				if [ $? != 0 ] ; then
-					logMessage "Unable to flush the DNS cache via lookupd"
+					logMessage "WARNING: Unable to flush the DNS cache via lookupd"
 				else
 					logMessage "Flushed the DNS cache via lookupd"
 				fi
 				set -e # bash should again fail on errors
 			else
-				logMessage "/usr/sbin/lookupd not present. Not flushing the DNS cache"
+				logMessage "WARNING: /usr/sbin/lookupd not present. Not flushing the DNS cache"
 			fi
 
 		else
@@ -1060,26 +1060,26 @@ flushDNSCache()
 				set +e # we will catch errors from dscacheutil
 				/usr/bin/dscacheutil -flushcache
 				if [ $? != 0 ] ; then
-					logMessage "Unable to flush the DNS cache via dscacheutil"
+					logMessage "WARNING: Unable to flush the DNS cache via dscacheutil"
 				else
 					logMessage "Flushed the DNS cache via dscacheutil"
 				fi
 				set -e # bash should again fail on errors
 			else
-				logMessage "/usr/bin/dscacheutil not present. Not flushing the DNS cache via dscacheutil"
+				logMessage "WARNING: /usr/bin/dscacheutil not present. Not flushing the DNS cache via dscacheutil"
 			fi
 			
 			if [ -f /usr/sbin/discoveryutil ] ; then
 				set +e # we will catch errors from discoveryutil
 				/usr/sbin/discoveryutil udnsflushcaches
 				if [ $? != 0 ] ; then
-					logMessage "Unable to flush the DNS cache via discoveryutil udnsflushcaches"
+					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil udnsflushcaches"
 				else
 					logMessage "Flushed the DNS cache via discoveryutil udnsflushcaches"
 				fi
 				/usr/sbin/discoveryutil mdnsflushcache
 				if [ $? != 0 ] ; then
-					logMessage "Unable to flush the DNS cache via discoveryutil mdnsflushcache"
+					logMessage "WARNING: Unable to flush the DNS cache via discoveryutil mdnsflushcache"
 				else
 					logMessage "Flushed the DNS cache via discoveryutil mdnsflushcache"
 				fi
@@ -1102,10 +1102,10 @@ flushDNSCache()
 					fi
 					set -e # bash should again fail on errors
 				else
-					logMessage "/usr/bin/killall not present. Not notifying mDNSResponder that the DNS cache was flushed"
+					logMessage "WARNING: /usr/bin/killall not present. Not notifying mDNSResponder that the DNS cache was flushed"
 				fi
 			else
-				logMessage "Hands Off is running.  Not notifying mDNSResponder that the DNS cache was flushed"
+				logMessage "WARNING: Hands Off is running.  Not notifying mDNSResponder that the DNS cache was flushed"
 			fi
 		
 		fi
@@ -1125,20 +1125,20 @@ logDnsInfo() {
 	if [ "${log_dns_info_manual_dns_sa}" != "" ] ; then
         logMessage "DNS servers '${log_dns_info_manual_dns_sa}' were set manually"
         if [ "${log_dns_info_manual_dns_sa}" != "${log_dns_info_new_dns_sa}" ] ; then
-            logMessage "But that setting is being ignored by OS X; '${log_dns_info_new_dns_sa}' is being used."
+            logMessage "WARNING: that setting is being ignored by OS X; '${log_dns_info_new_dns_sa}' is being used."
         fi
     fi
 
     if [ "${log_dns_info_new_dns_sa}" != "" ] ; then
         logMessage "DNS servers '${log_dns_info_new_dns_sa}' will be used for DNS queries when the VPN is active"
 		if [ "${log_dns_info_new_dns_sa}" == "127.0.0.1" ] ; then
-			logMessage "DNS server 127.0.0.1 often is used inside virtual machines (e.g., 'VirtualBox', 'Parallels', or 'VMWare'). The actual VPN server may be specified by the host machine. This DNS server setting may cause DNS queries to fail or be intercepted or falsified. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
+			logMessage "NOTE: DNS server 127.0.0.1 often is used inside virtual machines (e.g., 'VirtualBox', 'Parallels', or 'VMWare'). The actual VPN server may be specified by the host machine. This DNS server setting may cause DNS queries to fail or be intercepted or falsified. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
 		else
 			set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 			serversContainLoopback="$( echo "${log_dns_info_new_dns_sa}" | grep "127.0.0.1" )"
 			set -e # We instruct bash that it CAN again fail on errors
 			if [ "${serversContainLoopback}" != "" ] ; then
-				logMessage "DNS server 127.0.0.1 often is used inside virtual machines (e.g., 'VirtualBox', 'Parallels', or 'VMWare'). The actual VPN server may be specified by the host machine. If used, 127.0.0.1 may cause DNS queries to fail or be intercepted or falsified. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
+				logMessage "NOTE: DNS server 127.0.0.1 often is used inside virtual machines (e.g., 'VirtualBox', 'Parallels', or 'VMWare'). The actual VPN server may be specified by the host machine. If used, 127.0.0.1 may cause DNS queries to fail or be intercepted or falsified. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
 			else
 				readonly knownPublicDnsServers="$( cat "${FREE_PUBLIC_DNS_SERVERS_LIST_PATH}" )"
 				knownDnsServerNotFound="true"
@@ -1154,10 +1154,10 @@ logDnsInfo() {
 					fi
 				done
 				if ${knownDnsServerNotFound} ; then
-					logMessage "The DNS servers do not include any free public DNS servers known to Tunnelblick. This may cause DNS queries to fail or be intercepted or falsified even if they are directed through the VPN. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
+					logMessage "NOTE: The DNS servers do not include any free public DNS servers known to Tunnelblick. This may cause DNS queries to fail or be intercepted or falsified even if they are directed through the VPN. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
 				else
 					if ${unknownDnsServerFound} ; then
-						logMessage "The DNS servers include one or more free public DNS servers known to Tunnelblick and one or more DNS servers not known to Tunnelblick. If used, the DNS servers not known to Tunnelblick may cause DNS queries to fail or be intercepted or falsified even if they are directed through the VPN. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
+						logMessage "NOTE: The DNS servers include one or more free public DNS servers known to Tunnelblick and one or more DNS servers not known to Tunnelblick. If used, the DNS servers not known to Tunnelblick may cause DNS queries to fail or be intercepted or falsified even if they are directed through the VPN. Specify only known public DNS servers or DNS servers located on the VPN network to avoid such problems."
 					else
 						logMessage "The DNS servers include only free public DNS servers known to Tunnelblick."
 					fi
@@ -1165,7 +1165,7 @@ logDnsInfo() {
 			fi
 		fi
     else
-        logMessage "There are no DNS servers in this computer's new network configuration. This computer or a DHCP server that this computer uses may be configured incorrectly."
+        logMessage "WARNING: There are no DNS servers in this computer's new network configuration. This computer or a DHCP server that this computer uses may be configured incorrectly."
     fi
 }
 
@@ -1384,7 +1384,7 @@ if ${ARG_TAP} ; then
 	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
 		logDebugMessage "DEBUG: bRouteGatewayIsDhcp is TRUE"
 		if [ -z "$dev" ]; then
-			logMessage "Cannot configure TAP interface for DHCP without \$dev being defined. Exiting."
+			logMessage "ERROR: Cannot configure TAP interface for DHCP without \$dev being defined. Exiting."
             # We don't create the "/tmp/tunnelblick-downscript-needs-to-be-run.txt" file, because the down script does NOT need to be run since we didn't do anything
             logMessage "End of output from ${OUR_NAME}"
             logMessage "**********************************************"
@@ -1404,9 +1404,9 @@ if ${ARG_TAP} ; then
 		    EXIT_CODE=0
         fi
 	elif [ "$foreign_option_1" == "" ]; then
-		logMessage "No network configuration changes need to be made."
+		logMessage "NOTE: No network configuration changes need to be made."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-			logMessage "Will NOT monitor for other network configuration changes."
+			logMessage "WARNING: Will NOT monitor for other network configuration changes."
 		fi
         logDnsInfoNoChanges
         flushDNSCache
@@ -1417,9 +1417,9 @@ if ${ARG_TAP} ; then
 	fi
 else
 	if [ "$foreign_option_1" == "" ]; then
-		logMessage "No network configuration changes need to be made."
+		logMessage "NOTE: No network configuration changes need to be made."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-			logMessage "Will NOT monitor for other network configuration changes."
+			logMessage "WARNING: Will NOT monitor for other network configuration changes."
 		fi
         logDnsInfoNoChanges
         flushDNSCache
