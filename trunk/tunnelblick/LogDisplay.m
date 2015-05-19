@@ -135,19 +135,19 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     return nil;
 }
 
--(NSColor *) redColorForHighlighting {
++(NSColor *) redColorForHighlighting {
 	
 	return [NSColor colorWithCalibratedRed: 1.0 green: 0.0 blue: 0.0 alpha: 0.4];
 }
 
--(NSColor *) yellowColorForHighlighting {
++(NSColor *) yellowColorForHighlighting {
 	
 	return [NSColor colorWithCalibratedRed: 1.0 green: 1.0 blue: 0.0 alpha: 0.4];
 }
 
--(NSColor *) blueColorForHighlighting {
++(NSColor *) blueColorForHighlighting {
 	
-	return [NSColor colorWithCalibratedRed: 0.0 green: 0.1 blue: 1.0 alpha: 0.2];
+	return [NSColor colorWithCalibratedRed: 0.0 green: 1.0 blue: 1.0 alpha: 0.2];
 }
 
 // Highlights errors with red, warnings with yellow, notes with blue
@@ -159,20 +159,17 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
 	
     NSRange issueRange = [line rangeOfString: @"WARNING:" options: NSCaseInsensitiveSearch];
     if (  issueRange.length != 0  ) {
-		NSColor * color = [self yellowColorForHighlighting];
-        [string addAttribute: NSBackgroundColorAttributeName value: color range: lineRange];
+        [string addAttribute: NSBackgroundColorAttributeName value: [LogDisplay yellowColorForHighlighting] range: lineRange];
     }
     
     issueRange = [line rangeOfString: @"ERROR:" options: NSCaseInsensitiveSearch];
     if (  issueRange.length != 0  ) {
-		NSColor * color = [self redColorForHighlighting];
-        [string addAttribute: NSBackgroundColorAttributeName value: color range: lineRange];
+        [string addAttribute: NSBackgroundColorAttributeName value: [LogDisplay redColorForHighlighting]    range: lineRange];
     }
     
     issueRange = [line rangeOfString: @"NOTE:" options: NSCaseInsensitiveSearch];
     if (  issueRange.length != 0  ) {
-		NSColor * color = [self blueColorForHighlighting];
-        [string addAttribute: NSBackgroundColorAttributeName value: color range: lineRange];
+        [string addAttribute: NSBackgroundColorAttributeName value: [LogDisplay blueColorForHighlighting]   range: lineRange];
     }
     
     return string;
