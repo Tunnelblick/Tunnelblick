@@ -56,7 +56,7 @@
   * You can use private and/or shared configurations with Deployed configurations. This is NOT DONE UNLESS a preference named 'useLibraryConfigurationsWithDeployedOnes' and/or 'useSharedConfigurationsWithDeployedOnes' (boolean) is forced TRUE in the 'forced-preference.plist' file.
   * If a deployed configuration and/or a shared configuration and/or a normal configuration ( in ~/Library/Application Support/Tunnelblick/Configurations) have the same names, the deployed one will be displayed if it exists, otherwise the shared one will be displayed if it exists, and the other(s) will be hidden and unavailable. A warning will be issued to notify the user if any configurations are hidden.
 
- * A new kind of configuration, a 'Tunnelblick VPN Configuration', may be used and may be shared among all users of a computer, or remain private to an individual user (see http://code.google.com/p/tunnelblick/wiki/PackagesProposal for details):
+ * A new kind of configuration, a 'Tunnelblick VPN Configuration', may be used and may be shared among all users of a computer, or remain private to an individual user (see [PackagesProposal Packages] for details):
   * A Tunnelblick VPN Configuration is an OS X folder with an extension of '.tblk'.
   * A Tunnelblick VPN Configuration includes one .ovpn configuration file, and many include key and certificate files and shell scripts. It can also include default settings for per-configuration preferences and version information to help manage enterprise distribution of configurations.
   * Tunnelblick VPN Configurations must be installed before they can be used. They can be installed by double-clicking them, or dragging and dropping them on a Tunnelblick icon in Finder (but not the Tunnelblick icon in the Status Bar near the Spotlight icon). They can also be automatically installed when installing Tunnelblick by including them in the disk image. The user is given the option of installing them as private or shared. All of this behavior can be controlled and/or inhibited by preferences, which can be 'forced' in a Deployed version of Tunnelblick.
@@ -118,7 +118,7 @@
   * A new submenu of the Options submenu has been added to allow the key to be use any of the function keys from F1 through F12. The display of the new menu item is inhibited if the 'doNotShowShortcutKeySubmenu' preference is set to TRUE.
   * Two new unsigned integer preferences: 'keyboardShortcutKeyCode' contains the virtual keycode for the key, and 'keyboardShortcutModifiers' contains the code for the modifier keys. 
 
- * Adds ability to add menu items to the Tunnelblick menu to execute programs (e.g., scripts). This includes the ability to specify programs that should be executed when Tunnelblick is launched or when a connection is attempted.  (See http://code.google.com/p/tunnelblick/wiki/cCusDeployed#Additional_Menu_Commands_and_Programs for details.)
+ * Adds ability to add menu items to the Tunnelblick menu to execute programs (e.g., scripts). This includes the ability to specify programs that should be executed when Tunnelblick is launched or when a connection is attempted.  (See [cCusDeployed#Additional_Menu_Commands_and_Programs Additional Menu Commands And Programs] for details.)
 
  * Streamlines installation to have only one dialog box explaining what will be installed and asking for admin username/password.
 

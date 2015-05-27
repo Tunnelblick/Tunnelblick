@@ -7,7 +7,7 @@ As of build 4039, configurations, welcome windows, and added menu commands may b
 
 <wiki:toc max_depth="2" />
 
-<hr>
+--------------------
 
 ==Localizing Configuration and Folder Names==
 
@@ -17,7 +17,7 @@ A configuration can include localization information for itself. In a Deployed v
 
 For a configuration to include localization information itself, the configuration must include an [cPkgs#Info.plist Info.plist] file and one or more "lproj" folders.
 
-<hr>
+--------------------
 *Info.plist* 
 
 The Info.plist file may contain any of the entries normally allowed in a [cPkgs#Info.plist .tblk Info.plist], but for localization the file must include the following entries (each value is a string):
@@ -25,7 +25,7 @@ The Info.plist file may contain any of the entries normally allowed in a [cPkgs#
  * CFBundleInfoDictionaryVersion, "6.0"
  * CFBundleIdentifier, a reverse-domain identifier which must be unique for each configuration, for example, "com.example.tunnelblick.configuration.001"
 
-<hr>
+--------------------
 *".lproj" folders"
 
 Each "lproj" folder (except English) has as its name the [http://www.loc.gov/standards/iso639-2/php/code_list.php ISO-639-1] two-letter abbreviation of the language and an extension of "lproj". For example, "JA.lproj" is the folder with Japanese strings, "ES.lproj" is the folder with Spanish strings, etc. One exception is English, which is named English.lproj. Other exceptions include Chinese and other languages for which there are multiple dilalects. See [http://commons.oreilly.com/wiki/index.php/Learning_Cocoa_with_Objective-C/Miscellaneous_Topics/Localization#Localizing_Resources Localizing Resources] or examine the "lproj" folders in /Applications/Tunnelblick.app/Contents/Resources.
@@ -52,7 +52,7 @@ The file for Spanish (in ES.lproj) might look like the following (Spanish speake
 
 You can download a [http://sourceforge.net/projects/tunnelblick/files/All%20files/Misc/LocalizationWithSubfolderExample.tblk.zip/download sample of a "nested" .tblk] which contains a regular configuration and a configuration in a subfolder. The sample configurations are localized for English, German, and Spanish as described above.
 
-<hr>
+--------------------
 ==Localizing a Deployed Version==
 
 Deployed versions of Tunnelblick may also be localized. That can be done with per-configuration localization as described above, or with a single folder for each language containing translations for all configurations, folders, and added menu items. Programs launched by added menu items are sent the current language as an argument, so even simple scripts can be localized.

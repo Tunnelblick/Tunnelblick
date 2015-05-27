@@ -1,7 +1,7 @@
 #summary Older Downloads
 #sidebar cSb
 
-[http://code.google.com/p/tunnelblick/wiki/cSysReq System Requirements]
+[cSysReq System Requirements]
 
 ==Deprecated Downloads==
 

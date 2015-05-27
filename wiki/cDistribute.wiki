@@ -2,7 +2,7 @@
 #sidebar cSb
 
 Tunnelblick is made available under the [http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2]  ("GPL"). It can be freely distributed within the restrictions of that license.
-<hr>
+--------------------
 *An easy way to distribute Tunnelblick to multiple clients or servers is to distribute your configurations bundled together with Tunnelblick*. Your configurations will be installed automatically when the user installs the Tunnelblick application and can be automatically updated from your webserver (see [cUpdatableConfigurations Updatable Configurations]).
 
 A simple way to do that is to:
@@ -15,13 +15,13 @@ The resulting .zip file may be distributed to users. When the user double-clicks
 
 For more details, see [cPkgs Tunnelblick VPN Configurations], especially the [cPkgs#Automatic_Installation Automatic Installation] and [cPkgs#Info.plist Info.plist] sections. See [cUpdatableConfigurations Updatable Configurations] for information on creating and using configurations that can be automatically updated from your website.
 
-<hr>
+--------------------
 
 *You can also distribute configurations without Tunnelblick and have them installed by a simple double-click.*
 
 To do this, your users must first download and install Tunnelblick. Then they can double-click one or more [cPkgs ".tblk" configuration files] to install them. You can [cPkgs#Nested_Configurations "nest"] configurations inside an outer configuration so that the user only needs to double-click once to install all of the configurations.
 
-<hr>
+--------------------
 
 *A more complex way of distributing configurations along with Tunnelblick is to create a [cCusDeployed "Deployed" version] of Tunnelblick:*
  * Deployed versions of Tunnelblick *must be [cBuild built] from [cRebranding rebranded] source code* and the rebranded source code must be made available to anyone to whom a binary is "distributed" as defined by the GPL.

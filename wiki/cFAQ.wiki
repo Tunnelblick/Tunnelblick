@@ -65,7 +65,7 @@ All available versions of Tunnelblick are available on the [DownloadsEntry Downl
 ==What is a "deployed" version of Tunnelblick?==
 A "deployed" version of Tunnelblick is a customized version of the program, which includes everything you need to connect to a VPN: the program itself, configuration file(s), and key and certificate files for encryption.
 
-If you download Tunnelblick from [http://code.google.com/p/tunnelblick/ this website], it is _not_ a deployed version. You must also have configuration, key, and certificate files, which should be provided to you by your company or your VPN service provider.
+If you download Tunnelblick from [https://tunnelblick.net this website], it is _not_ a deployed version. You must also have configuration, key, and certificate files, which should be provided to you by your company or your VPN service provider.
 
 See [cDeployingTunnelblick Deploying Tunnelblick] for detailed information about deployed versions of Tunnelblick.
 

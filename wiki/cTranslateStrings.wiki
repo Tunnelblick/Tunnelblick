@@ -9,11 +9,11 @@ For a description of the _new_ way to localize Tunnelblick, see [cLocalizeTransl
 
 For notes about specific strings that are being translated, see [cTranslationNotes Translation Notes].
 
-<hr>
+--------------------
 
 <wiki:toc max_depth="2" />
 
-<hr>
+--------------------
 
 ==.strings Files==
 Tunnelblick has two .strings  files for each language:

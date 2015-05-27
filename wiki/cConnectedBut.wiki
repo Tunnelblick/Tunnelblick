@@ -39,7 +39,7 @@ Your DNS server list is one of the entries on the right. It is a list of IP addr
 Note: If the DNS server list is dimmed (grayed out), it was set via DHCP, not manually.
 
 ==How to use a different DNS server==
-You can set your computer up to use a different DNS server.  [http://code.google.com/speed/public-dns/ Google Public DNS] is free, and [http://www.opendns.com/ OpenDNS] has a free version:
+You can set your computer up to use a different DNS server.  [https://code.google.com/speed/public-dns/ Google Public DNS] is free, and [http://www.opendns.com/ OpenDNS] has a free version:
   # Launch System Preferences,
   # Click "Network"
   # Type "8.8.8.8, 8.8.4.4, 208.67.222.222, 208.67.220.220" (without the quotation marks) into the box to the right of "DNS Server"

@@ -676,7 +676,7 @@ Tunnelblick is made possible by the efforts of many people:
 
 </table>
 
-This list is as complete and correct as we can make it. If there are any errors or anyone has been left out, please accept our apologies and email project owner [http://code.google.com/u/jkbullard/ Jon].
+This list is as complete and correct as we can make it. If there are any errors or anyone has been left out, please accept our apologies and email project owner [https://code.google.com/u/jkbullard/ Jon].
 
 ------------------
 

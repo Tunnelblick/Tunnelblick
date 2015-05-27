@@ -1,11 +1,11 @@
 #summary Changes from Version 3.1 to Version 3.2
 #sidebar cSb
 
-<hr>
+--------------------
 
 For a list of all changes, see the [RlsNotes Release Notes].
 
-<hr>
+--------------------
 
 ==Major Changes from Version 3.1 to Version 3.2==
 

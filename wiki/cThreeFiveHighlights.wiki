@@ -1,7 +1,7 @@
 #summary Changes from Version 3.4 to Version 3.5
 #sidebar cSb
 
-<hr>
+--------------------
 
 ==Major Changes from Version 3.4 to Version 3.5==
 

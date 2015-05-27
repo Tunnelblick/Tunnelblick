@@ -14,7 +14,7 @@ This document contains the following sections:
 ==Installing Tunnelblick and Getting it Set Up==
 Here is what you need to get started using Tunnelblick:
   * The username and password of an administrator for your computer.
-  * A copy of the Tunnelblick installation disk image. You can download one from the [http://code.google.com/p/tunnelblick Tunnelblick project home page].
+  * A copy of the Tunnelblick installation disk image. You can download one from the [https://tunnelblick.net Tunnelblick project home page].
   * An OpenVPN configuration file or information about your VPN configuration. You get that from whoever set up your VPN (usually your company or VPN service provider).
   * Key and certificate files for encryption and authentication. Again, get them from whoever set up your VPN.
 
@@ -136,7 +136,7 @@ If you are using Snow Leopard (10.6), then your manually-configured DNS and WINS
 
   Tunnelblick is free software licensed under the GNU General Public License (GPL) Version 2.
 
-For more information, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
+For more information, including wikis and a discussion group, see the [https://tunnelblick.net Tunnelblick home page].
 
 ==Document History==
   * 2010-02-09 (Version 3.0b26)

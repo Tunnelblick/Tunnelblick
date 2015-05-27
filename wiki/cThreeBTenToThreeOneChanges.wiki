@@ -1,9 +1,9 @@
 #summary Documentation for Tunnelblick 3.0
 #sidebar cSb
 
-<hr>
-<font size="3">*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.dmg Download Tunnelblick 3.0]*</font>
-<hr>
+--------------------
+<font size="3">*[https://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.dmg Download Tunnelblick 3.0]*</font>
+--------------------
 
 This is a summary of major changes from Tunnelblick version 3.0b10 to version 3.0. For more details or changes from other versions to Tunnelblick 3.0, see the [RlsNotes Tunnelblick Release Notes].
 
@@ -40,8 +40,8 @@ This is a summary of major changes from Tunnelblick version 3.0b10 to version 3.
   * Complete German translation -- many thanks to Markus Schneider.
   * Partial translations for Catalan, Chinese (both simplified and traditional), Spanish, French, and Korean. Thanks to Aleix Dorca, Aming Lau, Diego Rivera, Oliver Hill, and Kyoungmin Kim, respectively.
 
-<hr>
-<font size="3">*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.dmg Download Tunnelblick 3.0]*</font>
-<hr>
+--------------------
+<font size="3">*[https://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.dmg Download Tunnelblick 3.0]*</font>
+--------------------
 
 ===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===

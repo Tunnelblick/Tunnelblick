@@ -166,7 +166,7 @@ Here is the sample update notes file for Tunnelblick release 3.4beta30:
 Details are in the <a href="https://code.google.com/p/tunnelblick/wiki/RlsNotes">Release Notes</a><br><br>
 
 
-    <hr>
+    --------------------
 	<span style="color:red"><strong>Please Note:</strong></span>
 	<ul>
 	  <li><strong>Disconnect all configurations before updating.</strong></li>

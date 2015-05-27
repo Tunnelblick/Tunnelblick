@@ -5,7 +5,7 @@
 
 <wiki:toc max_depth="2" />
 
-<hr>
+--------------------
 ==Tunnelblick and VPNs: Privacy and Security==
 
 Tunnelblick and VPNs are often used for one or more of the following purposes:
@@ -39,7 +39,7 @@ Sufficiently powerful organizations could eavesdrop and conduct man-in-the-middl
 
 Note: Sufficiently powerful organizations could circumvent your https: encryption by spoofing security certificates.
 
-<hr>
+--------------------
 ==Tunnelblick Privacy==
 
 In addition to using OpenVPN to set up, maintain, and tear down a VPN connection, Tunnelblick can also be configured to communicate over the Internet for two other purposes:
@@ -71,7 +71,7 @@ These requests are done via https:, however:
  * If an https: connection is not available after connection, Tunnelblick attempts an http: connection using tunnelblick.net's IP address (not its name);
  * The tunnelblick.net web server logs these activities (as do most web servers). See tunnelblick.net Logging for details.
 
-<hr>
+--------------------
 ==tunnelblick.net Logging==
 
 All accesses to tunnelblick.net are logged. The logs are kept by the company that provides hosting services to tunnelblick.net. That company does not provide a way to disable logging or delete logs, and it keeps the logs for up to three years. Access to the logs is password protected.

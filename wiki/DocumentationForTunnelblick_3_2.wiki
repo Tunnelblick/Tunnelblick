@@ -1,9 +1,9 @@
 #summary Documentation for Tunnelblick 3.2
 #sidebar cSb
 
-<hr>
-<font size="3">*[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*</font>
-<hr>
+--------------------
+<font size="3">*[DownloadsEntry Download Tunnelblick]*</font>
+--------------------
 
 This is a summary of major changes from Tunnelblick version 3.1 to version 3.2.
  * For more details of the changes from Tunnelblick version 3.1 to version 3.2, see [cThreeOneToThreeTwoChanges Details About 3.2].
@@ -39,9 +39,9 @@ This is a summary of major changes from Tunnelblick version 3.1 to version 3.2.
    * Fixes failure to to alert the user when a VPN username/password or passphrase fails. Offers to try using different credentials.
    * And many more… (See the [RlsNotes Release Notes] for details.
 
-<hr>
-<font size="3">*[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*</font>
-<hr>
+--------------------
+<font size="3">*[DownloadsEntry Download Tunnelblick]*</font>
+--------------------
 
 ------------------
 

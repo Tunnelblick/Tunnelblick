@@ -29,9 +29,9 @@
    * Fixes problems that caused incorrect sorting and indenting of configurations in submenus.
    * Fixes problems with the log display if the display gets very large.
    * And many more… (See [cThreeTwoToThreeThreeChanges Changes from Version 3.2 to Version 3.3] for details.)
-<hr>
-<font size="3">*[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*</font>
-<hr>
+--------------------
+<font size="3">*[DownloadsEntry Download Tunnelblick]*</font>
+--------------------
 
 ------------------
 

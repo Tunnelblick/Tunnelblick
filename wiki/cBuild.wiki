@@ -9,7 +9,7 @@ _Note: This page has not been updated for a long time; there is a discussion [ht
 
 ==INTRODUCTION==
 
-Usually, people install and use a "release" -- an easy-to-use version -- of Tunnelblick. The most recent release is always on the <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">Downloads</a> page and is a .dmg file. It's easy to install Tunnelblick from this .dmg.
+Usually, people install and use a "release" -- an easy-to-use version -- of Tunnelblick. The most recent release is always on the [DownloadsEntry Downloads] page and is a .dmg file. It's easy to install Tunnelblick from this .dmg.
 
 As project developers and members make changes (bug fixes and improvements) to Tunnelblick, they are added to the source code and tested. When "enough" (whatever that means) changes have been made and tested, a new release is prepared by the Tunnelblick project developers and made available.
 

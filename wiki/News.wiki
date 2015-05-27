@@ -5,7 +5,7 @@
 
 --------------------
 
-2015-04-03: *Tunnelblick 3.5.0 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2015-04-03: *Tunnelblick 3.5.0 is [DownloadsEntry available for download]*.
 
  * This is the first stable version of Tunnelblick 3.5 -- many thanks to our tens-of-thousands of beta testers!
  * It is identical to 3.5beta10 except for version and build numbers.
@@ -16,7 +16,7 @@
 
 --------------------
 
-2015-03-30: *Tunnelblick 3.5beta10 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2015-03-30: *Tunnelblick 3.5beta10 is [DownloadsEntry available for download]*.
 
  * Updates localization and credits.
  * Adds output from the 'ipconfig' command to the diagnostic info.
@@ -26,13 +26,13 @@
 
 --------------------
 
-2015-03-29: *Tunnelblick Uninstaller 1.6 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2015-03-29: *Tunnelblick Uninstaller 1.6 is [DownloadsEntry available for download]*.
 
  * Fixes problems when run on a PowerPC G3 processor.
  
 --------------------
 
-2015-03-19: *Tunnelblick 3.5beta08 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2015-03-19: *Tunnelblick 3.5beta08 is [DownloadsEntry available for download]*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Includes OpenSSL 1.0.1m. See [https://www.openssl.org/news/secadv_20150319.txt OpenSSL Security Advisory 19 Mar 2015].
  * Updates localization for several languages.
@@ -43,7 +43,7 @@
 
 --------------------
 
-2015-03-19: *Tunnelblick 3.4.4 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2015-03-19: *Tunnelblick 3.4.4 is [DownloadsEntry available for download]*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Includes OpenSSL 1.0.1m. See [https://www.openssl.org/news/secadv_20150319.txt OpenSSL Security Advisory 19 Mar 2015].
   
@@ -51,7 +51,7 @@
 
 --------------------
 
-2015-01-22: *Tunnelblick 3.5beta06 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2015-01-22: *Tunnelblick 3.5beta06 is [DownloadsEntry available for download]*.
 
  * Uses a launchd daemon instead of an SUID helper to start OpenVPN on OS X Version 10.5 ("Leopard") and higher.
  * Updates Arabic, Japanese, and Chinese (traditional) localization.
@@ -61,7 +61,7 @@
 
 --------------------
 
-2015-01-08: *Tunnelblick 3.5beta04 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2015-01-08: *Tunnelblick 3.5beta04 is [DownloadsEntry available for download]*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Includes OpenSSL 1.0.1k. See [https://www.openssl.org/news/secadv_20150108.txt OpenSSL Security Advisory 08 Jan 2015].
  * Includes several other enhancements and fixes several bugs.
@@ -70,7 +70,7 @@
 
 --------------------
 
-2015-01-08: *Tunnelblick 3.4.3 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2015-01-08: *Tunnelblick 3.4.3 is [DownloadsEntry available for download]*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Includes OpenSSL 1.0.1k. See [https://www.openssl.org/news/secadv_20150108.txt OpenSSL Security Advisory 08 Jan 2015].
   
@@ -78,7 +78,7 @@
 
 --------------------
 
-2014-12-02: *Tunnelblick 3.5beta02 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-12-02: *Tunnelblick 3.5beta02 is [DownloadsEntry available for download]*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Includes OpenVPN 2.3.6. See [https://community.openvpn.net/openvpn/wiki/SecurityAnnouncement-97597e732b OpenVPN Security Announcement-97597e732b].
  * Includes complete localization in 18 languages including Danish and Greek and partial localization in 7 others, including Arabic and Bulgarian.
@@ -90,13 +90,13 @@
 
 --------------------
 
-2014-12-01: *Tunnelblick 3.4.2 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-12-01: *Tunnelblick 3.4.2 is [DownloadsEntry available for download]*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Includes OpenVPN 2.3.6. See [https://community.openvpn.net/openvpn/wiki/SecurityAnnouncement-97597e732b OpenVPN Security Announcement-97597e732b].
  
 --------------------
 
-2014-10-15: *Tunnelblick 3.4.1 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-10-15: *Tunnelblick 3.4.1 is [DownloadsEntry available for download]*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Includes OpenVPN 2.3.6. See XXXXXXXXXXXXXXXXXXXXXXXXXXX.
  * Includes complete localization in 18 languages including Greek and Danish and partial localization in 7 others, including Arabic and Bulgarian.
@@ -106,13 +106,13 @@
 
 --------------------
 
-2014-10-15: *Tunnelblick 3.5beta02 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-10-15: *Tunnelblick 3.5beta02 is [DownloadsEntry available for download]*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Includes OpenSSL 1.0.1j. See [https://www.openssl.org/news/secadv_20141015.txt OpenSSL Security Advisory (15 Oct 2014)].
  
 --------------------
 
-2014-10-03: *Tunnelblick 3.4.0 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-10-03: *Tunnelblick 3.4.0 is [DownloadsEntry available for download]*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Identical to 3.4beta38 (except for version and build numbers).
  
@@ -120,7 +120,7 @@
 
 --------------------
 
-2014-10-01: *Tunnelblick 3.4beta38 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-10-01: *Tunnelblick 3.4beta38 is [DownloadsEntry available for download]*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Fixes several security vulnerabilities.
 
@@ -134,7 +134,7 @@
 
 --------------------
 
-2014-09-02: *Tunnelblick 3.4beta36 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-09-02: *Tunnelblick 3.4beta36 is [DownloadsEntry available for download]*.
 
  * Fixes a problem on OS X 10.9.5 ('Mavericks') and 10.10 ('Yosemite') that causes spurious warnings that 'This version has been tampered with'.
 
@@ -143,7 +143,7 @@
 
 --------------------
 
-2014-08-07: *Tunnelblick 3.4beta34 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-08-07: *Tunnelblick 3.4beta34 is [DownloadsEntry available for download]*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Updates Tunnelblick's embedded OpenSSL to version 1.0.1i from version 1.0.1h. See [https://www.openssl.org/news/secadv_20140806.txt https://www.openssl.org/news/secadv_20140806.txt] and [https://community.openvpn.net/openvpn/wiki/VulnerabilitiesFixedInOpenSSL1.0.1i https://community.openvpn.net/openvpn/wiki/VulnerabilitiesFixedInOpenSSL1.0.1i] for details.
 
@@ -155,7 +155,7 @@
 
 --------------------
 
-2014-07-17: *Tunnelblick 3.4beta32 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-07-17: *Tunnelblick 3.4beta32 is [DownloadsEntry available for download]*.
 
  * Adds the ability to have Tunnelblick VPN Configurations updated the same way that Tunnelblick is updated.
 
@@ -167,7 +167,7 @@
 
 --------------------
 
-2014-07-08: *Tunnelblick 3.4beta30 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-07-08: *Tunnelblick 3.4beta30 is [DownloadsEntry available for download]*.
 
  * Includes major enhancements to installing configurations.
 
@@ -181,7 +181,7 @@
 
 --------------------
 
-2014-06-12: *Tunnelblick 3.4beta28 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-06-12: *Tunnelblick 3.4beta28 is [DownloadsEntry available for download]*.
 
  * Includes OpenSSL library version 1.0.1h, which fixes several security vulnerabilities (see [http://www.openssl.org/news/secadv_20140605.txt OpenSSL Security Advisory 05 Jun 2014]).
 
@@ -193,14 +193,14 @@
 
 --------------------
 
-2014-06-12: *Tunnelblick 3.3.4 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-06-12: *Tunnelblick 3.3.4 is [DownloadsEntry available for download]*.
 
  * Includes OpenSSL library version 1.0.1h, which fixes several security vulnerabilities (see [http://www.openssl.org/news/secadv_20140605.txt OpenSSL Security Advisory 05 Jun 2014]).
 
 
 --------------------
 
-2014-05-02: *Tunnelblick 3.4beta26 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-05-02: *Tunnelblick 3.4beta26 is [DownloadsEntry available for download]*.
 
  * Replaces OpenVPN version 2.3.3 with version 2.3.4.
 
@@ -214,7 +214,7 @@
 
 --------------------
 
-2014-04-18: *Tunnelblick 3.4beta24 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-04-18: *Tunnelblick 3.4beta24 is [DownloadsEntry available for download]*.
 
  * Includes OpenVPN 2.3.3 (as well as 2.2.1 and 2.3.2).
 
@@ -232,7 +232,7 @@
 
 --------------------
 
-2014-04-08: *Tunnelblick 3.3.2 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-04-08: *Tunnelblick 3.3.2 is [DownloadsEntry available for download]*.
 
  * Includes OpenSSL library version 1.0.1g, which does not have the [https://www.openssl.org/news/secadv_20140407.txt "heartbeat" vulnerability].
 
@@ -248,7 +248,7 @@
 
 --------------------
 
-2014-04-08: *Tunnelblick 3.4beta22 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-04-08: *Tunnelblick 3.4beta22 is [DownloadsEntry available for download]*.
 
  * Includes OpenSSL library version 1.0.1g, which does not have the [https://www.openssl.org/news/secadv_20140407.txt "heartbeat" vulnerability].
  
@@ -277,7 +277,7 @@
 
 --------------------
 
-2014-01-16: *Tunnelblick 3.4beta20 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2014-01-16: *Tunnelblick 3.4beta20 is [DownloadsEntry available for download]*.
 
  * Replaces embedded OpenSSL 1.0.1e with 1.0.1f (see [http://www.openssl.org/news/vulnerabilities.html OpenSSL Vulnerabilities]).
 
@@ -291,7 +291,7 @@
 
 --------------------
 
-2013-12-18: *Tunnelblick 3.4beta18 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-12-18: *Tunnelblick 3.4beta18 is [DownloadsEntry available for download]*.
 
  * Includes a new status icon (the icon in the menu bar) more in keeping with recent OS X aesthetics and which includes Retina images. (The old icon may be selected as the 'Tunnelblick 3.3 icon' on the Appearance panel of the 'VPN Details…' window.)
 
@@ -307,7 +307,7 @@
 
 --------------------
 
-2013-11-22: *Tunnelblick 3.4beta16 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-11-22: *Tunnelblick 3.4beta16 is [DownloadsEntry available for download]*.
 
  * Adds the 'Include anonymous profile information' checkbox to the Preferences panel.
 
@@ -323,7 +323,7 @@
 
 --------------------
 
-2013-10-25: *Tunnelblick 3.4beta14 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-10-25: *Tunnelblick 3.4beta14 is [DownloadsEntry available for download]*.
 
  * Implements 'Examine OpenVPN Configuration File' for Shared and Deployed configurations.
 
@@ -340,7 +340,7 @@
 
 --------------------
 
-2013-10-17: *Tunnelblick 3.4beta12 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-10-17: *Tunnelblick 3.4beta12 is [DownloadsEntry available for download]*.
 
  * Includes several important bug fixes.
 
@@ -349,7 +349,7 @@
 
 --------------------
 
-2013-10-05: *Tunnelblick 3.4beta10 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-10-05: *Tunnelblick 3.4beta10 is [DownloadsEntry available for download]*.
 
  * Includes additional security checking when Tunnelblick is launched.
 
@@ -364,7 +364,7 @@
 
 --------------------
 
-2013-09-06: *Tunnelblick 3.4beta08 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-09-06: *Tunnelblick 3.4beta08 is [DownloadsEntry available for download]*.
 
  * Fixes a problem that caused update checks to fail.
  
@@ -373,7 +373,7 @@
 
 --------------------
 
-2013-09-06: *Tunnelblick 3.4beta06 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-09-06: *Tunnelblick 3.4beta06 is [DownloadsEntry available for download]*.
 
  * Fixes a crash when accessing checkboxes on the 'Advanced' window.
 
@@ -388,7 +388,7 @@
 
 --------------------
 
-2013-08-21: *Tunnelblick 3.4beta04 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-08-21: *Tunnelblick 3.4beta04 is [DownloadsEntry available for download]*.
 
  * Uses https: for update and IP address checks.
 
@@ -403,7 +403,7 @@
 
 --------------------
 
-2013-08-07: *Tunnelblick 3.4beta02 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-08-07: *Tunnelblick 3.4beta02 is [DownloadsEntry available for download]*.
 
  This is the first beta release of Tunnelblick 3.4 and includes fixes for several bugs in 3.3.0:
  
@@ -420,7 +420,7 @@
 
 --------------------
 
-2013-07-22: *Tunnelblick 3.3 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-07-22: *Tunnelblick 3.3 is [DownloadsEntry available for download]*.
 
  This is the first stable release of Tunnelblick 3.3. It is identical to version 3.3beta56 except for version information.
  
@@ -430,7 +430,7 @@
 
 --------------------
 
-2013-07-19: *Tunnelblick 3.3beta56 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-07-19: *Tunnelblick 3.3beta56 is [DownloadsEntry available for download]*.
 
  Expected to be the last beta before the 3.3 stable release.
 
@@ -445,7 +445,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2013-06-08: *Tunnelblick 3.3beta54 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-06-08: *Tunnelblick 3.3beta54 is [DownloadsEntry available for download]*.
 
  * Includes complete German, Spanish, and Polish localization.
 
@@ -460,7 +460,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2013-05-20: *Tunnelblick 3.3beta52 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-05-20: *Tunnelblick 3.3beta52 is [DownloadsEntry available for download]*.
 
  * Fixes several problems converting OpenVPN configurations to Tunnelblick VPN Configurations.
  
@@ -471,14 +471,14 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2013-05-14: *Tunnelblick 3.2.9 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-05-14: *Tunnelblick 3.2.9 is [DownloadsEntry available for download]*.
 
  * Preparation for updating to Tunnelblick 3.3.
  * Only this and later versions will be able to update to Tunnelblick 3.3 when it becomes available as a stable release.
 
 --------------------
 
-2013-05-11: *Tunnelblick 3.3beta50 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-05-11: *Tunnelblick 3.3beta50 is [DownloadsEntry available for download]*.
 
  * Saves and restores folder expansion states and the configuration selected in the configuration list in the 'VPN Details…' window.
 
@@ -486,7 +486,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2013-05-08: *Tunnelblick 3.3beta48 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-05-08: *Tunnelblick 3.3beta48 is [DownloadsEntry available for download]*.
 
  * Fixes a security issue when installing Tunnelblick VPN Configurations (.tblks).
  
@@ -496,7 +496,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2013-04-22: *Tunnelblick 3.3beta46 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-04-22: *Tunnelblick 3.3beta46 is [DownloadsEntry available for download]*.
 
  * <font color="red">Security</font>: Digitally signs Tunnelblick's copies of OpenVPN.
  
@@ -504,7 +504,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2013-04-16: *Tunnelblick 3.3beta44 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-04-16: *Tunnelblick 3.3beta44 is [DownloadsEntry available for download]*.
 
  * Fixes a problem when converting an OpenVPN configuration with the 'auth-user-pass' option to a Tunnelblick VPN Configuration.
 
@@ -512,7 +512,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2013-04-13: *Tunnelblick 3.3beta42 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-04-13: *Tunnelblick 3.3beta42 is [DownloadsEntry available for download]*.
 
  * Fixes several problems.
  
@@ -520,14 +520,14 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2013-04-11: *Tunnelblick 3.3beta40 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-04-11: *Tunnelblick 3.3beta40 is [DownloadsEntry available for download]*.
 
  * Fixes a problem with Tunnelblick's new 64-bit OpenVPN 2.2.1 by only including the 32-bit versions of OpenVPN.
  
 
 --------------------
 
-2013-04-09: *Tunnelblick 3.3beta38 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-04-09: *Tunnelblick 3.3beta38 is [DownloadsEntry available for download]*.
 
  * Enhances installation of Tunnelblick VPN Configurations with improved error detection and correction.
 
@@ -544,13 +544,13 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2013-03-28: *Tunnelblick 3.3beta36 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-03-28: *Tunnelblick 3.3beta36 is [DownloadsEntry available for download]*.
 
  * Removes uninstaller from disk image.
 
 --------------------
 
-2013-03-27: *Tunnelblick 3.3beta34 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-03-27: *Tunnelblick 3.3beta34 is [DownloadsEntry available for download]*.
 
  * <font color="red">Security update:</font> Replaces OpenSSL 1.0.1c with 1.0.1e. (See [http://www.openssl.org/news/secadv_20130204.txt http://www.openssl.org/news/secadv_20130204.txt] and [http://www.openssl.org/source/exp/CHANGES http://www.openssl.org/source/exp/CHANGES]).
 
@@ -562,7 +562,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2013-01-08: *Tunnelblick 3.3beta21b is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-01-08: *Tunnelblick 3.3beta21b is [DownloadsEntry available for download]*.
 
  * *<font color="red">Security update to prepare for Tunnelblick 3.3beta32.</font>*
 
@@ -572,7 +572,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2013-01-05: *Tunnelblick 3.3beta32 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-01-05: *Tunnelblick 3.3beta32 is [DownloadsEntry available for download]*.
 
  * Fixes several security issues.
 
@@ -584,10 +584,10 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
  * Fixes problems that caused some scripts in Tunnelblick VPN Configurations to not be executed.
 
- See the [https://code.google.com/p/tunnelblick/wiki/RlsNotes Release Notes] for details.
+ See the [RlsNotes Release Notes] for details.
 --------------------
 
-2012-12-25: *Tunnelblick 3.3beta30 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-12-25: *Tunnelblick 3.3beta30 is [DownloadsEntry available for download]*.
 
  * Updates the easy-rsa programs to fix bugs in the Tunnelblick patches.
 
@@ -597,10 +597,10 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
  * Contains several bug fixes.
 
- See the [https://code.google.com/p/tunnelblick/wiki/RlsNotes Release Notes] for details.
+ See the [RlsNotes Release Notes] for details.
 --------------------
 
-2012-10-24: *Tunnelblick 3.3beta28 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-10-24: *Tunnelblick 3.3beta28 is [DownloadsEntry available for download]*.
 
  * Configurations can share credentials (usernames/passwords and pass phrases) so that the credentials need not be entered separately for each configuration.
 
@@ -618,10 +618,10 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
  * Contains several other enhancements and bug fixes.
 
- See the [https://code.google.com/p/tunnelblick/wiki/RlsNotes Release Notes] for details.
+ See the [RlsNotes Release Notes] for details.
 --------------------
 
-2012-10-12: *Tunnelblick 3.3beta26 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-10-12: *Tunnelblick 3.3beta26 is [DownloadsEntry available for download]*.
 
  * Installs, and should be used, only if no Deployed versions of Tunnelblick have previously been installed. (This restriction will probably be removed in later releases.)
 
@@ -631,17 +631,17 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
  * Contains several other enhancements and bug fixes.
 
- See the [https://code.google.com/p/tunnelblick/wiki/RlsNotes Release Notes] for details.
+ See the [RlsNotes Release Notes] for details.
 --------------------
 
-2012-09-13: *Tunnelblick 3.3beta24 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-09-13: *Tunnelblick 3.3beta24 is [DownloadsEntry available for download]*.
 
  * Fixes problems installing from disk image.
 
- See the [https://code.google.com/p/tunnelblick/wiki/RlsNotes Release Notes] for details.
+ See the [RlsNotes Release Notes] for details.
 --------------------
 
-2012-09-12: *Tunnelblick 3.3beta22 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-09-12: *Tunnelblick 3.3beta22 is [DownloadsEntry available for download]*.
 
  * Fixes security issues raised by Tunnelblick Issue 212.
 
@@ -652,10 +652,10 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
  * Will install to, and may only be run from, /Applications.
 
- See the [https://code.google.com/p/tunnelblick/wiki/RlsNotes Release Notes] for details.
+ See the [RlsNotes Release Notes] for details.
 --------------------
 
-2012-09-12: *Tunnelblick 3.3beta21a is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-09-12: *Tunnelblick 3.3beta21a is [DownloadsEntry available for download]*.
 
  * Fixes incorrect display of VPN traffic statistics.
 
@@ -663,10 +663,10 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
  * Several other changes and bug fixes.
 
- See the [https://code.google.com/p/tunnelblick/wiki/RlsNotes Release Notes] for details.
+ See the [RlsNotes Release Notes] for details.
 --------------------
 
-2012-08-20: *Tunnelblick 3.3beta20 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-08-20: *Tunnelblick 3.3beta20 is [DownloadsEntry available for download]*.
 
  * After installing this version, Tunnelblick can only be updated by a computer administrator.
 
@@ -676,16 +676,16 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
  * Several other changes and bug fixes.
 
- See the [https://code.google.com/p/tunnelblick/wiki/RlsNotes Release Notes] for details.
+ See the [RlsNotes Release Notes] for details.
 --------------------
 
-2012-08-10: *Tunnelblick 3.2.8 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-08-10: *Tunnelblick 3.2.8 is [DownloadsEntry available for download]*.
 
  * Fixes several problems caused by digital signatures.
 
 --------------------
 
-2012-08-06: *Tunnelblick 3.2.7 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-08-06: *Tunnelblick 3.2.7 is [DownloadsEntry available for download]*.
 
  * SECURITY UPDATE: Includes OpenSSL 1.0.0j, the latest security update to the 1.0.0 branch of OpenSSL.
  
@@ -697,7 +697,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2012-08-04: *Tunnelblick 3.3beta18 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-08-04: *Tunnelblick 3.3beta18 is [DownloadsEntry available for download]*.
 
  * Fixes several problems on Mountain Lion and temporarily adds extra logging to help diagnose problems.
 
@@ -711,19 +711,19 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2012-07-27: *Tunnelblick 3.3beta16 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-07-27: *Tunnelblick 3.3beta16 is [DownloadsEntry available for download]*.
 
  * Fixes a problem that stops updates from being installed.
 
 --------------------
 
-2012-07-27: *Tunnelblick 3.3beta14 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-07-27: *Tunnelblick 3.3beta14 is [DownloadsEntry available for download]*.
 
  * Fixes problems with DNS on OS X 10.8 ("Mountain Lion") when using the default DNS/WINS setting of 'Set nameserver'.
 
 --------------------
 
-2012-07-24: *Tunnelblick 3.3beta12 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-07-24: *Tunnelblick 3.3beta12 is [DownloadsEntry available for download]*.
 
  * Reverts to OpenVPN 2.3-alpha1 to fix problems with the build of OpenVPN 2.3_alpha2.
 
@@ -733,7 +733,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2012-07-20: *Tunnelblick 3.3beta10 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-07-20: *Tunnelblick 3.3beta10 is [DownloadsEntry available for download]*.
 
  * Fixes a problem disabling network connection monitoring.
 
@@ -743,7 +743,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2012-07-19: *Tunnelblick 3.3beta08 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-07-19: *Tunnelblick 3.3beta08 is [DownloadsEntry available for download]*.
 
  * SECURITY UPDATE: Updates OpenSSL to 1.0.1c ([http://www.openssl.org/news/secadv_20120510.txt OpenSSL's advisory])
 
@@ -757,7 +757,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2012-05-08: *Tunnelblick 3.3beta06 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-05-08: *Tunnelblick 3.3beta06 is [DownloadsEntry available for download]*.
 
  * Enhances security by digitally signing Sparkle.framework (signed versions only).
 
@@ -769,13 +769,13 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2012-05-03: *Tunnelblick 3.2.6 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-05-03: *Tunnelblick 3.2.6 is [DownloadsEntry available for download]*.
 
  * Fixes a crash on OS X 10.4 ("Tiger") or PowerPC.
  
 --------------------
 
-2012-04-29: *Tunnelblick 3.2.5 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-04-29: *Tunnelblick 3.2.5 is [DownloadsEntry available for download]*.
 
  * Fixes a problem with the digital signatures of updates in 3.2.4.
  
@@ -783,7 +783,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2012-04-28: *Tunnelblick 3.3beta04 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-04-28: *Tunnelblick 3.3beta04 is [DownloadsEntry available for download]*.
 
  * SECURITY UPDATE: Replaces OpenSSL 1.0.1 with 1.0.1b.
 
@@ -795,7 +795,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2012-04-27: *Tunnelblick 3.2.4 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-04-27: *Tunnelblick 3.2.4 is [DownloadsEntry available for download]*.
 
  * SECURITY UPDATE: Replaces OpenSSL 1.0.0g with 1.0.1b.
 
@@ -811,7 +811,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2012-03-16: *Tunnelblick 3.3beta02 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-03-16: *Tunnelblick 3.3beta02 is [DownloadsEntry available for download]*.
 
  * Includes several changes to notification windows, including displaying all windows when the pointer (mouse) is over the Tunnelblick icon in the menu bar and displaying 'bandwidth' statistics.
 
@@ -829,7 +829,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2012-01-25: *Tunnelblick 3.2.3 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-01-25: *Tunnelblick 3.2.3 is [DownloadsEntry available for download]*.
 
  * Fixes a security vulnerability in OpenSSL by updating to OpenSSL version 1.0.0g. See [http://www.openssl.org/news/secadv_20120118.txt http://www.openssl.org/news/secadv_20120118.txt] for details.
 
@@ -843,7 +843,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2012-01-09: *Tunnelblick 3.2.2 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2012-01-09: *Tunnelblick 3.2.2 is [DownloadsEntry available for download]*.
 
  * Fixes six OpenSSL security flaws by updating OpenSSL from 1.0.0e to 1.0.0f. See [http://www.openssl.org/news/secadv_20120104.txt http://www.openssl.org/news/secadv_20120104.txt] for details.
 
@@ -853,7 +853,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-12-29: *Tunnelblick 3.2.1 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-12-29: *Tunnelblick 3.2.1 is [DownloadsEntry available for download]*.
 
  * Fixes a problem preventing installation/update for some users on OS X 10.4.
 
@@ -861,7 +861,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-12-19: *Tunnelblick 3.2 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-12-19: *Tunnelblick 3.2 is [DownloadsEntry available for download]*.
 
  * Stable 3.2 release -- not a beta release.
  
@@ -873,7 +873,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-12-10: *Tunnelblick 3.2beta36 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-12-10: *Tunnelblick 3.2beta36 is [DownloadsEntry available for download]*.
  * Includes additional Japanese localization by Yoshihisa Kawamoto.
 
  * Adds more control over what Tunnelblick does when a network setting changes. Controls are located on the "While Connected" tab of the Advanced configuration settings. (These controls may not be modified if the per-configuration 'CONFIGURATIONNAME-leasewatchOptions' preference is present. That preference is now deprecated.)
@@ -884,7 +884,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-11-27: *Tunnelblick 3.2beta34 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-11-27: *Tunnelblick 3.2beta34 is [DownloadsEntry available for download]*.
  * Includes a Hungarian translation by Marcell Szabo and a Czech translation by Petr Šrajer.
  * Includes the latest Tuntap release (version 20111101) for Snow Leopard and higher (version 19990913 are used for Tiger and Leopard).
  * Automatically updates with the correct signed or unsigned version.
@@ -893,7 +893,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-10-12: *Tunnelblick 3.2beta32 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-10-12: *Tunnelblick 3.2beta32 is [DownloadsEntry available for download]*.
 
  * Includes OpenSSL version 1.0.0e.
  * Complete Polish localization by Magdelena Zajac and Łukasz M.
@@ -906,7 +906,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2011-08-31: *Tunnelblick 3.2beta30 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-08-31: *Tunnelblick 3.2beta30 is [DownloadsEntry available for download]*.
  * Includes an experimental version of the Tuntap kexts (device drivers) that should fix problems with kernel panics on Lion with some processors.
  * Includes both OpenVPN 2.1.4 and OpenVPN 2.2.1.
  * Includes complete localization for Catalan, German, Spanish, French, Korean, Norwegian, Dutch, Portuguese, Russian, Swedish, and Chinese (simplified).
@@ -915,7 +915,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-07-31: *Tunnelblick 3.2beta28 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-07-31: *Tunnelblick 3.2beta28 is [DownloadsEntry available for download]*.
  * Johan Nilsson and Tim Malmström have provided Swedish localization.
  * Prevents kernel panics on OS X 10.7 "Lion".
  * Includes other enhancements and fixes several bugs.
@@ -923,7 +923,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-07-20: *Tunnelblick 3.2beta26 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-07-20: *Tunnelblick 3.2beta26 is [DownloadsEntry available for download]*.
  * Aleix Dorca has provided a complete Catalan localization.
  * Emma Segev and Tjalling Soldatt have provided complete Dutch localization.
  * Peter K. O'Connor has provided complete Chinese (simplified) localization.
@@ -934,7 +934,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-07-14: *Tunnelblick 3.2beta24 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-07-14: *Tunnelblick 3.2beta24 is [DownloadsEntry available for download]*.
  * Complete German localization by Marcus Schneider.
  * Complete French localization by Jeremy Sherman.
  * Complete Korean localization by Kyoungmin Kim.
@@ -946,7 +946,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-07-01: *Tunnelblick 3.2beta22 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-07-01: *Tunnelblick 3.2beta22 is [DownloadsEntry available for download]*.
  * Includes LZO 2.05, replacing 2.03.
  * Sleep/wake change: When the computer wakes up, it now tries to reconnect all configurations that were connected, or were in the process of being connected, when it went to sleep. (Previously, Tunnelblick only tried to reconnect only those configurations that were connected when the computer went to sleep.)
  * Adds an additional layer of protection against attacks.
@@ -955,13 +955,13 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-06-29: *Tunnelblick 3.2beta20 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-06-29: *Tunnelblick 3.2beta20 is [DownloadsEntry available for download]*.
  * Fixes a bug causing domains to be ignored when 'Set nameserver' is selected.
  See the [RlsNotes Release Notes] for details.
  
 --------------------
 
-2011-06-27: *Tunnelblick 3.2beta18 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-06-27: *Tunnelblick 3.2beta18 is [DownloadsEntry available for download]*.
  * Changes to the sound settings now take effect immediately.
  * Shows a splash screen during installation.
  * Cascades status windows when multiple status windows are being displayed simultaneously.
@@ -971,7 +971,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-06-24: *Tunnelblick 3.2beta16 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-06-24: *Tunnelblick 3.2beta16 is [DownloadsEntry available for download]*.
  * Portuguese localization by Denis Volpato Martins. Thanks!
  * Includes a single up/down script pair for Set nameserver which works for both tun and tap devices. Thanks to Nick Williams!
  * Implements a new simplified menu and a new 'VPN Details…' window:
@@ -984,14 +984,14 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-05-17: *Tunnelblick 3.2beta14 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-05-17: *Tunnelblick 3.2beta14 is [DownloadsEntry available for download]*.
  * Fixes a crash on startup on OS X 10.4 ("Tiger") and 10.5 ("Leopard").
  * Fixes a typo in the help page for the "Appearance" preferences.
  See the [RlsNotes Release Notes] for details.
  
 --------------------
 
-2011-05-16: *Tunnelblick 3.2beta12 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-05-16: *Tunnelblick 3.2beta12 is [DownloadsEntry available for download]*.
  * Tunnelblick now has a preferences window.
  * The Tunnelblick menu has been streamlined.
  * Tunnelblick is digitally signed to avoid asking the user for permission to access the Keychain.
@@ -1000,7 +1000,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-04-29: *Tunnelblick 3.2beta10 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-04-29: *Tunnelblick 3.2beta10 is [DownloadsEntry available for download]*.
  * Includes OpenVPN 2.2 and PKCS#11 1.08.
  * Includes complete Portuguese localization by Denis Volpato Martins. Thanks, Denis!
  * Removes the 'Clear log' button from the Details… window. (It is no longer needed because the log display is cleared at the start of each connection and its size is limited to 100,000 characters. This limit can be overridden by the 'maxLogDisplaySize' preference.).
@@ -1009,7 +1009,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-04-26: *Tunnelblick 3.2beta08 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-04-26: *Tunnelblick 3.2beta08 is [DownloadsEntry available for download]*.
  * No longer uses the down-root plugin if there are no 'user' or 'group' options in the configuration file. (The 'XXX-useDownRootPlugin' preference is removed in this situation.)
  * 'Monitor connection' is more tolerant of unimportant changes and may be customized.
  * Higher 'verb' levels may be used without performance degradation.
@@ -1018,7 +1018,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
  
 --------------------
 
-2011-04-06: *Tunnelblick 3.2beta06 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-04-06: *Tunnelblick 3.2beta06 is [DownloadsEntry available for download]*.
  * Allows copy/paste of usernames, passwords, and passphrases in the VPN login window. (For security reasons, passwords and passphrases may only be pasted.)
  * Fixes a bug that sometimes failed to alert the user when a VPN username/password or passphrase failed to be authenticated.
  * Allows Tunnelblick VPN Configurations ('.tblk' packages) to be uninstalled.
@@ -1027,18 +1027,18 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2011-04-03: *Tunnelblick 3.1.7 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-04-03: *Tunnelblick 3.1.7 is [DownloadsEntry available for download]*.
  * Fixes problems causing tun/tap kexts to be loaded even though preferences specify that the kext(s) are not to be loaded.
  * Fixes a problem with installing some Tunnelblick VPN Configurations (.tblk).
 
 --------------------
 
-2011-02-19: *Tunnelblick 3.1.6 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [RlsNotes Release Notes].
+2011-02-19: *Tunnelblick 3.1.6 is [DownloadsEntry available for download]*. Full details are in the [RlsNotes Release Notes].
  * Fixes a bug that caused up/down scripts in Tunnelblick VPN Configurations (.tblks) to be ignored.
 
 --------------------
 
-2011-02-19: *Tunnelblick 3.2beta04 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [RlsNotes Release Notes].
+2011-02-19: *Tunnelblick 3.2beta04 is [DownloadsEntry available for download]*. Full details are in the [RlsNotes Release Notes].
  * Adds [cAppleScriptSupport AppleScript support].
  * Includes complete French localization by Jeremy W. Sherman. Thanks, Jeremy!
  * Includes OpenSSL 1.0.0d.
@@ -1053,7 +1053,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2011-02-02: *Tunnelblick 3.2beta02 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [RlsNotes Release Notes].
+2011-02-02: *Tunnelblick 3.2beta02 is [DownloadsEntry available for download]*. Full details are in the [RlsNotes Release Notes].
  * The following scripts may be included in a Tunnelblick VPN Configuration (.tblk package):
    * pre-connect.sh
    * post-tun-tap-load.sh
@@ -1067,7 +1067,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 
 --------------------
 
-2011-02-01: *Tunnelblick 3.1.5 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2011-02-01: *Tunnelblick 3.1.5 is [DownloadsEntry available for download]*.
  Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger") PPC.
 
 --------------------
@@ -1078,7 +1078,7 @@ See the [RlsNotes#Version_3.3 Release Notes] for details.
 --------------------
 
 2011-01-28: *OS X 10.4 ("Tiger") Installation Failure*
- Installing or updating to Tunnelblick 3.1.3 on OS X 10.4 ("Tiger") fails. See the first entry in <a href="http://code.google.com/p/tunnelblick/wiki/cKnown">Known Issues</a> for a workaround.
+ Installing or updating to Tunnelblick 3.1.3 on OS X 10.4 ("Tiger") fails. See the first entry in [cKnown Known Issues] for a workaround.
  
 --------------------
 

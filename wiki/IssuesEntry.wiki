@@ -12,4 +12,4 @@ Before *posting a new* Issue, please
 
 Go to the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group].
 
-No, I really want to go to [http://code.google.com/p/tunnelblick/issues/list Tunnelblick Issues].
+No, I really want to go to [https://code.google.com/p/tunnelblick/issues/list Tunnelblick Issues].

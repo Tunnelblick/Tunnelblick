@@ -2,11 +2,11 @@
 #sidebar cSb
 = Documentation =
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
-<hr>
+--------------------
 
 *[DocumentationForTunnelblick_3_3 Tunnelblick 3.3 Highlights]*
 
-<hr>
+--------------------
 
 *[DocumentationForTunnelblick_3_2 Tunnelblick 3.2 Highlights]*
   Popular articles:
@@ -18,7 +18,7 @@
     [cFAQ FAQ]<br>
     [cGettingVPNService Getting VPN Service]<br>
 
-<hr>
+--------------------
 
 *[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 Highlights]*
   Popular articles:
@@ -30,7 +30,7 @@
     [cFAQ FAQ]<br>
     [cGettingVPNService Getting VPN Service]<br>
 
-<hr>
+--------------------
 
 *[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Highlights]*
   Popular articles:
@@ -40,7 +40,7 @@
     [QuickStartGuide Quick Start Guide]<br>
     [cKnown Known Issues]
 
-<hr>
+--------------------
 
 *To determine which version of Tunnelblick you are using:*
   # Find Tunnelblick.app (it is usually in the /Applications folder).
@@ -49,7 +49,7 @@
   
   If there is no version information, it is Tunnelblick version 3.0b9 or earlier.
 
-*[http://code.google.com/p/tunnelblick/w/list All Documentation (unorganized list)]*
+*[https://code.google.com/p/tunnelblick/w/list All Documentation (unorganized list)]*
 
 ------------------
 

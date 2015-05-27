@@ -15,12 +15,12 @@ A deployed version of Tunnelblick is a customized version of Tunnelblick.app whi
 ==How it Works==
 You create a deployed version of Tunnelblick by:
  # [ Building your own binary] of Tunnelblick from [cRebranding rebranded] source code.
- # Putting a "Deploy" folder into the `Contents/Resources` folder of your Rebranded.app. `Deploy` can contain any one or a combination of configuration files, certificate and key files, up/down scripts, and a "forced-preferences.plist" file. Since `Deploy` and its contents can not be modified by a non-administrator user, this is a secure way to ensure that your users do not tamper with any settings that you wish to protect.
+ # Putting a "Deploy" folder into the `Contents/Resources` folder of your Rebranded.app. "Deploy" can contain any one or a combination of configuration files, certificate and key files, up/down scripts, and a "forced-preferences.plist" file. Since "Deploy" and its contents can not be modified by a non-administrator user, this is a secure way to ensure that your users do not tamper with any settings that you wish to protect.
 
 If `Contents/Resources/Deploy` exists, Rebranded.app's behavior changes:
-  * If `Deploy` contains one or more .conf or .ovpn files, Rebranded uses it, instead of `~/Library/Application Support/Rebranded/Configurations`, for configuration files. When a connection is attempted, the log entry that Rebranded puts in the OpenVPN log in the "VPN Details…" window will contain "from Deploy" if `Deploy` is being used for configuration files.
+  * If "Deploy" contains one or more .conf or .ovpn files, Rebranded uses it, instead of `~/Library/Application Support/Rebranded/Configurations`, for configuration files. When a connection is attempted, the log entry that Rebranded puts in the OpenVPN log in the "VPN Details…" window will contain "from Deploy" if "Deploy" is being used for configuration files.
 
-  * If `Deploy` contains a "forced-preferences.plist" file, Rebranded will use the preferences in it to override corresponding preferences in the user's `~/Library/Preferences/net.rebranded.rebranded.plist`. See [Forced_Preferences Forced Preferences] for details. See [Preferences Preferences] for a list of all preferences.
+  * If "Deploy" contains a "forced-preferences.plist" file, Rebranded will use the preferences in it to override corresponding preferences in the user's `~/Library/Preferences/net.rebranded.rebranded.plist`. See [Forced_Preferences Forced Preferences] for details. See [Preferences Preferences] for a list of all preferences.
 
 ==Signed vs. Unsigned Versions==
 A copy of Rebranded can be signed or unsigned. All non-Deployed versions of Rebranded should be signed versions, but signing interferes with some Deployed configurations. Use an unsigned version if users will be able to store usernames/passwords/passphrases in the Keychain and the Deploy folder is added after the Rebranded build process (which is where signing is usually done). See [cDigitalSignatures Tunnelblick and Digital Signatures] for details.
@@ -68,7 +68,7 @@ To be more specific, you need:
     # If you have one, copy your "about.html" file into "Resources"
     # Close the window that contains "Resources"
 
-That's it! You are done! your Rebranded.app has your new version of Tunnelblick with a `Deploy` folder containing everything that Rebranded needs for connection to your VPN.
+That's it! You are done! your Rebranded.app has your new version of Tunnelblick with a "Deploy" folder containing everything that Rebranded needs for connection to your VPN.
 
 ==How to Use a Deployed Version==
 Using Rebranded is the same as using a non-deployed version, except:

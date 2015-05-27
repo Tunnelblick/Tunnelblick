@@ -15,7 +15,7 @@ An example of using Tunnelblick's !AppleScript support to solve a particular pro
 
 Please note that the verbs only _initiate_ actions. The "connect" verb, for example, is the equivalent of clicking the "Connect" button. It returns immediately after starting an attempt to connect using a particular configuration and does not indicate the connection has been accomplished successfully.
 
-<hr>
+--------------------
 
 ==!AppleScript Dictionary==
 
@@ -91,7 +91,7 @@ disconnect all except when computer starts* _v_ : Disconnect all connected VPN c
  disconnect all except when computer starts*
   → integer : Returns the number of configurations for which a disconnection is being attempted.
 
-<hr>
+--------------------
 
 ==Examples==
 

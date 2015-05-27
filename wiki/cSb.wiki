@@ -1,14 +1,14 @@
 #summary Version-independent Sidebar
 *[http://translate.google.com/translate?hl=en&sl=en&tl=fr&u=https%3A%2F%2Fcode.google.com%2Fp%2Ftunnelblick%2F&sandbox=1 Website in Other Languages]*
 
-<a href="https://code.google.com/p/tunnelblick/wiki/Donate"><img src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate" /></a><br><br>
+<a href="https:Donate"><img src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate" /></a><br><br>
 *[https://groups.google.com/forum/#!forum/tunnelblick-discuss DISCUSSION GROUP]*<br>
 ([cBeforeYouPost Read Before You Post])<br><br>
-*[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*<br><br>
+*[DownloadsEntry Download Tunnelblick]*<br><br>
 *[News News]*<br><br>
 
-<hr>
-*Getting Started with Tunnelblick*
+--------------------
+*Getting Started with Tunnelblick*<br>
     [cWelcome Welcome to Tunnelblick]<br>
     [cWhatIs What is Tunnelblick?]<br>
     [cWhatElse What else you need]<br>
@@ -16,8 +16,8 @@
     [cHelp Getting Help]<br>
     [cPrivacy Privacy and Security]<br>
     [cHowHelp How you can help]<br>
-    [cFAQ FAQ]<br>
-*Installation, Setup, and Usage*
+    [cFAQ FAQ]<br><br>
+*Installation, Setup, and Usage*<br>
     [cInstall Installing Tunnelblick]<br>
     [cInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick]<br>
     [zUsing Using Tunnelblick 3.2]<br>
@@ -26,7 +26,7 @@
     [cIpInfo IP Address Changes]<br>
     [cCvtDeployed Converting a Deployed Version]<br>
     [cServer Tunnelblick as a VPN Server]<br><br>
-*Troubleshooting*
+*Troubleshooting*<br>
     [cKnown Known Issues]<br>
     [cCommonProblems Common Problems]<br>
     [cConnectedBut Connects OK, But...]<br>
@@ -35,32 +35,32 @@
     [cMountainLionDnsIssue Mountain Lion Issues]<br>
     [cOpenVPNLog The Tunnelblick Log]<br>
     [cConsoleLog The Console Log]<br>
-    [cHelp How to get help]<br>
-*Releases*
+    [cHelp How to get help]<br><br>
+*Releases*<br>
     [cStable Stable Releases]<br>
     [cBeta Beta Releases]<br>
-    [RlsNotes Release notes]<br>
-*Distributing Tunnelblick*
+    [RlsNotes Release notes]<br><br>
+*Distributing Tunnelblick*<br>
     [cDistribute Distributing Tunnelblick]<br>
     [cPkgs#Automatic_Installation Automatic Installation]<br>
     [cUpdatableConfigurations Updatable Configurations]<br>
-    [cDmg Modifying the Disk Image]<br>
-*Customized Versions*
+    [cDmg Modifying the Disk Image]<br><br>
+*Customized Versions*<br>
     [cCusDeployed "Deployed" versions]<br>
     [cRebranding Rebranding Tunnelblick]<br>
     [cBuild Building from Source]<br>
     [cSigningTunnelbliick Signing the Application]<br>
-    [cIconAnimation Icon Animation]<br>
-*Localization & Translation*
+    [cIconAnimation Icon Animation]<br><br>
+*Localization & Translation*<br>
     [cLocalizeTranslate Localizing Tunnelblick]<br>
     [cUsingCrowdin Using Crowdin]<br>
     [cLocalizeConfigurations Other Localization]<br>
     [cTranslationNotes Translation Notes]<br>
     [cTranslationStatus Translation Status]<br><br>
     [cLocalize Localizing Tunnelblick (old)]<br>
-    [cTranslateStrings .strings Files (old)]<br>
-*Reference*
-    [cFAQ FAQ]<font color="white">!TunnelblickGoogleCodePage</font><br>
+    [cTranslateStrings .strings Files (old)]<br><br>
+*Reference*<br>
+    [cFAQ FAQ]<br>
     [cThanks Thanks]<br>
     [cKnown Known Issues]<br>
     [RlsNotes Release notes]<br>

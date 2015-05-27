@@ -28,7 +28,7 @@
    * Sorry, but 3.4.0 does not have complete localization.
    * To help with localization, please email jkbullard at gmail for instructions.
     
-<hr>
+--------------------
 <table><tr><td align="center">
   <a href="https://code.google.com/p/tunnelblick/wiki/DownloadsEntry#Tunnelblick_Stable_Release">
     <img src="http://tunnelblick.googlecode.com/files/green-arrow-120x120.png" /><br />Download

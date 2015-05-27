@@ -23,7 +23,7 @@ To get the source as of a particular revision, for example, r123, use
 
 The "`-r   123`" tells svn to get the source code as of the r123 revision.
 
-To get a particular version of the source code, you need to know the revision number for the specific version of the software that you want. You do that by looking at the "Changes" sub-tab of the Source page (http://code.google.com/p/tunnelblick/source/list). Look for a commit message that says something like "now the same as version XXXXX', where XXXXX is the particular version that you want.
+To get a particular version of the source code, you need to know the revision number for the specific version of the software that you want. You do that by looking at the "Changes" sub-tab of the Source page (https://code.google.com/p/tunnelblick/source/list). Look for a commit message that says something like "now the same as version XXXXX', where XXXXX is the particular version that you want.
 
 For example, to get the source for 3.1beta10, you find the line in the "Changes" that looks like:
 

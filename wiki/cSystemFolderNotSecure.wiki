@@ -3,7 +3,7 @@
 
 =System Folder Ownership and Permissions=
 
-<hr>
+--------------------
 
 ===System Folder Security===
 One aspect of computer security is the security of system files and folders -- files and folders created by OS X to run your computer. The security is primarily controlled by the ownership and permissions of the files and folders that make up OS X and the applications and data on your computer.

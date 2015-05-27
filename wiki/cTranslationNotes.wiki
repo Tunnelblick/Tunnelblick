@@ -9,7 +9,7 @@
 
  * For an overview of how Tunnelblick is localized, see [cLocalizeTranslate Tunnelblick Localization].
 
-<hr>
+--------------------
 
 There is a series of "Window text" strings: *"B"*, *"KB"*, *"MB"*, *"GB"*, *"TB"*, *"PB"*, *"EB"*, and *"ZB"*. These are abbreviations for bytes, kilobytes, megabytes, gigabytes, terrabytes, petabytes, exabytes, and zetabytes, respectively.
 
@@ -19,7 +19,7 @@ Several strings refer to the "*apparent public IP address*". That is the address
 
 Several strings refer to something as *"being forced."*. They refer to a setting that the user cannot change. "Deployed" versions of Tunnelblick can contain a "forced-preferences.plist" file that specifies the values of preferences that are usually chosen by the user. Any preference that appears in this file is "forced" to the value specified in the file, and the user is not allowed to change it.
 
-<hr>
+--------------------
 
 *" (?)" Window title* is used only if an internal error in Tunnelblick has made a string unavailable. (The user should never see it, but you never know…).
 

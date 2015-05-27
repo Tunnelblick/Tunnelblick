@@ -2,14 +2,14 @@
 #sidebar cSb
 
 ==Before You Post to the Tunnelblick Discussion Group==
-<hr>
+--------------------
 
 *If you <font color="red">are a member</font> of this group, your first post must be approved* by a moderator before it will appear.
 
 *If you <font color="red">are not a member</font> of this group, each of your posts must be approved* by a moderator before it will appear.
 
 Please be patient -- we're all volunteers! (For more information about the moderation process, see [https://groups.google.com/d/topic/tunnelblick-discuss/J6x4mQhSxsQ/discussion this post].)
-<hr>
+--------------------
 ==How and What to Post==
 
 *If you are having a problem with Tunnelblick, please:*

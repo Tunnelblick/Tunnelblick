@@ -5,7 +5,7 @@
 
 <wiki:toc max_depth="2" />
 
-<hr>
+--------------------
 
 ==Signing Up to Translate for Tunnelblick==
 
@@ -26,7 +26,7 @@ To use Crowdin to help translate Tunnelblick, you need:
 
 When your email has been processed, Crowdin will send you an email "inviting" you to help translate Tunnelblick. Click on the link in the email and you will be authorized to translate.
 
-<hr>
+--------------------
 
 ==Working with Crowdin==
 Working with Crowdin is self-explanatory for the most part. Here a a few things to keep in mind about the way Tunnelblick is using Crowdin:
@@ -45,7 +45,7 @@ Working with Crowdin is self-explanatory for the most part. Here a a few things 
 
  * Weekly builds of Tunnelblick will be created so translators can see their progress, but the schedule will be adjusted as needed and they can be made "on demand" if necessary. To request a build with updated translations, email project owner Jon at jkbullard at gmail. 
 
-<hr>
+--------------------
 
 ==Questions or Comments==
 
@@ -76,7 +76,7 @@ Developers will occasionally look through all the "Comments", whether or not the
  * Comments may be deleted (to reduce clutter); and
  * An "Unresolved Issue" may be marked "Resolved".
 
-<hr>
+--------------------
 
 =="Odd" characters in Strings==
  * Some of the strings have character sequences of "\n". This causes a line break when the text is displayed. A sequence of "\n\n" would cause a line break followed by an empty line.

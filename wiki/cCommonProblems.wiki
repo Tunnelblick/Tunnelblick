@@ -107,7 +107,7 @@ If you find that restarting your computer reloads the kext you might need to fin
  * /System/Library/!LaunchDaemons
  * /System/Library/!LaunchAgents
 
-There are a user-contributed scripts on the <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">Downloads</a> page that will automatically unload the Cisco kext when Tunnelblick makes a connection, and reload the Cisco kext when the connection is disconnected. 
+There are a user-contributed scripts on the [DownloadsEntry Downloads] page that will automatically unload the Cisco kext when Tunnelblick makes a connection, and reload the Cisco kext when the connection is disconnected. 
 
 ==An OpenVPN log entry says "Cannot load certificate file XXX.crt: error: 02001002:system library:fopen:No such file or directory: error: 20074002:BIO routines:FILE_CTRL:system lib: error:140AD002:SSL routines:SSL_CTX_use_certificate_file:system lib "==
 Your certificate file (XXX.crt) was not found. Usually the file should be in the same folder as the configuration file, ~/Library/Tunnelblick/Configurations, not in a subfolder. For example, if the configuration file has a line such as

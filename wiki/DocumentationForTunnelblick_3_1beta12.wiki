@@ -1,9 +1,9 @@
 #summary Documentation for Tunnelblick 3.1beta12
 #sidebar cSb
 
-<hr>
+--------------------
 <font size="3">*[http://tunnelblick.googlecode.com/files/Tunnelblick_3.1beta12.dmg Download Tunnelblick 3.1beta12]*</font>
-<hr>
+--------------------
 
 *[RlsNotes Full Release Notes]*
 

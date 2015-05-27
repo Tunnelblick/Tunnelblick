@@ -11,7 +11,7 @@ When a new beta version is available, it is announced to the [https://groups.goo
 
 Shortly after a new beta version is availble, it will be available as an automatic update from older beta versions.
 
-Beta versions (if any) are available on the [DownloadsEntry?tm=2 Downloads] page.
+Beta versions (if any) are available on the [DownloadsEntry Downloads] page.
 
 ------------------
 

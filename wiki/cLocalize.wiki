@@ -3,7 +3,7 @@
 
 *Localizing Tunnelblick*
 
-<hr>
+--------------------
 
 This document gives an overview of the _old_ way to localize Tunnelblick.
 
@@ -13,7 +13,7 @@ For instructions on editing the .strings files, see [cTranslateStrings Translati
 
 For notes about specific strings that are being translated, see [cTranslationNotes Translation Notes].
 
-<hr>
+--------------------
 
 ==How Localization Work in Tunnelblick==
 Although some applications have elaborate structures to specify translations, Tunnelblick's is simple:

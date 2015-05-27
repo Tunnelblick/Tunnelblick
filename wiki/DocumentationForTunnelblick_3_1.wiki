@@ -1,9 +1,9 @@
 #summary Documentation for Tunnelblick 3.1
 #sidebar cSb
 
-<hr>
-<font size="3">*[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*</font>
-<hr>
+--------------------
+<font size="3">*[DownloadsEntry Download Tunnelblick]*</font>
+--------------------
 
 This is a summary of major changes from Tunnelblick version 3.0 to version 3.1. For more details, see [cThreeZeroToThreeOneChanges Changes from Version 3.0 to Version 3.1]. For changes from other versions to Tunnelblick 3.1, see the [RlsNotes Tunnelblick Release Notes].
 
@@ -35,9 +35,9 @@ This is a summary of major changes from Tunnelblick version 3.0 to version 3.1. 
  * DNS caches are now flushed after a connection is made and after it is disconnected
  * DHCP renewals do not restart the connection
 
-<hr>
-<font size="3">*[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*</font>
-<hr>
+--------------------
+<font size="3">*[DownloadsEntry Download Tunnelblick]*</font>
+--------------------
 
 ------------------
 

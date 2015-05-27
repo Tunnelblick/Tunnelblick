@@ -14,7 +14,7 @@ There are several ways to get access to a VPN server:
   * You can get (free or for a fee) access to a VPN by using a VPN service provider.
 
 ==Employer-provided VPN Servers==
-Your employer should supply you with an OpenVPN configuration file (.ovpn or .conf file), along with the appropriate certificate and key files, or with a [http://code.google.com/p/tunnelblick/wiki/cConfigT Tunnelblick VPN Configuration] (.tblk, which includes the certificate and key files within it).
+Your employer should supply you with an OpenVPN configuration file (.ovpn or .conf file), along with the appropriate certificate and key files, or with a [cConfigT Tunnelblick VPN Configuration] (.tblk, which includes the certificate and key files within it).
 
 Follow the instructions from your employer or in [cInstall Installing Tunnelblick] to install Tunnelblick and configurations.
 
@@ -102,7 +102,7 @@ Another way to get access to a VPN server is to use a VPN service provider, an o
 </td></tr></table>
 
 
-If you are a VPN service provider that has made a donation or recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to be added this list.
+If you are a VPN service provider that has made a donation or recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [https://code.google.com/u/jkbullard/ Jon] to be added this list.
 
 
 Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). This list is offered solely for the convenience of those wishing to use Tunnelblick.

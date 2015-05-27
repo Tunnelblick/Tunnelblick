@@ -19,7 +19,7 @@ To digitally sign the application (Tunnelblick or a rebranded version), you need
 You need Mac OS X 10.9 ("Mavericks") because OS X 10.10 ("Yosemite") requires applications to be signed using OS X 10.9.
 
 ===Unsigned Application==
-To get an unsigned version of Tunnelblick or your rebranded version, build an "Unsigned Release" of the source code using the instructions at [https://code.google.com/p/tunnelblick/wiki/cBuild Building From Source].
+To get an unsigned version of Tunnelblick or your rebranded version, build an "Unsigned Release" of the source code using the instructions at [cBuild Building From Source].
 
 ===Code signing Certificate==
 The code signing certificate can be a "self-signed" certificate or a certificate from Apple. There is one difference: if you use a self-signed certificate, Gatekeeper in OS X 10.8 ("Mountain Lion") and higher may not allow the first run of the self-signed application by double-clicking it. The user will need to Control-click or right-click and select "Open". That is because the Gatekeeper default is to allow the first launch of an application only if it is signed by an Apple-recognized developer.

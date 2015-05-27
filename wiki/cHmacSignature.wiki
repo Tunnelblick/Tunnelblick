@@ -5,7 +5,7 @@
 
 If you are setting up your own OpenVPN server and clients, using the OpenVPN "--tls-auth" option is [https://openvpn.net/index.php/open-source/documentation/howto.html#security recommended] as one way of "hardening" the security of your OpenVPN setup. The option requires an HMAC signature file, which you can generate on your Mac using the OpenVPN program included in Tunnelblick.
 
-<hr>
+--------------------
 ==For Experts: Commands to Generate an HMAC Signature==
 
 First, install the latest beta version of Tunnelblick, then use the following commands:
@@ -18,7 +18,7 @@ First, install the latest beta version of Tunnelblick, then use the following co
 
 Replacing "2.3.4" above with the version of OpenVPN that you want to use to create the key, if it isn't "2.3.4". (OpenVPN version 2.3.4 is included in Tunnelblick 3.4beta36, the latest version as of this writing.)
 
-<hr>
+--------------------
 ==Very Detailed Instructions to Generate an HMAC Signature==
 
 You need to figure out which version of OpenVPN to use to generate the key -- most versions of Tunnelblick include at least two versions of OpenVPN. Probably you want to use the latest version of Tunnelblick and the latest version of OpenVPN.

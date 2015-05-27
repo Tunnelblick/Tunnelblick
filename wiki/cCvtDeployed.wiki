@@ -5,7 +5,7 @@
 
 <wiki:toc max_depth="2" />
 
-<hr>
+--------------------
 ==Why You May Want to Do This==
 
 The latest versions of Tunnelblick include important security changes. These changes modified the way that "Deployed" versions of Tunnelblick are created and are difficult for some VPN service providers to implement, so some of them continue to supply old "Deployed" versions to their users.
@@ -16,7 +16,7 @@ _Note: Installing a Deployed version of Tunnelblick will "poison" an already-ins
 
 If you are a VPN service provider distributing older Deployed versions of Tunnelblick, you may want to update them or change to using "automatically installed" configurations with a regular version of Tunnelblick. See [cDistribute Distributing Tunnelblick] for details.
 
-<hr>
+--------------------
 ==How To for Experts==
  # Copy (do not move)<br>*Tunnelblick.app/Contents/Resources/Deploy*<br>to the Desktop.<br>
  # [cInstall#Uninstalling_Tunnelblick Completely uninstall Tunnelblick].<br>
@@ -24,7 +24,7 @@ If you are a VPN service provider distributing older Deployed versions of Tunnel
  # Copy the contents of the Deploy folder (not the folder itself) on the Desktop into<br> *~/Library/Application Support/Tunnelblick/Configurations* _(note the "~")_
  # Launch Tunnelblick and allow the configurations to be converted.
  # Enjoy!
-<hr>
+--------------------
 ==How To for Everyone Else==
 You can use the following instructions to convert from using a Deployed version of Tunnelblick to using a "regular" version. These are extremely detailed, click-by-click instructions:
 
