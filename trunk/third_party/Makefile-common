@@ -350,7 +350,6 @@ built-openvpn: built-openvpn-prepare built-lzo built-pkcs11-helper built-openssl
 				                    -lpkcs11-helper" \
 				OS_VERSION=`uname -r` \
 				./configure \
-					 --disable-snappy \
 					 --build=$$a-apple-darwin \
 					 $$configure_options ; \
 				\
