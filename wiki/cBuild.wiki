@@ -5,7 +5,7 @@
 
 <wiki:toc max_depth="2" />
 
-*<font color="red">The instructions for building Tunnelblick from the source code are now located in the _Building Tunnelblick from Source Code.rtf_ document included in the outer-most folder of the Tunnelblick source code.*</font> The document is also available [https://tunnelblick.googlecode.com/svn/trunk/Building%20Tunnelblick%20from%20Source%20Code.rtf here].
+*<font color="red">The instructions for building Tunnelblick from the source code are now located in the _Building Tunnelblick from Source Code.rtf_ document included in the outer-most folder of the Tunnelblick source code.*</font>
 
 ------------------
 
