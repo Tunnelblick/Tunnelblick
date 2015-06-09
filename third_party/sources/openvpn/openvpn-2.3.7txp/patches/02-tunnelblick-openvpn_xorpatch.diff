@@ -1,7 +1,7 @@
-diff -u -r openvpn-2.3.6/src/openvpn/forward.c openvpn-2.3.6_/src/openvpn/forward.c
---- openvpn-2.3.6/src/openvpn/forward.c	2014-11-29 10:00:35.000000000 -0500
-+++ openvpn-2.3.6_/src/openvpn/forward.c	2015-04-07 22:38:20.000000000 -0400
-@@ -674,7 +674,10 @@
+diff -u -r unpatched/src/openvpn/forward.c patched/src/openvpn/forward.c
+--- openvpn-2.3.7/src/openvpn/forward.c	2015-06-02 04:01:24.000000000 -0400
++++ openvpn-2.3.7_/src/openvpn/forward.c	2015-06-08 20:34:11.000000000 -0400
+@@ -675,7 +675,10 @@
    status = link_socket_read (c->c2.link_socket,
  			     &c->c2.buf,
  			     MAX_RW_SIZE_LINK (&c->c2.frame),
@@ -13,7 +13,7 @@ diff -u -r openvpn-2.3.6/src/openvpn/forward.c openvpn-2.3.6_/src/openvpn/forwar
  
    if (socket_connection_reset (c->c2.link_socket, status))
      {
-@@ -1150,7 +1153,10 @@
+@@ -1151,7 +1154,10 @@
  	    /* Send packet */
  	    size = link_socket_write (c->c2.link_socket,
  				      &c->c2.to_link,
@@ -25,10 +25,10 @@ diff -u -r openvpn-2.3.6/src/openvpn/forward.c openvpn-2.3.6_/src/openvpn/forwar
  
  #ifdef ENABLE_SOCKS
  	    /* Undo effect of prepend */
-diff -u -r openvpn-2.3.6/src/openvpn/options.c openvpn-2.3.6_/src/openvpn/options.c
---- openvpn-2.3.6/src/openvpn/options.c	2014-11-29 10:00:35.000000000 -0500
-+++ openvpn-2.3.6_/src/openvpn/options.c	2015-04-09 12:56:32.000000000 -0400
-@@ -785,6 +785,9 @@
+diff -u -r openvpn-2.3.7/src/openvpn/options.c openvpn-2.3.7_/src/openvpn/options.c
+--- openvpn-2.3.7/src/openvpn/options.c	2015-06-02 04:01:24.000000000 -0400
++++ openvpn-2.3.7_/src/openvpn/options.c	2015-06-08 20:34:11.000000000 -0400
+@@ -789,6 +789,9 @@
    o->max_routes = MAX_ROUTES_DEFAULT;
    o->resolve_retry_seconds = RESOLV_RETRY_INFINITE;
    o->proto_force = -1;
@@ -38,7 +38,7 @@ diff -u -r openvpn-2.3.6/src/openvpn/options.c openvpn-2.3.6_/src/openvpn/option
  #ifdef ENABLE_OCC
    o->occ = true;
  #endif
-@@ -903,6 +906,9 @@
+@@ -907,6 +910,9 @@
    setenv_int_i (es, "local_port", e->local_port, i);
    setenv_str_i (es, "remote", e->remote, i);
    setenv_int_i (es, "remote_port", e->remote_port, i);
@@ -48,7 +48,7 @@ diff -u -r openvpn-2.3.6/src/openvpn/options.c openvpn-2.3.6_/src/openvpn/option
  
  #ifdef ENABLE_HTTP_PROXY
    if (e->http_proxy_options)
-@@ -1348,6 +1354,9 @@
+@@ -1352,6 +1358,9 @@
    SHOW_INT (connect_retry_seconds);
    SHOW_INT (connect_timeout);
    SHOW_INT (connect_retry_max);
@@ -58,7 +58,7 @@ diff -u -r openvpn-2.3.6/src/openvpn/options.c openvpn-2.3.6_/src/openvpn/option
  
  #ifdef ENABLE_HTTP_PROXY
    if (o->http_proxy_options)
-@@ -5049,6 +5058,46 @@
+@@ -5094,6 +5103,46 @@
        options->proto_force = proto_force;
        options->force_connection_list = true;
      }
@@ -105,9 +105,9 @@ diff -u -r openvpn-2.3.6/src/openvpn/options.c openvpn-2.3.6_/src/openvpn/option
  #ifdef ENABLE_HTTP_PROXY
    else if (streq (p[0], "http-proxy") && p[1])
      {
-diff -u -r openvpn-2.3.6/src/openvpn/options.h openvpn-2.3.6_/src/openvpn/options.h
---- openvpn-2.3.6/src/openvpn/options.h	2014-11-29 10:00:35.000000000 -0500
-+++ openvpn-2.3.6_/src/openvpn/options.h	2015-04-07 22:38:20.000000000 -0400
+diff -u -r openvpn-2.3.7/src/openvpn/options.h openvpn-2.3.7_/src/openvpn/options.h
+--- openvpn-2.3.7/src/openvpn/options.h	2014-11-29 10:00:35.000000000 -0500
++++ openvpn-2.3.7_/src/openvpn/options.h	2015-04-07 22:38:20.000000000 -0400
 @@ -100,6 +100,9 @@
    int connect_retry_max;
    int connect_timeout;
@@ -118,9 +118,9 @@ diff -u -r openvpn-2.3.6/src/openvpn/options.h openvpn-2.3.6_/src/openvpn/option
  #ifdef ENABLE_HTTP_PROXY
    struct http_proxy_options *http_proxy_options;
  #endif  
-diff -u -r openvpn-2.3.6/src/openvpn/socket.c openvpn-2.3.6_/src/openvpn/socket.c
---- openvpn-2.3.6/src/openvpn/socket.c	2014-11-29 10:00:35.000000000 -0500
-+++ openvpn-2.3.6_/src/openvpn/socket.c	2015-04-09 08:48:01.000000000 -0400
+diff -u -r openvpn-2.3.7/src/openvpn/socket.c openvpn-2.3.7_/src/openvpn/socket.c
+--- openvpn-2.3.7/src/openvpn/socket.c	2014-11-29 10:00:35.000000000 -0500
++++ openvpn-2.3.7_/src/openvpn/socket.c	2015-04-09 08:48:01.000000000 -0400
 @@ -52,6 +52,53 @@
    IPv6_TCP_HEADER_SIZE,
  };
@@ -175,9 +175,9 @@ diff -u -r openvpn-2.3.6/src/openvpn/socket.c openvpn-2.3.6_/src/openvpn/socket.
  /*
   * Convert sockflags/getaddr_flags into getaddr_flags
   */
-diff -u -r openvpn-2.3.6/src/openvpn/socket.h openvpn-2.3.6_/src/openvpn/socket.h
---- openvpn-2.3.6/src/openvpn/socket.h	2014-11-29 10:00:35.000000000 -0500
-+++ openvpn-2.3.6_/src/openvpn/socket.h	2015-04-08 20:12:02.000000000 -0400
+diff -u -r openvpn-2.3.7/src/openvpn/socket.h openvpn-2.3.7_/src/openvpn/socket.h
+--- openvpn-2.3.7/src/openvpn/socket.h	2014-11-29 10:00:35.000000000 -0500
++++ openvpn-2.3.7_/src/openvpn/socket.h	2015-04-08 20:12:02.000000000 -0400
 @@ -250,6 +250,10 @@
  #endif
  };
