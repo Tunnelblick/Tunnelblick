@@ -59,7 +59,7 @@ Note: The "scramble" option and parameters in the server and client configuratio
   The "obfuscate" option performs several of the above steps, using _password_ as the _xor_string_ in one of the steps.
 
 ==The Patch as Modified for Use in Tunnelblick for OpenVPN 2.3.7==
-The following is the modified patch, as used in Tunnelblick as of [https://code.google.com/p/tunnelblick/source/detail?r=3328 r3328]. A history of the modified patch can be found on the [https://code.google.com/p/tunnelblick/source/list?path=/trunk/third_party/sources/openvpn/openvpn-2.3.7txp/patches/02-tunnelblick-openvpn_xorpatch.diff version control page for the patch].
+The following is the modified patch, as used in Tunnelblick's OpenVPN 2.3.7 as of [https://code.google.com/p/tunnelblick/source/detail?r=3328 r3328]. A history of the modified patch can be found on the [https://code.google.com/p/tunnelblick/source/list?path=/trunk/third_party/sources/openvpn/openvpn-2.3.7txp/patches/02-tunnelblick-openvpn_xorpatch.diff version control page for the patch].
 
 (The only change in the patch from the version for OpenVPN 2.3.6 is that line numbers in forward.c and options.c have changed.)
 
@@ -357,7 +357,7 @@ diff -u -r openvpn-2.3.7/src/openvpn/socket.h openvpn-2.3.7_/src/openvpn/socket.
 }}}
 
 ==The Patch as Modified for Use in Tunnelblick for OpenVPN 2.3.6==
-The following is the modified patch, as used in Tunnelblick as of [https://code.google.com/p/tunnelblick/source/detail?r=3304 r3304]. A history of the modified patch can be found on the [https://code.google.com/p/tunnelblick/source/list?path=/trunk/third_party/sources/openvpn/openvpn-2.3.6txp/patches/02-tunnelblick-openvpn_xorpatch.diff version control page for the patch].
+The following is the modified patch, as used in Tunnelblick's OpenVPN 2.3.6 as of [https://code.google.com/p/tunnelblick/source/detail?r=3304 r3304]. A history of the modified patch can be found on the [https://code.google.com/p/tunnelblick/source/list?path=/trunk/third_party/sources/openvpn/openvpn-2.3.6txp/patches/02-tunnelblick-openvpn_xorpatch.diff version control page for the patch].
 
 This version of the patch is based on the most recent version of the [https://github.com/clayface/openvpn_xorpatch/blob/master/openvpn_xor.patch patch] for OpenVPN 2.3.6 as of April, 2015.
 
