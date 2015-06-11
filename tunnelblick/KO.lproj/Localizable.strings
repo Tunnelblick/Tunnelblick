@@ -1418,19 +1418,19 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "이 Tunnelblick 복사본은 디지털 서명이 안되어 있습니다.\n\n이 복사본이 조작되었는지 확인할 수 없습니다.\n\n 사용하기 전에 이 Tunnelblick 복사본의 제공자를 확인하십시오.\n\n";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "이 Tunnelblick은 Intel 64-bit 버전으로 tun이나 tap kext를 사용할 경우 제대로 동작하지 않을 수 있습니다.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "이 Tunnelblick은 Intel 64-bit 버전으로 tun이나 tap 연결을 사용할 경우 제대로 동작하지 않을 수 있습니다. 유니버셜 버전의 Tunnelblick을 사용하십시오.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "이 Tunnelblick은 Intel 64-bit 버전으로 tun kext를 사용한 설정에서는 제대로 동작하지 않을 수 있습니다. 유니버셜 버전의 Tunnelblick을 사용하십시오.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "이 Tunnelblick은 Intel 64-bit 버전으로 tun kext를 사용한 설정에서는 제대로 동작하지 않을 수 있습니다. 유니버셜 버전의 Tunnelblick을 사용하거나 OpenVPN의 'dev-type' 옵션을 제거해서 OS X의 'utun' 드라이버를 사용하십시오. - OpenVPN 문서를 참고하십시오.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "이 Tunnelblick은 Intel 64-bit 버전으로 64-bit 커널을 사용한 OS X나 OS X 10.6.8 또는 그 이상의 버전에서만 실행할 수 있습니다.";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "이 Tunnelblick 버전은 업데이트 URL이 올바르지 않아 실행하거나 설치할 수 없습니다.\n\n";
@@ -1874,7 +1874,7 @@
 "LEAD_TRANSLATORS" = "김 경민";
 
 /* Credit description */
-"Latvian localization" = "Latvian localization";
+"Latvian localization" = "라트비아어 지역화";
 
 /* Credit description */
 "Localization code tweaks" = "지역화 코드 수정";

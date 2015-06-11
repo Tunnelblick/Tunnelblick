@@ -1418,19 +1418,19 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "Denna kopia av Tunnelblick är inte digitalt signerad.\n\nDet finns inget sätt att verifiera att denna kopia inte har blivit manipulerad.\n\n Fråga den som levererat denna kopia av Tunnelblick innan du använder den.\n\n";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Det här är en 64-bitars Intel-version av Tunnelblick som inte fungerar korrekt med tun- och tap-drivarna.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "Det här en 64-bitars Intel-version av Tunnelblick som inte kommer fungera korrekt med en konfiguration som använder tap. Använd den universella versionen av Tunnelblick istället.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "Det här en 64-bitars Intel-version av Tunnelblick som inte kommer fungera korrekt med en konfiguration som använder tun. Använd den universella versionen av Tunnelblick istället.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "Det här en 64-bitars Intel-version av Tunnelblick som inte kommer fungera korrekt med en konfiguration som använder tun. Använd den universella versionen av Tunnelblick istället eller använd OS X 'utun' drivrutinen genom att ta bort OpenVPNs 'dev-type' funktioner - se dokumentationen för OpenVPN.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "Det här är en 64-bitars intel-version av Tunnelblick som enbart kan köras på OS X med 64-bitars kärna, eller på OS X 10.6.8 eller högre om du inte använder tun eller tap drivrutinerna.";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Denna version av Tunnelblick kan inte startas eller installeras eftersom den har en ogiltig uppdaterings-URL.\n\n";
@@ -1874,7 +1874,7 @@
 "LEAD_TRANSLATORS" = "Daniel Kvist, Mats Cronqvist, och Stjepan Siljac";
 
 /* Credit description */
-"Latvian localization" = "Latvian localization";
+"Latvian localization" = "Lettisk anpassning";
 
 /* Credit description */
 "Localization code tweaks" = "Fixar för översättningskod";

@@ -29,7 +29,7 @@
 "100 KB" = "100 KB";
 
 /* Button */
-"Advanced..." = "Advanced…";
+"Advanced..." = "Papildus...";
 
 /* Button */
 "All Users" = "Visi lietotāji";
@@ -137,10 +137,10 @@
 "Monochrome icon" = "Monochrome icon";
 
 /* Button */
-"Never load Tap driver" = "Never load Tap driver";
+"Never load Tap driver" = "Nekad neizmantot Tap draiveri";
 
 /* Button */
-"Never load Tun driver" = "Never load Tun driver";
+"Never load Tun driver" = "Nekad neizmantot Tun draiveri";
 
 /* Button */
 "Never show" = "Nerādīt nekad";
@@ -158,25 +158,25 @@
 "Only Me" = "Tikai es ";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Open Uninstall Instructions in Browser";
+"Open Uninstall Instructions in Browser" = "Atvērt atinstalēšanas instrukcijas pārūkā";
 
 /* Button */
 "Open easy-rsa in Terminal" = "Atvērt easy-rsa komandrindā";
 
 /* Button */
-"Privacy info..." = "Privacy info…";
+"Privacy info..." = "Privātuma Info";
 
 /* Button */
-"Quit All OpenVPN Processes" = "Quit All OpenVPN Processes";
+"Quit All OpenVPN Processes" = "Apturēt visus OpenVPN procesus";
 
 /* Button */
 "Quit" = "Iziet";
 
 /* Button */
-"Reinstall" = "Reinstall";
+"Reinstall" = "Pārinstalēt";
 
 /* Button */
-"Remove Credentials" = "Remove Credentials";
+"Remove Credentials" = "Noņemt pieslēgšanās datus";
 
 /* Button */
 "Replace" = "Aizstāt";
@@ -233,10 +233,10 @@
 "Try again" = "Mēģināt vēlreiz";
 
 /* Button */
-"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 icon";
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikona";
 
 /* Button */
-"When Tunnelblick launches" = "When Tunnelblick launches";
+"When Tunnelblick launches" = "Kad Tunnelblick tiek ieslēgts";
 
 /* Button */
 "When computer starts" = "Kad dators tiek ieslēgts";
@@ -266,19 +266,19 @@
 "Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File…";
 
 /* Menu Item */
-"Make Configuration Private..." = "Make Configuration Private…";
+"Make Configuration Private..." = "Padarīt onfigurāciju privātu";
 
 /* Menu Item */
-"Make Configuration Shared..." = "Make Configuration Shared…";
+"Make Configuration Shared..." = "Dalīties ar konfigurāciju...";
 
 /* Menu item */
-"No VPN Configurations Available" = "No VPN Configurations Available";
+"No VPN Configurations Available" = "Nav pieejamas VPN konfigurācijas";
 
 /* Menu item */
-"Quit Tunnelblick" = "Quit Tunnelblick";
+"Quit Tunnelblick" = "Aizvērt Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Rename Configuration…";
+"Rename Configuration..." = "Pārsaukt konfigurāciju...";
 
 /* Menu Item */
 "Revert Configuration..." = "Revert Configuration…";
@@ -1427,7 +1427,7 @@
 "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation.";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.";
