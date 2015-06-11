@@ -398,10 +398,10 @@
 "Do not set nameserver" = "عدم ضبط الـnameserver";
 
 /* PopUpButton */
-"Set nameserver (3.0b10)" = "Set nameserver (3.0b10)";
+"Set nameserver (3.0b10)" = "حدد النيمسرفير (3.0b10)";
 
 /* PopUpButton */
-"Set nameserver (3.1)" = "Set nameserver (3.1)";
+"Set nameserver (3.1)" = "حدد النيمسرفير )3.1(";
 
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "ضبط nameserver (بديل 1)";
@@ -413,7 +413,7 @@
 "Double-click to begin" = "نقر مزدوج للبدء";
 
 /* Connection status */
-"ADD_ROUTES" = "Adding routes"; // Please translate "Adding routes"
+"ADD_ROUTES" = "إضافة الخطوط"; // Please translate "Adding routes"
 
 /* Connection status */
 "ASSIGN_IP" = "تعيين عنوان الـIP"; // Please translate "Assigning IP address"
@@ -470,10 +470,10 @@
 "Configurations" = "إعدادات";
 
 /* System profile item */
-"Deployed" = "Deployed";
+"Deployed" = "مُوزعة";
 
 /* Window title */
-" (Deployed)" = " (Deployed)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+" (Deployed)" = " (مُوزعة)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
 
 /* Window title */
 " (Private)" = " (خاص)";
@@ -488,7 +488,7 @@
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Disconnected - Advanced Settings%3$@";
 
 /* Window title */
-"'%@' has been disconnected" = "'%@' has been disconnected";
+"'%@' has been disconnected" = "'%@'  قد فصل";
 
 /* Window title */
 "Active connection" = "اتصال نشط";
@@ -503,7 +503,7 @@
 "Alert" = "تنبيه";
 
 /* Window title */
-"All OpenVPN process were terminated." = "All OpenVPN process were terminated.";
+"All OpenVPN process were terminated." = "جميع عمليات OpenVPN قد انفصلت.";
 
 /* Window title */
 "All configuration files removed" = "كل ملفات الإعداد مزالة";
@@ -620,22 +620,22 @@
 "Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
 
 /* Window title */
-"Tunnelblick Error" = "Tunnelblick Error";
+"Tunnelblick Error" = "خطأ في تنلبليك";
 
 /* Window title */
-"Tunnelblick is currently running" = "Tunnelblick is currently running";
+"Tunnelblick is currently running" = "تنلبلك: فعال";
 
 /* Window title */
-"Tunnelblick" = "Tunnelblick";
+"Tunnelblick" = "تنلبليك";
 
 /* Window title */
-"Tunnelblick: Login Required" = "Tunnelblick: Login Required";
+"Tunnelblick: Login Required" = "تنلبلك: تسجيل الدخول";
 
 /* Window title */
-"Tunnelblick: Passphrase Required" = "Tunnelblick: Passphrase Required";
+"Tunnelblick: Passphrase Required" = "تنلبلك: كلمة السر مطلوبة";
 
 /* Window title */
-"Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
+"Unable to launch Tunnelblick" = "لم نستطع تشغيل تنلبلك";
 
 /* Window title */
 "Unavailable" = "غير متاح";
@@ -665,7 +665,7 @@
 "Warning: Unknown OpenVPN processes" = "Warning: Unknown OpenVPN processes";
 
 /* Window title */
-"Welcome to Tunnelblick" = "Welcome to Tunnelblick";
+"Welcome to Tunnelblick" = "أهلاً بك إلى تنلبليك";
 
 /* Window title */
 "Welcome" = "مرحباً";
@@ -779,7 +779,7 @@
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'";
 
 /* Window text */
-"(Never checked)" = "(Never checked)";
+"(Never checked)" = "(لم تفحص)";
 
 /* Window text */
 "(The 'easy-rsaPath' preference is invalid.)" = "(The 'easy-rsaPath' preference is invalid.)";
@@ -1427,7 +1427,7 @@
 "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation.";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.";
@@ -1502,7 +1502,7 @@
 "Tunnelblick is based on %@." = "Tunnelblick is based on %@.";
 
 /* Window text */
-"Tunnelblick is ready." = "Tunnelblick is ready.";
+"Tunnelblick is ready." = "تنلبليك جاهز.";
 
 /* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.";
@@ -1775,10 +1775,10 @@
 "targetPathToReplaceForDisplayName: %@ was found to replace the configuration with CFBundleIdentifer %@, but earlier, %@ was found to replace it." = "targetPathToReplaceForDisplayName: %1$@ was found to replace the configuration with CFBundleIdentifer %2$@, but earlier, %3$@ was found to replace it.";
 
 /* Suffix for a duplicate of a file */
-" copy %d" = " copy %d";
+" copy %d" = " نسخ %d";
 
 /* Suffix for a duplicate of a file */
-" copy" = " copy";
+" copy" = " نسخ";
 
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
@@ -1982,10 +1982,10 @@
 "Register with Tunnelblick" = "Register with Tunnelblick";
 
 /* Window title  VPNService */
-"Sorry" = "Sorry";
+"Sorry" = "أسف";
 
 /* Window title  VPNService */
-"Terms of Service" = "Terms of Service";
+"Terms of Service" = "شروط الاستخدام";
 
 /* Window title  VPNService */
 "Tunnelblick - Free VPN" = "Tunnelblick - Free VPN";
@@ -2039,7 +2039,7 @@
 "Sorry, but your request for an account could not be processed:\n     %@" = "Sorry, but your request for an account could not be processed:\n     %@";
 
 /* Window text VPNService */
-"Terms of service are unavailable." = "Terms of service are unavailable.";
+"Terms of service are unavailable." = "شروط الاستخدام غير متوفرة.";
 
 /* Window text VPNService */
 "The Terms of Service could not be loaded:" = "The Terms of Service could not be loaded:";

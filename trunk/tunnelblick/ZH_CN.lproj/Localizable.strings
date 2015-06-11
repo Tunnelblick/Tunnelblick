@@ -125,10 +125,10 @@
 "Launch" = "启动";
 
 /* Button */
-"Load Tap driver automatically" = "自动加载Tap 驱动程序";
+"Load Tap driver automatically" = "自动加载 Tap 驱动程序";
 
 /* Button */
-"Load Tun driver automatically" = "自动加载Tun 驱动程序";
+"Load Tun driver automatically" = "自动加载 Tun 驱动程序";
 
 /* Button */
 "Manually" = "手动";
@@ -389,7 +389,7 @@
 "Show configuration on Tunnelblick menu" = "在 Tunnelblick 菜单中显示配置";
 
 /* Checkbox name */
-"Show when disconnected" = "当断开连接的时候显示";
+"Show when disconnected" = "当连接已断开的时候显示";
 
 /* Checkbox name */
 "Show when the pointer is over the Tunnelblick icon" = "当鼠标放置在 Tunnelblick 的图标上面的时候显示";
@@ -428,10 +428,10 @@
 "CONNECTING" = "正在建立连接"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "正在断开连线"; // Please translate "Disconnecting"
+"DISCONNECTING" = "正在断开连接"; // Please translate "Disconnecting"
 
 /* Connection status */
-"EXITING" = "正在断开连接"; // Please translate "Disconnected"
+"EXITING" = "已断开连接"; // Please translate "Disconnected"
 
 /* Connection status */
 "GET_CONFIG" = "正在获取设定"; // Please translate ""
@@ -485,10 +485,10 @@
 "%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN 配置 - Tunnelblick";
 
 /* Window title */
-"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ 断开连接 - 高级设置 %3$@";
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ 已断开连接 - 高级设置%3$@";
 
 /* Window title */
-"'%@' has been disconnected" = "'%@' 已中断连线";
+"'%@' has been disconnected" = "'%@' 已断开连接";
 
 /* Window title */
 "Active connection" = "活跃的连接";
@@ -521,7 +521,7 @@
 "Configuration(s) Ignored" = "配置已被忽略";
 
 /* Window title */
-"Connecting & Disconnecting" = "正在连接, 并且正在断开连接";
+"Connecting & Disconnecting" = "连接与断开连接时";
 
 /* Window title */
 "Could Not Copy Configuration" = "未能复制配置";
@@ -671,7 +671,7 @@
 "Welcome" = "欢迎使用";
 
 /* Window title */
-"While Connected" = "连接中";
+"While Connected" = "已连接时";
 
 /* Window text: 'Tunnelblick succesfully: *' */
 "     • Installed %lu configurations\n\n" = "     • 安装了 %lu 个配置\n\n";
@@ -1418,19 +1418,19 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "这个版本的 Tunnelblick 没有数字签名.\n\n所以没有办法判断它是否被篡改过.\n\n请在使用前检查一下这个版本的提供者.\n\n";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "这是 Tunnelblick 的 64 位 Intel 版本。如果它使用 Tun 或 Tap 驱动，将无法正常工作。";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "这是 Tunnelblick 的 64 位 Intel 版本。它将无法与使用 Tap 连接的配置一起正常工作。请改为使用 Tunnelblick 的通用版本。";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "这是 Tunnelblick 的 64 位 Intel 版本。它无法与使用 Tun 驱动的配置一起正常工作。请改为使用 Tunnelblick 的通用版本。";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing Ope nVPN 'dev-type' options - see the OpenVPN documentation.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "这是 Tunnelblick 的 64 位 Intel 版本。它无法与使用 Tun 驱动的配置一起正常工作。你可以改用 Tunnelblick 的通用版本，或者可以通过移除 OpenVPN 的“开发型”选项来使用 OS X 的 utun 驱动。请参阅 OpenVPN 的文档。";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "这是 Tunnelblick 的 64 位 Intel 版本。它只能运行在具有 64 位内核的 OS X 上，或者在 OS X 10.6.8 或更高版本上，如果没有使用 Tun 或 Tap 驱动。";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "因为这个版本的 Tunnelblick 拥有一个不合法的更新 URL ，所以不能正常启动或安装.\n\n";
@@ -1826,7 +1826,7 @@
 "Danish localization" = "丹麦语翻译";
 
 /* Speak string */
-"Disconnected from %@" = "断开 %@ 的连接";
+"Disconnected from %@" = "已断开 %@ 的连接";
 
 /* Checkbox */
 "Do not show this again" = "不再显示";
@@ -1874,7 +1874,7 @@
 "LEAD_TRANSLATORS" = "Peter K. O'Connor and 陈湛翀";
 
 /* Credit description */
-"Latvian localization" = "Latvian localization";
+"Latvian localization" = "拉脱维亚语翻译";
 
 /* Credit description */
 "Localization code tweaks" = "本地化代码调整";
