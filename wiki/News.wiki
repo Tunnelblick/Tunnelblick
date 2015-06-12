@@ -5,6 +5,25 @@
 
 --------------------
 
+2015-06-12: *Tunnelblick 3.6beta02 is [DownloadsEntry available for download]*.
+
+ * *<font color="red">SECURITY UPDATE:</font>* Replaces OpenSSL version 1.0.1m with version 1.0.2b.
+ * Includes OpenVPN versions 2.3.7 in addition to 2.3.6.
+ * Replaces LZO version 2.08 with version 2.09.
+ * Updates localization, including full Turkish localization and partial Latvian localization.
+ * Includes several other enhancements and fixes several bugs.
+  
+ See the [RlsNotes#Version_3.5 Release Notes] for details.
+
+--------------------
+
+2015-06-12: *Tunnelblick 3.5.1 is [DownloadsEntry available for download]*.
+
+ * *<font color="red">SECURITY UPDATE:</font>* Replaces OpenSSL version 1.0.1m with version 1.0.1n.
+ * Fixes problems flushing the DNS cache on some versions of OS X.
+
+--------------------
+
 2015-04-03: *Tunnelblick 3.5.0 is [DownloadsEntry available for download]*.
 
  * This is the first stable version of Tunnelblick 3.5 -- many thanks to our tens-of-thousands of beta testers!

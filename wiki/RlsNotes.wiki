@@ -7,7 +7,38 @@
 
 --------------------
 
+==Version 3.6==
+
+*3.6beta02 build 4335 (2015-06-12)*
+
+ * *<font color="red">SECURITY UPDATE:</font>* Replaces OpenSSL version 1.0.1m with version 1.0.2b.
+ * Includes OpenVPN versions 2.3.7 in addition to 2.3.6.
+ * Replaces LZO version 2.08 with version 2.09.
+ * Updates localization, including full Turkish localization and partial Latvian localization.
+ * Changes OpenVPN 'verb' default from 1 to 3.
+ * Highlights notes, warnings, and errors in the Tunnelblick log.
+ * Launches Tunnelblick at login if any 'openvpn' processes are running (or 'openvpnstart' or 'tunnelblick-helper') or if Tunnelblick was running when the user logged out or the computer was shut down or restarted.
+ * Includes a modified version of the 'openvpn_xorpatch' to support the unofficial OpenVPN 'scramble' option. Modifications to the patch include better syntax checking of the option and repair of a buffer overflow bug. Uses the patched version of OpenVPN automatically but only when the configuration file includes the 'scramble' option. For more details, see [cOpenvpn_xorpatch Tunnelblick and openvpn_xorpatch].
+ * Includes better diagnostic info.
+ * Reduces non-error logging by tunnelblickd.
+ * Fixes problems flushing the DNS cache on some versions of OS X.
+ * Fixes problems that affect some TAP connections.
+ * Fixes problems with 'Connect when computer starts' configurations.
+ * Fixes problems reading configuration files that have CR (0x0D) characters.
+ * Fixes misleading output in warnings about IP address changes.
+ * Fixes a problem that caused incorrect restore DNS and restore WINS settings when connecting Tunnelblick to an already-running OpenVPN.
+ * Fixes problems with Deploy/Welcome.bundle permissions.
+ * Fixes typos in help for the 'Appearances' panel.
+   
+--------------------
+
 ==Version 3.5==
+
+*3.5.1 build 4270.4335 (2015-06-12)*
+ * *<font color="red">SECURITY UPDATE:</font>* Replaces OpenSSL version 1.0.1m with version 1.0.1n.
+ * Fixes problems flushing the DNS cache on some versions of OS X.
+
+--------------------
 
 *3.5.0 build 4265 (2015-04-03)*
  * This is the first stable version of Tunnelblick 3.5 -- many thanks to our tens-of-thousands of beta testers!
