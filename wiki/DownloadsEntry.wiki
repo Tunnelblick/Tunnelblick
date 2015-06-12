@@ -98,7 +98,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  Tunnelblick protects against unwanted software insertions by publishing the SHA1 checksum and MD5 hash directly on this Downloads page for each of our downloads. These are the checksums and hashes calculated before uploading the files to !SourceForge. After uploading to !SourceForge, the !SourceForge-calculated checksums and hashes are verfified to make sure they uploaded correctly. You can check the checksums and hashes of Tunnelblick binaries that you download by following the instructions at [DownloadsEntry#Verifying_Downloads Verifying Downloads], above.
 
- Additional safeguards protects updates:
+ Additional safeguards protect updates that use Tunnelblick's built-in update mechanism:
   * Updates are controlled by tunnelblick.net and are checked via https:
   * Update downloads (which _are_ hosted on !SourceForge) contain a digital signature to verify they have not been modified. (This is in addition to the OS X "digital signature of the Tunnelblick application itself.) See [cDigitalSignatures Digital Signatures].
 
