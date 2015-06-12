@@ -9,6 +9,13 @@
 
 ==Version 3.6==
 
+*3.6beta04 build 4340 (2015-06-12)*
+
+ * Replaces LZO version 2.08 with version 2.09.
+   
+--------------------
+
+
 *3.6beta02 build 4335 (2015-06-12)*
 
  * *<font color="red">SECURITY UPDATE:</font>* Replaces OpenSSL version 1.0.1m with version 1.0.2b.

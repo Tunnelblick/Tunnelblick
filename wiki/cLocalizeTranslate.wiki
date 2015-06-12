@@ -3,7 +3,7 @@
 
 *Localizing and Translating Tunnelblick*
 
- <font color="red">*Translators are needed for Arabic, Estonian, Japanese, Korean, and Turkish.*</font>
+ <font color="red">*Translators are needed for Arabic, Estonian, Japanese, and Latvian.*</font>
 
   <font color="red"></font>*To join the localization team, please email project owner jkbullard at gmail.*
    * You can help a little or a lot, all help is welcome!

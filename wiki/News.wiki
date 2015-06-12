@@ -5,6 +5,14 @@
 
 --------------------
 
+2015-06-12: *Tunnelblick 3.6beta04 is [DownloadsEntry available for download]*.
+
+ * Replaces LZO version 2.08 with version 2.09.
+  
+ See the [RlsNotes#Version_3.5 Release Notes] for details.
+
+--------------------
+
 2015-06-12: *Tunnelblick 3.6beta02 is [DownloadsEntry available for download]*.
 
  * *<font color="red">SECURITY UPDATE:</font>* Replaces OpenSSL version 1.0.1m with version 1.0.2b.
