@@ -8,7 +8,7 @@ TOPDIR = $(PWD)
 
 LZO_NAME         = lzo-2.09
 
-OPENSSL_NAME     = openssl-1.0.2b
+OPENSSL_NAME     = openssl-1.0.2c
 
 PKCS11_NAME      = pkcs11-helper-1.11
 
