@@ -9,7 +9,7 @@ Tunnelblick is developed in English and is currently being translated into 28 ot
 
 || <font color="red">*Arabic*</font>                 || <font color="green">*Danish*</font>  ||  <font color="green">*Greek*</font>     ||  <font color="green">*Norwegian (Bokmål)*</font>     ||  <font color="green">*Spanish*</font>   ||
 || <font color="green">*Bulgarian*</font>            || <font color="green">*Dutch*</font>   ||  <font color="green">*Hungarian*</font> ||  <font color="green">*Polish*</font>                 ||  <font color="green">*Swedish*</font>   ||
-|| <font color="green">*Catalan*</font>              || <font color="red">*Estonian*</font>  ||  <font color="green">*Italian*</font>   ||  <font color="green">*Portuguese*</font>             ||  <font color="red">*Turkish*</font>     ||
+|| <font color="green">*Catalan*</font>              || <font color="red">*Estonian*</font>  ||  <font color="green">*Italian*</font>   ||  <font color="green">*Portuguese*</font>             ||  <font color="green">*Turkish*</font>     ||
 || <font color="green">*Chinese (Simplified)*</font> || <font color="green">*Finnish*</font> ||  <font color="red">*Japanese*</font>    ||  <font color="green">*Portuguese (Brazilian)*</font> ||  <font color="green">*Ukrainian*</font> ||
 || <font color="green">*Chinese (Traditional)*</font>|| <font color="green">*French*</font>  ||  <font color="green">*Korean*</font>    ||  <font color="green">*Russian*</font>                ||        ||
 || <font color="green">*Czech*</font>                || <font color="green">*German*</font>  ||  <font color="red">*Latvian*</font>     ||  <font color="green">*Slovak*</font>                 ||        ||
