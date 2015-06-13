@@ -9,6 +9,12 @@
 
 ==Version 3.6==
 
+*3.6beta06 build 4346 (2015-06-13)*
+
+ * Replaces OpenSSL version 1.0.2b with version 1.0.2c.
+   
+--------------------
+
 *3.6beta04 build 4340 (2015-06-12)*
 
  * Replaces LZO version 2.08 with version 2.09.
@@ -39,6 +45,12 @@
 --------------------
 
 ==Version 3.5==
+
+*3.5.2 build 4270.4346 (2015-06-13)*
+
+ * Replaces OpenSSL version 1.0.1n with version 1.0.1o.
+ 
+--------------------
 
 *3.5.1 build 4270.4335 (2015-06-12)*
  * *<font color="red">SECURITY UPDATE:</font>* Replaces OpenSSL version 1.0.1m with version 1.0.1n.
