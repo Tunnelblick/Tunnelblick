@@ -40,7 +40,7 @@ This document has a section about each of these requirements.\
 Interspersed with these are sections on 
 \b Using a Virtual Machine
 \b0 , 
-\b Beginning to Use Xcode to Build Tunnelbilck
+\b Beginning to Use Xcode to Build Tunnelblick
 \b0 , and 
 \b Building OpenVPN and the Other Third-Party Software
 \b0 .\
@@ -61,12 +61,12 @@ Using a virtual machine to build Tunnelblick is fine \'96 Tunnelblick releases a
 Download the Tunnelblick source code from the Tunnelblick project on Google Code using the following Terminal command:\
 \
 	
-\f1\b \cb1 cd 
+\f1\b cd 
 \f0\i\b0 folder
 \f1\i0\b \
 	svn checkout https://tunnelblick.googlecode.com/svn/trunk/   
 \f0\i\b0 TunnelblickSource
-\i0 \cb1 \
+\i0 \
 \
 where 
 \i folder
@@ -160,8 +160,8 @@ Which platform you build on determines what platforms can run the Tunnelblick ap
 	In a Terminal window, copy/paste the following command:\
 \
 		
-\f1\b \cb1 xcode-select --install
-\f0\b0 \cb1 \
+\f1\b xcode-select --install
+\f0\b0 \
 \
 	You will be prompted to install the command line tools or notified that they are already installed.\
 \
@@ -176,9 +176,9 @@ Which platform you build on determines what platforms can run the Tunnelblick ap
 To build Tunnelblick, the build computer must have appropriate versions of the GNU "auto tools" installed in /usr/local/bin. A shell script is provided that will download and install them. To use it, open a Terminal window and execute\
 \
 	
-\i \cb1 \'85TunnelblickSource
+\i \'85TunnelblickSource
 \f1\i0\b /third_party/ShellScriptToInstallAutotools.sh
-\f0\b0 \cb1 \
+\f0\b0 \
 \
 The script downloads appropriate versions of the tools and installs them. Because it installs to a protected folder, you will be asked for your password at one point in the process. (You must install as an "administrator" user, not as a "standard" user.)\
 \
