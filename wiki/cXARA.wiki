@@ -1,5 +1,4 @@
 #summary Tunnelblick and the XARA Vulnerabilities
-
 #sidebar cSb
 
 In June 2015, details of four vulnerabilities in OS X and iOS and many applications were released in  [http://arxiv.org/abs/1505.06836 Unauthorized Cross-App Resource Access on MAC OS X and iOS].
