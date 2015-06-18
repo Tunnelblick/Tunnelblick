@@ -1,0 +1,27 @@
+#summary Entry page for Downloads with security risks
+#sidebar cSb
+<font size="5" color="red">*Security Risk Downloads*</font>
+
+<font color="red">
+*One or more bugs causing a serious security vulnerability exist in these versions of Tunnelblick.*</font>
+
+For details see
+ * [vulnerability20110112FAQ 2011-01-12 Tunnelblick Vulnerability FAQ]
+ * [vulnerability20110127FAQ 2011-01-27 Tunnelblick Vulnerability FAQ]
+ * [vulnerability20111220FAQ 2011-12-19 Tunnelblick Vulnerability FAQ]
+ * [vulnerability20120912FAQ 2012-09-12 Tunnelblick Vulnerability FAQ].
+ * [vulnerability20140408FAQ 2014-04-08 Tunnelblick Vulnerability FAQ].
+ * [vulnerability20140611FAQ 2014-06-12 Tunnelblick Vulnerability FAQ].
+ * [vulnerability20141001FAQ 2014-10-01 Tunnelblick Vulnerability FAQ].
+ * [vulnerability20141201FAQ 2014-12-01 Tunnelblick Vulnerability FAQ].
+ * [vulnerability20150108FAQ 2015-01-08 Tunnelblick Vulnerability FAQ].
+ * [vulnerability20150319FAQ 2015-03-19 Tunnelblick Vulnerability FAQ].
+ * [vulnerability20150611FAQ 2015-06-11 Tunnelblick Vulnerability FAQ].
+ 
+<font color="red">
+*DO NOT USE OR INSTALL THESE VERSIONS!*
+</font>
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
