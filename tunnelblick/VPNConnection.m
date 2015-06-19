@@ -212,6 +212,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         
         tryingToHookup = FALSE;
         initialHookupTry = TRUE;
+        discardSocketInput = TRUE;
         isHookedup = FALSE;
         tunOrTap = nil;
         areDisconnecting = FALSE;
@@ -2289,6 +2290,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 - (void) connectToManagementSocket
 {
     TBLog(@"DB-HU", @"['%@'] connectToManagementSocket: attempting to connect to 127.0.0.1:%lu", displayName, (unsigned long)portNumber)
+    discardSocketInput = FALSE;
     [self setManagementSocket: [NetSocket netsocketConnectedToHost: @"127.0.0.1" port: (unsigned short)portNumber]];
 }
 
@@ -2681,6 +2683,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) processState: (NSString *) newState dated: (NSString *) dateTime
 {
     if ([newState isEqualToString: @"EXITING"]) {
+        discardSocketInput = TRUE;
         [((MenuController *)[NSApp delegate]) cancelAllIPCheckThreadsForConnection: self];
         [self hasDisconnected];                     // Sets lastState and does processing only once
     } else {
@@ -2760,6 +2763,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (void) processLine: (NSString*) line
 {
+    if (  discardSocketInput  ) {
+        return;
+    }
+    
     if (  tryingToHookup  ) {
 		TBLog(@"DB-HU", @"['%@'] invoked processLine:; isHookedUp = %@; line = '%@'", displayName, (isHookedup ? @"YES" : @"NO"), line)
 		[self indicateWeAreHookedUp];
