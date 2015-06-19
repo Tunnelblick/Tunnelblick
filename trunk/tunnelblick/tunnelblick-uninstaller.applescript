@@ -40,19 +40,23 @@ end LocalizedFormattedString
 
 
 ------------------------------------------------------------------------------------------------------------------
--- FileExists: Function returns true if a file exists at a POSIX path
+-- FileOrFolderExists: Function returns true if a file or folder exists at a POSIX path
 ------------------------------------------------------------------------------------------------------------------
-on FileExists(myFile) -- (String) as Boolean
+on FileOrFolderExists(theItem) -- (String) as Boolean
 	
 	tell application "System Events"
-		if exists file myFile then
+		if exists file theItem then
 			return true
 		else
-			return false
+			if exists folder theItem then
+				return true
+			else
+				return false
+			end if
 		end if
 	end tell
 	
-end FileExists
+end FileOrFolderExists
 
 
 ------------------------------------------------------------------------------------------------------------------
@@ -212,7 +216,7 @@ on GetMyScriptPath() -- As POSIX path
 	end if
 	
 	-- Check that the script exists
-	if FileExists(myScriptPath) then
+	if FileOrFolderExists(myScriptPath) then
 		return POSIX path of myScriptPath
 	end if
 	
@@ -229,12 +233,12 @@ end GetMyScriptPath
 ------------------------------------------------------------------------------------------------------------------
 on NameToUninstall(fullPath) -- (String) as String
 	
-	if FolderExists(fullPath) then
+	if FileOrFolderExists(fullPath) then
 		-- Get the program name from the binary in /Contents/MacOS, or use the last path component
 		-- And verify that this is a Tunnelblick app -- that is, that it contains openvpnstart
 		set TBName to GetName(fullPath)
 		if (TBName = "") Â
-			or (not FileExists(fullPath & "/Contents/Resources/openvpnstart")) then
+			or (not FileOrFolderExists(fullPath & "/Contents/Resources/openvpnstart")) then
 			if (TBName = "") then
 				set TBName to GetLastPathComponentWithoutDotApp(fullPath)
 			end if
@@ -249,9 +253,8 @@ Do you wish to continue, and try to uninstall items associated with '%s'?", {ful
 			if alertResult = {button returned:localized string of "Cancel"} then
 				return ""
 			end if
-			
-			return TBName
 		end if
+		return TBName
 	else
 		display alert (localized string of "Tunnelblick Uninstaller FAILED") Â
 			message LocalizedFormattedString("Internal error: %s
@@ -270,7 +273,7 @@ end NameToUninstall
 ------------------------------------------------------------------------------------------------------------------
 on IdentifierToUninstall(fullPath, TBName) -- (String, String) as String
 	
-	if FolderExists(fullPath) then
+	if FileOrFolderExists(fullPath) then
 		-- Get the CFBundleIdentifier from /Contents/Info.plist, or use net.tunnelblick.tunnelblick
 		set TBIdentifier to GetIdentifier(fullPath)
 		if (TBIdentifier = "") then
@@ -390,31 +393,58 @@ end QuitOpenVPN
 ------------------------------------------------------------------------------------------------------------------
 on UserConfirmation(fullPath, TBName, TBIdentifier) -- (String, String, String) as String
 	
-	set alertResult to display alert (localized string of "Tunnelblick Uninstaller") Â
-		message (LocalizedFormattedString("'%s'
-with OS X identifier '%s'
-at '%s'
+	if FileOrFolderExists(fullPath) then
+		set alertResult to display alert (localized string of "Tunnelblick Uninstaller") Â
+			message (LocalizedFormattedString("'%s'
+	with OS X identifier '%s'
+	at '%s'
 
-and all its configuration data, passwords, and " & Â
-		"preferences for all users of this computer will be removed.
+	and all its configuration data, passwords, and " & Â
+			"preferences for all users of this computer will be removed.
 
-" & Â
-		"You will not be able to recover them afterward.
+	" & Â
+			"You will not be able to recover them afterward.
 
-" & Â
-		"CLICK 'Test' to find out what would be removed in an actual uninstall
+	" & Â
+			"CLICK 'Test' to find out what would be removed in an actual uninstall
 
-" & Â
-		"OR CLICK 'Uninstall' to uninstall %s
+	" & Â
+			"OR CLICK 'Uninstall' to uninstall %s
 
-" & Â
-		"OR CLICK 'Cancel'.
+	" & Â
+			"OR CLICK 'Cancel'.
 
-" & Â
-		"Testing or uninstalling may take a long time -- up to several MINUTES -- during which time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall or test is complete.", Â
-		{TBName, TBIdentifier, fullPath, TBName})) Â
-		as critical Â
-		buttons {localized string of "Uninstall", localized string of "Test", localized string of "Cancel"}
+	" & Â
+			"Testing or uninstalling may take a long time -- up to several MINUTES -- during which time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall or test is complete.", Â
+			{TBName, TBIdentifier, fullPath, TBName})) Â
+			as critical Â
+			buttons {localized string of "Uninstall", localized string of "Test", localized string of "Cancel"}
+	else
+		set alertResult to display alert (localized string of "Tunnelblick Uninstaller") Â
+			message (LocalizedFormattedString("'%s'
+	with OS X identifier '%s'
+
+	and all its configuration data, passwords, and " & Â
+			"preferences for all users of this computer will be removed.
+
+	" & Â
+			"You will not be able to recover them afterward.
+
+	" & Â
+			"CLICK 'Test' to find out what would be removed in an actual uninstall
+
+	" & Â
+			"OR CLICK 'Uninstall' to uninstall %s
+
+	" & Â
+			"OR CLICK 'Cancel'.
+
+	" & Â
+			"Testing or uninstalling may take a long time -- up to several MINUTES -- during which time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall or test is complete.", Â
+			{TBName, TBIdentifier, TBName})) Â
+			as critical Â
+			buttons {localized string of "Uninstall", localized string of "Test", localized string of "Cancel"}
+	end if
 	
 	if alertResult = {button returned:localized string of "Cancel"} then
 		return "cancel"
@@ -450,7 +480,7 @@ The uninstaller needs administrator access so it can make the changes required t
 	else
 		set argumentString to " -u " & quoted form of theName & " " & quoted form of theBundleId
 	end if
-	if FolderExists(thePath) then
+	if FileOrFolderExists(thePath) then
 		set argumentString to argumentString & " " & quoted form of thePath
 	end if
 	set scriptOutput to do shell script (quoted form of myScriptPath) & argumentString with administrator privileges
@@ -499,7 +529,7 @@ end DoProcessing
 ------------------------------------------------------------------------------------------------------------------
 on ProcessFile(fullPath) -- (POSIX path)
 	
-	if FolderExists(fullPath) then
+	if FileOrFolderExists(fullPath) then
 		set TBName to NameToUninstall(fullPath)
 		if TBName = "" then
 			return
@@ -579,7 +609,7 @@ is not an application", pathWithTrailingSlash)) Â
 		
 		set pathWithoutTrailingSlash to text 1 through (fpLen - 1) of pathWithTrailingSlash
 		
-		if FolderExists(pathWithoutTrailingSlash) then
+		if FileOrFolderExists(pathWithoutTrailingSlash) then
 			ProcessFile(pathWithoutTrailingSlash)
 		else
 			display alert (localized string of "Tunnelblick Uninstaller") Â
