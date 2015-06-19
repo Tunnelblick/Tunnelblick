@@ -18,7 +18,7 @@ To recreate the droplet on Tiger:
 
     cd to the Tunnelblick source folder (that is, the folder that contains the "tunnelblick" and "third_party" folders)
 	
-	osacompile -output tunnelblick/TigerUninstaller.app -x tunnelblick/tunnelblick-uninstaller.applescript
+	osacompile -o tunnelblick/TigerUninstaller.app -x tunnelblick/tunnelblick-uninstaller.applescript
 	
 	cp -p -f tunnelblick/TigerUninstaller.app/Contents/MacOS/droplet tunnelblick/tunnelblick-uninstaller-droplet-compiled-on-tiger
 	
