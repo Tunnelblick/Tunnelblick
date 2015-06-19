@@ -2,7 +2,7 @@
 #
 # tunnelblick-uninstaller.sh
 #
-# Copyright © 2013 Jonathan K. Bullard. All rights reserved
+# Copyright © 2013, 2015 Jonathan K. Bullard. All rights reserved
 
 ####################################################################################
 #
@@ -10,15 +10,16 @@
 #
 # This script does everything to uninstall Tunnelblick or a rebranded version of Tunnelblick:
 #
-#    (Uses the appropriate CFBundleIdentifier if it is not net.tunnelblick.tunnelblick)
-#
 #    1. Removes the following files and folders:
 #          /Applications/Tunnelblick.app (or other copy of Tunnelblick)
 #          /Library/Application Support/Tunnelblick
 #          /Library/Logs/CrashReporter/Tunnelblick_*.crash
 #          /Library/Logs/CrashReporter/openvpnstart_*.crash
 #		   /Library/LaunchDaemons/net.tunnelblick.startup.* (ONLY IF uninstalling a NON-REBRANDED version of Tunnelblick)
-#		   /Library/LaunchDaemons/net.tunnelblick.tunnelblick.startup.*
+#		   /Library/LaunchDaemons/net.tunnelblick.tunnelblick.startup.* (unloaded using launchctl before being removed)
+#		   /Library/LaunchDaemons/net.tunnelblick.tunnelblick.tunnelblickd.plist (unloaded using launchctl before being removed)
+#          /var/logs/Tunnelblick
+#          /tmp/TunnelblickAuthIcon.png
 #
 #    2. Removes the following for each user:
 #          Login items
@@ -75,155 +76,13 @@ uninstall_tb_remove_item_at_path()
       status="0"
     fi
     if [ "${status}" = "0" ]; then
-      echo "Removed          $1"
+      echo "Removed $1"
     else
-      echo "Problem removing $1"
-      nonFatalError="true"
-    fi
-  fi
-}
-
-####################################################################################
-#
-# Routine that returns the name of an app from .app/Contents/MacOS
-# WHEN THE APP IS IN /Users and must be accessed by a specific user
-#
-# THIS SCRIPT MUST BE RUN VIA 'SU user'
-#
-# Arguments: (none)
-#
-# Uses the following environment variables:
-#      uninstall_tb_app_path
-
-####################################################################################
-uninstall_tb_get_name_from_user_binary()
-{
-  if [ "$EUID" != "" ] ; then
-	if [ "$EUID" = "0" ] ; then
-	  echo "Error: uninstall_tb_get_name_from_user_app_path must not be run as root"
-	  exit ${error_exit_code}
-	fi
-  else
-	if [ "$(id -u)" != "" ]; then
-	  if [ "$(id -u)" = "0" ]; then
-		echo "Error: uninstall_tb_get_name_from_user_app_path must not be run as root"
-		exit ${error_exit_code}
-	  fi
-	else
-	  echo "Error: uninstall_tb_get_name_from_user_app_path must not be run as root. Unable to determine if it is running as root"
-	  exit ${error_exit_code}
-	fi
-  fi
-
-  # Try to get the app name from the binary
-  if [ "${uninstall_tb_app_path}" != "" -a -e "${uninstall_tb_app_path}/Contents/MacOS" ] ; then
-    binary_path="`ls ${uninstall_tb_app_path}/Contents/MacOS`"
-    name="${binary_path##*/}"
-  else
-    echo "Error: Unable to find ${uninstall_tb_app_path}/Contents/MacOS"
-    exit ${error_exit_code}
-  fi
-
-  echo "${name}"
-  exit 0
-}
-
-####################################################################################
-#
-# Routine that returns the CFBundleIdentifier of an app from .app/Contents/MacOS
-# WHEN THE APP IS IN /Users and must be accessed by a specific user
-#
-# THIS SCRIPT MUST BE RUN VIA 'SU user'
-#
-# Arguments: (none)
-#
-# Uses the following environment variables:
-#      uninstall_tb_app_path
-
-####################################################################################
-uninstall_tb_get_bundle_id_from_user_binary()
-{
-  if [ "$EUID" != "" ] ; then
-	if [ "$EUID" = "0" ] ; then
-	  echo "Error: uninstall_tb_get_bundle_id_from_user_binary must not be run as root"
-	  exit ${error_exit_code}
-	fi
-  else
-	if [ "$(id -u)" != "" ]; then
-	  if [ "$(id -u)" = "0" ]; then
-		echo "Error: uninstall_tb_get_bundle_id_from_user_binary must not be run as root"
-		exit ${error_exit_code}
-	  fi
-	else
-	  echo "Error: uninstall_tb_get_bundle_id_from_user_binary must not be run as root. Unable to determine if it is running as root"
-	  exit ${error_exit_code}
-	fi
-  fi
-
-  # Try to get the bundle id from the binary
-  if [ "${uninstall_tb_app_path}" != "" -a -e "${uninstall_tb_app_path}/Contents/Info.plist" ] ; then
-    bundle_id="`defaults read "${uninstall_tb_app_path}/Contents/Info" CFBundleIdentifier`"
-    echo "${bundle_id}"
-  else
-    echo "Error: Unable to find ${uninstall_tb_app_path}/Contents/Info.plist"
-    exit ${error_exit_code}
-  fi
-
-  exit 0
-}
-
-
-####################################################################################
-#
-# Routine that removes the application
-# WHEN THE APP IS IN /Users and must be accessed by a specific user
-#
-# THIS SCRIPT MUST BE RUN VIA 'SU user'
-#
-# Arguments: (none)
-#
-# Uses the following environment variables:
-#      uninstall_tb_app_path
-
-####################################################################################
-uninstall_tb_remove_user_app()
-{
-  if [ "$EUID" != "" ] ; then
-	if [ "$EUID" = "0" ] ; then
-	  echo "Error: uninstall_tb_remove_user_app must not be run as root"
-	  exit 0
-	fi
-  else
-	if [ "$(id -u)" != "" ]; then
-	  if [ "$(id -u)" = "0" ]; then
-		echo "Error: uninstall_tb_remove_user_app must not be run as root"
-		exit 0
-	  fi
-	else
-	  echo "Error: uninstall_tb_remove_user_app must not be run as root. Unable to determine if it is running as root"
-	  exit 0
-	fi
-  fi
-  
-  # The following code is adapted from uninstall_tb_remove_item_at_path
-
-  if [ "${uninstall_tb_app_path}" != "" ] ; then
-    if [ -e "${uninstall_tb_app_path}" ] ; then
-      if [ -d "${uninstall_tb_app_path}" ] ; then
-        recursive="-R"
-      else
-        recursive=""
-      fi
-      if [ "${uninstall_remove_data}" = "true" ] ; then
-        rm -f -P ${recursive} "$uninstall_tb_app_path}"
-        status=$?
-      else
-        status="0"
-	  fi
-      if [ "${status}" = "0" ]; then
-        echo "Removed          ${uninstall_tb_app_path}"
-      else
-        echo "Problem removing ${uninstall_tb_app_path}"
+      echo "Problem: an error was returned by 'rm -f -P ${recursive} \"$1\"'"
+      echo "Output from 'ls ${recursive} -@ -A -b -e -l -O "$1"':"
+      echo "$(ls ${recursive} -@ -A -b -e -l -O "$1")"
+      if [ "${$1:0:7}" = "/Users/" ] ; then
+        echo "If the user's home folder is on a network drive, that could be the cause of the problem. (Tunnelblick cannot be installed or uninstalled if the user's home folder is on a network drive.)"
       fi
     fi
   fi
@@ -231,7 +90,9 @@ uninstall_tb_remove_user_app()
 
 ####################################################################################
 #
-# Routine that uninstalls per-user data (must be done by user, not root)
+# Routine that uninstalls per-user data
+#
+# THIS ROUTINE MUST BE RUN VIA 'su user'
 #
 # Arguments: (none)
 #
@@ -239,7 +100,6 @@ uninstall_tb_remove_user_app()
 #      uninstall_tb_remove_item_at_path()
 #      uninstall_remove_data
 #      uninstall_tb_app_name
-#      uninstall_tb_app_path
 
 ####################################################################################
 uninstall_tb_per_user_data()
@@ -313,9 +173,9 @@ uninstall_tb_per_user_data()
                 status="0"
               fi
               if [ "${status}" = "0" ]; then
-                echo "Removed          ${USER}'s ${account} for ${service}"
+                echo "Removed ${USER}'s Keychain entry: '${account}' for '${service}'"
               else
-                echo "Problem removing ${USER}'s ${account} for ${service}"
+                echo "Problem: Could not remove ${USER}'s Keychain entry: '${account}' for '${service}'"
               fi
             fi
           done
@@ -338,17 +198,7 @@ uninstall_tb_per_user_data()
 
 usage_message="Usage:
 
-      tunnelblick-uninstaller.sh  [ -u | -t ] [ -i ]   [ app-path [ app-name [ bundle-id ] ] ]
-
-           app-path:  The path to the application.
-
-           app-name:  The name of the application.
-                      Defaults to the name of the file contained in app-path/Contents/MacOS.
-                      If the Tunnelblick application has been rebuilt from source with a
-                      new name (i.e., rebranded), app-name is the new name.
-                     
-           bundle-id: The CFBundleIdentifier for the application.
-                      Defaults to the CFBundleIdentifier in app-path/Contents/Info.plist.
+      tunnelblick-uninstaller.sh  [ -u | -t ]   app-name bundle-id [app-path]
 
            -t:        Causes the script to perform a TEST, or \"dry run\": the program logs to
                       stdout what it would do if run with the -u option, but NO DATA IS REMOVED.
@@ -356,53 +206,49 @@ usage_message="Usage:
            -u:        Causes the script to perform an UNINSTALL, REMOVING DATA; the program logs
                       to stdout what it has done.
 
-           -i:        Causes the installer to always exit with a status of 0. Otherwise, the
-                      uninstaller will exit with a status of 1 if a critical error occurred.
+           app-name:  The name of the application (e.g., \"Tunnelblick\").
+
+           bundle-id: The CFBundleIdentifier for the application (e.g., \"net.tunnelblick.tunnelblick\").
+
+           app-path:  The path to the application. If specified, the item at that path will be deleted.
 
      If neither the -u option nor the -t option is specified, this usage message is displayed.
 
-     The app-path, app-name, and bundle-id arguments are optional and may be blank. If app-path
-     is specified, the application is examined for the name of its binary (in
-     app-path/Contents/MacOS) and that name is used as the app-name; the CFBundleIdentifier (in
-     app-path/Contents/Info.plist) is used as the bundle-id; and the application at app-path is
-     removed. If app-name is specified or  obtained from app-path, it is used in the path of
-     files to remove. If bundle-id is specified or obtained from app-path, it is used in the
-     name of the preferences and cache files to remove.
+     Note: This command returns indicating success even if there were errors; errors are indicated in
+           the stdout output.
 
      Examples:
 
-     ./tunnelblick-uninstaller.sh /User/joe/Applications/Tunnelblick.app
-     This is the normal use. It will remove the application at PATH and all files and folders
-     associated with the application.
+     ./tunnelblick-uninstaller.sh -u   Tunnelblick   net.tunnelblick.tunnelblick   /Applications/Tunnelblick.app
+     This is the normal use. It will remove the application and all files and folders associated with it.
 
-     ./tunnelblick-uninstaller.sh "" NAME BUNDLE_ID
-     This can be used if the application itself is not available. It will remove files and
-     folders associated with NAME and preferences and cache files associated with BUNDLE_ID.
+     ./tunnelblick-uninstaller.sh -u   Tunnelblick   net.tunnelblick.tunnelblick
+     This can be used if the application is not available (for example, it has been put in the Trash).
+     It will remove files and folders associated with Tunnelblick and net.tunnelblick.tunnelblick, but will not
+     remove the application itself.
 
-     ./tunnelblick-uninstaller.sh "" "" BUNDLE_ID
-     This can be used if the application itself and its name are not available. It will remove
-     preferences and cache files associated with BUNDLE_ID.
+     ./tunnelblick-uninstaller.sh -t   RebrandedTB   com.example.rebrandedtb /Applications/RebrandedTB.app
+     This will test the removal of a \"rebranded\" Tunnelblick which is named \"RebrandedTB\", has
+	 CFBundleIdentifier \"com.example.rebrandedtb\", and is located at \"/Applications/RebrandedTB.app\"
 "
 
 show_usage_message="false"
-
-error_exit_code="1"
 
 # Complain and exit if not running as root
 if [ "$EUID" != "" ] ; then
   if [ "$EUID" != "0" ] ; then
     echo "Error: This program must be run as root"
-    exit ${error_exit_code}
+    exit 0
   fi
 else
   if [ "$(id -u)" != "" ]; then
     if [ "$(id -u)" != "0" ]; then
       echo "Error: This program must be run as root"
-      exit ${error_exit_code}
+      exit 0
     fi
   else
     echo "Error: This program must be run as root. Unable to determine if it is running as root"
-    exit ${error_exit_code}
+    exit 0
   fi
 fi
 
@@ -431,12 +277,8 @@ if [ $# != 0 ] ; then
           show_usage_message="true"
         fi
       else
-        if [ "$1" = "-i" ] ; then
-          error_exit_code="0"
-        else
-          echo "Unknown option: ${1}"
-          show_usage_message="true"
-        fi
+        echo "Unknown option: ${1}"
+        show_usage_message="true"
       fi
     fi
   
@@ -457,141 +299,71 @@ if [ "$#" -gt "3" ] ; then
   show_usage_message="true"
 fi
 
-if [ "${show_usage_message}" != "false" ] ; then
-  echo "${usage_message}"
-  exit ${error_exit_code}
-fi
-
 ####################################################################################
 #
 # Process arguments and set up three variables:
-#     uninstall_tb_app_path: The path to the file that contains the application.
 #
 #     uninstall_tb_app_name:  The name of the application.
-#                   Default: read from the application binary.
-#					If the Tunnelblick application has been rebuilt from source with a new name,
-#					(i.e., rebranded), this is the new name.
 #
 #     uninstall_tb_bundle_identifier: The CFBundleIdentifier to use.
-#                   Default: read from the application binary.
-#					If the Tunnelblick application has been rebuilt from source with a new name,
-#					(i.e., rebranded), this is the new bundle identifier.
+#
+#     uninstall_tb_app_path: The path to the file that contains the application (or an empty string if no path was specified).
 #
 ####################################################################################
 
-readonly uninstall_tb_app_path="${1}"
+readonly uninstall_tb_app_name="${1}"
+readonly uninstall_tb_bundle_identifier="${2}"
+readonly uninstall_tb_app_path="${3}"
 
-# Extract binary name and CFBundleIdentifier from the .app
-
-if [ "${uninstall_tb_app_path}" != "" -a "${uninstall_tb_app_path:0:7}" = "/Users/" ] ; then
-  readonly user_name_temp="${uninstall_tb_app_path:7}"
-  readonly app_path_user_name="${user_name_temp%%/*}"
-  
-  export -f uninstall_tb_get_name_from_user_binary
-  export -f uninstall_tb_get_bundle_id_from_user_binary
-  export    uninstall_tb_app_path
-  
-  readonly app_name_from_binary="`/usr/bin/su "${app_path_user_name}" -c "/bin/bash -c uninstall_tb_get_name_from_user_binary"`"
-  if [ "${app_name_from_binary:0:7}" = "Error: " ] ; then
-    echo "${app_name_from_binary}"
-    exit ${error_exit_code}
-  fi
-
-  readonly bundle_id_from_binary="`/usr/bin/su "${app_path_user_name}" -c "/bin/bash -c uninstall_tb_get_bundle_id_from_user_binary"`"
-  if [ "${bundle_id_from_binary:0:7}" = "Error: " ] ; then
-    echo "${bundle_id_from_binary}"
-    exit ${error_exit_code}
-  fi
-
-else
-  if [ "${uninstall_tb_app_path}" != "" ] ; then
-    if [ ! -e "${uninstall_tb_app_path}" ] ; then
-      echo "Error: No application at ${uninstall_tb_app_path}"
-      exit ${error_exit_code}
-    fi
-    if [  ! -e "${uninstall_tb_app_path}/Contents/MacOS" ] ; then
-      echo "Error: Invalid path to application; it is not an application"
-      exit ${error_exit_code}
-    fi
-    if [  ! -e "${uninstall_tb_app_path}/Contents/Resources/openvpn" ] ; then
-      echo "Error: Invalid path to application; it is not a Tunnelblick"
-      exit ${error_exit_code}
-    fi
-    if [  ! -e "${uninstall_tb_app_path}/Contents/Info.plist" ] ; then
-      echo "Error: Invalid path to application; it does not have an Info.plist"
-      exit ${error_exit_code}
-    fi
-    readonly binary_path="`ls ${uninstall_tb_app_path}/Contents/MacOS`"
-    readonly app_name_from_binary="${binary_path##*/}"
-    readonly bundle_id_from_binary="`defaults read "${uninstall_tb_app_path}/Contents/Info" CFBundleIdentifier`"
-    if [ "${bundle_id_from_binary}" = "" ] ; then
-      echo "Error: Unable to read CFBundleIdentifier from ${uninstall_tb_app_path}/Contents/Info.plist"
-      exit ${error_exit_code}
-    fi
-  fi
+# The path can be empty (e.g., if the application has already been Trashed, for example),
+# but the name and bundle ID must be provided
+if [ "${uninstall_tb_app_name}" == "" -o "${uninstall_tb_bundle_identifier}" == "" ] ; then
+  echo "You must include the application name and the bundle identifier"
+  show_usage_message="true"
 fi
 
-uninstall_tb_app_name="${2}"
-
-if [ "${uninstall_tb_app_name}" == "" ] ; then
-  readonly uninstall_tb_app_name="${app_name_from_binary}"
-else
-  if [ "${app_name_from_binary}" != "" ] ; then
-    if [ "${app_name_from_binary}" != "${uninstall_tb_app_name}" ] ; then
-      echo "Error: Application name '${app_name_from_binary}' in ${uninstall_tb_app_path} does not match '${uninstall_tb_app_name}'"
-      exit ${error_exit_code}
-    fi
-  fi
-
-  readonly uninstall_tb_app_name
+if [ "${uninstall_tb_app_path}" != "" -a ! -e "${uninstall_tb_app_path}" ] ; then
+  echo "Nothing at '${uninstall_tb_app_path}'"
+  show_usage_message="true"
 fi
 
-uninstall_tb_bundle_identifier="${3}"
-
-if [ "${uninstall_tb_bundle_identifier}" == "" ] ; then
-  readonly uninstall_tb_bundle_identifier="${bundle_id_from_binary}"
-else
-  if [ "${bundle_id_from_binary}" != "" ] ; then
-    if [ "${bundle_id_from_binary}" != "${uninstall_tb_bundle_identifier}" ] ; then
-      echo "Error: Application CFBundleIdentifier '${bundle_id_from_binary}' in ${uninstall_tb_app_path} does not match '${uninstall_tb_bundle_identifier}'"
-      exit ${error_exit_code}
-    fi
-  fi
-
-  readonly uninstall_tb_bundle_identifier
+if [ "${show_usage_message}" != "false" ] ; then
+  echo "${usage_message}"
+  exit 0
 fi
 
 ####################################################################################
 #
-# Finished processing arguments. Make sure no Tunnelblicks are currently running
-# and output initial messages
+# Finished processing arguments. Make sure no process exists that contains the name of
+# the application or 'openvpn' (including 'openvpnstart')
 #
 ####################################################################################
 
-if [ "${uninstall_tb_app_name}" != "" ] ; then
-  readonly instances="$(ps -x | grep ".app/Contents/MacOS/${uninstall_tb_app_name}" | grep -x grep)"
-  if [ "${instances}" != "" ] ; then
-    echo "Error: ${uninstall_tb_app_name} cannot be uninstalled while it is running"
-    exit ${error_exit_code}
-  fi
+readonly app_instances="$(ps -x | grep ".app/Contents/MacOS/${uninstall_tb_app_name}" | grep -x grep)"
+if [ "${app_instances}" != "" ] ; then
+  echo "Error: ${uninstall_tb_app_name} cannot be uninstalled while it is running"
+  exit 0
 fi
 
-echo -n "$(date '+%a %b %e %T %Y') Tunnelblick Uninstaller: Uninstalling"
-if [ "${uninstall_tb_app_name}" != "" ] ; then
-  echo " ${uninstall_tb_app_name}"
-else
-  echo ""
+readonly openvpn_instances="$(ps -x | grep "openvpn" | grep -x grep)"
+if [ "${openvpn_instances}" != "" ] ; then
+  echo "Error: ${uninstall_tb_app_name} cannot be uninstalled while OpenVPN is running"
+  exit 0
 fi
+
+# Output initial messages
+echo "$(date '+%a %b %e %T %Y') Tunnelblick Uninstaller:"
+echo ""
+echo "     Uninstalling '${uninstall_tb_app_name}'"
+echo "     with bundle ID '${uninstall_tb_bundle_identifier}'"
+
 if [ "${uninstall_tb_app_path}" != "" ] ; then
-  echo "                         at ${uninstall_tb_app_path}"
-fi
-if [ "${uninstall_tb_bundle_identifier}" != "" ] ; then
-  echo "                         with bundle ID '${uninstall_tb_bundle_identifier}'"
+  echo "     at ${uninstall_tb_app_path}"
 fi
 
 if [ "${uninstall_remove_data}" != "true" ] ; then
   echo ""
-  echo "Testing only -- NOT removing"
+  echo "Testing only -- NOT removing or unloading anything"
   echo ""
 fi
 
@@ -602,9 +374,7 @@ fi
 ####################################################################################
 
 # Remove the Application Support folder
-if [ "${uninstall_tb_app_name}" != "" ] ; then
 uninstall_tb_remove_item_at_path  "/Library/Application Support/${uninstall_tb_app_name}"
-fi
 
 # Remove Tunnelblick LaunchDaemons
 
@@ -614,52 +384,66 @@ tempTbBundleId="net.tunnelblick"
 tempTbBundleId="${tbBundleId}.tunnelblick"
 if [ "${uninstall_tb_bundle_identifier}" == "${tempTbBundleId}" ] ; then
   for path in `ls /Library/LaunchDaemons/net.tunnelblick.startup.* 2> /dev/null` ; do
+    if [ "${uninstall_remove_data}" = "true" ] ; then
+      launchctl unload "${path}"
+    fi
+    echo "Unloaded ${path}"
     uninstall_tb_remove_item_at_path "${path}"
   done
 fi
 
 # Remove new startup launch daemons that use the (possibly rebranded) CFBundleIdentifier as the prefix
-if [ "${uninstall_tb_bundle_identifier}" != "" ] ; then
-  for path in `ls /Library/LaunchDaemons/${uninstall_tb_bundle_identifier}".startup.* 2> /dev/null` ; do
-    uninstall_tb_remove_item_at_path "${path}"
-  done
-fi
-
-# Remove tunnelblickd launch daemon
-if [ "${uninstall_tb_bundle_identifier}" != "" ] ; then
-  # Remove the socket
-  path="/var/run/${uninstall_tb_bundle_identifier}.tunnelblickd.socket"
-  uninstall_tb_remove_item_at_path "${path}"
-  # Unload, then remove the .plist
-  path="/Library/LaunchDaemons/${uninstall_tb_bundle_identifier}.tunnelblickd.plist"
-  if [ -f "${path}" ] ; then
+for path in `ls /Library/LaunchDaemons/${uninstall_tb_bundle_identifier}.startup.* 2> /dev/null` ; do
+  if [ "${uninstall_remove_data}" = "true" ] ; then
     launchctl unload "${path}"
-    uninstall_tb_remove_item_at_path "${path}"
   fi
+  echo "Unloaded ${path}"
+  uninstall_tb_remove_item_at_path "${path}"
+done
+
+# Remove tunnelblickd launch daemon: unload, remove the .plist, and remove the socket
+path="/Library/LaunchDaemons/${uninstall_tb_bundle_identifier}.tunnelblickd.plist"
+if [ -f "${path}" ] ; then
+  if [ "${uninstall_remove_data}" = "true" ] ; then
+    launchctl unload "${path}"
+  fi
+  echo "Unloaded ${path}"
+  uninstall_tb_remove_item_at_path "${path}"
 fi
+path="/var/run/${uninstall_tb_bundle_identifier}.tunnelblickd.socket"
+uninstall_tb_remove_item_at_path "${path}"
 
 # Remove tunnelblickd log(s)
-uninstall_tb_remove_item_at_path "/var/log/Tunnelblick"
+uninstall_tb_remove_item_at_path "/var/log/${uninstall_tb_app_name}"
 
 # Remove the installer log
 uninstall_tb_remove_item_at_path "/tmp/tunnelblick-installer-log.txt"
 
-# Remove non-per-user CrashReporter files
-if [ "${uninstall_tb_app_name}" != "" ] ; then
-  for path in `ls /Library/Logs/CrashReporter/${uninstall_tb_app_name}_* 2> /dev/null` ; do
-    uninstall_tb_remove_item_at_path "${path}"
-  done
+# Remove the temporary authorization icon
+uninstall_tb_remove_item_at_path "/tmp/${uninstall_tb_app_name}AuthIcon.png"
 
-  for path in `ls /Library/Logs/DiagnosticReports/${uninstall_tb_app_name}_* 2> /dev/null` ; do
-    uninstall_tb_remove_item_at_path "${path}"
-  done
-fi
-
-for path in `ls /Library/Logs/CrashReporter/openvpnstart_* 2> /dev/null` ; do
+# Remove non-per-user CrashReporter files for the application, openvpn, openvpnstart, and tunnelblickd
+for path in `ls /Library/Logs/CrashReporter/${uninstall_tb_app_name}_* 2> /dev/null` ; do
   uninstall_tb_remove_item_at_path "${path}"
 done
 
-for path in `ls /Library/Logs/DiagnosticReports/openvpnstart_* 2> /dev/null` ; do
+for path in `ls /Library/Logs/DiagnosticReports/${uninstall_tb_app_name}_* 2> /dev/null` ; do
+  uninstall_tb_remove_item_at_path "${path}"
+done
+
+for path in `ls /Library/Logs/CrashReporter/openvpn_* 2> /dev/null` ; do
+  uninstall_tb_remove_item_at_path "${path}"
+done
+
+for path in `ls /Library/Logs/DiagnosticReports/openvpn_* 2> /dev/null` ; do
+  uninstall_tb_remove_item_at_path "${path}"
+done
+
+for path in `ls /Library/Logs/CrashReporter/tunnelblickd_* 2> /dev/null` ; do
+  uninstall_tb_remove_item_at_path "${path}"
+done
+
+for path in `ls /Library/Logs/DiagnosticReports/tunnelblickd_* 2> /dev/null` ; do
   uninstall_tb_remove_item_at_path "${path}"
 done
 
@@ -720,7 +504,7 @@ for user in `dscl . list /users` ; do
     if [ "${output}" != "" ] ; then
 	  echo "${output}"
       if [ "${output:0:7}" = "Error: " ] ; then
-        exit error_exit_code
+        exit 0
       fi
     fi
 
@@ -740,21 +524,12 @@ fi
 
 # Remove the application itself
 if [ "${uninstall_tb_app_path}" != "" ] ; then
-  if [ "${uninstall_tb_app_path:0:7}" = "/Users/" ] ; then
-    export -f uninstall_tb_remove_user_app
-    output="$(/usr/bin/su "${app_path_user_name}" -c "/bin/bash -c uninstall_tb_remove_user_app")"
-    if [ "${output:0:7}" = "Error: " ] ; then
-      echo "output"
-      exit error_exit_code
-    fi
-  else
-    uninstall_tb_remove_item_at_path "${uninstall_tb_app_path}"
-  fi
+  uninstall_tb_remove_item_at_path "${uninstall_tb_app_path}"
 fi
 
 if [ "${uninstall_remove_data}" != "true" ] ; then
   echo ""
-  echo "Note:  NOTHING WAS REMOVED -- this was a test"
+  echo "Note:  NOTHING WAS REMOVED OR UNLOADED -- this was a test"
 fi
 
 exit 0
