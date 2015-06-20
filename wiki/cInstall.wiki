@@ -128,7 +128,7 @@ If Tunnelblick is running when you log out, shut down, or restart your computer,
 
 _Note: *You do not need to uninstall Tunnelblick before updating or reinstalling*. You should uninstall if you no longer want to use Tunnelblick, or if you are having problems and have been told to uninstall it._
 
-If you intend to re-install Tunnelblick, be sure you have a backup of your Tunnelblick configuration files and key and certificate files -- the .ovpn, .key, .crt, and/or .tblk files, and make a note of any configuration settings and appearance and other preferences you have set up. (They will be lost.)
+If you intend to re-install Tunnelblick, be sure you have a backup of your Tunnelblick configurations and settings -- they will be lost. See [cInstall#Backing_Up_and_Restoring_Configurations_and_Settings Backing Up and Restoring Configurations and Settings], below.
 
 The uninstall program can do a "test", which does not uninstall anything, but displays a log of what it would have done if it were uninstalling.
 
@@ -154,6 +154,32 @@ Download an uninstaller disk image from the [DownloadsEntry#Tunnelblick_Uninstal
 *Finally, restart your computer.*
 
 <font color="red">`*`</font> If you get a "spinning beachball" when you click the Tunnelblick icon, that usually means that Tunnelblick has a window open and is waiting for your response. Minimize or close the windows of all other applications (and in all Spaces) to expose the window. If Tunnelblick does not have an open window, you will have to force Tunnelblick to quit. Follow the procedure described in [https://groups.google.com/d/topic/tunnelblick-discuss/CcqADLK5Ttg/discussion this discussion] in the Tunnelblick Discussion Group.
+
+==Backing Up and Restoring Configurations and Settings==
+When you update Tunnelblick or install Tunnelblick "on top of" an existing installation your configurations and settings are preserved. However, if you completely uninstall Tunnelblick as described above, your configurations and settings will be lost. Here's how to back them up and then restore them:
+
+_Note: These instructions do not backup or restore configurations for a "Deployed" version of Tunnelblick. "Deployed" versions contain their configurations inside the application itself, so you do not need to back them up or restore them; fresh versions of the configurations will be installed when you install the "Deployed" version of Tunnelblick._
+
+To back up your configurations and settings before uninstalling:
+ Quit Tunnelblick<br>
+ Copy the following folders and file to your Desktop:
+  /Library/Application Support/Tunnelblick/Shared/<br>
+  /Users/YOUR_USERNAME/Library/Application Support/Tunnelblick/Configurations/<br>
+  /Users/YOUR_USERNAME/Preferences/net.tunnelblick.tunnelblick.plist
+ (to copy the Shared folder you will need to enter a computer admin username/password)
+
+To restore the configurations and settings after installing Tunnelblick:
+ Quit Tunnelblick<br>
+ Copy the net.tunnelblick.tunnelblick.plist file from your Desktop into the /Users/YOUR_USERNAME/Preferences/ folder<br>
+ However, *do not copy the folders*. Instead:
+  Highlight everything inside the copy of the Shared folder on your Desktop<br>
+  Control-click on one item (but keep the others highlighted)<br>
+  Click "Open With…"<br>
+  Click "Tunnelblick"<br>
+  Install them for "All Users"<br><br>
+  Then do the same thing for the Configurations folder, but install them for "Only Me".
+ 
+
 
 ------------------
 
