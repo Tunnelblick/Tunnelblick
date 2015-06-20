@@ -165,8 +165,8 @@ To back up your configurations and settings before uninstalling:
  Copy the following folders and file to your Desktop:
   /Library/Application Support/Tunnelblick/Shared/<br>
   /Users/YOUR_USERNAME/Library/Application Support/Tunnelblick/Configurations/<br>
-  /Users/YOUR_USERNAME/Preferences/net.tunnelblick.tunnelblick.plist
- (to copy the Shared folder you will need to enter a computer admin username/password)
+  /Users/YOUR_USERNAME/Preferences/net.tunnelblick.tunnelblick.plist<br>
+  (to copy the Shared folder you will need to enter a computer admininistrator username/password)
 
 To restore the configurations and settings after installing Tunnelblick:
  Quit Tunnelblick<br>
