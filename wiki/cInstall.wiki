@@ -128,32 +128,32 @@ If Tunnelblick is running when you log out, shut down, or restart your computer,
 
 _Note: *You do not need to uninstall Tunnelblick before updating or reinstalling*. You should uninstall if you no longer want to use Tunnelblick, or if you are having problems and have been told to uninstall it._
 
-If you intend to re-install Tunnelblick, be sure you have a backup of your Tunnelblick configurations and settings -- they will be lost. See [cInstall#Backing_Up_and_Restoring_Configurations_and_Settings Backing Up and Restoring Configurations and Settings], below.
+If you intend to re-install Tunnelblick, be sure you have a backup of your Tunnelblick configurations and settings -- the uninstall process will delete them. See [cInstall#Backing_Up_and_Restoring_Configurations_and_Settings Backing Up and Restoring Configurations and Settings], below.
 
-The uninstall program can do a "test", which does not uninstall anything, but displays a log of what it would have done if it were uninstalling.
+The uninstaller can do a "test", which does not uninstall anything, but displays a log of what it would have done if it were uninstalling.
 
-Download an uninstaller disk image from the [DownloadsEntry#Tunnelblick_Uninstaller Downloads] page and double-click it. (The uninstall program may be used to uninstall any version of Tunnelblick or any version of any rebranded version of Tunnelblick.)
+*The following applies to Tunnelblick installer version 1.7.* ([cUninstallOld Instructions for earlier versions].)
 
-*First, if you have already partially uninstalled (manually by dragging the application to the Trash, or with !AppCleaner or something similar):
+The uninstaller can be used even if Tunnelblick has been dragged from /Applications to the Trash, whether or not the Trash has been emptied. _(But not if a _rebranded_ version has been dragged to the Trash; you must have a copy of the rebranded application. You do not need to _install_ the copy; it can simply be placed on the Desktop or in some other convenient location.)_
 
- * Disconnect all configurations and quit Tunnelblick (or the rebranded program)<font color="red">`*`</font>
- * Install (again, that is, re-install) Tunnelblick or the rebranded program (whatever program you want to uninstall). It is important that you install to the same location as the original installation. If you are uninstalling a "Deployed" version of Tunnelblick, you must install [https://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta21b_Unsigned.dmg Tunnelblick 3.3beta21b Unsigned (build 3114.3185)], which can be installed even if there is a "Deployed" version installed or partially installed.
- * Launch Tunnelblick, disconnect from all VPNs, then quit Tunnelblick.
+*First*, download an uninstaller disk image from the [DownloadsEntry#Tunnelblick_Uninstaller Downloads] page and double-click it. (The uninstall program may be used to uninstall any version of Tunnelblick or any rebranded version of Tunnelblick.)
 
-*Now, to uninstall Tunnelblick located in /Applications:*
+*To uninstall a recent version of Tunnelblick* _(3.3beta22 and higher)_, or an earlier Tunnelblick application located in /Applications, or any version of Tunnelblick which has been dragged to the Trash (whether or not the Trash has been emptied):
  * Disconnect all configurations and quit Tunnelblick<font color="red">`*`</font>
  * Double-click the "Uninstaller"
  * Click on "Test" or "Uninstall"
 
-*Or, to uninstall Tunnelblick located somewhere other than /Applications, or to uninstall RaptorVPN, Urban Shield VPN, or other rebranded Tunnelblick:*
+*Or, to uninstall an earlier version of Tunnelblick which is not located in /Applications or the Trash, or to uninstall RaptorVPN, Urban Shield VPN, or some other rebranded version ofTunnelblick:*
  * Disconnect all configurations and quit Tunnelblick (or the rebranded program)<font color="red">`*`</font>
  * Drag and drop the "Uninstaller" to your Desktop
- * Drag and drop the application you want to uninstall (Tunnelblick or a rebranded program) to the "Uninstaller" on your Desktop
+ * Drag and drop the application you want to uninstall (Tunnelblick or a rebranded version) to the "Uninstaller" on your Desktop. (The program is located wherever you installed it; by default that is /Applications. If you had put the program in the Trash, restore it or put a new copy somewhere convenient. You do not have to "install" such a restored copy, and it will be deleted at the end of the uninstall process.)
  * Click on "Test" or "Uninstall"
 
-*Finally, restart your computer.*
+*Finally, restart your computer.* _(This _may_ not be necessary, but restart if it isn't too inconvenient.)_
 
 <font color="red">`*`</font> If you get a "spinning beachball" when you click the Tunnelblick icon, that usually means that Tunnelblick has a window open and is waiting for your response. Minimize or close the windows of all other applications (and in all Spaces) to expose the window. If Tunnelblick does not have an open window, you will have to force Tunnelblick to quit. Follow the procedure described in [https://groups.google.com/d/topic/tunnelblick-discuss/CcqADLK5Ttg/discussion this discussion] in the Tunnelblick Discussion Group.
+
+------------------
 
 ==Backing Up and Restoring Configurations and Settings==
 When you update Tunnelblick or install Tunnelblick "on top of" an existing installation your configurations and settings are preserved. However, if you completely uninstall Tunnelblick as described above, your configurations and settings will be lost. Here's how to back them up and then restore them:
