@@ -7,11 +7,10 @@
 
 2015-07-10: *Tunnelblick 3.5.3 and 3.6beta08 are [DownloadsEntry available for download]*.
 
- * 3.5.3: **<span class="red">SECURITY UPDATE:</span>** Replaces OpenSSL version 1.0.1o with version 1.0.1p.
+ * 3.5.3: *<font color="red">SECURITY UPDATE:</font>* Replaces OpenSSL version 1.0.1o with version 1.0.1p.
  
  * 3.6beta08:
- 
-  * **<span class="red">SECURITY UPDATE:</span>** Replaces OpenSSL version 1.0.2c with version 1.0.2d.
+  * *<font color="red">SECURITY UPDATE:</font>* Replaces OpenSSL version 1.0.2c with version 1.0.2d.
   * Includes additional protection against attacks.
   * Includes additional logging when installer must be run.
   * Updates localization.
