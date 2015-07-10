@@ -581,13 +581,13 @@
 "No Credentials" = "لا اعتمادات";
 
 /* Window title */
-"One or more OpenVPN processes could not be terminated." = "One or more OpenVPN processes could not be terminated.";
+"One or more OpenVPN processes could not be terminated." = "هناك عملية أو اكثر من OpenVPN لا يمكن إنهاؤها .";
 
 /* Window title */
 "Only computer administrators should update Tunnelblick" = "Only computer administrators should update Tunnelblick";
 
 /* Window title */
-"OpenVPN is Not Responding" = "OpenVPN is Not Responding";
+"OpenVPN is Not Responding" = "OpenVPN لا يستجيب";
 
 /* Window title */
 "Please Confirm" = "الرجاء التأكيد";
@@ -605,7 +605,7 @@
 "Replace Existing File?" = "استبدال الملف الموجود؟";
 
 /* Window title */
-"Replace VPN Configuration?" = "Replace VPN Configuration?";
+"Replace VPN Configuration?" = "استبدال اعدادات VPN ؟";
 
 /* Window title */
 "Sample Configuration Created" = "Sample Configuration Created";
@@ -614,7 +614,7 @@
 "Settings" = "الضبط";
 
 /* Window title */
-"System Requirements Not Met" = "System Requirements Not Met";
+"System Requirements Not Met" = "متطلبات النظام لم تتحقق";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
@@ -662,7 +662,7 @@
 "Warning" = "تحذير";
 
 /* Window title */
-"Warning: Unknown OpenVPN processes" = "Warning: Unknown OpenVPN processes";
+"Warning: Unknown OpenVPN processes" = "تحذير : عملية OpenVPN غير معروفة";
 
 /* Window title */
 "Welcome to Tunnelblick" = "أهلاً بك إلى تنلبليك";
@@ -815,7 +815,7 @@
 "A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
 
 /* Window text */
-"Add Credentials..." = "Add Credentials…";
+"Add Credentials..." = "إضافة الاعتمادات…";
 
 /* Window text */
 "Added '.sh' extension to %@ so it will be secured properly" = "Added '.sh' extension to %@ so it will be secured properly";
@@ -824,7 +824,7 @@
 "Added a '.key' extension to %@ so it will be secured properly" = "Added a '.key' extension to %@ so it will be secured properly";
 
 /* Window text */
-"Additional contributions by" = "Additional contributions by";
+"Additional contributions by" = "اسهامات إضافية من";
 
 /* Window text */
 "After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "After %1$.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %2$@ is connected.\n\n";
@@ -1136,7 +1136,7 @@
 "NetBIOS name:" = "NetBIOS name:";
 
 /* Window text */
-"Network setting" = "Network setting";
+"Network setting" = "إعدادات الشبكة";
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "No 'TBPackageVersion' in %@";
@@ -1166,7 +1166,7 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
 
 /* Window text */
-"Notification window:" = "Notification window:";
+"Notification window:" = "نافذة الاشعارات:";
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?";
@@ -1208,7 +1208,7 @@
 "PB/s" = "PB/s";
 
 /* Window text */
-"Password:" = "Password:";
+"Password:" = "كلمة السر:";
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Path '%1$@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
@@ -1238,10 +1238,10 @@
 "Resolved symbolic link at '%@' to '%@'" = "Resolved symbolic link at '%1$@' to '%2$@'";
 
 /* Window text */
-"Search domain:" = "Search domain:";
+"Search domain:" = "نطاق البحث :";
 
 /* Window text */
-"Securing Tunnelblick..." = "Securing Tunnelblick…";
+"Securing Tunnelblick..." = "تأمين حماية Tunnelblick …";
 
 /* Window text */
 "Set DNS/WINS:" = "Set DNS/WINS:";
@@ -1256,7 +1256,7 @@
 "Starting Tunnelblick..." = "Starting Tunnelblick…";
 
 /* Window text */
-"Startup window:" = "Startup window:";
+"Startup window:" = "نافذة البداية :";
 
 /* Window text */
 "Symbolic links nested too deeply. Gave up at %@" = "Symbolic links nested too deeply. Gave up at %@";
@@ -1274,10 +1274,10 @@
 "TUNNELBLICK is brought to you by" = "TUNNELBLICK is brought to you by";
 
 /* Window text */
-"Thank you very much for your donation to the TunnelblickProject." = "Thank you very much for your donation to the TunnelblickProject.";
+"Thank you very much for your donation to the TunnelblickProject." = "شكرا جزيلا لتبرعكم لمشروع Tunnelblick.";
 
 /* Window text */
-"Thanks for your Tunnelblick donation" = "Thanks for your Tunnelblick donation";
+"Thanks for your Tunnelblick donation" = "شكرا لتبرعكم ل Tunnelblick";
 
 /* Window text */
 "That name is being used.\n\n" = "استخدم الإسم من قبل.";
@@ -1610,7 +1610,7 @@
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
 
 /* Window text */
-"Updates:" = "Updates:";
+"Updates:" = "التحديثات :";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
@@ -1790,28 +1790,28 @@
 "Animation and icon sets code" = "Animation and icon sets code";
 
 /* Credit description */
-"Arabic localization" = "Arabic localization";
+"Arabic localization" = "الترجمة العربية";
 
 /* Credit description */
 "Bulgarian localization" = "Bulgarian localization";
 
 /* Credit description */
-"Button images" = "Button images";
+"Button images" = "صور الازرار";
 
 /* Credit description */
-"Catalan localization" = "Catalan localization";
+"Catalan localization" = "الترجمة للكتالونية";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Chinese (simplified) localization";
+"Chinese (simplified) localization" = "الترجمة للصينية (المبسطة)";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Chinese (traditional) localization";
+"Chinese (traditional) localization" = "الترجمة للصينية (التقليدية)";
 
 /* Credentials name */
-"Common" = "Common";
+"Common" = "مشترك";
 
 /* Speak string */
-"Connected to %@" = "Connected to %@";
+"Connected to %@" = "متصل في %@";
 
 /* Credit description */
 "Contributed much to the early code" = "Contributed much to the early code";
@@ -1820,52 +1820,52 @@
 "Contributed to early code" = "Contributed to early code";
 
 /* Credit description */
-"Czech localization" = "Czech localization";
+"Czech localization" = "الترجمة للتشيكية";
 
 /* Credit description */
-"Danish localization" = "Danish localization";
+"Danish localization" = "الترجمة للدنماركية";
 
 /* Speak string */
-"Disconnected from %@" = "Disconnected from %@";
+"Disconnected from %@" = "قطع الاتصال من %@";
 
 /* Checkbox */
-"Do not show this again" = "Do not show this again";
+"Do not show this again" = " عدم إظهار هذا مرة أخرى";
 
 /* Credit description */
-"Dutch localization" = "Dutch localization";
+"Dutch localization" = "الترجمة للهولندية";
 
 /* Credit description */
-"Estonian localization" = "Estonian localization";
+"Estonian localization" = "الترجمة للإستونية";
 
 /* Credit description */
-"Finnish localization" = "Finnish localization";
+"Finnish localization" = "الترجمة للفنلندية";
 
 /* Credit description */
 "Founder, original program and documentation" = "Founder, original program and documentation";
 
 /* Credit description */
-"French localization" = "French localization";
+"French localization" = "الترجمة للفرنسية";
 
 /* Credit description */
-"German localization" = "German localization";
+"German localization" = "الترجمة للألمانية";
 
 /* Credit description */
-"Greek localization" = "Greek localization";
+"Greek localization" = "الترجمة لليونانية";
 
 /* Credit description */
-"Hungarian localization" = "Hungarian localization";
+"Hungarian localization" = "الترجمة للهنقارية";
 
 /* Credit description */
 "Icon set including Retina images" = "Icon set including Retina images";
 
 /* Credit description */
-"Italian localization" = "Italian localization";
+"Italian localization" = "الترجمة للإيطالية";
 
 /* Credit description */
-"Japanese localization" = "Japanese localization";
+"Japanese localization" = "الترجمة لليابانية";
 
 /* Credit description */
-"Korean localization" = "Korean localization";
+"Korean localization" = "الترجمة للكورية";
 
 /* [name of your language] localization */
 "LANGUAGE_LOCALIZATION" = "LANGUAGE_LOCALIZATION";
@@ -1874,7 +1874,7 @@
 "LEAD_TRANSLATORS" = "Khalid Alhumud";
 
 /* Credit description */
-"Latvian localization" = "Latvian localization";
+"Latvian localization" = "الترجمة للاتفية";
 
 /* Credit description */
 "Localization code tweaks" = "Localization code tweaks";
@@ -1883,7 +1883,7 @@
 "Multiple configuration folders" = "Multiple configuration folders";
 
 /* Credit description */
-"Norwegian localization" = "Norwegian localization";
+"Norwegian localization" = "الترجمة للنرويجية";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
@@ -1892,43 +1892,43 @@
 "PKCS#11 support" = "PKCS#11 support";
 
 /* Credit description */
-"Polish localization" = "Polish localization";
+"Polish localization" = "الترجمة للبولندية";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Portuguese (Brazilian) localization";
+"Portuguese (Brazilian) localization" = "الترجمة للبرتغالية (برازيلية)";
 
 /* Credit description */
-"Portuguese localization" = "Portuguese localization";
+"Portuguese localization" = "الترجمة للبرتغالية";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program and documentation enhancements and maintenance after version 3.0b10";
 
 /* Credit description */
-"Russian localization" = "Russian localization";
+"Russian localization" = "الترجمة للروسية";
 
 /* Credit description */
-"Slovak localization" = "Slovak localization";
+"Slovak localization" = "الترجمة للسلوفاكية";
 
 /* Credit description */
-"Spanish localization" = "Spanish localization";
+"Spanish localization" = "الترجمة للاسبانية";
 
 /* Credit description */
-"Swedish localization" = "Swedish localization";
+"Swedish localization" = "الترجمة للسويدية";
 
 /* Credit description */
-"Tunnelblick icon" = "Tunnelblick icon";
+"Tunnelblick icon" = "ايقونة Tunnelblick";
 
 /* Credit description */
-"Turkish localization" = "Turkish localization";
+"Turkish localization" = "الترجمة للتركية";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue and UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Ukrainian localization";
+"Ukrainian localization" = "الترجمة للاوكرانية";
 
 /* Credit description */
-"Up and Down scripts" = "Up and Down scripts";
+"Up and Down scripts" = "سكربت انشاء وقطع الاتصال";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode help and OpenSSL integration";
@@ -1937,25 +1937,25 @@
 "Accept" = "قبول";
 
 /* Button VPNService */
-"Create a Free Account" = "Create a Free Account";
+"Create a Free Account" = "إنشا حساب مجاني";
 
 /* Button VPNService */
-"Get Different Image" = "Get Different Image";
+"Get Different Image" = "الحصول على صورة مختلفة";
 
 /* Button VPNService *//* Window title VPNService */
 "Login" = "تسجل الدخول";
 
 /* Button VPNService */
-"Next" = "للأمام";
+"Next" = " التالي";
 
 /* Button VPNService */
 "Reject" = "رفض";
 
 /* Menu item VPNService */
-"Register for Tunnelblick..." = "Register for Tunnelblick…";
+"Register for Tunnelblick..." = "تسجيل لل Tunnelblick …";
 
 /* Window title  VPNService */
-"Cannot obtain image" = "Cannot obtain image";
+"Cannot obtain image" = "لا يمكن الحصول على صورة";
 
 /* Window title  VPNService */
 "Cannot register" = "غير قادر للتسجيل";
@@ -1967,28 +1967,28 @@
 "Entries required" = "إدخالات المطلوبة";
 
 /* Window title  VPNService */
-"Failed to load Terms of Service" = "Failed to load Terms of Service";
+"Failed to load Terms of Service" = "فشل تحميل شروط الاستخدام";
 
 /* Window title VPNService */
-"No configuration available" = "No configuration available";
+"No configuration available" = "لايوجد اي اعدادات متاحة";
 
 /* Window title  VPNService */
-"Password entries must match" = "Password entries must match";
+"Password entries must match" = "يجب مطابقة كلمة المرور";
 
 /* Window title  VPNService */
-"Prove You are Human" = "Prove You are Human";
+"Prove You are Human" = "إثبات أنك بشري";
 
 /* Window title  VPNService */
-"Register with Tunnelblick" = "Register with Tunnelblick";
+"Register with Tunnelblick" = "سجل مع Tunnelblick";
 
 /* Window title  VPNService */
-"Sorry" = "أسف";
+"Sorry" = "عذراً";
 
 /* Window title  VPNService */
 "Terms of Service" = "شروط الاستخدام";
 
 /* Window title  VPNService */
-"Tunnelblick - Free VPN" = "Tunnelblick - Free VPN";
+"Tunnelblick - Free VPN" = "Tunnelblick - مجاناً VPN";
 
 /* Window title  VPNService */
 "Welcome!" = "مرحباً!";
@@ -2000,19 +2000,19 @@
 "Confirm password:" = "تأكيد كلمة المرور:";
 
 /* Window text VPNService */
-"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'.";
+"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "مبروك! تم إنشاء حسابك . سوف تستلم رسالة على بريدك الإلكتروني من Tunnelblick قريباً . اتبع التعليمات الموجودة في الرسالة لتأكيد بريدك الإلكتروني ومن ثم اضغط \"التالي\".";
 
 /* Window text VPNService */
-"Could not check registration" = "Could not check registration";
+"Could not check registration" = "لا يمكن التحقق من التسجيل";
 
 /* Window text VPNService */
-"Could not get a captcha image" = "Could not get a captcha image";
+"Could not get a captcha image" = "لا يمكن الحصول على صورة التحقق";
 
 /* Window text VPNService */
-"Could not get a session token" = "Could not get a session token";
+"Could not get a session token" = "لا يمكن الحصول على رمز الجلسة";
 
 /* Window text VPNService */
-"Email address %@ is already registered for an account" = "Email address %@ is already registered for an account";
+"Email address %@ is already registered for an account" = "عنوان البريد الإلكتروني %@ مسجل من قبل حساب اخر";
 
 /* Window text VPNService */
 "Email address:" = "عنوان البريد الإلكتروني:";
@@ -2021,46 +2021,46 @@
 "Invalid URL: %@" = "رابط غير صالح: %@";
 
 /* Window text VPNService */
-"No valid session token." = "No valid session token.";
+"No valid session token." = "رمز الجلسة غير صحيح.";
 
 /* Window text VPNService */
-"Please read our Terms of Service and indicate your acceptance or rejection of them." = "Please read our Terms of Service and indicate your acceptance or rejection of them.";
+"Please read our Terms of Service and indicate your acceptance or rejection of them." = "الرجاء قراءة شروط الخدمة ثم اشر بالقبول او الرفض.";
 
 /* Window text VPNService */
-"Please type the characters in the image and click next." = "Please type the characters in the image and click next.";
+"Please type the characters in the image and click next." = "الرجاء الدخال النص الموجود في الصورة ثم اضغط التالي.";
 
 /* Window text VPNService */
 "Session token requires encoding" = "Session token requires encoding";
 
 /* Window text VPNService */
-"Session token too long" = "Session token too long";
+"Session token too long" = "رمز الجلسة طويل جداً";
 
 /* Window text VPNService */
-"Sorry, but your request for an account could not be processed:\n     %@" = "Sorry, but your request for an account could not be processed:\n     %@";
+"Sorry, but your request for an account could not be processed:\n     %@" = "عذراً، لاكن طلبك للحساب لا يمكن معالجته %@";
 
 /* Window text VPNService */
 "Terms of service are unavailable." = "شروط الاستخدام غير متوفرة.";
 
 /* Window text VPNService */
-"The Terms of Service could not be loaded:" = "The Terms of Service could not be loaded:";
+"The Terms of Service could not be loaded:" = "شروط الخدمة لا يمكن تحميلها :";
 
 /* Window text VPNService */
 "The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service.";
 
 /* Window text VPNService */
-"The email address you entered was not a valid email address." = "The email address you entered was not a valid email address.";
+"The email address you entered was not a valid email address." = "البريد الإلكتروني المدخل غير صحيح .";
 
 /* Window text VPNService */
-"The password entries must match to proceed." = "The password entries must match to proceed.";
+"The password entries must match to proceed." = "يجب مطابقة كلمة المرور للمتابعة .";
 
 /* Window text VPNService */
-"The text you entered did not match the text in the Captcha image." = "The text you entered did not match the text in the Captcha image.";
+"The text you entered did not match the text in the Captcha image." = "النص المدخل لا يطابق النص الموجود في الصورة .";
 
 /* Window text VPNService */
 "There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image.";
 
 /* Window text VPNService */
-"To create your free Tunnelblick account we need your email address and a password of your choosing." = "To create your free Tunnelblick account we need your email address and a password of your choosing.";
+"To create your free Tunnelblick account we need your email address and a password of your choosing." = "لإنشاء حساب مجاني في Tunnelblick  نحتاج عنوان بريدك الإلكتروني وكلمة مرور من اختيارك .";
 
 /* Window text VPNService */
 "Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection.";
@@ -2081,17 +2081,16 @@
 "You have already registered but not yet confirmed your email address." = "كنت قد سجلت بالفعل من قبل ولكن لم يتأكد بعد عنوان البريد الإلكتروني الخاص بك.";
 
 /* Window text VPNService */
-"You have already registered." = "كنت قد سجلت بالفعل.";
+"You have already registered." = "انت مسجل مسبقاً.";
 
 /* Window text VPNService */
-"You must enter an email address and password to login." = "يجب ان تدخل اميل وكلمة السر للدخول.";
+"You must enter an email address and password to login." = "يجب عليك إدخال عنوان البريد الإلكتروني وكلمة المرور لتسجيل الدخول .";
 
 /* Window text VPNService */
-"You must enter an email address, password, and password confirmation to proceed." = "You must enter an email address, password, and password confirmation to proceed.";
+"You must enter an email address, password, and password confirmation to proceed." = "يجب عليك إدخال عنوان البريد الإلكتروني وكلمة المرور وتأكيد كلمة المرور للمتابعة .";
 
 /* Window text VPNService */
 "You must type the characters in the image to proceed." = "يجب ان تكتب الاحرف كما في الصورة للإكمال.";
 
 /* Window text VPNService */
-"Your account status could not be verified:\n     %@." = "ولم يتم التأكد من حالة الحساب الخاص بك:\n     %@.";
-
+"Your account status could not be verified:\n     %@." = "لم يتم التأكد من حالة الحساب الخاص بك:\n     %@.";

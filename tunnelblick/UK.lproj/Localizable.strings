@@ -797,7 +797,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Занадто велика вкладеність конфігурації Tunnelblick VPN в '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts.";
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Налаштування яке потребує секретну фразу (приватний ключ) або логін та пароль не може стартувати автоматично разом з компьютером.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Фраза пароль необхідна для з'єднання з\n  %1$@%2$@";
@@ -941,7 +941,7 @@
 "Could not copy %@ to %@" = "Неможливо скопіювати %1$@ до %2$@";
 
 /* Window text */
-"Could not create %@" = "Could not create %@";
+"Could not create %@" = "Неможливо створити %@";
 
 /* Window text */
 "Could not delete %@" = "Неможливо видалити %@";
@@ -1295,16 +1295,16 @@
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN опція '%@' не дозволена при використанні Tunnelblick.";
 
 /* Window text */
-"The '%@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %@ without the patch will be used.\n\nThis may mean that OpenVPN will not start." = "The '%1$@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %2$@ without the patch will be used.\n\nThis may mean that OpenVPN will not start.";
+"The '%@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %@ without the patch will be used.\n\nThis may mean that OpenVPN will not start." = "Налаштування '%1$@' включае в себе опцію  'scramble' , але версія OpenVPN з патчем для scramble не доступна. Так що буде викоростана версія  %2$@ без ціеї опції.";
 
 /* Window text */
-"The '%@' configuration contains a 'scramble' option, so OpenVPN version %@ with the scramble patch will be used." = "The '%1$@' configuration contains a 'scramble' option, so OpenVPN version %2$@ with the scramble patch will be used.";
+"The '%@' configuration contains a 'scramble' option, so OpenVPN version %@ with the scramble patch will be used." = "Налаштування '%1$@' включае в себе опцію  'scramble' , так що буде використан OpenVPN версії %2$@  з патчем для scramble.";
 
 /* Window text */
-"The '%@' configuration does not contain a 'scramble' option, so OpenVPN version %@ without the scramble patch will be used." = "The '%1$@' configuration does not contain a 'scramble' option, so OpenVPN version %2$@ without the scramble patch will be used.";
+"The '%@' configuration does not contain a 'scramble' option, so OpenVPN version %@ without the scramble patch will be used." = "Налаштування '%1$@' не включае в себе опцію  'scramble' ,так що буде використан OpenVPN версії %2$@  без патча для scramble.";
 
 /* Window text */
-"The '%@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "The '%1$@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %2$@ which contains the patch will be used.";
+"The '%@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "Налаштування '%1$@' не потребує версію OpenVPN з патчем для 'scramble', але версія без патча не доступна. Так що буде використан OpenVPN версії %2$@  з патчем для scramble.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "Неможливо видалити облікові дані '%@', оскільки список йменованих облікових даних використовується примусово.";
@@ -1418,19 +1418,19 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "Ця копія Tunnelblick не має цифрового підпису.\n\nНемає ніякого способу, щоб переконатися, що цю копію не підроблено.\n\nЗверніться до постачальника цієї копії Tunnelblick перед її використанням.\n\n";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Ця 64х бітна версія Tunnelblick не буде нормально працювати якщо використовувати tun чи tap kexts.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "Ця 64х бітна версія Tunnelblick не буде нормально працювати якщо налаштування використовує  tap з'єднання. Використовуйте 'universal' версию Tunnelblick.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "Ця 64х бітна версія Tunnelblick не буде нормально працювати якщо налаштування використовує  tun kexts. Використовуйте 'universal' версию Tunnelblick.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "Ця 64х бітна версія Tunnelblick не буде нормально працювати якщо налаштування використовує  tun kexts. Ви можете використовувати  'universal' версию Tunnelblick, чи OS X 'utun' драйвер шляхом видалення OpenVPN опції 'dev-type' - зверніться до документації OpenVPN.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "Ця 64х бітна версія Tunnelblick яка працює лише на OS X з 64-бітним ядром, чи OS X 10.6.8 та вище якщо не застосовувати tun чи tap kexts.";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Цю версію Tunnelblick не може бути запущено або встановлено, оскільки вона має хибний URL оновлення.\n\n";
@@ -1835,7 +1835,7 @@
 "Dutch localization" = "Голландський переклад";
 
 /* Credit description */
-"Estonian localization" = "Estonian localization";
+"Estonian localization" = "Локалізація естонською";
 
 /* Credit description */
 "Finnish localization" = "Фінський переклад";
@@ -1874,7 +1874,7 @@
 "LEAD_TRANSLATORS" = "Aleksey Likholob i Vadim Chumachenko";
 
 /* Credit description */
-"Latvian localization" = "Latvian localization";
+"Latvian localization" = "Локалізація латвійською";
 
 /* Credit description */
 "Localization code tweaks" = "Тонкі налаштування коду локалізації";
@@ -1898,7 +1898,7 @@
 "Portuguese (Brazilian) localization" = "Португальський (бразильський) переклад";
 
 /* Credit description */
-"Portuguese localization" = "Portuguese localization";
+"Portuguese localization" = "Локалізація португальскою";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Поліпшення програми та документації з версії 3.0b10";
@@ -1919,7 +1919,7 @@
 "Tunnelblick icon" = "Значок Tunnelblick";
 
 /* Credit description */
-"Turkish localization" = "Turkish localization";
+"Turkish localization" = "Локалізація турецькою";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue та UKLoginItemRegistry";
@@ -2094,4 +2094,3 @@
 
 /* Window text VPNService */
 "Your account status could not be verified:\n     %@." = "Статус Вашого запису неможливо перевірити:\n     %@.";
-

@@ -797,7 +797,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Вложенность конфигурации Tunnelblick  слишком большая '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Конфигурация, которая требует ключевую фразу (личный ключ) или имя пользователя с паролем, не могут автоматически запускаться при включении компьютера.";
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Конфигурация, которая требует ключевую фразу (личный ключ) или имя пользователя с паролем, не может автоматически запускаться при включении компьютера.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Секретная фраза необходима для подключения к\n  %1$@%2$@";
@@ -1295,7 +1295,7 @@
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Опция OpenVPN '%@' недопустима для использования в Tunnelblick.";
 
 /* Window text */
-"The '%@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %@ without the patch will be used.\n\nThis may mean that OpenVPN will not start." = "Конфигурация '%1$@' содержит опцию скремблирования (перемешивания), однако ни одной версии OpenVPN с патчем скремблирования не было найдено, поэтому используется версия %2$@ без этого патча.\n\nЭто может означать, что OpenVPN не сможет стартовать.";
+"The '%@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %@ without the patch will be used.\n\nThis may mean that OpenVPN will not start." = "Конфигурация '%1$@' содержит опцию скремблирования (перемешивания), однако ни одной версии OpenVPN с патчем скремблирования не было найдено, поэтому используется версия %2$@ без этого патча.\n\nЭто может означать, что OpenVPN не запустится.";
 
 /* Window text */
 "The '%@' configuration contains a 'scramble' option, so OpenVPN version %@ with the scramble patch will be used." = "Конфигурация '%1$@' содержит опцию скремблирования, будет использоваться OpenVPN версии %2$@ с необходимым патчем.";
@@ -1304,7 +1304,7 @@
 "The '%@' configuration does not contain a 'scramble' option, so OpenVPN version %@ without the scramble patch will be used." = "Конфигурация '%1$@' не содержит опцию скремблирования, будет использоваться OpenVPN версии %2$@ без соответствующего патча.";
 
 /* Window text */
-"The '%@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "Конфигурации '%1$@' не требуется OpenVPN с патчем скремблирования, однако версии без патча не найдены, поэтому будет использована пропатченная версия %2$@.";
+"The '%@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "Конфигурация '%1$@' не требует OpenVPN с патчем скремблирования, однако версия без патча не найдена, поэтому будет использоваться пропатченная версия %2$@.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "Учётные данные '%@' не могут быть добавлены, поскольку используется принудительный список именованных учётных данных.";
@@ -1424,13 +1424,13 @@
 "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "Это 64-битная Intel-версия Tunnelblick, которая не будет корректно работать с конфигурацией, которая использует подключения tap. Вам следует использовать универсальную версию взамен этой.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "Это 64-битная Intel-версия Tunnelblick, которая не будет корректно работать с конфигурацией, которая использует tun kext. Вам следует использовать универсальную версию взамен этой.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "Это 64-битная Intel-версия Tunnelblick, которая не будет корректно работать с конфигурацией, которая использует tun kext. Вам следует использовать универсальную версию вместо этой.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "Это 64-битная Intel-версия Tunnelblick, которая не будет корректно работать с конфигурацией, которая использует tun kext. Вы можете использовать универсальную версию Tunnelblick, либо же воспользоваться драйвером OS X 'utun' путём отключения опций 'dev-type' в OpenVPN - обратитесь к документации.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "Это 64-битная Intel-версия Tunnelblick, которая не будет корректно работать с конфигурацией, которая использует tun kext. Вы можете использовать универсальную версию Tunnelblick, либо же воспользоваться драйвером OS X 'utun' путём отключения опций 'dev-type' в OpenVPN - обратитесь к документации OpenVPN.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "Это 64-битная Intel-версия Tunnelblick, которая может работать только на OS X с 64-битным ядром, либо на OS X 10.6.8 или выше, при условии, что требуется работа с tun или tap kext.";
+"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "Это 64-битная Intel-версия Tunnelblick, которая работает только на OS X с 64-битным ядром, либо на OS X 10.6.8 или выше если не используются tun или tap kext.";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Данная версия Tunnelblick не может быть запущена или установлена, поскольку она имеет некорректный URL обновления.\n\n";
@@ -1874,7 +1874,7 @@
 "LEAD_TRANSLATORS" = "Eugene Trufanov, Dennis Ukhanov, Nail Gilmanov, & Victor Ptichkin";
 
 /* Credit description */
-"Latvian localization" = "Латвийская локализация";
+"Latvian localization" = "Латышская локализация";
 
 /* Credit description */
 "Localization code tweaks" = "Оптимизация кода локализации";
@@ -2094,4 +2094,3 @@
 
 /* Window text VPNService */
 "Your account status could not be verified:\n     %@." = "Состояние вашей учётной записи не подтверждено:\n     %@.";
-

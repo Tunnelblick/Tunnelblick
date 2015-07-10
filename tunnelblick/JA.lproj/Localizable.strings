@@ -797,7 +797,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblick VPN設定のネストが多すぎます: '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts.";
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "パスフレーズ(秘密鍵)もしくはユーザー名とパスワードが必要な設定は、コンピューター起動時に接続できません。";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "以下に接続するにはパスフレーズが必要です。\n  %1$@%2$@";
@@ -1112,10 +1112,10 @@
 "Menu:" = "メニュー:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "%@のためのCFBundleIdentifierまたはCFBundleVersionがInfo.plisの中にありません。\n\nこのVPN設定は、自動更新可能な外部VPN設定の中に含まれているため、CFBundleIdentifierとCFBundleVersionが必要です。";
 
 /* Window text */
-"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "%@のためのInfo.plisがありません。\n\nこのVPN設定は、自動更新可能な外部VPN設定の中に含まれているため、Info.plisが必要です。";
 
 /* Window text */
 "Modified configuration file to remove path information" = "設定ファイルからパス情報を削除しました";
@@ -1295,16 +1295,16 @@
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "%@ というオプションは Tunnelblick では使えません";
 
 /* Window text */
-"The '%@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %@ without the patch will be used.\n\nThis may mean that OpenVPN will not start." = "The '%1$@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %2$@ without the patch will be used.\n\nThis may mean that OpenVPN will not start.";
+"The '%@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %@ without the patch will be used.\n\nThis may mean that OpenVPN will not start." = "「'%1$@」の設定には「scramble」オプションが含まれていますが、スクランブル対応のパッチ適用済みのOpenVPNが見つかりません。パッチが適用されていない「%2$@」が使用されます。\n\nOpenVPNは自動的に起動しません。";
 
 /* Window text */
-"The '%@' configuration contains a 'scramble' option, so OpenVPN version %@ with the scramble patch will be used." = "The '%1$@' configuration contains a 'scramble' option, so OpenVPN version %2$@ with the scramble patch will be used.";
+"The '%@' configuration contains a 'scramble' option, so OpenVPN version %@ with the scramble patch will be used." = "「'%1$@」の設定には「scramble」オプションが含まれているため、スクランブル対応のパッチ適用済みのOpenVPN「%2$@」が使用されます。";
 
 /* Window text */
-"The '%@' configuration does not contain a 'scramble' option, so OpenVPN version %@ without the scramble patch will be used." = "The '%1$@' configuration does not contain a 'scramble' option, so OpenVPN version %2$@ without the scramble patch will be used.";
+"The '%@' configuration does not contain a 'scramble' option, so OpenVPN version %@ without the scramble patch will be used." = "「'%1$@」の設定には「scramble」オプションが含まれていないため、スクランブル対応のパッチが適用されていないOpenVPN「%2$@」が使用されます。";
 
 /* Window text */
-"The '%@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "The '%1$@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %2$@ which contains the patch will be used.";
+"The '%@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "「%1$@」の設定にスクランブル対応パッチは必要ありませんが、パッチが適用されていないバージョンは使えません。パッチ適用済みの「%2$@」が使用されます。";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "このリストを強制的に使用するため認証「%@」は追加できません。";
@@ -1316,7 +1316,7 @@
 "The '%@' credentials may not be deleted because the list of named credentials is being forced." = "このリストを強制的に使用するため認証「%@」は削除できません。";
 
 /* Window text */
-"The '%@' option is not allowed in an OpenVPN configuration file that is in a Tunnelblick VPN Configuration unless the file it references is specified with an absolute path." = "The '%@' option is not allowed in an OpenVPN configuration file that is in a Tunnelblick VPN Configuration unless the file it references is specified with an absolute path.";
+"The '%@' option is not allowed in an OpenVPN configuration file that is in a Tunnelblick VPN Configuration unless the file it references is specified with an absolute path." = "ファイルの参照が絶対パスでないとOpenVPN設定内の「%@」オプションは使用できません。";
 
 /* Window text */
 "The 'credentialsNames' preference must be an array of strings." = "設定項目「credentialsNames」は文字列の配列でないといけません。";
@@ -1340,19 +1340,19 @@
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "接続先「%@」の設定ファイルで「user」と「group」オプションが使用されており、かつダウンスクリプトも使われています（「ネームサーバーを変更しない」が選択されていない、または設定ファイルで「down」オプションが使われています）。\n\nOpenVPN用「openvpn-down-root.so」プラグインを使わないと（接続が切れた時の自動的な）接続再開が失敗します。\n\nこのプラグインを使用しますか？";
 
 /* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.";
+"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "接続先「%@」の設定ファイルには「dev tun」「dev utun」「dev tap」のいずれのオプションも含まれていません。Tunnelblickが正しく動作するにはいずれかのオプションが必要です。ネットワーク管理者に相談するか OpenVPN ドキュメントで確認してください。";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced).";
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "設定ファイルには「%@」への参照がありますが、存在しません(更新された設定ファイルの中にも)";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used.";
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "設定ファイルには「%@」への参照がありますが、新しい設定の中に存在しません。既に存在しているセキュアーでないファイルが使われます。";
 
 /* Window text */
 "The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "設定ファイルには\n\n%@\n\nへの参照ありますが、存在しません";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced)." = "The configuration file refers to a file\n\n%1$@\n\nwhich should be located at\n\n%2$@\n\nbut the file does not exist (even in the configuration being replaced).";
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced)." = "設定ファイルが参照している「%1$@」は「%2$@」にありませんでした(更新された設定ファイルの中にも)";
 
 /* Window text */
 "The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "この設定ファイルは\n\n%2$@\n\nにあるファイル\n\n%1$@\n\nを参照していますが、ファイルが存在しません。";
@@ -1427,10 +1427,10 @@
 "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "Tunnelblick 64ビット Intelバージョンでは、tun kextを使用する設定は正しく動作しません。ユニバーサル版のTunnelblickを使用してください。";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "Tunnelblick 64ビット Intelバージョンでは、tun kextを使用する設定は正しく動作しません。ユニバーサル版のTunnelblickを使用するか、OpenVPNの「dev-type」オプションを削除して、OS Xのutunドライバを使用してください。詳細についてはOpenVPNのドキュメントを参照してください。";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "Tunnelblick 64ビット Intelバージョンは、64ビットカーネルのOS Xか、tunまたはtap kextを使用していない場合は OS X 10.6.8 以降でのみ動作します。";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "このバージョンの Tunnelblick は起動したりインストールしたりできません。更新用の URL が不正です。\n\n";
@@ -1526,7 +1526,7 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "存在するはずの「%1$@」の OpenVPN プロセスと%2$d秒の間、通信できませんでした。通信をあきらめます。";
 
 /* Window text */
-"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nIf they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them)." = "Tunnelblick was unable to save its preferences because OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nIf they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them).";
+"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nIf they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them)." = "TunnelblickはOS Xが拒否したため設定ファイルを保存できませんでした。\n\n設定ファイルが破損しているかもしれません。\n破損した部分を含むファイル「%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.」を削除する必要があるかもしれません。\n\n破損していた場合、次回Tunnelblick起動時に設定は自動的に削除されます(バックアップ作成後に)";
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "%@ へ接続するための OpenVPN を開始することができませんでした。詳細は「VPN の詳細…」ウィンドウの中のログを参照してください";
@@ -1538,10 +1538,10 @@
 "Unable to convert OpenVPN configuration" = "OpenVPNの設定を変換できません";
 
 /* Window text */
-"Unable to copy file at '%@' to '%@' because the same name is used for different contents" = "Unable to copy file at '%1$@' to '%2$@' because the same name is used for different contents";
+"Unable to copy file at '%@' to '%@' because the same name is used for different contents" = "同じ名前が使われているため「%1$@」から「%2$@」へコピーできません。";
 
 /* Window text */
-"Unable to create %@ owned by %ld:%ld with %lo permissions" = "Unable to create %1$@ owned by %2$ld:%3$ld with %4$lo permissions";
+"Unable to create %@ owned by %ld:%ld with %lo permissions" = "「%2$ld」による「%1$@」は作成できません。「%3$ld」は「%4$lo」権限をもっています。";
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "%@の設定をインストールできませんでした\n";
@@ -1553,7 +1553,7 @@
 "Unable to replace the '%@' configuration\n" = "%@の設定を取り替えられません\n";
 
 /* Window text */
-"Unable to secure %@ because it is owned by %@" = "Unable to secure %1$@ because it is owned by %2$@";
+"Unable to secure %@ because it is owned by %@" = "「%2$@」に所有されているため、「%1$@」を安全にすることができません。";
 
 /* Window text */
 "Unable to secure %@" = "%@ の安全性を保てません";
@@ -1562,7 +1562,7 @@
 "Unable to set permissions on '%@'" = "'%@' に対するパーミッションの設定ができません";
 
 /* Window text */
-"Unable to store updatable configuration stub at %@\n" = "Unable to store updatable configuration stub at %@\n";
+"Unable to store updatable configuration stub at %@\n" = "「%@」にstubである更新可能な設定が保存できません\n";
 
 /* Window text */
 "Unable to uninstall the '%@' configuration\n" = "%@ 設定をインストールできませんでした\n";
@@ -1586,28 +1586,28 @@
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "自動更新可能な設定 '%1$@' は %2$@ が見つからなかったため、自動更新可能な設定として保存されませんでした\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Updatable configuration '%1$@' was not stored as updatable because '%2$@' could not be copied to '%3$@'\n";
+"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "「%2$@」を「%3$@」へコピーできなかったため、更新可能な設定「%1$@」は保存されませんでした。\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n";
+"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "「stub .tblk」の内の「Contents」が作成できなかったため、更新可能な設定「%@」はアップデートとして保存されませんでした。\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n";
+"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "「stub .tblk」内の「Contents/Resources」が作成できなかったため、更新可能な設定「%@」はアップデートとして保存されませんでした。";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n";
+"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "「SUPublicDSAKeyFile」は選択可能な拡張子でなかったため、「%@」は更新可能な設定として保存されませんでした。";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n";
+"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "「SUPublicDSAKeyFile」が文字列ではないので、「%@」は更新可能な設定として保存されませんでした。\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n";
+"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Info.plistの「SUFeedURL」が「https://」で開始されず「SUPublicDSAKeyFile」が無いため、「%@」は更新可能な設定として保存されませんでした。\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n";
+"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "「stub .tblk」の内の「Contents/Resources」が作成できなかったため、、更新可能な設定「%@」は保存されませんでした。";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "「CFBundleIdentifier」が既に処理されたため、「%@」は更新可能な設定として保存されませんでした。\n";
 
 /* Window text */
 "Updates:" = "更新:";
@@ -2094,4 +2094,3 @@
 
 /* Window text VPNService */
 "Your account status could not be verified:\n     %@." = "アカウントの状態が確認できませんでした:\n     %@.";
-
