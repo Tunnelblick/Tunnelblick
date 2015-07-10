@@ -9,6 +9,15 @@
 
 ==Version 3.6==
 
+*3.6beta08 build 4371 (2015-07-10)*
+
+  * Replaces OpenSSL version 1.0.2c with version 1.0.2d.
+  * Includes additional protection against attacks.
+  * Includes additional logging when installer must be run.
+  * Updates localization.
+   
+--------------------
+
 *3.6beta06 build 4346 (2015-06-13)*
 
  * Replaces OpenSSL version 1.0.2b with version 1.0.2c.
@@ -45,6 +54,12 @@
 --------------------
 
 ==Version 3.5==
+
+*3.5.3 build 4270.4371 (2015-07-10)*
+
+ * Replaces OpenSSL version 1.0.1o with version 1.0.1p.
+ 
+--------------------
 
 *3.5.2 build 4270.4346 (2015-06-13)*
 

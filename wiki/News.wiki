@@ -5,6 +5,21 @@
 
 --------------------
 
+2015-07-10: *Tunnelblick 3.5.3 and 3.6beta08 are [DownloadsEntry available for download]*.
+
+ * 3.5.3: **<span class="red">SECURITY UPDATE:</span>** Replaces OpenSSL version 1.0.1o with version 1.0.1p.
+ 
+ * 3.6beta08:
+ 
+  * **<span class="red">SECURITY UPDATE:</span>** Replaces OpenSSL version 1.0.2c with version 1.0.2d.
+  * Includes additional protection against attacks.
+  * Includes additional logging when installer must be run.
+  * Updates localization.
+  
+ See the [RlsNotes Release Notes] for details.
+
+--------------------
+
 2015-06-20: *Tunnelblick Uninstaller 1.7 is [DownloadsEntry available for download]*.
 
  * Uninstalls even if the Tunnelblick application has been damaged or does not exist (for example, it has been put in the Trash).
