@@ -35,10 +35,10 @@
 "All Users" = "Visi lietotāji";
 
 /* Button */
-"Always load Tap driver" = "Always load Tap driver";
+"Always load Tap driver" = "Vienmēr izmantot Tap draiveri";
 
 /* Button */
-"Always load Tun driver" = "Always load Tun driver";
+"Always load Tun driver" = "Vienmēr izmantot Tun driveri";
 
 /* Button */
 "Always use the plugin" = "Vienmēr izmantot spraudni";
@@ -53,7 +53,7 @@
 "Change Only for This Configuration" = "Izmainīt tikai šajā konfigurācijā";
 
 /* Button */
-"Change for the Selected Configurations" = "Change for the Selected Configurations";
+"Change for the Selected Configurations" = "Mainīt izvēlētām konfigurācijām";
 
 /* Menu item */ /* Button */
 "Check For Updates Now" = "Pārbaudīt atjauninājumus";
@@ -254,13 +254,13 @@
 "Disabled because this setting is being forced" = "Disabled because this setting is being forced";
 
 /* Menu item */
-"Disconnect %@%@" = "Disconnect %@%@";
+"Disconnect %@%@" = "Atvienot %@%@";
 
 /* Menu Item */
-"Duplicate Configuration..." = "Duplicate Configuration…";
+"Duplicate Configuration..." = "Dublēt konfigurāciju...";
 
 /* Menu Item */
-"Edit OpenVPN Configuration File..." = "Edit OpenVPN Configuration File…";
+"Edit OpenVPN Configuration File..." = "Atvērt OpenVPN konfigurācijas failu...";
 
 /* Menu Item */
 "Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File…";
@@ -293,7 +293,7 @@
 "VPN Details..." = "VPN Details…";
 
 /* Checkbox name */
-"Apply to all" = "Apply to all";
+"Apply to all" = "Apstiprināt visam";
 
 /* Checkbox name */
 "Check for updates automatically" = "Automātiski pārbaudīt vai ir atjauninājumi";
@@ -308,13 +308,13 @@
 "Disconnect when computer goes to sleep" = "Disconnect when computer goes to sleep";
 
 /* Checkbox name */
-"Disconnect when user switches out" = "Disconnect when user switches out";
+"Disconnect when user switches out" = "Pārtraukt savienojumu, kad lietotājs atvienojas";
 
 /* Checkbox name */
 "Display connection submenus" = "Display connection submenus";
 
 /* Checkbox name */
-"Display connection timers" = "Display connection timers";
+"Display connection timers" = "Rādīt savienojuma taimerus";
 
 /* Checkbox name */
 "Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
@@ -338,7 +338,7 @@
 "Do not warn about this again for this configuration" = "Do not warn about this again for this configuration";
 
 /* Checkbox name */
-"Do not warn about this again" = "Do not warn about this again";
+"Do not warn about this again" = "Vairāk par šo nebrīdināt";
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Flush DNS cache after connecting or disconnecting";
@@ -347,7 +347,7 @@
 "Inhibit automatic update checking and IP Address checking" = "Inhibit automatic update checking and IP Address checking";
 
 /* Checkbox name */
-"Keep connected" = "Keep connected";
+"Keep connected" = "Turpināt savienojumu";
 
 /* Checkbox name */ /* System profile item */
 "Monitor connection" = "Monitorēt savienojumu";
@@ -365,7 +365,7 @@
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Reconnect when computer wakes from sleep (if connected when computer went to sleep)";
 
 /* Checkbox name */
-"Reconnect when user switches in" = "Reconnect when user switches in";
+"Reconnect when user switches in" = "Pievienoties atpakaļ, kad lietotājs pieslēdzas";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Reset the primary interface after disconnecting";
@@ -407,7 +407,7 @@
 "Set nameserver (alternate 1)" = "Set nameserver (alternate 1)";
 
 /* PopUpButton *//* System profile item */
-"Set nameserver" = "Set nameserver";
+"Set nameserver" = "Uzstādīt nameserveri";
 
 /* Text on disk image */
 "Double-click to begin" = "Double-click to begin";
@@ -428,13 +428,13 @@
 "CONNECTING" = "Savienojas"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "Disconnecting"; // Please translate "Disconnecting"
+"DISCONNECTING" = "Atvienojas"; // Please translate "Disconnecting"
 
 /* Connection status */
-"EXITING" = "Disconnected"; // Please translate "Disconnected"
+"EXITING" = "Atvienojies"; // Please translate "Disconnected"
 
 /* Connection status */
-"GET_CONFIG" = "Getting configuration"; // Please translate ""
+"GET_CONFIG" = "Iegūst konfigurāciju"; // Please translate ""
 
 /* Connection status */
 "PASSWORD_WAIT" = "Waiting for password"; // Please translate "Waiting for password"
@@ -452,13 +452,13 @@
 "SLEEP" = "Waiting for Daemon process"; // Please translate "Waiting for daemon process"
 
 /* Connection status */
-"TCP_CONNECT" = "Making TCP connection"; // Please translate "Making TCP connection"
+"TCP_CONNECT" = "Veido TCP savienojumu"; // Please translate "Making TCP connection"
 
 /* Connection status */
-"UDP_CONNECT" = "Making UDP connection"; // Please translate "Making UDP connection"
+"UDP_CONNECT" = "Veido UDP savienojumu"; // Please translate "Making UDP connection"
 
 /* Connection status */
-"WAIT" = "Waiting for server response"; // Please translate "Waiting for Server Response"
+"WAIT" = "Gaida servera atbildi"; // Please translate "Waiting for Server Response"
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
@@ -497,22 +497,22 @@
 "Add a Configuration" = "Add a Configuration";
 
 /* Window title */
-"Alert sounds" = "Alert sounds";
+"Alert sounds" = "Brīdinājuma skaņa";
 
 /* Window title */
-"Alert" = "Alert";
+"Alert" = "Brīdnājums";
 
 /* Window title */
-"All OpenVPN process were terminated." = "All OpenVPN process were terminated.";
+"All OpenVPN process were terminated." = "Visi OpenVPN procesi pārtraukti.";
 
 /* Window title */
-"All configuration files removed" = "All configuration files removed";
+"All configuration files removed" = "Visi konfigurācijas faili ir noņemti";
 
 /* Window title */
-"Appearance" = "Appearance";
+"Appearance" = "Izskats";
 
 /* Window title */
-"Authentication failed" = "Authentication failed";
+"Authentication failed" = "Autentifikācija neizdevās";
 
 /* Window title */
 "Change for All Selected Configurations?" = "Change for All Selected Configurations?";
@@ -548,19 +548,19 @@
 "File not found" = "File not found";
 
 /* Window title */
-"Info" = "Info";
+"Info" = "Informācija";
 
 /* Window title */
-"Install Configuration For All Users?" = "Install Configuration For All Users?";
+"Install Configuration For All Users?" = "Uzstādīt konfigurāciju visiem lietotājiem? ";
 
 /* Window title */
-"Installation failed" = "Installation failed";
+"Installation failed" = "Uzstādīšana neizdevās";
 
 /* Window title */
-"Installation or Repair Failed" = "Installation or Repair Failed";
+"Installation or Repair Failed" = "Uzstādīšana vai Labošana neveiksmīga";
 
 /* Window title */
-"Installation succeeded" = "Installation succeeded";
+"Installation succeeded" = "Uzstādīšana veismīga";
 
 /* Window title */
 "Log" = "Log";
@@ -617,97 +617,97 @@
 "System Requirements Not Met" = "System Requirements Not Met";
 
 /* Window title */
-"Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
+"Tunnelblick Configuration Problem" = "Tunnelblick konfigurācijas problēma";
 
 /* Window title */
-"Tunnelblick Error" = "Tunnelblick Error";
+"Tunnelblick Error" = "Tunnelblick kļūda";
 
 /* Window title */
-"Tunnelblick is currently running" = "Tunnelblick is currently running";
+"Tunnelblick is currently running" = "Tunnelblick pašreiz jau ir palaists";
 
 /* Window title */
 "Tunnelblick" = "Tunnelblick";
 
 /* Window title */
-"Tunnelblick: Login Required" = "Tunnelblick: Login Required";
+"Tunnelblick: Login Required" = "Tunnelblick: Nepieciešams Lietotājvārds";
 
 /* Window title */
-"Tunnelblick: Passphrase Required" = "Tunnelblick: Passphrase Required";
+"Tunnelblick: Passphrase Required" = "Tunnelblick: Nepieciešama parole";
 
 /* Window title */
-"Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
+"Unable to launch Tunnelblick" = "Nav iespējams palaist Tunnelblick";
 
 /* Window title */
-"Unavailable" = "Unavailable";
+"Unavailable" = "Nepieejams";
 
 /* Window title */
-"Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
+"Use 'down-root' plugin for OpenVPN?" = "Izmantot 'donw-root' spraudni priekš OpenVPN ?";
 
 /* Window title */
-"Utilities" = "Utilities";
+"Utilities" = "Rīki";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "VPN konfigurācijas uzstādīšanas kļūda";
 
 /* Window title */
-"VPN Configuration Installation" = "VPN Configuration Installation";
+"VPN Configuration Installation" = "VPN konfigurācijas uzstādīšana";
 
 /* Window title */
-"VPN Credentials" = "VPN Credentials";
+"VPN Credentials" = "VPN autorizācijas dati";
 
 /* Window title */
-"Warning!" = "Warning!";
+"Warning!" = "Uzmanību!";
 
 /* Window title */
-"Warning" = "Warning";
+"Warning" = "Uzmanību";
 
 /* Window title */
-"Warning: Unknown OpenVPN processes" = "Warning: Unknown OpenVPN processes";
+"Warning: Unknown OpenVPN processes" = "Uzmanību!:Nezināms OpenVPN process";
 
 /* Window title */
 "Welcome to Tunnelblick" = "Welcome to Tunnelblick";
 
 /* Window title */
-"Welcome" = "Welcome";
+"Welcome" = "Laipni lūgts";
 
 /* Window title */
-"While Connected" = "While Connected";
+"While Connected" = "Kamēr ir savienots";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Installed %lu configurations\n\n" = "     • Installed %lu configurations\n\n";
+"     • Installed %lu configurations\n\n" = "Uzstādītas %lu konfigurācijas";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Installed one configuration\n\n" = "     • Installed one configuration\n\n";
+"     • Installed one configuration\n\n" = "Uzstādīta viena konfigurācija";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Replaced %lu configurations\n\n" = "     • Replaced %lu configurations\n\n";
+"     • Replaced %lu configurations\n\n" = "Aizstātas %lu konfigurācijas";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Replaced one configuration\n\n" = "     • Replaced one configuration\n\n";
+"     • Replaced one configuration\n\n" = "Aizstāta viena konfigurācija";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Uninstalled %lu configurations\n\n" = "     • Uninstalled %lu configurations\n\n";
+"     • Uninstalled %lu configurations\n\n" = "Noņemtas %lu konfigurācijas";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Uninstalled one configuration\n\n" = "     • Uninstalled one configuration\n\n";
+"     • Uninstalled one configuration\n\n" = "Noņemta viena konfigurācija";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install %lu configurations\n\n" = "    • Install %lu configurations\n\n";
+"    • Install %lu configurations\n\n" = "Uzstādīt %lu konfigurācijas";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install one configuration\n" = "    • Install one configuration\n";
+"    • Install one configuration\n" = "Uzstādīt vienu konfigurāciju";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Replace %lu configurations\n\n" = "    • Replace %lu configurations\n\n";
+"    • Replace %lu configurations\n\n" = "    Aizstāt %lu konfigurācijas\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Replace one configuration\n" = "    • Replace one configuration\n";
+"    • Replace one configuration\n" = "    Aizstā viena konfigurācija\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall %lu configurations\n\n" = "    • Uninstall %lu configurations\n\n";
+"    • Uninstall %lu configurations\n\n" = "    Noņemt %lu konfigurācijas\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall one configuration\n" = "    • Uninstall one configuration\n";
+"    • Uninstall one configuration\n" = "    Noņemt viena konfigurāciju\n";
 
 /* Window text */
 "  • Be installed in /Applications as Tunnelblick\n" = "  • Be installed in /Applications as Tunnelblick\n";
@@ -1919,13 +1919,13 @@
 "Tunnelblick icon" = "Tunnelblick icon";
 
 /* Credit description */
-"Turkish localization" = "Turkish localization";
+"Turkish localization" = "Turku lokalizācija";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue and UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Ukrainian localization";
+"Ukrainian localization" = "Ukraiņu lokalizācija";
 
 /* Credit description */
 "Up and Down scripts" = "Up and Down scripts";
@@ -1934,91 +1934,91 @@
 "Xcode help and OpenSSL integration" = "Xcode help and OpenSSL integration";
 
 /* Button VPNService */
-"Accept" = "Accept";
+"Accept" = "Piekrist";
 
 /* Button VPNService */
-"Create a Free Account" = "Create a Free Account";
+"Create a Free Account" = "Izveidot bezmaksas kontu";
 
 /* Button VPNService */
-"Get Different Image" = "Get Different Image";
+"Get Different Image" = "Iegūt savādāku attēlu";
 
 /* Button VPNService *//* Window title VPNService */
-"Login" = "Login";
+"Login" = "Pieslēgties";
 
 /* Button VPNService */
-"Next" = "Next";
+"Next" = "Tālāk";
 
 /* Button VPNService */
-"Reject" = "Reject";
+"Reject" = "Noraidīt";
 
 /* Menu item VPNService */
-"Register for Tunnelblick..." = "Register for Tunnelblick…";
+"Register for Tunnelblick..." = "Reģistrēties Tunnelblick…";
 
 /* Window title  VPNService */
-"Cannot obtain image" = "Cannot obtain image";
+"Cannot obtain image" = "Nevar iegūt attēlu";
 
 /* Window title  VPNService */
-"Cannot register" = "Cannot register";
+"Cannot register" = "Nevar reģsitrēties";
 
 /* Window title  VPNService */
-"Email not verified" = "Email not verified";
+"Email not verified" = "E-pasts nav apstiprināts";
 
 /* Window title  VPNService */
 "Entries required" = "Entries required";
 
 /* Window title  VPNService */
-"Failed to load Terms of Service" = "Failed to load Terms of Service";
+"Failed to load Terms of Service" = "Nav iespējams iegūt Lietošanas noteikumus";
 
 /* Window title VPNService */
-"No configuration available" = "No configuration available";
+"No configuration available" = "Nav pieejama konfigurācija";
 
 /* Window title  VPNService */
-"Password entries must match" = "Password entries must match";
+"Password entries must match" = "Abām parolēm ir jābūt vienādām";
 
 /* Window title  VPNService */
-"Prove You are Human" = "Prove You are Human";
+"Prove You are Human" = "Pierādi ka esi cilvēks";
 
 /* Window title  VPNService */
-"Register with Tunnelblick" = "Register with Tunnelblick";
+"Register with Tunnelblick" = "Reģistrēties ar Tunnelblick";
 
 /* Window title  VPNService */
-"Sorry" = "Sorry";
+"Sorry" = "Piedodiet";
 
 /* Window title  VPNService */
-"Terms of Service" = "Terms of Service";
+"Terms of Service" = "Lietošanas noteikumi";
 
 /* Window title  VPNService */
-"Tunnelblick - Free VPN" = "Tunnelblick - Free VPN";
+"Tunnelblick - Free VPN" = "Tunnelblick - bezmaksas VPN";
 
 /* Window title  VPNService */
-"Welcome!" = "Welcome!";
+"Welcome!" = "Sveicināti!";
 
 /* Window title  VPNService */
-"You Must Type the Characters" = "You Must Type the Characters";
+"You Must Type the Characters" = "Jums jāievada ir simboli";
 
 /* Window text VPNService */
-"Confirm password:" = "Confirm password:";
+"Confirm password:" = "Apstipriniet paroli:";
 
 /* Window text VPNService */
-"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'.";
+"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Apsveicam! Jūsu konts ir izveidots. Drīzumā jūs saņemsiet epastu no Tunneblick. Sekojiet instrukcijām epastā, lai apstiprinātu savu epasta adresi";
 
 /* Window text VPNService */
 "Could not check registration" = "Could not check registration";
 
 /* Window text VPNService */
-"Could not get a captcha image" = "Could not get a captcha image";
+"Could not get a captcha image" = "Nevar iegūt captcha attēlu";
 
 /* Window text VPNService */
-"Could not get a session token" = "Could not get a session token";
+"Could not get a session token" = "Nav iespējams iegūt sesijas token";
 
 /* Window text VPNService */
-"Email address %@ is already registered for an account" = "Email address %@ is already registered for an account";
+"Email address %@ is already registered for an account" = "Epasta adrese %@ jau ir reģistrēta";
 
 /* Window text VPNService */
-"Email address:" = "Email address:";
+"Email address:" = "E-pasta adrese:";
 
 /* Window text VPNService */
-"Invalid URL: %@" = "Invalid URL: %@";
+"Invalid URL: %@" = "Nepareiza adrese: %@";
 
 /* Window text VPNService */
 "No valid session token." = "No valid session token.";
@@ -2069,29 +2069,28 @@
 "Type the characters above:" = "Type the characters above:";
 
 /* Window text VPNService */
-"Unable to check account status:\n     %@" = "Unable to check account status:\n     %@";
+"Unable to check account status:\n     %@" = "Nav iespējams noteikt konta statusu:%@";
 
 /* Window text VPNService */
-"Unable to check registration for empty email address" = "Unable to check registration for empty email address";
+"Unable to check registration for empty email address" = "NAv iespējams pārbaudīt reģistrāciju nenorādot e-pasta adresi";
 
 /* Window text VPNService */
-"Unable to connect to server" = "Unable to connect to server";
+"Unable to connect to server" = "Nevar pieslēgties serverim";
 
 /* Window text VPNService */
-"You have already registered but not yet confirmed your email address." = "You have already registered but not yet confirmed your email address.";
+"You have already registered but not yet confirmed your email address." = "Jūs jau esat reģistrējies, bet neesat apstiprinājis epasta adresi";
 
 /* Window text VPNService */
-"You have already registered." = "You have already registered.";
+"You have already registered." = "Jūs jau esat reģistrējies";
 
 /* Window text VPNService */
-"You must enter an email address and password to login." = "You must enter an email address and password to login.";
+"You must enter an email address and password to login." = "Jums jāievada e-pasts un parole, lai pieslēgtos.";
 
 /* Window text VPNService */
-"You must enter an email address, password, and password confirmation to proceed." = "You must enter an email address, password, and password confirmation to proceed.";
+"You must enter an email address, password, and password confirmation to proceed." = "Lai turpinātu, Jums jāievada e-pasts, parole un paroles apstiprinājums.";
 
 /* Window text VPNService */
-"You must type the characters in the image to proceed." = "You must type the characters in the image to proceed.";
+"You must type the characters in the image to proceed." = "Ievadiet attēlā redzamos simbolus, lai turpinātu";
 
 /* Window text VPNService */
-"Your account status could not be verified:\n     %@." = "Your account status could not be verified:\n     %@.";
-
+"Your account status could not be verified:\n     %@." = "Jūsu konta statusu nav iespējams pārbaudīt:%@";

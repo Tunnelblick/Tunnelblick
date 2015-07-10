@@ -1874,7 +1874,7 @@
 "LEAD_TRANSLATORS" = "Aming Lau，Pomin Wu 及 Andrew Ying";
 
 /* Credit description */
-"Latvian localization" = "Latvian localization";
+"Latvian localization" = "拉脫維亞語翻譯";
 
 /* Credit description */
 "Localization code tweaks" = "翻譯程式碼調整";
@@ -2094,4 +2094,3 @@
 
 /* Window text VPNService */
 "Your account status could not be verified:\n     %@." = "無法驗證你的帳戶狀態：\n     %@。";
-
