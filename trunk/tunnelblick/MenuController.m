@@ -6061,10 +6061,16 @@ unsigned needToRunInstaller(BOOL inApplications)
     unsigned flags = 0;
     
     if (  needToChangeOwnershipAndOrPermissions(inApplications)  ) flags = flags | INSTALLER_SECURE_APP;
-	if (  ! tunnelblickdIsLoaded()                               ) flags = flags | INSTALLER_SECURE_APP;
     if (  needToRepairPackages()                                 ) flags = flags | INSTALLER_SECURE_TBLKS;
-    if (  needToConvertNonTblks()                                ) flags = flags | INSTALLER_CONVERT_NON_TBLKS;
     if (  needToMoveLibraryOpenVPN()                             ) flags = flags | INSTALLER_MOVE_LIBRARY_OPENVPN;
+	if (  ! tunnelblickdIsLoaded()  ) {
+		flags = flags | INSTALLER_SECURE_APP;
+		NSLog(@"tunnelblickd is not loaded");
+	}
+    if (  needToConvertNonTblks()  ) {
+		flags = flags | INSTALLER_CONVERT_NON_TBLKS;
+		NSLog(@"Need to convert non-.tblk configurations");
+	}
     
     return flags;
 }
@@ -6405,6 +6411,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     if (  [gFileMgr fileExistsAtPath: deployPath isDirectory: &isDir]
         && isDir  ) {
         if (  needToSecureFolderAtPath(deployPath, TRUE)  ) {
+			NSLog(@"Need to secure the 'Deploy' folder");
             return YES;
         }
     }
@@ -6486,7 +6493,9 @@ BOOL needToRepairPackages(void)
             if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
                 && isDir
                 && [ext isEqualToString: @"tblk"]  ) {
-                if (  checkOwnedByRootWheel([fullPath stringByAppendingPathComponent: @"Contents"])  ) {
+				NSString * contentsPath = [fullPath stringByAppendingPathComponent: @"Contents"];
+                if (  checkOwnedByRootWheel(contentsPath)  ) {
+					NSLog(@"%@ is owned by root:wheel; needs to be changed to owned by user:80", contentsPath);
                     return YES;
                 }
 				[dirEnum skipDescendents];
@@ -6501,6 +6510,9 @@ BOOL needToConvertNonTblks(void)
 {
 	if (  gUserWasAskedAboutConvertNonTblks  ) {		// Have already asked
 		if (  anyNonTblkConfigs()  ) {
+            NSLog(@"Non-.tblk configurations are present and need to be converted (will %@convert them)", (  gOkToConvertNonTblks
+                                                                                                           ? @""
+                                                                                                           : @"not "));
 			return gOkToConvertNonTblks;
 		}
 		
@@ -6510,6 +6522,7 @@ BOOL needToConvertNonTblks(void)
 	}
 	
 	if (  warnAboutNonTblks()  ) {	// Ask if necessary
+        NSLog(@"Non-.tblk configurations are present and need to be converted");
 		return YES;
 	}
 	
