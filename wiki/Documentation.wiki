@@ -1,56 +1,7 @@
-#summary Entry page for the Documentation
-#sidebar cSb
-= Documentation =
-  ALL ARTICLES are available from the side navigation panel on each page.<br><br>
---------------------
+*The official Tunnelblick website has moved to*
 
-*[DocumentationForTunnelblick_3_3 Tunnelblick 3.3 Highlights]*
+<a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
---------------------
+The source code repository and Issues are still hosted on this Google Code site. They will be moved sometime soon.
 
-*[DocumentationForTunnelblick_3_2 Tunnelblick 3.2 Highlights]*
-  Popular articles:
-    [zQuick Quick Start Guide]<br><br>
-    [cInstall Installing Tunnelblick]<br>
-    [zUsing Using Tunnelblick]<br>
-    [cConfigT Setting up Configurations]<br>
-    [RlsNotes Release Notes]<br>
-    [cFAQ FAQ]<br>
-    [cGettingVPNService Getting VPN Service]<br>
-
---------------------
-
-*[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 Highlights]*
-  Popular articles:
-    [wQuick Quick Start Guide]<br><br>
-    [cInstall Installing Tunnelblick]<br>
-    [wUsing Using Tunnelblick]<br>
-    [cConfigT Setting up Configurations]<br>
-    [RlsNotes Release Notes]<br>
-    [cFAQ FAQ]<br>
-    [cGettingVPNService Getting VPN Service]<br>
-
---------------------
-
-*[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Highlights]*
-  Popular articles:
-    [UsingTunnelblick Installing and Using Tunnelblick]<br>
-    [GettingVPNService Getting VPN Service]<br>
-    [cFAQ FAQ]<br>
-    [QuickStartGuide Quick Start Guide]<br>
-    [cKnown Known Issues]
-
---------------------
-
-*To determine which version of Tunnelblick you are using:*
-  # Find Tunnelblick.app (it is usually in the /Applications folder).
-  # Click on Tunnelblick.app to select it
-  # Click "File", then "Get Info". A window will appear with (among other things) version information.
-  
-  If there is no version information, it is Tunnelblick version 3.0b9 or earlier.
-
-*[https://code.google.com/p/tunnelblick/w/list All Documentation (unorganized list)]*
-
-------------------
-
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
