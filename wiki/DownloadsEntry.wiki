@@ -2,7 +2,7 @@
 
 <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-For Tunnelblick documentation, please see <a href="https://tunnelblick.net/documents.html">Documents</a> on the <a href="https://tunnelblick.net">new website</a>.
+For Tunnelblick downloads, please see <a href="https://tunnelblick.net/downloads.html">Downloads</a> on the <a href="https://tunnelblick.net">new website</a>.
 
 The source code repository and Issues are still hosted on this Google Code site. They will be moved sometime soon.
 
