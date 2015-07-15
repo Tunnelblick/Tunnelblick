@@ -1,28 +1,14 @@
-#summary Tunnelblick and the XARA Vulnerabilities
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cXARA.html">https://tunnelblick.net/cXARA.html</a>.*
 
-==June 2015 OS X and Application Vulnerabilities==
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-*In June 2015, details of four vulnerabilities in OS X and iOS and many applications were released in  [http://arxiv.org/abs/1505.06836 Unauthorized Cross-App Resource Access on MAC OS X and iOS].*
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-*<font color="red">Tunnelblick is not vulnerable to attacks based on any of these vulnerabilities.</font>*
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-==The "password stealing" (Keychain) vulnerability==
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
-This vulnerability is caused by applications that modify items stored in the Keychain without checking the access controls on the item. Tunnelblick never modifies an item stored in the Keychain and is thus not vulnerable. To modify an item stored in the Keychain, Tunnelblick deletes the old item and creates a new one with the proper access controls. If an attacker creates a new item after Tunnelblick deletes the old item but before creating the new one (attempting to exploit a possible race condition), Tunnelblick will be unable to create the new item and will report the failure, and the new item Tunnelblick was attempting to create will not be created.
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
-==The "IPC interception" vulnerability==
-
-This vulnerability is caused by applications that communicate sensitive information using certain interprocess communications ("IPC") mechanisms built into OS X. Although Tunnelblick does communicate sensitive information (usernames, passwords, and passphrases) using IPC mechanisms, it uses different mechanisms than those found to be vulnerable.
-
-==The "container cracking" vulnerability==
-
-This vulnerability is caused by applications that rely on certain features of the "container" facility built into OS X. Tunnelblick does not use this facility and is thus not vulnerable.
-
-==The "Scheme Hijacking" vulnerability==
-
-This vulnerability is caused by applications that rely on the "scheme" facility built into OS X. Tunnelblick does not use this facility and is thus not vulnerable.
-
-
-------------------
-
-===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

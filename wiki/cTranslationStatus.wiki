@@ -1,23 +1,14 @@
-#summary Current status of Tunnelblick Translations
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cTranslationStatus.html">https://tunnelblick.net/cTranslationStatus.html</a>.*
 
-==Translation Status==
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-Tunnelblick is developed in English and is currently being translated into 28 other languages for Tunnelblick 3.6.
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-<font color="green">*complete*</font> / <font color="red">*incomplete* - help is needed</font> [cLocalizeTranslate (Details)]
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-|| <font color="red">*Arabic*</font>                 || <font color="green">*Danish*</font>  ||  <font color="green">*Greek*</font>     ||  <font color="green">*Norwegian (Bokmål)*</font>     ||  <font color="green">*Spanish*</font>   ||
-|| <font color="green">*Bulgarian*</font>            || <font color="green">*Dutch*</font>   ||  <font color="green">*Hungarian*</font> ||  <font color="green">*Polish*</font>                 ||  <font color="green">*Swedish*</font>   ||
-|| <font color="green">*Catalan*</font>              || <font color="red">*Estonian*</font>  ||  <font color="green">*Italian*</font>   ||  <font color="green">*Portuguese*</font>             ||  <font color="green">*Turkish*</font>     ||
-|| <font color="green">*Chinese (Simplified)*</font> || <font color="green">*Finnish*</font> ||  <font color="red">*Japanese*</font>    ||  <font color="green">*Portuguese (Brazilian)*</font> ||  <font color="green">*Ukrainian*</font> ||
-|| <font color="green">*Chinese (Traditional)*</font>|| <font color="green">*French*</font>  ||  <font color="green">*Korean*</font>    ||  <font color="green">*Russian*</font>                ||        ||
-|| <font color="green">*Czech*</font>                || <font color="green">*German*</font>  ||  <font color="red">*Latvian*</font>     ||  <font color="green">*Slovak*</font>                 ||        ||
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
-*Please contact project owner Jon via email at jkbullard at gmail to volunteer to work on translating Tunnelblick*.
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
-_Note: Help is not currently being translated, pending a rewrite of the English version._
-
-------------------
-
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

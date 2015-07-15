@@ -1,43 +1,14 @@
-#summary Auto-Install Configurations
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cAutoInstall.html">https://tunnelblick.net/cAutoInstall.html</a>.*
 
-==Auto-Install Configurations==
-You can distribute Tunnelblick with configurations that will be installed automatically when Tunnelblick itself is installed. The alternate does not require rebranding and uses a standard, digitally-signed Tunnelblick.app, however, it cannot update configurations the way that a [cCusDeployed Deployed] version can.
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-When Tunnelblick installs itself, it looks for configurations to install in the "auto-install" and ".auto-install" folders that are in the same location as Tunnelblick.app.
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
- # Create a Tunnelblick VPN Configuration (".tblk") for each configuration that you wish to distribute. As usual, the name of the .tblk will be what is displayed to the user as the name of the configuration. (You may create a folder structure that contains some or all of the configurations in subfolders.)
- # Create a folder, named "YOURNAMEConfigurations", and move all the Tunnelblick VPN Configurations into it. (Move the entire folder structure of configurations if you created one.)
- # Rename the folder to "YOURNAMEConfigurations.tblk".
- # Create a second folder, named "auto-install" and move "YOURNAMEConfigurations.tblk" into it. (Name the folder ".auto-install" if you want to hide it from your users.)
- # Create a third folder, named "YOURNAME", and move "auto-install" or ".auto-install" into it.
- # Download a Tunnelblick.dmg from the Tunnelblick Downloads page at https://code.google.com/p/tunnelblick/wiki/DownloadsEntry. Version 3.3beta52 or higher is recommended (versions below it may have security vulnerabilities).
- # Double-click the .dmg to open it, and drag the Tunnelblick icon into the third folder ("YOURNAME") to copy Tunnelblick.app (the Tunnelblick application) into that folder.
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-The "YOURNAME" folder now contains the following:
- Tunnelblick.app
- auto-install
-  (your configurations, perhaps in subfolders)
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
-Finally, create a .zip of the "YOURNAME" folder by control-clicking the "RiseupYOURNAME folder and clicking on "Compress YOURNAME". A "YOURNAME.zip" file will be created.
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
-That "YOURNAME.zip" file is what users should download.
-
-(Or you can create a .dmg that contains the contents of the "YOURNAME" folder. That's more complicated and not explained here.)
-
---------------------
-
-USER INSTRUCTIONS
-
-After downloading "YOURNAME.zip", users may need to double-click the .zip file to expand it (their OS or browser may do that automatically).
-
-A Finder window will appear with two items: Tunnelblick.app and a folder named "autoinstall". To start the process, they need only double-click Tunnelblick.app.
-
-After finishing the installation, they may discard the "YOURNAME" folder and/or the "YOURNAME.zip" file if they wish.
-
-
-
-
-------------------
-
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

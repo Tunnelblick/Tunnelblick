@@ -1,41 +1,14 @@
-#summary Documentation for Tunnelblick 3.4
-#sidebar cSb
-
-==Summary of Changes from Version 3.3 to Version 3.4==
-
- For details of the changes from Tunnelblick version 3.3 to version 3.4, see the [RlsNotes Release Notes].
-
-==Better Security==
- * Fixes several security-related bugs.
- * Includes the latest stable versions of OpenVPN, LZO, the OpenSSL library, and Tuntap.
- * Uses https: for updates and IP address checks (still uses digital signatures for additional security).
- * Does additional checks to ensure the program's integrity.
-
-==Better Usability==
- * Enhances installation of configurations with improved error detection and correction and automatic conversion of OpenVPN configurations.
- * On OS X 10.6 ('Snow Leopard') and higher, allows the user to select multiple configurations in the VPN Details… window and then change settings for all of the selected configurations.
- * Includes a new status icon (the icon in the menu bar) more in keeping with recent OS X aesthetics.
- * Changes many warning dialogs so they do not block other Tunnelblick operations.
- 
-==More Capabilities==
- * On OS X 10.6.8 and higher when using OpenVPN 2.3.3 and higher in a TUN configuration, Tunnelblick no longer automatically loads the tunnelblick tun kernel extension (kext). In this situation, OpenVPN will use the UTUN device driver built into OS X.
- * Runs on OS X 10.4 through 10.10 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", "Mavericks", and "Yosemite").
-
-==Better Reliability==
-   * Fixes many (most? all?) problems. Please report problems to the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group].
-      
-==Worse Localization==
-   * Sorry, but 3.4.0 does not have complete localization.
-   * To help with localization, please email jkbullard at gmail for instructions.
+==The official Tunnelblick website has moved.==
     
---------------------
-<table><tr><td align="center">
-  <a href="https://code.google.com/p/tunnelblick/wiki/DownloadsEntry#Tunnelblick_Stable_Release">
-    <img src="http://tunnelblick.googlecode.com/files/green-arrow-120x120.png" /><br />Download
-  </a>
-</td></tr></table>
+*The page you requested has moved to <a href="https://tunnelblick.net/cDocumentationForTunnelblick_3_4.html">https://tunnelblick.net/cDocumentationForTunnelblick_3_4.html</a>.*
 
-  
-------------------
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
+
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
+
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
+
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
+

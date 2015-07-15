@@ -1,113 +1,14 @@
-#summary Getting VPN Service
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cGettingVPNService.html">https://tunnelblick.net/cGettingVPNService.html</a>.*
 
-==Getting VPN Service==
-To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end.
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-<font color="red">*The Tunnelblick project does not provide VPN service*
- -- we only create the free software that many VPN service providers recommend or provide to their clients.</font>
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-There are several ways to get access to a VPN server:
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-  * Your employer may provide a VPN server so you can work from home or the road securely.
-  * You can set up your own VPN server at home, and use it to access your home network and the Internet securely when at a remote location. The VPN server could be a program running on a Mac, Windows, or Linux computer, or on your home router.
-  * You can get (free or for a fee) access to a VPN by using a VPN service provider.
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
-==Employer-provided VPN Servers==
-Your employer should supply you with an OpenVPN configuration file (.ovpn or .conf file), along with the appropriate certificate and key files, or with a [cConfigT Tunnelblick VPN Configuration] (.tblk, which includes the certificate and key files within it).
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
-Follow the instructions from your employer or in [cInstall Installing Tunnelblick] to install Tunnelblick and configurations.
-
-==Set Up Your Own VPN Server==
-This is more complicated. It involves creating your own OpenVPN configuration file (or modifying the sample file provided by Tunnelblick) and creating your own certificate and key files for encryption. (Tunnelblick versions 3.3 and higher include 'EasyRSA' to help you with creating certificate and key files.) There are tutorials about doing this -- try searching the Internet for "set up openvpn server".
-
-If you want to set up a computer to act solely as a router/bridge/firewall, consider [http://www.zeroshell.net/eng/ ZeroShell]. Untangle has a [http://www.untangle.com/store/openvpn.html free VPN component].
-
-If you have a router running DD-WRT, you can use [http://www.dd-wrt.com/wiki/index.php/OpenVPN#Enable_OpenVPN_in_the_Router OpenVPN on DD-RT]. There is a [http://www.dd-wrt.com/wiki/index.php/VPN_(the_easy_way)_v24%2B tutorial].
-
-==VPN Service Providers==
-Another way to get access to a VPN server is to use a VPN service provider, an organization that makes its VPN servers available (free or for a fee). Some provide you with a customized, and possibly renamed, version of Tunnelblick.
-
-<table border="1" width="100%"><tr><td>
-
-<table border="0" width="100%">
-
-<tr><td colspan=4>*The following VPN service providers have donated to Tunnelblick:*</td></tr>
-<tr><td> </td><td> </td><td> </td><td> </td></tr>
-<tr><td> </td><td> </td><td> </td><td> </td></tr>
-
-<tr><td>Provider</td><td align="right">Total Donations</td><td align="right">2015</td><td align="right">2010-2014</td></tr>
-<tr><td> </td><td> </td><td> </td><td> </td></tr>
-<tr><td> </td><td> </td><td> </td><td> </td></tr>
-
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.kovurt.com Kovurt]*</td>                         <td align="right">$1250.00</td>  <td align="right"> $400.00</td>       <td align="right">$850.00</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://my-private-network.co.uk My Private Network]*</td>   <td align="right">$1000.00</td> <td align="right"> </td> <td align="right">$1000.00</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://btguard.com BTGuard]*</td>                            <td align="right">$770.00</td>        <td align="right"> </td>       <td align="right">$770.00</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*</td>   <td align="right">$300.00</td>  <td align="right"> </td>       <td align="right">$300.00</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.ibvpn.com ibVPN]*</td>                            <td align="right">$187.00</td>    <td align="right"> </td>       <td align="right">$187.00</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.perfect-privacy.com Perfect Privacy]*</td>       <td align="right">$150.00</td>   <td align="right"> </td>       <td align="right">$150.00</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.blackvpn.com blackVPN]*</td>                     <td align="right">$100.00</td>  <td align="right"> </td>       <td align="right">$100.00</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.hideman.net Hideman.net]*</td>                   <td align="right">$100.00</td>  <td align="right"> </td>       <td align="right">$100.00</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.trilightzone.org/services.html TrilightZone]*</td><td align="right">$100.00</td>  <td align="right"> </td>       <td align="right">$100.00</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://provpnaccounts.com ProVPNAccounts]*</td>              <td align="right">$50.00</td>   <td align="right"> </td>       <td align="right">$50.00</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://proxyserver.com ProxyServer.com]*</td>              <td align="right">$50.00</td>   <td align="right">$50.00</td>       <td align="right"> </td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.missmysoaps.co.uk MissMySoaps]*</td>              <td align="right">$20.00</td>   <td align="right"> </td>       <td align="right">$20.00</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.banana-vpn.com Banana VPN]*</td>                  <td align="right">$19.85</td>    <td align="right"> </td>       <td align="right">$19.85</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.roadwarriorvpn.com Road Warrior VPN]*</td>        <td align="right">$10.00</td>    <td align="right"> </td>       <td align="right">$10.00</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://vpnv6.com VPNv6]*</td>                                <td align="right">$5.00</td>    <td align="right"> </td>       <td align="right">$5.00</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*</td>                                <td align="right">$3.00</td>    <td align="right"> </td>       <td align="right">$3.00</td></tr>
-</table>
-
-</td></tr></table>
-
-<table border="1" width="100%"><tr><td>
-
-<table border="0"><tr><td>
-<tr><td>*The following VPN service providers recommend or use Tunnelblick exclusively for OS X:*</td></tr>
-<tr><td> </td></tr>
-<tr><td> </td></tr>
-
-
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.acevpn.com Ace VPN]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]* *<font color="red">(Free)</font>*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.bucklor.com/ Bucklor]* *<font color="red">(Free)</font>*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://cloudnymous.com cloudnymous]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.comodo.com/home/internet-security/wifi-security.php Comodo TrustConnect]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.doublevpn.com/ DoubleVPN]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.frootvpn.com FrootVPN]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.frozenway.com FrozenWay]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.goldenfrog.com/vyprvpn Golden Frog Vypr VPN]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.hostvpn.com/ HostVPN]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.ivpn.net iVPN]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.leafyvpn.net Leafy VPN]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.my-expat-network.co.uk My Expat Network]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.personalvpn.biz Personal VPN Service]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.privateinternetaccess.com Private Internet Access]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://proxpn.com ProXPN]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://info.psmail.net/noah PSMail]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.raptorvpn.com RaptorVPN]* *<font color="red">(Free)</font>*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.shellfire.net/vpn ShellFireVPN]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.slickvpn.com Slick VPN]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://switchvpn.com SwitchVPN.com]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://thesafety.us TheSafety.US]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.turnkeyvpn.com TurnKeyVPN]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.versavpn.com VersaVPN]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://vpnfacile.fr VPNFacile]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.vpngate.net/en VPN Gate]* *<font color="red">(Free)</font>*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.vpnmaster.com VPNMaster]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=https://www.vpnsecure.me VPN.S]*</td></tr>
-<tr><td>*[http://www.tunnelblick.net/to.php?to=http://www.vpnservice.ru VPNService.ru]*</td></tr>
-
-</td></tr></table>
-
-</td></tr></table>
-
-
-If you are a VPN service provider that has made a donation or recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [https://code.google.com/u/jkbullard/ Jon] to be added this list.
-
-
-Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). This list is offered solely for the convenience of those wishing to use Tunnelblick.
-
-------------------
-
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===

@@ -1,28 +1,14 @@
-#summary Getting Help
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/support.html">https://tunnelblick.net/support.html</a>.*
 
-===Getting Help===
-*There are three primary resources for help with Tunnelblick:*<br />
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
- * *Your VPN service provider is the best place to go if your VPN was set up by someone else*.
-  * Your VPN service provider is the organization which gave you your configuration files, and perhaps a username and password, and to which you are probably paying a fee for VPN service.
-  * Tunnelblick is just the free software that many VPN service providers recommend or supply to their customers. We do not provide VPN service, just software.
-  * For a list of Mac-friendly VPN service providers, see [cGettingVPNService Getting VPN Service].
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
- * *[Documentation Tunnelblick documentation] is the best place to go if you set up your own VPN*.
-  * This is the place to find both general information about Tunnelblick and specific reference material about how to set up Tunnelblick configurations.
-  * This is is *_not_* the place for information about *OpenVPN* or *OpenVPN configurations*.
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
- * *OpenVPN documentation and support:*
-<table width="100%">
-<tr><td width="20%"></td><td>[https://community.openvpn.net/openvpn/wiki/FAQ OpenVPN FAQ]</td></tr>
-<tr><td width="20%"></td><td>[http://openvpn.net/index.php/open-source/documentation/howto.html OpenVPN HOWTO]</td></tr>
-<tr><td width="20%"></td><td>[https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage OpenVPN 2.3 Man Page]</td></tr>
-<tr><td width="20%"></td><td>[http://openvpn.net/index.php/open-source/documentation.html OpenVPN Documentation]</td></tr>
-<tr><td width="20%"></td><td>[https://forums.openvpn.net/ OpenVPN Users Forum]</td></tr>
-<tr><td width="20%"></td><td>[https://lists.sourceforge.net/lists/listinfo/openvpn-users OpenVPN Users Mailing List]</td></tr>
-</table>
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
- * *The Tunnelblick Discussion Group is the best place to ask and answer questions about Tunnelblick --- NOT questions about OpenVPN*.
-  * *<font color="red">>>>Please read [cBeforeYouPost Before You Post] before posting or replying.</font>*
-  * Searching the [https://groups.google.com/forum/#!forum/tunnelblick-discuss discussion group] is often the fastest way to find the solution to a problem -- someone else may have already solved it!
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
+

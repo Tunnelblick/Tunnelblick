@@ -1,44 +1,14 @@
-#summary Documentation for Tunnelblick 3.1
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cDocumentationForTunnelblick_3_1.html">https://tunnelblick.net/cDocumentationForTunnelblick_3_1.html</a>.*
 
---------------------
-<font size="3">*[DownloadsEntry Download Tunnelblick]*</font>
---------------------
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-This is a summary of major changes from Tunnelblick version 3.0 to version 3.1. For more details, see [cThreeZeroToThreeOneChanges Changes from Version 3.0 to Version 3.1]. For changes from other versions to Tunnelblick 3.1, see the [RlsNotes Tunnelblick Release Notes].
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-* Better Security
- * Includes the latest stable version of OpenVPN (OpenVPN 2.1.4)
- * Imbeds the latest stable version of the OpenSLL library (OpenSSL 1.0.0c), which contains fixes for several security vulnerabilities
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-* Better Usability
- * Streamlined installation
- * Improved "wizard" guides the user through installation of new configurations
- * Documentation reorganized and expanded
- * A single, system-wide shortcut key displays the Tunnelblick menu
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
-* More Capabilities
- * Configurations may be set to start when the computer starts
- * Configurations can be shared with all users of a computer
- * Additional ciphers and hashes are supported
- * Displays large numbers of configurations more clearly
- * Configuration files, keys and certificates may be packaged together; the package will be installed automatically when double-clicked.
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
-* Better Flexibility
- * Tun and tap kexts are loaded dynamically
- * Multiple "Set nameserver" choices offer different handling of DNS settings
- * Pre-up and post-down scripts enable easy manipulation of tun/tap devices
- * Additional menu commands may be added
- * Scripts may be run when Tunnelblick is launched or a connection is attempted
-
-* Better Reliability
- * DNS caches are now flushed after a connection is made and after it is disconnected
- * DHCP renewals do not restart the connection
-
---------------------
-<font size="3">*[DownloadsEntry Download Tunnelblick]*</font>
---------------------
-
-------------------
-
-===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

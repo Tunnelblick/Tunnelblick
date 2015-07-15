@@ -1,38 +1,14 @@
-#summary Documentation for Tunnelblick 3.3
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cDocumentationForTunnelblick_3_3.html">https://tunnelblick.net/cDocumentationForTunnelblick_3_3.html</a>.*
 
-==Summary of Changes from Version 3.2 to Version 3.3==
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
- * For more details of the changes from Tunnelblick version 3.2 to version 3.3, see [cThreeTwoToThreeThreeChanges Changes from Version 3.2 to Version 3.3].
- * For changes from other versions to Tunnelblick 3.3, see the [RlsNotes#Version_3.3 Tunnelblick 3.3 Release Notes].
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-==Better Security==
- * Includes the latest stable versions of OpenVPN, LZO, the OpenSSL library, and Tuntap.
- * Does additional checks to ensure the program's integrity.
- * Includes additional protection against attacks.
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-==Better Usability==
- * Tunnelblick configurations in folders can be hidden or exposed by clicking on disclosure triangles.
- * Enhances installation of Tunnelblick VPN Configurations with improved error detection and correction.
- * Can "speak" that a configuration has been connected or disconnected.
- * Complete Finnish and Slovak localization has been added to the 17 languages available in 3.2.
- 
-==More Capabilities==
- * Runs on OS X 10.4 through 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "Mountain Lion").
- * Can check that the apparent public IP address of the computer changed after connecting to a VPN.
- * Can force all traffic through the VPN.
- * Can run easy-rsa in Terminal with one click.
- * Accepts multiple 'dhcp-option DOMAIN-SEARCH `<domain>`' options.
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
-==Better Reliability==
-   * Fixes a problem that sometimes caused Tunnelblick installations to fail.
-   * Fixes problems that caused incorrect sorting and indenting of configurations in submenus.
-   * Fixes problems with the log display if the display gets very large.
-   * And many more… (See [cThreeTwoToThreeThreeChanges Changes from Version 3.2 to Version 3.3] for details.)
---------------------
-<font size="3">*[DownloadsEntry Download Tunnelblick]*</font>
---------------------
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
-------------------
-
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

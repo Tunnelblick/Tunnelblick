@@ -1,18 +1,14 @@
-#summary Welcome
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cWelcome.html">https://tunnelblick.net/cWelcome.html</a>.*
 
-==Welcome to Tunnelblick==
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-If you're new to Tunnelblick, you might want to start with the "Getting Started" section:
-   * *[cWhatIs What is Tunnelblick?]* - you do need to know this!
-   * *[cWhatElse What else you need]* - the program, a VPN server/service, a configuration, and administrator access.
-   * *[cGettingVPNService Getting VPN Service]* - your company, your own, or a service provider.
-   * *[zQuick Quick start guide (3.2)]* *[wQuick (3.1)]* *[QuickStartGuide (3.0)]* - a quick, non-illustrated guide covering installation, configuration, and use.
-   * *[cHowHelp How you can help]* - Tunnelblick is free -- here's how you can help "pay" for it.
-   * *[cFAQ FAQ] - Frequently Asked Questions (Answered!)
-   
-Good luck!
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-------------------
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
+
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
+

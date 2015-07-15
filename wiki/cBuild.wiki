@@ -1,12 +1,14 @@
-#summary How to build Tunnelblick from the source code
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cBuild.html">https://tunnelblick.net/cBuild.html</a>.*
 
-*HOW TO BUILD TUNNELBLICK FROM THE SOURCE CODE*
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-<wiki:toc max_depth="2" />
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-*<font color="red">The instructions for building Tunnelblick from the source code are now located in the _Building Tunnelblick from Source Code.rtf_ document included in the outer-most folder of the Tunnelblick source code.*</font>
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-------------------
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
+

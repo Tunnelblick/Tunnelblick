@@ -1,43 +1,14 @@
-#summary Unstalling Tunnelblick -- OLD UNINSTALLER VERSION
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cUninstallOld.html">https://tunnelblick.net/cUninstallOld.html</a>.*
 
-<wiki:toc max_depth="2" />
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
---------------------
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-==Uninstalling Tunnelblick==
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-*The following applies to version 1.6 and earlier of the Tunnelblick Uninstaller.* ([cInstall#Uninstalling_Tunnelblick Instructions for later versions].)
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
-_Note: *You do not need to uninstall Tunnelblick before updating or reinstalling*. You should uninstall if you no longer want to use Tunnelblick, or if you are having problems and have been told to uninstall it._
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
-If you intend to re-install Tunnelblick, be sure you have a backup of your Tunnelblick configuration files and key and certificate files -- the .ovpn, .key, .crt, and/or .tblk files, and make a note of any configuration settings and appearance and other preferences you have set up. (They will be lost.)
-
-The uninstall program can do a "test", which does not uninstall anything, but displays a log of what it would have done if it were uninstalling.
-
-Download an uninstaller disk image from the [DownloadsEntry#Tunnelblick_Uninstaller Downloads] page and double-click it. (The uninstall program may be used to uninstall any version of Tunnelblick or any version of any rebranded version of Tunnelblick.)
-
-*First, if you have already partially uninstalled (manually by dragging the application to the Trash, or with !AppCleaner or something similar):
-
- * Disconnect all configurations and quit Tunnelblick (or the rebranded program)<font color="red">`*`</font>
- * Install (again, that is, re-install) Tunnelblick or the rebranded program (whatever program you want to uninstall). It is important that you install to the same location as the original installation. If you are uninstalling a "Deployed" version of Tunnelblick, you must install [https://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta21b_Unsigned.dmg Tunnelblick 3.3beta21b Unsigned (build 3114.3185)], which can be installed even if there is a "Deployed" version installed or partially installed.
- * Launch Tunnelblick, disconnect from all VPNs, then quit Tunnelblick.
-
-*Now, to uninstall Tunnelblick located in /Applications:*
- * Disconnect all configurations and quit Tunnelblick<font color="red">`*`</font>
- * Double-click the "Uninstaller"
- * Click on "Test" or "Uninstall"
-
-*Or, to uninstall Tunnelblick located somewhere other than /Applications, or to uninstall RaptorVPN, Urban Shield VPN, or other rebranded Tunnelblick:*
- * Disconnect all configurations and quit Tunnelblick (or the rebranded program)<font color="red">`*`</font>
- * Drag and drop the "Uninstaller" to your Desktop
- * Drag and drop the application you want to uninstall (Tunnelblick or a rebranded program) to the "Uninstaller" on your Desktop
- * Click on "Test" or "Uninstall"
-
-*Finally, restart your computer.*
-
-<font color="red">`*`</font> If you get a "spinning beachball" when you click the Tunnelblick icon, that usually means that Tunnelblick has a window open and is waiting for your response. Minimize or close the windows of all other applications (and in all Spaces) to expose the window. If Tunnelblick does not have an open window, you will have to force Tunnelblick to quit. Follow the procedure described in [https://groups.google.com/d/topic/tunnelblick-discuss/CcqADLK5Ttg/discussion this discussion] in the Tunnelblick Discussion Group.
-
-------------------
-
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===

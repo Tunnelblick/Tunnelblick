@@ -1,22 +1,14 @@
-*Tunnelblick is a free program, but donations are gratefully accepted!*
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/donate.html">https://tunnelblick.net/donate.html</a>.*
 
-*Donate with !PayPal or a major credit or debit card.*
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-<table>
-   <tr><td valign="middle">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=5.00">*Donate $5 USD*</a>
-  </td></tr>
-  <tr><td valign="middle">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=10.00">*Donate $10 USD*</a>
-  </td></tr>
-  <tr><td valign="middle">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=20.00">*Donate $20 USD*</a>
-  </td></tr>
- <tr><td valign="middle">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=0.00">*Donate an amount of your choice*</a>
-  </td></tr>
-</table>
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-<h2>Thank you!</h2>
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-Donations are probably not tax-deductable. This is not legal advice. Consult your tax professional.
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
+
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
+

@@ -1,18 +1,14 @@
-#summary Beta Versions of Tunnelblick
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cStableBeta.html">https://tunnelblick.net/cStableBeta.html</a>.*
 
-A *"beta"* version of a program is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations.
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-Beta versions of Tunnelblick are usually quite stable; a major difference between a beta and a stable version is that beta versions are not fully translated to all of the languages in stable versions.
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-*PLEASE PROVIDE FEEDBACK* about beta releases in the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group].
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-When a new beta version is available, it is announced to the [https://groups.google.com/forum/#!forum/tunnelblick-announce Tunnelblick Announcement Group].
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
-Shortly after a new beta version is availble, it will be available as an automatic update from older beta versions.
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
-Beta versions (if any) are available on the [DownloadsEntry Downloads] page.
-
-------------------
-
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

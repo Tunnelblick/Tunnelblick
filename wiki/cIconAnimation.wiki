@@ -1,55 +1,14 @@
-#summary Icon Animation
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cIconAnimation.html">https://tunnelblick.net/cIconAnimation.html</a>.*
 
-==Icon Animation==
-Tunnelblick displays the VPN connection status using the Tunnelblick icon in the Status Bar. The Tunnelblick icon is usually located next to the Spotlight icon, but if the "placeIconInStandardPositionInStatusBar" preference is set, the icon will be placed to the left of the icons being displayed at the time Tunnelblick is launched.
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
- * The Tunnelblick icon indicates a closed tunnel (i.e., no VPN connection) with a "dark" tunnel:
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
- http://tunnelblick.googlecode.com/files/using-tunnelblick-closed-2010-02-04.png
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
- * An open tunnel (i.e., a VPN connection) is indicated with a "light" tunnel:
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
- http://tunnelblick.googlecode.com/files/using-tunnelblick-open-2010-02-04.png
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
- * When a tunnel (VPN connection) is in the process of being established or taken down, the icon is animated, going from "dark" to "light" and back repeatedly.
-
-==Icon Sets==
-A folder containing a set of these images meant to be used together is called an "icon set".
-
-Tunnelblick comes with one folder containing the standard icon set built-in. It is located within the Tunnelblick application itself, at
- Tunnelblick.app/Contents/Resources/!IconSets/!TunnelBlick.TBMenuIcons.
-
-When Tunnelblick is launched, it looks for an icon set to use in three places, in the following order:
- #. Tunnelblick.app/Contents/Resources/Deploy/!IconSets/!TunnelBlick.TBMenuIcons;
- #. /Library/Application Support/Tunnelblick/Shared/!IconSets/!TunnelBlick.TBMenuIcons; and
- #. Tunnelblick.app/Contents/Resources/!IconSets/!TunnelBlick.TBMenuIcons.
-
-Each icon set must be accompanied by an icon set named with a prefix of "large-". That icon set should contain icons that are three times larger than the normal icons, in both width and height. Thus the "large" icons should be 54 x 48 pixels (since the normal icons are 18 x 16 pixels).
-
-Note: The "menuIconSet" preference, if present, specifies the name of the folder (within the "!IconSets" folder) that contains the icon set to be used. If not present, this defaults to "!TunnelBlick.TBMenuIcons".
-
-==Custom Icon Sets==
-Custom icon sets can be used to override the standard icon set.
-
-First, create a folder named "!TunnelBlick.TBMenuIcons" containing the images. The images must be named:
- * "open.png": this is the icon used to indicate an open tunnel (a VPN connection is active)
- * "closed.png": this is the icon used to indicate a closed tunnel (no VPN connection is active)
- * "1.png", "2.png", "3.png", etc.: these icons are used in sequence to indicate a transition from open to closed or closed to open.
-
-Next, create a folder named "large-!TunnelBlick.TBMenuIcons" containing larger images.
-
-Next, either
- #. Replace the Tunnelblick.app/Contents/Resources/!IconSets/!TunnelBlick.TBMenuIcons folder with your folder (and the large-!TunnelBlick.TBMenuIcons folder with your "large-" folder) ; or
- #. Create an "!IconSets" folder, place your folders inside it, and place it in either
-  * Tunnelblick.app/Contents/Resources/Deploy; or
-  * /Library/Application Support/Tunnelblick/Shared.
-
-What happens to your icon set when Tunnelblick is updated depends on where you put it:
- * If it is in Tunnelblick.app/Contents/Resources/!IconSets, it will be replaced with the standard icon set;
- * If it is in Tunnelblick.app/Contents/Resources/Deploy, it will be restored after Tunnelblick is updated;
- * If it is placed in /Library/Application Support/Tunnelblick/Shared, it will not be affected when Tunnelblick is updated.
-
-------------------
-
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

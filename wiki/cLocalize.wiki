@@ -1,58 +1,14 @@
-#summary Localizing Tunnelblick
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cLocalize.html">https://tunnelblick.net/cLocalize.html</a>.*
 
-*Localizing Tunnelblick*
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
---------------------
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-This document gives an overview of the _old_ way to localize Tunnelblick.
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-For an overview of the _new_ way to localize Tunnelblick, see [cLocalizeTranslate Localizing Tunnelblick].
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
-For instructions on editing the .strings files, see [cTranslateStrings Translating .strings Files].
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
-For notes about specific strings that are being translated, see [cTranslationNotes Translation Notes].
-
---------------------
-
-==How Localization Work in Tunnelblick==
-Although some applications have elaborate structures to specify translations, Tunnelblick's is simple:
- * Inside of Tunnelblick.app there is a folder for English and a folder for each language that has been translated.
- * Each of these folders contains a "Localizable.strings" file for the language. That file is used "on-the-fly" to translate the Tunnelblick application's strings, which are in English, to the language specified in the user's System Preferences.
-
-Most language folders have as a name the [http://www.loc.gov/standards/iso639-2/php/code_list.php ISO-639-1] two-letter abbreviation of the language and an extension of "lproj". For example, "JA.lproj" is the folder with Japanese strings, "ES.lproj" is the folder with Spanish strings, etc. One exception is English, which is named English.lproj. That is because Tunnelblick's original development language was English. Other exceptions include "ZH_CN.lproj" for simplified Chinese and "ZH_TW.lproj" for traditional Chinese.
-
-NOTE: Prior to Tunnelblick versions 3.0b24, all .lproj folders had the English name of the language, instead of the ISO-639-1 two-letter abbreviation of the language.
-
-==Adding Your Translations to Your Copy of Tunnelblick==
-*If you made the first translation of a language*, here's how to put your modified Localizable.strings file into your copy of Tunnelblick:
-  # Look up the ISO 639-1 two-character abbreviation for the language. You can do that at [http://www.loc.gov/standards/iso639-2/php/code_list.php]
-  # Create a folder on your Desktop named with the two-character abbreviation followed by ".lproj" (e.g., "CA.lproj" for Catalan/Valencian)
-  # Put the Localizable.strings file that you have modified in the folder
-  # Get a fresh copy of Tunnelblick (one that has never been used; copy from a downloaded disk image file if necessary) and put it on your Desktop
-  # Right-click on the Desktop "Tunnelblick.app" and click on "Show Package Contents". A new Finder window will appear
-  # Double-click on "Contents" in the new window. The window should now show several items
-  # Drag the folder you created in step 2, above, and drop it on "Resources"
-  # Close the Finder window
-
-You're done. The copy of Tunnelblick.app on your Desktop now has your translations.
-
-<font color="red">Note: This process invalidates Tunnelblick's "digital signature", and you will be warned about it being a modified version of Tunnelblick.</font> If you have added translations, you are encouraged to submit them to be included in Tunnelblick; contact project owner Jon via email at jkbullard at gmail dot com.
-
-*If you edited an existing translation*, here's how to put your modified .strings file into your copy of Tunnelblick:
-  # Put the Localizable.strings file that you have modified in the folder
-  # Get a fresh copy of Tunnelblick (one that has never been used; copy from a downloaded disk image file if necessary) and put it on your Desktop
-  # Right-click on the Desktop "Tunnelblick.app" and click on "Show Package Contents". A new Finder window will appear
-  # Double-click on "Contents" in the new window. The window should now show several items
-  # Double-click on "Resources". The window will now show several (different) items.
-  # Double-click on the .lproj folder of the language you have translated
-  # Drag the Localizable.strings file you have modified into the window. Tell Finder to replace the existing Localizable.strings file when you are asked
-  # Close the Finder window
-
-You're done. The copy of Tunnelblick.app on your Desktop now has your translations.
-
-<font color="red">Note: This process invalidates Tunnelblick's "digital signature", and you will be warned about it being a modified version of Tunnelblick.</font> If you have added translations, you are encouraged to submit them to be included in Tunnelblick; contact project owner Jon via email at jkbullard at gmail dot com.
-
-------------------
-
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

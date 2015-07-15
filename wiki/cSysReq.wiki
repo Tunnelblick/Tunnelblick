@@ -1,29 +1,14 @@
-#summary System Requirements
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cSysReq.html">https://tunnelblick.net/cSysReq.html</a>.*
 
-Note: To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. See [cGettingVPNService Getting VPN Service] for details.
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-Tunnelblick comes as a ready-to-use application with all necessary binaries and drivers (including OpenVPN and tun/tap). No additional installation is necessary -- just add your configuration and encryption information.
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-Tunnelblick 3.4 runs on OS X 10.4 through 10.9 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", and "Mavericks").
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-Tunnelblick 3.3 runs on OS X 10.4 through 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "Mountain Lion").
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
-Tunnelblick 3.2 runs on OS X 10.4 through 10.7 ("Tiger", "Leopard", "Snow Leopard", and  "Lion"). It _may or may not_ work for you on OS X 10.8 or 10.9 ("Mountain Lion" or "Mavericks").
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
-Tunnelblick 3.1 and 3.0 run on OS X 10.4 through 10.6 ("Tiger", "Leopard", and "Snow Leopard").
-
-Tunnelblick 2.0.1 runs on OS X 10.3 ("Panther"). _PowerPC only_
-
-*About PPC/Intel compatibility*: Tunnelblick 3.0 and up is a Universal application, so it runs on Intel or PPC processors.
-
-*About 64-bit compatibility*: Tunnelblick is a 32-bit application, so it runs as an application in 32-bit mode on all versions of OS X.
-
-Tunnelblick includes Intel 32/64-bit versions of tun.kext and tap.kext. 32-bit kernels use the 32-bit tun/tap, and 64-bit kernels use the 64-bit tun/tap. Signed and unsigned kexts are included; Tunnelblick uses the signed kexts on OS X 10.9 ("Mavericks"); unsigned kexts are used on earlier versions of OS X.
-
-Tunnelblick includes 32-bit versions of OpenVPN for PPC, and 32/64-bit versions for Intel.
-
-
-------------------
-
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

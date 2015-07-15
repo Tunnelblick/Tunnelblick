@@ -1,31 +1,14 @@
-#summary Localizing and Translating Tunnelblick
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cLocalizeTranslate.html">https://tunnelblick.net/cLocalizeTranslate.html</a>.*
 
-*Localizing and Translating Tunnelblick*
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
- <font color="red">*Translators are needed for Arabic, Estonian, Japanese, and Latvian.*</font>
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-  <font color="red"></font>*To join the localization team, please email project owner jkbullard at gmail.*
-   * You can help a little or a lot, all help is welcome!
-   * Everyone who makes a meaningful contribution will be credited on Tunnelblick's [cThanks Thanks page] and on the "Info" panel of the application itself.
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
- * The _new_ way of localizing the Tunnelblick application is described on this page.
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
- * Localizing the names of configurations and other content that can be added to Tunnelblick is described in [cLocalizeConfigurations Other Localization].
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
- * Comments about specific strings used in Tunnelblick are on the [cTranslationNotes Translation Notes] page.
-
- * The _old_ way of localizing is described in [cLocalize Localizing Tunnelblick] and [cTranslateStrings Translating .strings Files].
-
---------------------
-*The _new_ Way*
- * Tunnelblick is localized on [https://crowdin.com/project/tunnelblick crowdin.com], a translation management site that provides free service for open source projects such as Tunnelblick. Crowdin does not do the actual translations; it only provides the infrastructure in which translators can work and a way of managing those translators.
-
- * For Tunnelblick, localization consists solely of translating strings. No graphic manipulation or spacing or moving of text is required.
-
- * All translation work is done in a specialized translation editor in your browser.
- * See [cUsingCrowdin Using Crowdin] for specific procedures that the Tunnelblick Crowdin project uses to sign up for and use Crowdin.
-
-------------------
-
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

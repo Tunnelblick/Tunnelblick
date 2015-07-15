@@ -1,21 +1,14 @@
-#summary What Else You Need
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cWhatElse.html">https://tunnelblick.net/cWhatElse.html</a>.*
 
-You don't need any other programs to use Tunnelblick. It comes with the OpenVPN program and all required drivers built into the Tunnelblick application itself.
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-However, you do need three other things:
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
- * Administrator access to your computer so the program and configurations can be made secure and OpenVPN can make network configuration changes needed to establish a VPN. 
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
- * Access to a VPN server, because your computer is only one end of the VPN tunnel -- the VPN server is the other end. For more details, see [cGettingVPNService Getting VPN Service]. There are several ways to get access to a VPN server:
-   * Your employer may provide a VPN server so you can work from home or the road securely.
-   * You can set up your own VPN server at home, and use it to access your home network and the Internet securely when at a remote location. The VPN server could be a program running on a Mac, Windows, or Linux computer, or on your home router.
-   * You can get (free or for a fee) access to a VPN by using a VPN service provider.
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
- * Configuration information (you get this from who/whatever provides you with access to a VPN server):
-   * A [cConfigT Tunnelblick VPN Configuration] (Tunnelblick 3.1 and up), or
-   * An [cConfigO OpenVPN configuration] (.ovpn or .conf file), plus any keys, certificates, usernames, and passwords required for authentication.
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
-------------------
-
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

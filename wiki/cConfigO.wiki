@@ -1,14 +1,14 @@
-#summary Configuring OpenVPN
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cConfigO.html">https://tunnelblick.net/cConfigO.html</a>.*
 
-Tunnelblick is "just" a GUI -- a front end for OpenVPN. Each Tunnelblick VPN Configuration includes an OpenVPN configuration file (a file with an extension of .ovpn or .conf) that Tunnelblick tells OpenVPN to use to make a connection. The details of how OpenVPN should connect using the configuration are contained in that file.
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-OpenVPN files are plain-text files that contain the instructions for OpenVPN to connect a client to a server or run a server. There are dozens of options for these files. The primary documentation for them is the [http://openvpn.net/index.php/open-source/documentation/manuals/427-openvpn-22.html OpenVPN 2.2 man page].
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-There is also a [http://openvpn.net/index.php/open-source/documentation.html list of OpenVPN documentation].
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-There are also many tutorials about setting up OpenVPN available on the web, just search for "openvpn configuration", "openvpn tutorial" or "openvpn tutorial os x".
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
-------------------
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

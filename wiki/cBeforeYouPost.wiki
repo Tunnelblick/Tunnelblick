@@ -1,33 +1,14 @@
-#summary Before You Post
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cBeforeYouPost.html">https://tunnelblick.net/cBeforeYouPost.html</a>.*
 
-==Before You Post to the Tunnelblick Discussion Group==
---------------------
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-*If you <font color="red">are a member</font> of this group, your first post must be approved* by a moderator before it will appear.
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-*If you <font color="red">are not a member</font> of this group, each of your posts must be approved* by a moderator before it will appear.
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-Please be patient -- we're all volunteers! (For more information about the moderation process, see [https://groups.google.com/d/topic/tunnelblick-discuss/J6x4mQhSxsQ/discussion this post].)
---------------------
-==How and What to Post==
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
-*If you are having a problem with Tunnelblick, please:*
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
 
- If possible, use the latest "beta" version of Tunnelblick, which has additional logging that can help show the cause of problems.
-
- # Make sure you do not have manually set DNS server addresses in OS X System Preferences : Network (select the primary interface, click the "Advanced..." button, then the DNS tab; there should be no addresses on the left that are not dimmed).
- # Open the "VPN Details…" window.
- # Select the configuration you want to connect in the list on the left.
- # Make sure that "Set DNS/WINS" is set to "Set nameserver". (This is the default setting and will enable extra debugging and logging.)
- # Click the "Advanced" button on the right; a new window will appear.
- # Make sure that "Check if the apparent public IP address changed after connecting" is checked.
- # Close the "Advanced" window.
- # Click on the "Log" tab.
- # Click on the "Connect" button.
- # Wait until the problem occurs. *If the problem is that no connection is made, wait at least 70 seconds.*
- # If you can, click on the "Disconnect" button and wait until the disconnection is complete. If the disconnection is not complete within 20 seconds, continue anyway.
- # Click on the "Copy Diagnostic Info to the Clipboard" button.
- # Close Tunnelblick.
- # Paste into an email or web form.
- # Remove any sensitive information before sending the email or the form.

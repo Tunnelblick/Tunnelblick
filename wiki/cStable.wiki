@@ -1,12 +1,14 @@
-#summary Stable Releases
-#sidebar cSb
+==The official Tunnelblick website has moved.==
+    
+*The page you requested has moved to <a href="https://tunnelblick.net/cStableBeta.html">https://tunnelblick.net/cStableBeta.html</a>.*
 
-A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a [cBeta beta release], but may be more reliable.
+The new home page is at <a href="https://tunnelblick.net">https://tunnelblick.net</a>.
 
-All available releases may be found on the [DownloadsEntry Downloads page].
+The new downloads page is at <a href="https://tunnelblick.net/downloads.html">https://tunnelblick.net/downloads.html</a>.
 
-Cumulative [RlsNotes Release Notes] describe changes for all versions.
+The source code repository and Issues are currently still hosted on this Google Code site. They will be moved soon.
 
-------------------
+For more about the move, see <a href="https://tunnelblick.net/cNews.html#2015-07-14">Tunnelblick's News page</a>.
 
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
+You can discuss the new website in <a href="https://groups.google.com/d/msg/tunnelblick-discuss/EYSZ7nhIY6k/mLYme6CZTmYJ">this discussion</a>.
+
