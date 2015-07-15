@@ -1,91 +1,12 @@
 #summary Version-independent Sidebar
-*[http://translate.google.com/translate?hl=en&sl=en&tl=fr&u=https%3A%2F%2Fcode.google.com%2Fp%2Ftunnelblick%2F&sandbox=1 Website in Other Languages]*
+Most of Tunnelblick has moved to
+ [https://tunnelblick.net https://tunnelblick.net]
 
-<a href="https:Donate"><img src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate" /></a><br><br>
-*[https://groups.google.com/forum/#!forum/tunnelblick-discuss DISCUSSION GROUP]*<br>
-([cBeforeYouPost Read Before You Post])<br><br>
-*[DownloadsEntry Download Tunnelblick]*<br><br>
-*[News News]*<br><br>
+Source code remains at
+ [cSource Tunnelblick Source]<br>
+ [cGettingSource Getting Source]
 
---------------------
-*Getting Started with Tunnelblick*<br>
-    [cWelcome Welcome to Tunnelblick]<br>
-    [cWhatIs What is Tunnelblick?]<br>
-    [cWhatElse What else you need]<br>
-    [cGettingVPNService Getting VPN Service]<br>
-    [cHelp Getting Help]<br>
-    [cPrivacy Privacy and Security]<br>
-    [cHowHelp How you can help]<br>
-    [cFAQ FAQ]<br><br>
-*Installation, Setup, and Usage*<br>
-    [cInstall Installing Tunnelblick]<br>
-    [cInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick]<br>
-    [zUsing Using Tunnelblick 3.2]<br>
-    [cConfigT Setting up Tunnelblick]<br>
-    [cConfigO Configuring OpenVPN]<br>
-    [cIpInfo IP Address Changes]<br>
-    [cCvtDeployed Converting a Deployed Version]<br>
-    [cServer Tunnelblick as a VPN Server]<br><br>
-*Troubleshooting*<br>
-    [cKnown Known Issues]<br>
-    [cCommonProblems Common Problems]<br>
-    [cConnectedBut Connects OK, But...]<br>
-    [cSystemFolderNotSecure System Folder Not Secure]<br>
-    [cIpInfo IP Address Changes]<br>
-    [cMountainLionDnsIssue Mountain Lion Issues]<br>
-    [cOpenVPNLog The Tunnelblick Log]<br>
-    [cConsoleLog The Console Log]<br>
-    [cHelp How to get help]<br><br>
-*Releases*<br>
-    [cStable Stable Releases]<br>
-    [cBeta Beta Releases]<br>
-    [RlsNotes Release notes]<br><br>
-*Distributing Tunnelblick*<br>
-    [cDistribute Distributing Tunnelblick]<br>
-    [cPkgs#Automatic_Installation Automatic Installation]<br>
-    [cUpdatableConfigurations Updatable Configurations]<br>
-    [cDmg Modifying the Disk Image]<br><br>
-*Customized Versions*<br>
-    [cCusDeployed "Deployed" versions]<br>
-    [cRebranding Rebranding Tunnelblick]<br>
-    [cBuild Building from Source]<br>
-    [cSigningTunnelbliick Signing the Application]<br>
-    [cIconAnimation Icon Animation]<br><br>
-*Localization & Translation*<br>
-    [cLocalizeTranslate Localizing Tunnelblick]<br>
-    [cUsingCrowdin Using Crowdin]<br>
-    [cLocalizeConfigurations Other Localization]<br>
-    [cTranslationNotes Translation Notes]<br>
-    [cTranslationStatus Translation Status]<br><br>
-    [cLocalize Localizing Tunnelblick (old)]<br>
-    [cTranslateStrings .strings Files (old)]<br><br>
-*Reference*<br>
-    [cFAQ FAQ]<br>
-    [cThanks Thanks]<br>
-    [cKnown Known Issues]<br>
-    [RlsNotes Release notes]<br>
-    [cPkgs ".tblk" Details]<br>
-    [cUsingScripts Using Scripts]<br>
-    [cAppleScriptSupport AppleScript Support]<br>
-    [cOpenvpn_xorpatch Tunnelblick openvpn_xorpatch]<br>
-    [cGettingVPNService Getting VPN Service]<br>
-    [wUsing Using Tunnelblick 3.1]<br>
-    [UsingTunnelblick Using Tunnelblick 3.0]<br>
-    [cSysReq System requirements]<br>
-    [cConfigT Tunnelblick VPN Configurations]<br>
-    [cFileLocations File Locations]<br>
-    [cDigitalSignatures Digital Signatures]<br>
-    [cHmacSignature Generating an HMAC Signature]<br>
-    [cTranslationStatus Translation Status]<br><br>
-    [Preferences Preferences 3.0]<br>
-    [wPrefs Preferences 3.1]<br>
-    [zPrefs Preferences 3.2]<br>
-    [z33Prefs Preferences 3.3 & 3.4]<br><br>
-    [DocumentationForTunnelblick_3_1 What's New in 3.1]<br>
-    [DocumentationForTunnelblick_3_2 What's New in 3.2]<br>
-    [DocumentationForTunnelblick_3_3 What's New in 3.3]<br>
-    [DocumentationForTunnelblick_3_4 What's New in 3.4]<br><br>
-    [cThreeBTenToThreeOneChanges Details About 3.0]<br>
-    [cThreeZeroToThreeOneChanges Details About 3.1]<br>
-    [cThreeOneToThreeTwoChanges Details About 3.2]<br>
-    [cThreeTwoToThreeThreeChanges Details About 3.3]
+Issues remain at
+ [IssuesEntry Issues]
+
+Both will be moving soon.
