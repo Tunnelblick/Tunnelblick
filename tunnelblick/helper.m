@@ -231,18 +231,9 @@ BOOL runningOn64BitKernel(void) {
 }
 #endif //MACOSX_DEPLOYMENT_TARGET > MAC_OS_X_VERSION_10_4
 
-BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
+BOOL displaysHaveDifferentSpaces(void) {
     
-    NSStatusBar *bar = [NSStatusBar systemStatusBar];
-    if (  ! [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]  ) {
-        return YES;
-    }
-    if (  ! [bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]  ) {
-        return YES;
-    }
-    
-    if (   runningOnMavericksOrNewer()
-        && ([[NSScreen screens] count] != 1)  ) {
+    if (   runningOnMavericksOrNewer()  ) {
         
         NSString * spacesPrefsPath = [NSHomeDirectory() stringByAppendingPathComponent: @"/Library/Preferences/com.apple.spaces.plist"];
         NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: spacesPrefsPath];
@@ -259,6 +250,25 @@ BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
             NSLog(@"Unable to load dictionary from %@", spacesPrefsPath);
         }
         
+        return YES; // Error, so assume displays do have different spaces
+    }
+    
+    return NO;
+}
+
+BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
+    
+    NSStatusBar *bar = [NSStatusBar systemStatusBar];
+    if (  ! [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]  ) {
+        return YES;
+    }
+    if (  ! [bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]  ) {
+        return YES;
+    }
+    
+    if (   runningOnMavericksOrNewer()
+        && ([[NSScreen screens] count] != 1)
+        && displaysHaveDifferentSpaces()  ) {
         return YES;
     }
     

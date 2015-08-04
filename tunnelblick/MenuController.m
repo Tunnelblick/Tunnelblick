@@ -1321,9 +1321,14 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 
 - (void) recreateMenu
 {
-    [self createMenu];
-    [self updateIconImage];
-    [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
+    if (  displaysHaveDifferentSpaces()  ) {
+        [self recreateStatusItemAndMenu];
+        [[self logScreen] setupAppearancePlaceIconNearSpotlightCheckbox];
+    } else {
+        [self createMenu];
+        [self updateIconImage];
+        [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
+    }
 }
 
 -(void) screenParametersChanged {
@@ -1352,7 +1357,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         return;
     }
     
-	[self performSelectorOnMainThread: @selector(recreateMenu) withObject: nil waitUntilDone: NO];
+	[self performSelectorOnMainThread: @selector(screenParametersChanged) withObject: nil waitUntilDone: NO];
 }
 
 - (void) menuExtrasWereAddedHandler: (NSNotification*) n
@@ -6866,6 +6871,7 @@ void terminateBecauseOfBadConfiguration(void)
     TBLog(@"DB-SW", @"wokeUpFromSleep: Finished all needed activity before computer went to sleep");
     
     [self updateIconImage];
+	[self recreateMenu];
     [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
     
     if (  [[self connectionsToWaitForDisconnectOnWakeup] count] == 0  ) {
