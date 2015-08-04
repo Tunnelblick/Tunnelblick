@@ -103,6 +103,7 @@ BOOL           isUserAnAdmin            (void);
 
 BOOL           runningABetaVersion      (void);
 
+BOOL           displaysHaveDifferentSpaces(void);
 BOOL           mustPlaceIconInStandardPositionInStatusBar(void);
 
 BOOL           runningOnMainThread      (void);

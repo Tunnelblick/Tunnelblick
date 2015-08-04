@@ -98,6 +98,7 @@
 -(void) validateConnectAndDisconnectButtonsForConnection:     (VPNConnection *) theConnection;
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 -(void) setupAppearanceConnectionWindowScreenButton;
+-(void) setupAppearancePlaceIconNearSpotlightCheckbox;
 
 // Used by LogDisplay to scroll to the current point in the log
 -(NSTextView *) logView;

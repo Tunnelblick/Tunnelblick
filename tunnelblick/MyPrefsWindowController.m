@@ -2919,10 +2919,8 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
--(void) setupAppearanceView
-{
-	[self setupAppearanceIconSetButton];
-
+-(void) setupAppearancePlaceIconNearSpotlightCheckbox {
+    
     if (   mustPlaceIconInStandardPositionInStatusBar()  ) {
         NSButton * checkbox = [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox];
         [checkbox setState:   NO];
@@ -2934,6 +2932,14 @@ static BOOL firstTimeShowingWindow = TRUE;
                        defaultsTo: FALSE];
     }
     
+}
+
+-(void) setupAppearanceView
+{
+	[self setupAppearanceIconSetButton];
+    
+    [self setupAppearancePlaceIconNearSpotlightCheckbox];
+
     [self setValueForCheckbox: [appearancePrefsView appearanceDisplayConnectionSubmenusCheckbox]
                 preferenceKey: @"doNotShowConnectionSubmenus"
                      inverted: YES
