@@ -1300,6 +1300,12 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
 			[gTbDefaults setObject: name forKey: prefKey];
 		}
 		[self setupSettingsFromPreferences];
+        NSDictionary * connections = [[NSApp delegate] myVPNConnectionDictionary];
+        NSEnumerator * e = [connections objectEnumerator];
+        VPNConnection * conn;
+        while (  (conn = [e nextObject])  ) {
+            [conn initializeAuthAgent];
+        }
 	} else {
 		NSLog(@"allConfigurationsUseTheSameCredentialsCheckboxWasClicked: but the '%@' preference is forced.", prefKey);
 	}
