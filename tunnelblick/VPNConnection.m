@@ -2806,7 +2806,23 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             if (   [line rangeOfString: @"Failed"].length
                 || [line rangeOfString: @"failed"].length  ) {
                 
-				TBLog(@"DB-AU", @"processLine: %@ failed", command);
+				TBLog(@"DB-AU", @"processLine: Failed: %@", line);
+                
+                // Set the "private message" sent by the server (if there is one)
+                NSString * privateMessage = @"";
+                NSRange rngQuote = [line rangeOfString: @"'"];
+                if (  rngQuote.length != 0  ) {
+                    NSString * afterQuoteMark = [line substringFromIndex: rngQuote.location + 1];
+                    rngQuote = [afterQuoteMark rangeOfString: @"'"];
+                    if (  rngQuote.length != 0) {
+                        NSString * failedMessage = [afterQuoteMark substringToIndex: rngQuote.location];
+                        if (   [failedMessage isNotEqualTo: @"Private Key"]
+                            && [failedMessage isNotEqualTo: @"Auth"]  ) {
+                            privateMessage = [NSString stringWithFormat: @"\n\n%@", failedMessage];
+                        }
+                    }
+                }
+                
                 authFailed = TRUE;
                 userWantsState = userWantsUndecided;
                 credentialsAskedFor = FALSE;
@@ -2818,7 +2834,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     }
                 }
                 int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self localizedName], NSLocalizedString(@"Authentication failed", @"Window title")],
-                                               NSLocalizedString(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server.", @"Window text"),
+                                               [NSString stringWithFormat:@"%@%@",
+                                                NSLocalizedString(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server.", @"Window text"),
+                                                privateMessage],
                                                NSLocalizedString(@"Try again", @"Button"),  // Default
                                                buttonWithDifferentCredentials,              // Alternate
                                                NSLocalizedString(@"Cancel", @"Button"));    // Other
