@@ -57,6 +57,44 @@ trim()
 }
 
 ##########################################################################################
+disable_ipv6() {
+
+# Disables IPv6 on each enabled (active) network service on which it is set to the OS X default "IPv6 Automatic".
+#
+# For each such service, outputs a line with the name of the service.
+# (A separate line is output for each name because a name may include spaces.)
+#
+# The 'restore_ipv6' routine in client.down.tunnelblick.sh undoes the actions performed by this routine.
+#
+# NOTE: Done only for enabled services because some versions of OS X enable the service if this IPv6 setting is changed.
+#
+# This only works for OS X 10.5 and higher (10.4 does not implement IPv6.)
+
+    if [ "$OSVER" = "10.4" ] ; then
+        exit
+    fi
+
+    # Get list of services and remove the first line which contains a heading
+    dipv6_services="$( networksetup  -listallnetworkservices | sed -e '1,1d')"
+
+    # Go through the list disabling IPv6 for enabled services, and outputting lines with the names of the services
+    printf %s "$dipv6_services
+" | \
+    while IFS= read -r dipv6_service ; do
+
+        # If first character of a line is an asterisk, the service is disabled, so we skip it
+        if [ "${dipv6_service:0:1}" != "*" ] ; then
+            dipv6_ipv6_status="$( networksetup -getinfo "$dipv6_service" | grep 'IPv6: ' | sed -e 's/IPv6: //')"
+            if [ "$dipv6_ipv6_status" = "Automatic" ] ; then
+                networksetup -setv6off "$dipv6_service"
+                echo "$dipv6_service"
+            fi
+        fi
+
+    done
+}
+
+##########################################################################################
 # @param String[] dnsServers - The name servers to use
 # @param String domainName - The domain name to use
 # @param \optional String[] winsServers - The SMB servers to use
@@ -611,6 +649,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		d.add bAlsoUsingSetupKeys   "${bAlsoUsingSetupKeys}"
         d.add TapDeviceHasBeenSetNone "false"
         d.add TunnelDevice          "$dev"
+        d.add RestoreIpv6Services   "$ipv6_disabled_services_encoded"
 		set State:/Network/OpenVPN
 		
 		# Back up the device's current DNS and SMB configurations,
@@ -1248,10 +1287,18 @@ ARG_PREPEND_DOMAIN_NAME="false"
 ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="false"
 ARG_TB_PATH="/Applications/Tunnelblick.app"
 ARG_RESTORE_ON_WINS_RESET="false"
+ARG_DISABLE_IPV6_ON_TUN="false"
+ARG_ENABLE_IPV6_ON_TAP="false"
 
 # Handle the arguments we know about by setting ARG_ script variables to their values, then shift them out
 while [ {$#} ] ; do
-	if [ "$1" = "-a" ] ; then						# -a = ARG_TAP
+    if [ "$1" = "-6" ] ; then                       # -6 = ARG_ENABLE_IPV6_ON_TAP (for TAP connections only)
+        ARG_ENABLE_IPV6_ON_TAP="true"
+        shift
+    elif [ "$1" = "-9" ] ; then                     # -9 = ARG_DISABLE_IPV6_ON_TUN (for TUN connections only)
+        ARG_DISABLE_IPV6_ON_TUN="true"
+        shift
+	elif [ "$1" = "-a" ] ; then						# -a = ARG_TAP
 		ARG_TAP="true"
 		shift
     elif [ "$1" = "-b" ] ; then                     # -b = ARG_WAIT_FOR_DHCP_IF_TAP
@@ -1326,7 +1373,7 @@ readonly FREE_PUBLIC_DNS_SERVERS_LIST_PATH="${TB_RESOURCES_PATH}/FreePublicDnsSe
 
 # These scripts use a launchd .plist to set up to monitor the network configuration.
 #
-# If Tunnelblick.app is located in /Applications, we load the lanuchd .plist directly from within the .app.
+# If Tunnelblick.app is located in /Applications, we load the launchd .plist directly from within the .app.
 #
 # If Tunnelblick.app is not located in /Applications (i.e., we are debugging), we create a modified version of the launchd .plist and use
 # that modified copy in the 'launchctl load' command. (The modification is that the path to process-network-changes or leasewatch program
@@ -1375,6 +1422,11 @@ sleep 2
 EXIT_CODE=0
 
 if ${ARG_TAP} ; then
+
+    # IPv6 should be re-enabled only for TUN, not TAP
+    readonly ipv6_disabled_services=""
+    readonly ipv6_disabled_services_encoded=""
+
 	# Still need to do: Look for route-gateway dhcp (TAP isn't always DHCP)
 	bRouteGatewayIsDhcp="false"
 	if [ -z "${route_vpn_gateway}" -o "$route_vpn_gateway" == "dhcp" -o "$route_vpn_gateway" == "DHCP" ]; then
@@ -1393,7 +1445,12 @@ if ${ARG_TAP} ; then
 		
 		logDebugMessage "DEBUG: About to 'ipconfig set \"$dev\" DHCP"
 		ipconfig set "$dev" DHCP
-		logDebugMessage "DEBUG: Did 'ipconfig set \"$dev\" DHCP"
+		logMessage "Did 'ipconfig set \"$dev\" DHCP'"
+
+        if ${ARG_ENABLE_IPV6_ON_TAP} ; then
+            ipconfig set "$dev" AUTOMATIC-V6
+            logMessage "Did 'ipconfig set \"$dev\" AUTOMATIC-V6'"
+        fi
 
         if ${ARG_WAIT_FOR_DHCP_IF_TAP} ; then
             logMessage "Configuring tap DNS via DHCP synchronously"
@@ -1408,9 +1465,15 @@ if ${ARG_TAP} ; then
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 			logMessage "WARNING: Will NOT monitor for other network configuration changes."
 		fi
+        if ${ARG_ENABLE_IPV6_ON_TAP} ; then
+            logMessage "WARNING: Will NOT set up IPv6 on TAP device because it does not use DHCP."
+        fi
         logDnsInfoNoChanges
         flushDNSCache
 	else
+        if ${ARG_ENABLE_IPV6_ON_TAP} ; then
+            logMessage "WARNING: Will NOT set up IPv6 on TAP device because it does not use DHCP."
+        fi
 		logMessage "Configuring tap DNS via OpenVPN"
 		configureOpenVpnDns
 		EXIT_CODE=$?
@@ -1421,9 +1484,28 @@ else
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 			logMessage "WARNING: Will NOT monitor for other network configuration changes."
 		fi
+        if ${ARG_DISABLE_IPV6_ON_TUN} ; then
+            logMessage "WARNING: Will NOT disable IPv6 settings."
+        fi
         logDnsInfoNoChanges
         flushDNSCache
 	else
+
+        ipv6_disabled_services=""
+        if ${ARG_DISABLE_IPV6_ON_TUN} ; then
+            ipv6_disabled_services="$( disable_ipv6 )"
+			if [ "$ipv6_disabled_services" != "" ] ; then
+                printf %s "$ipv6_disabled_services
+" | \
+                while IFS= read -r dipv6_service ; do
+                    logMessage "Disabled IPv6 for '$dipv6_service'"
+                done
+            fi
+        fi
+        readonly ipv6_disabled_services
+		# Note '\n' is translated into '\t' so it is all on one line, because grep and sed only work with single lines
+		readonly ipv6_disabled_services_encoded="$( echo "$ipv6_disabled_services" | tr '\n' '\t' )"
+
 		configureOpenVpnDns
 		EXIT_CODE=$?
 	fi

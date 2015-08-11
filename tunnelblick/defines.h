@@ -220,7 +220,10 @@
 #define OPENVPNSTART_USE_I386_OPENVPN          0x10000u
 #define OPENVPNSTART_WAIT_FOR_DHCP_IF_TAP      0x20000u
 #define OPENVPNSTART_DO_NOT_WAIT_FOR_INTERNET  0x20000u
-#define OPENVPNSTART_START_BITMASK_MAX         0x3FFFFu
+#define OPENVPNSTART_ENABLE_IPV6_ON_TAP        0x40000u
+#define OPENVPNSTART_DISABLE_IPV6_ON_TUN       0x80000u
+
+#define OPENVPNSTART_START_BITMASK_MAX         0xFFFFFu
 
 
 //*************************************************************************************************

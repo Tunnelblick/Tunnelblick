@@ -559,6 +559,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                       @"-doNotDisconnectOnSleep",
 									  @"-doNotUseDefaultDomain",
                                       @"-waitForDHCPInfoIfTap",
+                                      @"-enableIpv6OnTap",
+                                      @"-doNotDisableIpv6onTun",
 									  
                                       @"-changeDNSServersAction",
                                       @"-changeDomainAction",

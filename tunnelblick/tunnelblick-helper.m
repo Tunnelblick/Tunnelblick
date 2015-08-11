@@ -216,6 +216,8 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "                            bit 15 is 1 to indicate that the up script should be started with --route-up instead of --up\n"
             "                            bit 16 is 1 to indicate that the i386 version of the OpenVPN universal binary should be used\n"
             "                            bit 17 is 1 to indicate that return from the 'up' script should be delayed until DHCP information has been received in a tap connection\n"
+            "                            bit 18 is 1 to indicate that IPv6 should be enabled on TAP devices using DHCP\n"
+            "                            bit 19 is 1 to indicate that IPv6 should be disabled in all enabled (active) network services for TUN connections\n"
             "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
 
             "leasewatchOptions is a string containing characters indicating options for leasewatch.\n\n"
@@ -2131,6 +2133,14 @@ int startVPN(NSString * configFile,
         // Process script options if scripts are "new" scripts
         NSMutableString * scriptOptions = [[[NSMutableString alloc] initWithCapacity: 16] autorelease];
         
+        if (  (bitMask & OPENVPNSTART_ENABLE_IPV6_ON_TAP) != 0  ) {
+            [scriptOptions appendString: @" -6"];   // TAP using DHCP only
+        }
+        
+        if (  (bitMask & OPENVPNSTART_DISABLE_IPV6_ON_TUN) != 0  ) {
+            [scriptOptions appendString: @" -9"];   // TUN only
+        }
+        
         if (  (bitMask & OPENVPNSTART_USE_TAP) != 0  ) {
             [scriptOptions appendString: @" -a"];   // TAP only
         }
@@ -2860,7 +2870,7 @@ int main(int argc, char * argv[]) {
                 if (  (argc >  5) && (strlen(argv[ 5]) <  6) && (atoi(argv[5]) == 1)  ) skipScrSec = TRUE;
                 if (  (argc >  6) && (strlen(argv[ 6]) <  6)                          ) cfgLocCode = cvt_atou(argv[6], @"cfgLocCode");
                 if (  (argc >  7) && (strlen(argv[ 7]) <  6) && (atoi(argv[7]) == 1)  ) noMonitor  = TRUE;
-                if (  (argc >  8) && (strlen(argv[ 8]) <  6)                          ) bitMask = cvt_atou(argv[8], @"bitMask");
+                if (  (argc >  8) && (strlen(argv[ 8]) < 10)                          ) bitMask = cvt_atou(argv[8], @"bitMask");
                 if (  (argc >  9) && (strlen(argv[ 9]) < 16)                          ) leasewatchOptions = [NSString stringWithUTF8String: argv[9]]; 
                 if (  (argc > 10) && (strlen(argv[10]) < 32)                          ) openvpnVersion    = [NSString stringWithUTF8String: argv[10]];
                 

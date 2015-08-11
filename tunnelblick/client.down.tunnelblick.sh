@@ -29,6 +29,28 @@ trim()
 echo ${@}
 }
 
+# @param String list - list of network service names, output from disable_ipv6()
+restore_ipv6() {
+
+    # Undoes the actions performed by the disable_ipv6() routine in client.up.tunnelblick.sh by restoring the IPv6
+    # 'automatic' setting for each network service for which that routine disabled IPv6.
+    #
+    # $1 must contain the output from disable_ipv6() -- the list of network services.
+    #
+    # This routine outputs log messages describing its activities.
+
+    if [ "$1" = "" ] ; then
+        exit
+    fi
+
+    printf %s "$1
+" | \
+    while IFS= read -r ripv6_service ; do
+        networksetup -setv6automatic "$ripv6_service"
+        logMessage "Re-enabled IPv6 (automatic) for '$ripv6_service'"
+    done
+}
+
 ##########################################################################################
 flushDNSCache()
 {
@@ -233,6 +255,9 @@ bTapDeviceHasBeenSetNone="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]
 bAlsoUsingSetupKeys="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*bAlsoUsingSetupKeys :' | sed -e 's/^.*: //g')"
 sTunnelDevice="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TunnelDevice :' | sed -e 's/^.*: //g')"
 
+# Note: '\n' was translated into '\t', so we translate it back (it was done because grep and sed only work with single lines)
+sRestoreIpv6Services="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreIpv6Services :' | sed -e 's/^.*: //g' | tr '\t' '\n')"
+
 # Remove leasewatcher
 if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 	launchctl unload "${LEASEWATCHER_PLIST_PATH}"
@@ -274,7 +299,7 @@ PSID_CURRENT="$( scutil <<-EOF |
 	show State:/Network/OpenVPN
 	quit
 EOF
-grep Service | sed -e 's/.*Service : //'
+grep 'Service : ' | sed -e 's/.*Service : //'
 )"
 set -e # resume abort on error
 if [ "${PSID}" != "${PSID_CURRENT}" ] ; then
@@ -373,6 +398,8 @@ set -e # resume abort on error
 logDebugMessage "DEBUG:"
 logDebugMessage "DEBUG: scutil --dns = ${scutil_dns}"
 logDebugMessage "DEBUG:"
+
+restore_ipv6 "$sRestoreIpv6Services"
 
 flushDNSCache
 
