@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -19,8 +19,7 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-
-#import <Cocoa/Cocoa.h>
+#import "defines.h"
 
 @interface StatusWindowController : NSWindowController <NSAnimationDelegate,NSWindowDelegate>
 {
@@ -57,9 +56,11 @@
     IBOutlet NSTextField     * outTotalUnitsTF;
     
     NSUInteger                 statusScreenPosition; // Position of status window (0, 1, 2...)
-                                                     // Corresponds to bit in statusScreenPositionsInUse
+    //                                               // Corresponds to an entry in the statusScreenPositionsInUse array,
+    //                                               // which is a static variable defined at the start of StatusWindowController.m
     
     NSString                 * name;            // Name we are displaying - displayName of configuration
+    NSString                 * localName;       // localizedName of configuration
     NSString                 * status;          // Status (e.g., "EXITING") of the configuration
     NSString                 * connectedSince;  // Time has been connected
     
@@ -95,10 +96,12 @@
          connectedSince:              (NSString *) time;
 
 TBPROPERTY(NSString *, name,           setName)
+TBPROPERTY(NSString *, localName,      setLocalName)
 TBPROPERTY(NSString *, status,         setStatus)
 TBPROPERTY(NSString *, connectedSince, setConnectedSince)
 
 TBPROPERTY_READONLY(BOOL, haveLoadedFromNib)
+TBPROPERTY_READONLY(BOOL, isOpen)
 
 TBPROPERTY_READONLY(NSTextFieldCell *, statusTFC)
 

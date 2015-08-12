@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -19,7 +19,8 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
+
 #import "defines.h"
 
 

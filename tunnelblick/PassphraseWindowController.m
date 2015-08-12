@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,9 +20,17 @@
  */
 
 
-#import "defines.h"
 #import "PassphraseWindowController.h"
+
+#import "defines.h"
 #import "helper.h"
+
+#import "MenuController.h"
+#import "TBUserDefaults.h"
+#import "AuthAgent.h"
+
+
+extern TBUserDefaults * gTbDefaults;
 
 @interface PassphraseWindowController() // Private methods
 
@@ -39,7 +47,17 @@
         return nil;
     }
     
-    delegate = [theDelegate retain];    
+	[[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(applicationDidChangeScreenParametersNotificationHandler:)
+                                                 name: NSApplicationDidChangeScreenParametersNotification
+                                               object: nil];
+    
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
+                                                           selector: @selector(wokeUpFromSleepHandler:)
+                                                               name: NSWorkspaceDidWakeNotification
+                                                             object: nil];
+    
+    delegate = [theDelegate retain];
     return self;
 }
 
@@ -59,9 +77,10 @@
 		groupMsg = @"";
 	}
 	
+    NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
     NSString * text = [NSString stringWithFormat:
                        NSLocalizedString(@"A passphrase is required to connect to\n  %@%@", @"Window text"),
-                       displayName,
+                       localName,
 					   groupMsg];
     [mainText setTitle: text];
     
@@ -71,6 +90,15 @@
     [self setTitle: NSLocalizedString(@"Cancel", @"Button") ofControl: cancelButton ];
     
     [self redisplay];
+}
+
+-(void) redisplayIfShowing
+{
+    if (  [delegate showingPassphraseWindow]  ) {
+        [self redisplay];
+    } else {
+        NSLog(@"Cancelled redisplay of passphrase window because it is no longer showing");
+    }
 }
 
 -(void) redisplay
@@ -143,14 +171,33 @@
     [NSApp stopModal];
 }
 
-- (void) dealloc
+-(void) applicationDidChangeScreenParametersNotificationHandler: (NSNotification *) n
 {
-    [mainText               release];
-    [cancelButton           release];
-    [OKButton               release];
-    [passphrase             release];
-    [saveInKeychainCheckbox release];
-    [delegate               release];
+ 	(void) n;
+    
+	if (   [delegate showingPassphraseWindow]
+		&& (! [gTbDefaults boolForKey: @"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"])  ) {
+		NSLog(@"PassphraseWindowController: applicationDidChangeScreenParametersNotificationHandler: redisplaying passphrase window");
+        [self performSelectorOnMainThread: @selector(redisplayIfShowing) withObject: nil waitUntilDone: NO];
+	}
+}
+
+-(void) wokeUpFromSleepHandler: (NSNotification *) n
+{
+ 	(void) n;
+    
+	if (   [delegate showingPassphraseWindow]
+		&& (! [gTbDefaults boolForKey: @"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"])  ) {
+		NSLog(@"PassphraseWindowController: didWakeUpFromSleepHandler: requesting redisplay of passphrase window");
+        [self performSelectorOnMainThread: @selector(redisplayIfShowing) withObject: nil waitUntilDone: NO];
+	}
+}
+
+-(void) dealloc {
+    
+    [delegate release]; delegate = nil;
+    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver: self];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
     
 	[super dealloc];
 }

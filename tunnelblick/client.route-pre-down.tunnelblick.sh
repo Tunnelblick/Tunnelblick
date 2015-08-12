@@ -14,17 +14,28 @@
 #
 # ******************************************************************************************************************
 
+# @param String message - The message to log
+logMessage()
+{
+	echo "${@}"
+}
+
 trap "" TSTP
 trap "" HUP
 trap "" INT
 export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
-readonly LOG_MESSAGE_COMMAND=$(basename "${0}")
+readonly OUR_NAME=$(basename "${0}")
+
+logMessage "**********************************************"
+logMessage "Start of output from ${OUR_NAME}"
 
 # Quick check - is the configuration there?
 if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
 	# Configuration isn't there, so we forget it
-	echo "$(date '+%a %b %e %T %Y') *Tunnelblick $LOG_MESSAGE_COMMAND: WARNING: No existing OpenVPN DNS configuration found; not tearing down anything; exiting."
+	logMessage "WARNING: No saved Tunnelblick DNS configuration found; not doing anything."
+    logMessage "End of output from ${OUR_NAME}"
+    logMessage "**********************************************"
 	exit 0
 fi
 
@@ -40,8 +51,9 @@ EOF
 
 ARG_MONITOR_NETWORK_CONFIGURATION="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*MonitorNetwork :' | sed -e 's/^.*: //g')"
 LEASEWATCHER_PLIST_PATH="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*LeaseWatcherPlistPath :' | sed -e 's/^.*: //g')"
+REMOVE_LEASEWATCHER_PLIST="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RemoveLeaseWatcherPlist :' | sed -e 's/^.*: //g')"
 PSID="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*Service :' | sed -e 's/^.*: //g')"
-SCRIPT_LOG_FILE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*ScriptLogFile :' | sed -e 's/^.*: //g')"
+# Don't need: SCRIPT_LOG_FILE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*ScriptLogFile :' | sed -e 's/^.*: //g')"
 # Don't need: ARG_RESTORE_ON_DNS_RESET="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreOnDNSReset :' | sed -e 's/^.*: //g')"
 # Don't need: ARG_RESTORE_ON_WINS_RESET="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreOnWINSReset :' | sed -e 's/^.*: //g')"
 # Don't need: PROCESS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*PID :' | sed -e 's/^.*: //g')"
@@ -50,17 +62,6 @@ ARG_TAP="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IsTapInterface :
 
 bRouteGatewayIsDhcp="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RouteGatewayIsDhcp :' | sed -e 's/^.*: //g')"
 sTunnelDevice="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TunnelDevice :' | sed -e 's/^.*: //g')"
-
-# @param String message - The message to log
-logMessage()
-{
-	echo "$(date '+%a %b %e %T %Y') *Tunnelblick $LOG_MESSAGE_COMMAND: "${@} >> "${SCRIPT_LOG_FILE}"
-}
-
-trim()
-{
-	echo ${@}
-}
 
 if ${ARG_TAP} ; then
 	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
@@ -79,7 +80,9 @@ grep Service | sed -e 's/.*Service : //'
         # Remove leasewatcher
         if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
             launchctl unload "${LEASEWATCHER_PLIST_PATH}"
-            rm -f "${LEASEWATCHER_PLIST_PATH}"
+            if ${REMOVE_LEASEWATCHER_PLIST} ; then
+                rm -f "${LEASEWATCHER_PLIST_PATH}"
+            fi
             logMessage "Cancelled monitoring of system configuration changes"
             
             # Indicate leasewatcher has been removed
@@ -122,9 +125,14 @@ EOF
         set State:/Network/OpenVPN
         quit
 EOF
+    else
+        logMessage "No action by ${OUR_NAME} is needed because this TAP connection does not use DHCP via the TAP device."
 	fi
 else
-    logMessage "No route-pre-downn action is required because this is not a TAP connection using DHCP via the TAP device."
+    logMessage "No action by ${OUR_NAME} is needed because this is not a TAP connection."
 fi
+
+logMessage "End of output from ${OUR_NAME}"
+logMessage "**********************************************"
 
 exit 0

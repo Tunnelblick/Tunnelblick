@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,7 +20,6 @@
  */
 
 
-#import <Cocoa/Cocoa.h>
 #import "defines.h"
 
 @interface GeneralView : NSView {
@@ -30,14 +29,6 @@
     IBOutlet NSArrayController  * keyboardShortcutArrayController;
     IBOutlet NSButton           * keyboardShortcutButton;
     
-    IBOutlet NSTextFieldCell    * openvpnVersionTFC;
-    IBOutlet NSTextField        * openvpnVersionTF;
-    IBOutlet NSArrayController  * openvpnVersionArrayController;
-    IBOutlet NSButton           * openvpnVersionButton;
-    IBOutlet NSTextFieldCell    * openvpnVersionOverrideMessageTFC;
-    IBOutlet NSTextField        * openvpnVersionOverrideMessageTF;
-
-    
     IBOutlet NSTextFieldCell    * maxLogDisplaySizeTFC;
     IBOutlet NSTextField        * maxLogDisplaySizeTF;
     IBOutlet NSArrayController  * maximumLogSizeArrayController;
@@ -45,13 +36,17 @@
     
     IBOutlet NSTextFieldCell    * warningsTFC;
     IBOutlet NSTextField        * warningsTF;
-    IBOutlet NSButton           * checkIPAddressAfterConnectCheckbox;
     IBOutlet NSButton           * resetDisabledWarningsButton;
     
+    IBOutlet NSTextFieldCell    * tbInternetAccessTFC;
+    IBOutlet NSTextField        * tbInternetAccessTF;
+	IBOutlet NSButton           * inhibitOutboundTBTrafficCheckbox;
+	
     IBOutlet NSTextFieldCell    * updatesUpdatesTFC;
     IBOutlet NSTextField        * updatesUpdatesTF;
     IBOutlet NSButton           * updatesCheckAutomaticallyCheckbox;
     IBOutlet NSButton           * updatesCheckForBetaUpdatesCheckbox;
+    IBOutlet NSButton           * updatesSendProfileInfoCheckbox;
     IBOutlet NSButton           * updatesCheckNowButton;
     IBOutlet NSTextFieldCell    * updatesLastCheckedTFC;
     IBOutlet NSTextField        * updatesLastCheckedTF;
@@ -59,19 +54,18 @@
     IBOutlet NSButton           * preferencesGeneralHelpButton;
 }
 
-TBPROPERTY_READONLY(NSButton *,          checkIPAddressAfterConnectCheckbox)
+TBPROPERTY_READONLY(NSTextFieldCell *,   tbInternetAccessTFC)
+TBPROPERTY_READONLY(NSTextField *,       tbInternetAccessTF)
+TBPROPERTY_READONLY(NSButton *,          inhibitOutboundTBTrafficCheckbox)
+
 
 TBPROPERTY_READONLY(NSTextFieldCell *,   updatesUpdatesTFC)
 TBPROPERTY_READONLY(NSTextField *,       updatesUpdatesTF)
 TBPROPERTY_READONLY(NSButton *,          updatesCheckAutomaticallyCheckbox)
 TBPROPERTY_READONLY(NSButton *,          updatesCheckForBetaUpdatesCheckbox)
+TBPROPERTY_READONLY(NSButton *,          updatesSendProfileInfoCheckbox)
 TBPROPERTY_READONLY(NSTextFieldCell *,   updatesLastCheckedTFC)
 TBPROPERTY_READONLY(NSTextField *,       updatesLastCheckedTF)
-
-TBPROPERTY_READONLY(NSArrayController *, openvpnVersionArrayController)
-TBPROPERTY_READONLY(NSButton *,          openvpnVersionButton)
-TBPROPERTY_READONLY(NSTextFieldCell *,   openvpnVersionOverrideMessageTFC)
-TBPROPERTY_READONLY(NSTextField *,       openvpnVersionOverrideMessageTF)
 
 TBPROPERTY_READONLY(NSArrayController *, keyboardShortcutArrayController)
 TBPROPERTY_READONLY(NSButton *,          keyboardShortcutButton)

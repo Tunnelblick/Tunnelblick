@@ -30,39 +30,42 @@
 <p class="p3"><span class="Apple-converted-space">    </span>• The "add configuration" button, which looks like a plus sign, guides the user through the process of adding a configuration.</p>
 <p class="p3"><span class="Apple-converted-space">    </span>• The "delete configuration button", which looks like a minus sign, deletes the selected configuration</p>
 <p class="p3"><span class="Apple-converted-space">    </span>• The "manage configurations" button, which looks like a gear with a triangle next to it, displays configuration management options:</p>
-<p class="p2"><br></p>
 <ul class="ul1">
   <li class="li3"><b>Rename Configuration…</b> renames the selected configuration</li>
   <li class="li3"><b>Duplicate Configuration…</b> duplicates the selected configuration, including it's settings</li>
   <li class="li3"><b>Make Configuration Private/Shared…</b> makes the selected configuration private or shared</li>
   <li class="li3"><b>Revert Configuration…</b> reverts the selected configuration to the version that was last secured</li>
-  <li class="li3"><b>Edit/Examine OpenVPN Configuration File…</b> Opens the OpenVPN configuration file (.ovpn or .conf) file for the selected configuration in TextEdit for editing or examination</li>
+  <li class="li3"><b>Edit/Examine OpenVPN Configuration File…</b> Opens the OpenVPN configuration file (.ovpn or .conf) file for the selected configuration in TextEdit for editing or in a new window for examination</li>
   <li class="li3"><b>Show OpenVPN Log in Finder</b> opens a Finder window with the OpenVPN log file for the selected configuration selected</li>
   <li class="li3"><b>Delete Configuration's Credentials in Keychain…</b> removes the selected credentials (username, password, and/or private key) from the user's Login Keychain.</li>
 </ul>
 <p class="p2"><br></p>
-<p class="p4"><b>Connect and Disconnect Buttons</b></p>
+<p class="p4"><b>Connect, Disconnect, and Copy Diagnostic Info to Clipboard Buttons</b></p>
 <p class="p2"><br></p>
 <p class="p3">The <b>Connect</b> and <b>Disconnect</b> buttons may be used at any time to connect or disconnect the configuration selected in the left section.</p>
-<p class="p2"><br></p>
-<p class="p4"><b>Log Tab</b></p>
-<p class="p2"><br></p>
-<p class="p3">The Log tab contains the contents of the Tunnelblick log for the configuration selected in the left section. The Tunnelblick log contains the OpenVPN log along with entries about Tunnelblick's operations</p>
 <p class="p2"><br></p>
 <p class="p3">The <b>Copy Diagnostic Info to Clipboard</b> button copies the following diagnostic information to the Mac Clipboard:
 <ul class="ul1">
 <li class="li3">The versions of OS X and Tunnelblick being used.</li>
-<li class="li3">The contents of the configuration file. (Without inline keys or certificates.)</li>
+<li class="li3">The contents of the configuration file. ("Sanitized" by removing inline keys and certificates.)</li>
+<li class="li3">A list of any unusual files found in the Tunnelblick VPN Configuration.</li>
+<li class="li3">A list of relevent Tunnelblick preferences.</li>
 <li class="li3">The contents of the Tunnelblick log.</li>
 <li class="li3">The last 200 Tunnelblick entries in the previous six hours from the Console log.</li>
+<li class="li3">A list of non-Apple kernel extensions ("kexts") that are loaded.</li>
 </ul>
+<p class="p2"><br></p>
+<p class="p4"><b>Log Tab</b></p>
+<p class="p2"><br></p>
+<p class="p3">The Log tab contains the contents of the Tunnelblick log for the configuration selected in the left section. The Tunnelblick log contains the OpenVPN log along with entries about Tunnelblick's operations</p>
 </p>
 <p class="p4"><b>Settings Tab</b></p>
 <p class="p2"><br></p>
 <p class="p3">The <b>Settings</b> tab contains commonly-used settings for the selected connection:</p>
 <p class="p2"><br></p>
 <ul class="ul1">
-  <li class="li3"><b>Connect</b> determines when the configuration is connected: <b>Manually</b>, <b>When Tunnelblick launches</b>, and <b>When computer starts</b>. <em>Note: </em>When computer starts<em> may only be selected if a configuration is </em>Shared<em> or </em>Deployed<em>, and when it is a </em>Tunnelblick VPN Configuration (.tblk)<em>.</em></li>
+  <li class="li3"><b>Connect</b> determines when the configuration is connected: <b>Manually</b>, <b>When Tunnelblick launches</b>, and <b>When computer starts</b>. <em>Note: </em>When computer starts<em> may only be selected if a configuration is </em>Shared<em> or </em>Deployed<em>, and when it is a </em>Tunnelblick VPN Configuration (.tblk)<em>.</em></li><br>
+  
   <li class="li3"><b>Set DNS/WINS</b> determines the up/down scripts that Tunnelblick uses to modify DNS and WINS network settings for the selected configuration.</li>
   <ul class="ul2">
     <li class="li3"><b>Do not set nameserver</b>: Tunnelblick will not use up/down scripts and will not modify DNS and WINS network settings</li>
@@ -73,11 +76,18 @@
   </ul>
 </ul>
 <ul class="ul1">
-  <li class="li3"><b>Monitor network settings</b> determines whether or not Tunnelblick will monitor network settings for changes while the selected configuration is connected. This may be done to react to DHCP renewals or other network changes.</li>
-  <li class="li3"><b>Show configuration in TunnelblickmMenu</b> makes the selected configuration display or not display in the Tunnelblick menu.</li>
-  <li class="li3"><b>Alert sounds</b> determine the sounds that Tunnelblick plays when the selected configuration connects or unexpectedly disconnects.</li>
+  <li class="li3"><b>OpenVPN version</b> determines which version of OpenVPN will be used to connect the selected configuration.
+<ul>
+<li class="li3">If you choose the "Default" version, the earliest version of OpenVPN will be used.</li>
+<li class=li3>If you choose the "Latest" version, the latest version of OpenVPN will be used.</li>
+<li class=li3>If you choose a specific version of OpenVPN, that version will be used. You will be warned if that version is not available.</li>
+</ul>
+</li><br>
+  <li class="li3"><b>Monitor network settings</b> determines whether or not Tunnelblick will monitor network settings for changes while the selected configuration is connected. This may be done to react to DHCP renewals or other network changes.</li><br>
+  <li class="li3"><b>Keep connected</b> determines whether or not Tunnelblick will attempt to connect after an unexpected disconnection.</li><br>
+  <li class="li3"><b>Alert sounds</b> determine the sounds that Tunnelblick plays when the selected configuration connects or unexpectedly disconnects. The "speak" setting speaks the name of the configuration and whether or not it is being connected or unexpectedly disconnected.</li>
 </ul>
 <p class="p2"><br></p>
-<p class="p3"><span class="Apple-tab-span">	</span>The <b>Advanced…</b> button opens a window with less-used settings for the selected configuration.</p>
+<p class="p3"><span class="Apple-tab-span">	</span>The <b>Advanced…</b> button opens a window with settings that are less commonly used for the selected configuration.</p>
 </body>
 </html>

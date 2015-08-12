@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,9 +20,16 @@
  */
 
 
-#import "defines.h"
 #import "LoginWindowController.h"
+
 #import "helper.h"
+
+#import "MenuController.h"
+#import "TBUserDefaults.h"
+#import "AuthAgent.h"
+
+
+extern TBUserDefaults * gTbDefaults;
 
 @interface LoginWindowController() // Private methods
 
@@ -32,6 +39,12 @@
 
 @implementation LoginWindowController
 
+TBSYNTHESIZE_OBJECT(retain, NSTextField *,       username, setUsername)
+TBSYNTHESIZE_OBJECT(retain, NSSecureTextField *, password, setPassword)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, saveUsernameInKeychainCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
+
 -(id) initWithDelegate: (id) theDelegate
 {
     self = [super initWithWindowNibName:@"LoginWindow"];
@@ -39,7 +52,17 @@
         return nil;
     }
     
-    delegate = [theDelegate retain];    
+	[[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(applicationDidChangeScreenParametersNotificationHandler:)
+                                                 name: NSApplicationDidChangeScreenParametersNotification
+                                               object: nil];
+    
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
+                                                           selector: @selector(wokeUpFromSleepHandler:)
+                                                               name: NSWorkspaceDidWakeNotification
+                                                             object: nil];
+    
+    delegate = [theDelegate retain];
     return self;
 }
 
@@ -50,35 +73,62 @@
     [iconIV setImage: [NSApp applicationIconImage]];
     
 	NSString * displayName = [[self delegate] displayName];
-	NSString * groupMsg;
+    NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
 	NSString * group = credentialsGroupFromDisplayName(displayName);
-	if (  group  ) {
-		groupMsg = [NSString stringWithFormat: NSLocalizedString(@"\nusing %@ credentials.", @"Window text"),
-					group];
-	} else {
-		groupMsg = @"";
-	}
-
-    NSString * text = [NSString stringWithFormat:
-                       NSLocalizedString(@"A username and password are required to connect to\n  %@%@", @"Window text"),
-                       displayName,
-					   groupMsg];
-	
+	NSString * text;
+    if (  group  ) {
+		text = [NSString stringWithFormat: NSLocalizedString(@"A username and password are required to connect to\n  %@\n(using '%@' credentials)", @"Window text"),
+				localName, group];
+    } else {
+        text = [NSString stringWithFormat: NSLocalizedString(@"A username and password are required to connect to\n  %@", @"Window text"),
+                localName];
+    }
+    
     [mainText setTitle: text];
     
     [usernameTFC setTitle: NSLocalizedString(@"Username:", @"Window text")];
     [passwordTFC setTitle: NSLocalizedString(@"Password:", @"Window text")];
 
-    [saveInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain", @"Checkbox name")];
+    [saveUsernameInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain", @"Checkbox name")];
+    [savePasswordInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain", @"Checkbox name")];
 
-    [self setTitle: NSLocalizedString(@"OK"    , @"Button") ofControl: OKButton ];
-    [self setTitle: NSLocalizedString(@"Cancel", @"Button") ofControl: cancelButton ];
+    [self setTitle: NSLocalizedString(@"OK"    , @"Button") ofControl: OKButton];
+    [self setTitle: NSLocalizedString(@"Cancel", @"Button") ofControl: cancelButton];
     
     [self redisplay];
 }
 
+-(void) redisplayIfShowing
+{
+    if (  [delegate showingLoginWindow]  ) {
+        [self redisplay];
+    } else {
+        NSLog(@"Cancelled redisplay of login window because it is no longer showing");
+    }
+}
+
 -(void) redisplay
 {
+    // If we have saved a username, load the textbox with it and check the "Save in Keychain" checkbox for it
+	NSString * displayName = [[self delegate] displayName];
+    NSString * usernamePreferenceKey             = [displayName stringByAppendingString: @"-keychainHasUsername"];
+    BOOL haveSavedUsername = (   [gTbDefaults boolForKey: usernamePreferenceKey]
+							  && [gTbDefaults canChangeValueForKey: usernamePreferenceKey] );
+	NSString * usernameLocal = [delegate usernameFromKeychain];
+	if (  [usernameLocal length] == 0  ) {
+		usernameLocal = @"";
+	}
+	[[self username] setStringValue: usernameLocal];
+	BOOL enableSaveUsernameCheckbox = (  haveSavedUsername
+									   ? NSOnState
+									   : NSOffState);
+    [[self saveUsernameInKeychainCheckbox] setState: enableSaveUsernameCheckbox];
+	
+    // Always clear the password textbox and set up its "Save in Keychain" checkbox
+	[[self password] setStringValue: @""];
+	[[self savePasswordInKeychainCheckbox] setState:   NSOffState];
+	[[self savePasswordInKeychainCheckbox] setEnabled: enableSaveUsernameCheckbox];
+	
     [cancelButton setEnabled: YES];
     [OKButton setEnabled: YES];
     [[self window] center];
@@ -148,18 +198,47 @@
     [NSApp stopModal];
 }
 
-- (void) dealloc
+-(IBAction) saveUsernameInKeychainCheckboxWasClicked: (id) sender {
+	
+	(void) sender;
+	
+	if (  [saveUsernameInKeychainCheckbox state] == NSOnState  ) {
+		[[self savePasswordInKeychainCheckbox] setState:   NSOffState];
+		[[self savePasswordInKeychainCheckbox] setEnabled: YES];
+	} else {
+		[[self savePasswordInKeychainCheckbox] setState:   NSOffState];
+		[[self savePasswordInKeychainCheckbox] setEnabled: NO];
+	}
+}
+
+
+-(void) applicationDidChangeScreenParametersNotificationHandler: (NSNotification *) n
 {
-    [mainText               release];
-    [iconIV                 release];
-    [cancelButton           release];
-    [OKButton               release];
-    [username               release];
-    [password               release];
-    [usernameTFC            release];
-    [passwordTFC            release];
-    [saveInKeychainCheckbox release];
-    [delegate               release];
+ 	(void) n;
+    
+	if (   [delegate showingLoginWindow]
+		&& (! [gTbDefaults boolForKey: @"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"])  ) {
+		NSLog(@"LoginWindowController: applicationDidChangeScreenParametersNotificationHandler: requesting redisplay of login window");
+        [self performSelectorOnMainThread: @selector(redisplayIfShowing) withObject: nil waitUntilDone: NO];
+	}
+}
+
+-(void) wokeUpFromSleepHandler: (NSNotification *) n
+{
+ 	(void) n;
+    
+	if (   [delegate showingLoginWindow]
+		&& (! [gTbDefaults boolForKey: @"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep"])  ) {
+		NSLog(@"LoginWindowController: didWakeUpFromSleepHandler: requesting redisplay of login window");
+        [self performSelectorOnMainThread: @selector(redisplayIfShowing) withObject: nil waitUntilDone: NO];
+	}
+}
+
+- (void) dealloc {
+    
+    [delegate release]; delegate = nil;
+    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver: self];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
     
 	[super dealloc];
 }
@@ -169,40 +248,14 @@
     return [NSString stringWithFormat:@"%@", [self class]];
 }
 
--(NSTextField *) username
+-(BOOL) isSaveUsernameInKeychainChecked
 {
-    return [[username retain] autorelease];
+    return (  [saveUsernameInKeychainCheckbox state] == NSOnState  );
 }
-
--(void) setUsername: (NSTextField *) newValue
+		  
+-(BOOL) isSavePasswordInKeychainChecked
 {
-    if (  username != newValue  ) {
-        [username release];
-        username = [newValue retain];
-    }
-}
-
-
--(NSTextField *) password
-{
-    return [[password retain] autorelease];
-}
-
--(void) setPassword: (NSTextField *) newValue
-{
-    if (  password != newValue  ) {
-        [password release];
-        password = (NSSecureTextField *) [newValue retain];
-    }
-}
-
--(BOOL) saveInKeychain
-{
-    if (  [saveInKeychainCheckbox state] == NSOnState  ) {
-        return TRUE;
-    } else {
-        return FALSE;
-    }
+    return (  [savePasswordInKeychainCheckbox state] == NSOnState  );
 }
 
 -(id) delegate

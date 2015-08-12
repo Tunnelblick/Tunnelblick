@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Jonathan Bullard
+ * Copyright (c) 2011, 2012, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,12 +21,20 @@
 
 //*************************************************************************************************
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 
 @interface NSString(TB)
 
 -(NSComparisonResult) caseInsensitiveNumericCompare: (NSString*) theString;
+
+-(BOOL) containsOnlyCharactersInString: (NSString *) allowed;
+
+-(NSString *) pathEdition;
+
+-(NSString *) stringByAppendingPathEdition: (NSString *) edition;
+
+-(NSString *) stringByDeletingPathEdition;
 
 -(unsigned) unsignedIntValue;
 

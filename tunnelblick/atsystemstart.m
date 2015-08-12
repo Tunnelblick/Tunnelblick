@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011 Jonathan K. Bullard
+ * Copyright 2010, 2011 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -39,8 +39,10 @@
 
 #import <Foundation/Foundation.h>
 #import <sys/stat.h>
+
 #import "defines.h"
 #import "sharedRoutines.h"
+
 #import "NSFileManager+TB.h"
 
 // Indices into argv[] for items we use. The first is an argument to this program; the other two are arguments to openvpnstart
@@ -109,7 +111,7 @@ int main(int argc, char* argv[])
     [sanitizedDaemonName replaceOccurrencesOfString: @"." withString: @"-D" options: 0 range: NSMakeRange(0, [sanitizedDaemonName length])];
     [sanitizedDaemonName replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [sanitizedDaemonName length])];
     
-    NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.startup.%@", sanitizedDaemonName];
+    NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.tunnelblick.startup.%@", sanitizedDaemonName];
     
     NSString * plistPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/%@.plist", daemonLabel];
     

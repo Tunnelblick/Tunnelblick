@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,7 +21,10 @@
 
 
 #import "InfoView.h"
+
 #import "helper.h"
+
+#import "NSTimer+TB.h"
 #import "TBUserDefaults.h"
 
 
@@ -38,11 +41,13 @@ extern TBUserDefaults * gTbDefaults;
     return self;
 }
 
--(void) dealloc
-{
-    [logo release];
-    [scrollTimer release];
-    [super dealloc];
+-(void) dealloc {
+	
+	[logo release];           logo        = nil;
+	[scrollTimer invalidate];
+	[scrollTimer release];    scrollTimer = nil;
+	
+	[super dealloc];
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
@@ -112,7 +117,7 @@ extern TBUserDefaults * gTbDefaults;
     NSString * aboutPath    = [[[NSBundle mainBundle] bundlePath] stringByAppendingString: @"/Contents/Resources/about.html"];
 	NSString * htmlFromFile = [NSString stringWithContentsOfFile: aboutPath encoding:NSASCIIStringEncoding error:NULL];
     if (  htmlFromFile  ) {
-        NSString * basedOnHtml  = NSLocalizedString(@"<br>Based on Tunnel" @"blick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>", @"Window text");
+        NSString * basedOnHtml  = NSLocalizedString(@"<br>Based on Tunnel" @"blick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc.", @"Window text");
         NSString * html         = [NSString stringWithFormat:@"%@%@%@%@",
                                    @"<html><body><center><div style=\"font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px\">",
                                    htmlFromFile,
@@ -123,52 +128,51 @@ extern TBUserDefaults * gTbDefaults;
         [[infoDescriptionTV textStorage] setAttributedString: description];
     } else {
         
-        // Create HTML trailer and convert to an mutable attributed string
-        NSString * trailingHTML = @"<br /><center><a href= \"https://www.tunnelblick.net\">https://www.tunnelblick.net</a><br /></center>";
-        NSData * htmlData = [[[NSData alloc] initWithBytes: [trailingHTML UTF8String] length: [trailingHTML length]] autorelease];
-        NSMutableAttributedString * descriptionString = [[[NSMutableAttributedString alloc] initWithHTML: htmlData documentAttributes: nil] autorelease];
-
-        NSAttributedString * contents = [[[NSMutableAttributedString alloc] initWithString:
-                                         NSLocalizedString(@"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@.", @"Window text")] autorelease];
-        
-        // Insert the localized contents before the trailer
-        [descriptionString insertAttributedString: contents atIndex: 0];
+        // Create the base string with localized content (the leading space is needed to keep the prefix from becoming a link; it is removed if the prefix is not needed)
+		NSString * localizedContent = NSLocalizedString(@" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc.", @"Window text");
+        NSMutableAttributedString * descriptionString = [[[NSMutableAttributedString alloc] initWithString: localizedContent] autorelease];
         
         // Replace the placeholders in the localized content with links
         [self replaceString: @"%1$@"
+                 withString: @"Tunnel" @"blick"
+                  urlString: @"https://www.tunnelblick.net"
+                         in: descriptionString];
+        
+        [self replaceString: @"%2$@"
                  withString: @"GNU General Public License version 2"
                   urlString: @"https://www.gnu.org/licenses/gpl-2.0.html"
                          in: descriptionString];
         
-        [self replaceString: @"%2$@"
+        [self replaceString: @"%3$@"
                  withString: @"Free Software Foundation"
                   urlString: @"https://fsf.org"
                          in: descriptionString];
         
+        [self replaceString: @"%4$@"
+                 withString: @"OpenVPN"
+                  urlString: @"https://openvpn.net/"
+                         in: descriptionString];
+		
         [infoDescriptionTV setEditable: NO];
         [infoDescriptionSV setHasHorizontalScroller: NO];
         [infoDescriptionSV setHasVerticalScroller:   NO];
         
-        // If Tunnelblick has been globally replaced with XXX, prefix the license description with "XXX is based on Tunnelblick. "
-        // And change XXX back to Tunnelblick
-        if (  ! [gTbDefaults boolForKey: @"doNotUnrebrandLicenseDescription"]  ) {
-            if (   ! [@"Tunnelblick" isEqualToString: @"Tunnel" @"blick"]  ) {
-                NSString * prefix = [NSString stringWithFormat:
-                                     NSLocalizedString(@"Tunnelblick is based on %@. ", @"Window text"),
-                                     @"Tunnel" @"blick"];
-                
-                NSMutableString * s = [descriptionString mutableString];
-                [s replaceOccurrencesOfString: @"Tunnelblick" withString: @"Tunnel" @"blick" options: 0 range: NSMakeRange(0, [s length])];
-                [descriptionString replaceCharactersInRange: NSMakeRange(0, 0) withString: prefix];
-            }
+        // If Tunnelblick has been globally replaced with XXX, prefix the license description with "XXX is based on Tunnelblick."
+        if (   ( ! [gTbDefaults boolForKey: @"doNotUnrebrandLicenseDescription"]  )
+			&& ( ! [@"Tunnelblick" isEqualToString: @"Tunnel" @"blick"]  )
+			) {
+			NSString * prefix = [NSString stringWithFormat:
+								 NSLocalizedString(@"Tunnelblick is based on %@.", @"Window text"),
+								 @"Tunnel" @"blick"];
+			[descriptionString replaceCharactersInRange: NSMakeRange(0, 0) withString: prefix];
+        } else {
+			[descriptionString deleteCharactersInRange: NSMakeRange(0, 1)];	// Remove leading space
         }
-        
-        [infoDescriptionTV replaceCharactersInRange:NSMakeRange( 0, [[infoDescriptionTV string] length] )
-                                            withRTF:[descriptionString RTFFromRange:
-                                                     NSMakeRange( 0, [descriptionString length] )
-                                                                 documentAttributes:nil]];
+		
+        [infoDescriptionTV replaceCharactersInRange: NSMakeRange( 0, [[infoDescriptionTV string] length] )
+                                            withRTF: [descriptionString RTFFromRange: NSMakeRange( 0, [descriptionString length] ) documentAttributes: nil]];
     }
-
+	
 	// Credits: create HTML, convert to an NSMutableAttributedString, substitute localized strings, and display
 	//
     // Credits data comes from the following arrays:
@@ -192,9 +196,11 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"Michael Bianco",               NSLocalizedString(@"Button images",                         @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Waldemar Brodkorb",            NSLocalizedString(@"Contributed to early code",             @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Math Campbell",                NSLocalizedString(@"Button images",                         @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"William Faulk",                NSLocalizedString(@"Icon set including Retina images",      @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Raal Goff",                    NSLocalizedString(@"Animation and icon sets code",          @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Benji Greig",                  NSLocalizedString(@"Tunnelblick icon",                      @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Mohammad A. Haque",            NSLocalizedString(@"Xcode help and OpenSSL integration",    @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Wyatt Kirby",                  NSLocalizedString(@"Icon set including Retina images",      @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Uli Kusterer",                 NSLocalizedString(@"UKKQueue and UKLoginItemRegistry",      @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Xaver Loppenstedt",            NSLocalizedString(@"PKCS#11 support",                       @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Andy Matuschak",               @"Sparkle", nil],
@@ -209,11 +215,17 @@ extern TBUserDefaults * gTbDefaults;
                             nil];
     
     NSArray * locCredits = [NSArray arrayWithObjects:
+                            [NSArray arrayWithObjects: @"Khalid Alhumud",                NSLocalizedString(@"Arabic localization",                  @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"b123400",                       NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Matej Bačík",                   NSLocalizedString(@"Slovak localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Stefan Bethke",                 NSLocalizedString(@"German localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Olivier Borowski",              NSLocalizedString(@"French localization",                  @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Martin Bratteng",               NSLocalizedString(@"Norwegian localization",               @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Alican Cakil",                  NSLocalizedString(@"Turkish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Sergio Andrés Castro Cárdenas", NSLocalizedString(@"Spanish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Zhanchong Chen",                NSLocalizedString(@"Chinese (simplified) localization",    @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Vadim Chumachenko",             NSLocalizedString(@"Ukrainian localization",               @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Diego Silva Cogo",              NSLocalizedString(@"Portuguese (Brazilian) localization",  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Mats Cronqvist",                NSLocalizedString(@"Swedish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Grzegorz Danecki",              NSLocalizedString(@"Polish localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Aleix Dorca",                   NSLocalizedString(@"Catalan localization",                 @"Credit description"), nil],
@@ -223,47 +235,71 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"Massimo Grassi",                NSLocalizedString(@"Italian localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Ricardo Guijt",                 NSLocalizedString(@"Dutch localization",                   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Pierpaolo Gulla",               NSLocalizedString(@"Italian localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Takatoh Herminghaus",           NSLocalizedString(@"German localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Oliver Hill",                   NSLocalizedString(@"French localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"'Dr Hok'",                      NSLocalizedString(@"German localization",                  @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Evandro Hora",                  NSLocalizedString(@"Portuguese localization",              @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Evandro Curvelo Hora",          NSLocalizedString(@"Portuguese (Brazilian) localization",  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Jesse Hulkko",                  NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Jarmo Isotalo",                 NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Dewey Kang",                    NSLocalizedString(@"Korean localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Kalle Kärkkäinen",              NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Yoshihisa Kawamoto",            NSLocalizedString(@"Japanese localization",                @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Alexander Kaydannik",           NSLocalizedString(@"Ukrainian localization",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Kyoungmin Kim",                 NSLocalizedString(@"Korean localization",                  @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Mikael Kolkinn",                NSLocalizedString(@"Norwegian localization",               @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"kskmt",                         NSLocalizedString(@"Japanese localization",                @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Henry Kuo",                     NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Daniel Kvist",                  NSLocalizedString(@"Swedish localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Isaac Kwan",                    NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Aming Lau",                     NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Aleksey Likholob",              NSLocalizedString(@"Ukrainian localization",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Jon Luberth",                   NSLocalizedString(@"Norwegian localization",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Łukasz M",                      NSLocalizedString(@"Polish localization",                  @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Jakob Bo Søndergaard Madsen",   NSLocalizedString(@"Danish localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Tim Malmström",                 NSLocalizedString(@"Swedish localization",                 @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Denis Volpato Martins",         NSLocalizedString(@"Portuguese localization",              @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Luigi Martini",                 NSLocalizedString(@"Italian localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Denis Volpato Martins",         NSLocalizedString(@"Portuguese (Brazilian) localization",  @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Boian Mihailov",                NSLocalizedString(@"Bulgarian localization",               @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Richárd Murvai",                NSLocalizedString(@"Hungarian localization",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Johan Nilsson",                 NSLocalizedString(@"Swedish localization",                 @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Feetu Nyrhine",                 NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Feetu Nyrhinen",                NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Kenji Obata",                   NSLocalizedString(@"Japanese localization",                @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Peter K. O'Connor",             NSLocalizedString(@"Chinese (simplified) localization",    @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Petra Penttila",                NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Matteo Pillon",                 NSLocalizedString(@"Italian localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Tzanos Panagiotis",             NSLocalizedString(@"Greek localization",                   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Victor Ptichkin",               NSLocalizedString(@"Russian localization",                 @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Ricardo Rezende",               NSLocalizedString(@"Portuguese localization",              @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Ricardo Rezende",               NSLocalizedString(@"Portuguese (Brazilian) localization",  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Diego Rivera",                  NSLocalizedString(@"Spanish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Nicolas Rodriguez (Tupaca)",    NSLocalizedString(@"Spanish localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Ranal Saron",                   NSLocalizedString(@"Estonian localization",                @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Markus Schneider",              NSLocalizedString(@"German localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Janek Schwarz",                 NSLocalizedString(@"German localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Emma Segev",                    NSLocalizedString(@"Dutch localization",                   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Jeremy Sherman",                NSLocalizedString(@"French localization",                  @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Stjepan Siljac",                NSLocalizedString(@"Swedish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Tjalling Soldaat",              NSLocalizedString(@"Dutch localization",                   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Petr Šrajer",                   NSLocalizedString(@"Czech localization",                   @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Wojtek Sromek",                 NSLocalizedString(@"Polish localization",                  @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Wojciech Sromek",               NSLocalizedString(@"Polish localization",                  @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Mihail Stoynov",                NSLocalizedString(@"Bulgarian localization",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Marcell Szabo",                 NSLocalizedString(@"Hungarian localization",               @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Paul Taykalo",                  NSLocalizedString(@"Ukrainian localization",               @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"TheFrog",                       NSLocalizedString(@"Slovak localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Erwann Thoraval",               NSLocalizedString(@"French localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Mikko Toivola",                 NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"André Torres",                  NSLocalizedString(@"Portuguese localization",              @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Eugene Trufanov",               NSLocalizedString(@"Russian localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Dennis Ukhanov",                NSLocalizedString(@"Russian localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"François Varas",                NSLocalizedString(@"French localization",                  @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Jorge Daniel Sampayo Vargas",   NSLocalizedString(@"Spanish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Cristiano Verondini",           NSLocalizedString(@"Italian localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Zoltan Lanyi Webmegoldasok",    NSLocalizedString(@"Hungarian localization",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Pomin Wu",                      NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Kun Xi",                        NSLocalizedString(@"Chinese (simplified) localization",    @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Andrew Ying",                   NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"游精展",                         NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Magdelena Zajac",               NSLocalizedString(@"Polish localization",                  @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Nikolay Zhelev",                NSLocalizedString(@"Bulgarian localization",               @"Credit description"), nil],
                             nil];
 	
     // Construct an HTML page with the dummy credits, consisting of a table.
@@ -397,6 +433,7 @@ extern TBUserDefaults * gTbDefaults;
 	(void) identifier;
 	
     [scrollTimer invalidate];
+    [self setScrollTimer: nil];
 }
 
 
@@ -411,11 +448,13 @@ extern TBUserDefaults * gTbDefaults;
                                                                 // takes time to scroll to the bottom of the display before moving the text)
     [infoCreditTV scrollPoint:NSMakePoint( 0.0, 0.0 )];
     
-    scrollTimer = [NSTimer scheduledTimerWithTimeInterval: 0.03 
-                                                   target: self 
-                                                 selector: @selector(scrollCredits:) 
-                                                 userInfo: nil 
-                                                  repeats: YES];
+    [scrollTimer invalidate];
+    [self setScrollTimer: [NSTimer scheduledTimerWithTimeInterval: 0.03
+                                                           target: self
+                                                         selector: @selector(scrollCredits:)
+                                                         userInfo: nil
+                                                          repeats: YES]];
+    [scrollTimer tbSetTolerance: -1.0];
 }
 
 
@@ -466,5 +505,6 @@ extern TBUserDefaults * gTbDefaults;
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, infoHelpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, infoVersionTFC)
+TBSYNTHESIZE_OBJECT(retain, NSTimer *, scrollTimer, setScrollTimer)
 
 @end

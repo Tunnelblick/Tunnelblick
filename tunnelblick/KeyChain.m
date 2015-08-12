@@ -1,7 +1,8 @@
 /*
  * Copyright 2004 Angelo Laub
  * Fixes by Dirk Theisen <dirk@objectpark.org> 
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011
+* Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013. All rights reserved.
+
  *
  *  This file is part of Tunnelblick.
  *
@@ -22,7 +23,10 @@
  */
 
 #import "KeyChain.h"
+
 #import <Security/Security.h>
+
+#import "helper.h"
 
 @implementation KeyChain
 
@@ -51,16 +55,21 @@
 }
 
 
-- (void) dealloc
-{
-    [serviceName release];
-    [accountName release];
+- (void) dealloc {
+    
+    [accountName release]; accountName = nil;
+    [serviceName release]; serviceName = nil;
+    
     [super dealloc];
 }
 
 - (NSString*) password 
 {
-    char *passData;
+	// Returns a password if it exists.
+	// Returns an empty string if the Keychain can be accessed but the password is empty or does not exist
+	// Returns nil if the Keychain can't be accessed (user cancelled)
+	
+	char *passData;
     UInt32 passLength = 0;
     const char* service   = [serviceName UTF8String];
     const char* account   = [accountName UTF8String];
@@ -83,16 +92,30 @@
         } else {
             SecKeychainItemFreeContent(NULL,passData);
             NSLog(@"Zero-length Keychain item retrieved for service = '%@' account = '%@'", serviceName, accountName);
+			return @"";
         }
     } else {
         if (  status == errKCItemNotFound  ) {
             NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@' because it does not exist", serviceName, accountName);
+			return @"";
+        } else if (   (status == errSecAuthFailed)  // -128 found by user experimentation -- not in Keychain Services Reference or CSSM references,
+                   || (status == -128)  ) {         // but it is 'userCanceledErr' in OS 9 and earlier (!)
+            NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@' because access to the Keychain was cancelled by the user", serviceName, accountName);
+			return nil;
         } else {
-            NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@'; status was %ld; error was %ld:\n'%s'", serviceName, accountName, (long) status, (long) errno, strerror(errno));
+            // Apple docs are inconsistent; Xcode says SecCopyErrorMessageString is available on 10.5+, Keychain Services Reference says 10.3+, so we play it safe
+			if (  runningOnLeopardOrNewer()  ) {
+                CFStringRef errMsg = SecCopyErrorMessageString(status, NULL);
+				NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@'; status was %ld; error was '%@'", serviceName, accountName, (long) status, (NSString *)errMsg);
+				if (  errMsg  ) {
+                    CFRelease(errMsg);
+                }
+            } else {
+				NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@'; status was %ld", serviceName, accountName, (long) status);
+			}
+			return @"";
         }
     }
-    
-    return nil;
 }
 
 - (int)setPassword:(NSString *)password

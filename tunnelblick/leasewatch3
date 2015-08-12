@@ -2,6 +2,11 @@
 
 # leasewatch3 - renamed from leasewatch 2011-04-18
 
+trap "" TSTP
+trap "" HUP
+trap "" INT
+export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
+
 # Quick check - is the configuration there?
 if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
 	# Configuration isn't there, so we forget it

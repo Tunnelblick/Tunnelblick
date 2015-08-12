@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,12 +20,16 @@
  */
 
 
-#import <pthread.h>
-#import "defines.h"
 #import "StatusWindowController.h"
-#import "MenuController.h"
-#import "TBUserDefaults.h"
+
+#import <pthread.h>
+
+#import "defines.h"
 #import "helper.h"
+
+#import "MenuController.h"
+#import "NSTimer+TB.h"
+#import "TBUserDefaults.h"
 
 
 TBUserDefaults * gTbDefaults;         // Our preferences
@@ -33,9 +37,10 @@ extern NSArray * gRateUnits;
 extern NSArray * gTotalUnits;
 extern BOOL       gShuttingDownWorkspace;
 
-#define NUMBER_OF_STATUS_SCREEN_POSITIONS 64
+// The following must be small enough that it's square fits in an NSUInteger
+#define NUMBER_OF_STATUS_SCREEN_POSITIONS 4096
 
-static uint64_t statusScreenPositionsInUse = 0; // Must be 64 bits to match NUMBER_OF_STATUS_SCREEN_POSITIONS
+static uint8_t statusScreenPositionsInUse[NUMBER_OF_STATUS_SCREEN_POSITIONS];
 
 static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZER;
 
@@ -125,7 +130,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     [self fadeIn];
 }
 
-// Sets the frame for the window so the entire title (name of connection) is visible
+// Sets the frame for the window so the entire title (localized name of connection) is visible
 // and the window is in the upper-right corner of the screen
 -(void) setSizeAndPosition
 {
@@ -138,11 +143,12 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
     // Adjust the width of the window to fit the complete title
     // But never make it smaller than the original window, or larger than will fit on the screen
-    NSRect screen = [[[NSScreen screens] objectAtIndex: 0] visibleFrame];
+    NSRect screen = [[[NSScreen screens] objectAtIndex: [((MenuController *)[NSApp delegate]) statusScreenIndex]] visibleFrame];   // Use the screen on which we are displaying status windows
     if (  currentWidth == 0.0  ) {
         currentWidth = [NSWindow minFrameWidthWithTitle: [panel title] styleMask: NSHUDWindowMask];
     }
-    CGFloat newWidth = [NSWindow minFrameWidthWithTitle: name styleMask: NSHUDWindowMask];
+    
+    CGFloat newWidth = [NSWindow minFrameWidthWithTitle: localName styleMask: NSHUDWindowMask];
     if (  newWidth < originalWidth  ) {
         newWidth = originalWidth;
     }
@@ -169,22 +175,36 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     NSUInteger screensWeCanStackVertically = (unsigned) (verticalScreenSize / (panelFrame.size.height + 5));
     if (  screensWeCanStackVertically < 1  ) {
         screensWeCanStackVertically = 1;
+    } else if (  screensWeCanStackVertically > NUMBER_OF_STATUS_SCREEN_POSITIONS  ) {
+        NSLog(@"Limiting screensWeCanStackVertically to %ld (was %ld)", (long) NUMBER_OF_STATUS_SCREEN_POSITIONS, (long) screensWeCanStackVertically);
+        screensWeCanStackVertically = NUMBER_OF_STATUS_SCREEN_POSITIONS;
     }
     
     double horizontalScreenSize = screen.size.width - 10.0;  // Size we can use on the screen
     NSUInteger screensWeCanStackHorizontally = (unsigned) (horizontalScreenSize / (panelFrame.size.width + 5));
     if (  screensWeCanStackHorizontally < 1  ) {
         screensWeCanStackHorizontally = 1;
+    } else if (  screensWeCanStackHorizontally > NUMBER_OF_STATUS_SCREEN_POSITIONS  ) {
+        NSLog(@"Limiting screensWeCanStackHorizontally to %ld (was %ld)", (long) NUMBER_OF_STATUS_SCREEN_POSITIONS, (long) screensWeCanStackHorizontally);
+        screensWeCanStackHorizontally = NUMBER_OF_STATUS_SCREEN_POSITIONS;
+    }
+    
+    // Make sure we can keep track of all of the screen positions we stack. (We can keep track of a maximum of NUMBER_OF_STATUS_SCREEN_POSITIONS positions.)
+    // Note that no overflow occurs in the following multiplication because each operand is <= NUMBER_OF_STATUS_SCREEN_POSITIONS, which is a realtively small number.
+    if (  (screensWeCanStackVertically * screensWeCanStackHorizontally) > NUMBER_OF_STATUS_SCREEN_POSITIONS  ) {
+        NSUInteger newValue = NUMBER_OF_STATUS_SCREEN_POSITIONS / screensWeCanStackVertically;
+        NSLog(@"Limiting screensWeCanStackHorizontally to %ld (was %ld) because screensWeCanStackVertically is %ld", (long) newValue, (long) screensWeCanStackHorizontally, (long) screensWeCanStackVertically);
+        screensWeCanStackHorizontally = newValue;
     }
     
     // Figure out what position number to try to get:
     NSUInteger startPositionNumber;
-    if (   [[NSApp delegate] mouseIsInsideAnyView]
+    if (   [((MenuController *)[NSApp delegate]) mouseIsInsideAnyView]
         && (   [gTbDefaults boolForKey: @"placeIconInStandardPositionInStatusBar"] )
         && ( ! [gTbDefaults boolForKey: @"doNotShowNotificationWindowOnMouseover"] )
         && ( ! [gTbDefaults boolForKey: @"doNotShowNotificationWindowBelowIconOnMouseover"] )  ) {
         
-        MainIconView * view = [[NSApp delegate] ourMainIconView];
+        MainIconView * view = [((MenuController *)[NSApp delegate]) ourMainIconView];
 		NSPoint iconOrigin  = [[view window] convertBaseToScreen: NSMakePoint(0.0, 0.0)];
         
         for ( startPositionNumber=0; startPositionNumber<screensWeCanStackVertically * screensWeCanStackHorizontally; startPositionNumber+=screensWeCanStackVertically ) {
@@ -204,35 +224,31 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     // Put the window in the lowest available position number equal to or greater than startPositionNumber, wrapping around
     // to position 0, 1, 2, etc. if we didn't start at position 0
 
+    statusScreenPosition = NSNotFound;
+    
     pthread_mutex_lock( &statusScreenPositionsInUseMutex );
     
-    NSUInteger mask  = 1 << startPositionNumber;
     NSUInteger positionNumber;
     for (  positionNumber=startPositionNumber; positionNumber<NUMBER_OF_STATUS_SCREEN_POSITIONS; positionNumber++  ) {
-        if (  (statusScreenPositionsInUse & mask) == 0  ) {
+        if (  statusScreenPositionsInUse[positionNumber] == 0  ) {
             break;
         }
-        mask  = mask  << 1;
     }
     
     if (  positionNumber < NUMBER_OF_STATUS_SCREEN_POSITIONS  ) {
-        statusScreenPositionsInUse = statusScreenPositionsInUse | mask;
+        statusScreenPositionsInUse[positionNumber] = 1;
         statusScreenPosition = positionNumber;
     } else {
         if (  startPositionNumber != 0  ) {
-            mask  = 1;
             for (  positionNumber=0; positionNumber<startPositionNumber; positionNumber++  ) {
-                if (  (statusScreenPositionsInUse & mask) == 0  ) {
+                if (  statusScreenPositionsInUse[positionNumber] == 0  ) {
                     break;
                 }
-                mask  = mask  << 1;
             }
             
             if (  positionNumber < startPositionNumber  ) {
-                statusScreenPositionsInUse = statusScreenPositionsInUse | mask;
+                statusScreenPositionsInUse[positionNumber] = 1;
                 statusScreenPosition = positionNumber;
-            } else {
-                statusScreenPosition = NSNotFound;
             }
         }
     }
@@ -321,7 +337,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
     [self showWindow: self];
     [self initialiseAnim];
-    haveLoadedFromNib = TRUE;
+	haveLoadedFromNib = TRUE;
     [self fadeIn];
 }
 
@@ -391,12 +407,20 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         [theAnim setFrameRate:7.0];
         [theAnim setDelegate:self];
         
-        for (i=1; i<=[[[NSApp delegate] largeAnimImages] count]; i++) {
-            NSAnimationProgress p = ((float)i)/((float)[[[NSApp delegate] largeAnimImages] count]);
+        for (i=1; i<=[[((MenuController *)[NSApp delegate]) largeAnimImages] count]; i++) {
+            NSAnimationProgress p = ((float)i)/((float)[[((MenuController *)[NSApp delegate]) largeAnimImages] count]);
             [theAnim addProgressMark: p];
         }
+		
         [theAnim setAnimationBlockingMode:  NSAnimationNonblocking];
-        [theAnim startAnimation];
+		
+        if (  [status isEqualToString:@"EXITING"]  ) {
+            [animationIV setImage: [((MenuController *)[NSApp delegate]) largeMainImage]];
+        } else if (  [status isEqualToString:@"CONNECTED"]  ) {
+            [animationIV setImage: [((MenuController *)[NSApp delegate]) largeConnectedImage]];
+		} else {
+			[theAnim startAnimation];
+		}
     }
 }
 
@@ -415,7 +439,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 -(void)animation:(NSAnimation *)animation didReachProgressMark:(NSAnimationProgress)progress
 {
 	if (animation == theAnim) {
-        [animationIV performSelectorOnMainThread:@selector(setImage:) withObject:[[[NSApp delegate] largeAnimImages] objectAtIndex:(unsigned) lround(progress * [[[NSApp delegate] largeAnimImages] count]) - 1] waitUntilDone:YES];
+        [animationIV performSelectorOnMainThread:@selector(setImage:) withObject:[[((MenuController *)[NSApp delegate]) largeAnimImages] objectAtIndex:(unsigned) lround(progress * [[((MenuController *)[NSApp delegate]) largeAnimImages] count]) - 1] waitUntilDone:YES];
 	}
 }
 
@@ -461,15 +485,17 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         
         if (  statusScreenPosition != NSNotFound  ) {
             pthread_mutex_lock( &statusScreenPositionsInUseMutex );
-            statusScreenPositionsInUse = statusScreenPositionsInUse & ( ~ (1 << statusScreenPosition));
+            statusScreenPositionsInUse[statusScreenPosition] = 0;
+            statusScreenPosition = NSNotFound;
             pthread_mutex_unlock( &statusScreenPositionsInUseMutex );
         }
         
-        [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.2   // Wait for the window to become transparent
-                                         target: self
-                                       selector: @selector(closeAfterFadeOutHandler:)
-                                       userInfo: nil
-                                        repeats: NO];
+        NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.2   // Wait for the window to become transparent
+                                                           target: self
+                                                         selector: @selector(closeAfterFadeOutHandler:)
+                                                         userInfo: nil
+                                                          repeats: NO];
+        [timer tbSetTolerance: -1.0];
 	}
     
     [self stopMouseTracking];
@@ -493,11 +519,12 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     if ( [[self window] alphaValue] == 0.0 ) {
         [[self window] close];
     } else {
-        [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.2   // Wait for the window to become transparent
-                                         target: self
-                                       selector: @selector(closeAfterFadeOutHandler:)
-                                       userInfo: nil
-                                        repeats: NO];
+        NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.2   // Wait for the window to become transparent
+                                                           target: self
+                                                         selector: @selector(closeAfterFadeOutHandler:)
+                                                         userInfo: nil
+                                                          repeats: NO];
+        [timer tbSetTolerance: -1.0];
     }
 
 }
@@ -505,7 +532,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 - (IBAction) connectButtonWasClicked: sender
 {
     [sender setEnabled: NO];
-	[[NSApp delegate] statusWindowController: self
+	[((MenuController *)[NSApp delegate]) statusWindowController: self
                           finishedWithChoice: statusWindowControllerConnectChoice
                               forDisplayName: [self name]];
 }
@@ -513,31 +540,26 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 - (IBAction) disconnectButtonWasClicked: sender
 {
     [sender setEnabled: NO];
-	[[NSApp delegate] statusWindowController: self
+	[((MenuController *)[NSApp delegate]) statusWindowController: self
                           finishedWithChoice: statusWindowControllerDisconnectChoice
                               forDisplayName: [self name]];
 }
 
-- (void) dealloc
-{
+- (void) dealloc {
+	
     [self stopMouseTracking];
     
-    [[NSApp delegate] mouseExitedStatusWindow: self event: nil];
+    [((MenuController *)[NSApp delegate]) mouseExitedStatusWindow: self event: nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver: self]; 
-
-    [connectButton   release];
-    [disconnectButton release];
-    
-    [statusTFC      release];
-    [animationIV    release];
-    
-    [name           release];
-    [status         release];
-    
-    [theAnim        release];    
-    [delegate       release];
-    
+	
+	[name           release]; name           = nil;
+    [localName      release]; localName      = nil;
+	[status         release]; status         = nil;
+	[connectedSince release]; connectedSince = nil;
+	[theAnim        release]; theAnim        = nil;
+	[delegate       release]; delegate       = nil;
+	
 	[super dealloc];
 }
 
@@ -562,15 +584,14 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         return;
     }
     
-    [self setName: theName];
+    [self setName: theName]; // Also sets "localName"
     [self setStatus: theStatus];
-    if (  [theStatus isEqualToString: @"EXITING"]  ) {
-        [self setConnectedSince: @""];
-    } else {
-        [self setConnectedSince: [NSString stringWithFormat: @" %@", theTime]];
-    }
+    [self setConnectedSince: (  (   theTime
+                                 && ( ! [theStatus isEqualToString: @"EXITING"])   )
+                              ? [NSString stringWithFormat: @" %@", theTime]
+                              : @"")];
     
-    [configurationNameTFC setStringValue: theName];
+    [configurationNameTFC setStringValue: localName];
     [statusTFC            setStringValue: [NSString stringWithFormat: @"%@%@",
                                            localizeNonLiteral(theStatus, @"Connection status"),
                                            [self connectedSince]]];
@@ -579,7 +600,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         [configurationNameTFC setTextColor: [NSColor redColor]];
         [statusTFC            setTextColor: [NSColor redColor]];
         [theAnim stopAnimation];
-        [animationIV setImage: [[NSApp delegate] largeMainImage]];
+        [animationIV setImage: [((MenuController *)[NSApp delegate]) largeMainImage]];
 		[connectButton setEnabled: YES];
 		[disconnectButton setEnabled: NO];
         
@@ -587,7 +608,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         [configurationNameTFC setTextColor: [NSColor greenColor]];
         [statusTFC            setTextColor: [NSColor greenColor]];
         [theAnim stopAnimation];
-        [animationIV setImage: [[NSApp delegate] largeConnectedImage]];
+        [animationIV setImage: [((MenuController *)[NSApp delegate]) largeConnectedImage]];
 		[connectButton setEnabled: NO];
 		[disconnectButton setEnabled: YES];
 
@@ -605,16 +626,31 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     return [[delegate retain] autorelease];
 }
 
+-(NSString *) name {
+    return [[name retain] autorelease];
+}
+
+-(void) setName:(NSString *)newValue {
+    if (  ! [name isEqualToString: newValue]  ) {
+        [newValue retain];
+        [name release];
+        name = newValue;
+        [self setLocalName: [delegate localizedName]];
+    }
+}
+
 // *******************************************************************************************
 // Getters & Setters
 
-TBSYNTHESIZE_OBJECT(retain, NSString *, name,           setName)
+TBSYNTHESIZE_OBJECT(retain, NSString *, localName,      setLocalName)
 TBSYNTHESIZE_OBJECT(retain, NSString *, status,         setStatus)
 TBSYNTHESIZE_OBJECT(retain, NSString *, connectedSince, setConnectedSince)
 
 -(BOOL) haveLoadedFromNib {
     return haveLoadedFromNib;
 }
+
+TBSYNTHESIZE_NONOBJECT_GET(BOOL, isOpen)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, inTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, inRateTFC)
@@ -634,7 +670,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outTotalUnitsTFC)
     // Mouse entered the tracking area of the Tunnelblick icon
 
 	[super mouseEntered: theEvent];
-    [[NSApp delegate] mouseEnteredStatusWindow: self event: theEvent];
+    [((MenuController *)[NSApp delegate]) mouseEnteredStatusWindow: self event: theEvent];
 }
 
 -(void) mouseExited: (NSEvent *) theEvent {
@@ -642,14 +678,15 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outTotalUnitsTFC)
     // Mouse exited the tracking area of the Tunnelblick icon
     
 	[super mouseExited: theEvent];
-    [[NSApp delegate] mouseExitedStatusWindow: self event: theEvent];
+    [((MenuController *)[NSApp delegate]) mouseExitedStatusWindow: self event: theEvent];
 }
 
 -(void) NSWindowWillCloseNotification: (NSNotification *) n {
     // Event handler; NOT on MainThread
     
-	(void) n;
-	
-    [[NSApp delegate] mouseExitedStatusWindow: self event: nil];
+	if (  [n object] == [self window]  ) {
+		[((MenuController *)[NSApp delegate]) mouseExitedStatusWindow: self event: nil];
+	}
 }
+
 @end

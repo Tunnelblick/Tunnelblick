@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -51,7 +51,7 @@
 
 -(void) dealloc
 {
-    [string release];
+    [string release]; string = nil;
     
     [super dealloc];
 }

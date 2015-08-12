@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -22,6 +22,9 @@
 
 #import <Foundation/Foundation.h>
 #import <signal.h>
+
+#import "defines.h"
+#import "NSFileManager+TB.h"
 
 NSAutoreleasePool * gPool;
 
@@ -67,7 +70,7 @@ void dumpMsg(NSString * msg) {
     static int msgNum = 0;
     NSString * filePath = [NSString stringWithFormat: @"/tmp/Tunnelblick-process-network-changes-%d.txt", msgNum++];
     NSFileManager * fm = [[[NSFileManager alloc] init] autorelease];
-    [fm removeFileAtPath: filePath handler: nil];
+    [fm tbRemoveFileAtPath: filePath handler: nil];
     [fm createFileAtPath: filePath contents: [NSData dataWithBytes: [msg UTF8String] length: [msg length]] attributes: nil];    
 }    
 
@@ -402,6 +405,27 @@ NSString * getKeyFromScDictionary(NSString * key, NSString * dictionary)
     return @"";
 }
 
+NSDictionary * getSafeEnvironment() {
+	
+	// (This is a pared-down version of the routine in SharedRoutines)
+    //
+    // Create our own environment to guard against Shell Shock (BashDoor) and similar vulnerabilities in bash
+    //
+    // This environment consists of several standard shell variables
+    
+    NSDictionary * env = [NSDictionary dictionaryWithObjectsAndKeys:
+						  STANDARD_PATH,          @"PATH",
+						  NSTemporaryDirectory(), @"TMPDIR",
+						  NSUserName(),           @"USER",
+						  NSUserName(),           @"LOGNAME",
+						  NSHomeDirectory(),      @"HOME",
+						  TOOL_PATH_FOR_BASH,     @"SHELL",
+						  @"unix2003",            @"COMMAND_MODE",
+						  nil];
+    
+    return env;
+}
+
 NSString * getScKey(NSString * key)
 {
     // Returns a key read via scutil
@@ -424,10 +448,11 @@ NSString * getScKey(NSString * key)
     [file closeFile];
     [task setStandardInput: inPipe];
     
-    NSMutableArray * arguments = [NSArray array];
+    NSArray * arguments = [NSArray array];
     [task setArguments: arguments];
     
-    [task setCurrentDirectoryPath: @"/"];
+    [task setCurrentDirectoryPath: @"/private/tmp"];
+	[task setEnvironment: getSafeEnvironment()];
     [task launch];
     [task waitUntilExit];
     
@@ -458,7 +483,7 @@ void scCommand(NSString * command)
     
     NSTask* task = [[[NSTask alloc] init] autorelease];
     
-    [task setLaunchPath: @"/usr/sbin/scutil"];
+    [task setLaunchPath: TOOL_PATH_FOR_SCUTIL];
     
     NSPipe * errPipe = [[NSPipe alloc] init];
     [task setStandardError: errPipe];
@@ -474,10 +499,11 @@ void scCommand(NSString * command)
     [file closeFile];
     [task setStandardInput: inPipe];
     
-    NSMutableArray * arguments = [NSArray array];
+    NSArray * arguments = [NSArray array];
     [task setArguments: arguments];
     
-    [task setCurrentDirectoryPath: @"/"];
+    [task setCurrentDirectoryPath: @"/private/tmp"];
+	[task setEnvironment: getSafeEnvironment()];
     [task launch];
     [task waitUntilExit];
     

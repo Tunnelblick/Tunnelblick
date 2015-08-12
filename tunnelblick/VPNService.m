@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -24,15 +24,17 @@
 
 #ifdef INCLUDE_VPNSERVICE
 
-#import "VPNServiceDefines.h"
 #import "VPNService.h"
-#import "VPNServiceIntroController.h"
-#import "VPNServiceCreateAccountController.h"
-#import "VPNServiceLoginController.h"
-#import "NSApplication+LoginItem.h"
-#import "TBUserDefaults.h"
+
+#import "VPNServiceDefines.h"
+
 #import "KeyChain.h"
 #import "MenuController.h"
+#import "NSApplication+LoginItem.h"
+#import "TBUserDefaults.h"
+#import "VPNServiceCreateAccountController.h"
+#import "VPNServiceIntroController.h"
+#import "VPNServiceLoginController.h"
 
 extern TBUserDefaults * gTbDefaults;
 
@@ -85,10 +87,6 @@ extern TBUserDefaults * gTbDefaults;
         }
 
         [self closeAllScreens];
-        
-        if (  (  [gTbDefaults objectForKey: @"showStatusWindow"])  == nil  ) {
-            [gTbDefaults setBool: TRUE forKey: @"showStatusWindow"];
-        }
     }
     
     return self;
@@ -118,7 +116,7 @@ extern TBUserDefaults * gTbDefaults;
             && ( ! [emailAddress isEqualToString: @""] )
             && ( ! [password     isEqualToString: @""] )  ) {
             if (  [gTbDefaults boolForKey: @"Tunnelblick-lastConnectionSucceeded"]  ) {
-                if (  [[NSApp delegate] tryToConnect: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
+                if (  [((MenuController *)[NSApp delegate]) tryToConnect: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
                     return;
                 }
             }
@@ -353,7 +351,7 @@ extern TBUserDefaults * gTbDefaults;
             [self setEmailAddress: [loginScreen emailAddress]];
             [self setPassword:     [loginScreen password    ]];
             [self storeCredentialsInKeychain];
-            if (  [[NSApp delegate] tryToConnect: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
+            if (  [((MenuController *)[NSApp delegate]) tryToConnect: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
                 [[loginScreen window] close];
             }
             break;
@@ -581,7 +579,7 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) quit
 {
-    [[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
+    [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
 }
 
 -(void) closeAllScreens
@@ -597,22 +595,22 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) dealloc
 {
-    [introScreen                    release];
-    [termsOfServiceScreen           release];
-    [createAccountScreen            release];
-    [loginScreen                    release];
-    [proveScreen                    release];
-    [welcomeScreen                  release];
-    [sorryScreen                    release];
+    [introScreen                    release]; introScreen                  = nil;
+    [termsOfServiceScreen           release]; termsOfServiceScreen         = nil;
+    [createAccountScreen            release]; createAccountScreen          = nil;
+    [loginScreen                    release]; loginScreen                  = nil;
+    [proveScreen                    release]; proveScreen                  = nil;
+    [welcomeScreen                  release]; welcomeScreen                = nil;
+    [sorryScreen                    release]; sorryScreen                  = nil;
     
-    [captchaImage                   release];
-    [sessionToken                   release];
-    [reasonForRegistrationFailure   release];
+    [captchaImage                   release]; captchaImage                 = nil;
+    [sessionToken                   release]; sessionToken                 = nil;
+    [reasonForRegistrationFailure   release]; reasonForRegistrationFailure = nil;
 
-    [emailAddress                   release];
-    [password                       release];
-    [baseUrlString                  release];
-    [tosUrlString                   release];
+    [emailAddress                   release]; emailAddress                 = nil;
+    [password                       release]; password                     = nil;
+    [baseUrlString                  release]; baseUrlString                = nil;
+    [tosUrlString                   release]; tosUrlString                 = nil;
     
     [super dealloc];
 }

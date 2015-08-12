@@ -1,7 +1,7 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
  * Contributions by Dirk Theisen, Jens Ohlig, Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -25,18 +25,20 @@
 
 #import <Carbon/Carbon.h>
 #import <Security/Security.h>
+
 #import "defines.h"
 
 
-@class VPNConnection;
-@class SUUpdater;
-@class UKKQueue;
-@class ConfigurationUpdater;
+@class ConfigurationMultiUpdater;
+@class MainIconView;
 @class MyPrefsWindowController;
 @class NetSocket;
 @class SplashWindowController;
 @class StatusWindowController;
-@class MainIconView;
+@class SUUpdater;
+@class TBUIUpdater;
+@class UKKQueue;
+@class VPNConnection;
 @class WelcomeController;
 
 #ifdef INCLUDE_VPNSERVICE
@@ -54,11 +56,36 @@ enum TerminationReason {
     terminatingBecauseOfFatalError = 6
 };
 
+enum SleepWakeState {
+    noSleepState         = 0,
+    gettingReadyForSleep = 1,
+    readyForSleep        = 2,
+    wakingUp             = 3
+};
+
+enum ActiveInactiveState {
+    active                  = 0,
+    gettingReadyForInactive = 1,
+    readyForInactive        = 2,
+    gettingReadyforActive   = 3
+};
+
+// The following line is needed to avoid a crash on load on 10.4 and 10.5. The crash is caused by the use of "block" structures in the code,
+// even though the block structures are not used when running under 10.4 or 10.5.
+// The code that uses blocks is the line
+//      [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+// which appears in the setPreferenceForSelectedConfigurationsWithKey:to:isBOOL: method.
+// This fix was found at http://lists.apple.com/archives/xcode-users/2009/Oct/msg00608.html
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+void * _NSConcreteStackBlock __attribute__((weak));
+#endif
+
 @interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate>
 {
     IBOutlet NSMenu         * myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
     NSStatusItem            * statusItem;                   // Our place in the Status Bar
-    MainIconView            * ourMainIconView;                 // View for the main icon
+    NSButton                * statusItemButton;             // Or nil if not on 10.10 or higher
+    MainIconView            * ourMainIconView;              // View for the main icon
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
     NSMenuItem              * vpnDetailsItem;               //    "VPN Details..." item for menu
@@ -71,14 +98,26 @@ enum TerminationReason {
     
     NSMenuItem              * quitItem;                     // "Quit Tunnelblick" item for menu
 
+    NSArray                 * screenList;                   // Array of NSDictionaries with info about each display screen
+    
     NSAnimation             * theAnim;                      // For animation of the Tunnelblick icon in the Status Bar
+	
     NSMutableArray          * animImages;                   // Images for animation of the Tunnelblick icon in the Status Bar
     NSImage                 * connectedImage;               // Image to display when one or more connections are active
     NSImage                 * mainImage;                    // Image to display when there are no connections active
 
+    NSMutableArray          * highlightedAnimImages;        // Corresponding highlighted images (the large images are never highlighted)
+    NSImage                 * highlightedConnectedImage;
+    NSImage                 * highlightedMainImage;
+	
     NSMutableArray          * largeAnimImages;              // Images for animation of the Tunnelblick icon in the the Status Window
     NSImage                 * largeConnectedImage;          // Image to display when one or more connections are active
     NSImage                 * largeMainImage;               // Image to display when there are no connections active
+    
+    NSArray                 * openvpnVersionNames;          // A sorted array of the names of versions of OpenVPN that are available
+    NSArray                 * openvpnVersionInfo;           // An array of dictionaries corresponding to openvpnVersionNames
+    //                                                      //    Each dictionary contains the following keys:
+    //                                                      //    "full", "preMajor", "major", @"preMinor", "minor", "preSuffix", @"suffix", @"postSuffix"
     
     MyPrefsWindowController * logScreen;                    // Log window ("VPN Details..." window)
     
@@ -91,10 +130,13 @@ enum TerminationReason {
     NSDictionary            * myVPNConnectionDictionary;    // List of all VPNConnections. key = display name, value = VPNConnection object for the configuration
     
     NSArray                 * connectionArray;              // VPNConnections that are currently connected
+    NSArray                 * nondisconnectedConnections;   // VPNConnections that are currently not disconnected (any with status != EXITING)
     
     NSMutableArray          * connectionsToRestoreOnWakeup; // VPNConnections to be restored when awakened from sleep
     
-    NSArray                 * connectionsToRestoreOnUserActive; // VPNConnections to be restored when user becomes active again
+    NSMutableArray          * connectionsToRestoreOnUserActive; // VPNConnections to be restored when user becomes active again
+    
+    NSMutableArray          * connectionsToWaitForDisconnectOnWakeup; // VPNConnections to be waited for disconnection from when awakened from sleep
     
     NSMutableArray          * pIDsWeAreTryingToHookUpTo;    // List of process IDs for processes we are trying to hookup to
     
@@ -105,7 +147,7 @@ enum TerminationReason {
     
     UKKQueue                * myQueue;                      // UKKQueue item for monitoring the configuration file folder
     
-    NSTimer                 * showDurationsTimer;           // Used to periodically update display of connections' durations in the VPNDetails... Window
+    TBUIUpdater             * uiUpdater;                    // Used to periodically update displays
 	
     NSTimer                 * hookupWatchdogTimer;          // Used to check for failures to hookup to openvpn processes, and deal with unknown OpenVPN processes 
 	
@@ -117,7 +159,11 @@ enum TerminationReason {
 
     NSString                * feedURL;                      // URL to send program update requests to
     
-    ConfigurationUpdater    * myConfigUpdater;              // Our class used to check for updates to the configurations
+    ConfigurationMultiUpdater * myConfigMultiUpdater;       // Checks for configuration updates
+	
+	NSString                * languageAtLaunch;				// Lower-case version of the language we are using. Passed on to runOnConnect, runOnLaunch, and Menu command scripts
+    
+    NSTrackingRectTag         iconTrackingRectTag;          // Used to track mouseEntered and mouseExited events for statusItemButton
     
     BOOL                      launchFinished;               // Flag that we have executed "applicationDidFinishLaunching"
     
@@ -139,6 +185,10 @@ enum TerminationReason {
     
 	BOOL					  signatureIsInvalid;			// Indicates the app is digitally signed but the signature does not check out
 	
+	BOOL					  doingSetupOfUI;				// Indicates we are setting up the UI, and not making changes to preferences
+	
+	BOOL					  menuIsOpen;					// Indicates the main Tunnelblick menu is open
+	
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
     
@@ -155,6 +205,8 @@ enum TerminationReason {
     
     WelcomeController       * welcomeScreen;                // Controller for welcome window
     
+	NSBundle                * deployLocalizationBundle;	    // Bundle for Deploy/Localization.bundle
+	
 #ifdef INCLUDE_VPNSERVICE
     VPNService              * vpnService;                   // VPNService object. if it responds to doVPNService, doVPNService is invoked at end of
     //                                                      // application:didFinishLaunching. The object persists until Tunnelblick terminates
@@ -170,15 +222,16 @@ enum TerminationReason {
 -(IBAction)         quit:                                   (id)                sender;
 
 // General methods
--(void)             addConnection:                          (id)                sender;
+-(void)             addConnection:                          (VPNConnection *)   connection;
+-(void)             addNonconnection:                       (VPNConnection *)   connection;
 -(void)             addNewConfig:                           (NSString *)        path
                  withDisplayName:                           (NSString *)        dispNm;
--(BOOL)             changeBooleanPreference: (NSString *) key
-                              forConnection: (VPNConnection *) connection
-                                         to: (BOOL)       newValue
-                                   inverted: (BOOL)       inverted
-                           localizedMessage: (NSString *) localizedMessage;
-
+-(void)             setPreferenceForSelectedConfigurationsWithKey: (NSString *) key
+															   to: (id)         newValue
+                                                           isBOOL: (BOOL)       isBOOL;
+-(void)             setBooleanPreferenceForSelectedConnectionsWithKey: (NSString *)	key
+																   to: (BOOL)       newValue
+															 inverted: (BOOL)		inverted;
 -(void)             changedCheckForBetaUpdatesSettings;
 -(void)             changedDisplayConnectionSubmenusSettings;
 -(void)             changedDisplayConnectionTimersSettings;
@@ -187,8 +240,8 @@ enum TerminationReason {
 -(BOOL)             cleanup;
 -(NSArray *)        connectionsNotDisconnected;
 -(void)             createMenu;
--(void)             createStatusItem;
 -(unsigned)         decrementTapCount;
+-(NSUInteger)       defaultOpenVPNVersionIx;
 -(void)             deleteExistingConfig:                   (NSString *)        dispNm;
 -(NSURL *)          getIPCheckURL;
 -(void)             installConfigurationsUpdateInBundleAtPathHandler: (NSString *)path;
@@ -196,14 +249,15 @@ enum TerminationReason {
 -(unsigned)         decrementTunCount;
 -(unsigned)         incrementTapCount;
 -(unsigned)         incrementTunCount;
--(void)             killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons
-                                            logMessage:     (NSString *)        logMessage;
 -(BOOL)             loadMenuIconSet;
 -(BOOL)             loadMenuIconSet:                        (NSString *)        iconSetName
                                main:                        (NSImage **)        ptrMainImage
                          connecting:                        (NSImage **)        ptrConnectedImage
                                anim:                        (NSMutableArray **) ptrAnimImages;
-- (void)            recreateStatusItemAndMenu;
+-(NSString *)       localizedNameForDisplayName:            (NSString *)        displayName;
+-(NSString *)       localizedNameforDisplayName:            (NSString *)        displayName
+                                       tblkPath:            (NSString *)        tblkPath;
+-(void)             recreateStatusItemAndMenu;
 -(void)             mouseEnteredMainIcon:                   (id)                control
                                    event:                   (NSEvent *)         theEvent;
 -(void)             mouseExitedMainIcon:                    (id)                windowController
@@ -215,11 +269,11 @@ enum TerminationReason {
 -(BOOL)             mouseIsInsideAnyView;
 -(NSString *)       openVPNLogHeader;
 -(void)             reconnectAfterBecomeActiveUser;
--(void)             removeConnection:                       (id)                sender;
--(BOOL)             runInstaller:                           (unsigned)          installerFlags
+-(void)             removeConnection:                       (VPNConnection *)   connection;
+-(NSInteger)        runInstaller:                           (unsigned)          installerFlags
                   extraArguments:                           (NSArray *)         extraArguments;
 
--(BOOL)             runInstaller: (unsigned) installFlags
+-(NSInteger)        runInstaller: (unsigned) installFlags
                   extraArguments: (NSArray *) extraArguments
                  usingAuthRefPtr: (AuthorizationRef *) authRef
                          message: (NSString *) message
@@ -228,9 +282,11 @@ enum TerminationReason {
 -(void)             saveConnectionsToRestoreOnRelaunch;
 -(void)             setHotKeyIndex:                         (unsigned)          newIndex;
 -(void)             setState:                               (NSString *)        newState;
--(void)             setupSparklePreferences;
+-(void)             setOurPreferencesFromSparkles;
+-(void)             setupUpdaterAutomaticChecks;
 -(NSArray *)        sortedSounds;
--(void)             unloadKexts; 
+-(unsigned)         statusScreenIndex;
+-(void)             unloadKexts;
 -(BOOL)             userIsAnAdmin;
 -(void)             statusWindowController:                 (id)                ctl
                         finishedWithChoice:                 (StatusWindowControllerChoice) choice
@@ -239,6 +295,7 @@ enum TerminationReason {
 -(void)             hideStatisticsWindows;
 -(void)             updateIconImage;
 -(void)				updateMenuAndDetailsWindow;
+-(void)             updateUI;
 -(void)				updateUpdateFeedURLForceDowngrade:		(BOOL)				forceDowngrade;
 -(void)             terminateBecause:                       (enum TerminationReason) reason;
 
@@ -255,16 +312,16 @@ enum TerminationReason {
 -(NSArray *)        animImages;
 -(NSImage *)        connectedImage;
 -(NSImage *)        mainImage;
--(NSArray *)        connectionsToRestoreOnUserActive;
 -(NSMutableArray *) largeAnimImages;
 -(NSImage *)        largeConnectedImage;
 -(NSImage *)        largeMainImage;
 -(MyPrefsWindowController *) logScreen;
 -(NSString *)       customRunOnConnectPath;
--(NSTimer *)        showDurationsTimer;
--(void)             startOrStopDurationsTimer;
+-(void)             startOrStopUiUpdater;
 -(BOOL)             terminatingAtUserRequest;
 -(SUUpdater *)      updater;
+-(BOOL)				doingSetupOfUI;
+-(void)				setDoingSetupOfUI: (BOOL) value;
 
 #ifdef INCLUDE_VPNSERVICE
 // VPNService support
@@ -282,13 +339,31 @@ enum TerminationReason {
 -(NSArray *)        applescriptConfigurationList;
 
 TBPROPERTY_READONLY(NSStatusItem *, statusItem)
+TBPROPERTY_READONLY(BOOL, menuIsOpen)
 TBPROPERTY_READONLY(NSMenu *,		myVPNMenu)
 TBPROPERTY_READONLY(NSMutableArray *, activeIPCheckThreads)
 TBPROPERTY_READONLY(NSMutableArray *, cancellingIPCheckThreads)
+TBPROPERTY_READONLY(ConfigurationMultiUpdater *, myConfigMultiUpdater)
 
+TBPROPERTY(NSButton     *, statusItemButton,          setStatusItemButton)
+TBPROPERTY(NSArray      *, screenList,                setScreenList)
 TBPROPERTY(MainIconView *, ourMainIconView,           setOurMainIconView)
 TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
 TBPROPERTY(NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
+TBPROPERTY(NSArray      *, openvpnVersionNames,       setOpenvpnVersionNames)
+TBPROPERTY(NSArray      *, openvpnVersionInfo,        setOpenvpnVersionInfo)
 TBPROPERTY(NSArray      *, connectionArray,           setConnectionArray)
-
+TBPROPERTY(NSArray      *, nondisconnectedConnections,setNondisconnectedConnections)
+TBPROPERTY(NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
+TBPROPERTY(TBUIUpdater  *, uiUpdater,                 setUiUpdater)
+TBPROPERTY(NSTimer      *, configsChangedTimer,       setConfigsChangedTimer)
+TBPROPERTY(NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
+TBPROPERTY(NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
+TBPROPERTY(NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
+TBPROPERTY(NSImage      *, highlightedMainImage,      setHighlightedMainImage)
+TBPROPERTY(NSMutableArray *, connectionsToRestoreOnUserActive, setConnectionsToRestoreOnUserActive)
+TBPROPERTY(NSMutableArray *, connectionsToRestoreOnWakeup,     setConnectionsToRestoreOnWakeup)
+TBPROPERTY(NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
+TBPROPERTY(NSBundle       *, deployLocalizationBundle,               setDeployLocalizationBundle)
+TBPROPERTY(NSString       *, languageAtLaunch,        setLanguageAtLaunch)
 @end

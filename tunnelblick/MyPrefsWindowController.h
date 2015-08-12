@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,8 +20,9 @@
  */
 
 
-#import "defines.h"
 #import "DBPrefsWindowController.h"
+
+#import "defines.h"
 
 @class ConfigurationsView;
 @class GeneralView;
@@ -68,26 +69,26 @@
     NSUInteger                     selectedWhenToConnectIndex;
     
     NSUInteger                     selectedLeftNavListIndex;
-    IBOutlet NSUInteger            selectedSetNameserverIndex;
-    IBOutlet NSUInteger            selectedSoundOnConnectIndex;
-    IBOutlet NSUInteger            selectedSoundOnDisconnectIndex;    
+    IBOutlet NSNumber            * selectedSetNameserverIndex;
+    IBOutlet NSNumber            * selectedSoundOnConnectIndex;
+    IBOutlet NSNumber            * selectedSoundOnDisconnectIndex;
+    IBOutlet NSNumber            * selectedPerConfigOpenvpnVersionIndex;
     
     
     // For GeneralView
-    IBOutlet NSUInteger            selectedOpenvpnVersionIndex;
-    IBOutlet NSUInteger            selectedKeyboardShortcutIndex;
-    IBOutlet NSUInteger            selectedMaximumLogSizeIndex;
+    IBOutlet NSNumber            * selectedKeyboardShortcutIndex;
+    IBOutlet NSNumber            * selectedMaximumLogSizeIndex;
     
     // For AppearanceView
-    IBOutlet NSUInteger            selectedAppearanceIconSetIndex;
-    IBOutlet NSUInteger            selectedAppearanceConnectionWindowDisplayCriteriaIndex;
+    IBOutlet NSNumber            * selectedAppearanceIconSetIndex;
+    IBOutlet NSNumber            * selectedAppearanceConnectionWindowDisplayCriteriaIndex;
+    IBOutlet NSNumber            * selectedAppearanceConnectionWindowScreenIndex;
 }
 
 
 // Methods used by MenuController to update the window
 
 -(void) update;
--(void) updateNavigationLabels;
 -(BOOL) forceDisableOfNetworkMonitoring;
 
 -(void) indicateWaitingForConnection:                         (VPNConnection *) theConnection;
@@ -96,7 +97,7 @@
 -(void) validateWhenConnectingForConnection:                  (VPNConnection *) theConnection;
 -(void) validateConnectAndDisconnectButtonsForConnection:     (VPNConnection *) theConnection;
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
--(void) doLogScrollingForConnection:                          (VPNConnection *) theConnection;
+-(void) setupAppearanceConnectionWindowScreenButton;
 
 // Used by LogDisplay to scroll to the current point in the log
 -(NSTextView *) logView;
@@ -123,9 +124,9 @@
 
 -(IBAction) configurationsHelpButtonWasClicked:       (id)  sender;
 
--(IBAction) monitorNetworkForChangesCheckboxWasClicked: (id) sender;
+-(IBAction) monitorNetworkForChangesCheckboxWasClicked: (NSButton *) sender;
 
--(IBAction) showOnTunnelBlickMenuCheckboxWasClicked:    (id) sender;
+-(IBAction) keepConnectedCheckboxWasClicked:            (NSButton *) sender;
 
 -(void)		validateDetailsWindowControls;
 
@@ -138,11 +139,11 @@
 
 // Methods for GeneralView
 
--(IBAction) checkIPAddressAfterConnectCheckboxWasClicked: (id) sender;
-
--(IBAction) updatesCheckAutomaticallyCheckboxWasClicked:  (id) sender;
--(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked: (id) sender;
--(IBAction) updatesCheckNowButtonWasClicked:              (id) sender;
+-(IBAction) inhibitOutboundTBTrafficCheckboxWasClicked: (NSButton *) sender;
+-(IBAction) updatesCheckAutomaticallyCheckboxWasClicked:         (NSButton *) sender;
+-(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked:        (NSButton *) sender;
+-(IBAction) updatesSendProfileInfoCheckboxWasClicked:            (NSButton *) sender;
+-(IBAction) updatesCheckNowButtonWasClicked:                     (id) sender;
 
 -(IBAction) resetDisabledWarningsButtonWasClicked:        (id) sender;
 
@@ -151,16 +152,16 @@
 
 // Methods for AppearanceView
 
--(IBAction) appearancePlaceIconNearSpotlightCheckboxWasClicked:    (id) sender;
+-(IBAction) appearancePlaceIconNearSpotlightCheckboxWasClicked:    (NSButton *) sender;
 
--(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (id) sender;
--(IBAction) appearanceDisplayConnectionTimersCheckboxWasClicked:   (id) sender;
+-(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (NSButton *) sender;
+-(IBAction) appearanceDisplayConnectionTimersCheckboxWasClicked:   (NSButton *) sender;
 
--(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked:       (id) sender;
+-(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked:       (NSButton *) sender;
 
--(IBAction) appearanceDisplayStatisticsWindowsCheckboxWasClicked:  (id) sender;
+-(IBAction) appearanceDisplayStatisticsWindowsCheckboxWasClicked:  (NSButton *) sender;
 
--(IBAction) appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked: (id) sender;
+-(IBAction) appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked: (NSButton *) sender;
 
 -(IBAction) appearanceHelpButtonWasClicked:                        (id) sender;
 
@@ -179,8 +180,11 @@
 
 -(IBAction) utilitiesHelpButtonWasClicked:                (id) sender;
 
+-(IBAction) utilitiesOpenUninstallInstructionsButtonWasClicked: (id) sender;
 
 // Getters & Setters
+
+TBPROPERTY_READONLY(NSMutableArray *, leftNavDisplayNames)
 
 TBPROPERTY_READONLY(ConfigurationsView *, configurationsPrefsView)
 
@@ -188,16 +192,20 @@ TBPROPERTY(NSString *, previouslySelectedNameOnLeftNavList, setPreviouslySelecte
 
 TBPROPERTY_READONLY(NSUInteger, selectedWhenToConnectIndex)
 
-TBPROPERTY(NSUInteger, selectedLeftNavListIndex,       setSelectedLeftNavListIndex)
-TBPROPERTY(NSUInteger, selectedSetNameserverIndex,     setSelectedSetNameserverIndex)
-TBPROPERTY(NSUInteger, selectedSoundOnConnectIndex,    setSelectedSoundOnConnectIndex)
-TBPROPERTY(NSUInteger, selectedSoundOnDisconnectIndex, setSelectedSoundOnDisconnectIndex)
+TBPROPERTY_READONLY(SettingsSheetWindowController *, settingsSheetWindowController)
 
-TBPROPERTY(NSUInteger, selectedOpenvpnVersionIndex,   setSelectedOpenvpnVersionIndex)
-TBPROPERTY(NSUInteger, selectedKeyboardShortcutIndex, setSelectedKeyboardShortcutIndex)
-TBPROPERTY(NSUInteger, selectedMaximumLogSizeIndex,   setSelectedMaximumLogSizeIndex)
+TBPROPERTY(NSUInteger, selectedLeftNavListIndex,             setSelectedLeftNavListIndex)
 
-TBPROPERTY(NSUInteger, selectedAppearanceIconSetIndex,                         setSelectedAppearanceIconSetIndex)
-TBPROPERTY(NSUInteger, selectedAppearanceConnectionWindowDisplayCriteriaIndex, setSelectedAppearanceConnectionWindowDisplayCriteriaIndex)
+TBPROPERTY(NSNumber *, selectedSetNameserverIndex,           setSelectedSetNameserverIndex)
+TBPROPERTY(NSNumber *, selectedPerConfigOpenvpnVersionIndex, setSelectedPerConfigOpenvpnVersionIndex)
+TBPROPERTY(NSNumber *, selectedSoundOnConnectIndex,          setSelectedSoundOnConnectIndex)
+TBPROPERTY(NSNumber *, selectedSoundOnDisconnectIndex,       setSelectedSoundOnDisconnectIndex)
+
+TBPROPERTY(NSNumber *, selectedKeyboardShortcutIndex, setSelectedKeyboardShortcutIndex)
+TBPROPERTY(NSNumber *, selectedMaximumLogSizeIndex,   setSelectedMaximumLogSizeIndex)
+
+TBPROPERTY(NSNumber *, selectedAppearanceIconSetIndex,                         setSelectedAppearanceIconSetIndex)
+TBPROPERTY(NSNumber *, selectedAppearanceConnectionWindowDisplayCriteriaIndex, setSelectedAppearanceConnectionWindowDisplayCriteriaIndex)
+TBPROPERTY(NSNumber *, selectedAppearanceConnectionWindowScreenIndex,          setSelectedAppearanceConnectionWindowScreenIndex)
 
 @end

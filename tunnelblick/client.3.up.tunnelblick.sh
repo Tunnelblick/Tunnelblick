@@ -16,6 +16,7 @@ ARG_MONITOR_NETWORK_CONFIGURATION="false"
 ARG_RESTORE_ON_DNS_RESET="false"
 ARG_RESTORE_ON_WINS_RESET="false"
 ARG_TAP="false"
+ARG_TB_PATH="/Applications/Tunnelblick.app"
 
 while [ {$#} ] ; do
     if [  "$1" = "-m" ] ; then                              # Handle the arguments we know about
@@ -30,6 +31,9 @@ while [ {$#} ] ; do
     elif [  "$1" = "-a" ] ; then
         ARG_TAP="true"
         shift
+    elif [ "${1:0:2}" = "-t" ] ; then
+        ARG_TB_PATH="${1:2}"				                # -t path of Tunnelblick.app
+    shift
     else
         if [  "${1:0:1}" = "-" ] ; then                     # Shift out Tunnelblick arguments (they start with "-") that we don't understand
             shift                                           # so the rest of the script sees only the OpenVPN arguments                            
@@ -71,7 +75,17 @@ trim() {
 	echo ${@}
 }
 
-LEASEWATCHER_PLIST_PATH="/Library/Application Support/Tunnelblick/LeaseWatch3.plist"
+readonly TB_RESOURCES_PATH="${ARG_TB_PATH}/Contents/Resources"
+
+if [ "${ARG_TB_PATH}" = "/Applications/Tunnelblick.app" ] ; then
+    readonly LEASEWATCHER_PLIST_PATH="${TB_RESOURCES_PATH}/LeaseWatch3.plist"
+    readonly LEASEWATCHER_TEMPLATE_PATH=""
+    readonly REMOVE_LEASEWATCHER_PLIST="false"
+else
+    readonly LEASEWATCHER_PLIST_PATH="/Library/Application Support/Tunnelblick/LeaseWatch3.plist"
+    readonly LEASEWATCHER_TEMPLATE_PATH="${TB_RESOURCES_PATH}/LeaseWatch3.plist"
+    readonly REMOVE_LEASEWATCHER_PLIST="true"
+fi
 
 OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
 
@@ -284,6 +298,7 @@ scutil <<- EOF
 	d.add PID # ${PPID}
 	d.add Service ${PSID}
     d.add LeaseWatcherPlistPath "${LEASEWATCHER_PLIST_PATH}"
+    d.add RemoveLeaseWatcherPlist "${REMOVE_LEASEWATCHER_PLIST}"
     d.add ScriptLogFile "${SCRIPT_LOG_FILE}"
     d.add MonitorNetwork "${ARG_MONITOR_NETWORK_CONFIGURATION}"
     d.add RestoreOnDNSReset   "${ARG_RESTORE_ON_DNS_RESET}"
@@ -340,9 +355,9 @@ EOF
 echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.up.tunnelblick.sh: Saved the DNS and WINS configurations for later use" >> "${SCRIPT_LOG_FILE}"
 
 if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-    # Generate an updated plist with a per-configuration path
-    LEASEWATCHER_TEMPLATE_PATH="$(dirname "${0}")/LeaseWatch3.plist.template"
-    sed -e "s|\${DIR}|$(dirname "${0}")|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
+    if [ "${LEASEWATCHER_TEMPLATE_PATH}" != "" ] ; then
+        sed -e "s|/Applications/Tunnelblick/.app/Contents/Resources|${TB_RESOURCES_PATH}|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
+    fi
     launchctl load "${LEASEWATCHER_PLIST_PATH}"
     echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.up.tunnelblick.sh: Set up to monitor system configuration with leasewatch" >> "${SCRIPT_LOG_FILE}"
 fi

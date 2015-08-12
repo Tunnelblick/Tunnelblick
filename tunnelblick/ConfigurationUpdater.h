@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -19,24 +19,26 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
+#import "defines.h"
 
-#import <Cocoa/Cocoa.h>
-#import "Sparkle/SUUpdater.h"
-
+@class SUUpdater;
 
 @interface ConfigurationUpdater : NSObject {
-    NSString       * cfgBundlePath;
-    SUUpdater      * cfgUpdater;
-    NSBundle       * cfgBundle;
-    NSURL          * cfgFeedURL;
-    NSTimeInterval   cfgCheckInterval;
+    
+    NSString  * cfgBundlePath;
+    SUUpdater * cfgUpdater;
+    NSString  * cfgBundleId;
+    NSString  * cfgName;
 }
 
-// Sets up the updater for later use
--(void) setup;
+-(ConfigurationUpdater *) initWithPath: (NSString *) path;
 
-// Starts the updater checking for updates
-// withUI should be TRUE to present the UI, FALSE to check in the background
--(void) startWithUI: (BOOL) withUI;
+-(void) startUpdateCheckingWithUI: (NSNumber *) withUI;
+
+-(void) stopChecking;
+
+-(NSString *) cfgBundlePath;
+
+TBPROPERTY_READONLY(NSString *, cfgBundleId)
 
 @end

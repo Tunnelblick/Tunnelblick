@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Program</key>
+	<string>/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd</string>
+	<key>UserName</key>
+	<string>root</string>
+	<key>GroupName</key>
+	<string>wheel</string>
+	<key>Label</key>
+	<string>net.tunnelblick.tunnelblick.tunnelblickd</string>
+	<key>StandardErrorPath</key>
+	<string>/var/log/Tunnelblick/tunnelblickd.log</string>
+	<key>Sockets</key>
+	<dict>
+		<key>Listener</key>
+		<dict>
+			<key>SockType</key>
+			<string>Stream</string>
+			<key>SockFamily</key>
+			<string>Unix</string>
+			<key>SockPathMode</key>
+			<integer>438</integer>
+			<key>SockPathName</key>
+			<string>/var/run/net.tunnelblick.tunnelblick.tunnelblickd.socket</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

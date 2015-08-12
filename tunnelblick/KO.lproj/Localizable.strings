@@ -8,27 +8,24 @@
 "No Active Connections" = "활성 연결 없음";
 
 /* Textbox name */
-"Password:" = "암호:";
-
-/* Textbox name */
 "Username:" = "사용자 계정:";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
-"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
+/* Button */
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (커맨드-옵션-F%3$d)";
 
 /* Button */
 "(None available)" = "(해당 사항 없음)";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
+/* Button */
 "1 MB" = "1 MB";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
+/* Button */
 "10 KB" = "10 KB";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
+/* Button */
 "10 MB" = "10 MB";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
+/* Button */
 "100 KB" = "100 KB";
 
 /* Button */
@@ -38,6 +35,12 @@
 "All Users" = "모든 사용자";
 
 /* Button */
+"Always load Tap driver" = "항상 Tap 드라이버 로드";
+
+/* Button */
+"Always load Tun driver" = "항상 Tun 드라이버 로드";
+
+/* Button */
 "Always use the plugin" = "언제나 플러그인 사용";
 
 /* Button */
@@ -45,6 +48,15 @@
 
 /* Button */
 "Cancel" = "취소";
+
+/* Button */
+"Change Only for This Configuration" = "이 설정만 변경";
+
+/* Button */
+"Change for the Selected Configurations" = "선택한 설정만 변경";
+
+/* Menu item */ /* Button */
+"Check For Updates Now" = "지금 업데이트 확인";
 
 /* Button */
 "Check Now" = "지금 확인";
@@ -92,16 +104,10 @@
 "Do not use the plugin" = "플러그인 사용 안함";
 
 /* Button */
-"Done" = "완료";
-
-/* Button */
 "Download" = "다운로드";
 
 /* Button */
-"Examine" = "검토";
-
-/* NEEDS TRANSLATION *//* Button */
-"Help" = "Help";
+"Help" = "도움말";
 
 /* Button */
 "I DO NOT have configuration files" = "설정 파일 없음";
@@ -119,10 +125,22 @@
 "Launch" = "실행";
 
 /* Button */
+"Load Tap driver automatically" = "자동으로 Tab 드라이버 로드";
+
+/* Button */
+"Load Tun driver automatically" = "자동으로 Tun 드라이버 로드";
+
+/* Button */
 "Manually" = "수동으로";
 
 /* Button */
 "Monochrome icon" = "흑백 아이콘";
+
+/* Button */
+"Never load Tap driver" = "Tab 드라이버 로드 안함";
+
+/* Button */
+"Never load Tun driver" = "Tun 드라이버 로드 안함";
 
 /* Button */
 "Never show" = "보지 않기";
@@ -140,10 +158,13 @@
 "Only Me" = "나만";
 
 /* Button */
+"Open Uninstall Instructions in Browser" = "삭제 설명을 브라우저에서 열기";
+
+/* Button */
 "Open easy-rsa in Terminal" = "터미널에서 easy-rsa 열기";
 
 /* Button */
-"OpenVPN Configuration(s)" = "OpenVPN 설정";
+"Privacy info..." = "개인 정보 보호 정책 정보...";
 
 /* Button */
 "Quit All OpenVPN Processes" = "모든 OpenVPN 프로세스 종료";
@@ -152,10 +173,10 @@
 "Quit" = "종료";
 
 /* Button */
-"Remove Credentials" = "인증 삭제";
+"Reinstall" = "다시 설치";
 
 /* Button */
-"Replace Existing Configuration" = "기존 설정 교체";
+"Remove Credentials" = "인증 삭제";
 
 /* Button */
 "Replace" = "교체";
@@ -173,10 +194,19 @@
 "Revert" = "복원";
 
 /* Button */
+"Show on default screen (%u x %u)" = "기본 화면 (%1$u x %2$u)에서 보기";
+
+/* Button */
+"Show on screen %u (%u x %u)" = "화면 %1$u (%2$u x %3$u) 에서 보기";
+
+/* Button */
 "Show when connection status changes" = "연결 상태가 변경될 때 보기";
 
 /* Button */
 "Show while connecting" = "연결하는 동안 보기";
+
+/* Button */
+"Skip" = "건너뛰기";
 
 /* Button */
 "Speak" = "음성";
@@ -203,10 +233,7 @@
 "Try again" = "재시도";
 
 /* Button */
-"Tunnelblick VPN Configuration(s)" = "Tunnelblick VPN 설정";
-
-/* Button */
-"Unprotect and Modify" = "잠금 해제 및 수정";
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 아이콘";
 
 /* Button */
 "When Tunnelblick launches" = "Tunnelblick 실행할 때";
@@ -216,9 +243,6 @@
 
 /* Menu item */
 "Add a VPN..." = "VPN 추가…";
-
-/* Menu item */
-"Check For Updates Now" = "지금 업데이트 확인";
 
 /* Menu item */
 "Connect %@%@" = "%@%@ 연결하기";
@@ -262,14 +286,14 @@
 /* Menu Item */
 "Show OpenVPN Log in Finder" = "Finder에서 OpenVPN 로그 보기";
 
-/* Menu Item */
-"Show configuration on Tunnelblick menu" = "Tunnelblick 메뉴에서 설정 보기";
-
 /* Menu item */
 "Suggestion or Bug Report..." = "제안 또는 버그 보고…";
 
 /* Menu item */
 "VPN Details..." = "VPN 상세…";
+
+/* Checkbox name */
+"Apply to all" = "모두 적용";
 
 /* Checkbox name */
 "Check for updates automatically" = "자동으로 업데이트 확인";
@@ -278,7 +302,10 @@
 "Check for updates to beta versions" = "베타 버전 업데이트 확인";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "연결 후에 공인 IP 주소 변경 확인";
+"Check if the apparent public IP address changed after connecting" = "연결 후에 공인 IP 주소 변경 확인";
+
+/* Checkbox name */
+"Disconnect when computer goes to sleep" = "컴퓨터가 절전 모드로 전환 될 때 연결 해제";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "사용자 전환 할 때 연결 해제";
@@ -304,6 +331,9 @@
 /* Checkbox name */
 "Do not check for IP address changes" = "IP 주소 변경을 확인하지 않음";
 
+/* Checkbox name on a warning dialog */
+"Do not show again for any configuration" = "모든 설정을 다시 표시 하지 않음";
+
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "이 설정에서는 이 경고를 다시 하지 않음";
 
@@ -311,12 +341,15 @@
 "Do not warn about this again" = "이 경고를 다시 하지 않음";
 
 /* Checkbox name */
-"Do not warn about this again, always 'Examine'" = "이 경고를 다시 하지 않고 계속 '검토'";
-
-/* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "연결 후 또는 연결 해제 후 DNS 캐시 지움";
 
 /* Checkbox name */
+"Inhibit automatic update checking and IP Address checking" = "자동 업데이트 확인과 IP 주소 확인 금지";
+
+/* Checkbox name */
+"Keep connected" = "연결 유지";
+
+/* Checkbox name */ /* System profile item */
 "Monitor connection" = "연결 감시";
 
 /* Checkbox name */
@@ -329,7 +362,7 @@
 "Prepend domain name to search domains" = "검색 도메인 앞에 도메인 명을 추가";
 
 /* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "컴퓨터가 잠자기전에 연결된 상태라면 잠자기에서 깨어날때 다시 연결";
+"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "컴퓨터가 절전 모드 전에 연결된 상태라면 절전모드에서 깨어날때 다시 연결";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "사용자 전환이 되었을 때 다시 연결";
@@ -338,22 +371,28 @@
 "Reset the primary interface after disconnecting" = "연결 해제 후 주 인터페이스 재설정";
 
 /* Checkbox name */
-"Route all traffic through the VPN" = "VPN을 통한 모든 트래픽 라우트";
+"Route all IPv4 traffic through the VPN" = "모든 IPv4 트래픽을 VPN 적용";
+
+/* Checkbox name */
+"Run MTU maximum size test after connecting" = "연결 후에 MTU 최대 크기 테스트 실행";
 
 /* Checkbox name */
 "Save in Keychain" = "키체인에 저장";
 
 /* Checkbox name */
-"Scan configuration file for problems before connecting" = "연결하기 전에 문제가 없는지 설정 파일 검사";
+"Send anonymous profile information when checking" = "익명 프로필 정보 전송";
+
+/* Checkbox name */
+"Set DNS after routes are set instead of before routes are set" = "경로를 설정하기 전이 아닌 경로를 설정한 후 DNS 설정";
+
+/* Checkbox name */
+"Show configuration on Tunnelblick menu" = "Tunnelblick 메뉴에서 설정 보기";
 
 /* Checkbox name */
 "Show when disconnected" = "연결 해제 시 보이기";
 
 /* Checkbox name */
 "Show when the pointer is over the Tunnelblick icon" = "마우스 포인터가 Tunnelblick 아이콘 위에 있을 때 보이기";
-
-/* Checkbox name */
-"Use Tunnelblick tun/tap drivers" = "Tunnelblick tun/tap 드라이버 사용";
 
 /* PopUpButton */
 "Do not set nameserver" = "네임서버 설정 안함";
@@ -374,48 +413,54 @@
 "Double-click to begin" = "시작하려면 이중 클릭";
 
 /* Connection status */
-"ADD_ROUTES" = "라우트 추가 중";
+"ADD_ROUTES" = "라우트 추가 중"; // Please translate "Adding routes"
 
 /* Connection status */
-"ASSIGN_IP" = "IP 주소할당 중";
+"ASSIGN_IP" = "IP 주소할당 중"; // Please translate "Assigning IP address"
 
 /* Connection status */
-"AUTH" = "인증 중";
+"AUTH" = "인증 중"; // Please translate "Authorizing"
 
 /* Connection status */
-"CONNECTED" = "연결 됨";
+"CONNECTED" = "연결 됨"; // Please translate "Connected"
 
 /* Connection status */
-"CONNECTING" = "연결 중";
+"CONNECTING" = "연결 중"; // Please translate "Connecting"
 
 /* Connection status */
-"EXITING" = "연결 안됨";
+"DISCONNECTING" = "연결 해제하기"; // Please translate "Disconnecting"
 
 /* Connection status */
-"GET_CONFIG" = "설정 받는 중";
+"EXITING" = "연결 안됨"; // Please translate "Disconnected"
 
 /* Connection status */
-"RECONNECTING" = "다시연결 중";
+"GET_CONFIG" = "설정 받는 중"; // Please translate ""
 
 /* Connection status */
-"RESOLVE" = "도메인 이름 확인 중";
+"PASSWORD_WAIT" = "비밀번호 대기 중"; // Please translate "Waiting for password"
 
 /* Connection status */
-"SLEEP" = "대기 중";       // Please translate "Waiting for daemon process
+"PRIVATE_KEY_WAIT" = "암호 대기 중"; // Please translate "Waiting for password"
 
 /* Connection status */
-"TCP_CONNECT" = "TCP 연결 중";
+"RECONNECTING" = "다시연결 중"; // Please translate ""
 
 /* Connection status */
-"UDP_CONNECT" = "UDP 연결 중";
+"RESOLVE" = "도메인 이름 확인 중"; // Please translate ""
 
 /* Connection status */
-"WAIT" = "서버 응답 대기 중";   // Please translate "Waiting for Server Response"
+"SLEEP" = "데몬 프로세스 대기 중"; // Please translate "Waiting for daemon process"
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Folder name */
-"Empty Tunnelblick VPN Configuration" = "빈 Tunnelblick VPN 설정";
+/* Connection status */
+"TCP_CONNECT" = "TCP 연결 중"; // Please translate "Making TCP connection"
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Folder name */
+/* Connection status */
+"UDP_CONNECT" = "UDP 연결 중"; // Please translate "Making UDP connection"
+
+/* Connection status */
+"WAIT" = "서버 응답 대기 중"; // Please translate "Waiting for Server Response"
+
+/* Folder name */
 "Sample Tunnelblick VPN Configuration" = "예제 Tunnelblick VPN 설정";
 
 /* System profile item */
@@ -427,20 +472,20 @@
 /* System profile item */
 "Deployed" = "배포됨";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
-" (?)" = " (?)";
-
 /* Window title */
-" (Deployed)" = " (배포됨)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
+" (Deployed)" = " (배포됨)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
 
 /* Window title */
 " (Private)" = " (개인)";
 
 /* Window title */
-" (Shared)" = " (공유됨)"; /* Indicates a shared configuration */
+" (Shared)" = " (공유됨)"; // Indicates a shared configuration
 
 /* Window title */
-"%@ Advanced Settings%@" = "%1$@ 고급 설정%2$@";
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN 설정 - Tunnelblick";
+
+/* Window title */
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ 연결 안됨 - 고급 설정%3$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' 연결이 해제되었습니다";
@@ -464,16 +509,13 @@
 "All configuration files removed" = "모든 설정이 삭제되었습니다";
 
 /* Window title */
-"An Empty Tunnelblick VPN Configuration Has Been Created" = "비어있는 Tunnelblick VPN 설정이 만들어졌습니다";
-
-/* Window title */
 "Appearance" = "모양새";
 
 /* Window title */
 "Authentication failed" = "인증 실패";
 
 /* Window title */
-"Configuration Installation Error" = "설정 설치 오류";
+"Change for All Selected Configurations?" = "모든 선택된 설정을 변경하겠습니까?";
 
 /* Window title */
 "Configuration(s) Ignored" = "설정이 무시되었습니다";
@@ -497,10 +539,10 @@
 "Details - Tunnelblick" = "상세 - Tunnelblick";
 
 /* Window title */
-"Do you wish to connect?" = "연결하겠습니까?";
+"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "선택한 모든 %1$lu 설정을 변경하겠습니까, 아니면 '%2$@' 만 변경 적용하겠습니까?";
 
 /* Window title */
-"Examine the configuration file?" = "설정 파일을 검토하겠습니까?";
+"Do you wish to connect?" = "연결하겠습니까?";
 
 /* Window title */
 "File not found" = "파일을 찾을 수 없습니다";
@@ -512,12 +554,6 @@
 "Install Configuration For All Users?" = "설정을 모든 사용자 용으로 설치하겠습니까?";
 
 /* Window title */
-"Install and Uninstall?" = "설치 및 삭제?";
-
-/* Window title */
-"Install?" = "설치?";
-
-/* Window title */
 "Installation failed" = "설치 실패";
 
 /* Window title */
@@ -527,13 +563,7 @@
 "Installation succeeded" = "설치 성공";
 
 /* Window title */
-"Installing a Tunnelblick VPN Configuration" = "Tunnelblick VPN 설정 설치";
-
-/* Window title */
 "Log" = "로그";
-
-/* Window title */
-"Name In Use" = "사용 중인 이름";
 
 /* Window title */
 "Name Required" = "이름이 필요함";
@@ -545,7 +575,7 @@
 "New Feature" = "새 기능";
 
 /* Window title */
-"No 'dev tun' or 'dev tap' found" = "'dev tun'이나 'dev tap'이 없읍니다";
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "'dev tun', 'dev utun', 또는 'dev tap' 를 찾을 수 없습니다";
 
 /* Window title */
 "No Credentials" = "인증이 없음";
@@ -557,7 +587,7 @@
 "Only computer administrators should update Tunnelblick" = "컴퓨터 관리자만 Tunnelblick을 업데이트 할 수 있습니다";
 
 /* Window title */
-"OpenVPN Not Responding" = "OpenVPN 응답 없음";
+"OpenVPN is Not Responding" = "OpenVPN 응답 없음";
 
 /* Window title */
 "Please Confirm" = "승인하십시오";
@@ -572,13 +602,10 @@
 "Preferences" = "환경설정";
 
 /* Window title */
-"Replace Existing Configuration?" = "이미 있는 설정을 교체하겠습니까?";
-
-/* Window title */
 "Replace Existing File?" = "이미 있는 파일을 교체하겠습니까?";
 
 /* Window title */
-"Replace Tunnelblick VPN Configuration" = "Tunnelblick VPN 설정 교체";
+"Replace VPN Configuration?" = "VPN 설정을 변경 적용 하겠습니까?";
 
 /* Window title */
 "Sample Configuration Created" = "예제 설정 만들어졌습니다";
@@ -590,24 +617,15 @@
 "System Requirements Not Met" = "시스템 요구사항과 일치하지 않습니다";
 
 /* Window title */
-"The configuration file is protected" = "설정 파일이 잠겨있습니다";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick 설정 문제";
 
 /* Window title */
 "Tunnelblick Error" = "Tunnelblick 오류";
 
 /* Window title */
-"Tunnelblick VPN Configuration Installation Error" = "Tunnelblick VPN 설정 설치 오류";
-
-/* Window title */
-"Tunnelblick VPN Configuration Installation" = "Tunnelblick VPN 설정 설치";
-
-/* Window title */
 "Tunnelblick is currently running" = "Tunnelblick이 현재 동작 중입니다";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
+/* Window title */
 "Tunnelblick" = "Tunnelblick";
 
 /* Window title */
@@ -623,16 +641,16 @@
 "Unavailable" = "사용할 수 없음";
 
 /* Window title */
-"Uninstall Tunnelblick VPN Configuration" = "Tunnelblick VPN 설정을 삭제합니다";
-
-/* Window title */
-"Uninstall?" = "삭제?";
-
-/* Window title */
 "Use 'down-root' plugin for OpenVPN?" = "OpenVPN 용 'down-root' 플러그인 사용하겠습니까?";
 
 /* Window title */
 "Utilities" = "유틸리티";
+
+/* Window title */
+"VPN Configuration Installation Error" = "VPN 설정 설치 오류";
+
+/* Window title */
+"VPN Configuration Installation" = "VPN 설정 설치";
 
 /* Window title */
 "VPN Credentials" = "VPN 인증";
@@ -653,25 +671,52 @@
 "Welcome" = "환영합니다";
 
 /* Window title */
-"Which Type of Configuration Do You Have?" = "가지고 있는 설정 종류는 무엇입니까?";
-
-/* Window title */
 "While Connected" = "연결되어 있는 동안";
 
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Installed %lu configurations\n\n" = "     • %lu 개 설정 설치\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Installed one configuration\n\n" = "     • 1개 설정 설치\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Replaced %lu configurations\n\n" = "     • %lu개 설정 교체\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Replaced one configuration\n\n" = "     • 1개 설정 교체\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Uninstalled %lu configurations\n\n" = "     • %lu개 설정 삭제\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Uninstalled one configuration\n\n" = "     • 1개 설정 삭제\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install %lu configurations\n\n" = "    • %lu개 설정 설치\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install one configuration\n" = "    • 1개 설정 설치\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace %lu configurations\n\n" = "    • %lu개 설정 교체\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace one configuration\n" = "    • 1개 설정 교체\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall %lu configurations\n\n" = "    • %lu개 설정 삭제\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall one configuration\n" = "    • 1개 설정 삭제\n";
+
 /* Window text */
-"  • Be installed in /Applications\n" = "  • /Applications에 설치되어야 한다\n";
+"  • Be installed in /Applications as Tunnelblick\n" = "  • /Applications 플더에 Tunnelblick 으로 설치 되어야 한다\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • 보안을 위해 프로그램의 소유자와 권한을 변경한다\n";
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • OpenVPN 설정을 변환\n";
-
-/* Window text */
-"  • Install %ld configurations\n\n" = "  • %ld개 설정 설치\n\n";
-
-/* Window text */
-"  • Install one configuration\n\n" = "  • 1개 설정 설치\n\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • 설정을 설치 또는 업데이트\n";
@@ -683,10 +728,7 @@
 "  • Secure configurations\n" = "  • 보안 설정\n";
 
 /* Window text */
-"  • Uninstall %ld configurations\n\n" = "  • %ld개 설정 삭제\n\n";
-
-/* Window text */
-"  • Uninstall one configuration\n\n" = "  • 1개 설정 삭제\n\n";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ 은 무료 소프트웨어 입니다: %3$@ 의 %2$@ 사용건 조건 아래 배포 및 수정을 허용합니다.\n\n%4$@ 은 OpenVPN Technologies, Inc.의 등록상표입니다.";
 
 /* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " 설정은 오직 컴퓨터 관리자만 삭제할 수 있습니다.\n\n 영구적으로 즉시 삭제됩니다. '%1$@'의 모든 설정 값도 영구적으로 삭제됩니다. %2$@%3$@";
@@ -721,23 +763,20 @@
 /* Window text */
 "%@ is already identical to its last secured (shadow) copy.\n\n" = "%@ 는 언제나 마지막 보안 (복제) 복사본과 동일합니다.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"%d Info.plist files were found in '%@'. A Tunnelblick VPN Configuration may have at most one Info.plist." = "%1$d Info.plist files were found in '%2$@'. A Tunnelblick VPN Configuration may have at most one Info.plist.";
-
-/* Window text */
-"%d Tunnelblick VPN Configurations were installed successfully." = "%d개 Tunnelblick VPN 설정이 올바르게 설치되었습니다.";
-
-/* Window text */
-"%d Tunnelblick VPN Configurations were uninstalled successfully." = "%d개 Tunnelblick VPN 설정이 올바르게 삭제되었습니다.";
-
-/* Window text */
-"%d configurations were not installed. See the Console Log for details." = "%d개 설정이 설치되지 못했습니다. 자세한 것은 콘솔 로그를 보십시오.";
-
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "Desktop에 '%@' 폴더가 이미 있습니다.\n\n기존 것을 교체하겠습니까?";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@'는 키체인에 저장된 인증(개인 키 또는 사용자 계정과 암호)이 없습니다.";
+
+/* Window text */
+"'%@' was not terminated." = "'%@' 가 중지되지 않았습니다.";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' 설정 값 무시. 폴더를 지정하지 않았습니다";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' 설정 값 무시. 절대 경로 또는 '~' 로 시작해야 합니다";
 
 /* Window text */
 "(Never checked)" = "(선택하지 않음)";
@@ -748,14 +787,14 @@
 /* Window text */
 "(if connected when user switched out)" = "(사용자 전환 할 때 연결되어 있었다면)";
 
-/* NEEDS TRANSLATION *//* Window text */
-".tblks are nested too deeply (only one level of .tblk in a .tblk is allowed) in '%@'." = ".tblks are nested too deeply (only one level of .tblk in a .tblk is allowed) in '%@'.";
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Tunnelblick을 기반으로 제공되는 무료 소프트웨어는 아래 주소에서 배포됩니다<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN 은 OpenVPN Technologies, Inc.의 등록상표입니다.";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Tunnelblick 기반의 자유 소프트웨어는 <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>에서 구할 수 있습니다.";
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference 또는 TBAlwaysSetPreference 키가 %2$@ 에서 알 수 없는 설정 '%1$@' 를 참조하고 있습니다.";
 
 /* Window text */
-"A configuration was not installed. See the Console log for details." = "설정이 설치되지 않았습니다. 자세한 것은 콘솔 로그을 보십시오.";
+"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblick VPN 설정이 '%@' 에서 너무 깊이 중첩되어있습니다.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "다음과 연결하기 위해 암호가 필요합니다\n  %1$@%2$@";
@@ -764,10 +803,22 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "'%@' 이름의 개인 설정이 이미 있습니다.\n\n이것을 공유 설정으로 교체하겠습니까?";
 
 /* Window text */
-"A username and password are required to connect to\n  %@%@" = "다음과 연결하기 위해 사용자명과 암호가 필요합니다\n  %1$@%2$@";
+"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "이 컴퓨터의 공용 IP 주소를 확인하는 도중 문제가 발생 했습니다.\n\n자세한 내용은 콘솔 로그를 참조 하십시오.\n\n";
+
+/* Window text */
+"A username and password are required to connect to\n  %@" = "다음과 연결하기 위해 사용자명과 암호가 필요합니다\n%@";
+
+/* Window text */
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "%1$@ 에 접속하기 위해 사용자이름과 암호가 필요합니다.\n('%2$@' 인증 사용중)";
 
 /* Window text */
 "Add Credentials..." = "인증 추가…";
+
+/* Window text */
+"Added '.sh' extension to %@ so it will be secured properly" = "%@의 보안을 위해 '.sh' 확장자를 추가합니다";
+
+/* Window text */
+"Added a '.key' extension to %@ so it will be secured properly" = "%@의 보안을 위해 '.key' 확장자를 추가합니다";
 
 /* Window text */
 "Additional contributions by" = "공헌한 사람들";
@@ -797,6 +848,24 @@
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "보안 (복제) 복사본으로 복원하는 동안 오류가 발생했습니다. 자세한 것은 콘솔 로그를 보십시오.\n\n";
 
 /* Window text */
+"An internal Tunnelblick error occurred%@%@" = "Tunnelblick 내부 오류가 발생했습니다%1$@%2$@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "Tunnelblick 내부 오류가 발생했습니다: fileIsReasonableSize: Cannot get attributes: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "Tunnelblick 내부 오류가 발생했습니다: fileIsReasonableSize: Cannot get size: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "Tunnelblick 내부 오류가 발생했습니다: fileIsReasonableSize: Cannot get type: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "Tunnelblick 내부 오류가 발생했습니다: fileIsReasonableSize: invalid file type: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Tunnelblick 내부 오류가 발생했습니다: fileIsReasonableSize: path is nil";
+
+/* Window text */
 "Anonymous unique ID" = "익명의 유일한 ID";
 
 /* Window text */
@@ -808,17 +877,38 @@
 /* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "'%@' 인증을 위해 키체인에 저장된 인증 (개인 키 또는 사용자명 및 암호)을 삭제하겠습니까?";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
+"At line %lu of the OpenVPN configuration file: %@" = "OpenVPN 설정 파일: %2$@ 의 줄 %1$lu";
+
+/* Window text */
 "B" = "B";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
 "B/s" = "B/s";
+
+/* Window text */
+"Backslash at end of line %u is not allowed" = "줄 %u 끝에 역 슬래시는 허용되지 않습니다";
+
+/* Window text */
+"Cannot find configuration file at %@" = "%@에서 설정 파일을 찾을 수 없습니다";
+
+/* Window text */
+"Cannot install configurations to either shared or private locations" = "공유 또는 개인 위치에 설정을 설치할 수 없습니다";
+
+/* Window text */
+"Cannot uninstall configuration '%@' because it is not installed." = "'%@' 설정은 설치되지 않은 관계로 제거가 불가합니다.";
+
+/* Window text */
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "설정 '%@'의 스크립트중 일부분은 연결중에 대체 및 제거시 문제를 일으킬 수 있습니다.\n\n설정을 대체하시겠습니까?";
+
+/* Window text */
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "'%@' 설정은 수정 할 수 없습니다. '수정 가능' 으로 설정할 수 없기 때문입니다.\n";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "이름에 허용되지 않는 문자가 있어서 설정 '%1$@'은 무시됩니다.\n\n다음 문자는 허용되지 않습니다: '%2$s'\n\n";
 
 /* Window text */
-"Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "일반적으로 네트워크 관리자 또는 VPN 서비스 제공자가 제공한 파일로 설정을 설치합니다.\n\n설정 파일은 .tblk 나 .ovpn 또는 .conf 확장자를 가집니다.\n\n(설정과 연관이 있는 다른 파일들은 다른 확장자를 가질 수 있습니다. 지금은 무시하십시오)\n\n설정 파일을 가지고 있습니까?\n";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "네트워크 관리자 또는 VPN 서비스 공급자가 제공하는 설정 파일로 설치 가능합니다.\n\n설정 파일은 .tblk, .ovpn, 또는 .conf 의 확장자를 가지고 있습니다.\n\n(다른 확장자를 가진 설정 파일도 있을 수 있으나, 우선 무시하십시오.)\n\n설정을 설치하기 원한다면 파일을 두번 클릭 하십시오.\n\n새로운 설정은 Tunnelblick에 바로 적용되어 사용 가능합니다.";
 
 /* Window text */
 "Connect:" = "연결하기:";
@@ -826,11 +916,29 @@
 /* Window text */
 "Connection:" = "연결:";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
+/* Window text */
+"Converted OpenVPN configuration" = "변환된 OpenVPN 설정";
+
+/* Window text */
+"Converting %@ at line %lu: %@" = "%1$@ 줄 %2$lu 변환: %3$@";
+
+/* Window text */
+"Converting %@: %@" = "변환 %1$@: %2$@";
+
+/* Window text */
+"Copied %@" = "%@ 복사";
+
+/* Window text */
+"Copied %@, removing CR characters" = "%@ 복사함, CR 문자 제거";
+
+/* Window text */
+"Copyright © 2004-%@ Angelo Laub and others." = "저작권 © 2004-%@ Angelo Laub 등";
 
 /* Window text */
 "Could not copy %@ to %@" = "%1$@를 %2$@로 복사할 수 없습니다";
+
+/* Window text */
+"Could not create %@" = "%@를 만들 수 없습니다";
 
 /* Window text */
 "Could not delete %@" = "%@를 삭제할 수 없습니다";
@@ -848,7 +956,7 @@
 "Could not get modification date of %@" = "%@의 수정 날짜를 가져올 수 없습니다";
 
 /* Window text */
-"Could not make %@ deletable" = "%@를 삭제할 수 있도록 변경할 수 없습니다";
+"Could not resolve symbolic link at %@" = "%@에서 심볼릭 링크를 확인할 수 없습니다";
 
 /* Window text */
 "Could not set modification date of %@ to %@" = "수정 날짜를 %1$@에서 %2$@로 설정할 수 없습니다";
@@ -860,55 +968,103 @@
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "설정 삭제는 영구적이며 취소할 수 없습니다.\n\n설정의 모든 값도 영구적으로 삭제됩니다.\n\n%1$@%2$@\n\n설정 '%3$@'을 삭제하겠습니까?";
 
 /* Window text */
+"Did not need to modify configuration file; no path information to remove" = "설정 파일을 수정할 필요가 없습니다. 삭제할 경로 정보가 없습니다.";
+
+/* Window text */
 "Do you wish to delete the %@ credentials?" = "%@ 인증을 삭제하겠습니까?";
 
 /* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "'%@' 설정을 모든 사용자가 사용할 수 있도록 설치하겠습니까? 아니면 자신만 사용할 수 있도록 설치하겠습니까?\n\n";
 
 /* Window text */
-"Do you wish to reinstall '%@'%@ version %@?" = "'%1$@'%2$@ 버전 %3$@을 재설치하겠습니까?";
+"Do you wish to reinstall '%@' version %@?" = "'%1$@' 버전%2$@를 다시 설치하겠습니까?";
 
 /* Window text */
-"Do you wish to replace '%@'%@ version %@ with version %@?" = "'%1$@'%2$@ 버전 %3$@을 버전 %4$@으로 교체하겠습니까?";
+"Do you wish to replace '%@' version %@ with version %@?" = "'%1$@' 버전 %2$@ 에서 버전 %3$@로 교체하겠습니까?";
+
+/* Window text */
+"Do you wish to replace the '%@' configuration?\n\n" = "'%@' 설정을 교체하겠습니까?\n\n";
 
 /* Window text */
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "'%@' 설정을 마지막 (복제) 복사본으로 복원하겠습니까?\n\n";
 
 /* Window text */
-"Do you wish to uninstall '%@'%@ version %@?" = "'%1$@'%2$@ 버전 %3$@을 삭제하겠습니까?";
-
-/* Window text */
 "Domain:" = "도메인:";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
+"Double-quote missing in line %u" = "%u 줄에 큰따옴표가 없습니다";
+
+/* Window text */
 "EB" = "EB";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
 "EB/s" = "EB/s";
+
+/* Window text */
+"Expected command not found for '%@'" = "'%@' 명령어가 없습니다.";
+
+/* Window text */
+"Expected path not found for '%@'" = "'%@'가 경로에 없습니다";
+
+/* Window text */
+"Failed to copy %@ to %@" = "%1$@에서 %2$@로 복사 실패";
+
+/* Window text */
+"Failed to create folder at %@" = "%@에 폴더 만들기 실패";
+
+/* Window text */
+"Failed to create symlink\n  to %@\n  at %@" = "%1$@ 의 심볼릭 링크를\n%2$@ 에 만들 수 없습니다.";
+
+/* Window text */
+"Failed to set permissions on %@\n" = "%@에 권한 설정 실패\n";
 
 /* Window text */
 "Fast User Switching" = "빠른 사용자 전환";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
+"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "'%@' 파일은 '{' 문자로 시작하기 때문에 '리치 텍스트' 인 것 같습니다. 모든 OpenVPN 관련 파일들은 '일반 텍스트' 또는 'UTF-8' 파일이어야합니다.";
+
+/* Window text */
+"File '%@' ends with a backslash, which is not allowed." = "파일 '%@' 끝에 백슬래시는 허용 되지 않습니다.";
+
+/* Window text */
+"File '%@' has an extension which is not known to Tunnelblick." = "'%@' 의 확장자를 알 수 없습니다.";
+
+/* Window text */
+"File '%@' is empty" = "'%@' 파일은 비었습니다";
+
+/* Window text */
+"File '%@' is missing" = "'%@' 파일이 없습니다";
+
+/* Window text */
+"File is too large: %@" = "파일이 너무 큽니다: %@";
+
+/* Window text */
 "GB" = "GB";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
 "GB/s" = "GB/s";
 
 /* Window text */
 "Icon:" = "아이콘:";
 
 /* Window text */
+"In %@:\n\nThere are no OpenVPN configurations to install." = "%@에는:\n\n설치할 OpenVPN 설정이 없습니다.";
+
+/* Window text */
+"In the OpenVPN configuration file for '%@' at line %lu: %@" = "'%1$@' OpenVPN 설정 파일 줄 %2$lu: %3$@";
+
+/* Window text */
+"In the OpenVPN configuration file for '%@': %@" = "'%1$@' 의 OpenVPN 설정 파일 : %2$@";
+
+/* Window text */
 "In:" = "입력:";
 
 /* Window text */
+"Installation failed:\n\n%@" = "설치 오류:\n\n%@";
+
+/* Window text */
 "Installation finished successfully." = "설치가 올바르게 완료되었습니다.";
-
-/* Window text */
-"Installation of .tblk packages is not allowed" = ".tblk 패키지 설치가 허용되지 않습니다.";
-
-/* Window text */
-"Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick." = "배포된 Tunnelblick 버전이기 때문에 Tunnelblick VPN 설정의 설치가 허용되지 않습니다.";
 
 /* Window text */
 "Installing Tunnelblick VPN Configurations..." = "Tunnelblick VPN 설정 설치 중…";
@@ -916,10 +1072,16 @@
 /* Window text */
 "Installing and securing Tunnelblick..." = "Tunnelblick 설치 및 보호 중…";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
+"Installing configurations is not allowed" = "설정 설치는 허용되지 않습니다";
+
+/* Window text */
+"Invalid value '%@' for '%@' in %@" = "%3$@ 의 '%2$@' 에 대한 유효하지 않는 값 '%1$@'";
+
+/* Window text */
 "KB" = "KB";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
 "KB/s" = "KB/s";
 
 /* Window text */
@@ -928,16 +1090,16 @@
 /* Window text */
 "Last checked: %@" = "최신 확인: %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Line %d of the file contains a non-printable character (0x%02X) which is not allowed." = "Line %1$d of the file contains a non-printable character (0x%2$X) which is not allowed.";
+/* Window text */
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "'%2$@' 의 %1$d 줄의 인쇄할 수 없는 문자 (0x%3$X) 는 허용되지 않습니다.\n\n";
 
 /* Window text */
 "Localization by" = "지역화한 사람들";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
 "MB" = "MB";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
 "MB/s" = "MB/s";
 
 /* Window text */
@@ -945,6 +1107,15 @@
 
 /* Window text */
 "Menu:" = "메뉴:";
+
+/* Window text */
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "다음에 대한 CFBundleIdentifier 또는 CFBundleVersion 가 Info.plist 에 존재하지 않습니다.\n\n%@\n\n이 VPN 설정은 변경가능한 외부 VPN 설정에 포함되어 있기 때문에 CFBundleIdentifier 와 CFBundleVersion 를 포함해야 합니다.";
+
+/* Window text */
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "다음에 대한 Info.plist 가 없습니다.\n\n%@\n\n이 VPN 설정은 변경가능한 외부 VPN 설정에 포함되어 있기 때문에 Info.plist를 포함해야 합니다.";
+
+/* Window text */
+"Modified configuration file to remove path information" = "경로 정보를 삭제하기 위해 설정 파일을 변경하였습니다";
 
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "(%1$d개는 '네임서버 설정'으로, %2$d개는 '네임서버 설정' 없이) 동시에 여러 개 연결이 만들어졌습니다.";
@@ -965,16 +1136,34 @@
 "Network setting" = "네트워크 설정";
 
 /* Window text */
+"No 'TBPackageVersion' in %@" = "%@에 'TBPackageVersion' 가 없습니다.";
+
+/* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "경로에 easy-rsa가 없습니다. 'easy-rsaPath' 설정 값을 확인하십시오.";
 
 /* Window text */
+"Non-array value for '%@' in %@" = "%2$@에서 '%1$@' 에 배열이 아닌 값";
+
+/* Window text */
+"Non-boolean value for '%@' in %@" = "%2$@에서 '%1$@' 에 boolean이 아닌 값";
+
+/* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
+"Non-integer value for '%@' in %@" = "%2$@에서 '%1$@' 에 정수가 아닌 값";
+
+/* Window text */
+"Non-string value for '%@' in %@" = "%2$@에서 '%1$@' 에 문자열이 아닌 값";
+
+/* Window text */
+"Non-string value for an item in '%@' in %@" = "%2$@에서 '%1$@' 에 string이 아닌 값";
+
+/* Window text */
+"Not a .ovpn or .conf: %@" = ".ovpn 이나 .conf 가 아닙니다: %@";
+
+/* Window text */
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
+
+/* Window text */
 "Notification window:" = "알림 창:";
-
-/* Window text */
-"One Tunnelblick VPN Configuration was installed successfully." = "1개의 Tunnelblick VPN 설정이 올바르게 설치되었습니다.";
-
-/* Window text */
-"One Tunnelblick VPN Configuration was uninstalled successfully." = "1개의 Tunnelblick VPN 설정이 올바르게 삭제되었습니다.";
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Tunnelblick이 모르는 1개 또는 이상의 OpenVPN 프로세스가 실행중입니다. Tunnelblick과 별개로 OpenVPN을 실행한 것이 아니면, 이전에 실행된 Tunnelblick이 OpenVPN 프로세스를 올바르게 내리지 못한 것입니다. 이 프로세스들은 Tunnelblick 동작을 방해할 수 있습니다. 모든 OpenVPN 프로세스를 중단하겠습니까?";
@@ -988,20 +1177,20 @@
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "1개 또는 이상의 설정이 무시되었습니다. 자세한 것은 콘솔 로그를 보십시오.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"One or more configurations could not be installed.\n\n%@" = "One or more configurations could not be installed.\n\n%@";
+/* Window text */
+"One or more problems were detected:\n\n%@" = "하나 이상의 문제가 발견 되었습니다:\n\n%@";
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "오직 Tunnelblick VPN 설정 (.tblk)만 컴퓨터가 시작할 때 실행될 수 있습니다.";
 
 /* Window text */
-"OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "연결 해제 요청에 OpenVPN이 %d초 동안 응답하지 않았습니다.\n\n연결은 연결 해제된 것으로 생각할 수 있습니다. 하지만 컴퓨터 네트워크 설정은 일치하지 않은 상태일 수 있습니다.";
+"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "%@ 에 대한 접속 해제 요청에 OpenVPN이 응답하지 않습니다.\n\nTunnelblick은 OpenVPN이 접속 해제 요청에 응답할 때 연결을 해제할 것입니다.\n\n일반적인 상황에서는 2분 정도가 걸립니다.\n\n접속이 해제되기 전까지 연결을 사용할 수 없습니다.";
 
 /* Window text */
-"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "연결 해제 요청에 OpenVPN이 응답하지 않았습니다.\n\nOpenVPN 버전 2.1은 알려진 문제가 있습니다. 그래서 때대로 요청에 응답하기까지 1분에서 2분 정도의 지연이 될 수 있습니다.\n\nTunnelblick은 %1$d초 까지 연결 해제를 시도할 것입니다.\n\nOpenVPN 연결 해제가 되거나 %2$d초 초과가 될 때 까지 연결은 사용할 수 없습니다.";
+"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN %1$@ 버전은 사용할 수 없습니다. 이 버전의 Tunnelblick에 포함된 가장 최신 버전인 %2$@ 으로 설정 파일을 변경합니다.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN 버전 %1$@은 사용할 수 없습니다. 최신 버전 %2$@을 사용하십시오.";
+"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN 버전 %1$@ 을(를) 사용할 수 없습니다. 최신 버전인 (%2$@) 을(를) 사용합니다.";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN 버전:";
@@ -1009,11 +1198,17 @@
 /* Window text */
 "Out:" = "출력:";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
 "PB" = "PB";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
 "PB/s" = "PB/s";
+
+/* Window text */
+"Password:" = "암호:";
+
+/* Window text */
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "경로 '%1$@' 는 허용되지 않는 문자를 포함하고 있습니다.\n\n허용되지 않는 문자: '%2$s'\n\n";
 
 /* Window text */
 "Please enter VPN passphrase." = "VPN 암호를 입력하십시오.";
@@ -1033,17 +1228,11 @@
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "개인 설정은 컴퓨터가 시작할 때 연결할 수 없습니다.\n\n먼저 설정을 공유로 만들고 이 설정으로 변경하십시오.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Program error, please report this as a bug: Invalid dest = %@ for .tblk '%@'." = "Program error, please report this as a bug: Invalid dest = %1$@ for .tblk '%2$@'.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Program error, please report this as a bug: Unable to copy '%@' to '%@'" = "Program error, please report this as a bug: Unable to copy '%1$@' to '%2$@'";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Program error, please report this as a bug: Unable to create file at '%@'" = "Program error, please report this as a bug: Unable to create file at '%@'";
-
 /* Window text */
 "Received fatal signal %d." = "치명적인 신호 %d 받음.";
+
+/* Window text */
+"Resolved symbolic link at '%@' to '%@'" = "'%1$@' 에서 '%2$@'로 심볼릭 링크 확인하였습니다";
 
 /* Window text */
 "Search domain:" = "도메인 검색:";
@@ -1055,16 +1244,28 @@
 "Set DNS/WINS:" = "DNS/WINS 설정:";
 
 /* Window text */
+"Single-quote missing in line %u" = "%u 줄에 작은따옴표가 없습니다";
+
+/* Window text */
+"Skipped copying %@ because a file with that name and contents has already been copied." = "같은 이름과 내용의 파일이 이미 복사되어 %@ 의 복사를 건너뛰었습니다.";
+
+/* Window text */
 "Starting Tunnelblick..." = "Tunnelblick 시작 중…";
 
 /* Window text */
 "Startup window:" = "시동 창:";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
+"Symbolic links nested too deeply. Gave up at %@" = "심볼릭 링크가 너무 많이 중첩되었습니다. %@에서 포기";
+
+/* Window text */
 "TB" = "TB";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
 "TB/s" = "TB/s";
+
+/* Window text */
+"TBRunAlertPanel returned an error" = "TBRunAlertPanel 이 오류를 반환 했습니다";
 
 /* Window text */
 "TUNNELBLICK is brought to you by" = "TUNNELBLICK 만든 사람";
@@ -1078,14 +1279,17 @@
 /* Window text */
 "That name is being used.\n\n" = "사용 중인 이름입니다.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The %@ system folder (%@) does not exist." = "The %1$@ system folder (%2$@) does not exist.";
+/* Window text */
+"The %@ system folder (%@) does not exist." = "%1$@ 시스템 폴더 (%2$@) 가 없습니다.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The %@ system folder (%@) is not secure.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "The %1$@ system folder (%2$@) is not secure.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem.";
+/* Window text */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "시스템 폴더 %1$@ (%2$@) 는 안전하지 않습니다.\n\nTunnelblick은 이 문제가 수정되기 전 까지 제대로 작동하지 않습니다.\n\n디스크 유틸리티의 '디스크 권한 복구' 기능을 사용하면 이 문제가 해결될 수도 있습니다.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The '%@' configuration cannot be found." = "The '%@' configuration cannot be found.";
+/* Window text */
+"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "'%@' OpenVPN 옵션은 OS X에서 허용되지 않습니다. 그것은 'Windows 전용' 옵션입니다.";
+
+/* Window text */
+"The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN 옵션 '%@' 은 Tunnelblick에서 허용되지 않습니다.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "지정된 인증 목록이 강제되어 '%@' 인증을 추가할 수 없습니다.";
@@ -1097,67 +1301,46 @@
 "The '%@' credentials may not be deleted because the list of named credentials is being forced." = "지정된 인증 목록이 강제되어 '%@' 인증을 삭제할 수 없습니다.";
 
 /* Window text */
+"The '%@' option is not allowed in an OpenVPN configuration file that is in a Tunnelblick VPN Configuration unless the file it references is specified with an absolute path." = "The '%@' option is not allowed in an OpenVPN configuration file that is in a Tunnelblick VPN Configuration unless the file it references is specified with an absolute path.";
+
+/* Window text */
 "The 'credentialsNames' preference must be an array of strings." = "'credentialsNames' 설정 값은 문자열의 배열이어야 합니다.";
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "'namedCredentialsNames' 설정 값은 문자열의 배열이어야 합니다.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The Info.plist in '%@' contains an invalid 'TBPackageVersion' value of '%@' (only '1' is allowed)." = "The Info.plist in '%1$@' contains an invalid 'TBPackageVersion' value of '%2$@' (only '1' is allowed).";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The Info.plist in '%@' contains an invalid 'TBReplaceIdentical' value of '%@'.\n\nThe value must be 'yes', 'no', 'ask', or 'force'." = "The Info.plist in '%1$@' contains an invalid 'TBReplaceIdentical' value of '%2$@'.\n\nThe value must be 'yes', 'no', 'ask', or 'force'.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The Info.plist in '%@' contains an invalid 'TBSharePackage' value of '%@'.\n\nThe value must be 'private', 'shared', or 'ask'." = "The Info.plist in '%1$@' contains an invalid 'TBSharePackage' value of '%2$@'.\n\nThe value must be 'private', 'shared', or 'ask'.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The Info.plist in '%@' does not contain a 'TBPackageVersion' entry." = "The Info.plist in '%@' does not contain a 'TBPackageVersion' entry.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The Info.plist in '%@' has an invalid value of '%@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical'." = "The Info.plist in '%1$@' has an invalid value of '%2$@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical'.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The Info.plist in '%@' has an invalid value of '%@' (only 'shared', 'private', or 'ask' are allowed) for 'TBSharePackage'." = "The Info.plist in '%1$@' has an invalid value of '%2$@' (only 'shared', 'private', or 'ask' are allowed) for 'TBSharePackage'.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The Info.plist in '%@' has an unknown key '%@'." = "The Info.plist in '%1$@' has an unknown key '%2$@'.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The OpenVPN configuration file in %@ has a '%@' option with argument '%@' that begins with \"%@\", which is not allowed." = "The OpenVPN configuration file in %1$@ has a '%2$@' option with argument '%3$@' that begins with \"%4$@\", which is not allowed.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The OpenVPN configuration file in %@ has a '%@' option with argument '%@' that includes \"..\", which is not allowed." = "The OpenVPN configuration file in %1$@ has a '%2$@' option with argument '%3$@' that includes \"..\", which is not allowed.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The OpenVPN configuration file in '%@' could not be processed:\n\n%@" = "The OpenVPN configuration file in '%1$@' could not be processed:\n\n%2$@";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The OpenVPN configuration file in '%@' has a '%@' option that references '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "The OpenVPN configuration file in '%1$@' has a '%2$@' option that references '%3$@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk).";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The OpenVPN configuration file in '%@' has a '%@' option that references '%@'. That file has a problem:\n\n%@." = "The OpenVPN configuration file in '%1$@' has a '%2$@' option that references '%3$@'. That file has a problem:\n\n%4$@.";
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "%1$@ 에 있는 OpenVPN 설정 파일은 Windows에서만 사용할 수 있는 '%2$@' 옵션을 포함하고 있습니다. 이것은 OS X에서는 사용할 수 없습니다.";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "OpenVPN 로그가 아직 없거나 삭제되었습니다.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The Tunnelblick VPN Configuration has NOT been installed.\n\nAn unknown error occured." = "The Tunnelblick VPN Configuration has NOT been installed.\n\nAn unknown error occured.";
+/* Window text */
+"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "Tunnelblick 설정이 잘못되어 초기화되었습니다. (예전 설정은 이름이 변경되었습니다.)\n\n자세한 것은 콘솔 로그를 보십시오.";
 
 /* Window text */
-"The VPN name '%@' is already in use.\n\nPlease enter a new name." = "VPN 이름 '%@'은 이미 사용 중입니다.\n\n새 이름을 입력하십시오.";
-
-/* Window text */
-"The VPN name cannot be empty.\n\nPlease enter a new name." = "VPN 이름이 필요합니다.\n\n새 이름을 입력하십시오.";
-
-/* Window text */
-"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "%1$@ 연결 시도가 취소되었습니다: runOnConnect 스크립트가 %2$d 상태를 반환했습니다.";
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "%1$@ 으로 접속 요청이 취소되었습니다. runOnConnect 스크립트가 %2$ld 상태를 반환했습니다.";
 
 /* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "'%@' 설정 파일은 '사용자'나 또는 '그룹' 옵션을 사용하는 것 같습니다. 그리고 설정 파일은 '네임 서버 설정 안함'을 선택하지 않았거나 설정 파일 안에 'down' 옵션이 있는 다운 스크립트를 사용합니다.\n\nOpenVPN 용 'openvpn-down-root.so' 플러그인을 사용하지 않으면 연결이 끊어졌을 때 자동으로 다시 연결되지 않을 것입니다.\n\n이 플러그인을 사용하겠습니까?";
 
 /* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "'%@' 설정 파일은 'dev tun' 또는 'dev tap' 옵션을 가지고 있지 않는 것 같습니다. 이 옵션은 Tunnelblick 동작에 필요할 수 있습니다. 네트워크 관리자에게 문의하거나 OpenVPN 문서를 참고하십시오.";
+"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "'%@' 의 설정 파일은 'dev tun', 'dev utun' 또는 'dev tap' 옵션을 포함하고 있지 않습니다. 이 옵션은 Tunnelblick이 제대로 동작하기 위해 필요합니다. 네트워크 관리자나 OpenVPN 문서를 참고하십시오.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "설정 파일이 참조하는 아래 파일은 존재하지 않습니다. (설정 파일이 변경되었을 수 있습니다.)\n\n%@";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "The configuration file refers to a file\n\n%@\n\nwhich does not exist.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced)." = "설정 파일이 참조하는 다음 파일이\n\n%1$@\n\n아래 위치에 존재하지 않습니다.\n\n%2$@\n\n(설정 파일이 변경되었을 수 있습니다.)";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "설정 파일이 참조하는 다음 파일이 \n%1$@\n\n아래 위치에 존재하지 않습니다.\n%2$@";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "외부 VPN 서버가 인증 (암호 또는 사용자 계정과 암호)을 수락하지 않았습니다.";
@@ -1168,8 +1351,11 @@
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "인증 이름 %1$@은 삭제할 수 없습니다:\n\n%2$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files." = "The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files.";
+/* Window text */
+"The file %@ is empty" = "'%@' 파일은 비었습니다";
+
+/* Window text */
+"The file %@ is missing" = "'%@' 파일이 없습니다";
 
 /* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "설치, 삭제, 복원, 복구 중 1개 또는 이상의 Tunnelblick 컴포넌트가 실패했습니다. 자세한 것은 콘솔 로그를 보십시오.";
@@ -1187,10 +1373,19 @@
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "사용자 계정과 암호가 필요합니다!\nVPN 사용자 계정 / 암호 조합을 입력하십시오.";
 
 /* Window text */
+"There are no OpenVPN configurations to install." = "설치할 OpenVPN 설정이 없습니다.";
+
+/* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "설치된 VPN 설정이 없습니다.\n\nVPN에 연결하려면 Tunnelblick은 1개 또는 이상의 설치된 설정이 필요합니다. 설정은 일반적으로 네트워크 관리자 또는 VPN 서비스 제공자가 제공한 파일을 사용해 설치합니다. 파일은 사용하려면 설치해야 합니다.\n\n설정 파일은 .tblk 이나 .ovpn 또는 .conf 확장자를 가집니다.\n\n(설정과 관련된 다른 파일은 다른 확장자를 가질 수 있습니다. 지금은 무시하십시오.)\n\n설정 파일을 가지고 있습니까?\n";
 
 /* Window text */
-"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "두 가지 종류의 설정 파일이 있습니다:\n\n  • Tunnelblick VPN 설정 (.tblk 확장자)\n\n  • OpenVPN 설정 (.ovpn 또는 .conf 확장자)\n\n가지고 있는 설정 종류는 무엇입니까?\n\n";
+"There is not an OpenVPN configuration file in '%@'" = "'%@'에 OpenVPN 설정 파일이 없습니다";
+
+/* Window text */
+"There was a problem with\n\n%@:\n\n%@" = "문제가 발생 했습니다\n\n%1$@:\n\n%2$@";
+
+/* Window text */
+"There was a problem:\n\n%@" = "문제가 발생 했습니다: %@";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "이 '배포된' Tunnelblick 버전은 실행하거나 설치할 수 없습니다. 다시 만들어지지 않았거나 updateFeedURL 또는 SUFeedURL이 없거나 'tunnelblick.net'을 가지고 있기때문입니다. 또는 CFBundleIdentifier가 없거나 'net.tunnelblick'을 가지고 있기때문입니다.\n\n";
@@ -1214,58 +1409,25 @@
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "이 Tunnelblick 버전은 '배포된' 버전이 아니기 때문에 실행하거나 설치할 수 없습니다. 그리고 1개 또는 이상의 '배포된' Tunnelblick 버전이 이전에 설치되었습니다.\n\n";
 
 /* Window text */
-"To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Tunnelblick VPN 설정 (.tblk 확장자)을 설치하려면 이 것을 이중 클릭합니다.\n\n새 설정은 즉시 Tunnelblick에서 사용할 수 있습니다.";
-
-/* Window text */
-"To install it as a Tunnelblick VPN Configuration:\n\n1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)" = "Tunnelblick VPN 설정으로 설치하려면:\n\n1. 1개의 OpenVPN 설정 파일 (.ovpn 또는 .conf 확장자)을 Desktop에 만들어진 'Empty Tunnelblick VPN Configuration' 폴더로 옮기거나 복사한다.\n\n2. 관련된 모든 키와 인증서를 폴더 안으로 옮기거나 복사한다.\n\n3. Tunnelblick에서 설정으로 사용할 이름으로 폴더 이름을 변경한다.\n\n4. 폴더 이름 끝에 .tblk 확장자를 추가한다.\n\n5. 설치하기위해 폴더를 이중 클릭한다.\n\n새 설정은 즉시 Tunnelblick에서 사용할 수 있다.\n\n(편의를 위해 Finder 창으로 폴더가 열려있다)";
+"Too many configuration files in '%@'" = "'%@'에 너무 많은 설정 파일있습니다";
 
 /* Window text */
 "Too many duplicate configurations already exist." = "너무 많은 중복된 설정이 이미 있습니다.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' cannot be installed as shared or private because this is a Deployed version of Tunnelblick." = "Tunnelblick VPN Configuration '%@' cannot be installed as shared or private because this is a Deployed version of Tunnelblick.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' contains file '%@', which does not have an extension. Each file in a Tunnelblick VPN Configuration must have an extension. Tunnelblick uses extensions to determine how to secure files properly.\n\nThe extensions that are allowed are: %@." = "Tunnelblick VPN Configuration '%1$@' contains file '%2$@', which does not have an extension. Each file in a Tunnelblick VPN Configuration must have an extension. Tunnelblick uses extensions to determine how to secure files properly.\n\nThe extensions that are allowed are: %3$@.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' contains file '%@', which has an extension that may not appear in a Tunnelblick VPN Configuration. Tunnelblick uses extensions to determine how to secure files properly.\n\nThe extensions that are allowed are: %@." = "Tunnelblick VPN Configuration '%1$@' contains file '%2$@', which has an extension that may not appear in a Tunnelblick VPN Configuration. Tunnelblick uses extensions to determine how to secure files properly.\n\nThe extensions that are allowed are: %3$@.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with a 'ovpn' extension, and has more than one with a 'conf' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension .If it does not, it must have exactly one with a 'conf' extension." = "Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with a 'ovpn' extension, and has more than one with a 'conf' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension .If it does not, it must have exactly one with a 'conf' extension.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with an 'ovpn' or 'conf' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension. If it does not, it must have exactly one with a 'conf' extension." = "Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with an 'ovpn' or 'conf' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension. If it does not, it must have exactly one with a 'conf' extension.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' has NOT been installed because TBReplaceOption=NO." = "Tunnelblick VPN Configuration '%@' has NOT been installed because TBReplaceOption=NO.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' has NOT been installed because it has a lower version number." = "Tunnelblick VPN Configuration '%@' has NOT been installed because it has a lower version number.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' has NOT been uninstalled because TBReplaceOption=NO." = "Tunnelblick VPN Configuration '%@' has NOT been uninstalled because TBReplaceOption=NO.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' has NOT been uninstalled because it has a lower version number." = "Tunnelblick VPN Configuration '%@' has NOT been uninstalled because it has a lower version number.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' has more than one OpenVPN configuration file with an 'ovpn' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension. If it does not, it must have exactly one with a 'conf' extension." = "Tunnelblick VPN Configuration '%@' has more than one OpenVPN configuration file with an 'ovpn' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension. If it does not, it must have exactly one with a 'conf' extension.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' is empty." = "Tunnelblick VPN Configuration '%@' is empty.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@', contains multiple files named '%@'. All file names must be unique, even if they are in different subfolders." = "Tunnelblick VPN Configuration '%1$@', contains multiple files named '%2$@'. All file names must be unique, even if they are in different subfolders.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@', which is contained within a Tunnelblick VPN Configuration, contains a Tunnelblick VPN Configuration, which is not allowed. Only one level of nesting is allowed." = "Tunnelblick VPN Configuration '%@', which is contained within a Tunnelblick VPN Configuration, contains a Tunnelblick VPN Configuration, which is not allowed. Only one level of nesting is allowed.";
+/* Window text */
+"Tunnelblick Internet Use:" = "Tunnelblick 인터넷 사용:";
 
 /* Window text */
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "VPN에 연결되었을 때 Tunnelblick이 컴퓨터의 공인 IP 주소를 확인할 수 있고 없을 경우 경고 할 수 있습니다.\n\n이것은 연결 문제 분석에 도움이 됩니다.\n\n이 프로세스는 다음에 접근합니다:\n%@\n\nIP 주소 변경을 확인하겠습니까?\n";
 
 /* Window text */
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "로그인 했을 때 자동으로 실행하는 중에 Tunnelblick의 설정이 올바르지 않았을 수 있습니다.\n\n자세한 것은 콘솔 로그를 보십시오.";
+
+/* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "설정에 문제가 있어서 Tunnelblick을 실행할 수 없습니다. 자세한 것은 콘솔 로그를 검토하십시오.";
+
+/* Window text */
+"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick 은 '%@' 설정을 완전히 삭제할 수 없었습니다. 자세한 내용은 콘솔 로그를 참조 하십시오.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick이 '%@' 설정을 복사할 수 없습니다. 자세한 것은 콘솔 로그를 보십시오.";
@@ -1276,8 +1438,14 @@
 /* Window text */
 "Tunnelblick could not create the sample configuration" = "Tunnelblick이 예제 설정을 만들 수 없습니다";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %1$ld; notification = 0x%2$lX";
+/* Window text */
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick 이 창을 표시할 수 없습니다.\n\nCFUserNotificationCreate() 이 오류 = %1$ld; notification = 0x%2$lX 를 반환했습니다.";
+
+/* Window text */
+"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick이  %@로 접속하기 전에 IP 주소 정보를 얻을 수 없습니다.\n\n";
+
+/* Window text */
+"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick이 설정 파일을 찾지 못했거나, 설정 파일을 복구할 수 없습니다. 자세한 것은 콘솔 로그를 보십시오.";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick이 '%@' 설정을 옮길 수 없습니다. 자세한 것은 콘솔 로그를 보십시오.";
@@ -1286,10 +1454,10 @@
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick이 '%@' 설정을 삭제할 수 없습니다. 자세한 것은 콘솔 로그를 보십시오.";
 
 /* Window text */
-"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick이 설정 파일을 잠금 해제 할 수 없습니다. 자세한 것은 콘솔 로그에 있습니다.\n\n설정을 수정할 수 없어도 설정 파일을 검토하겠습니까?";
+"Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@" = "Tunnelblick에 심각한 오류가 발생했습니다.\n\nTunnelblick을 재설치하면 이 문제를 해결할 수 있습니다. 이 문제는 다음과 같습니다:\n\n%@";
 
 /* Window text */
-"Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@" = "Tunnelblick에 심각한 오류가 발생했습니다.\n\nTunnelblick을 재설치하면 이 문제를 해결할 수 있습니다. 이 문제는 다음과 같습니다:\n\n%@";
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick의 %1$lu 설정에서 오류가 발생했습니다 :\n\n%2$@%3$@%4$@%5$@";
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick이 '%@'의 환경설정과 관련된 문제를 복구하는 것에 실패했습니다. 자세한 것은 콘솔 로그에 있습니다.";
@@ -1301,11 +1469,7 @@
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "'%@'의 설정 파일이 삭제되어 Tunnelblick이 연결을 해제했습니다.";
 
 /* Window text */
-"Tunnelblick is based on %@. " = "Tunnelblick은 %@을 기반으로 되어있습니다. ";
-
-/* Window text */
-"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick은 자유 소프트웨어입니다. %2$@에서 만든 %1$@의 약관에 따라 이 소프트웨어를 재배포할 수 있고 변형 할 수 있습니다.
-";
+"Tunnelblick is based on %@." = "Tunnelblick은 %@을 기반으로 개발되었습니다.";
 
 /* Window text */
 "Tunnelblick is ready." = "Tunnelblick이 준비되었습니다.";
@@ -1314,16 +1478,13 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick이 설정 파일의 보안 (복제) 복사본을 만들거나 업데이트를 하려고 합니다.";
 
 /* Window text */
-"Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "Tunnelblick이 1개 또는 이상의 Tunnelblick VPN 설정을 설치하려고 합니다.";
-
-/* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick이 아래와 같이 하려고 합니다:\n";
 
 /* Window text */
-"Tunnelblick needs to:\n\n" = "Tunnelblick이 아래와 같이 하려고 합니다:\n\n";
-
-/* Window text */
 "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick은 OS X 10.4 또는 이상 (\"Tiger\", \"Leopard\", 또는 \"Snow Leopard\")이 필요합니다.";
+
+/* Window text: '* Installed/Replaced/Uninstalled' */
+"Tunnelblick successfully:\n\n" = "Tunnelblick은 올바르게 아래 항목을 완료하였습니다:\n\n";
 
 /* Window text */
 "Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?" = "Tunnelblick이 올바르게 설치되었습니다\n\nTunnelblick을 지금 실행하겠습니까?";
@@ -1335,19 +1496,103 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick이 기존의 '%1$@' OpenVPN 프로세스와 %2$d 초안에 통신을 연결할 수 없었습니다. 통신 연결 시도가 취소되었습니다.";
 
 /* Window text */
+"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nIf they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them)." = "OS X가 거부하여 Tunnelblick의 환경설정을 저장하지 못했습니다.\n\n환경설정이 잘못되었을 수 있습니다. 그래서 환경설정이 포함된 파일을 지울 필요가 있을 수 있습니다. 환경설정은 아래에 있습니다.\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\n환경설정이 잘못되었다면 Tunnelblick이 다음에 실행될 때  환경설정은 자동으로 (예전 설정은 백업하고) 초기화될 것입니다.";
+
+/* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick이 %@에 연결하기 위해 OpenVPN을 시작할 수 없습니다. 자세한 것은 VPN 상세… 창에서 로그를 볼 수 있습니다.";
 
 /* Window text */
 "Unable to Establish Communication" = "통신을 연결 할 수 없습니다.";
 
 /* Window text */
+"Unable to convert OpenVPN configuration" = "OpenVPN 설정을 변환할 수 없습니다";
+
+/* Window text */
+"Unable to copy file at '%@' to '%@' because the same name is used for different contents" = "다른 컨텐츠에서 동일한 이름이 사용되어 '%1$@'에서 '%2$@'로 파일을 복사할 수 없습니다.";
+
+/* Window text */
+"Unable to create %@ owned by %ld:%ld with %lo permissions" = "%2$ld:%3$ld가 소유자이고 %4$lo 권한을 가진  %1$@를 만들 수 없습니다";
+
+/* Window text */
+"Unable to install the '%@' configuration\n" = "'%@' 설정을 설치할 수 없습니다\n";
+
+/* Window text */
+"Unable to open configuration file for modification" = "수정을 하려고 설정 파일을 열 수 없습니다";
+
+/* Window text */
+"Unable to replace the '%@' configuration\n" = "'%@' 설정을 교체할 수 없습니다\n";
+
+/* Window text */
+"Unable to secure %@ because it is owned by %@" = "%2$@가 소유하고 있어서 %1$@를 보호할 수 없습니다.";
+
+/* Window text */
+"Unable to secure %@" = "%@를 보호할 수 없습니다";
+
+/* Window text */
+"Unable to set permissions on '%@'" = "'%@'의 사용 권한을 설정할 수 없습니다.";
+
+/* Window text */
+"Unable to store updatable configuration stub at %@\n" = "변경할 수 있는 설정 복사본을 %@에 저장할 수 없습니다.\n";
+
+/* Window text */
+"Unable to uninstall the '%@' configuration\n" = "'%@' 설정을 설치할 수 없습니다\n";
+
+/* Window text */
+"Unable to write to configuration file for modification" = "수정을 하려고 설정 파일을 저장할 수 없습니다";
+
+/* Window text */
 "Unexpected disconnection:" = "예상치 않은 연결 해제:";
+
+/* Window text */
+"Unknown extension '%@' for %@" = "알 수 없는 확장자 '%1$@' for %2$@";
+
+/* Window text */
+"Unknown key '%@' in %@" = "알 수 없는 키 '%1$@' in %2$@";
+
+/* Window text */
+"Unknown value '%@' for '%@' in %@" = "알 수 없는 값 '%1$@' for '%2$@' in %3$@";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "수정 가능한 설정 '%1$@' 은 %2$@ 을 찾을 수 없기 때문에 수정이 불가합니다\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "수정 가능한 설정 '%1$@' 은 %2$@ 을 '%3$@' 로 복사할 수 없기 때문에 수정이 불가합니다\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "수정 가능한 설정 '%@' 은 stub .tblk의 'Contents'를 생성할 수 없기 때문에 수정이 불가합니다\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "수정 가능한 설정 '%@' 은 stub .tblk의 'Contents/Resources'를 생성할 수 없기 때문에 수정이 불가합니다\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "수정 가능한 설정 '%@' 은 'SUPublicDSAKeyFile'이 String 배열이 아니기 때문에 수정이 불가합니다\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "수정 가능한 설정 '%@' 은 Info.plist의 'SUFeedURL'이 'https://'로 시작 하지 않고 'SUPublicDSAKeyFile'의 값이 지정되지 않았기 때문에 수정이 불가합니다\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "수정 가능한 설정 '%@' 은 Info.plist을 stub .tblk로 저장을 실패했기 때문에 수정이 불가합니다\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "수정 가능한 설정 '%@' 은 CFBundleIdentifier이 이미 처리되었기 때문에 수정이 불가합니다\n";
 
 /* Window text */
 "Updates:" = "업데이트:";
 
 /* Window text */
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN 설정 %@ 은 버전이 낮기 때문에 설치 불가합니다.";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN 설정 %@ 은 대체 할 수 없는 구성이 이미 존재하기 때문에 설치 불가합니다.";
+
+/* Window text */
 "VPN Connections" = "VPN 연결";
+
+/* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
+"Value '%@' for '%@' is not a valid URL in %@" = "%3$@에서 '%2$@' 의 값 '%1$@'은 올바른 URL이 아닙니다.";
 
 /* Window text */
 "WINS servers:" = "WINS 서버:";
@@ -1377,13 +1622,19 @@
 "Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "다음과 같이 하겠습니까?\n\n  • Desktop에 예제 설정을 만든다.\n  • 텍스트 편집기로 OpenVPN 설정 파일을 열어서\n        VPN 연결을 위해 수정을 한다.\n\n";
 
 /* Window text */
-"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "설치된 복사본에서 Tunnelblick VPN 설정을 설치할 수 없습니다.\n\n관리자는 설치를 복사할 수 있고 복사본에서 설치할 수 있습니다.";
+"You are not allowed to replace a private configuration" = "개인 설정은 대체 불가합니다";
+
+/* Window text */
+"You are not allowed to replace a shared configuration" = "공유 설정은 대체 불가합니다";
 
 /* Window text */
 "You cannot make a configuration private if it is set to start when the computer starts." = "컴퓨터가 시작할 때 연결하도록 설정되어 있으면 개인 설정으로 변경할 수 없습니다.";
 
 /* Window text */
 "You cannot make a configuration private unless it is disconnected." = "연결 해제를 하지않으면 개인 설정으로 변경할 수 없습니다.";
+
+/* Window text */
+"You cannot make a configuration shared if it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "변경할 수 있는 설정은 공유 설정으로 만들 수 없습니다.\n\n변경할 수 있는 Tunnelblick VPN 설정 안의 Tunnelblick VPN 설정은 공유할 수 있습니다.";
 
 /* Window text */
 "You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "Tunnelblick VPN 설정(.tblk)이 아니면 공유 설정으로 변경할 수 없습니다.";
@@ -1395,7 +1646,13 @@
 "You cannot rename a configuration unless it is disconnected." = "연결 해제를 하지 않으면 설정 이름을 바꿀 수 없습니다.";
 
 /* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "OpenVPN 설정이 있지만 Tunnelblick VPN 설정이 없습니다.\n\OpenVPN 설정을 Tunnelblick VPN 설정으로 변환해야 사용할 수 있습니다.\n\n";
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "OpenVPN 설정을 가지고 있지만 Tunnelblick VPN 설정은 없습니다.\n\nOpenVPN 설정을 사용하려면 Tunnelblick VPN 설정으로 변환해야 합니다.\n\n";
+
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "OpenVPN 설정은 가지고 있지만 Tunnelblick VPN 설정은 없습니다.\n\nOpenVPN 설정을 사용하려면 Tunnelblick VPN 설정으로 변환해야 합니다.\n\n하지만 아래 문제가 있어서 Tunnelblick이 설정을 변환하지 못했습니다:\n\n%@";
+
+/* Window text */
+"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "OpenVPN 설정을 가지고 있습니다.\n\nOpenVPN 설정을 사용하려면 Tunnelblick VPN 설정으로 변환해야 합니다.\n\n하지만 아래 문제가 있어서 Tunnelblick이 설정을 변환하지 못했습니다:\n\n%@\n\n'무시'를 선택하면 설정은 사용할 수 없습니다!\n\n";
 
 /* Window text */
 "You have asked to duplicate '%@'." = "'%@' 설정을 복사하려고 합니다.";
@@ -1412,11 +1669,8 @@
 /* Window text */
 "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "이 Tunnelblick 버전에서 사용할 수 없는 1개 또는 이상의 OpenVPN 설정이 있습니다. 다음과 같이 할 수 있습니다:\n\n  • OpenVPN 설정을 Tunnelblick VPN 설정으로 변환\n  • 종료하고 Tunnelblick 다른 버전을 설치\n  • 무시하고 변환없이 계속 진행\n\n'무시'를 선택하면 설정들은 사용할 수 없습니다!\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file." = "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.";
-
 /* Window text */
-"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "설정 파일을 검토할 수 있습니다. 하지만 수정하려면 지금 설정을 잠금해제해야 합니다. 설정 파일을 지금 잠금 해제하면 다음에 이 설정으로 연결 할 때 관리자 사용자 계정과 암호를 입력해야 합니다.";
+"You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n";
 
 /* Window text */
 "You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect." = "이 설정으로 연결할 수 없습니다.\n\n이 설정을 'Tunnelblick VPN 연결' (.tblk)로 변환해야 연결할 수 있습니다.";
@@ -1446,35 +1700,37 @@
 "You may only revert a private configuration." = "개인 설정만 복원할 수 있습니다.";
 
 /* Window text */
-"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "새 복사본을 실행하려면 현재 실행 중인 Tunnelblick을 종료해야 합니다.\n\Tunnelblick을 실행하기 전에 모든 VPN 연결을 닫고 현재 실행 중인 Tunnelblick을 종료하려면 \"VPN 연결을 닫고 Tunnelblick 종료\"를 클릭하십시오.";
+"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "새 복사본을 실행하려면 현재 실행 중인 Tunnelblick을 종료해야 합니다.\n\\Tunnelblick을 실행하기 전에 모든 VPN 연결을 닫고 현재 실행 중인 Tunnelblick을 종료하려면 \"VPN 연결을 닫고 Tunnelblick 종료\"를 클릭하십시오.";
+
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "업데이트 한 후 관리자 사용자 계정과 암호를 입력하지 전 까지 Tunnelblick을 사용할 수 없습니다.\n\n업데이트를 확인하겠습니까?";
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+
+/* Window text */
+"Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "시스템 시계를 올바르게 설정할 수 없습니다.\n\n시스템 시계가 올바른 날자와 시간을 가지지 않으면 설정 중 일부나 전체는 연결하지 못할 수 있습니다.\n\n";
+
+/* Window text */
 "ZB" = "ZB";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
 "ZB/s" = "ZB/s";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n 경고: 이 Tunnelblick 복사본은 조작되었습니다.\n";
+"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed because the Info.plist for an \"inner\" .tblk may not contain \"updatable\" .tblk entries." = "\"%1$@\" in the Info.plist for\n\n%2$@\n\nis not allowed because the Info.plist for an \"inner\" .tblk may not contain \"updatable\" .tblk entries.";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n 경고: 이 Tunnelblick 복사본은 컴퓨터를 안전하지 않게 할 수 있습니다. 이것은 단지 디버그용입니다.\n";
+"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" in the Info.plist for\n\n%2$@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk.";
+
+/* Window text */
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "\n경고: 이 Tunnelblick 복사본은 조작되었습니다.\n";
+
+/* Window text */
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n경고: 이 Tunnelblick의 복사본은 귀하의 컴퓨터의 보안을 취약하게 합니다. 디버깅 목적으로만 사용 하십시오.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n 주의: 설정과 관련된 키 또는 인증서와 같은 파일들은 삭제되지 않습니다.";
 
 /* Window text */
-"\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\n%d개 Tunnelblick VPN 설정이 올바르게 설치되었습니다.";
-
-/* Window text */
-"\n\nNote: The configuration's group credentials will not be deleted because other configurations use them." = "\n\주의: 설정의 그룹 인증은 다른 설정에서 사용중이기 때문에 삭제할 수 없습니다.";
-
-/* Window text */
-"\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\1개 Tunnelblick VPN 설정이 올바르게 설치되었습니다.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"\n\nOther problems were also found, but they are likely to be a result of that problem. See the Console Log for details." = "\n\nOther problems were also found, but they are likely to be a result of that problem. See the Console Log for details.";
+"\n\nNote: The configuration's group credentials will not be deleted because other configurations use them." = "\n\\주의: 설정의 그룹 인증은 다른 설정에서 사용중이기 때문에 삭제할 수 없습니다.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\n과 %ld개 Tunnelblick VPN 설정 설치";
@@ -1484,6 +1740,9 @@
 
 /* Window text */
 "easy-rsa installation failed: %@" = "easy-rsa 설치 실패: %@";
+
+/* Window text */
+"targetPathToReplaceForDisplayName: %@ was found to replace the configuration with CFBundleIdentifer %@, but earlier, %@ was found to replace it." = "targetPathToReplaceForDisplayName: %1$@ was found to replace the configuration with CFBundleIdentifer %2$@, but earlier, %3$@ was found to replace it.";
 
 /* Suffix for a duplicate of a file */
 " copy %d" = " 복사본 %d";
@@ -1499,6 +1758,12 @@
 
 /* Credit description */
 "Animation and icon sets code" = "애니메이션, 아이콘 세트 코드";
+
+/* Credit description */
+"Arabic localization" = "아랍어 지역화";
+
+/* Credit description */
+"Bulgarian localization" = "불가리아어 지역화";
 
 /* Credit description */
 "Button images" = "버튼 이미지";
@@ -1527,6 +1792,9 @@
 /* Credit description */
 "Czech localization" = "체코어 지역화";
 
+/* Credit description */
+"Danish localization" = "덴마크어 지역화";
+
 /* Speak string */
 "Disconnected from %@" = "%@가 연결 해제되었습니다";
 
@@ -1535,6 +1803,9 @@
 
 /* Credit description */
 "Dutch localization" = "네덜란드 지역화";
+
+/* Credit description */
+"Estonian localization" = "에스토니아어 지역화";
 
 /* Credit description */
 "Finnish localization" = "핀란드어 지역화";
@@ -1549,7 +1820,13 @@
 "German localization" = "독일어 지역화";
 
 /* Credit description */
+"Greek localization" = "그리스어 지역화";
+
+/* Credit description */
 "Hungarian localization" = "헝가리어 지역화";
+
+/* Credit description */
+"Icon set including Retina images" = "레티나 이미지를 포함한 아이콘 세트";
 
 /* Credit description */
 "Italian localization" = "이탈리아어 지역화";
@@ -1585,7 +1862,10 @@
 "Polish localization" = "폴란드어 지역화";
 
 /* Credit description */
-"Portuguese localization" = "포르트갈어 지역화";
+"Portuguese (Brazilian) localization" = "포르투갈어 (브라질어) 지역화";
+
+/* Credit description */
+"Portuguese localization" = "포르투갈어 지역화";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "버전 3.0b10 이후 프로그램과 문서 강화";
@@ -1604,6 +1884,9 @@
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick 아이콘";
+
+/* Credit description */
+"Turkish localization" = "터키어 지역화";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue &UKLoginItemRegistry";

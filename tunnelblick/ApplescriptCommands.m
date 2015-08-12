@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,9 +21,10 @@
 
 
 #import "ApplescriptCommands.h"
+
 #import "MenuController.h"
-#import "VPNConnection.h"
 #import "TBUserDefaults.h"
+#import "VPNConnection.h"
 
 extern TBUserDefaults  * gTbDefaults;
 
@@ -34,7 +35,7 @@ extern TBUserDefaults  * gTbDefaults;
 {
     NSString * displayName = [self directParameter];
     
-    NSDictionary * myVPNConnectionDictionary = [[NSApp delegate] myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
     VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
     
     if (  connection  ) {
@@ -55,13 +56,13 @@ extern TBUserDefaults  * gTbDefaults;
 {
     NSString * displayName = [self directParameter];
     
-    NSDictionary * myVPNConnectionDictionary = [[NSApp delegate] myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
     VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
     
     if (  connection  ) {
         if (  ! [connection isDisconnected]  ) {
             [connection addToLog: @"*Tunnelblick: Disconnecting; AppleScript 'disconnect' invoked"];
-            [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
+            [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
             return [NSNumber numberWithBool: TRUE];
         }
     }
@@ -76,7 +77,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (id)performDefaultImplementation
 {
-    NSDictionary * myVPNConnectionDictionary = [[NSApp delegate] myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     int nConnecting = 0;
@@ -97,14 +98,14 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (id)performDefaultImplementation
 {
-    NSDictionary * myVPNConnectionDictionary = [[NSApp delegate] myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     int nDisconnecting = 0;
     while (  (connection = [connEnum nextObject])  ) {
         if (  ! [connection isDisconnected]  ) {
             [connection addToLog: @"*Tunnelblick: Disconnecting; AppleScript 'disconnect all' invoked"];
-            [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
+            [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
             nDisconnecting++;
         }
     }
@@ -119,7 +120,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (id)performDefaultImplementation
 {
-    NSDictionary * myVPNConnectionDictionary = [[NSApp delegate] myVPNConnectionDictionary];
+    NSDictionary * myVPNConnectionDictionary = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     int nDisconnecting = 0;
@@ -130,7 +131,7 @@ extern TBUserDefaults  * gTbDefaults;
             if (  ! (   [gTbDefaults boolForKey: autoConnectkey]
                      && [gTbDefaults boolForKey: systemStartkey] )  ) {
                 [connection addToLog:@"*Tunnelblick: Disconnecting; AppleScript 'disconnect all except when computer starts' invoked"];
-                [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
+                [connection startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
                 nDisconnecting++;
             }
         }
@@ -138,5 +139,16 @@ extern TBUserDefaults  * gTbDefaults;
     
     return [NSNumber numberWithInt: nDisconnecting];
 }
+
+@end
+
+@implementation ApplescriptQuit
+
+- (id)performDefaultImplementation
+{
+    [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(quit:) withObject: nil waitUntilDone: NO];
+    return [NSNumber numberWithInt: 0];
+}
+
 
 @end

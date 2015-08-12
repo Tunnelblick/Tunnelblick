@@ -1,5 +1,5 @@
 /*
- * Copyright 2009, 2010 Jonathan Bullard
+ * Copyright 2009, 2010, 2011 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *

@@ -41,9 +41,6 @@
 //  10 June 2011:   Modified for use in Tunnelblick
 
 
-#import <Cocoa/Cocoa.h>
-
-
 @interface DBPrefsWindowController : NSWindowController <NSAnimationDelegate, NSToolbarDelegate> {
 	NSMutableArray *toolbarIdentifiers;
 	NSMutableDictionary *toolbarViews;
@@ -54,6 +51,8 @@
 	
 	NSView *contentSubview;
 	NSViewAnimation *viewAnimation;
+	
+	BOOL windowHasLoaded;
 }
 
 
@@ -74,5 +73,6 @@
 - (void)crossFadeView:(NSView *)oldView withView:(NSView *)newView;
 - (NSRect)frameForView:(NSView *)view;
 
+-(BOOL)windowHasLoaded;
 
 @end

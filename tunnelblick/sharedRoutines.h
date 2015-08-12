@@ -1,5 +1,5 @@
 /*
- * Copyright 2012  Jonathan K. Bullard
+ * Copyright 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -22,7 +22,14 @@
 #import <Foundation/Foundation.h>
 
 
+OSStatus getSystemVersion(unsigned * major, unsigned * minor, unsigned * bugFix);
+
 unsigned cvt_atou(const char * s, NSString * description);
+
+int            createDir(NSString * d,
+						 unsigned long perms);
+
+BOOL isSanitizedOpenvpnVersion(NSString * s);
 
 BOOL checkSetItemOwnership(NSString *     path,
 						   NSDictionary * atts,
@@ -44,10 +51,35 @@ BOOL createDirWithPermissionAndOwnership(NSString * dirPath,
 										 uid_t      owner,
 										 gid_t      group);
 
-unsigned int getFreePort(void);
+NSString * fileIsReasonableSize(NSString * path);
+
+NSString * allFilesAreReasonableIn(NSString * path);
+
+NSDictionary * highestEditionForEachBundleIdinL_AS_T(void);
+
+BOOL invalidConfigurationName (NSString * name,
+                               const char badChars[]);
+
+unsigned int getFreePort(unsigned int startingPort);
 
 BOOL itemIsVisible(NSString * path);
 
 BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser);
 
-NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK, NSString * charactersThatCommentsStartWith);
+NSDictionary * getSafeEnvironment(bool includeIV_GUI_VER);
+
+OSStatus runTool(NSString * launchPath,
+                 NSArray  * arguments,
+                 NSString * * stdOut,
+                 NSString * * stdErr);
+
+void startTool(NSString * launchPath,
+			   NSArray *  arguments);
+
+BOOL tunnelblickdIsLoaded(void);
+
+OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString ** stderrString);
+
+unsigned getLoadedKextsMask(void);
+
+NSString * sanitizedConfigurationContents(NSString * cfgContents);

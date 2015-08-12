@@ -10,22 +10,22 @@
 /* Textbox name */
 "Username:" = "Gebruikersnaam:";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
-"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
+/* Button */
+"%@ F%d (Command-Option-F%d)" = "%1$@ F %2$d (Command + Option + F %3$d)";
 
 /* Button */
 "(None available)" = "(Geen beschikbaar)";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
+/* Button */
 "1 MB" = "1 MB";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
+/* Button */
 "10 KB" = "10 KB";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
+/* Button */
 "10 MB" = "10 MB";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
+/* Button */
 "100 KB" = "100 KB";
 
 /* Button */
@@ -35,6 +35,12 @@
 "All Users" = "Alle Gebruikers";
 
 /* Button */
+"Always load Tap driver" = "Altijd Tap driver laden";
+
+/* Button */
+"Always load Tun driver" = "Altijd Tun driver laden";
+
+/* Button */
 "Always use the plugin" = "Altijd de plugin gebruiken";
 
 /* Button */
@@ -42,6 +48,12 @@
 
 /* Button */
 "Cancel" = "Annuleren";
+
+/* Button */
+"Change Only for This Configuration" = "Wijzig alleen voor deze configuratie";
+
+/* Button */
+"Change for the Selected Configurations" = "Wijzig voor de geselecteerde configuraties";
 
 /* Menu item */ /* Button */
 "Check For Updates Now" = "Nu Controleren op Updates";
@@ -68,7 +80,7 @@
 "Copy Console Log to Clipboard" = "Kopiëer Console Log naar Klembord";
 
 /* Button */
-"Copy Diagnostic Info to Clipboard" = "Kopiëer Diagnostische Informatie naar Klembord";
+"Copy Diagnostic Info to Clipboard" = "Kopiëer diagnostische informatie naar klembord";
 
 /* Button */
 "Create sample configuration and edit it" = "Voorbeeld-configuratie aanmaken en bewerken";
@@ -92,15 +104,9 @@
 "Do not use the plugin" = "De plugin niet gebruiken";
 
 /* Button */
-"Done" = "Gereed";
-
-/* Button */
 "Download" = "Downloaden";
 
 /* Button */
-"Examine" = "Onderzoeken";
-
-/* NEEDS TRANSLATION *//* Button */
 "Help" = "Help";
 
 /* Button */
@@ -119,10 +125,22 @@
 "Launch" = "Starten";
 
 /* Button */
+"Load Tap driver automatically" = "Tap stuurprogramma automatisch laden";
+
+/* Button */
+"Load Tun driver automatically" = "Tun stuurprogramma automatisch laden";
+
+/* Button */
 "Manually" = "Handmatig";
 
 /* Button */
 "Monochrome icon" = "Monochroom icoon";
+
+/* Button */
+"Never load Tap driver" = "Nooit Tap stuurprogramma laden";
+
+/* Button */
+"Never load Tun driver" = "Nooit Tun stuurprogramma laden";
 
 /* Button */
 "Never show" = "Nooit tonen";
@@ -133,35 +151,38 @@
 /* Button */
 "No sound" = "Geen geluid";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
-"OK" = "OK";
+/* Button */
+"OK" = "Ok";
 
 /* Button */
 "Only Me" = "Alleen Ik";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
+/* Button */
+"Open Uninstall Instructions in Browser" = "Open Verwijder Instructies in Browser";
+
+/* Button */
 "Open easy-rsa in Terminal" = "Open easy-rsa in Terminal";
 
 /* Button */
-"OpenVPN Configuration(s)" = "OpenVPN Configuratie(s)";
+"Privacy info..." = "Informatie over privacy…";
 
 /* Button */
-"Quit All OpenVPN Processes" = "Stop Alle OpenVPN Processen";
+"Quit All OpenVPN Processes" = "Stop alle OpenVPN processen";
 
 /* Button */
 "Quit" = "Stoppen";
 
 /* Button */
-"Remove Credentials" = "Verwijder Aanmeldgegevens";
+"Reinstall" = "Opnieuw installeren";
 
 /* Button */
-"Replace Existing Configuration" = "Vervang Bestaande Configuratie";
+"Remove Credentials" = "Verwijder Aanmeldgegevens";
 
 /* Button */
 "Replace" = "Vervangen";
 
 /* Button */
-"Reset Disabled Warnings" = "Uitgeschakelde Waarschuwingen Herstellen";
+"Reset Disabled Warnings" = "Uitgeschakelde waarschuwingen herstellen";
 
 /* Button */
 "Restart connection" = "Verbinding herstarten";
@@ -173,10 +194,19 @@
 "Revert" = "Draai terug";
 
 /* Button */
+"Show on default screen (%u x %u)" = "Toon op standaardscherm (%1$u x %2$u)";
+
+/* Button */
+"Show on screen %u (%u x %u)" = "Toon op scherm %1$u (%2$u x %3$u)";
+
+/* Button */
 "Show when connection status changes" = "Tonen wanneer verbindingsstatus wijzigt";
 
 /* Button */
 "Show while connecting" = "Tonen tijdens verbinding maken";
+
+/* Button */
+"Skip" = "Overslaan";
 
 /* Button */
 "Speak" = "Spreek";
@@ -203,10 +233,7 @@
 "Try again" = "Opnieuw proberen";
 
 /* Button */
-"Tunnelblick VPN Configuration(s)" = "Tunnelblick VPN Configuratie(s)";
-
-/* Button */
-"Unprotect and Modify" = "Bescherming opheffen en Wijzigen";
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 pictogram";
 
 /* Button */
 "When Tunnelblick launches" = "Wanneer Tunnelblick start";
@@ -236,7 +263,7 @@
 "Edit OpenVPN Configuration File..." = "OpenVPN Configuratiebestand Bewerken…";
 
 /* Menu Item */
-"Examine OpenVPN Configuration File..." = "OpenVPN Configuratiebestand Onderzoeken…";
+"Examine OpenVPN Configuration File..." = "OpenVPN configuratiebestand onderzoeken…";
 
 /* Menu Item */
 "Make Configuration Private..." = "Configuratie Persoonlijk Maken…";
@@ -259,14 +286,14 @@
 /* Menu Item */
 "Show OpenVPN Log in Finder" = "Toon OpenVPN Log in Finder";
 
-/* Menu Item */
-"Show configuration on Tunnelblick menu" = "Configuratie tonen in Tunnelblick menu";
+/* Menu item */
+"Suggestion or Bug Report..." = "Suggestie of foutrapport…";
 
 /* Menu item */
-"Suggestion or Bug Report..." = "Suggestie of Foutrapport…";
-
-/* TRANSLATION SAME AS DEVELOPMENT *//* Menu item */
 "VPN Details..." = "VPN Details…";
+
+/* Checkbox name */
+"Apply to all" = "Toepassen op alle";
 
 /* Checkbox name */
 "Check for updates automatically" = "Automatisch updates zoeken";
@@ -275,7 +302,10 @@
 "Check for updates to beta versions" = "Controleer op updates voor beta versies";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Controleer of het publieke IP adres gewijzigd is na verbinden";
+"Check if the apparent public IP address changed after connecting" = "Controleer of het publieke IP adres gewijzigd is na verbinden";
+
+/* Checkbox name */
+"Disconnect when computer goes to sleep" = "Verbinding verbreken wanneer computer overschakelt naar slaapmodus";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Verbinding verbreken wanneer gebruiker uitschakelt";
@@ -301,6 +331,9 @@
 /* Checkbox name */
 "Do not check for IP address changes" = "Niet controleren op IP adres wijzigingen";
 
+/* Checkbox name on a warning dialog */
+"Do not show again for any configuration" = "Niet meer weergeven voor elke configuratie";
+
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Waarschuw mij niet nog een keer hiervoor in deze configuratie";
 
@@ -308,10 +341,13 @@
 "Do not warn about this again" = "Waarschuw mij niet nog een keer";
 
 /* Checkbox name */
-"Do not warn about this again, always 'Examine'" = "Hiervoor niet meer waarschuwen, altijd 'Onderzoeken'";
+"Flush DNS cache after connecting or disconnecting" = "DNS cache leegmaken na verbinding maken of verbinding verbreken";
 
 /* Checkbox name */
-"Flush DNS cache after connecting or disconnecting" = "DNS cache leegmaken na verbinding maken of verbinding verbreken";
+"Inhibit automatic update checking and IP Address checking" = "Geen automatische update controle en IP-adres controle";
+
+/* Checkbox name */
+"Keep connected" = "Verbonden blijven";
 
 /* Checkbox name */ /* System profile item */
 "Monitor connection" = "Verbinding controleren";
@@ -335,22 +371,28 @@
 "Reset the primary interface after disconnecting" = "Herstel de primaire interface na verbreken verbinding";
 
 /* Checkbox name */
-"Route all traffic through the VPN" = "Stuur alle verkeer door de VPN verbinding";
+"Route all IPv4 traffic through the VPN" = "Verstuur al het IPv4 verkeer via de VPN Tunnel";
+
+/* Checkbox name */
+"Run MTU maximum size test after connecting" = "Voer MTU maximale grootte test uit na verbinden";
 
 /* Checkbox name */
 "Save in Keychain" = "In Sleutelhanger Opslaan";
 
 /* Checkbox name */
-"Scan configuration file for problems before connecting" = "Zoeken naar problemen in het configuratiebestand voordat er verbinding wordt gemaakt";
+"Send anonymous profile information when checking" = "Stuur anonieme profielinformatie op";
+
+/* Checkbox name */
+"Set DNS after routes are set instead of before routes are set" = "DNS instellen nadat routes zijn ingesteld in plaats van voordat routes zijn ingesteld";
+
+/* Checkbox name */
+"Show configuration on Tunnelblick menu" = "Configuratie tonen in Tunnelblick menu";
 
 /* Checkbox name */
 "Show when disconnected" = "Laat zien indien niet verbonden";
 
 /* Checkbox name */
 "Show when the pointer is over the Tunnelblick icon" = "Laat zien wanneer de aanwijzer over het Tunnelblick pictogram beweegt";
-
-/* Checkbox name */
-"Use Tunnelblick tun/tap drivers" = "Tunnelblick tun/tap stuurprogramma's gebruiken";
 
 /* PopUpButton */
 "Do not set nameserver" = "nameserver niet configureren";
@@ -371,46 +413,52 @@
 "Double-click to begin" = "Dubbelklik om te starten";
 
 /* Connection status */
-"ADD_ROUTES" = "Routes toevoegen";
+"ADD_ROUTES" = "Routes toevoegen"; // Please translate "Adding routes"
 
 /* Connection status */
-"ASSIGN_IP" = "IP adres toewijzen";
+"ASSIGN_IP" = "IP adres toewijzen"; // Please translate "Assigning IP address"
 
 /* Connection status */
-"AUTH" = "Autoriseren";
+"AUTH" = "Autoriseren"; // Please translate "Authorizing"
 
 /* Connection status */
-"CONNECTED" = "Verbonden";
+"CONNECTED" = "Verbonden"; // Please translate "Connected"
 
 /* Connection status */
-"CONNECTING" = "Verbinding maken";
+"CONNECTING" = "Verbinding maken"; // Please translate "Connecting"
 
 /* Connection status */
-"EXITING" = "Verbinding verbreken";
+"DISCONNECTING" = "Verbinding aan het verbreken"; // Please translate "Disconnecting"
 
 /* Connection status */
-"GET_CONFIG" = "Configuratie ophalen";
+"EXITING" = "Verbinding verbreken"; // Please translate "Disconnected"
 
 /* Connection status */
-"RECONNECTING" = "Opnieuw verbinden";
+"GET_CONFIG" = "Configuratie ophalen"; // Please translate ""
 
 /* Connection status */
-"RESOLVE" = "Domeinnaam bepalen";
+"PASSWORD_WAIT" = "Wachten op wachtwoord"; // Please translate "Waiting for password"
 
 /* Connection status */
-"SLEEP" = "Wachten op Daemon-proces";
+"PRIVATE_KEY_WAIT" = "Wachten op wachtwoord"; // Please translate "Waiting for password"
 
 /* Connection status */
-"TCP_CONNECT" = "TCP-verbinding maken";
+"RECONNECTING" = "Opnieuw verbinden"; // Please translate ""
 
 /* Connection status */
-"UDP_CONNECT" = "UDP-verbinding maken";
+"RESOLVE" = "Domeinnaam bepalen"; // Please translate ""
 
 /* Connection status */
-"WAIT" = "Wachten op Antwoord van Server";
+"SLEEP" = "Wachten op Daemon-proces"; // Please translate "Waiting for daemon process"
 
-/* Folder name */
-"Empty Tunnelblick VPN Configuration" = "Tunnelblick VPN Configuratie Leegmaken";
+/* Connection status */
+"TCP_CONNECT" = "TCP-verbinding maken"; // Please translate "Making TCP connection"
+
+/* Connection status */
+"UDP_CONNECT" = "UDP-verbinding maken"; // Please translate "Making UDP connection"
+
+/* Connection status */
+"WAIT" = "Wachten op Antwoord van Server"; // Please translate "Waiting for Server Response"
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Voorbeeld Tunnelblick VPN Configuratie";
@@ -424,20 +472,20 @@
 /* System profile item */
 "Deployed" = "Ingezet";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window title */
-" (?)" = " (?)";
-
 /* Window title */
-" (Deployed)" = " (Ingezet)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
+" (Deployed)" = " (Ingezet)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
 
 /* Window title */
 " (Private)" = " (Persoonlijk)";
 
 /* Window title */
-" (Shared)" = " (Gedeeld)"; /* Indicates a shared configuration */
+" (Shared)" = " (Gedeeld)"; // Indicates a shared configuration
 
 /* Window title */
-"%@ Advanced Settings%@" = "%1$@ Geavanceerde Instellingen%2$@";
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN configuratie - Tunnelblick";
+
+/* Window title */
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ verbroken - geavanceerde instellingen %3$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' is verbroken";
@@ -461,16 +509,13 @@
 "All configuration files removed" = "Alle configuratiebestanden verwijderd";
 
 /* Window title */
-"An Empty Tunnelblick VPN Configuration Has Been Created" = "Een Lege Tunnelblick VPN Configuratie Werd Aangemaakt";
-
-/* Window title */
 "Appearance" = "Uiterlijk";
 
 /* Window title */
 "Authentication failed" = "Authenticatie mislukt";
 
 /* Window title */
-"Configuration Installation Error" = "Configuratie Installeerfout";
+"Change for All Selected Configurations?" = "Wijzig voor alle geselecteerde configuraties?";
 
 /* Window title */
 "Configuration(s) Ignored" = "Configuratie(s) Genegeerd";
@@ -479,7 +524,7 @@
 "Connecting & Disconnecting" = "Verbinden & Verbreken";
 
 /* Window title */
-"Could Not Copy Configuration" = "Configuratie Kon Niet Worden gekopiëerd";
+"Could Not Copy Configuration" = "Configuratie kon niet worden gekopiëerd";
 
 /* Window title */
 "Could Not Move Configuration" = "Configuratie Kon Niet Worden Verplaatst";
@@ -490,29 +535,23 @@
 /* Window title */
 "Create and Edit a Sample Configuration?" = "Een Voorbeeldconfiguratie Aanmaken en Bewerken?";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
+/* Window title */
 "Details - Tunnelblick" = "Details - Tunnelblick";
+
+/* Window title */
+"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "Wilt u deze wijziging aanbrengen voor alle %1$lu van de geselecteerde configuraties, of alleen voor ' %2$@'?";
 
 /* Window title */
 "Do you wish to connect?" = "Wilt u verbinding maken?";
 
 /* Window title */
-"Examine the configuration file?" = "Het configuratiebestand onderzoeken?";
-
-/* Window title */
 "File not found" = "Bestand niet gevonden";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
-"Info" = "Info";
+/* Window title */
+"Info" = "Informatie";
 
 /* Window title */
 "Install Configuration For All Users?" = "Configuratie Voor Alle Gebruikers Installeren?";
-
-/* Window title */
-"Install and Uninstall?" = "Installeren en Verwijderen?";
-
-/* Window title */
-"Install?" = "Installeren?";
 
 /* Window title */
 "Installation failed" = "Installatie mislukt";
@@ -524,13 +563,7 @@
 "Installation succeeded" = "Installatie gelukt";
 
 /* Window title */
-"Installing a Tunnelblick VPN Configuration" = "Een Tunnelblick VPN Configuratie Installeren";
-
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window title */
 "Log" = "Log";
-
-/* Window title */
-"Name In Use" = "Naam Is In Gebruik";
 
 /* Window title */
 "Name Required" = "Naam Verplicht";
@@ -542,7 +575,7 @@
 "New Feature" = "Nieuwe functie";
 
 /* Window title */
-"No 'dev tun' or 'dev tap' found" = "Geen 'dev tun' of 'dev tap' gevonden";
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "Geen 'dev tun', 'dev utun' of 'dev tap' gevonden";
 
 /* Window title */
 "No Credentials" = "Geen Aanmeldgegevens";
@@ -554,7 +587,7 @@
 "Only computer administrators should update Tunnelblick" = "Enkel computerbeheerders kunnen Tunnelblick updaten";
 
 /* Window title */
-"OpenVPN Not Responding" = "OpenVPN Antwoordt Niet";
+"OpenVPN is Not Responding" = "OpenVPN reageert niet";
 
 /* Window title */
 "Please Confirm" = "Bevestigen aub";
@@ -569,13 +602,10 @@
 "Preferences" = "Voorkeuren";
 
 /* Window title */
-"Replace Existing Configuration?" = "Huidige Configuratie Vervangen?";
-
-/* Window title */
 "Replace Existing File?" = "Huidig Bestand Vervangen?";
 
 /* Window title */
-"Replace Tunnelblick VPN Configuration" = "Tunnelblick VPN Configuratie Vervangen";
+"Replace VPN Configuration?" = "VPN-configuratie vervangen?";
 
 /* Window title */
 "Sample Configuration Created" = "Voorbeeldconfiguratie Aangemaakt";
@@ -587,24 +617,15 @@
 "System Requirements Not Met" = "Systeemvereisten Niet Voldaan";
 
 /* Window title */
-"The configuration file is protected" = "Het configuratiebestand is beschermd";
-
-/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick Configuratieprobleem";
 
 /* Window title */
 "Tunnelblick Error" = "Tunnelblick Fout";
 
 /* Window title */
-"Tunnelblick VPN Configuration Installation Error" = "Installatiefout bij Tunnelblick VPN-Configuratie";
-
-/* Window title */
-"Tunnelblick VPN Configuration Installation" = "Installatie van Tunnelblick VPN-Configuratie";
-
-/* Window title */
 "Tunnelblick is currently running" = "Tunnelblick is momenteel actief";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window title */
+/* Window title */
 "Tunnelblick" = "Tunnelblick";
 
 /* Window title */
@@ -620,16 +641,16 @@
 "Unavailable" = "Niet beschikbaar";
 
 /* Window title */
-"Uninstall Tunnelblick VPN Configuration" = "Tunnelblick VPN-Configuratie Verwijderen";
-
-/* Window title */
-"Uninstall?" = "Verwijderen?";
-
-/* Window title */
 "Use 'down-root' plugin for OpenVPN?" = "'down-root' plugin gebruiken voor OpenVPN?";
 
 /* Window title */
 "Utilities" = "Gereedschap";
+
+/* Window title */
+"VPN Configuration Installation Error" = "VPN-configuratie installatiefout";
+
+/* Window title */
+"VPN Configuration Installation" = "VPN-configuratie installatie";
 
 /* Window title */
 "VPN Credentials" = "VPN Aanmeldgegevens";
@@ -650,25 +671,52 @@
 "Welcome" = "Welkom";
 
 /* Window title */
-"Which Type of Configuration Do You Have?" = "Welk Type Configuratie Heeft U?";
-
-/* Window title */
 "While Connected" = "Tijdens Een Verbinding";
 
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Installed %lu configurations\n\n" = "     • %lu configuraties geïnstalleerd\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Installed one configuration\n\n" = "     • één configuratie geïnstalleerd\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Replaced %lu configurations\n\n" = "     • %lu configuraties vervangen\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Replaced one configuration\n\n" = "     • een configuratie vervangen\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Uninstalled %lu configurations\n\n" = "     • %lu configuraties gedeïnstalleerd\n\n";
+
+/* Window text: 'Tunnelblick succesfully: *' */
+"     • Uninstalled one configuration\n\n" = "     • een configuratie gedeïnstalleerd\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install %lu configurations\n\n" = "    • %lu configuraties geïnstalleerd\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Install one configuration\n" = "    • Installeer één configuratie\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace %lu configurations\n\n" = "    • %lu configuraties vervangen\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Replace one configuration\n" = "    • één configuratie vervangen\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall %lu configurations\n\n" = "    • %lu configuraties vervangen\n\n";
+
+/* Window text: 'Tunnelblick needs to: *' */
+"    • Uninstall one configuration\n" = "    • één configuratie vervangen\n";
+
 /* Window text */
-"  • Be installed in /Applications\n" = "  • Wordt geïnstalleerd in /Programma's\n";
+"  • Be installed in /Applications as Tunnelblick\n" = "  • Geïnstalleerd worden in /Applications als Tunnelblick\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Wijzig de eigenaar en rechten van het programma om het te beveiligen\n";
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Converteer OpenVPN configuraties\n";
-
-/* Window text */
-"  • Install %ld configurations\n\n" = "  • Installeer %ld configuraties\n\n";
-
-/* Window text */
-"  • Install one configuration\n\n" = "  • Installeer één configuratie\n\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Installeer of update configuratie(s)\n";
@@ -680,10 +728,7 @@
 "  • Secure configurations\n" = "  • Configuraties beveiligen\n";
 
 /* Window text */
-"  • Uninstall %ld configurations\n\n" = "  • Verwijder %ld configuraties\n\n";
-
-/* Window text */
-"  • Uninstall one configuration\n\n" = "  • Verwijder één configuratie\n\n";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ is gratis software: het is mogelijk om het te herdistribueren en/of aan te passen onder de voorwaarden van de %2$@ zoals gepubliceerd door de %3$@.  \n\n%4$@ is een geregistreerd handelsmerk van OpenVPN Technologies, Inc.";
 
 /* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Configuraties mogen alleen verwijderd worden door een computerbeheerder.\n\n Verwijderen gebeurt direct en is permanent. Alle instellingen voor '%1$@' zullen ook permanent verwijderd worden.%2$@%3$@";
@@ -718,23 +763,20 @@
 /* Window text */
 "%@ is already identical to its last secured (shadow) copy.\n\n" = "%@ is al identiek aan zijn laatste (schaduw) kopie.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"%d Info.plist files were found in '%@'. A Tunnelblick VPN Configuration may have at most one Info.plist." = "%1$d Info.plist files were found in '%2$@'. A Tunnelblick VPN Configuration may have at most one Info.plist.";
-
-/* Window text */
-"%d Tunnelblick VPN Configurations were installed successfully." = "%d Tunnelblick VPN Configuraties zijn succesvol geïnstalleerd.";
-
-/* Window text */
-"%d Tunnelblick VPN Configurations were uninstalled successfully." = "%d Tunnelblick VPN Configuraties zijn succesvol verwijderd.";
-
-/* Window text */
-"%d configurations were not installed. See the Console Log for details." = "%d de configuraties zijn niet geïnstalleerd. Zie het Console Log voor details.";
-
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' bestaat al op het Bureaublad.\n\nWilt u het vervangen?";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' heeft geen aanmeldgegevens (persoonlijke sleutel of gebruikersnaam en wachtwoord) in de Sleutelhanger opgeslagen.";
+
+/* Window text */
+"'%@' was not terminated." = "' %@' is niet beëindigd.";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' instelling genegeerd; het geeft geen specifieke map aan";
+
+/* Window text */
+"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' instelling genegeerd; het moet een absoluut pad zijn om beginnen met een '~'";
 
 /* Window text */
 "(Never checked)" = "(Nooit gecontroleerd)";
@@ -745,14 +787,14 @@
 /* Window text */
 "(if connected when user switched out)" = "(indien verbonden wanneer de gebruiker is uitgeschakeld)";
 
-/* NEEDS TRANSLATION *//* Window text */
-".tblks are nested too deeply (only one level of .tblk in a .tblk is allowed) in '%@'." = ".tblks are nested too deeply (only one level of .tblk in a .tblk is allowed) in '%@'.";
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Op basis van Tunnelblick, vrije software beschikbaar op <br><a href=\"http://code.google.com/p/tunnelblick\"> http://code.google.com/p/tunnelblick</a> <br><br>OpenVPN is een geregistreerd handelsmerk van OpenVPN Technologies, Inc.";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Gebaseerd op Tunnelblick, beschikbaar als gratis software op<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Een TBPreference of TBAlwaysSetPreference sleutel verwijst naar een onbekende instelling ' %1$@' in %2$@";
 
 /* Window text */
-"A configuration was not installed. See the Console log for details." = "Er is een configuratie niet geïnstalleerd. Zie het Console log voor details.";
+"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Een Tunnelblick VPN configuratie is te diep genest in ' %@'";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Er is een wachtzin vereist om te verbinden met\n  %1$@%2$@";
@@ -761,10 +803,22 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Er bestaat al een persoonlijke configuratie met de naam '%@'.\n\nWilt u deze vervangen door de gedeelde configuratie?";
 
 /* Window text */
-"A username and password are required to connect to\n  %@%@" = "Een gebruikersnaam en wachtwoord zijn vereist om te verbinden met\n  %1$@%2$@";
+"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Er is een probleem opgetreden bij het controleren van het publieke IP-adres van deze computer. \n\nZie het logboek van de console voor meer informatie.\n\n";
+
+/* Window text */
+"A username and password are required to connect to\n  %@" = "Een gebruikersnaam en wachtwoord zijn vereist om te verbinden met\n  %@";
+
+/* Window text */
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Een gebruikersnaam en wachtwoord zijn vereist om te verbinden met\n%1$@\n(Met behulp '%2$@' gegevens)";
 
 /* Window text */
 "Add Credentials..." = "Voeg aanmeldgegevens toe…";
+
+/* Window text */
+"Added '.sh' extension to %@ so it will be secured properly" = "Er is een '.sh' extensie oegevoegd aan %@ zodat het goed beveiligd wordt";
+
+/* Window text */
+"Added a '.key' extension to %@ so it will be secured properly" = "Extensie '.key' toegevoegd aan %@ zodat het goed zal worden beveiligd";
 
 /* Window text */
 "Additional contributions by" = "Additionele bijdragen door";
@@ -794,6 +848,24 @@
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Er deed zich een probleem voor tijdens het herstellen van de beveiligde (schaduw) kopie. Bekijk het Console Log voor details.\n\n";
 
 /* Window text */
+"An internal Tunnelblick error occurred%@%@" = "Er is een interne Tunnelblick fout opgetreden%1$@%2$@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "Er is een interne Tunnelblick fout opgetreden: fileIsReasonableSize: Kan attributen niet ophalen: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "Er is een interne Tunnelblick fout opgetreden: fileIsReasonableSize: Kan grootte niet ophalen: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "Er is een interne Tunnelblick fout opgetreden: fileIsReasonableSize: Kan type niet ophalen: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "Er is een interne Tunnelblick fout opgetreden: fileIsReasonableSize: ongeldig bestandstype: %@";
+
+/* Window text */
+"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Er is een interne Tunnelblick fout opgetreden: fileIsReasonableSize: pad is nihil";
+
+/* Window text */
 "Anonymous unique ID" = "Anoniem uniek ID";
 
 /* Window text */
@@ -805,17 +877,38 @@
 /* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Weet u zeker dat u de aanmeldgegevens (privé sleutel of gebruikersnaam en wachtwoord) wilt verwijderen uit de Sleutelhangertoegang voor '%@' aanmeldgegevens?";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
+"At line %lu of the OpenVPN configuration file: %@" = "Op lijn %1$lu van het OpenVPN configuratiebestand: %2$@";
+
+/* Window text */
 "B" = "B";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
 "B/s" = "B/s";
+
+/* Window text */
+"Backslash at end of line %u is not allowed" = "Een backslash aan het eind van regel %u is niet toegestaan";
+
+/* Window text */
+"Cannot find configuration file at %@" = "Kon geen configuratiebestand vinden in %@";
+
+/* Window text */
+"Cannot install configurations to either shared or private locations" = "Configuraties kunnen niet geïnstalleerd worden in publieke of privé locaties";
+
+/* Window text */
+"Cannot uninstall configuration '%@' because it is not installed." = "Configuratie '%@' kan niet worden verwijderd, omdat het niet geïnstalleerd is.";
+
+/* Window text */
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuratie ' %@' bevat een of meer scripts die mogelijk problemen kunnen veroorzaken als u de configuratie gaat vervangen of verwijderen, terwijl deze is verbonden. \n\nWilt u de configuratie vervangen?";
+
+/* Window text */
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuratie ' %@' is niet bijgewerkt, omdat het kon worden gemarkeerd als 'bijgewerkt'.\n";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuratie '%1$@' zal genegeerd worden, omdat de naam karakters bevat die niet zijn toegestaan.\n\nKarakters die niet zijn toegestaan: '%2$s'\n\n";
 
 /* Window text */
-"Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Configuraties worden meestal geïnstalleerd met bestanden die uw netwerkbeheerder of VPN service provider aanlevert.\n\nConfiguratiebestanden hebben als extensie .tblk, .ovpn, of .conf.\n\n(Er kunnen bestanden zijn met andere extensies, die verband houden met de configuratie; negeer ze voorlopig.)\n\nHeeft u configuratiebestanden?\n";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Configuraties worden geïnstalleerd vanuit bestanden die worden geleverd door uw netwerkbeheerder of VPN serviceprovider.\n\nConfiguratiebestanden hebben de extensies .tblk, .ovpn, of. conf. \n\n(Er kunnen bestanden gekoppeld zijn aan de configuratie die andere extensies hebben; deze dienen genegeerd voor nu.)  \n\nDubbelklik op een configuratiebestand om het te installeren. \n\nDe nieuwe configuratie is direct beschikbaar in Tunnelblick.";
 
 /* Window text */
 "Connect:" = "Verbinding maken:";
@@ -824,10 +917,28 @@
 "Connection:" = "Verbinding:";
 
 /* Window text */
+"Converted OpenVPN configuration" = "Geconverteerde OpenVPN configuratie";
+
+/* Window text */
+"Converting %@ at line %lu: %@" = "Converteren van %1$@ op lijn %2$lu: %3$@";
+
+/* Window text */
+"Converting %@: %@" = "Converteren van %1$@: %2$@";
+
+/* Window text */
+"Copied %@" = "Gekopieerd %@";
+
+/* Window text */
+"Copied %@, removing CR characters" = "Gekopieerd %@, CR tekens verwijderen";
+
+/* Window text */
 "Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub en anderen.";
 
 /* Window text */
 "Could not copy %@ to %@" = "Kon %1$@ niet naar %2$@ kopiëren";
+
+/* Window text */
+"Could not create %@" = "Kon %@ niet aanmaken";
 
 /* Window text */
 "Could not delete %@" = "Kon %@ niet verwijderen";
@@ -845,16 +956,19 @@
 "Could not get modification date of %@" = "Kon wijzigingsdatum van %@ niet verkrijgen";
 
 /* Window text */
-"Could not make %@ deletable" = "Kon %@ niet verwijderbaar maken";
+"Could not resolve symbolic link at %@" = "Kan symbolische link %@ niet opzoeken";
 
 /* Window text */
 "Could not set modification date of %@ to %@" = "Kon wijzigingsdatum van %1$@ niet zetten op %2$@";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
 "DNS servers:" = "DNS servers:";
 
 /* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "Verwijderen van een configuratie is permanent en kan niet ongedaan worden gemaakt.\n\nAlle instellingen voor de configuratie zullen ook permanent worden verwijderd.\n\n%1$@%2$@\n\nWeet u zeker dat u configuratie '%3$@' wilt verwijderen?";
+
+/* Window text */
+"Did not need to modify configuration file; no path information to remove" = "Het was niet nodig om het configuratiebestand te wijzigen; geen pad informatie om te verwijderen";
 
 /* Window text */
 "Do you wish to delete the %@ credentials?" = "Wilt u de %@ aanmeldgegevens verwijderen?";
@@ -863,49 +977,94 @@
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Wilt u de configuratie '%@' installeren zodat alle gebruikers deze kunnen gebruiken of alleen u deze kunt gebruiken?\n\n";
 
 /* Window text */
-"Do you wish to reinstall '%@'%@ version %@?" = "Wilt u '%1$@'%2$@ versie %3$@ opnieuw installeren?";
+"Do you wish to reinstall '%@' version %@?" = "Wilt u ' %1$@' versie %2$@ opnieuw installeren?";
 
 /* Window text */
-"Do you wish to replace '%@'%@ version %@ with version %@?" = "Wilt u '%1$@'%2$@ versie %3$@ vervangen door versie %4$@?";
+"Do you wish to replace '%@' version %@ with version %@?" = "Wilt u '%1$@' met versie %2$@ vervangen door versie %3$@?";
+
+/* Window text */
+"Do you wish to replace the '%@' configuration?\n\n" = "Wilt u de configuratie '%@' vervangen?\n\n";
 
 /* Window text */
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Wilt u de '%@' configuratie herstellen naar zijn meest recente beveiligde (schaduw) kopie?\n\n";
 
 /* Window text */
-"Do you wish to uninstall '%@'%@ version %@?" = "Wilt u '%1$@'%2$@ versie %3$@ verwijderen?";
-
-/* Window text */
 "Domain:" = "Domein:";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
+"Double-quote missing in line %u" = "Dubbele-quote ontbreekt in regel %u";
+
+/* Window text */
 "EB" = "EB";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
 "EB/s" = "EB/s";
+
+/* Window text */
+"Expected command not found for '%@'" = "Verwacht commando voor '%@' is niet gevonden";
+
+/* Window text */
+"Expected path not found for '%@'" = "Het verwachte pad voor '%@' is niet gevonden";
+
+/* Window text */
+"Failed to copy %@ to %@" = "Fout bij kopiëren van %1$@ naar %2$@";
+
+/* Window text */
+"Failed to create folder at %@" = "Het maken van map %@ is mislukt";
+
+/* Window text */
+"Failed to create symlink\n  to %@\n  at %@" = "Het maken van een link naar %1$@ op %2$@ is mislukt";
+
+/* Window text */
+"Failed to set permissions on %@\n" = "Machtigingen instellen voor %@ mislukt\n";
 
 /* Window text */
 "Fast User Switching" = "Snel Wisselen van Gebruiker";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
+"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Bestand ' %@' lijkt te zijn gemaakt in 'rich text' formaat omdat het begint met een ' {' karakter. \n\nAlle OpenVPN gerelateerde bestanden moeten 'plain text' of 'UTF-8' bestanden zijn.";
+
+/* Window text */
+"File '%@' ends with a backslash, which is not allowed." = "Bestand ' %@' eindigt met een backslash, wat niet is toegestaan.";
+
+/* Window text */
+"File '%@' has an extension which is not known to Tunnelblick." = "Bestand ' %@' heeft een extensie die niet bekend is met Tunnelblick.";
+
+/* Window text */
+"File '%@' is empty" = "Bestand ' %@' is leeg";
+
+/* Window text */
+"File '%@' is missing" = "Bestand ' %@' ontbreekt";
+
+/* Window text */
+"File is too large: %@" = "Bestand is te groot: %@";
+
+/* Window text */
 "GB" = "GB";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
 "GB/s" = "GB/s";
 
 /* Window text */
 "Icon:" = "Icoon:";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
+"In %@:\n\nThere are no OpenVPN configurations to install." = "In %@: \n\nEr zijn geen OpenVPN configuraties te installeren.";
+
+/* Window text */
+"In the OpenVPN configuration file for '%@' at line %lu: %@" = "In het OpenVPN configuratiebestand voor ' %1$@' op lijn %2$lu: %3$@";
+
+/* Window text */
+"In the OpenVPN configuration file for '%@': %@" = "In het OpenVPN configuratiebestand voor ' %1$@': %2$@";
+
+/* Window text */
 "In:" = "In:";
 
 /* Window text */
+"Installation failed:\n\n%@" = "Installatie mislukt: \n\n%@";
+
+/* Window text */
 "Installation finished successfully." = "Installatie succesvol afgerond.";
-
-/* Window text */
-"Installation of .tblk packages is not allowed" = "Installatie van .tblk-pakketten is niet toegestaan";
-
-/* Window text */
-"Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick." = "Installatie van Tunnelblick VPN Configuraties is niet toegestaan omdat dit een Uitgerolde versie van Tunnelblick is.";
 
 /* Window text */
 "Installing Tunnelblick VPN Configurations..." = "Tunnelblick VPN Configuraties installeren…";
@@ -913,10 +1072,16 @@
 /* Window text */
 "Installing and securing Tunnelblick..." = "Tunnelblick installeren en beveiligen…";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
+"Installing configurations is not allowed" = "Installeren van configuraties is niet toegestaan";
+
+/* Window text */
+"Invalid value '%@' for '%@' in %@" = "Ongeldige waarde ' %1$@' voor ' %2$@' in %3$@";
+
+/* Window text */
 "KB" = "KB";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
 "KB/s" = "KB/s";
 
 /* Window text */
@@ -925,23 +1090,32 @@
 /* Window text */
 "Last checked: %@" = "Laatste controle: %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Line %d of the file contains a non-printable character (0x%02X) which is not allowed." = "Line %1$d of the file contains a non-printable character (0x%2$X) which is not allowed.";
+/* Window text */
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Lijn %1$d van bestand \"%2$@\" bevat een niet afdrukbaar teken (0 x %3$X) deze is niet toegestaan.\n\n";
 
 /* Window text */
 "Localization by" = "Vertaling door";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
 "MB" = "MB";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
 "MB/s" = "MB/s";
 
 /* Window text */
 "Maximum log display size:" = "Maximale grootte van logweergave:";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
 "Menu:" = "Menu:";
+
+/* Window text */
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Er ontbreken CFBundleIdentifier of CFBundleVersion in Info.plist voor\n\n %@\n\nDeze VPN-configuratie is ingesloten in een bijgewerkt buitenste VPN-configuratie en moet een eigen CFBundleIdentifier en CFBundleVersion bevatten.";
+
+/* Window text */
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Ontbrekende Info.plist voor\n\n%@\n\nDe VPN-configuratie is ingesloten in een bijgewerkt buitenste VPN-configuratie, dus moet de configuratie een Info.plist bevatten.";
+
+/* Window text */
+"Modified configuration file to remove path information" = "het configuratiebestand aangepast om de pad informatie te verwijderen";
 
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Meerdere gelijktijdige verbindingen zouden worden gemaakt (%1$d met 'Set nameserver', %2$d zonder 'Set nameserver').";
@@ -962,16 +1136,34 @@
 "Network setting" = "Netwerkinstelling";
 
 /* Window text */
+"No 'TBPackageVersion' in %@" = "Geen 'TBPackageVersion' in %@";
+
+/* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Geen pad naar easy-rsa. De meest waarschijnlijke oorzaak is een probleem met de 'easy-rsaPath' voorkeur";
 
 /* Window text */
+"Non-array value for '%@' in %@" = "Non-array waarde voor '%1$@' in %2$@";
+
+/* Window text */
+"Non-boolean value for '%@' in %@" = "Non-boolean waarde voor '%1$@' in %2$@";
+
+/* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
+"Non-integer value for '%@' in %@" = "Geen integerwaarde voor ' %1$@' in %2$@";
+
+/* Window text */
+"Non-string value for '%@' in %@" = "Non-string waarde voor '%1$@' in %2$@";
+
+/* Window text */
+"Non-string value for an item in '%@' in %@" = "Non-string waarde voor een item in '%1$@' in %2$@";
+
+/* Window text */
+"Not a .ovpn or .conf: %@" = "Geen .ovpn of .conf: %@";
+
+/* Window text */
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Niet ter vervanging van een bestaande configuratie, de configuratie '%@' kan 'TBKeepExistingFilesList' niet gebruiken.";
+
+/* Window text */
 "Notification window:" = "Notificatievenster:";
-
-/* Window text */
-"One Tunnelblick VPN Configuration was installed successfully." = "Eén Tunnelblick VPN Configuratie werd succesvol geïnstalleerd.";
-
-/* Window text */
-"One Tunnelblick VPN Configuration was uninstalled successfully." = "Eén Tunnelblick VPN Configuratie werd succesvol verwijderd.";
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Eén of meerdere OpenVPN processen zijn actief, maar niet bekend bij Tunnelblick. Indien u geen OpenVPN actief heeft buiten Tunnelblick, betekent dit doorgaans dat een eerdere instantie van Tunnelblick niet in staat was om ze netjes te stoppen en u ze dus moet beëindigen. Ze zullen waarschijnlijk de werking van Tunnelblick negatief beïnvloeden. Wilt u alle OpenVPN processen beëindigen?";
@@ -985,20 +1177,20 @@
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "Een of meer configuraties worden momenteel genegeerd. Zie het Console Log voor details.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"One or more configurations could not be installed.\n\n%@" = "One or more configurations could not be installed.\n\n%@";
+/* Window text */
+"One or more problems were detected:\n\n%@" = "Er zijn één of meer problemen geconstateerd: \n\n%@";
 
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Enkel een Tunnelblick VPN Configuratie (.tblk) kan starten wanneer de computer opstart.";
 
 /* Window text */
-"OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN antwoordde gedurende %d seconds niet op het verzoek om de verbinding te verbreken.\n\nDe verbinding zal worden beschouwd als verbroken, maar de netwerkconfiguratie van deze computer kan hierdoor een onjuiste toestand tonen.";
+"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN reageert niet op aanvragen om te verbreken %@.  \n\nTunnelblick zal de verbinding verbreken zodra OpenVPN reageert op verzoeken om de verbinding te verbreken.\n\nDit kan tot twee minuten duren onder bepaalde omstandigheden.\n\nDe verbinding is niet beschikbaar totdat het volledig verbroken is.";
 
 /* Window text */
-"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN antwoordt niet op vragen om de verbinding te verbreken.\n\nEr zit een gekende bug in OpenVPN versie 2.1 die soms voor een vertraging van een of twee minuten zorgt voordat OpenVPN op zulke vragen antwoordt.\n\nTunnelblick blijft proberen een verbinding te maken gedurende %1$d seconden.\n\nDe verbinding blijft onbruikbaar tot OpenVPN ze verbreekt of er %2$d seconden verlopen zijn, naargelang wat eerst gebeurt.";
+"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN versie %1$@ is niet beschikbaar. Deze configuratie zal gebruik maken van de nieuwste versie (%2$@) welke is opgenomen in deze versie van Tunnelblick.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN versie %1$@ is niet beschikbaar. De meest recente versie %2$@ wordt gebruikt";
+"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN versie %1$@ is niet beschikbaar. Er wordt gebruikt van de nieuwste versie (%2$@) als standaardwaarde.";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN versie:";
@@ -1006,14 +1198,17 @@
 /* Window text */
 "Out:" = "Uit:";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
 "PB" = "PB";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
 "PB/s" = "PB/s";
 
 /* Window text */
 "Password:" = "Wachtwoord:";
+
+/* Window text */
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Pad ' %1$@ \"bevat tekens die niet zijn toegestaan.  \n\nDe tekens die niet worden toegestaan zijn: '%2$s'\n\n";
 
 /* Window text */
 "Please enter VPN passphrase." = "Voer a.u.b. de VPN wachtzin in.";
@@ -1033,17 +1228,11 @@
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Persoonlijke configuraties kunnen geen verbinding maken bij het opstarten van de computer.\n\nMaak deze configuraties eerst gedeeld en wijzig daarna de instelling.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Program error, please report this as a bug: Invalid dest = %@ for .tblk '%@'." = "Program error, please report this as a bug: Invalid dest = %1$@ for .tblk '%2$@'.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Program error, please report this as a bug: Unable to copy '%@' to '%@'" = "Program error, please report this as a bug: Unable to copy '%1$@' to '%2$@'";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Program error, please report this as a bug: Unable to create file at '%@'" = "Program error, please report this as a bug: Unable to create file at '%@'";
-
 /* Window text */
 "Received fatal signal %d." = "Kritiek signaal %d ontvangen.";
+
+/* Window text */
+"Resolved symbolic link at '%@' to '%@'" = "Symbolische link op '%1$@' naar '%2$@'";
 
 /* Window text */
 "Search domain:" = "Zoeken in domein:";
@@ -1055,16 +1244,28 @@
 "Set DNS/WINS:" = "Instellen van DNS/WINS:";
 
 /* Window text */
+"Single-quote missing in line %u" = "Single-quote ontbreekt op regel %u";
+
+/* Window text */
+"Skipped copying %@ because a file with that name and contents has already been copied." = "%@ is niet gekopieerd, omdat een bestand met die naam en inhoud al gekopieerd is.";
+
+/* Window text */
 "Starting Tunnelblick..." = "Tunnelblick opstarten…";
 
 /* Window text */
 "Startup window:" = "Opstartvenster:";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
+"Symbolic links nested too deeply. Gave up at %@" = "Symbolische links zitten te diep genest. Kreeg op %@";
+
+/* Window text */
 "TB" = "TB";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
+/* Window text */
 "TB/s" = "TB/s";
+
+/* Window text */
+"TBRunAlertPanel returned an error" = "TBRunAlertPanel heeft een fout geretourneerd";
 
 /* Window text */
 "TUNNELBLICK is brought to you by" = "TUNNELBLICK wordt u aangeboden door";
@@ -1078,14 +1279,17 @@
 /* Window text */
 "That name is being used.\n\n" = "Die naam is in gebruik.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The %@ system folder (%@) does not exist." = "The %1$@ system folder (%2$@) does not exist.";
+/* Window text */
+"The %@ system folder (%@) does not exist." = "De %1$@ systeemmap (%2$@) bestaat niet.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The %@ system folder (%@) is not secure.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "The %1$@ system folder (%2$@) is not secure.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem.";
+/* Window text */
+"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "De %1$@ systeemmap (%2$@) is niet veilig.\n\nTunnelblick werkt mogelijk niet goed totdat dit probleem wordt opgelost.\n\nDe functie 'Repareren schijf permissies' met behulp van het programma schijfhulpprogramma kan mogelijk het probleem oplossen.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The '%@' configuration cannot be found." = "The '%@' configuration cannot be found.";
+/* Window text */
+"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "De ' %@' OpenVPN optie is niet toegestaan op OS X. Dit is een optie alleen voor 'Windows'.";
+
+/* Window text */
+"The '%@' OpenVPN option is not allowed when using Tunnelblick." = "De ' %@' OpenVPN optie is niet toegestaan bij het gebruik van Tunnelblick.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "De '%@' aanmeldgegevens mogen niet worden toegevoegd, omdat de lijst met benoemde aanmeldgegevens wordt geforceerd.";
@@ -1097,68 +1301,46 @@
 "The '%@' credentials may not be deleted because the list of named credentials is being forced." = "De '%@' aanmeldgegevens mogen niet worden verwijderd, omdat de lijst met benoemde aanmeldgegevens wordt opgelegd.";
 
 /* Window text */
+"The '%@' option is not allowed in an OpenVPN configuration file that is in a Tunnelblick VPN Configuration unless the file it references is specified with an absolute path." = "De ' %@' optie is niet toegestaan in een OpenVPN configuratiebestand dat zich in een Tunnelblick VPN-configuratie bevindt,  tenzij het bestand waar naar verwezen wordt wijst naar een absoluut pad.";
+
+/* Window text */
 "The 'credentialsNames' preference must be an array of strings." = "De 'credentialsNames' voorkeur moet een array van strings zijn.";
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "De 'namedCredentialsNames' voorkeur moet een array van strings zijn";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The Info.plist in '%@' contains an invalid 'TBPackageVersion' value of '%@' (only '1' is allowed)." = "The Info.plist in '%1$@' contains an invalid 'TBPackageVersion' value of '%2$@' (only '1' is allowed).";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The Info.plist in '%@' contains an invalid 'TBReplaceIdentical' value of '%@'.\n\nThe value must be 'yes', 'no', 'ask', or 'force'." = "The Info.plist in '%1$@' contains an invalid 'TBReplaceIdentical' value of '%2$@'.\n\nThe value must be 'yes', 'no', 'ask', or 'force'.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The Info.plist in '%@' contains an invalid 'TBSharePackage' value of '%@'.\n\nThe value must be 'private', 'shared', or 'ask'." = "The Info.plist in '%1$@' contains an invalid 'TBSharePackage' value of '%2$@'.\n\nThe value must be 'private', 'shared', or 'ask'.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The Info.plist in '%@' does not contain a 'TBPackageVersion' entry." = "The Info.plist in '%@' does not contain a 'TBPackageVersion' entry.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The Info.plist in '%@' has an invalid value of '%@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical'." = "The Info.plist in '%1$@' has an invalid value of '%2$@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical'.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The Info.plist in '%@' has an invalid value of '%@' (only 'shared', 'private', or 'ask' are allowed) for 'TBSharePackage'." = "The Info.plist in '%1$@' has an invalid value of '%2$@' (only 'shared', 'private', or 'ask' are allowed) for 'TBSharePackage'.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The Info.plist in '%@' has an unknown key '%@'." = "The Info.plist in '%1$@' has an unknown key '%2$@'.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The OpenVPN configuration file in %@ has a '%@' option with argument '%@' that begins with \"%@\", which is not allowed." = "The OpenVPN configuration file in %1$@ has a '%2$@' option with argument '%3$@' that begins with \"%4$@\", which is not allowed.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The OpenVPN configuration file in %@ has a '%@' option with argument '%@' that includes \"..\", which is not allowed." = "The OpenVPN configuration file in %1$@ has a '%2$@' option with argument '%3$@' that includes \"..\", which is not allowed.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The OpenVPN configuration file in '%@' could not be processed:\n\n%@" = "The OpenVPN configuration file in '%1$@' could not be processed:\n\n%2$@";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The OpenVPN configuration file in '%@' has a '%@' option that references '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "The OpenVPN configuration file in '%1$@' has a '%2$@' option that references '%3$@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk).";
-
-/* NEEDS TRANSLATION *//* Window text */
-"The OpenVPN configuration file in '%@' has a '%@' option that references '%@'. That file has a problem:\n\n%@." = "The OpenVPN configuration file in '%1$@' has a '%2$@' option that references '%3$@'. That file has a problem:\n\n%4$@.";
+/* Window text */
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "Het OpenVPN configuratiebestand in %1$@ bevat een \"%2$@\" optie, wat een Windows optie is. Het kan niet gebruikt worden in OS X.";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "Het OpenVPN-log bestaat nog niet of werd verwijderd.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The Tunnelblick VPN Configuration has NOT been installed.\n\nAn unknown error occured." = "The Tunnelblick VPN Configuration has NOT been installed.\n\nAn unknown error occured.";
+/* Window text */
+"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "De Tunnelblick instellingen zijn beschadigd en zijn daarom gewist. (De oude voorkeuren werden hernoemd.)  \n\nBekijk het logboek van de console voor meer informatie.";
 
 /* Window text */
-"The VPN name '%@' is already in use.\n\nPlease enter a new name." = "De VPN-naam '%@' is reeds in gebruik.\n\nVoer a.u.b. een andere naam in.";
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "De poging om verbinding te maken met %1$@ is geannuleerd: het runOnConnect script heeft de volgende status geretourneerd: %2$ld.";
 
-/* Window text */
-"The VPN name cannot be empty.\n\nPlease enter a new name." = "De VPN-naam mag niet leeg blijven.\n\nVoer a.u.b. een andere naam in.";
-
-/* Window text */
-"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "De poging om verbinding %1$@ te maken werd geannuleerd: Het runOnConnect script meldde de status: %2$d.";
-
-/*text between single quotation marks: EN or NL?*/
 /* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Het configuratiebestand voor '%@' blijkt de 'user' en/of 'group' opties te gebruiken, en gebruikt een down script ('Do not set nameserver' werd niet geselecteerd, ofwel er staat een 'down' optie in het configuratiebestand).\n\nWellicht mislukt hierdoor het maken van een nieuwe verbinding (dit gebeurt automatisch wanneer een verbinding werd verbroken) tenzij u de 'openvpn-down-root.so' plugin voor OpenVPN gebruikt.\n\nWilt u deze plugin gebruiken?";
 
 /* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Het configuratiebestand voor '%@' blijkt geen 'dev tun' of 'dev tap' optie te bevatten. Deze optie is wellicht nodig voor een goede werking van Tunnelblick. Raadpleeg uw netwerkbeheerder of de OpenVPN documentatie.";
+"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Het configuratiebestand voor '%@' blijkt geen 'dev tun', 'dev utun' of 'dev tap' optie te bevatten. Deze optie is wellicht nodig voor een goede werking van Tunnelblick. Raadpleeg uw netwerkbeheerder of de OpenVPN documentatie.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "Het configuratiebestand verwijst naar een bestand \n\n%@ \n\nwelke niet bestaat (zelfs in de configuratie is deze vervangen).";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "Het configuratiebestand verwijst naar een bestand \n\n%@ \n\nwelke niet bestaat in de nieuwe configuratie, daarom is het niet beveiligde bestand gebruikt.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "Het configuratiebestand verwijst naar een bestand \n\n%@ \n\nwelke niet bestaat.";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced)." = "Het configuratiebestand verwijst naar een bestand\n\n%1$@\n\nwelke zich bevindt op locatie\n\n%2$@\n\nechter bestaat het bestand hier niet (ook in de configuratie vervangen).";
+
+/* Window text */
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "Het configuratiebestand verwijst naar een bestand\n\n%1$@\n\nwelke zich bevindt op locatie\n\n%2$@\n\nechter bestaat het bestand hier niet.";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "De aanmeldgegevens (wachtzin of gebruikersnaam/wachtwoord) werden niet geaccepteerd door de VPN server op afstand.";
@@ -1169,8 +1351,11 @@
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "De aanmeldgegevens %1$@ konden niet verwijderd worden:\n\n%2$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files." = "The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files.";
+/* Window text */
+"The file %@ is empty" = "Het bestand %@ is leeg";
+
+/* Window text */
+"The file %@ is missing" = "Het bestand %@ ontbreekt";
 
 /* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "De installatie, verwijderen of herstel van een of meer Tunnelblick-onderdelen is mislukt. Zie het Console Log voor details.";
@@ -1188,11 +1373,19 @@
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "De Gebruikersnaam en het wachtwoord mogen niet leeg blijven!\nVoer a.u.b. VPN Gebruikersnaam/wachtwoord in.";
 
 /* Window text */
+"There are no OpenVPN configurations to install." = "Er zijn geen OpenVPN configuraties om te installeren.";
+
+/* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Er zijn geen VPN-configuraties geïnstalleerd.\n\nTunnelblick heeft een of meer geïnstalleerde configuraties nodig om verbinding met een VPN te maken. Configuraties worden geïnstalleerd met bestanden die u gewoonlijk krijgt van uw netwerkbeheerder of VPN service provider. De bestanden moeten worden geïnstalleerd alvorens te kunnen worden gebruikt.\n\nConfiguratiebestanden hebben als extensie .tblk, .ovpn, of .conf.\n\n(Er kunnen bestanden zijn met andere extensies, die verband houden met de configuratie; negeer ze voorlopig.)\n\nHeeft u configuratiebestanden?\n";
 
-/*EN text: file do YOU have? "you" missing*/
 /* Window text */
-"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Er zijn twee types configuratiebestanden:\n\n  • Tunnelblick VPN Configuraties (.tblk extensie)\n\n  • OpenVPN Configuraties (.ovpn of .conf extensies)\n\nWelk type configuratiebestand heeft u?\n\n";
+"There is not an OpenVPN configuration file in '%@'" = "Er is geen OpenVPN configuratiebestand in ' %@'";
+
+/* Window text */
+"There was a problem with\n\n%@:\n\n%@" = "Er was een probleem met \n\n%1$@:\n\n%2$@";
+
+/* Window text */
+"There was a problem:\n\n%@" = "Er was een probleem:\n\n%@";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Deze 'Uitgerolde' versie van Tunnelblick kan niet gestart of geïnstalleerd worden omdat het niet voorzien is van een nieuw brandmerk, of updateFeedURL of SUFeedURL missen of bevatten 'tunnelblick.net', of CFBundleIdentifier mist of bevat 'net.tunnelblick'.\n\n";
@@ -1206,7 +1399,6 @@
 /* Window text */
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Deze kopie van Tunnelblick is veranderd (de digitale handtekening is ongeldig).\n\nNeem contact op met de maker van Tunnelblick, voordat u het gaat gebruiken.\n\n";
 
-/* Tjalling -> There are 2 occurences of 'the' in this string */
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "Deze kopie van Tunnelblick is niet digitaal ondertekend.\n\nEr kan niet achterhaald worden of deze kopie buiten uw weten om veranderd is.\n\n Neem contact op met de maker van Tunnelblick, voordat u het gaat gebruiken.\n\n";
 
@@ -1217,62 +1409,28 @@
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Deze versie van Tunnelblick kan niet worden opgestart of geïnstalleerd, omdat het geen 'uitgegeven' versie is, één of meer eerdere versie(s) van Tunnelblick zijn reeds geïnstalleerd.\n\n";
 
 /* Window text */
-"To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Om een Tunnelblick VPN Configuratie te installeren (.tblk extensie) dubbelklikt u erop.\n\nDe nieuwe configuratie is daarna meteen beschikbaar in Tunnelblick.";
-
-/*single bracketed text: EN or translation?*/
-/* Window text */
-"To install it as a Tunnelblick VPN Configuration:\n\n1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)" = "Om te installeren als een Tunnelblick VPN Configuratie:\n\n1. Verplaats of kopiëer een OpenVPN configuratiebestand (.ovpn of .conf extensies) naar de 'Empty Tunnelblick VPN Configuration' map die werd aangemaakt op het Bureaublad.\n\n2. Verplaats of kopiëer alle sleutel- of certificaatbestanden die verband houden met de configuratie naar deze map.\n\n3. Hernoem de map naar een naam die Tunnelblick van u mag gebruiken voor de installatie.\n\n4. Voeg een .tblk extensie toe aan het einde van de mapnaam.\n\n5. Dubbelklik op de map om deze te installeren.\n\nDe nieuwe configuratie is meteen beschikbaar in Tunnelblick.\n\n(Om het u makkelijk te maken, is de map al geopend in een Finder-venster.)";
+"Too many configuration files in '%@'" = "Te veel configuratiebestanden in ' %@'";
 
 /* Window text */
 "Too many duplicate configurations already exist." = "Er zijn al te veel dubbele configuraties.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' cannot be installed as shared or private because this is a Deployed version of Tunnelblick." = "Tunnelblick VPN Configuration '%@' cannot be installed as shared or private because this is a Deployed version of Tunnelblick.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' contains file '%@', which does not have an extension. Each file in a Tunnelblick VPN Configuration must have an extension. Tunnelblick uses extensions to determine how to secure files properly.\n\nThe extensions that are allowed are: %@." = "Tunnelblick VPN Configuration '%1$@' contains file '%2$@', which does not have an extension. Each file in a Tunnelblick VPN Configuration must have an extension. Tunnelblick uses extensions to determine how to secure files properly.\n\nThe extensions that are allowed are: %3$@.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' contains file '%@', which has an extension that may not appear in a Tunnelblick VPN Configuration. Tunnelblick uses extensions to determine how to secure files properly.\n\nThe extensions that are allowed are: %@." = "Tunnelblick VPN Configuration '%1$@' contains file '%2$@', which has an extension that may not appear in a Tunnelblick VPN Configuration. Tunnelblick uses extensions to determine how to secure files properly.\n\nThe extensions that are allowed are: %3$@.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with a 'ovpn' extension, and has more than one with a 'conf' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension .If it does not, it must have exactly one with a 'conf' extension." = "Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with a 'ovpn' extension, and has more than one with a 'conf' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension .If it does not, it must have exactly one with a 'conf' extension.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with an 'ovpn' or 'conf' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension. If it does not, it must have exactly one with a 'conf' extension." = "Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with an 'ovpn' or 'conf' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension. If it does not, it must have exactly one with a 'conf' extension.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' has NOT been installed because TBReplaceOption=NO." = "Tunnelblick VPN Configuration '%@' has NOT been installed because TBReplaceOption=NO.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' has NOT been installed because it has a lower version number." = "Tunnelblick VPN Configuration '%@' has NOT been installed because it has a lower version number.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' has NOT been uninstalled because TBReplaceOption=NO." = "Tunnelblick VPN Configuration '%@' has NOT been uninstalled because TBReplaceOption=NO.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' has NOT been uninstalled because it has a lower version number." = "Tunnelblick VPN Configuration '%@' has NOT been uninstalled because it has a lower version number.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' has more than one OpenVPN configuration file with an 'ovpn' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension. If it does not, it must have exactly one with a 'conf' extension." = "Tunnelblick VPN Configuration '%@' has more than one OpenVPN configuration file with an 'ovpn' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension. If it does not, it must have exactly one with a 'conf' extension.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' is empty." = "Tunnelblick VPN Configuration '%@' is empty.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@', contains multiple files named '%@'. All file names must be unique, even if they are in different subfolders." = "Tunnelblick VPN Configuration '%1$@', contains multiple files named '%2$@'. All file names must be unique, even if they are in different subfolders.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@', which is contained within a Tunnelblick VPN Configuration, contains a Tunnelblick VPN Configuration, which is not allowed. Only one level of nesting is allowed." = "Tunnelblick VPN Configuration '%@', which is contained within a Tunnelblick VPN Configuration, contains a Tunnelblick VPN Configuration, which is not allowed. Only one level of nesting is allowed.";
+/* Window text */
+"Tunnelblick Internet Use:" = "Tunnelblick internet gebruik:";
 
 /* Window text */
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick kan controleren of het publieke IP adres van de computer verandert wanneer u verbinding maakt met een VPN. Tunnelblick zal waarschuwen wanneer dit niet het geval is.\n\nDit helpt Tunnelblick bij het herkennen van problemen met de verbinding.\n\nDit proces probeert\n%@\nte bereiken\n\nWilt u controleren of het IP is veranderd?\n";
 
 /* Window text */
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick kan niet geconfigureerd worden om automatisch op te starten, nadat er ingelogd is.";
+
+/* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick kon niet worden gestart wegens een probleem met de configuratie. Controleer a.u.b. het Console Log voor details.";
 
 /* Window text */
-"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de '%@' configuratie niet kopiëren. Zie het Console Log voor details.";
+"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de configuratie ' %@' niet volledig deïnstalleren. Zie het logboek van de console voor meer informatie.";
+
+/* Window text */
+"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de '%@' configuratie niet kopiëren. Zie het console log voor details.";
 
 /* Window text */
 "Tunnelblick could not create the empty configuration folder" = "Tunnelblick kon geen lege configuratiemap aanmaken";
@@ -1280,8 +1438,14 @@
 /* Window text */
 "Tunnelblick could not create the sample configuration" = "Tunnelblick kon geen voorbeeldconfiguratie aanmaken";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %1$ld; notification = 0x%2$lX";
+/* Window text */
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick kon niet een venster weergeven.  \n\nCFUserNotificationCreate() keerde terug met de fout = %1$ld; kennisgeving = 0 x %2$lX";
+
+/* Window text */
+"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick kon de IP-adresgegevens niet ophalen, voordat de verbinding met %@ werd gemaakt.\n\n";
+
+/* Window text */
+"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick kon het configuratiebestand niet vinden of het configuratiebestand kon niet worden uitgelezen. Zie het logboek van de console voor meer informatie.";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de configuratie '%@' niet verplaatsen. Zie het Console Log voor details.";
@@ -1290,12 +1454,11 @@
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de configuratie '%@' niet verwijderen. Zie het Console Log voor details.";
 
 /* Window text */
-"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick kon de beveiliging van het configuratiebestand niet opheffen. Details staan in het Console Log.\n\nWilt u het configuratiebestand controleren, ook al kunt u het niet wijzigen?";
-
-/* Window text */
 "Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@" = "Tunnelblick is een kritieke fout tegengekomen.\n\nHet opnieuw installeren van Tunnelblick kan dit probleem oplossen. Het probleem was:\n\n%@";
 
-/*TJALLING'S PART*/
+/* Window text */
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick heeft fouten geconstateerd met %1$lu configurations:\n\n%2$@%3$@%4$@%5$@";
+
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick slaagde er niet in om problemen op te lossen met voorkeuren voor '%@'. Details staan in het Console Log";
 
@@ -1306,10 +1469,7 @@
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick heeft '%@' verbroken omdat het bijbehorende configuratiebestand is verwijderd.";
 
 /* Window text */
-"Tunnelblick is based on %@. " = "Tunnelblick is gebaseerd op %@. ";
-
-/* Window text */
-"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick is gratis software: het mag verspreid en/of gewijzigd worden onder de voorwaarden van de %1$@ zoals gepubliceerd door de %2$@.";
+"Tunnelblick is based on %@." = "Tunnelblick is gebaseerd op %@.";
 
 /* Window text */
 "Tunnelblick is ready." = "Tunnelblick is gereed.";
@@ -1318,16 +1478,13 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick moet een beveiligde (schaduw) kopie van het configuratiebestand maken of bijwerken";
 
 /* Window text */
-"Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "Tunnelblick moet een of meerdere Tunnelblick VPN Configuraties installeren.";
-
-/* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick moet:\n";
 
 /* Window text */
-"Tunnelblick needs to:\n\n" = "Tunnelblick moet:\n\n";
-
-/* Window text */
 "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick vereist OS X 10.4 of hoger\n     (\"Tiger\", \"Leopard\", of \"Snow Leopard\")";
+
+/* Window text: '* Installed/Replaced/Uninstalled' */
+"Tunnelblick successfully:\n\n" = "Tunnelblick is met succes:\n\n";
 
 /* Window text */
 "Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?" = "Tunnelblick is succesvol geïnstalleerd.\n\nWilt u Tunnelblick nu starten?";
@@ -1339,16 +1496,106 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick slaagde er niet in om te communiceren met een bestaand OpenVPN proces voor '%1$@' gedurende %2$d seconden. De poging tot communicatie is gestaakt.";
 
 /* Window text */
+"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nIf they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them)." = "Tunnelblick kon haar voorkeuren niet opslaan omdat OS X weigerde deze op te slaan.\n\nDe voorkeuren kunnen beschadigd zijn; als dit het geval is moeten het bestand wat de voorkeuren bevat verwijderd worden. De voorkeuren zijn te vinden in:\n\n %@/Library/Preferences/net.tunnelblick.tunnelblick.plist.  \n\nAls de voorkeuren beschadigd zijn, dan worden ze automatisch gewist de volgende keer dat u Tunnelblick start (na het maken van een back-up).";
+
+/* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick kon OpenVPN niet opstarten om een verbinding te maken %@. Voor details, bekijk het log in het VPN Details… scherm";
 
 /* Window text */
 "Unable to Establish Communication" = "Communicatie opzetten mislukt";
 
 /* Window text */
+"Unable to convert OpenVPN configuration" = "Niet in staat om de OpenVPN configuratie te converteren";
+
+/* Window text */
+"Unable to copy file at '%@' to '%@' because the same name is used for different contents" = "Niet in staat om het bestand '%1$@' te kopieren naar '%2$@' omdat dezelfde naam wordt gebruikt voor verschillenden inhoud";
+
+/* Window text */
+"Unable to create %@ owned by %ld:%ld with %lo permissions" = "Niet in staat om %1$@  aan te maken, eigendom van %2$ld:%3$ld met %4$lo machtigingen";
+
+/* Window text */
+"Unable to install the '%@' configuration\n" = "Niet in staat om de configuratie '%@' te installeren\n";
+
+/* Window text */
+"Unable to open configuration file for modification" = "Niet in staat om het configuratie bestand te openen voor wijzigingen";
+
+/* Window text */
+"Unable to replace the '%@' configuration\n" = "Onmogelijk om configuratie '%@' te vervangen\n";
+
+/* Window text */
+"Unable to secure %@ because it is owned by %@" = "Niet in staat om %1$@ te beveiligen, omdat het eigendom is van %2$@";
+
+/* Window text */
+"Unable to secure %@" = "Niet mogelijk om te beveiligen %@";
+
+/* Window text */
+"Unable to set permissions on '%@'" = "Niet in staat om de permissies te zetten op '%@'";
+
+/* Window text */
+"Unable to store updatable configuration stub at %@\n" = "Niet in staat om bijgewerkte \"stub\" op te slaan op locatie %@\n";
+
+/* Window text */
+"Unable to uninstall the '%@' configuration\n" = "Niet in staat om de configuratie '%@' te installeren\n";
+
+/* Window text */
+"Unable to write to configuration file for modification" = "Niet in staat om te schrijven naar het configuratiebestand voor wijzigingen";
+
+/* Window text */
 "Unexpected disconnection:" = "Verbinding onverwacht verbroken:";
 
 /* Window text */
+"Unknown extension '%@' for %@" = "Onbekende extensie ' %1$@' voor %2$@";
+
+/* Window text */
+"Unknown key '%@' in %@" = "Onbekende sleutel ' %1$@' in %2$@";
+
+/* Window text */
+"Unknown value '%@' for '%@' in %@" = "Onbekende waarde ' %1$@' voor ' %2$@' in %3$@";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Bijgewerkte configuratie '%1$@' kon niet worden opgeslagen als bijgewerkt, omdat %2$@ niet gevonden kon worden\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Bijgewerkte configuratie '%1$@' kon niet worden opgeslagen als bijgewerkt, omdat %2$@ niet gekopieerd kon worden naar '%3$@'\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Bijgewerkte configuratie ' %@' is niet opgeslagen als bijgewerkt omdat 'Inhoud', in de stub .tblk niet kon worden aangemaakt\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Bijgewerkte configuratie ' %@' is niet opgeslagen als bijgewerkt omdat 'Inhoud', in de stub .tblk niet kon worden aangemaakt\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Bijgewerkte configuratie ' %@' is niet opgeslagen als bijgewerkt , omdat 'SUPublicDSAKeyFile' geen bestandsnaam is met optionele extensies\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Bijgewerkte configuratie ' %@' was niet opgeslagen als bijgewerkt, omdat 'SUPublicDSAKeyFile' geen string is\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Bijgewerkte configuratie ' %@' was niet zijn opgeslagen als bijgewerkt omdat de Info.plist 'SUFeedURL' niet begint met 'https:// er er geen 'SUPublicDSAKeyFile'  aanwezig was\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Bijgewerkte configuratie ' %@' was niet zijn opgeslagen als bijgewerkt omdat de Info.plist kon worden opgeslagen in de stub .tblk\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Bijgewerkte configuratie ' %@' is niet opgeslagen als bijgewerkt, omdat de CFBundleIdentifier al reeds verwerkt is\n";
+
+/* Window text */
+"Updates:" = "Updates:";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN-configuratie %@ zal niet worden geïnstalleerd, omdat het heeft een lager versienummer heeft.";
+
+/* Window text */
+"VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN-configuratie %@ zal niet worden geïnstalleerd, omdat de configuratie reeds bestaat en niet vervangen hoeft te worden.";
+
+/* Window text */
 "VPN Connections" = "VPN verbindingen";
+
+/* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
+"Value '%@' for '%@' is not a valid URL in %@" = "Waarde '%1$@' voor '%2$@ \"is niet een geldige URL in %3$@";
+
+/* Window text */
+"WINS servers:" = "WINS servers:";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "Waarschuwing: '%@' is al een benoemd aanmeldgegeven.";
@@ -1375,13 +1622,19 @@
 "Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Wilt u\n\n  • een voorbeeld configuratie aanmaken op het Bureaublad\n             en\n  • diens OpenVPN configuratiebestand in TextEdit openen zodat u het kunt wijzigen om te verbinden met uw VPN?\n\n";
 
 /* Window text */
-"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "U kunt geen Tunnelblick VPN configuratie installeren vanaf een reeds geïnstalleerde kopie.\n\nEen beheerder kan de installatie kopiëren en installeren vanaf de kopie.";
+"You are not allowed to replace a private configuration" = "U bent niet gemachtigd om een privé configuratie te vervangen";
+
+/* Window text */
+"You are not allowed to replace a shared configuration" = "U bent niet gemachtigd om een gedeelde configuratie te vervangen";
 
 /* Window text */
 "You cannot make a configuration private if it is set to start when the computer starts." = "U kunt een configuratie niet persoonlijk maken indien het is ingesteld om te starten wanneer de computer start.";
 
 /* Window text */
 "You cannot make a configuration private unless it is disconnected." = "U kunt een instelling enkel persoonlijk maken wanneer deze niet verbonden is.";
+
+/* Window text */
+"You cannot make a configuration shared if it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "Het is niet mogelijk om een gedeelde configuratie te delen als deze zelf een bijgewerkte configuratie bevat.\n\nInformatie: Tunnelblick configuraties die in een bijgewerkte Tunnelblick VPN configuratie zitten kunnen wel gedeeld worden.";
 
 /* Window text */
 "You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "U kunt een configuratie niet delen indien het geen Tunnelblick VPN Configuratie (.tblk) is.";
@@ -1393,7 +1646,13 @@
 "You cannot rename a configuration unless it is disconnected." = "U kunt een instelling enkel hernoemen wanneer deze niet verbonden is.";
 
 /* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "U beschikt over OpenVPN configuraties maar niet over Tunnelblick VPN Configuraties.\n\nU moet OpenVPN configuraties omzetten naar Tunnelblick VPN Configuraties als u ze wilt gebruiken.\n\n";
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "U heeft OpenVPN configuraties,  maar u heeft geen Tunnelblick VPN configuraties.  \n\nDe OpenVPN configuraties moeten worden omgezet in Tunnelblick VPN configuraties als u ze wilt gebruiken.\n\n";
+
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@" = "U heeft OpenVPN configuraties,  maar u heeft geen Tunnelblick VPN configuraties.  \n\nDe OpenVPN configuraties moeten worden omgezet in Tunnelblick VPN configuraties als u ze wilt gebruiken.\n\nEchter, Tunnelblick kan de bestanden niet converteren omdat er een probleem was:\n\n%@";
+
+/* Window text */
+"You have OpenVPN configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\nHowever, Tunnelblick cannot convert them because there was a problem:\n\n%@\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "U heeft OpenVPN configuraties,  maar u heeft geen Tunnelblick VPN configuraties.  \n\nDe OpenVPN configuraties moeten worden omgezet in Tunnelblick VPN configuraties als u ze wilt gebruiken.\n\nEchter, Tunnelblick kan de bestanden niet converteren omdat er een probleem was:\n\n%@\n\nWanneer u kiest voor 'negeren' zullen de configuraties niet beschikbaar zijn!\n\n";
 
 /* Window text */
 "You have asked to duplicate '%@'." = "U heeft verzocht om '%@' te dupliceren.";
@@ -1410,11 +1669,8 @@
 /* Window text */
 "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "U beschikt over één of meerdere OpenVPN configuraties die niet beschikbaar zullen zijn als u deze versie van Tunnelblick gebruikt. U kunt:\n\n  • Tunnelblick deze OpenVPN configuraties laten omzetten naar Tunnelblick VPN Configuraties; of\n  • Stop en installeer een andere versie van Tunnelblick; of\n  • Negeer dit en ga verder zonder omzetten.\n\nAls u 'Negeren' kiest zullen de configuraties niet beschikbaar zijn!\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file." = "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.";
-
 /* Window text */
-"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "U mag het configuratiebestand inzien, maar als u het wenst te wijzigen dient u de beveiliging ervan te verwijderen. Als u de beveiliging van het configuratiebestand verwijdert, zult u de gegevens van een beheerdersaccount moeten ingeven als u er de volgende keer mee verbindt.";
+"You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nThe configuration file is at\n%@\n\n" = "U hebt geprobeerd om een configuratiebestand te installeren dat een voorbeeld configuratiebestand is. Het configuratiebestand moet worden gewijzigd om te verbinden met een VPN verbinding. Mogelijk moet u ook andere bestanden, zoals het certificaat of sleutel vervangen, voordat een VPN-verbinding opgezet kan worden.\n\nRaadpleeg uw netwerkbeheerder of de serviceprovider van uw VPN verbinding voor de benodigde bestanden en/of informatie die u nodig heeft om het voorbeeld bestand aan te passen.\n\nHet configuratiebestand is te vinden in\n%@  \n\n";
 
 /* Window text */
 "You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect." = "U kunt niet verbinden met deze configuratie.\n\nWanneer u het converteert naar een 'Tunnelblick VPN Connectie' (.tblk), dan kunt u een verbinding opzetten.";
@@ -1449,32 +1705,32 @@
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "U zult Tunnelblick niet kunnen gebruiken na het installeren van een update, tenzij u de gebruikersnaam & wachtwoord van een beheerder ingeeft.\n\nWeet u zeker dat u op updates wilt controleren?";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
+"Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Uw systeemklok is mogelijk niet goed ingesteld.\n\nSommige of zelfs alle configuraties kunnen mogelijk geen verbinding maken, totdat de systeemklok de juiste datum en tijd heeft.\n\n";
+
+/* Window text */
 "ZB" = "ZB";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
+/* Window text */
 "ZB/s" = "ZB/s";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n WAARSCHUWING: DEZE KOPIE VAN TUNNELBLICK IS VERANDERD.\n";
+"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed because the Info.plist for an \"inner\" .tblk may not contain \"updatable\" .tblk entries." = "\"%1$@\" in het Info.plist voor \n\n%2$@ is niet toegestaan omdat het Info.plist voor een \"binnenste\".tblk geen \"bijgewerkt\".tblk vermeldingen bevat.";
 
 /* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n WAARSCHUWING: DEZE KOPIE VAN TUNNELBLICK MAAKT UW COMPUTER ONVEILIG. Het is alleen geschikt voor debugging doeleinden.\n";
+"\"%@\" in the Info.plist for\n\n%@\n\nis not allowed in an \"inner\" .tblk or conflicts with the same entry in an \"outer\" .tblk." = "\"%1$@\" in het Info.plist voor \n\n%2$@ is niet toegestaan in een \"binnenste\".tblk of conflicteren met een \"buitenste\".tblk.";
+
+/* Window text */
+"\n WARNING: This copy of Tunnelblick has been tampered with.\n" = "Waarschuwing: Dit exemplaar van Tunnelblick is aangepast.";
+
+/* Window text */
+"\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "  Waarschuwing: Dit exemplaar van Tunnelblick maakt uw computer onveilig. Deze versie wordt enkel gebruikt voor debugging.";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Let op: bestanden die gerelateerd zijn aan de configuratie, zoals sleutel- of certificaatbestanden, zullen niet verwijderd worden.";
 
 /* Window text */
-"\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\n%d Tunnelblick VPN Configuraties zijn succesvol geïnstalleerd.";
-
-/* Window text */
 "\n\nNote: The configuration's group credentials will not be deleted because other configurations use them." = "\n\nBericht: De groep met aanmeldgegevens zal niet worden verwijderd, omdat de groep in gebruik is door andere configuraties";
-
-/* Window text */
-"\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\nEen Tunnelblick VPN Configuratie is succesvol geïnstalleerd.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"\n\nOther problems were also found, but they are likely to be a result of that problem. See the Console Log for details." = "\n\nOther problems were also found, but they are likely to be a result of that problem. See the Console Log for details.";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nen installeer %ld Tunnelblick VPN Configuraties";
@@ -1484,6 +1740,9 @@
 
 /* Window text */
 "easy-rsa installation failed: %@" = "easy-rsa installatie mislukt: %@";
+
+/* Window text */
+"targetPathToReplaceForDisplayName: %@ was found to replace the configuration with CFBundleIdentifer %@, but earlier, %@ was found to replace it." = "targetPathToReplaceForDisplayName: %1$@ werd gevonden ter vervanging van de configuratie met CFBundleIdentifer %2$@, maar eerder, %3$@ is gevonden om het te vervangen.";
 
 /* Suffix for a duplicate of a file */
 " copy %d" = " kopie %d";
@@ -1499,6 +1758,12 @@
 
 /* Credit description */
 "Animation and icon sets code" = "Animatie, pictogrammen sets code";
+
+/* Credit description */
+"Arabic localization" = "Arabische vertaling";
+
+/* Credit description */
+"Bulgarian localization" = "Bulgaarse vertaling";
 
 /* Credit description */
 "Button images" = "Afbeeldingen voor knoppen";
@@ -1527,6 +1792,9 @@
 /* Credit description */
 "Czech localization" = "Tsjechische vertaling";
 
+/* Credit description */
+"Danish localization" = "Deense vertaling";
+
 /* Speak string */
 "Disconnected from %@" = "Verbroken met %@";
 
@@ -1535,6 +1803,9 @@
 
 /* Credit description */
 "Dutch localization" = "Nederlandse vertaling";
+
+/* Credit description */
+"Estonian localization" = "Estlandse vertaling";
 
 /* Credit description */
 "Finnish localization" = "Finse vertaling";
@@ -1549,7 +1820,13 @@
 "German localization" = "Duitse vertaling";
 
 /* Credit description */
+"Greek localization" = "Griekse vertaling";
+
+/* Credit description */
 "Hungarian localization" = "Hongaarse vertaling";
+
+/* Credit description */
+"Icon set including Retina images" = "Pictogrammenset bevat Retina afbeeldingen";
 
 /* Credit description */
 "Italian localization" = "Italiaanse vertaling";
@@ -1564,7 +1841,7 @@
 "LANGUAGE_LOCALIZATION" = "Nederlandse vertaling";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Emma Segev en Tjalling Soldaat";
+"LEAD_TRANSLATORS" = "Emma Segev, Tjalling Soldaat en Ricardo Guijt";
 
 /* Credit description */
 "Localization code tweaks" = "Vertaling code tweaks";
@@ -1583,6 +1860,9 @@
 
 /* Credit description */
 "Polish localization" = "Poolse vertaling";
+
+/* Credit description */
+"Portuguese (Brazilian) localization" = "Portugese (Braziliaans) vertaling";
 
 /* Credit description */
 "Portuguese localization" = "Portugese vertaling";
@@ -1606,6 +1886,9 @@
 "Tunnelblick icon" = "Tunnelblick pictogram";
 
 /* Credit description */
+"Turkish localization" = "Turkse vertaling";
+
+/* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue & UKLoginItemRegistry";
 
 /* Credit description */
@@ -1613,11 +1896,6 @@
 
 /* Credit description */
 "Up and Down scripts" = "Up/Down scripts";
-
-/* TRANSLATION SAME AS DEVELOPMENT */
-"Updates:" = "Updates:";
-
-/* TRANSLATION SAME AS DEVELOPMENT */"WINS servers:" = "WINS servers:";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode hulp & OpenSSL integratie";
@@ -1629,7 +1907,7 @@
 "Create a Free Account" = "Creëer een gratis account";
 
 /* Button VPNService */
-"Get Different Image" = "Ander Image ophalen";
+"Get Different Image" = "Andere afbeelding gebruiken";
 
 /* Button VPNService *//* Window title VPNService */
 "Login" = "Aanmelden";
@@ -1670,7 +1948,7 @@
 /* Window title  VPNService */
 "Register with Tunnelblick" = "Registreer met Tunnelblick";
 
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Window title  VPNService */
+/* Window title  VPNService */
 "Sorry" = "Sorry";
 
 /* Window title  VPNService */
@@ -1783,3 +2061,4 @@
 
 /* Window text VPNService */
 "Your account status could not be verified:\n     %@." = "De status van uw account kan niet worden gecontroleerd:\n     %@.";
+

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,7 +20,6 @@
  */
 
 
-#import <Cocoa/Cocoa.h>
 #import "defines.h"
 
 @class LeftNavViewController;
@@ -80,9 +79,14 @@
     IBOutlet NSPopUpButton       * setNameserverPopUpButton;
     IBOutlet NSArrayController   * setNameserverArrayController;
     
+    IBOutlet NSTextFieldCell    * perConfigOpenvpnVersionTFC;
+    IBOutlet NSTextField        * perConfigOpenvpnVersionTF;
+    IBOutlet NSArrayController  * perConfigOpenvpnVersionArrayController;
+    IBOutlet NSButton           * perConfigOpenvpnVersionButton;
+   
     IBOutlet NSButton            * monitorNetworkForChangesCheckbox;
     
-    IBOutlet NSButton            * showOnTunnelBlickMenuCheckbox;
+    IBOutlet NSButton            * keepConnectedCheckbox;
     
     IBOutlet NSBox               * alertSoundsBox;
     
@@ -147,7 +151,10 @@ TBPROPERTY_READONLY(NSArrayController *,   setNameserverArrayController)
 
 TBPROPERTY_READONLY(NSButton *,            monitorNetworkForChangesCheckbox)
 
-TBPROPERTY_READONLY(NSButton *,            showOnTunnelBlickMenuCheckbox)
+TBPROPERTY_READONLY(NSButton *,            keepConnectedCheckbox)
+
+TBPROPERTY_READONLY(NSArrayController *,   perConfigOpenvpnVersionArrayController)
+TBPROPERTY_READONLY(NSButton *,            perConfigOpenvpnVersionButton)
 
 TBPROPERTY_READONLY(NSBox *,               alertSoundsBox)
 

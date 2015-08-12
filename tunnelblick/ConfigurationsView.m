@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,12 +21,14 @@
 
 
 #import "ConfigurationsView.h"
-#import "NSString+TB.h"
-#import "TBUserDefaults.h"
-#import "LeftNavDataSource.h"
+
 #import "Helper.h"
+
+#import "LeftNavDataSource.h"
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
+#import "NSString+TB.h"
+#import "TBUserDefaults.h"
 
 extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;
@@ -49,6 +51,11 @@ extern TBUserDefaults * gTbDefaults;
     return self;
 }
 
+- (void) dealloc
+{
+	[super dealloc];
+}
+
 - (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
 	
@@ -60,7 +67,9 @@ extern TBUserDefaults * gTbDefaults;
     [self setTitle: NSLocalizedString(@"Connect"   , @"Button") ofControl: connectButton   ];
     [self setTitle: NSLocalizedString(@"Disconnect", @"Button") ofControl: disconnectButton];
     
-    
+	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
+    [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
+	
     // Left split view -- list of configurations and configuration manipulation
     
 	if (   runningOnSnowLeopardOrNewer()  // 10.5 and lower don't have setDelegate and setDataSource
@@ -73,7 +82,7 @@ extern TBUserDefaults * gTbDefaults;
         [ov expandItem: [ov itemAtRow: 0]];
 	} else {
 		[[[self outlineViewController] view] setHidden: YES];
-		[leftNavTableView setDelegate: [[NSApp delegate] logScreen]];
+		[leftNavTableView setDelegate: [((MenuController *)[NSApp delegate]) logScreen]];
  	}
 	
 	[[leftNavTableColumn headerCell] setTitle: NSLocalizedString(@"Configurations", @"Window text")];
@@ -92,7 +101,7 @@ extern TBUserDefaults * gTbDefaults;
     
     [logTabViewItem setLabel: NSLocalizedString(@"Log", @"Window title")];
     
-    [self setTitle: NSLocalizedString(@"Copy Diagnostic Info to Clipboard", @"Button") ofControl: logToClipboardButton   ];
+    [self setTitle: NSLocalizedString(@"Copy Diagnostic Info to Clipboard", @"Button") ofControl: logToClipboardButton];
     
     
     // Right split view - Settings tab
@@ -109,8 +118,39 @@ extern TBUserDefaults * gTbDefaults;
     // setNameserverPopUpButton is initialized in setupSettingsFromPreferences
     
     [monitorNetworkForChangesCheckbox setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")];
+	
+    [keepConnectedCheckbox setTitle: NSLocalizedString(@"Keep connected", @"Checkbox name")];
     
-    [showOnTunnelBlickMenuCheckbox setTitle: NSLocalizedString(@"Show configuration on Tunnelblick menu", @"Checkbox name")];
+    // OpenVPN Version popup. Default depends on version of OS X
+    
+    [perConfigOpenvpnVersionTFC setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text")];
+    
+    NSArray  * versions  = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
+    NSUInteger defaultIx = [((MenuController *)[NSApp delegate]) defaultOpenVPNVersionIx];
+    
+    NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: [versions count] + 2];
+    
+    NSString * ver = [versions objectAtIndex: defaultIx];
+    [ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                          [NSString stringWithFormat: NSLocalizedString(@"Default (%@)", @"Button"), ver], @"name",
+                          @"", @"value",    // Empty name means default
+                          nil]];
+    
+    NSUInteger ix;
+    for (  ix=0; ix<[versions count]; ix++  ) {
+        ver = [versions objectAtIndex: ix];
+        [ovContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                               ver, @"name",
+                               ver, @"value",
+                               nil]];
+    }
+    [ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                          [NSString stringWithFormat: NSLocalizedString(@"Latest (%@)", @"Button"), [versions lastObject]], @"name",
+                          @"-", @"value",    // "-" means latest
+                          nil]];
+    
+    [perConfigOpenvpnVersionArrayController setContent: ovContent];
+    [perConfigOpenvpnVersionButton sizeToFit];
     
     [alertSoundsBox setTitle: NSLocalizedString(@"Alert sounds", @"Window title")];
     
@@ -119,6 +159,8 @@ extern TBUserDefaults * gTbDefaults;
     
     [self setTitle: NSLocalizedString(@"Advanced..." , @"Button") ofControl: advancedButton];
     [advancedButton setEnabled: ! [gTbDefaults boolForKey: @"disableAdvancedButton"]];
+	
+	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 
@@ -139,10 +181,6 @@ extern TBUserDefaults * gTbDefaults;
         || [theControl isEqual: advancedButton]  ) {
         oldPos = [theControl frame];
         oldPos.origin.x = oldPos.origin.x - widthChange;
-        [theControl setFrame:oldPos];
-    } else if (   [theControl isEqual: logToClipboardButton]  ) {
-        oldPos = [theControl frame];
-        oldPos.origin.x = oldPos.origin.x - widthChange/2;
         [theControl setFrame:oldPos];
 	}
     
@@ -206,7 +244,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   setNameserverArrayControl
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            monitorNetworkForChangesCheckbox)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            showOnTunnelBlickMenuCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            keepConnectedCheckbox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   perConfigOpenvpnVersionArrayController)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            perConfigOpenvpnVersionButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSBox *,               alertSoundsBox)
 

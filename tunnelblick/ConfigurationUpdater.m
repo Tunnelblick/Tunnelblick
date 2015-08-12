@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,213 +21,304 @@
 
 
 #import "ConfigurationUpdater.h"
+
 #import "defines.h"
+#import "helper.h"
+#import "sharedRoutines.h"
+#import "NSString+TB.h"
+
+#import "ConfigurationManager.h"
+#import "ConfigurationMultiUpdater.h"
 #import "MenuController.h"
 #import "NSFileManager+TB.h"
-#import "helper.h"
+#import "NSTimer+TB.h"
+#import "Sparkle/SUUpdater.h"
+#import "TBUserDefaults.h"
 
 extern NSFileManager        * gFileMgr;
 extern BOOL                   gShuttingDownWorkspace;
+extern TBUserDefaults       * gTbDefaults;
 
 @implementation ConfigurationUpdater
 
--(ConfigurationUpdater *) init
-{
-    // Returns nil if no bundle to be updated, or no valid Info.plist in the bundle, or no valid feedURL or no CFBundleVersion in the Info.plist
+TBSYNTHESIZE_OBJECT_GET(retain, SUUpdater *, cfgUpdater)
+TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgBundlePath)
+TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgBundleId)
+TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgName)
+
+-(NSString *) edition {
+	
+	return [[[self cfgBundlePath] stringByDeletingLastPathComponent] pathEdition];
+}
+
+-(ConfigurationUpdater *) initWithPath: (NSString *) path {
     
-    NSBundle * bundle = [NSBundle bundleWithPath: CONFIGURATION_UPDATES_BUNDLE_PATH];
-	if (  bundle  ) {
-        NSString * plistPath = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Info.plist"];
-        NSDictionary * infoPlist = [NSDictionary dictionaryWithContentsOfFile: plistPath];
-        if ( infoPlist  ) {
-            NSString *  feedURLString = [infoPlist objectForKey: @"SUFeedURL"];
-            if (   feedURLString  ) {
-                NSURL * feedURL = [NSURL URLWithString: feedURLString];
-                if (  feedURL  ) {
-                    if (  [infoPlist objectForKey: @"CFBundleVersion"]) {
-                        
-                        // Check configurations every hour as a default (Sparkle default is every 24 hours)
-                        NSTimeInterval interval = 60*60; // Default is one hour
-                        id checkInterval = [infoPlist objectForKey: @"SUScheduledCheckInterval"];
-                        if (  checkInterval  ) {
-                            if (  [checkInterval respondsToSelector: @selector(intValue)]  ) {
-                                NSTimeInterval i = (NSTimeInterval) [checkInterval intValue];
-                                if (  i == 0  ) {
-                                    NSLog(@"SUScheduledCheckInterval in %@ is invalid or zero", plistPath);
-                                } else {
-                                    interval = i;
-                                }
-                            } else {
-                                NSLog(@"SUScheduledCheckInterval in %@ is invalid", plistPath);
-                            }
-                        }
-                        
-                        // Copy the bundle to a temporary folder (so it is writable by the updater, which runs as a user)
-                        NSString * tempBundlePath = [[newTemporaryDirectoryPath() autorelease]
-                                                     stringByAppendingPathComponent: [CONFIGURATION_UPDATES_BUNDLE_PATH lastPathComponent]];
-                        
-                        if (   [gFileMgr tbCopyPath: CONFIGURATION_UPDATES_BUNDLE_PATH toPath: tempBundlePath handler: nil]  ) {
-                            NSBundle * tempBundle = [NSBundle bundleWithPath: tempBundlePath];
-                            if (  tempBundle  ) {
-                                if (  (self = [super init])  ) {
-                                    cfgBundlePath = [tempBundlePath retain];
-                                    cfgBundle = [tempBundle retain];
-                                    cfgUpdater = [[SUUpdater updaterForBundle: cfgBundle] retain];
-                                    cfgFeedURL = [feedURL copy];
-                                    cfgCheckInterval = interval;
-                                    
-                                    [cfgUpdater setDelegate:                      self];
-                                    
-                                    [cfgUpdater setAutomaticallyChecksForUpdates: YES];
-                                    [cfgUpdater setFeedURL:                       cfgFeedURL];
-                                    [cfgUpdater setUpdateCheckInterval:           cfgCheckInterval];
-                                    [cfgUpdater setAutomaticallyDownloadsUpdates: NO];                  // MUST BE 'NO' because "Install" on Quit doesn't work properly
-                                    //  [cfgUpdater setSendsSystemProfile:            NO];
-                                    
-                                    return self;
-                                }
-                            } else {
-                                NSLog(@"%@ is not a valid bundle", tempBundlePath);
-                            }
-                        } else {
-                            NSLog(@"Unable to copy %@ to a temporary folder", CONFIGURATION_UPDATES_BUNDLE_PATH);
-                        }
-                        
-                    } else {
-                        NSLog(@"%@ does not contain CFBundleVersion", plistPath);
-                    }
-                    
-                } else {
-                    NSLog(@"SUFeedURL in %@ is not a valid URL", plistPath); 
-                }
-                
+    // Returns nil if error
+    
+    if (  ! [path hasSuffix: @".tblk"]  ) {
+        NSLog(@"%@ is not a .tblk", path);
+        return nil;
+    }
+    
+    NSBundle * bundle = [NSBundle bundleWithPath: path];
+	if (  ! bundle  ) {
+        NSLog(@"%@ is not a valid bundle", path);
+        return nil;
+    }
+    
+    NSDictionary * infoPlist = [ConfigurationManager plistInTblkAtPath: path];
+    
+    if (  ! infoPlist  ) {
+        NSLog(@"The .tblk at %@ does not contain a valid Info.plist", path);
+        return nil;
+    }
+    
+    NSString * bundleId      = [infoPlist objectForKey: @"CFBundleIdentifier"];
+    NSString * bundleVersion = [infoPlist objectForKey: @"CFBundleVersion"];
+    NSString * feedURLString = [infoPlist objectForKey: @"SUFeedURL"];
+    
+    if (  ! (   bundleId
+             && bundleVersion
+             && feedURLString)  ) {
+        NSLog(@"Missing CFBundleIdentifier, CFBundleVersion, or SUFeedURL in Info.plist for .tblk at %@", path);
+        return nil;
+    }
+    
+    NSURL * feedURL = [NSURL URLWithString: feedURLString];
+    if (  ! feedURL  ) {
+        NSLog(@"SUFeedURL in Info.plist for .tblk at %@ is not a valid URL", path);
+        return nil;
+    }
+    
+    NSTimeInterval interval = 60*60; // One hour (1 hour in seconds = 60 minutes * 60 seconds/minute)
+    id checkInterval = [infoPlist objectForKey: @"SUScheduledCheckInterval"];
+    if (  checkInterval  ) {
+        if (  [checkInterval respondsToSelector: @selector(intValue)]  ) {
+            NSTimeInterval i = (NSTimeInterval) [checkInterval intValue];
+            if (  i <= 60.0  ) {
+                NSLog(@"SUScheduledCheckInterval in Info.plist for the .tblk at %@ is less than 60 seconds; using 60 minutes.", path);
             } else {
-                NSLog(@"%@ does not contain SUFeedURL", plistPath);
+                interval = i;
             }
         } else {
-            NSLog(@"%@ exists, but does not contain a valid Info.plist", CONFIGURATION_UPDATES_BUNDLE_PATH);
+            NSLog(@"SUScheduledCheckInterval in Info.plist for the .tblk at %@ is invalid (does not respond to intValue); using 3600 seconds (60 minutes)", path);
         }
     }
     
+    if (  (self = [super init])  ) {
+        
+        cfgBundlePath = [path retain];
+        cfgBundleId   = [bundleId retain];
+        cfgName       = [[path lastPathComponent] retain];
+        
+        cfgUpdater    = [[SUUpdater updaterForBundle: [NSBundle bundleWithPath: path]] retain];
+        if (  cfgUpdater  ) {
+            [cfgUpdater setAutomaticallyChecksForUpdates: NO];      // Don't start checking yet
+            [cfgUpdater setAutomaticallyDownloadsUpdates: NO];      // MUST BE 'NO' because "Install" on Quit doesn't work properly
+            [cfgUpdater setSendsSystemProfile:            NO];      // See https://answers.edge.launchpad.net/sparkle/+question/88790
+            [cfgUpdater setUpdateCheckInterval:           interval];
+            [cfgUpdater setDelegate:                      self];
+            [cfgUpdater setFeedURL:                       feedURL];
+        } else {
+            NSLog(@"Unable to create an updater for %@", path);
+        }
+        
+        return self;
+    }
+
     return nil;
 }
 
--(void) dealloc
-{
-    [cfgBundlePath release];
-    [cfgUpdater release];
-    [cfgBundle release];
-    [cfgFeedURL release];
+-(void) dealloc {
+    
+	[cfgBundlePath release]; cfgBundlePath = nil;
+	[cfgBundleId   release]; cfgBundleId   = nil;
+	[cfgName       release]; cfgName       = nil;
+	[cfgUpdater    release]; cfgUpdater    = nil;
+    
     [super dealloc];
 }
 
--(void) setup
-{
+-(void) startUpdateCheckingWithUI {
+	
+	if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]) {
+		return;
+	}
+	
+	[[self cfgUpdater] resetUpdateCycle];
+	[[self cfgUpdater] checkForUpdates: self];
+	
+	TBLog(@"DB-UC", @"Started update check with UI for configuration '%@' (%@); URL = %@", [self cfgBundleId], [self edition], [cfgUpdater feedURL]);
 }
 
--(void) startWithUI: (BOOL) withUI
-{
-    static double waitTime = 0.5;
-    SUUpdater * appUpdater = [[NSApp delegate] updater];
-    if (  [appUpdater updateInProgress]  ) {
-        // The app itself is being updated, so we wait a while and try again
-        // We wait 1, 2, 4, 8, 16, 32, 60, 60, 60... seconds
-        waitTime = waitTime * 2;
-        if (  waitTime > 60.0  ) {
-            waitTime = 60.0;
-        }
-        [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) waitTime
-                                         target: self
-                                       selector: @selector(startFromTimerHandler:)
-                                       userInfo: [NSNumber numberWithBool: withUI]
-                                        repeats: NO];
+-(void) startCheckingWithoutUI {
+	
+	if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]) {
+		return;
+	}
+	
+	NSString * action = (  [[self cfgUpdater] automaticallyChecksForUpdates]
+						 ? @"Restarted"
+						 : @"Started");
+	
+	[[self cfgUpdater] resetUpdateCycle];
+	[[self cfgUpdater] checkForUpdatesInBackground];
+	
+	TBLog(@"DB-UC", @"%@ update checks without UI for configuration '%@' (%@); URL = %@", action, [self cfgBundleId], [self edition], [cfgUpdater feedURL]);
+}
+
+-(void) startUpdateCheckingWithUIThread: (NSNumber *) withUINumber {
+    
+    // Invoked in a new thread. Waits until the app isn't being updated, then schedules itself to start checking on the main thread, then exits the thread.
+    // [withUINumber boolValue] should be TRUE to present the UI, FALSE to check in the background
+
+    NSAutoreleasePool * threadPool = [NSAutoreleasePool new];
+    
+    if (  ! [withUINumber respondsToSelector: @selector(boolValue)]  ) {
+        NSLog(@"startUpdateCheckingWithUIThread: invalid argument '%@' (a '%@' does not respond to 'boolValue')", withUINumber, [withUINumber className]);
+		[threadPool drain];
         return;
-        waitTime = 0.5;
     }
     
-    [cfgUpdater resetUpdateCycle];
+    BOOL withUI = [withUINumber boolValue];
+    
+    // Wait until the application is not being updated
+    SUUpdater * appUpdater = [((MenuController *)[NSApp delegate]) updater];
+    while (  [appUpdater updateInProgress]  ) {
+        
+		if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]) {
+			[threadPool drain];
+			return;
+		}
+        TBLog(@"DB-UC", @"Delaying start of update checks for configuration '%@' (%@)", [self cfgBundleId], [self edition]);
+        sleep(1);
+        
+    }
+    
     if (  withUI  ) {
-        [cfgUpdater checkForUpdates: self];
+		[self performSelectorOnMainThread: @selector(startUpdateCheckingWithUI) withObject: nil waitUntilDone: NO];
     } else {
-        [cfgUpdater checkForUpdatesInBackground];
+		[self performSelectorOnMainThread: @selector(startCheckingWithoutUI)    withObject: nil waitUntilDone: NO];
+    }
+    
+    [threadPool drain];
+}
+
+-(void) startUpdateCheckingWithUI: (NSNumber *) withUI {
+	
+	if (  ! [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]) {
+        [NSThread detachNewThreadSelector: @selector(startUpdateCheckingWithUIThread:) toTarget: self withObject: withUI];
     }
 }
 
--(void) startFromTimerHandler: (NSTimer *) timer
-{
-    if (  gShuttingDownWorkspace  ) {
-        return;
-    }
+-(void) stopChecking {
     
-    [self startWithUI: [[timer userInfo] boolValue]];
+	if (  [[self cfgUpdater] automaticallyChecksForUpdates]  ) {
+		[[self cfgUpdater] setAutomaticallyChecksForUpdates: NO];
+		TBLog(@"DB-UC", @"Stopped update checks for configuration '%@' (%@)", [self cfgBundleId], [self edition]);
+	} else {
+		TBLog(@"DB-UC", @"Update checks are already stopped for configuration '%@' (%@)", [self cfgBundleId], [self edition]);
+	}
+
 }
-     
+
 //************************************************************************************************************
 // SUUpdater delegate methods
 
-// Use this to override the default behavior for Sparkle prompting the user about automatic update checks.
-- (BOOL)updaterShouldPromptForPermissionToCheckForUpdates:(SUUpdater *)bundle
-{
-	(void) bundle;
+- (BOOL)updaterShouldPromptForPermissionToCheckForUpdates:(SUUpdater *)bundle {
+    
+	// Use this to override the default behavior for Sparkle prompting the user about automatic update checks.
+    
+    (void) bundle;
 	
-    NSLog(@"cfgUpdater: updaterShouldPromptForPermissionToCheckForUpdates");
+    TBLog(@"DB-UC", @"updaterShouldPromptForPermissionToCheckForUpdates for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
     return NO;
 }
 
-// Returns the path which is used to relaunch the client after the update is installed. By default, the path of the host bundle.
-- (NSString *)pathToRelaunchForUpdater:(SUUpdater *)updater
-{
-	(void) updater;
+- (BOOL)updaterShouldRelaunchApplication:(SUUpdater *)updater {
 	
-    return [[NSBundle mainBundle] bundlePath];
+    // This is an additional delegate method for Tunnelblick.
+    // It allows Tunnelblick to return NO and update configurations without relaunching the application.
+	
+    (void) updater;
+	
+    TBLog(@"DB-UC", @"updaterShouldRelaunchApplication for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
+	
+    if (  gShuttingDownWorkspace  ) {
+        return NO;
+    }
+    
+	[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(installConfigurationsUpdateInBundleAtPathHandler:) withObject: [self cfgBundlePath] waitUntilDone: NO];
+	return NO;
 }
 
+//
+// None of the rest of the delegate methods are used but they show the progress of the update checks
+//
 
-- (void)updater:(SUUpdater *)updater willInstallUpdate:(SUAppcastItem *)update
-{
+-(void)         updater: (SUUpdater *) updater
+didFinishLoadingAppcast: (SUAppcast *) appcast {
+    
+    // Implement this if you want to do some special handling with the appcast once it finishes loading.
+    
+    (void) updater;
+    (void) appcast;
+    
+    TBLog(@"DB-UC", @"didFinishLoadingAppcast for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
+}
+
+-(void)    updater: (SUUpdater *)    updater
+didFindValidUpdate:(SUAppcastItem *) update {
+    
+    // Sent when a valid update is found by the update driver.
+    
+    (void) updater;
+    (void) update;
+    
+    TBLog(@"DB-UC", @"didFindValidUpdate for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
+}
+
+-(void) updaterDidNotFindUpdate: (SUUpdater *) update {
+    
+    // Sent when a valid update is not found.
+    
+    (void) update;
+    
+    TBLog(@"DB-UC", @"updaterDidNotFindUpdate for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
+}
+
+- (void)updater:(SUUpdater *)updater willInstallUpdate:(SUAppcastItem *)update {
+    
 	(void) updater;
     (void) update;
 	
-    if (  gShuttingDownWorkspace  ) {
-        return;
-    }
+    TBLog(@"DB-UC", @"willInstallUpdate for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
+}
+
+- (void)installerFinishedForHost:(SUHost *)host {
+	
+	(void) host;
+	
+    TBLog(@"DB-UC", @"installerFinishedForHost for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
+}
+
+- (NSString *)pathToRelaunchForUpdater:(SUUpdater *)updater {
     
-    [[NSApp delegate] saveConnectionsToRestoreOnRelaunch];
-    [[NSApp delegate] installConfigurationsUpdateInBundleAtPathHandler: cfgBundlePath];
+    // Returns the path which is used to relaunch the client after the update is installed. By default, the path of the host bundle.
+    
+	(void) updater;
+	
+    TBLog(@"DB-UC", @"pathToRelaunchForUpdater for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
+	return nil;
 }
 
-//************************************************************************************************************
-/*/ Use for debugging by deleting the asterisk in this line
-
-// Sent when a valid update is found by the update driver.
-- (void)updater:(SUUpdater *)updater didFindValidUpdate:(SUAppcastItem *)update
-{
-    NSLog(@"cfgUpdater: didFindValidUpdate");
+- (void) updaterWillRelaunchApplication: (SUUpdater *) updater {
+    
+    // Called immediately before relaunching.
+    
+    (void) updater;
+    
+    TBLog(@"DB-UC", @"updaterWillRelaunchApplication for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
 }
-
-// Sent when a valid update is not found.
-- (void)updaterDidNotFindUpdate:(SUUpdater *)update
-{
-    NSLog(@"cfgUpdater: updaterDidNotFindUpdate");
-}
-
-// Implement this if you want to do some special handling with the appcast once it finishes loading.
-- (void)updater:(SUUpdater *)updater didFinishLoadingAppcast:(SUAppcast *)appcast
-{
-    NSLog(@"cfgUpdater: didFinishLoadingAppcast");
-}
-
-// Sent immediately before installing the specified update.
-- (void)updater:(SUUpdater *)updater willInstallUpdate:(SUAppcastItem *)update
-{
-    NSLog(@"cfgUpdater: willInstallUpdate");
-}
-
-// Called immediately before relaunching.
-- (void)updaterWillRelaunchApplication:(SUUpdater *)updater
-{
-    NSLog(@"cfgUpdater: updaterWillRelaunchApplication");
-}
-// */
 
 @end

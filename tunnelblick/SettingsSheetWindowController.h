@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,7 +20,6 @@
  */
 
 
-#import <Cocoa/Cocoa.h>
 #import "defines.h"
 
 typedef enum {
@@ -55,16 +54,15 @@ typedef enum {
     IBOutlet NSTabViewItem       * whileConnectedTabViewItem;
     IBOutlet NSTabViewItem       * credentialsTabViewItem;
     
-    IBOutlet NSTextFieldCell     * configurationNameTFC;
-    IBOutlet NSTextFieldCell     * configurationStatusTFC;
-    
     
     // For Connecting & Disconnecting tab
     
-    IBOutlet NSButton            * scanConfigurationFileCheckbox;
-    IBOutlet NSButton            * useTunTapDriversCheckbox;
+    IBOutlet NSButton            * checkIPAddressAfterConnectOnAdvancedCheckbox;
+    IBOutlet NSButton            * showOnTunnelBlickMenuCheckbox;
     IBOutlet NSButton            * flushDnsCacheCheckbox;
+    IBOutlet NSButton            * useRouteUpInsteadOfUpCheckbox;
     IBOutlet NSButton            * prependDomainNameCheckbox;
+    IBOutlet NSButton            * disconnectOnSleepCheckbox;
     IBOutlet NSButton            * reconnectOnWakeFromSleepCheckbox;
     IBOutlet NSButton            * resetPrimaryInterfaceAfterDisconnectCheckbox;
     
@@ -74,13 +72,24 @@ typedef enum {
     IBOutlet NSButton            * reconnectWhenUserSwitchesInCheckbox;
     
     IBOutlet NSTextFieldCell     * ifConnectedWhenUserSwitchedOutTFC;
+    IBOutlet NSTextField         * ifConnectedWhenUserSwitchedOutTF;
     
     IBOutlet NSBox               * fastUserSwitchingBox;
     
+	IBOutlet NSPopUpButton	     * loadTunPopUpButton;
+	IBOutlet NSMenuItem          * loadTunAutomaticallyMenuItem;
+	IBOutlet NSMenuItem          * loadTunAlwaysMenuItem;
+	IBOutlet NSMenuItem          * loadTunNeverMenuItem;
+	
+	IBOutlet NSPopUpButton       * loadTapPopUpButton;
+	IBOutlet NSMenuItem          * loadTapAutomaticallyMenuItem;
+	IBOutlet NSMenuItem          * loadTapAlwaysMenuItem;
+	IBOutlet NSMenuItem          * loadTapNeverMenuItem;
     
     // For WhileConnected tab
     
     IBOutlet NSButton            * routeAllTrafficThroughVpnCheckbox;
+    IBOutlet NSButton            * runMtuTestCheckbox;
     IBOutlet NSButton            * monitorNetworkForChangesCheckbox;
     
     IBOutlet NSBox               * DnsWinsBox;
@@ -125,19 +134,19 @@ typedef enum {
     IBOutlet NSArrayController   * othernetBiosNameArrayController;
     IBOutlet NSArrayController   * otherworkgroupArrayController;
     
-    IBOutlet NSInteger             selectedDnsServersIndex;
-    IBOutlet NSInteger             selectedDomainIndex;
-    IBOutlet NSInteger             selectedSearchDomainIndex;
-    IBOutlet NSInteger             selectedWinsServersIndex;
-    IBOutlet NSInteger             selectedNetBiosNameIndex;
-    IBOutlet NSInteger             selectedWorkgroupIndex;
+    IBOutlet NSNumber            * selectedDnsServersIndex;
+    IBOutlet NSNumber            * selectedDomainIndex;
+    IBOutlet NSNumber            * selectedSearchDomainIndex;
+    IBOutlet NSNumber            * selectedWinsServersIndex;
+    IBOutlet NSNumber            * selectedNetBiosNameIndex;
+    IBOutlet NSNumber            * selectedWorkgroupIndex;
     
-    IBOutlet NSInteger             selectedOtherdnsServersIndex;
-    IBOutlet NSInteger             selectedOtherdomainIndex;
-    IBOutlet NSInteger             selectedOthersearchDomainIndex;
-    IBOutlet NSInteger             selectedOtherwinsServersIndex;
-    IBOutlet NSInteger             selectedOthernetBiosNameIndex;
-    IBOutlet NSInteger             selectedOtherworkgroupIndex;
+    IBOutlet NSNumber            * selectedOtherdnsServersIndex;
+    IBOutlet NSNumber            * selectedOtherdomainIndex;
+    IBOutlet NSNumber            * selectedOthersearchDomainIndex;
+    IBOutlet NSNumber            * selectedOtherwinsServersIndex;
+    IBOutlet NSNumber            * selectedOthernetBiosNameIndex;
+    IBOutlet NSNumber            * selectedOtherworkgroupIndex;
     
     IBOutlet NSTextFieldCell     * dnsServersTFC;
     IBOutlet NSTextFieldCell     * domainTFC;
@@ -155,7 +164,7 @@ typedef enum {
     
     IBOutlet NSButton            * credentialsGroupButton;
     IBOutlet NSArrayController   * credentialsGroupArrayController;
-	IBOutlet NSInteger             selectedCredentialsGroupIndex;
+	IBOutlet NSNumber            * selectedCredentialsGroupIndex;
 	
 	IBOutlet NSButton            * addNamedCredentialsButton;
 	
@@ -166,82 +175,90 @@ typedef enum {
 // General methods
 
 -(void) setConfigurationName: (NSString *) newName;
--(void) setStatus:            (NSString *) newStatus;
--(void) updateConnectionStatusAndTime;
 
 -(void) showSettingsSheet:    (id) sender;
 -(void) endSettingsSheet:     (id) sender;
 
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 
--(void) setupPrependDomainNameCheckbox;
--(void) setupFlushDNSCheckbox;
--(void) setupReconnectOnWakeFromSleepCheckbox;
--(void) setupResetPrimaryInterfaceAfterDisconnectCheckbox;
--(void) setupRouteAllTrafficThroughVpnCheckbox;
-
+-(void) setupSettingsFromPreferences;
 
 // Methods for Connecting tab
 
--(IBAction) scanConfigurationFileCheckboxWasClicked:          (id) sender;
--(IBAction) useTunTapDriversCheckboxWasClicked:               (id) sender;
--(IBAction) flushDnsCacheCheckboxWasClicked:                  (id) sender;
--(IBAction) prependDomainNameCheckboxWasClicked:              (id) sender;
--(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:       (id) sender;
--(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked:   (id) sender;
--(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:      (id) sender;
--(IBAction) connectingHelpButtonWasClicked:                   (id) sender;
+-(void) setupCheckIPAddressAfterConnectOnAdvancedCheckbox;
 
--(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked:  (id) sender;
--(IBAction) reconnectWhenUserSwitchesInCheckboxWasClicked:    (id) sender;
+-(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (NSButton *) sender;
+-(IBAction) showOnTunnelBlickMenuCheckboxWasClicked:                (NSButton *) sender;
+-(IBAction) flushDnsCacheCheckboxWasClicked:                        (NSButton *) sender;
+-(IBAction) useRouteUpInsteadOfUpCheckboxWasClicked:                (NSButton *) sender;
+-(IBAction) prependDomainNameCheckboxWasClicked:                    (NSButton *) sender;
+-(IBAction) disconnectOnSleepCheckboxWasClicked:                    (NSButton *) sender;
+-(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:             (NSButton *) sender;
+-(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked: (NSButton *) sender;
+-(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:            (NSButton *) sender;
+-(IBAction) runMtuTestCheckboxWasClicked:                           (NSButton *) sender;
+-(IBAction) connectingHelpButtonWasClicked:                         (id)         sender;
 
+-(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked:  (NSButton *) sender;
+-(IBAction) reconnectWhenUserSwitchesInCheckboxWasClicked:    (NSButton *) sender;
 
-// Methods for While Connecting tab
+-(IBAction) loadTunAutomaticallyMenuItemWasClicked: (id) sender;
+-(IBAction) loadTapAutomaticallyMenuItemWasClicked: (id)sender;
+-(IBAction) loadTunNeverMenuItemWasClicked:         (id)sender;
+-(IBAction) loadTapNeverMenuItemWasClicked:         (id)sender;
+-(IBAction) loadTunAlwaysMenuItemWasClicked:        (id)sender;
+-(IBAction) loadTapAlwaysMenuItemWasClicked:        (id)sender;
+    
 
--(IBAction)  monitorNetworkForChangesCheckboxWasClicked: (id) sender;
+// Methods for While Connected tab
+
+-(IBAction)  monitorNetworkForChangesCheckboxWasClicked: (NSButton *) sender;
 
 -(IBAction)  whileConnectedHelpButtonWasClicked: (id) sender;
 
--(NSInteger) selectedDnsServersIndex;
--(void)      setSelectedDnsServersIndex:   (NSInteger) newValue;
+-(NSNumber *) selectedDnsServersIndex;
+-(void)      setSelectedDnsServersIndex:   (NSNumber *) newValue;
 
--(NSInteger) selectedDomainIndex;
--(void)      setSelectedDomainIndex:       (NSInteger) newValue;
+-(NSNumber *) selectedDomainIndex;
+-(void)      setSelectedDomainIndex:       (NSNumber *) newValue;
 
--(NSInteger) selectedSearchDomainIndex;
--(void)      setSelectedSearchDomainIndex: (NSInteger) newValue;
+-(NSNumber *) selectedSearchDomainIndex;
+-(void)      setSelectedSearchDomainIndex: (NSNumber *) newValue;
 
--(NSInteger) selectedWinsServersIndex;
--(void)      setSelectedWinsServersIndex:  (NSInteger) newValue;
+-(NSNumber *) selectedWinsServersIndex;
+-(void)      setSelectedWinsServersIndex:  (NSNumber *) newValue;
 
--(NSInteger) selectedNetBiosNameIndex;
--(void)      setSelectedNetBiosNameIndex:  (NSInteger) newValue;
+-(NSNumber *) selectedNetBiosNameIndex;
+-(void)      setSelectedNetBiosNameIndex:  (NSNumber *) newValue;
 
--(NSInteger) selectedWorkgroupIndex;
--(void)      setSelectedWorkgroupIndex:    (NSInteger) newValue;
+-(NSNumber *) selectedWorkgroupIndex;
+-(void)      setSelectedWorkgroupIndex:    (NSNumber *) newValue;
 
--(NSInteger) selectedOtherdnsServersIndex;
--(void)      setSelectedOtherdnsServersIndex:   (NSInteger) newValue;
+-(NSNumber *) selectedOtherdnsServersIndex;
+-(void)      setSelectedOtherdnsServersIndex:   (NSNumber *) newValue;
 
--(NSInteger) selectedOtherdomainIndex;
--(void)      setSelectedOtherdomainIndex:       (NSInteger) newValue;
+-(NSNumber *) selectedOtherdomainIndex;
+-(void)      setSelectedOtherdomainIndex:       (NSNumber *) newValue;
 
--(NSInteger) selectedOthersearchDomainIndex;
--(void)      setSelectedOthersearchDomainIndex: (NSInteger) newValue;
+-(NSNumber *) selectedOthersearchDomainIndex;
+-(void)      setSelectedOthersearchDomainIndex: (NSNumber *) newValue;
 
--(NSInteger) selectedOtherwinsServersIndex;
--(void)      setSelectedOtherwinsServersIndex:  (NSInteger) newValue;
+-(NSNumber *) selectedOtherwinsServersIndex;
+-(void)      setSelectedOtherwinsServersIndex:  (NSNumber *) newValue;
 
--(NSInteger) selectedOthernetBiosNameIndex;
--(void)      setSelectedOthernetBiosNameIndex:  (NSInteger) newValue;
+-(NSNumber *) selectedOthernetBiosNameIndex;
+-(void)      setSelectedOthernetBiosNameIndex:  (NSNumber *) newValue;
 
--(NSInteger) selectedOtherworkgroupIndex;
--(void)      setSelectedOtherworkgroupIndex:    (NSInteger) newValue;
+-(NSNumber *) selectedOtherworkgroupIndex;
+-(void)      setSelectedOtherworkgroupIndex:    (NSNumber *) newValue;
+
+-(NSNumber *) selectedCredentialsGroupIndex;
+-(void)      setSelectedCredentialsGroupIndex:    (NSNumber *) newValue;
 
 
 // Methods for Credentials tab
 
--(IBAction) allConfigurationsUseTheSameCredentialsCheckboxWasClicked: (id) sender;
+-(IBAction) allConfigurationsUseTheSameCredentialsCheckboxWasClicked: (NSButton *) sender;
 
 -(IBAction) addNamedCredentialsButtonWasClicked: (id) sender;
 
@@ -249,6 +266,8 @@ typedef enum {
 
 
 // Getters & Setters
+
+TBPROPERTY_READONLY(BOOL, showingSettingsSheet)
 
 TBPROPERTY_READONLY(NSButton *, allConfigurationsUseTheSameCredentialsCheckbox)
 
@@ -259,7 +278,6 @@ TBPROPERTY(NSArray *,           removeNamedCredentialsNames, setRemoveNamedCrede
 
 TBPROPERTY_READONLY(NSButton *,            credentialsGroupButton)
 TBPROPERTY_READONLY(NSArrayController *,   credentialsGroupArrayController)
-TBPROPERTY(NSUInteger, selectedCredentialsGroupIndex,    setSelectedCredentialsGroupIndex)
 
 TBPROPERTY_READONLY(NSButton *, addNamedCredentialsButton)
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Jonathan Bullard
+ * Copyright 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,14 +20,17 @@
  */
 
 #import "LeftNavDataSource.h"
+
+#import "helper.h"
+#import "sharedRoutines.h"
+
+#import "ConfigurationManager.h"
 #import "LeftNavItem.h"
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
-#import "TBUserDefaults.h"
-#import "helper.h"
-#import "VPNConnection.h"
 #import "NSApplication+LoginItem.h"
-#import "ConfigurationManager.h"
+#import "TBUserDefaults.h"
+#import "VPNConnection.h"
 
 extern TBUserDefaults * gTbDefaults;
 extern NSString       * gDeployPath;
@@ -44,7 +47,7 @@ extern NSString       * gDeployPath;
 
 -(void) dealloc {
     
-    [rowsByDisplayName release];
+    [rowsByDisplayName release]; rowsByDisplayName = nil;
     
     [super dealloc];
 }
@@ -88,7 +91,8 @@ haveSameParent: (unsigned)  theLevel {
     while (  *theIxPtr < [theKeys count]  ) {
         unsigned currentIx = *theIxPtr;
         NSString * displayName = [theKeys objectAtIndex: currentIx];
-        NSArray * components = [displayName pathComponents];
+        NSString * localName   = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName];
+        NSArray * components = [localName pathComponents];
         unsigned nComponents = [components count];
 		if (   firstOfThisParent
 			|| [self keys: theKeys atIndex: currentIx haveSameParent: theLevel]  ) {
@@ -144,7 +148,7 @@ displayNameForTableColumn: (NSTableColumn *) tableColumn
     
     [rowsByDisplayName removeAllObjects];
     
-    NSArray * sortedDisplayNames = [[[[NSApp delegate] myConfigDictionary] allKeys]
+    NSArray * sortedDisplayNames = [[[((MenuController *)[NSApp delegate]) myConfigDictionary] allKeys]
                                     sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
     
     // We create a new rootItem, but will only use it's children variable
@@ -236,7 +240,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 {
 	(void) notification;
 	
-	MyPrefsWindowController * mpwc = [[NSApp delegate] logScreen]; 
+	MyPrefsWindowController * mpwc = [((MenuController *)[NSApp delegate]) logScreen]; 
     [mpwc performSelectorOnMainThread: @selector(selectedLeftNavListIndexChanged) withObject: nil waitUntilDone: NO];
 }
 
@@ -246,7 +250,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 	if (  [displayName length] == 0  ) {
 		return;
 	}
-    NSMutableArray * expandedDisplayNames = [[[gTbDefaults objectForKey: @"leftNavOutlineViewExpandedDisplayNames"] mutableCopy] autorelease];
+    NSMutableArray * expandedDisplayNames = [[[gTbDefaults arrayForKey: @"leftNavOutlineViewExpandedDisplayNames"] mutableCopy] autorelease];
     if (  expandedDisplayNames  ) {
 		if (  [expandedDisplayNames containsObject: displayName]  ) {
 			return;
@@ -256,7 +260,6 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     }
     [expandedDisplayNames addObject: displayName];
     [gTbDefaults setObject: expandedDisplayNames forKey:@"leftNavOutlineViewExpandedDisplayNames"];
-    [gTbDefaults synchronize];
 }
 
 -(void) outlineViewItemDidCollapse: (NSNotification *) notification {
@@ -265,12 +268,11 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 	if (  [displayName length] == 0  ) {
 		return;
 	}
-    NSMutableArray * expandedDisplayNames = [[[gTbDefaults objectForKey: @"leftNavOutlineViewExpandedDisplayNames"] mutableCopy] autorelease];
+    NSMutableArray * expandedDisplayNames = [[[gTbDefaults arrayForKey: @"leftNavOutlineViewExpandedDisplayNames"] mutableCopy] autorelease];
     if (  expandedDisplayNames  ) {
 		if (  [expandedDisplayNames containsObject: displayName]  ) {
             [expandedDisplayNames removeObject: displayName];
             [gTbDefaults setObject: expandedDisplayNames forKey:@"leftNavOutlineViewExpandedDisplayNames"];
-            [gTbDefaults synchronize];
         }
     }
 }
@@ -289,94 +291,34 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
     }
 	
 	if (  invalidConfigurationName(newName, PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING)  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        [NSString stringWithFormat:
-						 NSLocalizedString(@"Names may not include any of the following characters: %s\n\n%@", @"Window text"),
-						 PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING,
-						 @""],
-						
-						nil, nil, nil);
-        return;
-    }
-	
-	NSString      * sourceDisplayName = [item displayName];
-    VPNConnection * connection        = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: sourceDisplayName];
-	
-    NSString * autoConnectKey = [sourceDisplayName stringByAppendingString: @"autoConnect"];
-    NSString * onSystemStartKey = [sourceDisplayName stringByAppendingString: @"-onSystemStart"];
-    if (   [gTbDefaults boolForKey: autoConnectKey]
-        && [gTbDefaults boolForKey: onSystemStartKey]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        NSLocalizedString(@"You may not rename a configuration which is set to start when the computer starts.", @"Window text"),
-                        nil, nil, nil);
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						  [NSString stringWithFormat:
+						   NSLocalizedString(@"Names may not include any of the following characters: %s\n\n%@", @"Window text"),
+						   PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING,
+						   @""]);
         return;
     }
     
-    if (  ! [connection isDisconnected]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Active connection", @"Window title"),
-                        NSLocalizedString(@"You cannot rename a configuration unless it is disconnected.", @"Window text"),
-                        nil, nil, nil);
+	NSString * sourceDisplayName = [item displayName];
+    VPNConnection * connection   = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceDisplayName];
+    if (  ! connection  ) {
+        NSLog(@"Tried to rename configuration but no configuration has been selected");
         return;
     }
     
     NSString * sourcePath = [connection configPath];
-    if (  [sourcePath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        NSLocalizedString(@"You may not rename a Deployed configuration.", @"Window text"),
-                        nil, nil, nil);
-        return;
-    }
     
     NSString * sourceFolder = [sourcePath stringByDeletingLastPathComponent];
-    NSString * sourceLast = [sourcePath  lastPathComponent];
-    NSString * sourceExtension = [sourceLast pathExtension];
-    
-    NSString * targetPath = [sourceFolder stringByAppendingPathComponent: [newName stringByAppendingPathExtension: sourceExtension]];
-    NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-    
-    NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to rename '%@' to '%@'.", @"Window text"), sourceDisplayName, targetDisplayName];
-    AuthorizationRef authorization = [NSApplication getAuthorizationRef: msg];
-    if ( authorization == nil ) {
-        return;
+    NSString * targetPath   = [sourceFolder stringByAppendingPathComponent: newName];
+    NSString * newExtension = [newName pathExtension];
+    if (  ! [newExtension isEqualToString: @"tblk"]  ) {
+        targetPath = [targetPath stringByAppendingPathExtension: @"tblk"];
     }
+
+    [ConfigurationManager renameConfigurationFromPath: sourcePath
+                                               toPath: targetPath
+                                     authorizationPtr: nil];
     
-    if (  [[ConfigurationManager defaultManager] copyConfigPath: sourcePath
-                                                         toPath: targetPath
-                                                usingAuthRefPtr: &authorization
-                                                     warnDialog: YES
-                                                    moveNotCopy: YES]  ) {
-        
-        // We copy "-keychainHasUsernameAndPassword" because it is deleted by moveCredentials
-        NSString * key = [[connection displayName] stringByAppendingString: @"-keychainHasUsernameAndPassword"];
-        BOOL haveCredentials = [gTbDefaults boolForKey: key];
-        
-        moveCredentials([connection displayName], targetDisplayName); // Do this so "<source>-keychainHasUsernameAndPassword" preference is used
-        
-        if (  ! [gTbDefaults movePreferencesFrom: [connection displayName] to: targetDisplayName]  ) {
-            TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
-                            NSLocalizedString(@"Warning: One or more preferences could not be renamed. See the Console Log for details.", @"Window text"),
-                            nil, nil, nil);
-        }
-        
-        // moveCredentials deleted "-keychainHasUsernameAndPassword" for the from configuration's preferences, so we restore it to the "to" configuration's preferences
-        key = [targetDisplayName stringByAppendingString: @"-keychainHasUsernameAndPassword"];
-        [gTbDefaults setBool: haveCredentials forKey: key];
-        
-        [item setNameToShowInOutlineView: newName];
-		[item setDisplayName: targetDisplayName];
-		
-		// We also need to change the name of the configuration that is selected
-		NSString * pref = [gTbDefaults objectForKey: @"leftNavSelectedDisplayName"];
-		if (  [pref isEqualToString: sourceDisplayName]  ) {
-			[gTbDefaults setObject: targetDisplayName forKey: @"leftNavSelectedDisplayName"];
-		}
-		
-		[[[NSApp delegate] logScreen] setPreviouslySelectedNameOnLeftNavList: targetDisplayName];
-		
-		[[NSApp delegate] updateMenuAndDetailsWindow];
-    }
-    
-    AuthorizationFree(authorization, kAuthorizationFlagDefaults);
 }
 
 @end

@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,20 +20,25 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-#import <unistd.h>
-#import <mach/mach_time.h>
-#import "defines.h"
 #import "helper.h"
-#import "TBUserDefaults.h"
-#import "NSApplication+SystemVersion.h"
+
+#import <mach/mach_time.h>
+#import <sys/stat.h>
+#import <sys/sysctl.h>
+#import <unistd.h>
+
+#import "defines.h"
+#import "sharedRoutines.h"
+
+#import "AlertWindowController.h"
+#import "AuthAgent.h"
+#import "KeyChain.h"
+#import "MenuController.h"
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
-#import "MenuController.h"
-#import "AuthAgent.h"
+#import "TBUserDefaults.h"
 
 // PRIVATE FUNCTIONS:
-NSDictionary * parseVersion             (NSString * string);
-NSRange        rangeOfDigits            (NSString * s);
 void           localizableStrings       (void);
 BOOL           copyOrMoveCredentials    (NSString * fromDisplayName,
                                          NSString * toDisplayName,
@@ -46,18 +51,46 @@ extern NSString        * gPrivatePath;
 extern NSString        * gDeployPath;
 extern NSFileManager   * gFileMgr;
 extern TBUserDefaults  * gTbDefaults;
+extern NSThread        * gMainThread;
+extern CFUserNotificationRef gUserNotification;
 
 void appendLog(NSString * msg)
 {
 	NSLog(@"%@", msg);
 }
 
+NSNumber * tbNumberWithInteger (NSInteger number)
+{
+    if (  runningOnLeopardOrNewer()  ) {
+        return [NSNumber numberWithInteger: number];
+    }
+    
+    return [NSNumber numberWithInt: (unsigned int)number];
+}
+
+NSNumber * tbNumberWithUnsignedInteger (NSUInteger number)
+{
+    if (  runningOnLeopardOrNewer()  ) {
+        return [NSNumber numberWithUnsignedInteger: number];
+    }
+    
+    return [NSNumber numberWithUnsignedInt: (int)number];
+}
+
+NSUInteger tbUnsignedIntegerValue(NSNumber * number)
+{
+    if (  runningOnLeopardOrNewer()  ) {
+        return [number unsignedIntegerValue];
+    }
+    
+    return [number unsignedIntValue];
+}
 uint64_t nowAbsoluteNanoseconds (void)
 {
     // The next three lines were adapted from http://shiftedbits.org/2008/10/01/mach_absolute_time-on-the-iphone/
     mach_timebase_info_data_t info;
     mach_timebase_info(&info);
-    uint64_t nowNs = mach_absolute_time() * info.numer / info.denom;
+    uint64_t nowNs = (unsigned long long)mach_absolute_time() * (unsigned long long)info.numer / (unsigned long long)info.denom;
     return nowNs;
 }
 
@@ -66,10 +99,25 @@ BOOL runningABetaVersion (void) {
     return ([version rangeOfString: @"beta"].length != 0);
 }
 
+BOOL runningOnMainThread (void) {
+    
+    if (  runningOnLeopardOrNewer()  ) {
+        return [NSThread isMainThread];
+    }
+    
+    return (  gMainThread == [NSThread currentThread]  );
+}
+
 BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
 {
     unsigned major, minor, bugFix;
-    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
+    OSStatus status = getSystemVersion(&major, &minor, &bugFix);
+    if (  status != 0) {
+        NSLog(@"getSystemVersion() failed");
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        return FALSE;
+    }
+    
     return ( (major > majorVersion) || (minor > minorVersion) );
 }
 
@@ -88,6 +136,27 @@ BOOL runningOnSnowLeopardOrNewer(void)
     return runningOnNewerThan(10, 5);
 }
 
+BOOL runningOnSnowLeopardPointEightOrNewer(void) {
+    
+    unsigned major, minor, bugFix;
+    OSStatus status = getSystemVersion(&major, &minor, &bugFix);
+    if (  status != 0) {
+        NSLog(@"getSystemVersion() failed");
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        return FALSE;
+    }
+    
+    if (  major < 10  ) {
+        return FALSE;
+    }
+    
+    if (  (major > 10) || (minor > 6)  ) {
+        return TRUE;
+    }
+    
+    return (  (minor == 6) && (bugFix > 7)  );
+}
+
 BOOL runningOnLionOrNewer(void)
 {
     return runningOnNewerThan(10, 6);
@@ -103,95 +172,71 @@ BOOL runningOnMavericksOrNewer(void)
     return runningOnNewerThan(10, 8);
 }
 
-NSData * availableDataOrError(NSFileHandle * file) {
-	
-	// This routine is a modified version of a method from http://dev.notoptimal.net/search/label/NSTask
-	// Slightly modified version of Chris Suter's category function used as a private function
-
-	for (;;) {
-		@try {
-			return [file availableData];
-		} @catch (NSException *e) {
-			if ([[e name] isEqualToString:NSFileHandleOperationException]) {
-				if ([[e reason] isEqualToString: @"*** -[NSConcreteFileHandle availableData]: Interrupted system call"]) {
-					continue;
-				}
-				return nil;
-			}
-			@throw;
-		}
-	}
+BOOL runningOnYosemiteOrNewer(void)
+{
+    return runningOnNewerThan(10, 9);
 }
 
-OSStatus runAsUser(NSString * launchPath, NSArray * arguments, NSString * * stdOut, NSString * * stdErr) {
-	
-	// Runs a command or script, returning the execution status of the command, stdout, and stderr
-	
-	NSTask * task = [[NSTask alloc] init];
+BOOL runningOnIntel(void) {
     
-    [task setLaunchPath: launchPath];
-    [task setArguments:  arguments];
+    // Returns NO if it can be determined that this is a PowerPC, YES otherwise
     
-	NSPipe * stdOutPipe = nil;
-	NSPipe * errOutPipe = nil;
+	unsigned value = 0;
+	unsigned long length = sizeof(value);
 	
-	if (  stdOut  ) {
-		stdOutPipe = [NSPipe pipe];
-		[task setStandardOutput: stdOutPipe];
-	}
-    
-    if (  stdErr  ) {
-		errOutPipe = [NSPipe pipe];
-		[task setStandardError: errOutPipe];
-	}
-	
-    [task launch];
-	
-	// The following is a heavily modified version of code from http://dev.notoptimal.net/search/label/NSTask
-
-	NSFileHandle * outFile = [stdOutPipe fileHandleForReading];
-	NSFileHandle * errFile = [errOutPipe fileHandleForReading];
-	
-	NSString * stdOutString = @"";
-	NSString * stdErrString = @"";
-	
-	NSData * outData = availableDataOrError(outFile);
-	NSData * errData = availableDataOrError(errFile);
-	while (   ([outData length] > 0)
-		   || ([errData length] > 0)
-		   || [task isRunning]  ) {
-
-		if (  [outData length] > 0  ) {
-			stdOutString = [stdOutString stringByAppendingString: [[[NSString alloc] initWithData: outData encoding:NSUTF8StringEncoding] autorelease]];
+	int error = sysctlbyname("hw.cputype", &value, &length, NULL, 0);
+	if (  error == 0 ) {
+		switch(value) {
+			case 7:
+                return YES; // Intel
+                break;
+                
+			case 18:
+                return NO;  // PPC
+                break;
+                
+			default:
+                NSLog(@"Unknown CPU type %u; assuming Intel", value);
+                return YES;
 		}
-		if (  [errData length] > 0  ) {
-			stdErrString = [stdErrString stringByAppendingString: [[[NSString alloc] initWithData: errData encoding:NSUTF8StringEncoding] autorelease]];
-		}
-		
-		outData = availableDataOrError(outFile);
-		errData = availableDataOrError(errFile);
 	}
-	
-	[outFile closeFile];
-	[errFile closeFile];
-	
-	// End of code from http://dev.notoptimal.net/search/label/NSTask
+    
+    NSLog(@"An error occured trying to detect CPU type with sysctlbyname; assuming Intel; error was %lu: %s", (long)errno, strerror(errno));
+    return YES;
+}
 
-    [task waitUntilExit];
+BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
     
-	OSStatus status = [task terminationStatus];
-	
-	if (  stdOut  ) {
-		*stdOut = stdOutString;
-	}
-	
-	if (  stdErr  ) {
-		*stdErr = stdErrString;
-	}
-	
-    [task release];
+    NSStatusBar *bar = [NSStatusBar systemStatusBar];
+    if (  ! [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]  ) {
+        return YES;
+    }
+    if (  ! [bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]  ) {
+        return YES;
+    }
     
-	return status;
+    if (   runningOnMavericksOrNewer()
+        && ([[NSScreen screens] count] != 1)  ) {
+        
+        NSString * spacesPrefsPath = [NSHomeDirectory() stringByAppendingPathComponent: @"/Library/Preferences/com.apple.spaces.plist"];
+        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: spacesPrefsPath];
+        if (  dict  ) {
+            id obj = [dict objectForKey: @"spans-displays"];
+            if (  obj  ) {
+                if (  [obj respondsToSelector: @selector(boolValue)]  ) {
+                    return ! [obj boolValue];
+                } else {
+                    NSLog(@"The 'spans-displays' preference from %@ does not respond to boolValue", spacesPrefsPath);
+                }
+            }
+        } else {
+            NSLog(@"Unable to load dictionary from %@", spacesPrefsPath);
+        }
+        
+        return YES;
+    }
+    
+    return NO;
 }
 
 // Returns an escaped version of a string so it can be sent over the management interface
@@ -244,6 +289,33 @@ NSString * firstPathComponent(NSString * path)
     return [path substringToIndex: slash.location];
 }
 
+
+NSString * displayNameFromPath (NSString * thePath) {
+	
+	// Returns the display name for a configuration, given a configuration file's path (either a .tblk or a .ovpn)
+	
+	NSString * last = lastPartOfPath(thePath);
+	
+	if (  [last hasSuffix: @".tblk"]  ) {							// IS a .tblk
+		return [last substringToIndex: [last length] - 5];
+	}
+	
+	if (  [last hasSuffix: @"/Contents/Resources/config.ovpn"]  ) {	// Is IN a .tblk
+		return [[[[last stringByDeletingLastPathComponent]	// Remove config.ovpn
+				  stringByDeletingLastPathComponent]		// Remove Resources
+				 stringByDeletingLastPathComponent]			// Remove Contents
+				stringByDeletingPathExtension];				// Remove .tblk
+	}
+	
+	if (   [last hasSuffix: @".ovpn"]								// Is a non-tblk configuration file
+		|| [last hasSuffix: @".conf"]  ) {
+		return [last substringToIndex: [last length] - 5];
+	}
+	
+	NSLog(@"displayNameFromPath: invalid path '%@'", thePath);
+	return nil;
+}
+
 // Returns the path of the configuration file within a .tblk, or nil if there is no such configuration file
 NSString * configPathFromTblkPath(NSString * path)
 {
@@ -256,61 +328,6 @@ NSString * configPathFromTblkPath(NSString * path)
     }
     
     return nil;
-}
-
-//**************************************************************************************************************************
-// Function to create a directory with specified permissions
-// Recursively creates all intermediate directories (with the same permissions) as needed
-// Returns 1 if the directory was created or permissions modified
-//         0 if the directory already exists (whether or not permissions could be changed)
-//        -1 if an error occurred. A directory was not created, and an error message was put in the log.
-int createDir(NSString * dirPath, unsigned long permissions)
-{
-    NSNumber     * permissionsAsNumber    = [NSNumber numberWithUnsignedLong: permissions];
-    NSDictionary * permissionsAsAttribute = [NSDictionary dictionaryWithObject: permissionsAsNumber forKey: NSFilePosixPermissions];
-    BOOL isDir;
-    
-    if (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]  ) {
-        if (  isDir  ) {
-            // Don't try to change permissions of /Library/Application Support or ~/Library/Application Support
-            if (  [dirPath hasSuffix: @"/Library/Application Support"]  ) {
-                return 0;
-            }
-            NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: dirPath traverseLink: YES];
-            NSNumber * oldPermissionsAsNumber = [attributes objectForKey: NSFilePosixPermissions];
-            if (  [oldPermissionsAsNumber isEqualToNumber: permissionsAsNumber] ) {
-                return 0;
-            }
-            if (  [gFileMgr tbChangeFileAttributes: permissionsAsAttribute atPath: dirPath] ) {
-                return 1;
-            }
-            NSLog(@"Warning: Unable to change permissions on %@ from %lo to %lo", dirPath, [oldPermissionsAsNumber longValue], permissions);
-            return 0;
-        } else {
-            NSLog(@"Error: %@ exists but is not a directory", dirPath);
-            return -1;
-        }
-    }
-    
-    // No such directory. Create its parent directory (recurse) if necessary
-    int result = createDir([dirPath stringByDeletingLastPathComponent], permissions);
-    if (  result == -1  ) {
-        return -1;
-    }
-    
-    // Parent directory exists. Create the directory we want
-    if (  ! [gFileMgr tbCreateDirectoryAtPath: dirPath attributes: permissionsAsAttribute] ) {
-        if (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]
-            && isDir  ) {
-            NSLog(@"Warning: Created directory %@ but unable to set permissions to %lo", dirPath, permissions);
-            return 1;
-        } else {
-            NSLog(@"Error: Unable to create directory %@ with permissions %lo", dirPath, permissions);
-            return -1;
-        }
-    }
-    
-    return 1;
 }
 
 // Returns the path of the .tblk that a configuration file is enclosed within, or nil if the configuration file is not enclosed in a .tblk
@@ -366,15 +383,12 @@ NSString * tunnelblickVersion(NSBundle * bundle)
     
     // We must construct the string from what we have in infoShort and infoBuild.
     //Strip "Tunnelblick " from the front of the string if it exists (it may not)
-    NSString * appVersion;
-    if (  [infoShort hasPrefix: @"Tunnelblick "]  ) {
-        appVersion = [infoShort substringFromIndex: [@"Tunnelblick " length]];
-    } else {
-        appVersion = infoShort;
-    }
+    NSString * appVersion = (  [infoShort hasPrefix: @"Tunnelblick "]
+                             ? [infoShort substringFromIndex: [@"Tunnelblick " length]]
+                             : infoShort);
     
     NSString * appVersionWithoutBuild;
-    unsigned parenStart;
+    NSUInteger parenStart;
     if (  ( parenStart = ([appVersion rangeOfString: @" ("].location) ) == NSNotFound  ) {
         // No " (" in version, so it doesn't have a build # in it
         appVersionWithoutBuild   = appVersion;
@@ -397,189 +411,26 @@ NSString * tunnelblickVersion(NSBundle * bundle)
     return (version);
 }
 
-NSDictionary * getOpenVPNVersionForConfigurationNamed(NSString * name)
-{
-    // Returns a dictionary from parseVersion with version info about the currently selected version of OpenVPN
-    // for the configuration with displayName "name". If "name" is nil, returns info about the application-wide default version of OpenVPN.
+AlertWindowController * TBShowAlertWindow (NSString * title,
+						NSString * msg) {
+	
+	// Displays an alert window and returns the window controller immediately, so it doesn't block the main thread.
+	// Used for informational messages that do not return a choice or have any side effects.
     //
-    // Launches "openvpn --version" for the openvpn version information (so no matter what Tunnelblick uses in the folder name
-    // of the container for OpenVPN, we use OpenVPN's actual version information.
-    
-    // Uses the version specified for the specific connection (if given) if it is available;
-    // If not, uses the application-wide version if it is available;
-    // If not, uses the first version of OpenVPN found.
-    NSString * prefVersion = nil;
-    id obj = nil;
-    if (  name  ) {
-        obj = [gTbDefaults objectForKey: [name stringByAppendingString: @"-openvpnVersion"]];
-    }
-    if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
-        prefVersion = (NSString *) obj;
-    } else {
-        obj = [gTbDefaults objectForKey: @"openvpnVersion"];
-        if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
-            prefVersion = (NSString *) obj;
-        }
-    }
-    
-    NSString * useVersion = nil;
-    NSArray  * versions = availableOpenvpnVersions();
-    if (  prefVersion  ) {
-        if (  [prefVersion isEqualToString: @"-"]  ) {  // "-" means latest version
-            useVersion = [versions lastObject];
-        } else {
-            if (  [versions containsObject: prefVersion]  ) {
-                useVersion = prefVersion;
-            } else {
-                if (  [versions count] == 0  ) {
-                    NSLog(@"Tunnelblick does not include any versions of OpenVPN");
-                    return nil;
-                }
-                
-                useVersion = [versions objectAtIndex: [versions count]-1];
-                TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
-                                 prefVersion, useVersion],
-                                nil, nil, nil);
-                [gTbDefaults setObject: useVersion forKey: @"openvpnVersion"];
-            }
-        }
-    } else {
-        if (  versions  ) {
-            useVersion = [versions objectAtIndex: 0];
-        }
-    }
-    
-    if (  ! useVersion  ) {
-        return nil;
-    }
-    
-    NSTask * task = [[NSTask alloc] init];
-    
-	NSString * openvpnFolderName = [@"openvpn-" stringByAppendingString: useVersion];
-    NSString * exePath = [[[[[NSBundle mainBundle] resourcePath]
-                            stringByAppendingPathComponent:@"openvpn"]
-                           stringByAppendingPathComponent: openvpnFolderName]
-                          stringByAppendingPathComponent: @"openvpn"];
-    [task setLaunchPath: exePath];
-    
-    NSArray  *arguments = [NSArray arrayWithObject: @"--version"];
-    [task setArguments: arguments];
-    
-    NSPipe * pipe = [NSPipe pipe];
-    [task setStandardOutput: pipe];
-    
-    NSFileHandle * file = [pipe fileHandleForReading];
-    
-    [task launch];
-    [task waitUntilExit];
-    
-    NSData * data = [file readDataToEndOfFile];
-    
-    [task release];
-    
-    NSString * string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-    
-    // Now extract the version. String should look like "OpenVPN <version> <more-stuff>" with a spaces on the left and right of the version
-    
-    NSRange rng1stSpace = [string rangeOfString: @" "];
-    if (  rng1stSpace.length != 0  ) {
-        NSRange rng2ndSpace = [string rangeOfString: @" " options: 0 range: NSMakeRange(rng1stSpace.location + 1, [string length] - rng1stSpace.location - 1)];
-        if ( rng2ndSpace.length != 0  ) {
-            return parseVersion([string substringWithRange: NSMakeRange(rng1stSpace.location + 1, rng2ndSpace.location - rng1stSpace.location -1)]);
-        }
-    }
-    
-    return nil;
+    // The window controller is returned so that it can be closed programmatically if the conditions that caused
+    // the window to be opened change.
+	
+	AlertWindowController * awc = [[[AlertWindowController alloc] init] autorelease];
+	[awc setHeadline: title];
+	[awc setMessage:  msg];
+	NSWindow * win = [awc window];
+    [win center];
+	[awc showWindow:  nil];
+	[win makeKeyAndOrderFront: nil];
+    [NSApp activateIgnoringOtherApps: YES];
+	return awc;
 }
 
-// Given a string with a version number, parses it and returns an NSDictionary with full, preMajor, major, preMinor, minor, preSuffix, suffix, and postSuffix fields
-//              full is the full version string as displayed by openvpn when no arguments are given.
-//              major, minor, and suffix are strings of digits (may be empty strings)
-//              The first string of digits goes in major, the second string of digits goes in minor, the third string of digits goes in suffix
-//              preMajor, preMinor, preSuffix and postSuffix are strings that come before major, minor, and suffix, and after suffix (may be empty strings)
-//              if no digits, everything goes into preMajor
-NSDictionary * parseVersion( NSString * string)
-{
-    NSRange r;
-    NSString * s = string;
-    
-    NSString * preMajor     = @"";
-    NSString * major        = @"";
-    NSString * preMinor     = @"";
-    NSString * minor        = @"";
-    NSString * preSuffix    = @"";
-    NSString * suffix       = @"";
-    NSString * postSuffix   = @"";
-    
-    r = rangeOfDigits(s);
-    if (r.length == 0) {
-        preMajor = s;
-    } else {
-        preMajor = [s substringToIndex:r.location];
-        major = [s substringWithRange:r];
-        s = [s substringFromIndex:r.location+r.length];
-        
-        r = rangeOfDigits(s);
-        if (r.length == 0) {
-            preMinor = s;
-        } else {
-            preMinor = [s substringToIndex:r.location];
-            minor = [s substringWithRange:r];
-            s = [s substringFromIndex:r.location+r.length];
-            
-            r = rangeOfDigits(s);
-            if (r.length == 0) {
-                preSuffix = s;
-             } else {
-                 preSuffix = [s substringToIndex:r.location];
-                 suffix = [s substringWithRange:r];
-                 postSuffix = [s substringFromIndex:r.location+r.length];
-            }
-        }
-    }
-    
-    return (  [NSDictionary dictionaryWithObjectsAndKeys:
-               [[string copy] autorelease], @"full",
-               [[preMajor copy] autorelease], @"preMajor",
-               [[major copy] autorelease], @"major",
-               [[preMinor copy] autorelease], @"preMinor",
-               [[minor copy] autorelease], @"minor",
-               [[preSuffix copy] autorelease], @"preSuffix",
-               [[suffix copy] autorelease], @"suffix",
-               [[postSuffix copy] autorelease], @"postSuffix",
-               nil]  );
-}
-
-
-// Examines an NSString for the first decimal digit or the first series of decimal digits
-// Returns an NSRange that includes all of the digits
-NSRange rangeOfDigits(NSString * s)
-{
-    NSRange r1, r2;
-    // Look for a digit
-    r1 = [s rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet] ];
-    if ( r1.length == 0 ) {
-        
-        // No digits, return that they were not found
-        return (r1);
-    } else {
-        
-        // r1 has range of the first digit. Look for a non-digit after it
-        r2 = [[s substringFromIndex:r1.location] rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
-        if ( r2.length == 0) {
-           
-            // No non-digits after the digits, so return the range from the first digit to the end of the string
-            r1.length = [s length] - r1.location;
-            return (r1);
-        } else {
-            
-            // Have some non-digits, so the digits are between r1 and r2
-            r1.length = r1.location + r2.location - r1.location;
-            return (r1);
-        }
-    }
-}
 
 // Takes the same arguments as, and is similar to, NSRunAlertPanel
 // DOES NOT BEHAVE IDENTICALLY to NSRunAlertPanel:
@@ -613,11 +464,11 @@ int TBRunAlertPanelExtended(NSString * title,
         return notShownReturnValue;
     }
     
-    NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                  msg,  kCFUserNotificationAlertMessageKey,
-                                  [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"tunnelblick" ofType: @"icns"]],
-                                        kCFUserNotificationIconURLKey,
-                                  nil];
+    NSMutableDictionary * dict = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                   msg,  kCFUserNotificationAlertMessageKey,
+                                   [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"tunnelblick" ofType: @"icns"]],
+                                   kCFUserNotificationIconURLKey,
+                                   nil] autorelease];
     if ( title ) {
         [dict setObject: title
                  forKey: (NSString *)kCFUserNotificationAlertHeaderKey];
@@ -653,7 +504,6 @@ int TBRunAlertPanelExtended(NSString * title,
     }
     
     SInt32 error = 0;
-    CFUserNotificationRef notification = NULL;
     CFOptionFlags response = 0;
 
     CFOptionFlags checkboxChecked = 0;
@@ -664,11 +514,33 @@ int TBRunAlertPanelExtended(NSString * title,
     }
     
     [NSApp activateIgnoringOtherApps:YES];
-	
-    notification = CFUserNotificationCreate(NULL, 0.0, checkboxChecked, &error, (CFDictionaryRef) dict);
-    if (  error  ) {
-		NSLog(@"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX, so TBRunAlertExtended is returning NSAlertErrorReturn",
-              (long) error, (long) notification);
+	if (  gUserNotification  ) {
+        NSLog(@"TBRunAlertExtended called but a panel already exists!");
+        CFRelease(gUserNotification);
+        gUserNotification = NULL;
+    }
+    
+    gUserNotification = CFUserNotificationCreate(NULL, 0.0, checkboxChecked, &error, (CFDictionaryRef) dict);
+    
+    if (   error
+        || (gUserNotification == NULL)
+        ) {
+        
+		NSLog(@"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX, so TBRunAlertExtended is terminating Tunnelblick after attempting to display an error window using CFUserNotificationDisplayNotice",
+              (long) error, (long) gUserNotification);
+        if (  gUserNotification != NULL  ) {
+            CFRelease(gUserNotification);
+            gUserNotification = NULL;
+        }
+        
+        // Try showing a regular window (but it will disappear when Tunnelblick terminates)
+        TBShowAlertWindow(NSLocalizedString(@"Alert", @"Window title"),
+                          [NSString stringWithFormat:
+                           NSLocalizedString(@"Tunnelblick could not display a window.\n\n"
+                                             @"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX", @"Window text"),
+                           (long) error, (unsigned long) gUserNotification]);
+        
+        // Try showing a modal alert window
         SInt32 status = CFUserNotificationDisplayNotice(60.0,
                                                         kCFUserNotificationStopAlertLevel,
                                                         NULL,
@@ -678,20 +550,23 @@ int TBRunAlertPanelExtended(NSString * title,
                                                         (CFStringRef) [NSString stringWithFormat:
                                                                        NSLocalizedString(@"Tunnelblick could not display a window.\n\n"
                                                                                          @"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX", @"Window text"),
-                                                                       (long) error, (long) notification],
+                                                                       (long) error, (long) gUserNotification],
                                                         NULL);
         NSLog(@"CFUserNotificationDisplayNotice() returned %ld", (long) status);
-		if (  notification  ) {
-			CFRelease(notification);
-		}
-        [dict release];
-        return NSAlertErrorReturn;
+        if (  gUserNotification != NULL  ) {
+            CFRelease(gUserNotification);
+            gUserNotification = NULL;
+        }
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        return NSAlertErrorReturn; // Make the Xcode code analyzer happy
     }
     
-	SInt32 responseReturnCode = CFUserNotificationReceiveResponse(notification, 0.0, &response);
+	SInt32 responseReturnCode = CFUserNotificationReceiveResponse(gUserNotification, 0.0, &response);
     
-    CFRelease(notification);
-    [dict release];
+    if (  gUserNotification != NULL  ) {
+        CFRelease(gUserNotification);
+        gUserNotification = NULL;
+    }
     
     if (  responseReturnCode  ) {
         NSLog(@"CFUserNotificationReceiveResponse() returned %ld with response = %ld, so TBRunAlertExtended is returning NSAlertErrorReturn",
@@ -715,7 +590,6 @@ int TBRunAlertPanelExtended(NSString * title,
 						&& [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey]
 						&& ( response & CFUserNotificationCheckBoxChecked(0) )  ) {
 						[gTbDefaults setBool: TRUE forKey: doNotShowAgainPreferenceKey];
-						[gTbDefaults synchronize];
 					}
 				}
 			}
@@ -729,7 +603,6 @@ int TBRunAlertPanelExtended(NSString * title,
 						&& [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey]
 						&& ( response & CFUserNotificationCheckBoxChecked(0) )  ) {
 						[gTbDefaults setBool: TRUE forKey: doNotShowAgainPreferenceKey];
-						[gTbDefaults synchronize];
 					}
 				}
 			}
@@ -743,7 +616,6 @@ int TBRunAlertPanelExtended(NSString * title,
 						&& [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey]
 						&& ( response & CFUserNotificationCheckBoxChecked(0) )  ) {
 						[gTbDefaults setBool: TRUE forKey: doNotShowAgainPreferenceKey];
-						[gTbDefaults synchronize];
 					}
 				}
 			}
@@ -758,37 +630,21 @@ int TBRunAlertPanelExtended(NSString * title,
 
 BOOL isUserAnAdmin(void)
 {
-    //Launch "id -Gn" to get a list of names of the groups the user is a member of, and put the result into an NSString:
-    
-    NSTask * task = [[NSTask alloc] init];
-    
-    NSString * exePath = @"/usr/bin/id";
-    [task setLaunchPath: exePath];
-    
-    NSArray  *arguments = [NSArray arrayWithObjects: @"-Gn", nil];
-    [task setArguments: arguments];
-    
-    NSPipe * pipe = [NSPipe pipe];
-    [task setStandardOutput: pipe];
-    
-    NSFileHandle * file = [pipe fileHandleForReading];
-    
-    [task launch];
-    
-    NSData * data = [file readDataToEndOfFile];
-    
-    [task release];
-    
-    NSString * string1 = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    
-    // If the "admin" group appears, the user is a member of the "admin" group, so they are an admin.
+    // Run "id -Gn" to get a list of names of the groups the user is a member of
+	NSString * stdoutString = nil;
+	NSArray  * arguments = [NSArray arrayWithObjects: @"-Gn", nil];
+	OSStatus status = runTool(TOOL_PATH_FOR_ID, arguments, &stdoutString, nil);
+	if (  status != 0  ) {
+		NSLog(@"Assuming user is not an administrator because '%@ -Gn' returned status %ld", TOOL_PATH_FOR_ID, (long)status);
+		return NO;
+	}
+	
+    // If the "admin" group appears in the output, the user is a member of the "admin" group, so they are an admin.
     // Group names don't include spaces and are separated by spaces, so this is easy. We just have to
     // handle admin being at the start or end of the output by pre- and post-fixing a space.
     
-    NSString * string2 = [NSString stringWithFormat:@" %@ ", [string1 stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-    NSRange rng = [string2 rangeOfString:@" admin "];
-    [string1 release];
-    
+    NSString * groupNames = [NSString stringWithFormat:@" %@ ", [stdoutString stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    NSRange rng = [groupNames rangeOfString:@" admin "];
     return (rng.location != NSNotFound);
 }
 
@@ -798,14 +654,14 @@ NSString * newTemporaryDirectoryPath(void)
     // Start of code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
     // Modified to check for malloc returning NULL, use strlcpy, use gFileMgr, and use more readable length for stringWithFileSystemRepresentation
     
-    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"TunnelblickTemporaryDotTblk-XXXXXX"];
+    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"Tunnelblick-XXXXXX"];
     const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
     
     size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
     char * tempDirectoryNameCString = (char *) malloc( bufferLength );
     if (  ! tempDirectoryNameCString  ) {
         NSLog(@"Unable to allocate memory for a temporary directory name");
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
         return nil;
     }
     
@@ -814,7 +670,7 @@ NSString * newTemporaryDirectoryPath(void)
     char * dirPath = mkdtemp(tempDirectoryNameCString);
     if (  ! dirPath  ) {
         NSLog(@"Unable to create a temporary directory");
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
     }
     
     NSString *tempFolder = [gFileMgr stringWithFileSystemRepresentation: tempDirectoryNameCString
@@ -823,13 +679,11 @@ NSString * newTemporaryDirectoryPath(void)
 	if (  [tempFolder hasPrefix: @"/var/"]  ) {
 		NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: @"/var" traverseLink: NO];
 		if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-			if (   ( ! [gFileMgr respondsToSelector: @selector(destinationOfSymbolicLinkAtPath:error:)] )
-				|| [[gFileMgr destinationOfSymbolicLinkAtPath: @"/var" error: NULL]
-					isEqualToString: @"private/var"]  ) {
+			if ( [[gFileMgr tbPathContentOfSymbolicLinkAtPath: @"/var"] isEqualToString: @"private/var"]  ) {
 					NSString * afterVar = [tempFolder substringFromIndex: 5];
 					tempFolder = [@"/private/var" stringByAppendingPathComponent:afterVar];
 			} else {
-				NSLog(@"Warning: /var is not a symlink to /private/var so it is being left intact");
+				NSLog(@"Warning: /var is a symlink but not to /private/var so it is being left intact");
 			}
 		}
 	}
@@ -951,7 +805,7 @@ NSString * TBGetDisplayName(NSString * msg,
         } else {
             NSString * targetPath = [[[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: newName] stringByAppendingPathExtension: @"conf"]; // (Don't use the .conf, but may need it for lastPartOfPath)
             NSString * dispNm = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-            if (  nil == [[[NSApp delegate] myConfigDictionary] objectForKey: dispNm]  ) {
+            if (  nil == [[((MenuController *)[NSApp delegate]) myConfigDictionary] objectForKey: dispNm]  ) {
                 break;
             }
             newName = TBGetString([NSLocalizedString(@"That name is being used.\n\n", @"Window text") stringByAppendingString: msg], nameToPrefill);
@@ -963,16 +817,14 @@ NSString * TBGetDisplayName(NSString * msg,
 
 NSString * credentialsGroupFromDisplayName (NSString * displayName)
 {
-	NSString * allGroup = [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"];
-	if (   allGroup
-		&& [[allGroup class] isSubclassOfClass: [NSString class]]  ) {
+	NSString * allGroup = [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"];
+	if (  [allGroup length] != 0  ) {
 		return allGroup;
 	}
 	
 	NSString * prefKey = [displayName stringByAppendingString: @"-credentialsGroup"];
-	NSString * group = [gTbDefaults objectForKey: prefKey];
-	if (   ( ! group )
-		|| ( [group length] == 0 )  ) {
+	NSString * group = [gTbDefaults stringForKey: prefKey];
+	if (  [group length] == 0  ) {
 		return nil;
 	}
 	
@@ -1000,52 +852,74 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
     NSString * myUsername = nil;
     NSString * myPassword = nil;
     
-    AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: fromDisplayName credentialsGroup: nil] autorelease];
-    [myAuthAgent setAuthMode: @"privateKey"];
-    if (  [myAuthAgent keychainHasCredentials]  ) {
-        [myAuthAgent performAuthentication];
-        myPassphrase = [myAuthAgent passphrase];
-        if (  moveNotCopy) {
-            [myAuthAgent deleteCredentialsFromKeychain];
+    NSString * fromPassphraseKey          = [fromDisplayName stringByAppendingString: @"%@-keychainHasPrivateKey"];
+    NSString * fromUsernameKey            = [fromDisplayName stringByAppendingString: @"%@-keychainHasUsername"];
+    NSString * fromUsernameAndPasswordKey = [fromDisplayName stringByAppendingString: @"%@-keychainHasUsernameAndPassword"];
+    
+    BOOL haveFromPassphrase          = [gTbDefaults boolForKey: fromPassphraseKey] && [gTbDefaults canChangeValueForKey: fromPassphraseKey];
+    BOOL haveFromUsername            = [gTbDefaults boolForKey: fromPassphraseKey] && [gTbDefaults canChangeValueForKey: fromUsernameKey];
+    BOOL haveFromUsernameAndPassword = [gTbDefaults boolForKey: fromPassphraseKey] && [gTbDefaults canChangeValueForKey: fromUsernameAndPasswordKey];
+    
+    if (   haveFromPassphrase
+        || haveFromUsername
+        || haveFromUsernameAndPassword  ) {
+        
+        AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: fromDisplayName credentialsGroup: nil] autorelease];
+        
+        if (  haveFromPassphrase  ) {
+            [myAuthAgent setAuthMode: @"privateKey"];
+            [myAuthAgent performAuthentication];
+            myPassphrase = [myAuthAgent passphrase];
+            if (  moveNotCopy) {
+                [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+            }
         }
-    }
-    [myAuthAgent setAuthMode: @"password"];
-    if (  [myAuthAgent keychainHasCredentials]  ) {
-        [myAuthAgent performAuthentication];
-        myUsername = [myAuthAgent username];
-        myPassword   = [myAuthAgent password];
-        if (  moveNotCopy) {
-            [myAuthAgent deleteCredentialsFromKeychain];
+        
+        if (  haveFromUsernameAndPassword  ) {
+            [myAuthAgent setAuthMode: @"password"];
+            [myAuthAgent performAuthentication];
+            myUsername = [myAuthAgent username];
+            myPassword = [myAuthAgent password];
+            if (  moveNotCopy) {
+                [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+            }
+        } else  if (  haveFromUsername  ) {
+            [myAuthAgent setAuthMode: @"password"];
+            [myAuthAgent performAuthentication];
+            myUsername = [myAuthAgent username];
+            if (  moveNotCopy) {
+                [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+            }
+        }
+        
+        if (  myPassphrase  ) {
+            KeyChain * passphraseKeychain = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"privateKey" ];
+            [passphraseKeychain deletePassword];
+            if (  [passphraseKeychain setPassword: myPassphrase] != 0  ) {
+                NSLog(@"Could not store passphrase in Keychain");
+            }
+            [passphraseKeychain release];
+        }
+        
+        if (  myUsername  ) {
+            KeyChain * usernameKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"username"   ];
+            [usernameKeychain deletePassword];
+            if (  [usernameKeychain setPassword: myUsername] != 0  ) {
+                NSLog(@"Could not store username in Keychain");
+            }
+            [usernameKeychain   release];
+        }
+        
+        if (  myPassword  ) {
+            KeyChain * passwordKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"password"   ];
+            [passwordKeychain deletePassword];
+            if (  [passwordKeychain setPassword: myPassword] != 0  ) {
+                NSLog(@"Could not store password in Keychain");
+            }
+            [passwordKeychain   release];
         }
     }
     
-    KeyChain * passphraseKeychain = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"privateKey" ];
-    KeyChain * usernameKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"username"   ];
-    KeyChain * passwordKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"password"   ];
-    
-    if (  myPassphrase  ) {
-        [passphraseKeychain deletePassword];
-        if (  [passphraseKeychain setPassword: myPassphrase] != 0  ) {
-            NSLog(@"Could not store passphrase in Keychain");
-        }
-    }
-    if (  myUsername  ) {
-        [usernameKeychain deletePassword];
-        if (  [usernameKeychain setPassword: myUsername] != 0  ) {
-            NSLog(@"Could not store username in Keychain");
-        }
-    }
-    if (  myPassword  ) {
-        [passwordKeychain deletePassword];
-        if (  [passwordKeychain setPassword: myPassword] != 0  ) {
-            NSLog(@"Could not store password in Keychain");
-        }
-    }
-    
-    [passphraseKeychain release];
-    [usernameKeychain   release];
-    [passwordKeychain   release];
-     
     return TRUE;
 }
 
@@ -1070,85 +944,6 @@ NSString * copyrightNotice()
             year];
 }
 
-BOOL isSanitizedOpenvpnVersion(NSString * s)
-{
-    unsigned i;
-    for (i=0; i<[s length]; i++) {
-        unichar ch = [s characterAtIndex: i];
-        if ( strchr("01234567890._-abcdefghijklmnopqrstuvwxyz", ch) == NULL  ) {
-            NSLog(@"An OpenVPN version string may only contain a-z, 0-9, periods, underscores, and hyphens");
-            return NO;
-        }
-    }
-    
-    return YES;
-}
-
-NSArray * availableOpenvpnVersions (void)
-{
-    static BOOL haveNotWarned = TRUE;       // Have we warned about ALL the bad folder names already
-    BOOL haveWarnedThisTimeThrough = FALSE; // Have we warned about any folder names this time through
-    
-    // Get a sorted list of the versions
-    NSMutableArray * list = [[[NSMutableArray alloc] initWithCapacity: 12] autorelease];
-    NSString * dir;
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: nil]];
-    while (  (dir = [dirEnum nextObject])  ) {
-        [dirEnum skipDescendents];
-        if (  [dir hasPrefix: @"openvpn-"]  ) {
-            NSString * version = [dir substringFromIndex: [@"openvpn-" length]];
-            if (  isSanitizedOpenvpnVersion(version)  ) {
-                unsigned i;
-                for (  i=0; i<[list count]; i++  ) {
-                    if (  [version compare: [list objectAtIndex: i] options: NSNumericSearch] == NSOrderedAscending  ) {
-                        [list insertObject: version atIndex: i];
-                        break;
-                    }
-                }
-                if (  i == [list count]  ) {
-                    [list addObject: version];
-                }
-            } else {
-                if (  haveNotWarned  ) {
-                    NSLog(@"OpenVPN version folder names may only contain a-z, 0-9, periods, and hyphens. %@ has been ignored.", dir);
-                    haveWarnedThisTimeThrough = TRUE;
-                }
-            }
-        }
-    }
-    
-    if (  haveWarnedThisTimeThrough  ) {
-        haveNotWarned = FALSE;
-    }
-    
-    if (  [list count] == 0  ) {
-        return nil;
-    }
-    
-    return list;
-}
-
-BOOL invalidConfigurationName(NSString * name, const char badCharsC[])
-{
-	unsigned i;
-	for (  i=0; i<[name length]; i++  ) {
-		unichar c = [name characterAtIndex: i];
-		if (   (c < 0x0020)
-			|| (c == 0x007F)
-			|| (c == 0x00FF)  ) {
-			return YES;
-		}
-	}
-	
-	const char * nameC          = [name UTF8String];
-	
-	return (   ( [name length] == 0)
-            || ( [name hasPrefix: @"."] )
-            || ( [name rangeOfString: @".."].length != 0)
-            || ( NULL != strpbrk(nameC, badCharsC) )
-            );
-}
-
 NSString * stringForLog(NSString * outputString, NSString * header)
 {
     outputString = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -1161,101 +956,87 @@ NSString * stringForLog(NSString * outputString, NSString * header)
 	return [NSString stringWithFormat: @"%@\n", tempMutableString];
 }
 
+NSString * configLocCodeStringForPath(NSString * configPath) {
+    
+    unsigned code;
+    
+    if (  [configPath hasPrefix: [gPrivatePath  stringByAppendingString: @"/"]]  ) {
+        code = CFG_LOC_PRIVATE;
+        
+    } else if (  [configPath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]  ) {
+        code = CFG_LOC_DEPLOY;
+    
+    } else if (  [configPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
+        code = CFG_LOC_SHARED;
+    
+    } else if (  [configPath hasPrefix: [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()] stringByAppendingString: @"/"]]  ) {
+        code = CFG_LOC_ALTERNATE;
+    
+    } else {
+        NSLog(@"configLocCodeStringForPath: unknown path %@", configPath);
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        return [NSString stringWithFormat: @"%u", CFG_LOC_MAX + 1];
+    }
+    
+    return [NSString stringWithFormat: @"%u", code];
+}
+
 OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString ** stderrString)
 {
-    NSString * path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-    if (  ! path  ) {
-        NSLog(@"Unable to find openvpnstart");
-        return -1;
-    }
+	// Make sure no arguments include a \t or \0
+	NSUInteger i;
+	for (  i=0; i<[arguments count]; i++  ) {
+        NSString * arg = [arguments objectAtIndex: i];
+		if (   ([arg rangeOfString: @"\t"].length != 0)
+            || ([arg rangeOfString: @"\0"].length != 0)  ) {
+			NSLog(@"runOpenvpnstart: Argument %lu contains one or more HTAB (ASCII 0x09) or NULL (ASCII (0x00) characters. They are not allowed in arguments. Arguments = %@", (unsigned long)i, arguments);
+			return -1;
+		}
+	}
     
-    // Send stdout and stderr to temporary files, and read the files after the task completes
-    NSString * dirPath = newTemporaryDirectoryPath();
-	
-    NSString * stdPath = [dirPath stringByAppendingPathComponent: @"runOpenvpnstartStdOut"];
-    if (  [gFileMgr fileExistsAtPath: stdPath]  ) {
-        NSLog(@"runOpenvpnstart: File exists at %@", stdPath);
-        return -1;
-    }
-    if (  ! [gFileMgr createFileAtPath: stdPath contents: nil attributes: nil]  ) {
-        NSLog(@"runOpenvpnstart: Unable to create %@", stdPath);
-        return -1;
-    }
-    NSFileHandle * stdFileHandle = [[NSFileHandle fileHandleForWritingAtPath: stdPath] retain];
-    if (  ! stdFileHandle  ) {
-        NSLog(@"runOpenvpnstart: Unable to get NSFileHandle for %@", stdPath);
-        return -1;
-    }
+    OSStatus status = -1;
+	NSString * myStdoutString = nil;
+	NSString * myStderrString = nil;
     
-    NSString * errPath = [dirPath stringByAppendingPathComponent: @"runOpenvpnstartErrOut"];
-    if (  [gFileMgr fileExistsAtPath: errPath]  ) {
-        NSLog(@"runOpenvpnstart: File exists at %@", errPath);
-		[stdFileHandle release];
-        return -1;
+    if (  runningOnLeopardOrNewer()  ) {
+        NSString * command = [[arguments componentsJoinedByString: @"\t"] stringByAppendingString: @"\n"];
+        status = runTunnelblickd(command, &myStdoutString, &myStderrString);
+    } else {
+        NSString * tunnelblickHelperPath = [[NSBundle mainBundle] pathForResource: @"tunnelblick-helper" ofType: nil];
+        unsigned long perms = [[gFileMgr tbFileAttributesAtPath: tunnelblickHelperPath traverseLink: NO] filePosixPermissions];
+        if (  (perms & S_ISUID) == 0  ) {
+            NSLog(@"runOpenvpnstart: This program has not been secured. Launch Tunnelblick to secure this program.");
+            return -1;
+        }
+        status = runTool(tunnelblickHelperPath, arguments, &myStdoutString, &myStderrString);
     }
-    if (  ! [gFileMgr createFileAtPath: errPath contents: nil attributes: nil]  ) {
-        NSLog(@"runOpenvpnstart: Unable to create %@", errPath);
-		[stdFileHandle release];
-        return -1;
-    }
-    NSFileHandle * errFileHandle = [[NSFileHandle fileHandleForWritingAtPath: errPath] retain];
-    if (  ! errFileHandle  ) {
-        NSLog(@"runOpenvpnstart: Unable to get NSFileHandle for %@", errPath);
-		[stdFileHandle release];
-        return -1;
-    }
-    
-    NSTask * task = [[[NSTask alloc] init] autorelease];
-    [task setLaunchPath: path];
-    [task setArguments:arguments];
-    [task setStandardOutput: stdFileHandle];
-    [task setStandardError:  errFileHandle];
-    [task setCurrentDirectoryPath: @"/tmp"];
-    [task launch];
-    [task waitUntilExit];
-    
-    [stdFileHandle closeFile];
-    [stdFileHandle release];
-    [errFileHandle closeFile];
-    [errFileHandle release];
-    
-	OSStatus status = [task terminationStatus];
     
     NSString * subcommand = ([arguments count] > 0
                              ? [arguments objectAtIndex: 0]
                              : @"(no subcommand!)");
     
-    NSFileHandle * file = [NSFileHandle fileHandleForReadingAtPath: stdPath];
-    NSData * data = [file readDataToEndOfFile];
-    [file closeFile];
-    NSString * outputString = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+    NSMutableString * logMsg = [NSMutableString stringWithCapacity: 100 + [myStdoutString length] + [myStderrString length]];
+    
     if (  stdoutString  ) {
-        *stdoutString = outputString;
+        *stdoutString = myStdoutString;
     } else {
-        if (  [outputString length] != 0  ) {
-            NSLog(@"openvpnstart stdout from %@:\n%@", subcommand, outputString);
+        if (  [myStdoutString length] != 0  ) {
+            [logMsg appendFormat: @"tunnelblickd stdout:\n'%@'\n", myStdoutString];
         }
     }
     
-    file = [NSFileHandle fileHandleForReadingAtPath: errPath];
-    data = [file readDataToEndOfFile];
-    [file closeFile];
-    outputString = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     if (  stderrString  ) {
-        *stderrString = outputString;
+        *stderrString = myStderrString;
     } else {
-        if (  [outputString length] != 0  ) {
-            NSLog(@"openvpnstart stderr from %@:\n%@", subcommand, outputString);
+        if (  [myStderrString length] != 0  ) {
+            [logMsg appendFormat: @"tunnelblickd stderr:\n'%@'\n", myStderrString];
         }
     }
-	
-    if (  ! [gFileMgr tbRemoveFileAtPath: dirPath handler: nil]  ) {
-        NSLog(@"Unable to remove temporary folder at %@", dirPath);
-    }
-
-    if (   (status != EXIT_SUCCESS)
-        && ( ! stderrString)  ) {
-        NSLog(@"openvpnstart status from %@: %ld", subcommand, (long) status);
+    
+    if (  status != EXIT_SUCCESS ) {
+        NSString * header = [NSString stringWithFormat: @"tunnelblickd status from %@: %ld\n", subcommand, (long) status];
+        [logMsg insertString: header atIndex: 0];
+        NSLog(@"%@", logMsg);
     }
 	
     return status;
@@ -1362,4 +1143,9 @@ void localizableStrings(void)
     NSLocalizedString(@"TCP_CONNECT",   @"Connection status");
     NSLocalizedString(@"UDP_CONNECT",   @"Connection status");
     NSLocalizedString(@"WAIT",          @"Connection status");
+	
+	// These strings also indicate the status of a connection, but they are set by Tunnelblick itself, not OpenVPN
+	NSLocalizedString(@"PASSWORD_WAIT",    @"Connection status");
+	NSLocalizedString(@"PRIVATE_KEY_WAIT", @"Connection status");
+    NSLocalizedString(@"DISCONNECTING",    @"Connection status");
 }

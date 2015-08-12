@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011
+ * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011, 2012, 2013, 2014. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,10 +21,13 @@
  */
 
 #import "AuthAgent.h"
+
 #import "helper.h"
-#import "TBUserDefaults.h"
+
+#import "KeyChain.h"
 #import "LoginWindowController.h"
 #import "PassphraseWindowController.h"
+#import "TBUserDefaults.h"
 
 extern TBUserDefaults  * gTbDefaults;
 
@@ -39,11 +42,6 @@ extern TBUserDefaults  * gTbDefaults;
 -(NSString *)   credentialsName;
 -(void)         setCredentialsName:            (NSString *)value;
 
--(void) setUsernameKeychain: (KeyChain *) newKeyChain;
--(void) setPasswordKeychain: (KeyChain *) newKeyChain;
--(void) setPassphrasePreferenceKey: (NSString *) newKey;
--(void) setUsernamePreferenceKey: (NSString *) newKey;
-
 -(NSArray *)    getUsernameAndPassword;
 -(void)         performPasswordAuthentication;
 -(void)         performPrivateKeyAuthentication;
@@ -51,6 +49,18 @@ extern TBUserDefaults  * gTbDefaults;
 @end
 
 @implementation AuthAgent
+
+TBSYNTHESIZE_OBJECT(retain, NSString *, authMode,        setAuthMode)
+TBSYNTHESIZE_OBJECT(retain, NSString *, username,        setUsername)
+TBSYNTHESIZE_OBJECT(retain, NSString *, password,        setPassword)
+TBSYNTHESIZE_OBJECT(retain, NSString *, passphrase,      setPassphrase)
+TBSYNTHESIZE_OBJECT(retain, NSString *, displayName,     setDisplayName)
+TBSYNTHESIZE_OBJECT(retain, NSString *, group,           setGroup)
+TBSYNTHESIZE_OBJECT(retain, NSString *, credentialsName, setCredentialsName)
+
+TBSYNTHESIZE_NONOBJECT_GET( BOOL,       authenticationWasFromKeychain)
+TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingLoginWindow)
+TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 
 -(id) initWithConfigName: (NSString *)inConfigName
 		credentialsGroup: (NSString *)inGroup
@@ -63,7 +73,7 @@ extern TBUserDefaults  * gTbDefaults;
         username   = nil;
         password   = nil;
         
-		NSString * allUseGroup = [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"];
+		NSString * allUseGroup = [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"];
 		if (  allUseGroup  ) {
 			inGroup = allUseGroup;
 		}
@@ -84,10 +94,12 @@ extern TBUserDefaults  * gTbDefaults;
         usernameKeychain        = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"username"   ];
         passwordKeychain        = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"password"   ];
 
-		passphrasePreferenceKey = [[NSString alloc] initWithFormat: @"%@-keychainHasPrivateKey",          [self credentialsName]];
-        usernamePreferenceKey   = [[NSString alloc] initWithFormat: @"%@-keychainHasUsernameAndPassword", [self credentialsName]];
-        
-        usedUniversalCredentials = NO;
+		passphrasePreferenceKey            = [[NSString alloc] initWithFormat: @"%@-keychainHasPrivateKey",          [self credentialsName]];
+        usernamePreferenceKey              = [[NSString alloc] initWithFormat: @"%@-keychainHasUsername",            [self credentialsName]];
+        usernameAndPasswordPreferenceKey   = [[NSString alloc] initWithFormat: @"%@-keychainHasUsernameAndPassword", [self credentialsName]];
+		
+		showingLoginWindow      = FALSE;
+		showingPassphraseWindow = FALSE;
     }
     return self;
 }
@@ -97,23 +109,24 @@ extern TBUserDefaults  * gTbDefaults;
     [[loginScreen window]       close];
     [[passphraseScreen window]  close];
     
-    [loginScreen                release];
-    [passphraseScreen           release];
-    [displayName                release];
-    [group                      release];
-    [credentialsName            release];
+    [loginScreen                release]; loginScreen             = nil;
+    [passphraseScreen           release]; passphraseScreen        = nil;
+    [authMode                   release]; authMode                = nil;
+    [displayName                release]; displayName             = nil;
+    [group                      release]; group                   = nil;
+    [credentialsName            release]; credentialsName         = nil;
     
-    [passphrase                 release];
-    [username                   release];
-    [password                   release];
-    [authMode                   release];
+    [passphrase                 release]; passphrase              = nil;
+    [username                   release]; username                = nil;
+    [password                   release]; password                = nil;
     
-    [passphraseKeychain         release];
-    [usernameKeychain           release];
-    [passwordKeychain           release];
+    [passphraseKeychain         release]; passphraseKeychain      = nil;
+    [usernameKeychain           release]; usernameKeychain        = nil;
+    [passwordKeychain           release]; passwordKeychain        = nil;
 
-    [passphrasePreferenceKey    release];
-    [usernamePreferenceKey      release];
+    [passphrasePreferenceKey    release]; passphrasePreferenceKey = nil;
+    [usernamePreferenceKey      release]; usernameAndPasswordPreferenceKey   = nil;
+    [usernameAndPasswordPreferenceKey release]; usernameAndPasswordPreferenceKey   = nil;
 
     [super dealloc];
 }
@@ -127,8 +140,7 @@ extern TBUserDefaults  * gTbDefaults;
         return nil;
     }
     
-    wasFromKeychain = FALSE;
-    usedUniversalCredentials = NO;
+    authenticationWasFromKeychain = FALSE;
     
     NSString * passphraseLocal;
     
@@ -138,10 +150,12 @@ extern TBUserDefaults  * gTbDefaults;
         [passphraseScreen redisplay];
     }
     
-    // Always clear the password
+    // Always clear the passphrase
     [[passphraseScreen passphrase] setStringValue: @""];
     
+	showingPassphraseWindow = TRUE;
     NSInteger result = [NSApp runModalForWindow: [passphraseScreen window]];
+    showingPassphraseWindow = FALSE;
     
     if (   (result != NSRunStoppedResponse)
         && (result != NSRunAbortedResponse)  ) {
@@ -162,13 +176,34 @@ extern TBUserDefaults  * gTbDefaults;
                 NSLog(@"Could not store passphrase in Keychain");
             }
             [gTbDefaults setBool: YES forKey: passphrasePreferenceKey];
-            [gTbDefaults synchronize];
         }
     }
     
     [[passphraseScreen window] close];
 
     return passphraseLocal;
+}
+
+-(BOOL) usernameIsInKeychain {
+    
+    return (   (   [gTbDefaults objectForKey:usernameAndPasswordPreferenceKey]
+                || [gTbDefaults objectForKey:usernamePreferenceKey]            )
+            && [gTbDefaults canChangeValueForKey:usernamePreferenceKey]             );
+}
+
+-(BOOL) passwordIsInKeychain {
+    
+    return (   [gTbDefaults objectForKey:usernameAndPasswordPreferenceKey]
+            && [gTbDefaults canChangeValueForKey:usernameAndPasswordPreferenceKey] );
+}
+
+-(NSString *) usernameFromKeychain {
+    
+    if (  [self usernameIsInKeychain]  ) {
+        return [usernameKeychain password];
+    }
+    
+    return nil;
 }
 
 // Returns an array with a non-zero length username and a non-zero length password obtained either from the Keychain or by asking the user
@@ -180,65 +215,47 @@ extern TBUserDefaults  * gTbDefaults;
         return nil;
     }
 
+    authenticationWasFromKeychain = TRUE;   // Assuming this
+    
     NSString * usernameLocal = nil;
     NSString * passwordLocal = nil;
 
-    if (   [gTbDefaults boolForKey:usernamePreferenceKey]
-        && [gTbDefaults canChangeValueForKey: usernamePreferenceKey]  ) { // Using this preference avoids accessing Keychain unless it has something
-        usernameLocal= [usernameKeychain password]; // Get username and password from Keychain if they've been saved
-        if ( usernameLocal ) {
-            passwordLocal = [passwordKeychain password];    // Only try to get password if have username. Avoids second "OK to use Keychain? query if the user says 'no'
-        }
+    if (  [self usernameIsInKeychain]  ) {
+        usernameLocal = [usernameKeychain password];
+		if (  ! usernameLocal  ) {
+			NSLog(@"User did not allow access to the Keychain to get VPN username");
+			return nil;
+		}
     }
-    
-    usedUniversalCredentials = NO;
-    
-    if (   usernameLocal
-        && passwordLocal
-        && ([usernameLocal length] > 0)
-        && ([passwordLocal length] > 0)  ) {
-        // Connection-specific credentials
-        
-    } else if (   [gTbDefaults boolForKey: @"keychainHasUniversalUsernameAndPassword"]  ) {
-        // No connection-specific credentials, but universal credentials exist 
-        [self setUsernameKeychain: [[[KeyChain alloc] initWithService: @"Tunnelblick-AuthUniversal" withAccountName: @"username"] autorelease]];
-        [self setPasswordKeychain: [[[KeyChain alloc] initWithService: @"Tunnelblick-AuthUniversal" withAccountName: @"password"] autorelease]];
-        [self setPassphrasePreferenceKey: [NSString stringWithFormat: @"%@-keychainHasPrivateKey", [self displayName]]];
-        [self setUsernamePreferenceKey:   [NSString stringWithFormat: @"keychainHasUniversalUsernameAndPassword"]];
-        usernameLocal= [usernameKeychain password]; // Get username and password from Keychain if they've been saved
-        if ( usernameLocal ) {
-            passwordLocal = [passwordKeychain password];    // Only try to get password if have username. Avoids second "OK to use Keychain? query if the user says 'no'
-        }
-        usedUniversalCredentials = YES;
-    }
-    if (   usernameLocal
-        && passwordLocal
-        && ([usernameLocal length] > 0)
-        && ([passwordLocal length] > 0)  ) {
-        
-        wasFromKeychain = TRUE;
-        
+    if (  [usernameLocal length] == 0  ) {
+        [gTbDefaults removeObjectForKey: usernamePreferenceKey];
+        [gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
     } else {
+        // (Only get password if we have a username)
+        if (  [self passwordIsInKeychain]  ) {
+            passwordLocal = [passwordKeychain password];
+			if (  ! passwordLocal  ) {
+				NSLog(@"User did not allow access to the Keychain to get VPN password");
+			} else if (  [passwordLocal length] == 0  ) {
+				[gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
+			}
+		}
+	}
+    
+    if (  [passwordLocal length] == 0  ) {
         
-        // Ask for username and password
-        wasFromKeychain = FALSE;
-        usedUniversalCredentials = NO;
+        authenticationWasFromKeychain = FALSE;
         
+        // Ask for password and possibly username
         if (  ! loginScreen  ) {
             loginScreen = [[LoginWindowController alloc] initWithDelegate: self];
-        } else {
-            [loginScreen redisplay];
-        }
-
-        if (   usernameLocal
-            && ([usernameLocal length] != 0)  ) {
-            [[loginScreen username] setStringValue: usernameLocal];
-        }
-
-        // Always clear the password
-        [[loginScreen password] setStringValue: @""];
+		} else {
+			[loginScreen redisplay];
+		}
         
+		showingLoginWindow = TRUE;
         NSInteger result = [NSApp runModalForWindow: [loginScreen window]];
+		showingLoginWindow = FALSE;
         
         if (   (result != NSRunStoppedResponse)
             && (result != NSRunAbortedResponse)  ) {
@@ -255,24 +272,59 @@ extern TBUserDefaults  * gTbDefaults;
         
         if (  ! usernameLocal  ) {
             NSLog(@"username is nil for Keychain '%@'", [usernameKeychain description]);
+            usernameLocal = @"";
         }
         if (  ! passwordLocal  ) {
             NSLog(@"password is nil for Keychain '%@'", [usernameKeychain description]);
+            passwordLocal = @"";
         }
         
-        if (  [loginScreen saveInKeychain]  ) {
-            if (  [gTbDefaults canChangeValueForKey: usernamePreferenceKey]  ) {
+        if (   [loginScreen isSaveUsernameInKeychainChecked]  ) {
+            
+            if (  [usernameLocal length] == 0) {
+                
+                // "Saving" an empty username means delete both the username and the password
                 [usernameKeychain deletePassword];
-                if (  [usernameKeychain setPassword: usernameLocal] != 0  ) {
-                    NSLog(@"Could not save username in Keychain '%@'", [usernameKeychain description]);
-                }
                 [passwordKeychain deletePassword];
-                if (  [passwordKeychain setPassword: passwordLocal] != 0  ) {
-                    NSLog(@"Could not save password in Keychain '%@'", [usernameKeychain description]);
+                [gTbDefaults removeObjectForKey: usernamePreferenceKey];
+                [gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
+                
+            } else if (   [loginScreen isSavePasswordInKeychainChecked]
+                       && ([passwordLocal length] > 0)  ) {
+                
+                // Saving both username and password
+                if (  [gTbDefaults canChangeValueForKey: usernameAndPasswordPreferenceKey]  ) {
+                    [usernameKeychain deletePassword];
+                    if (  [usernameKeychain setPassword: usernameLocal] != 0  ) {
+                        NSLog(@"Could not save username in Keychain '%@'", [usernameKeychain description]);
+                    }
+                    [passwordKeychain deletePassword];
+                    if (  [passwordKeychain setPassword: passwordLocal] != 0  ) {
+                        NSLog(@"Could not save password in Keychain '%@'", [usernameKeychain description]);
+                    }
+                    [gTbDefaults setBool: YES forKey: usernameAndPasswordPreferenceKey];
+                    [gTbDefaults removeObjectForKey:  usernamePreferenceKey];
                 }
-                [gTbDefaults setBool: YES forKey: usernamePreferenceKey];
-                [gTbDefaults synchronize];
+            } else {
+                
+                // Save only the username
+                if (  [gTbDefaults canChangeValueForKey: usernamePreferenceKey]  ) {
+                    [usernameKeychain deletePassword];
+                    [passwordKeychain deletePassword];
+                    if (  [usernameKeychain setPassword: usernameLocal] != 0  ) {
+                        NSLog(@"Could not save username in Keychain '%@'", [usernameKeychain description]);
+                    }
+                    [gTbDefaults setBool: YES forKey: usernamePreferenceKey];
+                    [gTbDefaults removeObjectForKey:  usernameAndPasswordPreferenceKey];
+                }
             }
+        } else {
+            
+            // Not saving username, so delete both the username and password
+            [usernameKeychain deletePassword];
+            [passwordKeychain deletePassword];
+            [gTbDefaults removeObjectForKey: usernamePreferenceKey];
+            [gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
         }
         
         [[loginScreen window] close];
@@ -310,13 +362,19 @@ extern TBUserDefaults  * gTbDefaults;
     NSString *passphraseLocal = nil;
     if (  [gTbDefaults boolForKey:passphrasePreferenceKey] && [gTbDefaults canChangeValueForKey: passphrasePreferenceKey]  ) { // Get saved privateKey from Keychain if it has been saved
         passphraseLocal = [passphraseKeychain password];
+        if (  ! passphraseLocal  ) {
+			NSLog(@"User did not allow access to the Keychain to get passphrase");
+            [self setPassphrase: nil];
+            return;
+        }
     }
     
-    if (passphraseLocal == nil) {
+    if (  [passphraseLocal length] == 0  ) {
+        [gTbDefaults removeObjectForKey: passphrasePreferenceKey];
         passphraseLocal = [self askForPrivateKey];
-        wasFromKeychain = FALSE;
+        authenticationWasFromKeychain = FALSE;
     } else {
-        wasFromKeychain = TRUE;
+        authenticationWasFromKeychain = TRUE;
     }
 
     [self setPassphrase:passphraseLocal];
@@ -335,179 +393,48 @@ extern TBUserDefaults  * gTbDefaults;
     }
 }
 
--(void)deleteCredentialsFromKeychain 
+-(void)deleteCredentialsFromKeychainIncludingUsername:  (BOOL) includeUsername
 {
     if (  [authMode isEqualToString: @"privateKey"]  ) {
         if (  [gTbDefaults boolForKey:passphrasePreferenceKey]  ) { // Delete saved privateKey from Keychain if it has been saved
             [passphraseKeychain deletePassword];
             [gTbDefaults removeObjectForKey: passphrasePreferenceKey];
-            [gTbDefaults synchronize];
         }
     }
     else if (  [authMode isEqualToString: @"password"]  ) {
-        if (  [gTbDefaults boolForKey:usernamePreferenceKey]  ) { // Delete saved username and password from Keychain if they've been saved
-            [usernameKeychain deletePassword];
-            [passwordKeychain deletePassword];
-            [gTbDefaults removeObjectForKey: usernamePreferenceKey];
-            [gTbDefaults synchronize];
+        if (  includeUsername  ) {
+            if (   [gTbDefaults boolForKey: usernamePreferenceKey]
+                || [gTbDefaults boolForKey: usernameAndPasswordPreferenceKey]  ) { // Delete saved username and password from Keychain if they've been saved
+                [usernameKeychain deletePassword];
+                [passwordKeychain deletePassword];
+                [gTbDefaults removeObjectForKey: usernamePreferenceKey];
+                [gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
+            }
         }
-    }        
+        if (   [gTbDefaults boolForKey: usernameAndPasswordPreferenceKey]  ) {      // Delete saved password from Keychain if it has been saved
+            [passwordKeychain deletePassword];
+            [gTbDefaults removeObjectForKey:  usernameAndPasswordPreferenceKey];    // and indicate that only the username is saved
+            [gTbDefaults setBool: YES forKey: usernamePreferenceKey];
+        }
+    }
     else {
-        NSLog(@"Invalid authMode '%@' in deleteCredentialsFromKeychain", [self authMode]);
+        NSLog(@"Invalid authMode '%@' in deleteCredentialsFromKeychainIncludingUsername:", [self authMode]);
     }
 }
 
--(BOOL) keychainHasCredentials
+-(BOOL) keychainHasAnyCredentials
 {
     if (  [authMode isEqualToString: @"privateKey"]  ) {
-        if (  [gTbDefaults boolForKey:passphrasePreferenceKey]  ) { // Get saved privateKey from Keychain if it has been saved
-            NSString * passphraseLocal = [passphraseKeychain password];
-            if (    passphraseLocal && ( [passphraseLocal length] > 0 )    ) {
-                return YES;
-            } else {
-                return NO;
-            }
-        } else {
-            return NO;
-        }
-    }
-    else if (  [authMode isEqualToString: @"password"]  ) {
-        if (  [gTbDefaults boolForKey:usernamePreferenceKey]  ) { // Get username and password from Keychain if they've been saved
-            NSString * usernameLocal = [usernameKeychain password];
-            NSString * passwordLocal = [passwordKeychain password];
-            if (    usernameLocal && passwordLocal && ([usernameLocal length] > 0) && ([passwordLocal length] > 0)    ) {
-                return YES;
-            } else {
-                return NO;
-            }
-        } else {
-            return NO;
-        }
-    }
-
-    NSLog(@"Invalid authMode '%@' in keychainHasCredentials", [self authMode]);
-    return NO;
-}
-
-- (NSString *)authMode {
-    return [[authMode retain] autorelease];
-}
-
-- (void)setAuthMode:(NSString *)value {
-    if (authMode != value) {
-        [authMode release];
-        authMode = [value copy];
-    }
-}
-
-- (NSString *)username {
-    return [[username retain] autorelease];
-}
-
-- (void)setUsername:(NSString *)value {
-    if (username != value) {
-        [username release];
-        username = [value copy];
-    }
-}
-
-- (NSString *)password {
-	if([[self authMode] isEqualToString:@"password"]) {
-		return [[password retain] autorelease];
-	} else {
-		return nil;
+        return [gTbDefaults boolForKey: passphrasePreferenceKey];
 	}
-}
-
-- (void)setPassword:(NSString *)value {
-    if (password != value) {
-        [password release];
-        password = [value copy];
-    }
-}
-
-- (NSString *)passphrase {
-    return [[passphrase retain] autorelease];
-}
-
-- (void)setPassphrase:(NSString *)value {
-    if (passphrase != value) {
-        [passphrase release];
-        passphrase = [value copy];
-    }
-}
-- (NSString *)displayName {
-    return [[displayName retain] autorelease];
-}
-
-- (void)setDisplayName:(NSString *)value {
-    if (displayName != value) {
-        [displayName release];
-        displayName = [value copy];
-    }
-}
-
-- (NSString *)group {
-    return [[group retain] autorelease];
-}
-
-- (void)setGroup:(NSString *)value {
-    if (group != value) {
-        [group release];
-        group = [value copy];
-    }
-}
-
-- (NSString *)credentialsName {
-    return [[credentialsName retain] autorelease];
-}
-
-- (void)setCredentialsName:(NSString *)value {
-    if (credentialsName != value) {
-        [credentialsName release];
-        credentialsName = [value copy];
-    }
-}
-
--(BOOL) authenticationWasFromKeychain {
-    return wasFromKeychain;
-}
-
--(BOOL) usedUniversalCredentials
-{
-    return usedUniversalCredentials;
-}
-
--(void) setUsernameKeychain: (KeyChain *) newKeyChain
-{
-    if (  usernameKeychain != newKeyChain  ) {
-        [usernameKeychain release];
-        usernameKeychain = [newKeyChain retain];
-    }
-}
-
--(void) setPasswordKeychain: (KeyChain *) newKeyChain
-{
-    if (  passwordKeychain != newKeyChain  ) {
-        [passwordKeychain release];
-        passwordKeychain = [newKeyChain retain];
-    }
-}
-
--(void) setPassphrasePreferenceKey: (NSString *) newKey
-{
-    if (  passphrasePreferenceKey != newKey  ) {
-        [passphrasePreferenceKey release];
-        passphrasePreferenceKey = [newKey retain];
-    }
-}
-
--(void) setUsernamePreferenceKey: (NSString *) newKey
-{
-    if (  usernamePreferenceKey != newKey  ) {
-        [usernamePreferenceKey release];
-        usernamePreferenceKey = [newKey retain];
-    }
+	
+    if (  [authMode isEqualToString: @"password"]  ) {
+        return (   [gTbDefaults boolForKey: usernamePreferenceKey]
+				|| [gTbDefaults boolForKey: usernameAndPasswordPreferenceKey]  );
+	}
+	
+    NSLog(@"Invalid authMode '%@' in keychainHasAnyCredentials", [self authMode]);
+    return NO;
 }
 
 @end

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,8 +21,10 @@
 
 
 #import "UtilitiesView.h"
+
 #import "easyRsa.h"
 #import "helper.h"
+
 #import "NSFileManager+TB.h"
 #import "TBUserDefaults.h"
 
@@ -30,6 +32,11 @@ extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;
 
 @implementation UtilitiesView
+
+-(void) dealloc {
+	
+    [super dealloc];
+}
 
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -50,9 +57,15 @@ extern TBUserDefaults * gTbDefaults;
     [utilitiesKillAllOpenVpnButton setTitle: NSLocalizedString(@"Quit All OpenVPN Processes", @"Button")];
     [utilitiesKillAllOpenVpnButton sizeToFit];
 	[utilitiesKillAllOpenVpnButton setEnabled: ALLOW_OPENVPNSTART_KILLALL];
+	
+	[utilitiesCopyConsoleLogButton setTitle: NSLocalizedString(@"Copy Console Log to Clipboard", @"Button")];
+    [utilitiesCopyConsoleLogButton sizeToFit];	
     
+	[utilitiesOpenUninstallInstructionsButton setTitle: NSLocalizedString(@"Open Uninstall Instructions in Browser", @"Button")];
+    [utilitiesOpenUninstallInstructionsButton sizeToFit];	
+        
     NSString * easyRsaPathMessage;
-    if (  [gTbDefaults objectForKey: @"easy-rsaPath"]  ) {
+    if (  [gTbDefaults stringForKey: @"easy-rsaPath"]  ) {
         easyRsaPathMessage = easyRsaPathToUse(YES);
         if (  ( ! easyRsaPathMessage )  ) {
             easyRsaPathMessage = NSLocalizedString(@"(The 'easy-rsaPath' preference is invalid.)", @"Window text");
@@ -66,9 +79,6 @@ extern TBUserDefaults * gTbDefaults;
     
     [utilitiesRunEasyRsaButton setTitle: NSLocalizedString(@"Open easy-rsa in Terminal", @"Button")];
     [utilitiesRunEasyRsaButton sizeToFit];
-	
-	[utilitiesCopyConsoleLogButton setTitle: NSLocalizedString(@"Copy Console Log to Clipboard", @"Button")];
-    [utilitiesCopyConsoleLogButton sizeToFit];	
 }
 
 //***************************************************************************************************************
@@ -76,10 +86,12 @@ extern TBUserDefaults * gTbDefaults;
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesKillAllOpenVpnButton)
 
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesCopyConsoleLogButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesOpenUninstallInstructionsButton)
+
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesRunEasyRsaButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   utilitiesEasyRsaPathTFC)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesCopyConsoleLogButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesHelpButton)
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Jonathan Bullard
+ * Copyright 2010, 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -19,10 +19,9 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-#import <Cocoa/Cocoa.h>
-#import "UKKQueue/UKKQueue.h"
+#import "defines.h"
 
-
+@class UKKQueue;
 @class VPNConnection;
 
 
@@ -64,11 +63,6 @@
     long            secondWeLastQueuedAChange;      // Seconds since 1/1/2001 that we last queued a request to process a change to a log file
     unsigned        numberOfRequestsInThatSecond;   // Number of requests we've queued in that second
     NSTimer       * watchdogTimer;                  // Timer to queue a request to process a change to a log file
-    
-    // Used to throttle scroll requests
-    long            secondWeLastQueuedAScrollRequest;   // Seconds since 1/1/2001 that we last queued a scroll request
-    unsigned        numberOfScrollRequestsInThatSecond; // Number of requests we've queued in that second
-    NSTimer       * scrollWatchdogTimer;                // Timer to queue a scroll request
 }
 
 -(LogDisplay *)     initWithConfigurationPath:      (NSString *) inConfigPath;

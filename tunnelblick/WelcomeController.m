@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,8 +20,10 @@
  */
 
 
-#import "defines.h"
 #import "WelcomeController.h"
+
+#import "defines.h"
+
 #import "MenuController.h"
 #import "TBUserDefaults.h"
 
@@ -35,6 +37,13 @@ extern TBUserDefaults  * gTbDefaults;
 @end
 
 @implementation WelcomeController
+
+-(NSString *) stringValue {
+    
+    // Implemented ONLY to work with "takeStringURLFrom:" in awakeFromNib
+    
+    return [[urlString copy] autorelease];
+}
 
 -(id)     initWithDelegate: (id) theDelegate
 				 urlString: (NSString *) theUrlString
@@ -85,7 +94,15 @@ showDoNotShowAgainCheckbox: (BOOL) showTheCheckbox
     [doNotShowAgainCheckbox setTitle: NSLocalizedString(@"Do not show this again", @"Checkbox")];
 	
 	[progressIndicator startAnimation: self];
-    [welcomeWV setMainFrameURL: urlString];
+    
+    // respondsToSelector is used because OS X 10.4.11 and higher respond to setMainFrameURL:, so runningOnLeopardOrNewer() won't test what we want
+    // But when we stop building for Tiger we can remove the test and the "else" clause and the "stingValue" definition (above)
+    if (  [welcomeWV respondsToSelector:@selector(setMainFrameURL:)]  ) {
+        [welcomeWV setMainFrameURL: urlString];
+    } else {
+        [welcomeWV takeStringURLFrom: self]; // Weird, but the only easy way to do it, since takeStringUrlFrom: invokes stringValue on its argument.
+    }
+    
     [welcomeWV setFrameLoadDelegate: self];
 	
 	if (  ! showCheckbox  ) {
@@ -165,13 +182,10 @@ decidePolicyForNavigationAction: (NSDictionary *) actionInformation
     }
 }
 
-- (void) dealloc
-{
-    [okButton               release];
-    [doNotShowAgainCheckbox release];
-    [welcomeWV              release];
-    [progressIndicator      release];
-    [delegate               release];
+- (void) dealloc {
+	
+	[urlString release]; urlString = nil;
+    [delegate  release]; delegate  = nil;
     
 	[super dealloc];
 }
@@ -188,14 +202,9 @@ decidePolicyForNavigationAction: (NSDictionary *) actionInformation
 	[[self delegate] welcomeOKButtonWasClicked];
 }
 
--(IBAction)   doNotShowAgainCheckboxWasClicked: sender
+-(IBAction)   doNotShowAgainCheckboxWasClicked: (NSButton *) sender
 {
-    (void) sender;
-	if (  [doNotShowAgainCheckbox state] == NSOnState  ) {
-		[gTbDefaults setBool: YES forKey: @"skipWelcomeScreen"];
-	} else {
-		[gTbDefaults setBool: NO  forKey: @"skipWelcomeScreen"];
-	}
+    [gTbDefaults setBool: [sender state] forKey: @"skipWelcomeScreen"];
 }
 
 -(NSButton *) doNotShowAgainCheckbox

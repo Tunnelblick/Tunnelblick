@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,7 +20,7 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-#import "sharedRoutines.h"
+@class AlertWindowController;
 
 void           appendLog				 (NSString * msg);
 
@@ -34,8 +34,7 @@ BOOL           checkOwnerAndPermissions (NSString * fPath,
                                          gid_t      gid,
                                          mode_t     permsShouldHave);
 
-int            createDir                (NSString * d,
-                                         unsigned long perms);
+NSString     * configLocCodeStringForPath(NSString * configPath);
 
 NSString     * credentialsGroupFromDisplayName (NSString * displayName);
 
@@ -56,22 +55,12 @@ NSMutableString * encodeSlashesAndPeriods(NSString * s);
 NSString     * stringForLog             (NSString * outputString,
                                          NSString * header);
 
-BOOL           invalidConfigurationName (NSString * name,
-                                         const char badChars[]);
-
 NSString     * firstPartOfPath          (NSString * thePath);
 NSString     * lastPartOfPath           (NSString * thePath);
+NSString     * displayNameFromPath      (NSString * thePath);
 NSString     * firstPathComponent       (NSString * thePath);
 
-NSString     * deconstructOpenVPNLogPath(NSString * logPath,
-                                         int      * portPtr,
-                                         NSString * * startArgsPtr);
-
 NSString     * tunnelblickVersion       (NSBundle * bundle);
-NSDictionary * getOpenVPNVersionForConfigurationNamed(NSString * name);
-NSArray      * availableOpenvpnVersions (void);
-BOOL           isSanitizedOpenvpnVersion(NSString * s);
-
 NSString     * localizeNonLiteral        (NSString * status,
                                          NSString * type);
 
@@ -80,6 +69,13 @@ NSString     * TBGetString				(NSString * msg,
 
 NSString     * TBGetDisplayName         (NSString * msg,
                                          NSString * sourcePath);
+
+NSNumber     * tbNumberWithInteger      (NSInteger number);
+NSNumber     * tbNumberWithUnsignedInteger(NSUInteger number);
+NSUInteger     tbUnsignedIntegerValue   (NSNumber * number);
+
+AlertWindowController * TBShowAlertWindow(NSString * title,
+                                          NSString * msg);
 
 int            TBRunAlertPanel          (NSString * title,
                                          NSString * msg,
@@ -101,21 +97,23 @@ OSStatus       runOpenvpnstart          (NSArray  * arguments,
                                          NSString ** stdoutString,
                                          NSString ** stderrString);
 
-OSStatus       runAsUser(NSString * launchPath,
-						 NSArray * arguments,
-						 NSString * * stdOut,
-						 NSString * * stdErr);
-
 BOOL           isUserAnAdmin            (void);
 
 BOOL           runningABetaVersion      (void);
 
+BOOL           mustPlaceIconInStandardPositionInStatusBar(void);
+
+BOOL           runningOnMainThread      (void);
+
 BOOL           runningOnTigerOrNewer    (void);
 BOOL           runningOnLeopardOrNewer  (void);
 BOOL           runningOnSnowLeopardOrNewer(void);
+BOOL           runningOnSnowLeopardPointEightOrNewer(void);
 BOOL           runningOnLionOrNewer(void);
 BOOL           runningOnMountainLionOrNewer(void);
 BOOL           runningOnMavericksOrNewer(void);
+BOOL           runningOnYosemiteOrNewer(void);
+BOOL           runningOnIntel(void);
 
 BOOL           tunnelblickTestPrivateOnlyHasTblks(void);
 BOOL           tunnelblickTestAppInApplications(void);

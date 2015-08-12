@@ -5,13 +5,16 @@
 //  Created by Dustin Mierau
 
 #import "NetSocket.h"
+
 #import <arpa/inet.h>
+#import <fcntl.h>
+#import <netdb.h>
 #import <sys/socket.h>
 #import <sys/time.h>
 #import <sys/ioctl.h>
-#import <fcntl.h>
-#import <netdb.h>
 #import <unistd.h>
+
+#import "NSTimer+TB.h"
 
 static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType inType, CFDataRef inAddress, const void* inData, void* inContext );
 
@@ -1075,6 +1078,8 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 {
 	// Schedule our timeout timer
 	mConnectionTimer = [[NSTimer scheduledTimerWithTimeInterval:inTimeout target:self selector:@selector( _socketConnectionTimedOut: ) userInfo:nil repeats:NO] retain];
+    [mConnectionTimer tbSetTolerance: -1.0];
+
 }
 
 - (void)_unscheduleConnectionTimeoutTimer

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,7 +20,6 @@
  */
 
 
-#import <Cocoa/Cocoa.h>
 #import "defines.h"
 
 @interface InfoView : NSView {
@@ -52,5 +51,6 @@
 
 TBPROPERTY_READONLY(NSButton        *, infoHelpButton)
 TBPROPERTY_READONLY(NSTextFieldCell *, infoVersionTFC)
+TBPROPERTY(NSTimer *, scrollTimer, setScrollTimer)
 
 @end

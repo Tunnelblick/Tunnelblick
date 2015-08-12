@@ -1,8 +1,19 @@
 //
 //  DBPrefsWindowController.m
 //
+//  Created by Dave Batton
+//  http://www.Mere-Mortal-Software.com/blog/
+//
+//  Documentation for this class is available here:
+//  http://www.mere-mortal-software.com/blog/details.php?d=2007-03-11
+//
+//  Copyright 2007. Some rights reserved.
+//  This work is licensed under a Creative Commons license:
+//  http://creativecommons.org/licenses/by/3.0/
+//
 
 #import "DBPrefsWindowController.h"
+
 #import "TBUserDefaults.h"
 
 
@@ -64,6 +75,8 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		
 		[self setCrossFade:YES]; 
 		[self setShiftSlowsAnimation:YES];
+		
+		windowHasLoaded = FALSE;
 	}
 	return self;
     
@@ -79,7 +92,11 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     // If the developer attached a window to this controller
     // in Interface Builder, it gets replaced with this one.
     
-    NSWindow *window = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0.0, 0.0, 760.0, 390.0)
+	if (  [self window]  ) {
+		return;
+	}
+	
+    NSWindow *window = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0.0, 0.0, 920.0, 390.0)
 												    styleMask:(NSTitledWindowMask |
 															   NSClosableWindowMask |
                                                                NSResizableWindowMask |
@@ -89,22 +106,28 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	[self setWindow:window];
     
     [self setShouldCascadeWindows: NO];
-    
-	contentSubview = [[[NSView alloc] initWithFrame:[[[self window] contentView] frame]] autorelease];
-	[contentSubview setAutoresizingMask:(NSViewMinYMargin | NSViewWidthSizable | NSViewHeightSizable)];
+	
+	contentSubview = [[NSView alloc] initWithFrame:[[[self window] contentView] frame]];
+    [contentSubview setAutoresizingMask:(NSViewMinYMargin | NSViewWidthSizable | NSViewHeightSizable)];
 	[[[self window] contentView] addSubview:contentSubview];
 	[[self window] setShowsToolbarButton:NO];
     [[self window] setContentMinSize: NSMakeSize(760.0, 390.0)];
+	
+	windowHasLoaded = TRUE;
 }
 
 
 
 
 - (void) dealloc {
-	[toolbarIdentifiers release];
-	[toolbarViews release];
-	[toolbarItems release];
-	[viewAnimation release];
+	
+	[toolbarIdentifiers release]; toolbarIdentifiers = nil;
+	[toolbarViews release];       toolbarViews       = nil;
+	[toolbarItems release];       toolbarItems       = nil;
+	[contentSubview release];     contentSubview     = nil;
+	[viewAnimation release];      viewAnimation      = nil;
+	
+	
 	[super dealloc];
 }
 
@@ -237,7 +260,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar
 {
-	return toolbarIdentifiers;
+	return [[toolbarIdentifiers retain] autorelease];
     
 	(void)toolbar;
 }
@@ -247,7 +270,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar 
 {
-	return toolbarIdentifiers;
+	return [[toolbarIdentifiers retain] autorelease];
     
 	(void)toolbar;
 }
@@ -257,7 +280,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
 {
-	return toolbarIdentifiers;
+	return [[toolbarIdentifiers retain] autorelease];
 	(void)toolbar;
 }
 
@@ -353,7 +376,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 - (NSString *)windowTitle: (NSString *) currentItemLabel
 // Subclasses can override this.
 {
-    return currentItemLabel;
+    return [[currentItemLabel retain] autorelease];
 }
 
 
@@ -450,7 +473,8 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	return windowFrame;
 }
 
-
-
+-(BOOL)windowHasLoaded {
+	return windowHasLoaded;
+}
 
 @end

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -24,9 +24,11 @@
 
 #ifdef INCLUDE_VPNSERVICE
 
-#import "VPNServiceDefines.h"
-#import "VPNService.h"
 #import "VPNServiceCreateAccountController.h"
+
+#import "VPNServiceDefines.h"
+
+#import "VPNService.h"
 
 @interface VPNServiceCreateAccountController() // Private methods
 
@@ -123,21 +125,9 @@
     }
 }
 
-- (void) dealloc
-{
-    [nextButton                         release];
-    [cancelBackButton                   release];
+- (void) dealloc {
     
-    [createAccountTFC                   release];
-	[emailAddressTFC                    release];
-	[passwordTFC                        release];
-	[passwordConfirmTFC                 release];
-    
-    [emailAddressTF                     release];
-    [passwordTF                         release];
-    [passwordConfirmTF                  release];
-    
-    [delegate                           release];
+    [delegate release]; delegate = nil;
     
 	[super dealloc];
 }

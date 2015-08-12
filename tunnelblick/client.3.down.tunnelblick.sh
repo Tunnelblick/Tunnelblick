@@ -22,6 +22,7 @@ TUNNELBLICK_CONFIG="$(/usr/sbin/scutil <<-EOF
 EOF)"
 ARG_MONITOR_NETWORK_CONFIGURATION="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*MonitorNetwork :' | sed -e 's/^.*: //g')"
 LEASEWATCHER_PLIST_PATH="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*LeaseWatcherPlistPath :' | sed -e 's/^.*: //g')"
+REMOVE_LEASEWATCHER_PLIST="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RemoveLeaseWatcherPlist :' | sed -e 's/^.*: //g')"
 PSID="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*Service :' | sed -e 's/^.*: //g')"
 SCRIPT_LOG_FILE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*ScriptLogFile :' | sed -e 's/^.*: //g')"
 # Don't need: ARG_RESTORE_ON_DNS_RESET="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreOnDNSReset :' | sed -e 's/^.*: //g')"
@@ -41,7 +42,9 @@ fi
 # Remove leasewatcher
 if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
     launchctl unload "${LEASEWATCHER_PLIST_PATH}"
-    rm -f "${LEASEWATCHER_PLIST_PATH}"
+    if ${REMOVE_LEASEWATCHER_PLIST} ; then
+        rm -f "${LEASEWATCHER_PLIST_PATH}"
+    fi
     echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.down.tunnelblick.sh: Cancelled monitoring of system configuration changes" >> "${SCRIPT_LOG_FILE}"
 fi
 

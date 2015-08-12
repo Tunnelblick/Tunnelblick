@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -21,6 +21,10 @@
 
 
 #import "AppearanceView.h"
+
+#import "helper.h"
+
+#import "MenuController.h"
 #import "NSFileManager+TB.h"
 
 
@@ -45,6 +49,11 @@ extern NSString       * gDeployPath;
     return self;
 }
 
+-(void) dealloc {
+	
+	[super dealloc];
+}
+
 - (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
 	
@@ -61,6 +70,7 @@ extern NSString       * gDeployPath;
     
     NSString * defaultIconSetName    = @"TunnelBlick.TBMenuIcons";
     NSString * blackWhiteIconSetName = @"TunnelBlick-black-white.TBMenuIcons";
+    NSString * oldIconSetName        = @"3.3.TBMenuIcons";
     
     NSMutableArray * iconSetContent = [NSMutableArray arrayWithCapacity: [paths count]];
     unsigned i;
@@ -72,6 +82,8 @@ extern NSString       * gDeployPath;
             name = NSLocalizedString(@"Standard icon", @"Button");
         } else if (  [fileName isEqualToString: blackWhiteIconSetName]  ) {
             name = NSLocalizedString(@"Monochrome icon", @"Button");
+        } else if (  [fileName isEqualToString: oldIconSetName]  ) {
+            name = NSLocalizedString(@"Tunnelblick 3.3 icon", @"Button");
         }
         
         [iconSetContent addObject: [NSDictionary dictionaryWithObjectsAndKeys: name, @"name", fileName, @"value", nil]];
@@ -88,7 +100,6 @@ extern NSString       * gDeployPath;
     
     // Icon placement checkbox
     [appearancePlaceIconNearSpotlightCheckbox setTitle: NSLocalizedString(@"Place next to Spotlight icon", @"Checkbox name")];
-    
     
     // Menu checkboxes
     [appearanceMenuTFC setTitle: NSLocalizedString(@"Menu:", @"Window text")];
@@ -110,6 +121,33 @@ extern NSString       * gDeployPath;
     [appearanceConnectionWindowDisplayCriteriaArrayController setContent: cwContent];
     [appearanceConnectionWindowDisplayCriteriaButton sizeToFit];
 
+    // Connection window screen assignment popup
+    NSMutableArray * cwsContent = [NSMutableArray arrayWithCapacity: [[NSScreen screens] count] + 1];
+    
+    NSArray * screens = [((MenuController *)[NSApp delegate]) screenList];
+    
+    NSDictionary * dict = [screens objectAtIndex: 0];
+    unsigned width  = [[dict objectForKey: @"DisplayWidth"]  unsignedIntValue];
+    unsigned height = [[dict objectForKey: @"DisplayHeight"] unsignedIntValue];
+	dict = [NSDictionary dictionaryWithObjectsAndKeys:
+						   [NSString stringWithFormat: NSLocalizedString(@"Show on default screen (%u x %u)", @"Button"), width, height], @"name",
+						   [NSNumber numberWithUnsignedInt: 0], @"value", nil];
+    [cwsContent addObject: dict];
+    
+    for (  i=0; i<[screens count]; i++  ) {
+        dict = [screens objectAtIndex: i];
+        unsigned displayNumber = [[dict objectForKey: @"DisplayNumber"] unsignedIntValue];
+		width  = [[dict objectForKey: @"DisplayWidth"]  unsignedIntValue];
+		height = [[dict objectForKey: @"DisplayHeight"] unsignedIntValue];
+        [cwsContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                [NSString stringWithFormat: NSLocalizedString(@"Show on screen %u (%u x %u)", @"Button"), i, width, height], @"name",
+                                [NSNumber numberWithUnsignedInt: displayNumber], @"value",
+                                nil]];
+    }
+	
+    [appearanceConnectionWindowScreenArrayController setContent: cwsContent];
+    [appearanceConnectionWindowScreenButton sizeToFit];
+    
     [appearanceDisplayStatisticsWindowsCheckbox
      setTitle: NSLocalizedString(@"Show when the pointer is over the Tunnelblick icon", @"Checkbox name")];
     [appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox
@@ -137,8 +175,10 @@ extern NSString       * gDeployPath;
             if (  [[file pathExtension] isEqualToString: @"TBMenuIcons"]  ) {
                 NSString * iconName = [file stringByDeletingPathExtension];
                 if (  ! [iconName hasPrefix: @"large-"]  ) {
-                    if (  ! [iconNames containsObject: iconName]  ) {
-                        [paths addObject: [folder stringByAppendingPathComponent: file]];
+					if (  ! [iconName hasPrefix: @"highlighted-"]  ) {
+						if (  ! [iconNames containsObject: iconName]  ) {
+							[paths addObject: [folder stringByAppendingPathComponent: file]];
+						}
                     }
                 }
             }
@@ -163,6 +203,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplaySplashScreen
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceConnectionWindowDisplayCriteriaArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceConnectionWindowDisplayCriteriaButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceConnectionWindowScreenArrayController)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          appearanceConnectionWindowScreenButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWindowsCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox)

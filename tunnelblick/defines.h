@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011 Jonathan Bullard
+ * Copyright 2010, 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -23,7 +23,7 @@
 // Misc:
 
 // Set to TRUE to allow Tunnelblick to use openvpnstart's kill and killall subcommands
-#define ALLOW_OPENVPNSTART_KILL    FALSE
+#define ALLOW_OPENVPNSTART_KILL    TRUE
 #define ALLOW_OPENVPNSTART_KILLALL TRUE
 
 // The maximum length of a display name for openvpnstart
@@ -52,6 +52,12 @@
 // Maximum number of entries to keep in the TunnelblickVersionsHistory preference
 #define MAX_VERSIONS_IN_HISTORY 10
 
+// Maximum index for the "Set DNS/WINS" dropdown box. Must be equal to the number of entries minus one.
+#define MAX_SET_DNS_WINS_INDEX 4
+
+// Header for commands to tunnelblickd that are to be handled by openvpnstart (note that this is a C-string, not an NSString)
+#define TUNNELBLICKD_OPENVPNSTART_HEADER_C "openvpnstart: "
+
 //*************************************************************************************************
 // Paths:
 
@@ -61,10 +67,10 @@
 #define L_AS_T_SHARED @"/Library/Application Support/Tunnelblick/Shared"
 #define L_AS_T_USERS  @"/Library/Application Support/Tunnelblick/Users"
 
+#define L_AS_T_TBLKS  @"/Library/Application Support/Tunnelblick/Tblks"
+
 #define AUTHORIZED_RUNNING_PATH @"/tmp/tunnelblick-authorized-running"
 #define AUTHORIZED_ERROR_PATH   @"/tmp/tunnelblick-authorized-error"
-
-#define CONFIGURATION_UPDATES_BUNDLE_PATH  @"/Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle"
 
 // NOTE: some up and down scripts refer to the following path without using this header file
 #define DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH @"/tmp/tunnelblick-downscript-needs-to-be-run.txt"
@@ -72,17 +78,46 @@
 // NOTE: tunnelblick-uninstaller.sh refers to the installer log path without using this header file
 #define INSTALLER_LOG_PATH      @"/tmp/tunnelblick-installer-log.txt"
 
-// NOTE: client.up.tunnelblick.sh refers to the leasewatcher plist path without using this header file
-#define LEASEWATCHER_PLIST_PATH @"/Library/Application Support/Tunnelblick/LeaseWatch.plist"
+// NOTE: net.tunnelblick.tunnelblick.tunnelblickd.plist and tunnelblick-uninstaller.sh refer to the tunnelblickd log path without using this header file
+// NOTE: The "_C" strings are C-strings, not NSStrings
+#define TUNNELBLICKD_LOG_FOLDER @"/var/log/Tunnelblick"
+#define TUNNELBLICKD_LOG_PATH_C "/var/log/Tunnelblick/tunnelblickd.log"
+#define TUNNELBLICKD_PREVIOUS_LOG_PATH_C "/var/log/Tunnelblick/tunnelblickd.previous.log"
 
-#define TOOL_PATH_FOR_CODESIGN @"/usr/bin/codesign"
-#define TOOL_PATH_FOR_KEXTSTAT @"/usr/sbin/kextstat"
+// NOTE: net.tunnelblick.tunnelblick.tunnelblickd.plist and tunnelblick-uninstaller.sh refer to the tunnelblickd socket path without using this header file
+#define TUNNELBLICKD_SOCKET_PATH @"/var/run/net.tunnelblick.tunnelblick.tunnelblickd.socket"
+
+// NOTE: tunnelblick-uninstaller.sh refers to the .plist path without using this header file
+#define TUNNELBLICKD_PLIST_PATH @"/Library/LaunchDaemons/net.tunnelblick.tunnelblick.tunnelblickd.plist"
+
+#define TOOL_PATH_FOR_ARCH       @"/usr/bin/arch"
+#define TOOL_PATH_FOR_BASH       @"/bin/bash"
+#define TOOL_PATH_FOR_CODESIGN   @"/usr/bin/codesign"
+#define TOOL_PATH_FOR_ID         @"/usr/bin/id"
+#define TOOL_PATH_FOR_IFCONFIG   @"/sbin/ifconfig"
+#define TOOL_PATH_FOR_KEXTLOAD   @"/sbin/kextload"
+#define TOOL_PATH_FOR_KEXTSTAT   @"/usr/sbin/kextstat"
+#define TOOL_PATH_FOR_KEXTUNLOAD @"/sbin/kextunload"
+#define TOOL_PATH_FOR_KILLALL    @"/usr/bin/killall"
+#define TOOL_PATH_FOR_LAUNCHCTL  @"/bin/launchctl"
+#define TOOL_PATH_FOR_OSASCRIPT  @"/usr/bin/osascript"
+#define TOOL_PATH_FOR_PLUTIL     @"/usr/bin/plutil"
+#define TOOL_PATH_FOR_SCUTIL     @"/usr/sbin/scutil"
+
+// Path with which tools are launched
+#define STANDARD_PATH            @"/usr/bin:/bin:/usr/sbin:/sbin"
 
 //*************************************************************************************************
 // Characters in a configuration's display name that are not allowed
 // Note that \000 - \037 and \177 are also prohibited, and that "(" and ")" _ARE_ allowed.
-#define PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING                 "#&;:~|*?~<>^[]{}$'\""
-#define PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING "#&;:~|*?~<>^[]{}$'\"/"
+#define PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING                 "#&;:~|*?'\"~<>^[]{}$%"
+#define PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING "#&;:~|*?'\"~<>^[]{}$%/"
+
+// Characters that are allowed in a domain name (and thus, a CFBundleIdentifier)
+#define ALLOWED_DOMAIN_NAME_CHARACTERS @".-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
+// Characters that are allowed in an OpenVPN version folder name
+#define ALLOWED_OPENVPN_VERSION_CHARACTERS @"._-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
 //*************************************************************************************************
 // Extensions that (for private configurations) require 640 permissions and ownership by Admin group
@@ -90,9 +125,21 @@
 #define KEY_AND_CRT_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", nil]
 
 //*************************************************************************************************
+// Extensions for files that should be copied when installing a .tblk
+#define TBLK_INSTALL_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", @"sh", @"lproj", nil]
+
+//*************************************************************************************************
 // Extensions that indicate that a file is in non-binary format -- ASCII, not binary
 // OpenVPN configuration files and script files may have binary characters in comments, single- and double-quotes, and after backslashes.
 #define NONBINARY_CONTENTS_EXTENSIONS [NSArray arrayWithObjects: @"crt", @"key", @"pem", @"crl", nil]
+
+//*************************************************************************************************
+// OpenVPN options that are not allowed because they conflict with the operation of Tunnelblick
+#define OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK [NSArray arrayWithObjects: @"log", @"log-append", @"syslog", @"management", nil]
+
+//*************************************************************************************************
+// OpenVPN options that are not allowed on OS X
+#define OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY [NSArray arrayWithObjects: @"allow-nonadmin", @"cryptoapicert", @"dhcp-release", @"dhcp-renew", @"pause-exit", @"register-dns", @"service", @"show-adapters", @"show-net", @"show-net-up", @"show-valid-subnets", @"tap-sleep", @"win-sys", nil]
 
 //*************************************************************************************************
 // Permissions for files and folders
@@ -107,37 +154,33 @@
 //                             (These folders are owned by <user>:Admin)
 //
 // _SECURED... entries are for /Library/Application Support/Tunnelblick/Shared/,
+//                             /Library/Application Support/Tunnelblick/Tblks,
 //                             /Library/Application Support/Tunnelblick/Users/username/,
 //                             /Library/Application Support/Tunnelblick/Backup/
 //                             /Applications/XXXXX.app/Contents/Resources/Deploy/
 //                             (These folders are owned by root:wheel)
 //
-// _SELF           entries are for the folder itself (if not a .tblk folder
-// _TBLK_FOLDER    entries are for folders with the .tblk extension and their subfolders
-// _PRIVATE_FOLDER entries are for folders IN .../Users/username/
-// _PUBLIC_FOLDER  entries are for all other folders
-// _SCRIPT         entries are for files with the .sh extension
-// _EXECUTABLE     entries are for files with the .executable extension (in Deploy folders only)
-// _OTHER          entries are for all other files
+// _FOLDER     entries are for folders
+// _SCRIPT     entries are for files with the .sh extension
+// _EXECUTABLE entries are for files with the .executable extension (in Deploy folders only)
+// _READABLE   entries are for files (such as Info.plist files) that should be readable (by owner/group in private configurations, by everyone everywhere else)
+// _OTHER      entries are for all other files
 
 
-#define PERMS_PRIVATE_SELF           0750
-#define PERMS_PRIVATE_TBLK_FOLDER    0750
-#define PERMS_PRIVATE_PRIVATE_FOLDER 0750
-#define PERMS_PRIVATE_PUBLIC_FOLDER  0750
-#define PERMS_PRIVATE_SCRIPT         0740
-#define PERMS_PRIVATE_EXECUTABLE     0740
-#define PERMS_PRIVATE_FORCED_PREFS   0740
-#define PERMS_PRIVATE_OTHER          0640
+#define PERMS_PRIVATE_FOLDER     0750
+#define PERMS_PRIVATE_SCRIPT     0740
+#define PERMS_PRIVATE_EXECUTABLE 0740
+#define PERMS_PRIVATE_READABLE   0740
+#define PERMS_PRIVATE_OTHER      0740
 
-#define PERMS_SECURED_SELF           0755
-#define PERMS_SECURED_TBLK_FOLDER    0750
-#define PERMS_SECURED_PRIVATE_FOLDER 0750
-#define PERMS_SECURED_PUBLIC_FOLDER  0755
-#define PERMS_SECURED_SCRIPT         0700
-#define PERMS_SECURED_EXECUTABLE     0711
-#define PERMS_SECURED_FORCED_PREFS   0644
-#define PERMS_SECURED_OTHER          0600
+#define PERMS_SECURED_FOLDER     0755
+#define PERMS_SECURED_SCRIPT     0700
+#define PERMS_SECURED_EXECUTABLE 0755
+#define PERMS_SECURED_ROOT_EXEC  0744
+#define PERMS_SECURED_READABLE   0744
+#define PERMS_SECURED_PLIST      0644
+#define PERMS_SECURED_OTHER      0700
+#define PERMS_SECURED_SUID       04555
 
 
 //*************************************************************************************************
@@ -151,27 +194,34 @@
 
 //*************************************************************************************************
 // Bit masks for bitMask parameter of openvpnstart's start, loadkexts, and unloadkexts sub-commands
-#define OPENVPNSTART_OUR_TUN_KEXT              0x001u
-#define OPENVPNSTART_OUR_TAP_KEXT              0x002u
+#define OPENVPNSTART_OUR_TUN_KEXT              0x00001u
+#define OPENVPNSTART_OUR_TAP_KEXT              0x00002u
 
-#define OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT   0x003u
-#define OPENVPNSTART_KEXTS_MASK_LOAD_MAX       0x003u
+#define OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT   0x00003u
+#define OPENVPNSTART_KEXTS_MASK_LOAD_MAX       0x00003u
 
-#define OPENVPNSTART_FOO_TUN_KEXT              0x004u
-#define OPENVPNSTART_FOO_TAP_KEXT              0x008u
+#define OPENVPNSTART_FOO_TUN_KEXT              0x00004u
+#define OPENVPNSTART_FOO_TAP_KEXT              0x00008u
 
-#define OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT 0x003u
-#define OPENVPNSTART_KEXTS_MASK_UNLOAD_MAX     0x00Fu
+#define OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT 0x00003u
+#define OPENVPNSTART_KEXTS_MASK_UNLOAD_MAX     0x0000Fu
 
-#define OPENVPNSTART_RESTORE_ON_DNS_RESET      0x010u
-#define OPENVPNSTART_RESTORE_ON_WINS_RESET     0x020u
-#define OPENVPNSTART_USE_TAP                   0x040u
-#define OPENVPNSTART_PREPEND_DOMAIN_NAME       0x080u
-#define OPENVPNSTART_FLUSH_DNS_CACHE           0x100u
-#define OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 0x200u
-#define OPENVPNSTART_RESET_PRIMARY_INTERFACE   0x400u
-
-#define OPENVPNSTART_START_BITMASK_MAX         0x7FFu
+#define OPENVPNSTART_RESTORE_ON_DNS_RESET      0x00010u
+#define OPENVPNSTART_RESTORE_ON_WINS_RESET     0x00020u
+#define OPENVPNSTART_USE_TAP                   0x00040u
+#define OPENVPNSTART_PREPEND_DOMAIN_NAME       0x00080u
+#define OPENVPNSTART_FLUSH_DNS_CACHE           0x00100u
+#define OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 0x00200u
+#define OPENVPNSTART_RESET_PRIMARY_INTERFACE   0x00400u
+#define OPENVPNSTART_TEST_MTU                  0x00800u
+#define OPENVPNSTART_EXTRA_LOGGING             0x01000u
+#define OPENVPNSTART_NO_DEFAULT_DOMAIN         0x02000u
+#define OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS  0x04000u
+#define OPENVPNSTART_USE_ROUTE_UP_NOT_UP       0x08000u
+#define OPENVPNSTART_USE_I386_OPENVPN          0x10000u
+#define OPENVPNSTART_WAIT_FOR_DHCP_IF_TAP      0x20000u
+#define OPENVPNSTART_DO_NOT_WAIT_FOR_INTERNET  0x20000u
+#define OPENVPNSTART_START_BITMASK_MAX         0x3FFFFu
 
 
 //*************************************************************************************************
@@ -188,12 +238,35 @@
 
 //*************************************************************************************************
 // Error return codes for openvpnstart
+#define OPENVPNSTART_COMPARE_CONFIG_SAME             0
+#define OPENVPNSTART_NO_SUCH_OPENVPN_PROCESS         248
 #define OPENVPNSTART_REVERT_CONFIG_OK				 249
 #define OPENVPNSTART_REVERT_CONFIG_MISSING			 250
-#define OPENVPNSTART_COMPARE_CONFIG_SAME             0
+#define OPENVPNSTART_COULD_NOT_START_OPENVPN         251
 #define OPENVPNSTART_COMPARE_CONFIG_DIFFERENT        252
 #define OPENVPNSTART_RETURN_SYNTAX_ERROR             253
 #define OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR 254
+
+//*************************************************************************************************
+// Indices of arguments that are included in the in 'openvpnstartArgs' part of the name of OpenVPN log files
+// The arguments are all positive integers and are separated by '_' characters for easy parsing via componentsSeparatedByString
+#define OPENVPNSTART_LOGNAME_ARG_USE_SCRIPTS_IX  0
+#define OPENVPNSTART_LOGNAME_ARG_SkIP_SCR_SEC_IX 1
+#define OPENVPNSTART_LOGNAME_ARG_CFG_LOC_CODE_IX 2
+#define OPENVPNSTART_LOGNAME_ARG_NO_MONITOR_IX   3
+#define OPENVPNSTART_LOGNAME_ARG_BITMASK_IX      4
+
+#define OPENVPNSTART_LOGNAME_ARG_COUNT 5
+
+// Indices of the actual arguments to openvpnstart
+#define OPENVPNSTART_ARG_START_KEYWORD_IX 0
+#define OPENVPNSTART_ARG_CONFIG_FILE_IX   1
+#define OPENVPNSTART_ARG_PORT_IX          2
+#define OPENVPNSTART_ARG_USE_SCRIPTS_IX   3
+#define OPENVPNSTART_ARG_SkIP_SCR_SEC_IX  4
+#define OPENVPNSTART_ARG_CFG_LOC_CODE_IX  5
+#define OPENVPNSTART_ARG_NO_MONITOR_IX    6
+#define OPENVPNSTART_ARG_BITMASK_IX       7
 
 
 //*************************************************************************************************
@@ -204,14 +277,14 @@
 #define INSTALLER_COPY_APP              0x0002u
 
 #define INSTALLER_SECURE_APP            0x0004u
-#define INSTALLER_COPY_BUNDLE           0x0008u
+#define INSTALLER_HELPER_IS_TO_BE_SUID  0x0008u
 #define INSTALLER_SECURE_TBLKS          0x0010u
 #define INSTALLER_CONVERT_NON_TBLKS     0x0020u
 #define INSTALLER_MOVE_LIBRARY_OPENVPN  0x0040u
 
 #define INSTALLER_MOVE_NOT_COPY         0x1000u
 #define INSTALLER_DELETE                0x2000u
-#define INSTALLER_SET_VERSION           0x4000u
+//                                      0x4000u // UNUSED, WAS INSTALLER_SET_VERSION
 
 
 //*************************************************************************************************
@@ -233,6 +306,11 @@ typedef enum
 	statusWindowControllerDisconnectChoice,
     statusWindowControllerConnectChoice,
 } StatusWindowControllerChoice;
+
+
+//*************************************************************************************************
+// Debugging macro to NSLog if a specified preference is TRUE
+#define TBLog(preference_key, ...)     if (  [gTbDefaults boolForKey: preference_key] || [gTbDefaults boolForKey: @"DB-ALL"]  ) NSLog(preference_key @": "  __VA_ARGS__);
 
 //*************************************************************************************************
 // Tiger-compatible macros that implement something like @property and @synthesize

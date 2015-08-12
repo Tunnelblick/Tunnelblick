@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -24,56 +24,79 @@
  *
  *  This class manipulates configurations (.ovpn and .conf files and .tblk packages)
  *
- *  It has no class variables -- the path to one or more configuration files is specified
- *  as an input parameter for each method.
- *
  *  It takes care of protecting and unprotecting configurations and making shadow copies of them,
  *  and installing .tblk packages
  */
 
 #import "defines.h"
-#import "VPNConnection.h"
 
 @class ListingWindowController;
+@class VPNConnection;
 
 @interface ConfigurationManager : NSObject {
 	
 	ListingWindowController * listingWindow;
+
+    // The following variables are used by installConfigurations:skipConfirmationMessage:skipResultMessage:NotifyDelegate: and the methods it invokes:
+   
+    NSString * applyToAllSharedPrivate;
+    NSString * applyToAllUninstall;
+    NSString * applyToAllReplaceSkip;
+    
+    NSString * tempDirPath;
+    
+    NSMutableString * errorLog;
+    
+    NSMutableArray * installSources;	// Paths of .tblks to copy to install
+    NSMutableArray * installTargets;
+	NSMutableArray * replaceSources;	// Paths of .tblks to copy to replace
+	NSMutableArray * replaceTargets;
+	NSMutableArray * updateSources;		// Paths of .tblk stubs to copy to L_AS_T_TBLKS for updatable configurations
+	NSMutableArray * updateTargets;
+    NSMutableArray * deletions;			// Paths of .tblks to delete to uninstall
+	
+    BOOL inhibitCheckbox;
+    BOOL installToSharedOK;
+    BOOL installToPrivateOK;
+    BOOL authWasNull;
+	BOOL multipleConfigurations;
 }
 
-+(id)                       defaultManager;
++(id)                       manager;
+
++(NSDictionary *)           plistInTblkAtPath:          (NSString *)         path;
+
++(void)                     renameConfigurationFromPath: (NSString *)         sourcePath
+                                                 toPath: (NSString *)         targetPath
+                                       authorizationPtr: (AuthorizationRef *) authorizationPtr;
 
 -(void)                     addConfigurationGuide;
 
--(BOOL)                     copyConfigPath:             (NSString *)                sourcePath
-                                    toPath:             (NSString *)                targetPath
-                           usingAuthRefPtr:             (AuthorizationRef *)        authRefPtr
-                                warnDialog:             (BOOL)                      warn
-                               moveNotCopy:             (BOOL)                      moveInstead;
+-(BOOL)                     copyConfigPath:             (NSString *)         sourcePath
+                                    toPath:             (NSString *)         targetPath
+                           usingAuthRefPtr:             (AuthorizationRef *) authRefPtr
+                                warnDialog:             (BOOL)               warn
+                               moveNotCopy:             (BOOL)               moveInstead;
 
 -(BOOL)                     deleteConfigPath:           (NSString *)         targetPath
                              usingAuthRefPtr:           (AuthorizationRef *) authRefPtr
                                   warnDialog:           (BOOL)               warn;
 
--(void)                     editConfigurationAtPath:    (NSString *)        thePath
-                                      forConnection:    (VPNConnection *)   connection;
-
--(void)                     haveNoConfigurationsGuide;
+-(void)                     editOrExamineConfigurationForConnection: (VPNConnection *) connection;
 
 -(NSMutableDictionary *)    getConfigurations;
 
--(void)                     openDotTblkPackages:        (NSArray *)         filePaths
-                                      usingAuth:        (AuthorizationRef)  authRef
-                        skipConfirmationMessage:        (BOOL)              skipConfirmMsg
-                              skipResultMessage:        (BOOL)              skipResultMsg
-                                 notifyDelegate:        (BOOL)              notifyDelegate;
+-(void)                     haveNoConfigurationsGuide;
+
+-(void)                     installConfigurations:      (NSArray *)         filePaths
+                          skipConfirmationMessage:      (BOOL)              skipConfirmMsg
+                                skipResultMessage:      (BOOL)              skipResultMsg
+                                   notifyDelegate:      (BOOL)              notifyDelegate;
 
 -(NSString *)               parseConfigurationPath:     (NSString *)        cfgPath
                                      forConnection:     (VPNConnection *)   connection;
 
 -(void)                     shareOrPrivatizeAtPath:     (NSString *)        path;
-
--(BOOL)                     unprotectConfigurationFile: (NSString *)        filePath;
 
 -(BOOL)                     userCanEditConfiguration:   (NSString *)        filePath;
 

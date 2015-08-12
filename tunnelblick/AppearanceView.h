@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,7 +20,6 @@
  */
 
 
-#import <Cocoa/Cocoa.h>
 #import "defines.h"
 
 @interface AppearanceView : NSView {
@@ -41,6 +40,9 @@
     IBOutlet NSArrayController  * appearanceConnectionWindowDisplayCriteriaArrayController;
     IBOutlet NSButton           * appearanceConnectionWindowDisplayCriteriaButton;
     
+    IBOutlet NSArrayController  * appearanceConnectionWindowScreenArrayController;
+    IBOutlet NSButton           * appearanceConnectionWindowScreenButton;
+    
     IBOutlet NSButton           * appearanceDisplayStatisticsWindowsCheckbox;
     IBOutlet NSButton           * appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox;
     
@@ -58,6 +60,9 @@ TBPROPERTY_READONLY(NSButton *,          appearanceDisplaySplashScreenCheckbox)
 
 TBPROPERTY_READONLY(NSArrayController *, appearanceConnectionWindowDisplayCriteriaArrayController)
 TBPROPERTY_READONLY(NSButton *,          appearanceConnectionWindowDisplayCriteriaButton)
+
+TBPROPERTY_READONLY(NSArrayController *, appearanceConnectionWindowScreenArrayController)
+TBPROPERTY_READONLY(NSButton *,          appearanceConnectionWindowScreenButton)
 
 TBPROPERTY_READONLY(NSButton *,          appearanceDisplayStatisticsWindowsCheckbox)
 TBPROPERTY_READONLY(NSButton *,          appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox)

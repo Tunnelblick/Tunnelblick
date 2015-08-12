@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Jonathan Bullard
+ * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -20,27 +20,29 @@
  */
 
 
-#import <Cocoa/Cocoa.h>
 #import "defines.h"
 
 @interface UtilitiesView : NSView {
 
     IBOutlet NSButton           * utilitiesKillAllOpenVpnButton;
     
+    IBOutlet NSButton           * utilitiesCopyConsoleLogButton;
+	
+    IBOutlet NSButton           * utilitiesOpenUninstallInstructionsButton;
+	
     IBOutlet NSButton           * utilitiesRunEasyRsaButton;
     IBOutlet NSTextFieldCell    * utilitiesEasyRsaPathTFC;
  
-    IBOutlet NSButton           * utilitiesCopyConsoleLogButton;
-	
     IBOutlet NSButton           * utilitiesHelpButton;
 }
 
 TBPROPERTY_READONLY(NSButton *,        utilitiesKillAllOpenVpnButton)
 
-TBPROPERTY_READONLY(NSButton *,        utilitiesRunEasyRsaButton)
-TBPROPERTY_READONLY(NSTextFieldCell *, utilitiesEasyRsaPathTFC)
-
 TBPROPERTY_READONLY(NSButton *,        utilitiesCopyConsoleLogButton)
+
+TBPROPERTY_READONLY(NSButton *,        utilitiesOpenUninstallInstructionsButton)
+
+TBPROPERTY_READONLY(NSButton *,        utilitiesRunEasyRsaButton)
 
 TBPROPERTY_READONLY(NSButton *,        utilitiesHelpButton)
 
