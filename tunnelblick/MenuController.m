@@ -6423,7 +6423,17 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         }
     }
     
-    // Final check: Everything in the application is owned by root:wheel and is not writable by "other" 
+    // Check the tunnelblickd .plist
+    if (  [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH]  ) {
+        if (  ! checkOwnerAndPermissions(TUNNELBLICKD_PLIST_PATH, 0, 0, PERMS_SECURED_READABLE)  ) {
+            return YES; // NSLog already called
+        }
+    } else {
+		NSLog(@"Need to install tunnelblickd plist at %@", TUNNELBLICKD_PLIST_PATH);
+		return YES;
+	}
+    
+    // Final check: Everything in the application is owned by root:wheel and is not writable by "other"
     dirEnum = [gFileMgr enumeratorAtPath: tunnelblickPath];
     while (  (file = [dirEnum nextObject])  ) {
         NSString     * fullPath = [tunnelblickPath stringByAppendingPathComponent: file];

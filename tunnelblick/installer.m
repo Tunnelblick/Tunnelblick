@@ -1240,12 +1240,25 @@ int main(int argc, char *argv[])
 				}
 			}
 			if (  [newPlistContents writeToFile: TUNNELBLICKD_PLIST_PATH atomically: YES] ) {
+                if (  ! checkSetOwnership(TUNNELBLICKD_PLIST_PATH, NO, 0, 0)  ) {
+                    errorExit();
+                }
+                if (  ! checkSetPermissions(TUNNELBLICKD_PLIST_PATH, PERMS_SECURED_READABLE, YES)  ) {
+                    errorExit();
+                }
 				appendLog([NSString stringWithFormat: @"%@ %@", (hadExistingPlist ? @"Replaced" : @"Installed"), TUNNELBLICKD_PLIST_PATH]);
 			} else {
 				appendLog([NSString stringWithFormat: @"Unable to create %@", TUNNELBLICKD_PLIST_PATH]);
 				errorExit();
 			}
-		}
+		} else {
+            if (  ! checkSetOwnership(TUNNELBLICKD_PLIST_PATH, NO, 0, 0)  ) {
+                errorExit();
+            }
+            if (  ! checkSetPermissions(TUNNELBLICKD_PLIST_PATH, PERMS_SECURED_READABLE, YES)  ) {
+                errorExit();
+            }
+        }
 		
         // We must load the new launch daemon, too, so it is used immediately, even before the next system start
         loadLaunchDaemon(newPlistContents, forceLoadLaunchDaemon);
