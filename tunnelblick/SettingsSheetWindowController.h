@@ -53,6 +53,9 @@ typedef enum {
     IBOutlet NSTabViewItem       * connectingAndDisconnectingTabViewItem;
     IBOutlet NSTabViewItem       * whileConnectedTabViewItem;
     IBOutlet NSTabViewItem       * credentialsTabViewItem;
+    IBOutlet NSTabViewItem       * soundTabViewItem;
+    
+    BOOL                           doNotPlaySounds;                  // Used to inhibit playing sounds while switching configurations
     
     
     // For Connecting & Disconnecting tab
@@ -170,6 +173,22 @@ typedef enum {
 	
 	IBOutlet NSButton            * removeNamedCredentialsButton;
     NSArray                      * removeNamedCredentialsNames;
+    
+    
+    // For Sounds tab
+    IBOutlet NSBox               * alertSoundsBox;
+    
+    IBOutlet NSNumber            * selectedSoundOnConnectIndex;
+    IBOutlet NSNumber            * selectedSoundOnDisconnectIndex;
+
+    IBOutlet NSTextFieldCell     * connectionAlertSoundTFC;
+    IBOutlet NSTextFieldCell     * disconnectionAlertSoundTFC;
+    
+    IBOutlet NSButton            * soundOnConnectButton;
+    IBOutlet NSButton            * soundOnDisconnectButton;
+    
+    IBOutlet NSArrayController   * soundOnConnectArrayController;
+    IBOutlet NSArrayController   * soundOnDisconnectArrayController;
 }
 
 // General methods
@@ -281,9 +300,22 @@ TBPROPERTY_READONLY(NSArrayController *,   credentialsGroupArrayController)
 
 TBPROPERTY_READONLY(NSButton *, addNamedCredentialsButton)
 
+TBPROPERTY(NSNumber *, selectedSoundOnConnectIndex,          setSelectedSoundOnConnectIndex)
+TBPROPERTY(NSNumber *, selectedSoundOnDisconnectIndex,       setSelectedSoundOnDisconnectIndex)
+
+TBPROPERTY_READONLY(NSBox           *,     alertSoundsBox)
+TBPROPERTY_READONLY(NSTextFieldCell *,     connectionAlertSoundTFC)
+TBPROPERTY_READONLY(NSTextFieldCell *,     disconnectionAlertSoundTFC)
+TBPROPERTY_READONLY(NSButton *,            soundOnConnectButton)
+TBPROPERTY_READONLY(NSButton *,            soundOnDisconnectButton)
+TBPROPERTY_READONLY(NSArrayController *,   soundOnConnectArrayController)
+TBPROPERTY_READONLY(NSArrayController *,   soundOnDisconnectArrayController)
+
 TBPROPERTY_READONLY(NSTabViewItem *, connectingAndDisconnectingTabViewItem)
 TBPROPERTY_READONLY(NSTabViewItem *, whileConnectedTabViewItem)
 TBPROPERTY_READONLY(NSTabViewItem *, credentialsTabViewItem)
+TBPROPERTY_READONLY(NSTabViewItem *, soundTabViewItem)
+
 TBPROPERTY(VPNConnection *, connection, setConnection)
 
 @end

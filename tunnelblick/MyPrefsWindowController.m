@@ -71,14 +71,9 @@ extern NSArray        * gConfigurationPreferences;
 -(NSString *) indent: (NSString *) s
                   by: (unsigned)   n;
 
--(void) initializeSoundPopUpButtons;
-
 -(void) setCurrentViewName: (NSString *) newName;
 
 -(void) setSelectedWhenToConnectIndex: (NSUInteger) newValue;
-
--(void) setupSoundIndexTo: (NSUInteger) newValue
-               preference: (NSString *) preference;
 
 -(void) setupCheckbox: (NSButton *) checkbox
                   key: (NSString *) key
@@ -90,11 +85,6 @@ extern NSArray        * gConfigurationPreferences;
 -(void) setupKeepConnected:           (VPNConnection *) connection;
 -(void) setupPerConfigOpenvpnVersion: (VPNConnection *) connection;
 -(void) setupNetworkMonitoring:       (VPNConnection *) connection;
--(void) setupSoundPopUpButtons:       (VPNConnection *) connection;
-
--(void) setupSoundButton: (NSButton *)          button
-         arrayController: (NSArrayController *) ac
-              preference: (NSString *)          preference;
 
 -(void) setValueForCheckbox: (NSButton *) checkbox
               preferenceKey: (NSString *) preferenceKey
@@ -124,8 +114,6 @@ TBSYNTHESIZE_OBJECT_SET(NSString *, currentViewName, setCurrentViewName)
 // Synthesize getters and direct setters:
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedSetNameserverIndex,           setSelectedSetNameserverIndexDirect)
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedPerConfigOpenvpnVersionIndex, setSelectedPerConfigOpenvpnVersionIndexDirect)
-TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedSoundOnConnectIndex,          setSelectedSoundOnConnectIndexDirect)
-TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedSoundOnDisconnectIndex,       setSelectedSoundOnDisconnectIndexDirect)
 
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedKeyboardShortcutIndex,        setSelectedKeyboardShortcutIndexDirect)
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedMaximumLogSizeIndex,          setSelectedMaximumLogSizeIndexDirect)
@@ -403,8 +391,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 
     [self setSelectedSetNameserverIndexDirect:           tbNumberWithInteger(NSNotFound)];   // Force a change when first set
     [self setSelectedPerConfigOpenvpnVersionIndexDirect: tbNumberWithInteger(NSNotFound)];
-    [self setSelectedSoundOnConnectIndexDirect:          tbNumberWithInteger(NSNotFound)];
-    [self setSelectedSoundOnDisconnectIndexDirect:       tbNumberWithInteger(NSNotFound)];
     selectedWhenToConnectIndex     = NSNotFound;
 
     selectedLeftNavListIndex = 0;
@@ -419,9 +405,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     previouslySelectedNameOnLeftNavList = [[gTbDefaults stringForKey: @"leftNavSelectedDisplayName"] retain];
 
     authorization = 0;
-    doNotPlaySounds = FALSE;
-    
-    [self initializeSoundPopUpButtons];
     
 	[self setupLeftNavigationToDisplayName: previouslySelectedNameOnLeftNavList];
 	
@@ -444,7 +427,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self setupKeepConnected:           [self selectedConnection]];
         [self setupNetworkMonitoring:       [self selectedConnection]];
         [self setupPerConfigOpenvpnVersion: [self selectedConnection]];
-        [self setupSoundPopUpButtons:       [self selectedConnection]];
         
         // Set up a timer to update connection times
         [((MenuController *)[NSApp delegate]) startOrStopUiUpdater];
@@ -559,23 +541,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     [self setSelectedPerConfigOpenvpnVersionIndex: tbNumberWithInteger(listIx)];
     
     [[configurationsPrefsView perConfigOpenvpnVersionButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
-    
 }
-
--(void) setupSoundPopUpButtons: (VPNConnection *) connection
-{
-	(void) connection;
-	
-    [self setupSoundButton: [configurationsPrefsView soundOnConnectButton]
-           arrayController: [configurationsPrefsView soundOnConnectArrayController]
-                preference: @"-tunnelUpSoundName"];
-    
-    
-    [self setupSoundButton: [configurationsPrefsView soundOnDisconnectButton]
-           arrayController: [configurationsPrefsView soundOnDisconnectArrayController]
-                preference: @"-tunnelDownSoundName"];
-}
-
 
 -(void) setupLeftNavigationToDisplayName: (NSString *) displayNameToSelect
 {
@@ -706,7 +672,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self setupKeepConnected:           nil];
         [self setupNetworkMonitoring:       nil];
 		[self setupPerConfigOpenvpnVersion: nil];
-        [self setupSoundPopUpButtons:       nil];
         [self validateDetailsWindowControls];
         [settingsSheetWindowController setConfigurationName: nil];
         
@@ -775,83 +740,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
-
--(void) initializeSoundPopUpButtons
-{
-    NSArray * soundsSorted = [((MenuController *)[NSApp delegate]) sortedSounds];
-    
-    // Create an array of dictionaries of sounds. (Don't get the actual sounds, just the names of the sounds)
-    NSMutableArray * soundsDictionaryArray = [NSMutableArray arrayWithCapacity: [soundsSorted count]];
-    
-    [soundsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString(@"No sound", @"Button"), @"name",
-                                       @"None", @"value", nil]];
-    
-    [soundsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
-                                       NSLocalizedString(@"Speak", @"Button"), @"name",
-                                       @"Speak", @"value", nil]];
-    
-    unsigned i;
-    for (  i=0; i<[soundsSorted count]; i++  ) {
-        [soundsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys: 
-                                           [soundsSorted objectAtIndex: i], @"name", 
-                                           [soundsSorted objectAtIndex: i], @"value", nil]];
-    }
-    
-    [[configurationsPrefsView soundOnConnectArrayController]    setContent: soundsDictionaryArray];
-    [[configurationsPrefsView soundOnDisconnectArrayController] setContent: soundsDictionaryArray];
-}
-
-
-//  Set up a sound popup button from preferences
--(void) setupSoundButton: (NSButton *)          button
-         arrayController: (NSArrayController *) ac
-              preference: (NSString *)          preference
-{
-    VPNConnection * connection = [self selectedConnection];
-    if (  connection  ) {
-        NSUInteger ix = NSNotFound;
-        NSString * key = [[connection displayName] stringByAppendingString: preference];
-        NSString * soundName = [gTbDefaults stringForKey: key];
-        if (   soundName
-            && ( ! [soundName isEqualToString: @"None"] )  ) {
-            NSArray * listContent = [ac content];
-            NSDictionary * dict;
-            unsigned i;
-            for (  i=0; i<[listContent count]; i++  ) {  // Look for the sound in the array
-                dict = [listContent objectAtIndex: i];
-                if (  [[dict objectForKey: @"name"] isEqualToString: soundName]  ) {
-                    ix = i;
-                    break;
-                }
-            }
-            
-            if (  ix == NSNotFound  ) {
-                NSLog(@"Preference '%@' ignored: sound '%@' was not found", key, soundName);
-                ix = 0;
-            }
-        } else {
-            ix = 0;
-        }
-        
-        //******************************************************************************
-        // Don't play sounds because we are just setting the button from the preferences
-        BOOL oldDoNotPlaySounds = doNotPlaySounds;
-        doNotPlaySounds = TRUE;
-        
-        if (  button == [configurationsPrefsView soundOnConnectButton]) {
-            [self setSelectedSoundOnConnectIndex:    tbNumberWithUnsignedInteger(ix)];
-        } else {
-            [self setSelectedSoundOnDisconnectIndex: tbNumberWithUnsignedInteger(ix)];
-        }
-        
-        doNotPlaySounds = oldDoNotPlaySounds;
-        //******************************************************************************
-        
-        BOOL enable = [gTbDefaults canChangeValueForKey: key];
-        [button setEnabled: enable];
-    }
-}
 
 -(void) validateDetailsWindowControls
 {
@@ -928,9 +816,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         [[configurationsPrefsView keepConnectedCheckbox]            setEnabled: NO];
         
         [[configurationsPrefsView perConfigOpenvpnVersionButton]    setEnabled: NO];
-        
-        [[configurationsPrefsView soundOnConnectButton]             setEnabled: NO];
-        [[configurationsPrefsView soundOnDisconnectButton]          setEnabled: NO];
         
         [[configurationsPrefsView advancedButton]                   setEnabled: NO];
 
@@ -2125,21 +2010,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 															   inverted: NO];
 }
 
--(void) setSelectedSoundOnConnectIndex: (NSNumber *) newValue
-{
-    [self setupSoundIndexTo: tbUnsignedIntegerValue(newValue) preference: @"-tunnelUpSoundName"];
-    
-    [self setSelectedSoundOnConnectIndexDirect: newValue];
-}
-
-
--(void) setSelectedSoundOnDisconnectIndex: (NSNumber *) newValue
-{
-    [self setupSoundIndexTo: tbUnsignedIntegerValue(newValue) preference: @"-tunnelDownSoundName"];
-    
-    [self setSelectedSoundOnDisconnectIndexDirect: newValue];
-}
-
 -(IBAction) advancedButtonWasClicked: (id) sender
 {
 	(void) sender;
@@ -2484,7 +2354,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self setupKeepConnected:           newConnection];
         [self setupNetworkMonitoring:       newConnection];
 		[self setupPerConfigOpenvpnVersion: newConnection];
-        [self setupSoundPopUpButtons:       newConnection];
         
         [self validateDetailsWindowControls];
 		
@@ -3201,62 +3070,6 @@ static BOOL firstTimeShowingWindow = TRUE;
                          ? NSOnState
                          : NSOffState)];
     [checkbox setEnabled: [gTbDefaults canChangeValueForKey: preferenceKey]];
-}
-
--(void) setupSoundIndexTo: (NSUInteger) newValue
-               preference: (NSString *) preference
-{
-    NSArray * contents = [[configurationsPrefsView soundOnConnectArrayController] content];
-    NSUInteger size = [contents count];
-    if (  newValue < size  ) {
-        VPNConnection * connection = [self selectedConnection];
-        NSString * newName;
-        NSSound  * newSound;
-		BOOL       speakIt = FALSE;
-        if (  newValue == 0) {
-            newName = @"None";
-            newSound = nil;
-		} else if (  newValue == 1) {
-			newName = @"Speak";
-			newSound = nil;
-			if (  ! doNotPlaySounds  ) {
-				if (  [preference hasSuffix: @"tunnelUpSoundName"]  ) {
-					[connection speakActivity: @"connected"];
-				} else {
-					[connection speakActivity: @"disconnected"];
-				}
-			}			
-			speakIt = TRUE;
-        } else {
-            newName = [[contents objectAtIndex: newValue] objectForKey: @"name"];
-            newSound = [NSSound soundNamed: newName];
-            if (  newSound  ) {
-                if (  ! doNotPlaySounds  ) {
-                    [newSound play];
-                }
-            } else {
-                NSLog(@"Sound '%@' is not available", newName);
-            }
-        }
-        
-		
-		if ( ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
-			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-								   newName, @"NewValue",
-								   preference, @"PreferenceName",
-								   nil];
-			[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
-		}
-        if (  [preference hasSuffix: @"tunnelUpSoundName"]  ) {
-            [connection setTunnelUpSound: newSound];
-			[connection setSpeakWhenConnected: speakIt];
-        } else {
-            [connection setTunnelDownSound: newSound];
-			[connection setSpeakWhenDisconnected: speakIt];
-        }
-    } else if (  size != 0  ) {
-        NSLog(@"setSelectedSoundIndex: %ld but there are only %ld sounds", (long) newValue, (long) size);
-    }
 }
 
 -(NSTextView *) logView

@@ -64,14 +64,10 @@
     
     AuthorizationRef               authorization;                    // Authorization reference for Shared/Deployed configuration manipulation
     
-    BOOL                           doNotPlaySounds;                  // Used to inhibit playing sounds while switching configurations
-    
     NSUInteger                     selectedWhenToConnectIndex;
     
     NSUInteger                     selectedLeftNavListIndex;
     IBOutlet NSNumber            * selectedSetNameserverIndex;
-    IBOutlet NSNumber            * selectedSoundOnConnectIndex;
-    IBOutlet NSNumber            * selectedSoundOnDisconnectIndex;
     IBOutlet NSNumber            * selectedPerConfigOpenvpnVersionIndex;
     
     
@@ -199,8 +195,6 @@ TBPROPERTY(NSUInteger, selectedLeftNavListIndex,             setSelectedLeftNavL
 
 TBPROPERTY(NSNumber *, selectedSetNameserverIndex,           setSelectedSetNameserverIndex)
 TBPROPERTY(NSNumber *, selectedPerConfigOpenvpnVersionIndex, setSelectedPerConfigOpenvpnVersionIndex)
-TBPROPERTY(NSNumber *, selectedSoundOnConnectIndex,          setSelectedSoundOnConnectIndex)
-TBPROPERTY(NSNumber *, selectedSoundOnDisconnectIndex,       setSelectedSoundOnDisconnectIndex)
 
 TBPROPERTY(NSNumber *, selectedKeyboardShortcutIndex, setSelectedKeyboardShortcutIndex)
 TBPROPERTY(NSNumber *, selectedMaximumLogSizeIndex,   setSelectedMaximumLogSizeIndex)

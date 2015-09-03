@@ -152,11 +152,6 @@ extern TBUserDefaults * gTbDefaults;
     [perConfigOpenvpnVersionArrayController setContent: ovContent];
     [perConfigOpenvpnVersionButton sizeToFit];
     
-    [alertSoundsBox setTitle: NSLocalizedString(@"Alert sounds", @"Window title")];
-    
-    [connectionAlertSoundTFC    setTitle: NSLocalizedString(@"Connection:", @"Window text")              ];
-    [disconnectionAlertSoundTFC setTitle: NSLocalizedString(@"Unexpected disconnection:", @"Window text")];
-    
     [self setTitle: NSLocalizedString(@"Advanced..." , @"Button") ofControl: advancedButton];
     [advancedButton setEnabled: ! [gTbDefaults boolForKey: @"disableAdvancedButton"]];
 	
@@ -248,15 +243,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            keepConnectedCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   perConfigOpenvpnVersionArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            perConfigOpenvpnVersionButton)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSBox *,               alertSoundsBox)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     connectionAlertSoundTFC)
-TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     disconnectionAlertSoundTFC)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            soundOnConnectButton)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            soundOnDisconnectButton)
-TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   soundOnConnectArrayController)
-TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   soundOnDisconnectArrayController)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          advancedButton)
 

@@ -66,6 +66,12 @@ extern TBUserDefaults       * gTbDefaults;
 
 @implementation SettingsSheetWindowController
 
+TBSYNTHESIZE_NONOBJECT_GET(BOOL, showingSettingsSheet)
+
+TBSYNTHESIZE_OBJECT(retain, VPNConnection *, connection,                setConnection)
+
+TBSYNTHESIZE_OBJECT(retain, NSArray *,  removeNamedCredentialsNames,    setRemoveNamedCredentialsNames)
+
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedDnsServersIndex,        setSelectedDnsServersIndexDirect)
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedDomainIndex,            setSelectedDomainIndexDirect)
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedSearchDomainIndex,      setSelectedSearchDomainIndexDirect)
@@ -81,6 +87,34 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedOthernetBiosNameIndex,  setSelec
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedOtherworkgroupIndex,    setSelectedOtherworkgroupIndexDirect)
 
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelectedCredentialsGroupIndexDirect)
+
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedSoundOnConnectIndex,          setSelectedSoundOnConnectIndexDirect)
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedSoundOnDisconnectIndex,       setSelectedSoundOnDisconnectIndexDirect)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,     connectingAndDisconnectingTabViewItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,     whileConnectedTabViewItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,     credentialsTabViewItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,     soundTabViewItem)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          allConfigurationsUseTheSameCredentialsCheckbox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSBox *,             namedCredentialsBox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          credentialsGroupButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, credentialsGroupArrayController)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          addNamedCredentialsButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          removeNamedCredentialsButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSBox *,             alertSoundsBox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   connectionAlertSoundTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   disconnectionAlertSoundTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          soundOnConnectButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          soundOnDisconnectButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnConnectArrayController)
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayController)
 
 -(id) init {
     self = [super initWithWindowNibName:@"SettingsSheet"];
@@ -347,6 +381,73 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
 	[self setupTunOrTapButton: loadTapPopUpButton key: @"-loadTap"];
 }
 
+//  Set up a sound popup button from preferences
+-(void) setupSoundButton: (NSButton *)          button
+         arrayController: (NSArrayController *) ac
+              preference: (NSString *)          preference {
+    if (   connection
+		&& button
+		&& ac
+		&& preference  ) {
+        NSUInteger ix = NSNotFound;
+        NSString * key = [[connection displayName] stringByAppendingString: preference];
+        NSString * soundName = [gTbDefaults stringForKey: key];
+        if (   soundName
+            && ( ! [soundName isEqualToString: @"None"] )  ) {
+            NSArray * listContent = [ac content];
+            NSDictionary * dict;
+            unsigned i;
+            for (  i=0; i<[listContent count]; i++  ) {  // Look for the sound in the array
+                dict = [listContent objectAtIndex: i];
+                if (  [[dict objectForKey: @"name"] isEqualToString: soundName]  ) {
+                    ix = i;
+                    break;
+                }
+            }
+            
+            if (  ix == NSNotFound  ) {
+                NSLog(@"Preference '%@' ignored: sound '%@' was not found", key, soundName);
+                ix = 0;
+            }
+        } else {
+            ix = 0;
+        }
+        
+        //******************************************************************************
+        // Don't play sounds because we are just setting the button from the preferences
+        BOOL oldDoNotPlaySounds = doNotPlaySounds;
+        doNotPlaySounds = TRUE;
+        
+        if (  button == [self soundOnConnectButton]) {
+            [self setSelectedSoundOnConnectIndex:    tbNumberWithUnsignedInteger(ix)];
+        } else {
+            [self setSelectedSoundOnDisconnectIndex: tbNumberWithUnsignedInteger(ix)];
+        }
+        
+        doNotPlaySounds = oldDoNotPlaySounds;
+        //******************************************************************************
+        
+        BOOL enable = [gTbDefaults canChangeValueForKey: key];
+        [button setEnabled: enable];
+    } else {
+        [[self soundOnConnectButton]             setEnabled: NO];
+        [[self soundOnDisconnectButton]          setEnabled: NO];
+    }
+}
+
+-(void) setupSoundPopUpButtons {
+    
+    [self setupSoundButton: [self soundOnConnectButton]
+           arrayController: [self soundOnConnectArrayController]
+                preference: @"-tunnelUpSoundName"];
+    
+    
+    [self setupSoundButton: [self soundOnDisconnectButton]
+           arrayController: [self soundOnDisconnectArrayController]
+                preference: @"-tunnelDownSoundName"];
+}
+
+
 -(void) showSettingsSheet: (id) sender {
 	(void) sender;
 	
@@ -460,6 +561,34 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
      */
 }
 
+-(void) initializeSoundPopUpButtons {
+	
+    NSArray * soundsSorted = [((MenuController *)[NSApp delegate]) sortedSounds];
+    
+    // Create an array of dictionaries of sounds. (Don't get the actual sounds, just the names of the sounds)
+    NSMutableArray * soundsDictionaryArray = [NSMutableArray arrayWithCapacity: [soundsSorted count]];
+    
+    [soundsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                       NSLocalizedString(@"No sound", @"Button"), @"name",
+                                       @"None", @"value", nil]];
+    
+    [soundsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                       NSLocalizedString(@"Speak", @"Button"), @"name",
+                                       @"Speak", @"value", nil]];
+    
+    unsigned i;
+    for (  i=0; i<[soundsSorted count]; i++  ) {
+        [soundsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                           [soundsSorted objectAtIndex: i], @"name",
+                                           [soundsSorted objectAtIndex: i], @"value", nil]];
+    }
+    
+	NSArrayController * connectController = [self soundOnConnectArrayController];
+    [connectController setContent: soundsDictionaryArray];
+	NSArrayController * disconnectController = [self soundOnDisconnectArrayController];
+    [disconnectController setContent: soundsDictionaryArray];
+}
+
 -(void) initializeStaticContent {
     
     // For Connecting tab
@@ -557,6 +686,14 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
 	
 	// For Credentials tab, everything depends on preferences; there is nothing static
 	
+    // For Sound tab
+    
+    [alertSoundsBox setTitle: NSLocalizedString(@"Alert sounds", @"Window title")];
+    
+    [connectionAlertSoundTFC    setTitle: NSLocalizedString(@"Connection:", @"Window text")              ];
+    [disconnectionAlertSoundTFC setTitle: NSLocalizedString(@"Unexpected disconnection:", @"Window text")];
+	
+	[self initializeSoundPopUpButtons];
 }
 
 //**********************************************************************************************************************************
@@ -627,8 +764,7 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
 	
 	[self setRemoveNamedCredentialsNames: [gTbDefaults sortedCredentialsGroups]];
 	
-    [credentialsTabViewItem setLabel:
-	 NSLocalizedString(@"VPN Credentials", @"Window title")];
+    [credentialsTabViewItem setLabel: NSLocalizedString(@"VPN Credentials", @"Window title")];
 	
 	[namedCredentialsBox
 	 setTitle: NSLocalizedString(@"Named Credentials", @"Window text")];
@@ -712,6 +848,16 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
 														 NSLocalizedString(@"All configurations use %@ credentials", @"Window text"),
 														 groupAllConfigurationsUse]];
 	[allConfigurationsUseTheSameCredentialsCheckbox sizeToFit];
+    
+    // Sounds tab
+    
+    doNotPlaySounds = FALSE;
+    
+	[soundTabViewItem setLabel: NSLocalizedString(@"Sounds", @"Window title")];
+    [self setSelectedSoundOnConnectIndexDirect:          tbNumberWithInteger(NSNotFound)];
+    [self setSelectedSoundOnDisconnectIndexDirect:       tbNumberWithInteger(NSNotFound)];
+	[self setupSoundPopUpButtons];
+
 	
 	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
 }
@@ -1247,6 +1393,76 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
     }
 }
 
+-(void) setupSoundIndexTo: (NSUInteger) newValue
+               preference: (NSString *) preference
+{
+    NSArray * contents = [[self soundOnConnectArrayController] content];
+    NSUInteger size = [contents count];
+    if (  newValue < size  ) {
+        NSString * newName;
+        NSSound  * newSound;
+        BOOL       speakIt = FALSE;
+        if (  newValue == 0) {
+            newName = @"None";
+            newSound = nil;
+        } else if (  newValue == 1) {
+            newName = @"Speak";
+            newSound = nil;
+            if (  ! doNotPlaySounds  ) {
+                if (  [preference hasSuffix: @"tunnelUpSoundName"]  ) {
+                    [connection speakActivity: @"connected"];
+                } else {
+                    [connection speakActivity: @"disconnected"];
+                }
+            }
+            speakIt = TRUE;
+        } else {
+            newName = [[contents objectAtIndex: newValue] objectForKey: @"name"];
+            newSound = [NSSound soundNamed: newName];
+            if (  newSound  ) {
+                if (  ! doNotPlaySounds  ) {
+                    [newSound play];
+                }
+            } else {
+                NSLog(@"Sound '%@' is not available", newName);
+            }
+        }
+        
+        
+        if ( ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
+            NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   newName, @"NewValue",
+                                   preference, @"PreferenceName",
+                                   nil];
+            [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+        }
+        if (  [preference hasSuffix: @"tunnelUpSoundName"]  ) {
+            [connection setTunnelUpSound: newSound];
+            [connection setSpeakWhenConnected: speakIt];
+        } else {
+            [connection setTunnelDownSound: newSound];
+            [connection setSpeakWhenDisconnected: speakIt];
+        }
+    } else if (  size != 0  ) {
+        NSLog(@"setSelectedSoundIndex: %ld but there are only %ld sounds", (long) newValue, (long) size);
+    }
+}
+
+-(void) setSelectedSoundOnConnectIndex: (NSNumber *) newValue
+{
+    [self setupSoundIndexTo: tbUnsignedIntegerValue(newValue) preference: @"-tunnelUpSoundName"];
+    
+    [self setSelectedSoundOnConnectIndexDirect: newValue];
+}
+
+
+-(void) setSelectedSoundOnDisconnectIndex: (NSNumber *) newValue
+{
+    [self setupSoundIndexTo: tbUnsignedIntegerValue(newValue) preference: @"-tunnelDownSoundName"];
+    
+    [self setSelectedSoundOnDisconnectIndexDirect: newValue];
+}
+
 -(void) bringToFront2
 {
 	NSLog(@"activate/makeKeyAndOrderFront; window = %@", [self window]);
@@ -1377,24 +1593,5 @@ TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedCredentialsGroupIndex,  setSelec
     [checkbox setEnabled: enable];
 }
 
-TBSYNTHESIZE_NONOBJECT_GET(BOOL, showingSettingsSheet)
-
-TBSYNTHESIZE_OBJECT(retain, VPNConnection *,         connection, setConnection)
-TBSYNTHESIZE_OBJECT(retain, NSArray *,               removeNamedCredentialsNames, setRemoveNamedCredentialsNames)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,     connectingAndDisconnectingTabViewItem)
-TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,     whileConnectedTabViewItem)
-TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,     credentialsTabViewItem)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, allConfigurationsUseTheSameCredentialsCheckbox)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSBox *, namedCredentialsBox)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          credentialsGroupButton)
-TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, credentialsGroupArrayController)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, addNamedCredentialsButton)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            removeNamedCredentialsButton)
 
 @end

@@ -88,15 +88,6 @@
     
     IBOutlet NSButton            * keepConnectedCheckbox;
     
-    IBOutlet NSBox               * alertSoundsBox;
-    
-    IBOutlet NSTextFieldCell     * connectionAlertSoundTFC;
-    IBOutlet NSTextFieldCell     * disconnectionAlertSoundTFC;
-    IBOutlet NSButton            * soundOnConnectButton;
-    IBOutlet NSButton            * soundOnDisconnectButton;
-    IBOutlet NSArrayController   * soundOnConnectArrayController;
-    IBOutlet NSArrayController   * soundOnDisconnectArrayController;
-    
     IBOutlet NSButton            * advancedButton;    
 }
 
@@ -155,15 +146,6 @@ TBPROPERTY_READONLY(NSButton *,            keepConnectedCheckbox)
 
 TBPROPERTY_READONLY(NSArrayController *,   perConfigOpenvpnVersionArrayController)
 TBPROPERTY_READONLY(NSButton *,            perConfigOpenvpnVersionButton)
-
-TBPROPERTY_READONLY(NSBox *,               alertSoundsBox)
-
-TBPROPERTY_READONLY(NSTextFieldCell *,     connectionAlertSoundTFC)
-TBPROPERTY_READONLY(NSTextFieldCell *,     disconnectionAlertSoundTFC)
-TBPROPERTY_READONLY(NSButton *,            soundOnConnectButton)
-TBPROPERTY_READONLY(NSButton *,            soundOnDisconnectButton)
-TBPROPERTY_READONLY(NSArrayController *,   soundOnConnectArrayController)
-TBPROPERTY_READONLY(NSArrayController *,   soundOnDisconnectArrayController)
 
 TBPROPERTY_READONLY(NSButton *,            advancedButton)
 
