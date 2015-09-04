@@ -85,8 +85,9 @@
     IBOutlet NSButton           * perConfigOpenvpnVersionButton;
    
     IBOutlet NSButton            * monitorNetworkForChangesCheckbox;
-    
     IBOutlet NSButton            * keepConnectedCheckbox;
+    IBOutlet NSButton            * enableIpv6OnTapCheckbox;
+    IBOutlet NSButton            * disableIpv6OnTunCheckbox;
     
     IBOutlet NSButton            * advancedButton;    
 }
@@ -141,8 +142,9 @@ TBPROPERTY_READONLY(NSPopUpButton *,       setNameserverPopUpButton)
 TBPROPERTY_READONLY(NSArrayController *,   setNameserverArrayController)
 
 TBPROPERTY_READONLY(NSButton *,            monitorNetworkForChangesCheckbox)
-
 TBPROPERTY_READONLY(NSButton *,            keepConnectedCheckbox)
+TBPROPERTY_READONLY(NSButton *,            enableIpv6OnTapCheckbox)
+TBPROPERTY_READONLY(NSButton *,            disableIpv6OnTunCheckbox)
 
 TBPROPERTY_READONLY(NSArrayController *,   perConfigOpenvpnVersionArrayController)
 TBPROPERTY_READONLY(NSButton *,            perConfigOpenvpnVersionButton)

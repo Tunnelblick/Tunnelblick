@@ -118,8 +118,9 @@ extern TBUserDefaults * gTbDefaults;
     // setNameserverPopUpButton is initialized in setupSettingsFromPreferences
     
     [monitorNetworkForChangesCheckbox setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")];
-	
-    [keepConnectedCheckbox setTitle: NSLocalizedString(@"Keep connected", @"Checkbox name")];
+    [keepConnectedCheckbox            setTitle: NSLocalizedString(@"Keep connected",           @"Checkbox name")];
+    [enableIpv6OnTapCheckbox          setTitle: NSLocalizedString(@"Enable IPv6 (tap only)",   @"Checkbox name")];
+    [disableIpv6OnTunCheckbox         setTitle: NSLocalizedString(@"Disable IPv6 (tun only)",  @"Checkbox name")];
     
     // OpenVPN Version popup. Default depends on version of OS X
     
@@ -238,8 +239,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       setNameserverPopUpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   setNameserverArrayController)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            monitorNetworkForChangesCheckbox)
-
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            keepConnectedCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            enableIpv6OnTapCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            disableIpv6OnTunCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   perConfigOpenvpnVersionArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            perConfigOpenvpnVersionButton)

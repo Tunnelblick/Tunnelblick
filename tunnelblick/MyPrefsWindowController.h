@@ -122,8 +122,9 @@
 -(IBAction) configurationsHelpButtonWasClicked:       (id)  sender;
 
 -(IBAction) monitorNetworkForChangesCheckboxWasClicked: (NSButton *) sender;
-
 -(IBAction) keepConnectedCheckboxWasClicked:            (NSButton *) sender;
+-(IBAction) enableIpv6OnTapCheckboxWasClicked:          (NSButton *) sender;
+-(IBAction) disableIpv6OnTunCheckboxWasClicked:         (NSButton *) sender;
 
 -(void)		validateDetailsWindowControls;
 

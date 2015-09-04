@@ -83,6 +83,7 @@ extern NSArray        * gConfigurationPreferences;
 
 -(void) setupSetNameserver:           (VPNConnection *) connection;
 -(void) setupKeepConnected:           (VPNConnection *) connection;
+-(void) setupIpv6:                    (VPNConnection *) connection;
 -(void) setupPerConfigOpenvpnVersion: (VPNConnection *) connection;
 -(void) setupNetworkMonitoring:       (VPNConnection *) connection;
 
@@ -425,6 +426,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         [self setupSetNameserver:           [self selectedConnection]];
         [self setupKeepConnected:           [self selectedConnection]];
+        [self setupIpv6:                    [self selectedConnection]];
         [self setupNetworkMonitoring:       [self selectedConnection]];
         [self setupPerConfigOpenvpnVersion: [self selectedConnection]];
         
@@ -497,6 +499,38 @@ static BOOL firstTimeShowingWindow = TRUE;
 					key: @"-keepConnected"
 			   inverted: NO];
 }
+
+-(void) setupIpv6: (VPNConnection *) connection
+{
+    (void) connection;
+    
+	NSString * type = [connection tapOrTun];
+	
+    if (  [type isEqualToString: @"tap"]  ) {
+        [self setupCheckbox: [configurationsPrefsView enableIpv6OnTapCheckbox]
+                        key: @"-enableIpv6OnTap"
+                   inverted: NO];
+        [[configurationsPrefsView disableIpv6OnTunCheckbox] setState: NSOffState];
+        [[configurationsPrefsView disableIpv6OnTunCheckbox] setEnabled: NO];
+
+    } else if (   [type isEqualToString: @"tun"]
+			   || [type isEqualToString: @"utun"]
+			   || [type isEqualToString: @"tunOrUtun"]  ) {
+        [self setupCheckbox: [configurationsPrefsView disableIpv6OnTunCheckbox]
+                        key: @"-doNotDisableIpv6onTun"
+                   inverted: YES];
+        [[configurationsPrefsView enableIpv6OnTapCheckbox] setState: NSOffState];
+        [[configurationsPrefsView enableIpv6OnTapCheckbox] setEnabled: NO];
+        
+    } else {
+        [self setupCheckbox: [configurationsPrefsView enableIpv6OnTapCheckbox]
+                        key: @"-enableIpv6OnTap"
+                   inverted: NO];
+        [self setupCheckbox: [configurationsPrefsView disableIpv6OnTunCheckbox]
+                        key: @"-doNotDisableIpv6onTun"
+                   inverted: YES];
+   }
+ }
 
 -(void) setupPerConfigOpenvpnVersion: (VPNConnection *) connection
 {
@@ -670,6 +704,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     } else {
         [self setupSetNameserver:           nil];
         [self setupKeepConnected:           nil];
+        [self setupIpv6:                    nil];
         [self setupNetworkMonitoring:       nil];
 		[self setupPerConfigOpenvpnVersion: nil];
         [self validateDetailsWindowControls];
@@ -812,8 +847,9 @@ static BOOL firstTimeShowingWindow = TRUE;
         [[configurationsPrefsView setNameserverPopUpButton]         setEnabled: NO];
         
         [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: NO];
-        
         [[configurationsPrefsView keepConnectedCheckbox]            setEnabled: NO];
+        [[configurationsPrefsView enableIpv6OnTapCheckbox]          setEnabled: NO];
+        [[configurationsPrefsView disableIpv6OnTunCheckbox]         setEnabled: NO];
         
         [[configurationsPrefsView perConfigOpenvpnVersionButton]    setEnabled: NO];
         
@@ -1457,6 +1493,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 	}
     
     [connection invalidateConfigurationParse];
+	[self setupIpv6: connection];
+	
 }
 
 
@@ -2010,6 +2048,20 @@ static BOOL firstTimeShowingWindow = TRUE;
 															   inverted: NO];
 }
 
+-(IBAction) enableIpv6OnTapCheckboxWasClicked: (NSButton *) sender
+{
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-enableIpv6OnTap"
+                                                                                         to: ([sender state] == NSOnState)
+                                                                                   inverted: NO];
+}
+
+-(IBAction) disableIpv6OnTunCheckboxWasClicked: (NSButton *) sender
+{
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisableIpv6onTun"
+                                                                                         to: ([sender state] == NSOnState)
+                                                                                   inverted: YES];
+}
+
 -(IBAction) advancedButtonWasClicked: (id) sender
 {
 	(void) sender;
@@ -2352,6 +2404,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		
         [self setupSetNameserver:           newConnection];
         [self setupKeepConnected:           newConnection];
+        [self setupIpv6:                    newConnection];
         [self setupNetworkMonitoring:       newConnection];
 		[self setupPerConfigOpenvpnVersion: newConnection];
         

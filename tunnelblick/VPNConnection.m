@@ -1661,6 +1661,12 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     return tunOrTap;
 }
 
+-(NSString *) tapOrTun {
+	
+	// This is the externally-referenced 'tunOrTap'
+	return [self setTunOrTapAndHasScrambleAndHasAuthUserPass];
+}
+
 -(BOOL) hasScramble {
     
     [self setTunOrTapAndHasScrambleAndHasAuthUserPass];
