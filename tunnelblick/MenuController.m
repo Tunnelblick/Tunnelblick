@@ -4121,8 +4121,6 @@ static void signal_handler(int signalNumber)
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 003")
     
-    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 004")
-    
     NSArray * configs = [self uninstalledConfigurationUpdates];
     [dotTblkFileList addObjectsFromArray: configs];
     
@@ -4142,11 +4140,11 @@ static void signal_handler(int signalNumber)
         ignoreNoConfigs = oldIgnoreNoConfigs;
     }
     
-    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 005")
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 004")
     myConfigMultiUpdater = [[ConfigurationMultiUpdater alloc] init]; // Set up separate Sparkle Updaters for configurations
     [myConfigMultiUpdater startAllUpdateCheckingWithUI: NO];    // Start checking for configuration updates in the background (when the application updater is finished)
     
-    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 006")
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 005")
     // Set up to monitor configuration folders
     myQueue = [UKKQueue sharedFileWatcher];
     if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
@@ -4159,6 +4157,22 @@ static void signal_handler(int signalNumber)
     [myQueue setAlwaysNotify: YES];
     [self updateIconImage];
     [self updateMenuAndDetailsWindow];
+    
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 006")
+    
+    // If we got here, we are running from /Applications (or are a debug version), so we can eject the Tunnelblick disk image
+	// We want to do this before we give instructions about how to add configurations so double-clicks don't start the copy
+	// of Tunnelblick.app that is on the disk image.
+    if (   ( ! [gTbDefaults boolForKey: @"doNotEjectTunnelblickVolume"] )
+        && [gFileMgr fileExistsAtPath: @"/Volumes/Tunnelblick/Tunnelblick.app"]  ) {
+		NSString * outString = nil;
+		NSString * errString = nil;
+        NSArray * args = [NSArray arrayWithObjects: @"eject", @"/Volumes/Tunnelblick", nil];
+        OSStatus status = runTool(TOOL_PATH_FOR_DISKUTIL, args, &outString, &errString);
+        if (  status != 0  ) {
+            NSLog(@"diskutil eject /Volumes/Tunnelblick failed with status %ld; stdout =\n%@\nstderr =\n%@", (long) status, outString, errString);
+        }
+    }
     
     ignoreNoConfigs = NO;    // We should NOT ignore the "no configurations" situation
     
