@@ -93,6 +93,7 @@
 #define TOOL_PATH_FOR_ARCH       @"/usr/bin/arch"
 #define TOOL_PATH_FOR_BASH       @"/bin/bash"
 #define TOOL_PATH_FOR_CODESIGN   @"/usr/bin/codesign"
+#define TOOL_PATH_FOR_DISKUTIL   @"/usr/sbin/diskutil"
 #define TOOL_PATH_FOR_ID         @"/usr/bin/id"
 #define TOOL_PATH_FOR_IFCONFIG   @"/sbin/ifconfig"
 #define TOOL_PATH_FOR_KEXTLOAD   @"/sbin/kextload"

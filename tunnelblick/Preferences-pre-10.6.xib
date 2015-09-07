@@ -646,6 +646,77 @@
 																			<int key="NSvFlags">266</int>
 																			<object class="NSMutableArray" key="NSSubviews">
 																				<bool key="EncodedWithXMLCoder">YES</bool>
+																				<object class="NSButton" id="20412420">
+																					<reference key="NSNextResponder" ref="746232542"/>
+																					<int key="NSvFlags">266</int>
+																					<string key="NSFrame">{{25, 88}, {627, 18}}</string>
+																					<reference key="NSSuperview" ref="746232542"/>
+																					<bool key="NSEnabled">YES</bool>
+																					<object class="NSButtonCell" key="NSCell" id="445490556">
+																						<int key="NSCellFlags">67239424</int>
+																						<int key="NSCellFlags2">0</int>
+																						<string key="NSContents">Reset the primary service interface after disconnecting$</string>
+																						<reference key="NSSupport" ref="644301394"/>
+																						<reference key="NSControlView" ref="20412420"/>
+																						<int key="NSButtonFlags">1211912703</int>
+																						<int key="NSButtonFlags2">2</int>
+																						<object class="NSCustomResource" key="NSNormalImage" id="627415459">
+																							<string key="NSClassName">NSImage</string>
+																							<string key="NSResourceName">NSSwitch</string>
+																						</object>
+																						<object class="NSButtonImageSource" key="NSAlternateImage" id="34153109">
+																							<string key="NSImageName">NSSwitch</string>
+																						</object>
+																						<string key="NSAlternateContents"/>
+																						<string key="NSKeyEquivalent"/>
+																						<int key="NSPeriodicDelay">200</int>
+																						<int key="NSPeriodicInterval">25</int>
+																					</object>
+																				</object>
+																				<object class="NSButton" id="560656837">
+																					<reference key="NSNextResponder" ref="746232542"/>
+																					<int key="NSvFlags">266</int>
+																					<string key="NSFrame">{{25, 108}, {627, 18}}</string>
+																					<reference key="NSSuperview" ref="746232542"/>
+																					<bool key="NSEnabled">YES</bool>
+																					<object class="NSButtonCell" key="NSCell" id="931931676">
+																						<int key="NSCellFlags">-2080244224</int>
+																						<int key="NSCellFlags2">0</int>
+																						<string key="NSContents">Check apparent public IP address changed$</string>
+																						<reference key="NSSupport" ref="644301394"/>
+																						<reference key="NSControlView" ref="560656837"/>
+																						<int key="NSButtonFlags">1211912703</int>
+																						<int key="NSButtonFlags2">2</int>
+																						<reference key="NSNormalImage" ref="627415459"/>
+																						<reference key="NSAlternateImage" ref="34153109"/>
+																						<string key="NSAlternateContents"/>
+																						<string key="NSKeyEquivalent"/>
+																						<int key="NSPeriodicDelay">200</int>
+																						<int key="NSPeriodicInterval">25</int>
+																					</object>
+																				</object>
+																				<object class="NSButton" id="255521854">
+																					<reference key="NSNextResponder" ref="746232542"/>
+																					<int key="NSvFlags">266</int>
+																					<string key="NSFrame">{{25, 128}, {627, 18}}</string>
+																					<reference key="NSSuperview" ref="746232542"/>
+																					<bool key="NSEnabled">YES</bool>
+																					<object class="NSButtonCell" key="NSCell" id="240035477">
+																						<int key="NSCellFlags">67239424</int>
+																						<int key="NSCellFlags2">0</int>
+																						<string key="NSContents">Route all traffic through the VPN$</string>
+																						<reference key="NSSupport" ref="644301394"/>
+																						<reference key="NSControlView" ref="255521854"/>
+																						<int key="NSButtonFlags">1211912703</int>
+																						<int key="NSButtonFlags2">2</int>
+																						<reference key="NSNormalImage" ref="627415459"/>
+																						<reference key="NSAlternateImage" ref="34153109"/>
+																						<string key="NSAlternateContents"/>
+																						<string key="NSKeyEquivalent"/>
+																						<int key="NSPeriodicDelay">200</int>
+																						<int key="NSPeriodicInterval">25</int>
+																					</object>
+																				</object>
 																				<object class="NSButton" id="20355000">
 																					<reference key="NSNextResponder" ref="746232542"/>
 																					<int key="NSvFlags">289</int>
@@ -774,37 +845,10 @@
 																						<reference key="NSTextColor" ref="724767433"/>
 																					</object>
 																				</object>
-																				<object class="NSButton" id="828215402">
-																					<reference key="NSNextResponder" ref="746232542"/>
-																					<int key="NSvFlags">266</int>
-																					<string key="NSFrame">{{190, 128}, {462, 18}}</string>
-																					<reference key="NSSuperview" ref="746232542"/>
-																					<bool key="NSEnabled">YES</bool>
-																					<object class="NSButtonCell" key="NSCell" id="348942263">
-																						<int key="NSCellFlags">-2080244224</int>
-																						<int key="NSCellFlags2">0</int>
-																						<string key="NSContents">Keep connected$</string>
-																						<reference key="NSSupport" ref="644301394"/>
-																						<reference key="NSControlView" ref="828215402"/>
-																						<int key="NSButtonFlags">1211912703</int>
-																						<int key="NSButtonFlags2">2</int>
-																						<object class="NSCustomResource" key="NSNormalImage" id="708385767">
-																							<string key="NSClassName">NSImage</string>
-																							<string key="NSResourceName">NSSwitch</string>
-																						</object>
-																						<object class="NSButtonImageSource" key="NSAlternateImage" id="34153109">
-																							<string key="NSImageName">NSSwitch</string>
-																						</object>
-																						<string key="NSAlternateContents"/>
-																						<string key="NSKeyEquivalent"/>
-																						<int key="NSPeriodicDelay">200</int>
-																						<int key="NSPeriodicInterval">25</int>
-																					</object>
-																				</object>
 																				<object class="NSButton" id="426370268">
 																					<reference key="NSNextResponder" ref="746232542"/>
 																					<int key="NSvFlags">266</int>
-																					<string key="NSFrame">{{190, 154}, {462, 18}}</string>
+																					<string key="NSFrame">{{25, 148}, {627, 18}}</string>
 																					<reference key="NSSuperview" ref="746232542"/>
 																					<bool key="NSEnabled">YES</bool>
 																					<object class="NSButtonCell" key="NSCell" id="616985071">
@@ -815,7 +859,7 @@
 																						<reference key="NSControlView" ref="426370268"/>
 																						<int key="NSButtonFlags">1211912703</int>
 																						<int key="NSButtonFlags2">2</int>
-																						<reference key="NSNormalImage" ref="708385767"/>
+																						<reference key="NSNormalImage" ref="627415459"/>
 																						<reference key="NSAlternateImage" ref="34153109"/>
 																						<string key="NSAlternateContents"/>
 																						<string key="NSKeyEquivalent"/>
@@ -1201,7 +1245,7 @@
 							<reference key="NSControlView" ref="153201055"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="708385767"/>
+							<reference key="NSNormalImage" ref="627415459"/>
 							<reference key="NSAlternateImage" ref="34153109"/>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -1286,7 +1330,7 @@
 							<reference key="NSControlView" ref="707795041"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="708385767"/>
+							<reference key="NSNormalImage" ref="627415459"/>
 							<reference key="NSAlternateImage" ref="34153109"/>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -1308,7 +1352,7 @@
 							<reference key="NSControlView" ref="237323808"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="708385767"/>
+							<reference key="NSNormalImage" ref="627415459"/>
 							<reference key="NSAlternateImage" ref="34153109"/>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -1398,7 +1442,7 @@
 							<reference key="NSControlView" ref="977333827"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="708385767"/>
+							<reference key="NSNormalImage" ref="627415459"/>
 							<reference key="NSAlternateImage" ref="34153109"/>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -1704,7 +1748,7 @@
 							<reference key="NSControlView" ref="269272876"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="708385767"/>
+							<reference key="NSNormalImage" ref="627415459"/>
 							<reference key="NSAlternateImage" ref="34153109"/>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -1726,7 +1770,7 @@
 							<reference key="NSControlView" ref="670884726"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="708385767"/>
+							<reference key="NSNormalImage" ref="627415459"/>
 							<reference key="NSAlternateImage" ref="34153109"/>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -1748,7 +1792,7 @@
 							<reference key="NSControlView" ref="438852176"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="708385767"/>
+							<reference key="NSNormalImage" ref="627415459"/>
 							<reference key="NSAlternateImage" ref="34153109"/>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -1770,7 +1814,7 @@
 							<reference key="NSControlView" ref="607511613"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="708385767"/>
+							<reference key="NSNormalImage" ref="627415459"/>
 							<reference key="NSAlternateImage" ref="34153109"/>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -1808,7 +1852,7 @@
 							<reference key="NSControlView" ref="953637426"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="708385767"/>
+							<reference key="NSNormalImage" ref="627415459"/>
 							<reference key="NSAlternateImage" ref="34153109"/>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -1830,7 +1874,7 @@
 							<reference key="NSControlView" ref="226781493"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="708385767"/>
+							<reference key="NSNormalImage" ref="627415459"/>
 							<reference key="NSAlternateImage" ref="34153109"/>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -4201,22 +4245,6 @@
 					<int key="connectionID">1097</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">keepConnectedCheckboxWasClicked:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="828215402"/>
-					</object>
-					<int key="connectionID">1102</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">keepConnectedCheckbox</string>
-						<reference key="source" ref="921957018"/>
-						<reference key="destination" ref="828215402"/>
-					</object>
-					<int key="connectionID">1103</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">content: arrangedObjects</string>
 						<reference key="source" ref="811654135"/>
@@ -4346,6 +4374,54 @@
 						<reference key="destination" ref="237323808"/>
 					</object>
 					<int key="connectionID">1150</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="560656837"/>
+					</object>
+					<int key="connectionID">1161</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="20412420"/>
+					</object>
+					<int key="connectionID">1162</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">routeAllTrafficThroughVpnCheckboxWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="255521854"/>
+					</object>
+					<int key="connectionID">1163</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">checkIPAddressAfterConnectOnAdvancedCheckbox</string>
+						<reference key="source" ref="921957018"/>
+						<reference key="destination" ref="560656837"/>
+					</object>
+					<int key="connectionID">1164</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">resetPrimaryInterfaceAfterDisconnectCheckbox</string>
+						<reference key="source" ref="921957018"/>
+						<reference key="destination" ref="20412420"/>
+					</object>
+					<int key="connectionID">1165</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">routeAllTrafficThroughVpnCheckbox</string>
+						<reference key="source" ref="921957018"/>
+						<reference key="destination" ref="255521854"/>
+					</object>
+					<int key="connectionID">1166</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -5096,15 +5172,17 @@
 						<reference key="object" ref="746232542"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="426370268"/>
 							<reference ref="29001677"/>
 							<reference ref="857960296"/>
 							<reference ref="181992133"/>
 							<reference ref="918149992"/>
 							<reference ref="501129047"/>
 							<reference ref="751948762"/>
-							<reference ref="828215402"/>
 							<reference ref="20355000"/>
+							<reference ref="426370268"/>
+							<reference ref="255521854"/>
+							<reference ref="560656837"/>
+							<reference ref="20412420"/>
 						</object>
 						<reference key="parent" ref="332074438"/>
 					</object>
@@ -5723,20 +5801,6 @@
 						<reference key="parent" ref="153201055"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">1098</int>
-						<reference key="object" ref="828215402"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="348942263"/>
-						</object>
-						<reference key="parent" ref="746232542"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1099</int>
-						<reference key="object" ref="348942263"/>
-						<reference key="parent" ref="828215402"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">1104</int>
 						<reference key="object" ref="811654135"/>
 						<object class="NSMutableArray" key="children">
@@ -5836,6 +5900,48 @@
 						<reference key="object" ref="680023656"/>
 						<reference key="parent" ref="20355000"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1155</int>
+						<reference key="object" ref="255521854"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="240035477"/>
+						</object>
+						<reference key="parent" ref="746232542"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1156</int>
+						<reference key="object" ref="240035477"/>
+						<reference key="parent" ref="255521854"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1157</int>
+						<reference key="object" ref="560656837"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="931931676"/>
+						</object>
+						<reference key="parent" ref="746232542"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1158</int>
+						<reference key="object" ref="931931676"/>
+						<reference key="parent" ref="560656837"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1159</int>
+						<reference key="object" ref="20412420"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="445490556"/>
+						</object>
+						<reference key="parent" ref="746232542"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1160</int>
+						<reference key="object" ref="445490556"/>
+						<reference key="parent" ref="20412420"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -5884,9 +5990,6 @@
 					<string>1094.IBPluginDependency</string>
 					<string>1094.IBViewBoundsToFrameTransform</string>
 					<string>1095.IBPluginDependency</string>
-					<string>1098.IBPluginDependency</string>
-					<string>1098.IBViewBoundsToFrameTransform</string>
-					<string>1099.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
 					<string>11.IBViewBoundsToFrameTransform</string>
 					<string>1104.IBPluginDependency</string>
@@ -5906,6 +6009,12 @@
 					<string>1142.IBViewBoundsToFrameTransform</string>
 					<string>1143.IBPluginDependency</string>
 					<string>1144.IBPluginDependency</string>
+					<string>1155.IBPluginDependency</string>
+					<string>1156.IBPluginDependency</string>
+					<string>1157.IBPluginDependency</string>
+					<string>1158.IBPluginDependency</string>
+					<string>1159.IBPluginDependency</string>
+					<string>1160.IBPluginDependency</string>
 					<string>117.IBEditorWindowLastContentRect</string>
 					<string>117.IBPluginDependency</string>
 					<string>117.IBUserGuides</string>
@@ -6220,11 +6329,6 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABCZAAAwggAAA</bytes>
-					</object>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABDmoAAw1MAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6250,6 +6354,12 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABCnAAAwyEAAA</bytes>
 					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{1003, 930}, {920, 390}}</string>
@@ -6396,7 +6506,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{621, 188}, {920, 390}}</string>
+					<string>{{85, 811}, {920, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6658,7 +6768,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1150</int>
+			<int key="maxID">1166</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6723,18 +6833,15 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addConfigurationButton</string>
 							<string>advancedButton</string>
+							<string>checkIPAddressAfterConnectOnAdvancedCheckbox</string>
 							<string>configurationsHelpButton</string>
 							<string>configurationsTabView</string>
 							<string>connectButton</string>
+							<string>disableIpv6OnTunCheckbox</string>
 							<string>disconnectButton</string>
 							<string>duplicateConfigurationMenuItem</string>
 							<string>editOpenVPNConfigurationFileMenuItem</string>
-							<string>ipv6SettingDisableMenuItem</string>
-							<string>ipv6SettingEnableMenuItem</string>
-							<string>ipv6SettingNoActionMenuItem</string>
-							<string>ipv6SettingPopUpButton</string>
-							<string>ipv6SettingTFC</string>
-							<string>keepConnectedCheckbox</string>
+							<string>enableIpv6OnTapCheckbox</string>
 							<string>leftNavDataSrc</string>
 							<string>leftNavTableColumn</string>
 							<string>leftNavTableScrollView</string>
@@ -6754,7 +6861,9 @@
 							<string>removeConfigurationButton</string>
 							<string>removeCredentialsMenuItem</string>
 							<string>renameConfigurationMenuItem</string>
+							<string>resetPrimaryInterfaceAfterDisconnectCheckbox</string>
 							<string>revertToShadowMenuItem</string>
+							<string>routeAllTrafficThroughVpnCheckbox</string>
 							<string>setNameserverArrayController</string>
 							<string>setNameserverPopUpButton</string>
 							<string>setNameserverTF</string>
@@ -6774,16 +6883,13 @@
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
+							<string>NSButton</string>
 							<string>NSTabView</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
+							<string>NSButton</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
-							<string>NSPopUpButton</string>
-							<string>NSTextFieldCell</string>
 							<string>NSButton</string>
 							<string>LeftNavDataSource</string>
 							<string>NSTableColumn</string>
@@ -6804,7 +6910,9 @@
 							<string>NSButton</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
+							<string>NSButton</string>
 							<string>NSMenuItem</string>
+							<string>NSButton</string>
 							<string>NSArrayController</string>
 							<string>NSPopUpButton</string>
 							<string>NSTextField</string>
@@ -6965,18 +7073,17 @@
 							<string>appearanceDisplayStatisticsWindowsCheckboxWasClicked:</string>
 							<string>appearanceHelpButtonWasClicked:</string>
 							<string>appearancePlaceIconNearSpotlightCheckboxWasClicked:</string>
+							<string>checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked:</string>
 							<string>configurationsHelpButtonWasClicked:</string>
 							<string>connectButtonWasClicked:</string>
+							<string>disableIpv6OnTunCheckboxWasClicked:</string>
 							<string>disconnectButtonWasClicked:</string>
 							<string>duplicateConfigurationMenuItemWasClicked:</string>
 							<string>editOpenVPNConfigurationFileMenuItemWasClicked:</string>
+							<string>enableIpv6OnTapCheckboxWasClicked:</string>
 							<string>generalHelpButtonWasClicked:</string>
 							<string>infoHelpButtonWasClicked:</string>
 							<string>inhibitOutboundTBTrafficCheckboxWasClicked:</string>
-							<string>ipv6SettingDisableMenuItemWasClicked:</string>
-							<string>ipv6SettingEnableMenuItemWasClicked:</string>
-							<string>ipv6SettingNoActionMenuItemWasClicked:</string>
-							<string>keepConnectedCheckboxWasClicked:</string>
 							<string>logToClipboardButtonWasClicked:</string>
 							<string>makePrivateOrSharedMenuItemWasClicked:</string>
 							<string>monitorNetworkForChangesCheckboxWasClicked:</string>
@@ -6984,7 +7091,9 @@
 							<string>removeCredentialsMenuItemWasClicked:</string>
 							<string>renameConfigurationMenuItemWasClicked:</string>
 							<string>resetDisabledWarningsButtonWasClicked:</string>
+							<string>resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked:</string>
 							<string>revertToShadowMenuItemWasClicked:</string>
+							<string>routeAllTrafficThroughVpnCheckboxWasClicked:</string>
 							<string>showOpenvpnLogMenuItemWasClicked:</string>
 							<string>updatesCheckAutomaticallyCheckboxWasClicked:</string>
 							<string>updatesCheckForBetaUpdatesCheckboxWasClicked:</string>
@@ -7010,11 +7119,7 @@
 							<string>NSButton</string>
 							<string>id</string>
 							<string>NSButton</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
+							<string>NSButton</string>
 							<string>id</string>
 							<string>id</string>
 							<string>NSButton</string>
@@ -7027,9 +7132,14 @@
 							<string>NSButton</string>
 							<string>id</string>
 							<string>id</string>
+							<string>NSButton</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
+							<string>NSButton</string>
+							<string>id</string>
+							<string>NSButton</string>
 							<string>id</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
@@ -7056,7 +7166,6 @@
 							<string>selectedAppearanceConnectionWindowDisplayCriteriaIndex</string>
 							<string>selectedAppearanceConnectionWindowScreenIndex</string>
 							<string>selectedAppearanceIconSetIndex</string>
-							<string>selectedIpv6SettingIndex</string>
 							<string>selectedKeyboardShortcutIndex</string>
 							<string>selectedMaximumLogSizeIndex</string>
 							<string>selectedPerConfigOpenvpnVersionIndex</string>
@@ -7069,7 +7178,6 @@
 							<string>ConfigurationsView</string>
 							<string>GeneralView</string>
 							<string>InfoView</string>
-							<string>NSNumber</string>
 							<string>NSNumber</string>
 							<string>NSNumber</string>
 							<string>NSNumber</string>
@@ -7903,10 +8011,6 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
-			<integer value="1060" key="NS.object.0"/>
-		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>
 			<integer value="3000" key="NS.object.0"/>

@@ -110,6 +110,7 @@
 -(IBAction) duplicateConfigurationMenuItemWasClicked: (id) sender;
 -(IBAction) makePrivateOrSharedMenuItemWasClicked:    (id) sender;
 -(IBAction) revertToShadowMenuItemWasClicked:         (id) sender;
+-(IBAction) showHideOnTbMenuMenuItemWasClicked:       (id) sender;
 -(IBAction) editOpenVPNConfigurationFileMenuItemWasClicked: (id) sender;
 -(IBAction) showOpenvpnLogMenuItemWasClicked:         (id)  sender;
 -(IBAction) removeCredentialsMenuItemWasClicked:      (id) sender;
@@ -121,10 +122,11 @@
 
 -(IBAction) configurationsHelpButtonWasClicked:       (id)  sender;
 
--(IBAction) monitorNetworkForChangesCheckboxWasClicked: (NSButton *) sender;
--(IBAction) keepConnectedCheckboxWasClicked:            (NSButton *) sender;
--(IBAction) enableIpv6OnTapCheckboxWasClicked:          (NSButton *) sender;
--(IBAction) disableIpv6OnTunCheckboxWasClicked:         (NSButton *) sender;
+-(IBAction) monitorNetworkForChangesCheckboxWasClicked:             (NSButton *) sender;
+-(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:            (NSButton *) sender;
+-(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (NSButton *) sender;
+-(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked: (NSButton *) sender;
+-(IBAction) disableIpv6OnTunCheckboxWasClicked:                     (NSButton *) sender;
 
 -(void)		validateDetailsWindowControls;
 

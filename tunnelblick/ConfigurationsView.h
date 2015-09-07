@@ -45,7 +45,9 @@
     IBOutlet NSMenuItem          * duplicateConfigurationMenuItem;
     IBOutlet NSMenuItem          * makePrivateOrSharedMenuItem;
 	IBOutlet NSMenuItem          * revertToShadowMenuItem;
-	
+
+    IBOutlet NSMenuItem          * showHideOnTbMenuMenuItem;
+
     IBOutlet NSMenuItem          * editOpenVPNConfigurationFileMenuItem;
     IBOutlet NSMenuItem          * showOpenvpnLogMenuItem;
     IBOutlet NSMenuItem          * removeCredentialsMenuItem;
@@ -85,12 +87,15 @@
     IBOutlet NSButton           * perConfigOpenvpnVersionButton;
    
     IBOutlet NSButton            * monitorNetworkForChangesCheckbox;
-    IBOutlet NSButton            * keepConnectedCheckbox;
-    IBOutlet NSButton            * enableIpv6OnTapCheckbox;
+    IBOutlet NSButton            * routeAllTrafficThroughVpnCheckbox;
+    IBOutlet NSButton            * checkIPAddressAfterConnectOnAdvancedCheckbox;
+    IBOutlet NSButton            * resetPrimaryInterfaceAfterDisconnectCheckbox;
     IBOutlet NSButton            * disableIpv6OnTunCheckbox;
     
     IBOutlet NSButton            * advancedButton;    
 }
+
+-(void) normalizeWidthOfPopDownButtons;
 
 // Getters
 
@@ -112,6 +117,7 @@ TBPROPERTY_READONLY(NSMenuItem *,          renameConfigurationMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          duplicateConfigurationMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          makePrivateOrSharedMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          revertToShadowMenuItem)
+TBPROPERTY_READONLY(NSMenuItem *,          showHideOnTbMenuMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          editOpenVPNConfigurationFileMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          showOpenvpnLogMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          removeCredentialsMenuItem)
@@ -142,8 +148,9 @@ TBPROPERTY_READONLY(NSPopUpButton *,       setNameserverPopUpButton)
 TBPROPERTY_READONLY(NSArrayController *,   setNameserverArrayController)
 
 TBPROPERTY_READONLY(NSButton *,            monitorNetworkForChangesCheckbox)
-TBPROPERTY_READONLY(NSButton *,            keepConnectedCheckbox)
-TBPROPERTY_READONLY(NSButton *,            enableIpv6OnTapCheckbox)
+TBPROPERTY_READONLY(NSButton *,            routeAllTrafficThroughVpnCheckbox)
+TBPROPERTY_READONLY(NSButton *,            checkIPAddressAfterConnectOnAdvancedCheckbox)
+TBPROPERTY_READONLY(NSButton *,            resetPrimaryInterfaceAfterDisconnectCheckbox)
 TBPROPERTY_READONLY(NSButton *,            disableIpv6OnTunCheckbox)
 
 TBPROPERTY_READONLY(NSArrayController *,   perConfigOpenvpnVersionArrayController)

@@ -173,6 +173,12 @@ extern NSString * lastPartOfPath(NSString * thePath);
         requestedState = @"EXITING";
 		[self initializeAuthAgent];
 		
+		// Change default for "-routeAllTrafficThroughVpn"
+		NSString * key = [displayName stringByAppendingString: @"-routeAllTrafficThroughVpn"];
+		if (  ! [gTbDefaults objectForKey: key]  ) {
+			[gTbDefaults setBool: TRUE forKey: key];
+		}
+		
         // Set preferences that haven't been defined yet or that should always be set
 		[self reloadPreferencesFromTblk];
         

@@ -60,14 +60,13 @@ typedef enum {
     
     // For Connecting & Disconnecting tab
     
-    IBOutlet NSButton            * checkIPAddressAfterConnectOnAdvancedCheckbox;
-    IBOutlet NSButton            * showOnTunnelBlickMenuCheckbox;
     IBOutlet NSButton            * flushDnsCacheCheckbox;
+    IBOutlet NSButton            * keepConnectedCheckbox;
+    IBOutlet NSButton            * enableIpv6OnTapCheckbox;
     IBOutlet NSButton            * useRouteUpInsteadOfUpCheckbox;
     IBOutlet NSButton            * prependDomainNameCheckbox;
     IBOutlet NSButton            * disconnectOnSleepCheckbox;
     IBOutlet NSButton            * reconnectOnWakeFromSleepCheckbox;
-    IBOutlet NSButton            * resetPrimaryInterfaceAfterDisconnectCheckbox;
     
     IBOutlet NSButton            * connectingHelpButton;
     
@@ -77,7 +76,11 @@ typedef enum {
     IBOutlet NSTextFieldCell     * ifConnectedWhenUserSwitchedOutTFC;
     IBOutlet NSTextField         * ifConnectedWhenUserSwitchedOutTF;
     
+    IBOutlet NSTextFieldCell     * ifConnectedWhenComputerWentToSleepTFC;
+    IBOutlet NSTextField         * ifConnectedWhenComputerWentToSleepTF;
+
     IBOutlet NSBox               * fastUserSwitchingBox;
+    IBOutlet NSBox               * sleepWakeBox;
     
 	IBOutlet NSPopUpButton	     * loadTunPopUpButton;
 	IBOutlet NSMenuItem          * loadTunAutomaticallyMenuItem;
@@ -91,7 +94,6 @@ typedef enum {
     
     // For WhileConnected tab
     
-    IBOutlet NSButton            * routeAllTrafficThroughVpnCheckbox;
     IBOutlet NSButton            * runMtuTestCheckbox;
     IBOutlet NSButton            * monitorNetworkForChangesCheckbox;
     
@@ -204,17 +206,13 @@ typedef enum {
 
 // Methods for Connecting tab
 
--(void) setupCheckIPAddressAfterConnectOnAdvancedCheckbox;
-
--(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (NSButton *) sender;
--(IBAction) showOnTunnelBlickMenuCheckboxWasClicked:                (NSButton *) sender;
 -(IBAction) flushDnsCacheCheckboxWasClicked:                        (NSButton *) sender;
+-(IBAction) keepConnectedCheckboxWasClicked:                        (NSButton *) sender;
+-(IBAction) enableIpv6OnTapCheckboxWasClicked:                      (NSButton *) sender;
 -(IBAction) useRouteUpInsteadOfUpCheckboxWasClicked:                (NSButton *) sender;
 -(IBAction) prependDomainNameCheckboxWasClicked:                    (NSButton *) sender;
 -(IBAction) disconnectOnSleepCheckboxWasClicked:                    (NSButton *) sender;
 -(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:             (NSButton *) sender;
--(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked: (NSButton *) sender;
--(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:            (NSButton *) sender;
 -(IBAction) runMtuTestCheckboxWasClicked:                           (NSButton *) sender;
 -(IBAction) connectingHelpButtonWasClicked:                         (id)         sender;
 

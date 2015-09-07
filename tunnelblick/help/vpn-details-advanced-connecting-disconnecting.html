@@ -23,30 +23,22 @@
 <p class="p2"><br></p>
 <p class="p4"><b>Most users do not need to change the settings in this window -- Tunnelblick's default settings work best for most situations.</b></p>
 <p class="p2"><br></p>
-<p class="p3">This window has three tabs.</p>
+<p class="p3">This window has four tabs:</p>
 <ul class="ul1">
-  <li class="li3"><b>Connecting & Disconnecting</b> specifies actions to take when connecting or disconnecting from a configuration.</li>
-  <li class="li3"><b>While Connected</b> specifies actions to take while connected to a configuration.</li>
-  <li class="li3"><b>VPN Credentials</b> lets the user manage groups of credentials (usernames, passwords, and passphrases) for configurations.</li>
+  <li class="li3"><b>Connecting & Disconnecting</b> specifies actions to take when connecting or disconnecting from a configuration.</li><br>
+  <li class="li3"><b>While Connected</b> specifies actions to take while connected to a configuration.</li><br>
+  <li class="li3"><b>VPN Credentials</b> lets the user manage groups of credentials (usernames, passwords, and passphrases) for configurations.</li><br>
+  <li class="li3"><b>Sounds</b> lets the user specify sounds to signal a configuration connecting or unexpectedly disconnecting.</li>
 </ul>
 <p class="p1"><b>Connecting and Disconnecting Tab</b></p>
 <p class="p2"><br></p>
-<p class="p3">Each setting in this tab is controlled by a checkbox:</p>
+<p class="p3">Several settings in this tab are controlled by a checkbox:</p>
 <ul class="ul1">
-  <li class="li3"><b>Check if the apparent public IP address changed after connecting</b>. Usually when connected to a VPN all IPv4 traffic is routed through the VPN server and the computer's apparent public IP address changes. When connected from home to an office VPN, for example, the IP address would change from your home network's public IP address to a public IP address from your office network. Some configurations of VPNs do not route all VPN traffic through the VPN server, however, so Tunnelblick can make an independent check of whether or not the address changed. If it did not change, and you want it to, contact your VPN service provider and ask them to change their configuration files, or check the "Route all IPv4 traffic through the VPN" on the "While Connected" tab of the "Advanced" settings window for the configuration.</li>
-  <li class="li3"><b>Reset the primary interface after disconnecting</b>: <em>This checkbox causes Tunnelblick to reset the primary network interface after the selected configuration is disconnected. This is done by 'ipconfig down; ipconfig up' on the interface.</li>
-  <li class="li3"><b>Flush DNS cache after connecting or disconnecting</b>: When checked, Tunnelblick will flush the system's DNS cache after connecting and after disconnecting. This allows the system to use the appropriate DNS settings while the VPN connection is active and after it is disconnected. (Due to limitations in the security program Hands Off!, flushing the DNS cache is skipped on OS X 10.7 ("Lion") and higher if Hands Off! is running.)</li>
-  <li class="li3"><b>Prepend domain name to search domains</b>: <em>This checkbox is only available when the default DNS/WINS setting of 'Set nameserver' is selected.</em> When checked, Tunnelblick will add the domain name to the <u>start</u> of the search domain list if the list has not been specified manually. If the search domain list has been specified manually (in the Network System Preference Advanced window DNS tab), then nothing is done. When not checked on OS X 10.4 and 10.5, the domain name is added to the <u>end</u> of the search domains list. When not checked on OS X 10.6 and higher, the domain name replaces the search domains list unless search domains were entered manually, in which case nothing is done.</li>
-  <li class="li3"><b>Disconnect when computer goes to sleep</b>: <em>This checkbox causes Tunnelblick to to disconnect the selected connection when the computer goes to sleep.</li>
-  <li class="li3"><b>Reconnect when computer wakes from sleep (if connected when computer went to sleep)</b>: <em>This checkbox causes Tunnelblick to attempt to connect the selected connection when the computer wakes up from sleep. (The attempt will be made only if the connection was connected when the computer went to sleep).</li>
-  <li class="li3"><b>Show configuration on Tunnelblick menu</b>: Un-check this box to prevent the configuration from appearing on the menu that drops down when you click the Tunnelblick icon. (The configuration will always appear in the list on the left of the VPN Details window.)</li>
-  <li class="li3"><b>Set DNS after routes are set instead of before routes are set</b>: When checked, Tunnelblick will run the standard "up" script using the OpenVPN --route-up option instead of the --up option.</li>
-</ul>
-<p class="p2"><br></p>
-<p class="p3">Two checkboxes control what Tunnelblick does when a system "Fast User Switch" occurs:</p>
-<ul class="ul1">
-  <li class="li3"><b>Disconnect when user switches out</b>. When checked, Tunnelblick will disconnect the configuration when the user is switched out.</li>
-  <li class="li3"><b>Reconnect when user switches in</b>. When checked, Tunnelblick will reconnect the configuration when the user is switched back in, if the configuration was connected before the user switched out.</li>
+  <li class="li3"><b>Flush DNS cache after connecting or disconnecting</b>: When checked, Tunnelblick will flush the system's DNS cache after connecting and after disconnecting. This allows the system to use the appropriate DNS settings while the VPN connection is active and after it is disconnected. (Due to limitations in the security program Hands Off!, flushing the DNS cache is skipped on OS X 10.7 ("Lion") and higher if Hands Off! is running.)</li><br>
+  <li class="li3"><b>Prepend domain name to search domains</b>: <em>This checkbox is only available when the default DNS/WINS setting of 'Set nameserver' is selected.</em> When checked, Tunnelblick will add the domain name to the <u>start</u> of the search domain list if the list has not been specified manually. If the search domain list has been specified manually (in the Network System Preference Advanced window DNS tab), then nothing is done. When not checked on OS X 10.4 and 10.5, the domain name is added to the <u>end</u> of the search domains list. When not checked on OS X 10.6 and higher, the domain name replaces the search domains list unless search domains were entered manually, in which case nothing is done.</li><br>
+  <li class="li3"><b>Set DNS after routes are set instead of before routes are set</b>: When checked, Tunnelblick will run the standard "up" script using the OpenVPN --route-up option instead of the --up option.</li><br>
+  <li class="li3"><b>Keep connected</b> determines whether or not Tunnelblick will attempt to connect after an unexpected disconnection.</li><br>
+  <li class="li3"><b>Enable IPv6 (tap only)</b> determines whether or not Tunnelblick will enable IPv6 on the tap interface while the configuration is connected.</li>
 </ul>
 <p class="p2"><br></p>
 <p class="p3">Two popup menus control what whether Tunnelblick loads the tun and/or tap kexts (device drivers). Tunnelblick always unloads kexts when they are no longer needed.</p>
@@ -57,16 +49,27 @@
 </ul>
 <ul class="ul1">
   <li class="li3"><b>Load Tap driver automatically</b>. When selected, Tunnelblick will load the tap kext only if it is needed.</li>
-  <li class="li3"><b>Always load Tap driver</b>. When selected, Tunnelblick will always load the tap kext when connecting this configuration.</li>
+  <li class="li3"><b>Always load Tap driver</b>. When selected, Tunnelblick will always load the tap kext when connecting this configuration.</li><br>
   <li class="li3"><b>Never load Tap driver</b>. When selected, Tunnelblick will not load the tap kext when connecting this configuration.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3">Two checkboxes control what Tunnelblick does when the computer goes to sleep:</p>
+<ul class="ul1">
+  <li class="li3"><b>Disconnect when computer goes to sleep</b>. When checked, Tunnelblick will disconnect the configuration when the computer goes to sleep.</li><br>
+  <li class="li3"><b>Reconnect when computer wakes up</b>. When checked, Tunnelblick will reconnect the configuration when the wakes up if the configuration was connected before the computer went to sleep.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3">Two checkboxes control what Tunnelblick does when a system "Fast User Switch" occurs:</p>
+<ul class="ul1">
+  <li class="li3"><b>Disconnect when user switches out</b>. When checked, Tunnelblick will disconnect the configuration when the user is switched out.</li><br>
+  <li class="li3"><b>Reconnect when user switches in</b>. When checked, Tunnelblick will reconnect the configuration when the user is switched back in if the configuration was connected before the user switched out.</li>
 </ul>
 <p class="p2"><br></p>
 <p class="p1"><b>While Connected Tab</b></p>
 <p class="p2"><br></p>
-<p class="p3">This tab contains three checkboxes:</p>
+<p class="p3">This tab contains two checkboxes:</p>
 <ul class="ul1">
-  <li class="li3"><b>Route all IPv4 traffic through the VPN</b>. When checked, a '--redirect-gateway def1' option is sent to OpenVPN, causing routing to be set up to route all IPv4 traffic through the VPN. If this is not checked, all IPv4 traffic may still be sent through the VPN because the OpenVPN configuration file may contain the option, or the option may be "pushed" from the VPN server</li>
-  <li class="li3"><b>Run MTU maximum size test after connecting</b>. When checked, an '--mtu-test' option is sent to OpenVPN, causing OpenVPN to run a test to determine the maximum MTU size that the path to the VPN server supports. The test takes about three minutes, and test results are reported in the Tunnelblick log. The results of this test can be used to determine parameters for "--tun-mtu", "--fragment", and "--mssfix" options that can be included in the configuration file. (See the descriptions for these options in the OpenVPN documentation.) If this is not checked, the "--mtu-test" option is not sent to OpenVPN, and no such test is performed.</li>
+  <li class="li3"><b>Run MTU maximum size test after connecting</b>. When checked, an '--mtu-test' option is sent to OpenVPN, causing OpenVPN to run a test to determine the maximum MTU size that the path to the VPN server supports. The test takes about three minutes, and test results are reported in the Tunnelblick log. The results of this test can be used to determine parameters for "--tun-mtu", "--fragment", and "--mssfix" options that can be included in the configuration file. (See the descriptions for these options in the OpenVPN documentation.) If this is not checked, the "--mtu-test" option is not sent to OpenVPN, and no such test is performed.</li><br>
   <li class="li3"><b>Monitor network settings</b>. When checked, Tunnelblick will monitor network settings for changes while the selected configuration is connected and restore settings or restart the VPN if necessary. This may be done to react to DHCP renewals or other network changes. The actions that Tunnelblick takes when various network changes occur may be specified in the two sets of actions that will be taken when particular network settings change in the following ways:</p>
   <ul class="ul1">
     <li class="li3"><b>When changes to pre-VPN value</b>. These actions are taken when a network setting changes to the value it was before the VPN was established.</li>
@@ -86,6 +89,11 @@
 <p class="p3">This tab contains a checkbox that allows the user to specify that all configurations should share the same credentials -- so the user can enter the credentials once, save them in the Keychain, and they will be used to for all configurations.</p>
 <p class="p3"><br></p>
 <p class="p3">This tab also contains controls for "named" credentials. If all configurations do not share the same credentials, the user can create named credentials and specify the configurations that use them. For example, if a user has two sets of configurations, one from VPN service provider A, and one from VPN service provider B, the user can create two credential names (for example, "VPN A" and "VPN B"), and then specify that each of the configurations can be assigned to one or the other named credentials. So, for example, ten configurations for VPN service provider A can be set to use the "VPN A" credentials, and twenty-three configurations for VPN service provider B can be set to use "VPN B" credentials. The user then only needs to enter the "VPN A" credentials once and save them to the Keychain, and enter the "VPN B" credentials once and save them to the Keychain, instead of needing to enter the credentials for each of the thirty-two configurations and save each of them to the Keychain.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Sounds Tab</b></p>
+<p class="p2"><br></p>
+<p class="p3">This tab determines the sounds that Tunnelblick plays when the selected configuration connects or unexpectedly disconnects. The "speak" setting speaks the name of the configuration and whether or not it is being connected or unexpectedly disconnected.</li>
+</ul>
 
 </body>
 </html>

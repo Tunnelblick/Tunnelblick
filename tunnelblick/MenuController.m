@@ -412,6 +412,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"lastLaunchTime",
                                 @"allow64BitIntelOpenvpnOnTigerOrLeopard",
 								@"doNotRedisplayLoginOrPassphraseWindowAtScreenChangeOrWakeFromSleep",
+                                @"doNotEjectTunnelblickVolume",
                                 
                                 @"disableAdvancedButton",
                                 @"disableCheckNowButton",
@@ -425,6 +426,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"disableDuplicateConfigurationMenuItem",
                                 @"disableMakeConfigurationPublicOrPrivateMenuItem",
                                 @"disableRevertToShadowMenuItem",
+                                @"disableShowHideOnTbMenuItem",
                                 @"disableExamineOpenVpnConfigurationFileMenuItem",
                                 @"disableShowOpenVpnLogInFinderMenuItem",
                                 @"disableDeleteConfigurationCredentialsInKeychainMenuItem",
@@ -4144,7 +4146,7 @@ static void signal_handler(int signalNumber)
     myConfigMultiUpdater = [[ConfigurationMultiUpdater alloc] init]; // Set up separate Sparkle Updaters for configurations
     [myConfigMultiUpdater startAllUpdateCheckingWithUI: NO];    // Start checking for configuration updates in the background (when the application updater is finished)
     
-    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 005")
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 05")
     // Set up to monitor configuration folders
     myQueue = [UKKQueue sharedFileWatcher];
     if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
@@ -4158,7 +4160,7 @@ static void signal_handler(int signalNumber)
     [self updateIconImage];
     [self updateMenuAndDetailsWindow];
     
-    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 006")
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 06")
     
     // If we got here, we are running from /Applications (or are a debug version), so we can eject the Tunnelblick disk image
 	// We want to do this before we give instructions about how to add configurations so double-clicks don't start the copy
@@ -6084,7 +6086,8 @@ unsigned needToRunInstaller(BOOL inApplications)
     if (  needToChangeOwnershipAndOrPermissions(inApplications)  ) flags = flags | INSTALLER_SECURE_APP;
     if (  needToRepairPackages()                                 ) flags = flags | INSTALLER_SECURE_TBLKS;
     if (  needToMoveLibraryOpenVPN()                             ) flags = flags | INSTALLER_MOVE_LIBRARY_OPENVPN;
-	if (  ! tunnelblickdIsLoaded()  ) {
+	if (   runningOnLeopardOrNewer()
+		&& ( ! tunnelblickdIsLoaded() )  ) {
 		flags = flags | INSTALLER_SECURE_APP;
 		NSLog(@"tunnelblickd is not loaded");
 	}
@@ -6438,13 +6441,15 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     }
     
     // Check the tunnelblickd .plist
-    if (  [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH]  ) {
-        if (  ! checkOwnerAndPermissions(TUNNELBLICKD_PLIST_PATH, 0, 0, PERMS_SECURED_READABLE)  ) {
-            return YES; // NSLog already called
-        }
-    } else {
-		NSLog(@"Need to install tunnelblickd plist at %@", TUNNELBLICKD_PLIST_PATH);
-		return YES;
+	if (  runningOnLeopardOrNewer()  ) {
+		if (  [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH]  ) {
+			if (  ! checkOwnerAndPermissions(TUNNELBLICKD_PLIST_PATH, 0, 0, PERMS_SECURED_READABLE)  ) {
+				return YES; // NSLog already called
+			}
+		} else {
+			NSLog(@"Need to install tunnelblickd plist at %@", TUNNELBLICKD_PLIST_PATH);
+			return YES;
+		}
 	}
     
     // Final check: Everything in the application is owned by root:wheel and is not writable by "other"

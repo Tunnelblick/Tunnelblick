@@ -62,6 +62,27 @@ extern TBUserDefaults * gTbDefaults;
 	(void) dirtyRect;
 }
 
+-(void) normalizeWidthOfPopDownButtons {
+	
+	// Set the width of the pop up buttons to the width of the widest one
+	NSRect connectFrame = [whenToConnectPopUpButton      frame];
+	NSRect setDnsFrame  = [setNameserverPopUpButton      frame];
+	NSRect openvpnFrame = [perConfigOpenvpnVersionButton frame];
+	CGFloat maxWidth = connectFrame.size.width;
+	if (  setDnsFrame.size.width > maxWidth  ) {
+		maxWidth = setDnsFrame.size.width;
+	}
+	if (  openvpnFrame.size.width > maxWidth  ) {
+		maxWidth = openvpnFrame.size.width;
+	}
+	connectFrame.size.width = maxWidth;
+	setDnsFrame.size.width  = maxWidth;
+	openvpnFrame.size.width = maxWidth;
+	[whenToConnectPopUpButton      setFrame: connectFrame];
+	[setNameserverPopUpButton      setFrame: setDnsFrame];
+	[perConfigOpenvpnVersionButton setFrame: openvpnFrame];
+}
+
 -(void) awakeFromNib {
 	
     [self setTitle: NSLocalizedString(@"Connect"   , @"Button") ofControl: connectButton   ];
@@ -94,7 +115,7 @@ extern TBUserDefaults * gTbDefaults;
     [showOpenvpnLogMenuItem               setTitle: NSLocalizedString(@"Show OpenVPN Log in Finder"                       , @"Menu Item")];
     [removeCredentialsMenuItem            setTitle: NSLocalizedString(@"Delete Configuration's Credentials in Keychain...", @"Menu Item")];
     
-    // editOpenVPNConfigurationFileMenuItem and makePrivateOrSharedMenuItem are initialized in validateDetailsWindowControls
+    // showHideOnTbMenuMenuItem, editOpenVPNConfigurationFileMenuItem, and makePrivateOrSharedMenuItem are initialized in validateDetailsWindowControls
     
     
     // Right split view - Log tab
@@ -115,12 +136,13 @@ extern TBUserDefaults * gTbDefaults;
     [whenToConnectPopUpButton sizeToFit];
     
     [setNameserverTFC setTitle: NSLocalizedString(@"Set DNS/WINS:", @"Window text")];
-    // setNameserverPopUpButton is initialized in setupSettingsFromPreferences
+    // setNameserverPopUpButton is initialized in setupSetNameserver
     
-    [monitorNetworkForChangesCheckbox setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")];
-    [keepConnectedCheckbox            setTitle: NSLocalizedString(@"Keep connected",           @"Checkbox name")];
-    [enableIpv6OnTapCheckbox          setTitle: NSLocalizedString(@"Enable IPv6 (tap only)",   @"Checkbox name")];
-    [disableIpv6OnTunCheckbox         setTitle: NSLocalizedString(@"Disable IPv6 (tun only)",  @"Checkbox name")];
+    [monitorNetworkForChangesCheckbox             setTitle: NSLocalizedString(@"Monitor network settings",                                         @"Checkbox name")];
+    [routeAllTrafficThroughVpnCheckbox            setTitle: NSLocalizedString(@"Route all IPv4 traffic through the VPN",                           @"Checkbox name")];
+    [checkIPAddressAfterConnectOnAdvancedCheckbox setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connecting", @"Checkbox name")];
+    [resetPrimaryInterfaceAfterDisconnectCheckbox setTitle: NSLocalizedString(@"Reset the primary interface after disconnecting" ,                 @"Checkbox name")];
+    [disableIpv6OnTunCheckbox                     setTitle: NSLocalizedString(@"Disable IPv6 (tun only)",                                          @"Checkbox name")];
     
     // OpenVPN Version popup. Default depends on version of OS X
     
@@ -152,7 +174,9 @@ extern TBUserDefaults * gTbDefaults;
     
     [perConfigOpenvpnVersionArrayController setContent: ovContent];
     [perConfigOpenvpnVersionButton sizeToFit];
-    
+	
+	[self normalizeWidthOfPopDownButtons];
+	
     [self setTitle: NSLocalizedString(@"Advanced..." , @"Button") ofControl: advancedButton];
     [advancedButton setEnabled: ! [gTbDefaults boolForKey: @"disableAdvancedButton"]];
 	
@@ -208,6 +232,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          renameConfigurationMenuIt
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          duplicateConfigurationMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          makePrivateOrSharedMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          revertToShadowMenuItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          showHideOnTbMenuMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          editOpenVPNConfigurationFileMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          showOpenvpnLogMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          removeCredentialsMenuItem)
@@ -239,8 +264,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       setNameserverPopUpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   setNameserverArrayController)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            monitorNetworkForChangesCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            keepConnectedCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            enableIpv6OnTapCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            routeAllTrafficThroughVpnCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            checkIPAddressAfterConnectOnAdvancedCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            resetPrimaryInterfaceAfterDisconnectCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            disableIpv6OnTunCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   perConfigOpenvpnVersionArrayController)

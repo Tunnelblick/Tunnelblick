@@ -161,6 +161,21 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	}
 }
 
+
+-(BOOL) usingSetNameserver {
+    
+    if (  ! configurationName  ) {
+        return FALSE;
+    }
+    
+    NSString * key = [configurationName stringByAppendingString: @"useDNS"];
+    unsigned ix = [gTbDefaults unsignedIntForKey: key
+                                         default: 1
+                                             min: 0
+                                             max: MAX_SET_DNS_WINS_INDEX];
+    return (ix == 1);
+}
+
 - (void) setupCredentialsGroupButton {
     
     if (  ! configurationName  ) {
@@ -223,22 +238,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     }
 }
 
--(void) setupCheckIPAddressAfterConnectOnAdvancedCheckbox {
-    
-    if (  ! configurationName  ) {
-        return;
-    }
-    
-	if (  [gTbDefaults boolForKey: @"inhibitOutboundTunneblickTraffic"]  ) {
-		[checkIPAddressAfterConnectOnAdvancedCheckbox setState:   NSOffState];
-		[checkIPAddressAfterConnectOnAdvancedCheckbox setEnabled: NO];
-	} else {
-		[self setupCheckbox: checkIPAddressAfterConnectOnAdvancedCheckbox
-						key: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
-				   inverted: YES];
-	}
-}
-
 -(void) setupFlushDNSCheckbox {
     
     if (  ! configurationName  ) {
@@ -258,6 +257,35 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     } else {
         [flushDnsCacheCheckbox setState:   NSOffState];
         [flushDnsCacheCheckbox setEnabled: NO];
+    }
+}
+
+-(void) setupKeepConnectedCheckbox {
+    
+    if (  ! configurationName  ) {
+        return;
+    }
+    
+    [self setupCheckbox: keepConnectedCheckbox
+                    key: @"-keepConnected"
+               inverted: NO];
+}
+
+-(void) setupEnableIpv6OnTapCheckbox {
+    
+    if (  ! configurationName  ) {
+        return;
+    }
+    
+    NSString * type = [connection tapOrTun];
+    if (   ([type rangeOfString: @"tun"].length != 0)
+		|| ( ! [self usingSetNameserver] )  ) {
+        [enableIpv6OnTapCheckbox setState: NSOffState];
+        [enableIpv6OnTapCheckbox setEnabled: NO];
+    } else {
+        [self setupCheckbox: enableIpv6OnTapCheckbox
+                        key: @"-enableIpv6OnTap"
+                   inverted: NO];
     }
 }
 
@@ -308,39 +336,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
                         key: @"-doNotReconnectOnWakeFromSleep"
                    inverted: YES];
     }
-}
-
-- (void) setupResetPrimaryInterfaceAfterDisconnectCheckbox {
-    
-    if (  ! connection  ) {
-        return;
-    }
-    
-    NSString * key = [configurationName stringByAppendingString: @"useDNS"];
-    unsigned ix = [gTbDefaults unsignedIntForKey: key
-                                         default: 1
-                                             min: 0
-                                             max: MAX_SET_DNS_WINS_INDEX];
-    
-    if (  ix == 1  ) {
-		[self setupCheckbox: resetPrimaryInterfaceAfterDisconnectCheckbox
-						key: @"-resetPrimaryInterfaceAfterDisconnect"
-				   inverted: NO];
-	} else {
-		[resetPrimaryInterfaceAfterDisconnectCheckbox setState:   NSOffState];
-		[resetPrimaryInterfaceAfterDisconnectCheckbox setEnabled: NO];
-	}
-}
-
-- (void) setupRouteAllTrafficThroughVpnCheckbox {
-    
-    if (  ! connection  ) {
-        return;
-    }
-    
-    [self setupCheckbox: routeAllTrafficThroughVpnCheckbox
-                    key: @"-routeAllTrafficThroughVpn"
-               inverted: NO];
 }
 
 - (void) setupRunMtuTestCheckbox {
@@ -595,26 +590,28 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	
     [connectingAndDisconnectingTabViewItem  setLabel: NSLocalizedString(@"Connecting & Disconnecting", @"Window title")];
     
-    [checkIPAddressAfterConnectOnAdvancedCheckbox setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connecting", @"Checkbox name")];
-    
-    [showOnTunnelBlickMenuCheckbox          setTitle: NSLocalizedString(@"Show configuration on Tunnelblick menu"                , @"Checkbox name")];
-    [flushDnsCacheCheckbox                  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting"     , @"Checkbox name")];
-    [useRouteUpInsteadOfUpCheckbox          setTitle: NSLocalizedString(@"Set DNS after routes are set instead of before routes are set", @"Checkbox name")];
-    [prependDomainNameCheckbox              setTitle: NSLocalizedString(@"Prepend domain name to search domains"                 , @"Checkbox name")];
-    [disconnectOnSleepCheckbox              setTitle: NSLocalizedString(@"Disconnect when computer goes to sleep"                , @"Checkbox name")];
+    [flushDnsCacheCheckbox                  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting",                                   @"Checkbox name")];
+    [keepConnectedCheckbox                  setTitle: NSLocalizedString(@"Keep connected",                                                                      @"Checkbox name")];
+    [enableIpv6OnTapCheckbox                setTitle: NSLocalizedString(@"Enable IPv6 (tap only)",                                                              @"Checkbox name")];
+    [useRouteUpInsteadOfUpCheckbox          setTitle: NSLocalizedString(@"Set DNS after routes are set instead of before routes are set",                       @"Checkbox name")];
+    [prependDomainNameCheckbox              setTitle: NSLocalizedString(@"Prepend domain name to search domains",                                               @"Checkbox name")];
+    [disconnectOnSleepCheckbox              setTitle: NSLocalizedString(@"Disconnect when computer goes to sleep",                                              @"Checkbox name")];
     [reconnectOnWakeFromSleepCheckbox       setTitle: NSLocalizedString(@"Reconnect when computer wakes from sleep (if connected when computer went to sleep)", @"Checkbox name")];
-    [resetPrimaryInterfaceAfterDisconnectCheckbox setTitle: NSLocalizedString(@"Reset the primary interface after disconnecting" , @"Checkbox name")];
-    [routeAllTrafficThroughVpnCheckbox      setTitle: NSLocalizedString(@"Route all IPv4 traffic through the VPN"                , @"Checkbox name")];
-    [runMtuTestCheckbox                     setTitle: NSLocalizedString(@"Run MTU maximum size test after connecting"            , @"Checkbox name")];
+    [runMtuTestCheckbox                     setTitle: NSLocalizedString(@"Run MTU maximum size test after connecting",                                          @"Checkbox name")];
     
-    [fastUserSwitchingBox                   setTitle: NSLocalizedString(@"Fast User Switching"                  , @"Window text")];
+    [sleepWakeBox                           setTitle: NSLocalizedString(@"Computer sleep/wake",                        @"Window text")];
+    [disconnectOnSleepCheckbox              setTitle: NSLocalizedString(@"Disconnect when computer goes to sleep",     @"Checkbox name")];
+    [disconnectOnSleepCheckbox              sizeToFit];
+    [reconnectOnWakeFromSleepCheckbox       setTitle: NSLocalizedString(@"Reconnect when computer wakes up",           @"Checkbox name")];
+    [reconnectOnWakeFromSleepCheckbox       sizeToFit];
+	[ifConnectedWhenComputerWentToSleepTFC  setTitle: NSLocalizedString(@"(if connected when computer went to sleep)", @"Window text")];
+    [ifConnectedWhenComputerWentToSleepTF   sizeToFit];
 	
-    [disconnectWhenUserSwitchesOutCheckbox  setTitle: NSLocalizedString(@"Disconnect when user switches out", @"Checkbox name")];
+    [fastUserSwitchingBox                   setTitle: NSLocalizedString(@"Fast User Switching",                   @"Window text")];
+    [disconnectWhenUserSwitchesOutCheckbox  setTitle: NSLocalizedString(@"Disconnect when user switches out",     @"Checkbox name")];
     [disconnectWhenUserSwitchesOutCheckbox  sizeToFit];
-	
-    [reconnectWhenUserSwitchesInCheckbox    setTitle: NSLocalizedString(@"Reconnect when user switches in"  , @"Checkbox name")];
+    [reconnectWhenUserSwitchesInCheckbox    setTitle: NSLocalizedString(@"Reconnect when user switches in"  ,     @"Checkbox name")];
     [reconnectWhenUserSwitchesInCheckbox    sizeToFit];
-    
 	[ifConnectedWhenUserSwitchedOutTFC      setTitle: NSLocalizedString(@"(if connected when user switched out)", @"Window text")];
     [ifConnectedWhenUserSwitchedOutTF       sizeToFit];
 	
@@ -627,30 +624,17 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [loadTapNeverMenuItem         setTitle: NSLocalizedString(@"Never load Tap driver",         @"Button")];
 	
 	// Set both the tun and tap buttons to the width of the wider one
-	// And move the tun and tap buttons left or right to stay flush right
-	NSRect oldTun = [loadTunPopUpButton frame];
     [loadTunPopUpButton sizeToFit];
     [loadTapPopUpButton sizeToFit];
 	NSRect newTun = [loadTunPopUpButton frame];
 	NSRect newTap = [loadTapPopUpButton frame];
-	
 	if (  newTun.size.width > newTap.size.width  ) {
 		newTap.size.width = newTun.size.width;
 	} else {
 		newTun.size.width = newTap.size.width;
 	}
-	
-	CGFloat widthChange = newTun.size.width - oldTun.size.width;
-	newTun.origin.x = newTun.origin.x - widthChange;
-	newTap.origin.x = newTap.origin.x - widthChange;
-	
 	[loadTunPopUpButton setFrame: newTun];
 	[loadTapPopUpButton setFrame: newTap];
-	
-	//Adjust width of the Fast User Switching box for the tun and tap buttons changes
-	NSRect boxFrame = [fastUserSwitchingBox frame];
-	boxFrame.size.width = boxFrame.size.width - widthChange;
-	[fastUserSwitchingBox setFrame: boxFrame];
 	
     // For WhileConnected tab
     
@@ -721,17 +705,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	
     // For Connecting tab
     
-    [self setupCheckIPAddressAfterConnectOnAdvancedCheckbox];
-    [self setupResetPrimaryInterfaceAfterDisconnectCheckbox];
     [self setupFlushDNSCheckbox];
+    [self setupKeepConnectedCheckbox];
+    [self setupEnableIpv6OnTapCheckbox];
     [self setupPrependDomainNameCheckbox];
     [self setupDisconnectOnSleepCheckbox];
     [self setupReconnectOnWakeFromSleepCheckbox];
 	[self setupUseRouteUpInsteadOfUpCheckbox];
-
-    [self setupCheckbox: showOnTunnelBlickMenuCheckbox
-                    key: @"-doNotShowOnTunnelblickMenu"
-               inverted: YES];
 
     [self setupCheckbox: disconnectWhenUserSwitchesOutCheckbox
                     key: @"-doNotDisconnectOnFastUserSwitch"
@@ -745,7 +725,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
     // For WhileConnected tab
     
-    [self setupRouteAllTrafficThroughVpnCheckbox];
     [self setupRunMtuTestCheckbox];
     
     if (  [[((MenuController *)[NSApp delegate]) logScreen] forceDisableOfNetworkMonitoring]  ) {
@@ -1074,27 +1053,24 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 }
 
 
--(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (NSButton *) sender
-{
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
-																	 to: ([sender state] == NSOnState)
-                                                               inverted: YES];
-}
-
-
--(IBAction) showOnTunnelBlickMenuCheckboxWasClicked: (NSButton *) sender
-{
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotShowOnTunnelblickMenu"
-																	 to: ([sender state] == NSOnState)
-                                                               inverted: YES];
-    
-    [((MenuController *)[NSApp delegate]) changedDisplayConnectionSubmenusSettings];
-}
-
 -(IBAction) flushDnsCacheCheckboxWasClicked: (NSButton *) sender {
     [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotFlushCache"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: YES];
+}
+
+
+-(IBAction) keepConnectedCheckboxWasClicked: (NSButton *) sender {
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-keepConnected"
+                                                                                         to: ([sender state] == NSOnState)
+                                                                                   inverted: NO];
+}
+
+
+-(IBAction) enableIpv6OnTapCheckboxWasClicked: (NSButton *) sender {
+    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-enableIpv6OnTap"
+                                                                                         to: ([sender state] == NSOnState)
+                                                                                   inverted: NO];
 }
 
 
@@ -1126,19 +1102,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
                                                                inverted: YES];
 }
 
-
--(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked: (NSButton *) sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-resetPrimaryInterfaceAfterDisconnect"
-																	 to: ([sender state] == NSOnState)
-                                                               inverted: NO];
-}
-
-
--(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked: (NSButton *) sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-routeAllTrafficThroughVpn"
-																	 to: ([sender state] == NSOnState)
-                                                               inverted: NO];
-}
 
 -(IBAction) runMtuTestCheckboxWasClicked: (NSButton *) sender {
     [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-runMtuTest"

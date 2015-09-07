@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-  <meta name="AppleTitle" content="Tunnelblick Help"></meta>
+  <meta name="AppleTitle" content="Tunnelblick Help">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="Content-Style-Type" content="text/css">
   <title>Tunnelblick VPN Details Window Help</title>
@@ -35,6 +35,7 @@
   <li class="li3"><b>Duplicate Configuration…</b> duplicates the selected configuration, including it's settings</li>
   <li class="li3"><b>Make Configuration Private/Shared…</b> makes the selected configuration private or shared</li>
   <li class="li3"><b>Revert Configuration…</b> reverts the selected configuration to the version that was last secured</li>
+  <li class="li3"><b>Do Not Show Configuration on Tunnelblick Menu</b> prevents the configuration from appearing on the menu that drops down when you click the Tunnelblick icon. (The configuration will always appear in the list on the left of the VPN Details window.)</li>
   <li class="li3"><b>Edit/Examine OpenVPN Configuration File…</b> Opens the OpenVPN configuration file (.ovpn or .conf) file for the selected configuration in TextEdit for editing or in a new window for examination</li>
   <li class="li3"><b>Show OpenVPN Log in Finder</b> opens a Finder window with the OpenVPN log file for the selected configuration selected</li>
   <li class="li3"><b>Delete Configuration's Credentials in Keychain…</b> removes the selected credentials (username, password, and/or private key) from the user's Login Keychain.</li>
@@ -58,22 +59,21 @@
 <p class="p4"><b>Log Tab</b></p>
 <p class="p2"><br></p>
 <p class="p3">The Log tab contains the contents of the Tunnelblick log for the configuration selected in the left section. The Tunnelblick log contains the OpenVPN log along with entries about Tunnelblick's operations</p>
-</p>
+
 <p class="p4"><b>Settings Tab</b></p>
 <p class="p2"><br></p>
 <p class="p3">The <b>Settings</b> tab contains commonly-used settings for the selected connection:</p>
 <p class="p2"><br></p>
 <ul class="ul1">
-  <li class="li3"><b>Connect</b> determines when the configuration is connected: <b>Manually</b>, <b>When Tunnelblick launches</b>, and <b>When computer starts</b>. <em>Note: </em>When computer starts<em> may only be selected if a configuration is </em>Shared<em> or </em>Deployed<em>, and when it is a </em>Tunnelblick VPN Configuration (.tblk)<em>.</em></li><br>
+  <li class="li3"><b>Connect</b> determines when the configuration is connected: <b>Manually</b>, <b>When Tunnelblick launches</b>, and <b>When computer starts</b>. <em>Note: </em>When computer starts<em> may only be selected if a configuration is </em>Shared<em> or </em>Deployed<em>, and when it is a </em>Tunnelblick VPN Configuration (.tblk)<em>.</em><br><br></li>
   
-  <li class="li3"><b>Set DNS/WINS</b> determines the up/down scripts that Tunnelblick uses to modify DNS and WINS network settings for the selected configuration.</li>
-  <ul class="ul2">
+  <li class="li3"><b>Set DNS/WINS</b> determines the up/down scripts that Tunnelblick uses to modify DNS and WINS network settings for the selected configuration.<ul>
     <li class="li3"><b>Do not set nameserver</b>: Tunnelblick will not use up/down scripts and will not modify DNS and WINS network settings</li>
     <li class="li3"><b>Set nameserver</b>: Tunnelblick will use its standard up/down scripts or scripts provided in the Tunnelblick VPN Configuration (.tblk)</li>
     <li class="li3"><b>Set nameserver (3.1)</b>: Tunnelblick will use its standard up/down scripts from Tunnelblick version 3.1</li>
     <li class="li3"><b>Set nameserver (3.0b10)</b>: Tunnelblick will use its standard up/down scripts from Tunnelblick version 3.0b10</li>
     <li class="li3"><b>Set nameserver (alternate 1)</b>: Tunnelblick will use its alternate up/down scripts from Tunnelblick version 3.1</li>
-  </ul>
+  </ul></li>
 </ul>
 <ul class="ul1">
   <li class="li3"><b>OpenVPN version</b> determines which version of OpenVPN will be used to connect the selected configuration.
@@ -83,12 +83,17 @@
 <li class=li3>If you choose a specific version of OpenVPN, that version will be used. You will be warned if that version is not available.</li>
 <li class=li3>A "txp" version is a version of OpenVPN which has been patched to support <a href="https://forums.openvpn.net/topic12605.html">the "scramble" option</a>. This patch is not recommended or supported by the OpenVPN developers, but is used by many VPNs. Tunnelblick contains two versions of OpenVPN, one with the patch and one without the patch, and chooses the patched version automatically if the configuration contains a "scramble" option. Tunnelblick uses its own version of "openvpn_xorpatch", modified to correct problems with the original patch, which is located at <a href="https://github.com/clayface/openvpn_xorpatch/blob/master/openvpn_xor.patch">https://github.com/clayface/openvpn_xorpatch/blob/master/openvpn_xor.patch</a>.</li>
 </ul>
-</li><br>
-  <li class="li3"><b>Monitor network settings</b> determines whether or not Tunnelblick will monitor network settings for changes while the selected configuration is connected. This may be done to react to DHCP renewals or other network changes.</li><br>
-  <li class="li3"><b>Keep connected</b> determines whether or not Tunnelblick will attempt to connect after an unexpected disconnection.</li><br>
-  <li class="li3"><b>Alert sounds</b> determine the sounds that Tunnelblick plays when the selected configuration connects or unexpectedly disconnects. The "speak" setting speaks the name of the configuration and whether or not it is being connected or unexpectedly disconnected.</li>
+</li>
+</ul>
+<ul>
+  <li class="li3"><b>Monitor network settings</b> determines whether or not Tunnelblick will monitor network settings for changes while the selected configuration is connected. This may be done to react to DHCP renewals or other network changes.<br><br></li>
+  <li class="li3"><b>Route all IPv4 traffic through the VPN</b>. When checked, a '--redirect-gateway def1' option is sent to OpenVPN, causing routing to be set up to route all IPv4 traffic through the VPN. If this is not checked, all IPv4 traffic may still be sent through the VPN because the OpenVPN configuration file may contain the option, or the option may be "pushed" from the VPN server.<br><br></li>
+  <li class="li3"><b>Disable IPv6 (tun only)</b>. When checked, Tunnelblick will disable IPv6 traffic on all active interfaces (those set to use IPv6 "automatically") while the selected configuration is connected and restore it when the configuration is disconnected. This may only be done on "Tun" connections, not "Tap" connections.<br><br></li>
+  <li class="li3"><b>Check if the apparent public IP address changed after connecting</b>. Usually when connected to a VPN all IPv4 traffic is routed through the VPN server and the computer's apparent public IP address changes. When connected from home to an office VPN, for example, the IP address would change from your home network's public IP address to a public IP address from your office network. Some configurations of VPNs do not route all VPN traffic through the VPN server, however, so Tunnelblick can make an independent check of whether or not the address changed. If it did not change, and you want it to, contact your VPN service provider and ask them to change their configuration files, or check the "Route all IPv4 traffic through the VPN".<br><br></li>
+  <li class="li3"><b>Reset the primary interface after disconnecting</b>: This checkbox causes Tunnelblick to reset the primary network interface after the selected configuration is disconnected. This is done by 'ipconfig down; ipconfig up' on the interface.</li>
 </ul>
 <p class="p2"><br></p>
-<p class="p3"><span class="Apple-tab-span">	</span>The <b>Advanced…</b> button opens a window with settings that are less commonly used for the selected configuration.</p>
+<p class="p2">The <b>Advanced…</b> button opens a window with settings that are less commonly used for the selected configuration or configurations.</p>
 </body>
 </html>
+
