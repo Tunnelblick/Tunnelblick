@@ -140,6 +140,9 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "./openvpnstart compareShadowCopy      displayName\n"
             "               to compare a private .ovpn, .conf, or .tblk with its secure (shadow) copy\n\n"
             
+            "./openvpnstart preDisconnect  configName  cfgLocCode\n\n"
+            "               to run the pre-disconnect.sh script inside a .tblk.\n\n"
+            
             "./openvpnstart printSanitizedConfigurationFile   configName   cfgLocCode\n"
             "               to print a configuration file with inline data (such as the data within <cert>...</cert>) removed.\n\n"
             
@@ -784,6 +787,7 @@ void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
 			
 		} else if (  [path hasPrefix: @"/L"]  ) {
             if (   (   [path hasSuffix: @".tblk/Contents/Resources/pre-connect.sh"      ]
+					|| [path hasSuffix: @".tblk/Contents/Resources/pre-disconnect.sh"   ]
 					|| [path hasSuffix: @".tblk/Contents/Resources/post-tun-tap-load.sh"]
 					|| [path hasSuffix: @".tblk/Contents/Resources/connected.sh"        ]
 					|| [path hasSuffix: @".tblk/Contents/Resources/reconnecting.sh"     ]
@@ -2838,6 +2842,11 @@ int main(int argc, char * argv[]) {
         } else if ( strcmp(command, "postDisconnect") == 0) {
             // runScript validates its own arguments
             retCode = runScript(@"post-disconnect.sh", argc, argv);
+            syntaxError = FALSE;
+            
+        } else if ( strcmp(command, "preDisconnect") == 0) {
+            // runScript validates its own arguments
+            retCode = runScript(@"pre-disconnect.sh", argc, argv);
             syntaxError = FALSE;
             
         } else if ( strcmp(command, "connected") == 0) {

@@ -2414,6 +2414,8 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
 	}
 	
+	[self runScriptNamed: @"pre-disconnect" openvpnstartCommand: @"preDisconnect"];
+
 	pid_t thePid = pid; // Avoid pid changing between this if statement and the invokation of waitUntilNoProcessWithID (pid can change outside of main thread)
     NSArray * connectedList = nil;
     
@@ -3621,7 +3623,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             
             [self addToLog: msg];
             
-            if ( ! [scriptName isEqualToString: @"post-disconnect"]  ) {
+            if (   ( ! [scriptName isEqualToString: @"post-disconnect"])
+				&& ( ! [scriptName isEqualToString: @"pre-disconnect"])  ) {
                 [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting because the '%@.sh' script failed", scriptName]];
 				[self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
             }
