@@ -257,6 +257,9 @@
 "Disconnect %@%@" = "Odpojiť %@%@";
 
 /* Menu Item */
+"Do Not Show Configuration on Tunnelblick Menu" = "Do Not Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Duplicate Configuration..." = "Duplikovať konfiguráciu…";
 
 /* Menu Item */
@@ -284,6 +287,9 @@
 "Revert Configuration..." = "Vrátiť zmeny konfigurácie…";
 
 /* Menu Item */
+"Show Configuration on Tunnelblick Menu" = "Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Show OpenVPN Log in Finder" = "Zobraziť priečinok Záznamu OpenVPN";
 
 /* Menu item */
@@ -303,6 +309,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Kontrolovať, či sa po pripojení zmenila verejná IP adresa";
+
+/* Checkbox name */
+"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Odpojiť pri prechode do režimu spánku";
@@ -341,6 +350,9 @@
 "Do not warn about this again" = "Viac na toto neupozorňovať";
 
 /* Checkbox name */
+"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+
+/* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Vymazať vyrovnávaciu pamäť DNS po pripojení a odpojení";
 
 /* Checkbox name */
@@ -365,6 +377,9 @@
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Znova pripojiť po prebudení počítača zo spánku (ak je spojenie aktívne pri uložení do spánku)";
 
 /* Checkbox name */
+"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+
+/* Checkbox name */
 "Reconnect when user switches in" = "Znova pripojiť pri prepnutí na aktuálneho užívateľa";
 
 /* Checkbox name */
@@ -384,9 +399,6 @@
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "Nastaviť DNS po nastavení smerovania - namiesto pred";
-
-/* Checkbox name */
-"Show configuration on Tunnelblick menu" = "Zobraziť konfiguráciu v Tunnelblick menu";
 
 /* Checkbox name */
 "Show when disconnected" = "Zobraziť po odpojení";
@@ -614,6 +626,9 @@
 "Settings" = "Nastavenia";
 
 /* Window title */
+"Sounds" = "Sounds";
+
+/* Window title */
 "System Requirements Not Met" = "Systémové požiadavky programu neboli naplnené";
 
 /* Window title */
@@ -785,6 +800,9 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "(Nastavenie 'easy-rsaPath' je neplatné.)";
 
 /* Window text */
+"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+
+/* Window text */
 "(if connected when user switched out)" = "(ak je aktívne pri zmene aktívneho užívateľa)";
 
 /* Window text */
@@ -900,6 +918,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "Nemôžete odinštalovať konfiguráciu \"%@\" pretože táto nie je nainštalovaná.";
+
+/* Window text */
+"Computer sleep/wake" = "Computer sleep/wake";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfigurácia \"%@\" obsahuje jeden alebo viac skriptov, ktoré môžu spôsobiť problémy v prípade ak  nahradite alebo odinštalujete konfiguráciu, zatiaľ čo je aktívne pripojená.  Prajete si nahradiť konfiguráciu?";

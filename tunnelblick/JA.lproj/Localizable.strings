@@ -257,6 +257,9 @@
 "Disconnect %@%@" = "%@%@ を切断";
 
 /* Menu Item */
+"Do Not Show Configuration on Tunnelblick Menu" = "Do Not Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Duplicate Configuration..." = "接続先を複製…";
 
 /* Menu Item */
@@ -284,6 +287,9 @@
 "Revert Configuration..." = "接続先の変更を取り消す…";
 
 /* Menu Item */
+"Show Configuration on Tunnelblick Menu" = "Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Show OpenVPN Log in Finder" = "OpenVPN のログファイルをファインダーで表示";
 
 /* Menu item */
@@ -303,6 +309,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "接続後に見かけ上のグローバルIPアドレスが変わったかチェックする";
+
+/* Checkbox name */
+"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "スリープ時に接続を切断する";
@@ -341,6 +350,9 @@
 "Do not warn about this again" = "次回からこの警告を表示しない";
 
 /* Checkbox name */
+"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+
+/* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "接続/切断後に DNS キャッシュをクリアする";
 
 /* Checkbox name */
@@ -365,6 +377,9 @@
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "スリープから復帰した時に再接続する (スリープ時に接続していた場合)";
 
 /* Checkbox name */
+"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+
+/* Checkbox name */
 "Reconnect when user switches in" = "ユーザスイッチから戻った時に再接続する";
 
 /* Checkbox name */
@@ -384,9 +399,6 @@
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "DNS設定をルート設定前の代わりに後にする";
-
-/* Checkbox name */
-"Show configuration on Tunnelblick menu" = "接続先を Tunnelblick のメニューに表示する";
 
 /* Checkbox name */
 "Show when disconnected" = "切断時に表示する";
@@ -614,6 +626,9 @@
 "Settings" = "設定";
 
 /* Window title */
+"Sounds" = "Sounds";
+
+/* Window title */
 "System Requirements Not Met" = "必要なシステムがありません";
 
 /* Window title */
@@ -785,6 +800,9 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "(設定項目「easy-rsaPath」が無効です。)";
 
 /* Window text */
+"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+
+/* Window text */
 "(if connected when user switched out)" = "(切り替え前に接続していた時のみ)";
 
 /* Window text */
@@ -900,6 +918,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "設定 %@ はインストールされてないから削除できないです";
+
+/* Window text */
+"Computer sleep/wake" = "Computer sleep/wake";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "設定 '%@' にはいくつかのスクリプトが含まれており、接続中に設定を置き換えたりアンインストールしたりすると問題が生じる場合があります。\n\n設定を置き換えますか？";
@@ -1664,7 +1685,7 @@
 "You cannot make a configuration private unless it is disconnected." = "接続を切断するまで、接続先を個人用に変更できません。";
 
 /* Window text */
-"You cannot make a configuration shared if it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "You cannot make a configuration shared if it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared.";
+"You cannot make a configuration shared if it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "自動更新可能な設定は共有することはできません。\n\nしかし、自動更新可能な設定内に存在するTunnelblick VPN設定は共有することが可能です。";
 
 /* Window text */
 "You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "接続先の設定ファイルが Tunnelblick VPN 接続先設定ファイル (.tblk) でないため、共有することができません。";

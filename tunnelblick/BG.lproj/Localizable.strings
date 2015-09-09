@@ -257,6 +257,9 @@
 "Disconnect %@%@" = "Прекъсване на %@%@";
 
 /* Menu Item */
+"Do Not Show Configuration on Tunnelblick Menu" = "Do Not Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Duplicate Configuration..." = "Дублирай конфигурацията…";
 
 /* Menu Item */
@@ -284,6 +287,9 @@
 "Revert Configuration..." = "Върни предишната конфигурация…";
 
 /* Menu Item */
+"Show Configuration on Tunnelblick Menu" = "Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Show OpenVPN Log in Finder" = "Покажи OpenVPN лога във Finder";
 
 /* Menu item */
@@ -303,6 +309,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Проверка дали публичено видимия IP адрес се променя след свързване";
+
+/* Checkbox name */
+"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Прекъсне, когато компютъра заспи";
@@ -341,6 +350,9 @@
 "Do not warn about this again" = "Не предупреждавай за това отново";
 
 /* Checkbox name */
+"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+
+/* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Изтриване на DNS кеша след свързване или прекъсване на връзката";
 
 /* Checkbox name */
@@ -365,6 +377,9 @@
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Свържи се отново, когато компютърът се събуди от режим сън (ако е бил свързан когато компютъра е заспал)";
 
 /* Checkbox name */
+"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+
+/* Checkbox name */
 "Reconnect when user switches in" = "Свържи отново, когато потребителят превключи обратно";
 
 /* Checkbox name */
@@ -384,9 +399,6 @@
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "Задаване на DNS след  завадане на маршрутите вместо преди това";
-
-/* Checkbox name */
-"Show configuration on Tunnelblick menu" = "Покажи конфигурация в Tunnelblick меню";
 
 /* Checkbox name */
 "Show when disconnected" = "Показване когато не е свързан";
@@ -614,6 +626,9 @@
 "Settings" = "Настройки";
 
 /* Window title */
+"Sounds" = "Sounds";
+
+/* Window title */
 "System Requirements Not Met" = "Системни изисквания не са изпълнени";
 
 /* Window title */
@@ -785,6 +800,9 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "(Свойството 'easy-rsaPath' е невалидно)";
 
 /* Window text */
+"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+
+/* Window text */
 "(if connected when user switched out)" = "(ако e бил свързан, когато потребителят се е изключил)";
 
 /* Window text */
@@ -900,6 +918,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "Не може да деинсталирате конфигурация '%@' защото не е инсталирана.";
+
+/* Window text */
+"Computer sleep/wake" = "Computer sleep/wake";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Конфигурация \"%@\" съдържа един или повече скриптове, които могат да причинят проблеми, ако замените или деинсталирате конфигурацията, докато е свързана.\n\nЖелаете ли да заместите конфигурацията?";

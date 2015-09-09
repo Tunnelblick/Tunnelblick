@@ -257,6 +257,9 @@
 "Disconnect %@%@" = "„%@%@“ trennen";
 
 /* Menu Item */
+"Do Not Show Configuration on Tunnelblick Menu" = "Do Not Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Duplicate Configuration..." = "Konfiguration duplizieren…";
 
 /* Menu Item */
@@ -284,6 +287,9 @@
 "Revert Configuration..." = "Konfiguration zurücksetzen…";
 
 /* Menu Item */
+"Show Configuration on Tunnelblick Menu" = "Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Show OpenVPN Log in Finder" = "OpenVPN-Protokoll im Finder anzeigen";
 
 /* Menu item */
@@ -303,6 +309,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Prüfen ob die scheinbare öffentliche IP Adresse sich nach Verbindungsherstellung geändert hat";
+
+/* Checkbox name */
+"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Trennen, wenn der Computer in den Ruhezustand geht";
@@ -341,6 +350,9 @@
 "Do not warn about this again" = "Nicht mehr darauf hinweisen";
 
 /* Checkbox name */
+"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+
+/* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "DNS-Cache nach dem Verbinden oder Trennen löschen";
 
 /* Checkbox name */
@@ -365,6 +377,9 @@
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Vor einem Ruhezustand bestandene Verbindung beim Aufwachen wiederherstellen";
 
 /* Checkbox name */
+"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+
+/* Checkbox name */
 "Reconnect when user switches in" = "Vor einem Benutzerwechsel bestandene Verbindung beim Zurückwechseln wiederherstellen";
 
 /* Checkbox name */
@@ -384,9 +399,6 @@
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "DNS nach dem Routen statt vor dem Routen festlegen";
-
-/* Checkbox name */
-"Show configuration on Tunnelblick menu" = "Konfiguration im Tunnelblick-Menü anzeigen";
 
 /* Checkbox name */
 "Show when disconnected" = "Bei getrennter Verbindung anzeigen";
@@ -614,6 +626,9 @@
 "Settings" = "Einstellungen";
 
 /* Window title */
+"Sounds" = "Sounds";
+
+/* Window title */
 "System Requirements Not Met" = "Systemvoraussetzungen nicht erfüllt";
 
 /* Window title */
@@ -785,6 +800,9 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "(Die Voreinstellung für „easy-rsaPath“ ist nicht zulässig.)";
 
 /* Window text */
+"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+
+/* Window text */
 "(if connected when user switched out)" = "(falls beim Benutzerwechsel verbunden )";
 
 /* Window text */
@@ -900,6 +918,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "Konfiguration '%@' kann nicht deinstalliert werden, da sie nicht installiert ist.";
+
+/* Window text */
+"Computer sleep/wake" = "Computer sleep/wake";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Die Konfiguration '%@' enthält ein oder mehrere Skripte, die Probleme verursachen können, wenn Sie die Konfiguration ersetzen oder deinstallieren, während sie verbunden ist.\n\nMöchten Sie die Konfiguration ersetzen?";

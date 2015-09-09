@@ -257,6 +257,9 @@
 "Disconnect %@%@" = "Desconnectar %@%@";
 
 /* Menu Item */
+"Do Not Show Configuration on Tunnelblick Menu" = "Do Not Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Duplicate Configuration..." = "Duplicar la configuració…";
 
 /* Menu Item */
@@ -284,6 +287,9 @@
 "Revert Configuration..." = "Revertir la configuració…";
 
 /* Menu Item */
+"Show Configuration on Tunnelblick Menu" = "Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Show OpenVPN Log in Finder" = "Mostrar el Log d'OpenVPN al Finder";
 
 /* Menu item */
@@ -303,6 +309,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Comprovar si l'adreça pública IP aparent ha canviatdesprés de la connexió";
+
+/* Checkbox name */
+"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Desconnectar quan l'ordinador es posi en repòs";
@@ -341,6 +350,9 @@
 "Do not warn about this again" = "No m'avisis més sobre això";
 
 /* Checkbox name */
+"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+
+/* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Neteja la memòria cau del DNS després de connectar o desconnectar";
 
 /* Checkbox name */
@@ -365,6 +377,9 @@
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Tornar a connectar quan l'ordinador es desperti (si estava connectat abans de posar-se en repòs)";
 
 /* Checkbox name */
+"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+
+/* Checkbox name */
 "Reconnect when user switches in" = "Reconnectar quan l'usuari es torni a connectar";
 
 /* Checkbox name */
@@ -384,9 +399,6 @@
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "Establir el DNS després que les rutes s'hagin establert i no abans";
-
-/* Checkbox name */
-"Show configuration on Tunnelblick menu" = "Mostrar la configuració al menú Tunnelblick";
 
 /* Checkbox name */
 "Show when disconnected" = "Mostra quan estigui desconnectat";
@@ -614,6 +626,9 @@
 "Settings" = "Paràmetres";
 
 /* Window title */
+"Sounds" = "Sounds";
+
+/* Window title */
 "System Requirements Not Met" = "No es compleixen els requeriments de sistema";
 
 /* Window title */
@@ -785,6 +800,9 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "(La preferència 'easy-rsaPath' és invàlida.)";
 
 /* Window text */
+"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+
+/* Window text */
 "(if connected when user switched out)" = "(si està connectat quan l'usuari surt)";
 
 /* Window text */
@@ -900,6 +918,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "No es pot desinstal·lar la configuració ' %@ \"perquè no està instal·lada.";
+
+/* Window text */
+"Computer sleep/wake" = "Computer sleep/wake";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "La configuració '%@' conté una o més seqüències d'ordres que poden causar problemes si es substitueix o es desinstal·la mentre està connectada.\n\nVoleu substituir la configuració?";

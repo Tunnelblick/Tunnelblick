@@ -2,7 +2,7 @@
 "Disconnect All (%@)" = "Tüm bağlantıları kes (%@)";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "Bağlantıları Kes (%d Bağlantının tümü)";
+"Disconnect All (%d Connections)" = "Tüm bağlantıları kes (%d Bağlantı)";
 
 /* Status message */
 "No Active Connections" = "Aktif bağlantı yok";
@@ -50,13 +50,13 @@
 "Cancel" = "Vazgeç";
 
 /* Button */
-"Change Only for This Configuration" = "Sadece bu konfigürasyonu değiştir";
+"Change Only for This Configuration" = "Değişiklikler sadece bu konfigürasyon için";
 
 /* Button */
 "Change for the Selected Configurations" = "Seçili olan konfigürasyonu değiştir";
 
 /* Menu item */ /* Button */
-"Check For Updates Now" = "Güncellemeleri kontrol et";
+"Check For Updates Now" = "Güncellemeleri şimdi kontrol et";
 
 /* Button */
 "Check Now" = "Kontrol et";
@@ -182,7 +182,7 @@
 "Replace" = "Değiştir";
 
 /* Button */
-"Reset Disabled Warnings" = "İptal uyarılarını sıfırla";
+"Reset Disabled Warnings" = "Devre dışı bırakılmış uyarıları sıfırla";
 
 /* Button */
 "Restart connection" = "Tekrar bağlan";
@@ -209,7 +209,7 @@
 "Skip" = "Geç";
 
 /* Button */
-"Speak" = "Speak";
+"Speak" = "Dikte";
 
 /* Button */
 "Standard icon" = "Standart simge";
@@ -236,7 +236,7 @@
 "Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikonu";
 
 /* Button */
-"When Tunnelblick launches" = "Tunnelblick çalıştığında";
+"When Tunnelblick launches" = "Tunnelblick başladığında";
 
 /* Button */
 "When computer starts" = "Bilgisayar yeniden başlatıldığında";
@@ -257,16 +257,19 @@
 "Disconnect %@%@" = "Bağlantıyı kes%@%@";
 
 /* Menu Item */
-"Duplicate Configuration..." = "Konfigürasyon'u kopyala…";
+"Do Not Show Configuration on Tunnelblick Menu" = "Do Not Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
+"Duplicate Configuration..." = "Konfigürasyon'u çoğalt…";
 
 /* Menu Item */
 "Edit OpenVPN Configuration File..." = "OpenVPN konfigürasyon dosyasını düzenle…";
 
 /* Menu Item */
-"Examine OpenVPN Configuration File..." = "OpenVPN konfigürasyon dosyasını test et…";
+"Examine OpenVPN Configuration File..." = "OpenVPN konfigürasyon dosyasını incele…";
 
 /* Menu Item */
-"Make Configuration Private..." = "Konfigürasyon'u özelleştir…";
+"Make Configuration Private..." = "Konfigürasyon'u gizli yap…";
 
 /* Menu Item */
 "Make Configuration Shared..." = "Konfigürasyon'u paylaştır…";
@@ -284,7 +287,10 @@
 "Revert Configuration..." = "Yapılandırmayı geri al…";
 
 /* Menu Item */
-"Show OpenVPN Log in Finder" = "OpenVPN Log' unu Finder de göster";
+"Show Configuration on Tunnelblick Menu" = "Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
+"Show OpenVPN Log in Finder" = "OpenVPN kütüğünü Finder'da göster";
 
 /* Menu item */
 "Suggestion or Bug Report..." = "Öneri veya Hata Bildirimi...";
@@ -303,6 +309,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Mevcut IP adresinin, bağlantıdan sonra değişip değişmediğini kontrol et";
+
+/* Checkbox name */
+"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Bilgisayar uyku moduna geçtiğinde bağlantıyı kes";
@@ -341,6 +350,9 @@
 "Do not warn about this again" = "Bunun hakkında beni tekrar uyarma";
 
 /* Checkbox name */
+"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+
+/* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "DNS önbelliğini bağlanınca veya bağlantıyı kesince temizle";
 
 /* Checkbox name */
@@ -365,6 +377,9 @@
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Bilgisayar uykudan uyandıktan sonra tekarar bağlan (Uykudan önce zaten bağlıysanız)";
 
 /* Checkbox name */
+"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+
+/* Checkbox name */
 "Reconnect when user switches in" = "Kullanıcı geri geldiğinde tekrar bağlan";
 
 /* Checkbox name */
@@ -384,9 +399,6 @@
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "DNS bilgilerini, rotalardan önce ayarlamak yerine rotalardan sonra ayarla";
-
-/* Checkbox name */
-"Show configuration on Tunnelblick menu" = "Tunnelblick menüsünde yapılandırmayı göster";
 
 /* Checkbox name */
 "Show when disconnected" = "Bağlantı kesildiğinde göster";
@@ -614,6 +626,9 @@
 "Settings" = "Ayarlar";
 
 /* Window title */
+"Sounds" = "Sounds";
+
+/* Window title */
 "System Requirements Not Met" = "Sistem Gereksinimleri Karşılanmıyor";
 
 /* Window title */
@@ -785,6 +800,9 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "('easy-rsaPath' ayarı geçersiz.)";
 
 /* Window text */
+"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+
+/* Window text */
 "(if connected when user switched out)" = "(kullanıcı değiştirildiğinde bağlı ise)";
 
 /* Window text */
@@ -900,6 +918,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "Yapılandırma '%@' kaldırılamıyor, zaten yüklenmemiş.";
+
+/* Window text */
+"Computer sleep/wake" = "Computer sleep/wake";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Yapılandırma '%@' bağlıyken değiştirme veya kaldırma yapılırsa sorun yaratabilecek bir veya daha fazla betik içeriyor.\n\nYapılandırmayı değiştirmek istiyor musunuz?";

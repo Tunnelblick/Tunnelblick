@@ -257,6 +257,9 @@
 "Disconnect %@%@" = "%@%@ Megszakítás";
 
 /* Menu Item */
+"Do Not Show Configuration on Tunnelblick Menu" = "Do Not Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Duplicate Configuration..." = "Másolat készítése…";
 
 /* Menu Item */
@@ -284,6 +287,9 @@
 "Revert Configuration..." = "Konfiguráció visszaállítása…";
 
 /* Menu Item */
+"Show Configuration on Tunnelblick Menu" = "Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Show OpenVPN Log in Finder" = "OpenVPN Log megjelenítése a Finder-ben";
 
 /* Menu item */
@@ -303,6 +309,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Jelezze ha a látható publikus IP cím változott a kapcsolódás után";
+
+/* Checkbox name */
+"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Szétkapcsolás, ha a számítógép alvó állapotba kerül";
@@ -341,6 +350,9 @@
 "Do not warn about this again" = "Ne figyelmeztessen erről ismét";
 
 /* Checkbox name */
+"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+
+/* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "DNS cache ürítése kapcsolódás vagy szétkapcsolás során";
 
 /* Checkbox name */
@@ -365,6 +377,9 @@
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Újra csatlakozás ha a számítógép alvó állapotból ébred (ha elalvás előtt csatlakozva volt)";
 
 /* Checkbox name */
+"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+
+/* Checkbox name */
 "Reconnect when user switches in" = "Újracsatlakozás amikor a felhasználó bejelentkezik";
 
 /* Checkbox name */
@@ -384,9 +399,6 @@
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "DNS beállítása az útvonalak beállítása után és nem előtte";
-
-/* Checkbox name */
-"Show configuration on Tunnelblick menu" = "Mutassa a konfigurációt a Tunnelblick menüben";
 
 /* Checkbox name */
 "Show when disconnected" = "Mutassa ha szétkapcsolt";
@@ -614,6 +626,9 @@
 "Settings" = "Beállítások";
 
 /* Window title */
+"Sounds" = "Sounds";
+
+/* Window title */
 "System Requirements Not Met" = "A rendszerkövetelmények nem teljesültek";
 
 /* Window title */
@@ -785,6 +800,9 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "(Az 'easy-rsaPath' beállítás érvénytelen.)";
 
 /* Window text */
+"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+
+/* Window text */
 "(if connected when user switched out)" = "(ha csatlakozott és a felhasználó kijelentkezett)";
 
 /* Window text */
@@ -900,6 +918,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "A(z) '%@' nem távolítható el, mert nem is lett telepítve.";
+
+/* Window text */
+"Computer sleep/wake" = "Computer sleep/wake";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "A(z) '%@' konfiguráció egy vagy több olyan szkriptet tartalmaz amely problémát okozhat, ha lecseréli vagy eltávolítja a konfigurációt miközben a kapcsolat él.\n\nLecseréli a konfigurációt?";

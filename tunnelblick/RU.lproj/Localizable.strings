@@ -257,6 +257,9 @@
 "Disconnect %@%@" = "Отключить %@%@";
 
 /* Menu Item */
+"Do Not Show Configuration on Tunnelblick Menu" = "Do Not Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Duplicate Configuration..." = "Дублировать конфигурацию…";
 
 /* Menu Item */
@@ -284,6 +287,9 @@
 "Revert Configuration..." = "Откатить конфигурацию…";
 
 /* Menu Item */
+"Show Configuration on Tunnelblick Menu" = "Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Show OpenVPN Log in Finder" = "Показать журнал OpenVPN в Finder";
 
 /* Menu item */
@@ -303,6 +309,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Проверять, изменился ли внешний IP адрес после соединения";
+
+/* Checkbox name */
+"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Отключить при переходе в спящий режим";
@@ -341,6 +350,9 @@
 "Do not warn about this again" = "Больше не предупреждать";
 
 /* Checkbox name */
+"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+
+/* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Очищать кэш DNS после соединения или разъединения";
 
 /* Checkbox name */
@@ -365,6 +377,9 @@
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Переподключаться при возвращении из спящего режима (если было подключено до засыпания)";
 
 /* Checkbox name */
+"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+
+/* Checkbox name */
 "Reconnect when user switches in" = "Переподключаться при входе пользователя";
 
 /* Checkbox name */
@@ -384,9 +399,6 @@
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "При подключении устанавливать сначала параметры DNS (до маршрутизации)";
-
-/* Checkbox name */
-"Show configuration on Tunnelblick menu" = "Показывать конфигурацию в меню Tunnelblick";
 
 /* Checkbox name */
 "Show when disconnected" = "Показывать, когда разъединено";
@@ -614,6 +626,9 @@
 "Settings" = "Настройки";
 
 /* Window title */
+"Sounds" = "Sounds";
+
+/* Window title */
 "System Requirements Not Met" = "Системные требования не удовлетворены";
 
 /* Window title */
@@ -785,6 +800,9 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "(Опция 'easy-rsaPath' некорректна.)";
 
 /* Window text */
+"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+
+/* Window text */
 "(if connected when user switched out)" = "(при подключении, когда пользователь отключён)";
 
 /* Window text */
@@ -900,6 +918,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "Не удаётся удалить конфигурацию '%@' потому, что она не установлена.";
+
+/* Window text */
+"Computer sleep/wake" = "Computer sleep/wake";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Конфигурация '%@' содержит один или несколько скриптов, которые могут вызвать проблемы, если вы замените или удалите конфигурацию, пока она подключена.\n\nВы хотите заменить конфигурацию?";

@@ -89,7 +89,7 @@
 "Default (%@)" = "預設 (%@)";
 
 /* Button */
-"Delete Credentials" = "刪除認證資訊";
+"Delete Credentials" = "刪除憑據";
 
 /* Button */
 "Delete" = "刪除";
@@ -257,6 +257,9 @@
 "Disconnect %@%@" = "中斷 %@%@";
 
 /* Menu Item */
+"Do Not Show Configuration on Tunnelblick Menu" = "Do Not Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Duplicate Configuration..." = "建立設定檔複本...";
 
 /* Menu Item */
@@ -284,6 +287,9 @@
 "Revert Configuration..." = "復原設定檔...";
 
 /* Menu Item */
+"Show Configuration on Tunnelblick Menu" = "Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
 "Show OpenVPN Log in Finder" = "在 Finder 中顯示 OpenVPN 記錄檔";
 
 /* Menu item */
@@ -303,6 +309,9 @@
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "檢查連接後外部 IP 地址是否改變";
+
+/* Checkbox name */
+"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "當電腦睡眠時中斷連線";
@@ -341,6 +350,9 @@
 "Do not warn about this again" = "不再顯示此警告";
 
 /* Checkbox name */
+"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+
+/* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "連線或斷線後清空 DNS 緩存";
 
 /* Checkbox name */
@@ -365,6 +377,9 @@
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "當電腦從睡眠中喚醒時重新連接 (假如當電腦進入睡眠時已連線)";
 
 /* Checkbox name */
+"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+
+/* Checkbox name */
 "Reconnect when user switches in" = "當使用者切換回來時重新連接";
 
 /* Checkbox name */
@@ -384,9 +399,6 @@
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "在設定好路由之後才設定 DNS";
-
-/* Checkbox name */
-"Show configuration on Tunnelblick menu" = "在 Tunnelblick 選單上顯示設定";
 
 /* Checkbox name */
 "Show when disconnected" = "斷線時顯示";
@@ -614,6 +626,9 @@
 "Settings" = "設定";
 
 /* Window title */
+"Sounds" = "Sounds";
+
+/* Window title */
 "System Requirements Not Met" = "未能達到系統要求";
 
 /* Window title */
@@ -785,6 +800,9 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "（「easy-rsaPath」偏好設定無效。）";
 
 /* Window text */
+"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+
+/* Window text */
 "(if connected when user switched out)" = "(假如當使用者切換時已連線)";
 
 /* Window text */
@@ -797,7 +815,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "「%@」VPN 設定檔中的巢狀層級太深";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts.";
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "一個需要輸入口令（私人密鑰）或用戶名和密碼的配置，是無法隨計算機啓動而啓動的。";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "需要密碼來連線到\n  %1$@%2$@";
@@ -900,6 +918,9 @@
 
 /* Window text */
 "Cannot uninstall configuration '%@' because it is not installed." = "由於它未被安裝，無法移除「%@」配置";
+
+/* Window text */
+"Computer sleep/wake" = "Computer sleep/wake";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "設定 「%@」含有至少一個程式。如果你在已建立連線的時候取代或移除這個設定檔，有可能會導致問題。\n\n你確定要取代這個設定檔嗎？";
@@ -1295,16 +1316,16 @@
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "當使用 Tunnelblick 時，「%@」OpenVPN 選項不被允許。";
 
 /* Window text */
-"The '%@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %@ without the patch will be used.\n\nThis may mean that OpenVPN will not start." = "The '%1$@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %2$@ without the patch will be used.\n\nThis may mean that OpenVPN will not start.";
+"The '%@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %@ without the patch will be used.\n\nThis may mean that OpenVPN will not start." = "配置 “%1$@” 包含 “混淆” 選項, 但是沒有可用的帶混淆補丁的 OpenVPN 版本, 因此將使用不帶補丁的版本 %2$@.\n\n這可能表示 OpenVPN 將無法啓動。";
 
 /* Window text */
-"The '%@' configuration contains a 'scramble' option, so OpenVPN version %@ with the scramble patch will be used." = "The '%1$@' configuration contains a 'scramble' option, so OpenVPN version %2$@ with the scramble patch will be used.";
+"The '%@' configuration contains a 'scramble' option, so OpenVPN version %@ with the scramble patch will be used." = "配置 “%1$@” 包含 “混淆” 選項, 因此將使用帶混淆補丁的 OpenVPN 版本 %2$@.";
 
 /* Window text */
-"The '%@' configuration does not contain a 'scramble' option, so OpenVPN version %@ without the scramble patch will be used." = "The '%1$@' configuration does not contain a 'scramble' option, so OpenVPN version %2$@ without the scramble patch will be used.";
+"The '%@' configuration does not contain a 'scramble' option, so OpenVPN version %@ without the scramble patch will be used." = "配置 ”%1$@” 不包含 “混淆” 選項, 因此將使用不帶混淆補丁的 OpenVPN 版本 %2$@.";
 
 /* Window text */
-"The '%@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "The '%1$@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %2$@ which contains the patch will be used.";
+"The '%@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used." = "配置 “%1$@” 不需要帶混淆補丁的 OpenVPN 版本, 但是沒有可用的不帶混淆補丁的版本, 因此將使用帶補丁的版本 %2$@.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "由於這個認證訊息列表不能被修改，無法加入 '%@' 的認證訊息。";
@@ -1418,19 +1439,19 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "這個 Tunnelblick 拷貝沒有數碼簽字。\n\n我們沒有辦法確認這個拷貝有沒有被篡改。\n\n 請在使用前與這個 Tunnelblick 拷貝的提供者查詢。\n\n";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "這是 Tunnelblick 的 64 位 Intel 版本。如果您使用 Tun 或 Tap 驅動，Tunnelblick 將無法正常工作。";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "這是 Tunnelblick 的 64 位 Intel 版本。它將無法與使用 Tap 連接的配置一起正常工作。請使用 Tunnelblick 的通用版本替換這個版本。";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "這是 Tunnelblick 的 64 位 Intel 版本。它無法與使用 Tun 驅動的配置一起正常工作。請使用 Tunnelblick 的通用版本替換這個版本。";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "這是 Tunnelblick 的 64 位 Intel 版本。它無法與使用 Tun 驅動的配置一起正常工作。你可以改用 Tunnelblick 的通用版本，或者可以通過移除 OpenVPN 的「開髮型」選項來使用 OS X 的 utun 驅動。請參閱 OpenVPN 的文檔。";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "這是 Tunnelblick 的 64 位 Intel 版本。在沒有使用 Tun 或 Tap 驅動的情况下，它只能運行在具有 64 位內核的 OS X 上，或者在 OS X 10.6.8 或更高版本上。";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "由於更新的 URL 無效，無法啟動或安裝這個版本的 Tunnelblick。\n\n";
