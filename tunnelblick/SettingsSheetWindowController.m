@@ -1540,20 +1540,23 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 // Set a checkbox from preferences
 -(void) setupCheckbox: (NSButton *) checkbox
                   key: (NSString *) key
-             inverted: (BOOL) inverted {
-    NSString * actualKey = [configurationName stringByAppendingString: key];
-    BOOL state = [gTbDefaults boolForKey: actualKey];
-    if (  inverted  ) {
-        state = ! state;
-    }
-    if (  state  ) {
-        [checkbox setState: NSOnState];
-    } else {
-        [checkbox setState: NSOffState];
-    }
+             inverted: (BOOL)       inverted {
     
-    BOOL enable = [gTbDefaults canChangeValueForKey: actualKey];
-    [checkbox setEnabled: enable];
+    if (  checkbox  ) {
+        NSString * actualKey = [configurationName stringByAppendingString: key];
+        BOOL state = [gTbDefaults boolForKey: actualKey];
+        if (  inverted  ) {
+            state = ! state;
+        }
+        if (  state  ) {
+            [checkbox setState: NSOnState];
+        } else {
+            [checkbox setState: NSOffState];
+        }
+        
+        BOOL enable = [gTbDefaults canChangeValueForKey: actualKey];
+        [checkbox setEnabled: enable];
+    }
 }
 
 

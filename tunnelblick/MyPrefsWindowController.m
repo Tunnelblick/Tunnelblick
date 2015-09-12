@@ -800,21 +800,23 @@ static BOOL firstTimeShowingWindow = TRUE;
                   key: (NSString *) key
              inverted: (BOOL) inverted
 {
-    VPNConnection * connection = [self selectedConnection];
-    if (  connection  ) {
-        NSString * actualKey = [[connection displayName] stringByAppendingString: key];
-        BOOL state = [gTbDefaults boolForKey: actualKey];
-        if (  inverted  ) {
-            state = ! state;
+    if (  checkbox  ) {
+        VPNConnection * connection = [self selectedConnection];
+        if (  connection  ) {
+            NSString * actualKey = [[connection displayName] stringByAppendingString: key];
+            BOOL state = [gTbDefaults boolForKey: actualKey];
+            if (  inverted  ) {
+                state = ! state;
+            }
+            if (  state  ) {
+                [checkbox setState: NSOnState];
+            } else {
+                [checkbox setState: NSOffState];
+            }
+            
+            BOOL enable = [gTbDefaults canChangeValueForKey: actualKey];
+            [checkbox setEnabled: enable];
         }
-        if (  state  ) {
-            [checkbox setState: NSOnState];
-        } else {
-            [checkbox setState: NSOffState];
-        }
-        
-        BOOL enable = [gTbDefaults canChangeValueForKey: actualKey];
-        [checkbox setEnabled: enable];
     }
 }
 
