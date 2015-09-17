@@ -30,24 +30,36 @@
 
 #import "NSFileManager+TB.h"
 
+void appendLog(NSString * errMsg);
 
 @implementation NSFileManager (TB)
 
 -(BOOL) tbChangeFileAttributes:(NSDictionary *)attributes atPath:(NSString *)path {
     
     if (  [self respondsToSelector:@selector (setAttributes:ofItemAtPath:error:)]  ) {
-        return [self setAttributes:attributes ofItemAtPath:path error: NULL];
+        NSError * err = nil;
+        BOOL answer = [self setAttributes:attributes ofItemAtPath:path error: &err];
+        if (  ! answer  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from setAttributes: %@ ofItemAtPath: %@; Error was %@", attributes, path, err];
+            appendLog(errMsg);
+        }
+        return answer;
     }
     
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
     
     if (  [self respondsToSelector:@selector (changeFileAttributes:atPath:)]  ) {
-        return [self changeFileAttributes:attributes atPath:path];
+        BOOL answer = [self changeFileAttributes:attributes atPath:path];
+        if (  ! answer  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from changeFileAttributes: %@ atPath: %@", attributes, path];
+            appendLog(errMsg);
+        }
+        return answer;
     }
     
 #endif
     
-    NSLog(@"No implementation for changeFileAttributes:atPath:");
+    appendLog(@"No implementation for changeFileAttributes:atPath:");
     return NO;
 }
 
@@ -57,31 +69,29 @@
     (void) handler;
     
     if (  [self respondsToSelector:@selector (copyItemAtPath:toPath:error:)]  ) {
-		NSError * er = nil;
-        BOOL ok = [self copyItemAtPath:source toPath:destination error: &er];
-        
-#ifdef TBDebug
-        
-		if (  ! ok  ) {
-			NSString * errMsg = [NSString stringWithFormat: @"Error in tbCopyPath: %@", er];
-			void appendLog(NSString * errMsg);
-			appendLog(errMsg);
-		}
-        
-#endif
-		
-		return ok;
+		NSError * err = nil;
+        BOOL answer = [self copyItemAtPath:source toPath:destination error: &err];
+        if (  ! answer  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from copyItemAtPath: %@ toPath: %@; Error was %@", source, destination, err];
+            appendLog(errMsg);
+        }
+        return answer;
     }
     
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
     
     if (  [self respondsToSelector:@selector (copyPath:toPath:handler:)]  ) {
-        return [self copyPath:source toPath:destination handler:handler];
+        BOOL answer = [self copyPath:source toPath:destination handler:handler];
+        if (  ! answer  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from copyPath: %@ toPath: %@", source, destination];
+            appendLog(errMsg);
+        }
+        return answer;
     }
     
 #endif
     
-    NSLog(@"No implementation for copyPath:toPath:handler:");
+    appendLog(@"No implementation for copyPath:toPath:handler:");
     return NO;
 }
 
@@ -89,36 +99,58 @@
 -(BOOL) tbCreateDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes {
     
     if (  [self respondsToSelector:@selector (createDirectoryAtPath:withIntermediateDirectories:attributes:error:)]  ) {
-        return [self createDirectoryAtPath:path withIntermediateDirectories:NO attributes:attributes error: NULL];
+        NSError * err = nil;
+        BOOL answer = [self createDirectoryAtPath:path withIntermediateDirectories:NO attributes:attributes error: &err];
+        if (  ! answer  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from createDirectoryAtPath: %@ withIntermediateDirectories: NO attributes: %@; Error was %@", path, attributes, err];
+            appendLog(errMsg);
+        }
+        return answer;
     }
     
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
     
     if (  [self respondsToSelector:@selector (createDirectoryAtPath:attributes:)]  ) {
-        return [self createDirectoryAtPath:path attributes:attributes];
+        BOOL answer = [self createDirectoryAtPath:path attributes:attributes];
+        if (  ! answer  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from createDirectoryAtPath: %@ attributes: %@", path, attributes];
+            appendLog(errMsg);
+        }
+        return answer;
     }
     
 #endif
     
-    NSLog(@"No implementation for createDirectoryAtPath:attributes:");
+    appendLog(@"No implementation for createDirectoryAtPath:attributes:");
     return NO;
 }
 
 -(BOOL) tbCreateSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherPath {
     
     if (  [self respondsToSelector:@selector (createSymbolicLinkAtPath:withDestinationPath:error:)]  ) {
-        return [self createSymbolicLinkAtPath:path withDestinationPath:otherPath error: NULL];
+        NSError * err = nil;
+        BOOL answer = [self createSymbolicLinkAtPath:path withDestinationPath:otherPath error: &err];
+        if (  ! answer  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from createSymbolicLinkAtPath: %@ withDestinationPath: %@; Error was %@", path, otherPath, err];
+            appendLog(errMsg);
+        }
+        return answer;
     }
     
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
     
     if (  [self respondsToSelector:@selector (createSymbolicLinkAtPath:pathContent:)]  ) {
-        return [self createSymbolicLinkAtPath:path pathContent:otherPath];
+        BOOL answer = [self createSymbolicLinkAtPath:path pathContent:otherPath];
+        if (  ! answer  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from createSymbolicLinkAtPath: %@ pathContent: %@", path, otherPath];
+            appendLog(errMsg);
+        }
+        return answer;
     }
     
 #endif
     
-    NSLog(@"No implementation for createSymbolicLinkAtPath:pathContent:");
+    appendLog(@"No implementation for createSymbolicLinkAtPath:pathContent:");
     return NO;
 }
 
@@ -126,18 +158,29 @@
 -(NSArray *) tbDirectoryContentsAtPath:(NSString *)path {
     
     if (  [self respondsToSelector:@selector (contentsOfDirectoryAtPath:error:)]  ) {
-        return [self contentsOfDirectoryAtPath:path error: NULL];
+        NSError * err = nil;
+        NSArray * answer = [self contentsOfDirectoryAtPath:path error: &err];
+        if (  ! answer  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from contentsOfDirectoryAtPath: %@; Error was %@", path, err];
+            appendLog(errMsg);
+        }
+        return answer;
     }
     
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5b
     
     if (  [self respondsToSelector:@selector (directoryContentsAtPath:)]  ) {
-        return [self directoryContentsAtPath:path];
+        NSArray * answer = [self directoryContentsAtPath:path];
+        if (  ! answer  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from directoryContentsAtPath: %@", path];
+            appendLog(errMsg);
+        }
+        return answer;
     }
     
 #endif
     
-    NSLog(@"No implementation for directoryContentsAtPath:");
+    appendLog(@"No implementation for directoryContentsAtPath:");
     return nil;
 }
 
@@ -145,24 +188,57 @@
 -(NSDictionary *) tbFileAttributesAtPath:(NSString *)path traverseLink:(BOOL)flag {
     
     if (  [self respondsToSelector:@selector (attributesOfItemAtPath:error:)]  ) {
-        NSDictionary * attributes = [self attributesOfItemAtPath:path error: NULL];
+        NSError * err = nil;
+        NSDictionary * attributes = [self attributesOfItemAtPath:path error: &err];
+        if (  ! attributes  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from attributesOfItemAtPath: %@;\nError was %@", path, err];
+            appendLog(errMsg);
+            return nil;
+       }
+        unsigned int counter = 0;
+		NSString * realPath = nil;
+		NSString * newPath  = [[path copy] autorelease];
         while (   flag
+			   && ( counter++ < 10 )
                && [[attributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink] ) {
-            NSString * realPath = [self tbPathContentOfSymbolicLinkAtPath:path];
-            attributes = [self attributesOfItemAtPath:realPath error: NULL];
+            realPath = [self tbPathContentOfSymbolicLinkAtPath: newPath];
+			if (  ! realPath  ) {
+				NSString * errMsg = [NSString stringWithFormat: @"Error returned from tbPathContentOfSymbolicLinkAtPath: %@;\nOriginal path = %@", newPath, path];
+                appendLog(errMsg);
+				return nil;
+			}
+			if (  ! [realPath hasPrefix: @"/"]  ) {
+				realPath = [[newPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: realPath];
+			}
+            attributes = [self attributesOfItemAtPath:realPath error: &err];
+            if (  ! attributes  ) {
+                NSString * errMsg = [NSString stringWithFormat: @"Error returned from attributesOfItemAtPath: %@;\nOriginal path was %@\nLatest path = %@;\nError was %@", realPath, path, newPath, err];
+                appendLog(errMsg);
+                return nil;
+            }
+            newPath = [[realPath copy] autorelease];
         }
+		if (  counter >= 10  ) {
+			NSString * errMsg = [NSString stringWithFormat: @"tbFileAttributesAtPath detected a symlink loop.\nOriginal path was %@\nLast \"Real\" path was %@, attributes = %@", path, realPath, attributes];
+            appendLog(errMsg);
+		}
         return attributes;
     }
     
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
     
     if (  [self respondsToSelector:@selector (fileAttributesAtPath:traverseLink:)]  ) {
-        return [self fileAttributesAtPath:path traverseLink:flag];
+        NSDictionary * attributes = [self fileAttributesAtPath:path traverseLink:flag];
+        if (  ! attributes  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from fileAttributesAtPath: %@", path];
+            appendLog(errMsg);
+        }
+        return attributes;
     }
     
 #endif
     
-    NSLog(@"No implementation for fileAttributesAtPath:traverseLink:");
+    appendLog(@"No implementation for fileAttributesAtPath:traverseLink:");
     return nil;
 }
 
@@ -174,18 +250,29 @@
     if (  [self respondsToSelector:@selector (moveItemAtPath:toPath:error:)]  ) {
         // The apple docs are vague about what this does compared to movePath:toPath:handler:.
         // So we hope it works the same. (Regarding same-device moves, for example.)
-        return [self moveItemAtPath:source toPath:destination error: NULL];
+        NSError * err = nil;
+        BOOL answer = [self moveItemAtPath:source toPath:destination error: &err];
+        if (  ! answer  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from moveItemAtPath: %@ toPath: %@; Error was %@", source, destination, err];
+            appendLog(errMsg);
+        }
+        return answer;
     }
     
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
     
     if (  [self respondsToSelector:@selector (movePath:toPath:handler:)]  ) {
-        return [self movePath:source toPath:destination handler:handler];
+        BOOL answer = [self movePath:source toPath:destination handler:handler];
+        if (  ! answer  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from movePath: %@ toPath: %@", source, destination];
+            appendLog(errMsg);
+        }
+        return answer;
     }
     
 #endif
     
-    NSLog(@"No implementation for movePath:toPath:handler:");
+    appendLog(@"No implementation for movePath:toPath:handler:");
     return NO;
 }
 
@@ -195,18 +282,29 @@
     (void) handler;
     
     if (  [self respondsToSelector:@selector (removeItemAtPath:error:)]  ) {
-        return [self removeItemAtPath:path error: NULL];
+        NSError * err = nil;
+        BOOL answer = [self removeItemAtPath:path error: &err];
+        if (  ! answer  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from removeItemAtPath: %@; Error was %@", path, err];
+            appendLog(errMsg);
+        }
+        return answer;
     }
     
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
     
     if (  [self respondsToSelector:@selector (removeFileAtPath:handler:)]  ) {
-        return [self removeFileAtPath:path handler:handler];
+        BOOL answer = [self removeFileAtPath:path handler:handler];
+        if (  ! answer  ) {
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from removeFileAtPath: %@", path];
+            appendLog(errMsg);
+        }
+        return answer;
     }
     
 #endif
     
-    NSLog(@"No implementation for removeFileAtPath:handler:");
+    appendLog(@"No implementation for removeFileAtPath:handler:");
     return NO;
 }
 
@@ -214,18 +312,29 @@
 -(NSString *) tbPathContentOfSymbolicLinkAtPath:(NSString *)path {
     
     if (  [self respondsToSelector:@selector (destinationOfSymbolicLinkAtPath:error:)]  ) {
-        return [self destinationOfSymbolicLinkAtPath:path error: NULL];
+		NSError * err = nil;
+		NSString * answer = [self destinationOfSymbolicLinkAtPath:path error: &err];
+		if (  ! answer  ) {
+			NSString * errMsg = [NSString stringWithFormat: @"Error returned from destinationOfSymbolicLinkAtPath: %@; Error was %@", path, err];
+            appendLog(errMsg);
+		}
+        return answer;
     }
     
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
     
     if (  [self respondsToSelector:@selector (pathContentOfSymbolicLinkAtPath:)]  ) {
-        return [self pathContentOfSymbolicLinkAtPath:path];
+        NSString * answer = [self pathContentOfSymbolicLinkAtPath:path];
+		if (  ! answer  ) {
+			NSString * errMsg = [NSString stringWithFormat: @"Error returned from pathContentOfSymbolicLinkAtPath: %@", path];
+            appendLog(errMsg);
+		}
+		return answer;
     }
     
 #endif
     
-    NSLog(@"No implementation for pathContentOfSymbolicLinkAtPath:");
+    appendLog(@"No implementation for pathContentOfSymbolicLinkAtPath:");
     return nil;
 }
 
