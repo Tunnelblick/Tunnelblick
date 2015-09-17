@@ -621,11 +621,13 @@ int main(int argc, char *argv[])
         errorExit();
     }
     
-    if (  ! createDirWithPermissionAndOwnership(TUNNELBLICKD_LOG_FOLDER,
-                                                PERMS_SECURED_FOLDER, 0, 0)  ) {
-        errorExit();
-    }
-    
+	if (  ( ! helperIsToBeSuid)  ) {
+		if (  ! createDirWithPermissionAndOwnership(TUNNELBLICKD_LOG_FOLDER,
+													PERMS_SECURED_FOLDER, 0, 0)  ) {
+			errorExit();
+		}
+	}
+	
     if (  ! createDirWithPermissionAndOwnership(L_AS_T_SHARED,
                                                 PERMS_SECURED_FOLDER, 0, 0)  ) {
         errorExit();
@@ -848,13 +850,13 @@ int main(int argc, char *argv[])
         okSoFar = okSoFar && checkSetPermissions(leasewatch3Path,           PERMS_SECURED_ROOT_EXEC,  YES);
         okSoFar = okSoFar && checkSetPermissions(pncPath,                   PERMS_SECURED_ROOT_EXEC,  YES);
         okSoFar = okSoFar && checkSetPermissions(ssoPath,                   PERMS_SECURED_ROOT_EXEC,  YES);
-        okSoFar = okSoFar && checkSetPermissions(tunnelblickdPath,          PERMS_SECURED_ROOT_EXEC,  YES);
+        okSoFar = okSoFar && checkSetPermissions(tunnelblickdPath,          PERMS_SECURED_ROOT_EXEC,  ( ! helperIsToBeSuid));
         
         okSoFar = okSoFar && checkSetPermissions(pncPlistPath,              PERMS_SECURED_PLIST,      YES);
         okSoFar = okSoFar && checkSetPermissions(leasewatchPlistPath,       PERMS_SECURED_PLIST,      YES);
         okSoFar = okSoFar && checkSetPermissions(leasewatch3PlistPath,      PERMS_SECURED_PLIST,      YES);
         okSoFar = okSoFar && checkSetPermissions(launchAtLoginPlistPath,    PERMS_SECURED_PLIST,      YES);
-        okSoFar = okSoFar && checkSetPermissions(tunnelblickdPlistPath,     PERMS_SECURED_PLIST,      YES);
+        okSoFar = okSoFar && checkSetPermissions(tunnelblickdPlistPath,     PERMS_SECURED_PLIST,      ( ! helperIsToBeSuid));
         okSoFar = okSoFar && checkSetPermissions(freePublicDnsServersPath,  PERMS_SECURED_PLIST,      YES);
         
         okSoFar = okSoFar && checkSetPermissions(clientUpPath,              PERMS_SECURED_ROOT_EXEC,  NO);

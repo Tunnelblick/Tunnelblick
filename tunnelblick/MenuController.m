@@ -6034,10 +6034,14 @@ unsigned needToRunInstaller(BOOL inApplications)
     unsigned flags = 0;
     
     if (  needToChangeOwnershipAndOrPermissions(inApplications)  ) flags = flags | INSTALLER_SECURE_APP;
-	if (  ! tunnelblickdIsLoaded()                               ) flags = flags | INSTALLER_SECURE_APP;
     if (  needToRepairPackages()                                 ) flags = flags | INSTALLER_SECURE_TBLKS;
     if (  needToConvertNonTblks()                                ) flags = flags | INSTALLER_CONVERT_NON_TBLKS;
     if (  needToMoveLibraryOpenVPN()                             ) flags = flags | INSTALLER_MOVE_LIBRARY_OPENVPN;
+	if (   runningOnLeopardOrNewer()
+		&& ( ! tunnelblickdIsLoaded() )                          ) {
+		NSLog(@"tunnelblickd is not loaded");
+		flags = flags | INSTALLER_SECURE_APP;
+	}
     
     return flags;
 }
@@ -6381,7 +6385,19 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         }
     }
     
-    // Final check: Everything in the application is owned by root:wheel and is not writable by "other" 
+	// Check the tunnelblickd .plist
+	if (  runningOnLeopardOrNewer()  ) {
+		if (  [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH]  ) {
+			if (  ! checkOwnerAndPermissions(TUNNELBLICKD_PLIST_PATH, 0, 0, PERMS_SECURED_READABLE)  ) {
+				return YES; // NSLog already called
+			}
+		} else {
+			NSLog(@"Need to install tunnelblickd plist at %@", TUNNELBLICKD_PLIST_PATH);
+			return YES;
+		}
+	}
+			
+	// Final check: Everything in the application is owned by root:wheel and is not writable by "other" 
     dirEnum = [gFileMgr enumeratorAtPath: tunnelblickPath];
     while (  (file = [dirEnum nextObject])  ) {
         NSString     * fullPath = [tunnelblickPath stringByAppendingPathComponent: file];
