@@ -28,7 +28,7 @@
 
 NSAutoreleasePool * gPool;
 
-void appendToLog(NSString * msg);
+void appendLog(NSString * msg);
 
 void restoreItems (NSArray  * itemsToRestore,
                    NSString * currentVpnDNS,
@@ -108,7 +108,7 @@ int main (int argc, const char * argv[])
     gLogPath = [logFile copy];
     
     if (  ! [[actions substringWithRange: NSMakeRange(0, 2)] isEqualToString: @"-p"]  ) {
-        appendToLog([NSString stringWithFormat: @"Invalid actions = '%@'; must start with '-p'", actions]);
+        appendLog([NSString stringWithFormat: @"Invalid actions = '%@'; must start with '-p'", actions]);
         [gPool drain];
         exit(EXIT_FAILURE);
     }
@@ -149,7 +149,7 @@ int main (int argc, const char * argv[])
         NSString * ch = [actions substringWithRange: NSMakeRange(i, 1)];
         if (  [ch isEqualToString: @"t"]  ) {
             if (  ! [act isEqualToString: @""] ) {
-                appendToLog([NSString stringWithFormat: @"'t' action must come first; actions = '%@'", actions]);
+                appendLog([NSString stringWithFormat: @"'t' action must come first; actions = '%@'", actions]);
                 [gPool drain];
                 exit(EXIT_FAILURE);
             }
@@ -158,20 +158,20 @@ int main (int argc, const char * argv[])
             act = @"restore";
         } else {
             if (  [act isEqualToString: @""] ) {
-                appendToLog([NSString stringWithFormat: @"'t' or 'r' action must come first; actions = '%@'", actions]);
+                appendLog([NSString stringWithFormat: @"'t' or 'r' action must come first; actions = '%@'", actions]);
                 [gPool drain];
                 exit(EXIT_FAILURE);
             }
             NSString * itemName = [charsAndKeys objectForKey: ch];
             if (  ! itemName  ) {
-                appendToLog([NSString stringWithFormat: @"Unknown character '%@' in actions = '%@'", ch, actions]);
+                appendLog([NSString stringWithFormat: @"Unknown character '%@' in actions = '%@'", ch, actions]);
                 [gPool drain];
                 exit(EXIT_FAILURE);
             }
             if (  ([changes rangeOfString: ch].length) != 0) {
                 if (  [act isEqualToString: @"restart"]  ) {
                     // Restart the connection
-                    appendToLog([NSString stringWithFormat: @"%@ changed; sending USR1 to OpenVPN (process ID %@) to restart the connection.", itemName, process]);
+                    appendLog([NSString stringWithFormat: @"%@ changed; sending USR1 to OpenVPN (process ID %@) to restart the connection.", itemName, process]);
                     sleep(1);   // sleep so log entry is displayed before OpenVPN messages about the restart
                     pid_t process_num = [process intValue];
                     kill(process_num, SIGUSR1);
@@ -186,7 +186,7 @@ int main (int argc, const char * argv[])
     
     if (  [itemsToRestore count] == 0  ) {
         if (  [changes length] == 0  ) {
-            appendToLog(@"A system configuration change was ignored");
+            appendLog(@"A system configuration change was ignored");
         } else {
             NSMutableArray * changedItemNames = [[[NSMutableArray alloc] initWithCapacity: 6] autorelease];
             for (i=0; i<[changes length]; i++) {
@@ -200,7 +200,7 @@ int main (int argc, const char * argv[])
             for (i=1; i<[changedItemNames count]; i++) {
                 [logMessage appendFormat: @" and %@", [changedItemNames objectAtIndex: i]];
             }
-            appendToLog(logMessage);
+            appendLog(logMessage);
         }
     } else {
         NSMutableString * restoreList = [[[NSMutableString alloc] initWithCapacity: 100] autorelease];
@@ -210,7 +210,7 @@ int main (int argc, const char * argv[])
         NSString * msg = [NSString stringWithFormat: @"Restoring %@ to post-VPN value%@",
                           [restoreList substringToIndex: [restoreList length] - 2],
                           ([itemsToRestore count] == 1 ? @"" :@"s")];
-        appendToLog(msg);
+        appendLog(msg);
         restoreItems(itemsToRestore, currentDNS, currentWINS, postVpnDNS, postVpnWINS, psid, useSetupKeysToo);
     }
 
@@ -218,7 +218,7 @@ int main (int argc, const char * argv[])
     exit(EXIT_SUCCESS);
 }    
 
-void appendToLog(NSString * msg)
+void appendLog(NSString * msg)
 {
     NSCalendarDate * date = [NSCalendarDate date];
     NSString * fullMsg = [NSString stringWithFormat:@"%@ *Tunnelblick process-network-changes: %@\n",[date descriptionWithCalendarFormat:@"%a %b %e %H:%M:%S %Y"], msg];
@@ -369,10 +369,10 @@ NSString * getChanges(NSDictionary * charsAndKeys, NSString * current, NSString 
             NSString * post = getKeyFromScDictionary(key, postVpn);
             if (  ! [cur isEqualToString: post]  ) {
                 if (  [cur isEqualToString: pre]  ) {
-                    appendToLog([NSString stringWithFormat: @"%@ changed from\n%@\n to (pre-VPN)\n%@", key, post, cur]);
+                    appendLog([NSString stringWithFormat: @"%@ changed from\n%@\n to (pre-VPN)\n%@", key, post, cur]);
                     [changes appendString: ch];
                 } else {
-                    appendToLog([NSString stringWithFormat: @"%@ changed from\n%@\n to\n%@\npre-VPN was\n%@", key, post, cur, pre]);
+                    appendLog([NSString stringWithFormat: @"%@ changed from\n%@\n to\n%@\npre-VPN was\n%@", key, post, cur, pre]);
                     [changes appendString: [ch uppercaseString]];
                 }
             }
@@ -513,7 +513,7 @@ void scCommand(NSString * command)
         NSData * data = [file readDataToEndOfFile];
         [file closeFile];
         NSString * errmsg = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-        appendToLog(errmsg);
+        appendLog(errmsg);
         [errPipe release];
         [stdPipe release];
         [inPipe  release];
