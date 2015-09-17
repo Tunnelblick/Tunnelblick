@@ -570,7 +570,7 @@ extern TBUserDefaults * gTbDefaults;
                               withArguments: (NSArray *)        arguments
                        withAuthorizationRef: (AuthorizationRef) myAuthorizationRef {
     
-    // Creates a "running" and an "error" flag file, runs executeAuthorized, then waits for up to 12.75 seconds for the "running" flag file to disappear
+    // Creates a "running" and an "error" flag file, runs executeAuthorized, then waits for up to 25.55 seconds for the "running" flag file to disappear
     
     if (   ( ! [self createFlagFile: AUTHORIZED_RUNNING_PATH] )
         || ( ! [self createFlagFile: AUTHORIZED_ERROR_PATH]   )  ) {
@@ -589,11 +589,11 @@ extern TBUserDefaults * gTbDefaults;
         return wfeaExecAuthFailed;
     }
     
-    // Wait for up to 12.75 seconds for the program to finish -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6, 3.2, and 6.4
-    // seconds (totals 12.75 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
+    // Wait for up to 25.55 seconds for the program to finish -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6, 3.2, 6.4, and 12.8
+    // seconds (totals 25.55 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
     useconds_t sleepTime;
     struct stat sb;
-    for (sleepTime=50000; sleepTime < 13000000; sleepTime=sleepTime*2) {
+    for (sleepTime=50000; sleepTime < 26000000; sleepTime=sleepTime*2) {
         usleep(sleepTime);
         
         if (  0 != stat([AUTHORIZED_RUNNING_PATH fileSystemRepresentation], &sb)  ) {
