@@ -105,7 +105,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
 -(void)             setBit:                     (unsigned int)      bit
                     inMask:                     (unsigned int *)    bitMaskPtr
     ifConnectionPreference:                     (NSString *)        keySuffix
-                  inverted:                     (BOOL)              invert;
+                  inverted:                     (BOOL)              invert
+				 defaultTo:                     (BOOL)              defaultsTo;
 
 -(void)             setManagementSocket:        (NetSocket *)       socket;
 
@@ -172,12 +173,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
         lastState = @"EXITING";
         requestedState = @"EXITING";
 		[self initializeAuthAgent];
-		
-		// Change default for "-routeAllTrafficThroughVpn"
-		NSString * key = [displayName stringByAppendingString: @"-routeAllTrafficThroughVpn"];
-		if (  ! [gTbDefaults objectForKey: key]  ) {
-			[gTbDefaults setBool: TRUE forKey: key];
-		}
 		
         // Set preferences that haven't been defined yet or that should always be set
 		[self reloadPreferencesFromTblk];
@@ -2071,18 +2066,18 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         bitMask = bitMask | OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS;
     }
     
-    [self setBit: OPENVPNSTART_RESTORE_ON_WINS_RESET     inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnWinsReset"              inverted: YES];
-    [self setBit: OPENVPNSTART_RESTORE_ON_DNS_RESET      inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnDnsReset"               inverted: YES];
-    [self setBit: OPENVPNSTART_PREPEND_DOMAIN_NAME       inMask: &bitMask ifConnectionPreference: @"-prependDomainNameToSearchDomains"     inverted: NO];
-    [self setBit: OPENVPNSTART_FLUSH_DNS_CACHE           inMask: &bitMask ifConnectionPreference: @"-doNotFlushCache"                      inverted: YES];
-    [self setBit: OPENVPNSTART_USE_ROUTE_UP_NOT_UP       inMask: &bitMask ifConnectionPreference: @"-useRouteUpInsteadOfUp"                inverted: NO];
-    [self setBit: OPENVPNSTART_RESET_PRIMARY_INTERFACE   inMask: &bitMask ifConnectionPreference: @"-resetPrimaryInterfaceAfterDisconnect" inverted: NO];
-    [self setBit: OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 inMask: &bitMask ifConnectionPreference: @"-routeAllTrafficThroughVpn"            inverted: NO];
-    [self setBit: OPENVPNSTART_NO_DEFAULT_DOMAIN         inMask: &bitMask ifConnectionPreference: @"-doNotUseDefaultDomain"                inverted: NO];
-    [self setBit: OPENVPNSTART_WAIT_FOR_DHCP_IF_TAP      inMask: &bitMask ifConnectionPreference: @"-waitForDHCPInfoIfTap"                 inverted: NO];
-    [self setBit: OPENVPNSTART_DO_NOT_WAIT_FOR_INTERNET  inMask: &bitMask ifConnectionPreference: @"-doNotWaitForInternetAtBoot"           inverted: NO];
-    [self setBit: OPENVPNSTART_ENABLE_IPV6_ON_TAP        inMask: &bitMask ifConnectionPreference: @"-enableIpv6OnTap"                      inverted: NO];
-    [self setBit: OPENVPNSTART_DISABLE_IPV6_ON_TUN       inMask: &bitMask ifConnectionPreference: @"-doNotDisableIpv6onTun"                inverted: YES];
+    [self setBit: OPENVPNSTART_RESTORE_ON_WINS_RESET     inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnWinsReset"              inverted: YES defaultTo: NO];
+    [self setBit: OPENVPNSTART_RESTORE_ON_DNS_RESET      inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnDnsReset"               inverted: YES defaultTo: NO];
+    [self setBit: OPENVPNSTART_PREPEND_DOMAIN_NAME       inMask: &bitMask ifConnectionPreference: @"-prependDomainNameToSearchDomains"     inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_FLUSH_DNS_CACHE           inMask: &bitMask ifConnectionPreference: @"-doNotFlushCache"                      inverted: YES defaultTo: NO];
+    [self setBit: OPENVPNSTART_USE_ROUTE_UP_NOT_UP       inMask: &bitMask ifConnectionPreference: @"-useRouteUpInsteadOfUp"                inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_RESET_PRIMARY_INTERFACE   inMask: &bitMask ifConnectionPreference: @"-resetPrimaryInterfaceAfterDisconnect" inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 inMask: &bitMask ifConnectionPreference: @"-routeAllTrafficThroughVpn"            inverted: NO  defaultTo: YES];
+    [self setBit: OPENVPNSTART_NO_DEFAULT_DOMAIN         inMask: &bitMask ifConnectionPreference: @"-doNotUseDefaultDomain"                inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_WAIT_FOR_DHCP_IF_TAP      inMask: &bitMask ifConnectionPreference: @"-waitForDHCPInfoIfTap"                 inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_DO_NOT_WAIT_FOR_INTERNET  inMask: &bitMask ifConnectionPreference: @"-doNotWaitForInternetAtBoot"           inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_ENABLE_IPV6_ON_TAP        inMask: &bitMask ifConnectionPreference: @"-enableIpv6OnTap"                      inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_DISABLE_IPV6_ON_TUN       inMask: &bitMask ifConnectionPreference: @"-doNotDisableIpv6onTun"                inverted: YES defaultTo: NO];
     
     if (  [gTbDefaults boolForKey: @"DB-UP"] || [gTbDefaults boolForKey: @"DB-ALL"]  ) {
         bitMask = bitMask | OPENVPNSTART_EXTRA_LOGGING;
@@ -2138,10 +2133,17 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     return args;
 }
 
--(void) setBit: (unsigned int) bit inMask: (unsigned int *) bitMaskPtr ifConnectionPreference: (NSString *) keySuffix inverted: (BOOL) invert
+-(void)         setBit: (unsigned int)   bit
+				inMask: (unsigned int *) bitMaskPtr
+ifConnectionPreference: (NSString *)     keySuffix
+			  inverted: (BOOL)           invert
+			 defaultTo: (BOOL)           defaultsTo
 {
     NSString * prefKey = [[self displayName] stringByAppendingString: keySuffix];
-    if (  [gTbDefaults boolForKey: prefKey]  ) {
+    BOOL value = (  defaultsTo
+				  ? [gTbDefaults boolWithDefaultYesForKey: prefKey]
+				  : [gTbDefaults boolForKey: prefKey]);
+	if (  value  ) {
         if (  ! invert  ) {
             *bitMaskPtr = *bitMaskPtr | bit;
         }
