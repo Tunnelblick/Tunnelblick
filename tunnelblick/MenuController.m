@@ -631,8 +631,10 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 
 		// Remove any old "Launch Tunnelblick" link in the private configurations folder
 		NSString * tbLinkPath = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
-		[gFileMgr tbRemoveFileAtPath: tbLinkPath handler: nil];
-        
+		if (  [gFileMgr fileExistsAtPath: tbLinkPath]  ) {
+			[gFileMgr tbRemoveFileAtPath: tbLinkPath handler: nil];
+        }
+		
         // If this is the first time we are using the new CFBundleIdentifier
         //    Rename the old preferences so we can access them with the new CFBundleIdentifier
         //    And create a link to the new preferences from the old preferences (make the link read-only)
@@ -5989,6 +5991,15 @@ BOOL warnAboutNonTblks(void)
     unsigned i;
     for (i=0; i<5; i++) {
         if (  i != 0  ) {
+            int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", "Window title"),
+                                         NSLocalizedString(@"The installation or repair took too long or failed. Try again?", "Window text"),
+                                         NSLocalizedString(@"Quit", @"Button"),
+                                         NSLocalizedString(@"Retry", @"Button"),
+                                         nil);
+            if (  result != NSAlertAlternateReturn  ) {   // Quit if "Quit" or error
+                [self terminateBecause: terminatingBecauseOfQuit];
+            }
+            
             usleep( i * 1000000 );	// Sleep for 1.0, 2.0, 3.0, and 4.0 seconds (total 8.0 seconds)
             NSLog(@"Retrying execution of installer");
         }
