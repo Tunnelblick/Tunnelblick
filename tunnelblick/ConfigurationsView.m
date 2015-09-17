@@ -65,22 +65,40 @@ extern TBUserDefaults * gTbDefaults;
 -(void) normalizeWidthOfPopDownButtons {
 	
 	// Set the width of the pop up buttons to the width of the widest one
-	NSRect connectFrame = [whenToConnectPopUpButton      frame];
-	NSRect setDnsFrame  = [setNameserverPopUpButton      frame];
-	NSRect openvpnFrame = [perConfigOpenvpnVersionButton frame];
-	CGFloat maxWidth = connectFrame.size.width;
-	if (  setDnsFrame.size.width > maxWidth  ) {
-		maxWidth = setDnsFrame.size.width;
-	}
-	if (  openvpnFrame.size.width > maxWidth  ) {
-		maxWidth = openvpnFrame.size.width;
-	}
-	connectFrame.size.width = maxWidth;
-	setDnsFrame.size.width  = maxWidth;
-	openvpnFrame.size.width = maxWidth;
-	[whenToConnectPopUpButton      setFrame: connectFrame];
-	[setNameserverPopUpButton      setFrame: setDnsFrame];
-	[perConfigOpenvpnVersionButton setFrame: openvpnFrame];
+    
+    CGFloat maxWidth = 0.0;
+	
+    NSRect connectFrame;
+    NSRect setDnsFrame;
+    NSRect openvpnFrame;
+    
+    if (  whenToConnectPopUpButton  ) {
+        connectFrame = [whenToConnectPopUpButton frame];
+        if (  connectFrame.size.width > maxWidth  ) {
+            maxWidth = connectFrame.size.width;
+        }
+    }
+    if (  setNameserverPopUpButton  ) {
+        setDnsFrame  = [setNameserverPopUpButton frame];
+        if (  setDnsFrame.size.width > maxWidth  ) {
+            maxWidth = setDnsFrame.size.width;
+        }
+    }
+    if (  perConfigOpenvpnVersionButton  ) {
+        openvpnFrame = [perConfigOpenvpnVersionButton frame];
+        if (  openvpnFrame.size.width > maxWidth  ) {
+            maxWidth = openvpnFrame.size.width;
+        }
+    }
+    
+    if (  maxWidth != 0.0  ) {
+        connectFrame.size.width = maxWidth;
+        setDnsFrame.size.width  = maxWidth;
+        openvpnFrame.size.width = maxWidth;
+        [whenToConnectPopUpButton      setFrame: connectFrame];
+        [setNameserverPopUpButton      setFrame: setDnsFrame];
+        [perConfigOpenvpnVersionButton setFrame: openvpnFrame];
+    }
 }
 
 -(void) awakeFromNib {

@@ -75,9 +75,10 @@ extern NSArray        * gConfigurationPreferences;
 
 -(void) setSelectedWhenToConnectIndex: (NSUInteger) newValue;
 
--(void) setupCheckbox: (NSButton *) checkbox
-                  key: (NSString *) key
-             inverted: (BOOL) inverted;
+-(void) setupPerConfigurationCheckbox: (NSButton *) checkbox
+                                  key: (NSString *) key
+                             inverted: (BOOL)       inverted
+                            defaultTo: (BOOL)       defaultsTo;
 
 -(void) setupLeftNavigationToDisplayName: (NSString *) displayNameToSelect;
 
@@ -458,8 +459,12 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 
 -(BOOL) usingSetNameserver {
-    
-    NSString * key = [[[self selectedConnection] displayName] stringByAppendingString: @"useDNS"];
+    NSString * name = [[self selectedConnection] displayName];
+	if (  ! name  ) {
+		return NO;
+	}
+	
+    NSString * key = [name stringByAppendingString: @"useDNS"];
     unsigned ix = [gTbDefaults unsignedIntForKey: key
                                          default: 1
                                              min: 0
@@ -513,9 +518,10 @@ static BOOL firstTimeShowingWindow = TRUE;
         [[configurationsPrefsView monitorNetworkForChangesCheckbox] setState: NSOffState];
         [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: NO];
     } else {
-        [self setupCheckbox: [configurationsPrefsView monitorNetworkForChangesCheckbox]
-                        key: @"-notMonitoringConnection"
-                   inverted: YES];
+        [self setupPerConfigurationCheckbox: [configurationsPrefsView monitorNetworkForChangesCheckbox]
+                                        key: @"-notMonitoringConnection"
+                                   inverted: YES
+                                  defaultTo: NO];
     }
 }
 
@@ -523,9 +529,10 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     (void) connection;
     
-    [self setupCheckbox: [configurationsPrefsView routeAllTrafficThroughVpnCheckbox]
-                    key: @"-routeAllTrafficThroughVpn"
-               inverted: NO];
+    [self setupPerConfigurationCheckbox: [configurationsPrefsView routeAllTrafficThroughVpnCheckbox]
+                                    key: @"-routeAllTrafficThroughVpn"
+                               inverted: NO
+                              defaultTo: YES];
 }
 
 -(void) setupCheckIPAddress: (VPNConnection *) connection
@@ -536,9 +543,10 @@ static BOOL firstTimeShowingWindow = TRUE;
         [[configurationsPrefsView checkIPAddressAfterConnectOnAdvancedCheckbox] setState:   NSOffState];
         [[configurationsPrefsView checkIPAddressAfterConnectOnAdvancedCheckbox] setEnabled: NO];
     } else {
-        [self setupCheckbox: [configurationsPrefsView checkIPAddressAfterConnectOnAdvancedCheckbox]
-                        key: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
-                   inverted: YES];
+        [self setupPerConfigurationCheckbox: [configurationsPrefsView checkIPAddressAfterConnectOnAdvancedCheckbox]
+                                        key: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
+                                   inverted: YES
+                                  defaultTo: NO];
     }
 }
 
@@ -547,9 +555,10 @@ static BOOL firstTimeShowingWindow = TRUE;
     (void) connection;
     
     if (  [self usingSetNameserver]  ) {
-        [self setupCheckbox: [configurationsPrefsView resetPrimaryInterfaceAfterDisconnectCheckbox]
-                        key: @"-resetPrimaryInterfaceAfterDisconnect"
-                   inverted: NO];
+        [self setupPerConfigurationCheckbox: [configurationsPrefsView resetPrimaryInterfaceAfterDisconnectCheckbox]
+                                        key: @"-resetPrimaryInterfaceAfterDisconnect"
+                                   inverted: NO
+                                  defaultTo: NO];
     } else {
         [[configurationsPrefsView resetPrimaryInterfaceAfterDisconnectCheckbox] setState:   NSOffState];
         [[configurationsPrefsView resetPrimaryInterfaceAfterDisconnectCheckbox] setEnabled: NO];
@@ -563,9 +572,10 @@ static BOOL firstTimeShowingWindow = TRUE;
 	NSString * type = [connection tapOrTun];
     if (   ( ! [type isEqualToString: @"tap"] )
 		&& [self usingSetNameserver]  ) {
-		[self setupCheckbox: [configurationsPrefsView disableIpv6OnTunCheckbox]
-						key: @"-doNotDisableIpv6onTun"
-				   inverted: YES];
+        [self setupPerConfigurationCheckbox: [configurationsPrefsView disableIpv6OnTunCheckbox]
+                                        key: @"-doNotDisableIpv6onTun"
+                                   inverted: YES
+                                  defaultTo: NO];
 		
 	} else {
 		[[configurationsPrefsView disableIpv6OnTunCheckbox] setState:   NSOffState];
@@ -796,15 +806,18 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 // Set a checkbox from preferences
--(void) setupCheckbox: (NSButton *) checkbox
-                  key: (NSString *) key
-             inverted: (BOOL) inverted
+-(void) setupPerConfigurationCheckbox: (NSButton *) checkbox
+                                  key: (NSString *) key
+                             inverted: (BOOL)       inverted
+                            defaultTo: (BOOL)       defaultsTo
 {
     if (  checkbox  ) {
         VPNConnection * connection = [self selectedConnection];
         if (  connection  ) {
             NSString * actualKey = [[connection displayName] stringByAppendingString: key];
-            BOOL state = [gTbDefaults boolForKey: actualKey];
+            BOOL state = (  defaultsTo
+						  ? [gTbDefaults boolWithDefaultYesForKey: actualKey]
+						  : [gTbDefaults boolForKey: actualKey]);
             if (  inverted  ) {
                 state = ! state;
             }
@@ -2404,9 +2417,10 @@ static BOOL firstTimeShowingWindow = TRUE;
             [[configurationsPrefsView monitorNetworkForChangesCheckbox] setState: NSOffState];
             [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: NO];
         } else {
-            [self setupCheckbox: [configurationsPrefsView monitorNetworkForChangesCheckbox]
-                            key: @"-notMonitoringConnection"
-                       inverted: YES];
+            [self setupPerConfigurationCheckbox: [configurationsPrefsView monitorNetworkForChangesCheckbox]
+                                            key: @"-notMonitoringConnection"
+                                       inverted: YES
+                                      defaultTo: NO];
         }
 		
 		// Set up IPv6 and reset of primary interface
@@ -3184,19 +3198,21 @@ static BOOL firstTimeShowingWindow = TRUE;
                    inverted: (BOOL)       inverted
                  defaultsTo: (BOOL)       defaultsTo
 {
-    BOOL value = (  defaultsTo
-				  ? [gTbDefaults boolWithDefaultYesForKey: preferenceKey]
-				  : [gTbDefaults boolForKey: preferenceKey]
-				  );
-				  
-    if (  inverted  ) {
-        value = ! value;
+    if (  checkbox  ) {
+        BOOL value = (  defaultsTo
+                      ? [gTbDefaults boolWithDefaultYesForKey: preferenceKey]
+                      : [gTbDefaults boolForKey: preferenceKey]
+                      );
+        
+        if (  inverted  ) {
+            value = ! value;
+        }
+        
+        [checkbox setState: (  value
+                             ? NSOnState
+                             : NSOffState)];
+        [checkbox setEnabled: [gTbDefaults canChangeValueForKey: preferenceKey]];
     }
-    
-    [checkbox setState: (  value
-                         ? NSOnState
-                         : NSOffState)];
-    [checkbox setEnabled: [gTbDefaults canChangeValueForKey: preferenceKey]];
 }
 
 -(NSTextView *) logView
