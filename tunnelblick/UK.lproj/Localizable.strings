@@ -311,7 +311,7 @@
 "Check if the apparent public IP address changed after connecting" = "Перевіряти, чи змінилася зовнішня IP-адреса після з’єднання";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
+"Disable IPv6 (tun only)" = "Не використовувати IPv6 (тільки для tun)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Від’єднуватися, коли ком’ютер переходить у режим сну";
@@ -350,7 +350,7 @@
 "Do not warn about this again" = "Більше не попереджувати про це";
 
 /* Checkbox name */
-"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+"Enable IPv6 (tap only)" = "Дозволити IPv6 (тільки для tap)";
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Очистити кеш DNS після з'єднання чи роз'єднання";
@@ -377,7 +377,7 @@
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Під’єднуватися знову після виходу комп’ютера з режиму сну (у разі, якщо було встановленно з’єднання до входу комп’ютера в режим сну)";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+"Reconnect when computer wakes up" = "Під'єднуватись при виході з режиму сну";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Під’єднуватися знову при вході користувача";
@@ -800,7 +800,7 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "(Преференція 'easy-rsaPath' є невірною.)";
 
 /* Window text */
-"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+"(if connected when computer went to sleep)" = "(якщо підключено при переході в режим сну)";
 
 /* Window text */
 "(if connected when user switched out)" = "(за умови підключення на момент виходу користувача)";
@@ -815,7 +815,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Занадто велика вкладеність конфігурації Tunnelblick VPN в '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Налаштування яке потребує секретну фразу (приватний ключ) або логін та пароль не може стартувати автоматично разом з компьютером.";
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Неможливо автоматично створювати підключення при запуску комп'ютера, якщо це потребує секретну фразу до приватного ключа або ім'я користувача та пароль.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Фраза пароль необхідна для з'єднання з\n  %1$@%2$@";
@@ -920,7 +920,7 @@
 "Cannot uninstall configuration '%@' because it is not installed." = "Не вдається видалити конфігурацію '%@', оскільки вона не встановлена.";
 
 /* Window text */
-"Computer sleep/wake" = "Computer sleep/wake";
+"Computer sleep/wake" = "Налаштування режиму сну";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Конфігурація '%@' містить один або кілька скриптів, які можуть викликати проблеми, якщо ви замінете або видалите конфігурацію, поки встановлений зв'язок.\n\nВи хочете замінити конфігурацію?";
