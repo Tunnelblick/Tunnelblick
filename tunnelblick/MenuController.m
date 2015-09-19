@@ -6388,7 +6388,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	// Check the tunnelblickd .plist
 	if (  runningOnLeopardOrNewer()  ) {
 		if (  [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH]  ) {
-			if (  ! checkOwnerAndPermissions(TUNNELBLICKD_PLIST_PATH, 0, 0, PERMS_SECURED_READABLE)  ) {
+			if (  ! checkOwnerAndPermissions(TUNNELBLICKD_PLIST_PATH, 0, 0, PERMS_SECURED_PLIST)  ) {
 				return YES; // NSLog already called
 			}
 		} else {
