@@ -191,6 +191,9 @@
 "Restore" = "Restore";
 
 /* Button */
+"Retry" = "Retry";
+
+/* Button */
 "Revert" = "Revert";
 
 /* Button */
@@ -1392,6 +1395,9 @@
 
 /* Window text */
 "The file %@ is missing" = "The file %@ is missing";
+
+/* Window text */
+"The installation or repair took too long or failed. Try again?" = "The installation or repair took too long or failed. Try again?";
 
 /* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.";
