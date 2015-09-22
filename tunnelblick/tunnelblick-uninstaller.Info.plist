@@ -22,11 +22,11 @@
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
-	<string>droplet</string>
+	<string>Tunnelblick Uninstaller</string>
 	<key>CFBundleVersion</key>
 	<string>TBBUILDNUMBER</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.7 (build TBBUILDNUMBER)</string>
+	<string>1.8 (build TBBUILDNUMBER)</string>
 	<key>CFBundleIdentifier</key>
 	<string>net.tunnelblick.tunnelblick-uninstaller</string>
 	<key>CFBundleIconFile</key>
