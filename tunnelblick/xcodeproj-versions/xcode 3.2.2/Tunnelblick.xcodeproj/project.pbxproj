@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 44;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -38,6 +38,8 @@
 		630210131465CBBC00283B78 /* CS.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 630210121465CBBC00283B78 /* CS.lproj */; };
 		63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */; };
+		6309A4A91AE42224006C118E /* TR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6309A4A61AE42224006C118E /* TR.lproj */; };
+		6309A4AD1AE4224D006C118E /* ET.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6309A4AA1AE4224D006C118E /* ET.lproj */; };
 		6311306411041B89003435F1 /* LoginItemsAE.c in Sources */ = {isa = PBXBuildFile; fileRef = 6311305F11041B89003435F1 /* LoginItemsAE.c */; };
 		6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311306211041B89003435F1 /* UKLoginItemRegistry.m */; };
 		631310D913CA18870071C110 /* NL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631310D513CA18870071C110 /* NL.lproj */; };
@@ -47,8 +49,7 @@
 		631795FC118DC79B0057ACAF /* atsystemstart in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 6317943E118D7E820057ACAF /* atsystemstart */; };
 		63216D90125778C0004EDB57 /* client.1.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */; };
 		63216D91125778C0004EDB57 /* client.1.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */; };
-		6329EA021A9AF6EF00A0BFA8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */; };
-		6329EA051A9B003700A0BFA8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */; };
+		632886D51B022BF9000BA527 /* LV.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 632886D21B022BF9000BA527 /* LV.lproj */; };
 		632BB9E8194F2CFA006CD7DA /* AlertWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 632BB9E7194F2CFA006CD7DA /* AlertWindowController.m */; };
 		632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 632BB9E9194F2D13006CD7DA /* AlertWindow.xib */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
@@ -62,8 +63,10 @@
 		63432577140D7F6F00015CE0 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63432572140D7F5A00015CE0 /* CoreServices.framework */; };
 		6345F210120BB1DA009C6222 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6345F20F120BB1DA009C6222 /* Carbon.framework */; };
 		634616871A9B85C60049C16C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634616861A9B85C60049C16C /* SystemConfiguration.framework */; };
+		6346168A1A9B85D30049C16C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634616861A9B85C60049C16C /* SystemConfiguration.framework */; };
 		634B02DF12553E5400A9D978 /* client.2.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */; };
 		634B02E012553E5400A9D978 /* client.2.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */; };
+		634B927E1BB0E4C7007AAC03 /* BuildAppsAndDmgs.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B927D1BB0E4C7007AAC03 /* BuildAppsAndDmgs.sh */; };
 		634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */; };
 		634EE8391191F89800DF4E43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6353818E1116031F00D68E83 /* dsa_pub.pem */; };
@@ -100,15 +103,12 @@
 		6387F0F5135604240021E41B /* tunnelblick.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 6387F0F4135604240021E41B /* tunnelblick.sdef */; };
 		6388563E134B7E1C008DF8C1 /* PassphraseWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6388563D134B7E1C008DF8C1 /* PassphraseWindowController.m */; };
 		638856A0134B8056008DF8C1 /* PassphraseWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6388569F134B8056008DF8C1 /* PassphraseWindow.xib */; };
-		6389ADBB1AE4262500E2FAD8 /* ET.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6389ADBA1AE4262500E2FAD8 /* ET.lproj */; };
-		6389ADBD1AE4265100E2FAD8 /* TR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6389ADBC1AE4265100E2FAD8 /* TR.lproj */; };
 		638A2003135CC3CF00FB932C /* standardize-scutil-output.m in Sources */ = {isa = PBXBuildFile; fileRef = 638A1FE0135CB82500FB932C /* standardize-scutil-output.m */; };
 		638A2005135CC41C00FB932C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
 		638A2029135CC6A300FB932C /* standardize-scutil-output in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 638A1FFC135CC35100FB932C /* standardize-scutil-output */; };
 		638E69611097725500587933 /* TBUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 638E69601097725500587933 /* TBUserDefaults.m */; };
 		63903D18145EAD49006627C9 /* HU.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63903D12145EAD49006627C9 /* HU.lproj */; };
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
-		6391D0F21B023C080057A5A2 /* LV.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391D0F11B023C080057A5A2 /* LV.lproj */; };
 		6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */; };
 		6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */; };
 		639A10EB132AC74B00754C2A /* StatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639A10EA132AC74B00754C2A /* StatusWindow.xib */; };
@@ -356,6 +356,8 @@
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
 		630210121465CBBC00283B78 /* CS.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CS.lproj; sourceTree = "<group>"; };
 		6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = net.tunnelblick.tunnelblick.LaunchAtLogin.plist; sourceTree = "<group>"; };
+		6309A4A61AE42224006C118E /* TR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TR.lproj; sourceTree = "<group>"; };
+		6309A4AA1AE4224D006C118E /* ET.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ET.lproj; sourceTree = "<group>"; };
 		6311305F11041B89003435F1 /* LoginItemsAE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LoginItemsAE.c; sourceTree = "<group>"; };
 		6311306011041B89003435F1 /* LoginItemsAE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItemsAE.h; sourceTree = "<group>"; };
 		6311306111041B89003435F1 /* UKLoginItemRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKLoginItemRegistry.h; sourceTree = "<group>"; };
@@ -366,8 +368,7 @@
 		63179443118D7EC20057ACAF /* atsystemstart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = atsystemstart.m; sourceTree = "<group>"; };
 		63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.down.tunnelblick.sh; sourceTree = "<group>"; };
 		63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.up.tunnelblick.sh; sourceTree = "<group>"; };
-		6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		6329EA031A9AF7B700A0BFA8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		632886D21B022BF9000BA527 /* LV.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LV.lproj; sourceTree = "<group>"; };
 		632BB9E6194F2CFA006CD7DA /* AlertWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWindowController.h; sourceTree = "<group>"; };
 		632BB9E7194F2CFA006CD7DA /* AlertWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWindowController.m; sourceTree = "<group>"; };
 		632BB9E9194F2D13006CD7DA /* AlertWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertWindow.xib; sourceTree = "<group>"; };
@@ -385,6 +386,7 @@
 		63490251139F9C6B00025BD5 /* ConfigurationsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationsView.h; sourceTree = "<group>"; };
 		634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.down.tunnelblick.sh; sourceTree = "<group>"; };
 		634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.up.tunnelblick.sh; sourceTree = "<group>"; };
+		634B927D1BB0E4C7007AAC03 /* BuildAppsAndDmgs.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = BuildAppsAndDmgs.sh; sourceTree = "<group>"; };
 		634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationsView.m; sourceTree = "<group>"; };
 		6353818E1116031F00D68E83 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		635713A31A6709D800709670 /* AR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AR.lproj; sourceTree = "<group>"; };
@@ -425,8 +427,6 @@
 		6388563C134B7E1C008DF8C1 /* PassphraseWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassphraseWindowController.h; sourceTree = "<group>"; };
 		6388563D134B7E1C008DF8C1 /* PassphraseWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassphraseWindowController.m; sourceTree = "<group>"; };
 		6388569F134B8056008DF8C1 /* PassphraseWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PassphraseWindow.xib; sourceTree = "<group>"; };
-		6389ADBA1AE4262500E2FAD8 /* ET.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ET.lproj; sourceTree = "<group>"; };
-		6389ADBC1AE4265100E2FAD8 /* TR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TR.lproj; sourceTree = "<group>"; };
 		638A1FE0135CB82500FB932C /* standardize-scutil-output.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "standardize-scutil-output.m"; sourceTree = "<group>"; };
 		638A1FFC135CC35100FB932C /* standardize-scutil-output */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "standardize-scutil-output"; sourceTree = BUILT_PRODUCTS_DIR; };
 		638A2004135CC41C00FB932C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -434,18 +434,16 @@
 		638E69601097725500587933 /* TBUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUserDefaults.m; sourceTree = "<group>"; };
 		63903D12145EAD49006627C9 /* HU.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HU.lproj; sourceTree = "<group>"; };
 		6391992210449804001FA1BC /* ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ES.lproj; sourceTree = "<group>"; };
-		6391D0F11B023C080057A5A2 /* LV.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LV.lproj; sourceTree = "<group>"; };
 		6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.down.tunnelblick.sh; sourceTree = "<group>"; };
 		6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.up.tunnelblick.sh; sourceTree = "<group>"; };
 		639A10EA132AC74B00754C2A /* StatusWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusWindow.xib; sourceTree = "<group>"; };
 		639A10FE132AC9D800754C2A /* StatusWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusWindowController.m; sourceTree = "<group>"; };
 		639A10FF132AC9D800754C2A /* StatusWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusWindowController.h; sourceTree = "<group>"; };
+		63A087A71AC37546008E114A /* tunnelblick-uninstaller-droplet-compiled-on-tiger */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "tunnelblick-uninstaller-droplet-compiled-on-tiger"; sourceTree = "<group>"; };
 		63A505FC11DA0E88006CB2B6 /* LogDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogDisplay.h; sourceTree = "<group>"; };
 		63A505FD11DA0E88006CB2B6 /* LogDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogDisplay.m; sourceTree = "<group>"; };
 		63AA8E581492C75200C791C9 /* process-network-changes */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "process-network-changes"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AA8E5E1492C77700C791C9 /* process-network-changes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "process-network-changes.m"; sourceTree = "<group>"; };
-		63ABA4CC1AC42C8C00C03EAE /* tunnelblick-uninstaller-droplet-compiled-on-tiger */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "tunnelblick-uninstaller-droplet-compiled-on-tiger"; sourceTree = "<group>"; };
-		63ABA4CD1AC42C8C00C03EAE /* tunnelblick-uninstaller-droplet-note.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "tunnelblick-uninstaller-droplet-note.txt"; sourceTree = "<group>"; };
 		63ABFE9A1349E435003DEB64 /* LoginWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginWindowController.h; sourceTree = "<group>"; };
 		63ABFE9B1349E435003DEB64 /* LoginWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWindowController.m; sourceTree = "<group>"; };
 		63ABFE9E1349F086003DEB64 /* LoginWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginWindow.xib; sourceTree = "<group>"; };
@@ -518,6 +516,7 @@
 		63F2AD9912AD5F1600826724 /* NSFileManager+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+TB.h"; sourceTree = "<group>"; };
 		63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+TB.m"; sourceTree = "<group>"; };
 		63F3C2581A22A45C00CF0FFB /* tunnelblickd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tunnelblickd.m; sourceTree = "<group>"; };
+		63F5948F1AC3412400199C48 /* tunnelblick-uninstaller-droplet-note.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "tunnelblick-uninstaller-droplet-note.txt"; sourceTree = "<group>"; };
 		63FB74EC1311D4BC002F4E7F /* ConfigurationUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationUpdater.h; sourceTree = "<group>"; };
 		63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationUpdater.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -606,7 +605,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6329EA051A9B003700A0BFA8 /* SystemConfiguration.framework in Frameworks */,
+				6346168A1A9B85D30049C16C /* SystemConfiguration.framework in Frameworks */,
 				63C375761A4510D000D51E81 /* Foundation.framework in Frameworks */,
 				63C375751A4510CA00D51E81 /* CoreServices.framework in Frameworks */,
 			);
@@ -625,7 +624,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6329EA021A9AF6EF00A0BFA8 /* SystemConfiguration.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				61BC4D8A0E2FA20800F24255 /* CoreFoundation.framework in Frameworks */,
 				63C504291178E21100340D13 /* Security.framework in Frameworks */,
@@ -728,6 +726,7 @@
 				63379F8713F695D700F2554D /* TBBuildNumber.txt */,
 				B891E52016F60E7000627008 /* Uninstaller */,
 				635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */,
+				634B927D1BB0E4C7007AAC03 /* BuildAppsAndDmgs.sh */,
 				32CA4F630368D1EE00C91783 /* Tunnelblick_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				63179443118D7EC20057ACAF /* atsystemstart.m */,
@@ -767,8 +766,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6329EA031A9AF7B700A0BFA8 /* CFNetwork.framework */,
-				6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -940,17 +937,17 @@
 				63BF3E1010A2ED7F00AC8A59 /* CA.lproj */,
 				630210121465CBBC00283B78 /* CS.lproj */,
 				6341C39313D6DE6200B9CE2B /* DA.lproj */,
-				615F74900ED3A4FA007F6F0A /* DE.lproj */,
 				63DC245019FA73A9006B1BDF /* EL.lproj */,
+				615F74900ED3A4FA007F6F0A /* DE.lproj */,
 				6391992210449804001FA1BC /* ES.lproj */,
-				6389ADBA1AE4262500E2FAD8 /* ET.lproj */,
+				6309A4AA1AE4224D006C118E /* ET.lproj */,
 				B896C2DF1767B753004D9A21 /* FI.lproj */,
 				615F748C0ED3A4E5007F6F0A /* FR.lproj */,
 				63903D12145EAD49006627C9 /* HU.lproj */,
 				63BD86E41205BA39005B8E38 /* IT.lproj */,
 				615F74930ED3A4FA007F6F0A /* JA.lproj */,
 				615F74960ED3A4FA007F6F0A /* KO.lproj */,
-				6391D0F11B023C080057A5A2 /* LV.lproj */,
+				632886D21B022BF9000BA527 /* LV.lproj */,
 				61C03B960ED4E42A00175F22 /* NB.lproj */,
 				631310D513CA18870071C110 /* NL.lproj */,
 				63AE8596116CCF7A00D36CB1 /* PL.lproj */,
@@ -959,7 +956,7 @@
 				63611FCD13CE2A8B000240F0 /* RU.lproj */,
 				B8051F4C1754DA630024841C /* SK.lproj */,
 				63EA676913DF326600E77443 /* SV.lproj */,
-				6389ADBC1AE4265100E2FAD8 /* TR.lproj */,
+				6309A4A61AE42224006C118E /* TR.lproj */,
 				B87C59DA17982F3900FFE540 /* UK.lproj */,
 				635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */,
 				635CBBE010F3B3E700BF529B /* ZH_TW.lproj */,
@@ -1183,13 +1180,13 @@
 		B891E52016F60E7000627008 /* Uninstaller */ = {
 			isa = PBXGroup;
 			children = (
-				63ABA4CD1AC42C8C00C03EAE /* tunnelblick-uninstaller-droplet-note.txt */,
+				63F5948F1AC3412400199C48 /* tunnelblick-uninstaller-droplet-note.txt */,
+				63A087A71AC37546008E114A /* tunnelblick-uninstaller-droplet-compiled-on-tiger */,
 				B891E56116F6164E00627008 /* tunnelblick-uninstaller.applescript */,
-				B891E53316F60F4700627008 /* tunnelblick-uninstaller.sh */,
-				63ABA4CC1AC42C8C00C03EAE /* tunnelblick-uninstaller-droplet-compiled-on-tiger */,
-				B8BDEEEC17E650C0007FAE55 /* tunnelblick-uninstaller-localization */,
-				B891E53216F60F4700627008 /* tunnelblick-uninstaller.icns */,
 				B891E57416F61A3800627008 /* tunnelblick-uninstaller.Info.plist */,
+				B891E53216F60F4700627008 /* tunnelblick-uninstaller.icns */,
+				B891E53316F60F4700627008 /* tunnelblick-uninstaller.sh */,
+				B8BDEEEC17E650C0007FAE55 /* tunnelblick-uninstaller-localization */,
 			);
 			name = Uninstaller;
 			sourceTree = "<group>";
@@ -1361,12 +1358,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
-			attributes = {
-				LastUpgradeCheck = 0510;
-			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Tunnelblick" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			compatibilityVersion = "Xcode 3.0";
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -1432,7 +1425,6 @@
 				63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */,
 				63B5E31B11E34D7B007D99DB /* tunnelblick_package.icns in Resources */,
 				63216D90125778C0004EDB57 /* client.1.down.tunnelblick.sh in Resources */,
-				6389ADBD1AE4265100E2FAD8 /* TR.lproj in Resources */,
 				63216D91125778C0004EDB57 /* client.1.up.tunnelblick.sh in Resources */,
 				63C2E19C18846D2A00ED0003 /* LeaseWatch.plist in Resources */,
 				63C2E19E18846D3800ED0003 /* LeaseWatch3.plist in Resources */,
@@ -1449,7 +1441,6 @@
 				635ECD0C1378B7E600F67F8D /* Appearance.png in Resources */,
 				635ECDC51378CD3200F67F8D /* Info.tiff in Resources */,
 				63EEBD93137EF4C3001BFFD8 /* help in Resources */,
-				6389ADBB1AE4262500E2FAD8 /* ET.lproj in Resources */,
 				63E56EC413848194007E39AB /* VPNServiceCreateAccount.xib in Resources */,
 				63E56EC513848194007E39AB /* VPNServiceIntro.xib in Resources */,
 				63E56EC613848194007E39AB /* VPNServiceLogin.xib in Resources */,
@@ -1457,7 +1448,6 @@
 				63E56EC813848194007E39AB /* VPNServiceSorry.xib in Resources */,
 				63E56EC913848194007E39AB /* VPNServiceTermsOfService.xib in Resources */,
 				63E56ECA13848194007E39AB /* VPNServiceWelcome.xib in Resources */,
-				6391D0F21B023C080057A5A2 /* LV.lproj in Resources */,
 				6375FB4B1387F0E20034CB78 /* SettingsSheet.xib in Resources */,
 				637BE08513A0218A00673909 /* Preferences.png in Resources */,
 				633C881D13A3B770000F5E94 /* ActionMenuButtonImage.tiff in Resources */,
@@ -1484,6 +1474,10 @@
 				63ED903A1A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist in Resources */,
 				6375C6571A4EDF11007A42E8 /* FreePublicDnsServersList.txt in Resources */,
 				635713A61A6709D800709670 /* AR.lproj in Resources */,
+				6309A4A91AE42224006C118E /* TR.lproj in Resources */,
+				6309A4AD1AE4224D006C118E /* ET.lproj in Resources */,
+				632886D51B022BF9000BA527 /* LV.lproj in Resources */,
+				634B927E1BB0E4C7007AAC03 /* BuildAppsAndDmgs.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1502,7 +1496,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# Touch the build folder to get it to the top of listings sorted by modification date\ntouch build\n\n# If Xcode has built Tunnelblick.app in somewhere unexpected, complain and quit\nif [ ! -d \"build/${CONFIGURATION}/${PROJECT_NAME}.app\" ] ; then\necho \"error: An Xcode preference must be set to put build products in the 'tunnelblick/build' folder. Please set Xcode preference > Locations > Advanced to 'Legacy'\"\nexit -1\nfi\n\nif [ \"${CONFIGURATION}\" = \"Analyze ONLY\" ]; then\n# Make sure we never use the binary\nrm -r -f \"build/${CONFIGURATION}/${PROJECT_NAME}.app\"\nexit 0\nfi\n\n# Compile Tunnelblick Uninstaller\nrm -r -f      \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app\"\nosacompile -o \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app\" -x \"tunnelblick-uninstaller.applescript\"\n\n# The droplet product of the above 'osacompile' command doesn't support PowerPC G3 processors, so we replace it with a droplet compiled on Tiger (which supports PowerPC G3 and 32-bit Intel processors)\n# See tunnelblick-uninstaller-droplet-note.txt for details\nrm -f \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/MacOS/droplet\"\ncp -p \"tunnelblick-uninstaller-droplet-compiled-on-tiger\" \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/MacOS/droplet\"\n\n#  Add the .app's Info.plist and its icon, script, and localization resources\ncp -p -f \"tunnelblick-uninstaller.Info.plist\"      \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Info.plist\"\ncp -p \"tunnelblick-uninstaller.icns\"               \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Resources/droplet.icns\"\ncp -p \"tunnelblick-uninstaller.sh\"                 \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Resources/tunnelblick-uninstaller.sh\"\n\nfor d in `ls \"tunnelblick-uninstaller-localization\"`\ndo\ncp -p -f -R tunnelblick-uninstaller-localization/${d} \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Resources\"\ndone\n\n# Copy easy-rsa-tunnelblick, removing .svn folders and .DS_Store files\nrm -r -f                                     \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/easy-rsa-tunnelblick\"\ncp -R \"../third_party/products/easy-rsa-tunnelblick/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/easy-rsa-tunnelblick\"\nrm -rf \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/easy-rsa-tunnelblick/keys/.svn\"\nrm -rf \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/easy-rsa-tunnelblick/EasyRSA-3/.svn\"\nrm -rf \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/easy-rsa-tunnelblick/EasyRSA-3/doc/.svn\"\nrm -rf \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/easy-rsa-tunnelblick/EasyRSA-3/easyrsa3/.svn\"\nrm -rf \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/easy-rsa-tunnelblick/EasyRSA-3/easyrsa3/x509-types/.svn\"\nrm -rf \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/easy-rsa-tunnelblick/EasyRSA-3/Licensing/.svn\"\nrm -rf \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/easy-rsa-tunnelblick/EasyRSA-3.svn\"\nrm -rf \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/easy-rsa-tunnelblick/.svn\"\nrm -rf \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/easy-rsa-tunnelblick/.svn\"\nfind   \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/easy-rsa-tunnelblick\"   -name .DS_Store -exec rm -f  '{}' ';'\n# Index the help files\nhiutil -Caf \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/help/help.helpindex\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/help\"\n\n# Copy the tun and tap kexts\nif [ -d \"../third_party/products/tuntap/tap-20090913.kext\" ] ; then\nrm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\"\ncp -R \"../third_party/products/tuntap/tap-20090913.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\"\nfi\nif [ -d \"../third_party/products/tuntap/tun-20090913.kext\" ] ; then\nrm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\"\ncp -R \"../third_party/products/tuntap/tun-20090913.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\"\nfi\n\nrm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20111101.kext\"\ncp -R \"../third_party/products/tuntap/tap-20111101.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20111101.kext\"\n\nrm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20111101.kext\"\ncp -R \"../third_party/products/tuntap/tun-20111101.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20111101.kext\"\n\nrm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext\"\ncp -R \"../third_party/products/tuntap/tap.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext\"\n\nrm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext\"\ncp -R \"../third_party/products/tuntap/tun.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext\"\n\n# Create copies that are to be signed, too, for Mavericks and higher\nrm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext\"\ncp -R \"../third_party/products/tuntap/tap.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext\"\n\nrm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext\"\ncp -R \"../third_party/products/tuntap/tun.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext\"\n\n# Set the build number in Info.plist for the app and for the kexts\n# Replaces all occurances of \"TBBUILDNUMBER\" in an Info.plist with the second argument\n# If an \"Unsigned\" build, appends \" Unsigned\" to CFBundleShortVersionString, which is detected by the \")\" after \"TBBUILDNUMBER\"\n# If an \"Debug\" build,    appends \" Debug\"    to CFBundleShortVersionString, which is detected by the \")\" after \"TBBUILDNUMBER\"\n# @param String, path to Info.plist file that should be modified\n# @param String, build number\nsetBuildNumber()\n{\n\tif [ \"${CONFIGURATION}\" = \"Unsigned Release\" ]; then\n    sed -e \"s|TBBUILDNUMBER)|TBBUILDNUMBER) Unsigned|g\" \"${1}\" | sed -e \"s|TBBUILDNUMBER|${2}|g\" > \"${1}.tmp\"\n\telif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    sed -e \"s|TBBUILDNUMBER)|TBBUILDNUMBER) Debug|g\"    \"${1}\" | sed -e \"s|TBBUILDNUMBER|${2}|g\" > \"${1}.tmp\"\n\telse\n    sed -e \"s|TBBUILDNUMBER|${2}|g\" \"${1}\" > \"${1}.tmp\"\n\tfi\n\trm \"${1}\"\n\tmv \"${1}.tmp\" \"${1}\"\n}\ntbbn=\"$(cat TBBuildNumber.txt)\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Info.plist\" \"${tbbn}\"\nif [ -d          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\" ] ; then\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext/Contents/Info.plist\" \"${tbbn}\"\nfi\nif [ -d          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\" ] ; then\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext/Contents/Info.plist\" \"${tbbn}\"\nfi\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20111101.kext/Contents/Info.plist\" \"${tbbn}\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20111101.kext/Contents/Info.plist\" \"${tbbn}\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext/Contents/Info.plist\" \"${tbbn}\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext/Contents/Info.plist\" \"${tbbn}\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext/Contents/Info.plist\" \"${tbbn}\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext/Contents/Info.plist\" \"${tbbn}\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Info.plist\" \"${tbbn}\"\n\n# Create the openvpn directory structure:\n# ...Contents/Resources/openvpn contains a folder for each version of OpenVPN.\n# The folder for each vesion of OpenVPN is named \"openvpn-x.x.x\".\n# Each \"openvpn-x.x.x\"folder contains the openvpn binary and the openvpn-down-root.so binary\nmkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn\"\ndefault_openvpn=\"z\"\nfor d in `ls \"../third_party/products/openvpn\"`\ndo\nmkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}\"\ncp \"../third_party/products/openvpn/${d}/openvpn-executable\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn\"\ncp \"../third_party/products/openvpn/${d}/openvpn-down-root.so\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn-down-root.so\"\nchmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn-down-root.so\"\nif [ \"${d}\" \\< \"${default_openvpn}\" ] ; then\ndefault_openvpn=\"${d}\"\nfi\ndone\n\nif [ \"${default_openvpn}\" != \"z\" ] ; then\nrm -f \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/default\"\nln -s \"${default_openvpn}/openvpn\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/default\"\nelse\necho \"warning: Could not find a version of OpenVPN to use by default\"\nfi\n\n# Remove extra files that are not needed\n\nrm -f \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\"\n\nrm -f \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/ExternalBuildCleanScript.sh\"\n\n# Remove non-.png files in IconSets (but leave the \"templates.png\" file)\nfor d in `ls \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/IconSets\"` ; do\nif [ -d \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/IconSets/${d}\" ] ; then\nfor f in `ls \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/IconSets/${d}\"` ; do\nif [ \"${f##*.}\" != \"png\" ] ; then\nif [ \"${f%.*}\" != \"templates\" ] ; then\nif [ -d \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/IconSets/${d}/${f}\" ] ; then\nrm -f -R \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/IconSets/${d}/${f}\"\nelse\nrm -f \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/IconSets/${d}/${f}\"\nfi\nfi\nfi\ndone\nelse\nrm -f \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/IconSets/${d}\"\nfi\ndone\n\n# Remove extended attributes\nfor f in build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*\n                                                                       do\n                                                                       xattr -d \"com.apple.FinderInfo\" ${f} 2> /dev/null\n                                                                       done\n                                                                       \n                                                                       # Remove NeedsTranslation.strings and Removed.strings from all .lproj folders\n                                                                       shopt -s nullglob\n                                                                       for f in build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*.lproj\n                                                                       do\n                                                                       if test -f \"${f}/NeedsTranslation.strings\"\n                                                                       then\n                                                                       rm \"${f}/NeedsTranslation.strings\"\n                                                                       fi\n                                                                       if test -f \"${f}/Removed.strings\"\n                                                                       then\n                                                                       rm \"${f}/Removed.strings\"\n                                                                       fi\n                                                                       done\n                                                                       \n                                                                       # Change permissions from 755 to 744 on many executables in Resources (openvpn-down-root.so permissions were changed when setting up the OpenVPN folder structure)\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/atsystemstart\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/installer\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/leasewatch\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/leasewatch3\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/process-network-changes\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/standardize-scutil-output\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tunnelblickd\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/client.up.tunnelblick.sh\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/client.down.tunnelblick.sh\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/client.route-pre-down.tunnelblick.sh\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/client.1.up.tunnelblick.sh\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/client.1.down.tunnelblick.sh\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/client.2.up.tunnelblick.sh\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/client.2.down.tunnelblick.sh\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/client.3.up.tunnelblick.sh\"\n                                                                       chmod 744 \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/client.3.down.tunnelblick.sh\"\n                                                                       \n                                                                       # Sign the app and its tools if Release\n                                                                       if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n                                                                       # Sign the binary tools and the Tunnelblick application itself\n                                                                       codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/atsystemstart\"\n                                                                       codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/installer\"\n                                                                       codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpnstart\"\n                                                                       codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/process-network-changes\"\n                                                                       codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/standardize-scutil-output\"\n                                                                       # The \"signed\" kexts must only be signed in 10.8.3 or higher or they won't load on older systems\n                                                                       #  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext\"\n                                                                       #  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext\"\n                                                                       \n                                                                       for d in `ls \"../third_party/openvpn\"`\n                                                                       do\n                                                                       codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn\"\n                                                                       codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn-down-root.so\"\n                                                                       done\n                                                                       \n                                                                       codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Frameworks/Sparkle.framework/Versions/A\"\n                                                                       \n                                                                       codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app\"\n                                                                       \n                                                                       # Sign the Uninstaller, too\n                                                                       codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app\"\n                                                                       fi\n                                                                       \n                                                                       # Create the Tunnelblick .dmg and the Uninstaller .dmg except if Debug\n                                                                       if [ \"${CONFIGURATION}\" != \"Debug\" ]; then\n                                                                       \n                                                                       # Staging folder\n                                                                       TMPDMG=\"build/${CONFIGURATION}/${PROJECT_NAME}\"\n                                                                       \n                                                                       # Folder with files for the .dmg (.DS_Store and background folder which contains background.png background image)\n                                                                       DMG_FILES=\"dmgFiles\"\n                                                                       \n                                                                       # Remove the existing \"staging\" folder and copy the application into it\n                                                                       rm -r -f \"$TMPDMG\"\n                                                                       mkdir -p \"$TMPDMG\"\n                                                                       cp -p -R \"build/${CONFIGURATION}/${PROJECT_NAME}.app\" \"$TMPDMG\"\n                                                                       \n                                                                       # Copy link to documentation to the staging folder\n                                                                       cp -p \"Online Documentation.webloc\" \"$TMPDMG\"\n                                                                       \n                                                                       # Copy the background folder and its background.png file to the staging folder and make the background folder invisible in the Finder\n                                                                       cp -p -R \"$DMG_FILES/background\" \"$TMPDMG\"\n                                                                       setfile -a V \"$TMPDMG/background\"\n                                                                       \n                                                                       # Copy dotDS_Store to .DS_Store and make it invisible in the Finder\n                                                                       cp -p -R \"$DMG_FILES/dotDS_Store\" \"$TMPDMG/.DS_Store\"\n                                                                       setfile -a V \"$TMPDMG/.DS_Store\"\n                                                                       \n                                                                       # Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n                                                                       rm -r -f \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n                                                                       hdiutil create -noscrub -srcfolder \"$TMPDMG\" \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n                                                                       \n                                                                       # Leave the staging folder so customized .dmgs can be easily created\n                                                                       \n                                                                       # Uninstaller Staging folder\n                                                                       TMPDMG=\"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller\"\n                                                                       \n                                                                       # Folder with files for the uninstaller .dmg (.DS_Store and background folder which contains background.png background image)\n                                                                       DMG_FILES=\"uninstaller-dmgFiles\"\n                                                                       \n                                                                       # Remove the existing \"staging\" folder and copy the uninstaller into it\n                                                                       rm -r -f \"$TMPDMG\"\n                                                                       mkdir -p \"$TMPDMG\"\n                                                                       cp -p -R \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app\" \"$TMPDMG\"\n                                                                       \n                                                                       # Copy link to documentation to the staging folder\n                                                                       cp -p \"Online Documentation.webloc\" \"$TMPDMG\"\n                                                                       \n                                                                       # Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n                                                                       rm -r -f \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.dmg\"\n                                                                       hdiutil create -noscrub -srcfolder \"$TMPDMG\" \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.dmg\"\n                                                                       \n                                                                       # Leave the staging folder so customized .dmgs can be easily created\n                                                                       fi";
+			shellScript = "./BuildAppsAndDmgs.sh\n";
 			showEnvVarsInLog = 0;
 		};
 		616A49200E38D17500477476 /* Build Third Party Items */ = {
@@ -1517,8 +1511,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# This build phase builds the third party items used by Tunnelblick.\n#\n# Because these items rarely change but take a lot of time to build, they are not\n# \"cleaned\" when the Tunnelblick project is cleaned using Xcode.\n#\n# However, there are times when it is convenient to clean them. This can be accomplished\n# by removing the third_party/do-not-clean file which was created when the third party\n# items were last built.\n#\n# So, to do a clean build of the third party items, make sure that the\n# third_party/do-not-clean file does not exist, and then build Tunnelblick normally.\n\n# Make sure we have the correct version of tunnelblick.xcodeproj for the version of Xcode that we are using\nif [ \"${XCODE_VERSION_MAJOR}\" != \"0500\" ] ; then\nouter_dir=\"${PWD%/*}\"\necho \"error: This is the wrong Tunnelblick.xcodeproj to use unless you are using Xcode 5.1.1 on OS X 10.8.5. See ${outer_dir}/README.txt\"\nexit 1\nfi\nif [ \"${XCODE_VERSION_ACTUAL}\" != \"0511\" ] ; then\nouter_dir=\"${PWD%/*}\"\necho \"error: Tunnelblick must be built with Xcode 6.3 or higher, or 5.1.1, or 3.3.2. This version of Tunnelblick.xcodeproj is for Xcode 5.1.1 on OS X 10.8.5. See ${outer_dir}/README.txt\"\nexit 1\nfi\n\ncd ../third_party/\n\n# The following line is needed so make openssl build without error\nCOMMAND_MODE=unix2003\n\n# The following line is needed so up-to-date autotools are used\nPATH=\"/usr/local/bin:$PATH\"\n\n# Test for version 2.69 of autoconf\nautoconf_version=\"$(autoconf --version | grep autoconf | sed -e 's/autoconf (GNU Autoconf) //')\"\nif [ \"${autoconf_version}\" != \"2.69\" ] ; then\necho \"warning: autoconf is version '${autoconf_version}'; expected version 2.69. Autotools may be out-of-date which can cause problems building some of the third_party programs\"\nfi\n\n# Test for version 1.9 of automake\nautomake_version=\"$(automake --version | grep automake | sed -e 's/automake (GNU automake) //')\"\nif [ \"${automake_version}\" != \"1.9\" ] ; then\necho \"warning: automake is version '${automake_version}'; expected version 1.9. Autotools may be out-of-date which can cause problems building some of the third_party programs\"\nfi\n\nif [ ! -e do-not-clean ]; then\nmake clean\nfi\n\nmake\n\ntouch do-not-clean\n";
-			showEnvVarsInLog = 0;
+			shellScript = "# This build phase builds the third party items used by Tunnelblick.\n#\n# Because these items rarely change but take a lot of time to build, they are not\n# \"cleaned\" when the Tunnelblick project is cleaned using Xcode.\n#\n# However, there are times when it is convenient to clean them. This can be accomplished\n# by removing the third_party/do-not-clean file which was created when the third party\n# items were last built.\n#\n# So, to do a clean build of the third party items, make sure that the\n# third_party/do-not-clean file does not exist, and then build Tunnelblick normally.\n\ncd ../third_party/\n\n# The following line is needed so make openssl build without error\nCOMMAND_MODE=unix2003\n\n# The following line is needed so up-to-date autotools are used\nPATH=\"/usr/local/bin:$PATH\"\n\n# Test for version 2.69 of autoconf\nautoconf_version=\"$(autoconf --version | grep autoconf | sed -e 's/autoconf (GNU Autoconf) //')\"\nif [ \"${autoconf_version}\" != \"2.69\" ] ; then\necho \"warning: autoconf is version '${autoconf_version}'; expected version 2.69. Autotools may be out-of-date which can cause problems building some of the third_party programs\"\nfi\n\n# Test for version 1.9 of automake\nautomake_version=\"$(automake --version | grep automake | sed -e 's/automake (GNU automake) //')\"\nif [ \"${automake_version}\" != \"1.9\" ] ; then\necho \"warning: automake is version '${automake_version}'; expected version 1.9. Autotools may be out-of-date which can cause problems building some of the third_party programs\"\nfi\n\nif [ ! -e do-not-clean ]; then\nmake clean\nfi\n\nmake\n\ntouch do-not-clean\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1730,6 +1723,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1755,6 +1749,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1782,6 +1777,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1807,6 +1803,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1837,6 +1834,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1868,6 +1866,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1921,8 +1920,10 @@
 		637092C41851E8B50090D3D8 /* Analyze ONLY */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_VERSION = 4.2;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1937,9 +1938,10 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PREBINDING = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = "Analyze ONLY";
@@ -1947,7 +1949,6 @@
 		637092C51851E8B50090D3D8 /* Analyze ONLY */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1961,6 +1962,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = TBAnalyzeONLY;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
@@ -1970,7 +1972,9 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Tunnelblick;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
@@ -1989,6 +1993,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2016,6 +2021,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2046,6 +2052,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2079,6 +2086,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2110,6 +2118,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = "process-network-changes";
@@ -2143,6 +2152,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2174,6 +2184,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2199,7 +2210,9 @@
 		6398C40113DB30F60005FEB0 /* Unsigned Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_VERSION = 4.2;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -2214,9 +2227,10 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PREBINDING = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = "Unsigned Release";
@@ -2224,7 +2238,8 @@
 		6398C40213DB30F60005FEB0 /* Unsigned Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2235,6 +2250,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
@@ -2244,7 +2260,9 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Tunnelblick;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
@@ -2261,6 +2279,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2286,6 +2305,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2314,6 +2334,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2346,6 +2367,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2378,6 +2400,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = "process-network-changes";
@@ -2397,6 +2420,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = "process-network-changes";
@@ -2415,6 +2439,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = "process-network-changes";
@@ -2576,7 +2601,9 @@
 		63DA33FA1502380400C3801D /* Clean Tunnelblick */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_VERSION = 4.2;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -2591,9 +2618,10 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PREBINDING = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = "Clean Tunnelblick";
@@ -2601,7 +2629,6 @@
 		63DA33FB1502380400C3801D /* Clean Tunnelblick */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2615,6 +2642,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
@@ -2624,7 +2652,9 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Tunnelblick;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
@@ -2642,6 +2672,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2668,6 +2699,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2697,6 +2729,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2729,6 +2762,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2760,6 +2794,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = "process-network-changes";
@@ -2785,7 +2820,9 @@
 		63DA34C61502509400C3801D /* Clean Third Party */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_VERSION = 4.2;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -2800,9 +2837,10 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PREBINDING = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = "Clean Third Party";
@@ -2810,7 +2848,6 @@
 		63DA34C71502509400C3801D /* Clean Third Party */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2824,6 +2861,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
@@ -2833,7 +2871,9 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Tunnelblick;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
@@ -2851,6 +2891,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2877,6 +2918,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2906,6 +2948,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2938,6 +2981,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2969,6 +3013,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = "process-network-changes";
@@ -3140,7 +3185,9 @@
 		B8F6C5BD1612A09B000276E0 /* Unsigned Release -Wconversion */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_VERSION = 4.2;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -3155,9 +3202,10 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PREBINDING = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = "Unsigned Release -Wconversion";
@@ -3165,7 +3213,6 @@
 		B8F6C5BE1612A09B000276E0 /* Unsigned Release -Wconversion */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3176,6 +3223,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
@@ -3185,7 +3233,9 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Tunnelblick;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
@@ -3203,6 +3253,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -3229,6 +3280,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -3258,6 +3310,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -3291,6 +3344,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -3320,6 +3374,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = "process-network-changes";
@@ -3342,7 +3397,6 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3356,6 +3410,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
@@ -3365,7 +3420,9 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Tunnelblick;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
@@ -3378,7 +3435,6 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3389,6 +3445,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
@@ -3398,7 +3455,9 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Tunnelblick;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wextra",
@@ -3411,8 +3470,10 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_VERSION = 4.2;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -3427,10 +3488,10 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
-				ONLY_ACTIVE_ARCH = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PREBINDING = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
@@ -3438,7 +3499,9 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_VERSION = 4.2;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -3453,9 +3516,10 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PREBINDING = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
