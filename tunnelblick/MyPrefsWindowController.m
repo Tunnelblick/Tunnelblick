@@ -532,7 +532,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     [self setupPerConfigurationCheckbox: [configurationsPrefsView routeAllTrafficThroughVpnCheckbox]
                                     key: @"-routeAllTrafficThroughVpn"
                                inverted: NO
-                              defaultTo: YES];
+                              defaultTo: NO];
 }
 
 -(void) setupCheckIPAddress: (VPNConnection *) connection
