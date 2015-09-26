@@ -90,7 +90,7 @@ uninstall_tb_remove_item_at_path()
 
 ####################################################################################
 #
-# Routine that uninstalls per-user data
+# Routine that uninstalls per-user data (but not items in the user's Trash)
 #
 # THIS ROUTINE MUST BE RUN VIA 'su user'
 #
@@ -100,7 +100,7 @@ uninstall_tb_remove_item_at_path()
 #      uninstall_tb_remove_item_at_path()
 #      uninstall_remove_data
 #      uninstall_tb_app_name
-
+#
 ####################################################################################
 uninstall_tb_per_user_data()
 {
@@ -507,7 +507,67 @@ for user in `dscl . list /users` ; do
         exit 0
       fi
     fi
+	
+	# Get a list of copies of Tunnelblick in the user's Trash that should be deleted
+	trash_path="/Users/${user}/.Trash"
+    if [   -d "${trash_path}" -a "${uninstall_tb_app_name}" != "" ] ; then
+      
+	  items_to_remove=""
+	  name_length="${#uninstall_tb_app_name}"
+	  
+	  saved_wd="$(pwd)"
+	  cd "${trash_path}"
+      items_in_trash="$(ls 2> /dev/null)"
+	  cwd "${saved_wd}"
+	  
+	  saved_IFS=$IFS
+	  IFS=$(echo -en "\n\b")
+	  for item_name in ${items_in_trash} ; do
+	    start_of_item_name="${item_name:0:$name_length}"
+		end_of_item_name="${item_name:(-4)}"
+	    if [    "${start_of_item_name}" = "${uninstall_tb_app_name}" \
+	         -a "${end_of_item_name}"   = ".app" ] ; then
+		    items_to_remove="${items_to_remove}${item_name}
+"
+	    fi
+	  done
 
+	  for item_name in ${items_to_remove} ; do
+	  
+		item_path="${trash_path}/${item_name}"
+		# Remove the uchg and uappnd flags, which can interfere with deleting
+    	if [ "${uninstall_remove_data}" = "true" ] ; then
+		  chflags -R nouchg,nouappnd "${item_path}" # 2> /dev/null
+	      status=$?
+	    else
+		  status="0"
+	    fi
+	    if [ "${status}" = "0" ]; then
+	      echo "Removed ${item_path} uchg and/or uappnd flags (if there were any)"
+	    else
+		  echo "Problem: Error trying to remove uchg and/or uappnd flags on or inside ${item_path}"
+	    fi
+	
+	    # Delete the bad links in ancient versions of Tunnelblick in the Trash (in the Sparkle framework).
+		# ("rm" supposedly won't delete certain bad links but find... -delete will.)
+		if [ "${uninstall_remove_data}" = "true" ] ; then
+		  find "${item_path}" -type l -delete
+		  status=$?
+	    else
+		  status="0"
+	    fi
+		if [ "${status}" = "0" ]; then
+		  echo "Removed ${item_path} symlinks (if there were any)"
+	    else
+		  echo "Problem: Error trying to remove bad links inside ${item_path}"
+	    fi
+	
+		# Delete the app in the Trash
+	    uninstall_tb_remove_item_at_path "${item_path}"
+	  done
+	
+      IFS="saved_IFS"
+    fi
   fi
 
 done
@@ -518,12 +578,40 @@ if [ "{uninstall_remove_data}" = "true" ] ; then
 else
   output=$(/usr/bin/su ${USER} -c "osascript -e 'set n to 0' -e 'tell application \"System Events\"' -e 'set login_items to the name of every login item whose name is \"${uninstall_tb_app_name}\"' -e 'tell me to set n to the number of login_items' -e 'end tell' -e 'n'")
 fi
-if [ "${output}" != "0" ] ; then
+if [    "${output}" != "0"
+     -a "${output}" != "" ] ; then
   echo "Removed ${output} of  ${USER}'s login items"
 fi
 
-# Remove the application itself
 if [ "${uninstall_tb_app_path}" != "" ] ; then
+  # Remove the uchg and uappnd flags in the application, which can interfere with deleting
+  if [ "${uninstall_remove_data}" = "true" ] ; then
+    chflags -R nouchg,nouappnd "${uninstall_tb_app_path}" # 2> /dev/null
+    status=$?
+  else
+    status="0"
+  fi
+  if [ "${status}" = "0" ]; then
+    echo "Removed ${uninstall_tb_app_path} uchg and/or uappnd flags (if there were any)"
+  else
+    echo "Problem: Error trying to remove uchg and/or uappnd flags on or inside ${uninstall_tb_app_path}"
+  fi
+
+  # Delete the bad links in ancient versions of Tunnelblick(in the Sparkle framework).
+  # ("rm" supposedly won't delete certain bad links but find... -delete will.)
+  if [ "${uninstall_remove_data}" = "true" ] ; then
+    find "${uninstall_tb_app_path}" -type l -delete
+    status=$?
+  else
+    status="0"
+  fi
+  if [ "${status}" = "0" ]; then
+    echo "Removed ${uninstall_tb_app_path} symlinks (if there were any)"
+  else
+    echo "Problem: Error trying to remove bad links inside ${uninstall_tb_app_path}"
+  fi
+
+  # Remove the application itself
   uninstall_tb_remove_item_at_path "${uninstall_tb_app_path}"
 fi
 

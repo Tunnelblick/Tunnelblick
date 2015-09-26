@@ -415,7 +415,7 @@ on UserConfirmation(fullPath, TBName, TBIdentifier) -- (String, String, String) 
 			"OR CLICK 'Cancel'.
 
 	" & Â
-			"Testing or uninstalling may take a long time -- up to several MINUTES -- during which time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall or test is complete.", Â
+			"Uninstalling uses a secure erase process which may take a long time -- up to several MINUTES -- during which time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall or test is complete.", Â
 			{TBName, TBIdentifier, fullPath, TBName})) Â
 			as critical Â
 			buttons {localized string of "Uninstall", localized string of "Test", localized string of "Cancel"}
@@ -440,7 +440,7 @@ on UserConfirmation(fullPath, TBName, TBIdentifier) -- (String, String, String) 
 			"OR CLICK 'Cancel'.
 
 	" & Â
-			"Testing or uninstalling may take a long time -- up to several MINUTES -- during which time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall or test is complete.", Â
+			"Uninstalling uses a secure erase process which may take a long time -- up to several MINUTES -- during which time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall or test is complete.", Â
 			{TBName, TBIdentifier, TBName})) Â
 			as critical Â
 			buttons {localized string of "Uninstall", localized string of "Test", localized string of "Cancel"}
