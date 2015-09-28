@@ -90,7 +90,7 @@ uninstall_tb_remove_item_at_path()
 
 ####################################################################################
 #
-# Routine that uninstalls per-user data (but not items in the user's Trash)
+# Routine that uninstalls items in a user's Keychain
 #
 # THIS ROUTINE MUST BE RUN VIA 'su user'
 #
@@ -102,21 +102,21 @@ uninstall_tb_remove_item_at_path()
 #      uninstall_tb_app_name
 #
 ####################################################################################
-uninstall_tb_per_user_data()
+uninstall_tb_user_keychain_items()
 {
   if [ "$EUID" != "" ] ; then
 	if [ "$EUID" = "0" ] ; then
-	  echo "Error: uninstall_tb_per_user_data must not be run as root"
+	  echo "Error: uninstall_tb_user_keychain_items must not be run as root"
 	  exit 0
 	fi
   else
 	if [ "$(id -u)" != "" ]; then
 	  if [ "$(id -u)" = "0" ]; then
-		echo "Error: uninstall_tb_per_user_data must not be run as root"
+		echo "Error: uninstall_tb_user_keychain_items must not be run as root"
 		exit 0
 	  fi
 	else
-	  echo "Error: uninstall_tb_per_user_data must not be run as root. Unable to determine if it is running as root"
+	  echo "Error: uninstall_tb_user_keychain_items must not be run as root. Unable to determine if it is running as root"
 	  exit 0
 	fi
   fi
@@ -131,6 +131,12 @@ uninstall_tb_per_user_data()
 
     # keychain_list is a list of all the user's keychains, separated by spaces
     readonly keychain_list="$(uninstall_tb_trim "$(security list-keychains | grep login.keychain | tr '\n' ' ' | tr -d '"')")"
+	if [ "$?" != "0" ] ; then
+	  echo "Problem: 'security list-keychains' failed for user ${USER}"
+	  exit 0
+	fi
+	
+	readonly os_version="$( sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*' )"
 
     for keychain in ${keychain_list} ; do
 
@@ -165,18 +171,26 @@ uninstall_tb_per_user_data()
 
             # If an item for the account exists, delete that keychain item
             item="$(security find-generic-password -s "${service}" -a "${account}" 2> /dev/null)"
-            if [ "${item}" != "" ] ; then
-              if [ "${uninstall_remove_data}" = "true" ] ; then
-                security delete-generic-password -s "${service}" -a "${account}" > /dev/null
-                status=$?
-              else
-                status="0"
-              fi
-              if [ "${status}" = "0" ]; then
-                echo "Removed ${USER}'s Keychain entry: '${account}' for '${service}'"
-              else
-                echo "Problem: Could not remove ${USER}'s Keychain entry: '${account}' for '${service}'"
-              fi
+			if [ "$?" != "0" ]; then
+			  if [ "${os_version}" = "10.4" ] ; then
+				echo "Problem: Could not remove ${USER}'s Keychain entry: '${account}' for '${service}'"
+			  else
+				echo "Problem: 'security find-generic-password' failed for ${USER}'s Keychain entries: '${account}' for '${service}'"
+			  fi
+			else
+			  if [ "${item}" != "" ] ; then
+                if [ "${uninstall_remove_data}" = "true" ] ; then
+                  security delete-generic-password -s "${service}" -a "${account}" > /dev/null
+                  status=$?
+                else
+                  status="0"
+                fi
+                if [ "${status}" = "0" ]; then
+                  echo "Removed ${USER}'s Keychain entry: '${account}' for '${service}'"
+                else
+                  echo "Problem: Could not remove ${USER}'s Keychain entry: '${account}' for '${service}'"
+                fi
+			  fi
             fi
           done
           last_service="${service}"
@@ -455,12 +469,15 @@ done
 
 export -f uninstall_tb_trim
 export -f uninstall_tb_remove_item_at_path
-export -f uninstall_tb_per_user_data
+export -f uninstall_tb_user_keychain_items
 
 export    uninstall_remove_data
 export    uninstall_tb_app_path
 export    uninstall_tb_app_name
 export    uninstall_tb_bundle_identifier
+
+readonly os_version="$( sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*' )"
+warn_about_10_4_keychain_problem="false"
 
 for user in `dscl . list /users` ; do
   if [ "${user:0:1}" != "_" -a -e "/Users/${user}" ] ; then
@@ -500,13 +517,18 @@ for user in `dscl . list /users` ; do
     done
 
 	# run the per-user routine to delete keychain items
-    output="$(/usr/bin/su "${user}" -c "/bin/bash -c uninstall_tb_per_user_data")"
+    output="$(/usr/bin/su "${user}" -c "/bin/bash -c uninstall_tb_user_keychain_items")"
     if [ "${output}" != "" ] ; then
 	  echo "${output}"
-      if [ "${output:0:7}" = "Error: " ] ; then
-        exit 0
-      fi
-    fi
+	  if [ "${output:0:7}" = "Error: " ] ; then
+		exit 0
+	  fi
+	  if [ "${output:0:9}" = "Problem: " ] ; then
+	    if [ "${os_version}" = "10.4" ] ; then
+	      warn_about_10_4_keychain_problem="true"
+		fi
+	  fi
+	fi	
 	
 	# Get a list of copies of Tunnelblick in the user's Trash that should be deleted
 	trash_path="/Users/${user}/.Trash"
@@ -571,6 +593,10 @@ for user in `dscl . list /users` ; do
   fi
 
 done
+
+if [ "${warn_about_10_4_keychain_problem}" = "true" ] ; then
+  echo "NOTE: On OS X 10.4, Tunnelblick Uninstaller cannot delete Tunnelblick's keychain items. They must be deleted using the OS X 'Keychain Access' utility."
+fi
 
 # delete login items for this user only
 if [ "{uninstall_remove_data}" = "true" ] ; then

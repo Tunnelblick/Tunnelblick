@@ -493,12 +493,12 @@ The uninstaller needs administrator access so it can make the changes required t
 			set alertResult to display alert (localized string of "Tunnelblick Uninstaller TEST FAILED") Â
 				message LocalizedFormattedString("One or more errors occurred during the %s uninstall test.", {theName}) Â
 				as critical Â
-				buttons {localized string of "Details", localized string of "OK"}
+				buttons {localized string of "OK", localized string of "Details"}
 		else
 			set alertResult to display alert (localized string of "Tunnelblick Uninstaller FAILED") Â
 				message LocalizedFormattedString("One or more errors occurred while uninstalling %s.", {theName}) Â
 				as critical Â
-				buttons {localized string of "Details", localized string of "OK"}
+				buttons {localized string of "OK", localized string of "Details"}
 		end if
 		
 	else
