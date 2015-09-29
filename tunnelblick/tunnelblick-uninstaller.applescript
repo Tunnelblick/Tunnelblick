@@ -412,10 +412,7 @@ on UserConfirmation(fullPath, TBName, TBIdentifier) -- (String, String, String) 
 			"OR CLICK 'Uninstall' to uninstall %s
 
 	" & Â
-			"OR CLICK 'Cancel'.
-
-	" & Â
-			"Uninstalling uses a secure erase process which may take a long time -- up to several MINUTES -- during which time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall or test is complete.", Â
+			"OR CLICK 'Cancel'.", Â
 			{TBName, TBIdentifier, fullPath, TBName})) Â
 			as critical Â
 			buttons {localized string of "Uninstall", localized string of "Test", localized string of "Cancel"}
@@ -437,10 +434,7 @@ on UserConfirmation(fullPath, TBName, TBIdentifier) -- (String, String, String) 
 			"OR CLICK 'Uninstall' to uninstall %s
 
 	" & Â
-			"OR CLICK 'Cancel'.
-
-	" & Â
-			"Uninstalling uses a secure erase process which may take a long time -- up to several MINUTES -- during which time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall or test is complete.", Â
+			"OR CLICK 'Cancel'.", Â
 			{TBName, TBIdentifier, TBName})) Â
 			as critical Â
 			buttons {localized string of "Uninstall", localized string of "Test", localized string of "Cancel"}
@@ -471,7 +465,9 @@ The uninstaller needs administrator access so it can read the %s preferences of 
 	else
 		display dialog LocalizedFormattedString("The next window will ask for a computer administrator username and password.
 
-The uninstaller needs administrator access so it can make the changes required to uninstall %s.", {theName})
+The uninstaller needs administrator access so it can make the changes required to uninstall %s.
+
+Uninstalling may take SEVERAL MINUTES because it uses a secure erase process. During that time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.", {theName})
 	end if
 	
 	-- Start the uninstaller script, using the -t or -u option as directed by the user

@@ -165,34 +165,29 @@ uninstall_tb_user_keychain_items()
 
       for service in "${tb_service_array[@]}" ; do
         if [ "${service}" != "${last_service}" ] ; then
+		  if [ "${os_version}" = "10.4" ] ; then
+			echo "Problem: Will not be able to remove ${USER}'s Keychain entries: for '${service}'"
+		  else
+		  
+            # Process any privateKey, username, or password items for the service/account
+            for account in privateKey username password ; do
 
-          # Process any privateKey, username, or password accounts for the service
-          for account in privateKey username password ; do
-
-            # If an item for the account exists, delete that keychain item
-            item="$(security find-generic-password -s "${service}" -a "${account}" 2> /dev/null)"
-			if [ "$?" != "0" ]; then
-			  if [ "${os_version}" = "10.4" ] ; then
-				echo "Problem: Could not remove ${USER}'s Keychain entry: '${account}' for '${service}'"
-			  else
-				echo "Problem: 'security find-generic-password' failed for ${USER}'s Keychain entries: '${account}' for '${service}'"
-			  fi
-			else
+              # If an item for the account exists, delete that keychain item
+              item="$(security find-generic-password -s "${service}" -a "${account}" 2> /dev/null)"
 			  if [ "${item}" != "" ] ; then
                 if [ "${uninstall_remove_data}" = "true" ] ; then
                   security delete-generic-password -s "${service}" -a "${account}" > /dev/null
-                  status=$?
+                  if [ "$?" = "0" ]; then
+                    echo "Removed ${USER}'s Keychain entry: '${account}' for '${service}'"
+                  else
+					echo "Problem: Could not remove ${USER}'s Keychain entry: '${account}' for '${service}'"
+			      fi
                 else
-                  status="0"
-                fi
-                if [ "${status}" = "0" ]; then
-                  echo "Removed ${USER}'s Keychain entry: '${account}' for '${service}'"
-                else
-                  echo "Problem: Could not remove ${USER}'s Keychain entry: '${account}' for '${service}'"
-                fi
+				  echo "Removed ${USER}'s Keychain entry: '${account}' for '${service}'"
+				fi
 			  fi
-            fi
-          done
+            done
+		  fi
           last_service="${service}"
         fi
       done
@@ -200,7 +195,6 @@ uninstall_tb_user_keychain_items()
     done
 
   fi
-
 }
 
 
@@ -594,10 +588,6 @@ for user in `dscl . list /users` ; do
 
 done
 
-if [ "${warn_about_10_4_keychain_problem}" = "true" ] ; then
-  echo "NOTE: On OS X 10.4, Tunnelblick Uninstaller cannot delete Tunnelblick's keychain items. They must be deleted using the OS X 'Keychain Access' utility."
-fi
-
 # delete login items for this user only
 if [ "{uninstall_remove_data}" = "true" ] ; then
   output=$(/usr/bin/su ${USER} -c "osascript -e 'set n to 0' -e 'tell application \"System Events\"' -e 'set login_items to the name of every login item whose name is \"${uninstall_tb_app_name}\"' -e 'tell me to set n to the number of login_items' -e 'repeat (the number of login_items) times' -e 'remove login item \"${uninstall_tb_app_name}\"' -e 'end repeat' -e 'end tell' -e 'n'")
@@ -639,6 +629,11 @@ if [ "${uninstall_tb_app_path}" != "" ] ; then
 
   # Remove the application itself
   uninstall_tb_remove_item_at_path "${uninstall_tb_app_path}"
+fi
+
+if [ "${warn_about_10_4_keychain_problem}" = "true" ] ; then
+  echo ""
+  echo "Note: On OS X 10.4, Tunnelblick Uninstaller cannot delete Tunnelblick's keychain items. They must be deleted using the OS X 'Keychain Access' utility."
 fi
 
 if [ "${uninstall_remove_data}" != "true" ] ; then
