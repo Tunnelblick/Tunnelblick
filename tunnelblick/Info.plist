@@ -8,94 +8,96 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>tblk</string>
-			</array>
+				<array>
+					<string>tblk</string>
+				</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>tunnelblick_package.icns</string>
+				<string>tunnelblick_package.icns</string>
 			<key>CFBundleTypeName</key>
-			<string>Tunnelblick VPN Configuration</string>
+				<string>Tunnelblick VPN Configuration</string>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+				<string>Editor</string>
 			<key>LSTypeIsPackage</key>
-			<true/>
+				<true/>
 			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
+				<string>Binary</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>ovpn</string>
-			</array>
+				<array>
+					<string>ovpn</string>
+				</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>tunnelblick_package.icns</string>
+				<string>tunnelblick_package.icns</string>
 			<key>CFBundleTypeName</key>
-			<string>OpenVPN Configuration</string>
+				<string>OpenVPN Configuration</string>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+				<string>Editor</string>
 			<key>LSTypeIsPackage</key>
-			<true/>
+				<true/>
 			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
+				<string>Binary</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>conf</string>
-			</array>
+				<array>
+					<string>conf</string>
+				</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>tunnelblick_package.icns</string>
+				<string>tunnelblick_package.icns</string>
 			<key>CFBundleTypeName</key>
-			<string>OpenVPN Configuration</string>
+				<string>OpenVPN Configuration</string>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+				<string>Editor</string>
 			<key>LSTypeIsPackage</key>
-			<true/>
+				<true/>
 			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
+				<string>Binary</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
-	<string>Tunnelblick</string>
+		<string>Tunnelblick</string>
 	<key>CFBundleIconFile</key>
-	<string>tunnelblick.icns</string>
+		<string>tunnelblick.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>net.tunnelblick.tunnelblick</string>
+		<string>net.tunnelblick.tunnelblick</string>
 	<key>CFBundleName</key>
-	<string>Tunnelblick</string>
+		<string>Tunnelblick</string>
 	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
+		<string>6.0</string>
 	<key>CFBundlePackageType</key>
-	<string>APPL</string>
+		<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.6beta11 (build TBBUILDNUMBER)</string>
+		<string>3.6beta11 (build TBBUILDNUMBER)</string>
 	<key>CFBundleSignature</key>
-	<string>OVPN</string>
+		<string>OVPN</string>
 	<key>CFBundleVersion</key>
-	<string>TBBUILDNUMBER</string>
+		<string>TBBUILDNUMBER</string>
 	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
+		<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
+		<string>NSApplication</string>
 	<key>NSUIElement</key>
-	<string>1</string>
+		<string>1</string>
 	<key>SUEnableSystemProfiling</key>
-	<true/>
+		<true/>
 	<key>NSHighResolutionCapable</key>
-	<true/>
+		<true/>
 	<key>SUFeedURL</key>
-	<string>https://www.tunnelblick.net/appcast.rss</string>
+		<string>https://www.tunnelblick.net/appcast.rss</string>
 	<key>SUPublicDSAKeyFile</key>
-	<string>dsa_pub.pem</string>
+		<string>dsa_pub.pem</string>
 	<key>NSAppleScriptEnabled</key>
-	<true/>
+		<true/>
 	<key>OSAScriptingDefinition</key>
-	<string>tunnelblick.sdef</string>
+		<string>tunnelblick.sdef</string>
 	<key>CFBundleHelpBookFolder</key>
-	<string>help</string>
+		<string>help</string>
 	<key>CFBundleHelpBookName</key>
-	<string>Tunnelblick Help</string>
+		<string>Tunnelblick Help</string>
+	<key>NSSupportsAutomaticGraphicsSwitching</key>
+		<true/>
 	<key>IPCheckURL</key>
-	<string>https://www.tunnelblick.net/ipinfo</string>
+		<string>https://www.tunnelblick.net/ipinfo</string>
 </dict>
 </plist>
