@@ -597,6 +597,12 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         
         TBLog(@"DB-SU", @"init: 000")
         
+        unsigned major, minor, bugFix;
+        NSString * osVersionString = (  getSystemVersion(&major, &minor, &bugFix) == EXIT_SUCCESS
+                                      ? [NSString stringWithFormat:@"%d.%d.%d", major, minor, bugFix]
+                                      : @"version is unknown");
+        NSLog(@"Tunnelblick: OS X %@; %@", osVersionString, tunnelblickVersion([NSBundle mainBundle]));
+        
         // Check that the preferences are OK or don't exist
         [self checkPlist: @"/Library/Preferences/net.tunnelblick.tunnelblick.plist" renameIfBad: NO];
         [self checkPlist: [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Preferences/net.tunnelblick.tunnelblick.plist"] renameIfBad: YES];
