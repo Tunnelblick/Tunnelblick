@@ -5995,6 +5995,19 @@ BOOL warnAboutNonTblks(void)
                                          NSLocalizedString(@"Retry", @"Button"),
                                          nil);
             if (  result != NSAlertAlternateReturn  ) {   // Quit if "Quit" or error
+				NSString * installerLog = @" (none)";
+				if (  [gFileMgr fileExistsAtPath: @"/tmp/tunnelblick-installer-log.txt"]  ) {
+					NSData * data = [gFileMgr contentsAtPath: @"/tmp/tunnelblick-installer-log.txt"];
+					if (  data  ) {
+						installerLog = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+					}
+				}
+				NSLog(@"Installation or repair failed; Log:\n%@", installerLog);
+				
+				[installerLog release];
+				if (  authRefIsLocal  ) {
+					AuthorizationFree(localAuthRef, kAuthorizationFlagDefaults);
+				}
                 [self terminateBecause: terminatingBecauseOfQuit];
             }
             
@@ -6051,7 +6064,7 @@ BOOL warnAboutNonTblks(void)
         }
     }
 	
-	NSString * installerLog = @"";
+	NSString * installerLog = @" (none)";
 	if (  [gFileMgr fileExistsAtPath: @"/tmp/tunnelblick-installer-log.txt"]  ) {
 		NSData * data = [gFileMgr contentsAtPath: @"/tmp/tunnelblick-installer-log.txt"];
 		if (  data  ) {
