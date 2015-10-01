@@ -5669,12 +5669,12 @@ BOOL warnAboutNonTblks(void)
         authorizationText = [NSString stringWithFormat:
                              NSLocalizedString(@" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n", @"Window text"),
                              previousVersion, applicationsDisplayName, appVersion, tblksMsg];
-        launchWindowText = NSLocalizedString(@"Tunnelblick was successfully replaced.\n\nDo you wish to launch the new version of Tunnelblick now?", @"Window text");
+        launchWindowText = NSLocalizedString(@"Tunnelblick was successfully replaced.", @"Window text");
     } else {
         authorizationText = [NSString stringWithFormat:
                              NSLocalizedString(@" Do you wish to install %@ to %@%@?\n\n", @"Window text"),
                              appVersion, applicationsDisplayName, tblksMsg];
-        launchWindowText = NSLocalizedString(@"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?", @"Window text");
+        launchWindowText = NSLocalizedString(@"Tunnelblick was successfully installed.", @"Window text");
     }
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 004")
@@ -5757,30 +5757,22 @@ BOOL warnAboutNonTblks(void)
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 009")
     [splashScreen setMessage: NSLocalizedString(@"Installation finished successfully.", @"Window text")];
-    int response = TBRunAlertPanel(launchWindowTitle,
-                                   launchWindowText,
-                                   NSLocalizedString(@"Launch", "Button"), // Default button
-                                   NSLocalizedString(@"Quit", "Button"), // Alternate button
-                                   nil);
+    TBRunAlertPanel(launchWindowTitle,
+					launchWindowText,
+					nil,nil, nil);
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 010")
     [splashScreen fadeOutAndClose];
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 011")
-    if (  response == NSAlertDefaultReturn  ) {
-        // Launch the program in /Applications
-        if (  ! [[NSWorkspace sharedWorkspace] launchApplication: tbInApplicationsPath]  ) {
-            TBRunAlertPanel(NSLocalizedString(@"Unable to launch Tunnelblick", @"Window title"),
-                            [NSString stringWithFormat: NSLocalizedString(@"An error occurred while trying to launch %@", @"Window text"), tbInApplicationsDisplayName],
-                            NSLocalizedString(@"Cancel", @"Button"),                // Default button
-                            nil,
-                            nil);
-        }
-    }
+	// Launch the program in /Applications
+	if (  ! [[NSWorkspace sharedWorkspace] launchApplication: tbInApplicationsPath]  ) {
+		TBRunAlertPanel(NSLocalizedString(@"Unable to launch Tunnelblick", @"Window title"),
+						[NSString stringWithFormat: NSLocalizedString(@"An error occurred while trying to launch %@", @"Window text"), tbInApplicationsDisplayName],
+						nil, nil, nil);
+	}
     
-    // If error, just terminate this instance
-    
-    TBLog(@"DB-SU", @"relaunchIfNecessary: 012 - LAST")
+    TBLog(@"DB-SU", @"relaunchIfNecessary: 012")
     [self terminateBecause: terminatingBecauseOfQuit];
     TBLog(@"DB-SU", @"relaunchIfNecessary: 013 - LAST after terminateBecause")
 }
