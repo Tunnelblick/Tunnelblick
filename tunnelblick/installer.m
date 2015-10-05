@@ -1289,11 +1289,15 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
     // see the .tblk (which has been copied) but not the config.ovpn (which hasn't been copied yet), so it complains.
     NSString * dotTempPath = [toPath stringByAppendingPathExtension: @"temp"];
     errorExitIfAnySymlinkInPath(dotTempPath, 3);
-    [gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
-    if (  ! [gFileMgr tbCopyPath: fromPath toPath: dotTempPath handler: nil]  ) {
+	if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
+		[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
+    }
+	if (  ! [gFileMgr tbCopyPath: fromPath toPath: dotTempPath handler: nil]  ) {
         appendLog([NSString stringWithFormat: @"Failed to copy %@ to %@", fromPath, dotTempPath]);
-        [gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
-        errorExit();
+		if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
+			[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
+        }
+		errorExit();
 	}
 	appendLog([NSString stringWithFormat: @"Copied %@\n    to %@", fromPath, dotTempPath]);
     
@@ -1309,20 +1313,26 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
     // about duplicate configuration names.
     if (  moveNotCopy  ) {
         errorExitIfAnySymlinkInPath(fromPath, 4);
-		makeUnlockedAtPath(fromPath);
-        if (  ! deleteThingAtPath(fromPath)  ) {
-            errorExit();
-        }
+        if (  [gFileMgr fileExistsAtPath: fromPath]  ) {
+			makeUnlockedAtPath(fromPath);
+			if (  ! deleteThingAtPath(fromPath)  ) {
+				errorExit();
+			}
+		}
     }
     
     errorExitIfAnySymlinkInPath(toPath, 5);
-	makeUnlockedAtPath(toPath);
-    [gFileMgr tbRemoveFileAtPath:toPath handler: nil];
+	if ( [gFileMgr fileExistsAtPath:toPath]  ) {
+		makeUnlockedAtPath(toPath);
+		[gFileMgr tbRemoveFileAtPath:toPath handler: nil];
+	}
     int status = rename([dotTempPath fileSystemRepresentation], [toPath fileSystemRepresentation]);
     if (  status != 0 ) {
         appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@; error was %d: '%s'", dotTempPath, toPath, errno, strerror(errno)]);
-        [gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
-        errorExit();
+		if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
+			[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
+        }
+		errorExit();
     }
     
     appendLog([NSString stringWithFormat: @"Renamed %@\n     to %@", dotTempPath, toPath]);
@@ -1403,17 +1413,19 @@ BOOL makeUnlockedAtPath(NSString * path)
 	// To make a file hierarchy unlocked, we have to first unlock everything inside the hierarchy
 	
 	BOOL isDir;
-	if (   [gFileMgr fileExistsAtPath: path isDirectory: &isDir]
-		&& isDir  ) {
-		NSString * file;
-		NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
-		while (  (file = [dirEnum nextObject])  ) {
-			makeUnlockedAtPath([path stringByAppendingPathComponent: file]);
+	if (   [gFileMgr fileExistsAtPath: path isDirectory: &isDir]  ) {
+		if (  isDir  ) {
+			NSString * file;
+			NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
+			while (  (file = [dirEnum nextObject])  ) {
+				makeUnlockedAtPath([path stringByAppendingPathComponent: file]);
+			}
 		}
+		
+		return makeOneItemUnlockedAtPath(path);
 	}
 	
-	// Then we unlock the root of the hierarchy
-	return makeOneItemUnlockedAtPath(path);
+	return TRUE;
 }
 
 //**************************************************************************************************************************
@@ -1522,11 +1534,10 @@ BOOL copyTblksToNewFolder(NSString * newFolder)
 BOOL convertAllPrivateOvpnAndConfToTblk(void)
 {
     NSString * newFolder = [[gPrivatePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"NewConfigurations"];
-    NSString * logPath = [newFolder stringByAppendingPathComponent: @"Conversion.log"];
-    
-    [gFileMgr tbRemoveFileAtPath: logPath   handler: nil];
-    [gFileMgr tbRemoveFileAtPath: newFolder handler: nil];
-    
+    if ( [gFileMgr fileExistsAtPath: newFolder]  ) {
+		[gFileMgr tbRemoveFileAtPath: newFolder handler: nil];
+    }
+	
 	BOOL haveDoneConversion = FALSE;
 	
     NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
