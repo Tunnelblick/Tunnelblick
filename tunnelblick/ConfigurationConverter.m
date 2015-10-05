@@ -68,6 +68,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     [tokens               release]; tokens               = nil;
     [tokensToReplace      release]; tokensToReplace      = nil;
     [replacementStrings   release]; replacementStrings   = nil;
+    [linesToCommentOut    release]; linesToCommentOut    = nil;
     [pathsAlreadyCopied   release]; pathsAlreadyCopied   = nil;
     [logString            release]; logString            = nil;
     
@@ -314,6 +315,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     
 	tokensToReplace    = [[NSMutableArray alloc] initWithCapacity: 8];
 	replacementStrings = [[NSMutableArray alloc] initWithCapacity: 8];
+	linesToCommentOut  = [[NSMutableArray alloc] initWithCapacity: 8];
 
     NSMutableArray * tokensToReturn = [self getTokens];
 	
@@ -905,6 +907,44 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 	return nil;
 }
 
+-(NSString *) commentOutLines {
+    
+    // Returns nil if no error; otherwise returns a localized error message
+
+    unsigned atLineNumber = 1;
+    unsigned charPosition = 0;
+    unsigned i;
+    for (  i=0; i<[linesToCommentOut count]; i++  ) {
+        unsigned lineNumber = [[linesToCommentOut objectAtIndex: i] unsignedIntValue];
+        
+        // Skip over lines we don't want to comment out
+        while (  atLineNumber < lineNumber  ) {
+            NSRange restOfStringRng = NSMakeRange(charPosition, [configString length] - charPosition);
+            if (  restOfStringRng.length > [configString length]  ) {
+                // This shouldn't happen, but...
+                return [self logMessage: [NSString stringWithFormat: @"Internal error: commentOutLines: Character position %lu is beyond string; at line %lu, trying to find line %lu; configString = \n%@", (unsigned long)charPosition, (unsigned long)atLineNumber, (unsigned long)lineNumber, configString]
+                              localized: [NSString stringWithFormat: @"Internal error: commentOutLines: Character position %lu is beyond string; at line %lu, trying to find line %lu", (unsigned long)charPosition, (unsigned long)atLineNumber, (unsigned long)lineNumber]];
+            }
+            NSRange lfRng = [configString rangeOfString: @"\n" options: 0 range: restOfStringRng];
+            if (  lfRng.length != 0  ) {
+                charPosition = lfRng.location + 1;
+                atLineNumber++;
+            } else {
+                return [self logMessage: [NSString stringWithFormat: @"Internal error: commentOutLines: line %lu does not exist; configString = \n%@", (unsigned long)lineNumber, configString]
+                              localized: [NSString stringWithFormat: NSLocalizedString(@"Internal error: commentOutLines: line %lu does not exist", @"Window text"), (unsigned long)lineNumber]];
+          }
+        }
+        [configString insertString: @"##### Disabled by Tunnelblick: " atIndex: charPosition];
+		unsigned savedInputLineNumber = inputLineNumber;
+		inputLineNumber = lineNumber;
+        [self logMessage: @"The line has been commented out because it contains an option that cannot be included in a Tunnelblick VPN Configuration"
+			   localized: @"The line has been commented out because it contains an option that cannot be included in a Tunnelblick VPN Configuration"];
+		inputLineNumber = savedInputLineNumber;
+    }
+    
+    return nil;
+}
+
 -(NSString *) convertConfigPath: (NSString *) theConfigPath
 					 outputPath: (NSString *) theOutputPath
               replacingTblkPath: (NSString *) theReplacingTblkPath
@@ -982,6 +1022,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 	
     tokensToReplace    = [[NSMutableArray alloc] initWithCapacity: 8];
 	replacementStrings = [[NSMutableArray alloc] initWithCapacity: 8];
+	linesToCommentOut  = [[NSMutableArray alloc] initWithCapacity: 8];
 	pathsAlreadyCopied = [[NSMutableArray alloc] initWithCapacity: 8];
     inputIx         = 0;
     inputLineNumber = 0;
@@ -1177,8 +1218,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                 }
             } else if (  [optionsThatRequireAnAbsolutePath containsObject: [firstToken stringValue]]  ) {
                 if (  ! [[secondToken stringValue] hasPrefix: @"/" ]  ) {
-                    return [self logMessage: [NSString stringWithFormat: @"The '%@' option is not allowed in an OpenVPN configuration file that is in a Tunnelblick VPN Configuration unless the file it references is specified with an absolute path.", [firstToken stringValue]]
-                                  localized: [NSString stringWithFormat: NSLocalizedString(@"The '%@' option is not allowed in an OpenVPN configuration file that is in a Tunnelblick VPN Configuration unless the file it references is specified with an absolute path.", @"Window text"), [firstToken stringValue]]];
+                    
+                    NSNumber * lineNumber = [NSNumber numberWithUnsignedInt:[firstToken lineNumber]];
+                    [linesToCommentOut addObject: lineNumber];
                 }
             }
             
@@ -1196,7 +1238,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     for (  i=[tokensToReplace count]; i > 0; i--  ) {
         [configString replaceCharactersInRange: [[tokensToReplace objectAtIndex: i - 1] range] withString: [replacementStrings objectAtIndex: i - 1]];
     }
-	
+    
+    NSString * result = [self commentOutLines];
+    if (  result  ) {
+        return result;
+    }
+    
 	// Inhibit display of line number
 	inputLineNumber = 0;
     

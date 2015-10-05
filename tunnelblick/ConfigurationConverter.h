@@ -48,9 +48,10 @@
     
     NSMutableArray  * tokens;               // Array of ConfigurationTokens
     
-    NSMutableArray  * tokensToReplace;      // Array of ranges (actually of ConfigurationTokens) to be replaced by new strings in configString
+    NSMutableArray  * tokensToReplace;      // Array of ranges (actually of ConfigurationTokens, which each contain a range) to be replaced by new strings in configString
     NSMutableArray  * replacementStrings;   // Array of strings to replace the ranges in configString
-	
+    NSMutableArray  * linesToCommentOut;    // Array of NSNumbers in configString that should be comment out because they contain a "status", "write-pid", or "replay-persist" option
+    
 	NSMutableArray  * pathsAlreadyCopied;	// Array of paths of files that have already been copied
 
 	unsigned          inputLineNumber;		// Line number we are parsing in the configuration file
