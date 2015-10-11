@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -739,6 +739,8 @@ NSData * availableDataOrError(NSFileHandle * file) {
 	// This routine is a modified version of a method from http://dev.notoptimal.net/search/label/NSTask
 	// Slightly modified version of Chris Suter's category function used as a private function
     
+    NSDate * timeout = [NSDate dateWithTimeIntervalSinceNow: 2.0];
+    
 	for (;;) {
 		@try {
 			return [file availableData];
@@ -751,6 +753,11 @@ NSData * availableDataOrError(NSFileHandle * file) {
 			}
 			@throw;
 		}
+        
+        if (  [[NSDate date] compare: timeout] == NSOrderedDescending  ) {
+            appendLog(@"availableDataOrError: Taking a long time checking for data from a pipe");
+            timeout = [NSDate dateWithTimeIntervalSinceNow: 2.0];
+        }
 	}
 }
 
@@ -837,6 +844,8 @@ OSStatus runTool(NSString * launchPath,
     BOOL taskIsActive = [task isRunning];
 	NSData * outData = availableDataOrError(outFile);
 	NSData * errData = availableDataOrError(errFile);
+
+    NSDate * timeout = [NSDate dateWithTimeIntervalSinceNow: 5.0];
     
 	while (   ([outData length] > 0)
 		   || ([errData length] > 0)
@@ -848,6 +857,11 @@ OSStatus runTool(NSString * launchPath,
 		if (  [errData length] > 0  ) {
             [errOutData appendData: errData];
 		}
+        
+        if (  [[NSDate date] compare: timeout] == NSOrderedDescending  ) {
+            appendLog([NSString stringWithFormat: @"runTool: Taking a long time executing '%@' with arguments = %@", launchPath, arguments]);
+            timeout = [NSDate dateWithTimeIntervalSinceNow: 5.0];
+        }
         
         usleep(100000); // Wait 0.1 seconds
 		

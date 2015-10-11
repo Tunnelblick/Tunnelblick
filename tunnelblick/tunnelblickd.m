@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 by Jonathan K. Bullard. All rights reserved.
+ * Copyright 2014, 2015 by Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -61,10 +61,14 @@ static void signal_handler(int signalNumber) {
 	}
 }
 
-NSData * availableDataOrError(NSFileHandle * file) {
+NSData * availableDataOrError(NSFileHandle * file,
+                              aslclient      asl,
+                              aslmsg         log_msg) {
 	
 	// This routine is a modified version of a method from http://dev.notoptimal.net/search/label/NSTask
 	// Slightly modified version of Chris Suter's category function used as a private function
+    
+    NSDate * timeout = [NSDate dateWithTimeIntervalSinceNow: 2.0];
     
 	for (;;) {
 		@try {
@@ -78,6 +82,11 @@ NSData * availableDataOrError(NSFileHandle * file) {
 			}
 			@throw;
 		}
+        
+        if (  [[NSDate date] compare: timeout] == NSOrderedDescending  ) {
+             asl_log(asl, log_msg, ASL_LEVEL_ERR, "availableDataOrError: Taking a long time checking for data from a pipe");
+            timeout = [NSDate dateWithTimeIntervalSinceNow: 2.0];
+        }
 	}
 }
 
@@ -129,7 +138,9 @@ OSStatus runTool(NSString * userName,
 				 NSString * launchPath,
                  NSArray  * arguments,
                  NSString * * stdOutStringPtr,
-                 NSString * * stdErrStringPtr) {
+                 NSString * * stdErrStringPtr,
+                 aslclient  asl,
+                 aslmsg     log_msg) {
 	
 	// Runs a command or script, returning the execution status of the command, stdout, and stderr
 	
@@ -167,8 +178,10 @@ OSStatus runTool(NSString * userName,
 	NSMutableData * errOutData = (stdErrStringPtr ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
 	
     BOOL taskIsActive = [task isRunning];
-	NSData * outData = availableDataOrError(outFile);
-	NSData * errData = availableDataOrError(errFile);
+	NSData * outData = availableDataOrError(outFile, asl, log_msg);
+	NSData * errData = availableDataOrError(errFile, asl, log_msg);
+    
+    NSDate * timeout = [NSDate dateWithTimeIntervalSinceNow: 5.0];
     
 	while (   ([outData length] > 0)
 		   || ([errData length] > 0)
@@ -181,11 +194,16 @@ OSStatus runTool(NSString * userName,
             [errOutData appendData: errData];
 		}
         
+        if (  [[NSDate date] compare: timeout] == NSOrderedDescending  ) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR, "runTool: Taking a long time executing '%s'", [launchPath fileSystemRepresentation]);
+            timeout = [NSDate dateWithTimeIntervalSinceNow: 5.0];
+        }
+        
         usleep(100000); // Wait 0.1 seconds
 		
         taskIsActive = [task isRunning];
-		outData = availableDataOrError(outFile);
-		errData = availableDataOrError(errFile);
+		outData = availableDataOrError(outFile, asl, log_msg);
+		errData = availableDataOrError(errFile, asl, log_msg);
 	}
 	
 	[outFile closeFile];
@@ -479,7 +497,7 @@ int main(void) {
 //		asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Launching tunnelblick-helper as uid 0, euid = %lu, gid = 0, and egid = %lu; user '%s' with home folder '%s'",
 //				(unsigned long)client_euid, (unsigned long)client_egid, [userName UTF8String], [userHome UTF8String]);
 		
-		OSStatus status = runTool(userName, userHome, tunnelblickHelperPath, arguments, &stdoutString, &stderrString);
+		OSStatus status = runTool(userName, userHome, tunnelblickHelperPath, arguments, &stdoutString, &stderrString, asl, log_msg);
 		
 		// Resume being root:wheel if needed
 		if (   geteuid() == 0  ) {
