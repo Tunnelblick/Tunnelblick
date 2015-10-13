@@ -83,7 +83,8 @@ NSData * availableDataOrError(NSFileHandle * file,
 			@throw;
 		}
         
-        if (  [[NSDate date] compare: timeout] == NSOrderedDescending  ) {
+		NSDate * now = [NSDate date];
+        if (  [now compare: timeout] == NSOrderedDescending  ) {
              asl_log(asl, log_msg, ASL_LEVEL_ERR, "availableDataOrError: Taking a long time checking for data from a pipe");
             timeout = [NSDate dateWithTimeIntervalSinceNow: 2.0];
         }
@@ -194,7 +195,8 @@ OSStatus runTool(NSString * userName,
             [errOutData appendData: errData];
 		}
         
-        if (  [[NSDate date] compare: timeout] == NSOrderedDescending  ) {
+ 		NSDate * now = [NSDate date];
+        if (  [now compare: timeout] == NSOrderedDescending  ) {
             asl_log(asl, log_msg, ASL_LEVEL_ERR, "runTool: Taking a long time executing '%s'", [launchPath fileSystemRepresentation]);
             timeout = [NSDate dateWithTimeIntervalSinceNow: 5.0];
         }
