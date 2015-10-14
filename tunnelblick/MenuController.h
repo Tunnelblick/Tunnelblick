@@ -1,7 +1,7 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
  * Contributions by Dirk Theisen, Jens Ohlig, Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -68,6 +68,12 @@ enum ActiveInactiveState {
     gettingReadyForInactive = 1,
     readyForInactive        = 2,
     gettingReadyforActive   = 3
+};
+
+enum StatusIconPosition {
+    iconNotShown        = 0,
+    iconNearSpotlight   = 1,
+    iconNormal          = 2
 };
 
 // The following line is needed to avoid a crash on load on 10.4 and 10.5. The crash is caused by the use of "block" structures in the code,
@@ -192,6 +198,8 @@ void * _NSConcreteStackBlock __attribute__((weak));
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
     
+    enum StatusIconPosition   iconPosition;                 // Position of Tunnelblick icon in the status menu
+    
     BOOL                      hotKeyEventHandlerIsInstalled;// The event handler for the hot key (keyboard shortcut to pop up the Tunnelblick menu) has been installed
     EventHotKeyRef            hotKeyRef;                    // Reference for the current hot key
     UInt32                    hotKeyKeyCode;                // Current hot key: Virtual key code
@@ -257,7 +265,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(NSString *)       localizedNameForDisplayName:            (NSString *)        displayName;
 -(NSString *)       localizedNameforDisplayName:            (NSString *)        displayName
                                        tblkPath:            (NSString *)        tblkPath;
--(void)             recreateStatusItemAndMenu;
+-(void)             moveStatusItemIfNecessary;
 -(void)             mouseEnteredMainIcon:                   (id)                control
                                    event:                   (NSEvent *)         theEvent;
 -(void)             mouseExitedMainIcon:                    (id)                windowController

@@ -3,7 +3,7 @@
  * Contributions by Dirk Theisen <dirk@objectpark.org>,
  *                  Jens Ohlig, 
  *                  Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -107,8 +107,8 @@ BOOL needToRepairPackages(void);
 BOOL needToConvertNonTblks(void);
 
 @interface NSStatusBar (NSStatusBar_Private)
-- (id)_statusItemWithLength:(CGFloat)l withPriority:(NSInteger)p;
-- (id)_insertStatusItem:(NSStatusItem *)i withPriority:(int)p;
+- (id)_statusItemWithLength:(CGFloat)l withPriority:(long long)p;
+- (id)_insertStatusItem:(NSStatusItem *)i withPriority:(long long)p;
 @end
 
 @interface MenuController() // PRIVATE METHODS
@@ -326,6 +326,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 		
 		menuIsOpen = FALSE;
         
+        iconPosition = iconNotShown;
+        
         dotTblkFileList = [[NSMutableArray arrayWithCapacity: 10] retain];
         uiUpdater = nil;
         customRunOnLaunchPath = nil;
@@ -348,6 +350,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"DB-IT",     // Extra logging for IP address check threading
                                 @"DB-MO",     // Extra logging for mouseover (of icon and status windows)
 								@"DB-SD",     // Extra logging for shutdown
+                                @"DB-SI",     // Extra logging for status item creation/deletion/move
                                 @"DB-SU",     // Extra logging for startup
                                 @"DB-SW",     // Extra logging for sleep/wake and inactive user/active user
                                 @"DB-UC",     // Extra logging for updating configurations
@@ -1227,19 +1230,16 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
     // Places an item with our icon in the Status Bar (creating it first if it doesn't already exist)
     // By default, it uses an undocumented hack to place the icon on the right side, next to SpotLight
     // Otherwise ("placeIconInStandardPositionInStatusBar" preference or hack not available), it places it normally (on the left)
-    // On Mavericks with multiple displays, it always places it normally (on the left)
+    // On Mavericks & higher with multiple displays and "Displays have different spaces" enabled in Mission Control System Preferences, it always places it normally (on the left)
 
 	NSStatusBar *bar = [NSStatusBar systemStatusBar];
-	
-    if (  statusItem  ) {
-        if (   iconTrackingRectTag != 0  ) {
-			[statusItemButton removeTrackingRect: iconTrackingRectTag];
-            iconTrackingRectTag = 0;
-        }
-        [bar removeStatusItem: statusItem];
-        [statusItem release];
+    if (  ! bar  ) {
+        NSLog(@"createStatusItem: Could not get system status bar");
     }
     
+    [self removeStatusItem];
+    
+    // Create new status item
     if (   [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]
         && [bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]
         && (  ! [gTbDefaults boolForKey:@"placeIconInStandardPositionInStatusBar"]  )
@@ -1247,40 +1247,106 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         ) {
         
         // Force icon to the right in Status Bar
-        int priority = 2147483646;  //Established by experimenting by Dirk
+        long long priority = 0x7FFFFFFEll;  // Established by experimenting by Dirk as an "int" = 2147483646 in OS X 10.3
+        //                                  // but as of 10.4+, this should be a "long long"
         if (  ! ( statusItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain] )  ) {
-            NSLog(@"can't insert icon in Status Bar near Spotlight icon");
+            NSLog(@"Can't obtain status item near Spotlight icon");
         }
+        TBLog(@"DB-SI", @"createStatusItem: Created status item 0x%lX near the Spotlight icon", (long) statusItem)
         
         // Re-insert item to place it correctly
         [bar removeStatusItem: statusItem];
         [bar _insertStatusItem: statusItem withPriority: priority];
+        TBLog(@"DB-SI", @"createStatusItem: Removed and reinserted status item to put it near the Spotlight icon")
+        iconPosition = iconNearSpotlight;
 
     } else {
         // Standard placement of icon in Status Bar
         if (  ! (statusItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
-            NSLog(@"Can't insert icon in Status Bar in standard position");
+            NSLog(@"Can't obtain status item in standard position");
         }
+        TBLog(@"DB-SI", @"createStatusItem: Created status item 0x%lX placed normally (to the left of existing status items)", (long) statusItem)
+        iconPosition = iconNormal;
     }
 	
+    // If possible and needed, set up a tracking rectangle
     if (  [statusItem respondsToSelector: @selector(button)]  ) {
         [self setStatusItemButton: [statusItem performSelector: @selector(button) withObject: nil]];
 		[statusItemButton setImage: mainImage];  // Set image so that frame is set up so we can set the tracking rectangle
-        if (  ! [gTbDefaults boolForKey: @"doNotShowNotificationWindowOnMouseover"]  ) {
-            NSRect frame = [statusItemButton frame];
-            NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
-            iconTrackingRectTag = [statusItemButton addTrackingRect: trackingRect
-                                                              owner: self
-                                                           userData: nil
-                                                       assumeInside: NO];
+        if (  statusItemButton  ) {
+            if ( ! [gTbDefaults boolForKey: @"doNotShowNotificationWindowOnMouseover"]  ) {
+                NSRect frame = [statusItemButton frame];
+                NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
+                iconTrackingRectTag = [statusItemButton addTrackingRect: trackingRect
+                                                                  owner: self
+                                                               userData: nil
+                                                           assumeInside: NO];
+                TBLog(@"DB-SI", @"createStatusItem: Added tracking rectangle 0x%lX (%f,%f, %f, %f) for status item 0x%lX",
+                      (long) iconTrackingRectTag, trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height,(long) statusItem)
+            } else {
+                TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item 0x%lX because of preference", (long) statusItem)
+            }
+        } else {
+            NSLog(@"createStatusItem: Did not add tracking rectangle for status item 0x%lX because there was not statusItemButton", (long) statusItem);
         }
     } else {
         [self setStatusItemButton: nil];
+        TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item 0x%lX because it does not respond to 'button'", (long) statusItem)
     }
+}
+
+- (void) removeStatusItem {
+    
+    NSStatusBar *bar = [NSStatusBar systemStatusBar];
+    if (  ! bar  ) {
+        NSLog(@"removeStatusItem: Could not get system status bar");
+    }
+    
+    if (  statusItem  ) {
+        if (   iconTrackingRectTag != 0  ) {
+            if (  statusItemButton  ) {
+                TBLog(@"DB-SI", @"removeStatusItem: Removing tracking rectangle 0x%lX for status item 0x%lx", (long) iconTrackingRectTag, (long) statusItem)
+                [statusItemButton removeTrackingRect: iconTrackingRectTag];
+            } else {
+                NSLog(@"removeStatusItem: Did not remove tracking rectangle 0x%lX for status item 0x%lX because there was no statusItemButton", (long) iconTrackingRectTag, (long) statusItem);
+            }
+            iconTrackingRectTag = 0;
+        } else {
+            TBLog(@"DB-SI", @"removeStatusItem: No tracking rectangle to remove")
+        }
+        TBLog(@"DB-SI", @"removeStatusItem: Removing status item from status bar")
+        [bar removeStatusItem: statusItem];
+        [statusItem release];
+        statusItem = nil;
+        iconPosition = iconNotShown;
+    }
+}
+
+-(void) moveStatusItemIfNecessary {
+    
+    // "Move" the status item if it should be in a different place from its current location.
+    // Move it by recreating it so it is in the new place. That is necessary because a status item near the Spotlight icon is
+    // a different status item (because it has a "priority").
+    
+    enum StatusIconPosition whereIconShouldBe = (   [gTbDefaults boolForKey:@"placeIconInStandardPositionInStatusBar"]
+                                                 || mustPlaceIconInStandardPositionInStatusBar()
+                                                 ? iconNormal
+                                                 : iconNearSpotlight);
+    TBLog(@"DB-SI", @"moveStatusItemIfNecessary: iconPosition = %d; should be = %d", iconPosition, whereIconShouldBe)
+    
+    if (  iconPosition != whereIconShouldBe  ) {
+        [self createStatusItem];
+    }
+    
+    // Always re-set up the checkbox that controls the icon's position, update the icon image and status windows
+    [[self logScreen] setupAppearancePlaceIconNearSpotlightCheckbox];
+    [self updateIconImage];
+    [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
 }
 
 -(void) updateScreenList {
     
+    TBLog(@"DB-SI", @"updateScreenList: Current screen list = %@", screenList)
     NSArray * screenArray = [NSScreen screens];
     NSMutableArray * screens = [NSMutableArray arrayWithCapacity: [screenArray count]];
     unsigned i;
@@ -1300,6 +1366,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
     }
     
     [self setScreenList: [NSArray arrayWithArray: screens]];
+    TBLog(@"DB-SI", @"updateScreenList: New screen list = %@", screenArray)
 }
 
 -(unsigned) statusScreenIndex {
@@ -1333,21 +1400,51 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 
 - (void) recreateMenu
 {
-    if (  displaysHaveDifferentSpaces()  ) {
-        [self recreateStatusItemAndMenu];
-        [[self logScreen] setupAppearancePlaceIconNearSpotlightCheckbox];
-    } else {
-        [self createMenu];
-        [self updateIconImage];
-        [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
-    }
+    [self createMenu];
+    [self updateIconImage];
+    [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
+}
+
+-(NSString *) iconPositionAsString {
+    
+    return (  (iconPosition == iconNotShown)
+            ? @"status icon not being displayed"
+            : (  (iconPosition == iconNormal)
+               ? @"status icon on left"
+               : @"status icon near Spotlight icon"
+               )
+            );
 }
 
 -(void) screenParametersChanged {
     
+    TBLog(@"DB-SI", @"screenParametersChanged: %@", [self iconPositionAsString])
+    
     [self updateScreenList];
-    [self recreateMenu];
-	[[self logScreen] setupAppearanceConnectionWindowScreenButton];
+    [self moveStatusItemIfNecessary];
+    [[self logScreen] setupAppearanceConnectionWindowScreenButton];
+}
+
+-(void) activeDisplayDidChange {
+    
+    TBLog(@"DB-SI", @"activeDisplayDidChange: %@", [self iconPositionAsString])
+    
+    [self updateScreenList];
+    [self moveStatusItemIfNecessary];
+    [[self logScreen] setupAppearanceConnectionWindowScreenButton];
+}
+
+
+-(void) menuExtrasWereAdded {
+    
+    // If the icon is near the Spotlight icon, then redraw it there
+    TBLog(@"DB-SI", @"menuExtrasWereAdded: %@", [self iconPositionAsString])
+    if (  iconPosition == iconNearSpotlight  ) {
+        [self createStatusItem];
+        [[self logScreen] setupAppearancePlaceIconNearSpotlightCheckbox];
+        [self updateIconImage];
+        [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
+    }
 }
 
 -(void) screenParametersChangedHandler: (NSNotification *) n {
@@ -1380,15 +1477,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         return;
     }
     
-	[self performSelectorOnMainThread: @selector(recreateMenu) withObject: nil waitUntilDone: NO];
-}
-
-- (void) recreateStatusItemAndMenu
-{
-    [self createStatusItem];
-    [self createMenu];
-    [self updateIconImage];
-    [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
+	[self performSelectorOnMainThread: @selector(menuExtrasWereAdded) withObject: nil waitUntilDone: NO];
 }
 
 - (IBAction) quit: (id) sender
@@ -3204,7 +3293,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
         
         if (  statusItem  ) {
             TBLog(@"DB_SD", @"cleanup: Removing status bar item")
-            [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
+            [self removeStatusItem];
         }
     }
     
