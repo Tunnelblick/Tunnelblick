@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -68,9 +68,9 @@ extern TBUserDefaults * gTbDefaults;
     
     CGFloat maxWidth = 0.0;
 	
-    NSRect connectFrame;
-    NSRect setDnsFrame;
-    NSRect openvpnFrame;
+    NSRect connectFrame = {{0.0, 0.0}, {0.0, 0.0}};
+    NSRect setDnsFrame  = {{0.0, 0.0}, {0.0, 0.0}};
+    NSRect openvpnFrame = {{0.0, 0.0}, {0.0, 0.0}};
     
     if (  whenToConnectPopUpButton  ) {
         connectFrame = [whenToConnectPopUpButton frame];

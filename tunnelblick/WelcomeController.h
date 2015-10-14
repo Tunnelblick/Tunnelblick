@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -24,7 +24,7 @@
 
 #import "defines.h"
 
-@interface WelcomeController : NSWindowController
+@interface WelcomeController : NSWindowController <WebFrameLoadDelegate,WebPolicyDelegate>
 {
     IBOutlet NSButton			 * okButton;
     IBOutlet NSButton			 * doNotShowAgainCheckbox;

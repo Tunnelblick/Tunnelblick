@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -169,8 +169,9 @@ extern TBUserDefaults * gTbDefaults;
 			[descriptionString deleteCharactersInRange: NSMakeRange(0, 1)];	// Remove leading space
         }
 		
+        NSDictionary * attributes = [NSDictionary dictionaryWithObject: NSRTFTextDocumentType forKey: NSDocumentTypeDocumentAttribute];
         [infoDescriptionTV replaceCharactersInRange: NSMakeRange( 0, [[infoDescriptionTV string] length] )
-                                            withRTF: [descriptionString RTFFromRange: NSMakeRange( 0, [descriptionString length] ) documentAttributes: nil]];
+                                            withRTF: [descriptionString RTFFromRange: NSMakeRange( 0, [descriptionString length] ) documentAttributes: attributes]];
     }
 	
 	// Credits: create HTML, convert to an NSMutableAttributedString, substitute localized strings, and display
@@ -419,8 +420,9 @@ extern TBUserDefaults * gTbDefaults;
     }
     
     // Convert the NSMutableAttributedString to RTF
+    NSDictionary * attributes = [NSDictionary dictionaryWithObject: NSRTFTextDocumentType forKey: NSDocumentTypeDocumentAttribute];
     NSData * rtfData = [creditsString RTFFromRange: NSMakeRange(0, [creditsString length])
-                                documentAttributes:nil];
+                                documentAttributes: attributes];
     
     // Display the RTF
     [infoCreditSV setHasHorizontalScroller: NO];
