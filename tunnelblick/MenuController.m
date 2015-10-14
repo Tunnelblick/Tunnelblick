@@ -888,8 +888,6 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         }
         
         TBLog(@"DB-SU", @"init: 013")
-		[self createStatusItem];
-		
         myConfigDictionary = [[[ConfigurationManager manager] getConfigurations] copy];
         
         TBLog(@"DB-SU", @"init: 014")
@@ -910,6 +908,9 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         TBLog(@"DB-SU", @"init: 015")
 		[self createMenu];
         
+        TBLog(@"DB-SU", @"init: 015.1")
+		[self createStatusItem];
+		
         [self setState: @"EXITING"]; // synonym for "Disconnected"
         
         TBLog(@"DB-SU", @"init: 016")
@@ -1225,6 +1226,33 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
     return NO;
 }
 
+- (void) removeStatusItem {
+    
+    NSStatusBar *bar = [NSStatusBar systemStatusBar];
+    if (  ! bar  ) {
+        NSLog(@"removeStatusItem: Could not get system status bar");
+    }
+    
+    if (  statusItem  ) {
+        if (   iconTrackingRectTag != 0  ) {
+            if (  statusItemButton  ) {
+                TBLog(@"DB-SI", @"removeStatusItem: Removing tracking rectangle 0x%lX for status item 0x%lx", (long) iconTrackingRectTag, (long) statusItem)
+                [statusItemButton removeTrackingRect: iconTrackingRectTag];
+            } else {
+                NSLog(@"removeStatusItem: Did not remove tracking rectangle 0x%lX for status item 0x%lX because there was no statusItemButton", (long) iconTrackingRectTag, (long) statusItem);
+            }
+            iconTrackingRectTag = 0;
+        } else {
+            TBLog(@"DB-SI", @"removeStatusItem: No tracking rectangle to remove")
+        }
+        TBLog(@"DB-SI", @"removeStatusItem: Removing status item from status bar")
+        [bar removeStatusItem: statusItem];
+        [statusItem release];
+        statusItem = nil;
+        iconPosition = iconNotShown;
+    }
+}
+
 - (void) createStatusItem {
     
     // Places an item with our icon in the Status Bar (creating it first if it doesn't already exist)
@@ -1247,8 +1275,9 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         ) {
         
         // Force icon to the right in Status Bar
-        long long priority = 0x7FFFFFFEll;  // Established by experimenting by Dirk as an "int" = 2147483646 in OS X 10.3
-        //                                  // but as of 10.4+, this should be a "long long"
+        long long priority = (  runningOnIntel()        // Established by experimenting by Dirk as an "int" = 2147483646 (0x7FFFFFFE) in OS X 10.3
+							  ? 0x000000007FFFFFFEll	// But on 10.4+ it is "long long"
+							  : 0x7FFFFFFE7FFFFFFEll);
         if (  ! ( statusItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain] )  ) {
             NSLog(@"Can't obtain status item near Spotlight icon");
         }
@@ -1289,37 +1318,20 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         } else {
             NSLog(@"createStatusItem: Did not add tracking rectangle for status item 0x%lX because there was not statusItemButton", (long) statusItem);
         }
+	
+		TBLog(@"DB-SI", @"createStatusItem: Set menu for status item 0x%lX", (long) statusItem)
+		[statusItem setMenu: myVPNMenu];
     } else {
         [self setStatusItemButton: nil];
         TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item 0x%lX because it does not respond to 'button'", (long) statusItem)
+		if (  ! ourMainIconView  ) {
+			TBLog(@"DB-SI", @"createStatusItem: creating ourMainIconView and setting the status icon's view to it")
+			[self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 24.0, 22.0)] autorelease]];
+			[statusItem setView: [self ourMainIconView]];
+		}
+		[statusItem setView: [self ourMainIconView]];
     }
-}
 
-- (void) removeStatusItem {
-    
-    NSStatusBar *bar = [NSStatusBar systemStatusBar];
-    if (  ! bar  ) {
-        NSLog(@"removeStatusItem: Could not get system status bar");
-    }
-    
-    if (  statusItem  ) {
-        if (   iconTrackingRectTag != 0  ) {
-            if (  statusItemButton  ) {
-                TBLog(@"DB-SI", @"removeStatusItem: Removing tracking rectangle 0x%lX for status item 0x%lx", (long) iconTrackingRectTag, (long) statusItem)
-                [statusItemButton removeTrackingRect: iconTrackingRectTag];
-            } else {
-                NSLog(@"removeStatusItem: Did not remove tracking rectangle 0x%lX for status item 0x%lX because there was no statusItemButton", (long) iconTrackingRectTag, (long) statusItem);
-            }
-            iconTrackingRectTag = 0;
-        } else {
-            TBLog(@"DB-SI", @"removeStatusItem: No tracking rectangle to remove")
-        }
-        TBLog(@"DB-SI", @"removeStatusItem: Removing status item from status bar")
-        [bar removeStatusItem: statusItem];
-        [statusItem release];
-        statusItem = nil;
-        iconPosition = iconNotShown;
-    }
 }
 
 -(void) moveStatusItemIfNecessary {
@@ -1886,12 +1898,8 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [myVPNMenu addItem: quitItem];
     
     if (  statusItemButton  ) {
-        // Yosemite statusItem is very different!
-		[statusItemButton setImage: mainImage];
+        [statusItemButton setImage: mainImage];
         [statusItem setMenu: myVPNMenu];
-	} else {
-		[self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 24.0, 22.0)] autorelease]];
-		[statusItem setView: [self ourMainIconView]];
     }
 	
     status = pthread_mutex_unlock( &myVPNMenuMutex );
@@ -2813,9 +2821,9 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
                 
                 // Console-log the kill/disconnect and start the disconnect if not using killall
                 if (  useKillAll  ) {
-                    TBLog(@"DB_SD", @"startDisconnecting:disconnectingAll:logMessage: will use killall to disconnect %@", [connection displayName])
+                    TBLog(@"DB-SD", @"startDisconnecting:disconnectingAll:logMessage: will use killall to disconnect %@", [connection displayName])
                 } else {
-                    TBLog(@"DB_SD", @"startDisconnecting:disconnectingAll:logMessage: starting disconnect of %@", [connection displayName])
+                    TBLog(@"DB-SD", @"startDisconnecting:disconnectingAll:logMessage: starting disconnect of %@", [connection displayName])
                     [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
                 }
             }
@@ -2823,9 +2831,9 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 		
         // Use killall if not killing individually
 		if (   useKillAll  ) {
-			TBLog(@"DB_SD", @"startDisconnecting:disconnectingAll:logMessage: starting killAll")
+			TBLog(@"DB-SD", @"startDisconnecting:disconnectingAll:logMessage: starting killAll")
 			runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
-			TBLog(@"DB_SD", @"startDisconnecting:disconnectingAll:logMessage: finished killAll")
+			TBLog(@"DB-SD", @"startDisconnecting:disconnectingAll:logMessage: finished killAll")
 		}
         
 	} else {
@@ -2992,7 +3000,7 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
     
     // DO NOT put this code inside the mutex: we want to return immediately if computer is shutting down or restarting
     if (  gShuttingDownOrRestartingComputer  ) {
-        TBLog(@"DB_SD", @"doDisconnectionsForBecameInactiveUser: Computer is shutting down or restarting; OS X will kill OpenVPN instances")
+        TBLog(@"DB-SD", @"doDisconnectionsForBecameInactiveUser: Computer is shutting down or restarting; OS X will kill OpenVPN instances")
         return nil;
     }
     
@@ -3287,12 +3295,14 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 
     if ( ! gShuttingDownWorkspace  ) {
         if (  hotKeyEventHandlerIsInstalled && hotKeyModifierKeys != 0  ) {
-            TBLog(@"DB_SD", @"cleanup: Unregistering hotKeyEventHandler")
+            TBLog(@"DB-SD", @"cleanup: Unregistering hotKeyEventHandler")
             UnregisterEventHotKey(hotKeyRef);
         }
         
+		[ourMainIconView removeTrackingRectangle];
+		
         if (  statusItem  ) {
-            TBLog(@"DB_SD", @"cleanup: Removing status bar item")
+            TBLog(@"DB-SD", @"cleanup: Removing status bar item")
             [self removeStatusItem];
         }
     }
@@ -6871,7 +6881,7 @@ void terminateBecauseOfBadConfiguration(void)
     
     terminatingAtUserRequest = TRUE;
     
-	TBLog(@"DB_SW", @"willGoToSleepHandler: Setting up to go to sleep")
+	TBLog(@"DB-SW", @"willGoToSleepHandler: Setting up to go to sleep")
 	[self startDisconnectionsForSleeping];
     
     // Indicate no configurations have connected since sleep
@@ -6894,7 +6904,7 @@ void terminateBecauseOfBadConfiguration(void)
         return;
     }
 	
-    TBLog(@"DB_SW", @"willGoToSleepHandler: OK to go to sleep")
+    TBLog(@"DB-SW", @"willGoToSleepHandler: OK to go to sleep")
 }
 
 -(void) wokeUpFromSleepHandler: (NSNotification *) n
@@ -7102,7 +7112,7 @@ void terminateBecauseOfBadConfiguration(void)
     
     terminatingAtUserRequest = TRUE;
     
-	TBLog(@"DB_SW", @"didBecomeInactiveUser: Setting up to become an inactive user")
+	TBLog(@"DB-SW", @"didBecomeInactiveUser: Setting up to become an inactive user")
 	
     // For each open connection, either reInitialize it or start disconnecting it
     // Remember connections that should be restored if/when we become the active user
