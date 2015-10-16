@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015. All rights reserved.
 
  *
  *  This file is part of Tunnelblick.
@@ -653,13 +653,16 @@ int main(int argc, char *argv[])
                                   stringByAppendingPathComponent: @"Application Support"]
                                  stringByAppendingPathComponent: @"Tunnelblick"];
     
+    gid_t  group = privateFolderGroup(userL_AS_T_Path);
+    mode_t permissions = privateFolderPermissions(userL_AS_T_Path);
+    
     if (  ! createDirWithPermissionAndOwnership(userL_AS_T_Path,
-                                                PERMS_PRIVATE_FOLDER, gRealUserID, ADMIN_GROUP_ID)  ) {
+                                                permissions, gRealUserID, group)  ) {
         errorExit();
     }
     
     if (  ! createDirWithPermissionAndOwnership([userL_AS_T_Path stringByAppendingPathComponent: @"Configurations"],
-                                                PERMS_PRIVATE_FOLDER, gRealUserID, ADMIN_GROUP_ID)  ) {
+                                                permissions, gRealUserID, group)  ) {
         errorExit();
     }
 	
@@ -1039,8 +1042,8 @@ int main(int argc, char *argv[])
 		
         if (  [targetPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
             own   = gRealUserID;
-            grp   = ADMIN_GROUP_ID;
-			perms = PERMS_PRIVATE_FOLDER;
+            grp   = privateFolderGroup(enclosingFolder);
+			perms = privateFolderPermissions(enclosingFolder);
         }
         errorExitIfAnySymlinkInPath(enclosingFolder, 2);
         
@@ -1512,7 +1515,7 @@ BOOL copyTblksToNewFolder(NSString * newFolder)
             if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
                 NSString * outPath = [newFolder stringByAppendingPathComponent: file];
 				NSString * outPathFolder = [outPath stringByDeletingLastPathComponent];
-				if (  ! createDirWithPermissionAndOwnership(outPathFolder, PERMS_PRIVATE_FOLDER, gRealUserID, ADMIN_GROUP_ID)  ) {
+				if (  ! createDirWithPermissionAndOwnership(outPathFolder, privateFolderPermissions(outPathFolder), gRealUserID, privateFolderGroup(outPathFolder))  ) {
                     appendLog([NSString stringWithFormat: @"Unable to create %@", outPathFolder]);
                     return FALSE;
 				}
@@ -1571,7 +1574,7 @@ BOOL convertAllPrivateOvpnAndConfToTblk(void)
 				}
 				NSString * inConfPath = [gPrivatePath stringByAppendingPathComponent: file];
                 
-				if (  ! createDirWithPermissionAndOwnership(newFolder, PERMS_PRIVATE_FOLDER, gRealUserID, ADMIN_GROUP_ID)  ) {
+				if (  ! createDirWithPermissionAndOwnership(newFolder, privateFolderPermissions(newFolder), gRealUserID, privateFolderGroup(newFolder))  ) {
                     appendLog([NSString stringWithFormat: @"Unable to create %@", newFolder]);
                     return FALSE;
                 };

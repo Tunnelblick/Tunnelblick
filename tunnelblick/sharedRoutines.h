@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -28,6 +28,12 @@ unsigned cvt_atou(const char * s, NSString * description);
 
 int            createDir(NSString * d,
 						 unsigned long perms);
+
+BOOL isOnRemoteVolume(NSString * path);
+
+mode_t privateFolderPermissions(NSString * path);
+
+gid_t privateFolderGroup(NSString * path);
 
 BOOL isSanitizedOpenvpnVersion(NSString * s);
 

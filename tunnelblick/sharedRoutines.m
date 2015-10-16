@@ -29,6 +29,7 @@
 #import "sharedRoutines.h"
 
 #import <netinet/in.h>
+#import <sys/mount.h>
 #import <sys/socket.h>
 #import <sys/stat.h>
 #import <sys/types.h>
@@ -118,6 +119,51 @@ BOOL isSanitizedOpenvpnVersion(NSString * s) {
             && (! [s hasPrefix: @"."])  );
 }
 
+BOOL isOnRemoteVolume(NSString * path) {
+    
+    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+        // If a parent directory exists, see if it is on a remote volume
+        NSString * parent = [[[path copy] autorelease] stringByDeletingLastPathComponent];
+        while (   ( [parent length] > 1 )
+               && ( ! [[NSFileManager defaultManager] fileExistsAtPath: parent] )  ) {
+            parent = [parent stringByDeletingLastPathComponent];
+        }
+        if ([  parent length] > 1  ) {
+            return isOnRemoteVolume(parent);
+        }
+        appendLog(@"isOnRemoteVolume: No parents for path");
+        return NO;
+    }
+    
+    const char * pathC = [path fileSystemRepresentation];
+    struct statfs stats_buf;
+    
+    if (  0 == statfs(pathC, &stats_buf)  ) {
+        if (  (stats_buf.f_flags & MNT_LOCAL) == 0  ) {
+            return TRUE;
+        }
+    } else {
+        appendLog([NSString stringWithFormat: @"statfs on %@ failed; cannot check if volume is remote\nError was %ld: '%s'\n",
+                   path, (unsigned long)errno, strerror(errno)]);
+    }
+    
+    return FALSE;
+}
+
+mode_t privateFolderPermissions(NSString * path) {
+    
+    return (  isOnRemoteVolume(path)
+            ? PERMS_PRIVATE_REMOTE_FOLDER
+            : PERMS_PRIVATE_FOLDER);
+}
+
+gid_t privateFolderGroup(NSString * path) {
+    
+    return (  isOnRemoteVolume(path)
+            ? STAFF_GROUP_ID
+            : ADMIN_GROUP_ID);
+}
+
 int createDir(NSString * dirPath, unsigned long permissions) {
 	
 	//**************************************************************************************************************************
@@ -143,9 +189,11 @@ int createDir(NSString * dirPath, unsigned long permissions) {
                 return 0;
             }
             if (  [[NSFileManager defaultManager] tbChangeFileAttributes: permissionsAsAttribute atPath: dirPath] ) {
+                unsigned long oldPermissions = [oldPermissionsAsNumber unsignedLongValue];
+                appendLog([NSString stringWithFormat: @"Changed permissions from %lo to %lo on %@", oldPermissions, permissions, dirPath]);
                 return 1;
             }
-            appendLog([NSString stringWithFormat: @"Warning: Unable to change permissions on %@ from %lo to %lo", dirPath, [oldPermissionsAsNumber longValue], permissions]);
+            appendLog([NSString stringWithFormat: @"Warning: Unable to change permissions from %lo to %lo on %@", [oldPermissionsAsNumber longValue], permissions, dirPath]);
             return 0;
         } else {
             appendLog([NSString stringWithFormat: @"Error: %@ exists but is not a directory", dirPath]);
@@ -209,7 +257,6 @@ BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_
                        path, (int) oldUid, (int) oldGid, (int) uid, (int) gid, strerror(errno)]);
 			return NO;
 		}
-		
 		return YES;
 	}
     
@@ -670,17 +717,27 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
     mode_t otherPerms;          //  For all other files
     
     if (  isPrivate  ) {
-		user  = theUser;     // Private files are owned by <user>:admin
+		user  = theUser;     // Private files are owned by <user>
         if (  user == 0  ) {
             appendLog(@"Tunnelblick internal error: secureOneFolder: No user");
             return NO;
         }
-		group = ADMIN_GROUP_ID;
-        folderPerms         = PERMS_PRIVATE_FOLDER;
-        scriptPerms         = PERMS_PRIVATE_SCRIPT;
-        executablePerms     = PERMS_PRIVATE_EXECUTABLE;
-        publicReadablePerms = PERMS_PRIVATE_READABLE;
-        otherPerms          = PERMS_PRIVATE_OTHER;
+        
+        if (  isOnRemoteVolume(path)  ) {
+            group = STAFF_GROUP_ID;
+            folderPerms         = PERMS_PRIVATE_REMOTE_FOLDER;
+            scriptPerms         = PERMS_PRIVATE_REMOTE_SCRIPT;
+            executablePerms     = PERMS_PRIVATE_REMOTE_EXECUTABLE;
+            publicReadablePerms = PERMS_PRIVATE_REMOTE_READABLE;
+            otherPerms          = PERMS_PRIVATE_REMOTE_OTHER;
+        } else {
+            group = ADMIN_GROUP_ID;
+            folderPerms         = PERMS_PRIVATE_FOLDER;
+            scriptPerms         = PERMS_PRIVATE_SCRIPT;
+            executablePerms     = PERMS_PRIVATE_EXECUTABLE;
+            publicReadablePerms = PERMS_PRIVATE_READABLE;
+            otherPerms          = PERMS_PRIVATE_OTHER;
+        }
     } else {
         user  = 0;          // Secured files are owned by root:wheel
         group = 0;

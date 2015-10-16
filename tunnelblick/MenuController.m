@@ -612,7 +612,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         
 		// Create private configurations folder if necessary
         gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
-        if (  createDir(gPrivatePath, PERMS_PRIVATE_FOLDER) == -1  ) {
+        if (  createDir(gPrivatePath, privateFolderPermissions(gPrivatePath)) == -1  ) {
 			NSLog(@"Unable to create %@", gPrivatePath);
 			exit(1);
 		}

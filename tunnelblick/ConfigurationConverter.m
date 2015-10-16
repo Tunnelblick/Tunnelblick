@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -720,9 +720,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                           localized: [NSString stringWithFormat: NSLocalizedString(@"Unable to copy file at '%@' to '%@' because the same name is used for different contents", @"Window text"), inPath, outPath]];
 		}
 		
-        mode_t perms = (  [[outPath pathExtension] isEqualToString: @"sh"]
-                        ? PERMS_PRIVATE_SCRIPT
-                        : PERMS_PRIVATE_OTHER);
+        mode_t perms = (  isOnRemoteVolume(outPath)
+                        ? (  [[outPath pathExtension] isEqualToString: @"sh"]
+                           ? PERMS_PRIVATE_REMOTE_SCRIPT
+                           : PERMS_PRIVATE_REMOTE_OTHER)
+                        : (  [[outPath pathExtension] isEqualToString: @"sh"]
+                           ? PERMS_PRIVATE_SCRIPT
+                           : PERMS_PRIVATE_OTHER)
+                        );
 		if (  ! checkSetPermissions(outPath, perms, YES)  ) {
 			return [self logMessage: [NSString stringWithFormat: @"Unable to set permissions on '%@'", outPath]
                           localized: [NSString stringWithFormat: NSLocalizedString(@"Unable to set permissions on '%@'", @"Window text"), outPath]];
@@ -1100,11 +1105,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     if (  outputPath  ) {
 		NSString * tblkResourcesPath = [[outputPath stringByAppendingPathComponent: @"Contents"]
                                         stringByAppendingPathComponent: @"Resources"];
-        if (  createDir(tblkResourcesPath, PERMS_PRIVATE_FOLDER) == -1  ) {
+        mode_t permissions = privateFolderPermissions(tblkResourcesPath);
+        if (  createDir(tblkResourcesPath, permissions) == -1  ) {
             return [self logMessage: [NSString stringWithFormat: @"Unable to create %@ owned by %ld:%ld with %lo permissions",
-                                      tblkResourcesPath, (long) getuid(), (long) ADMIN_GROUP_ID, (long) PERMS_PRIVATE_OTHER]
+                                      tblkResourcesPath, (long) getuid(), (long) getgid(), (long) permissions]
                           localized: [NSString stringWithFormat: NSLocalizedString(@"Unable to create %@ owned by %ld:%ld with %lo permissions", @"Window text"),
-                                       tblkResourcesPath, (long) getuid(), (long) ADMIN_GROUP_ID, (long) PERMS_PRIVATE_OTHER]];
+                                       tblkResourcesPath, (long) getuid(), (long) getgid(), (long) permissions]];
         }
     }
     
@@ -1261,10 +1267,19 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
         NSString * outputConfigPath= [[[outputPath stringByAppendingPathComponent: @"Contents"]
                                        stringByAppendingPathComponent: @"Resources"]
                                       stringByAppendingPathComponent: @"config.ovpn"];
+        unsigned long permissions;
+        unsigned long group;
+        if (  isOnRemoteVolume(outputConfigPath)  ) {
+            permissions = PERMS_PRIVATE_REMOTE_OTHER;
+            group       = STAFF_GROUP_ID;
+        } else {
+            permissions = PERMS_PRIVATE_OTHER;
+            group       = ADMIN_GROUP_ID;
+        }
         NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     [NSNumber numberWithUnsignedLong: (unsigned long) getuid()],            NSFileOwnerAccountID,
-                                     [NSNumber numberWithUnsignedLong: (unsigned long) ADMIN_GROUP_ID],      NSFileGroupOwnerAccountID,
-                                     [NSNumber numberWithUnsignedLong: (unsigned long) PERMS_PRIVATE_OTHER], NSFilePosixPermissions,
+                                     [NSNumber numberWithUnsignedLong: (unsigned long) getuid()], NSFileOwnerAccountID,
+                                     [NSNumber numberWithUnsignedLong: group],                    NSFileGroupOwnerAccountID,
+                                     [NSNumber numberWithUnsignedLong: permissions],              NSFilePosixPermissions,
                                      nil];
         if (  [gFileMgr createFileAtPath: outputConfigPath
                                 contents: [NSData dataWithBytes: [configString UTF8String]

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -2731,7 +2731,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
         return;
     }
-    if (  createDir(path, PERMS_PRIVATE_FOLDER) == -1  ) {
+    if (  createDir(path, privateFolderPermissions(path)) == -1  ) {
         NSLog(@"Unable to create %@", path);
         if (  notifyDelegate  ) {
             [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];

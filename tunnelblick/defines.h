@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -32,8 +32,9 @@
 // The maximum 'argc' for openvpnstart
 #define OPENVPNSTART_MAX_ARGC 11
 
-// The admin group ID
+// The "admin" and "staff" group IDs
 #define ADMIN_GROUP_ID 80
+#define STAFF_GROUP_ID 20
 
 // The newline character as a unichar
 #define UNICHAR_LF [@"\n" characterAtIndex:0]
@@ -152,7 +153,10 @@
 //       installer
 //
 // _PRIVATE... entries are for ~/Library/Application Support/Tunnelblick/Configurations
-//                             (These folders are owned by <user>:Admin)
+//                             (These folders are owned by <user>:admin)
+//
+// _PRIVATE_REMOTE... entries are for ~/Library/Application Support/Tunnelblick/Configurations
+//                                when it is on a network volume. (These folders are owned by <user>:staff)
 //
 // _SECURED... entries are for /Library/Application Support/Tunnelblick/Shared/,
 //                             /Library/Application Support/Tunnelblick/Tblks,
@@ -173,6 +177,12 @@
 #define PERMS_PRIVATE_EXECUTABLE 0740
 #define PERMS_PRIVATE_READABLE   0740
 #define PERMS_PRIVATE_OTHER      0740
+
+#define PERMS_PRIVATE_REMOTE_FOLDER     0700
+#define PERMS_PRIVATE_REMOTE_SCRIPT     0700
+#define PERMS_PRIVATE_REMOTE_EXECUTABLE 0700
+#define PERMS_PRIVATE_REMOTE_READABLE   0700
+#define PERMS_PRIVATE_REMOTE_OTHER      0700
 
 #define PERMS_SECURED_FOLDER     0755
 #define PERMS_SECURED_SCRIPT     0700
