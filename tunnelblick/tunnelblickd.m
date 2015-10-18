@@ -71,6 +71,13 @@ NSData * availableDataOrError(NSFileHandle * file,
     NSDate * timeout = [NSDate dateWithTimeIntervalSinceNow: 2.0];
     
 	for (;;) {
+		
+		NSDate * now = [NSDate date];
+        if (  [now compare: timeout] == NSOrderedDescending  ) {
+			asl_log(asl, log_msg, ASL_LEVEL_ERR, "availableDataOrError: Taking a long time checking for data from a pipe");
+            timeout = [NSDate dateWithTimeIntervalSinceNow: 2.0];
+        }
+		
 		@try {
 			return [file availableData];
 		} @catch (NSException *e) {
@@ -82,12 +89,6 @@ NSData * availableDataOrError(NSFileHandle * file,
 			}
 			@throw;
 		}
-        
-		NSDate * now = [NSDate date];
-        if (  [now compare: timeout] == NSOrderedDescending  ) {
-             asl_log(asl, log_msg, ASL_LEVEL_ERR, "availableDataOrError: Taking a long time checking for data from a pipe");
-            timeout = [NSDate dateWithTimeIntervalSinceNow: 2.0];
-        }
 	}
 }
 
