@@ -1253,7 +1253,10 @@ static BOOL firstTimeShowingWindow = TRUE;
 						  credentialsNote,
                           notDeletingOtherFilesMsg];
         authorization = [NSApplication getAuthorizationRef: msg];
-        if (  authorization == nil) {
+        
+        [[NSApp delegate] reactivateTunnelblick];
+        
+		if (  authorization == nil) {
             return;
         }
         localAuthorization = TRUE;
@@ -1394,6 +1397,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  authorization == nil  ) {
         NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to duplicate '%@'.", @"Window text"), displayName];
         authorization = [NSApplication getAuthorizationRef: msg];
+		
+		[[NSApp delegate] reactivateTunnelblick];
+
         if ( authorization == nil ) {
             return;
         }

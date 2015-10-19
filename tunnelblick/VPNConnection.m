@@ -639,6 +639,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
         }
         
         inAuthRef= [NSApplication getAuthorizationRef: msg];
+		
+		[[NSApp delegate] reactivateTunnelblick];
+		
         freeAuthRef = (inAuthRef != nil);
     }
     
@@ -1609,6 +1612,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			; // empty statement needed to avoid bogus compiler error
 			AuthorizationRef authRef = [NSApplication getAuthorizationRef:
 										NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text")];
+			
+			[[NSApp delegate] reactivateTunnelblick];
+			
 			if ( authRef == nil ) {
 				NSLog(@"Authorization to create/update a secure (shadow) copy of the configuration file cancelled by user.");
 				AuthorizationFree(authRef, kAuthorizationFlagDefaults);

@@ -1037,6 +1037,28 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
     return self;
 }
 
+-(void) reactivateTunnelblick {
+	
+	// When Tunnelblick gets an AuthorizationRef, OS X does that by activating Finder to display
+	// a dialog asking for the username/password of an admin user. When the user dismisses the
+	// dialog, Finder is left activated, not Tunnelblick, and Finder windows that overlap Tunnelblick
+	// windows will obsure them.
+	//
+	// Because [NSApp activateIgnoringOtherApps:] does not work, this method executes a shell script
+    // which uses AppleScript to activate Tunnelblick. It launches the script and returns immediately
+    // without waiting for the script to complete, because Tunnelblick needs to finish the run loop
+    // so it can respond to the "activate". (The script doesn't run until this routine returns and
+    // its caller finishes the run loop, and if this routine waits for the script to finish,
+    // that will never happen, so there will be a deadlock!)
+	
+	NSString * scriptPath = [[NSBundle mainBundle] pathForResource: @"reactivateTunnelblick" ofType: @"sh"];
+	NSTask * task = [[[NSTask alloc] init] autorelease];
+    [task setLaunchPath: scriptPath];
+    [task setCurrentDirectoryPath: @"/private/tmp"];
+    [task setEnvironment: getSafeEnvironment(FALSE)];
+    [task launch];
+}
+
 -(void)allNotificationsHandler: (NSNotification *) n
 {
     NSString * name = [n name];

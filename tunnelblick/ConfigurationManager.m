@@ -390,6 +390,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	if (  ! *authPtrToUse  ) {
 		NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to rename '%@' to '%@'.", @"Window text"), sourceName, targetName];
 		*authPtrToUse = [NSApplication getAuthorizationRef: msg];
+		
+		[[NSApp delegate] reactivateTunnelblick];
+		
 		if ( *authPtrToUse   == NULL ) {
 			return;
 		}
@@ -707,6 +710,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
         
         AuthorizationRef authRef = [NSApplication getAuthorizationRef: msg];
+		
+		[[NSApp delegate] reactivateTunnelblick];
+		
         if ( authRef == NULL ) {
             return;
         }
@@ -2394,6 +2400,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
  	if ( gAuthorization == NULL  ) {
         
         gAuthorization = [NSApplication getAuthorizationRef: authMsg];
+		
+		[[NSApp delegate] reactivateTunnelblick];
+		
         if (  gAuthorization == NULL  ) {
 			return NSApplicationDelegateReplyCancel;
         }

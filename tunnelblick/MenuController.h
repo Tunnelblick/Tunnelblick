@@ -276,6 +276,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
                                       event:                (NSEvent *)         theEvent;
 -(BOOL)             mouseIsInsideAnyView;
 -(NSString *)       openVPNLogHeader;
+-(void)             reactivateTunnelblick;
 -(void)             reconnectAfterBecomeActiveUser;
 -(void)             removeConnection:                       (VPNConnection *)   connection;
 -(NSInteger)        runInstaller:                           (unsigned)          installerFlags

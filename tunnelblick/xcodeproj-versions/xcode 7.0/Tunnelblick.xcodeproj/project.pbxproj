@@ -61,6 +61,7 @@
 		6341C39713D6DE6200B9CE2B /* DA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6341C39313D6DE6200B9CE2B /* DA.lproj */; };
 		63432573140D7F5A00015CE0 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63432572140D7F5A00015CE0 /* CoreServices.framework */; };
 		63432577140D7F6F00015CE0 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63432572140D7F5A00015CE0 /* CoreServices.framework */; };
+		6344F64A1BD585CF00A36BD2 /* reactivateTunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6344F6491BD585CF00A36BD2 /* reactivateTunnelblick.sh */; settings = {ASSET_TAGS = (); }; };
 		6345F210120BB1DA009C6222 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6345F20F120BB1DA009C6222 /* Carbon.framework */; };
 		634616871A9B85C60049C16C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634616861A9B85C60049C16C /* SystemConfiguration.framework */; };
 		634B02DF12553E5400A9D978 /* client.2.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */; };
@@ -382,6 +383,7 @@
 		633E55621BB0F16600A6B8FB /* BuildAppsAndDmgs.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = BuildAppsAndDmgs.sh; sourceTree = "<group>"; };
 		6341C39313D6DE6200B9CE2B /* DA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DA.lproj; sourceTree = "<group>"; };
 		63432572140D7F5A00015CE0 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		6344F6491BD585CF00A36BD2 /* reactivateTunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = reactivateTunnelblick.sh; sourceTree = "<group>"; };
 		6345F20F120BB1DA009C6222 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		634616861A9B85C60049C16C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		63490251139F9C6B00025BD5 /* ConfigurationsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationsView.h; sourceTree = "<group>"; };
@@ -930,6 +932,7 @@
 				634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */,
 				63D9257F135DAEE1001FF627 /* client.3.up.tunnelblick.sh */,
 				636BB3F7197776A900FDC5DE /* launchAtLogin.sh */,
+				6344F6491BD585CF00A36BD2 /* reactivateTunnelblick.sh */,
 			);
 			name = Scripts;
 			sourceTree = "<group>";
@@ -1413,6 +1416,7 @@
 				B896C2E41767B753004D9A21 /* FI.lproj in Resources */,
 				615F748F0ED3A4E5007F6F0A /* FR.lproj in Resources */,
 				63903D18145EAD49006627C9 /* HU.lproj in Resources */,
+				6344F64A1BD585CF00A36BD2 /* reactivateTunnelblick.sh in Resources */,
 				63BD86E81205BA39005B8E38 /* IT.lproj in Resources */,
 				615F749A0ED3A4FA007F6F0A /* JA.lproj in Resources */,
 				615F749B0ED3A4FA007F6F0A /* KO.lproj in Resources */,
