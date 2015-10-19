@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -1647,12 +1647,12 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	return NO;	// Should never get here, but...
 }
 
--(NSString *) setTunOrTapAndHasScrambleAndHasAuthUserPass {
+-(NSString *) setTunOrTapAndHasAuthUserPass {
     
     if (  ! tunOrTap  ) {
-        tunOrTap = [[[ConfigurationManager manager] parseConfigurationPath: configPath forConnection: self hasScramble: &hasScramble hasAuthUserPass: &hasAuthUserPass] copy];
+        tunOrTap = [[[ConfigurationManager manager] parseConfigurationPath: configPath forConnection: self hasAuthUserPass: &hasAuthUserPass] copy];
         
-        // tunOrTap == 'Cancel' means we cancel whatever we're doing; we've already set hasScramble
+        // tunOrTap == 'Cancel' means we cancel whatever we're doing
         if (  [tunOrTap isEqualToString: @"Cancel"]  ) {
             [tunOrTap release];
             tunOrTap = nil;
@@ -1665,18 +1665,12 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 -(NSString *) tapOrTun {
 	
 	// This is the externally-referenced 'tunOrTap'
-	return [self setTunOrTapAndHasScrambleAndHasAuthUserPass];
-}
-
--(BOOL) hasScramble {
-    
-    [self setTunOrTapAndHasScrambleAndHasAuthUserPass];
-    return hasScramble;
+	return [self setTunOrTapAndHasAuthUserPass];
 }
 
 -(BOOL) hasAuthUserPass {
     
-    [self setTunOrTapAndHasScrambleAndHasAuthUserPass];
+    [self setTunOrTapAndHasAuthUserPass];
     return hasAuthUserPass;
 }
 
@@ -1713,120 +1707,24 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     return YES;
 }
 
--(NSUInteger) getOpenVPNScrambleVersionIxFromIx: (NSUInteger) ix {
-    
-    if (  ix == NSNotFound  ) {
-        NSLog(@"getOpenVPNScrambleVersionIxFromIx: entry ix = NSNotFound");
-        return ix;
-    }
-    
-    NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
-    NSString * name = [versionNames objectAtIndex: ix];
-    BOOL openvpnHasScramblePatch = [name hasSuffix: @"txp"];
-    
-    if (  [self hasScramble]  ) {
-        
-        if (  openvpnHasScramblePatch  ) {
-            // Need scramble patch and current version of OpenVPN has it
-            return ix;
-        }
-        
-        // Neeed the patch but current version of OpenVPN doesn't have it: find and use a version of OpenVPN with the patch
-        NSString * txpName = [name stringByAppendingString: @"txp"];
-        NSUInteger newIx = [versionNames indexOfObject: txpName];
-        if (  newIx != NSNotFound  ) {
-            NSLog(@"The %@ configuration contains a 'scramble' option, so version %@ will be used.", [self displayName], txpName);
-            TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                    [NSString stringWithFormat: NSLocalizedString(@"The '%@' configuration contains a 'scramble' option, so OpenVPN version %@ with the scramble patch will be used.", @"Window text"),
-                                     [self displayName], txpName],
-                                    nil, nil, nil,
-                                    @"skipWarningAboutUsingOpenvpnTxpVersion",
-                                    NSLocalizedString(@"Do not show again for any configuration", @"Checkbox name on a warning dialog"),
-                                    nil,
-                                    NSAlertDefaultReturn);
-            MyPrefsWindowController * vpnDetails = [((MenuController *)[NSApp delegate]) logScreen];
-            [vpnDetails setSelectedPerConfigOpenvpnVersionIndex: tbNumberWithUnsignedInteger(newIx + 1)]; // + 1 to skip over default
-            return newIx; // Need scramble patch; using an OpenVPN version with it
-        }
-        TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                [NSString stringWithFormat: NSLocalizedString(@"The '%@' configuration contains a 'scramble' option but no version of OpenVPN with the scramble patch is available, so version %@ without the patch will be used.\n\nThis may mean that OpenVPN will not start.", @"Window text"),
-                                 [self displayName], name],
-                                nil, nil, nil,
-                                @"skipWarningAboutNoOpenvpnTxpVersion",
-                                NSLocalizedString(@"Do not show again for any configuration", @"Checkbox name on a warning dialog"),
-                                nil,
-                                NSAlertDefaultReturn);
-        NSLog(@"The %@ configuration contains a 'scramble' option, but a version of OpenVPN with the 'scramble' patch is not available, so version %@ without the patch will be used.", [self displayName], name);
-        return ix; // Need scramble patch but don't have it
-        
-    } else {
-        if (  openvpnHasScramblePatch  ) {
-            
-            // Do not need the patch but current version of OpenVPN has it: find and return a version of OpenVPN without the patch
-            NSString * nonTxpName = [name substringToIndex: [name length] - 3];
-            NSUInteger newIx = [versionNames indexOfObject: nonTxpName];
-            if (  newIx != NSNotFound  ) {
-                NSLog(@"The %@ configuration does not contain a 'scramble' option, so version %@ will be used.", [self displayName], nonTxpName);
-                TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                        [NSString stringWithFormat: NSLocalizedString(@"The '%@' configuration does not contain a 'scramble' option, so OpenVPN version %@ without the scramble patch will be used.", @"Window text"),
-                                         [self displayName], nonTxpName],
-                                        nil, nil, nil,
-                                        @"skipWarningAboutUsingOpenvpnNonTxpVersion",
-                                        NSLocalizedString(@"Do not show again for any configuration", @"Checkbox name on a warning dialog"),
-                                        nil,
-                                        NSAlertDefaultReturn);
-                MyPrefsWindowController * vpnDetails = [((MenuController *)[NSApp delegate]) logScreen];
-                [vpnDetails setSelectedPerConfigOpenvpnVersionIndex: tbNumberWithUnsignedInteger(newIx + 1)]; // + 1 to skip over default
-                return newIx; // Don't need scramble patch; using an OpenVPN version without it
-            }
-            TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                    [NSString stringWithFormat: NSLocalizedString(@"The '%@' configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used.", @"Window text"),
-                                     [self displayName], name],
-                                    nil, nil, nil,
-                                    @"skipWarningAboutOnlyOpenvpnTxpVersion",
-                                    NSLocalizedString(@"Do not show again for any configuration", @"Checkbox name on a warning dialog"),
-                                    nil,
-                                    NSAlertDefaultReturn);
-            NSLog(@"The %@ configuration does not need a version of OpenVPN with the scramble patch, but a version without the patch is not available, so version %@ which contains the patch will be used.", [self displayName], name);
-            return ix; // Don't need scramble patch but don't have a version of OpenVPN without it
-        }
-        
-        // Do not need the patch and current version doesn't have it
-        return ix;
-    }
-}
+-(NSUInteger) getOpenVPNVersionIxToUse {
 
--(NSUInteger) getOpenVPNVersionIxToUseAdjustForScramble: (BOOL) adjustForScramble {
-    
     NSString * prefKey = [[self displayName] stringByAppendingString: @"-openvpnVersion"];
     NSString * prefVersion = [gTbDefaults stringForKey: prefKey];
     NSUInteger useVersionIx;
     
     if (  [prefVersion length] == 0  ) {
-        // User didn't specify OpenVPN version, so use the default version of OpenVPN with scramble patch if needed
+        // User didn't specify OpenVPN version, so use the default version of OpenVPN
         useVersionIx = [((MenuController *)[NSApp delegate]) defaultOpenVPNVersionIx];
-        if (  adjustForScramble  ) {
-            useVersionIx = [self getOpenVPNScrambleVersionIxFromIx: useVersionIx];
-        }
     } else {
         NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
         if (  [prefVersion isEqualToString: @"-"]  ) {
             // "-" means use lastest version
             useVersionIx = [versionNames count] - 1;
-            if (  adjustForScramble  ) {
-                useVersionIx = [self getOpenVPNScrambleVersionIxFromIx: useVersionIx];
-            }
         } else {
             useVersionIx = [versionNames indexOfObject: prefVersion];
-            if (  useVersionIx != NSNotFound  ) {
-                if (  adjustForScramble  ) {
-                    useVersionIx = [self getOpenVPNScrambleVersionIxFromIx: useVersionIx];
-                }
-            } else {
+            if (  useVersionIx == NSNotFound  ) {
                 useVersionIx = [versionNames count] - 1;
-                if (  adjustForScramble  ) {
-                    useVersionIx = [self getOpenVPNScrambleVersionIxFromIx: useVersionIx];
-                }
                 NSString * useVersionName = [versionNames objectAtIndex: useVersionIx];
                 
                 TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
@@ -1851,7 +1749,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     // Returns a dictionary with version info about the currently selected version of OpenVPN.
     
-    return [[((MenuController *)[NSApp delegate]) openvpnVersionInfo] objectAtIndex: [self getOpenVPNVersionIxToUseAdjustForScramble:YES]];
+    return [[((MenuController *)[NSApp delegate]) openvpnVersionInfo] objectAtIndex: [self getOpenVPNVersionIxToUse]];
 }
 
 -(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow
@@ -1884,7 +1782,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString *portString = [NSString stringWithFormat:@"%u", thePort];
     
     // Parse configuration file to catch "user" or "group" options and get tun/tap key
-    [self setTunOrTapAndHasScrambleAndHasAuthUserPass];
+    [self setTunOrTapAndHasAuthUserPass];
     if (  ! tunOrTap  ) {
             return nil;
     }

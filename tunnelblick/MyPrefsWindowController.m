@@ -597,7 +597,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         return; // Have not set up the list yet
     }
     
-    NSUInteger versionIx    = [connection getOpenVPNVersionIxToUseAdjustForScramble: NO];
+    NSUInteger versionIx    = [connection getOpenVPNVersionIxToUse];
     
     NSString * key = [[connection displayName] stringByAppendingString: @"-openvpnVersion"];
     NSString * prefVersion = [gTbDefaults stringForKey: key];

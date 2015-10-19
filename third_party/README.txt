@@ -201,7 +201,9 @@ current Tunnelblick source code.
                 downloaded from http://openvpn.net/index.php/open-source/downloads.html.
 
             patches
-                This folder contains patches for this version of OpenVPN.
+                This folder contains patches for this version of OpenVPN. All versions
+                include the Tunnelblick OpenVPN Xor Patch (see
+                https://code.google.com/p/tunnelblick/wiki/cOpenvpn_xorpatch).
 
             configure-options.txt (optional)
                 If present, this ASCII text file should contain a single line with the
@@ -209,16 +211,8 @@ current Tunnelblick source code.
                 file should not contain any CR or LF characters. The options should be
                 separated by spaces.
 
-	openvpn-x.y.ztxp
-	    This folder contains the source code and patches for version x.y.z of OpenVPN,
-	    but the patches include the Tunnelblick OpenVPN Xor Patch (see
-            https://code.google.com/p/tunnelblick/wiki/cOpenvpn_xorpatch), and a patch so
-	    that OpenVPN returns it's version identifier as "x.y.ztxp".
-
 	Note: When launched, Tunnelblick checks that the version identifier reported by
 	each copy of OpenVPN is the same as the name of the folder that encloses it.
-	(That's why the "txp" version is patched to return its version identifier as
-	"x.y.ztxp".)
 
     easy-rsa
 
@@ -264,8 +258,6 @@ To add a new version of OpenVPN:
     3. If necessary, or create or modify a 'configuration-options.txt' file to specify
        the options used to configure the version of OpenVPN, and copy the file into the
        subfolder.
-    4. Copy the subfolder as "openvpn-x.y.ztxp", and add the patch files for the
-       Tunnelblick OpenVPN Xor Patch and to modify the version information to "x.y.ztxp".
 
     No changes to Makefile-common are needed.
 

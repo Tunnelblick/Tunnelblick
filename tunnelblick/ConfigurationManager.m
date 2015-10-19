@@ -835,11 +835,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 -(NSString *)parseConfigurationPath: (NSString *)      cfgPath
                       forConnection: (VPNConnection *) connection
-                        hasScramble: (BOOL *)          hasScramble
                     hasAuthUserPass: (BOOL *)          hasAuthUserPass {
     
     // Parses the configuration file.
-    // Sets 'hasScramble' TRUE if configuration has a 'scramble' option; FALSE otherwise
     // Sets 'hasAuthUserPass' TRUE if configuration has a 'auth-user-pass' option with no arguments; FALSE otherwise
     // Gives user the option of adding the down-root plugin if appropriate
     // Returns with device type: "tun", "tap", "utun", "tunOrUtun", or nil if it can't be determined
@@ -862,9 +860,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
     
     NSString * cfgContents = condensedConfigFileContentsFromString(stdOut);
-    
-    NSString * scrambleOption = [self parseString: cfgContents forOption: @"scramble" ];
-    *hasScramble = scrambleOption != nil;
     
     // Set hasAuthUserPass TRUE if auth-user-pass appears and has no parameters
     NSString * authUserPassOption = [self parseString: cfgContents forOption: @"auth-user-pass" ];

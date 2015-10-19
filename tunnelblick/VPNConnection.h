@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -137,7 +137,6 @@ struct Statistics {
 	BOOL            speakWhenConnected; // True iff should speak that we are connected
 	BOOL            speakWhenDisconnected; // True iff should speak that we are disconnected
     BOOL            retryingConnectAfterSecuringConfiguration; // True only during such an attempt, to avoid infinte recursion if securing the config fails
-    BOOL            hasScramble;        // True iff configuration has a 'scramble' option. VALID ONLY IF tunOrTap is not nil
     BOOL            hasAuthUserPass;    // True iff configuration has a 'auth-user-pass' option. VALID ONLY IF tunOrTap is not nil
     BOOL            discardSocketInput; // True if should discard anything from the managment socket (set after receiving status of EXITING)
 }
@@ -179,7 +178,7 @@ struct Statistics {
 
 -(void)             fadeAway;
 
--(NSUInteger)       getOpenVPNVersionIxToUseAdjustForScramble: (BOOL) adjustForScramble;
+-(NSUInteger)       getOpenVPNVersionIxToUse;
 
 -(void)             hasDisconnected;
 

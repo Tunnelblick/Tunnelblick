@@ -375,10 +375,6 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 								@"skipWarningAboutNoSignature",
                                 @"skipWarningAboutSystemClock",
                                 @"skipWarningAboutUnavailableOpenvpnVersions",
-                                @"skipWarningAboutUsingOpenvpnTxpVersion",
-                                @"skipWarningAboutUsingOpenvpnNonTxpVersion",
-                                @"skipWarningAboutNoOpenvpnTxpVersion",
-                                @"skipWarningAboutOnlyOpenvpnTxpVersion",
                                 @"skipWarningAbout64BitVersionOnSnowLeopardPointEight",
                                 @"skipWarningAbout64BitVersionWithTap",
                                 @"skipWarningAbout64BitVersionWithTunOnSnowLeopardPointEight",
@@ -520,6 +516,10 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"keyboardShortcutKeyCode",
                                 @"keyboardShortcutModifiers",
                                 @"maximumLogSize",
+                                @"skipWarningAboutUsingOpenvpnTxpVersion",
+                                @"skipWarningAboutUsingOpenvpnNonTxpVersion",
+                                @"skipWarningAboutNoOpenvpnTxpVersion",
+                                @"skipWarningAboutOnlyOpenvpnTxpVersion",
                                 
                                 nil] retain];
         
