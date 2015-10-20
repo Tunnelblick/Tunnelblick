@@ -846,8 +846,11 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         // Left split view
         
-		[[configurationsPrefsView addConfigurationButton]    setEnabled: [self oneConfigurationIsSelected]];
-        [[configurationsPrefsView removeConfigurationButton] setEnabled: [self oneConfigurationIsSelected]];
+		[[configurationsPrefsView addConfigurationButton]    setEnabled: TRUE];
+        [[configurationsPrefsView removeConfigurationButton] setEnabled: (   [self oneConfigurationIsSelected]
+																		  || (   [self selectedConnection]
+																			  && runningOnSnowLeopardOrNewer()
+																			  && ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"])))];
 
 		
 		[self setupShowHideOnTbMenuMenuItem: connection];
@@ -1190,83 +1193,180 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
--(IBAction) removeConfigurationButtonWasClicked: (id) sender
-{
-	(void) sender;
-	
-    VPNConnection * connection = [self selectedConnection];
+-(NSArray *) displayNamesOfSelection {
     
-    if (  ! connection  ) {
-        NSLog(@"removeConfigurationButtonWasClicked but no configuration selected");
-        return;
+    NSMutableArray * displayNames = [[[NSMutableArray alloc] init] autorelease];
+    
+    LeftNavViewController   * ovc    = [configurationsPrefsView outlineViewController];
+    NSOutlineView           * ov     = [ovc outlineView];
+    NSIndexSet              * idxSet = [ov selectedRowIndexes];
+    if  (  [idxSet count] != 0  ) {
+        
+#ifdef TBAnalyzeONLY
+#warning "NOT AN EXECUTABLE -- ANALYZE ONLY but does not fully analyze code in removeSelectedConfigurations"
+        (void) idxSet;
+#else
+        [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+            (void) stop;
+            LeftNavItem * item = [ov itemAtRow: idx];
+            NSString * name = [item displayName];
+            if (  [name length] != 0  ) {	// Ignore folders; just process configurations
+                [displayNames addObject: name];
+            }
+        }];
+#endif
     }
     
-    NSString * displayName = [connection displayName];
+    return [NSArray arrayWithArray: displayNames];
+}
+
+-(BOOL) okToRemoveOneConfigurationWithDisplayName: (NSString *) displayName {
+    
+    VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
+    if (  ! connection  ) {
+        NSLog(@"okToRemoveConfigurationWithDisplayNames: Cannot get VPNConnection object for display name '%@'", displayName);
+        return NO;
+    }
+    
     NSString * autoConnectKey = [displayName stringByAppendingString: @"autoConnect"];
     NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
     if (   [gTbDefaults boolForKey: autoConnectKey]
         && [gTbDefaults boolForKey: onSystemStartKey]  ) {
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                           NSLocalizedString(@"You may not delete a configuration which is set to start when the computer starts.", @"Window text"));
-        return;
+        return NO;
     }
     
     if (  ! [connection isDisconnected]  ) {
         TBShowAlertWindow(NSLocalizedString(@"Active connection", @"Window title"),
                           NSLocalizedString(@"You may not delete a configuration unless it is disconnected.", @"Window text"));
-        return;
+        return NO;
     }
     
     NSString * configurationPath = [connection configPath];
-    
     if (  [configurationPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                           NSLocalizedString(@"You may not delete a Deployed configuration.", @"Window text"));
+        return NO;
+    }
+    
+    return YES;
+}
+
+-(void) removeConfigurationsWithDisplayNames: (NSArray *) displayNames {
+    
+    NSString * displayName;
+    NSEnumerator * e = [displayNames objectEnumerator];
+    while (  (displayName = [e nextObject])  ) {
+        
+        VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
+        if (  ! connection  ) {
+            NSLog(@"removeConfigurationsWithDisplayNames: Cannot get VPNConnection object for display name '%@'", displayName);
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"There was a problem deleting one or more configurations. See the Console Log for details.", @"Window text"));
+            return;
+        }
+        
+        NSString * configurationPath = [connection configPath];
+
+        // Get ready to remove group credentials if no other configurations use them
+        NSString * group = credentialsGroupFromDisplayName(displayName);
+        if (   group
+			&& [gTbDefaults numberOfConfigsInCredentialsGroup: group] > 1  ) {
+            group = nil;
+        }
+
+        if (  [[ConfigurationManager manager] deleteConfigPath: configurationPath
+                                               usingAuthRefPtr: &authorization
+                                                    warnDialog: YES]  ) {
+            if (  group  ) {
+                AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: group credentialsGroup: group] autorelease];
+                
+                [myAuthAgent setAuthMode: @"privateKey"];
+                if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+                    [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+                }
+                [myAuthAgent setAuthMode: @"password"];
+                if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+                    [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+                }
+            }
+            
+            [gTbDefaults removePreferencesFor: displayName];
+        } else {
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"There was a problem deleting one or more configurations. See the Console Log for details.", @"Window text"));
+            return;
+        }
+    }
+}
+
+-(void) removeSelectedConfigurations {
+    
+    // Get an array with display names of the configurations to remove
+    NSArray * displayNames = nil;
+    if (   ( ! runningOnSnowLeopardOrNewer())
+        || [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"]  ) {
+        
+        VPNConnection * connection = [self selectedConnection];
+        NSString * name = [connection displayName];
+        if (  name  ) {
+            displayNames = [NSArray arrayWithObject: name];
+        } else {
+            NSLog(@"removeConfigurationButtonWasClicked but no configuration has been selected");
+            return;
+        }
+    } else {
+        displayNames = [self displayNamesOfSelection];
+    }
+    
+    // Return immediately if no configurations to remove
+    if (  [displayNames count] == 0  ) {
         return;
     }
     
-	NSString * group = credentialsGroupFromDisplayName(displayName);
-
-	BOOL removeCredentials = TRUE;
-	NSString * credentialsNote = @"";
-	if (  group  ) {
-		if (  1 != [gTbDefaults numberOfConfigsInCredentialsGroup: group]  ) {
-			credentialsNote = NSLocalizedString(@"\n\nNote: The configuration's group credentials will not be deleted because other configurations use them.", @"Window text");
-			removeCredentials = FALSE;
-		}
-	}
-	
-    NSString * notDeletingOtherFilesMsg;
-    NSString * ext = [configurationPath pathExtension];
-    if (  [ext isEqualToString: @"tblk"]  ) {
-        notDeletingOtherFilesMsg = @"";
-    } else {
-        notDeletingOtherFilesMsg = NSLocalizedString(@"\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted.", @"Window text");
+    // Check that we can remove all of the configurations
+    NSEnumerator * e = [displayNames objectEnumerator];
+    NSString * displayName;
+    while (  (displayName = [e nextObject])  ) {
+        if (  ! [self okToRemoveOneConfigurationWithDisplayName: displayName]) {
+            return;
+        }
     }
     
+    // If there is an existing AuthorizationRef use it, otherwise get one
     BOOL localAuthorization = FALSE;
     if (  authorization == nil  ) {
-        // Get an AuthorizationRef and use executeAuthorized to run the installer to delete the file
-        NSString * msg = [NSString stringWithFormat: 
-                          NSLocalizedString(@" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@", @"Window text"),
-                          displayName,
-						  credentialsNote,
-                          notDeletingOtherFilesMsg];
-        authorization = [NSApplication getAuthorizationRef: msg];
         
+        NSString * message;
+        if (  [displayNames count] == 1  ) {
+            displayName = [displayNames objectAtIndex: 0];
+            message = NSLocalizedString(@"Configurations may be deleted only by a computer administrator.\n\n Deleting a configuration is permanent and cannot be undone.\n\n All settings for the configuration will also be deleted.", @"Window text");
+        } else {
+            message = [NSString stringWithFormat:
+                       NSLocalizedString(@"Configurations may be deleted only by a computer administrator.\n\n Deleting configurations is permanent and cannot be undone.\n\n All settings for the %ld selected configurations will also be deleted.", @"Window text"), (long)[displayNames count]];
+        }
+
+        authorization = [NSApplication getAuthorizationRef: message];
         [[NSApp delegate] reactivateTunnelblick];
-        
-		if (  authorization == nil) {
+        if (  authorization == nil) {
             return;
         }
         localAuthorization = TRUE;
     } else {
+        NSString * message;
+        if (  [displayNames count] == 1  ) {
+            displayName = [displayNames objectAtIndex: 0];
+            message = [NSString stringWithFormat:
+                       NSLocalizedString(@"Deleting a configuration is permanent and cannot be undone.\n\n All settings for the configuration will also be deleted permanently.\n\n Are you sure you wish to delete the configuration '%@'?", @"Window text"),
+                       displayName];
+        } else {
+            message = [NSString stringWithFormat:
+                       NSLocalizedString(@"Deleting configurations is permanent and cannot be undone.\n\n All settings for the configurations will also be deleted permanently.\n\n Are you sure you wish to delete %ld configurations", @"Window text"),
+                       (long)[displayNames count]];
+        }
         int button = TBRunAlertPanel(NSLocalizedString(@"Please Confirm", @"Window title"),
-                                     [NSString stringWithFormat:
-                                      NSLocalizedString(@"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?", @"Window text"),
-                                      credentialsNote,
-									  notDeletingOtherFilesMsg,
-                                      displayName],
+                                     message,
                                      NSLocalizedString(@"Cancel", @"Button"),    // Default button
                                      NSLocalizedString(@"Delete", @"Button"),    // Alternate button
                                      nil);
@@ -1279,30 +1379,20 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
     }
     
-    if (  [[ConfigurationManager manager] deleteConfigPath: configurationPath
-                                           usingAuthRefPtr: &authorization
-                                                warnDialog: YES]  ) {
-        //Remove credentials
-		if (  removeCredentials  ) {
-			AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: group credentialsGroup: group] autorelease];
-			
-			[myAuthAgent setAuthMode: @"privateKey"];
-			if (  [myAuthAgent keychainHasAnyCredentials]  ) {
-				[myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
-			}
-			[myAuthAgent setAuthMode: @"password"];
-			if (  [myAuthAgent keychainHasAnyCredentials]  ) {
-				[myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
-			}
-		}
-		
-        [gTbDefaults removePreferencesFor: displayName];
-    }
+    // Use executeAuthorized to run the installer to remove the configurations
+    [self removeConfigurationsWithDisplayNames: displayNames];
     
+    // Release the authorization if we obtained it earlier
     if (  localAuthorization  ) {
         AuthorizationFree(authorization, kAuthorizationFlagDefaults);
         authorization = nil;
     }
+}
+
+-(IBAction) removeConfigurationButtonWasClicked: (id) sender
+{
+    (void) sender;
+    [self removeSelectedConfigurations];
 }
 
 
