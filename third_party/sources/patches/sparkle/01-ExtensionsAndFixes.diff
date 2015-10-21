@@ -1,6 +1,6 @@
-diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUAppcastItem.h Sparkle-1.5b6-PATCHED/Extras/Source Code/SUAppcastItem.h
---- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUAppcastItem.h	2012-09-02 09:29:01.000000000 -0400
-+++ Sparkle-1.5b6-PATCHED/Extras/Source Code/SUAppcastItem.h	2012-09-10 08:38:58.000000000 -0400
+diff -u -r -x .svn -x .DS_Store Sparkle/Extras/Source Code/SUAppcastItem.h Sparkle_/Extras/Source Code/SUAppcastItem.h
+--- Sparkle/Extras/Source Code/SUAppcastItem.h	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle_/Extras/Source Code/SUAppcastItem.h	2015-10-21 13:54:56.000000000 -0400
 @@ -18,6 +18,12 @@
  	
  	NSString *DSASignature;	
@@ -27,9 +27,9 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUAppc
  
  // Returns the dictionary provided in initWithDictionary; this might be useful later for extensions.
  - (NSDictionary *)propertiesDictionary;
-diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUAppcastItem.m Sparkle-1.5b6-PATCHED/Extras/Source Code/SUAppcastItem.m
---- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUAppcastItem.m	2012-09-02 09:29:01.000000000 -0400
-+++ Sparkle-1.5b6-PATCHED/Extras/Source Code/SUAppcastItem.m	2012-09-11 12:55:13.000000000 -0400
+diff -u -r -x .svn -x .DS_Store Sparkle/Extras/Source Code/SUAppcastItem.m Sparkle_/Extras/Source Code/SUAppcastItem.m
+--- Sparkle/Extras/Source Code/SUAppcastItem.m	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle_/Extras/Source Code/SUAppcastItem.m	2015-10-21 13:54:56.000000000 -0400
 @@ -101,6 +101,54 @@
  	minimumSystemVersion = [systemVersionString copy];
  }
@@ -102,9 +102,10 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUAppc
              
              NSString *shortVersionString = [enclosure objectForKey:@"sparkle:shortVersionString"];
              if (shortVersionString)
-diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasicUpdateDriver.m Sparkle-1.5b6-PATCHED/Extras/Source Code/SUBasicUpdateDriver.m
---- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasicUpdateDriver.m	2012-09-02 09:29:01.000000000 -0400
-+++ Sparkle-1.5b6-PATCHED/Extras/Source Code/SUBasicUpdateDriver.m	2012-09-11 12:55:18.000000000 -0400
+Only in Sparkle_/Extras/Source Code: SUBasicUpdateDriver B4 patches.h
+diff -u -r -x .svn -x .DS_Store Sparkle/Extras/Source Code/SUBasicUpdateDriver.m Sparkle_/Extras/Source Code/SUBasicUpdateDriver.m
+--- Sparkle/Extras/Source Code/SUBasicUpdateDriver.m	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle_/Extras/Source Code/SUBasicUpdateDriver.m	2015-10-21 15:26:00.000000000 -0400
 @@ -32,7 +32,7 @@
  	[appcast setDelegate:self];
  	NSString *userAgent = [NSString stringWithFormat: @"%@/%@ Sparkle/%@", [aHost name], [aHost displayVersion], ([SPARKLE_BUNDLE objectForInfoDictionaryKey:@"CFBundleVersion"] ?: nil)];
@@ -114,7 +115,7 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
  	[appcast setUserAgentString:userAgent];
  	[appcast fetchAppcastFromURL:URL];
  }
-@@ -57,10 +57,238 @@
+@@ -57,10 +57,208 @@
  	return [[self _versionComparator] compareVersion:[host version] toVersion:[ui versionString]] == NSOrderedAscending;
  }
  
@@ -190,7 +191,6 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +	{
 +		if (  ! [self tunnelblickTestPrivateOnlyHasTblks]  )
 +		{
-+			NSLog(@"DEBUG: Tunnelblick 'privateOnlyHasTblks' test was not satisified");
 +			return NO;
 +		}
 +	}
@@ -199,7 +199,6 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +	{
 +		if (  [self tunnelblickTestPrivateOnlyHasTblks]  )
 +		{
-+			NSLog(@"DEBUG: Tunnelblick 'privateHasOvpnOrConf' test was not satisified");
 +			return NO;
 +		}
 +	}
@@ -208,7 +207,6 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +	{
 +		if (  ! [self tunnelblickTestAppInApplications]  )
 +		{
-+			NSLog(@"DEBUG: Tunnelblick 'appInApplications' test was not satisified");
 +			return NO;
 +		}
 +	}
@@ -217,7 +215,6 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +	{
 +		if (  [self tunnelblickTestAppInApplications]  )
 +		{
-+			NSLog(@"DEBUG: Tunnelblick 'appNotInApplications' test was not satisified");
 +			return NO;
 +		}
 +	}
@@ -225,7 +222,6 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +	if (  [testTypeString rangeOfString: @"isDeployed"].length != 0  ) {
 +		if (  ! [self tunnelblickTestDeployed]  )
 +		{
-+			NSLog(@"DEBUG: Tunnelblick 'isDeployed' test was not satisified");
 +			return NO;
 +		}
 +	}
@@ -233,7 +229,6 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +	if (  [testTypeString rangeOfString: @"isNotDeployed"].length != 0  ) {
 +		if (  [self tunnelblickTestDeployed]  )
 +		{
-+			NSLog(@"DEBUG: Tunnelblick 'isNotDeployed' test was not satisified");
 +			return NO;
 +		}
 +	}
@@ -241,7 +236,6 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +	if (  [testTypeString rangeOfString: @"hasDeployBackups"].length != 0  ) {
 +		if (  ! [self tunnelblickTestHasDeployBackups]  )
 +		{
-+			NSLog(@"DEBUG: Tunnelblick 'hasDeployBackups' test was not satisified");
 +			return NO;
 +		}
 +	}
@@ -249,7 +243,6 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +	if (  [testTypeString rangeOfString: @"doesNotHaveDeployBackups"].length != 0  ) {
 +		if (  [self tunnelblickTestHasDeployBackups]  )
 +		{
-+			NSLog(@"DEBUG: Tunnelblick 'doesNotHaveDeployBackups' test was not satisified");
 +			return NO;
 +		}
 +	}
@@ -272,22 +265,15 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +    {
 +        if ([[SUStandardVersionComparator defaultComparator] compareVersion:[ui minimumSystemVersion] toVersion:[SUHost systemVersionString]] == NSOrderedDescending)
 +        {
-+            NSLog(@"DEBUG: Updater%@: systemVersion %@ does not satisfy minimumSystemVersion %@", thisItemDescription, [SUHost systemVersionString], [ui minimumSystemVersion]);
 +            return NO;
-+        } else {
-+            NSLog(@"DEBUG: Updater%@: systemVersion %@ satisfies minimumSystemVersion %@", thisItemDescription, [SUHost systemVersionString], [ui minimumSystemVersion]);
-+		}
-+        
++	}
 +    }
 +    
 +	if ([ui maximumSystemVersion] && ( ! [[ui maximumSystemVersion] isEqualToString:@""]) )
 +    {
 +        if ([[SUStandardVersionComparator defaultComparator] compareVersion:[ui maximumSystemVersion] toVersion:[SUHost systemVersionString]] == NSOrderedAscending)
 +        {
-+            NSLog(@"DEBUG: Updater%@: systemVersion %@ does not satisfy maximumSystemVersion %@", thisItemDescription, [SUHost systemVersionString], [ui maximumSystemVersion]);
 +            return NO;
-+        } else {
-+            NSLog(@"DEBUG: Updater%@: systemVersion %@ satisfies maximumSystemVersion %@", thisItemDescription, [SUHost systemVersionString], [ui maximumSystemVersion]);
 +        }
 +    }
 +    
@@ -295,11 +281,8 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +    {
 +        if ([[SUStandardVersionComparator defaultComparator] compareVersion:[ui minimumAppVersion] toVersion:[host version]] == NSOrderedDescending)
 +        {
-+            NSLog(@"DEBUG: Updater%@: appVersion %@ does not satisfy minimumAppVersion %@", thisItemDescription, [host version], [ui minimumAppVersion]);
 +            return NO;
-+        } else {
-+            NSLog(@"DEBUG: Updater%@: appVersion %@ satisfies minimumAppVersion %@", thisItemDescription, [host version], [ui minimumAppVersion]);
-+		}
++	}
 +        
 +    }
 +    
@@ -307,10 +290,7 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +    {
 +        if ([[SUStandardVersionComparator defaultComparator] compareVersion:[ui maximumAppVersion] toVersion:[host version]] == NSOrderedAscending)
 +        {
-+            NSLog(@"DEBUG: Updater%@: appVersion %@ does not satisfy maximumAppVersion %@", thisItemDescription, [host version], [ui maximumAppVersion]);
 +            return NO;
-+        } else {
-+            NSLog(@"DEBUG: Updater%@: appVersion %@ satisfies maximumAppVersion %@", thisItemDescription, [host version], [ui maximumAppVersion]);
 +        }
 +    }
 +    
@@ -319,10 +299,7 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +        if ([[NSString stringWithFormat: @"%@ ", [ui allowedProcessorTypes]]
 +             rangeOfString: [NSString stringWithFormat: @"%@ ", [SUHost processorTypeString]]].length == 0)
 +        {
-+            NSLog(@"DEBUG: Updater%@: processorType %@ does not satisfy allowedProcessorTypes %@", thisItemDescription, [SUHost processorTypeString], [ui allowedProcessorTypes]);
 +            return NO;
-+        } else {
-+            NSLog(@"DEBUG: Updater%@: processorType %@ satisfies allowedProcessorTypes %@", thisItemDescription, [SUHost processorTypeString], [ui allowedProcessorTypes]);
 +        }
 +    }
 +    
@@ -331,21 +308,15 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +        if ([[NSString stringWithFormat: @"%@ ", [ui allowedProcessorWordSizes]]
 +             rangeOfString: [NSString stringWithFormat: @"%@ ", [SUHost processorWordSizeString]]].length == 0)
 +        {
-+            NSLog(@"DEBUG: Updater%@: processorWordSize %@ does not satisfy allowedProcessorWordSizes %@", thisItemDescription, [SUHost processorWordSizeString], [ui allowedProcessorWordSizes]);
 +            return NO;
-+        } else {
-+            NSLog(@"DEBUG: Updater%@: processorWordSize %@ satisfies allowedProcessorWordSizes %@", thisItemDescription, [SUHost processorWordSizeString], [ui allowedProcessorWordSizes]);
 +        }
 +    }
 +    
 +    
 +	if ([ui tunnelblickTests] && ( ! [[ui tunnelblickTests] isEqualToString:@""]) )
 +    {
-+        if (  [self tunnelblickDoTests: [ui tunnelblickTests]]  )
++        if (  ! [self tunnelblickDoTests: [ui tunnelblickTests]]  )
 +		{
-+			NSLog(@"DEBUG: Updater%@: Satisfies tunnelblickTests:%@", thisItemDescription, [ui tunnelblickTests]);
-+		} else {
-+			NSLog(@"DEBUG: Updater%@: Does not satisfy tunnelblickTests:%@", thisItemDescription, [ui tunnelblickTests]);
 +			return NO;
 +		}
 +	}
@@ -355,9 +326,9 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
  }
  
  - (BOOL)itemContainsSkippedVersion:(SUAppcastItem *)ui
-diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUHost.h Sparkle-1.5b6-PATCHED/Extras/Source Code/SUHost.h
---- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUHost.h	2012-09-02 09:29:01.000000000 -0400
-+++ Sparkle-1.5b6-PATCHED/Extras/Source Code/SUHost.h	2012-09-09 14:23:20.000000000 -0400
+diff -u -r -x .svn -x .DS_Store Sparkle/Extras/Source Code/SUHost.h Sparkle_/Extras/Source Code/SUHost.h
+--- Sparkle/Extras/Source Code/SUHost.h	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle_/Extras/Source Code/SUHost.h	2015-10-21 13:54:56.000000000 -0400
 @@ -13,6 +13,8 @@
  }
  
@@ -367,9 +338,9 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUHost
  
  - (id)initWithBundle:(NSBundle *)aBundle;
  - (NSBundle *)bundle;
-diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUHost.m Sparkle-1.5b6-PATCHED/Extras/Source Code/SUHost.m
---- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUHost.m	2012-09-02 09:29:01.000000000 -0400
-+++ Sparkle-1.5b6-PATCHED/Extras/Source Code/SUHost.m	2012-09-09 14:23:20.000000000 -0400
+diff -u -r -x .svn -x .DS_Store Sparkle/Extras/Source Code/SUHost.m Sparkle_/Extras/Source Code/SUHost.m
+--- Sparkle/Extras/Source Code/SUHost.m	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle_/Extras/Source Code/SUHost.m	2015-10-21 13:54:56.000000000 -0400
 @@ -8,7 +8,8 @@
  #import "SUHost.h"
  
@@ -423,11 +394,9 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUHost
 +	return (error == 0) ? @"64" : @"32";
 +}
  @end
-Only in Sparkle-1.5b6-PATCHED/Extras/Source Code/Sparkle.xcodeproj: jonathankbullard.mode1v3
-Only in Sparkle-1.5b6-PATCHED/Extras/Source Code/Sparkle.xcodeproj: jonathankbullard.pbxuser
-diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj Sparkle-1.5b6-PATCHED/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj
---- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj	2012-09-02 09:29:00.000000000 -0400
-+++ Sparkle-1.5b6-PATCHED/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj	2012-09-09 08:02:33.000000000 -0400
+diff -u -r -x .svn -x .DS_Store Sparkle/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj Sparkle_/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj
+--- Sparkle/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle_/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj	2015-10-21 13:54:56.000000000 -0400
 @@ -802,7 +802,7 @@
  			);
  			runOnlyForDeploymentPostprocessing = 0;
