@@ -1340,7 +1340,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         NSString * message;
         if (  [displayNames count] == 1  ) {
-            displayName = [displayNames objectAtIndex: 0];
             message = NSLocalizedString(@"Configurations may be deleted only by a computer administrator.\n\n Deleting a configuration is permanent and cannot be undone.\n\n All settings for the configuration will also be deleted.", @"Window text");
         } else {
             message = [NSString stringWithFormat:
