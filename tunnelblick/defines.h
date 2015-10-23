@@ -104,7 +104,11 @@
 #define TOOL_PATH_FOR_LAUNCHCTL  @"/bin/launchctl"
 #define TOOL_PATH_FOR_OSASCRIPT  @"/usr/bin/osascript"
 #define TOOL_PATH_FOR_PLUTIL     @"/usr/bin/plutil"
+#define TOOL_PATH_FOR_PS         @"/bin/ps"
 #define TOOL_PATH_FOR_SCUTIL     @"/usr/sbin/scutil"
+
+// The number of characters in each line of output from "ps -A" that are before the process' command line
+#define PS_CHARACTERS_BEFORE_COMMAND  25
 
 // Path with which tools are launched
 #define STANDARD_PATH            @"/usr/bin:/bin:/usr/sbin:/sbin"
