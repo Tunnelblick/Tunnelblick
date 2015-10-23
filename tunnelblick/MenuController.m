@@ -5818,38 +5818,48 @@ BOOL warnAboutNonTblks(void)
 	}
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 005")
-    // Stop any currently running Tunnelblicks
-    int numberOfOthers = [NSApp countOtherInstances];
-    while (  numberOfOthers > 0  ) {
-        int button = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick is currently running", @"Window title"),
-                                     NSLocalizedString(@"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.", @"Window text"),
-                                     NSLocalizedString(@"Close VPN Connections and Stop Tunnelblick", @"Button"), // Default button
-                                     NSLocalizedString(@"Cancel",  @"Button"),   // Alternate button
-                                     nil);
-        if (  button != NSAlertDefaultReturn  ) {// Cancel or error: Quit Tunnelblick
-            [self terminateBecause: terminatingBecauseOfQuit];
-        }
+    
+    // Make sure there are no Tunnelblicks or OpenVPNs running
+    BOOL openvpns          = ( [NSApp pidsOfProcessesWithPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/openvpn"] != nil );
+    BOOL otherTunnelblicks = ( [NSApp countOtherInstances] > 0 );
+    
+    while (   openvpns
+           || otherTunnelblicks  ) {
         
-        [NSApp killOtherInstances];
-        
-        numberOfOthers = [NSApp countOtherInstances];
-        if (  numberOfOthers > 0  ) {
+        if (  openvpns  ) {
+            int button = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                         NSLocalizedString(@"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding.", @"Window text"),
+                                         NSLocalizedString(@"Retry", @"Button"),   // Default button
+                                         NSLocalizedString(@"Cancel",  @"Button"), // Alternate button
+                                         nil);
+            if (  button != NSAlertDefaultReturn  ) {// Cancel or error: Quit Tunnelblick
+                [self terminateBecause: terminatingBecauseOfQuit];
+            }
+        } else {
+            int button = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                         NSLocalizedString(@"Tunnelblick is currently running. It will be shut down before proceeding.", @"Window text"),
+                                         NSLocalizedString(@"OK", @"Button"),      // Default button
+                                         NSLocalizedString(@"Cancel",  @"Button"), // Alternate button
+                                         nil);
+            if (  button != NSAlertDefaultReturn  ) {// Cancel or error: Quit Tunnelblick
+                [self terminateBecause: terminatingBecauseOfQuit];
+            }
+            
+            // Kill other instances of Tunnelblick and wait up to about 10 seconds for them to quit
+            [NSApp killOtherInstances];
             int i = 0;
-            do {
+            while (   ([NSApp countOtherInstances] > 0)
+                   && (i < 10)  ) {
                 sleep(1);
                 i++;
-                numberOfOthers = [NSApp countOtherInstances];
-            } while (   (numberOfOthers > 0)
-                     && (i < 10)  );
+            }
         }
+        
+        otherTunnelblicks = ( [NSApp countOtherInstances] > 0 );
+		openvpns          = ( [NSApp pidsOfProcessesWithPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/openvpn"] != nil );
     }
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 006")
-    // If there was a problem finding other instances of Tunnelblick, log it but continue anyway
-    if (  numberOfOthers == -1  ) {
-        NSLog(@"Error: [NSApp countOtherInstances] returned -1");
-    }
-    
     [splashScreen setMessage: NSLocalizedString(@"Installing and securing Tunnelblick...", @"Window text")];
     
 	[gTbDefaults removeObjectForKey: @"skipWarningAboutInvalidSignature"];

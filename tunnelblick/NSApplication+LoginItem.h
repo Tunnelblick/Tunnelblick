@@ -33,6 +33,8 @@
 
 - (BOOL)            waitUntilNoProcessWithID:   (pid_t)             pid;
 
+-(NSArray *) pidsOfProcessesWithPrefix: (NSString *) prefix;
+
 -(void) setupNewAutoLaunchOnLogin;
 
 +(AuthorizationRef) getAuthorizationRef:        (NSString *)        msg;

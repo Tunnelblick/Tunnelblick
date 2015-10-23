@@ -101,6 +101,7 @@ extern TBUserDefaults * gTbDefaults;
     if (!(info = NSZoneMalloc(NULL, length))) return (-1);
     if (sysctl(mib, level, info, &length, NULL, 0) < 0) {
         NSZoneFree(NULL, info);
+        NSLog(@"countOtherInstances: sysctl returned error %d: '%s'", errno, strerror(errno));
         return(-1);
     }
     
@@ -287,6 +288,44 @@ extern TBUserDefaults * gTbDefaults;
     
     NSLog(@"Error: Timeout wait:untilNoProcessNamed: '%@' to terminate", processName);
     return FALSE;
+}
+
+-(NSArray *) pidsOfProcessesWithPrefix: (NSString *) prefix {
+    
+    // Returns an array with the PID of each process whose command line start with the given prefix.
+    // For example, "/Applications/Tunnelblick.app/Contents/Resources/openvpn" would return the PID of any running
+    // instance of "openvpnstart" as well as the PID of each instance of Tunnelblick's OpenVPN
+    //
+    // Returns nil if there are no such processes
+    
+    // Run "ps -A" to get info on all processess
+    NSString * stdoutString = nil;
+    NSArray  * arguments = [NSArray arrayWithObjects: @"-A", nil];
+    OSStatus status = runTool(TOOL_PATH_FOR_PS, arguments, &stdoutString, nil);
+    if (  status != 0  ) {
+        NSLog(@"Assuming none of our OpenVPN processes are running because '%@ -Gn' returned status %ld", TOOL_PATH_FOR_PS, (long)status);
+        return 0;
+    }
+    
+    // Go through the info and populate the list
+    NSMutableArray * list = [[[NSMutableArray alloc] init] autorelease];
+    NSArray * lines = [stdoutString componentsSeparatedByString: @"\n"];
+    NSString * line;
+    NSEnumerator * e = [lines objectEnumerator];
+    while (  (line = [e nextObject])  ) {
+        if (  [line length] > PS_CHARACTERS_BEFORE_COMMAND  ) {
+			NSString * command = [line substringFromIndex: PS_CHARACTERS_BEFORE_COMMAND];
+			if (  [command hasPrefix: prefix]  ) {
+				unsigned pid = cvt_atou([line UTF8String], @"Process ID");
+				[list addObject: [NSNumber numberWithUnsignedInt: pid]];
+			}
+		}
+	}
+    
+    if (  [list count] == 0  ) {
+        return nil;
+    }
+    return list;
 }
 
 -(void) haveDealtWithOldLoginItem  {
