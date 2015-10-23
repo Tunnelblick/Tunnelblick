@@ -157,7 +157,12 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     
     NSRange lineRange = NSMakeRange(0, [line length]);
 	
-    NSRange issueRange = [line rangeOfString: @"WARNING:" options: NSCaseInsensitiveSearch];
+    NSRange issueRange = [line rangeOfString: @"NOTE:" options: NSCaseInsensitiveSearch];
+    if (  issueRange.length != 0  ) {
+        [string addAttribute: NSBackgroundColorAttributeName value: [LogDisplay blueColorForHighlighting]   range: lineRange];
+    }
+    
+    issueRange = [line rangeOfString: @"WARNING:" options: NSCaseInsensitiveSearch];
     if (  issueRange.length != 0  ) {
         [string addAttribute: NSBackgroundColorAttributeName value: [LogDisplay yellowColorForHighlighting] range: lineRange];
     }
@@ -167,9 +172,9 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
         [string addAttribute: NSBackgroundColorAttributeName value: [LogDisplay redColorForHighlighting]    range: lineRange];
     }
     
-    issueRange = [line rangeOfString: @"NOTE:" options: NSCaseInsensitiveSearch];
+    issueRange = [line rangeOfString: @"no default was specified by either --route-gateway or --ifconfig options" options: NSCaseInsensitiveSearch];
     if (  issueRange.length != 0  ) {
-        [string addAttribute: NSBackgroundColorAttributeName value: [LogDisplay blueColorForHighlighting]   range: lineRange];
+        [string addAttribute: NSBackgroundColorAttributeName value: [LogDisplay redColorForHighlighting]    range: lineRange];
     }
     
     return string;
