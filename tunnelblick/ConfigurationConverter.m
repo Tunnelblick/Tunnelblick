@@ -32,6 +32,7 @@
 
 extern NSFileManager * gFileMgr;
 extern NSString      * gPrivatePath;
+extern NSString      * gDeployPath;
 
 @implementation ConfigurationConverter
 
@@ -845,6 +846,30 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 	return nil;
 }
 
+-(NSString *) secureConfigurationPathFromConfigurationPath: (NSString *) path {
+	
+	// Returns the shadow path for a private configuration path, or the path itself if is shared or Deployed
+	
+	if (  [path hasPrefix: [gPrivatePath stringByAppendingPathComponent: @"/"]]  ) {
+		NSString * rest = [path substringFromIndex: [@"/Users/" length]];
+		NSRange rng = [rest rangeOfString: @"/"];
+		if (  rng.length == 0) {
+			NSLog(@"Internal error: path does not contain a slash after the username: '%@'", path);
+			return [[path copy] autorelease];	// Will cause a failure later on that will display a message to the user
+		}
+		NSString * userName = [rest substringWithRange: NSMakeRange(0, rng.location)];
+		NSString * lastPart = lastPartOfPath(path);
+		NSString * shadowPath = [[L_AS_T_USERS stringByAppendingPathComponent: userName] stringByAppendingPathComponent:lastPart];
+		return shadowPath;
+	}
+	if (   ( ! [path hasPrefix: [gDeployPath   stringByAppendingPathComponent: @"/"]] )
+		&& ( ! [path hasPrefix: [L_AS_T_SHARED stringByAppendingPathComponent: @"/"]])  ) {
+		NSLog(@"secureConfigurationPathFromConfigurationPath: Internal error: path is not private, shared, or deployed: '%@'", path);
+	}
+	
+	return [[path copy] autorelease];
+}
+
 -(NSString *) processNonReadableConfiguration {
     
     // Create the .tblk structure in the output file
@@ -864,7 +889,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 		BOOL isDir;
 		if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
 			&& ( ! isDir)
-			&& ( ! [file hasPrefix: @"."])  ) {
+			&& ( ! [file hasPrefix: @"."]) 
+			&& ( ! [self existingFilesList: useExistingFiles hasAMatchFor: file])  ) {
 			NSString * sourcePath = [configContainer stringByAppendingPathComponent: file];
 			NSString * targetPath = (  [file isEqualToString: @"Info.plist"]
 									 ? [contentsPath    stringByAppendingPathComponent: file]
@@ -878,11 +904,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 		}
 	}
 	
-	// Create symlinks to files in useExistingFiles from the existing configuration
-	NSString * existingConfigContainer = [[replacingTblkPath stringByAppendingPathComponent: @"Contents"]
-										  stringByAppendingPathComponent: @"Resources"];
-	if (   existingConfigContainer
+	// Create symlinks to files in useExistingFiles from the existing configuration (or the shadow copy if it is a private configuration)
+
+	if (   replacingTblkPath
 		&& ([useExistingFiles count] != 0)) {
+		
+		NSString * securePath = [self secureConfigurationPathFromConfigurationPath: replacingTblkPath];
+		NSString * existingConfigContainer = [[securePath stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Resources"];
 		NSString * file;
 		NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: existingConfigContainer];
 		while (  (file = [dirEnum nextObject])  ) {
