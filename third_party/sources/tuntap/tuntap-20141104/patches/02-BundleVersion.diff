@@ -1,7 +1,6 @@
-Index: src/tap/Info.plist
-===================================================================
---- src/tap/Info.plist	(revision 1897)
-+++ src/tap/Info.plist	(working copy)
+Sdiff -u -r -x .DS_Store src/tap/Info.plist src_/tap/Info.plist
+--- src/tap/Info.plist	2014-08-10 16:47:35.000000000 -0400
++++ src_/tap/Info.plist	2015-10-26 09:45:09.000000000 -0400
 @@ -1,5 +1,5 @@
  <?xml version="1.0" encoding="UTF-8"?>
 -<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -9,7 +8,7 @@ Index: src/tap/Info.plist
  <plist version="1.0">
  <dict>
  	<key>CFBundleDevelopmentRegion</key>
-@@ -15,7 +15,7 @@
+@@ -15,11 +15,11 @@
  	<key>CFBundlePackageType</key>
  	<string>@@CFBUNDLEPACKAGETYPE@@</string>
  	<key>CFBundleShortVersionString</key>
@@ -18,15 +17,19 @@ Index: src/tap/Info.plist
  	<key>CFBundleSignature</key>
  	<string>@@CFBUNDLESIGNATURE@@</string>
  	<key>CFBundleVersion</key>
+-	<string>1.0</string>
++	<string>3.0.TBBUILDNUMBER</string>
+ 	<key>OSBundleLibraries</key>
+ 	<dict>
+ 		<key>com.apple.kpi.mach</key>
 @@ -33,4 +33,3 @@
  	</dict>
  </dict>
  </plist>
 -
-Index: src/tun/Info.plist
-===================================================================
---- src/tun/Info.plist	(revision 1897)
-+++ src/tun/Info.plist	(working copy)
+diff -u -r -x .DS_Store src/tun/Info.plist src_/tun/Info.plist
+--- src/tun/Info.plist	2014-08-10 16:47:35.000000000 -0400
++++ src_/tun/Info.plist	2015-10-26 09:45:50.000000000 -0400
 @@ -1,5 +1,5 @@
  <?xml version="1.0" encoding="UTF-8"?>
 -<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -34,7 +37,7 @@ Index: src/tun/Info.plist
  <plist version="1.0">
  <dict>
  	<key>CFBundleDevelopmentRegion</key>
-@@ -15,7 +15,7 @@
+@@ -15,11 +15,11 @@
  	<key>CFBundlePackageType</key>
  	<string>@@CFBUNDLEPACKAGETYPE@@</string>
  	<key>CFBundleShortVersionString</key>
@@ -43,6 +46,11 @@ Index: src/tun/Info.plist
  	<key>CFBundleSignature</key>
  	<string>@@CFBUNDLESIGNATURE@@</string>
  	<key>CFBundleVersion</key>
+-	<string>1.0</string>
++        <string>3.0.TBBUILDNUMBER</string>
+ 	<key>OSBundleLibraries</key>
+ 	<dict>
+ 		<key>com.apple.kpi.mach</key>
 @@ -33,4 +33,3 @@
  	</dict>
  </dict>
