@@ -1430,7 +1430,7 @@
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Diese 'Ausgelieferte' Version von Tunnelblick kann nicht gestartet oder installiert werden, da sie keine Info.plist besitzt.\n\n";
 
 /* Window text */
-"This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Die scheinbare öffentliche IP Adresse dieses Computers hat sich nach der Verbindug von %1$@ nicht geändert. Sie ist weiterhin %2$@.\n\nDies könnte bedeuten, dass ihr VPN nicht korrekt konfiguriert ist.\n\n";
+"This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Die scheinbare öffentliche IP Adresse dieses Computers hat sich nach der Verbindung von %1$@ nicht geändert. Sie ist weiterhin %2$@.\n\nDies könnte bedeuten, dass ihr VPN nicht korrekt konfiguriert ist.\n\n";
 
 /* Window text */
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Diese Kopie von Tunnelblick wurde verändert (die digitale Signatur ist ungültig).\n\nBitte fragen Sie bei dem Anbieter dieser Tunnelblick Kopie nach, bevor Sie sie benutzen.\n\n";
