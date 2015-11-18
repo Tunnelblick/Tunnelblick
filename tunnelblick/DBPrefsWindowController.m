@@ -244,7 +244,10 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		[toolbar release];
 	}
 	
-	NSString *firstIdentifier = [toolbarIdentifiers objectAtIndex:0];
+	NSString * firstIdentifier = [gTbDefaults stringForKey: @"detailsWindowViewName"];
+	if (  ! firstIdentifier  ) {
+		firstIdentifier = [toolbarIdentifiers objectAtIndex:0];
+	}
 	[[[self window] toolbar] setSelectedItemIdentifier:firstIdentifier];
 	[self displayViewForIdentifier:firstIdentifier animate:NO];
 

@@ -36,6 +36,7 @@
 #import "helper.h"
 #import "sharedRoutines.h"
 
+#import "AuthAgent.h"
 #import "ConfigurationManager.h"
 #import "ConfigurationMultiUpdater.h"
 #import "ConfigurationsView.h"
@@ -52,7 +53,6 @@
 #import "SplashWindowController.h"
 #import "TBUIUpdater.h"
 #import "TBUserDefaults.h"
-#import "UKKQueue/UKKQueue.h"
 #import "VPNConnection.h"
 #import "WelcomeController.h"
 
@@ -125,27 +125,24 @@ BOOL needToConvertNonTblks(void);
 -(void)             addCustomMenuItems;
 -(BOOL)             addCustomMenuItemsFromFolder:           (NSString *)        folderPath
                                           toMenu:           (NSMenu *)          theMenu;
+-(void)             addNewConfig:                           (NSString *)        path
+                 withDisplayName:                           (NSString *)        dispNm;
 -(void)             addOneCustomMenuItem:                   (NSString *)        file
                               fromFolder:                   (NSString *)        folder
                                   toMenu:                   (NSMenu *)          theMenu;
 -(BOOL)             addOneCustomMenuSubmenu:                (NSString *)        file
                                  fromFolder:                (NSString *)        folder
                                      toMenu:                (NSMenu *)          theMenu;
--(void)             addPath:                                (NSString *)        path
-             toMonitorQueue:                                (UKKQueue *)        queue;
--(BOOL)             installTblks:                           (NSArray * )        filePaths
-        skipConfirmationMessage:                            (BOOL)              skipConfirmMsg
-              skipResultMessage:                            (BOOL)              skipResultMsg
-                 notifyDelegate:                            (BOOL)              notifyDelegate;
-
 -(BOOL)             canRunFromVolume:                       (NSString *)        path;
 -(BOOL)             checkPlist:                             (NSString *)        path
                    renameIfBad:                             (BOOL)              renameIfBad;
 -(NSURL *)          contactURL;
+-(void)             createMenu;
 -(void)             createStatusItem;
 -(NSString *)       deconstructOpenVPNLogPath:              (NSString *)        logPath
                                        toPort:              (unsigned *)        portPtr
                                   toStartArgs:              (NSString * *)      startArgsPtr;
+-(void)             deleteExistingConfig:                   (NSString *)        dispNm;
 -(NSArray *)        findTblksToInstallInPath:               (NSString *)        thePath;
 -(void)             checkNoConfigurations;
 -(void)             deleteLogs;
@@ -169,19 +166,15 @@ BOOL needToConvertNonTblks(void);
                                            fromMenu:        (NSMenu *)          theMenu
                                          afterIndex:        (int)               theIndex
                                         workingName:        (NSString *)        workingName;
--(void)             removePath:                             (NSString *)        path
-              fromMonitorQueue:                             (UKKQueue *)        queue;
 -(void)             runCustomMenuItem:                      (NSMenuItem *)      item;
 -(BOOL)             setupHookupWatchdogTimer;
 -(void)             setupHotKeyWithCode:                    (UInt32)            keyCode
                         andModifierKeys:                    (UInt32)            modifierKeys;
 -(BOOL)				showWelcomeScreenForWelcomePath:        (NSString *)        welcomePath;
 -(NSStatusItem *)   statusItem;
+-(void)				updateMenuAndDetailsWindow;
 -(void)             updateUI;
 -(BOOL)             validateMenuItem:                       (NSMenuItem *)      anItem;
--(void)             watcher:                                (UKKQueue *)        kq
-       receivedNotification:                                (NSString *)        nm
-                    forPath:                                (NSString *)        fpath;
 -(void) relaunchIfNecessary;
 -(void) secureIfNecessary;
 
@@ -485,8 +478,11 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"detailsWindowFrameVersion",
                                 @"detailsWindowFrame",
                                 @"detailsWindowLeftFrame",
+								@"detailsWindowViewName",
+								@"detailsWindowConfigurationsTabIdentifier",
 								@"leftNavOutlineViewExpandedDisplayNames",
 								@"leftNavSelectedDisplayName",
+								@"AdvancedWindowTabIdentifier",
                                 
                                 @"haveDealtWithSparkle1dot5b6",
                                 @"haveDealtWithOldTunTapPreferences",
@@ -888,7 +884,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         }
         
         TBLog(@"DB-SU", @"init: 013")
-        myConfigDictionary = [[[ConfigurationManager manager] getConfigurations] copy];
+        myConfigDictionary = [[ConfigurationManager getConfigurations] copy];
         
         TBLog(@"DB-SU", @"init: 014")
         // set up myVPNConnectionDictionary, which has the same keys as myConfigDictionary, but VPNConnections as objects
@@ -1028,7 +1024,6 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         }
         
         TBLog(@"DB-SU", @"init: 017")
-        ignoreNoConfigs = TRUE;    // We ignore the "no configurations" situation until we've processed application:openFiles:
 		
         updater = [[SUUpdater alloc] init];
         TBLog(@"DB-SU", @"init: 018 - LAST")
@@ -2397,9 +2392,13 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             myState = [NSString stringWithFormat:NSLocalizedString(@"Disconnect All (%d Connections)", @"Status message"),nConnections];
             [statusMenuItem setTitle: myState];
         }
+        return YES;
     } else {
         if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
             [anItem setToolTip: @""];
+        }
+        if (  act == @selector(quit:)  ) {
+            return YES;
         }
     }
     
@@ -2414,6 +2413,25 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     return YES;
+}
+
+-(void) configurationsChanged {
+	
+	[self updateMenuAndDetailsWindow];
+}
+
+-(void) configurationsChangedWithRenameDictionary: (NSDictionary *)  renameDictionary {
+	
+	NSString * oldDisplayName = [renameDictionary objectForKey: @"oldDisplayName"];
+	NSString * newDisplayName = [renameDictionary objectForKey: @"newDisplayName"];
+    
+	BOOL oldNameWasSelected = [[[[self logScreen] selectedConnection] displayName] isEqualToString: oldDisplayName];
+
+	[self updateMenuAndDetailsWindow];
+	
+	if (  oldNameWasSelected  ) {
+		[[self logScreen] setupLeftNavigationToDisplayName: newDisplayName];
+	}
 }
 
 -(void) changedDisplayConnectionTimersSettings
@@ -2468,7 +2486,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     
     NSString * dispNm;
     
-    NSDictionary * curConfigsDict = [[ConfigurationManager manager] getConfigurations];
+    NSDictionary * curConfigsDict = [ConfigurationManager getConfigurations];
     
     // Add new configurations and replace updated ones
 	NSEnumerator * e = [curConfigsDict keyEnumerator];
@@ -2519,10 +2537,10 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     if (  invalidConfigurationName(dispNm, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
 		TBShowAlertWindow(NSLocalizedString(@"Name not allowed", @"Window title"),
-						 [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' will be ignored because its"
+						 [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' ('%@') will be ignored because its"
 																	   @" name contains characters that are not allowed.\n\n"
 																	   @"Characters that are not allowed: '%s'\n\n", @"Window text"),
-						  dispNm, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING]);
+						  [self localizedNameForDisplayName: dispNm], dispNm, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING]);
         return;
     }
     VPNConnection* myConnection = [[[VPNConnection alloc] initWithConfigPath: path
@@ -3146,15 +3164,7 @@ BOOL anyNonTblkConfigs(void)
     
     // If there aren't ANY config files in the config folders
     // then guide the user
-    //
-    // When Sparkle updates us while we're running, it moves us to the Trash, then replaces us, then terminates us, then launches the new copy.
 
-    if (   ignoreNoConfigs
-        || ( [[self myConfigDictionary] count] != 0 )
-        ) {
-        return;
-    }
-    
     if (  [[self myConfigDictionary] count] != 0  ) {
         return;
     }
@@ -3201,7 +3211,10 @@ BOOL anyNonTblkConfigs(void)
 												   message: nil
 										 installTblksFirst: nil];
             if (  installerResult != -1  ) {
-                // Installation succeeded or was cancelled. If there are no configurations even after the install, UKKQueue will cause configFilesChanged to be invoked again
+                // Installation succeeded or was cancelled
+				if (  installerResult == 0  ) {
+					[self configurationsChanged];
+				}
                 return;
             }
             
@@ -3209,14 +3222,14 @@ BOOL anyNonTblkConfigs(void)
         }
 	}
 	
-    [[ConfigurationManager manager] haveNoConfigurationsGuide];
+    [ConfigurationManager haveNoConfigurationsGuideInNewThread];
 }
 
 -(IBAction) addConfigurationWasClicked: (id) sender
 {
  	(void) sender;
 	
-	[[ConfigurationManager manager] addConfigurationGuide];
+	[ConfigurationManager addConfigurationGuideInNewThread];
 }
 
 -(IBAction) disconnectAllMenuItemWasClicked: (id) sender
@@ -3620,34 +3633,16 @@ static void signal_handler(int signalNumber)
 {
     // This handler SHOULD proceed even if the computer is shutting down
 	TBLog(@"DB-UC", @"Scheduling installation of updated configurations at '%@'", path);
-    [self performSelectorOnMainThread: @selector(installConfigurationsUpdateInBundleAtPath:)
-                           withObject: path 
+    [self performSelectorOnMainThread: @selector(installConfigurationsUpdateInBundleAtPathMainThread:)
+                           withObject: path
                         waitUntilDone: YES];
 }
 
--(void) installConfigurationsUpdateInBundleAtPath: (NSString *) path
+-(void) installConfigurationsUpdateInBundleAtPathMainThread: (NSString *) path
 {
-    NSArray * components = [path componentsSeparatedByString: @"/"];
-    if (   ( [components count] !=  7)
-        || ( ! [path hasPrefix: L_AS_T_TBLKS])
-        ) {
-        NSLog(@"Configuration update installer: Not installing configurations update: Invalid path to update");
-        return;
-    }
-    
-    // Secure the update (which makes Info.plist readable by everyone and all folders searchable by everyone)
-    NSArray * args = [NSArray arrayWithObjects:
-                      @"secureUpdate",
-                      [components objectAtIndex: 5],
-                      nil];
-    OSStatus status = runOpenvpnstart(args, nil, nil);
-    if (  status != 0  ) {
-        NSLog(@"Could not secure the update; openvpnstart status was %ld", (long)status);
-    }
-    
-    // Install the updated configurations
-	TBLog(@"DB-UC", @"Installing updated configurations at '%@'", path);
-	[self application: NSApp openFiles: [NSArray arrayWithObject: path]];
+    // Proceed even if the computer is shutting down
+    TBLog(@"DB-UC", @"Starting a new thread to update configurations at '%@'", path);
+	[ConfigurationManager installConfigurationsUpdateInBundleInNewThreadAtPath: path];
 }
 
 // Invoked when the user double-clicks on one or more .tblk packages or .ovpn or .conf files,
@@ -3657,27 +3652,12 @@ static void signal_handler(int signalNumber)
 {
 	(void) theApplication;
 	
-    return [self installTblks: filePaths skipConfirmationMessage: NO skipResultMessage: NO notifyDelegate: YES];
-}
-
-
--(BOOL)            installTblks: (NSArray * )      filePaths
-        skipConfirmationMessage: (BOOL)            skipConfirmMsg
-              skipResultMessage: (BOOL)            skipResultMsg
-                 notifyDelegate: (BOOL)            notifyDelegate {
-    
     // If we have finished launching Tunnelblick, we open the file(s) now
-    // otherwise the file(s) opening launched us, but we have not initialized completely.
+    // otherwise the file(s) opening launched us, but we have not initialized completely,
     // so we store the paths and open the file(s) later, in applicationDidFinishLaunching.
-	
+    
     if (  launchFinished  ) {
-        BOOL oldIgnoreNoConfigs = ignoreNoConfigs;
-        ignoreNoConfigs = TRUE;
-        [[ConfigurationManager manager] installConfigurations: filePaths
-                                      skipConfirmationMessage: skipConfirmMsg
-                                            skipResultMessage: skipResultMsg
-                                               notifyDelegate: notifyDelegate];
-        ignoreNoConfigs = oldIgnoreNoConfigs;
+		[ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
     } else {
         [dotTblkFileList addObjectsFromArray: filePaths];
     }
@@ -3972,7 +3952,6 @@ static void signal_handler(int signalNumber)
 {
 	// Invoked when the Dock item is clicked to relaunch Tunnelblick, or it is double-clicked.
 	// Just show the VPN Details… window.
-	
 	(void) theApp;
 	(void) hasWindows;
 	
@@ -4208,6 +4187,11 @@ static void signal_handler(int signalNumber)
     return useVersionIx;
 }
 
+-(void) startCheckingForConfigurationUpdates {
+    
+    [myConfigMultiUpdater startAllUpdateCheckingWithUI: NO];    // Start checking for configuration updates in the background (when the application updater is finished)
+}
+
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
 	(void) notification;
@@ -4252,40 +4236,10 @@ static void signal_handler(int signalNumber)
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 003")
     
-    NSArray * configs = [self uninstalledConfigurationUpdates];
-    [dotTblkFileList addObjectsFromArray: configs];
-    
-    if (  [dotTblkFileList count] != 0  ) {
-        BOOL oldIgnoreNoConfigs = ignoreNoConfigs;
-        ignoreNoConfigs = TRUE;
-        NSString * text = NSLocalizedString(@"Installing Tunnelblick VPN Configurations...", @"Window text");
-        [splashScreen setMessage: text];
-
-        [[ConfigurationManager manager] installConfigurations: dotTblkFileList
-                                      skipConfirmationMessage: YES
-                                            skipResultMessage: YES
-                                               notifyDelegate: YES];
-        text = NSLocalizedString(@"Installation finished successfully.", @"Window text");
-        [splashScreen setMessage: text];
-
-        ignoreNoConfigs = oldIgnoreNoConfigs;
-    }
-    
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 004")
-    myConfigMultiUpdater = [[ConfigurationMultiUpdater alloc] init]; // Set up separate Sparkle Updaters for configurations
-    [myConfigMultiUpdater startAllUpdateCheckingWithUI: NO];    // Start checking for configuration updates in the background (when the application updater is finished)
+    myConfigMultiUpdater = [[ConfigurationMultiUpdater alloc] init]; // Set up separate Sparkle Updaters for configurations but don't start checking yet
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 05")
-    // Set up to monitor configuration folders
-    myQueue = [UKKQueue sharedFileWatcher];
-    if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
-        unsigned i;
-        for (i = 0; i < [gConfigDirs count]; i++) {
-            [self addPath: [gConfigDirs objectAtIndex: i] toMonitorQueue: myQueue];
-        }
-    }
-    [myQueue setDelegate: self];
-    [myQueue setAlwaysNotify: YES];
     [self updateIconImage];
     [self updateMenuAndDetailsWindow];
     
@@ -4304,8 +4258,6 @@ static void signal_handler(int signalNumber)
             NSLog(@"diskutil eject /Volumes/Tunnelblick failed with status %ld; stdout =\n%@\nstderr =\n%@", (long) status, outString, errString);
         }
     }
-    
-    ignoreNoConfigs = NO;    // We should NOT ignore the "no configurations" situation
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 007")
     [self checkNoConfigurations];
@@ -4538,18 +4490,35 @@ static void signal_handler(int signalNumber)
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 017")
 	[[self ourMainIconView] setOrRemoveTrackingRect];
     
-    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 018")
-    NSString * text = NSLocalizedString(@"Tunnelblick is ready.", @"Window text");
-    [splashScreen setMessage: text];
-
-    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 019")
-   [splashScreen fadeOutAndClose];
-    
-    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 020")
 	[self showWelcomeScreenForWelcomePath: [gDeployPath stringByAppendingPathComponent: @"Welcome"]];
 	
     launchFinished = TRUE;
-    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 021 -- LAST")
+    
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 018")
+    // Start installing any updatable configurations that have been downloaded but not installed
+    // Or start checking for configuration updates
+    // (After installing any downloaded updates, the new thread will invoke startCheckingForConfigurationUpdates)
+    NSArray * updatableConfigs = [self uninstalledConfigurationUpdates];
+    if (  [updatableConfigs count] != 0  ) {
+        [ConfigurationManager installConfigurationsInNewThreadShowMessagesDoNotNotifyDelegateWithPaths: updatableConfigs];
+    } else {
+        [self startCheckingForConfigurationUpdates];
+    }
+    
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 019")
+    // Start installing any configurations that were double-clicked before we were finished launching
+    if (  [dotTblkFileList count] != 0  ) {
+        [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: dotTblkFileList];
+    }
+    
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 020")
+    
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 021")
+    NSString * text = NSLocalizedString(@"Tunnelblick is ready.", @"Window text");
+    [splashScreen setMessage: text];
+    [splashScreen fadeOutAndClose];
+ 
+    TBLog(@"DB-SU", @"applicationDidFinishLaunching: 022 -- LAST")
 }
 
 -(NSString *) fileURLStringWithPath: (NSString *) path
@@ -4661,62 +4630,6 @@ static void signal_handler(int signalNumber)
                                                                   repeats: NO]];
     [hookupWatchdogTimer tbSetTolerance: -1.0];
     return TRUE;
-}
-
--(void) changedMonitorConfigurationFoldersSettings
-{
-    if (  [gTbDefaults boolForKey: @"doNotMonitorConfigurationFolder"]  ) {
-        unsigned i;
-        for (i = 0; i < [gConfigDirs count]; i++) {
-            [self removePath: [gConfigDirs objectAtIndex: i] fromMonitorQueue: myQueue];
-        }
-    } else {
-        unsigned i;
-        for (i = 0; i < [gConfigDirs count]; i++) {
-            [self addPath: [gConfigDirs objectAtIndex: i] toMonitorQueue: myQueue];
-        }
-        [self updateMenuAndDetailsWindow];
-    }
-}
-
--(void) addPath: (NSString *) path toMonitorQueue: (UKKQueue *) queue
-{
-    // Add the path itself
-    [queue addPathToQueue: path];
-
-    // Add folders and subfolders
-    NSString * file;
-    BOOL isDir;
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
-    while (  (file = [dirEnum nextObject])  ) {
-        if (  ! [file hasSuffix: @".tblk"]  ) {
-            NSString * subPath = [path stringByAppendingPathComponent: file];
-            if (  [gFileMgr fileExistsAtPath: subPath isDirectory: &isDir]
-                && isDir  ) {
-                [queue addPathToQueue: subPath];
-            }
-        }
-    }
-}
-
--(void) removePath: (NSString *) path fromMonitorQueue: (UKKQueue *) queue
-{
-    // Remove the path itself
-    [queue removePathFromQueue: path];
-    
-    // Remove folders and subfolders
-    NSString * file;
-    BOOL isDir;
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
-    while (  (file = [dirEnum nextObject])  ) {
-        if (  ! [file hasSuffix: @".tblk"]  ) {
-            NSString * subPath = [path stringByAppendingPathComponent: file];
-            if (  [gFileMgr fileExistsAtPath: subPath isDirectory: &isDir]
-                && isDir  ) {
-                [queue removePathFromQueue: subPath];
-            }
-        }
-    }
 }
 
 -(void) hookupWatchdogHandler
@@ -4840,26 +4753,8 @@ static void signal_handler(int signalNumber)
 			NSOutlineView           * ov     = [ovc outlineView];
 			NSIndexSet              * idxSet = [ov selectedRowIndexes];
 			
-			NSUInteger selectedIdx = [ov selectedRow];
-			
 			if  (  [idxSet count] != 0  ) {
-				if  (  [idxSet count] > 1  ) {
-					LeftNavItem * item = [ov itemAtRow: selectedIdx];
-					NSString * displayName = [item displayName];
-                    NSString * localName = [self localizedNameForDisplayName: displayName];
-					int result = TBRunAlertPanel(NSLocalizedString(@"Change for All Selected Configurations?", @"Window title"),
-												 [NSString stringWithFormat:
-												  NSLocalizedString(@"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?", @"Window title"),
-												  (unsigned long) [idxSet count],
-												  localName],
-												 NSLocalizedString(@"Change for the Selected Configurations", @"Button"),
-												 NSLocalizedString(@"Change Only for This Configuration", @"Button"),
-												 nil);
-					if (  result == NSAlertAlternateReturn  ) {
-						idxSet = [NSIndexSet indexSetWithIndex: selectedIdx];
-					}
-				}
-				
+                
 // The Xcode 3.2 analyzer cannot deal with blocks, so to analyze (the rest of) MenuController, we don't compile the one section of code that has a block
 #ifdef TBAnalyzeONLY
 				#warning "NOT AN EXECUTABLE -- ANALYZE ONLY but does not fully analyze code in setPreferenceForSelectedConfigurationsWithKey:to:isBool:"
@@ -5989,44 +5884,6 @@ BOOL warnAboutNonTblks(void)
     }
 }
 
--(void) configFilesChanged
-{
-    if (  gShuttingDownWorkspace  ) {
-        return;
-    }
-    
-    [self updateMenuAndDetailsWindow];
-    [self checkNoConfigurations];
-}
-
--(void) configsChangedTimerFired {
-    
-    [self setConfigsChangedTimer: nil];
-    
-    [self performSelectorOnMainThread: @selector(configFilesChanged) withObject: nil waitUntilDone: NO];
-}
-
-// Invoked when a folder containing configurations has changed.
--(void) watcher: (UKKQueue*) kq receivedNotification: (NSString*) nm forPath: (NSString*) fpath {
-	(void) kq;
-	(void) nm;
-	(void) fpath;
-	
-    if (  gShuttingDownWorkspace  ) {
-        return;
-    }
-    
-    // Set a timer to fire in 0.5 seconds
-    [configsChangedTimer invalidate];
-    [self setConfigsChangedTimer: [NSTimer scheduledTimerWithTimeInterval: 0.5
-                                                                   target: self
-                                                                 selector: @selector(configsChangedTimerFired)
-                                                                 userInfo: nil
-                                                                  repeats: NO]];
-    
-    [configsChangedTimer tbSetTolerance: -1.0];
-}
-
 -(NSInteger) runInstaller: (unsigned) installFlags
 		   extraArguments: (NSArray *) extraArguments
 {
@@ -6098,11 +5955,17 @@ BOOL warnAboutNonTblks(void)
         // are finished launching, in applicationDidFinishLaunching
     }
     
-    if (  tblksToInstallFirst  ) {
-		BOOL oldLaunchFinished = launchFinished;
-        launchFinished = TRUE;  // Fake out installTblks so it installs the .tblk(s) immediately
-        [self installTblks: tblksToInstallFirst skipConfirmationMessage: YES skipResultMessage: YES notifyDelegate: NO];
-        launchFinished = oldLaunchFinished;
+    if (  [tblksToInstallFirst count] != 0  ) {
+        
+        // We install and wait for the installation to complete before we install Tunnelblick itself.
+        //
+        // We know we are installing Tunnelblick because that is the only situation in which we install Tblks first.
+        //
+        // We can install configurations on the main thread because we know that there are no VPNs connected. (If there were VPNs connected,
+        // they would need to be disconnected and reconnected after the installation, which means that the installation would have to
+        // be done on a secondary thread so the main thread could do the disconnections/reconnections.)
+        
+        [ConfigurationManager installConfigurationsInCurrentMainThreadDoNotShowMessagesDoNotNotifyDelegateWithPaths: tblksToInstallFirst];
     }
     
     if (  ! runningOnLeopardOrNewer()  ) {
@@ -7346,7 +7209,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 
 -(void) statisticsWindowsShow: (BOOL) showThem {
 
-	TBLog(@"DB-MO", @"statisticsWindowsShow: %@ entered", (showThem ? @"YES" : @"NO"));
+	TBLog(@"DB-MO", @"statisticsWindowsShow: %s entered", CSTRING_FROM_BOOL(showThem));
     NSEnumerator * e = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     BOOL showingAny = FALSE;
@@ -7601,7 +7464,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
                     [NSString stringWithFormat:
                      NSLocalizedString(@"There is no configuration named '%@' installed.\n\n"
                                        "Try reinstalling Tunnelblick from a disk image.", @"Window text VPNService"),
-                     displayName],
+                     [[NSApp delegate] localizedNameForDisplayName: displayName]],
                     nil,nil,nil);
     [NSApp activateIgnoringOtherApps:YES];
     return NO;
@@ -7734,7 +7597,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     return [[mainImage retain] autorelease];
 }
 
--(BOOL) doingSetupOfUI {
+-(BOOL volatile) doingSetupOfUI {
 	return doingSetupOfUI;
 }
 
@@ -7742,7 +7605,8 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 	doingSetupOfUI = value;
 }
 
-TBSYNTHESIZE_NONOBJECT_GET(BOOL, menuIsOpen)
+TBSYNTHESIZE_NONOBJECT_GET(BOOL volatile, menuIsOpen)
+TBSYNTHESIZE_NONOBJECT_GET(BOOL volatile, launchFinished)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSStatusItem *,              statusItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenu *,                    myVPNMenu)
@@ -7761,7 +7625,6 @@ TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnec
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, nondisconnectedConnections,setNondisconnectedConnections)
 TBSYNTHESIZE_OBJECT(retain, NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
 TBSYNTHESIZE_OBJECT(retain, TBUIUpdater  *, uiUpdater,                 setUiUpdater)
-TBSYNTHESIZE_OBJECT(retain, NSTimer      *, configsChangedTimer,       setConfigsChangedTimer)
 TBSYNTHESIZE_OBJECT(retain, NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
 TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)

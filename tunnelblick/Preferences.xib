@@ -12,7 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="538"/>
+			<integer value="856"/>
+			<integer value="522"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -122,7 +123,7 @@
 												<object class="NSMutableArray" key="NSMenuItems">
 													<bool key="EncodedWithXMLCoder">YES</bool>
 													<reference ref="997061831"/>
-													<object class="NSMenuItem" id="748858590">
+													<object class="NSMenuItem" id="672529184">
 														<reference key="NSMenu" ref="810576473"/>
 														<string key="NSTitle">Rename Configuration...$</string>
 														<string key="NSKeyEquiv"/>
@@ -133,7 +134,7 @@
 														<string key="NSAction">_popUpItemAction:</string>
 														<reference key="NSTarget" ref="88361956"/>
 													</object>
-													<object class="NSMenuItem" id="672529184">
+													<object class="NSMenuItem" id="630137972">
 														<reference key="NSMenu" ref="810576473"/>
 														<string key="NSTitle">Duplicate Configuration...$</string>
 														<string key="NSKeyEquiv"/>
@@ -147,6 +148,17 @@
 													<object class="NSMenuItem" id="1007725261">
 														<reference key="NSMenu" ref="810576473"/>
 														<string key="NSTitle">Make Configuration Private...$</string>
+														<string key="NSKeyEquiv"/>
+														<int key="NSKeyEquivModMask">1048576</int>
+														<int key="NSMnemonicLoc">2147483647</int>
+														<reference key="NSOnImage" ref="159729339"/>
+														<reference key="NSMixedImage" ref="375581083"/>
+														<string key="NSAction">_popUpItemAction:</string>
+														<reference key="NSTarget" ref="88361956"/>
+													</object>
+													<object class="NSMenuItem" id="748858590">
+														<reference key="NSMenu" ref="810576473"/>
+														<string key="NSTitle">Make Configuration Shared...$</string>
 														<string key="NSKeyEquiv"/>
 														<int key="NSKeyEquivModMask">1048576</int>
 														<int key="NSMnemonicLoc">2147483647</int>
@@ -179,7 +191,17 @@
 													</object>
 													<object class="NSMenuItem" id="453321911">
 														<reference key="NSMenu" ref="810576473"/>
-														<string key="NSTitle">Show/Hide on Tunnelblick Menu$</string>
+														<string key="NSTitle">Show on Tunnelblick Menu$</string>
+														<string key="NSKeyEquiv"/>
+														<int key="NSMnemonicLoc">2147483647</int>
+														<reference key="NSOnImage" ref="159729339"/>
+														<reference key="NSMixedImage" ref="375581083"/>
+														<string key="NSAction">_popUpItemAction:</string>
+														<reference key="NSTarget" ref="88361956"/>
+													</object>
+													<object class="NSMenuItem" id="786764616">
+														<reference key="NSMenu" ref="810576473"/>
+														<string key="NSTitle">Do Not Show on Tunnelblick Menu$</string>
 														<string key="NSKeyEquiv"/>
 														<int key="NSMnemonicLoc">2147483647</int>
 														<reference key="NSOnImage" ref="159729339"/>
@@ -470,7 +492,7 @@
 														<object class="NSMutableArray" key="NSTabViewItems">
 															<bool key="EncodedWithXMLCoder">YES</bool>
 															<object class="NSTabViewItem" id="740061366">
-																<string key="NSIdentifier">1</string>
+																<string key="NSIdentifier">log</string>
 																<object class="NSView" key="NSView" id="270890585">
 																	<nil key="NSNextResponder"/>
 																	<int key="NSvFlags">274</int>
@@ -630,7 +652,7 @@
 																<reference key="NSTabView" ref="467607997"/>
 															</object>
 															<object class="NSTabViewItem" id="382711256">
-																<string key="NSIdentifier">Item 2</string>
+																<string key="NSIdentifier">settings</string>
 																<object class="NSView" key="NSView" id="332074438">
 																	<reference key="NSNextResponder" ref="467607997"/>
 																	<int key="NSvFlags">274</int>
@@ -1131,7 +1153,7 @@
 														<reference key="NSSuperview" ref="920753367"/>
 														<bool key="NSEnabled">YES</bool>
 														<object class="NSButtonCell" key="NSCell" id="109617237">
-															<int key="NSCellFlags">-2080244224</int>
+															<int key="NSCellFlags">67239424</int>
 															<int key="NSCellFlags2">134217728</int>
 															<string key="NSContents">Copy Log to Clipboard$</string>
 															<reference key="NSSupport" ref="644301394"/>
@@ -1143,6 +1165,15 @@
 															<int key="NSPeriodicDelay">200</int>
 															<int key="NSPeriodicInterval">25</int>
 														</object>
+													</object>
+													<object class="NSProgressIndicator" id="342726139">
+														<reference key="NSNextResponder" ref="920753367"/>
+														<int key="NSvFlags">-2147482332</int>
+														<object class="NSPSMatrix" key="NSDrawMatrix"/>
+														<string key="NSFrame">{{50, 14}, {16, 16}}</string>
+														<reference key="NSSuperview" ref="920753367"/>
+														<int key="NSpiFlags">20746</int>
+														<double key="NSMaxValue">100</double>
 													</object>
 												</object>
 												<string key="NSFrame">{{1, 1}, {736, 372}}</string>
@@ -2108,10 +2139,19 @@
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 			</object>
 			<object class="NSCustomView" id="552065829">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">269</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="NSProgressIndicator" id="832288513">
+						<reference key="NSNextResponder" ref="552065829"/>
+						<int key="NSvFlags">-2147482356</int>
+						<object class="NSPSMatrix" key="NSDrawMatrix"/>
+						<string key="NSFrame">{{307, 273}, {16, 16}}</string>
+						<reference key="NSSuperview" ref="552065829"/>
+						<int key="NSpiFlags">20746</int>
+						<double key="NSMaxValue">100</double>
+					</object>
 					<object class="NSTextField" id="892700438">
 						<reference key="NSNextResponder" ref="552065829"/>
 						<int key="NSvFlags">268</int>
@@ -2233,6 +2273,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{920, 390}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">UtilitiesView</string>
 			</object>
 			<object class="NSCustomView" id="388787059">
@@ -3210,14 +3251,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">progressIndicator</string>
-						<reference key="source" ref="921957018"/>
-						<reference key="destination" ref="1066868838"/>
-					</object>
-					<int key="connectionID">616</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">disconnectButton</string>
 						<reference key="source" ref="921957018"/>
 						<reference key="destination" ref="803046585"/>
@@ -3231,30 +3264,6 @@
 						<reference key="destination" ref="866401343"/>
 					</object>
 					<int key="connectionID">621</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">renameConfigurationMenuItem</string>
-						<reference key="source" ref="921957018"/>
-						<reference key="destination" ref="748858590"/>
-					</object>
-					<int key="connectionID">622</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">duplicateConfigurationMenuItem</string>
-						<reference key="source" ref="921957018"/>
-						<reference key="destination" ref="672529184"/>
-					</object>
-					<int key="connectionID">623</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">makePrivateOrSharedMenuItem</string>
-						<reference key="source" ref="921957018"/>
-						<reference key="destination" ref="1007725261"/>
-					</object>
-					<int key="connectionID">624</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -3426,27 +3435,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">duplicateConfigurationMenuItemWasClicked:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="672529184"/>
-					</object>
-					<int key="connectionID">665</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">editOpenVPNConfigurationFileMenuItemWasClicked:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="25157627"/>
 					</object>
 					<int key="connectionID">666</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">makePrivateOrSharedMenuItemWasClicked:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="1007725261"/>
-					</object>
-					<int key="connectionID">667</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -3471,14 +3464,6 @@
 						<reference key="destination" ref="959848403"/>
 					</object>
 					<int key="connectionID">670</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">renameConfigurationMenuItemWasClicked:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="748858590"/>
-					</object>
-					<int key="connectionID">671</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -4060,28 +4045,12 @@
 					<int key="connectionID">1078</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">utilitiesCopyConsoleLogButtonWasClicked:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="415693899"/>
-					</object>
-					<int key="connectionID">1089</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">nextKeyView</string>
 						<reference key="source" ref="196927989"/>
 						<reference key="destination" ref="26026892"/>
 					</object>
 					<int key="connectionID">1092</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">utilitiesCopyConsoleLogButton</string>
-						<reference key="source" ref="552065829"/>
-						<reference key="destination" ref="415693899"/>
-					</object>
-					<int key="connectionID">1093</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -4394,22 +4363,6 @@
 					<int key="connectionID">1202</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">logToClipboardButtonWasClicked:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="149629651"/>
-					</object>
-					<int key="connectionID">1205</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">logToClipboardButton</string>
-						<reference key="source" ref="921957018"/>
-						<reference key="destination" ref="149629651"/>
-					</object>
-					<int key="connectionID">1206</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">nextKeyView</string>
 						<reference key="source" ref="298087897"/>
@@ -4515,19 +4468,155 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">showHideOnTbMenuMenuItemWasClicked:</string>
+						<string key="label">makePrivateMenuItemWasClicked:</string>
 						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="453321911"/>
+						<reference key="destination" ref="1007725261"/>
 					</object>
-					<int key="connectionID">1264</int>
+					<int key="connectionID">1266</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">makeSharedMenuItemWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="748858590"/>
+					</object>
+					<int key="connectionID">1267</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">showHideOnTbMenuMenuItem</string>
+						<string key="label">makePrivateMenuItem</string>
+						<reference key="source" ref="921957018"/>
+						<reference key="destination" ref="1007725261"/>
+					</object>
+					<int key="connectionID">1268</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">makeSharedMenuItem</string>
+						<reference key="source" ref="921957018"/>
+						<reference key="destination" ref="748858590"/>
+					</object>
+					<int key="connectionID">1269</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">renameConfigurationMenuItemWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="672529184"/>
+					</object>
+					<int key="connectionID">1272</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">duplicateConfigurationMenuItemWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="630137972"/>
+					</object>
+					<int key="connectionID">1274</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">duplicateConfigurationMenuItem</string>
+						<reference key="source" ref="921957018"/>
+						<reference key="destination" ref="630137972"/>
+					</object>
+					<int key="connectionID">1275</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">renameConfigurationMenuItem</string>
+						<reference key="source" ref="921957018"/>
+						<reference key="destination" ref="672529184"/>
+					</object>
+					<int key="connectionID">1276</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">doNotShowOnTbMenuMenuItemWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="786764616"/>
+					</object>
+					<int key="connectionID">1279</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showOnTbMenuMenuItemWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="453321911"/>
+					</object>
+					<int key="connectionID">1280</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">doNotShowOnTbMenuMenuItem</string>
+						<reference key="source" ref="921957018"/>
+						<reference key="destination" ref="786764616"/>
+					</object>
+					<int key="connectionID">1281</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">showOnTbMenuMenuItem</string>
 						<reference key="source" ref="921957018"/>
 						<reference key="destination" ref="453321911"/>
 					</object>
-					<int key="connectionID">1265</int>
+					<int key="connectionID">1282</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">logDisplayProgressIndicator</string>
+						<reference key="source" ref="921957018"/>
+						<reference key="destination" ref="1066868838"/>
+					</object>
+					<int key="connectionID">1284</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">diagnosticInfoToClipboardProgressIndicator</string>
+						<reference key="source" ref="921957018"/>
+						<reference key="destination" ref="342726139"/>
+					</object>
+					<int key="connectionID">1285</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">diagnosticInfoToClipboardButtonWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="149629651"/>
+					</object>
+					<int key="connectionID">1286</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">diagnosticInfoToClipboardButton</string>
+						<reference key="source" ref="921957018"/>
+						<reference key="destination" ref="149629651"/>
+					</object>
+					<int key="connectionID">1287</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">consoleLogToClipboardProgressIndicator</string>
+						<reference key="source" ref="552065829"/>
+						<reference key="destination" ref="832288513"/>
+					</object>
+					<int key="connectionID">1289</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">consoleLogToClipboardButtonWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="415693899"/>
+					</object>
+					<int key="connectionID">1290</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">consoleLogToClipboardButton</string>
+						<reference key="source" ref="552065829"/>
+						<reference key="destination" ref="415693899"/>
+					</object>
+					<int key="connectionID">1291</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -5249,11 +5338,13 @@
 							<reference ref="25157627"/>
 							<reference ref="672529184"/>
 							<reference ref="959848403"/>
-							<reference ref="748858590"/>
 							<reference ref="997061831"/>
 							<reference ref="90712416"/>
 							<reference ref="684810100"/>
 							<reference ref="453321911"/>
+							<reference ref="748858590"/>
+							<reference ref="630137972"/>
+							<reference ref="786764616"/>
 						</object>
 						<reference key="parent" ref="88361956"/>
 					</object>
@@ -5372,6 +5463,7 @@
 							<reference ref="415693899"/>
 							<reference ref="505556673"/>
 							<reference ref="892700438"/>
+							<reference ref="832288513"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Utilities</string>
@@ -5665,6 +5757,7 @@
 							<reference ref="803046585"/>
 							<reference ref="429876504"/>
 							<reference ref="467607997"/>
+							<reference ref="342726139"/>
 						</object>
 						<reference key="parent" ref="753881549"/>
 					</object>
@@ -6096,6 +6189,26 @@
 						<reference key="object" ref="684810100"/>
 						<reference key="parent" ref="810576473"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1270</int>
+						<reference key="object" ref="630137972"/>
+						<reference key="parent" ref="810576473"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1277</int>
+						<reference key="object" ref="786764616"/>
+						<reference key="parent" ref="810576473"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1283</int>
+						<reference key="object" ref="342726139"/>
+						<reference key="parent" ref="12000109"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1288</int>
+						<reference key="object" ref="832288513"/>
+						<reference key="parent" ref="552065829"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -6204,8 +6317,12 @@
 					<string>1263.IBPluginDependency</string>
 					<string>127.IBPluginDependency</string>
 					<string>127.IBViewBoundsToFrameTransform</string>
+					<string>1270.IBPluginDependency</string>
+					<string>1277.IBPluginDependency</string>
 					<string>128.IBPluginDependency</string>
 					<string>128.IBViewBoundsToFrameTransform</string>
+					<string>1283.IBPluginDependency</string>
+					<string>1288.IBPluginDependency</string>
 					<string>13.IBPluginDependency</string>
 					<string>13.IBViewBoundsToFrameTransform</string>
 					<string>131.IBPluginDependency</string>
@@ -6577,9 +6694,13 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAABDmoAAwyEAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABCnAAAwyEAAA</bytes>
 					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAADAQAAAw44AAA</bytes>
@@ -6835,7 +6956,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{150, 731}, {427, 213}}</string>
+					<string>{{266, 305}, {427, 363}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6878,7 +6999,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{529, 417}, {920, 390}}</string>
+					<string>{{491, 256}, {920, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6932,7 +7053,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1265</int>
+			<int key="maxID">1291</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7001,8 +7122,11 @@
 							<string>configurationsHelpButton</string>
 							<string>configurationsTabView</string>
 							<string>connectButton</string>
+							<string>diagnosticInfoToClipboardButton</string>
+							<string>diagnosticInfoToClipboardProgressIndicator</string>
 							<string>disableIpv6OnTunCheckbox</string>
 							<string>disconnectButton</string>
+							<string>doNotShowOnTbMenuMenuItem</string>
 							<string>duplicateConfigurationMenuItem</string>
 							<string>editOpenVPNConfigurationFileMenuItem</string>
 							<string>leftNavDataSrc</string>
@@ -7010,17 +7134,17 @@
 							<string>leftNavTableScrollView</string>
 							<string>leftNavTableView</string>
 							<string>leftSplitView</string>
+							<string>logDisplayProgressIndicator</string>
 							<string>logTabViewItem</string>
-							<string>logToClipboardButton</string>
 							<string>logView</string>
-							<string>makePrivateOrSharedMenuItem</string>
+							<string>makePrivateMenuItem</string>
+							<string>makeSharedMenuItem</string>
 							<string>monitorNetworkForChangesCheckbox</string>
 							<string>outlineViewController</string>
 							<string>perConfigOpenvpnVersionArrayController</string>
 							<string>perConfigOpenvpnVersionButton</string>
 							<string>perConfigOpenvpnVersionTF</string>
 							<string>perConfigOpenvpnVersionTFC</string>
-							<string>progressIndicator</string>
 							<string>removeConfigurationButton</string>
 							<string>removeCredentialsMenuItem</string>
 							<string>renameConfigurationMenuItem</string>
@@ -7032,7 +7156,7 @@
 							<string>setNameserverTF</string>
 							<string>setNameserverTFC</string>
 							<string>settingsTabViewItem</string>
-							<string>showHideOnTbMenuMenuItem</string>
+							<string>showOnTbMenuMenuItem</string>
 							<string>showOpenvpnLogMenuItem</string>
 							<string>whenToConnectManuallyMenuItem</string>
 							<string>whenToConnectOnComputerStartMenuItem</string>
@@ -7051,7 +7175,10 @@
 							<string>NSTabView</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
+							<string>NSProgressIndicator</string>
 							<string>NSButton</string>
+							<string>NSButton</string>
+							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>LeftNavDataSource</string>
@@ -7059,9 +7186,10 @@
 							<string>NSScrollView</string>
 							<string>NSTableView</string>
 							<string>NSView</string>
+							<string>NSProgressIndicator</string>
 							<string>NSTabViewItem</string>
-							<string>NSButton</string>
 							<string>NSTextView</string>
+							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSButton</string>
 							<string>LeftNavViewController</string>
@@ -7069,7 +7197,6 @@
 							<string>NSButton</string>
 							<string>NSTextField</string>
 							<string>NSTextFieldCell</string>
-							<string>NSProgressIndicator</string>
 							<string>NSButton</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
@@ -7240,15 +7367,18 @@
 							<string>checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked:</string>
 							<string>configurationsHelpButtonWasClicked:</string>
 							<string>connectButtonWasClicked:</string>
+							<string>consoleLogToClipboardButtonWasClicked:</string>
+							<string>diagnosticInfoToClipboardButtonWasClicked:</string>
 							<string>disableIpv6OnTunCheckboxWasClicked:</string>
 							<string>disconnectButtonWasClicked:</string>
+							<string>doNotShowOnTbMenuMenuItemWasClicked:</string>
 							<string>duplicateConfigurationMenuItemWasClicked:</string>
 							<string>editOpenVPNConfigurationFileMenuItemWasClicked:</string>
 							<string>generalHelpButtonWasClicked:</string>
 							<string>infoHelpButtonWasClicked:</string>
 							<string>inhibitOutboundTBTrafficCheckboxWasClicked:</string>
-							<string>logToClipboardButtonWasClicked:</string>
-							<string>makePrivateOrSharedMenuItemWasClicked:</string>
+							<string>makePrivateMenuItemWasClicked:</string>
+							<string>makeSharedMenuItemWasClicked:</string>
 							<string>monitorNetworkForChangesCheckboxWasClicked:</string>
 							<string>removeConfigurationButtonWasClicked:</string>
 							<string>removeCredentialsMenuItemWasClicked:</string>
@@ -7257,13 +7387,12 @@
 							<string>resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked:</string>
 							<string>revertToShadowMenuItemWasClicked:</string>
 							<string>routeAllTrafficThroughVpnCheckboxWasClicked:</string>
-							<string>showHideOnTbMenuMenuItemWasClicked:</string>
+							<string>showOnTbMenuMenuItemWasClicked:</string>
 							<string>showOpenvpnLogMenuItemWasClicked:</string>
 							<string>updatesCheckAutomaticallyCheckboxWasClicked:</string>
 							<string>updatesCheckForBetaUpdatesCheckboxWasClicked:</string>
 							<string>updatesCheckNowButtonWasClicked:</string>
 							<string>updatesSendProfileInfoCheckboxWasClicked:</string>
-							<string>utilitiesCopyConsoleLogButtonWasClicked:</string>
 							<string>utilitiesHelpButtonWasClicked:</string>
 							<string>utilitiesKillAllOpenVpnButtonWasClicked:</string>
 							<string>utilitiesOpenUninstallInstructionsButtonWasClicked:</string>
@@ -7286,13 +7415,6 @@
 							<string>NSButton</string>
 							<string>id</string>
 							<string>id</string>
-							<string>NSButton</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>NSButton</string>
 							<string>id</string>
 							<string>id</string>
 							<string>NSButton</string>
@@ -7300,16 +7422,25 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>NSButton</string>
+							<string>id</string>
 							<string>id</string>
 							<string>NSButton</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>NSButton</string>
+							<string>id</string>
+							<string>NSButton</string>
+							<string>id</string>
+							<string>id</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>id</string>
 							<string>NSButton</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -7407,7 +7538,8 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>utilitiesCopyConsoleLogButton</string>
+							<string>consoleLogToClipboardButton</string>
+							<string>consoleLogToClipboardProgressIndicator</string>
 							<string>utilitiesEasyRsaPathTFC</string>
 							<string>utilitiesHelpButton</string>
 							<string>utilitiesKillAllOpenVpnButton</string>
@@ -7417,6 +7549,7 @@
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSButton</string>
+							<string>NSProgressIndicator</string>
 							<string>NSTextFieldCell</string>
 							<string>NSButton</string>
 							<string>NSButton</string>

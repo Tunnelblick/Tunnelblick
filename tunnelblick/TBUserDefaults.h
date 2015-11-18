@@ -1,5 +1,5 @@
 /*
- * Copyright 2009, 2010, 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -49,7 +49,7 @@
 @interface TBUserDefaults : NSObject {
     
     NSDictionary   * forcedDefaults;                // nil, or an NSDictionary of preferences which may contain wildcards   -- used by tunnelblickd and the GUI
-    NSDictionary   * secondaryDefaults;             // nil, or an NSDictionary of preferences (from Shared Info.plists)     -- used by tunnelblickd
+    NSDictionary   * secondaryDefaults;             // nil, or an NSDictionary of preferences (from Shared Info.plists)     -- unused
     NSUserDefaults * userDefaults;                  // nil, or [NSUserDefaults standardUserDefaults]                        -- used by the GUI
 }
 

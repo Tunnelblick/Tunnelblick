@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -32,7 +32,7 @@ typedef enum {
 @class VPNConnection;
 
 
-@interface SettingsSheetWindowController : NSWindowController <NSWindowDelegate>
+@interface SettingsSheetWindowController : NSWindowController <NSWindowDelegate, NSTextFieldDelegate>
 {
     NSString                     * configurationName;
     
@@ -171,6 +171,8 @@ typedef enum {
     IBOutlet NSArrayController   * credentialsGroupArrayController;
 	IBOutlet NSNumber            * selectedCredentialsGroupIndex;
 	
+	IBOutlet NSTextField		 * addNamedCredentialsTF;
+	IBOutlet NSTextFieldCell	 * addNamedCredentialsTFC;
 	IBOutlet NSButton            * addNamedCredentialsButton;
 	
 	IBOutlet NSButton            * removeNamedCredentialsButton;
@@ -278,6 +280,7 @@ typedef enum {
 -(IBAction) allConfigurationsUseTheSameCredentialsCheckboxWasClicked: (NSButton *) sender;
 
 -(IBAction) addNamedCredentialsButtonWasClicked: (id) sender;
+-(IBAction) addNamedCredentialsReturnWasTyped: (id) sender;
 
 -(IBAction) vpnCredentialsHelpButtonWasClicked: (id) sender;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -248,7 +248,18 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgName)
         return NO;
     }
     
-	[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(installConfigurationsUpdateInBundleAtPathHandler:) withObject: [self cfgBundlePath] waitUntilDone: NO];
+    if (  ! [[NSApp delegate] launchFinished]  ) {
+        if (  runningOnMainThread()  ) {
+            NSLog(@"updaterShouldRelaunchApplication: launchFinished = FALSE but are on the main thread, so not waiting for launchFinished");
+        } else {
+            // We are not on the main thread, so we make sure that Tunneblick has finished launching and the main thread is ready before we proceed to update the configuration.
+            while (  [[NSApp delegate] launchFinished]  ) {
+                sleep(1);
+            }
+        }
+    }
+    
+	[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(installConfigurationsUpdateInBundleAtPathMainThread:) withObject: [self cfgBundlePath] waitUntilDone: NO];
 	return NO;
 }
 

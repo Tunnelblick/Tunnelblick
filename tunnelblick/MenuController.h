@@ -37,7 +37,6 @@
 @class StatusWindowController;
 @class SUUpdater;
 @class TBUIUpdater;
-@class UKKQueue;
 @class VPNConnection;
 @class WelcomeController;
 
@@ -151,15 +150,11 @@ void * _NSConcreteStackBlock __attribute__((weak));
     
     NSString                * lastState;                    // Most recent state of connection (EXITING, SLEEP, etc.)
     
-    UKKQueue                * myQueue;                      // UKKQueue item for monitoring the configuration file folder
-    
     TBUIUpdater             * uiUpdater;                    // Used to periodically update displays
 	
     NSTimer                 * hookupWatchdogTimer;          // Used to check for failures to hookup to openvpn processes, and deal with unknown OpenVPN processes 
 	
     NSTimer                 * statisticsWindowTimer;        // Used to check for stale statistics that must be cleared 
-    
-    NSTimer                 * configsChangedTimer;          // Used when configurations change
     
     SUUpdater               * updater;                      // Sparkle Updater item used to check for updates to the program
 
@@ -171,13 +166,9 @@ void * _NSConcreteStackBlock __attribute__((weak));
     
     NSTrackingRectTag         iconTrackingRectTag;          // Used to track mouseEntered and mouseExited events for statusItemButton
     
-    BOOL                      launchFinished;               // Flag that we have executed "applicationDidFinishLaunching"
+    BOOL volatile             launchFinished;               // Flag that we have executed "applicationDidFinishLaunching"
     
     BOOL                      userIsAnAdmin;                // Indicates logged-in user is a member of the "admin" group, and can administer the computer
-    
-    BOOL                      ignoreNoConfigs;              // Indicates that the absense of any configuration files should be ingored. This is used to prevent the creation
-    //                                                         of a link to Tunnelblick in the Configurations folder in checkNoConfigurations from
-    //                                                         triggering a second invocation of it because of the filesystem change when the link is created
     
     BOOL                      checkingForNoConfigs;         // Used to avoid infinite recursion
     
@@ -186,14 +177,14 @@ void * _NSConcreteStackBlock __attribute__((weak));
     
     BOOL                      terminatingAtUserRequest;     // Indicates that we are terminating because the user Quit or Command-Q-ed
     
-    BOOL                      mouseIsInMainIcon;            // Indicates that the mouse is over the Tunnelblick (not tracked unless preference says to)
-    BOOL                      mouseIsInStatusWindow;        // Indicates that the mouse is over the icon or a status window
+    BOOL volatile             mouseIsInMainIcon;            // Indicates that the mouse is over the Tunnelblick (not tracked unless preference says to)
+    BOOL volatile             mouseIsInStatusWindow;        // Indicates that the mouse is over the icon or a status window
     
 	BOOL					  signatureIsInvalid;			// Indicates the app is digitally signed but the signature does not check out
 	
-	BOOL					  doingSetupOfUI;				// Indicates we are setting up the UI, and not making changes to preferences
+	BOOL volatile             doingSetupOfUI;				// Indicates we are setting up the UI, and not making changes to preferences
 	
-	BOOL					  menuIsOpen;					// Indicates the main Tunnelblick menu is open
+	BOOL volatile             menuIsOpen;					// Indicates the main Tunnelblick menu is open
 	
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
@@ -226,34 +217,26 @@ void * _NSConcreteStackBlock __attribute__((weak));
 // Menu actions
 -(IBAction)         contactTunnelblickWasClicked:           (id)                sender;
 -(IBAction)         openPreferencesWindow:                  (id)                sender;
--(IBAction)         addConfigurationWasClicked:             (id)                sender;
 -(IBAction)         quit:                                   (id)                sender;
 
 // General methods
 -(void)             addConnection:                          (VPNConnection *)   connection;
 -(void)             addNonconnection:                       (VPNConnection *)   connection;
--(void)             addNewConfig:                           (NSString *)        path
-                 withDisplayName:                           (NSString *)        dispNm;
--(void)             setPreferenceForSelectedConfigurationsWithKey: (NSString *) key
-															   to: (id)         newValue
-                                                           isBOOL: (BOOL)       isBOOL;
 -(void)             setBooleanPreferenceForSelectedConnectionsWithKey: (NSString *)	key
 																   to: (BOOL)       newValue
 															 inverted: (BOOL)		inverted;
 -(void)             changedCheckForBetaUpdatesSettings;
 -(void)             changedDisplayConnectionSubmenusSettings;
 -(void)             changedDisplayConnectionTimersSettings;
--(void)             changedMonitorConfigurationFoldersSettings;
 -(void)             checkForUpdates:                        (id)                sender;
 -(BOOL)             cleanup;
+-(void)             configurationsChanged;
+-(void)             configurationsChangedWithRenameDictionary: (NSDictionary *)  renameDictionary;
 -(NSArray *)        connectionsNotDisconnected;
--(void)             createMenu;
 -(unsigned)         decrementTapCount;
 -(NSUInteger)       defaultOpenVPNVersionIx;
--(void)             deleteExistingConfig:                   (NSString *)        dispNm;
 -(NSURL *)          getIPCheckURL;
--(void)             installConfigurationsUpdateInBundleAtPathHandler: (NSString *)path;
--(void)             installConfigurationsUpdateInBundleAtPath: (NSString *)     path;
+-(void)             installConfigurationsUpdateInBundleAtPathMainThread: (NSString *)path;
 -(unsigned)         decrementTunCount;
 -(unsigned)         incrementTapCount;
 -(unsigned)         incrementTunCount;
@@ -281,13 +264,11 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(void)             removeConnection:                       (VPNConnection *)   connection;
 -(NSInteger)        runInstaller:                           (unsigned)          installerFlags
                   extraArguments:                           (NSArray *)         extraArguments;
-
 -(NSInteger)        runInstaller: (unsigned) installFlags
                   extraArguments: (NSArray *) extraArguments
                  usingAuthRefPtr: (AuthorizationRef *) authRef
                          message: (NSString *) message
                installTblksFirst: (NSArray *) tblksToInstallFirst;
-
 -(void)             saveConnectionsToRestoreOnRelaunch;
 -(void)             setHotKeyIndex:                         (unsigned)          newIndex;
 -(void)             setState:                               (NSString *)        newState;
@@ -297,16 +278,17 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(unsigned)         statusScreenIndex;
 -(void)             unloadKexts;
 -(BOOL)             userIsAnAdmin;
+-(void)             startCheckingForConfigurationUpdates;
 -(void)             statusWindowController:                 (id)                ctl
                         finishedWithChoice:                 (StatusWindowControllerChoice) choice
                             forDisplayName:                 (NSString *)        theName;
 -(void)             showStatisticsWindows;
 -(void)             hideStatisticsWindows;
 -(void)             updateIconImage;
--(void)				updateMenuAndDetailsWindow;
 -(void)             updateUI;
 -(void)				updateUpdateFeedURLForceDowngrade:		(BOOL)				forceDowngrade;
 -(void)             terminateBecause:                       (enum TerminationReason) reason;
+-(void) welcomeOKButtonWasClicked;
 
 -(void) addActiveIPCheckThread: (NSString *) threadID;
 -(void) cancelIPCheckThread: (NSString *) threadID;
@@ -314,7 +296,11 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(BOOL) isOnCancellingListIPCheckThread: (NSString *) threadID;
 -(void) haveFinishedIPCheckThread: (NSString *) threadID;
 
--(void) welcomeOKButtonWasClicked;
+// AppleScript support
+
+-(BOOL)             application:                            (NSApplication *)   sender
+             delegateHandlesKey:                            (NSString *)        key;
+-(NSArray *)        applescriptConfigurationList;
 
 // Getters and Setters
 
@@ -329,7 +315,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(void)             startOrStopUiUpdater;
 -(BOOL)             terminatingAtUserRequest;
 -(SUUpdater *)      updater;
--(BOOL)				doingSetupOfUI;
+-(BOOL volatile)    doingSetupOfUI;
 -(void)				setDoingSetupOfUI: (BOOL) value;
 
 #ifdef INCLUDE_VPNSERVICE
@@ -341,14 +327,9 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(void)             setVPNServiceConnectDisplayName:        (NSString *)        newValue;
 #endif
 
-// AppleScript support
-
--(BOOL)             application:                            (NSApplication *)   sender
-             delegateHandlesKey:                            (NSString *)        key;
--(NSArray *)        applescriptConfigurationList;
-
 TBPROPERTY_READONLY(NSStatusItem *, statusItem)
-TBPROPERTY_READONLY(BOOL, menuIsOpen)
+TBPROPERTY_READONLY(BOOL volatile, menuIsOpen)
+TBPROPERTY_READONLY(BOOL volatile, launchFinished)
 TBPROPERTY_READONLY(NSMenu *,		myVPNMenu)
 TBPROPERTY_READONLY(NSMutableArray *, activeIPCheckThreads)
 TBPROPERTY_READONLY(NSMutableArray *, cancellingIPCheckThreads)
@@ -365,14 +346,14 @@ TBPROPERTY(NSArray      *, connectionArray,           setConnectionArray)
 TBPROPERTY(NSArray      *, nondisconnectedConnections,setNondisconnectedConnections)
 TBPROPERTY(NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
 TBPROPERTY(TBUIUpdater  *, uiUpdater,                 setUiUpdater)
-TBPROPERTY(NSTimer      *, configsChangedTimer,       setConfigsChangedTimer)
 TBPROPERTY(NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
 TBPROPERTY(NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
 TBPROPERTY(NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
 TBPROPERTY(NSImage      *, highlightedMainImage,      setHighlightedMainImage)
 TBPROPERTY(NSMutableArray *, connectionsToRestoreOnUserActive, setConnectionsToRestoreOnUserActive)
-TBPROPERTY(NSMutableArray *, connectionsToRestoreOnWakeup,     setConnectionsToRestoreOnWakeup)
+TBPROPERTY(NSMutableArray *, connectionsToRestoreOnWakeup, setConnectionsToRestoreOnWakeup)
 TBPROPERTY(NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
-TBPROPERTY(NSBundle       *, deployLocalizationBundle,               setDeployLocalizationBundle)
+TBPROPERTY(NSBundle       *, deployLocalizationBundle, setDeployLocalizationBundle)
 TBPROPERTY(NSString       *, languageAtLaunch,        setLanguageAtLaunch)
+
 @end

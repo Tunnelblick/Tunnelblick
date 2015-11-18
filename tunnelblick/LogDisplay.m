@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -190,7 +190,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     
     if (  [self connection] == [wc selectedConnection]  ) {
         if (  ! runningOnMainThread()  ) {
-            [self performSelectorOnMainThread: @selector(insertLineInDisplayedLog:) withObject: dict waitUntilDone: NO];
+            [self performSelectorOnMainThread: @selector(insertLogEntry:) withObject: dict waitUntilDone: NO];
         }
     }
     
@@ -485,14 +485,14 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     }
     
     if (  ! runningOnMainThread()  ) {
-        [self performSelectorOnMainThread: @selector(loadLogsWithInitialContents) withObject: dict waitUntilDone: NO];
+        [self performSelectorOnMainThread: @selector(loadLogsWithInitialContents:) withObject: dict waitUntilDone: NO];
         return;
     }
     
     NSAttributedString * initialContents               = [dict objectForKey: @"contents"];
     BOOL                 skipToStartOfLineInOpenvpnLog = [[dict objectForKey: @"skip"] boolValue];
     
-    [[((MenuController *)[NSApp delegate]) logScreen] indicateWaitingForConnection: [self connection]];
+    [[((MenuController *)[NSApp delegate]) logScreen] indicateWaitingForLogDisplay: [self connection]];
     
     // Save, then clear, the current contents of the tbLog
     NSString * tunnelblickString = [[self tbLog] copy];
@@ -694,7 +694,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     
     [tunnelblickString release];
     
-    [[((MenuController *)[NSApp delegate]) logScreen] indicateNotWaitingForConnection: [self connection]];
+    [[((MenuController *)[NSApp delegate]) logScreen] indicateNotWaitingForLogDisplay: [self connection]];
 }
 
 -(void) loadLogsWithInitialContents: (NSAttributedString *) initialContents
@@ -1138,7 +1138,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     // Go through the log file contents one line at a time
     NSString * logString = [self contentsOfPath: logPath  usePosition: logPositionPtr];
     if (  ! logString  ) {
-        NSLog(@"logString is nil in logChangedAtPath: %@ usePosition: %llu fromOpenvpnLog: %@", logPath, *logPositionPtr, (isFromOpenvpnLog ? @"YES" : @"NO"));
+        NSLog(@"logString is nil in logChangedAtPath: %@ usePosition: %llu fromOpenvpnLog: %s", logPath, *logPositionPtr, CSTRING_FROM_BOOL(isFromOpenvpnLog));
         pthread_mutex_unlock( &makingChangesMutex );
         return;
     }

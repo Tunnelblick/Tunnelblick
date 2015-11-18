@@ -1,5 +1,5 @@
 /*
- * Copyright 2009, 2010, 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -129,8 +129,8 @@ NSArray * gConfigurationPreferences;
             return [obj boolValue];
         }
         
-        NSLog(@"boolForKey: Preference '%@' must be a boolean (i.e., an NSNumber), but it is a %@; using a value of %@", key,
-              [[obj class] description], (defaultValue ? @"YES" : @"NO"));
+        NSLog(@"boolForKey: Preference '%@' must be a boolean (i.e., an NSNumber), but it is a %@; using a value of %s", key,
+              [[obj class] description], CSTRING_FROM_BOOL(defaultValue));
     }
     
     return defaultValue;
@@ -299,7 +299,7 @@ NSArray * gConfigurationPreferences;
     if (  forcedValue  ) {
 		if (   ( ! [forcedValue respondsToSelector: @selector(boolValue)])
 			|| ( [forcedValue boolValue] != value )  ) {
-			NSLog(@"setBool: %@ forKey: '%@': ignored because the preference is being forced to %@", (value ? @"YES" : @"NO"), key, forcedValue);
+			NSLog(@"setBool: %s forKey: '%@': ignored because the preference is being forced to %@", CSTRING_FROM_BOOL(value), key, forcedValue);
 		}
 	} else if (  [secondaryDefaults objectForKey: key] != nil  ) {
         NSLog(@"setBool: forKey: '%@': ignored because the preference is being forced by the secondary dictionary", key);
@@ -579,26 +579,18 @@ NSArray * gConfigurationPreferences;
     }
     
     // Remove all non-forced preferences with this group
-    unsigned nRemoved = 0;
     NSString * prefKey = @"-credentialsGroup";
-    if (  ! userDefaults  ) {
-        NSDictionary * dict = [userDefaults dictionaryRepresentation];
-        NSEnumerator * e = [dict keyEnumerator];
-        NSString * key;
-        while (  (key = [e nextObject])  ) {
-            if (  [key hasSuffix: prefKey]  ) {
-                if (  [[dict objectForKey: key] isEqualToString: groupName]  ) {
-                    [userDefaults removeObjectForKey: key];
-                    nRemoved++;
-                }
-            }
-        }
-    }
-    
-    if (  nRemoved == 0  ) {
-        NSLog(@"Warning: No configurations use the '%@' credentials.", groupName);
-    }
-    
+	NSDictionary * dict = [userDefaults dictionaryRepresentation];
+	NSEnumerator * e = [dict keyEnumerator];
+	NSString * key;
+	while (  (key = [e nextObject])  ) {
+		if (  [key hasSuffix: prefKey]  ) {
+			if (  [[dict objectForKey: key] isEqualToString: groupName]  ) {
+				[userDefaults removeObjectForKey: key];
+			}
+		}
+	}
+
     // Remove the group itself
     NSMutableArray * groups = [[[self objectForKey: groupsKey] mutableCopy] autorelease];
     if (  groups  ) {

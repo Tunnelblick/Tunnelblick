@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -43,28 +43,33 @@
     
     IBOutlet NSMenuItem          * renameConfigurationMenuItem;
     IBOutlet NSMenuItem          * duplicateConfigurationMenuItem;
-    IBOutlet NSMenuItem          * makePrivateOrSharedMenuItem;
+    IBOutlet NSMenuItem          * makePrivateMenuItem;
+    IBOutlet NSMenuItem          * makeSharedMenuItem;
 	IBOutlet NSMenuItem          * revertToShadowMenuItem;
 
-    IBOutlet NSMenuItem          * showHideOnTbMenuMenuItem;
+    IBOutlet NSMenuItem          * showOnTbMenuMenuItem;
+    IBOutlet NSMenuItem          * doNotShowOnTbMenuMenuItem;
 
     IBOutlet NSMenuItem          * editOpenVPNConfigurationFileMenuItem;
     IBOutlet NSMenuItem          * showOpenvpnLogMenuItem;
     IBOutlet NSMenuItem          * removeCredentialsMenuItem;
     
     IBOutlet NSButton            * configurationsHelpButton;
+	
+    IBOutlet NSButton            * diagnosticInfoToClipboardButton;
+    IBOutlet NSProgressIndicator * diagnosticInfoToClipboardProgressIndicator;
+    
     IBOutlet NSButton            * disconnectButton;
     IBOutlet NSButton            * connectButton;
     
     IBOutlet NSTabView           * configurationsTabView;
+	
     // Log tab
     
     IBOutlet NSTabViewItem       * logTabViewItem;
     IBOutlet NSTextView          * logView;
     
-    IBOutlet NSProgressIndicator * progressIndicator;
-    
-    IBOutlet NSButton            * logToClipboardButton;
+    IBOutlet NSProgressIndicator * logDisplayProgressIndicator;
     
     // Settings tab
     
@@ -115,15 +120,19 @@ TBPROPERTY_READONLY(NSArrayController *,   workOnConfigurationArrayController)
 
 TBPROPERTY_READONLY(NSMenuItem *,          renameConfigurationMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          duplicateConfigurationMenuItem)
-TBPROPERTY_READONLY(NSMenuItem *,          makePrivateOrSharedMenuItem)
+TBPROPERTY_READONLY(NSMenuItem *,          makePrivateMenuItem)
+TBPROPERTY_READONLY(NSMenuItem *,          makeSharedMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          revertToShadowMenuItem)
-TBPROPERTY_READONLY(NSMenuItem *,          showHideOnTbMenuMenuItem)
+TBPROPERTY_READONLY(NSMenuItem *,          showOnTbMenuMenuItem)
+TBPROPERTY_READONLY(NSMenuItem *,          doNotShowOnTbMenuMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          editOpenVPNConfigurationFileMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          showOpenvpnLogMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          removeCredentialsMenuItem)
 
 TBPROPERTY_READONLY(NSButton *,            configurationsHelpButton)
 TBPROPERTY_READONLY(NSButton *,            disconnectButton)
+TBPROPERTY_READONLY(NSButton *,            diagnosticInfoToClipboardButton)
+TBPROPERTY_READONLY(NSProgressIndicator *, diagnosticInfoToClipboardProgressIndicator)
 TBPROPERTY_READONLY(NSButton *,            connectButton)
 
 TBPROPERTY_READONLY(NSTabView *,           configurationsTabView)
@@ -131,8 +140,7 @@ TBPROPERTY_READONLY(NSTabView *,           configurationsTabView)
 TBPROPERTY_READONLY(NSTabViewItem *,       logTabViewItem)
 TBPROPERTY_READONLY(NSTextView *,          logView)
 
-TBPROPERTY_READONLY(NSProgressIndicator *, progressIndicator)
-TBPROPERTY_READONLY(NSButton *,            logToClipboardButton)
+TBPROPERTY_READONLY(NSProgressIndicator *, logDisplayProgressIndicator)
 
 TBPROPERTY_READONLY(NSTabViewItem *,       settingsTabViewItem)
 

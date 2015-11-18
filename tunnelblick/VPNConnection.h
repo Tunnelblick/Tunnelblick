@@ -136,9 +136,12 @@ struct Statistics {
     BOOL            ipCheckLastHostWasIPAddress; // Host part of server's URL that was last used to check IP info was an IP address, not a name
 	BOOL            speakWhenConnected; // True iff should speak that we are connected
 	BOOL            speakWhenDisconnected; // True iff should speak that we are disconnected
-    BOOL            retryingConnectAfterSecuringConfiguration; // True only during such an attempt, to avoid infinte recursion if securing the config fails
     BOOL            hasAuthUserPass;    // True iff configuration has a 'auth-user-pass' option. VALID ONLY IF tunOrTap is not nil
     BOOL            discardSocketInput; // True if should discard anything from the managment socket (set after receiving status of EXITING)
+	
+	BOOL volatile	connectAfterDisconnect; // True if need to connect again after the disconnect completes
+	BOOL volatile	connectAfterDisconnectUserKnows; // Argument for the reconnect
+    BOOL volatile   completelyDisconnected; // True only after GUI has caught up to disconnect request
 }
 
 // PUBLIC METHODS:
@@ -161,6 +164,8 @@ struct Statistics {
 
 -(NSString *)       connectTimeString;
 
+-(void)             connectOnMainThreadUserKnows: (NSNumber *)        userKnows;
+
 -(void)             connect:                    (id)                sender
                   userKnows:                    (BOOL)              userKnows;
 
@@ -169,6 +174,8 @@ struct Statistics {
 -(BOOL)             startDisconnectingUserKnows: (NSNumber *)    userKnows;
 
 -(BOOL)             waitUntilDisconnected;
+
+-(void)             waitUntilCompletelyDisconnected;
 
 -(NSString *)       displayLocation;
 
@@ -231,7 +238,7 @@ struct Statistics {
 
 -(void)             setState:                   (NSString *)    newState;
 
--(BOOL)				shadowIsIdenticalMakeItSo:  (BOOL)		    makeItSo;
+-(BOOL)				shadowCopyIsIdentical;
 
 -(BOOL)             shouldDisconnectWhenBecomeInactiveUser;
 

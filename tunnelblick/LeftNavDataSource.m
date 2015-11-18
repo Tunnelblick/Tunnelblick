@@ -1,5 +1,5 @@
 /*
- * Copyright 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -315,10 +315,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
         targetPath = [targetPath stringByAppendingPathExtension: @"tblk"];
     }
 
-    [ConfigurationManager renameConfigurationFromPath: sourcePath
-                                               toPath: targetPath
-                                     authorizationPtr: nil];
-    
+	[ConfigurationManager renameConfigurationInNewThreadAtPath: sourcePath toPath: targetPath];
 }
 
 @end

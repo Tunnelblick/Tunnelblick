@@ -128,20 +128,24 @@ extern TBUserDefaults * gTbDefaults;
 	
 	[renameConfigurationMenuItem          setTitle: NSLocalizedString(@"Rename Configuration..."                          , @"Menu Item")];
     [duplicateConfigurationMenuItem       setTitle: NSLocalizedString(@"Duplicate Configuration..."                       , @"Menu Item")];
+    [makePrivateMenuItem			      setTitle: NSLocalizedString(@"Make Configuration Private..."                    , @"Menu Item")];
+    [makeSharedMenuItem                   setTitle: NSLocalizedString(@"Make Configuration Shared..."                     , @"Menu Item")];
     [revertToShadowMenuItem			      setTitle: NSLocalizedString(@"Revert Configuration..."                          , @"Menu Item")];
+    [showOnTbMenuMenuItem			      setTitle: NSLocalizedString(@"Show on Tunnelblick Menu"                         , @"Menu Item")];
+    [doNotShowOnTbMenuMenuItem		      setTitle: NSLocalizedString(@"Do Not Show on Tunnelblick Menu"                  , @"Menu Item")];
     [editOpenVPNConfigurationFileMenuItem setTitle: NSLocalizedString(@"Edit OpenVPN Configuration File..."               , @"Menu Item")];
     [showOpenvpnLogMenuItem               setTitle: NSLocalizedString(@"Show OpenVPN Log in Finder"                       , @"Menu Item")];
     [removeCredentialsMenuItem            setTitle: NSLocalizedString(@"Delete Configuration's Credentials in Keychain...", @"Menu Item")];
     
-    // showHideOnTbMenuMenuItem, editOpenVPNConfigurationFileMenuItem, and makePrivateOrSharedMenuItem are initialized in validateDetailsWindowControls
+    // "editOpenVPNConfigurationFileMenuItem" is initialized in validateDetailsWindowControls
     
     
     // Right split view - Log tab
     
     [logTabViewItem setLabel: NSLocalizedString(@"Log", @"Window title")];
     
-    [self setTitle: NSLocalizedString(@"Copy Diagnostic Info to Clipboard", @"Button") ofControl: logToClipboardButton];
-    
+    [diagnosticInfoToClipboardButton setTitle: NSLocalizedString(@"Copy Diagnostic Info to Clipboard", @"Button")];
+    [diagnosticInfoToClipboardButton sizeToFit];
     
     // Right split view - Settings tab
     
@@ -248,14 +252,18 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   workOnConfigurationArrayC
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          renameConfigurationMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          duplicateConfigurationMenuItem)
-TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          makePrivateOrSharedMenuItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          makePrivateMenuItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          makeSharedMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          revertToShadowMenuItem)
-TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          showHideOnTbMenuMenuItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          showOnTbMenuMenuItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          doNotShowOnTbMenuMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          editOpenVPNConfigurationFileMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          showOpenvpnLogMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          removeCredentialsMenuItem)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            configurationsHelpButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            diagnosticInfoToClipboardButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, diagnosticInfoToClipboardProgressIndicator)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            disconnectButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            connectButton)
 
@@ -264,8 +272,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTabView *,           configurationsTabView)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,       logTabViewItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextView *,          logView)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, progressIndicator)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            logToClipboardButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, logDisplayProgressIndicator)
 
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,       settingsTabViewItem)

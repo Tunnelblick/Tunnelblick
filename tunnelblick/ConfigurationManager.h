@@ -62,43 +62,50 @@
 	BOOL multipleConfigurations;
 }
 
-+(id)                       manager;
-
 +(NSDictionary *)           plistInTblkAtPath:          (NSString *)         path;
 
-+(void)                     renameConfigurationFromPath: (NSString *)         sourcePath
-                                                 toPath: (NSString *)         targetPath
-                                       authorizationPtr: (AuthorizationRef *) authorizationPtr;
++(void)                     editOrExamineConfigurationForConnection: (VPNConnection *) connection;
 
--(void)                     addConfigurationGuide;
++(NSMutableDictionary *)    getConfigurations;
 
--(BOOL)                     copyConfigPath:             (NSString *)         sourcePath
-                                    toPath:             (NSString *)         targetPath
-                           usingAuthRefPtr:             (AuthorizationRef *) authRefPtr
-                                warnDialog:             (BOOL)               warn
-                               moveNotCopy:             (BOOL)               moveInstead;
-
--(BOOL)                     deleteConfigPath:           (NSString *)         targetPath
-                             usingAuthRefPtr:           (AuthorizationRef *) authRefPtr
-                                  warnDialog:           (BOOL)               warn;
-
--(void)                     editOrExamineConfigurationForConnection: (VPNConnection *) connection;
-
--(NSMutableDictionary *)    getConfigurations;
-
--(void)                     haveNoConfigurationsGuide;
-
--(void)                     installConfigurations:      (NSArray *)         filePaths
-                          skipConfirmationMessage:      (BOOL)              skipConfirmMsg
-                                skipResultMessage:      (BOOL)              skipResultMsg
-                                   notifyDelegate:      (BOOL)              notifyDelegate;
-
--(NSString *)               parseConfigurationPath:     (NSString *)        cfgPath
++(NSString *)               parseConfigurationPath:     (NSString *)        cfgPath
                                      forConnection:     (VPNConnection *)   connection
                                    hasAuthUserPass:     (BOOL *)            hasAuthUserPass;
 
--(void)                     shareOrPrivatizeAtPath:     (NSString *)        path;
++(BOOL)                     userCanEditConfiguration:   (NSString *)        filePath;
 
--(BOOL)                     userCanEditConfiguration:   (NSString *)        filePath;
++(void) makeConfigurationsPrivateInNewThreadWithDisplayNames: (NSArray *) displayNames;
 
++(void) makeConfigurationsSharedInNewThreadWithDisplayNames: (NSArray *) displayNames;
+
++(void) removeConfigurationsInNewThreadWithDisplayNames: (NSArray *) displayNames;
+
++(void) revertToShadowInNewThreadWithDisplayNames: (NSArray *) displayNames;
+
++(void) removeCredentialsInNewThreadWithDisplayNames: (NSArray *) displayNames;
+
++(void) renameConfigurationInNewThreadWithDisplayName: (NSString *) displayName;
+
++(void) createShadowConfigurationInNewThreadWithDisplayName: (NSString *) displayName thenConnectUserKnows: (BOOL) userKnows
+													;
+
++(void) renameConfigurationInNewThreadAtPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
+
++(void) duplicateConfigurationInNewThreadPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
+
++(void) installConfigurationsUpdateInBundleInNewThreadAtPath: (NSString *) path;
+
++(void) installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: (NSArray *) filePaths;
+
++(void) installConfigurationsInNewThreadShowMessagesDoNotNotifyDelegateWithPaths: (NSArray *) filePaths;
+
++(void) putDiagnosticInfoOnClipboardInNewThreadForDisplayName: (NSString *) displayName;
+
++(void) putConsoleLogOnClipboardInNewThread;
+
++(void) addConfigurationGuideInNewThread;
+
++(void) haveNoConfigurationsGuideInNewThread;
+
++(void) installConfigurationsInCurrentMainThreadDoNotShowMessagesDoNotNotifyDelegateWithPaths: (NSArray *)  paths;
 @end

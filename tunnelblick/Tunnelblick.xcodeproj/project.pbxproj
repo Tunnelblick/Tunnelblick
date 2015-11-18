@@ -71,6 +71,7 @@
 		634EE8391191F89800DF4E43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6353818E1116031F00D68E83 /* dsa_pub.pem */; };
 		635713A61A6709D800709670 /* AR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635713A31A6709D800709670 /* AR.lproj */; };
+		63589B0D1BF2F24E00E413B6 /* TBOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 63589B0C1BF2F24E00E413B6 /* TBOperationQueue.m */; };
 		635BF1AF1501CE4E00D87717 /* ExternalBuildCleanScript.sh in Resources */ = {isa = PBXBuildFile; fileRef = 635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */; };
 		635C80461300353000DB27AE /* ApplescriptCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 635C80451300353000DB27AE /* ApplescriptCommands.m */; };
 		635CA45312F8285D00287298 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 635CA45212F8285D00287298 /* COPYING */; };
@@ -391,6 +392,8 @@
 		634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationsView.m; sourceTree = "<group>"; };
 		6353818E1116031F00D68E83 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		635713A31A6709D800709670 /* AR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AR.lproj; sourceTree = "<group>"; };
+		63589B0B1BF2F24E00E413B6 /* TBOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBOperationQueue.h; sourceTree = "<group>"; };
+		63589B0C1BF2F24E00E413B6 /* TBOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBOperationQueue.m; sourceTree = "<group>"; };
 		635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ExternalBuildCleanScript.sh; sourceTree = "<group>"; };
 		635C80441300353000DB27AE /* ApplescriptCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplescriptCommands.h; sourceTree = "<group>"; };
 		635C80451300353000DB27AE /* ApplescriptCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplescriptCommands.m; sourceTree = "<group>"; };
@@ -994,6 +997,8 @@
 				6185E73F0E76045D0009C2FD /* helper.m */,
 				B8045A07161EF26700609C98 /* sharedRoutines.h */,
 				B8045A08161EF26700609C98 /* sharedRoutines.m */,
+				63589B0B1BF2F24E00E413B6 /* TBOperationQueue.h */,
+				63589B0C1BF2F24E00E413B6 /* TBOperationQueue.m */,
 				638E695F1097725500587933 /* TBUserDefaults.h */,
 				638E69601097725500587933 /* TBUserDefaults.m */,
 			);
@@ -1653,6 +1658,7 @@
 				63CC72F91928C5CB00F81220 /* TBUIUpdater.h.m in Sources */,
 				632BB9E8194F2CFA006CD7DA /* AlertWindowController.m in Sources */,
 				63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */,
+				63589B0D1BF2F24E00E413B6 /* TBOperationQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

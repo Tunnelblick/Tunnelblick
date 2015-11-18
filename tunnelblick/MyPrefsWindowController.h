@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -87,14 +87,16 @@
 -(void) update;
 -(BOOL) forceDisableOfNetworkMonitoring;
 
--(void) indicateWaitingForConnection:                         (VPNConnection *) theConnection;
--(void) indicateNotWaitingForConnection:                      (VPNConnection *) theConnection;
+-(void) indicateWaitingForLogDisplay:                         (VPNConnection *) theConnection;
+-(void) indicateNotWaitingForLogDisplay:                      (VPNConnection *) theConnection;
 -(void) hookedUpOrStartedConnection:                          (VPNConnection *) theConnection;
 -(void) validateWhenConnectingForConnection:                  (VPNConnection *) theConnection;
 -(void) validateConnectAndDisconnectButtonsForConnection:     (VPNConnection *) theConnection;
+-(void) validateDetailsWindowControls;
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 -(void) setupAppearanceConnectionWindowScreenButton;
 -(void) setupAppearancePlaceIconNearSpotlightCheckbox;
+-(void) setupLeftNavigationToDisplayName:                     (NSString *) displayName;
 
 // Used by LogDisplay to scroll to the current point in the log
 -(NSTextView *) logView;
@@ -108,9 +110,11 @@
 
 -(IBAction) renameConfigurationMenuItemWasClicked:    (id) sender;
 -(IBAction) duplicateConfigurationMenuItemWasClicked: (id) sender;
--(IBAction) makePrivateOrSharedMenuItemWasClicked:    (id) sender;
+-(IBAction) makePrivateMenuItemWasClicked:            (id) sender;
+-(IBAction) makeSharedMenuItemWasClicked:             (id) sender;
 -(IBAction) revertToShadowMenuItemWasClicked:         (id) sender;
--(IBAction) showHideOnTbMenuMenuItemWasClicked:       (id) sender;
+-(IBAction) showOnTbMenuMenuItemWasClicked:           (id) sender;
+-(IBAction) doNotShowOnTbMenuMenuItemWasClicked:      (id) sender;
 -(IBAction) editOpenVPNConfigurationFileMenuItemWasClicked: (id) sender;
 -(IBAction) showOpenvpnLogMenuItemWasClicked:         (id)  sender;
 -(IBAction) removeCredentialsMenuItemWasClicked:      (id) sender;
@@ -118,7 +122,7 @@
 -(IBAction) disconnectButtonWasClicked:               (id)  sender;
 -(IBAction) connectButtonWasClicked:                  (id)  sender;
 
--(IBAction) logToClipboardButtonWasClicked:           (id)  sender;
+-(IBAction) diagnosticInfoToClipboardButtonWasClicked:(id)  sender;
 
 -(IBAction) configurationsHelpButtonWasClicked:       (id)  sender;
 
@@ -127,8 +131,6 @@
 -(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (NSButton *) sender;
 -(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked: (NSButton *) sender;
 -(IBAction) disableIpv6OnTunCheckboxWasClicked:                     (NSButton *) sender;
-
--(void)		validateDetailsWindowControls;
 
 -(IBAction) whenToConnectManuallyMenuItemWasClicked:          (id) sender;
 -(IBAction) whenToConnectTunnelBlickLaunchMenuItemWasClicked: (id) sender;
@@ -176,7 +178,7 @@
 
 -(IBAction) utilitiesRunEasyRsaButtonWasClicked:          (id) sender;
 
--(IBAction) utilitiesCopyConsoleLogButtonWasClicked:      (id) sender;
+-(IBAction) consoleLogToClipboardButtonWasClicked:        (id) sender;
 
 -(IBAction) utilitiesHelpButtonWasClicked:                (id) sender;
 

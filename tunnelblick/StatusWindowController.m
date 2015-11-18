@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -29,6 +29,7 @@
 
 #import "MenuController.h"
 #import "NSTimer+TB.h"
+#import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
 
 
@@ -114,15 +115,23 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     }
 }
 
--(void) restore
-{
-    if (   [status isEqualToString: @"EXITING"]  ) {
-		[connectButton setEnabled: YES];
+-(void) enableOrDisableButtons {
+	
+    if (  ! [TBOperationQueue shouldUIBeEnabledForDisplayName: name]  ) {
+		[connectButton    setEnabled: NO];
+		[disconnectButton setEnabled: YES];
+	} else if (   [status isEqualToString: @"EXITING"]  ) {
+		[connectButton    setEnabled: YES];
 		[disconnectButton setEnabled: NO];
     } else {
-		[connectButton setEnabled: NO];
+		[connectButton    setEnabled: NO];
 		[disconnectButton setEnabled: YES];
     }
+}
+
+-(void) restore
+{
+    [self enableOrDisableButtons];
     [self startMouseTracking];
     [self setSizeAndPosition];
     [[self window] display];
@@ -601,24 +610,20 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         [statusTFC            setTextColor: [NSColor redColor]];
         [theAnim stopAnimation];
         [animationIV setImage: [((MenuController *)[NSApp delegate]) largeMainImage]];
-		[connectButton setEnabled: YES];
-		[disconnectButton setEnabled: NO];
         
     } else if (  [theStatus isEqualToString: @"CONNECTED"]  ) {
         [configurationNameTFC setTextColor: [NSColor greenColor]];
         [statusTFC            setTextColor: [NSColor greenColor]];
         [theAnim stopAnimation];
         [animationIV setImage: [((MenuController *)[NSApp delegate]) largeConnectedImage]];
-		[connectButton setEnabled: NO];
-		[disconnectButton setEnabled: YES];
 
     } else {
         [configurationNameTFC setTextColor: [NSColor yellowColor]];
         [statusTFC            setTextColor: [NSColor yellowColor]];
         [theAnim startAnimation];
-		[connectButton setEnabled: NO];
-		[disconnectButton setEnabled: YES];
     }
+	
+	[self enableOrDisableButtons];
 }
 
 -(id) delegate

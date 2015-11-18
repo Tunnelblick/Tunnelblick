@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -58,8 +58,8 @@ extern TBUserDefaults * gTbDefaults;
     [utilitiesKillAllOpenVpnButton sizeToFit];
 	[utilitiesKillAllOpenVpnButton setEnabled: ALLOW_OPENVPNSTART_KILLALL];
 	
-	[utilitiesCopyConsoleLogButton setTitle: NSLocalizedString(@"Copy Console Log to Clipboard", @"Button")];
-    [utilitiesCopyConsoleLogButton sizeToFit];	
+	[consoleLogToClipboardButton setTitle: NSLocalizedString(@"Copy Console Log to Clipboard", @"Button")];
+    [consoleLogToClipboardButton sizeToFit];	
     
 	[utilitiesOpenUninstallInstructionsButton setTitle: NSLocalizedString(@"Open Uninstall Instructions in Browser", @"Button")];
     [utilitiesOpenUninstallInstructionsButton sizeToFit];	
@@ -86,7 +86,8 @@ extern TBUserDefaults * gTbDefaults;
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesKillAllOpenVpnButton)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesCopyConsoleLogButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          consoleLogToClipboardButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, consoleLogToClipboardProgressIndicator)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesOpenUninstallInstructionsButton)
 

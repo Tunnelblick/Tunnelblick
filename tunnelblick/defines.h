@@ -256,8 +256,9 @@
 //*************************************************************************************************
 // Error return codes for openvpnstart
 #define OPENVPNSTART_COMPARE_CONFIG_SAME             0
+#define OPENVPNSTART_REVERT_CONFIG_OK				 0
 #define OPENVPNSTART_NO_SUCH_OPENVPN_PROCESS         248
-#define OPENVPNSTART_REVERT_CONFIG_OK				 249
+// UNUSED											 249 UNUSED
 #define OPENVPNSTART_REVERT_CONFIG_MISSING			 250
 #define OPENVPNSTART_COULD_NOT_START_OPENVPN         251
 #define OPENVPNSTART_COMPARE_CONFIG_DIFFERENT        252
@@ -323,6 +324,10 @@ typedef enum
 	statusWindowControllerDisconnectChoice,
     statusWindowControllerConnectChoice,
 } StatusWindowControllerChoice;
+
+
+//*************************************************************************************************
+#define CSTRING_FROM_BOOL(arg) (  (arg) ? "YES" : "NO"  )
 
 
 //*************************************************************************************************

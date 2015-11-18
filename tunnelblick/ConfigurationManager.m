@@ -21,6 +21,7 @@
 
 #import "ConfigurationManager.h"
 
+#import <asl.h>
 #import <sys/param.h>
 #import <sys/mount.h>
 #import <unistd.h>
@@ -29,6 +30,7 @@
 #import "helper.h"
 #import "sharedRoutines.h"
 
+#import "AuthAgent.h"
 #import "ConfigurationConverter.h"
 #import "ConfigurationMultiUpdater.h"
 #import "ListingWindowController.h"
@@ -37,11 +39,13 @@
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
+#import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
 #import "VPNConnection.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSArray              * gConfigurationPreferences;
+extern NSArray              * gProgramPreferences;
 extern NSString             * gPrivatePath;
 extern NSString             * gDeployPath;
 extern NSFileManager        * gFileMgr;
@@ -347,99 +351,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return nil;
 }
 
-+(void) renameConfigurationFromPath: (NSString *)         sourcePath
-                             toPath: (NSString *)         targetPath
-                   authorizationPtr: (AuthorizationRef *) authorizationPtr {
-    
-    NSString * sourceName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
-    NSString * targetName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-    
-    VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceName];
-    if (  ! connection  ) {
-        NSLog(@"renameConfigurationMenuItemWasClicked or name change on leftNav list but no configuration has been selected");
-        return;
-    }
-    
-    if (  ! [connection isDisconnected]  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Active connection", @"Window title"),
-                          NSLocalizedString(@"You cannot rename a configuration unless it is disconnected.", @"Window text"));
-        return;
-    }
-    
-    NSString * autoConnectKey = [sourceName stringByAppendingString: @"autoConnect"];
-    NSString * onSystemStartKey = [sourceName stringByAppendingString: @"-onSystemStart"];
-    if (   [gTbDefaults boolForKey: autoConnectKey]
-        && [gTbDefaults boolForKey: onSystemStartKey]  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          NSLocalizedString(@"You may not rename a configuration which is set to start when the computer starts.", @"Window text"));
-        return;
-    }
-    
-    if (  [sourcePath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          NSLocalizedString(@"You may not rename a Deployed configuration.", @"Window text"));
-        return;
-    }
-    
-    AuthorizationRef  localAuthorization = NULL;
-	
-	AuthorizationRef *authPtrToUse = (  authorizationPtr
-									   ? authorizationPtr
-									   : &localAuthorization);
-	
-	if (  ! *authPtrToUse  ) {
-		NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to rename '%@' to '%@'.", @"Window text"), sourceName, targetName];
-		*authPtrToUse = [NSApplication getAuthorizationRef: msg];
-		
-		[[NSApp delegate] reactivateTunnelblick];
-		
-		if ( *authPtrToUse   == NULL ) {
-			return;
-		}
-	}
-
-    if (  [[ConfigurationManager manager] copyConfigPath: sourcePath
-                                                  toPath: targetPath
-                                         usingAuthRefPtr: authPtrToUse
-                                              warnDialog: YES
-                                             moveNotCopy: YES]  ) {
-        
-        // Save status of "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" because they are deleted by moveCredentials
-        BOOL havePwCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
-        BOOL haveUnCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasUsername"]];
-	    BOOL havePkCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasPrivateKey"]];
-        
-        moveCredentials(sourceName, targetName);
-        
-        if (  ! [gTbDefaults movePreferencesFrom: sourceName to: targetName]  ) {
-            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
-                              NSLocalizedString(@"Warning: One or more preferences could not be renamed. See the Console Log for details.", @"Window text"));
-        }
-        
-        // Restore "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" to the new configuration's preferences because they were not transferred by moveCredentials
-        [gTbDefaults setBool: havePwCredentials forKey: [targetName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
-        [gTbDefaults setBool: haveUnCredentials forKey: [targetName stringByAppendingString: @"-keychainHasUsername"]];
-		[gTbDefaults setBool: havePkCredentials forKey: [targetName stringByAppendingString: @"-keychainHasPrivateKey"]];
-        
-		// We also need to change the name of the configuration that is selected
-		NSString * pref = [gTbDefaults stringForKey: @"leftNavSelectedDisplayName"];
-		if (  [pref isEqualToString: sourceName]  ) {
-			[gTbDefaults setObject: targetName forKey: @"leftNavSelectedDisplayName"];
-		}
-		
-		[[((MenuController *)[NSApp delegate]) logScreen] setPreviouslySelectedNameOnLeftNavList: targetName];
-		
-		[((MenuController *)[NSApp delegate]) updateMenuAndDetailsWindow];
-		
-    }
-    
-    if (  authPtrToUse == &localAuthorization  ) {
-        AuthorizationFree(localAuthorization, kAuthorizationFlagDefaults);
-        localAuthorization = NULL;
-    }
-}
-
--(BOOL)  addConfigsFromPath: (NSString *)               folderPath
++(BOOL)  addConfigsFromPath: (NSString *)               folderPath
             thatArePackages: (BOOL)                     onlyPkgs
                      toDict: (NSMutableDictionary *)    dict
                searchDeeply: (BOOL)                     deep {
@@ -548,7 +460,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return  ! ignored;
 }            
 
--(NSMutableDictionary *) getConfigurations {
++(NSMutableDictionary *) getConfigurations {
     
     // Returns a dictionary with information about the configuration files in gConfigDirs.
     // The key for each entry is the display name for the configuration; the object is the path to the configuration file
@@ -565,10 +477,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSMutableDictionary * dict = [[[NSMutableDictionary alloc] init] autorelease];
     BOOL noneIgnored = TRUE;
     
-    noneIgnored = [self addConfigsFromPath: gDeployPath  thatArePackages: YES toDict: dict searchDeeply: YES ] && noneIgnored;
-    noneIgnored = [self addConfigsFromPath: gDeployPath  thatArePackages:  NO toDict: dict searchDeeply: YES ] && noneIgnored;
-    noneIgnored = [self addConfigsFromPath: L_AS_T_SHARED  thatArePackages: YES toDict: dict searchDeeply: YES ] && noneIgnored;
-    noneIgnored = [self addConfigsFromPath: gPrivatePath thatArePackages:   YES toDict: dict searchDeeply: YES ] && noneIgnored;
+    noneIgnored = [ConfigurationManager addConfigsFromPath: gDeployPath  thatArePackages: YES toDict: dict searchDeeply: YES ] && noneIgnored;
+    noneIgnored = [ConfigurationManager addConfigsFromPath: gDeployPath  thatArePackages:  NO toDict: dict searchDeeply: YES ] && noneIgnored;
+    noneIgnored = [ConfigurationManager addConfigsFromPath: L_AS_T_SHARED  thatArePackages: YES toDict: dict searchDeeply: YES ] && noneIgnored;
+    noneIgnored = [ConfigurationManager addConfigsFromPath: gPrivatePath thatArePackages:   YES toDict: dict searchDeeply: YES ] && noneIgnored;
     
     if (  ! noneIgnored  ) {
         TBRunAlertPanelExtended(NSLocalizedString(@"Configuration(s) Ignored", @"Window title"),
@@ -582,31 +494,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return dict;
 }
 
--(NSString *) extractTblkNameFromPath: (NSString *) path {
-    
-    // Given a path, returns the name of the .tblk that encloses it (without the .tblk)
-    // If path is a .tblk, returns the path (without the .tblk)
-    // If path is not a .tblk and is not enclosed in a .tblk, returns the path
-    
-    // Find ".tblk" so we can ignore it and everything after it
-    NSRange rng1 = [path rangeOfString: @".tblk" options: NSBackwardsSearch];
-    if (  rng1.location == NSNotFound  ) { // if no ".tblk", don't ignore anything
-        rng1.location = [path length];
-    }
-    
-    // Then find the "/" before that so we can include everything after it
-    NSRange rng2 = [path rangeOfString: @"/" options: NSBackwardsSearch range: NSMakeRange(0, rng1.location)];
-	if (  rng2.location == NSNotFound  ) {
-		rng2.location = 0;  // No "/", so include from start of string
-	} else {
-		rng2.location += 1; // Otherwise, don't include the "/" itself
-	}
-	
-    NSString * returnString = [path substringWithRange: NSMakeRange(rng2.location, rng1.location - rng2.location)];
-    return returnString;
-}
-
--(BOOL) userCanEditConfiguration: (NSString *) filePath {
++(BOOL) userCanEditConfiguration: (NSString *) filePath {
     
     NSString * extension = [filePath pathExtension];
     if (  ! (   [extension isEqualToString: @"tblk"]
@@ -641,7 +529,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         // NOTE: The window controller is allocated here, but releases itself when the window is closed.
         //       So _we_ don't release it, and we can overwrite listingWindow with impunity.
-        //       (The class variable 'listingWindow' is used to avoid an analyzer warning about a leak.)
+        //       (The instance variable 'listingWindow' is used to avoid an analyzer warning about a leak.)
         listingWindow = [[ListingWindowController alloc] initWithHeading: heading
                                                                     text: configFileContents];
         [listingWindow showWindow: self];
@@ -651,7 +539,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 }
 
--(void) editOrExamineConfigurationForConnection: (VPNConnection *) connection {
++(void) editOrExamineConfigurationForConnection: (VPNConnection *) connection {
     
     NSString * targetPath = [connection configPath];
     if ( ! targetPath  ) {
@@ -659,75 +547,18 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return;
     }
     
-    if (  [self userCanEditConfiguration: targetPath]  ) {
+    if (  [ConfigurationManager userCanEditConfiguration: targetPath]  ) {
 		if (  [[targetPath pathExtension] isEqualToString: @"tblk"]  ) {
 			targetPath = [targetPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
 		}
         [connection invalidateConfigurationParse];
         [[NSWorkspace sharedWorkspace] openFile: targetPath withApplication: @"TextEdit"];
     } else {
-        [self examineConfigFileForConnection: connection];
+        [[ConfigurationManager manager] examineConfigFileForConnection: connection];
     }
 }
 
--(void) shareOrPrivatizeAtPath: (NSString *) path {
-    
-    // Make a private configuration shared, or a shared configuration private
-    
-    NSString * source;
-    NSString * target;
-    NSString * msg;
-	
-    if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
-        NSString * last = lastPartOfPath(path);
-        NSString * name = [last stringByDeletingPathExtension];
-        if (  [path hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
-            NSString * lastButOvpn = [name stringByAppendingPathExtension: @"ovpn"];
-            NSString * lastButConf = [name stringByAppendingPathExtension: @"conf"];
-            if (   [gFileMgr fileExistsAtPath: [gPrivatePath stringByAppendingPathComponent: last]]
-                || [gFileMgr fileExistsAtPath: [gPrivatePath stringByAppendingPathComponent: lastButOvpn]]
-                || [gFileMgr fileExistsAtPath: [gPrivatePath stringByAppendingPathComponent: lastButConf]]  ) {
-                int result = TBRunAlertPanel(NSLocalizedString(@"Replace VPN Configuration?", @"Window title"),
-                                             [NSString stringWithFormat: NSLocalizedString(@"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?", @"Window text"), name],
-                                             NSLocalizedString(@"Replace", @"Button"),
-                                             NSLocalizedString(@"Cancel" , @"Button"),
-                                             nil);
-                if (  result != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
-                    return;
-                }
-            }
-            
-            source = [[path copy] autorelease];
-            target = [gPrivatePath stringByAppendingPathComponent: last];
-            msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to make the '%@' configuration private, instead of shared.", @"Window text"), name];
-        } else if (  [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-            source = [[path copy] autorelease];
-            target = [L_AS_T_SHARED stringByAppendingPathComponent: last];
-            msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to make the '%@' configuration shared, instead of private.", @"Window text"), name];
-        } else {
-            NSLog(@"shareOrPrivatizeAtPath: Internal error: path is not private or shared at %@", path);
-            return;
-        }
-        
-        AuthorizationRef authRef = [NSApplication getAuthorizationRef: msg];
-		
-		[[NSApp delegate] reactivateTunnelblick];
-		
-        if ( authRef == NULL ) {
-            return;
-        }
-        
-        [self copyConfigPath: source
-                      toPath: target
-             usingAuthRefPtr: &authRef
-                  warnDialog: YES
-                 moveNotCopy: YES];
-        
-        AuthorizationFree(authRef, kAuthorizationFlagDefaults);
-    }
-}
-
--(NSString *) parseString: (NSString *) cfgContents
++(NSString *) parseString: (NSString *) cfgContents
                 forOption: (NSString *) option {
     
     // Returns nil if the option is not found in the string that contains the contents of the configuration file
@@ -839,7 +670,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return nil;
 }
 
--(NSString *)parseConfigurationPath: (NSString *)      cfgPath
++(NSString *)parseConfigurationPath: (NSString *)      cfgPath
                       forConnection: (VPNConnection *) connection
                     hasAuthUserPass: (BOOL *)          hasAuthUserPass {
     
@@ -868,17 +699,17 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * cfgContents = condensedConfigFileContentsFromString(stdOut);
     
     // Set hasAuthUserPass TRUE if auth-user-pass appears and has no parameters
-    NSString * authUserPassOption = [self parseString: cfgContents forOption: @"auth-user-pass" ];
+    NSString * authUserPassOption = [ConfigurationManager parseString: cfgContents forOption: @"auth-user-pass" ];
     *hasAuthUserPass = (  authUserPassOption
                         ? ([authUserPassOption length] == 0)
                         : NO);
                            
 
-    NSString * userOption  = [self parseString: cfgContents forOption: @"user" ];
+    NSString * userOption  = [ConfigurationManager parseString: cfgContents forOption: @"user" ];
     if (  [userOption length] == 0  ) {
         userOption = nil;
     }
-    NSString * groupOption = [self parseString: cfgContents forOption: @"group"];
+    NSString * groupOption = [ConfigurationManager parseString: cfgContents forOption: @"group"];
     if (  [groupOption length] == 0  ) {
         groupOption = nil;
     }
@@ -888,7 +719,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         &&     [gTbDefaults canChangeValueForKey: useDownRootPluginKey]
         && ( ! [gTbDefaults boolForKey: skipWarningKey] )  ) {
         
-        NSString * downOption  = [self parseString: cfgContents forOption: @"down" ];
+        NSString * downOption  = [ConfigurationManager parseString: cfgContents forOption: @"down" ];
         if (  [downOption length] == 0  ) {
             downOption = nil;
         }
@@ -928,7 +759,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSString * option;
     NSEnumerator * e = [reservedOptions objectEnumerator];
     while (  (option = [e nextObject])  ) {
-        NSString * optionValue = [self parseString: cfgContents forOption: option];
+        NSString * optionValue = [ConfigurationManager parseString: cfgContents forOption: option];
         if (  optionValue  ) {
             NSLog(@"The configuration file for '%@' contains an OpenVPN '%@' option. That option is reserved for use by Tunnelblick. The option will be ignored", [connection displayName], option);
 		}
@@ -937,7 +768,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSArray * windowsOnlyOptions = OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY;
     e = [windowsOnlyOptions objectEnumerator];
     while (  (option = [e nextObject])  ) {
-        NSString * optionValue = [self parseString: cfgContents forOption: option];
+        NSString * optionValue = [ConfigurationManager parseString: cfgContents forOption: option];
         if (  optionValue  ) {
             NSLog(@"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X.", [connection displayName], option);
             NSString * msg = [NSString stringWithFormat:
@@ -949,7 +780,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
     
     // If there is a "dev-node" entry, return that device type (tun, utun, tap)
-	NSString * devNodeOption = [self parseString: cfgContents forOption: @"dev-node"];
+	NSString * devNodeOption = [ConfigurationManager parseString: cfgContents forOption: @"dev-node"];
 	if (  devNodeOption  ) {
 		if (  [devNodeOption hasPrefix: @"tun"]  ) {
 			return @"tun";
@@ -964,7 +795,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	}
     
     // If there is a "dev-type" entry, return that device type (tun, utun, tap)
-    NSString * devTypeOption = [self parseString: cfgContents forOption: @"dev-type"];
+    NSString * devTypeOption = [ConfigurationManager parseString: cfgContents forOption: @"dev-type"];
     if (  devTypeOption  ) {
         if (  [devTypeOption isEqualToString: @"tun"]  ) {
             return @"tun";
@@ -979,7 +810,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
     
     // If there is a "dev" entry, return that device type for 'tap' or 'utun' but for 'tun', return 'tunOrUtun' so that will be decided when connecting (depends on OS X version and OpenVPN version)
-    NSString * devOption = [self parseString: cfgContents forOption: @"dev"];
+    NSString * devOption = [ConfigurationManager parseString: cfgContents forOption: @"dev"];
     if (  devOption  ) {
 		if (  [devOption hasPrefix: @"tun"]  ) {
 			return @"tunOrUtun";                    // Uses utun if available (OS X 10.6.8+ and OpenVPN 2.3.3+)
@@ -1007,68 +838,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return nil;
 }
 
--(BOOL) copyConfigPath: (NSString *) sourcePath
-                toPath: (NSString *) targetPath
-       usingAuthRefPtr: (AuthorizationRef *) authRefPtr
-            warnDialog: (BOOL) warn
-           moveNotCopy: (BOOL) moveInstead {
-    
-    // Copies or moves a config file or package and sets ownership and permissions on the target
-    // Returns TRUE if succeeded in the copy or move -- EVEN IF THE CONFIG WAS NOT SECURED (an error message was output to the console log).
-    // Returns FALSE if failed, having already output an error message to the console log
-    
-    if (  [sourcePath isEqualToString: targetPath]  ) {
-        NSLog(@"You cannot copy or move a configuration to itself. Trying to do that with %@", sourcePath);
-        return FALSE;
-    }
-    
-	NSString * errMsg = allFilesAreReasonableIn(sourcePath);
-	if (  errMsg  ) {
-		NSLog(@"%@", errMsg);
-		return FALSE;
-	}
-    
-    unsigned firstArg = (moveInstead
-                         ? INSTALLER_MOVE_NOT_COPY
-                         : 0);
-    NSArray * arguments = [NSArray arrayWithObjects: targetPath, sourcePath, nil];
-    
-    NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: firstArg
-												extraArguments: arguments
-											   usingAuthRefPtr: authRefPtr
-													   message: nil
-											 installTblksFirst: nil];
-	if (  installerResult == 0  ) {
-        return TRUE;
-    }
-	
-	if (  installerResult == 1  ) {
-		return FALSE;
-	}
-    
-	NSString * name = lastPartOfPath(targetPath);
-    if (  ! moveInstead  ) {
-        NSLog(@"Could not copy configuration file %@ to %@", sourcePath, targetPath);
-        if (  warn  ) {
-            NSString * title = NSLocalizedString(@"Could Not Copy Configuration", @"Window title");
-            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy the '%@' configuration. See the Console Log for details.", @"Window text"), name];
-            TBShowAlertWindow(title, msg);
-        }
-        
-        return FALSE;
-        
-    } else {
-        NSLog(@"Could not move configuration file %@ to %@", sourcePath, targetPath);
-        if (  warn  ) {
-            NSString * title = NSLocalizedString(@"Could Not Move Configuration", @"Window title");
-            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not move the '%@' configuration. See the Console Log for details.", @"Window text"), name];
-            TBShowAlertWindow(title, msg);
-        }
-        
-        return FALSE;
-    }
-}
-
 -(BOOL) deleteConfigPath: (NSString *) targetPath
          usingAuthRefPtr: (AuthorizationRef *) authRefPtr
               warnDialog: (BOOL) warn {
@@ -1090,13 +859,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, nil];
     
     [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil installTblksFirst: nil];
+	
+	NSString * localName = [[NSApp delegate] localizedNameForDisplayName: [[targetPath lastPathComponent] stringByDeletingPathExtension]];
     
-    if ( [gFileMgr fileExistsAtPath: targetPath]  ) {
-        NSString * name = [[targetPath lastPathComponent] stringByDeletingPathExtension];
+    if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
         NSLog(@"Could not uninstall configuration file %@", targetPath);
         if (  warn  ) {
             NSString * title = NSLocalizedString(@"Could Not Uninstall Configuration", @"Window title");
-            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details.", @"Window text"), name];
+            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
             TBShowAlertWindow(title, msg);
         }
         return FALSE;
@@ -1124,7 +894,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 NSLog(@"Could not delete \"stub\" .tblk container %@", containerPath);
                 if (  warn  ) {
                     NSString * title = NSLocalizedString(@"Could Not Uninstall Configuration", @"Window title");
-                    NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details.", @"Window text"), lastPartOfPath(targetPath)];
+                    NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
                     TBShowAlertWindow(title, msg);
                 }
                 return FALSE;
@@ -1137,7 +907,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return TRUE;
 }
 
--(void) guideState: (enum state_t) state {
++(void) guideState: (enum state_t) state {
     
     // guideState is sort of a state machine for displaying configuration dialog windows. It has a simple, LIFO history stored in an array to implement a "back" button
     
@@ -1279,13 +1049,18 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             case entryAddConfiguration:
             case stateHasConfigurations:
                 TBShowAlertWindow(NSLocalizedString(@"Add a Configuration", @"Window title"),
-                                  NSLocalizedString(@"Configurations are installed from files that are supplied to you by your network manager "
+                                  [NSString stringWithFormat: @"%@%@",
+								   NSLocalizedString(@"Configurations are installed from files that are supplied to you by your network manager "
                                                     "or VPN service provider.\n\n"
                                                     "Configuration files have extensions of .tblk, .ovpn, or .conf.\n\n"
                                                     "(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\n"
                                                     "To install a configuration file, double-click it.\n\n"
                                                     "The new configuration will be available in Tunnelblick immediately.",
-                                                    @"Window text"));
+                                                    @"Window text"),
+								   NSLocalizedString(@"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please "
+													 "drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder.",
+													 @"Window text")]);
+								   
                 
                 return;
                 
@@ -1308,19 +1083,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             state = nextState;
         }
     }
-}
-
--(void) haveNoConfigurationsGuide {
-    // There are no configurations installed. Guide the user
-    
-    [self guideState: entryNoConfigurations];
-}
-
--(void) addConfigurationGuide {
-    
-    // Guide the user through the process of adding a configuration (.tblk or .ovpn/.conf)
-    
-    [self guideState: entryAddConfiguration];
 }
 
 // *********************************************************************************************
@@ -2362,6 +2124,140 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 }
 
++(BOOL) copyConfigPath: (NSString *) sourcePath
+                toPath: (NSString *) targetPath
+       usingAuthRefPtr: (AuthorizationRef *) authRefPtr
+            warnDialog: (BOOL) warn
+           moveNotCopy: (BOOL) moveInstead {
+    
+    // Copies or moves a config file or package and sets ownership and permissions on the target
+    // Returns TRUE if succeeded in the copy or move -- EVEN IF THE CONFIG WAS NOT SECURED (an error message was output to the console log).
+    // Returns FALSE if failed or cancelled by the user, having already output an error message to the console log
+    
+    if (  [sourcePath isEqualToString: targetPath]  ) {
+        NSLog(@"You cannot copy or move a configuration to itself. Trying to do that with %@", sourcePath);
+        return FALSE;
+    }
+    
+	NSString * errMsg = allFilesAreReasonableIn(sourcePath);
+	if (  errMsg  ) {
+		NSLog(@"%@", errMsg);
+		return FALSE;
+	}
+    
+    unsigned firstArg = (moveInstead
+                         ? INSTALLER_MOVE_NOT_COPY
+                         : 0);
+    NSArray * arguments = [NSArray arrayWithObjects: targetPath, sourcePath, nil];
+    
+    NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: firstArg
+																	extraArguments: arguments
+																   usingAuthRefPtr: authRefPtr
+																		   message: nil
+																 installTblksFirst: nil];
+	if (  installerResult == 0  ) {
+        return TRUE;
+    }
+	
+	if (  installerResult == 1  ) {
+		return FALSE;
+	}
+    
+	NSString * localName = [[NSApp delegate] localizedNameForDisplayName: [lastPartOfPath(targetPath) stringByDeletingPathExtension]];
+    if (  ! moveInstead  ) {
+        NSLog(@"Could not copy configuration file %@ to %@", sourcePath, targetPath);
+        if (  warn  ) {
+            NSString * title = NSLocalizedString(@"Could Not Copy Configuration", @"Window title");
+            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
+            TBShowAlertWindow(title, msg);
+        }
+        
+        return FALSE;
+        
+    } else {
+        NSLog(@"Could not move configuration file %@ to %@", sourcePath, targetPath);
+        if (  warn  ) {
+            NSString * title = NSLocalizedString(@"Could Not Move Configuration", @"Window title");
+            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not move the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
+            TBShowAlertWindow(title, msg);
+        }
+        
+        return FALSE;
+    }
+}
+
+-(NSArray *) connectedConfigurationDisplayNames {
+    
+    // Returns an array with display names of .tblk replacements, updates, or deletions that are currently connected, or nil on error
+    
+    NSMutableArray * list = [[[NSMutableArray alloc] init] autorelease];
+    
+    NSArray * targetList = [NSArray arrayWithObjects: [self replaceTargets], [self updateTargets], [self deletions], nil];
+    NSArray * currentList;
+    NSEnumerator * listE = [targetList objectEnumerator];
+    while (  (currentList = [listE nextObject])  ) {
+        NSString * path;
+        NSEnumerator * e = [currentList objectEnumerator];
+        while (  (path = [e nextObject])  ) {
+            NSDictionary * configDict = [[NSApp delegate] myConfigDictionary];
+            NSArray * names = [configDict allKeysForObject: path];
+            if (  [names count] != 1  ) {
+                return [NSArray array];
+            }
+            VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: [names objectAtIndex: 0]];
+            if (  ! [[connection state] isEqualToString: @"EXITING"]  ) {
+                [list addObject: [names objectAtIndex: 0]];
+            }
+        }
+    }
+    
+    return [NSArray arrayWithArray: list];
+}
+
+-(void) disconnect: (NSArray *) displayNames {
+    
+    // Disconnect configurations that are to be installed/uninstalled/replaced
+    
+    NSString * name;
+    NSEnumerator * e = [displayNames objectEnumerator];
+    while (  (name = [e nextObject])  ) {
+        NSDictionary * dict = [[NSApp delegate] myVPNConnectionDictionary];
+        VPNConnection * connection = [dict objectForKey: name];
+        if (  connection  ) {
+            if (  ! [[connection state] isEqualToString: @"EXITING"]  ) {
+                NSLog(@"Starting disconnection of '%@'", [connection displayName]);
+                [connection startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];
+            }
+        } else {
+            NSLog(@"No entry for '%@' in myVPNConnectionDictionary = '%@'", [connection displayName], dict);
+        }
+    }
+    
+    // Wait for the VPN to be completely disconnected
+    e = [displayNames objectEnumerator];
+    while (  (name = [e nextObject])  ) {
+        VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: name];
+        [connection waitUntilCompletelyDisconnected];
+     }
+}
+
+-(void) reconnect: (NSArray *) displayNames {
+    
+    // Reconnect configurations that were disconnected because of install/uninstall/replace
+    
+    NSString * name;
+    NSEnumerator * e = [displayNames objectEnumerator];
+    while (  (name = [e nextObject])  ) {
+        VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: name];
+        if (  connection  ) {
+            NSLog(@"Starting reconnection of '%@'", name);
+            [connection performSelector: @selector(connectOnMainThreadUserKnows:) withObject: [NSNumber numberWithBool: YES] afterDelay: 1.0];
+        } else {
+            NSLog(@"Skipping reconnection of '%@' because it has been uninstalled", name);
+        }
+    }
+}
+
 -(NSApplicationDelegateReply) doUninstallslReplacementsInstallsSkipConfirmMsg: (BOOL) skipConfirmMsg
 																skipResultMsg: (BOOL) skipResultMsg {
     
@@ -2372,6 +2268,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSUInteger nToUninstall = [[self deletions]      count];
     NSUInteger nToInstall   = [[self installSources] count];
 	NSUInteger nToReplace   = [[self replaceSources] count];
+    
+    NSArray * connectedTargetDisplayNames = [self connectedConfigurationDisplayNames];
     
     // If there's nothing to do, just return as if the user cancelled
 	if (  (nToUninstall + nToInstall + nToReplace) == 0  ) {
@@ -2395,7 +2293,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                : (  (nToInstall == 1)
                                   ? NSLocalizedString(@"    • Install one configuration\n", @"Window text: 'Tunnelblick needs to: *'")
                                   : [NSString stringWithFormat: NSLocalizedString(@"    • Install %lu configurations\n\n", @"Window text: 'Tunnelblick needs to: *'"), (unsigned long)nToInstall]));
-    NSString * authMsg = [NSString stringWithFormat: @"Tunnelblick needs to:\n\n%@%@%@", uninstallMsg, replaceMsg, installMsg];
+    NSString * disconnectMsg = (  ([connectedTargetDisplayNames count] == 0)
+                                ? @""
+                                :  NSLocalizedString(@"\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n", @"Window text"));
+    
+    NSString * authMsg = [NSString stringWithFormat: @"Tunnelblick needs to:\n\n%@%@%@%@", uninstallMsg, replaceMsg, installMsg, disconnectMsg];
     
  	if ( gAuthorization == NULL  ) {
         
@@ -2419,6 +2321,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             }
         }
     }
+    
+    // Disconnect any configurations that are being replaced or uninstalled
+    [self disconnect: connectedTargetDisplayNames];
     
     // Do the actual installs and uninstalls
     
@@ -2451,24 +2356,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         NSString * source = [[self installSources] objectAtIndex: ix];
         NSString * target = [[self installTargets] objectAtIndex: ix];
-        NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
-        
-        if (  [self copyConfigPath: source
-                            toPath: target
-                   usingAuthRefPtr: &gAuthorization
-                        warnDialog: NO
-                       moveNotCopy: NO]  ) {
-			
-            NSDictionary * connDict = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
-            BOOL replacedTblk = (nil != [connDict objectForKey: targetDisplayName]);
-            if (  replacedTblk  ) {
-                // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
-                [((MenuController *)[NSApp delegate]) deleteExistingConfig: targetDisplayName ];
-                [((MenuController *)[NSApp delegate]) addNewConfig: target withDisplayName: targetDisplayName];
-                [[((MenuController *)[NSApp delegate]) logScreen] update];
-            }
-            
-        } else {
+        if (  ! [ConfigurationManager copyConfigPath: source
+											  toPath: target
+									 usingAuthRefPtr: &gAuthorization
+										  warnDialog: NO
+										 moveNotCopy: NO]  ) {
             nInstallErrors++;
             NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
             NSString * targetLocalizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: targetDisplayName tblkPath: target];
@@ -2483,11 +2375,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * target = [[self replaceTargets] objectAtIndex: ix];
         NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
         
-        if (  [self copyConfigPath: source
-                            toPath: target
-                   usingAuthRefPtr: &gAuthorization
-                        warnDialog: NO
-                       moveNotCopy: NO]  ) {
+        if (  [ConfigurationManager copyConfigPath: source
+											toPath: target
+								   usingAuthRefPtr: &gAuthorization
+										warnDialog: NO
+									   moveNotCopy: NO]  ) {
 			
             NSDictionary * connDict = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
             VPNConnection * connection = [connDict objectForKey: targetDisplayName];
@@ -2561,6 +2453,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             nUpdateErrors++;
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to store updatable configuration stub at %@\n", @"Window text"), target]];
         }
+	}
+    
+	if (  [connectedTargetDisplayNames count] != 0  ) {
+		[self performSelectorOnMainThread: @selector(reconnect:) withObject: connectedTargetDisplayNames waitUntilDone: NO];
 	}
 	
 	// Construct and display a window with the results of the uninstalls/replacements/installs
@@ -2661,9 +2557,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	return FALSE;
 }
 		   
-// *********************************************************************************************
-// EXTERNAL ENTRY for .tblk, .ovpn, and .conf installation
-
 -(void) installConfigurations: (NSArray *) filePaths
       skipConfirmationMessage: (BOOL)      skipConfirmMsg
             skipResultMessage: (BOOL)      skipResultMsg
@@ -2808,6 +2701,1510 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [self cleanupInstallAndNotifyDelegate: notifyDelegate delegateNotifyValue: reply];
 	
     return;
+}
+
+-(void) installConfigurations: (NSArray *) filePaths
+                 skipMessages: (BOOL)      skipMessages
+               notifyDelegate: (BOOL)      notifyDelegate
+{
+     [[ConfigurationManager manager] installConfigurations: filePaths
+                                  skipConfirmationMessage: skipMessages
+                                        skipResultMessage: skipMessages
+                                           notifyDelegate: notifyDelegate];
+}
+
+enum GetAuthorizationResult {
+    getAuthorizationCancel           = 0,
+    getAuthorizationNewAuthorization = 1,
+    getAuthorizationHadAuthorization = 2
+};
+
++(enum GetAuthorizationResult) getAuthorizationWithMessage: (NSString *) needAuthMessage
+                                           haveAuthMessage: (NSString *) haveAuthMessage
+                                             buttonMessage: (NSString *) buttonMessage {
+    
+    // Returns 0 to cancel,
+    //         1 if had to get authorization  and should continue
+    //         2 if already had authorization and should continue
+
+    if (  gAuthorization == nil  ) {
+        gAuthorization = [NSApplication getAuthorizationRef: needAuthMessage];
+        [[NSApp delegate] reactivateTunnelblick];
+        if (  gAuthorization == NULL) {
+            return getAuthorizationCancel;
+        }
+        return getAuthorizationNewAuthorization;
+    } else {
+        int button = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                     haveAuthMessage,
+                                     NSLocalizedString(@"Cancel", @"Button"), // Default button
+                                     buttonMessage,                           // Alternate button
+                                     nil);
+        if (  button != NSAlertAlternateReturn) {
+            return getAuthorizationCancel;
+        }
+        return getAuthorizationHadAuthorization;
+    }
+}
+
++(BOOL) isConfigurationSetToConnectWhenComputerStartsAtPath: (NSString *) path {
+    
+    NSString * displayName = lastPartOfPath(path);
+    NSString * autoConnectKey = [displayName stringByAppendingString: @"autoConnect"];
+    NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
+    if (   [gTbDefaults boolForKey: autoConnectKey]
+        && [gTbDefaults boolForKey: onSystemStartKey]  ) {
+        return YES;
+    }
+    
+    return NO;
+}
+
++(BOOL) isConfigurationUpdatableAtPath: (NSString *) path {
+    
+    NSString * infoPlistPath = [[path stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Info.plist"];
+    NSString * fileName = [[[NSDictionary dictionaryWithContentsOfFile: infoPlistPath] objectForKey: @"CFBundleIdentifier"] stringByAppendingPathExtension: @"tblk"];
+    if (  fileName  ) {
+        BOOL isUpdatable = FALSE;
+        BOOL isDir;
+        NSString * bundleIdAndEdition;
+        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_TBLKS];
+        while (  (bundleIdAndEdition = [dirEnum nextObject])  ) {
+            [dirEnum skipDescendents];
+            NSString * containerPath = [L_AS_T_TBLKS stringByAppendingPathComponent: bundleIdAndEdition];
+            if (   ( ! [bundleIdAndEdition hasPrefix: @"."] )
+                && ( ! [bundleIdAndEdition hasSuffix: @".tblk"] )
+                && [[NSFileManager defaultManager] fileExistsAtPath: containerPath isDirectory: &isDir]
+                && isDir  ) {
+                NSString * name;
+                NSDirectoryEnumerator * innerEnum = [gFileMgr enumeratorAtPath: containerPath];
+                while (  (name = [innerEnum nextObject] )  ) {
+                    if (  [name isEqualToString: fileName]  ) {
+                        isUpdatable = TRUE;
+                        break;
+                    }
+                }
+            }
+        }
+        if (  isUpdatable  ) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
++(BOOL) okToRemoveOneConfigurationWithDisplayName: (NSString *) displayName {
+    
+    VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
+    if (  ! connection  ) {
+        NSLog(@"okToRemoveConfigurationWithDisplayNames: Cannot get VPNConnection object for display name '%@'", displayName);
+        return NO;
+    }
+    
+    NSString * configurationPath = [connection configPath];
+	
+    if (  [ConfigurationManager isConfigurationSetToConnectWhenComputerStartsAtPath: configurationPath]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You may not remove a configuration which is set to start when the computer starts.", @"Window text"));
+        return NO;
+    }
+    
+    if (  [configurationPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You may not remove a Deployed configuration.", @"Window text"));
+        return NO;
+    }
+    
+    return YES;
+}
+
++(void) removeConfigurationsWithDisplayNamesWorker: (NSArray *) displayNames {
+    
+    NSString * displayName;
+    NSEnumerator * e = [displayNames objectEnumerator];
+    while (  (displayName = [e nextObject])  ) {
+        
+        VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
+        if (  ! connection  ) {
+            NSLog(@"removeConfigurationsWithDisplayNamesWorker: Cannot get VPNConnection object for display name '%@'", displayName);
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"There was a problem deleting one or more configurations. See the Console Log for details.", @"Window text"));
+            return;
+        }
+        
+        NSString * configurationPath = [connection configPath];
+        
+        // Get ready to remove group credentials if no other configurations use them
+        NSString * group = credentialsGroupFromDisplayName(displayName);
+        if (   group
+            && [gTbDefaults numberOfConfigsInCredentialsGroup: group] > 1  ) {
+            group = nil;
+        }
+        
+        BOOL ok = [[ConfigurationManager manager] deleteConfigPath: configurationPath
+                                                   usingAuthRefPtr: &gAuthorization
+                                                        warnDialog: YES];
+        if (  ok  ) {
+            if (  group  ) {
+                AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: group credentialsGroup: group] autorelease];
+                
+                [myAuthAgent setAuthMode: @"privateKey"];
+                if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+                    [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+                }
+                [myAuthAgent setAuthMode: @"password"];
+                if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+                    [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+                }
+            }
+            
+            [gTbDefaults removePreferencesFor: displayName];
+        } else {
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"There was a problem deleting one or more configurations. See the Console Log for details.", @"Window text"));
+            return;
+        }
+    }
+}
+
++(void) changeToShared: (BOOL) shared fromPath: (NSString *) path {
+    
+    NSString * rawName = lastPartOfPath(path);
+    NSString * displayName = [rawName stringByDeletingPathExtension];
+    NSString * targetPath;
+    
+    if (  [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+        targetPath = [L_AS_T_SHARED stringByAppendingPathComponent: rawName];
+    } else if (  [path hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
+        targetPath = [gPrivatePath stringByAppendingPathComponent: rawName];
+    } else {
+        NSLog(@"changeToSharedFromPath: Internal error: path is not private or shared at %@", path);
+        return;
+    }
+    
+    if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+		NSString * localName = [[NSApp delegate] localizedNameForDisplayName: displayName];
+        NSString * message = (  shared
+                              ? [NSString stringWithFormat: NSLocalizedString(@"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?", @"Window text"), localName]
+                              : [NSString stringWithFormat: NSLocalizedString(@"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?", @"Window text"), localName]);
+        int result = TBRunAlertPanel(NSLocalizedString(@"Replace VPN Configuration?", @"Window title"),
+                                     message,
+                                     NSLocalizedString(@"Replace", @"Button"),
+                                     NSLocalizedString(@"Cancel" , @"Button"),
+                                     nil);
+        if (  result != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
+            return;
+        }
+    }
+    
+    [ConfigurationManager copyConfigPath: path
+								  toPath: targetPath
+						 usingAuthRefPtr: &gAuthorization
+							  warnDialog: YES
+							 moveNotCopy: YES];
+    
+    VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
+    if (  ! connection  ) {
+        NSLog(@"changeToSharedFromPath: Internal error: cannot find connection for '%@', unable to ", displayName);
+    }
+    
+    [connection invalidateConfigurationParse];
+}
+
++(void) makeConfigurationsShared: (BOOL)      shared
+                    displayNames: (NSArray *) displayNames {
+    
+    // Check that all configurations are shared or private, and create an array with display names to change
+    NSMutableArray * pathsToModify = [[[NSMutableArray alloc] init] autorelease];
+    
+    // Make sure all of the configurations are either private or shared currently
+    NSDictionary * dict = [[NSApp delegate] myConfigDictionary];
+    NSString * displayName;
+    NSEnumerator * e = [displayNames objectEnumerator];
+    while (  (displayName = [e nextObject])  ) {
+        NSString * path = [dict objectForKey: displayName];
+		NSString * localName = [[NSApp delegate] localizedNameForDisplayName: displayName];
+		if (  [path hasPrefix: [L_AS_T_SHARED stringByAppendingPathComponent: @"/"]]  ) {
+			if (  ! shared  ) {
+				if (  [ConfigurationManager isConfigurationSetToConnectWhenComputerStartsAtPath: path]  ) {
+					TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+									  [NSString  stringWithFormat: NSLocalizedString(@"You cannot make the '%@' configuration private because it is set to start when the computer starts.", @"Window text"), localName]);
+					return;
+				}						
+				if (   [ConfigurationManager isConfigurationUpdatableAtPath: path]  ) {
+					TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+									  [NSString  stringWithFormat: NSLocalizedString(@"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\n"
+																					 @"Note that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private.", @"Window text"), localName]);
+					return;  // User has been notified already
+				}
+				[pathsToModify addObject: path];
+			}
+		} else if (  [path hasPrefix: [gPrivatePath stringByAppendingPathComponent: @"/"]]  ) {
+			if (  shared  ) {
+				if (  [ConfigurationManager isConfigurationUpdatableAtPath: path]  ) {
+					TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+									  [NSString  stringWithFormat: NSLocalizedString(@"You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\n"
+																					 @"Note that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared.", @"Window text"), localName]);
+					return;  // User has been notified already
+				}
+				[pathsToModify addObject: path];
+			}
+		}
+    }
+    
+    if (  [pathsToModify count] == 0  ) {
+        return;
+    }
+    
+	NSString * localName = nil;
+	if (  [pathsToModify count] == 1  ) {
+		localName = [[NSApp delegate] localizedNameForDisplayName: [lastPartOfPath([pathsToModify objectAtIndex: 0]) stringByDeletingPathExtension]];
+	}
+    NSString * needAuthMessage = (  ([pathsToModify count] == 1)
+                                  ? (  shared
+                                     ? [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to make the '%@' configuration shared.", @"Window text"), localName]
+                                     : [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to make the '%@' configuration private.", @"Window text"), localName])
+                                  : ( shared
+                                     ? [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to make %ld configurations shared.",  @"Window text"), (unsigned long)[pathsToModify count]]
+                                     : [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to make %ld configurations private.", @"Window text"),  (unsigned long)[pathsToModify count]]));
+    NSString * haveAuthMessage = (  ([pathsToModify count] == 1)
+                                  ? (  shared
+                                     ? [NSString  stringWithFormat: NSLocalizedString(@"Do you wish to make the '%@' configuration shared?", @"Window text"), localName]
+                                     : [NSString  stringWithFormat: NSLocalizedString(@"Do you wish to make the '%@' configuration private?", @"Window text"), localName])
+                                  : ( shared
+                                     ? [NSString  stringWithFormat: NSLocalizedString(@"Do you wish to make %ld configurations shared?", @"Window text"), (unsigned long)[pathsToModify count]]
+                                     : [NSString  stringWithFormat: NSLocalizedString(@"Do you wish to make %ld configurations private?", @"Window text"),  (unsigned long)[pathsToModify count]]));
+    NSString * buttonMessage = ( shared
+                                ? NSLocalizedString(@"Make Shared",  @"Button")
+                                : NSLocalizedString(@"Make Private", @"Button"));
+    enum GetAuthorizationResult getAuthResult = [ConfigurationManager getAuthorizationWithMessage: needAuthMessage haveAuthMessage: haveAuthMessage buttonMessage: buttonMessage];
+    if (   getAuthResult == getAuthorizationCancel  ) {
+        return;
+    }
+    
+    // Change each entry in pathsToModify to shared or private
+    NSString * path;
+    e = [pathsToModify objectEnumerator];
+    while (  (path = [e nextObject])  ) {
+        [ConfigurationManager changeToShared: shared fromPath: path];
+    }
+    
+    if (  getAuthResult == getAuthorizationNewAuthorization  ) {
+        AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
+        gAuthorization = NULL;
+    }
+}
+
++(BOOL) revertOneConfigurationToShadowWithDisplayName: (NSString *) displayName {
+	
+	BOOL errorFound = FALSE;
+	NSString * fileName = [displayName stringByAppendingPathExtension: @"tblk"];
+	NSArray  * arguments = [NSArray arrayWithObjects: @"revertToShadow", fileName, nil];
+	OSStatus result = runOpenvpnstart(arguments, nil, nil);
+	switch (  result  ) {
+			
+		case OPENVPNSTART_REVERT_CONFIG_OK:
+			break;
+			
+		case OPENVPNSTART_REVERT_CONFIG_MISSING:
+			TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation Error", @"Window title"),
+							  NSLocalizedString(@"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy.", @"Window text"));
+			errorFound = TRUE;
+			break;
+			
+		default:
+			TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation Error", @"Window title"),
+							  NSLocalizedString(@"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n", @"Window text"));
+			errorFound = TRUE;
+			break;
+	}
+    
+	VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
+	if (  connection  ) {
+		[connection invalidateConfigurationParse];
+	} else {
+		NSLog(@"Internal error: revertOneConfigurationToShadowWithDisplayName: no connection for '%@'", displayName);
+	}
+	
+	return (! errorFound);
+}
+
++(void) revertToShadowWithDisplayNames: (NSArray *) displayNames {
+    
+	NSMutableArray * displayNamesToRevert = [[[NSMutableArray alloc] init] autorelease];
+	NSString * displayName;
+	NSEnumerator * e = [displayNames objectEnumerator];
+	while (  (displayName = [e nextObject])  ) {
+		VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
+		if (  connection  ) {
+			NSString * source = [connection configPath];
+			if (  [source hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+				if (  ! [connection shadowCopyIsIdentical]  ) {
+					[displayNamesToRevert addObject: displayName];
+				}
+			}
+		} else {
+			NSLog(@"Internal Error: revertToShadowWithDisplayNames: No connection for '%@'", displayName);
+		}
+	}
+	
+	if (  [displayNamesToRevert count] == 0  ) {
+		return;
+	}
+	
+	NSString * message = (  ([displayNamesToRevert count] == 1)
+						  ? [NSString stringWithFormat:
+							 NSLocalizedString(@"Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n", @"Window text"), [[NSApp delegate] localizedNameForDisplayName: [displayNamesToRevert objectAtIndex: 0]]]
+						  : [NSString stringWithFormat:
+							 NSLocalizedString(@"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n", @"Window text"), (unsigned long)[displayNamesToRevert count]]);
+	
+	int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								 message,
+								 NSLocalizedString(@"Revert", @"Button"),
+								 NSLocalizedString(@"Cancel", @"Button"), nil);
+	
+	if (  result != NSAlertDefaultReturn  ) {
+		return;
+	}
+    
+	BOOL errorFound = FALSE;
+	e = [displayNamesToRevert objectEnumerator];
+	while (  (displayName = [e nextObject])  ) {
+		errorFound = errorFound || [self revertOneConfigurationToShadowWithDisplayName: displayName];
+	}
+	
+	if (  ! errorFound  ) {
+		NSString * message = (  ([displayNamesToRevert count] == 1)
+							  ? [NSString stringWithFormat:
+								 NSLocalizedString(@"%@ has been reverted to its last secured (shadow) copy.\n\n", @"Window text"), [[NSApp delegate] localizedNameForDisplayName: [displayNamesToRevert objectAtIndex: 0]]]
+							  : [NSString stringWithFormat:
+								 NSLocalizedString(@"%ld configurations have been reverted to their last secured (shadow) copy.\n\n", @"Window text"), (unsigned long)[displayNamesToRevert count]]);
+
+							  
+		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), message);
+	}
+}
+
++(void) removeConfigurationsWithDisplayNames: (NSArray *) displayNames {
+    
+    // Make sure we can remove all of the configurations
+    NSEnumerator * e = [displayNames objectEnumerator];
+    NSString * displayName;
+    while (  (displayName = [e nextObject])  ) {
+        if (  ! [ConfigurationManager okToRemoveOneConfigurationWithDisplayName: displayName]) {
+            return;
+        }
+    }
+    
+    NSString * haveAuthMessage = (  ([displayNames count] == 1)
+                                  ? [NSString  stringWithFormat: NSLocalizedString(@"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.", @"Window text"), [displayNames objectAtIndex: 0]]
+                                  : [NSString  stringWithFormat: NSLocalizedString(@"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.", @"Window text"), (unsigned long)[displayNames count]]);
+    NSString * needAuthMessage = (  ([displayNames count] == 1)
+                                  ? [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.", @"Window text"), [displayNames objectAtIndex: 0]]
+                                  : [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.", @"Window text"), (unsigned long)[displayNames count]]);
+    NSString * buttonMessage = NSLocalizedString(@"Remove", @"Window text");
+    enum GetAuthorizationResult getAuthResult = [ConfigurationManager getAuthorizationWithMessage: needAuthMessage haveAuthMessage: haveAuthMessage buttonMessage: buttonMessage];
+	
+    
+    if (   getAuthResult == getAuthorizationCancel  ) {
+        return;
+    }
+    
+    [ConfigurationManager removeConfigurationsWithDisplayNamesWorker: displayNames];
+    
+    // Release the authorization if we obtained it earlier
+    if (  getAuthResult == getAuthorizationNewAuthorization  ) {
+        AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
+        gAuthorization = nil;
+    }
+}
+
++(void) removeCredentialsWithDisplayNames: (NSArray *) displayNames {
+	
+	NSMutableArray * displayNamesToProcess = [[[NSMutableArray alloc] init] autorelease];
+	NSMutableArray * groupNamesToProcess = [[[NSMutableArray alloc] init] autorelease];
+	
+	NSString * displayName;
+	NSEnumerator * e = [displayNames objectEnumerator];
+	while (  (displayName = [e nextObject] )  ) {
+		
+		NSString * group = credentialsGroupFromDisplayName(displayName);
+		AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: displayName credentialsGroup: group] autorelease];
+		
+        [myAuthAgent setAuthMode: @"privateKey"];
+        if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+			[displayNamesToProcess addObject: displayName];
+			[groupNamesToProcess addObject: group];
+			continue;
+		}
+		
+        [myAuthAgent setAuthMode: @"password"];
+        if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+			[displayNamesToProcess addObject: displayName];
+			[groupNamesToProcess addObject: (  group
+											 ? group
+											 : (NSString *)[NSNull null])];
+		}
+	}
+	
+	if (  [displayNamesToProcess count] == 0  ) {
+		NSString * message = (  ( [displayNames count] == 1 )
+							  ? [NSString stringWithFormat:
+								 NSLocalizedString(@"'%@' does not have any credentials (private key or username and password) stored in the Keychain.", @"Window text"),
+								 [[NSApp delegate] localizedNameForDisplayName: [displayNames objectAtIndex: 0]]]
+							  : [NSString stringWithFormat:
+								 NSLocalizedString(@"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain.", @"Window text"),
+								 (unsigned long)[displayNames count]]);
+		TBShowAlertWindow(NSLocalizedString(@"No Credentials", @"Window title"), message);
+		return;
+	}
+	
+	NSString * message = (  ([displayNamesToProcess count] == 1)
+						  ? (  ([groupNamesToProcess objectAtIndex: 0] != [NSNull null])
+							 ? [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?", @"Window text"), [groupNamesToProcess objectAtIndex: 0]]
+							 : [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?", @"Window text"),    [[NSApp delegate] localizedNameForDisplayName: [displayNamesToProcess objectAtIndex: 0]]])
+						  
+						  : [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key or username and password) for %ld configurations that are stored in the Keychain?", @"Window text"), [displayNamesToProcess count]]);
+	
+	int button = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								 message,
+								 NSLocalizedString(@"Cancel", @"Button"),             // Default button
+								 NSLocalizedString(@"Delete Credentials", @"Button"), // Alternate button
+								 nil);
+	
+	if (  button != NSAlertAlternateReturn  ) {
+		return;
+	}
+	
+	unsigned ix;
+	for (  ix=0; ix<[displayNamesToProcess count]; ix++  ) {
+		displayName = [displayNamesToProcess objectAtIndex: ix];
+		NSString * groupName   = [groupNamesToProcess   objectAtIndex: ix];
+		if (  [groupName isEqual: (NSString *)[NSNull null]]  ) {
+			groupName = nil;
+		}
+		AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: displayName credentialsGroup: groupName] autorelease];
+		
+        [myAuthAgent setAuthMode: @"privateKey"];
+        if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+			[myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+		}
+		
+        [myAuthAgent setAuthMode: @"password"];
+        if (  [myAuthAgent keychainHasAnyCredentials]  ) {
+			[myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
+		}
+	}
+}
+
++(void) duplicateConfigurationFromPath: (NSString *)         sourcePath
+                                toPath: (NSString *)         targetPath {
+    
+    NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+    NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
+    
+    NSString * haveAuthMessage       = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to duplicate the '%@' configuration?", @"Window text"), sourceDisplayName];
+    NSString * needAuthMessage       = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to duplicate the '%@' configuration.", @"Window text"), sourceDisplayName];
+    NSString * buttonMessage = NSLocalizedString(@"Duplicate", @"Button");
+    enum GetAuthorizationResult getAuthResult = [ConfigurationManager getAuthorizationWithMessage: needAuthMessage haveAuthMessage: haveAuthMessage buttonMessage: buttonMessage];
+    if (   getAuthResult == getAuthorizationCancel  ) {
+        return;
+    }
+    
+    if (  [ConfigurationManager copyConfigPath: sourcePath
+										toPath: targetPath
+							   usingAuthRefPtr: &gAuthorization
+									warnDialog: YES
+								   moveNotCopy: NO]  ) {
+        
+        if (  ! [gTbDefaults copyPreferencesFrom: sourceDisplayName to: targetDisplayName]  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                              NSLocalizedString(@"Warning: One or more preferences could not be duplicated. See the Console Log for details.", @"Window text"));
+        }
+        
+        copyCredentials(sourceDisplayName, targetDisplayName);
+    }
+    
+    if (  getAuthResult == getAuthorizationNewAuthorization  ) {
+        AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
+        gAuthorization = NULL;
+    }
+}
+
++(BOOL) renameConfigurationFromPath: (NSString *)         sourcePath
+                             toPath: (NSString *)         targetPath {
+	
+	// Returns TRUE if succeeded or FALSE if cancelled or failed (if failed, the user has already been notified)
+    
+   NSString * sourceName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+    NSString * targetName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
+    
+    VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceName];
+    if (  ! connection  ) {
+        NSLog(@"renameConfigurationFromPath: No '%@' configuration exists", sourceName);
+        return FALSE;
+    }
+    
+    if (  ! [connection isDisconnected]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Active connection", @"Window title"),
+                          NSLocalizedString(@"You cannot rename a configuration unless it is disconnected.", @"Window text"));
+        return FALSE;
+    }
+    
+    if (  [ConfigurationManager isConfigurationSetToConnectWhenComputerStartsAtPath: sourcePath]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You cannot rename a configuration which is set to start when the computer starts.", @"Window text"));
+        return FALSE;
+    }
+    
+    if (  [sourcePath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You cannot rename a Deployed configuration.", @"Window text"));
+        return FALSE;
+    }
+    
+    NSString * haveAuthMessage       = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to rename the '%@' configuration to '%@'?", @"Window text"), sourceName, targetName];
+    NSString * needAuthMessage       = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename the '%@' configuration to '%@'.", @"Window text"), sourceName, targetName];
+    NSString * buttonMessage = NSLocalizedString(@"Rename", @"Button");
+    enum GetAuthorizationResult getAuthResult = [ConfigurationManager getAuthorizationWithMessage: needAuthMessage haveAuthMessage: haveAuthMessage buttonMessage: buttonMessage];
+    if (   getAuthResult == getAuthorizationCancel  ) {
+        return FALSE;
+    }
+	
+	BOOL ok = [ConfigurationManager copyConfigPath: sourcePath
+											toPath: targetPath
+								   usingAuthRefPtr: &gAuthorization
+										warnDialog: YES
+									   moveNotCopy: YES];
+	if (  ok  ) {
+        
+        // Save status of "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" because they are deleted by moveCredentials
+        BOOL havePwCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
+        BOOL haveUnCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasUsername"]];
+        BOOL havePkCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasPrivateKey"]];
+        
+        moveCredentials(sourceName, targetName);
+        
+        if (  ! [gTbDefaults movePreferencesFrom: sourceName to: targetName]  ) {
+            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
+                              NSLocalizedString(@"Warning: One or more preferences could not be renamed. See the Console Log for details.", @"Window text"));
+        }
+        
+        // Restore "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" to the new configuration's preferences because they were not transferred by moveCredentials
+        [gTbDefaults setBool: havePwCredentials forKey: [targetName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
+        [gTbDefaults setBool: haveUnCredentials forKey: [targetName stringByAppendingString: @"-keychainHasUsername"]];
+        [gTbDefaults setBool: havePkCredentials forKey: [targetName stringByAppendingString: @"-keychainHasPrivateKey"]];
+	} else {
+		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						  NSLocalizedString(@"Rename failed; see the Console Log for details.", @"Window text"));
+	}
+    
+    if (  getAuthResult == getAuthorizationNewAuthorization  ) {
+        AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
+        gAuthorization = NULL;
+    }
+	
+	return ok;
+}
+
++(NSArray *) displayNamesFromPaths: (NSArray *) paths {
+    
+    NSMutableArray * displayNames = [[[NSMutableArray alloc] init] autorelease];
+    NSString * path;
+    NSEnumerator * e = [paths objectEnumerator];
+    while (  (path = [e nextObject])  ) {
+        NSString * displayName = (  firstPartOfPath(path)
+                                  ? [lastPartOfPath(path)     stringByDeletingPathExtension]
+                                  : [[path lastPathComponent] stringByDeletingPathExtension]);
+        [displayNames addObject: displayName];
+    }
+    
+    return [NSArray arrayWithArray: displayNames];
+}
+
++(void) createShadowThenConnectWithDisplayName: (NSString *) displayName userKnows: (BOOL) userKnows {
+    
+    AuthorizationRef authRef = [NSApplication getAuthorizationRef:
+                                NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text")];
+    
+    [[NSApp delegate] reactivateTunnelblick];
+    
+    if ( authRef  ) {
+        NSString * cfgPath = [[[NSApp delegate] myConfigDictionary] objectForKey: displayName];
+        if (  cfgPath  ) {
+            NSString * altCfgPath = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
+                                     stringByAppendingPathComponent: lastPartOfPath(cfgPath)];
+            
+            if ( [ConfigurationManager copyConfigPath: cfgPath
+                                               toPath: altCfgPath
+                                      usingAuthRefPtr: &authRef
+                                           warnDialog: YES
+                                          moveNotCopy: NO] ) {    // Copy the config to the alt config
+                NSLog(@"Created or updated secure (shadow) copy of configuration file %@", cfgPath);
+                
+                VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
+                if (  connection  ) {
+                    [connection performSelectorOnMainThread: @selector(connectUserKnows:) withObject: [NSNumber numberWithBool: userKnows] waitUntilDone: NO];
+                } else {
+                    NSLog(@"createShadowThenConnectWithDisplayName: No connection object for '%@'", displayName);
+                }
+            } else {
+                NSLog(@"Unable to create or update secure (shadow) copy of configuration file %@", cfgPath);
+            }
+        } else {
+            NSLog(@"createShadowThenConnectWithDisplayName: No configuration path for '%@'", displayName);
+        }
+        AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+    }
+}
+
++(NSString *) listOfFilesInTblkForConnection: (VPNConnection *) connection {
+    
+    NSString * configPath = [connection configPath];
+    NSString * configPathTail = [configPath lastPathComponent];
+    
+    if (  [configPath hasSuffix: @".tblk"]  ) {
+        NSMutableString * fileListString = [[[NSMutableString alloc] initWithCapacity: 500] autorelease];
+        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: configPath];
+        NSString * filename;
+        while (  (filename = [dirEnum nextObject])  ) {
+            if (  ! [filename hasPrefix: @"."]  ) {
+                NSString * extension = [filename pathExtension];
+                NSString * nameOnly = [filename lastPathComponent];
+                NSArray * extensionsToSkip = KEY_AND_CRT_EXTENSIONS;
+                if (   ( ! [extensionsToSkip containsObject: extension])
+                    && ( ! [extension isEqualToString: @"ovpn"])
+                    && ( ! [extension isEqualToString: @"lproj"])
+                    && ( ! [extension isEqualToString: @"strings"])
+                    && ( ! [nameOnly  isEqualToString: @"Info.plist"])
+                    && ( ! [nameOnly  isEqualToString: @".DS_Store"])
+                    ) {
+                    NSString * fullPath = [configPath stringByAppendingPathComponent: filename];
+                    BOOL isDir;
+                    if (  ! (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+                             && isDir)  ) {
+                        [fileListString appendFormat: @"      %@\n", filename];
+                    }
+                }
+            }
+        }
+        
+        return (  ([fileListString length] == 0)
+                ? [NSString stringWithFormat: @"There are no unusual files in %@\n", configPathTail]
+                : [NSString stringWithFormat: @"Unusual files in %@:\n%@", configPathTail, fileListString]);
+    } else {
+        return [NSString stringWithFormat: @"Cannot list unusual files in %@; not a .tblk\n", configPathTail];
+    }
+}
+
++(NSString *) tigerConsoleContents {
+    
+    // Tiger doesn't implement the asl API (or not enough of it). So we get the console log from the file if we are running as an admin
+	NSString * consoleRawContents = @""; // stdout (ignore stderr)
+	
+	if (  isUserAnAdmin()  ) {
+		runTool(TOOL_PATH_FOR_BASH,
+                [NSArray arrayWithObjects:
+                 @"-c",
+                 [NSString stringWithFormat: @"cat /Library/Logs/Console/%d/console.log | grep -i -E 'tunnelblick|openvpn' | tail -n 100", getuid()],
+                 nil],
+                &consoleRawContents,
+                nil);
+	} else {
+		consoleRawContents = (@"The Console log cannot be obtained because you are not\n"
+							  @"logged in as an administrator. To view the Console log,\n"
+							  @"please use the Console application in /Applications/Utilities.\n");
+	}
+	
+    // Replace backslash-n with newline and indent the continuation lines
+    NSMutableString * consoleContents = [[consoleRawContents mutableCopy] autorelease];
+    [consoleContents replaceOccurrencesOfString: @"\\n"
+                                     withString: @"\n                                       " // Note all the spaces in the string
+                                        options: 0
+                                          range: NSMakeRange(0, [consoleContents length])];
+	
+    return consoleContents;
+}
+
++(NSString *) stringFromLogEntry: (NSDictionary *) dict {
+    
+    // Returns a string with a console log entry, terminated with a LF
+    
+    NSString * timestampS = [dict objectForKey: [NSString stringWithUTF8String: ASL_KEY_TIME]];
+    NSString * senderS    = [dict objectForKey: [NSString stringWithUTF8String: ASL_KEY_SENDER]];
+    NSString * pidS       = [dict objectForKey: [NSString stringWithUTF8String: ASL_KEY_PID]];
+    NSString * msgS       = [dict objectForKey: [NSString stringWithUTF8String: ASL_KEY_MSG]];
+    
+    NSDate * dateTime = [NSDate dateWithTimeIntervalSince1970: (NSTimeInterval) [timestampS doubleValue]];
+    NSDateFormatter * formatter = [[[NSDateFormatter alloc] init] autorelease];
+    [formatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
+	
+    NSString * timeString = [formatter stringFromDate: dateTime];
+    NSString * senderString = [NSString stringWithFormat: @"%@[%@]", senderS, pidS];
+    
+	// Set up to indent continuation lines by converting newlines to \n (i.e., "backslash n")
+	NSMutableString * msgWithBackslashN = [[msgS mutableCopy] autorelease];
+	[msgWithBackslashN replaceOccurrencesOfString: @"\n"
+									   withString: @"\\n"
+										  options: 0
+											range: NSMakeRange(0, [msgWithBackslashN length])];
+	
+    return [NSString stringWithFormat: @"%@ %21@ %@\n", timeString, senderString, msgWithBackslashN];
+}
+
++(NSString *) stringContainingRelevantConsoleLogEntries {
+    
+    // Returns a string with relevant entries from the Console log
+    
+	// First, search the log for all entries fewer than six hours old from Tunnelblick or openvpnstart
+    // And append them to tmpString
+	
+	NSMutableString * tmpString = [NSMutableString string];
+    
+    aslmsg q = asl_new(ASL_TYPE_QUERY);
+	time_t sixHoursAgoTimeT = time(NULL) - 6 * 60 * 60;
+	const char * sixHoursAgo = [[NSString stringWithFormat: @"%ld", (long) sixHoursAgoTimeT] UTF8String];
+    asl_set_query(q, ASL_KEY_TIME, sixHoursAgo, ASL_QUERY_OP_GREATER_EQUAL | ASL_QUERY_OP_NUMERIC);
+    aslresponse r = asl_search(NULL, q);
+    
+    aslmsg m;
+    while (NULL != (m = aslresponse_next(r))) {
+        
+        NSMutableDictionary *tmpDict = [NSMutableDictionary dictionary];
+        
+        BOOL includeDict = FALSE;
+        const char * key;
+        const char * val;
+        unsigned i;
+        for (  i = 0; (NULL != (key = asl_key(m, i))); i++  ) {
+            val = asl_get(m, key);
+            if (  val  ) {
+                NSString * string    = [NSString stringWithUTF8String: val];
+                NSString * keyString = [NSString stringWithUTF8String: key];
+                [tmpDict setObject: string forKey: keyString];
+                
+                if (  ! ASL_KEY_SENDER  ) {
+                    NSLog(@"stringContainingRelevantConsoleLogEntries: ASL_KEY_SENDER = NULL");
+                }
+                if (  ! ASL_KEY_MSG  ) {
+                    NSLog(@"stringContainingRelevantConsoleLogEntries: ASL_KEY_MSG = NULL");
+                }
+                if (  [keyString isEqualToString: [NSString stringWithUTF8String: ASL_KEY_SENDER]]  ) {
+                    if (   [string isEqualToString: @"Tunnelblick"]
+                        || [string isEqualToString: @"atsystemstart"]
+                        || [string isEqualToString: @"installer"]
+                        || [string isEqualToString: @"openvpnstart"]
+                        || [string isEqualToString: @"process-network-changes"]
+                        || [string isEqualToString: @"standardize-scutil-output"]
+                        || [string isEqualToString: @"tunnelblickd"]
+                        || [string isEqualToString: @"tunnelblick-helper"]
+                        ) {
+                        includeDict = TRUE;
+                    }
+                } else if (  [keyString isEqualToString: [NSString stringWithUTF8String: ASL_KEY_MSG]]  ) {
+                    if (   ([string rangeOfString: @"Tunnelblick"].length != 0)
+                        || ([string rangeOfString: @"tunnelblick"].length != 0)
+                        || ([string rangeOfString: @"Tunnel" "blick"].length != 0)      // Include non-rebranded references to Tunnelblick
+                        || ([string rangeOfString: @"atsystemstart"].length != 0)
+                        || ([string rangeOfString: @"installer"].length != 0)
+                        || ([string rangeOfString: @"openvpnstart"].length != 0)
+                        || ([string rangeOfString: @"Saved crash report for openvpn"].length != 0)
+                        || ([string rangeOfString: @"process-network-changes"].length != 0)
+                        || ([string rangeOfString: @"standardize-scutil-output"].length != 0)
+                        ) {
+                        includeDict = TRUE;
+                    }
+                }
+            }
+		}
+		
+		if (  includeDict  ) {
+			[tmpString appendString: [ConfigurationManager stringFromLogEntry: tmpDict]];
+		}
+	}
+	
+	aslresponse_free(r);
+	
+	// Next, extract the tail of the entries -- the last 200 lines of them
+	// (The loop test is "i<201" because we look for the 201-th newline from the end of the string; just after that is the
+	//  start of the 200th entry from the end of the string.)
+    
+	NSRange tsRng = NSMakeRange(0, [tmpString length]);	// range we are looking at currently; start with entire string
+    unsigned i;
+	unsigned offset = 2;
+    BOOL fewerThan200LinesInLog = FALSE;
+	for (  i=0; i<201; i++  ) {
+		NSRange nlRng = [tmpString rangeOfString: @"\n"	// range of last newline at end of part we are looking at
+										 options: NSBackwardsSearch
+										   range: tsRng];
+		
+		if (  nlRng.length == 0  ) {    // newline not found (fewer than 200 lines in tmpString);  set up to start at start of string
+			offset = 0;
+            fewerThan200LinesInLog = TRUE;
+			break;
+		}
+		
+        if (  nlRng.location == 0  ) {  // newline at start of string (shouldn't happen, but...)
+			offset = 1;					// set up to start _after_ the newline
+            fewerThan200LinesInLog = TRUE;
+            break;
+        }
+        
+		tsRng.length = nlRng.location - 1; // change so looking before that newline 
+	}
+    
+    if (  fewerThan200LinesInLog  ) {
+        tsRng.length = 0;
+    }
+    
+	NSString * tail = [tmpString substringFromIndex: tsRng.length + offset];
+	
+	// Finally, indent continuation lines
+	NSMutableString * indentedMsg = [[tail mutableCopy] autorelease];
+	[indentedMsg replaceOccurrencesOfString: @"\\n"
+								 withString: @"\n                                       " // Note all the spaces in the string
+									options: 0
+									  range: NSMakeRange(0, [indentedMsg length])];
+	return indentedMsg;	
+}
+
++(NSString *) getPreferences: (NSArray *) prefsArray prefix: (NSString *) prefix {
+    
+    NSMutableString * string = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
+    
+    NSEnumerator * e = [prefsArray objectEnumerator];
+    NSString * keySuffix;
+    while (  (keySuffix = [e nextObject])  ) {
+        NSString * key = [prefix stringByAppendingString: keySuffix];
+		id obj = [gTbDefaults objectForKey: key];
+		if (  obj  ) {
+			if (  [key isEqualToString: @"installationUID"]  ) {
+				[string appendFormat: @"%@ (not shown)\n", key];
+			} else {
+				[string appendFormat: @"%@ = %@%@\n", keySuffix, obj, (  [gTbDefaults canChangeValueForKey: key]
+																	   ? @""
+																	   : @" (forced)")];
+			}
+		}
+    }
+    
+    return [NSString stringWithString: string];
+}
+
++(NSString *) stringWithIfconfigOutput {
+    
+    NSString * ifconfigOutput = @""; // stdout (ignore stderr)
+	
+    runTool(TOOL_PATH_FOR_IFCONFIG,
+            [NSArray array],
+            &ifconfigOutput,
+            nil);
+    
+    return ifconfigOutput;
+}
++(NSString *) nonAppleKextContents {
+    
+    NSString * kextRawContents = @""; // stdout (ignore stderr)
+	
+    runTool(TOOL_PATH_FOR_BASH,
+            [NSArray arrayWithObjects:
+             @"-c",
+             [TOOL_PATH_FOR_KEXTSTAT stringByAppendingString: @" | grep -v com.apple"],
+             nil],
+            &kextRawContents,
+            nil);
+    
+    return kextRawContents;
+}
+
++(void) putDiagnosticInfoOnClipboardWithDisplayName: (NSString *) displayName {
+	
+	VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
+    if (  connection  ) {
+		
+		// Get OS and Tunnelblick version info
+		NSString * versionContents = [[((MenuController *)[NSApp delegate]) openVPNLogHeader] stringByAppendingString:
+                                      (isUserAnAdmin()
+                                       ? @"; Admin user"
+                                       : @"; Standard user")];
+		
+		// Get contents of configuration file
+        NSString * configFileContents = [connection sanitizedConfigurationFileContents ];
+        if (  ! configFileContents  ) {
+            configFileContents = @"(No configuration file found or configuration file could not be sanitized. See the Console Log for details.)";
+        }
+		
+		NSString * condensedConfigFileContents = condensedConfigFileContentsFromString(configFileContents);
+		
+        // Get list of files in .tblk or message explaining why cannot get list
+        NSString * tblkFileList = [ConfigurationManager listOfFilesInTblkForConnection: connection];
+        
+        // Get relevant preferences
+        NSString * configurationPreferencesContents = [ConfigurationManager getPreferences: gConfigurationPreferences prefix: [connection displayName]];
+        
+        NSString * wildcardPreferencesContents      = [ConfigurationManager getPreferences: gConfigurationPreferences prefix: @"*"];
+        
+        NSString * programPreferencesContents       = [ConfigurationManager getPreferences: gProgramPreferences       prefix: @""];
+        
+		// Get Tunnelblick log
+        NSTextStorage * store = [[[[[NSApp delegate] logScreen] configurationsPrefsView] logView] textStorage];
+        NSString * logContents = [store string];
+        
+        // Get output of "ifconfig"
+        NSString * ifconfigOutput = [self stringWithIfconfigOutput];
+        
+		// Get tail of Console log
+        NSString * consoleContents = (  runningOnLeopardOrNewer()
+                                      ? [self stringContainingRelevantConsoleLogEntries]
+                                      : [self tigerConsoleContents]);
+        
+        NSString * kextContents = [self nonAppleKextContents];
+        
+		NSString * separatorString = @"================================================================================\n\n";
+		
+        NSString * output = [NSString stringWithFormat:
+							 @"%@\n\n"  // Version info
+                             @"Configuration %@\n\n"
+                             @"\"Sanitized\" condensed configuration file for %@:\n\n%@\n\n%@"
+                             @"Non-Apple kexts that are loaded:\n\n%@\n%@"
+                             @"%@\n%@"  // List of unusual files in .tblk (or message why not listing them)
+                             @"Configuration preferences:\n\n%@\n%@"
+                             @"Wildcard preferences:\n\n%@\n%@"
+                             @"Program preferences:\n\n%@\n%@"
+                             @"Tunnelblick Log:\n\n%@\n%@"
+							 @"\"Sanitized\" full configuration file\n\n%@\n\n%@"
+                             @"ifconfig output:\n\n%@\n%@"
+                             @"Console Log:\n\n%@\n",
+                             versionContents,
+                             [connection localizedName], [connection configPath], condensedConfigFileContents, separatorString,
+                             kextContents, separatorString,
+                             tblkFileList, separatorString,
+                             configurationPreferencesContents, separatorString,
+                             wildcardPreferencesContents, separatorString,
+                             programPreferencesContents, separatorString,
+                             logContents, separatorString,
+							 configFileContents, separatorString,
+                             ifconfigOutput, separatorString,
+                             consoleContents];
+        
+        NSPasteboard * pb = [NSPasteboard generalPasteboard];
+        [pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];
+        [pb setString: output forType: NSStringPboardType];
+    } else {
+        NSLog(@"diagnosticInfoToClipboardButtonWasClicked but no configuration selected");
+    }
+	
+}
+
++(void) putConsoleLogOnClipboard {
+
+	// Get OS and Tunnelblick version info
+	NSString * versionContents = [[((MenuController *)[NSApp delegate]) openVPNLogHeader] stringByAppendingString:
+								  (isUserAnAdmin()
+								   ? @"; Admin user"
+								   : @"; Standard user")];
+	
+	// Get tail of Console log
+	NSString * consoleContents;
+	if (  runningOnLeopardOrNewer()  ) {
+		consoleContents = [ConfigurationManager stringContainingRelevantConsoleLogEntries];
+	} else {
+		consoleContents = [ConfigurationManager tigerConsoleContents];
+	}
+	
+	NSString * output = [NSString stringWithFormat:
+						 @"%@\n\nConsole Log:\n\n%@",
+						 versionContents, consoleContents];
+	
+	NSPasteboard * pb = [NSPasteboard generalPasteboard];
+	[pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];
+	[pb setString: output forType: NSStringPboardType];
+}
+
+// ************************************************************************
+// PRIVATE CLASS METHODS THAT MUST BE INVOKED ON NEW THREADS
+//
+// "lockForConfigurationChanges" must be done before invoking these methods except for guideStateThread:
+// ************************************************************************
+
++(void) guideStateThread: (NSNumber *) guideState {
+	
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    [ConfigurationManager guideState: [guideState intValue]];
+	
+    [pool drain];
+}
+
++(void) makeConfigurationsPrivateWithDisplayNamesOperation: (NSArray *) displayNames {
+	
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    [ConfigurationManager makeConfigurationsShared: NO displayNames: displayNames];
+    
+    [TBOperationQueue removeDisableList];
+    
+    [[NSApp delegate] performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+	
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) makeConfigurationsSharedWithDisplayNamesOperation: (NSArray *) displayNames {
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    [ConfigurationManager makeConfigurationsShared: YES displayNames: displayNames];
+    
+    [TBOperationQueue removeDisableList];
+    
+    [[NSApp delegate] performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+	
+    [TBOperationQueue operationIsComplete];
+	
+    [pool drain];
+}
+
++(void) removeConfigurationsWithDisplayNamesOperation: (NSArray *) displayNames {
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    [ConfigurationManager removeConfigurationsWithDisplayNames: displayNames];
+    
+    [TBOperationQueue removeDisableList];
+    
+    [[NSApp delegate] performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+	
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) revertToShadowWithDisplayNamesOperation: (NSArray *) displayNames {
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	[ConfigurationManager revertToShadowWithDisplayNames: displayNames];
+    
+    [TBOperationQueue removeDisableList];
+    
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) removeCredentialsWithDisplayNamesOperation: (NSArray *) displayNames {
+	
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	[ConfigurationManager removeCredentialsWithDisplayNames: displayNames];
+    
+    [TBOperationQueue removeDisableList];
+    
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) renameConfigurationWithDisplayNameOperation: (NSString *) sourceDisplayName {
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+	BOOL didRename = FALSE;
+	NSString * newName;
+	
+    VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: sourceDisplayName];
+	if (  connection  ) {
+		
+		NSString * sourcePath = [connection configPath];
+		
+		// Get the new name
+		NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Please enter a new name for '%@'.", @"Window text"), [sourceDisplayName lastPathComponent]];
+		newName = TBGetDisplayName(prompt, sourcePath);
+		[[NSApp delegate] reactivateTunnelblick];
+
+		if (  newName  ) {
+			
+			if (  ! [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: newName]  ) {
+				NSString * sourceFolder = [sourcePath stringByDeletingLastPathComponent];
+				NSString * targetPath = [sourceFolder stringByAppendingPathComponent: newName];
+				NSString * newExtension = [newName pathExtension];
+				if (  [newExtension isEqualToString: @"tblk"]  ) {
+					newName = [newName stringByDeletingPathExtension];
+				} else {
+					targetPath = [targetPath stringByAppendingPathExtension: @"tblk"];
+				}
+				
+				if (  [ConfigurationManager renameConfigurationFromPath: sourcePath
+																 toPath: targetPath]  ) {
+					didRename = TRUE;
+				}
+			} else {
+				NSString * localName = [[NSApp delegate] localizedNameForDisplayName: newName];
+				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								  [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' already exists.", @"Window text"), localName]);
+			}
+		}
+	}
+	
+    [TBOperationQueue removeDisableList];
+    
+	if (  didRename  ) {
+		NSDictionary * renameDict = [NSDictionary dictionaryWithObjectsAndKeys:
+									 sourceDisplayName, @"oldDisplayName",
+									 newName,           @"newDisplayName",
+									 nil];
+		[[NSApp delegate] performSelectorOnMainThread: @selector(configurationsChangedWithRenameDictionary:) withObject: renameDict waitUntilDone: NO];
+	}
+	
+    [TBOperationQueue operationIsComplete];
+    
+	[pool drain];
+}
+
++(void) createShadowConfigurationThenConnectUserKnowsWithDisplayNameOperation: (NSString *) displayName {
+	
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	[ConfigurationManager createShadowThenConnectWithDisplayName: displayName userKnows: YES];
+	
+    [TBOperationQueue removeDisableList];
+    
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+} 
+
++(void) createShadowConfigurationThenConnectUserDoesNotKnowWithDisplayNameOperation: (NSString *) displayName {
+	
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	[ConfigurationManager createShadowThenConnectWithDisplayName: displayName userKnows: NO];
+	
+    [TBOperationQueue removeDisableList];
+    
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+} 
+
++(void) renameConfigurationWithPathsOperation: (NSDictionary *) dict {
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	NSString * sourcePath = [dict objectForKey: @"sourcePath"];
+	NSString * targetPath = [dict objectForKey: @"targetPath"];
+	NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+	NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
+	BOOL didRename = FALSE;
+	if (  ! [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: targetDisplayName]  ) {
+		if (  [ConfigurationManager renameConfigurationFromPath: sourcePath
+														 toPath: targetPath]  ) {
+			didRename = TRUE;
+		}
+	} else {
+		NSString * localName = [[NSApp delegate] localizedNameForDisplayName: targetDisplayName];
+		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						  [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' already exists.", @"Window text"), localName]);
+	}
+    
+    [TBOperationQueue removeDisableList];
+    
+	if (  didRename  ) {
+		NSDictionary * renameDict = [NSDictionary dictionaryWithObjectsAndKeys:
+									 sourceDisplayName, @"oldDisplayName",
+									 targetDisplayName, @"newDisplayName",
+									 nil];
+		[[NSApp delegate] performSelectorOnMainThread: @selector(configurationsChangedWithRenameDictionary:) withObject: renameDict waitUntilDone: NO];
+	}
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) duplicateConfigurationWithPathsOperation: (NSDictionary *) dict {
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	NSString * sourcePath = [dict objectForKey: @"sourcePath"];
+	NSString * targetPath = [dict objectForKey: @"targetPath"];
+    
+    [ConfigurationManager duplicateConfigurationFromPath: sourcePath
+												  toPath: targetPath];
+    
+    [TBOperationQueue removeDisableList];
+    
+    [[NSApp delegate] performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+	
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) installConfigurationsUpdateInBundleAtPathOperation: (NSString *) path {
+	
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    NSArray * components = [path componentsSeparatedByString: @"/"];
+    if (   ( [components count] !=  7)
+        || ( ! [path hasPrefix: L_AS_T_TBLKS])
+        ) {
+        NSLog(@"Configuration update installer: Not installing configurations update: Invalid path to update");
+    } else {
+        
+        // Secure the update (which makes Info.plist readable by everyone and all folders searchable by everyone)
+        NSArray * args = [NSArray arrayWithObjects:
+                          @"secureUpdate",
+                          [components objectAtIndex: 5],
+                          nil];
+        OSStatus status = runOpenvpnstart(args, nil, nil);
+        if (  status != 0  ) {
+            NSLog(@"Could not secure the update; openvpnstart status was %ld", (long)status);
+        }
+        
+        // Install the updated configurations
+        TBLog(@"DB-UC", @"Installing updated configurations at '%@'", path);
+        [[ConfigurationManager manager] installConfigurations: [NSArray arrayWithObject: path]
+                                                 skipMessages: YES
+                                               notifyDelegate: YES];
+    }
+	
+    [TBOperationQueue removeDisableList];
+    
+    [[NSApp delegate] performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+	
+    [[NSApp delegate] performSelectorOnMainThread: @selector(startCheckingForConfigurationUpdates) withObject: nil waitUntilDone: NO];
+    
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) installConfigurationsShowMessagesNotifyDelegateOperation: (NSArray *) filePaths {
+	
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    [[ConfigurationManager manager] installConfigurations: filePaths
+                                             skipMessages: NO
+                                           notifyDelegate: YES];
+    
+    [TBOperationQueue removeDisableList];
+    
+    [[NSApp delegate] performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+    
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) putDiagnosticInfoOnClipboardOperation: (NSString *) displayName {
+	
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    [ConfigurationManager putDiagnosticInfoOnClipboardWithDisplayName: displayName];
+    
+    [TBOperationQueue removeDisableList];
+    
+	[[[NSApp delegate] logScreen] performSelectorOnMainThread: @selector(indicateNotWaitingForDiagnosticInfoToClipboard) withObject: nil waitUntilDone: NO];
+	
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) putConsoleLogOnClipboardOperation {
+	
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    [ConfigurationManager putConsoleLogOnClipboard];
+    
+    [TBOperationQueue removeDisableList];
+    
+	[[[NSApp delegate] logScreen] performSelectorOnMainThread: @selector(indicateNotWaitingForConsoleLogToClipboard) withObject: nil waitUntilDone: NO];
+	
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) installConfigurationsShowMessagesDoNotNotifyDelegateOperation: (NSArray *) filePaths {
+	
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    [[ConfigurationManager manager] installConfigurations: filePaths
+                                             skipMessages: NO
+                                           notifyDelegate: NO];
+    
+    [TBOperationQueue removeDisableList];
+    
+    [[NSApp delegate] performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
+    
+    [TBOperationQueue operationIsComplete];
+	
+    [pool drain];
+}
+
+// ************************************************************************
+// CLASS METHODS USED EXTERNALLY
+// ************************************************************************
+
++(void) haveNoConfigurationsGuideInNewThread {
+    
+	[NSThread detachNewThreadSelector: @selector(guideStateThread:) toTarget: [ConfigurationManager class] withObject: [NSNumber numberWithInt: entryNoConfigurations]];
+}
+
++(void) addConfigurationGuideInNewThread {
+    
+	[NSThread detachNewThreadSelector: @selector(guideStateThread:) toTarget: [ConfigurationManager class] withObject: [NSNumber numberWithInt: entryAddConfiguration]];
+}
+
++(void) makeConfigurationsPrivateInNewThreadWithDisplayNames: (NSArray *)  displayNames {
+	
+    [TBOperationQueue addToQueueSelector: @selector(makeConfigurationsPrivateWithDisplayNamesOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: displayNames
+                             disableList: displayNames];
+}
+
++(void) makeConfigurationsSharedInNewThreadWithDisplayNames: (NSArray *)  displayNames {
+	
+    [TBOperationQueue addToQueueSelector: @selector(makeConfigurationsSharedWithDisplayNamesOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: displayNames
+                             disableList: displayNames];
+}
+
++(void) removeConfigurationsInNewThreadWithDisplayNames: (NSArray *)  displayNames {
+	
+    [TBOperationQueue addToQueueSelector: @selector(removeConfigurationsWithDisplayNamesOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: displayNames
+                             disableList: displayNames];
+}
+
++(void) revertToShadowInNewThreadWithDisplayNames: (NSArray *)  displayNames {
+	
+    [TBOperationQueue addToQueueSelector: @selector(revertToShadowWithDisplayNamesOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: displayNames
+                             disableList: displayNames];
+}
+
++(void) removeCredentialsInNewThreadWithDisplayNames: (NSArray *)  displayNames {
+	
+    [TBOperationQueue addToQueueSelector: @selector(removeCredentialsWithDisplayNamesOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: displayNames
+                             disableList: displayNames];
+}
+
++(void) renameConfigurationInNewThreadWithDisplayName: (NSString *) displayName {
+	
+    [TBOperationQueue addToQueueSelector: @selector(renameConfigurationWithDisplayNameOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: displayName
+                             disableList: [NSArray arrayWithObject: displayName]];
+}
+
++(void) createShadowConfigurationInNewThreadWithDisplayName: (NSString *) displayName thenConnectUserKnows: (BOOL) userKnows {
+	
+	if (  userKnows  ) {
+        [TBOperationQueue addToQueueSelector: @selector(createShadowConfigurationThenConnectUserKnowsWithDisplayNameOperation:)
+                                      target: [ConfigurationManager class]
+                                      object: displayName
+                                 disableList: [NSArray arrayWithObject: displayName]];
+	} else {
+        [TBOperationQueue addToQueueSelector: @selector(createShadowConfigurationThenConnectUserDoesNotKnowWithDisplayNameOperation:)
+                                      target: [ConfigurationManager class]
+                                      object: displayName
+                                 disableList: [NSArray arrayWithObject: displayName]];
+	}
+}
+
++(void) renameConfigurationInNewThreadAtPath: (NSString *) sourcePath
+									  toPath: (NSString *) targetPath {
+	
+	NSArray * paths = [NSArray arrayWithObjects: sourcePath, targetPath, nil];
+	NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+						   sourcePath, @"sourcePath",
+						   targetPath, @"targetPath",
+						   nil];
+    
+    [TBOperationQueue addToQueueSelector: @selector(renameConfigurationWithPathsOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: dict
+                             disableList: [ConfigurationManager displayNamesFromPaths: paths]];
+}
+
++(void) duplicateConfigurationInNewThreadPath: (NSString *) sourcePath
+									   toPath: (NSString *) targetPath {
+	
+	NSArray * paths = [NSArray arrayWithObjects: sourcePath, targetPath, nil];
+	NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+						   sourcePath, @"sourcePath",
+						   targetPath, @"targetPath",
+						   nil];
+
+    [TBOperationQueue addToQueueSelector: @selector(duplicateConfigurationWithPathsOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: dict
+                             disableList: [ConfigurationManager displayNamesFromPaths: paths]];
+}
+
++(void) installConfigurationsUpdateInBundleInNewThreadAtPath: (NSString *) path {
+	
+    [TBOperationQueue addToQueueSelector: @selector(installConfigurationsUpdateInBundleAtPathOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: path
+                             disableList: [NSArray arrayWithObject: @"*"]];
+}
+
++(void) putDiagnosticInfoOnClipboardInNewThreadForDisplayName: (NSString *) displayName {
+    
+    [TBOperationQueue addToQueueSelector: @selector(putDiagnosticInfoOnClipboardOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: displayName
+                             disableList: [NSArray arrayWithObject: displayName]];
+}
+
++(void) putConsoleLogOnClipboardInNewThread {
+    
+    [TBOperationQueue addToQueueSelector: @selector(putConsoleLogOnClipboardOperation)
+                                  target: [ConfigurationManager class]
+                                  object: nil
+                             disableList: [NSArray array]];
+}
+
++(void) installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: (NSArray *)  paths {
+	
+    [TBOperationQueue addToQueueSelector: @selector(installConfigurationsShowMessagesNotifyDelegateOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: paths
+                             disableList: [ConfigurationManager displayNamesFromPaths: paths]];
+}
+
++(void) installConfigurationsInNewThreadShowMessagesDoNotNotifyDelegateWithPaths: (NSArray *)  paths {
+	
+    [TBOperationQueue addToQueueSelector: @selector(installConfigurationsShowMessagesDoNotNotifyDelegateOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: paths
+                             disableList: [ConfigurationManager displayNamesFromPaths: paths]];
+}
+
++(void) installConfigurationsInCurrentMainThreadDoNotShowMessagesDoNotNotifyDelegateWithPaths: (NSArray *)  paths {
+    
+    if (  ! runningOnMainThread()  ) {
+        NSLog(@"installConfigurationsInCurrentMainThreadDoNotShowMessagesDoNotNotifyDelegateWithPaths: not running on main thread");
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+    }
+    
+    [[ConfigurationManager manager] installConfigurations: paths
+                                             skipMessages: YES
+                                           notifyDelegate: NO];
+    
+    [[NSApp delegate] configurationsChanged];
 }
 
 @end

@@ -43,6 +43,7 @@
 #import "NSString+TB.h"
 #import "NSTimer+TB.h"
 #import "StatusWindowController.h"
+#import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
 #import "VPNConnection.h"
 
@@ -59,15 +60,12 @@ extern NSArray              * gTotalUnits;
 extern volatile int32_t       gSleepWakeState;
 extern volatile int32_t       gActiveInactiveState;
 
-extern NSString * firstPartOfPath(NSString * thePath);
-
-extern NSString * lastPartOfPath(NSString * thePath);
-
 @interface VPNConnection()          // PRIVATE METHODS
 
 -(void)             afterFailureHandler:            (NSTimer *)     timer;
 
--(NSArray *)        argumentsForOpenvpnstartForNow: (BOOL)          forNow;
+-(NSArray *)        argumentsForOpenvpnstartForNow: (BOOL)          forNow
+										 userKnows: (BOOL)          userKnows;
 
 -(void)             clearStatisticsRatesDisplay;
 
@@ -213,6 +211,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         
         tryingToHookup = FALSE;
         initialHookupTry = TRUE;
+        completelyDisconnected = TRUE;
         discardSocketInput = TRUE;
         isHookedup = FALSE;
         tunOrTap = nil;
@@ -226,8 +225,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
         credentialsAskedFor = FALSE;
         showingStatusWindow = FALSE;
         serverNotClient = FALSE;
-        retryingConnectAfterSecuringConfiguration = FALSE;
         ipCheckLastHostWasIPAddress = FALSE;
+		connectAfterDisconnect = FALSE;
         logFilesMayExist = ([[gTbDefaults stringForKey: @"lastConnectedDisplayName"] isEqualToString: displayName]);
 
         userWantsState   = userWantsUndecided;
@@ -506,7 +505,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
             [self setPort: 0];
             requestedState = @"EXITING";
             
-            NSLog(@"Stopped trying to establish communications with an existing OpenVPN process for '%@' after %d seconds", [self displayName], gHookupTimeout);
+            NSLog(@"Stopped trying to establish communications with an existing OpenVPN process for '%@' after %d seconds", [self localizedName], gHookupTimeout);
             NSString * msg = [NSString stringWithFormat:
                               NSLocalizedString(@"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned.", @"Window text"),
                               [self localizedName],
@@ -724,7 +723,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 -(BOOL) makeDictionary: (NSDictionary * *)  dict withLabel: (NSString *) daemonLabel openvpnstartArgs: (NSMutableArray * *) openvpnstartArgs
 {
 	NSString * openvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-    *openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO] mutableCopy] autorelease];
+    *openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO userKnows: YES] mutableCopy] autorelease];
     if (  ! (*openvpnstartArgs)  ) {
         return NO;
     }
@@ -739,6 +738,10 @@ extern NSString * lastPartOfPath(NSString * thePath);
         workingDirectory = [configPath stringByAppendingPathComponent: @"Contents/Resources"];
     } else {
         workingDirectory = firstPartOfPath(configPath);
+		if (  ! workingDirectory  ) {
+			NSLog(@"No firstPartOfPath for '%@'", configPath);
+			[NSApp terminateBecause: terminatingBecauseOfError];
+		}
     }
     
     *dict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -1325,6 +1328,16 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 //******************************************************************************************************************
 
+-(void) connectOnMainThreadUserKnows: (NSNumber *) userKnowsNumber {
+	
+	[self performSelectorOnMainThread: @selector(connectUserKnows:) withObject: userKnowsNumber waitUntilDone: YES];
+}
+
+-(void) connectUserKnows: (NSNumber *) userKnowsNumber {
+	
+	[self connect: self userKnows: [userKnowsNumber boolValue]];
+}
+	 
 static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (void) connect: (id) sender userKnows: (BOOL) userKnows
@@ -1340,6 +1353,14 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
 
+	if (  [lastState isEqualToString: @"DISCONNECTING"] ) {
+		// We are in the process of disconnecting, so set flags so that when the disconnect is complete we connect again
+		connectAfterDisconnectUserKnows = userKnows;
+		connectAfterDisconnect = TRUE;
+		NSLog(@"connect: %@ but still disconnecting; setting up to reconnect when the disconnect is complete.", [self displayName]);
+		return;
+	}
+	
     if (  ! [lastState isEqualToString: @"EXITING"]  ) {
         NSLog(@"connect: but %@ is not disconnected", [self displayName]);
         return;
@@ -1352,6 +1373,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
+    completelyDisconnected = FALSE;
     areConnecting = TRUE;
     pthread_mutex_unlock( &areConnectingMutex );
     
@@ -1395,6 +1417,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                     requestedState = oldRequestedState;
                 }
                 areConnecting = FALSE;
+                completelyDisconnected = TRUE;
                 return;
             }
         }
@@ -1416,7 +1439,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
     [self clearLog];
     
-    [self setArgumentsUsedToStartOpenvpnstart: [self argumentsForOpenvpnstartForNow: YES]];
+    [self setArgumentsUsedToStartOpenvpnstart: [self argumentsForOpenvpnstartForNow: YES userKnows: userKnows]];
     
     connectedUseScripts    = (unsigned)[[argumentsUsedToStartOpenvpnstart objectAtIndex: OPENVPNSTART_ARG_USE_SCRIPTS_IX] intValue];
     [self setConnectedCfgLocCodeString: [argumentsUsedToStartOpenvpnstart objectAtIndex: OPENVPNSTART_ARG_CFG_LOC_CODE_IX]];
@@ -1426,6 +1449,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             requestedState = oldRequestedState; // User cancelled
         }
         areConnecting = FALSE;
+        completelyDisconnected = TRUE;
         return;
     }
 		
@@ -1454,6 +1478,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                     requestedState = oldRequestedState;
                 }
                 areConnecting = FALSE;
+                completelyDisconnected = TRUE;
 				return;
 			}
 		} else {
@@ -1512,7 +1537,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		pthread_mutex_unlock( &areConnectingMutex );
 		
 		requestedState =  oldRequestedState;
-        
+		completelyDisconnected = TRUE;
+
         if (  status == OPENVPNSTART_RETURN_SYNTAX_ERROR  ) {
             openvpnstartOutput = @"Internal Tunnelblick error: openvpnstart syntax error";
         } else {
@@ -1526,48 +1552,23 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                          (long)status, openvpnstartOutput]];
 		
 		if (  status == OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR) {
-			
-            if (  userKnows  ) {
-                requestedState = oldRequestedState;
-            }
-            
-            // Secure the configuration
-            unsigned installerFlags;
-            if (  isDeployedConfiguration  ) {
-                installerFlags = INSTALLER_SECURE_APP;
-            } else {
-                installerFlags = INSTALLER_SECURE_TBLKS;
-				[self invalidateConfigurationParse];
-            }
-
-            NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: installerFlags
-                                    extraArguments: nil];
-			if (  installerResult != 0  ) {
-                // the user cancelled or an error occurred
-				// if an error occurred, runInstaller has already put up an error dialog and put a message in the console log
-                areConnecting = FALSE;
-				return;
-            }
-            
-            
-            if (  ! retryingConnectAfterSecuringConfiguration  ) {
-                retryingConnectAfterSecuringConfiguration = TRUE;
-                [self connect: sender userKnows: userKnows];
-                retryingConnectAfterSecuringConfiguration = FALSE;
-                areConnecting = FALSE;
-                return;
-            }
-            
-            retryingConnectAfterSecuringConfiguration = FALSE;
-        }
+			NSString * message = (  isDeployedConfiguration
+								  ? [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' is not secure. Please reinstall Tunnelblick.", @"Window text"), [self localizedName]]
+								  : [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' is not secure. It should be reinstalled.", @"Window text"), [self localizedName]]);
+			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+							  message);
+			areConnecting = FALSE;
+			completelyDisconnected = TRUE;
+			return;
+		}
         
 		if (  userKnows  ) {
             TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
 							  [NSString stringWithFormat:
 							   NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window", @"Window text"),
 							   [self localizedName]]);
-            requestedState = oldRequestedState;
         }
+
     } else {
         openvpnstartOutput = stringForLog(errOut, @"*Tunnelblick: openvpnstart log:\n");
         if (  openvpnstartOutput  ) {
@@ -1582,7 +1583,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
--(BOOL) shadowIsIdenticalMakeItSo: (BOOL) makeItSo
+-(BOOL) shadowCopyIsIdentical
 {
     NSString * cfgPath = [self configPath];
 	NSString * name = lastPartOfPath(cfgPath);
@@ -1601,41 +1602,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			break;
 			
 		case OPENVPNSTART_COMPARE_CONFIG_DIFFERENT:
-			
 			[self invalidateConfigurationParse];
-			
-			if (  ! makeItSo  ) {
-				return NO;
-			}
-			
-			// Alt config is different or doesn't exist. We must create it (and maybe the folders that contain it)
-			; // empty statement needed to avoid bogus compiler error
-			AuthorizationRef authRef = [NSApplication getAuthorizationRef:
-										NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text")];
-			
-			[[NSApp delegate] reactivateTunnelblick];
-			
-			if ( authRef == nil ) {
-				NSLog(@"Authorization to create/update a secure (shadow) copy of the configuration file cancelled by user.");
-				AuthorizationFree(authRef, kAuthorizationFlagDefaults);
-				return NO;
-			}
-			
-			NSString * altCfgPath = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
-									 stringByAppendingPathComponent: lastPartOfPath(cfgPath)];
-			
-			if ( [[ConfigurationManager manager] copyConfigPath: cfgPath
-                                                         toPath: altCfgPath
-                                                usingAuthRefPtr: &authRef
-                                                     warnDialog: YES
-                                                    moveNotCopy: NO] ) {    // Copy the config to the alt config
-				AuthorizationFree(authRef, kAuthorizationFlagDefaults);
-				NSLog(@"Created or updated secure (shadow) copy of configuration file %@", cfgPath);
-				return YES;
-			}
-			
-			AuthorizationFree(authRef, kAuthorizationFlagDefaults); // Couldn't make alt file
-			NSLog(@"Unable to create or update secure (shadow) copy of configuration file %@", cfgPath);
 			return NO;
 			break;
 			
@@ -1656,7 +1623,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 -(NSString *) setTunOrTapAndHasAuthUserPass {
     
     if (  ! tunOrTap  ) {
-        tunOrTap = [[[ConfigurationManager manager] parseConfigurationPath: configPath forConnection: self hasAuthUserPass: &hasAuthUserPass] copy];
+        tunOrTap = [[ConfigurationManager parseConfigurationPath: configPath forConnection: self hasAuthUserPass: &hasAuthUserPass] copy];
         
         // tunOrTap == 'Cancel' means we cancel whatever we're doing
         if (  [tunOrTap isEqualToString: @"Cancel"]  ) {
@@ -1759,11 +1726,14 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 -(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow
+								  userKnows: (BOOL) userKnows
 {
     NSString * cfgPath = [self configPath];
 
     if (   [cfgPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-        if (  ! [self shadowIsIdenticalMakeItSo: YES]  ) {
+        if (  ! [self shadowCopyIsIdentical]  ) {
+			
+			[ConfigurationManager createShadowConfigurationInNewThreadWithDisplayName: [self displayName] thenConnectUserKnows: userKnows];
 			return nil;
 		}
     }
@@ -2353,10 +2323,10 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         TBLog(@"DB-CD", @"Disconnecting '%@' using management interface", [self displayName]);
         [managementSocket writeString: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
     } else {
-        NSLog(@"No way to disconnect '%@': pid = %lu; connectedList = %@; notConnectWhenComputerStarts = %@; [managementSocket isConnected = %@",
+        NSLog(@"No way to disconnect '%@': pid = %lu; connectedList = %@; notConnectWhenComputerStarts = %s; [managementSocket isConnected] = %s",
               [self displayName], (unsigned long) thePid, connectedList,
-              (notConnectWhenComputerStarts   ? @"YES" : @"NO"),
-              ([managementSocket isConnected] ? @"YES" : @"NO"));
+              CSTRING_FROM_BOOL(notConnectWhenComputerStarts),
+              CSTRING_FROM_BOOL([managementSocket isConnected]));
         return NO;
     }
     
@@ -2542,11 +2512,34 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                withObject: @""
                            orAfterTimeout: interval
                                 testEvery: 0.2];
+        return;  // DO NOT set "completelyDisconnected"
     } else {
         [self addToLog: @"*Tunnelblick: Expected disconnection occurred."];
 	}
+	
+	if (  connectAfterDisconnect  ) {
+        BOOL userKnows = connectAfterDisconnectUserKnows;
+		connectAfterDisconnect = FALSE;
+		NSLog(@"Connecting %@ after disconnect completed", [self displayName]);
+		[self connect: self userKnows: userKnows];
+    } else {
+        completelyDisconnected = TRUE;
+    }
 }
+
+-(void) waitUntilCompletelyDisconnected {
     
+    // Cannot be called on the main thread because it will never return
+    if (  runningOnMainThread()  ) {
+        NSLog(@"waitUntilCompletelyDisconnected: on main thread");
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+    }
+    
+    while (  ! completelyDisconnected  ) {
+        usleep(100000); // 0.1 seconds
+    }
+}
+
 - (void) netsocketConnected: (NetSocket*) socket
 {
 
@@ -2678,7 +2671,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 			   && ( ! tryingToHookup )  ) {
 		TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp invoked but are already hooked up (OK to see this message a few times)", displayName)
 	} else {
-		TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp invoked BUT tryingToHookup = %@ and isHookedUp = %@", displayName, (tryingToHookup ? @"YES" : @"NO"), (isHookedup ? @"YES" : @"NO"))
+        TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp invoked BUT tryingToHookup = %s and isHookedUp = %s", displayName, CSTRING_FROM_BOOL(tryingToHookup), CSTRING_FROM_BOOL(isHookedup))
 	}
 }
 
@@ -2690,7 +2683,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  tryingToHookup  ) {
-		TBLog(@"DB-HU", @"['%@'] invoked processLine:; isHookedUp = %@; line = '%@'", displayName, (isHookedup ? @"YES" : @"NO"), line)
+        TBLog(@"DB-HU", @"['%@'] invoked processLine:; isHookedUp = %s; line = '%@'", displayName, CSTRING_FROM_BOOL(isHookedup), line)
 		[self indicateWeAreHookedUp];
     } else {
 		TBLog(@"DB-AU", @"['%@'] invoked processLine:; line = '%@'", displayName, line)
@@ -3620,6 +3613,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             [anItem setToolTip: [connection configPath]];
         }
     }
+	
+	if (  ! [TBOperationQueue shouldUIBeEnabledForDisplayName: [self displayName]]  ) {
+		return NO; // Disable connect/disconnect menu commands if installing files
+	}
+	
 	return YES;
 }
 

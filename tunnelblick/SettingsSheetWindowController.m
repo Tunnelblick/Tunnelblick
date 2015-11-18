@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -28,6 +28,7 @@
 
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
+#import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
 #import "VPNConnection.h"
 
@@ -454,7 +455,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         showingSettingsSheet = TRUE;
     }
     
-    [[self window] display];
+   [[self window] display];
     [[self window] makeKeyAndOrderFront: self];
     [NSApp activateIgnoringOtherApps:YES];
 }
@@ -472,28 +473,26 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
     [self initializeStaticContent];
     [self setupSettingsFromPreferences];
+	NSString * advancedTabIdentifier = [gTbDefaults stringForKey: @"AdvancedWindowTabIdentifier"];
+	if (  advancedTabIdentifier  ) {
+		[tabView selectTabViewItemWithIdentifier: advancedTabIdentifier];
+	}
+	
     [[self window] setReleasedWhenClosed: NO];
 }
 
-//**********************************************************************************************************************************
-
--(void) setTitle: (NSString *) newTitle ofControl: (id) theControl {
-	// Sets the title for a control, shifting the origin of the control itself to the left.
-
-    NSRect oldRect = [theControl frame];
-    [theControl setTitle: newTitle];
-    [theControl sizeToFit];
-    
-    NSRect newRect = [theControl frame];
-    float widthChange = newRect.size.width - oldRect.size.width;
-    NSRect oldPos;
-    
-    if (   [theControl isEqual: addNamedCredentialsButton]  ) {
-        oldPos = [theControl frame];
-        oldPos.origin.x = oldPos.origin.x - widthChange;
-        [theControl setFrame:oldPos];
-    }
+-(void) windowWillClose:(NSNotification *)notification {
+	
+	(void)notification;
+	
+	NSString * advancedTabIdentifier = [[tabView selectedTabViewItem] identifier];
+	if (  ! [advancedTabIdentifier isEqualToString: [gTbDefaults stringForKey: @"AdvancedWindowTabIdentifier"]]  ) {
+		[gTbDefaults setObject: advancedTabIdentifier forKey: @"AdvancedWindowTabIdentifier"];
+	}
 }
+
+
+//**********************************************************************************************************************************
 
 -(void) underlineLabel: tf string: inString alignment: (NSTextAlignment) align {
     NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString: inString];
@@ -681,14 +680,125 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 }
 
 //**********************************************************************************************************************************
+
+-(void) disableEverything {
+    
+    // Connecting & Disconnecting tab
+    
+    [flushDnsCacheCheckbox                 setEnabled: NO];
+    [prependDomainNameCheckbox             setEnabled: NO];
+    [useRouteUpInsteadOfUpCheckbox         setEnabled: NO];
+    [enableIpv6OnTapCheckbox               setEnabled: NO];
+    [keepConnectedCheckbox                 setEnabled: NO];
+    
+    [loadTunPopUpButton                    setEnabled: NO];
+    [loadTapPopUpButton                    setEnabled: NO];
+    
+    [disconnectOnSleepCheckbox             setEnabled: NO];
+    [reconnectOnWakeFromSleepCheckbox      setEnabled: NO];
+    
+    [disconnectWhenUserSwitchesOutCheckbox setEnabled: NO];
+    [reconnectWhenUserSwitchesInCheckbox   setEnabled: NO];
+    
+    // While Connected tab
+    
+    [runMtuTestCheckbox                    setEnabled: NO];
+    
+    [monitorNetworkForChangesCheckbox      setEnabled: NO];
+
+    [dnsServersPopUpButton                 setEnabled: NO];
+    [domainPopUpButton                     setEnabled: NO];
+    [searchDomainPopUpButton               setEnabled: NO];
+    [winsServersPopUpButton                setEnabled: NO];
+    [netBiosNamePopUpButton                setEnabled: NO];
+    [workgroupPopUpButton                  setEnabled: NO];
+    
+    [otherdnsServersPopUpButton            setEnabled: NO];
+    [otherdomainPopUpButton                setEnabled: NO];
+    [othersearchDomainPopUpButton          setEnabled: NO];
+    [otherwinsServersPopUpButton           setEnabled: NO];
+    [othernetBiosNamePopUpButton           setEnabled: NO];
+    [otherworkgroupPopUpButton             setEnabled: NO];
+    
+    // VPN Credentials tab
+    
+    [allConfigurationsUseTheSameCredentialsCheckbox setEnabled: NO];
+    [credentialsGroupButton                setEnabled: NO];
+    [removeNamedCredentialsButton          setEnabled: NO];
+	[addNamedCredentialsTF				   setEnabled: NO];
+    [addNamedCredentialsButton             setEnabled: NO];
+    
+    // Sounds tab
+    
+    [soundOnConnectButton                  setEnabled: NO];
+    [soundOnDisconnectButton               setEnabled: NO];
+}
+
+-(void) enableEverything {
+    
+    // Connecting & Disconnecting tab
+    
+    [flushDnsCacheCheckbox                 setEnabled: YES];
+    [prependDomainNameCheckbox             setEnabled: YES];
+    [useRouteUpInsteadOfUpCheckbox         setEnabled: YES];
+    [enableIpv6OnTapCheckbox               setEnabled: YES];
+    [keepConnectedCheckbox                 setEnabled: YES];
+    
+    [loadTunPopUpButton                    setEnabled: YES];
+    [loadTapPopUpButton                    setEnabled: YES];
+    
+    [disconnectOnSleepCheckbox             setEnabled: YES];
+    [reconnectOnWakeFromSleepCheckbox      setEnabled: YES];
+    
+    [disconnectWhenUserSwitchesOutCheckbox setEnabled: YES];
+    [reconnectWhenUserSwitchesInCheckbox   setEnabled: YES];
+    
+    // While Connected tab
+    
+    [runMtuTestCheckbox                    setEnabled: YES];
+    
+    [monitorNetworkForChangesCheckbox      setEnabled: YES];
+    
+    [dnsServersPopUpButton                 setEnabled: YES];
+    [domainPopUpButton                     setEnabled: YES];
+    [searchDomainPopUpButton               setEnabled: YES];
+    [winsServersPopUpButton                setEnabled: YES];
+    [netBiosNamePopUpButton                setEnabled: YES];
+    [workgroupPopUpButton                  setEnabled: YES];
+    
+    [otherdnsServersPopUpButton            setEnabled: YES];
+    [otherdomainPopUpButton                setEnabled: YES];
+    [othersearchDomainPopUpButton          setEnabled: YES];
+    [otherwinsServersPopUpButton           setEnabled: YES];
+    [othernetBiosNamePopUpButton           setEnabled: YES];
+    [otherworkgroupPopUpButton             setEnabled: YES];
+    
+    // VPN Credentials tab
+    
+    [allConfigurationsUseTheSameCredentialsCheckbox setEnabled: YES];
+    [credentialsGroupButton                setEnabled: YES];
+    [removeNamedCredentialsButton          setEnabled: YES];
+    [addNamedCredentialsButton             setEnabled: (   ( [[addNamedCredentialsTF stringValue] length] != 0 )
+														&& ( ! [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"] )	 
+														)];
+    
+    // Sounds tab
+    
+    [soundOnConnectButton                  setEnabled: YES];
+    [soundOnDisconnectButton               setEnabled: YES];
+}
+
 -(void) setupSettingsFromPreferences {
     
-    if (  ! connection  ) {
-        return;
-    }
-	
 	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
 	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
+	
+    if (   ( ! connection )
+        || ( ![TBOperationQueue shouldUIBeEnabledForDisplayName: configurationName] )  ) {
+        [self disableEverything];
+        [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
+        return;
+    }
 	
     NSString * programName;
     if (  [configurationName isEqualToString: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
@@ -700,6 +810,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	NSString * localName = [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: configurationName];
 	NSString * privateSharedDeployed = [connection displayLocation];
     [settingsSheet setTitle: [NSString stringWithFormat: NSLocalizedString(@"%@%@ Disconnected - Advanced Settings%@", @"Window title"), localName, privateSharedDeployed, programName]];
+    
+    [self enableEverything]; // Some items may be individually disabled later
     
 	[self setupCredentialsGroupButton]; // May not need to, but set up this first, so it is set up for the rest
 	
@@ -748,8 +860,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	[namedCredentialsBox
 	 setTitle: NSLocalizedString(@"Named Credentials", @"Window text")];
 	
-	[self setTitle: NSLocalizedString(@"Add Credentials...", @"Window text")
-		 ofControl: addNamedCredentialsButton];
+	[addNamedCredentialsButton setTitle: NSLocalizedString(@"Add Credentials", @"Window text")];
+    
+	[addNamedCredentialsTFC setTitle: @""];
+	[addNamedCredentialsTF  setDelegate: self];
+	
+    [addNamedCredentialsButton sizeToFit];
+	[addNamedCredentialsButton setEnabled: NO];
 	
     // Create a menu for the Remove Credentials pull-down button
     NSMenu * removeCredentialMenu = [[[NSMenu alloc] init] autorelease];
@@ -813,13 +930,15 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	if (  groupFromPrefs  ) {
 		[allConfigurationsUseTheSameCredentialsCheckbox setState: NSOnState];
 		[credentialsGroupButton       setEnabled: NO];
+		[addNamedCredentialsTF        setEnabled: NO];
 		[addNamedCredentialsButton    setEnabled: NO];
 		[removeNamedCredentialsButton setEnabled: NO];
 		
 	} else {
 		[allConfigurationsUseTheSameCredentialsCheckbox setState: NSOffState];
 		[credentialsGroupButton       setEnabled: YES];
-		[addNamedCredentialsButton    setEnabled: YES];
+		[addNamedCredentialsTF        setEnabled: YES];
+		[addNamedCredentialsButton    setEnabled: ([[addNamedCredentialsTF stringValue] length] != 0)];
 		[removeNamedCredentialsButton setEnabled: YES];
 	}
 	
@@ -1428,7 +1547,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
 -(void) bringToFront2
 {
-	NSLog(@"activate/makeKeyAndOrderFront; window = %@", [self window]);
 	[NSApp activateIgnoringOtherApps: YES];
 	[[self window] display];
 	[self showWindow: self];
@@ -1490,37 +1608,53 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	}
 }
 
+-(void) controlTextDidChange: (NSNotification *) n {
+	
+	(void) n;
+	
+	[addNamedCredentialsButton setEnabled: ([[addNamedCredentialsTF stringValue] length] != 0)];
+}
+
 -(IBAction) addNamedCredentialsButtonWasClicked: (id) sender {
+	
 	(void) sender;
 	
-	NSString * msg = NSLocalizedString(@"Please enter a name for the credentials:\n\n", @"Window text");
-	NSString * newName = @"";
-	while (  newName  ) {
-		newName = TBGetString(msg, newName);
-		if (   newName
-			&& ([newName length] > 0)  ) {
-			if (  invalidConfigurationName(newName, PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING)  ) {
-				msg = [NSString stringWithFormat:
-				 NSLocalizedString(@"Names may not include any of the following characters: %s\n\nPlease enter a name for the new credentials:\n\n", @"Window text"),
-				 PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING];
+	NSString * newName = [addNamedCredentialsTF stringValue];
+	if (  [newName length] > 0  ) {
+		if (  invalidConfigurationName(newName, PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING)  ) {
+			TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
+							  [NSString stringWithFormat:
+							  NSLocalizedString(@"Names may not include any of the following characters: %s", @"Window text"),
+							  PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING]);
+		} else {
+			NSString * errMsg = [gTbDefaults addNamedCredentialsGroup: newName];
+			if (  errMsg  ) {
+				TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
+								  [NSString stringWithFormat:
+								   NSLocalizedString(@"The credentials named %@ could not be added:\n\n%@", @"Window text"),
+								   newName,
+								   errMsg]);
 			} else {
-				NSString * errMsg = [gTbDefaults addNamedCredentialsGroup: newName];
-				if (  errMsg  ) {
-					TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
-                                      [NSString stringWithFormat:
-                                       NSLocalizedString(@"The credentials named %@ could not be added:\n\n%@", @"Window text"),
-                                       newName,
-                                       errMsg]);
-				} else {
-					[self initializeStaticContent];
-					[self setupSettingsFromPreferences];
-				}
-				
-				[self performSelectorOnMainThread: @selector(bringToFront1) withObject: nil waitUntilDone: NO];
-				return;
+				[self initializeStaticContent];  // Update list of names in credentialsGroupButton
+				[self setupSettingsFromPreferences];
+				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								  [NSString stringWithFormat:
+								   NSLocalizedString(@"The '%@' credentials have been added.", @"Window text"),
+								   newName]);
 			}
+			return;
 		}
 	}
+}
+
+-(IBAction) addNamedCredentialsReturnWasTyped: (id) sender {
+	
+	(void) sender;
+	
+    // Don't do anything. This is invoked when then user switches away from the Credentials tab, and we don't want
+    // to add a new credentials group when that happens, only when the user clicks the button
+    // [self addNamedCredentialsButtonWasClicked: sender];
+	
 }
 
 -(IBAction) whileConnectedHelpButtonWasClicked: (id) sender {

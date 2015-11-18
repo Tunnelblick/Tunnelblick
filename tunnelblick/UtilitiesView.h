@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -26,8 +26,9 @@
 
     IBOutlet NSButton           * utilitiesKillAllOpenVpnButton;
     
-    IBOutlet NSButton           * utilitiesCopyConsoleLogButton;
-	
+    IBOutlet NSButton           * consoleLogToClipboardButton;
+	IBOutlet NSProgressIndicator * consoleLogToClipboardProgressIndicator;
+
     IBOutlet NSButton           * utilitiesOpenUninstallInstructionsButton;
 	
     IBOutlet NSButton           * utilitiesRunEasyRsaButton;
@@ -38,7 +39,8 @@
 
 TBPROPERTY_READONLY(NSButton *,        utilitiesKillAllOpenVpnButton)
 
-TBPROPERTY_READONLY(NSButton *,        utilitiesCopyConsoleLogButton)
+TBPROPERTY_READONLY(NSButton *,        consoleLogToClipboardButton)
+TBPROPERTY_READONLY(NSProgressIndicator *, consoleLogToClipboardProgressIndicator)
 
 TBPROPERTY_READONLY(NSButton *,        utilitiesOpenUninstallInstructionsButton)
 
