@@ -6291,6 +6291,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	NSString *clientNewAlt2DownPath     = [resourcesPath stringByAppendingPathComponent: @"client.2.down.tunnelblick.sh"        ];
 	NSString *clientNewAlt3UpPath       = [resourcesPath stringByAppendingPathComponent: @"client.3.up.tunnelblick.sh"          ];
 	NSString *clientNewAlt3DownPath     = [resourcesPath stringByAppendingPathComponent: @"client.3.down.tunnelblick.sh"        ];
+    NSString *reactivateTunnelblickPath = [resourcesPath stringByAppendingPathComponent: @"reactivateTunnelblick.sh"            ];
 	NSString *freePublicDnsServersPath  = [resourcesPath stringByAppendingPathComponent: @"FreePublicDnsServersList.txt"        ];
     NSString *deployPath                = [resourcesPath stringByAppendingPathComponent: @"Deploy"                              ];
     NSString *infoPlistPath             = [[resourcesPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
@@ -6427,7 +6428,10 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	}
     
 	// check files which should  be owned by root with 755 permissions
-    if (  ! checkOwnerAndPermissions(launchAtLoginScriptPath, 0, 0, 0755)  ) {
+    if (  ! checkOwnerAndPermissions(launchAtLoginScriptPath, 0, 0, PERMS_SECURED_EXECUTABLE)  ) {
+        return YES; // NSLog already called
+    }
+    if (  ! checkOwnerAndPermissions(reactivateTunnelblickPath, 0, 0, PERMS_SECURED_EXECUTABLE)  ) {
         return YES; // NSLog already called
     }
 	
@@ -6437,7 +6441,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         NSLog(@"Need to create log directory '%@'", L_AS_T_LOGS);
         return YES;
     }
-    if (  ! checkOwnerAndPermissions(L_AS_T_LOGS, 0, 0, 0755)  ) {
+    if (  ! checkOwnerAndPermissions(L_AS_T_LOGS, 0, 0, PERMS_SECURED_FOLDER)  ) {
         return YES; // NSLog already called
     }
     
