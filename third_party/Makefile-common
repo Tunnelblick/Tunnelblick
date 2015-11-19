@@ -8,6 +8,8 @@ TOPDIR = $(PWD)
 
 LZO_NAME         = lzo-2.09
 
+LZ4_NAME         = lz4-r131
+
 OPENSSL_NAME     = openssl-1.0.2e
 
 PKCS11_NAME      = pkcs11-helper-1.11
@@ -54,6 +56,9 @@ OPENSSL_TARGET_FILES = $(foreach f, libcrypto.a libssl.a, $(OPENSSL_STAGING_DIR)
 
 LZO_BUILD_DIR = $(TOPDIR)/$(BUILD_NAME)/$(LZO_NAME)
 LZO_STAGING_DIR = $(STAGING_DIR)/$(LZO_NAME)
+
+LZ4_BUILD_DIR = $(TOPDIR)/$(BUILD_NAME)/$(LZ4_NAME)/lib
+LZ4_STAGING_DIR = $(STAGING_DIR)/$(LZ4_NAME)
 
 PKCS11_BUILD_DIR = $(TOPDIR)/$(BUILD_NAME)/$(PKCS11_NAME)
 PKCS11_STAGING_DIR=$(STAGING_DIR)/$(PKCS11_NAME)
@@ -245,6 +250,43 @@ built-lzo-clean:
 	@echo "THIRD_PARTY: Cleaned LZO"
 	
 #######################################################################################
+# LZ4
+#######################################################################################
+
+built-lz4:
+	@echo "THIRD_PARTY: Expanding LZ4..."
+	mkdir -p $(BUILD_NAME)
+	tar -x -f $(SOURCES_NAME)/$(LZ4_NAME).tar.gz -C $(BUILD_NAME)
+	@echo "THIRD_PARTY: Building LZ4..."
+	for a in $(TARGET_ARCHS); do \
+		cd $(LZ4_BUILD_DIR) ; \
+		echo "Clean LZ4 for $$a" ; \
+		$(MAKE) clean; \
+		echo "Build LZ4 for $$a" ; \
+		CC=$(CC) \
+		CFLAGS="$(CFLAGS) -arch $$a" \
+		PREFIX=$(LZ4_STAGING_DIR)_$$a/ \
+		$(MAKE); \
+		echo "Install LZ4 to $(LZ4_STAGING_DIR)_$$a" ; \
+		PREFIX=$(LZ4_STAGING_DIR)_$$a/ \
+		$(MAKE) install; \
+		cd "$(TOPDIR)"; \
+		done
+	cp -a $(LZ4_STAGING_DIR)_*/include $(LZ4_STAGING_DIR)/
+	mkdir -p $(LZ4_STAGING_DIR)/lib
+	lipo $(LZ4_STAGING_DIR)_*/lib/liblz4.a -create -output $(LZ4_STAGING_DIR)/lib/liblz4.a
+	ranlib $(LZ4_STAGING_DIR)/lib/liblz4.a
+	touch built-lz4
+	@echo "THIRD_PARTY: Built LZ4"
+
+built-lz4-clean:
+	@echo "THIRD_PARTY: Cleaning LZ4..."
+	rm -f -R $(LZ4_BUILD_DIR)
+	rm -f -R $(LZ4_STAGING_DIR)
+	rm -f built-lz4
+	@echo "THIRD_PARTY: Cleaned LZ4"
+
+#######################################################################################
 # OPENVPN
 #######################################################################################
 
@@ -291,7 +333,7 @@ built-openvpn-prepare:
 	touch built-openvpn-prepare
 	@echo "THIRD_PARTY: Expanded and Patched OpenVPN"
 	
-built-openvpn: built-openvpn-prepare built-lzo built-pkcs11-helper built-openssl
+built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper built-openssl
 	@echo "THIRD_PARTY: Building OpenVPN..."
 	cd $(OPENVPN_BUILD_DIR) ; \
 	cd ../ ; \
@@ -321,6 +363,9 @@ built-openvpn: built-openvpn-prepare built-lzo built-pkcs11-helper built-openssl
 				LZO_CFLAGS="-I$(LZO_STAGING_DIR)/include" \
 				LZO_LIBS="-L$(LZO_STAGING_DIR)/lib \
 				          -llzo2" \
+				LZ4_CFLAGS="-I$(LZ4_STAGING_DIR)/include" \
+				LZ4_LIBS="-L$(LZ4_STAGING_DIR)/lib \
+				          -llz4" \
 				OPENSSL_SSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
 				OPENSSL_SSL_LIBS="$(OPENSSL_STAGING_DIR)/lib/libssl.a" \
 				OPENSSL_CRYPTO_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
@@ -340,6 +385,9 @@ built-openvpn: built-openvpn-prepare built-lzo built-pkcs11-helper built-openssl
 				LZO_CFLAGS="-I$(LZO_STAGING_DIR)/include" \
 				LZO_LIBS="-L$(LZO_STAGING_DIR)/lib \
 				          -llzo2" \
+				LZ4_CFLAGS="-I$(LZ4_STAGING_DIR)/include" \
+				LZ4_LIBS="-L$(LZ4_STAGING_DIR)/lib \
+				          -llz4" \
 				OPENSSL_SSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
 				OPENSSL_SSL_LIBS="$(OPENSSL_STAGING_DIR)/lib/libssl.a" \
 				OPENSSL_CRYPTO_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
@@ -356,8 +404,10 @@ built-openvpn: built-openvpn-prepare built-lzo built-pkcs11-helper built-openssl
 				$(MAKE) LIBS="$(OPENSSL_TARGET_FILES) \
 							  -L$(PKCS11_STAGING_DIR)/lib \
 							  -L$(LZO_STAGING_DIR)/lib \
+							  -L$(LZ4_STAGING_DIR)/lib \
 							  -lpkcs11-helper \
-							  -llzo2" \
+							  -llzo2 \
+							  -llz4" \
 							  $(OPENVPN_DEPRECATED_GCC_MAKE_OPTION) ; \
 				\
 				echo "Making down-root plugin" ; \
