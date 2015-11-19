@@ -1,20 +1,20 @@
 /* Status message */
-"Disconnect All (%@)" = "Katkesta kõik ühendused (%@)";
+"Disconnect All (%@)" = "Putuskan Semua (%@)";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "Katkesta kõik ühendused (%d ühendust)";
+"Disconnect All (%d Connections)" = "Putuskan Semua (%d Koneksi)";
 
 /* Status message */
-"No Active Connections" = "Aktiivsed ühendused puuduvad";
+"No Active Connections" = "Tidak Ada Koneksi Aktif";
 
 /* Textbox name */
-"Username:" = "Kasutajanimi:";
+"Username:" = "Nama Pengguna:";
 
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* Button */
-"(None available)" = "(Puuduvad)";
+"(None available)" = "(Tidak ada yang tersedia)";
 
 /* Button */
 "1 MB" = "1 MB";
@@ -29,97 +29,97 @@
 "100 KB" = "100 KB";
 
 /* Button */
-"Advanced..." = "Täpsemad seadistused…";
+"Advanced..." = "Tingkat Lanjut…";
 
 /* Button */
-"All Users" = "Kõik kasutajad";
+"All Users" = "Semua Pengguna";
 
 /* Button */
-"Always load Tap driver" = "Lae alati Tap draiver";
+"Always load Tap driver" = "Selalu muat driver Tap";
 
 /* Button */
-"Always load Tun driver" = "Lae alati Tun draiver";
+"Always load Tun driver" = "Selalu muat driver Tun";
 
 /* Button */
-"Always use the plugin" = "Kasuta alati pluginat";
+"Always use the plugin" = "Selalu gunakan plugin";
 
 /* Button */
-"Back" = "Tagasi";
+"Back" = "Mundur";
 
 /* Button */
-"Cancel" = "Tühista";
+"Cancel" = "Batal";
 
 /* Menu item */ /* Button */
-"Check For Updates Now" = "Otsi uuendusi";
+"Check For Updates Now" = "Periksa Pemutakhiran Sekarang";
 
 /* Button */
-"Check Now" = "Otsi uuendusi";
+"Check Now" = "Periksa Sekarang";
 
 /* Button */
-"Check for a change" = "Kontrolli muudatust";
+"Check for a change" = "Memeriksa adanya perubahan";
 
 /* Button */
-"Connect" = "Ühenda";
+"Connect" = "Sambungkan";
 
 /* Button */
-"Continue" = "Jätka";
+"Continue" = "Lanjutkan";
 
 /* Button */
-"Convert Configurations" = "Konverteeri konfiguratsioone";
+"Convert Configurations" = "Konversikan Konfigurasi";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Kopeeri konsooli logi lõikepuhvrisse";
+"Copy Console Log to Clipboard" = "Salin Log Konsol ke Papan Klip";
 
 /* Button */
-"Copy Diagnostic Info to Clipboard" = "Kopeeri diagnostiline info lõikepuhvrisse";
+"Copy Diagnostic Info to Clipboard" = "Salin Info Diagnostik ke Papan Klip";
 
 /* Button */
-"Create sample configuration and edit it" = "Loo näidiskonfiguratsioon ning muuda seda";
+"Create sample configuration and edit it" = "Buat konfigurasi contoh dan sunting";
 
 /* Button */
-"Default (%@)" = "Vaikimisi (%@)";
+"Default (%@)" = "Baku (%@)";
 
 /* Button */
-"Delete Credentials" = "Kustuta kasutaja";
+"Delete Credentials" = "Hapus Kredensial";
 
 /* Button */
-"Delete" = "Kustuta";
+"Delete" = "Hapus";
 
 /* Button */
-"Disconnect" = "Katkesta ühendus";
+"Disconnect" = "Putuskan";
 
 /* Button */
-"Do not check for a change" = "Ära kontrolli muutust";
+"Do not check for a change" = "Jangan periksa perubahan";
 
 /* Button */
-"Do not use the plugin" = "Ära kasuta pluginat";
+"Do not use the plugin" = "Jangan pakai plugin";
 
 /* Button */
-"Download" = "Lae alla";
+"Download" = "Unduh";
 
 /* Button */
 "Duplicate" = "Duplicate";
 
 /* Button */
-"Help" = "Abi";
+"Help" = "Bantuan";
 
 /* Button */
-"I DO NOT have configuration files" = "MUL EI OLE konfiguratsioonifaile";
+"I DO NOT have configuration files" = "Saya TIDAK PUNYA berkas konfigurasi";
 
 /* Button */
-"I have configuration files" = "Mul on konfiguratsioonifailid";
+"I have configuration files" = "Saya punya berkas konfigurasi";
 
 /* Button */
-"Ignore" = "Eira";
+"Ignore" = "Abaikan";
 
 /* Button */
-"Latest (%@)" = "Uusim (%@)";
+"Latest (%@)" = "Terbaru (%@)";
 
 /* Button */
-"Load Tap driver automatically" = "Lae Tap draiver automaatselt";
+"Load Tap driver automatically" = "Muat driver Tap secara otomatis";
 
 /* Button */
-"Load Tun driver automatically" = "Lae Tun draiver automaatselt";
+"Load Tun driver automatically" = "Muat driver Tun secara otomatis";
 
 /* Button */
 "Make Private" = "Make Private";
@@ -128,169 +128,169 @@
 "Make Shared" = "Make Shared";
 
 /* Button */
-"Manually" = "Manuaalselt";
+"Manually" = "Secara manual";
 
 /* Button */
-"Monochrome icon" = "Ühevärviline ikoon";
+"Monochrome icon" = "Ikon monokrom";
 
 /* Button */
-"Never load Tap driver" = "Ära kunagi lae Tap draiverit";
+"Never load Tap driver" = "Jangan pernah muat driver Tap";
 
 /* Button */
-"Never load Tun driver" = "Ära kunagi lae Tun draiverit";
+"Never load Tun driver" = "Jangan pernah muat driver Tun";
 
 /* Button */
-"Never show" = "Peida alati";
+"Never show" = "Jangan pernah tampilkan";
 
 /* Button */
-"No keyboard shortcut" = "Ilma klahvikombinatsioonita";
+"No keyboard shortcut" = "Tak ada pintasan papan ketik";
 
 /* Button */
-"No sound" = "Ilma helita";
+"No sound" = "Tanpa suara";
 
 /* Button */
 "OK" = "OK";
 
 /* Button */
-"Only Me" = "Ainult mina";
+"Only Me" = "Hanya Saya";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Ava deinstallimise juhised brauseris";
+"Open Uninstall Instructions in Browser" = "Buka Instruksi Pembongkaran dalam Peramban";
 
 /* Button */
-"Open easy-rsa in Terminal" = "Ava easy-rsa Terminalis";
+"Open easy-rsa in Terminal" = "Buka easy-rsa dalam Terminal";
 
 /* Button */
-"Privacy info..." = "Privaatsuse info…";
+"Privacy info..." = "Info privasi…";
 
 /* Button */
-"Quit All OpenVPN Processes" = "Peata kõik OpenVPN protsessid";
+"Quit All OpenVPN Processes" = "Keluar Semua Proses OpenVPN";
 
 /* Button */
-"Quit" = "Välju";
+"Quit" = "Keluar";
 
 /* Button */
-"Reinstall" = "Reinstalleerimine";
+"Reinstall" = "Install ulang";
 
 /* Button */
-"Remove Credentials" = "Eemalda kasutaja";
+"Remove Credentials" = "Hapus Kredensial";
 
 /* Button */
 "Rename" = "Rename";
 
 /* Button */
-"Replace" = "Asenda";
+"Replace" = "Ganti";
 
 /* Button */
-"Reset Disabled Warnings" = "Taasta keelatud hoiatused";
+"Reset Disabled Warnings" = "Reset Peringatan Yang Dinonaktifkan";
 
 /* Button */
-"Restart connection" = "Taaskäivita ühendus";
+"Restart connection" = "Start ulang koneksi";
 
 /* Button */
-"Restore" = "Taasta";
+"Restore" = "Pulihkan";
 
 /* Button */
-"Retry" = "Retry";
+"Retry" = "Coba lagi";
 
 /* Button */
-"Revert" = "Ennista";
+"Revert" = "Kembalikan";
 
 /* Button */
-"Show on default screen (%u x %u)" = "Kuva vaikimisi ekraanil (%1$u x %2$u)";
+"Show on default screen (%u x %u)" = "Tampilkan pada layar baku (%1$u x %2$u)";
 
 /* Button */
-"Show on screen %u (%u x %u)" = "Kuva ekraanil %1$u (%2$u x %3$u)";
+"Show on screen %u (%u x %u)" = "Show on screen %1$u (%2$u x %3$u)";
 
 /* Button */
-"Show when connection status changes" = "Kuva ühenduse staatuse muutumisel";
+"Show when connection status changes" = "Show when connection status changes";
 
 /* Button */
-"Show while connecting" = "Kuva ühendust luues";
+"Show while connecting" = "Show while connecting";
 
 /* Button */
-"Skip" = "Jäta vahele";
+"Skip" = "Skip";
 
 /* Button */
-"Speak" = "Kõne";
+"Speak" = "Speak";
 
 /* Button */
-"Standard icon" = "Standardikoon";
+"Standard icon" = "Standard icon";
 
 /* Button */
-"Terminate All OpenVPN processes" = "Katkesta kõik OpenVPN protsessid";
+"Terminate All OpenVPN processes" = "Terminate All OpenVPN processes";
 
 /* Button */
-"Terminate" = "Katkesta";
+"Terminate" = "Terminate";
 
 /* Button */
-"This configuration has its own separate credentials" = "Sellel konfiguratsioonil on oma kasutajatunnus ning parool";
+"This configuration has its own separate credentials" = "This configuration has its own separate credentials";
 
 /* Button */
-"This configuration uses %@ credentials" = "See konfiguratsioon kasutab %@ kasutajatunnust ning parooli";
+"This configuration uses %@ credentials" = "This configuration uses %@ credentials";
 
 /* Button */
-"Try again with different credentials" = "Proovi uuesti teise kasutajaga";
+"Try again with different credentials" = "Try again with different credentials";
 
 /* Button */
-"Try again" = "Proovi uuesti";
+"Try again" = "Try again";
 
 /* Button */
-"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikoon";
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 icon";
 
 /* Button */
-"When Tunnelblick launches" = "Tunnelblicki käivitumisel";
+"When Tunnelblick launches" = "When Tunnelblick launches";
 
 /* Button */
-"When computer starts" = "Arvuti käivitumisel";
+"When computer starts" = "When computer starts";
 
 /* Menu item */
-"Add a VPN..." = "Lisa VPN…";
+"Add a VPN..." = "Add a VPN…";
 
 /* Menu item */
-"Connect %@%@" = "Ühenda %@%@";
+"Connect %@%@" = "Connect %@%@";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "Kustuta konfiguratsiooni parool Keychainist…";
+"Delete Configuration's Credentials in Keychain..." = "Delete Configuration's Credentials in Keychain…";
 
 /* Menu item tooltip */
-"Disabled because this setting is being forced" = "Keelatud, kuna antud seadet ei ole võimalik muuta";
+"Disabled because this setting is being forced" = "Disabled because this setting is being forced";
 
 /* Menu item */
-"Disconnect %@%@" = "Katkesta ühendus %@%@";
+"Disconnect %@%@" = "Disconnect %@%@";
 
 /* Menu Item */
 "Do Not Show on Tunnelblick Menu" = "Do Not Show on Tunnelblick Menu";
 
 /* Menu Item */
-"Duplicate Configuration..." = "Tee konfiguratsioonist koopia…";
+"Duplicate Configuration..." = "Duplicate Configuration…";
 
 /* Menu Item */
-"Edit OpenVPN Configuration File..." = "Muuda OpenVPN konfiguratsioonifaili…";
+"Edit OpenVPN Configuration File..." = "Edit OpenVPN Configuration File…";
 
 /* Menu Item */
 "Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File…";
 
 /* Menu Item */
-"Make Configuration Private..." = "Muuda konfiguratsioon privaatseks…";
+"Make Configuration Private..." = "Make Configuration Private…";
 
 /* Menu Item */
-"Make Configuration Shared..." = "Muuda konfiguratsioon jagatuks…";
+"Make Configuration Shared..." = "Make Configuration Shared…";
 
 /* Menu item */
-"No VPN Configurations Available" = "Ühtegi VPN konfiguratsiooni pole saadaval";
+"No VPN Configurations Available" = "No VPN Configurations Available";
 
 /* Menu item */
-"Quit Tunnelblick" = "Sulge Tunnelblick";
+"Quit Tunnelblick" = "Quit Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Muuda konfiguratsiooni nime…";
+"Rename Configuration..." = "Rename Configuration…";
 
 /* Menu Item */
-"Revert Configuration..." = "Ennista konfiguratsioon…";
+"Revert Configuration..." = "Revert Configuration…";
 
 /* Menu Item */
-"Show OpenVPN Log in Finder" = "Näita OpenVPN logi Finderis";
+"Show OpenVPN Log in Finder" = "Show OpenVPN Log in Finder";
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Show on Tunnelblick Menu";
@@ -299,16 +299,16 @@
 "Suggestion or Bug Report..." = "Suggestion or Bug Report…";
 
 /* Menu item */
-"VPN Details..." = "VPN-i detailid…";
+"VPN Details..." = "VPN Details…";
 
 /* Checkbox name */
 "Apply to all" = "Apply to all";
 
 /* Checkbox name */
-"Check for updates automatically" = "Otsi uuendusi automaatselt";
+"Check for updates automatically" = "Check for updates automatically";
 
 /* Checkbox name */
-"Check for updates to beta versions" = "Otsi uuendusi beeta versioonidele";
+"Check for updates to beta versions" = "Check for updates to beta versions";
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "Check if the apparent public IP address changed after connecting";
@@ -317,16 +317,16 @@
 "Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "Katkesta ühendus kui arvuti läheb unerežiimi";
+"Disconnect when computer goes to sleep" = "Disconnect when computer goes to sleep";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Disconnect when user switches out";
 
 /* Checkbox name */
-"Display connection submenus" = "Näita ühenduste alam-menüüsid";
+"Display connection submenus" = "Display connection submenus";
 
 /* Checkbox name */
-"Display connection timers" = "Näita ühenduste taimereid";
+"Display connection timers" = "Display connection timers";
 
 /* Checkbox name */
 "Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
@@ -338,7 +338,7 @@
 "Do not ask again, always Continue" = "Do not ask again, always Continue";
 
 /* Checkbox name */
-"Do not ask again, always convert" = "Ära rohkem küsi, alati konverteeri";
+"Do not ask again, always convert" = "Do not ask again, always convert";
 
 /* Checkbox name */
 "Do not check for IP address changes" = "Do not check for IP address changes";
@@ -362,16 +362,16 @@
 "Inhibit automatic update checking and IP Address checking" = "Inhibit automatic update checking and IP Address checking";
 
 /* Checkbox name */
-"Keep connected" = "Hoia ühendus aktiivsena";
+"Keep connected" = "Keep connected";
 
 /* Checkbox name */ /* System profile item */
-"Monitor connection" = "Jälgi ühendust";
+"Monitor connection" = "Monitor connection";
 
 /* Checkbox name */
 "Monitor network settings" = "Monitor network settings";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Aseta Spotlight ikooni kõrvale";
+"Place next to Spotlight icon" = "Place next to Spotlight icon";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Prepend domain name to search domains";
@@ -395,7 +395,7 @@
 "Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
 
 /* Checkbox name */
-"Save in Keychain" = "Salvesta Keychainis";
+"Save in Keychain" = "Save in Keychain";
 
 /* Checkbox name */
 "Send anonymous profile information when checking" = "Send anonymous profile information when checking";
@@ -425,7 +425,7 @@
 "Set nameserver" = "Set nameserver";
 
 /* Text on disk image */
-"Double-click to begin" = "Topeltklikk alustamiseks";
+"Double-click to begin" = "Double-click to begin";
 
 /* Connection status */
 "ADD_ROUTES" = "Adding routes"; // Please translate "Adding routes"
@@ -1100,7 +1100,7 @@
 "GB/s" = "GB/s";
 
 /* Window text */
-"Icon:" = "Icon:";
+"Icon:" = "Ikon:";
 
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "In %@:\n\nThere are no OpenVPN configurations to install.";
@@ -1133,10 +1133,10 @@
 "Invalid value '%@' for '%@' in %@" = "Invalid value '%1$@' for '%2$@' in %3$@";
 
 /* Window text */
-"KB" = "KB";
+"KB" = "kB";
 
 /* Window text */
-"KB/s" = "KB/s";
+"KB/s" = "kB/s";
 
 /* Window text */
 "Keyboard shortcut:" = "Keyboard shortcut:";
@@ -1844,22 +1844,22 @@
 "Animation and icon sets code" = "Animation and icon sets code";
 
 /* Credit description */
-"Arabic localization" = "Arabic localization";
+"Arabic localization" = "Lokalisasi Arab";
 
 /* Credit description */
-"Bulgarian localization" = "Bulgarian localization";
+"Bulgarian localization" = "Lokalisasi Bulgaria";
 
 /* Credit description */
 "Button images" = "Button images";
 
 /* Credit description */
-"Catalan localization" = "Catalan localization";
+"Catalan localization" = "Lokalisasi Katala";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Chinese (simplified) localization";
+"Chinese (simplified) localization" = "Lokalisasi Cina (disederhanakan)";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Chinese (traditional) localization";
+"Chinese (traditional) localization" = "Lokalisasi Cina (tradisional)";
 
 /* Credentials name */
 "Common" = "Common";
@@ -1874,10 +1874,10 @@
 "Contributed to early code" = "Contributed to early code";
 
 /* Credit description */
-"Czech localization" = "Czech localization";
+"Czech localization" = "Lokalisasi Ceko";
 
 /* Credit description */
-"Danish localization" = "Danish localization";
+"Danish localization" = "Lokalisasi Denmark";
 
 /* Speak string */
 "Disconnected from %@" = "Disconnected from %@";
@@ -1886,49 +1886,49 @@
 "Do not show this again" = "Do not show this again";
 
 /* Credit description */
-"Dutch localization" = "Dutch localization";
+"Dutch localization" = "Lokalisasi Belanda";
 
 /* Credit description */
-"Estonian localization" = "Estonian localization";
+"Estonian localization" = "Lokalisasi Estonia";
 
 /* Credit description */
-"Finnish localization" = "Finnish localization";
+"Finnish localization" = "Lokalisasi Finlandia";
 
 /* Credit description */
 "Founder, original program and documentation" = "Founder, original program and documentation";
 
 /* Credit description */
-"French localization" = "French localization";
+"French localization" = "Lokalisasi Perancis";
 
 /* Credit description */
-"German localization" = "German localization";
+"German localization" = "Lokalisasi Jerman";
 
 /* Credit description */
-"Greek localization" = "Greek localization";
+"Greek localization" = "Lokalisasi Yunani";
 
 /* Credit description */
-"Hungarian localization" = "Hungarian localization";
+"Hungarian localization" = "Lokalisasi Hungaria";
 
 /* Credit description */
 "Icon set including Retina images" = "Icon set including Retina images";
 
 /* Credit description */
-"Italian localization" = "Italian localization";
+"Italian localization" = "Lokalisasi Italia";
 
 /* Credit description */
-"Japanese localization" = "Japanese localization";
+"Japanese localization" = "Lokalisasi Jepang";
 
 /* Credit description */
-"Korean localization" = "Korean localization";
+"Korean localization" = "Lokalisasi Korea";
 
 /* [name of your language] localization */
 "LANGUAGE_LOCALIZATION" = "LANGUAGE_LOCALIZATION";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Ranal Saron";
+"LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";
 
 /* Credit description */
-"Latvian localization" = "Latvian localization";
+"Latvian localization" = "Lokalisasi Latvia";
 
 /* Credit description */
 "Localization code tweaks" = "Localization code tweaks";
@@ -1937,7 +1937,7 @@
 "Multiple configuration folders" = "Multiple configuration folders";
 
 /* Credit description */
-"Norwegian localization" = "Norwegian localization";
+"Norwegian localization" = "Lokalisasi Norwegia";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
@@ -1946,40 +1946,40 @@
 "PKCS#11 support" = "PKCS#11 support";
 
 /* Credit description */
-"Polish localization" = "Polish localization";
+"Polish localization" = "Lokalisasi Polandia";
 
 /* Credit description */
 "Portuguese (Brazilian) localization" = "Portuguese (Brazilian) localization";
 
 /* Credit description */
-"Portuguese localization" = "Portuguese localization";
+"Portuguese localization" = "Lokalisasi Portugis";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program and documentation enhancements and maintenance after version 3.0b10";
 
 /* Credit description */
-"Russian localization" = "Russian localization";
+"Russian localization" = "Lokalisasi Rusia";
 
 /* Credit description */
-"Slovak localization" = "Slovak localization";
+"Slovak localization" = "Lokalisasi Slovakia";
 
 /* Credit description */
-"Spanish localization" = "Spanish localization";
+"Spanish localization" = "Lokalisasi Spanyol";
 
 /* Credit description */
-"Swedish localization" = "Swedish localization";
+"Swedish localization" = "Lokalisasi Swedia";
 
 /* Credit description */
-"Tunnelblick icon" = "Tunnelblick icon";
+"Tunnelblick icon" = "Ikon Tunnelblick";
 
 /* Credit description */
-"Turkish localization" = "Turkish localization";
+"Turkish localization" = "Lokalisasi Turki";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue and UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Ukrainian localization";
+"Ukrainian localization" = "Lokalisasi Ukraina";
 
 /* Credit description */
 "Up and Down scripts" = "Up and Down scripts";
