@@ -486,7 +486,12 @@ built-sparkle-prepare:
 	@echo "THIRD_PARTY: Patching Sparkle.framework..."
 	if [ -d $(PATCHES_DIR)/sparkle ]; then \
 		cd "$(SPARKLE_BUILD_DIR)"; \
-		for patch_file in `ls $(PATCHES_DIR)/sparkle/*.diff`; do \
+		if [ $(XCODE_VERSION_MAJOR) -ge 0700 ] ; then \
+			patches="`ls $(PATCHES_DIR)/sparkle/*.diff`" ; \
+		else \
+			patches="`ls $(PATCHES_DIR)/sparkle/[0-9][0-9]*.diff`" ; \
+		fi ; \
+		for patch_file in $${patches}; do \
 			patch_name="$$(basename "$${patch_file}")" ; \
 			patch -p1 -N --dry-run -i $$patch_file > /dev/null; \
 			if [ $$? == 0 ]; then \
@@ -500,6 +505,9 @@ built-sparkle-prepare:
 				echo "error: Sparkle patch could not be applied: $(SPARKLE_NAME)/$${patch_name}" ; \
 			fi \
 		done; \
+		sed -i '' -e "s|@OPENSSL_STAGING_DIR@|$(OPENSSL_STAGING_DIR)|g" \
+			  -e "s|@TARGET_ARCH@|$(CURRENT_ARCH)|g" \
+			     "$(SPARKLE_BUILD_DIR)/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj" ; \
 		cp -f -p -X "$(PATCHES_DIR)/sparkle/de.lproj/Sparkle.strings" "Extras/Source Code/de.lproj/Sparkle.strings" ; \
 		cp -f -p -X "$(PATCHES_DIR)/sparkle/it.lproj/Sparkle.strings" "Extras/Source Code/it.lproj/Sparkle.strings" ; \
 		cp -f -p -X "$(PATCHES_DIR)/sparkle/ru.lproj/Sparkle.strings" "Extras/Source Code/ru.lproj/Sparkle.strings" ; \
