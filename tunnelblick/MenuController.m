@@ -273,6 +273,10 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         
         reasonForTermination = terminatingForUnknownReason;
         
+//		if (  runningOnLeopardOrNewer()  ) {
+//			// WHEN DROP OS X 10.4 ("Tiger") support, REMOVE the "OnDemand" key from net.tunnelblick.tunnelblick.LaunchAtLogin
+//		}
+		
         if (  ! runningOnTigerOrNewer()  ) {
             TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
                             NSLocalizedString(@"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")", @"Window text"),
