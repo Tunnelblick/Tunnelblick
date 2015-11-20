@@ -18,7 +18,7 @@ diff -u -r -x .DS_Store src/tap/Info.plist src_/tap/Info.plist
  	<string>@@CFBUNDLESIGNATURE@@</string>
  	<key>CFBundleVersion</key>
 -	<string>1.0</string>
-+	<string>2.0.TBBUILDNUMBER</string>
++	<string>TBBUILDNUMBER.2</string>
  	<key>OSBundleLibraries</key>
  	<dict>
  		<key>com.apple.kpi.mach</key>
@@ -47,7 +47,7 @@ diff -u -r -x .DS_Store src/tun/Info.plist src_/tun/Info.plist
  	<string>@@CFBUNDLESIGNATURE@@</string>
  	<key>CFBundleVersion</key>
 -	<string>1.0</string>
-+	<string>2.0.TBBUILDNUMBER</string>
++	<string>TBBUILDNUMBER.2</string>
  	<key>OSBundleLibraries</key>
  	<dict>
  		<key>com.apple.kpi.mach</key>
