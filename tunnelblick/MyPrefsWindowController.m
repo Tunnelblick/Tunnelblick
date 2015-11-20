@@ -168,10 +168,8 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     currentFrame = NSMakeRect(0.0, 0.0, 920.0, 390.0);
     
-	currentViewName = [[gTbDefaults objectForKey: @"detailsWindowViewName"] retain];
-	if (  ! currentViewName) {
-		currentViewName = [NSLocalizedString(@"Configurations", @"Window title") retain];
-	}
+	unsigned int ix = [gTbDefaults unsignedIntForKey: @"detailsWindowViewName" default: 0 min: 0 max: [toolbarIdentifiers count]-1];
+	[self setCurrentViewName: [toolbarIdentifiers objectAtIndex: ix]];
     
     [self setSelectedPerConfigOpenvpnVersionIndexDirect:                   tbNumberWithInteger(NSNotFound)];
     [self setSelectedKeyboardShortcutIndexDirect:                          tbNumberWithInteger(NSNotFound)];
@@ -244,24 +242,23 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 	NSString * configurationsTabIdentifier = [[[configurationsPrefsView configurationsTabView] selectedTabViewItem] identifier];
     NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+	unsigned int viewIx = [toolbarIdentifiers indexOfObject: currentViewName];
     BOOL saveIt = TRUE;
     if (  [tbVersion isEqualToString: [gTbDefaults stringForKey:@"detailsWindowFrameVersion"]]    ) {
         if (   [mainFrameString             isEqualToString: [gTbDefaults stringForKey:@"detailsWindowFrame"]]
             && [leftFrameString             isEqualToString: [gTbDefaults stringForKey:@"detailsWindowLeftFrame"]]
-			&& [currentViewName             isEqualToString: [gTbDefaults stringForKey:@"detailsWindowViewName"]]
-			&& [configurationsTabIdentifier isEqualToString: [gTbDefaults stringForKey:@"detailsWindowConfigurationsTabIdentifier"]]) {
+			&& (viewIx == [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: 0 min: 0 max: [toolbarIdentifiers count] - 1] )
+			&& [configurationsTabIdentifier isEqualToString: [gTbDefaults stringForKey:@"detailsWindowConfigurationsTabIdentifier"]]  ) {
             saveIt = FALSE;
-        }
     }
+	}
     
     if (saveIt) {
         [gTbDefaults setObject: mainFrameString forKey: @"detailsWindowFrame"];
         if (  leftFrameString ) {
             [gTbDefaults setObject: leftFrameString forKey: @"detailsWindowLeftFrame"];
         }
-		if (  currentViewName  ) {
-			[gTbDefaults setObject: currentViewName forKey: @"detailsWindowViewName"];
-        }
+		[gTbDefaults setObject: [NSNumber numberWithUnsignedInt: viewIx] forKey: @"detailsWindowViewIndex"];
 		if (  configurationsTabIdentifier  ) {
 			[gTbDefaults setObject: configurationsTabIdentifier forKey: @"detailsWindowConfigurationsTabIdentifier"];
         }

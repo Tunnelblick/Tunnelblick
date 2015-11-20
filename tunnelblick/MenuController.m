@@ -483,6 +483,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"detailsWindowFrame",
                                 @"detailsWindowLeftFrame",
 								@"detailsWindowViewName",
+								@"detailsWindowViewIndex",
 								@"detailsWindowConfigurationsTabIdentifier",
 								@"leftNavOutlineViewExpandedDisplayNames",
 								@"leftNavSelectedDisplayName",
