@@ -80,9 +80,9 @@ DOWN_ROOT_ARCH_2_2=$(foreach f, $(TARGET_ARCHS_2_2), -arch $f)
 # Define the make rules:
 
 all: built-easy-rsa-tunnelblick \
-    built-tuntap                \
-    built-sparkle               \
-    built-openvpn
+     built-tuntap               \
+     built-openvpn              \
+     built-sparkle
 	if [ "$${CONFIGURATION}" != "Debug" ]; then \
 		rm -f -R $(TOPDIR)/$(BUILD_NAME) ; \
 	fi
