@@ -30,6 +30,7 @@
 #import "MyPrefsWindowController.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
+#import "UIHelper.h"
 #import "VPNConnection.h"
 
 extern NSString             * gPrivatePath;
@@ -118,7 +119,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnConnectArrayControll
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayController)
 
 -(id) init {
-    self = [super initWithWindowNibName:@"SettingsSheet"];
+    self = [super initWithWindowNibName: [UIHelper appendRTLIfRTLLanguage: @"SettingsSheet"]];
     if (  ! self  ) {
         return nil;
     }
@@ -447,8 +448,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 -(void) showSettingsSheet: (id) sender {
 	(void) sender;
 	
-    [self setupSettingsFromPreferences];
-    
     if (  ! settingsSheet  ) {
         [super showWindow: self];
     } else {
@@ -495,6 +494,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 //**********************************************************************************************************************************
 
 -(void) underlineLabel: tf string: inString alignment: (NSTextAlignment) align {
+	
     NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString: inString];
     NSRange range = NSMakeRange(0, [attrString length]);
     
@@ -504,7 +504,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [attrString addAttribute:
      NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSSingleUnderlineStyle] range:range];
     
-    // make the text appear flush-right
+    // make the text appear flush-right or flush-left
     [attrString setAlignment: align range: range];
     
     [attrString endEditing];
@@ -513,7 +513,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [attrString release];
 }
 
--(void) initializeDnsWinsPopUp: (NSPopUpButton *) popUpButton arrayController: (NSArrayController *) ac {
+-(CGFloat) initializeDnsWinsPopUp: (NSPopUpButton *) popUpButton arrayController: (NSArrayController *) ac {
     NSArray * content = [NSArray arrayWithObjects:
                          [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Ignore"            , @"Button"), @"name", @"ignore" , @"value", nil],
                          [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Restore"           , @"Button"), @"name", @"restore", @"value", nil],
@@ -521,38 +521,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
                          nil];
     [ac setContent: content];
     
-    /*
-     if (  popUpButton == dnsServersPopUpButton  ) {
-     
-     // When resize this control, shift the columns that are to its right either left or right to match the size change
-     NSRect oldRect = [popUpButton frame];
-     [popUpButton sizeToFit];
-     NSRect newRect = [popUpButton frame];
-     float widthChange = newRect.size.width - oldRect.size.width;
-     
-     NSArray * stuffToShift = [NSArray arrayWithObjects:
-     whenChangesToAnythingElseTF,
-     otherdnsServersPopUpButton,
-     otherdomainPopUpButton,
-     othersearchDomainPopUpButton,
-     otherwinsServersPopUpButton,
-     othernetBiosNamePopUpButton,
-     otherworkgroupPopUpButton,
-     nil];
-     NSEnumerator * arrayEnum = [stuffToShift objectEnumerator];
-     id control;
-     while (  (control = [arrayEnum nextObject])  ) {
-     NSRect oldPos;
-     oldPos = [control frame];
-     oldPos.origin.x = oldPos.origin.x + widthChange;
-     [control setFrame:oldPos];
-     }
-     } else {
-     */
-    [popUpButton sizeToFit];
-    /*
-     }
-     */
+	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+	CGFloat widthChange = [UIHelper setTitle: nil ofControl: popUpButton shift: rtl narrow: YES enable: YES];
+	return widthChange;
 }
 
 -(void) initializeSoundPopUpButtons {
@@ -581,38 +552,46 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [connectController setContent: soundsDictionaryArray];
 	NSArrayController * disconnectController = [self soundOnDisconnectArrayController];
     [disconnectController setContent: soundsDictionaryArray];
+	
+	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+	
+	[UIHelper setTitle: nil ofControl: soundOnConnectButton    shift: rtl narrow: YES enable: YES];
+	[UIHelper setTitle: nil ofControl: soundOnDisconnectButton shift: rtl narrow: YES enable: YES];
+	
+	NSArray * list = [NSArray arrayWithObjects: soundOnConnectButton, soundOnDisconnectButton, nil];
+	[UIHelper makeAllAsWideAsWidest: list shift: rtl];
+}
+
+-(void) initializeCheckbox: (id) checkbox setTitle: (NSString *) label {
+	
+	[UIHelper setTitle: label
+							ofControl: checkbox
+								shift: [UIHelper languageAtLaunchWasRTL]
+							   narrow: YES
+							   enable: YES];
 }
 
 -(void) initializeStaticContent {
     
     // For Connecting tab
 	
-    [connectingAndDisconnectingTabViewItem  setLabel: NSLocalizedString(@"Connecting & Disconnecting", @"Window title")];
+    [connectingAndDisconnectingTabViewItem setLabel: NSLocalizedString(@"Connecting & Disconnecting", @"Window title")];
     
-    [flushDnsCacheCheckbox                  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting",                                   @"Checkbox name")];
-    [keepConnectedCheckbox                  setTitle: NSLocalizedString(@"Keep connected",                                                                      @"Checkbox name")];
-    [enableIpv6OnTapCheckbox                setTitle: NSLocalizedString(@"Enable IPv6 (tap only)",                                                              @"Checkbox name")];
-    [useRouteUpInsteadOfUpCheckbox          setTitle: NSLocalizedString(@"Set DNS after routes are set instead of before routes are set",                       @"Checkbox name")];
-    [prependDomainNameCheckbox              setTitle: NSLocalizedString(@"Prepend domain name to search domains",                                               @"Checkbox name")];
-    [disconnectOnSleepCheckbox              setTitle: NSLocalizedString(@"Disconnect when computer goes to sleep",                                              @"Checkbox name")];
-    [reconnectOnWakeFromSleepCheckbox       setTitle: NSLocalizedString(@"Reconnect when computer wakes from sleep (if connected when computer went to sleep)", @"Checkbox name")];
-    [runMtuTestCheckbox                     setTitle: NSLocalizedString(@"Run MTU maximum size test after connecting",                                          @"Checkbox name")];
-    
-    [sleepWakeBox                           setTitle: NSLocalizedString(@"Computer sleep/wake",                        @"Window text")];
-    [disconnectOnSleepCheckbox              setTitle: NSLocalizedString(@"Disconnect when computer goes to sleep",     @"Checkbox name")];
-    [disconnectOnSleepCheckbox              sizeToFit];
-    [reconnectOnWakeFromSleepCheckbox       setTitle: NSLocalizedString(@"Reconnect when computer wakes up",           @"Checkbox name")];
-    [reconnectOnWakeFromSleepCheckbox       sizeToFit];
+    [self initializeCheckbox: flushDnsCacheCheckbox                  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting",                                   @"Checkbox name")];
+    [self initializeCheckbox: prependDomainNameCheckbox              setTitle: NSLocalizedString(@"Prepend domain name to search domains",                                               @"Checkbox name")];
+    [self initializeCheckbox: useRouteUpInsteadOfUpCheckbox          setTitle: NSLocalizedString(@"Set DNS after routes are set instead of before routes are set",                       @"Checkbox name")];
+    [self initializeCheckbox: enableIpv6OnTapCheckbox                setTitle: NSLocalizedString(@"Enable IPv6 (tap only)",                                                              @"Checkbox name")];
+    [self initializeCheckbox: keepConnectedCheckbox                  setTitle: NSLocalizedString(@"Keep connected",                                                                      @"Checkbox name")];
+     
+    [sleepWakeBox setTitle: NSLocalizedString(@"Computer sleep/wake",                        @"Window text")];
+    [self initializeCheckbox: disconnectOnSleepCheckbox              setTitle: NSLocalizedString(@"Disconnect when computer goes to sleep",     @"Checkbox name")];
+    [self initializeCheckbox: reconnectOnWakeFromSleepCheckbox       setTitle: NSLocalizedString(@"Reconnect when computer wakes up",           @"Checkbox name")];
 	[ifConnectedWhenComputerWentToSleepTFC  setTitle: NSLocalizedString(@"(if connected when computer went to sleep)", @"Window text")];
-    [ifConnectedWhenComputerWentToSleepTF   sizeToFit];
 	
-    [fastUserSwitchingBox                   setTitle: NSLocalizedString(@"Fast User Switching",                   @"Window text")];
-    [disconnectWhenUserSwitchesOutCheckbox  setTitle: NSLocalizedString(@"Disconnect when user switches out",     @"Checkbox name")];
-    [disconnectWhenUserSwitchesOutCheckbox  sizeToFit];
-    [reconnectWhenUserSwitchesInCheckbox    setTitle: NSLocalizedString(@"Reconnect when user switches in"  ,     @"Checkbox name")];
-    [reconnectWhenUserSwitchesInCheckbox    sizeToFit];
-	[ifConnectedWhenUserSwitchedOutTFC      setTitle: NSLocalizedString(@"(if connected when user switched out)", @"Window text")];
-    [ifConnectedWhenUserSwitchedOutTF       sizeToFit];
+    [fastUserSwitchingBox setTitle: NSLocalizedString(@"Fast User Switching",                   @"Window text")];
+    [self initializeCheckbox: disconnectWhenUserSwitchesOutCheckbox  setTitle: NSLocalizedString(@"Disconnect when user switches out",     @"Checkbox name")];
+    [self initializeCheckbox: reconnectWhenUserSwitchesInCheckbox    setTitle: NSLocalizedString(@"Reconnect when user switches in"  ,     @"Checkbox name")];
+ 	[ifConnectedWhenUserSwitchedOutTFC      setTitle: NSLocalizedString(@"(if connected when user switched out)", @"Window text")];
 	
     [loadTunAutomaticallyMenuItem setTitle: NSLocalizedString(@"Load Tun driver automatically", @"Button")];
     [loadTunAlwaysMenuItem        setTitle: NSLocalizedString(@"Always load Tun driver",        @"Button")];
@@ -623,8 +602,16 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [loadTapNeverMenuItem         setTitle: NSLocalizedString(@"Never load Tap driver",         @"Button")];
 	
 	// Set both the tun and tap buttons to the width of the wider one
-    [loadTunPopUpButton sizeToFit];
-    [loadTapPopUpButton sizeToFit];
+	[UIHelper setTitle: nil
+							ofControl: loadTapPopUpButton
+								shift: [UIHelper languageAtLaunchWasRTL]
+							   narrow: YES
+							   enable: YES];
+	[UIHelper setTitle: nil
+							ofControl: loadTunPopUpButton
+								shift: [UIHelper languageAtLaunchWasRTL]
+							   narrow: YES
+							   enable: YES];
 	NSRect newTun = [loadTunPopUpButton frame];
 	NSRect newTap = [loadTapPopUpButton frame];
 	if (  newTun.size.width > newTap.size.width  ) {
@@ -637,13 +624,23 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	
     // For WhileConnected tab
     
+    [self initializeCheckbox: runMtuTestCheckbox setTitle: NSLocalizedString(@"Run MTU maximum size test after connecting",                                          @"Checkbox name")];
+	
     [whileConnectedTabViewItem        setLabel: NSLocalizedString(@"While Connected", @"Window title")];
 
-    [monitorNetworkForChangesCheckbox setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")];
+    [self initializeCheckbox: monitorNetworkForChangesCheckbox setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")];
     
-    [self underlineLabel: networkSettingTF            string: NSLocalizedString(@"Network setting"              , @"Window text") alignment: NSRightTextAlignment];
-    [self underlineLabel: whenChangesToPreVpnValueTF  string: NSLocalizedString(@"When changes to pre-VPN value", @"Window text") alignment: NSLeftTextAlignment ];
-    [self underlineLabel: whenChangesToAnythingElseTF string: NSLocalizedString(@"When changes to anything else", @"Window text") alignment: NSLeftTextAlignment ];
+	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+	
+	NSTextAlignment alignmentForNetworkSettingString = (  rtl
+														? NSLeftTextAlignment
+														: NSRightTextAlignment);
+	NSTextAlignment alignmentForOtherStrings = (  rtl
+												? NSRightTextAlignment
+												: NSLeftTextAlignment);
+    [self underlineLabel: networkSettingTF            string: NSLocalizedString(@"Network setting"              , @"Window text") alignment: alignmentForNetworkSettingString];
+    [self underlineLabel: whenChangesToPreVpnValueTF  string: NSLocalizedString(@"When changes to pre-VPN value", @"Window text") alignment: alignmentForOtherStrings];
+    [self underlineLabel: whenChangesToAnythingElseTF string: NSLocalizedString(@"When changes to anything else", @"Window text") alignment: alignmentForOtherStrings];
     
     [dnsServersTFC   setTitle: NSLocalizedString(@"DNS servers:"  , @"Window text")];
     [domainTFC       setTitle: NSLocalizedString(@"Domain:"       , @"Window text")];
@@ -652,13 +649,63 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [netBiosNameTFC  setTitle: NSLocalizedString(@"NetBIOS name:" , @"Window text")];
     [workgroupTFC    setTitle: NSLocalizedString(@"Workgroup:"    , @"Window text")];
     
-    [self initializeDnsWinsPopUp: dnsServersPopUpButton   arrayController: dnsServersArrayController   ];
+	
+	// Resize the row labels and shift everything left or right appropriately
+	NSArray * leftTfList = [NSArray arrayWithObjects: networkSettingTF,  dnsServersTF,  domainTF,  searchDomainTF,  winsServersTF,  netBiosNameTF,  workgroupTF,  nil];
+	NSArray * leftTcList = [NSArray arrayWithObjects: networkSettingTFC, dnsServersTFC, domainTFC, searchDomainTFC, winsServersTFC, netBiosNameTFC, workgroupTFC, nil];
+	
+	CGFloat largestWidthChange = 0.0;  // (Make static analyzer happy)
+	BOOL haveOne = FALSE;
+	NSUInteger ix;
+	for (  ix=0; ix<[leftTfList count]; ix++  ) {
+		CGFloat widthChange = [UIHelper setTitle: nil ofControl: [leftTcList objectAtIndex: ix] frameHolder: [leftTfList objectAtIndex: ix] shift: ! rtl narrow: YES enable: YES];
+		if (  haveOne  ) {
+			if (  widthChange > largestWidthChange  ) {
+				largestWidthChange = widthChange;
+			}
+		} else {
+			largestWidthChange = widthChange;
+			haveOne = TRUE;
+		}
+	}
+	
+	for (  ix=0; ix<[leftTfList count]; ix++  ) {
+		[UIHelper shiftControl: [leftTfList objectAtIndex: ix] by: largestWidthChange reverse: rtl];
+	}
+	
+	NSArray * middleTfList    = [NSArray arrayWithObjects: whenChangesToPreVpnValueTF,  dnsServersPopUpButton,      domainPopUpButton,      searchDomainPopUpButton,      winsServersPopUpButton,      netBiosNamePopUpButton,      workgroupPopUpButton,      nil];
+	NSArray * rightmostTfList = [NSArray arrayWithObjects: whenChangesToAnythingElseTF, otherdnsServersPopUpButton, otherdomainPopUpButton, othersearchDomainPopUpButton, otherwinsServersPopUpButton, othernetBiosNamePopUpButton, otherworkgroupPopUpButton, nil];
+	
+	for (  ix=0; ix<[middleTfList count]; ix++  ) {
+		[UIHelper shiftControl: [middleTfList objectAtIndex: ix] by: largestWidthChange reverse: rtl];
+	}
+	
+	for (  ix=0; ix<[rightmostTfList count]; ix++  ) {
+		[UIHelper shiftControl: [rightmostTfList objectAtIndex: ix] by: largestWidthChange reverse: rtl];
+	}
+	
+	
+	// Resize the middle column label and buttons, and shift the rightmost column left or right appropriately
+	
+	CGFloat middleHeaderWidthChange = [UIHelper setTitle: nil ofControl: whenChangesToPreVpnValueTF shift: rtl narrow: YES enable: YES];
+	
+    CGFloat middleColumnWidthChange = [self initializeDnsWinsPopUp: dnsServersPopUpButton arrayController: dnsServersArrayController];
     [self initializeDnsWinsPopUp: domainPopUpButton       arrayController: domainArrayController       ];
     [self initializeDnsWinsPopUp: searchDomainPopUpButton arrayController: searchDomainArrayController ];
     [self initializeDnsWinsPopUp: winsServersPopUpButton  arrayController: winsServersArrayController  ];
     [self initializeDnsWinsPopUp: netBiosNamePopUpButton  arrayController: netBiosNameArrayController  ];
     [self initializeDnsWinsPopUp: workgroupPopUpButton    arrayController: workgroupArrayController    ];
 
+	CGFloat widthChange = (  (middleHeaderWidthChange > middleColumnWidthChange)
+						   ? - middleHeaderWidthChange
+						   : - middleColumnWidthChange);
+	
+	// (Shift the right-most column by the size change of the middle column)
+	
+	for (  ix=0; ix<[rightmostTfList count]; ix++  ) {
+		[UIHelper shiftControl: [rightmostTfList objectAtIndex: ix] by: widthChange reverse: rtl];
+	}
+	
     [self initializeDnsWinsPopUp: otherdnsServersPopUpButton   arrayController: otherdnsServersArrayController  ];
     [self initializeDnsWinsPopUp: otherdomainPopUpButton       arrayController: otherdomainArrayController      ];
     [self initializeDnsWinsPopUp: othersearchDomainPopUpButton arrayController: othersearchDomainArrayController];
@@ -860,13 +907,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	[namedCredentialsBox
 	 setTitle: NSLocalizedString(@"Named Credentials", @"Window text")];
 	
-	[addNamedCredentialsButton setTitle: NSLocalizedString(@"Add Credentials", @"Window text")];
+	[UIHelper setTitle: NSLocalizedString(@"Add Credentials", @"Window text")
+							ofControl: addNamedCredentialsButton
+								shift: [UIHelper languageAtLaunchWasRTL]
+							   narrow: YES
+							   enable: NO];
     
 	[addNamedCredentialsTFC setTitle: @""];
 	[addNamedCredentialsTF  setDelegate: self];
-	
-    [addNamedCredentialsButton sizeToFit];
-	[addNamedCredentialsButton setEnabled: NO];
 	
     // Create a menu for the Remove Credentials pull-down button
     NSMenu * removeCredentialMenu = [[[NSMenu alloc] init] autorelease];
@@ -910,14 +958,19 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	
 	NSString * prefKey = [[connection displayName] stringByAppendingString: @"-credentialsGroup"];
 	[credentialsGroupArrayController setContent: groupsDictionaryArray];
-	[credentialsGroupButton          sizeToFit];
-	[credentialsGroupButton          setEnabled: (   ( ! [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"] )
-                                                  && [gTbDefaults canChangeValueForKey: prefKey])];
+	[UIHelper setTitle: nil
+							ofControl: credentialsGroupButton
+								shift: [UIHelper languageAtLaunchWasRTL]
+							   narrow: YES
+							   enable: (   ( ! [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"] )
+										&& [gTbDefaults canChangeValueForKey: prefKey])];
 	
-    
     [removeNamedCredentialsButton setMenu: removeCredentialMenu];
-	[removeNamedCredentialsButton sizeToFit];
-	[removeNamedCredentialsButton setEnabled: ! [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"]];
+	[UIHelper setTitle: nil
+							ofControl: removeNamedCredentialsButton
+								shift: [UIHelper languageAtLaunchWasRTL]
+							   narrow: YES
+							   enable: ( ! [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"])];
 	
 	NSString * groupAllConfigurationsUse = [removeNamedCredentialsNames objectAtIndex: 0];
 	if (  ! groupAllConfigurationsUse  ) {
@@ -942,10 +995,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 		[removeNamedCredentialsButton setEnabled: YES];
 	}
 	
-	[allConfigurationsUseTheSameCredentialsCheckbox setTitle: [NSString stringWithFormat:
-														 NSLocalizedString(@"All configurations use %@ credentials", @"Window text"),
-														 groupAllConfigurationsUse]];
-	[allConfigurationsUseTheSameCredentialsCheckbox sizeToFit];
+	[UIHelper setTitle: [NSString stringWithFormat:
+										NSLocalizedString(@"All configurations use %@ credentials", @"Window text"),
+										groupAllConfigurationsUse]
+							ofControl: allConfigurationsUseTheSameCredentialsCheckbox
+								shift: [UIHelper languageAtLaunchWasRTL]
+							   narrow: YES
+							   enable: YES];
     
     // Sounds tab
     

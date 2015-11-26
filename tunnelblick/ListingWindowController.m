@@ -50,6 +50,7 @@
 	[ts beginEditing];
 	[ts appendAttributedString: [[[NSAttributedString alloc] initWithString: text] autorelease]];
 	[ts endEditing];
+	[ts setAlignment: NSLeftTextAlignment range: NSMakeRange(0, [text length])]; // Force left alignment even if an RTL language because this is a configuration file listing
 }
 
 -(void) windowWillClose:(NSNotification *) notification {

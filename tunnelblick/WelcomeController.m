@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -26,13 +26,13 @@
 
 #import "MenuController.h"
 #import "TBUserDefaults.h"
+#import "UIHelper.h"
 
 extern TBUserDefaults  * gTbDefaults;
 
 @interface WelcomeController() // Private methods
 
 -(id)                delegate;
--(void)              setTitle: (NSString *) newTitle ofControl: (id) theControl;
 
 @end
 
@@ -51,7 +51,7 @@ extern TBUserDefaults  * gTbDefaults;
 			  windowHeight: (float) windowHeight
 showDoNotShowAgainCheckbox: (BOOL) showTheCheckbox
 {
-    self = [super initWithWindowNibName:@"Welcome"];
+    self = [super initWithWindowNibName: [UIHelper appendRTLIfRTLLanguage: @"Welcome"]];
     if (  ! self  ) {
         return nil;
     }
@@ -89,7 +89,8 @@ showDoNotShowAgainCheckbox: (BOOL) showTheCheckbox
 	
     [[self window] setTitle: NSLocalizedString(@"Welcome", @"Window title")];
     
-    [self setTitle: NSLocalizedString(@"OK" , @"Button") ofControl: okButton];
+    BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+    [UIHelper setTitle: NSLocalizedString(@"OK" , @"Button") ofControl: okButton shift: ( !rtl ) narrow: YES enable: YES];
 	
     [doNotShowAgainCheckbox setTitle: NSLocalizedString(@"Do not show this again", @"Checkbox")];
 	
@@ -113,24 +114,6 @@ showDoNotShowAgainCheckbox: (BOOL) showTheCheckbox
     [[self window] center];
     [NSApp activateIgnoringOtherApps:YES];
     [[self window] makeKeyAndOrderFront: self];
-}
-
-// Sets the title for a control, shifting the origin of the control itself to the left.
--(void) setTitle: (NSString *) newTitle ofControl: (id) theControl
-{
-    NSRect oldRect = [theControl frame];
-    [theControl setTitle: newTitle];
-    [theControl sizeToFit];
-    
-    NSRect newRect = [theControl frame];
-    float widthChange = newRect.size.width - oldRect.size.width;
-    NSRect oldPos;
-    
-    if (   [theControl isEqual: okButton]  ) {
-        oldPos = [theControl frame];
-        oldPos.origin.x = oldPos.origin.x - widthChange;
-        [theControl setFrame:oldPos];
-    }
 }
 
 -(void) webView: (WebView *) wv didStartProvisionalLoadForFrame: (WebFrame *) wf

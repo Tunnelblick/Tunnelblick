@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -26,6 +26,7 @@
 
 #import "MenuController.h"
 #import "NSFileManager+TB.h"
+#import "UIHelper.h"
 
 
 extern NSFileManager  * gFileMgr;
@@ -95,8 +96,10 @@ extern NSString       * gDeployPath;
         [appearanceIconSetArrayController setContent:
          [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"(None available)", @"Button"), @"name", @"", @"value", nil]];
     }
-    [appearanceIconSetButton sizeToFit];
-    
+	
+	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+	
+    [UIHelper setTitle: nil ofControl: appearanceIconSetButton shift: rtl narrow: YES enable: YES];
     
     // Icon placement checkbox
     [appearancePlaceIconNearSpotlightCheckbox setTitle: NSLocalizedString(@"Place next to Spotlight icon", @"Checkbox name")];
@@ -119,7 +122,7 @@ extern NSString       * gDeployPath;
                             [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Show when connection status changes", @"Button"), @"name", @"showWhenChanges", @"value", nil],
                             nil];
     [appearanceConnectionWindowDisplayCriteriaArrayController setContent: cwContent];
-    [appearanceConnectionWindowDisplayCriteriaButton sizeToFit];
+    [UIHelper setTitle: nil ofControl: appearanceConnectionWindowDisplayCriteriaButton shift: rtl narrow: YES enable: YES];
 
     // Connection window screen assignment popup
     NSMutableArray * cwsContent = [NSMutableArray arrayWithCapacity: [[NSScreen screens] count] + 1];
@@ -146,7 +149,7 @@ extern NSString       * gDeployPath;
     }
 	
     [appearanceConnectionWindowScreenArrayController setContent: cwsContent];
-    [appearanceConnectionWindowScreenButton sizeToFit];
+    [UIHelper setTitle: nil ofControl: appearanceConnectionWindowScreenButton shift: rtl narrow: YES enable: YES];
     
     [appearanceDisplayStatisticsWindowsCheckbox
      setTitle: NSLocalizedString(@"Show when the pointer is over the Tunnelblick icon", @"Checkbox name")];

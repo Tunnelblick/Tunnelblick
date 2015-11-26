@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -25,24 +25,19 @@
 #import "defines.h"
 #import "helper.h"
 
+#import "AuthAgent.h"
 #import "MenuController.h"
 #import "TBUserDefaults.h"
-#import "AuthAgent.h"
+#import "UIHelper.h"
 
 
 extern TBUserDefaults * gTbDefaults;
-
-@interface PassphraseWindowController() // Private methods
-
--(void) setTitle: (NSString *) newTitle ofControl: (id) theControl;
-
-@end
 
 @implementation PassphraseWindowController
 
 -(id) initWithDelegate: (id) theDelegate
 {
-    self = [super initWithWindowNibName:@"PassphraseWindow"];
+    self = [super initWithWindowNibName: [UIHelper appendRTLIfRTLLanguage: @"PassphraseWindow"]];
     if (  ! self  ) {
         return nil;
     }
@@ -92,8 +87,14 @@ extern TBUserDefaults * gTbDefaults;
                                  && [gTbDefaults boolForKey: onSystemStartKey] );
     [saveInKeychainCheckbox setEnabled: ! connectOnSystemStart];
 
-    [self setTitle: NSLocalizedString(@"OK"    , @"Button") ofControl: OKButton ];
-    [self setTitle: NSLocalizedString(@"Cancel", @"Button") ofControl: cancelButton ];
+    BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+    
+    CGFloat shift = [UIHelper setTitle: NSLocalizedString(@"OK", @"Button") ofControl: OKButton     shift: ( !rtl ) narrow: NO enable: YES];
+    
+    [UIHelper setTitle: NSLocalizedString(@"Cancel", @"Button")             ofControl: cancelButton shift: ( !rtl ) narrow: NO enable: YES];
+    
+    // Adjust position of Cancel button if the OK button got bigger or smaller
+    [UIHelper shiftControl: cancelButton by: shift reverse: rtl];
     
     [self redisplay];
 }
@@ -116,39 +117,6 @@ extern TBUserDefaults * gTbDefaults;
     [self showWindow: self];
     [NSApp activateIgnoringOtherApps: YES];
     [[self window] makeKeyAndOrderFront: self];
-}
-
-// Sets the title for a control, shifting the origin of the control itself to the left, and the origin of other controls to the left or right to accomodate any change in width.
--(void) setTitle: (NSString *) newTitle ofControl: (id) theControl
-{
-    NSRect oldRect = [theControl frame];
-    [theControl setTitle: newTitle];
-    [theControl sizeToFit];
-    
-    NSRect newRect = [theControl frame];
-    float widthChange = newRect.size.width - oldRect.size.width;
-    
-    // Don't make the control smaller, only larger
-    if (  widthChange < 0.0  ) {
-        [theControl setFrame: oldRect];
-        widthChange = 0.0;
-    }
-    
-    if (  widthChange != 0.0  ) {
-        NSRect oldPos;
-        
-        // Shift the control itself left/right if necessary
-        oldPos = [theControl frame];
-        oldPos.origin.x = oldPos.origin.x - widthChange;
-        [theControl setFrame:oldPos];
-        
-        // Shift the cancel button if we changed the OK button
-        if (   [theControl isEqual: OKButton]  ) {
-            oldPos = [cancelButton frame];
-            oldPos.origin.x = oldPos.origin.x - widthChange;
-            [cancelButton setFrame:oldPos];
-        }
-    }
 }
 
 - (IBAction) cancelButtonWasClicked: sender

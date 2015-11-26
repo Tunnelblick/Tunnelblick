@@ -53,6 +53,7 @@
 #import "SplashWindowController.h"
 #import "TBUIUpdater.h"
 #import "TBUserDefaults.h"
+#import "UIHelper.h"
 #import "VPNConnection.h"
 #import "WelcomeController.h"
 
@@ -482,7 +483,6 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"detailsWindowFrameVersion",
                                 @"detailsWindowFrame",
                                 @"detailsWindowLeftFrame",
-								@"detailsWindowViewName",
 								@"detailsWindowViewIndex",
 								@"detailsWindowConfigurationsTabIdentifier",
 								@"leftNavOutlineViewExpandedDisplayNames",
@@ -4335,6 +4335,7 @@ static void signal_handler(int signalNumber)
 	} else {
 		[self setLanguageAtLaunch: @"english"];
 	}
+	languageAtLaunchWasRTL = [[self languageAtLaunch] isEqualToString: @"ar"]; // lower-case of the base of the *.lproj file
 	
 	CFRelease(allLocalizationsCF);
 	CFRelease(languagesCF);
@@ -4549,7 +4550,7 @@ static void signal_handler(int signalNumber)
     if (   welcomeBundle  ) {
         NSArray * preferredLanguagesList = [welcomeBundle preferredLocalizations];
         if (  [preferredLanguagesList count] < 1  ) {
-            NSLog(@"Unable to get perferred localization for %@", [welcomeBundle bundlePath]);
+            NSLog(@"Unable to get preferred localization for %@", [welcomeBundle bundlePath]);
 			return FALSE;
         }
         NSString * preferredLanguage = [preferredLanguagesList objectAtIndex: 0];
@@ -4559,7 +4560,7 @@ static void signal_handler(int signalNumber)
                                             stringByAppendingPathComponent: [preferredLanguage stringByAppendingPathExtension: @"lproj"]]
                                            stringByAppendingPathComponent: @"index.html"];
 		if (  ! [gFileMgr fileExistsAtPath: welcomeIndexHtmlPath]  ) {
-            NSLog(@"Unable to show Welcome window becaue file does not exist at %@", welcomeIndexHtmlPath);
+            NSLog(@"Unable to show Welcome window because file does not exist at %@", welcomeIndexHtmlPath);
 			return FALSE;
 		}
         welcomeURLString = [@"file://" stringByAppendingString: welcomeIndexHtmlPath];
@@ -4751,8 +4752,7 @@ static void signal_handler(int signalNumber)
 		
         (void) isBOOL;
         
-		if (   runningOnSnowLeopardOrNewer()
-			&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
+		if (  [UIHelper useOutlineViewOfConfigurations]  ) {
 			ConfigurationsView      * cv     = [[self logScreen] configurationsPrefsView];
 			LeftNavViewController   * ovc    = [cv outlineViewController];
 			NSOutlineView           * ov     = [ovc outlineView];
@@ -7616,6 +7616,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 TBSYNTHESIZE_NONOBJECT_GET(BOOL volatile, menuIsOpen)
 TBSYNTHESIZE_NONOBJECT_GET(BOOL volatile, launchFinished)
+TBSYNTHESIZE_NONOBJECT_GET(BOOL         , languageAtLaunchWasRTL)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSStatusItem *,              statusItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenu *,                    myVPNMenu)

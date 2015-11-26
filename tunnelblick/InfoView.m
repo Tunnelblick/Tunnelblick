@@ -24,6 +24,7 @@
 
 #import "helper.h"
 
+#import "UIHelper.h"
 #import "NSTimer+TB.h"
 #import "TBUserDefaults.h"
 
@@ -398,8 +399,13 @@ extern TBUserDefaults * gTbDefaults;
             role = @"Localization leaders";
         }
         
-        [self substitute: name in: creditsString];
-        [self substitute: role in: creditsString];
+		if (  [UIHelper languageAtLaunchWasRTL]  ) {
+			[self substitute: role in: creditsString];
+			[self substitute: name in: creditsString];
+		} else {
+			[self substitute: name in: creditsString];
+			[self substitute: role in: creditsString];
+		}
     }
     
     [self substitute: NSLocalizedString(@"Additional contributions by", @"Window text") in: creditsString];
@@ -408,8 +414,13 @@ extern TBUserDefaults * gTbDefaults;
     while (  (row = [e nextObject])  ) {
         NSString * name = [row objectAtIndex: 0];
         NSString * role = [row objectAtIndex: 1];
-        [self substitute: name in: creditsString];
-        [self substitute: role in: creditsString];
+		if (  [UIHelper languageAtLaunchWasRTL]  ) {
+			[self substitute: role in: creditsString];
+			[self substitute: name in: creditsString];
+		} else {
+			[self substitute: name in: creditsString];
+			[self substitute: role in: creditsString];
+		}
     }
     
     [self substitute: NSLocalizedString(@"Localization by", @"Window text") in: creditsString];
@@ -418,8 +429,13 @@ extern TBUserDefaults * gTbDefaults;
     while (  (row = [e nextObject])  ) {
         NSString * name = [row objectAtIndex: 0];
         NSString * role = [row objectAtIndex: 1];
-        [self substitute: name in: creditsString];
-        [self substitute: role in: creditsString];
+		if (  [UIHelper languageAtLaunchWasRTL]  ) {
+			[self substitute: role in: creditsString];
+			[self substitute: name in: creditsString];
+		} else {
+			[self substitute: name in: creditsString];
+			[self substitute: role in: creditsString];
+		}
     }
     
     // Convert the NSMutableAttributedString to RTF

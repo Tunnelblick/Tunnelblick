@@ -29,13 +29,14 @@
 {    
     IBOutlet NSView              * leftSplitView;
     
-    IBOutlet LeftNavViewController * outlineViewController;
-    IBOutlet LeftNavDataSource   * leftNavDataSrc;
+    IBOutlet NSScrollView        * leftNavTableScrollView;	// Used if NOT [UIHelper useOutlineViewOfConfigurations]
+	
+    IBOutlet LeftNavViewController * outlineViewController; // Used if [UIHelper useOutlineViewOfConfigurations]
+    IBOutlet LeftNavDataSource   * leftNavDataSrc;			// Used if [UIHelper useOutlineViewOfConfigurations]
     
-    IBOutlet NSScrollView        * leftNavTableScrollView;
-    IBOutlet NSTableView         * leftNavTableView;
-    IBOutlet NSTableColumn       * leftNavTableColumn;
-    
+    IBOutlet NSTableView         * leftNavTableView;		// Used if NOT [UIHelper useOutlineViewOfConfigurations]
+    IBOutlet NSTableColumn       * leftNavTableColumn;		// Used if NOT [UIHelper useOutlineViewOfConfigurations]
+	
     IBOutlet NSButton            * addConfigurationButton;
     IBOutlet NSButton            * removeConfigurationButton;
     IBOutlet NSPopUpButton       * workOnConfigurationPopUpButton;
@@ -75,6 +76,7 @@
     
     IBOutlet NSTabViewItem       * settingsTabViewItem;
     
+	IBOutlet NSTextField		 * whenToConnectTF;
     IBOutlet NSTextFieldCell     * whenToConnectTFC;
     IBOutlet NSPopUpButton       * whenToConnectPopUpButton;
     IBOutlet NSMenuItem          * whenToConnectManuallyMenuItem;
@@ -86,8 +88,8 @@
     IBOutlet NSPopUpButton       * setNameserverPopUpButton;
     IBOutlet NSArrayController   * setNameserverArrayController;
     
-    IBOutlet NSTextFieldCell    * perConfigOpenvpnVersionTFC;
     IBOutlet NSTextField        * perConfigOpenvpnVersionTF;
+    IBOutlet NSTextFieldCell    * perConfigOpenvpnVersionTFC;
     IBOutlet NSArrayController  * perConfigOpenvpnVersionArrayController;
     IBOutlet NSButton           * perConfigOpenvpnVersionButton;
    
@@ -100,16 +102,15 @@
     IBOutlet NSButton            * advancedButton;    
 }
 
--(void) normalizeWidthOfPopDownButtons;
-
 // Getters
 
 TBPROPERTY_READONLY(NSView *,              leftSplitView)
 
+TBPROPERTY_READONLY(NSScrollView *,	       leftNavTableScrollView)
+
 TBPROPERTY_READONLY(LeftNavViewController *, outlineViewController)
 TBPROPERTY_READONLY(LeftNavDataSource *,   leftNavDataSrc)
 
-TBPROPERTY_READONLY(NSScrollView *,	       leftNavTableScrollView)
 TBPROPERTY_READONLY(NSTableView *,         leftNavTableView)
 TBPROPERTY_READONLY(NSTableColumn *,       leftNavTableColumn)
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -26,6 +26,7 @@
 
 #import "MenuController.h"
 #import "TBUserDefaults.h"
+#import "UIHelper.h"
 
 
 extern TBUserDefaults * gTbDefaults;
@@ -70,8 +71,11 @@ extern TBUserDefaults * gTbDefaults;
                                 [NSNumber numberWithUnsignedInt: i], @"value",
                                 nil]];
     }
+    
+    BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+    
     [keyboardShortcutArrayController setContent: kbsContent];
-    [keyboardShortcutButton sizeToFit];
+    [UIHelper setTitle: nil ofControl: keyboardShortcutButton shift: rtl narrow: YES enable: YES];
     
     // Log display size popup
     // We allow specific log display sizes
@@ -83,24 +87,22 @@ extern TBUserDefaults * gTbDefaults;
                             [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString( @"10 MB", @"Button"), @"name", [NSNumber numberWithUnsignedInt:  10*1024*1024], @"value", nil],
                             nil];
     [maximumLogSizeArrayController setContent: mlsContent];
-    [maximumLogSizeButton sizeToFit];
+    [UIHelper setTitle: nil ofControl: maximumLogSizeButton shift: rtl narrow: YES enable: YES];
     
-    [warningsTFC                        setTitle: NSLocalizedString(@"Warnings:",                 @"Window text")];
-    [resetDisabledWarningsButton        setTitle: NSLocalizedString(@"Reset Disabled Warnings",   @"Button")];
-    [resetDisabledWarningsButton sizeToFit];
-    [resetDisabledWarningsButton setEnabled:  ! [gTbDefaults boolForKey: @"disableResetDisabledWarningsButton"]];
+    [warningsTFC setTitle: NSLocalizedString(@"Warnings:", @"Window text")];
+    [UIHelper setTitle: NSLocalizedString(@"Reset Disabled Warnings", @"Button")                                   ofControl: resetDisabledWarningsButton        shift: rtl narrow: YES enable: ! [gTbDefaults boolForKey: @"disableResetDisabledWarningsButton"]];
 
-    [tbInternetAccessTFC                       setTitle: NSLocalizedString(@"Tunnelblick Internet Use:",                       @"Window text")];
-    [inhibitOutboundTBTrafficCheckbox setTitle: NSLocalizedString(@"Inhibit automatic update checking and IP Address checking", @"Checkbox name")];
+    [tbInternetAccessTFC setTitle: NSLocalizedString(@"Tunnelblick Internet Use:", @"Window text")];
+    [UIHelper setTitle: NSLocalizedString(@"Inhibit automatic update checking and IP Address checking", @"Button") ofControl: inhibitOutboundTBTrafficCheckbox   shift: rtl narrow: YES enable: YES];
 
-    [updatesUpdatesTFC                  setTitle: NSLocalizedString(@"Updates:",                                      @"Window text")];
-    [updatesCheckAutomaticallyCheckbox  setTitle: NSLocalizedString(@"Check for updates automatically",               @"Checkbox name")];
-    [updatesCheckForBetaUpdatesCheckbox setTitle: NSLocalizedString(@"Check for updates to beta versions",            @"Checkbox name")];
-    [updatesSendProfileInfoCheckbox     setTitle: NSLocalizedString(@"Send anonymous profile information when checking", @"Checkbox name")];
-    [updatesCheckNowButton              setTitle: NSLocalizedString(@"Check Now",                                     @"Button")];
-    [updatesCheckNowButton sizeToFit];
-    [updatesCheckNowButton setEnabled:  ! [gTbDefaults boolForKey: @"disableCheckNowButton"]];
+    [updatesUpdatesTFC setTitle: NSLocalizedString(@"Updates:", @"Window text")];
+    [UIHelper setTitle: NSLocalizedString(@"Check for updates automatically", @"Checkbox name")                    ofControl: updatesCheckAutomaticallyCheckbox  shift: rtl narrow: YES enable: YES];
     
+    [UIHelper setTitle: NSLocalizedString(@"Check for updates to beta versions", @"Checkbox name")                 ofControl: updatesCheckForBetaUpdatesCheckbox shift: rtl narrow: YES enable: YES];
+    
+    [UIHelper setTitle: NSLocalizedString(@"Send anonymous profile information when checking", @"Checkbox name")   ofControl: updatesSendProfileInfoCheckbox     shift: rtl narrow: YES enable: YES];
+    
+    [UIHelper setTitle: NSLocalizedString(@"Check Now", @"Button")                                                 ofControl: updatesCheckNowButton              shift: rtl narrow: YES enable: ! [gTbDefaults boolForKey: @"disableCheckNowButton"]];
 }
 
 

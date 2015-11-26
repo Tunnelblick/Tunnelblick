@@ -36,6 +36,7 @@
 		61C03B990ED4E42A00175F22 /* NB.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* NB.lproj */; };
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
 		630210131465CBBC00283B78 /* CS.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 630210121465CBBC00283B78 /* CS.lproj */; };
+		630365D81C02D65600259FD8 /* SettingsSheet-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 630365D71C02D65600259FD8 /* SettingsSheet-RTL.xib */; };
 		63071CB31A0C0256000C7410 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */; };
 		6311306411041B89003435F1 /* LoginItemsAE.c in Sources */ = {isa = PBXBuildFile; fileRef = 6311305F11041B89003435F1 /* LoginItemsAE.c */; };
@@ -53,6 +54,10 @@
 		632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 632BB9E9194F2D13006CD7DA /* AlertWindow.xib */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
 		63379F8813F695D700F2554D /* TBBuildNumber.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63379F8713F695D700F2554D /* TBBuildNumber.txt */; };
+		633888F61C00F2FC0076032D /* AlertWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633888F01C00F2FC0076032D /* AlertWindow-RTL.xib */; };
+		633888F81C00F2FC0076032D /* LoginWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633888F21C00F2FC0076032D /* LoginWindow-RTL.xib */; };
+		633888F91C00F2FC0076032D /* PassphraseWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633888F31C00F2FC0076032D /* PassphraseWindow-RTL.xib */; };
+		633888FB1C00F2FC0076032D /* Welcome-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633888F51C00F2FC0076032D /* Welcome-RTL.xib */; };
 		633C881D13A3B770000F5E94 /* ActionMenuButtonImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 633C881A13A3B770000F5E94 /* ActionMenuButtonImage.tiff */; };
 		633C881E13A3B770000F5E94 /* AddButtonImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 633C881B13A3B770000F5E94 /* AddButtonImage.tiff */; };
 		633C881F13A3B770000F5E94 /* RemoveButtonImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 633C881C13A3B770000F5E94 /* RemoveButtonImage.tiff */; };
@@ -69,6 +74,10 @@
 		634EE8391191F89800DF4E43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6353818E1116031F00D68E83 /* dsa_pub.pem */; };
 		635713A61A6709D800709670 /* AR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635713A31A6709D800709670 /* AR.lproj */; };
+		635971421C06736B0055FBC5 /* UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 635971411C06736B0055FBC5 /* UIHelper.m */; };
+		635971461C0673A10055FBC5 /* Preferences-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635971431C0673A10055FBC5 /* Preferences-RTL.xib */; };
+		635971471C0673A10055FBC5 /* Preferences-Tiger-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635971441C0673A10055FBC5 /* Preferences-Tiger-RTL.xib */; };
+		635971481C0673A10055FBC5 /* Preferences-Tiger.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635971451C0673A10055FBC5 /* Preferences-Tiger.xib */; };
 		635BF1AF1501CE4E00D87717 /* ExternalBuildCleanScript.sh in Resources */ = {isa = PBXBuildFile; fileRef = 635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */; };
 		635C80461300353000DB27AE /* ApplescriptCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 635C80451300353000DB27AE /* ApplescriptCommands.m */; };
 		635CA45312F8285D00287298 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 635CA45212F8285D00287298 /* COPYING */; };
@@ -207,7 +216,6 @@
 		B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9FB46170C77A400BCA243 /* LeftNavViewController.m */; };
 		B8D807031832EEC400A0B937 /* NSTimer+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D807021832EEC400A0B937 /* NSTimer+TB.m */; };
 		B8F6264C1641C8C700943C59 /* easyRsa.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6264B1641C8C700943C59 /* easyRsa.m */; };
-		B8F888461710704700978A35 /* Preferences-pre-10.6.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F888451710704700978A35 /* Preferences-pre-10.6.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -358,6 +366,7 @@
 		61C03B960ED4E42A00175F22 /* NB.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NB.lproj; sourceTree = "<group>"; };
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
 		630210121465CBBC00283B78 /* CS.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CS.lproj; sourceTree = "<group>"; };
+		630365D71C02D65600259FD8 /* SettingsSheet-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "SettingsSheet-RTL.xib"; sourceTree = "<group>"; };
 		6308A50B1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = net.tunnelblick.tunnelblick.LaunchAtLogin.plist; sourceTree = "<group>"; };
 		6311305F11041B89003435F1 /* LoginItemsAE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LoginItemsAE.c; sourceTree = "<group>"; };
 		6311306011041B89003435F1 /* LoginItemsAE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItemsAE.h; sourceTree = "<group>"; };
@@ -377,6 +386,10 @@
 		6337527B101A1EBD00775AA2 /* TBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextView.h; sourceTree = "<group>"; };
 		6337527C101A1EBD00775AA2 /* TBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextView.m; sourceTree = "<group>"; };
 		63379F8713F695D700F2554D /* TBBuildNumber.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TBBuildNumber.txt; sourceTree = "<group>"; };
+		633888F01C00F2FC0076032D /* AlertWindow-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "AlertWindow-RTL.xib"; sourceTree = "<group>"; };
+		633888F21C00F2FC0076032D /* LoginWindow-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "LoginWindow-RTL.xib"; sourceTree = "<group>"; };
+		633888F31C00F2FC0076032D /* PassphraseWindow-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "PassphraseWindow-RTL.xib"; sourceTree = "<group>"; };
+		633888F51C00F2FC0076032D /* Welcome-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Welcome-RTL.xib"; sourceTree = "<group>"; };
 		633C881A13A3B770000F5E94 /* ActionMenuButtonImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ActionMenuButtonImage.tiff; sourceTree = "<group>"; };
 		633C881B13A3B770000F5E94 /* AddButtonImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = AddButtonImage.tiff; sourceTree = "<group>"; };
 		633C881C13A3B770000F5E94 /* RemoveButtonImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = RemoveButtonImage.tiff; sourceTree = "<group>"; };
@@ -392,6 +405,11 @@
 		634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationsView.m; sourceTree = "<group>"; };
 		6353818E1116031F00D68E83 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		635713A31A6709D800709670 /* AR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AR.lproj; sourceTree = "<group>"; };
+		635971401C06736B0055FBC5 /* UIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIHelper.h; sourceTree = "<group>"; };
+		635971411C06736B0055FBC5 /* UIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIHelper.m; sourceTree = "<group>"; };
+		635971431C0673A10055FBC5 /* Preferences-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Preferences-RTL.xib"; sourceTree = "<group>"; };
+		635971441C0673A10055FBC5 /* Preferences-Tiger-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Preferences-Tiger-RTL.xib"; sourceTree = "<group>"; };
+		635971451C0673A10055FBC5 /* Preferences-Tiger.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Preferences-Tiger.xib"; sourceTree = "<group>"; };
 		635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ExternalBuildCleanScript.sh; sourceTree = "<group>"; };
 		635C80441300353000DB27AE /* ApplescriptCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplescriptCommands.h; sourceTree = "<group>"; };
 		635C80451300353000DB27AE /* ApplescriptCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplescriptCommands.m; sourceTree = "<group>"; };
@@ -561,7 +579,6 @@
 		B8D807021832EEC400A0B937 /* NSTimer+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+TB.m"; sourceTree = "<group>"; };
 		B8F6264A1641C8C700943C59 /* easyRsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easyRsa.h; sourceTree = "<group>"; };
 		B8F6264B1641C8C700943C59 /* easyRsa.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = easyRsa.m; sourceTree = "<group>"; };
-		B8F888451710704700978A35 /* Preferences-pre-10.6.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "Preferences-pre-10.6.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -839,6 +856,8 @@
 		63ABFE901349E370003DEB64 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				635971401C06736B0055FBC5 /* UIHelper.h */,
+				635971411C06736B0055FBC5 /* UIHelper.m */,
 				63CC72F61928C58600F81220 /* UI Updater */,
 				635ECCF71378886E00F67F8D /* Preferences */,
 				B840788A170CE6A20002B941 /* Main Icon */,
@@ -980,16 +999,23 @@
 			isa = PBXGroup;
 			children = (
 				632BB9E9194F2D13006CD7DA /* AlertWindow.xib */,
+				633888F01C00F2FC0076032D /* AlertWindow-RTL.xib */,
 				B86D1313181186E900FDFB3B /* ListingWindow.xib */,
 				63ABFE9E1349F086003DEB64 /* LoginWindow.xib */,
+				633888F21C00F2FC0076032D /* LoginWindow-RTL.xib */,
 				61BC4DB20E2FA3C300F24255 /* MainMenu.xib */,
 				6388569F134B8056008DF8C1 /* PassphraseWindow.xib */,
+				633888F31C00F2FC0076032D /* PassphraseWindow-RTL.xib */,
 				635ECD061378B4A900F67F8D /* Preferences.xib */,
-				B8F888451710704700978A35 /* Preferences-pre-10.6.xib */,
+				635971431C0673A10055FBC5 /* Preferences-RTL.xib */,
+				635971451C0673A10055FBC5 /* Preferences-Tiger.xib */,
+				635971441C0673A10055FBC5 /* Preferences-Tiger-RTL.xib */,
 				6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */,
+				630365D71C02D65600259FD8 /* SettingsSheet-RTL.xib */,
 				637A871B13B74DFB003C1871 /* SplashWindow.xib */,
 				639A10EA132AC74B00754C2A /* StatusWindow.xib */,
 				B85B5DBE15F2436200EDCF95 /* Welcome.xib */,
+				633888F51C00F2FC0076032D /* Welcome-RTL.xib */,
 				63E56EB71384813C007E39AB /* VPNService xibs */,
 			);
 			name = xibs;
@@ -1427,6 +1453,7 @@
 				615F749B0ED3A4FA007F6F0A /* KO.lproj in Resources */,
 				61C03B990ED4E42A00175F22 /* NB.lproj in Resources */,
 				631310D913CA18870071C110 /* NL.lproj in Resources */,
+				633888F91C00F2FC0076032D /* PassphraseWindow-RTL.xib in Resources */,
 				63AE8599116CCF7A00D36CB1 /* PL.lproj in Resources */,
 				63611FD113CE2A8B000240F0 /* RU.lproj in Resources */,
 				63EA676C13DF326600E77443 /* SV.lproj in Resources */,
@@ -1437,8 +1464,10 @@
 				63E372680FEB3FF00012DDE7 /* leasewatch in Resources */,
 				63C043E61023660900E6C1D0 /* IconSets in Resources */,
 				6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */,
+				635971461C0673A10055FBC5 /* Preferences-RTL.xib in Resources */,
 				6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */,
 				6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */,
+				635971481C0673A10055FBC5 /* Preferences-Tiger.xib in Resources */,
 				634B02DF12553E5400A9D978 /* client.2.down.tunnelblick.sh in Resources */,
 				634B02E012553E5400A9D978 /* client.2.up.tunnelblick.sh in Resources */,
 				63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */,
@@ -1452,11 +1481,14 @@
 				635CA45312F8285D00287298 /* COPYING in Resources */,
 				639A10EB132AC74B00754C2A /* StatusWindow.xib in Resources */,
 				63ABFE9F1349F086003DEB64 /* LoginWindow.xib in Resources */,
+				635971471C0673A10055FBC5 /* Preferences-Tiger-RTL.xib in Resources */,
 				638856A0134B8056008DF8C1 /* PassphraseWindow.xib in Resources */,
 				6387F0F5135604240021E41B /* tunnelblick.sdef in Resources */,
 				63D92582135DAEE1001FF627 /* client.3.down.tunnelblick.sh in Resources */,
 				63D92583135DAEE1001FF627 /* client.3.up.tunnelblick.sh in Resources */,
+				633888FB1C00F2FC0076032D /* Welcome-RTL.xib in Resources */,
 				63D92585135DAEE1001FF627 /* leasewatch3 in Resources */,
+				630365D81C02D65600259FD8 /* SettingsSheet-RTL.xib in Resources */,
 				635ECD071378B4A900F67F8D /* Preferences.xib in Resources */,
 				635ECD0C1378B7E600F67F8D /* Appearance.png in Resources */,
 				635ECDC51378CD3200F67F8D /* Info.tiff in Resources */,
@@ -1467,6 +1499,7 @@
 				63E56EC613848194007E39AB /* VPNServiceLogin.xib in Resources */,
 				63E56EC713848194007E39AB /* VPNServiceProve.xib in Resources */,
 				63E56EC813848194007E39AB /* VPNServiceSorry.xib in Resources */,
+				633888F61C00F2FC0076032D /* AlertWindow-RTL.xib in Resources */,
 				63E56EC913848194007E39AB /* VPNServiceTermsOfService.xib in Resources */,
 				63E56ECA13848194007E39AB /* VPNServiceWelcome.xib in Resources */,
 				636A16721B0242490005DD0A /* LV.lproj in Resources */,
@@ -1485,12 +1518,12 @@
 				63AF2CAE15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh in Resources */,
 				63F0A8B31507D24800526AF9 /* MainIcon.xib in Resources */,
 				B85B5DBF15F2436200EDCF95 /* Welcome.xib in Resources */,
-				B8F888461710704700978A35 /* Preferences-pre-10.6.xib in Resources */,
 				B86D1314181186E900FDFB3B /* ListingWindow.xib in Resources */,
 				632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */,
 				6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */,
 				636BB3F8197776A900FDC5DE /* launchAtLogin.sh in Resources */,
 				63DC244F19FA7379006B1BDF /* PT_BR.lproj in Resources */,
+				633888F81C00F2FC0076032D /* LoginWindow-RTL.xib in Resources */,
 				63DC245319FA73A9006B1BDF /* EL.lproj in Resources */,
 				63DC245719FA73E3006B1BDF /* BG.lproj in Resources */,
 				631494A519FA7B9E009057D1 /* PT_PT.lproj in Resources */,
@@ -1650,6 +1683,7 @@
 				63E56EED13848338007E39AB /* VPNServiceTermsOfServiceController.m in Sources */,
 				63E56EEE13848338007E39AB /* VPNServiceWelcomeController.m in Sources */,
 				6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */,
+				635971421C06736B0055FBC5 /* UIHelper.m in Sources */,
 				634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */,
 				637A871913B74B81003C1871 /* SplashWindowController.m in Sources */,
 				63DEC29013B890F70063CE11 /* NSString+TB.m in Sources */,

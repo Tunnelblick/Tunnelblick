@@ -27,6 +27,7 @@
 
 #import "NSFileManager+TB.h"
 #import "TBUserDefaults.h"
+#import "UIHelper.h"
 
 extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;
@@ -54,16 +55,13 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) awakeFromNib
 {
-    [utilitiesKillAllOpenVpnButton setTitle: NSLocalizedString(@"Quit All OpenVPN Processes", @"Button")];
-    [utilitiesKillAllOpenVpnButton sizeToFit];
-	[utilitiesKillAllOpenVpnButton setEnabled: ALLOW_OPENVPNSTART_KILLALL];
-	
-	[consoleLogToClipboardButton setTitle: NSLocalizedString(@"Copy Console Log to Clipboard", @"Button")];
-    [consoleLogToClipboardButton sizeToFit];	
+    BOOL rtl = [UIHelper languageAtLaunchWasRTL];
     
-	[utilitiesOpenUninstallInstructionsButton setTitle: NSLocalizedString(@"Open Uninstall Instructions in Browser", @"Button")];
-    [utilitiesOpenUninstallInstructionsButton sizeToFit];	
-        
+    [UIHelper setTitle: NSLocalizedString(@"Quit All OpenVPN Processes"            , @"Button") ofControl: utilitiesKillAllOpenVpnButton            shift: rtl narrow: YES enable: YES];
+    [UIHelper setTitle: NSLocalizedString(@"Copy Console Log to Clipboard"         , @"Button") ofControl: consoleLogToClipboardButton              shift: rtl narrow: YES enable: ALLOW_OPENVPNSTART_KILLALL];
+    [UIHelper setTitle: NSLocalizedString(@"Open Uninstall Instructions in Browser", @"Button") ofControl: utilitiesOpenUninstallInstructionsButton shift: rtl narrow: YES enable: YES];
+    [UIHelper setTitle: NSLocalizedString(@"Open easy-rsa in Terminal"             , @"Button") ofControl: utilitiesRunEasyRsaButton                shift: rtl narrow: YES enable: YES];
+    
     NSString * easyRsaPathMessage;
     if (  [gTbDefaults stringForKey: @"easy-rsaPath"]  ) {
         easyRsaPathMessage = easyRsaPathToUse(YES);
@@ -74,11 +72,7 @@ extern TBUserDefaults * gTbDefaults;
     } else {
         easyRsaPathMessage = @"";
     }
-
     [utilitiesEasyRsaPathTFC setTitle: easyRsaPathMessage];
-    
-    [utilitiesRunEasyRsaButton setTitle: NSLocalizedString(@"Open easy-rsa in Terminal", @"Button")];
-    [utilitiesRunEasyRsaButton sizeToFit];
 }
 
 //***************************************************************************************************************

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Jonathan Bullard
+ * Copyright 2014, 2015 Jonathan Bullard
  *
  *  This file is part of Tunnelblick.
  *
@@ -24,13 +24,16 @@
 #import "defines.h"
 #import "helper.h"
 
+#import "MenuController.h"
+#import "UIHelper.h"
+
 extern BOOL gShuttingDownWorkspace;
 
 @implementation AlertWindowController
 
 -(id) init
 {
-    self = [super initWithWindowNibName:@"AlertWindow"];
+    self = [super initWithWindowNibName: [UIHelper appendRTLIfRTLLanguage: @"AlertWindow"]];
     if (  ! self  ) {
         return nil;
     }
@@ -60,15 +63,9 @@ extern BOOL gShuttingDownWorkspace;
 
 	[tfc setFont: [NSFont boldSystemFontOfSize: 12.0]];
 	
-    NSRect oldFrame = [tf frame];
-    [tfc setTitle: [self headline]];
-    [tf sizeToFit];
-    NSRect newFrame = [tf frame];
-    
-	[tf setFrame: newFrame];
-	
-    CGFloat widthChange  = newFrame.size.width  - oldFrame.size.width;
-    
+	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+	CGFloat widthChange = [UIHelper setTitle: [self headline] ofControl: tfc frameHolder: tf shift: rtl narrow: NO enable: YES];
+
 	// If title doesn't fit window, adjust the window width so it does
     if (  widthChange > 0.0  ) {
 		NSWindow * w = [self window];
@@ -137,22 +134,6 @@ float heightForStringDrawing(NSString *myString,
 	[tv setSelectedRange: NSMakeRange([msg length] + 1, 0)];	// Make cursor disappear
 }
 
--(void) setTitleOfButton: (NSButton *) button
-					  to: (NSString *) newValue {
-    
-	// Allow button to get wider, but not narrrower
-    NSRect oldFrame = [button frame];
-    [button setTitle: newValue];
-    [button sizeToFit];
-    NSRect newFrame = [button frame];
-    CGFloat widthChange  = newFrame.size.width  - oldFrame.size.width;
-	
-    if (  widthChange < 0.0  ) {
-		[button setFrame: oldFrame];
-		return;
-	}
-}
-
 -(void) awakeFromNib {
 	
     [[self window] setDelegate: self];
@@ -163,7 +144,8 @@ float heightForStringDrawing(NSString *myString,
     
 	[self setupMessage];
 
-	[self setTitleOfButton: [self okButton] to: NSLocalizedString(@"OK", @"Button")];
+    BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+    [UIHelper setTitle: NSLocalizedString(@"OK", @"Button") ofControl: [self okButton] shift: ( !rtl ) narrow: NO enable: YES];
     
 	NSWindow * w = [self window];
     

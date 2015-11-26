@@ -3064,23 +3064,24 @@ enum GetAuthorizationResult {
 								 NSLocalizedString(@"Revert", @"Button"),
 								 NSLocalizedString(@"Cancel", @"Button"), nil);
 	
+	[[NSApp delegate] reactivateTunnelblick];
+	
 	if (  result != NSAlertDefaultReturn  ) {
 		return;
 	}
     
-	BOOL errorFound = FALSE;
+	BOOL ok = TRUE;
 	e = [displayNamesToRevert objectEnumerator];
 	while (  (displayName = [e nextObject])  ) {
-		errorFound = errorFound || [self revertOneConfigurationToShadowWithDisplayName: displayName];
+		ok = ok && [self revertOneConfigurationToShadowWithDisplayName: displayName];
 	}
 	
-	if (  ! errorFound  ) {
+	if (  ok  ) {
 		NSString * message = (  ([displayNamesToRevert count] == 1)
 							  ? [NSString stringWithFormat:
 								 NSLocalizedString(@"%@ has been reverted to its last secured (shadow) copy.\n\n", @"Window text"), [[NSApp delegate] localizedNameForDisplayName: [displayNamesToRevert objectAtIndex: 0]]]
 							  : [NSString stringWithFormat:
 								 NSLocalizedString(@"%ld configurations have been reverted to their last secured (shadow) copy.\n\n", @"Window text"), (unsigned long)[displayNamesToRevert count]]);
-
 							  
 		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), message);
 	}

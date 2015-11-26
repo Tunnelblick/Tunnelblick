@@ -44,6 +44,7 @@
 #import "Sparkle/SUUpdater.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
+#import "UIHelper.h"
 #import "UtilitiesView.h"
 #import "VPNConnection.h"
 
@@ -138,24 +139,32 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 + (NSString *)nibName
 // Overrides DBPrefsWindowController method
 {
-	if (   runningOnSnowLeopardOrNewer()  // 10.5 and lower don't have setDelegate and setDataSource
-		&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
-		return @"Preferences";
-	} else {
-		return @"Preferences-pre-10.6";
-	}
-
+    NSString * name = (  [UIHelper useOutlineViewOfConfigurations]
+                       ? @"Preferences"
+                       : @"Preferences-Tiger");
+    NSString * finalName = [UIHelper appendRTLIfRTLLanguage: name];
+	return finalName;
 }
 
 
 -(void) setupToolbar
 {
-    [self addView: configurationsPrefsView  label: NSLocalizedString(@"Configurations", @"Window title") image: [NSImage imageNamed: @"Configurations"]];
-    [self addView: appearancePrefsView      label: NSLocalizedString(@"Appearance",     @"Window title") image: [NSImage imageNamed: @"Appearance"    ]];
-    [self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageNamed: @"Preferences"   ]];
-    [self addView: utilitiesPrefsView       label: NSLocalizedString(@"Utilities",      @"Window title") image: [NSImage imageNamed: @"Utilities"     ]];
-    [self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageNamed: @"Info"          ]];
-    
+	if (  [UIHelper languageAtLaunchWasRTL]  ) {
+		// Add an NSToolbarFlexibleSpaceIdentifier item on the left, to force everything else to the right
+		[self addView: (NSView *)[NSNull null]  label: NSToolbarFlexibleSpaceItemIdentifier                  image: (NSImage *)[NSNull null]];
+		[self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageNamed: @"Info"          ]];
+		[self addView: utilitiesPrefsView       label: NSLocalizedString(@"Utilities",      @"Window title") image: [NSImage imageNamed: @"Utilities"     ]];
+		[self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageNamed: @"Preferences"   ]];
+		[self addView: appearancePrefsView      label: NSLocalizedString(@"Appearance",     @"Window title") image: [NSImage imageNamed: @"Appearance"    ]];
+		[self addView: configurationsPrefsView  label: NSLocalizedString(@"Configurations", @"Window title") image: [NSImage imageNamed: @"Configurations"]];
+	} else {
+		[self addView: configurationsPrefsView  label: NSLocalizedString(@"Configurations", @"Window title") image: [NSImage imageNamed: @"Configurations"]];
+		[self addView: appearancePrefsView      label: NSLocalizedString(@"Appearance",     @"Window title") image: [NSImage imageNamed: @"Appearance"    ]];
+		[self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageNamed: @"Preferences"   ]];
+		[self addView: utilitiesPrefsView       label: NSLocalizedString(@"Utilities",      @"Window title") image: [NSImage imageNamed: @"Utilities"     ]];
+		[self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageNamed: @"Info"          ]];
+	}
+	
     [self setupViews];
     
     [[self window] setDelegate: self];
@@ -168,7 +177,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     currentFrame = NSMakeRect(0.0, 0.0, 920.0, 390.0);
     
-	unsigned int ix = [gTbDefaults unsignedIntForKey: @"detailsWindowViewName" default: 0 min: 0 max: [toolbarIdentifiers count]-1];
+	unsigned int ix = [UIHelper detailsWindowsViewIndexFromPreferencesWithMax: [toolbarIdentifiers count]-1];
 	[self setCurrentViewName: [toolbarIdentifiers objectAtIndex: ix]];
     
     [self setSelectedPerConfigOpenvpnVersionIndexDirect:                   tbNumberWithInteger(NSNotFound)];
@@ -244,13 +253,15 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 	unsigned int viewIx = [toolbarIdentifiers indexOfObject: currentViewName];
     BOOL saveIt = TRUE;
+	unsigned int defaultViewIx = [UIHelper detailsWindowsViewIndexFromPreferencesWithMax: [toolbarIdentifiers count]-1];
+	
     if (  [tbVersion isEqualToString: [gTbDefaults stringForKey:@"detailsWindowFrameVersion"]]    ) {
         if (   [mainFrameString             isEqualToString: [gTbDefaults stringForKey:@"detailsWindowFrame"]]
             && [leftFrameString             isEqualToString: [gTbDefaults stringForKey:@"detailsWindowLeftFrame"]]
-			&& (viewIx == [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: 0 min: 0 max: [toolbarIdentifiers count] - 1] )
-			&& [configurationsTabIdentifier isEqualToString: [gTbDefaults stringForKey:@"detailsWindowConfigurationsTabIdentifier"]]  ) {
+			&& [configurationsTabIdentifier isEqualToString: [gTbDefaults stringForKey:@"detailsWindowConfigurationsTabIdentifier"]]
+			&& (viewIx == defaultViewIx )  ) {
             saveIt = FALSE;
-    }
+		}
 	}
     
     if (saveIt) {
@@ -352,6 +363,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                                      : @"");
         NSString * version = [NSString stringWithFormat: @"%@%@", tunnelblickVersion([NSBundle mainBundle]), deployedString];
         [[infoPrefsView infoVersionTFC] setTitle: version];
+		[infoPrefsView newViewWillAppear: nil identifier: nil];	// Trigger the scrolling. (This method doesn't use the arguments)
     } else {
         NSLog(@"newViewDidAppear:identifier: invoked with unknown view");
     }
@@ -385,8 +397,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(BOOL) oneConfigurationIsSelected {
 	
-	if (   runningOnSnowLeopardOrNewer()
-		&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
+	if (  [UIHelper useOutlineViewOfConfigurations]  ) {
 		LeftNavViewController   * ovc    = [configurationsPrefsView outlineViewController];
 		NSOutlineView           * ov     = [ovc outlineView];
 		NSIndexSet              * idxSet = [ov selectedRowIndexes];
@@ -478,12 +489,10 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  ! configurationsPrefsView  ) {
         return;
     }
-    
+	
     // Set up setNameserverPopUpButton with localized content that varies with the connection
     NSArray * content = [connection modifyNameserverOptionList];
     [[configurationsPrefsView setNameserverArrayController] setContent: content];
-    [[configurationsPrefsView setNameserverPopUpButton] sizeToFit];
-	[configurationsPrefsView normalizeWidthOfPopDownButtons];
     
     // Select the appropriate Set nameserver entry
     NSString * key = [[connection displayName] stringByAppendingString: @"useDNS"];
@@ -498,7 +507,6 @@ static BOOL firstTimeShowingWindow = TRUE;
                                 default: 1
                                     min: 0
                                     max: MAX_SET_DNS_WINS_INDEX];
-    
     
     [[configurationsPrefsView setNameserverPopUpButton] selectItemAtIndex: ix];
     [self setSelectedSetNameserverIndex: tbNumberWithInteger(ix)];
@@ -696,8 +704,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
 	[[configurationsPrefsView leftNavTableView] reloadData];
 	
-	if (   runningOnSnowLeopardOrNewer()  // 10.5 and lower don't have setDelegate and setDataSource
-		&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
+	if (  [UIHelper useOutlineViewOfConfigurations]  ) {
 		
 		LeftNavViewController * oVC = [[self configurationsPrefsView] outlineViewController];
         NSOutlineView         * oView = [oVC outlineView];
@@ -882,8 +889,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		
         [[configurationsPrefsView removeConfigurationButton] setEnabled: (   [self oneConfigurationIsSelected]
 																		  || (   connection
-																			  && runningOnSnowLeopardOrNewer()
-																			  && ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"])))];
+																			  && [UIHelper useOutlineViewOfConfigurations]))];
 		
 		[[configurationsPrefsView workOnConfigurationPopUpButton] setEnabled: ( ! [gTbDefaults boolForKey: @"disableWorkOnConfigurationButton"] )];
 		[[configurationsPrefsView workOnConfigurationPopUpButton] setAutoenablesItems: YES];
@@ -954,17 +960,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(NSArray *) displayNamesOfSelection {
     
-    if (   ( ! runningOnSnowLeopardOrNewer())
-        || [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"]  ) {
+    if (  [UIHelper useOutlineViewOfConfigurations]  ) {
         
-        VPNConnection * connection = [self selectedConnection];
-        NSString * name = [connection displayName];
-        if (  name  ) {
-            return [NSArray arrayWithObject: name];
-        } else {
-            return nil;
-        }
-    } else {
         NSMutableArray * displayNames = [[[NSMutableArray alloc] init] autorelease];
         
         LeftNavViewController   * ovc    = [configurationsPrefsView outlineViewController];
@@ -988,6 +985,14 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
         
         return [NSArray arrayWithArray: displayNames];
+    } else {
+        VPNConnection * connection = [self selectedConnection];
+        NSString * name = [connection displayName];
+        if (  name  ) {
+            return [NSArray arrayWithObject: name];
+        } else {
+            return nil;
+        }
     }
 }
 
@@ -2026,8 +2031,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     int n;
 	
-	if (   runningOnSnowLeopardOrNewer()  // 10.5 and lower don't have setDelegate and setDataSource
-		&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
+	if (  [UIHelper useOutlineViewOfConfigurations]  ) {  // 10.5 and lower don't have setDelegate and setDataSource
 		n = [[[configurationsPrefsView outlineViewController] outlineView] selectedRow];
 		NSOutlineView * oV = [[configurationsPrefsView outlineViewController] outlineView];
 		LeftNavItem * item = [oV itemAtRow: n];

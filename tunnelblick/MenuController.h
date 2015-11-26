@@ -166,6 +166,8 @@ void * _NSConcreteStackBlock __attribute__((weak));
     
     NSTrackingRectTag         iconTrackingRectTag;          // Used to track mouseEntered and mouseExited events for statusItemButton
     
+	BOOL					  languageAtLaunchWasRTL;		// Used to load RTL xibs and adjust spacing of controls as needed
+	
     BOOL volatile             launchFinished;               // Flag that we have executed "applicationDidFinishLaunching"
     
     BOOL                      userIsAnAdmin;                // Indicates logged-in user is a member of the "admin" group, and can administer the computer
@@ -330,6 +332,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 TBPROPERTY_READONLY(NSStatusItem *, statusItem)
 TBPROPERTY_READONLY(BOOL volatile, menuIsOpen)
 TBPROPERTY_READONLY(BOOL volatile, launchFinished)
+TBPROPERTY_READONLY(BOOL         , languageAtLaunchWasRTL)
 TBPROPERTY_READONLY(NSMenu *,		myVPNMenu)
 TBPROPERTY_READONLY(NSMutableArray *, activeIPCheckThreads)
 TBPROPERTY_READONLY(NSMutableArray *, cancellingIPCheckThreads)

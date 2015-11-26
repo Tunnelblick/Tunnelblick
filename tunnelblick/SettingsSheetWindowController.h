@@ -154,11 +154,17 @@ typedef enum {
     IBOutlet NSNumber            * selectedOtherworkgroupIndex;
     
     IBOutlet NSTextFieldCell     * dnsServersTFC;
+    IBOutlet NSTextField         * dnsServersTF;
     IBOutlet NSTextFieldCell     * domainTFC;
+    IBOutlet NSTextField         * domainTF;
     IBOutlet NSTextFieldCell     * searchDomainTFC;
+    IBOutlet NSTextField         * searchDomainTF;
     IBOutlet NSTextFieldCell     * winsServersTFC;
+    IBOutlet NSTextField         * winsServersTF;
     IBOutlet NSTextFieldCell     * netBiosNameTFC;
+    IBOutlet NSTextField         * netBiosNameTF;
     IBOutlet NSTextFieldCell     * workgroupTFC;
+    IBOutlet NSTextField         * workgroupTF;
     
     
     // For Credentials tab

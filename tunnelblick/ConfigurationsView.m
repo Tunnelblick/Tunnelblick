@@ -29,16 +29,10 @@
 #import "MyPrefsWindowController.h"
 #import "NSString+TB.h"
 #import "TBUserDefaults.h"
+#import "UIHelper.h"
 
 extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;
-
-
-@interface ConfigurationsView() // Private methods
-
--(void) setTitle: (NSString *) newTitle ofControl: (id) theControl;
-
-@end
 
 
 @implementation ConfigurationsView
@@ -62,58 +56,52 @@ extern TBUserDefaults * gTbDefaults;
 	(void) dirtyRect;
 }
 
--(void) normalizeWidthOfPopDownButtons {
+-(void) shiftLabelsAndButtonsWtc: (CGFloat) wtcWidthChange sdns: (CGFloat) sdnsWidthChange pcov: (CGFloat) pcovWidthChange {
 	
-	// Set the width of the pop up buttons to the width of the widest one
-    
-    CGFloat maxWidth = 0.0;
+	// Shift all the labels and buttons by the largest width change, so the widest is flush left/right
 	
-    NSRect connectFrame = {{0.0, 0.0}, {0.0, 0.0}};
-    NSRect setDnsFrame  = {{0.0, 0.0}, {0.0, 0.0}};
-    NSRect openvpnFrame = {{0.0, 0.0}, {0.0, 0.0}};
-    
-    if (  whenToConnectPopUpButton  ) {
-        connectFrame = [whenToConnectPopUpButton frame];
-        if (  connectFrame.size.width > maxWidth  ) {
-            maxWidth = connectFrame.size.width;
-        }
-    }
-    if (  setNameserverPopUpButton  ) {
-        setDnsFrame  = [setNameserverPopUpButton frame];
-        if (  setDnsFrame.size.width > maxWidth  ) {
-            maxWidth = setDnsFrame.size.width;
-        }
-    }
-    if (  perConfigOpenvpnVersionButton  ) {
-        openvpnFrame = [perConfigOpenvpnVersionButton frame];
-        if (  openvpnFrame.size.width > maxWidth  ) {
-            maxWidth = openvpnFrame.size.width;
-        }
-    }
-    
-    if (  maxWidth != 0.0  ) {
-        connectFrame.size.width = maxWidth;
-        setDnsFrame.size.width  = maxWidth;
-        openvpnFrame.size.width = maxWidth;
-        [whenToConnectPopUpButton      setFrame: connectFrame];
-        [setNameserverPopUpButton      setFrame: setDnsFrame];
-        [perConfigOpenvpnVersionButton setFrame: openvpnFrame];
-    }
+	CGFloat largestWidthChange = wtcWidthChange;
+	if (  largestWidthChange < sdnsWidthChange  ) {
+		largestWidthChange = sdnsWidthChange;
+	}
+	if (  largestWidthChange < pcovWidthChange  ) {
+		largestWidthChange = pcovWidthChange;
+	}
+	
+	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+	[UIHelper shiftControl: whenToConnectTF               by: largestWidthChange reverse: ! rtl];
+	[UIHelper shiftControl: whenToConnectPopUpButton      by: largestWidthChange reverse: ! rtl];
+	[UIHelper shiftControl: setNameserverTF               by: largestWidthChange reverse: ! rtl];
+	[UIHelper shiftControl: setNameserverPopUpButton      by: largestWidthChange reverse: ! rtl];
+	[UIHelper shiftControl: perConfigOpenvpnVersionTF     by: largestWidthChange reverse: ! rtl];
+	[UIHelper shiftControl: perConfigOpenvpnVersionButton by: largestWidthChange reverse: ! rtl];
+}
+
+-(void) normalizeWidthOfConfigurationsButtons {
+	
+	NSArray * list = [NSArray arrayWithObjects: whenToConnectPopUpButton, setNameserverPopUpButton, perConfigOpenvpnVersionButton, nil];
+	if (  [list count] > 0  ) {
+		[UIHelper makeAllAsWideAsWidest: list shift: [UIHelper languageAtLaunchWasRTL]];
+	}
 }
 
 -(void) awakeFromNib {
 	
-    [self setTitle: NSLocalizedString(@"Connect"   , @"Button") ofControl: connectButton   ];
-    [self setTitle: NSLocalizedString(@"Disconnect", @"Button") ofControl: disconnectButton];
+	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+	
+	CGFloat widthChange = [UIHelper setTitle: NSLocalizedString(@"Connect"   , @"Button") ofControl: connectButton shift: ( !rtl ) narrow: YES enable: YES];
+	[UIHelper shiftControl: disconnectButton by: (- widthChange) reverse: ( !    rtl)];
+	[UIHelper setTitle: NSLocalizedString(@"Disconnect", @"Button") ofControl: disconnectButton shift: ( !rtl) narrow: YES enable: YES];
     
+	[UIHelper setTitle: NSLocalizedString(@"Copy Diagnostic Info to Clipboard", @"Button") ofControl: diagnosticInfoToClipboardButton shift: rtl narrow: YES enable: YES];
+    
+	
 	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
     [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
 	
     // Left split view -- list of configurations and configuration manipulation
     
-	if (   runningOnSnowLeopardOrNewer()  // 10.5 and lower don't have setDelegate and setDataSource
-		&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
-		[[self leftNavTableScrollView] setHidden: YES];
+	if (  [UIHelper useOutlineViewOfConfigurations]  ) {
 		[leftNavDataSrc reload];
         NSOutlineView * ov = [ (NSScrollView *)[outlineViewController view] documentView];
         [ov setDataSource: leftNavDataSrc];
@@ -121,7 +109,9 @@ extern TBUserDefaults * gTbDefaults;
         [ov expandItem: [ov itemAtRow: 0]];
 	} else {
 		[[[self outlineViewController] view] setHidden: YES];
-		[leftNavTableView setDelegate: [((MenuController *)[NSApp delegate]) logScreen]];
+		[[self leftNavTableScrollView] setHidden: YES];
+		MyPrefsWindowController * wc = [((MenuController *)[NSApp delegate]) logScreen];
+		[leftNavTableView setDelegate: wc];
  	}
 	
 	[[leftNavTableColumn headerCell] setTitle: NSLocalizedString(@"Configurations", @"Window text")];
@@ -144,22 +134,20 @@ extern TBUserDefaults * gTbDefaults;
     
     [logTabViewItem setLabel: NSLocalizedString(@"Log", @"Window title")];
     
-    [diagnosticInfoToClipboardButton setTitle: NSLocalizedString(@"Copy Diagnostic Info to Clipboard", @"Button")];
-    [diagnosticInfoToClipboardButton sizeToFit];
-    
     // Right split view - Settings tab
     
     [settingsTabViewItem setLabel: NSLocalizedString(@"Settings", @"Window title")];
     
-    [whenToConnectTFC                       setTitle: NSLocalizedString(@"Connect:", @"Window text")];
+    CGFloat wtcWidthChange = [UIHelper setTitle: NSLocalizedString(@"Connect:", @"Window text") ofControl: whenToConnectTFC frameHolder: whenToConnectTF shift: ( !rtl  ) narrow: YES enable: YES];
     [whenToConnectManuallyMenuItem          setTitle: NSLocalizedString(@"Manually"                 , @"Button")];
     [whenToConnectTunnelBlickLaunchMenuItem setTitle: NSLocalizedString(@"When Tunnelblick launches", @"Button")];
     [whenToConnectOnComputerStartMenuItem   setTitle: NSLocalizedString(@"When computer starts"     , @"Button")];
-    [whenToConnectPopUpButton sizeToFit];
+    [UIHelper setTitle: nil ofControl: whenToConnectPopUpButton shift: rtl narrow: YES enable: YES];
     
-    [setNameserverTFC setTitle: NSLocalizedString(@"Set DNS/WINS:", @"Window text")];
-    // setNameserverPopUpButton is initialized in setupSetNameserver
-    
+	CGFloat sdnsWidthChange = [UIHelper setTitle: NSLocalizedString(@"Set DNS/WINS:", @"Window text") ofControl: setNameserverTFC frameHolder: setNameserverTF shift: ( !rtl ) narrow: YES enable: YES];
+	[UIHelper setTitle: nil ofControl: setNameserverPopUpButton shift: rtl narrow: YES enable: YES];
+    // setNameserverPopUpButton is modified in setupSetNameserver to reflect per-configuration settings
+	
     [monitorNetworkForChangesCheckbox             setTitle: NSLocalizedString(@"Monitor network settings",                                         @"Checkbox name")];
     [routeAllTrafficThroughVpnCheckbox            setTitle: NSLocalizedString(@"Route all IPv4 traffic through the VPN",                           @"Checkbox name")];
     [checkIPAddressAfterConnectOnAdvancedCheckbox setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connecting", @"Checkbox name")];
@@ -168,7 +156,7 @@ extern TBUserDefaults * gTbDefaults;
     
     // OpenVPN Version popup. Default depends on version of OS X
     
-    [perConfigOpenvpnVersionTFC setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text")];
+    CGFloat pcovWidthChange = [UIHelper setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text") ofControl: perConfigOpenvpnVersionTFC frameHolder: perConfigOpenvpnVersionTF shift: ( !rtl ) narrow: YES enable: YES];
     
     NSArray  * versions  = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
     NSUInteger defaultIx = [((MenuController *)[NSApp delegate]) defaultOpenVPNVersionIx];
@@ -195,53 +183,28 @@ extern TBUserDefaults * gTbDefaults;
                           nil]];
     
     [perConfigOpenvpnVersionArrayController setContent: ovContent];
-    [perConfigOpenvpnVersionButton sizeToFit];
+	[UIHelper setTitle: nil ofControl: perConfigOpenvpnVersionButton shift: rtl narrow: YES enable: YES];
 	
-	[self normalizeWidthOfPopDownButtons];
+	[self shiftLabelsAndButtonsWtc: wtcWidthChange sdns: sdnsWidthChange pcov: pcovWidthChange];
 	
-    [self setTitle: NSLocalizedString(@"Advanced..." , @"Button") ofControl: advancedButton];
-    [advancedButton setEnabled: ! [gTbDefaults boolForKey: @"disableAdvancedButton"]];
+	[self normalizeWidthOfConfigurationsButtons];
+	
+	[UIHelper setTitle: NSLocalizedString(@"Advanced..." , @"Button") ofControl: advancedButton shift: ( ! rtl ) narrow: YES enable: ( ! [gTbDefaults boolForKey: @"disableAdvancedButton"])];
 	
 	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
-
-// Sets the title for a control, shifting the origin of the control itself to the left, and the origin of other controls to the left or right to accomodate any change in width.
--(void) setTitle: (NSString *) newTitle ofControl: (id) theControl
-{
-    NSRect oldRect = [theControl frame];
-    
-    [theControl setTitle: newTitle];
-    [theControl sizeToFit];
-    
-    NSRect newRect = [theControl frame];
-    float widthChange = newRect.size.width - oldRect.size.width;
-    NSRect oldPos;
-    
-    if (   [theControl isEqual: connectButton]              // Shift the control itself left/right if necessary
-        || [theControl isEqual: disconnectButton]
-        || [theControl isEqual: advancedButton]  ) {
-        oldPos = [theControl frame];
-        oldPos.origin.x = oldPos.origin.x - widthChange;
-        [theControl setFrame:oldPos];
-	}
-    
-    if (  [theControl isEqual: connectButton]  )  {          // If the Connect button changes, shift the Disconnect button left/right
-        oldPos = [disconnectButton frame];
-        oldPos.origin.x = oldPos.origin.x - widthChange;
-        [disconnectButton setFrame:oldPos];
-    }
-}
 
 //***************************************************************************************************************
 // Getters
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSView *,              leftSplitView)
 
+TBSYNTHESIZE_OBJECT_GET(retain, NSScrollView *,        leftNavTableScrollView)
+
 TBSYNTHESIZE_OBJECT_GET(retain, LeftNavViewController *, outlineViewController)
 TBSYNTHESIZE_OBJECT_GET(retain, LeftNavDataSource *,   leftNavDataSrc)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSScrollView *,        leftNavTableScrollView)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTableView *,         leftNavTableView)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTableColumn *,       leftNavTableColumn)
 

@@ -89,6 +89,10 @@
 		635ECE6C1378EA7000F67F8D /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ECE6B1378EA7000F67F8D /* InfoView.m */; };
 		63611FD113CE2A8B000240F0 /* RU.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63611FCD13CE2A8B000240F0 /* RU.lproj */; };
 		636BB3F8197776A900FDC5DE /* launchAtLogin.sh in Resources */ = {isa = PBXBuildFile; fileRef = 636BB3F7197776A900FDC5DE /* launchAtLogin.sh */; };
+		6372D2471C00D4450004674C /* AlertWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6372D2421C00D4450004674C /* AlertWindow-RTL.xib */; };
+		6372D2491C00D4450004674C /* LoginWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6372D2441C00D4450004674C /* LoginWindow-RTL.xib */; };
+		6372D24A1C00D4450004674C /* PassphraseWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6372D2451C00D4450004674C /* PassphraseWindow-RTL.xib */; };
+		6372D24B1C00D4450004674C /* Welcome-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6372D2461C00D4450004674C /* Welcome-RTL.xib */; };
 		6375C6571A4EDF11007A42E8 /* FreePublicDnsServersList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6375C6561A4EDF11007A42E8 /* FreePublicDnsServersList.txt */; };
 		6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */; };
 		6375FB4B1387F0E20034CB78 /* SettingsSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */; };
@@ -108,6 +112,7 @@
 		638A2005135CC41C00FB932C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
 		638A2029135CC6A300FB932C /* standardize-scutil-output in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 638A1FFC135CC35100FB932C /* standardize-scutil-output */; };
 		638E69611097725500587933 /* TBUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 638E69601097725500587933 /* TBUserDefaults.m */; };
+		638E97461C05FFA100FF53BB /* Preferences-Tiger.xib in Resources */ = {isa = PBXBuildFile; fileRef = 638E97441C05FFA100FF53BB /* Preferences-Tiger.xib */; };
 		63903D18145EAD49006627C9 /* HU.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63903D12145EAD49006627C9 /* HU.lproj */; };
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
 		6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */; };
@@ -115,10 +120,13 @@
 		639A10EB132AC74B00754C2A /* StatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639A10EA132AC74B00754C2A /* StatusWindow.xib */; };
 		639A1100132AC9D800754C2A /* StatusWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639A10FE132AC9D800754C2A /* StatusWindowController.m */; };
 		639F0FBA1960EFA100A3090E /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
+		63A298781C02776100A94F1A /* SettingsSheet-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A298771C02776100A94F1A /* SettingsSheet-RTL.xib */; };
 		63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A505FD11DA0E88006CB2B6 /* LogDisplay.m */; };
+		63A902EB1C010BAD0074630A /* Preferences-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A902EA1C010BAD0074630A /* Preferences-RTL.xib */; };
 		63AA8E5F1492C77700C791C9 /* process-network-changes.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AA8E5E1492C77700C791C9 /* process-network-changes.m */; };
 		63ABFE9C1349E435003DEB64 /* LoginWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ABFE9B1349E435003DEB64 /* LoginWindowController.m */; };
 		63ABFE9F1349F086003DEB64 /* LoginWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63ABFE9E1349F086003DEB64 /* LoginWindow.xib */; };
+		63ADAB2A1C0483DD000420AB /* UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADAB291C0483DD000420AB /* UIHelper.m */; };
 		63AE8599116CCF7A00D36CB1 /* PL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63AE8596116CCF7A00D36CB1 /* PL.lproj */; };
 		63AF2CAE15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63AF2CAD15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh */; };
 		63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31811E34D69007D99DB /* tunnelblick.icns */; };
@@ -168,6 +176,7 @@
 		63E56EEC13848338007E39AB /* VPNServiceSorryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE213848338007E39AB /* VPNServiceSorryController.m */; };
 		63E56EED13848338007E39AB /* VPNServiceTermsOfServiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE413848338007E39AB /* VPNServiceTermsOfServiceController.m */; };
 		63E56EEE13848338007E39AB /* VPNServiceWelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE613848338007E39AB /* VPNServiceWelcomeController.m */; };
+		63E85C211C065D0A008E7F4E /* Preferences-Tiger-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63E85C201C065D0A008E7F4E /* Preferences-Tiger-RTL.xib */; };
 		63EA676C13DF326600E77443 /* SV.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63EA676913DF326600E77443 /* SV.lproj */; };
 		63ED902C1A1E84E40045D34E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
 		63ED902D1A1E84E40045D34E /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63432572140D7F5A00015CE0 /* CoreServices.framework */; };
@@ -206,7 +215,6 @@
 		B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9FB46170C77A400BCA243 /* LeftNavViewController.m */; };
 		B8D807031832EEC400A0B937 /* NSTimer+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D807021832EEC400A0B937 /* NSTimer+TB.m */; };
 		B8F6264C1641C8C700943C59 /* easyRsa.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6264B1641C8C700943C59 /* easyRsa.m */; };
-		B8F888461710704700978A35 /* Preferences-pre-10.6.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F888451710704700978A35 /* Preferences-pre-10.6.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -416,6 +424,10 @@
 		635ECE6B1378EA7000F67F8D /* InfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoView.m; sourceTree = "<group>"; };
 		63611FCD13CE2A8B000240F0 /* RU.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RU.lproj; sourceTree = "<group>"; };
 		636BB3F7197776A900FDC5DE /* launchAtLogin.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = launchAtLogin.sh; sourceTree = "<group>"; };
+		6372D2421C00D4450004674C /* AlertWindow-RTL.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "AlertWindow-RTL.xib"; sourceTree = "<group>"; };
+		6372D2441C00D4450004674C /* LoginWindow-RTL.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "LoginWindow-RTL.xib"; sourceTree = "<group>"; };
+		6372D2451C00D4450004674C /* PassphraseWindow-RTL.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "PassphraseWindow-RTL.xib"; sourceTree = "<group>"; };
+		6372D2461C00D4450004674C /* Welcome-RTL.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "Welcome-RTL.xib"; sourceTree = "<group>"; };
 		6375C6561A4EDF11007A42E8 /* FreePublicDnsServersList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FreePublicDnsServersList.txt; sourceTree = "<group>"; };
 		6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsSheetWindowController.m; sourceTree = "<group>"; };
 		6375FB471387F0270034CB78 /* SettingsSheetWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsSheetWindowController.h; sourceTree = "<group>"; };
@@ -436,6 +448,7 @@
 		638A2004135CC41C00FB932C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		638E695F1097725500587933 /* TBUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUserDefaults.h; sourceTree = "<group>"; };
 		638E69601097725500587933 /* TBUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUserDefaults.m; sourceTree = "<group>"; };
+		638E97441C05FFA100FF53BB /* Preferences-Tiger.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "Preferences-Tiger.xib"; sourceTree = "<group>"; };
 		63903D12145EAD49006627C9 /* HU.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HU.lproj; sourceTree = "<group>"; };
 		6391992210449804001FA1BC /* ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ES.lproj; sourceTree = "<group>"; };
 		6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.down.tunnelblick.sh; sourceTree = "<group>"; };
@@ -444,13 +457,17 @@
 		639A10FE132AC9D800754C2A /* StatusWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusWindowController.m; sourceTree = "<group>"; };
 		639A10FF132AC9D800754C2A /* StatusWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusWindowController.h; sourceTree = "<group>"; };
 		63A087A71AC37546008E114A /* tunnelblick-uninstaller-droplet-compiled-on-tiger */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "tunnelblick-uninstaller-droplet-compiled-on-tiger"; sourceTree = "<group>"; };
+		63A298771C02776100A94F1A /* SettingsSheet-RTL.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "SettingsSheet-RTL.xib"; sourceTree = "<group>"; };
 		63A505FC11DA0E88006CB2B6 /* LogDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogDisplay.h; sourceTree = "<group>"; };
 		63A505FD11DA0E88006CB2B6 /* LogDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogDisplay.m; sourceTree = "<group>"; };
+		63A902EA1C010BAD0074630A /* Preferences-RTL.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "Preferences-RTL.xib"; sourceTree = "<group>"; };
 		63AA8E581492C75200C791C9 /* process-network-changes */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "process-network-changes"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AA8E5E1492C77700C791C9 /* process-network-changes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "process-network-changes.m"; sourceTree = "<group>"; };
 		63ABFE9A1349E435003DEB64 /* LoginWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginWindowController.h; sourceTree = "<group>"; };
 		63ABFE9B1349E435003DEB64 /* LoginWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWindowController.m; sourceTree = "<group>"; };
 		63ABFE9E1349F086003DEB64 /* LoginWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginWindow.xib; sourceTree = "<group>"; };
+		63ADAB281C0483DD000420AB /* UIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIHelper.h; sourceTree = "<group>"; };
+		63ADAB291C0483DD000420AB /* UIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIHelper.m; sourceTree = "<group>"; };
 		63AE8596116CCF7A00D36CB1 /* PL.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PL.lproj; sourceTree = "<group>"; };
 		63AF2CAD15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "client.route-pre-down.tunnelblick.sh"; sourceTree = "<group>"; };
 		63B4DCE41A409DF300F6A74C /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
@@ -511,6 +528,7 @@
 		63E56EE513848338007E39AB /* VPNServiceWelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPNServiceWelcomeController.h; sourceTree = "<group>"; };
 		63E56EE613848338007E39AB /* VPNServiceWelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPNServiceWelcomeController.m; sourceTree = "<group>"; };
 		63E8427A117A147500529DE2 /* ConfigurationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationManager.h; sourceTree = "<group>"; };
+		63E85C201C065D0A008E7F4E /* Preferences-Tiger-RTL.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "Preferences-Tiger-RTL.xib"; sourceTree = "<group>"; };
 		63EA676913DF326600E77443 /* SV.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SV.lproj; sourceTree = "<group>"; };
 		63ED8EE61A1E84560045D34E /* tunnelblickd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tunnelblickd; sourceTree = BUILT_PRODUCTS_DIR; };
 		63ED90391A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = net.tunnelblick.tunnelblick.tunnelblickd.plist; sourceTree = "<group>"; };
@@ -558,7 +576,6 @@
 		B8D807021832EEC400A0B937 /* NSTimer+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+TB.m"; sourceTree = "<group>"; };
 		B8F6264A1641C8C700943C59 /* easyRsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easyRsa.h; sourceTree = "<group>"; };
 		B8F6264B1641C8C700943C59 /* easyRsa.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = easyRsa.m; sourceTree = "<group>"; };
-		B8F888451710704700978A35 /* Preferences-pre-10.6.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "Preferences-pre-10.6.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -826,13 +843,25 @@
 				B8407887170CE5EE0002B941 /* Utilities */,
 				B8407888170CE6220002B941 /* Info */,
 				B8407889170CE6490002B941 /* Advanced */,
+				63A902AD1C0104CB0074630A /* ListingWindow */,
 			);
 			name = Preferences;
+			sourceTree = "<group>";
+		};
+		63A902AD1C0104CB0074630A /* ListingWindow */ = {
+			isa = PBXGroup;
+			children = (
+				B86D13071811859000FDFB3B /* ListingWindowController.h */,
+				B86D13081811859000FDFB3B /* ListingWindowController.m */,
+			);
+			name = ListingWindow;
 			sourceTree = "<group>";
 		};
 		63ABFE901349E370003DEB64 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				63ADAB281C0483DD000420AB /* UIHelper.h */,
+				63ADAB291C0483DD000420AB /* UIHelper.m */,
 				63CC72F61928C58600F81220 /* UI Updater */,
 				635ECCF71378886E00F67F8D /* Preferences */,
 				B840788A170CE6A20002B941 /* Main Icon */,
@@ -974,16 +1003,23 @@
 			isa = PBXGroup;
 			children = (
 				632BB9E9194F2D13006CD7DA /* AlertWindow.xib */,
+				6372D2421C00D4450004674C /* AlertWindow-RTL.xib */,
 				B86D1313181186E900FDFB3B /* ListingWindow.xib */,
 				63ABFE9E1349F086003DEB64 /* LoginWindow.xib */,
+				6372D2441C00D4450004674C /* LoginWindow-RTL.xib */,
 				61BC4DB20E2FA3C300F24255 /* MainMenu.xib */,
 				6388569F134B8056008DF8C1 /* PassphraseWindow.xib */,
+				6372D2451C00D4450004674C /* PassphraseWindow-RTL.xib */,
 				635ECD061378B4A900F67F8D /* Preferences.xib */,
-				B8F888451710704700978A35 /* Preferences-pre-10.6.xib */,
+				63A902EA1C010BAD0074630A /* Preferences-RTL.xib */,
+				638E97441C05FFA100FF53BB /* Preferences-Tiger.xib */,
+				63E85C201C065D0A008E7F4E /* Preferences-Tiger-RTL.xib */,
 				6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */,
+				63A298771C02776100A94F1A /* SettingsSheet-RTL.xib */,
 				637A871B13B74DFB003C1871 /* SplashWindow.xib */,
 				639A10EA132AC74B00754C2A /* StatusWindow.xib */,
 				B85B5DBE15F2436200EDCF95 /* Welcome.xib */,
+				6372D2461C00D4450004674C /* Welcome-RTL.xib */,
 				63E56EB71384813C007E39AB /* VPNService xibs */,
 			);
 			name = xibs;
@@ -1080,8 +1116,6 @@
 				B8C9FB46170C77A400BCA243 /* LeftNavViewController.m */,
 				63A505FC11DA0E88006CB2B6 /* LogDisplay.h */,
 				63A505FD11DA0E88006CB2B6 /* LogDisplay.m */,
-				B86D13071811859000FDFB3B /* ListingWindowController.h */,
-				B86D13081811859000FDFB3B /* ListingWindowController.m */,
 			);
 			name = Configurations;
 			sourceTree = "<group>";
@@ -1470,7 +1504,6 @@
 				63AF2CAE15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh in Resources */,
 				63F0A8B31507D24800526AF9 /* MainIcon.xib in Resources */,
 				B85B5DBF15F2436200EDCF95 /* Welcome.xib in Resources */,
-				B8F888461710704700978A35 /* Preferences-pre-10.6.xib in Resources */,
 				B86D1314181186E900FDFB3B /* ListingWindow.xib in Resources */,
 				632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */,
 				6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */,
@@ -1487,6 +1520,14 @@
 				632886D51B022BF9000BA527 /* LV.lproj in Resources */,
 				634B927E1BB0E4C7007AAC03 /* BuildAppsAndDmgs.sh in Resources */,
 				63BF5F121BD55BFD00D5554B /* reactivateTunnelblick.sh in Resources */,
+				6372D2471C00D4450004674C /* AlertWindow-RTL.xib in Resources */,
+				6372D2491C00D4450004674C /* LoginWindow-RTL.xib in Resources */,
+				6372D24A1C00D4450004674C /* PassphraseWindow-RTL.xib in Resources */,
+				6372D24B1C00D4450004674C /* Welcome-RTL.xib in Resources */,
+				63A902EB1C010BAD0074630A /* Preferences-RTL.xib in Resources */,
+				63A298781C02776100A94F1A /* SettingsSheet-RTL.xib in Resources */,
+				638E97461C05FFA100FF53BB /* Preferences-Tiger.xib in Resources */,
+				63E85C211C065D0A008E7F4E /* Preferences-Tiger-RTL.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1659,6 +1700,7 @@
 				632BB9E8194F2CFA006CD7DA /* AlertWindowController.m in Sources */,
 				63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */,
 				63589B0D1BF2F24E00E413B6 /* TBOperationQueue.m in Sources */,
+				63ADAB2A1C0483DD000420AB /* UIHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

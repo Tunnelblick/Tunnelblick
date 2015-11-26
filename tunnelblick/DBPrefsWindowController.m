@@ -15,6 +15,7 @@
 #import "DBPrefsWindowController.h"
 
 #import "TBUserDefaults.h"
+#import "UIHelper.h"
 
 
 extern TBUserDefaults * gTbDefaults;
@@ -157,11 +158,8 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 
 
-- (void)addView:(NSView *)view label:(NSString *)label image:(NSImage *)image
-{
-	NSAssert (view != nil,
-			  @"Attempted to add a nil view when calling -addView:label:image:.");
-	
+- (void)addView:(NSView *) view label:(NSString *)label image:(NSImage *)image
+{	
 	NSString *identifier = [[label copy] autorelease];
 	
 	[toolbarIdentifiers addObject:identifier];
@@ -244,7 +242,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		[toolbar release];
 	}
 	
-	unsigned int ix = [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: 0 min: 0 max: [toolbarIdentifiers count]-1];
+	unsigned int ix = [UIHelper detailsWindowsViewIndexFromPreferencesWithMax: [toolbarIdentifiers count]-1];
 	NSString * firstIdentifier = [toolbarIdentifiers objectAtIndex:ix];
 	[[[self window] toolbar] setSelectedItemIdentifier:firstIdentifier];
 	[self displayViewForIdentifier:firstIdentifier animate:NO];
@@ -331,6 +329,10 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (void)displayViewForIdentifier:(NSString *)identifier animate:(BOOL)animate
 {	
+	if (  [identifier isEqualToString: NSToolbarFlexibleSpaceItemIdentifier]  ) {
+		return;
+	}
+	
     // Find the view we want to display.
 	NSView *newView = [toolbarViews objectForKey:identifier];
     
