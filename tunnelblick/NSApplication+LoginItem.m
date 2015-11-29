@@ -449,27 +449,20 @@ extern TBUserDefaults * gTbDefaults;
 		NSLog(@"No old login item to remove");
 	}
 	
-	[self performSelectorOnMainThread: @selector(haveDealtWithOldLoginItem) withObject: nil waitUntilDone: NO];
+	[self haveDealtWithOldLoginItem];
 }
 
 #endif
 
--(void) deleteOurLoginItemThread {
+-(void) deleteOurLoginItemLeopardOrNewerThread {
 	
 	// This runs in a separate thread because deleteOurLoginItemLeopardAndUp can stall for a long time on network access
 	// to a non-existing network resource (even though kLSSharedFileListDoNotMountVolumes is specified).
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
-    if (  runningOnLeopardOrNewer()  ) {
-        [self deleteOurLoginItemLeopardOrNewer];
-    } else {
-        [self deleteOurLoginItemTiger];
-    }
-#else
     [self deleteOurLoginItemLeopardOrNewer];
-#endif
+	
     [pool drain];
 }
 
@@ -477,14 +470,21 @@ extern TBUserDefaults * gTbDefaults;
     
     // Set up the new mechanism for controlling whether Tunnelblick is launched when the user logs in.
     
-	
     // If the 'haveDealtWithOldLoginItem' preference does not exist, we should remove the Tunnelblick login item if there is one.
-    // We do it in a separate thread because it can stall on network access (even though kLSSharedFileListDoNotMountVolumes is specified).
-    // When the old login item has been dealt with, deleteOurLoginItemThread will invoke haveDealtWithOldLoginItem, which will set the preference.
+    // When the old login item has been dealt with, the haveDealtWithOldLoginItem method will be invoked, which will set the preference.
     
     if (  ! [gTbDefaults objectForKey: @"haveDealtWithOldLoginItem"]  ) {
-        NSLog(@"Launching a thread to remove the old login item (if any) so we can use the new mechanism that controls Tunnelblick's launch on login");
-        [NSThread detachNewThreadSelector: @selector(deleteOurLoginItemThread) toTarget: NSApp withObject: nil];
+
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+		if (  ! runningOnLeopardOrNewer()  ) {
+			NSLog(@"Removing the old login item (if any) so we can use the new mechanism that controls Tunnelblick's launch on login");
+			[self deleteOurLoginItemTiger];
+			return;
+		}
+#endif
+		
+		NSLog(@"Launching a thread to remove the old login item (if any) so we can use the new mechanism that controls Tunnelblick's launch on login");
+        [NSThread detachNewThreadSelector: @selector(deleteOurLoginItemLeopardOrNewerThread) toTarget: NSApp withObject: nil];
     }
 	
     // If the installed 'net.tunnelblick.tunnelblick.LaunchAtLogin.plist' is not the same as ours, update it.

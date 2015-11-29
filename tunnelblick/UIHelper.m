@@ -20,6 +20,8 @@
  */
 
 #import "helper.h"
+#import "sharedRoutines.h"
+
 #import "MenuController.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
@@ -179,6 +181,55 @@ extern TBUserDefaults * gTbDefaults;
     NSRect newFrame = [theControl frame];
     newFrame.origin.x = newFrame.origin.x - amount;
     [theControl setFrame:newFrame];
+}
+
++(void) showAlertWindow: (NSDictionary *) dict {
+    
+    // This method is invoked on the main thread by TBShowAlertWindow() when it is called but is not running on the main thread
+    
+    if (  ! runningOnMainThread()  ) {
+        NSLog(@"[UIHelper showAlertWindow] was invoked but not on the main thread; stack trace: %@", callStack());
+        [self performSelectorOnMainThread: @selector(showAlertWindow:)  withObject: dict waitUntilDone: NO];
+        return;
+    }
+    
+    NSString * title = [dict objectForKey: @"title"];
+    NSString * msg   = [dict objectForKey: @"msg"];
+    TBShowAlertWindow(title, msg);
+}
+
++(void) showSuccessNotificationTitle: (NSString *) title
+                                 msg: (NSString *) msg {
+    
+	if (  runningOnMountainLionOrNewer()  ) {
+		
+        // NSUserNotification and NSUserNotificationCenter are not defined in the Xcode 3.2.2 SDK, so we use NSClassFromString() to access them
+        
+		id notification = [[[NSClassFromString(@"NSUserNotification") alloc] init] autorelease];
+        if (  ! notification  ) {
+            NSLog(@"No result from '[[[NSClassFromString(@\"NSUserNotification\") alloc] init] autorelease]'");
+            TBShowAlertWindow(title, msg);
+            return;
+        }
+        
+		[notification performSelector: @selector(setTitle:)           withObject: title];
+		[notification performSelector: @selector(setInformativeText:) withObject: msg];
+		[notification performSelector: @selector(setSoundName:)       withObject: @"NSUserNotificationDefaultSoundName"];
+		
+		id center = [NSClassFromString(@"NSUserNotificationCenter") performSelector: @selector(defaultUserNotificationCenter)];
+        if (  ! center  ) {
+            NSLog(@"No result from '[NSClassFromString(@\"NSUserNotificationCenter\") performSelector: @selector(defaultUserNotificationCenter)]'");
+            TBShowAlertWindow(title, msg);
+            return;
+        }
+        
+		[center performSelector: @selector(deliverNotification:) withObject: notification];
+		
+	} else {
+		
+		TBShowAlertWindow(title, msg);
+		
+	}
 }
 
 +(BOOL) useOutlineViewOfConfigurations {

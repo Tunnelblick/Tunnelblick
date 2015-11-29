@@ -48,6 +48,11 @@
 
 +(void)         shiftControl: (id) theControl by: (CGFloat) amount reverse: (BOOL) reverse;
 
++(void)         showAlertWindow: (NSDictionary *) dict;
+
++(void)         showSuccessNotificationTitle: (NSString *) title
+                                         msg: (NSString *) msg;
+
 +(BOOL)         useOutlineViewOfConfigurations;
 
 @end

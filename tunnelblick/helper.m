@@ -38,6 +38,7 @@
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
 #import "TBUserDefaults.h"
+#import "UIHelper.h"
 
 // PRIVATE FUNCTIONS:
 void           localizableStrings       (void);
@@ -229,7 +230,7 @@ BOOL runningOn64BitKernel(void) {
     
     return YES;
 }
-#endif //MACOSX_DEPLOYMENT_TARGET > MAC_OS_X_VERSION_10_4
+#endif // MAC_OS_X_VERSION_MIN_REQUIRED != MAC_OS_X_VERSION_10_4
 
 BOOL displaysHaveDifferentSpaces(void) {
     
@@ -471,7 +472,7 @@ NSString * tunnelblickVersion(NSBundle * bundle)
 }
 
 AlertWindowController * TBShowAlertWindow (NSString * title,
-						NSString * msg) {
+                                           NSString * msg) {
 	
 	// Displays an alert window and returns the window controller immediately, so it doesn't block the main thread.
 	// Used for informational messages that do not return a choice or have any side effects.
@@ -479,6 +480,12 @@ AlertWindowController * TBShowAlertWindow (NSString * title,
     // The window controller is returned so that it can be closed programmatically if the conditions that caused
     // the window to be opened change.
 	
+    if ( ! runningOnMainThread()  ) {
+        NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys: title, @"title", msg, @"msg", nil];
+        [UIHelper performSelectorOnMainThread: @selector(showAlertWindow:) withObject: dict waitUntilDone: NO];
+        return nil;
+    }
+    
 	AlertWindowController * awc = [[[AlertWindowController alloc] init] autorelease];
 	[awc setHeadline: title];
 	[awc setMessage:  msg];

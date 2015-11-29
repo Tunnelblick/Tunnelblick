@@ -111,6 +111,13 @@ unsigned cvt_atou(const char * s, NSString * description)
     return u;
 }
 
+id callStack(void) {
+    
+    return (  [NSThread respondsToSelector: @selector(callStackSymbols)]
+            ? (id) [NSThread callStackSymbols]
+            : (id) @"not available");
+}
+
 BOOL isSanitizedOpenvpnVersion(NSString * s) {
     
     return (   [s containsOnlyCharactersInString: ALLOWED_OPENVPN_VERSION_CHARACTERS]

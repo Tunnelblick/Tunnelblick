@@ -822,6 +822,21 @@ static BOOL firstTimeShowingWindow = TRUE;
     [[utilitiesPrefsView consoleLogToClipboardButton] setEnabled: YES];
 }
 
+-(void) indicateWaitingForKillAllOpenVPN
+{
+    [[utilitiesPrefsView killAllOpenVPNProgressIndicator] startAnimation: self];
+    [[utilitiesPrefsView killAllOpenVPNProgressIndicator] setHidden: NO];
+    [[utilitiesPrefsView utilitiesKillAllOpenVpnButton]   setEnabled: NO];
+}
+
+
+-(void) indicateNotWaitingForKillAllOpenVPN
+{
+    [[utilitiesPrefsView killAllOpenVPNProgressIndicator] stopAnimation: self];
+    [[utilitiesPrefsView killAllOpenVPNProgressIndicator] setHidden: YES];
+    [[utilitiesPrefsView utilitiesKillAllOpenVpnButton]   setEnabled: YES];
+}
+
 -(void) indicateWaitingForLogDisplay: (VPNConnection *) theConnection
 {
     if (  theConnection == [self selectedConnection]  ) {
@@ -2735,15 +2750,9 @@ static BOOL firstTimeShowingWindow = TRUE;
 		return;
 	}
 	
-    NSArray  * arguments = [NSArray arrayWithObject: @"killall"];
-    OSStatus status = runOpenvpnstart(arguments, nil, nil);
-    if (  status == EXIT_SUCCESS  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
-                          NSLocalizedString(@"All OpenVPN process were terminated.", @"Window title"));
-    } else {
-        TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
-                          NSLocalizedString(@"One or more OpenVPN processes could not be terminated.", @"Window title"));
-    }
+    [self indicateWaitingForKillAllOpenVPN];
+    
+    [ConfigurationManager killAllOpenVPNInNewThread];
 }
 
 -(IBAction) consoleLogToClipboardButtonWasClicked: (id) sender {

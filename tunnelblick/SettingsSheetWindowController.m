@@ -26,6 +26,7 @@
 #import "helper.h"
 #import "sharedRoutines.h"
 
+#import "ConfigurationManager.h"
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
 #import "TBOperationQueue.h"
@@ -1216,6 +1217,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     }
 }
 
+-(void) updateStaticContentSetupSettingsAndBringToFront {
+    
+    [self initializeStaticContent];
+    [self setupSettingsFromPreferences];
+    [self bringToFront1];
+}
+
 // Methods for Connecting & Disconnecting tab
 
 -(IBAction) reconnectWhenUnexpectedDisconnectCheckboxWasClicked: (NSButton *) sender {
@@ -1615,32 +1623,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 }
 
 -(void) removeNamedCredentialsCommand: (id) sender {
+    
     unsigned ix = (unsigned)[sender tag];
     NSString * groupName = [removeNamedCredentialsNames objectAtIndex: ix];
-	int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								 [NSString stringWithFormat:
-							NSLocalizedString(@"Do you wish to delete the %@ credentials?", @"Window text"),
-							groupName],
-								 NSLocalizedString(@"Cancel", @"Button"),    // Default button
-								 NSLocalizedString(@"Delete", @"Button"),    // Alternate button
-								 nil);
-	
-	if (  result != NSAlertAlternateReturn  ) {
-		return;
-	}
-    
-	NSString * errMsg = [gTbDefaults removeNamedCredentialsGroup: groupName];
-	if (  errMsg  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          [NSString stringWithFormat:
-						   NSLocalizedString(@"The credentials named %@ could not be removed:\n\n%@", @"Window text"),
-						   groupName,
-						   errMsg]);
-	} else {
-		[self initializeStaticContent];
-		[self setupSettingsFromPreferences];
-		[self performSelectorOnMainThread: @selector(bringToFront1) withObject: nil waitUntilDone: NO];
-	}
+    [ConfigurationManager removeCredentialsGroupInNewThreadWithName: groupName];
 }
 
 -(IBAction) allConfigurationsUseTheSameCredentialsCheckboxWasClicked: (NSButton *) sender {
@@ -1693,10 +1679,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 			} else {
 				[self initializeStaticContent];  // Update list of names in credentialsGroupButton
 				[self setupSettingsFromPreferences];
-				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-								  [NSString stringWithFormat:
-								   NSLocalizedString(@"The '%@' credentials have been added.", @"Window text"),
-								   newName]);
 			}
 			return;
 		}

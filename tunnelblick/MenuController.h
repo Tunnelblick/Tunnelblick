@@ -85,7 +85,13 @@ enum StatusIconPosition {
 void * _NSConcreteStackBlock __attribute__((weak));
 #endif
 
+// The following conditional is needed because the SDK in Xcode 3.2.2 does not include NSUserNotificationCenterDelegate, which was introduced in 10.8
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
 @interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate>
+#else
+@interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate,NSUserNotificationCenterDelegate>
+#endif
+
 {
     IBOutlet NSMenu         * myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
     NSStatusItem            * statusItem;                   // Our place in the Status Bar

@@ -30,6 +30,12 @@
 
 #import "NSFileManager+TB.h"
 
+id fmCallStack(void) {
+    
+    return (  [NSThread respondsToSelector: @selector(callStackSymbols)]
+            ? (id) [NSThread callStackSymbols]
+            : (id) @"not available");
+}
 void appendLog(NSString * errMsg);
 
 @implementation NSFileManager (TB)
@@ -40,10 +46,7 @@ void appendLog(NSString * errMsg);
         NSError * err = nil;
         BOOL answer = [self setAttributes:attributes ofItemAtPath:path error: &err];
         if (  ! answer  ) {
-			id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-							 ? (id) [NSThread callStackSymbols]
-							 : (id) @"not available");
-            NSString * errMsg = [NSString stringWithFormat: @"Error returned from setAttributes: %@ ofItemAtPath: %@; Error was %@; stacktrace = %@", attributes, path, err, stackTrace];
+			NSString * errMsg = [NSString stringWithFormat: @"Error returned from setAttributes: %@ ofItemAtPath: %@; Error was %@; stack trace: %@", attributes, path, err, fmCallStack()];
             appendLog(errMsg);
         }
         return answer;
@@ -75,10 +78,7 @@ void appendLog(NSString * errMsg);
 		NSError * err = nil;
         BOOL answer = [self copyItemAtPath:source toPath:destination error: &err];
         if (  ! answer  ) {
-			id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-							 ? (id) [NSThread callStackSymbols]
-							 : (id) @"not available");
-            NSString * errMsg = [NSString stringWithFormat: @"Error returned from copyItemAtPath: %@ toPath: %@; Error was %@; stacktrace = %@", source, destination, err, stackTrace];
+			NSString * errMsg = [NSString stringWithFormat: @"Error returned from copyItemAtPath: %@ toPath: %@; Error was %@; stack trace: %@", source, destination, err, fmCallStack()];
             appendLog(errMsg);
         }
         return answer;
@@ -108,10 +108,7 @@ void appendLog(NSString * errMsg);
         NSError * err = nil;
         BOOL answer = [self createDirectoryAtPath:path withIntermediateDirectories:NO attributes:attributes error: &err];
         if (  ! answer  ) {
-			id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-							 ? (id) [NSThread callStackSymbols]
-							 : (id) @"not available");
-            NSString * errMsg = [NSString stringWithFormat: @"Error returned from createDirectoryAtPath: %@ withIntermediateDirectories: NO attributes: %@; Error was %@; stacktrace = %@", path, attributes, err, stackTrace];
+            NSString * errMsg = [NSString stringWithFormat: @"Error returned from createDirectoryAtPath: %@ withIntermediateDirectories: NO attributes: %@; Error was %@; stack trace: %@", path, attributes, err, fmCallStack()];
             appendLog(errMsg);
         }
         return answer;
@@ -140,10 +137,7 @@ void appendLog(NSString * errMsg);
         NSError * err = nil;
         BOOL answer = [self createSymbolicLinkAtPath:path withDestinationPath:otherPath error: &err];
         if (  ! answer  ) {
-			id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-							 ? (id) [NSThread callStackSymbols]
-							 : (id) @"not available");
-            NSString * errMsg = [NSString stringWithFormat: @"Error returned from createSymbolicLinkAtPath: %@ withDestinationPath: %@; Error was %@; stacktrace = %@", path, otherPath, err, stackTrace];
+			NSString * errMsg = [NSString stringWithFormat: @"Error returned from createSymbolicLinkAtPath: %@ withDestinationPath: %@; Error was %@; stack trace: %@", path, otherPath, err, fmCallStack()];
             appendLog(errMsg);
         }
         return answer;
@@ -173,10 +167,7 @@ void appendLog(NSString * errMsg);
         NSError * err = nil;
         NSArray * answer = [self contentsOfDirectoryAtPath:path error: &err];
         if (  ! answer  ) {
-			id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-							 ? (id) [NSThread callStackSymbols]
-							 : (id) @"not available");
-            NSString * errMsg = [NSString stringWithFormat: @"Error returned from contentsOfDirectoryAtPath: %@; Error was %@; stacktrace = %@", path, err, stackTrace];
+			NSString * errMsg = [NSString stringWithFormat: @"Error returned from contentsOfDirectoryAtPath: %@; Error was %@; stack trace: %@", path, err, fmCallStack()];
             appendLog(errMsg);
         }
         return answer;
@@ -206,10 +197,7 @@ void appendLog(NSString * errMsg);
         NSError * err = nil;
         NSDictionary * attributes = [self attributesOfItemAtPath:path error: &err];
         if (  ! attributes  ) {
-			id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-							 ? (id) [NSThread callStackSymbols]
-							 : (id) @"not available");
-            NSString * errMsg = [NSString stringWithFormat: @"Error returned from attributesOfItemAtPath: %@;\nError was %@; stacktrace = %@", path, err, stackTrace];
+			NSString * errMsg = [NSString stringWithFormat: @"Error returned from attributesOfItemAtPath: %@;\nError was %@; stack trace: %@", path, err, fmCallStack()];
             appendLog(errMsg);
             return nil;
        }
@@ -221,10 +209,7 @@ void appendLog(NSString * errMsg);
                && [[attributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink] ) {
             realPath = [self tbPathContentOfSymbolicLinkAtPath: newPath];
 			if (  ! realPath  ) {
-				id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-								 ? (id) [NSThread callStackSymbols]
-								 : (id) @"not available");
-				NSString * errMsg = [NSString stringWithFormat: @"Error returned from tbPathContentOfSymbolicLinkAtPath: %@;\nOriginal path = %@; stacktrace = %@", newPath, path, stackTrace];
+				NSString * errMsg = [NSString stringWithFormat: @"Error returned from tbPathContentOfSymbolicLinkAtPath: %@;\nOriginal path = %@; stack trace: %@", newPath, path, fmCallStack()];
                 appendLog(errMsg);
 				return nil;
 			}
@@ -233,20 +218,14 @@ void appendLog(NSString * errMsg);
 			}
             attributes = [self attributesOfItemAtPath:realPath error: &err];
             if (  ! attributes  ) {
-				id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-								 ? (id) [NSThread callStackSymbols]
-								 : (id) @"not available");
-                NSString * errMsg = [NSString stringWithFormat: @"Error returned from attributesOfItemAtPath: %@;\nOriginal path was %@\nLatest path = %@;\nError was %@; stacktrace = %@", realPath, path, newPath, err, stackTrace];
+				NSString * errMsg = [NSString stringWithFormat: @"Error returned from attributesOfItemAtPath: %@;\nOriginal path was %@\nLatest path = %@;\nError was %@; stack trace: %@", realPath, path, newPath, err, fmCallStack()];
                 appendLog(errMsg);
                 return nil;
             }
             newPath = [[realPath copy] autorelease];
         }
 		if (  counter >= 10  ) {
-			id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-							 ? (id) [NSThread callStackSymbols]
-							 : (id) @"not available");
-			NSString * errMsg = [NSString stringWithFormat: @"tbFileAttributesAtPath detected a symlink loop.\nOriginal path was %@\nLast \"Real\" path was %@, attributes = %@; stacktrace = %@", path, realPath, attributes, stackTrace];
+			NSString * errMsg = [NSString stringWithFormat: @"tbFileAttributesAtPath detected a symlink loop.\nOriginal path was %@\nLast \"Real\" path was %@, attributes = %@; stack trace: %@", path, realPath, attributes, fmCallStack()];
             appendLog(errMsg);
 		}
         return attributes;
@@ -280,10 +259,7 @@ void appendLog(NSString * errMsg);
         NSError * err = nil;
         BOOL answer = [self moveItemAtPath:source toPath:destination error: &err];
         if (  ! answer  ) {
-			id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-							 ? (id) [NSThread callStackSymbols]
-							 : (id) @"not available");
-            NSString * errMsg = [NSString stringWithFormat: @"Error returned from moveItemAtPath: %@ toPath: %@; Error was %@; stacktrace = %@", source, destination, err, stackTrace];
+			NSString * errMsg = [NSString stringWithFormat: @"Error returned from moveItemAtPath: %@ toPath: %@; Error was %@; stack trace: %@", source, destination, err, fmCallStack()];
             appendLog(errMsg);
         }
         return answer;
@@ -315,10 +291,7 @@ void appendLog(NSString * errMsg);
         NSError * err = nil;
         BOOL answer = [self removeItemAtPath:path error: &err];
         if (  ! answer  ) {
-			id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-							 ? (id) [NSThread callStackSymbols]
-							 : (id) @"not available");
-            NSString * errMsg = [NSString stringWithFormat: @"Error returned from removeItemAtPath: %@; Error was %@; stacktrace = %@", path, err, stackTrace];
+			NSString * errMsg = [NSString stringWithFormat: @"Error returned from removeItemAtPath: %@; Error was %@; stack trace: %@", path, err, fmCallStack()];
             appendLog(errMsg);
         }
         return answer;
@@ -348,10 +321,7 @@ void appendLog(NSString * errMsg);
 		NSError * err = nil;
 		NSString * answer = [self destinationOfSymbolicLinkAtPath:path error: &err];
 		if (  ! answer  ) {
-			id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-							 ? (id) [NSThread callStackSymbols]
-							 : (id) @"not available");
-			NSString * errMsg = [NSString stringWithFormat: @"Error returned from destinationOfSymbolicLinkAtPath: %@; Error was %@; stacktrace = %@", path, err, stackTrace];
+			NSString * errMsg = [NSString stringWithFormat: @"Error returned from destinationOfSymbolicLinkAtPath: %@; Error was %@; stack trace: %@", path, err, fmCallStack()];
             appendLog(errMsg);
 		}
         return answer;

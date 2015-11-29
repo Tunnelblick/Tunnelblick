@@ -103,7 +103,11 @@ float heightForStringDrawing(NSString *myString,
 	// Calculate the change in height required to fit the text
 	NSRect tvFrame = [tv frame];
 	NSFont * font = [NSFont systemFontOfSize: 11.9];
-	CGFloat newHeight = heightForStringDrawing([self message], font, tvFrame.size.width);
+    NSString * msgWithLfLfX = (  [message hasSuffix: @"\n\n"]
+                               ? [self message]
+                               : [[self message] stringByAppendingString: @"\n\nX"]);
+    CGFloat newHeight = heightForStringDrawing(msgWithLfLfX, font, tvFrame.size.width);
+	
 	CGFloat heightChange = newHeight - tvFrame.size.height;
 	
 	// Adjust the window for the new height
@@ -111,6 +115,7 @@ float heightForStringDrawing(NSString *myString,
 	[w setShowsResizeIndicator: NO];
 	NSRect wFrame = [w frame];
 	wFrame.size.height += heightChange;
+	wFrame.origin.y -= heightChange;
 	[w setFrame: wFrame display: NO];
 	
 	// Adjust the scroll view for the new height
@@ -122,8 +127,9 @@ float heightForStringDrawing(NSString *myString,
 	svFrame.origin.y    -= heightChange;
 	[sv setFrame: svFrame];
 	
-	// Adjust the text vew for the new height
+	// Adjust the text view for the new height
 	tvFrame.size.height = newHeight;
+	tvFrame.origin.y -= heightChange;
 	[tv setFrame: tvFrame];
 	
 	// Set the string
@@ -131,7 +137,10 @@ float heightForStringDrawing(NSString *myString,
 	NSAttributedString * msgAs = [[[NSAttributedString alloc] initWithString: msg] autorelease];
 	[[tv textStorage] setAttributedString: msgAs];
 	
-	[tv setSelectedRange: NSMakeRange([msg length] + 1, 0)];	// Make cursor disappear
+	// Make the cursor disappear
+	if (  runningOnLeopardOrNewer()  ) {
+		[tv setSelectedRange: NSMakeRange([msg length] + 1, 0)];
+	}
 }
 
 -(void) awakeFromNib {

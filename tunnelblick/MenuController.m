@@ -196,11 +196,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 		return [[key copy] autorelease];
 	}
 	
-	id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-					 ? (id) [NSThread callStackSymbols]
-					 : (id) @"not available");
-	
-	NSLog(@"MenuController:localizedString: key is nil. Stack trace: %@", stackTrace);
+	NSLog(@"MenuController:localizedString: key is nil; stack trace: %@", callStack());
 	return @"";
 }
 
@@ -3323,9 +3319,9 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
-        NSLog(@"Not unloading of kexts and not deleting logs because of fatal error.");
+        NSLog(@"Not unloading kexts and not deleting logs because of fatal error.");
     } else if (  ! tunnelblickdIsLoaded()  ) {
-        NSLog(@"Not unloading of kexts and not deleting logs because tunnelblickd is not loaded.");
+        NSLog(@"Not unloading kexts and not deleting logs because tunnelblickd is not loaded.");
 	} else {
         TBLog(@"DB-SD", @"cleanup: Unloading kexts")
         [self unloadKexts];
@@ -3545,9 +3541,8 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	gShuttingDownTunnelblick = TRUE;
     
-    if (   (reason == terminatingBecauseOfError)
-        && [NSThread respondsToSelector: @selector(callStackSymbols)]  ) {
-        NSLog(@"Terminating because of error; stack trace:\n%@", [NSThread callStackSymbols]);
+    if (  reason == terminatingBecauseOfError  ) {
+        NSLog(@"Terminating because of error; stack trace: %@", callStack());
     }
 	
 	[NSApp terminate: self];
@@ -3590,11 +3585,7 @@ static void signal_handler(int signalNumber)
                             ? sys_siglist[signalNumber]
                             : "");
     
-    id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-                     ? (id) [NSThread callStackSymbols]
-                     : (id) @"not available");
-    
-    NSLog(@"Received fatal signal %s (%d). Stack trace: %@", siglist, signalNumber, stackTrace);
+    NSLog(@"Received fatal signal %s (%d); stack trace: %@", siglist, signalNumber, callStack());
     
     if ( reasonForTermination == terminatingBecauseOfFatalError ) {
         NSLog(@"signal_handler: Error while handling signal.");
@@ -3917,6 +3908,9 @@ static void signal_handler(int signalNumber)
         return (status == EXIT_SUCCESS);
     }
     
+	NSString * stdoutString = nil;
+	NSString * stderrString = nil;
+	
     // Not a Deployed version of Tunnelblick, so we can run codesign as the user
     if (  ! [gFileMgr fileExistsAtPath: TOOL_PATH_FOR_CODESIGN]  ) {  // If codesign binary doesn't exist, complain and assume it is NOT valid
         NSLog(@"Assuming digital signature invalid because '%@' does not exist", TOOL_PATH_FOR_CODESIGN);
@@ -3925,10 +3919,16 @@ static void signal_handler(int signalNumber)
     
     NSString * appPath = [[NSBundle mainBundle] bundlePath];
     NSArray *arguments = (  runningOnLionOrNewer()
-                          ? [NSArray arrayWithObjects: @"--deep", @"-v", appPath, nil]
-                          : [NSArray arrayWithObjects: @"-v", appPath, nil]);
-    OSStatus status = runTool(TOOL_PATH_FOR_CODESIGN, arguments, nil, nil);
-    return (status == EXIT_SUCCESS);
+                          ? [NSArray arrayWithObjects: @"-v", @"-v", @"--deep", appPath, nil]
+                          : [NSArray arrayWithObjects: @"-v", @"-v", appPath, nil]);
+    OSStatus status = runTool(TOOL_PATH_FOR_CODESIGN, arguments, &stdoutString, &stderrString);
+
+    if (  status == EXIT_SUCCESS  ) {
+		return TRUE;
+	}
+	
+	NSLog(@"codesign returned status = %ld; stdout = '%@'; stderr = '%@'", (long)status, stdoutString, stderrString);
+	return FALSE;
 }
 
 - (NSURL *) getIPCheckURL
@@ -4518,6 +4518,36 @@ static void signal_handler(int signalNumber)
     }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 020")
+
+	if (  runningOnMountainLionOrNewer()) {
+		
+		// The following lines are the equivalent of
+		//
+		//     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate: self];
+		//
+		// but they build without error on Xcode 3.2.2, whose SDK does not define NSNotificationCenter. They also
+		// implement some addional error checking.
+		
+		id nsuncClass = NSClassFromString(@"NSUserNotificationCenter");
+		if (  ! nsuncClass) {
+			NSLog(@"No result from 'NSClassFromString(@\"NSUserNotificationCenter\")'");
+			[self terminateBecause: terminatingBecauseOfError];
+		}
+		if (  ! [nsuncClass respondsToSelector: @selector(defaultUserNotificationCenter)]  ) {
+			NSLog(@"NSUserNotificationCenter does not respond to 'defaultUserNotificationCenter'");
+			[self terminateBecause: terminatingBecauseOfError];
+		}
+		id center = [nsuncClass performSelector: @selector(defaultUserNotificationCenter)];
+		if (  ! center) {
+			NSLog(@"No result from [NSUserNotificationCenter defaultUserNotificationCenter]");
+			[self terminateBecause: terminatingBecauseOfError];
+		}
+		if (  ! [center respondsToSelector: @selector(setDelegate:)]  ) {
+			NSLog(@"[NSUserNotificationCenter defaultUserNotificationCenter] does not respond to 'setDelegate:'");
+			[self terminateBecause: terminatingBecauseOfError];
+		}
+		[center performSelector: @selector(setDelegate:) withObject: self];
+	}
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 021")
     NSString * text = NSLocalizedString(@"Tunnelblick is ready.", @"Window text");
@@ -4525,6 +4555,21 @@ static void signal_handler(int signalNumber)
     [splashScreen fadeOutAndClose];
  
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 022 -- LAST")
+}
+
+-(BOOL) userNotificationCenter: (id) center
+     shouldPresentNotification: (id) notification {
+    
+	// This implements
+	//		-(BOOL) userNotificationCenter: (NSUserNotificationCenter *) center
+	//			 shouldPresentNotification: (NSUserNotification *)       notification {
+	// in a way that builds on Xcode 3.2.2, which does not include NSUserNotification or NSUserNotificationCenter
+	// because they were introduced in OS X 10.8
+	
+    (void) center;
+    (void) notification;
+    
+    return YES;
 }
 
 -(NSString *) fileURLStringWithPath: (NSString *) path
@@ -5658,9 +5703,10 @@ BOOL warnAboutNonTblks(void)
     // Set up message about installing .tblks on the .dmg
     NSString * tblksMsg;
     NSArray * tblksToInstallPaths = [self findTblksToInstallInPath: [currentPath stringByDeletingLastPathComponent]];
+    NSUInteger configurationInstallsBeingDone = [self countConfigurations: tblksToInstallPaths];
     if (  tblksToInstallPaths  ) {
         tblksMsg = [NSString stringWithFormat: NSLocalizedString(@"\n\nand install %ld Tunnelblick VPN Configurations", @"Window text"),
-                    (long) [self countConfigurations: tblksToInstallPaths]];
+                    (long)configurationInstallsBeingDone];
     } else {
         tblksMsg = @"";
     }
@@ -5672,7 +5718,6 @@ BOOL warnAboutNonTblks(void)
     NSString * tbInApplicationsDisplayName = [[gFileMgr componentsToDisplayForPath: tbInApplicationsPath] componentsJoinedByString: @"/"];
     NSString * applicationsDisplayName = [[gFileMgr componentsToDisplayForPath: applicationsPath] componentsJoinedByString: @"/"];
     
-    NSString * launchWindowTitle = NSLocalizedString(@"Installation succeeded", @"Window title");
     NSString * launchWindowText;
     NSString * authorizationText;
     
@@ -5696,12 +5741,24 @@ BOOL warnAboutNonTblks(void)
         authorizationText = [NSString stringWithFormat:
                              NSLocalizedString(@" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n", @"Window text"),
                              previousVersion, applicationsDisplayName, appVersion, tblksMsg];
-        launchWindowText = NSLocalizedString(@"Tunnelblick was successfully replaced.", @"Window text");
+        if (  configurationInstallsBeingDone == 0 ) {
+            launchWindowText = NSLocalizedString(@"Tunnelblick was successfully replaced.", @"Window text");
+        } else if (  configurationInstallsBeingDone == 1 ) {
+            launchWindowText = NSLocalizedString(@"Tunnelblick was successfully replaced and one configuration was installed or replaced.", @"Window text");
+        } else {
+            launchWindowText = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick was successfully replaced and %ld configurations were installed or replaced.", @"Window text"), (unsigned long)configurationInstallsBeingDone];
+       }
     } else {
         authorizationText = [NSString stringWithFormat:
                              NSLocalizedString(@" Do you wish to install %@ to %@%@?\n\n", @"Window text"),
                              appVersion, applicationsDisplayName, tblksMsg];
-        launchWindowText = NSLocalizedString(@"Tunnelblick was successfully installed.", @"Window text");
+        if (  configurationInstallsBeingDone == 0 ) {
+            launchWindowText = NSLocalizedString(@"Tunnelblick was successfully installed.", @"Window text");
+        } else if (  configurationInstallsBeingDone == 1 ) {
+            launchWindowText = NSLocalizedString(@"Tunnelblick was successfully installed and one configuration was installed or replaced.", @"Window text");
+        } else {
+            launchWindowText = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick was successfully installed and %ld configurations were installed or replaced.", @"Window text"), (unsigned long)configurationInstallsBeingDone];
+        }
     }
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 004")
@@ -5794,10 +5851,10 @@ BOOL warnAboutNonTblks(void)
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 009")
     [splashScreen setMessage: NSLocalizedString(@"Installation finished successfully.", @"Window text")];
-    TBRunAlertPanel(launchWindowTitle,
-					launchWindowText,
-					nil,nil, nil);
-    
+	if (  runningOnMountainLionOrNewer()  ) {
+		[UIHelper showSuccessNotificationTitle: NSLocalizedString(@"Installation succeeded", @"Window title") msg: launchWindowText];
+    }
+	
     TBLog(@"DB-SU", @"relaunchIfNecessary: 010")
     [splashScreen fadeOutAndClose];
     

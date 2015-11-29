@@ -185,10 +185,7 @@ void deleteFlagFile(NSString * path) {
 void errorExit() {
     
 #ifdef TBDebug
-	id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
-                     ? (id) [NSThread callStackSymbols]
-                     : (id) @"not available");
-    appendLog([NSString stringWithFormat: @"installer: errorExit: Stack trace: %@", stackTrace]);
+    appendLog([NSString stringWithFormat: @"installer: errorExit: Stack trace: %@", callStack()]);
 #endif
 	
     // Leave AUTHORIZED_ERROR_PATH to indicate an error occurred

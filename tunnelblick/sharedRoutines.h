@@ -29,6 +29,8 @@ unsigned cvt_atou(const char * s, NSString * description);
 int            createDir(NSString * d,
 						 unsigned long perms);
 
+id             callStack(void);
+
 BOOL isOnRemoteVolume(NSString * path);
 
 mode_t privateFolderPermissions(NSString * path);

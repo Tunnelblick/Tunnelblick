@@ -24,9 +24,10 @@
 
 @interface UtilitiesView : NSView {
 
-    IBOutlet NSButton           * utilitiesKillAllOpenVpnButton;
+    IBOutlet NSButton            * utilitiesKillAllOpenVpnButton;
+	IBOutlet NSProgressIndicator * killAllOpenVPNProgressIndicator;
     
-    IBOutlet NSButton           * consoleLogToClipboardButton;
+    IBOutlet NSButton            * consoleLogToClipboardButton;
 	IBOutlet NSProgressIndicator * consoleLogToClipboardProgressIndicator;
 
     IBOutlet NSButton           * utilitiesOpenUninstallInstructionsButton;
@@ -37,9 +38,10 @@
     IBOutlet NSButton           * utilitiesHelpButton;
 }
 
-TBPROPERTY_READONLY(NSButton *,        utilitiesKillAllOpenVpnButton)
+TBPROPERTY_READONLY(NSButton *,            utilitiesKillAllOpenVpnButton)
+TBPROPERTY_READONLY(NSProgressIndicator *, killAllOpenVPNProgressIndicator)
 
-TBPROPERTY_READONLY(NSButton *,        consoleLogToClipboardButton)
+TBPROPERTY_READONLY(NSButton *,            consoleLogToClipboardButton)
 TBPROPERTY_READONLY(NSProgressIndicator *, consoleLogToClipboardProgressIndicator)
 
 TBPROPERTY_READONLY(NSButton *,        utilitiesOpenUninstallInstructionsButton)

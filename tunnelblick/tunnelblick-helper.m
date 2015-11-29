@@ -1,7 +1,7 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Angelo Laub
  * Contributions by Dirk Theisen
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -1255,8 +1255,9 @@ int getProcesses(struct kinfo_proc** procs, unsigned * number) {
     return 0;
 }
 
-void waitUntilAllGone(void) {
-	//Waits until all OpenVPN processes are gone or five seconds, whichever comes first
+void waitUntilAllOpenVPNProcessesAreGone(void) {
+    
+	//Waits until all OpenVPN processes are gone or fifteen seconds, whichever comes first
 	
     BOOL     found   = FALSE;
     unsigned count   = 0;
@@ -1265,7 +1266,7 @@ void waitUntilAllGone(void) {
     
 	struct kinfo_proc*	info	= NULL;
         
-    for (j=0; j<6; j++) {   // Try up to six times, with one second _between_ each try -- max five seconds total
+    for (j=0; j<16; j++) {   // Try up to sixteen times, with one second _between_ each try -- max fifteen seconds total
         
 		found = FALSE;
 		
@@ -1288,13 +1289,13 @@ void waitUntilAllGone(void) {
                 break;
             }
         } else {
-            fprintf(stderr, "waitUntilAllGone(): Unable to get process information via getProcesses()");
+            fprintf(stderr, "waitUntilAllOpenVPNProcessesAreGone(): Unable to get process information via getProcesses()");
             exitOpenvpnstart(217);
         }
     }
     
     if (  found  ) {
-        fprintf(stderr, "Timeout (5 seconds) waiting for openvpn process(es) to terminate\n");
+        fprintf(stderr, "Timeout (15 seconds) waiting for process(es) named 'openvpn' to terminate\n");
     }
 }
 
@@ -1389,7 +1390,7 @@ void killAllOpenvpn(void) {
     NSArray  * arguments = [NSArray arrayWithObject: @"openvpn"];
     runAsRoot(TOOL_PATH_FOR_KILLALL, arguments, 0755);
 	
-    waitUntilAllGone();
+    waitUntilAllOpenVPNProcessesAreGone();
 }
 
 //**************************************************************************************************************************

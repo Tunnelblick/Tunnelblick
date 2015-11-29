@@ -78,9 +78,10 @@ extern TBUserDefaults * gTbDefaults;
 //***************************************************************************************************************
 // Getters
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesKillAllOpenVpnButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            utilitiesKillAllOpenVpnButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, killAllOpenVPNProgressIndicator)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          consoleLogToClipboardButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            consoleLogToClipboardButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, consoleLogToClipboardProgressIndicator)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesOpenUninstallInstructionsButton)

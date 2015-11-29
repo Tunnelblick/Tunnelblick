@@ -1924,7 +1924,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             return nil;
         }
     }
-#endif //MACOSX_DEPLOYMENT_TARGET > MAC_OS_X_VERSION_10_4
+#endif // MAC_OS_X_VERSION_MIN_REQUIRED != MAC_OS_X_VERSION_10_4
 
     NSString * runMtuTestKey = [displayName stringByAppendingString: @"-runMtuTest"];
     if (  [gTbDefaults boolForKey: runMtuTestKey]  ) {

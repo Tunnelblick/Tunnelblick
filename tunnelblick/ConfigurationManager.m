@@ -39,8 +39,10 @@
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
+#import "SettingsSheetWindowController.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
+#import "UIHelper.h"
 #import "VPNConnection.h"
 
 extern NSMutableArray       * gConfigDirs;
@@ -2494,12 +2496,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		
 		if (  nTotalErrors == 0  ) {
 			msg = [NSString stringWithFormat: @"%@%@%@%@", headerMsg, uninstallMsg, replaceMsg, installMsg];
+            if (  [msg length] != 0  ) {
+                [UIHelper showSuccessNotificationTitle: NSLocalizedString(@"VPN Configuration Installation", @"Window title") msg: msg];
+            }
 		} else {
 			msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@", @"Window text"),
 				   (unsigned long)nTotalErrors, installerErrorMessages, headerMsg, uninstallMsg, replaceMsg, installMsg];
+            TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation", @"Window title"), msg);
 		}
 		
-		TBShowAlertWindow(NSLocalizedString(@"VPN Configuration Installation", @"Window title"), msg);
 	}
 	
     return (  nTotalErrors == 0
@@ -3083,7 +3088,7 @@ enum GetAuthorizationResult {
 							  : [NSString stringWithFormat:
 								 NSLocalizedString(@"%ld configurations have been reverted to their last secured (shadow) copy.\n\n", @"Window text"), (unsigned long)[displayNamesToRevert count]]);
 							  
-		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), message);
+		[UIHelper showSuccessNotificationTitle: NSLocalizedString(@"Tunnelblick", @"Window title") msg: message];
 	}
 }
 
@@ -3197,6 +3202,32 @@ enum GetAuthorizationResult {
 			[myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
 		}
 	}
+}
+
++(void) removeCredentialsGroupWithName: (NSString *) groupName {
+    
+    
+    int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                 [NSString stringWithFormat: NSLocalizedString(@"Do you wish to delete the %@ credentials?", @"Window text"), groupName],
+                                 NSLocalizedString(@"Cancel", @"Button"),    // Default button
+                                 NSLocalizedString(@"Delete", @"Button"),    // Alternate button
+                                 nil);
+    
+    if (  result != NSAlertAlternateReturn  ) {
+        return;
+    }
+    
+    NSString * errMsg = [gTbDefaults removeNamedCredentialsGroup: groupName];
+    if (  errMsg  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          [NSString stringWithFormat:
+                           NSLocalizedString(@"The credentials named %@ could not be removed:\n\n%@", @"Window text"),
+                           groupName,
+                           errMsg]);
+    } else {
+        SettingsSheetWindowController * wc = [[[NSApp delegate] logScreen] settingsSheetWindowController];
+        [wc performSelectorOnMainThread: @selector(updateStaticContentSetupSettingsAndBringToFront) withObject: nil waitUntilDone: NO];
+    }
 }
 
 +(void) duplicateConfigurationFromPath: (NSString *)         sourcePath
@@ -3698,6 +3729,28 @@ enum GetAuthorizationResult {
 	
 }
 
++(void) killAllOpenVPN {
+    
+    NSArray * volatile pIds = [NSApp pIdsForOpenVPNProcessesOnlyMain: NO];
+    
+    if (  [pIds count] == 0  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"There are no OpenVPN processes running.", @"Window title"));
+        return;
+    }
+    
+    runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
+    
+    pIds = [NSApp pIdsForOpenVPNProcessesOnlyMain: NO];
+    if (  [pIds count] == 0  ) {
+        [UIHelper showSuccessNotificationTitle: NSLocalizedString(@"Tunnelblick", @"Window title")
+                                           msg: NSLocalizedString(@"All OpenVPN process were terminated.", @"Window title")];
+    } else {
+        TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
+                          NSLocalizedString(@"One or more OpenVPN processes could not be terminated.", @"Window title"));
+    }
+}
+
 +(void) putConsoleLogOnClipboard {
 
 	// Get OS and Tunnelblick version info
@@ -3801,6 +3854,19 @@ enum GetAuthorizationResult {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	
 	[ConfigurationManager removeCredentialsWithDisplayNames: displayNames];
+    
+    [TBOperationQueue removeDisableList];
+    
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) removeCredentialsGroupWithNameOperation: (NSString *) groupName {
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    [ConfigurationManager removeCredentialsGroupWithName: groupName];
     
     [TBOperationQueue removeDisableList];
     
@@ -4015,6 +4081,21 @@ enum GetAuthorizationResult {
     [pool drain];
 }
 
++(void) killAllOpenVPNOperation {
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    [ConfigurationManager killAllOpenVPN];
+    
+    [TBOperationQueue removeDisableList];
+    
+    [[[NSApp delegate] logScreen] performSelectorOnMainThread: @selector(indicateNotWaitingForKillAllOpenVPN) withObject: nil waitUntilDone: NO];
+    
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
 +(void) putConsoleLogOnClipboardOperation {
 	
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -4101,6 +4182,14 @@ enum GetAuthorizationResult {
                              disableList: displayNames];
 }
 
++(void) removeCredentialsGroupInNewThreadWithName: (NSString *)  groupName {
+	
+    [TBOperationQueue addToQueueSelector: @selector(removeCredentialsGroupWithNameOperation:)
+                                  target: [ConfigurationManager class]
+                                  object: groupName
+                             disableList: [NSArray arrayWithObject: @"*"]];
+}
+
 +(void) renameConfigurationInNewThreadWithDisplayName: (NSString *) displayName {
 	
     [TBOperationQueue addToQueueSelector: @selector(renameConfigurationWithDisplayNameOperation:)
@@ -4168,6 +4257,14 @@ enum GetAuthorizationResult {
                                   target: [ConfigurationManager class]
                                   object: displayName
                              disableList: [NSArray arrayWithObject: displayName]];
+}
+
++(void) killAllOpenVPNInNewThread {
+    
+    [TBOperationQueue addToQueueSelector: @selector(killAllOpenVPNOperation)
+                                  target: [ConfigurationManager class]
+                                  object: nil
+                             disableList: [NSArray array]];
 }
 
 +(void) putConsoleLogOnClipboardInNewThread {

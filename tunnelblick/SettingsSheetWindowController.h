@@ -210,6 +210,8 @@ typedef enum {
 
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 
+-(void) updateStaticContentSetupSettingsAndBringToFront;
+
 -(void) setupSettingsFromPreferences;
 
 // Methods for Connecting tab

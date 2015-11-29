@@ -84,6 +84,8 @@
 
 +(void) removeCredentialsInNewThreadWithDisplayNames: (NSArray *) displayNames;
 
++(void) removeCredentialsGroupInNewThreadWithName: (NSString *) name;
+
 +(void) renameConfigurationInNewThreadWithDisplayName: (NSString *) displayName;
 
 +(void) createShadowConfigurationInNewThreadWithDisplayName: (NSString *) displayName thenConnectUserKnows: (BOOL) userKnows
@@ -101,6 +103,8 @@
 
 +(void) putDiagnosticInfoOnClipboardInNewThreadForDisplayName: (NSString *) displayName;
 
++(void) killAllOpenVPNInNewThread;
+
 +(void) putConsoleLogOnClipboardInNewThread;
 
 +(void) addConfigurationGuideInNewThread;
@@ -108,4 +112,5 @@
 +(void) haveNoConfigurationsGuideInNewThread;
 
 +(void) installConfigurationsInCurrentMainThreadDoNotShowMessagesDoNotNotifyDelegateWithPaths: (NSArray *)  paths;
+
 @end
