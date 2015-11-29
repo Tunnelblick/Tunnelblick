@@ -1217,13 +1217,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     }
 }
 
--(void) updateStaticContentSetupSettingsAndBringToFront {
-    
-    [self initializeStaticContent];
-    [self setupSettingsFromPreferences];
-    [self bringToFront1];
-}
-
 // Methods for Connecting & Disconnecting tab
 
 -(IBAction) reconnectWhenUnexpectedDisconnectCheckboxWasClicked: (NSButton *) sender {
@@ -1620,6 +1613,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 -(void) bringToFront1
 {
 	[self performSelectorOnMainThread: @selector(bringToFront2) withObject: nil waitUntilDone: NO];
+}
+
+-(void) updateStaticContentSetupSettingsAndBringToFront {
+    
+    [self initializeStaticContent];
+    [self setupSettingsFromPreferences];
+    [self bringToFront1];
 }
 
 -(void) removeNamedCredentialsCommand: (id) sender {
