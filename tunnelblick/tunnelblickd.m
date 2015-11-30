@@ -153,18 +153,23 @@ OSStatus runTool(NSString * userName,
     
     [task setCurrentDirectoryPath: @"/private/tmp"];
     
-	NSPipe * stdOutPipe = nil;
-	NSPipe * errOutPipe = nil;
-	
-	if (  stdOutStringPtr  ) {
-		stdOutPipe = [NSPipe pipe];
-		[task setStandardOutput: stdOutPipe];
-	}
+	NSPipe * stdOutPipe = [NSPipe pipe];
+    if (  ! stdOutPipe  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "runTool: Catastrophic error: 'NSPipe * stdOutPipe = [NSPipe pipe]' returned nil");
+        asl_close(asl);
+        exit(EXIT_FAILURE);
+    }
     
-    if (  stdErrStringPtr  ) {
-		errOutPipe = [NSPipe pipe];
-		[task setStandardError: errOutPipe];
-	}
+    [task setStandardOutput: stdOutPipe];
+    
+    NSPipe * errOutPipe = [NSPipe pipe];
+    if (  ! errOutPipe  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "runTool: Catastrophic error: 'NSPipe * errOutPipe = [NSPipe pipe]' returned nil");
+        asl_close(asl);
+        exit(EXIT_FAILURE);
+    }
+    
+    [task setStandardError: errOutPipe];
 	
     [task setCurrentDirectoryPath: @"/tmp"];
     [task setEnvironment: getSafeEnvironment(userName, userHome, [[launchPath lastPathComponent] isEqualToString: @"openvpn"])];
@@ -174,7 +179,18 @@ OSStatus runTool(NSString * userName,
 	// The following loop drains the pipes as the task runs, so a pipe doesn't get full and block the task
     
 	NSFileHandle * outFile = [stdOutPipe fileHandleForReading];
+    if (  ! outFile  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "runTool: Catastrophic error: 'NSFileHandle * outFile = [stdOutPipe fileHandleForReading]' returned nil");
+        asl_close(asl);
+        exit(EXIT_FAILURE);
+    }
+    
 	NSFileHandle * errFile = [errOutPipe fileHandleForReading];
+    if (  ! errFile  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "runTool: Catastrophic error: 'NSFileHandle * errFile = [errOutPipe fileHandleForReading]' returned nil");
+        asl_close(asl);
+        exit(EXIT_FAILURE);
+    }
 	
 	NSMutableData * stdOutData = (stdOutStringPtr ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
 	NSMutableData * errOutData = (stdErrStringPtr ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
@@ -209,8 +225,7 @@ OSStatus runTool(NSString * userName,
 		errData = availableDataOrError(errFile, asl, log_msg);
 	}
 	
-	[outFile closeFile];
-	[errFile closeFile];
+    // Note: according to the NSPipe man page, we do not need to perform '[outFile closeFile]' or '[errFile closeFile]'
 	
     [task waitUntilExit];
     
