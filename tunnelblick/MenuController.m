@@ -4255,6 +4255,23 @@ static void signal_handler(int signalNumber)
 	// of Tunnelblick.app that is on the disk image.
     if (   ( ! [gTbDefaults boolForKey: @"doNotEjectTunnelblickVolume"] )
         && [gFileMgr fileExistsAtPath: @"/Volumes/Tunnelblick/Tunnelblick.app"]  ) {
+        
+        // Wait until the Tunnelblick installer running from the disk image has terminated
+        NSUInteger timeoutCount = 0;
+        while (  [[NSApp pidsOfProcessesWithPrefix: @"/Volumes/Tunnelblick/Tunnelblick"] count] > 0 ) {
+            if (  ++timeoutCount > 9  ) {
+                break;
+            }
+            NSLog(@"Waiting for Tunnelblick installer to terminate");
+            sleep(1);
+        }
+        if (  timeoutCount > 9  ) {
+            NSLog(@"Timed out waiting for Tunnelblick installer to terminate");
+        } else if (  timeoutCount != 0  ) {
+            NSLog(@"Done waiting for Tunnelblick installer to terminate");
+        }
+        
+        // Eject the disk image
 		NSString * outString = nil;
 		NSString * errString = nil;
         NSArray * args = [NSArray arrayWithObjects: @"eject", @"/Volumes/Tunnelblick", nil];
