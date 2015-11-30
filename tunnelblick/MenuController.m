@@ -1293,16 +1293,11 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         ) {
         
         // Force icon to the right in Status Bar
-        long long priority;
-        if (  runningOnMountainLionOrNewer()  ) {
-            priority = (  runningOnIntel()        // Established by experimenting by Dirk as an "int" = 2147483646 (0x7FFFFFFE) in OS X 10.3
-                        ? 0x000000007FFFFFFDll	  // But on 10.4+ it is "long long" and Yosemite complains unless it is 2147483645 (0x7FFFFFFD)
-                        : 0x7FFFFFFD7FFFFFFDll);  // On Yosemite, ...646 places the icon all the way to the right; ...645 places it to the left of the Spotlight icon
-        } else {
-            priority = (  runningOnIntel()        // Established by experimenting by Dirk as an "int" = 2147483646 (0x7FFFFFFE) in OS X 10.3
-                        ? 0x000000007FFFFFFEll	  // But on 10.4+ it is "long long"
-                        : 0x7FFFFFFE7FFFFFFEll);
-        }
+        long long priority = (  runningOnMountainLionOrNewer() // Established by experimenting by Dirk as an "int" = 2147483646 (0x7FFFFFFE) in OS X 10.3
+							  ? 0x000000007FFFFFFDll		   // But on 10.4+ it is "long long" and Yosemite complains unless it is 2147483645 (0x7FFFFFFD)
+							  : (  runningOnIntel()			   // Lion and lower won't work with what works on Yosemite!
+								 ? 0x000000007FFFFFFEll
+								 : 0x7FFFFFFE7FFFFFFEll));
         
         if (  ! ( statusItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain] )  ) {
             NSLog(@"Can't obtain status item near Spotlight icon");
