@@ -107,6 +107,39 @@ extern TBUserDefaults * gTbDefaults;
         [ov setDataSource: leftNavDataSrc];
         [ov setDelegate:   leftNavDataSrc];
         [ov expandItem: [ov itemAtRow: 0]];
+		
+		if (  rtl  ) {
+			
+			// Set all items RTL
+			
+			if (  [ov respondsToSelector: @selector(setUserInterfaceLayoutDirection:)]  ) {
+				
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+				
+				// NSUserInterfaceLayoutDirection is not available in Xcode 3.2.2
+				
+				enum {
+					NSUserInterfaceLayoutDirectionLeftToRight = 0,
+					NSUserInterfaceLayoutDirectionRightToLeft = 1
+				};
+				typedef NSInteger NSUserInterfaceLayoutDirection;
+				
+				NSUserInterfaceLayoutDirection rightToLeftLayoutDirection = NSUserInterfaceLayoutDirectionRightToLeft;
+				
+				NSMethodSignature* signature = [[ov class] instanceMethodSignatureForSelector: @selector(setUserInterfaceLayoutDirection:)];
+				NSInvocation* invocation = [NSInvocation invocationWithMethodSignature: signature];
+				[invocation setTarget: ov];
+				[invocation setSelector: @selector(setUserInterfaceLayoutDirection:)];
+				[invocation setArgument: &rightToLeftLayoutDirection atIndex: 2];
+				[invocation invoke];
+				
+#else		
+				
+				[ov setUserInterfaceLayoutDirection: NSUserInterfaceLayoutDirectionRightToLeft];
+				
+#endif
+			}
+		}			
 	} else {
 		[[[self outlineViewController] view] setHidden: YES];
 		[[self leftNavTableScrollView] setHidden: YES];

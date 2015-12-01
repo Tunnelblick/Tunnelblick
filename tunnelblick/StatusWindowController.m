@@ -31,6 +31,7 @@
 #import "NSTimer+TB.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
+#import "UIHelper.h"
 
 
 TBUserDefaults * gTbDefaults;         // Our preferences
@@ -65,7 +66,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(id) initWithDelegate: (id) theDelegate
 {
-    self = [super initWithWindowNibName:@"StatusWindow"];
+    self = [super initWithWindowNibName: [UIHelper appendRTLIfRTLLanguage: @"StatusWindow"]];
     if (  ! self  ) {
         return nil;
     }
@@ -381,6 +382,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
              array: (NSArray *) array {
     
     // Find the maximum width of the units
+	NSRect oldFrame = [tf1 frame];	// Save original size
     CGFloat maxWidth = 0.0;
     NSString * unitsName;
     NSEnumerator * e = [array objectEnumerator];
@@ -392,15 +394,33 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
             maxWidth = f.size.width;
         }
     }
+	[tf1 setFrame: oldFrame];	// Restore original size
     
     // Set the width of both text fields to the maximum
-    NSRect f = [tf1 frame];
-    f.size.width = maxWidth;
-    [tf1 setFrame: f];
-    f = [tf2 frame];
-    f.size.width = maxWidth;
-    [tf2 setFrame: f];
-    
+	BOOL rtf = [UIHelper languageAtLaunchWasRTL];
+	if (  rtf  ) {
+		// RTL rates are right-justified, so we adjust the origin when we adjust the size
+		
+		NSRect f = [tf1 frame];
+		CGFloat widthChange = maxWidth - f.size.width;
+		f.size.width = maxWidth;
+		f.origin.x -= widthChange;
+		[tf1 setFrame: f];
+		
+		f = [tf2 frame];
+		widthChange = maxWidth - f.size.width;
+		f.size.width = maxWidth;
+		f.origin.x -= widthChange;
+		[tf2 setFrame: f];
+	} else {
+		NSRect f = [tf1 frame];
+		f.size.width = maxWidth;
+		[tf1 setFrame: f];
+		f = [tf2 frame];
+		f.size.width = maxWidth;
+		[tf2 setFrame: f];
+	}
+	
     // Set the text fields to the first entry in the array
     [tfc1 setTitle: [array objectAtIndex: 0]];
     [tfc2 setTitle: [array objectAtIndex: 0]];

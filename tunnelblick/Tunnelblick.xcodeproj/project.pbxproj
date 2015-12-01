@@ -136,6 +136,7 @@
 		63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BF3E1010A2ED7F00AC8A59 /* CA.lproj */; };
 		63BF5F121BD55BFD00D5554B /* reactivateTunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63BF5F111BD55BFD00D5554B /* reactivateTunnelblick.sh */; };
+		63BF8BEB1C0D0D3A00747F1A /* StatusWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63BF8BEA1C0D0D3A00747F1A /* StatusWindow-RTL.xib */; };
 		63C043E61023660900E6C1D0 /* IconSets in Resources */ = {isa = PBXBuildFile; fileRef = 63C043DC1023660900E6C1D0 /* IconSets */; };
 		63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C055121970253E007AE8BE /* ConfigurationMultiUpdater.m */; };
 		63C2E19C18846D2A00ED0003 /* LeaseWatch.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63C2E19B18846D2A00ED0003 /* LeaseWatch.plist */; };
@@ -478,6 +479,7 @@
 		63BD86E41205BA39005B8E38 /* IT.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IT.lproj; sourceTree = "<group>"; };
 		63BF3E1010A2ED7F00AC8A59 /* CA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CA.lproj; sourceTree = "<group>"; };
 		63BF5F111BD55BFD00D5554B /* reactivateTunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = reactivateTunnelblick.sh; sourceTree = "<group>"; };
+		63BF8BEA1C0D0D3A00747F1A /* StatusWindow-RTL.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "StatusWindow-RTL.xib"; sourceTree = "<group>"; };
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
 		63C055111970253E007AE8BE /* ConfigurationMultiUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationMultiUpdater.h; sourceTree = "<group>"; };
 		63C055121970253E007AE8BE /* ConfigurationMultiUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationMultiUpdater.m; sourceTree = "<group>"; };
@@ -1018,6 +1020,7 @@
 				63A298771C02776100A94F1A /* SettingsSheet-RTL.xib */,
 				637A871B13B74DFB003C1871 /* SplashWindow.xib */,
 				639A10EA132AC74B00754C2A /* StatusWindow.xib */,
+				63BF8BEA1C0D0D3A00747F1A /* StatusWindow-RTL.xib */,
 				B85B5DBE15F2436200EDCF95 /* Welcome.xib */,
 				6372D2461C00D4450004674C /* Welcome-RTL.xib */,
 				63E56EB71384813C007E39AB /* VPNService xibs */,
@@ -1528,6 +1531,7 @@
 				63A298781C02776100A94F1A /* SettingsSheet-RTL.xib in Resources */,
 				638E97461C05FFA100FF53BB /* Preferences-Tiger.xib in Resources */,
 				63E85C211C065D0A008E7F4E /* Preferences-Tiger-RTL.xib in Resources */,
+				63BF8BEB1C0D0D3A00747F1A /* StatusWindow-RTL.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
