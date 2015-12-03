@@ -114,8 +114,8 @@ extern NSString       * gDeployPath;
     [appearanceDisplaySplashScreenCheckbox setTitle: NSLocalizedString(@"Display window while Tunnelblick is starting up", @"Checkbox name")];
     
     
-    // Connection window display criteria
-    [appearanceConnectionWindowDisplayCriteriaTFC setTitle: NSLocalizedString(@"Notification window:", @"Window text")];
+    // VPN status windows display criteria
+    [appearanceConnectionWindowDisplayCriteriaTFC setTitle: NSLocalizedString(@"VPN status windows:", @"Window text")];
     NSArray * cwContent = [NSArray arrayWithObjects:
                             [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Never show",                          @"Button"), @"name", @"neverShow", @"value", nil],
                             [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Show while connecting",               @"Button"), @"name", @"showWhenConnecting", @"value", nil],
