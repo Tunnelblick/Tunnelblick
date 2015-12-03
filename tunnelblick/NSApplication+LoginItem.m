@@ -630,26 +630,39 @@ extern TBUserDefaults * gTbDefaults;
         return wfeaExecAuthFailed;
     }
     
-    // Wait for up to 25.55 seconds for the program to finish -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6, 3.2, 6.4, and 12.8
-    // seconds (totals 25.55 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
-    useconds_t sleepTime;
-    struct stat sb;
-    for (sleepTime=50000; sleepTime < 26000000; sleepTime=sleepTime*2) {
-        usleep(sleepTime);
+    // Wait for up to 50 seconds for the program to finish -- sleeping .05 seconds first, then .1, .2, .4, .8, .8, .8... seconds between tries as a cheap and easy throttling mechanism for a heavily loaded computer
+    
+    NSDate * timeout = [NSDate dateWithTimeIntervalSinceNow: 50.0];
+    useconds_t sleepTimeMicroseconds = 50000; // First sleep time is 0.050 seconds
+    for (;;) {
         
-        if (  0 != stat([AUTHORIZED_RUNNING_PATH fileSystemRepresentation], &sb)  ) {
-            // running flag file has been deleted, indicating we're done
-			if (  0 == stat([AUTHORIZED_ERROR_PATH fileSystemRepresentation], &sb)  ) {
-                // error flag file exists, so there was an error
-				if (  0 != unlink([AUTHORIZED_ERROR_PATH fileSystemRepresentation])  ) {
-					NSLog(@"Unable to delete %@", AUTHORIZED_ERROR_PATH);
-				}
-				
-				return wfeaFailure;
-			}
-			
-            return wfeaSuccess;
+        NSDate * now = [NSDate date];
+        if (  [now compare: timeout] == NSOrderedDescending  ) {
+            break;
         }
+        
+        usleep(sleepTimeMicroseconds);
+        if (  sleepTimeMicroseconds < 1000000  ) {
+            sleepTimeMicroseconds *= 2;
+        }
+        
+        struct stat sb;
+        if (  0 == stat([AUTHORIZED_RUNNING_PATH fileSystemRepresentation], &sb)  ) {
+            // running flag file exists, so wait some more or time out
+            continue;
+        }
+        
+        // running flag file has been deleted, indicating we're done
+        if (  0 == stat([AUTHORIZED_ERROR_PATH fileSystemRepresentation], &sb)  ) {
+            // error flag file exists, so there was an error
+            if (  0 != unlink([AUTHORIZED_ERROR_PATH fileSystemRepresentation])  ) {
+                NSLog(@"Unable to delete %@", AUTHORIZED_ERROR_PATH);
+            }
+            
+            return wfeaFailure;
+        }
+        
+        return wfeaSuccess;
     }
     
     NSLog(@"Timed out waiting for %@ to disappear indicting %@ finished", AUTHORIZED_RUNNING_PATH, [toolPath lastPathComponent]);

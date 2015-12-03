@@ -4262,18 +4262,19 @@ static void signal_handler(int signalNumber)
         // Wait until the Tunnelblick installer running from the disk image has terminated
         NSUInteger timeoutCount = 0;
         while (  [[NSApp pidsOfProcessesWithPrefix: @"/Volumes/Tunnelblick/Tunnelblick"] count] > 0 ) {
-            if (  ++timeoutCount > 9  ) {
+            if (  ++timeoutCount > 30  ) {
                 break;
             }
             NSLog(@"Waiting for Tunnelblick installer to terminate");
             sleep(1);
         }
-        if (  timeoutCount > 9  ) {
+        if (  timeoutCount > 60  ) {
             NSLog(@"Timed out waiting for Tunnelblick installer to terminate");
         } else if (  timeoutCount != 0  ) {
             NSLog(@"Done waiting for Tunnelblick installer to terminate");
         }
         
+        TBLog(@"DB-SU", @"applicationDidFinishLaunching: 06.1")
         // Eject the disk image
 		NSString * outString = nil;
 		NSString * errString = nil;
@@ -6062,8 +6063,9 @@ BOOL warnAboutNonTblks(void)
 	
     int result = -1;    // Last result from waitForExecuteAuthorized
     BOOL okNow = FALSE;
-    unsigned i;
-    for (i=0; i<5; i++) {
+    NSUInteger i;
+    for (  i=0; ; i++  ) {
+        
         if (  i != 0  ) {
             int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", "Window title"),
                                          NSLocalizedString(@"The installation or repair took too long or failed. Try again?", "Window text"),
@@ -6085,13 +6087,13 @@ BOOL warnAboutNonTblks(void)
 					AuthorizationFree(localAuthRef, kAuthorizationFlagDefaults);
 				}
                 [self terminateBecause: terminatingBecauseOfQuit];
-            }
-            
-            usleep( i * 1000000 );	// Sleep for 1.0, 2.0, 3.0, and 4.0 seconds (total 8.0 seconds)
+				return -1;
+			}
+			
             NSLog(@"Retrying execution of installer");
         }
         
-		NSMutableArray * arguments = [[[NSMutableArray alloc] initWithCapacity:3] autorelease];
+		NSMutableArray * arguments = [[[NSMutableArray alloc] initWithCapacity: 3] autorelease];
 		[arguments addObject: [NSString stringWithFormat: @"%u", installFlags]];
 		
 		NSString * arg;
@@ -6104,8 +6106,6 @@ BOOL warnAboutNonTblks(void)
 		
         result = [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: *authRefPtr];
         
-        okNow = FALSE;
-        
         if (  result == wfeaExecAuthFailed  ) {
             NSLog(@"Failed to execute %@: %@", launchPath, arguments);
             continue;
@@ -6116,6 +6116,7 @@ BOOL warnAboutNonTblks(void)
             NSLog(@"installer reported failure: %@: %@", launchPath, arguments);
             continue;
         } else if (  result == wfeaSuccess  ) {
+            
             okNow = (0 == (   installFlags
                            & (  INSTALLER_COPY_APP
                               | INSTALLER_SECURE_APP
