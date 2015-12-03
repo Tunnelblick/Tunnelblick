@@ -1273,7 +1273,7 @@ int main(int argc, char *argv[])
     
 	appendLog(@"Tunnelblick installer finished without error");
 	
-    deleteFlagFile(AUTHORIZED_ERROR_PATH);
+    deleteFlagFile(AUTHORIZED_ERROR_PATH);      // Important to delete error flag file first, to avoid race conditions
     deleteFlagFile(AUTHORIZED_RUNNING_PATH);
 	closeLog();
     
