@@ -240,7 +240,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 {
 	(void) notification;
 	
-	MyPrefsWindowController * mpwc = [((MenuController *)[NSApp delegate]) logScreen]; 
+	MyPrefsWindowController * mpwc = [((MenuController *)[NSApp delegate]) logScreen];
     [mpwc performSelectorOnMainThread: @selector(selectedLeftNavListIndexChanged) withObject: nil waitUntilDone: NO];
 }
 

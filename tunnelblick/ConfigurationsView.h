@@ -29,13 +29,13 @@
 {    
     IBOutlet NSView              * leftSplitView;
     
-    IBOutlet NSScrollView        * leftNavTableScrollView;	// Used if NOT [UIHelper useOutlineViewOfConfigurations]
+    IBOutlet LeftNavViewController * outlineViewController; // Used only Preferences and Preferences-RTL -- that is, only when
+    IBOutlet LeftNavDataSource   * leftNavDataSrc;			//      [UIHelper useOutlineViewOfConfigurations]
+
+	IBOutlet NSTableView         * leftNavTableView;        // Used only in Preferences-Tiger and Preferences-Tiger-RTL
+	IBOutlet NSTableColumn       * leftNavTableColumn;      // -- that is, only when ! [UIHelper useOutlineViewOfConfigurations]
 	
-    IBOutlet LeftNavViewController * outlineViewController; // Used if [UIHelper useOutlineViewOfConfigurations]
-    IBOutlet LeftNavDataSource   * leftNavDataSrc;			// Used if [UIHelper useOutlineViewOfConfigurations]
-    
-    IBOutlet NSTableView         * leftNavTableView;		// Used if NOT [UIHelper useOutlineViewOfConfigurations]
-    IBOutlet NSTableColumn       * leftNavTableColumn;		// Used if NOT [UIHelper useOutlineViewOfConfigurations]
+	IBOutlet NSTextFieldCell     * leftNavTableTFC;			// Cell used for all table entries; aligned right for RTL languages
 	
     IBOutlet NSButton            * addConfigurationButton;
     IBOutlet NSButton            * removeConfigurationButton;
@@ -106,13 +106,13 @@
 
 TBPROPERTY_READONLY(NSView *,              leftSplitView)
 
-TBPROPERTY_READONLY(NSScrollView *,	       leftNavTableScrollView)
-
 TBPROPERTY_READONLY(LeftNavViewController *, outlineViewController)
 TBPROPERTY_READONLY(LeftNavDataSource *,   leftNavDataSrc)
 
 TBPROPERTY_READONLY(NSTableView *,         leftNavTableView)
 TBPROPERTY_READONLY(NSTableColumn *,       leftNavTableColumn)
+
+TBPROPERTY_READONLY(NSTextFieldCell *,     leftNavTableTFC)
 
 TBPROPERTY_READONLY(NSButton *,            addConfigurationButton)
 TBPROPERTY_READONLY(NSButton *,            removeConfigurationButton)

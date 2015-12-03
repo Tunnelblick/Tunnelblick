@@ -721,9 +721,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         NSOutlineView * outlineView = [outlineViewController outlineView];
         [outlineView expandItem: [outlineView itemAtRow: 0]];
         NSInteger r;
-        id item;
         for (  r=0; r<[outlineView numberOfRows]; r++) {
-            item = [outlineView itemAtRow: r];
+            id item = [outlineView itemAtRow: r];
             NSString * itemDisplayName = [item displayName];
             if (  [itemDisplayName hasSuffix: @"/"]  ) {
                 if (   [expandedDisplayNames containsObject: itemDisplayName]
@@ -1347,10 +1346,10 @@ static BOOL firstTimeShowingWindow = TRUE;
                     return connection;
                 }
                 NSArray *allConnections = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] allValues];
-                if (  [allConnections count]  ) {
+                if (  [allConnections count] != 0  ) {
                     return [allConnections objectAtIndex:0];
                 }
-                else return nil;
+                return nil;
             }
         }
     }

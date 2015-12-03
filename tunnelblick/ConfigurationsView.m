@@ -87,32 +87,37 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) awakeFromNib {
 	
+	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
+    [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
+	
 	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
 	
-	CGFloat widthChange = [UIHelper setTitle: NSLocalizedString(@"Connect"   , @"Button") ofControl: connectButton shift: ( !rtl ) narrow: YES enable: YES];
+	CGFloat widthChange = [UIHelper setTitle: NSLocalizedString(@"Connect", @"Button") ofControl: connectButton shift: ( !rtl ) narrow: YES enable: YES];
 	[UIHelper shiftControl: disconnectButton by: (- widthChange) reverse: ( !    rtl)];
+	
 	[UIHelper setTitle: NSLocalizedString(@"Disconnect", @"Button") ofControl: disconnectButton shift: ( !rtl) narrow: YES enable: YES];
     
 	[UIHelper setTitle: NSLocalizedString(@"Copy Diagnostic Info to Clipboard", @"Button") ofControl: diagnosticInfoToClipboardButton shift: rtl narrow: YES enable: YES];
     
 	
-	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
-    [((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
-	
     // Left split view -- list of configurations and configuration manipulation
     
+	NSTableColumn     * tableColumn = [self leftNavTableColumn];
+	NSTableHeaderCell * tableCell = [tableColumn headerCell];
+	[tableCell setTitle: NSLocalizedString(@"Configurations", @"Window text")];
+	if (  rtl  ) {
+		[tableCell       setAlignment: NSRightTextAlignment]; // Set the text in the header for the list of configurations (Tiger only) to be right aligned
+		[leftNavTableTFC setAlignment: NSRightTextAlignment]; // Set the text in the list of configurations to be right aligned
+	}
+	
 	if (  [UIHelper useOutlineViewOfConfigurations]  ) {
-		[leftNavDataSrc reload];
-        NSOutlineView * ov = [ (NSScrollView *)[outlineViewController view] documentView];
-        [ov setDataSource: leftNavDataSrc];
-        [ov setDelegate:   leftNavDataSrc];
-        [ov expandItem: [ov itemAtRow: 0]];
+		
+        NSOutlineView * outlineView = [ (NSScrollView *)[outlineViewController view] documentView];
 		
 		if (  rtl  ) {
 			
-			// Set all items RTL
-			
-			if (  [ov respondsToSelector: @selector(setUserInterfaceLayoutDirection:)]  ) {
+			// Put the outlineView's disclosure triangle on the right instead of on the left
+			if (  [outlineView respondsToSelector: @selector(setUserInterfaceLayoutDirection:)]  ) {
 				
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
 				
@@ -126,28 +131,31 @@ extern TBUserDefaults * gTbDefaults;
 				
 				NSUserInterfaceLayoutDirection rightToLeftLayoutDirection = NSUserInterfaceLayoutDirectionRightToLeft;
 				
-				NSMethodSignature* signature = [[ov class] instanceMethodSignatureForSelector: @selector(setUserInterfaceLayoutDirection:)];
+				NSMethodSignature* signature = [[outlineView class] instanceMethodSignatureForSelector: @selector(setUserInterfaceLayoutDirection:)];
 				NSInvocation* invocation = [NSInvocation invocationWithMethodSignature: signature];
-				[invocation setTarget: ov];
+				[invocation setTarget: outlineView];
 				[invocation setSelector: @selector(setUserInterfaceLayoutDirection:)];
 				[invocation setArgument: &rightToLeftLayoutDirection atIndex: 2];
 				[invocation invoke];
 				
 #else		
 				
-				[ov setUserInterfaceLayoutDirection: NSUserInterfaceLayoutDirectionRightToLeft];
+				[outlineView setUserInterfaceLayoutDirection: NSUserInterfaceLayoutDirectionRightToLeft];
 				
 #endif
 			}
-		}			
+		}
+		
+		[leftNavDataSrc reload];
+        [outlineView setDataSource: leftNavDataSrc];
+        [outlineView setDelegate:   leftNavDataSrc];
+        [outlineView expandItem: [outlineView itemAtRow: 0]];
+
 	} else {
-		[[[self outlineViewController] view] setHidden: YES];
-		[[self leftNavTableScrollView] setHidden: YES];
+	
 		MyPrefsWindowController * wc = [((MenuController *)[NSApp delegate]) logScreen];
 		[leftNavTableView setDelegate: wc];
  	}
-	
-	[[leftNavTableColumn headerCell] setTitle: NSLocalizedString(@"Configurations", @"Window text")];
 	
 	[renameConfigurationMenuItem          setTitle: NSLocalizedString(@"Rename Configuration..."                          , @"Menu Item")];
     [duplicateConfigurationMenuItem       setTitle: NSLocalizedString(@"Duplicate Configuration..."                       , @"Menu Item")];
@@ -233,13 +241,13 @@ extern TBUserDefaults * gTbDefaults;
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSView *,              leftSplitView)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSScrollView *,        leftNavTableScrollView)
-
 TBSYNTHESIZE_OBJECT_GET(retain, LeftNavViewController *, outlineViewController)
 TBSYNTHESIZE_OBJECT_GET(retain, LeftNavDataSource *,   leftNavDataSrc)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTableView *,         leftNavTableView)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTableColumn *,       leftNavTableColumn)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     leftNavTableTFC)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            addConfigurationButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            removeConfigurationButton)
