@@ -377,9 +377,6 @@
 "Prepend domain name to search domains" = "Domain név hozzáfűzése a domain keresési listához";
 
 /* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Újra csatlakozás ha a számítógép alvó állapotból ébred (ha elalvás előtt csatlakozva volt)";
-
-/* Checkbox name */
 "Reconnect when computer wakes up" = "Reconnect when computer wakes up";
 
 /* Checkbox name */
@@ -624,6 +621,9 @@
 
 /* Window title */
 "System Requirements Not Met" = "A rendszerkövetelmények nem teljesültek";
+
+/* Window title */
+"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick konfigurációs probléma";
@@ -1220,9 +1220,6 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Nem meglévő konfigurációt cserél, így a(z) '%@' konfigurációban nem használható a 'TBKeepExistingFilesList'";
 
 /* Window text */
-"Notification window:" = "Figyelmeztető ablak:";
-
-/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Egy vagy több OpenVPN folyamat fut, de ezeket nem a Tunnelblick kezeli. Ha nem futtatt a Tunnelblicken kívül más OpenVPN alkalmazást, akkor valószínűleg egy korábban indított Tunnelblick nem tudta megfelelően leállítani ezeket. Ezek a folyamatok zavarhatják a Tunnelblick működését, kívánja megszakítani az ismeretlen OpenVPN folyamatokat?";
 
 /* Window text */
@@ -1353,9 +1350,6 @@
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "A(z) '%@' OpenVPN opció nem engedélyezett a Tunnelblickben.";
-
-/* Window text */
-"The '%@' credentials have been added." = "The '%@' credentials have been added.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "A(z) '%@' hitelesítőadat nem vehető fel, mert a lista kényszerített.";
@@ -1598,7 +1592,19 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick sikeresen:\n\n";
 
 /* Window text */
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+
+/* Window text */
 "Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
@@ -1701,6 +1707,9 @@
 
 /* Window text */
 "VPN Connections" = "VPN Kapcsolatok";
+
+/* Window text */
+"VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "A(z) '%1$@' = ' %2$@' érték nem egy érvényes URL-cím: %3$@";
@@ -1911,6 +1920,9 @@
 
 /* Credit description */
 "Icon set including Retina images" = "Ikon csomag Retina képekkel együtt";
+
+/* Credit description */
+"Indonesian localization" = "Indonesian localization";
 
 /* Credit description */
 "Italian localization" = "Olasz honosítás";

@@ -377,9 +377,6 @@
 "Prepend domain name to search domains" = "Додати доменне ім'я для пошуку доменних імен";
 
 /* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Під’єднуватися знову після виходу комп’ютера з режиму сну (у разі, якщо було встановленно з’єднання до входу комп’ютера в режим сну)";
-
-/* Checkbox name */
 "Reconnect when computer wakes up" = "Під'єднуватись при виході з режиму сну";
 
 /* Checkbox name */
@@ -624,6 +621,9 @@
 
 /* Window title */
 "System Requirements Not Met" = "Системні вимоги незадоволені";
+
+/* Window title */
+"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Помилка конфігурації Tunnelblick";
@@ -1220,9 +1220,6 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Не замінюємо існуючу конфігурацію, тож конфігурація '%@' не може використовувати 'TBKeepExistingFilesList'";
 
 /* Window text */
-"Notification window:" = "Вікно сповіщень:";
-
-/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Один чи кілька OpenVPN процессів вже працюють, але вони невідомі Tunnelblick. Якщо ви не запускаете OpenVPN якимось іншим чином, це може значити що попередній Tunnelblick процесс працював, та не завершив своеї роботи. Вірогідно це заважатиме поточному Tunnelblick працювати. Завершити всі ці OpenVPN процесси ?";
 
 /* Window text */
@@ -1353,9 +1350,6 @@
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN опція '%@' не дозволена при використанні Tunnelblick.";
-
-/* Window text */
-"The '%@' credentials have been added." = "The '%@' credentials have been added.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "Неможливо видалити облікові дані '%@', оскільки список йменованих облікових даних використовується примусово.";
@@ -1598,7 +1592,19 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick успішно:\n\n";
 
 /* Window text */
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+
+/* Window text */
 "Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
@@ -1701,6 +1707,9 @@
 
 /* Window text */
 "VPN Connections" = "VPN-з'єднання";
+
+/* Window text */
+"VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "Значення '%1$@' для '%2$@' не є припустимою URL-адресою в %3$@";
@@ -1911,6 +1920,9 @@
 
 /* Credit description */
 "Icon set including Retina images" = "Набори значків, включаючи зображення Retina";
+
+/* Credit description */
+"Indonesian localization" = "Indonesian localization";
 
 /* Credit description */
 "Italian localization" = "Італійський переклад";

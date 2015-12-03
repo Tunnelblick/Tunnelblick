@@ -377,9 +377,6 @@
 "Prepend domain name to search domains" = "Domainname den Suchdomains voranstellen";
 
 /* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Vor einem Ruhezustand bestandene Verbindung beim Aufwachen wiederherstellen";
-
-/* Checkbox name */
 "Reconnect when computer wakes up" = "Reconnect when computer wakes up";
 
 /* Checkbox name */
@@ -624,6 +621,9 @@
 
 /* Window title */
 "System Requirements Not Met" = "Systemvoraussetzungen nicht erfüllt";
+
+/* Window title */
+"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick-Konfigurationsproblem";
@@ -1220,9 +1220,6 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Es wird keine vorhandene Konfiguration ersetzt, also kann die Konfiguration '%@' 'TBKeepExistingFilesList' nicht verwenden";
 
 /* Window text */
-"Notification window:" = "Benachrichtigungsfenster:";
-
-/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Derzeit laufen einer oder mehrere nicht von Tunnelblick verwaltete OpenVPN-Prozesse. Falls Sie keine OpenVPN-Prozesse unabhängig von Tunnelblick gestartet haben, bedeutet das meistens, dass Tunnelblick sie bei seiner letzten Ausführung nicht korrekt beenden konnte. Diese Prozesse sollten jetzt beendet werden, weil sie wahrscheinlich die Ausführung von Tunnelblick behindern werden. Möchten Sie jetzt alle OpenVPN-Prozesse beenden?";
 
 /* Window text */
@@ -1353,9 +1350,6 @@
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Die '%@' OpenVPN-Option ist nicht zulässig, wenn Tunnelblick genutzt wird.";
-
-/* Window text */
-"The '%@' credentials have been added." = "The '%@' credentials have been added.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "Die '%@' Zugangsdaten dürfen nicht hinzugefügt werden, denn die Liste der benannten Zugangsdaten wird erzwungen.";
@@ -1598,7 +1592,19 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick erfolgreich: \n\n";
 
 /* Window text */
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+
+/* Window text */
 "Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
@@ -1701,6 +1707,9 @@
 
 /* Window text */
 "VPN Connections" = "VPN-Verbindungen";
+
+/* Window text */
+"VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "Der Wert '%1$@' für '%2$@' ist keine gültige URL in %3$@";
@@ -1911,6 +1920,9 @@
 
 /* Credit description */
 "Icon set including Retina images" = "Icon Sammlung mit Retina Bildern";
+
+/* Credit description */
+"Indonesian localization" = "Indonesische Lokalisierung";
 
 /* Credit description */
 "Italian localization" = "Italienische Lokalisierung";

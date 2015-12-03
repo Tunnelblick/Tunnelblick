@@ -377,9 +377,6 @@
 "Prepend domain name to search domains" = "Vložiť meno domény pred zoznam domén na vyhľadávanie";
 
 /* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Znova pripojiť po prebudení počítača zo spánku (ak je spojenie aktívne pri uložení do spánku)";
-
-/* Checkbox name */
 "Reconnect when computer wakes up" = "Reconnect when computer wakes up";
 
 /* Checkbox name */
@@ -624,6 +621,9 @@
 
 /* Window title */
 "System Requirements Not Met" = "Systémové požiadavky programu neboli naplnené";
+
+/* Window title */
+"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Chyba konfigurácie Tunnelblick";
@@ -1220,9 +1220,6 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Existujúca konfigurácie nebude nahradena, takže konfigurácia '%@' nemôže používať 'TBKeepExistingFilesList'";
 
 /* Window text */
-"Notification window:" = "Okno hlásení:";
-
-/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Bola zistená prítomnosť jedného alebo viacerých procesov OpenVPN spustených nezávisle na aplikácii Tunnelblick. Ak nemáte spustené iné OpenVPN nezávisle na Tunnelblick, môže to často znamenať, že Tunnelblick nedokázal pri predchádzajúcom ukončení tieto procesy korektne zastaviť, a mali by ste ich ukončiť. Tieto procesy môžu narušiť chod aplikácie Tunnelblick. Prajete si vynútiť ukončenie všetkých procesov OpenVPN?";
 
 /* Window text */
@@ -1353,9 +1350,6 @@
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Možnosť \"%@\" OpenVPN nie je povolená pri použití Tunnelblick.";
-
-/* Window text */
-"The '%@' credentials have been added." = "The '%@' credentials have been added.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "Prístupové údaje '%@' nemusí byť možné pridať, pretože zoznam vytvorených prístupových údajov je vynútene daný.";
@@ -1598,7 +1592,19 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick bol úspešne:  ";
 
 /* Window text */
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+
+/* Window text */
 "Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
@@ -1701,6 +1707,9 @@
 
 /* Window text */
 "VPN Connections" = "Spojenia VPN";
+
+/* Window text */
+"VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "Hodnota \"%1$@\" pre \"%2$@\" je nie je platnou adresou URL v %3$@";
@@ -1911,6 +1920,9 @@
 
 /* Credit description */
 "Icon set including Retina images" = "Zbierka ikon obsahuje obsahuje obrázky v Retina rozlíšení";
+
+/* Credit description */
+"Indonesian localization" = "Indonesian localization";
 
 /* Credit description */
 "Italian localization" = "Preklad taliančiny";

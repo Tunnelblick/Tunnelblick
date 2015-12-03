@@ -377,9 +377,6 @@
 "Prepend domain name to search domains" = "Připojit jméno domény k prohledávání domén";
 
 /* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Znovu připojit při probuzení počítače ze spánku (pokud je spojení aktivní při uložení ke spánku)";
-
-/* Checkbox name */
 "Reconnect when computer wakes up" = "Reconnect when computer wakes up";
 
 /* Checkbox name */
@@ -624,6 +621,9 @@
 
 /* Window title */
 "System Requirements Not Met" = "Nejsou splněny požadavky na systém";
+
+/* Window title */
+"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Problém s konfigurací Tunnelblicku";
@@ -1220,9 +1220,6 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Nepřepsatelná existující konfigurace, takže konfigurace '%@' nemůže použít  'TBKeepExistingFilesList'";
 
 /* Window text */
-"Notification window:" = "Okno upozornění:";
-
-/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Jeden nebo více procesů OpenVPN běží ale nejsou známy Tunnelblicku. Pokud nejsou spuštěny jinak než z Tunnelblick, tak to znamená, že předchozí spuštěná verze Tunnelblicku nebyla schopna je korektně vypnout a měl by jste je ukončit. Pravděpodobně by vadily další práci Tunnelblicku. Přejete si opravdu ukončit všechny procesy OpenVPN?";
 
 /* Window text */
@@ -1353,9 +1350,6 @@
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Volba '%@' OpenVPN není povolena, když je používán Tunnelblick.";
-
-/* Window text */
-"The '%@' credentials have been added." = "The '%@' credentials have been added.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "'%@' přístupové údaje nemusí jít přidat, poněvadž seznam pojmenovaných přístupových údajů je vynucen.";
@@ -1598,7 +1592,19 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick úspěšně:\n\n";
 
 /* Window text */
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+
+/* Window text */
 "Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
@@ -1701,6 +1707,9 @@
 
 /* Window text */
 "VPN Connections" = "VPN spojení";
+
+/* Window text */
+"VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "V %3$@ není platná hodnota URL '%1$@' pro '%2$@'";
@@ -1911,6 +1920,9 @@
 
 /* Credit description */
 "Icon set including Retina images" = "Sada ikon obsahuje Retina obrázky";
+
+/* Credit description */
+"Indonesian localization" = "Indonesian localization";
 
 /* Credit description */
 "Italian localization" = "Italská lokalizace";

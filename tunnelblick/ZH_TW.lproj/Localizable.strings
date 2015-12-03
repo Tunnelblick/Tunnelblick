@@ -377,9 +377,6 @@
 "Prepend domain name to search domains" = "自動加上搜尋網域";
 
 /* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "當電腦從睡眠中喚醒時重新連接 (假如當電腦進入睡眠時已連線)";
-
-/* Checkbox name */
 "Reconnect when computer wakes up" = "喚醒電腦後重新連線";
 
 /* Checkbox name */
@@ -624,6 +621,9 @@
 
 /* Window title */
 "System Requirements Not Met" = "未能達到系統要求";
+
+/* Window title */
+"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick 設定錯誤";
@@ -1220,9 +1220,6 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "不是要取代現有的設定檔，所以設定檔「%@」不能使用「TBKeepExistingFilesList」";
 
 /* Window text */
-"Notification window:" = "通知視窗：";
-
-/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "一個或多個對於 Tunnelblick 不明的 OpenVPN 進程正在運行。如果你沒有獨立於 Tunnelblick 運行 OpenVPN，這通常表示先前運行的 Tunnelblick 進程並沒有被正確的退出。它們會干擾 Tunnelblick 的運作所以你應該強制終止它們。你是否想強制終止所有 OpenVPN 進程？";
 
 /* Window text */
@@ -1353,9 +1350,6 @@
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "當使用 Tunnelblick 時，「%@」OpenVPN 選項不被允許。";
-
-/* Window text */
-"The '%@' credentials have been added." = "The '%@' credentials have been added.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "由於這個認證訊息列表不能被修改，無法加入 '%@' 的認證訊息。";
@@ -1598,7 +1592,19 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick 成功地：\n\n";
 
 /* Window text */
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+
+/* Window text */
 "Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
@@ -1701,6 +1707,9 @@
 
 /* Window text */
 "VPN Connections" = "VPN 連線";
+
+/* Window text */
+"VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "在 %3$@ 中用於 '%2$@' 的值 '%1$@' 不是一個有效的網址";
@@ -1911,6 +1920,9 @@
 
 /* Credit description */
 "Icon set including Retina images" = "圖標集，包括 Retina 圖片";
+
+/* Credit description */
+"Indonesian localization" = "Indonesian localization";
 
 /* Credit description */
 "Italian localization" = "義大利語翻譯";

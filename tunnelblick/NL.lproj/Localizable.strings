@@ -98,7 +98,7 @@
 "Download" = "Downloaden";
 
 /* Button */
-"Duplicate" = "Duplicate";
+"Duplicate" = "Kopiëren";
 
 /* Button */
 "Help" = "Help";
@@ -122,10 +122,10 @@
 "Load Tun driver automatically" = "Tun stuurprogramma automatisch laden";
 
 /* Button */
-"Make Private" = "Make Private";
+"Make Private" = "Maak privé";
 
 /* Button */
-"Make Shared" = "Make Shared";
+"Make Shared" = "Maak deelbaar";
 
 /* Button */
 "Manually" = "Handmatig";
@@ -176,7 +176,7 @@
 "Remove Credentials" = "Verwijder Aanmeldgegevens";
 
 /* Button */
-"Rename" = "Rename";
+"Rename" = "Hernoemen";
 
 /* Button */
 "Replace" = "Vervangen";
@@ -260,7 +260,7 @@
 "Disconnect %@%@" = "Verbinding met %@%@ verbreken";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Do Not Show on Tunnelblick Menu";
+"Do Not Show on Tunnelblick Menu" = "Toon niet in Tunnelblick menu";
 
 /* Menu Item */
 "Duplicate Configuration..." = "Configuratie dupliceren…";
@@ -293,7 +293,7 @@
 "Show OpenVPN Log in Finder" = "Toon OpenVPN Log in Finder";
 
 /* Menu Item */
-"Show on Tunnelblick Menu" = "Show on Tunnelblick Menu";
+"Show on Tunnelblick Menu" = "Toon in Tunnelblick menu";
 
 /* Menu item */
 "Suggestion or Bug Report..." = "Suggestie of foutrapport…";
@@ -375,9 +375,6 @@
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Zet domeinnaam voor zoekdomeinen";
-
-/* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Herstel verbinding wanneer computer uit slaapstand komt (indien verbonden toen computer in slaapstand ging)";
 
 /* Checkbox name */
 "Reconnect when computer wakes up" = "Opnieuw verbinding maken na het ontwaken van de computer";
@@ -626,6 +623,9 @@
 "System Requirements Not Met" = "Systeemvereisten Niet Voldaan";
 
 /* Window title */
+"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick Configuratieprobleem";
 
 /* Window title */
@@ -824,7 +824,7 @@
 "A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Een gebruikersnaam en wachtwoord zijn vereist om te verbinden met\n%1$@\n(Met behulp '%2$@' gegevens)";
 
 /* Window text */
-"Add Credentials" = "Add Credentials";
+"Add Credentials" = "Toevoegen aanmeldingsgegevens";
 
 /* Window text */
 "Added '.sh' extension to %@ so it will be secured properly" = "Er is een '.sh' extensie oegevoegd aan %@ zodat het goed beveiligd wordt";
@@ -920,16 +920,16 @@
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' ('%2$@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%3$s'\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "Configuration '%@' already exists.";
+"Configuration '%@' already exists." = "Configuratie '%@' bestaat al.";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuratie ' %@' bevat een of meer scripts die mogelijk problemen kunnen veroorzaken als u de configuratie gaat vervangen of verwijderen, terwijl deze is verbonden. \n\nWilt u de configuratie vervangen?";
 
 /* Window text */
-"Configuration '%@' is not secure. It should be reinstalled." = "Configuration '%@' is not secure. It should be reinstalled.";
+"Configuration '%@' is not secure. It should be reinstalled." = "Configuratie '%@' is niet veilig. Het zou opnieuw geïnstalleerd moeten worden.";
 
 /* Window text */
-"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Configuration '%@' is not secure. Please reinstall Tunnelblick.";
+"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Configuratie '%@' is niet veilig. Installeer Tunnelblick opnieuw.";
 
 /* Window text */
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuratie ' %@' is niet bijgewerkt, omdat het kon worden gemarkeerd als 'bijgewerkt'.\n";
@@ -1001,7 +1001,7 @@
 "Do you wish to delete the %@ credentials?" = "Wilt u de %@ aanmeldgegevens verwijderen?";
 
 /* Window text */
-"Do you wish to duplicate the '%@' configuration?" = "Do you wish to duplicate the '%@' configuration?";
+"Do you wish to duplicate the '%@' configuration?" = "Wilt u configuratie '%@' dupliceren?";
 
 /* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Wilt u de configuratie '%@' installeren zodat alle gebruikers deze kunnen gebruiken of alleen u deze kunt gebruiken?\n\n";
@@ -1220,9 +1220,6 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Niet ter vervanging van een bestaande configuratie, de configuratie '%@' kan 'TBKeepExistingFilesList' niet gebruiken.";
 
 /* Window text */
-"Notification window:" = "Notificatievenster:";
-
-/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Eén of meerdere OpenVPN processen zijn actief, maar niet bekend bij Tunnelblick. Indien u geen OpenVPN actief heeft buiten Tunnelblick, betekent dit doorgaans dat een eerdere instantie van Tunnelblick niet in staat was om ze netjes te stoppen en u ze dus moet beëindigen. Ze zullen waarschijnlijk de werking van Tunnelblick negatief beïnvloeden. Wilt u alle OpenVPN processen beëindigen?";
 
 /* Window text */
@@ -1232,7 +1229,7 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Eén of meerdere OpenVPN processen zijn actief maar niet bekend bij Tunnelblick. Indien u geen OpenVPN actief heeft buiten Tunnelblick, betekent dit doorgaans dat een eerdere instantie van Tunnelblick niet in staat was om de OpenVPN processen netjes te stoppen, u moet ze zelf beëindigen. De OpenVPN processen zullen waarschijnlijk de werking van Tunnelblick negatief beïnvloeden.\n\nZe kunnen beëindigd worden in de 'Activiteitenweergave' applicatie.\n\n";
 
 /* Window text */
-"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding.";
+"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Eén of meer VPN's zijn momenteel verbonden. Verbreek alle VPN's en stop Tunnelblick alvorens verder te gaan.";
 
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "Een of meer configuraties worden momenteel genegeerd. Zie het Console Log voor details.";
@@ -1289,7 +1286,7 @@
 "Received fatal signal %d." = "Kritiek signaal %d ontvangen.";
 
 /* Window text */
-"Remove" = "Remove";
+"Remove" = "Verwijder";
 
 /* Window text */
 "Rename failed; see the Console Log for details." = "Rename failed; see the Console Log for details.";
@@ -1353,9 +1350,6 @@
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "De ' %@' OpenVPN optie is niet toegestaan bij het gebruik van Tunnelblick.";
-
-/* Window text */
-"The '%@' credentials have been added." = "The '%@' credentials have been added.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "De '%@' aanmeldgegevens mogen niet worden toegevoegd, omdat de lijst met benoemde aanmeldgegevens wordt geforceerd.";
@@ -1448,7 +1442,7 @@
 "There is not an OpenVPN configuration file in '%@'" = "Er is geen OpenVPN configuratiebestand in ' %@'";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "There was a problem deleting one or more configurations. See the Console Log for details.";
+"There was a problem deleting one or more configurations. See the Console Log for details." = "Er was een probleem verwijderen van één of meer configuraties. Zie de console-log voor details.";
 
 /* Window text */
 "There was a problem with\n\n%@:\n\n%@" = "Er was een probleem met \n\n%1$@:\n\n%2$@";
@@ -1583,7 +1577,7 @@
 "Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.";
 
 /* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick needs authorization to rename the '%1$@' configuration to '%2$@'.";
+"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick heeft autorisatie nodig om de '%1$@' configuratie te hernoemen naar '%2$@'.";
 
 /* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick moet een beveiligde (schaduw) kopie van het configuratiebestand maken of bijwerken";
@@ -1598,10 +1592,22 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick is met succes:\n\n";
 
 /* Window text */
-"Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
 
 /* Window text */
-"Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully installed." = "Tunnelblick is succesvol geïnstalleerd.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully replaced." = "Tunnelblick is succesvol vervangen.";
 
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick slaagde er niet in om te communiceren met een bestaand OpenVPN proces voor '%1$@' gedurende %2$d seconden. De poging tot communicatie is gestaakt.";
@@ -1701,6 +1707,9 @@
 
 /* Window text */
 "VPN Connections" = "VPN verbindingen";
+
+/* Window text */
+"VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "Waarde '%1$@' voor '%2$@ \"is niet een geldige URL in %3$@";
@@ -1811,7 +1820,7 @@
 "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "  Waarschuwing: Dit exemplaar van Tunnelblick maakt uw computer onveilig. Deze versie wordt enkel gebruikt voor debugging.";
 
 /* Window text */
-"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder." = "\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder.";
+"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder." = "\n\nWanneer een dubbele klik niet werk (er zitten fouten in de recente versie van Finder dat dit veroorzaakt), verplaats dan de configuratie over het Tunnelblick icoon in een Finder scherm waar de inhoud van de Applicatie map wordt getoond.";
 
 /* Window text */
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n";
@@ -1911,6 +1920,9 @@
 
 /* Credit description */
 "Icon set including Retina images" = "Pictogrammenset bevat Retina afbeeldingen";
+
+/* Credit description */
+"Indonesian localization" = "Indonesische vertaling";
 
 /* Credit description */
 "Italian localization" = "Italiaanse vertaling";

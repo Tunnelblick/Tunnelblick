@@ -377,9 +377,6 @@
 "Prepend domain name to search domains" = "검색 도메인 앞에 도메인 명을 추가";
 
 /* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "컴퓨터가 절전 모드 전에 연결된 상태라면 절전모드에서 깨어날때 다시 연결";
-
-/* Checkbox name */
 "Reconnect when computer wakes up" = "Reconnect when computer wakes up";
 
 /* Checkbox name */
@@ -624,6 +621,9 @@
 
 /* Window title */
 "System Requirements Not Met" = "시스템 요구사항과 일치하지 않습니다";
+
+/* Window title */
+"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick 설정 문제";
@@ -1220,9 +1220,6 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "이미 존재하는 설정을 덮어쓰지 않기 때문에, '%@'은 'TBKeepExistingFilesList'을 사용할 수 없습니다.";
 
 /* Window text */
-"Notification window:" = "알림 창:";
-
-/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Tunnelblick이 모르는 1개 또는 이상의 OpenVPN 프로세스가 실행중입니다. Tunnelblick과 별개로 OpenVPN을 실행한 것이 아니면, 이전에 실행된 Tunnelblick이 OpenVPN 프로세스를 올바르게 내리지 못한 것입니다. 이 프로세스들은 Tunnelblick 동작을 방해할 수 있습니다. 모든 OpenVPN 프로세스를 중단하겠습니까?";
 
 /* Window text */
@@ -1353,9 +1350,6 @@
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN 옵션 '%@' 은 Tunnelblick에서 허용되지 않습니다.";
-
-/* Window text */
-"The '%@' credentials have been added." = "The '%@' credentials have been added.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "지정된 인증 목록이 강제되어 '%@' 인증을 추가할 수 없습니다.";
@@ -1598,7 +1592,19 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick은 올바르게 아래 항목을 완료하였습니다:\n\n";
 
 /* Window text */
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+
+/* Window text */
 "Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
@@ -1701,6 +1707,9 @@
 
 /* Window text */
 "VPN Connections" = "VPN 연결";
+
+/* Window text */
+"VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "%3$@에서 '%2$@' 의 값 '%1$@'은 올바른 URL이 아닙니다.";
@@ -1911,6 +1920,9 @@
 
 /* Credit description */
 "Icon set including Retina images" = "레티나 이미지를 포함한 아이콘 세트";
+
+/* Credit description */
+"Indonesian localization" = "Indonesian localization";
 
 /* Credit description */
 "Italian localization" = "이탈리아어 지역화";

@@ -377,9 +377,6 @@
 "Prepend domain name to search domains" = "Legg til domenenavn i starten av søkedomene";
 
 /* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Koble til igjen når maskin våkner fra dvale (hvis den var oppkoblet når den sovnet)";
-
-/* Checkbox name */
 "Reconnect when computer wakes up" = "Reconnect when computer wakes up";
 
 /* Checkbox name */
@@ -624,6 +621,9 @@
 
 /* Window title */
 "System Requirements Not Met" = "Systemkrav ikke tilfredstilt";
+
+/* Window title */
+"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick Konfigurasjonsproblem";
@@ -1220,9 +1220,6 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Erstatter ikke en eksisterende konfigurasjon, så konfigurasjonen '%@' kan ikke bruke 'TBKeepExistingFilesList'";
 
 /* Window text */
-"Notification window:" = "Beskjedvindu:";
-
-/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "En eller flere OpenVPN prosesser som er igang er ukjent for Tunnelblick. Hvis du ikke har noe OpenVPN separat fra Tunnelblick, betyr dette vanligvis at en tidligere startet Tunnelblick ikke kunne avslutte de skikkelig, og de burde avsluttes. De vil sannsynligvis blande seg i Tunnelblick sin virksomhet. Vil du avslutte alle OpenVPN prosesser?";
 
 /* Window text */
@@ -1353,9 +1350,6 @@
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN-opsjonen '%@' er ikke tillatt når du bruker Tunnelblick.";
-
-/* Window text */
-"The '%@' credentials have been added." = "The '%@' credentials have been added.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = " '%@' brukeropplysningene kan ikke legges til fordi listen av navnede brukeropplysninger blir tvunget.";
@@ -1598,7 +1592,19 @@
 "Tunnelblick successfully:\n\n" = "Det lyktes Tunnelblick å:\n\n";
 
 /* Window text */
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+
+/* Window text */
 "Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
@@ -1701,6 +1707,9 @@
 
 /* Window text */
 "VPN Connections" = "VPN Koblinger";
+
+/* Window text */
+"VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "Verdien '%1$@' for '%2$@' er ikke en gyldig URL i %3$@";
@@ -1911,6 +1920,9 @@
 
 /* Credit description */
 "Icon set including Retina images" = "Ikonsett, inkludert Retina-bilder";
+
+/* Credit description */
+"Indonesian localization" = "Indonesian localization";
 
 /* Credit description */
 "Italian localization" = "Italiensk oversettelse";

@@ -377,9 +377,6 @@
 "Prepend domain name to search domains" = "Foranstil domæne navnet til søge domæner";
 
 /* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Genopret forbindelse når computeren vækkes fra slumretilstand (hvis forbundet da computeren gik i slumretilstand)";
-
-/* Checkbox name */
 "Reconnect when computer wakes up" = "Reconnect when computer wakes up";
 
 /* Checkbox name */
@@ -624,6 +621,9 @@
 
 /* Window title */
 "System Requirements Not Met" = "Systemskrav er ikke opfyldt";
+
+/* Window title */
+"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick konfigurationsproblem";
@@ -1220,9 +1220,6 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Erstatter ikke en eksisterende konfiguration, så konfigurationen '%@' kan ikke bruge 'TBKeepExistingFilesList'";
 
 /* Window text */
-"Notification window:" = "Notifikationsvindue:";
-
-/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "En eller flere OpenVPN processer kører, men kan ikke genkendes af Tunnelblick. Hvis du ikke kører OpenVPN seperat fra Tunnelblick, kan det betyde at du kører at Tunnelblick ikke har kunne lukke ordentligt ned og at du skal afslutte dem. Der er stor chance for at de vil påvirke hvordan Tunnelblick kører. Vil du afslutte alle OpenVPN processer?";
 
 /* Window text */
@@ -1353,9 +1350,6 @@
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "OpenVPN muligheden '%@' er ikke tilladt når du bruger Tunnelblick.";
-
-/* Window text */
-"The '%@' credentials have been added." = "The '%@' credentials have been added.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "Legimitationsoplysningerne '%@' kan ikke blive tilføjet, da der er en tvungen liste af navngivne legimitationsoplysninger.";
@@ -1598,7 +1592,19 @@
 "Tunnelblick successfully:\n\n" = "Det lykkedes Tunnelblick at:\n\n";
 
 /* Window text */
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+
+/* Window text */
 "Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
@@ -1701,6 +1707,9 @@
 
 /* Window text */
 "VPN Connections" = "VPN forbindelser";
+
+/* Window text */
+"VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "Værdien '%1$@' til '%2$@' er ikke en gyldig URL-adresse i %3$@";
@@ -1911,6 +1920,9 @@
 
 /* Credit description */
 "Icon set including Retina images" = "Ikon sæt, inklusiv Retina billeder";
+
+/* Credit description */
+"Indonesian localization" = "Indonesian localization";
 
 /* Credit description */
 "Italian localization" = "Italiensk oversættelse";

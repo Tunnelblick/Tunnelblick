@@ -377,9 +377,6 @@
 "Prepend domain name to search domains" = "Πρόταση ονόματος διακομιστή για εύρεση διακομιστών";
 
 /* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Επανασύνδεση όταν ο υπολογιστής επανέρχεται από κατάσταση ύπνου (αν έχει ρυθμιστεί να συνδέεται)";
-
-/* Checkbox name */
 "Reconnect when computer wakes up" = "Reconnect when computer wakes up";
 
 /* Checkbox name */
@@ -624,6 +621,9 @@
 
 /* Window title */
 "System Requirements Not Met" = "Μη συμβατό με απαιτήσεις του συστήματος";
+
+/* Window title */
+"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Πρόβλημα παραμέτρων του Tunnelblick";
@@ -1220,9 +1220,6 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Δεν αντικαταστάθηκε η υπάρχουσα διαμόρφωση, έτσι διαμόρφωση '%@' δεν μπορεί να χρησιμοποιήσει το TBKeepExistingFilesList";
 
 /* Window text */
-"Notification window:" = "Παράθυρο ειδοποιήσεων:";
-
-/* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Μια ή περισσότερες εργασίες OpenVPN πραγματοποιούνται αλλά είναι άγνωστες στο Tunnelblick. Αν δεν ενεργοποιήσατε ξεχωριστά OpenVPN από το Tunnelblick αυτό σημαίνει ότι μια παλιότερη εκκίνηση του Tunnelblick δεν τερματίστηκε σωστά και πρέπει να τερματιστεί. Πιθανόν να εμποδίζετε από αυτή την λειτουργία. Θέλετε να τερματίσετε όλες της ενεργές εργασίες OpenVPN;";
 
 /* Window text */
@@ -1353,9 +1350,6 @@
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Η επιλογή '%@' του OpenVPN δεν επιτρέπεται κατά τη χρήση του Tunnelblick.";
-
-/* Window text */
-"The '%@' credentials have been added." = "The '%@' credentials have been added.";
 
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "Το πιστοποιητικό '%@' μπορεί να μην προστέθηκε γιατί δεν το επιτρέπει η λίστα ονομάτων των πιστοποιητικών.";
@@ -1598,7 +1592,19 @@
 "Tunnelblick successfully:\n\n" = "Το Tunnelblick πραγματοποίησε επιτυχώς:\n\n";
 
 /* Window text */
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+
+/* Window text */
 "Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
+
+/* Window text */
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
@@ -1701,6 +1707,9 @@
 
 /* Window text */
 "VPN Connections" = "Συνδέσεις VPN";
+
+/* Window text */
+"VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "Η τιμή '%1$@' για το '%2$@' δεν είναι έγκυρη διεύθυνση URL στο %3$@";
@@ -1911,6 +1920,9 @@
 
 /* Credit description */
 "Icon set including Retina images" = "Πακέτο εικονιδίων, συμπεριλαμβανομένου εικόνων Retina";
+
+/* Credit description */
+"Indonesian localization" = "Indonesian localization";
 
 /* Credit description */
 "Italian localization" = "Προσαρμογή Ιταλικά";
