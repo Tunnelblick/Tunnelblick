@@ -4606,15 +4606,7 @@
 						<reference key="source" ref="921957018"/>
 						<reference key="destination" ref="642450854"/>
 					</object>
-					<int key="connectionID">1413</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">leftNavTableHeaderView</string>
-						<reference key="source" ref="921957018"/>
-						<reference key="destination" ref="50694187"/>
-					</object>
-					<int key="connectionID">1414</int>
+					<int key="connectionID">1416</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -7030,7 +7022,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1414</int>
+			<int key="maxID">1416</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7108,7 +7100,6 @@
 							<string>editOpenVPNConfigurationFileMenuItem</string>
 							<string>leftNavDataSrc</string>
 							<string>leftNavTableColumn</string>
-							<string>leftNavTableHeaderView</string>
 							<string>leftNavTableTFC</string>
 							<string>leftNavTableView</string>
 							<string>leftSplitView</string>
@@ -7162,7 +7153,6 @@
 							<string>NSMenuItem</string>
 							<string>LeftNavDataSource</string>
 							<string>NSTableColumn</string>
-							<string>NSTableHeaderView</string>
 							<string>NSTextFieldCell</string>
 							<string>NSTableView</string>
 							<string>NSView</string>
