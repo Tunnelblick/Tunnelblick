@@ -50,6 +50,7 @@
 		63216D90125778C0004EDB57 /* client.1.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */; };
 		63216D91125778C0004EDB57 /* client.1.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */; };
 		632886D51B022BF9000BA527 /* LV.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 632886D21B022BF9000BA527 /* LV.lproj */; };
+		632B0A901C145B9B008F2976 /* reactivate-tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 632B0A8F1C145B9B008F2976 /* reactivate-tunnelblick.sh */; };
 		632BB9E8194F2CFA006CD7DA /* AlertWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 632BB9E7194F2CFA006CD7DA /* AlertWindowController.m */; };
 		632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 632BB9E9194F2D13006CD7DA /* AlertWindow.xib */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
@@ -135,7 +136,6 @@
 		63BD86E81205BA39005B8E38 /* IT.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BD86E41205BA39005B8E38 /* IT.lproj */; };
 		63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BF3E1010A2ED7F00AC8A59 /* CA.lproj */; };
-		63BF5F121BD55BFD00D5554B /* reactivateTunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63BF5F111BD55BFD00D5554B /* reactivateTunnelblick.sh */; };
 		63BF8BEB1C0D0D3A00747F1A /* StatusWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63BF8BEA1C0D0D3A00747F1A /* StatusWindow-RTL.xib */; };
 		63C043E61023660900E6C1D0 /* IconSets in Resources */ = {isa = PBXBuildFile; fileRef = 63C043DC1023660900E6C1D0 /* IconSets */; };
 		63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C055121970253E007AE8BE /* ConfigurationMultiUpdater.m */; };
@@ -380,6 +380,7 @@
 		63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.down.tunnelblick.sh; sourceTree = "<group>"; };
 		63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.up.tunnelblick.sh; sourceTree = "<group>"; };
 		632886D21B022BF9000BA527 /* LV.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LV.lproj; sourceTree = "<group>"; };
+		632B0A8F1C145B9B008F2976 /* reactivate-tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "reactivate-tunnelblick.sh"; sourceTree = "<group>"; };
 		632BB9E6194F2CFA006CD7DA /* AlertWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWindowController.h; sourceTree = "<group>"; };
 		632BB9E7194F2CFA006CD7DA /* AlertWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWindowController.m; sourceTree = "<group>"; };
 		632BB9E9194F2D13006CD7DA /* AlertWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertWindow.xib; sourceTree = "<group>"; };
@@ -478,7 +479,6 @@
 		63B9CFA4132C73DD009EC6D0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		63BD86E41205BA39005B8E38 /* IT.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IT.lproj; sourceTree = "<group>"; };
 		63BF3E1010A2ED7F00AC8A59 /* CA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CA.lproj; sourceTree = "<group>"; };
-		63BF5F111BD55BFD00D5554B /* reactivateTunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = reactivateTunnelblick.sh; sourceTree = "<group>"; };
 		63BF8BEA1C0D0D3A00747F1A /* StatusWindow-RTL.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "StatusWindow-RTL.xib"; sourceTree = "<group>"; };
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
 		63C055111970253E007AE8BE /* ConfigurationMultiUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationMultiUpdater.h; sourceTree = "<group>"; };
@@ -960,7 +960,7 @@
 				634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */,
 				63D9257F135DAEE1001FF627 /* client.3.up.tunnelblick.sh */,
 				636BB3F7197776A900FDC5DE /* launchAtLogin.sh */,
-				63BF5F111BD55BFD00D5554B /* reactivateTunnelblick.sh */,
+				632B0A8F1C145B9B008F2976 /* reactivate-tunnelblick.sh */,
 			);
 			name = Scripts;
 			sourceTree = "<group>";
@@ -1522,7 +1522,6 @@
 				6309A4AD1AE4224D006C118E /* ET.lproj in Resources */,
 				632886D51B022BF9000BA527 /* LV.lproj in Resources */,
 				634B927E1BB0E4C7007AAC03 /* BuildAppsAndDmgs.sh in Resources */,
-				63BF5F121BD55BFD00D5554B /* reactivateTunnelblick.sh in Resources */,
 				6372D2471C00D4450004674C /* AlertWindow-RTL.xib in Resources */,
 				6372D2491C00D4450004674C /* LoginWindow-RTL.xib in Resources */,
 				6372D24A1C00D4450004674C /* PassphraseWindow-RTL.xib in Resources */,
@@ -1532,6 +1531,7 @@
 				638E97461C05FFA100FF53BB /* Preferences-Tiger.xib in Resources */,
 				63E85C211C065D0A008E7F4E /* Preferences-Tiger-RTL.xib in Resources */,
 				63BF8BEB1C0D0D3A00747F1A /* StatusWindow-RTL.xib in Resources */,
+				632B0A901C145B9B008F2976 /* reactivate-tunnelblick.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

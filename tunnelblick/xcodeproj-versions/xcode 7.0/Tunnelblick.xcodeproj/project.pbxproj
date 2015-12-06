@@ -107,6 +107,7 @@
 		637B0A1E1A81DC2100210900 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 637B0A1D1A81DC2100210900 /* Sparkle.framework */; };
 		637B0A281A81DC3500210900 /* Sparkle.framework in Copy Sparkle */ = {isa = PBXBuildFile; fileRef = 637B0A1D1A81DC2100210900 /* Sparkle.framework */; };
 		637BE08513A0218A00673909 /* Preferences.png in Resources */ = {isa = PBXBuildFile; fileRef = 637BE08413A0218A00673909 /* Preferences.png */; };
+		638164DE1C145CC100B59958 /* reactivate-tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */; };
 		638613271492C88B00C3DCCE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
 		638613511492CF1800C3DCCE /* process-network-changes in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 63AA8E581492C75200C791C9 /* process-network-changes */; };
 		6387F0F5135604240021E41B /* tunnelblick.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 6387F0F4135604240021E41B /* tunnelblick.sdef */; };
@@ -150,7 +151,6 @@
 		63C3757B1A45112500D51E81 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63C3757C1A45113000D51E81 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
 		63C3757D1A45116200D51E81 /* tunnelblick-helper in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 63C374391A4510AA00D51E81 /* tunnelblick-helper */; };
-		63C472581BFE228F00CE39B0 /* reactivateTunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63C472571BFE228F00CE39B0 /* reactivateTunnelblick.sh */; };
 		63C504291178E21100340D13 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63CC72F91928C5CB00F81220 /* TBUIUpdater.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */; };
 		63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D39B4714F9860E002D1297 /* UtilitiesView.m */; };
@@ -447,6 +447,7 @@
 		637ACF281053EE9B00A49655 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
 		637B0A1D1A81DC2100210900 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../third_party/products/sparkle/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		637BE08413A0218A00673909 /* Preferences.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Preferences.png; sourceTree = "<group>"; };
+		638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "reactivate-tunnelblick.sh"; sourceTree = "<group>"; };
 		6387F0F4135604240021E41B /* tunnelblick.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; path = tunnelblick.sdef; sourceTree = "<group>"; };
 		6388563C134B7E1C008DF8C1 /* PassphraseWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassphraseWindowController.h; sourceTree = "<group>"; };
 		6388563D134B7E1C008DF8C1 /* PassphraseWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassphraseWindowController.m; sourceTree = "<group>"; };
@@ -492,7 +493,6 @@
 		63C2E19F18846D4600ED0003 /* ProcessNetworkChanges.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProcessNetworkChanges.plist; sourceTree = "<group>"; };
 		63C374391A4510AA00D51E81 /* tunnelblick-helper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "tunnelblick-helper"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C375781A4510F600D51E81 /* tunnelblick-helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "tunnelblick-helper.m"; sourceTree = "<group>"; };
-		63C472571BFE228F00CE39B0 /* reactivateTunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = reactivateTunnelblick.sh; sourceTree = "<group>"; };
 		63C504281178E21100340D13 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		63CC72F71928C5CB00F81220 /* TBUIUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUIUpdater.h; sourceTree = "<group>"; };
 		63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUIUpdater.h.m; sourceTree = "<group>"; };
@@ -956,7 +956,7 @@
 				634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */,
 				63D9257F135DAEE1001FF627 /* client.3.up.tunnelblick.sh */,
 				636BB3F7197776A900FDC5DE /* launchAtLogin.sh */,
-				63C472571BFE228F00CE39B0 /* reactivateTunnelblick.sh */,
+				638164DD1C145CC100B59958 /* reactivate-tunnelblick.sh */,
 			);
 			name = Scripts;
 			sourceTree = "<group>";
@@ -1450,7 +1450,6 @@
 				B896C2E41767B753004D9A21 /* FI.lproj in Resources */,
 				615F748F0ED3A4E5007F6F0A /* FR.lproj in Resources */,
 				63903D18145EAD49006627C9 /* HU.lproj in Resources */,
-				63C472581BFE228F00CE39B0 /* reactivateTunnelblick.sh in Resources */,
 				63BD86E81205BA39005B8E38 /* IT.lproj in Resources */,
 				615F749A0ED3A4FA007F6F0A /* JA.lproj in Resources */,
 				615F749B0ED3A4FA007F6F0A /* KO.lproj in Resources */,
@@ -1489,6 +1488,7 @@
 				638856A0134B8056008DF8C1 /* PassphraseWindow.xib in Resources */,
 				6387F0F5135604240021E41B /* tunnelblick.sdef in Resources */,
 				63D92582135DAEE1001FF627 /* client.3.down.tunnelblick.sh in Resources */,
+				638164DE1C145CC100B59958 /* reactivate-tunnelblick.sh in Resources */,
 				63D92583135DAEE1001FF627 /* client.3.up.tunnelblick.sh in Resources */,
 				633888FB1C00F2FC0076032D /* Welcome-RTL.xib in Resources */,
 				63D92585135DAEE1001FF627 /* leasewatch3 in Resources */,

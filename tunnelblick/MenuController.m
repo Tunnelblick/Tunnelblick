@@ -1047,7 +1047,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
     // its caller finishes the run loop, and if this routine waits for the script to finish,
     // that will never happen, so there will be a deadlock!)
 	
-	NSString * scriptPath = [[NSBundle mainBundle] pathForResource: @"reactivateTunnelblick" ofType: @"sh"];
+	NSString * scriptPath = [[NSBundle mainBundle] pathForResource: @"reactivate-tunnelblick" ofType: @"sh"];
 	NSTask * task = [[[NSTask alloc] init] autorelease];
     [task setLaunchPath: scriptPath];
     [task setCurrentDirectoryPath: @"/private/tmp"];
@@ -6370,7 +6370,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	NSString *clientNewAlt2DownPath     = [resourcesPath stringByAppendingPathComponent: @"client.2.down.tunnelblick.sh"        ];
 	NSString *clientNewAlt3UpPath       = [resourcesPath stringByAppendingPathComponent: @"client.3.up.tunnelblick.sh"          ];
 	NSString *clientNewAlt3DownPath     = [resourcesPath stringByAppendingPathComponent: @"client.3.down.tunnelblick.sh"        ];
-    NSString *reactivateTunnelblickPath = [resourcesPath stringByAppendingPathComponent: @"reactivateTunnelblick.sh"            ];
+    NSString *reactivateTunnelblickPath = [resourcesPath stringByAppendingPathComponent: @"reactivate-tunnelblick.sh"           ];
 	NSString *freePublicDnsServersPath  = [resourcesPath stringByAppendingPathComponent: @"FreePublicDnsServersList.txt"        ];
     NSString *deployPath                = [resourcesPath stringByAppendingPathComponent: @"Deploy"                              ];
     NSString *infoPlistPath             = [[resourcesPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
