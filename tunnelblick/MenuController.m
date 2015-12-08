@@ -2220,7 +2220,10 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * scriptPath = [customMenuScripts objectAtIndex: (unsigned)tag];
 	NSArray  * arguments = [NSArray arrayWithObject: [self languageAtLaunch]];
 	if (  [[[scriptPath stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]  ) {
-		runTool(scriptPath, arguments, nil, nil);
+        OSStatus status = runTool(scriptPath, arguments, nil, nil);
+        if (  status != EXIT_SUCCESS) {
+            NSLog(@"Error status %ld returned from custom menu item at '%@'", (long)status, scriptPath);
+        }
 	} else {
 		startTool(scriptPath, arguments);
 	}

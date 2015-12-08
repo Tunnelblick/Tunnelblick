@@ -1469,7 +1469,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		if (  [[[path stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]  ) {
 			OSStatus status = runTool(path, arguments, nil, nil);
 			if (  status != 0  ) {
-				NSLog(@"Tunnelblick runOnConnect item %@ returned %ld; Tunnelblick launch cancelled", path, (long)status);
+                NSLog(@"Tunnelblick runOnConnect item %@ returned %ld; The attempt to connect %@ has been cancelled", path, (long)status, [self displayName]);
                 if (  userKnows  ) {
                     TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
 									  [NSString
