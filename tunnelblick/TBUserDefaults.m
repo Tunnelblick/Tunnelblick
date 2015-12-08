@@ -31,38 +31,38 @@ NSArray * gConfigurationPreferences;
 
 @implementation TBUserDefaults
 
--(TBUserDefaults *) initWithForcedDictionary: (NSDictionary *) inForced
-                      andSecondaryDictionary: (NSDictionary *) inSecondary
-                           usingUserDefaults: (BOOL)           inUseUserDefaults {
+-(TBUserDefaults *) initWithPrimaryDictionary: (NSDictionary *) inPrimary
+                        andDeployedDictionary: (NSDictionary *) inForced {
     self = [super init];
     if ( ! self  ) {
         return nil;
     }
     
+    primaryDefaults = [inPrimary copy];
+    
     forcedDefaults = [inForced copy];
     
-    secondaryDefaults = [inSecondary copy];
-    
-    if (  inUseUserDefaults  ) {
-        userDefaults = [[NSUserDefaults standardUserDefaults] retain];
-        [userDefaults registerDefaults: [NSMutableDictionary dictionary]];
-    } else {
-        userDefaults = nil;
+    userDefaults = [[NSUserDefaults standardUserDefaults] retain];
+    if (  ! userDefaults  ) {
+        NSLog(@"Unable to get [NSUserDefaults standardUserDefaults]");
+        return nil;
     }
+    [userDefaults registerDefaults: [NSMutableDictionary dictionary]];
     
     return self;
 }
 
 -(void) dealloc {
     
-    [forcedDefaults    release]; forcedDefaults    = nil;
-    [secondaryDefaults release]; secondaryDefaults = nil;
-    [userDefaults      release]; userDefaults      = nil;
+    [primaryDefaults release]; primaryDefaults = nil;
+    [forcedDefaults  release]; forcedDefaults    = nil;
+    [userDefaults    release]; userDefaults      = nil;
     
     [super dealloc];
 }
 
 -(id) forcedObjectForKey: (NSString *) key {
+    
     // Checks for a forced object for a key, implementing wildcard matches
 
     id value = [forcedDefaults objectForKey: key];
@@ -76,6 +76,29 @@ NSArray * gConfigurationPreferences;
                 && ( [forcedKey length] != 1)  ) {
                 if (  [key hasSuffix: [forcedKey substringFromIndex: 1]]  ) {
                     return [forcedDefaults objectForKey: forcedKey];
+                }
+            }
+        }
+    }
+    
+    return value;
+}
+
+-(id) primaryObjectForKey: (NSString *) key {
+    
+    // Checks for a primary forced object for a key, implementing wildcard matches
+    
+    id value = [primaryDefaults objectForKey: key];
+    if (  value == nil  ) {
+        // No key for XYZABCDE, so try for a wildcard match
+        // If have a *ABCDE key, returns it's value
+        NSEnumerator * e = [primaryDefaults keyEnumerator];
+        NSString * forcedKey;
+        while (  (forcedKey = [e nextObject])  ) {
+            if (   [forcedKey hasPrefix: @"*"]
+                && ( [forcedKey length] != 1)  ) {
+                if (  [key hasSuffix: [forcedKey substringFromIndex: 1]]  ) {
+                    return [primaryDefaults objectForKey: forcedKey];
                 }
             }
         }
@@ -108,9 +131,9 @@ NSArray * gConfigurationPreferences;
 }
 
 -(id) objectForKey: (NSString *) key {
-    id value = [self forcedObjectForKey: key];
+    id value = [self primaryObjectForKey: key];
     if (  value == nil  ) {
-        value = [secondaryDefaults objectForKey: key];
+        value = [self forcedObjectForKey: key];
         if (  value == nil  ) {
             value = [self defaultsObjectForKey: key];
         }
@@ -284,10 +307,10 @@ NSArray * gConfigurationPreferences;
 }
 
 -(BOOL) canChangeValueForKey: (NSString *) key {
+    
     // Returns YES if key's value can be modified, NO if it can't
-    if (   ( ! userDefaults )
-        || ([secondaryDefaults objectForKey:  key] != nil)
-        || ([self forcedObjectForKey: key] != nil)  ) {
+    if (   ([self primaryObjectForKey: key] != nil)
+        || ([self forcedObjectForKey:  key] != nil)  ) {
         return NO;
     }
     
@@ -295,45 +318,56 @@ NSArray * gConfigurationPreferences;
 }
 
 -(void) setBool: (BOOL) value forKey: (NSString *) key {
-	id forcedValue = [self forcedObjectForKey: key];
-    if (  forcedValue  ) {
-		if (   ( ! [forcedValue respondsToSelector: @selector(boolValue)])
-			|| ( [forcedValue boolValue] != value )  ) {
-			NSLog(@"setBool: %s forKey: '%@': ignored because the preference is being forced to %@", CSTRING_FROM_BOOL(value), key, forcedValue);
+    
+	id primaryValue = [self primaryObjectForKey: key];
+    if (  primaryValue  ) {
+		if (   ( ! [primaryValue respondsToSelector: @selector(boolValue)])
+			|| ( [primaryValue boolValue] != value )  ) {
+			NSLog(@"setBool: %s forKey: '%@': ignored because the preference is being forced to %@", CSTRING_FROM_BOOL(value), key, primaryValue);
 		}
-	} else if (  [secondaryDefaults objectForKey: key] != nil  ) {
-        NSLog(@"setBool: forKey: '%@': ignored because the preference is being forced by the secondary dictionary", key);
-    } else if (  ! userDefaults  ) {
-        NSLog(@"setBool: forKey: '%@': ignored because user preferences are not available", key);
     } else {
-        [userDefaults setBool: value forKey: key];
-        [self synchronize];
+        
+        id forcedValue = [self forcedObjectForKey: key];
+        if (   forcedValue  ) {
+            if (   ( ! [forcedValue respondsToSelector: @selector(boolValue)])
+                || ( [forcedValue boolValue] != value )  ) {
+                NSLog(@"setBool: %s forKey: '%@': ignored because the preference is being forced to %@ (Deployed)", CSTRING_FROM_BOOL(value), key, primaryValue);
+            }
+
+        } else {
+            [userDefaults setBool: value forKey: key];
+            [self synchronize];
+        }
     }
 }
 
 -(void) setObject: (id) value forKey: (NSString *) key {
-	id forcedValue = [self forcedObjectForKey: key];
-    if (  forcedValue  ) {
-		if (  [forcedValue isNotEqualTo: value]  ) {
-			NSLog(@"setObject: %@ forKey: '%@': ignored because the preference is being forced to %@", value, key, forcedValue);
-		}
-    } else if (  [secondaryDefaults objectForKey: key] != nil  ) {
-        NSLog(@"setObject: forKey: '%@': ignored because the preference is being forced by the secondary dictionary", key);
-    } else if (  ! userDefaults  ) {
-        NSLog(@"setObject: forKey: '%@': ignored because user preferences are not available", key);
+    
+    id primaryValue = [self primaryObjectForKey: key];
+    if (  primaryValue  ) {
+        if (  [primaryValue isNotEqualTo: value]  ) {
+            NSLog(@"setObject: %@ forKey: '%@': ignored because the preference is being forced to %@", value, key, primaryValue);
+        }
     } else {
-        [userDefaults setObject: value forKey: key];
-        [self synchronize];
+        
+        id forcedValue = [self forcedObjectForKey: key];
+        if (   forcedValue  ) {
+            if (  [forcedValue isNotEqualTo: value]   ) {
+                NSLog(@"setObject: %@ forKey: '%@': ignored because the preference is being forced to %@ (Deployed)", value, key, forcedValue);
+            }
+            
+        } else {
+            [userDefaults setObject: value forKey: key];
+            [self synchronize];
+        }
     }
 }
 
 -(void) removeObjectForKey: (NSString *) key {
-    if (  [self forcedObjectForKey: key] != nil  ) {
+    if (  [self primaryObjectForKey: key] != nil  ) {
         NSLog(@"removeObjectForKey: '%@': ignored because the preference is being forced", key);
-    } else if (  [secondaryDefaults objectForKey: key] != nil  ) {
-        NSLog(@"removeObjectForKey: '%@': ignored because the preference is being forced by the secondary dictionary", key);
-    } else if (  ! userDefaults  ) {
-        NSLog(@"removeObjectForKey: '%@': ignored because user preferences are not available", key);
+    } else if (  [self forcedObjectForKey: key] != nil  ) {
+        NSLog(@"removeObjectForKey: '%@': ignored because the preference is being forced (Deployed)", key);
     } else {
         [userDefaults removeObjectForKey: key];
         [self synchronize];
@@ -346,12 +380,10 @@ NSArray * gConfigurationPreferences;
     NSString * displayName;
     while (  (displayName = [dictEnum nextObject])  ) {
         NSString * fullKey = [displayName stringByAppendingString: key];
-        if (  [self forcedObjectForKey: fullKey] != nil  ) {
-            NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because the preference is being forced by", fullKey);
-        } else if (  [secondaryDefaults objectForKey: fullKey] != nil  ) {
-            NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because the preference is being forced by the secondary dictionary", fullKey);
-        } else if (  ! userDefaults  ) {
-            NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because user preferences are not available", fullKey);
+        if (  [self primaryObjectForKey: fullKey] != nil  ) {
+            NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because the preference is being forced", fullKey);
+        } else if (  [self forcedObjectForKey: fullKey] != nil  ) {
+            NSLog(@"removeAllObjectsWithSuffix: Not removing '%@' because the preference is being forced (Deployed)", fullKey);
         } else {
             [userDefaults removeObjectForKey: fullKey];
         }
@@ -378,10 +410,10 @@ NSArray * gConfigurationPreferences;
     
     // Returns an array of the objects for all preferences with keys that have a particular suffix.
     
-    // Get all key/value pairs
+    // Get all key/value pairs (let primary override forced and forced override the user's preferences)
 	NSMutableDictionary * namesAndValues = [[NSMutableDictionary alloc] initWithCapacity: 100];
+	[self addToDictionary: namesAndValues withSuffix: key from: primaryDefaults];
 	[self addToDictionary: namesAndValues withSuffix: key from: forcedDefaults];
-	[self addToDictionary: namesAndValues withSuffix: key from: secondaryDefaults];
 	[self addToDictionary: namesAndValues withSuffix: key from: [userDefaults dictionaryRepresentation]];
 	
     // Extract all distinct values
@@ -418,9 +450,6 @@ NSArray * gConfigurationPreferences;
 
 -(BOOL) movePreferencesFrom: (NSString *) sourceDisplayName
                          to: (NSString *) targetDisplayName {
-    if (  ! userDefaults  ) {
-        return TRUE;
-    }
     
     if (  [sourceDisplayName isEqualToString: targetDisplayName]  ) {
         NSLog(@"copyPreferencesFrom:to: ignored because target '%@' is the same as source", targetDisplayName);
@@ -461,10 +490,7 @@ NSArray * gConfigurationPreferences;
 
 -(BOOL) copyPreferencesFrom: (NSString *) sourceDisplayName
                          to: (NSString *) targetDisplayName {
-    if (  ! userDefaults  ) {
-        return TRUE;
-    }
-
+    
     if (  [sourceDisplayName isEqualToString: targetDisplayName]  ) {
         NSLog(@"copyPreferencesFrom:to: ignored because target '%@' is the same as source", targetDisplayName);
         return FALSE;
@@ -542,27 +568,25 @@ NSArray * gConfigurationPreferences;
                                  inDictionary: (NSDictionary *) dict {
     unsigned n = 0;
     NSString * prefKey = @"-credentialsGroup";
-    if (  ! dict  ) {
-        NSEnumerator * e = [forcedDefaults keyEnumerator];
-        NSString * key;
-        while (  (key = [e nextObject])  ) {
-            if (  [key hasSuffix: prefKey]  ) {
-                if (  [[forcedDefaults objectForKey: key] isEqualToString: groupName]  ) {
-                    n++;
-                }
+    NSEnumerator * e = [dict keyEnumerator];
+    NSString * key;
+    while (  (key = [e nextObject])  ) {
+        if (  [key hasSuffix: prefKey]  ) {
+            if (  [[forcedDefaults objectForKey: key] isEqualToString: groupName]  ) {
+                n++;
             }
         }
     }
-
+    
     return n;
 }
 
 -(unsigned) numberOfConfigsInCredentialsGroup: (NSString *) groupName {
-    unsigned nForced = [self numberOfConfigsInCredentialsGroup: groupName
-                                                  inDictionary: forcedDefaults];
-    unsigned nNormal = [self numberOfConfigsInCredentialsGroup: groupName
-                                                  inDictionary: [userDefaults dictionaryRepresentation]];
-    return nForced + nNormal;
+    
+    unsigned nPrimary = [self numberOfConfigsInCredentialsGroup: groupName inDictionary: primaryDefaults];
+    unsigned nForced  = [self numberOfConfigsInCredentialsGroup: groupName inDictionary: forcedDefaults];
+    unsigned nNormal  = [self numberOfConfigsInCredentialsGroup: groupName inDictionary: [userDefaults dictionaryRepresentation]];
+    return nPrimary + nForced + nNormal;
 }
 
 -(NSString *) removeNamedCredentialsGroup: (NSString *) groupName {
@@ -573,7 +597,8 @@ NSArray * gConfigurationPreferences;
     }
     
     // Make sure there are no forced preferences with this group
-    unsigned n = [self numberOfConfigsInCredentialsGroup: groupName inDictionary: forcedDefaults];
+    unsigned n = (  [self numberOfConfigsInCredentialsGroup: groupName inDictionary: primaryDefaults]
+                  + [self numberOfConfigsInCredentialsGroup: groupName inDictionary: forcedDefaults]);
     if (  n != 0  ) {
         return [NSString stringWithFormat: NSLocalizedString(@"The '%@' credentials may not be deleted because one or more configurations are being forced to use them.", @"Window text"), groupName];
     }

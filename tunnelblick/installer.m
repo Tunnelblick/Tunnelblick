@@ -58,15 +58,17 @@
 //
 //	   INSTALLER_MOVE_LIBRARY_OPENVPN: set to move ~/Library/openvpn to ~/Library/Application Support/Tunnelblick
 //
-//     INSTALLER_MOVE_NOT_COPY: set to move, instead of copy, if target path and source path are supplied
+//     INSTALLER_INSTALL_FORCED_PREFERENCES: set to install targetPath as forced preferences in L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
 //
-//     INSTALLER_DELETE:        set to delete target path
+//     INSTALLER_MOVE_NOT_COPY: set to move, instead of copy, if targetPath and source path are supplied
 //
-// targetPath          is the path to a configuration (.ovpn or .conf file, or .tblk package) to be secured
+//     INSTALLER_DELETE:        set to delete targetPath
+//
+// targetPath          is the path to a configuration (.ovpn or .conf file, or .tblk package) to be secured (or forced-preferences.plist)
 // sourcePath          is the path to be copied or moved to targetPath before securing targetPath
 //
 // It does the following:
-//      (1) ALWAYS creates directories or repair their ownership/permissions as needed
+//      (1) ALWAYS creates directories or repairs their ownership/permissions as needed
 //             and converts old entries in L_AS_T_TBLKS to the new format, with an bundleId_edition folder enclosing a .tblk
 //      (2) if INSTALLER_MOVE_LIBRARY_OPENVPN, moves the contents of the old configuration folder
 //          at ~/Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
@@ -81,13 +83,19 @@
 //           /Library/Application Support/Tunnelblick/Shared
 //           ~/Library/Application Support/Tunnelblick/Configurations
 //           /Library/Application Support/Tunnelblick/Users/<username>
+//    (8.5) if INSTALLER_INSTALL_FORCED_PREFERENCES is set and targetPath is given,
+//             installs the .plist at targetPath in L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
+//
 //
 //      (9) If INSTALLER_DELETE is clear and sourcePath is given,
 //             copies or moves sourcePath to targetPath. Copies unless INSTALLER_MOVE_NOT_COPY is set.  (Also copies or moves the shadow copy if deleting a private configuration)
-//     (10) If INSTALLER_DELETE is clear and targetPath is given,
+//
+//     (10) If INSTALLER_DELETE is clear and targetPath is given and INSTALLER_INSTALL_FORCED_PREFERENCES is not set,
 //             secures the .ovpn or .conf file or a .tblk package at targetPath
+//
 //     (11) If INSTALLER_DELETE is set and targetPath is given,
 //             deletes the .ovpn or .conf file or .tblk package at targetPath (also deletes the shadow copy if deleting a private configuration)
+//
 //     (12) Set up tunnelblickd
 //
 // When finished (or if an error occurs), the file /tmp/tunnelblick-authorized-running is deleted to indicate the program has finished
@@ -117,8 +125,7 @@ BOOL tunnelblickTestPrivateOnlyHasTblks(void);
 //**************************************************************************************************************************
 
 void errorExit();
-void errorExitIfAnySymlinkInPath(NSString * path,
-								 int testPoint);
+void errorExitIfAnySymlinkInPath(NSString * path);
 
 void debugLog(NSString * string) {
 	
@@ -530,6 +537,8 @@ int main(int argc, char *argv[])
     BOOL secureTblks      = copyApp || ( (arg1 & INSTALLER_SECURE_TBLKS) != 0 );		// secureTblks will also be set if any private .ovpn or .conf configurations were converted to .tblks
 	BOOL convertNonTblks  = (arg1 & INSTALLER_CONVERT_NON_TBLKS) != 0;
 	BOOL moveLibOpenvpn   = (arg1 & INSTALLER_MOVE_LIBRARY_OPENVPN) != 0;
+    
+    BOOL installPlist     = (arg1 & INSTALLER_INSTALL_FORCED_PREFERENCES) != 0;
 
     BOOL moveNotCopy      = (arg1 & INSTALLER_MOVE_NOT_COPY) != 0;
     BOOL deleteConfig     = (arg1 & INSTALLER_DELETE) != 0;
@@ -593,14 +602,14 @@ int main(int argc, char *argv[])
     if (  argc > 2  ) {
         firstPath = [gFileMgr stringWithFileSystemRepresentation: argv[2] length: strlen(argv[2])];
         if (  ! [firstPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-            errorExitIfAnySymlinkInPath(firstPath, 10);
+            errorExitIfAnySymlinkInPath(firstPath);
         }
     }
     NSString * secondPath = nil;
     if (  argc > 3  ) {
         secondPath = [gFileMgr stringWithFileSystemRepresentation: argv[3] length: strlen(argv[3])];
         if (  ! [secondPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-            errorExitIfAnySymlinkInPath(secondPath, 11);
+            errorExitIfAnySymlinkInPath(secondPath);
         }
     }
     
@@ -643,6 +652,14 @@ int main(int argc, char *argv[])
     if (  ! createDirWithPermissionAndOwnership([L_AS_T_USERS stringByAppendingPathComponent: NSUserName()],
                                                 PERMS_SECURED_FOLDER, 0, 0)  ) {
         errorExit();
+    }
+    
+    if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
+        errorExitIfAnySymlinkInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+        if (   ( ! checkSetOwnership(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, NO, 0, 0))
+            || ( ! checkSetPermissions(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, PERMS_SECURED_READABLE, NO))  ) {
+            errorExit();
+        }
     }
     
     NSString * userL_AS_T_Path= [[[NSHomeDirectory()
@@ -743,7 +760,7 @@ int main(int argc, char *argv[])
         NSString * currentPath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
         NSString * targetPath  = @"/Applications/Tunnelblick.app";
         if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-            errorExitIfAnySymlinkInPath(targetPath, 1);
+            errorExitIfAnySymlinkInPath(targetPath);
             if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
                                                                source: @"/Applications"
                                                           destination: @""
@@ -1013,6 +1030,49 @@ int main(int argc, char *argv[])
     }
     
     //**************************************************************************************************************************
+    //     (8.5) Install the .plist at firstPath to L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
+    
+    if (  installPlist  ) {
+        if (  [firstPath hasSuffix: @".plist"]  ) {
+            // Make sure the .plist is valid
+            NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: firstPath];
+            if (  ! dict  ) {
+                appendLog([NSString stringWithFormat: @"Not a valid .plist: %@", firstPath]);
+                errorExit();
+            }
+            
+            if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
+                errorExitIfAnySymlinkInPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+                makeUnlockedAtPath(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+                if (  ! [gFileMgr tbRemoveFileAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH handler: nil]  ) {
+                    appendLog([NSString stringWithFormat: @"Warning: unable to remove %@", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]);
+                }
+            } else {
+                errorExitIfAnySymlinkInPath([L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH stringByDeletingLastPathComponent]);
+            }
+            
+            if (  [gFileMgr tbCopyPath: firstPath toPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH handler: nil]  ) {
+                appendLog([NSString stringWithFormat: @"copied %@\n    to %@", firstPath, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]);
+				if (  checkSetOwnership(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, NO, 0, 0)  )  {
+					if (  ! checkSetPermissions(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, PERMS_SECURED_READABLE, YES)  )  {
+						appendLog([NSString stringWithFormat: @"Unable to set permssions of %ld on %@", (long)PERMS_SECURED_READABLE, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]);
+						errorExit();
+					}
+				} else {
+					appendLog([NSString stringWithFormat: @"Unable to set ownership to root:wheel on %@", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]);
+					errorExit();
+				}
+            } else {
+                appendLog([NSString stringWithFormat: @"unable to copy %@ to %@", firstPath, L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]);
+                errorExit();
+            }
+        } else {
+            appendLog([NSString stringWithFormat: @"Not a .plist: %@", firstPath]);
+            errorExit();
+        }
+    }
+    
+    //**************************************************************************************************************************
     // (9)
     // If requested, copy or move a .tblk package (also move/copy/create a shadow copy if a private configuration)
     // Like the NSFileManager "movePath:toPath:handler" method, we move by copying, then deleting, because we may be moving
@@ -1044,7 +1104,7 @@ int main(int argc, char *argv[])
             grp   = privateFolderGroup(enclosingFolder);
 			perms = privateFolderPermissions(enclosingFolder);
         }
-        errorExitIfAnySymlinkInPath(enclosingFolder, 2);
+        errorExitIfAnySymlinkInPath(enclosingFolder);
         
         if (  ! createDirWithPermissionAndOwnership(enclosingFolder, perms, own, grp)  ) {
             errorExit();
@@ -1089,7 +1149,7 @@ int main(int argc, char *argv[])
                                              NSUserName(),
                                              lastPartOfTarget];
             
-			errorExitIfAnySymlinkInPath(shadowTargetPath, 2);
+			errorExitIfAnySymlinkInPath(shadowTargetPath);
 			
             BOOL deletedOldShadowCopy = FALSE;
 			if (  [gFileMgr fileExistsAtPath: shadowTargetPath]  ) {
@@ -1104,7 +1164,7 @@ int main(int argc, char *argv[])
 			enclosingFolder = [shadowTargetPath stringByDeletingLastPathComponent];
 			if (   ( ! [gFileMgr fileExistsAtPath: shadowTargetPath isDirectory: &isDir])
 				&& isDir  ) {
-				errorExitIfAnySymlinkInPath(enclosingFolder, 2);
+				errorExitIfAnySymlinkInPath(enclosingFolder);
 				createDirWithPermissionAndOwnership(enclosingFolder, PERMS_SECURED_FOLDER, 0, 0);
 			}
 			
@@ -1142,7 +1202,8 @@ int main(int argc, char *argv[])
     // If requested, secure a single file or .tblk package
     if (   firstPath
         && ( ! secondPath   )
-        && ( ! deleteConfig )  ) {
+        && ( ! deleteConfig )
+		&& ( ! installPlist )  ) {
         
         // Make sure we are dealing with .tblks
         if (  ! [[firstPath pathExtension] isEqualToString: @"tblk"]  ) {
@@ -1180,7 +1241,7 @@ int main(int argc, char *argv[])
         NSString * ext = [firstPath pathExtension];
         if (  [ext isEqualToString: @"tblk"]  ) {
             if (  [gFileMgr fileExistsAtPath: firstPath]  ) {
-                errorExitIfAnySymlinkInPath(firstPath, 6);
+                errorExitIfAnySymlinkInPath(firstPath);
 				makeUnlockedAtPath(firstPath);
                 if (  ! [gFileMgr tbRemoveFileAtPath: firstPath handler: nil]  ) {
                     appendLog([NSString stringWithFormat: @"unable to remove %@", firstPath]);
@@ -1195,7 +1256,7 @@ int main(int argc, char *argv[])
                                                  NSUserName(),
                                                  lastPartOfPath(firstPath)];
                     if (  [gFileMgr fileExistsAtPath: shadowCopyPath]  ) {
-                        errorExitIfAnySymlinkInPath(shadowCopyPath, 7);
+                        errorExitIfAnySymlinkInPath(shadowCopyPath);
 						makeUnlockedAtPath(shadowCopyPath);
                         if (  ! [gFileMgr tbRemoveFileAtPath: shadowCopyPath handler: nil]  ) {
                             appendLog([NSString stringWithFormat: @"unable to remove %@", shadowCopyPath]);
@@ -1290,7 +1351,7 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
     // This avoids a race condition: folder change handling code runs while copy is being made, so it sometimes can
     // see the .tblk (which has been copied) but not the config.ovpn (which hasn't been copied yet), so it complains.
     NSString * dotTempPath = [toPath stringByAppendingPathExtension: @"temp"];
-    errorExitIfAnySymlinkInPath(dotTempPath, 3);
+    errorExitIfAnySymlinkInPath(dotTempPath);
 	if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
 		[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
     }
@@ -1314,7 +1375,7 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
     // Now, if we are doing a move, delete the original file, to avoid a similar race condition that will cause a complaint
     // about duplicate configuration names.
     if (  moveNotCopy  ) {
-        errorExitIfAnySymlinkInPath(fromPath, 4);
+        errorExitIfAnySymlinkInPath(fromPath);
         if (  [gFileMgr fileExistsAtPath: fromPath]  ) {
 			makeUnlockedAtPath(fromPath);
 			if (  ! deleteThingAtPath(fromPath)  ) {
@@ -1323,7 +1384,7 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
 		}
     }
     
-    errorExitIfAnySymlinkInPath(toPath, 5);
+    errorExitIfAnySymlinkInPath(toPath);
 	if ( [gFileMgr fileExistsAtPath:toPath]  ) {
 		makeUnlockedAtPath(toPath);
 		[gFileMgr tbRemoveFileAtPath:toPath handler: nil];
@@ -1343,7 +1404,7 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
 //**************************************************************************************************************************
 BOOL deleteThingAtPath(NSString * path)
 {
-    errorExitIfAnySymlinkInPath(path, 8);
+    errorExitIfAnySymlinkInPath(path);
 	makeUnlockedAtPath(path);
     if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
         appendLog([NSString stringWithFormat: @"Failed to delete %@", path]);
@@ -1431,7 +1492,7 @@ BOOL makeUnlockedAtPath(NSString * path)
 }
 
 //**************************************************************************************************************************
-void errorExitIfAnySymlinkInPath(NSString * path, int testPoint)
+void errorExitIfAnySymlinkInPath(NSString * path)
 {
     NSString * curPath = path;
     while (   curPath
@@ -1439,7 +1500,7 @@ void errorExitIfAnySymlinkInPath(NSString * path, int testPoint)
         if (  [gFileMgr fileExistsAtPath: curPath]  ) {
             NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: curPath traverseLink: NO];
             if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-                appendLog([NSString stringWithFormat: @"Apparent symlink attack detected at test point %d: Symlink is at %@, full path being tested is %@", testPoint, curPath, path]);
+                appendLog([NSString stringWithFormat: @"Apparent symlink attack detected: Symlink is at %@, full path being tested is %@", curPath, path]);
                 errorExit();
             }
         }

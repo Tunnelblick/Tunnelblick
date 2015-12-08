@@ -669,11 +669,28 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
             }
         }
         
-        // Set up to override user preferences from Deploy/forced-permissions.plist if it exists,
-        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
-        gTbDefaults = [[TBUserDefaults alloc] initWithForcedDictionary: dict
-                                                andSecondaryDictionary: nil
-                                                     usingUserDefaults: YES];
+        // Set up to override user preferences with preferences from L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH and Deploy/forced-permissions.plist
+        NSDictionary * primaryForcedPreferencesDict = nil;
+        NSDictionary * deployedForcedPreferencesDict = nil;
+        if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
+            primaryForcedPreferencesDict  = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+            if (  ! primaryForcedPreferencesDict  ) {
+                NSLog(@".plist is being ignored because it is corrupt or unreadable: %@", L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH);
+            }
+        }
+        NSString * deployedForcedPreferencesPath = [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"];
+        if (  [gFileMgr fileExistsAtPath: deployedForcedPreferencesPath]  ) {
+            deployedForcedPreferencesDict  = [NSDictionary dictionaryWithContentsOfFile: deployedForcedPreferencesPath];
+            if (  ! deployedForcedPreferencesPath  ) {
+                NSLog(@".plist is being ignored because it is corrupt or unreadable: %@", deployedForcedPreferencesPath);
+            }
+        }
+        gTbDefaults = [[TBUserDefaults alloc] initWithPrimaryDictionary: primaryForcedPreferencesDict
+                                                  andDeployedDictionary: deployedForcedPreferencesDict];
+        if (  ! gTbDefaults  ) {
+            return nil; // An error was already logged
+        }
+        
         TBLog(@"DB-SU", @"init: 001")
         
         if (  ! [gTbDefaults boolForKey: @"doNotShowSplashScreen"]  ) {
@@ -718,7 +735,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                   stringByAppendingPathComponent:@"Preferences"]
                                  stringByAppendingPathComponent: bundleId]
                                 stringByAppendingPathExtension: @"plist"];
-        dict = [NSDictionary dictionaryWithContentsOfFile: prefsPath];
+        NSDictionary * userDefaultsDict = [NSDictionary dictionaryWithContentsOfFile: prefsPath];
         
         TBLog(@"DB-SU", @"init: 006")
         // Convert the old "-loadTunKext", "-doNotLoadTunKext", "-loadTapKext", and "-doNotLoadTapKext"  to the new '-loadTun' and 'loadTap' equivalents
@@ -733,7 +750,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
             NSMutableArray * doNotLoadTapConfigNames = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
             
             NSString * key;
-            NSEnumerator * e = [dict keyEnumerator];
+            NSEnumerator * e = [userDefaultsDict keyEnumerator];
             while (  (key = [e nextObject])  ) {
                 NSRange r = [key rangeOfString: @"-" options: NSBackwardsSearch];
                 if (  r.length != 0  ) {
@@ -775,7 +792,9 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         
         TBLog(@"DB-SU", @"init: 007")
 		// Scan for unknown preferences
-        [gTbDefaults scanForUnknownPreferencesInDictionary: dict displayName: @"Preferences"];
+        [gTbDefaults scanForUnknownPreferencesInDictionary: primaryForcedPreferencesDict  displayName: @"Primary forced preferences"];
+        [gTbDefaults scanForUnknownPreferencesInDictionary: deployedForcedPreferencesDict displayName: @"Deployed forced preferences"];
+        [gTbDefaults scanForUnknownPreferencesInDictionary: userDefaultsDict              displayName: @"preferences"];
         
         TBLog(@"DB-SU", @"init: 008")
         // Create a symbolic link to the private configurations folder, after having run the installer (which may have moved the
@@ -5644,6 +5663,7 @@ BOOL warnAboutNonTblks(void)
                 }
                 
                 [gTbDefaults setObject: obj forKey: key];
+                NSLog(@"Set preference '%@' to '%@'", key, obj);
             }
         }
 }
@@ -5657,26 +5677,95 @@ BOOL warnAboutNonTblks(void)
         if (  [[obj class] isSubclassOfClass: [NSDictionary class]]  ) {
             [self setPreferencesFromDictionary: (NSDictionary *) obj onlyIfNotSetAlready: onlyIfNotSetAlready];
         } else {
-            NSLog(@"'%@' object is not a dictionary", key);
+            NSLog(@"'%@' object is not a dictionary so it is being ignored", key);
             return;
         }
     }
 
 }
 
--(void) setPreferencesFromPreferencesAtPath: (NSString *) plistPath {
+-(void) removePreferences: (NSArray *) list {
+    
+    NSEnumerator * e = [list objectEnumerator];
+    NSString * key;
+    while (  (key = [e nextObject])  ) {
+        id obj = [gTbDefaults objectForKey: key];
+        if (  obj  ) {
+            if (  [gTbDefaults canChangeValueForKey: key]  ) {
+                [gTbDefaults removeObjectForKey: key];
+                NSLog(@"Removed preference '%@' with value '%@'", key, obj);
+            } else {
+                NSLog(@"Preference '%@' with value '%@' is being forced, so it is not being removed", key, obj);
+            }
+        } else {
+            NSLog(@"Preference '%@' does not exist, so it is not being removed", key);
+        }
+    }
+}
+
+-(void) setPreferencesFromPlistAtPath: (NSString *) plistPath {
+    
     NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
     if (  dict  ) {
+        
+        // Remove items under the 'remove' key
+        id removeList = [dict objectForKey: @"remove"];
+        if (  removeList  ) {
+            if (  [[removeList class] isSubclassOfClass: [NSArray class]]  ) {
+                [self removePreferences: (NSArray *) removeList];
+            } else {
+                NSLog(@"Ignoring 'remove' object because it is not an array in %@", plistPath);
+            }
+        }
+        
+        // Set items under the 'always-set' key and the 'set-only-if-not-present' key
         [self setPreferencesFromDictionary: dict key: @"always-set"              onlyIfNotSetAlready: NO];
         [self setPreferencesFromDictionary: dict key: @"set-only-if-not-present" onlyIfNotSetAlready: YES];
+        
+        // Always set items that are not under the 'remove', 'always-set', or 'set-only-if-not-present' keys
+        NSEnumerator * e = [dict keyEnumerator];
+        NSString * key;
+        while (  (key = [e nextObject])  ) {
+            if (   [key isNotEqualTo: @"remove"]
+                && [key isNotEqualTo: @"always-set"]
+                && [key isNotEqualTo: @"set-only-if-not-present"]  ) {
+                id obj = [dict objectForKey: key];
+                [gTbDefaults setObject: obj forKey: key];
+                NSLog(@"Set preference '%@' to '%@'", key, obj);
+            }
+        }
 	}
 }
 
 -(void) setPreferencesFromAutoInstallFolders {
     
     NSString * enclosingFolderPath = [[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent];
-    [self setPreferencesFromPreferencesAtPath: [enclosingFolderPath stringByAppendingPathComponent:  @"auto-install/preferences.plist"]];
-    [self setPreferencesFromPreferencesAtPath: [enclosingFolderPath stringByAppendingPathComponent: @".auto-install/preferences.plist"]];
+    [self setPreferencesFromPlistAtPath: [enclosingFolderPath stringByAppendingPathComponent: @"auto-install/preferences.plist"]];
+    [self setPreferencesFromPlistAtPath: [enclosingFolderPath stringByAppendingPathComponent: @".auto-install/preferences.plist"]];
+}
+
+-(NSString *) findPlistNamed: (NSString *) plistName toInstallInPath: (NSString *) thePath
+{
+    
+    NSString * path = [[thePath stringByAppendingPathComponent: @"auto-install"] stringByAppendingPathComponent: plistName];
+    if (  [gFileMgr fileExistsAtPath: path]  ) {
+        if (  [NSDictionary dictionaryWithContentsOfFile: path]  ) {
+            return path;
+        }
+        
+        NSLog(@"Corrupted or unreadable .plist at %@", path);
+    }
+    
+    path = [[thePath stringByAppendingPathComponent: @".auto-install"] stringByAppendingPathComponent: plistName];
+    if (  [gFileMgr fileExistsAtPath: path]  ) {
+        if (  [NSDictionary dictionaryWithContentsOfFile: path]  ) {
+            return path;
+        }
+        
+        NSLog(@"Corrupted or unreadable .plist at %@", path);
+    }
+    
+    return nil;
 }
 
 -(void) relaunchIfNecessary
@@ -5732,6 +5821,13 @@ BOOL warnAboutNonTblks(void)
         tblksMsg = @"";
     }
     
+    // Set up message about installing forced preferences on the .dmg
+    NSString * forcedPlistToInstallPath = [self findPlistNamed: @"forced-preferences.plist"
+                                               toInstallInPath: [currentPath stringByDeletingLastPathComponent]];
+    NSString * plistMsg = (  forcedPlistToInstallPath
+                           ? NSLocalizedString(@" Forced preferences will also be installed or replaced.\n\n", @"Window text")
+                           : @"");
+    
     // Set up messages to get authorization and notify of success
 	NSString * appVersion   = tunnelblickVersion([NSBundle mainBundle]);	
     NSString * tbInApplicationsPath = [@"/Applications" stringByAppendingPathComponent: [currentPath lastPathComponent]];
@@ -5785,11 +5881,12 @@ BOOL warnAboutNonTblks(void)
     TBLog(@"DB-SU", @"relaunchIfNecessary: 004")
     // Get authorization to install and secure
     gAuthorization = [NSApplication getAuthorizationRef:
-                      [[[NSLocalizedString(@" Tunnelblick must be installed in Applications.\n\n", @"Window text")
-						 stringByAppendingString: authorizationText]
-                        stringByAppendingString: convertTblksText]
-					   stringByAppendingString: signatureWarningText]
-					  ];
+                      [[[[NSLocalizedString(@" Tunnelblick must be installed in Applications.\n\n", @"Window text")
+                          stringByAppendingString: authorizationText]
+                         stringByAppendingString: convertTblksText]
+                        stringByAppendingString: signatureWarningText]
+                       stringByAppendingString: plistMsg]
+                      ];
 	if (  ! gAuthorization  ) {
 		NSLog(@"The Tunnelblick installation was cancelled by the user.");
 		[self terminateBecause: terminatingBecauseOfQuit];
@@ -5850,14 +5947,19 @@ BOOL warnAboutNonTblks(void)
 	NSInteger installerResult = [self runInstaller: (  INSTALLER_COPY_APP
 													 | INSTALLER_SECURE_APP
 													 | INSTALLER_SECURE_TBLKS
-													 | (gOkToConvertNonTblks
+													 | (  gOkToConvertNonTblks
 														? INSTALLER_CONVERT_NON_TBLKS
 														: 0)
-													 | (needToMoveLibraryOpenVPN()
+													 | (  needToMoveLibraryOpenVPN()
 														? INSTALLER_MOVE_LIBRARY_OPENVPN
 														: 0)
-													 )
-									extraArguments: nil
+													 | (  forcedPlistToInstallPath
+                                                        ? INSTALLER_INSTALL_FORCED_PREFERENCES
+                                                        : 0)
+                                                     )
+									extraArguments: (  forcedPlistToInstallPath
+                                                     ? [NSArray arrayWithObject: forcedPlistToInstallPath]
+                                                     : nil)
 								   usingAuthRefPtr: &gAuthorization
 										   message: nil
 								 installTblksFirst: tblksToInstallPaths];
@@ -5970,14 +6072,18 @@ BOOL warnAboutNonTblks(void)
 -(NSInteger) runInstaller: (unsigned) installFlags
 		   extraArguments: (NSArray *) extraArguments
 {
-    return [self runInstaller: installFlags extraArguments: extraArguments usingAuthRefPtr: &gAuthorization message: nil installTblksFirst: nil];
+    return [self runInstaller: installFlags
+               extraArguments: extraArguments
+              usingAuthRefPtr: &gAuthorization
+                      message: nil
+            installTblksFirst: nil];
 }
 
--(NSInteger) runInstaller: (unsigned) installFlags
-		   extraArguments: (NSArray *) extraArguments
+-(NSInteger) runInstaller: (unsigned)           installFlags
+		   extraArguments: (NSArray *)          extraArguments
 		  usingAuthRefPtr: (AuthorizationRef *) authRefPtr
-				  message: (NSString *) message
-		installTblksFirst: (NSArray *) tblksToInstallFirst
+				  message: (NSString *)         message
+		installTblksFirst: (NSArray *)          tblksToInstallFirst
 {
     // Returns 1 if the user cancelled the installation
 	//         0 if installer ran successfully and does not need to be run again
@@ -6554,6 +6660,13 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 			return YES;
 		}
 	}
+    
+    // Check the primary forced preferences .plist
+    if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
+        if (  ! checkOwnerAndPermissions(L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH, 0, 0, PERMS_SECURED_READABLE)  ) {
+            return YES; // NSLog already called
+        }
+    }
     
     // Final check: Everything in the application is owned by root:wheel and is not writable by "other"
     dirEnum = [gFileMgr enumeratorAtPath: tunnelblickPath];

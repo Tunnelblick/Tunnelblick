@@ -272,11 +272,11 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(void)             removeConnection:                       (VPNConnection *)   connection;
 -(NSInteger)        runInstaller:                           (unsigned)          installerFlags
                   extraArguments:                           (NSArray *)         extraArguments;
--(NSInteger)        runInstaller: (unsigned) installFlags
-                  extraArguments: (NSArray *) extraArguments
+-(NSInteger)        runInstaller: (unsigned)           installFlags
+                  extraArguments: (NSArray *)          extraArguments
                  usingAuthRefPtr: (AuthorizationRef *) authRef
-                         message: (NSString *) message
-               installTblksFirst: (NSArray *) tblksToInstallFirst;
+                         message: (NSString *)         message
+               installTblksFirst: (NSArray *)          tblksToInstallFirst;
 -(void)             saveConnectionsToRestoreOnRelaunch;
 -(void)             setHotKeyIndex:                         (unsigned)          newIndex;
 -(void)             setState:                               (NSString *)        newState;

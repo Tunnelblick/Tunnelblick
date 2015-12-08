@@ -70,6 +70,8 @@
 
 #define L_AS_T_TBLKS  @"/Library/Application Support/Tunnelblick/Tblks"
 
+#define L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH   @"/Library/Application Support/Tunnelblick/forced-preferences.plist"
+
 #define AUTHORIZED_RUNNING_PATH @"/tmp/tunnelblick-authorized-running"
 #define AUTHORIZED_ERROR_PATH   @"/tmp/tunnelblick-authorized-error"
 
@@ -116,8 +118,9 @@
 //*************************************************************************************************
 // Characters in a configuration's display name that are not allowed
 // Note that \000 - \037 and \177 are also prohibited, and that "(" and ")" _ARE_ allowed.
-#define PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING                 "#&;:~|*?'\"~<>^[]{}$%"
-#define PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING "#&;:~|*?'\"~<>^[]{}$%/"
+#define PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING                 "#&;:~|?'\"~<>^[]{}$%*"
+#define PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING "#&;:~|?'\"~<>^[]{}$%*/"
+#define PROHIBITED_DISPLAY_NAME_CHARACTERS_WITHOUT_STAR_CSTRING    "#&;:~|?'\"~<>^[]{}$%"
 
 // Characters that are allowed in a domain name (and thus, a CFBundleIdentifier)
 #define ALLOWED_DOMAIN_NAME_CHARACTERS @".-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
@@ -290,19 +293,19 @@
 //*************************************************************************************************
 // Bit masks for bitMask parameter of installer
 
-#define INSTALLER_CLEAR_LOG				0x0001u
+#define INSTALLER_CLEAR_LOG				     0x0001u
 
-#define INSTALLER_COPY_APP              0x0002u
+#define INSTALLER_COPY_APP                   0x0002u
 
-#define INSTALLER_SECURE_APP            0x0004u
-#define INSTALLER_HELPER_IS_TO_BE_SUID  0x0008u
-#define INSTALLER_SECURE_TBLKS          0x0010u
-#define INSTALLER_CONVERT_NON_TBLKS     0x0020u
-#define INSTALLER_MOVE_LIBRARY_OPENVPN  0x0040u
+#define INSTALLER_SECURE_APP                 0x0004u
+#define INSTALLER_HELPER_IS_TO_BE_SUID       0x0008u
+#define INSTALLER_SECURE_TBLKS               0x0010u
+#define INSTALLER_CONVERT_NON_TBLKS          0x0020u
+#define INSTALLER_MOVE_LIBRARY_OPENVPN       0x0040u
+#define INSTALLER_INSTALL_FORCED_PREFERENCES 0x0080u
 
-#define INSTALLER_MOVE_NOT_COPY         0x1000u
-#define INSTALLER_DELETE                0x2000u
-//                                      0x4000u // UNUSED, WAS INSTALLER_SET_VERSION
+#define INSTALLER_MOVE_NOT_COPY              0x1000u
+#define INSTALLER_DELETE                     0x2000u
 
 
 //*************************************************************************************************

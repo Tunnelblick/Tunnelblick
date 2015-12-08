@@ -860,7 +860,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, nil];
     
-    [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil installTblksFirst: nil];
+    [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE
+                                        extraArguments: arguments
+                                       usingAuthRefPtr: authRefPtr
+                                               message: nil
+                                     installTblksFirst: nil];
 	
 	NSString * localName = [[NSApp delegate] localizedNameForDisplayName: [[targetPath lastPathComponent] stringByDeletingPathExtension]];
     
@@ -888,10 +892,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         while (  (containerPath = [e nextObject])) {
             arguments = [NSArray arrayWithObjects: containerPath, nil];
             [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE
-                            extraArguments: arguments
-                           usingAuthRefPtr: authRefPtr
-                                   message: nil
-                         installTblksFirst: nil];
+                                                extraArguments: arguments
+                                               usingAuthRefPtr: authRefPtr
+                                                       message: nil
+                                             installTblksFirst: nil];
             if (  [gFileMgr fileExistsAtPath: containerPath]  ) {
                 NSLog(@"Could not delete \"stub\" .tblk container %@", containerPath);
                 if (  warn  ) {
@@ -2153,10 +2157,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, sourcePath, nil];
     
     NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: firstArg
-																	extraArguments: arguments
-																   usingAuthRefPtr: authRefPtr
-																		   message: nil
-																 installTblksFirst: nil];
+                                                                    extraArguments: arguments
+                                                                   usingAuthRefPtr: authRefPtr
+                                                                           message: nil
+                                                                 installTblksFirst: nil];
 	if (  installerResult == 0  ) {
         return TRUE;
     }
@@ -2447,7 +2451,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
 		NSArray * arguments = [NSArray arrayWithObjects: target, source, nil];
 		NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: 0
-													extraArguments: arguments];
+                                                                        extraArguments: arguments];
 		if (  installerResult == 0  ) {
  			[[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
             [[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] addUpdateCheckingForStubTblkAtPath: target];

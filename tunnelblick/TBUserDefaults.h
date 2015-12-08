@@ -19,43 +19,37 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-// Note: this class is DAEMON-SAFE IF it is initialized with "usingUserDefaults" set to NO.
-//
 // This class is used as a substitute for NSUserDefaults and implements an augmented subset of its methods.
 //
-// It implements two levels of read-only dictionaries that can override the user's standard preferences,
-// a "forced" dictionary and a "secondary" dictionary.
+// It implements two levels of read-only dictionaries that can override the user's standard preferences; a "primary" dictionary and a "forced" dictionary.
+// These dictionaries may contain wildcards (i.e, a "*" as the first character in a key).
 //
-// The "forced" dictionary may contain wildcards (i.e, a "*" as the first character in a key).
+// When looking for a value for a key:
 //
-// When looking for the value of a key:
-//     If a key is found in the "forced" dictionary or a key matches a wildcard
-//     Then the value from the "forced" dictionary is returned.
+//     If the key is found in the "primary" dictionary or the suffix of the key matches the rest of an entry in the "primary" dictionary that begins with '*'
+//     then the value from the "primary" dictionary is returned.
 //
-//     Otherwise, if a key is found in the "secondary" dictionary, then the value from it is returned.
+//     Otherwise, if the key is found in the "forced" dictionary  or the suffix of the key matches the rest of an entry in the "forced" dictionary that begins with '*'
+//     then the value from the "forced" dictionary is returned.
 //
-//     Otherwise, if the class was initialized with "usingUserDefaults" set TRUE
-//                then the value from the user's standard preferences is returned.
+//     Otherwise, if a key is found in the user's preferences,
+//     then the value from the user's preferences is returned.
+//
 //     Otherwise, nil is returned.
 // 
-// THIS CLASS IMPLEMENTS A METHOD NOT FOUND IN NSUserDefaults:
-//
-//      canChangeValueForKey: (NSString *) key
-//
-// It returns FALSE if the value of the key is is specified by the "forced dictionary" (including wildcard matches)
-//                  or by the "secondary" dictionary, or if the userDefaults preferences are not being used
-// It returns TRUE otherwise
+// THIS CLASS IMPLEMENTS SEVERAL METHODS NOT FOUND IN NSUserDefaults
 
 @interface TBUserDefaults : NSObject {
     
-    NSDictionary   * forcedDefaults;                // nil, or an NSDictionary of preferences which may contain wildcards   -- used by tunnelblickd and the GUI
-    NSDictionary   * secondaryDefaults;             // nil, or an NSDictionary of preferences (from Shared Info.plists)     -- unused
-    NSUserDefaults * userDefaults;                  // nil, or [NSUserDefaults standardUserDefaults]                        -- used by the GUI
+    NSDictionary   * primaryDefaults; // nil, or an NSDictionary of preferences from L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
+    
+    NSDictionary   * forcedDefaults;  // nil, or an NSDictionary of preferences from /Deploy/forced-preferences.plist
+    
+    NSUserDefaults * userDefaults;    // [NSUserDefaults standardUserDefaults]
 }
 
--(TBUserDefaults *) initWithForcedDictionary:   (NSDictionary *)    inForced
-                      andSecondaryDictionary:   (NSDictionary *)    inSecondary
-                           usingUserDefaults:   (BOOL)              inUseUserDefaults;
+-(TBUserDefaults *) initWithPrimaryDictionary: (NSDictionary *) inPrimary
+                        andDeployedDictionary: (NSDictionary *) inForced;
 
 // The following methods are implemented. They are like the corresponding NSUserPreferences methods
 
