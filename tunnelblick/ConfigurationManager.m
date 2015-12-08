@@ -3440,13 +3440,17 @@ enum GetAuthorizationResult {
 	NSString * consoleRawContents = @""; // stdout (ignore stderr)
 	
 	if (  isUserAnAdmin()  ) {
-		runTool(TOOL_PATH_FOR_BASH,
-                [NSArray arrayWithObjects:
-                 @"-c",
-                 [NSString stringWithFormat: @"cat /Library/Logs/Console/%d/console.log | grep -i -E 'tunnelblick|openvpn' | tail -n 100", getuid()],
-                 nil],
-                &consoleRawContents,
-                nil);
+        OSStatus status = runTool(TOOL_PATH_FOR_BASH,
+                                  [NSArray arrayWithObjects:
+                                   @"-c",
+                                   [NSString stringWithFormat: @"cat /Library/Logs/Console/%d/console.log | grep -i -E 'tunnelblick|openvpn' | tail -n 100", getuid()],
+                                   nil],
+                                  &consoleRawContents,
+                                  nil);
+        if (  status != EXIT_SUCCESS) {
+            return [NSString stringWithFormat: @"An error occurred while trying to get the Console Log contents; output was '%@'", consoleRawContents];
+            
+        }
 	} else {
 		consoleRawContents = (@"The Console log cannot be obtained because you are not\n"
 							  @"logged in as an administrator. To view the Console log,\n"
@@ -3632,10 +3636,14 @@ enum GetAuthorizationResult {
     
     NSString * ifconfigOutput = @""; // stdout (ignore stderr)
 	
-    runTool(TOOL_PATH_FOR_IFCONFIG,
-            [NSArray array],
-            &ifconfigOutput,
-            nil);
+    OSStatus status = runTool(TOOL_PATH_FOR_IFCONFIG,
+                              [NSArray array],
+                              &ifconfigOutput,
+                              nil);
+    
+    if (  status != EXIT_SUCCESS) {
+        return [NSString stringWithFormat: @"An error occurred while trying to execute 'ifconfig'; output was '%@'", ifconfigOutput];
+    }
     
     return ifconfigOutput;
 }
@@ -3643,13 +3651,17 @@ enum GetAuthorizationResult {
     
     NSString * kextRawContents = @""; // stdout (ignore stderr)
 	
-    runTool(TOOL_PATH_FOR_BASH,
-            [NSArray arrayWithObjects:
-             @"-c",
-             [TOOL_PATH_FOR_KEXTSTAT stringByAppendingString: @" | grep -v com.apple"],
-             nil],
-            &kextRawContents,
-            nil);
+    OSStatus status = runTool(TOOL_PATH_FOR_BASH,
+                              [NSArray arrayWithObjects:
+                               @"-c",
+                               [TOOL_PATH_FOR_KEXTSTAT stringByAppendingString: @" | grep -v com.apple"],
+                               nil],
+                              &kextRawContents,
+                              nil);
+    
+    if (  status != EXIT_SUCCESS) {
+        return [NSString stringWithFormat: @"An error occurred while trying to execute 'bash', 'kextstat', or 'grep'; output was '%@'", kextRawContents];
+    }
     
     return kextRawContents;
 }
