@@ -3329,6 +3329,8 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     
     // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
     
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     if ( gShuttingDownOrRestartingComputer ) {
         TBLog(@"DB-SD", @"cleanup: Skipping cleanup because computer is shutting down or restarting")
         // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place

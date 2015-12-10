@@ -3449,7 +3449,6 @@ enum GetAuthorizationResult {
                                   nil);
         if (  status != EXIT_SUCCESS) {
             return [NSString stringWithFormat: @"An error occurred while trying to get the Console Log contents; output was '%@'", consoleRawContents];
-            
         }
 	} else {
 		consoleRawContents = (@"The Console log cannot be obtained because you are not\n"

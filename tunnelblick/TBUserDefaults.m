@@ -336,7 +336,6 @@ NSArray * gConfigurationPreferences;
 
         } else {
             [userDefaults setBool: value forKey: key];
-            [self synchronize];
         }
     }
 }
@@ -358,7 +357,6 @@ NSArray * gConfigurationPreferences;
             
         } else {
             [userDefaults setObject: value forKey: key];
-            [self synchronize];
         }
     }
 }
@@ -370,7 +368,6 @@ NSArray * gConfigurationPreferences;
         NSLog(@"removeObjectForKey: '%@': ignored because the preference is being forced (Deployed)", key);
     } else {
         [userDefaults removeObjectForKey: key];
-        [self synchronize];
     }
 }
 
@@ -388,9 +385,6 @@ NSArray * gConfigurationPreferences;
             [userDefaults removeObjectForKey: fullKey];
         }
     }
-    
-    [self synchronize];
-
 }
 
 -(void) addToDictionary: (NSMutableDictionary *) targetDict
@@ -429,23 +423,6 @@ NSArray * gConfigurationPreferences;
 	
 	[namesAndValues release];
 	return values;
-}
-
--(void) synchronize {
-    if (  ! [userDefaults synchronize]  ) { // If fails, try again after sleeping for one second
-        sleep(1);
-        if (  ! [userDefaults synchronize]  ) {
-            NSLog(@"Failed to synchronize preferences in 2 tries");
-            TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
-							  [NSString stringWithFormat:
-							   NSLocalizedString(@"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\n"
-												 @"The preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n"
-												 @"%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\n"
-                                                 @"If they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them).", @"Window text"), NSHomeDirectory()]);
-        } else {
-            NSLog(@"Failed to synchronize preferences on first attempt but the retry succeeded");
-        }
-    }
 }
 
 -(BOOL) movePreferencesFrom: (NSString *) sourceDisplayName

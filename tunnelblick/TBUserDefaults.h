@@ -65,8 +65,6 @@
 
 -(void) removeObjectForKey:         (NSString *)        key;
 
--(void) synchronize;
-
 // The following methods are extensions used by Tunnelblick
 
 -(BOOL) canChangeValueForKey:                 (NSString *) key;    // Returns TRUE if key can be modified, FALSE if it can't (because it being overridden)
