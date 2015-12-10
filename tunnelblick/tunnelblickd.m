@@ -174,10 +174,6 @@ OSStatus runTool(NSString * userName,
     [task setCurrentDirectoryPath: @"/tmp"];
     [task setEnvironment: getSafeEnvironment(userName, userHome, [[launchPath lastPathComponent] isEqualToString: @"openvpn"])];
     
-    [task launch];
-	
-	// The following loop drains the pipes as the task runs, so a pipe doesn't get full and block the task
-    
 	NSFileHandle * outFile = [stdOutPipe fileHandleForReading];
     if (  ! outFile  ) {
         asl_log(asl, log_msg, ASL_LEVEL_EMERG, "runTool: Catastrophic error: 'NSFileHandle * outFile = [stdOutPipe fileHandleForReading]' returned nil");
@@ -195,11 +191,16 @@ OSStatus runTool(NSString * userName,
 	NSMutableData * stdOutData = (stdOutStringPtr ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
 	NSMutableData * errOutData = (stdErrStringPtr ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
 	
+    NSDate * logTimeout       = [NSDate dateWithTimeIntervalSinceNow:  5.0];  // Log to console every 5 seconds
+    NSDate * errorExitTimeout = [NSDate dateWithTimeIntervalSinceNow: 30.0];  // Return error if execution time exceeds 30 seconds
+    
+    [task launch];
+    
+    // The following loop drains the pipes as the task runs, so a pipe doesn't get full and block the task
+    
     BOOL taskIsActive = [task isRunning];
 	NSData * outData = availableDataOrError(outFile, asl, log_msg);
 	NSData * errData = availableDataOrError(errFile, asl, log_msg);
-    
-    NSDate * timeout = [NSDate dateWithTimeIntervalSinceNow: 5.0];
     
 	while (   ([outData length] > 0)
 		   || ([errData length] > 0)
@@ -212,10 +213,17 @@ OSStatus runTool(NSString * userName,
             [errOutData appendData: errData];
 		}
         
- 		NSDate * now = [NSDate date];
-        if (  [now compare: timeout] == NSOrderedDescending  ) {
+        NSDate * now = [NSDate date];
+        if (  [now compare: errorExitTimeout] == NSOrderedDescending  ) {
+            asl_log(asl, log_msg, ASL_LEVEL_ERR, "runTool: took long executing '%s'", [launchPath fileSystemRepresentation]);
+            [task terminate];
+            [stdOutData release];
+            [errOutData release];
+            return -1;
+        }
+        if (  [now compare: logTimeout] == NSOrderedDescending  ) {
             asl_log(asl, log_msg, ASL_LEVEL_ERR, "runTool: Taking a long time executing '%s'", [launchPath fileSystemRepresentation]);
-            timeout = [NSDate dateWithTimeIntervalSinceNow: 5.0];
+            logTimeout = [NSDate dateWithTimeIntervalSinceNow: 5.0];
         }
         
         usleep(100000); // Wait 0.1 seconds

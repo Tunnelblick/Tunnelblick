@@ -2388,7 +2388,8 @@ int startVPN(NSString * configFile,
 						appendLog([NSString stringWithFormat: @"The Internet (host '%@') is reachable; flags = 0x%lx", host, (unsigned long)flags]);
 						break;
 					}
-					if (  [(NSDate *)[NSDate date] compare: timeoutDate] == NSOrderedDescending  ) {
+                    NSDate * now = [NSDate date];
+                    if (  [now compare: timeoutDate] == NSOrderedDescending  ) {
 						appendLog(@"Timed out waiting for the Internet to be reachable");
 						break;
 					}
