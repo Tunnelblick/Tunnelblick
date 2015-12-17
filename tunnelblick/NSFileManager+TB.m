@@ -328,7 +328,9 @@ void appendLog(NSString * errMsg);
 -(BOOL) tbRenamePath: (NSString *) sourcePath toPath: (NSString *) targetPath {
     
 	if (  [self fileExistsAtPath: targetPath]  ) {
-		if (  ! [self removeFileAtPath: targetPath handler: nil]  ) {
+        
+        // Use this way of invoking 'removeFileAtPath:handler:' to avoid warnings about deprecated functions
+		if (  ! [self performSelector:@selector(removeFileAtPath:handler:) withObject: targetPath withObject: nil]  ) {
 			return NO;
 		}
 	}
