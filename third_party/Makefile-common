@@ -9,6 +9,7 @@ TOPDIR = $(PWD)
 LZO_NAME         = lzo-2.09
 
 LZ4_NAME         = lz4-r131
+LZ4_TARGET_ARCHS = x86_64
 
 OPENSSL_NAME     = openssl-1.0.2e
 
@@ -258,7 +259,7 @@ built-lz4:
 	mkdir -p $(BUILD_NAME)
 	tar -x -f $(SOURCES_NAME)/$(LZ4_NAME).tar.gz -C $(BUILD_NAME)
 	@echo "THIRD_PARTY: Building LZ4..."
-	for a in $(TARGET_ARCHS); do \
+	for a in $(LZ4_TARGET_ARCHS); do \
 		cd $(LZ4_BUILD_DIR) ; \
 		echo "Clean LZ4 for $$a" ; \
 		$(MAKE) clean; \
