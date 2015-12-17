@@ -273,8 +273,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 		if (  configurationsTabIdentifier  ) {
 			[gTbDefaults setObject: configurationsTabIdentifier forKey: @"detailsWindowConfigurationsTabIdentifier"];
         }
-		[gTbDefaults setObject: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
-                        forKey: @"detailsWindowFrameVersion"];
+        [gTbDefaults setObject: tbVersion forKey: @"detailsWindowFrameVersion"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 

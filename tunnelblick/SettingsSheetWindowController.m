@@ -488,6 +488,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	NSString * advancedTabIdentifier = [[tabView selectedTabViewItem] identifier];
 	if (  ! [advancedTabIdentifier isEqualToString: [gTbDefaults stringForKey: @"AdvancedWindowTabIdentifier"]]  ) {
 		[gTbDefaults setObject: advancedTabIdentifier forKey: @"AdvancedWindowTabIdentifier"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
 	}
 }
 
