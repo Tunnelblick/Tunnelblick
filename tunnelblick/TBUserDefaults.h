@@ -39,6 +39,8 @@
 // 
 // THIS CLASS IMPLEMENTS SEVERAL METHODS NOT FOUND IN NSUserDefaults
 
+#import "defines.h"
+
 @interface TBUserDefaults : NSObject {
     
     NSDictionary   * primaryDefaults; // nil, or an NSDictionary of preferences from L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH
@@ -116,5 +118,7 @@
 -(NSString *) addNamedCredentialsGroup: (NSString *) groupName;
 
 -(NSArray *) sortedCredentialsGroups;
+
+TBPROPERTY_WRITEONLY(NSDictionary *, primaryDefaults, setPrimaryDefaults)
 
 @end

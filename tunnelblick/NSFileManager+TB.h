@@ -51,6 +51,11 @@
 -(BOOL)           tbRemoveFileAtPath:(NSString *)path
                              handler:(id)handler;
 
+-(BOOL)           tbRemovePathIfItExists: (NSString *) path;
+
+-(BOOL)           tbRenamePath: (NSString *) sourcePath
+                        toPath: (NSString *) targetPath;
+
 -(NSString *)     tbPathContentOfSymbolicLinkAtPath:(NSString *)path;
 
 @end

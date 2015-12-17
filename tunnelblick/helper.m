@@ -232,6 +232,13 @@ BOOL runningOn64BitKernel(void) {
 }
 #endif // MAC_OS_X_VERSION_MIN_REQUIRED != MAC_OS_X_VERSION_10_4
 
+BOOL okToUpdateConfigurationsWithoutAdminApproval(void) {
+    BOOL answer = (   [gTbDefaults boolForKey: @"allowNonAdminSafeConfigurationReplacement"]
+				   && ( ! [gTbDefaults canChangeValueForKey: @"allowNonAdminSafeConfigurationReplacement"] )
+				   );
+	return answer;
+}
+
 BOOL displaysHaveDifferentSpaces(void) {
     
     if (   runningOnMavericksOrNewer()  ) {

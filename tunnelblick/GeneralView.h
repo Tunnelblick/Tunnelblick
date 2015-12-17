@@ -42,6 +42,10 @@
     IBOutlet NSTextField        * tbInternetAccessTF;
 	IBOutlet NSButton           * inhibitOutboundTBTrafficCheckbox;
 	
+    IBOutlet NSTextFieldCell    * generalConfigurationChangesTFC;
+    IBOutlet NSTextField        * generalConfigurationChangesTF;
+    IBOutlet NSButton           * generalAdminApprovalForKeyAndCertificateChangesCheckbox;
+    
     IBOutlet NSTextFieldCell    * updatesUpdatesTFC;
     IBOutlet NSTextField        * updatesUpdatesTF;
     IBOutlet NSButton           * updatesCheckAutomaticallyCheckbox;
@@ -58,6 +62,9 @@ TBPROPERTY_READONLY(NSTextFieldCell *,   tbInternetAccessTFC)
 TBPROPERTY_READONLY(NSTextField *,       tbInternetAccessTF)
 TBPROPERTY_READONLY(NSButton *,          inhibitOutboundTBTrafficCheckbox)
 
+TBPROPERTY_READONLY(NSTextFieldCell *,   generalConfigurationChangesTFC)
+TBPROPERTY_READONLY(NSTextField *,       generalConfigurationChangesTF)
+TBPROPERTY_READONLY(NSButton *,          generalAdminApprovalForKeyAndCertificateChangesCheckbox)
 
 TBPROPERTY_READONLY(NSTextFieldCell *,   updatesUpdatesTFC)
 TBPROPERTY_READONLY(NSTextField *,       updatesUpdatesTF)

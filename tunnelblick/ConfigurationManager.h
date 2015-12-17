@@ -51,6 +51,8 @@
     NSMutableArray * installTargets;
 	NSMutableArray * replaceSources;	// Paths of .tblks to copy to replace
 	NSMutableArray * replaceTargets;
+    NSMutableArray * noAdminSources;	// Paths of .tblks in which keys and certs (only) are to be updated without admin credentials
+    NSMutableArray * noAdminTargets;
 	NSMutableArray * updateSources;		// Paths of .tblk stubs to copy to L_AS_T_TBLKS for updatable configurations
 	NSMutableArray * updateTargets;
     NSMutableArray * deletions;			// Paths of .tblks to delete to uninstall

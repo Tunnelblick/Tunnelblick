@@ -351,6 +351,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"DB-UP",     // Extra logging for the up script
 								@"DB-UU",	  // Extra logging for UI updates
                                 
+                                @"allowNonAdminSafeConfigurationReplacement",  // Must be forced; regular preference is ignored
+                                
                                 @"skipWarningAboutReprotectingConfigurationFile",
                                 @"skipWarningAboutSimultaneousConnections",
 								@"skipWarningAboutConvertingToTblks",

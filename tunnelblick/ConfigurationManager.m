@@ -79,6 +79,8 @@ TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, installSources,    setInstallSourc
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, installTargets,    setInstallTargets)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, replaceSources,    setReplaceSources)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, replaceTargets,    setReplaceTargets)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, noAdminSources,    setNoAdminSources)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, noAdminTargets,    setNoAdminTargets)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, updateSources,     setUpdateSources)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, updateTargets,     setUpdateTargets)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, deletions,         setDeletions)
@@ -105,6 +107,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [installTargets          release];
     [replaceSources          release];
     [replaceTargets          release];
+    [noAdminSources          release];
+    [noAdminTargets          release];
     [updateSources           release];
     [updateTargets           release];
     [deletions               release];
@@ -2001,7 +2005,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     // Converts non-normalized .tblks to normalized .tblks (with Contents/Resources) in the temporary folder at tempDirPath
     // Adds paths of .tblks that are to be UNinstalled to the 'deletions' array
-    // Adds paths of .tblks that are to be installed   to the 'installSources' or 'replaceSources' array and targets (in private or shared) to the 'installTargets' or 'replaceTargets' array
+    // Adds paths of .tblks that are to be installed to the 'installSources', 'replaceSources', or 'noAdminSources' arrays and
+    // targets (in private or shared) to the 'installTargets', 'replaceTargets', or 'noAdminTargets' arrays
     //
     // Returns nil      if converted with no problem
     // Returns "cancel" if the user cancelled
@@ -2029,7 +2034,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 -(NSString *) setupToInstallOvpnsAndConfs: (NSArray *)  ovpnPaths {
     
     // Converts .ovpns and/or .confs to normalized .tblks (with Contents/Resources) in the temporary folder at tempDirPath
-    // Adds paths of .tblks that are to be installed   to the 'installSources' or 'replaceSources' array and targets (in private or shared) to the 'installTargets' or 'replaceTargets' array
+    // Adds paths of .tblks that are to be installed to the 'installSources', 'replaceSources', or 'noAdminSources' arrays and
+    // targets (in private or shared) to the 'installTargets', 'replaceTargets', or 'noAdminTargets' arrays
     //
     // Returns nil      if converted with no problem
     // Returns "cancel" if the user cancelled
@@ -2134,11 +2140,16 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 toPath: (NSString *) targetPath
        usingAuthRefPtr: (AuthorizationRef *) authRefPtr
             warnDialog: (BOOL) warn
-           moveNotCopy: (BOOL) moveInstead {
+           moveNotCopy: (BOOL) moveInstead
+               noAdmin: (BOOL) noAdmin {
     
     // Copies or moves a config file or package and sets ownership and permissions on the target
     // Returns TRUE if succeeded in the copy or move -- EVEN IF THE CONFIG WAS NOT SECURED (an error message was output to the console log).
     // Returns FALSE if failed or cancelled by the user, having already output an error message to the console log
+    //
+    // If "noAdmin" is TRUE, "moveInstead" is FALSE, it is a private config, and safeUpdate is allowed, uses "openvpnstart safeUpdate" to
+    //    update only keys and certificates in the configuration
+    // Otherwise, installer is used to replace the configuration.
     
     if (  [sourcePath isEqualToString: targetPath]  ) {
         NSLog(@"You cannot copy or move a configuration to itself. Trying to do that with %@", sourcePath);
@@ -2150,6 +2161,52 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		NSLog(@"%@", errMsg);
 		return FALSE;
 	}
+    
+    NSString * displayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
+    NSString * localName = [[NSApp delegate] localizedNameForDisplayName: displayName];
+    
+    if (   noAdmin
+        && ( ! moveInstead)
+        && okToUpdateConfigurationsWithoutAdminApproval()
+        && [targetPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+        
+        // Back up the user's private copy of the configuration
+        NSString * backupOfTargetPath  = [targetPath stringByAppendingPathExtension: @"old"];
+        if (  [gFileMgr tbRenamePath: targetPath toPath: backupOfTargetPath]  ) {
+            
+            // Copy the replacement to the private copy for the safeUpdate
+            if (  [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
+                
+                // Do the safeUpdate
+                NSArray * arguments = [NSArray arrayWithObjects:
+                                       @"safeUpdate",
+                                       displayNameFromPath(targetPath),
+                                       nil];
+                OSStatus status = runOpenvpnstart(arguments, nil, nil);
+                if (  status == OPENVPNSTART_UPDATE_SAFE_OK  ) {
+                    // safeUpdate was done so don't need to inform user if can't remove .old file (that will be logged)
+                    [gFileMgr tbRemovePathIfItExists: backupOfTargetPath];
+                    return TRUE;
+                }
+            }
+            
+            // Couldn't do safeUpdate, so restore old private copy
+            [gFileMgr tbRenamePath: backupOfTargetPath toPath: sourcePath];
+        }
+        
+        NSLog(@"Could not do 'safeUpdate' of configuration file %@ to %@", sourcePath, targetPath);
+        if (  warn  ) {
+            NSString * title = NSLocalizedString(@"Could Not Replace Configuration", @"Window title");
+            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not replace the '%@' configuration. See the Console Log for details.", @"Window text"), localName];
+            TBShowAlertWindow(title, msg);
+        }
+        
+        return FALSE;
+    }
+    
+    if (  noAdmin  ) {
+        NSLog(@"Could not do a safeUpdate; will try a normal from %@ to %@", sourcePath, targetPath);
+    }
     
     unsigned firstArg = (moveInstead
                          ? INSTALLER_MOVE_NOT_COPY
@@ -2169,7 +2226,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		return FALSE;
 	}
     
-	NSString * localName = [[NSApp delegate] localizedNameForDisplayName: [lastPartOfPath(targetPath) stringByDeletingPathExtension]];
     if (  ! moveInstead  ) {
         NSLog(@"Could not copy configuration file %@ to %@", sourcePath, targetPath);
         if (  warn  ) {
@@ -2264,6 +2320,57 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 }
 
+-(void) setupNonAdminReplacements {
+    
+    // Moves paths from replaceSources/Targets to noAdminSources/Targets if they can use non-admin-authorized safeUpdate
+    
+    // Only do this is if it is allowed by a forced preference
+    if (  ! okToUpdateConfigurationsWithoutAdminApproval()  ) {
+        return;
+    }
+    
+    // Add objects to noAdminSources and noAdminTargets if they can be replaced without admin authorization
+    NSUInteger ix;
+    for (  ix=0; ix<[replaceSources count]; ix++  ) {
+        NSString * sourcePath   = [replaceSources objectAtIndex: ix];
+        NSString * targetPath   = [replaceTargets objectAtIndex: ix];
+        NSString * targetBackup = [targetPath stringByAppendingPathExtension: @"old"];
+		
+        // Only do this for private configs
+        if (  ! [targetPath hasPrefix: [gPrivatePath stringByAppendingPathComponent: @"/"]]  ) {
+            continue;
+        }
+        
+		// Rename the private config, replace it with the new config, see if a safeUpdate will work, then restore the original private config
+		
+		if (  ! [gFileMgr tbRenamePath: targetPath toPath: targetBackup]  ) {
+			continue;
+		}
+        
+		if (  [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
+			
+			NSString * displayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
+			NSArray * arguments = [NSArray arrayWithObjects:
+								   @"safeUpdateTest",
+								   displayName,
+								   nil];
+			OSStatus status = runOpenvpnstart(arguments, nil, nil);
+			if (  status == OPENVPNSTART_UPDATE_SAFE_OK  ) {
+				[noAdminSources addObject: sourcePath];
+				[noAdminTargets addObject: targetPath];
+			}
+		}
+        
+        [gFileMgr tbRenamePath: targetBackup toPath: targetPath];
+    }
+    
+    // Now remove items from replaceSources and replaceTargets that are in nonAdminSources/nonAdminTargets
+    for (  ix=0; ix<[noAdminSources count]; ix++  ) {
+        [replaceSources removeObject: [noAdminSources objectAtIndex: ix]];
+        [replaceTargets removeObject: [noAdminTargets objectAtIndex: ix]];
+    }
+}
+
 -(NSApplicationDelegateReply) doUninstallslReplacementsInstallsSkipConfirmMsg: (BOOL) skipConfirmMsg
 																skipResultMsg: (BOOL) skipResultMsg {
     
@@ -2271,9 +2378,11 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	//
 	// Returns the value that the delegate should use as an argument to '[NSApp replyToOpenOrPrint:]' (whether or not it will be needed)
 	
+    [self setupNonAdminReplacements];
+    
     NSUInteger nToUninstall = [[self deletions]      count];
     NSUInteger nToInstall   = [[self installSources] count];
-	NSUInteger nToReplace   = [[self replaceSources] count];
+    NSUInteger nToReplace   = [[self replaceSources] count] + [[self noAdminSources] count];
     
     NSArray * connectedTargetDisplayNames = [self connectedConfigurationDisplayNames];
     
@@ -2282,7 +2391,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		return NSApplicationDelegateReplyCancel;
 	}
     
-    // If there is no gAuthorization currently, get one (it is release by cleanupInstall:); otherwise confirm what we are about to do
+    // If there is no gAuthorization currently and we need one, get one (it is release by cleanupInstall:); otherwise confirm what we are about to do
 	
     NSString * uninstallMsg = (  (nToUninstall == 0)
                                ? @""
@@ -2305,7 +2414,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     NSString * authMsg = [NSString stringWithFormat: @"Tunnelblick needs to:\n\n%@%@%@%@", uninstallMsg, replaceMsg, installMsg, disconnectMsg];
     
- 	if ( gAuthorization == NULL  ) {
+ 	if (   ( (nToUninstall + nToInstall + nToReplace - [noAdminSources count]) != 0)
+        && (gAuthorization == NULL)  ) {
         
         gAuthorization = [NSApplication getAuthorizationRef: authMsg];
 		
@@ -2366,7 +2476,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 											  toPath: target
 									 usingAuthRefPtr: &gAuthorization
 										  warnDialog: NO
-										 moveNotCopy: NO]  ) {
+										 moveNotCopy: NO
+                                             noAdmin: NO]  ) {
             nInstallErrors++;
             NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
             NSString * targetLocalizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: targetDisplayName tblkPath: target];
@@ -2385,7 +2496,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 											toPath: target
 								   usingAuthRefPtr: &gAuthorization
 										warnDialog: NO
-									   moveNotCopy: NO]  ) {
+                                       moveNotCopy: NO
+                                           noAdmin: NO]  ) {
 			
             NSDictionary * connDict = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
             VPNConnection * connection = [connDict objectForKey: targetDisplayName];
@@ -2397,12 +2509,40 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             
         } else {
             nReplaceErrors++;
-            NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
             NSString * targetLocalizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: targetDisplayName tblkPath: target];
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to replace the '%@' configuration\n", @"Window text"), targetLocalizedName]];
         }
     }
 	
+    // Do "safe update" (replace keys and certificates) from .tblks in 'noAdminSources' to 'noAdminTargets'
+    for (  ix=0; ix<[[self noAdminSources] count]; ix++  ) {
+        
+        NSString * source = [[self noAdminSources] objectAtIndex: ix];
+        NSString * target = [[self noAdminTargets] objectAtIndex: ix];
+        NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
+        
+        if (  [ConfigurationManager copyConfigPath: source
+                                            toPath: target
+                                   usingAuthRefPtr: &gAuthorization
+                                        warnDialog: NO
+                                       moveNotCopy: NO
+                                           noAdmin: YES]  ) {
+            
+            NSDictionary * connDict = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
+            VPNConnection * connection = [connDict objectForKey: targetDisplayName];
+            if (  connection  ) {
+                // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items in its Info.plist
+                [connection reloadPreferencesFromTblk];
+                [[((MenuController *)[NSApp delegate]) logScreen] update];
+            }
+            
+        } else {
+            nReplaceErrors++;
+            NSString * targetLocalizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: targetDisplayName tblkPath: target];
+            [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to replace the '%@' configuration\n", @"Window text"), targetLocalizedName]];
+        }
+    }
+    
 	// Copy updatable stub .tblks into L_AS_T_TBLKS
     
     // We need to modify target paths to insert the edition number (a unique integer).
@@ -2619,6 +2759,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     installTargets =   [[NSMutableArray alloc]  initWithCapacity: 100];
     replaceSources =   [[NSMutableArray alloc]  initWithCapacity: 100];
     replaceTargets =   [[NSMutableArray alloc]  initWithCapacity: 100];
+    noAdminSources =   [[NSMutableArray alloc]  initWithCapacity: 100];
+    noAdminTargets =   [[NSMutableArray alloc]  initWithCapacity: 100];
     updateSources  =   [[NSMutableArray alloc]  initWithCapacity: 100];
     updateTargets  =   [[NSMutableArray alloc]  initWithCapacity: 100];
     deletions      =   [[NSMutableArray alloc]  initWithCapacity: 100];
@@ -2911,7 +3053,8 @@ enum GetAuthorizationResult {
 								  toPath: targetPath
 						 usingAuthRefPtr: &gAuthorization
 							  warnDialog: YES
-							 moveNotCopy: YES];
+                             moveNotCopy: YES
+                                 noAdmin: NO];
     
     VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
     if (  ! connection  ) {
@@ -3252,7 +3395,8 @@ enum GetAuthorizationResult {
 										toPath: targetPath
 							   usingAuthRefPtr: &gAuthorization
 									warnDialog: YES
-								   moveNotCopy: NO]  ) {
+                                   moveNotCopy: NO
+                                       noAdmin: NO]  ) {
         
         if (  ! [gTbDefaults copyPreferencesFrom: sourceDisplayName to: targetDisplayName]  ) {
             TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
@@ -3312,7 +3456,8 @@ enum GetAuthorizationResult {
 											toPath: targetPath
 								   usingAuthRefPtr: &gAuthorization
 										warnDialog: YES
-									   moveNotCopy: YES];
+                                       moveNotCopy: YES
+                                           noAdmin: NO];
 	if (  ok  ) {
         
         // Save status of "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" because they are deleted by moveCredentials
@@ -3376,7 +3521,8 @@ enum GetAuthorizationResult {
                                                toPath: altCfgPath
                                       usingAuthRefPtr: &authRef
                                            warnDialog: YES
-                                          moveNotCopy: NO] ) {    // Copy the config to the alt config
+                                          moveNotCopy: NO
+                                              noAdmin: NO] ) {    // Copy the config to the alt config
                 NSLog(@"Created or updated secure (shadow) copy of configuration file %@", cfgPath);
                 
                 VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];

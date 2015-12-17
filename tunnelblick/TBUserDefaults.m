@@ -61,6 +61,8 @@ NSArray * gConfigurationPreferences;
     [super dealloc];
 }
 
+TBSYNTHESIZE_OBJECT_SET(NSDictionary *, primaryDefaults, setPrimaryDefaults)
+
 -(id) forcedObjectForKey: (NSString *) key {
     
     // Checks for a forced object for a key, implementing wildcard matches

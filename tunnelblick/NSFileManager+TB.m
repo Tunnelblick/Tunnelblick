@@ -314,6 +314,34 @@ void appendLog(NSString * errMsg);
     return NO;
 }
 
+-(BOOL) tbRemovePathIfItExists: (NSString *) path {
+    
+    if (  [self fileExistsAtPath: path]  ) {
+        if (  ! [self tbRemoveFileAtPath: path handler: nil]  ) {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
+-(BOOL) tbRenamePath: (NSString *) sourcePath toPath: (NSString *) targetPath {
+    
+	if (  [self fileExistsAtPath: targetPath]  ) {
+		if (  ! [self removeFileAtPath: targetPath handler: nil]  ) {
+			return NO;
+		}
+	}
+	
+    int status = rename([sourcePath fileSystemRepresentation], [targetPath fileSystemRepresentation]);
+    if (  status != 0  ) {
+        NSLog(@"rename(%@,%@) failed; status = %ld; errno = %ld; error was '%s'; stack trace: %@", sourcePath, targetPath, (long)status, (long)errno, strerror(errno), fmCallStack());
+        return NO;
+    }
+    
+    return YES;
+}
+
 
 -(NSString *) tbPathContentOfSymbolicLinkAtPath:(NSString *)path {
     

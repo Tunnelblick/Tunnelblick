@@ -95,6 +95,9 @@ extern TBUserDefaults * gTbDefaults;
     [tbInternetAccessTFC setTitle: NSLocalizedString(@"Tunnelblick Internet Use:", @"Window text")];
     [UIHelper setTitle: NSLocalizedString(@"Inhibit automatic update checking and IP Address checking", @"Button") ofControl: inhibitOutboundTBTrafficCheckbox   shift: rtl narrow: YES enable: YES];
 
+    [generalConfigurationChangesTFC setTitle: NSLocalizedString(@"Configuration changes:", @"Window text")];
+    [UIHelper setTitle: NSLocalizedString(@"Require adminstrator authorization for key and certificate changes", @"Checkbox name")                    ofControl: generalAdminApprovalForKeyAndCertificateChangesCheckbox shift: rtl narrow: YES enable: YES];
+    
     [updatesUpdatesTFC setTitle: NSLocalizedString(@"Updates:", @"Window text")];
     [UIHelper setTitle: NSLocalizedString(@"Check for updates automatically", @"Checkbox name")                    ofControl: updatesCheckAutomaticallyCheckbox  shift: rtl narrow: YES enable: YES];
     
@@ -118,6 +121,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          maximumLogSizeButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   tbInternetAccessTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       tbInternetAccessTF)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          inhibitOutboundTBTrafficCheckbox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   generalConfigurationChangesTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       generalConfigurationChangesTF)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          generalAdminApprovalForKeyAndCertificateChangesCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesUpdatesTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       updatesUpdatesTF)

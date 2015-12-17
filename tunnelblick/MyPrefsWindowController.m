@@ -2147,9 +2147,19 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 }
 
+-(void) setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox {
+	
+    NSButton * checkbox = [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox];
+    [checkbox setState: (  okToUpdateConfigurationsWithoutAdminApproval()
+                         ? NSOffState
+                         : NSOnState)];
+}
+
 -(void) setupGeneralView
 {
 	[((MenuController *)[NSApp delegate]) setOurPreferencesFromSparkles]; // Sparkle may have changed it's preferences so we update ours
+    
+	[self setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox];
 	
 	[self setValueForCheckbox: [generalPrefsView inhibitOutboundTBTrafficCheckbox]
 				preferenceKey: @"inhibitOutboundTunneblickTraffic"
@@ -2255,6 +2265,50 @@ static BOOL firstTimeShowingWindow = TRUE;
     } else {
         NSLog(@"'Inhibit automatic update checking and IP address checking' change ignored because the updater does not respond to setAutomaticallyChecksForUpdates:");
 	}
+}
+
+
+-(IBAction) generalAdminApprovalForKeyAndCertificateChangesCheckboxWasClicked: (NSButton *) sender
+{
+    BOOL newState = [sender state];
+    
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+    NSMutableDictionary * newDict = (  dict
+                                     ? [NSMutableDictionary dictionaryWithDictionary: dict]
+                                     : [NSMutableDictionary dictionaryWithCapacity: 1]);
+    
+    [newDict setObject: [NSNumber numberWithBool: ( ! newState) ] forKey: @"allowNonAdminSafeConfigurationReplacement"];
+    
+    NSString * tempDictionaryPath = [newTemporaryDirectoryPath() stringByAppendingPathComponent: @"forced-preferences.plist"];
+    OSStatus status = (  tempDictionaryPath
+                       ? (  [newDict writeToFile: tempDictionaryPath atomically: YES]
+                          ? 0
+                          : -1)
+                       : -1);
+    if (  status == EXIT_SUCCESS  ) {
+        NSString * message = NSLocalizedString(@"Tunnelblick needs to change a setting that may only be changed by a computer administrator.", @"Window text");
+        status = [[NSApp delegate] runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
+                                 extraArguments: [NSArray arrayWithObject: tempDictionaryPath]
+                                usingAuthRefPtr: nil
+                                        message: message
+                              installTblksFirst: nil];
+    }
+    
+    [gFileMgr tbRemovePathIfItExists: [tempDictionaryPath stringByDeletingLastPathComponent]];  // Ignore error; it has been logged
+    
+    if (  status == 0  ) {
+        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+        [gTbDefaults setPrimaryDefaults: dict];
+    } else {
+		if (  status != 1  ) { // that is, "status != cancelled by user"
+			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+							  NSLocalizedString(@"Tunnelblick was unable to make the change. See the Console Log for details.", @"Window text"));
+        }
+		
+        // We have to restore the checkbox value, but not until after all processing of the ...WasClicked event is finished, because after
+        // this method returns, it changes the checkbox value to reflect the user's click. To undo that, we delay changing the value for 0.2 seconds.
+        [self performSelector: @selector(setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox) withObject: nil afterDelay: 0.2];
+    }
 }
 
 

@@ -66,7 +66,7 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
-    // returnValue: have used 173-247, plus the values in define.h (248-254)
+    // returnValue: have used 172-247, plus the values in define.h (248-254)
 void exitOpenvpnstart(OSStatus returnValue) {
     [pool drain];
     exit(returnValue);
@@ -139,6 +139,12 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             
             "./openvpnstart compareShadowCopy      displayName\n"
             "               to compare a private .ovpn, .conf, or .tblk with its secure (shadow) copy\n\n"
+            
+            "./openvpnstart safeUpdate      displayName\n"
+            "               to do a safe update of a secure (shadow) copy of a .tblk from the private copy\n\n"
+            
+            "./openvpnstart safeUpdateTest      displayName     path\n"
+            "               tests if a 'safeUpdate' of a secure (shadow) copy of a .tblk from the private copy can be done using the configuration\n\n"
             
             "./openvpnstart preDisconnect  configName  cfgLocCode\n\n"
             "               to run the pre-disconnect.sh script inside a .tblk.\n\n"
@@ -1627,10 +1633,6 @@ void compareShadowCopy (NSString * fileName) {
     //      OPENVPNSTART_COMPARE_CONFIG_SAME
     //      OPENVPNSTART_COMPARE_CONFIG_DIFFERENT
 	
-    if (  [fileName length] == 0  ) {
-        exitOpenvpnstart(EXIT_FAILURE);
-    }
-    
 	if (  gUidOfUser == 0  ) {
 		fprintf(stderr, "Invalid cfgLocCode (compareShadowCopy not allowed when running as root)\n");
 		exitOpenvpnstart(193);
@@ -1671,10 +1673,6 @@ void revertToShadow (NSString * fileName) {
 		exitOpenvpnstart(188);
 	}
 	
-    if (  [fileName length] == 0  ) {
-        exitOpenvpnstart(EXIT_FAILURE);
-    }
-    
     NSString * privatePrefix = [gUserHome     stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
 	NSString * privatePath   = [privatePrefix stringByAppendingPathComponent: fileName];
 	
@@ -1848,6 +1846,155 @@ void unloadKexts(unsigned int bitMask) {
     }
     
     runAsRoot(TOOL_PATH_FOR_KEXTUNLOAD, arguments, 0755);
+}
+
+//**************************************************************************************************************************
+
+BOOL safeUpdateWorker(NSString * sourcePath, NSString * targetPath, BOOL doUpdate) {
+    
+    // Either does a "safe" (certs/keys only) non-admin-authorized update of the shadow copy or tests that such an update can be done
+    
+    NSFileManager * fm = [NSFileManager defaultManager];
+    
+    NSString * sourceContentsPath  = [sourcePath         stringByAppendingPathComponent: @"Contents"];
+    NSString * sourceResourcesPath = [sourceContentsPath stringByAppendingPathComponent: @"Resources"];
+    NSString * sourceInfoPlistPath = [sourceContentsPath stringByAppendingPathComponent: @"Info.plist"];
+    
+    NSString * targetContentsPath  = [targetPath         stringByAppendingPathComponent: @"Contents"];
+    NSString * targetResourcesPath = [targetContentsPath stringByAppendingPathComponent: @"Resources"];
+    NSString * targetInfoPlistPath = [targetContentsPath stringByAppendingPathComponent: @"Info.plist"];
+    
+    if (  [fm fileExistsAtPath: sourceInfoPlistPath]  ) {
+        if (  [fm fileExistsAtPath: targetInfoPlistPath]  ) {
+            if (  ! [fm contentsEqualAtPath: sourceInfoPlistPath andPath: targetInfoPlistPath]  ) {
+                fprintf(stderr, "'Info.plist' in the new configuration at %s is not identical to the same file in the old configuration at %s\n", [sourcePath UTF8String], [targetPath UTF8String]);
+                return  FALSE;
+            }
+        } else {
+            fprintf(stderr, "'Info.plist' exists in the new configuration at %s but does not exist in the old configuration at %s\n", [sourcePath UTF8String], [targetPath UTF8String]);
+            return FALSE;
+        }
+    }
+    
+    NSArray * extensionsForKeysAndCerts = KEY_AND_CRT_EXTENSIONS;
+    
+    NSDirectoryEnumerator * dirE = [fm enumeratorAtPath: sourceResourcesPath];
+    NSString * name;
+    while (  (name = [dirE nextObject])  ) {
+        
+        // Ignore invisible files (such as .DS_Store)
+        if (  [name hasPrefix: @"."]  ) {
+            continue;
+        }
+        
+        NSString * sourceFullPath = [sourceResourcesPath stringByAppendingPathComponent: name];
+        NSString * targetFullPath = [targetResourcesPath stringByAppendingPathComponent: name];
+        
+        // File must exist in the shadow copy
+        if (  ! [fm fileExistsAtPath: targetFullPath]  ) {
+            fprintf(stderr, "'%s' exists in the new configuration at %s but does not exist in the old configuration at %s\n", [name UTF8String], [sourcePath UTF8String], [targetPath UTF8String]);
+            return FALSE;
+        }
+        
+        if (  [extensionsForKeysAndCerts containsObject: [name pathExtension]]  ) {
+            
+            // If a key/cert file and we are actually doing the update, replace the file
+            if (  doUpdate  ) {
+                if (  ! [fm tbRemoveFileAtPath: targetFullPath handler: nil]  ) {
+                    return FALSE;
+                }
+                if (  ! [fm tbCopyPath: sourceFullPath toPath: targetFullPath handler: nil]  ) {
+                    return FALSE;
+                }
+            }
+        } else {
+            
+            // Not a key/cert file, it must be identical to the shadow copy
+            if (  ! [fm contentsEqualAtPath: sourceFullPath andPath: targetFullPath]  ) {
+                fprintf(stderr, "'%s' in the new configuration at %s is not identical to the same file in the old configuration at %s\n", [name UTF8String], [sourcePath UTF8String], [targetPath UTF8String]);
+                return FALSE;
+            }
+        }
+    }
+    
+    return TRUE;
+}
+
+void safeUpdate(NSString * displayName, BOOL doUpdate) {
+    
+    // If doUpdate is TRUE:  Secures the private configuration, tests that a non-admin-authorized update may be done from it, and does the update
+    // If doUpdate is FALSE: Tests that a non-admin-authorized update of a configuration may be done
+
+    if (  gUidOfUser == 0  ) {
+        fprintf(stderr, "safeUpdate/safeUpdateTest not allowed when running as root\n");
+        exit(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+    }
+    
+    // Make sure an admin has authorized safe updates
+    id obj = [[NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH] objectForKey:@"allowNonAdminSafeConfigurationReplacement"];
+    if (  ! (   [obj respondsToSelector: @selector(boolValue)]
+             && [obj boolValue])  ) {
+        fprintf(stderr, "safeUpdate/safeUpdateTest not been approved by an administrator\n");
+        exit(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+    }
+    
+    NSString * sourcePrefix = [gUserHome     stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
+    NSString * sourcePath   = [[sourcePrefix stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
+    
+    NSString * targetPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: gUserName];
+    NSString * targetPath    = [[targetPrefix stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
+    
+    if (  doUpdate  ) {
+        
+        // Secure the private copy by making it owned by root:wheel and writable only by the owner
+        // (So we know that the source can't be modified between testing and updating)
+        becomeRoot(@"secure private folder before safeUpdate");
+        BOOL ok = secureOneFolder(sourcePath, NO, 0);
+        stopBeingRoot();
+        if (  ! ok  ) {
+            fprintf(stderr, "Unable to secure privatefolder %s\n", [sourcePath UTF8String]);
+            exit(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+        }
+        
+        // Make sure it is OK to update
+        becomeRoot(@"do safeUpdateTest before safeUpdate");
+        ok = safeUpdateWorker(sourcePath, targetPath, NO);
+        stopBeingRoot();
+        if (  ! ok  ) {
+            fprintf(stderr, "SafeUpdate test failed; source = %s; target = %s\n", [sourcePath UTF8String], [targetPath UTF8String]);
+            exit(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+        }
+
+        // Do the actual update
+        becomeRoot(@"do safeUpdate");
+        ok = safeUpdateWorker(sourcePath, targetPath, YES);
+        stopBeingRoot();
+        if (  ! ok  ) {
+            fprintf(stderr, "SafeUpdate failed; source = %s; target = %s\n", [sourcePath UTF8String], [targetPath UTF8String]);
+            exit(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+        }
+        
+        // Restore normal security on the user's private configuration
+        becomeRoot(@"normal security on the user's private configuration");
+        ok = secureOneFolder(sourcePath, YES, gUidOfUser);
+        stopBeingRoot();
+        if (  ! ok  ) {
+            fprintf(stderr, "Unable to restore normal security on folder %s\n", [sourcePath UTF8String]);
+            exit(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+        }
+        
+    } else {
+        // Test if it is OK to update
+        becomeRoot(@"do safeUpdateTest");
+        BOOL ok = safeUpdateWorker(sourcePath, targetPath, NO);
+        stopBeingRoot();
+        if (  ! ok  ) {
+            fprintf(stderr, "SafeUpdateTest failed; source = %s; target = %s\n", [sourcePath UTF8String], [targetPath UTF8String]);
+            exit(OPENVPNSTART_UPDATE_SAFE_NOT_OK);
+        }
+    }
+    
+    exit(OPENVPNSTART_UPDATE_SAFE_OK);
 }
 
 //**************************************************************************************************************************
@@ -2471,6 +2618,12 @@ int startVPN(NSString * configFile,
 
 //**************************************************************************************************************************
 void validateConfigName(NSString * name) {
+    
+    if (  [name length] == 0  ) {
+        fprintf(stderr, "Configuration name is empty\n");
+        exitOpenvpnstart(172);
+    }
+    
     BOOL haveBadChar = FALSE;
 	unsigned i;
 	for (  i=0; i<[name length]; i++  ) {
@@ -2487,7 +2640,6 @@ void validateConfigName(NSString * name) {
 	const char   badCharsC[]    = PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING;
 	
 	if (   haveBadChar
-        || ( [name length] == 0)
         || ( [name hasPrefix: @"."] )
         || ( [name rangeOfString: @".."].length != 0)
         || ( NULL != strpbrk(nameC, badCharsC) )
@@ -2814,7 +2966,7 @@ int main(int argc, char * argv[]) {
 				NSString* fileName = [NSString stringWithUTF8String:argv[2]];
                 validateConfigName(fileName);
                 compareShadowCopy(fileName);
-                // compareShadowCopy should never return (it does exit() with its own exit codes)
+                // compareShadowCopy() should never return (it does exit() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
             
@@ -2823,7 +2975,25 @@ int main(int argc, char * argv[]) {
 				NSString* fileName = [NSString stringWithUTF8String:argv[2]];
                 validateConfigName(fileName);
                 revertToShadow(fileName);
-                // revertToShadow should never return (it does exit() with its own exit codes)
+                // revertToShadow() should never return (it does exit() with its own exit codes)
+                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+            }
+            
+        } else if ( strcmp(command, "safeUpdate") == 0 ) {
+            if (argc == 3  ) {
+                NSString* fileName = [NSString stringWithUTF8String:argv[2]];
+                validateConfigName(fileName);
+                safeUpdate(fileName, YES);
+                // safeUpdate() should never return (it does exit() with its own exit codes)
+                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+            }
+            
+        } else if ( strcmp(command, "safeUpdateTest") == 0 ) {
+            if (argc == 3  ) {
+                NSString* fileName = [NSString stringWithUTF8String:argv[2]];
+                validateConfigName(fileName);
+                safeUpdate(fileName, NO);
+                // safeUpdate() should never return (it does exit() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
             
@@ -2837,7 +3007,7 @@ int main(int argc, char * argv[]) {
 				}
 				validateCfgLocCode(cfgLocCode);
                 printSanitizedConfigurationFile(configFile, cfgLocCode);
-                // printSanitizedConfigurationFile should never return (it does exit() with its own exit codes)
+                // printSanitizedConfigurationFile() should never return (it does exit() with its own exit codes)
                 // but just in case, we force an error by NOT setting syntaxError FALSE
             }
             

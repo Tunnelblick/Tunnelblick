@@ -52,6 +52,8 @@ NSString     * newTemporaryDirectoryPath(void);
 
 NSString     * escaped                  (NSString * string);
 
+BOOL okToUpdateConfigurationsWithoutAdminApproval(void);
+
 NSMutableString * encodeSlashesAndPeriods(NSString * s);
 
 NSString     * stringForLog             (NSString * outputString,
