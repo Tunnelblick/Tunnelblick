@@ -868,6 +868,54 @@ NSDictionary * getSafeEnvironment(bool includeIV_GUI_VER) {
     return [NSDictionary dictionaryWithDictionary: env];
 }
 
+NSString * newTemporaryDirectoryPath(void)
+{
+    //**********************************************************************************************
+    // Start of code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
+    // Modified to check for malloc returning NULL, use strlcpy, use gFileMgr, and use more readable length for stringWithFileSystemRepresentation
+    
+    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"Tunnelblick-XXXXXX"];
+    const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
+    
+    size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
+    char * tempDirectoryNameCString = (char *) malloc( bufferLength );
+    if (  ! tempDirectoryNameCString  ) {
+        appendLog(@"Unable to allocate memory for a temporary directory name");
+        exit(-1);
+    }
+    
+    strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
+    
+    char * dirPath = mkdtemp(tempDirectoryNameCString);
+    if (  ! dirPath  ) {
+        appendLog(@"Unable to create a temporary directory");
+        exit(-1);
+    }
+    
+    NSString *tempFolder = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: tempDirectoryNameCString
+                                                                                       length: strlen(tempDirectoryNameCString)];
+    // Change from /var to /private/var to avoid using a symlink
+    if (  [tempFolder hasPrefix: @"/var/"]  ) {
+        NSDictionary * fileAttributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: @"/var" traverseLink: NO];
+        if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+            if ( [[[NSFileManager defaultManager] tbPathContentOfSymbolicLinkAtPath: @"/var"] isEqualToString: @"private/var"]  ) {
+                NSString * afterVar = [tempFolder substringFromIndex: 5];
+                tempFolder = [@"/private/var" stringByAppendingPathComponent:afterVar];
+            } else {
+                appendLog(@"Warning: /var is a symlink but not to /private/var so it is being left intact");
+            }
+        }
+    }
+    
+    free(tempDirectoryNameCString);
+    
+    // End of code from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
+    //**********************************************************************************************
+    
+    return [tempFolder retain];
+}
+
+
 OSStatus runTool(NSString * launchPath,
                  NSArray  * arguments,
                  NSString * * stdOutStringPtr,
@@ -875,95 +923,75 @@ OSStatus runTool(NSString * launchPath,
 	
 	// Runs a command or script, returning the execution status of the command, stdout, and stderr
 	
+    // Send stdout and stderr to files in a temporary directory
+    
+    NSString * tempDir    = [newTemporaryDirectoryPath() autorelease];
+    
+    NSString * stdOutPath = [tempDir stringByAppendingPathComponent: @"stdout.txt"];
+    NSString * stdErrPath = [tempDir stringByAppendingPathComponent: @"stderr.txt"];
+    
+	if (  ! [[NSFileManager defaultManager] createFileAtPath: stdOutPath contents: [NSData data] attributes: nil]  ) {
+        appendLog([NSString stringWithFormat: @"Catastrophic error: Could not get create %@", stdOutPath]);
+        exit(EXIT_FAILURE);
+	}
+	if (  ! [[NSFileManager defaultManager] createFileAtPath: stdErrPath contents: [NSData data] attributes: nil]  ) {
+        appendLog([NSString stringWithFormat: @"Catastrophic error: Could not get create %@", stdErrPath]);
+        exit(EXIT_FAILURE);
+	}
+    
+    NSFileHandle * outFile = [NSFileHandle fileHandleForWritingAtPath: stdOutPath];
+    if (  ! outFile  ) {
+        appendLog(@"Catastrophic error: Could not get file handle for stdout.txt");
+        exit(EXIT_FAILURE);
+    }
+    NSFileHandle * errFile = [NSFileHandle fileHandleForWritingAtPath: stdErrPath];
+    if (  ! errFile  ) {
+        appendLog(@"Catastrophic error: Could not get file handle for stderr.txt");
+        exit(EXIT_FAILURE);
+    }
+    
     NSTask * task = [[[NSTask alloc] init] autorelease];
     
     [task setLaunchPath: launchPath];
     [task setArguments:  arguments];
-    
     [task setCurrentDirectoryPath: @"/private/tmp"];
-    
-	NSPipe * stdOutPipe = [NSPipe pipe];
-    if (  ! stdOutPipe  ) {
-        appendLog(@"Catastrophic error: 'NSPipe * stdOutPipe = [NSPipe pipe]' returned nil");
-        exit(EXIT_FAILURE);
-    }
-    
-    [task setStandardOutput: stdOutPipe];
-    
-	NSPipe * errOutPipe = [NSPipe pipe];
-    if (  ! errOutPipe  ) {
-        appendLog(@"Catastrophic error: 'NSPipe * errOutPipe = [NSPipe pipe]' returned nil");
-        exit(EXIT_FAILURE);
-    }
-    
-    [task setStandardError: errOutPipe];
-
+    [task setStandardOutput: outFile];
+    [task setStandardError:  errFile];
     [task setEnvironment: getSafeEnvironment([[launchPath lastPathComponent] isEqualToString: @"openvpn"])];
     
     [task launch];
-	
-	// The following loop drains the pipes as the task runs, so a pipe doesn't get full and block the task
     
-	NSFileHandle * outFile = [stdOutPipe fileHandleForReading];
-    if (  ! outFile  ) {
-        appendLog(@"Catastrophic error: 'NSFileHandle * outFile = [stdOutPipe fileHandleForReading]' returned nil");
-        exit(EXIT_FAILURE);
-    }
- 
-	NSFileHandle * errFile = [errOutPipe fileHandleForReading];
-    if (  ! errFile  ) {
-        appendLog(@"Catastrophic error: 'NSFileHandle * errFile = [errOutPipe fileHandleForReading]' returned nil");
-        exit(EXIT_FAILURE);
-    }
-	
-	NSMutableData * stdOutData = (stdOutStringPtr ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
-	NSMutableData * errOutData = (stdErrStringPtr ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
-	
-    BOOL taskIsActive = [task isRunning];
-	NSData * outData = availableDataOrError(outFile);
-	NSData * errData = availableDataOrError(errFile);
-
-    NSDate * timeout = [NSDate dateWithTimeIntervalSinceNow: 5.0];
-    
-	while (   ([outData length] > 0)
-		   || ([errData length] > 0)
-		   || taskIsActive  ) {
-        
-		if (  [outData length] > 0  ) {
-            [stdOutData appendData: outData];
-		}
-		if (  [errData length] > 0  ) {
-            [errOutData appendData: errData];
-		}
-        
-		NSDate * now = [NSDate date];
-        if (  [now compare: timeout] == NSOrderedDescending  ) {
-            appendLog([NSString stringWithFormat: @"runTool: Taking a long time executing '%@' with arguments = %@", launchPath, arguments]);
-            timeout = [NSDate dateWithTimeIntervalSinceNow: 5.0];
-        }
-        
-        usleep(100000); // Wait 0.1 seconds
-		
-        taskIsActive = [task isRunning];
-		outData = availableDataOrError(outFile);
-		errData = availableDataOrError(errFile);
-	}
-	
-    // Note: according to the NSPipe man page, we do not need to perform '[outFile closeFile]' or '[errFile closeFile]'
-	
     [task waitUntilExit];
     
 	OSStatus status = [task terminationStatus];
 	
+    [outFile closeFile];
+    [errFile closeFile];
+    
+    NSString * stdOutString = [NSString stringWithContentsOfFile: stdOutPath encoding: NSUTF8StringEncoding error: nil];
+    NSString * stdErrString = [NSString stringWithContentsOfFile: stdErrPath encoding: NSUTF8StringEncoding error: nil];
+    
+    [[NSFileManager defaultManager] tbRemoveFileAtPath: tempDir handler: nil]; // Ignore errors; there is nothing we can do about them
+    
+    NSString * message = nil;
+    
 	if (  stdOutStringPtr  ) {
-		*stdOutStringPtr = [[[NSString alloc] initWithData: stdOutData encoding: NSUTF8StringEncoding] autorelease];
-	}
-    [stdOutData release];
+        *stdOutStringPtr = [[stdOutString retain] autorelease];
+    } else if (   (status != EXIT_SUCCESS)
+               && (0 != [stdOutString length])  )  {
+        message = [NSString stringWithFormat: @"stdout = '%@'", stdOutString];
+    }
 	
 	if (  stdErrStringPtr  ) {
-		*stdErrStringPtr = [[[NSString alloc] initWithData: errOutData encoding: NSUTF8StringEncoding] autorelease];
+		*stdErrStringPtr = [[stdErrString retain] autorelease];
+    } else if (   (status != EXIT_SUCCESS)
+               && (0 != [stdErrString length])  )  {
+        message = [NSString stringWithFormat: @"%@stderr = '%@'", (message ? @"\n" : @""), stdErrString];
 	}
-    [errOutData release];
+    
+    if (  message  ) {
+        appendLog([NSString stringWithFormat: @"'%@' returned status = %ld\n%@", [launchPath lastPathComponent], (long)status, message]);
+    }
     
 	return status;
 }

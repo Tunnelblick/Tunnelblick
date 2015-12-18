@@ -53,8 +53,8 @@
 
 -(BOOL)           tbRemovePathIfItExists: (NSString *) path;
 
--(BOOL)           tbRenamePath: (NSString *) sourcePath
-                        toPath: (NSString *) targetPath;
+-(BOOL)           tbForceRenamePath: (NSString *) sourcePath
+                             toPath: (NSString *) targetPath;
 
 -(NSString *)     tbPathContentOfSymbolicLinkAtPath:(NSString *)path;
 

@@ -84,6 +84,8 @@ OSStatus runTool(NSString * launchPath,
 void startTool(NSString * launchPath,
 			   NSArray *  arguments);
 
+NSString * newTemporaryDirectoryPath(void);
+
 BOOL tunnelblickdIsLoaded(void);
 
 OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString ** stderrString);

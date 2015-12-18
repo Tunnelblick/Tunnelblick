@@ -2172,7 +2172,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         // Back up the user's private copy of the configuration
         NSString * backupOfTargetPath  = [targetPath stringByAppendingPathExtension: @"old"];
-        if (  [gFileMgr tbRenamePath: targetPath toPath: backupOfTargetPath]  ) {
+        if (  [gFileMgr tbForceRenamePath: targetPath toPath: backupOfTargetPath]  ) {
             
             // Copy the replacement to the private copy for the safeUpdate
             if (  [gFileMgr tbCopyPath: sourcePath toPath: targetPath handler: nil]  ) {
@@ -2191,7 +2191,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             }
             
             // Couldn't do safeUpdate, so restore old private copy
-            [gFileMgr tbRenamePath: backupOfTargetPath toPath: sourcePath];
+            [gFileMgr tbForceRenamePath: backupOfTargetPath toPath: sourcePath];
         }
         
         NSLog(@"Could not do 'safeUpdate' of configuration file %@ to %@", sourcePath, targetPath);
@@ -2343,7 +2343,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
 		// Rename the private config, replace it with the new config, see if a safeUpdate will work, then restore the original private config
 		
-		if (  ! [gFileMgr tbRenamePath: targetPath toPath: targetBackup]  ) {
+		if (  ! [gFileMgr tbForceRenamePath: targetPath toPath: targetBackup]  ) {
 			continue;
 		}
         
@@ -2361,7 +2361,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 			}
 		}
         
-        [gFileMgr tbRenamePath: targetBackup toPath: targetPath];
+        [gFileMgr tbForceRenamePath: targetBackup toPath: targetPath];
     }
     
     // Now remove items from replaceSources and replaceTargets that are in nonAdminSources/nonAdminTargets

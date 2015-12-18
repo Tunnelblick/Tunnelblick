@@ -721,55 +721,6 @@ BOOL isUserAnAdmin(void)
     return (rng.location != NSNotFound);
 }
 
-NSString * newTemporaryDirectoryPath(void)
-{
-    //**********************************************************************************************
-    // Start of code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
-    // Modified to check for malloc returning NULL, use strlcpy, use gFileMgr, and use more readable length for stringWithFileSystemRepresentation
-    
-    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"Tunnelblick-XXXXXX"];
-    const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
-    
-    size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
-    char * tempDirectoryNameCString = (char *) malloc( bufferLength );
-    if (  ! tempDirectoryNameCString  ) {
-        NSLog(@"Unable to allocate memory for a temporary directory name");
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
-        return nil;
-    }
-    
-    strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
-    
-    char * dirPath = mkdtemp(tempDirectoryNameCString);
-    if (  ! dirPath  ) {
-        NSLog(@"Unable to create a temporary directory");
-        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
-    }
-    
-    NSString *tempFolder = [gFileMgr stringWithFileSystemRepresentation: tempDirectoryNameCString
-                                                                 length: strlen(tempDirectoryNameCString)];
-	// Change from /var to /private/var to avoid using a symlink
-	if (  [tempFolder hasPrefix: @"/var/"]  ) {
-		NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: @"/var" traverseLink: NO];
-		if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-			if ( [[gFileMgr tbPathContentOfSymbolicLinkAtPath: @"/var"] isEqualToString: @"private/var"]  ) {
-					NSString * afterVar = [tempFolder substringFromIndex: 5];
-					tempFolder = [@"/private/var" stringByAppendingPathComponent:afterVar];
-			} else {
-				NSLog(@"Warning: /var is a symlink but not to /private/var so it is being left intact");
-			}
-		}
-	}
-    
-	free(tempDirectoryNameCString);
-    
-    // End of code from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
-    //**********************************************************************************************
-    
-    return [tempFolder retain];
-}
-
-
 // Modified from http://developer.apple.com/library/mac/#documentation/Carbon/Conceptual/ProvidingUserAssitAppleHelp/using_ah_functions/using_ah_functions.html#//apple_ref/doc/uid/TP30000903-CH208-CIHFABIE
 OSStatus MyGotoHelpPage (NSString * pagePath, NSString * anchorName)
 {

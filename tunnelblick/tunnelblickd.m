@@ -92,9 +92,66 @@ NSData * availableDataOrError(NSFileHandle * file,
 	}
 }
 
+NSString * newTemporaryDirectoryPath(aslclient  asl,
+                                     aslmsg     log_msg)
+{
+    //**********************************************************************************************
+    // Start of code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
+    // Modified to check for malloc returning NULL, use strlcpy, use realpath, and use more readable length for stringWithFileSystemRepresentation
+    
+    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"Tunnelblick-XXXXXX"];
+    const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
+    
+    size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
+    char * tempDirectoryNameCString = (char *) malloc( bufferLength );
+    if (  ! tempDirectoryNameCString  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not allocate memory for a temporary directory name");
+        exit(-1);
+    }
+    
+    strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
+    
+    char * dirPath = mkdtemp(tempDirectoryNameCString);
+    if (  ! dirPath  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not  create a temporary directory");
+        exit(-1);
+    }
+    
+    NSString *tempFolder = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: tempDirectoryNameCString
+                                                                                       length: strlen(tempDirectoryNameCString)];
+    // Change from /var to /private/var to avoid using a symlink and thinking there is a symlink attack (normally, /var is a symlink to /private/var)
+    if (  [tempFolder hasPrefix: @"/var/"]  ) {
+        struct stat sb;
+        if (  0 == lstat("/var", &sb)  ) {
+            if (  (sb.st_mode & S_IFLNK) == S_IFLNK  ) {
+                char * real_var_path = realpath("/var", NULL);
+                if (  real_var_path == NULL  ) {
+                    asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: realpath(\"/var\") returned NULL");
+                    exit(-1);
+                }
+                if (  strcmp(real_var_path, "private/var")  ) {
+                    NSString * afterVar = [tempFolder substringFromIndex: 4];
+                    tempFolder = [@"/private/var" stringByAppendingPathComponent:afterVar];
+                } else {
+                    asl_log(asl, log_msg, ASL_LEVEL_WARNING, "Warning: /var is a symlink but not to /private/var so it is being left intact");
+                }
+                free(real_var_path);
+            }
+        } else {
+            asl_log(asl, log_msg, ASL_LEVEL_WARNING, "stat(\"/var\") failed; tempFolder = %s", [tempFolder UTF8String]);
+        }
+    }
+    
+    free(tempDirectoryNameCString);
+    
+    // End of code from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
+    //**********************************************************************************************
+    
+    return [tempFolder retain];
+}
+
 NSDictionary * getSafeEnvironment(NSString * userName,
-								  NSString * userHome,
-								  bool includeIV_GUI_VER) {
+								  NSString * userHome) {
     
     // Create our own environment to guard against Shell Shock (BashDoor) and similar vulnerabilities in bash
     // (Even if bash is not being launched directly, whatever is being launched could invoke bash;
@@ -103,36 +160,18 @@ NSDictionary * getSafeEnvironment(NSString * userName,
     // This environment consists of several standard shell variables
     // If specified, we add the 'IV_GUI_VER' environment variable,
     //                          which is set to "<bundle-id><space><build-number><space><human-readable-version>"
-    //
-	// A pared-down version of this routine is in process-network-changes
 	
-    NSMutableDictionary * env = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                 STANDARD_PATH,          @"PATH",
-                                 NSTemporaryDirectory(), @"TMPDIR",
-                                 userName,               @"USER",
-                                 userName,               @"LOGNAME",
-                                 userHome,               @"HOME",
-                                 TOOL_PATH_FOR_BASH,     @"SHELL",
-                                 @"unix2003",            @"COMMAND_MODE",
-                                 nil];
+    NSDictionary * env = [NSDictionary dictionaryWithObjectsAndKeys:
+                          STANDARD_PATH,          @"PATH",
+                          NSTemporaryDirectory(), @"TMPDIR",
+                          userName,               @"USER",
+                          userName,               @"LOGNAME",
+                          userHome,               @"HOME",
+                          TOOL_PATH_FOR_BASH,     @"SHELL",
+                          @"unix2003",            @"COMMAND_MODE",
+                          nil];
     
-    if (  includeIV_GUI_VER  ) {
-        // We get the Info.plist contents as follows because NSBundle's objectForInfoDictionaryKey: method returns the object as it was at
-        // compile time, before the TBBUILDNUMBER is replaced by the actual build number (which is done in the final run-script that builds Tunnelblick)
-        // By constructing the path, we force the objects to be loaded with their values at run time.
-        NSString * plistPath    = [[[[NSBundle mainBundle] bundlePath]
-                                    stringByDeletingLastPathComponent] // Remove /Resources
-                                   stringByAppendingPathComponent: @"Info.plist"];
-        NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
-        NSString * bundleId     = [infoDict objectForKey: @"CFBundleIdentifier"];
-        NSString * buildNumber  = [infoDict objectForKey: @"CFBundleVersion"];
-        NSString * fullVersion  = [infoDict objectForKey: @"CFBundleShortVersionString"];
-        NSString * guiVersion   = [NSString stringWithFormat: @"%@ %@ %@", bundleId, buildNumber, fullVersion];
-        
-        [env setObject: guiVersion forKey: @"IV_GUI_VER"];
-    }
-    
-    return [NSDictionary dictionaryWithDictionary: env];
+    return env;
 }
 
 OSStatus runTool(NSString * userName,
@@ -146,110 +185,85 @@ OSStatus runTool(NSString * userName,
 	
 	// Runs a command or script, returning the execution status of the command, stdout, and stderr
 	
+    // Send stdout and stderr to files in a temporary directory
+    
+    NSString * tempDir    = [newTemporaryDirectoryPath(asl, log_msg) autorelease];
+    
+    NSString * stdOutPath = [tempDir stringByAppendingString: @"stdout.txt"];
+    NSString * stdErrPath = [tempDir stringByAppendingString: @"stderr.txt"];
+    
+    if (  ! [[NSFileManager defaultManager] createFileAtPath: stdOutPath contents: [NSData data] attributes: nil]  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not get create %s", [stdOutPath UTF8String]);
+        exit(EXIT_FAILURE);
+    }
+    if (  ! [[NSFileManager defaultManager] createFileAtPath: stdErrPath contents: [NSData data] attributes: nil]  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not get create %s", [stdErrPath UTF8String]);
+        exit(EXIT_FAILURE);
+    }
+    
+    NSFileHandle * outFile = [NSFileHandle fileHandleForWritingAtPath: stdOutPath];
+    if (  ! outFile  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not get file handle for %s", [stdOutPath UTF8String]);
+        exit(EXIT_FAILURE);
+    }
+    NSFileHandle * errFile = [NSFileHandle fileHandleForWritingAtPath: stdErrPath];
+    if (  ! errFile  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "Catastrophic error: Could not get file handle for %s", [stdErrPath UTF8String]);
+        exit(EXIT_FAILURE);
+    }
+    
     NSTask * task = [[[NSTask alloc] init] autorelease];
     
-    [task setLaunchPath: launchPath];
-    [task setArguments:  arguments];
-    
+    [task setLaunchPath:           launchPath];
+    [task setArguments:            arguments];
     [task setCurrentDirectoryPath: @"/private/tmp"];
-    
-	NSPipe * stdOutPipe = [NSPipe pipe];
-    if (  ! stdOutPipe  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "runTool: Catastrophic error: 'NSPipe * stdOutPipe = [NSPipe pipe]' returned nil");
-        asl_close(asl);
-        exit(EXIT_FAILURE);
-    }
-    
-    [task setStandardOutput: stdOutPipe];
-    
-    NSPipe * errOutPipe = [NSPipe pipe];
-    if (  ! errOutPipe  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "runTool: Catastrophic error: 'NSPipe * errOutPipe = [NSPipe pipe]' returned nil");
-        asl_close(asl);
-        exit(EXIT_FAILURE);
-    }
-    
-    [task setStandardError: errOutPipe];
-	
-    [task setCurrentDirectoryPath: @"/tmp"];
-    [task setEnvironment: getSafeEnvironment(userName, userHome, [[launchPath lastPathComponent] isEqualToString: @"openvpn"])];
-    
-	NSFileHandle * outFile = [stdOutPipe fileHandleForReading];
-    if (  ! outFile  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "runTool: Catastrophic error: 'NSFileHandle * outFile = [stdOutPipe fileHandleForReading]' returned nil");
-        asl_close(asl);
-        exit(EXIT_FAILURE);
-    }
-    
-	NSFileHandle * errFile = [errOutPipe fileHandleForReading];
-    if (  ! errFile  ) {
-        asl_log(asl, log_msg, ASL_LEVEL_EMERG, "runTool: Catastrophic error: 'NSFileHandle * errFile = [errOutPipe fileHandleForReading]' returned nil");
-        asl_close(asl);
-        exit(EXIT_FAILURE);
-    }
-	
-	NSMutableData * stdOutData = (stdOutStringPtr ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
-	NSMutableData * errOutData = (stdErrStringPtr ? [[NSMutableData alloc] initWithCapacity: 16000] : nil);
-	
-    NSDate * logTimeout       = [NSDate dateWithTimeIntervalSinceNow:  5.0];  // Log to console every 5 seconds
-    NSDate * errorExitTimeout = [NSDate dateWithTimeIntervalSinceNow: 30.0];  // Return error if execution time exceeds 30 seconds
+    [task setEnvironment:          getSafeEnvironment(userName, userHome)];
+    [task setStandardOutput:       outFile];
+    [task setStandardError:        errFile];
     
     [task launch];
     
-    // The following loop drains the pipes as the task runs, so a pipe doesn't get full and block the task
-    
-    BOOL taskIsActive = [task isRunning];
-	NSData * outData = availableDataOrError(outFile, asl, log_msg);
-	NSData * errData = availableDataOrError(errFile, asl, log_msg);
-    
-	while (   ([outData length] > 0)
-		   || ([errData length] > 0)
-		   || taskIsActive  ) {
-        
-		if (  [outData length] > 0  ) {
-            [stdOutData appendData: outData];
-		}
-		if (  [errData length] > 0  ) {
-            [errOutData appendData: errData];
-		}
-        
-        NSDate * now = [NSDate date];
-        if (  [now compare: errorExitTimeout] == NSOrderedDescending  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_ERR, "runTool: took long executing '%s'", [launchPath fileSystemRepresentation]);
-            [task terminate];
-            [stdOutData release];
-            [errOutData release];
-            return -1;
-        }
-        if (  [now compare: logTimeout] == NSOrderedDescending  ) {
-            asl_log(asl, log_msg, ASL_LEVEL_ERR, "runTool: Taking a long time executing '%s'", [launchPath fileSystemRepresentation]);
-            logTimeout = [NSDate dateWithTimeIntervalSinceNow: 5.0];
-        }
-        
-        usleep(100000); // Wait 0.1 seconds
-		
-        taskIsActive = [task isRunning];
-		outData = availableDataOrError(outFile, asl, log_msg);
-		errData = availableDataOrError(errFile, asl, log_msg);
-	}
-	
-    // Note: according to the NSPipe man page, we do not need to perform '[outFile closeFile]' or '[errFile closeFile]'
-	
     [task waitUntilExit];
     
-	OSStatus status = [task terminationStatus];
-	
-	if (  stdOutStringPtr  ) {
-		*stdOutStringPtr = [[[NSString alloc] initWithData: stdOutData encoding: NSUTF8StringEncoding] autorelease];
-	}
-    [stdOutData release];
-	
-	if (  stdErrStringPtr  ) {
-		*stdErrStringPtr = [[[NSString alloc] initWithData: errOutData encoding: NSUTF8StringEncoding] autorelease];
-	}
-    [errOutData release];
+    OSStatus status = [task terminationStatus];
     
-	return status;
+    [outFile closeFile];
+    [errFile closeFile];
+    
+    NSString * stdOutString = [NSString stringWithContentsOfFile: stdOutPath encoding: NSUTF8StringEncoding error: nil];
+    NSString * stdErrString = [NSString stringWithContentsOfFile: stdErrPath encoding: NSUTF8StringEncoding error: nil];
+    
+    if (  0 != unlink([stdOutPath fileSystemRepresentation])  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not unlink %s; errno = %ld; error was '%s'", [stdOutPath UTF8String], (long)errno, strerror(errno));
+    }
+    if (  0 != unlink([stdErrPath fileSystemRepresentation])  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not unlink %s; errno = %ld; error was '%s'", [stdErrPath UTF8String], (long)errno, strerror(errno));
+    }
+    if (  0 != rmdir([tempDir fileSystemRepresentation])  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not rmdir %s; errno = %ld; error was '%s'", [tempDir UTF8String], (long)errno, strerror(errno));
+    }
+    
+    NSString * message = nil;
+    
+    if (  stdOutStringPtr  ) {
+        *stdOutStringPtr = [[stdOutString retain] autorelease];
+    } else if (   (status != EXIT_SUCCESS)
+               && (0 != [stdOutString length])  )  {
+        message = [NSString stringWithFormat: @"stdout = '%@'", stdOutString];
+    }
+    
+    if (  stdErrStringPtr  ) {
+        *stdErrStringPtr = [[stdErrString retain] autorelease];
+    } else if (   (status != EXIT_SUCCESS)
+               && (0 != [stdErrString length])  )  {
+        message = [NSString stringWithFormat: @"%@stderr = '%@'", (message ? @"\n" : @""), stdErrString];
+    }
+    
+    if (  message  ) {
+        asl_log(asl, log_msg, ASL_LEVEL_WARNING, "'%s' returned status = %ld\n%s", [[launchPath lastPathComponent] UTF8String], (long)status, [message UTF8String]);
+    }
+    
+    return status;
 }
 
 int main(void) {

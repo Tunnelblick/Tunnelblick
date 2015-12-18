@@ -825,7 +825,7 @@ void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
 }
 
 //**************************************************************************************************************************
-NSString * newTemporaryDirectoryPath(void) {
+NSString * newTemporaryDirectoryPathInTunnelblickHelper(void) {
     // Code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
     // Modified to check for malloc returning NULL, use strlcpy, use [NSFileManager defaultManager], and use more readable length for stringWithFileSystemRepresentation
     
@@ -871,7 +871,7 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
 	[task setArguments:theArguments];
 	
     // Send stdout and stderr to temporary files, and read the files after the task completes
-    NSString * dirPath = newTemporaryDirectoryPath();
+    NSString * dirPath = newTemporaryDirectoryPathInTunnelblickHelper();
     if (  ! dirPath  ) {
         fprintf(stderr, "runAsRoot: Failed to create temporary directory");
         return -1;

@@ -48,8 +48,6 @@ BOOL           moveCredentials          (NSString * fromDisplayName,
 
 NSString     * copyrightNotice          (void);
 
-NSString     * newTemporaryDirectoryPath(void);
-
 NSString     * escaped                  (NSString * string);
 
 BOOL okToUpdateConfigurationsWithoutAdminApproval(void);
