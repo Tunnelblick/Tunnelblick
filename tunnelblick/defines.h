@@ -143,6 +143,10 @@
 #define NONBINARY_CONTENTS_EXTENSIONS [NSArray arrayWithObjects: @"crt", @"key", @"pem", @"crl", nil]
 
 //*************************************************************************************************
+// Extensions for non-configuration files that may have the CR in CR-LF sequences removed, and other CR characters changed to LF
+#define CONVERT_CR_CHARACTERS_EXTENSIONS [NSArray arrayWithObjects: @"crt", @"key", @"pem", @"crl", @"sh", nil]
+
+//*************************************************************************************************
 // OpenVPN options that are not allowed because they conflict with the operation of Tunnelblick
 #define OPENVPN_OPTIONS_THAT_CAN_ONLY_BE_USED_BY_TUNNELBLICK [NSArray arrayWithObjects: @"log", @"log-append", @"syslog", @"management", nil]
 

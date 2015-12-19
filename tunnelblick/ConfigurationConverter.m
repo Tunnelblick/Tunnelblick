@@ -375,7 +375,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     //
     //      Other files
     //            * Cannot start with "{" (which indicates a "rich text format" file
-    //            * Script files (extension "sh") cannot contain CR characters
+    //            * Script and configuration files (.sh, .conf, .ovpn) cannot contain CR characters but that problem is fixed when copying the files
     //            * Key/certificate files cannot contain non-ASCII characters
     
     NSString * ext = [path pathExtension];
@@ -420,7 +420,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     }
     
     // Don't test anything else in a configuration file because it can contain UTF8 characters pretty much anywhere
-	// Don't test anything else in a script file because that is checked elsewhere for CR characters, which are the only characters that are not allowed
+	// Don't test anything else in script or configuration file because that is checked elsewhere for CR characters, which are the only characters that are not allowed
     if (  isConfigurationFile
 		|| isScriptFile  ) {
         return nil;
@@ -462,12 +462,42 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     return nil;
 }
 
+-(BOOL) removeOrReplaceCRs: (NSMutableString *) contents {
+	
+	BOOL crCharactersRemoved = FALSE;
+	
+	NSUInteger ix;
+	for ( ix=0; ix<[contents length]; ix++  ) {
+		unichar ch = [contents characterAtIndex: ix];
+		if (  ch == '\r'  ) {
+			crCharactersRemoved = TRUE;
+			unichar nextCh = (  (ix == [contents length])
+							  ? 'x'
+							  : [contents characterAtIndex: ix + 1]);
+			if (  nextCh == '\n'  ) {
+				// CR followed by LF: remove the CR
+				[contents deleteCharactersInRange: NSMakeRange(ix, 1)];
+				ix--;
+			} else {
+				// CR not followed by LF: replace it with a LF
+				[contents replaceCharactersInRange:NSMakeRange(ix, 1) withString: @"\n"];
+			}
+		}
+	}
+	
+	return crCharactersRemoved;
+}
+
 -(NSString *) duplicateFileFrom: (NSString *) source
 				 		 toPath: (NSString *) target {
 	
-	// Copies a file. If it is a ".sh" file, CR characters are removed from the copy
+	// Copies a file. If the file isn't binary, convert CR-LF to LF, and then replace remaining CRs with LFs
 	
-	if (  [[target pathExtension] isEqualToString: @"sh"]  ) {
+	NSArray * extensions = CONVERT_CR_CHARACTERS_EXTENSIONS;
+	
+    NSString * extension = [target pathExtension];
+	
+	if (   [extensions containsObject: extension]  ) {
 		NSData * data = [[NSFileManager defaultManager] contentsAtPath: source];
 		if (  ! data  ) {
 			return [self logMessage: [NSString stringWithFormat: @"The file %@ is missing.", source]
@@ -479,18 +509,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 		}
 		
 		NSMutableString * contents = [[[NSMutableString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-		BOOL crCharactersRemoved = FALSE;
 		
-		NSUInteger ix;
-		for ( ix=0; ix<[contents length]; ix++  ) {
-			unichar ch = [contents characterAtIndex: ix];
-			if (  ch == '\r'  ) {
-				crCharactersRemoved = TRUE;
-				[contents deleteCharactersInRange: NSMakeRange(ix, 1)];
-				ix--;
-			}
-		}
-		if (  crCharactersRemoved  ) {
+		if (  [self removeOrReplaceCRs: contents]  ) {
 			if (  [contents writeToFile: target atomically: YES encoding: NSUTF8StringEncoding error: NULL]  ) {
 				[self logMessage: [NSString stringWithFormat: @"Copied %@, removing CR characters", [target lastPathComponent]]
 					   localized: [NSString stringWithFormat: NSLocalizedString(@"Copied %@, removing CR characters", @"Window text"), [target lastPathComponent]]];
@@ -965,7 +985,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
             } else {
                 return [self logMessage: [NSString stringWithFormat: @"Internal error: commentOutLines: line %lu does not exist; configString = \n%@", (unsigned long)lineNumber, configString]
                               localized: [NSString stringWithFormat: NSLocalizedString(@"Internal error: commentOutLines: line %lu does not exist", @"Window text"), (unsigned long)lineNumber]];
-          }
+			}
         }
         [configString insertString: @"##### Disabled by Tunnelblick: " atIndex: charPosition];
 		unsigned savedInputLineNumber = inputLineNumber;
@@ -976,6 +996,19 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     }
     
     return nil;
+}
+
+-(void) dealWithCRsInConfiguration {
+    
+    // Returns YES if any CR characters were dealt with; otherwise returns NO
+	
+	if (  [self removeOrReplaceCRs: configString]  ) {
+		unsigned savedInputLineNumber = inputLineNumber;
+		inputLineNumber = 0;
+        [self logMessage: @"One or more CR characters have been removed or replaced with LF characters"
+			   localized: @"One or more CR characters have been removed or replaced with LF characters"];
+		inputLineNumber = savedInputLineNumber;
+	}
 }
 
 -(NSString *) convertConfigPath: (NSString *) theConfigPath
@@ -1046,6 +1079,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     if (  ! [configString hasSuffix: @"\n"]  ) {
         [configString appendString: @"\n"];
     }
+    
+    [self dealWithCRsInConfiguration];
     
     tokens = [[self getTokens] copy];
 	if (  ! tokens  ) {

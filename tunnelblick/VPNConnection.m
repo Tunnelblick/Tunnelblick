@@ -719,7 +719,7 @@ extern volatile int32_t       gActiveInactiveState;
     }
 }
 
-// Returns YES on success, NO if user cancelled out of a dialog 
+// Returns YES on success, NO if user cancelled out of a dialog or there was an error 
 -(BOOL) makeDictionary: (NSDictionary * *)  dict withLabel: (NSString *) daemonLabel openvpnstartArgs: (NSMutableArray * *) openvpnstartArgs
 {
 	NSString * openvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
@@ -1423,8 +1423,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
     
-    [self startCheckingIPAddressBeforeConnected];
-    
     logFilesMayExist = TRUE;
     authFailed = FALSE;
     credentialsAskedFor = FALSE;
@@ -1444,15 +1442,22 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     connectedUseScripts    = (unsigned)[[argumentsUsedToStartOpenvpnstart objectAtIndex: OPENVPNSTART_ARG_USE_SCRIPTS_IX] intValue];
     [self setConnectedCfgLocCodeString: [argumentsUsedToStartOpenvpnstart objectAtIndex: OPENVPNSTART_ARG_CFG_LOC_CODE_IX]];
     
-    if (  argumentsUsedToStartOpenvpnstart == nil  ) {
+    if (  [argumentsUsedToStartOpenvpnstart count] == 0  ) {
         if (  userKnows  ) {
             requestedState = oldRequestedState; // User cancelled
         }
         areConnecting = FALSE;
         completelyDisconnected = TRUE;
+		
+		if (  argumentsUsedToStartOpenvpnstart  ) {
+			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+							  NSLocalizedString(@"There was a problem with the OpenVPN configuration. See the Console Log for details.", @"Window text"));
+		}
         return;
     }
 		
+    [self startCheckingIPAddressBeforeConnected];
+    
     // Process runOnConnect item
     NSString * path = [((MenuController *)[NSApp delegate]) customRunOnConnectPath];
     if (  path  ) {
@@ -1629,6 +1634,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  [tunOrTap isEqualToString: @"Cancel"]  ) {
             [tunOrTap release];
             tunOrTap = nil;
+			return @"Cancel";
         }
     }
     
@@ -1726,8 +1732,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 -(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow
-								  userKnows: (BOOL) userKnows
-{
+								  userKnows: (BOOL) userKnows {
+	
+	// Returns nil if user cancelled or an error message has been shown to the user
+	
     NSString * cfgPath = [self configPath];
 
     if (   [cfgPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
@@ -1749,7 +1757,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  forNow  ) {
         thePort = getFreePort(startingPort);
         if (  thePort == 0  ) {
-            return nil;
+			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+							  NSLocalizedString(@"Tunnelblick could not find a free port to use for communication with OpenVPN", @"Window text"));;;
+			return nil;
         }
         [self setPort: thePort]; // GUI active, so remember the port number
     } else {
@@ -1759,9 +1769,13 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     
     // Parse configuration file to catch "user" or "group" options and get tun/tap key
     [self setTunOrTapAndHasAuthUserPass];
-    if (  ! tunOrTap  ) {
-            return nil;
-    }
+	if (  [tunOrTap isEqualToString: @"Cancel"]  ) {
+		return nil;
+	} else if (  ! tunOrTap  ) {
+		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						  NSLocalizedString(@"Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file", @"Window text"));
+		return nil;
+	}
     
     NSString *useDNSArg = @"0";
     unsigned useDNSNum = 0;
