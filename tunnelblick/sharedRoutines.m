@@ -951,6 +951,10 @@ OSStatus runTool(NSString * launchPath,
     }
     
     NSTask * task = [[[NSTask alloc] init] autorelease];
+    if (  ! task  ) {
+        appendLog(@"Catastrophic error: Could not create NSTask instance");
+        exit(EXIT_FAILURE);
+    }
     
     [task setLaunchPath: launchPath];
     [task setArguments:  arguments];
