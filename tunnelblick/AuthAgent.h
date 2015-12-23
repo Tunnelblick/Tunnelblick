@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2015. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -80,6 +80,12 @@
 				credentialsGroup:					(NSString *)inGroup;
 
 -(void)         deleteCredentialsFromKeychainIncludingUsername: (BOOL) includeUsername;
+-(void)         deletePassphrase;
+-(void)         deletePassword;
+
+-(BOOL)         keychainHasPassphrase;
+-(BOOL)         keychainHasUsername;
+-(BOOL)         keychainHasUsernameAndPassword;
 
 -(void)         performAuthentication;
 -(BOOL)         keychainHasAnyCredentials;

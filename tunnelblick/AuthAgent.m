@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011, 2012, 2013, 2014. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -420,6 +420,38 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     else {
         NSLog(@"Invalid authMode '%@' in deleteCredentialsFromKeychainIncludingUsername:", [self authMode]);
     }
+}
+
+-(void) deletePassphrase {
+    
+    if (  [gTbDefaults boolForKey:passphrasePreferenceKey]  ) {                 // Delete saved privateKey from Keychain if it has been saved
+        [passphraseKeychain deletePassword];
+        [gTbDefaults removeObjectForKey: passphrasePreferenceKey];
+    }
+}
+
+-(void) deletePassword {
+    
+    if (   [gTbDefaults boolForKey: usernameAndPasswordPreferenceKey]  ) {      // Delete saved password from Keychain if it has been saved
+        [passwordKeychain deletePassword];
+        [gTbDefaults removeObjectForKey:  usernameAndPasswordPreferenceKey];    // and indicate that only the username is saved
+        [gTbDefaults setBool: YES forKey: usernamePreferenceKey];
+    }
+}
+
+-(BOOL) keychainHasPassphrase
+{
+	return [gTbDefaults boolForKey: passphrasePreferenceKey];
+}
+
+-(BOOL) keychainHasUsername
+{
+	return [gTbDefaults boolForKey: usernamePreferenceKey];
+}
+
+-(BOOL) keychainHasUsernameAndPassword
+{
+	return [gTbDefaults boolForKey: usernameAndPasswordPreferenceKey];
 }
 
 -(BOOL) keychainHasAnyCredentials

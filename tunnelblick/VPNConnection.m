@@ -2756,24 +2756,43 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 userWantsState = userWantsUndecided;
                 credentialsAskedFor = FALSE;
                 
-                id buttonWithDifferentCredentials = nil;
+                BOOL isPassphraseCommand = [command isEqualToString: @"PASSPHRASE"];
+                
+                NSString * message;
+                if (  isPassphraseCommand  ) {
+                    message = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"The passphrase was not accepted.", @"Window text"), privateMessage];
+                } else {
+                    message = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"The username and password were not accepted by the remote VPN server.", @"Window text"), privateMessage];
+                }
+                NSString * deleteAndTryAgainButton = nil;
+                NSString * tryAgainButton = NSLocalizedString(@"Try again", @"Button");;
                 if (  [myAuthAgent authMode]  ) {               // Handle "auto-login" --  we were never asked for credentials, so authMode was never set
-                    if ([myAuthAgent keychainHasAnyCredentials]) { //                         so credentials in Keychain (if any) were never used, so we needn't delete them to rery
-                        buttonWithDifferentCredentials = NSLocalizedString(@"Try again with different credentials", @"Button");
+                    if (  isPassphraseCommand  ) {
+                        if (  [myAuthAgent keychainHasPassphrase]  ) {
+                            deleteAndTryAgainButton = NSLocalizedString(@"Delete saved passphrase and try again", @"Button");
+                            tryAgainButton = NSLocalizedString(@"Try again with saved passphrase", @"Button");
+                        }
+                    } else {
+                        if (  [myAuthAgent keychainHasUsernameAndPassword]  ) {
+                            deleteAndTryAgainButton = NSLocalizedString(@"Delete saved password and try again", @"Button");
+                            tryAgainButton = NSLocalizedString(@"Try again with saved username and password", @"Button");
+                        }
                     }
                 }
                 int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self localizedName], NSLocalizedString(@"Authentication failed", @"Window title")],
-                                               [NSString stringWithFormat:@"%@%@",
-                                                NSLocalizedString(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server.", @"Window text"),
-                                                privateMessage],
-                                               NSLocalizedString(@"Try again", @"Button"),  // Default
-                                               buttonWithDifferentCredentials,              // Alternate
-                                               NSLocalizedString(@"Cancel", @"Button"));    // Other
+                                               message,
+                                               tryAgainButton,							 // Default
+                                               deleteAndTryAgainButton,                  // Alternate
+                                               NSLocalizedString(@"Cancel", @"Button")); // Other
                 if (alertVal == NSAlertDefaultReturn) {
                     userWantsState = userWantsRetry;                // User wants to retry
                     
                 } else if (alertVal == NSAlertAlternateReturn) {
-                    [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: NO];    // User wants to retry after deleting credentials
+                    if (  isPassphraseCommand  ) {
+                        [myAuthAgent deletePassphrase];
+                    } else {
+                        [myAuthAgent deletePassword];
+                    }
                     userWantsState = userWantsRetry;
                 } else {
                     userWantsState = userWantsAbandon;              // User wants to cancel or an error happened, so disconnect
