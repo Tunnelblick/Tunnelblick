@@ -3288,7 +3288,9 @@ enum GetAuthorizationResult {
         [myAuthAgent setAuthMode: @"privateKey"];
         if (  [myAuthAgent keychainHasAnyCredentials]  ) {
 			[displayNamesToProcess addObject: displayName];
-			[groupNamesToProcess addObject: group];
+            [groupNamesToProcess addObject: (  group
+                                             ? group
+                                             : (NSString *)[NSNull null])];
 			continue;
 		}
 		
@@ -3315,10 +3317,10 @@ enum GetAuthorizationResult {
 	
 	NSString * message = (  ([displayNamesToProcess count] == 1)
 						  ? (  ([groupNamesToProcess objectAtIndex: 0] != [NSNull null])
-							 ? [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?", @"Window text"), [groupNamesToProcess objectAtIndex: 0]]
-							 : [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?", @"Window text"),    [[NSApp delegate] localizedNameForDisplayName: [displayNamesToProcess objectAtIndex: 0]]])
+							 ? [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?", @"Window text"), [groupNamesToProcess objectAtIndex: 0]]
+							 : [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?", @"Window text"),    [[NSApp delegate] localizedNameForDisplayName: [displayNamesToProcess objectAtIndex: 0]]])
 						  
-						  : [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key or username and password) for %ld configurations that are stored in the Keychain?", @"Window text"), [displayNamesToProcess count]]);
+						  : [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?", @"Window text"), [displayNamesToProcess count]]);
 	
 	int button = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
 								 message,
