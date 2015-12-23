@@ -3580,7 +3580,7 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
 int runUnrecoverableErrorPanel(NSString * msg)
 {
 	int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
-                                 [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick encountered a fatal error.\n\nPlease contact the developers  at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@", @"Window text"),
+                                 [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@", @"Window text"),
                                   msg],
                                  NSLocalizedString(@"Download", @"Button"),
                                  NSLocalizedString(@"Quit", @"Button"),
