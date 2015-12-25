@@ -6,3 +6,7 @@ branches:
 
 xcode_project: tunnelblick/Tunnelblick.xcodeproj
 osx_image: beta-xcode6.3
+
+script:
+    - third_party/ShellScriptToInstallAutotools.sh
+    - xcodebuild test -project Swifternalization.xcodeproj -scheme SwifternalizationTests
