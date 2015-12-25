@@ -1,0 +1,8 @@
+language: objective-c
+
+branches:
+  only:
+    - master
+
+xcode_project: tunnelblick/Tunnelblick.xcodeproj
+osx_image: beta-xcode6.3
