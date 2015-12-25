@@ -1,8 +1,4 @@
 language: objective-c
-language: ruby
-
-rvm:
-  - 2.2
 
 branches:
   only:
@@ -12,10 +8,8 @@ xcode_project: tunnelblick/Tunnelblick.xcodeproj
 osx_image: xcode6.3
 
 script:
-    - sudo gem install xcodeproj
     - third_party/ShellScriptToInstallAutotools.sh
     - cp -r tunnelblick/xcodeproj-versions/xcode\ 6.3/Tunnelblick.xcodeproj/* tunnelblick/Tunnelblick.xcodeproj
-    - ./share_schemes.rb
 #    - xcodebuild -workspace tunnelblick/Tunnelblick.xcodeproj/project.xcworkspace -scheme Tunnelblick -configuration "Unsigned Release"
 #    - xctool -project tunnelblick/Tunnelblick.xcodeproj build -scheme Tunnelblick -configuration "Unsigned Release"
     - xcodebuild -project tunnelblick/Tunnelblick.xcodeproj -target build
