@@ -9,4 +9,5 @@ osx_image: beta-xcode6.3
 
 script:
     - third_party/ShellScriptToInstallAutotools.sh
-    - xcodebuild test -project Swifternalization.xcodeproj -scheme SwifternalizationTests
+    - cp -r tunnelblick/xcodeproj-versions/xcode\ 6.3/Tunnelblick.xcodeproj/* tunnelblick/Tunnelblick.xcodeproj
+    - xcodebuild -project tunnelblick/Tunnelblick.xcodeproj
