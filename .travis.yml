@@ -5,7 +5,6 @@ branches:
     - master
 
 xcode_project: tunnelblick/Tunnelblick.xcodeproj
-osx_image: xcode5
 
 script:
     - third_party/ShellScriptToInstallAutotools.sh
