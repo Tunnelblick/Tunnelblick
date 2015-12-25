@@ -1,4 +1,8 @@
 language: objective-c
+language: ruby
+
+rvm:
+  - 2.2
 
 branches:
   only:
