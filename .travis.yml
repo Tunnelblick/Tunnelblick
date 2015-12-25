@@ -13,4 +13,5 @@ script:
     - cp -r tunnelblick/xcodeproj-versions/xcode\ 6.3/Tunnelblick.xcodeproj/* tunnelblick/Tunnelblick.xcodeproj
     - ./share_schemes.rb
 #    - xcodebuild -workspace tunnelblick/Tunnelblick.xcodeproj/project.xcworkspace -scheme Tunnelblick -configuration "Unsigned Release"
-    - xctool -project tunnelblick/Tunnelblick.xcodeproj build -scheme Tunnelblick -configuration "Unsigned Release"
+#    - xctool -project tunnelblick/Tunnelblick.xcodeproj build -scheme Tunnelblick -configuration "Unsigned Release"
+    - xcodebuild -project tunnelblick/Tunnelblick.xcodeproj -target build
