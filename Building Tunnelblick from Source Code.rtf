@@ -19,7 +19,7 @@
 You can build Tunnelblick from the source code. Usually, people install and use a ready-to-use binary version of Tunnelblick. The most recent binary is available on the {\field{\*\fldinst{HYPERLINK "https://www.tunnelblick.net"}}{\fldrslt Tunnelblick website}} and is a disk image (".dmg") file. It's easy to install Tunnelblick from this .dmg -- you simple double-click it.\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
 \cf0 \
-Because Tunnelblick is distributed using the "GPL" license, the source code itself is also available, including the source code for changes before they are incorporated into a binary. That means that anyone with sufficient technical skills and resources can create their own binary and use it as they see fit under the terms of the license. This document describes how to do that.\
+Because Tunnelblick is distributed using the "GNU General Public License, version 2", the source code itself is also available, including the source code for changes before they are incorporated into a binary. That means that anyone with sufficient technical skills and resources can create their own binary and use it as they see fit under the terms of the license. This document describes how to do that.\
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 \cf0 To build Tunnelblick from the source code:\
@@ -56,21 +56,9 @@ Using a virtual machine to build Tunnelblick is fine \'96 Tunnelblick releases a
 \b\fs28 Getting the Tunnelblick Source Code
 \b0\fs24 \
 \
-Download the Tunnelblick source code from the Tunnelblick project on Google Code using the following Terminal command:\
+Download the Tunnelblick source code from the {\field{\*\fldinst{HYPERLINK "https://github.com/Tunnelblick//Tunnelblick"}}{\fldrslt Tunnelblick Project on GitHub}}.\
 \
-	
-\f1\b cd 
-\f0\i\b0 folder
-\f1\i0\b \
-	svn checkout https://tunnelblick.googlecode.com/svn/trunk/   
-\f0\i\b0 TunnelblickSource
-\i0 \
-\
-where 
-\i folder
-\i0  is the path of the folder in which you want to put the folder with the Tunnelblick source code, and 
-\i TunnelblickSource
-\i0  is the name of the folder which will be created with the source code.\
+You can download a .zip containing the source from the "master" branch (which includes the latest changes to the source code) by clicking the "Download ZIP" button, or you can select a different branch and download the source code for that.\
 \
 \
 
@@ -124,7 +112,7 @@ Which platform you build on determines what platforms can run the Tunnelblick ap
 \
 
 \b Xcode 7.0+
-\b0  needs to be set up to use "legacy" locations for build products and need to have the command line tools installed:\
+\b0  needs to be set up to use "legacy" locations for build products and needs to have the command line tools installed:\
 \
 
 \b For Xcode 7.0+
