@@ -83,6 +83,12 @@
 "Delete Credentials" = "Удалить учётные данные";
 
 /* Button */
+"Delete saved passphrase and try again" = "Delete saved passphrase and try again";
+
+/* Button */
+"Delete saved password and try again" = "Delete saved password and try again";
+
+/* Button */
 "Delete" = "Удалить";
 
 /* Button */
@@ -230,7 +236,10 @@
 "This configuration uses %@ credentials" = "Эта конфигурация использует учётные данные %@";
 
 /* Button */
-"Try again with different credentials" = "Попробовать снова с другими учетными данными";
+"Try again with saved passphrase" = "Try again with saved passphrase";
+
+/* Button */
+"Try again with saved username and password" = "Try again with saved username and password";
 
 /* Button */
 "Try again" = "Попробовать ещё раз";
@@ -381,6 +390,9 @@
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Переподключаться при входе пользователя";
+
+/* Checkbox name */
+"Require adminstrator authorization for key and certificate changes" = "Require adminstrator authorization for key and certificate changes";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Сбрасывать основной интерфейс после разъединения";
@@ -537,6 +549,9 @@
 
 /* Window title */
 "Could Not Move Configuration" = "Невозможно переместить конфигурацию";
+
+/* Window title */
+"Could Not Replace Configuration" = "Could Not Replace Configuration";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "Невозможно удалить конфигурацию";
@@ -743,6 +758,9 @@
 " Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Вы хотите заменить\n    %1$@\n в %2$@\nна %3$@%4$@?\n\n";
 
 /* Window text */
+" Forced preferences will also be installed or replaced.\n\n" = " Forced preferences will also be installed or replaced.\n\n";
+
+/* Window text */
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Замечание: Конфигурации OpenVPN будут конвертированы в конфигурации Tunnelblick VPN.\n\n";
 
 /* Window text */
@@ -884,13 +902,13 @@
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Вы действительно не хотите конвертировать конфигурации OpenVPN?\n\nКОНФИГУРАЦИИ НЕ БУДУТ ДОСТУПНЫ, ПОКА ВЫ ИХ НЕ ПРЕОБРАЗУЕТЕ!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) for %ld configurations that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key or username and password) for %ld configurations that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Вы уверены, что хотите удалить учётные данные (закрытый ключ или имя пользователя с паролем) для '%@' которые сохранены в Связке ключей?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Вы уверены, что хотите удалить все учётные данные (приватные ключи или имена пользователей с паролями) из Keychain для '%@'?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "В строке %1$lu файла конфигурации OpenVPN: %2$@";
@@ -936,6 +954,9 @@
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Конфигурация '%1$@' будет проигнорирована, поскольку её имя содержит недопустимые символы.\n\nСимволы, которые нельзя использовать: '%2$s'\n\n";
+
+/* Window text */
+"Configuration changes:" = "Configuration changes:";
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Конфигурации устанавливаются из файлов, которые поставляет вам ваш администратор сети или поставщик услуг VPN.\n\nФайлы конфигурации имеют расширения .tblk, .ovpn, или. conf.  (Там могут быть другие файлы, связанные с конфигурацией, которые имеют другие расширения; сейчас их можно проигнорировать).\n\nФайл конфигурации можно установить двойным щелчком мыши по нему.\n\nНовая конфигурация будет доступна в Tunnelblick тотчас.";
@@ -1400,9 +1421,6 @@
 "The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "Файл конфигурации ссылается на файл\n\n%1$@\n\n, который должен быть расположен в\n\n%2$@\n\n, но файла не существует.";
 
 /* Window text */
-"The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Учётные данные (секретная фраза или связка имя пользователя/пароль) не были приняты удалённым сервером VPN.";
-
-/* Window text */
 "The credentials named %@ could not be added:\n\n%@" = "Учётные данные %1$@ не могут быть добавлены:\n\n%2$@";
 
 /* Window text */
@@ -1424,10 +1442,16 @@
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "Секретная фраза должна быть заполнена!\nПожалуйста, заполните секретную фразу VPN.";
 
 /* Window text */
+"The passphrase was not accepted." = "The passphrase was not accepted.";
+
+/* Window text */
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Частная конфигурация никогда не была обезопасена, поэтому невозможно вернуться к её безопасной теневой копии.";
 
 /* Window text */
 "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "На вашем Рабочем столе была создана папка с примером конфигурации, конфигурационный файл OpenVPN открыт в TextEdit чтобы вы могли подготовить его для запуска VPN.\n\nКогда вы закончите редактирование файла конфигурации OpenVPN и сохраните изменения, пожалуйста\n\n1. Переместите или скопируйте файлы ключа и сертификата относящиеся к конфигурации в папку 'Sample Tunnelblick VPN Configuration' которая на вашем Рабочем столе.\n\n(Эта папка была открыта в Finder, так что вы можете просто перетащить файлы туда.)\n\n2. Переименуйте папку в соответствии с вашими предпочтениями. Это имя Tunnelblick будет использовать для обозначения конфигурации.\n\n3. Добавьте раширение .tblk в конец имени папки.\n\n4. Запустите двойным щелчком на папке установку этой конфигурации.\n\nНовая конфигурация будет доступна в Tunnelblick сразу же.";
+
+/* Window text */
+"The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
 
 /* Window text */
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Имя пользователя и пароль должны быть заполнены!\nПожалуйста, введите сочетание имя пользователя/пароль для VPN.";
@@ -1443,6 +1467,9 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "There was a problem deleting one or more configurations. See the Console Log for details.";
+
+/* Window text */
+"There was a problem with the OpenVPN configuration. See the Console Log for details." = "There was a problem with the OpenVPN configuration. See the Console Log for details.";
 
 /* Window text */
 "There was a problem with\n\n%@:\n\n%@" = "Тут проблемы были с\n\n%1$@:\n\n%2$@";
@@ -1523,16 +1550,25 @@
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick не может получить информацию об IP-адресе до того, если не выполнено подключение к %@.\n\n";
 
 /* Window text */
+"Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file";
+
+/* Window text */
+"Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick could not find a free port to use for communication with OpenVPN";
+
+/* Window text */
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick не удалось найти файл конфигурации или не удалось удалить чувствительную информацию из файла конфигурации. См. подробности в журнале Консоли.";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick не смог переместить конфигурацию '%@'. Подробности в Журнале Событий.";
 
 /* Window text */
+"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick could not replace the '%@' configuration. See the Console Log for details.";
+
+/* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick не смог деинсталировать конфигурацию '%@'. Подробности в Журнале Событий.";
 
 /* Window text */
-"Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@" = "Обнаружена фатальная ошибка.\n\nПереустановка Tunnelblick может исправить эту проблему. Источник проблемы:\n\n%@";
+"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick обнаружил ошибки с конфигурациями (%1$lu):\n\n%2$@%3$@%4$@%5$@";
@@ -1580,6 +1616,9 @@
 "Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick needs authorization to rename the '%1$@' configuration to '%2$@'.";
 
 /* Window text */
+"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick needs to change a setting that may only be changed by a computer administrator.";
+
+/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick необходимо создать или обновить безопасную (теневую) копию конфигурационного файла.";
 
 /* Window text */
@@ -1613,7 +1652,7 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick не смог установить связь с существующим процессом OpenVPN '%1$@' в течении %2$d секунд. Больше попыток установить связь не делается.";
 
 /* Window text */
-"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nIf they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them)." = "Tunnelblick не смог сохранить свои настройки по причине отказа со стороны операционной системы (OS X).\n\nВозможно, файл настроек повредился. Если это так, то следует удалить этот файл. Настройки находятся в:\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nЕсли настройки повреждены, они будут автоматически очищены при следующем запуске Tunnelblick (при этом будет сохранена резервная копия поврежденного файла настроек).";
+"Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick was unable to make the change. See the Console Log for details.";
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick не удалось запустить OpenVPN, чтобы подключиться к %@. Для подробностей обратитесь к журналу в окне Детали VPN…";

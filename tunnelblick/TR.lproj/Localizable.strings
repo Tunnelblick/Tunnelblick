@@ -83,6 +83,12 @@
 "Delete Credentials" = "Kimlik bilgilerini sil";
 
 /* Button */
+"Delete saved passphrase and try again" = "Delete saved passphrase and try again";
+
+/* Button */
+"Delete saved password and try again" = "Delete saved password and try again";
+
+/* Button */
 "Delete" = "Sil";
 
 /* Button */
@@ -230,7 +236,10 @@
 "This configuration uses %@ credentials" = "Bu konfigürasyon %@ kimlik bilgisini kullanmaktadır";
 
 /* Button */
-"Try again with different credentials" = "Farklı kimlik bilgileri ile tekrar dene";
+"Try again with saved passphrase" = "Try again with saved passphrase";
+
+/* Button */
+"Try again with saved username and password" = "Try again with saved username and password";
 
 /* Button */
 "Try again" = "Tekrar deneyin";
@@ -381,6 +390,9 @@
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Kullanıcı geri geldiğinde tekrar bağlan";
+
+/* Checkbox name */
+"Require adminstrator authorization for key and certificate changes" = "Require adminstrator authorization for key and certificate changes";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Bağlantı kesildikten sonra ağ kartını sıfırla";
@@ -537,6 +549,9 @@
 
 /* Window title */
 "Could Not Move Configuration" = "Konfigürasyon taşınamadı";
+
+/* Window title */
+"Could Not Replace Configuration" = "Could Not Replace Configuration";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "Konfigürasyon silinemedi";
@@ -743,6 +758,9 @@
 " Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Do you wish to replace\n%2$@ \n   içerisindeki \n %1$@\n %3$@%4$@ ile değiştirilsin mi?\n\n";
 
 /* Window text */
+" Forced preferences will also be installed or replaced.\n\n" = " Forced preferences will also be installed or replaced.\n\n";
+
+/* Window text */
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Not: OpenVPN yapılandırmaları Tunnelblick VPN Yapılandırmalarına dönüştürülecek.\n\n";
 
 /* Window text */
@@ -884,13 +902,13 @@
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "OpenVPN yapılandırmalarını Tunnelblick yapılandırmalarına dönüştürmek istemediğinize emin misiniz?\n\nEĞER DÖNÜŞTÜRMEZSENİZ YAPILANDIRMALAR KULLANILABİLİR OLMAYACAK!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) for %ld configurations that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key or username and password) for %ld configurations that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Anahtar Zinciri'nde '%@' için kayıtlı olan kimlik bilgilerini (kişisel anahtar ve kişisel şifreyi) silmek istediğinizden emin misiniz?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Anahtar Zinciri'nde '%@' kimlik bilgileri için kayıtlı olan kimlik bilgilerini (kişisel anahtar ve kişisel şifreyi) silmek istediğinizden emin misiniz?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "OpenVPN yapılandırma dosyasının %1$lu numaralı satırda: %2$@";
@@ -936,6 +954,9 @@
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Yapılandırma '%1$@' göz ardı edilecek çünkü ismi izin verilmeyen karakterler içeriyor.\n\nİzin verilmeyen karakterler: '%2$s'\n\n";
+
+/* Window text */
+"Configuration changes:" = "Configuration changes:";
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Yapılandırmalar ağ yöneticiniz veya VPN servis sağlayıcınız tarafından sağlanan dosyalardan yüklenirler.\n\nYapılandırma dosyaları .tblk, .ovpn veya .conf uzantılarına sahiptir.\n\n(Yapılandırmayla ilişkili başka uzantıya sahip dosyalar bulunabilir, şimdilik onları görmezden gelebilirsiniz.)\n\nYapılandırma dosyasını yüklemek için, çift tıklayınız.\n\nYeni yapılandırma Tunnelblick de hemen yüklenip hazır olacaktır.";
@@ -1400,9 +1421,6 @@
 "The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "Yapılandırma dosyası\n\n%1$@\n\ndosyası olarak gözüküyor, fakat\n\n%2$@\n\nolarak bulunmalı ve bu dosya yok.";
 
 /* Window text */
-"The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Kimlik bilgileri (parola veya kullanıcı adı/şifresi) VPN sunucu tarafından red edildi.";
-
-/* Window text */
 "The credentials named %@ could not be added:\n\n%@" = "%1$@ isimli kimlik bilgileri eklenemedi:\n\n%2$@";
 
 /* Window text */
@@ -1424,10 +1442,16 @@
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "Parola kısmı boş bırakılmamalı!\nLütfen VPN parolanızı girin.";
 
 /* Window text */
+"The passphrase was not accepted." = "The passphrase was not accepted.";
+
+/* Window text */
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Özel yapılandırma dosyası hiç güvenli olamadığı için, güvenli (gölge) kopyasına geri dönülemez.";
 
 /* Window text */
 "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "Örnek yapılandırma dosyası masa üstünüzde yaratıldı ve OpenVPN yapılandıma dosyasınız TextEdit ile açıldı. Böylece VPN yapılandırmanız için dosyayı değiştirebilirsiniz.\n\nOpenVPN yapılandırma dosyası düzenlemesini bitirip değişiklikleri kaydettiğinizde, lütfen şu adımları tamamlayın:\n\n1. Masaüstünüzdeki 'Örnek Tunnelblick VPN yapılandırma' dizininine yapılandırma dosyasında belirtilen anahtar ya da sertifikaları kopyalayın veya taşıyın.\n\n(Bu dizin Finder penceresinde açılacağı için sürekleyerek dosyaları taşıyabilirsiniz.)\n\n2. Tunnelblick dizin isimlerini yapılandırma ismi olarak kullanır. Dizinin adını kullanmak istediğiniz yapılandırma ismine göre değiştirin.\n\n3. Dizinin adına '.tblk' ekleyin. Örnek dizin adı: Profelis.tblk\n\n4.  Yapılandırmayı yüklemek için dizin adına çift tıklayın.\n\nYeni yapılandırma Tunnelblick içerisine hemen eklenecek.";
+
+/* Window text */
+"The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
 
 /* Window text */
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Kullanıcı adı ve şifre boş olmamalı!\nLütfen VPN kullanıcı adı ve şifrenizi giriniz.";
@@ -1443,6 +1467,9 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "There was a problem deleting one or more configurations. See the Console Log for details.";
+
+/* Window text */
+"There was a problem with the OpenVPN configuration. See the Console Log for details." = "There was a problem with the OpenVPN configuration. See the Console Log for details.";
 
 /* Window text */
 "There was a problem with\n\n%@:\n\n%@" = "%1$@:\n\n%2$@\n\nile ilgili bir sorun var";
@@ -1523,16 +1550,25 @@
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick %@ bağlantısı yapılmadan önce IP adresi bilgisini alamadı.\n\n";
 
 /* Window text */
+"Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file";
+
+/* Window text */
+"Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick could not find a free port to use for communication with OpenVPN";
+
+/* Window text */
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick yapılandırma dosyasını bulamadı ya da yapılandırma dosyası özelleştirilmedi. Detaylar için konsol kayıtlarına bakın.";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick '%@' yapılandırmasını taşıyamadı. Detaylar için konsol kayıtlarına bakın.";
 
 /* Window text */
+"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick could not replace the '%@' configuration. See the Console Log for details.";
+
+/* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick '%@' yapılandırmasını kaldıramadı. Detaylar için konsol kayıtlarına bakın.";
 
 /* Window text */
-"Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@" = "Tunnelblick ölümcül bir hata ile karşılaştı\n\nTunnelblick'i yeniden yüklemek sorunu çözebilir. Problem şuydu:\n\n%@";
+"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick %1$lu hatası ile karşılaştı şu yapılandırmalarda karşılaştı:\n\n%2$@%3$@%4$@%5$@";
@@ -1580,6 +1616,9 @@
 "Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick needs authorization to rename the '%1$@' configuration to '%2$@'.";
 
 /* Window text */
+"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick needs to change a setting that may only be changed by a computer administrator.";
+
+/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick yapılandırma dosyasına ait günvenli (gölge) kopyanın yaratılmasına ya da güncellenmesine ihtiyaç duyuyor.";
 
 /* Window text */
@@ -1613,7 +1652,7 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick %2$d saniye içerisinde '%1$@' için mevcut OpenVPN işlemi ile iletişim sağlayamadı. İletişim kurma girişimini sonlandırıldı.";
 
 /* Window text */
-"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nIf they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them)." = "Tunnelblick OS X'in kaydetmeye izin vermemesi nedeniye ayarlarını kaydedemedi.\n\nAyarlar bozulmuş olabili. Bu durumda ayarları içeren dosyayı silmeniz gerekebilir. Ayar dosyası şu\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nEğer bozuldularsa, ayarlar Tunnelblick'in bir sonraki çalıştırılmasında temizlenecekler (yedeği alındıktan sonra).";
+"Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick was unable to make the change. See the Console Log for details.";
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick %@ bağlantısı için OpenVPN'i çalıştıramadı. Detaylar için, VPN Detayları… penceresindeki kayıtlara bakın";

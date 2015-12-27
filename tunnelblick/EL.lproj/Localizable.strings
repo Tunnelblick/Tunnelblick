@@ -83,6 +83,12 @@
 "Delete Credentials" = "Διαγραφή πιστοποιητικών";
 
 /* Button */
+"Delete saved passphrase and try again" = "Delete saved passphrase and try again";
+
+/* Button */
+"Delete saved password and try again" = "Delete saved password and try again";
+
+/* Button */
 "Delete" = "Διαγραφή";
 
 /* Button */
@@ -230,7 +236,10 @@
 "This configuration uses %@ credentials" = "Αυτοί οι παράμετροι χρησιμοποιούν %@ πιστοποιητικά";
 
 /* Button */
-"Try again with different credentials" = "Προσπαθήστε ξανά με διαφορετικά πιστοποιητικά";
+"Try again with saved passphrase" = "Try again with saved passphrase";
+
+/* Button */
+"Try again with saved username and password" = "Try again with saved username and password";
 
 /* Button */
 "Try again" = "Προσπαθήστε ξανά";
@@ -381,6 +390,9 @@
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Επανασύνδεση όταν ο χρήστης εισέρχεται";
+
+/* Checkbox name */
+"Require adminstrator authorization for key and certificate changes" = "Require adminstrator authorization for key and certificate changes";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Επαναφορά κύριου περιβάλλοντος μετά την αποσύνδεση";
@@ -537,6 +549,9 @@
 
 /* Window title */
 "Could Not Move Configuration" = "Αδυναμία μεταφοράς παραμέτρων";
+
+/* Window title */
+"Could Not Replace Configuration" = "Could Not Replace Configuration";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "Αδυναμία απεγκατάστασης παραμέτρων";
@@ -743,6 +758,9 @@
 " Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Θέλετε να αντικαταστήσετε το \n    %1$@\n   στο %2$@\nμε το %3$@%4$@?\n\n";
 
 /* Window text */
+" Forced preferences will also be installed or replaced.\n\n" = " Forced preferences will also be installed or replaced.\n\n";
+
+/* Window text */
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = "Σημείωση: Οι παράμετροι OpenVPN θα μετατραπούν σε παραμέτρους VPN του Tunnelblick.\n\n";
 
 /* Window text */
@@ -884,13 +902,13 @@
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Είστε σίγουροι ότι θέλετε να μετατρέψετε της παραμέτρους του OpenVPN σε παραμέτρους VPN του Tunnelblick;\n\nΟΙ ΠΑΡΑΜΕΤΡΟΙ ΔΕΝ ΘΑ ΕΙΝΑΙ ΔΙΑΘΕΣΙΜΟΙ ΑΝ ΔΕΝ ΤΟΥΣ ΜΕΤΑΤΡΕΨΕΤΕ!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) for %ld configurations that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key or username and password) for %ld configurations that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Είστε σίγουροι ότι θέλετε να διαγράψετε τα πιστοποιητικά (ιδιωτικό κλειδί ή όνομα χρήστη και κωδικό) από το '%@' που είναι αποθηκευμένο στην Κλειδοθήκη;";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = " Είστε σίγουροι ότι θέλετε να διαγράψετε τα πιστοποιητικά (ιδιωτικό κλειδί ή όνομα χρήστη και κωδικό) από την Κλειδοθήκη για το πιστοποιητικό '%@';";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Στη γραμμή %1$lu του αρχείου παραμέτρων OpenVPN: %2$@";
@@ -936,6 +954,9 @@
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Οι παράμετροι το '%1$@' θα αγνοηθούν επειδή το όνομα περιέχει χαρακτήρες που δεν επιτρέπονται.\n\nΟι χαρακτήρες που δεν επιτρέπονται είναι:'%2$s'\n\n";
+
+/* Window text */
+"Configuration changes:" = "Configuration changes:";
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Οι παράμετροι εγκαταστάθηκαν από αρχεία που προμηθευτήκατε από τον διαχειριστή του δικτύου σας ή από τον παροχέα υπηρεσίας του VPN σας.\n\nΤα αρχεία παραμέτρων έχουν καταλήξεις .tblk, .ovpn, ή .conf.\n\n(Μπορεί να υπάρχουν άλλα συνεργαζόμενα αρχεία παραμέτρων που να έχουν άλλες καταλήξεις, αγνοήστε τα επί του παρόντος.)\n\nΓια την εγκατάσταση αρχείου ρυθμίσεων κάντε διπλό κλίκ.\n\nΟι νέες παράμετροι θα είναι άμεσα διαθέσιμοι στο Tunnelblick.";
@@ -1400,9 +1421,6 @@
 "The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "Το αρχείο παραμέτρων αναφέρεται σε ένα αρχείο \n\n%1$@ \n\nπου πρέπει να βρίσκονται στο \n\n%2$@\n\nαλλά δεν υπάρχει το αρχείο.";
 
 /* Window text */
-"The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Τα πιστοποιητικά (φράση-κλειδί ή όνομα χρήστη/κωδικός), δεν είναι αποδεκτά από τον απομακρυσμένο διακομιστή VPN.";
-
-/* Window text */
 "The credentials named %@ could not be added:\n\n%@" = "Το πιστοποιητικό με το όνομα %1$@ δεν μπορεί να προστεθεί:\n\n%2$@";
 
 /* Window text */
@@ -1424,10 +1442,16 @@
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "Η φράση-κλιδεί δεν πρέπει να είναι κενή!\nΠαρακαλώ εισάγετε την φράση-κλιδεί του VPN.";
 
 /* Window text */
+"The passphrase was not accepted." = "The passphrase was not accepted.";
+
+/* Window text */
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Ποτέ δεν δημιουργήθηκαν αντίγραφα ασφαλείας για τις ιδιωτικές παραμέτρους, για αυτό και δεν μπορούν να ανακληθούν από ασφαλές αντίγραφο (κρυφό)";
 
 /* Window text */
 "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "Ο φάκελος Δήγματα Παραμέτρων δημιουργήθηκε στο Γραφείο Εργασίας σας, το αρχείο παραμέτρων OpenVPN άνοιξε στο ΤextEdit για να μπορείτε να τροποποιήσετε το αρχείο με της ρυθμίσεις του δικού σας VPN.\n\nΌταν τελειώσετε με την επεξεργασία του αρχείου των παραμέτρων OpenVPN παρακαλώ αποθηκεύστε.\n\n1. Μετακινήστε ή αντιγράψτε κάθε κλειδί ή αρχείο πιστοποιητικού, συνεργαζόμενο με της παραμέτρους, στον φάκελο 'Δείγμα παραμέτρων VPN του Tunnelblick' στο Γραφείο Εργασίας σας.\n\n(Αυτός ο φάκελος είναι ανοιχτός στο παράθυρο του Finder για να μπορείτε να το σύρετε μέσα.)\n\n2. Μετονομάστε το όνομα του φακέλου στο όνομα που επιθυμείτε. Αυτό το όνομα θα χρησιμοποιήσει το Tunnelblick για της παραμέτρους.\n\n3. Προσθέστε την κατάληξη .tblk στο τέλος του ονόματος φακέλου.\n\n4. Κάντε διπλό-κλίκ πάνω στον φάκελο για να εγκαταστήσετε τις παραμέτρους.\n\nΟι νέες παράμετροι θα είναι άμεσα διαθέσιμοι στο Tunnelblick.";
+
+/* Window text */
+"The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
 
 /* Window text */
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Το όνομα χρήστη και ο κωδικός δεν μπορεί να είναι κενοί!\nΠαρακαλώ εισάγετε ενα συνδυασμό όνομα χρήστη/κωδικό VPN.";
@@ -1443,6 +1467,9 @@
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "There was a problem deleting one or more configurations. See the Console Log for details.";
+
+/* Window text */
+"There was a problem with the OpenVPN configuration. See the Console Log for details." = "There was a problem with the OpenVPN configuration. See the Console Log for details.";
 
 /* Window text */
 "There was a problem with\n\n%@:\n\n%@" = "Υπήρξε ένα πρόβλημα με το \n\n%1$@: \n\n%2$@";
@@ -1523,16 +1550,25 @@
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Το Tunnelblick δεν θα μπορούσε να προσκομίσει πληροφορίες της διεύθυνσης IP πριν γίνει σύνδεση στο %@.\n\n";
 
 /* Window text */
+"Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file";
+
+/* Window text */
+"Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick could not find a free port to use for communication with OpenVPN";
+
+/* Window text */
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Το Tunnelblick  δεν μπόρεσε να βρει το αρχείο παραμέτρων ή το αρχείο παραμέτρων δεν μπορούσε να Προκόπι την ασφάλεια. Ανατρέξτε στο αρχείο καταγραφής κονσόλα για λεπτομέρειες.";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Το Tunnelblick δεν μπόρεσε να μετακινήσει την παράμετρο '%@'. Δείτε το ημερολόγιο Κονσόλας για πληροφορίες.";
 
 /* Window text */
+"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick could not replace the '%@' configuration. See the Console Log for details.";
+
+/* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Το Tunnelblick δεν μπόρεσε να απεγκαταστήσει την παράμετρο '%@'. Δείτε το ημερολόγιο Κονσόλας για πληροφορίες.";
 
 /* Window text */
-"Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@" = "To Tunnelblick αντιμετώπισε ένα κρίσιμο σφάλμα.\n\nΗ επανεγκατάσταση του Tunnelblick ίσως διορθώσει αυτό το πρόβλημα. Το πρόβλημα ήταν:\n\n%@";
+"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Το Tunnelblick αντιμετώπισε σφάλματα με της %1$lu παραμέτρους: \n\n%2$@%3$@%4$@%5$@";
@@ -1580,6 +1616,9 @@
 "Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick needs authorization to rename the '%1$@' configuration to '%2$@'.";
 
 /* Window text */
+"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick needs to change a setting that may only be changed by a computer administrator.";
+
+/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Το Tunnelblick χρειάζεται να δημιουργήσει ή να ενημερώσει ένα αντίγραφο ασφαλείας (κρυφό) του αρχείου παραμέτρων.";
 
 /* Window text */
@@ -1613,7 +1652,7 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Το Tunnelblick ήταν αδύνατον να επιτύχει επικοινωνία με την παρούσα εργασία OpenVPN για '%1$@' μέσα σε %2$d δευτερόλεπτα. Η προσπάθεια επίτευξης επικοινωνίας ματαιώθηκε.";
 
 /* Window text */
-"Tunnelblick was unable to save its preferences because OS X refused to save them.\n\nThe preferences may have become corrupt; if so you may need to delete the file that contains them. The preferences are in\n\n%@/Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nIf they are corrupt, the preferences will be automatically cleared the next time you launch Tunnelblick (after making a backup of them)." = "Tunnelblick ήταν δυνατό να αποθηκεύσει τις προτιμήσεις, επειδή OS X αρνήθηκε να της σώσει.\n\nΟι προτιμήσεις, μπορεί να είναι κατεστραμμένες, αν ναι ίσως χρειαστεί να διαγράψετε το αρχείο που της περιέχει. Οι προτιμήσεις είναι στο\n\n%@/ Library/Preferences/net.tunnelblick.tunnelblick.plist.\n\nΑν είναι κατεστραμμένες, τις προτιμήσεις θα καθαριστούν αυτόματα την επόμενη φορά που θα ξεκινήσετε το   Tunnelblick (μετά κάντε ένα αντίγραφο ασφαλείας αυτών).";
+"Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick was unable to make the change. See the Console Log for details.";
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Το Tunnelblick ήταν αδύνατον να αρχίσει μια OpenVPN σύνδεση στο %@. Για πληροφορίες δείτε το ημερολόγιο στο παράθυρο Λεπτομέρειες VPN…";
