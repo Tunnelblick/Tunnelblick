@@ -1,4 +1,4 @@
-ck** is a free, open source graphic user interface for [OpenVPN](https://openvpn.net/index.php/open-source.html) on OS X. It provides easy control of OpenVPN client and/or server connections.
+**Tunnelblick** is a free, open source graphic user interface for [OpenVPN](https://openvpn.net/index.php/open-source.html) on OS X. It provides easy control of OpenVPN client and/or server connections.
 
 The official Tunnelblick *website* is at [https://tunnelblick.net](https://tunnelblick.net).
 
