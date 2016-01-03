@@ -1,13 +1,8 @@
 language: objective-c
 
-branches:
-  only:
-    - master
-
 xcode_project: tunnelblick/Tunnelblick.xcodeproj
 
 script:
     - third_party/ShellScriptToInstallAutotools.sh
     - cp -r tunnelblick/xcodeproj-versions/xcode\ 7.0/Tunnelblick.xcodeproj/* tunnelblick/Tunnelblick.xcodeproj
     - xcodebuild -project tunnelblick/Tunnelblick.xcodeproj -target Tunnelblick -configuration "Unsigned Release"
-
