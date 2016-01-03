@@ -11,4 +11,3 @@ script:
     - cp -r tunnelblick/xcodeproj-versions/xcode\ 7.0/Tunnelblick.xcodeproj/* tunnelblick/Tunnelblick.xcodeproj
     - xcodebuild -project tunnelblick/Tunnelblick.xcodeproj -target Tunnelblick -configuration "Unsigned Release"
 
-# push
