@@ -1832,7 +1832,20 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             
         } else if (   [ext isEqualToString: @"ovpn"]
                    || [ext isEqualToString: @"conf"]  ) {
-            [ovpnAndConfInnerFilePartialPaths addObject: innerFilePartialPath];
+			// If already have a .ovpn, ignore a .conf.
+			// If already have a .conf, replace it with the .conf
+			// If don't have either, add this one
+			NSString * oppositeWithExtension = (  [ext isEqualToString: @"ovpn"]
+												? [[innerFilePartialPath stringByDeletingPathExtension] stringByAppendingPathExtension: @"conf"]
+												: [[innerFilePartialPath stringByDeletingPathExtension] stringByAppendingPathExtension: @"ovpn"]);
+			if (  [ovpnAndConfInnerFilePartialPaths containsObject: oppositeWithExtension]  ) {
+				if (  [ext isEqualToString: @"ovpn"]  ) {
+					[ovpnAndConfInnerFilePartialPaths removeObject: oppositeWithExtension];
+					[ovpnAndConfInnerFilePartialPaths addObject: innerFilePartialPath];
+				}
+			} else {
+				[ovpnAndConfInnerFilePartialPaths addObject: innerFilePartialPath];
+			}
         }
     }
     
