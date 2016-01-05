@@ -271,8 +271,8 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
     // By constructing the path, we force the objects to be loaded with their values at run time.
     
     NSString * plistPath    = [[[[NSBundle mainBundle] bundlePath]
-                                stringByDeletingLastPathComponent]                      // Remove /Resources
-                               stringByAppendingPathComponent: @"Info.plist"];          // Add    /Info.plist
+                                stringByAppendingPathComponent: @"Contents"]
+                               stringByAppendingPathComponent: @"Info.plist"];
     NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
     if (  ! infoDict  ) {
         NSLog(@"Info.plist invalid at path %@", plistPath);
