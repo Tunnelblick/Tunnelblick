@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -202,7 +202,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  firstTimeShowingWindow  ) {
         // Set the window's position from preferences (saved when window is closed)
         // But only if the preference's version matches the TB version (since window size could be different in different versions of TB)
-        NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+        NSString * tbVersion = [[[NSApp delegate] tunnelblickInfoDictionary] objectForKey: @"CFBundleVersion"];
         if (  [tbVersion isEqualToString: [gTbDefaults stringForKey:@"detailsWindowFrameVersion"]]    ) {
             NSString * mainFrameString  = [gTbDefaults stringForKey: @"detailsWindowFrame"];
             NSString * leftFrameString  = [gTbDefaults stringForKey: @"detailsWindowLeftFrame"];
@@ -250,7 +250,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         leftFrameString = NSStringFromRect([[configurationsPrefsView leftSplitView] frame]);
     }
 	NSString * configurationsTabIdentifier = [[[configurationsPrefsView configurationsTabView] selectedTabViewItem] identifier];
-    NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    NSString * tbVersion = [[[NSApp delegate] tunnelblickInfoDictionary] objectForKey: @"CFBundleVersion"];
 	unsigned int viewIx = [toolbarIdentifiers indexOfObject: currentViewName];
     BOOL saveIt = TRUE;
 	unsigned int defaultViewIx = [UIHelper detailsWindowsViewIndexFromPreferencesWithMax: [toolbarIdentifiers count]-1];

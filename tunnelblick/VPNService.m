@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -61,8 +61,7 @@ extern TBUserDefaults * gTbDefaults;
 -(id) init
 {
 	if (  self = [super init]  ) {
-        NSString * infoPath = [[[[NSBundle mainBundle] resourcePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
-        NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: infoPath];
+        NSDictionary * infoDict = [[NSApp delegate] tunnelblickInfoDictionary];
         
         baseUrlString = [[infoDict objectForKey: @"VPNServiceBaseURL"] retain];
         if (  ! baseUrlString  ) {

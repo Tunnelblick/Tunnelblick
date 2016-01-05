@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -97,7 +97,7 @@ uint64_t nowAbsoluteNanoseconds (void)
 }
 
 BOOL runningABetaVersion (void) {
-    NSString * version = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"];
+    NSString * version = [[[NSApp delegate] tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
     return ([version rangeOfString: @"beta"].length != 0);
 }
 

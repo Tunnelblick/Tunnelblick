@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -837,7 +837,8 @@ NSDictionary * getSafeEnvironment(bool includeIV_GUI_VER) {
     // If specified, we add the 'IV_GUI_VER' environment variable,
     //                          which is set to "<bundle-id><space><build-number><space><human-readable-version>"
     //
-	// A pared-down version of this routine is in process-network-changes
+	// A modified version of this routine is in process-network-changes
+    // A modified version of this routine is in tunnelblickd
 	
     NSMutableDictionary * env = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                  STANDARD_PATH,          @"PATH",

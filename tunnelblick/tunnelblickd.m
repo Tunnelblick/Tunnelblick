@@ -1,5 +1,5 @@
 /*
- * Copyright 2014, 2015 by Jonathan K. Bullard. All rights reserved.
+ * Copyright 2014, 2015, 2016 by Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -156,10 +156,6 @@ NSDictionary * getSafeEnvironment(NSString * userName,
     // Create our own environment to guard against Shell Shock (BashDoor) and similar vulnerabilities in bash
     // (Even if bash is not being launched directly, whatever is being launched could invoke bash;
 	//  for example, tunnelblick-helper launches openvpn which can invoke bash for scripts)
-    //
-    // This environment consists of several standard shell variables
-    // If specified, we add the 'IV_GUI_VER' environment variable,
-    //                          which is set to "<bundle-id><space><build-number><space><human-readable-version>"
 	
     NSDictionary * env = [NSDictionary dictionaryWithObjectsAndKeys:
                           STANDARD_PATH,          @"PATH",

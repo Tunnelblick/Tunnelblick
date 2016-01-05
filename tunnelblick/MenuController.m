@@ -3,7 +3,7 @@
  * Contributions by Dirk Theisen <dirk@objectpark.org>,
  *                  Jens Ohlig, 
  *                  Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -262,6 +262,23 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
     }
     
     return [self localizedNameforDisplayName: displayName tblkPath: path];
+}
+
+-(NSDictionary *) tunnelblickInfoDictionary {
+    
+    // We get the Info.plist contents as follows because NSBundle's objectForInfoDictionaryKey: method returns the object as it was at
+    // compile time, before the TBBUILDNUMBER is replaced by the actual build number (which is done in the final run-script that builds Tunnelblick)
+    // By constructing the path, we force the objects to be loaded with their values at run time.
+    
+    NSString * plistPath    = [[[[NSBundle mainBundle] bundlePath]
+                                stringByDeletingLastPathComponent]                      // Remove /Resources
+                               stringByAppendingPathComponent: @"Info.plist"];          // Add    /Info.plist
+    NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
+    if (  ! infoDict  ) {
+        NSLog(@"Info.plist invalid at path %@", plistPath);
+        [self terminateBecause: terminatingBecauseOfFatalError];
+    }
+    return infoDict;
 }
 
 -(id) init
@@ -1840,7 +1857,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     if ( ! [gTbDefaults boolForKey: @"doNotShowSuggestionOrBugReportMenuItem"]  ) {
         if (  [self contactURL]  ) {
             NSString * menuTitle = nil;
-            NSDictionary * infoPlist = [[NSBundle mainBundle] infoDictionary];
+            NSDictionary * infoPlist = [self tunnelblickInfoDictionary];
             if (  [[infoPlist objectForKey: @"CFBundleShortVersionString"] rangeOfString: @"beta"].length != 0  ) {
                 if (  [NSLocalizedString(@"Tunnelblick", "Window title") isEqualToString: @"Tunnel" "blick"]  ) {
                     if (  [@"Tunnelblick" isEqualToString: @"Tunnel" "blick"]  ) {
@@ -2245,7 +2262,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     // Otherwise, use the Info.plist 'SUFeedURL' entry. We don't check the normal preferences because an unprivileged user can set them and thus
     // could send the update check somewhere it shouldn't go.
     if (  feedURL == nil  ) {
-        [self setFeedURL: [[[NSBundle mainBundle] infoDictionary] objectForKey: @"SUFeedURL"]];
+        [self setFeedURL: [[self tunnelblickInfoDictionary] objectForKey: @"SUFeedURL"]];
         if (  feedURL ) {
             if (  ! [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
                 NSLog(@"Ignoring 'SUFeedURL' item in Info.plist because it is not a string");
@@ -3965,7 +3982,7 @@ static void signal_handler(int signalNumber)
     NSString * urlString = [gTbDefaults stringForKey: @"IPCheckURL"];
 	if (   ( ! urlString)
         || [gTbDefaults canChangeValueForKey: @"IPCheckURL"]  ) {
-        NSDictionary * infoPlist = [[NSBundle mainBundle] infoDictionary];
+        NSDictionary * infoPlist = [self tunnelblickInfoDictionary];
         urlString = [infoPlist objectForKey: @"IPCheckURL"];
     }
     
@@ -4487,7 +4504,7 @@ static void signal_handler(int signalNumber)
 
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 016")
     // Add this Tunnelblick version to the start of the tunnelblickVersionHistory preference array if it isn't already the first entry
-    NSDictionary * infoPlist = [[NSBundle mainBundle] infoDictionary];
+    NSDictionary * infoPlist = [self tunnelblickInfoDictionary];
     NSString * thisVersion = [infoPlist objectForKey: @"CFBundleShortVersionString"];
     if (  thisVersion  ) {
         BOOL dirty = FALSE;
@@ -5476,7 +5493,7 @@ BOOL warnAboutNonTblks(void)
 	(void) ourAppName;
 #else
 	if (  tunnelblickTestDeployed()  ) {
-		NSDictionary * bundleInfoDict = [[NSBundle mainBundle] infoDictionary];
+		NSDictionary * bundleInfoDict = [self tunnelblickInfoDictionary];
 		if (  ! bundleInfoDict  ) {
 			TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
 							NSLocalizedString(@"This 'Deployed' version of Tunnelblick cannot be launched or installed because it"
