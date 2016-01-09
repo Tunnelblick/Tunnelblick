@@ -1773,7 +1773,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		return nil;
 	} else if (  ! tunOrTap  ) {
 		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-						  NSLocalizedString(@"Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file", @"Window text"));
+						  NSLocalizedString(@"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file", @"Window text"));
 		return nil;
 	}
     
