@@ -83,10 +83,10 @@
 "Delete Credentials" = "حذف بيانات الدخول";
 
 /* Button */
-"Delete saved passphrase and try again" = "Delete saved passphrase and try again";
+"Delete saved passphrase and try again" = "إحذف جملة السرالمحفوظة سابقاً وأعد المحاولة";
 
 /* Button */
-"Delete saved password and try again" = "Delete saved password and try again";
+"Delete saved password and try again" = "إحذف كلمة السرالمحفوظة سابقاً وأعد المحاولة";
 
 /* Button */
 "Delete" = "حذف";
@@ -236,10 +236,10 @@
 "This configuration uses %@ credentials" = "هذا الاعداد لديه اعتمادات تستخدم %@";
 
 /* Button */
-"Try again with saved passphrase" = "Try again with saved passphrase";
+"Try again with saved passphrase" = "أعد المحاولة بإستخدام جملة السر المحفوظة";
 
 /* Button */
-"Try again with saved username and password" = "Try again with saved username and password";
+"Try again with saved username and password" = "أعد المحالة باستخدام اسم المستخدم وكلمة السر المحفوظين";
 
 /* Button */
 "Try again" = "حاول مرة أخرى";
@@ -551,7 +551,7 @@
 "Could Not Move Configuration" = "غير قادر على نقل الإعدادات";
 
 /* Window title */
-"Could Not Replace Configuration" = "Could Not Replace Configuration";
+"Could Not Replace Configuration" = "لم نستطع تبديل الاعدادات";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "غير قادر على حذف الإعدادات";
@@ -761,7 +761,7 @@
 " Forced preferences will also be installed or replaced.\n\n" = " Forced preferences will also be installed or replaced.\n\n";
 
 /* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n";
+" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = "ملاحظة: اعدادات OpenVPN سيتم تغيرها الى اعدادات Tunnelblick VPN.";
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = "يجب تثبيت Tunnelblick في التطبيقات\n";
@@ -806,10 +806,10 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "(The 'easy-rsaPath' preference is invalid.)";
 
 /* Window text */
-"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+"(if connected when computer went to sleep)" = "(يتم الاتصال عندما يكون الحاسب نائما)";
 
 /* Window text */
-"(if connected when user switched out)" = "(if connected when user switched out)";
+"(if connected when user switched out)" = "(يكون متصلا عندما يخرج المسخدم)";
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc.";
@@ -821,7 +821,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "A Tunnelblick VPN Configuration is nested too deeply in '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts.";
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "الاعدادات التي تتطلب كلمة مرور خاصة (passphrase) او اسم المستخدم و كلمة مروره لا يمكن ان تبدأ حينما يعمل الحاسب.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "A passphrase is required to connect to\n  %1$@%2$@";
@@ -842,7 +842,7 @@
 "A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
 
 /* Window text */
-"Add Credentials" = "Add Credentials";
+"Add Credentials" = "اضف اوراق اعتماد";
 
 /* Window text */
 "Added '.sh' extension to %@ so it will be secured properly" = "Added '.sh' extension to %@ so it will be secured properly";
@@ -863,7 +863,7 @@
 "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n";
 
 /* Window text */
-"All configuration files have been removed. Tunnelblick must quit." = "All configuration files have been removed. Tunnelblick must quit.";
+"All configuration files have been removed. Tunnelblick must quit." = "جميع ملفات الاعداد تم حذفهم. يجب اغلاق البرنامج.";
 
 /* Window text */
 "All configurations use %@ credentials" = "All configurations use %@ credentials";
@@ -1307,7 +1307,7 @@
 "Received fatal signal %d." = "Received fatal signal %d.";
 
 /* Window text */
-"Remove" = "Remove";
+"Remove" = "مسح";
 
 /* Window text */
 "Rename failed; see the Console Log for details." = "Rename failed; see the Console Log for details.";
@@ -1331,7 +1331,7 @@
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Skipped copying %@ because a file with that name and contents has already been copied.";
 
 /* Window text */
-"Starting Tunnelblick..." = "Starting Tunnelblick…";
+"Starting Tunnelblick..." = "البرنامج يبدأ…";
 
 /* Window text */
 "Startup window:" = "نافذة البداية :";
@@ -1550,7 +1550,7 @@
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n";
 
 /* Window text */
-"Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file";
+"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file";
 
 /* Window text */
 "Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick could not find a free port to use for communication with OpenVPN";

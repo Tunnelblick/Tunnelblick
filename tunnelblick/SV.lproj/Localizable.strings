@@ -1550,7 +1550,7 @@
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick kunde inte hämta information gällande IP-adressen innan anslutning till %@ upprättades.\n\n";
 
 /* Window text */
-"Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file";
+"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file";
 
 /* Window text */
 "Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick could not find a free port to use for communication with OpenVPN";

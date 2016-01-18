@@ -83,10 +83,10 @@
 "Delete Credentials" = "删除认证信息";
 
 /* Button */
-"Delete saved passphrase and try again" = "Delete saved passphrase and try again";
+"Delete saved passphrase and try again" = "请删除掉已保存的密码然后重试一次";
 
 /* Button */
-"Delete saved password and try again" = "Delete saved password and try again";
+"Delete saved password and try again" = "请删除掉已保存的密码然后重试一次";
 
 /* Button */
 "Delete" = "删除";
@@ -104,7 +104,7 @@
 "Download" = "下载";
 
 /* Button */
-"Duplicate" = "Duplicate";
+"Duplicate" = "制作副本";
 
 /* Button */
 "Help" = "帮助";
@@ -128,10 +128,10 @@
 "Load Tun driver automatically" = "自动加载 Tun 驱动程序";
 
 /* Button */
-"Make Private" = "Make Private";
+"Make Private" = "令其改为私有";
 
 /* Button */
-"Make Shared" = "Make Shared";
+"Make Shared" = "令其改为共享";
 
 /* Button */
 "Manually" = "手动";
@@ -182,7 +182,7 @@
 "Remove Credentials" = "删除证书";
 
 /* Button */
-"Rename" = "Rename";
+"Rename" = "重命名";
 
 /* Button */
 "Replace" = "取代";
@@ -197,7 +197,7 @@
 "Restore" = "恢复";
 
 /* Button */
-"Retry" = "Retry";
+"Retry" = "重试";
 
 /* Button */
 "Revert" = "重置";
@@ -236,10 +236,10 @@
 "This configuration uses %@ credentials" = "此配置使用 %@ 认证信息";
 
 /* Button */
-"Try again with saved passphrase" = "Try again with saved passphrase";
+"Try again with saved passphrase" = "请使用已保存的密码重试一次";
 
 /* Button */
-"Try again with saved username and password" = "Try again with saved username and password";
+"Try again with saved username and password" = "请使用已保存的用户名和密码重试一次";
 
 /* Button */
 "Try again" = "重试";
@@ -269,7 +269,7 @@
 "Disconnect %@%@" = "断开 %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Do Not Show on Tunnelblick Menu";
+"Do Not Show on Tunnelblick Menu" = "不要在 Tunnelblick 的菜单栏显示";
 
 /* Menu Item */
 "Duplicate Configuration..." = "创建此配置的复本…";
@@ -302,7 +302,7 @@
 "Show OpenVPN Log in Finder" = "在 Finder 中显示 OpenVPN 日志";
 
 /* Menu Item */
-"Show on Tunnelblick Menu" = "Show on Tunnelblick Menu";
+"Show on Tunnelblick Menu" = "在 Tunnelblick 的菜单栏显示";
 
 /* Menu item */
 "Suggestion or Bug Report..." = "建议或故障报告…";
@@ -323,7 +323,7 @@
 "Check if the apparent public IP address changed after connecting" = "连接后检查外部IP地址是否有所改变";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
+"Disable IPv6 (tun only)" = "禁用 IPv6 (tun)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "当计算机休眠时断开连接";
@@ -362,7 +362,7 @@
 "Do not warn about this again" = "不再发出此警告";
 
 /* Checkbox name */
-"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+"Enable IPv6 (tap only)" = "启用 IPv6 (tap)";
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "连接后或者断开连接后, 清空 DNS 缓存";
@@ -386,7 +386,7 @@
 "Prepend domain name to search domains" = "准备用于搜索域名的域名后缀";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+"Reconnect when computer wakes up" = "当电脑从睡眠状态中唤醒后重新连接";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "用户转入时, 重新连接";
@@ -551,7 +551,7 @@
 "Could Not Move Configuration" = "未能移动配置";
 
 /* Window title */
-"Could Not Replace Configuration" = "Could Not Replace Configuration";
+"Could Not Replace Configuration" = "无法替换配置文件";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "未能卸载配置";
@@ -632,7 +632,7 @@
 "Settings" = "选项";
 
 /* Window title */
-"Sounds" = "Sounds";
+"Sounds" = "声音";
 
 /* Window title */
 "System Requirements Not Met" = "未满足对系统的要求";
@@ -932,22 +932,22 @@
 "Cannot uninstall configuration '%@' because it is not installed." = "无法卸载 '%@' 配置文件，因为它就没被安装过";
 
 /* Window text */
-"Computer sleep/wake" = "Computer sleep/wake";
+"Computer sleep/wake" = "计算机睡眠/唤醒";
 
 /* Window text */
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' ('%2$@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%3$s'\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "Configuration '%@' already exists.";
+"Configuration '%@' already exists." = "名为 '%@' 的配置文件已存在";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "配置文件 '%@' 含有一个或多个如果你在连接的时候替换或者卸载配置文件可能导致问题的脚本\n\n你真的想替换这个配置文件吗？";
 
 /* Window text */
-"Configuration '%@' is not secure. It should be reinstalled." = "Configuration '%@' is not secure. It should be reinstalled.";
+"Configuration '%@' is not secure. It should be reinstalled." = "名为 '%@' 的配置文件并不安全。应该重装。";
 
 /* Window text */
-"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Configuration '%@' is not secure. Please reinstall Tunnelblick.";
+"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "名为 '%@' 的配置文件并不安全。请重新安装 Tunnelblick 。";
 
 /* Window text */
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "配置文件 '%@' 是不能自动更新的，因为它不能被标记为为 '可自动更新的'\n";
@@ -1148,7 +1148,7 @@
 "Installing configurations is not allowed" = "禁止安装配置";
 
 /* Window text */
-"Internal error: commentOutLines: line %lu does not exist" = "Internal error: commentOutLines: line %lu does not exist";
+"Internal error: commentOutLines: line %lu does not exist" = "内部错误：commentOutLines: 第 %lu 行并不存在";
 
 /* Window text */
 "Invalid value '%@' for '%@' in %@" = "在 %3$@ 中，'%2$@' 的值 '%1$@' 无效";
@@ -1307,7 +1307,7 @@
 "Received fatal signal %d." = "收到致命的信号 %d.";
 
 /* Window text */
-"Remove" = "Remove";
+"Remove" = "移除";
 
 /* Window text */
 "Rename failed; see the Console Log for details." = "Rename failed; see the Console Log for details.";
@@ -1442,7 +1442,7 @@
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "口令不能空白!\n请输入 VPN 口令.";
 
 /* Window text */
-"The passphrase was not accepted." = "The passphrase was not accepted.";
+"The passphrase was not accepted." = "不接受此密码";
 
 /* Window text */
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "这个私人配置从来没有生成过安全副本，所以你无法重置到安全副本.";
@@ -1451,7 +1451,7 @@
 "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "配置样本文件夹已经新建在你的桌面上, 其中的 OpenVPN 配置文件已经在文本编辑软件中打开, 你可以通过修改此文件来配置你的 VPN 选项.\n\n在你完成编辑并保存 OpenVPN 配置文件后, 请\n\n1. 移动或复制跟此配置文件相关的密钥或证书文件到桌面上的 'Tunnelblick VPN 配置样本' 文件夹.\n\n(此文件夹已在 Finder 窗口中打开, 所以你可以将这些文件拖入窗口中.)\n\n2. 将文件夹重命名为你想要的名字. 新的名字将是此配置在 Tunnelblick 中的名字.\n\n3.此文件夹的后缀改为  .tblk.\n\n4. 双击此文件夹, 这将安装此配置.\n\n新的配置将立即能够在 Tunnelblick 中使用.";
 
 /* Window text */
-"The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
+"The username and password were not accepted by the remote VPN server." = "远程 VPN 服务器不接受该用户名和密码";
 
 /* Window text */
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "用户名和密码不能空白!\n请输入 VPN 用户名／密码组合.";
@@ -1550,7 +1550,7 @@
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick在连接到 %@ 之前无法获取取 IP 地址信息。\n\n";
 
 /* Window text */
-"Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file";
+"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file";
 
 /* Window text */
 "Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick could not find a free port to use for communication with OpenVPN";
@@ -1637,7 +1637,7 @@
 "Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
 
 /* Window text */
-"Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+"Tunnelblick was successfully installed." = "成功安装 Tunnelblick.";
 
 /* Window text */
 "Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
@@ -1646,7 +1646,7 @@
 "Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
 
 /* Window text */
-"Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
+"Tunnelblick was successfully replaced." = "成功替换 Tunnelblick.";
 
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick 已有 %2$d 秒未能与一个现有 OpenVPN 进程建立通讯, 该进程属于 '%1$@'. 已放弃建立通讯的努力.";
@@ -1748,7 +1748,7 @@
 "VPN Connections" = "VPN 连接";
 
 /* Window text */
-"VPN status windows:" = "VPN status windows:";
+"VPN status windows:" = "VPN 状态：";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "在 %3$@ 中用于 '%2$@' 的值 '%1$@' 不是一个有效的 URL";
@@ -1961,7 +1961,7 @@
 "Icon set including Retina images" = "图标集包括视网膜图像";
 
 /* Credit description */
-"Indonesian localization" = "Indonesian localization";
+"Indonesian localization" = "印尼语翻译";
 
 /* Credit description */
 "Italian localization" = "意大利语翻译";

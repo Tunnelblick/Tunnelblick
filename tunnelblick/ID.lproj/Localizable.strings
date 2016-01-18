@@ -83,10 +83,10 @@
 "Delete Credentials" = "Hapus Kredensial";
 
 /* Button */
-"Delete saved passphrase and try again" = "Delete saved passphrase and try again";
+"Delete saved passphrase and try again" = "Hapus frasa sandi yang disimpan dan coba lagi";
 
 /* Button */
-"Delete saved password and try again" = "Delete saved password and try again";
+"Delete saved password and try again" = "Hapus sandi yang disimpan dan coba lagi";
 
 /* Button */
 "Delete" = "Hapus";
@@ -104,7 +104,7 @@
 "Download" = "Unduh";
 
 /* Button */
-"Duplicate" = "Duplicate";
+"Duplicate" = "Duplikat";
 
 /* Button */
 "Help" = "Bantuan";
@@ -128,10 +128,10 @@
 "Load Tun driver automatically" = "Muat driver Tun secara otomatis";
 
 /* Button */
-"Make Private" = "Make Private";
+"Make Private" = "Jadikan Privat";
 
 /* Button */
-"Make Shared" = "Make Shared";
+"Make Shared" = "Jadikan Dipakai Bersama";
 
 /* Button */
 "Manually" = "Secara manual";
@@ -182,7 +182,7 @@
 "Remove Credentials" = "Hapus Kredensial";
 
 /* Button */
-"Rename" = "Rename";
+"Rename" = "Ubah nama";
 
 /* Button */
 "Replace" = "Ganti";
@@ -206,190 +206,190 @@
 "Show on default screen (%u x %u)" = "Tampilkan pada layar baku (%1$u x %2$u)";
 
 /* Button */
-"Show on screen %u (%u x %u)" = "Show on screen %1$u (%2$u x %3$u)";
+"Show on screen %u (%u x %u)" = "Tampilkan pada layar %1$u (%2$u x %3$u)";
 
 /* Button */
-"Show when connection status changes" = "Show when connection status changes";
+"Show when connection status changes" = "Tampilkan ketika status koneksi berubah";
 
 /* Button */
-"Show while connecting" = "Show while connecting";
+"Show while connecting" = "Tampilkan ketika menyambung";
 
 /* Button */
-"Skip" = "Skip";
+"Skip" = "Lewati";
 
 /* Button */
-"Speak" = "Speak";
+"Speak" = "Bicara";
 
 /* Button */
-"Standard icon" = "Standard icon";
+"Standard icon" = "Ikon standar";
 
 /* Button */
-"Terminate All OpenVPN processes" = "Terminate All OpenVPN processes";
+"Terminate All OpenVPN processes" = "Akhiri semua proses OpenVPN";
 
 /* Button */
-"Terminate" = "Terminate";
+"Terminate" = "Akhiri";
 
 /* Button */
-"This configuration has its own separate credentials" = "This configuration has its own separate credentials";
+"This configuration has its own separate credentials" = "Konfigurasi ini punya kredensial tersendiri";
 
 /* Button */
-"This configuration uses %@ credentials" = "This configuration uses %@ credentials";
+"This configuration uses %@ credentials" = "Konfigurasi ini memakai kredensial %@";
 
 /* Button */
-"Try again with saved passphrase" = "Try again with saved passphrase";
+"Try again with saved passphrase" = "Coba lagi dengan frasa sandi yang tersimpan";
 
 /* Button */
-"Try again with saved username and password" = "Try again with saved username and password";
+"Try again with saved username and password" = "Coba lagi dengan nama pengguna dan sandi yang tersimpan";
 
 /* Button */
-"Try again" = "Try again";
+"Try again" = "Coba lagi";
 
 /* Button */
-"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 icon";
+"Tunnelblick 3.3 icon" = "Ikon Tunnelblick 3.3";
 
 /* Button */
-"When Tunnelblick launches" = "When Tunnelblick launches";
+"When Tunnelblick launches" = "Ketika Tunnelblick meluncur";
 
 /* Button */
-"When computer starts" = "When computer starts";
+"When computer starts" = "Ketika komputer diawali";
 
 /* Menu item */
-"Add a VPN..." = "Add a VPN…";
+"Add a VPN..." = "Tambah sebuah VPN…";
 
 /* Menu item */
-"Connect %@%@" = "Connect %@%@";
+"Connect %@%@" = "Sambung %@%@";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "Delete Configuration's Credentials in Keychain…";
+"Delete Configuration's Credentials in Keychain..." = "Hapus Kredensial Konfigurasi dalam Ring Kunci…";
 
 /* Menu item tooltip */
-"Disabled because this setting is being forced" = "Disabled because this setting is being forced";
+"Disabled because this setting is being forced" = "Dinonaktifkan karena pengaturan ini dipaksakan";
 
 /* Menu item */
-"Disconnect %@%@" = "Disconnect %@%@";
+"Disconnect %@%@" = "Putuskan %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Do Not Show on Tunnelblick Menu";
+"Do Not Show on Tunnelblick Menu" = "Jangan Tampilkan pada Menu Tunnelblick";
 
 /* Menu Item */
-"Duplicate Configuration..." = "Duplicate Configuration…";
+"Duplicate Configuration..." = "Gandakan Konfigurasi…";
 
 /* Menu Item */
-"Edit OpenVPN Configuration File..." = "Edit OpenVPN Configuration File…";
+"Edit OpenVPN Configuration File..." = "Sunting Berkas Konfigurasi OpenVPN…";
 
 /* Menu Item */
-"Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File…";
+"Examine OpenVPN Configuration File..." = "Periksa Berkas Konfigurasi OpenVPN…";
 
 /* Menu Item */
-"Make Configuration Private..." = "Make Configuration Private…";
+"Make Configuration Private..." = "Jadikan Konfigurasi Privat…";
 
 /* Menu Item */
-"Make Configuration Shared..." = "Make Configuration Shared…";
+"Make Configuration Shared..." = "Jadikan Konfigurasi Bersama…";
 
 /* Menu item */
-"No VPN Configurations Available" = "No VPN Configurations Available";
+"No VPN Configurations Available" = "Tidak Ada Konfigurasi VPN yang Tersedia";
 
 /* Menu item */
-"Quit Tunnelblick" = "Quit Tunnelblick";
+"Quit Tunnelblick" = "Keluar Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Rename Configuration…";
+"Rename Configuration..." = "Ubah Nama Konfigurasi…";
 
 /* Menu Item */
-"Revert Configuration..." = "Revert Configuration…";
+"Revert Configuration..." = "Pulihkan Konfigurasi…";
 
 /* Menu Item */
-"Show OpenVPN Log in Finder" = "Show OpenVPN Log in Finder";
+"Show OpenVPN Log in Finder" = "Tampilkan Log OpenVPN dalam Finder";
 
 /* Menu Item */
-"Show on Tunnelblick Menu" = "Show on Tunnelblick Menu";
+"Show on Tunnelblick Menu" = "Tampilkan pada Menu Tunnelblick";
 
 /* Menu item */
-"Suggestion or Bug Report..." = "Suggestion or Bug Report…";
+"Suggestion or Bug Report..." = "Saran atau Laporan Bug…";
 
 /* Menu item */
-"VPN Details..." = "VPN Details…";
+"VPN Details..." = "Rincian VPN…";
 
 /* Checkbox name */
-"Apply to all" = "Apply to all";
+"Apply to all" = "Terapkan ke semua";
 
 /* Checkbox name */
-"Check for updates automatically" = "Check for updates automatically";
+"Check for updates automatically" = "Periksa pemutakhiran secara otomatis";
 
 /* Checkbox name */
-"Check for updates to beta versions" = "Check for updates to beta versions";
+"Check for updates to beta versions" = "Periksa pemutakhiran ke versi beta";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connecting" = "Check if the apparent public IP address changed after connecting";
+"Check if the apparent public IP address changed after connecting" = "Periksa apakah alamat IP publik yang nampak berubah setelah menyambung";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
+"Disable IPv6 (tun only)" = "Matikan IPv6 (tun saja)";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "Disconnect when computer goes to sleep";
+"Disconnect when computer goes to sleep" = "Putuskan ketika komputer tidur";
 
 /* Checkbox name */
-"Disconnect when user switches out" = "Disconnect when user switches out";
+"Disconnect when user switches out" = "Putuskan ketika pengguna berganti";
 
 /* Checkbox name */
-"Display connection submenus" = "Display connection submenus";
+"Display connection submenus" = "Tampilkan sub menu koneksi";
 
 /* Checkbox name */
-"Display connection timers" = "Display connection timers";
+"Display connection timers" = "Tampilkan pewaktu koneksi";
 
 /* Checkbox name */
-"Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
+"Display window while Tunnelblick is starting up" = "Tampilkan jendela ketika Tunnelblick mulai berjalan";
 
 /* Checkbox name */
-"Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
+"Do not ask again, always 'Ignore'" = "Jangan tanya lagi, selalu 'Abaikan'";
 
 /* Checkbox name */
-"Do not ask again, always Continue" = "Do not ask again, always Continue";
+"Do not ask again, always Continue" = "Jangan tanya lagi, selalu Lanjutkan";
 
 /* Checkbox name */
-"Do not ask again, always convert" = "Do not ask again, always convert";
+"Do not ask again, always convert" = "Jangan tanya lagi, selalu konversikan";
 
 /* Checkbox name */
-"Do not check for IP address changes" = "Do not check for IP address changes";
+"Do not check for IP address changes" = "Jangan periksa perubahan alamat IP";
 
 /* Checkbox name on a warning dialog */
-"Do not show again for any configuration" = "Do not show again for any configuration";
+"Do not show again for any configuration" = "Jangan tampilkan lagi untuk sebarang konfigurasi";
 
 /* Checkbox name */
-"Do not warn about this again for this configuration" = "Do not warn about this again for this configuration";
+"Do not warn about this again for this configuration" = "Jangan peringatkan hal ini lagi bagi konfigurasi ini";
 
 /* Checkbox name */
-"Do not warn about this again" = "Do not warn about this again";
+"Do not warn about this again" = "Jangan peringatkan tentang hal ini lagi";
 
 /* Checkbox name */
-"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+"Enable IPv6 (tap only)" = "Fungsikan IPv6 (tap saja)";
 
 /* Checkbox name */
-"Flush DNS cache after connecting or disconnecting" = "Flush DNS cache after connecting or disconnecting";
+"Flush DNS cache after connecting or disconnecting" = "Gelontor singgahan DNS setelah menyambung atau memutus";
 
 /* Checkbox name */
-"Inhibit automatic update checking and IP Address checking" = "Inhibit automatic update checking and IP Address checking";
+"Inhibit automatic update checking and IP Address checking" = "Cegah pemeriksaan pemutakhiran otomatis dan pemeriksaan Alamat IP";
 
 /* Checkbox name */
-"Keep connected" = "Keep connected";
+"Keep connected" = "Jaga terus tersambung";
 
 /* Checkbox name */ /* System profile item */
-"Monitor connection" = "Monitor connection";
+"Monitor connection" = "Pantau koneksi";
 
 /* Checkbox name */
-"Monitor network settings" = "Monitor network settings";
+"Monitor network settings" = "Pantau pengaturan jaringan";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Place next to Spotlight icon";
+"Place next to Spotlight icon" = "Tempatkan di sebelah ikon Spotlight";
 
 /* Checkbox name */
-"Prepend domain name to search domains" = "Prepend domain name to search domains";
+"Prepend domain name to search domains" = "Awali nama domain dengan domain pencarian";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+"Reconnect when computer wakes up" = "Sambung ulang ketika komputer bangun";
 
 /* Checkbox name */
-"Reconnect when user switches in" = "Reconnect when user switches in";
+"Reconnect when user switches in" = "Sambung ulang ketika pengguna masuk";
 
 /* Checkbox name */
 "Require adminstrator authorization for key and certificate changes" = "Require adminstrator authorization for key and certificate changes";
@@ -1550,7 +1550,7 @@
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n";
 
 /* Window text */
-"Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file";
+"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file";
 
 /* Window text */
 "Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick could not find a free port to use for communication with OpenVPN";

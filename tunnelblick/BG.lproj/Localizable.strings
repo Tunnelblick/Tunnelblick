@@ -104,7 +104,7 @@
 "Download" = "Изтегляне";
 
 /* Button */
-"Duplicate" = "Duplicate";
+"Duplicate" = "Дублирай";
 
 /* Button */
 "Help" = "Помощ";
@@ -182,7 +182,7 @@
 "Remove Credentials" = "Премахване на идентификационните данни";
 
 /* Button */
-"Rename" = "Rename";
+"Rename" = "Преименувай";
 
 /* Button */
 "Replace" = "Замени";
@@ -197,7 +197,7 @@
 "Restore" = "Възстанови";
 
 /* Button */
-"Retry" = "Retry";
+"Retry" = "Опитай отново";
 
 /* Button */
 "Revert" = "Върни първоначалните";
@@ -632,7 +632,7 @@
 "Settings" = "Настройки";
 
 /* Window title */
-"Sounds" = "Sounds";
+"Sounds" = "Звуци";
 
 /* Window title */
 "System Requirements Not Met" = "Системни изисквания не са изпълнени";
@@ -1307,7 +1307,7 @@
 "Received fatal signal %d." = "Получен фатален сигнал %d.";
 
 /* Window text */
-"Remove" = "Remove";
+"Remove" = "Премахни";
 
 /* Window text */
 "Rename failed; see the Console Log for details." = "Rename failed; see the Console Log for details.";
@@ -1550,7 +1550,7 @@
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick не може да се извлече информация за IP адреса преди връзката с %@ да бъде установена.\n\n";
 
 /* Window text */
-"Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap option in the OpenVPN configuration file";
+"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file";
 
 /* Window text */
 "Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick could not find a free port to use for communication with OpenVPN";
