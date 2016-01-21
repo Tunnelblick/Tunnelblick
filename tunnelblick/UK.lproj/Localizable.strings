@@ -86,7 +86,7 @@
 "Delete saved passphrase and try again" = "Delete saved passphrase and try again";
 
 /* Button */
-"Delete saved password and try again" = "Delete saved password and try again";
+"Delete saved password and try again" = "Видалити збережене гасло й спробувати ще раз";
 
 /* Button */
 "Delete" = "Видалити";
@@ -104,7 +104,7 @@
 "Download" = "Завантажити";
 
 /* Button */
-"Duplicate" = "Duplicate";
+"Duplicate" = "Дублювати";
 
 /* Button */
 "Help" = "Допомога";
@@ -182,7 +182,7 @@
 "Remove Credentials" = "Видалити Повноваження";
 
 /* Button */
-"Rename" = "Rename";
+"Rename" = "Перейменувати";
 
 /* Button */
 "Replace" = "Замінити";
@@ -197,7 +197,7 @@
 "Restore" = "Відновити";
 
 /* Button */
-"Retry" = "Retry";
+"Retry" = "Повторити";
 
 /* Button */
 "Revert" = "Повернути";
@@ -236,10 +236,10 @@
 "This configuration uses %@ credentials" = "Дана конфигурація використовує %@ повноваження";
 
 /* Button */
-"Try again with saved passphrase" = "Try again with saved passphrase";
+"Try again with saved passphrase" = "Спробувати ще раз використовуючи збережену ключову фразу";
 
 /* Button */
-"Try again with saved username and password" = "Try again with saved username and password";
+"Try again with saved username and password" = "Спробувати ще раз використовуючи ім'я користувача та гасло";
 
 /* Button */
 "Try again" = "Спробуйте знову";
@@ -551,7 +551,7 @@
 "Could Not Move Configuration" = "Неможливо перемістити конфігурацію";
 
 /* Window title */
-"Could Not Replace Configuration" = "Could Not Replace Configuration";
+"Could Not Replace Configuration" = "Не вдалося замінити конфігурацію";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "Неможливо встановити конфігурацію";
@@ -632,13 +632,13 @@
 "Settings" = "Налаштування";
 
 /* Window title */
-"Sounds" = "Sounds";
+"Sounds" = "Звуки";
 
 /* Window title */
 "System Requirements Not Met" = "Системні вимоги незадоволені";
 
 /* Window title */
-"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
+"There are no OpenVPN processes running." = "Немає запущених процесів OpenVPN.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Помилка конфігурації Tunnelblick";

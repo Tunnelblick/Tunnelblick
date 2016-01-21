@@ -392,28 +392,28 @@
 "Reconnect when user switches in" = "Sambung ulang ketika pengguna masuk";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "Require adminstrator authorization for key and certificate changes";
+"Require adminstrator authorization for key and certificate changes" = "Memerlukan otorisasi administrator untuk perubahan kunci dan sertifikat";
 
 /* Checkbox name */
-"Reset the primary interface after disconnecting" = "Reset the primary interface after disconnecting";
+"Reset the primary interface after disconnecting" = "Reset antarmuka utama setelah memutus";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
+"Route all IPv4 traffic through the VPN" = "Salurkan semua lalu lintas IPv4 melalui VPN";
 
 /* Checkbox name */
-"Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
+"Run MTU maximum size test after connecting" = "Jalankan uji ukuran maksimum MTU setelah menyambung";
 
 /* Checkbox name */
-"Save in Keychain" = "Save in Keychain";
+"Save in Keychain" = "Simpan dalam Ring Kunci";
 
 /* Checkbox name */
-"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
+"Send anonymous profile information when checking" = "Kirim informasi profil anonim ketika memerika";
 
 /* Checkbox name */
-"Set DNS after routes are set instead of before routes are set" = "Set DNS after routes are set instead of before routes are set";
+"Set DNS after routes are set instead of before routes are set" = "Atur DNS setelah route ditata bukan sebelumnya";
 
 /* Checkbox name */
-"Show when disconnected" = "Show when disconnected";
+"Show when disconnected" = "Tampilkan ketika terputus";
 
 /* Checkbox name */
 "Show when the pointer is over the Tunnelblick icon" = "Show when the pointer is over the Tunnelblick icon";
@@ -446,16 +446,16 @@
 "AUTH" = "Authorizing"; // Please translate "Authorizing"
 
 /* Connection status */
-"CONNECTED" = "Connected"; // Please translate "Connected"
+"CONNECTED" = "Terhubung"; // Please translate "Connected"
 
 /* Connection status */
-"CONNECTING" = "Connecting"; // Please translate "Connecting"
+"CONNECTING" = "Menyambung"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "Disconnecting"; // Please translate "Disconnecting"
+"DISCONNECTING" = "Memutus"; // Please translate "Disconnecting"
 
 /* Connection status */
-"EXITING" = "Disconnected"; // Please translate "Disconnected"
+"EXITING" = "Terputus"; // Please translate "Disconnected"
 
 /* Connection status */
 "GET_CONFIG" = "Getting configuration"; // Please translate ""
@@ -476,13 +476,13 @@
 "SLEEP" = "Waiting for Daemon process"; // Please translate "Waiting for daemon process"
 
 /* Connection status */
-"TCP_CONNECT" = "Making TCP connection"; // Please translate "Making TCP connection"
+"TCP_CONNECT" = "Membuat koneksi TCP"; // Please translate "Making TCP connection"
 
 /* Connection status */
-"UDP_CONNECT" = "Making UDP connection"; // Please translate "Making UDP connection"
+"UDP_CONNECT" = "Membuat koneksi UDP"; // Please translate "Making UDP connection"
 
 /* Connection status */
-"WAIT" = "Waiting for server response"; // Please translate "Waiting for Server Response"
+"WAIT" = "Menunggu respon server"; // Please translate "Waiting for Server Response"
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
@@ -491,7 +491,7 @@
 "Computer admin" = "Computer admin";
 
 /* System profile item */
-"Configurations" = "Configurations";
+"Configurations" = "Konfigurasi";
 
 /* System profile item */
 "Deployed" = "Deployed";
@@ -515,13 +515,13 @@
 "'%@' has been disconnected" = "'%@' has been disconnected";
 
 /* Window title */
-"Active connection" = "Active connection";
+"Active connection" = "Koneksi aktif";
 
 /* Window title */
-"Add a Configuration" = "Add a Configuration";
+"Add a Configuration" = "Tambah Konfigurasi";
 
 /* Window title */
-"Alert sounds" = "Alert sounds";
+"Alert sounds" = "Suara peringatan";
 
 /* Window title */
 "Alert" = "Alert";

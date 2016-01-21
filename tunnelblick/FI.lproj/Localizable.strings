@@ -905,10 +905,10 @@
 "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Haluatko varmasti poistaa tunnukset (yksityinen avain ja/tai käyttäjätunnus ja salasana) %ld konfiguraatiota on tallennettu Keychainiin?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Oletko varma, että haluat poistaa Avainnipun käyttöön tallennetut käyttäjätunnukset (yksityinen avain ja/tai käyttäjätunnus ja salasana) kohteelta '%@'?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Oletko varma, että haluat poistaa Avainnipun käyttöön tallennetut käyttäjätunnukset (yksityinen avain ja/tai käyttäjätunnus ja salasana) kohteelta '%@'?";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Rivillä %1$lu OpenVPN-konfiguraatiotiedostossa: %2$@";
@@ -935,7 +935,7 @@
 "Computer sleep/wake" = "Tietokone nukkuu/avoinna";
 
 /* Window text */
-"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' ('%2$@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%3$s'\n\n";
+"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguraatio '%1$@' ('%2$@') jätetään huomioimatta, koska sen nimi sisältää merkkejä, jotka eivät ole sallittuja.\n\nMerkit, jotka eivät ole sallittuja: '%3$s'\n\n";
 
 /* Window text */
 "Configuration '%@' already exists." = "Konfiguraatio '%@' on jo olemassa.";
@@ -1046,10 +1046,10 @@
 "Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Haluatko poistaa %ld konfiguraatiota?\n\nKonfiguraatioita ei voi palauttaa poistamisen jälkeen. Kaikki konfiguraatioiden asetukset poistetaan pysyvästi.";
 
 /* Window text */
-"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.";
+"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Haluatko poistaa konfiguraation '%@'?\n\nKonfiguraation poisto on pysyvä ja sitä ei voi peruuttaa. Kaikki konfiguraation asetukset poistetaan myös pysyvästi.";
 
 /* Window text */
-"Do you wish to rename the '%@' configuration to '%@'?" = "Do you wish to rename the '%1$@' configuration to '%2$@'?";
+"Do you wish to rename the '%@' configuration to '%@'?" = "Haluatko uudelleennimetä konfiguraation '%1$@' '%2$@':ksi?";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Haluatko korvata kohteen '%1$@' version %2$@ versiolla %3$@?";
@@ -1058,7 +1058,7 @@
 "Do you wish to replace the '%@' configuration?\n\n" = "Haluatko korvata konfiguraation '%@'?\n\n";
 
 /* Window text */
-"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n";
+"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Haluatko palauttaa %ld konfiguraatiota niiden viimeisimpään tallennettuun (varjo)kopioon?\n\n";
 
 /* Window text */
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Haluatko palauttaa konfiguraation '%@'viimeisimpään tallennettuun (varjo)kopioon?\n\n";
@@ -1148,7 +1148,7 @@
 "Installing configurations is not allowed" = "Konfiguraatioiden asentaminen ei ole sallittua";
 
 /* Window text */
-"Internal error: commentOutLines: line %lu does not exist" = "Internal error: commentOutLines: line %lu does not exist";
+"Internal error: commentOutLines: line %lu does not exist" = "Sisäinen virhe: commentOutLines: riviä %lu ei ole olemassa";
 
 /* Window text */
 "Invalid value '%@' for '%@' in %@" = "Virheellinen arvo '%1$@' objektille '%2$@' kohteessa %3$@";
@@ -1199,7 +1199,7 @@
 "Named Credentials" = "Nimetyt käyttäjätunnukset";
 
 /* Window text */
-"Names may not include any of the following characters: %s" = "Names may not include any of the following characters: %s";
+"Names may not include any of the following characters: %s" = "Nimet eivät voi sisältää mitään seuraavista merkeistä: %s";
 
 /* Window text */
 "Names may not include any of the following characters: %s\n\n%@" = "Nimet eivät voi sisältää mitään seuraavista merkeistä: %1$s\n\n%2$@";
@@ -1232,7 +1232,7 @@
 "Non-string value for an item in '%@' in %@" = "Ei-merkkijonomuotinen arvo objektilla '%1$@' kohteessa %2$@";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Millään valituista %ld konfiguraatioista ei ole käyttäjätunnuksia (yksityinen avain tai käyttäjätunnus ja salasana) tallennettuna Avainketjun käyttöön.";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Ei .ovpn tai .conf: %@";
@@ -1250,7 +1250,7 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Yksi tai useampi OpenVPN-prosessi on käynnissä, mutta ne ovat tuntemattomia Tunnelblickille. Jos et suorita OpenVPN:ää erillään Tunnelblickistä, tämä yleensä tarkoittaa, että Tunnelblickin aiempi suoritus ei päättynyt kunnolla ja sinun pitäisi tuhota ne. Ne aiheuttavat todennäköisesti häiriöitä Tunnelblickin toiminnalle.\n\nNe voidaan tuhota 'Järjestelmän valvonta'-sovelluksessa.\n\n";
 
 /* Window text */
-"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding.";
+"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Yksi tai useampia VPN:iä on tällä hetkellä kytkeytyneenä. Katkaise yhteys kaikkiin VPN:iin ja lopeta Tunnelblick ennen jatkamista.";
 
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "Yksi tai useampi konfiguraatio jätetään huomiotta. Katso päätelokista lisätietoja.";
@@ -1550,10 +1550,10 @@
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick ei pystynyt noutamaan IP-osoitetietoa ennen kuin yhteys kohteeseen %@ muodostettiin.\n\n";
 
 /* Window text */
-"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file";
+"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick ei löydä 'tun'- tai 'tap'-optiota OpenVPN-konfiguraatiotiedostosta";
 
 /* Window text */
-"Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick could not find a free port to use for communication with OpenVPN";
+"Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick ei löydä vapaata porttia käytettäväksi kommunikaatioon OpenVPN:n kanssa";
 
 /* Window text */
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick ei pystynyt löytämään konfiguraatiotiedostoa tai konfiguraatiotiedostoa ei pystytty siivoamaan. Katso lisätietoja konsolilokista.";
@@ -1562,13 +1562,13 @@
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt siirtämään konfiguraatiota '%@'. Katso päätelokista lisätietoja.";
 
 /* Window text */
-"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick could not replace the '%@' configuration. See the Console Log for details.";
+"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pysty korvaamaan konfiguraatiota '%@'. Katso Konsolista lisätietoja.";
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick ei pystynyt poistamaan konfiguraatiota '%@'. Katso päätelokista lisätietoja.";
 
 /* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@";
+"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick kohtasi vakavan virheen. \n\nOta yhteys kehittäjiin osoitteessa developers@tunnelblick.net avun saamiseksi.\n\nOngelma oli: \n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick kohtasi virheitä %1$lu konfiguraatioissa:\n\n%2$@%3$@%4$@%5$@";
@@ -1586,37 +1586,37 @@
 "Tunnelblick is based on %@." = "Tunnelblick perustuu %@.";
 
 /* Window text */
-"Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick is currently running. It will be shut down before proceeding.";
+"Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick on tällä hetkellä käynnissä. Se sammutetaan ennen jatkamista.";
 
 /* Window text */
 "Tunnelblick is ready." = "Tunnelblick is valmis.";
 
 /* Window text */
-"Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick needs authorization to duplicate the '%@' configuration.";
+"Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick tarvitsee valtuutuksen konfiguraation '%@' monistamiseksi.";
 
 /* Window text */
-"Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick needs authorization to make %ld configurations private.";
+"Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick tarvitsee valtuutuksen tehdäkseen %ld konfiguraatiota yksityisiksi.";
 
 /* Window text */
-"Tunnelblick needs authorization to make %ld configurations shared." = "Tunnelblick needs authorization to make %ld configurations shared.";
+"Tunnelblick needs authorization to make %ld configurations shared." = "Tunnelblick tarvitsee valtuutuksen tehdäkseen %ld konfiguraatiota jaetuiksi.";
 
 /* Window text */
-"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick needs authorization to make the '%@' configuration private.";
+"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick tarvitsee valtuutuksen tehdäkseen konfiguraation '%@' yksityiseksi.";
 
 /* Window text */
-"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick needs authorization to make the '%@' configuration shared.";
+"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick tarvitsee valtuutuksen tehdäkseen konfiguraation '%@' jaetuksi.";
 
 /* Window text */
-"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.";
+"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick tarvitsee valtuutuksen poistaakseen %ld konfiguraatiota. \n\nKonfiguraatioiden poisto on pysyvä ja sitä ei voi peruuttaa. Myös kaikki konfiguraatioiden asetukset poistetaan pysyvästi.";
 
 /* Window text */
-"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.";
+"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick tarvitsee valtuutuksen poistaakseen konfiguraation '%@'. \n\nKonfiguraation poisto on pysyvä ja sitä ei voi peruuttaa. Myös kaikki konfiguraation asetukset poistetaan pysyvästi.";
 
 /* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick needs authorization to rename the '%1$@' configuration to '%2$@'.";
+"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick tarvitsee valtuutuksen uudelleennimetäkseen konfiguraation '%1$@' '%2$@':ksi.";
 
 /* Window text */
-"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick needs to change a setting that may only be changed by a computer administrator.";
+"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblickin on muutettava asetus, jonka voi muuttaa vain tietokoneen järjestelmänvalvoja.";
 
 /* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblickin on luotava tai päivitettävä turvallinen (varjo)kopio konfiguraatiotiedostosta.";
@@ -1631,28 +1631,28 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick onnistuneesti:\n\n";
 
 /* Window text */
-"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick asennettiin onnistuneesti ja %ld konfiguraatiota asennettiin tai korvattiin.";
 
 /* Window text */
-"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick asennettiin onnistuneesti ja yksi konfiguraatio asennettiin tai korvattiin.";
 
 /* Window text */
-"Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+"Tunnelblick was successfully installed." = "Tunnelblick asennettiin onnistuneesti.";
 
 /* Window text */
-"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick korvattiin onnistuneesti ja %ld konfiguraatiota asennettiin tai korvattiin.";
 
 /* Window text */
-"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick korvattiin onnistuneesti ja yksi konfiguraatio asennettiin tai korvattiin.";
 
 /* Window text */
-"Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
+"Tunnelblick was successfully replaced." = "Tunnelblick korvattiin onnistuneesti.";
 
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick ei pystynyt muodostamaan yhteyttä olemassa olevaan OpenVPN-prosessiin  '%1$@'  %2$d sekunnin sisällä. Yritys muodostaa yhteyksiä on hylätty.";
 
 /* Window text */
-"Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick was unable to make the change. See the Console Log for details.";
+"Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick ei pystynyt tekemään muutosta. Katso Konsolista lisätietoja.";
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick ei pystynyt käynnistämään OpenVPN:ää muodostaakseen yhteyden %@. Katso lisätietoja lokitiedoista kohdasta VPN-Tiedot… ikkuna";
@@ -1787,10 +1787,10 @@
 "You are not allowed to replace a shared configuration" = "Sinulla ei ole oikeuksia korvata jaettua konfiguraatiota";
 
 /* Window text */
-"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private.";
+"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "Et voi tehdä konfiguraatiosta '%@' yksityistä, koska se on päivitettävissä oleva konfiguraatio.\n\nHuomaa, että Tunnelblick VPN-konfiguraatio, joka on päivitettävissä olevan Tunnelblick VPN-konfiguraation sisällä, voi olla yksityinen.";
 
 /* Window text */
-"You cannot make the '%@' configuration private because it is set to start when the computer starts." = "You cannot make the '%@' configuration private because it is set to start when the computer starts.";
+"You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Et voi tehdä konfiguraatiosta '%@' yksityistä, koska se on asetettu käynnistymään, kun tietokone käynnistyy.";
 
 /* Window text */
 "You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "Et voi merkata '%@' konfiguraatiota jaetuksi, sillä se on automaattisesti päivitettävä konfiguraatio.\n\nHuomaa, että Tunnelblick VPN konfiguraatio, joka on päivitettävän Tunnelblick VPN konfiguraation sisällä on jaettavissa.";

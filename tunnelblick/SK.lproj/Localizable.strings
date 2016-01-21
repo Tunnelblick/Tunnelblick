@@ -935,7 +935,7 @@
 "Computer sleep/wake" = "Režim spánku / zobudenia";
 
 /* Window text */
-"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' ('%2$@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%3$s'\n\n";
+"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurácia %1$@ (%2$@) bude ignorovaná, nakoľko jej názov obsahuje nepovolené znaky.\n\nZnaky ktoré nie su povolené: %3$s\n\n";
 
 /* Window text */
 "Configuration '%@' already exists." = "Konfigurácia %@ už existuje.";
@@ -1043,13 +1043,13 @@
 "Do you wish to reinstall '%@' version %@?" = "Prajete si preinštalovať \"%1$@\" verzia %2$@?";
 
 /* Window text */
-"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.";
+"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Prajete si zmazať %ld konfigurácie?\n\nZmazanie konfigurácií je konečné a nebude možné tieto konfigurácie následne obnoviť. Zároveň s konfiguráciami sa vymažú aj všetky nastavenia ktoré sa k týmto konfiguráciám viažu.";
 
 /* Window text */
-"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.";
+"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Prajete si zmazať %@ konfiguráciu?\n\nZmazanie konfigurácie je konečné a nebude možné tútp konfiguráciu následne obnoviť. Zároveň s konfiguráciou sa vymažú aj všetky nastavenia ktoré sa k tejto konfigurácii viažu.";
 
 /* Window text */
-"Do you wish to rename the '%@' configuration to '%@'?" = "Do you wish to rename the '%1$@' configuration to '%2$@'?";
+"Do you wish to rename the '%@' configuration to '%@'?" = "Prajete si premoenovať %1$@ konfiguráciu na %2$@?";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Prajete si nahradiť \"%1$@\" verzia %2$@ verziou %3$@?";
@@ -1058,7 +1058,7 @@
 "Do you wish to replace the '%@' configuration?\n\n" = "Chcete nahradiť \"%@\" konfiguráciu?  ";
 
 /* Window text */
-"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n";
+"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Prajete si obnoviť %ld konfigurácie do ich poslednej bezpečnej (tieňovej) kópie?\n\n";
 
 /* Window text */
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Skutočne si prajete obnoviť '%@' do jeho poslednej bezpečnostnej kópie?\n\n";
@@ -1148,7 +1148,7 @@
 "Installing configurations is not allowed" = "Inštalácia konfigurácií nie je povolená";
 
 /* Window text */
-"Internal error: commentOutLines: line %lu does not exist" = "Internal error: commentOutLines: line %lu does not exist";
+"Internal error: commentOutLines: line %lu does not exist" = "Vyskytla sa vnútorná chyba: commentOutLines: riadok %lu neexistuje";
 
 /* Window text */
 "Invalid value '%@' for '%@' in %@" = "Neplatná hodnota \"%1$@\" pre \"%2$@\" v %3$@";
@@ -1199,7 +1199,7 @@
 "Named Credentials" = "Vytvorené prístupové údaje";
 
 /* Window text */
-"Names may not include any of the following characters: %s" = "Names may not include any of the following characters: %s";
+"Names may not include any of the following characters: %s" = "Pomenovanie nemôže obsahovat uvedené znaky: %s";
 
 /* Window text */
 "Names may not include any of the following characters: %s\n\n%@" = "V názvoch nie sú prípustné nasledujúce znaky: %1$s\n\n%2$@";
@@ -1232,7 +1232,7 @@
 "Non-string value for an item in '%@' in %@" = "Hodnota položky v '%1$@' in %2$@ neobsahuje reťazec";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Ani jedna z %ld vybraných konfigurácií nemá uložené prihlasovacie údaje (súkromný kľúč alebo meno a heslo) v Kľúčenke.";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Nie .ovpn alebo .conf: %@";
@@ -1250,7 +1250,7 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Bola zistená prítomnosť jedného alebo viacerých procesov OpenVPN spustených nezávisle na aplikácii Tunnelblick. Ak nemáte spustené iné OpenVPN nezávisle na Tunnelblick, môže to často znamenať, že Tunnelblick nedokázal pri predchádzajúcom ukončení tieto procesy korektne zastaviť, a mali by ste ich ukončiť. Tieto procesy môžu narušiť chod aplikácie Tunnelblick.\n\nVynútiť ukončenie týchto procesov je možné v aplikácii 'Monitor aktivity'.\n\n";
 
 /* Window text */
-"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding.";
+"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Je aktívne jedno alebo viacej VPN pripojení. Ukončite všetky VPN pripojenia predtým než budete pokračovať ďalej.";
 
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "Jedna alebo viacero konfigurácií je ignorovaných. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
@@ -1310,7 +1310,7 @@
 "Remove" = "Vymazať";
 
 /* Window text */
-"Rename failed; see the Console Log for details." = "Rename failed; see the Console Log for details.";
+"Rename failed; see the Console Log for details." = "Premenovanie sa nezdarilo. Viac detailov nájdete v Console Log.";
 
 /* Window text */
 "Resolved symbolic link at '%@' to '%@'" = "Symbolický odkaz z \"%1$@\" do \"%2$@\"";
@@ -1433,7 +1433,7 @@
 "The file %@ is missing" = "Chýba súbor %@";
 
 /* Window text */
-"The installation or repair took too long or failed. Try again?" = "The installation or repair took too long or failed. Try again?";
+"The installation or repair took too long or failed. Try again?" = "Inštalácia alebo oprava trvajú príliš dlho alebo sa proces nezdaril. Opakovať danú operáciu?";
 
 /* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Inštalácia, odstránenie, obnovenie alebo oprava jednej alebo viacerých súčastí aplikácie Tunnelblick nebola úspešná.";
@@ -1451,7 +1451,7 @@
 "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "Na Vašej Ploche bol vytvorený priečinok vzorovej konfigurácie a v aplikácii TextEdit bol otvorený konfiguračný súbor OpenVPN, aby ste súbor mohli upraviť podľa nastavení Vašej VPN.\n\nPo dokončení úprav súboru konfigurácie OpenVPN a jeho uložení, prosím, postupujte nasledovne\n\n1. Premiestnite alebo skopírujte súbory kľúčov a certifikátov súvisiacich s danou konfiguráciou do priečinka 'Vzor konfiguracie Tunnelblick VPN' na Vašej ploche.\n\n(Tento priečinok sa otvoril v okne aplikácie Finder, takže do neho môžete pretiahnuť Vaše súbory.)\n\n2. Ľubovoľne zmeňte názov priečinka. Tento názov Tunnelblick použije na pomenovanie konfigurácie.\n\n3. Pridajte koncovku .tblk na koniec názvu priečinka.\n\n4. Dvojklikom na priečinok nainštalujte konfiguráciu.\n\nNová konfigurácia bude hneď prístupná na použitie v Tunnelblick.";
 
 /* Window text */
-"The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
+"The username and password were not accepted by the remote VPN server." = "Vzdialený VPN server odmietol užívateľské meno a heslo.";
 
 /* Window text */
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Prístupové meno a heslo nesmú byť prázdne!\nProsím, zadajte prístupové meno a heslo pre VPN.";
@@ -1466,10 +1466,10 @@
 "There is not an OpenVPN configuration file in '%@'" = "Neexistuje OpenVPN konfiguračný súbor v \"%@\"";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "There was a problem deleting one or more configurations. See the Console Log for details.";
+"There was a problem deleting one or more configurations. See the Console Log for details." = "Vyskytol sa problém požas vymazávania jednej alebo viacerých konfigurácií. Viac detailov nájdete v Console Log.";
 
 /* Window text */
-"There was a problem with the OpenVPN configuration. See the Console Log for details." = "There was a problem with the OpenVPN configuration. See the Console Log for details.";
+"There was a problem with the OpenVPN configuration. See the Console Log for details." = "Vyskytol sa problém s konfiguráciou OpenVPN. Viac detailov nájdete v Console Log.";
 
 /* Window text */
 "There was a problem with\n\n%@:\n\n%@" = "Vyskytol sa problém s \n\n%1$@: \n\n%2$@";
@@ -1586,37 +1586,37 @@
 "Tunnelblick is based on %@." = "Tunnelblick je založený na %@.";
 
 /* Window text */
-"Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick is currently running. It will be shut down before proceeding.";
+"Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick je momentálne aktívny. Než bude možné pokračovať, dôjde k jeho vypnutiu.";
 
 /* Window text */
 "Tunnelblick is ready." = "Tunnelblick je pripravený.";
 
 /* Window text */
-"Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick needs authorization to duplicate the '%@' configuration.";
+"Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick vyžaduje povolenie na vytvorenie kópie %@ konfigurácie.";
 
 /* Window text */
-"Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick needs authorization to make %ld configurations private.";
+"Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick vyžaduje povolenie na zmenu %ld konfigurácií na súkromné konfigurácie.";
 
 /* Window text */
-"Tunnelblick needs authorization to make %ld configurations shared." = "Tunnelblick needs authorization to make %ld configurations shared.";
+"Tunnelblick needs authorization to make %ld configurations shared." = "Tunnelblick vyžaduje povolenie na zmenu %ld konfigurácií na zdieľané konfigurácie.";
 
 /* Window text */
-"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick needs authorization to make the '%@' configuration private.";
+"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick vyžaduje povolenie na zmenu konfigurácie %@ súkromnú konfiguráciu.";
 
 /* Window text */
-"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick needs authorization to make the '%@' configuration shared.";
+"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick vyžaduje povolenie na zmenu konfigurácie %@ na zdieľanú konfiguráciu.";
 
 /* Window text */
-"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.";
+"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick vyžaduje povolenie na vymazanie %ld konfigurácií.";
 
 /* Window text */
-"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.";
+"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick vyžaduje povolenie na vymazanie konfigurácie %@.";
 
 /* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick needs authorization to rename the '%1$@' configuration to '%2$@'.";
+"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick vyžaduje povolenie na zmenu pomenovania konfigurácie %1$@ na %2$@.";
 
 /* Window text */
-"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick needs to change a setting that may only be changed by a computer administrator.";
+"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick musí zmeniť konfiguráčné nastavenia ktorá môže zmeniť len správca počítača.";
 
 /* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick vyžaduje vytvorenie alebo aktualizáciu bezpečnostnej kópie konfiguračného súboru.";
@@ -1631,10 +1631,10 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick bol úspešne:  ";
 
 /* Window text */
-"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick bol úspešne nainštalovaný a boli nainštalované alebo nahradená %ld konfigurácie.";
 
 /* Window text */
-"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick bol úspešne nainštalovaný a bola nainštalovaná alebo nahradená jedna konfigurácia.";
 
 /* Window text */
 "Tunnelblick was successfully installed." = "Tunnelblick bol úspešne nainštalovaný.";

@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "إعادة الاتصال عند تبديل المستخدم";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "Require adminstrator authorization for key and certificate changes";
+"Require adminstrator authorization for key and certificate changes" = "تتحتاج لاذن المسؤول عن الخدمة لتغييرالمفتاح و الشهادة";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "إعادة تعيين الواجهة الأساسية بعد انقطاع الإتصال";
@@ -749,16 +749,16 @@
 "  • Secure configurations\n" = "  • تأمين الاعدادات";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ هو برنامج مجاني: بامكانكم اعادة توزيع البرنامج او/و تغييره وفقا لاحكام %2$@ كما نشرت من طرف %3$@.\n%4$@هو علامة تجارية مسجلة لشركة اوبن في بي ان تكنولوجيز.";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Do you wish to install %1$@ to %2$@%3$@?\n\n";
+" Do you wish to install %@ to %@%@?\n\n" = " هل ترغب في تثبيت %1$@ على %2$@%3$@؟     \n\n";
 
 /* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Do you wish to replace\n    %1$@\n    in %2$@\nwith %3$@%4$@?\n\n";
+" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " هل ترغب في استبدال %1$@ في %2$@  ب %3$@%4$@؟\n\n";
 
 /* Window text */
-" Forced preferences will also be installed or replaced.\n\n" = " Forced preferences will also be installed or replaced.\n\n";
+" Forced preferences will also be installed or replaced.\n\n" = " الاختيارات الاجبارية سيتم تثبيتها او تغييرها.\n\n";
 
 /* Window text */
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = "ملاحظة: اعدادات OpenVPN سيتم تغيرها الى اعدادات Tunnelblick VPN.";
@@ -767,10 +767,10 @@
 " Tunnelblick must be installed in Applications.\n\n" = "يجب تثبيت Tunnelblick في التطبيقات\n";
 
 /* Window text */
-" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts.";
+" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " تونلبليك يحتاج لتصريح  من المسؤول عن الكمبيوتر ليتيح الاتصال تلقائيا  '%@' عند بدء تشغيل الكمبيوتر.";
 
 /* Window text */
-" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts.";
+" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " تونلبليك يحتاج لتصريح  من المسؤول عن الكمبيوتر لايقاف الاتصال تلقائيا '%@'عند بدء تشغيل الكمبيوتر.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " تحذير: لقد تم  التلاعب فى هذه النسخة من  Tunnelblick";
@@ -779,31 +779,31 @@
 "%@ exists but is not a folder" = "%@  موجود ولكنه ليس مجلد";
 
 /* Window text */
-"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ has been reverted to its last secured (shadow) copy.\n\n";
+"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ عادت الى اخر نسخة (نسخة ظل) مسجلة.\n\n";
 
 /* Window text */
-"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configurations have been reverted to their last secured (shadow) copy.\n\n";
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld التثبيتات عادت الى اخر نسخة مسجلة (نسخة الظل).\n\n";
 
 /* Window text */
-"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
+"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' موجود مسبقا على سطح المكتب.\nهل ترغب في استبداله؟";
 
 /* Window text */
-"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' does not have any credentials (private key or username and password) stored in the Keychain.";
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' ليس لديه أي أوراق اعتماد ( المفتاح الخاص أو اسم المستخدم وكلمة المرور) المخزنة في سلسلة المفاتيح.";
 
 /* Window text */
-"'%@' was not terminated." = "'%@' was not terminated.";
+"'%@' was not terminated." = "'%@' لم تنتهي بعد.";
 
 /* Window text */
-"'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' preference ignored; it does not specify a folder";
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "تم تجاهل االاختيار'easy-rsaPath'; لإنه لا يحدد اي ملف";
 
 /* Window text */
-"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'";
+"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "تم تجاهل االاختيار'easy-rsaPath'; يجب ان يكون المسار مطلقا او يبدا ب '~'";
 
 /* Window text */
 "(Never checked)" = "(لم تفحص)";
 
 /* Window text */
-"(The 'easy-rsaPath' preference is invalid.)" = "(The 'easy-rsaPath' preference is invalid.)";
+"(The 'easy-rsaPath' preference is invalid.)" = "(المسارالتالي 'easy-rsaPath' غير صالح.)";
 
 /* Window text */
 "(if connected when computer went to sleep)" = "(يتم الاتصال عندما يكون الحاسب نائما)";
@@ -812,61 +812,61 @@
 "(if connected when user switched out)" = "(يكون متصلا عندما يخرج المسخدم)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "بناء على تونل بليك, البرنامج الحر المتوفرعلى الموقع: http://code.google.com/p/tunnelblick\nOpenVPN هو علامة تجارية مسجلة لشركة OpenVPN Technologies, Inc.";
 
 /* Window text */
-"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%1$@' in %2$@";
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "يشير المفتاح TBAlways او ListPreference إلى اختيارغير معروف '%1$@' في %2$@";
 
 /* Window text */
-"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "A Tunnelblick VPN Configuration is nested too deeply in '%@'";
+"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "تثبيتات Tunnelblick VPN متداخلة بشكل عميق جدا في '%@'";
 
 /* Window text */
 "A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "الاعدادات التي تتطلب كلمة مرور خاصة (passphrase) او اسم المستخدم و كلمة مروره لا يمكن ان تبدأ حينما يعمل الحاسب.";
 
 /* Window text */
-"A passphrase is required to connect to\n  %@%@" = "A passphrase is required to connect to\n  %1$@%2$@";
+"A passphrase is required to connect to\n  %@%@" = "ادخال كلمة المرور مطلوب للاتصال ب %1$@%2$@";
 
 /* Window text */
-"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?";
+"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "التثبيت الخاص المسمى '%@' موجود بالفعل.\nهل ترغب في استبدالها بالتثبيت المشترك؟";
 
 /* Window text */
-"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
+"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "حدثت مشكلة أثناء التحقق من عنوان IP الظاهر لهذا الكمبيوتر.\nراجع سجل وحدة التحكم للحصول على التفاصيل.\n\n";
 
 /* Window text */
-"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?";
+"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "التثبيت المشترك المسمى '%@' موجود بالفعل.\nهل ترغب في استبدالها بالتثبيت الخاص؟";
 
 /* Window text */
-"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
+"A username and password are required to connect to\n  %@" = "ادخال اسم المستخدم و كلمة السر مطلوب للاتصال ب %@";
 
 /* Window text */
-"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "ادخال اسم المستخدم و كلمة السر مطلوب للاتصال ب %1$@ \n(باستخدام  '%2$@' وثائق التفويض)";
 
 /* Window text */
 "Add Credentials" = "اضف اوراق اعتماد";
 
 /* Window text */
-"Added '.sh' extension to %@ so it will be secured properly" = "Added '.sh' extension to %@ so it will be secured properly";
+"Added '.sh' extension to %@ so it will be secured properly" = "تم اضافة 'sh.' إلى %@ ليتم تأمينها بشكل صحيح";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "Added a '.key' extension to %@ so it will be secured properly";
+"Added a '.key' extension to %@ so it will be secured properly" = "تم اضافة تمديد 'key.' إلى %@ ليتم تأمينها بشكل صحيح";
 
 /* Window text */
 "Additional contributions by" = "اسهامات إضافية من";
 
 /* Window text */
-"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "After %1$.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %2$@ is connected.\n\n";
+"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "بعد %1$.1f ثانية، تم التخلى عن محاولة جلب المعلومات حول عنوان IP.\nTunnelblick لن يقوم بالتأكد من ان عنوان IP الواضح لهذا الكمبيوتر قد تغير عندما يكون %2$@ متصلا.\n\n";
 
 /* Window text */
-"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n";
+"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "بعد الاتصال ب %@، يبدو ان خدمة اسم النطاق (DNS) لا تعمل.\nهذا قد يعني أن تثبيت الشبكة الافتراضية الخاصة (VPN) لم يتم بشكل صحيح.";
 
 /* Window text */
-"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n";
+"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "بعد الاتصال ب %@، يبدو ان الاتصال بشبكة الانترنت غير ممكن.\nهذا قد يعني أن تثبيت الشبكة الافتراضية الخاصة (VPN) لم يتم بشكل صحيح.\n\n";
 
 /* Window text */
 "All configuration files have been removed. Tunnelblick must quit." = "جميع ملفات الاعداد تم حذفهم. يجب اغلاق البرنامج.";
 
 /* Window text */
-"All configurations use %@ credentials" = "All configurations use %@ credentials";
+"All configurations use %@ credentials" = "كافة التثبيتات تستخدم %@ أوراق اعتماد.";
 
 /* Window text */
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";

@@ -902,7 +902,7 @@
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Sei sicuro di non voler convertire le configurazioni OpenVPN in configurazioni VPN di Tunnelblick?\n\nQUESTE CONFIGURAZIONI NON SARANNO DISPONIBILI SE NON VERRANNO CONVERTITE!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Si è sicuri di voler cancellare le credenziali (chiave privata e/o username e password) per %ld configurazioni memorizzate nel Portachiavi di OSX?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Sei sicuro di voler cancellare le credenziali (chiave privata e/o username e password) per %ld configurazioni memorizzate nel Portachiavi di OSX?";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Sei sicuro di voler cancellare le credenziali (chiave privata e/o username e password) per '%@' che sono memorizzate nel Portachiavi di OSX?";
