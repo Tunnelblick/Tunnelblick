@@ -782,7 +782,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@는 마지막 보안 (복제) 복사본으로 복원되었습니다.\n\n";
 
 /* Window text */
-"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld 구성이 마지막 보안 (섀도) 복사본으로부터 복원되었습니다.\n\n";
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld 구성이 마지막 보안 (복제) 복사본으로부터 복원되었습니다.\n\n";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "Desktop에 '%@' 폴더가 이미 있습니다.\n\n기존 것을 교체하겠습니까?";

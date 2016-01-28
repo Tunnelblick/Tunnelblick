@@ -320,7 +320,7 @@
 "Check for updates to beta versions" = "Se etter oppdateringer på beta versjoner";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connecting" = "Sjekk om den offisielle IP-adressen har endret seg etter oppkobling";
+"Check if the apparent public IP address changed after connecting" = "Sjekk om den offentlige IP-adressen har endret seg etter oppkobling";
 
 /* Checkbox name */
 "Disable IPv6 (tun only)" = "Deaktiver IPv6 (kun tun)";

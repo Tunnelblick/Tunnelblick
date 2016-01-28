@@ -869,49 +869,49 @@
 "All configurations use %@ credentials" = "كافة التثبيتات تستخدم %@ أوراق اعتماد.";
 
 /* Window text */
-"An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
+"An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "حدث خطأ (الحالة %1$ld) أثناء محاولة التحقق من أمن %2$@ التثبيت.\nيرجى إنهاء و إعادة تشغيل Tunnelblick. إذا استمرت المشكلة، الرجاء إعادة تثبيت Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "حدث خطأ أثناء محاولة تشغيل %@";
 
 /* Window text */
-"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n";
+"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "حدث خطأ أثناء محاولة العودة إلى المضمون (نسخة الظل) . اطلع على وحدة التحكم للحصول على المزيد من التفاصيل.\n\n";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "حدث خطأ داخلي في تطبيق Tunnelblick %1$@%2$@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "حدث خطأ داخلي في fileIsReasonableSize: Tunnelblick :لا يمكن الحصول على سمات: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "حدث خطأ داخلي في fileIsReasonableSize: Tunnelblick :لا يمكن الحصول على حجم: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "حدث خطأ داخلي في fileIsReasonableSize: Tunnelblick :لا يمكن الحصول على نوع: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "حدث خطأ داخلي في fileIsReasonableSize: Tunnelblick: نوع الملف غير صالح: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "حدث خطأ داخلي في fileIsReasonableSize: Tunnelblick: مسار فارغ";
 
 /* Window text */
 "Anonymous unique ID" = "معرّف مجهول";
 
 /* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n";
+"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "هل أنت متأكد من أنك لا تريد تحويل تثبيتات Tunnelblick VPNالى تثبيتات Tunnelblick VPN؟ \nالتثبيتات لن تكون متاحة اذا لم يتم تحويلها!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "هل أنت متأكد أنك تريد حذف بيانات الاعتماد (المفتاح الخاص و / أو اسم المستخدم وكلمة المرور) لل %ld تثبيتات التي يتم تخزينها في سلسلة المفاتيح؟";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "هل أنت متأكد أنك تريد حذف بيانات الاعتماد (المفتاح الخاص و / أو اسم المستخدم وكلمة المرور) لل '%@' التي يتم تخزينها في سلسلة المفاتيح؟";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "هل أنت متأكد أنك تريد حذف بيانات الاعتماد (المفتاح الخاص و / أو اسم المستخدم وكلمة المرور) المخزنة في سلسلة المفاتيح ل '%@' وثائق التفويض؟";
 
 /* Window text */
-"At line %lu of the OpenVPN configuration file: %@" = "At line %1$lu of the OpenVPN configuration file: %2$@";
+"At line %lu of the OpenVPN configuration file: %@" = "في السطر %1$lu الموجود في ملف الاعدادات %2$@";
 
 /* Window text */
 "B" = "بت";
@@ -920,40 +920,40 @@
 "B/s" = "بت في الثانية";
 
 /* Window text */
-"Backslash at end of line %u is not allowed" = "Backslash at end of line %u is not allowed";
+"Backslash at end of line %u is not allowed" = "استعمال الخط المائل في نهاية السطر %u غير مسموح به";
 
 /* Window text */
-"Cannot find configuration file at %@" = "Cannot find configuration file at %@";
+"Cannot find configuration file at %@" = "لا يمكن العثور على التكوين في %@";
 
 /* Window text */
-"Cannot install configurations to either shared or private locations" = "Cannot install configurations to either shared or private locations";
+"Cannot install configurations to either shared or private locations" = "لا يمكن تثبيت تكوينات لمواقع مشتركة أو خاصة";
 
 /* Window text */
-"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+"Cannot uninstall configuration '%@' because it is not installed." = "لا يمكن إلغاء تثبيت التكوين '%@' لأنه لم يتم تثبيته.";
 
 /* Window text */
-"Computer sleep/wake" = "Computer sleep/wake";
+"Computer sleep/wake" = "سبات/ استفاقة الكمبيوتر";
 
 /* Window text */
-"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' ('%2$@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%3$s'\n\n";
+"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "الاغدادات '%1$@' ('%2$@') سوف يتم تجاهلها لانها تحتوي على احرف غير مسموحة \nالحروف الغير مسموحة هي '%3$s'\n\n";
 
 /* Window text */
 "Configuration '%@' already exists." = "Configuration '%@' already exists.";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "الاعدادات '%@' تحتوي على اكثر من سكربت والذي ممكن ان يتسبب بمشكله عند ابدال او مسح الاعدادات في حالة الاتصال \nهل تريد ابدال الاعدادات ؟?";
 
 /* Window text */
-"Configuration '%@' is not secure. It should be reinstalled." = "Configuration '%@' is not secure. It should be reinstalled.";
+"Configuration '%@' is not secure. It should be reinstalled." = "التضبيط التالي ليس امنا '%@' يجب اعادة تثبيته.";
 
 /* Window text */
-"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Configuration '%@' is not secure. Please reinstall Tunnelblick.";
+"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "التكوين '%@' ليست آمنة. الرجاء إعادة تثبيت Tunnelblick.";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "التضبيط التالي '%@' غير قابل للتحديث, لأنه لا يمكن أن تكون علامة عليه على أنه 'قابل للتحديث'.\n";
 
 /* Window text */
-"Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
+"Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "التضبيط التالي '%1$@' سيتم تجاهله لان اسمه يحتوي على حروف غير مسموح باستعمالها.\nالحروف الغير مسموح باستعمالها: '%2$s'\n\n";
 
 /* Window text */
 "Configuration changes:" = "Configuration changes:";

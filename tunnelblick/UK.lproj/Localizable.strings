@@ -269,7 +269,7 @@
 "Disconnect %@%@" = "Роз'єднати %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Do Not Show on Tunnelblick Menu";
+"Do Not Show on Tunnelblick Menu" = "Не показувати в меню Tunnelblick";
 
 /* Menu Item */
 "Duplicate Configuration..." = "Дублювати конфігурацію…";
@@ -302,7 +302,7 @@
 "Show OpenVPN Log in Finder" = "Показати лог OpenVPN в Finder";
 
 /* Menu Item */
-"Show on Tunnelblick Menu" = "Show on Tunnelblick Menu";
+"Show on Tunnelblick Menu" = "Показувати в меню Tunnelblick";
 
 /* Menu item */
 "Suggestion or Bug Report..." = "Пропозиція або повідомлення про помилку…";
@@ -956,7 +956,7 @@
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Конфігурація '%1$@' ігнорується, тому що її ім'я містить символи, які не допускаються.\n\nСимволи, які не допускаються: '%2$s'\n\n";
 
 /* Window text */
-"Configuration changes:" = "Configuration changes:";
+"Configuration changes:" = "Зміни конфігурації:";
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Конфігурації встановлюються з файлів, які зазвичай пропонуються адміністратором мережі або постачальником послуг VPN. \n\nКонфігураційні файли мають розширення .tblk, .ovpn, або .conf.\n\n(Також можуть бути інші файли, пов'язані з конфігурацією, що мають інші розширення; ігноруйте їх зараз.)\n\nДля встановлення файлу конфігурації зробіть подвійний клік на ньому.\n\nНова конфігурація одразу буде доступна в Tunnelblick.";
@@ -1307,7 +1307,7 @@
 "Received fatal signal %d." = "Отримано фатальний сігнал %d.";
 
 /* Window text */
-"Remove" = "Remove";
+"Remove" = "Видалити";
 
 /* Window text */
 "Rename failed; see the Console Log for details." = "Rename failed; see the Console Log for details.";

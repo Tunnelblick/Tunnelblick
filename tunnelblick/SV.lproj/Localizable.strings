@@ -83,10 +83,10 @@
 "Delete Credentials" = "Radera användaruppgifter";
 
 /* Button */
-"Delete saved passphrase and try again" = "Delete saved passphrase and try again";
+"Delete saved passphrase and try again" = "Ta bort sparad lösenordsfras och försök igen";
 
 /* Button */
-"Delete saved password and try again" = "Delete saved password and try again";
+"Delete saved password and try again" = "Radera lösenord och försök igen";
 
 /* Button */
 "Delete" = "Radera";
@@ -104,7 +104,7 @@
 "Download" = "Ladda ner";
 
 /* Button */
-"Duplicate" = "Duplicate";
+"Duplicate" = "Kopiera";
 
 /* Button */
 "Help" = "Hjälp";
@@ -128,10 +128,10 @@
 "Load Tun driver automatically" = "Automatladda drivrutinen för Tun";
 
 /* Button */
-"Make Private" = "Make Private";
+"Make Private" = "Gör privat";
 
 /* Button */
-"Make Shared" = "Make Shared";
+"Make Shared" = "Gör delad";
 
 /* Button */
 "Manually" = "Manuellt";
@@ -182,7 +182,7 @@
 "Remove Credentials" = "Ta bort användaruppgifter";
 
 /* Button */
-"Rename" = "Rename";
+"Rename" = "Ändra namn";
 
 /* Button */
 "Replace" = "Ersätt";
@@ -197,7 +197,7 @@
 "Restore" = "Återställ";
 
 /* Button */
-"Retry" = "Retry";
+"Retry" = "Försök igen";
 
 /* Button */
 "Revert" = "Ångra";
@@ -386,7 +386,7 @@
 "Prepend domain name to search domains" = "Infoga domännamn före sökdomäner";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+"Reconnect when computer wakes up" = "Återanslut när datorn vaknar";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Återanslut när användare byter tillbaka";
@@ -551,7 +551,7 @@
 "Could Not Move Configuration" = "Kunde inte flytta konfiguration";
 
 /* Window title */
-"Could Not Replace Configuration" = "Could Not Replace Configuration";
+"Could Not Replace Configuration" = "Kunde inte ersätta konfigurationen";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "Kunde inte avinstallera konfiguration";
@@ -632,7 +632,7 @@
 "Settings" = "Inställningar";
 
 /* Window title */
-"Sounds" = "Sounds";
+"Sounds" = "Ljud";
 
 /* Window title */
 "System Requirements Not Met" = "Systemkrav uppfylls ej";
@@ -956,7 +956,7 @@
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurationen '%1$@' kommer att ignoreras eftersom dess namn innehåller otillåtna tecken.\n\nOtillåtna tecken: '%2$s'\n\n";
 
 /* Window text */
-"Configuration changes:" = "Configuration changes:";
+"Configuration changes:" = "Konfigurations ändringar:";
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Konfigurationer installerades från filer som tillhandagavs av dina nätverksansvariga eller tjänsteleverantören för VPN.\n\nKonfigurationsfilerna har filändelserna .tblk, .ovpn eller .conf.\n\n(Det kan finnas flera filer med andra filändelser i konfigurationen men ignorera dessa för tillfället.)\n\nDubbelklicka på konfigurationsfilen för att installera den.\n\nDen nya konfigurationen omedelbart att kommer vara tillgänglig i Tunnelblick.";
@@ -1307,7 +1307,7 @@
 "Received fatal signal %d." = "Mottog en avslutningssignal %d.";
 
 /* Window text */
-"Remove" = "Remove";
+"Remove" = "Ta bort";
 
 /* Window text */
 "Rename failed; see the Console Log for details." = "Rename failed; see the Console Log for details.";
@@ -1748,7 +1748,7 @@
 "VPN Connections" = "VPN-anslutningar";
 
 /* Window text */
-"VPN status windows:" = "VPN status windows:";
+"VPN status windows:" = "VPN status fönster:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "Värdet i \"%1$@\" för \"%2$@\" är inte en giltig URL i %3$@";
@@ -1961,7 +1961,7 @@
 "Icon set including Retina images" = "Uppsättning ikon, inklusive Retina bilder";
 
 /* Credit description */
-"Indonesian localization" = "Indonesian localization";
+"Indonesian localization" = "Indonesisk översättning";
 
 /* Credit description */
 "Italian localization" = "Italiensk lokalanpassning";

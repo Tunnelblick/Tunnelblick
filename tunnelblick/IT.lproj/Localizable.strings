@@ -1043,10 +1043,10 @@
 "Do you wish to reinstall '%@' version %@?" = "Vuoi veramente installare nuovamente '%1$@' versione %2$@?";
 
 /* Window text */
-"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Vuoi veramente eliminare %ld configurazioni?\n\nL'azione di rimozione è permanente e non può essere annullata. Saranno inoltre rimossi in modo permanente anche tutte le impostazioni relative alle configurazioni.";
+"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Vuoi veramente eliminare %ld configurazioni?\n\nL'azione di rimozione è permanente e non può essere annullata. Saranno inoltre rimosse in modo permanente anche tutte le impostazioni relative alle configurazioni.";
 
 /* Window text */
-"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Vuoi veramente eliminare la configurazione '%@'?\n\nL'azione di rimozione è permanente e non può essere annullata. Saranno inoltre rimossi in modo permanente anche tutte le impostazioni relative alla configurazione.";
+"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Vuoi veramente eliminare la configurazione '%@'?\n\nL'azione di rimozione è permanente e non può essere annullata. Saranno inoltre rimosse in modo permanente anche tutte le impostazioni relative alla configurazione.";
 
 /* Window text */
 "Do you wish to rename the '%@' configuration to '%@'?" = "Vuoi veramente modificare il nome della configurazione '%1$@' in '%2$@'?";

@@ -941,7 +941,7 @@
 "Configuration '%@' already exists." = "Konfigurācija \"%@\" jau eksistē.";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfigurācija '%@' satur vienu vai vairākus skriptus, kas var radīt problēmas, ja šī konfigurācija ir aizstāta vai pārinstalēta savienojuma laikā.\n\nVai vēlaties aizstāt šo konfigurāciju?";
 
 /* Window text */
 "Configuration '%@' is not secure. It should be reinstalled." = "Konfigurācija '%@' nav droša. To vajadzētu pārinstalēt.";
@@ -1007,31 +1007,31 @@
 "Could not get modification date of %@" = "Nevar iegūt %@ modifikācijas datumu";
 
 /* Window text */
-"Could not resolve symbolic link at %@" = "Could not resolve symbolic link at %@";
+"Could not resolve symbolic link at %@" = "Nevarēja atrisināt simbolisko saiti %@";
 
 /* Window text */
-"Could not set modification date of %@ to %@" = "Could not set modification date of %1$@ to %2$@";
+"Could not set modification date of %@ to %@" = "Nevarēja uzstādīt pārveidošanas datumu %1$@ uz %2$@";
 
 /* Window text */
 "DNS servers:" = "DNS serveri:";
 
 /* Window text */
-"Did not need to modify configuration file; no path information to remove" = "Did not need to modify configuration file; no path information to remove";
+"Did not need to modify configuration file; no path information to remove" = "Nebija nepieciešams pārveidot konfigurācijas failu, jo informācija par ceļu līdz failam nebija jānoņem";
 
 /* Window text */
 "Do you wish to delete the %@ credentials?" = "Vai vēlaties dzēst %@ pierakstīšanās datus?";
 
 /* Window text */
-"Do you wish to duplicate the '%@' configuration?" = "Do you wish to duplicate the '%@' configuration?";
+"Do you wish to duplicate the '%@' configuration?" = "Vai vēlaties izveidot konfigurācijas '%@' kopiju?";
 
 /* Window text */
-"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n";
+"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Vai vēlaties instalēt konfigurāciju '%@' tā, lai visi lietotāji var to izmantot vai tikai Jūs?\n\n";
 
 /* Window text */
 "Do you wish to make %ld configurations private?" = "Vai vēlaties padarīt %ld konfigurācijas privātas?";
 
 /* Window text */
-"Do you wish to make %ld configurations shared?" = "Do you wish to make %ld configurations shared?";
+"Do you wish to make %ld configurations shared?" = "Vai vēlates %ld konfigurācijas dalīt ar citiem?";
 
 /* Window text */
 "Do you wish to make the '%@' configuration private?" = "Vai vēlaties padarīt '%@' konfigurāciju privātu?";
@@ -1040,19 +1040,19 @@
 "Do you wish to make the '%@' configuration shared?" = "Do you wish to make the '%@' configuration shared?";
 
 /* Window text */
-"Do you wish to reinstall '%@' version %@?" = "Do you wish to reinstall '%1$@' version %2$@?";
+"Do you wish to reinstall '%@' version %@?" = "Vai vēlaties pārinstalēt '%1$@' versiju %2$@?";
 
 /* Window text */
-"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.";
+"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Vai vēlaties dzēst %ld konfigurācijas?\n\nKonfigurāciju dzēšana ir neatgriezeniska un nevar būt atsaukta. Visi konfigurāciju iestatījumi arī tiks neatgriezeniski dzēsti.";
 
 /* Window text */
-"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.";
+"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Vai vēlaties dzēst konfigurāciju '%@'?\n\nKonfigurācijas dzēšana ir neatgriezeniska un nevar būt atsaukta. Visi konfigurācijas iestatījumi arī tiks neatgriezeniski dzēsti.";
 
 /* Window text */
-"Do you wish to rename the '%@' configuration to '%@'?" = "Do you wish to rename the '%1$@' configuration to '%2$@'?";
+"Do you wish to rename the '%@' configuration to '%@'?" = "Vai vēlaties pārdēvēt konfigurāciju '%1$@' par '%2$@'?";
 
 /* Window text */
-"Do you wish to replace '%@' version %@ with version %@?" = "Do you wish to replace '%1$@' version %2$@ with version %3$@?";
+"Do you wish to replace '%@' version %@ with version %@?" = "Vai vēlaties aizstāt '%1$@' versiju %2$@ ar versiju %3$@?";
 
 /* Window text */
 "Do you wish to replace the '%@' configuration?\n\n" = "Vai vēlies aizstāt konfigurāciju %@?\n\n";
@@ -1076,7 +1076,7 @@
 "EB/s" = "EB/s";
 
 /* Window text */
-"Expected command not found for '%@'" = "Expected command not found for '%@'";
+"Expected command not found for '%@'" = "Sagaidāmā pavēle priekš '%@' netika atrasta";
 
 /* Window text */
 "Expected path not found for '%@'" = "Expected path not found for '%@'";

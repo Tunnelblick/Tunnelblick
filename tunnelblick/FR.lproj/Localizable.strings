@@ -494,7 +494,7 @@
 "Configurations" = "Configurations";
 
 /* System profile item */
-"Deployed" = "Deployée";
+"Deployed" = "Déployée";
 
 /* Window title */
 " (Deployed)" = " (Déployée)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -1478,10 +1478,10 @@
 "There was a problem:\n\n%@" = "Il y a eu un problème :\n\n%@";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Cette version 'Deployée' de Tunnelblick ne peut être lancée ou installée car elle n’a pas été rebaptisée, ou updateFeedURL ou SUFeedURL sont manquants ou contient 'tunnelblick.net', ou CFBundleIdentifier manque ou contient 'net.tunnelblick'.\n\n";
+"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Cette version 'Déployée' de Tunnelblick ne peut être lancée ou installée car elle n’a pas été rebaptisée, ou updateFeedURL ou SUFeedURL sont manquants ou contient 'tunnelblick.net', ou CFBundleIdentifier manque ou contient 'net.tunnelblick'.\n\n";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Cette version 'Deployée' de Tunnelblick ne peut être lancée ou installée car elle n’a pas de Info.plist.\n\n";
+"This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Cette version 'Déployée' de Tunnelblick ne peut être lancée ou installée car elle n’a pas de Info.plist.\n\n";
 
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "L’adresse IP publique apparente n’était pas différente après la connexion à %1$@. Elle est toujours %2$@.\n\nCela signifie probablement que votre VPN n’est pas configuré correctement.\n\n";
@@ -1511,7 +1511,7 @@
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Cette version de Tunnelblick ne peut être lancée ou installée car elle a une adresse URL non valide.\n\n";
 
 /* Window text */
-"This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Cette version de Tunnelblick ne peut être lancée ou installée car ce n’est pas une version 'Deployée', et une ou plusieurs versions 'Deployée' de Tunnelblick ont été installées précédemment.\n\n";
+"This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Cette version de Tunnelblick ne peut être lancée ou installée car ce n’est pas une version 'Déployée', et une ou plusieurs versions 'Déployée' de Tunnelblick ont été installées précédemment.\n\n";
 
 /* Window text */
 "Too many configuration files in '%@'" = "Trop de fichiers de configuration dans '%@'";
@@ -1601,22 +1601,22 @@
 "Tunnelblick needs authorization to make %ld configurations shared." = "Tunnelblick a besoin d'une autorisation pour rendre la configuration %ld partagée.";
 
 /* Window text */
-"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick needs authorization to make the '%@' configuration private.";
+"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick a besoin de votre autorisation pour rendre privée la configuration '%@'.";
 
 /* Window text */
-"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick needs authorization to make the '%@' configuration shared.";
+"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick a besoin de votre autorisation pour rendre privée la configuration '%@'.";
 
 /* Window text */
-"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.";
+"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick a besoin de votre autorisation pour supprimer %ld configurations.\n\n Supprimer des configurations est permanent et irréversible. Tous les réglages de ces configurations seront également supprimés de façon permanente.";
 
 /* Window text */
-"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.";
+"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick a besoin de votre autorisation pour supprimer la configuration '%@'.\n\n Supprimer une configuration est permanent et irréversible. Tous les réglages de cette configuration seront également supprimés de façon permanente.";
 
 /* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick needs authorization to rename the '%1$@' configuration to '%2$@'.";
+"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick a besoin de votre autorisation pour renommer la configuration '%1$@' en '%2$@'.";
 
 /* Window text */
-"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick needs to change a setting that may only be changed by a computer administrator.";
+"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick a besoin de modifier un réglage qui ne peut être modifié que par un administrateur de l'ordinateur.";
 
 /* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick doit créer ou mettre à jour une copie de sécurité du fichier de configuration.";
@@ -1631,10 +1631,10 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick a réussi avec succès :\n\n";
 
 /* Window text */
-"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick a été installé avec succès et %ld configurations ont été installées ou remplacées.";
 
 /* Window text */
-"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick a été installé avec succès et une configuration ont été installée ou remplacée.";
 
 /* Window text */
 "Tunnelblick was successfully installed." = "Tunnelblick a été correctement installé.";
@@ -1787,22 +1787,22 @@
 "You are not allowed to replace a shared configuration" = "Vous n'êtes pas autorisé à remplacer une configuration partagée";
 
 /* Window text */
-"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private.";
+"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "Vous ne pouvez rendre la configuration '%@' privée car il s'agit d'une configuration modifiable.\n\nÀ savoir : une configuration VPN Tunnelblick qui se trouve dans une configuration VPN Tunnelblick modifiable peut être privée.";
 
 /* Window text */
-"You cannot make the '%@' configuration private because it is set to start when the computer starts." = "You cannot make the '%@' configuration private because it is set to start when the computer starts.";
+"You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Vous ne pouvez rendre la configuration '%@' privée car elle est réglée pour être lancée au démarrage de l'ordinateur.";
 
 /* Window text */
-"You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared.";
+"You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "Vous ne pouvez rendre la configuration '%@' partagée car il s'agit d'une configuration modifiable.\n\nÀ savoir : une configuration VPN Tunnelblick qui se trouve dans une configuration VPN Tunnelblick modifiable peut être partagée.";
 
 /* Window text */
-"You cannot rename a Deployed configuration." = "You cannot rename a Deployed configuration.";
+"You cannot rename a Deployed configuration." = "Il n'est pas permis de renommer une configuration 'Déployée'.";
 
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "Vous ne pouvez pas renommer une configuration à moins de la déconnecter.";
 
 /* Window text */
-"You cannot rename a configuration which is set to start when the computer starts." = "You cannot rename a configuration which is set to start when the computer starts.";
+"You cannot rename a configuration which is set to start when the computer starts." = "Il n'est pas permis de renommer une configuration réglée pour être lancée au démarrage de l'ordinateur.";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Vous avez des configurations OpenVPN, mais vous n'avez aucune configurations VPN Tunnelblick.\n\nLes configurations OpenVPN doivent être converties en configurations VPN Tunnelblick si vous voulez les utiliser.\n\n";
@@ -1823,16 +1823,16 @@
 "You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect." = "Vous ne pouvez pas vous connecter à cette configuration.\n\nSi vous la convertissez en 'Connexion VPN Tunnelblick' (.tblk), vous pourrez vous connecter.";
 
 /* Window text */
-"You may not duplicate a Deployed configuration." = "Il n’est pas permis de dupliquer une configuration déployée.";
+"You may not duplicate a Deployed configuration." = "Il n’est pas permis de dupliquer une configuration 'Déployée'.";
 
 /* Window text */
 "You may not duplicate a configuration which is set to start when the computer starts." = "Il n’est pas permis de dupliquer une configuration destinée à établir la connexion lors du démarrage de l'ordinateur.";
 
 /* Window text */
-"You may not remove a Deployed configuration." = "You may not remove a Deployed configuration.";
+"You may not remove a Deployed configuration." = "Il n'est pas permis de supprimer une configuration 'Déployée'.";
 
 /* Window text */
-"You may not remove a configuration which is set to start when the computer starts." = "You may not remove a configuration which is set to start when the computer starts.";
+"You may not remove a configuration which is set to start when the computer starts." = "Il n'est pas permis de supprimer une configuration réglée pour être lancée au démarrage de l'ordinateur.";
 
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Vous n’allez pas pouvoir utiliser Tunnelblick après la mise a jour, à moins que vous fournissiez un nom et un mot de passe d’un compte d’administrateur.\n\nÊtes-vous vraiment certain(e) de vouloir rechercher des mises à jour ?";
@@ -1859,10 +1859,10 @@
 "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n  AVERTISSEMENT : Cette copie de Tunnelblick permet à un ordinateur non sécurisé. C'est seulement des fins de débogage.\n";
 
 /* Window text */
-"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder." = "\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder.";
+"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder." = "\n\nSi un double-clic ne fonctionne pas (parfois à cause de bugs dans les versions récentes du Finder), merci de glisser la configuration sur l'icône de Tunnelblick dans une fenêtre Finder affichant le contenu du dossier Applications.";
 
 /* Window text */
-"\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n";
+"\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nNOTE : Une ou plusieurs configurations sont actuellement connectées. Elles seront déconnectées, les installations/remplacements/désinstallations auront lieu et les configurations seront reconnectées à moins qu'elles n'aient été désinstallées.\n\n";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\net installer les configurations VPN Tunnelclick %ld";
