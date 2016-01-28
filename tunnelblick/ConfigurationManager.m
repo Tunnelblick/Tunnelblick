@@ -3682,6 +3682,14 @@ enum GetAuthorizationResult {
             if (  val  ) {
                 NSString * string    = [NSString stringWithUTF8String: val];
                 NSString * keyString = [NSString stringWithUTF8String: key];
+                if (  ! string  ) {
+                    NSLog(@"stringContainingRelevantConsoleLogEntries: string = nil; keyString = '%@'", keyString);
+                    continue;
+                }
+                if (  ! keyString  ) {
+                    NSLog(@"stringContainingRelevantConsoleLogEntries: keyString = nil; string = '%@'", string);
+                    continue;
+                }
                 [tmpDict setObject: string forKey: keyString];
                 
                 if (  ! ASL_KEY_SENDER  ) {
