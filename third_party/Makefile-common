@@ -370,8 +370,9 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 				OPENSSL_SSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
 				OPENSSL_SSL_LIBS="$(OPENSSL_STAGING_DIR)/lib/libssl.a" \
 				OPENSSL_CRYPTO_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
-				OPENSSL_CRYPTO_LIBS="$(OPENSSL_STAGING_DIR)/lib/libcrypto.a \
-				                     -lz" \
+				OPENSSL_CRYPTO_LIBS="$(OPENSSL_STAGING_DIR)/lib/libcrypto.a -lz" \
+				OPENSSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
+				OPENSSL_LIBS="$(OPENSSL_STAGING_DIR)/lib/libssl.a -lz $(OPENSSL_STAGING_DIR)/lib/libcrypto.a -lz" \
 				PKCS11_HELPER_CFLAGS="-I$(PKCS11_STAGING_DIR)/include/" \
 				PKCS11_HELPER_LIBS="-L$(PKCS11_STAGING_DIR)/lib \
 				                    -lpkcs11-helper" \
@@ -392,8 +393,9 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 				OPENSSL_SSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
 				OPENSSL_SSL_LIBS="$(OPENSSL_STAGING_DIR)/lib/libssl.a" \
 				OPENSSL_CRYPTO_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
-				OPENSSL_CRYPTO_LIBS="$(OPENSSL_STAGING_DIR)/lib/libcrypto.a \
-				                     -lz" \
+				OPENSSL_CRYPTO_LIBS="$(OPENSSL_STAGING_DIR)/lib/libcrypto.a -lz" \
+				OPENSSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
+				OPENSSL_LIBS="$(OPENSSL_STAGING_DIR)/lib/libssl.a -lz $(OPENSSL_STAGING_DIR)/lib/libcrypto.a -lz" \
 				PKCS11_HELPER_CFLAGS="-I$(PKCS11_STAGING_DIR)/include/" \
 				PKCS11_HELPER_LIBS="-L$(PKCS11_STAGING_DIR)/lib \
 				                    -lpkcs11-helper" \
