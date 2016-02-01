@@ -971,7 +971,7 @@
 "Converted OpenVPN configuration" = "Pārvērstā OpenVPN konfigurācija";
 
 /* Window text */
-"Converting %@ at line %lu: %@" = "Converting %1$@ at line %2$lu: %3$@";
+"Converting %@ at line %lu: %@" = "Pārveidojot konfigurāciju %1$@, kļūda rindā %2$lu: %3$@";
 
 /* Window text */
 "Converting %@: %@" = "Pārvēršu %1$@: %2$@";
@@ -1037,7 +1037,7 @@
 "Do you wish to make the '%@' configuration private?" = "Vai vēlaties padarīt '%@' konfigurāciju privātu?";
 
 /* Window text */
-"Do you wish to make the '%@' configuration shared?" = "Do you wish to make the '%@' configuration shared?";
+"Do you wish to make the '%@' configuration shared?" = "Vai vēlaties dalīties ar konfigurāciju '%@' ar citiem?";
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Vai vēlaties pārinstalēt '%1$@' versiju %2$@?";
@@ -1079,7 +1079,7 @@
 "Expected command not found for '%@'" = "Sagaidāmā pavēle priekš '%@' netika atrasta";
 
 /* Window text */
-"Expected path not found for '%@'" = "Expected path not found for '%@'";
+"Expected path not found for '%@'" = "Opcijas '%@' ceļš netika atrasts";
 
 /* Window text */
 "Failed to copy %@ to %@" = "Neizdevās nokopēt %1$@ uz %2$@";
@@ -1088,7 +1088,7 @@
 "Failed to create folder at %@" = "Nav iespējams izeidot mapi %@";
 
 /* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
+"Failed to create symlink\n  to %@\n  at %@" = "Neizdevās izveidot simbolisko saiti\n  no %2$@\n  uz %1$@";
 
 /* Window text */
 "Failed to set permissions on %@\n" = "Nav iespējams uzstādīt atļaujas %@\n";
@@ -1097,13 +1097,13 @@
 "Fast User Switching" = "Ātra lietotāju pārslēgšanās";
 
 /* Window text */
-"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Šķiet, fails '%@' ir RTF formātā (Rich Text Format), jo tas sākas ar rakstzīmi '{'. Visiem OpenVPN failiem ir jābūt neformatēta teksta (Plain Text) vai 'UTF-8' formātā.";
 
 /* Window text */
-"File '%@' ends with a backslash, which is not allowed." = "File '%@' ends with a backslash, which is not allowed.";
+"File '%@' ends with a backslash, which is not allowed." = "Fails '%@' beidzas ar reverso slīpsvītru (backslash), kas nav atļauts.";
 
 /* Window text */
-"File '%@' has an extension which is not known to Tunnelblick." = "File '%@' has an extension which is not known to Tunnelblick.";
+"File '%@' has an extension which is not known to Tunnelblick." = "Fails '%@' ir formātā, kuru Tunnelblick neatpazīst.";
 
 /* Window text */
 "File '%@' is empty" = "Datne '%@' ir tukša";
@@ -1124,13 +1124,13 @@
 "Icon:" = "Ikona:";
 
 /* Window text */
-"In %@:\n\nThere are no OpenVPN configurations to install." = "In %@:\n\nThere are no OpenVPN configurations to install.";
+"In %@:\n\nThere are no OpenVPN configurations to install." = "Konfigurācija %@:\n\nNesatur OpenVPN konfigurācijas, kuras ieinstalēt.";
 
 /* Window text */
-"In the OpenVPN configuration file for '%@' at line %lu: %@" = "In the OpenVPN configuration file for '%1$@' at line %2$lu: %3$@";
+"In the OpenVPN configuration file for '%@' at line %lu: %@" = "Kļūda OpenVPN konfigurācijas failā konfigurācijai '%1$@' rindā %2$lu: %3$@";
 
 /* Window text */
-"In the OpenVPN configuration file for '%@': %@" = "In the OpenVPN configuration file for '%1$@': %2$@";
+"In the OpenVPN configuration file for '%@': %@" = "Kļūda OpenVPN konfigurācijas failā konfigurācijai '%1$@': %2$@";
 
 /* Window text */
 "In:" = "Ienākošais:";
@@ -1145,10 +1145,10 @@
 "Installing and securing Tunnelblick..." = "Uzstāda un nodrošina Tunnelblick…";
 
 /* Window text */
-"Installing configurations is not allowed" = "Installing configurations is not allowed";
+"Installing configurations is not allowed" = "Instalēt konfigurācijas nav atļauts";
 
 /* Window text */
-"Internal error: commentOutLines: line %lu does not exist" = "Internal error: commentOutLines: line %lu does not exist";
+"Internal error: commentOutLines: line %lu does not exist" = "Iekšēja kļūda: commentOutLines: rinda %lu neeksistē";
 
 /* Window text */
 "Invalid value '%@' for '%@' in %@" = "Invalid value '%1$@' for '%2$@' in %3$@";
@@ -1166,7 +1166,7 @@
 "Last checked: %@" = "Pēdējā pārbaude: %@";
 
 /* Window text */
-"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Line %1$d of file '%2$@' contains a non-printable character (0x%3$X) which is not allowed.\n\n";
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Rinda %1$d failā '%2$@' satur nerakstāmu rakstzīmi (0x%3$X), kas nav atļauta.\n\n";
 
 /* Window text */
 "Localization by" = "Lokalizējis";
@@ -1199,7 +1199,7 @@
 "Named Credentials" = "Norādītie piekļuves dati";
 
 /* Window text */
-"Names may not include any of the following characters: %s" = "Names may not include any of the following characters: %s";
+"Names may not include any of the following characters: %s" = "Nosaukumos nedrīkst būt neviena no šīm rakstzīmēm: %s";
 
 /* Window text */
 "Names may not include any of the following characters: %s\n\n%@" = "Names may not include any of the following characters: %1$s\n\n%2$@";

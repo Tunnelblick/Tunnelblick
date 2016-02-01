@@ -83,10 +83,10 @@
 "Delete Credentials" = "Usuń dane logowania";
 
 /* Button */
-"Delete saved passphrase and try again" = "Delete saved passphrase and try again";
+"Delete saved passphrase and try again" = "Usuń zachowany klucz prywatny i spróbuj ponownie";
 
 /* Button */
-"Delete saved password and try again" = "Delete saved password and try again";
+"Delete saved password and try again" = "Usuń zachowane hasło i spróbuj ponownie";
 
 /* Button */
 "Delete" = "Usuń";
@@ -104,7 +104,7 @@
 "Download" = "Pobierz";
 
 /* Button */
-"Duplicate" = "Duplicate";
+"Duplicate" = "Powiel";
 
 /* Button */
 "Help" = "Pomoc";
@@ -128,10 +128,10 @@
 "Load Tun driver automatically" = "Automatycznie załaduj sterownik Tun";
 
 /* Button */
-"Make Private" = "Make Private";
+"Make Private" = "Ustaw jako prywatne";
 
 /* Button */
-"Make Shared" = "Make Shared";
+"Make Shared" = "Udostępnij";
 
 /* Button */
 "Manually" = "Manualnie";
@@ -182,7 +182,7 @@
 "Remove Credentials" = "Usuń dane logowania";
 
 /* Button */
-"Rename" = "Rename";
+"Rename" = "Zmień nazwę";
 
 /* Button */
 "Replace" = "Zamień";
@@ -197,7 +197,7 @@
 "Restore" = "Przywróć";
 
 /* Button */
-"Retry" = "Retry";
+"Retry" = "Spróbuj ponownie";
 
 /* Button */
 "Revert" = "Przywróć";
@@ -236,10 +236,10 @@
 "This configuration uses %@ credentials" = "Ta konfiguracja korzysta z danych %@";
 
 /* Button */
-"Try again with saved passphrase" = "Try again with saved passphrase";
+"Try again with saved passphrase" = "Spróbuj ponownie przy użyciu zachowanego klucza prywatnego";
 
 /* Button */
-"Try again with saved username and password" = "Try again with saved username and password";
+"Try again with saved username and password" = "Spróbuj ponownie przy użyciu zachowanych nazwy użytkownika i hasła";
 
 /* Button */
 "Try again" = "Spróbuj ponownie";
@@ -269,7 +269,7 @@
 "Disconnect %@%@" = "Rozłącz %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Do Not Show on Tunnelblick Menu";
+"Do Not Show on Tunnelblick Menu" = "Nie pokazuj w Menu Tunnelblick";
 
 /* Menu Item */
 "Duplicate Configuration..." = "Kopiuj konfigurację…";
@@ -302,7 +302,7 @@
 "Show OpenVPN Log in Finder" = "Pokaż dziennik OpenVPN w programie Finder";
 
 /* Menu Item */
-"Show on Tunnelblick Menu" = "Show on Tunnelblick Menu";
+"Show on Tunnelblick Menu" = "Pokaż w Menu Tunnelblick";
 
 /* Menu item */
 "Suggestion or Bug Report..." = "Sugestie lub raport błędów…";
@@ -323,7 +323,7 @@
 "Check if the apparent public IP address changed after connecting" = "Sprawdź, czy adres IP zmienia się po nawiązaniu połączenia";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
+"Disable IPv6 (tun only)" = "Wyłącz IPv6 (tylko tun)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Rozłącz gdy komputer zostaje uśpiony";
@@ -362,7 +362,7 @@
 "Do not warn about this again" = "Nie ostrzegaj o tym ponownie";
 
 /* Checkbox name */
-"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+"Enable IPv6 (tap only)" = "Włącz IPv6 (tylko tun)";
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Wyczyść cache DNS po rozpoczęciu lub zakończeniu połączenia";
@@ -386,13 +386,13 @@
 "Prepend domain name to search domains" = "Dopisz nazwę domeny do domen wyszukiwania";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+"Reconnect when computer wakes up" = "Połącz ponownie po obudzeniu komputera";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Połącz ponownie po zalogowaniu użytkownika";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "Require adminstrator authorization for key and certificate changes";
+"Require adminstrator authorization for key and certificate changes" = "Wymagaj autoryzacji administratora dla zmiany klucza i certyfikatu";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Zresetuj podstawowy interfejs po rozłączeniu";
@@ -551,7 +551,7 @@
 "Could Not Move Configuration" = "Nie można przenieść konfiguracji";
 
 /* Window title */
-"Could Not Replace Configuration" = "Could Not Replace Configuration";
+"Could Not Replace Configuration" = "Zastąpienie konfiguracji nie powiodło się";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "Nie można usunąć konfiguracji";
@@ -632,13 +632,13 @@
 "Settings" = "Ustawienia";
 
 /* Window title */
-"Sounds" = "Sounds";
+"Sounds" = "Dżwięki";
 
 /* Window title */
 "System Requirements Not Met" = "Wymagania systemowe nie zostały spełnione";
 
 /* Window title */
-"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
+"There are no OpenVPN processes running." = "Nie wykryto działających procesów OpenVPN.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Problem z konfiguracją Tunnelblick";
@@ -758,7 +758,7 @@
 " Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Czy chcesz zastąpić\n    %1$@\n    w %2$@\n wartością %3$@%4$@?\n\n";
 
 /* Window text */
-" Forced preferences will also be installed or replaced.\n\n" = " Forced preferences will also be installed or replaced.\n\n";
+" Forced preferences will also be installed or replaced.\n\n" = " Wymuszone ustawienia zostaną również zainstalowane bądź zastąpione.\n\n";
 
 /* Window text */
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Uwaga: Konfiguracja OpenVPN zostanie skonwertowana do formatu 'Połączenie VPN Tunnelblick'a' (.tblk).\n\n";
@@ -782,7 +782,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ zostało przywrócone do swojej ostatniej bezpiecznej (ukrytej) kopii.\n\n";
 
 /* Window text */
-"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configurations have been reverted to their last secured (shadow) copy.\n\n";
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfiguracje zostały przywrócone do ich ostatniej bezpiecznej kopii.\n\n";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@'już istnieje na pulpicie.\n\nCzy chcesz ją zastąpić?";
@@ -806,7 +806,7 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "(Właściwość 'easy-rsaPath' jest niepoprawna.)";
 
 /* Window text */
-"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+"(if connected when computer went to sleep)" = "(jeżeli komputer został uśpiony)";
 
 /* Window text */
 "(if connected when user switched out)" = "(połączony kiedy użytkownik jest przelogowany)";
@@ -833,7 +833,7 @@
 "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Wystąpił problem podczas sprawdzania faktycznego, publicznego adresu IP tego komputera.  Sprawdź dziennik konsoli aby uzyskać szczegółowe informacje.  ";
 
 /* Window text */
-"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?";
+"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Współdzielona konfiguracja '%@' już istnieje.\n\nCzy zastąpić ją prywatną konfiguracją?";
 
 /* Window text */
 "A username and password are required to connect to\n  %@" = "Nazwa użytkownika i hasło są wymagane do połączenia z\n  %@";
@@ -842,7 +842,7 @@
 "A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Nazwa użytkownika i hasło są wymagane do połączenia z\n   %1$@\n(przy użyciu ' %2$@ \"poświadczenia)";
 
 /* Window text */
-"Add Credentials" = "Add Credentials";
+"Add Credentials" = "Dodaj poświadczenia";
 
 /* Window text */
 "Added '.sh' extension to %@ so it will be secured properly" = "W celu właściwego zabezpieczenia, dodano do  %@ rozszerzenie \".sh\"";
@@ -902,13 +902,13 @@
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Czy na pewno nie chcesz przekonwertować konfiguracji OpenVPN do formatu konfiguracji Tunnelblick'a (.tblk)?\n\nKONFIGURACJE TE NIE BĘDĄ DOSTĘPNE, JEŻELI NIE ZOSTANĄ PRZEKONWERTOWANE!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Czy jesteś pewny, że chcesz usunąć poświadczenia (klucz prywanty i/lub nazwę użytkownika oraz hasło) dla konfiguracji %ld przechowywanych w Pęku Kluczy?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Czy jesteś pewny, że chcesz usunąć poświadczenia (klucz prywanty i/lub nazwę użytkownika oraz hasło) dla '%@' przechowywanych w Pęku Kluczy?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Czy jesteś pewny, że chcesz usunąć poświadczenia (klucz prywanty i/lub nazwę użytkownika oraz hasło) przechowywane w Pęku Kluczy dla poświadczeń '%@'?";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "W wierszu %1$lu pliku konfiguracji OpenVPN: %2$@";
@@ -932,22 +932,22 @@
 "Cannot uninstall configuration '%@' because it is not installed." = "Nie można odinstalować konfiguracji '%@' ponieważ nie jest zainstalowana.";
 
 /* Window text */
-"Computer sleep/wake" = "Computer sleep/wake";
+"Computer sleep/wake" = "Komputer uśpiony/aktywny";
 
 /* Window text */
-"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' ('%2$@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%3$s'\n\n";
+"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguracja '%1$@' ('%2$@') zostanie zignorowana, ponieważ jej nazwa zawiera niedozwolone znaki.\n\nLista niedozwolonych znaków: '%3$s'\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "Configuration '%@' already exists.";
+"Configuration '%@' already exists." = "Konfiguracja '%@' już istnieje.";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfiguracja '%@' zawiera jeden lub więcej skryptów, które mogą powodować problemy, jeśli zastąpisz lub odinstalujesz konfigurację podczas gdy połączenie będzie aktywne.  \n\nCzy chcesz zastąpić tę konfigurację?";
 
 /* Window text */
-"Configuration '%@' is not secure. It should be reinstalled." = "Configuration '%@' is not secure. It should be reinstalled.";
+"Configuration '%@' is not secure. It should be reinstalled." = "Konfiguracja '%@' nie jest bezpieczna. Powinna zostać zainstalowana ponownie.";
 
 /* Window text */
-"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Configuration '%@' is not secure. Please reinstall Tunnelblick.";
+"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfiguracja '%@' nie jest bezpieczna. Proszę przeinstalować program Tunnelblick.";
 
 /* Window text */
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Konfiguracja '%@' nie jest aktualizowalna, ponieważ nie mogła zostać oznaczona jako aktualizowalna.\n";
@@ -956,7 +956,7 @@
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguracja '%1$@' zostanie zignorowana, ponieważ jej nazwa zawiera niedozwolone znaki.\n\nZnaki niedozwolone to: '%2$s'\n\n";
 
 /* Window text */
-"Configuration changes:" = "Configuration changes:";
+"Configuration changes:" = "Zmiany konfiguracji:";
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Konfiguracje są instalowane z plików, które są dostarczane przez twojego zarządcę sieci bądź providera usługi VPN.  \n\nPliki konfiguracyjne mają rozszerzenia .tblk, .ovpn, lub. conf.  \n\n(Mogą istnieć inne pliki związane z konfiguracją, które mają inne rozszerzenia; na tę chwilę proszę je zignorować.)  \n\nAby zainstalować plik konfiguracji, kliknij go dwukrotnie.  \n\nNowa konfiguracja będzie natychmiast dostępna w Tunnelblick.";
@@ -1022,34 +1022,34 @@
 "Do you wish to delete the %@ credentials?" = "Czy chcesz usunąć następujące dane logowania : %@?";
 
 /* Window text */
-"Do you wish to duplicate the '%@' configuration?" = "Do you wish to duplicate the '%@' configuration?";
+"Do you wish to duplicate the '%@' configuration?" = "Czy chcesz powielić konfigurację '%@'?";
 
 /* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Czy chcesz zainstalować konfigurację '%@', która będzie dostępna tylko dla ciebie, czy dla wszystkich użytkowników?\n\n";
 
 /* Window text */
-"Do you wish to make %ld configurations private?" = "Do you wish to make %ld configurations private?";
+"Do you wish to make %ld configurations private?" = "Czy chciałbyś oznaczyć %ld konfiguracje jako prywatne?";
 
 /* Window text */
-"Do you wish to make %ld configurations shared?" = "Do you wish to make %ld configurations shared?";
+"Do you wish to make %ld configurations shared?" = "Czy chciałbyś oznaczyć %ld konfiguracje jako współdzielone?";
 
 /* Window text */
-"Do you wish to make the '%@' configuration private?" = "Do you wish to make the '%@' configuration private?";
+"Do you wish to make the '%@' configuration private?" = "Czy chciałbyś oznaczyć konfigurację '%@' jako prywatną?";
 
 /* Window text */
-"Do you wish to make the '%@' configuration shared?" = "Do you wish to make the '%@' configuration shared?";
+"Do you wish to make the '%@' configuration shared?" = "Czy chciałbyś oznaczyć konfigurację '%@' jako współdzieloną?";
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Czy chcesz ponownie zainstalować ' %1$@' w wersji %2$@?";
 
 /* Window text */
-"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.";
+"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Czy chcesz usunąć konfiguracje %ld?\n\nUsunięcie konfiguracji jest trwałe i nieodwracalne. Wszelkie ustawienia konfiguracji również zostaną trwale usunięte.";
 
 /* Window text */
-"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.";
+"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Czy chcesz usunąć konfigurację '%@'?\n\nUsunięcie konfiguracji jest trwałe i nieodwracalne. Wszelkie ustawienia konfiguracji również zostaną trwale usunięte.";
 
 /* Window text */
-"Do you wish to rename the '%@' configuration to '%@'?" = "Do you wish to rename the '%1$@' configuration to '%2$@'?";
+"Do you wish to rename the '%@' configuration to '%@'?" = "Czy chcesz zmienić nazwę konfiguracji '%1$@' na '%2$@'?";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Czy chcesz zastąpić ' %1$@' w wersji %2$@ wersją %3$@?";
@@ -1250,7 +1250,7 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Działa jeden lub więcej procesów OpenVPN, które nie są skojarzone z aktualną instancją Tunnelblick'a. Jeśli nie korzystasz z połączeń OpenVPN bez pośrednictwa Tunnelblick'a, oznacza to zazwyczaj, iż wcześniej uruchomiona instancja Tunnelblick'a nie była w stanie poprawnie zakończyć rozpoczętych przez siebie procesów i że powinieneś zakończyć je ręcznie. Jeśli nie zostaną zamknięte, mogą powodować błędy w działaniu Tunnelblick'a.\n\nMożesz je zakończyć za pośrednictwem programu \"Monitor aktywności\".\n\n";
 
 /* Window text */
-"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding.";
+"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Jedno bądź więcej połączeń VPN jest aktywnych. Proszę rozłączyć wszystkie połączenia VPN i zamknąć Tunnelblick przed kontynuowaniem.";
 
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "Jedna bądź więcej konfiguracji zostały zignorowane. Szczegóły są dostępne w dzienniku konsoli.";
@@ -1307,7 +1307,7 @@
 "Received fatal signal %d." = "Otrzymano sygnał krytyczny %d.";
 
 /* Window text */
-"Remove" = "Remove";
+"Remove" = "Usuń";
 
 /* Window text */
 "Rename failed; see the Console Log for details." = "Rename failed; see the Console Log for details.";
@@ -1433,7 +1433,7 @@
 "The file %@ is missing" = "Brakuje pliku %@";
 
 /* Window text */
-"The installation or repair took too long or failed. Try again?" = "The installation or repair took too long or failed. Try again?";
+"The installation or repair took too long or failed. Try again?" = "Instalacja trwała zbyt długo bądź nie powiodła się. Czy spróbować ponownie?";
 
 /* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Instalacja, usunięcie, przywrócenie lub naprawa jednego lub więcej składników Tunnelblick nie powiodła się. Przejrzyj log konsoli by znaleźć więcej informacji.";
@@ -1442,7 +1442,7 @@
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "Fraza nie może być pustym ciągiem znaków!\nProszę wprowadzić frazę VPN.";
 
 /* Window text */
-"The passphrase was not accepted." = "The passphrase was not accepted.";
+"The passphrase was not accepted." = "Hasło nie zostało przyjęte.";
 
 /* Window text */
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Konfiguracja prywatna nie została zabezpieczona, co uniemożliwia przywrócenie jej bezpiecznej (ukrytej) kopii.";
@@ -1451,7 +1451,7 @@
 "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "Folder dla przykładowej konfiguracji został utworzony na Twoim pulpicie, plik konfiguracyjny OpenVPN został otwarty w programie TextEdit w celu umozliwienia edycji pliku dla Twoich ustawień VPN.\n\nPo zakończeniu edycji pliku konfiguracyjnego OpenVPN zapisz zmiany.\n\nPrzenieś bądź skopiuj któryś z plików kluczy lub certyfikatów wraz z konfiguracją do folderu 'Przykładowa konfiguracja VPN Tunnelblick' na Twoim pulpicie.\n\n(Ten folder został otwary w programie Finder, więc możesz przesunąć tam pliki)\n\n2. Zmień nazwę folderu na wybraną przez siebie nazwę.\n\n3. Dodaj .tblk na końcu nazwy folderu\n\n4. Użyj podwójnego kliknięcia na folderze aby zainstalować konfigurację.\n\nNowa konfiguracja w Tunnelblick zostanie natychmiast udostępniona.";
 
 /* Window text */
-"The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
+"The username and password were not accepted by the remote VPN server." = "Nazwa użytkownika i hasło nie zostały przyjęte przez zdalny serwer VPN.";
 
 /* Window text */
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Nazwa użytkownika i hasło nie może być puste!\nProszę wprowadzić kombinację użytkownik/hasło dostępu do VPN.";
@@ -1637,7 +1637,7 @@
 "Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
 
 /* Window text */
-"Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+"Tunnelblick was successfully installed." = "Pomyślnie zainstalowano Tunnelblick.";
 
 /* Window text */
 "Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
@@ -1646,7 +1646,7 @@
 "Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
 
 /* Window text */
-"Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
+"Tunnelblick was successfully replaced." = "Pomyślnie zastąpiono Tunnelblick.";
 
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick nie mógł nawiązać połączenia z istniejącym procesem OpenVPN '%1$@' w ciągu %2$d sekund. Próba nawiązania połączenia została anulowana.";
@@ -1748,7 +1748,7 @@
 "VPN Connections" = "Połączenia VPN";
 
 /* Window text */
-"VPN status windows:" = "VPN status windows:";
+"VPN status windows:" = "Okna statusu VPN:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "Wartość '%1$@' dla '%2$@' nie jest prawidłowym URL w %3$@";
@@ -1796,13 +1796,13 @@
 "You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared.";
 
 /* Window text */
-"You cannot rename a Deployed configuration." = "You cannot rename a Deployed configuration.";
+"You cannot rename a Deployed configuration." = "Nie można zmienić nazwy dostępnej konfiguracji.";
 
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "Nie można zmienić nazwy konfiguracji, jeśli jest ona w użyciu.";
 
 /* Window text */
-"You cannot rename a configuration which is set to start when the computer starts." = "You cannot rename a configuration which is set to start when the computer starts.";
+"You cannot rename a configuration which is set to start when the computer starts." = "Nie można zmienić nazwy konfiguracji uruchamianej wraz z uruchomieniem komputera.";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Masz konfiguracje OpenVPN, ale nie masz żadnych konfiguracji Tunnelblick'a. \n\nJeśli chcesz z nich korzystać, konfiguracje OpenVPN musi zostać przekonwertowana do formatu Tunnelblick'a.\n\n";
@@ -1829,10 +1829,10 @@
 "You may not duplicate a configuration which is set to start when the computer starts." = "Nie można powielać konfiguracji, która jest uruchamiana przy starcie komputera.";
 
 /* Window text */
-"You may not remove a Deployed configuration." = "You may not remove a Deployed configuration.";
+"You may not remove a Deployed configuration." = "Nie można usunąć dostępnej konfiguracji.";
 
 /* Window text */
-"You may not remove a configuration which is set to start when the computer starts." = "You may not remove a configuration which is set to start when the computer starts.";
+"You may not remove a configuration which is set to start when the computer starts." = "Nie można usunąć konfiguracji uruchamianej wraz z uruchomieniem komputera.";
 
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Po aktualizacji, nie będzie możliwe korzystanie z Tunnelblick bez podania nazwy użytkownika i hasła Administratora.\n\nCzy na pewno sprawdzić dostępność aktualizacji?";
@@ -1961,7 +1961,7 @@
 "Icon set including Retina images" = "Zestaw ikon zawierający obrazy dla Retiny";
 
 /* Credit description */
-"Indonesian localization" = "Indonesian localization";
+"Indonesian localization" = "Indonezyjska wersja językowa";
 
 /* Credit description */
 "Italian localization" = "włoska wersja językowa";
