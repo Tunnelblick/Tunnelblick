@@ -27,7 +27,6 @@
 #import <pthread.h>
 #import <sys/stat.h>
 #import <sys/mount.h>
-#import <uuid/uuid.h>
 
 #import "MenuController.h"
 
@@ -157,7 +156,6 @@ BOOL needToConvertNonTblks(void);
                                     IntoMenu:               (NSMenu *)          theMenu
                                   afterIndex:               (int)               theIndex
                                     withName:               (NSString *)        displayName;
--(NSString *)       installationId;
 -(void)             makeSymbolicLink;
 -(NSString *)       menuNameFromFilename:                   (NSString *)        inString;
 -(void)             removeConnectionWithDisplayName:        (NSString *)        theName
@@ -469,7 +467,6 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"showTooltips",
                                 @"maxLogDisplaySize",
                                 @"lastConnectedDisplayName",
-                                @"installationUID",
                                 @"keyboardShortcutIndex",
                                 @"doNotUnrebrandLicenseDescription",
                                 @"useSharedConfigurationsWithDeployedOnes",
@@ -489,7 +486,6 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"updateSendProfileInfo",
                                 @"updateSigned",
                                 @"updateUnsigned",
-                                @"updateUUID",
 
                                 @"NSWindow Frame SettingsSheetWindow",
                                 @"NSWindow Frame ConnectingWindow",
@@ -507,6 +503,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"haveDealtWithSparkle1dot5b6",
                                 @"haveDealtWithOldTunTapPreferences",
                                 @"haveDealtWithOldLoginItem",
+                                @"haveStartedAnUpdateOfTheApp",
                                 
                                 @"SUEnableAutomaticChecks",
                                 @"SUFeedURL",
@@ -4269,6 +4266,12 @@ static void signal_handler(int signalNumber)
         return; // Error already put in log and app terminated
     }
     
+    if (   [gTbDefaults objectForKey: @"installationUID"]
+        && [gTbDefaults canChangeValueForKey: @"installationUID"]  ) {
+        [gTbDefaults removeObjectForKey: @"installationUID"];
+        NSLog(@"Removed the UUID for this user's installation of Tunnelblick. Tunnelblick no longer uses or transmits UUIDs.");
+    }
+    
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 002")
     // If checking for updates is enabled, we do a check every time Tunnelblick is launched (i.e., now)
     // We also check for updates if we haven't set our preferences yet. (We have to do that so that Sparkle
@@ -4399,7 +4402,9 @@ static void signal_handler(int signalNumber)
 	} else {
 		[self setLanguageAtLaunch: @"english"];
 	}
-	languageAtLaunchWasRTL = [[self languageAtLaunch] isEqualToString: @"ar"]; // lower-case of the base of the *.lproj file
+    
+    NSArray * rtlLanguages = [NSArray arrayWithObjects: @"ar", @"fa", nil]; // Arabic, Farsi (Persian)
+	languageAtLaunchWasRTL = [rtlLanguages containsObject: [self languageAtLaunch]];
 	
 	CFRelease(allLocalizationsCF);
 	CFRelease(languagesCF);
@@ -4652,6 +4657,13 @@ static void signal_handler(int signalNumber)
 		}
 		[center performSelector: @selector(setDelegate:) withObject: self];
 	}
+    
+    if (  [gTbDefaults boolForKey: @"haveStartedAnUpdateOfTheApp"]  ) {
+        [gTbDefaults removeObjectForKey: @"haveStartedAnUpdateOfTheApp"];
+        NSString * tbVersion = [[[NSApp delegate] tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
+        NSString * message = [NSString stringWithFormat: NSLocalizedString(@"Updated to %@.", "Notification text"), tbVersion];
+        [UIHelper showSuccessNotificationTitle: @"Tunnelblick" msg: message];
+    }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 021")
     NSString * text = NSLocalizedString(@"Tunnelblick is ready.", @"Window text");
@@ -5028,7 +5040,6 @@ static void signal_handler(int signalNumber)
         NSString * sMC   = [NSString stringWithFormat:@"%d", nMonitorConnection ];
         NSString * sDep  = ([[gConfigDirs objectAtIndex: 0] isEqualToString: gDeployPath] ? @"1" : @"0");
         NSString * sAdm  = (userIsAnAdmin ? @"1" : @"0");
-        NSString * sUuid = [self installationId];
         
         // IMPORTANT: If new keys are added here, they must also be added to profileConfig.php on the website
         //            or the user's data for the new keys will not be recorded in the database.
@@ -5046,8 +5057,6 @@ static void signal_handler(int signalNumber)
                  @"Deploy",  @"key", sDep,  @"value", NSLocalizedString(@"Deployed",           @"Window text"  ), @"displayKey", sDep,  @"displayValue", nil],
                 [NSDictionary dictionaryWithObjectsAndKeys:
                  @"Admin",   @"key", sAdm,  @"value", NSLocalizedString(@"Computer admin",     @"Window text"  ), @"displayKey", sAdm,  @"displayValue", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys:
-                 @"Uuid",    @"key", sUuid, @"value", NSLocalizedString(@"Anonymous unique ID",@"Window text"  ), @"displayKey", sUuid, @"displayValue", nil],
                 nil
                 ];
     }
@@ -5064,6 +5073,7 @@ static void signal_handler(int signalNumber)
 	
 	[gTbDefaults removeObjectForKey: @"skipWarningAboutInvalidSignature"];
 	[gTbDefaults removeObjectForKey: @"skipWarningAboutNoSignature"];
+    [gTbDefaults setBool: TRUE forKey: @"haveStartedAnUpdateOfTheApp"];
 	
 	reasonForTermination = terminatingBecauseOfQuit;
     
@@ -5082,25 +5092,6 @@ static void signal_handler(int signalNumber)
     //     (1) We've already just run it and thus cleaned up everything, and
     //     (2) The newly-installed openvpnstart won't be secured and thus will fail
 }
-
-- (NSString *)installationId
-{
-    NSString * installationIdKey = @"installationUID";
-    
-    NSString *uuid = [gTbDefaults stringForKey:installationIdKey];
-    
-    if (uuid == nil) {
-        uuid_t buffer;
-        uuid_generate(buffer);
-        char str[37];   // 36 bytes plus trailing \0
-        uuid_unparse_upper(buffer, str);
-        uuid = [NSString stringWithFormat:@"%s", str];
-        [gTbDefaults setObject: uuid
-                        forKey: installationIdKey];
-    }
-    return uuid;
-}
-
 
 -(void) setPIDsWeAreTryingToHookUpTo: (NSArray *) newValue
 {

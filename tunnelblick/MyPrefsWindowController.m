@@ -1227,7 +1227,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                 && [gTbDefaults boolWithDefaultYesForKey: @"showConnectedDurations"]  ) {
 				connectionTimeString = [connection connectTimeString];
             }
-            windowLabel = [NSString stringWithFormat: @"%@%@: %@%@ - %@", [connection localizedName], [connection displayLocation], status, connectionTimeString, appName];
+            windowLabel = [NSString stringWithFormat: NSLocalizedString(@"%@%@: %@%@ - %@", @"Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances"), [connection localizedName], [connection displayLocation], status, connectionTimeString, appName];
         }
     }
     
