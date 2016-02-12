@@ -4501,7 +4501,47 @@ static void signal_handler(int signalNumber)
             NSLog(@"'*-openvpnVersion' is being forced to '%@'. That version is not available in this version of Tunnelblick", prefVersion);
         }
     }
-
+    
+    // Register this application with Launch Services
+    NSString * appPath = [[NSBundle mainBundle] bundlePath];
+    CFURLRef appURL = (CFURLRef) [NSURL URLWithString: [@"file://" stringByAppendingString: appPath]];
+    if (  ! appURL  ) {
+        NSLog(@"Unable to create URL from %@", appPath);
+    } else {
+        OSStatus status = LSRegisterURL(appURL, YES);
+        if (  status != EXIT_SUCCESS  ) {
+            NSLog(@"Unable to register %@ with Launch Services; Launch Services result code was %ld", appPath, (long) status);
+        }
+    }
+    
+/* The most common result codes returned by Launch Services functions
+ 
+       from: http://mirror.informatimago.com/next/developer.apple.com/documentation/Carbon/Reference/LaunchServicesReference/LSRReference/ResultCodes.html#//apple_ref/doc/uid/TP30000998-CH201-BCIHFFIA
+       (They don't seem to be documented on any Apple site.)
+     
+     kLSAppInTrashErr                   -10660 	The application cannot be run because it is inside a Trash folder.
+     kLSUnknownErr                      -10810 	An unknown error has occurred.
+     kLSNotAnApplicationErr             -10811 	The item to be registered is not an application.
+     kLSNotInitializedErr               -10812 	Formerly returned by LSInit on initialization failure; no longer used.
+     kLSDataUnavailableErr              -10813 	Data of the desired type is not available (for example, there is no kind string).
+     kLSApplicationNotFoundErr          -10814 	No application in the Launch Services database matches the input criteria.
+     kLSUnknownTypeErr                  -10815 	Not currently used.
+     kLSDataTooOldErr                   -10816 	Not currently used.
+     kLSDataErr                         -10817 	Data is structured improperly (for example, an item’s information property list is malformed).
+     kLSLaunchInProgressErr             -10818 	A launch of the application is already in progress.
+     kLSNotRegisteredErr                -10819 	Not currently used.
+     kLSAppDoesNotClaimTypeErr          -10820 	Not currently used.
+     kLSAppDoesNotSupportSchemeWarning 	-10821 	Not currently used.
+     kLSServerCommunicationErr          -10822 	There is a problem communicating with the server process that maintains the Launch Services database.
+     kLSCannotSetInfoErr                -10823 	The filename extension to be hidden cannot be hidden.
+     kLSNoRegistrationInfoErr           -10824 	Not currently used.
+     kLSIncompatibleSystemVersionErr 	-10825 	The application to be launched cannot run on the current Mac OS version.
+     kLSNoLaunchPermissionErr           -10826 	The user does not have permission to launch the application (on a managed network).
+     kLSNoExecutableErr                 -10827 	The executable file is missing or has an unusable format.
+     kLSNoClassicEnvironmentErr         -10828 	The Classic emulation environment was required but is not available.
+     kLSMultipleSessionsNotSupportedErr -10829 	The application to be launched cannot run simultaneously in two different user sessions.
+*/
+    
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 016")
     // Add this Tunnelblick version to the start of the tunnelblickVersionHistory preference array if it isn't already the first entry
     NSDictionary * infoPlist = [self tunnelblickInfoDictionary];
