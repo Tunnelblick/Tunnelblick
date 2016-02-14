@@ -189,6 +189,8 @@ built-pkcs11-helper: built-openssl
 		            --includedir=$(PKCS11_STAGING_DIR)/include \
 		            --enable-static \
 		            --enable-shared=no \
+		            --enable-slotevent=no \
+		            --enable-threading=no \
 		            --disable-dependency-tracking ; \
 		echo "Build PKCS11-Helper for $$a" ; \
 		$(MAKE); \
