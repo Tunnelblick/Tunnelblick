@@ -2297,17 +2297,17 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             
 			NSString * newSuffix;
 			if (  forceDowngrade  ) {
-				newSuffix = @"-d";
+				newSuffix = @"-ds";
 			} else {
 				id obj = [gTbDefaults objectForKey: @"updateCheckBetas"];
 				BOOL checkBeta = (  [obj respondsToSelector: @selector(boolValue)]
 								  ? [obj boolValue]
 								  : runningABetaVersion());
 				newSuffix = (  checkBeta
-							 ? @"-b"
+							 ? @"-bs"
 							 : (  runningABetaVersion()
-                                ? @"-d"
-                                : @"-s"));
+                                ? @"-ds"
+                                : @"-ss"));
 			}
 			NSString * ext = [feedURL pathExtension];
 			// Can't use stringByAppendingPathExtension because it changes double-slashes to single slashes (e.g., changes "https://www" to "https:/www")
