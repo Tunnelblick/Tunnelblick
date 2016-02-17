@@ -1058,7 +1058,7 @@
 "Do you wish to replace the '%@' configuration?\n\n" = "Czy chcesz zastąpić konfigurację '%@'?\n\n";
 
 /* Window text */
-"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n";
+"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Czy chcesz przywrócić konfiguracje %ld do ich ostatniej bezpiecznej (ukrytej) kopii?\n\n";
 
 /* Window text */
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Czy chcesz przywrócić konfigurację '%@' do jej ostaniej bezpiecznej (ukrytej) kopii?\n\n";

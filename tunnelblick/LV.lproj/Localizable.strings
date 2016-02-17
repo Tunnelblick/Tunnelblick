@@ -77,7 +77,7 @@
 "Create sample configuration and edit it" = "Izveidot un labot tipveida konfigurāciju";
 
 /* Button */
-"Default (%@)" = "Pēc noklusējuma (%@)";
+"Default (%@)" = "Noklusējuma (%@)";
 
 /* Button */
 "Delete Credentials" = "Dzēst piekļuves datus";
@@ -167,7 +167,7 @@
 "Open easy-rsa in Terminal" = "Atvērt easy-rsa komandrindā";
 
 /* Button */
-"Privacy info..." = "Privātuma Info";
+"Privacy info..." = "Privātuma info…";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Apturēt visus OpenVPN procesus";
@@ -1151,7 +1151,7 @@
 "Internal error: commentOutLines: line %lu does not exist" = "Iekšēja kļūda: commentOutLines: rinda %lu neeksistē";
 
 /* Window text */
-"Invalid value '%@' for '%@' in %@" = "Invalid value '%1$@' for '%2$@' in %3$@";
+"Invalid value '%@' for '%@' in %@" = "Nepareiza vērtība '%1$@' atslēgai '%2$@', kas atrodas %3$@";
 
 /* Window text */
 "KB" = "KB";
@@ -1184,16 +1184,16 @@
 "Menu:" = "Izvēle:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Trūkstošs CFBundleIdentifier vai CFBundleVersion iekš Info.plist konfigurācijai\n\n%@\n\nŠī VPN konfigurācija ir ielikta atjaunināmā ārējā VPN konfigurācijā, tādēļ tai ir jāsatur savs CFBundleIdentifier un CFBundleVersion.";
 
 /* Window text */
-"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Trūkstošs Info.plist konfigurācijai\n\n%@\n\nŠī VPN konfigurācija ir ielikta atjaunināmā ārējā VPN konfigurācijā, tādēļ tai ir jāiekļauj Info.plist.";
 
 /* Window text */
-"Modified configuration file to remove path information" = "Modified configuration file to remove path information";
+"Modified configuration file to remove path information" = "Pārveidojusi konfigurācijas failu, lai izņemtu ceļa informāciju";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Vairāki vienlaicīgi savienojumi būtu izveidoti (%1$d ar 'Set nameserver', %2$d bez 'Set nameserver').";
 
 /* Window text */
 "Named Credentials" = "Norādītie piekļuves dati";
@@ -1202,7 +1202,7 @@
 "Names may not include any of the following characters: %s" = "Nosaukumos nedrīkst būt neviena no šīm rakstzīmēm: %s";
 
 /* Window text */
-"Names may not include any of the following characters: %s\n\n%@" = "Names may not include any of the following characters: %1$s\n\n%2$@";
+"Names may not include any of the following characters: %s\n\n%@" = "Nosaukumi nedrīkst saturēt nevienu no šīm rakstzīmēm: %1$s\n\n%2$@";
 
 /* Window text */
 "NetBIOS name:" = "NetBIOS vārds:";
@@ -1214,22 +1214,22 @@
 "No 'TBPackageVersion' in %@" = "Nav 'TBPackageVersion' nav atrodama %@";
 
 /* Window text */
-"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference";
+"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Nav atrasts ceļš uz 'easy-rsa'. Iespējamais iemesls ir problēma ar 'easy-rsaPath' izvēli";
 
 /* Window text */
-"Non-array value for '%@' in %@" = "Non-array value for '%1$@' in %2$@";
+"Non-array value for '%@' in %@" = "Ne masīva vērtība atslēgai '%1$@', kas atrodas %2$@";
 
 /* Window text */
-"Non-boolean value for '%@' in %@" = "Non-boolean value for '%1$@' in %2$@";
+"Non-boolean value for '%@' in %@" = "Ne loģiskā (Būla) vērtība atslēgai '%1$@', kas atrodas %2$@";
 
 /* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
-"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
+"Non-integer value for '%@' in %@" = "Ne vesela skaitļa vērtība atslēgai '%1$@', kas atrodas %2$@";
 
 /* Window text */
-"Non-string value for '%@' in %@" = "Non-string value for '%1$@' in %2$@";
+"Non-string value for '%@' in %@" = "Ne virknes vērtība atslēgai '%1$@', kas atrodas %2$@";
 
 /* Window text */
-"Non-string value for an item in '%@' in %@" = "Non-string value for an item in '%1$@' in %2$@";
+"Non-string value for an item in '%@' in %@" = "Ne virknes vērtība vienumam '%1$@', kas atrodas %2$@";
 
 /* Window text */
 "None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Neviena no %ld izvēlētajām konfigurācijām nesatur piekļuves datus (privāto atslēgu vai lietotāja vārdu un paroli), kas glabājas atslēgsaišķī.";
@@ -1238,22 +1238,22 @@
 "Not a .ovpn or .conf: %@" = "Nav .opvn vai .conf:%@";
 
 /* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Esošanā konfigurācija nav aizvietota, tādēļ konfigurācija '%@' nedrīkst izmantot 'TBKeepExistingFilesList'";
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Viens vai vairāki OpenVPN procesi darbojas, bet nav zināmi Tunnelblick. Ja jūs neizmantojat OpenVPN atsevišķi no Tunnelblick, tas parasti nozīmē, ka agrāka uzsākšana Tunnelblick nevarēja izslēgt tos pareizi un jums vajadzētu tos izslēgt. Tie var traucēt Tunnelblick darbībai. Vai jūs vēlaties pārtraukt visus OpenVPN procesus?";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Ir aktīvi viens vai vairāki OpenVPN procesi, taču Tunnelblick tos neatpazīst. Ja neesat palaiduši OpenVPN atsevišķi no Tunnelblick, tas parasti nozīmē, ka iepriekšējā Tunnelblick palaišana nespēja šos procesus pienācīgi apturēt, un Jums vajadzētu tos apturēt. Tie var traucēt Tunnelblick darbību. Vai vēlaties šos procesus apturēt?";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Ir aktīvi viens vai vairāki OpenVPN procesi, taču Tunnelblick tos neatpazīst. Ja neesat palaiduši OpenVPN atsevišķi no Tunnelblick, tas parasti nozīmē, ka iepriekšējā Tunnelblick palaišana nespēja šos procesus pienācīgi apturēt un Jums vajadzētu tos apturēt. Tie var traucēt Tunnelblick darbību.\n\nTie var būt apturēti 'Activity Monitor' lietojumprogrammā.\n\n";
 
 /* Window text */
-"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding.";
+"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Pašlaik ir savienojums ar vienu vai vairākiem VPN. Lai turpinātu, lūdzu atvienojiet visus VPN and aizveriet Tunnelblick.";
 
 /* Window text */
-"One or more configurations are being ignored. See the Console Log for details." = "One or more configurations are being ignored. See the Console Log for details.";
+"One or more configurations are being ignored. See the Console Log for details." = "Viena vai vairākas konfigurācijas tiek ignorētas. Sīkākai informācijai apskatiet Console Log.";
 
 /* Window text */
 "One or more problems were detected:\n\n%@" = "Tika atrastas viena vai vairākas problēmas:\n%@";
@@ -1262,7 +1262,7 @@
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Tikai Tunnelblick VPN konfigurācija (.tblk) var tikt izmantota pie sistēmas starta.";
 
 /* Window text */
-"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected.";
+"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN neatbild uz pieprasījumu atvienot %@.\n\nTunnelblick atvienosies, kad OpenVPN sāks atbildēt uz atvienošanās pieprasījumiem.\n\nDažos gadījumos ŠIS PROCESS VAR ILGT LĪDZ PAT DIVĀM MINŪTĒM.\n\nSavienojums nebūs pieejams, kamēr tas netiks atvienots.";
 
 /* Window text */
 "OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN %1$@ versija nav pieejama. Izmaina konfigurāciju, lai izmantotu jaunāko versiju (%2$@) kas ir iekļauta Tunnelblick.";
@@ -1304,31 +1304,31 @@
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Privātas konfigurācijas nevar pieslēgties, kad dators tiek startēts.\n\nIzveidojiet kopēju konfigurāciju un tad mainiet šo iestatījumu.";
 
 /* Window text */
-"Received fatal signal %d." = "Received fatal signal %d.";
+"Received fatal signal %d." = "Saņemts fatāls signāls %d.";
 
 /* Window text */
-"Remove" = "Remove";
+"Remove" = "Dzēst";
 
 /* Window text */
-"Rename failed; see the Console Log for details." = "Rename failed; see the Console Log for details.";
+"Rename failed; see the Console Log for details." = "Neizdevās pārdēvēt; sīkākai informācijai skatiet Console Log.";
 
 /* Window text */
-"Resolved symbolic link at '%@' to '%@'" = "Resolved symbolic link at '%1$@' to '%2$@'";
+"Resolved symbolic link at '%@' to '%@'" = "Atrisināta simboliskā saite no '%1$@' uz '%2$@'";
 
 /* Window text */
 "Search domain:" = "Meklēt domainu:";
 
 /* Window text */
-"Securing Tunnelblick..." = "Securing Tunnelblick…";
+"Securing Tunnelblick..." = "Tunnelblick tiek nodrošināts…";
 
 /* Window text */
 "Set DNS/WINS:" = "Iestatīt DNS/WINS:";
 
 /* Window text */
-"Single-quote missing in line %u" = "Single-quote missing in line %u";
+"Single-quote missing in line %u" = "%u. rindā trūkst vienpēdiņas";
 
 /* Window text */
-"Skipped copying %@ because a file with that name and contents has already been copied." = "Skipped copying %@ because a file with that name and contents has already been copied.";
+"Skipped copying %@ because a file with that name and contents has already been copied." = "%@ kopēšana nav veikta, jo fails ar šādu nosaukumu un saturu jau ir nokopēts.";
 
 /* Window text */
 "Starting Tunnelblick..." = "Ieslēdz Tunnelblick…";
@@ -1697,7 +1697,7 @@
 "Unable to write to configuration file for modification" = "Unable to write to configuration file for modification";
 
 /* Window text */
-"Unexpected disconnection:" = "Unexpected disconnection:";
+"Unexpected disconnection:" = "Neparedzēta atvienošanās:";
 
 /* Window text */
 "Unknown extension '%@' for %@" = "Unknown extension '%1$@' for %2$@";

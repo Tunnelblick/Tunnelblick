@@ -83,10 +83,10 @@
 "Delete Credentials" = "Διαγραφή πιστοποιητικών";
 
 /* Button */
-"Delete saved passphrase and try again" = "Delete saved passphrase and try again";
+"Delete saved passphrase and try again" = "Διαγράψτε το αποθηκευμένο συνθηματικό και δοκιμάστε ξανά";
 
 /* Button */
-"Delete saved password and try again" = "Delete saved password and try again";
+"Delete saved password and try again" = "Διαγράψτε τον αποθηκευμένο κωδικό και δοκιμάστε ξανά";
 
 /* Button */
 "Delete" = "Διαγραφή";
@@ -104,7 +104,7 @@
 "Download" = "Κατέβασμα";
 
 /* Button */
-"Duplicate" = "Duplicate";
+"Duplicate" = "Διπλότυπο";
 
 /* Button */
 "Help" = "Βοήθεια";
@@ -128,10 +128,10 @@
 "Load Tun driver automatically" = "Χρήση οδηγών Tun αυτόματα ";
 
 /* Button */
-"Make Private" = "Make Private";
+"Make Private" = "Ιδιωτικό";
 
 /* Button */
-"Make Shared" = "Make Shared";
+"Make Shared" = "Κοινή χρήση";
 
 /* Button */
 "Manually" = "Χειροκίνητα";
@@ -182,7 +182,7 @@
 "Remove Credentials" = "Αφαίρεση πιστοποιητικών";
 
 /* Button */
-"Rename" = "Rename";
+"Rename" = "Μετονομασία";
 
 /* Button */
 "Replace" = "Αντικατέστησε";
@@ -197,7 +197,7 @@
 "Restore" = "Επαναφορά";
 
 /* Button */
-"Retry" = "Retry";
+"Retry" = "Επανάληψη";
 
 /* Button */
 "Revert" = "Επιστροφή";
@@ -236,10 +236,10 @@
 "This configuration uses %@ credentials" = "Αυτοί οι παράμετροι χρησιμοποιούν %@ πιστοποιητικά";
 
 /* Button */
-"Try again with saved passphrase" = "Try again with saved passphrase";
+"Try again with saved passphrase" = "Νέα προσπάθεια με αποθηκευμένο συνθηματικό";
 
 /* Button */
-"Try again with saved username and password" = "Try again with saved username and password";
+"Try again with saved username and password" = "Νέα προσπάθεια με αποθηκευμένο όνομα χρήστη και κωδικό";
 
 /* Button */
 "Try again" = "Προσπαθήστε ξανά";
@@ -269,7 +269,7 @@
 "Disconnect %@%@" = "Αποσύνδεση από %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Do Not Show on Tunnelblick Menu";
+"Do Not Show on Tunnelblick Menu" = "Απόκρυψη από το μενού της εφαρμογής";
 
 /* Menu Item */
 "Duplicate Configuration..." = "Αντίγραφο παραμέτρων…";
@@ -302,7 +302,7 @@
 "Show OpenVPN Log in Finder" = "Εμφάνιση ιστορικό OpenVPN στο Finder";
 
 /* Menu Item */
-"Show on Tunnelblick Menu" = "Show on Tunnelblick Menu";
+"Show on Tunnelblick Menu" = "Εμφάνιση στο μενού της εφαρμογής";
 
 /* Menu item */
 "Suggestion or Bug Report..." = "Προτάσεις ή Αναφορά σφαλμάτων…";
@@ -323,7 +323,7 @@
 "Check if the apparent public IP address changed after connecting" = "Έλεγχος αν η εμφανιζόμενη διεύθυνση IP άλλαξε μετά την σύνδεση";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
+"Disable IPv6 (tun only)" = "Απενεργοποίηση IPv6 (μόνο tun)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Αποσύνδεση όταν ο υπολογιστής λειτουργεί σε ύπνωση";
@@ -362,7 +362,7 @@
 "Do not warn about this again" = "Μην ειδοποιηθώ για αυτό ξανά";
 
 /* Checkbox name */
-"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+"Enable IPv6 (tap only)" = "Ενεργοποίηση IPv6 (μόνο tap)";
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Καθάρισε μνήμη του DNS μετά από Σύνδεση/Αποσύνδεση";
@@ -386,13 +386,13 @@
 "Prepend domain name to search domains" = "Πρόταση ονόματος διακομιστή για εύρεση διακομιστών";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+"Reconnect when computer wakes up" = "Επανασύνδεση μετά την επαναφορά";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Επανασύνδεση όταν ο χρήστης εισέρχεται";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "Require adminstrator authorization for key and certificate changes";
+"Require adminstrator authorization for key and certificate changes" = "Να απαιτείται έγκριση από διαχειριστή για αλλαγές σε κλειδιά και πιστοποιητικά";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Επαναφορά κύριου περιβάλλοντος μετά την αποσύνδεση";
@@ -551,7 +551,7 @@
 "Could Not Move Configuration" = "Αδυναμία μεταφοράς παραμέτρων";
 
 /* Window title */
-"Could Not Replace Configuration" = "Could Not Replace Configuration";
+"Could Not Replace Configuration" = "Δεν ήταν δυνατή η αντικατάσταση των ρυθμίσεων";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "Αδυναμία απεγκατάστασης παραμέτρων";
@@ -632,13 +632,13 @@
 "Settings" = "Ρυθμήσεις";
 
 /* Window title */
-"Sounds" = "Sounds";
+"Sounds" = "Ήχοι";
 
 /* Window title */
 "System Requirements Not Met" = "Μη συμβατό με απαιτήσεις του συστήματος";
 
 /* Window title */
-"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
+"There are no OpenVPN processes running." = "Δεν υπάρχουν ενεργές διεργασίες OpenVPN.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Πρόβλημα παραμέτρων του Tunnelblick";
