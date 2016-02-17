@@ -1,0 +1,257 @@
+diff -u -r Sparkle 1.5b6/Extras/Source Code/SUAppcast.m Sparkle 1.5b6_patch8/Extras/Source Code/SUAppcast.m
+--- Sparkle 1.5b6/Extras/Source Code/SUAppcast.m	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle 1.5b6_patch8/Extras/Source Code/SUAppcast.m	2016-02-15 19:21:05.000000000 -0500
+@@ -8,6 +8,8 @@
+ 
+ #import "Sparkle.h"
+ #import "SUAppcast.h"
++#import "SUDSAVerifier.h"
++#import "SUUpdateDriver.h"
+ 
+ @interface SUAppcast (Private)
+ - (void)reportError:(NSError *)error;
+@@ -48,6 +50,11 @@
+ - (void)connectionDidFinishLoading:(NSURLConnection *)connection
+ {
+ 	CFRelease(connection);
++	
++	if (![SUDSAVerifier validateData:incrementalData fromItemName:@"appcast" withPublicDSAKey:[[delegate host] publicDSAKey]]  ) {
++		[self reportError:[NSError errorWithDomain:SUSparkleErrorDomain code:SUAppcastParseError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:SULocalizedString(@"An error occurred while processing the update feed.", nil), NSLocalizedDescriptionKey, nil]]];
++		return;
++	}
+     
+ 	NSError *error = nil;
+     NSXMLDocument *document = [[NSXMLDocument alloc] initWithData:incrementalData options:0 error:&error];
+diff -u -r Sparkle 1.5b6/Extras/Source Code/SUDSAVerifier.h Sparkle 1.5b6_patch8/Extras/Source Code/SUDSAVerifier.h
+--- Sparkle 1.5b6/Extras/Source Code/SUDSAVerifier.h	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle 1.5b6_patch8/Extras/Source Code/SUDSAVerifier.h	2016-02-15 13:10:42.000000000 -0500
+@@ -12,6 +12,7 @@
+ // For the paranoid folks!
+ @interface SUDSAVerifier : NSObject {}
+ + (BOOL)validatePath:(NSString *)path withEncodedDSASignature:(NSString *)encodedSignature withPublicDSAKey:(NSString *)pkeyString;
+++ (BOOL)validateData:(NSMutableData *)data fromItemName:(NSString *)itemName withPublicDSAKey:(NSString *)pkeyString;
+ @end
+ 
+ #endif
+diff -u -r Sparkle 1.5b6/Extras/Source Code/SUDSAVerifier.m Sparkle 1.5b6_patch8/Extras/Source Code/SUDSAVerifier.m
+--- Sparkle 1.5b6/Extras/Source Code/SUDSAVerifier.m	2016-02-12 16:45:31.000000000 -0500
++++ Sparkle 1.5b6_patch8/Extras/Source Code/SUDSAVerifier.m	2016-02-16 14:13:59.000000000 -0500
+@@ -103,48 +103,154 @@
+ 
+ @implementation SUDSAVerifier
+ 
+++ (BOOL)validateData:(NSData *)dataToVerify withEncodedDSASignature:(NSString *)encodedSignature withPublicDSAKey:(NSString *)pkeyString
++{
++    if (!dataToVerify) {
++        NSLog(@"Sparkle Updater: validateData:withEncodedDSASignature:withPublicDSAKey: dataToVerify is nil");
++        return NO;
++    }
++    if (!encodedSignature) {
++        NSLog(@"Sparkle Updater: validateData:withEncodedDSASignature:withPublicDSAKey: encodedSignature is nil");
++        return NO;
++    }
++    if (!pkeyString) {
++        NSLog(@"Sparkle Updater: validateData:withEncodedDSASignature:withPublicDSAKey: pkeyString is nil");
++        return NO;
++    }
++    
++    BOOL result = NO;
++    
++    // Remove whitespace around each line of the key.
++    NSMutableArray *pkeyTrimmedLines = [NSMutableArray array];
++    NSEnumerator *pkeyLinesEnumerator = [[pkeyString componentsSeparatedByString:@"\n"] objectEnumerator];
++    NSString *pkeyLine;
++    while ((pkeyLine = [pkeyLinesEnumerator nextObject]) != nil)
++    {
++        [pkeyTrimmedLines addObject:[pkeyLine stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
++    }
++    pkeyString = [pkeyTrimmedLines componentsJoinedByString:@"\n"]; // Put them back together.
++    
++    EVP_PKEY* pkey = NULL;
++    pkey = load_dsa_key((char *)[pkeyString UTF8String]);
++    if (!pkey) {
++        NSLog(@"Sparkle Updater: validateData:withEncodedDSASignature:withPublicDSAKey: unable to load pkeyString");
++        return NO;
++    }
++    
++    // Now, the signature is in base64; we have to decode it into a binary stream.
++    unsigned char *signature = (unsigned char *)[encodedSignature UTF8String];
++    long length = b64decode(signature); // Decode the signature in-place and get the new length of the signature string.
++    
++    // Hash the file with SHA-1.
++    unsigned char md[SHA_DIGEST_LENGTH];
++    SHA1([dataToVerify bytes], [dataToVerify length], md);
++    
++    // Actually verify the signature on the data.
++    EVP_MD_CTX ctx;
++    if(EVP_VerifyInit(&ctx, EVP_dss1()) == 1) // We're using DSA keys.
++    {
++        EVP_VerifyUpdate(&ctx, md, SHA_DIGEST_LENGTH);
++        result = (EVP_VerifyFinal(&ctx, signature, (unsigned int)length, pkey) == 1);
++    }
++    
++    EVP_PKEY_free(pkey);
++    return result;
++}
++
++#define BASE64_ENCODED_SIGNATURE_LENGTH 64
++
+++ (BOOL)validateData:(NSMutableData *)data fromItemName:(NSString *)itemName withPublicDSAKey:(NSString *)pkeyString
++{
++    // Verifies data was signed using a digital signature that must appear at the start of the data.
++    // (The signature is put at the start of the data to avoid having to parse UTF-8 to get to it.)
++    //
++    // itemName is a name describing the data ("appcast" or "update notes")
++    //
++    // The data must start with ann XML/HTML comment containing a digital signature of the rest of the data. The comment is of the form:
++    //
++    //      <!-- Tunnelblick DSA Signature v1 SIGNATURE -->\n
++    //
++    //      where SIGNATURE is a 64-character digital signature created by the Sparkle-provided "sign_update.rb" command using a private DSA key. The
++    //      signature will be verified using the publicDSAKey.
++    //
++    // Although the signature comment is plain (7-bit) ASCII, the appcast or update notes which follows it will be interpreted as UTF-8.
++    
++    if (!data) {
++        NSLog(@"Sparkle Updater: validateData:withPublicDSAKey:andRemoveDSASignatureFromItemName: data is nil");
++        return NO;
++    }
++    if (!pkeyString) {
++        NSLog(@"Sparkle Updater: validateData:withPublicDSAKey:andRemoveDSASignatureFromItemName: pkeyString is nil");
++        return NO;
++    }
++    if (!itemName) {
++        NSLog(@"Sparkle Updater: validateData:withPublicDSAKey:andRemoveDSASignatureFromItemName: itemName is nil");
++        return NO;
++    }
++    
++    const char * comment_prefix = "<!-- Tunnelblick DSA Signature v1 ";
++    const char * comment_suffix = " -->\n";
++    NSUInteger commentLength   = strlen(comment_prefix) +BASE64_ENCODED_SIGNATURE_LENGTH + strlen(comment_suffix);
++    
++    if (   [data length] > 100000  			// Sanity check: the data can't be too big or too small
++        || [data length] < commentLength + 100 ) {
++        
++        NSLog(@"Sparkle Updater: The %@ was too long or too short", itemName);
++        return NO;
++    }
++    
++    const char * comment_ptr     = [data bytes];
++    const char * signature_ptr   = comment_ptr + strlen(comment_prefix);
++    const char * comment_end_ptr = signature_ptr +BASE64_ENCODED_SIGNATURE_LENGTH;
++    
++    if (   (strncmp(comment_ptr,     comment_prefix, strlen(comment_prefix)) != 0)
++        || (strncmp(comment_end_ptr, comment_suffix, strlen(comment_suffix)) != 0)  ) {
++        NSLog(@"Sparkle Updater: The %@ signature was not present or was not formatted correctly", itemName);
++        return NO;
++    }
++    
++    NSString * signature = [[[NSString alloc] initWithBytes: signature_ptr length:BASE64_ENCODED_SIGNATURE_LENGTH encoding: NSASCIIStringEncoding] autorelease];
++    if (  ! signature  ) {
++        NSLog(@"Sparkle Updater: The %@ signature was not 7-bit ASCII", itemName);
++        return NO;
++    }
++    
++    // Remove the comment from the start of the data before verifying
++    [data replaceBytesInRange: NSMakeRange(0, commentLength) withBytes: NULL length: 0];
++    
++    // Verify the signature on the data
++    BOOL itemSignatureIsGood = [SUDSAVerifier validateData: data withEncodedDSASignature: signature withPublicDSAKey: pkeyString];
++    if (  itemSignatureIsGood  ) {
++        return YES;
++    }
++    
++    NSLog(@"Sparkle Updater: The signature on %@ was not correct", itemName);
++    return NO;
++}
++
+ + (BOOL)validatePath:(NSString *)path withEncodedDSASignature:(NSString *)encodedSignature withPublicDSAKey:(NSString *)pkeyString
+ {
+-	BOOL result = NO;
+-	if (!encodedSignature) { return NO; }
+-	if (!pkeyString) { return NO; }
+-	
+-	// Remove whitespace around each line of the key.
+-	NSMutableArray *pkeyTrimmedLines = [NSMutableArray array];
+-	NSEnumerator *pkeyLinesEnumerator = [[pkeyString componentsSeparatedByString:@"\n"] objectEnumerator];
+-	NSString *pkeyLine;
+-	while ((pkeyLine = [pkeyLinesEnumerator nextObject]) != nil)
+-	{
+-		[pkeyTrimmedLines addObject:[pkeyLine stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+-	}
+-	pkeyString = [pkeyTrimmedLines componentsJoinedByString:@"\n"]; // Put them back together.
+-
+-	EVP_PKEY* pkey = NULL;
+-	pkey = load_dsa_key((char *)[pkeyString UTF8String]);
+-	if (!pkey) { return NO; }
+-
+-	// Now, the signature is in base64; we have to decode it into a binary stream.
+-	unsigned char *signature = (unsigned char *)[encodedSignature UTF8String];
+-	long length = b64decode(signature); // Decode the signature in-place and get the new length of the signature string.
+-	
+-	// We've got the signature, now get the file data.
+-	NSData *pathData = [NSData dataWithContentsOfFile:path];
+-	if (!pathData) { return NO; }
+-	
+-	// Hash the file with SHA-1.
+-	unsigned char md[SHA_DIGEST_LENGTH];
+-	SHA1([pathData bytes], [pathData length], md);
+-	
+-	// Actually verify the signature on the file.
+-	EVP_MD_CTX ctx;
+-	if(EVP_VerifyInit(&ctx, EVP_dss1()) == 1) // We're using DSA keys.
+-	{
+-		EVP_VerifyUpdate(&ctx, md, SHA_DIGEST_LENGTH);
+-		result = (EVP_VerifyFinal(&ctx, signature, (unsigned int)length, pkey) == 1);
+-	}
+-	
+-	EVP_PKEY_free(pkey);
+-	return result;
++    if (!encodedSignature) {
++        NSLog(@"Sparkle Updater: validatePath:withEncodedDSASignature:withPublicDSAKey: encodedSignature is nil");
++        return NO;
++    }
++    if (!pkeyString) {
++        NSLog(@"Sparkle Updater: validatePath:withEncodedDSASignature:withPublicDSAKey: pkeyString is nil");
++        return NO;
++    }
++    
++    NSData *pathData = [NSData dataWithContentsOfFile:path];
++    if (!pathData) {
++        NSLog(@"Sparkle Updater: validatePath:withEncodedDSASignature:withPublicDSAKey: unable to obtain contents of file at %@", path);
++        return NO;
++    }
++    
++    BOOL result = [SUDSAVerifier validateData:pathData withEncodedDSASignature:encodedSignature withPublicDSAKey:pkeyString];
++    if (!result) {
++        return NO;
++    }
++    
++    return YES;
+ }
+ 
+ @end
+diff -u -r Sparkle 1.5b6/Extras/Source Code/SUUpdateDriver.h Sparkle 1.5b6_patch8/Extras/Source Code/SUUpdateDriver.h
+--- Sparkle 1.5b6/Extras/Source Code/SUUpdateDriver.h	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle 1.5b6_patch8/Extras/Source Code/SUUpdateDriver.h	2016-02-15 16:16:00.000000000 -0500
+@@ -27,6 +27,7 @@
+ - (void)checkForUpdatesAtURL:(NSURL *)URL host:(SUHost *)host;
+ - (void)abortUpdate;
+ - (BOOL)finished;
++- (SUHost *)host;
+ 
+ @end
+ 
+diff -u -r Sparkle 1.5b6/Extras/Source Code/SUUpdateDriver.m Sparkle 1.5b6_patch8/Extras/Source Code/SUUpdateDriver.m
+--- Sparkle 1.5b6/Extras/Source Code/SUUpdateDriver.m	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle 1.5b6_patch8/Extras/Source Code/SUUpdateDriver.m	2016-02-15 16:16:22.000000000 -0500
+@@ -41,4 +41,9 @@
+     [super dealloc];
+ }
+ 
++- (SUHost *)host
++{
++	return [[host retain] autorelease];
++}
++
+ @end
