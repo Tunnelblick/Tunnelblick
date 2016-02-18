@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -30,6 +30,17 @@
 
 #import "defines.h"
 
+// Return values for +ConfigurationManager:commandOptionsInConfigurationsAtPaths: and some methods it invokes
+typedef enum
+{
+    CommandOptionsError,     // Error occurred
+    CommandOptionsNo,        // Configurations have only safe options and do not contain .sh files
+    CommandOptionsYes,       // Configurations have unsafe options and/or contain .sh files
+    CommandOptionsUnknown    // Configurations do not contain .sh files, but have options not known to be safe or unsafe
+} CommandOptionsStatus;
+
+
+//*************************************************************************************************
 @class ListingWindowController;
 @class VPNConnection;
 
@@ -90,14 +101,13 @@
 
 +(void) renameConfigurationInNewThreadWithDisplayName: (NSString *) displayName;
 
-+(void) createShadowConfigurationInNewThreadWithDisplayName: (NSString *) displayName thenConnectUserKnows: (BOOL) userKnows
-													;
++(void) createShadowConfigurationInNewThreadWithDisplayName: (NSString *) displayName thenConnectUserKnows: (BOOL) userKnows;
 
 +(void) renameConfigurationInNewThreadAtPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
 
 +(void) duplicateConfigurationInNewThreadPath: (NSString *) sourcePath toPath: (NSString *) targetPath;
 
-+(void) installConfigurationsUpdateInBundleInNewThreadAtPath: (NSString *) path;
++(void) installConfigurationsUpdateInBundleInMainThreadAtPath: (NSString *) path;
 
 +(void) installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: (NSArray *) filePaths;
 
@@ -114,5 +124,7 @@
 +(void) haveNoConfigurationsGuideInNewThread;
 
 +(void) installConfigurationsInCurrentMainThreadDoNotShowMessagesDoNotNotifyDelegateWithPaths: (NSArray *)  paths;
+
++(CommandOptionsStatus) commandOptionsInConfigurationsAtPaths: (NSArray *) paths;
 
 @end

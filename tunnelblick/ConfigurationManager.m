@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -2722,7 +2722,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 -(void) installConfigurations: (NSArray *) filePaths
       skipConfirmationMessage: (BOOL)      skipConfirmMsg
             skipResultMessage: (BOOL)      skipResultMsg
-               notifyDelegate: (BOOL)      notifyDelegate {
+               notifyDelegate: (BOOL)      notifyDelegate
+             disallowCommands: (BOOL)      disallowCommands {
     
     // The filePaths array entries are paths to a .tblk, .ovpn, or .conf to install.
     
@@ -2740,6 +2741,59 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         }
         
         return;
+    }
+    
+    if (  disallowCommands  ) {
+        
+        if (  ! runningOnMainThread()  ) {
+            NSLog(@"installConfigurations...disallowCommands: YES but not on main thread; stack trace: %@", callStack());
+            if (  notifyDelegate  ) {
+                [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+            }
+            
+            return;
+        }
+        CommandOptionsStatus status = [ConfigurationManager commandOptionsInConfigurationsAtPaths: filePaths];
+        if (  status == CommandOptionsError  ) {
+            if (  notifyDelegate  ) {
+                [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+            }
+            
+            return;
+        }
+        if ( status != CommandOptionsNo  ) {
+            int userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                                     NSLocalizedString(@"One or more VPN configurations that are being updated include programs which"
+                                                                       @" will run as root when you connect to a VPN. They are able to TAKE"
+                                                                       @" COMPLETE CONTROL OF YOUR COMPUTER.\n\n"
+                                                                       @"YOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\n"
+                                                                       @"Do you trust the author of the configurations and wish to install them?\n\n",
+                                                                       @"Window text"),
+                                                     NSLocalizedString(@"Cancel",  @"Button"), // Default
+                                                     NSLocalizedString(@"Install", @"Button"), // Alternate
+                                                     nil,                                      // Other
+                                                     @"skipWarningAboutInstallsWithCommands",
+                                                     NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                                                     nil,
+                                                     NSAlertAlternateReturn);
+            if (  userAction == NSAlertAlternateReturn  ) {
+                userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                             NSLocalizedString(@"Are you sure you wish to install configurations which can TAKE"
+                                                               @" COMPLETE CONTROL OF YOUR COMPUTER?\n\n",
+                                                               @"Window text"),
+                                             NSLocalizedString(@"Cancel",  @"Button"), // Default
+                                             NSLocalizedString(@"Install", @"Button"), // Alternate
+                                             nil);                                     // Other
+                if (  userAction == NSAlertAlternateReturn  ) {
+                    [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
+                }
+            }
+            if (  notifyDelegate  ) {
+                [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+            }
+            
+            return;
+        }
     }
     
     // Set up instance variables that we use
@@ -2870,11 +2924,13 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 -(void) installConfigurations: (NSArray *) filePaths
                  skipMessages: (BOOL)      skipMessages
                notifyDelegate: (BOOL)      notifyDelegate
+             disallowCommands: (BOOL)      disallowCommands
 {
      [[ConfigurationManager manager] installConfigurations: filePaths
                                   skipConfirmationMessage: skipMessages
                                         skipResultMessage: skipMessages
-                                           notifyDelegate: notifyDelegate];
+                                            notifyDelegate: notifyDelegate
+                                          disallowCommands: disallowCommands];
 }
 
 enum GetAuthorizationResult {
@@ -4194,52 +4250,14 @@ enum GetAuthorizationResult {
     [pool drain];
 }
 
-+(void) installConfigurationsUpdateInBundleAtPathOperation: (NSString *) path {
-	
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    
-    NSArray * components = [path componentsSeparatedByString: @"/"];
-    if (   ( [components count] !=  7)
-        || ( ! [path hasPrefix: L_AS_T_TBLKS])
-        ) {
-        NSLog(@"Configuration update installer: Not installing configurations update: Invalid path to update");
-    } else {
-        
-        // Secure the update (which makes Info.plist readable by everyone and all folders searchable by everyone)
-        NSArray * args = [NSArray arrayWithObjects:
-                          @"secureUpdate",
-                          [components objectAtIndex: 5],
-                          nil];
-        OSStatus status = runOpenvpnstart(args, nil, nil);
-        if (  status != 0  ) {
-            NSLog(@"Could not secure the update; openvpnstart status was %ld", (long)status);
-        }
-        
-        // Install the updated configurations
-        TBLog(@"DB-UC", @"Installing updated configurations at '%@'", path);
-        [[ConfigurationManager manager] installConfigurations: [NSArray arrayWithObject: path]
-                                                 skipMessages: YES
-                                               notifyDelegate: YES];
-    }
-	
-    [TBOperationQueue removeDisableList];
-    
-    [[NSApp delegate] performSelectorOnMainThread: @selector(configurationsChanged) withObject: nil waitUntilDone: NO];
-	
-    [[NSApp delegate] performSelectorOnMainThread: @selector(startCheckingForConfigurationUpdates) withObject: nil waitUntilDone: NO];
-    
-    [TBOperationQueue operationIsComplete];
-    
-    [pool drain];
-}
-
 +(void) installConfigurationsShowMessagesNotifyDelegateOperation: (NSArray *) filePaths {
 	
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
     [[ConfigurationManager manager] installConfigurations: filePaths
                                              skipMessages: NO
-                                           notifyDelegate: YES];
+                                           notifyDelegate: YES
+                                         disallowCommands: NO];
     
     [TBOperationQueue removeDisableList];
     
@@ -4301,7 +4319,8 @@ enum GetAuthorizationResult {
     
     [[ConfigurationManager manager] installConfigurations: filePaths
                                              skipMessages: NO
-                                           notifyDelegate: NO];
+                                           notifyDelegate: NO
+                                         disallowCommands: NO];
     
     [TBOperationQueue removeDisableList];
     
@@ -4427,12 +4446,36 @@ enum GetAuthorizationResult {
                              disableList: [ConfigurationManager displayNamesFromPaths: paths]];
 }
 
-+(void) installConfigurationsUpdateInBundleInNewThreadAtPath: (NSString *) path {
-	
-    [TBOperationQueue addToQueueSelector: @selector(installConfigurationsUpdateInBundleAtPathOperation:)
-                                  target: [ConfigurationManager class]
-                                  object: path
-                             disableList: [NSArray arrayWithObject: @"*"]];
++(void) installConfigurationsUpdateInBundleInMainThreadAtPath: (NSString *) path {
+    
+    NSArray * components = [path componentsSeparatedByString: @"/"];
+    if (   ( [components count] !=  7)
+        || ( ! [path hasPrefix: L_AS_T_TBLKS])
+        ) {
+        NSLog(@"Configuration update installer: Not installing configurations update: Invalid path to update");
+    } else {
+        
+        // Secure the update (which makes Info.plist readable by everyone and all folders searchable by everyone)
+        NSArray * args = [NSArray arrayWithObjects:
+                          @"secureUpdate",
+                          [components objectAtIndex: 5],
+                          nil];
+        OSStatus status = runOpenvpnstart(args, nil, nil);
+        if (  status != 0  ) {
+            NSLog(@"Could not secure the update; openvpnstart status was %ld", (long)status);
+        }
+        
+        // Install the updated configurations
+        TBLog(@"DB-UC", @"Installing updated configurations at '%@'", path);
+        [[ConfigurationManager manager] installConfigurations: [NSArray arrayWithObject: path]
+                                                 skipMessages: YES
+                                               notifyDelegate: YES
+                                             disallowCommands: YES];
+    }
+    
+    [[NSApp delegate] configurationsChanged];
+    
+    [[NSApp delegate] startCheckingForConfigurationUpdates];
 }
 
 +(void) putDiagnosticInfoOnClipboardInNewThreadForDisplayName: (NSString *) displayName {
@@ -4484,9 +4527,93 @@ enum GetAuthorizationResult {
     
     [[ConfigurationManager manager] installConfigurations: paths
                                              skipMessages: YES
-                                           notifyDelegate: NO];
+                                           notifyDelegate: NO
+                                         disallowCommands: NO];
     
     [[NSApp delegate] configurationsChanged];
+}
+
++(CommandOptionsStatus) commandOptionsInOpenvpnConfigurationAtPath: (NSString *) path
+                                                          fromTblk: (NSString *) tblkPath {
+    
+    ConfigurationConverter * converter = [[[ConfigurationConverter alloc] init] autorelease];
+    CommandOptionsStatus status = [converter commandOptionsStatusForOpenvpnConfigurationAtPath: path
+                                                                                      fromTblk: tblkPath];
+    if (  status != CommandOptionsNo  ) {
+        NSString * returnDescription = (  (status == CommandOptionsError)
+                                        ? @"error occurred"
+                                        : (  (status == CommandOptionsYes)
+                                           ? @"unsafe option(s) found"
+                                           : (  (status == CommandOptionsUnknown)
+                                              ? @"unknown option(s) found"
+                                              : @"invalid status")));
+        NSLog(@"commandOptionsStatusForOpenvpnConfigurationAtPath:forTblk: returned '%@' for %@", returnDescription, path);
+    }
+    
+    return status;
+}
+
++(CommandOptionsStatus) commandOptionsInOneConfigurationAtPath: (NSString *) path {
+    
+    NSString * extension = [path pathExtension];
+    
+    if (   [extension isEqualToString: @"ovpn"]
+        || [extension isEqualToString: @"conf"]  ) {
+        return [ConfigurationManager commandOptionsInOpenvpnConfigurationAtPath: path fromTblk: nil];
+    }
+    
+    if (  ! [extension isEqualToString: @"tblk"]  ) {
+        NSLog(@"Configuration is not an .ovpn, .conf, or .tblk at %@", path);
+        return CommandOptionsError;
+    }
+    
+    BOOL haveUnknown = FALSE;
+    
+    NSString * file;
+    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: path];
+    while (  (file = [dirE nextObject])  ) {
+        
+        extension = [file pathExtension];
+        
+        if (  [extension isEqualToString: @"sh"]  ) {
+            NSLog(@"commandOptionsInOneConfigurationAtPath: '.sh' files found in %@", path);
+            return CommandOptionsYes;
+        }
+        
+		NSString * fullPath = [path stringByAppendingPathComponent: file];
+        if (   [extension isEqualToString: @"ovpn"]
+            || [extension isEqualToString: @"conf"]  ) {
+            CommandOptionsStatus status = [ConfigurationManager commandOptionsInOpenvpnConfigurationAtPath: fullPath fromTblk: path];
+            if (  status != CommandOptionsNo   ) {
+                if (  status == CommandOptionsUnknown  ) {
+                    haveUnknown = TRUE;
+                } else {
+                    return status;
+                }
+            }
+        }
+    }
+    
+    return (  haveUnknown ? CommandOptionsUnknown : CommandOptionsNo  );
+}
+
++(CommandOptionsStatus) commandOptionsInConfigurationsAtPaths: (NSArray *) paths {
+    
+    BOOL haveUnknown = FALSE;
+    NSString * path;
+    NSEnumerator * e = [paths objectEnumerator];
+    while (  (path = [e nextObject])  ) {
+        CommandOptionsStatus status = [ConfigurationManager commandOptionsInOneConfigurationAtPath: path];
+        if (  status != CommandOptionsNo   ) {
+            if (  status == CommandOptionsUnknown  ) {
+                haveUnknown = TRUE;
+            } else {
+                return status;
+            }
+        }
+    }
+    
+    return (  haveUnknown ? CommandOptionsUnknown : CommandOptionsNo  );
 }
 
 @end

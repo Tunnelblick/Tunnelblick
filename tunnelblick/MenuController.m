@@ -390,6 +390,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"skipWarningAbout64BitVersionWithTap",
                                 @"skipWarningAbout64BitVersionWithTunOnSnowLeopardPointEight",
                                 @"skipWarningAbout64BitVersionOnNonSnowLeopardPointEight",
+                                @"skipWarningAboutInstallsWithCommands",
                                 
                                 @"timeoutForOpenvpnToTerminateAfterDisconnectBeforeAssumingItIsReconnecting",
                                 @"timeoutForIPAddressCheckBeforeConnection",
@@ -3681,7 +3682,67 @@ static void signal_handler(int signalNumber)
 {
     // Proceed even if the computer is shutting down
     TBLog(@"DB-UC", @"Starting a new thread to update configurations at '%@'", path);
-	[ConfigurationManager installConfigurationsUpdateInBundleInNewThreadAtPath: path];
+	[ConfigurationManager installConfigurationsUpdateInBundleInMainThreadAtPath: path];
+}
+
+-(void) notifyDelegateAfterInstallingConfigurationsInPaths: (NSArray *) filePaths {
+    
+    // Configuration(s) were double-clicked or dropped onto Tunnelblick.app.
+    // Installs them, perhaps after issuing a warning if any of them contain programs or OpenVPN options (such as "up") that invoke commands.
+    
+    CommandOptionsStatus status = [ConfigurationManager commandOptionsInConfigurationsAtPaths: filePaths];
+    
+    int userAction;
+    
+    switch (  status  ) {
+            
+        case CommandOptionsNo:
+            [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
+            break;
+            
+        case CommandOptionsYes:
+        case CommandOptionsUnknown:
+            userAction = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                                     NSLocalizedString(@"One or more VPN configurations you are installing include programs which will run"
+                                                                       @" as root when you connect to a VPN. They are able to TAKE"
+                                                                       @" COMPLETE CONTROL OF YOUR COMPUTER.\n\n"
+                                                                       @"YOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\n"
+                                                                       @"Do you trust the author of the configurations and wish to install them?\n\n",
+                                                                       @"Window text"),
+                                                     NSLocalizedString(@"Cancel",  @"Button"), // Default
+                                                     NSLocalizedString(@"Install", @"Button"), // Alternate
+                                                     nil,                                      // Other
+                                                     @"skipWarningAboutInstallsWithCommands",
+                                                     NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                                                     nil,
+                                                     NSAlertAlternateReturn);
+            if (  userAction == NSAlertAlternateReturn  ) {
+                userAction = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                             NSLocalizedString(@"Are you sure you wish to install configurations which can TAKE"
+                                                               @" COMPLETE CONTROL OF YOUR COMPUTER?\n\n",
+                                                               @"Window text"),
+                                             NSLocalizedString(@"Cancel",  @"Button"), // Default
+                                             NSLocalizedString(@"Install", @"Button"), // Alternate
+                                             nil);                                     // Other
+                if (  userAction == NSAlertAlternateReturn  ) {
+                    [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
+                } else {
+                    [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+               }
+            } else {
+                [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+            }
+            break;
+            
+        case CommandOptionsError:
+        default:
+            NSLog(@"error status %ld returned from commandOptionsInConfigurationsAtPaths:", (long)status);
+            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                            NSLocalizedString(@"An error occurred. See the Console Log for details.", @"Window text"),
+                            nil, nil, nil);
+            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+            break;
+    }
 }
 
 // Invoked when the user double-clicks on one or more .tblk packages or .ovpn or .conf files,
@@ -3696,7 +3757,7 @@ static void signal_handler(int signalNumber)
     // so we store the paths and open the file(s) later, in applicationDidFinishLaunching.
     
     if (  launchFinished  ) {
-		[ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: filePaths];
+        [self notifyDelegateAfterInstallingConfigurationsInPaths: filePaths];
     } else {
         [dotTblkFileList addObjectsFromArray: filePaths];
     }
@@ -4623,7 +4684,7 @@ static void signal_handler(int signalNumber)
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 019")
     // Start installing any configurations that were double-clicked before we were finished launching
     if (  [dotTblkFileList count] != 0  ) {
-        [ConfigurationManager installConfigurationsInNewThreadShowMessagesNotifyDelegateWithPaths: dotTblkFileList];
+        [self notifyDelegateAfterInstallingConfigurationsInPaths: dotTblkFileList];
     }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 020")
@@ -6078,6 +6139,36 @@ BOOL warnAboutNonTblks(void)
                 arrayToReturn = [NSMutableArray arrayWithCapacity:10];
             }
             [arrayToReturn addObject: [folder stringByAppendingPathComponent: file]];
+        }
+    }
+    
+    if (  arrayToReturn  ) {
+        
+        CommandOptionsStatus status = [ConfigurationManager commandOptionsInConfigurationsAtPaths: arrayToReturn];
+        
+        switch (  status  ) {
+                
+            case CommandOptionsNo:
+                break;
+                
+            case CommandOptionsYes:
+            case CommandOptionsUnknown:
+                TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                NSLocalizedString(@"One or more VPN configurations are to be installed with Tunnelblick, but they are not part"
+                                                  @" of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one"
+                                                  @" or more of them includes a program which will run as root when you connect to a VPN.\n\n"
+                                                  @"See the Console Log for details.", @"Window text"),
+                                nil, nil, nil);
+                return nil;
+                break;
+                
+            default:
+                TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                NSLocalizedString(@"An error occurred while examining a configuration that is to be"
+                                                  @" installed with Tunnelblick. See the Console Log for details.", @"Window text"),
+                                nil, nil, nil);
+                return nil;
+                break;
         }
     }
     

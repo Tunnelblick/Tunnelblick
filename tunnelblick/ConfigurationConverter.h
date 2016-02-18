@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2014 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -28,6 +28,8 @@
 #import <Foundation/Foundation.h>
 
 #import "defines.h"
+
+#import "ConfigurationManager.h"
 
 @interface ConfigurationConverter : NSObject {
 
@@ -66,5 +68,9 @@
                useExistingFiles: (NSArray *)  theUseExistingFiles
 						logFile: (FILE *)     theLogFile
 					   fromTblk: (BOOL)       theFromTblk;
+
+
+-(CommandOptionsStatus) commandOptionsStatusForOpenvpnConfigurationAtPath: (NSString *) path
+                                                                 fromTblk: (NSString *) theFromTblk;
 
 @end

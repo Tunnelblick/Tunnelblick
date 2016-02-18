@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -1375,6 +1375,422 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 	}
 	
 	return nil;
+}
+
++(BOOL) optionIsInWhitelist: (NSString *) option {
+    
+    // String with a list of options that are "safe" in that they do not invoke a command or script.
+    
+    // Option list was last updated from options.c in git master 0e591a2 (2015-12-27)
+    
+    static NSString * allowedOptions =
+    @"|"
+    @"allow-nonadmin|"
+    @"allow-pull-fqdn|"
+    @"askpass|"
+    @"auth-nocache|"
+    @"auth-retry|"
+    @"auth-token|"
+    @"auth-user-pass-optional|"
+//  @"auth-user-pass-verify|"
+    @"auth-user-pass|"
+    @"auth|"
+    @"bcast-buffers|"
+    @"bind|"
+    @"block-outside-dns|"
+    @"ca|"
+    @"capath|"
+    @"ccd-exclusive|"
+    @"cd|"
+    @"cert|"
+    @"chroot|"
+    @"cipher|"
+    @"client-cert-not-required|"
+    @"client-config-dir|"
+//  @"client-connect|"
+//  @"client-disconnect|"
+    @"client-nat|"
+    @"client-to-client|"
+    @"client|"
+    @"comp-lzo|"
+    @"comp-noadapt|"
+    @"compat-names|"
+    @"compress|"
+    @"config|"
+    @"connect-freq|"
+    @"connect-retry-max|"
+    @"connect-retry|"
+    @"connect-timeout|"
+    @"connection|"
+    @"crl-verify|"
+    @"cryptoapicert|"
+    @"daemon|"
+    @"dev-node|"
+    @"dev-type|"
+    @"dev|"
+    @"dh|"
+    @"dhcp-internal|"
+    @"dhcp-option|"
+    @"dhcp-pre-release|"
+    @"dhcp-release|"
+    @"dhcp-renew|"
+    @"disable-occ|"
+    @"disable|"
+    @"down-pre|"
+//  @"down|"
+    @"duplicate-cn|"
+    @"ecdh-curve|"
+    @"echo|"
+    @"engine|"
+    @"errors-to-stderr|"
+    @"explicit-exit-notify|"
+    @"extra-certs|"
+    @"fast-io|"
+    @"float|"
+    @"foreign-option|"
+    @"fragment|"
+    @"genkey|"
+    @"gremlin|"
+    @"group|"
+    @"hand-window|"
+    @"hash-size|"
+    @"help|"
+    @"http-proxy-option|"
+    @"http-proxy-override|"
+    @"http-proxy-retry|"
+    @"http-proxy-timeout|"
+    @"http-proxy|"
+    @"ifconfig-ipv6-pool|"
+    @"ifconfig-ipv6-push|"
+    @"ifconfig-ipv6|"
+    @"ifconfig-noexec|"
+    @"ifconfig-nowarn|"
+    @"ifconfig-pool-linear|"
+    @"ifconfig-pool-persist|"
+    @"ifconfig-pool|"
+    @"ifconfig-push-constraint|"
+    @"ifconfig-push|"
+    @"ifconfig|"
+    @"ignore-unknown-option|"
+    @"inactive|"
+    @"inetd|"
+    @"ip-remote-hint|"
+    @"ip-win32|"
+//  @"ipchange|"
+//  @"iproute|"
+    @"iroute-ipv6|"
+    @"iroute|"
+    @"keepalive|"
+    @"key-direction|"
+    @"key-method|"
+    @"key|"
+    @"keying-material-exporter|"
+    @"keysize|"
+//  @"learn-address|"
+    @"link-mtu|"
+    @"lladdr|"
+    @"local|"
+    @"log-append|"
+    @"log|"
+    @"lport|"
+    @"machine-readable-output|"
+    @"management-client-auth|"
+    @"management-client-group|"
+    @"management-client-pf|"
+    @"management-client-user|"
+    @"management-client|"
+    @"management-external-cert|"
+    @"management-external-key|"
+    @"management-forget-disconnect|"
+    @"management-hold|"
+    @"management-log-cache|"
+    @"management-query-passwords|"
+    @"management-query-proxy|"
+    @"management-query-remote|"
+    @"management-signal|"
+    @"management-up-down|"
+    @"management|"
+    @"mark|"
+    @"max-clients|"
+    @"max-routes-per-client|"
+    @"max-routes|"
+    @"memstats|"
+    @"mktun|"
+    @"mlock|"
+    @"mode|"
+    @"mssfix|"
+    @"mtu-disc|"
+    @"mtu-dynamic|"
+    @"mtu-test|"
+    @"multihome|"
+    @"mute-replay-warnings|"
+    @"mute|"
+    @"nice|"
+    @"no-iv|"
+    @"no-name-remapping|"
+    @"no-replay|"
+    @"nobind|"
+    @"ns-cert-type|"
+    @"opt-verify|"
+    @"parameter|"
+    @"passtos|"
+    @"pause-exit|"
+    @"peer-id|"
+    @"persist-key|"
+    @"persist-local-ip|"
+    @"persist-remote-ip|"
+    @"persist-tun|"
+    @"ping-exit|"
+    @"ping-restart|"
+    @"ping-timer-rem|"
+    @"ping|"
+    @"pkcs11-cert-private|"
+    @"pkcs11-id-management|"
+    @"pkcs11-id|"
+    @"pkcs11-pin-cache|"
+    @"pkcs11-private-mode|"
+    @"pkcs11-protected-authentication|"
+    @"pkcs11-providers|"
+    @"pkcs12|"
+    @"plugin|"
+    @"port-share|"
+    @"port|"
+    @"preresolve|"
+    @"prng|"
+    @"proto-force|"
+    @"proto|"
+    @"pull|"
+    @"push-continuation|"
+    @"push-peer-info|"
+    @"push-reset|"
+    @"push|"
+    @"rcvbuf|"
+    @"rdns-internal|"
+    @"redirect-gateway|"
+    @"redirect-private|"
+    @"register-dns|"
+    @"remap-usr1|"
+    @"remote-cert-eku|"
+    @"remote-cert-ku|"
+    @"remote-cert-tls|"
+    @"remote-random-hostname|"
+    @"remote-random|"
+    @"remote|"
+    @"reneg-bytes|"
+    @"reneg-pkts|"
+    @"reneg-sec|"
+    @"replay-persist|"
+    @"replay-window|"
+    @"resolv-retry|"
+    @"rmtun|"
+    @"route-delay|"
+    @"route-gateway|"
+    @"route-ipv6|"
+    @"route-method|"
+    @"route-metric|"
+    @"route-noexec|"
+    @"route-nopull|"
+//  @"route-pre-down|"
+//  @"route-up|"
+    @"route|"
+    @"rport|"
+    @"scramble|"
+    @"script-security|"
+    @"secret|"
+    @"server-bridge|"
+    @"server-ipv6|"
+    @"server-poll-timeout|"
+    @"server|"
+    @"service|"
+    @"setcon|"
+    @"setenv-safe|"
+    @"setenv|"
+    @"shaper|"
+    @"show-adapters|"
+    @"show-ciphers|"
+    @"show-curves|"
+    @"show-digests|"
+    @"show-engines|"
+    @"show-gateway|"
+    @"show-net-up|"
+    @"show-net|"
+    @"show-pkcs11-ids|"
+    @"show-tls|"
+    @"show-valid-subnets|"
+    @"single-session|"
+    @"sndbuf|"
+    @"socket-flags|"
+    @"socks-proxy-retry|"
+    @"socks-proxy|"
+    @"stale-routes-check|"
+    @"static-challenge|"
+    @"status-version|"
+    @"status|"
+    @"suppress-timestamps|"
+    @"syslog|"
+    @"tap-sleep|"
+    @"tcp-nodelay|"
+    @"tcp-queue-limit|"
+    @"test-crypto|"
+    @"tls-auth|"
+    @"tls-cipher|"
+    @"tls-client|"
+    @"tls-exit|"
+    @"tls-export-cert|"
+    @"tls-remote|"
+    @"tls-server|"
+    @"tls-timeout|"
+//  @"tls-verify|"
+    @"tls-version-max|"
+    @"tls-version-min|"
+    @"tmp-dir|"
+    @"topology|"
+    @"tran-window|"
+    @"tun-ipv6|"
+    @"tun-mtu-extra|"
+    @"tun-mtu|"
+    @"txqueuelen|"
+    @"udp-mtu|"
+//  @"up|"
+    @"up-delay|"
+    @"up-restart|"
+    @"use-prediction-resistance|"
+    @"user|"
+    @"username-as-common-name|"
+    @"verb|"
+    @"verify-client-cert|"
+    @"verify-hash|"
+    @"verify-x509-name|"
+    @"version|"
+    @"win-sys|"
+    @"writepid|"
+    @"x509-track|"
+    @"x509-username-field|";
+    
+    BOOL inWhitelist = [allowedOptions rangeOfString: [NSString stringWithFormat: @"|%@|", option]].length != 0;
+    return inWhitelist;
+}
+
++(BOOL) optionIsInBlacklist: (NSString *) option {
+    
+    // String with a list of options that are not "safe" in that they invoke a command or script.
+    
+    // Option list was last updated from options.c in git master 0e591a2 (2015-12-27)
+    
+    static NSString * allowedOptions =
+    @"|"
+    @"auth-user-pass-verify|"
+    @"client-connect|"
+    @"client-disconnect|"
+    @"down|"
+    @"ipchange|"
+    @"iproute|"
+    @"learn-address|"
+    @"route-pre-down|"
+    @"route-up|"
+    @"tls-verify|"
+    @"up|";
+    
+    BOOL inBlacklist = [allowedOptions rangeOfString: [NSString stringWithFormat: @"|%@|", option]].length != 0;
+    return inBlacklist;
+}
+
+-(CommandOptionsStatus) commandOptionsStatusForOpenvpnConfigurationAtPath: (NSString *) path
+                                                                 fromTblk: (NSString *) tblkPath {
+
+    configPath           = [path copy];
+    logFile              = nil;
+    if (  tblkPath  ) {
+        displayName = [[[tblkPath lastPathComponent] stringByDeletingPathExtension] copy];
+    } else {
+        displayName = [[[path lastPathComponent] stringByDeletingPathExtension] copy];
+    }
+    nameForErrorMessages = [displayName copy];
+    
+    logString          = [[NSMutableString alloc] init];
+    localizedLogString = [[NSMutableString alloc] init];
+    
+    NSString * errMsg = [self fileIsReasonableSize: configPath];
+    if (  errMsg  ) {
+        return CommandOptionsError; // Error already logged
+    }
+    
+    errMsg = [self errorIfBadCharactersInFileAtPath: configPath];
+    if (  errMsg  ) {
+        return CommandOptionsError; // Error already logged
+    }
+    
+    configString = [[[[NSString alloc] initWithContentsOfFile: configPath encoding: NSUTF8StringEncoding error: NULL] autorelease] mutableCopy];
+    if (  ! configString  ) {
+        NSLog(@"commandOptionsStatusForOpenvpnConfigurationAtPath: No file at path %@", configPath);
+        return CommandOptionsError;
+    }
+    
+    // Append newline to file if it doesn't aleady end in one (simplifies parsing)
+    if (  ! [configString hasSuffix: @"\n"]  ) {
+        [configString appendString: @"\n"];
+    }
+    
+    [self dealWithCRsInConfiguration];
+    
+    tokens = [[self getTokens] copy];
+    if (  ! tokens  ) {
+        NSLog(@"commandOptionsStatusForOpenvpnConfigurationAtPath: Could not get tokens for %@", configPath);
+        return CommandOptionsError;
+    }
+    
+    BOOL haveUnknown = FALSE;
+
+    unsigned tokenIx = 0;
+    while (  tokenIx < [tokens count]  ) {
+        
+        ConfigurationToken * firstToken = [tokens objectAtIndex: tokenIx++];
+        inputLineNumber = [firstToken lineNumber];
+        
+        if (  ! [firstToken isLinefeed]  ) {
+            
+            NSString * option = [firstToken stringValue];
+            
+			// Skip over blocks such as <tls-auth>....</tls-auth>
+			if (  [option hasPrefix: @"<"]  ) {
+				NSString * optionStopper = [@"</" stringByAppendingString: [option substringFromIndex: 1]];
+				NSString * newOption = @"";
+				while (  [newOption isNotEqualTo: optionStopper]  ) {
+					// Skip to next line after <xxx>
+					while (  tokenIx < [tokens count]  ) {
+						if (  [[tokens objectAtIndex: tokenIx++] isLinefeed]  ) {
+							break;
+						}
+					}
+					if (  tokenIx >= [tokens count]  ) {
+						NSLog(@"Option '%@' was not terminated in %@", option, path);
+						return CommandOptionsError;
+					}
+					newOption = [[tokens objectAtIndex: tokenIx++] stringValue];
+				}
+			} else {
+				
+				if (  [ConfigurationConverter optionIsInBlacklist: option]  ) {
+					NSLog(@"Option '%@' can execute code; found in %@", option, path);
+					return CommandOptionsYes;
+				}
+				
+				if (  ! [ConfigurationConverter optionIsInWhitelist: option]  ) {
+					NSLog(@"Unknown option '%@' found in %@", option, path);
+					haveUnknown = TRUE;
+				}
+			}
+			
+            // Skip to end of line
+            while (  tokenIx < [tokens count]  ) {
+                if (  [[tokens objectAtIndex: tokenIx++] isLinefeed]  ) {
+                    break;
+                }
+            }
+        }
+    }
+    
+    return (  haveUnknown ? CommandOptionsUnknown : CommandOptionsNo  );
 }
 
 @end
