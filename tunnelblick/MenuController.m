@@ -5735,6 +5735,7 @@ BOOL warnAboutNonTblks(void)
 
 -(NSArray *) findTblksToInstallInPath: (NSString *) thePath
 {
+    return nil;
     NSMutableArray * arrayToReturn = nil;
     NSString * file;
     BOOL isDir;
