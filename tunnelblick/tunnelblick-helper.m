@@ -2585,8 +2585,6 @@ int startVPN(NSString * configFile,
         [tempMutableString replaceOccurrencesOfString: @"\n" withString: @"\n     " options: 0 range: NSMakeRange(0, [tempMutableString length])];
         logContents = [NSString stringWithString: tempMutableString];
         
-        [[NSFileManager defaultManager] tbRemoveFileAtPath: logPath    handler: nil];
-        
         NSString * scriptPath = [[[[[[logPath
                                       stringByDeletingPathExtension]        // Remove openvpnstart args
                                      stringByDeletingPathExtension]         // Remove port #
@@ -2594,7 +2592,18 @@ int startVPN(NSString * configFile,
                                    stringByDeletingPathExtension]           // Remove 'log'
                                   stringByAppendingPathExtension: @"script"]
                                  stringByAppendingPathExtension: @"log"];
-        [[NSFileManager defaultManager] tbRemoveFileAtPath: scriptPath handler: nil];
+        
+        becomeRoot(@"Delete log files");
+
+        if (  [[NSFileManager defaultManager] fileExistsAtPath: logPath]  ) {
+            [[NSFileManager defaultManager] tbRemoveFileAtPath: logPath    handler: nil];
+        }
+        
+        if (  [[NSFileManager defaultManager] fileExistsAtPath: scriptPath]  ) {
+            [[NSFileManager defaultManager] tbRemoveFileAtPath: scriptPath handler: nil];
+        }
+        
+        stopBeingRoot();
         
         fprintf(stderr, "OpenVPN returned with status %d, errno = %ld:\n"
                 "     %s\n\n"
