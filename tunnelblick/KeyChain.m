@@ -1,7 +1,7 @@
 /*
  * Copyright 2004 Angelo Laub
  * Fixes by Dirk Theisen <dirk@objectpark.org> 
-* Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013. All rights reserved.
+* Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2016. All rights reserved.
 
  *
  *  This file is part of Tunnelblick.
@@ -122,11 +122,6 @@
 {
     if (  ! password  ) {
         NSLog(@"Attempt to add nil Keychain item for service = '%@' account = '%@'", serviceName, accountName);
-        return -1;
-    }
-    
-    if (  [password length] == 0  ) {
-        NSLog(@"Attempt to add zero-length Keychain item for service = '%@' account = '%@'", serviceName, accountName);
         return -1;
     }
     

@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -206,7 +206,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     return nil;
 }
 
-// Returns an array with a non-zero length username and a non-zero length password obtained either from the Keychain or by asking the user
+// Returns an array with a username and password obtained from the Keychain or by asking the user
 // Returns nil if cancelled by user or error
 -(NSArray *)getUsernameAndPassword
 {
@@ -224,29 +224,22 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
         usernameLocal = [usernameKeychain password];
 		if (  ! usernameLocal  ) {
 			NSLog(@"User did not allow access to the Keychain to get VPN username");
-			return nil;
 		}
     }
-    if (  [usernameLocal length] == 0  ) {
-        [gTbDefaults removeObjectForKey: usernamePreferenceKey];
-        [gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
-    } else {
-        // (Only get password if we have a username)
-        if (  [self passwordIsInKeychain]  ) {
-            passwordLocal = [passwordKeychain password];
-			if (  ! passwordLocal  ) {
-				NSLog(@"User did not allow access to the Keychain to get VPN password");
-			} else if (  [passwordLocal length] == 0  ) {
-				[gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
-			}
-		}
-	}
+    if (  [self passwordIsInKeychain]  ) {
+        passwordLocal = [passwordKeychain password];
+        if (  ! passwordLocal  ) {
+            NSLog(@"User did not allow access to the Keychain to get VPN password");
+        }
+    }
     
-    if (  [passwordLocal length] == 0  ) {
+    if (   (! passwordLocal)
+        || (! usernameLocal)  ) {
         
+        // Ask for password and username
+
         authenticationWasFromKeychain = FALSE;
         
-        // Ask for password and possibly username
         if (  ! loginScreen  ) {
             loginScreen = [[LoginWindowController alloc] initWithDelegate: self];
 		} else {
@@ -281,16 +274,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
         
         if (   [loginScreen isSaveUsernameInKeychainChecked]  ) {
             
-            if (  [usernameLocal length] == 0) {
-                
-                // "Saving" an empty username means delete both the username and the password
-                [usernameKeychain deletePassword];
-                [passwordKeychain deletePassword];
-                [gTbDefaults removeObjectForKey: usernamePreferenceKey];
-                [gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
-                
-            } else if (   [loginScreen isSavePasswordInKeychainChecked]
-                       && ([passwordLocal length] > 0)  ) {
+            if (   [loginScreen isSavePasswordInKeychainChecked]  ) {
                 
                 // Saving both username and password
                 if (  [gTbDefaults canChangeValueForKey: usernameAndPasswordPreferenceKey]  ) {
@@ -318,13 +302,6 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
                     [gTbDefaults removeObjectForKey:  usernameAndPasswordPreferenceKey];
                 }
             }
-        } else {
-            
-            // Not saving username, so delete both the username and password
-            [usernameKeychain deletePassword];
-            [passwordKeychain deletePassword];
-            [gTbDefaults removeObjectForKey: usernamePreferenceKey];
-            [gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
         }
         
         [[loginScreen window] close];

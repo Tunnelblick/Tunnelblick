@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -96,6 +96,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
     [saveUsernameInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain", @"Checkbox name")];
     [savePasswordInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain", @"Checkbox name")];
 
+    [savePasswordInKeychainCheckbox setState:   NSOffState];
+    [savePasswordInKeychainCheckbox setEnabled: NO];
+
     BOOL rtl = [UIHelper languageAtLaunchWasRTL];
     
     CGFloat widthChange = [UIHelper setTitle: NSLocalizedString(@"OK", @"Button") ofControl: OKButton     shift: ( !rtl ) narrow: NO enable: YES];
@@ -130,15 +133,16 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
 	}
 	[[self username] setStringValue: usernameLocal];
 	BOOL enableSaveCheckbox = ! [self connectWhenSystemStarts];
+    
+    BOOL enableSaveUsernameCheckbox = enableSaveCheckbox && haveSavedUsername;
 
-    [[self saveUsernameInKeychainCheckbox] setState:   (   haveSavedUsername
-                                                        && enableSaveCheckbox ? NSOnState : NSOffState)];  // Defaults to "checked" if have already saved username and not "connect when system starts"
+    [[self saveUsernameInKeychainCheckbox] setState:   (   enableSaveUsernameCheckbox ? NSOnState : NSOffState)];  // Defaults to "checked" if have already saved username and not "connect when system starts"
     [[self saveUsernameInKeychainCheckbox] setEnabled: enableSaveCheckbox];
 	
     // Always clear the password textbox and set up its "Save in Keychain" checkbox
 	[[self password] setStringValue: @""];
 	[[self savePasswordInKeychainCheckbox] setState:   NSOffState];          // Defaults to "not checked"
-	[[self savePasswordInKeychainCheckbox] setEnabled: enableSaveCheckbox];  // Enabled if password is already saved or will be saved
+	[[self savePasswordInKeychainCheckbox] setEnabled: enableSaveUsernameCheckbox];  // Enabled only if saving username
 	
     [cancelButton setEnabled: YES];
     [OKButton setEnabled: YES];
@@ -162,10 +166,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
 {
 	(void) sender;
 	
-    if (   ( [[[self username] stringValue] length] == 0 )
-        || ( [[[self password] stringValue] length] == 0 )  ){
+    if (  [[[self username] stringValue] length] == 0  ){
         TBRunAlertPanel(NSLocalizedString(@"Please enter a username and password.", @"Window title"),
-                        NSLocalizedString(@"The username and the password must not be empty!\nPlease enter VPN username/password combination.", @"Window text"),
+                        NSLocalizedString(@"The username must not be empty!\nPlease enter VPN username/password combination.", @"Window text"),
                         nil, nil, nil);
         
         [NSApp activateIgnoringOtherApps: YES];
