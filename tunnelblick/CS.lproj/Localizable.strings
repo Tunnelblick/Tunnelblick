@@ -119,6 +119,9 @@
 "Ignore" = "Ignorovat";
 
 /* Button */
+"Install" = "Instalovat";
+
+/* Button */
 "Latest (%@)" = "Poslední (%@)";
 
 /* Button */
@@ -373,9 +376,6 @@
 /* Checkbox name */
 "Keep connected" = "Zůstat připojen";
 
-/* Checkbox name */ /* System profile item */
-"Monitor connection" = "Monitorovat spojení";
-
 /* Checkbox name */
 "Monitor network settings" = "Monitorovat síťová nastavení";
 
@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Obnovit připojení po znovupřihlášení uživatele";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "Změna klíče a certifikátu vyžaduje autorizaci administrátora";
+"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Resetovat primární interface po odpojení";
@@ -488,13 +488,7 @@
 "Sample Tunnelblick VPN Configuration" = "Příklady předvoleb VPN Tunnelblicku";
 
 /* System profile item */
-"Computer admin" = "Administrátor počítače";
-
-/* System profile item */
 "Configurations" = "Konfigurace";
-
-/* System profile item */
-"Deployed" = "Zabudované";
 
 /* Window title */
 " (Deployed)" = " (Zabudované)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -510,6 +504,9 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Odpojeno - Rozšířená nastavení%3$@";
+
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' bylo odpojeno";
@@ -872,10 +869,16 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Vyskytla se chyba (stav %1$ld) při pokusu o kontrolu konfigurace %2$@.\n\nProsím ukončete a spusťte znovu Tunnelblick. Pokud problém přetrvává tak Tunnelblick přeinstalujte.";
 
 /* Window text */
+"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "Při procházení konfigurace instalované Tunnelblickem se vyskytla chyba. Detaily jsou v logu konzole.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "Nastala chyba při pokusu o spuštění %@";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Při pokusu o obnovu z bezpečné (stínové) kopie došlo k chybě. Více detailů naleznete v logu konzoly.\n\n";
+
+/* Window text */
+"An error occurred. See the Console Log for details." = "Vyskytla se chyba. Detaily v logu konzole.";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Vyskytla se interní chyba Tunnelblicku %1$@%2$@";
@@ -896,9 +899,6 @@
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Vyskytla se interní chyba Tunnelblicku: fileIsReasonableSize: cesta je prázdná (nil)";
 
 /* Window text */
-"Anonymous unique ID" = "Anonymní unikátní ID";
-
-/* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Opravdu nechcete zkonvertovat konfigurace OpenVPN do konfigurací VPN Tunnelblicku?\n\nKONFIGURACE NEBUDE DOSTUPNÁ, POKUD JE NEPŘEVEDETE!\n\n";
 
 /* Window text */
@@ -909,6 +909,9 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Opravdu si přejete smazat identifikační údaje (privátní klíč a/nebo jméno a heslo) uložené v klíčence pro '%@'?";
+
+/* Window text */
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Opravdu chcete instalovat konfigurace, které mohou ZÍSKAT KOMPLETNÍ KONTROLU NAD POČÍTAČEM?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Na řádku %1$lu v konfiguračním souboru OpenVPN: %2$@";
@@ -1250,6 +1253,15 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Již pracuje jeden nebo více procesů OpenVPN. Pokud jste tyto procesy nespustil samostatně, tak to obvykle znamená, že předchozí spuštění Tunnelblicku nebylo schopno je korektně zastavit a proto by měly být ukončeny. pravděpodobně budou interferovat s operacemi Tunnelblicku.\n\nLze je ukončit v aplikaci 'Monitor aktivity'.\n\n";
 
 /* Window text */
+"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "Jedna nebo více konfigurací VPN byly instalovány s Tunnelblickem. Nejsou ale částí Tunnelblicku. Tyto konfigurace nesmí být instalovány současně, protože nejméně jedna z nich obsahuje aplikaci, která je spuštěná pod uživatelem root při navázání spojení VPN. One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nDetaily v logu konzole.";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Jedna nebo více VPN konfigurací, které jsou aktualizovány, obsahují program, který bude spuštěn pod uživatelem root. Program bude spuštěn při připojení k VPN. Může pak převzít ÚPLNOU KONTROLU NAD POČÍTAČEM.\n\nPROSÍM NEINSTALUJTE TYTO KONFIGURACE, POKUD JEJÍM AUTORŮM NEDŮVĚŘUJETE.\n\nVěříte autorovi konfigurací a přejete si je/ji nainstalovat?\n\n";
+
+/* Window text */
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Jedna nebo více VPN konfigurací, které jsou aktualizovány, obsahují programy, který budou spuštěny pod uživatelem root. Programy budou spuštěny při připojení k VPN. Můžou pak převzít ÚPLNOU KONTROLU NAD POČÍTAČEM.\n\nPROSÍM NEINSTALUJTE TYTO KONFIGURACE, POKUD JEJÍM AUTORŮM NEDŮVĚŘUJETE.\n\nVěříte autorovi konfigurací a přejete si je/ji nainstalovat?\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Jedna nebo více VPN je právě připojena. Prosím ukončete všechny VPN, ukončete Tunnelblick a teprve pak pokračujte.";
 
 /* Window text */
@@ -1454,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "Jméno a heslo nebylo akceptováno vzdáleným VPN serverem.";
 
 /* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Uživatelské jmévo a heslo nesmí být prázdné!\nZadejte prosím kombinaci uživatelského jména a hesla.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "K instalaci nejsou žádné konfigurace OpenVPN.";
@@ -1745,9 +1757,6 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "Konfigurace VPN %@ nebude instalována, protože konfigurace už existuje a neměla by být přepsána.";
 
 /* Window text */
-"VPN Connections" = "VPN spojení";
-
-/* Window text */
 "VPN status windows:" = "Stavové okno VPN:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1958,6 +1967,9 @@
 "Hungarian localization" = "Maďarská lokalizace";
 
 /* Credit description */
+"Icelandic localization" = "Icelandic localization";
+
+/* Credit description */
 "Icon set including Retina images" = "Sada ikon obsahuje Retina obrázky";
 
 /* Credit description */
@@ -1997,6 +2009,9 @@
 "PKCS#11 support" = "Podpora PKCS#11";
 
 /* Credit description */
+"Persian localization" = "Persian localization";
+
+/* Credit description */
 "Polish localization" = "Polská lokalizace";
 
 /* Credit description */
@@ -2034,6 +2049,9 @@
 
 /* Credit description */
 "Up and Down scripts" = "Skripty up/down";
+
+/* Notification text */
+"Updated to %@." = "Aktualizováno na %@.";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Nápověda Xcode & integrace OpenSSL";

@@ -119,6 +119,9 @@
 "Ignore" = "無視";
 
 /* Button */
+"Install" = "インストール";
+
+/* Button */
 "Latest (%@)" = "最新 (%@)";
 
 /* Button */
@@ -373,9 +376,6 @@
 /* Checkbox name */
 "Keep connected" = "接続を維持する";
 
-/* Checkbox name */ /* System profile item */
-"Monitor connection" = "接続を監視する";
-
 /* Checkbox name */
 "Monitor network settings" = "ネットワーク設定を監視する";
 
@@ -386,13 +386,13 @@
 "Prepend domain name to search domains" = "名前を検索する時にドメイン名をつける";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "起動後に再接続";
+"Reconnect when computer wakes up" = "パソコン再開後、再接続";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "ユーザスイッチから戻った時に再接続する";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "キーと証明書の変更に管理者権限が必要";
+"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "切断後にプライマリインターフェースをリセットする";
@@ -488,13 +488,7 @@
 "Sample Tunnelblick VPN Configuration" = "Tunnelblick VPN 設定サンプル";
 
 /* System profile item */
-"Computer admin" = "コンピュータの管理者";
-
-/* System profile item */
 "Configurations" = "接続先";
-
-/* System profile item */
-"Deployed" = "配付用";
 
 /* Window title */
 " (Deployed)" = " (配付用)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -510,6 +504,9 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ 切断 - 詳細設定 %3$@";
+
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "「%@」を切断しました";
@@ -596,7 +593,7 @@
 "New Feature" = "新しい機能";
 
 /* Window title */
-"No 'dev tun', 'dev utun', or 'dev tap' found" = "'dev tun'か'dev utun'か'dev tap'が見つからないです";
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "'dev tun'か'dev utun'か'dev tap'が見つかりませんでした";
 
 /* Window title */
 "No Credentials" = "認証情報がありません";
@@ -638,7 +635,7 @@
 "System Requirements Not Met" = "必要なシステムがありません";
 
 /* Window title */
-"There are no OpenVPN processes running." = "実行してるOpenVPNのプロセスがありません";
+"There are no OpenVPN processes running." = "実行中OpenVPNプロセスがありません";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick 接続先に問題があります";
@@ -701,7 +698,7 @@
 "     • Installed one configuration\n\n" = "     • 設定をインストールしました\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Replaced %lu configurations\n\n" = "     設定を%luつ上書きしました\n\n";
+"     • Replaced %lu configurations\n\n" = "     • 設定を%lu個上書きしました\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
 "     • Replaced one configuration\n\n" = "     • 設定を上書きしました\n\n";
@@ -725,10 +722,10 @@
 "    • Replace one configuration\n" = "    設定を一つ上書き\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall %lu configurations\n\n" = "    設定を%luつ削除しました\n\n";
+"    • Uninstall %lu configurations\n\n" = "    • %lu個の設定を削除\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall one configuration\n" = "    設定を一つ削除しました\n";
+"    • Uninstall one configuration\n" = "    • 1個の設定を削除\n";
 
 /* Window text */
 "  • Be installed in /Applications as Tunnelblick\n" = "  •  「 /アプリケーション」に「Tunnelblick」という名前でインストール\n";
@@ -872,10 +869,16 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "接続先 %2$@ のセキュリティチェック時にエラー（ステータス %1$ld）がおきました。\n\nTunnelblick を終了して再度起動してください。再び問題が起きる時は、Tunnelblick を再インストールしてください。";
 
 /* Window text */
+"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "Tunnelblickと共にインストールされた設定ファイルの検証中にエラーが発生しました。詳細はコンソールログを参照してください。";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "%@ の起動中にエラーがおきました。";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "変更を取り消し、安全な(シャドー)コピーに戻している時にエラーがおきました。詳細はコンソールログを参照してください。\n\n";
+
+/* Window text */
+"An error occurred. See the Console Log for details." = "エラーが発生しました。詳細はコンソールログを参照してください。";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Tunnelblickの内部エラーが発生しました: %1$@%2$@";
@@ -896,9 +899,6 @@
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Tunnelblickの内部エラーが発生しました: fileIsReasonableSize: パスが空です";
 
 /* Window text */
-"Anonymous unique ID" = "匿名で一意な ID";
-
-/* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "本当に OpenVPN 設定ファイルを Tunnelblick VPN 設定ファイルへ変換しなくてよいですか？\n\n変換しない限りこれらの接続先は利用できません！\n\n";
 
 /* Window text */
@@ -909,6 +909,9 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "キーチェーンに保存されている認証情報「%@」(秘密鍵またはユーザー名とパスワード) を本当に削除してもよいですか？";
+
+/* Window text */
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "あなたのコンピューターを「完全にコントロールできる設定ファイル」をインストールしても良いですか？";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "OpenVPN設定ファイル%1$lu行目: %2$@";
@@ -1250,6 +1253,15 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Tunnelblick が管理していない OpenVPN プロセスが動いています。もし Tunnelblick とは別の OpenVPN ソフトウェアを動かしているのでなければ、これは以前の Tunnelblick がプロセスをうまく停止できなかったということで、停止させる必要があります。Tunnelblick の動作と干渉するかもしれません。\n\nこれらは「Activity Monitor」アプリケーションで停止させることができます。\n\n";
 
 /* Window text */
+"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "Tunnelblickと同時にインストールされる設定の中にTunnelblickが作成していない設定が含まれています。\nこの設定はVPNに接続する時にrootとして起動されるプログラムが含まれているため、インストールされません。\n\n詳細はコンソールログを参照してください。";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "更新される設定の中にはVPNに接続する時にrootとして起動されるプログラムが含まれています。このプログラムは完全にパソコンを支配することができます。\n\nこの設定の作者を信用できなければ、絶対にインストールしないで下さい。\n\n設定の作者を信頼して、インストールしますか？\n\n";
+
+/* Window text */
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "インストールされる設定の中にはVPNに接続する時にrootとして起動されるプログラムが含まれています。このプログラムは完全にパソコンを支配することができます。\n\nこの設定の作者を信用できなければ、絶対にインストールしないで下さい。\n\n設定の作者を信頼して、インストールしますか？\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "VPNが接続中です。処理を続ける前に、全てのVPNを切断しTunnelblick を終了してください。";
 
 /* Window text */
@@ -1454,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "このユーザーネームとパスワードはVPNサーバーに拒否されました";
 
 /* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "ユーザー名とパスワードが必要です。\nVPN ユーザー名とパスワードを入力してください。";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "インストールするOpenVPN設定が存在しません。";
@@ -1745,9 +1757,6 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "%@ はVPN設定が既に存在しており上書きすべきではないためインストールされません。";
 
 /* Window text */
-"VPN Connections" = "VPN 接続";
-
-/* Window text */
 "VPN status windows:" = "VPN状態ウインドウ";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1958,6 +1967,9 @@
 "Hungarian localization" = "ハンガリー語翻訳";
 
 /* Credit description */
+"Icelandic localization" = "Icelandic localization";
+
+/* Credit description */
 "Icon set including Retina images" = "Retina用画像を含むアイコンセット";
 
 /* Credit description */
@@ -1997,6 +2009,9 @@
 "PKCS#11 support" = "PKCS#11のサポート";
 
 /* Credit description */
+"Persian localization" = "Persian localization";
+
+/* Credit description */
 "Polish localization" = "ポーランド語翻訳";
 
 /* Credit description */
@@ -2034,6 +2049,9 @@
 
 /* Credit description */
 "Up and Down scripts" = "up/downスクリプト";
+
+/* Notification text */
+"Updated to %@." = "%@に更新されました";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcodeの助言とOpenSSLの統合";

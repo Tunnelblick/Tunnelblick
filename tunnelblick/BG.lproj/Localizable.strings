@@ -83,10 +83,10 @@
 "Delete Credentials" = "Изтриване на идентификационни данни";
 
 /* Button */
-"Delete saved passphrase and try again" = "Delete saved passphrase and try again";
+"Delete saved passphrase and try again" = "Изтрийте запаметената секретна фраза и опитайте отново";
 
 /* Button */
-"Delete saved password and try again" = "Delete saved password and try again";
+"Delete saved password and try again" = "Изтрийте запаметената парола и опитайте отново";
 
 /* Button */
 "Delete" = "Изтриване";
@@ -119,6 +119,9 @@
 "Ignore" = "Игнорирай";
 
 /* Button */
+"Install" = "Инсталиране";
+
+/* Button */
 "Latest (%@)" = "Последна (%@)";
 
 /* Button */
@@ -128,10 +131,10 @@
 "Load Tun driver automatically" = "Автоматично зареждане на Tun драйвери";
 
 /* Button */
-"Make Private" = "Make Private";
+"Make Private" = "Направи индивидуална";
 
 /* Button */
-"Make Shared" = "Make Shared";
+"Make Shared" = "Направи споделена";
 
 /* Button */
 "Manually" = "Ръчно";
@@ -236,10 +239,10 @@
 "This configuration uses %@ credentials" = "Тази конфигурация използва %@ идентификационни данни";
 
 /* Button */
-"Try again with saved passphrase" = "Try again with saved passphrase";
+"Try again with saved passphrase" = "Моля опитайте отново със запаметената секретна фраза";
 
 /* Button */
-"Try again with saved username and password" = "Try again with saved username and password";
+"Try again with saved username and password" = "Моля опитайте отново със запаметеното потребителско име и парола";
 
 /* Button */
 "Try again" = "Опитайте отново";
@@ -269,7 +272,7 @@
 "Disconnect %@%@" = "Прекъсване на %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Do Not Show on Tunnelblick Menu";
+"Do Not Show on Tunnelblick Menu" = "Не показвай в Tunnelblick менюто";
 
 /* Menu Item */
 "Duplicate Configuration..." = "Дублирай конфигурацията…";
@@ -302,7 +305,7 @@
 "Show OpenVPN Log in Finder" = "Покажи OpenVPN лога във Finder";
 
 /* Menu Item */
-"Show on Tunnelblick Menu" = "Show on Tunnelblick Menu";
+"Show on Tunnelblick Menu" = "Показвай в Tunnelblick менюто";
 
 /* Menu item */
 "Suggestion or Bug Report..." = "Предложение или докладване на бъг…";
@@ -323,7 +326,7 @@
 "Check if the apparent public IP address changed after connecting" = "Проверка дали публичено видимия IP адрес се променя след свързване";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
+"Disable IPv6 (tun only)" = "Деактивиране на IPv6 (валидно само за tun канал)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Прекъсне, когато компютъра заспи";
@@ -362,7 +365,7 @@
 "Do not warn about this again" = "Не предупреждавай за това отново";
 
 /* Checkbox name */
-"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+"Enable IPv6 (tap only)" = "Активиране на IPv6 (валидно само за tap канал)";
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Изтриване на DNS кеша след свързване или прекъсване на връзката";
@@ -372,9 +375,6 @@
 
 /* Checkbox name */
 "Keep connected" = "Поддъжай свързан";
-
-/* Checkbox name */ /* System profile item */
-"Monitor connection" = "Следене на връзката";
 
 /* Checkbox name */
 "Monitor network settings" = "Следене на мрежовите настройки";
@@ -386,13 +386,13 @@
 "Prepend domain name to search domains" = "Добавяне на домейна към домейни за търсене";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+"Reconnect when computer wakes up" = "Свържи се отново, когато компютъра се събуди";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Свържи отново, когато потребителят превключи обратно";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "Require adminstrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Възстановяване на основния интерфейс след прекъсване на връзката";
@@ -488,13 +488,7 @@
 "Sample Tunnelblick VPN Configuration" = "Примерна Tunnelblick VPN конфигурация";
 
 /* System profile item */
-"Computer admin" = "Компютърен администратор";
-
-/* System profile item */
 "Configurations" = "Конфигурации";
-
-/* System profile item */
-"Deployed" = "Разгърната";
 
 /* Window title */
 " (Deployed)" = " (Разгърната)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -510,6 +504,9 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Прекъсната - Разширени настройки%3$@";
+
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' е прекъснат/а";
@@ -551,7 +548,7 @@
 "Could Not Move Configuration" = "Не можа да премести конфигурацията";
 
 /* Window title */
-"Could Not Replace Configuration" = "Could Not Replace Configuration";
+"Could Not Replace Configuration" = "Не може да подмени конфигурацията";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "Не може да деинсталирате конфигурацията";
@@ -638,7 +635,7 @@
 "System Requirements Not Met" = "Системни изисквания не са изпълнени";
 
 /* Window title */
-"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
+"There are no OpenVPN processes running." = "Не открива активни OpenVPN процеси.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Проблем с конфигурацията на Tunnelblick";
@@ -872,10 +869,16 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Грешка (статус %1$ld) настъпили при опита за проверка на сигурността на %2$@ конфигурация.  \n\nМоля затворете и стартирайте наново Tunnelblick. Ако проблемът продължава, преинсталирайте Tunnelblick.";
 
 /* Window text */
+"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "Възникнала е грешка при опит да се стартира %@";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Възникна грешка при опит за връщане към подсигуреното (скрито) копие. Моля, вижте конзолния лог за подробности.\n\n";
+
+/* Window text */
+"An error occurred. See the Console Log for details." = "An error occurred. See the Console Log for details.";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Появи се вътрешна Tunnelblick грешка %1$@%2$@";
@@ -896,9 +899,6 @@
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Появи се вътрешна Tunnelblick грешка: fileIsReasonableSize: Пътят е празен";
 
 /* Window text */
-"Anonymous unique ID" = "Анонимно уникално ID";
-
-/* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Сигурни ли сте, че не искате да конвертирате OpenVPN конфигурациите в Tunnelblick VPN конфигурации?\n\nКОНФИГУРАЦИИТЕ НЯМА ДА СА НАЛИЧНИ, АКО НЕ ГИ КОНВЕРТИРАТЕ!\n\n";
 
 /* Window text */
@@ -909,6 +909,9 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?";
+
+/* Window text */
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "На ред %1$lu на OpenVPN конфигурационен файл: %2$@";
@@ -1250,6 +1253,15 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Един или повече OpenVPN процеси се изпълняват, но са непознати за Tunnelblick. Ако не използвате OpenVPN отделно от Tunnelblick, това обикновено означава, че предишно стартиране на Tunnelblick не е било в състояние да ги прекрати правилно и Вие трябва да ги прекратите. Вероятно е да пречат на работата на Tunnelblick.\n\nТе могат да бъдат прекратени чрез вградената в операционната система програма 'Activity Monitor'.\n\n";
 
 /* Window text */
+"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details.";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+
+/* Window text */
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding.";
 
 /* Window text */
@@ -1454,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
 
 /* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Потребителското име и паролата не трябва да бъдат празни!\nМоля, въведете потребителско име и парола за VPN.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Няма OpenVPN конфигурации за инсталиране.";
@@ -1745,9 +1757,6 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "Конфигурация на VPN %@ няма да бъде инсталирана, защото конфигурацията вече съществува и не трябва да бъде заменяна.";
 
 /* Window text */
-"VPN Connections" = "VPN връзки";
-
-/* Window text */
 "VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1958,6 +1967,9 @@
 "Hungarian localization" = "Унгарска локализация";
 
 /* Credit description */
+"Icelandic localization" = "Icelandic localization";
+
+/* Credit description */
 "Icon set including Retina images" = "Групи икони включително Retina изображения";
 
 /* Credit description */
@@ -1997,6 +2009,9 @@
 "PKCS#11 support" = "Поддръжка на PKCS #11";
 
 /* Credit description */
+"Persian localization" = "Persian localization";
+
+/* Credit description */
 "Polish localization" = "Полска локализация";
 
 /* Credit description */
@@ -2034,6 +2049,9 @@
 
 /* Credit description */
 "Up and Down scripts" = "Up and Down скриптове";
+
+/* Notification text */
+"Updated to %@." = "Updated to %@.";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode help и OpenSSL интеграция";

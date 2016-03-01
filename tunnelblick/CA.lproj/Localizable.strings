@@ -86,7 +86,7 @@
 "Delete saved passphrase and try again" = "Esborrar la paraula clau desada i tornar a provar";
 
 /* Button */
-"Delete saved password and try again" = "Esborrar la contrasenya i tornar a provar";
+"Delete saved password and try again" = "Esborrar la contrasenya desada i tornar a provar";
 
 /* Button */
 "Delete" = "Eliminar";
@@ -117,6 +117,9 @@
 
 /* Button */
 "Ignore" = "Ignorar";
+
+/* Button */
+"Install" = "Instal·lar";
 
 /* Button */
 "Latest (%@)" = "Darrera (%@)";
@@ -182,7 +185,7 @@
 "Remove Credentials" = "Eliminar les credencials";
 
 /* Button */
-"Rename" = "Renombrar";
+"Rename" = "Reanomenar";
 
 /* Button */
 "Replace" = "Substituir";
@@ -269,7 +272,7 @@
 "Disconnect %@%@" = "Desconnectar %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Nom mostrar en el menú de Tunnelblick";
+"Do Not Show on Tunnelblick Menu" = "No mostrar en el menú de Tunnelblick";
 
 /* Menu Item */
 "Duplicate Configuration..." = "Duplicar la configuració…";
@@ -373,9 +376,6 @@
 /* Checkbox name */
 "Keep connected" = "Seguir connectat";
 
-/* Checkbox name */ /* System profile item */
-"Monitor connection" = "Monitoritzar la connexió";
-
 /* Checkbox name */
 "Monitor network settings" = "Controlar la configuració de xarxa";
 
@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Reconnectar quan l'usuari es torni a connectar";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "Requerir autorització d'administració per a canvis de clau i certificat";
+"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Restableix la interfície primària després de desconnectar";
@@ -488,13 +488,7 @@
 "Sample Tunnelblick VPN Configuration" = "Configuració VPN de guia de Tunnelblick";
 
 /* System profile item */
-"Computer admin" = "Administrador de la computadora";
-
-/* System profile item */
 "Configurations" = "Configuracions";
-
-/* System profile item */
-"Deployed" = "Desplegat";
 
 /* Window title */
 " (Deployed)" = " (Desplegada)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -510,6 +504,9 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ desconnectat - Configuració avançada %3$@";
+
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' s'ha desconnectat";
@@ -782,7 +779,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ ha estat revertida a la seva darrera còpia (shadow).\n\n";
 
 /* Window text */
-"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configuracions s'han restaurat a la darrera còpia (shadow).\n\n";
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configuracions s'han restaurat a la darrera còpia segura (shadow).\n\n";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' ja existeix a l'Escriptori.\n\nDesitges substituir-la?";
@@ -821,7 +818,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Una configuració VPN de Tunnelblick està imbricada massa profundament a '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "A l'inici del sistema no es pot iniciar una configuració que requereix d'una contrasenya de clau privada o d'un nom d'usuari i contrasenya.";
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "A l'inici del sistema no es pot iniciar una configuració que requereix d'una paraula clau o d'un nom d'usuari i contrasenya.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "És necessari una contrasenya per connectar a\n  %1$@%2$@";
@@ -872,10 +869,16 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "S'ha produït un error (estatus %1$ld) mentre s'intentava comprovar la seguretat de la configuració %2$@.\n\nSi us plau, surt i torna a iniciar Tunnelblick. Si el problema continua, torna a instal·lar Tunnelblick.";
 
 /* Window text */
+"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "S'ha produït un error mentre s'examinava la configuració que s'ha d'instal·lar amb Tunnelblick. Consulta la Consola per a més detalls.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "S'ha produït un error mentre s'intentava executar %@";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "S'ha produït un error mentre s'intentava revertir a la còpia shadow. Comprova la Consola per a obtenir més detalls.\n\n";
+
+/* Window text */
+"An error occurred. See the Console Log for details." = "S'ha produït un error. Consulta la Consola per a més detalls.";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "S'ha produït un error intern%1$@%2$@";
@@ -896,19 +899,19 @@
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "S'ha produït un error intern a Tunnelblick: fileIsReasonableSize: el camí és nul";
 
 /* Window text */
-"Anonymous unique ID" = "ID únic anònim";
-
-/* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Estàs segur que no desitges convertir les configuracions OpenVPN a configuracions Tunnelblick VPN?\n\nLES CONFIGURACIONS NO ESTARAN DISPONIBLES SI NO LES CONVERTEIXES!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Estàs segur que desitges eliminar les credencials (clau privada i/o nom d'usuari i contrasenya) per les %ld configuracions que hi ha al teu clauer?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Estàs segur que desitges eliminar les credencials (clau privada i/o nom d'usuari i contrasenya) per les %ld configuracions que hi ha al Clauer?";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Estàs segur que desitges eliminar les credencials (clau privada i/o nom d'usuari i contrasenya) per les '%@' que hi ha al Clauer?";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Estàs segur que desitges eliminar les credencials (clau privada i/o nom d'usuari i contrasenya) emmagatzemades en el Clauer per les '%@' credencials?";
+
+/* Window text */
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Estàs segur que vols instal·lar configuracions que PODEN PRENDRE EL CONTROL TOTAL DE LA TEVA MÀQUINA?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "A la línia %1$lu del fitxer de la configuració OpenVPN: %2$@";
@@ -1028,16 +1031,16 @@
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Desitges instal·lar la configuració '%@' de manera que tots els usuaris la puguin utilitzar, o que només la puguis utilitzar tu?\n\n";
 
 /* Window text */
-"Do you wish to make %ld configurations private?" = "Desitges fer %ld configuracions privades?";
+"Do you wish to make %ld configurations private?" = "Desitges fer privades %ld configuracions?";
 
 /* Window text */
-"Do you wish to make %ld configurations shared?" = "Desitges fer %ld configuracions compartides?";
+"Do you wish to make %ld configurations shared?" = "Desitges fer compartides %ld configuracions?";
 
 /* Window text */
-"Do you wish to make the '%@' configuration private?" = "Destiges fer la configuració '%@' privada?";
+"Do you wish to make the '%@' configuration private?" = "Destiges fer privada la configuració '%@'?";
 
 /* Window text */
-"Do you wish to make the '%@' configuration shared?" = "Desitges fer la configuració '%@' compartida?";
+"Do you wish to make the '%@' configuration shared?" = "Desitges fer compartida la configuració '%@'?";
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Voleu reinstal·lar \"%1$@' versió %2$@?";
@@ -1058,7 +1061,7 @@
 "Do you wish to replace the '%@' configuration?\n\n" = "Voleu substituir la configuració '%@'?\n\n";
 
 /* Window text */
-"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Desitges restaurar %ld configuracions a la seva darrera còpia (shadow)?\n\n";
+"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Desitges restaurar %ld configuracions a la seva darrera còpia segura (shadow)?\n\n";
 
 /* Window text */
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Desitges reverir la configuració '%@' a la seva darrera còpia shadow disponible?\n\n";
@@ -1248,6 +1251,15 @@
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Un o més processos OpenVPN estan funcionant però són desconeguts per Tunnelblick. Si, per la teva part, no estàs utilitzant OpenVPN, això significa que una execució prèvia de Tunnelblick no ha tancat bé totes les connexions i ara les hauria de matar. Aquestes poden interferir amb el bon funcionament de Tunnelblick.\n\nEs poden aturar mitjançat el 'Monitor d'Activitat'.\n\n";
+
+/* Window text */
+"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "Una o més configuracions d'VPN s'instal·larien amb Tunnelblick, pero no són part de Tunnelblick. Aquestes configuracions poden no ser instal·lades quan s'instal·li Tunnelblick atès que una o més d'aquestes inclouen un programa que seria executat com a root quan es connecti a la VPN.\n\nMira el registre a la Consola per més detalls.";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Una o més configuracions VPN que s'estan actualitzant inclouen comandes que s'exectuten amb l'usuari root quan la VPN es connecta. Aquestes poden PRENDRE CONTROL TOTAL DE LA MÀQUINA.\n\nNO HAURÍES D'INSTAL·LAR AQUESTES CONFIGURACIONS A NO SER QUE CONFIÏS EN L'AUTOR DE LES MATEIXES.\n\nConfies en l'autor de les configuracions i desitges instal·lar-les?\n\n";
+
+/* Window text */
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Una o més configuracions VPN que s'estan instal·lant inclouen comandes que s'exectuten amb l'usuari root quan la VPN es connecta. Aquestes poden PRENDRE CONTROL TOTAL DE LA MÀQUINA.\n\nNO HAURÍES D'INSTAL·LAR AQUESTES CONFIGURACIONS A NO SER QUE CONFIÏS EN L'AUTOR DE LES MATEIXES.\n\nConfies en l'autor de les configuracions i desitges instal·lar-les?\n\n";
 
 /* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Una o més VPNs estan actualment connectades. Si us plau, desconnecta totes les VPNs i surt de Tunnelblick abans de continuar.";
@@ -1454,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "El nom d'usuari i la contasenya no s'han acceptat pel servidor VPN remot.";
 
 /* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "El nom d'usuari i la contrasenya no poden ser buits!\nSi us plau entra el nom d'usuari i contrasenya de la connexió VPN.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "No hi ha Configuracions OpenVPN per a instal·lar.";
@@ -1745,9 +1757,6 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "La Configuració VPN %@ NO s'instal·larà perquè la configuració ja existeix i no s'hauria de substituir.";
 
 /* Window text */
-"VPN Connections" = "Connexions VPN";
-
-/* Window text */
 "VPN status windows:" = "Finestra d'estat de la VPN:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1958,6 +1967,9 @@
 "Hungarian localization" = "Traducció a l'Hongarès";
 
 /* Credit description */
+"Icelandic localization" = "Icelandic localization";
+
+/* Credit description */
 "Icon set including Retina images" = "Conjunt d'icones incloent imatges Retina";
 
 /* Credit description */
@@ -1997,6 +2009,9 @@
 "PKCS#11 support" = "Suport per a PKCS#11";
 
 /* Credit description */
+"Persian localization" = "Persian localization";
+
+/* Credit description */
 "Polish localization" = "Traducció al Polonès";
 
 /* Credit description */
@@ -2034,6 +2049,9 @@
 
 /* Credit description */
 "Up and Down scripts" = "Scripts 'up/down'";
+
+/* Notification text */
+"Updated to %@." = "Actualitzat a %@.";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Ajuda amb l'Xcode & integració amb OpenSSL";

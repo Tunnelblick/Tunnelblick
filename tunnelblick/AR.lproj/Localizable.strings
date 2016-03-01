@@ -119,6 +119,9 @@
 "Ignore" = "تجاهل";
 
 /* Button */
+"Install" = "تحميل\nزر";
+
+/* Button */
 "Latest (%@)" = "آخر(%@)";
 
 /* Button */
@@ -373,9 +376,6 @@
 /* Checkbox name */
 "Keep connected" = "ابق على اتصال";
 
-/* Checkbox name */ /* System profile item */
-"Monitor connection" = "راقب الإتصال";
-
 /* Checkbox name */
 "Monitor network settings" = "راقب إعدادات الشبكة";
 
@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "إعادة الاتصال عند تبديل المستخدم";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "تتحتاج لاذن المسؤول عن الخدمة لتغييرالمفتاح و الشهادة";
+"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "إعادة تعيين الواجهة الأساسية بعد انقطاع الإتصال";
@@ -488,13 +488,7 @@
 "Sample Tunnelblick VPN Configuration" = "نموذج من إعدادات الشبكه الخاصه الإفتراضيه بـTunnelblick";
 
 /* System profile item */
-"Computer admin" = "مشرف الكمبيوتر";
-
-/* System profile item */
 "Configurations" = "إعدادات";
-
-/* System profile item */
-"Deployed" = "مُوزعة";
 
 /* Window title */
 " (Deployed)" = " (مُوزعة)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -510,6 +504,9 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ مفصول - إعدادات متقدمة %3$@";
+
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@'  قد فصل";
@@ -872,10 +869,16 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "حدث خطأ (الحالة %1$ld) أثناء محاولة التحقق من أمن %2$@ التثبيت.\nيرجى إنهاء و إعادة تشغيل Tunnelblick. إذا استمرت المشكلة، الرجاء إعادة تثبيت Tunnelblick.";
 
 /* Window text */
+"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "حدث خطا عند اختبار الاعدادات التي يجب تحميلها مع تنيل بليك. \nاطلع على السجلات للحصول على التفاصيل.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "حدث خطأ أثناء محاولة تشغيل %@";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "حدث خطأ أثناء محاولة العودة إلى المضمون (نسخة الظل) . اطلع على وحدة التحكم للحصول على المزيد من التفاصيل.\n\n";
+
+/* Window text */
+"An error occurred. See the Console Log for details." = "حدث خطا.";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "حدث خطأ داخلي في تطبيق Tunnelblick %1$@%2$@";
@@ -896,9 +899,6 @@
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "حدث خطأ داخلي في fileIsReasonableSize: Tunnelblick: مسار فارغ";
 
 /* Window text */
-"Anonymous unique ID" = "معرّف مجهول";
-
-/* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "هل أنت متأكد من أنك لا تريد تحويل تثبيتات Tunnelblick VPNالى تثبيتات Tunnelblick VPN؟ \nالتثبيتات لن تكون متاحة اذا لم يتم تحويلها!\n\n";
 
 /* Window text */
@@ -909,6 +909,9 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "هل أنت متأكد أنك تريد حذف بيانات الاعتماد (المفتاح الخاص و / أو اسم المستخدم وكلمة المرور) المخزنة في سلسلة المفاتيح ل '%@' وثائق التفويض؟";
+
+/* Window text */
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "في السطر %1$lu الموجود في ملف الاعدادات %2$@";
@@ -1001,55 +1004,55 @@
 "Could not find easy-rsa version information in Tunnelblick.app" = "لايمكن الوصول إلى نسخة المعلومات لـ آر إس إيه-سهلة في تطبيق Tunnelblick";
 
 /* Window text */
-"Could not get attributes of %@" = "Could not get attributes of %@";
+"Could not get attributes of %@" = "لا يمكن الحصول على خواص %@";
 
 /* Window text */
-"Could not get modification date of %@" = "Could not get modification date of %@";
+"Could not get modification date of %@" = "لا يمكن الحصول على التعديلات بتاريخ %@";
 
 /* Window text */
-"Could not resolve symbolic link at %@" = "Could not resolve symbolic link at %@";
+"Could not resolve symbolic link at %@" = "لا يمكن حل الإرتباط المختصر لـ %@";
 
 /* Window text */
-"Could not set modification date of %@ to %@" = "Could not set modification date of %1$@ to %2$@";
+"Could not set modification date of %@ to %@" = "لا يمكن تغير تاريخ التعديل من %1$@ إلى %2$@";
 
 /* Window text */
 "DNS servers:" = "خوادم DNS:";
 
 /* Window text */
-"Did not need to modify configuration file; no path information to remove" = "Did not need to modify configuration file; no path information to remove";
+"Did not need to modify configuration file; no path information to remove" = "لا تحتاج لتعديل ملف التكوين; لا يوجد مسار يحتاج الحذف";
 
 /* Window text */
-"Do you wish to delete the %@ credentials?" = "Do you wish to delete the %@ credentials?";
+"Do you wish to delete the %@ credentials?" = "هل ترغب بحذف معلومات الدخول لـ%@ ؟";
 
 /* Window text */
-"Do you wish to duplicate the '%@' configuration?" = "Do you wish to duplicate the '%@' configuration?";
+"Do you wish to duplicate the '%@' configuration?" = "هل ترغب بنسخ خصائص '%@' ؟";
 
 /* Window text */
-"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n";
+"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "هل ترغب في تثبيت '%@' لجميع مستخدمين الجهاز، أو للمستخدم الحالي فقط؟\n\n";
 
 /* Window text */
-"Do you wish to make %ld configurations private?" = "Do you wish to make %ld configurations private?";
+"Do you wish to make %ld configurations private?" = "هل ترغب في جعل إعدادات '%ld' خاص لك؟";
 
 /* Window text */
-"Do you wish to make %ld configurations shared?" = "Do you wish to make %ld configurations shared?";
+"Do you wish to make %ld configurations shared?" = "هل ترغب في جعل إعدادات '%ld' مشتركه؟";
 
 /* Window text */
-"Do you wish to make the '%@' configuration private?" = "Do you wish to make the '%@' configuration private?";
+"Do you wish to make the '%@' configuration private?" = "هل ترغب في جعل إعدادات '%@' خاص لك؟";
 
 /* Window text */
-"Do you wish to make the '%@' configuration shared?" = "Do you wish to make the '%@' configuration shared?";
+"Do you wish to make the '%@' configuration shared?" = "هل ترغب في جعل إعدادات '%@' مشتركه؟";
 
 /* Window text */
-"Do you wish to reinstall '%@' version %@?" = "Do you wish to reinstall '%1$@' version %2$@?";
+"Do you wish to reinstall '%@' version %@?" = "هل ترغب في إعادة ثتبيت '%1$@' ،الإصدار %2$@؟";
 
 /* Window text */
-"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.";
+"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "هل ترغب في حذف الإعدادات لـ%ld ؟.";
 
 /* Window text */
-"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.";
+"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "هل ترغب في حذف إعدادات '%@' ؟.";
 
 /* Window text */
-"Do you wish to rename the '%@' configuration to '%@'?" = "Do you wish to rename the '%1$@' configuration to '%2$@'?";
+"Do you wish to rename the '%@' configuration to '%@'?" = "هل ترغب في اعادة تسمية الاعداد '%1$@' الى '%2$@' ؟";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Do you wish to replace '%1$@' version %2$@ with version %3$@?";
@@ -1064,25 +1067,25 @@
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n";
 
 /* Window text */
-"Domain:" = "Domain:";
+"Domain:" = "نطاق:";
 
 /* Window text */
 "Double-quote missing in line %u" = "Double-quote missing in line %u";
 
 /* Window text */
-"EB" = "EB";
+"EB" = "اكسا بايت";
 
 /* Window text */
-"EB/s" = "EB/s";
+"EB/s" = "اكسا بايت في الثانية";
 
 /* Window text */
-"Expected command not found for '%@'" = "Expected command not found for '%@'";
+"Expected command not found for '%@'" = "الامر المتوقع غير موجود ل '%@'";
 
 /* Window text */
 "Expected path not found for '%@'" = "Expected path not found for '%@'";
 
 /* Window text */
-"Failed to copy %@ to %@" = "Failed to copy %1$@ to %2$@";
+"Failed to copy %@ to %@" = "فشل في نسخ %1$@ الى %2$@";
 
 /* Window text */
 "Failed to create folder at %@" = "فشل في إنشاء ملف في %@";
@@ -1178,7 +1181,7 @@
 "MB/s" = "ميقا بايت في الثانية";
 
 /* Window text */
-"Maximum log display size:" = "Maximum log display size:";
+"Maximum log display size:" = "الحد الأقصى للسجل:";
 
 /* Window text */
 "Menu:" = "القائمة:";
@@ -1205,7 +1208,7 @@
 "Names may not include any of the following characters: %s\n\n%@" = "Names may not include any of the following characters: %1$s\n\n%2$@";
 
 /* Window text */
-"NetBIOS name:" = "NetBIOS name:";
+"NetBIOS name:" = "إسم NetBIOS:";
 
 /* Window text */
 "Network setting" = "إعدادات الشبكة";
@@ -1250,6 +1253,15 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n";
 
 /* Window text */
+"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details.";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+
+/* Window text */
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding.";
 
 /* Window text */
@@ -1277,10 +1289,10 @@
 "Out:" = "الصادر:";
 
 /* Window text */
-"PB" = "PB";
+"PB" = "بيتابايت";
 
 /* Window text */
-"PB/s" = "PB/s";
+"PB/s" = "بيتابايت في الثانية";
 
 /* Window text */
 "Password:" = "كلمة السر:";
@@ -1292,7 +1304,7 @@
 "Please enter VPN passphrase." = "Please enter VPN passphrase.";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Please enter a name and click \"OK\" or click \"Cancel\".\n\n";
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "الرجاء أدخل الإسم المطلوب ثم إضغط \"موافق\" ،أو إضغط \"إلغاء\".\n\n";
 
 /* Window text */
 "Please enter a new name for '%@'." = "Please enter a new name for '%@'.";
@@ -1454,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
 
 /* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "The username and the password must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "There are no OpenVPN configurations to install.";
@@ -1745,9 +1757,6 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
 
 /* Window text */
-"VPN Connections" = "VPN Connections";
-
-/* Window text */
 "VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1958,6 +1967,9 @@
 "Hungarian localization" = "الترجمة للهنقارية";
 
 /* Credit description */
+"Icelandic localization" = "Icelandic localization";
+
+/* Credit description */
 "Icon set including Retina images" = "Icon set including Retina images";
 
 /* Credit description */
@@ -1997,6 +2009,9 @@
 "PKCS#11 support" = "PKCS#11 support";
 
 /* Credit description */
+"Persian localization" = "Persian localization";
+
+/* Credit description */
 "Polish localization" = "الترجمة للبولندية";
 
 /* Credit description */
@@ -2034,6 +2049,9 @@
 
 /* Credit description */
 "Up and Down scripts" = "سكربت انشاء وقطع الاتصال";
+
+/* Notification text */
+"Updated to %@." = "Updated to %@.";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode help and OpenSSL integration";

@@ -119,6 +119,9 @@
 "Ignore" = "Yoksay";
 
 /* Button */
+"Install" = "Yükle";
+
+/* Button */
 "Latest (%@)" = "Son sürüm (%@)";
 
 /* Button */
@@ -200,7 +203,7 @@
 "Retry" = "Tekrar dene";
 
 /* Button */
-"Revert" = "Eski Haline Döndür";
+"Revert" = "Geri al";
 
 /* Button */
 "Show on default screen (%u x %u)" = "Varsayılan ekran üzerinde göster (%1$u x %2$u)";
@@ -239,7 +242,7 @@
 "Try again with saved passphrase" = "Kayıtlı parola ile tekrar dene";
 
 /* Button */
-"Try again with saved username and password" = "Kayıtlı kullanıcı adı ve şifre ile dene";
+"Try again with saved username and password" = "Kayıtlı kullanıcı adı ve şifre ile yeniden dene";
 
 /* Button */
 "Try again" = "Tekrar deneyin";
@@ -251,7 +254,7 @@
 "When Tunnelblick launches" = "Tunnelblick başladığında";
 
 /* Button */
-"When computer starts" = "Bilgisayar yeniden başlatıldığında";
+"When computer starts" = "Bilgisayar başlatıldığında";
 
 /* Menu item */
 "Add a VPN..." = "VPN Ekle...";
@@ -299,7 +302,7 @@
 "Revert Configuration..." = "Yapılandırmayı geri al…";
 
 /* Menu Item */
-"Show OpenVPN Log in Finder" = "OpenVPN kütüğünü Finder'da göster";
+"Show OpenVPN Log in Finder" = "OpenVPN Log' unu Finder de göster";
 
 /* Menu Item */
 "Show on Tunnelblick Menu" = "Tunnelblick Menüsünde Göster";
@@ -373,9 +376,6 @@
 /* Checkbox name */
 "Keep connected" = "Sürekli bağlı kal";
 
-/* Checkbox name */ /* System profile item */
-"Monitor connection" = "Bağlantıyı izle";
-
 /* Checkbox name */
 "Monitor network settings" = "Ağ ayarlarını izle";
 
@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Kullanıcı geri geldiğinde tekrar bağlan";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "Anahtar ve sertifika değişimleri için yönetici onayı gerekir";
+"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Bağlantı kesildikten sonra ağ kartını sıfırla";
@@ -488,13 +488,7 @@
 "Sample Tunnelblick VPN Configuration" = "Örnek Tunnelblick VPN Ayarları";
 
 /* System profile item */
-"Computer admin" = "Bilgisayar yöneticisi";
-
-/* System profile item */
 "Configurations" = "Konfigürasyonlar";
-
-/* System profile item */
-"Deployed" = "Yayıldı";
 
 /* Window title */
 " (Deployed)" = " (Yayıldı)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -510,6 +504,9 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Bağlantısı kesildi - Gelişmiş ayarlar%3$@";
+
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' bağlantısı kesildi";
@@ -872,10 +869,16 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "%2$@ yapılandırmasının güvenliği kontrol edilirken bir hata oluştu. (Hata kodu  %1$ld) \n\nTunnelblick 'i kapatıp tekrar açın. Eğer sorun devam ederse, Tunnelblick 'i kaldırıp tekrar yükleyin.";
 
 /* Window text */
+"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "Tunnelblick'e yüklenecek yapılandırma dosyasını incelerken hata oluştu. Detaylar için konsol kayıtlarını inceleyin.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "%@ çalıştırılırken bir hata oluştu";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Güvenli (gölge) kopyaya dönmeye çalışırken bir hata oluştu. Ayrıntılar için Konsol Günlüğü'ne bakın.\n\n";
+
+/* Window text */
+"An error occurred. See the Console Log for details." = "Bir hata oluştu. Detaylar için konsol kayıtlarını inceleyin.";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Tunnelblick içinde bir hata oluştu%1$@%2$@";
@@ -896,9 +899,6 @@
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Tunnelblick içinde bir hata oluştu: fileIsReasonableSize: Dosya yolu nil: %@";
 
 /* Window text */
-"Anonymous unique ID" = "Anonim tek kimlik";
-
-/* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "OpenVPN yapılandırmalarını Tunnelblick yapılandırmalarına dönüştürmek istemediğinize emin misiniz?\n\nEĞER DÖNÜŞTÜRMEZSENİZ YAPILANDIRMALAR KULLANILABİLİR OLMAYACAK!\n\n";
 
 /* Window text */
@@ -909,6 +909,9 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Keychain içerisinde saklanan '%@' kimlik bilgileri için kimlik bilgilerini (özel anahtar ve/veya kullanıcı adı ve parola) silmek istediğinize emin misiniz?";
+
+/* Window text */
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "BİLGİSAYARINIZIN TÜM KONTROLÜNÜ ALACAK olan yapılandırmayı yüklemek istediğinize emin misiniz?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "OpenVPN yapılandırma dosyasının %1$lu numaralı satırda: %2$@";
@@ -1250,6 +1253,15 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Bir veya daha fazla OpenVPN işlemi çalışıyor ama Tunnelblick bunları tanıyamıyor. Eğer OpenVPN i Tunnelblick den ayrı olarak çalıştırmıyorsanız, genelde bunun anlamı daha önce açılan bir Tunnelbick in doğru kapatılmamış olmasıdır.\n\nBu işlemler, 'Activity Monitor' üzerinden sonlandırılabilir.\n\n";
 
 /* Window text */
+"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "Tunnelblick'in parçası olmayan bir ya da daha fazla VPN yapılandırması Tunnelblick'e yüklenecek. Bunlar root yetkisi istediği için Tunnelblick yüklendiğinde çalışmayabilir.\n\nDetaylar için konsol kayıtlarını inceleyin.";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "VPN'e bağlanıldığında root haklarıyla çalışması gereken programlar içeren bir veya daha fazla VPN yapılandırma dosyası mevcut. bunlar BİLGİSAYARINIZIN KONTROLÜNÜ ALABİLİR.\n\nGELİŞTİRİCİSİNE GÜVENMİYORSANIZ BUNLARI YÜKLEMEMELİSİNİZ.\n\nYüklenecek bu dosyaların geliştiricisine güveniyor musunuz?\n\n";
+
+/* Window text */
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "VPN'e bağlanıldığında root haklarıyla çalışması gereken programlar içeren bir veya daha fazla VPN yapılandırma dosyası mevcut. bunlar BİLGİSAYARINIZIN KONTROLÜNÜ ALABİLİR.\n\nGELİŞTİRİCİSİNE GÜVENMİYORSANIZ BUNLARI YÜKLEMEMELİSİNİZ.\n\nYüklenecek bu dosyaların geliştiricisine güveniyor musunuz?\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Bir ya da daha çok VPN'e şu anda bağlısınız. Lütfen ilerlemeden önce tüm VPN bağlantılarını kapatarak Tunnelblick uygulamasını kapatın.";
 
 /* Window text */
@@ -1454,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "Uzak VPN sunucusu tarafından kullanıcı adı ve parola kabul edilmedi.";
 
 /* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Kullanıcı adı ve şifre boş olmamalı!\nLütfen VPN kullanıcı adı ve şifrenizi giriniz.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Yüklenebilecek herhangi bir OpenVPN yapılandırması yok.";
@@ -1745,9 +1757,6 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "%@ VPN Yapılandırması YÜKLENMEYECEK çünkü zaten bir yapılandırma var ve değiştirilmemeli.";
 
 /* Window text */
-"VPN Connections" = "VPN Bağlantıları";
-
-/* Window text */
 "VPN status windows:" = "VPN durum penceresi:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1958,6 +1967,9 @@
 "Hungarian localization" = "Macarca yerelleştirme";
 
 /* Credit description */
+"Icelandic localization" = "Icelandic localization";
+
+/* Credit description */
 "Icon set including Retina images" = "Retina resimleri de içeren simge kümesi";
 
 /* Credit description */
@@ -1997,6 +2009,9 @@
 "PKCS#11 support" = "PKCS#11 desteği";
 
 /* Credit description */
+"Persian localization" = "Persian localization";
+
+/* Credit description */
 "Polish localization" = "Lehçe çeviri";
 
 /* Credit description */
@@ -2034,6 +2049,9 @@
 
 /* Credit description */
 "Up and Down scripts" = "Bağlantı ve kesilme betikleri";
+
+/* Notification text */
+"Updated to %@." = "%@ versiyonuna güncellendi.";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode yardım ve OpenSSL entegrasyonu";

@@ -119,6 +119,9 @@
 "Ignore" = "Ignorer";
 
 /* Button */
+"Install" = "Installer";
+
+/* Button */
 "Latest (%@)" = "Dernier (%@)";
 
 /* Button */
@@ -373,9 +376,6 @@
 /* Checkbox name */
 "Keep connected" = "Rester connecté";
 
-/* Checkbox name */ /* System profile item */
-"Monitor connection" = "Surveiller la connexion";
-
 /* Checkbox name */
 "Monitor network settings" = "Surveiller les paramètres du réseau";
 
@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Rétablir la connexion lors du retour au compte d'utilisateur original";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "Demande l'autorisation de l'administrateur pour un changement de clé ou de certificat";
+"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Réinitialiser l’interface primaire après déconnexion";
@@ -488,13 +488,7 @@
 "Sample Tunnelblick VPN Configuration" = "Exemple de configuration VPN Tunnelblick";
 
 /* System profile item */
-"Computer admin" = "Administrateur de l'ordinateur";
-
-/* System profile item */
 "Configurations" = "Configurations";
-
-/* System profile item */
-"Deployed" = "Déployée";
 
 /* Window title */
 " (Deployed)" = " (Déployée)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -510,6 +504,9 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Déconnecté - Paramètres avancés%3$@";
+
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' a été déconnecté";
@@ -872,10 +869,16 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Une erreur (statut %1$ld) est survenue lors de la vérification de la sécurité de la configuration %2$@.\n\nMerci de quitter et de relancer Tunnelblick. Si le problème persiste, merci de réinstaller Tunnelblick.";
 
 /* Window text */
+"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "Une erreur est survenue lors de l’examen d'une configurations qui doit être installée avec Tunnelblick. Voyez les messages de la console pour les détails.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "Une erreur s’est produite pendant le lancement de « %@ »";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Une erreur est survenue lors de la restauration de la sauvegarde. Voir Console Log pour les details.\n\n";
+
+/* Window text */
+"An error occurred. See the Console Log for details." = "Une erreur est survenue. Voyez les messages de la console pour les détails.";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Une erreur interne à Tunnelblick est survenue %1$@%2$@";
@@ -896,9 +899,6 @@
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Une erreur interne à Tunnelblick est survenue : fileIsReasonableSize: le chemin n'est pas défini";
 
 /* Window text */
-"Anonymous unique ID" = "Identifiant unique anonyme";
-
-/* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Etes vous sûr de ne pas vouloir convertir les configurations OpenVPN en configurations Tunnelblick ?\n\nCES CONFIGURATIONS NE SERONT PAS DISPONIBLES SI VOUS NE LES CONVERTISSEZ PAS !\n\n";
 
 /* Window text */
@@ -909,6 +909,9 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Êtes vous sûr de vouloir supprimer les informations d'authentification (clé privée et/ou nom d'utilisateur et mot de passe) qui sont mémorisées dans le trousseau d'accès pour les informations d'authentification '%@' ?";
+
+/* Window text */
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Êtes vous sûr de vouloir installer les configurations qui pourront PRENDRE LE CONTRÔLE COMPLET DE VOTRE ORDINATEUR ?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "A la ligne %1$lu du fichier de configuration de OpenVPN : %2$@";
@@ -1250,6 +1253,15 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Un ou plusieurs processus OpenVPN tournent mais sont inconnus pour Tunnelblick. Si vous ne faites pas fonctionner OpenVPN en dehors de Tunnelblick, cela signifie généralement que le lancement précédent de Tunnelblick n’a pu les couper proprement et vous devriez les tuer. Ils risquent d’interférer avec le fonctionnement de Tunnelblick.\n\nVous pouvez les tuer avec l’application 'Moniteur d’activité'.\n\n";
 
 /* Window text */
+"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "Une ou plusieurs configurations VPN doivent être installées avec Tunnelblick, mais elles ne font pas partie de Tunnelblick. Ces configurations ne seront peut être pas installées avec Tunnelblick car une ou plusieurs contiennent un programme qui sera exécuté en tant qu'utilisateur root lorsque vous vous connectez à un VPN.\n\nVoyez les messages de la console pour les détails.";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Une ou plusieurs configurations VPN que vous mettez à jour contiennent des programmes qui seront exécutés en tant qu'utilisateur root lorsque vous vous connectez à un VPN. Ils seront capables de PRENDRE LE CONTRÔLE COMPLET DE VOTRE ORDINATEUR.\n\nVOUS NE DEVRIEZ PAS INSTALLER CES CONFIGURATIONS À MOINS QUE VOUS NE FAISIEZ CONFIANCE À LEUR AUTEUR.\n\nVoulez vous faire confiance à l'auteur des configurations et les installer ?\n\n";
+
+/* Window text */
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Une ou plusieurs configurations VPN que vous installer contiennent des programmes qui seront exécutés en tant qu'utilisateur root lorsque vous vous connectez à un VPN. Ils seront capables de PRENDRE LE CONTRÔLE COMPLET DE VOTRE ORDINATEUR.\n\nVOUS NE DEVRIEZ PAS INSTALLER CES CONFIGURATIONS À MOINS QUE VOUS NE FAISIEZ CONFIANCE À LEUR AUTEUR.\n\nVoulez vous faire confiance à l'auteur des configurations et les installer ?\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Un ou plusieurs VPNs sont actuellement connectés. Merci de déconnecter tous les VPNs et de quitter Tunnelblick avant de procéder.";
 
 /* Window text */
@@ -1454,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "Le nom d'utilisateur et le mot de passe n'ont pas été accepté par le serveur distant VPN.";
 
 /* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Le nom d'utilisateur et le mot de passe ne doivent pas être vides!\nEntrez le nom d'utilisateur/mot de passe VPN.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Il n'y a aucune configuration OpenVPN à installer.";
@@ -1745,9 +1757,6 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "La configuration VPN %@ ne sera PAS installée parce que la configuration existe déjà et ne devrait pas être remplacée.";
 
 /* Window text */
-"VPN Connections" = "Connexions VPN";
-
-/* Window text */
 "VPN status windows:" = "Fenêtre de statut VPN :";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1958,6 +1967,9 @@
 "Hungarian localization" = "Traduction hongroise";
 
 /* Credit description */
+"Icelandic localization" = "Icelandic localization";
+
+/* Credit description */
 "Icon set including Retina images" = "Ensemble d'icônes comprenant des images Retina";
 
 /* Credit description */
@@ -1997,6 +2009,9 @@
 "PKCS#11 support" = "Support de PKCS#11";
 
 /* Credit description */
+"Persian localization" = "Persian localization";
+
+/* Credit description */
 "Polish localization" = "Traduction polonaise";
 
 /* Credit description */
@@ -2034,6 +2049,9 @@
 
 /* Credit description */
 "Up and Down scripts" = "scripts up et down";
+
+/* Notification text */
+"Updated to %@." = "Mis à jour à %@.";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Assistance avec Xcode et intégration OpenSSL";

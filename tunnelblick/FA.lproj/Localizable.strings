@@ -5,7 +5,7 @@
 "Disconnect All (%d Connections)" = "قطع کردن همه (%d اتصال)";
 
 /* Status message */
-"No Active Connections" = "No Active Connections";
+"No Active Connections" = "اتصال فعالی وجود ندارد";
 
 /* Textbox name */
 "Username:" = "نام کاربری:";
@@ -119,7 +119,10 @@
 "Ignore" = "نادیده گرفتن";
 
 /* Button */
-"Latest (%@)" = "Latest (%@)";
+"Install" = "نصب";
+
+/* Button */
+"Latest (%@)" = "آخرین (%@)";
 
 /* Button */
 "Load Tap driver automatically" = "Load Tap driver automatically";
@@ -149,58 +152,58 @@
 "Never show" = "هیچوقت نشان نده";
 
 /* Button */
-"No keyboard shortcut" = "No keyboard shortcut";
+"No keyboard shortcut" = "بدون کلید میانبر";
 
 /* Button */
-"No sound" = "No sound";
+"No sound" = "بیصدا";
 
 /* Button */
-"OK" = "OK";
+"OK" = "قبول";
 
 /* Button */
-"Only Me" = "Only Me";
+"Only Me" = "تنها من";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Open Uninstall Instructions in Browser";
+"Open Uninstall Instructions in Browser" = "باز کردن دستورالعمل حذف نرم افزار در مرورگر";
 
 /* Button */
-"Open easy-rsa in Terminal" = "Open easy-rsa in Terminal";
+"Open easy-rsa in Terminal" = "باز کردن easy-rsa در ترمینال";
 
 /* Button */
-"Privacy info..." = "Privacy info…";
+"Privacy info..." = "اطلاعات خصوصی…";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Quit All OpenVPN Processes";
 
 /* Button */
-"Quit" = "Quit";
+"Quit" = "بستن";
 
 /* Button */
-"Reinstall" = "Reinstall";
+"Reinstall" = "نصب مجدد";
 
 /* Button */
 "Remove Credentials" = "Remove Credentials";
 
 /* Button */
-"Rename" = "Rename";
+"Rename" = "تغییر نام";
 
 /* Button */
-"Replace" = "Replace";
+"Replace" = "جایگزینی";
 
 /* Button */
 "Reset Disabled Warnings" = "Reset Disabled Warnings";
 
 /* Button */
-"Restart connection" = "Restart connection";
+"Restart connection" = "شروع مجدد اتصال";
 
 /* Button */
-"Restore" = "Restore";
+"Restore" = "بازیابی";
 
 /* Button */
-"Retry" = "Retry";
+"Retry" = "تلاش دوباره";
 
 /* Button */
-"Revert" = "Revert";
+"Revert" = "بازگشت";
 
 /* Button */
 "Show on default screen (%u x %u)" = "Show on default screen (%1$u x %2$u)";
@@ -212,22 +215,22 @@
 "Show when connection status changes" = "Show when connection status changes";
 
 /* Button */
-"Show while connecting" = "Show while connecting";
+"Show while connecting" = "نمایش حین اتصال";
 
 /* Button */
-"Skip" = "Skip";
+"Skip" = "رد کردن";
 
 /* Button */
-"Speak" = "Speak";
+"Speak" = "گفتار";
 
 /* Button */
-"Standard icon" = "Standard icon";
+"Standard icon" = "آیکن استاندارد";
 
 /* Button */
 "Terminate All OpenVPN processes" = "Terminate All OpenVPN processes";
 
 /* Button */
-"Terminate" = "Terminate";
+"Terminate" = "قطع";
 
 /* Button */
 "This configuration has its own separate credentials" = "This configuration has its own separate credentials";
@@ -266,7 +269,7 @@
 "Disabled because this setting is being forced" = "Disabled because this setting is being forced";
 
 /* Menu item */
-"Disconnect %@%@" = "Disconnect %@%@";
+"Disconnect %@%@" = "قطع ارتباط %@%@";
 
 /* Menu Item */
 "Do Not Show on Tunnelblick Menu" = "Do Not Show on Tunnelblick Menu";
@@ -320,10 +323,10 @@
 "Check for updates to beta versions" = "چک کردن برای به روز رسانی به نسخه بتا";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connecting" = "Check if the apparent public IP address changed after connecting";
+"Check if the apparent public IP address changed after connecting" = "بررسی کن اگر IP نهایی تغییر کند بعد از برقراری ارتباط";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
+"Disable IPv6 (tun only)" = "غیر فعال کردن IPv6 (فقط در tun)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "قطع ارتباط در زمان استراحت کامپیوتر";
@@ -338,16 +341,16 @@
 "Display connection timers" = "نمایش طول مدت اتصال";
 
 /* Checkbox name */
-"Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
+"Display window while Tunnelblick is starting up" = "در موقع باز شدن Tunnelblick پنجره را نمایش بده";
 
 /* Checkbox name */
-"Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
+"Do not ask again, always 'Ignore'" = "دیگر نپرس٬ همیشه نادیده بگیر";
 
 /* Checkbox name */
-"Do not ask again, always Continue" = "Do not ask again, always Continue";
+"Do not ask again, always Continue" = "دیگر نپرس٬ همیشه ادامه بده";
 
 /* Checkbox name */
-"Do not ask again, always convert" = "Do not ask again, always convert";
+"Do not ask again, always convert" = "دیگر نپرس٬ همیشه تبدیل کن";
 
 /* Checkbox name */
 "Do not check for IP address changes" = "برای تغییرات در آدرس IP کنترل نکن";
@@ -373,9 +376,6 @@
 /* Checkbox name */
 "Keep connected" = "متصل بمان";
 
-/* Checkbox name */ /* System profile item */
-"Monitor connection" = "Monitor connection";
-
 /* Checkbox name */
 "Monitor network settings" = "Monitor network settings";
 
@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Reconnect when user switches in";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "Require adminstrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Reset the primary interface after disconnecting";
@@ -440,16 +440,16 @@
 "ADD_ROUTES" = "Adding routes"; // Please translate "Adding routes"
 
 /* Connection status */
-"ASSIGN_IP" = "Assigning IP address"; // Please translate "Assigning IP address"
+"ASSIGN_IP" = "اختصاص دادن IP"; // Please translate "Assigning IP address"
 
 /* Connection status */
-"AUTH" = "Authorizing"; // Please translate "Authorizing"
+"AUTH" = "احراز هویت"; // Please translate "Authorizing"
 
 /* Connection status */
-"CONNECTED" = "Connected"; // Please translate "Connected"
+"CONNECTED" = "متصل است"; // Please translate "Connected"
 
 /* Connection status */
-"CONNECTING" = "Connecting"; // Please translate "Connecting"
+"CONNECTING" = "در حال اتصال"; // Please translate "Connecting"
 
 /* Connection status */
 "DISCONNECTING" = "Disconnecting"; // Please translate "Disconnecting"
@@ -488,13 +488,7 @@
 "Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
 
 /* System profile item */
-"Computer admin" = "Computer admin";
-
-/* System profile item */
 "Configurations" = "Configurations";
-
-/* System profile item */
-"Deployed" = "Deployed";
 
 /* Window title */
 " (Deployed)" = " (Deployed)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -510,6 +504,9 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Disconnected - Advanced Settings%3$@";
+
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' has been disconnected";
@@ -872,10 +869,16 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
 
 /* Window text */
+"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "An error occurred while trying to launch %@";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n";
+
+/* Window text */
+"An error occurred. See the Console Log for details." = "An error occurred. See the Console Log for details.";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "An internal Tunnelblick error occurred%1$@%2$@";
@@ -896,9 +899,6 @@
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil";
 
 /* Window text */
-"Anonymous unique ID" = "Anonymous unique ID";
-
-/* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n";
 
 /* Window text */
@@ -909,6 +909,9 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?";
+
+/* Window text */
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "At line %1$lu of the OpenVPN configuration file: %2$@";
@@ -1250,6 +1253,15 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n";
 
 /* Window text */
+"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details.";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+
+/* Window text */
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding.";
 
 /* Window text */
@@ -1454,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
 
 /* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "The username and the password must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "There are no OpenVPN configurations to install.";
@@ -1745,9 +1757,6 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
 
 /* Window text */
-"VPN Connections" = "VPN Connections";
-
-/* Window text */
 "VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1958,6 +1967,9 @@
 "Hungarian localization" = "Hungarian localization";
 
 /* Credit description */
+"Icelandic localization" = "Icelandic localization";
+
+/* Credit description */
 "Icon set including Retina images" = "Icon set including Retina images";
 
 /* Credit description */
@@ -1997,6 +2009,9 @@
 "PKCS#11 support" = "PKCS#11 support";
 
 /* Credit description */
+"Persian localization" = "Persian localization";
+
+/* Credit description */
 "Polish localization" = "Polish localization";
 
 /* Credit description */
@@ -2034,6 +2049,9 @@
 
 /* Credit description */
 "Up and Down scripts" = "Up and Down scripts";
+
+/* Notification text */
+"Updated to %@." = "Updated to %@.";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode help and OpenSSL integration";

@@ -119,6 +119,9 @@
 "Ignore" = "忽略";
 
 /* Button */
+"Install" = "安装";
+
+/* Button */
 "Latest (%@)" = "最新的 (%@)";
 
 /* Button */
@@ -373,9 +376,6 @@
 /* Checkbox name */
 "Keep connected" = "保持连接";
 
-/* Checkbox name */ /* System profile item */
-"Monitor connection" = "监控连接";
-
 /* Checkbox name */
 "Monitor network settings" = "监控网络配置";
 
@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "用户转入时, 重新连接";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "变更密钥和证书需要管理员权限";
+"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "断开连接后重置计算机的主要网络接口";
@@ -488,13 +488,7 @@
 "Sample Tunnelblick VPN Configuration" = "Tunnelblick VPN 配置样本";
 
 /* System profile item */
-"Computer admin" = "计算机管理员";
-
-/* System profile item */
 "Configurations" = "配置";
-
-/* System profile item */
-"Deployed" = "已经部署";
 
 /* Window title */
 " (Deployed)" = " (已经部署)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -510,6 +504,9 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ 已断开连接 - 高级设置%3$@";
+
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' 已断开连接";
@@ -872,10 +869,16 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "当尝试检查配置文件 %2$@ 的安全性时发生了一个错误(状态码 %1$ld) .\n\n请退出并重启 Tunnelblick, 如果问题仍然存在, 请重新安装 Tunnelblick.";
 
 /* Window text */
+"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "当检查一个将要安装到 Tunnelblick 的配置文件时发生了一个错误。请从控制台日志中查看详情。";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "启动 %@ 时发生错误";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "在尝试重置到安全副本的时候发生错误.详情请查看控制台日志.\n\n";
+
+/* Window text */
+"An error occurred. See the Console Log for details." = "发生了一个错误。请从控制台日志中查看详情。";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Tunnelblick 内部错误：%1$@%2$@";
@@ -896,9 +899,6 @@
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Tunnelblick 内部错误： fileIsReasonableSize: 路径为空";
 
 /* Window text */
-"Anonymous unique ID" = "唯一的匿名 ID";
-
-/* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "你确定想把 OpenVPN 的配置文件转换为 Tunnelblick VPN 的配置文件格式吗?\n\n如果你不做转换, 配置文件将无法使用!\n\n";
 
 /* Window text */
@@ -909,6 +909,9 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "确定要删除保存在Keychain 里的'%@' 配置组授权信息(包括密钥, 用户名和密码) 吗？";
+
+/* Window text */
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "你确定你想安装这些可以完全控制你的电脑的配置文件吗？\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "在 OpenVPN 配置文件 %2$@ 第 %1$lu 行";
@@ -1250,6 +1253,15 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "一个或多个不受 Tunnelblick 控制的 OpenVPN 进程已经在运行. 如果你没有在 Tunnelblick 之外运行 OpenVPN, 那么这通常是因为以前启动的 Tunnelblick 没有正常地退出, 你应该终止这些进程. 这些进程有可能干扰 Tunnelblick 的运行.\n\n你可以使用 '活动监视器' 去强制终止它们的运行 .\n\n";
 
 /* Window text */
+"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "一个或多个 VPN 配置文件将会伴随着 Tunnelblick 一起被安装，但它们不是 Tunnelblick 的一部分。当 Tunnelblick 安装时，这些配置文件可能不会被安装进去，因为这些配置文件包含了一些当你连接到 VPN 时必须由 root 运行的程序。";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "你正在升级的一个或多个 VPN 配置包含了一些当你连接到 VPN 时必须由 root 运行的程序。他们可以完全地控制你的电脑。\n\n除非你信任它们的作者，否则你不应该安装这些配置文件。\n\n你信任这些配置文件的作者，并且愿意安装这些配置文件吗？\n\n";
+
+/* Window text */
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "你正在安装的一个或多个 VPN 配置包含了一些当你连接到 VPN 时必须由 root 运行的程序。他们可以完全地控制你的电脑。\n\n除非你信任它们的作者，否则你不应该安装这些配置文件。\n\n你信任这些配置文件的作者，并且愿意安装这些配置文件吗？\n\n";
+
+/* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "当前存在一个或多个VPN 连接, 请断开所有连接并退出Tunnelblick 以继续.";
 
 /* Window text */
@@ -1454,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "远程 VPN 服务器不接受该用户名和密码";
 
 /* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "用户名和密码不能空白!\n请输入 VPN 用户名／密码组合.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "没有可安装的OpenVPN 配置";
@@ -1745,9 +1757,6 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "因为配置已经存在，而且不应该被替换，所以将不安装 VPN 配置 %@。";
 
 /* Window text */
-"VPN Connections" = "VPN 连接";
-
-/* Window text */
 "VPN status windows:" = "VPN 状态：";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1958,6 +1967,9 @@
 "Hungarian localization" = "匈牙利语翻译";
 
 /* Credit description */
+"Icelandic localization" = "Icelandic localization";
+
+/* Credit description */
 "Icon set including Retina images" = "图标集包括视网膜图像";
 
 /* Credit description */
@@ -1997,6 +2009,9 @@
 "PKCS#11 support" = "PKCS#11 的支持";
 
 /* Credit description */
+"Persian localization" = "Persian localization";
+
+/* Credit description */
 "Polish localization" = "波兰语翻译";
 
 /* Credit description */
@@ -2034,6 +2049,9 @@
 
 /* Credit description */
 "Up and Down scripts" = "启动后/关闭后执行脚本";
+
+/* Notification text */
+"Updated to %@." = "已升级到 %@.";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode 方面的协助和 OpenSSL 整合";

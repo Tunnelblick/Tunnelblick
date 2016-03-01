@@ -83,7 +83,7 @@
 "Delete Credentials" = "Видалити повноваження";
 
 /* Button */
-"Delete saved passphrase and try again" = "Видалити зебережений приватний ключ і спробувати знову";
+"Delete saved passphrase and try again" = "Видалити збережений приватний ключ і спробувати знову";
 
 /* Button */
 "Delete saved password and try again" = "Видалити збережене гасло й спробувати ще раз";
@@ -117,6 +117,9 @@
 
 /* Button */
 "Ignore" = "Ігнорувати";
+
+/* Button */
+"Install" = "Встановити";
 
 /* Button */
 "Latest (%@)" = "Остання (%@)";
@@ -373,9 +376,6 @@
 /* Checkbox name */
 "Keep connected" = "Підтримувати з’єднання";
 
-/* Checkbox name */ /* System profile item */
-"Monitor connection" = "Спостерігати за з'єднанням";
-
 /* Checkbox name */
 "Monitor network settings" = "Спостерігати за мережевими налаштуваннями";
 
@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Під’єднуватися знову при вході користувача";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "Вимагати авторизацію адміністратором змін до ключа і сертифіката";
+"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Скидати налаштування основного інтерфейсу після роз’єднання";
@@ -488,13 +488,7 @@
 "Sample Tunnelblick VPN Configuration" = "Зразок конфігурації Tunnelblick VPN";
 
 /* System profile item */
-"Computer admin" = "Адміністратор комп’ютера";
-
-/* System profile item */
 "Configurations" = "Конфігурації";
-
-/* System profile item */
-"Deployed" = "Розгорнуті";
 
 /* Window title */
 " (Deployed)" = " (Розгорнута)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -510,6 +504,9 @@
 
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Роз’єднано - Додаткові налаштування%3$@";
+
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' було роз'єднано";
@@ -872,10 +869,16 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Сталася помилка (статус %1$ld) під час спроби перевірити безпеку конфігурації %2$@.\n\nЗакрийте та перезапустіть Tunnelblick. Якщо ця помилка повторюється, перевстановіть Tunnelblick.";
 
 /* Window text */
+"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "Перевірка конфігурації, запланованоії до встановлення Tunnelblick, завершилася з помилкою. Детальніше у звіті Консолі.";
+
+/* Window text */
 "An error occurred while trying to launch %@" = "Сталася помилка під час спроби запуску %@";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Сталася помилка під час спроби повернутися до безпечної (тіньової) копії. Перегляньте журнал консолі для отримання додаткової інформації.\n\n";
+
+/* Window text */
+"An error occurred. See the Console Log for details." = "Сталася помилка. Детальніше в звіті Консолі.";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Сталася внутрішня помилка Tunnelblick %1$@%2$@";
@@ -896,9 +899,6 @@
 "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Сталася внутрішня помилка Tunnelblick: fileIsReasonableSize: шлях дорівнює нулю";
 
 /* Window text */
-"Anonymous unique ID" = "Анонімний унікальний ID";
-
-/* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Ви впевнені, що не потрібно перетворити конфігурації OpenVPN в конфігурації Tunnelblick VPN?  КОНФІГУРАЦІЇ НЕ БУДУТЬ ДОСТУПНІ, ЯКЩО ВИ НЕ ПЕРЕТВОРИТЕ ЇХ!\n\n";
 
 /* Window text */
@@ -909,6 +909,9 @@
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Ви впевнені, що бажаєте видалити облікові дані (приватний ключ і/чи ім'я користувача та пароль), які зберігаються у в'язці ключів для облікових даних '%@'?";
+
+/* Window text */
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Ви впевнені, що хочете встановити конфігурації, які ЗМОЖУТЬ ОТРИМАТИ ПОВНИЙ КОНТРОЛЬ НАД ВАШИМ КОМП'ЮТЕРОМ?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "У рядку %1$lu файла конфігурації OpenVPN: %2$@";
@@ -1199,7 +1202,7 @@
 "Named Credentials" = "Іменовані облікові дані";
 
 /* Window text */
-"Names may not include any of the following characters: %s" = "Не допускається використання наступних символів в іменах: %s";
+"Names may not include any of the following characters: %s" = "Використання наступних символів в іменах не допускається: %s";
 
 /* Window text */
 "Names may not include any of the following characters: %s\n\n%@" = "Імена не можуть містити будь-який з наступних символів: %1$s\n\n%2$@";
@@ -1232,7 +1235,7 @@
 "Non-string value for an item in '%@' in %@" = "Не строкове значення для елемента '%1$@ ' в %2$@";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Жодна з %ld вибраних конфігурацій має необхідні облікові дані (приватний ключ чи ім'я користувача та пароль), які збережені у вязці ключів.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Жодна з %ld вибраних конфігурацій не має збережених у Ключарі необхідних облікових даних (приватний ключ чи ім'я користувача та пароль).";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Це не .ovpn або .conf: %@";
@@ -1250,7 +1253,16 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Один чи кілька OpenVPN процессів вже працюють, але вони невідомі Tunnelblick. Якщо ви не запускаете OpenVPN якимось іншим чином, це може значити що попередній Tunnelblick процесс працював, та не завершив своеї роботи. Вірогідно це заважатиме поточному Tunnelblick працювати. \n\n\nВи можете завершити їх використовуючи \"Моніторинг системи\".\n\n";
 
 /* Window text */
-"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Одне чи декілька зєднань VPN є активними. Будь ласка, роз'єднайте всі з'єднання VPN і закрийте Tunnelblick перед тим, як продовжити.";
+"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "Одна чи декілька конфігурацій будут встановлені разом з Tunnelblick, але вони не є частиною Tunnelblick. Ці конфігурації не можуть бути встановлені під час інсталяції Tunnelblick, тому що одна чи декілька з них включають програму, що буде запущена з правами 'root', коли ви під'єднаєтесь до VPN.";
+
+/* Window text */
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Одна чи декілька конфігурацій, які будут оновлені, включають програми, які будуть запущені з правами 'root', коли ви під'єднаєтесь до VPN. Вони матимуть можливість ОТРИМАТИ ПОВНИЙ КОНТРОЛЬ НАД ВАШИМ КОМП'ЮТЕРОМ.\n\nВСТАНОВЛЮЙТЕ ЦІ КОНФІГУРАЦІЇ ТІЛЬКИ У ВИПАДКУ, ЯКЩО ВИ ДОВІРЯЄТЕ ЇХ АВТОРУ.\n\nВи довіряєте автору цих конфигурацій та бажаєте встановити їх?";
+
+/* Window text */
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Одна чи декілька конфігурацій, які ви встановлюєте, включають програми, що будуть запущені з правами 'root', коли ви під'єднаєтесь до VPN. Вони матимуть можливість ОТРИМАТИ ПОВНИЙ КОНТРОЛЬ НАД ВАШИМ КОМП'ЮТЕРОМ.\n\nВСТАНОВЛЮЙТЕ ЦІ КОНФІГУРАЦІЇ, ТІЛЬКИ У ВИПАДКУ, ЯКЩО ВИ ДОВІРЯЄТЕ ЇХ АВТОРУ.\n\nВи довіряєте автору цих конфигурацій та бажаєте встановити їх?\n";
+
+/* Window text */
+"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Одне чи декілька з'єднань VPN є активними. Будь-ласка, закрийте всі з'єднання VPN та програму Tunnelblick перед тим як продовжити.";
 
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "Одна або кілька конфігурацій ігноруються. Перегляньте журнал консолі для отримання додаткової інформації.";
@@ -1310,7 +1322,7 @@
 "Remove" = "Видалити";
 
 /* Window text */
-"Rename failed; see the Console Log for details." = "Перейменувати не вдалося; детальніше в звіті Консолі.";
+"Rename failed; see the Console Log for details." = "Помилка при перейменуванні. Деталі – в журналі подій в додатку Консоль.";
 
 /* Window text */
 "Resolved symbolic link at '%@' to '%@'" = "Разіменовано символічне посилання '%1$@' на '%2$@'";
@@ -1433,7 +1445,7 @@
 "The file %@ is missing" = "Відсутній файл %@";
 
 /* Window text */
-"The installation or repair took too long or failed. Try again?" = "Встановленя чи відновлення тривало задовго або не вдалося. Спробувати знову?";
+"The installation or repair took too long or failed. Try again?" = "Встановлення чи відновлення тривало задовго або не завершилося з помилкою. Спробувати знову?";
 
 /* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Не вдалося виконати встановлення, видалення або відновлення одного або декількох компонентів Tunnelblick. Перегляньте журнал консолі для отримання додаткової інформації.";
@@ -1454,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "Ім'я користувача і пароль були відхилені віддаленим VPN сервером.";
 
 /* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Ім'я користувача та пароль не повинні бути пустими!\nБудь ласка, введіть комбінацію ім'я користувача/пароль до VPN.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Немає OpenVPN конфігурацій для встановлення.";
@@ -1745,9 +1757,6 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN конфігурація %@ НЕ буде встановлена оскільки конфігурація вже існує і не має бути заміненою.";
 
 /* Window text */
-"VPN Connections" = "VPN-з'єднання";
-
-/* Window text */
 "VPN status windows:" = "Вікна статусу VPN:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1958,6 +1967,9 @@
 "Hungarian localization" = "Угорський переклад";
 
 /* Credit description */
+"Icelandic localization" = "Icelandic localization";
+
+/* Credit description */
 "Icon set including Retina images" = "Набори значків, включаючи зображення Retina";
 
 /* Credit description */
@@ -1997,6 +2009,9 @@
 "PKCS#11 support" = "Підтримка PKCS #11";
 
 /* Credit description */
+"Persian localization" = "Persian localization";
+
+/* Credit description */
 "Polish localization" = "Польський переклад";
 
 /* Credit description */
@@ -2034,6 +2049,9 @@
 
 /* Credit description */
 "Up and Down scripts" = "Сценарії запуску та завершення";
+
+/* Notification text */
+"Updated to %@." = "Оновлено до %@.";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Допомога з Xcode та інтеграція OpenSSL";

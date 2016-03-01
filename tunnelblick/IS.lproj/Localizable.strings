@@ -1,20 +1,20 @@
 /* Status message */
-"Disconnect All (%@)" = "Putuskan Semua (%@)";
+"Disconnect All (%@)" = "Aftengja allt (%@)";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "Putuskan Semua (%d Koneksi)";
+"Disconnect All (%d Connections)" = "Aftengja allt (%d tengingar)";
 
 /* Status message */
-"No Active Connections" = "Tidak Ada Koneksi Aktif";
+"No Active Connections" = "Engar virkar tengingar";
 
 /* Textbox name */
-"Username:" = "Nama Pengguna:";
+"Username:" = "Notandanafn:";
 
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* Button */
-"(None available)" = "(Tidak ada yang tersedia)";
+"(None available)" = "(Ekkert í boði)";
 
 /* Button */
 "1 MB" = "1 MB";
@@ -29,481 +29,481 @@
 "100 KB" = "100 KB";
 
 /* Button */
-"Advanced..." = "Tingkat Lanjut…";
+"Advanced..." = "Ítarlegt…";
 
 /* Button */
-"All Users" = "Semua Pengguna";
+"All Users" = "Alla notendur";
 
 /* Button */
-"Always load Tap driver" = "Selalu muat driver Tap";
+"Always load Tap driver" = "Alltaf hlaða inn Tap rekil";
 
 /* Button */
-"Always load Tun driver" = "Selalu muat driver Tun";
+"Always load Tun driver" = "Alltaf hlaða inn Tun rekil";
 
 /* Button */
-"Always use the plugin" = "Selalu gunakan plugin";
+"Always use the plugin" = "Alltaf nota viðbótina";
 
 /* Button */
-"Back" = "Mundur";
+"Back" = "Til baka";
 
 /* Button */
-"Cancel" = "Batal";
+"Cancel" = "Hætta við";
 
 /* Menu item */ /* Button */
-"Check For Updates Now" = "Periksa Pemutakhiran Sekarang";
+"Check For Updates Now" = "Athuga með uppfærslur núna";
 
 /* Button */
-"Check Now" = "Periksa Sekarang";
+"Check Now" = "Athuga núna";
 
 /* Button */
-"Check for a change" = "Memeriksa adanya perubahan";
+"Check for a change" = "Gá að breytingu";
 
 /* Button */
-"Connect" = "Sambungkan";
+"Connect" = "Tengjast";
 
 /* Button */
-"Continue" = "Lanjutkan";
+"Continue" = "Halda áfram";
 
 /* Button */
-"Convert Configurations" = "Konversikan Konfigurasi";
+"Convert Configurations" = "Umbreyta uppsetningum";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Salin Log Konsol ke Papan Klip";
+"Copy Console Log to Clipboard" = "Afrita atvikaskrá yfir á klippiborðið";
 
 /* Button */
-"Copy Diagnostic Info to Clipboard" = "Salin Info Diagnostik ke Papan Klip";
+"Copy Diagnostic Info to Clipboard" = "Afrita greiningarupplýsingar á klippiborðið";
 
 /* Button */
-"Create sample configuration and edit it" = "Buat konfigurasi contoh dan sunting";
+"Create sample configuration and edit it" = "Búa til sýni-uppsetningu og breyta henni";
 
 /* Button */
-"Default (%@)" = "Baku (%@)";
+"Default (%@)" = "Sjálfgefið (%@)";
 
 /* Button */
-"Delete Credentials" = "Hapus Kredensial";
+"Delete Credentials" = "Eyða auðkennisgögnum";
 
 /* Button */
-"Delete saved passphrase and try again" = "Hapus frasa sandi yang disimpan dan coba lagi";
+"Delete saved passphrase and try again" = "Eyða vistuðu aðgangsorði og reyna aftur";
 
 /* Button */
-"Delete saved password and try again" = "Hapus sandi yang disimpan dan coba lagi";
+"Delete saved password and try again" = "Eyða vistuðu lykilorði og reyna aftur";
 
 /* Button */
-"Delete" = "Hapus";
+"Delete" = "Eyða";
 
 /* Button */
-"Disconnect" = "Putuskan";
+"Disconnect" = "Aftengja";
 
 /* Button */
-"Do not check for a change" = "Jangan periksa perubahan";
+"Do not check for a change" = "Ekki gá að breytingu";
 
 /* Button */
-"Do not use the plugin" = "Jangan pakai plugin";
+"Do not use the plugin" = "Ekki nota viðbótina";
 
 /* Button */
-"Download" = "Unduh";
+"Download" = "Hlaða niður";
 
 /* Button */
-"Duplicate" = "Duplikat";
+"Duplicate" = "Búa til klón";
 
 /* Button */
-"Help" = "Bantuan";
+"Help" = "Hjálp";
 
 /* Button */
-"I DO NOT have configuration files" = "Saya TIDAK PUNYA berkas konfigurasi";
+"I DO NOT have configuration files" = "Ég HEF EKKI uppsetningarskrár";
 
 /* Button */
-"I have configuration files" = "Saya punya berkas konfigurasi";
+"I have configuration files" = "Ég hef uppsetningarskrár";
 
 /* Button */
-"Ignore" = "Abaikan";
+"Ignore" = "Ekki gera neitt";
 
 /* Button */
-"Install" = "Instal";
+"Install" = "Innsetja";
 
 /* Button */
-"Latest (%@)" = "Terbaru (%@)";
+"Latest (%@)" = "Nýjasta (%@)";
 
 /* Button */
-"Load Tap driver automatically" = "Muat driver Tap secara otomatis";
+"Load Tap driver automatically" = "Hlaða inn Tap rekli sjálfkrafa";
 
 /* Button */
-"Load Tun driver automatically" = "Muat driver Tun secara otomatis";
+"Load Tun driver automatically" = "Hlaða inn Tun rekli sjálfkrafa";
 
 /* Button */
-"Make Private" = "Jadikan Privat";
+"Make Private" = "Gera að einkamáli";
 
 /* Button */
-"Make Shared" = "Jadikan Dipakai Bersama";
+"Make Shared" = "Gera að sameign";
 
 /* Button */
-"Manually" = "Secara manual";
+"Manually" = "Handvirkt";
 
 /* Button */
-"Monochrome icon" = "Ikon monokrom";
+"Monochrome icon" = "Einlit táknmynd";
 
 /* Button */
-"Never load Tap driver" = "Jangan pernah muat driver Tap";
+"Never load Tap driver" = "Aldrei hlaða inn Tap rekli";
 
 /* Button */
-"Never load Tun driver" = "Jangan pernah muat driver Tun";
+"Never load Tun driver" = "Aldrei hlaða inn Tun rekli";
 
 /* Button */
-"Never show" = "Jangan pernah tampilkan";
+"Never show" = "Aldrei sýna";
 
 /* Button */
-"No keyboard shortcut" = "Tak ada pintasan papan ketik";
+"No keyboard shortcut" = "Enginn flýtilykill";
 
 /* Button */
-"No sound" = "Tanpa suara";
+"No sound" = "Ekkert hljóð";
 
 /* Button */
-"OK" = "OK";
+"OK" = "Í lagi";
 
 /* Button */
-"Only Me" = "Hanya Saya";
+"Only Me" = "Bara ég";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Buka Instruksi Pembongkaran dalam Peramban";
+"Open Uninstall Instructions in Browser" = "Open Uninstall Instructions in Browser";
 
 /* Button */
-"Open easy-rsa in Terminal" = "Buka easy-rsa dalam Terminal";
+"Open easy-rsa in Terminal" = "Open easy-rsa in Terminal";
 
 /* Button */
-"Privacy info..." = "Info privasi…";
+"Privacy info..." = "Privacy info…";
 
 /* Button */
-"Quit All OpenVPN Processes" = "Keluar Semua Proses OpenVPN";
+"Quit All OpenVPN Processes" = "Quit All OpenVPN Processes";
 
 /* Button */
-"Quit" = "Keluar";
+"Quit" = "Quit";
 
 /* Button */
-"Reinstall" = "Install ulang";
+"Reinstall" = "Reinstall";
 
 /* Button */
-"Remove Credentials" = "Hapus Kredensial";
+"Remove Credentials" = "Remove Credentials";
 
 /* Button */
-"Rename" = "Ubah nama";
+"Rename" = "Rename";
 
 /* Button */
-"Replace" = "Ganti";
+"Replace" = "Replace";
 
 /* Button */
-"Reset Disabled Warnings" = "Reset Peringatan Yang Dinonaktifkan";
+"Reset Disabled Warnings" = "Reset Disabled Warnings";
 
 /* Button */
-"Restart connection" = "Start ulang koneksi";
+"Restart connection" = "Restart connection";
 
 /* Button */
-"Restore" = "Pulihkan";
+"Restore" = "Restore";
 
 /* Button */
-"Retry" = "Coba lagi";
+"Retry" = "Retry";
 
 /* Button */
-"Revert" = "Kembalikan";
+"Revert" = "Revert";
 
 /* Button */
-"Show on default screen (%u x %u)" = "Tampilkan pada layar baku (%1$u x %2$u)";
+"Show on default screen (%u x %u)" = "Show on default screen (%1$u x %2$u)";
 
 /* Button */
-"Show on screen %u (%u x %u)" = "Tampilkan pada layar %1$u (%2$u x %3$u)";
+"Show on screen %u (%u x %u)" = "Show on screen %1$u (%2$u x %3$u)";
 
 /* Button */
-"Show when connection status changes" = "Tampilkan ketika status koneksi berubah";
+"Show when connection status changes" = "Show when connection status changes";
 
 /* Button */
-"Show while connecting" = "Tampilkan ketika menyambung";
+"Show while connecting" = "Show while connecting";
 
 /* Button */
-"Skip" = "Lewati";
+"Skip" = "Skip";
 
 /* Button */
-"Speak" = "Bicara";
+"Speak" = "Speak";
 
 /* Button */
-"Standard icon" = "Ikon standar";
+"Standard icon" = "Standard icon";
 
 /* Button */
-"Terminate All OpenVPN processes" = "Akhiri semua proses OpenVPN";
+"Terminate All OpenVPN processes" = "Terminate All OpenVPN processes";
 
 /* Button */
-"Terminate" = "Akhiri";
+"Terminate" = "Terminate";
 
 /* Button */
-"This configuration has its own separate credentials" = "Konfigurasi ini punya kredensial tersendiri";
+"This configuration has its own separate credentials" = "This configuration has its own separate credentials";
 
 /* Button */
-"This configuration uses %@ credentials" = "Konfigurasi ini memakai kredensial %@";
+"This configuration uses %@ credentials" = "This configuration uses %@ credentials";
 
 /* Button */
-"Try again with saved passphrase" = "Coba lagi dengan frasa sandi yang tersimpan";
+"Try again with saved passphrase" = "Try again with saved passphrase";
 
 /* Button */
-"Try again with saved username and password" = "Coba lagi dengan nama pengguna dan sandi yang tersimpan";
+"Try again with saved username and password" = "Try again with saved username and password";
 
 /* Button */
-"Try again" = "Coba lagi";
+"Try again" = "Try again";
 
 /* Button */
-"Tunnelblick 3.3 icon" = "Ikon Tunnelblick 3.3";
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 icon";
 
 /* Button */
-"When Tunnelblick launches" = "Ketika Tunnelblick meluncur";
+"When Tunnelblick launches" = "When Tunnelblick launches";
 
 /* Button */
-"When computer starts" = "Ketika komputer diawali";
+"When computer starts" = "When computer starts";
 
 /* Menu item */
-"Add a VPN..." = "Tambah sebuah VPN…";
+"Add a VPN..." = "Add a VPN…";
 
 /* Menu item */
-"Connect %@%@" = "Sambung %@%@";
+"Connect %@%@" = "Connect %@%@";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "Hapus Kredensial Konfigurasi dalam Ring Kunci…";
+"Delete Configuration's Credentials in Keychain..." = "Delete Configuration's Credentials in Keychain…";
 
 /* Menu item tooltip */
-"Disabled because this setting is being forced" = "Dinonaktifkan karena pengaturan ini dipaksakan";
+"Disabled because this setting is being forced" = "Disabled because this setting is being forced";
 
 /* Menu item */
-"Disconnect %@%@" = "Putuskan %@%@";
+"Disconnect %@%@" = "Disconnect %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Jangan Tampilkan pada Menu Tunnelblick";
+"Do Not Show on Tunnelblick Menu" = "Do Not Show on Tunnelblick Menu";
 
 /* Menu Item */
-"Duplicate Configuration..." = "Gandakan Konfigurasi…";
+"Duplicate Configuration..." = "Duplicate Configuration…";
 
 /* Menu Item */
-"Edit OpenVPN Configuration File..." = "Sunting Berkas Konfigurasi OpenVPN…";
+"Edit OpenVPN Configuration File..." = "Edit OpenVPN Configuration File…";
 
 /* Menu Item */
-"Examine OpenVPN Configuration File..." = "Periksa Berkas Konfigurasi OpenVPN…";
+"Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File…";
 
 /* Menu Item */
-"Make Configuration Private..." = "Jadikan Konfigurasi Privat…";
+"Make Configuration Private..." = "Make Configuration Private…";
 
 /* Menu Item */
-"Make Configuration Shared..." = "Jadikan Konfigurasi Bersama…";
+"Make Configuration Shared..." = "Make Configuration Shared…";
 
 /* Menu item */
-"No VPN Configurations Available" = "Tidak Ada Konfigurasi VPN yang Tersedia";
+"No VPN Configurations Available" = "No VPN Configurations Available";
 
 /* Menu item */
-"Quit Tunnelblick" = "Keluar Tunnelblick";
+"Quit Tunnelblick" = "Quit Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Ubah Nama Konfigurasi…";
+"Rename Configuration..." = "Rename Configuration…";
 
 /* Menu Item */
-"Revert Configuration..." = "Pulihkan Konfigurasi…";
+"Revert Configuration..." = "Revert Configuration…";
 
 /* Menu Item */
-"Show OpenVPN Log in Finder" = "Tampilkan Log OpenVPN dalam Finder";
+"Show OpenVPN Log in Finder" = "Sýna OpenVPN atburðaskrána í Finder";
 
 /* Menu Item */
-"Show on Tunnelblick Menu" = "Tampilkan pada Menu Tunnelblick";
+"Show on Tunnelblick Menu" = "Sýna á Tunnelblick valmyndinni";
 
 /* Menu item */
-"Suggestion or Bug Report..." = "Saran atau Laporan Bug…";
+"Suggestion or Bug Report..." = "Tillögur eða villutilkynning...";
 
 /* Menu item */
-"VPN Details..." = "Rincian VPN…";
+"VPN Details..." = "VPN upplýsingar...";
 
 /* Checkbox name */
-"Apply to all" = "Terapkan ke semua";
+"Apply to all" = "Apply to all";
 
 /* Checkbox name */
-"Check for updates automatically" = "Periksa pemutakhiran secara otomatis";
+"Check for updates automatically" = "Check for updates automatically";
 
 /* Checkbox name */
-"Check for updates to beta versions" = "Periksa pemutakhiran ke versi beta";
+"Check for updates to beta versions" = "Check for updates to beta versions";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connecting" = "Periksa apakah alamat IP publik yang nampak berubah setelah menyambung";
+"Check if the apparent public IP address changed after connecting" = "Check if the apparent public IP address changed after connecting";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Matikan IPv6 (tun saja)";
+"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "Putuskan ketika komputer tidur";
+"Disconnect when computer goes to sleep" = "Disconnect when computer goes to sleep";
 
 /* Checkbox name */
-"Disconnect when user switches out" = "Putuskan ketika pengguna berganti";
+"Disconnect when user switches out" = "Disconnect when user switches out";
 
 /* Checkbox name */
-"Display connection submenus" = "Tampilkan sub menu koneksi";
+"Display connection submenus" = "Display connection submenus";
 
 /* Checkbox name */
-"Display connection timers" = "Tampilkan pewaktu koneksi";
+"Display connection timers" = "Display connection timers";
 
 /* Checkbox name */
-"Display window while Tunnelblick is starting up" = "Tampilkan jendela ketika Tunnelblick mulai berjalan";
+"Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
 
 /* Checkbox name */
-"Do not ask again, always 'Ignore'" = "Jangan tanya lagi, selalu 'Abaikan'";
+"Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
 
 /* Checkbox name */
-"Do not ask again, always Continue" = "Jangan tanya lagi, selalu Lanjutkan";
+"Do not ask again, always Continue" = "Do not ask again, always Continue";
 
 /* Checkbox name */
-"Do not ask again, always convert" = "Jangan tanya lagi, selalu konversikan";
+"Do not ask again, always convert" = "Do not ask again, always convert";
 
 /* Checkbox name */
-"Do not check for IP address changes" = "Jangan periksa perubahan alamat IP";
+"Do not check for IP address changes" = "Do not check for IP address changes";
 
 /* Checkbox name on a warning dialog */
-"Do not show again for any configuration" = "Jangan tampilkan lagi untuk sebarang konfigurasi";
+"Do not show again for any configuration" = "Do not show again for any configuration";
 
 /* Checkbox name */
-"Do not warn about this again for this configuration" = "Jangan peringatkan hal ini lagi bagi konfigurasi ini";
+"Do not warn about this again for this configuration" = "Do not warn about this again for this configuration";
 
 /* Checkbox name */
-"Do not warn about this again" = "Jangan peringatkan tentang hal ini lagi";
+"Do not warn about this again" = "Do not warn about this again";
 
 /* Checkbox name */
-"Enable IPv6 (tap only)" = "Fungsikan IPv6 (tap saja)";
+"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
 
 /* Checkbox name */
-"Flush DNS cache after connecting or disconnecting" = "Gelontor singgahan DNS setelah menyambung atau memutus";
+"Flush DNS cache after connecting or disconnecting" = "Flush DNS cache after connecting or disconnecting";
 
 /* Checkbox name */
-"Inhibit automatic update checking and IP Address checking" = "Cegah pemeriksaan pemutakhiran otomatis dan pemeriksaan Alamat IP";
+"Inhibit automatic update checking and IP Address checking" = "Inhibit automatic update checking and IP Address checking";
 
 /* Checkbox name */
-"Keep connected" = "Jaga terus tersambung";
+"Keep connected" = "Keep connected";
 
 /* Checkbox name */
-"Monitor network settings" = "Pantau pengaturan jaringan";
+"Monitor network settings" = "Monitor network settings";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Tempatkan di sebelah ikon Spotlight";
+"Place next to Spotlight icon" = "Place next to Spotlight icon";
 
 /* Checkbox name */
-"Prepend domain name to search domains" = "Awali nama domain dengan domain pencarian";
+"Prepend domain name to search domains" = "Prepend domain name to search domains";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Sambung ulang ketika komputer bangun";
+"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
 
 /* Checkbox name */
-"Reconnect when user switches in" = "Sambung ulang ketika pengguna masuk";
+"Reconnect when user switches in" = "Reconnect when user switches in";
 
 /* Checkbox name */
 "Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
 
 /* Checkbox name */
-"Reset the primary interface after disconnecting" = "Reset antarmuka utama setelah memutus";
+"Reset the primary interface after disconnecting" = "Reset the primary interface after disconnecting";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Salurkan semua lalu lintas IPv4 melalui VPN";
+"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
 
 /* Checkbox name */
-"Run MTU maximum size test after connecting" = "Jalankan uji ukuran maksimum MTU setelah menyambung";
+"Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
 
 /* Checkbox name */
-"Save in Keychain" = "Simpan dalam Ring Kunci";
+"Save in Keychain" = "Save in Keychain";
 
 /* Checkbox name */
-"Send anonymous profile information when checking" = "Kirim informasi profil anonim ketika memerika";
+"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
 
 /* Checkbox name */
-"Set DNS after routes are set instead of before routes are set" = "Atur DNS setelah route ditata bukan sebelumnya";
+"Set DNS after routes are set instead of before routes are set" = "Set DNS after routes are set instead of before routes are set";
 
 /* Checkbox name */
-"Show when disconnected" = "Tampilkan ketika terputus";
+"Show when disconnected" = "Show when disconnected";
 
 /* Checkbox name */
-"Show when the pointer is over the Tunnelblick icon" = "Tunjukkan saat kursor menunjuk ikon Tunnelblick";
+"Show when the pointer is over the Tunnelblick icon" = "Show when the pointer is over the Tunnelblick icon";
 
 /* PopUpButton */
-"Do not set nameserver" = "Jangan atur nameserver";
+"Do not set nameserver" = "Do not set nameserver";
 
 /* PopUpButton */
-"Set nameserver (3.0b10)" = "Atur nameserver (3.0b10)";
+"Set nameserver (3.0b10)" = "Set nameserver (3.0b10)";
 
 /* PopUpButton */
-"Set nameserver (3.1)" = "Atur nameserver (3.1)";
+"Set nameserver (3.1)" = "Set nameserver (3.1)";
 
 /* PopUpButton */
-"Set nameserver (alternate 1)" = "Atur nameserver (alternatif 1)";
+"Set nameserver (alternate 1)" = "Set nameserver (alternate 1)";
 
 /* PopUpButton *//* System profile item */
-"Set nameserver" = "Atur nameserver";
+"Set nameserver" = "Set nameserver";
 
 /* Text on disk image */
-"Double-click to begin" = "Klik ganda untuk mulai";
+"Double-click to begin" = "Double-click to begin";
 
 /* Connection status */
-"ADD_ROUTES" = "Menambahkan route"; // Please translate "Adding routes"
+"ADD_ROUTES" = "Adding routes"; // Please translate "Adding routes"
 
 /* Connection status */
-"ASSIGN_IP" = "Menata alamat IP"; // Please translate "Assigning IP address"
+"ASSIGN_IP" = "Assigning IP address"; // Please translate "Assigning IP address"
 
 /* Connection status */
-"AUTH" = "Mengotorisasi"; // Please translate "Authorizing"
+"AUTH" = "Authorizing"; // Please translate "Authorizing"
 
 /* Connection status */
-"CONNECTED" = "Terhubung"; // Please translate "Connected"
+"CONNECTED" = "Connected"; // Please translate "Connected"
 
 /* Connection status */
-"CONNECTING" = "Menyambung"; // Please translate "Connecting"
+"CONNECTING" = "Connecting"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "Memutus"; // Please translate "Disconnecting"
+"DISCONNECTING" = "Disconnecting"; // Please translate "Disconnecting"
 
 /* Connection status */
-"EXITING" = "Terputus"; // Please translate "Disconnected"
+"EXITING" = "Disconnected"; // Please translate "Disconnected"
 
 /* Connection status */
-"GET_CONFIG" = "Mengambil konfigurasi"; // Please translate ""
+"GET_CONFIG" = "Getting configuration"; // Please translate ""
 
 /* Connection status */
-"PASSWORD_WAIT" = "Menunggu kata sandi"; // Please translate "Waiting for password"
+"PASSWORD_WAIT" = "Waiting for password"; // Please translate "Waiting for password"
 
 /* Connection status */
-"PRIVATE_KEY_WAIT" = "Menunggu frasa sandi"; // Please translate "Waiting for password"
+"PRIVATE_KEY_WAIT" = "Waiting for passphrase"; // Please translate "Waiting for password"
 
 /* Connection status */
-"RECONNECTING" = "Menyambung ulang"; // Please translate ""
+"RECONNECTING" = "Reconnecting"; // Please translate ""
 
 /* Connection status */
-"RESOLVE" = "Mengurai nama domain"; // Please translate ""
+"RESOLVE" = "Resolving domain name"; // Please translate ""
 
 /* Connection status */
-"SLEEP" = "Menunggu proses Daemon"; // Please translate "Waiting for daemon process"
+"SLEEP" = "Waiting for Daemon process"; // Please translate "Waiting for daemon process"
 
 /* Connection status */
-"TCP_CONNECT" = "Membuat koneksi TCP"; // Please translate "Making TCP connection"
+"TCP_CONNECT" = "Making TCP connection"; // Please translate "Making TCP connection"
 
 /* Connection status */
-"UDP_CONNECT" = "Membuat koneksi UDP"; // Please translate "Making UDP connection"
+"UDP_CONNECT" = "Making UDP connection"; // Please translate "Making UDP connection"
 
 /* Connection status */
-"WAIT" = "Menunggu respon server"; // Please translate "Waiting for Server Response"
+"WAIT" = "Waiting for server response"; // Please translate "Waiting for Server Response"
 
 /* Folder name */
-"Sample Tunnelblick VPN Configuration" = "Contoh Konfigurasi VPN Tunnelblick";
+"Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
 
 /* System profile item */
-"Configurations" = "Konfigurasi";
+"Configurations" = "Configurations";
 
 /* Window title */
 " (Deployed)" = " (Deployed)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
 
 /* Window title */
-" (Private)" = " (Privat)";
+" (Private)" = " (Private)";
 
 /* Window title */
-" (Shared)" = " (Bersama)"; // Indicates a shared configuration
+" (Shared)" = " (Shared)"; // Indicates a shared configuration
 
 /* Window title */
-"%@ OpenVPN Configuration - Tunnelblick" = "Konfigurasi OpenVPN %@ - Tunnelblick";
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Configuration - Tunnelblick";
 
 /* Window title */
-"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@Tidak terhubung - Pengaturan Lanjutan%3$@";
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Disconnected - Advanced Settings%3$@";
 
 /* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
 "%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
@@ -512,43 +512,43 @@
 "'%@' has been disconnected" = "'%@' has been disconnected";
 
 /* Window title */
-"Active connection" = "Koneksi aktif";
+"Active connection" = "Active connection";
 
 /* Window title */
-"Add a Configuration" = "Tambah Konfigurasi";
+"Add a Configuration" = "Add a Configuration";
 
 /* Window title */
-"Alert sounds" = "Suara peringatan";
+"Alert sounds" = "Alert sounds";
 
 /* Window title */
-"Alert" = "Peringatan";
+"Alert" = "Alert";
 
 /* Window title */
-"All OpenVPN process were terminated." = "Seluruh proses OpenVPN telah dihentikan.";
+"All OpenVPN process were terminated." = "All OpenVPN process were terminated.";
 
 /* Window title */
 "All configuration files removed" = "All configuration files removed";
 
 /* Window title */
-"Appearance" = "Tampilan";
+"Appearance" = "Appearance";
 
 /* Window title */
-"Authentication failed" = "Autentikasi gagal";
+"Authentication failed" = "Authentication failed";
 
 /* Window title */
 "Configuration(s) Ignored" = "Configuration(s) Ignored";
 
 /* Window title */
-"Connecting & Disconnecting" = "Menghubungkan & Memutuskan hubungan";
+"Connecting & Disconnecting" = "Connecting & Disconnecting";
 
 /* Window title */
-"Could Not Copy Configuration" = "Konfigurasi tidak dapat disalin";
+"Could Not Copy Configuration" = "Could Not Copy Configuration";
 
 /* Window title */
-"Could Not Move Configuration" = "Konfigurasi tidak dapat dipindahkan";
+"Could Not Move Configuration" = "Could Not Move Configuration";
 
 /* Window title */
-"Could Not Replace Configuration" = "Konfigurasi tidak dapat diganti";
+"Could Not Replace Configuration" = "Could Not Replace Configuration";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "Could Not Uninstall Configuration";
@@ -557,13 +557,13 @@
 "Create and Edit a Sample Configuration?" = "Create and Edit a Sample Configuration?";
 
 /* Window title */
-"Details - Tunnelblick" = "Detail - Tunnelblick";
+"Details - Tunnelblick" = "Details - Tunnelblick";
 
 /* Window title */
-"Do you wish to connect?" = "Apakah anda ingin terhubung?";
+"Do you wish to connect?" = "Do you wish to connect?";
 
 /* Window title */
-"File not found" = "File tidak dapat ditemukan";
+"File not found" = "File not found";
 
 /* Window title */
 "Info" = "Info";
@@ -572,43 +572,43 @@
 "Install Configuration For All Users?" = "Install Configuration For All Users?";
 
 /* Window title */
-"Installation failed" = "Instalasi gagal";
+"Installation failed" = "Installation failed";
 
 /* Window title */
-"Installation or Repair Failed" = "Instalasi atau Perbaikan Gagal";
+"Installation or Repair Failed" = "Installation or Repair Failed";
 
 /* Window title */
-"Installation succeeded" = "Instalasi berhasil";
+"Installation succeeded" = "Installation succeeded";
 
 /* Window title */
 "Log" = "Log";
 
 /* Window title */
-"Name Required" = "Nama dibutuhkan";
+"Name Required" = "Name Required";
 
 /* Window title */
-"Name not allowed" = "Nama tidak diperbolehkan";
+"Name not allowed" = "Name not allowed";
 
 /* Window title */
-"New Feature" = "Fitur Baru";
+"New Feature" = "New Feature";
 
 /* Window title */
-"No 'dev tun', 'dev utun', or 'dev tap' found" = "'dev tun', 'dev utun', atau 'dev tap' tidak ditemukan";
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "No 'dev tun', 'dev utun', or 'dev tap' found";
 
 /* Window title */
 "No Credentials" = "No Credentials";
 
 /* Window title */
-"One or more OpenVPN processes could not be terminated." = "Satu atau lebih proses OpenVPN tidak dapat diakhiri.";
+"One or more OpenVPN processes could not be terminated." = "One or more OpenVPN processes could not be terminated.";
 
 /* Window title */
 "Only computer administrators should update Tunnelblick" = "Only computer administrators should update Tunnelblick";
 
 /* Window title */
-"OpenVPN is Not Responding" = "OpenVPN tidak merespon";
+"OpenVPN is Not Responding" = "OpenVPN is Not Responding";
 
 /* Window title */
-"Please enter a username and password." = "Mohon isi username dan password.";
+"Please enter a username and password." = "Please enter a username and password.";
 
 /* Window title */
 "Please insert token" = "Please insert token";
@@ -626,10 +626,10 @@
 "Sample Configuration Created" = "Sample Configuration Created";
 
 /* Window title */
-"Settings" = "Pengaturan";
+"Settings" = "Settings";
 
 /* Window title */
-"Sounds" = "Suara";
+"Sounds" = "Sounds";
 
 /* Window title */
 "System Requirements Not Met" = "System Requirements Not Met";
@@ -647,7 +647,7 @@
 "Tunnelblick" = "Tunnelblick";
 
 /* Window title */
-"Tunnelblick: Login Required" = "Tunnelblick: Login dahulu";
+"Tunnelblick: Login Required" = "Tunnelblick: Login Required";
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Passphrase Required";
@@ -746,7 +746,7 @@
 "  • Secure configurations\n" = "  • Secure configurations\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ adalah software gratis: anda boleh mendistribusikan ulang dan/atau mengubahnya dengan mengikuti peraturan %2$@ sebagaimana dibuat oleh %3$@.\n\n%4$@ adalah trademark terdaftar milik OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Do you wish to install %1$@ to %2$@%3$@?\n\n";
@@ -1124,7 +1124,7 @@
 "GB/s" = "GB/s";
 
 /* Window text */
-"Icon:" = "Ikon:";
+"Icon:" = "Icon:";
 
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "In %@:\n\nThere are no OpenVPN configurations to install.";
@@ -1157,10 +1157,10 @@
 "Invalid value '%@' for '%@' in %@" = "Invalid value '%1$@' for '%2$@' in %3$@";
 
 /* Window text */
-"KB" = "kB";
+"KB" = "KB";
 
 /* Window text */
-"KB/s" = "kB/s";
+"KB/s" = "KB/s";
 
 /* Window text */
 "Keyboard shortcut:" = "Keyboard shortcut:";
@@ -1901,22 +1901,22 @@
 "Animation and icon sets code" = "Animation and icon sets code";
 
 /* Credit description */
-"Arabic localization" = "Lokalisasi Arab";
+"Arabic localization" = "Arabic localization";
 
 /* Credit description */
-"Bulgarian localization" = "Lokalisasi Bulgaria";
+"Bulgarian localization" = "Bulgarian localization";
 
 /* Credit description */
 "Button images" = "Button images";
 
 /* Credit description */
-"Catalan localization" = "Lokalisasi Katala";
+"Catalan localization" = "Catalan localization";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Lokalisasi Cina (disederhanakan)";
+"Chinese (simplified) localization" = "Chinese (simplified) localization";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Lokalisasi Cina (tradisional)";
+"Chinese (traditional) localization" = "Chinese (traditional) localization";
 
 /* Credentials name */
 "Common" = "Common";
@@ -1931,10 +1931,10 @@
 "Contributed to early code" = "Contributed to early code";
 
 /* Credit description */
-"Czech localization" = "Lokalisasi Ceko";
+"Czech localization" = "Czech localization";
 
 /* Credit description */
-"Danish localization" = "Lokalisasi Denmark";
+"Danish localization" = "Danish localization";
 
 /* Speak string */
 "Disconnected from %@" = "Disconnected from %@";
@@ -1943,28 +1943,28 @@
 "Do not show this again" = "Do not show this again";
 
 /* Credit description */
-"Dutch localization" = "Lokalisasi Belanda";
+"Dutch localization" = "Dutch localization";
 
 /* Credit description */
-"Estonian localization" = "Lokalisasi Estonia";
+"Estonian localization" = "Estonian localization";
 
 /* Credit description */
-"Finnish localization" = "Lokalisasi Finlandia";
+"Finnish localization" = "Finnish localization";
 
 /* Credit description */
 "Founder, original program and documentation" = "Founder, original program and documentation";
 
 /* Credit description */
-"French localization" = "Lokalisasi Perancis";
+"French localization" = "French localization";
 
 /* Credit description */
-"German localization" = "Lokalisasi Jerman";
+"German localization" = "German localization";
 
 /* Credit description */
-"Greek localization" = "Lokalisasi Yunani";
+"Greek localization" = "Greek localization";
 
 /* Credit description */
-"Hungarian localization" = "Lokalisasi Hungaria";
+"Hungarian localization" = "Hungarian localization";
 
 /* Credit description */
 "Icelandic localization" = "Icelandic localization";
@@ -1976,22 +1976,22 @@
 "Indonesian localization" = "Indonesian localization";
 
 /* Credit description */
-"Italian localization" = "Lokalisasi Italia";
+"Italian localization" = "Italian localization";
 
 /* Credit description */
-"Japanese localization" = "Lokalisasi Jepang";
+"Japanese localization" = "Japanese localization";
 
 /* Credit description */
-"Korean localization" = "Lokalisasi Korea";
+"Korean localization" = "Korean localization";
 
 /* [name of your language] localization */
 "LANGUAGE_LOCALIZATION" = "LANGUAGE_LOCALIZATION";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Andika Triwidada";
+"LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";
 
 /* Credit description */
-"Latvian localization" = "Lokalisasi Latvia";
+"Latvian localization" = "Latvian localization";
 
 /* Credit description */
 "Localization code tweaks" = "Localization code tweaks";
@@ -2000,7 +2000,7 @@
 "Multiple configuration folders" = "Multiple configuration folders";
 
 /* Credit description */
-"Norwegian localization" = "Lokalisasi Norwegia";
+"Norwegian localization" = "Norwegian localization";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
@@ -2012,40 +2012,40 @@
 "Persian localization" = "Persian localization";
 
 /* Credit description */
-"Polish localization" = "Lokalisasi Polandia";
+"Polish localization" = "Polish localization";
 
 /* Credit description */
 "Portuguese (Brazilian) localization" = "Portuguese (Brazilian) localization";
 
 /* Credit description */
-"Portuguese localization" = "Lokalisasi Portugis";
+"Portuguese localization" = "Portuguese localization";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program and documentation enhancements and maintenance after version 3.0b10";
 
 /* Credit description */
-"Russian localization" = "Lokalisasi Rusia";
+"Russian localization" = "Russian localization";
 
 /* Credit description */
-"Slovak localization" = "Lokalisasi Slovakia";
+"Slovak localization" = "Slovak localization";
 
 /* Credit description */
-"Spanish localization" = "Lokalisasi Spanyol";
+"Spanish localization" = "Spanish localization";
 
 /* Credit description */
-"Swedish localization" = "Lokalisasi Swedia";
+"Swedish localization" = "Swedish localization";
 
 /* Credit description */
-"Tunnelblick icon" = "Ikon Tunnelblick";
+"Tunnelblick icon" = "Tunnelblick icon";
 
 /* Credit description */
-"Turkish localization" = "Lokalisasi Turki";
+"Turkish localization" = "Turkish localization";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue and UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Lokalisasi Ukraina";
+"Ukrainian localization" = "Ukrainian localization";
 
 /* Credit description */
 "Up and Down scripts" = "Up and Down scripts";
