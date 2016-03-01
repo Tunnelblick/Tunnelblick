@@ -376,9 +376,6 @@
 /* Checkbox name */
 "Keep connected" = "Keep connected";
 
-/* Checkbox name */ /* System profile item */
-"Monitor connection" = "Monitor connection";
-
 /* Checkbox name */
 "Monitor network settings" = "Monitor network settings";
 
@@ -395,7 +392,7 @@
 "Reconnect when user switches in" = "Reconnect when user switches in";
 
 /* Checkbox name */
-"Require adminstrator authorization for key and certificate changes" = "Require adminstrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Reset the primary interface after disconnecting";
@@ -491,13 +488,7 @@
 "Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
 
 /* System profile item */
-"Computer admin" = "Computer admin";
-
-/* System profile item */
 "Configurations" = "Configurations";
-
-/* System profile item */
-"Deployed" = "Deployed";
 
 /* Window title */
 " (Deployed)" = " (Deployed)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
@@ -1475,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
 
 /* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "The username and the password must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "There are no OpenVPN configurations to install.";
@@ -1766,9 +1757,6 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
 
 /* Window text */
-"VPN Connections" = "VPN Connections";
-
-/* Window text */
 "VPN status windows:" = "VPN status windows:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1979,6 +1967,9 @@
 "Hungarian localization" = "Hungarian localization";
 
 /* Credit description */
+"Icelandic localization" = "Icelandic localization";
+
+/* Credit description */
 "Icon set including Retina images" = "Icon set including Retina images";
 
 /* Credit description */
@@ -2016,6 +2007,9 @@
 
 /* Credit description */
 "PKCS#11 support" = "PKCS#11 support";
+
+/* Credit description */
+"Persian localization" = "Persian localization";
 
 /* Credit description */
 "Polish localization" = "Polish localization";
