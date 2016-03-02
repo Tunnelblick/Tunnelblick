@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Переподключаться при входе пользователя";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Требовать разрешения администраторя для изменения ключа и сертификата";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Сбрасывать основной интерфейс после разъединения";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "Имя пользователя и пароль не были приняты удалённым сервером VPN.";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "Имя пользователя не может быть пустым!\nПожалуйста, введите комбинацию имя пользователя/пароль.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Конфигураций OpenVPN для установки нет.";
@@ -1967,7 +1967,7 @@
 "Hungarian localization" = "Перевод на венгерский";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "Исландская локализация";
 
 /* Credit description */
 "Icon set including Retina images" = "Набор иконок, включая изображения для экрана Retina";
@@ -2009,7 +2009,7 @@
 "PKCS#11 support" = "Поддержка PKCS#11";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "Персидская локализация";
 
 /* Credit description */
 "Polish localization" = "Перевод на польский";

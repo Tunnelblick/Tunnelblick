@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Återanslut när användare byter tillbaka";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Kräv administratörs-lösenord för att ändra nycklar och certifikat";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Återställ det primära nätverket efter att ha kopplat ifrån";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "Användarnamnet eller lösenordet godkändes inte av VPN-servern.";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "Användarnamnet kan inte vara tomt!\nVänligen ange VPN användarnamn och lösenord.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Det finns inga OpenVPN konfigurationer att installera.";
@@ -1967,7 +1967,7 @@
 "Hungarian localization" = "Ungerska lokalanpassning";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "Isländsk översättning";
 
 /* Credit description */
 "Icon set including Retina images" = "Uppsättning ikon, inklusive Retina bilder";
@@ -2009,7 +2009,7 @@
 "PKCS#11 support" = "PKCS#11-support";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "Persisk översättning";
 
 /* Credit description */
 "Polish localization" = "Polsk lokalanpassning";

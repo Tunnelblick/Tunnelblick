@@ -119,7 +119,7 @@
 "Ignore" = "Ignorovať";
 
 /* Button */
-"Install" = "Install";
+"Install" = "Inštalovať";
 
 /* Button */
 "Latest (%@)" = "Najnovšia (%@)";
@@ -134,7 +134,7 @@
 "Make Private" = "Označiť ako súkromné";
 
 /* Button */
-"Make Shared" = "Označiť ako zdielané";
+"Make Shared" = "Označiť ako zdieľané";
 
 /* Button */
 "Manually" = "Ručne";
@@ -200,7 +200,7 @@
 "Restore" = "Obnoviť";
 
 /* Button */
-"Retry" = "Opakovať znova";
+"Retry" = "Skúsiť znova";
 
 /* Button */
 "Revert" = "Vrátiť";
@@ -272,7 +272,7 @@
 "Disconnect %@%@" = "Odpojiť %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Nezobrazovať v menu Tunelblick";
+"Do Not Show on Tunnelblick Menu" = "Nezobrazovať v menu Tunnelblick";
 
 /* Menu Item */
 "Duplicate Configuration..." = "Duplikovať konfiguráciu…";
@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Znova pripojiť pri prepnutí na aktuálneho užívateľa";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Vyžadovať autorizáciu správcu pri zmene klúča a certifikátu";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Obnoviť nastavenia hlavného sieťového rozhrania po odpojení";
@@ -869,7 +869,7 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Počas overenia bezpečnosti konfigurácie %2$@ sa vyskytla chyba (status %1$ld).\n\nProsím ukončite a znovu spustite Tunnelblick. V prípade že chyba pretrváva, prosím, preinštalujte Tunnelblick";
 
 /* Window text */
-"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details.";
+"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "Pri skúmaní konfigurácie, ktorá má byť nainštalovaná pre Tunnelblick, sa vyskytla chyba. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Pri spúšťaní %@ sa vyskytla chyba";
@@ -878,7 +878,7 @@
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Pri pokuse o obnovenie bezpečnostnej kópie sa vyskytla chyba. Pre viac informácií si, prosím, prezrite Záznam konzoly.\n\n";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "An error occurred. See the Console Log for details.";
+"An error occurred. See the Console Log for details." = "Vyskytla sa chyba. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Vyskytla sa vnútorná chyba Tunnelblick %1$@%2$@";
@@ -911,7 +911,7 @@
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Skutočne si prajete odstrániť prístupové údaje uložené v Kľúčenke (súkromný kľúč a/alebo užívateľské meno a heslo) pre prístupové údaje '%@'?";
 
 /* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n";
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Skutočne si prajete nainštalovať konfigurácie, ktoré môžu PREVZIAŤ ÚPLNÚ KONTROLU NAD VAŠIM POČÍTAČOM?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "V riadku %1$lu OpenVPN konfiguračného súboru: %2$@";
@@ -1253,13 +1253,13 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Bola zistená prítomnosť jedného alebo viacerých procesov OpenVPN spustených nezávisle na aplikácii Tunnelblick. Ak nemáte spustené iné OpenVPN nezávisle na Tunnelblick, môže to často znamenať, že Tunnelblick nedokázal pri predchádzajúcom ukončení tieto procesy korektne zastaviť, a mali by ste ich ukončiť. Tieto procesy môžu narušiť chod aplikácie Tunnelblick.\n\nVynútiť ukončenie týchto procesov je možné v aplikácii 'Monitor aktivity'.\n\n";
 
 /* Window text */
-"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details.";
+"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "Jedna alebo viacero konfigurácií VPN majú byť nainštalované pomocou Tunnelblick, ale nie sú súčasťou aplikácie Tunnelblick. Tieto konfigurácie nemusia byť inštalované pri inštalácii Tunnelblick, pretože jedna alebo viacero z nich obsahuje program, ktorý bude bežať s administrátorskými oprávneniami po pripojení na VPN.";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Jedna alebo viacero konfigurácií VPN, ktoré majú byť aktualizované, obsahujú programy, ktoré po pripojení na VPN nadobudnú administrátorské práva. Tieto konfigurácie sú schopné PREVZIAŤ ÚPLNÚ KONTROLU NAD VAŠIM POČÍTAČOM.\n\nTIETO KONFIGURÁCIE BY STE MALI INŠTALOVAŤ LEN V PRÍPADE, ŽE PLNE DÔVERUJETE ICH AUTOROVI.\n\nDôverujete autorovi týchto konfigurácií a prajete si ich nainštalovať?\n\n";
 
 /* Window text */
-"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Jedna alebo viacero konfigurácií VPN, ktoré inštalujete, obsahujú programy, ktoré po pripojení na VPN nadobudnú administrátorské práva. Tieto konfigurácie sú schopné PREVZIAŤ ÚPLNÚ KONTROLU NAD VAŠIM POČÍTAČOM.\n\nTIETO KONFIGURÁCIE BY STE MALI INŠTALOVAŤ LEN V PRÍPADE, ŽE PLNE DÔVERUJETE ICH AUTOROVI.\n\nDôverujete autorovi týchto konfigurácií a prajete si ich nainštalovať?\n\n";
 
 /* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Je aktívne jedno alebo viacej VPN pripojení. Ukončite všetky VPN pripojenia predtým než budete pokračovať ďalej.";
@@ -1319,7 +1319,7 @@
 "Received fatal signal %d." = "Bol obdržaný signál závažnej chyby %d.";
 
 /* Window text */
-"Remove" = "Vymazať";
+"Remove" = "Odstrániť";
 
 /* Window text */
 "Rename failed; see the Console Log for details." = "Premenovanie sa nezdarilo. Viac detailov nájdete v Console Log.";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "Vzdialený VPN server odmietol užívateľské meno a heslo.";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "Užívateľské meno nesmie byť prázdne!\nZadajte, prosím, kombináciu uživateľské meno a heslo pre VPN.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Neexistujú žiadne OpenVPN konfigurácie na inštaláciu.";
@@ -1967,7 +1967,7 @@
 "Hungarian localization" = "Preklad maďarčiny";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "Preklad do islandštiny";
 
 /* Credit description */
 "Icon set including Retina images" = "Zbierka ikon obsahuje obsahuje obrázky v Retina rozlíšení";
@@ -2009,7 +2009,7 @@
 "PKCS#11 support" = "Podpora PKCS#11";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "Preklad do perzštiny";
 
 /* Credit description */
 "Polish localization" = "Preklad do poľštiny";
@@ -2051,7 +2051,7 @@
 "Up and Down scripts" = "Pripájacie a odpájacie skripty";
 
 /* Notification text */
-"Updated to %@." = "Updated to %@.";
+"Updated to %@." = "Aktualizované na verziu %@.";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Pomoc s Xcode a integrácia OpenSSL";

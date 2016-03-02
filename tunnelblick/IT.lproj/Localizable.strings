@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Riconnetti quando l'utente riaccede";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Richiedi l'autorizzazione di un utente amministratore per consentire la modifica di chiavi e certificati";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Reimposta l’interfaccia primaria dopo la disconnessione";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "Lo username e la password non sono stati accettati dal server VPN remoto.";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "Il campo username non può essere vuoto.\nInserire username e password per l'accesso VPN.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Non esiste alcuna configurazione OpenVPN da installare.";
@@ -1967,13 +1967,13 @@
 "Hungarian localization" = "Traduzione in lingua Ungherese";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "Traduzione in lingua Islandese";
 
 /* Credit description */
 "Icon set including Retina images" = "Icone ed Immagini (incluse Retina)";
 
 /* Credit description */
-"Indonesian localization" = "Traduzione in lingua indonesiana";
+"Indonesian localization" = "Traduzione in lingua Indonesiana";
 
 /* Credit description */
 "Italian localization" = "Traduzione in lingua Italiana";
@@ -2009,7 +2009,7 @@
 "PKCS#11 support" = "Supporto al PKCS#11";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "Traduzione in lingua persiana";
 
 /* Credit description */
 "Polish localization" = "Traduzione in lingua Polacca";

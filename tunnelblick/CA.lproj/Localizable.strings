@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Reconnectar quan l'usuari es torni a connectar";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Requerir permisos d'administració per a canvis de clau i certificat";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Restableix la interfície primària després de desconnectar";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "El nom d'usuari i la contasenya no s'han acceptat pel servidor VPN remot.";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "El nom d'usuari no pot ser buit!\nSi us plau, entra el nom d'usuari i la contrasenya de la VPN.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "No hi ha Configuracions OpenVPN per a instal·lar.";
@@ -1967,7 +1967,7 @@
 "Hungarian localization" = "Traducció a l'Hongarès";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "Traducció a l'islandés";
 
 /* Credit description */
 "Icon set including Retina images" = "Conjunt d'icones incloent imatges Retina";
@@ -2009,7 +2009,7 @@
 "PKCS#11 support" = "Suport per a PKCS#11";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "Traducció al persa";
 
 /* Credit description */
 "Polish localization" = "Traducció al Polonès";

@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Genopret forbindelse når brugeren skifter tilbage";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Behøver administrator adgang for nøgle og certifikat ændringer";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Nulstil den primære grænseflade efter frakobling";
@@ -407,7 +407,7 @@
 "Save in Keychain" = "Gem i nøglering";
 
 /* Checkbox name */
-"Send anonymous profile information when checking" = "Send anonym profil information under kontrol";
+"Send anonymous profile information when checking" = "Send anonym profil information under kontrollering";
 
 /* Checkbox name */
 "Set DNS after routes are set instead of before routes are set" = "Sæt DNS efter ruterne er sat i stedet for før";
@@ -1448,7 +1448,7 @@
 "The installation or repair took too long or failed. Try again?" = "Installationen eller reparationen tog for lang tid eller fejlede. Vil du prøve igen?";
 
 /* Window text */
-"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Installationen, fjernelsen, gendannelsen eller reparationen af en eller flere Tunnelblick komponenter mislykkedes. Se konsollens log for detaljer.";
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Installation, sletning, genskabelse eller reparation af en eller flere Tunnelblick komponenter mislykkedes. Se konsollens log for detaljer.";
 
 /* Window text */
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "Sikkerhedskoden må ikke være tom!\nIndtast venligst en VPN sikkerhedskode.";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "Brugernavn og kodeord blev ikke godkendt af den eksterne VPN server.";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "Brugernavn feltet må ikke være tomt!\nIndtast venligt VPN brugernavn og kodeord.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Der er ingen OpenVPN konfigurationer at installere.";
@@ -1967,7 +1967,7 @@
 "Hungarian localization" = "Ungarsk oversættelse";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "Islandsk oversættelse";
 
 /* Credit description */
 "Icon set including Retina images" = "Ikon sæt, inklusiv Retina billeder";
@@ -2009,7 +2009,7 @@
 "PKCS#11 support" = "PKCS#11 understøttelse";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "Persisk oversættelse";
 
 /* Credit description */
 "Polish localization" = "Polsk oversættelse";

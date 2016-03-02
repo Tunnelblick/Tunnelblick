@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "ユーザスイッチから戻った時に再接続する";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "キーと証明書の変更に管理者権限が必要";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "切断後にプライマリインターフェースをリセットする";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "このユーザーネームとパスワードはVPNサーバーに拒否されました";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "ユーザー名が必要です。VPN ユーザー名とパスワードを入力してください。";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "インストールするOpenVPN設定が存在しません。";
@@ -1967,7 +1967,7 @@
 "Hungarian localization" = "ハンガリー語翻訳";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "アイスランド語翻訳";
 
 /* Credit description */
 "Icon set including Retina images" = "Retina用画像を含むアイコンセット";
@@ -2009,7 +2009,7 @@
 "PKCS#11 support" = "PKCS#11のサポート";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "ペルシャ語翻訳";
 
 /* Credit description */
 "Polish localization" = "ポーランド語翻訳";

@@ -131,10 +131,10 @@
 "Load Tun driver automatically" = "Carregar o driver Tun automaticamente";
 
 /* Button */
-"Make Private" = "Deixar privado";
+"Make Private" = "Tornar privada";
 
 /* Button */
-"Make Shared" = "Deixar compartilhado";
+"Make Shared" = "Tornar compartilhada";
 
 /* Button */
 "Manually" = "Manualmente";
@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Reconectar quando o usuário retornar";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Exigir autorização administrativa para alterações de chave e certificado";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Reiniciar a interface primária após desconectar";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "O usuário e senha não foram aceitos pelo servidor VPN remoto.";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "O nome do usuário não pode estar em branco!\nPor favor digite a combinação usuário/senha da VPN.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Não há nenhuma configuração OpenVPN para instalar.";
@@ -1562,7 +1562,7 @@
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick não consegue obter informação do endereço IP antes que a conexão para %@ seja completada.\n\n";
 
 /* Window text */
-"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "O Tunnelblick não encontrou uma opção tun ou tap no arquivo de configuração OpenVPN";
+"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "O Tunnelblick não encontrou uma opção 'tun' ou 'tap' no arquivo de configuração OpenVPN";
 
 /* Window text */
 "Tunnelblick could not find a free port to use for communication with OpenVPN" = "O Tunnelblick não encontrou uma porta livre para comunicação com a OpenVPN";
@@ -1967,7 +1967,7 @@
 "Hungarian localization" = "Tradução para Húngaro";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "Tradução para Islandês";
 
 /* Credit description */
 "Icon set including Retina images" = "Conjunto de ícones incluindo imagens Retina";
@@ -2009,7 +2009,7 @@
 "PKCS#11 support" = "Suporte a PKCS#11";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "Tradução para Persa";
 
 /* Credit description */
 "Polish localization" = "Tradução para Polonês";

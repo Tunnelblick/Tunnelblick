@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Újracsatlakozás amikor a felhasználó bejelentkezik";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "A kulcs és tanúsítvány változtatásához rendszergazdai jogosultság szükséges";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Az elsődleges interfész újrainicializálása szétkapcsolás után";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "A távoli VPN szerver nem fogadta el a felhasználónevet és a jelszót.";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "A felhasználónév nem lehet üres!\nKérjük, írjon be egy felhasználónév/jelszó kombinációt!";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Nincsen telepíthető OpenVPN konfiguráció.";
@@ -1967,7 +1967,7 @@
 "Hungarian localization" = "Magyar honosítás";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "Izlandi honosítás";
 
 /* Credit description */
 "Icon set including Retina images" = "Ikon csomag Retina képekkel együtt";
@@ -2009,7 +2009,7 @@
 "PKCS#11 support" = "PKCS#11 támogatás";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "Perzsa honosítás";
 
 /* Credit description */
 "Polish localization" = "Lengyel honosítás";

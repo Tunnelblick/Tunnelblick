@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Rétablir la connexion lors du retour au compte d'utilisateur original";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "L'autorisation de l'administrateur est requise pour un changement de clé et de certificat";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Réinitialiser l’interface primaire après déconnexion";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "Le nom d'utilisateur et le mot de passe n'ont pas été accepté par le serveur distant VPN.";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "Le nom d'utilisateur ne doit pas être vide !\nMerci d'entrer une combinaison utilisateur / mot de passe pour le VPN.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Il n'y a aucune configuration OpenVPN à installer.";
@@ -1967,7 +1967,7 @@
 "Hungarian localization" = "Traduction hongroise";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "Traduction islandaise";
 
 /* Credit description */
 "Icon set including Retina images" = "Ensemble d'icônes comprenant des images Retina";
@@ -2009,7 +2009,7 @@
 "PKCS#11 support" = "Support de PKCS#11";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "Traduction perse";
 
 /* Credit description */
 "Polish localization" = "Traduction polonaise";
