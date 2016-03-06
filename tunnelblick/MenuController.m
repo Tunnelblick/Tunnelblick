@@ -2016,7 +2016,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             }
             
 			NSString * menuItemTitleWithoutSlash = [menuItemTitle lastPathComponent];
-			if (  [menuItemTitle hasSuffix: @"/"]  ) {
+			if (  [menuItemTitleWithoutSlash hasSuffix: @"/"]  ) {
 				menuItemTitleWithoutSlash = [menuItemTitleWithoutSlash substringToIndex: [menuItemTitleWithoutSlash length] - 1];
 			}
 			NSString * theNameWithoutSlash = (  [theName hasSuffix: @"/"]
