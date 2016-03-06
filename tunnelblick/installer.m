@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
 
  *
  *  This file is part of Tunnelblick.
@@ -1342,6 +1342,35 @@ int main(int argc, char *argv[])
     exit(EXIT_SUCCESS);
 }
 
+void createFolder(NSString * path) {
+    
+    errorExitIfAnySymlinkInPath(path);
+
+    if (  [gFileMgr fileExistsAtPath: path]  ) {
+        return;
+    }
+    
+    NSString * enclosingFolder = [path stringByDeletingLastPathComponent];
+    if (  ! [gFileMgr fileExistsAtPath: enclosingFolder]  ) {
+        createFolder(enclosingFolder);
+    }
+    
+    // Create the folder with the ownership and permissions of the folder that encloses it, but with the current date/time
+    NSDictionary * enclosingFolderAttributes = [gFileMgr tbFileAttributesAtPath: enclosingFolder traverseLink: NO];
+    NSDate * now = [NSDate date];
+    NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 now,                                                                   NSFileCreationDate,
+                                 now,                                                                   NSFileModificationDate,
+                                 [enclosingFolderAttributes objectForKey: NSFileGroupOwnerAccountID],   NSFileGroupOwnerAccountID,
+                                 [enclosingFolderAttributes objectForKey: NSFileGroupOwnerAccountName], NSFileGroupOwnerAccountName,
+                                 [enclosingFolderAttributes objectForKey: NSFileOwnerAccountID],        NSFileOwnerAccountID,
+                                 [enclosingFolderAttributes objectForKey: NSFileOwnerAccountName],      NSFileOwnerAccountName,
+                                 [enclosingFolderAttributes objectForKey: NSFilePosixPermissions],      NSFilePosixPermissions,
+                                 nil];
+    [gFileMgr tbCreateDirectoryAtPath: path attributes: attributes];
+    appendLog([NSString stringWithFormat: @"Created %@", path]);
+}
+
 //**************************************************************************************************************************
 void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveNotCopy)
 {
@@ -1355,6 +1384,9 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
 	if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
 		[gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
     }
+    
+    createFolder([dotTempPath stringByDeletingLastPathComponent]);
+    
 	if (  ! [gFileMgr tbCopyPath: fromPath toPath: dotTempPath handler: nil]  ) {
         appendLog([NSString stringWithFormat: @"Failed to copy %@ to %@", fromPath, dotTempPath]);
 		if ( [gFileMgr fileExistsAtPath:dotTempPath]  ) {
