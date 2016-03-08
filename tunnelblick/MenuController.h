@@ -121,7 +121,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
     NSImage                 * highlightedConnectedImage;
     NSImage                 * highlightedMainImage;
 	
-    NSMutableArray          * largeAnimImages;              // Images for animation of the Tunnelblick icon in the the Status Window
+    NSMutableArray          * largeAnimImages;              // Images for animation of the Tunnelblick icon in the Status Window
     NSImage                 * largeConnectedImage;          // Image to display when one or more connections are active
     NSImage                 * largeMainImage;               // Image to display when there are no connections active
     

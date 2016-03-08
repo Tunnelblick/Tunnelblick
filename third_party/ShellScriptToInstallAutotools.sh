@@ -6,7 +6,7 @@
 #
 # It installs the tools to /usr/local/bin. It uses sudo to install because /usr/local/bin
 # is a protected folder. So it must be run from an OS X account with administrator
-# privileges. (Sudo will ask for the the user's password once.)
+# privileges. (Sudo will ask for the user's password once.)
 
 
 

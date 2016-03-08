@@ -725,7 +725,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 		if (  version  ) {
 			if (  ! [[gTbDefaults stringForKey: @"*-openvpnVersion"] isEqualToString: version]  ) {
 				[gTbDefaults setObject: version forKey: @"*-openvpnVersion"];
-				NSLog(@"Set the the new '*-openvpnVersion' preference from the 'openvpnVersion' preference");
+				NSLog(@"Set the new '*-openvpnVersion' preference from the 'openvpnVersion' preference");
 			}
 		}
         
@@ -5634,7 +5634,7 @@ BOOL warnAboutNonTblks(void)
 			int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning!", @"Window title"),
 												 NSLocalizedString(@"This copy of Tunnelblick is not digitally signed.\n\n"
 																   @"There is no way to verify that this copy has not been tampered with.\n\n"
-																   @" Check with the the provider of this copy of Tunnelblick before"
+																   @" Check with the provider of this copy of Tunnelblick before"
 																   @" using it.\n\n", @"Window text"),
 												 NSLocalizedString(@"Quit", @"Button"),
 												 nil,
@@ -7586,7 +7586,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  [cancellingIPCheckThreads containsObject: threadID]  ) {
             TBLog(@"DB-IT", @"cancelIPCheckThread: threadID '%@' is already on the cancelling list!", threadID)
         } else {
-            NSLog(@"cancelIPCheckThread: ERROR: threadID '%@' is not in the the active or cancelling list! Added it to cancelling list", threadID);
+            NSLog(@"cancelIPCheckThread: ERROR: threadID '%@' is not in the active or cancelling list! Added it to cancelling list", threadID);
             [cancellingIPCheckThreads addObject: threadID];
         }
     }
@@ -7636,7 +7636,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
             if (  [cancellingIPCheckThreads containsObject: threadID]  ) {
                 NSLog(@"cancelAllIPCheckThreadsForConnection: ERROR: threadID '%@' is already on the cancelling list!", threadID);
             } else {
-                NSLog(@"cancelAllIPCheckThreadsForConnection: ERROR: threadID '%@' is not in the the active or cancelling list! Added it to cancelling list", threadID);
+                NSLog(@"cancelAllIPCheckThreadsForConnection: ERROR: threadID '%@' is not in the active or cancelling list! Added it to cancelling list", threadID);
                 [cancellingIPCheckThreads addObject: threadID];
             }
         }
@@ -7659,10 +7659,10 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     
     BOOL answer = ([cancellingIPCheckThreads containsObject: threadID] ? YES : NO);
     if (  answer  ) {
-        TBLog(@"DB-IT", @"isOnCancellingListIPCheckThread: threadID '%@' is on the the cancelling list", threadID)
+        TBLog(@"DB-IT", @"isOnCancellingListIPCheckThread: threadID '%@' is on the cancelling list", threadID)
         ;
     } else {
-        TBLog(@"DB-IT", @"isOnCancellingListIPCheckThread: threadID '%@' is not on the the cancelling list", threadID)
+        TBLog(@"DB-IT", @"isOnCancellingListIPCheckThread: threadID '%@' is not on the cancelling list", threadID)
         ;
     }
     

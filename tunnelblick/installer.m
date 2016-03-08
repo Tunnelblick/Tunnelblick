@@ -1277,7 +1277,7 @@ int main(int argc, char *argv[])
 	
 	if (  ! helperIsToBeSuid  ) {
 		// Check to see if the tunnelblickd .plist file is up-to-date
-		// If we are debugging, it needs the 'Debug' key set and the the 'Program' value pointing to our copy of tunnelblickd
+		// If we are debugging, it needs the 'Debug' key set and the 'Program' value pointing to our copy of tunnelblickd
 		
 		// NOTE: The name of the tunnelblickd .plist file in Resources does not change when rebranded, hence the split constant strings when referring to it
 		NSString * ourPlistPath = [resourcesPath stringByAppendingPathComponent: @"net.tunnel" @"blick.tunnel" @"blick.tunnelblickd.plist"];

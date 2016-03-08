@@ -9,4 +9,4 @@ version.
 
 That is, copy tunnelblick/xcodeproj-versions/XXX/Tunnelblick.xcodeproj to tunnelblick/
 
-Do that by Option-dragging in Finder, or the the "cp" command with the "-R" option.
+Do that by Option-dragging in Finder, or the "cp" command with the "-R" option.

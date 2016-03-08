@@ -2009,7 +2009,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     //    (1) Modify openvpnstart to use the new arguments
     //    (2) Change OPENVPNSTART_MAX_ARGC in defines.h to the maximum 'argc' for openvpnstart
     //        (That is, change it to one more than the number of entries in 'args' (because the path to openvpnstart is also an argument)
-    //    (3) Change the constant integer in the next line to the the same number
+    //    (3) Change the constant integer in the next line to the same number
 #if 11 != OPENVPNSTART_MAX_ARGC
     #error "OPENVPNSTART_MAX_ARGC is not correct. It must be 1 more than the count of the 'args' array"
 #endif
