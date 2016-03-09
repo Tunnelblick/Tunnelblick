@@ -80,13 +80,13 @@
 "Default (%@)" = "默认版本 (%@)";
 
 /* Button */
-"Delete Credentials" = "删除认证信息";
+"Delete Credentials" = "删除证书";
 
 /* Button */
-"Delete saved passphrase and try again" = "请删除掉已保存的密码然后重试一次";
+"Delete saved passphrase and try again" = "删除已保存的密码，并重试";
 
 /* Button */
-"Delete saved password and try again" = "请删除掉已保存的密码然后重试一次";
+"Delete saved password and try again" = "删除已保存的密码，并重试";
 
 /* Button */
 "Delete" = "删除";
@@ -131,10 +131,10 @@
 "Load Tun driver automatically" = "自动加载 Tun 驱动程序";
 
 /* Button */
-"Make Private" = "令其改为私有";
+"Make Private" = "更改为私有";
 
 /* Button */
-"Make Shared" = "令其改为共享";
+"Make Shared" = "更改为共享";
 
 /* Button */
 "Manually" = "手动";
@@ -239,10 +239,10 @@
 "This configuration uses %@ credentials" = "此配置使用 %@ 认证信息";
 
 /* Button */
-"Try again with saved passphrase" = "请使用已保存的密码重试一次";
+"Try again with saved passphrase" = "使用已保存的密码重试";
 
 /* Button */
-"Try again with saved username and password" = "请使用已保存的用户名和密码重试一次";
+"Try again with saved username and password" = "使用已保存的用户名和密码重试";
 
 /* Button */
 "Try again" = "重试";
@@ -326,7 +326,7 @@
 "Check if the apparent public IP address changed after connecting" = "连接后检查外部IP地址是否有所改变";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "禁用 IPv6 (tun)";
+"Disable IPv6 (tun only)" = "禁用 IPv6 (仅 Tun)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "当计算机休眠时断开连接";
@@ -365,7 +365,7 @@
 "Do not warn about this again" = "不再发出此警告";
 
 /* Checkbox name */
-"Enable IPv6 (tap only)" = "启用 IPv6 (tap)";
+"Enable IPv6 (tap only)" = "启用 IPv6 (仅 Tap)";
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "连接后或者断开连接后, 清空 DNS 缓存";
@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "用户转入时, 重新连接";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "变更密钥和证书需要管理员权限";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "断开连接后重置计算机的主要网络接口";
@@ -746,7 +746,7 @@
 "  • Secure configurations\n" = "  • 保护配置\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ 是自由软件: 你可以在 %3$@ 发布的 %2$@ 的条例下重新分发和/或修改它\n\n%4$@ 是 OpenVPN 科技股份有限公司的注册商标.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ 是免费软件: 你可以在 %3$@ 发布的 %2$@ 的条例下重新分发和/或修改它\n\n%4$@ 是 OpenVPN 科技股份有限公司的注册商标.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " 你希望把 %1$@ 安装到 %2$@%3$@ 吗?\n\n";
@@ -863,7 +863,7 @@
 "All configuration files have been removed. Tunnelblick must quit." = "所有的配置文件已经删除. Tunnelblick 必须退出了.";
 
 /* Window text */
-"All configurations use %@ credentials" = "所有的配置使用 %@ 认证信";
+"All configurations use %@ credentials" = "所有的配置使用 %@ 认证信息";
 
 /* Window text */
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "当尝试检查配置文件 %2$@ 的安全性时发生了一个错误(状态码 %1$ld) .\n\n请退出并重启 Tunnelblick, 如果问题仍然存在, 请重新安装 Tunnelblick.";
@@ -947,7 +947,7 @@
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "配置文件 '%@' 含有一个或多个如果你在连接的时候替换或者卸载配置文件可能导致问题的脚本\n\n你真的想替换这个配置文件吗？";
 
 /* Window text */
-"Configuration '%@' is not secure. It should be reinstalled." = "名为 '%@' 的配置文件并不安全。应该重装。";
+"Configuration '%@' is not secure. It should be reinstalled." = "名为 '%@' 的配置文件并不安全，应该重装。";
 
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "名为 '%@' 的配置文件并不安全。请重新安装 Tunnelblick 。";
@@ -1253,7 +1253,7 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "一个或多个不受 Tunnelblick 控制的 OpenVPN 进程已经在运行. 如果你没有在 Tunnelblick 之外运行 OpenVPN, 那么这通常是因为以前启动的 Tunnelblick 没有正常地退出, 你应该终止这些进程. 这些进程有可能干扰 Tunnelblick 的运行.\n\n你可以使用 '活动监视器' 去强制终止它们的运行 .\n\n";
 
 /* Window text */
-"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "一个或多个 VPN 配置文件将会伴随着 Tunnelblick 一起被安装，但它们不是 Tunnelblick 的一部分。当 Tunnelblick 安装时，这些配置文件可能不会被安装进去，因为这些配置文件包含了一些当你连接到 VPN 时必须由 root 运行的程序。";
+"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "一个或多个 VPN 配置文件将和Tunnelblick程序一起被安装，但它们不是Tunnelblick程序的一部分。当 Tunnelblick 安装时，这些配置文件可能不会被安装进去，因为这些配置文件包含了一些当你连接到 VPN 时必须由 root 运行的程序。\n\n查看控制台日志文件以获取更多详情。";
 
 /* Window text */
 "One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "你正在升级的一个或多个 VPN 配置包含了一些当你连接到 VPN 时必须由 root 运行的程序。他们可以完全地控制你的电脑。\n\n除非你信任它们的作者，否则你不应该安装这些配置文件。\n\n你信任这些配置文件的作者，并且愿意安装这些配置文件吗？\n\n";
@@ -1322,7 +1322,7 @@
 "Remove" = "移除";
 
 /* Window text */
-"Rename failed; see the Console Log for details." = "重命名失败, 详情请查看控制台日志.";
+"Rename failed; see the Console Log for details." = "重命名失败，详情请查看控制台日志。";
 
 /* Window text */
 "Resolved symbolic link at '%@' to '%@'" = "在 '%1$@' 中，解析软链接到 '%2$@'";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "远程 VPN 服务器不接受该用户名和密码";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "用户名不能为空！\n请输入VPN 用户名与密码。";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "没有可安装的OpenVPN 配置";
@@ -1502,7 +1502,7 @@
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "这个版本的 Tunnelblick 被篡改了 (它的数字签名不合法的).\n\n请在使用前检查一下这个版本的提供者.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "这个版本的 Tunnelblick 没有数字签名.\n\n所以没有办法判断它是否被篡改过.\n\n请在使用前检查一下这个版本的提供者.\n\n";
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "这个版本的 Tunnelblick 没有数字签名.\n\n所以没有办法判断它是否被篡改过.\n\n请在使用前检查一下这个版本的提供者.\n\n";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "这是 Tunnelblick 的 64 位 Intel 版本。如果它使用 Tun 或 Tap 驱动，将无法正常工作。";
@@ -1796,7 +1796,7 @@
 "You are not allowed to replace a shared configuration" = "禁止替换共享配置";
 
 /* Window text */
-"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "无法将'%@' 配置设置成私有状态, 因为该文件是可自动更新的配置文件.";
+"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "无法将'%@' 配置设置成私有状态，因为该配置本身是可自动更新的配置文件。\n\n请注意，可自动更新的配置中包含的子配置可以是被设置为私有的。（当可自动更新的配置更新时，其包含的已被设为私有的子配置也可能随之更新）";
 
 /* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "无法将'%@' 配置文件设置为私有, 因为它被设置成开机启动.";
@@ -1967,7 +1967,7 @@
 "Hungarian localization" = "匈牙利语翻译";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "冰岛语翻译";
 
 /* Credit description */
 "Icon set including Retina images" = "图标集包括视网膜图像";
@@ -2009,7 +2009,7 @@
 "PKCS#11 support" = "PKCS#11 的支持";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "波斯语翻译";
 
 /* Credit description */
 "Polish localization" = "波兰语翻译";

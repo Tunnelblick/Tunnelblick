@@ -1502,7 +1502,7 @@
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Táto kópia aplikácie Tunnelblick bola neodborne upravená (digitálny podpis je neplatný).\n\nPred použitím tejto kópie aplikácie Tunnelblick, prosím, kontaktuje jej poskytovateľa.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "Táto kópia aplikácie Tunnelblick nie je digitálne podpísaná.\n\nNeexistuje možnosť overenia, či táto kópia nebolo neodborne upravená.\n\n Pred použitím tejto kópie aplikácie Tunnelblick, prosím, kontaktuje jej poskytovateľa.\n\n";
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Táto kópia aplikácie Tunnelblick nie je digitálne podpísaná.\n\nNeexistuje možnosť overenia, či táto kópia nebolo neodborne upravená.\n\n Pred použitím tejto kópie aplikácie Tunnelblick, prosím, kontaktuje jej poskytovateľa.\n\n";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Táto verzia aplikácie Tunnelblick je určená pre 64-bitový Intel a nebude správne pracovať v prípade, ak používate tun kext alebo tap kext.";

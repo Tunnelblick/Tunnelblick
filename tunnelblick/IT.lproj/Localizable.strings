@@ -1502,7 +1502,7 @@
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Questa copia di Tunnelblick è stata alterata (la firma digitale non è valida).\n\nPrima di usare questa copia di Tunnelblick contattare il fornitore.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "Questa copia di Tunnelblick non ha una firma digitale.\n\nA causa di ciò non è possibile verificare se questa copia è stata alterata.\n\n Fai una verifica con chi ha fornito questa copia prima di utilizzarla.\n\n";
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Questa copia di Tunnelblick non ha una firma digitale.\n\nA causa di ciò non è possibile verificare se questa copia è stata alterata.\n\n Fai una verifica con chi ha fornito questa copia prima di utilizzarla.\n\n";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Questa è una versione di Tunnelblick a 64-bit per processore Intel. Tale versione potrebbe non funzionare correttamente qualora vengano usate le estensioni del kernel (kext) 'tun' o 'tap'.";

@@ -119,7 +119,7 @@
 "Ignore" = "Αγνόησε";
 
 /* Button */
-"Install" = "Install";
+"Install" = "Εγκατάσταση";
 
 /* Button */
 "Latest (%@)" = "Νεότερο (%@)";
@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Επανασύνδεση όταν ο χρήστης εισέρχεται";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Να απαιτείται έγκριση από διαχειριστή για αλλαγές σε κλειδιά και πιστοποιητικά";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Επαναφορά κύριου περιβάλλοντος μετά την αποσύνδεση";
@@ -755,7 +755,7 @@
 " Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Θέλετε να αντικαταστήσετε το \n    %1$@\n   στο %2$@\nμε το %3$@%4$@?\n\n";
 
 /* Window text */
-" Forced preferences will also be installed or replaced.\n\n" = " Forced preferences will also be installed or replaced.\n\n";
+" Forced preferences will also be installed or replaced.\n\n" = " Οι αναγκαστικές προτιμήσεις θα εγκατασταθούν ή θα αντικατασταθούν επιπρόσθετα.\n\n";
 
 /* Window text */
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = "Σημείωση: Οι παράμετροι OpenVPN θα μετατραπούν σε παραμέτρους VPN του Tunnelblick.\n\n";
@@ -779,7 +779,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ έχει ανακτηθεί από το τελευταίο ασφαλές αντίγραφο (κρυφό).\n\n";
 
 /* Window text */
-"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configurations have been reverted to their last secured (shadow) copy.\n\n";
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld οι ρυθμίσεις θα επιστρέψουν στο τελευταίο τους ασφαλές (κρυφό) αντίγραφο.\n\n";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "Το'%@' ήδη υπάρχει στην Επιφάνεια Εργασίας.\n\nΘέλετε να το αντικαταστήσετε;";
@@ -803,7 +803,7 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "(Οι προτιμήσεις του 'easy-rsaPath' είναι εσφαλμένες.)";
 
 /* Window text */
-"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+"(if connected when computer went to sleep)" = "(εφόσον υπήρχε σύνδεση πριν την αδρανοποίηση)";
 
 /* Window text */
 "(if connected when user switched out)" = "(αν συνδεθεί όταν ο χρήστης είναι αποσυνδεδεμένος)";
@@ -1502,7 +1502,7 @@
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Αυτό το αντίγραφο του Tunnelblick είναι τροποποιημένο (η ψηφιακή υπογραφή είναι άκυρη).\n\nΠαρακαλούμε ελέγξτε με τον πάροχο σας το αντίγραφο αυτό του Tunnelblick πριν το χρησιμοποιήσετε.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "Αυτό το αντίγραφο του Tunnelblick δεν έχει ψηφιακά υπογραφεί.\n\nΔεν υπάρχει τρόπος να πιστοποιηθεί οτι δεν έχει τροποποιηθεί.\n\n Ελέγξτε με τον πάροχο σας το αντίγραφο αυτό του Tunnelblick πριν το χρησιμοποιήσετε.\n\n";
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Αυτό το αντίγραφο του Tunnelblick δεν έχει ψηφιακά υπογραφεί.\n\nΔεν υπάρχει τρόπος να πιστοποιηθεί οτι δεν έχει τροποποιηθεί.\n\n Ελέγξτε με τον πάροχο σας το αντίγραφο αυτό του Tunnelblick πριν το χρησιμοποιήσετε.\n\n";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts.";

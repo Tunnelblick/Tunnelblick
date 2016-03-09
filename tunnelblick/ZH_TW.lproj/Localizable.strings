@@ -83,10 +83,10 @@
 "Delete Credentials" = "刪除憑據";
 
 /* Button */
-"Delete saved passphrase and try again" = "把密匙削除再試多次";
+"Delete saved passphrase and try again" = "把已經儲存的密鑰刪除後再重試看看";
 
 /* Button */
-"Delete saved password and try again" = "把以儲存的密碼削除再試多次";
+"Delete saved password and try again" = "把已經儲存的密碼刪除後再重試看看";
 
 /* Button */
 "Delete" = "刪除";
@@ -272,7 +272,7 @@
 "Disconnect %@%@" = "中斷 %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "不要在Tunnelblick選單顯示";
+"Do Not Show on Tunnelblick Menu" = "不要在 Tunnelblick 選單顯示";
 
 /* Menu Item */
 "Duplicate Configuration..." = "建立設定檔複本...";
@@ -305,13 +305,13 @@
 "Show OpenVPN Log in Finder" = "在 Finder 中顯示 OpenVPN 記錄檔";
 
 /* Menu Item */
-"Show on Tunnelblick Menu" = "在Tunnelblick選單上顯示";
+"Show on Tunnelblick Menu" = "在 Tunnelblick 選單上顯示";
 
 /* Menu item */
-"Suggestion or Bug Report..." = "建議或臭蟲回報…";
+"Suggestion or Bug Report..." = "建議或問題回報⋯⋯";
 
 /* Menu item */
-"VPN Details..." = "VPN 詳情…";
+"VPN Details..." = "VPN 詳情⋯⋯";
 
 /* Checkbox name */
 "Apply to all" = "全部套用";
@@ -320,7 +320,7 @@
 "Check for updates automatically" = "自動檢查更新";
 
 /* Checkbox name */
-"Check for updates to beta versions" = "檢查 beta 版的新版本";
+"Check for updates to beta versions" = "檢查更新至測試版";
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connecting" = "檢查連接後外部 IP 地址是否改變";
@@ -329,13 +329,13 @@
 "Disable IPv6 (tun only)" = "停用 IPv6 (tun only)";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "當電腦睡眠時中斷連線";
+"Disconnect when computer goes to sleep" = "當電腦休眠時中斷連線";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "當轉換時使用者時中斷連線";
 
 /* Checkbox name */
-"Display connection submenus" = "顯示連線副選單";
+"Display connection submenus" = "顯示連線子選單";
 
 /* Checkbox name */
 "Display connection timers" = "顯示連線計時器";
@@ -365,7 +365,7 @@
 "Do not warn about this again" = "不再顯示此警告";
 
 /* Checkbox name */
-"Enable IPv6 (tap only)" = "啟用 IPv6 (tap only)";
+"Enable IPv6 (tap only)" = "啟用 IPv6（tap only）";
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "連線或斷線後清空 DNS 緩存";
@@ -377,22 +377,22 @@
 "Keep connected" = "保持連線";
 
 /* Checkbox name */
-"Monitor network settings" = "監察網絡設定";
+"Monitor network settings" = "監視網路設定";
 
 /* Checkbox name */
 "Place next to Spotlight icon" = "放置於 Spotlight 圖示旁";
 
 /* Checkbox name */
-"Prepend domain name to search domains" = "自動加上搜尋網域";
+"Prepend domain name to search domains" = "在搜索的網域中加上域名";
 
 /* Checkbox name */
 "Reconnect when computer wakes up" = "喚醒電腦後重新連線";
 
 /* Checkbox name */
-"Reconnect when user switches in" = "當使用者切換回來時重新連接";
+"Reconnect when user switches in" = "當使用者切換回來時重新連線";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "需要管理員的授權才能更動金鑰與憑證";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "斷線後重設主網絡介面";
@@ -506,19 +506,19 @@
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ 斷開連線 - 進階設定 %3$@";
 
 /* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
+"%@%@: %@%@ - %@" = "%1$@%2$@：%3$@%4$@ - %5$@";
 
 /* Window title */
 "'%@' has been disconnected" = "已中斷 「%@」 的連線";
 
 /* Window title */
-"Active connection" = "活躍連線";
+"Active connection" = "活躍的連線";
 
 /* Window title */
 "Add a Configuration" = "新增一個設定檔";
 
 /* Window title */
-"Alert sounds" = "警告聲音";
+"Alert sounds" = "提示音";
 
 /* Window title */
 "Alert" = "警告";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "對方的VPN伺服器不接受這個用戶名和密碼。";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "使用者名稱不可以是空的！\n請輸入 VPN 的使用者名稱與密碼組合。";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "沒有要安装的 OpenVPN 設定文件。";
@@ -1502,7 +1502,7 @@
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "這個拷貝的 Tunnelblick 已被篡改 (數碼簽字不符)。\n\n在使用前請向這個 Tunnelblick 拷貝的提供者查詢。\n\n";
 
 /* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "這個 Tunnelblick 拷貝沒有數碼簽字。\n\n我們沒有辦法確認這個拷貝有沒有被篡改。\n\n 請在使用前與這個 Tunnelblick 拷貝的提供者查詢。\n\n";
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "這個 Tunnelblick 拷貝沒有數碼簽字。\n\n我們沒有辦法確認這個拷貝有沒有被篡改。\n\n 請在使用前與這個 Tunnelblick 拷貝的提供者查詢。\n\n";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "這是 Tunnelblick 的 64 位 Intel 版本。如果您使用 Tun 或 Tap 驅動，Tunnelblick 將無法正常工作。";
@@ -1646,7 +1646,7 @@
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick 已被成功安裝，%ld 個設定檔已被安裝或取代。";
 
 /* Window text */
-"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick 已被成功安裝，一個設定檔已被安裝或取代。";
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick 已成功安裝，一個設定檔已安裝或取代。";
 
 /* Window text */
 "Tunnelblick was successfully installed." = "成功安裝 Tunnelblick。";
@@ -1967,7 +1967,7 @@
 "Hungarian localization" = "匈牙利語翻譯";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "冰島語本地化";
 
 /* Credit description */
 "Icon set including Retina images" = "圖標集，包括 Retina 圖片";
@@ -2009,7 +2009,7 @@
 "PKCS#11 support" = "PKCS#11 支援";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "波斯語本地化";
 
 /* Credit description */
 "Polish localization" = "波蘭語翻譯";

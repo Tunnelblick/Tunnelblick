@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Połącz ponownie po zalogowaniu użytkownika";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Wymagaj autoryzacji administratora dla zmiany klucza i certyfikatu";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Zresetuj podstawowy interfejs po rozłączeniu";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "Nazwa użytkownika i hasło nie zostały przyjęte przez zdalny serwer VPN.";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "Nazwa użytkownika nie może być pusta!\nProszę wprowadzić nazwę użytkownika i hasło dla VPN.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Brak konfiguracji OpenVPN do zainstalowania.";
@@ -1502,7 +1502,7 @@
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Ta kopia Tunnelblick'a została poddana nieautoryzowanym zmianom (podpis cyfrowy nie jest poprawny).\n\nPrzed uruchomieniem tej kopii Tunnelblick'a, zweryfikuj wiarygodność źródła z którego ją uzyskałeś.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "Ta kopia Tunnelblick'a nie jest podpisana cyfrowo.\n\nNie mozna ustalić, czy kopia ta nie została poddana nieautoryzowanym zmianom.\n\nPrzed uruchomieniem tej kopii Tunnelblick'a, zweryfikuj wiarygodność źródła z którego ją uzyskałeś.\n\n";
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Ta kopia Tunnelblick'a nie jest podpisana cyfrowo.\n\nNie mozna ustalić, czy kopia ta nie została poddana nieautoryzowanym zmianom.\n\nPrzed uruchomieniem tej kopii Tunnelblick'a, zweryfikuj wiarygodność źródła z którego ją uzyskałeś.\n\n";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "To jest 64-bitowa (Intel) wersja Tunnelblick która nie będzie działać poprawnie ze sterownikami (kext) tun lub tap.";
@@ -1967,7 +1967,7 @@
 "Hungarian localization" = "węgierskiej wersji językowej";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "Islandzka wersja językowa";
 
 /* Credit description */
 "Icon set including Retina images" = "Zestaw ikon zawierający obrazy dla Retiny";
@@ -2009,7 +2009,7 @@
 "PKCS#11 support" = "wsparcie PKCS#11";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "Perska wersja językowa";
 
 /* Credit description */
 "Polish localization" = "polska wersja językowa";

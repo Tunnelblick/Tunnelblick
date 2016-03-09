@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Pievienoties atpakaļ, kad lietotājs pieslēdzas";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Prasīt administratora atļauju atslēgu un sertifikātu izmaiņām";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Atiestatīt primāro interfeisu pēc savienojuma pārtraukšanas";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "Attālais VPN serveris nepieņēma lietotāja vārdu un paroli.";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "Lietotāja vārds nedrīkst būt tukšs!\nLūdzu ievadiet VPN lietotāja vārda/paroles kombināciju.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Nav OpenVPN konfigurāciju, kuras uzstādīt.";
@@ -1502,7 +1502,7 @@
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n";
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Šis ir 64 bitu Tunnelblick Intel versija kura nestrādās korekti ja izmantosiet tun un tap draiverus.";
@@ -1655,7 +1655,7 @@
 "Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick tika veiksmīgi aizvietots un %ld konfigurācijas tika uzinstalētas vai aizvietotas.";
 
 /* Window text */
-"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick tika veiksmīgi aizvietots un konfigurācija tika uzinstalēta vai aizvietota.";
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "Tunnelblick tika veiksmīgi aizvietots.";
@@ -1685,7 +1685,7 @@
 "Unable to install the '%@' configuration\n" = "Nav iespējams uzstādīt %@ konfigurāciju\n";
 
 /* Window text */
-"Unable to open configuration file for modification" = "Unable to open configuration file for modification";
+"Unable to open configuration file for modification" = "Nav iespējams atvērt konfigurācijas datni, lai veiktu izmaiņas";
 
 /* Window text */
 "Unable to replace the '%@' configuration\n" = "Nav iespējams aizvietot %@ konfigurāciju\n";

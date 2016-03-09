@@ -803,7 +803,7 @@
 "(The 'easy-rsaPath' preference is invalid.)" = "(Свойството 'easy-rsaPath' е невалидно)";
 
 /* Window text */
-"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+"(if connected when computer went to sleep)" = "(Ако е свързан когато компютърът е в режим на заспиване)";
 
 /* Window text */
 "(if connected when user switched out)" = "(ако e бил свързан, когато потребителят се е изключил)";
@@ -830,7 +830,7 @@
 "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Възникна проблем при проверка публичния IP адрес на този компютър.  \n\nМоля проверете конзолния лог за подробности.\n\n";
 
 /* Window text */
-"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?";
+"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Има съществуваща споделена конфигурация с име '%@' \n\nИскате ли да я замените с ваша собствена \"лична\" конфигурация?";
 
 /* Window text */
 "A username and password are required to connect to\n  %@" = "Изисква се потребителско име и парола за връзка с %@";
@@ -839,7 +839,7 @@
 "A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Изисква се потребителско име и парола за връзка с \n  %1$@\n(използвайки '%2$@' идентификационни данни)";
 
 /* Window text */
-"Add Credentials" = "Add Credentials";
+"Add Credentials" = "Добавете парола, или ключ";
 
 /* Window text */
 "Added '.sh' extension to %@ so it will be secured properly" = "Добавено е \".sh\" разширение към %@, с цел да бъде защитен правилно";
@@ -869,7 +869,7 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Грешка (статус %1$ld) настъпили при опита за проверка на сигурността на %2$@ конфигурация.  \n\nМоля затворете и стартирайте наново Tunnelblick. Ако проблемът продължава, преинсталирайте Tunnelblick.";
 
 /* Window text */
-"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details.";
+"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "Открита е грешка при проверка на конфигурацията която ще бъде инсталиране с Tunnelblick. Погледнете лог файла за повече информация.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Възникнала е грешка при опит да се стартира %@";
@@ -878,7 +878,7 @@
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Възникна грешка при опит за връщане към подсигуреното (скрито) копие. Моля, вижте конзолния лог за подробности.\n\n";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "An error occurred. See the Console Log for details.";
+"An error occurred. See the Console Log for details." = "Открита е грешка. Погледнете лог файла за повече детайли.";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Появи се вътрешна Tunnelblick грешка %1$@%2$@";
@@ -1502,7 +1502,7 @@
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Това копие на Tunnelblick е бил променяно (Цифровият подпис е невалиден).\n\nМоля, проверете с доставчика на това копие на Tunnelblick преди да го използвате.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "Това копие на Tunnelblick не е цифрово подписано.\n\nНяма начин да се провери, че това копие не е бил променяно.\n\nПроверете при доставчика на това копие на Tunnelblick преди да го използвате.\n\n";
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Това копие на Tunnelblick не е цифрово подписано.\n\nНяма начин да се провери, че това копие не е бил променяно.\n\nПроверете при доставчика на това копие на Tunnelblick преди да го използвате.\n\n";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts.";

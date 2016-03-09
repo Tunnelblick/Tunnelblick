@@ -392,7 +392,7 @@
 "Reconnect when user switches in" = "Gjenoppkoble når bruker byttes tilbake";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Krev administratortilgang for nøkkel- og sertifikatendringer";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Nullstill hovedoppkoblingen etter nedkobling";
@@ -1466,7 +1466,7 @@
 "The username and password were not accepted by the remote VPN server." = "Brukernavnet og passordet ble ikke akseptert av VPN-serveren.";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "Brukernavn kan ikke være blankt! Vennligst tast inn riktig VPN brukernavn og passord kombinasjon.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Der er ingen OpenVPN-konfigurasjoner å installere.";
@@ -1502,7 +1502,7 @@
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Denne kopien av Tunnelblick har blitt tuklet med (den digitale signaturen er ugyldig).\n\nVennligst sjekk med utgiver av denne versjonen av Tunnelblick før du benytter den.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "Denne kopien av Tunnelblick er ikke digitalt signert.\n\nDet er ingen måte å finne ut om den har blitt tuklet med.\n\n Vennligst sjekk med utgiver av denne versjonen av Tunnelblick før du benytter den.\n\n";
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Denne kopien av Tunnelblick er ikke digitalt signert.\n\nDet er ingen måte å finne ut om den har blitt tuklet med.\n\n Vennligst sjekk med utgiver av denne versjonen av Tunnelblick før du benytter den.\n\n";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Dette er en 64-bit Intel-versjon av Tunnelblick, som ikke vil fungere riktig hvis den benytter kjerneutvidelser (kext) for tun eller tap.";
@@ -1967,7 +1967,7 @@
 "Hungarian localization" = "Ungarsk oversettelse";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "Islandsk oversettelse";
 
 /* Credit description */
 "Icon set including Retina images" = "Ikonsett, inkludert Retina-bilder";
@@ -2009,7 +2009,7 @@
 "PKCS#11 support" = "PKCS#11-støtte";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "Persisk oversettelse";
 
 /* Credit description */
 "Polish localization" = "Polsk oversettelse";
