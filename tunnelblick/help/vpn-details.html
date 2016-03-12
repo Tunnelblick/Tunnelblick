@@ -36,9 +36,9 @@
   <li class="li3"><b>Make Configuration Private/Shared…</b> makes the selected configuration private or shared</li>
   <li class="li3"><b>Revert Configuration…</b> reverts the selected configuration to the version that was last secured</li>
   <li class="li3"><b>Do Not Show Configuration on Tunnelblick Menu</b> prevents the configuration from appearing on the menu that drops down when you click the Tunnelblick icon. (The configuration will always appear in the list on the left of the VPN Details window.)</li>
-  <li class="li3"><b>Edit/Examine OpenVPN Configuration File…</b> Opens the OpenVPN configuration file (.ovpn or .conf) file for the selected configuration in TextEdit for editing or in a new window for examination</li>
+  <li class="li3"><b>Edit/Examine OpenVPN Configuration File…</b> Opens the OpenVPN configuration file (.ovpn or .conf) file for the selected configuration in TextEdit for editing or in a new window for examination. Only "private" configurations may be edited; shared and Deployed configurations may be examined.</li>
   <li class="li3"><b>Show OpenVPN Log in Finder</b> opens a Finder window with the OpenVPN log file for the selected configuration selected</li>
-  <li class="li3"><b>Delete Configuration's Credentials in Keychain…</b> removes the selected credentials (username, password, and/or private key) from the user's Login Keychain.</li>
+  <li class="li3"><b>Delete Configuration's Credentials in Keychain…</b> removes all credentials (username, password, and/or private key) from the user's Login Keychain for the selected configuration(s).</li>
 </ul>
 <p class="p2"><br></p>
 <p class="p4"><b>Connect, Disconnect, and Copy Diagnostic Info to Clipboard Buttons</b></p>
@@ -65,7 +65,7 @@
 <p class="p3">The <b>Settings</b> tab contains commonly-used settings for the selected connection:</p>
 <p class="p2"><br></p>
 <ul class="ul1">
-  <li class="li3"><b>Connect</b> determines when the configuration is connected: <b>Manually</b>, <b>When Tunnelblick launches</b>, and <b>When computer starts</b>. <em>Note: </em>When computer starts<em> may only be selected if a configuration is </em>Shared<em> or </em>Deployed<em>, and when it is a </em>Tunnelblick VPN Configuration (.tblk)<em>.</em><br><br></li>
+  <li class="li3"><b>Connect</b> determines when the configuration is connected: <b>Manually</b>, <b>When Tunnelblick launches</b>, and <b>When computer starts</b>. <em>Note: </em>When computer starts<em> may only be selected if a configuration is </em>Shared<em> or </em>Deployed<em>.</em><br><br></li>
   
   <li class="li3"><b>Set DNS/WINS</b> determines the up/down scripts that Tunnelblick uses to modify DNS and WINS network settings for the selected configuration.<ul>
     <li class="li3"><b>Do not set nameserver</b>: Tunnelblick will not use up/down scripts and will not modify DNS and WINS network settings</li>

@@ -24,58 +24,24 @@
 <p class="p2"><br></p>
 <p class="p3"><b>System Requirements Not Met: A system folder is not secure</b></p>
 <p class="p2"><br></p>
+<p class="p4">NOTE: Online documentation may be more up-to-date. See <a href="https://tunnelblick.net/cSystemFolderNotSecure.html">System Folder Security</a>.</p>
+<p class="p2"><br></p>
 <p class="p4">Tunnelblick will not run if the folders that it uses on the boot volume are not secure. Tunnelblick secures the folders that it creates, but it does not modify system folders. The OS X installation process sets up system folders to be secure, so for most users this does not cause any problems.</p>
 <p class="p2"><br></p>
 <p class="p4">However, several third-party installation programs modify the standard ownership or permissions of some system folders incorrectly. The systems on which these installers have been run have less secure ownership or permissions settings on these important system folders.</p>
 <p class="p2"><br></p>
 <p class="p3"><b>Repairing with Disk Utility</b></p>
 <p class="p2"><br></p>
-<p class="p4">First, try to fix the problem by using the OS X Disk Utility program:</p>
+<p class="p4">If you are using OS X 10.10 ("Yosemite") or earlier, try to fix the problem by using the OS X Disk Utility program:</p>
 <ol class="ol1">
   <li class="li4">Launch Disk Utility. It is located in /Applications/Utilities.</li>
   <li class="li4">Select the computer's boot volume (usually "Macintosh HD") in the left column.</li>
   <li class="li4">Click on the "Repair Disk Permissions" button".</li>
   <li class="li4">Wait until the permissions repair is complete (it usually takes several minutes).</li>
   <li class="li4">Quit Disk Utility.</li>
-  <li class="li4">Launch Tunnelblick.</li>
+  <li class="li4">Launch Tunnelblick to see if the problem has been fixed.</li>
 </ol>
-<p class="p5"><br></p>
-<p class="p4">Launch Tunnelblick to see if the problem has been fixed.</p>
 <p class="p2"><br></p>
-<p class="p4">In some situations (for example, on older versions of OS X), Disk Utility does not fix the problem. If that happens, you will need to repair the problem manually.</p>
-<p class="p2"><br></p>
-<p class="p3"><b>Repairing Manually</b></p>
-<p class="p2"><br></p>
-<p class="p4">To repair these problems manually, you must use the OS X Terminal application:</p>
-<ol class="ol1">
-  <li class="li4">Determine which version of OS X you are using by clicking on the Apple icon on the left side of the menu bar, then clicking "About this Mac". Close the "About this Mac" window after noting the version of OS X you are using.</li>
-  <li class="li4">Launch Terminal. It is located in /Applications/Utilities.</li>
-  <li class="li4">Copy/paste the commands given below for your version of OS X.</li>
-  <li class="li4">You will be asked for your password. Type it it (nothing will show as you type), then press the "enter" or "return" key.</li>
-  <li class="li4">Quit Terminal.</li>
-</ol>
-<p class="p6"><br></p>
-<p class="p4"><b>Commands for OS X 10.7.* through 10.9.* ("Lion", "Mountain Lion", "Mavericks"):</b></p>
-<p class="p7"><b>sudo chown root:admin /Applications /Library/Application\ Support</b></p>
-<p class="p7"><b>sudo chown root:wheel /Library</b></p>
-<p class="p7"><b>sudo chmod 775 /Applications</b></p>
-<p class="p7"><b>sudo chmod 755 /Library /Library/Application\ Support</b></p>
-<p class="p6"><br></p>
-<p class="p4"><b>Commands for OS X 10.6.* ("Snow Leopard"):</b></p>
-<p class="p7"><b>sudo chown root:admin /Applications<span class="Apple-converted-space">  </span>/Library /Library/Application\ Support</b></p>
-<p class="p7"><b>sudo chmod 775 /Applications /Library /Library/Application\ Support</b></p>
-<p class="p7"><b>sudo chmod +t /Library</b></p>
-<p class="p6"><br></p>
-<p class="p4"><b>Commands for OS X 10.5.* ("Leopard"):</b></p>
-<p class="p7"><b>sudo chown root:admin /Applications /Library</b></p>
-<p class="p7"><b>sudo chown root:wheel /Library/Application\ Support</b></p>
-<p class="p7"><b>sudo chmod 775 /Applications /Library</b></p>
-<p class="p7"><b>sudo chmod +t /Library</b></p>
-<p class="p7"><b>sudo chmod 755 /Library/Application\ Support</b></p>
-<p class="p2"><br></p>
-<p class="p4"><b>Commands for OS X 10.4.* ("Tiger"):</b></p>
-<p class="p7"><b>sudo chown root:admin /Applications /Library /Library/Application\ Support</b></p>
-<p class="p7"><b>sudo chmod 775 /Applications /Library /Library/Application\ Support</b></p>
-<p class="p7"><b>sudo chmod +t /Library</b></p>
+<p class="p4">OS X 10.11 ("El Capitan") does not have a "Repair Disk Permissions" button, so you will need to repair the permissions manually. You will also need to repair the ownership and permissions manually if Disk Utility does not fix the problem. For instructions see <a href="https://tunnelblick.net/cSystemFolderNotSecure.html">System Folder Security</a>.</p>
 </body>
 </html>

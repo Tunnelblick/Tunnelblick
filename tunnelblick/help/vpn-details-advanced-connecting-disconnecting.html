@@ -19,7 +19,7 @@
 <body>
 <p class="p1"><b>Tunnelblick Advanced Settings Window</b></p>
 <p class="p2"><br></p>
-<p class="p3">Tunnelblick's Advanced Settings Window contains less-used settings for the configuration that is selected in the VPN Details Window.<span class="Apple-converted-space"> </span></p>
+<p class="p3">Tunnelblick's Advanced Settings Window contains less-used settings for the configuration(s) that are selected in the VPN Details Window.<span class="Apple-converted-space"> </span></p>
 <p class="p2"><br></p>
 <p class="p4"><b>Most users do not need to change the settings in this window -- Tunnelblick's default settings work best for most situations.</b></p>
 <p class="p2"><br></p>
@@ -35,34 +35,40 @@
 <p class="p3">Several settings in this tab are controlled by a checkbox:</p>
 <ul class="ul1">
   <li class="li3"><b>Flush DNS cache after connecting or disconnecting</b>: When checked, Tunnelblick will flush the system's DNS cache after connecting and after disconnecting. This allows the system to use the appropriate DNS settings while the VPN connection is active and after it is disconnected. (Due to limitations in the security program Hands Off!, flushing the DNS cache is skipped on OS X 10.7 ("Lion") and higher if Hands Off! is running.)</li><br>
-  <li class="li3"><b>Prepend domain name to search domains</b>: <em>This checkbox is only available when the default DNS/WINS setting of 'Set nameserver' is selected.</em> When checked, Tunnelblick will add the domain name to the <u>start</u> of the search domain list if the list has not been specified manually. If the search domain list has been specified manually (in the Network System Preference Advanced window DNS tab), then nothing is done. When not checked on OS X 10.4 and 10.5, the domain name is added to the <u>end</u> of the search domains list. When not checked on OS X 10.6 and higher, the domain name replaces the search domains list unless search domains were entered manually, in which case nothing is done.</li><br>
+
+  <li class="li3"><b>Prepend domain name to search domains</b>: <em>This checkbox is only available when the default DNS/WINS setting of 'Set nameserver' is selected.</em> When checked, Tunnelblick will add the domain name to the <u>start</u> of the search domain list if the list has not been specified manually. If the search domain list has been specified manually, then nothing is done. When not checked on OS X 10.4 and 10.5, the domain name is added to the <u>end</u> of the search domains list. When not checked on OS X 10.6 and higher, the domain name replaces the search domains list unless search domains were entered manually, in which case nothing is done.</li><br>
+
   <li class="li3"><b>Set DNS after routes are set instead of before routes are set</b>: When checked, Tunnelblick will run the standard "up" script using the OpenVPN --route-up option instead of the --up option.</li><br>
-  <li class="li3"><b>Keep connected</b> determines whether or not Tunnelblick will attempt to connect after an unexpected disconnection.</li><br>
-  <li class="li3"><b>Enable IPv6 (tap only)</b> determines whether or not Tunnelblick will enable IPv6 on the tap interface while the configuration is connected.</li>
+
+  <li class="li3"><b>Enable IPv6 (tap only)</b> determines whether or not Tunnelblick will enable IPv6 on the tap interface while the selected configuration(s) is connected.</li><br>
+
+  <li class="li3"><b>Keep connected</b> determines whether or not Tunnelblick will attempt to connect after an unexpected disconnection.</li>
 </ul>
 <p class="p2"><br></p>
 <p class="p3">Two popup menus control what whether Tunnelblick loads the tun and/or tap kexts (device drivers). Tunnelblick always unloads kexts when they are no longer needed.</p>
+<p class="p2"><br></p>
+<p class="p3">Note that on OS X 10.6.8 and higher, recent versions of OpenVPN may use the system's 'utun' driver. The "Load Tun driver automatically" setting is aware of this behavior and loads the tun driver only if it is needed.</p>
 <ul class="ul1">
   <li class="li3"><b>Load Tun driver automatically</b>. When selected, Tunnelblick will load the tun kext only if it is needed.</li>
-  <li class="li3"><b>Always load Tun driver</b>. When selected, Tunnelblick will always load the tun kext when connecting this configuration.</li>
-  <li class="li3"><b>Never load Tun driver</b>. When selected, Tunnelblick will not load the tun kext when connecting this configuration.</li>
+  <li class="li3"><b>Always load Tun driver</b>. When selected, Tunnelblick will always load the tun kext when connecting the selected configuration(s).</li>
+  <li class="li3"><b>Never load Tun driver</b>. When selected, Tunnelblick will not load the tun kext when connecting the selected configuration(s).</li>
 </ul>
 <ul class="ul1">
   <li class="li3"><b>Load Tap driver automatically</b>. When selected, Tunnelblick will load the tap kext only if it is needed.</li>
-  <li class="li3"><b>Always load Tap driver</b>. When selected, Tunnelblick will always load the tap kext when connecting this configuration.</li><br>
-  <li class="li3"><b>Never load Tap driver</b>. When selected, Tunnelblick will not load the tap kext when connecting this configuration.</li>
+  <li class="li3"><b>Always load Tap driver</b>. When selected, Tunnelblick will always load the tap kext when connecting the selected configuration(s).</li>
+  <li class="li3"><b>Never load Tap driver</b>. When selected, Tunnelblick will not load the tap kext when connecting the selected configuration(s).</li>
 </ul>
 <p class="p2"><br></p>
 <p class="p3">Two checkboxes control what Tunnelblick does when the computer goes to sleep:</p>
 <ul class="ul1">
-  <li class="li3"><b>Disconnect when computer goes to sleep</b>. When checked, Tunnelblick will disconnect the configuration when the computer goes to sleep.</li><br>
-  <li class="li3"><b>Reconnect when computer wakes up</b>. When checked, Tunnelblick will reconnect the configuration when the wakes up if the configuration was connected before the computer went to sleep.</li>
+  <li class="li3"><b>Disconnect when computer goes to sleep</b>. When checked, Tunnelblick will disconnect the selected configuration(s) when the computer goes to sleep.</li><br>
+  <li class="li3"><b>Reconnect when computer wakes up</b>. When checked, Tunnelblick will reconnect the selected configuration(s) when computer the wakes up if they were connected before the computer went to sleep.</li>
 </ul>
 <p class="p2"><br></p>
 <p class="p3">Two checkboxes control what Tunnelblick does when a system "Fast User Switch" occurs:</p>
 <ul class="ul1">
-  <li class="li3"><b>Disconnect when user switches out</b>. When checked, Tunnelblick will disconnect the configuration when the user is switched out.</li><br>
-  <li class="li3"><b>Reconnect when user switches in</b>. When checked, Tunnelblick will reconnect the configuration when the user is switched back in if the configuration was connected before the user switched out.</li>
+  <li class="li3"><b>Disconnect when user switches out</b>. When checked, Tunnelblick will disconnect the selected configuration(s) when the user is switched out.</li><br>
+  <li class="li3"><b>Reconnect when user switches in</b>. When checked, Tunnelblick will reconnect the selected configuration(s) when the user is switched back in if they were connected before the user switched out.</li>
 </ul>
 <p class="p2"><br></p>
 <p class="p1"><b>While Connected Tab</b></p>
@@ -70,7 +76,7 @@
 <p class="p3">This tab contains two checkboxes:</p>
 <ul class="ul1">
   <li class="li3"><b>Run MTU maximum size test after connecting</b>. When checked, an '--mtu-test' option is sent to OpenVPN, causing OpenVPN to run a test to determine the maximum MTU size that the path to the VPN server supports. The test takes about three minutes, and test results are reported in the Tunnelblick log. The results of this test can be used to determine parameters for "--tun-mtu", "--fragment", and "--mssfix" options that can be included in the configuration file. (See the descriptions for these options in the OpenVPN documentation.) If this is not checked, the "--mtu-test" option is not sent to OpenVPN, and no such test is performed.</li><br>
-  <li class="li3"><b>Monitor network settings</b>. When checked, Tunnelblick will monitor network settings for changes while the selected configuration is connected and restore settings or restart the VPN if necessary. This may be done to react to DHCP renewals or other network changes. The actions that Tunnelblick takes when various network changes occur may be specified in the two sets of actions that will be taken when particular network settings change in the following ways:</p>
+  <li class="li3"><b>Monitor network settings</b>. When checked, Tunnelblick will monitor network settings for changes while the selected configuration(s) are connected and restore settings or restart the VPN if necessary. This may be done to react to DHCP renewals or other network changes. The actions that Tunnelblick takes when various network changes occur may be specified in the two sets of actions that will be taken when particular network settings change in the following ways:</p>
   <ul class="ul1">
     <li class="li3"><b>When changes to pre-VPN value</b>. These actions are taken when a network setting changes to the value it was before the VPN was established.</li>
     <li class="li3"><b>When changes to anything else</b>. These actions are taken when a network setting changes to any other value.</li>
@@ -86,6 +92,7 @@
 <p class="p1"><b>VPN Credentials Tab</b></p>
 <p class="p2"><br></p>
 <p class="p3">This tab deals with the credentials (username and password or private key) that configurations ask the user for. By default, each configuration uses its own credentials, separate from each other configuration. If the user saves the credentials for one configuration in the Keychain, they will need to enter credentials for each of their other configurations (and save them in the keychain) separately.</p>
+<p class="p2"><br></p>
 <p class="p3">This tab contains a checkbox that allows the user to specify that all configurations should share the same credentials -- so the user can enter the credentials once, save them in the Keychain, and they will be used to for all configurations.</p>
 <p class="p3"><br></p>
 <p class="p3">This tab also contains controls for "named" credentials. If all configurations do not share the same credentials, the user can create named credentials and specify the configurations that use them. For example, if a user has two sets of configurations, one from VPN service provider A, and one from VPN service provider B, the user can create two credential names (for example, "VPN A" and "VPN B"), and then specify that each of the configurations can be assigned to one or the other named credentials. So, for example, ten configurations for VPN service provider A can be set to use the "VPN A" credentials, and twenty-three configurations for VPN service provider B can be set to use "VPN B" credentials. The user then only needs to enter the "VPN A" credentials once and save them to the Keychain, and enter the "VPN B" credentials once and save them to the Keychain, instead of needing to enter the credentials for each of the thirty-two configurations and save each of them to the Keychain.</p>
