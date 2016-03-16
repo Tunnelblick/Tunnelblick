@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -319,42 +319,69 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"Nikolay Zhelev",                NSLocalizedString(@"Bulgarian localization",               @"Credit description"), nil],
                             nil];
 	
+    BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+    
     // Construct an HTML page with the dummy credits, consisting of a table.
     NSString * htmlHead = (@"<font face=\"Arial, Georgia, Garamond\">"
-						   @"<table width=\"100%\">"
-						   @"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
-						   @"<tr><td colspan=\"2\"><strong><center>"
+                           @"<table width=\"100%\">"
+                           @"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
+                           @"<tr><td colspan=\"2\"><strong><center>"
                            @"@@STRING@@"  // "TUNNELBLICK is brought to you by"
-                           @"</strong></td></tr>\n<tr><td colspan=\"2\">&nbsp;</td></tr>\n");
-	
-    NSString * htmlMainTb = (@"<tr><td width=\"40%\" align=\"right\" valign=\"top\"><strong>"
-                             @"@@STRING@@&nbsp;&nbsp;"  // Localization people
-                             @"</center></strong></td><td width=\"60%\" valign=\"top\">"
-                             @"@@STRING@@"				// <Language> localization
-                             @"</td></tr>\n");
-    	    
+                           @"</center></strong></td></tr>\n<tr><td colspan=\"2\">&nbsp;</td></tr>\n");
+    
+    NSString * htmlMainTb = (  rtl
+                             ? (@"<tr><td width=\"60%\" align=\"right\" valign=\"top\">"
+                                @"@@STRING@@&nbsp;&nbsp;"                   // What the person contributed
+                                @"</td>"
+                                @"<td width=\"40%\" valign=\"top\">"
+                                @"<strong>@@STRING@@</strong>"				// Main contribution people
+                                @"</td></tr>\n")
+                             : (@"<tr><td width=\"40%\" align=\"right\" valign=\"top\">"
+                                @"<strong>@@STRING@@&nbsp;&nbsp;</strong>"  // Main contribution people
+                                @"</td><td width=\"60%\" valign=\"top\">"
+                                @"@@STRING@@"                               // What the person contributed
+                                @"</td></tr>\n"));
+    
     NSString * htmlAfterMain = (@"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
-								@"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
-								@"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
-								@"<tr><td colspan=\"2\"><strong><center>"
+                                @"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
+                                @"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
+                                @"<tr><td colspan=\"2\"><strong><center>"
                                 @"@@STRING@@"  // "Additional contributions by"
                                 @"</center></strong></td></tr>\n<tr><td colspan=\"2\">&nbsp;</td></tr>\n");
     
-    NSString * htmlPgmTb = (@"<tr><td width=\"40%\" align=\"right\" valign=\"top\"><strong>"
-                            @"@@STRING@@&nbsp;&nbsp;"
-                            @"</strong></td><td width=\"60%\" valign=\"top\">"
-                            @"@@STRING@@"
-                            @"</td></tr>\n");
+    NSString * htmlPgmTb = (  rtl
+                            ? (@"<tr><td width=\"60%\" align=\"right\" valign=\"top\">"
+                               @"@@STRING@@&nbsp;&nbsp;"                    // What the person contributed
+                               @"</td><td width=\"40%\" valign=\"top\">"
+                               @"<strong>@@STRING@@</strong>"				// Program contribution people
+                               @"</td></tr>\n")
+                            : (@"<tr><td width=\"40%\" align=\"right\" valign=\"top\">"
+                               @"<strong>@@STRING@@&nbsp;&nbsp;</strong>"   // Program contribution people
+                               @"</td>"
+                               @"<td width=\"60%\" valign=\"top\">"
+                               @"@@STRING@@"                                // What the person contributed
+                               @"</td></tr>\n"));
     
-    NSString * htmlAfterPgm = (@"<tr><td colspan=\"2\">&nbsp;</td></tr>\n<tr><td colspan=\"2\">&nbsp;</td></tr>\n<tr><td colspan=\"2\"><strong><center>"
-                               @"@@STRING@@"  // "Localization by"
-                               @"</center></strong></td></tr>\n<tr><td colspan=\"2\">&nbsp;</td></tr>\n");
-	
-    NSString * htmlLocTb = (@"<tr><td width=\"40%\" align=\"right\" valign=\"top\"><strong>"
-							@"@@STRING@@&nbsp;&nbsp;"
-							@"</strong></td><td width=\"60%\" valign=\"top\">"
-							@"@@STRING@@"
-							@"</td></tr>\n");
+    NSString * htmlAfterPgm = (@"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
+                               @"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
+                               @"<tr><td colspan=\"2\">"
+                               @"<strong><center>@@STRING@@</center></strong>"  // "Localization by"
+                               @"</td></tr>\n"
+                               @"<tr><td colspan=\"2\">&nbsp;</td></tr>\n");
+    
+    NSString * htmlLocTb = (  rtl
+                            ? (@"<tr><td width=\"60%\" align=\"right\" valign=\"top\">"
+                               @"@@STRING@@&nbsp;&nbsp;"                    // <Language> localization
+                               @"</td>"
+                               @"<td width=\"40%\" valign=\"top\">"
+                               @"<strong>@@STRING@@</strong>"				// Localization people
+                               @"</td></tr>\n")
+                            : (@"<tr><td width=\"40%\" align=\"right\" valign=\"top\">"
+                               @"<strong>@@STRING@@&nbsp;&nbsp;</strong>"	// Localization people
+                               @"</td>"
+                               @"<td width=\"60%\" valign=\"top\">"
+                               @"@@STRING@@"                                // <Language> localization
+                               @"</td></tr>\n"));
     
     NSString * htmlTail = @"</table></font>";
 
