@@ -1766,7 +1766,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 						NSLog(@"Option '%@' was not terminated in %@", option, path);
 						return CommandOptionsError;
 					}
-					newOption = [[tokens objectAtIndex: tokenIx++] stringValue];
+					newOption = [[tokens objectAtIndex: tokenIx] stringValue];
 				}
 			} else {
 				

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -497,10 +497,9 @@ extern TBUserDefaults * gTbDefaults;
 }
 
 
--(void) newViewWillAppear: (NSView *) view identifier: (NSString *) identifier
+-(void) newViewDidAppear: (NSView *) view
 {
 	(void) view;
-	(void) identifier;
 	
     requestedPosition = 0.0;
     restartAtTop = YES;
@@ -517,6 +516,13 @@ extern TBUserDefaults * gTbDefaults;
     [scrollTimer tbSetTolerance: -1.0];
 }
 
+
+-(void) newViewWillAppear: (NSView *) view identifier: (NSString *) identifier
+{
+    (void) identifier;
+    
+    [self newViewDidAppear: view];
+}
 
 - (void)scrollCredits:(NSTimer *)timer
 {
