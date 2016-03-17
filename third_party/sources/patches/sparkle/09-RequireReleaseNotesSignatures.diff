@@ -99,7 +99,7 @@ diff -u -r Sparkle 1.5b6/Extras/Source Code/SUUpdateAlert.m Sparkle 1.5b6_patch9
 -			[[releaseNotesView mainFrame] loadRequest:[NSURLRequest requestWithURL:[updateItem releaseNotesURL] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30]];
 +			NSMutableData * data = [self getReleaseNotesAtURL:[updateItem releaseNotesURL]];
 +			
-+			if ([SUDSAVerifier validateData:data fromItemName:@"update notes" withPublicDSAKey:[host publicDSAKey]]  )
++			if ((![host publicDSAKey]) || [SUDSAVerifier validateData:data fromItemName:@"update notes" withPublicDSAKey:[host publicDSAKey]]  )
 +			{
 +				NSString * releaseNotesHTML = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
 +				if (releaseNotesHTML)

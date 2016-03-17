@@ -15,7 +15,7 @@ diff -u -r Sparkle 1.5b6/Extras/Source Code/SUAppcast.m Sparkle 1.5b6_patch8/Ext
  {
  	CFRelease(connection);
 +	
-+	if (![SUDSAVerifier validateData:incrementalData fromItemName:@"appcast" withPublicDSAKey:[[delegate host] publicDSAKey]]  ) {
++	if ( ([[delegate host] publicDSAKey] && (![SUDSAVerifier validateData:incrementalData fromItemName:@"appcast" withPublicDSAKey:[[delegate host] publicDSAKey]])) ) {
 +		[self reportError:[NSError errorWithDomain:SUSparkleErrorDomain code:SUAppcastParseError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:SULocalizedString(@"An error occurred while processing the update feed.", nil), NSLocalizedDescriptionKey, nil]]];
 +		return;
 +	}
