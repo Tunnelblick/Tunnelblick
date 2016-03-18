@@ -861,8 +861,12 @@ extern volatile int32_t       gActiveInactiveState;
     tunOrTap = nil;
 }
 
--(void) showStatusWindow
+-(void) showStatusWindowForce: (BOOL) force
 {
+    if (  force  ) {
+        [statusScreen setClosedByRedDot: FALSE];
+    }
+    
     if (   (! gShuttingDownTunnelblick)
         && (  gSleepWakeState == noSleepState)
         && (  gActiveInactiveState == active)   ) {
@@ -871,6 +875,9 @@ extern volatile int32_t       gActiveInactiveState;
             if (  ! [statusPref isEqualToString: @"neverShow"]  ) {
                 if (  ! statusScreen) {
                     statusScreen = [[StatusWindowController alloc] initWithDelegate: self];
+                    if (  force  ) {
+                        [statusScreen setClosedByRedDot: FALSE];
+                    }
                 } else {
                     [statusScreen restore];
                 }
@@ -1456,6 +1463,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
 		
+    [self showStatusWindowForce: YES]; // Force the VPN status window open (even if the user closed it earlier) because the user clicked "connect"
+    
     [self startCheckingIPAddressBeforeConnected];
     
     // Process runOnConnect item
@@ -1583,7 +1592,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         }
         [self setState: @"SLEEP"];
 		[((MenuController *)[NSApp delegate]) addNonconnection: self];
-        [self showStatusWindow];
         [self connectToManagementSocket];
     }
 }
@@ -3473,7 +3481,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * statusPref = [gTbDefaults stringForKey: @"connectionWindowDisplayCriteria"];
     if (   [statusPref isEqualToString: @"showWhenChanges"]
         || [newState isEqualToString: @"RECONNECTING"]  ) {
-        [self showStatusWindow];
+        [self showStatusWindowForce: NO];
     }
     
     [statusScreen setStatus: newState forName: [self displayName] connectedSince: [self timeString]];

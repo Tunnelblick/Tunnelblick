@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -73,6 +73,11 @@
     
     BOOL                       isOpen;          // Flag for animating window fade-in and fade-out
 
+    BOOL                       closedByRedDot;  // Flag that windowWillClose was invoked BEFORE closeAfterFadeOut.
+    //                                          // That means that window was closed by the red dot (close button).
+    
+    BOOL                       closeAfterFadeOutClosedTheWindow; // Used to implement closedByRedDot
+    
     BOOL                       haveLoadedFromNib;
     
     id                         delegate;
@@ -101,6 +106,7 @@ TBPROPERTY(NSString *, name,           setName)
 TBPROPERTY(NSString *, localName,      setLocalName)
 TBPROPERTY(NSString *, status,         setStatus)
 TBPROPERTY(NSString *, connectedSince, setConnectedSince)
+TBPROPERTY(BOOL,       closedByRedDot, setClosedByRedDot)
 
 TBPROPERTY_READONLY(BOOL, haveLoadedFromNib)
 TBPROPERTY_READONLY(BOOL, isOpen)

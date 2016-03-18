@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -83,6 +83,8 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
     haveLoadedFromNib = FALSE;
     isOpen = FALSE;
+    closeAfterFadeOutClosedTheWindow = FALSE;
+    closedByRedDot = FALSE;
     
     delegate = [theDelegate retain];
     
@@ -92,6 +94,22 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
                                                object: nil];        
     
     return self;
+}
+
+-(void) windowWillClose:(NSNotification *)notification {
+    
+    // If windowWillClose was invoked BEFORE closeAfterFadeOut closed the window, it means that the user
+    // closed the window by clicking on the red dot (close button).
+    //
+    // If not, it means the window was closed by closeAfterFadeOut because it had timed out after the
+    // pointer moved away from the Tunnelblick icon or a VPN status window.
+    //
+    // We use this to determine if the window was closed by the red dot, in which case we don't show
+    // it again until the user connects the configuration.
+    
+    (void) notification;
+    
+    closedByRedDot = (! closeAfterFadeOutClosedTheWindow);
 }
 
 -(void) startMouseTracking {
@@ -132,6 +150,11 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void) restore
 {
+    if (  closedByRedDot  ) {
+        return;
+    }
+    
+    closeAfterFadeOutClosedTheWindow = FALSE;
     [self enableOrDisableButtons];
     [self startMouseTracking];
     [self setSizeAndPosition];
@@ -344,7 +367,6 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
                                          userData: nil
                                      assumeInside: NO];
     
-
     [self showWindow: self];
     [self initialiseAnim];
 	haveLoadedFromNib = TRUE;
@@ -481,6 +503,9 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     [self startMouseTracking];
     
 	if (  ! isOpen  ) {
+        if (  closedByRedDot  ) {
+            return;
+        }
         NSWindow * window = [self window];
 		
         [window makeKeyAndOrderFront: self];
@@ -546,6 +571,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 	(void) dict;
 	
     if ( [[self window] alphaValue] == 0.0 ) {
+        closeAfterFadeOutClosedTheWindow = TRUE;
         [[self window] close];
     } else {
         NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.2   // Wait for the window to become transparent
@@ -688,6 +714,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outRateTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outRateUnitsTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outTotalTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outTotalUnitsTFC)
+
+TBSYNTHESIZE_NONOBJECT(BOOL, closedByRedDot, setClosedByRedDot)
 
 // Event Handlers
 -(void) mouseEntered: (NSEvent *) theEvent {

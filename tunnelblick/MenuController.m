@@ -7488,7 +7488,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
             if (  showThem  ) {
                 if (   (! [gTbDefaults boolForKey: @"doNotShowDisconnectedNotificationWindows"])
                     || ( ! [connection isDisconnected])  ) {
-                    [connection showStatusWindow];
+                    [connection showStatusWindowForce: NO];
 					TBLog(@"DB-MO", @"statisticsWindowsShow: requested show of status window for %@ because log files may exist for it", [connection displayName]);
                     showingAny = TRUE;
                 }
@@ -7519,7 +7519,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
             }
         }
         if (  lastConnection  ) {
-            [lastConnection showStatusWindow];
+            [lastConnection showStatusWindowForce: NO];
 			[lastConnection setLogFilesMayExist: TRUE];
 			TBLog(@"DB-MO", @"statisticsWindowsShow: requested show of status window for %@ because no other status windows are showing", [lastConnection displayName]);
         }
