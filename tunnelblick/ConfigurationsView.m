@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -230,7 +230,7 @@ extern TBUserDefaults * gTbDefaults;
 	
 	[self normalizeWidthOfConfigurationsButtons];
 	
-	[UIHelper setTitle: NSLocalizedString(@"Advanced..." , @"Button") ofControl: advancedButton shift: ( ! rtl ) narrow: YES enable: ( ! [gTbDefaults boolForKey: @"disableAdvancedButton"])];
+	[UIHelper setTitle: NSLocalizedString(@"Advanced..." , @"Button") ofControl: advancedButton shift: rtl narrow: YES enable: ( ! [gTbDefaults boolForKey: @"disableAdvancedButton"])];
 	
 	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: savedDoingSetupOfUI];
 }

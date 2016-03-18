@@ -174,8 +174,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) setupViews
 {
-    
-    currentFrame = NSMakeRect(0.0, 0.0, 920.0, 390.0);
+    currentFrame = NSMakeRect(0.0, 0.0, 920.0, 390.0); // This is the size of each "view", as loaded from preferences.xib
     
 	unsigned int ix = [UIHelper detailsWindowsViewIndexFromPreferencesWithMax: [toolbarIdentifiers count]-1];
 	[self setCurrentViewName: [toolbarIdentifiers objectAtIndex: ix]];
@@ -195,21 +194,53 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
-- (IBAction)showWindow:(id)sender 
-{
-    [super showWindow: sender];
+-(void) resizeAllViewsExceptCurrent {
     
+    NSView * currentView = [toolbarViews objectForKey: currentViewName];
+    if (  currentView  ) {
+        NSSize newSize = [currentView frame].size;
+        if (  newSize.width != 0.0 ) {
+            
+            NSString * name;
+            NSEnumerator * e = [toolbarViews keyEnumerator];
+            while (  (name = [e nextObject])  ) {
+                if (   [name isNotEqualTo: currentViewName]
+                    && [name isNotEqualTo: NSToolbarFlexibleSpaceItemIdentifier]  ) {
+                    NSView  * view = [toolbarViews objectForKey: name];
+                    NSRect f = [view frame];
+                    f.size = newSize;
+                    [view setFrameSize:  newSize];
+                }
+            }
+        } else {
+            NSLog(@"resizeAllViewsExceptCurrent: [currentView frame].size.width is 0.0 for '%@'", currentViewName);
+        }
+    } else {
+        NSLog(@"resizeAllViewsExceptCurrent: No view in toolbarViews for '%@'", currentViewName);
+    }
+}
+
+
+- (IBAction) windowWillAppear
+{
     if (  firstTimeShowingWindow  ) {
-        // Set the window's position from preferences (saved when window is closed)
-        // But only if the preference's version matches the TB version (since window size could be different in different versions of TB)
+        // Set the window's position and size from the preferences (saved when window is closed), or center the window
+        // Use the preferences only if the preference's version matches the TB version (since window size could be different in different versions of TB)
         NSString * tbVersion = [[[NSApp delegate] tunnelblickInfoDictionary] objectForKey: @"CFBundleVersion"];
         if (  [tbVersion isEqualToString: [gTbDefaults stringForKey:@"detailsWindowFrameVersion"]]    ) {
             NSString * mainFrameString  = [gTbDefaults stringForKey: @"detailsWindowFrame"];
             NSString * leftFrameString  = [gTbDefaults stringForKey: @"detailsWindowLeftFrame"];
 			NSString * configurationsTabIdentifier         = [gTbDefaults stringForKey: @"detailsWindowConfigurationsTabIdentifier"];
             if (   mainFrameString != nil  ) {
+                
+                // Set the new frame for the window
+                [[self window] setMinSize: NSMakeSize(760.0, 412.0)]; // WINDOW size, not view size
+                [[self window] setMaxSize: NSMakeSize(FLT_MAX, FLT_MAX)];
                 NSRect mainFrame = NSRectFromString(mainFrameString);
-                [[self window] setFrame: mainFrame display: YES];  // display: YES so stretches properly
+                [[self window] setFrame: mainFrame display: YES];     // display: YES so stretches properly
+                
+                // Resize all other views (so they are the same size as the current view (whose size changed if the window size changed)
+                [self resizeAllViewsExceptCurrent];
             }
             
             if (  leftFrameString != nil  ) {
@@ -228,7 +259,22 @@ static BOOL firstTimeShowingWindow = TRUE;
             [[self window] setReleasedWhenClosed: NO];
 		}
 
+        [[self window] setShowsResizeIndicator: YES];
+
         firstTimeShowingWindow = FALSE;
+    } else {
+        if (  currentViewName  ) {
+            NSView * currentView = [toolbarViews objectForKey: currentViewName];
+            if (  currentView  ) {
+                if (  [currentView respondsToSelector: @selector(newViewDidAppear:)]  ) {
+                    [(id) currentView newViewDidAppear: currentView];
+                }
+            } else {
+                NSLog(@"showWindow: '%@' not found in toolbarViews", currentViewName);
+            }
+        } else {
+            NSLog(@"showWindow: currentViewName is nil");
+        }
     }
 }
 
@@ -237,8 +283,17 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
 	(void) notification;
 	
-    if (  [currentViewName isEqualToString: @"Info"]  ) {
-        [infoPrefsView oldViewWillDisappear: infoPrefsView identifier: @"Info"];
+    if (  currentViewName  ) {
+        NSView * currentView = [toolbarViews objectForKey: currentViewName];
+        if (  currentView  ) {
+            if (  [currentView respondsToSelector: @selector(oldViewWillDisappear:identifier:)]  ) {
+                [(id) currentView oldViewWillDisappear: currentView identifier: currentViewName];
+            }
+        } else {
+            NSLog(@"windowWillClose: '%@' not found in toolbarViews", currentViewName);
+        }
+    } else {
+        NSLog(@"windowWillClose: currentViewName is nil");
     }
     
     [[self selectedConnection] stopMonitoringLogFiles];
@@ -279,11 +334,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
-// oldViewWillDisappear and newViewWillAppear do two things:
-//
-//      1) They fiddle frames to ignore resizing except of Configurations
-//      2) They notify infoPrefsView it is appearing/disappearing so it can start/stop its animation
-
 // Overrides superclass
 -(void) oldViewWillDisappear: (NSView *) view identifier: (NSString *) identifier
 {
@@ -291,25 +341,13 @@ static BOOL firstTimeShowingWindow = TRUE;
         [(id) view oldViewWillDisappear: view identifier: identifier];
     }
     
-    [self setCurrentViewName: nil];
-    
-    // If switching FROM Configurations, save the frame for later and remove resizing indicator
-    //                                   and stop monitoring the log
-    if (   [identifier isEqualToString: @"Configurations"]  ) {
-        currentFrame = [view frame];
-		NSWindow * w = [view window];
-        [w setShowsResizeIndicator: NO];
-		windowContentMinSize = [w contentMinSize];	// Don't allow size changes except in 'Configurations' view
-		windowContentMaxSize = [w contentMaxSize];	// But remember min & max for when we restore 'Configurations' view
-		NSRect f = [w frame];
-		NSSize s = [w contentRectForFrameRect: f].size;
-        [w setContentMinSize: s];
-		[w setContentMaxSize: s];
-		
+    if (   view == configurationsPrefsView  ) {
         [[self selectedConnection] stopMonitoringLogFiles];
     }
+    
+    // Resize all other views (so they are the same size as the current view -- in case the window was resized)
+    [self resizeAllViewsExceptCurrent];
 }
-
 
 // Overrides superclass
 -(void) newViewWillAppear: (NSView *) view identifier: (NSString *) identifier
@@ -318,31 +356,17 @@ static BOOL firstTimeShowingWindow = TRUE;
         [(id) view newViewWillAppear: view identifier: identifier];
     }
     
-    [self setCurrentViewName: identifier];
-    
-    // If switching TO Configurations, restore its last frame (even if user resized the window)
-    //                                 and start monitoring the log
-    // Otherwise, restore all other views' frames to the Configurations frame
-    if (   [identifier isEqualToString: @"Configurations"]  ) {
-        [view setFrame: currentFrame];
-		NSWindow * w = [view window];
-        [w setShowsResizeIndicator: YES];
-		[w setContentMinSize: windowContentMinSize];
-		[w setContentMaxSize: windowContentMaxSize];        
+    if (   view == configurationsPrefsView  ) {
         [[self selectedConnection] startMonitoringLogFiles];
-    } else {
-        [appearancePrefsView setFrame: currentFrame];
-        [generalPrefsView    setFrame: currentFrame];        
-        [utilitiesPrefsView  setFrame: currentFrame];
-        [infoPrefsView       setFrame: currentFrame];
-    }
-	
-	if (  [identifier isEqualToString: @"Preferences"]) {
+    } else if (  view == generalPrefsView  ) {
 		// Update our preferences from Sparkle's whenever we show the view
 		// (Would be better if Sparkle told us when they changed, but it doesn't)
 		[((MenuController *)[NSApp delegate]) setOurPreferencesFromSparkles];
 		[self setupGeneralView];
 	}
+    
+    // Track the name of the view currently being shown, so other methods can access the view
+    [self setCurrentViewName: identifier];
 }
 
 // Overrides superclass
@@ -363,10 +387,14 @@ static BOOL firstTimeShowingWindow = TRUE;
                                      : @"");
         NSString * version = [NSString stringWithFormat: @"%@%@", tunnelblickVersion([NSBundle mainBundle]), deployedString];
         [[infoPrefsView infoVersionTFC] setTitle: version];
-		[infoPrefsView newViewWillAppear: nil identifier: nil];	// Trigger the scrolling. (This method doesn't use the arguments)
+		[infoPrefsView newViewDidAppear: infoPrefsView];	// Trigger the scrolling
     } else {
-        NSLog(@"newViewDidAppear:identifier: invoked with unknown view");
+        NSLog(@"newViewDidAppear: invoked with unknown view");
     }
+    
+    // Save the current view in preferences so clicking "VPN Details..." will reload it.
+    unsigned int viewIx = [toolbarIdentifiers indexOfObject: currentViewName];
+    [gTbDefaults setObject: [NSNumber numberWithUnsignedInt: viewIx] forKey: @"detailsWindowViewIndex"];
 }
 
 -(BOOL) tabView: (NSTabView *) inTabView shouldSelectTabViewItem: (NSTabViewItem *) tabViewItem

@@ -217,7 +217,14 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 #pragma mark Overriding Methods
 
 
-- (IBAction)showWindow:(id)sender 
+// Override in subclass if desired
+-(void) windowWillAppear
+{
+    
+}
+
+
+- (IBAction)showWindow:(id)sender
 {
     // This forces the resources in the nib to load.
 	(void)[self window];
@@ -247,6 +254,8 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	[[[self window] toolbar] setSelectedItemIdentifier:firstIdentifier];
 	[self displayViewForIdentifier:firstIdentifier animate:NO];
 
+    [self windowWillAppear];
+    
 	[super showWindow:sender];
 }
 
@@ -354,10 +363,12 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		}
 	}
 	
-	if (![newView isEqualTo:oldView]) {		
-		NSRect frame = [newView bounds];
-		frame.origin.y = NSHeight([contentSubview frame]) - NSHeight([newView bounds]);
-		[newView setFrame:frame];
+	if (![newView isEqualTo:oldView]) {
+// Removed so the window does not resize itself for different views.
+// Tunnelblick lets the user resize the window and keeps that size no matter what panel is being viewed.
+//		NSRect frame = [newView bounds];
+//		frame.origin.y = NSHeight([contentSubview frame]) - NSHeight([newView bounds]);
+//		[newView setFrame:frame];
 		[contentSubview addSubview:newView];
 		[[self window] setInitialFirstResponder:newView];
         

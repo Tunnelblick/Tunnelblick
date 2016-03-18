@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -43,11 +43,6 @@
     IBOutlet InfoView             * infoPrefsView;
     IBOutlet UtilitiesView        * utilitiesPrefsView;
     
-	NSSize                          windowContentMinSize;	// Saved when switch FROM Configurations view
-	NSSize                          windowContentMaxSize;   // And restored when switch back
-	//												        // (In other views, set min = max so can't change size)
-	
-    // For ConfigurationsView
     NSString                      * previouslySelectedNameOnLeftNavList;
     
     NSMutableArray                * leftNavList;                      // Items in the left navigation list as displayed to the user
