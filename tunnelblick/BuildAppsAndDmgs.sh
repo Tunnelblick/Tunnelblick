@@ -122,19 +122,24 @@ setBuildNumber()
 }
 tbbn="$(cat TBBuildNumber.txt)"
 setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Info.plist" "${tbbn}"
+setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Info.plist" "${tbbn}"
+
+# Kexts must have small numbers as the second and optional 3rd part of CFBundleVersion
+# So we change a Tunnelblick build # of (for example) 1234.5678 to just 5678 for use in the kexts.
+# Since the kexts have TBBUILDNUMBER.1, TBBUILDNUMBER.2, or TBBUILDNUMBER.3, they will be 5678.1, 5678.2, and 5678.3
+kextbn="${tbbn##*.}"
 if [ -d          "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext" ] ; then
-  setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext/Contents/Info.plist" "${tbbn}"
+  setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext/Contents/Info.plist" "${kextbn}"
 fi
 if [ -d          "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext" ] ; then
-  setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext/Contents/Info.plist" "${tbbn}"
+  setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext/Contents/Info.plist" "${kextbn}"
 fi
-setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20111101.kext/Contents/Info.plist" "${tbbn}"
-setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20111101.kext/Contents/Info.plist" "${tbbn}"
-setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext/Contents/Info.plist" "${tbbn}"
-setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext/Contents/Info.plist" "${tbbn}"
-setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext/Contents/Info.plist" "${tbbn}"
-setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext/Contents/Info.plist" "${tbbn}"
-setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Info.plist" "${tbbn}"
+setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20111101.kext/Contents/Info.plist" "${kextbn}"
+setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20111101.kext/Contents/Info.plist" "${kextbn}"
+setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext/Contents/Info.plist" "${kextbn}"
+setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext/Contents/Info.plist" "${kextbn}"
+setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext/Contents/Info.plist" "${kextbn}"
+setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext/Contents/Info.plist" "${kextbn}"
 
 # Create the openvpn directory structure:
 # ...Contents/Resources/openvpn contains a folder for each version of OpenVPN.
