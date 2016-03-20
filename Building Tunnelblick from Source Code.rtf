@@ -2,7 +2,7 @@
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 CourierNewPS-BoldMT;\f2\froman\fcharset0 TimesNewRomanPSMT;
 }
 {\colortbl;\red255\green255\blue255;\red191\green191\blue191;}
-{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid1\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}
 {\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
 {\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid202\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid3}
 {\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid301\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid302\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid303\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li2160\lin2160 }{\listname ;}\listid4}
@@ -26,12 +26,12 @@ Because Tunnelblick is distributed using the "GNU General Public License, versio
 \cf0 To build Tunnelblick from the source code:\
 \
 \pard\tx220\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\pardirnatural
-\ls1\ilvl0\cf0 {\listtext	\'95	}You need a copy of the Tunnelblick source code;\
-{\listtext	\'95	}You need a supported version of OS X and Xcode;\
-{\listtext	\'95	}You need to have set up Xcode to build Tunnelblick;\
-{\listtext	\'95	}You need to have installed the GNU autotools;\
-{\listtext	\'95	}You need to set up the appropriate project file; and\
-{\listtext	\'95	}You need to select the type of build you want to create.\
+\ls1\ilvl0\cf0 {\listtext	1.	}You need a copy of the Tunnelblick source code;\
+{\listtext	2.	}You need a supported version of OS X and Xcode;\
+{\listtext	3.	}You need to have set up Xcode to build Tunnelblick;\
+{\listtext	4.	}You need to have installed the GNU autotools;\
+{\listtext	5.	}You need to set up the appropriate project file; and\
+{\listtext	6.	}You need to select the type of build you want to create.\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 \cf0 \
 This document has a section about each of these requirements.\
@@ -54,7 +54,7 @@ Using a virtual machine to build Tunnelblick is fine \'96 Tunnelblick releases a
 \
 \
 
-\b\fs28 Getting the Tunnelblick Source Code
+\b\fs28 1. Getting the Tunnelblick Source Code
 \b0\fs24 \
 \
 Download the Tunnelblick source code from the {\field{\*\fldinst{HYPERLINK "https://github.com/Tunnelblick//Tunnelblick"}}{\fldrslt Tunnelblick Project on GitHub}}.\
@@ -63,7 +63,7 @@ You can download a .zip containing the source from the "master" branch (which in
 \
 \
 
-\b\fs28 Supported Versions of OS X and Xcode
+\b\fs28 2. Supported Versions of OS X and Xcode
 \b0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
@@ -101,7 +101,7 @@ Which platform you build on determines what platforms can run the Tunnelblick ap
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
-\b\fs28 \cf0 Setting up Xcode to Build Tunnelblick
+\b\fs28 \cf0 3. Setting up Xcode to Build Tunnelblick
 \b0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
@@ -112,8 +112,8 @@ Which platform you build on determines what platforms can run the Tunnelblick ap
 \b0  does not need any additional setup.\
 \
 
-\b Xcode 7.0+
-\b0  needs to be set up to use "legacy" locations for build products and needs to have the command line tools installed:\
+\b If you want to use Xcode 7.0+
+\b0 , it needs to be set up to use "legacy" locations for build products and needs to have the command line tools installed:\
 \
 
 \b For Xcode 7.0+
@@ -130,7 +130,7 @@ Which platform you build on determines what platforms can run the Tunnelblick ap
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
-\b\fs28 \cf0 Installing the GNU autotools
+\b\fs28 \cf0 4. Installing the GNU autotools
 \b0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
@@ -147,7 +147,7 @@ The script downloads appropriate versions of the tools and installs them. Becaus
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
-\b\fs28 \cf0 Setting up the Appropriate Project File
+\b\fs28 \cf0 5. Setting up the Appropriate Project File
 \b0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
@@ -197,11 +197,11 @@ If you are using Xcode 7.0+\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
 \f0\b\fs24 \cf0 \
-Selecting  the Type of Build You Want to Create
-\b0\fs20 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
-\fs24 \cf0 \
+\fs28 \cf0 6. Selecting  the Type of Build You Want to Create
+\b0\fs24 \
+\
 There are several different types of builds. Only two are usually used, and unfortunately Xcode defaults to using the one you shouldn't use, "Debug". You should use the "Unsigned Release" build instead.\
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
@@ -258,7 +258,7 @@ If you have problems, please post to the {\field{\*\fldinst{HYPERLINK "https://g
 \
 The first time you build Tunnelblick there may be many warnings. Building OpenVPN 2.3.6 generates dozens of warnings, primarily about signed/unsigned conflicts. In addition, if building with Xcode 5.1.1 or higher each build of Tunnelblick will produce additional "Attribute Unavailable" warnings about .xib files.\
 \
-The following table shows the number of warnings that are generated when building Tunnelblick r3301 (build 4301) using different versions of Xcode.\
+The following table shows the number of warnings that are generated when building Tunnelblick r3301 (build 4301) using different versions of Xcode. Other versions of the Tunnelblick source generate different numbers of warnings.\
 \
 
 \itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 

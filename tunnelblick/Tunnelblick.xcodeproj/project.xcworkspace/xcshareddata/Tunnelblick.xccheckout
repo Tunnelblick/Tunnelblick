@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0CA2D96B-6F21-4680-AD9F-84F3B392F769</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Tunnelblick</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>ecaf4b9d-c145-0410-a236-1b700048ef5c++505</key>
+		<string>https://tunnelblick.googlecode.com/svn/trunk</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>tunnelblick/Tunnelblick.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>ecaf4b9d-c145-0410-a236-1b700048ef5c++505</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>ecaf4b9d-c145-0410-a236-1b700048ef5c++505</key>
+		<string>https://tunnelblick.googlecode.com/svn</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://tunnelblick.googlecode.com/svn/trunk/tunnelblick/Tunnelblick.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>ecaf4b9d-c145-0410-a236-1b700048ef5c++505</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>ecaf4b9d-c145-0410-a236-1b700048ef5c++505</string>
+			<key>IDESourceControlWCCName</key>
+			<string>r2781e-Built-MulitXcode-10.10.3</string>
+		</dict>
+	</array>
+</dict>
+</plist>
