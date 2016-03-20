@@ -179,6 +179,9 @@
 		63E56EEC13848338007E39AB /* VPNServiceSorryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE213848338007E39AB /* VPNServiceSorryController.m */; };
 		63E56EED13848338007E39AB /* VPNServiceTermsOfServiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE413848338007E39AB /* VPNServiceTermsOfServiceController.m */; };
 		63E56EEE13848338007E39AB /* VPNServiceWelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE613848338007E39AB /* VPNServiceWelcomeController.m */; };
+		63EA2CAA1C9EFCF0005F0872 /* FA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63EA2CA71C9EFCF0005F0872 /* FA.lproj */; };
+		63EA2CAB1C9EFCF0005F0872 /* ID.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63EA2CA81C9EFCF0005F0872 /* ID.lproj */; };
+		63EA2CAC1C9EFCF0005F0872 /* IS.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63EA2CA91C9EFCF0005F0872 /* IS.lproj */; };
 		63EA676C13DF326600E77443 /* SV.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63EA676913DF326600E77443 /* SV.lproj */; };
 		63ED902C1A1E84E40045D34E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
 		63ED902D1A1E84E40045D34E /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63432572140D7F5A00015CE0 /* CoreServices.framework */; };
@@ -535,6 +538,9 @@
 		63E56EE513848338007E39AB /* VPNServiceWelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPNServiceWelcomeController.h; sourceTree = "<group>"; };
 		63E56EE613848338007E39AB /* VPNServiceWelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPNServiceWelcomeController.m; sourceTree = "<group>"; };
 		63E8427A117A147500529DE2 /* ConfigurationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationManager.h; sourceTree = "<group>"; };
+		63EA2CA71C9EFCF0005F0872 /* FA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FA.lproj; sourceTree = "<group>"; };
+		63EA2CA81C9EFCF0005F0872 /* ID.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ID.lproj; sourceTree = "<group>"; };
+		63EA2CA91C9EFCF0005F0872 /* IS.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IS.lproj; sourceTree = "<group>"; };
 		63EA676913DF326600E77443 /* SV.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SV.lproj; sourceTree = "<group>"; };
 		63ED8EE61A1E84560045D34E /* tunnelblickd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tunnelblickd; sourceTree = BUILT_PRODUCTS_DIR; };
 		63ED90391A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = net.tunnelblick.tunnelblick.tunnelblickd.plist; sourceTree = "<group>"; };
@@ -964,7 +970,6 @@
 		63EA8CE613A3DC330034F47C /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				636A16711B0242490005DD0A /* LV.lproj */,
 				615F74860ED3A4C2007F6F0A /* English.lproj */,
 				635713A31A6709D800709670 /* AR.lproj */,
 				63DC245419FA73E3006B1BDF /* BG.lproj */,
@@ -975,12 +980,16 @@
 				63DC245019FA73A9006B1BDF /* EL.lproj */,
 				6391992210449804001FA1BC /* ES.lproj */,
 				6389ADBA1AE4262500E2FAD8 /* ET.lproj */,
+				63EA2CA71C9EFCF0005F0872 /* FA.lproj */,
 				B896C2DF1767B753004D9A21 /* FI.lproj */,
 				615F748C0ED3A4E5007F6F0A /* FR.lproj */,
 				63903D12145EAD49006627C9 /* HU.lproj */,
+				63EA2CA81C9EFCF0005F0872 /* ID.lproj */,
+				63EA2CA91C9EFCF0005F0872 /* IS.lproj */,
 				63BD86E41205BA39005B8E38 /* IT.lproj */,
 				615F74930ED3A4FA007F6F0A /* JA.lproj */,
 				615F74960ED3A4FA007F6F0A /* KO.lproj */,
+				636A16711B0242490005DD0A /* LV.lproj */,
 				61C03B960ED4E42A00175F22 /* NB.lproj */,
 				631310D513CA18870071C110 /* NL.lproj */,
 				63AE8596116CCF7A00D36CB1 /* PL.lproj */,
@@ -1402,7 +1411,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0720;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Tunnelblick" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1452,6 +1461,7 @@
 				63903D18145EAD49006627C9 /* HU.lproj in Resources */,
 				63BD86E81205BA39005B8E38 /* IT.lproj in Resources */,
 				615F749A0ED3A4FA007F6F0A /* JA.lproj in Resources */,
+				63EA2CAC1C9EFCF0005F0872 /* IS.lproj in Resources */,
 				615F749B0ED3A4FA007F6F0A /* KO.lproj in Resources */,
 				61C03B990ED4E42A00175F22 /* NB.lproj in Resources */,
 				631310D913CA18870071C110 /* NL.lproj in Resources */,
@@ -1504,6 +1514,7 @@
 				63E56EC713848194007E39AB /* VPNServiceProve.xib in Resources */,
 				63E56EC813848194007E39AB /* VPNServiceSorry.xib in Resources */,
 				633888F61C00F2FC0076032D /* AlertWindow-RTL.xib in Resources */,
+				63EA2CAA1C9EFCF0005F0872 /* FA.lproj in Resources */,
 				63E56EC913848194007E39AB /* VPNServiceTermsOfService.xib in Resources */,
 				63E56ECA13848194007E39AB /* VPNServiceWelcome.xib in Resources */,
 				636A16721B0242490005DD0A /* LV.lproj in Resources */,
@@ -1523,6 +1534,7 @@
 				63F0A8B31507D24800526AF9 /* MainIcon.xib in Resources */,
 				B85B5DBF15F2436200EDCF95 /* Welcome.xib in Resources */,
 				B86D1314181186E900FDFB3B /* ListingWindow.xib in Resources */,
+				63EA2CAB1C9EFCF0005F0872 /* ID.lproj in Resources */,
 				632BB9EA194F2D13006CD7DA /* AlertWindow.xib in Resources */,
 				6308A50C1976C34500433B96 /* net.tunnelblick.tunnelblick.LaunchAtLogin.plist in Resources */,
 				636BB3F8197776A900FDC5DE /* launchAtLogin.sh in Resources */,

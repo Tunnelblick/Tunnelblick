@@ -161,6 +161,9 @@
 		63DC245319FA73A9006B1BDF /* EL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63DC245019FA73A9006B1BDF /* EL.lproj */; };
 		63DC245719FA73E3006B1BDF /* BG.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63DC245419FA73E3006B1BDF /* BG.lproj */; };
 		63DEC29013B890F70063CE11 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
+		63E16FED1C9EFF1B003E947E /* FA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63E16FEA1C9EFF1B003E947E /* FA.lproj */; };
+		63E16FF41C9EFF37003E947E /* ID.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63E16FEE1C9EFF37003E947E /* ID.lproj */; };
+		63E16FF51C9EFF37003E947E /* IS.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63E16FF11C9EFF37003E947E /* IS.lproj */; };
 		63E372680FEB3FF00012DDE7 /* leasewatch in Resources */ = {isa = PBXBuildFile; fileRef = 63E372660FEB3FF00012DDE7 /* leasewatch */; };
 		63E56EC413848194007E39AB /* VPNServiceCreateAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63E56EBD13848194007E39AB /* VPNServiceCreateAccount.xib */; };
 		63E56EC513848194007E39AB /* VPNServiceIntro.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63E56EBE13848194007E39AB /* VPNServiceIntro.xib */; };
@@ -504,6 +507,9 @@
 		63DC245419FA73E3006B1BDF /* BG.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BG.lproj; sourceTree = "<group>"; };
 		63DEC28E13B890F70063CE11 /* NSString+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TB.h"; sourceTree = "<group>"; };
 		63DEC28F13B890F70063CE11 /* NSString+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TB.m"; sourceTree = "<group>"; };
+		63E16FEA1C9EFF1B003E947E /* FA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FA.lproj; sourceTree = "<group>"; };
+		63E16FEE1C9EFF37003E947E /* ID.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ID.lproj; sourceTree = "<group>"; };
+		63E16FF11C9EFF37003E947E /* IS.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IS.lproj; sourceTree = "<group>"; };
 		63E372660FEB3FF00012DDE7 /* leasewatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch; sourceTree = "<group>"; };
 		63E56EBD13848194007E39AB /* VPNServiceCreateAccount.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VPNServiceCreateAccount.xib; sourceTree = "<group>"; };
 		63E56EBE13848194007E39AB /* VPNServiceIntro.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VPNServiceIntro.xib; sourceTree = "<group>"; };
@@ -974,13 +980,16 @@
 				63BF3E1010A2ED7F00AC8A59 /* CA.lproj */,
 				630210121465CBBC00283B78 /* CS.lproj */,
 				6341C39313D6DE6200B9CE2B /* DA.lproj */,
-				63DC245019FA73A9006B1BDF /* EL.lproj */,
 				615F74900ED3A4FA007F6F0A /* DE.lproj */,
+				63DC245019FA73A9006B1BDF /* EL.lproj */,
 				6391992210449804001FA1BC /* ES.lproj */,
 				6309A4AA1AE4224D006C118E /* ET.lproj */,
+				63E16FEA1C9EFF1B003E947E /* FA.lproj */,
 				B896C2DF1767B753004D9A21 /* FI.lproj */,
 				615F748C0ED3A4E5007F6F0A /* FR.lproj */,
 				63903D12145EAD49006627C9 /* HU.lproj */,
+				63E16FEE1C9EFF37003E947E /* ID.lproj */,
+				63E16FF11C9EFF37003E947E /* IS.lproj */,
 				63BD86E41205BA39005B8E38 /* IT.lproj */,
 				615F74930ED3A4FA007F6F0A /* JA.lproj */,
 				615F74960ED3A4FA007F6F0A /* KO.lproj */,
@@ -1413,6 +1422,7 @@
 				German,
 				Korean,
 				Spanish,
+				FA,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Tunnelblick */;
 			projectDirPath = "";
@@ -1532,6 +1542,9 @@
 				63E85C211C065D0A008E7F4E /* Preferences-Tiger-RTL.xib in Resources */,
 				63BF8BEB1C0D0D3A00747F1A /* StatusWindow-RTL.xib in Resources */,
 				63716BF41C145FDA00760946 /* reactivate-tunnelblick.sh in Resources */,
+				63E16FED1C9EFF1B003E947E /* FA.lproj in Resources */,
+				63E16FF41C9EFF37003E947E /* ID.lproj in Resources */,
+				63E16FF51C9EFF37003E947E /* IS.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
