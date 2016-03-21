@@ -535,8 +535,9 @@ extern TBUserDefaults * gTbDefaults;
         return NSLocalizedString(@"Unable to connect to server", @"Window text VPNService");
     }
     
-    NSString * responseString = [[[NSString alloc] initWithBytes:[urlData bytes]
-                                                          length:[urlData length] encoding: NSUTF8StringEncoding]
+    const char * bytes = [urlData bytes];
+    NSString * responseString = [[[NSString alloc] initWithBytes: bytes
+                                                          length: strlen(bytes) encoding: NSUTF8StringEncoding]
                                  autorelease];
     return responseString;
 }

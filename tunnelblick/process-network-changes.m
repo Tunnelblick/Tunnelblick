@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -71,7 +71,8 @@ void dumpMsg(NSString * msg) {
     NSString * filePath = [NSString stringWithFormat: @"/tmp/Tunnelblick-process-network-changes-%d.txt", msgNum++];
     NSFileManager * fm = [[[NSFileManager alloc] init] autorelease];
     [fm tbRemoveFileAtPath: filePath handler: nil];
-    [fm createFileAtPath: filePath contents: [NSData dataWithBytes: [msg UTF8String] length: [msg length]] attributes: nil];    
+    const char * bytes = [msg UTF8String];
+    [fm createFileAtPath: filePath contents: [NSData dataWithBytes: bytes length: strlen(bytes)] attributes: nil];
 }    
 
 int main (int argc, const char * argv[])
@@ -224,7 +225,8 @@ void appendLog(NSString * msg)
     NSString * fullMsg = [NSString stringWithFormat:@"%@ *Tunnelblick process-network-changes: %@\n",[date descriptionWithCalendarFormat:@"%a %b %e %H:%M:%S %Y"], msg];
     NSFileHandle * handle = [NSFileHandle fileHandleForWritingAtPath: gLogPath];
     [handle seekToEndOfFile];
-    [handle writeData: [NSData dataWithBytes: [fullMsg UTF8String] length: [fullMsg length]]];
+    const char * bytes = [fullMsg UTF8String];
+    [handle writeData: [NSData dataWithBytes: bytes length: strlen(bytes)]];
     [handle closeFile];
 }
 
@@ -443,7 +445,8 @@ NSString * getScKey(NSString * key)
     NSPipe * inPipe   = [[NSPipe alloc] init];
     NSFileHandle * file = [inPipe fileHandleForWriting];
     NSString * scutilCommands = [NSString stringWithFormat: @"open\nshow %@\nquit\n", key];
-    NSData * scutilCommandsAsData = [NSData dataWithBytes: [scutilCommands UTF8String] length: [scutilCommands length]];
+    const char * bytes = [scutilCommands UTF8String];
+    NSData * scutilCommandsAsData = [NSData dataWithBytes: bytes length: strlen(bytes)];
     [file writeData: scutilCommandsAsData];
     [file closeFile];
     [task setStandardInput: inPipe];
@@ -494,7 +497,8 @@ void scCommand(NSString * command)
     NSPipe * inPipe   = [[NSPipe alloc] init];
     NSFileHandle * file = [inPipe fileHandleForWriting];
     NSString * scutilCommands = [NSString stringWithFormat: @"open\n%@\nquit\n", command];
-    NSData * scutilCommandsAsData = [NSData dataWithBytes: [scutilCommands UTF8String] length: [scutilCommands length]];
+    const char * bytes = [scutilCommands UTF8String];
+    NSData * scutilCommandsAsData = [NSData dataWithBytes: bytes length: strlen(bytes)];
     [file writeData: scutilCommandsAsData];
     [file closeFile];
     [task setStandardInput: inPipe];

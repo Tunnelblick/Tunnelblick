@@ -1344,9 +1344,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                                      [NSNumber numberWithUnsignedLong: group],                    NSFileGroupOwnerAccountID,
                                      [NSNumber numberWithUnsignedLong: permissions],              NSFilePosixPermissions,
                                      nil];
+        const char * bytes = [configString UTF8String];
         if (  [gFileMgr createFileAtPath: outputConfigPath
-                                contents: [NSData dataWithBytes: [configString UTF8String]
-                                                         length: [configString length]]
+                                contents: [NSData dataWithBytes: bytes
+                                                         length: strlen(bytes)]
                               attributes: attributes]  ) {
             [self logMessage: @"Converted OpenVPN configuration"
                    localized: NSLocalizedString(@"Converted OpenVPN configuration", @"Window text")];
@@ -1357,7 +1358,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     } else if (  [tokensToReplace count] != 0  ) {
         FILE * outFile = fopen([configPath fileSystemRepresentation], "w");
         if (  outFile  ) {
-			if (  fwrite([configString UTF8String], [configString length], 1, outFile) != 1  ) {
+            const char * bytes = [configString UTF8String];
+			if (  fwrite(bytes, strlen(bytes), 1, outFile) != 1  ) {
 				return [self logMessage: @"Unable to write to configuration file for modification"
                               localized: NSLocalizedString(@"Unable to write to configuration file for modification", @"Window text")];
 			}

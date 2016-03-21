@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -412,7 +412,8 @@ extern TBUserDefaults * gTbDefaults;
     [creditsHTML appendString: htmlTail];
     
     // Create an NSMutableAttributedString from the HTML
-    NSData * htmlData = [[[NSData alloc] initWithBytes: [creditsHTML UTF8String] length: [creditsHTML length]] autorelease];
+    const char * bytes = [creditsHTML UTF8String];
+    NSData * htmlData = [[[NSData alloc] initWithBytes: bytes length: strlen(bytes)] autorelease];
     NSMutableAttributedString * creditsString = [[[NSMutableAttributedString alloc] initWithHTML: htmlData documentAttributes: nil] autorelease];
     
     // Make substitutions in the NSMutableAttributedString
