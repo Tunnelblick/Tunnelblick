@@ -6376,8 +6376,15 @@ unsigned needToRunInstaller(BOOL inApplications)
 
 BOOL needToMoveLibraryOpenVPN(void)
 {
-    // Check that the configuration folder has been moved and replaced by a symlink. If not, return YES
+    // Check if the old (before 3.0b24 (2009-12-12)) configuration folder needs to be moved and replaced by a symlink.
+    
     NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/openvpn"];
+    
+    // If there is no nothing to be moved, return NO. (MenuController/init will make sure the new configuration folder exists.)
+    if (  ! [gFileMgr fileExistsAtPath: oldConfigDirPath]  ) {
+        return NO;
+    }
+    
     NSString * newConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
     BOOL isDir;
     
