@@ -28,7 +28,7 @@ touch build
 # If Xcode has built Tunnelblick.app in somewhere unexpected, complain and quit
 if [ ! -d "build/${CONFIGURATION}/${PROJECT_NAME}.app" ] ; then
   echo "error: An Xcode preference must be set to put build products in the 'tunnelblick/build' folder. Please set Xcode preference > Locations > Advanced to 'Legacy'"
-  exit -1
+  exit 1
 fi
 
 if [ "${CONFIGURATION}" = "Analyze ONLY" ]; then
@@ -36,6 +36,16 @@ if [ "${CONFIGURATION}" = "Analyze ONLY" ]; then
   rm -r -f "build/${CONFIGURATION}/${PROJECT_NAME}.app"
   exit 0
 fi
+
+# Make sure that all .lproj folders have been copied to Tunnelblick.app/Contents/Resources
+# (They should be put in Xcode's "Resources" so they will be copied automatically)
+readonly lprojs_in_source="$(ls -l | grep .lproj | wc -l | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+readonly lprojs_in_app="$(ls -l "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources" | grep .lproj | wc -l | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+if [ "$lprojs_in_source" != "$lprojs_in_app" ] ; then
+  echo "error: There are $lprojs_in_source .lproj folders in the source code, but $lprojs_in_app are in the application as built. Add missing .lproj folders to the project's Resources so they will copied into the application"
+  exit 1
+fi
+
 
 # Compile Tunnelblick Uninstaller
   rm -r -f      "build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app"
