@@ -855,6 +855,30 @@ NSString * credentialsGroupFromDisplayName (NSString * displayName)
 	return group;
 }	
 
+BOOL keychainHasPrivateKeyForDisplayName(NSString * name) {
+    
+    NSString * key = [name stringByAppendingString: @"-keychainHasPrivateKey"];
+    return (   [gTbDefaults boolForKey: key]
+            && [gTbDefaults canChangeValueForKey: key]
+            );
+}
+
+BOOL keychainHasUsernameWithoutPasswordForDisplayName(NSString * name) {
+    
+    NSString * key = [name stringByAppendingString: @"-keychainHasUsername"];
+    return (   [gTbDefaults boolForKey: key]
+            && [gTbDefaults canChangeValueForKey: key]
+            );
+}
+
+BOOL keychainHasUsernameAndPasswordForDisplayName(NSString * name) {
+    
+    NSString * key = [name stringByAppendingString: @"-keychainHasUsernameAndPassword"];
+    return (   [gTbDefaults boolForKey: key]
+            && [gTbDefaults canChangeValueForKey: key]
+            );
+}
+
 BOOL copyCredentials(NSString * fromDisplayName, NSString * toDisplayName)
 {
     return copyOrMoveCredentials(fromDisplayName, toDisplayName, FALSE);
@@ -867,26 +891,22 @@ BOOL moveCredentials(NSString * fromDisplayName, NSString * toDisplayName)
 
 BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName, BOOL moveNotCopy)
 {
+    // DOES NOT COPY OR MOVE THE PREFERENCES ASSOCIATED WITH THE CREDENTIALS
+    
 	NSString * group = credentialsGroupFromDisplayName(fromDisplayName);
 	if (  group  ) {
 		return YES;
 	}		
 		
-    NSString * myPassphrase = nil;
-    NSString * myUsername = nil;
-    NSString * myPassword = nil;
-    
-    NSString * fromPassphraseKey          = [fromDisplayName stringByAppendingString: @"%@-keychainHasPrivateKey"];
-    NSString * fromUsernameKey            = [fromDisplayName stringByAppendingString: @"%@-keychainHasUsername"];
-    NSString * fromUsernameAndPasswordKey = [fromDisplayName stringByAppendingString: @"%@-keychainHasUsernameAndPassword"];
-    
-    BOOL haveFromPassphrase          = [gTbDefaults boolForKey: fromPassphraseKey] && [gTbDefaults canChangeValueForKey: fromPassphraseKey];
-    BOOL haveFromUsername            = [gTbDefaults boolForKey: fromPassphraseKey] && [gTbDefaults canChangeValueForKey: fromUsernameKey];
-    BOOL haveFromUsernameAndPassword = [gTbDefaults boolForKey: fromPassphraseKey] && [gTbDefaults canChangeValueForKey: fromUsernameAndPasswordKey];
+    BOOL haveFromPassphrase              = keychainHasPrivateKeyForDisplayName(fromDisplayName);
+    BOOL haveFromUsernameAndPassword     = keychainHasUsernameAndPasswordForDisplayName(fromDisplayName);
     
     if (   haveFromPassphrase
-        || haveFromUsername
         || haveFromUsernameAndPassword  ) {
+        
+        NSString * myPassphrase = nil;
+        NSString * myUsername = nil;
+        NSString * myPassword = nil;
         
         AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: fromDisplayName credentialsGroup: nil] autorelease];
         
@@ -907,16 +927,10 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
             if (  moveNotCopy) {
                 [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
             }
-        } else  if (  haveFromUsername  ) {
-            [myAuthAgent setAuthMode: @"password"];
-            [myAuthAgent performAuthentication];
-            myUsername = [myAuthAgent username];
-            if (  moveNotCopy) {
-                [myAuthAgent deleteCredentialsFromKeychainIncludingUsername: YES];
-            }
         }
         
-        if (  myPassphrase  ) {
+        if (   myPassphrase
+            && [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"%@-keychainHasPrivateKey"]]  ) {
             KeyChain * passphraseKeychain = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"privateKey" ];
             [passphraseKeychain deletePassword];
             if (  [passphraseKeychain setPassword: myPassphrase] != 0  ) {
@@ -925,7 +939,10 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
             [passphraseKeychain release];
         }
         
-        if (  myUsername  ) {
+        if (   myUsername
+            && (   [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"%@-keychainHasUsername"]]
+                || [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"%@-keychainHasUsernameAndPassword"]]
+                )  ) {
             KeyChain * usernameKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"username"   ];
             [usernameKeychain deletePassword];
             if (  [usernameKeychain setPassword: myUsername] != 0  ) {
@@ -934,7 +951,8 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
             [usernameKeychain   release];
         }
         
-        if (  myPassword  ) {
+        if (   myPassword
+           && [gTbDefaults canChangeValueForKey: [toDisplayName stringByAppendingString: @"%@-keychainHasUsernameAndPassword"]]  ) {
             KeyChain * passwordKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"password"   ];
             [passwordKeychain deletePassword];
             if (  [passwordKeychain setPassword: myPassword] != 0  ) {

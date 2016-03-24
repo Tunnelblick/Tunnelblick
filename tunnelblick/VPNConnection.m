@@ -1664,12 +1664,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 -(BOOL) hasAnySavedCredentials {
     
     NSString * name = [self displayName];
-    NSString * hasUsernameKey            = [name stringByAppendingString: @"-keychainHasUsername"];
-    NSString * hasUsernameAndPasswordKey = [name stringByAppendingString: @"-keychainHasUsernameAndPassword"];
-    NSString * hasPrivateKeyKey          = [name stringByAppendingString: @"-keychainHasPrivateKey"];
-    return (   [gTbDefaults boolForKey: hasUsernameKey]
-            || [gTbDefaults boolForKey: hasUsernameAndPasswordKey]
-            || [gTbDefaults boolForKey: hasPrivateKeyKey]  );
+    return  (   keychainHasUsernameWithoutPasswordForDisplayName(name)
+             || keychainHasUsernameAndPasswordForDisplayName(name)
+             || keychainHasPrivateKeyForDisplayName(name)
+             );
 }
 
 -(BOOL) mayConnectWhenComputerStarts {

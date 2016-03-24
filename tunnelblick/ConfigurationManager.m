@@ -3488,7 +3488,7 @@ enum GetAuthorizationResult {
 	
 	// Returns TRUE if succeeded or FALSE if cancelled or failed (if failed, the user has already been notified)
     
-   NSString * sourceName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
+    NSString * sourceName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
     NSString * targetName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
     
     VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: sourceName];
@@ -3531,10 +3531,10 @@ enum GetAuthorizationResult {
                                            noAdmin: NO];
 	if (  ok  ) {
         
-        // Save status of "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" because they are deleted by moveCredentials
-        BOOL havePwCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
-        BOOL haveUnCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasUsername"]];
-        BOOL havePkCredentials = [gTbDefaults boolForKey: [sourceName stringByAppendingString: @"-keychainHasPrivateKey"]];
+        // Save status of "-keychainHasUsernameAndPassword", "-keychainHasUsername", and "-keychainHasPrivateKey" because they are deleted by moveCredentials()
+        BOOL havePwCredentials = keychainHasUsernameAndPasswordForDisplayName(sourceName);
+        BOOL haveUnCredentials = keychainHasUsernameWithoutPasswordForDisplayName(sourceName);
+        BOOL havePkCredentials = keychainHasPrivateKeyForDisplayName(sourceName);
         
         moveCredentials(sourceName, targetName);
         
@@ -3543,10 +3543,16 @@ enum GetAuthorizationResult {
                               NSLocalizedString(@"Warning: One or more preferences could not be renamed. See the Console Log for details.", @"Window text"));
         }
         
-        // Restore "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" to the new configuration's preferences because they were not transferred by moveCredentials
-        [gTbDefaults setBool: havePwCredentials forKey: [targetName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
-        [gTbDefaults setBool: haveUnCredentials forKey: [targetName stringByAppendingString: @"-keychainHasUsername"]];
-        [gTbDefaults setBool: havePkCredentials forKey: [targetName stringByAppendingString: @"-keychainHasPrivateKey"]];
+        // Restore "-keychainHasUsernameAndPassword" and "-keychainHasPrivateKey" to the new configuration's preferences because they were not transferred by moveCredentials()
+        if (  havePwCredentials  ) {
+            [gTbDefaults setBool: TRUE forKey: [targetName stringByAppendingString: @"-keychainHasUsernameAndPassword"]];
+        }
+        if (  haveUnCredentials  ) {
+            [gTbDefaults setBool: TRUE forKey: [targetName stringByAppendingString: @"-keychainHasUsername"]];
+        }
+        if (  havePkCredentials  ) {
+            [gTbDefaults setBool: TRUE forKey: [targetName stringByAppendingString: @"-keychainHasPrivateKey"]];
+        }
 	} else {
 		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
 						  NSLocalizedString(@"Rename failed; see the Console Log for details.", @"Window text"));

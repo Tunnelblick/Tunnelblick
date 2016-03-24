@@ -124,26 +124,25 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
 {
     // If we have saved a username, load the textbox with it and check the "Save in Keychain" checkbox for it (unless this is a "when computer starts" configuration)
 	NSString * displayName = [[self delegate] displayName];
-    NSString * usernamePreferenceKey = [displayName stringByAppendingString: @"-keychainHasUsername"];
-    BOOL haveSavedUsername = (   [gTbDefaults boolForKey: usernamePreferenceKey]
-							  && [gTbDefaults canChangeValueForKey: usernamePreferenceKey] );
+    BOOL usernameWasSavedBefore = (   keychainHasUsernameWithoutPasswordForDisplayName(displayName)
+                                   || keychainHasUsernameAndPasswordForDisplayName(displayName));
 	NSString * usernameLocal = [delegate usernameFromKeychain];
 	if (  [usernameLocal length] == 0  ) {
 		usernameLocal = @"";
 	}
 	[[self username] setStringValue: usernameLocal];
-	BOOL enableSaveCheckbox = ! [self connectWhenSystemStarts];
+	BOOL enableSaveUsernameCheckbox = ! [self connectWhenSystemStarts];
     
-    BOOL enableSaveUsernameCheckbox = enableSaveCheckbox && haveSavedUsername;
+    BOOL setSaveUsernameCheckbox = enableSaveUsernameCheckbox && usernameWasSavedBefore;
 
-    [[self saveUsernameInKeychainCheckbox] setState:   (   enableSaveUsernameCheckbox ? NSOnState : NSOffState)];  // Defaults to "checked" if have already saved username and not "connect when system starts"
-    [[self saveUsernameInKeychainCheckbox] setEnabled: enableSaveCheckbox];
+    [[self saveUsernameInKeychainCheckbox] setState:   ( setSaveUsernameCheckbox ? NSOnState : NSOffState )];  // Defaults to "checked" if have already saved username and not "connect when system starts"
+    [[self saveUsernameInKeychainCheckbox] setEnabled: enableSaveUsernameCheckbox];
 	
     // Always clear the password textbox and set up its "Save in Keychain" checkbox
 	[[self password] setStringValue: @""];
-	[[self savePasswordInKeychainCheckbox] setState:   NSOffState];          // Defaults to "not checked"
-	[[self savePasswordInKeychainCheckbox] setEnabled: enableSaveUsernameCheckbox];  // Enabled only if saving username
-	
+	[[self savePasswordInKeychainCheckbox] setState:   NSOffState];               // Defaults to "not checked"
+	[[self savePasswordInKeychainCheckbox] setEnabled: setSaveUsernameCheckbox];  // Enabled only if saving username
+
     [cancelButton setEnabled: YES];
     [OKButton setEnabled: YES];
     [[self window] center];

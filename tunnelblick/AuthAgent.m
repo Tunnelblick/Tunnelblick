@@ -186,14 +186,15 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 
 -(BOOL) usernameIsInKeychain {
     
-    return (   (   [gTbDefaults objectForKey:usernameAndPasswordPreferenceKey]
-                || [gTbDefaults objectForKey:usernamePreferenceKey]            )
-            && [gTbDefaults canChangeValueForKey:usernamePreferenceKey]             );
+    return (   (   [gTbDefaults boolForKey:usernameAndPasswordPreferenceKey]
+                && [gTbDefaults canChangeValueForKey:usernameAndPasswordPreferenceKey])
+            || (   [gTbDefaults boolForKey:usernamePreferenceKey]
+                && [gTbDefaults canChangeValueForKey:usernamePreferenceKey]));
 }
 
 -(BOOL) passwordIsInKeychain {
     
-    return (   [gTbDefaults objectForKey:usernameAndPasswordPreferenceKey]
+    return (   [gTbDefaults boolForKey:usernameAndPasswordPreferenceKey]
             && [gTbDefaults canChangeValueForKey:usernameAndPasswordPreferenceKey] );
 }
 
