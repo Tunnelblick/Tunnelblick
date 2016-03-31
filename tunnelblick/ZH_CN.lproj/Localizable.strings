@@ -289,8 +289,35 @@
 /* Menu Item */
 "Make Configuration Shared..." = "将配置改为共享…";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "没有 OpenVPN 或者 Tunnelblick VPN 日志";
+
 /* Menu item */
 "No VPN Configurations Available" = "无 VPN 配置";
+
+/* Menu Item */
+"OpenVPN level %lu" = "OpenVPN 等级 %lu";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN 日志等级 0 - 除非致命错误否则没有输出";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN 日志等级 11 - 极其详细的输出";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "OpenVPN 日志等级 3 - 正常输出";
+
+/* Menu Item */
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN 日志等级 4 - 也输出所有选项的值";
+
+/* Menu Item */
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN 日志等级 5 - 也输出每一个包的 \"R\" or \"W\"";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "OpenVPN 日志等级 6 - 非常详细的输出";
+
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "有配置文件配置的 OpenVPN 日志等级";
 
 /* Menu item */
 "Quit Tunnelblick" = "退出 Tunnelblick";
@@ -795,6 +822,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' 被忽略，它的值必须是一个绝对路径，或者以 '~' 开头";
+
+/* Window text -- apears in log display when logging is disabled */
+"(Logging is disabled.)" = "(日志功能已禁用)";
 
 /* Window text */
 "(Never checked)" = "(从未查看过)";
@@ -1757,6 +1787,9 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "因为配置已经存在，而且不应该被替换，所以将不安装 VPN 配置 %@。";
 
 /* Window text */
+"VPN log level:" = "VPN 日志等级:";
+
+/* Window text */
 "VPN status windows:" = "VPN 状态：";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1898,6 +1931,9 @@
 "64-bit enabling and testing" = "64位程序的实现和测试";
 
 /* Credit description */
+"Afrikaans localization" = "南非语翻译";
+
+/* Credit description */
 "Animation and icon sets code" = "动画, 图标的定位代码";
 
 /* Credit description */
@@ -1929,6 +1965,9 @@
 
 /* Credit description */
 "Contributed to early code" = "早期代码";
+
+/* Credit description */
+"Croation localization" = "捷克语翻译";
 
 /* Credit description */
 "Czech localization" = "捷克语翻译";
@@ -2025,6 +2064,9 @@
 
 /* Credit description */
 "Russian localization" = "俄罗斯语翻译";
+
+/* Credit description */
+"Serbian (Latin) localization" = "塞尔维亚(拉丁) 翻译";
 
 /* Credit description */
 "Slovak localization" = "斯洛伐克语翻译";

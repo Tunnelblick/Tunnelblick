@@ -289,8 +289,35 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Hacer Configuracion Compartida…";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "Sin registros OpenVPN o Tunnelblick";
+
 /* Menu item */
 "No VPN Configurations Available" = "Ninguna configuración VPN Disponible";
+
+/* Menu Item */
+"OpenVPN level %lu" = "OpenVPN nivel %lu";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN nivel 0 - registrar sólo los errores fatales";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN level 11 - registro extremadamente detallado";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "OpenVPN nivel 3 - registro normal";
+
+/* Menu Item */
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN nivel 4 - registrar también los valores para todas las opciones";
+
+/* Menu Item */
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN nivel 5 - registrar también \"R\" o \"W\" para cada paquete";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "OpenVPN level 6 - registro muy detallado";
+
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "Nivel de registro OpenVPN fijado por la configuración";
 
 /* Menu item */
 "Quit Tunnelblick" = "Salir Tunnelblick";
@@ -795,6 +822,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "preferencia 'easy-rsaPath' ignorada; debe ser una ruta absoluta o empezar con '~'";
+
+/* Window text -- apears in log display when logging is disabled */
+"(Logging is disabled.)" = "(El registro está desactivado.)";
 
 /* Window text */
 "(Never checked)" = "(Nunca chequeado)";
@@ -1757,6 +1787,9 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "La configuración VPN %@  NO será instalada porque la configuración ya existe y no debería ser reemplazada.";
 
 /* Window text */
+"VPN log level:" = "VPN registro nivel:";
+
+/* Window text */
 "VPN status windows:" = "Ventanas de estado de la VPN:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1898,6 +1931,9 @@
 "64-bit enabling and testing" = "Habilitación y pruebas para 64-bit";
 
 /* Credit description */
+"Afrikaans localization" = "Traducción al Africano";
+
+/* Credit description */
 "Animation and icon sets code" = "Animación, código de juego de iconos";
 
 /* Credit description */
@@ -1929,6 +1965,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Contribuyó al codigo inicial";
+
+/* Credit description */
+"Croation localization" = "Traducción al Croata";
 
 /* Credit description */
 "Czech localization" = "Traducción al checo";
@@ -2025,6 +2064,9 @@
 
 /* Credit description */
 "Russian localization" = "Traducción al ruso";
+
+/* Credit description */
+"Serbian (Latin) localization" = "Traducción al Serbio (Latino)";
 
 /* Credit description */
 "Slovak localization" = "Traducción al eslovaco";

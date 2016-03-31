@@ -289,8 +289,35 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Konfigürasyon'u paylaştır…";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "OpenVPN veya Tunnelblick VPN kayıtları";
+
 /* Menu item */
 "No VPN Configurations Available" = "Aktif VPN Konfigürasyon'u yok";
+
+/* Menu Item */
+"OpenVPN level %lu" = "OpenVPN seviye %lu";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN seviye 0 - ölümcül hatalar dışında çıktı vermez";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN seviye 11 - aşırı detaylı denetim çıktısı";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "OpenVPN seviye 3 - normal çıktı";
+
+/* Menu Item */
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN seviye 4 - ayrıca tüm seçenek değerlerinin çıktısını da verir";
+
+/* Menu Item */
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN seviye 5 - her paket için \"R\" veya \"W\" çıktılarını da verir";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "OpenVPN seviye 6 - detaylı denetim çıktısı";
+
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "Yapılandırmada belirlenen OpenVPN kayıt seviyesi";
 
 /* Menu item */
 "Quit Tunnelblick" = "Tunnelblick'ten Çık";
@@ -795,6 +822,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' ayarı yok sayıldı; mutlak yol olmalı ya da '~' ile başlamalıdır";
+
+/* Window text -- apears in log display when logging is disabled */
+"(Logging is disabled.)" = "(Kayıt kapalı)";
 
 /* Window text */
 "(Never checked)" = "(Henüz kontrol edilmedi)";
@@ -1757,6 +1787,9 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "%@ VPN Yapılandırması YÜKLENMEYECEK çünkü zaten bir yapılandırma var ve değiştirilmemeli.";
 
 /* Window text */
+"VPN log level:" = "VPN kayıt seviyesi:";
+
+/* Window text */
 "VPN status windows:" = "VPN durum penceresi:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1898,6 +1931,9 @@
 "64-bit enabling and testing" = "64-bit etkinleştirme ve test etme";
 
 /* Credit description */
+"Afrikaans localization" = "Afrikaans yerelleştirme";
+
+/* Credit description */
 "Animation and icon sets code" = "Animasyon ve simge kümesi kodu";
 
 /* Credit description */
@@ -1929,6 +1965,9 @@
 
 /* Credit description */
 "Contributed to early code" = "İlk koda katkıda bulunanlar";
+
+/* Credit description */
+"Croation localization" = "Hırvatça yerelleştirme";
 
 /* Credit description */
 "Czech localization" = "Çekçe çeviri";
@@ -2025,6 +2064,9 @@
 
 /* Credit description */
 "Russian localization" = "Rusça çeviri";
+
+/* Credit description */
+"Serbian (Latin) localization" = "Sırpça (latin) yerelleştirme";
 
 /* Credit description */
 "Slovak localization" = "Slovakça çeviri";

@@ -289,8 +289,35 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Nastaviť konfiguráciu ako zdieľanú…";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "Žiadne logovanie OpenVPN alebo Tunnelblick VPN";
+
 /* Menu item */
 "No VPN Configurations Available" = "Nie sú dostupné žiadne konfigurácie VPN";
+
+/* Menu Item */
+"OpenVPN level %lu" = "OpenVPN úroveň %lu";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN úroveň 0 - bez výstupu okrem fatálnych chýb";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN úroveň 11 - extrémne detailný výstup";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "OpenVPN úroveň 3 - normálny výstup";
+
+/* Menu Item */
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN úroveň 4 - vrátane výstupu pre všetky možnosti";
+
+/* Menu Item */
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN úroveň 5 - vrátane výstupu \"R\" alebo \"W\" pre každý paket";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "OpenVPN úroveň 6 - veľmi detailný výstup";
+
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "Úroveň logovania OpenVPN nastavená podľa konfigurácie";
 
 /* Menu item */
 "Quit Tunnelblick" = "Ukončiť Tunnelblick";
@@ -795,6 +822,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "\"easy-rsaPath\" preferencie bola ignorovaná; musí byť defnovaná absolútna cesta alebo cesta začínať s \"~\"";
+
+/* Window text -- apears in log display when logging is disabled */
+"(Logging is disabled.)" = "(Logovanie je zakázané)";
 
 /* Window text */
 "(Never checked)" = "(Zatiaľ neskontolované)";
@@ -1757,6 +1787,9 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "Konfigurácia VPN %@ nebude nenainštalovaná, pretože táto konfigurácia už existuje a nie je určená k náhrade.";
 
 /* Window text */
+"VPN log level:" = "Úroveň logovania VPN:";
+
+/* Window text */
 "VPN status windows:" = "Informačné okno VPN:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1898,6 +1931,9 @@
 "64-bit enabling and testing" = "Beh a testovanie 64-bit";
 
 /* Credit description */
+"Afrikaans localization" = "Afrikánska lokalizácia";
+
+/* Credit description */
 "Animation and icon sets code" = "Animácia a skupina ikon";
 
 /* Credit description */
@@ -1929,6 +1965,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Prispel k pôvodnému kódu";
+
+/* Credit description */
+"Croation localization" = "Chorvátska lokalizácia";
 
 /* Credit description */
 "Czech localization" = "Preklad češtiny";
@@ -2025,6 +2064,9 @@
 
 /* Credit description */
 "Russian localization" = "Preklad do ruštiny";
+
+/* Credit description */
+"Serbian (Latin) localization" = "Srbská lokalizácia (latinka)";
 
 /* Credit description */
 "Slovak localization" = "Preklad do slovenčiny";

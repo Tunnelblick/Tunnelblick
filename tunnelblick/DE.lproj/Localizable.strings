@@ -272,7 +272,7 @@
 "Disconnect %@%@" = "„%@%@“ trennen";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Nicht im Tunnelblick Menü anzeigen";
+"Do Not Show on Tunnelblick Menu" = "Nicht im Tunnelblick Menü zeigen";
 
 /* Menu Item */
 "Duplicate Configuration..." = "Konfiguration duplizieren…";
@@ -289,8 +289,35 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Konfiguration für alle Benutzer freigeben…";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "Keine OpenVPN oder Tunnelblick VPN Protokollierung";
+
 /* Menu item */
 "No VPN Configurations Available" = "Keine VPN-Konfigurationen verfügbar";
+
+/* Menu Item */
+"OpenVPN level %lu" = "OpenVPN Level %lu";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN level 0 - keine Ausgabe außer kritische Fehler";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN Level 11 - extrem ausführliche Ausgabe";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "OpenVPN Level 3 - normale Ausgabe";
+
+/* Menu Item */
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN Level 4 - Gibt auch für alle Optionen Werte aus";
+
+/* Menu Item */
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN Level 5 - gibt zusätzlich \"R\" oder \"W\" für jedes Paket aus";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "OpenVPN Level 6 - sehr ausführliche Ausgabe";
+
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "OpenVPN Logging-Stufe durch die Konfiguration eingestellt";
 
 /* Menu item */
 "Quit Tunnelblick" = "Tunnelblick beenden";
@@ -795,6 +822,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' Einstellung ignoriert; Pfad muss absolut sein oder mit '~' beginnen";
+
+/* Window text -- apears in log display when logging is disabled */
+"(Logging is disabled.)" = "(Protokollierung ist ausgeschaltet)";
 
 /* Window text */
 "(Never checked)" = "(Nie geprüft)";
@@ -1757,6 +1787,9 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "Die VPN-Konfiguration %@ wird nicht installiert werden, da die Konfiguration bereits vorhanden ist und nicht ersetzt werden sollte.";
 
 /* Window text */
+"VPN log level:" = "VPN Log Stufe:";
+
+/* Window text */
 "VPN status windows:" = "VPN Status Fenster:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1898,6 +1931,9 @@
 "64-bit enabling and testing" = "Ermöglichen und Testen der 64-Bit Version";
 
 /* Credit description */
+"Afrikaans localization" = "Afrikaans Lokalisierung";
+
+/* Credit description */
 "Animation and icon sets code" = "Animationen, Icon Sets Code";
 
 /* Credit description */
@@ -1929,6 +1965,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Hat zum frühen Code beigetragen";
+
+/* Credit description */
+"Croation localization" = "Kroatische Lokalisierung";
 
 /* Credit description */
 "Czech localization" = "Tschechische Lokalisierung";
@@ -2025,6 +2064,9 @@
 
 /* Credit description */
 "Russian localization" = "Russische Lokalisierung";
+
+/* Credit description */
+"Serbian (Latin) localization" = "Serbische (Latein) Lokalisierung";
 
 /* Credit description */
 "Slovak localization" = "Slowakische Lokalisierung";

@@ -289,8 +289,35 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Vytvořit konfiguraci jako sdílenou…";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "Bez logování OpenVPN a Tunnelblick VPN";
+
 /* Menu item */
 "No VPN Configurations Available" = "Žádné dostupné konfigurace VPN";
+
+/* Menu Item */
+"OpenVPN level %lu" = "Úroveň %lu OpenVPN";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "Úroveň OpenVPN 0 - žádný výstup kromě fatálních chyb";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "Úroveň OpenVPN 11 - extrémně podrobný výstup";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "Úroveň OpenVPN 3 - normální výstup";
+
+/* Menu Item */
+"OpenVPN level 4 - also outputs values for all options" = "Úroveň OpenVPN 4 - také výstupní hodnoty pro všechna nastavení";
+
+/* Menu Item */
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "Úroveň OpenVPN 5 - také výstupy \"R\" nebo \"W\" pro každý paket";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "Úroveň OpenVPN 6 - velmi detailní výstup";
+
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "Úroveň logování OpenVPN nastavena v konfiguraci";
 
 /* Menu item */
 "Quit Tunnelblick" = "Ukončit Tunnelblick";
@@ -795,6 +822,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "Nastavení 'easy-rsaPath' bylo ignorováno; musí být absolutní cesta, nebo začínat '~'";
+
+/* Window text -- apears in log display when logging is disabled */
+"(Logging is disabled.)" = "(Logování je zakázáno.)";
 
 /* Window text */
 "(Never checked)" = "(Nikdy nezkontrolováno)";
@@ -1757,6 +1787,9 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "Konfigurace VPN %@ nebude instalována, protože konfigurace už existuje a neměla by být přepsána.";
 
 /* Window text */
+"VPN log level:" = "Úroveň logování VPN:";
+
+/* Window text */
 "VPN status windows:" = "Stavové okno VPN:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1898,6 +1931,9 @@
 "64-bit enabling and testing" = "Další přispěvatelé";
 
 /* Credit description */
+"Afrikaans localization" = "Afrikánská lokalizace";
+
+/* Credit description */
 "Animation and icon sets code" = "Animace, skupiny ikon";
 
 /* Credit description */
@@ -1929,6 +1965,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Podílník na původním kódu";
+
+/* Credit description */
+"Croation localization" = "Chorvatská lokalizace";
 
 /* Credit description */
 "Czech localization" = "Česká lokalizace";
@@ -2025,6 +2064,9 @@
 
 /* Credit description */
 "Russian localization" = "Ruská lokalizace";
+
+/* Credit description */
+"Serbian (Latin) localization" = "Srbská (latinka) lokalizace";
 
 /* Credit description */
 "Slovak localization" = "Slovenská lokalizace";

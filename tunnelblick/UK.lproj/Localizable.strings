@@ -289,8 +289,35 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Зробити конфігурацію спільною…";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "Без звітності OpenVPN чи Tunnelblick VPN";
+
 /* Menu item */
 "No VPN Configurations Available" = "Немає доступних конфігурацій VPN";
+
+/* Menu Item */
+"OpenVPN level %lu" = "Рівень звітності OpenVPN %lu";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "Рівень звітності OpenVPN 0 - тільки критичні помилки";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "Рівень звітності OpenVPN 11 - надзвичайно детальний звіт";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "Рівень звітності OpenVPN 3 - нормальний звіт";
+
+/* Menu Item */
+"OpenVPN level 4 - also outputs values for all options" = "Рівень звітності OpenVPN 4 - також звітуються значення для всіх опцій";
+
+/* Menu Item */
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "Рівень звітності OpenVPN 5 - також звітуються \"R\" або \"W\" для кожного пакету";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "Рівень звітності OpenVPN 6 - дуже детальний звіт";
+
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "Рівень звітності OpenVPN встановлено конфігурацією";
 
 /* Menu item */
 "Quit Tunnelblick" = "Вийти з Tunnelblick";
@@ -795,6 +822,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "параметр 'easy-rsaPath' був проігнорований - значення має вказувати на абсолютний шлях, або починатися з '~'";
+
+/* Window text -- apears in log display when logging is disabled */
+"(Logging is disabled.)" = "(Звітність відключено)";
 
 /* Window text */
 "(Never checked)" = "(Не перевірялось)";
@@ -1757,6 +1787,9 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN конфігурація %@ НЕ буде встановлена оскільки конфігурація вже існує і не має бути заміненою.";
 
 /* Window text */
+"VPN log level:" = "Рівень звітності Tunnelblick:";
+
+/* Window text */
 "VPN status windows:" = "Вікна статусу VPN:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1898,6 +1931,9 @@
 "64-bit enabling and testing" = "64-розрядна версія та тестування";
 
 /* Credit description */
+"Afrikaans localization" = "Переклад Африкаанс";
+
+/* Credit description */
 "Animation and icon sets code" = "Анімація та набори значків";
 
 /* Credit description */
@@ -1929,6 +1965,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Внески до раннього коду";
+
+/* Credit description */
+"Croation localization" = "Переклад Хорватською";
 
 /* Credit description */
 "Czech localization" = "Чеський переклад";
@@ -2025,6 +2064,9 @@
 
 /* Credit description */
 "Russian localization" = "Російський переклад";
+
+/* Credit description */
+"Serbian (Latin) localization" = "Переклад Сербською (латинка)";
 
 /* Credit description */
 "Slovak localization" = "Словацький переклад";

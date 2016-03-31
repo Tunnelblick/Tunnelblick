@@ -289,8 +289,35 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Tornar Configuração Compartilhada…";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "Sem registros do OpenVPN ou do Tunnelblick";
+
 /* Menu item */
 "No VPN Configurations Available" = "Nenhuma Configuração de VPN Disponível";
+
+/* Menu Item */
+"OpenVPN level %lu" = "OpenVPN nível %lu";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN nível 0 - registrar apenas erros fatais";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN nível 11 - registro extremamente detalhado";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "OpenVPN nível 3 - registro normal";
+
+/* Menu Item */
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN nível 4 - registrar também os valores para todas as opções";
+
+/* Menu Item */
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN nível 5 - registrar também \"R\" ou \"W\" para cada pacote";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "OpenVPN nível 6 - registro muito detalhado";
+
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "Nível do registro OpenVPN definido pela configuração";
 
 /* Menu item */
 "Quit Tunnelblick" = "Encerrar o Tunnelblick";
@@ -795,6 +822,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "Ignorada a preferência 'easy-rsaPath'; precisa de um caminho absoluto ou deve começar com o caratere '~'";
+
+/* Window text -- apears in log display when logging is disabled */
+"(Logging is disabled.)" = "(Registro desabilitado.)";
 
 /* Window text */
 "(Never checked)" = "(Nunca marcado)";
@@ -1757,6 +1787,9 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "A Configuração VPN %@ NÃO será instalada porque a configuração já existe e não deve ser substituída.";
 
 /* Window text */
+"VPN log level:" = "Nível de registro VPN:";
+
+/* Window text */
 "VPN status windows:" = "Janela de estado da VPN:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1898,6 +1931,9 @@
 "64-bit enabling and testing" = "Testes e ativação 64-bit";
 
 /* Credit description */
+"Afrikaans localization" = "Tradução para Africano";
+
+/* Credit description */
 "Animation and icon sets code" = "Animação e código de conjunto de ícones";
 
 /* Credit description */
@@ -1929,6 +1965,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Contribuiu para o código inicial";
+
+/* Credit description */
+"Croation localization" = "Tradução para Croata";
 
 /* Credit description */
 "Czech localization" = "Tradução para Checo";
@@ -2025,6 +2064,9 @@
 
 /* Credit description */
 "Russian localization" = "Tradução para Russo";
+
+/* Credit description */
+"Serbian (Latin) localization" = "Tradução para Sérvio (Latino)";
 
 /* Credit description */
 "Slovak localization" = "Tradução para Eslovaco";
@@ -2195,7 +2237,7 @@
 "Unable to check account status:\n     %@" = "Não é possível verificar o estado da conta:\n     %@";
 
 /* Window text VPNService */
-"Unable to check registration for empty email address" = "Não é possível verificar o registo sem um endereço de e-mail";
+"Unable to check registration for empty email address" = "Não é possível verificar o registro sem um endereço de e-mail";
 
 /* Window text VPNService */
 "Unable to connect to server" = "Não é possível conetar ao servidor";

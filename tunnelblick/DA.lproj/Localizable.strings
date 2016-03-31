@@ -83,7 +83,7 @@
 "Delete Credentials" = "Slet legitimationsoplysninger";
 
 /* Button */
-"Delete saved passphrase and try again" = "Slet den gemte adgangskode og prøv igen";
+"Delete saved passphrase and try again" = "Slet den gemte adgangssætning og prøv igen";
 
 /* Button */
 "Delete saved password and try again" = "Slet det gemte kodeord og prøv igen";
@@ -289,8 +289,35 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Gør konfigurationen delt…";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "Ingen logging af OpenVPN eller Tunnelblick VPN";
+
 /* Menu item */
 "No VPN Configurations Available" = "Ingen VPN konfigurationer er tilgængelige";
+
+/* Menu Item */
+"OpenVPN level %lu" = "OpenVPN niveau %lu";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN niveau 0 - udelukkende kritiske fejl logges";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN niveau 11 - ekstremt detaljeret logging";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "OpenVPN niveau 3 - normal logging";
+
+/* Menu Item */
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN niveau 4 - udskriver også værdier for alle indstillinger";
+
+/* Menu Item */
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN niveau 5 - udskriver også \"R\" og \"W\" for hver pakke";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "OpenVPN niveau 11 - meget detaljeret logging";
+
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "OpenVPN log niveau sat i konfigurationen";
 
 /* Menu item */
 "Quit Tunnelblick" = "Afslut Tunnelblick";
@@ -796,6 +823,9 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' præference ignoreret; Det skal være den fulde adresse eller starte med '~'";
 
+/* Window text -- apears in log display when logging is disabled */
+"(Logging is disabled.)" = "(Logging er slået fra)";
+
 /* Window text */
 "(Never checked)" = "(Aldrig tjekket)";
 
@@ -1265,7 +1295,7 @@
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "En eller flere VPN'er er tilsluttet nu. Vær venlig at afslutte alle VPN'er og luk Tunnelblick før du fortsætter.";
 
 /* Window text */
-"One or more configurations are being ignored. See the Console Log for details." = "En eller flere konfigurationer bliver ignoreret. Se konsol loggen for detaljer.";
+"One or more configurations are being ignored. See the Console Log for details." = "En eller flere konfigurationer bliver ignoreret. Se detaljerne i konsol loggen.";
 
 /* Window text */
 "One or more problems were detected:\n\n%@" = "En eller flere problemer blev fundet:\n\n%@";
@@ -1460,7 +1490,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Den private konfiguration er aldrig blevet sikret, så du ikke kan vende tilbage til den sikrede (shadow) kopi.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "Konfigurations eksemplet er blevet oprettet på dit Skrivebord og OpenVPN konfigurationsfilen er blevet åbnet i TextEdit så du kan sætte filen til at passe med din VPN opsætning.\n\nNår du er færdig med at redigere i OpenVPN konfigurationsfilen og har gemt dine ændringer, så:\n\n1. Flyt eller kopier nøgle- og certifikat filerne tilhørende konfigurationen ind i 'Sample Tunnelblick VPN Configuration' mappen på dit Skrivebord.\n\n(Denne mappe er blevet åbnet i et Finder vindue så du kan trække filerne ind i mappen.)\n\n2. Skift mappens navn til det du vil kalde din VPN forbindelse. Dette vil være navnet Tunnelblick bruger for konfigurationen.\n\n3. Tilføj .tblk til slutningen af mappens navn.\n\n4. Dobbelt-klik på mappen for at installere konfigurationen.\n\nDen nye konfiguration vil være tilgængelig i Tunnelblick øjeblikkeligt.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "Konfigurations eksemplet er blevet oprettet på dit Skrivebord og OpenVPN konfigurationsfilen er blevet åbnet i TextEdit så du kan justere filen til at passe med din VPN opsætning.\n\nNår du er færdig med at redigere i OpenVPN konfigurationsfilen og har gemt dine ændringer, bør du:\n\n1. Flyt eller kopier nøgle- og certifikat filerne tilknyttet konfigurationen ind i 'Sample Tunnelblick VPN Configuration' mappen på dit Skrivebord.\n\n(Denne mappe er blevet åbnet i et Finder vindue, så du kan trække filerne ind i mappen.)\n\n2. Skift mappens navn til det du vil kalde din VPN forbindelse. Dette vil være navnet Tunnelblick bruger for konfigurationen.\n\n3. Tilføj .tblk til slutningen af mappens navn.\n\n4. Dobbelt-klik på mappen for at installere konfigurationen.\n\nDen nye konfiguration vil være tilgængelig i Tunnelblick øjeblikkeligt.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "Brugernavn og kodeord blev ikke godkendt af den eksterne VPN server.";
@@ -1502,7 +1532,7 @@
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Denne kopi af Tunnelblick er blevet manipuleret med (dens digitale signatur er ugyldig).\n\nTjek om udbyderen af denne kopi af Tunnelblick er 'lovlig' før at du tager den i brug.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Denne kopi er ikke blevet digitalt signeret.\n\nDer er ingen måde at tjekke om denne kopi er blevet manipuleret med.\n\n Tjek om udbyderen af denne kopi af Tunnelblick er 'lovlig' før at du tager den i brug.\n\n";
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Denne kopi er ikke blevet digitalt signeret.\n\nDer er ingen måde at tjekke om denne kopi er blevet manipuleret med.\n\nTjek om udbyderen af denne kopi af Tunnelblick er 'lovlig' før at du tager den i brug.\n\n";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Dette er en 64-bit Intel version af Tunnelblick som ikke virker korrekt, hvis den bruger tun eller tap kext filer.";
@@ -1757,6 +1787,9 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN-konfiguration %@ bliver IKKE installeret, fordi konfigurationen allerede findes og ikke bør erstattes.";
 
 /* Window text */
+"VPN log level:" = "VPN log niveau:";
+
+/* Window text */
 "VPN status windows:" = "VPN status vinduer:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1898,6 +1931,9 @@
 "64-bit enabling and testing" = "64-bit aktivering og test";
 
 /* Credit description */
+"Afrikaans localization" = "Afrikaans oversættelse";
+
+/* Credit description */
 "Animation and icon sets code" = "Animation og ikonsætskode";
 
 /* Credit description */
@@ -1929,6 +1965,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Bidragede til tidlig kode";
+
+/* Credit description */
+"Croation localization" = "Kroatisk oversættelse";
 
 /* Credit description */
 "Czech localization" = "Tjekkisk lokalisering";
@@ -2025,6 +2064,9 @@
 
 /* Credit description */
 "Russian localization" = "Russisk oversættelse";
+
+/* Credit description */
+"Serbian (Latin) localization" = "Serbisk (Latin) oversættelse";
 
 /* Credit description */
 "Slovak localization" = "Slovakisk oversættelse";

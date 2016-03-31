@@ -289,8 +289,35 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Konfiguráció megosztása…";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "Nincs OpenVPN vagy Tunnelblick naplózás";
+
 /* Menu item */
 "No VPN Configurations Available" = "Nincsen elérhető VPN konfiguráció";
+
+/* Menu Item */
+"OpenVPN level %lu" = "OpenVPN szint %lu";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN szint 0 - nincs kimenet a végzetes hibákat kivéve";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN szint 11 - extrém részletes kimenet";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "OpenVPN szint 3 - normál kimenet";
+
+/* Menu Item */
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN szint 4 - érték kijelzése az összes opciónak";
+
+/* Menu Item */
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN szint 5 - \"R\" és \"W\" hozzáadása minden csomaghoz";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "OpenVPN szint 6 - nagyon részletes kimenet";
+
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "OpenVPN naplózási szint a konfiguráció alapján beállítva";
 
 /* Menu item */
 "Quit Tunnelblick" = "Kilépés a Tunnelblick-ből";
@@ -795,6 +822,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' beállítás figyelmen kívül hagyva; abszolút elérési útvonalat kell megadni vagy ezzel kezdeni \"~\"";
+
+/* Window text -- apears in log display when logging is disabled */
+"(Logging is disabled.)" = "(Naplózás kikapcsolva.)";
 
 /* Window text */
 "(Never checked)" = "(Nem ellenőrzött)";
@@ -1757,6 +1787,9 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "A VPN konfiguráció %@ nem lesz telepítve, mert a konfiguráció már létezik, és nem lehet cserélni.";
 
 /* Window text */
+"VPN log level:" = "OpenVPN naplózási szint:";
+
+/* Window text */
 "VPN status windows:" = "VPN állapot ablak:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1898,6 +1931,9 @@
 "64-bit enabling and testing" = "64-bites engedélyezés és tesztelés";
 
 /* Credit description */
+"Afrikaans localization" = "Afrikaans honosítás";
+
+/* Credit description */
 "Animation and icon sets code" = "Animáció, ikon készlet kód";
 
 /* Credit description */
@@ -1929,6 +1965,9 @@
 
 /* Credit description */
 "Contributed to early code" = "A fejlesztés korai szakaszában résztvett";
+
+/* Credit description */
+"Croation localization" = "Horvát honosítás";
 
 /* Credit description */
 "Czech localization" = "Cseh honosítás";
@@ -2025,6 +2064,9 @@
 
 /* Credit description */
 "Russian localization" = "Orosz honosítás";
+
+/* Credit description */
+"Serbian (Latin) localization" = "Szerb (latin) honosítás";
 
 /* Credit description */
 "Slovak localization" = "Szlovák honosítás";

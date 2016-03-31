@@ -289,8 +289,35 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Jaa asetukset…";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "Ei OpenVPN- tai Tunnelblick VPN-lokikirjoitusta";
+
 /* Menu item */
 "No VPN Configurations Available" = "Ei VPN-asetuksia saatavilla";
+
+/* Menu Item */
+"OpenVPN level %lu" = "OpenVPN taso %lu";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN taso 0 - ei tulostusta, paitsi vakavat virheet";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN taso 11 - erittäin runsassanainen tulostus";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "OpenVPN taso 3 - normaali tulostus";
+
+/* Menu Item */
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN taso 4 - tulostaa myös kaikkien optioiden arvot";
+
+/* Menu Item */
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN taso 5 - tulostaa myös \"R\" tai \"W\" joka paketille";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "OpenVPN taso 6 - hyvin runsassanainen tulostus";
+
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "OpenVPN-lokikirjoituksen taso on konfiguraation määrittämä";
 
 /* Menu item */
 "Quit Tunnelblick" = "Lopeta Tunnelblick";
@@ -795,6 +822,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath'-asetus jätetty huomiotta; sen täytyy olla absoluuttinen polku tai alkaa merkillä '~'";
+
+/* Window text -- apears in log display when logging is disabled */
+"(Logging is disabled.)" = "(Lokikirjoitus on poissa käytöstä.)";
 
 /* Window text */
 "(Never checked)" = "(Ei koskaan tarkasteta)";
@@ -1757,6 +1787,9 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN-konfiguraatiota %@ EI asenneta, koska konfiguraatio on jo olemassa ja sitä ei pitäisi korvata.";
 
 /* Window text */
+"VPN log level:" = "VPN-lokikirjoituksen taso:";
+
+/* Window text */
 "VPN status windows:" = "VPN status ikkunat:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1898,6 +1931,9 @@
 "64-bit enabling and testing" = "64-bit tuki ja testaus";
 
 /* Credit description */
+"Afrikaans localization" = "Afrikaans käännös";
+
+/* Credit description */
 "Animation and icon sets code" = "Animaatiot ja ikoniryhmien koodi";
 
 /* Credit description */
@@ -1929,6 +1965,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Tuottanut koodia alkuaikoina";
+
+/* Credit description */
+"Croation localization" = "Kroatialainen käännös";
 
 /* Credit description */
 "Czech localization" = "Tshekkiläinen käännös";
@@ -2025,6 +2064,9 @@
 
 /* Credit description */
 "Russian localization" = "Venäläinen käännös";
+
+/* Credit description */
+"Serbian (Latin) localization" = "Serbialainen (Latin) käännös";
 
 /* Credit description */
 "Slovak localization" = "Slovakialainen käännös";

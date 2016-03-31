@@ -289,8 +289,35 @@
 /* Menu Item */
 "Make Configuration Shared..." = "공유 설정으로 변경…";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "OpenVPN 또는 Tunnelblick VPN 로그를 기록하지 않음";
+
 /* Menu item */
 "No VPN Configurations Available" = "사용할 수 있는 VPN 설정 없음";
+
+/* Menu Item */
+"OpenVPN level %lu" = "OpenVPN 레벨 %lu";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN 레벨 0 - 치명적인 오류 제외 출력 없음";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN 레벨 11 - 극도로 상세한 출력";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "OpenVPN 레벨 3 - 일반적인 출력";
+
+/* Menu Item */
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN 레벨 4 - 모든 옵션 값에 대해서도 출력";
+
+/* Menu Item */
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN 레벨 5 - 각 패킷의 \"R\" 또는 \"W\"에 대해서도 출력";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "OpenVPN 레벨 6 - 매우 상세한 출력";
+
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "구성에 의해 설정된 OpenVPN 로그 기록 레벨";
 
 /* Menu item */
 "Quit Tunnelblick" = "Tunnelblick 종료";
@@ -795,6 +822,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' 설정 값 무시. 절대 경로 또는 '~' 로 시작해야 합니다";
+
+/* Window text -- apears in log display when logging is disabled */
+"(Logging is disabled.)" = "(로그 기록 중단됨.)";
 
 /* Window text */
 "(Never checked)" = "(선택하지 않음)";
@@ -1757,6 +1787,9 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN 설정 %@ 은 대체 할 수 없는 구성이 이미 존재하기 때문에 설치 불가합니다.";
 
 /* Window text */
+"VPN log level:" = "VPN 로그 레벨:";
+
+/* Window text */
 "VPN status windows:" = "VPN 상태 창:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1898,6 +1931,9 @@
 "64-bit enabling and testing" = "64-bit 지원 및 테스트";
 
 /* Credit description */
+"Afrikaans localization" = "아프리칸스어 지역화";
+
+/* Credit description */
 "Animation and icon sets code" = "애니메이션, 아이콘 세트 코드";
 
 /* Credit description */
@@ -1929,6 +1965,9 @@
 
 /* Credit description */
 "Contributed to early code" = "초기 코드 공헌";
+
+/* Credit description */
+"Croation localization" = "크로아티아어 지역화";
 
 /* Credit description */
 "Czech localization" = "체코어 지역화";
@@ -2025,6 +2064,9 @@
 
 /* Credit description */
 "Russian localization" = "러시아어 지역화";
+
+/* Credit description */
+"Serbian (Latin) localization" = "세르비아어 (로마 문자) 지역화";
 
 /* Credit description */
 "Slovak localization" = "슬로바키아어 지역화";

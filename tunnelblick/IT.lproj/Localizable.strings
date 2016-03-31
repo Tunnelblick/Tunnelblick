@@ -289,8 +289,35 @@
 /* Menu Item */
 "Make Configuration Shared..." = "Rendi la configurazione condivisa…";
 
+/* Menu Item */
+"No OpenVPN or Tunnelblick VPN logging" = "Il log VPN di OpenVPN o Tunnelblick è disabilitato";
+
 /* Menu item */
 "No VPN Configurations Available" = "Nessuna Configurazione VPN Disponibile";
+
+/* Menu Item */
+"OpenVPN level %lu" = "OpenVPN livello %lu";
+
+/* Menu Item */
+"OpenVPN level 0 - no output except fatal errors" = "OpenvVPN livello 0 - nessun output ad esclusione di errori fatali";
+
+/* Menu Item */
+"OpenVPN level 11 - extremely verbose output" = "OpenvVPN livello 11 - output estremamente verboso";
+
+/* Menu Item */
+"OpenVPN level 3 - normal output" = "OpenvVPN livello 3 - output normale";
+
+/* Menu Item */
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN livello 4 - include anche i valori di ogni opzione impostata";
+
+/* Menu Item */
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN livello 5 - include informazioni relative alla lettura/scrittura di ogni pacchetto";
+
+/* Menu Item */
+"OpenVPN level 6 - very verbose output" = "OpenVPN livello 6 - output molto verboso";
+
+/* Menu Item */
+"OpenVPN logging level set by the configuration" = "Livello di log di OpenVPN impostato nella configurazione";
 
 /* Menu item */
 "Quit Tunnelblick" = "Esci da Tunnelblick";
@@ -795,6 +822,9 @@
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "L'impostazione 'easy-rsaPath' è stata ignorata poiché deve essere un path assoluto o cominciare con '~'";
+
+/* Window text -- apears in log display when logging is disabled */
+"(Logging is disabled.)" = "(scrittura del log disabilitata)";
 
 /* Window text */
 "(Never checked)" = "(Mai verificato)";
@@ -1502,7 +1532,7 @@
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Questa copia di Tunnelblick è stata alterata (la firma digitale non è valida).\n\nPrima di usare questa copia di Tunnelblick contattare il fornitore.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Questa copia di Tunnelblick non ha una firma digitale.\n\nA causa di ciò non è possibile verificare se questa copia è stata alterata.\n\n Fai una verifica con chi ha fornito questa copia prima di utilizzarla.\n\n";
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Questa copia di Tunnelblick non ha una firma digitale.\n\nA causa di ciò non è possibile verificare se questa copia è stata alterata.\n\n È preferibile fare una verifica con chi ha fornito questa copia prima di utilizzarla.\n\n";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Questa è una versione di Tunnelblick a 64-bit per processore Intel. Tale versione potrebbe non funzionare correttamente qualora vengano usate le estensioni del kernel (kext) 'tun' o 'tap'.";
@@ -1757,6 +1787,9 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "La configurazione VPN %@ non sarà installata poiché la stessa configurazione esiste già e non può essere sostituita.";
 
 /* Window text */
+"VPN log level:" = "Livello di log delle attività VPN:";
+
+/* Window text */
 "VPN status windows:" = "Finestra di stato della VPN:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
@@ -1898,6 +1931,9 @@
 "64-bit enabling and testing" = "Abilitazione a 64-bit e test";
 
 /* Credit description */
+"Afrikaans localization" = "Traduzione in lingua Afrikaans";
+
+/* Credit description */
 "Animation and icon sets code" = "Animazioni, codice del set di icone";
 
 /* Credit description */
@@ -1929,6 +1965,9 @@
 
 /* Credit description */
 "Contributed to early code" = "Contributi iniziali al codice";
+
+/* Credit description */
+"Croation localization" = "Traduzione in lingua Croata";
 
 /* Credit description */
 "Czech localization" = "Traduzione in lingua Ceca";
@@ -2025,6 +2064,9 @@
 
 /* Credit description */
 "Russian localization" = "Traduzione in lingua Russa";
+
+/* Credit description */
+"Serbian (Latin) localization" = "Traduzione in lingua Serba (alfabeto latino)";
 
 /* Credit description */
 "Slovak localization" = "Traduzione in lingua Slovacca";
