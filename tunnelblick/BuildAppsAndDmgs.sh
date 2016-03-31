@@ -151,6 +151,23 @@ setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/ta
 setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext/Contents/Info.plist" "${kextbn}"
 setBuildNumber "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext/Contents/Info.plist" "${kextbn}"
 
+# Copy some git information into Info.plist: the hash and whether or not there are uncommitted changes
+gitChanges=""
+gitHash="(unknown: no .git folder)"
+if [ -e "../.git" ] ; then
+  gitHash="(unknown: git is unavailable)"
+  if [ "$(which git)" != "" ] ; then
+    if [  "$(git status -s)" = "" ] ; then
+       gitChanges="NO"
+    else
+       gitChanges="YES"
+    fi
+    gitHash="$(git rev-parse HEAD)"
+  fi
+fi
+sed -e "s|TBGITHASH|${gitHash}|"   "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Info.plist" | sed -e "s|TBGITCHANGES|${gitChanges}|" > "build/Info.plist.tmp"
+mv -f "build/Info.plist.tmp" "build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Info.plist"
+
 # Create the openvpn directory structure:
 # ...Contents/Resources/openvpn contains a folder for each version of OpenVPN.
 # The folder for each vesion of OpenVPN is named "openvpn-x.x.x".

@@ -3896,6 +3896,20 @@ enum GetAuthorizationResult {
     return kextRawContents;
 }
 
++(NSString *) gitInfo {
+    
+    NSDictionary * dict = [[NSApp delegate] tunnelblickInfoDictionary];
+    NSString * hashValue = [dict objectForKey: @"TBGitHash"];
+    NSString * hash = (  [hashValue isEqualToString: @"TBGITHASH"]
+                       ? @""
+                       : [NSString stringWithFormat: @"git commit %@", hashValue]);
+    NSString * changesValue = [dict objectForKey: @"TBGitChanges"];
+    NSString * gitMessage = (  [changesValue isEqualToString: @"YES"]
+                             ? [NSString stringWithFormat: @"%@ (there are uncommitted changes)", hash]
+                             : [NSString stringWithFormat: @"%@", hash]);
+    return (  [NSString stringWithFormat: @"%@", gitMessage]  );
+}
+
 +(void) putDiagnosticInfoOnClipboardWithDisplayName: (NSString *) displayName {
 	
 	VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
@@ -3906,6 +3920,8 @@ enum GetAuthorizationResult {
                                       (isUserAnAdmin()
                                        ? @"; Admin user"
                                        : @"; Standard user")];
+        
+        NSString * gitInfo = [self gitInfo];
 		
 		// Get contents of configuration file
         NSString * configFileContents = [connection sanitizedConfigurationFileContents ];
@@ -3942,7 +3958,7 @@ enum GetAuthorizationResult {
 		NSString * separatorString = @"================================================================================\n\n";
 		
         NSString * output = [NSString stringWithFormat:
-							 @"%@\n\n"  // Version info
+							 @"%@\n%@\n\n"  // Version info
                              @"Configuration %@\n\n"
                              @"\"Sanitized\" condensed configuration file for %@:\n\n%@\n\n%@"
                              @"Non-Apple kexts that are loaded:\n\n%@\n%@"
@@ -3954,7 +3970,7 @@ enum GetAuthorizationResult {
 							 @"\"Sanitized\" full configuration file\n\n%@\n\n%@"
                              @"ifconfig output:\n\n%@\n%@"
                              @"Console Log:\n\n%@\n",
-                             versionContents,
+                             versionContents, gitInfo,
                              [connection localizedName], [connection configPath], condensedConfigFileContents, separatorString,
                              kextContents, separatorString,
                              tblkFileList, separatorString,
