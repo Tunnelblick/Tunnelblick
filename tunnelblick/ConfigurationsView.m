@@ -56,7 +56,10 @@ extern TBUserDefaults * gTbDefaults;
 	(void) dirtyRect;
 }
 
--(void) shiftLabelsAndButtonsWtc: (CGFloat) wtcWidthChange sdns: (CGFloat) sdnsWidthChange pcov: (CGFloat) pcovWidthChange {
+-(void) shiftLabelsAndButtonsWtc: (CGFloat) wtcWidthChange
+                            sdns: (CGFloat) sdnsWidthChange
+                            pcov: (CGFloat) pcovWidthChange
+         loggingLevelWidthChange: (CGFloat) loggingLevelWidthChange {
 	
 	// Shift all the labels and buttons by the largest width change, so the widest is flush left/right
 	
@@ -67,6 +70,9 @@ extern TBUserDefaults * gTbDefaults;
 	if (  largestWidthChange < pcovWidthChange  ) {
 		largestWidthChange = pcovWidthChange;
 	}
+	if (  largestWidthChange < loggingLevelWidthChange  ) {
+		largestWidthChange = loggingLevelWidthChange;
+	}
 	
 	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
 	[UIHelper shiftControl: whenToConnectTF               by: largestWidthChange reverse: ! rtl];
@@ -75,15 +81,78 @@ extern TBUserDefaults * gTbDefaults;
 	[UIHelper shiftControl: setNameserverPopUpButton      by: largestWidthChange reverse: ! rtl];
 	[UIHelper shiftControl: perConfigOpenvpnVersionTF     by: largestWidthChange reverse: ! rtl];
 	[UIHelper shiftControl: perConfigOpenvpnVersionButton by: largestWidthChange reverse: ! rtl];
+	[UIHelper shiftControl: loggingLevelTF                by: largestWidthChange reverse: ! rtl];
+	[UIHelper shiftControl: loggingLevelPopUpButton       by: largestWidthChange reverse: ! rtl];
 }
 
 -(void) normalizeWidthOfConfigurationsButtons {
 	
-	NSArray * list = [NSArray arrayWithObjects: whenToConnectPopUpButton, setNameserverPopUpButton, perConfigOpenvpnVersionButton, nil];
+	NSArray * list = [NSArray arrayWithObjects: whenToConnectPopUpButton, setNameserverPopUpButton, perConfigOpenvpnVersionButton, loggingLevelPopUpButton, nil];
 	if (  [list count] > 0  ) {
 		[UIHelper makeAllAsWideAsWidest: list shift: [UIHelper languageAtLaunchWasRTL]];
 	}
 }
+
+-(void) setupLoggingLevelPopUpButton {
+	
+    NSMutableArray * content = [[NSMutableArray alloc] initWithCapacity: 14];
+    
+    // First item is "No logging"
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                           NSLocalizedString(@"No OpenVPN or Tunnelblick VPN logging" , @"Menu Item"), @"name",
+                           [NSNumber numberWithInt: TUNNELBLICK_NO_LOGGING_LEVEL],                     @"value",
+                           nil];
+    [content addObject: dict];
+    
+    // Second item is "Set by configuration"
+    dict = [NSDictionary dictionaryWithObjectsAndKeys:
+            NSLocalizedString(@"OpenVPN logging level set by the configuration" , @"Menu Item"),    @"name",
+            [NSNumber numberWithInt: TUNNELBLICK_CONFIG_LOGGING_LEVEL],                             @"value",
+            nil];
+    [content addObject: dict];
+    
+    // The rest of the items are the OpenVPN logging levels 1...11
+    NSUInteger ix;
+    for (  ix=MIN_OPENVPN_LOGGING_LEVEL; ix<=MAX_OPENVPN_LOGGING_LEVEL; ix++  ) {
+        NSString * label;
+        switch (  ix  ) {
+            case 0:
+                label = NSLocalizedString(@"OpenVPN level 0 - no output except fatal errors", @"Menu Item");
+                break;
+                
+            case 3:
+                label = NSLocalizedString(@"OpenVPN level 3 - normal output", @"Menu Item");
+                break;
+                
+            case 4:
+                label = NSLocalizedString(@"OpenVPN level 4 - also outputs values for all options", @"Menu Item");
+                break;
+                
+            case 5:
+                label = NSLocalizedString(@"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet", @"Menu Item");
+                break;
+                
+            case 6:
+                label = NSLocalizedString(@"OpenVPN level 6 - very verbose output", @"Menu Item");
+                break;
+                
+            case 11:
+                label = NSLocalizedString(@"OpenVPN level 11 - extremely verbose output", @"Menu Item");
+                break;
+                
+            default:
+                label = [NSString stringWithFormat: NSLocalizedString(@"OpenVPN level %lu", @"Menu Item"), ix];
+                break;
+        }
+        dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                label,                                @"name",
+                [NSNumber numberWithUnsignedInt: ix], @"value",
+                nil];
+        [content addObject: dict];
+    }
+    [[self loggingLevelArrayController] setContent: content];
+}
+
 
 -(void) awakeFromNib {
 	
@@ -189,6 +258,10 @@ extern TBUserDefaults * gTbDefaults;
 	[UIHelper setTitle: nil ofControl: setNameserverPopUpButton shift: rtl narrow: YES enable: YES];
     // setNameserverPopUpButton is modified in setupSetNameserver to reflect per-configuration settings
 	
+	CGFloat loggingLevelWidthChange = [UIHelper setTitle: NSLocalizedString(@"VPN log level:", @"Window text") ofControl: loggingLevelTFC frameHolder: loggingLevelTF shift: ( !rtl ) narrow: YES enable: YES];
+    [self setupLoggingLevelPopUpButton];
+	[UIHelper setTitle: nil ofControl: loggingLevelPopUpButton shift: rtl narrow: YES enable: YES];
+	
     [monitorNetworkForChangesCheckbox             setTitle: NSLocalizedString(@"Monitor network settings",                                         @"Checkbox name")];
     [routeAllTrafficThroughVpnCheckbox            setTitle: NSLocalizedString(@"Route all IPv4 traffic through the VPN",                           @"Checkbox name")];
     [checkIPAddressAfterConnectOnAdvancedCheckbox setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connecting", @"Checkbox name")];
@@ -226,7 +299,7 @@ extern TBUserDefaults * gTbDefaults;
     [perConfigOpenvpnVersionArrayController setContent: ovContent];
 	[UIHelper setTitle: nil ofControl: perConfigOpenvpnVersionButton shift: rtl narrow: YES enable: YES];
 	
-	[self shiftLabelsAndButtonsWtc: wtcWidthChange sdns: sdnsWidthChange pcov: pcovWidthChange];
+	[self shiftLabelsAndButtonsWtc: wtcWidthChange sdns: sdnsWidthChange pcov: pcovWidthChange loggingLevelWidthChange: loggingLevelWidthChange];
 	
 	[self normalizeWidthOfConfigurationsButtons];
 	
@@ -300,6 +373,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            disableIpv6OnTunCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   perConfigOpenvpnVersionArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            perConfigOpenvpnVersionButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,         loggingLevelTF)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     loggingLevelTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       loggingLevelPopUpButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   loggingLevelArrayController)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          advancedButton)
 

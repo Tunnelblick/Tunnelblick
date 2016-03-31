@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -180,6 +180,16 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     return string;
 }
 
+-(BOOL) loggingIsDisabled {
+    
+    NSString * key = [[[self connection] displayName] stringByAppendingString: @"-loggingLevel"];
+    NSUInteger logPreference = [gTbDefaults unsignedIntForKey: key
+                                                      default: TUNNELBLICK_DEFAULT_LOGGING_LEVEL
+                                                          min: MIN_OPENVPN_LOGGING_LEVEL
+                                                          max: MAX_TUNNELBLICK_LOGGING_LEVEL];
+    return (logPreference == TUNNELBLICK_NO_LOGGING_LEVEL);
+}
+
 -(void) insertLogEntry: (NSDictionary *) dict {
     
     // MUST call with logStorageMutex locked
@@ -313,7 +323,8 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
 // Inserts the current date/time, a message, and a \n to the log display.
 -(void)addToLog: (NSString *) text
 {
-    if (  gShuttingDownWorkspace  ) {
+    if (   gShuttingDownWorkspace
+        || [self loggingIsDisabled]  ) {
         return;
     }
     
@@ -322,7 +333,8 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     
     BOOL fromTunnelblick = [text hasPrefix: @"*Tunnelblick: "];
     
-    if (  [self logStorage]  ) {
+    if (   [self logStorage]
+        && [self monitorQueue]  ) {
         [self insertLine: dateText beforeTunnelblickEntries: NO beforeOpenVPNEntries: NO fromOpenVPNLog: NO fromTunnelblickLog: fromTunnelblick];
     } else {
         if (  fromTunnelblick  ) {
@@ -344,6 +356,10 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
         return;
     }
     
+    NSString * message = (  [self loggingIsDisabled]
+                          ? NSLocalizedString(@"(Logging is disabled.)", @"Window text -- apears in log display when logging is disabled\n")
+                          : [[((MenuController *)[NSApp delegate]) openVPNLogHeader] stringByAppendingString: @"\n"]);
+
     // Clear the log in the display if it is being shown
     OSStatus status = pthread_mutex_lock( &logStorageMutex );
     if (  status != EXIT_SUCCESS  ) {
@@ -353,7 +369,9 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     NSTextStorage * logStore = [self logStorage];
     if (  logStore  ) {
         [logStore beginEditing];
-        [logStore deleteCharactersInRange: NSMakeRange(0, [logStore length])];
+        if (  [logStore length]  ) {
+            [logStore deleteCharactersInRange: NSMakeRange(0, [logStore length])];
+        }
         [logStore endEditing];
     }
     pthread_mutex_unlock( &logStorageMutex );
@@ -370,7 +388,13 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     openvpnLogPosition = 0;
     scriptLogPosition  = 0;
     
-	[self addToLog: [((MenuController *)[NSApp delegate]) openVPNLogHeader]];
+    // As if doing addLog, but done even if logging is disabled so the "(Logging is disabled.)" message is shown
+    if (   logStore
+        && [self monitorQueue]  ) {
+        [self insertLine: message beforeTunnelblickEntries: NO beforeOpenVPNEntries: NO fromOpenVPNLog: NO fromTunnelblickLog: YES];
+    } else {
+        [[self tbLog] setString: message];
+    }
 }
 
 // Starts (or restarts) monitoring newly-created log files.
@@ -432,6 +456,10 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
 // Stops monitoring newly-created log files.
 -(void) stopMonitoringLogFiles
 {
+    if (  ! [self monitorQueue]  ) {
+        return;
+    }
+
     [self setMonitorQueue: nil];
 
     // Process any existing log changes before we stop monitoring
@@ -451,7 +479,6 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     [self setSavedLog: [logStore attributedSubstringFromRange: r]];
     
     pthread_mutex_unlock( &makingChangesMutex );
-    return;
 }
 
 -(void) outputLogFiles {
@@ -948,10 +975,24 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     }
     NSTextStorage * logStore = [self logStorage];
     if (  logStore  ) {
-        NSMutableAttributedString * msgAS = [self attributedStringFromLine: line];
+        
         [logStore beginEditing];
-        [logStore appendAttributedString: msgAS];
+
+        NSArray * lines = [line componentsSeparatedByString: @"\n"];
+        NSUInteger lineCount = [lines count];
+        if (  [line hasSuffix: @"\n"]  ) {
+            lineCount--;
+        }
+        
+        NSUInteger i;
+        for (  i=0; i < lineCount; i++) {
+            NSString * singleLine = [[lines objectAtIndex: i] stringByAppendingString: @"\n"];
+            NSMutableAttributedString * string = [self attributedStringFromLine: singleLine];
+            [logStore appendAttributedString: string];
+        }
+        
         [logStore endEditing];
+
         pthread_mutex_unlock( &logStorageMutex );
     } else {
         pthread_mutex_unlock( &logStorageMutex );

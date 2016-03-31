@@ -580,6 +580,7 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                       @"-waitForDHCPInfoIfTap",
                                       @"-enableIpv6OnTap",
                                       @"-doNotDisableIpv6onTun",
+                                      @"-loggingLevel",
 									  
                                       @"-changeDNSServersAction",
                                       @"-changeDomainAction",

@@ -1559,7 +1559,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             openvpnstartOutput = stringForLog(errOut, @"*Tunnelblick: openvpnstart log:\n");
         }
         
-        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick:\n\n"
+        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: \n\n"
                          "Could not start OpenVPN (openvpnstart returned with status #%ld)\n\n"
                          "Contents of the openvpnstart log:\n"
                          "%@",
@@ -1783,7 +1783,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		return nil;
 	}
     
-    NSString *useDNSArg = @"0";
     unsigned useDNSNum = 0;
     unsigned useDNSStat = (unsigned) [self useDNSStatus];
 	if(  useDNSStat == 0) {
@@ -1794,11 +1793,19 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         NSString * useDownRootPluginKey = [[self displayName] stringByAppendingString: @"-useDownRootPlugin"];
         BOOL useDownRoot = [gTbDefaults boolForKey: useDownRootPluginKey];
         useDNSNum = (  (useDNSStat-1) << 2) + (useDownRoot ? 2 : 0) + 1;   // (script #) + downroot-flag + set-nameserver-flag
-        useDNSArg = [NSString stringWithFormat: @"%u", useDNSNum];
         if (  forNow  ) {
             usedModifyNameserver = TRUE;
         }
     }
+    NSString * key = [[self displayName] stringByAppendingString: @"-loggingLevel"];
+    NSUInteger loggingLevelPreference = [gTbDefaults unsignedIntForKey: key
+                                                               default: TUNNELBLICK_DEFAULT_LOGGING_LEVEL
+                                                                   min: MIN_OPENVPN_LOGGING_LEVEL
+                                                                   max: MAX_TUNNELBLICK_LOGGING_LEVEL];
+    if (  loggingLevelPreference != TUNNELBLICK_NO_LOGGING_LEVEL  ) {
+        useDNSNum = useDNSNum | (loggingLevelPreference << OPENVPNSTART_VERB_LEVEL_SHIFT_COUNT);
+    }
+    NSString * useDNSArg = [NSString stringWithFormat: @"%u", useDNSNum];
     
     // for OpenVPN v. 2.1_rc9 or higher, clear skipScrSec so we use "--script-security 2"
     NSString *skipScrSec = @"1";
@@ -1972,6 +1979,10 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setBit: OPENVPNSTART_DO_NOT_WAIT_FOR_INTERNET  inMask: &bitMask ifConnectionPreference: @"-doNotWaitForInternetAtBoot"           inverted: NO  defaultTo: NO];
     [self setBit: OPENVPNSTART_ENABLE_IPV6_ON_TAP        inMask: &bitMask ifConnectionPreference: @"-enableIpv6OnTap"                      inverted: NO  defaultTo: NO];
     [self setBit: OPENVPNSTART_DISABLE_IPV6_ON_TUN       inMask: &bitMask ifConnectionPreference: @"-doNotDisableIpv6onTun"                inverted: YES defaultTo: NO];
+    
+    if (  loggingLevelPreference == TUNNELBLICK_NO_LOGGING_LEVEL  ) {
+        bitMask = bitMask | OPENVPNSTART_DISABLE_LOGGING;
+    }
     
     if (  [gTbDefaults boolForKey: @"DB-UP"] || [gTbDefaults boolForKey: @"DB-ALL"]  ) {
         bitMask = bitMask | OPENVPNSTART_EXTRA_LOGGING;

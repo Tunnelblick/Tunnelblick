@@ -60,6 +60,7 @@
 <p class="p2"><br></p>
 <p class="p3">The Log tab contains the contents of the Tunnelblick log for the configuration selected in the left section. The Tunnelblick log contains the OpenVPN log along with entries about Tunnelblick's operations</p>
 
+<p class="p2"><br></p>
 <p class="p4"><b>Settings Tab</b></p>
 <p class="p2"><br></p>
 <p class="p3">The <b>Settings</b> tab contains commonly-used settings for the selected connection:</p>
@@ -67,24 +68,34 @@
 <ul class="ul1">
   <li class="li3"><b>Connect</b> determines when the configuration is connected: <b>Manually</b>, <b>When Tunnelblick launches</b>, and <b>When computer starts</b>. <em>Note: </em>When computer starts<em> may only be selected if a configuration is </em>Shared<em> or </em>Deployed<em>.</em><br><br></li>
   
-  <li class="li3"><b>Set DNS/WINS</b> determines the up/down scripts that Tunnelblick uses to modify DNS and WINS network settings for the selected configuration.<ul>
-    <li class="li3"><b>Do not set nameserver</b>: Tunnelblick will not use up/down scripts and will not modify DNS and WINS network settings</li>
-    <li class="li3"><b>Set nameserver</b>: Tunnelblick will use its standard up/down scripts or scripts provided in the Tunnelblick VPN Configuration (.tblk)</li>
-    <li class="li3"><b>Set nameserver (3.1)</b>: Tunnelblick will use its standard up/down scripts from Tunnelblick version 3.1</li>
-    <li class="li3"><b>Set nameserver (3.0b10)</b>: Tunnelblick will use its standard up/down scripts from Tunnelblick version 3.0b10</li>
-    <li class="li3"><b>Set nameserver (alternate 1)</b>: Tunnelblick will use its alternate up/down scripts from Tunnelblick version 3.1</li>
-  </ul></li>
+  <li class="li3"><b>Set DNS/WINS</b> determines the up/down scripts that Tunnelblick uses to modify DNS and WINS network settings for the selected configuration.
+	<ul>
+	    <li class="li3"><b>Do not set nameserver</b>: Tunnelblick will not use up/down scripts and will not modify DNS and WINS network settings</li>
+	    <li class="li3"><b>Set nameserver</b>: Tunnelblick will use its standard up/down scripts or scripts provided in the Tunnelblick VPN Configuration (.tblk)</li>
+	    <li class="li3"><b>Set nameserver (3.1)</b>: Tunnelblick will use its standard up/down scripts from Tunnelblick version 3.1</li>
+	    <li class="li3"><b>Set nameserver (3.0b10)</b>: Tunnelblick will use its standard up/down scripts from Tunnelblick version 3.0b10</li>
+	    <li class="li3"><b>Set nameserver (alternate 1)</b>: Tunnelblick will use its alternate up/down scripts from Tunnelblick version 3.1</li>
+	  </ul>
+  </li>
 </ul>
 <ul class="ul1">
-  <li class="li3"><b>OpenVPN version</b> determines which version of OpenVPN will be used to connect the selected configuration.
-<ul>
-<li class="li3">If you choose the "Default" version, the earliest version of OpenVPN will be used.</li>
-<li class=li3>If you choose the "Latest" version, the latest version of OpenVPN will be used.</li>
-<li class=li3>If you choose a specific version of OpenVPN, that version will be used. You will be warned if that version is not available.</li>
+    <li class="li3"><b>OpenVPN version</b> determines which version of OpenVPN will be used to connect the selected configuration.
+	<ul>
+	    <li class="li3">If you choose the "Default" version, the earliest version of OpenVPN will be used.</li>
+	    <li class=li3>If you choose the "Latest" version, the latest version of OpenVPN will be used.</li>
+	    <li class=li3>If you choose a specific version of OpenVPN, that version will be used. You will be warned if that version is not available.</li>
+	</ul>
+    </li>
 </ul>
-</li>
+<ul class="ul1">
+    <li class="li3"><b>VPN log level</b> determines which messages from Tunnelblick and OpenVPN are stored and displayed in the "Log" tab.
+        <ul>
+            <li class="li3"><b>No OpenVPN or Tunnelblick VPN logging</b> Nothing is stored or displayed.</li>
+            <li class="li3"><b>OpenVPN logging level set by the configuration</b> will store and display all Tunnelblick messages, and messages from OpenVPN as specified by the OpenVPN configuration file.</li>
+            <li class="li3"><b>OpenVPN levels 0-11</b> will store and display all Tunnelblick messages, and messages from OpenVPN as specified by the level. The higher the level, the more messages are stored and displayed. Normally level 3 (the default) is the best level for diagnosing problems connecting to a VPN. <em>Levels higher than 5 are usually needed only to debug OpenVPN itself. At the highest levels tens of megabytes of messages per second are handled, which can slow down your computer.</em></li>
+        </ul>
 </ul>
-<ul>
+<ul class="ul1">
   <li class="li3"><b>Monitor network settings</b> determines whether or not Tunnelblick will monitor network settings for changes while the selected configuration is connected. This may be done to react to DHCP renewals or other network changes.<br><br></li>
   <li class="li3"><b>Route all IPv4 traffic through the VPN</b>. When checked, a '--redirect-gateway def1' option is sent to OpenVPN, causing routing to be set up to route all IPv4 traffic through the VPN. If this is not checked, all IPv4 traffic may still be sent through the VPN because the OpenVPN configuration file may contain the option, or the option may be "pushed" from the VPN server.<br><br></li>
   <li class="li3"><b>Disable IPv6 (tun only)</b>. When checked, Tunnelblick will disable IPv6 traffic on all active interfaces (those set to use IPv6 "automatically") while the selected configuration is connected and restore it when the configuration is disconnected. This may only be done on "Tun" connections, not "Tap" connections.<br><br></li>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -93,6 +93,11 @@
     IBOutlet NSArrayController  * perConfigOpenvpnVersionArrayController;
     IBOutlet NSButton           * perConfigOpenvpnVersionButton;
    
+    IBOutlet NSTextField         * loggingLevelTF;
+    IBOutlet NSTextFieldCell     * loggingLevelTFC;
+    IBOutlet NSPopUpButton       * loggingLevelPopUpButton;
+    IBOutlet NSArrayController   * loggingLevelArrayController;
+    
     IBOutlet NSButton            * monitorNetworkForChangesCheckbox;
     IBOutlet NSButton            * routeAllTrafficThroughVpnCheckbox;
     IBOutlet NSButton            * checkIPAddressAfterConnectOnAdvancedCheckbox;
@@ -164,6 +169,11 @@ TBPROPERTY_READONLY(NSButton *,            disableIpv6OnTunCheckbox)
 
 TBPROPERTY_READONLY(NSArrayController *,   perConfigOpenvpnVersionArrayController)
 TBPROPERTY_READONLY(NSButton *,            perConfigOpenvpnVersionButton)
+
+TBPROPERTY_READONLY(NSTextField *,         loggingLevelTF)
+TBPROPERTY_READONLY(NSTextFieldCell *,     loggingLevelTFC)
+TBPROPERTY_READONLY(NSPopUpButton *,       loggingLevelPopUpButton)
+TBPROPERTY_READONLY(NSArrayController *,   loggingLevelArrayController)
 
 TBPROPERTY_READONLY(NSButton *,            advancedButton)
 

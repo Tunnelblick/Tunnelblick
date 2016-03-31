@@ -32,7 +32,7 @@
 @class VPNConnection;
 @class SettingsSheetWindowController;
 
-@interface MyPrefsWindowController : DBPrefsWindowController <NSTextStorageDelegate, NSWindowDelegate, NSTabViewDelegate, NSTableViewDelegate>
+@interface MyPrefsWindowController : DBPrefsWindowController <NSTextViewDelegate, NSWindowDelegate, NSTabViewDelegate, NSTableViewDelegate>
 {   
     NSString                      * currentViewName;
     NSRect                          currentFrame;
@@ -64,6 +64,7 @@
     NSUInteger                     selectedLeftNavListIndex;
     IBOutlet NSNumber            * selectedSetNameserverIndex;
     IBOutlet NSNumber            * selectedPerConfigOpenvpnVersionIndex;
+    IBOutlet NSNumber            * selectedLoggingLevelIndex;
     
     
     // For GeneralView
@@ -196,6 +197,7 @@ TBPROPERTY(NSUInteger, selectedLeftNavListIndex,             setSelectedLeftNavL
 
 TBPROPERTY(NSNumber *, selectedSetNameserverIndex,           setSelectedSetNameserverIndex)
 TBPROPERTY(NSNumber *, selectedPerConfigOpenvpnVersionIndex, setSelectedPerConfigOpenvpnVersionIndex)
+TBPROPERTY(NSNumber *, selectedLoggingLevelIndex,            setSelectedLoggingLevelIndex)
 
 TBPROPERTY(NSNumber *, selectedKeyboardShortcutIndex, setSelectedKeyboardShortcutIndex)
 TBPROPERTY(NSNumber *, selectedMaximumLogSizeIndex,   setSelectedMaximumLogSizeIndex)

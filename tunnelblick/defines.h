@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -155,6 +155,19 @@
 #define OPENVPN_OPTIONS_THAT_ARE_WINDOWS_ONLY [NSArray arrayWithObjects: @"allow-nonadmin", @"cryptoapicert", @"dhcp-release", @"dhcp-renew", @"pause-exit", @"register-dns", @"service", @"show-adapters", @"show-net", @"show-net-up", @"show-valid-subnets", @"tap-sleep", @"win-sys", nil]
 
 //*************************************************************************************************
+// Tunnelblick and OpenVPN logging levels, stored in the per-configuration "-loggingLevel" preference.
+// Levels from 0...11 are passed to OpenVPN in the --verb option and Tunnelblick does logging
+// At TUNNELBLICK_CONFIG_LOGGING_LEVEL, Tunnelblick does logging but does not set --verb, so the OpenVPN default or the configuration file setting is used
+// At TUNNELBLICK_NO_LOGGING_LEVEL, Tunnelblick does no logging and the OpenVPN log is sent to /dev/null, which overrides any --verb settings
+#define MIN_OPENVPN_LOGGING_LEVEL          0
+#define MAX_OPENVPN_LOGGING_LEVEL         11
+#define TUNNELBLICK_NO_LOGGING_LEVEL      12
+#define TUNNELBLICK_CONFIG_LOGGING_LEVEL  13
+#define MAX_TUNNELBLICK_LOGGING_LEVEL     13
+
+#define TUNNELBLICK_DEFAULT_LOGGING_LEVEL  3
+
+//*************************************************************************************************
 // Permissions for files and folders
 //
 // These are used in four places:
@@ -215,49 +228,53 @@
 
 //*************************************************************************************************
 // Bit masks for bitMask parameter of openvpnstart's start, loadkexts, and unloadkexts sub-commands
-#define OPENVPNSTART_OUR_TUN_KEXT              0x00000001u
-#define OPENVPNSTART_OUR_TAP_KEXT              0x00000002u
+#define OPENVPNSTART_OUR_TUN_KEXT              (1u << 0)
+#define OPENVPNSTART_OUR_TAP_KEXT              (1u << 1)
 
-#define OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT   0x00000003u
-#define OPENVPNSTART_KEXTS_MASK_LOAD_MAX       0x00000003u
+#define OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT   (OPENVPNSTART_OUR_TUN_KEXT | OPENVPNSTART_OUR_TAP_KEXT)
+#define OPENVPNSTART_KEXTS_MASK_LOAD_MAX       (OPENVPNSTART_OUR_TUN_KEXT | OPENVPNSTART_OUR_TAP_KEXT)
 
-#define OPENVPNSTART_FOO_TUN_KEXT              0x00000004u
-#define OPENVPNSTART_FOO_TAP_KEXT              0x00000008u
+#define OPENVPNSTART_FOO_TUN_KEXT              (1u << 2)
+#define OPENVPNSTART_FOO_TAP_KEXT              (1u << 3)
 
-#define OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT 0x00000003u
-#define OPENVPNSTART_KEXTS_MASK_UNLOAD_MAX     0x0000000Fu
+#define OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT (OPENVPNSTART_FOO_TUN_KEXT | OPENVPNSTART_FOO_TAP_KEXT)
+#define OPENVPNSTART_KEXTS_MASK_UNLOAD_MAX     (OPENVPNSTART_OUR_TUN_KEXT | OPENVPNSTART_OUR_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT | OPENVPNSTART_FOO_TAP_KEXT)
 
-#define OPENVPNSTART_RESTORE_ON_DNS_RESET      0x00000010u
-#define OPENVPNSTART_RESTORE_ON_WINS_RESET     0x00000020u
-#define OPENVPNSTART_USE_TAP                   0x00000040u
-#define OPENVPNSTART_PREPEND_DOMAIN_NAME       0x00000080u
-#define OPENVPNSTART_FLUSH_DNS_CACHE           0x00000100u
-#define OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 0x00000200u
-#define OPENVPNSTART_RESET_PRIMARY_INTERFACE   0x00000400u
-#define OPENVPNSTART_TEST_MTU                  0x00000800u
-#define OPENVPNSTART_EXTRA_LOGGING             0x00001000u
-#define OPENVPNSTART_NO_DEFAULT_DOMAIN         0x00002000u
-#define OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS  0x00004000u
-#define OPENVPNSTART_USE_ROUTE_UP_NOT_UP       0x00008000u
-#define OPENVPNSTART_USE_I386_OPENVPN          0x00010000u
-#define OPENVPNSTART_WAIT_FOR_DHCP_IF_TAP      0x00020000u
-#define OPENVPNSTART_DO_NOT_WAIT_FOR_INTERNET  0x00040000u
-#define OPENVPNSTART_ENABLE_IPV6_ON_TAP        0x00080000u
-#define OPENVPNSTART_DISABLE_IPV6_ON_TUN       0x00100000u
-
-#define OPENVPNSTART_START_BITMASK_MAX         0x001FFFFFu
+#define OPENVPNSTART_RESTORE_ON_DNS_RESET      (1u <<  4)
+#define OPENVPNSTART_RESTORE_ON_WINS_RESET     (1u <<  5)
+#define OPENVPNSTART_USE_TAP                   (1u <<  6)
+#define OPENVPNSTART_PREPEND_DOMAIN_NAME       (1u <<  7)
+#define OPENVPNSTART_FLUSH_DNS_CACHE           (1u <<  8)
+#define OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 (1u <<  9)
+#define OPENVPNSTART_RESET_PRIMARY_INTERFACE   (1u << 10)
+#define OPENVPNSTART_TEST_MTU                  (1u << 11)
+#define OPENVPNSTART_EXTRA_LOGGING             (1u << 12)
+#define OPENVPNSTART_NO_DEFAULT_DOMAIN         (1u << 13)
+#define OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS  (1u << 14)
+#define OPENVPNSTART_USE_ROUTE_UP_NOT_UP       (1u << 15)
+#define OPENVPNSTART_USE_I386_OPENVPN          (1u << 16)
+#define OPENVPNSTART_WAIT_FOR_DHCP_IF_TAP      (1u << 17)
+#define OPENVPNSTART_DO_NOT_WAIT_FOR_INTERNET  (1u << 18)
+#define OPENVPNSTART_ENABLE_IPV6_ON_TAP        (1u << 19)
+#define OPENVPNSTART_DISABLE_IPV6_ON_TUN       (1u << 20)
+#define OPENVPNSTART_DISABLE_LOGGING           (1u << 21)
+// DUPLICATE THE HIGHEST VALUE BELOW           vvvvvvvvvv
+#define OPENVPNSTART_HIGHEST_BITMASK_BIT       (1u << 21)
 
 
 //*************************************************************************************************
-// Bit masks (and a shift count) for useScripts parameter of openvpnstart's start sub-command
+// Bit masks (and shift counts) for useScripts parameter of openvpnstart's start sub-command
 #define OPENVPNSTART_USE_SCRIPTS_RUN_SCRIPTS        0x01
 #define OPENVPNSTART_USE_SCRIPTS_USE_DOWN_ROOT      0x02
 
 // (Mask first, then shift right)
-#define OPENVPNSTART_USE_SCRIPTS_SCRIPT_MASK        0xFC
-#define OPENVPNSTART_USE_SCRIPTS_SCRIPT_SHIFT_COUNT    2
+#define OPENVPNSTART_USE_SCRIPTS_SCRIPT_MASK        0x00FC
+#define OPENVPNSTART_USE_SCRIPTS_SCRIPT_SHIFT_COUNT      2
 
-#define OPENVPNSTART_USE_SCRIPTS_MAX                0xFF
+#define OPENVPNSTART_VERB_LEVEL_SCRIPT_MASK         0x0F00
+#define OPENVPNSTART_VERB_LEVEL_SHIFT_COUNT              8
+
+#define OPENVPNSTART_USE_SCRIPTS_MAX                0x0FFF
 
 
 //*************************************************************************************************

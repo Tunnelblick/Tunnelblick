@@ -149,6 +149,9 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "./openvpnstart preDisconnect  configName  cfgLocCode\n\n"
             "               to run the pre-disconnect.sh script inside a .tblk.\n\n"
             
+            "./openvpnstart deleteLog   configName   cfgLocCode\n"
+            "               to delete all log files associated with the configuration\n\n"
+            
             "./openvpnstart printSanitizedConfigurationFile   configName   cfgLocCode\n"
             "               to print a configuration file with inline data (such as the data within <cert>...</cert>) removed.\n\n"
             
@@ -177,7 +180,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "           or 0 to use a free port (starting the search at port 1337) and create a log file encoding the configuration path and port number\n"
             "           or the port number (1-65535) to use a free port (starting the search at the specified port number) and create a log file encoding the configuration path and port number\n\n"
             
-            "useScripts has three fields (weird, but backward compatible):\n"
+            "useScripts has four fields (weird, but backward compatible):\n"
             "           bit 0 is 0 to not run scripts when the tunnel goes up or down (scripts may still be used in the configuration file)\n"
             "                 or 1 to run scripts before connecting and after disconnecting (scripts in the configuration file will be ignored)\n"
             "                (The standard scripts are Tunnelblick.app/Contents/Resources/client.up.tunnelblick.sh & client.down.tunnelblick.sh,\n"
@@ -186,6 +189,8 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "                 or 1 to use the 'openvpn-down-root.so' plugin\n"
             "           bits 2-7 specify the script to use. If non-zero, they are converted to a digit, N, used as an added extension to the script file\n"
             "                    name, just before 'nomonitor' if it appears, otherwise just before '.up' or '.down'.\n\n"
+            "           bits 8-11 specify the OpenVPN --verb level to set. If bits 8...11 == 12 (0x0C), the verb level is not set\n"
+            "                     Note: bits 8-11 are ignored and the --verb level is set to 0 if logging is disabled in bitMask.\n\n"
             "           Examples: useScripts=1 means use client.up.tunnelblick.sh, client.down.tunnelblick.sh, and client.route-pre-down.tunnelblick.sh\n"
             "                     useScripts=3 means use client.up.osx.sh, client.down.osx.sh, and the 'openvpn-down-root.so' plugin "
             "                     useScripts=5 means use client.1.up.osx.sh and client.1.down.osx.sh\n"
@@ -1592,34 +1597,21 @@ void deleteLogFiles(NSString * configurationFile, unsigned cfgLocCode) {
 	
 	becomeRoot(@"delete log files");
     
-    // Delete ALL log files for the specified configuration file and location code, whatever port or start args are encoded into their names
-    NSString * logPath = constructOpenVPNLogPath(configurationFile, cfgLocCode, @"XX", 0); // openvpnstart args and port # don't matter
-    NSString * logPathPrefix = [[[[logPath stringByDeletingPathExtension]
-                                  stringByDeletingPathExtension]
-                                 stringByDeletingPathExtension]
-                                stringByDeletingPathExtension];     // Remove .<start-args>.<port #>.openvpn.log
+    // Delete ALL log files for the specified configuration file and location code
+    NSString * logPath = constructScriptLogPath(configurationFile, cfgLocCode);
+    NSString * logPathPrefix = [[logPath stringByDeletingPathExtension] stringByDeletingPathExtension];     // Remove .script.log
     
     NSString * filename;
     NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: L_AS_T_LOGS];
     while (  (filename = [dirEnum nextObject])  ) {
         [dirEnum skipDescendents];
-        NSString * oldFullPath = [L_AS_T_LOGS stringByAppendingPathComponent: filename];
-        if (  [oldFullPath hasPrefix: logPathPrefix]  ) {
-            if (   [[filename pathExtension] isEqualToString: @"log"]
-                && [[[filename stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]  ) {
+        if (  [[filename pathExtension] isEqualToString: @"log"]  ) {
+            NSString * oldFullPath = [L_AS_T_LOGS stringByAppendingPathComponent: filename];
+            if (  [oldFullPath hasPrefix: logPathPrefix]  ) {
                 if (  ! [[NSFileManager defaultManager] tbRemoveFileAtPath:oldFullPath handler: nil]  ) {
-                    fprintf(stderr, "Error occurred trying to delete OpenVPN log file %s\n", [oldFullPath UTF8String]);
+                    fprintf(stderr, "Error occurred trying to delete log file %s\n", [oldFullPath UTF8String]);
                 }
             }
-        }
-    }
-    
-    // Delete the script log file
-    NSString * scriptLogPath = constructScriptLogPath(configurationFile, cfgLocCode);
-    
-    if (  [[NSFileManager defaultManager] fileExistsAtPath: scriptLogPath]  ) {
-        if (  ! [[NSFileManager defaultManager] tbRemoveFileAtPath: scriptLogPath handler: nil]  ) {
-            fprintf(stderr, "Error occurred trying to delete script log file %s\n", [scriptLogPath UTF8String]);
         }
     }
 	
@@ -2038,6 +2030,11 @@ int startVPN(NSString * configFile,
     
     NSString * cdFolderPath = nil;
     
+    // Do not disable logging if starting when computer starts
+    if (  (bitMask & OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS) == 0  ) {
+        bitMask = bitMask & ( ~ OPENVPNSTART_DISABLE_LOGGING );
+        fprintf(stderr, "Warning: The bitMask setting to disable OpenVPN logging is being ignored because the configuration is starting when the computer starts");
+    }
     // Determine path to the configuration file and the --cd folder
     switch (cfgLocCode) {
         case CFG_LOC_PRIVATE:
@@ -2105,35 +2102,59 @@ int startVPN(NSString * configFile,
         exitOpenvpnstart(248);
     }
     
-    // Delete old OpenVPN log files and script log files for this configuration, and create a new, empty OpenVPN log file (we create the script log later)
+    // Delete old OpenVPN log files and script log files for this configuration
     deleteLogFiles(configFile, cfgLocCode);
-    NSString * logPath = createOpenVPNLog(configFile, cfgLocCode, port);
     
-    // First arguments that go in the OpenVPN command line
+    // If not logging, send the log to /dev/null and set verb level to 0
+    // If logging, create a new, empty OpenVPN log file (we create the script log later) and use the verb level encoded in useScripts
+    //             but don't set the verb level if it should be left to the configuration file or the OpenVPN default level.
+    NSString * logPath    = @"/dev/null";
+    NSString * verbString = @"0";
+    if (  (bitMask & OPENVPNSTART_DISABLE_LOGGING) == 0  ) {
+        logPath = createOpenVPNLog(configFile, cfgLocCode, port);
+        unsigned verbLevel = (  (useScripts & OPENVPNSTART_VERB_LEVEL_SCRIPT_MASK) >> OPENVPNSTART_VERB_LEVEL_SHIFT_COUNT  );
+        if (  verbLevel == TUNNELBLICK_CONFIG_LOGGING_LEVEL  ) {
+            verbString = nil;
+        } else {
+            verbString = [NSString stringWithFormat: @"%u", verbLevel];
+        }
+    }
+    
+    // Set up the arguments that go in the OpenVPN command line
+    
+    // Specify daemon and log path first, so the config file cannot override them, and specify the working directory for the config
 	NSMutableArray* arguments = [NSMutableArray arrayWithObjects:
 								 
                                  // Specify daemon and log path first, so the config file cannot override them, and specify the working directory for the config
                                  @"--daemon",
                                  @"--log",        logPath,
 								 @"--cd",         cdFolderPath,
-                                 
-                                 // Specify verb 3 before the configuration file, so the configuration file can override it
-                                 // In effect, this changes the default from verb 1 to verb 3
-								 @"--verb",       @"3",
-                                 
-                                 // Process options in the configuration file
-								 @"--config",     gConfigPath,
-                                 
-                                 // Set the working directory again, in case it was changed in the configuration file
-								 @"--cd",         cdFolderPath,
-                                 
-                                 // Specify the rest of the options after the config file, so they override any correspondng options in it
-								 @"--management", @"127.0.0.1", [NSString stringWithFormat:@"%u", port],
-                                 
-                                 // (Additional options are added to 'arguments' below)
-								 nil];
+                                 nil];
     
-	// conditionally push additional arguments to array
+    // Optionally specify verb level before the configuration file, so the configuration file can override it while it is being processed
+    if (  verbString  ) {
+        [arguments addObject: @"--verb"];
+        [arguments addObject: verbString];
+    }
+    
+    // Process options in the configuration file
+    [arguments addObject: @"--config"];
+    [arguments addObject: gConfigPath];
+    
+    // Optionally specify verb level after the configuration file, so we override it
+    if (  verbString  ) {
+        [arguments addObject: @"--verb"];
+        [arguments addObject: verbString];
+    }
+    
+    // Set the working directory again, in case it was changed in the configuration file
+    [arguments addObject: @"--cd"];
+    [arguments addObject: cdFolderPath];
+    
+    // Specify the --mangement option and the rest of the options after the config file, so they override any correspondng options in it
+    [arguments addObject: @"--management"];
+    [arguments addObject: @"127.0.0.1"];
+    [arguments addObject: [NSString stringWithFormat:@"%u", port]];
     
 	if (  (bitMask & OPENVPNSTART_TEST_MTU) != 0  ) {
         [arguments addObject: @"--mtu-test"];
@@ -2310,7 +2331,7 @@ int startVPN(NSString * configFile,
             [scriptOptions appendString: @" -f"];
         }
         
-        if (  (bitMask & OPENVPNSTART_EXTRA_LOGGING) != 0  ) {
+        if (  ((bitMask & OPENVPNSTART_EXTRA_LOGGING) != 0) && ((bitMask & OPENVPNSTART_DISABLE_LOGGING) == 0)  ) {
             [scriptOptions appendString: @" -l"];
         }
         
@@ -2435,8 +2456,9 @@ int startVPN(NSString * configFile,
         }
     }
     
-    // Create a new script log
-    createScriptLog(configFile, cfgLocCode);
+    if (  (bitMask & OPENVPNSTART_DISABLE_LOGGING) == 0  ) {
+        createScriptLog(configFile, cfgLocCode); // Create a new script log
+    }
 	
     if (  tblkPath  ) {
         
@@ -2571,40 +2593,26 @@ int startVPN(NSString * configFile,
     }
     
     if (  status != 0  ) {
-        // Get the OpenVPN log contents and then delete both log files, since Tunnelblick won't "hook up" to OpenVPN and thus won't set up to monitor the log file
         NSString * logContents = @"";
-        NSData * logData = [[NSFileManager defaultManager] contentsAtPath: logPath];
-        
-        if (  logData  ) {
-            logContents = [[[NSString alloc] initWithData: logData encoding: NSUTF8StringEncoding] autorelease];
-            if (  ! logContents  ) {
-                logContents = @"";
+        if (  (bitMask & OPENVPNSTART_DISABLE_LOGGING) == 0  ) {
+            // Get the OpenVPN log contents and then delete both log files
+            NSData * logData = [[NSFileManager defaultManager] contentsAtPath: logPath];
+            
+            if (  logData  ) {
+                logContents = [[[NSString alloc] initWithData: logData encoding: NSUTF8StringEncoding] autorelease];
+                if (  ! logContents  ) {
+                    logContents = @"(Could not decode log contents)";
+                }
             }
+            
+            NSMutableString * tempMutableString = [[[@"\n" stringByAppendingString:(NSString *) logContents] mutableCopy] autorelease];
+            [tempMutableString replaceOccurrencesOfString: @"\n" withString: @"\n     " options: 0 range: NSMakeRange(0, [tempMutableString length])];
+            logContents = [NSString stringWithString: tempMutableString];
+            
+            deleteLogFiles(configFile, cfgLocCode);
+        } else {
+            logContents = @"(Logging was disabled)";
         }
-        
-        NSMutableString * tempMutableString = [[[@"\n" stringByAppendingString:(NSString *) logContents] mutableCopy] autorelease];
-        [tempMutableString replaceOccurrencesOfString: @"\n" withString: @"\n     " options: 0 range: NSMakeRange(0, [tempMutableString length])];
-        logContents = [NSString stringWithString: tempMutableString];
-        
-        NSString * scriptPath = [[[[[[logPath
-                                      stringByDeletingPathExtension]        // Remove openvpnstart args
-                                     stringByDeletingPathExtension]         // Remove port #
-                                    stringByDeletingPathExtension]          // Remove 'openvpn'
-                                   stringByDeletingPathExtension]           // Remove 'log'
-                                  stringByAppendingPathExtension: @"script"]
-                                 stringByAppendingPathExtension: @"log"];
-        
-        becomeRoot(@"Delete log files");
-
-        if (  [[NSFileManager defaultManager] fileExistsAtPath: logPath]  ) {
-            [[NSFileManager defaultManager] tbRemoveFileAtPath: logPath    handler: nil];
-        }
-        
-        if (  [[NSFileManager defaultManager] fileExistsAtPath: scriptPath]  ) {
-            [[NSFileManager defaultManager] tbRemoveFileAtPath: scriptPath handler: nil];
-        }
-        
-        stopBeingRoot();
         
         fprintf(stderr, "OpenVPN returned with status %d, errno = %ld:\n"
                 "     %s\n\n"
@@ -2714,8 +2722,8 @@ void validateCfgLocCode(unsigned cfgLocCode) {
 }
 
 void validateBitmask(unsigned bitMask) {
-    if (  bitMask > OPENVPNSTART_START_BITMASK_MAX  ) {
-        fprintf(stderr, "bitMask value of %u is too large\n", bitMask);
+    if (  (OPENVPNSTART_HIGHEST_BITMASK_BIT << 1) <= bitMask   ) {
+        fprintf(stderr, "bitMask value of %x is too large; highest bitMask bit is %u\n", bitMask, OPENVPNSTART_HIGHEST_BITMASK_BIT);
         printUsageMessageAndExitOpenvpnstart();
     }
 }
@@ -3003,8 +3011,21 @@ int main(int argc, char * argv[]) {
                 NSString* fileName = [NSString stringWithUTF8String:argv[2]];
                 validateConfigName(fileName);
                 safeUpdate(fileName, NO);
-                // safeUpdate() should never return (it does exit() with its own exit codes)
+                // safeUpdateTest() should never return (it does exit() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+            }
+            
+        } else if ( strcmp(command, "deleteLog") == 0 ) {
+            if (argc == 4) {
+                NSString* configFile = [NSString stringWithUTF8String:argv[2]];
+                unsigned cfgLocCode = cvt_atou(argv[3], @"cfgLocCode");
+                validateConfigName(configFile);
+                if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
+                    cfgLocCode = CFG_LOC_ALTERNATE;
+                }
+                validateCfgLocCode(cfgLocCode);
+                deleteLogFiles(configFile, cfgLocCode);
+                syntaxError = FALSE;
             }
             
         } else if ( strcmp(command, "printSanitizedConfigurationFile") == 0 ) {

@@ -31,8 +31,10 @@
     //                                              // This includes only entries that have NOT been displayed in the NSTextStorage
     //                                              // object -- that is, only entries that have not been displayed to the user
     
-    NSAttributedString * savedLog;                  // Contains the log display when the log is not being shown to the user (either
-    //                                              // because the VPN Details… window is not being shown, or because a differentContains the contents of the NSTextStorage (the display the user sees) when
+    NSAttributedString * savedLog;                  // Contains the log display when the log is not being shown to the user
+    //                                              // (either because the VPN Details… window is not being shown, or because a
+    //                                              // different configuration's log is being shown).
+    //                                              // Contains the contents of the NSTextStorage (the display the user sees) when
     //                                              // configuration's log is being shown.
     
     NSString      * configurationPath;

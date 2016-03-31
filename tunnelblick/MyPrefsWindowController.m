@@ -79,6 +79,7 @@ extern NSArray        * gConfigurationPreferences;
                             defaultTo: (BOOL)       defaultsTo;
 
 -(void) setupSetNameserver:           (VPNConnection *) connection;
+-(void) setupLoggingLevel:            (VPNConnection *) connection;
 -(void) setupRouteAllTraffic:         (VPNConnection *) connection;
 -(void) setupCheckIPAddress:          (VPNConnection *) connection;
 -(void) setupResetPrimaryInterface:   (VPNConnection *) connection;
@@ -114,6 +115,7 @@ TBSYNTHESIZE_OBJECT_SET(NSString *, currentViewName, setCurrentViewName)
 // Synthesize getters and direct setters:
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedSetNameserverIndex,           setSelectedSetNameserverIndexDirect)
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedPerConfigOpenvpnVersionIndex, setSelectedPerConfigOpenvpnVersionIndexDirect)
+TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedLoggingLevelIndex,            setSelectedLoggingLevelIndexDirect)
 
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedKeyboardShortcutIndex,        setSelectedKeyboardShortcutIndexDirect)
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedMaximumLogSizeIndex,          setSelectedMaximumLogSizeIndexDirect)
@@ -341,7 +343,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         [(id) view oldViewWillDisappear: view identifier: identifier];
     }
     
-    if (   view == configurationsPrefsView  ) {
+    if (    (view == configurationsPrefsView)
+        &&  [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
         [[self selectedConnection] stopMonitoringLogFiles];
     }
     
@@ -356,9 +359,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [(id) view newViewWillAppear: view identifier: identifier];
     }
     
-    if (   view == configurationsPrefsView  ) {
-        [[self selectedConnection] startMonitoringLogFiles];
-    } else if (  view == generalPrefsView  ) {
+    if (  view == generalPrefsView  ) {
 		// Update our preferences from Sparkle's whenever we show the view
 		// (Would be better if Sparkle told us when they changed, but it doesn't)
 		[((MenuController *)[NSApp delegate]) setOurPreferencesFromSparkles];
@@ -372,8 +373,12 @@ static BOOL firstTimeShowingWindow = TRUE;
 // Overrides superclass
 -(void) newViewDidAppear: (NSView *) view
 {
-    if        (   view == configurationsPrefsView  ) {
+    if (   view == configurationsPrefsView  ) {
         [[self window] makeFirstResponder: [configurationsPrefsView leftNavTableView]];
+        if (  [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
+            [[self selectedConnection] startMonitoringLogFiles];
+        }
+
     } else if (   view == generalPrefsView  ) {
         [[self window] makeFirstResponder: [generalPrefsView keyboardShortcutButton]];
     } else if (   view == appearancePrefsView  ) {
@@ -443,6 +448,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
     [self setSelectedSetNameserverIndexDirect:           tbNumberWithInteger(NSNotFound)];   // Force a change when first set
     [self setSelectedPerConfigOpenvpnVersionIndexDirect: tbNumberWithInteger(NSNotFound)];
+    [self setSelectedLoggingLevelIndexDirect:            tbNumberWithInteger(NSNotFound)];
     selectedWhenToConnectIndex     = NSNotFound;
 
     selectedLeftNavListIndex = 0;
@@ -476,6 +482,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self validateWhenToConnect: [self selectedConnection]];
         
         [self setupSetNameserver:           [self selectedConnection]];
+        [self setupLoggingLevel:            [self selectedConnection]];
         [self setupRouteAllTraffic:         [self selectedConnection]];
         [self setupCheckIPAddress:          [self selectedConnection]];
         [self setupResetPrimaryInterface:   [self selectedConnection]];
@@ -540,6 +547,34 @@ static BOOL firstTimeShowingWindow = TRUE;
     [self setSelectedSetNameserverIndex: tbNumberWithInteger(ix)];
     [[configurationsPrefsView setNameserverPopUpButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
     [settingsSheetWindowController setupSettingsFromPreferences];
+}
+
+-(void) setupLoggingLevel: (VPNConnection *) connection
+{
+    
+    if (  ! connection  ) {
+        return;
+    }
+    
+    if (  ! configurationsPrefsView  ) {
+        return;
+    }
+	
+    NSString * key = [[connection displayName] stringByAppendingString: @"-loggingLevel"];
+    NSInteger ix = [gTbDefaults unsignedIntForKey: key
+                                          default: TUNNELBLICK_DEFAULT_LOGGING_LEVEL
+                                              min: MIN_OPENVPN_LOGGING_LEVEL
+                                              max: MAX_TUNNELBLICK_LOGGING_LEVEL];
+    if (  ix == TUNNELBLICK_NO_LOGGING_LEVEL  ) {
+        ix = 0;
+    } else if (  ix == TUNNELBLICK_CONFIG_LOGGING_LEVEL  ) {
+        ix = 1;
+    } else {
+        ix = ix + 2;
+    }
+    
+    [[configurationsPrefsView loggingLevelPopUpButton] selectItemAtIndex: ix];
+    [[configurationsPrefsView loggingLevelPopUpButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
 }
 
 -(void) setupNetworkMonitoring: (VPNConnection *) connection
@@ -784,6 +819,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
     } else {
         [self setupSetNameserver:            nil];
+        [self setupLoggingLevel:             nil];
         [self setupRouteAllTraffic:          nil];
         [self setupCheckIPAddress:           nil];
         [self setupResetPrimaryInterface:    nil];
@@ -955,6 +991,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		[self setupPerConfigOpenvpnVersion: connection];
 		
 		[self setupSetNameserver:           connection];
+		[self setupLoggingLevel:            connection];
         
 		[self setupNetworkMonitoring:       connection];
 		[self setupRouteAllTraffic:         connection];
@@ -986,6 +1023,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         [[configurationsPrefsView whenToConnectPopUpButton]         setEnabled: NO];
         
         [[configurationsPrefsView setNameserverPopUpButton]         setEnabled: NO];
+        
+        [[configurationsPrefsView loggingLevelPopUpButton]          setEnabled: NO];
         
         [[configurationsPrefsView monitorNetworkForChangesCheckbox]             setEnabled: NO];
         [[configurationsPrefsView routeAllTrafficThroughVpnCheckbox]            setEnabled: NO];
@@ -1267,7 +1306,10 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     if (   theConnection
         && ( theConnection == [self selectedConnection] )  ) {
-        [theConnection startMonitoringLogFiles];
+        if (   [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]
+            && [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
+            [theConnection startMonitoringLogFiles];
+        }
     }
 }
 
@@ -1362,12 +1404,11 @@ static BOOL firstTimeShowingWindow = TRUE;
     return nil;
 }
 
-- (VPNConnection*) selectedConnection
-// Returns the connection associated with the currently selected connection or nil on error.
-{
-    if (  selectedLeftNavListIndex != NSNotFound  ) {
-        if (  selectedLeftNavListIndex < [leftNavDisplayNames count]  ) {
-            NSString * dispNm = [leftNavDisplayNames objectAtIndex: selectedLeftNavListIndex];
+-(VPNConnection *) connectionForLeftNavIndex: (NSUInteger) ix {
+    
+    if (  ix != NSNotFound  ) {
+        if (  ix < [leftNavDisplayNames count]  ) {
+            NSString * dispNm = [leftNavDisplayNames objectAtIndex: ix];
             if (  dispNm != nil) {
                 VPNConnection* connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: dispNm];
                 if (  connection  ) {
@@ -1383,6 +1424,12 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     return nil;
+    
+}
+- (VPNConnection*) selectedConnection
+// Returns the connection associated with the currently selected connection or nil on error.
+{
+    return [self connectionForLeftNavIndex: selectedLeftNavListIndex];
 }
 
 // User Interface
@@ -2062,6 +2109,47 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
+-(void) setSelectedLoggingLevelIndex: (NSNumber *) newValue
+{
+    NSNumber * oldValue = [self selectedLoggingLevelIndex];
+    
+    if (  [newValue isNotEqualTo: oldValue]  ) {
+        
+        VPNConnection * connection = [self selectedConnection];
+        
+        if (  ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
+            NSNumber * preferenceValue = (  [newValue isEqualToNumber: [NSNumber numberWithUnsignedInt: 0]]
+                                          ? [NSNumber numberWithUnsignedInt: TUNNELBLICK_NO_LOGGING_LEVEL]
+                                          : ( [newValue isEqualToNumber: [NSNumber numberWithUnsignedInt: 1]]
+                                             ? [NSNumber numberWithUnsignedInt: TUNNELBLICK_CONFIG_LOGGING_LEVEL]
+                                             : [NSNumber numberWithUnsignedInt: [newValue unsignedIntValue] - 2]));
+			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   preferenceValue,  @"NewValue",
+								   @"-loggingLevel", @"PreferenceName",
+								   nil];
+			[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+			
+			// Must set the key now (even though setPreferenceForSelectedConfigurationsWithDict: will set it later) so the rest of the code in this method runs with the new setting
+            NSString * actualKey = [[connection displayName] stringByAppendingString: @"-loggingLevel"];
+            [gTbDefaults setObject: preferenceValue forKey: actualKey];
+        }
+		
+		// Must set the key above (even though setPreferenceForSelectedConfigurationsWithDict: will set it later) so the following code works with the new setting
+		
+        [self setSelectedLoggingLevelIndexDirect: newValue];
+        
+        // Clear logs if going to/from no logging and we are currently disconnected
+        if (   [newValue isEqualToNumber: [NSNumber numberWithInt: 0]]
+            || [oldValue isEqualToNumber: [NSNumber numberWithInt: 0]]  ) {
+            if (  [connection isDisconnected]  ) {
+                NSArray * arguments = [NSArray arrayWithObjects: @"deleteLog", [connection displayName], configLocCodeStringForPath([connection configPath]), nil];
+                runOpenvpnstart(arguments, nil, nil);
+                [connection clearLog];
+            }
+        }
+    }
+}
+
 -(void) tableViewSelectionDidChange:(NSNotification *)notification
 {
 	(void) notification;
@@ -2104,9 +2192,13 @@ static BOOL firstTimeShowingWindow = TRUE;
             ++newValue;
         }
         
+        NSUInteger oldSelectedLeftNavIndex = selectedLeftNavListIndex;
+        
         if (  selectedLeftNavListIndex != NSNotFound  ) {
             VPNConnection * connection = [self selectedConnection];
-            [connection stopMonitoringLogFiles];
+            if (  [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
+                [connection stopMonitoringLogFiles];
+            }
         }
         
         selectedLeftNavListIndex = newValue;
@@ -2120,10 +2212,11 @@ static BOOL firstTimeShowingWindow = TRUE;
 		[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
 		
         [self setupSetNameserver:           newConnection];
+        [self setupLoggingLevel:            newConnection];
         [self setupRouteAllTraffic:         newConnection];
         [self setupCheckIPAddress:          newConnection];
         [self setupResetPrimaryInterface:   newConnection];
-        [self setupDisableIpv6OnTun:                    newConnection];
+        [self setupDisableIpv6OnTun:        newConnection];
         [self setupNetworkMonitoring:       newConnection];
 		[self setupPerConfigOpenvpnVersion: newConnection];
         
@@ -2138,7 +2231,14 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         [settingsSheetWindowController setConfigurationName: dispNm];
         
-        [newConnection startMonitoringLogFiles];
+        if (   [currentViewName isEqualToString: NSLocalizedString(@"Configurations", @"Window title")]
+            && [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
+            VPNConnection * oldConnection = [self connectionForLeftNavIndex: oldSelectedLeftNavIndex];
+            [oldConnection stopMonitoringLogFiles];
+            [newConnection startMonitoringLogFiles];
+        } else {
+            [newConnection stopMonitoringLogFiles];
+        }
     }
 }
 
