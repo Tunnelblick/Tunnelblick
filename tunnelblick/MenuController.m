@@ -4009,6 +4009,58 @@ static void signal_handler(int signalNumber)
     
 }
 
+-(BOOL) checkSignatureIsOurs: (NSString *) codesignDvvOutput {
+    
+    BOOL sawRootCa   = FALSE;
+    BOOL sawDevApple = FALSE;
+    BOOL sawDevJkb   = FALSE;
+    BOOL sawIdent    = FALSE;
+    BOOL sawTeam     = (  runningOnMavericksOrNewer()
+                        ? FALSE
+                        : TRUE);    // codesign on some OS X 10.8 and lower does not output this field
+    
+    NSArray * lines = [codesignDvvOutput componentsSeparatedByString: @"\n"];
+    NSString * line;
+    NSEnumerator * e = [lines objectEnumerator];
+    while (  (line = [e nextObject])  ) {
+        
+        if (  [line hasPrefix: @"Identifier="]  ) {
+            if (  [line isEqualToString: [@"Identifier=net.tunn" stringByAppendingString: @"elblick.tunnelblick"]]  ) {
+                sawIdent = TRUE;
+            } else {
+                NSLog(@"The output from codesign contained an incorrect 'Identifier'");
+                return FALSE;
+            }
+            
+        } else if (  [line hasPrefix: @"TeamIdentifier="]  ) {
+            if (  [line isEqualToString: @"TeamIdentifier=Z2SG5H3HC8"]  ) {
+                sawTeam = TRUE;
+            } else {
+                NSLog(@"The output from codesign contained an incorrect 'TeamIdentifier'");
+                return FALSE;
+            }
+            
+        } else if (  [line hasPrefix: @"Authority="]  ) {
+            if (         [line isEqualToString: @"Authority=Apple Root CA"]  ) {
+                sawRootCa = TRUE;
+            } else if (  [line isEqualToString: @"Authority=Developer ID Application: Jonathan Bullard (Z2SG5H3HC8)"]  ) {
+                sawDevJkb = TRUE;
+            } else if (  [line isEqualToString: @"Authority=Developer ID Certification Authority"]  ) {
+                sawDevApple = TRUE;
+            } else {
+                NSLog(@"The output from codesign contained an incorrect 'Authority'");
+                return FALSE;
+            }
+        }
+    }
+    
+    BOOL result = (  sawRootCa && sawDevApple && sawDevJkb && sawTeam && sawIdent  );
+    if (  ! result  ) {
+        NSLog(@"The output from codesign did not include all the items that are required. The output was \n:%@", codesignDvvOutput);
+    }
+    return result;
+}
+
 -(BOOL) hasValidSignature
 {
     if (  ! runningOnLeopardOrNewer()  ) {              // If on Tiger, we can't check the signature, so pretend it is valid
@@ -4027,8 +4079,8 @@ static void signal_handler(int signalNumber)
     //
     // There could be a separate check for an invalid signature in installer, since installer could run codesign as root
     // using the installer's authorization. However, installer runs without a UI, so it is complicated to provide the ability
-    // to report a failure and provide the option to continue. Considering that the first run after installation will catch an invalid
-    // signature, this separate check has a low priority.
+    // to report a failure and provide the option to continue. Considering that most Deployed Tunnelblick's are unsigned, this
+    // separate check has a low priority.
     
     if (  [gFileMgr fileExistsAtPath: gDeployPath]  ) {
         NSString * ovpnvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
@@ -4068,12 +4120,20 @@ static void signal_handler(int signalNumber)
                           : [NSArray arrayWithObjects: @"-v", @"-v", appPath, nil]);
     OSStatus status = runTool(TOOL_PATH_FOR_CODESIGN, arguments, &stdoutString, &stderrString);
 
-    if (  status == EXIT_SUCCESS  ) {
-		return TRUE;
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"'codesign -v -v [--deep]' returned status = %ld; stdout = '%@'; stderr = '%@'", (long)status, stdoutString, stderrString);
+		return FALSE;
 	}
 	
-	NSLog(@"codesign returned status = %ld; stdout = '%@'; stderr = '%@'", (long)status, stdoutString, stderrString);
-	return FALSE;
+    arguments = [NSArray arrayWithObjects: @"-dvv", appPath, nil];
+    status = runTool(TOOL_PATH_FOR_CODESIGN, arguments, &stdoutString, &stderrString);
+    
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"'codesign -dvv' returned status = %ld; stdout = '%@'; stderr = '%@'", (long)status, stdoutString, stderrString);
+        return FALSE;
+    }
+    
+    return [self checkSignatureIsOurs: stderrString];
 }
 
 - (NSURL *) getIPCheckURL
