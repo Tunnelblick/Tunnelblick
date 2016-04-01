@@ -290,7 +290,7 @@
 "Make Configuration Shared..." = "Hacer Configuracion Compartida…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "Sin registros OpenVPN o Tunnelblick";
+"No OpenVPN or Tunnelblick VPN logging" = "No guardar registro para OpenVPN o Tunnelblick VPN";
 
 /* Menu item */
 "No VPN Configurations Available" = "Ninguna configuración VPN Disponible";
@@ -317,7 +317,7 @@
 "OpenVPN level 6 - very verbose output" = "OpenVPN level 6 - registro muy detallado";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "Nivel de registro OpenVPN fijado por la configuración";
+"OpenVPN logging level set by the configuration" = "Nivel de registro OpenVPN ajustado por la configuración";
 
 /* Menu item */
 "Quit Tunnelblick" = "Salir Tunnelblick";
