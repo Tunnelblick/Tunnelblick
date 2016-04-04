@@ -952,6 +952,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 if (   (button == NSAlertAlternateReturn)   // Quit if quit or error occurred
                     || (button == NSAlertErrorReturn)  ) {
                     [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
+                    [self notifyDelegateAfterInstallingConfigurationsInPaths: filePaths];
                     return;
                 }
                 
