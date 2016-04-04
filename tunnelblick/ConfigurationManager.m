@@ -3899,15 +3899,19 @@ enum GetAuthorizationResult {
 +(NSString *) gitInfo {
     
     NSDictionary * dict = [[NSApp delegate] tunnelblickInfoDictionary];
+    
+    NSString * gitMessage;
     NSString * hashValue = [dict objectForKey: @"TBGitHash"];
-    NSString * hash = (  [hashValue isEqualToString: @"TBGITHASH"]
-                       ? @""
-                       : [NSString stringWithFormat: @"git commit %@", hashValue]);
-    NSString * changesValue = [dict objectForKey: @"TBGitChanges"];
-    NSString * gitMessage = (  [changesValue isEqualToString: @"YES"]
-                             ? [NSString stringWithFormat: @"%@ (there are uncommitted changes)", hash]
-                             : [NSString stringWithFormat: @"%@", hash]);
-    return (  [NSString stringWithFormat: @"%@", gitMessage]  );
+    if (  [hashValue isEqualToString: @"TBGITHASH"]  ) {
+        gitMessage = @"No git information is available\n";
+    } else {
+        NSString * statusValue = [dict objectForKey: @"TBGitChanges"];
+        gitMessage = (  [statusValue isEqualToString: @""]
+                      ? [NSString stringWithFormat: @"git commit %@\n", hashValue]
+                      : [NSString stringWithFormat: @"git commit %@\n    uncommitted changes: %@\n", hashValue, statusValue]);
+    }
+    
+    return gitMessage;
 }
 
 +(void) putDiagnosticInfoOnClipboardWithDisplayName: (NSString *) displayName {

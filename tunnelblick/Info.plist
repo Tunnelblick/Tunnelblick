@@ -68,11 +68,11 @@
 	<key>CFBundlePackageType</key>
 		<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-		<string>3.6.2beta05 (build TBBUILDNUMBER)</string>
+		<string>TBVERSIONSTRING (build TBBUILDNUMBER) TBCONFIGURATION</string>
 	<key>TBGitHash</key>
         <string>TBGITHASH</string>
 	<key>TBGitChanges</key>
-        <string>TBGITCHANGES</string>
+        <string>TBGITSTATUS</string>
 	<key>CFBundleSignature</key>
 		<string>OVPN</string>
 	<key>CFBundleVersion</key>

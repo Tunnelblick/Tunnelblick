@@ -89,10 +89,10 @@ all: built-easy-rsa-tunnelblick \
      built-tuntap               \
      built-openvpn              \
      built-sparkle
-	if [ "$${CONFIGURATION}" != "Debug" ]; then \
+	@echo "THIRD_PARTY: Made all third_party for Tunnelblick" ; \
+	if [ "$$CONFIGURATION" != "Debug" ]; then \
 		rm -f -R $(TOPDIR)/$(BUILD_NAME) ; \
 	fi
-	@echo "THIRD_PARTY: Made all third_party for Tunnelblick"
 
 clean:
 	rm -f -R $(TOPDIR)/$(BUILD_NAME)

@@ -187,6 +187,7 @@
 		63ED902E1A1E85180045D34E /* tunnelblickd in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 63ED8EE61A1E84560045D34E /* tunnelblickd */; };
 		63ED903A1A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63ED90391A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist */; };
 		63EEBD93137EF4C3001BFFD8 /* help in Resources */ = {isa = PBXBuildFile; fileRef = 63EEBD8C137EF4C3001BFFD8 /* help */; };
+		63F0050F1CB164B300853B6C /* TBVersionString.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F0050E1CB164B300853B6C /* TBVersionString.txt */; };
 		63F0A8B11507D13700526AF9 /* MainIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F0A8B01507D13700526AF9 /* MainIconView.m */; };
 		63F0A8B31507D24800526AF9 /* MainIcon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63F0A8B21507D24800526AF9 /* MainIcon.xib */; };
 		63F0FC191CAD983A00E456E7 /* AF.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63F0FC161CAD983A00E456E7 /* AF.lproj */; };
@@ -544,6 +545,7 @@
 		63ED8EE61A1E84560045D34E /* tunnelblickd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tunnelblickd; sourceTree = BUILT_PRODUCTS_DIR; };
 		63ED90391A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = net.tunnelblick.tunnelblick.tunnelblickd.plist; sourceTree = "<group>"; };
 		63EEBD8C137EF4C3001BFFD8 /* help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = help; sourceTree = "<group>"; };
+		63F0050E1CB164B300853B6C /* TBVersionString.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TBVersionString.txt; sourceTree = "<group>"; };
 		63F0A8AF1507D13700526AF9 /* MainIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainIconView.h; sourceTree = "<group>"; };
 		63F0A8B01507D13700526AF9 /* MainIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainIconView.m; sourceTree = "<group>"; };
 		63F0A8B21507D24800526AF9 /* MainIcon.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainIcon.xib; sourceTree = "<group>"; };
@@ -759,6 +761,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				63F0050E1CB164B300853B6C /* TBVersionString.txt */,
 				63379F8713F695D700F2554D /* TBBuildNumber.txt */,
 				B891E52016F60E7000627008 /* Uninstaller */,
 				635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */,
@@ -1557,6 +1560,7 @@
 				63F0FC191CAD983A00E456E7 /* AF.lproj in Resources */,
 				63F0FC1D1CAD984600E456E7 /* HR.lproj in Resources */,
 				63F0FC211CAD985600E456E7 /* SR_CS.lproj in Resources */,
+				63F0050F1CB164B300853B6C /* TBVersionString.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1823,32 +1827,6 @@
 			};
 			name = Debug;
 		};
-		61BC4BC40E2F9FE900F24255 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = openvpnstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		61BC4D6D0E2FA06900F24255 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1876,32 +1854,6 @@
 				ZERO_LINK = YES;
 			};
 			name = Debug;
-		};
-		61BC4D6E0E2FA06900F24255 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = installer;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				ZERO_LINK = NO;
-			};
-			name = Release;
 		};
 		63179440118D7E830057ACAF /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1937,39 +1889,6 @@
 			};
 			name = Debug;
 		};
-		63179441118D7E830057ACAF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = atsystemstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		635BF17F1501CCDF00D87717 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1980,246 +1899,12 @@
 			};
 			name = Debug;
 		};
-		635BF1801501CCDF00D87717 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				PRODUCT_NAME = ExternalBuildCleanScript;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		635BF1811501CCDF00D87717 /* Unsigned Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = ExternalBuildCleanScript;
 			};
 			name = "Unsigned Release";
-		};
-		637092C41851E8B50090D3D8 /* Analyze ONLY */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_VERSION = 4.2;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
-				GCC_WARN_MISSING_PARENTHESES = YES;
-				GCC_WARN_SHADOW = NO;
-				GCC_WARN_SIGN_COMPARE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_PARAMETER = YES;
-				GCC_WARN_UNUSED_VALUE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PREBINDING = NO;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = "-Wall";
-			};
-			name = "Analyze ONLY";
-		};
-		637092C51851E8B50090D3D8 /* Analyze ONLY */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../third_party\"",
-					"\"$(SRCROOT)/../third_party/products/sparkle\"",
-				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = TBAnalyzeONLY;
-				GCC_VERSION = "";
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
-				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				GCC_WARN_UNUSED_VARIABLE = NO;
-				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PRODUCT_NAME = Tunnelblick;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				WRAPPER_EXTENSION = app;
-			};
-			name = "Analyze ONLY";
-		};
-		637092C61851E8B50090D3D8 /* Analyze ONLY */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = openvpnstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				ZERO_LINK = YES;
-			};
-			name = "Analyze ONLY";
-		};
-		637092C71851E8B50090D3D8 /* Analyze ONLY */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = installer;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				ZERO_LINK = YES;
-			};
-			name = "Analyze ONLY";
-		};
-		637092C81851E8B50090D3D8 /* Analyze ONLY */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = atsystemstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-			};
-			name = "Analyze ONLY";
-		};
-		637092C91851E8B50090D3D8 /* Analyze ONLY */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "standardize-scutil-output";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-			};
-			name = "Analyze ONLY";
-		};
-		637092CA1851E8B50090D3D8 /* Analyze ONLY */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				PREBINDING = NO;
-				PRODUCT_NAME = "process-network-changes";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-			};
-			name = "Analyze ONLY";
-		};
-		637092CB1851E8B50090D3D8 /* Analyze ONLY */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = ExternalBuildCleanScript;
-			};
-			name = "Analyze ONLY";
 		};
 		638A1FFE135CC35100FB932C /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2254,39 +1939,6 @@
 				);
 			};
 			name = Debug;
-		};
-		638A1FFF135CC35100FB932C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "standardize-scutil-output";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				ZERO_LINK = NO;
-			};
-			name = Release;
 		};
 		6398C40113DB30F60005FEB0 /* Unsigned Release */ = {
 			isa = XCBuildConfiguration;
@@ -2493,27 +2145,6 @@
 			};
 			name = Debug;
 		};
-		63AA8E5B1492C75300C791C9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				PREBINDING = NO;
-				PRODUCT_NAME = "process-network-changes";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		63AA8E5C1492C75300C791C9 /* Unsigned Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2556,49 +2187,6 @@
 			};
 			name = Debug;
 		};
-		63C3743C1A4510AA00D51E81 /* Analyze ONLY */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "tunnelblick-helper";
-			};
-			name = "Analyze ONLY";
-		};
-		63C3743D1A4510AA00D51E81 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "tunnelblick-helper";
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		63C3743E1A4510AA00D51E81 /* Unsigned Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2618,504 +2206,6 @@
 				PRODUCT_NAME = "tunnelblick-helper";
 			};
 			name = "Unsigned Release";
-		};
-		63C3743F1A4510AA00D51E81 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "tunnelblick-helper";
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		63C374401A4510AA00D51E81 /* Clean Tunnelblick */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "tunnelblick-helper";
-			};
-			name = "Clean Tunnelblick";
-		};
-		63C374411A4510AA00D51E81 /* Clean Third Party */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "tunnelblick-helper";
-			};
-			name = "Clean Third Party";
-		};
-		63DA33FA1502380400C3801D /* Clean Tunnelblick */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
-				GCC_VERSION = 4.2;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
-				GCC_WARN_MISSING_PARENTHESES = YES;
-				GCC_WARN_SHADOW = NO;
-				GCC_WARN_SIGN_COMPARE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_PARAMETER = YES;
-				GCC_WARN_UNUSED_VALUE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PREBINDING = NO;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = "-Wall";
-			};
-			name = "Clean Tunnelblick";
-		};
-		63DA33FB1502380400C3801D /* Clean Tunnelblick */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../third_party\"",
-					"\"$(SRCROOT)/../third_party/products/sparkle\"",
-				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_VERSION = "";
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
-				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				GCC_WARN_UNUSED_VARIABLE = NO;
-				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PRODUCT_NAME = Tunnelblick;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				WRAPPER_EXTENSION = app;
-			};
-			name = "Clean Tunnelblick";
-		};
-		63DA33FC1502380400C3801D /* Clean Tunnelblick */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = openvpnstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				ZERO_LINK = YES;
-			};
-			name = "Clean Tunnelblick";
-		};
-		63DA33FD1502380400C3801D /* Clean Tunnelblick */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = installer;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				ZERO_LINK = YES;
-			};
-			name = "Clean Tunnelblick";
-		};
-		63DA33FE1502380400C3801D /* Clean Tunnelblick */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = atsystemstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-			};
-			name = "Clean Tunnelblick";
-		};
-		63DA33FF1502380400C3801D /* Clean Tunnelblick */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "standardize-scutil-output";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-			};
-			name = "Clean Tunnelblick";
-		};
-		63DA34001502380400C3801D /* Clean Tunnelblick */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				PREBINDING = NO;
-				PRODUCT_NAME = "process-network-changes";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-			};
-			name = "Clean Tunnelblick";
-		};
-		63DA34011502380400C3801D /* Clean Tunnelblick */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = ExternalBuildCleanScript;
-			};
-			name = "Clean Tunnelblick";
-		};
-		63DA34C61502509400C3801D /* Clean Third Party */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
-				GCC_VERSION = 4.2;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
-				GCC_WARN_MISSING_PARENTHESES = YES;
-				GCC_WARN_SHADOW = NO;
-				GCC_WARN_SIGN_COMPARE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_PARAMETER = YES;
-				GCC_WARN_UNUSED_VALUE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PREBINDING = NO;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = "-Wall";
-			};
-			name = "Clean Third Party";
-		};
-		63DA34C71502509400C3801D /* Clean Third Party */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../third_party\"",
-					"\"$(SRCROOT)/../third_party/products/sparkle\"",
-				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_VERSION = "";
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
-				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				GCC_WARN_UNUSED_VARIABLE = NO;
-				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PRODUCT_NAME = Tunnelblick;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				WRAPPER_EXTENSION = app;
-			};
-			name = "Clean Third Party";
-		};
-		63DA34C81502509400C3801D /* Clean Third Party */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = openvpnstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				ZERO_LINK = YES;
-			};
-			name = "Clean Third Party";
-		};
-		63DA34C91502509400C3801D /* Clean Third Party */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = installer;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				ZERO_LINK = YES;
-			};
-			name = "Clean Third Party";
-		};
-		63DA34CA1502509400C3801D /* Clean Third Party */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = atsystemstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-			};
-			name = "Clean Third Party";
-		};
-		63DA34CB1502509400C3801D /* Clean Third Party */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "standardize-scutil-output";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-			};
-			name = "Clean Third Party";
-		};
-		63DA34CC1502509400C3801D /* Clean Third Party */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				PREBINDING = NO;
-				PRODUCT_NAME = "process-network-changes";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-			};
-			name = "Clean Third Party";
-		};
-		63DA34CD1502509400C3801D /* Clean Third Party */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = ExternalBuildCleanScript;
-			};
-			name = "Clean Third Party";
 		};
 		63ED8EE81A1E84570045D34E /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -3140,49 +2230,6 @@
 			};
 			name = Debug;
 		};
-		63ED8EE91A1E84570045D34E /* Analyze ONLY */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = tunnelblickd;
-			};
-			name = "Analyze ONLY";
-		};
-		63ED8EEA1A1E84570045D34E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = tunnelblickd;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		63ED8EEB1A1E84570045D34E /* Unsigned Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3202,278 +2249,6 @@
 				PRODUCT_NAME = tunnelblickd;
 			};
 			name = "Unsigned Release";
-		};
-		63ED8EEC1A1E84570045D34E /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = tunnelblickd;
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		63ED8EED1A1E84570045D34E /* Clean Tunnelblick */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = tunnelblickd;
-			};
-			name = "Clean Tunnelblick";
-		};
-		63ED8EEE1A1E84570045D34E /* Clean Third Party */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = tunnelblickd;
-			};
-			name = "Clean Third Party";
-		};
-		B8F6C5BD1612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
-				GCC_VERSION = 4.2;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
-				GCC_WARN_MISSING_PARENTHESES = YES;
-				GCC_WARN_SHADOW = NO;
-				GCC_WARN_SIGN_COMPARE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_PARAMETER = YES;
-				GCC_WARN_UNUSED_VALUE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PREBINDING = NO;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = "-Wall";
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		B8F6C5BE1612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../third_party\"",
-					"\"$(SRCROOT)/../third_party/products/sparkle\"",
-				);
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_VERSION = "";
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
-				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				GCC_WARN_UNUSED_VARIABLE = NO;
-				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PRODUCT_NAME = Tunnelblick;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-				WRAPPER_EXTENSION = app;
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		B8F6C5BF1612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = openvpnstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-				ZERO_LINK = NO;
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		B8F6C5C01612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = installer;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-				ZERO_LINK = NO;
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		B8F6C5C11612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = atsystemstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-				ZERO_LINK = NO;
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		B8F6C5C21612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "standardize-scutil-output";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-				ZERO_LINK = NO;
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		B8F6C5C31612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				PREBINDING = NO;
-				PRODUCT_NAME = "process-network-changes";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		B8F6C5C41612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = ExternalBuildCleanScript;
-			};
-			name = "Unsigned Release -Wconversion";
 		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -3513,41 +2288,6 @@
 			};
 			name = Debug;
 		};
-		C01FCF4C08A954540054247B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../third_party\"",
-					"\"$(SRCROOT)/../third_party/products/sparkle\"",
-				);
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_VERSION = "";
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
-				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				GCC_WARN_UNUSED_VARIABLE = NO;
-				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PRODUCT_NAME = Tunnelblick;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3571,39 +2311,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PREBINDING = NO;
-				RUN_CLANG_STATIC_ANALYZER = YES;
+				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
-		};
-		C01FCF5008A954540054247B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
-				GCC_VERSION = 4.2;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
-				GCC_WARN_MISSING_PARENTHESES = YES;
-				GCC_WARN_SHADOW = NO;
-				GCC_WARN_SIGN_COMPARE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_PARAMETER = YES;
-				GCC_WARN_UNUSED_VALUE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PREBINDING = NO;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = "-Wall";
-			};
-			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -3612,141 +2324,91 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61BC4BC30E2F9FE900F24255 /* Debug */,
-				637092C61851E8B50090D3D8 /* Analyze ONLY */,
-				61BC4BC40E2F9FE900F24255 /* Release */,
 				6398C40313DB30F60005FEB0 /* Unsigned Release */,
-				B8F6C5BF1612A09B000276E0 /* Unsigned Release -Wconversion */,
-				63DA33FC1502380400C3801D /* Clean Tunnelblick */,
-				63DA34C81502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		61BC4D6F0E2FA08700F24255 /* Build configuration list for PBXNativeTarget "installer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61BC4D6D0E2FA06900F24255 /* Debug */,
-				637092C71851E8B50090D3D8 /* Analyze ONLY */,
-				61BC4D6E0E2FA06900F24255 /* Release */,
 				6398C40413DB30F60005FEB0 /* Unsigned Release */,
-				B8F6C5C01612A09B000276E0 /* Unsigned Release -Wconversion */,
-				63DA33FD1502380400C3801D /* Clean Tunnelblick */,
-				63DA34C91502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		63179445118D7EC30057ACAF /* Build configuration list for PBXNativeTarget "atsystemstart" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63179440118D7E830057ACAF /* Debug */,
-				637092C81851E8B50090D3D8 /* Analyze ONLY */,
-				63179441118D7E830057ACAF /* Release */,
 				6398C40513DB30F60005FEB0 /* Unsigned Release */,
-				B8F6C5C11612A09B000276E0 /* Unsigned Release -Wconversion */,
-				63DA33FE1502380400C3801D /* Clean Tunnelblick */,
-				63DA34CA1502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		635BF1821501CCFD00D87717 /* Build configuration list for PBXLegacyTarget "ExternalBuildCleanScript" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				635BF17F1501CCDF00D87717 /* Debug */,
-				637092CB1851E8B50090D3D8 /* Analyze ONLY */,
-				635BF1801501CCDF00D87717 /* Release */,
 				635BF1811501CCDF00D87717 /* Unsigned Release */,
-				B8F6C5C41612A09B000276E0 /* Unsigned Release -Wconversion */,
-				63DA34011502380400C3801D /* Clean Tunnelblick */,
-				63DA34CD1502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		638A2000135CC36F00FB932C /* Build configuration list for PBXNativeTarget "standardize-scutil-output" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				638A1FFE135CC35100FB932C /* Debug */,
-				637092C91851E8B50090D3D8 /* Analyze ONLY */,
-				638A1FFF135CC35100FB932C /* Release */,
 				6398C40613DB30F60005FEB0 /* Unsigned Release */,
-				B8F6C5C21612A09B000276E0 /* Unsigned Release -Wconversion */,
-				63DA33FF1502380400C3801D /* Clean Tunnelblick */,
-				63DA34CB1502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		63AA8E5D1492C77100C791C9 /* Build configuration list for PBXNativeTarget "process-network-changes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63AA8E5A1492C75300C791C9 /* Debug */,
-				637092CA1851E8B50090D3D8 /* Analyze ONLY */,
-				63AA8E5B1492C75300C791C9 /* Release */,
 				63AA8E5C1492C75300C791C9 /* Unsigned Release */,
-				B8F6C5C31612A09B000276E0 /* Unsigned Release -Wconversion */,
-				63DA34001502380400C3801D /* Clean Tunnelblick */,
-				63DA34CC1502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		63C375771A4510EE00D51E81 /* Build configuration list for PBXNativeTarget "tunnelblick-helper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63C3743B1A4510AA00D51E81 /* Debug */,
-				63C3743C1A4510AA00D51E81 /* Analyze ONLY */,
-				63C3743D1A4510AA00D51E81 /* Release */,
 				63C3743E1A4510AA00D51E81 /* Unsigned Release */,
-				63C3743F1A4510AA00D51E81 /* Unsigned Release -Wconversion */,
-				63C374401A4510AA00D51E81 /* Clean Tunnelblick */,
-				63C374411A4510AA00D51E81 /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		63ED8EF11A1E847F0045D34E /* Build configuration list for PBXNativeTarget "tunnelblickd" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63ED8EE81A1E84570045D34E /* Debug */,
-				63ED8EE91A1E84570045D34E /* Analyze ONLY */,
-				63ED8EEA1A1E84570045D34E /* Release */,
 				63ED8EEB1A1E84570045D34E /* Unsigned Release */,
-				63ED8EEC1A1E84570045D34E /* Unsigned Release -Wconversion */,
-				63ED8EED1A1E84570045D34E /* Clean Tunnelblick */,
-				63ED8EEE1A1E84570045D34E /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Tunnelblick" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4B08A954540054247B /* Debug */,
-				637092C51851E8B50090D3D8 /* Analyze ONLY */,
-				C01FCF4C08A954540054247B /* Release */,
 				6398C40213DB30F60005FEB0 /* Unsigned Release */,
-				B8F6C5BE1612A09B000276E0 /* Unsigned Release -Wconversion */,
-				63DA33FB1502380400C3801D /* Clean Tunnelblick */,
-				63DA34C71502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Tunnelblick" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
-				637092C41851E8B50090D3D8 /* Analyze ONLY */,
-				C01FCF5008A954540054247B /* Release */,
 				6398C40113DB30F60005FEB0 /* Unsigned Release */,
-				B8F6C5BD1612A09B000276E0 /* Unsigned Release -Wconversion */,
-				63DA33FA1502380400C3801D /* Clean Tunnelblick */,
-				63DA34C61502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

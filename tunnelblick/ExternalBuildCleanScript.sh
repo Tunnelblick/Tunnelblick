@@ -33,15 +33,7 @@ buildAction () {
     # The only argument, which is required, is the name of the configuration to build
     echo "Preparing to build $1 configuration ..."
 
-    if [ "$1" = "Clean ${PROJECT_NAME}" ] ; then
-        echo "error: Do not BUILD the 'Clean ${PROJECT_NAME}' configuration -- only CLEAN it"
-        exit 1
-        
-    elif [ "$1" = "Clean Third Party" ] ; then
-        echo "error: Do not BUILD the 'Third Party' configuration -- only CLEAN it"
-        exit 1
-        
-    elif [ "$1" = "Release" ] ; then
+    if [ "$1" = "Release" ] ; then
         # Remove the .app so the digital signature will be created on a fresh copy
 		# Don't need to remove Tunnelblick Uninstaller.app; it is always freshly compiled
         if [ -e "build/$1/${PROJECT_NAME}.app" ] ; then
@@ -69,11 +61,6 @@ rm -f /tmp/tunnelblick-trash.scpt
             echo "(No action required because the .app does not exist)"
         fi
         
-    elif [ "$1" = "Unsigned Release" ] ; then
-        echo "(No action required to build '$1' configuration)"
-        
-    elif [ "$1" = "Analyze ONLY" ] ; then
-        echo "(No action required to build '$1' configuration)"
     else
         echo "error: Invalid argument to buildAction. Must be a configuration name"
         exit 1
@@ -87,32 +74,7 @@ cleanAction () {
     # The only argument, which is required, is the name of the configuration to build
     echo "Preparing to clean $1 configuration ..."
 
-    if [ "$1" = "Clean ${PROJECT_NAME}" ] ; then
-        if [ -d "build/Debug/${PROJECT_NAME}.app" ] ; then
-            # Trash the .app because we can't 'rm -r' because of the possible ownership of some parts by root:wheel)
-            ./trash.sh -f "build/Debug/${PROJECT_NAME}.app"
-        fi
-        cd "build"
-            cd "Release"; rm -r -f *; cd ..
-            cd "Unsigned Release"; rm -r -f *; cd ..
-            cd "Debug"; rm -r -f *; cd ..
-            if [ -d "Clean ${PROJECT_NAME}" ] ; then
-                rm -r -f "Clean ${PROJECT_NAME}"
-            fi
-            if [ -d "Clean Third Party" ] ; then
-                rm -r -f "Clean Third Party"
-            fi
-            cd ..
-        echo "Removed everything except the ${PROJECT_NAME}.build folder, which Xcode would restore anyway"
-        
-    elif [ "$1" = "Clean Third Party" ] ; then
-        rm "../third_party/built"
-        echo "Removed 'third_party/built', so the third party components will be rebuilt"
-        cd "../third_party"
-        make clean
-        cd "../tunnelblick"
-        
-    elif [ "$1" = "Release" ] ; then
+    if [ "$1" = "Release" ] ; then
         # Remove the .dmgs and Tunnelblick Uninstaller.app and the staging folders
         if [ -e "build/$1/${PROJECT_NAME}.dmg" ] ; then
             rm "build/$1/${PROJECT_NAME}.dmg"
@@ -145,39 +107,6 @@ cleanAction () {
             echo "(No action required because the Uninstaller staging folder does not exist)"
         fi
         
-    elif [ "$1" = "Unsigned Release" ] ; then
-        # Remove the .dmgs and Tunnelblick Uninstaller.app and the staging folders
-        if [ -e "build/$1/${PROJECT_NAME}.dmg" ] ; then
-            rm "build/$1/${PROJECT_NAME}.dmg"
-            echo "Removed the .dmg"
-        else
-            echo "(No action required because the .dmg does not exist)"
-        fi
-        if [ -e "build/$1/${PROJECT_NAME} Uninstaller.dmg" ] ; then
-            rm "build/$1/${PROJECT_NAME} Uninstaller.dmg"
-            echo "Removed the Uninstaller .dmg"
-        else
-            echo "(No action required because the Uninstaller .dmg does not exist)"
-        fi
-        if [ -d "build/$1/${PROJECT_NAME} Uninstaller.app" ] ; then
-            rm -r "build/$1/${PROJECT_NAME} Uninstaller.app"
-            echo "Removed ${PROJECT_NAME} Uninstaller.app"
-        else
-            echo "(No action required because ${PROJECT_NAME} Uninstaller.app does not exist)"
-        fi
-        if [ -d "build/$1/${PROJECT_NAME}" ] ; then
-            rm -r "build/$1/${PROJECT_NAME}"
-            echo "Removed the staging folder"
-        else
-            echo "(No action required because the staging folder does not exist)"
-        fi
-        if [ -d "build/$1/${PROJECT_NAME} Uninstaller" ] ; then
-            rm -r "build/$1/${PROJECT_NAME} Uninstaller"
-            echo "Removed the Uninstaller staging folder"
-        else
-            echo "(No action required because the Uninstaller staging folder does not exist)"
-        fi        
-       
     elif [ "$1" = "Debug" ] ; then
         if [ -d "build/Debug/${PROJECT_NAME}.app" ] ; then
             # Trash the .app so the digital signature will be created on a clean copy of the .app
@@ -203,9 +132,6 @@ rm -f /tmp/tunnelblick-trash.scpt
             echo "(No action required because ${PROJECT_NAME} Uninstaller.app does not exist)"
         fi
 
-    elif [ "$1" = "Analyze ONLY" ] ; then
-        echo "(No action required to clean '$1' configuration)"
-		
     else
         echo "error: Invalid argument ('$1') to cleanAction. Must be a configuration name"
         exit 1
