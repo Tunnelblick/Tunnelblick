@@ -165,7 +165,7 @@ changeEntry "${app_path}/Contents/Resources/tap-signed.kext/Contents/Info.plist"
 # Warn about uncommitted changes except for Debug builds
 if [ -e "../.git" -a  "$(which git)" != "" ] ; then
     readonly git_hash="$(git rev-parse HEAD)"
-    readonly git_status="$(git status -s | tr '\n' ' ' )"
+    readonly git_status="$(git status -s)"
     if [  "${git_status}" != "" -a "${CONFIGURATION}" != "Debug" ] ; then
 		printf "warning: uncommitted changes:\n${git_status}"
     fi

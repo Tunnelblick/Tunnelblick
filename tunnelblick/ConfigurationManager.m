@@ -3910,7 +3910,7 @@ enum GetAuthorizationResult {
         NSString * statusValue = [dict objectForKey: @"TBGitChanges"];
         gitMessage = (  [statusValue isEqualToString: @""]
                       ? [NSString stringWithFormat: @"git commit %@\n", hashValue]
-                      : [NSString stringWithFormat: @"git commit %@\n    uncommitted changes: %@\n", hashValue, statusValue]);
+                      : [NSString stringWithFormat: @"git commit %@ + uncommitted changes:\n%@\n", hashValue, statusValue]);
     }
     
     return gitMessage;
