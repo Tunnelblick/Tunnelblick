@@ -3907,7 +3907,7 @@ enum GetAuthorizationResult {
     if (  [hashValue isEqualToString: @"TBGITHASH"]  ) {
         gitMessage = @"No git information is available\n";
     } else {
-        NSString * statusValue = [dict objectForKey: @"TBGitChanges"];
+        NSString * statusValue = [dict objectForKey: @"TBGitStatus"];
         gitMessage = (  [statusValue isEqualToString: @""]
                       ? [NSString stringWithFormat: @"git commit %@\n", hashValue]
                       : [NSString stringWithFormat: @"git commit %@ + uncommitted changes:\n%@\n", hashValue, statusValue]);

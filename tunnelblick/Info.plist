@@ -71,7 +71,7 @@
 		<string>TBVERSIONSTRING (build TBBUILDNUMBER) TBCONFIGURATION</string>
 	<key>TBGitHash</key>
         <string>TBGITHASH</string>
-	<key>TBGitChanges</key>
+	<key>TBGitStatus</key>
         <string>TBGITSTATUS</string>
 	<key>CFBundleSignature</key>
 		<string>OVPN</string>
