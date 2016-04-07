@@ -167,7 +167,7 @@ if [ -e "../.git" -a  "$(which git)" != "" ] ; then
     readonly git_hash="$(git rev-parse HEAD)"
     readonly git_status="$(git status -s | tr '\n' ' ' )"
     if [  "${git_status}" != "" -a "${CONFIGURATION}" != "Debug" ] ; then
-		printf "warning: uncommitted changes:\n${git_status}"
+		printf "warning: uncommitted changes:\n${git_status}\n"
     fi
     changeEntry "${app_path}/Contents/Info.plist" TBGITHASH   "${git_hash}"
     changeEntry "${app_path}/Contents/Info.plist" TBGITSTATUS "${git_status}"
