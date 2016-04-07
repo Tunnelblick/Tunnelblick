@@ -23,6 +23,7 @@
 #import "helper.h"
 
 #import <mach/mach_time.h>
+#import <pthread.h>
 #import <sys/stat.h>
 #import <sys/sysctl.h>
 #import <sys/utsname.h>
@@ -54,7 +55,7 @@ extern NSString        * gDeployPath;
 extern NSFileManager   * gFileMgr;
 extern TBUserDefaults  * gTbDefaults;
 extern NSThread        * gMainThread;
-extern CFUserNotificationRef gUserNotification;
+extern BOOL              gShuttingDownTunnelblick;
 
 void appendLog(NSString * msg)
 {
@@ -505,6 +506,85 @@ AlertWindowController * TBShowAlertWindow (NSString * title,
 }
 
 
+// Alow several alert panels to be open at any one time, keeping track of them in AlertRefs.
+// TBCloseAllAlertPanels closes all of them when Tunnelblick quits.
+// TBRunAlertPanelExtended manages them otherwise.
+
+static NSMutableArray * AlertRefs = nil;
+
+// NSMutableArray is not thread safe, so we use the following lock when accessing it:
+static pthread_mutex_t alertRefsMutex = PTHREAD_MUTEX_INITIALIZER;
+
+void LockAlertRefs(void) {
+    
+    // NOTE: Returns even if an error occurred getting the lock
+    
+    OSStatus status = pthread_mutex_lock( &alertRefsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_lock( &alertRefsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+    }
+}
+
+void UnlockAlertRefs(void) {
+    
+    // NOTE: Returns even if an error occurred getting the lock
+    
+   int status = pthread_mutex_unlock( &alertRefsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &alertRefsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+    }
+}
+
+void TBCloseAllAlertPanels (void) {
+    // Handle the unlikely event that AlertRefs is in the process of being modified.
+    // Try to lock them for modification up to four times with 100ms sleeps between tries
+    unsigned nTries = 0;
+    OSStatus status;
+    while (  TRUE  ) {
+        status = pthread_mutex_trylock( &alertRefsMutex );
+        if (  status == 0  ) {
+            break;
+        }
+        if (   (nTries++ > 2)
+            || (status != EBUSY)  ) {
+            NSLog(@"pthread_mutex_trylock( &alertRefsMutex ) failed on try #%d; status = %ld", nTries, (long)status);
+            return;
+        }
+        
+        usleep(100000);
+        continue;
+    }
+    
+    NSUInteger ix;
+    for (  ix=0; ix<[AlertRefs count]; ix++  ) {
+        CFUserNotificationRef ref = (CFUserNotificationRef)[AlertRefs objectAtIndex: ix];
+        if (  ref  ) {
+            SInt32 result = CFUserNotificationCancel(ref);
+            TBLog(@"DB-SD", @"TBCloseAllAlertPanels: Cancelled alert panel 0x%lx with result %ld", (unsigned long)ref, (unsigned long) result);
+        }
+    }
+    
+    UnlockAlertRefs();
+}
+
+void IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn(void) {
+    
+    if (  runningOnMainThread()  ) {
+        TBLog(@"DB-SD", @"IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn invoked but on main thread, so returning.");
+        return;
+    }
+    
+    if (  ! gShuttingDownTunnelblick  ) {
+        TBLog(@"DB-SD", @"IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn invoked but not shutting down, so returning.");
+        return;
+    }
+    
+    TBLog(@"DB-SD", @"Shutting down Tunnelblick, so this thread (0x%lx) will never return from TBRunAlertPanel()", (long)[NSThread currentThread]);
+    while (  TRUE  ) {
+        sleep(1);
+    }
+}
+
 // Takes the same arguments as, and is similar to, NSRunAlertPanel
 // DOES NOT BEHAVE IDENTICALLY to NSRunAlertPanel:
 //   * Stays on top of other windows
@@ -587,23 +667,18 @@ int TBRunAlertPanelExtended(NSString * title,
     }
     
     [NSApp activateIgnoringOtherApps:YES];
-	if (  gUserNotification  ) {
-        NSLog(@"TBRunAlertExtended called but a panel already exists!");
-        CFRelease(gUserNotification);
-        gUserNotification = NULL;
-    }
     
-    gUserNotification = CFUserNotificationCreate(NULL, 0.0, checkboxChecked, &error, (CFDictionaryRef) dict);
-    
+    CFUserNotificationRef panelRef = CFUserNotificationCreate(NULL, 0.0, checkboxChecked, &error, (CFDictionaryRef) dict);
+
     if (   error
-        || (gUserNotification == NULL)
+        || (panelRef == NULL)
         ) {
         
 		NSLog(@"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX, so TBRunAlertExtended is terminating Tunnelblick after attempting to display an error window using CFUserNotificationDisplayNotice",
-              (long) error, (long) gUserNotification);
-        if (  gUserNotification != NULL  ) {
-            CFRelease(gUserNotification);
-            gUserNotification = NULL;
+              (long) error, (long) panelRef);
+        if (  panelRef != NULL  ) {
+            CFRelease(panelRef);
+            panelRef = NULL;
         }
         
         // Try showing a regular window (but it will disappear when Tunnelblick terminates)
@@ -611,7 +686,7 @@ int TBRunAlertPanelExtended(NSString * title,
                           [NSString stringWithFormat:
                            NSLocalizedString(@"Tunnelblick could not display a window.\n\n"
                                              @"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX", @"Window text"),
-                           (long) error, (unsigned long) gUserNotification]);
+                           (long) error, (unsigned long) panelRef]);
         
         // Try showing a modal alert window
         SInt32 status = CFUserNotificationDisplayNotice(60.0,
@@ -623,29 +698,60 @@ int TBRunAlertPanelExtended(NSString * title,
                                                         (CFStringRef) [NSString stringWithFormat:
                                                                        NSLocalizedString(@"Tunnelblick could not display a window.\n\n"
                                                                                          @"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX", @"Window text"),
-                                                                       (long) error, (long) gUserNotification],
+                                                                       (long) error, (long) panelRef],
                                                         NULL);
         NSLog(@"CFUserNotificationDisplayNotice() returned %ld", (long) status);
-        if (  gUserNotification != NULL  ) {
-            CFRelease(gUserNotification);
-            gUserNotification = NULL;
+        if (  panelRef != NULL  ) {
+            CFRelease(panelRef);
+            panelRef = NULL;
         }
         [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
         return NSAlertErrorReturn; // Make the Xcode code analyzer happy
     }
     
-	SInt32 responseReturnCode = CFUserNotificationReceiveResponse(gUserNotification, 0.0, &response);
+    // Save the notification ref in our array
+    LockAlertRefs();
+    if (  ! AlertRefs  ) {
+        AlertRefs = [[NSMutableArray alloc] initWithCapacity: 8];
+    }
+    [AlertRefs addObject: (id)panelRef];
+    TBLog(@"DB-SD", @"TBRunAlertPanelExtended saved 0x%lx in AlertRefs; AlertRefs = %@", (unsigned long)panelRef, AlertRefs);
+    UnlockAlertRefs();
     
-    if (  gUserNotification != NULL  ) {
-        CFRelease(gUserNotification);
-        gUserNotification = NULL;
+    // Loop waiting for either a response or a shutdown of Tunnelblick
+    SInt32 responseReturnCode = -1;
+    while (  TRUE  ) {
+        responseReturnCode = CFUserNotificationReceiveResponse(panelRef, 0.2, &response);
+        if ( responseReturnCode == 0  ) {  // The user clicked a button
+            break;
+        }
+        
+        // A timeout occurred. If shutting down Tunnelblick cancel the panel; otherwise, continue waiting for the user's response
+        if (  gShuttingDownTunnelblick  ) {
+            SInt32 result = CFUserNotificationCancel(panelRef);
+            TBLog(@"DB-SD", @"Shutting down Tunnelblick, so cancelled alert panel 0x%lx with result %ld", (unsigned long)panelRef, (unsigned long) result);
+            if (  result != 0  ) {
+                TBLog(@"DB-SD", @"Cancel of alert panel 0x%lx failed, so simulating it", (unsigned long)panelRef);
+                responseReturnCode = 0;
+                response = kCFUserNotificationCancelResponse;
+                break;
+            }
+        }
     }
     
-    if (  responseReturnCode  ) {
-        NSLog(@"CFUserNotificationReceiveResponse() returned %ld with response = %ld, so TBRunAlertExtended is returning NSAlertErrorReturn",
-              (long) responseReturnCode, (long) response);
-        return NSAlertErrorReturn;
+    TBLog(@"DB-SD", @"CFUserNotificationReceiveResponse returned %ld; response = %ld for panel 0x%lx; AlertRefs; AlertRefs = %@", (long)responseReturnCode, (long)response, (unsigned long)panelRef, AlertRefs);
+    
+    if (  panelRef != NULL  ) {
+        // Remove from AlertRefs
+        LockAlertRefs();
+        [AlertRefs removeObject: (id)panelRef];
+        TBLog(@"DB-SD", @"TBRunAlertPanelExtended removed 0x%lx from AlertRefs; AlertRefs = %@", (unsigned long)panelRef, AlertRefs);
+        UnlockAlertRefs();
+        CFRelease(panelRef);
+        panelRef = NULL;
     }
+    
+    IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn();
     
     if (  checkboxResult  ) {
         if (  response & CFUserNotificationCheckBoxChecked(0)  ) {
@@ -655,6 +761,13 @@ int TBRunAlertPanelExtended(NSString * title,
         }
     } 
 
+    // If we are shutting down Tunnelblick, force the response to be "Cancel"
+    if (   gShuttingDownTunnelblick
+        && (response != kCFUserNotificationCancelResponse)  ) {
+        TBLog(@"DB-SD", @"Shutting down Tunnelblick, so forcing the alert window response to be cancelled");
+        response = kCFUserNotificationCancelResponse;
+    }
+    
     switch (response & 0x3) {
         case kCFUserNotificationDefaultResponse:
 			if (  notShownReturnValue == NSAlertDefaultReturn  ) {
@@ -696,7 +809,8 @@ int TBRunAlertPanelExtended(NSString * title,
             return NSAlertOtherReturn;
             
         default:
-            NSLog(@"CFUserNotificationReceiveResponse() returned a response but it wasn't the default, alternate, or other response, so TBRunAlertExtended() is returning NSAlertErrorReturn");
+            TBLog(@"DB-SD", @"CFUserNotificationReceiveResponse() returned a cancel response");
+            IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn();
             return NSAlertErrorReturn;
     }
 }

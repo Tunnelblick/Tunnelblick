@@ -949,14 +949,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                          NSLocalizedString(@"I DO NOT have configuration files", @"Button") // Other button
                                          );
                 
-                if (   (button == NSAlertAlternateReturn)   // Quit if quit or error occurred
-                    || (button == NSAlertErrorReturn)  ) {
+                if (  button == NSAlertAlternateReturn  ) {
                     [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
-                    [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
                     return;
-                }
-                
-                if (  button == NSAlertDefaultReturn  ) {
+                } else if (  button == NSAlertErrorReturn  ) {
+                    return;
+                } else if (  button == NSAlertDefaultReturn  ) {
                     // User has configuration files and wishes to add them
                     nextState = stateHasConfigurations;
                     break;

@@ -83,7 +83,6 @@ NSArray               * gRateUnits = nil;             // Array of strings with l
 NSArray               * gTotalUnits = nil;            // Array of strings with localized data rate units (KB,   MB,   GB,   etc.)
 NSTimeInterval          gDelayToShowStatistics = 0.0; // Time delay from mouseEntered icon or statistics window until showing the statistics window
 NSTimeInterval          gDelayToHideStatistics = 0.0; // Time delay from mouseExited icon or statistics window until hiding the statistics window
-CFUserNotificationRef   gUserNotification = NULL;     // NULL or the ref of the user alert panel currently being displayed
 
 volatile int32_t        gSleepWakeState = noSleepState;// Describes sleep/wake state
 volatile int32_t        gActiveInactiveState = active;// Describes active/inactive
@@ -3246,9 +3245,7 @@ BOOL anyNonTblkConfigs(void)
 		if (   (response == NSAlertOtherReturn)
             || (response == NSAlertErrorReturn)  ) {  // Quit if requested or error
 			[self terminateBecause: terminatingBecauseOfQuit];
-		}
-		
-		if (  response == NSAlertDefaultReturn  ) {
+		} else if (  response == NSAlertDefaultReturn  ) {
 			NSInteger installerResult = [self runInstaller: INSTALLER_CONVERT_NON_TBLKS
 											extraArguments: nil
 										   usingAuthRefPtr: &gAuthorization
@@ -3357,11 +3354,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     
     [self doDisconnectionsForQuittingTunnelblick];
 	
-    if (  gUserNotification  ) {
-        NSLog(@"Closing a CFUserNotification window");
-        CFRelease(gUserNotification);
-        gUserNotification = NULL;
-    }
+    TBCloseAllAlertPanels();
     
     if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
         NSLog(@"Not unloading kexts and not deleting logs because of fatal error.");
@@ -4013,7 +4006,7 @@ static void signal_handler(int signalNumber)
     
     BOOL sawRootCa   = FALSE;
     BOOL sawDevApple = FALSE;
-    BOOL sawDevJkb   = FALSE;
+    BOOL sawDevUs    = FALSE;
     BOOL sawIdent    = FALSE;
     BOOL sawTeam     = (  runningOnMavericksOrNewer()
                         ? FALSE
@@ -4044,7 +4037,7 @@ static void signal_handler(int signalNumber)
             if (         [line isEqualToString: @"Authority=Apple Root CA"]  ) {
                 sawRootCa = TRUE;
             } else if (  [line isEqualToString: @"Authority=Developer ID Application: Jonathan Bullard (Z2SG5H3HC8)"]  ) {
-                sawDevJkb = TRUE;
+                sawDevUs = TRUE;
             } else if (  [line isEqualToString: @"Authority=Developer ID Certification Authority"]  ) {
                 sawDevApple = TRUE;
             } else {
@@ -4054,7 +4047,7 @@ static void signal_handler(int signalNumber)
         }
     }
     
-    BOOL result = (  sawRootCa && sawDevApple && sawDevJkb && sawTeam && sawIdent  );
+    BOOL result = (  sawRootCa && sawDevApple && sawDevUs && sawTeam && sawIdent  );
     if (  ! result  ) {
         NSLog(@"The output from codesign did not include all the items that are required. The output was \n:%@", codesignDvvOutput);
     }
@@ -4494,8 +4487,6 @@ static void signal_handler(int signalNumber)
     }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 007")
-    [self checkNoConfigurations];
-
     [self hookupToRunningOpenVPNs];
     [self setupHookupWatchdogTimer];
     
@@ -4532,12 +4523,15 @@ static void signal_handler(int signalNumber)
 												 NSLocalizedString(@"Do not check for a change", @"Button"));   // Other
                         if (  result == NSAlertAlternateReturn  ) {
                             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.tunnelblick.net/privacy.html"]];
-                        } else {
-                            // Only check for change if requested (not if error)
-                            [gTbDefaults setBool: (result != NSAlertDefaultReturn)
+                        } else if (   (result == NSAlertDefaultReturn)
+                                   || (result == NSAlertOtherReturn)  ) {
+                            // Only check for change if requested
+                            [gTbDefaults setBool: (result == NSAlertOtherReturn)
                                           forKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
                             [gTbDefaults setBool: YES
                                           forKey: @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+                        } else {
+                            return; // Cancelled or error
                         }
                     } while (  result == NSAlertAlternateReturn);
 				} else {
@@ -4827,6 +4821,10 @@ static void signal_handler(int signalNumber)
         [UIHelper showSuccessNotificationTitle: @"Tunnelblick" msg: message];
     }
     
+    if (  [dotTblkFileList count] == 0  ) {
+        [self checkNoConfigurations];
+    }
+    
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 021")
     NSString * text = NSLocalizedString(@"Tunnelblick is ready.", @"Window text");
     [splashScreen setMessage: text];
@@ -5011,7 +5009,7 @@ static void signal_handler(int signalNumber)
 				   noUnknownOpenVPNsRunning = YES;
 			   }
 		   } else if (result == NSAlertErrorReturn  ) {
-               NSLog(@"Ignoring error return from TBRunAlertPanelExtended; not killing unknown OpenVPN processes");
+               NSLog(@"Ignoring error/cancel return from TBRunAlertPanelExtended; not killing unknown OpenVPN processes");
            }
 	   } else if (  ALLOW_OPENVPNSTART_KILLALL  ) {
 		   int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning: Unknown OpenVPN processes", @"Window title"),
@@ -5028,7 +5026,8 @@ static void signal_handler(int signalNumber)
                runOpenvpnstart(arguments, nil, nil);
                noUnknownOpenVPNsRunning = YES;
 		   } else if (result == NSAlertErrorReturn  ) {
-               NSLog(@"Ignoring error return from TBRunAlertPanelExtended; not killing unknown OpenVPN processes");
+               NSLog(@"Ignoring error/cancel return from TBRunAlertPanelExtended; not killing unknown OpenVPN processes");
+               return;
            }
        } else {
 		   TBShowAlertWindow(NSLocalizedString(@"Warning: Unknown OpenVPN processes", @"Window title"),
@@ -5490,11 +5489,10 @@ BOOL warnAboutNonTblks(void)
 											   NSAlertDefaultReturn);
 		gUserWasAskedAboutConvertNonTblks = TRUE;
 		if (   (response == NSAlertOtherReturn)
-            || (response == NSAlertErrorReturn)  ) {  // Quit if "Quit" or error
+            || (response == NSAlertErrorReturn)  ) {  // Quit if "Quit" or error/cancel
 			[((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
-		}
-		
-		if (  response == NSAlertDefaultReturn  ) {
+            return NO;
+		} else if (  response == NSAlertDefaultReturn  ) {
 			return YES;
 		}
         
@@ -5512,7 +5510,7 @@ BOOL warnAboutNonTblks(void)
 			return YES;
 		}
         
-        // "Ignore" or error occured: fall through to ignore
+        // "Ignore" or error/cancelled : fall through to ignore
 	}
 	
 	return NO;
