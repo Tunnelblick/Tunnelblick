@@ -595,14 +595,9 @@ void IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn(void) {
 
 int TBRunAlertPanel(NSString * title, NSString * msg, NSString * defaultButtonLabel, NSString * alternateButtonLabel, NSString * otherButtonLabel)
 {
-    return TBRunAlertPanelExtended(title, msg, defaultButtonLabel, alternateButtonLabel, otherButtonLabel, nil, nil, nil, NSAlertDefaultReturn);
+    return TBRunAlertPanelExtendedPlus(title, msg, defaultButtonLabel, alternateButtonLabel, otherButtonLabel, nil, nil, nil, NSAlertDefaultReturn, nil, nil);
 }
 
-// Like TBRunAlertPanel but allows a "do not show again" preference key and checkbox, or a checkbox for some other function.
-// If the preference is set, the panel is not shown and "notShownReturnValue" is returned.
-// If the preference can be changed by the user, and the checkboxResult pointer is not nil, the panel will include a checkbox with the specified label.
-// If the preference can be changed by the user, the preference is set if the user checks the box and the button that is clicked corresponds to the notShownReturnValue.
-// If the checkboxResult pointer is not nil, the initial value of the checkbox will be set from it, and the value of the checkbox is returned to it.
 int TBRunAlertPanelExtended(NSString * title,
                             NSString * msg,
                             NSString * defaultButtonLabel,
@@ -613,6 +608,35 @@ int TBRunAlertPanelExtended(NSString * title,
                             BOOL     * checkboxResult,
 							int		   notShownReturnValue)
 {
+    return TBRunAlertPanelExtendedPlus(title, msg, defaultButtonLabel, alternateButtonLabel, otherButtonLabel, doNotShowAgainPreferenceKey, checkboxLabel, checkboxResult, notShownReturnValue, nil, nil);
+}
+// Like TBRunAlertPanel but allows a "do not show again" preference key and checkbox, or a checkbox for some other function, and a target/selector which is polled to cancel the panel.
+// If the "do not show again"preference is set, the panel is not shown and "notShownReturnValue" is returned.
+// If the preference can be changed by the user, and the checkboxResult pointer is not nil, the panel will include a checkbox with the specified label.
+// If the preference can be changed by the user, the preference is set if the user checks the box and the button that is clicked corresponds to the notShownReturnValue.
+// If the checkboxResult pointer is not nil, the initial value of the checkbox will be set from it, and the value of the checkbox is returned to it.
+// Every 0.2 seconds while the panel is being shown, this routine invokes [shouldCancelTarget performSelector: shouldCancelSelector] and cancels the dialog if it returns TRUE.
+
+int TBRunAlertPanelExtendedPlus (NSString * title,
+                                 NSString * msg,
+                                 NSString * defaultButtonLabel,
+                                 NSString * alternateButtonLabel,
+                                 NSString * otherButtonLabel,
+                                 NSString * doNotShowAgainPreferenceKey,
+                                 NSString * checkboxLabel,
+                                 BOOL     * checkboxResult,
+                                 int		notShownReturnValue,
+                                 id         shouldCancelTarget,
+                                 SEL        shouldCancelSelector)
+{
+    
+    if (  (shouldCancelTarget && shouldCancelSelector)  ) {
+        if (  ! [shouldCancelTarget respondsToSelector: shouldCancelSelector]  ) {
+            NSLog(@"TBRunAlertPanelExtendedPlus: '%@' does not respond to '%@'; call stack = %@",
+                  [shouldCancelTarget class], NSStringFromSelector(shouldCancelSelector), callStack());
+        }
+    }
+    
     if (  doNotShowAgainPreferenceKey && [gTbDefaults boolForKey: doNotShowAgainPreferenceKey]  ) {
         return notShownReturnValue;
     }
@@ -726,10 +750,16 @@ int TBRunAlertPanelExtended(NSString * title,
             break;
         }
         
-        // A timeout occurred. If shutting down Tunnelblick cancel the panel; otherwise, continue waiting for the user's response
-        if (  gShuttingDownTunnelblick  ) {
+        // A timeout occurred.
+        // If we should cancel this panel or we are shutting down Tunnelblick, cancel the panel. Otherwise, continue waiting.
+        
+        BOOL cancel = (  (shouldCancelTarget && shouldCancelSelector)
+                       ? [shouldCancelTarget performSelector: shouldCancelSelector]
+                      : FALSE);
+        if (   cancel
+            || gShuttingDownTunnelblick  ) {
             SInt32 result = CFUserNotificationCancel(panelRef);
-            TBLog(@"DB-SD", @"Shutting down Tunnelblick, so cancelled alert panel 0x%lx with result %ld", (unsigned long)panelRef, (unsigned long) result);
+            TBLog(@"DB-SD", @"Cancelled alert panel 0x%lx with result %ld", (unsigned long)panelRef, (unsigned long) result);
             if (  result != 0  ) {
                 TBLog(@"DB-SD", @"Cancel of alert panel 0x%lx failed, so simulating it", (unsigned long)panelRef);
                 responseReturnCode = 0;

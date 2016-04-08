@@ -3203,12 +3203,18 @@ BOOL anyNonTblkConfigs(void)
 	return NO;
 }
 
+-(BOOL) haveConfigurations {
+    
+    return (  [[self myConfigDictionary] count] != 0  );
+}
+
+
 -(void) checkNoConfigurations {
     
     // If there aren't ANY config files in the config folders
     // then guide the user
 
-    if (  [[self myConfigDictionary] count] != 0  ) {
+    if (  [self haveConfigurations]  ) {
         return;
     }
     

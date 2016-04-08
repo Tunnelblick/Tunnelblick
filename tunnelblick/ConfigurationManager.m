@@ -935,19 +935,20 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             case entryNoConfigurations:
                 
                 // No configuration files (entry from haveNoConfigurationsGuild)
-                button = TBRunAlertPanel(NSLocalizedString(@"Welcome to Tunnelblick", @"Window title"),
-                                         NSLocalizedString(@"There are no VPN configurations installed.\n\n"
-                                                           "Tunnelblick needs one or more installed configurations to connect to a VPN. "
-                                                           "Configurations are installed from files that are usually supplied to you by your network manager "
-                                                           "or VPN service provider. The files must be installed to be used.\n\n"
-                                                           "Configuration files have extensions of .tblk, .ovpn, or .conf.\n\n"
-                                                           "(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\n"
-                                                           "Do you have any configuration files?\n",
-                                                           @"Window text"),
-                                         NSLocalizedString(@"I have configuration files", @"Button"),       // Default button
-                                         NSLocalizedString(@"Quit", @"Button"),                             // Alternate button
-                                         NSLocalizedString(@"I DO NOT have configuration files", @"Button") // Other button
-                                         );
+                button = TBRunAlertPanelExtendedPlus(NSLocalizedString(@"Welcome to Tunnelblick", @"Window title"),
+                                                     NSLocalizedString(@"There are no VPN configurations installed.\n\n"
+                                                                       "Tunnelblick needs one or more installed configurations to connect to a VPN. "
+                                                                       "Configurations are installed from files that are usually supplied to you by your network manager "
+                                                                       "or VPN service provider. The files must be installed to be used.\n\n"
+                                                                       "Configuration files have extensions of .tblk, .ovpn, or .conf.\n\n"
+                                                                       "(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\n"
+                                                                       "Do you have any configuration files?\n",
+                                                                       @"Window text"),
+                                                     NSLocalizedString(@"I have configuration files", @"Button"),        // Default button
+                                                     NSLocalizedString(@"Quit", @"Button"),                              // Alternate button
+                                                     NSLocalizedString(@"I DO NOT have configuration files", @"Button"), // Other button
+                                                     nil, nil, nil, FALSE,
+                                                     [NSApp delegate], @selector(haveConfigurations)); // Abort this dialog if we have configurations
                 
                 if (  button == NSAlertAlternateReturn  ) {
                     [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfQuit];
