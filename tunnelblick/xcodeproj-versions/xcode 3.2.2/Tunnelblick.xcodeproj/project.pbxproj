@@ -1899,12 +1899,12 @@
 			};
 			name = Debug;
 		};
-		635BF1811501CCDF00D87717 /* Unsigned Release */ = {
+		635BF1811501CCDF00D87717 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = ExternalBuildCleanScript;
 			};
-			name = "Unsigned Release";
+			name = Release;
 		};
 		638A1FFE135CC35100FB932C /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1940,7 +1940,7 @@
 			};
 			name = Debug;
 		};
-		6398C40113DB30F60005FEB0 /* Unsigned Release */ = {
+		6398C40113DB30F60005FEB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
@@ -1966,9 +1966,9 @@
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 				WARNING_CFLAGS = "-Wall";
 			};
-			name = "Unsigned Release";
+			name = Release;
 		};
-		6398C40213DB30F60005FEB0 /* Unsigned Release */ = {
+		6398C40213DB30F60005FEB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
@@ -2003,9 +2003,9 @@
 				);
 				WRAPPER_EXTENSION = app;
 			};
-			name = "Unsigned Release";
+			name = Release;
 		};
-		6398C40313DB30F60005FEB0 /* Unsigned Release */ = {
+		6398C40313DB30F60005FEB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -2029,9 +2029,9 @@
 				);
 				ZERO_LINK = NO;
 			};
-			name = "Unsigned Release";
+			name = Release;
 		};
-		6398C40413DB30F60005FEB0 /* Unsigned Release */ = {
+		6398C40413DB30F60005FEB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -2055,9 +2055,9 @@
 				);
 				ZERO_LINK = NO;
 			};
-			name = "Unsigned Release";
+			name = Release;
 		};
-		6398C40513DB30F60005FEB0 /* Unsigned Release */ = {
+		6398C40513DB30F60005FEB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2088,9 +2088,9 @@
 				);
 				ZERO_LINK = NO;
 			};
-			name = "Unsigned Release";
+			name = Release;
 		};
-		6398C40613DB30F60005FEB0 /* Unsigned Release */ = {
+		6398C40613DB30F60005FEB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2121,7 +2121,7 @@
 				);
 				ZERO_LINK = NO;
 			};
-			name = "Unsigned Release";
+			name = Release;
 		};
 		63AA8E5A1492C75300C791C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2145,7 +2145,7 @@
 			};
 			name = Debug;
 		};
-		63AA8E5C1492C75300C791C9 /* Unsigned Release */ = {
+		63AA8E5C1492C75300C791C9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2161,7 +2161,7 @@
 					"-Wstrict-overflow",
 				);
 			};
-			name = "Unsigned Release";
+			name = Release;
 		};
 		63C3743B1A4510AA00D51E81 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2187,7 +2187,7 @@
 			};
 			name = Debug;
 		};
-		63C3743E1A4510AA00D51E81 /* Unsigned Release */ = {
+		63C3743E1A4510AA00D51E81 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2205,7 +2205,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = "tunnelblick-helper";
 			};
-			name = "Unsigned Release";
+			name = Release;
 		};
 		63ED8EE81A1E84570045D34E /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2230,7 +2230,7 @@
 			};
 			name = Debug;
 		};
-		63ED8EEB1A1E84570045D34E /* Unsigned Release */ = {
+		63ED8EEB1A1E84570045D34E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2248,7 +2248,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = tunnelblickd;
 			};
-			name = "Unsigned Release";
+			name = Release;
 		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2324,7 +2324,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61BC4BC30E2F9FE900F24255 /* Debug */,
-				6398C40313DB30F60005FEB0 /* Unsigned Release */,
+				6398C40313DB30F60005FEB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -2333,7 +2333,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61BC4D6D0E2FA06900F24255 /* Debug */,
-				6398C40413DB30F60005FEB0 /* Unsigned Release */,
+				6398C40413DB30F60005FEB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -2342,7 +2342,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63179440118D7E830057ACAF /* Debug */,
-				6398C40513DB30F60005FEB0 /* Unsigned Release */,
+				6398C40513DB30F60005FEB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -2351,7 +2351,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				635BF17F1501CCDF00D87717 /* Debug */,
-				635BF1811501CCDF00D87717 /* Unsigned Release */,
+				635BF1811501CCDF00D87717 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -2360,7 +2360,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				638A1FFE135CC35100FB932C /* Debug */,
-				6398C40613DB30F60005FEB0 /* Unsigned Release */,
+				6398C40613DB30F60005FEB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -2369,7 +2369,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63AA8E5A1492C75300C791C9 /* Debug */,
-				63AA8E5C1492C75300C791C9 /* Unsigned Release */,
+				63AA8E5C1492C75300C791C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -2378,7 +2378,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63C3743B1A4510AA00D51E81 /* Debug */,
-				63C3743E1A4510AA00D51E81 /* Unsigned Release */,
+				63C3743E1A4510AA00D51E81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -2387,7 +2387,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63ED8EE81A1E84570045D34E /* Debug */,
-				63ED8EEB1A1E84570045D34E /* Unsigned Release */,
+				63ED8EEB1A1E84570045D34E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -2396,7 +2396,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4B08A954540054247B /* Debug */,
-				6398C40213DB30F60005FEB0 /* Unsigned Release */,
+				6398C40213DB30F60005FEB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -2405,7 +2405,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
-				6398C40113DB30F60005FEB0 /* Unsigned Release */,
+				6398C40113DB30F60005FEB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
