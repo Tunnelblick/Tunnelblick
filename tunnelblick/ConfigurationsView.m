@@ -81,8 +81,10 @@ extern TBUserDefaults * gTbDefaults;
 	[UIHelper shiftControl: setNameserverPopUpButton      by: largestWidthChange reverse: ! rtl];
 	[UIHelper shiftControl: perConfigOpenvpnVersionTF     by: largestWidthChange reverse: ! rtl];
 	[UIHelper shiftControl: perConfigOpenvpnVersionButton by: largestWidthChange reverse: ! rtl];
-	[UIHelper shiftControl: loggingLevelTF                by: largestWidthChange reverse: ! rtl];
-	[UIHelper shiftControl: loggingLevelPopUpButton       by: largestWidthChange reverse: ! rtl];
+	if (  loggingLevelPopUpButton  ) {
+		[UIHelper shiftControl: loggingLevelTF            by: largestWidthChange reverse: ! rtl];
+		[UIHelper shiftControl: loggingLevelPopUpButton   by: largestWidthChange reverse: ! rtl];
+	}
 }
 
 -(void) normalizeWidthOfConfigurationsButtons {
@@ -258,9 +260,12 @@ extern TBUserDefaults * gTbDefaults;
 	[UIHelper setTitle: nil ofControl: setNameserverPopUpButton shift: rtl narrow: YES enable: YES];
     // setNameserverPopUpButton is modified in setupSetNameserver to reflect per-configuration settings
 	
-	CGFloat loggingLevelWidthChange = [UIHelper setTitle: NSLocalizedString(@"VPN log level:", @"Window text") ofControl: loggingLevelTFC frameHolder: loggingLevelTF shift: ( !rtl ) narrow: YES enable: YES];
-    [self setupLoggingLevelPopUpButton];
-	[UIHelper setTitle: nil ofControl: loggingLevelPopUpButton shift: rtl narrow: YES enable: YES];
+	CGFloat loggingLevelWidthChange = 0.0;
+	if (  loggingLevelPopUpButton  ) {
+		loggingLevelWidthChange = [UIHelper setTitle: NSLocalizedString(@"VPN log level:", @"Window text") ofControl: loggingLevelTFC frameHolder: loggingLevelTF shift: ( !rtl ) narrow: YES enable: YES];
+		[self setupLoggingLevelPopUpButton];
+		[UIHelper setTitle: nil ofControl: loggingLevelPopUpButton shift: rtl narrow: YES enable: YES];
+	}
 	
     [monitorNetworkForChangesCheckbox             setTitle: NSLocalizedString(@"Monitor network settings",                                         @"Checkbox name")];
     [routeAllTrafficThroughVpnCheckbox            setTitle: NSLocalizedString(@"Route all IPv4 traffic through the VPN",                           @"Checkbox name")];
