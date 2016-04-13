@@ -131,7 +131,7 @@
 "Load Tun driver automatically" = "Автоматично зареждане на Tun драйвери";
 
 /* Button */
-"Make Private" = "Направи индивидуална";
+"Make Private" = "Направи лично";
 
 /* Button */
 "Make Shared" = "Направи споделена";
@@ -290,34 +290,34 @@
 "Make Configuration Shared..." = "Направи конфигурацията споделена…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "No OpenVPN or Tunnelblick VPN logging";
+"No OpenVPN or Tunnelblick VPN logging" = "Без логове за OpenVPN или Tunnelblick VPN";
 
 /* Menu item */
 "No VPN Configurations Available" = "Няма налични VPN конфигурации";
 
 /* Menu Item */
-"OpenVPN level %lu" = "OpenVPN level %lu";
+"OpenVPN level %lu" = "OpenVPN ниво %lu";
 
 /* Menu Item */
-"OpenVPN level 0 - no output except fatal errors" = "OpenVPN level 0 - no output except fatal errors";
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN ниво 0 - логове само на фатални грешки";
 
 /* Menu Item */
-"OpenVPN level 11 - extremely verbose output" = "OpenVPN level 11 - extremely verbose output";
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN ниво 11 - много детайлен лог";
 
 /* Menu Item */
-"OpenVPN level 3 - normal output" = "OpenVPN level 3 - normal output";
+"OpenVPN level 3 - normal output" = "OpenVPN ниво 3 - нормално ниво на детайли";
 
 /* Menu Item */
-"OpenVPN level 4 - also outputs values for all options" = "OpenVPN level 4 - also outputs values for all options";
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN ниво 4 - извежда също и стойности на всички опции";
 
 /* Menu Item */
-"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet";
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN ниво 5 - извежда също \"R\" или ”W\" за всеки пакет";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "OpenVPN level 6 - very verbose output";
+"OpenVPN level 6 - very verbose output" = "OpenVPN ниво 6 - детайлно ниво на логове";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "OpenVPN logging level set by the configuration";
+"OpenVPN logging level set by the configuration" = "OpenVPN ниво на логове зададено от конфигурацията";
 
 /* Menu item */
 "Quit Tunnelblick" = "Излез от Tunnelblick";
@@ -419,7 +419,7 @@
 "Reconnect when user switches in" = "Свържи отново, когато потребителят превключи обратно";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Изисвай оторизиране от администратор на промени в ключове и сертификати";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Възстановяване на основния интерфейс след прекъсване на връзката";
@@ -662,7 +662,7 @@
 "System Requirements Not Met" = "Системни изисквания не са изпълнени";
 
 /* Window title */
-"There are no OpenVPN processes running." = "Не открива активни OpenVPN процеси.";
+"There are no OpenVPN processes running." = "Няма активни OpenVPN процеси.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Проблем с конфигурацията на Tunnelblick";
@@ -782,7 +782,7 @@
 " Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Желаете ли да замените \n    %1$@\n    в %2$@ \nс %3$@%4$@?\n\n";
 
 /* Window text */
-" Forced preferences will also be installed or replaced.\n\n" = " Forced preferences will also be installed or replaced.\n\n";
+" Forced preferences will also be installed or replaced.\n\n" = " Принудителните настройки също ще бъдат инсталирани или заменени.\n\n";
 
 /* Window text */
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Забележка: OpenVPN конфигурациите ще бъдат конвертирани в Tunnelblick VPN конфигурации.\n\n";
@@ -806,7 +806,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ е върнат към последното сигурно (скрито) копие.\n\n";
 
 /* Window text */
-"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configurations have been reverted to their last secured (shadow) copy.\n\n";
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld конфигурации бяха върнати към тяхната secured (shadow) copy версия.\n\n";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' вече съществува на работния плот.\n\nИскате ли да го замените?";
@@ -824,7 +824,7 @@
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "Свойството 'easy-rsaPath' игнорирано; трябва да е абсолютен път или да започва с '~'";
 
 /* Window text -- apears in log display when logging is disabled */
-"(Logging is disabled.)" = "(Logging is disabled.)";
+"(Logging is disabled.)" = "(Логовете са спрени.)";
 
 /* Window text */
 "(Never checked)" = "(До момента проверка не е извършвана)";
@@ -899,7 +899,7 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Грешка (статус %1$ld) настъпили при опита за проверка на сигурността на %2$@ конфигурация.  \n\nМоля затворете и стартирайте наново Tunnelblick. Ако проблемът продължава, преинсталирайте Tunnelblick.";
 
 /* Window text */
-"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "Открита е грешка при проверка на конфигурацията която ще бъде инсталиране с Tunnelblick. Погледнете лог файла за повече информация.";
+"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "Открита е грешка при проверка на конфигурацията, която ще бъде инсталиране с Tunnelblick. Погледнете лог файла за повече информация.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Възникнала е грешка при опит да се стартира %@";
@@ -932,16 +932,16 @@
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Сигурни ли сте, че не искате да конвертирате OpenVPN конфигурациите в Tunnelblick VPN конфигурации?\n\nКОНФИГУРАЦИИТЕ НЯМА ДА СА НАЛИЧНИ, АКО НЕ ГИ КОНВЕРТИРАТЕ!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Сигурни ли сте, че искате да изтриете идентификационните данни (личен ключ и/или потребителско име и парола) за %ld конфигурации, които се съхраняват в Keychain?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Сигурни ли сте, че искате да изтриете идентификационните данни (личен ключ и/или потребителско име и парола) за '%@', които се съхраняват в Keychain?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Сигурни ли сте, че искате да изтриете идентификационните данни (личен ключ и/или потребителско име и парола), които се съхраняват в Keychain, за '%@' идентификационни данни?";
 
 /* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n";
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Сигурен ли сте, че искате да инсталирате конфигурации, които МОГАТ ДА ПОЕМАТ ПЪЛЕН КОНТРОЛ ВЪРХУ КОМПЮТЪРА ВИ?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "На ред %1$lu на OpenVPN конфигурационен файл: %2$@";
@@ -965,22 +965,22 @@
 "Cannot uninstall configuration '%@' because it is not installed." = "Не може да деинсталирате конфигурация '%@' защото не е инсталирана.";
 
 /* Window text */
-"Computer sleep/wake" = "Computer sleep/wake";
+"Computer sleep/wake" = "Заспиване/събуждане на компютъра";
 
 /* Window text */
-"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' ('%2$@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%3$s'\n\n";
+"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Конфигурация '%1$@' ('%2$@') ще бъде игнорирана, защото името ѝ съдържа знаци, които не са позволени. \n\nЗнаците, които не са позволени са: '%3$s'\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "Configuration '%@' already exists.";
+"Configuration '%@' already exists." = "Конфигурация '%@' вече съществува.";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Конфигурация \"%@\" съдържа един или повече скриптове, които могат да причинят проблеми, ако замените или деинсталирате конфигурацията, докато е свързана.\n\nЖелаете ли да заместите конфигурацията?";
 
 /* Window text */
-"Configuration '%@' is not secure. It should be reinstalled." = "Configuration '%@' is not secure. It should be reinstalled.";
+"Configuration '%@' is not secure. It should be reinstalled." = "Конфигурацуята '%@' не е сигурна. Трябва да бъде преинсталирана.";
 
 /* Window text */
-"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Configuration '%@' is not secure. Please reinstall Tunnelblick.";
+"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Конфигурация '%@' не е сигурна. Моля, преинсталирайте Tunnelblick.";
 
 /* Window text */
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Конфигурацията '%@' няма възможност за актуализация, защото тя не може да бъде маркирана като \"С възможност за актуализиране\".\n";
@@ -989,7 +989,7 @@
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Конфигурация ' %1$@ \"ще бъде игнорирана, защото името ѝ съдържа знаци, които не са позволени.  \n\nЗнаците, които не са позволени са: '%2$s'\n\n";
 
 /* Window text */
-"Configuration changes:" = "Configuration changes:";
+"Configuration changes:" = "Промяна на настройките:";
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Конфигурациите се инсталират от файлове, които са предоставени на вас от вашия мрежови администратор или доставчик на VPN услуги.  \n\nКонфигурационните файлове са разширения .tblk, .ovpn, или. conf.  \n\n(Може да има и други файлове, свързани с конфигурацията, които имат други разширения; моля игнорирайте ги за сега.)  \n\nЗа да инсталирате конфигурационен файл, щракнете двукратно върху него.  \n\nНовата конфигурация ще бъде на разположение в Tunnelblick незабавно.";
@@ -1055,34 +1055,34 @@
 "Do you wish to delete the %@ credentials?" = "Желаете ли да изтриете %@ идентификационни данни?";
 
 /* Window text */
-"Do you wish to duplicate the '%@' configuration?" = "Do you wish to duplicate the '%@' configuration?";
+"Do you wish to duplicate the '%@' configuration?" = "Желаете ли да направите дубликат на '%@' конфигурация?";
 
 /* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Желаете ли да инсталирате '%@' конфигурация така че всички потребители могат да я използват, или така, че само Вие да можете да я използвате?\n\n";
 
 /* Window text */
-"Do you wish to make %ld configurations private?" = "Do you wish to make %ld configurations private?";
+"Do you wish to make %ld configurations private?" = "Искате ли да направите %ld конфигурации лични(скрити)?";
 
 /* Window text */
-"Do you wish to make %ld configurations shared?" = "Do you wish to make %ld configurations shared?";
+"Do you wish to make %ld configurations shared?" = "Искате ли да споделите %ld конфигурации?";
 
 /* Window text */
-"Do you wish to make the '%@' configuration private?" = "Do you wish to make the '%@' configuration private?";
+"Do you wish to make the '%@' configuration private?" = "Искате ли да направите '%@' конфигурация лична(защитена)?";
 
 /* Window text */
-"Do you wish to make the '%@' configuration shared?" = "Do you wish to make the '%@' configuration shared?";
+"Do you wish to make the '%@' configuration shared?" = "Искате ли да споделите конфигурация '%@'?";
 
 /* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Желаете ли да преинсталирате '%1$@' версия %2$@?";
 
 /* Window text */
-"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.";
+"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Искате ли да изтриете %ld конфигурации?\n\nИзтриването на конфигурации е окончателно и не може да бъдат възстановени. Всички настройки в конфигурациите ще бъдат също окончателно загубени.";
 
 /* Window text */
-"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.";
+"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Искате ли да изтриете конфигурация '%@'?\n\nИзтриването на конфигурация е окончателно и не може да бъде възстановена. Всички настройки в конфигурацията ще бъдат също окончателно загубени.";
 
 /* Window text */
-"Do you wish to rename the '%@' configuration to '%@'?" = "Do you wish to rename the '%1$@' configuration to '%2$@'?";
+"Do you wish to rename the '%@' configuration to '%@'?" = "Искате ли да преименувате '%1$@' конфигурация на '%2$@'?";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Желаете ли да замените '%1$@' версия %2$@ с версия %3$@?";
@@ -1091,7 +1091,7 @@
 "Do you wish to replace the '%@' configuration?\n\n" = "Желаете ли да замените '%@' конфигурация?\n\n";
 
 /* Window text */
-"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n";
+"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Искате ли да върнете %ld конфигурации към тяхното последно сигурно (скрито) копие?\n\n";
 
 /* Window text */
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Желаете ли да се върне '%@' конфигурацията към последното подсигурено (скрито) копие?\n\n";
@@ -1181,7 +1181,7 @@
 "Installing configurations is not allowed" = "Инсталирането на конфигурации не е позволено";
 
 /* Window text */
-"Internal error: commentOutLines: line %lu does not exist" = "Internal error: commentOutLines: line %lu does not exist";
+"Internal error: commentOutLines: line %lu does not exist" = "Вътрешна грешка: commentOutLines: ред %lu не съществува";
 
 /* Window text */
 "Invalid value '%@' for '%@' in %@" = "Невалидна стойност '%1$@' за '%2$@' в %3$@";
@@ -1232,7 +1232,7 @@
 "Named Credentials" = "Именувани идентификационни данни";
 
 /* Window text */
-"Names may not include any of the following characters: %s" = "Names may not include any of the following characters: %s";
+"Names may not include any of the following characters: %s" = "Имената не могат да включват някои от следните символи: %s";
 
 /* Window text */
 "Names may not include any of the following characters: %s\n\n%@" = "Имената не могат да съдържат нито един от изброените знаци: %1$s\n\n%2$@";
@@ -1265,7 +1265,7 @@
 "Non-string value for an item in '%@' in %@" = "Non-string стойност за елемент в '%1$@' в %2$@";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Нито една от %ld избрани конфигурации не съдържа дентификационни данни (личен ключ или потр. име и парола) запаметени в Keychain.";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Не е .ovpn или .conf: %@";
@@ -1283,16 +1283,16 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Един или повече OpenVPN процеси се изпълняват, но са непознати за Tunnelblick. Ако не използвате OpenVPN отделно от Tunnelblick, това обикновено означава, че предишно стартиране на Tunnelblick не е било в състояние да ги прекрати правилно и Вие трябва да ги прекратите. Вероятно е да пречат на работата на Tunnelblick.\n\nТе могат да бъдат прекратени чрез вградената в операционната система програма 'Activity Monitor'.\n\n";
 
 /* Window text */
-"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details.";
+"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "Една или повече VPN конфигурации ще бъдат инсталирани с Tunnelblick, но те не са част от Tunnelblick. Тези конфигурации не могат да бъдат инсталирани с Tunnelblick, защото една или повече от тях включват програми, които ще бъдат изпълнявани с root права когато се свържете с VPN.";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Една или повече VPN конфигурации, които се променят включват програми, които ще бъдат изпълнявани с root права когато се свържете с VPN. Те могат да ПОЕМАТ ПЪЛЕН КОНТРОЛ ВЪРХУ ВАШИЯТ КОМПЮТЪР.\n\nНЕ ИНСТАЛИРАЙТЕ ТЕЗИ КОНФИГУРАЦИИ АКО НЕ ВЯРВАТЕ НА АВТОРА/ИЗТОЧНИКА ИМ.\n\nВярвате ли на автора/източника на тези конфигурации и искате ли да ги инсталирате?\n\n";
 
 /* Window text */
-"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Една или повече VPN конфигурации, които ще инсталирате включват програми, които ще бъдат изпълнявани с root права когато се свържете с VPN. Те могат да ПОЕМАТ ПЪЛЕН КОНТРОЛ ВЪРХУ ВАШИЯТ КОМПЮТЪР.\n\nНЕ ИНСТАЛИРАЙТЕ ТЕЗИ КОНФИГУРАЦИИ АКО НЕ ВЯРВАТЕ НА АВТОРА/ИЗТОЧНИКА ИМ.\n\nВярвате ли на автора/източника на тези конфигурации и искате ли да ги инсталирате?\n\n";
 
 /* Window text */
-"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding.";
+"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Една или повече VPN връзки са активни. Моля изключете всички VPN и излезте от Tunnelblick преди да продължите.";
 
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "Една или повече конфигурации са игнорирани. Моля погледнете конзолния лог за повече детайли.";
@@ -1352,7 +1352,7 @@
 "Remove" = "Премахни";
 
 /* Window text */
-"Rename failed; see the Console Log for details." = "Rename failed; see the Console Log for details.";
+"Rename failed; see the Console Log for details." = "Неуспешно преименуване; виж конзолния лог за повече подробности.";
 
 /* Window text */
 "Resolved symbolic link at '%@' to '%@'" = "Разрешен символен линк в '%1$@' до '%2$@'";
@@ -1475,7 +1475,7 @@
 "The file %@ is missing" = "Файлът %@ липсва";
 
 /* Window text */
-"The installation or repair took too long or failed. Try again?" = "The installation or repair took too long or failed. Try again?";
+"The installation or repair took too long or failed. Try again?" = "Инсталацията или поправката отнемат твърде дълго време или са неуспешни. Опитай отново?";
 
 /* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Инсталацията, отстраняването, възстановяването и ремонт на един или повече компоненти на Tunnelblick е неуспешно. Вижте конзолния лог за подробности.";
@@ -1484,7 +1484,7 @@
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "Паролата за достъп трябва да не е празна!\nМоля, въведете парола за VPN.";
 
 /* Window text */
-"The passphrase was not accepted." = "The passphrase was not accepted.";
+"The passphrase was not accepted." = "Секретната фраза не беше приета.";
 
 /* Window text */
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Личната конфигурация никога не е била защитена, така че не можете да я върнете към подсигуреното (скрито) копие.";
@@ -1493,10 +1493,10 @@
 "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "Папката с примерната конфигурация е била създадена на вашия работен плот, и конфигурационния файл на OpenVPN е отворен в TextEdit, така че можете да модифицирате файла за настройка на VPN.\n\nКогато сте готови с редактирането на конфигурационния файл на OpenVPN и записали промените, моля \n\n1. Преместете или копирайте ключовете или сертификат файловете, свързани с конфигурацията в \"Sample Tunnelblick VPN Configuration\" папката на вашия работен плот.\n\n(Тази папка е отворена във Finder прозорец, така можете да провлачите файловете в нея.)\n\n2. Сменете името на папката на име по ваш избор. Това ще бъде името, което Tunnelblick ще използва за конфигурацията.\n\n3. Добавяте \".tblk\" към края на името на папката.\n\n4. Щракнете двукратно върху папката за инсталиране на конфигурацията.\n\nНовата конфигурация ще бъде на разположение в Tunnelblick незабавно.";
 
 /* Window text */
-"The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
+"The username and password were not accepted by the remote VPN server." = "Потребителското име и парола не бяха приети от отдалечения VPN сървър.";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "Потребителското име не може да бъде празно.\nМоля, въведете VPN потребителско име и парола.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Няма OpenVPN конфигурации за инсталиране.";
@@ -1508,10 +1508,10 @@
 "There is not an OpenVPN configuration file in '%@'" = "Няма OpenVPN конфигурационен файл в \"%@\"";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "There was a problem deleting one or more configurations. See the Console Log for details.";
+"There was a problem deleting one or more configurations. See the Console Log for details." = "Възникна проблем при изтриване на една или повече конфигурации. За повече детайли вижте Console лог-а.";
 
 /* Window text */
-"There was a problem with the OpenVPN configuration. See the Console Log for details." = "There was a problem with the OpenVPN configuration. See the Console Log for details.";
+"There was a problem with the OpenVPN configuration. See the Console Log for details." = "Възникна проблем с OpenVPN конфигурацията. За повече детайли вижте Console лог-а.";
 
 /* Window text */
 "There was a problem with\n\n%@:\n\n%@" = "Възникнал е проблем с\n\n%1$@:\n\n%2$@";
@@ -1532,22 +1532,22 @@
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Това копие на Tunnelblick е бил променяно (Цифровият подпис е невалиден).\n\nМоля, проверете с доставчика на това копие на Tunnelblick преди да го използвате.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Това копие на Tunnelblick не е цифрово подписано.\n\nНяма начин да се провери, че това копие не е бил променяно.\n\nПроверете при доставчика на това копие на Tunnelblick преди да го използвате.\n\n";
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Това копие на Tunnelblick не е подписано цифрово.\n\nНяма начин да се провери, че това копие не е било променяно.\n\nПроверете при доставчика на това копие на Tunnelblick преди да го използвате.\n\n";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Това е 64-битова Intel версия на Tunnelblick, която няма да работи коректно ако се използват tun или tap kexts библиотеки.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "Това е 64-битова Intel версия на Tunnelblick, която няма да работи коректно с конфигурация, която използва tap връзка. Моля, използвайте универсална версия за Tunnelblick.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "Това е 64-битова Intel версия на Tunnelblick, която няма да работи коректно с конфигурация, която използва tun kexts. Моля, използвайте универсална версия за Tunnelblick.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "Това е 64-битова Intel версия на Tunnelblick, която няма да работи коректно с конфигурация, която използва tun kexts. Може да ползвате универсална версия за Tunnelblick или OS X 'utun' драйвер като премахнете OpenVPN 'dev-type' опциите - виж документацията на OpenVPN.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "Това е 64-битова Intel версия на Tunnelblick, която работи само на OS X с 64-bit kernel, или на OS X версия 10.6.8 или по-висока и ако не се използват tun или tap kexts.";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Тази версия на Tunnelblick не може да се стартира или инсталира, защото тя има невалидно URL за актуализация.\n\n";
@@ -1592,10 +1592,10 @@
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick не може да се извлече информация за IP адреса преди връзката с %@ да бъде установена.\n\n";
 
 /* Window text */
-"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file";
+"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick не намери 'tun' или 'tap' опция в OpenVPN конфигурационния файл";
 
 /* Window text */
-"Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick could not find a free port to use for communication with OpenVPN";
+"Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick не намери свободен порт за комуникация с OpenVPN";
 
 /* Window text */
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick не може да намери конфигурационния файл или конфигурационния файл не може да бъде санитазиран. Моля вижте конзолния лог за повече детайли.";
@@ -1604,13 +1604,13 @@
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick не може да премести '%@' конфигурацията. Моля вижте конзолния лог за повече детайли.";
 
 /* Window text */
-"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick could not replace the '%@' configuration. See the Console Log for details.";
+"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick не успя да замени '%@' конфигурация. Виж конзолния лог за повече детайли.";
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick не може да премахне '%@' конфигурацията. Моля вижте конзолния лог за повече детайли.";
 
 /* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@";
+"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick регистрира фатална грешка.\n\nМоля, свържете се с разработчиците на developers@tunnelblick.net за помощ.\n\nПроблемът е:\n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick се натъкна на грешки с %1$lu конфигурации:\n\n%2$@%3$@%4$@%5$@";
@@ -1628,37 +1628,37 @@
 "Tunnelblick is based on %@." = "Tunnelblick е базиран на %@.";
 
 /* Window text */
-"Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick is currently running. It will be shut down before proceeding.";
+"Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick е активен. Приложението ще бъде спряно преди да продължите.";
 
 /* Window text */
 "Tunnelblick is ready." = "Tunnelblick е готов.";
 
 /* Window text */
-"Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick needs authorization to duplicate the '%@' configuration.";
+"Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick се нуждае от оторизация, за да дублира '%@' конфигурация.";
 
 /* Window text */
-"Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick needs authorization to make %ld configurations private.";
+"Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick се нуждае от оторизация, за да направи %ld конфигурация лична.";
 
 /* Window text */
-"Tunnelblick needs authorization to make %ld configurations shared." = "Tunnelblick needs authorization to make %ld configurations shared.";
+"Tunnelblick needs authorization to make %ld configurations shared." = "Tunnelblick се нуждае от оторизация, за да направи %ld конфигурация споделена.";
 
 /* Window text */
-"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick needs authorization to make the '%@' configuration private.";
+"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick се нуждае от оторизация, за да направи '%@' конфигурация лична.";
 
 /* Window text */
-"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick needs authorization to make the '%@' configuration shared.";
+"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick се нуждае от оторизация, за да направи '%@' конфигурация споделена.";
 
 /* Window text */
-"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.";
+"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick се нуждае от оторизация, за да премахне %ld конфигурации.\n\nПремахването на конфигурации е окончателно и не може да бъде възстановено. Всички настройки в конфигурациите ще бъдат също загубени.";
 
 /* Window text */
-"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.";
+"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick се нуждае от оторизация, за да премахне '%@' конфигурации.\n\nПремахването на конфигурация е окончателно и не може да бъде възстановено. Всички настройки в конфигурацията ще бъдат също загубени.";
 
 /* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick needs authorization to rename the '%1$@' configuration to '%2$@'.";
+"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick се нуждае от оторизация, за да преименува конфигурация '%1$@' на '%2$@'.";
 
 /* Window text */
-"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick needs to change a setting that may only be changed by a computer administrator.";
+"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick трябва да промени настройка, която може да се променя само от администратора на компютъра.";
 
 /* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick трябва да създаде или актуализира подсигуреното (скрито) копие на конфигурационния файл.";
@@ -1673,28 +1673,28 @@
 "Tunnelblick successfully:\n\n" = "Tunnelblick успешно:\n\n";
 
 /* Window text */
-"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick беше успешно инсталиран и %ld конфигурации бяха инсталирани или заменени.";
 
 /* Window text */
-"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick беше успешно инсталиран и една конфигурация беше инсталирана или заменена.";
 
 /* Window text */
-"Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+"Tunnelblick was successfully installed." = "Tunnelblick беше успешно инсталиран.";
 
 /* Window text */
-"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick беше успешно актуализиран и %ld конфигурации бяха инсталирани или заменени.";
 
 /* Window text */
-"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick беше успешно актуализиран и една конфигурация беше инсталирана или заменена.";
 
 /* Window text */
-"Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
+"Tunnelblick was successfully replaced." = "Tunnelblick беше успешно актуализиран.";
 
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick не бе в състояние да установи връзка със съществуващ OpenVPN процес за '%1$@' в рамките на %2$d секунди. Опитът да се установи връзка е изоставен.";
 
 /* Window text */
-"Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick was unable to make the change. See the Console Log for details.";
+"Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick не успя да направи промените. Виж конзолния лог за повече детайли.";
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick не можа да стартира OpenVPN за връзка %@. За подробности, вижте лога във \"VPN Details…\" прозореца";
@@ -1787,10 +1787,10 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "Конфигурация на VPN %@ няма да бъде инсталирана, защото конфигурацията вече съществува и не трябва да бъде заменяна.";
 
 /* Window text */
-"VPN log level:" = "VPN log level:";
+"VPN log level:" = "Ниво на VPN лог:";
 
 /* Window text */
-"VPN status windows:" = "VPN status windows:";
+"VPN status windows:" = "Статус на VPN:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "Стойността '%1$@' за '%2$@' е не е валиден URL адрес в %3$@";
@@ -1829,22 +1829,22 @@
 "You are not allowed to replace a shared configuration" = "Не Ви е разрешено да заменяте споделена конфигурация";
 
 /* Window text */
-"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private.";
+"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "Не може да направите '%@' конфигурация лична, защото тя е обновяема такава.\n\nОбърнете внимание, че Tunnelblick VPN конфигурация, която е в обновяема Tunnelblick VPN конфигурация може да бъде лична.";
 
 /* Window text */
-"You cannot make the '%@' configuration private because it is set to start when the computer starts." = "You cannot make the '%@' configuration private because it is set to start when the computer starts.";
+"You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Не можете да зададете '%@' конфигурация като лична, защото е зададена да се изпълнява когато компютъра се стартира.";
 
 /* Window text */
-"You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared.";
+"You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "Не може да направите '%@' конфигурация споделена, защото тя е обновяема такава.\n\nОбърнете внимание, че Tunnelblick VPN конфигурация, която е в обновяема Tunnelblick VPN конфигурация не може да бъде споделена.";
 
 /* Window text */
-"You cannot rename a Deployed configuration." = "You cannot rename a Deployed configuration.";
+"You cannot rename a Deployed configuration." = "Не може да преименувате \"Deployed\" конфигурация.";
 
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "Не можете да преименувате конфигурация, освен ако не е спряна.";
 
 /* Window text */
-"You cannot rename a configuration which is set to start when the computer starts." = "You cannot rename a configuration which is set to start when the computer starts.";
+"You cannot rename a configuration which is set to start when the computer starts." = "Не може да преименувате конфигурация, която е зададена да се изпълнява когато се стартира компютъра.";
 
 /* Window text */
 "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nThe OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Имате OpenVPN конфигурации, но нямате никакви Tunnelblick VPN конфигурации.\n\nOpenVPN конфигурации трябва да бъдат конвертирани в Tunnelblick VPN конфигурации, ако искате да ги използвате.\n\n";
@@ -1871,10 +1871,10 @@
 "You may not duplicate a configuration which is set to start when the computer starts." = "Не можете да дупликирате конфигурация, която е настроена да се стартира при стартиране на компютъра.";
 
 /* Window text */
-"You may not remove a Deployed configuration." = "You may not remove a Deployed configuration.";
+"You may not remove a Deployed configuration." = "Не може да премахвате \"Deployed\" конфигурация.";
 
 /* Window text */
-"You may not remove a configuration which is set to start when the computer starts." = "You may not remove a configuration which is set to start when the computer starts.";
+"You may not remove a configuration which is set to start when the computer starts." = "Не може да премахнете конфигурация, която е зададена да се изпълнява когато се стартира компютъра.";
 
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Няма да можете да използвате Tunnelblick след актуализиране, освен ако не дадете администраторско потребителско име и парола.\n\nНаистина ли желаете да проверите за актуализации?";
@@ -1901,10 +1901,10 @@
 "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\nВНИМАНИЕ: Това копие на Tunnelblick прави компютъра несигурно. Това е само за отстраняване на грешки.\n";
 
 /* Window text */
-"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder." = "\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder.";
+"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder." = "\n\nАко двойното щракване не работи (понеже има проблеми с последните версии на Finder), моля провлачете конфигурацията върху иконата на Tunnelblick във Finder прозореца, който показва Applications папката.";
 
 /* Window text */
-"\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n";
+"\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nЗАБЕЛЕЖКА: Една или повече конфигурации са свързани. Те ще бъдат изключени, за да се изпълни инсталация/замяна/деинсталация, и тогава ще бъдат свързани отново ако не са били деинсталирани.\n\n";
 
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nи инсталирате %ld Tunnelblick VPN конфигурации";
@@ -1931,7 +1931,7 @@
 "64-bit enabling and testing" = "64-битово разрешаване и тестване";
 
 /* Credit description */
-"Afrikaans localization" = "Afrikaans localization";
+"Afrikaans localization" = "Африканска локализация";
 
 /* Credit description */
 "Animation and icon sets code" = "Код за анимация и комплекти от икони";
@@ -1967,7 +1967,7 @@
 "Contributed to early code" = "Допринася за ранния код";
 
 /* Credit description */
-"Croation localization" = "Croation localization";
+"Croation localization" = "Хърватска локализация";
 
 /* Credit description */
 "Czech localization" = "Чешка локализация";
@@ -2006,13 +2006,13 @@
 "Hungarian localization" = "Унгарска локализация";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "Исландска локализация";
 
 /* Credit description */
 "Icon set including Retina images" = "Групи икони включително Retina изображения";
 
 /* Credit description */
-"Indonesian localization" = "Indonesian localization";
+"Indonesian localization" = "Индонезийска локализация";
 
 /* Credit description */
 "Italian localization" = "Италианска локализация";
@@ -2030,7 +2030,7 @@
 "LEAD_TRANSLATORS" = "Boian Mihailov, Nikolay Zhelev, и Mihail Stoynov";
 
 /* Credit description */
-"Latvian localization" = "Latvian localization";
+"Latvian localization" = "Латвийска локализация";
 
 /* Credit description */
 "Localization code tweaks" = "Настройване на локализиращия код";
@@ -2048,7 +2048,7 @@
 "PKCS#11 support" = "Поддръжка на PKCS #11";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "Персийска локализация";
 
 /* Credit description */
 "Polish localization" = "Полска локализация";
@@ -2066,7 +2066,7 @@
 "Russian localization" = "Руска локализация";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Serbian (Latin) localization";
+"Serbian (Latin) localization" = "Сръбска (Latin) локализация";
 
 /* Credit description */
 "Slovak localization" = "Словашка локализация";
@@ -2093,7 +2093,7 @@
 "Up and Down scripts" = "Up and Down скриптове";
 
 /* Notification text */
-"Updated to %@." = "Updated to %@.";
+"Updated to %@." = "Актуализирано до версия %@.";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode help и OpenSSL интеграция";
