@@ -290,7 +290,7 @@
 "Make Configuration Shared..." = "將設定檔改為共享…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "No OpenVPN or Tunnelblick VPN logging";
+"No OpenVPN or Tunnelblick VPN logging" = "不記錄 OpenVPN 或 Tunnelblick VPN 的歷史";
 
 /* Menu item */
 "No VPN Configurations Available" = "沒有可用的 VPN 設定檔";
@@ -823,8 +823,8 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "「easy-rsaPath」偏好設定被略過；它必須是絕對路徑或以（ ~ ）開頭";
 
-/* Window text -- apears in log display when logging is disabled */
-"(Logging is disabled.)" = "(Logging is disabled.)";
+/* Window text -- apears in log display when logging is disabled\n */
+"(Logging is disabled.)" = "（已經停止紀錄歷史。）";
 
 /* Window text */
 "(Never checked)" = "（永遠不檢查）";
@@ -899,9 +899,6 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "當嘗試檢查設定檔 %2$@ 的安全性時發生了一個錯誤 (狀態碼 %1$ld) 。\n\n請結束並重新啟動 Tunnelblick。如果問題仍然存在，請重新安裝 Tunnelblick。";
 
 /* Window text */
-"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "當檢查一個將要安裝到 Tunnelblick 的設定檔時發生了一個錯誤。詳情請參見控制台日誌。";
-
-/* Window text */
 "An error occurred while trying to launch %@" = "當嘗試啟動 %@ 時發生錯誤";
 
 /* Window text */
@@ -942,6 +939,9 @@
 
 /* Window text */
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "你確定你要安裝這些可以完全控制你的電腦的設定檔嗎？\n\n";
+
+/* Window text */
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "確定要安裝可能「可以完全控制你的電腦」的設定檔嗎？\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "在 OpenVPN 設定檔的第 %1$lu 行: %2$@";
@@ -992,7 +992,10 @@
 "Configuration changes:" = "改變的設定：";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "配置是由網路管理人員或 VPN 服務供應商所提供的。\n\n配置檔案的副檔名是 .tblk，.ovpn，或 .conf。\n\n(配置檔案可能會有其他副檔名；現在先忽略它們。)\n\n若想安裝配置檔案，連按兩下即可。\n\n新安裝的配置檔案就可以立即使用。";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar." = "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar.";
+
+/* Window text */
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "連接：";
@@ -1283,10 +1286,10 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "一個或多個對於 Tunnelblick 不明的 OpenVPN 進程正在運行。如果你沒有獨立於 Tunnelblick 運行 OpenVPN，這通常表示先前運行的 Tunnelblick 進程並沒有被正確的退出。它們會干擾 Tunnelblick 的運作所以你應該強制終止它們。\n\n你可以在 '活動監察器' 內強制終止它們。\n\n";
 
 /* Window text */
-"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "一個或多個 VPN 設定檔將會跟 Tunnelblick 一起被安裝，但它們並不是 Tunnelblick 的一部分。當 Tunnelblick 安裝時，這些設定檔可能不會被安裝進去，因為這些配置文件含有在連接時會以 root 身份運行的程序。\n\n詳情請參見控制台日誌。";
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "你正在升級的一個或多個 VPN 設定檔包含了在連接時會以 root 身份運行的程序。他們可以完全地控制你的電腦。\n\n除非你信任它們的作者，否則你不應該安裝這些設定檔。\n\n你信任這些設定檔的作者，並且願意安裝這些設定檔嗎？\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "你正在升級的一個或多個 VPN 設定檔包含了在連接時會以 root 身份運行的程序。他們可以完全地控制你的電腦。\n\n除非你信任它們的作者，否則你不應該安裝這些設定檔。\n\n你信任這些設定檔的作者，並且願意安裝這些設定檔嗎？\n\n";
+"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
 
 /* Window text */
 "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "你正在安裝的一個或多個 VPN 設定檔包含了在連接時會以 root 身份運行的程序。他們可以完全地控制你的電腦。\n\n除非你信任它們的作者，否則你不應該安裝這些設定檔。\n\n你信任這些設定檔的作者，並且願意安裝這些設定檔嗎？\n\n";
@@ -1490,7 +1493,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "這個私人的設定檔從來沒有被保護，所以您無法恢復到被保護的副本。";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "配置樣本資料夾已經新增在您的桌面上，其中的 OpenVPN 配置檔已經在文字編輯軟體中開啟，以便您通過修改此檔案來設定你的 VPN 連線。\n\n在你完成編輯並儲存 OpenVPN 配置檔後，請\n\n1. 移動或複製跟此配置檔案相關的金鑰或證書檔案到桌面上的「Tunnelblick VPN 配置範本」資料夾。\n\n(此資料夾已為您在 Finder 視窗中開啟，以便您可以將這些檔案拖入視窗中。)\n\n2. 將資料夾重新命名為你想要的名字。這將是此配置在 Tunnelblick 中的名字。\n\n3. 把 .tblk 加到該文件夾的名稱的結尾。\n\n4. 雙按此資料夾以安裝此配置。\n\n新的配置將立即在 Tunnelblick 中顯示。";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar." = "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "對方的VPN伺服器不接受這個用戶名和密碼。";
@@ -1829,13 +1832,10 @@
 "You are not allowed to replace a shared configuration" = "你不可以取代共享的設置";
 
 /* Window text */
-"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "無法將名為 「%@」的設定設為私密，因為它是一個可自動更新的設定檔。\n\n注意：置於自動更新設定檔內的設定檔是可被設為私密的。";
-
-/* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "無法將名為 「%@」的設定設為共享，因為它被設定為在電腦啟動時自動啟用。";
 
 /* Window text */
-"You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "無法將名為 「%@」的設定設為共享，因為它是一個可自動更新的設定檔。\n\n注意：置於自動更新設定檔內的設定檔是可被共享的。";
+"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared.";
 
 /* Window text */
 "You cannot rename a Deployed configuration." = "你不能重新命名一個正在運行中的設定檔。";
@@ -1899,9 +1899,6 @@
 
 /* Window text */
 "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n警告: 這個版本的 Tunnelblick 會讓你的電腦不安全。這只是用來調試的版本。\n";
-
-/* Window text */
-"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder." = "\n\n如果雙擊沒有反應（近期的 Finder 版本有些錯誤可能造成這個情形發生），請把設定拖到 Finder 中應用程式資料夾裡頭的 Tunnelblick 圖示上。";
 
 /* Window text */
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\n注意：一個或多個設定檔正在運行中。它們會被中斷，然後安裝/取代/移除程序會被執行。除非被移除，否則會再次啟動到這些設定檔。\n\n";

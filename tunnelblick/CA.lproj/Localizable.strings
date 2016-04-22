@@ -823,7 +823,7 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "La preferència 'easy-rsaPath' no s'ha tingut en compte; ha de ser un camí absolut o començar amb '~'";
 
-/* Window text -- apears in log display when logging is disabled */
+/* Window text -- apears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Registre deshabilitat)";
 
 /* Window text */
@@ -899,9 +899,6 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "S'ha produït un error (estatus %1$ld) mentre s'intentava comprovar la seguretat de la configuració %2$@.\n\nSi us plau, surt i torna a iniciar Tunnelblick. Si el problema continua, torna a instal·lar Tunnelblick.";
 
 /* Window text */
-"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "S'ha produït un error mentre s'examinava la configuració que s'ha d'instal·lar amb Tunnelblick. Consulta la Consola per a més detalls.";
-
-/* Window text */
 "An error occurred while trying to launch %@" = "S'ha produït un error mentre s'intentava executar %@";
 
 /* Window text */
@@ -942,6 +939,9 @@
 
 /* Window text */
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Estàs segur que vols instal·lar configuracions que PODEN PRENDRE EL CONTROL TOTAL DE LA TEVA MÀQUINA?\n\n";
+
+/* Window text */
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Estàs segur que vols instal·lar configuracions que PODEN PRENDRE EL CONTROL TOTAL DE LA TEVA MÀQUINA?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "A la línia %1$lu del fitxer de la configuració OpenVPN: %2$@";
@@ -992,7 +992,10 @@
 "Configuration changes:" = "Canvis en la configuració:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Les configuracions s'intal·len a partir d'arxius que l'administrador o el teu proveïdor de serveis VPN et subministren.\n\nLes configuracions tenen l'extensió .tblk, .ovpn, o .conf.\n\n(Poden haver-hi altres arxius associats a la configuració que tenen altres extensions; ignora-ls de moment.)\n\nPer instal·lar una configuració, fes doble clic sobre l'arxiu.\n\nLa nova configuració estarà disponible a Tunnelblick immediatament.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar." = "Les configuracions s'intal·len a partir d'arxius que l'administrador o el teu proveïdor de serveis VPN et subministren.\n\nLes configuracions tenen l'extensió .tblk, .ovpn, o .conf.\n\n(Poden haver-hi altres arxius associats a la configuració que tenen altres extensions; ignora-ls de moment.)\n\nPer instal·lar una configuració, fes doble clic sobre l'arxiu.\n\nLa nova configuració estarà disponible a Tunnelblick immediatament.";
+
+/* Window text */
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Les configuracions que no són part de Tunnelblick es configuren per ser instal·lades quan instal·les Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "Connectar:";
@@ -1283,10 +1286,10 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Un o més processos OpenVPN estan funcionant però són desconeguts per Tunnelblick. Si, per la teva part, no estàs utilitzant OpenVPN, això significa que una execució prèvia de Tunnelblick no ha tancat bé totes les connexions i ara les hauria de matar. Aquestes poden interferir amb el bon funcionament de Tunnelblick.\n\nEs poden aturar mitjançat el 'Monitor d'Activitat'.\n\n";
 
 /* Window text */
-"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "Una o més configuracions d'VPN s'instal·larien amb Tunnelblick, pero no són part de Tunnelblick. Aquestes configuracions poden no ser instal·lades quan s'instal·li Tunnelblick atès que una o més d'aquestes inclouen un programa que seria executat com a root quan es connecti a la VPN.\n\nMira el registre a la Consola per més detalls.";
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Una o més configuracions VPN que s'estan actualitzant inclouen comandes que s'exectuten amb l'usuari root quan la VPN es connecta. Aquestes poden PRENDRE CONTROL TOTAL DE LA MÀQUINA.\n\nNO HAURÍES D'INSTAL·LAR AQUESTES CONFIGURACIONS A NO SER QUE CONFIÏS EN L'AUTOR DE LES MATEIXES.\n\nConfies en l'autor de les configuracions i desitges instal·lar-les?\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Una o més configuracions VPN que s'estan actualitzant inclouen comandes que s'exectuten amb l'usuari root quan la VPN es connecta. Aquestes poden PRENDRE CONTROL TOTAL DE LA MÀQUINA.\n\nNO HAURÍES D'INSTAL·LAR AQUESTES CONFIGURACIONS A NO SER QUE CONFIÏS EN L'AUTOR DE LES MATEIXES.\n\nConfies en l'autor de les configuracions i desitges instal·lar-les?\n\n";
+"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Una o més de les configuracions VPN que estàs instal·lant inclouen opcions OpenVPN que no són reconegudes per Tunnelblick. Es pot tractar d'un error en la configuració o d'un error a Tunnelblick, o la configuració pot incloure programes que s'executaran com a root quan es connecti la VPN. Aquests programes poden PRENDRE CONTROL TOTAL DE LA TEVA MÀQUINA.\n\nNO HAURIES D'INSTAL·LAR AQUESTES CONFIGURACIONS A MENYS QUE CONFIÏS EN ELS AUTORS.\n\nConfies en els autors i desitges instal·lar aquestes configuracions?\n\n";
 
 /* Window text */
 "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Una o més configuracions VPN que s'estan instal·lant inclouen comandes que s'exectuten amb l'usuari root quan la VPN es connecta. Aquestes poden PRENDRE CONTROL TOTAL DE LA MÀQUINA.\n\nNO HAURÍES D'INSTAL·LAR AQUESTES CONFIGURACIONS A NO SER QUE CONFIÏS EN L'AUTOR DE LES MATEIXES.\n\nConfies en l'autor de les configuracions i desitges instal·lar-les?\n\n";
@@ -1490,7 +1493,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "La configuració privada no s'ha securitzat mai, així que no es pot revertir a la còpia shadow.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "La carpeta amb la configuració de guia s'ha creat a l'Escriptori, i l'arxiu de configuració OpenVPN s'ha obert amb TextEdit per tal que el puguis modificar amb la teva configuració VPN.\n\nQuan hagis acabat d'editar-lo i hagis desat els canvis, si us plau:\n\n1. Mou o copia les claus o certificats associades a la configuració a la carpeta 'Configuració VPN de guia de Tunnelblick' al teu Escriptori.\n\n(La carpeta s'ha obert al Finder per tal que hi posis els teus arxius.)\n\n2. Canvia el nom de la carpeta per un de la teva elecció. Aquest nom és el que Tunnelblick utilitzarà per la connexió.\n\n3. Afegeix .tblk al final del nom de la carpeta.\n\n4. Fes doble-click a la carpeta per instal·lar la configuració.\n\nLa nova configuració estarà disponible a Tunnelblick immediatament.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar." = "S'ha creat una carpeta amb la configuració de mostra al teu Escriptori, i l'arxiu de configuració OpenVPN s'ha obert amb TextEdit perquè puguis configurar la teva connexió.\n\nQuan hagis acabat d'editar l'arxiu OpenVPN i hagis desat els canvis, si us plau\n\n1. Mou o copia les claus o els arxis de certificats associats a la connexió a la carpeta amb la configuració de mostra al teu Escriptori.\n\n(Aquesta carpeta s'ha obert al Finder de manera que puguis arrosegar-hi els arxius.)\n\n2. Canvia el nom de l'arxiu de la configuració per un nom de la teva elecció (no canviïs l'extensió de l'arxiu). Aquest serà el nom que Tunnelblick utilitzarà per a la configuració.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "El nom d'usuari i la contasenya no s'han acceptat pel servidor VPN remot.";
@@ -1829,13 +1832,10 @@
 "You are not allowed to replace a shared configuration" = "No podeu substituir una configuració compartida";
 
 /* Window text */
-"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "No pots fer la configuració '%@' privada perqué és una configuració actualitzable.\n\nUna configuració VPN de Tunnelblick que es troba dins d'una configuració VPN actualitzable de Tunnelblick pot ser privada.";
-
-/* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "No pots fer la configuració '%@' privada perqué està configurada per a arrencar quan la màquina s'inicia.";
 
 /* Window text */
-"You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "No pots fer la configuració '%@' compartida perqué és una configuració actualitzable.\n\nUna configuració VPN de Tunnelblick que es troba dins d'una configuració VPN actualitzable de Tunnelblick pot ser compartida.";
+"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "No pots fer la configuració '%@' privada o compartida perquè és una configuració actualitzable.\n\nPren nota que una configuració VPN de Tunnelblick actualitzable no es pot fer privada o compartida; només les configuracions incloses poden ser privades o compartides.";
 
 /* Window text */
 "You cannot rename a Deployed configuration." = "Una configuració Desplegada no es pot canviar de nom.";
@@ -1899,9 +1899,6 @@
 
 /* Window text */
 "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n AVÍS: Aquesta còpia de Tunnelblick fa que l'ordinador sigui insegur. Només és per a finalitats de depuració.\n";
-
-/* Window text */
-"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder." = "\n\nSi el doble click no funciona (hi ha un bug en versions recents de Finder que poden provocar aquest fet), si us plau, arrosega la configuració a la icona de Tunneblick en una finestra del Finder mostrant els components de la carpeta d'Aplicacions.";
 
 /* Window text */
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nNOTA: Una configuració o més estan actualment connectades. Es desconnectaran, es duran a terme les instal·lacions, canvis o desinstal·lacions, i les configuracions seran reconnectades si no han estat desinstal·lades.\n\n";

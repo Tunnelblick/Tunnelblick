@@ -290,34 +290,34 @@
 "Make Configuration Shared..." = "Κάνε τις παραμέτρους κοινόχρηστες…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "No OpenVPN or Tunnelblick VPN logging";
+"No OpenVPN or Tunnelblick VPN logging" = "Μη διαθέσιμες καταγραφές για OpenVPN ή Tunnelblick VPN";
 
 /* Menu item */
 "No VPN Configurations Available" = "Μη διαθέσιμες παράμετροι VPN";
 
 /* Menu Item */
-"OpenVPN level %lu" = "OpenVPN level %lu";
+"OpenVPN level %lu" = "Επίπεδο OpenVPN %lu";
 
 /* Menu Item */
-"OpenVPN level 0 - no output except fatal errors" = "OpenVPN level 0 - no output except fatal errors";
+"OpenVPN level 0 - no output except fatal errors" = "Επίπεδο OpenVPN 0 - καμία έξοδος εκτός από καίρια σφάλματα";
 
 /* Menu Item */
-"OpenVPN level 11 - extremely verbose output" = "OpenVPN level 11 - extremely verbose output";
+"OpenVPN level 11 - extremely verbose output" = "Επίπεδο OpenVPN 11 - εξαιρετικά λεπτομερείς έξοδος";
 
 /* Menu Item */
-"OpenVPN level 3 - normal output" = "OpenVPN level 3 - normal output";
+"OpenVPN level 3 - normal output" = "Επίπεδο OpenVPN 3 - κανονική καταγραφή";
 
 /* Menu Item */
-"OpenVPN level 4 - also outputs values for all options" = "OpenVPN level 4 - also outputs values for all options";
+"OpenVPN level 4 - also outputs values for all options" = "Επίπεδο OpenVPN 4 - καταγράφει τιμές για όλες τις ρυθμίσεις";
 
 /* Menu Item */
-"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet";
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "Επίπεδο OpenVPN 5 - καταγράφει \"Δ\" ή \"Γ\" για κάθε πακέτο";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "OpenVPN level 6 - very verbose output";
+"OpenVPN level 6 - very verbose output" = "Επίπεδο OpenVPN 6 - εξαιρετικά λεπτομερείς έξοδος";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "OpenVPN logging level set by the configuration";
+"OpenVPN logging level set by the configuration" = "Το επίπεδο καταγραφής του OpenVPN είναι καθορισμένο στις ρυθμίσεις";
 
 /* Menu item */
 "Quit Tunnelblick" = "Έξοδος Tunnelblick";
@@ -823,8 +823,8 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "Προτιμήσεις 'easy-rsaPath' αγνοήθηκαν, πρέπει να είναι απόλυτη διαδρομή ή να ξεκινά με το σύμβολο '~'";
 
-/* Window text -- apears in log display when logging is disabled */
-"(Logging is disabled.)" = "(Logging is disabled.)";
+/* Window text -- apears in log display when logging is disabled\n */
+"(Logging is disabled.)" = "(Η καταγραφή είναι απενεργοποιημένη)";
 
 /* Window text */
 "(Never checked)" = "(Ποτέ έλεγχος)";
@@ -899,9 +899,6 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Ένα σφάλμα (κατάσταση %1$ld) παρουσιάστηκε καθώς ελεγχόταν η ασφάλεια της παραμέτρου %2$@.\n\n Παρακαλούμε τερματίστε το Tunnelblick και εκκινήστε πάλι. Αν παραμείνει το πρόβλημα εγκαταστήστε το εκ νέου το Tunnelblick.";
 
 /* Window text */
-"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "Προκλήθηκε ένα λάθος κατά τη διάρκεια της εξέτασης μιας ρυθμίσης, οι οποίες επρόκειτο να εγκατασταθούν με το Tunnelblick. Δείτε τις καταγραφές της κονσόλας για περισσότερες λεπτομέρειες.";
-
-/* Window text */
 "An error occurred while trying to launch %@" = "Παρουσιάστηκε σφάλμα κατά την εκκίνηση του %@";
 
 /* Window text */
@@ -942,6 +939,9 @@
 
 /* Window text */
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Είστε σίγουρος/η ότι επιθυμείτε να εγκαταστήσετε τις ρυθμίσεις οι οποίες θα ΠΑΡΟΥΝ ΟΛΟΚΛΗΡΟΤΙΚΟ ΕΛΕΓΧΟ ΤΟΥ ΥΠΟΛΟΓΙΣΤΉ ΣΑΣ;\n\n";
+
+/* Window text */
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Στη γραμμή %1$lu του αρχείου παραμέτρων OpenVPN: %2$@";
@@ -992,7 +992,10 @@
 "Configuration changes:" = "Αλλαγή ρύθμισης:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Οι παράμετροι εγκαταστάθηκαν από αρχεία που προμηθευτήκατε από τον διαχειριστή του δικτύου σας ή από τον παροχέα υπηρεσίας του VPN σας.\n\nΤα αρχεία παραμέτρων έχουν καταλήξεις .tblk, .ovpn, ή .conf.\n\n(Μπορεί να υπάρχουν άλλα συνεργαζόμενα αρχεία παραμέτρων που να έχουν άλλες καταλήξεις, αγνοήστε τα επί του παρόντος.)\n\nΓια την εγκατάσταση αρχείου ρυθμίσεων κάντε διπλό κλίκ.\n\nΟι νέες παράμετροι θα είναι άμεσα διαθέσιμοι στο Tunnelblick.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar." = "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar.";
+
+/* Window text */
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "Σύνδεση:";
@@ -1283,10 +1286,10 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = " Μια ή περισσότερες εργασίες OpenVPN πραγματοποιούνται αλλά είναι άγνωστες στο Tunnelblick. Αν δεν ενεργοποιήσατε ξεχωριστά OpenVPN από το Tunnelblick αυτό σημαίνει ότι μια παλιότερη εκκίνηση του Tunnelblick δεν τερματίστηκε σωστά και πρέπει να τερματιστεί. Πιθανόν να εμποδίζετε από αυτή την λειτουργία.\n\nΜπορούν να τερματιστούν από την εφαρμογή ‘Παρακολούθηση δραστηριοτήτων’.\n\n";
 
 /* Window text */
-"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "Μια ή περισσότερες ρυθμίσεις VPN είναι εγκατεστημένες με το Tunnelblick, αλλά δεν είναι μέρος του Tunnelblick. Αυτές οι ρυθμίσεις ίσως να μην εγκατασταθούν με την εγκατάσταση του Tunnelblick, διότι μια ή περισσότερες από αυτές περιέχει κάποιο πρόγραμμαα, το οποίο θα εκτελεστεί ώς root όταν συνδεθείς σε ένα VPN.";
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Μια ή περισσότερες ρυθμίσεις VPN που ενημερώνονται περιέχουν προγράμματα, τα οποία θα εκτελεστούν ώς root όταν συνδεθείτε σε κάποιο VPN. Είναι ικανά να ΠΑΡΟΥΝ ΠΛΗΡΗ ΈΛΕΓΧΟ ΤΟΥ ΥΠΟΛΟΓΙΣΤΉ ΣΑΣ.\n\nΙΣΩΣ ΘΑ ΠΡΕΠΕΙ ΝΑ ΜΗΝ ΕΓΚΑΤΑΣΤΗΣΕΤΕ ΑΥΤΕΣ ΤΙΣ ΡΥΘΜΙΣΕΙΣ ΠΑΡΑ ΜΟΝΟ ΑΝ ΕΜΠΙΣΤΕΥΕΣΤΕ ΤΟΝ ΔΗΜΙΟΥΡΓΌ.\n\nΕμπιστεύεστε τον δημιουργό αυτών των ρυθμίσεων και επιθυμείτε να τις εγκατασήσετε;\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Μια ή περισσότερες ρυθμίσεις VPN που ενημερώνονται περιέχουν προγράμματα, τα οποία θα εκτελεστούν ώς root όταν συνδεθείτε σε κάποιο VPN. Είναι ικανά να ΠΑΡΟΥΝ ΠΛΗΡΗ ΈΛΕΓΧΟ ΤΟΥ ΥΠΟΛΟΓΙΣΤΉ ΣΑΣ.\n\nΙΣΩΣ ΘΑ ΠΡΕΠΕΙ ΝΑ ΜΗΝ ΕΓΚΑΤΑΣΤΗΣΕΤΕ ΑΥΤΕΣ ΤΙΣ ΡΥΘΜΙΣΕΙΣ ΠΑΡΑ ΜΟΝΟ ΑΝ ΕΜΠΙΣΤΕΥΕΣΤΕ ΤΟΝ ΔΗΜΙΟΥΡΓΌ.\n\nΕμπιστεύεστε τον δημιουργό αυτών των ρυθμίσεων και επιθυμείτε να τις εγκατασήσετε;\n\n";
+"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
 
 /* Window text */
 "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Μια ή περισσότερες ρυθμίσεις VPN που εγκαθηστόνται περιέχουν προγράμματα, τα οποία θα εκτελεστούν ώς root όταν συνδεθείτε σε κάποιο VPN. Είναι ικανά να ΠΑΡΟΥΝ ΠΛΗΡΗ ΈΛΕΓΧΟ ΤΟΥ ΥΠΟΛΟΓΙΣΤΉ ΣΑΣ.\n\nΙΣΩΣ ΘΑ ΠΡΕΠΕΙ ΝΑ ΜΗΝ ΕΓΚΑΤΑΣΤΗΣΕΤΕ ΑΥΤΕΣ ΤΙΣ ΡΥΘΜΙΣΕΙΣ ΠΑΡΑ ΜΟΝΟ ΑΝ ΕΜΠΙΣΤΕΥΕΣΤΕ ΤΟΝ ΔΗΜΙΟΥΡΓΌ.\n\nΕμπιστεύεστε τον δημιουργό αυτών των ρυθμίσεων και επιθυμείτε να τις εγκατασήσετε;\n\n";
@@ -1490,7 +1493,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Ποτέ δεν δημιουργήθηκαν αντίγραφα ασφαλείας για τις ιδιωτικές παραμέτρους, για αυτό και δεν μπορούν να ανακληθούν από ασφαλές αντίγραφο (κρυφό)";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "Ο φάκελος Δήγματα Παραμέτρων δημιουργήθηκε στο Γραφείο Εργασίας σας, το αρχείο παραμέτρων OpenVPN άνοιξε στο ΤextEdit για να μπορείτε να τροποποιήσετε το αρχείο με της ρυθμίσεις του δικού σας VPN.\n\nΌταν τελειώσετε με την επεξεργασία του αρχείου των παραμέτρων OpenVPN παρακαλώ αποθηκεύστε.\n\n1. Μετακινήστε ή αντιγράψτε κάθε κλειδί ή αρχείο πιστοποιητικού, συνεργαζόμενο με της παραμέτρους, στον φάκελο 'Δείγμα παραμέτρων VPN του Tunnelblick' στο Γραφείο Εργασίας σας.\n\n(Αυτός ο φάκελος είναι ανοιχτός στο παράθυρο του Finder για να μπορείτε να το σύρετε μέσα.)\n\n2. Μετονομάστε το όνομα του φακέλου στο όνομα που επιθυμείτε. Αυτό το όνομα θα χρησιμοποιήσει το Tunnelblick για της παραμέτρους.\n\n3. Προσθέστε την κατάληξη .tblk στο τέλος του ονόματος φακέλου.\n\n4. Κάντε διπλό-κλίκ πάνω στον φάκελο για να εγκαταστήσετε τις παραμέτρους.\n\nΟι νέες παράμετροι θα είναι άμεσα διαθέσιμοι στο Tunnelblick.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar." = "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "Το όνομα χρήστη και ο κωδικός πρόσβασης δεν είναι αποδεκτά από τον απομακρυσμένο VPN διακομιστή.";
@@ -1829,13 +1832,10 @@
 "You are not allowed to replace a shared configuration" = "Δεν σας επιτρέπετε να αντικαταστήσετε κοινόχρηστες παραμέτρους";
 
 /* Window text */
-"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "Δεν είναι δυνατή η δημιουργία της ιδιωτικής ρύθμισης '%@', γιατί είναι μια ενημερόσιμη ρύθμιση.\n\nΣημειώστε ότι μια ρύθμιση Tunnelblick VPN μπορεί να είναι ιδιωτική στην περίπτωση που είναι κομμάτι μιας ενημερόσιμης ρύθμισης.";
-
-/* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Δεν μπορείτε να δημιουργήσετε την ιδιωτική ρύθμιση '%@' γιατί είναι ρυθμισμένη να ξεκινά με την έναρξη του υπολογιστή.";
 
 /* Window text */
-"You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "Δεν μπορείτε να δημιουργήσετε την κοινή ρύθμισης '%@' γιατί είναι μια ενημερόσιμη ρύθμιση.\n\nΣημειώστε ότι μια ρύθμιση Tunnelblick VPN μπορεί να είναι κοινή στην περίπτωση που είναι κομμάτι μιας ενημερόσιμης ρύθμισης.";
+"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared.";
 
 /* Window text */
 "You cannot rename a Deployed configuration." = "Δεν μπορείτε να μετονομάσετε μια Παρατεταγμένη ρύθμιση.";
@@ -1899,9 +1899,6 @@
 
 /* Window text */
 "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n  Προειδοποίηση: Αυτό το αντίγραφο του Tunnelblick ίσος να μη είναι ανασφαλής για τον υπολογιστή σας. Είναι μόνο για τον εντοπισμό σφαλμάτων.\n";
-
-/* Window text */
-"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder." = "\n\nΕαν το διπλό κλικ δεν λειτουργεί (τότε υπάρχουν σφάλματα στην τελευταία έκδοση του Finder τα οποία ίσως να το προκαλούν), παρακαλώ σύρτε την ρύθμιση πάνω στο εικονίδιο του Tunnelblick μέσα σε ένα παράθυρο του Finder στο φάκελο εφαρμογών.";
 
 /* Window text */
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nΣΗΜΕΙΩΣΗ: Αυτή τη στιγμή μια ή περισσότερες ρυθμίσεις είναι συνδεδεμένες. Θα αποσυνδεθούν, εγκαταστάσεις/αντικαταστάσεις/απεγκαταστάσεις θα πραγματοποιηθούν και οι ρυθμίσεις θα επανασυνδεθούν εαν και μόνο δεν έχουν απεγκατασταθεί.\n\n";

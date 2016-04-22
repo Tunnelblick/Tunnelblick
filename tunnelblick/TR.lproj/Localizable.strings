@@ -823,7 +823,7 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' ayarı yok sayıldı; mutlak yol olmalı ya da '~' ile başlamalıdır";
 
-/* Window text -- apears in log display when logging is disabled */
+/* Window text -- apears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Kayıt kapalı)";
 
 /* Window text */
@@ -899,9 +899,6 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "%2$@ yapılandırmasının güvenliği kontrol edilirken bir hata oluştu. (Hata kodu  %1$ld) \n\nTunnelblick 'i kapatıp tekrar açın. Eğer sorun devam ederse, Tunnelblick 'i kaldırıp tekrar yükleyin.";
 
 /* Window text */
-"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "Tunnelblick'e yüklenecek yapılandırma dosyasını incelerken hata oluştu. Detaylar için konsol kayıtlarını inceleyin.";
-
-/* Window text */
 "An error occurred while trying to launch %@" = "%@ çalıştırılırken bir hata oluştu";
 
 /* Window text */
@@ -942,6 +939,9 @@
 
 /* Window text */
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "BİLGİSAYARINIZIN TÜM KONTROLÜNÜ ALACAK olan yapılandırmayı yüklemek istediğinize emin misiniz?\n\n";
+
+/* Window text */
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "BİLGİSAYARINIZIN TÜM KONTROLÜNÜ DEVRALACAK yapılandırmaları etkinleştirmek istediğinize emin misiniz?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "OpenVPN yapılandırma dosyasının %1$lu numaralı satırda: %2$@";
@@ -992,7 +992,10 @@
 "Configuration changes:" = "Yapılandırma değişiklikleri:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Yapılandırmalar ağ yöneticiniz veya VPN servis sağlayıcınız tarafından sağlanan dosyalardan yüklenirler.\n\nYapılandırma dosyaları .tblk, .ovpn veya .conf uzantılarına sahiptir.\n\n(Yapılandırmayla ilişkili başka uzantıya sahip dosyalar bulunabilir, şimdilik onları görmezden gelebilirsiniz.)\n\nYapılandırma dosyasını yüklemek için, çift tıklayınız.\n\nYeni yapılandırma Tunnelblick de hemen yüklenip hazır olacaktır.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar." = "Ağ yöneticiniz ya da VPN servis sağlayıcınız tarafından sağlanan dosyalarla yapılandırmalarınız yüklendi.\n\nYapılandırma dosyalarınızın uzantıları .tblk, .ovpn veya .conf tur.\n\n(Atanmış diğer yapılandırma dosyası uzantıları desteklenmemektedir.)\n\nYapılandırma dosyasını yüklemek için, menü çubuğundaki Tunnelblick iconunun üzerine sürükleyip bırakın.\n\nBirden fazla yapılandırma dosyasını tek seferde yüklemek için, tümünü seçin sürekleyerek menü çubuğundaki Tunnelblick ikonu üzerine bırakın.";
+
+/* Window text */
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Tunnelblick parçası olmayan yapılandırmalar, Tunneliblick yüklendikten sonra ayarlanacak.\n\n";
 
 /* Window text */
 "Connect:" = "Bağlan:";
@@ -1283,10 +1286,10 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Bir veya daha fazla OpenVPN işlemi çalışıyor ama Tunnelblick bunları tanıyamıyor. Eğer OpenVPN i Tunnelblick den ayrı olarak çalıştırmıyorsanız, genelde bunun anlamı daha önce açılan bir Tunnelbick in doğru kapatılmamış olmasıdır.\n\nBu işlemler, 'Activity Monitor' üzerinden sonlandırılabilir.\n\n";
 
 /* Window text */
-"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "Tunnelblick'in parçası olmayan bir ya da daha fazla VPN yapılandırması Tunnelblick'e yüklenecek. Bunlar root yetkisi istediği için Tunnelblick yüklendiğinde çalışmayabilir.\n\nDetaylar için konsol kayıtlarını inceleyin.";
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "VPN'e bağlanıldığında root haklarıyla çalışması gereken programlar içeren bir veya daha fazla VPN yapılandırma dosyası mevcut. bunlar BİLGİSAYARINIZIN KONTROLÜNÜ ALABİLİR.\n\nGELİŞTİRİCİSİNE GÜVENMİYORSANIZ BUNLARI YÜKLEMEMELİSİNİZ.\n\nYüklenecek bu dosyaların geliştiricisine güveniyor musunuz?\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "VPN'e bağlanıldığında root haklarıyla çalışması gereken programlar içeren bir veya daha fazla VPN yapılandırma dosyası mevcut. bunlar BİLGİSAYARINIZIN KONTROLÜNÜ ALABİLİR.\n\nGELİŞTİRİCİSİNE GÜVENMİYORSANIZ BUNLARI YÜKLEMEMELİSİNİZ.\n\nYüklenecek bu dosyaların geliştiricisine güveniyor musunuz?\n\n";
+"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Tunnelblick tarafından tanınmayan OpenVPN seçeneği içeren bir veya daha fazla VPN yapılandırması var. Bu hatalar yapılandırma dosyasından, Tunnelblick'ten ya da VPN bağlantısı yapıtğınızda root hakkı isteyen bazı programları çalıştırmak istemesinden kaynaklı olabilir. Bu tarz programlar BİLGİSAYARINIZIN TÜM KONTROLÜNÜ ELEGEÇİREBİLİR.\n\nGELİŞTİRİCİSİNE GÜVENMİYORSANIZ BU TARZ YAPILANDIRMA DOSYALARINI YÜKLEMEYİN.\n\nYapılandırmayı hazırlayan geliştiriciye güvenip bunları yüklemek istiyor musunuz?\n\n";
 
 /* Window text */
 "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "VPN'e bağlanıldığında root haklarıyla çalışması gereken programlar içeren bir veya daha fazla VPN yapılandırma dosyası mevcut. bunlar BİLGİSAYARINIZIN KONTROLÜNÜ ALABİLİR.\n\nGELİŞTİRİCİSİNE GÜVENMİYORSANIZ BUNLARI YÜKLEMEMELİSİNİZ.\n\nYüklenecek bu dosyaların geliştiricisine güveniyor musunuz?\n\n";
@@ -1490,7 +1493,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Özel yapılandırma dosyası hiç güvenli olamadığı için, güvenli (gölge) kopyasına geri dönülemez.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "Örnek yapılandırma dosyası masa üstünüzde yaratıldı ve OpenVPN yapılandıma dosyasınız TextEdit ile açıldı. Böylece VPN yapılandırmanız için dosyayı değiştirebilirsiniz.\n\nOpenVPN yapılandırma dosyası düzenlemesini bitirip değişiklikleri kaydettiğinizde, lütfen şu adımları tamamlayın:\n\n1. Masaüstünüzdeki 'Örnek Tunnelblick VPN yapılandırma' dizininine yapılandırma dosyasında belirtilen anahtar ya da sertifikaları kopyalayın veya taşıyın.\n\n(Bu dizin Finder penceresinde açılacağı için sürekleyerek dosyaları taşıyabilirsiniz.)\n\n2. Tunnelblick dizin isimlerini yapılandırma ismi olarak kullanır. Dizinin adını kullanmak istediğiniz yapılandırma ismine göre değiştirin.\n\n3. Dizinin adına '.tblk' ekleyin. Örnek dizin adı: Profelis.tblk\n\n4.  Yapılandırmayı yüklemek için dizin adına çift tıklayın.\n\nYeni yapılandırma Tunnelblick içerisine hemen eklenecek.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar." = "Örnek yapılandırma klasörünüz Masaüstünde oluşturuldu ve OpenVPN yapılandırması VPN yapılandırmanızı düzenleyebilmeniz için TextEdit ile açıldı.\n\nOpenVPN dosyasını düzenlemeyi bitirip kaydettiğinizde, lütfen\n\n1. Masaüstünde duran 'Örnek Tunnelblick VPN Yapılandırması' dizinine yapılandırma ile ilgili anahtar ve sertifika dosyasını taşıyın ya da kopyalayın.\n\n(Bu dizin Finder penceresinde açıldı, siz dosyaları buraya taşıyabilirsiniz.)\n\n2. Yapılandırma dosyasının adını istediğiniz bir isimle değiştirin (dosya uzantılarını değiştirmeyin). Bu isim Tunnelblick ilçerisinde kullanılacak yapılandırma ismi olacak.\n\n3. Yapılandırmayı yüklemek için, yapılandırma dosyasını sürükleyerek menü çubuğundaki Tunnelblick ikonu üzerine bırakın.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "Uzak VPN sunucusu tarafından kullanıcı adı ve parola kabul edilmedi.";
@@ -1829,13 +1832,10 @@
 "You are not allowed to replace a shared configuration" = "Paylaşılan yapılandırmayı değiştirme yetkiniz yok";
 
 /* Window text */
-"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "'%@' güncellenebilir yapılandırma olduğundan özel yapılandırma haline getirilemiyor.\n\nGüncellenebilir Tunnelblick VPN Yapılandırması içerisinde olan Tunnelblick VPN Yapılandırmasının özel olabileceğini unutmayın.";
-
-/* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "'%@' yapılandırmasını özel yapamazsınız çünkü bilgisayar başladığında çalışacak şekilde ayarlanmış.";
 
 /* Window text */
-"You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "'%@' güncellenebilir yapılandırma olduğundan paylaşımlı yapılandırma haline getirilemiyor.\n\nGüncellenebilir Tunnelblick VPN Yapılandırması içerisinde olan Tunnelblick VPN Yapılandırmasının paylaşımlı olabileceğini unutmayın.";
+"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "'%@' güncellenebilir yapılandırma olduğundan özel yapılandırma haline getirilemiyor.\n\nGüncellenebilir Tunnelblick Ayarları, özel ya da paylaşımlı yapılamaz; sadece özel ya da paylaşımlı ayarlar kendi içinde yapılandırılabilir.";
 
 /* Window text */
 "You cannot rename a Deployed configuration." = "Yüklenmiş yapılandırmanın adını değiştiremezsiniz.";
@@ -1899,9 +1899,6 @@
 
 /* Window text */
 "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n DİKKAT: Tunnelblick in bu sürümü bilgisayarınızı güvensiz yapar. Bu sürüm sadece hata ayıklama (debugging) için.\n";
-
-/* Window text */
-"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder." = "\n\nEğer çift tıklama çalışmazsa (Finder'ın önceki versiyonlarında buna sebep olan bir hata vardı), yapılandırmayı Finder penceresinde Uygulama klasörün içerisindeki Tunnelblick ikonu üzerine sürükleyin ve bırakın.";
 
 /* Window text */
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nNOT: Bir ya da daha fazla yapılandırma şu anda bağlı. Bunların bağlantıları yükleme/değişiklik/kaldırma işlemleri için kesilir. Yapılandırmalar kaldırılmadığı sürece bu işlemler sonucunda tekrar bağlanır.\n\n";

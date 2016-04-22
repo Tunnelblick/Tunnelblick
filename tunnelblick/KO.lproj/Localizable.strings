@@ -823,7 +823,7 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' 설정 값 무시. 절대 경로 또는 '~' 로 시작해야 합니다";
 
-/* Window text -- apears in log display when logging is disabled */
+/* Window text -- apears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(로그 기록 중단됨.)";
 
 /* Window text */
@@ -899,9 +899,6 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "%2$@ 설정의 보안을 확인하는 동안 오류 (상태 %1$ld)가 발생했습니다.\n\n종료 후 Tunnelblick 다시 실행하십시오. 이 문제가 지속되면 Tunnelblick을 다시 설치하십시오.";
 
 /* Window text */
-"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "Tunnelblick과 같이 설치되었던 설정을 시험하는 중에 오류가 발생했습니다. 자세한 내용은 콘솔 로그를 참조하십시오.";
-
-/* Window text */
 "An error occurred while trying to launch %@" = "%@을 실행하는 동안 오류가 발생했습니다";
 
 /* Window text */
@@ -942,6 +939,9 @@
 
 /* Window text */
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "당신 컴퓨터의 전부를 제어할 수도 있는 설정들을 설치하시겠습니까?\n\n";
+
+/* Window text */
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "OpenVPN 설정 파일: %2$@ 의 줄 %1$lu";
@@ -992,7 +992,10 @@
 "Configuration changes:" = "구성 변경:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "네트워크 관리자 또는 VPN 서비스 공급자가 제공하는 설정 파일로 설치 가능합니다.\n\n설정 파일은 .tblk, .ovpn, 또는 .conf 의 확장자를 가지고 있습니다.\n\n(다른 확장자를 가진 설정 파일도 있을 수 있으나, 우선 무시하십시오.)\n\n설정을 설치하기 원한다면 파일을 두번 클릭 하십시오.\n\n새로운 설정은 Tunnelblick에 바로 적용되어 사용 가능합니다.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar." = "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar.";
+
+/* Window text */
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "연결하기:";
@@ -1283,10 +1286,10 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Tunnelblick이 모르는 1개 또는 이상의 OpenVPN 프로세스가 실행중입니다. Tunnelblick과 별개로 OpenVPN을 실행한 것이 아니면, 이전에 실행된 Tunnelblick이 OpenVPN 프로세스를 올바르게 내리지 못한 것입니다. 이 프로세스들을 중단해야 합니다. 이 프로세스들은 Tunnelblick 동작을 방해할 수 있습니다.\n\n'활성 상태 보기' 어플리케이션에서 프로세스를 중단할 수 있습니다.\n\n";
 
 /* Window text */
-"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "하나 또는 그 이상의 VPN 설정들이 Tunnelblick과 함께 설치되었습니다만, 이것들은 Tunnelblick의 일부가 아닙니다. Tunnelblick에 의해 설치되지 않은 이러한 설정들은 VPN에 연결하려고 할 때 관리자 권한으로 실행하도록 하는 프로그램들을 포함하고 있기에 설치되었을 것입니다.\n\n자세한 정보를 위해 콘솔 로그를 보시길 바랍니다.";
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "지금 업데이트하려는 하나 또는 그 이상의 VPN 설정에는, VPN에 연결하려고 할 때 관리자 권한으로 실행하도록 하는 프로그램들을 포함하고 있습니다. 이것들은 당신의 컴퓨터를 송두리째 확보할 수 있습니다.\n\n제작자를 신뢰하지 않는다면, 이러한 설정들을 설치하면 안 됩니다.\n\n이러한 설정들의 제작자를 신뢰하시고, 설치를 원하십니까?\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "지금 업데이트하려는 하나 또는 그 이상의 VPN 설정에는, VPN에 연결하려고 할 때 관리자 권한으로 실행하도록 하는 프로그램들을 포함하고 있습니다. 이것들은 당신의 컴퓨터를 송두리째 확보할 수 있습니다.\n\n제작자를 신뢰하지 않는다면, 이러한 설정들을 설치하면 안 됩니다.\n\n이러한 설정들의 제작자를 신뢰하시고, 설치를 원하십니까?\n\n";
+"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
 
 /* Window text */
 "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "지금 설치하고 있는 하나 또는 그 이상의 VPN 설정에는, VPN에 연결하려고 할 때 관리자 권한으로 실행하도록 하는 프로그램들을 포함하고 있습니다. 이것들은 당신 컴퓨터의 전부를 제어할 수 있습니다.\n\n제작자를 신뢰하지 않는다면, 이러한 설정들을 설치하면 안 됩니다.\n\n이러한 설정들의 제작자를 신뢰하시고, 설치를 원하십니까?\n\n";
@@ -1490,7 +1493,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "개인 설정은 보호될 수 없어서 보안 (복제) 복사본으로 복원할 수 없습니다.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "예제 설정 폴더가 Desktop에 만들어졌고 VPN 설정을 위해 수정할 수 있도록 OpenVPN 설정 파일을 텍스트 편집기로 열었습니다.\n\nOpenVPN 설정 파일 수정이 완료되면 저장하고 다음과 같이 합니다.\n\n1. Desktop에 있는 'Sample Tunnelblick VPN Configuration' 폴더 안으로 설정과 관련된 모든 키와 인증서 파일을 옮기거나 복사한다.\n\n(이 폴더는 Finder 창으로 열려 있어서 파일들을 폴더 안으로 드래그할 수 있다.)\n\n2. 폴더 이름을 알맞게 변경한다. 이 이름은 Tunnelblick이 설정에서 사용할 이름이 된다.\n\n3. 폴더 명 끝에 .tblk을 추가한다.\n\n4. 설정을 설치하려면 폴더을 이중 클릭한다.\n\n새 설정은 즉시 Tunnelblick에서 사용할 수 있습니다.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar." = "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "사용자 이름과 비밀번호가 원격 VPN 서버로부터 거부되었습니다.";
@@ -1829,13 +1832,10 @@
 "You are not allowed to replace a shared configuration" = "공유 설정은 대체 불가합니다";
 
 /* Window text */
-"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "'%@' 구성은 자동 업데이트 구성이기 때문에 개인 구성으로 변경할 수 없습니다.\n\n자동 업데이트 구성에 포함된 Tunnelblick VPN 구성은 개인 구성이 될 수 있음을 참고하십시오.";
-
-/* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "'%@' 구성은 컴퓨터가 시작할 때 연결하도록 되어있기 때문에 개인 구성으로 변경할 수 없습니다.";
 
 /* Window text */
-"You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "'%@' 구성은 자동 업데이트 구성이기 때문에 공유 구성으로 변경할 수 없습니다.\n\n자동 업데이트 구성에 포함된 Tunnelblick VPN 구성은 공유 구성이 될 수 있음을 참고하십시오.";
+"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared.";
 
 /* Window text */
 "You cannot rename a Deployed configuration." = "배포된 구성의 이름은 변경할 수 없습니다.";
@@ -1899,9 +1899,6 @@
 
 /* Window text */
 "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n경고: 이 Tunnelblick의 복사본은 귀하의 컴퓨터의 보안을 취약하게 합니다. 디버깅 목적으로만 사용 하십시오.\n";
-
-/* Window text */
-"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder." = "\n\n만약 이중 클릭이 작동하지 않으면 (최신 버전의 Finder가 때때로 이 문제를 일으킴) 구성 파일을 응용 프로그램 항목을 표시하는 Finder 창의 Tunnelblick 아이콘으로 끌어서 놓습니다.";
 
 /* Window text */
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\n주의: 현재 하나 이상의 구성이 연결되어 있습니다. 연결 해제된 다음에 설치/교체/삭제가 수행되며, 구성이 삭제되지 않는 한 다시 연결될 것입니다.\n\n";

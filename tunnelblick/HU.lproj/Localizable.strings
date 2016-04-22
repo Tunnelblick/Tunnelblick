@@ -823,7 +823,7 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' beállítás figyelmen kívül hagyva; abszolút elérési útvonalat kell megadni vagy ezzel kezdeni \"~\"";
 
-/* Window text -- apears in log display when logging is disabled */
+/* Window text -- apears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Naplózás kikapcsolva.)";
 
 /* Window text */
@@ -899,9 +899,6 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Hiba történt (státusz: %1$ld) a(z) %2$@ konfiguráció biztonsági ellenőrzése során.\n\nKérem indítsa újra a Tunnelblicket. Ha a probléma továbbra is fennáll kérem telepítse újra a Tunnelblicket.";
 
 /* Window text */
-"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "Hiba történt a Tunnelblickkel telepítendő konfiguráció átvizsgálása közben. A részleteket lásd a konzol naplóban.";
-
-/* Window text */
 "An error occurred while trying to launch %@" = "Hiba történt az indítás során %@";
 
 /* Window text */
@@ -942,6 +939,9 @@
 
 /* Window text */
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Biztos, hogy telepíteni akarja a konfigurációt, ami TELJES IRÁNYÍTÁST KAP A SZÁMÍTÓGÉPÉHEZ?\n\n";
+
+/* Window text */
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Biztos, hogy telepíteni akar konfigurációkat, amik TELJES IRÁNYÍTÁST KAPHATNAK A SZÁMÍTÓGÉPÉHEZ?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Az OpenVPN konfigurációs fájl: %2$@, a(z) %1$lu sorában";
@@ -992,7 +992,10 @@
 "Configuration changes:" = "A konfiguráció változásai:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Konfigurációs fájlok telepítve lettek a fájlokból, amelyeket Ön a hálózat kezelője vagy a VPN szolgáltatója szolgáltatott.  \n\nA konfigurációs fájlok kiterjesztései .tblk, .ovpn, vagy. conf. \n\n(Talán más fájlok is vannak, melyek hozzá vannak társítva a konfigurációhoz, de más a kiterjesztésük; hagyd most őket figyelmen kívül.)  \n\nA telepítéshez kattintson duplán a konfigurációs fájlra.  \n\nAz új konfiguráció azonnal elérhető lesz a Tunnelblick-ben.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar." = "A konfigurációkat a hálózati rendszergazdája vagy a VPN szolgáltatója által adott fájlokból telepítjük.\n\nA konfigurációs fájlok kiterjesztése: .tblk, .ovpn, vagy .conf.\n\n(Előfordulhatnak egyéb fájlok, amik a konfigurációhoz rendeltek, hagyja őket figyelmen kívül.)\n\nA konfiguráció telepítéséhez jelölje ki és húzza őket a Tunnelblick ikonjára a felső menüsorban.\n\nTöbb konfiguráció egyidejű telepítéséhez jelölje ki az összes fájlt, és húzza az összeset a Tunnelblick ikonjára a felső menüsorban.";
+
+/* Window text */
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "A jelen beállításokkal olyan konfigurációk is települnek a Tunnelblick telepítésével, amelyek nem részei a Tunnelblicknek.\n\n";
 
 /* Window text */
 "Connect:" = "Kapcsolódás:";
@@ -1283,10 +1286,10 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Egy vagy több OpenVPN folyamat fut, de ezeket nem a Tunnelblick kezeli. Ha nem futtatt a Tunnelblicken kívül más OpenVPN alkalmazást, akkor valószínűleg egy korábban indított Tunnelblick nem tudta megfelelően leállítani ezeket. A folyamatokat Önnek kell leállítania, mert zavarhatják a Tunnelblick működését.\n\nA folyamatok az 'Activity Monitor' alkalmazás segítségével állíthatók le.\n\n";
 
 /* Window text */
-"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "Egy vagy több VPN konfiguráció a Tunnelblickkel együtt telepítendő, de ezek nem részei a Tunnelblicknek. Ezen konfigurációk lehet, hogy nem kerülnek telepítésre, mert egy vagy több közülük egy alkalmazást tartalmaz, ami root joggal fut, amikor egy VPN-hez kapcsolódik.\n\nA részleteket lásd a konzol naplóban.";
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Egy vagy több a frissítendő VPN konfigurációk közül programot tartalmaz, ami root joggal fut, ha Ön egy VPN-hez kapcsolódik. Ezek alkalmasak arra, hogy ÁTVEGYÉK A TELJES IRÁNYÍTÁST A SZÁMÍTÓGÉP FELETT.\n\nNE TELEPÍTSE EZEKET A KONFIGURÁCIÓKAT, KIVÉVE, HA MEGBÍZIK A SZERZŐJÜKBEN!\n\nMegbízik ezen konfigurációk szerzőiben, és telepíti azokat?\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Egy vagy több a frissítendő VPN konfigurációk közül programot tartalmaz, ami root joggal fut, ha Ön egy VPN-hez kapcsolódik. Ezek alkalmasak arra, hogy ÁTVEGYÉK A TELJES IRÁNYÍTÁST A SZÁMÍTÓGÉP FELETT.\n\nNE TELEPÍTSE EZEKET A KONFIGURÁCIÓKAT, KIVÉVE, HA MEGBÍZIK A SZERZŐJÜKBEN!\n\nMegbízik ezen konfigurációk szerzőiben, és telepíti azokat?\n\n";
+"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Egy vagy több telepítendő konfiguráció olyan OpenVPN beállításokat tartalmaz, amelyeket a Tunnelblick nem ismer fel. Ezt okozhatja egy hiba a konfigurációban, vagy a konfiguráció olyan programokat tartalmazhat, amik rootként futnak, ha egy VPN-hez csatlakozik. Ezek a programok ÁTVEHETIK A TELJES IRÁNYÍTÁST A SZÁMÍTÓGÉPE FELETT.\n\nNE TELEPÍTSE EZEKET A KONFIGURÁCIÓKAT, KIVÉVE, HA MEGBÍZIK A SZERZŐJÜKBEN.\n\nMegbízik a konfigurációk szerzőjében, és szeretné telepíteni ezeket?\n\n";
 
 /* Window text */
 "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Egy vagy több telepítendő VPN konfiguráció olyan programot tartalmaz, ami root joggal fut, ha Ön egy VPN-hez kapcsolódik. Ezek alkalmasak arra, hogy ÁTVEGYÉK A TELJES IRÁNYÍTÁST A SZÁMÍTÓGÉP FELETT.\n\nNE TELEPÍTSE EZEKET A KONFIGURÁCIÓKAT, KIVÉVE, HA MEGBÍZIK A SZERZŐJÜKBEN!\n\nMegbízik ezen konfigurációk szerzőiben, és telepíti azokat?\n\n";
@@ -1490,7 +1493,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "A privát konfigurációról nem készült biztonsági másolat, ezért nem is állítható vissza.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "A minta konfigurációs könyvtár elkészült az Íróasztalán, és az OpenVPN konfigurációs fájl megnyílt a Szövegszerkesztőben, így már szerkeszthető a szükséges beállításoknak megfelelően.\n\nHa végzett a fájl szerkesztésével és elmentette a változtatásokat, kérem\n\n1. Mozgasson vagy másoljon minden a konfigurációhoz szükséges kulcs és tanúsítvány fájlt a 'Minta Tunnelblick VPN konfiguráció' könyvtárba az Íróasztalon.\n\n(Ez a mappa meg van nyitva a Finder-ben, tehát át is húzhatja a szükséges állományokat.)\n\n2. Válasszon új nevet a könyvtárnak. Ilyen néven lesz elérhető a konfiguráció a Tunnelblick-ben is.\n\n3. Adjon .tblk végződést (kiterjesztést) a könyvtárnak.\n\n4. Kattintson duplán a könyvtárra, hogy megtörténjen a telepítés.\n\nAz új konfiguráció azonnal elérhető lesz a Tunnelblick-ben.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar." = "A minta konfigurációs mappa létrejött az asztalán, és az OpenVPN konfigurációt megnyitottuk a szövegszerkesztőben, hogy módosíthassa a fájlt az Ön VPN beállításához.\n\nHa végzett az OpenVPN konfiguráció fájl szerkesztésével és elmentette a változásokat, kérjük:\n\n1. Helyezzen át vagy másoljon egy a konfigurációhoz társított kulcsot vagy tanúsítványt a 'Minta Tunnelblick VPN konfiguráció' mappába az asztalon.\n\n(Ezt a mappát egy Finder ablakban megnyitottuk, így behúzhatja oda a fájlokat.)\n\n2. Változtassa meg tetszőlegesen a konfigurációs fájl nevét (de ne változtassa meg a kiterjesztését). Ez lesz az a név, amit a Tunnelblick használni fog a konfigurációhoz.\n\n3. A konfiguráció telepítéséhez jelölje ki a konfigurációs fájlt és húzza a Tunnelblick ikonra a felső menüsorban.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "A távoli VPN szerver nem fogadta el a felhasználónevet és a jelszót.";
@@ -1829,13 +1832,10 @@
 "You are not allowed to replace a shared configuration" = "Nincsen jogosultsága lecserélni a megosztott konfigurációt";
 
 /* Window text */
-"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "A '%@' konfiguráció nem tehető priváttá, mert ez egy frissíthető konfiguráció.\n\nKérjük vegye figyelembe, hogy csak a frissíthető Tunnelblick VPN konfiguráción belüli Tunnelblick VPN konfiguráció tehető priváttá.";
-
-/* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "A '%@' konfiguráció nem tehető priváttá, mert úgy van beállítva, hogy a számítógép indulásával együtt induljon.";
 
 /* Window text */
-"You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "A '%@' konfiguráció nem tehető megosztottá, mert ez egy frissíthető konfiguráció.\n\nKérjük vegye figyelembe, hogy csak a frissíthető Tunnelblick VPN konfiguráción belüli Tunnelblick VPN konfiguráció tehető megosztottá.";
+"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "A '%@' konfiguráció nem tehető priváttá vagy megosztottá, mert ez egy frissíthető konfiguráció.\n\nKérjük vegye figyelembe, hogy csak a frissíthető Tunnelblick VPN konfiguráción belüli Tunnelblick VPN konfiguráció tehető priváttá vagy megosztottá, a frissíthető konfiguráció nem.";
 
 /* Window text */
 "You cannot rename a Deployed configuration." = "Egy futó/aktív konfiguráció nem nevezhető át.";
@@ -1899,9 +1899,6 @@
 
 /* Window text */
 "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "\n  FIGYELEM: A Tunnelblick ezen változata instabillá és bizonytalanná teheti a számítógépet. Csak hibakeresésre használható.\n";
-
-/* Window text */
-"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder." = "\n\nHa a dupla kattintás nem működik (néhány programhiba a Finder korábbi verziójában ezt okozza), kérjük, húzd a konfigurációt a Tunnelblick ikonra egy Finder ablakban, ahol az alkalmazások láthatóak.";
 
 /* Window text */
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nFigyelem: a konfigurációk közül egy vagy több jelenleg is csatlakozik. Ezek a kapcsolatok bontva lesznek, utána telepítés/csere/eltávolítás következik, végül a konfigurációk újra csatlakoznak, kivéve ha eltávolították őket.\n\n";

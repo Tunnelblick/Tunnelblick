@@ -823,7 +823,7 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' instelling genegeerd; het moet een absoluut pad zijn om beginnen met een '~'";
 
-/* Window text -- apears in log display when logging is disabled */
+/* Window text -- apears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Logging is uitgeschakeld.)";
 
 /* Window text */
@@ -899,9 +899,6 @@
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Er deed zich een probleem (status %1$ld) voor tijdens het controleren van de beveiliging van de %2$@ configuratie.\n\nStart a.u.b. Tunnelblick opnieuw. Indien het probleem aanhoudt, installeer Tunnelblick opnieuw.";
 
 /* Window text */
-"An error occurred while examining a configuration that is to be installed with Tunnelblick. See the Console Log for details." = "Er is een fout opgetreden tijdens het controleren van de configuratie die geïnstalleerd gaat worden met Tunnelblick. Bekijk de Console Log voor meer informatie.";
-
-/* Window text */
 "An error occurred while trying to launch %@" = "Er trad een fout op bij het opstarten van %@";
 
 /* Window text */
@@ -942,6 +939,9 @@
 
 /* Window text */
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Weet u zeker dat u configuraties wilt installeren welke de CONTROLE OVER DE COMPUTER VOLLEDIG KUNNEN OVERNEMEN?\n\n";
+
+/* Window text */
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Weet u zeker dat u configuraties wilt installeren welke de CONTROLE OVER DE COMPUTER VOLLEDIG KUNNEN OVERNEMEN?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Op lijn %1$lu van het OpenVPN configuratiebestand: %2$@";
@@ -992,7 +992,10 @@
 "Configuration changes:" = "Configuratie wijzigingen:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nTo install a configuration file, double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Configuraties worden geïnstalleerd vanuit bestanden die worden geleverd door uw netwerkbeheerder of VPN serviceprovider.\n\nConfiguratiebestanden hebben de extensies .tblk, .ovpn, of. conf. \n\n(Er kunnen bestanden gekoppeld zijn aan de configuratie die andere extensies hebben; deze dienen genegeerd voor nu.)  \n\nDubbelklik op een configuratiebestand om het te installeren. \n\nDe nieuwe configuratie is direct beschikbaar in Tunnelblick.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar." = "Configuraties worden geïnstalleerd vanuit bestanden die worden geleverd door uw netwerkbeheerder of VPN serviceprovider.\n\nConfiguratiebestanden hebben de extensies .tblk, .ovpn, of. conf. \n\n(Er kunnen bestanden gekoppeld zijn aan de configuratie die andere extensies hebben; negeer deze.) \n\nSleep een configuratiebestand naar het Tunnelblick pictogram in de menubalk om deze te installeren.\n\nSelecteer meerdere configuratiebestanden en sleep deze tegelijk naar het Tunnelblick pictogram in de menubalk om er meerdere in één keer te installeren.";
+
+/* Window text */
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Configuraties die geen onderdeel zijn van Tunnelblick zullen geïnstalleerd worden tijdens de installatie van Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "Verbinding maken:";
@@ -1283,10 +1286,10 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Eén of meerdere OpenVPN processen zijn actief maar niet bekend bij Tunnelblick. Indien u geen OpenVPN actief heeft buiten Tunnelblick, betekent dit doorgaans dat een eerdere instantie van Tunnelblick niet in staat was om de OpenVPN processen netjes te stoppen, u moet ze zelf beëindigen. De OpenVPN processen zullen waarschijnlijk de werking van Tunnelblick negatief beïnvloeden.\n\nZe kunnen beëindigd worden in de 'Activiteitenweergave' applicatie.\n\n";
 
 /* Window text */
-"One or more VPN configurations are to be installed with Tunnelblick, but they are not part of Tunnelblick. These configurations may not be installed when Tunnelblick is installed because one or more of them includes a program which will run as root when you connect to a VPN.\n\nSee the Console Log for details." = "Een of meer configuraties welke geïnstalleerd worden met Tunnelblick, maken geen deel uit van Tunnelblick. Deze configuraties zullen mogelijk niet geïnstalleerd worden wanneer Tunnelblick is geïnstalleerd, omdat een of meer configuraties een programma bevat dat als root kan draaien bij het verbinden met een VPN.\n\nBekijk de console voor meer informatie.";
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Een of meer VPN configuraties welke geïnstalleerd wordt bevat programma's welke als root zullen draaien bij het verbinding maken met een VPN. De mogelijkheid bestaat dat de totale controle van de computer wordt overgenomen.\n\nInstalleer deze configuraties niet, tenzij de auteur wordt vertrouwd.\n\nVertrouwd u de auteur van de configuraties en wilt u ze installeren?\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Een of meer VPN configuraties welke geïnstalleerd wordt bevat programma's welke als root zullen draaien bij het verbinding maken met een VPN. De mogelijkheid bestaat dat de totale controle van de computer wordt overgenomen.\n\nInstalleer deze configuraties niet, tenzij de auteur wordt vertrouwd.\n\nVertrouwd u de auteur van de configuraties en wilt u ze installeren?\n\n";
+"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Eén of meerdere VPN configuraties die u aan het installeren bent bevatten OpenVPN opties die niet herkend werden door Tunnelblick. Dit zou een fout kunnen zijn in de configuratie of een fout in Tunnelblick, of de configuraties kunnen programma's bevatten welke als root uitgevoerd worden wanneer u met een VPN verbindt. Zulke programma's zouden in staat zijn OM DE VOLLEDIGE CONTROLE OVER UW COMPUTER OVER TE NEMEN.\n\nU MOET DEZE CONFIGURATIES ALLEEN INSTALLEREN ALS U DE UITGEVER ERVAN VOLLEDIG VERTROUWT.\n\nVertrouwt u de uitgever van de configuraties en wilt u ze installeren?\n\n";
 
 /* Window text */
 "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Een of meer VPN configuraties welke geïnstalleerd worden bevat programma's welke draaien als root bij het verbinding naar de VPN. De mogelijkheid bestaat dat de totale computer wordt overgenomen.\n\nInstalleer deze configuraties niet, tenzij de auteur wordt vertrouwd.\n\nVertrouwd u de auteur van de configuraties en wilt u ze installeren?\n\n";
@@ -1490,7 +1493,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "De prive configuratie is nooit beveiligd, daardoor kan er niet teruggekeerd worden naar de beveiligde (schaduw) kopie.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "De voorbeeldconfiguratie-map is aangemaakt op uw Bureaublad, en het OpenVPN configuratiebestand is geopend in TextEdit zodat u het kunt aanpassen naar uw VPN-instellingen.\n\nWanneer u klaar bent met het bewerken van het OpenVPN configuratiebestand en u de wijzigingen heeft opgeslagen, doe a.u.b. het volgende\n\n1. Verplaats of kopiëer alle sleutel- of certificaatbestanden die verband houden met de configuratie naar de 'Sample Tunnelblick VPN Configuration' map op uw bureaublad.\n\n(Deze map is geopend in een Finder-venster zodat u de bestanden ernaar toe kunt slepen.)\n\n2. Hernoem de map naar een naam naar keuze. Dit wordt de naam die Tunnelblick gaat gebruiken voor de configuratie.\n\n3. Voeg .tblk toe aan het eind van de mapnaam.\n\n4. Dubbelklik op de map om de configuratie te installeren.\n\nDe nieuwe configuratie is meteen beschikbaar in Tunnelblick.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar." = "De voorbeeld configuratie map is aangemaakt op uw Bureaublad, en het OpenVPN configuratiebestand is geopend in TextEdit zodat u het bestand kunt aanpassen voor uw VPN opstelling.\n\nWanneer u klaar bent met het bewerken van het OpenVPN configuratiebestand en de wijzigingen hebt opgeslagen, graag\n\n1. Eventuele sleutel- of certificaatbestanden gerelateerd aan de configuratie verplaatsen of kopiëren naar de 'Sample Tunnelblick VPN Configuration' map op uw Bureaublad.\n\n(Deze map is geopend in een Finder venster zodat u de bestanden er naartoe kunt slepen.)\n\n2. De naam van het configuratiebestand wijzigen naar een naam van uw keuze (niet de bestandsextensie wijzigen). Dit zal de naam zijn die Tunnelblick gebruikt voor de configuratie.\n\n3. Om de configuratie te installeren, sleep het configuratiebestand naar het Tunnelblick pictogram in de menubalk.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "De gebruikersnaam en wachtwoord werden niet geaccepteerd door de remote VPN server.";
@@ -1829,13 +1832,10 @@
 "You are not allowed to replace a shared configuration" = "U bent niet gemachtigd om een gedeelde configuratie te vervangen";
 
 /* Window text */
-"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private." = "Het is niet mogelijk om de '%@' configuratie privé te maken, omdat het zelf een dynamische configuratie is.\n\nLet op dat wanneer een Tunnelblick VPN configuratie zich bevindt in een dynamische Tunnelblick configuratie deze privé kan zijn.";
-
-/* Window text */
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Het is niet mogelijk om de '%@' configuratie privé te maken, omdat het is ingesteld om te starten wanneer de computer opstart.";
 
 /* Window text */
-"You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared." = "Het is niet mogelijk om de '%@' configuratie privé te maken, omdat het een dynamische configuratie is.\n\nLet op dat wanneer een Tunnelblick VPN configuratie zich bevindt in een dynamische Tunnelblick configuratie deze gedeeld kan zijn.";
+"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Het is niet mogelijk om de '%@' configuratie privé of gedeeld te maken, omdat het een dynamische configuratie is.\n\nLet op dat een dynamische Tunnelblick VPN configuratie niet privé of gedeeld gemaakt kan worden; alleen de configuraties binnen een dynamische configuratie kunnen privé of gedeeld gemaakt worden.";
 
 /* Window text */
 "You cannot rename a Deployed configuration." = "Het is niet toegestaan een reeds ingezette configuratie te hernoemen.";
@@ -1899,9 +1899,6 @@
 
 /* Window text */
 "\n WARNING: This copy of Tunnelblick makes your computer insecure. It is for debugging purposes only.\n" = "  Waarschuwing: Dit exemplaar van Tunnelblick maakt uw computer onveilig. Deze versie wordt enkel gebruikt voor debugging.";
-
-/* Window text */
-"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder." = "\n\nWanneer een dubbele klik niet werkt (er zitten fouten in de recente versie van Finder die dit soms veroorzaken), sleep dan de configuratie op het Tunnelblick icoon in een Finder scherm waar de inhoud van de Applicatie map wordt getoond.";
 
 /* Window text */
 "\n\nNOTE: One or more of the configurations are currently connected. They will be disconnected, installs/replacements/uninstalls will be performed, and the configurations will be reconnected unless they have been uninstalled.\n\n" = "\n\nOpmerking: één of meer configuraties zijn momenteel verbonden. Ze zullen worden verbroken, zodra installaties/vervangingen/deinstallaties worden uitgevoerd, en zullen opnieuw verbinden tenzij deinstallatie heeft plaatsgevonden.\n\n";
