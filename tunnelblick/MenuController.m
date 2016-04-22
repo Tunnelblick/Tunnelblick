@@ -1355,6 +1355,11 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
         iconPosition = iconNormal;
     }
 	
+    if (  ! ourMainIconView  ) {
+        [self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 24.0, 22.0)] autorelease]];
+        [statusItem setView: [self ourMainIconView]];
+    }
+    
     // If possible and needed, set up a tracking rectangle
     if (  [statusItem respondsToSelector: @selector(button)]  ) {
         [self setStatusItemButton: [statusItem performSelector: @selector(button) withObject: nil]];
@@ -1373,22 +1378,17 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                 TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item 0x%lX because of preference", (long) statusItem)
             }
         } else {
-            NSLog(@"createStatusItem: Did not add tracking rectangle for status item 0x%lX because there was not statusItemButton", (long) statusItem);
+            TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item 0x%lX because there was no statusItemButton", (long) statusItem);
         }
 	
 		TBLog(@"DB-SI", @"createStatusItem: Set menu for status item 0x%lX", (long) statusItem)
 		[statusItem setMenu: myVPNMenu];
     } else {
-        [self setStatusItemButton: nil];
+        if (  [self statusItemButton]  ) {
+            [self setStatusItemButton: nil];
+        }
         TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item 0x%lX because it does not respond to 'button'", (long) statusItem)
-		if (  ! ourMainIconView  ) {
-			TBLog(@"DB-SI", @"createStatusItem: creating ourMainIconView and setting the status icon's view to it")
-			[self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 24.0, 22.0)] autorelease]];
-			[statusItem setView: [self ourMainIconView]];
-		}
-		[statusItem setView: [self ourMainIconView]];
     }
-
 }
 
 -(void) moveStatusItemIfNecessary {
@@ -3737,7 +3737,7 @@ static void signal_handler(int signalNumber)
             message = [NSString stringWithFormat: @"%@%@", withTunnelblickMessage,
                        NSLocalizedString(@"One or more VPN configurations you are installing include OpenVPN options that"
                                          @" were not recognized by Tunnelblick. That may be an error in the configuration or"
-                                         @" an error in Tunnelblick, or the configurations might includes programs"
+                                         @" an error in Tunnelblick, or the configurations might include programs"
                                          @" which will run as root when you connect to a VPN. Such programs would be able to"
                                          @" TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\n"
                                          @"YOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\n"
@@ -3786,7 +3786,7 @@ static void signal_handler(int signalNumber)
 }
 
 // Invoked when the user double-clicks on one or more .tblk packages or .ovpn or .conf files,
-//                  or drags and drops one or more .of them onto Tunnelblick
+//                  or drags and drops one or more .of them on the Tunnelblick application or the icon in the status bar
 - (BOOL)application: (NSApplication * )theApplication
           openFiles: (NSArray * )filePaths
 {
@@ -3805,6 +3805,12 @@ static void signal_handler(int signalNumber)
     return TRUE;
 }
 
+- (BOOL) openFiles: (NSArray * ) filePaths {
+    
+    // Invoked from MainIconView to implement files dropped on the icon for installation.
+    
+    return [self application: nil openFiles: filePaths];
+}
 -(void) setupUpdaterAutomaticChecks {
     
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
@@ -4159,7 +4165,7 @@ static void signal_handler(int signalNumber)
 
 -(BOOL)applicationShouldHandleReopen: (NSApplication *) theApp hasVisibleWindows: (BOOL) hasWindows
 {
-	// Invoked when the Dock item is clicked to relaunch Tunnelblick, or it is double-clicked.
+	// Invoked when the Dock item is clicked to relaunch Tunnelblick, or the application is double-clicked.
 	// Just show the VPN Details… window.
 	(void) theApp;
 	(void) hasWindows;

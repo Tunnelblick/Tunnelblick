@@ -1044,14 +1044,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 													"into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n"
 													"(This folder has been opened in a Finder window so you can drag the files to it.)\n\n"
 													
-													"2. Change the folder's name to a name of your choice. "
+													"2. Change the name of the configuration file to a name of your choice (do not change the file's extension). "
 													"This will be the name that Tunnelblick uses for the configuration.\n\n"
 													
-													"3. Add .tblk to the end of the folder's name.\n\n"
-													
-													"4. Double-click the folder to install the configuration.\n\n"
-													
-													"The new configuration will be available in Tunnelblick immediately.",
+													"3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar.",
 													
 													@"Window text"));
                 return;
@@ -1060,17 +1056,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             case entryAddConfiguration:
             case stateHasConfigurations:
                 TBShowAlertWindow(NSLocalizedString(@"Add a Configuration", @"Window title"),
-                                  [NSString stringWithFormat: @"%@%@",
-								   NSLocalizedString(@"Configurations are installed from files that are supplied to you by your network manager "
-                                                    "or VPN service provider.\n\n"
-                                                    "Configuration files have extensions of .tblk, .ovpn, or .conf.\n\n"
-                                                    "(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\n"
-                                                    "To install a configuration file, double-click it.\n\n"
-                                                    "The new configuration will be available in Tunnelblick immediately.",
-                                                    @"Window text"),
-								   NSLocalizedString(@"\n\nIf a double-click does not work (there are bugs in recent version of the Finder that sometimes cause this), please "
-													 "drag the configuration onto the Tunnelblick icon in a Finder window showing the contents of the Applications folder.",
-													 @"Window text")]);
+                                  [NSString stringWithFormat: @"%@",
+                                   NSLocalizedString(@"Configurations are installed from files that are supplied to you by your network manager "
+                                                     "or VPN service provider.\n\n"
+                                                     "Configuration files have extensions of .tblk, .ovpn, or .conf.\n\n"
+                                                     "(There may be other files associated with the configuration that have other extensions; ignore them.)\n\n"
+                                                     "To install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\n"
+                                                     "To install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar.",
+                                                     @"Window text")]);
 								   
                 
                 return;
@@ -3156,8 +3149,8 @@ enum GetAuthorizationResult {
 				}						
 				if (   [ConfigurationManager isConfigurationUpdatableAtPath: path]  ) {
 					TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-									  [NSString  stringWithFormat: NSLocalizedString(@"You cannot make the '%@' configuration private because it is itself an updatable configuration.\n\n"
-																					 @"Note that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be private.", @"Window text"), localName]);
+									  [NSString  stringWithFormat: NSLocalizedString(@"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\n"
+																					 @"Note that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared.", @"Window text"), localName]);
 					return;  // User has been notified already
 				}
 				[pathsToModify addObject: path];
@@ -3166,8 +3159,8 @@ enum GetAuthorizationResult {
 			if (  shared  ) {
 				if (  [ConfigurationManager isConfigurationUpdatableAtPath: path]  ) {
 					TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-									  [NSString  stringWithFormat: NSLocalizedString(@"You cannot make the '%@' configuration shared because it is itself an updatable configuration.\n\n"
-																					 @"Note that a Tunnelblick VPN Configuration that is inside an updatable Tunnelblick VPN Configuration can be shared.", @"Window text"), localName]);
+                                      [NSString  stringWithFormat: NSLocalizedString(@"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\n"
+                                                                                     @"Note that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared.", @"Window text"), localName]);
 					return;  // User has been notified already
 				}
 				[pathsToModify addObject: path];

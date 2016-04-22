@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -102,6 +102,9 @@ extern BOOL              gShuttingDownWorkspace;
 		mainIconTrackingRectTagIsValid = FALSE;
 	}
 	
+    // Register for drop operations
+    [self registerForDraggedTypes: [NSArray arrayWithObject: NSFilenamesPboardType]];
+    
     return self;
 }
 
@@ -116,7 +119,70 @@ extern BOOL              gShuttingDownWorkspace;
 
 
 // *******************************************************************************************
-// Event Handlers
+// Drag/Drop Event Handlers
+
+-(BOOL) canAcceptFileTypesInPasteboard: (NSPasteboard *) pboard {
+    
+    NSArray * acceptedExtensions = [NSArray arrayWithObjects: @"ovpn", @"conf", @"tblk", nil];
+    
+    NSString * type = [pboard availableTypeFromArray: [NSArray arrayWithObject: NSFilenamesPboardType]];
+    if (  ! [type isEqualToString: NSFilenamesPboardType]  ) {
+        TBLog(@"DB-SI", @"MainIconView/acceptedExtensions: returning NO because no 'NSFilenamesPboardType' entries are available in the pasteboard.");
+        return NO;
+    }
+    
+    NSArray * paths = [pboard propertyListForType: NSFilenamesPboardType];
+    NSUInteger i;
+    for (  i=0; i<[paths count]; i++  ) {
+        NSString * path = [paths objectAtIndex:i];
+        if (  ! [acceptedExtensions containsObject: [path pathExtension]]  ) {
+            TBLog(@"DB-SI", @"MainIconView/acceptedExtensions: returning NO for '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);
+            return NO;
+        } else {
+            TBLog(@"DB-SI", @"MainIconView/acceptedExtensions: acceptable: '%@' in '%@'", [path lastPathComponent], [path stringByDeletingLastPathComponent]);
+        }
+    }
+    
+    return YES;
+}
+
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
+    
+    NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
+    NSPasteboard * pboard = [sender draggingPasteboard];
+    
+    if (  [[pboard types] containsObject: NSFilenamesPboardType]  ) {
+        if (  [self canAcceptFileTypesInPasteboard: pboard]  ) {
+            if (  sourceDragMask & NSDragOperationCopy  ) {
+                TBLog(@"DB-SI", @"MainIconView/draggingEntered: returning YES");
+                return NSDragOperationCopy;
+            } else {
+                TBLog(@"DB-SI", @"MainIconView/draggingEntered: returning NO because source does not allow copy operation");
+            }
+        }
+    }
+    
+    TBLog(@"DB-SI", @"MainIconView/draggingEntered: returning NO");
+    return NSDragOperationNone;
+}
+
+- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
+    
+    NSPasteboard *pboard = [sender draggingPasteboard];
+    
+    if ( [[pboard types] containsObject: NSFilenamesPboardType] ) {
+        NSArray * files = [pboard propertyListForType:NSFilenamesPboardType];
+        [[NSApp delegate] performSelectorOnMainThread: @selector(openFiles:) withObject: files waitUntilDone: NO];
+        TBLog(@"DB-SI", @"MainIconView/performDragOperation: returning YES");
+        return YES;
+    }
+    
+    TBLog(@"DB-SI", @"MainIconView/performDragOperation: returning NO because pasteboard does not contain 'NSFilenamesPboardType'");
+    return NO;
+}
+
+// *******************************************************************************************
+// Mouse Event Handlers
 
 -(void) mouseEntered: (NSEvent *) theEvent
 {
