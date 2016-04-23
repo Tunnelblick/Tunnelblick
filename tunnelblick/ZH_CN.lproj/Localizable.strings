@@ -1169,7 +1169,7 @@
 "In the OpenVPN configuration file for '%@': %@" = "OpenVPN 配置文件的 '%1$@': %2$@";
 
 /* Window text */
-"In:" = "在：";
+"In:" = "下行:";
 
 /* Window text */
 "Installation failed:\n\n%@" = "安装失败： %@";
@@ -1319,7 +1319,7 @@
 "OpenVPN version:" = "OpenVPN 版本:";
 
 /* Window text */
-"Out:" = "流出:";
+"Out:" = "上行:";
 
 /* Window text */
 "PB" = "PB";
