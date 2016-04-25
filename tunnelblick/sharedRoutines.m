@@ -1377,6 +1377,11 @@ NSString * sanitizedConfigurationContents(NSString * cfgContents) {
         
         [outputString appendFormat: @"%@\n", line];
         
+        // We NEVER want to include anything that looks like certificate/key info, even if it is commented out.
+        // So we omit anything that looks like an inline key or certificate.
+        // So we will ignore everything after a COMMMENT that includes '-----BEGIN' until a line that includes '-----END'.
+        // So if no '-----END' appears, we will end up ignoring the rest of the file, even if it is NOT commented out.
+        
         if (  [line rangeOfString: @"-----BEGIN"].length != 0  ) {
             // Have something that looks like a certificate or key; skip to the end of it and insert a message about it.
             unsigned beginLineNumber = i;   // Line number of '-----BEGIN'
@@ -1385,7 +1390,7 @@ NSString * sanitizedConfigurationContents(NSString * cfgContents) {
                 line = lineAfterRemovingNulCharacters([lines objectAtIndex: i], outputString);
 				if (  (foundEnd  = ([line rangeOfString: @"-----END"].length != 0))  ) {
                     if (  i != (beginLineNumber + 1)  ) {
-                        [outputString appendFormat: @" [Security-related line(s) omitted]\n"];
+                        [outputString appendFormat: @" [Lines that appear to be security-related have been omitted]\n"];
                     }
                     [outputString appendFormat: @"%@\n", line];
 					break;
@@ -1393,7 +1398,10 @@ NSString * sanitizedConfigurationContents(NSString * cfgContents) {
             }
             if (  ! foundEnd  ) {
                 appendLog([NSString stringWithFormat: @"Tunnelblick: Error parsing configuration at line %u; unterminated '-----BEGIN' at line %u\n", i+1, beginLineNumber+1]);
-                return nil;
+                if (  i != (beginLineNumber + 1)  ) {
+                    [outputString appendFormat: @" [Lines that appear to be security-related have been omitted]\n"];
+                }
+                // Because we are at the end of the file, we ignore the error
             }
         } else {
             
