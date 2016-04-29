@@ -27,6 +27,7 @@
 #import <pthread.h>
 #import <sys/stat.h>
 #import <sys/mount.h>
+#include <CommonCrypto/CommonDigest.h>
 
 #import "MenuController.h"
 
@@ -486,6 +487,10 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
                                 @"updateSendProfileInfo",
                                 @"updateSigned",
                                 @"updateUnsigned",
+                                
+                                @"tunnelblickdHash",        // Used to detect if tunnelblickd or its .plist changed due to an update
+                                @"tunnelblickdPlistHash",   // (If either or both changed, then tunnelblickd must be reloaded)
+
 
                                 @"NSWindow Frame SettingsSheetWindow",
                                 @"NSWindow Frame ConnectingWindow",
@@ -6278,6 +6283,7 @@ BOOL warnAboutNonTblks(void)
             if (    tblksToInstallFirst                            ) [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n", @"Window text")];
             if (    installFlags & INSTALLER_CONVERT_NON_TBLKS     ) [msg appendString: NSLocalizedString(@"  • Convert OpenVPN configurations\n", @"Window text")];
             if (    installFlags & INSTALLER_SECURE_TBLKS          ) [msg appendString: NSLocalizedString(@"  • Secure configurations\n", @"Window text")];
+            if (    installFlags & INSTALLER_MUST_RELOAD_DAEMON    ) [msg appendString: NSLocalizedString(@"  • Complete the update\n", @"Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:'")];
         }
         
 #ifdef TBDebug
@@ -6381,6 +6387,11 @@ BOOL warnAboutNonTblks(void)
             continue;
         } else if (  result == wfeaSuccess  ) {
             
+            // Save hashes of the the existing tunnelblickd and its .plist, so we can detect changes to them caused by program updates
+            // (They may have been updated by the install)
+            [gTbDefaults setObject: hashForTunnelblickdProgram() forKey: @"tunnelblickdHash"];
+            [gTbDefaults setObject: hashForTunnelblickdPlist()   forKey: @"tunnelblickdPlistHash"];
+            
             okNow = (0 == (   installFlags
                            & (  INSTALLER_COPY_APP
                               | INSTALLER_SECURE_APP
@@ -6436,6 +6447,64 @@ BOOL warnAboutNonTblks(void)
     return -1;
 }
 
+NSString * tunnelblickdPath(void) {
+
+#ifndef TBDebug
+    return @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd";
+#else
+    NSString * resourcesPath = [[NSBundle mainBundle] resourcePath];
+    return [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
+#endif
+
+}
+
+NSData * tunnelblickdPlistData(void) {
+    
+#ifndef TBDebug
+    return [gFileMgr contentsAtPath: TUNNELBLICKD_PLIST_PATH];
+#else
+    NSString * resourcesPath = [[NSBundle mainBundle] resourcePath];
+    NSString * plistPath = [resourcesPath stringByAppendingPathComponent: [TUNNELBLICKD_PLIST_PATH lastPathComponent]];
+    NSMutableDictionary * plistContents = [[[NSDictionary dictionaryWithContentsOfFile: plistPath] mutableCopy] autorelease];
+    NSString * daemonPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
+    [plistContents setObject: daemonPath                     forKey: @"Program"];
+    [plistContents setObject: [NSNumber numberWithBool: YES] forKey: @"Debug"];
+    NSData * data = [NSPropertyListSerialization dataFromPropertyList: plistContents
+                                                               format: NSPropertyListXMLFormat_v1_0
+                                                     errorDescription: nil];
+    return data;
+#endif
+    
+}
+
+NSString * sha256HexStringForData (NSData * data) {
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH * 2];
+    
+    if (  data  ) {
+        uint8_t digest[CC_SHA256_DIGEST_LENGTH];
+        if (  CC_SHA256(data.bytes, data.length, digest)  ) {
+            for (  int i = 0; i < CC_SHA256_DIGEST_LENGTH; i++  ) {
+                [output appendFormat:@"%02x", digest[i]];
+            }
+        }
+    }
+    
+    return output;
+}
+
+NSString * hashForTunnelblickdProgram(void) {
+    
+    NSString * result = sha256HexStringForData([gFileMgr contentsAtPath: tunnelblickdPath()]);
+    return result;
+}
+
+NSString * hashForTunnelblickdPlist(void) {
+    
+    NSString * result = sha256HexStringForData(tunnelblickdPlistData());
+    return result;
+}
+
 // Checks whether the installer needs to be run
 // Sets bits in a flag for use by the runInstaller:extraArguments method, and, ultimately, by the installer program
 //
@@ -6458,6 +6527,20 @@ unsigned needToRunInstaller(BOOL inApplications)
 		flags = flags | INSTALLER_CONVERT_NON_TBLKS;
 		NSLog(@"Need to convert non-.tblk configurations");
 	}
+    
+    if (  runningOnLeopardOrNewer()  ) {
+        // Check the saved hashes of the tunnelblickd .plist and the tunnelblickd program itself to see if it has changed (because of a program update).
+        // If one or both changed, then we need to reload it to finish the update
+        NSString * previousDaemonHash = [gTbDefaults objectForKey: @"tunnelblickdHash"];
+        NSString * previousPlistHash  = [gTbDefaults objectForKey: @"tunnelblickdPlistHash"];
+        if (   (! previousDaemonHash)
+            || (! previousPlistHash)
+            || [previousDaemonHash isNotEqualTo: hashForTunnelblickdProgram()]
+            || [previousPlistHash  isNotEqualTo: hashForTunnelblickdPlist()]  ) {
+            flags = flags | INSTALLER_MUST_RELOAD_DAEMON;
+            NSLog(@"Need to reload 'tunnelblickd'");
+        }
+    }
     
     return flags;
 }

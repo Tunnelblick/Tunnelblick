@@ -545,7 +545,9 @@ int main(int argc, char *argv[])
 	
     BOOL helperIsToBeSuid = (arg1 & INSTALLER_HELPER_IS_TO_BE_SUID) != 0;
     
-    BOOL forceLoadLaunchDaemon = copyApp || secureApp;
+    BOOL forceLoadLaunchDaemon = (   copyApp
+                                  || secureApp
+                                  || ((arg1 & INSTALLER_MUST_RELOAD_DAEMON) != 0) );
     
 	openLog(  clearLog  );
 	
@@ -1312,6 +1314,7 @@ int main(int argc, char *argv[])
                     errorExit();
                 }
 				appendLog([NSString stringWithFormat: @"%@ %@", (hadExistingPlist ? @"Replaced" : @"Installed"), TUNNELBLICKD_PLIST_PATH]);
+                forceLoadLaunchDaemon = TRUE;
 			} else {
 				appendLog([NSString stringWithFormat: @"Unable to create %@", TUNNELBLICKD_PLIST_PATH]);
 				errorExit();
