@@ -247,7 +247,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(unsigned)         decrementTapCount;
 -(NSUInteger)       defaultOpenVPNVersionIx;
 -(NSURL *)          getIPCheckURL;
--(BOOL)             haveConfigurations;
+-(NSNumber *)       haveConfigurations;
 -(void)             installConfigurationsUpdateInBundleAtPathMainThread: (NSString *)path;
 -(unsigned)         decrementTunCount;
 -(unsigned)         incrementTapCount;

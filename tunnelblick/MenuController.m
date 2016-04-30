@@ -3267,9 +3267,12 @@ BOOL anyNonTblkConfigs(void)
 	return NO;
 }
 
--(BOOL) haveConfigurations {
+-(NSNumber *) haveConfigurations {
+	
+	// Returns an NSNumber because it is invoked with [... performSelector:]
     
-    return (  [[self myConfigDictionary] count] != 0  );
+	NSUInteger count = [[self myConfigDictionary] count];
+    return (  [NSNumber numberWithBool: (count != 0)]  );
 }
 
 
@@ -3278,7 +3281,7 @@ BOOL anyNonTblkConfigs(void)
     // If there aren't ANY config files in the config folders
     // then guide the user
 
-    if (  [self haveConfigurations]  ) {
+    if (  [((NSNumber *)[self haveConfigurations]) boolValue]  ) {
         return;
     }
     

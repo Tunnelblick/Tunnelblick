@@ -615,7 +615,7 @@ int TBRunAlertPanelExtended(NSString * title,
 // If the preference can be changed by the user, and the checkboxResult pointer is not nil, the panel will include a checkbox with the specified label.
 // If the preference can be changed by the user, the preference is set if the user checks the box and the button that is clicked corresponds to the notShownReturnValue.
 // If the checkboxResult pointer is not nil, the initial value of the checkbox will be set from it, and the value of the checkbox is returned to it.
-// Every 0.2 seconds while the panel is being shown, this routine invokes [shouldCancelTarget performSelector: shouldCancelSelector] and cancels the dialog if it returns TRUE.
+// Every 0.2 seconds while the panel is being shown, this routine invokes [shouldCancelTarget performSelector: shouldCancelSelector] and cancels the dialog if it returns [NSNumber numberWithBool: TRUE].
 
 int TBRunAlertPanelExtendedPlus (NSString * title,
                                  NSString * msg,
@@ -754,7 +754,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
         // If we should cancel this panel or we are shutting down Tunnelblick, cancel the panel. Otherwise, continue waiting.
         
         BOOL cancel = (  (shouldCancelTarget && shouldCancelSelector)
-                       ? [shouldCancelTarget performSelector: shouldCancelSelector]
+                       ? [((NSNumber *)[shouldCancelTarget performSelector: shouldCancelSelector]) boolValue]
                       : FALSE);
         if (   cancel
             || gShuttingDownTunnelblick  ) {
