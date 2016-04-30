@@ -181,6 +181,65 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 
 @end
 
+NSString * tunnelblickdPath(void) {
+	
+#ifndef TBDebug
+    return @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd";
+#else
+    NSString * resourcesPath = [[NSBundle mainBundle] resourcePath];
+    return [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
+#endif
+	
+}
+
+NSData * tunnelblickdPlistData(void) {
+    
+#ifndef TBDebug
+    return [gFileMgr contentsAtPath: TUNNELBLICKD_PLIST_PATH];
+#else
+    NSString * resourcesPath = [[NSBundle mainBundle] resourcePath];
+    NSString * plistPath = [resourcesPath stringByAppendingPathComponent: [TUNNELBLICKD_PLIST_PATH lastPathComponent]];
+    NSMutableDictionary * plistContents = [[[NSDictionary dictionaryWithContentsOfFile: plistPath] mutableCopy] autorelease];
+    NSString * daemonPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
+    [plistContents setObject: daemonPath                     forKey: @"Program"];
+    [plistContents setObject: [NSNumber numberWithBool: YES] forKey: @"Debug"];
+    NSData * data = [NSPropertyListSerialization dataFromPropertyList: plistContents
+                                                               format: NSPropertyListXMLFormat_v1_0
+                                                     errorDescription: nil];
+    return data;
+#endif
+    
+}
+
+NSString * sha256HexStringForData (NSData * data) {
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH * 2];
+    
+    if (  data  ) {
+        uint8_t digest[CC_SHA256_DIGEST_LENGTH];
+        if (  CC_SHA256(data.bytes, data.length, digest)  ) {
+			int i;
+            for (  i = 0; i < CC_SHA256_DIGEST_LENGTH; i++  ) {
+                [output appendFormat:@"%02x", digest[i]];
+            }
+        }
+    }
+    
+    return output;
+}
+
+NSString * hashForTunnelblickdProgram(void) {
+    
+    NSString * result = sha256HexStringForData([gFileMgr contentsAtPath: tunnelblickdPath()]);
+    return result;
+}
+
+NSString * hashForTunnelblickdPlist(void) {
+    
+    NSString * result = sha256HexStringForData(tunnelblickdPlistData());
+    return result;
+}
+
 @implementation MenuController
 
 -(NSString *) localizedString: (NSString *) key
@@ -6445,64 +6504,6 @@ BOOL warnAboutNonTblks(void)
 					NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
 					nil, nil, nil);
     return -1;
-}
-
-NSString * tunnelblickdPath(void) {
-
-#ifndef TBDebug
-    return @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd";
-#else
-    NSString * resourcesPath = [[NSBundle mainBundle] resourcePath];
-    return [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
-#endif
-
-}
-
-NSData * tunnelblickdPlistData(void) {
-    
-#ifndef TBDebug
-    return [gFileMgr contentsAtPath: TUNNELBLICKD_PLIST_PATH];
-#else
-    NSString * resourcesPath = [[NSBundle mainBundle] resourcePath];
-    NSString * plistPath = [resourcesPath stringByAppendingPathComponent: [TUNNELBLICKD_PLIST_PATH lastPathComponent]];
-    NSMutableDictionary * plistContents = [[[NSDictionary dictionaryWithContentsOfFile: plistPath] mutableCopy] autorelease];
-    NSString * daemonPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
-    [plistContents setObject: daemonPath                     forKey: @"Program"];
-    [plistContents setObject: [NSNumber numberWithBool: YES] forKey: @"Debug"];
-    NSData * data = [NSPropertyListSerialization dataFromPropertyList: plistContents
-                                                               format: NSPropertyListXMLFormat_v1_0
-                                                     errorDescription: nil];
-    return data;
-#endif
-    
-}
-
-NSString * sha256HexStringForData (NSData * data) {
-    
-    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH * 2];
-    
-    if (  data  ) {
-        uint8_t digest[CC_SHA256_DIGEST_LENGTH];
-        if (  CC_SHA256(data.bytes, data.length, digest)  ) {
-            for (  int i = 0; i < CC_SHA256_DIGEST_LENGTH; i++  ) {
-                [output appendFormat:@"%02x", digest[i]];
-            }
-        }
-    }
-    
-    return output;
-}
-
-NSString * hashForTunnelblickdProgram(void) {
-    
-    NSString * result = sha256HexStringForData([gFileMgr contentsAtPath: tunnelblickdPath()]);
-    return result;
-}
-
-NSString * hashForTunnelblickdPlist(void) {
-    
-    NSString * result = sha256HexStringForData(tunnelblickdPlistData());
-    return result;
 }
 
 // Checks whether the installer needs to be run
