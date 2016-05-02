@@ -760,6 +760,9 @@
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • アプリケーションの所有者とアクセス権限を安全にする\n";
 
+/* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
+"  • Complete the update\n" = "  • Complete the update\n";
+
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • OpenVPN 設定ファイルを変換します\n";
 

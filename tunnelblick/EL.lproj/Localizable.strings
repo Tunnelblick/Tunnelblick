@@ -760,6 +760,9 @@
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Αλλαγή κατόχου και δικαιωμάτων του προγράμματος για ασφάλεια\n";
 
+/* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
+"  • Complete the update\n" = "  • Complete the update\n";
+
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Μετατροπή των OpenVPN Παραμέτρων\n";
 
@@ -968,19 +971,19 @@
 "Computer sleep/wake" = "Ύπνωση/Επαναφορά του Υπολογιστή";
 
 /* Window text */
-"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Η ρυθμίση '%1$@' ('%2$@') θα αγνοηθεί, διότι το όνομα της περιέχει μη-επιτρεπτους χαρακτήρες.\n\nΟι χαρακτήρες που επιτρέπονται είναι: '%3$s'\n\n";
+"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Η σειρά ρυθμίσεων '%1$@' ('%2$@') θα αγνοηθεί, διότι το όνομα της περιέχει μη-επιτρεπτους χαρακτήρες.\n\nΟι χαρακτήρες που επιτρέπονται είναι: '%3$s'\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "Η ρύθμιση '%@' υπάρχει ήδη.";
+"Configuration '%@' already exists." = "Η σειρά ρυμίσεων '%@' υπάρχει ήδη.";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Η παράμετρος '%@' περιέχει ένα ή περισσότερα σενάρια τα οποία μπορεί να προκαλέσουν προβλήματα αν αντικαταστήσει ή να απεγκαταστήσετε την παράμετρο, ενώ είστε συνδεδεμένοι.\n\nΘέλετε να αντικαταστήσετε την παράμετρο;";
 
 /* Window text */
-"Configuration '%@' is not secure. It should be reinstalled." = "Η ρύθμιση '%@' δεν είναι ασφαλής. Θα πρέπει να επανεγκατασταθεί.";
+"Configuration '%@' is not secure. It should be reinstalled." = "Η σειρά ρυθμίσεων '%@' δεν είναι ασφαλής. Θα πρέπει να επανεγκατασταθεί.";
 
 /* Window text */
-"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Η ρύθμιση '%@' δεν είναι ασφαλής. Παρακαλώ επανεγκαταστείστε το Tunnelblick.";
+"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Η σειρά ρυθμίσεων '%@' δεν είναι ασφαλής. Παρακαλώ επανεγκαταστείστε το Tunnelblick.";
 
 /* Window text */
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Η παράμετρος '%@' δεν είναι ενημερώσιμη επειδή δεν μπορεί να δηλωθεί ως \"ενημερώσιμη\".\n";
@@ -1790,7 +1793,7 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "Η διαμόρφωση VPN %@ δεν θα εγκατασταθεί επειδή η ρύθμιση παραμέτρων υπάρχει ήδη και δεν θα πρέπει να αντικατασταθεί.";
 
 /* Window text */
-"VPN log level:" = "VPN log level:";
+"VPN log level:" = "VPN επίπεδο καταγραφής:";
 
 /* Window text */
 "VPN status windows:" = "Κατάσταση παραθύρων VPN:";
@@ -1928,7 +1931,7 @@
 "64-bit enabling and testing" = "64-bit ενεργοποιημένο και δοκιμασμένο";
 
 /* Credit description */
-"Afrikaans localization" = "Afrikaans localization";
+"Afrikaans localization" = "Προσαρμογή στα Αφρικάνικα";
 
 /* Credit description */
 "Animation and icon sets code" = "Κωδικός ομάδων εικονιδίων και κινήσεων";
@@ -1964,7 +1967,7 @@
 "Contributed to early code" = "Συνεισφορά σε νεότερο κώδικα";
 
 /* Credit description */
-"Croation localization" = "Croation localization";
+"Croation localization" = "Προσαρμογή στα Κροάτικα";
 
 /* Credit description */
 "Czech localization" = "Προσαρμογή Τσέχικα";
@@ -2063,7 +2066,7 @@
 "Russian localization" = "Προσαρμογή Ρώσικα ";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Serbian (Latin) localization";
+"Serbian (Latin) localization" = "Προσαρμογή στα Σέρβικα (Λατινικά)";
 
 /* Credit description */
 "Slovak localization" = " Προσαρμογή Σλοβάκικα";

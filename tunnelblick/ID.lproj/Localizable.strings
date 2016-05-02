@@ -760,6 +760,9 @@
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Ubah kepemilikan dan hak program untuk mengamankannya\n";
 
+/* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
+"  • Complete the update\n" = "  • Complete the update\n";
+
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Konversikan konfigurasi OpenVPN\n";
 
@@ -800,22 +803,22 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WARNING: This copy of Tunnelblick has been tampered with.\n\n";
 
 /* Window text */
-"%@ exists but is not a folder" = "%@ exists but is not a folder";
+"%@ exists but is not a folder" = "%@ ada tetapi bukan folder";
 
 /* Window text */
-"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ has been reverted to its last secured (shadow) copy.\n\n";
+"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ telah dikembalikan kepada simpanan terakhir(bayangan).\n\n";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configurations have been reverted to their last secured (shadow) copy.\n\n";
 
 /* Window text */
-"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
+"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "%@ sudah ada di Desktop.\n\nApakah anda mau menggantikannya?";
 
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' does not have any credentials (private key or username and password) stored in the Keychain.";
 
 /* Window text */
-"'%@' was not terminated." = "'%@' was not terminated.";
+"'%@' was not terminated." = "%@ belum diakhiri.";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' preference ignored; it does not specify a folder";
@@ -827,7 +830,7 @@
 "(Logging is disabled.)" = "(Logging is disabled.)";
 
 /* Window text */
-"(Never checked)" = "(Never checked)";
+"(Never checked)" = "(Belum diperiksa)";
 
 /* Window text */
 "(The 'easy-rsaPath' preference is invalid.)" = "(The 'easy-rsaPath' preference is invalid.)";
@@ -857,13 +860,13 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?";
 
 /* Window text */
-"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
+"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Ada masalah dengan pemeriksaan alamat IP publik komputer ini.\n\nLihat Console log untuk detail lebih lanjut.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?";
 
 /* Window text */
-"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
+"A username and password are required to connect to\n  %@" = "Username dan password diperlukan untuk memulai koneksi dengan %@";
 
 /* Window text */
 "A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
@@ -887,28 +890,28 @@
 "After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Setelah menyambung ke %@, DNS tampaknya tak berjalan.\n\nIni mungkin berarti bahwa VPN Anda tak ditata secara benar.\n\n";
 
 /* Window text */
-"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n";
+"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Setelah terhubung dengan %@, internet tidak dapat dihubungi.\n\nIni mungkin berarti VPN anda belum teratur dengan benar.\n\n";
 
 /* Window text */
 "All configuration files have been removed. Tunnelblick must quit." = "All configuration files have been removed. Tunnelblick must quit.";
 
 /* Window text */
-"All configurations use %@ credentials" = "All configurations use %@ credentials";
+"All configurations use %@ credentials" = "Semua konfigurasi memakai kredensial %@";
 
 /* Window text */
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
 
 /* Window text */
-"An error occurred while trying to launch %@" = "An error occurred while trying to launch %@";
+"An error occurred while trying to launch %@" = "Error dalam membuka %@";
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "An error occurred. See the Console Log for details.";
+"An error occurred. See the Console Log for details." = "Error. Lihat Console Log untuk detail lebih lanjut.";
 
 /* Window text */
-"An internal Tunnelblick error occurred%@%@" = "An internal Tunnelblick error occurred%1$@%2$@";
+"An internal Tunnelblick error occurred%@%@" = "Ada eror internal Tunnelblick%1$@%2$@";
 
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@";
@@ -956,7 +959,7 @@
 "Backslash at end of line %u is not allowed" = "Backslash at end of line %u is not allowed";
 
 /* Window text */
-"Cannot find configuration file at %@" = "Cannot find configuration file at %@";
+"Cannot find configuration file at %@" = "File konfigurasi tidak dapat ditemukan dalam %@";
 
 /* Window text */
 "Cannot install configurations to either shared or private locations" = "Cannot install configurations to either shared or private locations";
@@ -998,10 +1001,10 @@
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n";
 
 /* Window text */
-"Connect:" = "Connect:";
+"Connect:" = "Sambungkan:";
 
 /* Window text */
-"Connection:" = "Connection:";
+"Connection:" = "Koneksi:";
 
 /* Window text */
 "Converted OpenVPN configuration" = "Converted OpenVPN configuration";
@@ -1013,22 +1016,22 @@
 "Converting %@: %@" = "Converting %1$@: %2$@";
 
 /* Window text */
-"Copied %@" = "Copied %@";
+"Copied %@" = "%@ telah disalin";
 
 /* Window text */
 "Copied %@, removing CR characters" = "Copied %@, removing CR characters";
 
 /* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
+"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub dan lainnya.";
 
 /* Window text */
-"Could not copy %@ to %@" = "Could not copy %1$@ to %2$@";
+"Could not copy %@ to %@" = "Tidak dapat menyalin %1$@ ke %2$@";
 
 /* Window text */
-"Could not create %@" = "Could not create %@";
+"Could not create %@" = "Tidak bisa membuat %@";
 
 /* Window text */
-"Could not delete %@" = "Could not delete %@";
+"Could not delete %@" = "Tidak bisa menghapus %@";
 
 /* Window text */
 "Could not find easy-rsa in Tunnelblick.app" = "Could not find easy-rsa in Tunnelblick.app";
@@ -1049,22 +1052,22 @@
 "Could not set modification date of %@ to %@" = "Could not set modification date of %1$@ to %2$@";
 
 /* Window text */
-"DNS servers:" = "DNS servers:";
+"DNS servers:" = "Server DNS:";
 
 /* Window text */
 "Did not need to modify configuration file; no path information to remove" = "Did not need to modify configuration file; no path information to remove";
 
 /* Window text */
-"Do you wish to delete the %@ credentials?" = "Do you wish to delete the %@ credentials?";
+"Do you wish to delete the %@ credentials?" = "Apakah anda ingin menghapus akun %@?";
 
 /* Window text */
-"Do you wish to duplicate the '%@' configuration?" = "Do you wish to duplicate the '%@' configuration?";
+"Do you wish to duplicate the '%@' configuration?" = "Apakah anda ingin membuat duplikat dari akun %@?";
 
 /* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n";
 
 /* Window text */
-"Do you wish to make %ld configurations private?" = "Do you wish to make %ld configurations private?";
+"Do you wish to make %ld configurations private?" = "Apakah anda ingin membuat akun %ld privat?";
 
 /* Window text */
 "Do you wish to make %ld configurations shared?" = "Do you wish to make %ld configurations shared?";
@@ -1076,7 +1079,7 @@
 "Do you wish to make the '%@' configuration shared?" = "Do you wish to make the '%@' configuration shared?";
 
 /* Window text */
-"Do you wish to reinstall '%@' version %@?" = "Do you wish to reinstall '%1$@' version %2$@?";
+"Do you wish to reinstall '%@' version %@?" = "Apakah anda ingin menginstal ulang versi %2$@ dari '%1$@\"?";
 
 /* Window text */
 "Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.";
@@ -1118,10 +1121,10 @@
 "Expected path not found for '%@'" = "Expected path not found for '%@'";
 
 /* Window text */
-"Failed to copy %@ to %@" = "Failed to copy %1$@ to %2$@";
+"Failed to copy %@ to %@" = "Tidak dapat menyalin %1$@ ke %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "Failed to create folder at %@";
+"Failed to create folder at %@" = "Gagal membuat folder %@";
 
 /* Window text */
 "Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
@@ -1130,7 +1133,7 @@
 "Failed to set permissions on %@\n" = "Failed to set permissions on %@\n";
 
 /* Window text */
-"Fast User Switching" = "Fast User Switching";
+"Fast User Switching" = "Penggantian User Cepat";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
@@ -1142,13 +1145,13 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "File '%@' has an extension which is not known to Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "File '%@' is empty";
+"File '%@' is empty" = "File '%@' kosong";
 
 /* Window text */
-"File '%@' is missing" = "File '%@' is missing";
+"File '%@' is missing" = "File '%@' tidak dapat ditemukan";
 
 /* Window text */
-"File is too large: %@" = "File is too large: %@";
+"File is too large: %@" = "File terlalu besar: %@";
 
 /* Window text */
 "GB" = "GB";
