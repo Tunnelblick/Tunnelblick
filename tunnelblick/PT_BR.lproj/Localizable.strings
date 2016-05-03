@@ -761,7 +761,7 @@
 "  • Change ownership and permissions of the program to secure it\n" = "  • Mudar propriedade e permissões do programa para protegê-lo\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
-"  • Complete the update\n" = "  • Complete the update\n";
+"  • Complete the update\n" = "  • Completar a atualização\n";
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Converter configurações do OpenVPN\n";

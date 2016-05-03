@@ -761,7 +761,7 @@
 "  • Change ownership and permissions of the program to secure it\n" = "  • Αλλαγή κατόχου και δικαιωμάτων του προγράμματος για ασφάλεια\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
-"  • Complete the update\n" = "  • Complete the update\n";
+"  • Complete the update\n" = "  • Ολοκλήρωσε την ενημέρωση\n";
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Μετατροπή των OpenVPN Παραμέτρων\n";
@@ -944,7 +944,7 @@
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Είστε σίγουρος/η ότι επιθυμείτε να εγκαταστήσετε τις ρυθμίσεις οι οποίες θα ΠΑΡΟΥΝ ΟΛΟΚΛΗΡΟΤΙΚΟ ΕΛΕΓΧΟ ΤΟΥ ΥΠΟΛΟΓΙΣΤΉ ΣΑΣ;\n\n";
 
 /* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n";
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Είστε σίγουρος ότι θέλετε να εγκαταστήσετε τις ρυθμίσεις, οι οποίες μπορεί να ΠΑΡΟΥΝ ΤΟΝ ΠΛΗΡΗ ΕΛΕΓΧΟ ΤΟΥ ΥΠΟΛΟΓΙΣΤΗ ΣΑΣ;\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Στη γραμμή %1$lu του αρχείου παραμέτρων OpenVPN: %2$@";

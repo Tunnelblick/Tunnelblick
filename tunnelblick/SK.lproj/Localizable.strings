@@ -761,7 +761,7 @@
 "  • Change ownership and permissions of the program to secure it\n" = "  • Zmeniť vlastníctvo a prístupové práva k aplikácii pre väčšiu bezpečnosť\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
-"  • Complete the update\n" = "  • Complete the update\n";
+"  • Complete the update\n" = "  • Dokončiť aktualizáciu\n";
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Previesť konfigurácie z formátu OpenVNP\n";
@@ -827,7 +827,7 @@
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "\"easy-rsaPath\" preferencie bola ignorovaná; musí byť defnovaná absolútna cesta alebo cesta začínať s \"~\"";
 
 /* Window text -- apears in log display when logging is disabled\n */
-"(Logging is disabled.)" = "(Logovanie je zakázané)";
+"(Logging is disabled.)" = "(Záznamy sú zakázané.)";
 
 /* Window text */
 "(Never checked)" = "(Zatiaľ neskontolované)";
