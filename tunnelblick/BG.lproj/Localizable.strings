@@ -92,7 +92,7 @@
 "Delete" = "Изтриване";
 
 /* Button */
-"Disconnect" = "Прекъсване на връзката";
+"Disconnect" = "Прекъсни";
 
 /* Button */
 "Do not check for a change" = "Да не се проверява за промяна";
@@ -470,7 +470,7 @@
 "ASSIGN_IP" = "Присвояване на IP адрес"; // Please translate "Assigning IP address"
 
 /* Connection status */
-"AUTH" = "Уторизиране"; // Please translate "Authorizing"
+"AUTH" = "Оторизиране"; // Please translate "Authorizing"
 
 /* Connection status */
 "CONNECTED" = "Свързан"; // Please translate "Connected"
@@ -1172,7 +1172,7 @@
 "In the OpenVPN configuration file for '%@': %@" = "В OpenVPN конфигурационния файл за '%1$@': %2$@";
 
 /* Window text */
-"In:" = "Входящ трафик:";
+"In:" = "Входящ:";
 
 /* Window text */
 "Installation failed:\n\n%@" = "Инсталацията неуспешна:\n\n%@";
@@ -1322,7 +1322,7 @@
 "OpenVPN version:" = "OpenVPN версия:";
 
 /* Window text */
-"Out:" = "Изходящ трафик:";
+"Out:" = "Изходящ:";
 
 /* Window text */
 "PB" = "PB";
