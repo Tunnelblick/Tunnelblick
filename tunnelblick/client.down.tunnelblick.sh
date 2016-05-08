@@ -40,7 +40,7 @@ restore_ipv6() {
     # This routine outputs log messages describing its activities.
 
     if [ "$1" = "" ] ; then
-        exit
+        return
     fi
 
     printf %s "$1
