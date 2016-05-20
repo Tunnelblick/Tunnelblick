@@ -10,7 +10,7 @@
 {\list\listtemplateid6\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid501\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid6}
 {\list\listtemplateid7\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid601\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid7}}
 {\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}{\listoverride\listid6\listoverridecount0\ls6}{\listoverride\listid7\listoverridecount0\ls7}}
-\margl1440\margr1440\vieww24520\viewh14280\viewkind0
+\margl1440\margr1440\vieww10460\viewh14280\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
 \f0\b\fs30 \cf0 Building Tunnelblick from Source Code\
@@ -152,9 +152,9 @@ The script downloads appropriate versions of the tools and installs them. Becaus
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
 \fs24 \cf0 \
-Tunnelblick comes set up to be built using Xcode 7.2.1.\
+Tunnelblick comes set up to be built using Xcode 7.0+.\
 \
-To use a different version of Xcode:\
+To use a different version of Xcode (for example, Xcode 3.2.2):\
 \
   1. Quit Xcode if it is running.\
 \
@@ -164,12 +164,8 @@ To use a different version of Xcode:\
 \i \'85TunnelblickSource
 \i0 /tunnelblick/tunnelblick.xcodeproj\
 \
-     with a tunnelblick.xcodeproj from the folder for the version of Xcode you are using\
+     with a tunnelblick.xcodeproj from the folder for the version of Xcode you are using \'96 for example:\
 \
-	
-\i \'85TunnelblickSource
-\i0 /tunnelblick/xcodeproj-versions/xcode 7.0\
-or\
 	
 \i \'85TunnelblickSource
 \i0 /tunnelblick/xcodeproj-versions/xcode 3.2.2\
@@ -207,7 +203,7 @@ If you are using Xcode 7.0+\
 \fs28 \cf0 6. Selecting  the Type of Build You Want to Create
 \b0\fs24 \
 \
-There are several different types of builds. Only two are usually used, and unfortunately Xcode defaults to using the one you shouldn't use, "Debug". You should use the "Unsigned Release" build instead.\
+There are two different types of builds. Unfortunately Xcode defaults to using the one you shouldn't use, "Debug". You should use the "Release" build instead.\
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
 
@@ -247,7 +243,7 @@ At this point, you might want to make a copy of your current Tunnelblick.app in 
 \
 Your .dmg file is at 
 \i \'85TunnelblickSource
-\i0 /tunnelblick/build/ Unsigned Release/Tunnelblick.dmg. Double-click it to open the disk image and, in the resulting window, double-click the Tunnelblick icon to install Tunnelblick to /Applications.\
+\i0 /tunnelblick/build/Release/Tunnelblick.dmg. Double-click it to open the disk image and, in the resulting window, double-click the Tunnelblick icon to install Tunnelblick to /Applications.\
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
 
