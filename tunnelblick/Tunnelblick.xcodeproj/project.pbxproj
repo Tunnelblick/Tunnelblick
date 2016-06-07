@@ -128,6 +128,7 @@
 		6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */; };
 		639A10EB132AC74B00754C2A /* StatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639A10EA132AC74B00754C2A /* StatusWindow.xib */; };
 		639A1100132AC9D800754C2A /* StatusWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639A10FE132AC9D800754C2A /* StatusWindowController.m */; };
+		639BCE5B1D07894C00A9111D /* RO.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 639BCE5A1D07894C00A9111D /* RO.lproj */; };
 		639EC33E1C0E16A9001FE378 /* StatusWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639EC33D1C0E16A9001FE378 /* StatusWindow-RTL.xib */; };
 		639F0FBA1960EFA100A3090E /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A505FD11DA0E88006CB2B6 /* LogDisplay.m */; };
@@ -476,6 +477,7 @@
 		639A10EA132AC74B00754C2A /* StatusWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusWindow.xib; sourceTree = "<group>"; };
 		639A10FE132AC9D800754C2A /* StatusWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusWindowController.m; sourceTree = "<group>"; };
 		639A10FF132AC9D800754C2A /* StatusWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusWindowController.h; sourceTree = "<group>"; };
+		639BCE5A1D07894C00A9111D /* RO.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RO.lproj; sourceTree = "<group>"; };
 		639EC33D1C0E16A9001FE378 /* StatusWindow-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "StatusWindow-RTL.xib"; sourceTree = "<group>"; };
 		63A505FC11DA0E88006CB2B6 /* LogDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogDisplay.h; sourceTree = "<group>"; };
 		63A505FD11DA0E88006CB2B6 /* LogDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogDisplay.m; sourceTree = "<group>"; };
@@ -1006,6 +1008,7 @@
 				63AE8596116CCF7A00D36CB1 /* PL.lproj */,
 				63DC244C19FA7379006B1BDF /* PT_BR.lproj */,
 				631494A219FA7B9E009057D1 /* PT_PT.lproj */,
+				639BCE5A1D07894C00A9111D /* RO.lproj */,
 				63611FCD13CE2A8B000240F0 /* RU.lproj */,
 				B8051F4C1754DA630024841C /* SK.lproj */,
 				634E02081CAD9783008637FF /* SR_CS.lproj */,
@@ -1513,6 +1516,7 @@
 				6387F0F5135604240021E41B /* tunnelblick.sdef in Resources */,
 				63D92582135DAEE1001FF627 /* client.3.down.tunnelblick.sh in Resources */,
 				638164DE1C145CC100B59958 /* reactivate-tunnelblick.sh in Resources */,
+				639BCE5B1D07894C00A9111D /* RO.lproj in Resources */,
 				63D92583135DAEE1001FF627 /* client.3.up.tunnelblick.sh in Resources */,
 				633888FB1C00F2FC0076032D /* Welcome-RTL.xib in Resources */,
 				63D92585135DAEE1001FF627 /* leasewatch3 in Resources */,

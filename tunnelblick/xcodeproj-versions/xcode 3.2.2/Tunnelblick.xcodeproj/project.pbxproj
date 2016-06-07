@@ -47,6 +47,7 @@
 		63179444118D7EC20057ACAF /* atsystemstart.m in Sources */ = {isa = PBXBuildFile; fileRef = 63179443118D7EC20057ACAF /* atsystemstart.m */; };
 		6317955C118DC5620057ACAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		631795FC118DC79B0057ACAF /* atsystemstart in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 6317943E118D7E820057ACAF /* atsystemstart */; };
+		632038041D07703D00F81175 /* RO.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 632038031D07703D00F81175 /* RO.lproj */; };
 		63216D90125778C0004EDB57 /* client.1.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */; };
 		63216D91125778C0004EDB57 /* client.1.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */; };
 		632886D51B022BF9000BA527 /* LV.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 632886D21B022BF9000BA527 /* LV.lproj */; };
@@ -384,6 +385,7 @@
 		631494A219FA7B9E009057D1 /* PT_PT.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PT_PT.lproj; sourceTree = "<group>"; };
 		6317943E118D7E820057ACAF /* atsystemstart */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = atsystemstart; sourceTree = BUILT_PRODUCTS_DIR; };
 		63179443118D7EC20057ACAF /* atsystemstart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = atsystemstart.m; sourceTree = "<group>"; };
+		632038031D07703D00F81175 /* RO.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RO.lproj; sourceTree = "<group>"; };
 		63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.down.tunnelblick.sh; sourceTree = "<group>"; };
 		63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.up.tunnelblick.sh; sourceTree = "<group>"; };
 		632886D21B022BF9000BA527 /* LV.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LV.lproj; sourceTree = "<group>"; };
@@ -1010,6 +1012,7 @@
 				63AE8596116CCF7A00D36CB1 /* PL.lproj */,
 				63DC244C19FA7379006B1BDF /* PT_BR.lproj */,
 				631494A219FA7B9E009057D1 /* PT_PT.lproj */,
+				632038031D07703D00F81175 /* RO.lproj */,
 				63611FCD13CE2A8B000240F0 /* RU.lproj */,
 				B8051F4C1754DA630024841C /* SK.lproj */,
 				63F0FC1E1CAD985600E456E7 /* SR_CS.lproj */,
@@ -1561,6 +1564,7 @@
 				63F0FC1D1CAD984600E456E7 /* HR.lproj in Resources */,
 				63F0FC211CAD985600E456E7 /* SR_CS.lproj in Resources */,
 				63F0050F1CB164B300853B6C /* TBVersionString.txt in Resources */,
+				632038041D07703D00F81175 /* RO.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
