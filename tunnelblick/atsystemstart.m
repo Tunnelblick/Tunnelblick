@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011 2012, 2013 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011 2012, 2013, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -136,18 +136,12 @@ void appendLog(NSString * msg)
 void setNoStart(NSString * plistPath)
 {
     NSFileManager * fm = [NSFileManager defaultManager];
-    if (  [fm tbPathContentOfSymbolicLinkAtPath: plistPath] == nil  ) {
-        if (  [fm fileExistsAtPath: plistPath]  ) {
-            if ( ! [fm tbRemoveFileAtPath: plistPath handler: nil]  ) {
-                NSLog(@"Tunnelblick atsystemstart: Unable to delete existing plist file %@", plistPath);
-                errorExit();
-            }
-        } else {
-            NSLog(@"Tunnelblick atsystemstart: Does not exist, so cannot delete %@", plistPath);
-            errorExit();
+    if (  [fm fileExistsAtPath: plistPath]  ) {
+        if ( ! [fm tbRemoveFileAtPath: plistPath handler: nil]  ) {
+            NSLog(@"Tunnelblick atsystemstart: Unable to delete existing plist file %@", plistPath);
         }
     } else {
-        NSLog(@"Tunnelblick atsystemstart: Symbolic link not allowed at %@", plistPath);
+        NSLog(@"Tunnelblick atsystemstart: Does not exist, so cannot delete %@", plistPath);
         errorExit();
     }
 }
@@ -176,9 +170,12 @@ void setStart(NSString * plistPath, NSString * daemonDescription, NSString * dae
                                 [NSNumber numberWithBool: YES], @"RunAtLoad",
                                 nil];
     
-    if (  [[NSFileManager defaultManager] tbPathContentOfSymbolicLinkAtPath: plistPath] != nil  ) {
-        NSLog(@"Tunnelblick atsystemstart: Symbolic link not allowed at %@", plistPath);
-        errorExit();
+    NSFileManager * fm = [NSFileManager defaultManager];
+    if (  [fm fileExistsAtPath: plistPath]  ) {
+        if (  [fm tbPathContentOfSymbolicLinkAtPath: plistPath] != nil  ) {
+            NSLog(@"Tunnelblick atsystemstart: Symbolic link not allowed at %@", plistPath);
+            errorExit();
+        }
     }
     
     if (  ! [plistDict writeToFile: plistPath atomically: YES]  ) {
