@@ -259,7 +259,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
-    NSString * prompt = NSLocalizedString(@"Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n This session will expire after five minutes or when the 'VPN Details' window is closed.", @"Window text");
+    NSString * prompt = NSLocalizedString(@"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.", @"Window text");
     SystemAuth * sa = [[SystemAuth newAuthWithPrompt: prompt] autorelease];
     if (  sa  ) {
         // We update the UI in the main thread to avoid having the task finish when there are still pending CoreAnimation tasks to complete
