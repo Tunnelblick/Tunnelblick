@@ -24,6 +24,7 @@
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
 #import <sys/stat.h>
+#include <sys/xattr.h>
 
 #import "defines.h"
 #import "sharedRoutines.h"
@@ -74,7 +75,7 @@
 //          at ~/Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
 //          and replaces it with a symlink to the new location.
 //      (3) If INSTALLER_CONVERT_NON_TBLKS, all private .ovpn or .conf files are converted to .tblks
-//      (4) If INSTALLER_COPY_APP, this app is copied to /Applications
+//      (4) If INSTALLER_COPY_APP, this app is copied to /Applications and the com.apple.quarantine extended attribute is removed from the app and all items within it
 //      (5) Renames /Library/LaunchDaemons/net.tunnelblick.startup.*
 //               to                        net.tunnelblick.tunnelblick.startup.*
 //      (6) If INSTALLER_SECURE_APP, secures Tunnelblick.app by setting the ownership and permissions of its components.
@@ -432,6 +433,39 @@ void loadLaunchDaemonUsingLaunchctl(void) {
 	}
 }
 
+BOOL removeQuarantineBitWorker(NSString * path) {
+    
+    const char * fullPathC = [path fileSystemRepresentation];
+    const char * quarantineBitNameC = "com.apple.quarantine";
+    int status = removexattr(fullPathC, quarantineBitNameC, XATTR_NOFOLLOW);
+    if (   (status != 0)
+        && (errno != ENOATTR)) {
+        appendLog([NSString stringWithFormat: @"Failed to remove '%s' from %s; errno = %ld; error was '%s'", quarantineBitNameC, fullPathC, (long)errno, strerror(errno)]);
+        return FALSE;
+    }
+    
+    return TRUE;
+}
+BOOL removeQuarantineBit(void) {
+    
+    NSString * tbPath = @"/Applications/Tunnelblick.app";
+    
+    if (  ! removeQuarantineBitWorker(tbPath)  ) {
+        return FALSE;
+    }
+    
+    NSDirectoryEnumerator * dirE = [gFileMgr enumeratorAtPath: tbPath];
+    NSString * file;
+    while (  (file = [dirE nextObject])  ) {
+        NSString * fullPath = [tbPath stringByAppendingPathComponent: file];
+        if (  ! removeQuarantineBitWorker(fullPath)  ) {
+            return FALSE;
+        }
+    }
+    
+    return TRUE;
+}
+
 /* DISABLED BECAUSE THIS IS NOT AVAILABLE ON 10.4 and 10.5
  *
  * When/if this is enabled, must add the ServiceManagement framework, too, via the following line at the start of this file:
@@ -780,6 +814,13 @@ int main(int argc, char *argv[])
             errorExit();
         } else {
             appendLog([NSString stringWithFormat: @"Copied %@ to %@", currentPath, targetPath]);
+        }
+        
+        if (  ! removeQuarantineBit()  ) {
+            appendLog(@"Unable to remove all 'com.apple.quarantine' extended attributes");
+            errorExit();
+        } else {
+            appendLog(@"Removed all 'com.apple.quarantine' extended attributes");
         }
     }
     
