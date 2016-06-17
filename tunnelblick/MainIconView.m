@@ -62,7 +62,7 @@ extern BOOL              gShuttingDownWorkspace;
     if (  mainIconTrackingRectTagIsValid  ) {
         [self removeTrackingRect: mainIconTrackingRectTag];
         mainIconTrackingRectTagIsValid = FALSE;
-        TBLog(@"DB-SI", @"Removed main tracking rectangle for MainIconView 0x%lX", (long)self)
+        TBLog(@"DB-SI", @"Removed main tracking rectangle for MainIconView")
     }
 }
 
@@ -78,15 +78,15 @@ extern BOOL              gShuttingDownWorkspace;
                                                userData: nil
                                            assumeInside: NO];
         mainIconTrackingRectTagIsValid = TRUE;
-        TBLog(@"DB-SI", @"setOrRemoveTrackingRect: Added main tracking rectangle 0x%lX (%f,%f, %f, %f) for MainIconView 0x%lX",
-              (long) mainIconTrackingRectTag, trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height,(long) self)
+        TBLog(@"DB-SI", @"setOrRemoveTrackingRect: Added main tracking rectangle (%f,%f, %f, %f) for MainIconView",
+              trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height)
 	}
 }
 
 
 -(void) changedDoNotShowNotificationWindowOnMouseover
 {
-    TBLog(@"DB-SI", @"changedDoNotShowNotificationWindowOnMouseover: for MainIconView 0x%lX entered", (long)self);
+    TBLog(@"DB-SI", @"changedDoNotShowNotificationWindowOnMouseover: for MainIconView entered");
 	[self setOrRemoveTrackingRect];
 }
 
@@ -193,7 +193,7 @@ extern BOOL              gShuttingDownWorkspace;
         return;
     }
     
-    TBLog(@"DB-SI", @"Mouse entered tracking rectangle  for MainIconView 0x%lX", (long)self);
+    TBLog(@"DB-SI", @"Mouse entered tracking rectangle  for MainIconView");
     [((MenuController *)[NSApp delegate]) mouseEnteredMainIcon: self event: theEvent];
 }
 
@@ -206,7 +206,7 @@ extern BOOL              gShuttingDownWorkspace;
         return;
     }
     
-    TBLog(@"DB-SI", @"Mouse exited tracking rectangle for MainIconView 0x%lX", (long)self);
+    TBLog(@"DB-SI", @"Mouse exited tracking rectangle for MainIconView");
     [((MenuController *)[NSApp delegate]) mouseExitedMainIcon: self event: theEvent];
 }
 
@@ -218,7 +218,7 @@ extern BOOL              gShuttingDownWorkspace;
         return;
     }
     
-    TBLog(@"DB-SI", @"Mouse down in MainIconView 0x%lX", (long)self);
+    TBLog(@"DB-SI", @"Mouse down in MainIconView");
     [self performSelectorOnMainThread: @selector(mouseDownMainThread:) withObject: theEvent waitUntilDone: NO];
 }
 
@@ -228,7 +228,7 @@ extern BOOL              gShuttingDownWorkspace;
 	
 	(void) theEvent;	// We don't do anything
 	
-    TBLog(@"DB-SI", @"Mouse up in MainIconView 0x%lX", (long)self);
+    TBLog(@"DB-SI", @"Mouse up in MainIconView");
 }
 
 @end

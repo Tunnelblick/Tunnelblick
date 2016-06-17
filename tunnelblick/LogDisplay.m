@@ -211,7 +211,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     NSTextView              * tv = [cv logView];
     NSTextStorage           * ts = [tv textStorage];
     if (  ! ts  ) {
-        NSLog(@"insertLogEntry: no ts; wc = 0x%lx; cv = 0x%lx; lv = 0x%lx ts = 0x%lx", (unsigned long)wc, (unsigned long)cv, (unsigned long)tv, (unsigned long)ts);
+        NSLog(@"insertLogEntry: no ts");
         return;
     }
     

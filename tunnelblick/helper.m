@@ -560,7 +560,7 @@ void TBCloseAllAlertPanels (void) {
         CFUserNotificationRef ref = (CFUserNotificationRef)[AlertRefs objectAtIndex: ix];
         if (  ref  ) {
             SInt32 result = CFUserNotificationCancel(ref);
-            TBLog(@"DB-SD", @"TBCloseAllAlertPanels: Cancelled alert panel 0x%lx with result %ld", (unsigned long)ref, (unsigned long) result);
+            TBLog(@"DB-SD", @"TBCloseAllAlertPanels: Cancelled alert panel %@ with result %ld", (ref ? @"non-0" : @"0"), (unsigned long) result);
         }
     }
     
@@ -579,7 +579,7 @@ void IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn(void) {
         return;
     }
     
-    TBLog(@"DB-SD", @"Shutting down Tunnelblick, so this thread (0x%lx) will never return from TBRunAlertPanel()", (long)[NSThread currentThread]);
+    TBLog(@"DB-SD", @"Shutting down Tunnelblick, so this thread will never return from TBRunAlertPanel()");
     while (  TRUE  ) {
         sleep(1);
     }
@@ -698,8 +698,8 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
         || (panelRef == NULL)
         ) {
         
-		NSLog(@"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX, so TBRunAlertExtended is terminating Tunnelblick after attempting to display an error window using CFUserNotificationDisplayNotice",
-              (long) error, (long) panelRef);
+		NSLog(@"CFUserNotificationCreate() returned with error = %ld; notification = %@, so TBRunAlertExtended is terminating Tunnelblick after attempting to display an error window using CFUserNotificationDisplayNotice",
+              (long) error, (panelRef ? @"non-0" : @"0"));
         if (  panelRef != NULL  ) {
             CFRelease(panelRef);
             panelRef = NULL;
@@ -709,8 +709,8 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
         TBShowAlertWindow(NSLocalizedString(@"Alert", @"Window title"),
                           [NSString stringWithFormat:
                            NSLocalizedString(@"Tunnelblick could not display a window.\n\n"
-                                             @"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX", @"Window text"),
-                           (long) error, (unsigned long) panelRef]);
+                                             @"CFUserNotificationCreate() returned with error = %ld; notification = %@", @"Window text"),
+                           (long) error, (panelRef ? @"non-0" : @"0")]);
         
         // Try showing a modal alert window
         SInt32 status = CFUserNotificationDisplayNotice(60.0,
@@ -721,8 +721,8 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
                                                         (CFStringRef) NSLocalizedString(@"Alert", @"Window title"),
                                                         (CFStringRef) [NSString stringWithFormat:
                                                                        NSLocalizedString(@"Tunnelblick could not display a window.\n\n"
-                                                                                         @"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX", @"Window text"),
-                                                                       (long) error, (long) panelRef],
+                                                                                         @"CFUserNotificationCreate() returned with error = %ld; notification = %@", @"Window text"),
+                                                                       (long) error, (panelRef ? @"non-0" : @"0")],
                                                         NULL);
         NSLog(@"CFUserNotificationDisplayNotice() returned %ld", (long) status);
         if (  panelRef != NULL  ) {
@@ -739,7 +739,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
         AlertRefs = [[NSMutableArray alloc] initWithCapacity: 8];
     }
     [AlertRefs addObject: (id)panelRef];
-    TBLog(@"DB-SD", @"TBRunAlertPanelExtended saved 0x%lx in AlertRefs; AlertRefs = %@", (unsigned long)panelRef, AlertRefs);
+    TBLog(@"DB-SD", @"TBRunAlertPanelExtended saved %@ in AlertRefs; AlertRefs = %@", (panelRef ? @"non-0" : @"0"), AlertRefs);
     UnlockAlertRefs();
     
     // Loop waiting for either a response or a shutdown of Tunnelblick
@@ -759,9 +759,9 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
         if (   cancel
             || gShuttingDownTunnelblick  ) {
             SInt32 result = CFUserNotificationCancel(panelRef);
-            TBLog(@"DB-SD", @"Cancelled alert panel 0x%lx with result %ld", (unsigned long)panelRef, (unsigned long) result);
+            TBLog(@"DB-SD", @"Cancelled alert panel %@ with result %ld", (panelRef ? @"non-0" : @"0"), (unsigned long) result);
             if (  result != 0  ) {
-                TBLog(@"DB-SD", @"Cancel of alert panel 0x%lx failed, so simulating it", (unsigned long)panelRef);
+                TBLog(@"DB-SD", @"Cancel of alert panel %@ failed, so simulating it", (panelRef ? @"non-0" : @"0"));
                 responseReturnCode = 0;
                 response = kCFUserNotificationCancelResponse;
                 break;
@@ -769,13 +769,13 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
         }
     }
     
-    TBLog(@"DB-SD", @"CFUserNotificationReceiveResponse returned %ld; response = %ld for panel 0x%lx; AlertRefs; AlertRefs = %@", (long)responseReturnCode, (long)response, (unsigned long)panelRef, AlertRefs);
+    TBLog(@"DB-SD", @"CFUserNotificationReceiveResponse returned %ld; response = %ld for panel %@; AlertRefs; AlertRefs = %@", (long)responseReturnCode, (long)response, (panelRef ? @"non-0" : @"0"), AlertRefs);
     
     if (  panelRef != NULL  ) {
         // Remove from AlertRefs
         LockAlertRefs();
         [AlertRefs removeObject: (id)panelRef];
-        TBLog(@"DB-SD", @"TBRunAlertPanelExtended removed 0x%lx from AlertRefs; AlertRefs = %@", (unsigned long)panelRef, AlertRefs);
+        TBLog(@"DB-SD", @"TBRunAlertPanelExtended removed %@ from AlertRefs; AlertRefs = %@", (panelRef ? @"non-0" : @"0"), AlertRefs);
         UnlockAlertRefs();
         CFRelease(panelRef);
         panelRef = NULL;

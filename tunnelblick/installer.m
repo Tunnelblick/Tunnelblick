@@ -209,7 +209,7 @@ void freeAuthRef(AuthorizationRef authRef) {
 	if (  authRef != NULL  ) {
 		OSStatus status = AuthorizationFree(authRef, kAuthorizationFlagDefaults);
 		if (  status != errAuthorizationSuccess  ) {
-			appendLog([NSString stringWithFormat: @"AuthorizationFree(0x%lx) returned %ld", (unsigned long)authRef, (long)status]);
+			appendLog([NSString stringWithFormat: @"AuthorizationFree) returned %ld", (long)status]);
 			errorExit();
 		}
 	}

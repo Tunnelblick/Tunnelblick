@@ -368,8 +368,8 @@ extern TBUserDefaults * gTbDefaults;
 						break;
 					}
 				} else if (  status != -35 /* nsvErr -- no such volume */  ) {
-					NSLog(@"deleteOurLoginItem: LSSharedFileListItemResolve returned status = %ld for item = 0x%lX; url was %@",
-						  (long) status, (unsigned long) item, ((URL == NULL) ? @"NULL" : @"not NULL"));
+					NSLog(@"deleteOurLoginItem: LSSharedFileListItemResolve returned status = %ld for item; url was %@",
+						  (long) status, ((URL == NULL) ? @"NULL" : @"not NULL"));
 				}
 				if (  URL  ) {
 					CFRelease(URL);
