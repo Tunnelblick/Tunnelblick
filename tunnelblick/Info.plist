@@ -103,5 +103,9 @@
 		<true/>
 	<key>IPCheckURL</key>
 		<string>https://www.tunnelblick.net/ipinfo</string>
+	<key>NSAppTransportSecurity</key>  
+    	<dict>  
+			<key>NSAllowsArbitraryLoads</key><true/>  
+		</dict>
 </dict>
 </plist>
