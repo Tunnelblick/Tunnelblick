@@ -36,6 +36,7 @@
 @class SplashWindowController;
 @class StatusWindowController;
 @class SUUpdater;
+@class SystemAuth;
 @class TBUIUpdater;
 @class VPNConnection;
 @class WelcomeController;
@@ -129,6 +130,8 @@ void * _NSConcreteStackBlock __attribute__((weak));
     NSArray                 * openvpnVersionInfo;           // An array of dictionaries corresponding to openvpnVersionNames
     //                                                      //    Each dictionary contains the following keys:
     //                                                      //    "full", "preMajor", "major", @"preMinor", "minor", "preSuffix", @"suffix", @"postSuffix"
+    
+    SystemAuth              * startupInstallAuth;           // Authorization when starting up Tunnelblick
     
     MyPrefsWindowController * logScreen;                    // Log window ("VPN Details..." window)
     
@@ -274,12 +277,9 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(void)             reactivateTunnelblick;
 -(void)             reconnectAfterBecomeActiveUser;
 -(void)             removeConnection:                       (VPNConnection *)   connection;
--(NSInteger)        runInstaller:                           (unsigned)          installerFlags
-                  extraArguments:                           (NSArray *)         extraArguments;
 -(NSInteger)        runInstaller: (unsigned)           installFlags
                   extraArguments: (NSArray *)          extraArguments
-                 usingAuthRefPtr: (AuthorizationRef *) authRef
-                         message: (NSString *)         message
+                 usingSystemAuth: (SystemAuth *)       auth
                installTblksFirst: (NSArray *)          tblksToInstallFirst;
 -(void)             saveConnectionsToRestoreOnRelaunch;
 -(void)             setHotKeyIndex:                         (unsigned)          newIndex;
@@ -349,6 +349,7 @@ TBPROPERTY_READONLY(NSMutableArray *, activeIPCheckThreads)
 TBPROPERTY_READONLY(NSMutableArray *, cancellingIPCheckThreads)
 TBPROPERTY_READONLY(ConfigurationMultiUpdater *, myConfigMultiUpdater)
 
+TBPROPERTY(SystemAuth   *, startupInstallAuth,        setStartupInstallAuth)
 TBPROPERTY(NSButton     *, statusItemButton,          setStatusItemButton)
 TBPROPERTY(NSArray      *, screenList,                setScreenList)
 TBPROPERTY(MainIconView *, ourMainIconView,           setOurMainIconView)

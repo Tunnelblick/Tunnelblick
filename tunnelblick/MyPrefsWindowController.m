@@ -42,6 +42,7 @@
 #import "NSString+TB.h"
 #import "SettingsSheetWindowController.h"
 #import "Sparkle/SUUpdater.h"
+#import "SystemAuth.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
@@ -106,6 +107,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, leftNavDisplayNames)
 
 TBSYNTHESIZE_OBJECT(retain, NSString *, previouslySelectedNameOnLeftNavList, setPreviouslySelectedNameOnLeftNavList)
 
+TBSYNTHESIZE_OBJECT(retain, NSTimer *,  lockTheLockIconTimer,                setLockTheLockIconTimer)
+
 TBSYNTHESIZE_OBJECT_GET(retain, ConfigurationsView *, configurationsPrefsView)
 
 TBSYNTHESIZE_OBJECT_GET(retain, SettingsSheetWindowController *, settingsSheetWindowController)
@@ -113,6 +116,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, SettingsSheetWindowController *, settingsSheetWi
 TBSYNTHESIZE_OBJECT_SET(NSString *, currentViewName, setCurrentViewName)
 
 // Synthesize getters and direct setters:
+TBSYNTHESIZE_OBJECT(retain, NSDate   *, lockTimeoutDate,                      setLockTimeoutDate)
+
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedSetNameserverIndex,           setSelectedSetNameserverIndexDirect)
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedPerConfigOpenvpnVersionIndex, setSelectedPerConfigOpenvpnVersionIndexDirect)
 TBSYNTHESIZE_OBJECT(retain, NSNumber *, selectedLoggingLevelIndex,            setSelectedLoggingLevelIndexDirect)
@@ -129,11 +134,15 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 
 -(void) dealloc {
 	
-    [currentViewName                     release]; currentViewName                     = nil;
-	[previouslySelectedNameOnLeftNavList release]; previouslySelectedNameOnLeftNavList = nil;
-	[leftNavList                         release]; leftNavList = nil;
-	[leftNavDisplayNames                 release]; leftNavDisplayNames = nil;
-    [settingsSheetWindowController       release]; settingsSheetWindowController = nil;
+    [lockTheLockIconTimer invalidate];
+    [lockTheLockIconTimer                release];
+    TBLog(@"DB-AA", @"MyPrefsWindowController|dealloc: Invalidated the lock timer");
+    
+    [currentViewName                     release];
+	[previouslySelectedNameOnLeftNavList release];
+	[leftNavList                         release];
+	[leftNavDisplayNames                 release];
+    [settingsSheetWindowController       release];
 	
     [super dealloc];
 }
@@ -148,11 +157,183 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 	return finalName;
 }
 
+-(void) lockTheLockIcon {
+    
+    // Invoked when the window closes or authorization for lock times out
+    
+    if (  ! runningOnMainThread()  ) {
+        NSLog(@"lockTheLockIcon invoked but not on main thread; stack trace = %@", callStack());
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        return;
+    }
+    
+    [lockTheLockIconTimer invalidate];
+    TBLog(@"DB-AA", @"lockTheLockIcon: Invalidated the lock timer");
+    
+    NSToolbarItem *item = [toolbarItems objectForKey: @"lockIcon"];
+    
+    if (  lockIconIsUnlocked  ) {
+        
+        // Icon is unlocked; lock it and release the authorization
+        lockIconIsUnlocked = FALSE;
+        [item setImage: [NSImage imageNamed: @"Lock"]];
+        [item setLabel: NSLocalizedString(@"Enter admin mode", @"Toolbar text for 'Lock' icon")];
+        [SystemAuth setLockSystemAuth: nil];
+        TBLog(@"DB-AA", @"lockTheLockIcon: Locked the lock icon and set lockSystemAuth to nil");
+    }
+}
+
+-(void) setLockLabelWithTimeLeft {
+    
+   NSTimeInterval timeLeft = [[self lockTimeoutDate] timeIntervalSinceDate: [NSDate date]];
+    if (  timeLeft < 0.0 ) {
+        timeLeft = 0.0;
+    }
+    NSTimeInterval minutes = floor(timeLeft / 60.0);
+    NSTimeInterval seconds = round(timeLeft - (minutes * 60.0));
+    if (  seconds >= 60.0  ) {
+        seconds -= 60.0;
+        minutes += 1.0;
+    }
+    NSString * timeLeftString = [NSString stringWithFormat: @"%01.0f:%02.0f", minutes, seconds];
+    
+    NSToolbarItem * item = [toolbarItems objectForKey: @"lockIcon"];
+    [item setLabel: [NSString stringWithFormat: NSLocalizedString(@"Admin mode %@ remaining", @"Toolbar text for 'Lock' item"),
+                     timeLeftString]];
+}
+
+-(void) lockIconTimerTick {
+    
+    NSTimeInterval timeLeft = [[self lockTimeoutDate] timeIntervalSinceDate: [NSDate date]];
+    if (  timeLeft <= 0.5  ) {
+        [lockTheLockIconTimer invalidate];
+        [self performSelectorOnMainThread: @selector(lockTheLockIcon) withObject: nil waitUntilDone: NO];
+    } else {
+        [self performSelectorOnMainThread: @selector(setLockLabelWithTimeLeft) withObject: nil waitUntilDone: NO];
+    }
+}
+
+
+-(void) enableLockIcon: (SystemAuth *) sa {
+    
+    // Invoked when the user has given (sa != nil) or cancelled (sa == nil) an authorization
+    
+    if (  ! runningOnMainThread()  ) {
+        NSLog(@"enableLockIcon invoked but not on main thread; stack trace = %@", callStack());
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        return;
+    }
+    
+    NSToolbarItem * item = [toolbarItems objectForKey: @"lockIcon"];
+    if (  sa  ) {
+        [SystemAuth setLockSystemAuth: sa];
+        
+        // Set up a timer to change the icon to be "locked" and release the authorization when the authorization is scheduled to time out
+        NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: 1.0 target: self selector: @selector(lockIconTimerTick) userInfo: nil repeats: YES];
+        [lockTheLockIconTimer invalidate];
+        [self setLockTheLockIconTimer: timer];
+        [self setLockTimeoutDate: [[NSDate date] dateByAddingTimeInterval: 300.00]];
+        
+        [item setImage: [NSImage imageNamed: @"Lock-open"]];
+        [self setLockLabelWithTimeLeft];
+        lockIconIsUnlocked = TRUE;
+        if (  ! [[self window] isVisible]  ) {
+            NSLog(@"enableLockIcon: displaying 'VPN Details' window because an authorization was obtained.");
+            [self showWindow: nil];
+            [NSApp activateIgnoringOtherApps:YES];
+        }
+        
+        TBLog(@"DB-AA", @"enableLockIcon: Unlocked the lock icon, set lockSystemAuth, and set a timer to relock the lock icon in five minutes");
+    } else {
+        [item setLabel: NSLocalizedString(@"Enter admin mode", @"Toolbar text for 'Lock' item")];
+        [NSApp activateIgnoringOtherApps:YES];
+    }
+    
+    TBLog(@"DB-AA", @"enableLockIcon: Enabling the lock icon");
+    [item setEnabled: YES];
+}
+
+-(void) toggleLockItemGetAuthThread {
+    
+    // NOTE: RUNS IN A SEPARATE THREAD so Tunnelblick is not blocked waiting for the user
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    NSString * prompt = NSLocalizedString(@"Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n This session will expire after five minutes or when the 'VPN Details' window is closed.", @"Window text");
+    SystemAuth * sa = [[SystemAuth newAuthWithPrompt: prompt] autorelease];
+    if (  sa  ) {
+        // We update the UI in the main thread to avoid having the task finish when there are still pending CoreAnimation tasks to complete
+        TBLog(@"DB-AA", @"toggleLockItemGetAuthTask: Received authorization; requesting main thread enable the lock icon and show lock icon as opened");
+    } else {
+        sa = nil;
+        TBLog(@"DB-AA", @"toggleLockItemGetAuthTask: Authorization was cancelled; requesting main thread enable the lock icon");
+    }
+    
+    [self performSelectorOnMainThread: @selector(enableLockIcon:) withObject: sa waitUntilDone: NO];
+    
+    [pool drain];
+}
+
+-(void) toggleLockItem {
+    
+    // Executes only on main thread, when user clicks the lock icon in the "VPN Details" window
+    
+    NSToolbarItem *item = [toolbarItems objectForKey: @"lockIcon"];
+    
+    // Ignore this click if we are already processing a click
+    if (  ! [item isEnabled]  ) {
+        return;
+    }
+
+    if (  lockIconIsUnlocked  ) {
+        
+        // Lock icon is showing "Unlocked"
+        lockIconIsUnlocked = FALSE;
+        [item setImage: [NSImage imageNamed: @"Lock"]];
+        [item setLabel: NSLocalizedString(@"Enter admin mode", @"Toolbar text for 'Lock' item")];
+        [lockTheLockIconTimer invalidate];
+        [SystemAuth setLockSystemAuth: nil];
+        TBLog(@"DB-AA", @"toggleLockItem:  Locked the lock icon, invalidated the lock icon timeout timer, and set lockAuthRef to nil");
+        
+    } else {
+        
+        // Lock icon is showing "Locked"
+        TBLog(@"DB-AA", @"toggleLockItem: Disabling the lock icon");
+        [item setEnabled: NO];
+        [item setLabel: NSLocalizedString(@"Authenticating...", @"Toolbar text for 'Lock' item")];
+        TBLog(@"DB-AA", @"toggleLockItem: Creating thread to request authorization to unlock the lock icon");
+        [NSThread detachNewThreadSelector: @selector(toggleLockItemGetAuthThread) toTarget: self withObject: nil];
+    }
+}
+
+-(BOOL) validateToolbarItem: (NSToolbarItem *) toolbarItem
+{
+    
+    return [toolbarItem isEnabled] ;
+}
+
+-(void) addLockIcon {
+
+    NSString * identifier = @"lockIcon";
+    [toolbarIdentifiers addObject: identifier];
+    
+    [toolbarViews setObject: [NSNull null] forKey:identifier];
+
+    NSToolbarItem * item = [[[NSToolbarItem alloc] initWithItemIdentifier: identifier] autorelease];
+    [item setLabel: NSLocalizedString(@"Enter admin mode", @"Toolbar text for 'Lock' item")];
+    [item setImage: [NSImage imageNamed: @"Lock"]];
+    [item setTarget: self];
+	[item setAction: @selector(toggleLockItem)];
+    [item setEnabled: YES];
+	
+	[toolbarItems setObject: item forKey: identifier];
+}
 
 -(void) setupToolbar
 {
 	if (  [UIHelper languageAtLaunchWasRTL]  ) {
-		// Add an NSToolbarFlexibleSpaceIdentifier item on the left, to force everything else to the right
+		// Add an NSToolbarFlexibleSpaceIdentifier item on the left, to force the primary toolbar buttons to the right
+		[self addLockIcon];
 		[self addView: (NSView *)[NSNull null]  label: NSToolbarFlexibleSpaceItemIdentifier                  image: (NSImage *)[NSNull null]];
 		[self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageNamed: @"Info"          ]];
 		[self addView: utilitiesPrefsView       label: NSLocalizedString(@"Utilities",      @"Window title") image: [NSImage imageNamed: @"Utilities"     ]];
@@ -165,6 +346,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 		[self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageNamed: @"Preferences"   ]];
 		[self addView: utilitiesPrefsView       label: NSLocalizedString(@"Utilities",      @"Window title") image: [NSImage imageNamed: @"Utilities"     ]];
 		[self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageNamed: @"Info"          ]];
+		[self addView: (NSView *)[NSNull null]  label: NSToolbarFlexibleSpaceItemIdentifier                  image: (NSImage *)[NSNull null]];
+		[self addLockIcon];
 	}
 	
     [self setupViews];
@@ -198,27 +381,30 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) resizeAllViewsExceptCurrent {
     
-    NSView * currentView = [toolbarViews objectForKey: currentViewName];
-    if (  currentView  ) {
-        NSSize newSize = [currentView frame].size;
-        if (  newSize.width != 0.0 ) {
-            
-            NSString * name;
-            NSEnumerator * e = [toolbarViews keyEnumerator];
-            while (  (name = [e nextObject])  ) {
-                if (   [name isNotEqualTo: currentViewName]
-                    && [name isNotEqualTo: NSToolbarFlexibleSpaceItemIdentifier]  ) {
-                    NSView  * view = [toolbarViews objectForKey: name];
-                    NSRect f = [view frame];
-                    f.size = newSize;
-                    [view setFrameSize:  newSize];
+    if (  currentViewName  ) {
+        NSView * currentView = [toolbarViews objectForKey: currentViewName];
+        if (  currentView  ) {
+            NSSize newSize = [currentView frame].size;
+            if (  newSize.width != 0.0 ) {
+                
+                NSString * name;
+                NSEnumerator * e = [toolbarViews keyEnumerator];
+                while (  (name = [e nextObject])  ) {
+                    if (   [name isNotEqualTo: currentViewName]
+                        && [name isNotEqualTo: NSToolbarFlexibleSpaceItemIdentifier]
+                        && [name isNotEqualTo: @"lockIcon"]  ) {
+                        NSView  * view = [toolbarViews objectForKey: name];
+                        NSRect f = [view frame];
+                        f.size = newSize;
+                        [view setFrameSize:  newSize];
+                    }
                 }
+            } else {
+                NSLog(@"resizeAllViewsExceptCurrent: [currentView frame].size.width is 0.0 for '%@'", currentViewName);
             }
         } else {
-            NSLog(@"resizeAllViewsExceptCurrent: [currentView frame].size.width is 0.0 for '%@'", currentViewName);
+            NSLog(@"resizeAllViewsExceptCurrent: No view in toolbarViews for '%@'", currentViewName);
         }
-    } else {
-        NSLog(@"resizeAllViewsExceptCurrent: No view in toolbarViews for '%@'", currentViewName);
     }
 }
 
@@ -285,6 +471,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
 	(void) notification;
 	
+    [self lockTheLockIcon];
+    
     if (  currentViewName  ) {
         NSView * currentView = [toolbarViews objectForKey: currentViewName];
         if (  currentView  ) {
@@ -1838,19 +2026,134 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
-
-// Makes sure that
-//       * The autoConnect and -onSystemStart preferences
-//       * The configuration location (private/shared/deployed)
-//       * Any launchd .plist for the configuration
-// are all consistent.
-// Does this by creating/deleting a launchd .plist if it can (i.e., if the user authorizes it)
-// Otherwise may modify the preferences to reflect the existence of the launchd .plist
--(void) validateWhenToConnect: (VPNConnection *) connection
-{
+-(void) rawSetWhenToConnect {
+    
+    VPNConnection * connection = [self selectedConnection];
     if (  ! connection  ) {
         return;
     }
+    
+    NSString * displayName = [connection displayName];
+    
+    BOOL enableWhenComputerStarts = [connection mayConnectWhenComputerStarts];
+    
+    NSString * autoConnectKey = [displayName stringByAppendingString: @"autoConnect"];
+    NSString * ossKey         = [displayName stringByAppendingString: @"-onSystemStart"];
+    BOOL       autoConnect    = [gTbDefaults boolForKey: autoConnectKey];
+    
+    BOOL launchdPlistWillConnectOnSystemStart = [connection launchdPlistWillConnectOnSystemStart];
+    
+    // Set index of 'When computer starts' drop-down according to what will actually happen
+    NSUInteger ix = (  launchdPlistWillConnectOnSystemStart
+                     ? 2
+                     : (  autoConnect
+                        ? 1
+                        : 0));
+    [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: (int)ix];
+    selectedWhenToConnectIndex = ix;
+    [[configurationsPrefsView whenToConnectOnComputerStartMenuItem] setEnabled: enableWhenComputerStarts];
+    
+    BOOL enable = (   [gTbDefaults canChangeValueForKey: autoConnectKey]
+                   && [gTbDefaults canChangeValueForKey: ossKey]
+                   && [self oneConfigurationIsSelected]);
+    [[configurationsPrefsView whenToConnectPopUpButton] setEnabled: enable];
+}
+
+-(void) validateWhenToConnect: (VPNConnection *) connection {
+    
+    // Verifies that
+    //       * The autoConnect and -onSystemStart preferences
+    //       * The configuration location (private/shared/deployed)
+    //       * Any launchd .plist for the configuration
+    // are all consistent.
+    // Does this by modifying the preferences to reflect the existence of the launchd .plist if necessary
+    // Then sets the index for the 'Connect when' drop-down appropriately
+    //
+    // Returns TRUE normally, or FALSE if there was a problem setting the preferences (because of forced preferences, presumably)
+    
+    if (  ! connection  ) {
+        return;
+    }
+    
+    NSString * displayName = [connection displayName];
+    
+    BOOL enableWhenComputerStarts = [connection mayConnectWhenComputerStarts];
+    
+    NSString * autoConnectKey = [displayName stringByAppendingString: @"autoConnect"];
+    NSString * ossKey         = [displayName stringByAppendingString: @"-onSystemStart"];
+    BOOL       autoConnect    = [gTbDefaults boolForKey: autoConnectKey];
+    BOOL       onSystemStart  = [gTbDefaults boolForKey: ossKey];
+    
+    BOOL launchdPlistWillConnectOnSystemStart = [connection launchdPlistWillConnectOnSystemStart];
+    
+    //Keep track of what we need to do with the preferences
+    BOOL changeToManual = FALSE;
+    BOOL changeToWhenComputerStarts = FALSE;
+    
+    if (  autoConnect && onSystemStart  ) {
+        if (  launchdPlistWillConnectOnSystemStart  ) {
+            if (  ! enableWhenComputerStarts  ) {
+                NSLog(@"Warning: ''%@' may not be set to connect 'When computer starts'", displayName);
+                changeToManual = TRUE;
+            }
+        } else {
+            NSLog(@"Warning: ''%@' will not connect 'When computer starts' because the launchd .plist does not exist", displayName);
+            changeToManual = TRUE;
+        }
+    } else {
+        if (  launchdPlistWillConnectOnSystemStart  ) {
+            NSLog(@"Warning: ''%@' will connect 'When computer starts' because the .plist exists", displayName);
+            if (  ! enableWhenComputerStarts  ) {
+                NSLog(@"Warning: ''%@' will connect 'When computer starts' but that should not be enabled", displayName);
+            }
+            changeToWhenComputerStarts = TRUE;
+        }
+    }
+    
+   if (  changeToManual  ) {
+        [gTbDefaults removeObjectForKey: autoConnectKey];
+        [gTbDefaults removeObjectForKey: ossKey];
+        autoConnect   = [gTbDefaults boolForKey: autoConnectKey];
+        onSystemStart = [gTbDefaults boolForKey: ossKey];
+        if (  autoConnect || onSystemStart  ) {
+            NSLog(@"Warning: Failed to set '%@' to connect manually; 'When computer starts' is %@enabled", displayName, (enableWhenComputerStarts ? @"" : @"NOT "));
+        } else {
+            NSLog(@"Warning: Set '%@' to connect manually because 'When computer starts' is not available and/or the launchd .plist did not exist", displayName);
+        }
+    } else if (  changeToWhenComputerStarts  )  {
+        [gTbDefaults setBool: TRUE forKey: autoConnectKey];
+        [gTbDefaults setBool: TRUE forKey: ossKey];
+        autoConnect   = [gTbDefaults boolForKey: autoConnectKey];
+        onSystemStart = [gTbDefaults boolForKey: ossKey];
+       if (  autoConnect && onSystemStart  ) {
+            NSLog(@"Warning: Set '%@' to connect 'When computer starts' because the launchd .plist exists; 'When computer starts is %@enabled", displayName, (enableWhenComputerStarts ? @"" : @"NOT "));
+        } else {
+            NSLog(@"Warning: Failed to set preferences of '%@' to connect 'When computer starts'", displayName);
+        }
+    }
+    
+    [self rawSetWhenToConnect];
+    return;
+}
+
+
+-(void) authorizeAndSetWhenToConnect: (VPNConnection *) connection
+{
+    // RUNS IN NON-MAIN THREAD so authorization dialog doesn't block main thread
+    //
+    // Makes sure that
+    //       * The autoConnect and -onSystemStart preferences
+    //       * The configuration location (private/shared/deployed)
+    //       * Any launchd .plist for the configuration
+    // are all consistent.
+    // Does this by creating/deleting a launchd .plist if it can (i.e., if the user authorizes it)
+    // Otherwise may modify the preferences to reflect the existence of the launchd .plist
+    
+    if (  ! connection  ) {
+        return;
+    }
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
     NSString * displayName = [connection displayName];
     
@@ -1863,33 +2166,23 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     BOOL launchdPlistWillConnectOnSystemStart = [connection launchdPlistWillConnectOnSystemStart];
     
-    NSUInteger ix = NSNotFound;
-    
     //Keep track of what we've done for an alert to the user
-    BOOL fixedPreferences       = FALSE;
     BOOL failedToFixPreferences = FALSE;
-    BOOL fixedPlist             = FALSE;
-    BOOL cancelledFixPlist      = FALSE;
     
     if (  autoConnect && onSystemStart  ) {
         if (  enableWhenComputerStarts  ) {
             if (  launchdPlistWillConnectOnSystemStart  ) {
                 // All is OK -- prefs say to connect when system starts and launchd .plist agrees and it isn't a private configuration and has no credentials
-                ix = 2;
             } else {
                 // No launchd .plist -- try to create one
-                if (  [connection checkConnectOnSystemStart: TRUE withAuth: nil]  ) {
+                if (  [connection checkConnectOnSystemStart: TRUE]  ) {
                     // Made it connect when computer starts
-                    fixedPlist = TRUE;
-                    ix = 2;
                 } else {
                     // User cancelled attempt to make it connect when computer starts
-                    cancelledFixPlist = TRUE;
                     NSLog(@"Preferences for '%@' say it should connect when the computer starts but it does not have a launchd .plist and the user did not authorize creating a .plist. Attempting to repair preferences...", displayName);
                     [gTbDefaults setBool: FALSE forKey: autoConnectKey];
                     if (  ! [gTbDefaults boolForKey: autoConnectKey]  ) {
                         NSLog(@"Succesfully set '%@' preference to FALSE", autoConnectKey);
-                        fixedPreferences = TRUE;
                     } else {
                         NSLog(@"Unable to set '%@' preference to FALSE", autoConnectKey);
                         failedToFixPreferences = TRUE;
@@ -1897,12 +2190,10 @@ static BOOL firstTimeShowingWindow = TRUE;
                     [gTbDefaults setBool: FALSE forKey: ossKey];
                     if (  ! [gTbDefaults boolForKey: ossKey]  ) {
                         NSLog(@"Succesfully set '%@' preference to FALSE", ossKey);
-                        fixedPreferences = TRUE;
                     } else {
                         NSLog(@"Unable to set '%@' preference to FALSE", ossKey);
                         failedToFixPreferences = TRUE;
                     }
-                    ix = 0;  // It IS going to start when computer starts, so show that to user
                 }
             }
         } else {
@@ -1913,7 +2204,6 @@ static BOOL firstTimeShowingWindow = TRUE;
                 [gTbDefaults setBool: FALSE forKey: autoConnectKey];
                 if (  ! [gTbDefaults boolForKey: autoConnectKey]  ) {
                     NSLog(@"Succesfully set '%@' preference to FALSE", autoConnectKey);
-                    fixedPreferences = TRUE;
                 } else {
                     NSLog(@"Unable to set '%@' preference to FALSE", autoConnectKey);
                     failedToFixPreferences = TRUE;
@@ -1921,25 +2211,20 @@ static BOOL firstTimeShowingWindow = TRUE;
                 [gTbDefaults setBool: FALSE forKey: ossKey];
                 if (  ! [gTbDefaults boolForKey: ossKey]  ) {
                     NSLog(@"Succesfully set '%@' preference to FALSE", ossKey);
-                    fixedPreferences = TRUE;
                 } else {
                     NSLog(@"Unable to set '%@' preference to FALSE", ossKey);
                     failedToFixPreferences = TRUE;
                 }
-                ix = 0;
             } else {
                 // Prefs and launchd says connect on user start but private configuration, so can't. Try to remove the launchd .plist
-                if (  [connection checkConnectOnSystemStart: FALSE withAuth: nil]  ) {
+                if (  [connection checkConnectOnSystemStart: FALSE]  ) {
                     // User cancelled attempt to make it NOT connect when computer starts
-                    cancelledFixPlist = TRUE;
                     NSLog(@"Preferences for '%@' say it should connect when the computer starts and a launchd .plist exists for that, but it is a private configuration or has credentials. User cancelled attempt to repair.", displayName);
-                    ix = 2;
                 } else {
                     NSLog(@"Preferences for '%@' say it should connect when the computer starts and a launchd .plist exists for that, but it is a private configuration or has credentials. The launchd .plist has been removed. Attempting to repair preferences...", displayName);
                     [gTbDefaults setBool: FALSE forKey: autoConnectKey];
                     if (  ! [gTbDefaults boolForKey: autoConnectKey]  ) {
                         NSLog(@"Succesfully set '%@' preference to FALSE", autoConnectKey);
-                        fixedPreferences = TRUE;
                     } else {
                         NSLog(@"Unable to set '%@' preference to FALSE", autoConnectKey);
                         failedToFixPreferences = TRUE;
@@ -1947,12 +2232,10 @@ static BOOL firstTimeShowingWindow = TRUE;
                     [gTbDefaults setBool: FALSE forKey: ossKey];
                     if (  ! [gTbDefaults boolForKey: ossKey]  ) {
                         NSLog(@"Succesfully set '%@' preference to FALSE", ossKey);
-                        fixedPreferences = TRUE;
                     } else {
                         NSLog(@"Unable to set '%@' preference to FALSE", ossKey);
                         failedToFixPreferences = TRUE;
                     }
-                    ix = 0;
                 }
             }
         }
@@ -1960,15 +2243,13 @@ static BOOL firstTimeShowingWindow = TRUE;
         // Manual or when Tunnelblick is launched
         if (  launchdPlistWillConnectOnSystemStart  ) {
             // launchd .plist exists but prefs are not connect when computer starts. Attempt to remove .plist
-            if (  [connection checkConnectOnSystemStart: FALSE withAuth: nil]  ) {
+            if (  [connection checkConnectOnSystemStart: FALSE]  ) {
                 // User cancelled attempt to make it NOT connect when computer starts
-                cancelledFixPlist = TRUE;
                 NSLog(@"Preferences for '%@' say it should NOT connect when the computer starts but a launchd .plist exists for that and the user cancelled an attempt to remove the .plist. Attempting to repair preferences.", displayName);
                 if (  ! [gTbDefaults boolForKey: autoConnectKey]  ) {
                     [gTbDefaults setBool: TRUE forKey: autoConnectKey];
                     if (  [gTbDefaults boolForKey: autoConnectKey]  ) {
                         NSLog(@"Succesfully set '%@' preference to TRUE", autoConnectKey);
-                        fixedPreferences = TRUE;
                     } else {
                         NSLog(@"Unable to set '%@' preference to TRUE", autoConnectKey);
                         failedToFixPreferences = TRUE;
@@ -1978,55 +2259,35 @@ static BOOL firstTimeShowingWindow = TRUE;
                     [gTbDefaults setBool: TRUE forKey: ossKey];
                     if (  [gTbDefaults boolForKey: ossKey]  ) {
                         NSLog(@"Succesfully set '%@' preference to TRUE", ossKey);
-                        fixedPreferences = TRUE;
                     } else {
                         NSLog(@"Unable to set '%@' preference to TRUE", ossKey);
                         failedToFixPreferences = TRUE;
                     }
                 }
-                ix = 2;
             } else {
                 NSLog(@"Preferences for '%@' say it should NOT connect when the computer starts and a launchd .plist existed but has been removed.", displayName);
             }
         }
     }
     
-    if (  ix == NSNotFound  ) {
-        ix = 0;
-        if (  [gTbDefaults boolForKey: autoConnectKey]  ) {
-            if (  [gTbDefaults boolForKey: ossKey]  ) {
-                ix = 2;
-            } else {
-                ix = 1;
-            }
-        }
-    }
-    
     if (  failedToFixPreferences  ) {
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          [NSString stringWithFormat: 
+                          [NSString stringWithFormat:
                            NSLocalizedString(@"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log", @"Window text"),
                            [[NSApp delegate] localizedNameForDisplayName: displayName]]);
     }
-    if (  fixedPreferences || cancelledFixPlist || fixedPlist) {
-        ; // Avoid analyzer warnings about unused variables
-    }
     
-    [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: (int)ix];
-    selectedWhenToConnectIndex = ix;
-    [[configurationsPrefsView whenToConnectOnComputerStartMenuItem] setEnabled: enableWhenComputerStarts];
+    [self performSelectorOnMainThread: @selector(validateWhenToConnect:) withObject: connection waitUntilDone: NO];
     
-    BOOL enable = (   [gTbDefaults canChangeValueForKey: autoConnectKey]
-                   && [gTbDefaults canChangeValueForKey: ossKey]
-				   && [self oneConfigurationIsSelected]);
-    [[configurationsPrefsView whenToConnectPopUpButton] setEnabled: enable];
+    [pool drain];
 }
 
 -(void) setSelectedWhenToConnectIndex: (NSUInteger) newValue
 {
+    VPNConnection * connection = [self selectedConnection];
     NSUInteger oldValue = selectedWhenToConnectIndex;
     if (  newValue != oldValue  ) {
-        NSString * configurationName = [[self selectedConnection] displayName];
+        NSString * configurationName = [connection displayName];
         NSString * autoConnectKey   = [configurationName stringByAppendingString: @"autoConnect"];
         NSString * onSystemStartKey = [configurationName stringByAppendingString: @"-onSystemStart"];
         switch (  newValue  ) {
@@ -2046,23 +2307,15 @@ static BOOL firstTimeShowingWindow = TRUE;
                 NSLog(@"Attempt to set 'when to connect' to %ld ignored", (long) newValue);
                 break;
         }
-        selectedWhenToConnectIndex = newValue;
-        [self validateWhenToConnect: [self selectedConnection]];
         
-        NSUInteger ix = 0;
-        if (  [gTbDefaults boolForKey: autoConnectKey]  ) {
-            if (  [gTbDefaults boolForKey: onSystemStartKey]  ) {
-                ix = 2;
-            } else {
-                ix = 1;
-            }
-        }
-        if (  ix != newValue  ) {   // If weren't able to change it, restore old value
-            if (  oldValue == NSNotFound  ) {
-                oldValue = 0;
-            }
-            [self setSelectedWhenToConnectIndex: oldValue];
+        if (   (oldValue != 2)
+            && (newValue != 2)  ) {
+            [self validateWhenConnectingForConnection: connection];
+        } else {
+             [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: (int)oldValue];
             selectedWhenToConnectIndex = oldValue;
+            TBLog(@"DB-AA", @"setSelectedWhenToConnectIndex: authorization needed, so detaching new thread to do that");
+            [NSThread detachNewThreadSelector: @selector(authorizeAndSetWhenToConnect:) toTarget: self withObject: connection];
         }
     }
 }
@@ -2396,8 +2649,62 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
+-(void) finishGeneralAdminApprovalForKeyAndCertificateChanges: (NSNumber *) statusNumber {
+    
+    // Runs in main thread
+    
+    OSStatus status = [statusNumber intValue];
+    
+    if (  status == 0  ) {
+        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
+        [gTbDefaults setPrimaryDefaults: dict];
+    } else {
+        if (  status != 1  ) { // status != cancelled by user (i.e., there was an error)
+            TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                              NSLocalizedString(@"Tunnelblick was unable to make the change. See the Console Log for details.", @"Window text"));
+        }
+    }
+    
+    [self setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox];
+    NSButton * checkbox = [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox];
+    [checkbox setEnabled: YES];
+}
+
+-(void) generalAdminApprovalForKeyAndCertificateChangesThread: (NSString *) forcedPreferencesDictionaryPath {
+    
+    // Runs in a separate thread so user authorization doesn't hang the main thread
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    NSString * message = NSLocalizedString(@"Tunnelblick needs to change a setting that may only be changed by a computer administrator.", @"Window text");
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: message];
+    if (  auth  ) {
+        NSInteger status = [[NSApp delegate] runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
+                                           extraArguments: [NSArray arrayWithObject: forcedPreferencesDictionaryPath]
+                                          usingSystemAuth: auth
+                                        installTblksFirst: nil];
+        [auth release];
+        
+        [self performSelectorOnMainThread: @selector(finishGeneralAdminApprovalForKeyAndCertificateChanges:) withObject: [NSNumber numberWithLong: (long)status] waitUntilDone: NO];
+    } else {
+        OSStatus status = 1; // User cancelled installation
+        [self performSelectorOnMainThread: @selector(finishGeneralAdminApprovalForKeyAndCertificateChanges:) withObject: [NSNumber numberWithInt: status] waitUntilDone: NO];
+    }
+    
+    [gFileMgr tbRemovePathIfItExists: [forcedPreferencesDictionaryPath stringByDeletingLastPathComponent]];  // Ignore error; it has been logged
+    
+    [pool drain];
+}
+
 -(IBAction) generalAdminApprovalForKeyAndCertificateChangesCheckboxWasClicked: (NSButton *) sender
 {
+    NSButton * checkbox = [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox];
+    if (  [checkbox isEnabled]  ) {
+        [checkbox setEnabled: NO];
+    } else {
+         return;
+    }
+    
     BOOL newState = [sender state];
     
     NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
@@ -2413,30 +2720,14 @@ static BOOL firstTimeShowingWindow = TRUE;
                           ? 0
                           : -1)
                        : -1);
-    if (  status == EXIT_SUCCESS  ) {
-        NSString * message = NSLocalizedString(@"Tunnelblick needs to change a setting that may only be changed by a computer administrator.", @"Window text");
-        status = [[NSApp delegate] runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
-                                 extraArguments: [NSArray arrayWithObject: tempDictionaryPath]
-                                usingAuthRefPtr: nil
-                                        message: message
-                              installTblksFirst: nil];
-    }
-    
-    [gFileMgr tbRemovePathIfItExists: [tempDictionaryPath stringByDeletingLastPathComponent]];  // Ignore error; it has been logged
-    
     if (  status == 0  ) {
-        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH];
-        [gTbDefaults setPrimaryDefaults: dict];
-    } else {
-		if (  status != 1  ) { // that is, "status != cancelled by user"
-			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-							  NSLocalizedString(@"Tunnelblick was unable to make the change. See the Console Log for details.", @"Window text"));
-        }
-		
-        // We have to restore the checkbox value, but not until after all processing of the ...WasClicked event is finished, because after
-        // this method returns, it changes the checkbox value to reflect the user's click. To undo that, we delay changing the value for 0.2 seconds.
-        [self performSelector: @selector(setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox) withObject: nil afterDelay: 0.2];
+        [NSThread detachNewThreadSelector: @selector(generalAdminApprovalForKeyAndCertificateChangesThread:) toTarget: self withObject: tempDictionaryPath];
     }
+    
+    // We must restore the checkbox value because the change hasn't been made yet. However, we can't restore it until after all processing of the
+    // ...WasClicked event is finished, because after this method returns, further processing changes the checkbox value to reflect the user's click.
+    // To undo that afterwards, we delay changing the value for 0.2 seconds.
+    [self performSelector: @selector(setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox) withObject: nil afterDelay: 0.2];
 }
 
 

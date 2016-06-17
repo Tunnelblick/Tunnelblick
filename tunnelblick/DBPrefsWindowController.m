@@ -11,6 +11,7 @@
 //  This work is licensed under a Creative Commons license:
 //  http://creativecommons.org/licenses/by/3.0/
 //
+//  Modifications copyright 2016 by Jonathan K. Bullard.
 
 #import "DBPrefsWindowController.h"
 
@@ -229,16 +230,10 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     // This forces the resources in the nib to load.
 	(void)[self window];
     
-    // Clear the last setup and get a fresh one.
-	[toolbarIdentifiers removeAllObjects];
-	[toolbarViews removeAllObjects];
-	[toolbarItems removeAllObjects];
-	[self setupToolbar];
-    
-	NSAssert (([toolbarIdentifiers count] > 0),
-			  @"No items were added to the toolbar in -setupToolbar.");
-	
 	if ([[self window] toolbar] == nil) {
+        [self setupToolbar];
+        NSAssert (([toolbarIdentifiers count] > 0),
+                  @"No items were added to the toolbar in -setupToolbar.");
 		NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"DBPreferencesToolbar"];
 		[toolbar setAllowsUserCustomization:NO];
 		[toolbar setAutosavesConfiguration:NO];
@@ -288,7 +283,10 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
 {
-	return [[toolbarIdentifiers retain] autorelease];
+    // All toolbar items **except** the lock icon are selectable
+    NSMutableArray * identifiers = [[toolbarIdentifiers mutableCopy] autorelease];
+    [identifiers removeObject: @"lockIcon"];
+    return identifiers;
 	(void)toolbar;
 }
 
@@ -338,7 +336,8 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (void)displayViewForIdentifier:(NSString *)identifier animate:(BOOL)animate
 {	
-	if (  [identifier isEqualToString: NSToolbarFlexibleSpaceItemIdentifier]  ) {
+	if (   [identifier isEqualToString: NSToolbarFlexibleSpaceItemIdentifier]
+        || [identifier isEqualToString: @"LockIcon"]) {
 		return;
 	}
 	

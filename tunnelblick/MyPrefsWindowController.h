@@ -43,6 +43,10 @@
     IBOutlet InfoView             * infoPrefsView;
     IBOutlet UtilitiesView        * utilitiesPrefsView;
     
+    NSTimer                       * lockTheLockIconTimer;
+    NSDate                        * lockTimeoutDate;
+    BOOL                            lockIconIsUnlocked;
+    
     NSString                      * previouslySelectedNameOnLeftNavList;
     
     NSMutableArray                * leftNavList;                      // Items in the left navigation list as displayed to the user
@@ -78,7 +82,7 @@
 }
 
 
-// Methods used by MenuController to update the window
+// Methods used by MenuController or others to update the window
 
 -(void) update;
 -(BOOL) forceDisableOfNetworkMonitoring;
@@ -86,6 +90,7 @@
 -(void) indicateWaitingForLogDisplay:                         (VPNConnection *) theConnection;
 -(void) indicateNotWaitingForLogDisplay:                      (VPNConnection *) theConnection;
 -(void) hookedUpOrStartedConnection:                          (VPNConnection *) theConnection;
+-(void) lockTheLockIcon;
 -(void) validateWhenConnectingForConnection:                  (VPNConnection *) theConnection;
 -(void) validateConnectAndDisconnectButtonsForConnection:     (VPNConnection *) theConnection;
 -(void) validateDetailsWindowControls;

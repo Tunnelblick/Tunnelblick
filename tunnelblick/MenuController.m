@@ -51,6 +51,7 @@
 #import "NSTimer+TB.h"
 #import "Sparkle/SUUpdater.h"
 #import "SplashWindowController.h"
+#import "SystemAuth.h"
 #import "TBUIUpdater.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
@@ -69,7 +70,6 @@ NSString              * gPrivatePath = nil;           // Path to ~/Library/Appli
 NSString              * gDeployPath = nil;            // Path to Tunnelblick.app/Contents/Resources/Deploy
 TBUserDefaults        * gTbDefaults = nil;            // Our preferences
 NSFileManager         * gFileMgr = nil;               // [NSFileManager defaultManager]
-AuthorizationRef        gAuthorization = nil;         // Used to call installer
 NSArray               * gProgramPreferences = nil;    // E.g., 'placeIconInStandardPositionInStatusBar'
 NSArray               * gConfigurationPreferences = nil; // E.g., '-onSystemStart'
 BOOL                    gShuttingDownTunnelblick = FALSE;// TRUE if applicationShouldTerminate: has been invoked
@@ -242,6 +242,57 @@ NSString * hashForTunnelblickdPlist(void) {
 
 @implementation MenuController
 
+//*********************************************************************************************************
+//
+// Getters and Setters
+//
+//*********************************************************************************************************
+
+TBSYNTHESIZE_NONOBJECT_GET(BOOL volatile, menuIsOpen)
+TBSYNTHESIZE_NONOBJECT_GET(BOOL volatile, launchFinished)
+TBSYNTHESIZE_NONOBJECT_GET(BOOL         , languageAtLaunchWasRTL)
+
+TBSYNTHESIZE_NONOBJECT(BOOL         , doingSetupOfUI, setDoingSetupOfUI)
+
+TBSYNTHESIZE_OBJECT_GET(retain, MyPrefsWindowController *,   logScreen)
+TBSYNTHESIZE_OBJECT_GET(retain, NSString *,                  customRunOnConnectPath)
+TBSYNTHESIZE_OBJECT_GET(retain, SUUpdater *,                 updater)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            largeAnimImages)
+TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,                   largeConnectedImage)
+TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,                   largeMainImage)
+TBSYNTHESIZE_OBJECT_GET(retain, NSArray *,                   animImages)
+TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,                   connectedImage)
+TBSYNTHESIZE_OBJECT_GET(retain, NSImage *,                   mainImage)
+TBSYNTHESIZE_OBJECT_GET(retain, NSStatusItem *,              statusItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenu *,                    myVPNMenu)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            activeIPCheckThreads)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            cancellingIPCheckThreads)
+TBSYNTHESIZE_OBJECT_GET(retain, ConfigurationMultiUpdater *, myConfigMultiUpdater)
+
+TBSYNTHESIZE_OBJECT(retain, SystemAuth   *, startupInstallAuth,        setStartupInstallAuth)
+TBSYNTHESIZE_OBJECT(retain, NSButton     *, statusItemButton,          setStatusItemButton)
+TBSYNTHESIZE_OBJECT(retain, NSArray      *, screenList,                setScreenList)
+TBSYNTHESIZE_OBJECT(retain, MainIconView *, ourMainIconView,           setOurMainIconView)
+TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
+TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
+TBSYNTHESIZE_OBJECT(retain, NSArray      *, openvpnVersionNames,       setOpenvpnVersionNames)
+TBSYNTHESIZE_OBJECT(retain, NSArray      *, openvpnVersionInfo,        setOpenvpnVersionInfo)
+TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnectionArray)
+TBSYNTHESIZE_OBJECT(retain, NSArray      *, nondisconnectedConnections,setNondisconnectedConnections)
+TBSYNTHESIZE_OBJECT(retain, NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
+TBSYNTHESIZE_OBJECT(retain, TBUIUpdater  *, uiUpdater,                 setUiUpdater)
+TBSYNTHESIZE_OBJECT(retain, NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
+TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
+TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedMainImage,      setHighlightedMainImage)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnUserActive, setConnectionsToRestoreOnUserActive)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnWakeup,     setConnectionsToRestoreOnWakeup)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
+TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedURL)
+TBSYNTHESIZE_OBJECT(retain, NSBundle     *, deployLocalizationBundle,  setDeployLocalizationBundle)
+TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLanguageAtLaunch)
+
+
 -(NSString *) localizedString: (NSString *) key
 				   fromBundle: (NSBundle *) bundle {
 	
@@ -410,7 +461,8 @@ NSString * hashForTunnelblickdPlist(void) {
         gProgramPreferences = [[NSArray arrayWithObjects:
                                 
                                 @"DB-ALL",    // All extra logging
-								@"DB-AU",	  // Extra logging for VPN authorization
+								@"DB-AA",     // Extra logging for system authorization (for executeAuthorized)
+                                @"DB-AU",	  // Extra logging for VPN authorization
                                 @"DB-CD",     // Extra logging for connect/disconnect
                                 @"DB-TD",     // Extra logging for tunnelblickd interactions,
                                 @"DB-HU",     // Extra logging for hookup,
@@ -450,6 +502,7 @@ NSString * hashForTunnelblickdPlist(void) {
                                 @"skipWarningAbout64BitVersionWithTunOnSnowLeopardPointEight",
                                 @"skipWarningAbout64BitVersionOnNonSnowLeopardPointEight",
                                 @"skipWarningAboutInstallsWithCommands",
+                                @"skipWarningAboutPreAuthorizedActivity",
                                 
                                 @"timeoutForOpenvpnToTerminateAfterDisconnectBeforeAssumingItIsReconnecting",
                                 @"timeoutForIPAddressCheckBeforeConnection",
@@ -1354,10 +1407,10 @@ NSString * hashForTunnelblickdPlist(void) {
     if (  statusItem  ) {
         if (   iconTrackingRectTag != 0  ) {
             if (  statusItemButton  ) {
-                TBLog(@"DB-SI", @"removeStatusItem: Removing tracking rectangle 0x%lX for status item 0x%lx", (long) iconTrackingRectTag, (long) statusItem)
+                TBLog(@"DB-SI", @"removeStatusItem: Removing tracking rectangle for status item")
                 [statusItemButton removeTrackingRect: iconTrackingRectTag];
             } else {
-                NSLog(@"removeStatusItem: Did not remove tracking rectangle 0x%lX for status item 0x%lX because there was no statusItemButton", (long) iconTrackingRectTag, (long) statusItem);
+                NSLog(@"removeStatusItem: Did not remove tracking rectangle for status item because there was no statusItemButton");
             }
             iconTrackingRectTag = 0;
         } else {
@@ -1402,7 +1455,7 @@ NSString * hashForTunnelblickdPlist(void) {
         if (  ! ( statusItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain] )  ) {
             NSLog(@"Can't obtain status item near Spotlight icon");
         }
-        TBLog(@"DB-SI", @"createStatusItem: Created status item 0x%lX near the Spotlight icon", (long) statusItem)
+        TBLog(@"DB-SI", @"createStatusItem: Created status item near the Spotlight icon")
         
         // Re-insert item to place it correctly
         [bar removeStatusItem: statusItem];
@@ -1415,7 +1468,7 @@ NSString * hashForTunnelblickdPlist(void) {
         if (  ! (statusItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
             NSLog(@"Can't obtain status item in standard position");
         }
-        TBLog(@"DB-SI", @"createStatusItem: Created status item 0x%lX placed normally (to the left of existing status items)", (long) statusItem)
+        TBLog(@"DB-SI", @"createStatusItem: Created status item placed normally (to the left of existing status items)")
         iconPosition = iconNormal;
     }
 	
@@ -1436,22 +1489,22 @@ NSString * hashForTunnelblickdPlist(void) {
                                                                   owner: self
                                                                userData: nil
                                                            assumeInside: NO];
-                TBLog(@"DB-SI", @"createStatusItem: Added tracking rectangle 0x%lX (%f,%f, %f, %f) for status item 0x%lX",
-                      (long) iconTrackingRectTag, trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height,(long) statusItem)
+                TBLog(@"DB-SI", @"createStatusItem: Added tracking rectangle (%f,%f, %f, %f) for status item",
+                     trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height)
             } else {
-                TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item 0x%lX because of preference", (long) statusItem)
+                TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item because of preference")
             }
         } else {
-            TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item 0x%lX because there was no statusItemButton", (long) statusItem);
+            TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item because there was no statusItemButton");
         }
 	
-		TBLog(@"DB-SI", @"createStatusItem: Set menu for status item 0x%lX", (long) statusItem)
+		TBLog(@"DB-SI", @"createStatusItem: Set menu for status item")
 		[statusItem setMenu: myVPNMenu];
     } else {
         if (  [self statusItemButton]  ) {
             [self setStatusItemButton: nil];
         }
-        TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item 0x%lX because it does not respond to 'button'", (long) statusItem)
+        TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item because it does not respond to 'button'")
     }
 }
 
@@ -3319,11 +3372,22 @@ BOOL anyNonTblkConfigs(void)
             || (response == NSAlertErrorReturn)  ) {  // Quit if requested or error
 			[self terminateBecause: terminatingBecauseOfQuit];
 		} else if (  response == NSAlertDefaultReturn  ) {
+            if (  ! startupInstallAuth  ) {
+                NSString * prompt = NSLocalizedString(@"Tunnnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations.", @"Window text");
+                SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+                if (  ! auth  ) {
+                    NSLog(@"User cancelled authorization to convert OpenVPN configurations and there are no Tunnelblick configurations");
+                    [ConfigurationManager haveNoConfigurationsGuideInNewThread];
+                    return;
+                }
+                [self setStartupInstallAuth: auth];
+                [auth release];
+            }
+            
 			NSInteger installerResult = [self runInstaller: INSTALLER_CONVERT_NON_TBLKS
 											extraArguments: nil
-										   usingAuthRefPtr: &gAuthorization
-												   message: nil
-										 installTblksFirst: nil];
+                                           usingSystemAuth: startupInstallAuth
+                                         installTblksFirst: nil];
             if (  installerResult != -1  ) {
                 // Installation succeeded or was cancelled
 				if (  installerResult == 0  ) {
@@ -3416,6 +3480,10 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
+    
+    if (  startupInstallAuth  ) {
+        [self setStartupInstallAuth: nil];
+    }
     
     [[NSUserDefaults standardUserDefaults] synchronize];
     
@@ -4710,8 +4778,7 @@ static void signal_handler(int signalNumber)
     installOrUpdateOurEasyRsa();
     // (installOrUpdateOurEasyRsa() informs the user if there was a problem, so we don't do it here)
     
-    AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
-    gAuthorization = nil;
+    [self setStartupInstallAuth: nil];
     
 #ifdef INCLUDE_VPNSERVICE
     if (  vpnService = [[VPNService alloc] init]  ) {
@@ -6105,17 +6172,25 @@ BOOL warnAboutNonTblks(void)
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 004")
     // Get authorization to install and secure
-    gAuthorization = [NSApplication getAuthorizationRef:
-                      [[[[NSLocalizedString(@" Tunnelblick must be installed in Applications.\n\n", @"Window text")
-                          stringByAppendingString: authorizationText]
-                         stringByAppendingString: convertTblksText]
-                        stringByAppendingString: signatureWarningText]
-                       stringByAppendingString: plistMsg]
-                      ];
-	if (  ! gAuthorization  ) {
-		NSLog(@"The Tunnelblick installation was cancelled by the user.");
-		[self terminateBecause: terminatingBecauseOfQuit];
-	}
+    if (  startupInstallAuth  ) {
+        NSLog(@"relaunchIfNecessary: startupInstallAuth is already set");
+        [self terminateBecause: terminatingBecauseOfError];
+    }
+    
+    NSString * prompt = [[[[NSLocalizedString(@" Tunnelblick must be installed in Applications.\n\n", @"Window text")
+                            stringByAppendingString: authorizationText]
+                           stringByAppendingString: convertTblksText]
+                          stringByAppendingString: signatureWarningText]
+                         stringByAppendingString: plistMsg];
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+    if (  auth  ) {
+        [self setStartupInstallAuth: auth];
+        [auth release];
+    } else {
+        NSLog(@"The Tunnelblick installation was cancelled by the user.");
+        [self terminateBecause: terminatingBecauseOfQuit];
+        return;
+    }
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 005")
     
@@ -6185,8 +6260,7 @@ BOOL warnAboutNonTblks(void)
 									extraArguments: (  forcedPlistToInstallPath
                                                      ? [NSArray arrayWithObject: forcedPlistToInstallPath]
                                                      : nil)
-								   usingAuthRefPtr: &gAuthorization
-										   message: nil
+								   usingSystemAuth: [self startupInstallAuth]
 								 installTblksFirst: tblksToInstallPaths];
     if (  installerResult != 0  ) {
         // Error occurred or the user cancelled. An error dialog and a message in the console log have already been displayed if an error occurred
@@ -6274,6 +6348,44 @@ BOOL warnAboutNonTblks(void)
     return FALSE;   // Network volume or error accessing the file's data.
 }
 
+-(NSString *) promptForInstaller: (unsigned)  installFlags
+               installTblksFirst: (NSArray *) tblksToInstallFirst {
+    
+    if (  installFlags & INSTALLER_COPY_APP  ) {
+        installFlags = installFlags | INSTALLER_SECURE_TBLKS;
+    }
+
+    BOOL appended = FALSE;
+    NSMutableString * msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text")];
+    if (    installFlags & INSTALLER_COPY_APP                   ) { [msg appendString: NSLocalizedString(@"  • Be installed in /Applications as Tunnelblick\n", @"Window text")]; appended = TRUE; }
+    if (    installFlags & INSTALLER_SECURE_APP                 ) { [msg appendString: NSLocalizedString(@"  • Change ownership and permissions of the program to secure it\n", @"Window text")]; appended = TRUE; }
+    if (    installFlags & INSTALLER_MOVE_LIBRARY_OPENVPN       ) { [msg appendString: NSLocalizedString(@"  • Move the private configurations folder\n", @"Window text")]; appended = TRUE; }
+    if (    tblksToInstallFirst                                 ) { [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n", @"Window text")]; appended = TRUE; }
+    if (    installFlags & INSTALLER_CONVERT_NON_TBLKS          ) { [msg appendString: NSLocalizedString(@"  • Convert OpenVPN configurations\n", @"Window text")]; appended = TRUE; }
+    if (    installFlags & INSTALLER_SECURE_TBLKS               ) { [msg appendString: NSLocalizedString(@"  • Secure configurations\n", @"Window text")]; appended = TRUE; }
+    if (    installFlags & INSTALLER_INSTALL_FORCED_PREFERENCES ) { [msg appendString: NSLocalizedString(@"  • Install forced preferences\n", @"Window text")]; appended = TRUE; }
+    
+    if (   ( ! appended)
+        && ( ! tblksToInstallFirst)  ) {
+        if (    installFlags & INSTALLER_MUST_RELOAD_DAEMON    )  { [msg appendString: NSLocalizedString(@"  • Complete the update\n", @"Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
+    }
+    
+#ifdef TBDebug
+    [msg appendString: NSLocalizedString(@"\n WARNING: This copy of Tunnelblick makes your computer insecure."
+                                         @" It is for debugging purposes only.\n", @"Window text")];
+#endif
+    
+    if (  signatureIsInvalid  ) {
+        [msg appendString: NSLocalizedString(@"\n WARNING: This copy of Tunnelblick has been tampered with.\n", @"Window text")];
+    }
+    
+    if (  ! appended  ) {
+        msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to perform an action that requires administrator approval.\n", @"Window text")];
+    }
+    
+    return [NSString stringWithFormat: @"%@", msg];
+}
+
 -(void) secureIfNecessary
 {
     // If necessary, run the installer to secure this copy of Tunnelblick
@@ -6282,8 +6394,26 @@ BOOL warnAboutNonTblks(void)
         
         [splashScreen setMessage: NSLocalizedString(@"Securing Tunnelblick...", @"Window text")];
         
+        if (  startupInstallAuth  ) {
+            NSLog(@"secureIfNecessary: startupInstallAuth is already set");
+            [self terminateBecause: terminatingBecauseOfError];
+        }
+        
+        NSString * prompt = [self promptForInstaller: installFlags installTblksFirst: nil];
+        SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+        if (  auth  ) {
+            [self setStartupInstallAuth: auth];
+            [auth release];
+        } else {
+            NSLog(@"The Tunnelblick installation was cancelled by the user.");
+            [self terminateBecause: terminatingBecauseOfQuit];
+            return;
+        }
+        
         NSInteger installerResult = [self runInstaller: installFlags
-										extraArguments: nil];
+										extraArguments: nil
+                                       usingSystemAuth: [self startupInstallAuth]
+                                     installTblksFirst: nil];
 		if (  installerResult != 0  ) {
             
 			// An error occurred or the user cancelled. An error dialog and a message in the console log have already been displayed if an error occurred
@@ -6294,81 +6424,34 @@ BOOL warnAboutNonTblks(void)
     }
 }
 
--(NSInteger) runInstaller: (unsigned) installFlags
-		   extraArguments: (NSArray *) extraArguments
-{
-    return [self runInstaller: installFlags
-               extraArguments: extraArguments
-              usingAuthRefPtr: &gAuthorization
-                      message: nil
-            installTblksFirst: nil];
-}
-
 -(NSInteger) runInstaller: (unsigned)           installFlags
 		   extraArguments: (NSArray *)          extraArguments
-		  usingAuthRefPtr: (AuthorizationRef *) authRefPtr
-				  message: (NSString *)         message
-		installTblksFirst: (NSArray *)          tblksToInstallFirst
-{
+                 usingSystemAuth: (SystemAuth *)       auth
+               installTblksFirst: (NSArray *)          tblksToInstallFirst {
+    
     // Returns 1 if the user cancelled the installation
 	//         0 if installer ran successfully and does not need to be run again
 	//        -1 if an error occurred
 	
     if (   (installFlags == 0)
 		&& (extraArguments == nil)  ) {
-		NSLog(@"runInstaller:extraArguments invoked but no action specified");
+		NSLog(@"runInstaller invoked but no action specified");
         return -1;
+    }
+    
+    // Check that the authorization is valid and re-prompt if necessary
+    if (  ! [auth authRef]  ) {
+        NSLog(@"runInstaller:... authorization was cancelled");
+        return 1;
     }
     
     if (  installFlags & INSTALLER_COPY_APP  ) {
         installFlags = installFlags | INSTALLER_SECURE_TBLKS;
     }
     
-    BOOL authRefIsLocal;
-    AuthorizationRef localAuthRef = NULL;
-    if (  authRefPtr == nil  ) {
-        authRefPtr = &localAuthRef;
-        authRefIsLocal = TRUE;
-    } else {
-        authRefIsLocal = FALSE;
-    }
-    
-    if (  *authRefPtr == NULL  ) {
-        NSMutableString * msg;
-        if (  message  ) {
-            msg = [[message mutableCopy] autorelease];
-        } else {
-            msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text")];
-            if (    installFlags & INSTALLER_COPY_APP              ) [msg appendString: NSLocalizedString(@"  • Be installed in /Applications as Tunnelblick\n", @"Window text")];
-            if (    installFlags & INSTALLER_SECURE_APP            ) [msg appendString: NSLocalizedString(@"  • Change ownership and permissions of the program to secure it\n", @"Window text")];
-            if (    installFlags & INSTALLER_MOVE_LIBRARY_OPENVPN  ) [msg appendString: NSLocalizedString(@"  • Move the private configurations folder\n", @"Window text")];
-            if (    tblksToInstallFirst                            ) [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n", @"Window text")];
-            if (    installFlags & INSTALLER_CONVERT_NON_TBLKS     ) [msg appendString: NSLocalizedString(@"  • Convert OpenVPN configurations\n", @"Window text")];
-            if (    installFlags & INSTALLER_SECURE_TBLKS          ) [msg appendString: NSLocalizedString(@"  • Secure configurations\n", @"Window text")];
-            if (    installFlags & INSTALLER_MUST_RELOAD_DAEMON    ) [msg appendString: NSLocalizedString(@"  • Complete the update\n", @"Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:'")];
-        }
-        
-#ifdef TBDebug
-        [msg appendString: NSLocalizedString(@"\n WARNING: This copy of Tunnelblick makes your computer insecure."
-                                             @" It is for debugging purposes only.\n", @"Window text")];
-#endif
-		
-		if (  signatureIsInvalid  ) {
-			[msg appendString: NSLocalizedString(@"\n WARNING: This copy of Tunnelblick has been tampered with.\n", @"Window text")];
-		}
-        
-		NSLog(@"%@", msg);
-        
-        // Get an AuthorizationRef and use executeAuthorized to run the installer
-        *authRefPtr = [NSApplication getAuthorizationRef: msg];
-        if(  *authRefPtr == NULL  ) {
-            NSLog(@"Installation or repair cancelled");
-            return 1;
-        }
-        
-        // NOTE: We do NOT free gAuthorization here. It may be used to install .tblk packages, so we free it when we
-        // are finished launching, in applicationDidFinishLaunching
-    }
+    NSString * msg = [[self promptForInstaller: installFlags installTblksFirst: tblksToInstallFirst]
+                      stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSLog(@"%@", msg);
     
     if (  [tblksToInstallFirst count] != 0  ) {
         
@@ -6415,9 +6498,6 @@ BOOL warnAboutNonTblks(void)
 				NSLog(@"Installation or repair failed; Log:\n%@", installerLog);
 				
 				[installerLog release];
-				if (  authRefIsLocal  ) {
-					AuthorizationFree(localAuthRef, kAuthorizationFlagDefaults);
-				}
                 [self terminateBecause: terminatingBecauseOfQuit];
 				return -1;
 			}
@@ -6436,7 +6516,7 @@ BOOL warnAboutNonTblks(void)
 		
 		installFlags = installFlags & ( ~ INSTALLER_CLEAR_LOG );
 		
-        result = [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: *authRefPtr];
+        result = [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: [auth authRef]];
         
         if (  result == wfeaExecAuthFailed  ) {
             NSLog(@"Failed to execute %@: %@", launchPath, arguments);
@@ -6489,9 +6569,6 @@ BOOL warnAboutNonTblks(void)
     if (  okNow  ) {
         NSLog(@"Installation or repair succeeded; Log:\n%@", installerLog);
         [installerLog release];
-        if (  authRefIsLocal  ) {
-            AuthorizationFree(localAuthRef, kAuthorizationFlagDefaults);
-        }
         
         return 0;
     }
@@ -6499,10 +6576,6 @@ BOOL warnAboutNonTblks(void)
     NSLog(@"Installation or repair failed; Log:\n%@", installerLog);
     
 	[installerLog release];
-    if (  authRefIsLocal  ) {
-        AuthorizationFree(localAuthRef, kAuthorizationFlagDefaults);
-    }
-	
     TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
 					NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
 					nil, nil, nil);
@@ -6510,7 +6583,7 @@ BOOL warnAboutNonTblks(void)
 }
 
 // Checks whether the installer needs to be run
-// Sets bits in a flag for use by the runInstaller:extraArguments method, and, ultimately, by the installer program
+// Sets bits in a flag for use by the runInstaller:extraArguments... method, and, ultimately, by the installer program
 //
 // DOES NOT SET INSTALLER_COPY_APP (or INSTALLER_MOVE_NOT_COPY, or INSTALLER_DELETE)
 //
@@ -7997,98 +8070,6 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     NSArray *myConnectionArray = [[self myVPNConnectionDictionary] objectsForKeys:keyArray notFoundMarker:[NSNull null]];
     return myConnectionArray;
 }
-
-//*********************************************************************************************************
-//
-// Getters and Setters
-//
-//*********************************************************************************************************
-
--(MyPrefsWindowController *) logScreen
-{
-    return [[logScreen retain] autorelease];
-}
-
--(NSString *) customRunOnConnectPath
-{
-    return [[customRunOnConnectPath retain] autorelease];
-}
-
--(SUUpdater *) updater
-{
-    return [[updater retain] autorelease];
-}
-
--(NSMutableArray *) largeAnimImages
-{
-    return [[largeAnimImages retain] autorelease];
-}
-
--(NSImage *) largeConnectedImage
-{
-    return [[largeConnectedImage retain] autorelease];
-}
-
--(NSImage *) largeMainImage
-{
-    return [[largeMainImage retain] autorelease];
-}
-
--(NSArray *) animImages
-{
-    return [[animImages retain] autorelease];
-}
-
--(NSImage *) connectedImage
-{
-    return [[connectedImage retain] autorelease];
-}
-
--(NSImage *) mainImage
-{
-    return [[mainImage retain] autorelease];
-}
-
--(BOOL volatile) doingSetupOfUI {
-	return doingSetupOfUI;
-}
-
--(void) setDoingSetupOfUI: (BOOL) value {
-	doingSetupOfUI = value;
-}
-
-TBSYNTHESIZE_NONOBJECT_GET(BOOL volatile, menuIsOpen)
-TBSYNTHESIZE_NONOBJECT_GET(BOOL volatile, launchFinished)
-TBSYNTHESIZE_NONOBJECT_GET(BOOL         , languageAtLaunchWasRTL)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSStatusItem *,              statusItem)
-TBSYNTHESIZE_OBJECT_GET(retain, NSMenu *,                    myVPNMenu)
-TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            activeIPCheckThreads)
-TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            cancellingIPCheckThreads)
-TBSYNTHESIZE_OBJECT_GET(retain, ConfigurationMultiUpdater *, myConfigMultiUpdater)
-
-TBSYNTHESIZE_OBJECT(retain, NSButton     *, statusItemButton,          setStatusItemButton)
-TBSYNTHESIZE_OBJECT(retain, NSArray      *, screenList,                setScreenList)
-TBSYNTHESIZE_OBJECT(retain, MainIconView *, ourMainIconView,           setOurMainIconView)
-TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
-TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
-TBSYNTHESIZE_OBJECT(retain, NSArray      *, openvpnVersionNames,       setOpenvpnVersionNames)
-TBSYNTHESIZE_OBJECT(retain, NSArray      *, openvpnVersionInfo,        setOpenvpnVersionInfo)
-TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnectionArray)
-TBSYNTHESIZE_OBJECT(retain, NSArray      *, nondisconnectedConnections,setNondisconnectedConnections)
-TBSYNTHESIZE_OBJECT(retain, NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
-TBSYNTHESIZE_OBJECT(retain, TBUIUpdater  *, uiUpdater,                 setUiUpdater)
-TBSYNTHESIZE_OBJECT(retain, NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
-TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
-TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
-TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedMainImage,      setHighlightedMainImage)
-TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnUserActive, setConnectionsToRestoreOnUserActive)
-TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnWakeup,     setConnectionsToRestoreOnWakeup)
-TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
-TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedURL)
-TBSYNTHESIZE_OBJECT(retain, NSBundle     *, deployLocalizationBundle,  setDeployLocalizationBundle)
-TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLanguageAtLaunch)
-
 
 // Event Handlers
 

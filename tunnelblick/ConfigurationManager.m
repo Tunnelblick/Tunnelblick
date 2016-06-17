@@ -40,6 +40,7 @@
 #import "NSFileManager+TB.h"
 #import "NSString+TB.h"
 #import "SettingsSheetWindowController.h"
+#import "SystemAuth.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
@@ -52,7 +53,6 @@ extern NSString             * gPrivatePath;
 extern NSString             * gDeployPath;
 extern NSFileManager        * gFileMgr;
 extern TBUserDefaults       * gTbDefaults;
-extern AuthorizationRef       gAuthorization;
 
 extern NSString * lastPartOfPath(NSString * thePath);
 
@@ -88,7 +88,6 @@ TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, deletions,         setDeletions)
 TBSYNTHESIZE_NONOBJECT(BOOL, inhibitCheckbox,        setInhibitCheckbox)
 TBSYNTHESIZE_NONOBJECT(BOOL, installToSharedOK,      setInstallToSharedOK)
 TBSYNTHESIZE_NONOBJECT(BOOL, installToPrivateOK,     setInstallToPrivateOK)
-TBSYNTHESIZE_NONOBJECT(BOOL, authWasNull,            setAuthWasNull)
 TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(id)   manager {
@@ -844,9 +843,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return nil;
 }
 
--(BOOL) deleteConfigPath: (NSString *) targetPath
-         usingAuthRefPtr: (AuthorizationRef *) authRefPtr
-              warnDialog: (BOOL) warn {
++(BOOL) deleteConfigPath: (NSString *)   targetPath
+         usingSystemAuth: (SystemAuth *) auth
+              warnDialog: (BOOL)         warn {
     
     // Deletes a config file or package
     // Returns TRUE if succeeded
@@ -864,12 +863,15 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, nil];
     
-    [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE
-                                        extraArguments: arguments
-                                       usingAuthRefPtr: authRefPtr
-                                               message: nil
-                                     installTblksFirst: nil];
-	
+    NSInteger result = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE
+                                                           extraArguments: arguments
+                                                          usingSystemAuth: auth
+                                                        installTblksFirst: nil];
+    if (  result != 0  ) {
+        NSLog(@"Error while deleting %@", targetPath);
+        return FALSE;
+    }
+    
 	NSString * localName = [[NSApp delegate] localizedNameForDisplayName: [[targetPath lastPathComponent] stringByDeletingPathExtension]];
     
     if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
@@ -895,11 +897,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSEnumerator * e = [stubTblkPaths objectEnumerator];
         while (  (containerPath = [e nextObject])) {
             arguments = [NSArray arrayWithObjects: containerPath, nil];
-            [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE
-                                                extraArguments: arguments
-                                               usingAuthRefPtr: authRefPtr
-                                                       message: nil
-                                             installTblksFirst: nil];
+            result = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE
+                                                         extraArguments: arguments
+                                                        usingSystemAuth: auth
+                                                      installTblksFirst: nil];
+            if (  result != 0  ) {
+                NSLog(@"Error while uninstalling master \"stub\" .tblk for '%@' at path %@", bundleId, containerPath);
+                return FALSE;
+            }
             if (  [gFileMgr fileExistsAtPath: containerPath]  ) {
                 NSLog(@"Could not delete \"stub\" .tblk container %@", containerPath);
                 if (  warn  ) {
@@ -2125,12 +2130,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 -(void) cleanupInstallAndNotifyDelegate: (BOOL)                       notifyDelegate
                     delegateNotifyValue: (NSApplicationDelegateReply) delegateNotifyValue {
     
-    if (   [self authWasNull]
-        && (gAuthorization != NULL)  ) {
-        AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
-        gAuthorization = NULL;
-    }
-    
     NSString * path = [self tempDirPath];
 	if (  [gFileMgr fileExistsAtPath: path]  ) {
 		if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
@@ -2143,12 +2142,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 }
 
-+(BOOL) copyConfigPath: (NSString *) sourcePath
-                toPath: (NSString *) targetPath
-       usingAuthRefPtr: (AuthorizationRef *) authRefPtr
-            warnDialog: (BOOL) warn
-           moveNotCopy: (BOOL) moveInstead
-               noAdmin: (BOOL) noAdmin {
++(BOOL) copyConfigPath: (NSString *)   sourcePath
+                toPath: (NSString *)   targetPath
+       usingSystemAuth: (SystemAuth *) auth
+            warnDialog: (BOOL)         warn
+           moveNotCopy: (BOOL)         moveInstead
+               noAdmin: (BOOL)         noAdmin {
     
     // Copies or moves a config file or package and sets ownership and permissions on the target
     // Returns TRUE if succeeded in the copy or move -- EVEN IF THE CONFIG WAS NOT SECURED (an error message was output to the console log).
@@ -2222,8 +2221,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: firstArg
                                                                     extraArguments: arguments
-                                                                   usingAuthRefPtr: authRefPtr
-                                                                           message: nil
+                                                                   usingSystemAuth: auth
                                                                  installTblksFirst: nil];
 	if (  installerResult == 0  ) {
         return TRUE;
@@ -2398,8 +2396,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		return NSApplicationDelegateReplyCancel;
 	}
     
-    // If there is no gAuthorization currently and we need one, get one (it is release by cleanupInstall:); otherwise confirm what we are about to do
-	
     NSString * uninstallMsg = (  (nToUninstall == 0)
                                ? @""
                                : (  (nToUninstall == 1)
@@ -2421,14 +2417,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     NSString * authMsg = [NSString stringWithFormat: @"Tunnelblick needs to:\n\n%@%@%@%@", uninstallMsg, replaceMsg, installMsg, disconnectMsg];
     
+    // Get a SystemAuth WITH A RETAIN COUNT OF 1, from MenuController's startupInstallAuth, the lock, or from a user interaction
+    SystemAuth * auth = [[[NSApp delegate] startupInstallAuth] retain];
  	if (   ( (nToUninstall + nToInstall + nToReplace - [noAdminSources count]) != 0)
-        && (gAuthorization == NULL)  ) {
-        
-        gAuthorization = [NSApplication getAuthorizationRef: authMsg];
-		
-		[[NSApp delegate] reactivateTunnelblick];
-		
-        if (  gAuthorization == NULL  ) {
+        && ( ! auth )  ) {
+        auth = [SystemAuth newAuthWithPrompt: authMsg];
+        if (   ! auth  ) {
 			return NSApplicationDelegateReplyCancel;
         }
 	} else {
@@ -2440,6 +2434,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                          NSLocalizedString(@"Cancel",  @"Button"),   // Alternate button
                                          nil);                                       // Other button
             if (  result == NSAlertAlternateReturn  ) {
+				[auth release];
 				return NSApplicationDelegateReplyCancel;
             }
         }
@@ -2464,9 +2459,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		
 		NSString * target = [[self deletions] objectAtIndex: ix];
 		
-		if (  ! [self deleteConfigPath: target
-					   usingAuthRefPtr: &gAuthorization
-							warnDialog: NO]  ) {
+		if (  ! [ConfigurationManager deleteConfigPath: target
+                                       usingSystemAuth: auth
+                                            warnDialog: NO]  ) {
 			nUninstallErrors++;
 			NSString * targetDisplayName   = [lastPartOfPath(target) stringByDeletingPathExtension];
             NSString * targetLocalizedName = [((MenuController *)[NSApp delegate]) localizedNameforDisplayName: targetDisplayName tblkPath: target];
@@ -2481,7 +2476,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * target = [[self installTargets] objectAtIndex: ix];
         if (  ! [ConfigurationManager copyConfigPath: source
 											  toPath: target
-									 usingAuthRefPtr: &gAuthorization
+                                     usingSystemAuth: auth
 										  warnDialog: NO
 										 moveNotCopy: NO
                                              noAdmin: NO]  ) {
@@ -2501,7 +2496,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         if (  [ConfigurationManager copyConfigPath: source
 											toPath: target
-								   usingAuthRefPtr: &gAuthorization
+                                   usingSystemAuth: auth
 										warnDialog: NO
                                        moveNotCopy: NO
                                            noAdmin: NO]  ) {
@@ -2530,7 +2525,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
         if (  [ConfigurationManager copyConfigPath: source
                                             toPath: target
-                                   usingAuthRefPtr: &gAuthorization
+                                   usingSystemAuth: auth
                                         warnDialog: NO
                                        moveNotCopy: NO
                                            noAdmin: YES]  ) {
@@ -2598,7 +2593,9 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         
 		NSArray * arguments = [NSArray arrayWithObjects: target, source, nil];
 		NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: 0
-                                                                        extraArguments: arguments];
+                                                                        extraArguments: arguments
+                                                                       usingSystemAuth: auth
+                                                                     installTblksFirst: nil];
 		if (  installerResult == 0  ) {
  			[[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
             [[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] addUpdateCheckingForStubTblkAtPath: target];
@@ -2607,6 +2604,10 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to store updatable configuration stub at %@\n", @"Window text"), target]];
         }
 	}
+    
+    // Release the authorization we have been using
+    
+    [auth release];
     
 	if (  [connectedTargetDisplayNames count] != 0  ) {
 		[self performSelectorOnMainThread: @selector(reconnect:) withObject: connectedTargetDisplayNames waitUntilDone: NO];
@@ -2829,7 +2830,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     errorLog       =   [[NSMutableString alloc] initWithCapacity: 1000];
     
     [self setInhibitCheckbox:        FALSE];
-    [self setAuthWasNull:            (gAuthorization == NULL) ];
     [self setMultipleConfigurations: [self multipleInstallableConfigurations: filePaths]];
 	
     NSString * path = [newTemporaryDirectoryPath() autorelease];
@@ -2927,40 +2927,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                           disallowCommands: disallowCommands];
 }
 
-enum GetAuthorizationResult {
-    getAuthorizationCancel           = 0,
-    getAuthorizationNewAuthorization = 1,
-    getAuthorizationHadAuthorization = 2
-};
-
-+(enum GetAuthorizationResult) getAuthorizationWithMessage: (NSString *) needAuthMessage
-                                           haveAuthMessage: (NSString *) haveAuthMessage
-                                             buttonMessage: (NSString *) buttonMessage {
-    
-    // Returns 0 to cancel,
-    //         1 if had to get authorization  and should continue
-    //         2 if already had authorization and should continue
-
-    if (  gAuthorization == nil  ) {
-        gAuthorization = [NSApplication getAuthorizationRef: needAuthMessage];
-        [[NSApp delegate] reactivateTunnelblick];
-        if (  gAuthorization == NULL) {
-            return getAuthorizationCancel;
-        }
-        return getAuthorizationNewAuthorization;
-    } else {
-        int button = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                     haveAuthMessage,
-                                     NSLocalizedString(@"Cancel", @"Button"), // Default button
-                                     buttonMessage,                           // Alternate button
-                                     nil);
-        if (  button != NSAlertAlternateReturn) {
-            return getAuthorizationCancel;
-        }
-        return getAuthorizationHadAuthorization;
-    }
-}
-
 +(BOOL) isConfigurationSetToConnectWhenComputerStartsAtPath: (NSString *) path {
     
     NSString * displayName = lastPartOfPath(path);
@@ -3033,7 +2999,8 @@ enum GetAuthorizationResult {
     return YES;
 }
 
-+(void) removeConfigurationsWithDisplayNamesWorker: (NSArray *) displayNames {
++(void) removeConfigurationsWithDisplayNamesWorker: (NSArray *) displayNames
+                                   usingSystemAuth: (SystemAuth *) auth {
     
     NSString * displayName;
     NSEnumerator * e = [displayNames objectEnumerator];
@@ -3056,9 +3023,9 @@ enum GetAuthorizationResult {
             group = nil;
         }
         
-        BOOL ok = [[ConfigurationManager manager] deleteConfigPath: configurationPath
-                                                   usingAuthRefPtr: &gAuthorization
-                                                        warnDialog: YES];
+        BOOL ok = [ConfigurationManager deleteConfigPath: configurationPath
+                                         usingSystemAuth: auth
+                                              warnDialog: YES];
         if (  ok  ) {
             if (  group  ) {
                 AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: group credentialsGroup: group] autorelease];
@@ -3082,7 +3049,9 @@ enum GetAuthorizationResult {
     }
 }
 
-+(void) changeToShared: (BOOL) shared fromPath: (NSString *) path {
++(void) changeToShared: (BOOL)         shared
+              fromPath: (NSString *)   path
+       usingSystemAuth: (SystemAuth *) auth {
     
     NSString * rawName = lastPartOfPath(path);
     NSString * displayName = [rawName stringByDeletingPathExtension];
@@ -3114,7 +3083,7 @@ enum GetAuthorizationResult {
     
     [ConfigurationManager copyConfigPath: path
 								  toPath: targetPath
-						 usingAuthRefPtr: &gAuthorization
+                         usingSystemAuth: auth
 							  warnDialog: YES
                              moveNotCopy: YES
                                  noAdmin: NO];
@@ -3176,25 +3145,16 @@ enum GetAuthorizationResult {
 	if (  [pathsToModify count] == 1  ) {
 		localName = [[NSApp delegate] localizedNameForDisplayName: [lastPartOfPath([pathsToModify objectAtIndex: 0]) stringByDeletingPathExtension]];
 	}
-    NSString * needAuthMessage = (  ([pathsToModify count] == 1)
-                                  ? (  shared
-                                     ? [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to make the '%@' configuration shared.", @"Window text"), localName]
-                                     : [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to make the '%@' configuration private.", @"Window text"), localName])
-                                  : ( shared
-                                     ? [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to make %ld configurations shared.",  @"Window text"), (unsigned long)[pathsToModify count]]
-                                     : [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to make %ld configurations private.", @"Window text"),  (unsigned long)[pathsToModify count]]));
-    NSString * haveAuthMessage = (  ([pathsToModify count] == 1)
-                                  ? (  shared
-                                     ? [NSString  stringWithFormat: NSLocalizedString(@"Do you wish to make the '%@' configuration shared?", @"Window text"), localName]
-                                     : [NSString  stringWithFormat: NSLocalizedString(@"Do you wish to make the '%@' configuration private?", @"Window text"), localName])
-                                  : ( shared
-                                     ? [NSString  stringWithFormat: NSLocalizedString(@"Do you wish to make %ld configurations shared?", @"Window text"), (unsigned long)[pathsToModify count]]
-                                     : [NSString  stringWithFormat: NSLocalizedString(@"Do you wish to make %ld configurations private?", @"Window text"),  (unsigned long)[pathsToModify count]]));
-    NSString * buttonMessage = ( shared
-                                ? NSLocalizedString(@"Make Shared",  @"Button")
-                                : NSLocalizedString(@"Make Private", @"Button"));
-    enum GetAuthorizationResult getAuthResult = [ConfigurationManager getAuthorizationWithMessage: needAuthMessage haveAuthMessage: haveAuthMessage buttonMessage: buttonMessage];
-    if (   getAuthResult == getAuthorizationCancel  ) {
+    NSString * prompt = (  ([pathsToModify count] == 1)
+                         ? (  shared
+                            ? [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to make the '%@' configuration shared.", @"Window text"), localName]
+                            : [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to make the '%@' configuration private.", @"Window text"), localName])
+                         : ( shared
+                            ? [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to make %ld configurations shared.",  @"Window text"), (unsigned long)[pathsToModify count]]
+                            : [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to make %ld configurations private.", @"Window text"),  (unsigned long)[pathsToModify count]]));
+
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+    if (   ! auth  ) {
         return;
     }
     
@@ -3202,13 +3162,12 @@ enum GetAuthorizationResult {
     NSString * path;
     e = [pathsToModify objectEnumerator];
     while (  (path = [e nextObject])  ) {
-        [ConfigurationManager changeToShared: shared fromPath: path];
+        [ConfigurationManager changeToShared: shared
+                                    fromPath: path
+                             usingSystemAuth: auth];
     }
     
-    if (  getAuthResult == getAuthorizationNewAuthorization  ) {
-        AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
-        gAuthorization = NULL;
-    }
+    [auth release];
 }
 
 +(BOOL) revertOneConfigurationToShadowWithDisplayName: (NSString *) displayName {
@@ -3313,27 +3272,17 @@ enum GetAuthorizationResult {
         }
     }
     
-    NSString * haveAuthMessage = (  ([displayNames count] == 1)
-                                  ? [NSString  stringWithFormat: NSLocalizedString(@"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.", @"Window text"), [displayNames objectAtIndex: 0]]
-                                  : [NSString  stringWithFormat: NSLocalizedString(@"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.", @"Window text"), (unsigned long)[displayNames count]]);
-    NSString * needAuthMessage = (  ([displayNames count] == 1)
-                                  ? [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.", @"Window text"), [displayNames objectAtIndex: 0]]
-                                  : [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.", @"Window text"), (unsigned long)[displayNames count]]);
-    NSString * buttonMessage = NSLocalizedString(@"Remove", @"Window text");
-    enum GetAuthorizationResult getAuthResult = [ConfigurationManager getAuthorizationWithMessage: needAuthMessage haveAuthMessage: haveAuthMessage buttonMessage: buttonMessage];
-	
-    
-    if (   getAuthResult == getAuthorizationCancel  ) {
+    NSString * prompt = (  ([displayNames count] == 1)
+                         ? [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.", @"Window text"), [displayNames objectAtIndex: 0]]
+                         : [NSString  stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.", @"Window text"), (unsigned long)[displayNames count]]);
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+    if (   ! auth  ) {
         return;
     }
+    [ConfigurationManager removeConfigurationsWithDisplayNamesWorker: displayNames
+                                                     usingSystemAuth: auth];
     
-    [ConfigurationManager removeConfigurationsWithDisplayNamesWorker: displayNames];
-    
-    // Release the authorization if we obtained it earlier
-    if (  getAuthResult == getAuthorizationNewAuthorization  ) {
-        AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
-        gAuthorization = nil;
-    }
+    [auth release];
 }
 
 +(void) removeCredentialsWithDisplayNames: (NSArray *) displayNames {
@@ -3448,17 +3397,15 @@ enum GetAuthorizationResult {
     NSString * sourceDisplayName = [lastPartOfPath(sourcePath) stringByDeletingPathExtension];
     NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
     
-    NSString * haveAuthMessage       = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to duplicate the '%@' configuration?", @"Window text"), sourceDisplayName];
-    NSString * needAuthMessage       = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to duplicate the '%@' configuration.", @"Window text"), sourceDisplayName];
-    NSString * buttonMessage = NSLocalizedString(@"Duplicate", @"Button");
-    enum GetAuthorizationResult getAuthResult = [ConfigurationManager getAuthorizationWithMessage: needAuthMessage haveAuthMessage: haveAuthMessage buttonMessage: buttonMessage];
-    if (   getAuthResult == getAuthorizationCancel  ) {
+    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to duplicate the '%@' configuration.", @"Window text"), sourceDisplayName];
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+    if (   ! auth  ) {
         return;
     }
     
     if (  [ConfigurationManager copyConfigPath: sourcePath
 										toPath: targetPath
-							   usingAuthRefPtr: &gAuthorization
+							   usingSystemAuth: auth
 									warnDialog: YES
                                    moveNotCopy: NO
                                        noAdmin: NO]  ) {
@@ -3471,10 +3418,7 @@ enum GetAuthorizationResult {
         copyCredentials(sourceDisplayName, targetDisplayName);
     }
     
-    if (  getAuthResult == getAuthorizationNewAuthorization  ) {
-        AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
-        gAuthorization = NULL;
-    }
+    [auth release];
 }
 
 +(BOOL) renameConfigurationFromPath: (NSString *)         sourcePath
@@ -3509,17 +3453,15 @@ enum GetAuthorizationResult {
         return FALSE;
     }
     
-    NSString * haveAuthMessage       = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to rename the '%@' configuration to '%@'?", @"Window text"), sourceName, targetName];
-    NSString * needAuthMessage       = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename the '%@' configuration to '%@'.", @"Window text"), sourceName, targetName];
-    NSString * buttonMessage = NSLocalizedString(@"Rename", @"Button");
-    enum GetAuthorizationResult getAuthResult = [ConfigurationManager getAuthorizationWithMessage: needAuthMessage haveAuthMessage: haveAuthMessage buttonMessage: buttonMessage];
-    if (   getAuthResult == getAuthorizationCancel  ) {
+    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick needs authorization to rename the '%@' configuration to '%@'.", @"Window text"), sourceName, targetName];
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+    if (   ! auth ) {
         return FALSE;
     }
 	
 	BOOL ok = [ConfigurationManager copyConfigPath: sourcePath
 											toPath: targetPath
-								   usingAuthRefPtr: &gAuthorization
+								   usingSystemAuth: auth
 										warnDialog: YES
                                        moveNotCopy: YES
                                            noAdmin: NO];
@@ -3552,12 +3494,8 @@ enum GetAuthorizationResult {
 						  NSLocalizedString(@"Rename failed; see the Console Log for details.", @"Window text"));
 	}
     
-    if (  getAuthResult == getAuthorizationNewAuthorization  ) {
-        AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
-        gAuthorization = NULL;
-    }
-	
-	return ok;
+    [auth release];
+    return ok;
 }
 
 +(NSArray *) displayNamesFromPaths: (NSArray *) paths {
@@ -3577,39 +3515,39 @@ enum GetAuthorizationResult {
 
 +(void) createShadowThenConnectWithDisplayName: (NSString *) displayName userKnows: (BOOL) userKnows {
     
-    AuthorizationRef authRef = [NSApplication getAuthorizationRef:
-                                NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text")];
+    NSString * prompt = NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text");
+    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+    if (   ! auth  ) {
+        return;
+    }
     
-    [[NSApp delegate] reactivateTunnelblick];
-    
-    if ( authRef  ) {
-        NSString * cfgPath = [[[NSApp delegate] myConfigDictionary] objectForKey: displayName];
-        if (  cfgPath  ) {
-            NSString * altCfgPath = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
-                                     stringByAppendingPathComponent: lastPartOfPath(cfgPath)];
+    NSString * cfgPath = [[[NSApp delegate] myConfigDictionary] objectForKey: displayName];
+    if (  cfgPath  ) {
+        NSString * altCfgPath = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
+                                 stringByAppendingPathComponent: lastPartOfPath(cfgPath)];
+        
+        if ( [ConfigurationManager copyConfigPath: cfgPath
+                                           toPath: altCfgPath
+                                  usingSystemAuth: auth
+                                       warnDialog: YES
+                                      moveNotCopy: NO
+                                          noAdmin: NO] ) {    // Copy the config to the alt config
+            NSLog(@"Created or updated secure (shadow) copy of configuration file %@", cfgPath);
             
-            if ( [ConfigurationManager copyConfigPath: cfgPath
-                                               toPath: altCfgPath
-                                      usingAuthRefPtr: &authRef
-                                           warnDialog: YES
-                                          moveNotCopy: NO
-                                              noAdmin: NO] ) {    // Copy the config to the alt config
-                NSLog(@"Created or updated secure (shadow) copy of configuration file %@", cfgPath);
-                
-                VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
-                if (  connection  ) {
-                    [connection performSelectorOnMainThread: @selector(connectUserKnows:) withObject: [NSNumber numberWithBool: userKnows] waitUntilDone: NO];
-                } else {
-                    NSLog(@"createShadowThenConnectWithDisplayName: No connection object for '%@'", displayName);
-                }
+            VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
+            if (  connection  ) {
+                [connection performSelectorOnMainThread: @selector(connectUserKnows:) withObject: [NSNumber numberWithBool: userKnows] waitUntilDone: NO];
             } else {
-                NSLog(@"Unable to create or update secure (shadow) copy of configuration file %@", cfgPath);
+                NSLog(@"createShadowThenConnectWithDisplayName: No connection object for '%@'", displayName);
             }
         } else {
-            NSLog(@"createShadowThenConnectWithDisplayName: No configuration path for '%@'", displayName);
+            NSLog(@"Unable to create or update secure (shadow) copy of configuration file %@", cfgPath);
         }
-        AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+    } else {
+        NSLog(@"createShadowThenConnectWithDisplayName: No configuration path for '%@'", displayName);
     }
+    
+    [auth release];
 }
 
 +(NSString *) listOfFilesInTblkForConnection: (VPNConnection *) connection {

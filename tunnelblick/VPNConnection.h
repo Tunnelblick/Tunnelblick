@@ -151,8 +151,7 @@ struct Statistics {
 
 -(BOOL)             authFailed;
 
--(BOOL)             checkConnectOnSystemStart:  (BOOL)              startIt
-                                     withAuth:  (AuthorizationRef)  inAuthRef;
+-(BOOL)             checkConnectOnSystemStart:  (BOOL)              startIt;
 
 -(void)             clearLog;
 

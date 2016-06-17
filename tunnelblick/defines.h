@@ -72,6 +72,8 @@
 
 #define L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH   @"/Library/Application Support/Tunnelblick/forced-preferences.plist"
 
+#define PADLOCK_ICON_PATH       @"/tmp/TunnelblickAuthIcon.png"
+
 #define AUTHORIZED_RUNNING_PATH @"/tmp/tunnelblick-authorized-running"
 #define AUTHORIZED_ERROR_PATH   @"/tmp/tunnelblick-authorized-error"
 

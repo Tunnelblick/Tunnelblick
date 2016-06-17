@@ -74,6 +74,8 @@
 		635713A61A6709D800709670 /* AR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635713A31A6709D800709670 /* AR.lproj */; };
 		63589B0D1BF2F24E00E413B6 /* TBOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 63589B0C1BF2F24E00E413B6 /* TBOperationQueue.m */; };
 		635BF1AF1501CE4E00D87717 /* ExternalBuildCleanScript.sh in Resources */ = {isa = PBXBuildFile; fileRef = 635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */; };
+		635C03E11D0E48AA00225C04 /* Lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 635C03DF1D0E48AA00225C04 /* Lock.png */; };
+		635C03E21D0E48AA00225C04 /* Lock-open.png in Resources */ = {isa = PBXBuildFile; fileRef = 635C03E01D0E48AA00225C04 /* Lock-open.png */; };
 		635C80461300353000DB27AE /* ApplescriptCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 635C80451300353000DB27AE /* ApplescriptCommands.m */; };
 		635CA45312F8285D00287298 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 635CA45212F8285D00287298 /* COPYING */; };
 		635CA9A012F9DCE300287298 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635CA99F12F9DCE300287298 /* AppKit.framework */; };
@@ -89,6 +91,7 @@
 		635ECE631378EA4000F67F8D /* AppearanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ECE621378EA4000F67F8D /* AppearanceView.m */; };
 		635ECE6C1378EA7000F67F8D /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ECE6B1378EA7000F67F8D /* InfoView.m */; };
 		63611FD113CE2A8B000240F0 /* RU.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63611FCD13CE2A8B000240F0 /* RU.lproj */; };
+		636861E11D0E52EE002F4B8C /* SystemAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 636861DF1D0E52EE002F4B8C /* SystemAuth.m */; };
 		636BB3F8197776A900FDC5DE /* launchAtLogin.sh in Resources */ = {isa = PBXBuildFile; fileRef = 636BB3F7197776A900FDC5DE /* launchAtLogin.sh */; };
 		63716BF41C145FDA00760946 /* reactivate-tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63716BF31C145FDA00760946 /* reactivate-tunnelblick.sh */; };
 		6372D2471C00D4450004674C /* AlertWindow-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6372D2421C00D4450004674C /* AlertWindow-RTL.xib */; };
@@ -413,6 +416,8 @@
 		63589B0B1BF2F24E00E413B6 /* TBOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBOperationQueue.h; sourceTree = "<group>"; };
 		63589B0C1BF2F24E00E413B6 /* TBOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBOperationQueue.m; sourceTree = "<group>"; };
 		635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ExternalBuildCleanScript.sh; sourceTree = "<group>"; };
+		635C03DF1D0E48AA00225C04 /* Lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lock.png; sourceTree = "<group>"; };
+		635C03E01D0E48AA00225C04 /* Lock-open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lock-open.png"; sourceTree = "<group>"; };
 		635C80441300353000DB27AE /* ApplescriptCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplescriptCommands.h; sourceTree = "<group>"; };
 		635C80451300353000DB27AE /* ApplescriptCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplescriptCommands.m; sourceTree = "<group>"; };
 		635CA45212F8285D00287298 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
@@ -433,6 +438,8 @@
 		635ECE6A1378EA7000F67F8D /* InfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoView.h; sourceTree = "<group>"; };
 		635ECE6B1378EA7000F67F8D /* InfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoView.m; sourceTree = "<group>"; };
 		63611FCD13CE2A8B000240F0 /* RU.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RU.lproj; sourceTree = "<group>"; };
+		636861DF1D0E52EE002F4B8C /* SystemAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemAuth.m; sourceTree = "<group>"; };
+		636861E01D0E52EE002F4B8C /* SystemAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemAuth.h; sourceTree = "<group>"; };
 		636BB3F7197776A900FDC5DE /* launchAtLogin.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = launchAtLogin.sh; sourceTree = "<group>"; };
 		63716BF31C145FDA00760946 /* reactivate-tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "reactivate-tunnelblick.sh"; sourceTree = "<group>"; };
 		6372D2421C00D4450004674C /* AlertWindow-RTL.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "AlertWindow-RTL.xib"; sourceTree = "<group>"; };
@@ -955,6 +962,8 @@
 				637A879A13B75694003C1871 /* tb-logo-309x64-2011-06-26.png */,
 				63B5E31811E34D69007D99DB /* tunnelblick.icns */,
 				63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */,
+				635C03DF1D0E48AA00225C04 /* Lock.png */,
+				635C03E01D0E48AA00225C04 /* Lock-open.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1115,6 +1124,8 @@
 				61BC4B770E2F9EBC00F24255 /* AuthAgent.m */,
 				61BC4B750E2F9EBC00F24255 /* KeyChain.h */,
 				61BC4B740E2F9EBC00F24255 /* KeyChain.m */,
+				636861E01D0E52EE002F4B8C /* SystemAuth.h */,
+				636861DF1D0E52EE002F4B8C /* SystemAuth.m */,
 			);
 			name = "Authorization & Keychain";
 			sourceTree = "<group>";
@@ -1565,6 +1576,8 @@
 				63F0FC211CAD985600E456E7 /* SR_CS.lproj in Resources */,
 				63F0050F1CB164B300853B6C /* TBVersionString.txt in Resources */,
 				632038041D07703D00F81175 /* RO.lproj in Resources */,
+				635C03E11D0E48AA00225C04 /* Lock.png in Resources */,
+				635C03E21D0E48AA00225C04 /* Lock-open.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1738,6 +1751,7 @@
 				63C055131970253E007AE8BE /* ConfigurationMultiUpdater.m in Sources */,
 				63589B0D1BF2F24E00E413B6 /* TBOperationQueue.m in Sources */,
 				63ADAB2A1C0483DD000420AB /* UIHelper.m in Sources */,
+				636861E11D0E52EE002F4B8C /* SystemAuth.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

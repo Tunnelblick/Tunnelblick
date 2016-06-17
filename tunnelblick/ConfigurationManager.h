@@ -71,7 +71,6 @@ typedef enum
     BOOL inhibitCheckbox;
     BOOL installToSharedOK;
     BOOL installToPrivateOK;
-    BOOL authWasNull;
 	BOOL multipleConfigurations;
 }
 

@@ -43,6 +43,7 @@
 #import "NSString+TB.h"
 #import "NSTimer+TB.h"
 #import "StatusWindowController.h"
+#import "SystemAuth.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
 #import "VPNConnection.h"
@@ -570,7 +571,6 @@ extern volatile int32_t       gActiveInactiveState;
 // the .plist file used to connect when the system starts
 
 -(BOOL) checkConnectOnSystemStart: (BOOL)              startIt
-                         withAuth: (AuthorizationRef)  inAuthRef
 {
     // Encode slashes and periods in the displayName so the result can act as a single component in a file name
     NSMutableString * daemonNameWithoutSlashes = encodeSlashesAndPeriods([self displayName]);
@@ -623,28 +623,16 @@ extern volatile int32_t       gActiveInactiveState;
     NSMutableArray * arguments = [[openvpnstartArgs mutableCopy] autorelease];
     [arguments replaceObjectAtIndex: 0 withObject: ( startIt ? @"1" : @"0" )];
     
-    BOOL freeAuthRef = NO;
-    if (  inAuthRef == nil  ) {
-        // Get an AuthorizationRef
-        NSString * msg;
-        if (  startIt  ) {
-            msg = [NSString stringWithFormat:
-                   NSLocalizedString(@" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts.", @"Window text"),
-                   [self localizedName]];
-        } else {
-            msg = [NSString stringWithFormat:
-                   NSLocalizedString(@" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts.", @"Window text"),
-                   [self localizedName]];
-        }
-        
-        inAuthRef= [NSApplication getAuthorizationRef: msg];
-		
-		[[NSApp delegate] reactivateTunnelblick];
-		
-        freeAuthRef = (inAuthRef != nil);
-    }
-    
-    if (  inAuthRef == nil  ) {
+    // Get a SystemAuth
+    NSString * msg = (  startIt
+                      ? [NSString stringWithFormat:
+                         NSLocalizedString(@" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts.", @"Window text; '%@' is the name of a configuration"),
+                         [self localizedName]]
+                      : [NSString stringWithFormat:
+                         NSLocalizedString(@" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts.", @"Window text; '%@' is the name of a configuration"),
+                         [self localizedName]]);
+    SystemAuth * sysAuth = [SystemAuth newAuthWithPrompt: msg];
+    if (  ! sysAuth  ) {
         if (  startIt  ) {
             NSLog(@"Connect '%@' when computer starts cancelled by user", [self displayName]);
             return NO;
@@ -662,7 +650,7 @@ extern volatile int32_t       gActiveInactiveState;
             NSLog(@"Retrying execution of atsystemstart");
         }
         
-        if (  [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: inAuthRef]  ) {
+        if (  [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: [sysAuth authRef]]  ) {
             // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
             // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
             useconds_t sleepTime;
@@ -692,16 +680,12 @@ extern volatile int32_t       gActiveInactiveState;
         }
     }
     
-    if (  freeAuthRef  ) {
-        AuthorizationFree(inAuthRef, kAuthorizationFlagDefaults);
-    }
+    [sysAuth release];
     
     if (  startIt) {
         if (   okNow
             || [dict isEqualToDictionary: [NSDictionary dictionaryWithContentsOfFile: plistPath]]  ) {
-            NSLog(@"%@ will be connected using '%@' when the computer starts"    ,
-                  [self displayName],
-                  [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil]);
+            NSLog(@"%@ will be connected when the computer starts", [self displayName]);
             return YES;
         } else {
             NSLog(@"Failed to set up to connect '%@' when computer starts", [self displayName]);
