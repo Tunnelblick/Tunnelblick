@@ -197,6 +197,11 @@ else
   echo "warning: Could not find a version of OpenVPN to use by default"
 fi
 
+# Copy English.lproj/Localizable.strings (It isn't copied in Debug builds using recent versions of Xcode, probably because it is the primary language)
+if test ! -f "${app_path}/Contents/Resources/English.lproj/Localizable.strings" ; then
+  cp -p -f "English.lproj/Localizable.strings" "${app_path}/Contents/Resources/English.lproj/Localizable.strings"
+fi
+
 # Remove extra files that are not needed
 
 rm -f "${app_path}/Contents/Resources/TBBuildNumber.txt"
@@ -229,18 +234,24 @@ do
   xattr -d "com.apple.FinderInfo" ${f} 2> /dev/null
 done
 
-# Remove NeedsTranslation.strings and Removed.strings from all .lproj folders
+# Remove NeedsTranslation.strings and Removed.strings from all .lproj folders and set permissions on Localizable.strings and InfoPlist.strings files
 shopt -s nullglob
-for f in ${app_path}/Contents/Resources/*.lproj
-do
-  if test -f "${f}/NeedsTranslation.strings"
-  then
+for f in ${app_path}/Contents/Resources/*.lproj ; do
+  if test -f "${f}/NeedsTranslation.strings" ; then
     rm "${f}/NeedsTranslation.strings"
   fi
-  if test -f "${f}/Removed.strings"
-  then
+  if test -f "${f}/Removed.strings" ; then
     rm "${f}/Removed.strings"
-  fi 
+  fi
+  if test -f "${f}/Localizable.strings" ; then
+    chmod 644 "${f}/Localizable.strings"
+  else
+    echo "error: There is no 'Localizable.strings' file in ${f}"
+    exit 1
+  fi
+  if test -f "${f}/InfoPlist.strings" ; then
+    chmod 644 "${f}/InfoPlist.strings"
+  fi
 done
 
 # Change permissions from 755 to 744 on many executables in Resources (openvpn-down-root.so permissions were changed when setting up the OpenVPN folder structure)
