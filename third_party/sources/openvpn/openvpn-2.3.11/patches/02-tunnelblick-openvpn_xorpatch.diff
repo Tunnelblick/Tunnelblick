@@ -1,0 +1,288 @@
+diff -u -r unpatched/src/openvpn/forward.c patched/src/openvpn/forward.c
+--- openvpn-2.3.7/src/openvpn/forward.c	2015-06-02 04:01:24.000000000 -0400
++++ openvpn-2.3.7_/src/openvpn/forward.c	2015-06-08 20:34:11.000000000 -0400
+@@ -675,7 +675,10 @@
+   status = link_socket_read (c->c2.link_socket,
+ 			     &c->c2.buf,
+ 			     MAX_RW_SIZE_LINK (&c->c2.frame),
+-			     &c->c2.from);
++			     &c->c2.from,
++			     c->options.ce.xormethod,
++			     c->options.ce.xormask,
++			     c->options.ce.xormasklen);
+ 
+   if (socket_connection_reset (c->c2.link_socket, status))
+     {
+@@ -1151,7 +1154,10 @@
+ 	    /* Send packet */
+ 	    size = link_socket_write (c->c2.link_socket,
+ 				      &c->c2.to_link,
+-				      to_addr);
++				      to_addr,
++				      c->options.ce.xormethod,
++				      c->options.ce.xormask,
++				      c->options.ce.xormasklen);
+ 
+ #ifdef ENABLE_SOCKS
+ 	    /* Undo effect of prepend */
+diff -u -r openvpn-2.3.7/src/openvpn/options.c openvpn-2.3.7_/src/openvpn/options.c
+--- openvpn-2.3.7/src/openvpn/options.c	2015-06-02 04:01:24.000000000 -0400
++++ openvpn-2.3.7_/src/openvpn/options.c	2015-06-08 20:34:11.000000000 -0400
+@@ -789,6 +789,9 @@
+   o->max_routes = MAX_ROUTES_DEFAULT;
+   o->resolve_retry_seconds = RESOLV_RETRY_INFINITE;
+   o->proto_force = -1;
++  o->ce.xormethod = 0;
++  o->ce.xormask = "\0";
++  o->ce.xormasklen = 0;
+ #ifdef ENABLE_OCC
+   o->occ = true;
+ #endif
+@@ -907,6 +910,9 @@
+   setenv_int_i (es, "local_port", e->local_port, i);
+   setenv_str_i (es, "remote", e->remote, i);
+   setenv_int_i (es, "remote_port", e->remote_port, i);
++  setenv_int_i (es, "xormethod", e->xormethod, i);
++  setenv_str_i (es, "xormask", e->xormask, i);
++  setenv_int_i (es, "xormasklen", e->xormasklen, i);
+ 
+ #ifdef ENABLE_HTTP_PROXY
+   if (e->http_proxy_options)
+@@ -1352,6 +1358,9 @@
+   SHOW_INT (connect_retry_seconds);
+   SHOW_INT (connect_timeout);
+   SHOW_INT (connect_retry_max);
++  SHOW_INT (xormethod);
++  SHOW_STR (xormask);
++  SHOW_INT (xormasklen);
+ 
+ #ifdef ENABLE_HTTP_PROXY
+   if (o->http_proxy_options)
+@@ -5094,6 +5103,46 @@
+       options->proto_force = proto_force;
+       options->force_connection_list = true;
+     }
++  else if (streq (p[0], "scramble") && p[1])
++    {
++      VERIFY_PERMISSION (OPT_P_GENERAL|OPT_P_CONNECTION);
++      if (streq (p[1], "xormask") && p[2] && (!p[3]))
++	{
++	  options->ce.xormethod = 1;
++	  options->ce.xormask = p[2];
++	  options->ce.xormasklen = strlen(options->ce.xormask);
++	}
++      else if (streq (p[1], "xorptrpos") && (!p[2]))
++	{
++	  options->ce.xormethod = 2;
++	  options->ce.xormask = NULL;
++	  options->ce.xormasklen = 0;
++	}
++      else if (streq (p[1], "reverse") && (!p[2]))
++	{
++	  options->ce.xormethod = 3;
++	  options->ce.xormask = NULL;
++	  options->ce.xormasklen = 0;
++	}
++      else if (streq (p[1], "obfuscate") && p[2] && (!p[3]))
++	{
++	  options->ce.xormethod = 4;
++	  options->ce.xormask = p[2];
++	  options->ce.xormasklen = strlen(options->ce.xormask);
++	}
++      else if (!p[2])
++	{
++	  msg (M_WARN, "WARNING: No recognized 'scramble' method specified; using 'scramble xormask \"%s\"'", p[1]);
++	  options->ce.xormethod = 1;
++	  options->ce.xormask = p[1];
++	  options->ce.xormasklen = strlen(options->ce.xormask);
++	}
++      else
++	{
++	  msg (msglevel, "No recognized 'scramble' method specified or extra parameters for 'scramble'");
++	  goto err;
++	}
++    }
+ #ifdef ENABLE_HTTP_PROXY
+   else if (streq (p[0], "http-proxy") && p[1])
+     {
+diff -u -r openvpn-2.3.7/src/openvpn/options.h openvpn-2.3.7_/src/openvpn/options.h
+--- openvpn-2.3.7/src/openvpn/options.h	2014-11-29 10:00:35.000000000 -0500
++++ openvpn-2.3.7_/src/openvpn/options.h	2015-04-07 22:38:20.000000000 -0400
+@@ -100,6 +100,9 @@
+   int connect_retry_max;
+   int connect_timeout;
+   bool connect_timeout_defined;
++  int xormethod;
++  const char *xormask;
++  int xormasklen;
+ #ifdef ENABLE_HTTP_PROXY
+   struct http_proxy_options *http_proxy_options;
+ #endif  
+diff -u -r openvpn-2.3.7/src/openvpn/socket.c openvpn-2.3.7_/src/openvpn/socket.c
+--- openvpn-2.3.7/src/openvpn/socket.c	2014-11-29 10:00:35.000000000 -0500
++++ openvpn-2.3.7_/src/openvpn/socket.c	2015-04-09 08:48:01.000000000 -0400
+@@ -52,6 +52,53 @@
+   IPv6_TCP_HEADER_SIZE,
+ };
+ 
++int buffer_mask (struct buffer *buf, const char *mask, int xormasklen) {
++	int i;
++	uint8_t *b;
++	if (  xormasklen > 0  ) {
++		for (i = 0, b = BPTR (buf); i < BLEN(buf); i++, b++) {
++			*b = *b ^ mask[i % xormasklen];
++		}
++	}
++	return BLEN (buf);
++}
++
++int buffer_xorptrpos (struct buffer *buf) {
++	int i;
++	uint8_t *b;
++	for (i = 0, b = BPTR (buf); i < BLEN(buf); i++, b++) {
++		*b = *b ^ i+1;
++	}
++	return BLEN (buf);
++}
++
++int buffer_reverse (struct buffer *buf) {
++/* This function has been rewritten for Tunnelblick. The buffer_reverse function at
++ * https://github.com/clayface/openvpn_xorpatch
++ * makes a copy of the buffer and it writes to the byte **after** the
++ * buffer contents, so if the buffer is full then it writes outside of the buffer.
++ * This rewritten version does neither.
++ *
++ * For interoperability, this rewritten version preserves the behavior of the original
++ * function: it does not modify the first character of the buffer. So it does not
++ * actually reverse the contents of the buffer. Instead, it changes 'abcde' to 'aedcb'.
++ * (Of course, the actual buffer contents are bytes, and not necessarily characters.)
++ */
++  int len = BLEN(buf);
++  if (  len > 2  ) {                           /* Leave '', 'a', and 'ab' alone */
++    int i;
++    uint8_t *b_start = BPTR (buf) + 1;	        /* point to first byte to swap */
++    uint8_t *b_end   = BPTR (buf) + (len - 1); /* point to last byte to swap */
++    uint8_t tmp;
++    for (i = 0; i < (len-1)/2; i++, b_start++, b_end--) {
++      tmp = *b_start;
++      *b_start = *b_end;
++      *b_end = tmp;
++    }
++  }
++  return len;
++}
++
+ /*
+  * Convert sockflags/getaddr_flags into getaddr_flags
+  */
+diff -u -r openvpn-2.3.7/src/openvpn/socket.h openvpn-2.3.7_/src/openvpn/socket.h
+--- openvpn-2.3.7/src/openvpn/socket.h	2014-11-29 10:00:35.000000000 -0500
++++ openvpn-2.3.7_/src/openvpn/socket.h	2015-04-08 20:12:02.000000000 -0400
+@@ -250,6 +250,10 @@
+ #endif
+ };
+ 
++int buffer_mask (struct buffer *buf, const char *xormask, int xormasklen);
++int buffer_xorptrpos (struct buffer *buf);
++int buffer_reverse (struct buffer *buf);
++
+ /*
+  * Some Posix/Win32 differences.
+  */
+@@ -875,30 +879,56 @@
+ link_socket_read (struct link_socket *sock,
+ 		  struct buffer *buf,
+ 		  int maxsize,
+-		  struct link_socket_actual *from)
++		  struct link_socket_actual *from,
++		  int xormethod,
++		  const char *xormask,
++		  int xormasklen)
+ {
++  int res;
+   if (proto_is_udp(sock->info.proto)) /* unified UDPv4 and UDPv6 */
+     {
+-      int res;
+ 
+ #ifdef WIN32
+       res = link_socket_read_udp_win32 (sock, buf, from);
+ #else
+       res = link_socket_read_udp_posix (sock, buf, maxsize, from);
+ #endif
+-      return res;
+     }
+   else if (proto_is_tcp(sock->info.proto)) /* unified TCPv4 and TCPv6 */
+     {
+       /* from address was returned by accept */
+       addr_copy_sa(&from->dest, &sock->info.lsa->actual.dest);
+-      return link_socket_read_tcp (sock, buf);
++      res = link_socket_read_tcp (sock, buf);
+     }
+   else
+     {
+       ASSERT (0);
+       return -1; /* NOTREACHED */
+     }
++  switch(xormethod)
++    {
++      case 0:
++       break;
++      case 1:
++       buffer_mask(buf,xormask,xormasklen);
++       break;
++      case 2:
++       buffer_xorptrpos(buf);
++       break;
++      case 3:
++       buffer_reverse(buf);
++       break;
++      case 4:
++       buffer_mask(buf,xormask,xormasklen);
++       buffer_xorptrpos(buf);
++       buffer_reverse(buf);
++       buffer_xorptrpos(buf);
++       break;
++      default:
++       ASSERT (0);
++       return -1; /* NOTREACHED */
++    }
++  return res;
+ }
+ 
+ /*
+@@ -982,8 +1012,34 @@
+ static inline int
+ link_socket_write (struct link_socket *sock,
+ 		   struct buffer *buf,
+-		   struct link_socket_actual *to)
++		   struct link_socket_actual *to,
++		   int xormethod,
++		   const char *xormask,
++		   int xormasklen)
+ {
++  switch(xormethod)
++    {
++      case 0:
++       break;
++      case 1:
++       buffer_mask(buf,xormask,xormasklen);
++       break;
++      case 2:
++       buffer_xorptrpos(buf);
++       break;
++      case 3:
++       buffer_reverse(buf);
++       break;
++      case 4:
++       buffer_xorptrpos(buf);
++       buffer_reverse(buf);
++       buffer_xorptrpos(buf);
++       buffer_mask(buf,xormask,xormasklen);
++       break;
++      default:
++       ASSERT (0);
++       return -1; /* NOTREACHED */
++    }
+   if (proto_is_udp(sock->info.proto)) /* unified UDPv4 and UDPv6 */
+     {
+       return link_socket_write_udp (sock, buf, to);
