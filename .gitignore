@@ -1,0 +1,8 @@
+# Xcode 7 user data
+xcuserdata/
+
+# Xcode 3.2.2 user data
+*.mode1v3
+*.pbxuser
+
+build-log.txt
