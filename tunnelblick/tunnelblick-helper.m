@@ -279,7 +279,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             
             "Tunnelblick must have been run and an administrator password entered at least once before openvpnstart can be used.\n\n"
             
-            "For more information on using Deploy, see the Deployment wiki at http://code.google.com/p/tunnelblick/wiki/cCusDeployed\n"
+            "For more information on using Deploy, see the Deployment wiki at https://tunnelblick.net/cCusDeployed.html\n"
             , killStringC, killAllStringC);
     exitOpenvpnstart(OPENVPNSTART_RETURN_SYNTAX_ERROR);      // This exit code is used in the VPNConnection connect: method to inhibit display of this long syntax error message because it means there is an internal Tunnelblick error
 }

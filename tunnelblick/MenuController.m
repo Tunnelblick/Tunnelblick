@@ -5780,7 +5780,7 @@ BOOL warnAboutNonTblks(void)
         // may be less secure, can lead to problems with updating, and can interfere with other installations
         // of Tunnelblick on the same computer. Please don't do it!
         //
-        // For instructions on rebranding Tunnelblick, see https://code.google.com/p/tunnelblick/wiki/cRebranding
+        // For instructions on rebranding Tunnelblick, see https://tunnelblick.net/cRebranding.html
         
 		if (   [@"Tunnelblick" isEqualToString: @"T" @"unnelblick"] // Quick rebranding checks (not exhaustive, obviously)
 			
