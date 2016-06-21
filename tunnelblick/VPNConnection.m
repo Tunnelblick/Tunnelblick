@@ -1868,30 +1868,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
         } else if (   ( ! tunOrTap )
                    || [tunOrTap isEqualToString: @"tunOrUtun"]  ) {
-            // automatic. Use utun -- and don't load the tun kext -- if OpenVPN 2.3.3 or higher and OS X 10.6.8 or higher
-			BOOL useUtun = FALSE;
-            if (  openVPNVersionDict  ) {
-                int intMajor =  [[openVPNVersionDict objectForKey:@"major"]  intValue];
-                int intMinor =  [[openVPNVersionDict objectForKey:@"minor"]  intValue];
-                int intSuffix = [[openVPNVersionDict objectForKey:@"suffix"] intValue];
-                if ( intMajor == 2 ) {
-                    if ( intMinor == 3 ) {
-                        if ( intSuffix > 2 ) {
-                            useUtun = TRUE;
-                        }
-                    } else if ( intMinor > 3 ) {
-                        useUtun = TRUE;
-                    }
-                } else if ( intMajor > 2 ) {
-                    useUtun = TRUE;
-                }
-            }
-            
+            // automatic. Use utun -- and don't load the tun kext -- if OS X 10.6.8 or higher
             if (  ! runningOnSnowLeopardPointEightOrNewer()  ) {
-                useUtun = FALSE;
-            }
-            
-            if (  ! useUtun  ) {
                 bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
             }
         }
