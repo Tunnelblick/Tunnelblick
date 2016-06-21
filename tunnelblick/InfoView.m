@@ -274,6 +274,7 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"Atakan Meray",                  NSLocalizedString(@"Turkish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Boian Mihailov",                NSLocalizedString(@"Bulgarian localization",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Richárd Murvai",                NSLocalizedString(@"Hungarian localization",               @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Andrejs Mors-Jaroslavcevs",     NSLocalizedString(@"Latvian localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Kurt Jarusutthirak Nielsen",    NSLocalizedString(@"Danish localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Johan Nilsson",                 NSLocalizedString(@"Swedish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Feetu Nyrhinen",                NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
@@ -321,6 +322,7 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"Andrew Ying",                   NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"游精展",                         NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Magdelena Zajac",               NSLocalizedString(@"Polish localization",                  @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"ZaTi",                          NSLocalizedString(@"Romanian localization",                @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Nikolay Zhelev",                NSLocalizedString(@"Bulgarian localization",               @"Credit description"), nil],
                             nil];
 	
