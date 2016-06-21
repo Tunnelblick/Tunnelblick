@@ -1640,7 +1640,7 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.";
 
 /* Window text */
-"Tunnelblick needs to perform an action that requires administrator approval.\n" = "Tunnelblick needs to perform an action that requires administrator approval.\n";
+"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick needs to perform an action that requires administrator authorization.\n";
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick needs to:\n";

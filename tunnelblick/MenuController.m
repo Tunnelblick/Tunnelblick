@@ -6380,7 +6380,7 @@ BOOL warnAboutNonTblks(void)
     }
     
     if (  ! appended  ) {
-        msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to perform an action that requires administrator approval.\n", @"Window text")];
+        msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to perform an action that requires administrator authorization.\n", @"Window text")];
     }
     
     return [NSString stringWithFormat: @"%@", msg];
