@@ -104,9 +104,6 @@
 "Download" = "Download";
 
 /* Button */
-"Duplicate" = "Duplizieren";
-
-/* Button */
 "Help" = "Hilfe";
 
 /* Button */
@@ -129,12 +126,6 @@
 
 /* Button */
 "Load Tun driver automatically" = "Tun-Treiber automatisch laden";
-
-/* Button */
-"Make Private" = "Nur dem aktuellen Benutzer (privat) freigeben";
-
-/* Button */
-"Make Shared" = "Für alle Benutzer freigeben";
 
 /* Button */
 "Manually" = "Manuell";
@@ -183,9 +174,6 @@
 
 /* Button */
 "Remove Credentials" = "Zugangsdaten entfernen";
-
-/* Button */
-"Rename" = "Umbenennen";
 
 /* Button */
 "Replace" = "Ersetzen";
@@ -308,7 +296,7 @@
 "OpenVPN level 3 - normal output" = "OpenVPN Level 3 - normale Ausgabe";
 
 /* Menu Item */
-"OpenVPN level 4 - also outputs values for all options" = "OpenVPN Level 4 - Gibt auch für alle Optionen Werte aus";
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN Level 4 - gibt auch für alle Optionen Werte aus";
 
 /* Menu Item */
 "OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN Level 5 - gibt zusätzlich \"R\" oder \"W\" für jedes Paket aus";
@@ -384,6 +372,9 @@
 
 /* Checkbox name on a warning dialog */
 "Do not show again for any configuration" = "Für keine Konfiguration mehr anzeigen";
+
+/* Checkbox name */
+"Do not show this type of warning again" = "Diese Art von Warnung nicht mehr anzeigen";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Für diese Konfiguration nicht mehr darauf hinweisen";
@@ -767,6 +758,9 @@
 "  • Convert OpenVPN configurations\n" = "  • OpenVPN-Konfigurationen umwandeln\n";
 
 /* Window text */
+"  • Install forced preferences\n" = "  Erzwungene Einstellungen installieren\n";
+
+/* Window text */
 "  • Install or update configuration(s)\n" = "  • Konfiguration(en) installieren oder aktualisieren\n";
 
 /* Window text */
@@ -793,11 +787,11 @@
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick muss im Programme-Ordner installiert sein.\n\n";
 
-/* Window text */
-" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick benötigt Administrator-Rechte, um beim Hochfahren des Computers „%@“ zu verbinden.";
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick benötigt Administrator-Rechte, um beim Hochfahren des Computers automatisch „%@“ zu verbinden.";
 
-/* Window text */
-" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick benötigt Administrator-Rechte, um beim Hochfahren des Computers „%@“ nicht mehr zu verbinden.";
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick benötigt Administrator-Rechte, um beim Hochfahren des Computers „%@“ nicht mehr automatisch zu verbinden.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ACHTUNG: An dieser Version von Tunnelblick wurden Änderungen vorgenommen.\n\n";
@@ -842,7 +836,7 @@
 "(if connected when user switched out)" = "(falls beim Benutzerwechsel verbunden )";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Basierend auf Tunnelblick, kostenlos verfügbar unter<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN ist eine eingetragene Marke der OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Basierend auf Tunnelblick, kostenlos verfügbar unter<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN ist eine eingetragene Marke der OpenVPN Technologies, Inc.";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Ein TBPreference oder TBAlwaysSetPreference Schlüssel zeigt auf unbekannte Einstellung '%1$@' in %2$@";
@@ -1061,34 +1055,10 @@
 "Do you wish to delete the %@ credentials?" = "Möchten Sie die %@ Zugangsdaten löschen?";
 
 /* Window text */
-"Do you wish to duplicate the '%@' configuration?" = "Möchten Sie die \"%@\" Konfiguration duplizieren?";
-
-/* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Möchten die Sie die Konfiguration „%@“ für alle Benutzer installieren?\n\n";
 
 /* Window text */
-"Do you wish to make %ld configurations private?" = "Möchten Sie %ld Konfigurationen in eigene für diesen Benutzer umwandeln?";
-
-/* Window text */
-"Do you wish to make %ld configurations shared?" = "Möchten Sie die %ld Konfigurationen für alle Benutzer freigeben?";
-
-/* Window text */
-"Do you wish to make the '%@' configuration private?" = "Möchten Sie die \"%@\" Konfiguration auf diesen Benutzer einschränken?";
-
-/* Window text */
-"Do you wish to make the '%@' configuration shared?" = "Möchten Sie die „%@“ Konfiguration für alle Benutzer freigeben?";
-
-/* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Möchten Sie '%1$@' Version %2$@ neu installieren?";
-
-/* Window text */
-"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Möchten Sie %ld Konfigurationen entfernen?\n\n Konfigurationen zu löschen ist ein permanenter Vorgang und kann nicht rückgängig gemacht werden. Alle Einstellungen für die Konfigurationen werden ebenso permanent entfernt.";
-
-/* Window text */
-"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Möchten Sie die \"%@\" Konfiguration entfernen?\n\n Konfigurationen zu löschen ist ein permanenter Vorgang und kann nicht rückgängig gemacht werden. Alle Einstellungen für die Konfiguration werden ebenso permanent entfernt.";
-
-/* Window text */
-"Do you wish to rename the '%@' configuration to '%@'?" = "Möchten Sie die '%1$@' Konfiguration in '%2$@' umbenennen?";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Möchten Sie '%1$@' Version %2$@ mit Version %3$@ ersetzen?";
@@ -1355,9 +1325,6 @@
 "Received fatal signal %d." = "Schwerwiegendes Fehler Signal %d empfangen.";
 
 /* Window text */
-"Remove" = "Entfernen";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "Umbenennungen fehlgeschlagen; Details sind im Konsolen-Log zu finden.";
 
 /* Window text */
@@ -1568,6 +1535,9 @@
 "Too many duplicate configurations already exist." = "Es bestehen bereits zu viele duplizierte Konfigurationen.";
 
 /* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Administratormodus\n\nTemporär Veränderungen autorisieren, die ein Administratorpasswort benötigen.\n\nDie Sitzung läuft nach fünf Minuten, oder wenn das 'VPN Details' Fenster geschlossen wird aus.";
+
+/* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick Internet-Nutzung:";
 
 /* Window text */
@@ -1592,7 +1562,7 @@
 "Tunnelblick could not create the sample configuration" = "Tunnelblick kann die Beispielkonfiguration nicht anlegen.";
 
 /* Window text */
-"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick konnte ein Fenster nicht anzeigen.\n\nCFUserNotificationCreate() hat einen Fehler zurückgegeben = %1$ld; Benachrichtigung = 0x%2$lX";
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick konnte ein Fenster nicht anzeigen.\n\nCFUserNotificationCreate() hat einen Fehler zurückgegeben = %1$ld; Benachrichtigung = %2$@";
 
 /* Window text */
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick konnte keine IP-Adressinformationen holen, bevor die Verbindung mit %@ hergestellt wurde.\n\n";
@@ -1670,6 +1640,9 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick muss eine sichere (Schatten-) Kopie der Konfigurationsdatei erstellen oder updaten.";
 
 /* Window text */
+"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick muss eine Aktion durchführen, die Administratorrechte benötigt.\n";
+
+/* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick muss:\n";
 
 /* Window text */
@@ -1704,6 +1677,9 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick konnte OpenVPN nicht starten, um %@ zu verbinden. Für Details sehen Sie bitte in das VPN Details… Fenster";
+
+/* Window text */
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick muss OpenVPN-Konfigurationen in Tunnelblick-VPN-Konfigurationen umwandeln.";
 
 /* Window text */
 "Unable to Establish Communication" = "Verbindung fehlgeschlagen";
@@ -1930,6 +1906,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "Ermöglichen und Testen der 64-Bit Version";
 
+/* Toolbar text for 'Lock' item */
+"Admin mode %@ remaining" = "Adminmodus %@ verbleibend";
+
 /* Credit description */
 "Afrikaans localization" = "Afrikaans Lokalisierung";
 
@@ -1938,6 +1917,9 @@
 
 /* Credit description */
 "Arabic localization" = "Arabische Lokalisierung";
+
+/* Toolbar text for 'Lock' item */
+"Authenticating..." = "Authentifizierung…";
 
 /* Credit description */
 "Bulgarian localization" = "Bulgarische Lokalisierung";
@@ -1983,6 +1965,11 @@
 
 /* Credit description */
 "Dutch localization" = "Niederländische Lokalisierung";
+
+/* Toolbar text for 'Lock' icon
+   Toolbar text for 'Lock' item
+*/
+"Enter admin mode" = "Adminmodus einschalten";
 
 /* Credit description */
 "Estonian localization" = "Estnische Lokalisierung";

@@ -104,9 +104,6 @@
 "Download" = "Ladda ner";
 
 /* Button */
-"Duplicate" = "Kopiera";
-
-/* Button */
 "Help" = "Hjälp";
 
 /* Button */
@@ -129,12 +126,6 @@
 
 /* Button */
 "Load Tun driver automatically" = "Automatladda drivrutinen för Tun";
-
-/* Button */
-"Make Private" = "Gör privat";
-
-/* Button */
-"Make Shared" = "Gör delad";
 
 /* Button */
 "Manually" = "Manuellt";
@@ -183,9 +174,6 @@
 
 /* Button */
 "Remove Credentials" = "Ta bort användaruppgifter";
-
-/* Button */
-"Rename" = "Döp om";
 
 /* Button */
 "Replace" = "Ersätt";
@@ -384,6 +372,9 @@
 
 /* Checkbox name on a warning dialog */
 "Do not show again for any configuration" = "Visa inte igen för någon konfiguration";
+
+/* Checkbox name */
+"Do not show this type of warning again" = "Do not show this type of warning again";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Varna inte igen för denna konfiguraion";
@@ -767,6 +758,9 @@
 "  • Convert OpenVPN configurations\n" = "  • Konvertera OpenVPN-konfigurationer\n";
 
 /* Window text */
+"  • Install forced preferences\n" = "  • Install forced preferences\n";
+
+/* Window text */
 "  • Install or update configuration(s)\n" = "  • Installera eller uppdatera inställningar\n";
 
 /* Window text */
@@ -793,11 +787,11 @@
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick måste installeras i Program.\n\n";
 
-/* Window text */
-" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick behöver administratörsåtkomst för att ansluta '%@' automatiskt när datorn startas.";
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts.";
 
-/* Window text */
-" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick behöver administratörsåtkomst för att sluta ansluta '%@' automatiskt när datorn startas.";
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " VARNING: Denna kopia av Tunnelblick har manipulerats.\n\n";
@@ -842,7 +836,7 @@
 "(if connected when user switched out)" = "(om ansluten när användare byts)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Baserat på Tunnelblick, fri programvara som finns på <br><a href=\"http://code.google.com/p/tunnelblick\"> http://code.google.com/p/tunnelblick</a><br><br>OpenVPN är ett registrerat varumärke av OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc.";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "En TBPreference eller TBAlwaysSetPreference nyckel refererar till en okänd inställning '%1$@' i %2$@";
@@ -1061,34 +1055,10 @@
 "Do you wish to delete the %@ credentials?" = "Vill du ta bort användaruppgifterna för %@?";
 
 /* Window text */
-"Do you wish to duplicate the '%@' configuration?" = "Vill du kopiera konfigurationen \"%@\"?";
-
-/* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Vill du installera '%@' -konfigurationen så att alla användare kan använda den, eller så att bara du kan använda den?\n\n";
 
 /* Window text */
-"Do you wish to make %ld configurations private?" = "Vill du göra %ld konfigurationer privata?";
-
-/* Window text */
-"Do you wish to make %ld configurations shared?" = "Vill du dela %ld konfigurationer?";
-
-/* Window text */
-"Do you wish to make the '%@' configuration private?" = "Vill du göra konfigurationen \"%@\" privat?";
-
-/* Window text */
-"Do you wish to make the '%@' configuration shared?" = "Vill du dela konfigurationen \"%@\"?";
-
-/* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Vill du ominstallera version %2$@ av %1$@?";
-
-/* Window text */
-"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Vill du ta bort %ld konfigurationer?\n\nAtt ta bort en konfiguration kan inte ångras. Alla inställningar för konfigurationerna kommer att tas bort permanent.";
-
-/* Window text */
-"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Vill du ta bort konfigurationen \"%@\"?\n\nAtt ta bort en konfiguration kan inte ångras. Alla inställningar för konfigurationen kommer också att tas bort permanent.";
-
-/* Window text */
-"Do you wish to rename the '%@' configuration to '%@'?" = "Vill du döpa om konfigurationen \"%1$@\" till \"%2$@\"?";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Vill du ersätta version %2$@ med version %3$@ av %1$@?";
@@ -1355,9 +1325,6 @@
 "Received fatal signal %d." = "Mottog en avslutningssignal %d.";
 
 /* Window text */
-"Remove" = "Ta bort";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "Omdöpningen misslyckades; se Konsol-loggen för fler detaljer.";
 
 /* Window text */
@@ -1568,6 +1535,9 @@
 "Too many duplicate configurations already exist." = "För många duplicerade konfigurationer finns redan.";
 
 /* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.";
+
+/* Window text */
 "Tunnelblick Internet Use:" = "Internetanvändning för Tunnelblick:";
 
 /* Window text */
@@ -1592,7 +1562,7 @@
 "Tunnelblick could not create the sample configuration" = "Tunnelblick kunde inte skapa exempelkonfigurationen";
 
 /* Window text */
-"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick kunde inte visa ett fönster.\n\nCFUserNotificationCreate() orsakade fel = %1$ld; med meddelande = 0x%2$lX";
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %1$ld; notification = %2$@";
 
 /* Window text */
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick kunde inte hämta information gällande IP-adressen innan anslutning till %@ upprättades.\n\n";
@@ -1670,6 +1640,9 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick behöver skapa eller uppdatera en säker (skugg) kopia av konfigurationsfilen.";
 
 /* Window text */
+"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick needs to perform an action that requires administrator authorization.\n";
+
+/* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick behöver:\n";
 
 /* Window text */
@@ -1704,6 +1677,9 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick kunde inte start OpenVPN för att ansluta %@. För mer information, se loggen i VPN detaljer… fönstret";
+
+/* Window text */
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations.";
 
 /* Window text */
 "Unable to Establish Communication" = "Kunde inte upprätta kommunikation";
@@ -1930,6 +1906,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "64-bitsutveckling och testning";
 
+/* Toolbar text for 'Lock' item */
+"Admin mode %@ remaining" = "Admin mode %@ remaining";
+
 /* Credit description */
 "Afrikaans localization" = "Afrikaansk översättning";
 
@@ -1938,6 +1917,9 @@
 
 /* Credit description */
 "Arabic localization" = "Arabisk lokalanpassning";
+
+/* Toolbar text for 'Lock' item */
+"Authenticating..." = "Authenticating…";
 
 /* Credit description */
 "Bulgarian localization" = "Bulgarisk lokalanpassning";
@@ -1983,6 +1965,11 @@
 
 /* Credit description */
 "Dutch localization" = "Holländsk lokalanpassning";
+
+/* Toolbar text for 'Lock' icon
+   Toolbar text for 'Lock' item
+*/
+"Enter admin mode" = "Enter admin mode";
 
 /* Credit description */
 "Estonian localization" = "Estnisk översättning";

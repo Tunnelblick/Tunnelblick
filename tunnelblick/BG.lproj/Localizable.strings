@@ -104,9 +104,6 @@
 "Download" = "Изтегляне";
 
 /* Button */
-"Duplicate" = "Дублирай";
-
-/* Button */
 "Help" = "Помощ";
 
 /* Button */
@@ -129,12 +126,6 @@
 
 /* Button */
 "Load Tun driver automatically" = "Автоматично зареждане на Tun драйвери";
-
-/* Button */
-"Make Private" = "Направи лично";
-
-/* Button */
-"Make Shared" = "Направи споделена";
 
 /* Button */
 "Manually" = "Ръчно";
@@ -183,9 +174,6 @@
 
 /* Button */
 "Remove Credentials" = "Премахване на идентификационните данни";
-
-/* Button */
-"Rename" = "Преименувай";
 
 /* Button */
 "Replace" = "Замени";
@@ -384,6 +372,9 @@
 
 /* Checkbox name on a warning dialog */
 "Do not show again for any configuration" = "Не показвай отново за която и да е конфигурация";
+
+/* Checkbox name */
+"Do not show this type of warning again" = "Това предупреждение да не се показва отново";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Не предупреждавай отново за тази конфигурация";
@@ -767,6 +758,9 @@
 "  • Convert OpenVPN configurations\n" = "  • Конвертира OpenVPN конфигурацията\n";
 
 /* Window text */
+"  • Install forced preferences\n" = "  Инсталиране на принудителни настройки\n";
+
+/* Window text */
 "  • Install or update configuration(s)\n" = "  • Инсталира или актуализира конфигурацията\n";
 
 /* Window text */
@@ -793,11 +787,11 @@
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick трябва да бъде инсталиран в Applications.\n\n";
 
-/* Window text */
-" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick се нуждае от администраторски достъп, за да може автоматично да се свързва с '%@' когато компютъра се стартира.";
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick се нуждае от администраторски достъп, за да може автоматично да се свързва с '%@' когато компютъра се стартира.";
 
-/* Window text */
-" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick се нуждае от администраторски достъп, за да може да прекрати автоматичното свързване с '%@' когато компютъра се стартира.";
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick се нуждае от администраторски достъп, за да може да прекрати автоматичното свързване с '%@' когато компютъра се стартира.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ВНИМАНИЕ: Това копие на Tunnelblick е променяно.\n\n";
@@ -842,7 +836,7 @@
 "(if connected when user switched out)" = "(ако e бил свързан, когато потребителят се е изключил)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>На базата на Tunnelblick, безплатен софтуер е на разположение на <br><a href=\"http://code.google.com/p/tunnelblick\"> http://code.google.com/p/tunnelblick</a> <br><br>OpenVPN е регистрирана търговска марка на OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>На базата на Tunnelblick безплатен софтуер на разположение на<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN е регистрирана търговска марка на OpenVPN Technologies, Inc.";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference или TBAlwaysSetPreference ключът се обръща към неизвестно свойство ' %1$@' в %2$@";
@@ -1061,34 +1055,10 @@
 "Do you wish to delete the %@ credentials?" = "Желаете ли да изтриете %@ идентификационни данни?";
 
 /* Window text */
-"Do you wish to duplicate the '%@' configuration?" = "Желаете ли да направите дубликат на '%@' конфигурация?";
-
-/* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Желаете ли да инсталирате '%@' конфигурация така че всички потребители могат да я използват, или така, че само Вие да можете да я използвате?\n\n";
 
 /* Window text */
-"Do you wish to make %ld configurations private?" = "Искате ли да направите %ld конфигурации лични(скрити)?";
-
-/* Window text */
-"Do you wish to make %ld configurations shared?" = "Искате ли да споделите %ld конфигурации?";
-
-/* Window text */
-"Do you wish to make the '%@' configuration private?" = "Искате ли да направите '%@' конфигурация лична(защитена)?";
-
-/* Window text */
-"Do you wish to make the '%@' configuration shared?" = "Искате ли да споделите конфигурация '%@'?";
-
-/* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Желаете ли да преинсталирате '%1$@' версия %2$@?";
-
-/* Window text */
-"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Искате ли да изтриете %ld конфигурации?\n\nИзтриването на конфигурации е окончателно и не може да бъдат възстановени. Всички настройки в конфигурациите ще бъдат също окончателно загубени.";
-
-/* Window text */
-"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Искате ли да изтриете конфигурация '%@'?\n\nИзтриването на конфигурация е окончателно и не може да бъде възстановена. Всички настройки в конфигурацията ще бъдат също окончателно загубени.";
-
-/* Window text */
-"Do you wish to rename the '%@' configuration to '%@'?" = "Искате ли да преименувате '%1$@' конфигурация на '%2$@'?";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Желаете ли да замените '%1$@' версия %2$@ с версия %3$@?";
@@ -1355,9 +1325,6 @@
 "Received fatal signal %d." = "Получен фатален сигнал %d.";
 
 /* Window text */
-"Remove" = "Премахни";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "Неуспешно преименуване; виж конзолния лог за повече подробности.";
 
 /* Window text */
@@ -1568,6 +1535,9 @@
 "Too many duplicate configurations already exist." = "Твърде много дублиращи се конфигурации вече съществуват.";
 
 /* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Администраторски Режим\n\nВременно позволяване на промени, които изискват администраторска парола и права.\n\nТази сесия ще изтече след пет минути или когато прозорецът 'VPN детайли' бъде затворен.";
+
+/* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick интернет достъп:";
 
 /* Window text */
@@ -1592,7 +1562,7 @@
 "Tunnelblick could not create the sample configuration" = "Tunnelblick не можа да създаде примерната конфигурация";
 
 /* Window text */
-"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick не можа да покаже прозорец.\n\nCFUserNotificationCreate() върна грешка = %1$ld; известие = 0x%2$lX";
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick не успя да покаже прозорец.\n\nCFUserNotificationCreate() върна грешка = %1$ld; съобщение = %2$@";
 
 /* Window text */
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick не може да се извлече информация за IP адреса преди връзката с %@ да бъде установена.\n\n";
@@ -1670,6 +1640,9 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick трябва да създаде или актуализира подсигуреното (скрито) копие на конфигурационния файл.";
 
 /* Window text */
+"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick трябва да направи действие, което изисква администраторски права.\n";
+
+/* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick трябва да:\n";
 
 /* Window text */
@@ -1704,6 +1677,9 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick не можа да стартира OpenVPN за връзка %@. За подробности, вижте лога във \"VPN Details…\" прозореца";
+
+/* Window text */
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick трябва да конвертира OpenVPN конфигурации към Tunnelblick VPN конфигурации.";
 
 /* Window text */
 "Unable to Establish Communication" = "Не може да се установи връзка";
@@ -1930,6 +1906,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "64-битово разрешаване и тестване";
 
+/* Toolbar text for 'Lock' item */
+"Admin mode %@ remaining" = "Администраторски режим %@ остават";
+
 /* Credit description */
 "Afrikaans localization" = "Африканска локализация";
 
@@ -1938,6 +1917,9 @@
 
 /* Credit description */
 "Arabic localization" = "Арабска локализация";
+
+/* Toolbar text for 'Lock' item */
+"Authenticating..." = "Удостоверяване…";
 
 /* Credit description */
 "Bulgarian localization" = "Българска локализация";
@@ -1983,6 +1965,11 @@
 
 /* Credit description */
 "Dutch localization" = "Холандска локализация";
+
+/* Toolbar text for 'Lock' icon
+   Toolbar text for 'Lock' item
+*/
+"Enter admin mode" = "Влизане в административен режим";
 
 /* Credit description */
 "Estonian localization" = "Локализация на Естонски";

@@ -104,9 +104,6 @@
 "Download" = "Stáhnout";
 
 /* Button */
-"Duplicate" = "Duplikovat";
-
-/* Button */
 "Help" = "Nápověda";
 
 /* Button */
@@ -129,12 +126,6 @@
 
 /* Button */
 "Load Tun driver automatically" = "Nahrát automaticky ovladač Tun";
-
-/* Button */
-"Make Private" = "Jako soukromé";
-
-/* Button */
-"Make Shared" = "Jako sdílené";
 
 /* Button */
 "Manually" = "Ručně";
@@ -183,9 +174,6 @@
 
 /* Button */
 "Remove Credentials" = "Odstranit přístupové údaje";
-
-/* Button */
-"Rename" = "Přejmenovat";
 
 /* Button */
 "Replace" = "Přepsat";
@@ -384,6 +372,9 @@
 
 /* Checkbox name on a warning dialog */
 "Do not show again for any configuration" = "Nezobrazovat znovu v žádné konfiguraci";
+
+/* Checkbox name */
+"Do not show this type of warning again" = "Tento typ varování znovu nezobrazovat";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Pro tuto konfiguraci nezobrazovat znovu toto varování";
@@ -767,6 +758,9 @@
 "  • Convert OpenVPN configurations\n" = "  • Zkonvertovat konfigurace OpenVPN\n";
 
 /* Window text */
+"  • Install forced preferences\n" = "  • Instalovat vynucené nastavení \n";
+
+/* Window text */
 "  • Install or update configuration(s)\n" = "  • Instalovat nebo aktualizovat konfiguraci(ce)\n";
 
 /* Window text */
@@ -793,11 +787,11 @@
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick musí být nainstalován v složce Aplikace.\n\n";
 
-/* Window text */
-" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick požaduje přístup administrátora počítače, pokud má automaticky navázat spojení '%@' při startu počítače.";
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick požaduje přístup administrátora počítače, pokud má automaticky navázat spojení '%@' při startu počítače.";
 
-/* Window text */
-" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick požaduje přístup administrátora počítače, pokud má ukončit automatické připojování '%@' při startu počítače.";
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick požaduje přístup administrátora počítače, pokud má ukončit automatické připojování '%@' při startu počítače.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " Varování: Tato kopie Tunnelblicku byla změněna.\n\n";
@@ -842,7 +836,7 @@
 "(if connected when user switched out)" = "(Jestliže je navázáno spojení, když se uživatel přepne)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Založeno na Tunnelblicku, svobodném software dostupném na<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN je registrovaná obchodní značka OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Založeno na Tunnelblicku, svobodném software dostupném na<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN je registrovaná obchodní značka OpenVPN Technologies, Inc.";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference nebo TBAlwaysSetPreference klíč odkazuje na neznámé nastavení '%1$@' v %2$@";
@@ -1061,34 +1055,10 @@
 "Do you wish to delete the %@ credentials?" = "Přejete si smazat %@ přístupových údajů?";
 
 /* Window text */
-"Do you wish to duplicate the '%@' configuration?" = "Přejete si duplikovat konfiguraci '%@'?";
-
-/* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Přejete si instalovat konfiguraci  '%@' tak, že ji budou moci používat všichni uživatelé, nebo tak, že ji budete moci použít pouze vy?\n\n";
 
 /* Window text */
-"Do you wish to make %ld configurations private?" = "Přejete si změnit %ld konfigurací na soukromé?";
-
-/* Window text */
-"Do you wish to make %ld configurations shared?" = "Přejete si změnit %ld konfigurací na sdílené?";
-
-/* Window text */
-"Do you wish to make the '%@' configuration private?" = "Přejete si změnit '%@' konfigurací na privátní?";
-
-/* Window text */
-"Do you wish to make the '%@' configuration shared?" = "Přejete si změnit '%@' konfigurací na sdílené?";
-
-/* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Přejete si znovu nainstalovat '%1$@' verze %2$@?";
-
-/* Window text */
-"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Přejete si odstranit %ld konfigurací?\n\nOdstranění konfigurací je trvalé a pak je již nelze obnovit. Budou taktéž trvale odstraněna všechna nastavení pro konfigurace.";
-
-/* Window text */
-"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Přejete si odstranit '%@' konfigurací?\n\nOdstranění konfigurací je trvalé a pak je již nelze obnovit. Budou taktéž trvale odstraněna všechna nastavení pro konfigurace.";
-
-/* Window text */
-"Do you wish to rename the '%@' configuration to '%@'?" = "Přejete si přejmenovat konfiguraci '%1$@' na '%2$@'?";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Přejete si přepsat '%1$@' verze %2$@ verzí %3$@?";
@@ -1355,9 +1325,6 @@
 "Received fatal signal %d." = "Přijat fatální signál %d.";
 
 /* Window text */
-"Remove" = "Vymazat";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "Přejmenování selhalo. Detaily jsou v logu konzoly.";
 
 /* Window text */
@@ -1568,6 +1535,9 @@
 "Too many duplicate configurations already exist." = "Již existuje příliš mnoho duplicitních konfigurací.";
 
 /* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Administrační mód Tunnelblicku\n\n Dočasně autorizuje změny, které vyžadují heslo administrátora.\n\n Sezení expiruje po 5ti minutách nebo po uzavření okna 'Detaily VPN'.";
+
+/* Window text */
 "Tunnelblick Internet Use:" = "Využití internetu Tunnelblickem:";
 
 /* Window text */
@@ -1592,7 +1562,7 @@
 "Tunnelblick could not create the sample configuration" = "Tunnelblick nemůže vytvořit příklad konfigurace";
 
 /* Window text */
-"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick nemohl zobrazit okno.\n\nCFUserNotificationCreate() se vrátil s chybou = %1$ld; upozornění = 0x%2$lX";
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick nemohl zobrazit okno.\n\nCFUserNotificationCreate() se vrátil s chybou = %1$ld; upozornění = %2$@";
 
 /* Window text */
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick nemohl zjistit informaci o IP adrese předtím, než bylo navázáno spojení %@.\n\n";
@@ -1670,6 +1640,9 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick potřebuje vytvořit nebo aktualiztovat bezpečnostní (stínovou) kopii konfiguračního souboru.";
 
 /* Window text */
+"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick vyžaduje provést akci, která vyžaduje autorizaci administrátora.\n";
+
+/* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick potřebuje:\n";
 
 /* Window text */
@@ -1704,6 +1677,9 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick nebyl schopen spustit OpenVPN pro spojení %@. Detaily naleznete v logu v Detaily VPN… okno";
+
+/* Window text */
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick potřebuje zkonvertovat konfiguraci OpenVPN do konfigurace Tunnelblick VPN.";
 
 /* Window text */
 "Unable to Establish Communication" = "Není možné navázat spojení";
@@ -1930,6 +1906,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "Další přispěvatelé";
 
+/* Toolbar text for 'Lock' item */
+"Admin mode %@ remaining" = "Zbývá %@ administračního režimu";
+
 /* Credit description */
 "Afrikaans localization" = "Afrikánská lokalizace";
 
@@ -1938,6 +1917,9 @@
 
 /* Credit description */
 "Arabic localization" = "Arabská lokalizace";
+
+/* Toolbar text for 'Lock' item */
+"Authenticating..." = "Ověřování…";
 
 /* Credit description */
 "Bulgarian localization" = "Bulharská lokalizace";
@@ -1983,6 +1965,11 @@
 
 /* Credit description */
 "Dutch localization" = "Holandská lokalizace";
+
+/* Toolbar text for 'Lock' icon
+   Toolbar text for 'Lock' item
+*/
+"Enter admin mode" = "Vstoupit do administračního režimu";
 
 /* Credit description */
 "Estonian localization" = "Estonská lokalizace";

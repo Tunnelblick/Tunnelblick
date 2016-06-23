@@ -104,9 +104,6 @@
 "Download" = "Hent";
 
 /* Button */
-"Duplicate" = "Duplikér";
-
-/* Button */
 "Help" = "Hjælp";
 
 /* Button */
@@ -129,12 +126,6 @@
 
 /* Button */
 "Load Tun driver automatically" = "Indlæs Tun driveren automatisk";
-
-/* Button */
-"Make Private" = "Gør privat";
-
-/* Button */
-"Make Shared" = "Gør delt";
 
 /* Button */
 "Manually" = "Manuelt";
@@ -183,9 +174,6 @@
 
 /* Button */
 "Remove Credentials" = "Fjern legitimationsoplysninger";
-
-/* Button */
-"Rename" = "Omdøb";
 
 /* Button */
 "Replace" = "Erstat";
@@ -317,7 +305,7 @@
 "OpenVPN level 6 - very verbose output" = "OpenVPN niveau 11 - meget detaljeret logging";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "OpenVPN log niveau sat i konfigurationen";
+"OpenVPN logging level set by the configuration" = "OpenVPN log niveau sat af konfigurationen";
 
 /* Menu item */
 "Quit Tunnelblick" = "Afslut Tunnelblick";
@@ -384,6 +372,9 @@
 
 /* Checkbox name on a warning dialog */
 "Do not show again for any configuration" = "Vis ikke igen for denne konfiguration";
+
+/* Checkbox name */
+"Do not show this type of warning again" = "Vis ikke denne slags advarsel igen";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Advar ikke om dette igen for denne konfiguration";
@@ -761,10 +752,13 @@
 "  • Change ownership and permissions of the program to secure it\n" = "  • Skift ejerskab og tilladelser til programmet for at sikre det\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
-"  • Complete the update\n" = "  færdiggøre opdateringen\n";
+"  • Complete the update\n" = "  Færdiggør opdateringen\n";
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Konverter OpenVPN konfigurationer\n";
+
+/* Window text */
+"  • Install forced preferences\n" = "  • Installer tvungne indstillinger\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Installer eller opdater konfiguration(er)\n";
@@ -793,11 +787,11 @@
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick skal installeres i Applikationer.\n\n";
 
-/* Window text */
-" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick kræver administrator rettigheder for automatisk at kunne forbinde til '%@' når computeren starter.";
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick kræver tilladelse fra computerens administrator for at forbinde automatisk '%@' når computeren starter.";
 
-/* Window text */
-" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick kræver administrator rettigheder for at stoppe med at automatisk forbinde til '%@' når computeren startes.";
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick kræver tilladelse fra computerens administrator, for at stoppe med at forbinde automatisk '%@' når computeren starter.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ADVARSEL: Denne kopi af Tunnelblick er blevet manipuleret med.\n\n";
@@ -842,7 +836,7 @@
 "(if connected when user switched out)" = "(hvis tilsluttet da brugeren skiftede ud)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Baseret på Tunnelblick, gratis software til rådighed på <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN er et registreret varemærke tilhørende OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Baseret på Tunnelblick, gratis software forefindes på<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN er et registreret varemærke af OpenVPN Technologies, Inc.";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "En TBPreference eller TBAlwaysSetPreference nøgle henviser til en ukendt præference ' %1$@' i %2$@";
@@ -1061,34 +1055,10 @@
 "Do you wish to delete the %@ credentials?" = "Vil du slette %@ legitimationsoplysninger?";
 
 /* Window text */
-"Do you wish to duplicate the '%@' configuration?" = "Ønsker du at duplikere '%@' konfigurationen?";
-
-/* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Ønsker du at installere '%@' konfigurationen så alle brugere kan bruge det eller kun du kan bruge det?\n\n";
 
 /* Window text */
-"Do you wish to make %ld configurations private?" = "Ønsker du at gøre %ld konfigurationerne private?";
-
-/* Window text */
-"Do you wish to make %ld configurations shared?" = "Ønsker du at gøre %ld konfigurationerne delt?";
-
-/* Window text */
-"Do you wish to make the '%@' configuration private?" = "Ønsker du at gøre '%@' konfigurationen privat?";
-
-/* Window text */
-"Do you wish to make the '%@' configuration shared?" = "Ønsker du at gøre '%@' konfigurationen delt?";
-
-/* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Ønsker du at geninstallere '%1$@' version %2$@?";
-
-/* Window text */
-"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Ønsker du at slette %ld konfigurationerne?\n\nSletning af konfigurationerne er permanent og kan ikke fortrydes. Alle indstillinger for konfigurationerne vil også blive slettet permanent.";
-
-/* Window text */
-"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Ønsker du at slette '%@' konfigurationen?\n\nSletning af konfigurationen er permanent og kan ikke fortrydes. Alle indstillinger for konfigurationen vil også blive slettet permanent.";
-
-/* Window text */
-"Do you wish to rename the '%@' configuration to '%@'?" = "Ønsker du at omdøbe '%1$@' konfigurationen til '%2$@'?";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Vil du erstatte '%1$@' version %2$@ med version %3$@?";
@@ -1355,9 +1325,6 @@
 "Received fatal signal %d." = "Modtod fatale signal %d.";
 
 /* Window text */
-"Remove" = "Fjern";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "Omdøbning fejlede; see Konsolloggen for detaljer.";
 
 /* Window text */
@@ -1568,6 +1535,9 @@
 "Too many duplicate configurations already exist." = "For mange identiske konfigurationer findes allerede.";
 
 /* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Tilstand\n\n Godkend ændringer midlertidigt, der kræver en administrator adgangskode. \n\n Sessionen udløber efter fem minuter eller når \"VPN Detaljer\"-vinduet lukkes.";
+
+/* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick Internet Forbrug:";
 
 /* Window text */
@@ -1592,7 +1562,7 @@
 "Tunnelblick could not create the sample configuration" = "Tunnelblick kunne ikke oprette en eksempelskonfiguration";
 
 /* Window text */
-"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick kunne ikke vise vinduet.\n\nCFUserNotificationCreate() gav fejlen error = %1$ld; notification = 0x%2$lX";
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick kunne ikke vise et vindue. \n\nCFUserNotificationCreate() returnerede fejlen = %1$ld; notifikation = %2$@";
 
 /* Window text */
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick kunne ikke skaffe IP addresse information før forbindelsen til %@ blev oprettet.\n\n";
@@ -1670,6 +1640,9 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick skal lave eller opdatere en sikker (skygge) kopi af konfigurationsfilen.";
 
 /* Window text */
+"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick har behov for at lave en handling som forudsætter godkendelse af administrator.\n";
+
+/* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick skal:\n";
 
 /* Window text */
@@ -1704,6 +1677,9 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick kunne ikke starte OpenVPN for at tilslutte til %@. For at se detaljerne, så kig på loggen i VPN detaljer… vinduet";
+
+/* Window text */
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick har behov for at konvertere OpenVPN konfigurationer til Tunnelblick VPN konfigurationer.";
 
 /* Window text */
 "Unable to Establish Communication" = "Det lykkedes ikke at etablere en forbindelse";
@@ -1930,6 +1906,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "64-bit aktivering og test";
 
+/* Toolbar text for 'Lock' item */
+"Admin mode %@ remaining" = "Admin tilstand %@ resterer";
+
 /* Credit description */
 "Afrikaans localization" = "Afrikaans oversættelse";
 
@@ -1938,6 +1917,9 @@
 
 /* Credit description */
 "Arabic localization" = "Arabisk oversættelse";
+
+/* Toolbar text for 'Lock' item */
+"Authenticating..." = "Godkender…";
 
 /* Credit description */
 "Bulgarian localization" = "Bulgarisk oversættelse";
@@ -1983,6 +1965,11 @@
 
 /* Credit description */
 "Dutch localization" = "Hollandsk oversættelse";
+
+/* Toolbar text for 'Lock' icon
+   Toolbar text for 'Lock' item
+*/
+"Enter admin mode" = "Start admin tilstand";
 
 /* Credit description */
 "Estonian localization" = "Estisk oversættelse";

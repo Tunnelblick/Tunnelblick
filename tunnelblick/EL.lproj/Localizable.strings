@@ -104,9 +104,6 @@
 "Download" = "Κατέβασμα";
 
 /* Button */
-"Duplicate" = "Διπλότυπο";
-
-/* Button */
 "Help" = "Βοήθεια";
 
 /* Button */
@@ -129,12 +126,6 @@
 
 /* Button */
 "Load Tun driver automatically" = "Χρήση οδηγών Tun αυτόματα ";
-
-/* Button */
-"Make Private" = "Ιδιωτικό";
-
-/* Button */
-"Make Shared" = "Κοινή χρήση";
 
 /* Button */
 "Manually" = "Χειροκίνητα";
@@ -183,9 +174,6 @@
 
 /* Button */
 "Remove Credentials" = "Αφαίρεση πιστοποιητικών";
-
-/* Button */
-"Rename" = "Μετονομασία";
 
 /* Button */
 "Replace" = "Αντικατέστησε";
@@ -384,6 +372,9 @@
 
 /* Checkbox name on a warning dialog */
 "Do not show again for any configuration" = "Μην εμφανιστεί ξανά για καμία παράμετρο";
+
+/* Checkbox name */
+"Do not show this type of warning again" = "Να μην εμφανιστεί ξανά αυτό το είδους η προειδοποίηση";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Μην ειδοποιηθώ για αυτό ξανά, για αυτή τη παράμετρο";
@@ -767,6 +758,9 @@
 "  • Convert OpenVPN configurations\n" = "  • Μετατροπή των OpenVPN Παραμέτρων\n";
 
 /* Window text */
+"  • Install forced preferences\n" = "  Εγκατάσταση αναγκαστικών προτιμήσεων\n";
+
+/* Window text */
 "  • Install or update configuration(s)\n" = "  • Εγκατάσταση ή ενημέρωση μιας παραμέτρου\n";
 
 /* Window text */
@@ -793,11 +787,11 @@
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = "Το Tunnelblick πρέπει να εγκατασταθεί στον φάκελο των προγραμμάτων.\n\n";
 
-/* Window text */
-" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Το Tunnelblick χρειάζεται προνόμια διαχείρισης του υπολογιστή για να μπορεί αυτόματα να συνδέετε στο '%@' όταν κάνει εκκίνηση ο υπολογιστής.";
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Το Tunnelblick χρειάζεται εξουσιοδότηση από τον διαχειριστή ώστε να μπορεί αυτόματα να συνδεθεί '%@' όταν ξεκινάει ο υπολογιστής.";
 
-/* Window text */
-" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = "Το Tunnelblick χρειάζεται προνόμια διαχείρισης του υπολογιστή για να μπορεί να σταματά αυτόματα να συνδέετε στο '%@' όταν κάνει εκκίνηση ο υπολογιστής.";
+/* Window text; '%@' is the name of a configuration */
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Το Tunnelblick χρειάζεται εξουσιοδότηση από τον διαχειριστή ώστε να μπορεί αυτόματα να σταματήσει την σύνδεση '%@' όταν ξεκινάει ο υπολογιστής.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ΠΡΟΣΟΧΗ: Αυτό το αντίγραφο του Tunnelblick είναι πλαστό.\n\n";
@@ -842,7 +836,7 @@
 "(if connected when user switched out)" = "(αν συνδεθεί όταν ο χρήστης είναι αποσυνδεδεμένος)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Βασισμένο στο Tunnelblick, ελεύθερο λογισμικό διαθέσιμο στο<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>Το OpenVPN είναι κατοχυρωμένο σήμα κατατεθέν της OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Βασισμένο στο Tunnelblick, ελεύθερο λογισμικό διαθέσιμο στο<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>Το OpenVPN είναι κατοχυρωμένο σήμα κατατεθέν της OpenVPN Technologies, Inc.";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Ένα κλειδί TBPreference ή TBAlwaysSetPreference αναφέρεται σε μια άγνωστη προτίμηση ' %1$@' σε %2$@";
@@ -998,7 +992,7 @@
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar." = "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar.";
 
 /* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n";
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Οι ρυθμίσεις οι οποίες είναι κομμάτι του Tunnelblick είναι ρυθμισμένες ώστε να εγκατασταθούν όταν εγκατασταθεί το Tunnelblick.\n\n";
 
 /* Window text */
 "Connect:" = "Σύνδεση:";
@@ -1061,34 +1055,10 @@
 "Do you wish to delete the %@ credentials?" = "Θέλετε να διαγράψετε το πιστοποιητικό %@ ;";
 
 /* Window text */
-"Do you wish to duplicate the '%@' configuration?" = "Επιθυμείτε να αντιγράψετε την ρύθμιση '%@';";
-
-/* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Θέλετε να εγκαταστήσετε την παράμετρο '%@' για να μπορούν και οι άλλοι χρήστες να την χρησιμοποιούν ή μόνο εσείς;\n\n";
 
 /* Window text */
-"Do you wish to make %ld configurations private?" = "Επιθυμείτε να δημιουργείσετε την ιδιωτική ρύθμιση %ld;";
-
-/* Window text */
-"Do you wish to make %ld configurations shared?" = "Επιθυμείτε να δημιουργήσετε την κοινή ρύθμιση %ld;";
-
-/* Window text */
-"Do you wish to make the '%@' configuration private?" = "Επιθυμείτε να κάνετε την ρύθμιση '%@' ιδιωτική;";
-
-/* Window text */
-"Do you wish to make the '%@' configuration shared?" = "Επιθυμείτε να κάνετε την ρύθμιση '%@' κοινή;";
-
-/* Window text */
 "Do you wish to reinstall '%@' version %@?" = "Θέλετε να επανεγκαταστήσετε ' %1$@' έκδοση %2$@;";
-
-/* Window text */
-"Do you wish to remove %ld configurations?\n\nRemoving configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Επιθυμείτε να αφαιρέσετε τη ρύθμιση %ld;\n\nΗ αφαίρεση ρυθμίσεων είναι μόνιμη και δεν μπορεί να αναιρεθεί. Όλες οι επιλογές για τις ρυθμίσεις θα αφαιρεθούν μόνιμα.";
-
-/* Window text */
-"Do you wish to remove the '%@' configuration?\n\nRemoving a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Επιθυμείτε να αφαιρέσετε την ρύθμιση '%@';\n\nΗ αφαίρεση μια ρύθμισης είναι μόνιμη και δεν μπορεί να αναιρεθεί. Όλες οι επιλογές για μια ρύθμιση θα αφαιρεθούν μόνιμα.";
-
-/* Window text */
-"Do you wish to rename the '%@' configuration to '%@'?" = "Επιθυμείτε να μετονομάσετε την ρύθμιση '%1$@' σε '%2$@';";
 
 /* Window text */
 "Do you wish to replace '%@' version %@ with version %@?" = "Θέλετε να αντικαταστήσετε ' %1$@' έκδοση %2$@ με έκδοση %3$@;";
@@ -1355,9 +1325,6 @@
 "Received fatal signal %d." = "Ελήφθει νεκρό σήμα %d.";
 
 /* Window text */
-"Remove" = "Κατάργηση";
-
-/* Window text */
 "Rename failed; see the Console Log for details." = "Η μετονομασία απέτυχε: δείτε τις καταγραφές κονσόλας για περισσότερες πληροφορίες.";
 
 /* Window text */
@@ -1568,6 +1535,9 @@
 "Too many duplicate configurations already exist." = "Υπάρχουν πάρα πολλά διπλότυπα των παραμέτρων.";
 
 /* Window text */
+"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Κατάσταση Διαχειριστή Tunnelblick\n\nΠροσωρινά εξουσιοδότησε τις αλλαγές οι οποίες απαιτούν των κωδικό του διαχειριστή.\n\nΗ συνεδρία λήγει μετά από 5 λεπτά ή όταν το παράθυρο 'Λεπτομέρειες VPN' κλείσει.";
+
+/* Window text */
 "Tunnelblick Internet Use:" = "Διαδίκτυο χρήση Tunnelblick:";
 
 /* Window text */
@@ -1592,7 +1562,7 @@
 "Tunnelblick could not create the sample configuration" = "Το Tunnelblick δεν μπόρεσε να δημιουργήσει δήγμα παραμέτρων";
 
 /* Window text */
-"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Το Tunnelblick δεν μπορεί να εμφανίσει ένα παράθυρο.\n\nΤο CFUserNotificationCreate() επιστρέφει με σφάλμα = %1$ld; ειδοποίηση = 0x%2$lX";
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Το Tunnel δεν μπορεί να εμφανίσει ένα παράθυρο.\n\nCFUserNotificationCreate() επέστρεψε ένα σφάλμα = %1$ld; ειδοποίηση = %2$@";
 
 /* Window text */
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Το Tunnelblick δεν θα μπορούσε να προσκομίσει πληροφορίες της διεύθυνσης IP πριν γίνει σύνδεση στο %@.\n\n";
@@ -1670,6 +1640,9 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Το Tunnelblick χρειάζεται να δημιουργήσει ή να ενημερώσει ένα αντίγραφο ασφαλείας (κρυφό) του αρχείου παραμέτρων.";
 
 /* Window text */
+"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Το Tunnelblick χρειάζεται να εκτελέσει μια ενέργεια η οποία απαιτεί εξουσιοδότηση από τον διαχειριστή.\n";
+
+/* Window text */
 "Tunnelblick needs to:\n" = "Το Tunnelblick χρειάζεται να:\n";
 
 /* Window text */
@@ -1704,6 +1677,9 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Το Tunnelblick ήταν αδύνατον να αρχίσει μια OpenVPN σύνδεση στο %@. Για πληροφορίες δείτε το ημερολόγιο στο παράθυρο Λεπτομέρειες VPN…";
+
+/* Window text */
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Το Tunnelblick χρειάζεται να μετατρέψει τις ρυθμίσεις OpenVPN σε ρυθμίσεις VPN του Tunnelblick.";
 
 /* Window text */
 "Unable to Establish Communication" = "Αδύνατον να επιτευχθεί επικοινωνία";
@@ -1930,6 +1906,9 @@
 /* Credit description */
 "64-bit enabling and testing" = "64-bit ενεργοποιημένο και δοκιμασμένο";
 
+/* Toolbar text for 'Lock' item */
+"Admin mode %@ remaining" = "Κατάσταση διαχειριστή %@ απομένει";
+
 /* Credit description */
 "Afrikaans localization" = "Προσαρμογή στα Αφρικάνικα";
 
@@ -1938,6 +1917,9 @@
 
 /* Credit description */
 "Arabic localization" = "Μετάφραση Αραβικά";
+
+/* Toolbar text for 'Lock' item */
+"Authenticating..." = "Αυθεντικοποίηση…";
 
 /* Credit description */
 "Bulgarian localization" = "Μετάφραση στα Βουλγάρικα";
@@ -1983,6 +1965,11 @@
 
 /* Credit description */
 "Dutch localization" = "Προσαρμογή Δανέζικα";
+
+/* Toolbar text for 'Lock' icon
+   Toolbar text for 'Lock' item
+*/
+"Enter admin mode" = "Είσοδος σε κατάσταση διαχειριστή";
 
 /* Credit description */
 "Estonian localization" = "Προσαρμογή στα Εσθονικά";
