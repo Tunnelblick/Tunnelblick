@@ -672,18 +672,18 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	}
 	
 	for (  ix=0; ix<[leftTfList count]; ix++  ) {
-		[UIHelper shiftControl: [leftTfList objectAtIndex: ix] by: largestWidthChange reverse: rtl];
+		[UIHelper shiftControl: [leftTfList objectAtIndex: ix] by: largestWidthChange reverse: ! rtl];
 	}
 	
 	NSArray * middleTfList    = [NSArray arrayWithObjects: whenChangesToPreVpnValueTF,  dnsServersPopUpButton,      domainPopUpButton,      searchDomainPopUpButton,      winsServersPopUpButton,      netBiosNamePopUpButton,      workgroupPopUpButton,      nil];
 	NSArray * rightmostTfList = [NSArray arrayWithObjects: whenChangesToAnythingElseTF, otherdnsServersPopUpButton, otherdomainPopUpButton, othersearchDomainPopUpButton, otherwinsServersPopUpButton, othernetBiosNamePopUpButton, otherworkgroupPopUpButton, nil];
 	
 	for (  ix=0; ix<[middleTfList count]; ix++  ) {
-		[UIHelper shiftControl: [middleTfList objectAtIndex: ix] by: largestWidthChange reverse: rtl];
+		[UIHelper shiftControl: [middleTfList objectAtIndex: ix] by: largestWidthChange reverse: ! rtl];
 	}
 	
 	for (  ix=0; ix<[rightmostTfList count]; ix++  ) {
-		[UIHelper shiftControl: [rightmostTfList objectAtIndex: ix] by: largestWidthChange reverse: rtl];
+		[UIHelper shiftControl: [rightmostTfList objectAtIndex: ix] by: largestWidthChange reverse: ! rtl];
 	}
 	
 	
