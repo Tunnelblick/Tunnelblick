@@ -244,7 +244,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		[toolbar release];
 	}
 	
-	unsigned int ix = [UIHelper detailsWindowsViewIndexFromPreferencesWithMax: [toolbarIdentifiers count]-1];
+	unsigned int ix = [UIHelper detailsWindowsViewIndexFromPreferencesWithCount: [toolbarIdentifiers count]];
 	NSString * firstIdentifier = [toolbarIdentifiers objectAtIndex:ix];
 	[[[self window] toolbar] setSelectedItemIdentifier:firstIdentifier];
 	[self displayViewForIdentifier:firstIdentifier animate:NO];

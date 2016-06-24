@@ -361,7 +361,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     currentFrame = NSMakeRect(0.0, 0.0, 920.0, 390.0); // This is the size of each "view", as loaded from preferences.xib
     
-	unsigned int ix = [UIHelper detailsWindowsViewIndexFromPreferencesWithMax: [toolbarIdentifiers count]-1];
+	unsigned int ix = [UIHelper detailsWindowsViewIndexFromPreferencesWithCount: [toolbarIdentifiers count]];
 	[self setCurrentViewName: [toolbarIdentifiers objectAtIndex: ix]];
     
     [self setSelectedPerConfigOpenvpnVersionIndexDirect:                   tbNumberWithInteger(NSNotFound)];
@@ -381,7 +381,9 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) resizeAllViewsExceptCurrent {
     
-    if (  currentViewName  ) {
+    if (   currentViewName
+        && [currentViewName isNotEqualTo: NSToolbarFlexibleSpaceItemIdentifier]
+        && [currentViewName isNotEqualTo: @"lockIcon"]) {
         NSView * currentView = [toolbarViews objectForKey: currentViewName];
         if (  currentView  ) {
             NSSize newSize = [currentView frame].size;
@@ -498,7 +500,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * tbVersion = [[[NSApp delegate] tunnelblickInfoDictionary] objectForKey: @"CFBundleVersion"];
 	unsigned int viewIx = [toolbarIdentifiers indexOfObject: currentViewName];
     BOOL saveIt = TRUE;
-	unsigned int defaultViewIx = [UIHelper detailsWindowsViewIndexFromPreferencesWithMax: [toolbarIdentifiers count]-1];
+	unsigned int defaultViewIx = [UIHelper detailsWindowsViewIndexFromPreferencesWithCount: [toolbarIdentifiers count]];
 	
     if (  [tbVersion isEqualToString: [gTbDefaults stringForKey:@"detailsWindowFrameVersion"]]    ) {
         if (   [mainFrameString             isEqualToString: [gTbDefaults stringForKey:@"detailsWindowFrame"]]

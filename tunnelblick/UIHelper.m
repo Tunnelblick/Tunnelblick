@@ -39,11 +39,13 @@ extern TBUserDefaults * gTbDefaults;
     return string;
 }
 
-+(unsigned int) detailsWindowsViewIndexFromPreferencesWithMax: (unsigned int) maxIx {
++(unsigned int) detailsWindowsViewIndexFromPreferencesWithCount: (unsigned int) count {
+    
+    // "count" is the [toolbarIdentifiers count]
 	
 	unsigned int ix = (  [UIHelper languageAtLaunchWasRTL]
-					   ? [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: maxIx min: 1 max: maxIx]
-					   : [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: 0 min: 0 max: maxIx]);
+					   ? [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: count - 1 min: 2 max: count - 1]
+					   : [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: 0         min: 0 max: count - 3]);
 	return ix;
 }
 

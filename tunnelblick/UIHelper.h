@@ -26,7 +26,7 @@
 
 +(NSString *)   appendRTLIfRTLLanguage: (NSString *) string;
 
-+(unsigned int) detailsWindowsViewIndexFromPreferencesWithMax: (unsigned int) maxIx;
++(unsigned int) detailsWindowsViewIndexFromPreferencesWithCount: (unsigned int) count;
 
 +(void)         makeAllAsWideAsWidest: (NSArray *) list
 								shift: (BOOL)      shift;
