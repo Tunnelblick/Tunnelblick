@@ -105,7 +105,15 @@
 		<string>https://www.tunnelblick.net/ipinfo</string>
 	<key>NSAppTransportSecurity</key>  
     	<dict>  
-			<key>NSAllowsArbitraryLoads</key><true/>  
+			<key>NSAllowsArbitraryLoads</key><true/>
+			<key>NSExceptionDomains</key>
+				<dict>
+					<key>tunnelblick.net</key>
+						<dict>
+							<key>NSIncludesSubdomains</key>
+								<true/>
+						</dict>
+				</dict>
 		</dict>
 </dict>
 </plist>
