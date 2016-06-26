@@ -24,7 +24,8 @@
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
 #import <sys/stat.h>
-#include <sys/xattr.h>
+#import <sys/xattr.h>
+#import <CommonCrypto/CommonDigest.h>
 
 #import "defines.h"
 #import "sharedRoutines.h"
@@ -320,6 +321,23 @@ void resolveSymlinksInPath(NSString * targetPath) {
 	}
 }
 
+NSString * sha256HexStringForData (NSData * data) {
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH * 2];
+    
+    if (  data  ) {
+        uint8_t digest[CC_SHA256_DIGEST_LENGTH];
+        if (  CC_SHA256(data.bytes, data.length, digest)  ) {
+            int i;
+            for (  i = 0; i < CC_SHA256_DIGEST_LENGTH; i++  ) {
+                [output appendFormat:@"%02x", digest[i]];
+            }
+        }
+    }
+    
+    return output;
+}
+
 void convertOldUpdatableConfigurations(void) {
     
     // Converts the "old" setup for updatable configurations to the new setup.
@@ -548,12 +566,52 @@ void loadLaunchDaemon (NSDictionary * newPlistContents, BOOL forceLoad) {
 	    (void) newPlistContents;  // Can remove this if the above lines are un-commmented
 		loadLaunchDaemonUsingLaunchctl();
 //	    }
+        
+        // Store the hash of the .plist and the daemon in files owned by root:wheel
+        NSDictionary * hashFileAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                             [NSNumber numberWithUnsignedLong: 0],               NSFileOwnerAccountID,
+                                             [NSNumber numberWithUnsignedLong: 0],               NSFileGroupOwnerAccountID,
+                                             [NSNumber numberWithShort: PERMS_SECURED_READABLE], NSFilePosixPermissions,
+                                             nil];
+        
+        NSData * plistData = [gFileMgr contentsAtPath: TUNNELBLICKD_PLIST_PATH];
+        if (  ! plistData  ) {
+            appendLog([NSString stringWithFormat: @"Could not find tunnelblickd launchd .plist at '%@'", TUNNELBLICKD_PLIST_PATH]);
+            errorExit();
+        }
+        NSString * plistHash = sha256HexStringForData(plistData);
+        NSData * plistHashData = [NSData dataWithBytes: [plistHash UTF8String] length: [plistHash length]];
+        if (  ! [gFileMgr createFileAtPath: L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH contents: plistHashData attributes: hashFileAttributes]  ) {
+            appendLog(@"Could not store tunnelblickd launchd .plist hash");
+            errorExit();
+        }
+
+#ifdef TBDebug
+        NSBundle * ourBundle = [NSBundle mainBundle];
+        NSString * resourcesPath = [ourBundle bundlePath]; // (installer itself is in Resources, so this works)
+        NSString * tunnelblickdPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
+#else
+        NSString * tunnelblickdPath = @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd";
+#endif
+        NSData   * daemonData = [gFileMgr contentsAtPath: tunnelblickdPath];
+        if (  ! daemonData  ) {
+            appendLog([NSString stringWithFormat: @"Could not find tunnelblickd at '%@'", tunnelblickdPath]);
+            errorExit();
+        }
+        NSString * daemonHash = sha256HexStringForData(daemonData);
+        NSData * daemonHashData = [NSData dataWithBytes: [daemonHash UTF8String] length: [daemonHash length]];
+        if (  ! [gFileMgr createFileAtPath: L_AS_T_TUNNELBLICKD_HASH_PATH contents: daemonHashData attributes: hashFileAttributes]  ) {
+            appendLog(@"Could not store tunnelblickd hash");
+            errorExit();
+        }
 	}
 }
 
 int main(int argc, char *argv[])
 {
 	pool = [NSAutoreleasePool new];
+    
+    gFileMgr = [NSFileManager defaultManager];
     
     if (  (argc < 2)  || (argc > 4)  ) {
 		openLog(FALSE);
@@ -616,7 +674,6 @@ int main(int argc, char *argv[])
 	
 	appendLog([NSString stringWithFormat: @"Tunnelblick installer started %@. %d arguments:%@", dateMsg, argc - 1, argString]);
 	
-    gFileMgr = [NSFileManager defaultManager];
     gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
     
     // If we copy the .app to /Applications, other changes to the .app affect THAT copy, otherwise they affect the currently running copy

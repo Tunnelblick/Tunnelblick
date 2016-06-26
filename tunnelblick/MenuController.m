@@ -184,12 +184,13 @@ TBPROPERTY(NSString *, feedURL, setFeedURL)
 NSString * tunnelblickdPath(void) {
 	
 #ifndef TBDebug
-    return @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd";
+    NSString * path = @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd";
 #else
     NSString * resourcesPath = [[NSBundle mainBundle] resourcePath];
-    return [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
+    NSString * path = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
 #endif
-	
+
+    return path;
 }
 
 NSData * tunnelblickdPlistData(void) {
@@ -600,10 +601,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLangua
                                 @"updateSigned",
                                 @"updateUnsigned",
                                 
-                                @"tunnelblickdHash",        // Used to detect if tunnelblickd or its .plist changed due to an update
-                                @"tunnelblickdPlistHash",   // (If either or both changed, then tunnelblickd must be reloaded)
-
-
                                 @"NSWindow Frame SettingsSheetWindow",
                                 @"NSWindow Frame ConnectingWindow",
                                 @"NSWindow Frame SUStatusFrame",
@@ -650,6 +647,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLangua
                                 @"skipWarningAboutUsingOpenvpnNonTxpVersion",
                                 @"skipWarningAboutNoOpenvpnTxpVersion",
                                 @"skipWarningAboutOnlyOpenvpnTxpVersion",
+                                @"tunnelblickdHash",
+                                @"tunnelblickdPlistHash",
                                 
                                 nil] retain];
         
@@ -6529,17 +6528,13 @@ BOOL warnAboutNonTblks(void)
             continue;
         } else if (  result == wfeaSuccess  ) {
             
-            // Save hashes of the the existing tunnelblickd and its .plist, so we can detect changes to them caused by program updates
-            // (They may have been updated by the install)
-            [gTbDefaults setObject: hashForTunnelblickdProgram() forKey: @"tunnelblickdHash"];
-            [gTbDefaults setObject: hashForTunnelblickdPlist()   forKey: @"tunnelblickdPlistHash"];
-            
             okNow = (0 == (   installFlags
                            & (  INSTALLER_COPY_APP
                               | INSTALLER_SECURE_APP
                               | INSTALLER_SECURE_TBLKS
                               | INSTALLER_CONVERT_NON_TBLKS
                               | INSTALLER_MOVE_LIBRARY_OPENVPN
+                              | INSTALLER_MUST_RELOAD_DAEMON
                               )
                            )
                      ? YES
@@ -6582,6 +6577,38 @@ BOOL warnAboutNonTblks(void)
     return -1;
 }
 
+BOOL needToReloadLaunchDaemon(void) {
+    
+    if (  runningOnLeopardOrNewer()  ) {
+        // Compare the saved hashes of the tunnelblickd launchctl .plist and the tunnelblickd program with newly-calculated hashes to see if
+        // the .plist or program have changed. That can happen when a Sparkle update replaces the Tunnelblick application.
+        // If the .plist or program have changed or one or both hashes don't exist or have bad ownership/permissions,
+        //    then we need to reload tunnelblickd to finish the update.
+        
+        BOOL daemonOk = FALSE;
+        if (   [gFileMgr fileExistsAtPath: L_AS_T_TUNNELBLICKD_HASH_PATH]
+            && [gFileMgr fileExistsAtPath: L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH]
+            && checkOwnerAndPermissions(L_AS_T_TUNNELBLICKD_HASH_PATH,                 0, 0, PERMS_SECURED_READABLE)
+            && checkOwnerAndPermissions(L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH, 0, 0, PERMS_SECURED_READABLE)  ) {
+            
+            NSData * previousDaemonHashData = [gFileMgr contentsAtPath: L_AS_T_TUNNELBLICKD_HASH_PATH];
+            NSData * previousPlistHashData  = [gFileMgr contentsAtPath: L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH];
+            NSString * previousDaemonHash = [[[NSString alloc] initWithData: previousDaemonHashData encoding: NSUTF8StringEncoding] autorelease];
+            NSString * previousPlistHash  = [[[NSString alloc] initWithData: previousPlistHashData  encoding: NSUTF8StringEncoding] autorelease];
+            daemonOk =  (   [previousDaemonHash isEqual: hashForTunnelblickdProgram()]
+                         && [previousPlistHash  isEqual: hashForTunnelblickdPlist()]
+                         );
+        }
+        
+        if (  ! daemonOk  ) {
+            NSLog(@"Need to reload 'tunnelblickd'");
+            return TRUE;
+        }
+    }
+    
+    return FALSE;
+}
+
 // Checks whether the installer needs to be run
 // Sets bits in a flag for use by the runInstaller:extraArguments... method, and, ultimately, by the installer program
 //
@@ -6593,6 +6620,7 @@ unsigned needToRunInstaller(BOOL inApplications)
     unsigned flags = 0;
     
     if (  needToChangeOwnershipAndOrPermissions(inApplications)  ) flags = flags | INSTALLER_SECURE_APP;
+    if (  needToReloadLaunchDaemon()                             ) flags = flags | INSTALLER_MUST_RELOAD_DAEMON;
     if (  needToRepairPackages()                                 ) flags = flags | INSTALLER_SECURE_TBLKS;
     if (  needToMoveLibraryOpenVPN()                             ) flags = flags | INSTALLER_MOVE_LIBRARY_OPENVPN;
 	if (   runningOnLeopardOrNewer()
@@ -6604,20 +6632,6 @@ unsigned needToRunInstaller(BOOL inApplications)
 		flags = flags | INSTALLER_CONVERT_NON_TBLKS;
 		NSLog(@"Need to convert non-.tblk configurations");
 	}
-    
-    if (  runningOnLeopardOrNewer()  ) {
-        // Check the saved hashes of the tunnelblickd .plist and the tunnelblickd program itself to see if it has changed (because of a program update).
-        // If one or both changed, then we need to reload it to finish the update
-        NSString * previousDaemonHash = [gTbDefaults objectForKey: @"tunnelblickdHash"];
-        NSString * previousPlistHash  = [gTbDefaults objectForKey: @"tunnelblickdPlistHash"];
-        if (   (! previousDaemonHash)
-            || (! previousPlistHash)
-            || [previousDaemonHash isNotEqualTo: hashForTunnelblickdProgram()]
-            || [previousPlistHash  isNotEqualTo: hashForTunnelblickdPlist()]  ) {
-            flags = flags | INSTALLER_MUST_RELOAD_DAEMON;
-            NSLog(@"Need to reload 'tunnelblickd'");
-        }
-    }
     
     return flags;
 }
