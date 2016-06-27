@@ -895,7 +895,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     // Create the .tblk structure in the output file
 	NSString * contentsPath  = [outputPath stringByAppendingPathComponent: @"Contents"];
 	NSString * resourcesPath = [contentsPath stringByAppendingPathComponent: @"Resources"];
-	if (  ! createDir(resourcesPath, PERMS_SECURED_FOLDER)  ) {
+	if (  createDir(resourcesPath, PERMS_SECURED_FOLDER) == -1  ) {
 		appendLog([NSString stringWithFormat: @"Failed to create folder at %@", resourcesPath]);
 		return [NSString stringWithFormat: NSLocalizedString(@"Failed to create folder at %@", @"Window text"), resourcesPath];
 	}

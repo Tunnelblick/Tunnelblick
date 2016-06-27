@@ -269,7 +269,7 @@ BOOL copyEasyRsa(NSString * sourcePath,
 		if (  [pathInfo length] != 0  ) {
 			NSString * targetDirPath  = [targetFilePath stringByDeletingLastPathComponent];
 			if (  ! [gFileMgr fileExistsAtPath: targetDirPath]  ) {
-				if (  ! createDir(targetDirPath, 0700l) != 0  ) {
+				if (  createDir(targetDirPath, 0700l) == -1  ) {
 					easyRsaInstallFailed([NSString stringWithFormat: NSLocalizedString(@"Could not create %@", @"Window text"), targetDirPath]);
 					return NO;
 				}

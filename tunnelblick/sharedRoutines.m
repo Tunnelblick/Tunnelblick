@@ -209,8 +209,7 @@ int createDir(NSString * dirPath, unsigned long permissions) {
     }
     
     // No such directory. Create its parent directory (recurse) if necessary
-    int result = createDir([dirPath stringByDeletingLastPathComponent], permissions);
-    if (  result == -1  ) {
+    if (  createDir([dirPath stringByDeletingLastPathComponent], permissions) == -1  ) {
         return -1;
     }
     
