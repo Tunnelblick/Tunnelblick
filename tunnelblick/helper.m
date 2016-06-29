@@ -284,6 +284,20 @@ BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
     return NO;
 }
 
+BOOL shouldPlaceIconInStandardPositionInStatusBar(void) {
+    
+    if (  mustPlaceIconInStandardPositionInStatusBar()  ) {
+        return YES;
+    }
+    
+    if (   runningOnMavericksOrNewer()
+        && displaysHaveDifferentSpaces()  ) {
+        return YES;
+    }
+    
+    return NO;
+}
+
 NSString *condensedConfigFileContentsFromString(NSString * fullString) {
 	
 	// Returns a string from an OpenVPN configuration file with empty lines and comments removed

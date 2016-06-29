@@ -3071,8 +3071,14 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(IBAction) appearancePlaceIconNearSpotlightCheckboxWasClicked: (NSButton *) sender
 {
-	[gTbDefaults setBool: ! [sender state] forKey:@"placeIconInStandardPositionInStatusBar"];
+    BOOL wantIconNearSpotlightIcon = ! ( [sender state] == NSOffState );
+	[gTbDefaults setBool: ! wantIconNearSpotlightIcon forKey: @"placeIconInStandardPositionInStatusBar"];
     [((MenuController *)[NSApp delegate]) moveStatusItemIfNecessary];
+    if (   wantIconNearSpotlightIcon
+        && shouldPlaceIconInStandardPositionInStatusBar()
+        ) {
+        [[NSApp delegate] showConfirmIconNearSpotlightIconDialog];
+    }
 }
 
 -(IBAction) appearanceDisplayStatisticsWindowsCheckboxWasClicked: (NSButton *) sender

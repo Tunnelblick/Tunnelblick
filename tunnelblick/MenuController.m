@@ -504,6 +504,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLangua
                                 @"skipWarningAbout64BitVersionOnNonSnowLeopardPointEight",
                                 @"skipWarningAboutInstallsWithCommands",
                                 @"skipWarningAboutPreAuthorizedActivity",
+                                @"skipWarningAboutPlacingIconNearTheSpotlightIcon",
                                 
                                 @"timeoutForOpenvpnToTerminateAfterDisconnectBeforeAssumingItIsReconnecting",
                                 @"timeoutForIPAddressCheckBeforeConnection",
@@ -4541,6 +4542,66 @@ static void signal_handler(int signalNumber)
     [myConfigMultiUpdater startAllUpdateCheckingWithUI: NO];    // Start checking for configuration updates in the background (when the application updater is finished)
 }
 
+-(void) doPlaceIconNearSpotlightIcon: (NSNumber *) newPreferenceValueNumber {
+    
+    showingConfirmIconNearSpotlightIconDialog = FALSE;
+    
+    BOOL newPreferenceValue = [newPreferenceValueNumber boolValue];
+    BOOL currentPreferenceValue = [gTbDefaults boolForKey: @"placeIconInStandardPositionInStatusBar"];
+    
+    if (  currentPreferenceValue != newPreferenceValue  ) {
+        [gTbDefaults setBool: newPreferenceValue forKey: @"placeIconInStandardPositionInStatusBar"];
+        [((MenuController *)[NSApp delegate]) moveStatusItemIfNecessary];
+    }
+}
+
+-(void) setSkipWarningAboutPlacingIconNearTheSpotlightIconToYes {
+    
+    [gTbDefaults setBool: YES forKey: @"skipWarningAboutPlacingIconNearTheSpotlightIcon"];
+}
+
+-(void) confirmIconNearSpotlightIconIsOKThread {
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+    int result;
+    BOOL checkboxResult = NO;
+    do {
+        result = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                         NSLocalizedString(@"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\n"
+                                                           @"This may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\n"
+                                                           @"Are you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n", @"Window text"),
+                                         NSLocalizedString(@"Place Icon Normally",                @"Button"), // Default
+                                         NSLocalizedString(@"More Info", @"Button"),                          // Alternate
+                                         NSLocalizedString(@"Place Icon Near the Spotlight Icon", @"Button"), // Other
+                                         @"skipWarningAboutPlacingIconNearTheSpotlightIcon",
+                                         NSLocalizedString(@"Do not warn about this again",       @"Checkbox name"),
+                                         &checkboxResult,
+                                         NSAlertDefaultReturn);
+        if (  result == NSAlertAlternateReturn  ) {
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.tunnelblick.net/cIconPlacement.html"]];
+        }
+    } while (  result == NSAlertAlternateReturn  );
+    
+    if (  checkboxResult) {
+        [self performSelectorOnMainThread: @selector(setSkipWarningAboutPlacingIconNearTheSpotlightIconToYes) withObject: nil waitUntilDone: NO];
+    }
+    
+    NSNumber * newPreferenceValue = [NSNumber numberWithBool: (result != NSAlertOtherReturn)];
+    [self performSelectorOnMainThread: @selector(doPlaceIconNearSpotlightIcon:) withObject: newPreferenceValue waitUntilDone: NO];
+    
+    [pool drain];
+}
+
+-(void) showConfirmIconNearSpotlightIconDialog {
+    
+    if (   ( ! showingConfirmIconNearSpotlightIconDialog)
+        && ( ! [gTbDefaults boolForKey: @"skipWarningAboutPlacingIconNearTheSpotlightIcon"])  ) {
+        showingConfirmIconNearSpotlightIconDialog = TRUE;
+        [NSThread detachNewThreadSelector: @selector(confirmIconNearSpotlightIconIsOKThread) toTarget: self withObject: nil];
+    }
+}
+
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
 	(void) notification;
@@ -4968,6 +5029,13 @@ static void signal_handler(int signalNumber)
     
     if (  [dotTblkFileList count] == 0  ) {
         [self checkNoConfigurations];
+    }
+    
+    if (   ( ! mustPlaceIconInStandardPositionInStatusBar() )
+        && ( ! [gTbDefaults boolForKey: @"placeIconInStandardPositionInStatusBar"] )
+        && ( shouldPlaceIconInStandardPositionInStatusBar() )
+        ) {
+        [self showConfirmIconNearSpotlightIconDialog];
     }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 021")

@@ -123,6 +123,7 @@ BOOL           runningABetaVersion      (void);
 
 BOOL           displaysHaveDifferentSpaces(void);
 BOOL           mustPlaceIconInStandardPositionInStatusBar(void);
+BOOL           shouldPlaceIconInStandardPositionInStatusBar(void);
 
 BOOL           runningOnMainThread      (void);
 

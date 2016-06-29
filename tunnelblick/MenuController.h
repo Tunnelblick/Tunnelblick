@@ -186,6 +186,8 @@ void * _NSConcreteStackBlock __attribute__((weak));
     BOOL                      noUnknownOpenVPNsRunning;     // Indicates that no unknown OpenVPN processes were left running after the TB launch
     //                                                         and therefore we can safely terminate unknown OpenVPN processes when quitting TB
     
+    BOOL                      showingConfirmIconNearSpotlightIconDialog;
+    
     BOOL                      terminatingAtUserRequest;     // Indicates that we are terminating because the user Quit or Command-Q-ed
     
     BOOL volatile             mouseIsInMainIcon;            // Indicates that the mouse is over the Tunnelblick (not tracked unless preference says to)
@@ -239,6 +241,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(void)             setBooleanPreferenceForSelectedConnectionsWithKey: (NSString *)	key
 																   to: (BOOL)       newValue
 															 inverted: (BOOL)		inverted;
+-(void)             showConfirmIconNearSpotlightIconDialog;
 -(void)             changedCheckForBetaUpdatesSettings;
 -(void)             changedDisplayConnectionSubmenusSettings;
 -(void)             changedDisplayConnectionTimersSettings;
