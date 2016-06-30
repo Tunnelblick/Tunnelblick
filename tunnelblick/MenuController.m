@@ -574,6 +574,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLangua
                                 @"welcomeHeight",
                                 @"doNotShowWelcomeDoNotShowAgainCheckbox",
                                 @"skipWelcomeScreen",
+                                @"lastLanguageAtLaunchWasRTL",
                                 
                                 @"openvpnVersion",
                                 @"maximumNumberOfTabs",
@@ -4772,6 +4773,32 @@ static void signal_handler(int signalNumber)
 	CFRelease(allLocalizationsCF);
 	CFRelease(languagesCF);
 	
+    // Maintain the selected panel index if RTL status changed from last launch
+    if (   [gTbDefaults objectForKey: @"detailsWindowViewIndex"]
+        && [gTbDefaults objectForKey: @"lastLanguageAtLaunchWasRTL"]  ) {
+        unsigned int oldIx = [gTbDefaults unsignedIntForKey: @"detailsWindowViewIndex" default: 0 min: 0 max: 6];
+        unsigned int newIx = oldIx;
+        BOOL lastLanguageWasRTL = [gTbDefaults boolForKey: @"lastLanguageAtLaunchWasRTL"];
+        if (  lastLanguageWasRTL  ) {
+            if (  oldIx < 2  ) {
+                NSLog(@"Old panel index < 2; setting it to 6");
+                newIx = 6;
+            }
+        } else if (  oldIx > 6  ) {
+            NSLog(@"Old panel index > 6; setting it to 0");
+            newIx = 0;
+        }
+        if (  languageAtLaunchWasRTL != lastLanguageWasRTL  ) {
+            newIx = 6 - newIx;
+            [gTbDefaults setBool: languageAtLaunchWasRTL forKey: @"lastLanguageAtLaunchWasRTL"];
+        }
+        if (  newIx != oldIx) {
+            [gTbDefaults setObject: [NSNumber numberWithUnsignedInt: newIx] forKey: @"detailsWindowViewIndex"];
+        }
+    } else {
+        [gTbDefaults setBool: languageAtLaunchWasRTL forKey: @"lastLanguageAtLaunchWasRTL"];
+    }
+    
     // Process runOnLaunch item
     if (  customRunOnLaunchPath  ) {
 		NSArray * arguments = [NSArray arrayWithObject: languageAtLaunch];
