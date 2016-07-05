@@ -62,32 +62,6 @@ void appendLog(NSString * msg)
 	NSLog(@"%@", msg);
 }
 
-NSNumber * tbNumberWithInteger (NSInteger number)
-{
-    if (  runningOnLeopardOrNewer()  ) {
-        return [NSNumber numberWithInteger: number];
-    }
-    
-    return [NSNumber numberWithInt: (unsigned int)number];
-}
-
-NSNumber * tbNumberWithUnsignedInteger (NSUInteger number)
-{
-    if (  runningOnLeopardOrNewer()  ) {
-        return [NSNumber numberWithUnsignedInteger: number];
-    }
-    
-    return [NSNumber numberWithUnsignedInt: (int)number];
-}
-
-NSUInteger tbUnsignedIntegerValue(NSNumber * number)
-{
-    if (  runningOnLeopardOrNewer()  ) {
-        return [number unsignedIntegerValue];
-    }
-    
-    return [number unsignedIntValue];
-}
 uint64_t nowAbsoluteNanoseconds (void)
 {
     // The next three lines were adapted from http://shiftedbits.org/2008/10/01/mach_absolute_time-on-the-iphone/
@@ -102,15 +76,6 @@ BOOL runningABetaVersion (void) {
     return ([version rangeOfString: @"beta"].length != 0);
 }
 
-BOOL runningOnMainThread (void) {
-    
-    if (  runningOnLeopardOrNewer()  ) {
-        return [NSThread isMainThread];
-    }
-    
-    return (  gMainThread == [NSThread currentThread]  );
-}
-
 BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
 {
     unsigned major, minor, bugFix;
@@ -122,21 +87,6 @@ BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
     }
     
     return ( (major > majorVersion) || (minor > minorVersion) );
-}
-
-BOOL runningOnTigerOrNewer(void)
-{
-    return runningOnNewerThan(10, 3);
-}
-
-BOOL runningOnLeopardOrNewer(void)
-{
-    return runningOnNewerThan(10, 4);
-}
-
-BOOL runningOnSnowLeopardOrNewer(void)
-{
-    return runningOnNewerThan(10, 5);
 }
 
 BOOL runningOnSnowLeopardPointEightOrNewer(void) {
@@ -502,7 +452,7 @@ AlertWindowController * TBShowAlertWindow (NSString * title,
     // The window controller is returned so that it can be closed programmatically if the conditions that caused
     // the window to be opened change.
 	
-    if ( ! runningOnMainThread()  ) {
+    if ( ! [NSThread isMainThread]  ) {
         NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys: title, @"title", msg, @"msg", nil];
         [UIHelper performSelectorOnMainThread: @selector(showAlertWindow:) withObject: dict waitUntilDone: NO];
         return nil;
@@ -583,7 +533,7 @@ void TBCloseAllAlertPanels (void) {
 
 void IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn(void) {
     
-    if (  runningOnMainThread()  ) {
+    if (  [NSThread isMainThread]  ) {
         TBLog(@"DB-SD", @"IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn invoked but on main thread, so returning.");
         return;
     }
@@ -884,45 +834,32 @@ OSStatus MyGotoHelpPage (NSString * pagePath, NSString * anchorName)
 {
     OSStatus err = noErr;
     
-    if (  runningOnSnowLeopardOrNewer()  ) {
-        
-        CFBundleRef myApplicationBundle = NULL;
-        CFStringRef myBookName = NULL;
-        
-        myApplicationBundle = CFBundleGetMainBundle();
-        if (myApplicationBundle == NULL) {
-            err = fnfErr;
-            goto bail;
-        }
-        
-        myBookName = CFBundleGetValueForInfoDictionaryKey(
-                                                          myApplicationBundle,
-                                                          CFSTR("CFBundleHelpBookName"));
-        if (myBookName == NULL) {
-            err = fnfErr;
-            goto bail;
-        }
-        
-        if (CFGetTypeID(myBookName) != CFStringGetTypeID()) {
-            err = paramErr;
-            goto bail;
-        }
-        
-        err = AHGotoPage (myBookName, (CFStringRef) pagePath, (CFStringRef) anchorName);// 5
-    } else {
-        NSString * fullPath = [[NSBundle mainBundle] pathForResource: pagePath ofType: nil inDirectory: @"help"];
-        if (  fullPath  ) {
-            err = (  [[NSWorkspace sharedWorkspace] openFile: fullPath]
-                   ? 0
-                   : fnfErr);
-        } else {
-            NSLog(@"Unable to locate %@ in 'help' resource folder", pagePath);
-            err = fnfErr;
-        }
+    CFBundleRef myApplicationBundle = NULL;
+    CFStringRef myBookName = NULL;
+    
+    myApplicationBundle = CFBundleGetMainBundle();
+    if (myApplicationBundle == NULL) {
+        err = fnfErr;
+        goto bail;
     }
     
+    myBookName = CFBundleGetValueForInfoDictionaryKey(
+                                                      myApplicationBundle,
+                                                      CFSTR("CFBundleHelpBookName"));
+    if (myBookName == NULL) {
+        err = fnfErr;
+        goto bail;
+    }
+    
+    if (CFGetTypeID(myBookName) != CFStringGetTypeID()) {
+        err = paramErr;
+        goto bail;
+    }
+    
+    err = AHGotoPage (myBookName, (CFStringRef) pagePath, (CFStringRef) anchorName);// 5
+    
 bail:
-	if ( err != noErr  ) { 
+	if ( err != noErr  ) {
 		NSLog(@"Error %ld in MyGotoHelpPage()", (long) err);
 	}
 	
@@ -1198,18 +1135,8 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
 	NSString * myStdoutString = nil;
 	NSString * myStderrString = nil;
     
-    if (  runningOnLeopardOrNewer()  ) {
-        NSString * command = [[arguments componentsJoinedByString: @"\t"] stringByAppendingString: @"\n"];
-        status = runTunnelblickd(command, &myStdoutString, &myStderrString);
-    } else {
-        NSString * tunnelblickHelperPath = [[NSBundle mainBundle] pathForResource: @"tunnelblick-helper" ofType: nil];
-        unsigned long perms = [[gFileMgr tbFileAttributesAtPath: tunnelblickHelperPath traverseLink: NO] filePosixPermissions];
-        if (  (perms & S_ISUID) == 0  ) {
-            NSLog(@"runOpenvpnstart: This program has not been secured. Launch Tunnelblick to secure this program.");
-            return -1;
-        }
-        status = runTool(tunnelblickHelperPath, arguments, &myStdoutString, &myStderrString);
-    }
+    NSString * command = [[arguments componentsJoinedByString: @"\t"] stringByAppendingString: @"\n"];
+    status = runTunnelblickd(command, &myStdoutString, &myStderrString);
     
     NSString * subcommand = ([arguments count] > 0
                              ? [arguments objectAtIndex: 0]

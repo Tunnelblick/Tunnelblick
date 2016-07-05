@@ -166,7 +166,6 @@ void setStart(NSString * plistPath, NSString * daemonDescription, NSString * dae
                                 arguments,                      @"ProgramArguments",
                                 workingDirectory,               @"WorkingDirectory",
                                 daemonDescription,              @"ServiceDescription",
-                                [NSNumber numberWithBool: YES], @"onDemand",
                                 [NSNumber numberWithBool: YES], @"RunAtLoad",
                                 nil];
     

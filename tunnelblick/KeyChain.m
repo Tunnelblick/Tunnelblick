@@ -104,15 +104,12 @@
 			return nil;
         } else {
             // Apple docs are inconsistent; Xcode says SecCopyErrorMessageString is available on 10.5+, Keychain Services Reference says 10.3+, so we play it safe
-			if (  runningOnLeopardOrNewer()  ) {
-                CFStringRef errMsg = SecCopyErrorMessageString(status, NULL);
-				NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@'; status was %ld; error was '%@'", serviceName, accountName, (long) status, (NSString *)errMsg);
-				if (  errMsg  ) {
-                    CFRelease(errMsg);
-                }
-            } else {
-				NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@'; status was %ld", serviceName, accountName, (long) status);
-			}
+            CFStringRef errMsg = SecCopyErrorMessageString(status, NULL);
+            NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@'; status was %ld; error was '%@'", serviceName, accountName, (long) status, (NSString *)errMsg);
+            if (  errMsg  ) {
+                CFRelease(errMsg);
+            }
+            
 			return @"";
         }
     }

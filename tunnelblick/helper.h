@@ -76,10 +76,6 @@ NSString     * TBGetString				(NSString * msg,
 NSString     * TBGetDisplayName         (NSString * msg,
                                          NSString * sourcePath);
 
-NSNumber     * tbNumberWithInteger      (NSInteger number);
-NSNumber     * tbNumberWithUnsignedInteger(NSUInteger number);
-NSUInteger     tbUnsignedIntegerValue   (NSNumber * number);
-
 AlertWindowController * TBShowAlertWindow(NSString * title,
                                           NSString * msg);
 
@@ -125,11 +121,6 @@ BOOL           displaysHaveDifferentSpaces(void);
 BOOL           mustPlaceIconInStandardPositionInStatusBar(void);
 BOOL           shouldPlaceIconInStandardPositionInStatusBar(void);
 
-BOOL           runningOnMainThread      (void);
-
-BOOL           runningOnTigerOrNewer    (void);
-BOOL           runningOnLeopardOrNewer  (void);
-BOOL           runningOnSnowLeopardOrNewer(void);
 BOOL           runningOnSnowLeopardPointEightOrNewer(void);
 BOOL           runningOnLionOrNewer(void);
 BOOL           runningOnMountainLionOrNewer(void);

@@ -251,7 +251,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     
     // Returns nil if the user cancelled
     
-    if (  runningOnMainThread()  ) {
+    if (  [NSThread isMainThread]  ) {
         TBLog(@"DB-AA", @"SystemAuth|newAuthWithPrompt: Warning: Running on main thread; stack trace = %@", callStack());
     }
     
@@ -330,7 +330,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
 
 +(void) setLockSystemAuth: (SystemAuth *) newAuth {
     
-    if (  ! runningOnMainThread()  ) {
+    if (  ! [NSThread isMainThread]  ) {
         NSLog(@"SystemAuth|setLockSystemAuth: Not running on main thread; stack trace = %@", callStack());
         [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
         return;

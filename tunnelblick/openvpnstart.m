@@ -33,20 +33,6 @@ void appendLog(NSString * msg) {
 }
 
 
-BOOL runningOnLeopardOrNewer(void)
-{
-    unsigned major, minor, bugFix;
-    OSStatus status = getSystemVersion(&major, &minor, &bugFix);
-    if (  status != 0) {
-        fprintf(stderr, "getSystemVersion() failed");
-        return FALSE;
-    }
-    
-    return ( (major > 10) || (minor > 4) );
-
-}
-
-
 int main(int argc, char * argv[]) {
     
     pool = [[NSAutoreleasePool alloc] init];
@@ -96,18 +82,13 @@ int main(int argc, char * argv[]) {
     
     [command appendString: @"\n"];
     
-    // Send the command to tunnelblickd (or run tunnelblick-helper directly if on Tiger; it is SUID) and return the results
+    // Send the command to tunnelblickd and return the results
     
     OSStatus status = -1;
     NSString * stdoutString = nil;
     NSString * stderrString = nil;
     
-    if (  runningOnLeopardOrNewer()  ) {
-        status = runTunnelblickd(command, &stdoutString, &stderrString);
-    } else {
-        NSString * tunnelblickHelperPath = [[NSBundle mainBundle] pathForResource: @"tunnelblick-helper" ofType: nil];
-        status = runTool(tunnelblickHelperPath, [NSArray arrayWithObject: command], &stdoutString, &stderrString);
-    }
+    status = runTunnelblickd(command, &stdoutString, &stderrString);
 	if (  stdoutString  ) {
 		fprintf(stdout, "%s", [stdoutString UTF8String]);
 	}

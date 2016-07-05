@@ -486,6 +486,8 @@ BOOL removeQuarantineBit(void) {
 
 /* DISABLED BECAUSE THIS IS NOT AVAILABLE ON 10.4 and 10.5
  *
+ * UPDATE 2016-07-03: SMJobSubmit is now deprecated, but we are leaving the code in so that if 'launchctl load' stops working, we can try using it
+ *
  * When/if this is enabled, must add the ServiceManagement framework, too, via the following line at the start of this file:
  *
  *      #import <ServiceManagement/ServiceManagement.h>
@@ -557,6 +559,9 @@ void loadLaunchDaemon (NSDictionary * newPlistContents, BOOL forceLoad) {
 	// 'runningOnSnowLeopardOrNewer' is not in sharedRoutines, so we don't use it -- we load the launch daemon the old way, with 'launchctl load'
 	// Left the new code in to make it easy to implement the new way -- with 'SMJobSubmit()' on 10.6.8 and higher -- in case a later version of OS X messes with 'launchctl load'
 	// To implement the new way, too, move 'runningOnSnowLeopardOrNewer' to sharedRoutines and un-comment the code below to use 'loadLaunchDaemonUsingSMJobSubmit'.
+    //
+    // UPDATE 2016-07-03: By now (when we are removing 10.4 and 10.5 code), SMJobSubmit is deprecated (thanks, Apple!), so we aren't bothering to use it,
+    // we are still using 'launchctl load'.
 	
 	if (   forceLoad
         || (! isLaunchDaemonLoaded())  ) {
@@ -635,8 +640,6 @@ int main(int argc, char *argv[])
     BOOL moveNotCopy      = (arg1 & INSTALLER_MOVE_NOT_COPY) != 0;
     BOOL deleteConfig     = (arg1 & INSTALLER_DELETE) != 0;
 	
-    BOOL helperIsToBeSuid = (arg1 & INSTALLER_HELPER_IS_TO_BE_SUID) != 0;
-    
     BOOL forceLoadLaunchDaemon = (   copyApp
                                   || secureApp
                                   || ((arg1 & INSTALLER_MUST_RELOAD_DAEMON) != 0) );
@@ -720,12 +723,10 @@ int main(int argc, char *argv[])
         errorExit();
     }
     
-	if (  ( ! helperIsToBeSuid)  ) {
-		if (  ! createDirWithPermissionAndOwnership(TUNNELBLICKD_LOG_FOLDER,
-													PERMS_SECURED_FOLDER, 0, 0)  ) {
-			errorExit();
-		}
-	}
+    if (  ! createDirWithPermissionAndOwnership(TUNNELBLICKD_LOG_FOLDER,
+                                                PERMS_SECURED_FOLDER, 0, 0)  ) {
+        errorExit();
+    }
     
     if (  ! createDirWithPermissionAndOwnership(L_AS_T_SHARED,
                                                 PERMS_SECURED_FOLDER, 0, 0)  ) {
@@ -968,13 +969,13 @@ int main(int argc, char *argv[])
         okSoFar = okSoFar && checkSetPermissions(leasewatch3Path,           PERMS_SECURED_ROOT_EXEC,  YES);
         okSoFar = okSoFar && checkSetPermissions(pncPath,                   PERMS_SECURED_ROOT_EXEC,  YES);
         okSoFar = okSoFar && checkSetPermissions(ssoPath,                   PERMS_SECURED_ROOT_EXEC,  YES);
-        okSoFar = okSoFar && checkSetPermissions(tunnelblickdPath,          PERMS_SECURED_ROOT_EXEC,  ( ! helperIsToBeSuid));
+        okSoFar = okSoFar && checkSetPermissions(tunnelblickdPath,          PERMS_SECURED_ROOT_EXEC,  YES);
         
         okSoFar = okSoFar && checkSetPermissions(pncPlistPath,              PERMS_SECURED_READABLE,   YES);
         okSoFar = okSoFar && checkSetPermissions(leasewatchPlistPath,       PERMS_SECURED_READABLE,   YES);
         okSoFar = okSoFar && checkSetPermissions(leasewatch3PlistPath,      PERMS_SECURED_READABLE,   YES);
         okSoFar = okSoFar && checkSetPermissions(launchAtLoginPlistPath,    PERMS_SECURED_READABLE,   YES);
-        okSoFar = okSoFar && checkSetPermissions(tunnelblickdPlistPath,     PERMS_SECURED_READABLE,   ( ! helperIsToBeSuid));
+        okSoFar = okSoFar && checkSetPermissions(tunnelblickdPlistPath,     PERMS_SECURED_READABLE,   YES);
         okSoFar = okSoFar && checkSetPermissions(freePublicDnsServersPath,  PERMS_SECURED_READABLE,   YES);
         
         okSoFar = okSoFar && checkSetPermissions(clientUpPath,              PERMS_SECURED_ROOT_EXEC,  NO);
@@ -1066,10 +1067,7 @@ int main(int argc, char *argv[])
 			okSoFar = okSoFar && secureOneFolder(gDeployPath, NO, 0);
         }
 		
-		// Save this for last, so if something goes wrong, it isn't SUID inside a damaged app
-		if (  okSoFar  ) {
-            okSoFar = okSoFar && checkSetPermissions(tunnelblickHelperPath, (helperIsToBeSuid ? PERMS_SECURED_SUID : PERMS_SECURED_EXECUTABLE), YES);
-        }
+		okSoFar = okSoFar && checkSetPermissions(tunnelblickHelperPath, PERMS_SECURED_EXECUTABLE, YES);
         
 		if (  ! okSoFar  ) {
             appendLog(@"Unable to secure Tunnelblick.app");
@@ -1375,60 +1373,58 @@ int main(int argc, char *argv[])
     //**************************************************************************************************************************
     // (12) Set up tunnelblickd to load when the computer starts
 	
-	if (  ! helperIsToBeSuid  ) {
-		// Check to see if the tunnelblickd .plist file is up-to-date
-		// If we are debugging, it needs the 'Debug' key set and the 'Program' value pointing to our copy of tunnelblickd
-		
-		// NOTE: The name of the tunnelblickd .plist file in Resources does not change when rebranded, hence the split constant strings when referring to it
-		NSString * ourPlistPath = [resourcesPath stringByAppendingPathComponent: @"net.tunnel" @"blick.tunnel" @"blick.tunnelblickd.plist"];
-		
-		NSMutableDictionary * newPlistContents = [[[NSDictionary dictionaryWithContentsOfFile: ourPlistPath] mutableCopy] autorelease];
-		
+	// Check to see if the tunnelblickd .plist file is up-to-date
+    // If we are debugging, it needs the 'Debug' key set and the 'Program' value pointing to our copy of tunnelblickd
+    
+    // NOTE: The name of the tunnelblickd .plist file in Resources does not change when rebranded, hence the split constant strings when referring to it
+    NSString * ourPlistPath = [resourcesPath stringByAppendingPathComponent: @"net.tunnel" @"blick.tunnel" @"blick.tunnelblickd.plist"];
+    
+    NSMutableDictionary * newPlistContents = [[[NSDictionary dictionaryWithContentsOfFile: ourPlistPath] mutableCopy] autorelease];
+    
 #ifdef TBDebug
-		NSString * daemonPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
-		[newPlistContents setObject: daemonPath                     forKey: @"Program"];
-		[newPlistContents setObject: [NSNumber numberWithBool: YES] forKey: @"Debug"];
-		NSDictionary * installedPlistContents = nil; // Force install or replace of plist
+    NSString * daemonPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
+    [newPlistContents setObject: daemonPath                     forKey: @"Program"];
+    [newPlistContents setObject: [NSNumber numberWithBool: YES] forKey: @"Debug"];
+    NSDictionary * installedPlistContents = nil; // Force install or replace of plist
 #else
-		NSDictionary * installedPlistContents = [NSDictionary dictionaryWithContentsOfFile: TUNNELBLICKD_PLIST_PATH];
+    NSDictionary * installedPlistContents = [NSDictionary dictionaryWithContentsOfFile: TUNNELBLICKD_PLIST_PATH];
 #endif
-		
-		if (  ! [installedPlistContents isEqualToDictionary: newPlistContents]  ) {
-			
-			// Install or replace the tunnelblickd .plist in /Library/LaunchDaemons
-			
-			BOOL hadExistingPlist = [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH];
-			if (  hadExistingPlist  ) {
-				if (  ! [gFileMgr tbRemoveFileAtPath: TUNNELBLICKD_PLIST_PATH handler: nil]  ) {
-					appendLog([NSString stringWithFormat: @"Unable to delete %@", TUNNELBLICKD_PLIST_PATH]);
-					errorExit();
-				}
-			}
-			if (  [newPlistContents writeToFile: TUNNELBLICKD_PLIST_PATH atomically: YES] ) {
-                if (  ! checkSetOwnership(TUNNELBLICKD_PLIST_PATH, NO, 0, 0)  ) {
-                    errorExit();
-                }
-                if (  ! checkSetPermissions(TUNNELBLICKD_PLIST_PATH, PERMS_SECURED_READABLE, YES)  ) {
-                    errorExit();
-                }
-				appendLog([NSString stringWithFormat: @"%@ %@", (hadExistingPlist ? @"Replaced" : @"Installed"), TUNNELBLICKD_PLIST_PATH]);
-                forceLoadLaunchDaemon = TRUE;
-			} else {
-				appendLog([NSString stringWithFormat: @"Unable to create %@", TUNNELBLICKD_PLIST_PATH]);
-				errorExit();
-			}
-		} else {
+    
+    if (  ! [installedPlistContents isEqualToDictionary: newPlistContents]  ) {
+        
+        // Install or replace the tunnelblickd .plist in /Library/LaunchDaemons
+        
+        BOOL hadExistingPlist = [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH];
+        if (  hadExistingPlist  ) {
+            if (  ! [gFileMgr tbRemoveFileAtPath: TUNNELBLICKD_PLIST_PATH handler: nil]  ) {
+                appendLog([NSString stringWithFormat: @"Unable to delete %@", TUNNELBLICKD_PLIST_PATH]);
+                errorExit();
+            }
+        }
+        if (  [newPlistContents writeToFile: TUNNELBLICKD_PLIST_PATH atomically: YES] ) {
             if (  ! checkSetOwnership(TUNNELBLICKD_PLIST_PATH, NO, 0, 0)  ) {
                 errorExit();
             }
             if (  ! checkSetPermissions(TUNNELBLICKD_PLIST_PATH, PERMS_SECURED_READABLE, YES)  ) {
                 errorExit();
             }
+            appendLog([NSString stringWithFormat: @"%@ %@", (hadExistingPlist ? @"Replaced" : @"Installed"), TUNNELBLICKD_PLIST_PATH]);
+            forceLoadLaunchDaemon = TRUE;
+        } else {
+            appendLog([NSString stringWithFormat: @"Unable to create %@", TUNNELBLICKD_PLIST_PATH]);
+            errorExit();
         }
-		
-        // We must load the new launch daemon, too, so it is used immediately, even before the next system start
-        loadLaunchDaemon(newPlistContents, forceLoadLaunchDaemon);
-	}
+    } else {
+        if (  ! checkSetOwnership(TUNNELBLICKD_PLIST_PATH, NO, 0, 0)  ) {
+            errorExit();
+        }
+        if (  ! checkSetPermissions(TUNNELBLICKD_PLIST_PATH, PERMS_SECURED_READABLE, YES)  ) {
+            errorExit();
+        }
+    }
+    
+    // We must load the new launch daemon, too, so it is used immediately, even before the next system start
+    loadLaunchDaemon(newPlistContents, forceLoadLaunchDaemon);
 	
     //**************************************************************************************************************************
     // DONE

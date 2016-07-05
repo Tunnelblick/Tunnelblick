@@ -2740,7 +2740,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     
     if (  disallowCommands  ) {
         
-        if (  ! runningOnMainThread()  ) {
+        if (  ! [NSThread isMainThread]  ) {
             NSLog(@"installConfigurations...disallowCommands: YES but not on main thread; stack trace: %@", callStack());
             if (  notifyDelegate  ) {
                 [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
@@ -3589,38 +3589,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     }
 }
 
-+(NSString *) tigerConsoleContents {
-    
-    // Tiger doesn't implement the asl API (or not enough of it). So we get the console log from the file if we are running as an admin
-	NSString * consoleRawContents = @""; // stdout (ignore stderr)
-	
-	if (  isUserAnAdmin()  ) {
-        OSStatus status = runTool(TOOL_PATH_FOR_BASH,
-                                  [NSArray arrayWithObjects:
-                                   @"-c",
-                                   [NSString stringWithFormat: @"cat /Library/Logs/Console/%d/console.log | grep -i -E 'tunnelblick|openvpn' | tail -n 100", getuid()],
-                                   nil],
-                                  &consoleRawContents,
-                                  nil);
-        if (  status != EXIT_SUCCESS) {
-            return [NSString stringWithFormat: @"An error occurred while trying to get the Console Log contents; output was '%@'", consoleRawContents];
-        }
-	} else {
-		consoleRawContents = (@"The Console log cannot be obtained because you are not\n"
-							  @"logged in as an administrator. To view the Console log,\n"
-							  @"please use the Console application in /Applications/Utilities.\n");
-	}
-	
-    // Replace backslash-n with newline and indent the continuation lines
-    NSMutableString * consoleContents = [[consoleRawContents mutableCopy] autorelease];
-    [consoleContents replaceOccurrencesOfString: @"\\n"
-                                     withString: @"\n                                       " // Note all the spaces in the string
-                                        options: 0
-                                          range: NSMakeRange(0, [consoleContents length])];
-	
-    return consoleContents;
-}
-
 +(NSString *) stringFromLogEntry: (NSDictionary *) dict {
     
     // Returns a string with a console log entry, terminated with a LF
@@ -3885,9 +3853,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSString * ifconfigOutput = [self stringWithIfconfigOutput];
         
 		// Get tail of Console log
-        NSString * consoleContents = (  runningOnLeopardOrNewer()
-                                      ? [self stringContainingRelevantConsoleLogEntries]
-                                      : [self tigerConsoleContents]);
+        NSString * consoleContents = [self stringContainingRelevantConsoleLogEntries];
         
         NSString * kextContents = [self nonAppleKextContents];
         
@@ -3958,12 +3924,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 								   : @"; Standard user")];
 	
 	// Get tail of Console log
-	NSString * consoleContents;
-	if (  runningOnLeopardOrNewer()  ) {
-		consoleContents = [ConfigurationManager stringContainingRelevantConsoleLogEntries];
-	} else {
-		consoleContents = [ConfigurationManager tigerConsoleContents];
-	}
+    NSString * consoleContents = [ConfigurationManager stringContainingRelevantConsoleLogEntries];
 	
 	NSString * output = [NSString stringWithFormat:
 						 @"%@\n\nConsole Log:\n\n%@",
@@ -4478,7 +4439,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 
 +(void) installConfigurationsInCurrentMainThreadDoNotShowMessagesDoNotNotifyDelegateWithPaths: (NSArray *)  paths {
     
-    if (  ! runningOnMainThread()  ) {
+    if (  ! [NSThread isMainThread]  ) {
         NSLog(@"installConfigurationsInCurrentMainThreadDoNotShowMessagesDoNotNotifyDelegateWithPaths: not running on main thread");
         [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
     }

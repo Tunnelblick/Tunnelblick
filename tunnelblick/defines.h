@@ -219,7 +219,6 @@
 #define PERMS_SECURED_ROOT_EXEC  0744
 #define PERMS_SECURED_READABLE   0644
 #define PERMS_SECURED_OTHER      0700
-#define PERMS_SECURED_SUID       04555
 
 
 //*************************************************************************************************
@@ -233,38 +232,38 @@
 
 //*************************************************************************************************
 // Bit masks for bitMask parameter of openvpnstart's start, loadkexts, and unloadkexts sub-commands
-#define OPENVPNSTART_OUR_TUN_KEXT              (1u << 0)
-#define OPENVPNSTART_OUR_TAP_KEXT              (1u << 1)
+#define OPENVPNSTART_OUR_TUN_KEXT              0x00000001u
+#define OPENVPNSTART_OUR_TAP_KEXT              0x00000002u
 
 #define OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT   (OPENVPNSTART_OUR_TUN_KEXT | OPENVPNSTART_OUR_TAP_KEXT)
 #define OPENVPNSTART_KEXTS_MASK_LOAD_MAX       (OPENVPNSTART_OUR_TUN_KEXT | OPENVPNSTART_OUR_TAP_KEXT)
 
-#define OPENVPNSTART_FOO_TUN_KEXT              (1u << 2)
-#define OPENVPNSTART_FOO_TAP_KEXT              (1u << 3)
+#define OPENVPNSTART_FOO_TUN_KEXT              0x00000004u
+#define OPENVPNSTART_FOO_TAP_KEXT              0x00000008u
 
 #define OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT (OPENVPNSTART_FOO_TUN_KEXT | OPENVPNSTART_FOO_TAP_KEXT)
 #define OPENVPNSTART_KEXTS_MASK_UNLOAD_MAX     (OPENVPNSTART_OUR_TUN_KEXT | OPENVPNSTART_OUR_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT | OPENVPNSTART_FOO_TAP_KEXT)
 
-#define OPENVPNSTART_RESTORE_ON_DNS_RESET      (1u <<  4)
-#define OPENVPNSTART_RESTORE_ON_WINS_RESET     (1u <<  5)
-#define OPENVPNSTART_USE_TAP                   (1u <<  6)
-#define OPENVPNSTART_PREPEND_DOMAIN_NAME       (1u <<  7)
-#define OPENVPNSTART_FLUSH_DNS_CACHE           (1u <<  8)
-#define OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 (1u <<  9)
-#define OPENVPNSTART_RESET_PRIMARY_INTERFACE   (1u << 10)
-#define OPENVPNSTART_TEST_MTU                  (1u << 11)
-#define OPENVPNSTART_EXTRA_LOGGING             (1u << 12)
-#define OPENVPNSTART_NO_DEFAULT_DOMAIN         (1u << 13)
-#define OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS  (1u << 14)
-#define OPENVPNSTART_USE_ROUTE_UP_NOT_UP       (1u << 15)
-#define OPENVPNSTART_USE_I386_OPENVPN          (1u << 16)
-#define OPENVPNSTART_WAIT_FOR_DHCP_IF_TAP      (1u << 17)
-#define OPENVPNSTART_DO_NOT_WAIT_FOR_INTERNET  (1u << 18)
-#define OPENVPNSTART_ENABLE_IPV6_ON_TAP        (1u << 19)
-#define OPENVPNSTART_DISABLE_IPV6_ON_TUN       (1u << 20)
-#define OPENVPNSTART_DISABLE_LOGGING           (1u << 21)
-// DUPLICATE THE HIGHEST VALUE BELOW           vvvvvvvvvv
-#define OPENVPNSTART_HIGHEST_BITMASK_BIT       (1u << 21)
+#define OPENVPNSTART_RESTORE_ON_DNS_RESET      0x00000010u
+#define OPENVPNSTART_RESTORE_ON_WINS_RESET     0x00000020u
+#define OPENVPNSTART_USE_TAP                   0x00000040u
+#define OPENVPNSTART_PREPEND_DOMAIN_NAME       0x00000080u
+#define OPENVPNSTART_FLUSH_DNS_CACHE           0x00000100u
+#define OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 0x00000200u
+#define OPENVPNSTART_RESET_PRIMARY_INTERFACE   0x00000400u
+#define OPENVPNSTART_TEST_MTU                  0x00000800u
+#define OPENVPNSTART_EXTRA_LOGGING             0x00001000u
+#define OPENVPNSTART_NO_DEFAULT_DOMAIN         0x00002000u
+#define OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS  0x00004000u
+#define OPENVPNSTART_USE_ROUTE_UP_NOT_UP       0x00008000u
+//                                             0x00010000u  UNUSED, was OPENVPNSTART_USE_I386_OPENVPN
+#define OPENVPNSTART_WAIT_FOR_DHCP_IF_TAP      0x00020000u
+#define OPENVPNSTART_DO_NOT_WAIT_FOR_INTERNET  0x00040000u
+#define OPENVPNSTART_ENABLE_IPV6_ON_TAP        0x00080000u
+#define OPENVPNSTART_DISABLE_IPV6_ON_TUN       0x00100000u
+#define OPENVPNSTART_DISABLE_LOGGING           0x00200000u
+// DUPLICATE THE HIGHEST VALUE BELOW           vvvvvvvvvvv
+#define OPENVPNSTART_HIGHEST_BITMASK_BIT       0x00200000u
 
 
 //*************************************************************************************************
@@ -325,7 +324,7 @@
 #define INSTALLER_COPY_APP                   0x0002u
 
 #define INSTALLER_SECURE_APP                 0x0004u
-#define INSTALLER_HELPER_IS_TO_BE_SUID       0x0008u
+//                                           0x0008u  UNUSED, was "INSTALLER_HELPER_IS_TO_BE_SUID"
 #define INSTALLER_SECURE_TBLKS               0x0010u
 #define INSTALLER_CONVERT_NON_TBLKS          0x0020u
 #define INSTALLER_MOVE_LIBRARY_OPENVPN       0x0040u

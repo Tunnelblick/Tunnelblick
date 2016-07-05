@@ -124,7 +124,7 @@ void start_next(void) {
                     object: (id)        object
                disableList: (NSArray *) disableList {
     
-    if (  ! runningOnMainThread()  ) {
+    if (  ! [NSThread isMainThread]  ) {
         NSLog(@"addToQueueSelector:target:object:disableList: invoked but not on main thread");
         [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
 		return;

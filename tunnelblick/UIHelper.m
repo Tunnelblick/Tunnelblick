@@ -189,7 +189,7 @@ extern TBUserDefaults * gTbDefaults;
     
     // This method is invoked on the main thread by TBShowAlertWindow() when it is called but is not running on the main thread
     
-    if (  ! runningOnMainThread()  ) {
+    if (  ! [NSThread isMainThread]  ) {
         NSLog(@"[UIHelper showAlertWindow] was invoked but not on the main thread; stack trace: %@", callStack());
         [self performSelectorOnMainThread: @selector(showAlertWindow:)  withObject: dict waitUntilDone: NO];
         return;
@@ -234,10 +234,4 @@ extern TBUserDefaults * gTbDefaults;
 	}
 }
 
-+(BOOL) useOutlineViewOfConfigurations {
-	
-	BOOL answer = (   runningOnSnowLeopardOrNewer()
-				   && ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  );
-	return answer;
-}	
 @end

@@ -147,21 +147,18 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     [super dealloc];
 }
 
-+ (NSString *)nibName
++ (NSString *)nibName {
+    
 // Overrides DBPrefsWindowController method
-{
-    NSString * name = (  [UIHelper useOutlineViewOfConfigurations]
-                       ? @"Preferences"
-                       : @"Preferences-Tiger");
-    NSString * finalName = [UIHelper appendRTLIfRTLLanguage: name];
-	return finalName;
+    NSString * name = [UIHelper appendRTLIfRTLLanguage: @"Preferences"];
+	return name;
 }
 
 -(void) lockTheLockIcon {
     
     // Invoked when the window closes or authorization for lock times out
     
-    if (  ! runningOnMainThread()  ) {
+    if (  ! [NSThread isMainThread]  ) {
         NSLog(@"lockTheLockIcon invoked but not on main thread; stack trace = %@", callStack());
         [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
         return;
@@ -218,7 +215,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     
     // Invoked when the user has given (sa != nil) or cancelled (sa == nil) an authorization
     
-    if (  ! runningOnMainThread()  ) {
+    if (  ! [NSThread isMainThread]  ) {
         NSLog(@"enableLockIcon invoked but not on main thread; stack trace = %@", callStack());
         [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
         return;
@@ -364,12 +361,12 @@ static BOOL firstTimeShowingWindow = TRUE;
 	unsigned int ix = [UIHelper detailsWindowsViewIndexFromPreferencesWithCount: [toolbarIdentifiers count]];
 	[self setCurrentViewName: [toolbarIdentifiers objectAtIndex: ix]];
     
-    [self setSelectedPerConfigOpenvpnVersionIndexDirect:                   tbNumberWithInteger(NSNotFound)];
-    [self setSelectedKeyboardShortcutIndexDirect:                          tbNumberWithInteger(NSNotFound)];
-    [self setSelectedMaximumLogSizeIndexDirect:                            tbNumberWithInteger(NSNotFound)];
-    [self setSelectedAppearanceIconSetIndexDirect:                         tbNumberWithInteger(NSNotFound)];
-    [self setSelectedAppearanceConnectionWindowDisplayCriteriaIndexDirect: tbNumberWithInteger(NSNotFound)];
-    [self setSelectedAppearanceConnectionWindowScreenIndexDirect:          tbNumberWithInteger(NSNotFound)];
+    [self setSelectedPerConfigOpenvpnVersionIndexDirect:                   [NSNumber numberWithInteger: NSNotFound]];
+    [self setSelectedKeyboardShortcutIndexDirect:                          [NSNumber numberWithInteger: NSNotFound]];
+    [self setSelectedMaximumLogSizeIndexDirect:                            [NSNumber numberWithInteger: NSNotFound]];
+    [self setSelectedAppearanceIconSetIndexDirect:                         [NSNumber numberWithInteger: NSNotFound]];
+    [self setSelectedAppearanceConnectionWindowDisplayCriteriaIndexDirect: [NSNumber numberWithInteger: NSNotFound]];
+    [self setSelectedAppearanceConnectionWindowScreenIndexDirect:          [NSNumber numberWithInteger: NSNotFound]];
     
     [self setupConfigurationsView];
     [self setupGeneralView];
@@ -564,7 +561,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(void) newViewDidAppear: (NSView *) view
 {
     if (   view == configurationsPrefsView  ) {
-        [[self window] makeFirstResponder: [configurationsPrefsView leftNavTableView]];
+        [[self window] makeFirstResponder: nil];
         if (  [[configurationsPrefsView configurationsTabView] selectedTabViewItem] == [configurationsPrefsView logTabViewItem]  ) {
             [[self selectedConnection] startMonitoringLogFiles];
         }
@@ -620,14 +617,10 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(BOOL) oneConfigurationIsSelected {
 	
-	if (  [UIHelper useOutlineViewOfConfigurations]  ) {
-		LeftNavViewController   * ovc    = [configurationsPrefsView outlineViewController];
-		NSOutlineView           * ov     = [ovc outlineView];
-		NSIndexSet              * idxSet = [ov selectedRowIndexes];
-		return [idxSet count] == 1;
-	}
-	
-	return TRUE;
+    LeftNavViewController   * ovc    = [configurationsPrefsView outlineViewController];
+    NSOutlineView           * ov     = [ovc outlineView];
+    NSIndexSet              * idxSet = [ov selectedRowIndexes];
+    return [idxSet count] == 1;
 }
 
 -(void) setupConfigurationsView
@@ -636,9 +629,9 @@ static BOOL firstTimeShowingWindow = TRUE;
 	BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
 	[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
 
-    [self setSelectedSetNameserverIndexDirect:           tbNumberWithInteger(NSNotFound)];   // Force a change when first set
-    [self setSelectedPerConfigOpenvpnVersionIndexDirect: tbNumberWithInteger(NSNotFound)];
-    [self setSelectedLoggingLevelIndexDirect:            tbNumberWithInteger(NSNotFound)];
+    [self setSelectedSetNameserverIndexDirect:           [NSNumber numberWithInteger: NSNotFound]];   // Force a change when first set
+    [self setSelectedPerConfigOpenvpnVersionIndexDirect: [NSNumber numberWithInteger: NSNotFound]];
+    [self setSelectedLoggingLevelIndexDirect:            [NSNumber numberWithInteger: NSNotFound]];
     selectedWhenToConnectIndex     = NSNotFound;
 
     selectedLeftNavListIndex = 0;
@@ -734,7 +727,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                                     max: MAX_SET_DNS_WINS_INDEX];
     
     [[configurationsPrefsView setNameserverPopUpButton] selectItemAtIndex: ix];
-    [self setSelectedSetNameserverIndex: tbNumberWithInteger(ix)];
+    [self setSelectedSetNameserverIndex: [NSNumber numberWithInteger: ix]];
     [[configurationsPrefsView setNameserverPopUpButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
     [settingsSheetWindowController setupSettingsFromPreferences];
 }
@@ -880,7 +873,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         listIx = versionIx + 1; // + 1 to skip over the 1st entry (default)
     }
     
-    [self setSelectedPerConfigOpenvpnVersionIndex: tbNumberWithInteger(listIx)];
+    [self setSelectedPerConfigOpenvpnVersionIndex: [NSNumber numberWithInteger: listIx]];
     
     [[configurationsPrefsView perConfigOpenvpnVersionButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
 }
@@ -955,44 +948,39 @@ static BOOL firstTimeShowingWindow = TRUE;
 		++currentLeftNavIndex;
 	}
 	
-	[[configurationsPrefsView leftNavTableView] reloadData];
-	
-	if (  [UIHelper useOutlineViewOfConfigurations]  ) {
-		
-		LeftNavViewController * oVC = [[self configurationsPrefsView] outlineViewController];
-        NSOutlineView         * oView = [oVC outlineView];
-        LeftNavDataSource     * oDS = [[self configurationsPrefsView] leftNavDataSrc];
-        [oDS reload];
-		[oView reloadData];
-		
-		// Expand items that were left expanded previously and get row # we should select (that matches displayNameToSelect)
-		
-		NSInteger ix = 0;	// Track row # of name we are to display
-
-		NSArray * expandedDisplayNames = [gTbDefaults arrayForKey: @"leftNavOutlineViewExpandedDisplayNames"];
-        LeftNavViewController * outlineViewController = [configurationsPrefsView outlineViewController];
-        NSOutlineView * outlineView = [outlineViewController outlineView];
-        [outlineView expandItem: [outlineView itemAtRow: 0]];
-        NSInteger r;
-        for (  r=0; r<[outlineView numberOfRows]; r++) {
-            id item = [outlineView itemAtRow: r];
-            NSString * itemDisplayName = [item displayName];
-            if (  [itemDisplayName hasSuffix: @"/"]  ) {
-                if (   [expandedDisplayNames containsObject: itemDisplayName]
-                    || [displayNameToSelect hasPrefix: itemDisplayName]  ) {
-                    [outlineView expandItem: item];
-                }
-            }
-            if (  [displayNameToSelect isEqualToString: itemDisplayName]  ) {
-                ix = r;
+    LeftNavViewController * oVC = [[self configurationsPrefsView] outlineViewController];
+    NSOutlineView         * oView = [oVC outlineView];
+    LeftNavDataSource     * oDS = [[self configurationsPrefsView] leftNavDataSrc];
+    [oDS reload];
+    [oView reloadData];
+    
+    // Expand items that were left expanded previously and get row # we should select (that matches displayNameToSelect)
+    
+    NSInteger ix = 0;	// Track row # of name we are to display
+    
+    NSArray * expandedDisplayNames = [gTbDefaults arrayForKey: @"leftNavOutlineViewExpandedDisplayNames"];
+    LeftNavViewController * outlineViewController = [configurationsPrefsView outlineViewController];
+    NSOutlineView * outlineView = [outlineViewController outlineView];
+    [outlineView expandItem: [outlineView itemAtRow: 0]];
+    NSInteger r;
+    for (  r=0; r<[outlineView numberOfRows]; r++) {
+        id item = [outlineView itemAtRow: r];
+        NSString * itemDisplayName = [item displayName];
+        if (  [itemDisplayName hasSuffix: @"/"]  ) {
+            if (   [expandedDisplayNames containsObject: itemDisplayName]
+                || [displayNameToSelect hasPrefix: itemDisplayName]  ) {
+                [outlineView expandItem: item];
             }
         }
-		
-		if (  displayNameToSelect  ) {
-			[oView selectRowIndexes: [NSIndexSet indexSetWithIndex: ix] byExtendingSelection: NO];
-            [[[configurationsPrefsView outlineViewController] outlineView] scrollRowToVisible: ix];
-		}
-	}
+        if (  [displayNameToSelect isEqualToString: itemDisplayName]  ) {
+            ix = r;
+        }
+    }
+    
+    if (  displayNameToSelect  ) {
+        [oView selectRowIndexes: [NSIndexSet indexSetWithIndex: ix] byExtendingSelection: NO];
+        [[[configurationsPrefsView outlineViewController] outlineView] scrollRowToVisible: ix];
+    }
 	
     // If there are any entries in the list
     // Select the entry that was selected previously, or the first that was not disconnected, or the first
@@ -1005,7 +993,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         if (  leftNavIndexToSelect != NSNotFound  ) {
             selectedLeftNavListIndex = NSNotFound;  // Force a change
             [self setSelectedLeftNavListIndex: (unsigned)leftNavIndexToSelect];
-            [[configurationsPrefsView leftNavTableView] scrollRowToVisible: leftNavIndexToSelect];
         }
     } else {
         [self setupSetNameserver:            nil];
@@ -1156,8 +1143,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		[[configurationsPrefsView addConfigurationButton]    setEnabled: TRUE];
 		
         [[configurationsPrefsView removeConfigurationButton] setEnabled: (   [self oneConfigurationIsSelected]
-																		  || (   connection
-																			  && [UIHelper useOutlineViewOfConfigurations]))];
+																		  || connection  )];
 		
 		[[configurationsPrefsView workOnConfigurationPopUpButton] setEnabled: ( ! [gTbDefaults boolForKey: @"disableWorkOnConfigurationButton"] )];
 		[[configurationsPrefsView workOnConfigurationPopUpButton] setAutoenablesItems: YES];
@@ -1231,40 +1217,29 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(NSArray *) displayNamesOfSelection {
     
-    if (  [UIHelper useOutlineViewOfConfigurations]  ) {
+    NSMutableArray * displayNames = [[[NSMutableArray alloc] init] autorelease];
+    
+    LeftNavViewController   * ovc    = [configurationsPrefsView outlineViewController];
+    NSOutlineView           * ov     = [ovc outlineView];
+    NSIndexSet              * idxSet = [ov selectedRowIndexes];
+    if  (  [idxSet count] != 0  ) {
         
-        NSMutableArray * displayNames = [[[NSMutableArray alloc] init] autorelease];
-        
-        LeftNavViewController   * ovc    = [configurationsPrefsView outlineViewController];
-        NSOutlineView           * ov     = [ovc outlineView];
-        NSIndexSet              * idxSet = [ov selectedRowIndexes];
-        if  (  [idxSet count] != 0  ) {
-            
 #ifdef TBAnalyzeONLY
 #warning "NOT AN EXECUTABLE -- ANALYZE ONLY but does not fully analyze code in removeSelectedConfigurations"
-            (void) idxSet;
+        (void) idxSet;
 #else
-            [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-                (void) stop;
-                LeftNavItem * item = [ov itemAtRow: idx];
-                NSString * name = [item displayName];
-                if (  [name length] != 0  ) {	// Ignore folders; just process configurations
-                    [displayNames addObject: name];
-                }
-            }];
+        [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+            (void) stop;
+            LeftNavItem * item = [ov itemAtRow: idx];
+            NSString * name = [item displayName];
+            if (  [name length] != 0  ) {	// Ignore folders; just process configurations
+                [displayNames addObject: name];
+            }
+        }];
 #endif
-        }
-        
-        return [NSArray arrayWithArray: displayNames];
-    } else {
-        VPNConnection * connection = [self selectedConnection];
-        NSString * name = [connection displayName];
-        if (  name  ) {
-            return [NSArray arrayWithObject: name];
-        } else {
-            return nil;
-        }
     }
+    
+    return [NSArray arrayWithArray: displayNames];
 }
 
 -(BOOL) isAnySelectedConfigurationPrivate {
@@ -1562,7 +1537,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(BOOL) forceDisableOfNetworkMonitoring
 {
     NSArray * content = [[configurationsPrefsView setNameserverArrayController] content];
-    NSUInteger ix = tbUnsignedIntegerValue(selectedSetNameserverIndex);
+    NSUInteger ix = [selectedSetNameserverIndex unsignedIntegerValue];
     if (   ([content count] < 4)
         || (ix > 2)
         || (ix == 0)  ) {
@@ -1570,28 +1545,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     } else {
         return FALSE;
     }
-}
-
--(int)numberOfRowsInTableView:(NSTableView *)aTableView
-{
-    if (  aTableView == [configurationsPrefsView leftNavTableView]  ) {
-        unsigned n = [leftNavList count];
-        return (int)n;
-    }
-    
-    return 0;
-}
-
--(id) tableView:(NSTableView *) aTableView objectValueForTableColumn:(NSTableColumn *) aTableColumn row: (int) rowIndex
-{
-    (void) aTableColumn;
-    
-    if (  aTableView == [configurationsPrefsView leftNavTableView]  ) {
-        NSString * s = [leftNavList objectAtIndex: (unsigned)rowIndex];
-        return s;
-    }
-    
-    return nil;
 }
 
 -(VPNConnection *) connectionForLeftNavIndex: (NSUInteger) ix {
@@ -1944,13 +1897,13 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  [newValue isNotEqualTo: [self selectedPerConfigOpenvpnVersionIndex]]  ) {
         NSArrayController * ac = [configurationsPrefsView perConfigOpenvpnVersionArrayController];
         NSArray * list = [ac content];
-        if (  tbUnsignedIntegerValue(newValue) < [list count]  ) {
+        if (  [newValue unsignedIntegerValue] < [list count]  ) {
             
             [self setSelectedPerConfigOpenvpnVersionIndexDirect: newValue];
             
             // Set the preference if this isn't just the initialization
             if (  ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
-                NSString * newPreferenceValue = [[list objectAtIndex: tbUnsignedIntegerValue(newValue)] objectForKey: @"value"];
+                NSString * newPreferenceValue = [[list objectAtIndex: [newValue unsignedIntegerValue]] objectForKey: @"value"];
 				NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 									   newPreferenceValue, @"NewValue",
 									   @"-openvpnVersion", @"PreferenceName",
@@ -2343,8 +2296,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self setSelectedSetNameserverIndexDirect: newValue];
         
         // If script doesn't support monitoring, indicate it is off and disable it
-        if (   (tbUnsignedIntegerValue(newValue) > 2)
-            || (tbUnsignedIntegerValue(newValue) == 0)
+        if (   ([newValue unsignedIntegerValue] > 2)
+            || ([newValue unsignedIntegerValue] == 0)
             || ([[[configurationsPrefsView setNameserverArrayController] content] count] < 4)  ) {
             [[configurationsPrefsView monitorNetworkForChangesCheckbox] setState: NSOffState];
             [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: NO];
@@ -2416,22 +2369,18 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     int n;
 	
-	if (  [UIHelper useOutlineViewOfConfigurations]  ) {  // 10.5 and lower don't have setDelegate and setDataSource
-		n = [[[configurationsPrefsView outlineViewController] outlineView] selectedRow];
-		NSOutlineView * oV = [[configurationsPrefsView outlineViewController] outlineView];
-		LeftNavItem * item = [oV itemAtRow: n];
-		LeftNavDataSource * oDS = (LeftNavDataSource *) [oV dataSource];
-		NSString * displayName = [oDS outlineView: oV displayNameForTableColumn: nil byItem: item];
-		NSDictionary * dict = [oDS rowsByDisplayName];
-		NSNumber * ix = [dict objectForKey: displayName];
-		if (  ix  ) {
-			n = [ix intValue];
-		} else {
-            return; // No configurations
-		}
-	} else {
-		n = [[configurationsPrefsView leftNavTableView] selectedRow];
-	}
+    n = [[[configurationsPrefsView outlineViewController] outlineView] selectedRow];
+    NSOutlineView * oV = [[configurationsPrefsView outlineViewController] outlineView];
+    LeftNavItem * item = [oV itemAtRow: n];
+    LeftNavDataSource * oDS = (LeftNavDataSource *) [oV dataSource];
+    NSString * displayName = [oDS outlineView: oV displayNameForTableColumn: nil byItem: item];
+    NSDictionary * dict = [oDS rowsByDisplayName];
+    NSNumber * ix = [dict objectForKey: displayName];
+    if (  ix  ) {
+        n = [ix intValue];
+    } else {
+        return; // No configurations
+    }
 		
     [self setSelectedLeftNavListIndex: (unsigned) n];
 	
@@ -2457,7 +2406,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
         
         selectedLeftNavListIndex = newValue;
-        [[configurationsPrefsView leftNavTableView] selectRowIndexes: [NSIndexSet indexSetWithIndex: (unsigned) newValue] byExtendingSelection: NO];
         
 		// Set name and status of the new connection in the window title.
 		VPNConnection* newConnection = [self selectedConnection];
@@ -2600,7 +2548,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     if (  logSizeIx < [list count]  ) {
-        [self setSelectedMaximumLogSizeIndex: tbNumberWithUnsignedInteger(logSizeIx)];
+        [self setSelectedMaximumLogSizeIndex: [NSNumber numberWithUnsignedInteger: logSizeIx]];
     } else {
         NSLog(@"Invalid selectedMaximumLogSizeIndex %lu; maximum is %ld", (unsigned long)logSizeIx, (long) [list count]-1);
     }
@@ -2802,12 +2750,12 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  [newValue isNotEqualTo: [self selectedKeyboardShortcutIndex]]  ) {
         NSArrayController * ac = [generalPrefsView keyboardShortcutArrayController];
         NSArray * list = [ac content];
-        if (  tbUnsignedIntegerValue(newValue) < [list count]  ) {
+        if (  [newValue unsignedIntegerValue] < [list count]  ) {
             
             [self setSelectedKeyboardShortcutIndexDirect: newValue];
             
             // Select the new size
-            [ac setSelectionIndex: tbUnsignedIntegerValue(newValue)];
+            [ac setSelectionIndex: [newValue unsignedIntegerValue]];
             
             // Set the preference
             [gTbDefaults setObject: newValue forKey: @"keyboardShortcutIndex"];
@@ -2823,16 +2771,16 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  [newValue isNotEqualTo: [self selectedMaximumLogSizeIndex]]  ) {
         NSArrayController * ac = [generalPrefsView maximumLogSizeArrayController];
         NSArray * list = [ac content];
-        if (  tbUnsignedIntegerValue(newValue) < [list count]  ) {
+        if (  [newValue unsignedIntegerValue] < [list count]  ) {
             
             // Set the index
             [self setSelectedMaximumLogSizeIndexDirect: newValue];
             
             // Select the new size
-            [ac setSelectionIndex: tbUnsignedIntegerValue(newValue)];
+            [ac setSelectionIndex: [newValue unsignedIntegerValue]];
             
             // Set the preference
-            NSString * newPref = [[list objectAtIndex: tbUnsignedIntegerValue(newValue)] objectForKey: @"value"];
+            NSString * newPref = [[list objectAtIndex: [newValue unsignedIntegerValue]] objectForKey: @"value"];
             [gTbDefaults setObject: newPref forKey: @"maxLogDisplaySize"];
             
             // Set the value we use
@@ -2888,9 +2836,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     if (  iconSetIx == NSNotFound  ) {
 		[NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"(None available)", @"Button"), @"name", @"", @"value", nil];
-        [self setSelectedAppearanceIconSetIndex: tbNumberWithUnsignedInteger(0)];
+        [self setSelectedAppearanceIconSetIndex: [NSNumber numberWithUnsignedInteger: 0u]];
     } else {
-        [self setSelectedAppearanceIconSetIndex: tbNumberWithUnsignedInteger(iconSetIx)];
+        [self setSelectedAppearanceIconSetIndex: [NSNumber numberWithUnsignedInteger: iconSetIx]];
     }
     
     [[appearancePrefsView appearanceIconSetButton] setEnabled: [gTbDefaults canChangeValueForKey: @"menuIconSet"]];
@@ -2921,7 +2869,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     if (  displayCriteriaIx < [list count]  ) {
-        [self setSelectedAppearanceConnectionWindowDisplayCriteriaIndex: tbNumberWithUnsignedInteger(displayCriteriaIx)];
+        [self setSelectedAppearanceConnectionWindowDisplayCriteriaIndex: [NSNumber numberWithUnsignedInteger: displayCriteriaIx]];
     } else {
         NSLog(@"Invalid displayCriteriaIx %lu; maximum is %ld", (unsigned long)displayCriteriaIx, (long) [list count]-1);
     }
@@ -2955,17 +2903,17 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) setupAppearanceConnectionWindowScreenButton {
 	
-    [self setSelectedAppearanceConnectionWindowScreenIndexDirect: tbNumberWithUnsignedInteger(NSNotFound)];
+    [self setSelectedAppearanceConnectionWindowScreenIndexDirect: [NSNumber numberWithUnsignedInteger: NSNotFound]];
 	
     NSArray * screens = [((MenuController *)[NSApp delegate]) screenList];
     
     if (   ([screens count] < 2)
-		|| ([[self selectedAppearanceConnectionWindowDisplayCriteriaIndex] isEqualTo: tbNumberWithUnsignedInteger(0)]  )  ) {
+		|| ([[self selectedAppearanceConnectionWindowDisplayCriteriaIndex] isEqualTo: [NSNumber numberWithUnsignedInteger: 0u]]  )  ) {
         
 		// Show the default screen, but don't change the preference
 		BOOL wereDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
 		[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
-        [self setSelectedAppearanceConnectionWindowScreenIndex: tbNumberWithUnsignedInteger(0)];
+        [self setSelectedAppearanceConnectionWindowScreenIndex: [NSNumber numberWithUnsignedInteger: 0u]];
 		[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: wereDoingSetupOfUI];
 		
         [[appearancePrefsView appearanceConnectionWindowScreenButton] setEnabled: NO];
@@ -3001,7 +2949,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             screenIxToSelect = 0;
         }
         
-        [self setSelectedAppearanceConnectionWindowScreenIndex: tbNumberWithUnsignedInteger(screenIxToSelect)];
+        [self setSelectedAppearanceConnectionWindowScreenIndex: [NSNumber numberWithUnsignedInteger: screenIxToSelect]];
         
         [[appearancePrefsView appearanceConnectionWindowScreenButton] setEnabled: [gTbDefaults canChangeValueForKey: @"statusDisplayNumber"]];
     }
@@ -3105,17 +3053,17 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  [newValue isNotEqualTo: [self selectedAppearanceIconSetIndex]]  ) {
         NSArrayController * ac = [appearancePrefsView appearanceIconSetArrayController];
         NSArray * list = [ac content];
-        if (  tbUnsignedIntegerValue(newValue) < [list count]  ) {
+        if (  [newValue unsignedIntegerValue] < [list count]  ) {
             
             [self setSelectedAppearanceIconSetIndexDirect: newValue];
             
             // Select the new index
-            [ac setSelectionIndex: tbUnsignedIntegerValue(newValue)];
+            [ac setSelectionIndex: [newValue unsignedIntegerValue]];
             
             // Set the preference
-            if (  tbUnsignedIntegerValue(newValue) != NSNotFound  ) {
+            if (  [newValue unsignedIntegerValue] != NSNotFound  ) {
                 // Set the preference
-                NSString * iconSetName = [[[list objectAtIndex: tbUnsignedIntegerValue(newValue)] objectForKey: @"value"] lastPathComponent];
+                NSString * iconSetName = [[[list objectAtIndex: [newValue unsignedIntegerValue]] objectForKey: @"value"] lastPathComponent];
                 if (  [iconSetName isEqualToString: @"TunnelBlick.TBMenuIcons"]  ) {
                     [gTbDefaults removeObjectForKey: @"menuIconSet"];
                 } else {
@@ -3138,15 +3086,15 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  [newValue isNotEqualTo: [self selectedAppearanceConnectionWindowDisplayCriteriaIndex]]  ) {
         NSArrayController * ac = [appearancePrefsView appearanceConnectionWindowDisplayCriteriaArrayController];
         NSArray * list = [ac content];
-        if (  tbUnsignedIntegerValue(newValue) < [list count]  ) {
+        if (  [newValue unsignedIntegerValue] < [list count]  ) {
             
             [self setSelectedAppearanceConnectionWindowDisplayCriteriaIndexDirect: newValue];
             
             // Select the new index
-            [ac setSelectionIndex: tbUnsignedIntegerValue(newValue)];
+            [ac setSelectionIndex: [newValue unsignedIntegerValue]];
             
             // Set the preference
-            NSDictionary * dict = [list objectAtIndex: tbUnsignedIntegerValue(newValue)];
+            NSDictionary * dict = [list objectAtIndex: [newValue unsignedIntegerValue]];
             NSString * preferenceValue = [dict objectForKey: @"value"];
             [gTbDefaults setObject: preferenceValue forKey: @"connectionWindowDisplayCriteria"];
             
@@ -3163,17 +3111,17 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  [newValue isNotEqualTo: [self selectedAppearanceConnectionWindowScreenIndex]]  ) {
         NSArrayController * ac = [appearancePrefsView appearanceConnectionWindowScreenArrayController];
         NSArray * list = [ac content];
-        if (  tbUnsignedIntegerValue(newValue) < [list count]  ) {
+        if (  [newValue unsignedIntegerValue] < [list count]  ) {
             
             [self setSelectedAppearanceConnectionWindowScreenIndexDirect: newValue];
             
             // Select the new size
-            [ac setSelectionIndex: tbUnsignedIntegerValue(newValue)];
+            [ac setSelectionIndex: [newValue unsignedIntegerValue]];
             
             // Set the preference if this isn't just the initialization
             if (  ! [((MenuController *)[NSApp delegate]) doingSetupOfUI]  ) {
                 // Set the preference
-                NSNumber * displayNumber = [[list objectAtIndex: tbUnsignedIntegerValue(newValue)] objectForKey: @"value"];
+                NSNumber * displayNumber = [[list objectAtIndex: [newValue unsignedIntegerValue]] objectForKey: @"value"];
 				[gTbDefaults setObject: displayNumber forKey: @"statusDisplayNumber"];
             }
         }

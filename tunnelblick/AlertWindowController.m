@@ -138,9 +138,7 @@ float heightForStringDrawing(NSString *myString,
 	[[tv textStorage] setAttributedString: msgAs];
 	
 	// Make the cursor disappear
-	if (  runningOnLeopardOrNewer()  ) {
-		[tv setSelectedRange: NSMakeRange([msg length] + 1, 0)];
-	}
+	[tv setSelectedRange: NSMakeRange([msg length] + 1, 0)];
 }
 
 -(void) awakeFromNib {

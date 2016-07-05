@@ -396,18 +396,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLangua
         
         reasonForTermination = terminatingForUnknownReason;
         
-//		if (  runningOnLeopardOrNewer()  ) {
-//			// WHEN DROP OS X 10.4 ("Tiger") support, REMOVE the "OnDemand" key from net.tunnelblick.tunnelblick.LaunchAtLogin
-//		}
-		
-        if (  ! runningOnTigerOrNewer()  ) {
-            TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
-                            NSLocalizedString(@"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")", @"Window text"),
-                            nil, nil, nil);
-            [self terminateBecause: terminatingBecauseOfError];
-            
-        }
-        
 #if MAC_OS_X_VERSION_MIN_REQUIRED != MAC_OS_X_VERSION_10_4
         if (  ! runningOn64BitKernel()  ) {
             if (  runningOnSnowLeopardPointEightOrNewer()  ) {
@@ -4204,19 +4192,13 @@ static void signal_handler(int signalNumber)
 
 -(BOOL) hasValidSignature
 {
-    if (  ! runningOnLeopardOrNewer()  ) {              // If on Tiger, we can't check the signature, so pretend it is valid
-        return TRUE;
-    }
-    
     // Normal versions of Tunnelblick can be checked with codesign running as the user
     //
     // But Deployed versions need to run codesign as root, so codesign will "see" the .tblk contents that
-    // are owned by root and not accessible to other users (like keys and certificates)
+    // are owned by root and not accessible to other users (like keys and certificates). "openvpnstart checkSignature" runs codesign as
+    // root, but only if the Deployed Tunnelblick has been installed.
     //
-    // "openvpnstart checkSignature" runs codesign as root, but it can only be used if openvpnstart has been set SUID root by the
-    // installation process.
-    //
-    // So if a Deployed Tunnelblick hasn't been installed yet (e.g., it is running from .dmg), we don't check the signature here.
+    // So if a Deployed Tunnelblick hasn't been installed yet (e.g., it is running from .dmg), we don't check the signature here, and we assume it is valid.
     //
     // There could be a separate check for an invalid signature in installer, since installer could run codesign as root
     // using the installer's authorization. However, installer runs without a UI, so it is complicated to provide the ability
@@ -4224,24 +4206,26 @@ static void signal_handler(int signalNumber)
     // separate check has a low priority.
     
     if (  [gFileMgr fileExistsAtPath: gDeployPath]  ) {
-        NSString * ovpnvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-        NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: ovpnvpnstartPath traverseLink: NO];
+        NSString * tunnelblickdPath = [[NSBundle mainBundle] pathForResource: @"tunnelblickd" ofType: nil];
+        if (  [tunnelblickdPath isNotEqualTo: @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd"]  ) {
+            return YES;
+        }
+        NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: tunnelblickdPath traverseLink: NO];
         id obj = [attributes fileOwnerAccountID];
         if (   ( ! obj)
             || ( [obj unsignedLongValue] != 0)  ) {
-            return YES;     // openvpnstart is not owned by root:wheel, so it can't check the signature properly
+            return YES;     // tunnelblickd is not owned by root:wheel, so it can't check the signature properly
         }
         obj = [attributes fileGroupOwnerAccountID];
         if (   ( ! obj)
             || ( [obj unsignedLongValue] != 0)  ) {
-            return YES;     // openvpnstart is not owned by root:wheel, so it can't check the signature properly
+            return YES;     // tunnelblickd is not owned by root:wheel, so it can't check the signature properly
         }
-        NSUInteger permissions = [attributes filePosixPermissions];
-        if (  0 == (permissions & S_ISUID)  ) {
-            return YES;     // openvpnstart is not SUID, so it can't check the signature properly
+        if (  ! tunnelblickdIsLoaded()) {
+            return YES;     // tunnelblickd is not loaded
         }
 
-        // Deployed and openvpnstart has SUID root, so we can run it to check the signature
+        // Deployed and tunnelblickd has been installed, so we can run it to check the signature
         OSStatus status = runOpenvpnstart([NSArray arrayWithObject: @"checkSignature"], nil, nil);
         return (status == EXIT_SUCCESS);
     }
@@ -5314,51 +5298,32 @@ static void signal_handler(int signalNumber)
 		
         (void) isBOOL;
         
-		if (  [UIHelper useOutlineViewOfConfigurations]  ) {
-			ConfigurationsView      * cv     = [[self logScreen] configurationsPrefsView];
-			LeftNavViewController   * ovc    = [cv outlineViewController];
-			NSOutlineView           * ov     = [ovc outlineView];
-			NSIndexSet              * idxSet = [ov selectedRowIndexes];
-			
-			if  (  [idxSet count] != 0  ) {
-                
-// The Xcode 3.2 analyzer cannot deal with blocks, so to analyze (the rest of) MenuController, we don't compile the one section of code that has a block
+        ConfigurationsView      * cv     = [[self logScreen] configurationsPrefsView];
+        LeftNavViewController   * ovc    = [cv outlineViewController];
+        NSOutlineView           * ov     = [ovc outlineView];
+        NSIndexSet              * idxSet = [ov selectedRowIndexes];
+        
+        if  (  [idxSet count] != 0  ) {
+            
+            // The Xcode 3.2 analyzer cannot deal with blocks, so to analyze (the rest of) MenuController, we don't compile the one section of code that has a block
 #ifdef TBAnalyzeONLY
-				#warning "NOT AN EXECUTABLE -- ANALYZE ONLY but does not fully analyze code in setPreferenceForSelectedConfigurationsWithKey:to:isBool:"
-				(void) idxSet;
+#warning "NOT AN EXECUTABLE -- ANALYZE ONLY but does not fully analyze code in setPreferenceForSelectedConfigurationsWithKey:to:isBool:"
+            (void) idxSet;
 #else
-				[idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-					(void) stop;
-					
-					LeftNavItem * item = [ov itemAtRow: idx];
-					NSString * displayName = [item displayName];
-					if (  [displayName length] != 0  ) {	// Ignore folders; just process configurations
-						NSString * actualKey = [displayName stringByAppendingString: key];
-                        [gTbDefaults setObject: newValue forKey: actualKey];
-					}
-				}];
-#endif
-			} else {
-				NSLog(@"setPreferenceForSelectedConfigurationsWithKey: No configuration is selected so cannot change the '%@' preference", key);
-			}
-		} else {
-            ConfigurationsView * cv = [[self logScreen] configurationsPrefsView];
-			NSTableView        * tv = [cv leftNavTableView];
-			if (  tv  ) {
-				NSUInteger  selectedIdx = [tv selectedRow];
-				
-				NSMutableArray * displayNames = [[self logScreen] leftNavDisplayNames];
-				NSString * displayName = [displayNames objectAtIndex: selectedIdx];
-				if (  [displayName length] != 0 ) {
-					NSString * actualKey = [displayName stringByAppendingString: key];
+            [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+                (void) stop;
+                
+                LeftNavItem * item = [ov itemAtRow: idx];
+                NSString * displayName = [item displayName];
+                if (  [displayName length] != 0  ) {	// Ignore folders; just process configurations
+                    NSString * actualKey = [displayName stringByAppendingString: key];
                     [gTbDefaults setObject: newValue forKey: actualKey];
-				} else {
-					NSLog(@"setPreferenceForSelectedConfigurationsWithKey: row %lu is not a configuration", (long) selectedIdx);
-				}
-			} else {
-                NSLog(@"setPreferenceForSelectedConfigurationsWithKey: but no NSTableView is available");
-            }
-		}
+                }
+            }];
+#endif
+        } else {
+            NSLog(@"setPreferenceForSelectedConfigurationsWithKey: No configuration is selected so cannot change the '%@' preference", key);
+        }
 	} else {
         NSLog(@"setPreferenceForSelectedConfigurationsWithKey: Key and value for the preference were not provided");
     }
@@ -6560,10 +6525,6 @@ BOOL warnAboutNonTblks(void)
         [ConfigurationManager installConfigurationsInCurrentMainThreadDoNotShowMessagesDoNotNotifyDelegateWithPaths: tblksToInstallFirst];
     }
     
-    if (  ! runningOnLeopardOrNewer()  ) {
-        installFlags = installFlags | INSTALLER_HELPER_IS_TO_BE_SUID;
-    }
-        
     NSLog(@"Beginning installation or repair");
 
     NSString *launchPath = [[NSBundle mainBundle] pathForResource:@"installer" ofType:nil];
@@ -6674,31 +6635,29 @@ BOOL warnAboutNonTblks(void)
 
 BOOL needToReloadLaunchDaemon(void) {
     
-    if (  runningOnLeopardOrNewer()  ) {
-        // Compare the saved hashes of the tunnelblickd launchctl .plist and the tunnelblickd program with newly-calculated hashes to see if
-        // the .plist or program have changed. That can happen when a Sparkle update replaces the Tunnelblick application.
-        // If the .plist or program have changed or one or both hashes don't exist or have bad ownership/permissions,
-        //    then we need to reload tunnelblickd to finish the update.
+    // Compare the saved hashes of the tunnelblickd launchctl .plist and the tunnelblickd program with newly-calculated hashes to see if
+    // the .plist or program have changed. That can happen when a Sparkle update replaces the Tunnelblick application.
+    // If the .plist or program have changed or one or both hashes don't exist or have bad ownership/permissions,
+    //    then we need to reload tunnelblickd to finish the update.
+    
+    BOOL daemonOk = FALSE;
+    if (   [gFileMgr fileExistsAtPath: L_AS_T_TUNNELBLICKD_HASH_PATH]
+        && [gFileMgr fileExistsAtPath: L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH]
+        && checkOwnerAndPermissions(L_AS_T_TUNNELBLICKD_HASH_PATH,                 0, 0, PERMS_SECURED_READABLE)
+        && checkOwnerAndPermissions(L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH, 0, 0, PERMS_SECURED_READABLE)  ) {
         
-        BOOL daemonOk = FALSE;
-        if (   [gFileMgr fileExistsAtPath: L_AS_T_TUNNELBLICKD_HASH_PATH]
-            && [gFileMgr fileExistsAtPath: L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH]
-            && checkOwnerAndPermissions(L_AS_T_TUNNELBLICKD_HASH_PATH,                 0, 0, PERMS_SECURED_READABLE)
-            && checkOwnerAndPermissions(L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH, 0, 0, PERMS_SECURED_READABLE)  ) {
-            
-            NSData * previousDaemonHashData = [gFileMgr contentsAtPath: L_AS_T_TUNNELBLICKD_HASH_PATH];
-            NSData * previousPlistHashData  = [gFileMgr contentsAtPath: L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH];
-            NSString * previousDaemonHash = [[[NSString alloc] initWithData: previousDaemonHashData encoding: NSUTF8StringEncoding] autorelease];
-            NSString * previousPlistHash  = [[[NSString alloc] initWithData: previousPlistHashData  encoding: NSUTF8StringEncoding] autorelease];
-            daemonOk =  (   [previousDaemonHash isEqual: hashForTunnelblickdProgram()]
-                         && [previousPlistHash  isEqual: hashForTunnelblickdPlist()]
-                         );
-        }
-        
-        if (  ! daemonOk  ) {
-            NSLog(@"Need to reload 'tunnelblickd'");
-            return TRUE;
-        }
+        NSData * previousDaemonHashData = [gFileMgr contentsAtPath: L_AS_T_TUNNELBLICKD_HASH_PATH];
+        NSData * previousPlistHashData  = [gFileMgr contentsAtPath: L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH];
+        NSString * previousDaemonHash = [[[NSString alloc] initWithData: previousDaemonHashData encoding: NSUTF8StringEncoding] autorelease];
+        NSString * previousPlistHash  = [[[NSString alloc] initWithData: previousPlistHashData  encoding: NSUTF8StringEncoding] autorelease];
+        daemonOk =  (   [previousDaemonHash isEqual: hashForTunnelblickdProgram()]
+                     && [previousPlistHash  isEqual: hashForTunnelblickdPlist()]
+                     );
+    }
+    
+    if (  ! daemonOk  ) {
+        NSLog(@"Need to reload 'tunnelblickd'");
+        return TRUE;
     }
     
     return FALSE;
@@ -6718,8 +6677,7 @@ unsigned needToRunInstaller(BOOL inApplications)
     if (  needToReloadLaunchDaemon()                             ) flags = flags | INSTALLER_MUST_RELOAD_DAEMON;
     if (  needToRepairPackages()                                 ) flags = flags | INSTALLER_SECURE_TBLKS;
     if (  needToMoveLibraryOpenVPN()                             ) flags = flags | INSTALLER_MOVE_LIBRARY_OPENVPN;
-	if (   runningOnLeopardOrNewer()
-		&& ( ! tunnelblickdIsLoaded() )  ) {
+	if (  ! tunnelblickdIsLoaded()  ) {
 		flags = flags | INSTALLER_SECURE_APP;
 		NSLog(@"tunnelblickd is not loaded");
 	}
@@ -6936,7 +6894,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         return YES; // NSLog already called
 	}
 	
-    if (  ! checkOwnerAndPermissions(tunnelblickHelperPath, 0, 0, (runningOnLeopardOrNewer() ? PERMS_SECURED_EXECUTABLE : PERMS_SECURED_SUID))  ) {
+    if (  ! checkOwnerAndPermissions(tunnelblickHelperPath, 0, 0, PERMS_SECURED_EXECUTABLE)  ) {
         return YES; // NSLog already called
 	}
 	
@@ -7084,16 +7042,14 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     }
     
     // Check the tunnelblickd .plist
-	if (  runningOnLeopardOrNewer()  ) {
-		if (  [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH]  ) {
-			if (  ! checkOwnerAndPermissions(TUNNELBLICKD_PLIST_PATH, 0, 0, PERMS_SECURED_READABLE)  ) {
-				return YES; // NSLog already called
-			}
-		} else {
-			NSLog(@"Need to install tunnelblickd plist at %@", TUNNELBLICKD_PLIST_PATH);
-			return YES;
-		}
-	}
+    if (  [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH]  ) {
+        if (  ! checkOwnerAndPermissions(TUNNELBLICKD_PLIST_PATH, 0, 0, PERMS_SECURED_READABLE)  ) {
+            return YES; // NSLog already called
+        }
+    } else {
+        NSLog(@"Need to install tunnelblickd plist at %@", TUNNELBLICKD_PLIST_PATH);
+        return YES;
+    }
     
     // Check the primary forced preferences .plist
     if (  [gFileMgr fileExistsAtPath: L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH]  ) {
@@ -8232,7 +8188,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     NSTimeInterval timeUntilAct;
     if (  timestamp == 0.0  ) {
         timeUntilAct = 0.1;
-	} else if (  runningOnSnowLeopardOrNewer()  ) { // nowAbsoluteNanoseconds doesn't seem to give results related to timestamps on 10.4 or 10.5
+    } else {
         uint64_t nowNanoseconds = nowAbsoluteNanoseconds();
         NSTimeInterval nowTimeInterval = (  ((NSTimeInterval) nowNanoseconds) / 1.0e9  );
         timeUntilAct = timestamp + delay - nowTimeInterval;
@@ -8240,8 +8196,6 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 		if (  timeUntilAct < 0.1) {
 			timeUntilAct = 0.1;
 		}
-    } else {
-		timeUntilAct = delay;
     }
     
 	TBLog(@"DB-MO", @"Queueing %s in %f seconds", sel_getName(selector), timeUntilAct);

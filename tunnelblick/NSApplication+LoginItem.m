@@ -402,58 +402,6 @@ extern TBUserDefaults * gTbDefaults;
 	}
 }
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
-
--(void) deleteOurLoginItemTiger {
-    
-    // Read the loginwindow preferences:
-    CFArrayRef cfItems = CFPreferencesCopyValue((CFStringRef)@"AutoLaunchedApplicationDictionary",
-                                                (CFStringRef)@"loginwindow",
-                                                kCFPreferencesCurrentUser,
-                                                kCFPreferencesAnyHost);
-    
-    NSMutableArray * loginItems = [[(NSArray *)cfItems mutableCopy] autorelease];
-    
-    // Delete our login item (if there is one)
-    BOOL dirty = FALSE;
-    NSUInteger ix;
-    for (  ix = 0; ix < [loginItems count]; ix++  ) {
-        
-        NSDictionary *item;
-        item = [loginItems objectAtIndex: ix];
-        if (  [[item objectForKey: @"Path"] isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
-            [loginItems removeObjectAtIndex: ix];
-            dirty = TRUE;
-            break;
-        }
-    }
-    
-    // If we deleted anything, write the loginwindow preferences back out
-    if (  dirty  ) {
-        CFPreferencesSetValue((CFStringRef)@"AutoLaunchedApplicationDictionary",
-                              loginItems,
-                              (CFStringRef)@"loginwindow",
-                              kCFPreferencesCurrentUser,
-                              kCFPreferencesAnyHost);
-        
-        CFPreferencesSynchronize((CFStringRef) @"loginwindow",
-                                 kCFPreferencesCurrentUser,
-                                 kCFPreferencesAnyHost);
-    }
-    
-    CFRelease(cfItems);
-	
-	if (  dirty  ) {
-		NSLog(@"Succesfully removed the old login item");
-	} else {
-		NSLog(@"No old login item to remove");
-	}
-	
-	[self haveDealtWithOldLoginItem];
-}
-
-#endif
-
 -(void) deleteOurLoginItemLeopardOrNewerThread {
 	
 	// This runs in a separate thread because deleteOurLoginItemLeopardAndUp can stall for a long time on network access
@@ -474,15 +422,6 @@ extern TBUserDefaults * gTbDefaults;
     // When the old login item has been dealt with, the haveDealtWithOldLoginItem method will be invoked, which will set the preference.
     
     if (  ! [gTbDefaults objectForKey: @"haveDealtWithOldLoginItem"]  ) {
-
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
-		if (  ! runningOnLeopardOrNewer()  ) {
-			NSLog(@"Removing the old login item (if any) so we can use the new mechanism that controls Tunnelblick's launch on login");
-			[self deleteOurLoginItemTiger];
-			return;
-		}
-#endif
-		
 		NSLog(@"Launching a thread to remove the old login item (if any) so we can use the new mechanism that controls Tunnelblick's launch on login");
         [NSThread detachNewThreadSelector: @selector(deleteOurLoginItemLeopardOrNewerThread) toTarget: NSApp withObject: nil];
     }

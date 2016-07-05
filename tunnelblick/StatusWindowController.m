@@ -325,11 +325,6 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     [self setUpUnits: inRateUnitsTF  cell: inRateUnitsTFC  and: outRateUnitsTF  cell: outRateUnitsTFC  array: gRateUnits];
     [self setUpUnits: inTotalUnitsTF cell: inTotalUnitsTFC and: outTotalUnitsTF cell: outTotalUnitsTFC array: gTotalUnits];
     
-    if (  ! runningOnLeopardOrNewer()  ) {
-        [[self window] setBackgroundColor: [NSColor blackColor]];
-        [[self window] setAlphaValue: 0.77f];
-    }
-    
 	[connectButton    setTitle: localizeNonLiteral(@"Connect",   @"Button")];
 	[disconnectButton setTitle: localizeNonLiteral(@"Disconnect", @"Button")];
 	

@@ -733,7 +733,6 @@ extern volatile int32_t       gActiveInactiveState;
              *openvpnstartArgs,              @"ProgramArguments",
              workingDirectory,               @"WorkingDirectory",
              daemonDescription,              @"ServiceDescription",
-             [NSNumber numberWithBool: YES], @"onDemand",
              [NSNumber numberWithBool: YES], @"RunAtLoad",
              nil];
     
@@ -937,11 +936,7 @@ extern volatile int32_t       gActiveInactiveState;
     }
     [req setValue: userAgent forHTTPHeaderField: @"User-Agent"];
 	[req setValue: hostName  forHTTPHeaderField: @"Host"];
-    if (  runningOnLeopardOrNewer()  ) {
-        [req setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
-    } else {
-        [req setCachePolicy: NSURLRequestReloadIgnoringCacheData];
-    }
+    [req setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
 	
 	// Make the request synchronously. Make it asynchronous (in effect) by invoking this method from a separate thread.
     //
@@ -1950,15 +1945,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         bitMask = bitMask | OPENVPNSTART_EXTRA_LOGGING;
     }
     
-    // There is a bug in the 64-bit Intel version of OS X 10.5 libresolv that causes some versions of OpenVPN to crash.
-    // It isn't clear if the same bug exists in 10.4.4 and higher, which support Intel, but we assume it does.
-    // So we force use of the 32-bit version of OpenVPN if running under 10.4 or 10.5 on Intel unless the user specifies the 64-bit version is OK
-    if (   ( ! [gTbDefaults boolForKey: @"allow64BitIntelOpenvpnOnTigerOrLeopard"])
-        && ( ! runningOnSnowLeopardOrNewer())
-        && runningOnIntel()  ) {
-        bitMask = bitMask | OPENVPNSTART_USE_I386_OPENVPN;
-    }
-    
     NSString * bitMaskString = [NSString stringWithFormat: @"%d", bitMask];
     
     NSString * leasewatchOptionsKey = [displayName stringByAppendingString: @"-leasewatchOptions"];
@@ -2523,7 +2509,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) waitUntilCompletelyDisconnected {
     
     // Cannot be called on the main thread because it will never return
-    if (  runningOnMainThread()  ) {
+    if (  [NSThread isMainThread]  ) {
         NSLog(@"waitUntilCompletelyDisconnected: on main thread");
         [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
     }

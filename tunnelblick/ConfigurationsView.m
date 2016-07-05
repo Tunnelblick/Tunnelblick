@@ -173,60 +173,48 @@ extern TBUserDefaults * gTbDefaults;
 	
     // Left split view -- list of configurations and configuration manipulation
     
-	NSTableColumn     * tableColumn = [self leftNavTableColumn];
-	NSTableHeaderCell * tableCell = [tableColumn headerCell];
-	[tableCell setTitle: NSLocalizedString(@"Configurations", @"Window text")];
 	if (  rtl  ) {
-		[tableCell       setAlignment: NSRightTextAlignment]; // Set the text in the header for the list of configurations (Tiger only) to be right aligned
 		[leftNavTableTFC setAlignment: NSRightTextAlignment]; // Set the text in the list of configurations to be right aligned
 	}
 	
-	if (  [UIHelper useOutlineViewOfConfigurations]  ) {
-		
-        NSOutlineView * outlineView = [ (NSScrollView *)[outlineViewController view] documentView];
-		
-		if (  rtl  ) {
-			
-			// Put the outlineView's disclosure triangle on the right instead of on the left
-			if (  [outlineView respondsToSelector: @selector(setUserInterfaceLayoutDirection:)]  ) {
-				
+    NSOutlineView * outlineView = [ (NSScrollView *)[outlineViewController view] documentView];
+    
+    if (  rtl  ) {
+        
+        // Put the outlineView's disclosure triangle on the right instead of on the left
+        if (  [outlineView respondsToSelector: @selector(setUserInterfaceLayoutDirection:)]  ) {
+            
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
-				
-				// NSUserInterfaceLayoutDirection is not available in Xcode 3.2.2
-				
-				enum {
-					NSUserInterfaceLayoutDirectionLeftToRight = 0,
-					NSUserInterfaceLayoutDirectionRightToLeft = 1
-				};
-				typedef NSInteger NSUserInterfaceLayoutDirection;
-				
-				NSUserInterfaceLayoutDirection rightToLeftLayoutDirection = NSUserInterfaceLayoutDirectionRightToLeft;
-				
-				NSMethodSignature* signature = [[outlineView class] instanceMethodSignatureForSelector: @selector(setUserInterfaceLayoutDirection:)];
-				NSInvocation* invocation = [NSInvocation invocationWithMethodSignature: signature];
-				[invocation setTarget: outlineView];
-				[invocation setSelector: @selector(setUserInterfaceLayoutDirection:)];
-				[invocation setArgument: &rightToLeftLayoutDirection atIndex: 2];
-				[invocation invoke];
-				
-#else		
-				
-				[outlineView setUserInterfaceLayoutDirection: NSUserInterfaceLayoutDirectionRightToLeft];
-				
+            
+            // NSUserInterfaceLayoutDirection is not available in Xcode 3.2.2
+            
+            enum {
+                NSUserInterfaceLayoutDirectionLeftToRight = 0,
+                NSUserInterfaceLayoutDirectionRightToLeft = 1
+            };
+            typedef NSInteger NSUserInterfaceLayoutDirection;
+            
+            NSUserInterfaceLayoutDirection rightToLeftLayoutDirection = NSUserInterfaceLayoutDirectionRightToLeft;
+            
+            NSMethodSignature* signature = [[outlineView class] instanceMethodSignatureForSelector: @selector(setUserInterfaceLayoutDirection:)];
+            NSInvocation* invocation = [NSInvocation invocationWithMethodSignature: signature];
+            [invocation setTarget: outlineView];
+            [invocation setSelector: @selector(setUserInterfaceLayoutDirection:)];
+            [invocation setArgument: &rightToLeftLayoutDirection atIndex: 2];
+            [invocation invoke];
+            
+#else
+            
+            [outlineView setUserInterfaceLayoutDirection: NSUserInterfaceLayoutDirectionRightToLeft];
+            
 #endif
-			}
-		}
-		
-		[leftNavDataSrc reload];
-        [outlineView setDataSource: leftNavDataSrc];
-        [outlineView setDelegate:   leftNavDataSrc];
-        [outlineView expandItem: [outlineView itemAtRow: 0]];
-
-	} else {
-	
-		MyPrefsWindowController * wc = [((MenuController *)[NSApp delegate]) logScreen];
-		[leftNavTableView setDelegate: wc];
- 	}
+        }
+    }
+    
+    [leftNavDataSrc reload];
+    [outlineView setDataSource: leftNavDataSrc];
+    [outlineView setDelegate:   leftNavDataSrc];
+    [outlineView expandItem: [outlineView itemAtRow: 0]];
 	
 	[renameConfigurationMenuItem          setTitle: NSLocalizedString(@"Rename Configuration..."                          , @"Menu Item")];
     [duplicateConfigurationMenuItem       setTitle: NSLocalizedString(@"Duplicate Configuration..."                       , @"Menu Item")];
@@ -321,9 +309,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSView *,              leftSplitView)
 
 TBSYNTHESIZE_OBJECT_GET(retain, LeftNavViewController *, outlineViewController)
 TBSYNTHESIZE_OBJECT_GET(retain, LeftNavDataSource *,   leftNavDataSrc)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSTableView *,         leftNavTableView)
-TBSYNTHESIZE_OBJECT_GET(retain, NSTableColumn *,       leftNavTableColumn)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     leftNavTableTFC)
 

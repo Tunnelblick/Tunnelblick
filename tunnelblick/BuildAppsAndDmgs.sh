@@ -83,15 +83,6 @@ fi
   hiutil -Caf "${app_path}/Contents/Resources/help/help.helpindex" "${app_path}/Contents/Resources/help"
 
 # Copy the tun and tap kexts
-  if [ -d "../third_party/products/tuntap/tap-20090913.kext" ] ; then
-    rm -r -f                                  "${app_path}/Contents/Resources/tap-20090913.kext"
-    cp -R "../third_party/products/tuntap/tap-20090913.kext/" "${app_path}/Contents/Resources/tap-20090913.kext"
-  fi
-  if [ -d "../third_party/products/tuntap/tun-20090913.kext" ] ; then
-    rm -r -f                                  "${app_path}/Contents/Resources/tun-20090913.kext"
-    cp -R "../third_party/products/tuntap/tun-20090913.kext/" "${app_path}/Contents/Resources/tun-20090913.kext"
-  fi
-
   rm -r -f                                  "${app_path}/Contents/Resources/tap-20111101.kext"
   cp -R "../third_party/products/tuntap/tap-20111101.kext/" "${app_path}/Contents/Resources/tap-20111101.kext"
 
@@ -148,12 +139,6 @@ changeEntry "${uninstaller_path}/Contents/Info.plist" TBBUILDNUMBER "${tbbn}"
 # So we change a Tunnelblick build # of (for example) 1234.5678 to just 5678 for use in the kexts.
 # Since the kexts have TBBUILDNUMBER.1, TBBUILDNUMBER.2, or TBBUILDNUMBER.3, they will be 5678.1, 5678.2, and 5678.3
 readonly kextbn="${tbbn##*.}"
-if [ -d          "${app_path}/Contents/Resources/tun-20090913.kext" ] ; then
-  changeEntry "${app_path}/Contents/Resources/tun-20090913.kext/Contents/Info.plist" TBBUILDNUMBER "${kextbn}"
-fi
-if [ -d          "${app_path}/Contents/Resources/tap-20090913.kext" ] ; then
-  changeEntry "${app_path}/Contents/Resources/tap-20090913.kext/Contents/Info.plist" TBBUILDNUMBER "${kextbn}"
-fi
 changeEntry "${app_path}/Contents/Resources/tun-20111101.kext/Contents/Info.plist"   TBBUILDNUMBER "${kextbn}"
 changeEntry "${app_path}/Contents/Resources/tap-20111101.kext/Contents/Info.plist"   TBBUILDNUMBER "${kextbn}"
 changeEntry "${app_path}/Contents/Resources/tun.kext/Contents/Info.plist"            TBBUILDNUMBER "${kextbn}"

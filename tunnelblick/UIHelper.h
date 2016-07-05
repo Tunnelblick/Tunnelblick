@@ -53,7 +53,5 @@
 +(void)         showSuccessNotificationTitle: (NSString *) title
                                          msg: (NSString *) msg;
 
-+(BOOL)         useOutlineViewOfConfigurations;
-
 @end
 

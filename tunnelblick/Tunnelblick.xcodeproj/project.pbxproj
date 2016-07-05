@@ -79,8 +79,6 @@
 		635713A61A6709D800709670 /* AR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635713A31A6709D800709670 /* AR.lproj */; };
 		635971421C06736B0055FBC5 /* UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 635971411C06736B0055FBC5 /* UIHelper.m */; };
 		635971461C0673A10055FBC5 /* Preferences-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635971431C0673A10055FBC5 /* Preferences-RTL.xib */; };
-		635971471C0673A10055FBC5 /* Preferences-Tiger-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635971441C0673A10055FBC5 /* Preferences-Tiger-RTL.xib */; };
-		635971481C0673A10055FBC5 /* Preferences-Tiger.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635971451C0673A10055FBC5 /* Preferences-Tiger.xib */; };
 		635BF1AF1501CE4E00D87717 /* ExternalBuildCleanScript.sh in Resources */ = {isa = PBXBuildFile; fileRef = 635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */; };
 		635C80461300353000DB27AE /* ApplescriptCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 635C80451300353000DB27AE /* ApplescriptCommands.m */; };
 		635CA45312F8285D00287298 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 635CA45212F8285D00287298 /* COPYING */; };
@@ -423,8 +421,6 @@
 		635971401C06736B0055FBC5 /* UIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIHelper.h; sourceTree = "<group>"; };
 		635971411C06736B0055FBC5 /* UIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIHelper.m; sourceTree = "<group>"; };
 		635971431C0673A10055FBC5 /* Preferences-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Preferences-RTL.xib"; sourceTree = "<group>"; };
-		635971441C0673A10055FBC5 /* Preferences-Tiger-RTL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Preferences-Tiger-RTL.xib"; sourceTree = "<group>"; };
-		635971451C0673A10055FBC5 /* Preferences-Tiger.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Preferences-Tiger.xib"; sourceTree = "<group>"; };
 		635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ExternalBuildCleanScript.sh; sourceTree = "<group>"; };
 		635C80441300353000DB27AE /* ApplescriptCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplescriptCommands.h; sourceTree = "<group>"; };
 		635C80451300353000DB27AE /* ApplescriptCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplescriptCommands.m; sourceTree = "<group>"; };
@@ -1043,8 +1039,6 @@
 				633888F31C00F2FC0076032D /* PassphraseWindow-RTL.xib */,
 				635ECD061378B4A900F67F8D /* Preferences.xib */,
 				635971431C0673A10055FBC5 /* Preferences-RTL.xib */,
-				635971451C0673A10055FBC5 /* Preferences-Tiger.xib */,
-				635971441C0673A10055FBC5 /* Preferences-Tiger-RTL.xib */,
 				6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */,
 				630365D71C02D65600259FD8 /* SettingsSheet-RTL.xib */,
 				637A871B13B74DFB003C1871 /* SplashWindow.xib */,
@@ -1508,7 +1502,6 @@
 				6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */,
 				6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */,
 				639EC33E1C0E16A9001FE378 /* StatusWindow-RTL.xib in Resources */,
-				635971481C0673A10055FBC5 /* Preferences-Tiger.xib in Resources */,
 				634B02DF12553E5400A9D978 /* client.2.down.tunnelblick.sh in Resources */,
 				634B02E012553E5400A9D978 /* client.2.up.tunnelblick.sh in Resources */,
 				63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */,
@@ -1522,7 +1515,6 @@
 				635CA45312F8285D00287298 /* COPYING in Resources */,
 				639A10EB132AC74B00754C2A /* StatusWindow.xib in Resources */,
 				63ABFE9F1349F086003DEB64 /* LoginWindow.xib in Resources */,
-				635971471C0673A10055FBC5 /* Preferences-Tiger-RTL.xib in Resources */,
 				638856A0134B8056008DF8C1 /* PassphraseWindow.xib in Resources */,
 				6387F0F5135604240021E41B /* tunnelblick.sdef in Resources */,
 				63D92582135DAEE1001FF627 /* client.3.down.tunnelblick.sh in Resources */,

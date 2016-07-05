@@ -199,7 +199,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     MyPrefsWindowController * wc = [((MenuController *)[NSApp delegate]) logScreen];
     
     if (  [self connection] == [wc selectedConnection]  ) {
-        if (  ! runningOnMainThread()  ) {
+        if (  ! [NSThread isMainThread]  ) {
             [self performSelectorOnMainThread: @selector(insertLogEntry:) withObject: dict waitUntilDone: NO];
         }
     }
@@ -229,7 +229,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     //      (3) If scrolling to the end of the log, must scroll each time a line is added, before any other lines are added
     // If these conditions are not all met, the display does not always update properly.
     
-    NSUInteger ix = tbUnsignedIntegerValue(index);
+    NSUInteger ix = [index unsignedIntegerValue];
     
     NSArray * lines = [line componentsSeparatedByString: @"\n"];
     NSUInteger lineCount = [lines count];
@@ -262,7 +262,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     
     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
                            line,                               @"line",
-                           tbNumberWithUnsignedInteger(index), @"index",
+                           [NSNumber numberWithUnsignedInteger: index], @"index",
                            nil];
     [self insertLogEntry: dict];
 }
@@ -351,7 +351,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
         return;
     }
     
-    if (  ! runningOnMainThread()  ) {
+    if (  ! [NSThread isMainThread]  ) {
         [self performSelectorOnMainThread: @selector(clear) withObject: nil waitUntilDone: NO];
         return;
     }
@@ -511,7 +511,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
         return;             // Don't do anything if we aren't displaying the log for this connection
     }
     
-    if (  ! runningOnMainThread()  ) {
+    if (  ! [NSThread isMainThread]  ) {
         [self performSelectorOnMainThread: @selector(loadLogsWithInitialContents:) withObject: dict waitUntilDone: NO];
         return;
     }
@@ -1032,7 +1032,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
         return;
     }
     
-    if (  ! runningOnMainThread()  ) {
+    if (  ! [NSThread isMainThread]  ) {
         [self performSelectorOnMainThread: @selector(pruneLog) withObject: nil waitUntilDone: NO];
         return;
     }

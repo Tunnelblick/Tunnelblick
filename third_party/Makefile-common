@@ -20,10 +20,8 @@ EASY_RSA_3_NAME  = easy-rsa-3.0.0-rc2
 SPARKLE_NAME     = sparkle-1.5b6
 SPARKLE_ZIP_NAME = Sparkle 1.5b6.zip
 
-TUNTAP_20090913_NAME  = tuntap-20090913
 TUNTAP_20111101_NAME  = tuntap-20111101
 TUNTAP_CURRENT_NAME   = tuntap-20141104
-TUNTAP_20090913_TARGZ = tuntap_20090913_src.tar.gz
 TUNTAP_20111101_TARGZ = tuntap_20111101_src.tar.gz
 TUNTAP_CURRENT_TARGZ  = tuntap_20141104_src.tar.gz
 
@@ -469,11 +467,6 @@ built-openvpn-clean:
 
 built-tuntap-prepare:
 	@echo "THIRD_PARTY: Expanding Tun/Tap ..."
-	if [ $(XCODE_VERSION_MAJOR) = 0300 ] ; then \
-		cd $(TUNTAP_SOURCE_DIR)/$(TUNTAP_20090913_NAME) ; \
-		mkdir -p $(TUNTAP_BUILD_DIR)/$(TUNTAP_20090913_NAME) ; \
-		tar -x -f $(TUNTAP_20090913_TARGZ) -C $(TUNTAP_BUILD_DIR)/$(TUNTAP_20090913_NAME) ; \
-	fi ; \
 	cd $(TUNTAP_SOURCE_DIR)/$(TUNTAP_20111101_NAME) ; \
     mkdir -p $(TUNTAP_BUILD_DIR)/$(TUNTAP_20111101_NAME) ; \
 	tar -x -f $(TUNTAP_20111101_TARGZ) -C $(TUNTAP_BUILD_DIR)/$(TUNTAP_20111101_NAME) ; \
@@ -481,7 +474,7 @@ built-tuntap-prepare:
     mkdir -p $(TUNTAP_BUILD_DIR)/$(TUNTAP_CURRENT_NAME) ; \
 	tar -x -f $(TUNTAP_CURRENT_TARGZ) -C $(TUNTAP_BUILD_DIR)/$(TUNTAP_CURRENT_NAME) ;
 	@echo "THIRD_PARTY: Patching Tun/Tap..."
-	for tuntapdir in $(TUNTAP_20090913_NAME) $(TUNTAP_20111101_NAME) $(TUNTAP_CURRENT_NAME) ; do \
+	for tuntapdir in $(TUNTAP_20111101_NAME) $(TUNTAP_CURRENT_NAME) ; do \
 		if [ -d $(TUNTAP_BUILD_DIR)/$$tuntapdir/tuntap ] ; then \
 			cd $(TUNTAP_BUILD_DIR)/$$tuntapdir/tuntap ; \
 			for patch_file in $(TUNTAP_SOURCE_DIR)/$$tuntapdir/patches/*.diff; do \
@@ -508,11 +501,6 @@ built-tuntap: built-tuntap-prepare
 	export TUNTAP_ARCHS="$(foreach f, $(TARGET_ARCHS), -arch $f)" ; \
 	cd $(TUNTAP_BUILD_DIR) ; \
 	mkdir -p $(TUNTAP_PRODUCTS_DIR) ; \
-	if [ $(XCODE_VERSION_MAJOR) = 0300 ] ; then \
-		$(MAKE) -C $(TUNTAP_20090913_NAME)/tuntap/ ; \
-		cp -f -p -R $(TUNTAP_20090913_NAME)/tuntap/tap.kext $(TUNTAP_PRODUCTS_DIR)/tap-20090913.kext ; \
-		cp -f -p -R $(TUNTAP_20090913_NAME)/tuntap/tun.kext $(TUNTAP_PRODUCTS_DIR)/tun-20090913.kext ; \
-	fi ; \
 	$(MAKE) -C $(TUNTAP_20111101_NAME)/tuntap/ ; \
 	cp -f -p -R $(TUNTAP_20111101_NAME)/tuntap/tap.kext $(TUNTAP_PRODUCTS_DIR)/tap-20111101.kext ; \
 	cp -f -p -R $(TUNTAP_20111101_NAME)/tuntap/tun.kext $(TUNTAP_PRODUCTS_DIR)/tun-20111101.kext ; \

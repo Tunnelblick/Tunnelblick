@@ -69,11 +69,7 @@ extern TBUserDefaults * gTbDefaults;
 												 repeats: YES]
 				 retain];
 		
-		if (  runningOnLeopardOrNewer()  ) {
-			[[NSRunLoop mainRunLoop]    addTimer: timer forMode: NSRunLoopCommonModes];
-		} else {
-			[[NSRunLoop currentRunLoop] addTimer: timer forMode: NSDefaultRunLoopMode];
-		}
+		[[NSRunLoop mainRunLoop]    addTimer: timer forMode: NSRunLoopCommonModes];
 
         [timer tbSetTolerance: -1.0];
         TBLog(@"DB-UU", @"TBUIUpdater created with update interval %f", period);

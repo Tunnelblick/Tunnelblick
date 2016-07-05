@@ -72,19 +72,6 @@ void exitOpenvpnstart(OSStatus returnValue) {
     exit(returnValue);
 }
 
-BOOL runningOnLeopardOrNewer(void)
-{
-    unsigned major, minor, bugFix;
-    OSStatus status = getSystemVersion(&major, &minor, &bugFix);
-    if (  status != 0) {
-        fprintf(stderr, "getSystemVersion() failed");
-        return FALSE;
-    }
-    
-    return ( (major > 10) || (minor > 4) );
-	
-}
-
 void printUsageMessageAndExitOpenvpnstart(void) {
     const char * killStringC;
     if (  ALLOW_OPENVPNSTART_KILL  ) {
@@ -1109,22 +1096,6 @@ int runRoutePreDownScript(void) {
 //**************************************************************************************************************************
 int checkSignature(void) {
     
-    mode_t permissions = 0755;  // Permissions for codesign for Snow Leopard & higher. Leopard has 0555 permissions
-    
-    OSStatus err;
-    unsigned major, minor, bugFix;
-    if (  EXIT_SUCCESS == (err = getSystemVersion(&major, &minor, &bugFix))  ) {
-        if ( minor < 5) {
-            fprintf(stdout, "Assuming digital signature is valid because OS X 10.4 (\"Tiger\") doesn't support digital signatures");
-            exitOpenvpnstart(EXIT_SUCCESS);
-        }
-        if ( minor < 6) {
-            permissions = 0555;
-        }
-    } else {
-        fprintf(stderr, "Unable to determine OS version; assuming 'codesign' has permissions of 0755. Error = %ld", (long) err);
-    }
-    
     if (  ! [[NSFileManager defaultManager] fileExistsAtPath: TOOL_PATH_FOR_CODESIGN]  ) {  // If codesign binary doesn't exist, complain and assume it is NOT valid
         fprintf(stdout, "Assuming digital signature invalid because '%s' does not exist", [TOOL_PATH_FOR_CODESIGN UTF8String]);
         exitOpenvpnstart(183);
@@ -1132,7 +1103,8 @@ int checkSignature(void) {
     
     NSString * appPath =[[gResourcesPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]; // Remove /Contents/Resources
     NSArray * arguments = [NSArray arrayWithObjects: @"-v", appPath, nil];
-    int returnValue = runAsRoot(TOOL_PATH_FOR_CODESIGN, arguments, permissions);
+    mode_t permissionsForCodesign = 0755;
+    int returnValue = runAsRoot(TOOL_PATH_FOR_CODESIGN, arguments, permissionsForCodesign);
     exitOpenvpnstart(returnValue);
     return returnValue; // Avoid analyzer warnings
 }
@@ -1221,8 +1193,7 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
 NSString * TunTapSuffixToUse(void) {
     
     // Return tun/tap suffix appropriate for OS version:
-    //        * Tiger - Leopard              -20090913 version
-    //        * Snow Leopard - Mountain Lion UNSIGNED current version
+    //        * Snow Leopard - Mountain Lion UNSIGNED 2011-11-01 version
     //        * Mavericks and higher           SIGNED current version
     
     NSString * suffixToReturn;
@@ -1230,9 +1201,7 @@ NSString * TunTapSuffixToUse(void) {
     OSStatus err;
     unsigned major, minor, bugFix;
     if (  EXIT_SUCCESS == (err = getSystemVersion(&major, &minor, &bugFix))  ) {
-        if         ( minor < 6) {
-            suffixToReturn = @"-20090913.kext";
-        } else if  ( minor < 9) {
+        if ( minor < 9) {
             suffixToReturn = @"-20111101.kext";
         } else {
             suffixToReturn = @"-signed.kext";
@@ -2576,15 +2545,7 @@ int startVPN(NSString * configFile,
 		}
 	}
     
-    if (  (bitMask & OPENVPNSTART_USE_I386_OPENVPN) != 0  ) {
-        fprintf(stderr, "Launching the 32-bit Intel version of OpenVPN instead of default version for this CPU");
-        // Use 'arch i386 <openvpnPath> <arguments>
-        [arguments insertObject: openvpnPath atIndex: 0];
-        [arguments insertObject: @"-i386"    atIndex: 0];
-        status = runAsRoot(TOOL_PATH_FOR_ARCH, arguments, 0555);
-    } else {
-        status = runAsRoot(openvpnPath, arguments, 0755);
-    }
+    status = runAsRoot(openvpnPath, arguments, 0755);
     
     NSMutableString * displayCmdLine = [NSMutableString stringWithFormat: @"     %@\n", openvpnPath];
     unsigned i;
@@ -2815,12 +2776,11 @@ int main(int argc, char * argv[]) {
 	
     // Tunnelblick starts this program one of the following two ways:
     //
-    // On Tiger,  this program is SUID:                    It is entered with uid = <user-id>; euid = 0;         gid = <group-id>; egid = 0
-    // Otherwise, this program is started by tunnelblickd: It is entered with uid = 0;         euid = <user-id>; gid = 0;          egid = <group-id>
+    // This program is started by tunnelblickd: It is entered with uid = 0;   euid = <user-id>; gid = 0; egid = <group-id>
     //
     // where <user-id> and <group-id> are the user/group of the user who sent a request to tunnelblickd (possibly 0:0)
     //
-    // This program may also be startd (on Leopard and above) via 'sudo' in Terminal, in which chase uid = euid = gid = egid = 0.
+    // This program may also be startd via 'sudo' in Terminal, in which chase uid = euid = gid = egid = 0.
     // If run via via 'sudo', this program may not run any subcommands that require access to the user's data (such as 'revertToShadow').
     //
     // We don't do anything with the group, but we manipulate the uid and euid to get access to protected files (as root).
@@ -2882,7 +2842,7 @@ int main(int argc, char * argv[]) {
         exitOpenvpnstart(243);
     }
     NSString * ourPath = [gResourcesPath stringByAppendingPathComponent: @"tunnelblick-helper"];
-    if (  pathIsNotSecure(ourPath, (runningOnLeopardOrNewer() ? PERMS_SECURED_EXECUTABLE : PERMS_SECURED_SUID))  ) {
+    if (  pathIsNotSecure(ourPath, PERMS_SECURED_EXECUTABLE)  ) {
         fprintf(stderr, "tunnelblick-helper and the path to it have not been secured\n"
                 "You must have run Tunnelblick and entered a computer administrator password at least once to use tunnelblick-helper\n");
         exitOpenvpnstart(244);

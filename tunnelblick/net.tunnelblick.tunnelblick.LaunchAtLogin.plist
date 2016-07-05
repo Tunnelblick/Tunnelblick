@@ -12,8 +12,6 @@
 	<string>Aqua</string>
 	<key>RunAtLoad</key>
 	<true/>
-	<key>OnDemand</key>
-	<true/>
 	<key>ExitTimeOut</key>
 	<integer>0</integer>
 	<key>ProcessType</key>

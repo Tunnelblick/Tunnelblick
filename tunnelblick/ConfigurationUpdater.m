@@ -249,7 +249,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgName)
     }
     
     if (  ! [[NSApp delegate] launchFinished]  ) {
-        if (  runningOnMainThread()  ) {
+        if (  [NSThread isMainThread]  ) {
             NSLog(@"updaterShouldRelaunchApplication: launchFinished = FALSE but are on the main thread, so not waiting for launchFinished");
         } else {
             // We are not on the main thread, so we make sure that Tunneblick has finished launching and the main thread is ready before we proceed to update the configuration.
