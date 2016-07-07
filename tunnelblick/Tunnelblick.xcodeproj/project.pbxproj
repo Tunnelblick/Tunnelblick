@@ -46,6 +46,8 @@
 		63179444118D7EC20057ACAF /* atsystemstart.m in Sources */ = {isa = PBXBuildFile; fileRef = 63179443118D7EC20057ACAF /* atsystemstart.m */; };
 		6317955C118DC5620057ACAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		631795FC118DC79B0057ACAF /* atsystemstart in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 6317943E118D7E820057ACAF /* atsystemstart */; };
+		63206BC31D273CBD00019DFB /* info-icon-on-left-360x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 63206BC11D273CBD00019DFB /* info-icon-on-left-360x40.png */; };
+		63206BC41D273CBD00019DFB /* info-icon-on-right-360x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 63206BC21D273CBD00019DFB /* info-icon-on-right-360x40.png */; };
 		63216D90125778C0004EDB57 /* client.1.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */; };
 		63216D91125778C0004EDB57 /* client.1.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */; };
 		6329EA021A9AF6EF00A0BFA8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */; };
@@ -75,6 +77,8 @@
 		634E02071CAD9776008637FF /* HR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 634E02061CAD9776008637FF /* HR.lproj */; };
 		634E02091CAD9783008637FF /* SR_CS.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 634E02081CAD9783008637FF /* SR_CS.lproj */; };
 		634EE8391191F89800DF4E43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
+		634F1B9A1D23DA4A00B1E929 /* TBInfoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 634F1B991D23DA4A00B1E929 /* TBInfoButton.m */; };
+		634F1B9D1D23FD9D00B1E929 /* Tracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 634F1B9C1D23FD9D00B1E929 /* Tracker.m */; };
 		6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6353818E1116031F00D68E83 /* dsa_pub.pem */; };
 		635713A61A6709D800709670 /* AR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635713A31A6709D800709670 /* AR.lproj */; };
 		635971421C06736B0055FBC5 /* UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 635971411C06736B0055FBC5 /* UIHelper.m */; };
@@ -198,6 +202,7 @@
 		63F2AD9E12AD5F1600826724 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
 		63F3C25A1A22A45C00CF0FFB /* tunnelblickd.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F3C2581A22A45C00CF0FFB /* tunnelblickd.m */; };
 		63F7497D1CB149820043C198 /* TBVersionString.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F7497C1CB149820043C198 /* TBVersionString.txt */; };
+		63FA09411D25E68500859556 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FA09401D25E68500859556 /* MAAttachedWindow.m */; };
 		63FB74EE1311D4BC002F4E7F /* ConfigurationUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */; };
 		63FFD6541D0E9C8B00D4FFD9 /* Lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 63FFD6521D0E9C8B00D4FFD9 /* Lock.png */; };
 		63FFD6551D0E9C8B00D4FFD9 /* Lock-open.png in Resources */ = {isa = PBXBuildFile; fileRef = 63FFD6531D0E9C8B00D4FFD9 /* Lock-open.png */; };
@@ -386,6 +391,8 @@
 		631494A219FA7B9E009057D1 /* PT_PT.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PT_PT.lproj; sourceTree = "<group>"; };
 		6317943E118D7E820057ACAF /* atsystemstart */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = atsystemstart; sourceTree = BUILT_PRODUCTS_DIR; };
 		63179443118D7EC20057ACAF /* atsystemstart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = atsystemstart.m; sourceTree = "<group>"; };
+		63206BC11D273CBD00019DFB /* info-icon-on-left-360x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-icon-on-left-360x40.png"; sourceTree = "<group>"; };
+		63206BC21D273CBD00019DFB /* info-icon-on-right-360x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-icon-on-right-360x40.png"; sourceTree = "<group>"; };
 		63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.down.tunnelblick.sh; sourceTree = "<group>"; };
 		63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.up.tunnelblick.sh; sourceTree = "<group>"; };
 		6329EA011A9AF6EF00A0BFA8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -416,6 +423,10 @@
 		634E02041CAD9764008637FF /* AF.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AF.lproj; sourceTree = "<group>"; };
 		634E02061CAD9776008637FF /* HR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HR.lproj; sourceTree = "<group>"; };
 		634E02081CAD9783008637FF /* SR_CS.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SR_CS.lproj; sourceTree = "<group>"; };
+		634F1B981D23DA3E00B1E929 /* TBInfoButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBInfoButton.h; sourceTree = "<group>"; };
+		634F1B991D23DA4A00B1E929 /* TBInfoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBInfoButton.m; sourceTree = "<group>"; };
+		634F1B9B1D23FD9D00B1E929 /* Tracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracker.h; sourceTree = "<group>"; };
+		634F1B9C1D23FD9D00B1E929 /* Tracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tracker.m; sourceTree = "<group>"; };
 		6353818E1116031F00D68E83 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		635713A31A6709D800709670 /* AR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AR.lproj; sourceTree = "<group>"; };
 		635971401C06736B0055FBC5 /* UIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIHelper.h; sourceTree = "<group>"; };
@@ -560,6 +571,8 @@
 		63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+TB.m"; sourceTree = "<group>"; };
 		63F3C2581A22A45C00CF0FFB /* tunnelblickd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tunnelblickd.m; sourceTree = "<group>"; };
 		63F7497C1CB149820043C198 /* TBVersionString.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TBVersionString.txt; sourceTree = "<group>"; };
+		63FA093F1D25E68500859556 /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAttachedWindow.h; sourceTree = "<group>"; };
+		63FA09401D25E68500859556 /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAttachedWindow.m; sourceTree = "<group>"; };
 		63FB74EC1311D4BC002F4E7F /* ConfigurationUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationUpdater.h; sourceTree = "<group>"; };
 		63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationUpdater.m; sourceTree = "<group>"; };
 		63FFD6521D0E9C8B00D4FFD9 /* Lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lock.png; sourceTree = "<group>"; };
@@ -882,6 +895,7 @@
 				635971411C06736B0055FBC5 /* UIHelper.m */,
 				63CC72F61928C58600F81220 /* UI Updater */,
 				635ECCF71378886E00F67F8D /* Preferences */,
+				63C374521D281EBD004758A3 /* InfoButton */,
 				B840788A170CE6A20002B941 /* Main Icon */,
 				632BB9E5194F2CD5006CD7DA /* Alert Window */,
 				B840788B170CE6B60002B941 /* Splash Window */,
@@ -891,6 +905,19 @@
 				B840788F170CE7140002B941 /* Welcome Window */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		63C374521D281EBD004758A3 /* InfoButton */ = {
+			isa = PBXGroup;
+			children = (
+				634F1B981D23DA3E00B1E929 /* TBInfoButton.h */,
+				634F1B991D23DA4A00B1E929 /* TBInfoButton.m */,
+				634F1B9B1D23FD9D00B1E929 /* Tracker.h */,
+				634F1B9C1D23FD9D00B1E929 /* Tracker.m */,
+				63FA093F1D25E68500859556 /* MAAttachedWindow.h */,
+				63FA09401D25E68500859556 /* MAAttachedWindow.m */,
+			);
+			name = InfoButton;
 			sourceTree = "<group>";
 		};
 		63CC72F61928C58600F81220 /* UI Updater */ = {
@@ -956,6 +983,8 @@
 				63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */,
 				63FFD6521D0E9C8B00D4FFD9 /* Lock.png */,
 				63FFD6531D0E9C8B00D4FFD9 /* Lock-open.png */,
+				63206BC11D273CBD00019DFB /* info-icon-on-left-360x40.png */,
+				63206BC21D273CBD00019DFB /* info-icon-on-right-360x40.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1513,6 +1542,7 @@
 				63C2E19E18846D3800ED0003 /* LeaseWatch3.plist in Resources */,
 				63C2E1A018846D4600ED0003 /* ProcessNetworkChanges.plist in Resources */,
 				635CA45312F8285D00287298 /* COPYING in Resources */,
+				63206BC31D273CBD00019DFB /* info-icon-on-left-360x40.png in Resources */,
 				639A10EB132AC74B00754C2A /* StatusWindow.xib in Resources */,
 				63ABFE9F1349F086003DEB64 /* LoginWindow.xib in Resources */,
 				638856A0134B8056008DF8C1 /* PassphraseWindow.xib in Resources */,
@@ -1569,6 +1599,7 @@
 				63ED903A1A1E8C240045D34E /* net.tunnelblick.tunnelblick.tunnelblickd.plist in Resources */,
 				6375C6571A4EDF11007A42E8 /* FreePublicDnsServersList.txt in Resources */,
 				635713A61A6709D800709670 /* AR.lproj in Resources */,
+				63206BC41D273CBD00019DFB /* info-icon-on-right-360x40.png in Resources */,
 				634E02071CAD9776008637FF /* HR.lproj in Resources */,
 				63F7497D1CB149820043C198 /* TBVersionString.txt in Resources */,
 			);
@@ -1704,6 +1735,7 @@
 				6311306411041B89003435F1 /* LoginItemsAE.c in Sources */,
 				6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */,
 				63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */,
+				63FA09411D25E68500859556 /* MAAttachedWindow.m in Sources */,
 				63F2AD9B12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
 				635C80461300353000DB27AE /* ApplescriptCommands.m in Sources */,
 				63FB74EE1311D4BC002F4E7F /* ConfigurationUpdater.m in Sources */,
@@ -1719,11 +1751,13 @@
 				63E56EE713848338007E39AB /* VPNService.m in Sources */,
 				63E56EE813848338007E39AB /* VPNServiceCreateAccountController.m in Sources */,
 				63E56EE913848338007E39AB /* VPNServiceIntroController.m in Sources */,
+				634F1B9A1D23DA4A00B1E929 /* TBInfoButton.m in Sources */,
 				63E56EEA13848338007E39AB /* VPNServiceLoginController.m in Sources */,
 				63E56EEB13848338007E39AB /* VPNServiceProveController.m in Sources */,
 				63E56EEC13848338007E39AB /* VPNServiceSorryController.m in Sources */,
 				63E56EED13848338007E39AB /* VPNServiceTermsOfServiceController.m in Sources */,
 				63E56EEE13848338007E39AB /* VPNServiceWelcomeController.m in Sources */,
+				634F1B9D1D23FD9D00B1E929 /* Tracker.m in Sources */,
 				6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */,
 				635971421C06736B0055FBC5 /* UIHelper.m in Sources */,
 				634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */,

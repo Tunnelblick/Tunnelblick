@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="522"/>
+			<integer value="44"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -39,7 +39,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="921957018">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1301,7 +1301,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{920, 390}</string>
-				<reference key="NSSuperview"/>
 				<string key="NSClassName">ConfigurationsView</string>
 			</object>
 			<object class="NSViewController" id="370127558"/>
@@ -1815,10 +1814,34 @@
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 			</object>
 			<object class="NSCustomView" id="847392221">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="NSButton" id="946163625">
+						<reference key="NSNextResponder" ref="847392221"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{880, 311}, {16, 16}}</string>
+						<reference key="NSSuperview" ref="847392221"/>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSButtonCell" key="NSCell" id="628780786">
+							<int key="NSCellFlags">67239424</int>
+							<int key="NSCellFlags2">167772160</int>
+							<string key="NSContents"/>
+							<reference key="NSSupport" ref="644301394"/>
+							<reference key="NSControlView" ref="946163625"/>
+							<int key="NSButtonFlags">-2041822977</int>
+							<int key="NSButtonFlags2">135</int>
+							<object class="NSCustomResource" key="NSNormalImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">Info</string>
+							</object>
+							<string key="NSAlternateContents"/>
+							<string key="NSKeyEquivalent"/>
+							<int key="NSPeriodicDelay">200</int>
+							<int key="NSPeriodicInterval">25</int>
+						</object>
+					</object>
 					<object class="NSPopUpButton" id="607270053">
 						<reference key="NSNextResponder" ref="847392221"/>
 						<int key="NSvFlags">268</int>
@@ -2068,8 +2091,8 @@
 					</object>
 					<object class="NSButton" id="226781493">
 						<reference key="NSNextResponder" ref="847392221"/>
-						<int key="NSvFlags">270</int>
-						<string key="NSFrame">{{248, 310}, {648, 18}}</string>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{248, 310}, {626, 18}}</string>
 						<reference key="NSSuperview" ref="847392221"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="159756231">
@@ -2213,6 +2236,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{920, 390}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">AppearanceView</string>
 			</object>
 			<object class="NSArrayController" id="880109452">
@@ -5027,6 +5051,14 @@
 					</object>
 					<int key="connectionID">1390</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">infoButtonForAppearancePlaceIconNearSpotlightCheckbox</string>
+						<reference key="source" ref="847392221"/>
+						<reference key="destination" ref="946163625"/>
+					</object>
+					<int key="connectionID">1400</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -5219,7 +5251,6 @@
 						<reference key="object" ref="847392221"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="226781493"/>
 							<reference ref="99338715"/>
 							<reference ref="498417830"/>
 							<reference ref="682151018"/>
@@ -5233,6 +5264,8 @@
 							<reference ref="438852176"/>
 							<reference ref="670884726"/>
 							<reference ref="607270053"/>
+							<reference ref="226781493"/>
+							<reference ref="946163625"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Appearance</string>
@@ -6720,6 +6753,20 @@
 						<reference key="object" ref="476478478"/>
 						<reference key="parent" ref="669474369"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1398</int>
+						<reference key="object" ref="946163625"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="628780786"/>
+						</object>
+						<reference key="parent" ref="847392221"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1399</int>
+						<reference key="object" ref="628780786"/>
+						<reference key="parent" ref="946163625"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -6859,6 +6906,9 @@
 					<string>1373.IBPluginDependency</string>
 					<string>1378.IBPluginDependency</string>
 					<string>1379.IBPluginDependency</string>
+					<string>1398.CustomClassName</string>
+					<string>1398.IBPluginDependency</string>
+					<string>1399.IBPluginDependency</string>
 					<string>14.IBPluginDependency</string>
 					<string>14.IBViewBoundsToFrameTransform</string>
 					<string>15.IBPluginDependency</string>
@@ -7266,6 +7316,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>TBInfoButton</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABDdwAAw7YAAA</bytes>
@@ -7329,7 +7382,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{653, 695}, {920, 390}}</string>
+					<string>{{739, 761}, {920, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -7610,7 +7663,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1390</int>
+			<int key="maxID">1402</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7639,6 +7692,7 @@
 							<string>appearanceMenuTFC</string>
 							<string>appearancePlaceIconNearSpotlightCheckbox</string>
 							<string>appearanceSplashTFC</string>
+							<string>infoButtonForAppearancePlaceIconNearSpotlightCheckbox</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -7659,6 +7713,7 @@
 							<string>NSTextFieldCell</string>
 							<string>NSButton</string>
 							<string>NSTextFieldCell</string>
+							<string>TBInfoButton</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -7687,9 +7742,7 @@
 							<string>duplicateConfigurationMenuItem</string>
 							<string>editOpenVPNConfigurationFileMenuItem</string>
 							<string>leftNavDataSrc</string>
-							<string>leftNavTableColumn</string>
 							<string>leftNavTableTFC</string>
-							<string>leftNavTableView</string>
 							<string>leftSplitView</string>
 							<string>logDisplayProgressIndicator</string>
 							<string>logTabViewItem</string>
@@ -7744,9 +7797,7 @@
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>LeftNavDataSource</string>
-							<string>NSTableColumn</string>
 							<string>NSTextFieldCell</string>
-							<string>NSTableView</string>
 							<string>NSView</string>
 							<string>NSProgressIndicator</string>
 							<string>NSTabViewItem</string>
@@ -8098,6 +8149,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">UKKQueue/UKMainThreadProxy.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TBInfoButton</string>
+					<string key="superclassName">NSButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">TBInfoButton.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -8896,6 +8955,7 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>ActionMenuButtonImage</string>
 				<string>AddButtonImage</string>
+				<string>Info</string>
 				<string>NSMenuCheckmark</string>
 				<string>NSMenuMixedState</string>
 				<string>NSSwitch</string>
@@ -8905,6 +8965,7 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{12, 12}</string>
 				<string>{22, 22}</string>
+				<string>{32, 32}</string>
 				<string>{9, 8}</string>
 				<string>{7, 2}</string>
 				<string>{15, 15}</string>

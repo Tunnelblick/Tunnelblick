@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -27,6 +27,10 @@
 +(NSString *)   appendRTLIfRTLLanguage: (NSString *) string;
 
 +(unsigned int) detailsWindowsViewIndexFromPreferencesWithCount: (unsigned int) count;
+
++(NSString *) imgTagForImageName: (NSString *) imageName
+                           width: (NSInteger)  width
+                          height: (NSInteger)  height;
 
 +(void)         makeAllAsWideAsWidest: (NSArray *) list
 								shift: (BOOL)      shift;

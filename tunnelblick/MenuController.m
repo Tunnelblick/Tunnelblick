@@ -458,6 +458,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLangua
                                 @"DB-IC",     // Extra logging for IP address checking
                                 @"DB-IT",     // Extra logging for IP address check threading
                                 @"DB-MO",     // Extra logging for mouseover (of icon and status windows)
+                                @"DB-PU",     // Extra logging for information popups
 								@"DB-SD",     // Extra logging for shutdown
                                 @"DB-SI",     // Extra logging for status item creation/deletion/move
                                 @"DB-SU",     // Extra logging for startup

@@ -4,6 +4,27 @@
 //  Created by Matt Gemmell on 27/09/2007.
 //  Copyright 2007 Magic Aubergine.
 //
+//  Note: Special permission to use this in Tunnelblick was granted by Matt Gemmell on 2016-07-02.
+
+/*  This file is part of Tunnelblick.
+ *
+ *  This file is part of Tunnelblick.
+ *
+ *  Tunnelblick is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2
+ *  as published by the Free Software Foundation.
+ *
+ *  Tunnelblick is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program (see the file COPYING included with this
+ *  distribution); if not, write to the Free Software Foundation, Inc.,
+ *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *  or see http://www.gnu.org/licenses/.
+ */
 
 #import <Cocoa/Cocoa.h>
 
@@ -61,8 +82,8 @@ typedef enum _MAWindowPosition {
     
     @private
     NSColor *_MABackgroundColor;
-    __weak NSView *_view;
-    __weak NSWindow *_window;
+    NSView *_view;     // Not retained, but each NSAttachedWindow instance causes it to be retained by addSubView throughout the instance's lifetime
+    NSWindow *_window; // Not retained -- MUST be retained elsewhere because each instance of NSAttachedWindow assumes this is valid throughout the instance's lifetime
     NSPoint _point;
     MAWindowPosition _side;
     float _distance;
@@ -86,6 +107,8 @@ typedef enum _MAWindowPosition {
  window     The parent window to attach this one to. Note that no actual 
             relationship is created (particularly, this window is not made 
             a childWindow of the parent window).
+            NOTE: MUST be retained elsewhere (if not nil) because each instance
+            of NSAttachedWindow assumes this is valid throughout the instance's lifetime.
             Default: nil.
  
  side       The side of the specified point on which to attach this window.

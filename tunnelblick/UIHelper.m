@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -53,6 +53,17 @@ extern TBUserDefaults * gTbDefaults;
     
     return [[NSApp delegate] languageAtLaunchWasRTL];
 }
+
++(NSString *) imgTagForImageName: (NSString *) imageName
+                           width: (NSInteger)  width
+                          height: (NSInteger)  height {
+    
+    NSURL * url = [[NSBundle mainBundle] URLForImageResource: imageName];
+    NSString * tag = [NSString stringWithFormat: @"<img src=\"%@\" width=\"%ld\" height=\"%ld\">",
+                      [url absoluteString], (long)width, (long)height];
+    return tag;
+}
+
 
 +(void) makeAllAsWideAsWidest: (NSArray *) list
 						shift: (BOOL)      shift {

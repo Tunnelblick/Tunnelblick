@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -22,12 +22,15 @@
 
 #import "defines.h"
 
+@class TBInfoButton;
+
 @interface AppearanceView : NSView {
     
     IBOutlet NSTextFieldCell    * appearanceIconTFC;
     IBOutlet NSArrayController  * appearanceIconSetArrayController;
     IBOutlet NSButton           * appearanceIconSetButton;
     IBOutlet NSButton           * appearancePlaceIconNearSpotlightCheckbox;
+    IBOutlet TBInfoButton       * infoButtonForAppearancePlaceIconNearSpotlightCheckbox;
     
     IBOutlet NSTextFieldCell    * appearanceMenuTFC;
     IBOutlet NSButton           * appearanceDisplayConnectionSubmenusCheckbox;
@@ -52,6 +55,7 @@
 TBPROPERTY_READONLY(NSArrayController *, appearanceIconSetArrayController)
 TBPROPERTY_READONLY(NSButton *,          appearanceIconSetButton)
 TBPROPERTY_READONLY(NSButton *,          appearancePlaceIconNearSpotlightCheckbox)
+TBPROPERTY_READONLY(TBInfoButton *,      infoButtonForAppearancePlaceIconNearSpotlightCheckbox)
 
 TBPROPERTY_READONLY(NSButton *,          appearanceDisplayConnectionSubmenusCheckbox)
 TBPROPERTY_READONLY(NSButton *,          appearanceDisplayConnectionTimersCheckbox)

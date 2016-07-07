@@ -22,6 +22,8 @@
 
 @class AlertWindowController;
 
+NSAttributedString * attributedStringFromHTML(NSString * html);
+
 void           appendLog				 (NSString * msg);
 
 uint64_t       nowAbsoluteNanoseconds    (void);
@@ -126,6 +128,7 @@ BOOL           runningOnLionOrNewer(void);
 BOOL           runningOnMountainLionOrNewer(void);
 BOOL           runningOnMavericksOrNewer(void);
 BOOL           runningOnYosemiteOrNewer(void);
+BOOL           runningOnSierraOrNewer(void);
 BOOL           runningOnIntel(void);
 
 #if MAC_OS_X_VERSION_MIN_REQUIRED != MAC_OS_X_VERSION_10_4

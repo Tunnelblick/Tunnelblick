@@ -130,6 +130,11 @@ BOOL runningOnYosemiteOrNewer(void)
     return runningOnNewerThan(10, 9);
 }
 
+BOOL runningOnSierraOrNewer(void)
+{
+    return runningOnNewerThan(10, 11);
+}
+
 BOOL runningOnIntel(void) {
     
     // Returns NO if it can be determined that this is a PowerPC, YES otherwise
@@ -217,6 +222,10 @@ BOOL displaysHaveDifferentSpaces(void) {
 
 BOOL mustPlaceIconInStandardPositionInStatusBar(void) {
     
+    if (  runningOnSierraOrNewer()  ) {
+        return YES;
+    }
+    
     NSStatusBar *bar = [NSStatusBar systemStatusBar];
     if (  ! [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]  ) {
         return YES;
@@ -269,6 +278,14 @@ NSString *condensedConfigFileContentsFromString(NSString * fullString) {
 	}
 	
 	return [NSString stringWithString: outString];
+}
+
+NSAttributedString * attributedStringFromHTML(NSString * html) {
+    
+    const char * bytes = [html UTF8String];
+    NSData * data = [[[NSData alloc] initWithBytes: bytes length: strlen(bytes)] autorelease];
+    NSAttributedString * as = [[[NSAttributedString alloc] initWithHTML: data documentAttributes: nil] autorelease];
+    return as;
 }
 
 // Returns an escaped version of a string so it can be sent over the management interface

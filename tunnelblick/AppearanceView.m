@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -55,6 +55,25 @@ extern NSString       * gDeployPath;
 	[super dealloc];
 }
 
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceIconSetArrayController)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceIconSetButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearancePlaceIconNearSpotlightCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBInfoButton *,    infoButtonForAppearancePlaceIconNearSpotlightCheckbox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayConnectionSubmenusCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayConnectionTimersCheckbox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplaySplashScreenCheckbox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceConnectionWindowDisplayCriteriaArrayController)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceConnectionWindowDisplayCriteriaButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceConnectionWindowScreenArrayController)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          appearanceConnectionWindowScreenButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWindowsCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox)
+
 - (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
 	
@@ -102,7 +121,25 @@ extern NSString       * gDeployPath;
     [UIHelper setTitle: nil ofControl: appearanceIconSetButton shift: rtl narrow: YES enable: YES];
     
     // Icon placement checkbox
-    [appearancePlaceIconNearSpotlightCheckbox setTitle: NSLocalizedString(@"Place next to Spotlight icon", @"Checkbox name")];
+    CGFloat change = [UIHelper setTitle: NSLocalizedString(@"Place near Spotlight icon", @"Checkbox name")
+                              ofControl: appearancePlaceIconNearSpotlightCheckbox shift: rtl narrow: YES enable: YES];
+    
+    [UIHelper shiftControl: infoButtonForAppearancePlaceIconNearSpotlightCheckbox by: change reverse: ! rtl];
+    NSString * onRightImageTag = [UIHelper imgTagForImageName: @"info-icon-on-right-360x40" width: 360 height: 40];
+    NSString * onLeftImageTag  = [UIHelper imgTagForImageName: @"info-icon-on-left-360x40"  width: 360 height: 40];
+    NSAttributedString * infoTitle = attributedStringFromHTML([NSString stringWithFormat:
+                                                                          NSLocalizedString(
+                                                                                            @"<p><strong>'Place near Spotlight icon' Checkbox</strong></strong></p>"
+                                                                                            @"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>"
+                                                                                            @"<p>%@</p>"
+                                                                                            @"<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>"
+                                                                                            @"<p>%@</p>"
+                                                                                            @"<p><strong>This checkbox is disabled</strong> on macOS Sierra (because it is not needed) and on systems for which it is known to cause problems.</p>"
+                                                                                            @"<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>",
+                                                                                            @"HTML info for 'Place near Spotlight icon' checkbox"),
+                                                               onRightImageTag, onLeftImageTag]);
+    [infoButtonForAppearancePlaceIconNearSpotlightCheckbox setAttributedTitle: infoTitle];
+    [infoButtonForAppearancePlaceIconNearSpotlightCheckbox setMinimumWidth: 360.0];
     
     // Menu checkboxes
     [appearanceMenuTFC setTitle: NSLocalizedString(@"Menu:", @"Window text")];
@@ -190,27 +227,5 @@ extern NSString       * gDeployPath;
     
     return paths;
 }
-
-
-//***************************************************************************************************************
-// Getters
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceIconSetArrayController)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceIconSetButton)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearancePlaceIconNearSpotlightCheckbox)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayConnectionSubmenusCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayConnectionTimersCheckbox)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplaySplashScreenCheckbox)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceConnectionWindowDisplayCriteriaArrayController)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceConnectionWindowDisplayCriteriaButton)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceConnectionWindowScreenArrayController)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          appearanceConnectionWindowScreenButton)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWindowsCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox)
 
 @end

@@ -91,6 +91,11 @@
 		635ECE631378EA4000F67F8D /* AppearanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ECE621378EA4000F67F8D /* AppearanceView.m */; };
 		635ECE6C1378EA7000F67F8D /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ECE6B1378EA7000F67F8D /* InfoView.m */; };
 		63611FD113CE2A8B000240F0 /* RU.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63611FCD13CE2A8B000240F0 /* RU.lproj */; };
+		63621E7A1D2D95080020DEAE /* info-icon-on-left-360x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 63621E791D2D95080020DEAE /* info-icon-on-left-360x40.png */; };
+		63621E7C1D2D95120020DEAE /* info-icon-on-right-360x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 63621E7B1D2D95120020DEAE /* info-icon-on-right-360x40.png */; };
+		63621E831D2D95870020DEAE /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63621E821D2D95870020DEAE /* MAAttachedWindow.m */; };
+		63621E861D2D959C0020DEAE /* Tracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 63621E851D2D959C0020DEAE /* Tracker.m */; };
+		63621E8A1D2D95B30020DEAE /* TBInfoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 63621E891D2D95B30020DEAE /* TBInfoButton.m */; };
 		636861E11D0E52EE002F4B8C /* SystemAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 636861DF1D0E52EE002F4B8C /* SystemAuth.m */; };
 		636BB3F8197776A900FDC5DE /* launchAtLogin.sh in Resources */ = {isa = PBXBuildFile; fileRef = 636BB3F7197776A900FDC5DE /* launchAtLogin.sh */; };
 		63716BF41C145FDA00760946 /* reactivate-tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63716BF31C145FDA00760946 /* reactivate-tunnelblick.sh */; };
@@ -436,6 +441,14 @@
 		635ECE6A1378EA7000F67F8D /* InfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoView.h; sourceTree = "<group>"; };
 		635ECE6B1378EA7000F67F8D /* InfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoView.m; sourceTree = "<group>"; };
 		63611FCD13CE2A8B000240F0 /* RU.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RU.lproj; sourceTree = "<group>"; };
+		63621E791D2D95080020DEAE /* info-icon-on-left-360x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-icon-on-left-360x40.png"; sourceTree = "<group>"; };
+		63621E7B1D2D95120020DEAE /* info-icon-on-right-360x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-icon-on-right-360x40.png"; sourceTree = "<group>"; };
+		63621E821D2D95870020DEAE /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAttachedWindow.m; sourceTree = "<group>"; };
+		63621E841D2D95920020DEAE /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAttachedWindow.h; sourceTree = "<group>"; };
+		63621E851D2D959C0020DEAE /* Tracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tracker.m; sourceTree = "<group>"; };
+		63621E871D2D95A30020DEAE /* Tracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracker.h; sourceTree = "<group>"; };
+		63621E881D2D95AD0020DEAE /* TBInfoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBInfoButton.h; sourceTree = "<group>"; };
+		63621E891D2D95B30020DEAE /* TBInfoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBInfoButton.m; sourceTree = "<group>"; };
 		636861DF1D0E52EE002F4B8C /* SystemAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemAuth.m; sourceTree = "<group>"; };
 		636861E01D0E52EE002F4B8C /* SystemAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemAuth.h; sourceTree = "<group>"; };
 		636BB3F7197776A900FDC5DE /* launchAtLogin.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = launchAtLogin.sh; sourceTree = "<group>"; };
@@ -870,6 +883,19 @@
 			name = Preferences;
 			sourceTree = "<group>";
 		};
+		63621E7E1D2D95700020DEAE /* InfoButton */ = {
+			isa = PBXGroup;
+			children = (
+				63621E881D2D95AD0020DEAE /* TBInfoButton.h */,
+				63621E891D2D95B30020DEAE /* TBInfoButton.m */,
+				63621E871D2D95A30020DEAE /* Tracker.h */,
+				63621E851D2D959C0020DEAE /* Tracker.m */,
+				63621E841D2D95920020DEAE /* MAAttachedWindow.h */,
+				63621E821D2D95870020DEAE /* MAAttachedWindow.m */,
+			);
+			name = InfoButton;
+			sourceTree = "<group>";
+		};
 		63A902AD1C0104CB0074630A /* ListingWindow */ = {
 			isa = PBXGroup;
 			children = (
@@ -886,6 +912,7 @@
 				63ADAB291C0483DD000420AB /* UIHelper.m */,
 				63CC72F61928C58600F81220 /* UI Updater */,
 				635ECCF71378886E00F67F8D /* Preferences */,
+				63621E7E1D2D95700020DEAE /* InfoButton */,
 				B840788A170CE6A20002B941 /* Main Icon */,
 				632BB9E5194F2CD5006CD7DA /* Alert Window */,
 				B840788B170CE6B60002B941 /* Splash Window */,
@@ -960,6 +987,8 @@
 				63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */,
 				635C03DF1D0E48AA00225C04 /* Lock.png */,
 				635C03E01D0E48AA00225C04 /* Lock-open.png */,
+				63621E791D2D95080020DEAE /* info-icon-on-left-360x40.png */,
+				63621E7B1D2D95120020DEAE /* info-icon-on-right-360x40.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1570,6 +1599,8 @@
 				632038041D07703D00F81175 /* RO.lproj in Resources */,
 				635C03E11D0E48AA00225C04 /* Lock.png in Resources */,
 				635C03E21D0E48AA00225C04 /* Lock-open.png in Resources */,
+				63621E7A1D2D95080020DEAE /* info-icon-on-left-360x40.png in Resources */,
+				63621E7C1D2D95120020DEAE /* info-icon-on-right-360x40.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1744,6 +1775,9 @@
 				63589B0D1BF2F24E00E413B6 /* TBOperationQueue.m in Sources */,
 				63ADAB2A1C0483DD000420AB /* UIHelper.m in Sources */,
 				636861E11D0E52EE002F4B8C /* SystemAuth.m in Sources */,
+				63621E831D2D95870020DEAE /* MAAttachedWindow.m in Sources */,
+				63621E861D2D959C0020DEAE /* Tracker.m in Sources */,
+				63621E8A1D2D95B30020DEAE /* TBInfoButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
