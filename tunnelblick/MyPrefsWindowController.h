@@ -87,7 +87,12 @@
 -(void) update;
 -(BOOL) forceDisableOfNetworkMonitoring;
 
+-(void) selectedLeftNavListIndexChanged;
+
 -(void) indicateWaitingForLogDisplay:                         (VPNConnection *) theConnection;
+-(void) indicateNotWaitingForConsoleLogToClipboard;
+-(void) indicateNotWaitingForDiagnosticInfoToClipboard;
+-(void) indicateNotWaitingForKillAllOpenVPN;
 -(void) indicateNotWaitingForLogDisplay:                      (VPNConnection *) theConnection;
 -(void) hookedUpOrStartedConnection:                          (VPNConnection *) theConnection;
 -(void) lockTheLockIcon;

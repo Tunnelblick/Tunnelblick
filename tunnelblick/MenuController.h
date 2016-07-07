@@ -86,6 +86,11 @@ enum StatusIconPosition {
 void * _NSConcreteStackBlock __attribute__((weak));
 #endif
 
+@interface NSStatusBar (NSStatusBar_Private)
+- (id)_statusItemWithLength:(CGFloat)l withPriority:(long long)p;
+- (id)_insertStatusItem:(NSStatusItem *)i withPriority:(long long)p;
+@end
+
 // The following conditional is needed because the SDK in Xcode 3.2.2 does not include NSUserNotificationCenterDelegate, which was introduced in 10.8
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
 @interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate>
@@ -250,6 +255,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(void)             configurationsChanged;
 -(void)             configurationsChangedWithRenameDictionary: (NSDictionary *)  renameDictionary;
 -(NSArray *)        connectionsNotDisconnected;
+-(void)             connectionStateDidChange:                  (id)              connection;
 -(unsigned)         decrementTapCount;
 -(NSUInteger)       defaultOpenVPNVersionIx;
 -(NSURL *)          getIPCheckURL;
@@ -288,6 +294,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(void)             setHotKeyIndex:                         (unsigned)          newIndex;
 -(void)             setState:                               (NSString *)        newState;
 -(void)             setOurPreferencesFromSparkles;
+-(void)             setPreferenceForSelectedConfigurationsWithDict: (NSDictionary * ) dict;
 -(void)             setupUpdaterAutomaticChecks;
 -(NSArray *)        sortedSounds;
 -(unsigned)         statusScreenIndex;

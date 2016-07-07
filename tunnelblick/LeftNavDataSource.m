@@ -29,6 +29,7 @@
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
 #import "NSApplication+LoginItem.h"
+#import "NSString+TB.h"
 #import "TBUserDefaults.h"
 #import "VPNConnection.h"
 

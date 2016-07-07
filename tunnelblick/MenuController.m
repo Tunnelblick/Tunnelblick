@@ -106,11 +106,6 @@ BOOL needToMoveLibraryOpenVPN(void);
 BOOL needToRepairPackages(void);
 BOOL needToConvertNonTblks(void);
 
-@interface NSStatusBar (NSStatusBar_Private)
-- (id)_statusItemWithLength:(CGFloat)l withPriority:(long long)p;
-- (id)_insertStatusItem:(NSStatusItem *)i withPriority:(long long)p;
-@end
-
 @interface MenuController() // PRIVATE METHODS
 
 // System interfaces:
@@ -5034,7 +5029,7 @@ static void signal_handler(int signalNumber)
     
     if (  [gTbDefaults boolForKey: @"haveStartedAnUpdateOfTheApp"]  ) {
         [gTbDefaults removeObjectForKey: @"haveStartedAnUpdateOfTheApp"];
-        NSString * tbVersion = [[[NSApp delegate] tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
+        NSString * tbVersion = [[self tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
         NSString * message = [NSString stringWithFormat: NSLocalizedString(@"Updated to %@.", "Notification text"), tbVersion];
         [UIHelper showSuccessNotificationTitle: @"Tunnelblick" msg: message];
     }
@@ -8055,7 +8050,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
                     [NSString stringWithFormat:
                      NSLocalizedString(@"There is no configuration named '%@' installed.\n\n"
                                        "Try reinstalling Tunnelblick from a disk image.", @"Window text VPNService"),
-                     [[NSApp delegate] localizedNameForDisplayName: displayName]],
+                     [self localizedNameForDisplayName: displayName]],
                     nil,nil,nil);
     [NSApp activateIgnoringOtherApps:YES];
     return NO;

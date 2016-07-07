@@ -26,6 +26,7 @@
 #import "helper.h"
 
 #import "MenuController.h"
+#import "MyPrefsWindowController.h"
 #import "StatusWindowController.h"
 #import "VPNConnection.h"
 
@@ -51,7 +52,7 @@ void get_lock(void) {
             sleep(1);
         } else {
             NSLog(@"TBOperationQueue|get_lock: pthread_mutex_trylock( &queueMutex ) failed; status = %ld, errno = %ld; error = '%s'", (long) status, (long) errno, strerror(errno));
-            [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+            [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
 			return;
         }
     }
@@ -62,7 +63,7 @@ void release_lock(void) {
     int status = pthread_mutex_unlock( &queueMutex );
     if (  status != 0  ) {
         NSLog(@"TBOperationQueue|release_lock: pthread_mutex_unlock( &queueMutex ) failed; status = %ld, errno = %ld; error = '%s'", (long) status, (long) errno, strerror(errno));
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
 		return;
     }
 }
@@ -73,12 +74,12 @@ void validateDetailsAndStatusWindows(void) {
     //    * In the 'VPN Details' window (which also does that for controls in the "Advanced" window)
     //    * In any and all status (notification) windows
     
-    id vpnDetails = [[NSApp delegate] logScreen];
+    id vpnDetails = [((MenuController *)[NSApp delegate]) logScreen];
     if (  vpnDetails  ) {
         [vpnDetails performSelectorOnMainThread: @selector(validateDetailsWindowControls) withObject: nil waitUntilDone: NO];
     }
     
-    NSDictionary * dict = [[NSApp delegate] myVPNConnectionDictionary];
+    NSDictionary * dict = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
     NSEnumerator * e = [dict keyEnumerator];
     NSString * key;
     while (  (key = [e nextObject])  ) {
@@ -126,7 +127,7 @@ void start_next(void) {
     
     if (  ! [NSThread isMainThread]  ) {
         NSLog(@"addToQueueSelector:target:object:disableList: invoked but not on main thread");
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
 		return;
     }
 	
@@ -169,7 +170,7 @@ void start_next(void) {
     
     if (  [disableLists count] == 0  ) {
         NSLog(@"TBOperationQueue: operationIsComplete but [disableLists count] == 0");
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
     } else {
 		[disableLists removeObjectAtIndex: 0];
 	}
@@ -183,7 +184,7 @@ void start_next(void) {
     
     if (  ! currentOperation  ) {
         NSLog(@"TBOperationQueue: operationIsComplete but no currentOperation");
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
     } else {
 		validateDetailsAndStatusWindows();
 		

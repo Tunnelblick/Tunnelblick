@@ -72,7 +72,7 @@ uint64_t nowAbsoluteNanoseconds (void)
 }
 
 BOOL runningABetaVersion (void) {
-    NSString * version = [[[NSApp delegate] tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
+    NSString * version = [[((MenuController *)[NSApp delegate]) tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
     return ([version rangeOfString: @"beta"].length != 0);
 }
 

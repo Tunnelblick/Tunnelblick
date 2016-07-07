@@ -61,7 +61,7 @@ extern TBUserDefaults * gTbDefaults;
 -(id) init
 {
 	if (  self = [super init]  ) {
-        NSDictionary * infoDict = [[NSApp delegate] tunnelblickInfoDictionary];
+        NSDictionary * infoDict = [((MenuController *)[NSApp delegate]) tunnelblickInfoDictionary];
         
         baseUrlString = [[infoDict objectForKey: @"VPNServiceBaseURL"] retain];
         if (  ! baseUrlString  ) {

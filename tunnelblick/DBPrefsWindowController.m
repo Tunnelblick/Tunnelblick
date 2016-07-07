@@ -61,6 +61,8 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 - (id)initWithWindow:(NSWindow *)window
 // -initWithWindow: is the designated initializer for NSWindowController.
 {
+    (void)window;
+    
 	self = [super initWithWindow:nil];
 	if (self != nil) {
         // Set up an array and some dictionaries to keep track
@@ -81,8 +83,6 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		windowHasLoaded = FALSE;
 	}
 	return self;
-    
-	(void)window;  // To prevent compiler warnings.
 }
 
 
@@ -263,9 +263,9 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar
 {
+    (void)toolbar;
+
 	return [[toolbarIdentifiers retain] autorelease];
-    
-	(void)toolbar;
 }
 
 
@@ -273,9 +273,9 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar 
 {
-	return [[toolbarIdentifiers retain] autorelease];
+    (void)toolbar;
     
-	(void)toolbar;
+	return [[toolbarIdentifiers retain] autorelease];
 }
 
 
@@ -284,10 +284,11 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
 {
     // All toolbar items **except** the lock icon are selectable
+    (void)toolbar;
+    
     NSMutableArray * identifiers = [[toolbarIdentifiers mutableCopy] autorelease];
     [identifiers removeObject: @"lockIcon"];
     return identifiers;
-	(void)toolbar;
 }
 
 
@@ -295,9 +296,11 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)identifier willBeInsertedIntoToolbar:(BOOL)willBeInserted 
 {
+    (void)toolbar;
+    (void)willBeInserted;
+    
+    
 	return [toolbarItems objectForKey:identifier];
-	(void)toolbar;
-	(void)willBeInserted;
 }
 
 

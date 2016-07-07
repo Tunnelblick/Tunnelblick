@@ -22,12 +22,12 @@
 #import "TBUserDefaults.h"
 
 #import "helper.h"
-
+#import "NSString+TB.h"
 #import "MenuController.h"
 
 
-NSArray * gProgramPreferences;
-NSArray * gConfigurationPreferences;
+extern NSArray * gProgramPreferences;
+extern NSArray * gConfigurationPreferences;
 
 @implementation TBUserDefaults
 

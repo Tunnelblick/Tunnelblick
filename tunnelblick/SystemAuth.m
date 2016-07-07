@@ -27,6 +27,7 @@
 #import "helper.h"
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
+#import "MyPrefsWindowController.h"
 #import "sharedRoutines.h"
 #import "TBUserDefaults.h"
 
@@ -141,7 +142,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     OSStatus status = AuthorizationCopyRights(myAuthorizationRef, &rights, &environment, flags, NULL );
     
     if (  interactionAllowed  ) {
-        [[NSApp delegate] reactivateTunnelblick];
+        [((MenuController *)[NSApp delegate]) reactivateTunnelblick];
     }
     
     TBLog(@"DB-AA", @"SystemAuth|checkAuthorizationRef:prompt:interactionAllowed:%@ AuthorizationCopyRights returned status %ld", (interactionAllowed ? @"YES" : @"NO"), (long)status);
@@ -174,7 +175,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     if (  ! ok  ) {
         // Lock has timed out or has some other error
         TBLog(@"DB-AA", @"SystemAuth|haveValidLockSystemAuth: Lock has timed out or has some other error; requesting lock icon show as locked");
-        [[[NSApp delegate] logScreen] performSelectorOnMainThread: @selector(lockTheLockIcon) withObject: nil waitUntilDone: NO];
+        [[((MenuController *)[NSApp delegate]) logScreen] performSelectorOnMainThread: @selector(lockTheLockIcon) withObject: nil waitUntilDone: NO];
     }
     
     lockStatus = pthread_mutex_unlock( &lockAuthRefMutex );
@@ -289,14 +290,14 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
             TBLog(@"DB-AA", @"SystemAuth|authRef: Authorization from the lock icon isn't good and this is not the lock SystemAuth, so we are changing this SystemAuth to a not-from-lock SystemAuth and requesting lock icon show as locked");
             authRefIsFromLock = FALSE;
             authRef = [SystemAuth getAuthorizationRefWithPrompt: prompt];
-            [[[NSApp delegate] logScreen] performSelectorOnMainThread: @selector(lockTheLockIcon) withObject: nil waitUntilDone: NO];
+            [[((MenuController *)[NSApp delegate]) logScreen] performSelectorOnMainThread: @selector(lockTheLockIcon) withObject: nil waitUntilDone: NO];
             if (  authRef == NULL  ) {
                 NSLog(@"SystemAuth|authRef: getAuthorizationRefWithPrompt returned NULL so returning NULL");
                 return NULL;
             }
         } else {
             TBLog(@"DB-AA", @"SystemAuth|authRef: Authorization from the lock icon isn't good and this is the lock SystemAuth, so we are requesting lock icon show as locked and returning NULL");
-            [[[NSApp delegate] logScreen] performSelectorOnMainThread: @selector(lockTheLockIcon) withObject: nil waitUntilDone: NO];
+            [[((MenuController *)[NSApp delegate]) logScreen] performSelectorOnMainThread: @selector(lockTheLockIcon) withObject: nil waitUntilDone: NO];
             return NULL;
         }
     }
@@ -332,7 +333,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     
     if (  ! [NSThread isMainThread]  ) {
         NSLog(@"SystemAuth|setLockSystemAuth: Not running on main thread; stack trace = %@", callStack());
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
         return;
     }
     
@@ -367,7 +368,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     }
     
     if (  ! ok  ) {
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
     }
 }
 

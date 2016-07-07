@@ -168,6 +168,8 @@ struct Statistics {
 -(void)             connect:                    (id)                sender
                   userKnows:                    (BOOL)              userKnows;
 
+-(void)             connectUserKnows:           (NSNumber *)     userKnowsNumber;
+
 -(NSArray *)        currentIPInfoWithIPAddress: (BOOL)           useIPAddress
                                timeoutInterval: (NSTimeInterval) timeoutInterval;
 -(BOOL)             startDisconnectingUserKnows: (NSNumber *)    userKnows;
@@ -209,8 +211,6 @@ struct Statistics {
 -(BOOL)             noOpenvpnProcess;
 
 -(BOOL)             launchdPlistWillConnectOnSystemStart;
-
--(BOOL)             logFilesMayExist;
 
 -(BOOL)             mayConnectWhenComputerStarts;
 

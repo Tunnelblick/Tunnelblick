@@ -724,7 +724,7 @@ extern volatile int32_t       gActiveInactiveState;
         workingDirectory = firstPartOfPath(configPath);
 		if (  ! workingDirectory  ) {
 			NSLog(@"No firstPartOfPath for '%@'", configPath);
-			[NSApp terminateBecause: terminatingBecauseOfError];
+            [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
 		}
     }
     
@@ -926,7 +926,7 @@ extern volatile int32_t       gActiveInactiveState;
     [self setIpCheckLastHostWasIPAddress: [[url host] containsOnlyCharactersInString: @"0123456789."]];
 
     // Create an NSURLRequest
-    NSString * tbVersion = [[[NSApp delegate] tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
+    NSString * tbVersion = [[((MenuController *)[NSApp delegate]) tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
     
     NSString * userAgent = [NSString stringWithFormat: @"Tunnelblick ipInfoChecker: %@", tbVersion];
     NSMutableURLRequest * req = [[[NSMutableURLRequest alloc] initWithURL: url] autorelease];
@@ -2511,7 +2511,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     // Cannot be called on the main thread because it will never return
     if (  [NSThread isMainThread]  ) {
         NSLog(@"waitUntilCompletelyDisconnected: on main thread");
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
     }
     
     while (  ! completelyDisconnected  ) {
@@ -2872,7 +2872,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
-    [self performSelectorOnMainThread: @selector(credentialsHaveBeenAskedFor) withObject: [timer userInfo] waitUntilDone: NO];
+    [self performSelectorOnMainThread: @selector(credentialsHaveBeenAskedFor:) withObject: [timer userInfo] waitUntilDone: NO];
 }
 
 -(void) credentialsHaveBeenAskedFor: (NSDictionary *) dict

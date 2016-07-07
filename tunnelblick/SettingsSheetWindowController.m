@@ -1640,7 +1640,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 			[gTbDefaults setObject: name forKey: prefKey];
 		}
 		[self setupSettingsFromPreferences];
-        NSDictionary * connections = [[NSApp delegate] myVPNConnectionDictionary];
+        NSDictionary * connections = [((MenuController *)[NSApp delegate]) myVPNConnectionDictionary];
         NSEnumerator * e = [connections objectEnumerator];
         VPNConnection * conn;
         while (  (conn = [e nextObject])  ) {

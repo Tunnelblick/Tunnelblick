@@ -172,7 +172,7 @@ extern BOOL              gShuttingDownWorkspace;
     
     if ( [[pboard types] containsObject: NSFilenamesPboardType] ) {
         NSArray * files = [pboard propertyListForType:NSFilenamesPboardType];
-        [[NSApp delegate] performSelectorOnMainThread: @selector(openFiles:) withObject: files waitUntilDone: NO];
+        [((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(openFiles:) withObject: files waitUntilDone: NO];
         TBLog(@"DB-SI", @"MainIconView/performDragOperation: returning YES");
         return YES;
     }

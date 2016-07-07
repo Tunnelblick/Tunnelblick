@@ -160,7 +160,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     
     if (  ! [NSThread isMainThread]  ) {
         NSLog(@"lockTheLockIcon invoked but not on main thread; stack trace = %@", callStack());
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
         return;
     }
     
@@ -217,7 +217,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     
     if (  ! [NSThread isMainThread]  ) {
         NSLog(@"enableLockIcon invoked but not on main thread; stack trace = %@", callStack());
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
         return;
     }
     
@@ -413,7 +413,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  firstTimeShowingWindow  ) {
         // Set the window's position and size from the preferences (saved when window is closed), or center the window
         // Use the preferences only if the preference's version matches the TB version (since window size could be different in different versions of TB)
-        NSString * tbVersion = [[[NSApp delegate] tunnelblickInfoDictionary] objectForKey: @"CFBundleVersion"];
+        NSString * tbVersion = [[((MenuController *)[NSApp delegate]) tunnelblickInfoDictionary] objectForKey: @"CFBundleVersion"];
         if (  [tbVersion isEqualToString: [gTbDefaults stringForKey:@"detailsWindowFrameVersion"]]    ) {
             NSString * mainFrameString  = [gTbDefaults stringForKey: @"detailsWindowFrame"];
             NSString * leftFrameString  = [gTbDefaults stringForKey: @"detailsWindowLeftFrame"];
@@ -494,7 +494,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         leftFrameString = NSStringFromRect([[configurationsPrefsView leftSplitView] frame]);
     }
 	NSString * configurationsTabIdentifier = [[[configurationsPrefsView configurationsTabView] selectedTabViewItem] identifier];
-    NSString * tbVersion = [[[NSApp delegate] tunnelblickInfoDictionary] objectForKey: @"CFBundleVersion"];
+    NSString * tbVersion = [[((MenuController *)[NSApp delegate]) tunnelblickInfoDictionary] objectForKey: @"CFBundleVersion"];
 	unsigned int viewIx = [toolbarIdentifiers indexOfObject: currentViewName];
     BOOL saveIt = TRUE;
 	unsigned int defaultViewIx = [UIHelper detailsWindowsViewIndexFromPreferencesWithCount: [toolbarIdentifiers count]];
@@ -1248,7 +1248,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	NSString * displayName;
 	NSEnumerator * e = [displayNames objectEnumerator];
 	while (  (displayName = [e nextObject])  ) {
-		NSString * path = [[[NSApp delegate] myConfigDictionary] objectForKey: displayName];
+		NSString * path = [[((MenuController *)[NSApp delegate]) myConfigDictionary] objectForKey: displayName];
 		if (  ! path  ) {
 			NSLog(@"isAnySelectedConfigurationPrivate: Internal error: No configuration for '%@'", displayName);
 		}
@@ -1266,7 +1266,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	NSString * displayName;
 	NSEnumerator * e = [displayNames objectEnumerator];
 	while (  (displayName = [e nextObject])  ) {
-		NSString * path = [[[NSApp delegate] myConfigDictionary] objectForKey: displayName];
+		NSString * path = [[((MenuController *)[NSApp delegate]) myConfigDictionary] objectForKey: displayName];
 		if (  ! path  ) {
 			NSLog(@"isAnySelectedConfigurationShared: Internal error: No configuration for '%@'", displayName);
 		}
@@ -1284,7 +1284,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	NSString * displayName;
 	NSEnumerator * e = [displayNames objectEnumerator];
 	while (  (displayName = [e nextObject])  ) {
-		NSString * path = [[[NSApp delegate] myConfigDictionary] objectForKey: displayName];
+		NSString * path = [[((MenuController *)[NSApp delegate]) myConfigDictionary] objectForKey: displayName];
 		if (  ! path  ) {
 			NSLog(@"isAnySelectedConfigurationShared: Internal error: No configuration for '%@'", displayName);
 		}
@@ -1751,7 +1751,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		[gTbDefaults removeObjectForKey: key];
 	}
 	
-	[[NSApp delegate] changedDisplayConnectionSubmenusSettings];
+	[((MenuController *)[NSApp delegate]) changedDisplayConnectionSubmenusSettings];
 }
 
 -(IBAction) doNotShowOnTbMenuMenuItemWasClicked: (id) sender
@@ -1766,7 +1766,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		[gTbDefaults setBool: YES forKey: key];
 	}
 	
-	[[NSApp delegate] changedDisplayConnectionSubmenusSettings];
+	[((MenuController *)[NSApp delegate]) changedDisplayConnectionSubmenusSettings];
 }
 
 -(IBAction) editOpenVPNConfigurationFileMenuItemWasClicked: (id) sender
@@ -2229,7 +2229,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
                           [NSString stringWithFormat:
                            NSLocalizedString(@"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log", @"Window text"),
-                           [[NSApp delegate] localizedNameForDisplayName: displayName]]);
+                           [((MenuController *)[NSApp delegate]) localizedNameForDisplayName: displayName]]);
     }
     
     [self performSelectorOnMainThread: @selector(validateWhenToConnect:) withObject: connection waitUntilDone: NO];
@@ -2629,7 +2629,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * message = NSLocalizedString(@"Tunnelblick needs to change a setting that may only be changed by a computer administrator.", @"Window text");
     SystemAuth * auth = [SystemAuth newAuthWithPrompt: message];
     if (  auth  ) {
-        NSInteger status = [[NSApp delegate] runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
+        NSInteger status = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
                                            extraArguments: [NSArray arrayWithObject: forcedPreferencesDictionaryPath]
                                           usingSystemAuth: auth
                                         installTblksFirst: nil];
@@ -3025,7 +3025,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (   wantIconNearSpotlightIcon
         && shouldPlaceIconInStandardPositionInStatusBar()
         ) {
-        [[NSApp delegate] showConfirmIconNearSpotlightIconDialog];
+        [((MenuController *)[NSApp delegate]) showConfirmIconNearSpotlightIconDialog];
     }
 }
 

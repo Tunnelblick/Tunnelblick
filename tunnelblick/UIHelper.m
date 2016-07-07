@@ -32,7 +32,7 @@ extern TBUserDefaults * gTbDefaults;
 
 +(NSString *) appendRTLIfRTLLanguage: (NSString *) string {
     
-    if (  [[NSApp delegate] languageAtLaunchWasRTL]  ) {
+    if (  [((MenuController *)[NSApp delegate]) languageAtLaunchWasRTL]  ) {
         return [string stringByAppendingString: @"-RTL"];
     }
     
@@ -51,7 +51,7 @@ extern TBUserDefaults * gTbDefaults;
 
 +(BOOL) languageAtLaunchWasRTL {
     
-    return [[NSApp delegate] languageAtLaunchWasRTL];
+    return [((MenuController *)[NSApp delegate]) languageAtLaunchWasRTL];
 }
 
 +(NSString *) imgTagForImageName: (NSString *) imageName
@@ -131,7 +131,7 @@ extern TBUserDefaults * gTbDefaults;
     if (   ( ! theControl )
 		|| ( ! frameHolder )  ) {
         NSLog(@"setTitle:ofControl:shift:setEnabled: control and/or frameControl is nil; title is '%@'", newTitle);
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
         return 0.0; // Make static analyzer happy
     }
     
@@ -183,7 +183,7 @@ extern TBUserDefaults * gTbDefaults;
     
     if (  ! theControl  ) {
         NSLog(@"shift:control:by: control is nil");
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
         return; // Make static analyzer happy
     }
     
