@@ -31,11 +31,6 @@ uint64_t       nowAbsoluteNanoseconds    (void);
 NSString     * configPathFromTblkPath   (NSString * path);
 NSString     * tblkPathFromConfigPath   (NSString * path);
 
-BOOL           checkOwnerAndPermissions (NSString * fPath,
-                                         uid_t      uid,
-                                         gid_t      gid,
-                                         mode_t     permsShouldHave);
-
 NSString     * condensedConfigFileContentsFromString(NSString * fullString);
 
 NSString     * configLocCodeStringForPath(NSString * configPath);

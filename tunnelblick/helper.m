@@ -395,29 +395,6 @@ NSString * tblkPathFromConfigPath(NSString * path)
     return nil;
 }
 
-// Returns YES if file doesn't exist, or has the specified ownership and permissions
-BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, mode_t permsShouldHave)
-{
-    if (  ! [gFileMgr fileExistsAtPath: fPath]  ) {
-        return YES;
-    }
-    
-    NSDictionary *fileAttributes = [gFileMgr tbFileAttributesAtPath:fPath traverseLink:YES];
-    unsigned long perms = [fileAttributes filePosixPermissions];
-    NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
-    NSNumber *fileGroup = [fileAttributes fileGroupOwnerAccountID];
-    
-    if (   (perms == permsShouldHave)
-        && [fileOwner isEqualToNumber:[NSNumber numberWithInt:(int) uid]]
-        && [fileGroup isEqualToNumber:[NSNumber numberWithInt:(int) gid]]) {
-        return YES;
-    }
-    
-    NSLog(@"File %@ is owned by %@:%@ with permissions: %lo but must be owned by %ld:%ld with permissions %lo",
-          fPath, fileOwner, fileGroup, perms, (long)uid, (long)gid, (long)permsShouldHave);
-    return NO;
-}
-
 // Returns a string with the version # for Tunnelblick, e.g., "Tunnelbick 3.0b12 (build 157)"
 NSString * tunnelblickVersion(NSBundle * bundle)
 {

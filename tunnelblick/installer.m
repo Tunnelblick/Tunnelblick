@@ -321,23 +321,6 @@ void resolveSymlinksInPath(NSString * targetPath) {
 	}
 }
 
-NSString * sha256HexStringForData (NSData * data) {
-    
-    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH * 2];
-    
-    if (  data  ) {
-        uint8_t digest[CC_SHA256_DIGEST_LENGTH];
-        if (  CC_SHA256(data.bytes, data.length, digest)  ) {
-            int i;
-            for (  i = 0; i < CC_SHA256_DIGEST_LENGTH; i++  ) {
-                [output appendFormat:@"%02x", digest[i]];
-            }
-        }
-    }
-    
-    return output;
-}
-
 void convertOldUpdatableConfigurations(void) {
     
     // Converts the "old" setup for updatable configurations to the new setup.
@@ -554,7 +537,7 @@ void  loadLaunchDaemonUsingSMJobSubmit(NSDictionary * newPlistContents) {
 
  */
 
-void loadLaunchDaemon (NSDictionary * newPlistContents, BOOL forceLoad) {
+void loadLaunchDaemonAndSaveHashes (NSDictionary * newPlistContents) {
 	
 	// 'runningOnSnowLeopardOrNewer' is not in sharedRoutines, so we don't use it -- we load the launch daemon the old way, with 'launchctl load'
 	// Left the new code in to make it easy to implement the new way -- with 'SMJobSubmit()' on 10.6.8 and higher -- in case a later version of OS X messes with 'launchctl load'
@@ -562,54 +545,51 @@ void loadLaunchDaemon (NSDictionary * newPlistContents, BOOL forceLoad) {
     //
     // UPDATE 2016-07-03: By now (when we are removing 10.4 and 10.5 code), SMJobSubmit is deprecated (thanks, Apple!), so we aren't bothering to use it,
     // we are still using 'launchctl load'.
-	
-	if (   forceLoad
-        || (! isLaunchDaemonLoaded())  ) {
-//      if (  runningOnSnowLeopardOrNewer()  ) {
-//          loadLaunchDaemonUsingSMJobSubmit(newPlistContents);
-// 	    } else {
-	    (void) newPlistContents;  // Can remove this if the above lines are un-commmented
-		loadLaunchDaemonUsingLaunchctl();
-//	    }
-        
-        // Store the hash of the .plist and the daemon in files owned by root:wheel
-        NSDictionary * hashFileAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                             [NSNumber numberWithUnsignedLong: 0],               NSFileOwnerAccountID,
-                                             [NSNumber numberWithUnsignedLong: 0],               NSFileGroupOwnerAccountID,
-                                             [NSNumber numberWithShort: PERMS_SECURED_READABLE], NSFilePosixPermissions,
-                                             nil];
-        
-        NSData * plistData = [gFileMgr contentsAtPath: TUNNELBLICKD_PLIST_PATH];
-        if (  ! plistData  ) {
-            appendLog([NSString stringWithFormat: @"Could not find tunnelblickd launchd .plist at '%@'", TUNNELBLICKD_PLIST_PATH]);
-            errorExit();
-        }
-        NSString * plistHash = sha256HexStringForData(plistData);
-        NSData * plistHashData = [NSData dataWithBytes: [plistHash UTF8String] length: [plistHash length]];
-        if (  ! [gFileMgr createFileAtPath: L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH contents: plistHashData attributes: hashFileAttributes]  ) {
-            appendLog(@"Could not store tunnelblickd launchd .plist hash");
-            errorExit();
-        }
-
+    
+    //      if (  runningOnSnowLeopardOrNewer()  ) {
+    //          loadLaunchDaemonUsingSMJobSubmit(newPlistContents);
+    // 	    } else {
+    (void) newPlistContents;  // Can remove this if the above lines are un-commmented
+    loadLaunchDaemonUsingLaunchctl();
+    //	    }
+    
+    // Store the hash of the .plist and the daemon in files owned by root:wheel
+    NSDictionary * hashFileAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                         [NSNumber numberWithUnsignedLong: 0],               NSFileOwnerAccountID,
+                                         [NSNumber numberWithUnsignedLong: 0],               NSFileGroupOwnerAccountID,
+                                         [NSNumber numberWithShort: PERMS_SECURED_READABLE], NSFilePosixPermissions,
+                                         nil];
+    
+    NSData * plistData = [gFileMgr contentsAtPath: TUNNELBLICKD_PLIST_PATH];
+    if (  ! plistData  ) {
+        appendLog([NSString stringWithFormat: @"Could not find tunnelblickd launchd .plist at '%@'", TUNNELBLICKD_PLIST_PATH]);
+        errorExit();
+    }
+    NSString * plistHash = sha256HexStringForData(plistData);
+    NSData * plistHashData = [NSData dataWithBytes: [plistHash UTF8String] length: [plistHash length]];
+    if (  ! [gFileMgr createFileAtPath: L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH contents: plistHashData attributes: hashFileAttributes]  ) {
+        appendLog(@"Could not store tunnelblickd launchd .plist hash");
+        errorExit();
+    }
+    
 #ifdef TBDebug
-        NSBundle * ourBundle = [NSBundle mainBundle];
-        NSString * resourcesPath = [ourBundle bundlePath]; // (installer itself is in Resources, so this works)
-        NSString * tunnelblickdPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
+    NSBundle * ourBundle = [NSBundle mainBundle];
+    NSString * resourcesPath = [ourBundle bundlePath]; // (installer itself is in Resources, so this works)
+    NSString * tunnelblickdPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
 #else
-        NSString * tunnelblickdPath = @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd";
+    NSString * tunnelblickdPath = @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd";
 #endif
-        NSData   * daemonData = [gFileMgr contentsAtPath: tunnelblickdPath];
-        if (  ! daemonData  ) {
-            appendLog([NSString stringWithFormat: @"Could not find tunnelblickd at '%@'", tunnelblickdPath]);
-            errorExit();
-        }
-        NSString * daemonHash = sha256HexStringForData(daemonData);
-        NSData * daemonHashData = [NSData dataWithBytes: [daemonHash UTF8String] length: [daemonHash length]];
-        if (  ! [gFileMgr createFileAtPath: L_AS_T_TUNNELBLICKD_HASH_PATH contents: daemonHashData attributes: hashFileAttributes]  ) {
-            appendLog(@"Could not store tunnelblickd hash");
-            errorExit();
-        }
-	}
+    NSData   * daemonData = [gFileMgr contentsAtPath: tunnelblickdPath];
+    if (  ! daemonData  ) {
+        appendLog([NSString stringWithFormat: @"Could not find tunnelblickd at '%@'", tunnelblickdPath]);
+        errorExit();
+    }
+    NSString * daemonHash = sha256HexStringForData(daemonData);
+    NSData * daemonHashData = [NSData dataWithBytes: [daemonHash UTF8String] length: [daemonHash length]];
+    if (  ! [gFileMgr createFileAtPath: L_AS_T_TUNNELBLICKD_HASH_PATH contents: daemonHashData attributes: hashFileAttributes]  ) {
+        appendLog(@"Could not store tunnelblickd hash");
+        errorExit();
+    }
 }
 
 int main(int argc, char *argv[])
@@ -640,9 +620,7 @@ int main(int argc, char *argv[])
     BOOL moveNotCopy      = (arg1 & INSTALLER_MOVE_NOT_COPY) != 0;
     BOOL deleteConfig     = (arg1 & INSTALLER_DELETE) != 0;
 	
-    BOOL forceLoadLaunchDaemon = (   copyApp
-                                  || secureApp
-                                  || ((arg1 & INSTALLER_MUST_RELOAD_DAEMON) != 0) );
+    BOOL forceLoadLaunchDaemon = (arg1 & INSTALLER_REPLACE_DAEMON) != 0;
     
 	openLog(  clearLog  );
 	
@@ -947,7 +925,7 @@ int main(int argc, char *argv[])
         
         // The names of our launchd .plists file should not change when rebranded, so we break the strings so that global search/replace doesn't see them
 		NSString *launchAtLoginPlistPath    = [appResourcesPath stringByAppendingPathComponent:@"net.tunnelblick.tunnel" @"blick.LaunchAtLogin.plist"];
-		NSString *tunnelblickdPlistPath     = [appResourcesPath stringByAppendingPathComponent:@"net.tunnelblick.tunnel" @"blick.tunnelblickd.plist"];
+		NSString *tunnelblickdPlistPath     = [appResourcesPath stringByAppendingPathComponent:[TUNNELBLICKD_PLIST_PATH lastPathComponent]];
         
         NSString *tunnelblickPath = [contentsPath stringByDeletingLastPathComponent];
         
@@ -1373,28 +1351,25 @@ int main(int argc, char *argv[])
     //**************************************************************************************************************************
     // (12) Set up tunnelblickd to load when the computer starts
 	
-	// Check to see if the tunnelblickd .plist file is up-to-date
-    // If we are debugging, it needs the 'Debug' key set and the 'Program' value pointing to our copy of tunnelblickd
+    if (  ( ! forceLoadLaunchDaemon )  ) {
+        if (   needToReplaceLaunchDaemon()
+            || ( ! isLaunchDaemonLoaded() )  ) {
+            forceLoadLaunchDaemon = TRUE;
+        }
+    }
     
-    // NOTE: The name of the tunnelblickd .plist file in Resources does not change when rebranded, hence the split constant strings when referring to it
-    NSString * ourPlistPath = [resourcesPath stringByAppendingPathComponent: @"net.tunnel" @"blick.tunnel" @"blick.tunnelblickd.plist"];
-    
-    NSMutableDictionary * newPlistContents = [[[NSDictionary dictionaryWithContentsOfFile: ourPlistPath] mutableCopy] autorelease];
-    
-#ifdef TBDebug
-    NSString * daemonPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
-    [newPlistContents setObject: daemonPath                     forKey: @"Program"];
-    [newPlistContents setObject: [NSNumber numberWithBool: YES] forKey: @"Debug"];
-    NSDictionary * installedPlistContents = nil; // Force install or replace of plist
-#else
-    NSDictionary * installedPlistContents = [NSDictionary dictionaryWithContentsOfFile: TUNNELBLICKD_PLIST_PATH];
-#endif
-    
-    if (  ! [installedPlistContents isEqualToDictionary: newPlistContents]  ) {
+    if (  forceLoadLaunchDaemon  ) {
+ 
+        // If we are reloading the LaunchDaemon, we make sure it is up-to-date by copying it from Resources into /Library/LaunchDaemons
+        //                                                                    and copying a .plist into /Library/LaunchDaemons
         
         // Install or replace the tunnelblickd .plist in /Library/LaunchDaemons
-        
         BOOL hadExistingPlist = [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH];
+        NSDictionary * newPlistContents = tunnelblickdPlistDictionaryToUse();
+        if (  ! newPlistContents  ) {
+            appendLog(@"Unable to get a model for tunnelblickd.plist");
+            errorExit();
+        }
         if (  hadExistingPlist  ) {
             if (  ! [gFileMgr tbRemoveFileAtPath: TUNNELBLICKD_PLIST_PATH handler: nil]  ) {
                 appendLog([NSString stringWithFormat: @"Unable to delete %@", TUNNELBLICKD_PLIST_PATH]);
@@ -1409,11 +1384,15 @@ int main(int argc, char *argv[])
                 errorExit();
             }
             appendLog([NSString stringWithFormat: @"%@ %@", (hadExistingPlist ? @"Replaced" : @"Installed"), TUNNELBLICKD_PLIST_PATH]);
-            forceLoadLaunchDaemon = TRUE;
         } else {
             appendLog([NSString stringWithFormat: @"Unable to create %@", TUNNELBLICKD_PLIST_PATH]);
             errorExit();
         }
+        
+        // Load the new launch daemon so it is used immediately, even before the next system start
+        // And save hashes of the tunnelblickd program and it's .plist, so we can detect when they need to be updated
+        loadLaunchDaemonAndSaveHashes(newPlistContents);
+        
     } else {
         if (  ! checkSetOwnership(TUNNELBLICKD_PLIST_PATH, NO, 0, 0)  ) {
             errorExit();
@@ -1422,9 +1401,6 @@ int main(int argc, char *argv[])
             errorExit();
         }
     }
-    
-    // We must load the new launch daemon, too, so it is used immediately, even before the next system start
-    loadLaunchDaemon(newPlistContents, forceLoadLaunchDaemon);
 	
     //**************************************************************************************************************************
     // DONE

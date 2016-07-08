@@ -34,6 +34,7 @@
 #import <sys/stat.h>
 #import <sys/types.h>
 #import <sys/un.h>
+#import <CommonCrypto/CommonDigest.h>
 
 #import "defines.h"
 
@@ -46,6 +47,147 @@ extern NSString * gDeployPath;
 // External reference that must be defined in Tunnelblick, installer, and any other target using this module
 void appendLog(NSString * msg);	// Appends a string to the log
 
+
+// Returns YES if file doesn't exist, or has the specified ownership and permissions
+BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, mode_t permsShouldHave)
+{
+    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: fPath]  ) {
+        return YES;
+    }
+    
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] tbFileAttributesAtPath:fPath traverseLink:YES];
+    unsigned long perms = [fileAttributes filePosixPermissions];
+    NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
+    NSNumber *fileGroup = [fileAttributes fileGroupOwnerAccountID];
+    
+    if (   (perms == permsShouldHave)
+        && [fileOwner isEqualToNumber:[NSNumber numberWithInt:(int) uid]]
+        && [fileGroup isEqualToNumber:[NSNumber numberWithInt:(int) gid]]) {
+        return YES;
+    }
+    
+    appendLog([NSString stringWithFormat: @"File %@ is owned by %@:%@ with permissions: %lo but must be owned by %ld:%ld with permissions %lo",
+          fPath, fileOwner, fileGroup, perms, (long)uid, (long)gid, (long)permsShouldHave]);
+    return NO;
+}
+
+NSDictionary * tunnelblickdPlistDictionaryToUse(void) {
+    
+#ifndef TBDebug
+    return [NSDictionary dictionaryWithContentsOfFile: TUNNELBLICKD_PLIST_PATH];
+#else
+    NSString * resourcesPath = [[NSBundle mainBundle] resourcePath];
+    NSString * plistPath = [resourcesPath stringByAppendingPathComponent: [TUNNELBLICKD_PLIST_PATH lastPathComponent]];
+    NSMutableDictionary * plistContents = [[[NSDictionary dictionaryWithContentsOfFile: plistPath] mutableCopy] autorelease];
+    NSString * daemonPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
+    [plistContents setObject: daemonPath                     forKey: @"Program"];
+    [plistContents setObject: [NSNumber numberWithBool: YES] forKey: @"Debug"];
+    return plistContents;
+#endif
+}
+
+NSData * tunnelblickdPlistDataToUse(void) {
+    
+    NSDictionary * plistContents = tunnelblickdPlistDictionaryToUse();
+    if (  ! plistContents  ) {
+        return nil;
+    }
+    
+    NSData * data = [NSPropertyListSerialization dataFromPropertyList: plistContents
+                                                               format: NSPropertyListXMLFormat_v1_0
+                                                     errorDescription: nil];
+    return data;
+}
+
+NSString * tunnelblickdPathInApp(void) {
+    
+    NSString * resourcesPath = [[NSBundle mainBundle] resourcePath];
+    NSString * path = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
+    return path;
+}
+
+NSString * sha256HexStringForData (NSData * data) {
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH * 2];
+    
+    if (  data  ) {
+        uint8_t digest[CC_SHA256_DIGEST_LENGTH];
+        if (  CC_SHA256(data.bytes, data.length, digest)  ) {
+            int i;
+            for (  i = 0; i < CC_SHA256_DIGEST_LENGTH; i++  ) {
+                [output appendFormat:@"%02x", digest[i]];
+            }
+        }
+    }
+    
+    return output;
+}
+
+NSString * hashForTunnelblickdProgramInApp(void) {
+    
+    NSData * data = [[NSFileManager defaultManager] contentsAtPath: tunnelblickdPathInApp()];
+    if (  ! data  ) {
+        return nil;
+    }
+    
+    return sha256HexStringForData(data);
+}
+
+NSString * hashForTunnelblickdPlistToUse(void) {
+    
+    NSString * result = sha256HexStringForData(tunnelblickdPlistDataToUse());
+    return result;
+}
+
+BOOL needToReplaceLaunchDaemon(void) {
+    
+    // Compares the saved hashes of the tunnelblickd launchctl .plist and the tunnelblickd program with newly-calculated hashes to see if
+    // the .plist or program have changed. That can happen when a Sparkle update replaces the Tunnelblick application.
+    //
+    // If the .plist or program have changed or have bad ownership/permissions,
+    //    or one or both hashes don't exist or have bad ownership/permissions,
+    //    or the .plist in /Library/LaunchDaemons doesn't exist or doesn't match the new .plist,
+    //    or the socket used to communicate with tunnelblickd doesn't exist,
+    // then we need to reload tunnelblickd to finish the update.
+    //
+    // DOES NOT check if tunnelblickd is actually **loaded** -- that requires root access and is done separately by "installer". But if all the
+    // other requirements are met, it is likely that tunnelblickd is loaded.
+    
+    NSFileManager * fm =  [NSFileManager defaultManager];
+    NSData * previousDaemonHashData = nil;
+    NSData * previousPlistHashData = nil;
+    BOOL daemonOk = FALSE;
+    
+    if (   [fm fileExistsAtPath:    L_AS_T_TUNNELBLICKD_HASH_PATH]
+        && checkOwnerAndPermissions(L_AS_T_TUNNELBLICKD_HASH_PATH, 0, 0, PERMS_SECURED_READABLE)
+        && (  (previousDaemonHashData = [fm contentsAtPath: L_AS_T_TUNNELBLICKD_HASH_PATH]).length != 0  )
+        
+        && [fm fileExistsAtPath:    L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH]
+        && checkOwnerAndPermissions(L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH, 0, 0, PERMS_SECURED_READABLE)
+        && (  (previousPlistHashData = [fm contentsAtPath: L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH]).length != 0  )
+        
+        && [fm fileExistsAtPath:    TUNNELBLICKD_PLIST_PATH]
+        && checkOwnerAndPermissions(TUNNELBLICKD_PLIST_PATH,  0, 0, PERMS_SECURED_READABLE)
+        
+        && [fm fileExistsAtPath:    TUNNELBLICKD_SOCKET_PATH]
+        ) {
+        
+        NSString * previousDaemonHash = [[[NSString alloc] initWithData: previousDaemonHashData encoding: NSUTF8StringEncoding] autorelease];
+        NSString * previousPlistHash  = [[[NSString alloc] initWithData: previousPlistHashData  encoding: NSUTF8StringEncoding] autorelease];
+        NSDictionary * activePlist = [NSDictionary dictionaryWithContentsOfFile: TUNNELBLICKD_PLIST_PATH];
+        daemonOk =  (   [previousDaemonHash isEqual: hashForTunnelblickdProgramInApp()]
+                     && [previousPlistHash  isEqual: hashForTunnelblickdPlistToUse()]
+                     && [activePlist        isEqual: tunnelblickdPlistDictionaryToUse()]
+                     );
+    }
+    
+    if (  ! daemonOk  ) {
+        appendLog(@"Need to replace and/or reload 'tunnelblickd'");
+        return TRUE;
+    }
+    
+    return FALSE;
+}
 
 OSStatus getSystemVersion(unsigned * major, unsigned * minor, unsigned * bugFix) {
     
@@ -872,7 +1014,7 @@ NSString * newTemporaryDirectoryPath(void)
 {
     //**********************************************************************************************
     // Start of code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
-    // Modified to check for malloc returning NULL, use strlcpy, use gFileMgr, and use more readable length for stringWithFileSystemRepresentation
+    // Modified to check for malloc returning NULL, use strlcpy, and use more readable length for stringWithFileSystemRepresentation
     
     NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"Tunnelblick-XXXXXX"];
     const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
@@ -1192,13 +1334,6 @@ NSString * lineAfterRemovingNulCharacters(NSString * line, NSMutableString * out
     }
     
 	return [NSString stringWithString: outputLine];
-}
-
-BOOL tunnelblickdIsLoaded(void) {
-	
-	return (   [[NSFileManager defaultManager] fileExistsAtPath: TUNNELBLICKD_PLIST_PATH]
-            && [[NSFileManager defaultManager] fileExistsAtPath: TUNNELBLICKD_SOCKET_PATH]);
-    
 }
 
 OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString ** stderrString) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -22,6 +22,12 @@
 #import <Foundation/Foundation.h>
 
 
+NSString * sha256HexStringForData (NSData * data);
+
+NSDictionary * tunnelblickdPlistDictionaryToUse(void);
+
+BOOL needToReplaceLaunchDaemon(void);
+
 OSStatus getSystemVersion(unsigned * major, unsigned * minor, unsigned * bugFix);
 
 unsigned cvt_atou(const char * s, NSString * description);
@@ -38,6 +44,11 @@ mode_t privateFolderPermissions(NSString * path);
 gid_t privateFolderGroup(NSString * path);
 
 BOOL isSanitizedOpenvpnVersion(NSString * s);
+
+BOOL checkOwnerAndPermissions (NSString * fPath,
+                               uid_t      uid,
+                               gid_t      gid,
+                               mode_t     permsShouldHave);
 
 BOOL checkSetItemOwnership(NSString *     path,
 						   NSDictionary * atts,
@@ -85,8 +96,6 @@ void startTool(NSString * launchPath,
 			   NSArray *  arguments);
 
 NSString * newTemporaryDirectoryPath(void);
-
-BOOL tunnelblickdIsLoaded(void);
 
 OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString ** stderrString);
 
