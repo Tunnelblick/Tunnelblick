@@ -3654,12 +3654,6 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                 }
                 [tmpDict setObject: string forKey: keyString];
                 
-                if (  /* DISABLES CODE */ (! ASL_KEY_SENDER)  ) {
-                    NSLog(@"stringContainingRelevantConsoleLogEntries: ASL_KEY_SENDER = NULL");
-                }
-                if (  /* DISABLES CODE */ (! ASL_KEY_MSG)  ) {
-                    NSLog(@"stringContainingRelevantConsoleLogEntries: ASL_KEY_MSG = NULL");
-                }
                 if (  [keyString isEqualToString: [NSString stringWithUTF8String: ASL_KEY_SENDER]]  ) {
                     if (   [string isEqualToString: @"Tunnelblick"]
                         || [string isEqualToString: @"atsystemstart"]
