@@ -34,10 +34,10 @@
 #import "UIHelper.h"
 
 
-TBUserDefaults * gTbDefaults;         // Our preferences
-extern NSArray * gRateUnits;
-extern NSArray * gTotalUnits;
-extern BOOL       gShuttingDownWorkspace;
+extern TBUserDefaults * gTbDefaults;         // Our preferences
+extern NSArray        * gRateUnits;
+extern NSArray        * gTotalUnits;
+extern BOOL             gShuttingDownWorkspace;
 
 // The following must be small enough that it's square fits in an NSUInteger
 #define NUMBER_OF_STATUS_SCREEN_POSITIONS 4096
