@@ -6071,13 +6071,14 @@ BOOL warnAboutNonTblks(void)
         NSLog(@"Tunnelblick: WARNING: This is an insecure copy of Tunnelblick to be used for debugging only!");
         [self warnIfInvalidOrNoSignatureAllowCheckbox: YES];
         return;
-#endif
+#else
         if (  [currentPath isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
 			[self warnIfInvalidOrNoSignatureAllowCheckbox: YES];
             return;
         } else {
             NSLog(@"Tunnelblick can only run when it is /Applications/Tunnelblick.app; path = %@.", currentPath);
         }
+#endif
     } else {
         NSLog(@"Tunnelblick cannot run when it is on /%@ because the volume has the MNT_NOSUID statfs flag set.", [[currentPath pathComponents] objectAtIndex: 1]);
     }
