@@ -111,7 +111,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
 
 +(OSStatus)checkAuthorizationRef: (AuthorizationRef) myAuthorizationRef
                           prompt: (NSString *)       prompt
-              interactionAllowed: (BOOL)             interactionAllowed {
+              interactionAllowed: (BOOL)             interactionAllowed
+             reactivationAllowed: (BOOL)             reactivationAllowed {
     
     // Does the second part of obtaining a usable AuthorizationRef: tries to actually obtain the authorization.
     // If ref has already been authorized (not merely created) and has not timed out, no user interaction is needed.
@@ -141,7 +142,23 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     
     OSStatus status = AuthorizationCopyRights(myAuthorizationRef, &rights, &environment, flags, NULL );
     
-    if (  interactionAllowed  ) {
+    // Reactivate Tunnnelblick only when allowed and interacting with the user.
+    //
+    // DO NOT ALLOW REACTIVATION WHEN INSTALLING OR SECURING THE TUNNELBLICK APPLICATION ITSELF.
+    //
+    // A. We reactivate Tunnelblick to make sure the authorization window shows up at the front of other windows.
+    //
+    // B. When installing/securing Tunnelblick, we don't need to reactivate because we have just
+    //    been activated (because we have just been launched).
+    //
+    // C. If we do reactivate when installing, it causes a race:
+    //       1. The reactivation creates a system thread to do the work.
+    //       2. The user cancels the installation, which terminates this instance of Tunnelblick.
+    //       3. The reactivation thread reactivates Tunnelblick by creating a new instance of Tunnelblick.
+    //          (On some versions of OS X, this just causes a failure in the reactivation thread and logs messages about that.)
+    
+    if (   interactionAllowed
+        && reactivationAllowed  ) {
         [((MenuController *)[NSApp delegate]) reactivateTunnelblick];
     }
     
@@ -168,7 +185,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     
     OSStatus status = [SystemAuth checkAuthorizationRef: [lockSystemAuth authRefDirect]
                                                  prompt: [lockSystemAuth prompt]
-                                     interactionAllowed: NO];
+                                     interactionAllowed: NO
+                                    reactivationAllowed: NO];
     
     BOOL ok = (status == errAuthorizationSuccess);
     
@@ -187,7 +205,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     return ok;
 }
 
--(SystemAuth *) initWithPrompt: (NSString *) thePrompt {
+-(SystemAuth *) initWithPrompt: (NSString *) thePrompt reactivateOk: (BOOL) reactivateOk {
     
     self = [super init];
     if (  ! self  ) {
@@ -196,6 +214,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     }
     
     [self setPrompt: thePrompt];
+    
+    allowReactivation = reactivateOk;
     
     if (  [SystemAuth haveValidLockSystemAuth ] ) {
         NSString * expandedPrompt = [NSString stringWithFormat: @"%@\n\n Note: Tunnelblick is in administrator mode, so a computer administrator username and password are not required.", prompt];
@@ -208,7 +228,10 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
                                              NSLocalizedString(@"Do not show this type of warning again", @"Checkbox name"),
                                              nil,
                                              NSAlertDefaultReturn);
-        [NSApp activateIgnoringOtherApps:YES];
+        if (  allowReactivation  ) {
+            [NSApp activateIgnoringOtherApps:YES];
+        }
+        
         if (  result != NSAlertDefaultReturn  ) {
             TBLog(@"DB-AA", @"SystemAuth|initWithPrompt: user declined to use the lock authorization");
             authRef = NULL;
@@ -256,7 +279,26 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
         TBLog(@"DB-AA", @"SystemAuth|newAuthWithPrompt: Warning: Running on main thread; stack trace = %@", callStack());
     }
     
-    SystemAuth * sa = [[SystemAuth alloc] initWithPrompt: prompt];
+    SystemAuth * sa = [[SystemAuth alloc] initWithPrompt: prompt reactivateOk: YES];
+    
+    if (   [sa authRefIsFromLock]
+        || ([sa authRefDirect] != NULL)  ) {
+        return sa;
+    }
+    
+    [sa release];
+    return nil; // User cancelled
+}
+
++(SystemAuth *) newAuthWithoutReactivationWithPrompt: (NSString *) prompt {
+    
+    // Returns nil if the user cancelled
+    
+    if (  [NSThread isMainThread]  ) {
+        TBLog(@"DB-AA", @"SystemAuth|newAuthWithPrompt: Warning: Running on main thread; stack trace = %@", callStack());
+    }
+    
+    SystemAuth * sa = [[SystemAuth alloc] initWithPrompt: prompt reactivateOk: NO];
     
     if (   [sa authRefIsFromLock]
         || ([sa authRefDirect] != NULL)  ) {
@@ -276,7 +318,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
         AuthorizationRef lockRef = [lockSystemAuth authRefDirect];
         OSStatus status = [SystemAuth checkAuthorizationRef: lockRef
                                                      prompt: [self prompt]
-                                         interactionAllowed: NO];
+                                         interactionAllowed: NO
+                                        reactivationAllowed: NO];
         if (  status == errAuthorizationSuccess  ) {
             TBLog(@"DB-AA", @"SystemAuth|authRef: returning authRef from lock");
             NSLog(@"Authorizing an operation without admin username/password because Tunnelblick is in administrator mode");
@@ -308,12 +351,14 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     }
     OSStatus status = [SystemAuth checkAuthorizationRef: authRef
                                                  prompt: [self prompt]
-                                     interactionAllowed: NO];
+                                     interactionAllowed: NO
+                                    reactivationAllowed: NO];
     
     if (  status != errAuthorizationSuccess  ) {
         status = [SystemAuth checkAuthorizationRef: authRef
                                             prompt: [self prompt]
-                                interactionAllowed: YES];
+                                interactionAllowed: YES
+                               reactivationAllowed: allowReactivation];
     }
     
     if (  status != errAuthorizationSuccess  ) {
