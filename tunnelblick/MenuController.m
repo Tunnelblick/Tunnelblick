@@ -205,7 +205,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *,            cancellingIPCheckTh
 TBSYNTHESIZE_OBJECT_GET(retain, ConfigurationMultiUpdater *, myConfigMultiUpdater)
 
 TBSYNTHESIZE_OBJECT(retain, SystemAuth   *, startupInstallAuth,        setStartupInstallAuth)
-TBSYNTHESIZE_OBJECT(retain, NSButton     *, statusItemButton,          setStatusItemButton)
+TBSYNTHESIZE_OBJECT(retain, NSStatusBarButton *, statusItemButton,          setStatusItemButton)
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, screenList,                setScreenList)
 TBSYNTHESIZE_OBJECT(retain, MainIconView *, ourMainIconView,           setOurMainIconView)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
@@ -1398,38 +1398,41 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLangua
 	
     if (  ! ourMainIconView  ) {
         [self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 24.0, 22.0)] autorelease]];
-        [statusItem setView: [self ourMainIconView]];
     }
     
-    // If possible and needed, set up a tracking rectangle
-    if (  [statusItem respondsToSelector: @selector(button)]  ) {
+/* Removed but left in for when the deprecated 'setView:' method of NSStatusItem is removed from OS X
+     if (   [statusItem respondsToSelector: @selector(button)]  ) {
+        
         [self setStatusItemButton: [statusItem performSelector: @selector(button) withObject: nil]];
-		[statusItemButton setImage: mainImage];  // Set image so that frame is set up so we can set the tracking rectangle
         if (  statusItemButton  ) {
-            if ( ! [gTbDefaults boolForKey: @"doNotShowNotificationWindowOnMouseover"]  ) {
-                NSRect frame = [statusItemButton frame];
-                NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
-                iconTrackingRectTag = [statusItemButton addTrackingRect: trackingRect
-                                                                  owner: self
-                                                               userData: nil
-                                                           assumeInside: NO];
-                TBLog(@"DB-SI", @"createStatusItem: Added tracking rectangle (%f,%f, %f, %f) for status item",
-                     trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height)
-            } else {
-                TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item because of preference")
-            }
+            [statusItemButton setImage: mainImage];  // Set image so that frame is set up so we can set the tracking rectangle
+            NSRect frame = [statusItemButton frame];
+            NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
+            iconTrackingRectTag = [statusItemButton addTrackingRect: trackingRect
+                                                              owner: self
+                                                           userData: nil
+                                                       assumeInside: NO];
+            TBLog(@"DB-SI", @"createStatusItem: Added tracking rectangle (%f,%f, %f, %f) for status item",
+                  trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height)
+            [statusItem setView: [self ourMainIconView]];
         } else {
             TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item because there was no statusItemButton");
+            [statusItem setView: [self ourMainIconView]];
         }
-	
-		TBLog(@"DB-SI", @"createStatusItem: Set menu for status item")
-		[statusItem setMenu: myVPNMenu];
+        [[self ourMainIconView] setupTrackingRect];
     } else {
-        if (  [self statusItemButton]  ) {
+ */
+    if (  [self statusItemButton]  ) {
             [self setStatusItemButton: nil];
         }
         TBLog(@"DB-SI", @"createStatusItem: Did not add tracking rectangle for status item because it does not respond to 'button'")
-    }
+        [statusItem setView: [self ourMainIconView]];
+        [[self ourMainIconView] setupTrackingRect];
+/*  }
+ */
+    
+    [statusItem setMenu: myVPNMenu];
+    TBLog(@"DB-SI", @"createStatusItem: Set menu for status item")
 }
 
 -(void) moveStatusItemIfNecessary {
@@ -1451,7 +1454,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLangua
     // Always re-set up the checkbox that controls the icon's position, update the icon image and status windows
     [[self logScreen] setupAppearancePlaceIconNearSpotlightCheckbox];
     [self updateIconImage];
-    [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
 }
 
 -(void) updateScreenList {
@@ -1512,7 +1514,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLangua
 {
     [self createMenu];
     [self updateIconImage];
-    [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
+    [statusItem setMenu: myVPNMenu];
 }
 
 -(NSString *) iconPositionAsString {
@@ -1553,7 +1555,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLangua
         [self createStatusItem];
         [[self logScreen] setupAppearancePlaceIconNearSpotlightCheckbox];
         [self updateIconImage];
-        [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
     }
 }
 
@@ -2014,7 +2015,9 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     // Event handler; NOT on MainThread
     // Mouse entered the tracking area of the Tunnelblick icon
 	
-    if (  gShuttingDownWorkspace  ) {
+    if (   gShuttingDownWorkspace
+        || [gTbDefaults boolForKey: @"doNotShowNotificationWindowOnMouseover"]  ) {
+        TBLog(@"DB-SI", @"Mouse entered tracking rectangle for main icon but not showing notification windows");
         return;
     }
     
@@ -4911,7 +4914,6 @@ static void signal_handler(int signalNumber)
     }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 017")
-	[[self ourMainIconView] setOrRemoveTrackingRect];
     
 	[self showWelcomeScreenForWelcomePath: [gDeployPath stringByAppendingPathComponent: @"Welcome"]];
 	
@@ -7400,10 +7402,6 @@ void terminateBecauseOfBadConfiguration(void)
     
     TBLog(@"DB-SW", @"wokeUpFromSleep: Finished all needed activity before computer went to sleep");
     
-    [self updateIconImage];
-	[self recreateMenu];
-    [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
-    
     if (  [[self connectionsToWaitForDisconnectOnWakeup] count] == 0  ) {
 		TBLog(@"DB-SW", @"wokeUpFromSleep: no configurations to disconnect on wakeup")
     } else {
@@ -7648,7 +7646,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 	
     // When the hotKey is pressed, pop up the Tunnelblick menu from the Status Bar
     MenuController * menuC = ((MenuController *)[NSApp delegate]);
-	NSButton * statusButton = [menuC statusItemButton];
+	NSStatusBarButton * statusButton = [menuC statusItemButton];
 	if (  statusButton  ) {
 		[statusButton performClick: nil];
 	} else {

@@ -35,7 +35,6 @@
 #import "LeftNavDataSource.h"
 #import "LeftNavItem.h"
 #import "LeftNavViewController.h"
-#import "MainIconView.h"
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
@@ -3032,13 +3031,11 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(IBAction) appearanceDisplayStatisticsWindowsCheckboxWasClicked: (NSButton *) sender
 {
 	[gTbDefaults setBool: ! [sender state] forKey:@"doNotShowNotificationWindowOnMouseover"];
-    [[((MenuController *)[NSApp delegate]) ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
 }
 
 -(IBAction) appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked: (NSButton *) sender
 {
 	[gTbDefaults setBool: ! [sender state] forKey:@"doNotShowDisconnectedNotificationWindows"];
-    [[((MenuController *)[NSApp delegate]) ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
 }
 
 -(IBAction) appearanceHelpButtonWasClicked: (id) sender

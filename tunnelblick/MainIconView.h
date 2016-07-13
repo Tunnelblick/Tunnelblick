@@ -27,8 +27,7 @@
 	BOOL				   mainIconTrackingRectTagIsValid;
 }
 
--(void) setOrRemoveTrackingRect;
--(void) changedDoNotShowNotificationWindowOnMouseover;
+-(void) setupTrackingRect;
 -(void) removeTrackingRectangle;
 
 @end

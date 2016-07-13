@@ -66,28 +66,19 @@ extern BOOL              gShuttingDownWorkspace;
     }
 }
 
--(void) setOrRemoveTrackingRect
+-(void) setupTrackingRect
 {
 	[self removeTrackingRectangle];
     
-	if (  ! [gTbDefaults boolForKey: @"doNotShowNotificationWindowOnMouseover"]  ) {
-        NSRect frame = [self frame];
-        NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
-        mainIconTrackingRectTag = [self addTrackingRect: trackingRect
-                                                  owner: self
-                                               userData: nil
-                                           assumeInside: NO];
-        mainIconTrackingRectTagIsValid = TRUE;
-        TBLog(@"DB-SI", @"setOrRemoveTrackingRect: Added main tracking rectangle (%f,%f, %f, %f) for MainIconView",
-              trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height)
-	}
-}
-
-
--(void) changedDoNotShowNotificationWindowOnMouseover
-{
-    TBLog(@"DB-SI", @"changedDoNotShowNotificationWindowOnMouseover: for MainIconView entered");
-	[self setOrRemoveTrackingRect];
+    NSRect frame = [self frame];
+    NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
+    mainIconTrackingRectTag = [self addTrackingRect: trackingRect
+                                              owner: self
+                                           userData: nil
+                                       assumeInside: NO];
+    mainIconTrackingRectTagIsValid = TRUE;
+    TBLog(@"DB-SI", @"setupTrackingRect: Added main tracking rectangle (%f,%f, %f, %f) for MainIconView",
+          trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height)
 }
 
 
@@ -189,7 +180,9 @@ extern BOOL              gShuttingDownWorkspace;
     // Event handler; NOT on MainThread
     // Mouse entered the tracking area of the Tunnelblick icon
 	
-    if (  gShuttingDownWorkspace  ) {
+    if (   gShuttingDownWorkspace
+        || [gTbDefaults boolForKey: @"doNotShowNotificationWindowOnMouseover"]  ) {
+        TBLog(@"DB-SI", @"Mouse entered tracking rectangle for MainIconView but not showing notification windows");
         return;
     }
     
