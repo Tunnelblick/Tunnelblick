@@ -142,7 +142,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     
     OSStatus status = AuthorizationCopyRights(myAuthorizationRef, &rights, &environment, flags, NULL );
     
-    // Reactivate Tunnnelblick only when allowed and interacting with the user.
+    // Reactivate Tunnelblick only when allowed and interacting with the user.
     //
     // DO NOT ALLOW REACTIVATION WHEN INSTALLING OR SECURING THE TUNNELBLICK APPLICATION ITSELF.
     //

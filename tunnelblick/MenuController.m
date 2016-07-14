@@ -3300,7 +3300,7 @@ BOOL anyNonTblkConfigs(void)
 			[self terminateBecause: terminatingBecauseOfQuit];
 		} else if (  response == NSAlertDefaultReturn  ) {
             if (  ! startupInstallAuth  ) {
-                NSString * prompt = NSLocalizedString(@"Tunnnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations.", @"Window text");
+                NSString * prompt = NSLocalizedString(@"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations.", @"Window text");
                 SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
                 if (  ! auth  ) {
                     NSLog(@"User cancelled authorization to convert OpenVPN configurations and there are no Tunnelblick configurations");
