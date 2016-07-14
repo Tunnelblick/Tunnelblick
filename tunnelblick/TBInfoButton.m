@@ -150,7 +150,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
                                                    maxHeight: originalWindowFrame.size.height];
     
     // Create a textview that contains the content and add it to the window
-    NSRect tvFrame = NSMakeRect(0.0, 0.0, newSize.width, newSize.height);
+    NSRect tvFrame = NSMakeRect(0.0, 0.0, newSize.width, newSize.height * 1.10); // Add to height of textview so it doesn't need to be scrolled
     NSTextView * tv = [[[NSTextView alloc] initWithFrame: tvFrame] autorelease];
     [tv setSelectable: YES];
     [tv setEditable:   YES];

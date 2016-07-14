@@ -128,15 +128,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWi
     NSString * onRightImageTag = [UIHelper imgTagForImageName: @"info-icon-on-right-360x40" width: 360 height: 40];
     NSString * onLeftImageTag  = [UIHelper imgTagForImageName: @"info-icon-on-left-360x40"  width: 360 height: 40];
     NSAttributedString * infoTitle = attributedStringFromHTML([NSString stringWithFormat:
-                                                                          NSLocalizedString(
-                                                                                            @"<p><strong>'Place near Spotlight icon' Checkbox</strong></strong></p>"
-                                                                                            @"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>"
-                                                                                            @"<p>%@</p>"
-                                                                                            @"<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>"
-                                                                                            @"<p>%@</p>"
-                                                                                            @"<p><strong>This checkbox is disabled</strong> on macOS Sierra (because it is not needed) and on systems for which it is known to cause problems.</p>"
+                                                                          NSLocalizedString(@"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n"
+                                                                                            @"<p>%@</p>\n"
+                                                                                            @"<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n"
+                                                                                            @"<p>%@</p>\n"
+                                                                                            @"<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n"
                                                                                             @"<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>",
-                                                                                            @"HTML info for 'Place near Spotlight icon' checkbox"),
+                                                                                            @"HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon."),
                                                                onRightImageTag, onLeftImageTag]);
     [infoButtonForAppearancePlaceIconNearSpotlightCheckbox setAttributedTitle: infoTitle];
     [infoButtonForAppearancePlaceIconNearSpotlightCheckbox setMinimumWidth: 360.0];
