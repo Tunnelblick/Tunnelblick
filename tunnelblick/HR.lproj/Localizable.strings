@@ -83,10 +83,10 @@
 "Delete Credentials" = "Obriši korisničko ime i lozinku";
 
 /* Button */
-"Delete saved passphrase and try again" = "Delete saved passphrase and try again";
+"Delete saved passphrase and try again" = "Obriši spremljeni tajni izraz i pokušaj ponovo";
 
 /* Button */
-"Delete saved password and try again" = "Delete saved password and try again";
+"Delete saved password and try again" = "Obriši spremljenu zaporku i pokušaj ponovo";
 
 /* Button */
 "Delete" = "Obriši";
@@ -140,85 +140,85 @@
 "Never load Tun driver" = "Nikad ne učitavaj Tun driver";
 
 /* Button */
-"Never show" = "Never show";
+"Never show" = "Nikad ne prikazuj";
 
 /* Button */
-"No keyboard shortcut" = "No keyboard shortcut";
+"No keyboard shortcut" = "Nema tipkovničke kratice";
 
 /* Button */
-"No sound" = "No sound";
+"No sound" = "Bez zvuka";
 
 /* Button */
-"OK" = "OK";
+"OK" = "U redu";
 
 /* Button */
-"Only Me" = "Only Me";
+"Only Me" = "Samo ja";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Open Uninstall Instructions in Browser";
+"Open Uninstall Instructions in Browser" = "Otvori upute za uklanjanje aplikacije u pregledniku";
 
 /* Button */
-"Open easy-rsa in Terminal" = "Open easy-rsa in Terminal";
+"Open easy-rsa in Terminal" = "Otvori easy-rsa u Teminalu";
 
 /* Button */
-"Privacy info..." = "Privacy info…";
+"Privacy info..." = "Informacije o privatnosti…";
 
 /* Button */
-"Quit All OpenVPN Processes" = "Quit All OpenVPN Processes";
+"Quit All OpenVPN Processes" = "Prekini sve OpenVPN procese";
 
 /* Button */
-"Quit" = "Quit";
+"Quit" = "Prekini";
 
 /* Button */
-"Reinstall" = "Reinstall";
+"Reinstall" = "Ponovna instalacija";
 
 /* Button */
 "Remove Credentials" = "Remove Credentials";
 
 /* Button */
-"Replace" = "Replace";
+"Replace" = "Zamijeni";
 
 /* Button */
-"Reset Disabled Warnings" = "Reset Disabled Warnings";
+"Reset Disabled Warnings" = "Ponovno prikaži onemogućena upozorenja";
 
 /* Button */
-"Restart connection" = "Restart connection";
+"Restart connection" = "Ponovno pokreni vezu";
 
 /* Button */
-"Restore" = "Restore";
+"Restore" = "Obnovi";
 
 /* Button */
-"Retry" = "Retry";
+"Retry" = "Ponovi";
 
 /* Button */
-"Revert" = "Revert";
+"Revert" = "Vrati";
 
 /* Button */
-"Show on default screen (%u x %u)" = "Show on default screen (%1$u x %2$u)";
+"Show on default screen (%u x %u)" = "Prikaži na zadanom zaslonu (%1$u x %2$u)";
 
 /* Button */
-"Show on screen %u (%u x %u)" = "Show on screen %1$u (%2$u x %3$u)";
+"Show on screen %u (%u x %u)" = "Prikaži na zaslonu %1$u (%2$u x %3$u)";
 
 /* Button */
-"Show when connection status changes" = "Show when connection status changes";
+"Show when connection status changes" = "Prikaži kada se stanje veze promijeni";
 
 /* Button */
-"Show while connecting" = "Show while connecting";
+"Show while connecting" = "Prikaži dok se spaja";
 
 /* Button */
-"Skip" = "Skip";
+"Skip" = "Preskoči";
 
 /* Button */
-"Speak" = "Speak";
+"Speak" = "Govori";
 
 /* Button */
-"Standard icon" = "Standard icon";
+"Standard icon" = "Uobičajena ikona";
 
 /* Button */
-"Terminate All OpenVPN processes" = "Terminate All OpenVPN processes";
+"Terminate All OpenVPN processes" = "Prekini sve OpenVPN procese";
 
 /* Button */
-"Terminate" = "Terminate";
+"Terminate" = "Prekini";
 
 /* Button */
 "This configuration has its own separate credentials" = "This configuration has its own separate credentials";
@@ -227,82 +227,82 @@
 "This configuration uses %@ credentials" = "This configuration uses %@ credentials";
 
 /* Button */
-"Try again with saved passphrase" = "Try again with saved passphrase";
+"Try again with saved passphrase" = "Pokušaj ponovo sa spremljenom tajnom riječi";
 
 /* Button */
-"Try again with saved username and password" = "Try again with saved username and password";
+"Try again with saved username and password" = "Pokušaj ponovo sa spremljenim korisničkim imenom i zaporkom";
 
 /* Button */
-"Try again" = "Try again";
+"Try again" = "Pokušaj ponovo";
 
 /* Button */
-"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 icon";
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikona";
 
 /* Button */
-"When Tunnelblick launches" = "When Tunnelblick launches";
+"When Tunnelblick launches" = "Kada se Tunnelblick pokrene";
 
 /* Button */
-"When computer starts" = "When computer starts";
+"When computer starts" = "Kada se računalo pokrene";
 
 /* Menu item */
-"Add a VPN..." = "Add a VPN…";
+"Add a VPN..." = "Dodaj VPN…";
 
 /* Menu item */
-"Connect %@%@" = "Connect %@%@";
+"Connect %@%@" = "Spoji %@%@";
 
 /* Menu Item */
 "Delete Configuration's Credentials in Keychain..." = "Delete Configuration's Credentials in Keychain…";
 
 /* Menu item tooltip */
-"Disabled because this setting is being forced" = "Disabled because this setting is being forced";
+"Disabled because this setting is being forced" = "Onemogućeno jer je ova postavka prisilna";
 
 /* Menu item */
-"Disconnect %@%@" = "Disconnect %@%@";
+"Disconnect %@%@" = "Odspoji %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Do Not Show on Tunnelblick Menu";
+"Do Not Show on Tunnelblick Menu" = "Ne prikazuj u Tunnelblick izborniku";
 
 /* Menu Item */
-"Duplicate Configuration..." = "Duplicate Configuration…";
+"Duplicate Configuration..." = "Dupliciraj konfiguraciju…";
 
 /* Menu Item */
-"Edit OpenVPN Configuration File..." = "Edit OpenVPN Configuration File…";
+"Edit OpenVPN Configuration File..." = "Uredi OpenVPN konfiguracijsku datoteku…";
 
 /* Menu Item */
-"Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File…";
+"Examine OpenVPN Configuration File..." = "Istraži OpenVPN konfiguracijsku datoteku…";
 
 /* Menu Item */
-"Make Configuration Private..." = "Make Configuration Private…";
+"Make Configuration Private..." = "Učini konfiguraciju privatnom…";
 
 /* Menu Item */
-"Make Configuration Shared..." = "Make Configuration Shared…";
+"Make Configuration Shared..." = "Učini konfiguraciju dijeljenom…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "No OpenVPN or Tunnelblick VPN logging";
+"No OpenVPN or Tunnelblick VPN logging" = "Bez OpenVPN ili Tunnelblick VPN logiranja";
 
 /* Menu item */
 "No VPN Configurations Available" = "Nema VPN postavki";
 
 /* Menu Item */
-"OpenVPN level %lu" = "OpenVPN level %lu";
+"OpenVPN level %lu" = "OpenVPN razina %lu";
 
 /* Menu Item */
-"OpenVPN level 0 - no output except fatal errors" = "OpenVPN level 0 - no output except fatal errors";
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN razina 0 - bez ispisa osim fatalnih pogrešaka";
 
 /* Menu Item */
-"OpenVPN level 11 - extremely verbose output" = "OpenVPN level 11 - extremely verbose output";
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN razina 11 - iznimno opširan ispis";
 
 /* Menu Item */
-"OpenVPN level 3 - normal output" = "OpenVPN level 3 - normal output";
+"OpenVPN level 3 - normal output" = "OpenVPN razina 3 - normalan ispis";
 
 /* Menu Item */
-"OpenVPN level 4 - also outputs values for all options" = "OpenVPN level 4 - also outputs values for all options";
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN razina 4 - također ispisuje vrijednosti za sve opcije";
 
 /* Menu Item */
-"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet";
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN razina 5 - također ispisuje \"R\" i \"W\" za svaki paket";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "OpenVPN level 6 - very verbose output";
+"OpenVPN level 6 - very verbose output" = "OpenVPN razina 6 - jako opširn ispis";
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "OpenVPN logging level set by the configuration";

@@ -374,7 +374,7 @@
 "Do not show again for any configuration" = "Nie pokazuj ponownie dla żadnej konfiguracji";
 
 /* Checkbox name */
-"Do not show this type of warning again" = "Do not show this type of warning again";
+"Do not show this type of warning again" = "Nie pokazuj więcej tego ostrzeżenia";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Nie ostrzegaj ponownie dla tej konfiguracji";
@@ -758,7 +758,7 @@
 "  • Convert OpenVPN configurations\n" = "  • Konwertuj konfiguracje OpenVPN\n";
 
 /* Window text */
-"  • Install forced preferences\n" = "  • Install forced preferences\n";
+"  • Install forced preferences\n" = "  Zastosuj narzucone ustawienia\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Zainstaluj lub zmodyfukuj konfiguracje/ę \n";
@@ -788,10 +788,10 @@
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick musi być zainstalowany w katalogu \"Programy\"\\.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick wymaga praw administratora aby automatycznie połączyć się z '%@' po uruchomieniu systemu.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick wymaga praw administratora aby nie łączyć się z '%@' po uruchomieniu systemu.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " UWAGA: Ta kopia Tunnelblicka została poddana nieautoryzowanym zmianon.\n\n";
@@ -1679,7 +1679,7 @@
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick nie mógł uruchomić OpenVPN dla połączenia %@. Szczegóły błędu znajdują się w logu w \"Właściwości VPN\"… oknie";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations.";
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick musi dokonać konwersji konfiguracji OpenVPN do konfiguracji Tunnelblick.";
 
 /* Window text */
 "Unable to Establish Communication" = "Połączenie nie może zostać zrealizowane";
@@ -1919,7 +1919,7 @@
 "Arabic localization" = "arabska wersja językowa";
 
 /* Toolbar text for 'Lock' item */
-"Authenticating..." = "Authenticating…";
+"Authenticating..." = "Uwierzytelnianie…";
 
 /* Credit description */
 "Bulgarian localization" = "Bułgarska wersja językowa";
@@ -1969,7 +1969,7 @@
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
 */
-"Enter admin mode" = "Enter admin mode";
+"Enter admin mode" = "Tryb admina";
 
 /* Credit description */
 "Estonian localization" = "estońska wersja językowa";

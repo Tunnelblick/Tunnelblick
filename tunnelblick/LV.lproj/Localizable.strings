@@ -2,7 +2,7 @@
 "Disconnect All (%@)" = "Atvienot visus (%@)";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "Atvienot visus  (%d Savienojumus)";
+"Disconnect All (%d Connections)" = "Atvienot visus (%d Savienojumus)";
 
 /* Status message */
 "No Active Connections" = "Nav aktīvu savienojumu";

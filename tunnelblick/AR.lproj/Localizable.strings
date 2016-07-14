@@ -374,7 +374,7 @@
 "Do not show again for any configuration" = "لا تعرض مرة أخرى آي إعدادات";
 
 /* Checkbox name */
-"Do not show this type of warning again" = "Do not show this type of warning again";
+"Do not show this type of warning again" = "الرجاء عدم اظهارهذا التحذير مجددا";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "لا تحذر حول هذا مرة أخرى لهذا الإعداد";
@@ -758,7 +758,7 @@
 "  • Convert OpenVPN configurations\n" = "  • غير إعدادات ال OpenVPN\n";
 
 /* Window text */
-"  • Install forced preferences\n" = "  • Install forced preferences\n";
+"  • Install forced preferences\n" = "  ثبت الاختيارات الاجبارية\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  تحميل او تحديث الاعدادات";
@@ -788,10 +788,10 @@
 " Tunnelblick must be installed in Applications.\n\n" = "يجب تثبيت Tunnelblick في التطبيقات\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " تونلبليك يحتاج الى صلاحية المشرف للتمكن من الاتصال ب %@ تلقائبا عند بدء التشغيل.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " تونلبليك يحتاج الى صلاحية المشرف لإلغاء الاتصال التلقائي %@ عند بدء التشغيل.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " تحذير: لقد تم  التلاعب فى هذه النسخة من  Tunnelblick";

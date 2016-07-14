@@ -374,7 +374,7 @@
 "Do not show again for any configuration" = "Nu afișa din nou pentru nicio configurare";
 
 /* Checkbox name */
-"Do not show this type of warning again" = "Do not show this type of warning again";
+"Do not show this type of warning again" = "Ascunde acest tip de notificare";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Nu avertiza din nou pentru această configurare";
@@ -398,169 +398,169 @@
 "Monitor network settings" = "Monitorizarea setărilor de rețea";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Place next to Spotlight icon";
+"Place next to Spotlight icon" = "Aseaza langa iconita Spotlight";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Prepend domain name to search domains";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+"Reconnect when computer wakes up" = "Reconectează când cumputerul se trezește";
 
 /* Checkbox name */
-"Reconnect when user switches in" = "Reconnect when user switches in";
+"Reconnect when user switches in" = "Reconectează când utilizatorul se autentifică";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Require administrator authorization for key and certificate changes";
+"Require administrator authorization for key and certificate changes" = "Necesită autorizare de administrator pentru modificări de cheie și certificat";
 
 /* Checkbox name */
-"Reset the primary interface after disconnecting" = "Reset the primary interface after disconnecting";
+"Reset the primary interface after disconnecting" = "Resetează interfața primară după deconectare";
 
 /* Checkbox name */
-"Route all IPv4 traffic through the VPN" = "Route all IPv4 traffic through the VPN";
+"Route all IPv4 traffic through the VPN" = "Rutează tot traficul IPv4 prin tunelul VPN";
 
 /* Checkbox name */
-"Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
+"Run MTU maximum size test after connecting" = "Rulează după conectare testul de mărime maximă pentru MTU";
 
 /* Checkbox name */
-"Save in Keychain" = "Save in Keychain";
+"Save in Keychain" = "Salvează în Keychain";
 
 /* Checkbox name */
-"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
+"Send anonymous profile information when checking" = "Trimite când verifică, informații de profil anonime";
 
 /* Checkbox name */
-"Set DNS after routes are set instead of before routes are set" = "Set DNS after routes are set instead of before routes are set";
+"Set DNS after routes are set instead of before routes are set" = "Setează DNS după ce rutarea este efectuată, nu înainte";
 
 /* Checkbox name */
-"Show when disconnected" = "Show when disconnected";
+"Show when disconnected" = "Afișează când este deconactat";
 
 /* Checkbox name */
-"Show when the pointer is over the Tunnelblick icon" = "Show when the pointer is over the Tunnelblick icon";
+"Show when the pointer is over the Tunnelblick icon" = "Arată când cursorul este deasupra iconiței Tunnelblick";
 
 /* PopUpButton */
-"Do not set nameserver" = "Do not set nameserver";
+"Do not set nameserver" = "Nu seta DNS";
 
 /* PopUpButton */
-"Set nameserver (3.0b10)" = "Set nameserver (3.0b10)";
+"Set nameserver (3.0b10)" = "Setează DNS (3.0b10)";
 
 /* PopUpButton */
-"Set nameserver (3.1)" = "Set nameserver (3.1)";
+"Set nameserver (3.1)" = "Setează DNS (3.1)";
 
 /* PopUpButton */
-"Set nameserver (alternate 1)" = "Set nameserver (alternate 1)";
+"Set nameserver (alternate 1)" = "Setează DNS (alternativa 1)";
 
 /* PopUpButton *//* System profile item */
-"Set nameserver" = "Set nameserver";
+"Set nameserver" = "Setează DNS";
 
 /* Text on disk image */
-"Double-click to begin" = "Double-click to begin";
+"Double-click to begin" = "Dublu clic pentru a începe";
 
 /* Connection status */
-"ADD_ROUTES" = "Adding routes"; // Please translate "Adding routes"
+"ADD_ROUTES" = "Adaug rutările"; // Please translate "Adding routes"
 
 /* Connection status */
-"ASSIGN_IP" = "Assigning IP address"; // Please translate "Assigning IP address"
+"ASSIGN_IP" = "Asignez adresele IP"; // Please translate "Assigning IP address"
 
 /* Connection status */
-"AUTH" = "Authorizing"; // Please translate "Authorizing"
+"AUTH" = "Autorizez"; // Please translate "Authorizing"
 
 /* Connection status */
-"CONNECTED" = "Connected"; // Please translate "Connected"
+"CONNECTED" = "Conectat"; // Please translate "Connected"
 
 /* Connection status */
-"CONNECTING" = "Connecting"; // Please translate "Connecting"
+"CONNECTING" = "Se conectează"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "Disconnecting"; // Please translate "Disconnecting"
+"DISCONNECTING" = "Deconectare"; // Please translate "Disconnecting"
 
 /* Connection status */
-"EXITING" = "Disconnected"; // Please translate "Disconnected"
+"EXITING" = "Deconectat"; // Please translate "Disconnected"
 
 /* Connection status */
-"GET_CONFIG" = "Getting configuration"; // Please translate ""
+"GET_CONFIG" = "Încarc configurările"; // Please translate ""
 
 /* Connection status */
-"PASSWORD_WAIT" = "Waiting for password"; // Please translate "Waiting for password"
+"PASSWORD_WAIT" = "Aștept parola"; // Please translate "Waiting for password"
 
 /* Connection status */
-"PRIVATE_KEY_WAIT" = "Waiting for passphrase"; // Please translate "Waiting for password"
+"PRIVATE_KEY_WAIT" = "Aștept pentru 'passphrase'"; // Please translate "Waiting for password"
 
 /* Connection status */
-"RECONNECTING" = "Reconnecting"; // Please translate ""
+"RECONNECTING" = "Reconectare"; // Please translate ""
 
 /* Connection status */
-"RESOLVE" = "Resolving domain name"; // Please translate ""
+"RESOLVE" = "Rezolv numele de domeniu"; // Please translate ""
 
 /* Connection status */
-"SLEEP" = "Waiting for Daemon process"; // Please translate "Waiting for daemon process"
+"SLEEP" = "Aștept procesul 'Daemon'"; // Please translate "Waiting for daemon process"
 
 /* Connection status */
-"TCP_CONNECT" = "Making TCP connection"; // Please translate "Making TCP connection"
+"TCP_CONNECT" = "Efectuez conexiunea TCP"; // Please translate "Making TCP connection"
 
 /* Connection status */
-"UDP_CONNECT" = "Making UDP connection"; // Please translate "Making UDP connection"
+"UDP_CONNECT" = "Efectuez conexiunea UDP"; // Please translate "Making UDP connection"
 
 /* Connection status */
-"WAIT" = "Waiting for server response"; // Please translate "Waiting for Server Response"
+"WAIT" = "Aștept răspuns de la server"; // Please translate "Waiting for Server Response"
 
 /* Folder name */
-"Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
+"Sample Tunnelblick VPN Configuration" = "Configurare VPN exemplu Tunnelblick";
 
 /* System profile item */
-"Configurations" = "Configurations";
+"Configurations" = "Configurări";
 
 /* Window title */
-" (Deployed)" = " (Deployed)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+" (Deployed)" = " (Distribuit)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
 
 /* Window title */
-" (Private)" = " (Private)";
+" (Private)" = " (Privat)";
 
 /* Window title */
-" (Shared)" = " (Shared)"; // Indicates a shared configuration
+" (Shared)" = " (Partajat)"; // Indicates a shared configuration
 
 /* Window title */
-"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Configuration - Tunnelblick";
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ Configurare OpenVPN - Tunnelblick";
 
 /* Window title */
-"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Disconnected - Advanced Settings%3$@";
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Deconectat - Setări avansate%3$@";
 
 /* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
-"%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
+"%@%@: %@%@ - %@" = "%1$@%2$@:%3$@%4$@ - %5$@";
 
 /* Window title */
-"'%@' has been disconnected" = "'%@' has been disconnected";
+"'%@' has been disconnected" = "%@' a fost deconectat";
 
 /* Window title */
-"Active connection" = "Active connection";
+"Active connection" = "Conexiune activă";
 
 /* Window title */
-"Add a Configuration" = "Add a Configuration";
+"Add a Configuration" = "Adaugă o conexiune";
 
 /* Window title */
-"Alert sounds" = "Alert sounds";
+"Alert sounds" = "Sunet alerta";
 
 /* Window title */
-"Alert" = "Alert";
+"Alert" = "Alerta";
 
 /* Window title */
-"All OpenVPN process were terminated." = "All OpenVPN process were terminated.";
+"All OpenVPN process were terminated." = "Toate procesele OpenVPN au fost terminate.";
 
 /* Window title */
-"All configuration files removed" = "All configuration files removed";
+"All configuration files removed" = "Toate fișierele de configurare eliminate";
 
 /* Window title */
-"Appearance" = "Appearance";
+"Appearance" = "Aspect";
 
 /* Window title */
-"Authentication failed" = "Authentication failed";
+"Authentication failed" = "Autentificare eșuată";
 
 /* Window title */
-"Configuration(s) Ignored" = "Configuration(s) Ignored";
+"Configuration(s) Ignored" = "Configura(ă)re(i) ignorată(e)";
 
 /* Window title */
-"Connecting & Disconnecting" = "Connecting & Disconnecting";
+"Connecting & Disconnecting" = "Conectare și Deconectare";
 
 /* Window title */
-"Could Not Copy Configuration" = "Could Not Copy Configuration";
+"Could Not Copy Configuration" = "Nu se poate copia configurarea";
 
 /* Window title */
 "Could Not Move Configuration" = "Could Not Move Configuration";
@@ -578,10 +578,10 @@
 "Details - Tunnelblick" = "Details - Tunnelblick";
 
 /* Window title */
-"Do you wish to connect?" = "Do you wish to connect?";
+"Do you wish to connect?" = "Doriți să vă conectați?";
 
 /* Window title */
-"File not found" = "File not found";
+"File not found" = "Fişier negăsit";
 
 /* Window title */
 "Info" = "Info";
@@ -590,16 +590,16 @@
 "Install Configuration For All Users?" = "Install Configuration For All Users?";
 
 /* Window title */
-"Installation failed" = "Installation failed";
+"Installation failed" = "Instalare esuata";
 
 /* Window title */
-"Installation or Repair Failed" = "Installation or Repair Failed";
+"Installation or Repair Failed" = "Instalare sau reparare esuata";
 
 /* Window title */
 "Installation succeeded" = "Installation succeeded";
 
 /* Window title */
-"Log" = "Log";
+"Log" = "Jurnal";
 
 /* Window title */
 "Name Required" = "Name Required";
@@ -716,79 +716,79 @@
 "     • Installed one configuration\n\n" = "     • Installed one configuration\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Replaced %lu configurations\n\n" = "     • Replaced %lu configurations\n\n";
+"     • Replaced %lu configurations\n\n" = "     • Configurările %lu înlocuite\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Replaced one configuration\n\n" = "     • Replaced one configuration\n\n";
+"     • Replaced one configuration\n\n" = "     • O configurare înlocuită\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Uninstalled %lu configurations\n\n" = "     • Uninstalled %lu configurations\n\n";
+"     • Uninstalled %lu configurations\n\n" = "     • %lu configurări dezinstalate\n\n";
 
 /* Window text: 'Tunnelblick succesfully: *' */
-"     • Uninstalled one configuration\n\n" = "     • Uninstalled one configuration\n\n";
+"     • Uninstalled one configuration\n\n" = "     • O configurare dezinstalată\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install %lu configurations\n\n" = "    • Install %lu configurations\n\n";
+"    • Install %lu configurations\n\n" = "    • Instalează %lu configurări\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install one configuration\n" = "    • Install one configuration\n";
+"    • Install one configuration\n" = "    • Instalează o configurare\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Replace %lu configurations\n\n" = "    • Replace %lu configurations\n\n";
+"    • Replace %lu configurations\n\n" = "    • Înlocuiește %lu configurări\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Replace one configuration\n" = "    • Replace one configuration\n";
+"    • Replace one configuration\n" = "    • Înlocuiește o configurare\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall %lu configurations\n\n" = "    • Uninstall %lu configurations\n\n";
+"    • Uninstall %lu configurations\n\n" = "    • Dezinstalează %lu configurări\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall one configuration\n" = "    • Uninstall one configuration\n";
+"    • Uninstall one configuration\n" = "    • Dezinstalează o configurare\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Be installed in /Applications as Tunnelblick\n";
+"  • Be installed in /Applications as Tunnelblick\n" = "  • Instalează în /Applications (Aplicații) ca Tunnelblick\n";
 
 /* Window text */
-"  • Change ownership and permissions of the program to secure it\n" = "  • Change ownership and permissions of the program to secure it\n";
+"  • Change ownership and permissions of the program to secure it\n" = "  • Înlocuiește proprietarul și permisiunile programului pentru siguranță\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
-"  • Complete the update\n" = "  • Complete the update\n";
+"  • Complete the update\n" = "  • Finalizează actualizarea\n";
 
 /* Window text */
-"  • Convert OpenVPN configurations\n" = "  • Convert OpenVPN configurations\n";
+"  • Convert OpenVPN configurations\n" = "  • Convertește configurările OpenVPN\n";
 
 /* Window text */
-"  • Install forced preferences\n" = "  • Install forced preferences\n";
+"  • Install forced preferences\n" = "  • Instalează preferințele obligatorii\n";
 
 /* Window text */
-"  • Install or update configuration(s)\n" = "  • Install or update configuration(s)\n";
+"  • Install or update configuration(s)\n" = "  • Instalează sau actualizează configurarea(ările)\n";
 
 /* Window text */
-"  • Move the private configurations folder\n" = "  • Move the private configurations folder\n";
+"  • Move the private configurations folder\n" = "  • Mută dosarul de configurări private\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  • Secure configurations\n";
+"  • Secure configurations\n" = "  • Configurări securizate\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ este un program gratuit: se poate redistribui sau modifica sub condițiile termenilor %2$@ publicate de %3$@.\n\n%4$@ este o marcă registrată a OpenVPN Technologies, s. a.";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Do you wish to install %1$@ to %2$@%3$@?\n\n";
+" Do you wish to install %@ to %@%@?\n\n" = " Doriți să instalați %1$@ în %2$@%3$@?\n\n";
 
 /* Window text */
 " Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Do you wish to replace\n    %1$@\n    in %2$@\nwith %3$@%4$@?\n\n";
 
 /* Window text */
-" Forced preferences will also be installed or replaced.\n\n" = " Forced preferences will also be installed or replaced.\n\n";
+" Forced preferences will also be installed or replaced.\n\n" = " Preferințele obligatorii vor fi deasemenea instalate sau înlocuite.\n\n";
 
 /* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n";
+" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Notă: configurările OpenVPN vor fi convertite în configurări Tunnelblick.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick must be installed in Applications.\n\n";
+" Tunnelblick must be installed in Applications.\n\n" = " Tunnleblick trebuie instalat în Applications (Aplicații).\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnleblick necesită depturi de administrator pentru a conecta automat '%@' atunci când se pornește computerul.";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts.";
@@ -995,10 +995,10 @@
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n";
 
 /* Window text */
-"Connect:" = "Connect:";
+"Connect:" = "Conectare:";
 
 /* Window text */
-"Connection:" = "Connection:";
+"Connection:" = "Conexiune:";
 
 /* Window text */
 "Converted OpenVPN configuration" = "Converted OpenVPN configuration";
@@ -1073,7 +1073,7 @@
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n";
 
 /* Window text */
-"Domain:" = "Domain:";
+"Domain:" = "Domeniu:";
 
 /* Window text */
 "Double-quote missing in line %u" = "Double-quote missing in line %u";
@@ -1130,7 +1130,7 @@
 "GB/s" = "GB/s";
 
 /* Window text */
-"Icon:" = "Icon:";
+"Icon:" = "Pitogramă:";
 
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "In %@:\n\nThere are no OpenVPN configurations to install.";
@@ -1142,7 +1142,7 @@
 "In the OpenVPN configuration file for '%@': %@" = "In the OpenVPN configuration file for '%1$@': %2$@";
 
 /* Window text */
-"In:" = "In:";
+"In:" = "În:";
 
 /* Window text */
 "Installation failed:\n\n%@" = "Installation failed:\n\n%@";
@@ -1190,7 +1190,7 @@
 "Maximum log display size:" = "Maximum log display size:";
 
 /* Window text */
-"Menu:" = "Menu:";
+"Menu:" = "Meniu:";
 
 /* Window text */
 "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion.";
@@ -2086,7 +2086,7 @@
 "Xcode help and OpenSSL integration" = "Xcode help and OpenSSL integration";
 
 /* Button VPNService */
-"Accept" = "Accept";
+"Accept" = "Acceptă";
 
 /* Button VPNService */
 "Create a Free Account" = "Create a Free Account";
@@ -2095,13 +2095,13 @@
 "Get Different Image" = "Get Different Image";
 
 /* Button VPNService *//* Window title VPNService */
-"Login" = "Login";
+"Login" = "Autentificare";
 
 /* Button VPNService */
-"Next" = "Next";
+"Next" = "Urmatorul";
 
 /* Button VPNService */
-"Reject" = "Reject";
+"Reject" = "Respinge";
 
 /* Menu item VPNService */
 "Register for Tunnelblick..." = "Register for Tunnelblick…";
@@ -2134,22 +2134,22 @@
 "Register with Tunnelblick" = "Register with Tunnelblick";
 
 /* Window title  VPNService */
-"Sorry" = "Sorry";
+"Sorry" = "Ne pare rău";
 
 /* Window title  VPNService */
-"Terms of Service" = "Terms of Service";
+"Terms of Service" = "Termeni şi condiţii de utilizare";
 
 /* Window title  VPNService */
 "Tunnelblick - Free VPN" = "Tunnelblick - Free VPN";
 
 /* Window title  VPNService */
-"Welcome!" = "Welcome!";
+"Welcome!" = "Bine aţi venit!";
 
 /* Window title  VPNService */
 "You Must Type the Characters" = "You Must Type the Characters";
 
 /* Window text VPNService */
-"Confirm password:" = "Confirm password:";
+"Confirm password:" = "Confirmă parola:";
 
 /* Window text VPNService */
 "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'.";
@@ -2167,7 +2167,7 @@
 "Email address %@ is already registered for an account" = "Email address %@ is already registered for an account";
 
 /* Window text VPNService */
-"Email address:" = "Email address:";
+"Email address:" = "Adresa de email:";
 
 /* Window text VPNService */
 "Invalid URL: %@" = "Invalid URL: %@";

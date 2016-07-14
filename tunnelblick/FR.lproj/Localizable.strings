@@ -1535,7 +1535,7 @@
 "Too many duplicate configurations already exist." = "Il existe déjà trop de configurations dupliquées.";
 
 /* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.";
+"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick mode admin\n\nAutoriser temporairement des modifications qui demandent des privilèges d'administrateur. \n\nLa session expire après 5 minutes ou lorsque la fenêtre 'Détails VPN' est fermée.";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Utilisation d'internet de Tunnelblick :";
@@ -1562,7 +1562,7 @@
 "Tunnelblick could not create the sample configuration" = "Tunnelblick n’a pas pu créer la configuration d'exemple";
 
 /* Window text */
-"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %1$ld; notification = %2$@";
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "CFUserNotificationCreate() a retourné l'erreur %1$ld; notification = %2$@";
 
 /* Window text */
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick n'a plus obtenir une adresse IP avant que la connexion à %@ ait été effectuée.\n\n";
@@ -1640,7 +1640,7 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick doit créer ou mettre à jour une copie de sécurité du fichier de configuration.";
 
 /* Window text */
-"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick needs to perform an action that requires administrator authorization.\n";
+"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick doit faire une action qui demande des privilèges d'administrateur.\n";
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick doit :\n";
@@ -1679,7 +1679,7 @@
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick n’a pas pu lancer OpenVPN pour se connecter %@. Pour plus de détails, regardez les messages dans la fenêtre : VPN Details";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations.";
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick doit convertir les configurations OpenVPN en configurations Tunnelblick VPN.";
 
 /* Window text */
 "Unable to Establish Communication" = "Impossible d'établir la communication";
@@ -1907,7 +1907,7 @@
 "64-bit enabling and testing" = "Modification et tests pour 64-bits";
 
 /* Toolbar text for 'Lock' item */
-"Admin mode %@ remaining" = "Admin mode %@ remaining";
+"Admin mode %@ remaining" = "Mode admin, temps restant %@";
 
 /* Credit description */
 "Afrikaans localization" = "Traduction afrikaans";
@@ -1919,7 +1919,7 @@
 "Arabic localization" = "Traduction arabe";
 
 /* Toolbar text for 'Lock' item */
-"Authenticating..." = "Authenticating…";
+"Authenticating..." = "Authentification…";
 
 /* Credit description */
 "Bulgarian localization" = "Traduction bulgare";
@@ -1969,7 +1969,7 @@
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
 */
-"Enter admin mode" = "Enter admin mode";
+"Enter admin mode" = "Entrer en mode admin";
 
 /* Credit description */
 "Estonian localization" = "Traduction estonienne";
