@@ -27,9 +27,11 @@
     NSString         * prompt;            // For re-prompting if necessary
     AuthorizationRef   authRef;           // or NULL if authRefFromLock is TRUE
     BOOL               authRefIsFromLock; // Use authRef from lockSystemAuth
+    BOOL               allowReactivation; // Allow reactivateTunnelblick
 }
 
 +(SystemAuth *)     newAuthWithPrompt: (NSString *) prompt;
++(SystemAuth *)     newAuthWithoutReactivationWithPrompt: (NSString *) prompt;
 -(AuthorizationRef) authRef;
 
 +(void) setLockSystemAuth: (SystemAuth *) newAuth;

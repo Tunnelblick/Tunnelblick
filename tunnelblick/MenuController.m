@@ -6182,7 +6182,7 @@ BOOL warnAboutNonTblks(void)
                            stringByAppendingString: convertTblksText]
                           stringByAppendingString: signatureWarningText]
                          stringByAppendingString: plistMsg];
-    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+    SystemAuth * auth = [SystemAuth newAuthWithoutReactivationWithPrompt: prompt];
     if (  auth  ) {
         [self setStartupInstallAuth: auth];
         [auth release];
@@ -6400,7 +6400,7 @@ BOOL warnAboutNonTblks(void)
         }
         
         NSString * prompt = [self promptForInstaller: installFlags installTblksFirst: nil];
-        SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+        SystemAuth * auth = [SystemAuth newAuthWithoutReactivationWithPrompt: prompt];
         if (  auth  ) {
             [self setStartupInstallAuth: auth];
             [auth release];
