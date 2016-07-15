@@ -73,16 +73,18 @@ BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, mode_t per
 
 NSDictionary * tunnelblickdPlistDictionaryToUse(void) {
     
-#ifndef TBDebug
-    return [NSDictionary dictionaryWithContentsOfFile: TUNNELBLICKD_PLIST_PATH];
-#else
     NSString * resourcesPath = [[NSBundle mainBundle] resourcePath];
     NSString * plistPath = [resourcesPath stringByAppendingPathComponent: [TUNNELBLICKD_PLIST_PATH lastPathComponent]];
-    NSMutableDictionary * plistContents = [[[NSDictionary dictionaryWithContentsOfFile: plistPath] mutableCopy] autorelease];
-    NSString * daemonPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
-    [plistContents setObject: daemonPath                     forKey: @"Program"];
-    [plistContents setObject: [NSNumber numberWithBool: YES] forKey: @"Debug"];
+    NSDictionary * plistContents = [NSDictionary dictionaryWithContentsOfFile: plistPath];
+
+#ifndef TBDebug
     return plistContents;
+#else
+    NSString * daemonPath = [resourcesPath stringByAppendingPathComponent: @"tunnelblickd"];
+    NSMutableDictionary * plistContentsM = [[plistContents mutableCopy] autorelease];
+    [plistContentsM setObject: daemonPath                     forKey: @"Program"];
+    [plistContentsM setObject: [NSNumber numberWithBool: YES] forKey: @"Debug"];
+    return [NSDictionary dictionaryWithDictionary: plistContentsM];
 #endif
 }
 
