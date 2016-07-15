@@ -1360,8 +1360,7 @@ int main(int argc, char *argv[])
     
     if (  forceLoadLaunchDaemon  ) {
  
-        // If we are reloading the LaunchDaemon, we make sure it is up-to-date by copying it from Resources into /Library/LaunchDaemons
-        //                                                                    and copying a .plist into /Library/LaunchDaemons
+        // If we are reloading the LaunchDaemon, we make sure it is up-to-date by copying its .plist into /Library/LaunchDaemons
         
         // Install or replace the tunnelblickd .plist in /Library/LaunchDaemons
         BOOL hadExistingPlist = [gFileMgr fileExistsAtPath: TUNNELBLICKD_PLIST_PATH];
