@@ -134,6 +134,9 @@
 "Monochrome icon" = "Ikon monokrom";
 
 /* Button */
+"More Info" = "More Info";
+
+/* Button */
 "Never load Tap driver" = "Jangan pernah muat driver Tap";
 
 /* Button */
@@ -159,6 +162,12 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "Buka easy-rsa dalam Terminal";
+
+/* Button */
+"Place Icon Near the Spotlight Icon" = "Tempatkan Ikon Dekat Ikon Spotlight";
+
+/* Button */
+"Place Icon Normally" = "Tempatkan Ikon Secara Normal";
 
 /* Button */
 "Privacy info..." = "Info privasi…";
@@ -374,7 +383,7 @@
 "Do not show again for any configuration" = "Jangan tampilkan lagi untuk sebarang konfigurasi";
 
 /* Checkbox name */
-"Do not show this type of warning again" = "Do not show this type of warning again";
+"Do not show this type of warning again" = "Jangan tampilkan peringatan tipe ini lagi";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Jangan peringatkan hal ini lagi bagi konfigurasi ini";
@@ -398,7 +407,7 @@
 "Monitor network settings" = "Pantau pengaturan jaringan";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Tempatkan di sebelah ikon Spotlight";
+"Place near Spotlight icon" = "Tempatkan dekat ikon Spotlight";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Awali nama domain dengan domain pencarian";
@@ -677,7 +686,7 @@
 "Unavailable" = "Tidak tersedia";
 
 /* Window title */
-"Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
+"Use 'down-root' plugin for OpenVPN?" = "Pakai plugin 'down-root' untuk OpenVPN?";
 
 /* Window title */
 "Utilities" = "Utilitas";
@@ -758,7 +767,7 @@
 "  • Convert OpenVPN configurations\n" = "  • Konversikan konfigurasi OpenVPN\n";
 
 /* Window text */
-"  • Install forced preferences\n" = "  • Install forced preferences\n";
+"  • Install forced preferences\n" = "  • Pasang preferensi yang dipaksa\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Pasang atau mutakhirkan konfigurasi\n";
@@ -788,10 +797,10 @@
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick mesti dipasang dalam Applications.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick memerlukan otorisasi administrator komputer sehingga dapat menyambung '%@' secara otomatis ketika komputer mulai berjalan.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick memerlukan otorisasi administrator komputer sehingga dapat berheneti menyambung '%@' secara otomatis ketika komputer mulai berjalan.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " PERINGATAN: Salinan Tunnelblick ini telah diotak-atik.\n\n";
@@ -1142,25 +1151,25 @@
 "In the OpenVPN configuration file for '%@': %@" = "In the OpenVPN configuration file for '%1$@': %2$@";
 
 /* Window text */
-"In:" = "In:";
+"In:" = "Masuk:";
 
 /* Window text */
-"Installation failed:\n\n%@" = "Installation failed:\n\n%@";
+"Installation failed:\n\n%@" = "Instalasi gagal:\n\n%@";
 
 /* Window text */
-"Installation finished successfully." = "Installation finished successfully.";
+"Installation finished successfully." = "Instalasi berakhir sukses.";
 
 /* Window text */
-"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
+"Installing and securing Tunnelblick..." = "Memasang dan mengamankan Tunnelblick…";
 
 /* Window text */
-"Installing configurations is not allowed" = "Installing configurations is not allowed";
+"Installing configurations is not allowed" = "Memasang konfigurasi tidak diijinkan";
 
 /* Window text */
-"Internal error: commentOutLines: line %lu does not exist" = "Internal error: commentOutLines: line %lu does not exist";
+"Internal error: commentOutLines: line %lu does not exist" = "Kesalahan internal: commentOutLines: baris %lu tida ada";
 
 /* Window text */
-"Invalid value '%@' for '%@' in %@" = "Invalid value '%1$@' for '%2$@' in %3$@";
+"Invalid value '%@' for '%@' in %@" = "Nilai tak valid '%1$@' untuk '%2$@' dalam %3$@";
 
 /* Window text */
 "KB" = "kB";
@@ -1169,16 +1178,16 @@
 "KB/s" = "kB/s";
 
 /* Window text */
-"Keyboard shortcut:" = "Keyboard shortcut:";
+"Keyboard shortcut:" = "Pintasan papan ketik:";
 
 /* Window text */
-"Last checked: %@" = "Last checked: %@";
+"Last checked: %@" = "Terakhir diperiksa: %@";
 
 /* Window text */
-"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Line %1$d of file '%2$@' contains a non-printable character (0x%3$X) which is not allowed.\n\n";
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Baris %1$d dari berkas '%2$@' memuat suatu karakter tak dapat dicetak (0x%3$X) yang tidak diijinkan.\n\n";
 
 /* Window text */
-"Localization by" = "Localization by";
+"Localization by" = "Lokalisasi oleh";
 
 /* Window text */
 "MB" = "MB";
@@ -1187,7 +1196,7 @@
 "MB/s" = "MB/s";
 
 /* Window text */
-"Maximum log display size:" = "Maximum log display size:";
+"Maximum log display size:" = "Ukuran tampilan log maksimum:";
 
 /* Window text */
 "Menu:" = "Menu:";
@@ -1214,10 +1223,10 @@
 "Names may not include any of the following characters: %s\n\n%@" = "Names may not include any of the following characters: %1$s\n\n%2$@";
 
 /* Window text */
-"NetBIOS name:" = "NetBIOS name:";
+"NetBIOS name:" = "Nama NetBIOS:";
 
 /* Window text */
-"Network setting" = "Network setting";
+"Network setting" = "Setelan jaringan";
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "No 'TBPackageVersion' in %@";
@@ -1289,10 +1298,10 @@
 "OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN version %1$@ is not available. Using the latest version (%2$@) as the default.";
 
 /* Window text */
-"OpenVPN version:" = "OpenVPN version:";
+"OpenVPN version:" = "Versi OpenVPN:";
 
 /* Window text */
-"Out:" = "Out:";
+"Out:" = "Keluar:";
 
 /* Window text */
 "PB" = "PB";
@@ -1301,46 +1310,46 @@
 "PB/s" = "PB/s";
 
 /* Window text */
-"Password:" = "Password:";
+"Password:" = "Kata Sandi:";
 
 /* Window text */
-"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Path '%1$@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Path '%1$@' mengandung karakter yang tidak diijinkan.\n\nKarakter yang tidak diijinkan: '%2$s'\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "Please enter VPN passphrase.";
+"Please enter VPN passphrase." = "Harap masukkan frasa sandi VPN.";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Please enter a name and click \"OK\" or click \"Cancel\".\n\n";
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Harap masukkan suatu nama dan klik \"OK\" atau klik \"Batal\".\n\n";
 
 /* Window text */
-"Please enter a new name for '%@'." = "Please enter a new name for '%@'.";
+"Please enter a new name for '%@'." = "Harap masukkan suatu nama baru untuk '%@'.";
 
 /* Window text */
-"Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
+"Please insert token \"%@\", then click \"OK\"" = "Harap masukkan token \"%@\", lalu klik \"OK\"";
 
 /* Window text */
-"Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting.";
+"Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Konfigurasi pribadi tidak bisa menyambung saat komputer dimulai.\n\nPertama buatlah jadi konfigurasi bersama, lalu ubah setelah ini.";
 
 /* Window text */
-"Received fatal signal %d." = "Received fatal signal %d.";
+"Received fatal signal %d." = "Menerima sinyal %d fatal.";
 
 /* Window text */
-"Rename failed; see the Console Log for details." = "Rename failed; see the Console Log for details.";
+"Rename failed; see the Console Log for details." = "Ubah nama gagal; lihat Log Konsol untuk rincian.";
 
 /* Window text */
 "Resolved symbolic link at '%@' to '%@'" = "Resolved symbolic link at '%1$@' to '%2$@'";
 
 /* Window text */
-"Search domain:" = "Search domain:";
+"Search domain:" = "Domain pencarian:";
 
 /* Window text */
-"Securing Tunnelblick..." = "Securing Tunnelblick…";
+"Securing Tunnelblick..." = "Mengamankan Tunnelblick…";
 
 /* Window text */
-"Set DNS/WINS:" = "Set DNS/WINS:";
+"Set DNS/WINS:" = "Setel DNS/WINS:";
 
 /* Window text */
-"Single-quote missing in line %u" = "Single-quote missing in line %u";
+"Single-quote missing in line %u" = "Kurang kutip tunggal pada baris %u";
 
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Skipped copying %@ because a file with that name and contents has already been copied.";
@@ -1637,6 +1646,9 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick needs to change a setting that may only be changed by a computer administrator.";
 
 /* Window text */
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations.";
+
+/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.";
 
 /* Window text */
@@ -1644,9 +1656,6 @@
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick needs to:\n";
-
-/* Window text */
-"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick successfully:\n\n";
@@ -1677,9 +1686,6 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details… window";
-
-/* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations.";
 
 /* Window text */
 "Unable to Establish Communication" = "Unable to Establish Communication";
@@ -1859,6 +1865,9 @@
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?";
 
 /* Window text */
+"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n";
 
 /* Window text */
@@ -1905,6 +1914,9 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bit enabling and testing";
+
+/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%1$@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%2$@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Admin mode %@ remaining";
@@ -2048,6 +2060,9 @@
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program and documentation enhancements and maintenance after version 3.0b10";
+
+/* Credit description */
+"Romanian localization" = "Romanian localization";
 
 /* Credit description */
 "Russian localization" = "Lokalisasi Rusia";

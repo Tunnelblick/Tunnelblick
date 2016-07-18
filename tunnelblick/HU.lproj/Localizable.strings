@@ -134,6 +134,9 @@
 "Monochrome icon" = "Monokróm ikon";
 
 /* Button */
+"More Info" = "További információ";
+
+/* Button */
 "Never load Tap driver" = "Soha ne töltse be a Tap drivert";
 
 /* Button */
@@ -159,6 +162,12 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "Easy-rsa megnyitása a Terminalban";
+
+/* Button */
+"Place Icon Near the Spotlight Icon" = "Az ikon a Spotlight Ikon mellé helyezése";
+
+/* Button */
+"Place Icon Normally" = "Ikon normál elhelyezése";
 
 /* Button */
 "Privacy info..." = "Adatvédelem…";
@@ -398,7 +407,7 @@
 "Monitor network settings" = "Hálózati beállítások figyelése";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Elhelyezés a Spotlight ikon mellett";
+"Place near Spotlight icon" = "Spotlight ikon mellé helyezés";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Domain név hozzáfűzése a domain keresési listához";
@@ -1637,6 +1646,9 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "A Tunnelblicknek meg kell változtatnia egy beállítást, amit csak egy rendszergazda tud megváltoztatni.";
 
 /* Window text */
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "A Tunnelblicknek az OpenVPN konfigurációt Tunnelblick VPN konfigurációvá kell konvertálnia.";
+
+/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblicknek készítenie vagy frissíteni kell egy konfigurációs fájl biztonsági másolatát";
 
 /* Window text */
@@ -1644,9 +1656,6 @@
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick tennivalók:\n";
-
-/* Window text */
-"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "A Tunnelblick minimum OS X 10.4-en fut\n     (\"Tiger\", \"Leopard\", vagy \"Snow Leopard\")";
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick sikeresen:\n\n";
@@ -1677,9 +1686,6 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "A Tunnelblick nem tudja elindítani az OpenVPN-t a(z) %@ kapcsolathoz. További információk a VPN Részletek… ablakban láthatók";
-
-/* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "A Tunnelblicknek az OpenVPN konfigurációt Tunnelblick konfigurációvá kell konvertálnia.";
 
 /* Window text */
 "Unable to Establish Communication" = "Nem hozható létre kommunikációs csatorna";
@@ -1859,6 +1865,9 @@
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "A frissítés után addig nem tudja használni a Tunnelblick-et amíg meg nem ad egy adminisztrátor jogú felhasználónevet és jelszót.\n\nBiztosan ellenőrizni szeretné a frissítéseket?";
 
 /* Window text */
+"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "A számítógépe esetleg nem tudja megfelelően megjeleníteni a Tunnelblick ikont a Spotlight ikon mellett.\n\nEmiatt a Tunnelblick ikon időnként eltűnhet a felső menüsorból.\n\nBiztos, hogy a Tunnelblick ikont a Spotlight ikon mellé akarja helyezni?\n\n";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Úgy tűnik, hogy a számítógép órája nem pontos.\n\nA kapcsolatok közül néhány vagy akár az összes nem lesz használható, amíg a pontos időt nem állítja be.\n\n";
 
 /* Window text */
@@ -1905,6 +1914,9 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bites engedélyezés és tesztelés";
+
+/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Ha kiválasztja</strong>, a Tunnelblick ikon a Spotlight ikon mellé kerül:</p>\n<p>%1$@</p>\n<p><strong>Ha nem választja ki</strong>, a Tunnelblick ikon a normál helyre kerül:</p>\n<p>%2$@</p>\n<p><strong>A jelölőnégyzet inaktív</strong> macOS Sierra alatt, mert ott nem szükséges, illetve azon rendszereken, ahol ismert, hogy problémát okoz.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">További információ</a></p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Adminisztrátori módból hátralevő idő: %@";
@@ -2048,6 +2060,9 @@
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program fejlesztések és dokumentáció a 3.0b10 verzió után";
+
+/* Credit description */
+"Romanian localization" = "Román honosítás";
 
 /* Credit description */
 "Russian localization" = "Orosz honosítás";

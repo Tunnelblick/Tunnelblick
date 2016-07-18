@@ -134,6 +134,9 @@
 "Monochrome icon" = "白黒アイコン";
 
 /* Button */
+"More Info" = "詳しくはこちら";
+
+/* Button */
 "Never load Tap driver" = "Tap ドライバーを読み込まない";
 
 /* Button */
@@ -159,6 +162,12 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "ターミナルで easy-rsa を開く";
+
+/* Button */
+"Place Icon Near the Spotlight Icon" = "Spotlight アイコンの近くに配置される";
+
+/* Button */
+"Place Icon Normally" = "適当な位置に配置される";
 
 /* Button */
 "Privacy info..." = "プライバシー情報";
@@ -230,7 +239,7 @@
 "Try again with saved passphrase" = "保存されたパスフレーズでもう一回試す";
 
 /* Button */
-"Try again with saved username and password" = "保存されたユーザーネームとパスワードでもう一回試す";
+"Try again with saved username and password" = "保存されたユーザー名とパスワードで再度お試しください。";
 
 /* Button */
 "Try again" = "もう一度試す";
@@ -398,7 +407,7 @@
 "Monitor network settings" = "ネットワーク設定を監視する";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Spotlight アイコンの隣に配置する";
+"Place near Spotlight icon" = "Spotlight アイコンの近くに配置される";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "名前を検索する時にドメイン名をつける";
@@ -758,7 +767,7 @@
 "  • Convert OpenVPN configurations\n" = "  • OpenVPN 設定ファイルを変換します\n";
 
 /* Window text */
-"  • Install forced preferences\n" = "  • Install forced preferences\n";
+"  • Install forced preferences\n" = "  • 強制的に設定をインストール\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • 接続先をインストールまたは更新します\n";
@@ -1637,6 +1646,9 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "管理者のみが変更できるかもしれない設定の変更が必要です";
 
 /* Window text */
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "OpenVPN 設定から Tunnelblick VPN 設定への変換が必要です。";
+
+/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "設定ファイルの安全な(シャドー)コピーを作成または更新する必要があります。";
 
 /* Window text */
@@ -1644,9 +1656,6 @@
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick では以下の変更が必要です:\n";
-
-/* Window text */
-"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick には OS X 10.4 かそれ以上が必要です\n     (\"Tiger\"、\"Leopard\" または \"Snow Leopard\")";
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblickは以下の操作に成功しました:\n\n";
@@ -1677,9 +1686,6 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "%@ へ接続するための OpenVPN を開始することができませんでした。詳細は「VPN の詳細…」ウィンドウの中のログを参照してください";
-
-/* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "OpenVPN設定からTunnelblickVPN設定への変換が必要です。";
 
 /* Window text */
 "Unable to Establish Communication" = "通信を確立することができません";
@@ -1859,6 +1865,9 @@
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "管理者のユーザー名とパスワードがないと更新後に Tunnelblick を使用することができなくなります。\n\n更新をチェックしてもよいですか？";
 
 /* Window text */
+"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "このコンピュータでは、Tunnelblick アイコンを Spotlight アイコンの近くに配置することはできません。\n\nメニューバーにTunnelblick アイコンが表示されなくなる場合がありますが、unnelblick アイコンを Spotlight アイコンの近くに配置するようにしますか？\n";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "システムクロックが正しく設定されていない可能性があります。\n\nシステムクロックを正しく設定しないと、いくつかの接続設定が正しく動作しない可能性があります。\n\n";
 
 /* Window text */
@@ -1905,6 +1914,9 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "64ビット化とテスト";
+
+/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>チェックを入れた場合</strong>、Tunnelblick アイコンは Spotlight アイコンの近くに配置されます:</p>\n<p>%1$@</p>\n<p><strong>チェックを入れない場合</strong>、Tunnelblick アイコンは適当な位置に配置されます:</p>\n<p>%2$@</p>\n<p>このチェックボックスは macOS Sierra では<strong>無効です。</strong></p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">詳しくはこちら</a></p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "管理者モードはあと %@ です";
@@ -2048,6 +2060,9 @@
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "バージョン3.0b10以降のプログラムとドキュメントの拡張";
+
+/* Credit description */
+"Romanian localization" = "ルーマニア語翻訳";
 
 /* Credit description */
 "Russian localization" = "ロシア語翻訳";

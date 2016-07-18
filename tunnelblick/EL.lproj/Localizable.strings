@@ -134,6 +134,9 @@
 "Monochrome icon" = "Μονόχρωμο εικονίδιο";
 
 /* Button */
+"More Info" = "Περισσότερες Πληροφορίες";
+
+/* Button */
 "Never load Tap driver" = "Ποτέ χρήση οδηγών Tap";
 
 /* Button */
@@ -159,6 +162,12 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "Άνοιξε το easy-rsa στο Τερματικό";
+
+/* Button */
+"Place Icon Near the Spotlight Icon" = "Τοποθετήστε δίπλα στο εικονίδιο του Spotlight";
+
+/* Button */
+"Place Icon Normally" = "Κανονική Τοποθέτηση Εικονιδίου";
 
 /* Button */
 "Privacy info..." = "Πληροφορίες Απορρήτου …";
@@ -398,7 +407,7 @@
 "Monitor network settings" = "Παρακολούθηση ρυθμίσεων δικτύου";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Τοποθέτησε δίπλα στο εικονίδιο του Spotlight";
+"Place near Spotlight icon" = "Τοποθετήστε δίπλα στο εικονίδιο του Spotlight";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Πρόταση ονόματος διακομιστή για εύρεση διακομιστών";
@@ -1637,6 +1646,9 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Το Tunnelblick χρειάζεται να αλλάξει μια επιλογή, η οποία μπορεί να αλλαχθεί μόνο από ένα διαχειριστή του υπολογιστή.";
 
 /* Window text */
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Το Tunnelblick χρειάζεται να μετατρέψει τις ρυθμίσεις OpenVPN σε ρυθμίσεις VPN του Tunnelblick.";
+
+/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Το Tunnelblick χρειάζεται να δημιουργήσει ή να ενημερώσει ένα αντίγραφο ασφαλείας (κρυφό) του αρχείου παραμέτρων.";
 
 /* Window text */
@@ -1644,9 +1656,6 @@
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Το Tunnelblick χρειάζεται να:\n";
-
-/* Window text */
-"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Το Tunnelblick απαιτεί OS X 10.4 ή ανώτερο\n     (\"Tiger\", \"Leopard\", ή \"Snow Leopard\")";
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Το Tunnelblick πραγματοποίησε επιτυχώς:\n\n";
@@ -1677,9 +1686,6 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Το Tunnelblick ήταν αδύνατον να αρχίσει μια OpenVPN σύνδεση στο %@. Για πληροφορίες δείτε το ημερολόγιο στο παράθυρο Λεπτομέρειες VPN…";
-
-/* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Το Tunnelblick χρειάζεται να μετατρέψει τις ρυθμίσεις OpenVPN σε ρυθμίσεις VPN του Tunnelblick.";
 
 /* Window text */
 "Unable to Establish Communication" = "Αδύνατον να επιτευχθεί επικοινωνία";
@@ -1859,6 +1865,9 @@
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Δεν θα μπορείτε να χρησιμοποιήσετε το Tunnelblick μετά την ενημέρωση εκτός αν παρέχετε το όνομα και τον κωδικό του Διαχειριστή.\n\nΕίστε σίγουροι ότι θέλετε να ελέγξετε για ενημερώσεις;";
 
 /* Window text */
+"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Ο υπολογιστής σας ίσως να μη μπορεί να το εμφανίσει αξιόπιστα το Tunnelblick δίπλα στο εικονίδιο του Spotlight.\n\nΑυτό ίσως προκαλέσει την απώλεια του Tunnelblick από μπάρα του μενού.\n\nΕίστε σίγουροι ότι θέλετε να τοποθετήσετε το Tunnelblick δίπλα στο εικονίδιο του Spotlight;\n\n";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Ρολόι του συστήματός σας μπορεί να μην έχει ρυθμιστεί σωστά.  \n\nΟρισμένες ή όλες οι παραμέτρους σας ίσος δεν συνδεθούν, εκτός αν το ρολόι του συστήματος έχει την σωστή ημερομηνία και ώρα.\n\n";
 
 /* Window text */
@@ -1905,6 +1914,9 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bit ενεργοποιημένο και δοκιμασμένο";
+
+/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το εικονίδιο του Tunnelblick τοποθετείτε κοντά στο εικονίδιο του Spotlight:</p>\n<p>%1$@</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, το εικονίδιο του Tunnelblick είναι τοποθετείτε κανονικά:\n</p>\n<p>%2$@</p>\n<p><strong>Αυτό το κουτάκι είναι απενεργοποιημένο</strong> στο macOS Sierra διότι δεν χρειάζεται και σε συστήματα που είναι γνωστό οτι δημιουργεί προβλήματα.</p>\n<p><a href=\"https://tunnelblick.net<a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Περισσότερες πληροφορίες</a></p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Κατάσταση διαχειριστή %@ απομένει";
@@ -2048,6 +2060,9 @@
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Βελτιωμένο πρόγραμμα και εγχειρίδια όπως και συντήρηση μετά την έκδοση 3.0b10";
+
+/* Credit description */
+"Romanian localization" = "Προσαρμογή στα Ρουμάνικα";
 
 /* Credit description */
 "Russian localization" = "Προσαρμογή Ρώσικα ";

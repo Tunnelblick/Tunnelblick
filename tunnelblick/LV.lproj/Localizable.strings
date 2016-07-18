@@ -5,7 +5,7 @@
 "Disconnect All (%d Connections)" = "Atvienot visus (%d Savienojumus)";
 
 /* Status message */
-"No Active Connections" = "Nav aktīvu savienojumu";
+"No Active Connections" = "Nav Aktīvu Savienojumu";
 
 /* Textbox name */
 "Username:" = "Lietotājvārds:";
@@ -80,7 +80,7 @@
 "Default (%@)" = "Noklusējuma (%@)";
 
 /* Button */
-"Delete Credentials" = "Dzēst piekļuves datus";
+"Delete Credentials" = "Dzēst Piekļuves Datus";
 
 /* Button */
 "Delete saved passphrase and try again" = "Dzēst saglabāto frāzveida paroli un mēģināt vēlreiz";
@@ -134,6 +134,9 @@
 "Monochrome icon" = "Vienkrāsains attēls";
 
 /* Button */
+"More Info" = "Vairāk Informācijas";
+
+/* Button */
 "Never load Tap driver" = "Nekad neielādēt Tap dzinēju";
 
 /* Button */
@@ -159,6 +162,12 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "Atvērt easy-rsa komandrindā";
+
+/* Button */
+"Place Icon Near the Spotlight Icon" = "Novietot ikonu blakus Spotlight ikonai";
+
+/* Button */
+"Place Icon Normally" = "Novietot ikonu normāli";
 
 /* Button */
 "Privacy info..." = "Privātuma info…";
@@ -398,7 +407,7 @@
 "Monitor network settings" = "Monitorēt tīkla iestatījumus";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Novietot blakus Spotlight ikonai";
+"Place near Spotlight icon" = "Novietot blakus Spotlight ikonai";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Pievienot domēna vārdu datora vārdam, veicot tīkla meklēšanu";
@@ -1637,6 +1646,9 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick nepieciešams mainīt opciju, kuru var izmainīt tikai datora administrators.";
 
 /* Window text */
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick vajag pārvērst OpenVPN konfigurācijas par Tunnelblick VPN konfigurācijām.";
+
+/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick nepieciešams izveidot vai atjaunot drošu (ēnas) iestatījumu datnes kopiju.";
 
 /* Window text */
@@ -1644,9 +1656,6 @@
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick nepieciešams:\n";
-
-/* Window text */
-"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick nepieciešama OS X 10.4 vai jaunāka  (\"Tiger\", \"Leopard\", vai \"Snow Leopard\")";
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick veiksmīgi:\n\n";
@@ -1677,9 +1686,6 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick nespēja uzsākt OpenVPN, lai savienotos ar %@. Lai apskatītu iemeslu, apskatiet žurnālu VPN iestatījumi... logā";
-
-/* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick vajag pārvērst OpenVPN konfigurācijas par Tunnelblick VPN konfigurācijām.";
 
 /* Window text */
 "Unable to Establish Communication" = "Nav iespējams izveidot savienojumu";
@@ -1859,6 +1865,9 @@
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Jums nebūs iespēja izmantot Tunnelblick pēc atjauninājuma, ja vien neievadīsiet administratora lietotājvārdu un paroli.\n\nVai jūs tiešām vēlaties pārbaudīt atjauninājumus?";
 
 /* Window text */
+"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Iespējams ka jūsu dators nespēj uzticami parādīt Tunnelblick ikonu blakus Spotlight ikonai.\n\nŠī iemesla dēļ, Tunnelblick ikona var dažreiz PAZUST no izvēlnes joslas.\n\nVai tiešām vēlaties novietot Tunnelblick ikonu blakus Spotlight ikonai?\n\n";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Laiks sistēmā nav uzstādīts pareizi.\n\nDažas vai visas konfigurācijas nevar pieslēgies, kamēr sistēmā nav uzstādīts pareizs datums un laiks.\n\n";
 
 /* Window text */
@@ -1905,6 +1914,9 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bit pievienošana un testēšana";
+
+/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Kad atzīmēta</strong>, Tunnelblick ikona tiks novietota blakus Spotlight ikonai:</p>\n<p>%1$@</p>\n<p><strong>Kad neatzīmēta</strong>, Tunnelblick ikona tiks novietota normāli:</p>\n<p>%2$@</p>\n<p><strong>Šī izvēles rūtiņa ir atslēgta</strong> macOS Sierra versijā jo nav vajadzīga, un arī sistēmās kur zināms ka tā var radīt problēmas.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\"></strong>Vairāk Informācijas</a></p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Adminstratora režīmā %@ atlicis";
@@ -2048,6 +2060,9 @@
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Programmas un dokumentācijas uzlabojumi pēc versijas 3.0b10";
+
+/* Credit description */
+"Romanian localization" = "Rumāņu valoda";
 
 /* Credit description */
 "Russian localization" = "Krievu valoda";

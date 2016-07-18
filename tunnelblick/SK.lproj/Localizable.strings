@@ -134,6 +134,9 @@
 "Monochrome icon" = "Čiernobiela ikona";
 
 /* Button */
+"More Info" = "Viac info";
+
+/* Button */
 "Never load Tap driver" = "Nikdy nenačítavať ovládač Tap";
 
 /* Button */
@@ -159,6 +162,12 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "Otvoriť easy-rsa v termináli";
+
+/* Button */
+"Place Icon Near the Spotlight Icon" = "Zobraziť ikonu v lište vedľa Spotlight ikony";
+
+/* Button */
+"Place Icon Normally" = "Zobraziť ikonu na bežnom mieste";
 
 /* Button */
 "Privacy info..." = "Informácie o ochrane súkromia…";
@@ -398,7 +407,7 @@
 "Monitor network settings" = "Sledovať nastavenie siete";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Umiestniť vedľa Spotlight ikony";
+"Place near Spotlight icon" = "Zobraziť vedľa Spotlight ikony";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Vložiť meno domény pred zoznam domén na vyhľadávanie";
@@ -758,7 +767,7 @@
 "  • Convert OpenVPN configurations\n" = "  • Previesť konfigurácie z formátu OpenVNP\n";
 
 /* Window text */
-"  • Install forced preferences\n" = "  Inštalovať vnútené nastavenia\n";
+"  • Install forced preferences\n" = "  • Inštalovať vnútené nastavenia\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Nainštalovať alebo aktualizovať konfigurácie\n";
@@ -788,7 +797,7 @@
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick musí byť nainštalovný do priečinku Aplikácie.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick vyžaduje autorizáciu správcu počítača, aby bolo možné automaticky pripojit '%@' pri štarte.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick vyžaduje autorizáciu správcu počítača, aby bolo možné automaticky pripojiť '%@' pri štarte.";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick vyžaduje autorizáciu správcu počítača, aby bolo možné automaticky odpojiť '%@' pri štarte.";
@@ -836,7 +845,7 @@
 "(if connected when user switched out)" = "(ak je aktívne pri zmene aktívneho užívateľa)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Založené na Tunnelblick, voľne šírenom softwari, ktoý je k dispozícii na <br><a href=\"http://code.google.com/p/tunnelblick\"> http://code.google.com/p/tunnelblick</a> <br><br>OpenVPN je ochranná známka spoločnosti OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Založené na Tunnelblick, voľne šíriteľnom softwari, ktorý je dostupný na<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN je registrovaná ochranná známka OpenVPN Technologies, Inc.";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference alebo TBAlwaysSetPreference sa odkazuje na neznámu preferenciu \"%1$@\" %2$@";
@@ -1637,6 +1646,9 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick musí zmeniť konfiguráčné nastavenia ktorá môže zmeniť len správca počítača.";
 
 /* Window text */
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick musí previesť konfigurácie OpenVPN na konfigurácie Tunnelblick VPN.";
+
+/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick vyžaduje vytvorenie alebo aktualizáciu bezpečnostnej kópie konfiguračného súboru.";
 
 /* Window text */
@@ -1644,9 +1656,6 @@
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick vyžaduje:\n";
-
-/* Window text */
-"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick vyžaduje verziu systému OS X 10.4 alebo vyššiu\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick bol úspešne:  ";
@@ -1677,9 +1686,6 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Aplikácii Tunnelblick sa nepodarilo spustiť OpenVPN pre pripojenie k %@. Pre viac informácií si, prosím, prezrite Záznam konzoly v okne Nastavenia VPN…";
-
-/* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick musí previesť konfigurácie OpenVPN na Tunnelblick VPN konfigurácie.";
 
 /* Window text */
 "Unable to Establish Communication" = "Nepodarilo sa zahájiť spojenie";
@@ -1859,6 +1865,9 @@
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Bez zadania prihlasovacieho mena a hesla správcu nebude možné po aktualizácii aplikáciu Tunnelblick použiť.\n\nSkutočne si prajete skontrolovať aktualizácie?";
 
 /* Window text */
+"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Je možné, že Váš počítač nedokáže za každých okolností správne zobraziť ikonu Tunnelblick vedľa Spotlight ikony.\n\nTo sa môže prejaviť tak, že ikona Tunnelblick niekedy ZMIZNE z lišty v pravom hornom rohu.\n\nSkutočne si prajete zobraziť ikonu Tunnelblick vedľa Spotlight ikony?\n\n";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Vaše systémové hodiny nemusia byť nastavené správne.\n\nJe možné že sa niektoré alebo všetky vaše konfigurácie nebudú môcť pripojiť, pokiaľ systémové hodiny nenastavíte na správny dátum a čas.  ";
 
 /* Window text */
@@ -1905,6 +1914,9 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "Beh a testovanie 64-bit";
+
+/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p>Ak je táto možnosť<strong>vybratá</strong>, ikona Tunnelblick je umiestnená vedľa Spotlight ikony:</p>\n<p>%1$@</p>\n<p>Ak táto možnosť<strong>nie je vybratá</strong>, ikona Tunnelblick sa objaví na svojom bežnom mieste:</p>\n<p>%2$@</p>\n<p><strong>Tento výber je nefunkčný</strong> na macOS Sierra, pretože nie je potrebný a môže spôsobovať ťažkosti.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Viac info</a></p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Režim správcu zostáva %@";
@@ -2048,6 +2060,9 @@
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Vylepšenia programu a dokumentácie a obsluha od verzie 3.0b10";
+
+/* Credit description */
+"Romanian localization" = "Preklad do rumunčiny";
 
 /* Credit description */
 "Russian localization" = "Preklad do ruštiny";

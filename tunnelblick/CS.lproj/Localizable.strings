@@ -134,6 +134,9 @@
 "Monochrome icon" = "Monochromatická ikona";
 
 /* Button */
+"More Info" = "More Info";
+
+/* Button */
 "Never load Tap driver" = "Nikdy nenahrát ovladač Tap";
 
 /* Button */
@@ -159,6 +162,12 @@
 
 /* Button */
 "Open easy-rsa in Terminal" = "Otevřít easy-rsa v terminálu";
+
+/* Button */
+"Place Icon Near the Spotlight Icon" = "Place Icon Near the Spotlight Icon";
+
+/* Button */
+"Place Icon Normally" = "Place Icon Normally";
 
 /* Button */
 "Privacy info..." = "Informace o ochraně soukromí…";
@@ -398,7 +407,7 @@
 "Monitor network settings" = "Monitorovat síťová nastavení";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Umístit vedle ikony Spotlightu";
+"Place near Spotlight icon" = "Place near Spotlight icon";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Připojit jméno domény k prohledávání domén";
@@ -1637,6 +1646,9 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick potřebuje změnit nastavení, které může být změněno pouze administrátorem počítače.";
 
 /* Window text */
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations.";
+
+/* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick potřebuje vytvořit nebo aktualiztovat bezpečnostní (stínovou) kopii konfiguračního souboru.";
 
 /* Window text */
@@ -1644,9 +1656,6 @@
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick potřebuje:\n";
-
-/* Window text */
-"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick požaduje OS X 10.4 nebo vyšší\n     (\"Tiger\", \"Leopard\", nebo \"Snow Leopard\")";
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
 "Tunnelblick successfully:\n\n" = "Tunnelblick úspěšně:\n\n";
@@ -1677,9 +1686,6 @@
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick nebyl schopen spustit OpenVPN pro spojení %@. Detaily naleznete v logu v Detaily VPN… okno";
-
-/* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick potřebuje zkonvertovat konfiguraci OpenVPN do konfigurace Tunnelblick VPN.";
 
 /* Window text */
 "Unable to Establish Communication" = "Není možné navázat spojení";
@@ -1859,6 +1865,9 @@
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Po aktualizaci nebudete moci použít Tunnelblick, dokud nezadáte uživatelské jméno a heslo administrátora.\n\nOpravdu chcete provést aktualizaci?";
 
 /* Window text */
+"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n";
+
+/* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Váš systémový čas nemusí být nastaven správně.\n\nNěkterá nebo všechny konfigurace nemusí jít spojit, dokud systémový čas nebude nastaven správně.\n\n";
 
 /* Window text */
@@ -1905,6 +1914,9 @@
 
 /* Credit description */
 "64-bit enabling and testing" = "Další přispěvatelé";
+
+/* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%1$@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%2$@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Zbývá %@ administračního režimu";
@@ -2048,6 +2060,9 @@
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Programování a vylepšení dokumentace verzí vyšších než 3.0b10";
+
+/* Credit description */
+"Romanian localization" = "Romanian localization";
 
 /* Credit description */
 "Russian localization" = "Ruská lokalizace";
