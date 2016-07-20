@@ -90,12 +90,10 @@ extern BOOL              gShuttingDownWorkspace;
 	
     self = [super initWithFrame: frame];
     if (self) {
-		mainIconTrackingRectTagIsValid = FALSE;
+        mainIconTrackingRectTagIsValid = FALSE;
+        [self registerForDraggedTypes: [NSArray arrayWithObject: NSFilenamesPboardType]];
 	}
 	
-    // Register for drop operations
-    [self registerForDraggedTypes: [NSArray arrayWithObject: NSFilenamesPboardType]];
-    
     return self;
 }
 
@@ -103,6 +101,8 @@ extern BOOL              gShuttingDownWorkspace;
     
     [self removeTrackingRectangle];
     
+    [self unregisterDraggedTypes];
+
     [((MenuController *)[NSApp delegate]) mouseExitedMainIcon: self event: nil];
     
     [super dealloc];
