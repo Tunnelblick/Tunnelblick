@@ -387,7 +387,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLangua
 								@"DB-AA",     // Extra logging for system authorization (for executeAuthorized)
                                 @"DB-AU",	  // Extra logging for VPN authorization
                                 @"DB-CD",     // Extra logging for connect/disconnect
-                                @"DB-TD",     // Extra logging for tunnelblickd interactions,
+                                @"DB-DD",     // Extra logging for drag/drop onto VPN Details window
                                 @"DB-HU",     // Extra logging for hookup,
                                 @"DB-IC",     // Extra logging for IP address checking
                                 @"DB-IT",     // Extra logging for IP address check threading
@@ -397,6 +397,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLangua
                                 @"DB-SI",     // Extra logging for status item creation/deletion/move
                                 @"DB-SU",     // Extra logging for startup
                                 @"DB-SW",     // Extra logging for sleep/wake and inactive user/active user
+                                @"DB-TD",     // Extra logging for tunnelblickd interactions,
                                 @"DB-UC",     // Extra logging for updating configurations
                                 @"DB-UP",     // Extra logging for the up script
 								@"DB-UU",	  // Extra logging for UI updates

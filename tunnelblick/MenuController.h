@@ -236,7 +236,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 #endif
 }
 
-// Used by ourMainIconView to implement drag/drop of configuration files onto the Tunnelblick icon in the status bar
+// Used to implement drag/drop of configuration files onto the Tunnelblick icon in the status bar or the configuration list in the 'VPN Details' window
 -(BOOL)             openFiles:                              (NSArray * )        filePaths;
 
 // Menu actions

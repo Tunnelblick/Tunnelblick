@@ -159,6 +159,7 @@
 		63C3757D1A45116200D51E81 /* tunnelblick-helper in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 63C374391A4510AA00D51E81 /* tunnelblick-helper */; };
 		63C504291178E21100340D13 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63CC72F91928C5CB00F81220 /* TBUIUpdater.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */; };
+		63CDEF791D401268008D91B2 /* DropConfigsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CDEF781D401268008D91B2 /* DropConfigsView.m */; };
 		63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D39B4714F9860E002D1297 /* UtilitiesView.m */; };
 		63D39BF014F9ECC7002D1297 /* Utilities.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 63D39BEF14F9ECC7002D1297 /* Utilities.tiff */; };
 		63D39BF214F9ED13002D1297 /* Configurations.png in Resources */ = {isa = PBXBuildFile; fileRef = 63D39BF114F9ED13002D1297 /* Configurations.png */; };
@@ -517,6 +518,8 @@
 		63C504281178E21100340D13 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		63CC72F71928C5CB00F81220 /* TBUIUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUIUpdater.h; sourceTree = "<group>"; };
 		63CC72F81928C5CB00F81220 /* TBUIUpdater.h.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUIUpdater.h.m; sourceTree = "<group>"; };
+		63CDEF771D401260008D91B2 /* DropConfigsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropConfigsView.h; sourceTree = "<group>"; };
+		63CDEF781D401268008D91B2 /* DropConfigsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropConfigsView.m; sourceTree = "<group>"; };
 		63D39B4614F9860E002D1297 /* UtilitiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilitiesView.h; sourceTree = "<group>"; };
 		63D39B4714F9860E002D1297 /* UtilitiesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilitiesView.m; sourceTree = "<group>"; };
 		63D39BEF14F9ECC7002D1297 /* Utilities.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Utilities.tiff; sourceTree = "<group>"; };
@@ -1175,6 +1178,8 @@
 				B8C9FB44170C77A400BCA243 /* LeftNavItem.m */,
 				B8C9FB45170C77A400BCA243 /* LeftNavViewController.h */,
 				B8C9FB46170C77A400BCA243 /* LeftNavViewController.m */,
+				63CDEF771D401260008D91B2 /* DropConfigsView.h */,
+				63CDEF781D401268008D91B2 /* DropConfigsView.m */,
 				63A505FC11DA0E88006CB2B6 /* LogDisplay.h */,
 				63A505FD11DA0E88006CB2B6 /* LogDisplay.m */,
 			);
@@ -1778,6 +1783,7 @@
 				63621E831D2D95870020DEAE /* MAAttachedWindow.m in Sources */,
 				63621E861D2D959C0020DEAE /* Tracker.m in Sources */,
 				63621E8A1D2D95B30020DEAE /* TBInfoButton.m in Sources */,
+				63CDEF791D401268008D91B2 /* DropConfigsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

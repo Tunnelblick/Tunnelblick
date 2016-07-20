@@ -1052,7 +1052,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 													"2. Change the name of the configuration file to a name of your choice (do not change the file's extension). "
 													"This will be the name that Tunnelblick uses for the configuration.\n\n"
 													
-													"3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar.",
+													"3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.",
 													
 													@"Window text"));
                 return;
@@ -1066,8 +1066,8 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                                      "or VPN service provider.\n\n"
                                                      "Configuration files have extensions of .tblk, .ovpn, or .conf.\n\n"
                                                      "(There may be other files associated with the configuration that have other extensions; ignore them.)\n\n"
-                                                     "To install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\n"
-                                                     "To install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar.",
+                                                     "To install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\n"
+                                                     "To install multiple configuration files at one time, select all the files and then drag and drop all of them.",
                                                      @"Window text")]);
 								   
                 
