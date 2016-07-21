@@ -382,7 +382,7 @@ extern TBUserDefaults * gTbDefaults;
             } else {
 				status = LSSharedFileListItemRemove(lsLoginItems, existingItem);
 				if (  status == noErr  ) {
-					NSLog(@"Succesfully removed the old login item");
+					NSLog(@"Successfully removed the old login item");
                     [self performSelectorOnMainThread: @selector(haveDealtWithOldLoginItem) withObject: nil waitUntilDone: NO];
                 } else {
 					NSLog(@"deleteOurLoginItem: LSSharedFileListItemRemove returned status = %ld for loginItem for %@", (long) status, ourURL);

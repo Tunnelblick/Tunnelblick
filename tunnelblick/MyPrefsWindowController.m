@@ -1458,7 +1458,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                 && [gTbDefaults boolWithDefaultYesForKey: @"showConnectedDurations"]  ) {
 				connectionTimeString = [connection connectTimeString];
             }
-            windowLabel = [NSString stringWithFormat: NSLocalizedString(@"%@%@: %@%@ - %@", @"Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances"), [connection localizedName], [connection displayLocation], status, connectionTimeString, appName];
+            windowLabel = [NSString stringWithFormat: NSLocalizedString(@"%@%@: %@%@ - %@", @"Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances"), [connection localizedName], [connection displayLocation], status, connectionTimeString, appName];
         }
     }
     
@@ -2136,14 +2136,14 @@ static BOOL firstTimeShowingWindow = TRUE;
                     NSLog(@"Preferences for '%@' say it should connect when the computer starts but it does not have a launchd .plist and the user did not authorize creating a .plist. Attempting to repair preferences...", displayName);
                     [gTbDefaults setBool: FALSE forKey: autoConnectKey];
                     if (  ! [gTbDefaults boolForKey: autoConnectKey]  ) {
-                        NSLog(@"Succesfully set '%@' preference to FALSE", autoConnectKey);
+                        NSLog(@"Successfully set '%@' preference to FALSE", autoConnectKey);
                     } else {
                         NSLog(@"Unable to set '%@' preference to FALSE", autoConnectKey);
                         failedToFixPreferences = TRUE;
                     }
                     [gTbDefaults setBool: FALSE forKey: ossKey];
                     if (  ! [gTbDefaults boolForKey: ossKey]  ) {
-                        NSLog(@"Succesfully set '%@' preference to FALSE", ossKey);
+                        NSLog(@"Successfully set '%@' preference to FALSE", ossKey);
                     } else {
                         NSLog(@"Unable to set '%@' preference to FALSE", ossKey);
                         failedToFixPreferences = TRUE;
@@ -2157,14 +2157,14 @@ static BOOL firstTimeShowingWindow = TRUE;
                 NSLog(@"Preferences for '%@' say it should connect when the computer starts but it is a private configuration or has credentials. Attempting to repair preferences...", displayName);
                 [gTbDefaults setBool: FALSE forKey: autoConnectKey];
                 if (  ! [gTbDefaults boolForKey: autoConnectKey]  ) {
-                    NSLog(@"Succesfully set '%@' preference to FALSE", autoConnectKey);
+                    NSLog(@"Successfully set '%@' preference to FALSE", autoConnectKey);
                 } else {
                     NSLog(@"Unable to set '%@' preference to FALSE", autoConnectKey);
                     failedToFixPreferences = TRUE;
                 }
                 [gTbDefaults setBool: FALSE forKey: ossKey];
                 if (  ! [gTbDefaults boolForKey: ossKey]  ) {
-                    NSLog(@"Succesfully set '%@' preference to FALSE", ossKey);
+                    NSLog(@"Successfully set '%@' preference to FALSE", ossKey);
                 } else {
                     NSLog(@"Unable to set '%@' preference to FALSE", ossKey);
                     failedToFixPreferences = TRUE;
@@ -2178,14 +2178,14 @@ static BOOL firstTimeShowingWindow = TRUE;
                     NSLog(@"Preferences for '%@' say it should connect when the computer starts and a launchd .plist exists for that, but it is a private configuration or has credentials. The launchd .plist has been removed. Attempting to repair preferences...", displayName);
                     [gTbDefaults setBool: FALSE forKey: autoConnectKey];
                     if (  ! [gTbDefaults boolForKey: autoConnectKey]  ) {
-                        NSLog(@"Succesfully set '%@' preference to FALSE", autoConnectKey);
+                        NSLog(@"Successfully set '%@' preference to FALSE", autoConnectKey);
                     } else {
                         NSLog(@"Unable to set '%@' preference to FALSE", autoConnectKey);
                         failedToFixPreferences = TRUE;
                     }
                     [gTbDefaults setBool: FALSE forKey: ossKey];
                     if (  ! [gTbDefaults boolForKey: ossKey]  ) {
-                        NSLog(@"Succesfully set '%@' preference to FALSE", ossKey);
+                        NSLog(@"Successfully set '%@' preference to FALSE", ossKey);
                     } else {
                         NSLog(@"Unable to set '%@' preference to FALSE", ossKey);
                         failedToFixPreferences = TRUE;
@@ -2203,7 +2203,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                 if (  ! [gTbDefaults boolForKey: autoConnectKey]  ) {
                     [gTbDefaults setBool: TRUE forKey: autoConnectKey];
                     if (  [gTbDefaults boolForKey: autoConnectKey]  ) {
-                        NSLog(@"Succesfully set '%@' preference to TRUE", autoConnectKey);
+                        NSLog(@"Successfully set '%@' preference to TRUE", autoConnectKey);
                     } else {
                         NSLog(@"Unable to set '%@' preference to TRUE", autoConnectKey);
                         failedToFixPreferences = TRUE;
@@ -2212,7 +2212,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                 if (  ! [gTbDefaults boolForKey: ossKey]  ) {
                     [gTbDefaults setBool: TRUE forKey: ossKey];
                     if (  [gTbDefaults boolForKey: ossKey]  ) {
-                        NSLog(@"Succesfully set '%@' preference to TRUE", ossKey);
+                        NSLog(@"Successfully set '%@' preference to TRUE", ossKey);
                     } else {
                         NSLog(@"Unable to set '%@' preference to TRUE", ossKey);
                         failedToFixPreferences = TRUE;

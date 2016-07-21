@@ -532,7 +532,7 @@
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Disconnected - Advanced Settings%3$@";
 
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
 "%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
@@ -718,22 +718,22 @@
 /* Window title */
 "While Connected" = "While Connected";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Installed %lu configurations\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Installed one configuration\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Replaced %lu configurations\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced one configuration\n\n" = "     • Replaced one configuration\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled %lu configurations\n\n" = "     • Uninstalled %lu configurations\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled one configuration\n\n" = "     • Uninstalled one configuration\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
@@ -829,7 +829,7 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'";
 
-/* Window text -- apears in log display when logging is disabled\n */
+/* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Logging is disabled.)";
 
 /* Window text */
@@ -863,7 +863,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?";
 
 /* Window text */
-"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?";
@@ -902,7 +902,7 @@
 "All configurations use %@ credentials" = "All configurations use %@ credentials";
 
 /* Window text */
-"An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "An error occurred while trying to launch %@";
@@ -1961,7 +1961,7 @@
 "Contributed to early code" = "Contributed to early code";
 
 /* Credit description */
-"Croation localization" = "Croation localization";
+"Croatian localization" = "Croatian localization";
 
 /* Credit description */
 "Czech localization" = "Czech localization";

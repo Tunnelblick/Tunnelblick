@@ -357,7 +357,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     }
     
     NSString * message = (  [self loggingIsDisabled]
-                          ? NSLocalizedString(@"(Logging is disabled.)", @"Window text -- apears in log display when logging is disabled\n")
+                          ? NSLocalizedString(@"(Logging is disabled.)", @"Window text -- appears in log display when logging is disabled\n")
                           : [[((MenuController *)[NSApp delegate]) openVPNLogHeader] stringByAppendingString: @"\n"]);
 
     // Clear the log in the display if it is being shown
