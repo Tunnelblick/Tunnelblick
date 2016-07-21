@@ -2629,18 +2629,18 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		uninstallMsg = (  (nNetUninstalls == 0)
 						? @""
 						: (  (nNetUninstalls == 1)
-						   ? NSLocalizedString(@"     • Uninstalled one configuration\n\n", @"Window text: 'Tunnelblick succesfully: *'")
-						   : [NSString stringWithFormat: NSLocalizedString(@"     • Uninstalled %lu configurations\n\n", @"Window text: 'Tunnelblick succesfully: *'"), (unsigned long)nNetUninstalls]));
+						   ? NSLocalizedString(@"     • Uninstalled one configuration\n\n", @"Window text: 'Tunnelblick successfully: *'")
+						   : [NSString stringWithFormat: NSLocalizedString(@"     • Uninstalled %lu configurations\n\n", @"Window text: 'Tunnelblick successfully: *'"), (unsigned long)nNetUninstalls]));
 		replaceMsg   = (  (nNetReplacements == 0)
 						? @""
 						: (  (nNetReplacements == 1)
-						   ? NSLocalizedString(@"     • Replaced one configuration\n\n", @"Window text: 'Tunnelblick succesfully: *'")
-						   : [NSString stringWithFormat: NSLocalizedString(@"     • Replaced %lu configurations\n\n", @"Window text: 'Tunnelblick succesfully: *'"), (unsigned long)nNetReplacements]));
+						   ? NSLocalizedString(@"     • Replaced one configuration\n\n", @"Window text: 'Tunnelblick successfully: *'")
+						   : [NSString stringWithFormat: NSLocalizedString(@"     • Replaced %lu configurations\n\n", @"Window text: 'Tunnelblick successfully: *'"), (unsigned long)nNetReplacements]));
 		installMsg   = (  (nNetInstalls == 0)
 						? @""
 						: (  (nNetInstalls == 1)
-						   ? NSLocalizedString(@"     • Installed one configuration\n\n", @"Window text: 'Tunnelblick succesfully: *'")
-						   : [NSString stringWithFormat: NSLocalizedString(@"     • Installed %lu configurations\n\n", @"Window text: 'Tunnelblick succesfully: *'"), (unsigned long)nNetInstalls]));
+						   ? NSLocalizedString(@"     • Installed one configuration\n\n", @"Window text: 'Tunnelblick successfully: *'")
+						   : [NSString stringWithFormat: NSLocalizedString(@"     • Installed %lu configurations\n\n", @"Window text: 'Tunnelblick successfully: *'"), (unsigned long)nNetInstalls]));
 		
 		NSString * headerMsg  = (  ([uninstallMsg length] + [replaceMsg length] + [installMsg length]) == 0
 								 ? @""

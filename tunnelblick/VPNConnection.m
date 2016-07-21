@@ -1043,7 +1043,7 @@ extern volatile int32_t       gActiveInactiveState;
 - (void) ipInfoErrorDialog
 {
     TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window text"),
-                      NSLocalizedString(@"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n", @"Window text"));
+                      NSLocalizedString(@"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n", @"Window text"));
 }
 
 - (void) ipInfoInternetNotReachableDialog
@@ -1601,7 +1601,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		default:
 			NSLog(@"Internal Tunnelblick error: unknown status %ld from compareShadowCopy(%@)", (long) status, [self displayName]);
             TBShowAlertWindow(NSLocalizedString(@"Warning", @"Window title"),
-							  [NSString stringWithFormat: NSLocalizedString(@"An error (status %ld) ocurred while trying to"
+							  [NSString stringWithFormat: NSLocalizedString(@"An error (status %ld) occurred while trying to"
 																			@" check the security of the %@ configuration.\n\n"
 																			@"Please quit and relaunch Tunnelblick. If the problem persists, please"
 																			@" reinstall Tunnelblick.", @"Window text"),
