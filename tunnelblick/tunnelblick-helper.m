@@ -249,9 +249,10 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "                     G - Workgroup changed to some other value\n"
             "                     W - WINSAddresses changed to some other value\n\n"
             
-            "openvpnVersion is a string with the name of the subfolder of /Library/Application Support/Tunnelblick/bin/openvpn that contains the openvpn and openvpn-down-root.so binaries\n"
-            "               to be used for the connection. The string may contain only lower-case letters, hyphen, underscore, period, and the digits 0-9.\n"
-            "               If not present, the lowest (in lexicographical order) subfolder of .../bin/openvpn will be used.\n"
+            "openvpnVersion is a string with the name of the subfolder of /Applications/Tunnelblick.app/Contents/Resources/openvpn\n"
+            "               that contains the openvpn and openvpn-down-root.so binaries to be used for the connection. The string may\n"
+            "               contain only lower-case letters, hyphen, underscore, period, and the digits 0-9.\n"
+            "               If not present, the lowest (in lexicographical order) subfolder of openvpn will be used.\n"
             
             "useScripts, skipScrSec, cfgLocCode, and noMonitor each default to 0.\n"
             "bitMask defaults to 0x03.\n\n"
