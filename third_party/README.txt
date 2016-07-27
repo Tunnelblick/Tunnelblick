@@ -60,7 +60,7 @@ Three programs are built and used by Tunnelblick directly:
 There may be several different versions of OpenVPN in the third_party/tunnelblick folder.
 There are two different copies of each version of OpenVPN: one copy is created normally,
 the other is created with the Tunnelblick OpenVPN Xor Patch (see
-https://code.google.com/p/tunnelblick/wiki/cOpenvpn_xorpatch).
+https://tunnelblick.net/cOpenvpn_xorpatch.html).
 
 There are several different versions of the tun and tap kexts created for use with different
 versions of OS X.
