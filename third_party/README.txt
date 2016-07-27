@@ -58,8 +58,7 @@ Three programs are built and used by Tunnelblick directly:
                on demand.
 
 There may be several different versions of OpenVPN in the third_party/tunnelblick folder.
-There are two different copies of each version of OpenVPN: one copy is created normally,
-the other is created with the Tunnelblick OpenVPN Xor Patch (see
+Each copy is created with the Tunnelblick OpenVPN Xor Patch (see
 https://tunnelblick.net/cOpenvpn_xorpatch.html).
 
 There are several different versions of the tun and tap kexts created for use with different
