@@ -136,9 +136,6 @@ void * _NSConcreteStackBlock __attribute__((weak));
     NSImage                 * largeMainImage;               // Image to display when there are no connections active
     
     NSArray                 * openvpnVersionNames;          // A sorted array of the names of versions of OpenVPN that are available
-    NSArray                 * openvpnVersionInfo;           // An array of dictionaries corresponding to openvpnVersionNames
-    //                                                      //    Each dictionary contains the following keys:
-    //                                                      //    "full", "preMajor", "major", @"preMinor", "minor", "preSuffix", @"suffix", @"postSuffix"
     
     SystemAuth              * startupInstallAuth;           // Authorization when starting up Tunnelblick
     
@@ -261,7 +258,6 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(NSArray *)        connectionsNotDisconnected;
 -(void)             connectionStateDidChange:                  (id)              connection;
 -(unsigned)         decrementTapCount;
--(NSUInteger)       defaultOpenVPNVersionIx;
 -(NSURL *)          getIPCheckURL;
 -(NSNumber *)       haveConfigurations;
 -(void)             installConfigurationsUpdateInBundleAtPathMainThread: (NSString *)path;
@@ -369,7 +365,6 @@ TBPROPERTY(MainIconView *, ourMainIconView,           setOurMainIconView)
 TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
 TBPROPERTY(NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
 TBPROPERTY(NSArray      *, openvpnVersionNames,       setOpenvpnVersionNames)
-TBPROPERTY(NSArray      *, openvpnVersionInfo,        setOpenvpnVersionInfo)
 TBPROPERTY(NSArray      *, connectionArray,           setConnectionArray)
 TBPROPERTY(NSArray      *, nondisconnectedConnections,setNondisconnectedConnections)
 TBPROPERTY(NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)

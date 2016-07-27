@@ -155,6 +155,40 @@ extern TBUserDefaults * gTbDefaults;
     [[self loggingLevelArrayController] setContent: content];
 }
 
+-(NSString *) displayNameForOpenvpnName: (NSString *) openvpnName {
+    
+    // OpenVPN binaries are held in folders. The name of the folder includes the version of OpenVPN and the name of the SSL/TLS library it is linked to.
+    // The folder name must have a prefix of 'openvpn-' followed by the version number.
+    // The folder name must not contain any spaces, but underscores are shown as spaces to the user, so "mbed_TLS" will appear as "mbed TLS".
+    // The version may optionally be followed by a '-' and a library name. If none is provided, use fo the OpenSSL library is assumed.
+    // The version number and library name cannot contain '-' characters.
+    // Examples: 'openvpn-1.2.3' indicates OpenVPN version version 1.2.3 using the default OpenSSL library
+    //           'openvpn-1.2.3-LibreSSL' indicates OpenVPN version 1.2.3 using the LibreSSL library
+    //           'openvpn-1.2.3_git_123abcd-mbed_TLS' indicate OpenVPN version 1.2.3_git_123abcd using the mbed TLS library
+    //
+    // This method's input openvpnName is the part of the folder name _after_ 'openvpn-'
+    
+    NSArray * parts = [openvpnName componentsSeparatedByString: @"-"];
+    
+    NSString * name;
+
+    if (   [parts count] < 3  ) { // So we know that [parts count] is 1 or 2
+
+        NSString * sslLibrary = (  ( [parts count] == 2 )
+                                 ? [parts objectAtIndex: 1]
+                                 : @"OpenSSL");
+        NSMutableString * mName = [[[NSString stringWithFormat: NSLocalizedString(@"%@ - %@", @"An entry in the list of OpenVPN versions. First %@ is an OpenVPN version number, e.g. '2.3.10'. Second %@ is an SSL library name, e.g. 'LibreSSL'"),
+                                    [parts objectAtIndex: 0], sslLibrary]
+                                   mutableCopy] autorelease];
+        [mName replaceOccurrencesOfString: @"_" withString: @" " options: 0 range: NSMakeRange(0, [mName length])];
+        name = [NSString stringWithString: mName];
+    } else {
+        NSLog(@"Invalid name for an OpenVPN folder: '%@'", openvpnName);
+        name = nil;
+    }
+
+    return name;
+}
 
 -(void) awakeFromNib {
 	
@@ -265,27 +299,29 @@ extern TBUserDefaults * gTbDefaults;
     
     CGFloat pcovWidthChange = [UIHelper setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text") ofControl: perConfigOpenvpnVersionTFC frameHolder: perConfigOpenvpnVersionTF shift: ( !rtl ) narrow: YES enable: YES];
     
-    NSArray  * versions  = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
-    NSUInteger defaultIx = [((MenuController *)[NSApp delegate]) defaultOpenVPNVersionIx];
+    NSArray  * versionNames  = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
     
-    NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: [versions count] + 2];
+    NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: [versionNames count] + 2];
     
-    NSString * ver = [versions objectAtIndex: defaultIx];
+    NSString * ver = [versionNames objectAtIndex: 0];
     [ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSString stringWithFormat: NSLocalizedString(@"Default (%@)", @"Button"), ver], @"name",
+                          [NSString stringWithFormat: NSLocalizedString(@"Default (%@)", @"Button"), [self displayNameForOpenvpnName: ver]], @"name",
                           @"", @"value",    // Empty name means default
                           nil]];
     
     NSUInteger ix;
-    for (  ix=0; ix<[versions count]; ix++  ) {
-        ver = [versions objectAtIndex: ix];
-        [ovContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
-                               ver, @"name",
-                               ver, @"value",
-                               nil]];
+    for (  ix=0; ix<[versionNames count]; ix++  ) {
+        ver = [versionNames objectAtIndex: ix];
+        NSString * name = [self displayNameForOpenvpnName: ver];
+        if (  name  ) {
+            [ovContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                   name, @"name",
+                                   ver,  @"value",
+                                   nil]];
+        }
     }
     [ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSString stringWithFormat: NSLocalizedString(@"Latest (%@)", @"Button"), [versions lastObject]], @"name",
+                          [NSString stringWithFormat: NSLocalizedString(@"Latest (%@)", @"Button"), [self displayNameForOpenvpnName: [versionNames lastObject]]], @"name",
                           @"-", @"value",    // "-" means latest
                           nil]];
     

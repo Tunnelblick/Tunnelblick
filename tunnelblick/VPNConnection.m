@@ -1675,12 +1675,9 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
     NSString * prefKey = [[self displayName] stringByAppendingString: @"-openvpnVersion"];
     NSString * prefVersion = [gTbDefaults stringForKey: prefKey];
-    NSUInteger useVersionIx;
+    NSUInteger useVersionIx = 0;
     
-    if (  [prefVersion length] == 0  ) {
-        // User didn't specify OpenVPN version, so use the default version of OpenVPN
-        useVersionIx = [((MenuController *)[NSApp delegate]) defaultOpenVPNVersionIx];
-    } else {
+    if (  [prefVersion length] != 0  ) {
         NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
         if (  [prefVersion isEqualToString: @"-"]  ) {
             // "-" means use lastest version
@@ -1707,13 +1704,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     return useVersionIx;
-}
-
--(NSDictionary *) getOpenVPNVersionInfo
-{
-    // Returns a dictionary with version info about the currently selected version of OpenVPN.
-    
-    return [[((MenuController *)[NSApp delegate]) openvpnVersionInfo] objectAtIndex: [self getOpenVPNVersionIxToUse]];
 }
 
 -(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow
@@ -1786,32 +1776,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     NSString * useDNSArg = [NSString stringWithFormat: @"%u", useDNSNum];
     
-    // for OpenVPN v. 2.1_rc9 or higher, clear skipScrSec so we use "--script-security 2"
-    NSString *skipScrSec = @"1";
-    NSDictionary * openVPNVersionDict = [self getOpenVPNVersionInfo];
-    if (  openVPNVersionDict  ) {
-        int intMajor =  [[openVPNVersionDict objectForKey:@"major"]  intValue];
-        int intMinor =  [[openVPNVersionDict objectForKey:@"minor"]  intValue];
-        int intSuffix = [[openVPNVersionDict objectForKey:@"suffix"] intValue];
-        
-        if ( intMajor == 2 ) {
-            if ( intMinor == 1 ) {
-                if (  [[openVPNVersionDict objectForKey:@"preSuffix"] isEqualToString:@"_rc"] ) {
-                    if ( intSuffix > 8 ) {
-                        skipScrSec = @"0";
-                    }
-                } else {
-                    skipScrSec = @"0";
-                }
-            } else if ( intMinor > 1 ) {
-                skipScrSec = @"0";
-            }
-        } else if ( intMajor > 2 ) {
-            skipScrSec = @"0";
-        }
-    } else {
-        skipScrSec = @"0";
-    }
+    NSString * skipScrSec = @"0";   // Clear skipScrSec so we use "--script-security 2" because we are now always use OpenVPN v. 2.1_rc9 or higher
+
     
     NSString *altCfgLoc = @"0";
     if ( useShadowCopy ) {
@@ -1965,7 +1931,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         leasewatchOptions = [self leasewatchOptionsFromPreferences];
     }
     
-    NSString * ourOpenVPNVersion = [openVPNVersionDict objectForKey: @"full"];
+    NSString * ourOpenVPNVersion = [[((MenuController *)[NSApp delegate]) openvpnVersionNames] objectAtIndex: [self getOpenVPNVersionIxToUse]];
 
     NSArray * args = [NSArray arrayWithObjects:
                       @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNSArg, skipScrSec, altCfgLoc, noMonitor, bitMaskString, leasewatchOptions, ourOpenVPNVersion, nil];
