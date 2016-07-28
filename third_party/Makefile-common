@@ -42,41 +42,36 @@ SDKROOT=$(SDK_DIR)
 
 CFLAGS=-isysroot $(SDKROOT) -Os -mmacosx-version-min=$(MACOSX_DEPLOYMENT_TARGET)
 
-BUILD_NAME   = build
-SOURCES_NAME = sources
-PRODUCTS_NAME = products
-PATCHES_NAME = patches
+STAGING_DIR = $(TOPDIR)/build/staging
 
-STAGING_DIR = $(TOPDIR)/$(BUILD_NAME)/staging
-
-OPENSSL_BUILD_DIR = $(TOPDIR)/$(BUILD_NAME)/$(OPENSSL_NAME)
+OPENSSL_BUILD_DIR = $(TOPDIR)/build/$(OPENSSL_NAME)
 OPENSSL_STAGING_DIR = $(STAGING_DIR)/$(OPENSSL_NAME)
 OPENSSL_TARGET_FILES = $(foreach f, libcrypto.a libssl.a, $(OPENSSL_STAGING_DIR)/lib/$(f))
 
-LZO_BUILD_DIR = $(TOPDIR)/$(BUILD_NAME)/$(LZO_NAME)
+LZO_BUILD_DIR = $(TOPDIR)/build/$(LZO_NAME)
 LZO_STAGING_DIR = $(STAGING_DIR)/$(LZO_NAME)
 
-LZ4_BUILD_DIR = $(TOPDIR)/$(BUILD_NAME)/$(LZ4_NAME)/lib
+LZ4_BUILD_DIR = $(TOPDIR)/build/$(LZ4_NAME)/lib
 LZ4_STAGING_DIR = $(STAGING_DIR)/$(LZ4_NAME)
 
-PKCS11_BUILD_DIR = $(TOPDIR)/$(BUILD_NAME)/$(PKCS11_NAME)
+PKCS11_BUILD_DIR = $(TOPDIR)/build/$(PKCS11_NAME)
 PKCS11_STAGING_DIR=$(STAGING_DIR)/$(PKCS11_NAME)
 
-SPARKLE_BUILD_DIR = $(TOPDIR)/$(BUILD_NAME)/$(SPARKLE_NAME)
-SPARKLE_PRODUCTS_DIR = $(TOPDIR)/$(PRODUCTS_NAME)/sparkle
+SPARKLE_BUILD_DIR = $(TOPDIR)/build/$(SPARKLE_NAME)
+SPARKLE_PRODUCTS_DIR = $(TOPDIR)/products/sparkle
 
-EASY_RSA_SOURCE_DIR = $(TOPDIR)/$(SOURCES_NAME)/easy-rsa
-EASY_RSA_PRODUCTS_DIR = $(TOPDIR)/$(PRODUCTS_NAME)/easy-rsa-tunnelblick
+EASY_RSA_SOURCE_DIR = $(TOPDIR)/sources/easy-rsa
+EASY_RSA_PRODUCTS_DIR = $(TOPDIR)/products/easy-rsa-tunnelblick
 
-TUNTAP_SOURCE_DIR = $(TOPDIR)/$(SOURCES_NAME)/tuntap
-TUNTAP_BUILD_DIR = $(TOPDIR)/$(BUILD_NAME)/tuntap
-TUNTAP_PRODUCTS_DIR = $(TOPDIR)/$(PRODUCTS_NAME)/tuntap
+TUNTAP_SOURCE_DIR = $(TOPDIR)/sources/tuntap
+TUNTAP_BUILD_DIR = $(TOPDIR)/build/tuntap
+TUNTAP_PRODUCTS_DIR = $(TOPDIR)/products/tuntap
 
-OPENVPN_SOURCE_DIR = $(TOPDIR)/$(SOURCES_NAME)/openvpn
-OPENVPN_BUILD_DIR = $(TOPDIR)/$(BUILD_NAME)/openvpn
-OPENVPN_PRODUCTS_DIR = $(TOPDIR)/$(PRODUCTS_NAME)/openvpn
+OPENVPN_SOURCE_DIR = $(TOPDIR)/sources/openvpn
+OPENVPN_BUILD_DIR = $(TOPDIR)/build/openvpn
+OPENVPN_PRODUCTS_DIR = $(TOPDIR)/products/openvpn
 
-PATCHES_DIR = $(TOPDIR)/$(SOURCES_NAME)/$(PATCHES_NAME)
+PATCHES_DIR = $(TOPDIR)/sources/patches
 
 DOWN_ROOT_ARCH_2_2=$(foreach f, $(TARGET_ARCHS_2_2), -arch $f)
 
@@ -90,8 +85,8 @@ all: built-easy-rsa-tunnelblick \
 	@echo "THIRD_PARTY: Made all third_party for Tunnelblick" ; \
 
 clean:
-	rm -f -R $(TOPDIR)/$(BUILD_NAME)
-	rm -f -R $(TOPDIR)/$(PRODUCTS_NAME)
+	rm -f -R $(TOPDIR)/build
+	rm -f -R $(TOPDIR)/products
 	rm -f    built-*
 	@echo "THIRD_PARTY: Cleaned all third_party for Tunnelblick"
 
@@ -102,7 +97,7 @@ clean:
 built-openssl-prepare:
 	@echo "THIRD_PARTY: Expanding OpenSSL..."
 	mkdir -p $(OPENSSL_BUILD_DIR)
-	tar -x -f "$(SOURCES_NAME)/$(OPENSSL_NAME).tar.gz" -C "$(BUILD_NAME)"
+	tar -x -f "sources/$(OPENSSL_NAME).tar.gz" -C "build"
 	@echo "THIRD_PARTY: Patching OpenSSL..."
 	cd $(OPENSSL_BUILD_DIR); \
 	if [ -d "$(PATCHES_DIR)/openssl" ]; then \
@@ -165,7 +160,7 @@ built-openssl-clean:
 built-pkcs11-helper: built-openssl
 	@echo "THIRD_PARTY: Expanding PKCS11-Helper..."
 	mkdir -p $(PKCS11_BUILD_DIR)
-	tar -x -f $(SOURCES_NAME)/$(PKCS11_NAME).tar.bz2 -C $(BUILD_NAME)
+	tar -x -f sources/$(PKCS11_NAME).tar.bz2 -C build
 	@echo "THIRD_PARTY: Building PKCS11-Helper..."
 	for a in $(TARGET_ARCHS); do \
 		cd $(PKCS11_BUILD_DIR) ; \
@@ -213,8 +208,8 @@ built-pkcs11-helper-clean:
 
 built-lzo:
 	@echo "THIRD_PARTY: Expanding LZO..."
-	mkdir -p $(BUILD_NAME)
-	tar -x -f $(SOURCES_NAME)/$(LZO_NAME).tar.gz -C $(BUILD_NAME)
+	mkdir -p build
+	tar -x -f sources/$(LZO_NAME).tar.gz -C build
 	@echo "THIRD_PARTY: Building LZO..."
 	for a in $(TARGET_ARCHS); do \
 		cd $(LZO_BUILD_DIR) ; \
@@ -253,8 +248,8 @@ built-lzo-clean:
 
 built-lz4:
 	@echo "THIRD_PARTY: Expanding LZ4..."
-	mkdir -p $(BUILD_NAME)
-	tar -x -f $(SOURCES_NAME)/$(LZ4_NAME).tar.gz -C $(BUILD_NAME)
+	mkdir -p build
+	tar -x -f sources/$(LZ4_NAME).tar.gz -C build
 	@echo "THIRD_PARTY: Building LZ4..."
 	for a in $(LZ4_TARGET_ARCHS); do \
 		cd $(LZ4_BUILD_DIR) ; \
@@ -291,7 +286,7 @@ built-lz4-clean:
 built-openvpn-prepare:
 	@echo "THIRD_PARTY: Expanding and Patching OpenVPN..."
 	mkdir -p $(OPENVPN_BUILD_DIR)
-	cd $(TOPDIR)/$(SOURCES_NAME) ; \
+	cd $(TOPDIR)/sources ; \
 	for openvpn_folder_name in `ls openvpn` ; do \
 		cd "$(OPENVPN_SOURCE_DIR)/$$openvpn_folder_name" ; \
 		openvpn_tar_gz_name=`ls openvpn*.tar.gz` ; \
@@ -522,7 +517,7 @@ built-sparkle-prepare:
 	@echo "THIRD_PARTY: Expanding Sparkle.framework..."
 	mkdir -p "$(SPARKLE_BUILD_DIR)"
 	cd "$(SPARKLE_BUILD_DIR)" ; \
-	unzip -q "$(TOPDIR)/$(SOURCES_NAME)/$(SPARKLE_ZIP_NAME)"
+	unzip -q "$(TOPDIR)/sources/$(SPARKLE_ZIP_NAME)"
 	@echo "THIRD_PARTY: Patching Sparkle.framework..."
 	if [ -d $(PATCHES_DIR)/sparkle ]; then \
 		cd "$(SPARKLE_BUILD_DIR)"; \
