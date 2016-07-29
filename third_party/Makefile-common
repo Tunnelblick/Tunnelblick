@@ -17,9 +17,6 @@ PKCS11_NAME      = pkcs11-helper-1.11
 
 EASY_RSA_3_NAME  = easy-rsa-3.0.0-rc2
 
-SPARKLE_NAME     = sparkle-1.5b6
-SPARKLE_ZIP_NAME = Sparkle 1.5b6.zip
-
 TUNTAP_20111101_NAME  = tuntap-20111101
 TUNTAP_CURRENT_NAME   = tuntap-20141104
 TUNTAP_20111101_TARGZ = tuntap_20111101_src.tar.gz
@@ -57,7 +54,7 @@ LZ4_STAGING_DIR = $(STAGING_DIR)/$(LZ4_NAME)
 PKCS11_BUILD_DIR = $(TOPDIR)/build/$(PKCS11_NAME)
 PKCS11_STAGING_DIR=$(STAGING_DIR)/$(PKCS11_NAME)
 
-SPARKLE_BUILD_DIR = $(TOPDIR)/build/$(SPARKLE_NAME)
+SPARKLE_BUILD_DIR = $(TOPDIR)/build/sparkle
 SPARKLE_PRODUCTS_DIR = $(TOPDIR)/products/sparkle
 
 EASY_RSA_SOURCE_DIR = $(TOPDIR)/sources/easy-rsa
@@ -515,9 +512,22 @@ built-tuntap-clean:
 
 built-sparkle-prepare:
 	@echo "THIRD_PARTY: Expanding Sparkle.framework..."
-	mkdir -p "$(SPARKLE_BUILD_DIR)"
-	cd "$(SPARKLE_BUILD_DIR)" ; \
-	unzip -q "$(TOPDIR)/sources/$(SPARKLE_ZIP_NAME)"
+	cd "$(TOPDIR)/sources" ; \
+	sparkle_archive=`ls *parkle*` ; \
+	sparkle_archive_ext="$${sparkle_archive##*.}" ; \
+	if [ "zip" = "$${sparkle_archive_ext}" ] ; then \
+	    mkdir -p "$(SPARKLE_BUILD_DIR)" ; \
+	    cd "$(SPARKLE_BUILD_DIR)" ; \
+	    unzip -q "$(TOPDIR)/sources/$${sparkle_archive}" ; \
+	else \
+	    mkdir "$(TOPDIR)/build/temp" ; \
+	    cd "$(TOPDIR)/build/temp" ; \
+	    tar -x -f "$(TOPDIR)/sources/$${sparkle_archive}" ; \
+	    sparkle_expanded_name=`ls -d *parkle*` ; \
+	    mv "$(TOPDIR)/build/temp/$${sparkle_expanded_name}" "$(SPARKLE_BUILD_DIR)" ; \
+	    rm -f -r "$(TOPDIR)/build/temp" ; \
+	    cd "$(SPARKLE_BUILD_DIR)" ; \
+	fi
 	@echo "THIRD_PARTY: Patching Sparkle.framework..."
 	if [ -d $(PATCHES_DIR)/sparkle ]; then \
 		cd "$(SPARKLE_BUILD_DIR)"; \
@@ -532,12 +542,12 @@ built-sparkle-prepare:
 			if [ $$? == 0 ]; then \
 				patch -p1 -N -i $$patch_file; \
 				if [ $$? == 0 ]; then \
-				    echo "Sparkle patch applied: $(SPARKLE_NAME)/$${patch_name}" ; \
+				    echo "Sparkle patch applied: $${patch_name}" ; \
 				else \
-					echo "error: Sparkle patch failed after a successful dry run: $(SPARKLE_NAME)/$${patch_name}" ; \
+					echo "error: Sparkle patch failed after a successful dry run: $${patch_name}" ; \
 				fi \
 			else \
-				echo "error: Sparkle patch could not be applied: $(SPARKLE_NAME)/$${patch_name}" ; \
+				echo "error: Sparkle patch could not be applied: $${patch_name}" ; \
 			fi \
 		done; \
 		sed -i '' -e "s|@OPENSSL_STAGING_DIR@|$(OPENSSL_STAGING_DIR)|g" \
