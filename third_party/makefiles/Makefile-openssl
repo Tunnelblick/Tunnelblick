@@ -1,0 +1,78 @@
+# Makefile to build openssl for Tunnelblick
+#
+# Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
+# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
+#
+#  This file is part of Tunnelblick.
+#
+#  Tunnelblick is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2
+#  as published by the Free Software Foundation.
+#
+#  Tunnelblick is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program (see the file COPYING included with this
+#  distribution); if not, write to the Free Software Foundation, Inc.,
+
+built-openssl-prepare:
+	@echo "THIRD_PARTY: Expanding OpenSSL..."
+	mkdir -p $(OPENSSL_BUILD_DIR)
+	tar -x -f "sources/$(OPENSSL_NAME).tar.gz" -C "build"
+	@echo "THIRD_PARTY: Patching OpenSSL..."
+	cd $(OPENSSL_BUILD_DIR); \
+	if [ -d "$(PATCHES_DIR)/openssl" ]; then \
+		for patch_file in $(PATCHES_DIR)/openssl/*.diff; do \
+			patch_name=$$(basename $(OPENSSL_BUILD_DIR))/$$(basename "$${patch_file}") ; \
+			patch -p1 -N --dry-run -i $$patch_file > /dev/null; \
+			if [ $$? == 0 ]; then \
+				patch -p1 -N -i $$patch_file; \
+				if [ $$? == 0 ]; then \
+					echo "OpenSSL patch applied: $$patch_name" ; \
+				else \
+					echo "error: OpenSSL patch failed after a successful dry run: $$patch_name" ; \
+				fi \
+			else \
+				echo "error: OpenSSL patch could not be applied: $$patch_name" ; \
+			fi \
+		done \
+	fi
+	touch built-openssl-prepare
+	@echo "THIRD_PARTY: Patched OpenSSL"
+
+built-openssl: built-openssl-prepare
+	@echo "THIRD_PARTY: Building OpenSSL..."
+	for a in $(OPENSSL_TARGET_ARCHS); do\
+		echo Configure OpenSSL for $$a; \
+		cd $(OPENSSL_BUILD_DIR); \
+		echo "Clean OpenSSL for $$a" ; \
+		$(MAKE) clean; \
+		echo "Configure OpenSSL for $$a" ; \
+		CC=$(CC) CFLAGS="$(CFLAGS)" ./Configure no-shared zlib no-zlib-dynamic no-asm no-krb5 --prefix="$(OPENSSL_STAGING_DIR)/$$a" $$a; \
+		echo "Build OpenSSL for $$a" ; \
+		$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
+		echo Install to $(OPENSSL_STAGING_DIR)/$$a; \
+		$(MAKE) install_sw; \
+		cd -; \
+	done
+	ditto -v $(OPENSSL_STAGING_DIR)/darwin64-x86_64-cc/include $(OPENSSL_STAGING_DIR)/include/x86_64
+	if [ $(XCODE_VERSION_MAJOR) = 0300 ] ; then \
+		ditto -v $(OPENSSL_STAGING_DIR)/darwin-i386-cc/include $(OPENSSL_STAGING_DIR)/include/i386 ; \
+		ditto -v $(OPENSSL_STAGING_DIR)/darwin-ppc-cc/include $(OPENSSL_STAGING_DIR)/include/ppc   ; \
+	fi
+	mkdir -p $(OPENSSL_STAGING_DIR)/lib
+	for t in $(OPENSSL_TARGET_FILES); do \
+		lipo $(OPENSSL_STAGING_DIR)/darwin*/lib/$$(basename $$t) -create -output $$t; \
+		ranlib $$t; \
+	done
+	touch built-openssl
+	@echo "THIRD_PARTY: Built OpenSSL"
+
+built-openssl-clean:
+	@echo "THIRD_PARTY: Cleaning OpenSSL..."
+	rm -f -R $(OPENSSL_BUILD_DIR)
+	rm -f -R $(OPENSSL_STAGING_DIR)
+	rm -f    built-openssl

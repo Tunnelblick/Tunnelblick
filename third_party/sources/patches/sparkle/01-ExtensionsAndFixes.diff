@@ -1,6 +1,6 @@
-diff -u -r -x .svn -x .DS_Store Sparkle/Extras/Source Code/SUBasicUpdateDriver.m Sparkle_/Extras/Source Code/SUBasicUpdateDriver.m
---- Sparkle/Extras/Source Code/SUBasicUpdateDriver.m	2008-09-13 23:55:00.000000000 -0400
-+++ Sparkle_/Extras/Source Code/SUBasicUpdateDriver.m	2015-10-21 15:26:00.000000000 -0400
+diff -u -r -x .svn -x .DS_Store Sparkle/SUBasicUpdateDriver.m Sparkle_/SUBasicUpdateDriver.m
+--- Sparkle/SUBasicUpdateDriver.m	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle_/SUBasicUpdateDriver.m	2015-10-21 15:26:00.000000000 -0400
 @@ -32,7 +32,7 @@
  	[appcast setDelegate:self];
  	NSString *userAgent = [NSString stringWithFormat: @"%@/%@ Sparkle/%@", [aHost name], [aHost displayVersion], ([SPARKLE_BUNDLE objectForInfoDictionaryKey:@"CFBundleVersion"] ?: nil)];
@@ -10,9 +10,9 @@ diff -u -r -x .svn -x .DS_Store Sparkle/Extras/Source Code/SUBasicUpdateDriver.m
  	[appcast setUserAgentString:userAgent];
  	[appcast fetchAppcastFromURL:URL];
  }
-diff -u -r -x .svn -x .DS_Store Sparkle/Extras/Source Code/SUHost.m Sparkle_/Extras/Source Code/SUHost.m
---- Sparkle/Extras/Source Code/SUHost.m	2008-09-13 23:55:00.000000000 -0400
-+++ Sparkle_/Extras/Source Code/SUHost.m	2015-10-21 13:54:56.000000000 -0400
+diff -u -r -x .svn -x .DS_Store Sparkle/SUHost.m Sparkle_/SUHost.m
+--- Sparkle/SUHost.m	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle_/SUHost.m	2015-10-21 13:54:56.000000000 -0400
 @@ -8,7 +8,8 @@
  #import "SUHost.h"
  
@@ -32,9 +32,9 @@ diff -u -r -x .svn -x .DS_Store Sparkle/Extras/Source Code/SUHost.m Sparkle_/Ext
  }
  
  - (NSArray *)systemProfile
-diff -u -r -x .svn -x .DS_Store Sparkle/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj Sparkle_/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj
---- Sparkle/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj	2008-09-13 23:55:00.000000000 -0400
-+++ Sparkle_/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj	2015-10-21 13:54:56.000000000 -0400
+diff -u -r -x .svn -x .DS_Store Sparkle/Sparkle.xcodeproj/project.pbxproj Sparkle_/Sparkle.xcodeproj/project.pbxproj
+--- Sparkle/Sparkle.xcodeproj/project.pbxproj	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle_/Sparkle.xcodeproj/project.pbxproj	2015-10-21 13:54:56.000000000 -0400
 @@ -802,7 +802,7 @@
  			);
  			runOnlyForDeploymentPostprocessing = 0;

@@ -1,6 +1,6 @@
-diff -u -r -x .svn -x .DS_Store -N Sparkle-1.5b6-OldPatches/Extras/Source Code/SUBasicUpdateDriver.m Sparkle-1.5b6-NewPatches/Extras/Source Code/SUBasicUpdateDriver.m
---- Sparkle-1.5b6-OldPatches/Extras/Source Code/SUBasicUpdateDriver.m	2015-01-08 19:47:39.000000000 -0500
-+++ Sparkle-1.5b6-NewPatches/Extras/Source Code/SUBasicUpdateDriver.m	2015-01-15 13:04:56.000000000 -0500
+diff -u -r -x .svn -x .DS_Store -N Sparkle-1.5b6-OldPatches/SUBasicUpdateDriver.m Sparkle-1.5b6-NewPatches/SUBasicUpdateDriver.m
+--- Sparkle-1.5b6-OldPatches/SUBasicUpdateDriver.m	2015-01-08 19:47:39.000000000 -0500
++++ Sparkle-1.5b6-NewPatches/SUBasicUpdateDriver.m	2015-01-15 13:04:56.000000000 -0500
 @@ -356,7 +356,7 @@
  
  - (void)downloadUpdate
@@ -10,9 +10,9 @@ diff -u -r -x .svn -x .DS_Store -N Sparkle-1.5b6-OldPatches/Extras/Source Code/S
  }
  
  - (void)download:(NSURLDownload *)d decideDestinationWithSuggestedFilename:(NSString *)name
-diff -u -r -x .svn -x .DS_Store -N Sparkle-1.5b6-OldPatches/Extras/Source Code/SUHost.m Sparkle-1.5b6-NewPatches/Extras/Source Code/SUHost.m
---- Sparkle-1.5b6-OldPatches/Extras/Source Code/SUHost.m	2015-01-08 19:47:39.000000000 -0500
-+++ Sparkle-1.5b6-NewPatches/Extras/Source Code/SUHost.m	2015-01-15 13:18:43.000000000 -0500
+diff -u -r -x .svn -x .DS_Store -N Sparkle-1.5b6-OldPatches/SUHost.m Sparkle-1.5b6-NewPatches/SUHost.m
+--- Sparkle-1.5b6-OldPatches/SUHost.m	2015-01-08 19:47:39.000000000 -0500
++++ Sparkle-1.5b6-NewPatches/SUHost.m	2015-01-15 13:18:43.000000000 -0500
 @@ -20,7 +20,7 @@
  	{
          bundle = [aBundle retain];
@@ -22,9 +22,9 @@ diff -u -r -x .svn -x .DS_Store -N Sparkle-1.5b6-OldPatches/Extras/Source Code/S
      }
      return self;
  }
-diff -u -r -x .svn -x .DS_Store -N Sparkle-1.5b6-OldPatches/Extras/Source Code/SUPlainInstaller.m Sparkle-1.5b6-NewPatches/Extras/Source Code/SUPlainInstaller.m
---- Sparkle-1.5b6-OldPatches/Extras/Source Code/SUPlainInstaller.m	2014-10-28 19:44:46.000000000 -0400
-+++ Sparkle-1.5b6-NewPatches/Extras/Source Code/SUPlainInstaller.m	2015-01-15 21:17:40.000000000 -0500
+diff -u -r -x .svn -x .DS_Store -N Sparkle-1.5b6-OldPatches/SUPlainInstaller.m Sparkle-1.5b6-NewPatches/SUPlainInstaller.m
+--- Sparkle-1.5b6-OldPatches/SUPlainInstaller.m	2014-10-28 19:44:46.000000000 -0400
++++ Sparkle-1.5b6-NewPatches/SUPlainInstaller.m	2015-01-15 21:17:40.000000000 -0500
 @@ -18,9 +18,10 @@
  
  + (void)installPath:(NSString *)path overHost:(SUHost *)bundle delegate:delegate versionComparator:(id <SUVersionComparison>)comparator
@@ -47,9 +47,9 @@ diff -u -r -x .svn -x .DS_Store -N Sparkle-1.5b6-OldPatches/Extras/Source Code/S
  	if (result)
  		result = [self copyPathWithAuthentication:path overPath:[bundle bundlePath] error:&error];
  	[self _finishInstallationWithResult:result host:bundle error:error delegate:delegate];
-diff -u -r -x .svn -x .DS_Store -N Sparkle-1.5b6-OldPatches/Extras/Source Code/SUUIBasedUpdateDriver.m Sparkle-1.5b6-NewPatches/Extras/Source Code/SUUIBasedUpdateDriver.m
---- Sparkle-1.5b6-OldPatches/Extras/Source Code/SUUIBasedUpdateDriver.m	2014-10-28 19:44:46.000000000 -0400
-+++ Sparkle-1.5b6-NewPatches/Extras/Source Code/SUUIBasedUpdateDriver.m	2015-01-15 13:05:21.000000000 -0500
+diff -u -r -x .svn -x .DS_Store -N Sparkle-1.5b6-OldPatches/SUUIBasedUpdateDriver.m Sparkle-1.5b6-NewPatches/SUUIBasedUpdateDriver.m
+--- Sparkle-1.5b6-OldPatches/SUUIBasedUpdateDriver.m	2014-10-28 19:44:46.000000000 -0400
++++ Sparkle-1.5b6-NewPatches/SUUIBasedUpdateDriver.m	2015-01-15 13:05:21.000000000 -0500
 @@ -146,7 +146,7 @@
  
  - (void)abortUpdateWithError:(NSError *)error

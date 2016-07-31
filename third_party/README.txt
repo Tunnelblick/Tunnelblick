@@ -1,4 +1,4 @@
-THE THIRD_PARTY FOLDER                                             Last updated 2015-02-09
+THE THIRD_PARTY FOLDER                                             Last updated 2016-07-31
 
 CONTENTS
     INTRODUCTION
@@ -16,11 +16,13 @@ project. It includes a "Makefile" that builds them for use by Tunnelblick. See "
 PARTY PROGRAMS", below, for a description of the programs.
 
 Changing the third party programs involves replacing or adding additional source code and,
-for some programs, modifying "Makefile-common" to reflect the name of the new or
-replacement program. See "CHANGING THIRD PARTY PROGRAMS", below.
+for some programs, modifying Makefile (or the files it "includes") to reflect the name of
+the new or replacement program. See "CHANGING THIRD PARTY PROGRAMS", below.
 
 The process of building the third party programs is controlled by an Xcode "Run Script"
 that is the first operation performed by Xcode when building the Tunnelblick application.
+(Several Tunnelblick components are built before the application itself is built, so the
+third-party programs are not the first binaries that are built.)
 
 
 PREREQUISITES
@@ -89,31 +91,19 @@ The third_party folder contains the following files and folders:
 
     Makefile
         This is the makefile invoked by the first build phase "Run Script" to build the
-        third party programs. It determines what version of Xcode is being used and chains
-        to either Makefile-Xcode3 or Makefile-Xcode4andUp.
+        third party programs. It builds the third-party programs for Intel 64-bit (only)
+        on whatever deployment target is specified by Xcode for the main
+        Tunnelblick application. It uses make's "include" directive to include all of the
+        files in the "makefiles" subfolder. 
 
-    Makefile-Xcode3
-        This makefile sets up make variables for building the third party programs under
-        Xcode version 3. (The maximum version it should be used for is Xcode 3.2.2 running
-        under OS X 10.6.8.) It will create the third party programs for PPC, Intel 32-bit,
-        and Intel 64-bit programs for use on OS X 10.4 ("Tiger") and higher. After setting
-        up the variables, the makefile chains to Makefile-common to perform the actual
-        build.
-
-    Makefile-Xcode4andUp
-        This makefile sets up make variables for building the third party programs under
-        Xcode versions 4 and higher. It creates the third party programs for Intel 64-bit
-        (only) on whatever deployment target is specified by Xcode for the main
-        Tunnelblick application. After setting up the variables, the makefile chains to
-        Makefile-common to perform the actual build.
-
-    Makefile-common
-        This makefile is the main file used to create the third party programs. It is
-        chained to from Makefile-Xcode3 and Makefile-Xcode4andUp.
-
+    makefiles
+        This folder contains a Makefile for each of the third-party programs.
+        
     sources
         This folder contains the source code for each of the third party programs. See
         "SOURCES FOLDER DETAILS", below.
+
+The build process results in the creation of the following files and folders:
 
     do-not-clean
         The "do-not-clean" file is created by the "Run script" at the end of the third
@@ -131,10 +121,8 @@ The third_party folder contains the following files and folders:
         problematic program can be built without having to build all it's prerequisites.
 
     build
-        This folder is used temporarily while the third party programs are being built. It
-        contains a subfolder for each program and a staging folder. Each subfolder of
-        "build" is deleted at the end of the build process for the corresponding program
-        unless a "Debug" build is being created.
+        This folder is used while the third party programs are being built. It contains
+        a subfolder for each program and a staging folder.
 
     products
         This folder contains the final third party programs as built and ready for use by
@@ -166,29 +154,27 @@ current Tunnelblick source code.
         http://sparkle-project.org in 2010.
 
     patches
-        This folder contains patches for LZO, OpenSSL, pkcs11-helper, and Sparkle. The
-        process of creating the third party programs expands the source code into the
-        third_party/build folder, patches the source code, and then builds the patched
-        source code. As of 2015-01-31, only OpenSSL and Sparkle have patches. (If LZO or
-        pkcs11-helper need patches, it will be necessary to modify Makefile-common to
-        implement the patching process.)
+        This folder contains patches for OpenSSL and Sparkle. tuntap and OpenVPN each have
+        a similar folder of patches for each version. The process of creating the third
+        party programs expands the source code into the third_party/build folder, patches
+        the source code, and then builds the patched source code. As of 2016-07-31, only
+        Sparkle have patches. (If easy-rsa, LZO, LZ4, or pkcs11-helper need patches, it
+        will be necessary to modify their respecive makefiles to implement the patching process.)
 
     tuntap
         This folder contains source code and patches to create the three versions of
         tuntap that are used by Tunnelblick. If additional newer versions are required,
-        they should be put in this folder and Makefile-common modified to build them.
+        they should be put in this folder and the makefile modified to build them.
 
-            tuntap-20090913
             tuntap-20111101
             tuntap-20141104
-                These three folders each contain an archive with the source code for a
-                version of tuntap, along with a folder containing patches for that
-                version.
+                These folders each contain an archive with the source code for a version
+                of tuntap, along with a folder containing patches for that version.
 
     openvpn
         This folder contains source code and patches to create versions of
-        OpenVPN that are used by Tunnelblick. Makefile-common assumes the following
-        structure for each version of OpenVPN that is to be created:
+        OpenVPN that are used by Tunnelblick. The following structure is assumed for each
+        version of OpenVPN that is to be created:
 
         openvpn-x.y.z
             This folder contains the source code and patches for version x.y.z of OpenVPN,
@@ -211,7 +197,8 @@ current Tunnelblick source code.
                 separated by spaces.
 
 	Note: When launched, Tunnelblick checks that the version identifier reported by
-	each copy of OpenVPN is the same as the name of the folder that encloses it.
+	each copy of OpenVPN is the same as the name of the folder that encloses it. The check
+	ignores any suffix beginning with a hyphen ("-") in the folder name.
 
     easy-rsa
 
@@ -243,10 +230,10 @@ To replace an older version of LZO, OpenSSL, or pkcs11-helper:
     2. Delete the archive of the older version.
     3. If necessary, create or modify the .diff file for each patch that is needed and
        copy the .diff file into the appropriate subfolder in third_party/patches.
-    4. Modify the beginning of Makefile-common to reflect the name of the newer version.
+    4. Modify the beginning of Makefile to reflect the name of the newer version.
     5. If the format of the archive has changed (from ".tar.gz" to ".zip", for example),
-       it may be necessary to modify Makefile-common to expand the archive with a
-       different program.
+       it may be necessary to modify the makefile for the program to expand the archive
+        with a different program.
 
 To add a new version of OpenVPN:
     1. Download an archive containing the source code and copy it to a new subfolder in
@@ -258,11 +245,8 @@ To add a new version of OpenVPN:
        the options used to configure the version of OpenVPN, and copy the file into the
        subfolder.
 
-    No changes to Makefile-common are needed.
-
 To remove a version of OpenVPN:
     Remove the version's folders (normal and "tcp") from /third_party/openvpn.
-    No changes to Makefile-common are needed.
     
 To add a new version of tuntap:
     1. Download an archive containing the source code and copy it to a new subfolder in
@@ -270,8 +254,8 @@ To add a new version of tuntap:
     2. Delete the archive of the older version.
     3. If necessary, create or modify a .diff file for each patch that is needed and
        copy the .diff file into the appropriate subfolder in third_party/patches.
-    4. Modify Makefile-common to create the newer version. This will involve changes in
-       several places in Makefile-common.
+    4. Modify Makefile-tuntap to create the newer version. This will involve changes in
+       several places.
     5. Other changes may be needed in the Tunnelblick source code to use the new version
        (for example, if it is only for specific versions of OS X).
 
@@ -283,10 +267,7 @@ To replace an older version of Sparkle:
     Tunnelblick. That said:
     
     1. Download an archive containing the source code and copy it to the "sources"
-       subfolder. Download the archive as a ".zip" file.
+       subfolder. Download the archive as a ".zip" file or a ".tar.gz" file.
     2. Delete the archive of the older version.
     3. Create or modify the .diff file for each patch that is needed and copy the .diff
        file into third_party/patches/sparkle.
-    4. Modify the beginning of Makefile-common to reflect the name of the newer version.
-       Both the name of the archive (which contains spaces) and the name used by
-       Tunnelblick (which should **not** contain spaces) should be changed.

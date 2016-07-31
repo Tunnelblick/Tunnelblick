@@ -1,6 +1,6 @@
-diff -u -r Sparkle 1.5b6/Extras/Source Code/SUUpdateAlert.m Sparkle 1.5b6_patch9/Extras/Source Code/SUUpdateAlert.m
---- Sparkle 1.5b6/Extras/Source Code/SUUpdateAlert.m	2008-09-13 23:55:00.000000000 -0400
-+++ Sparkle 1.5b6_patch9/Extras/Source Code/SUUpdateAlert.m	2016-02-16 15:18:16.000000000 -0500
+diff -u -r Sparkle 1.5b6/SUUpdateAlert.m Sparkle 1.5b6_patch9/SUUpdateAlert.m
+--- Sparkle 1.5b6/SUUpdateAlert.m	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle 1.5b6_patch9/SUUpdateAlert.m	2016-02-16 15:18:16.000000000 -0500
 @@ -9,6 +9,8 @@
  #import "SUUpdateAlert.h"
  

@@ -1,0 +1,63 @@
+# Makefile to build pkcs11-helper for Tunnelblick
+#
+# Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016 by Jonathan K. Bullard. All rights reserved.
+#
+#  This file is part of Tunnelblick.
+#
+#  Tunnelblick is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2
+#  as published by the Free Software Foundation.
+#
+#  Tunnelblick is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program (see the file COPYING included with this
+#  distribution); if not, write to the Free Software Foundation, Inc.,
+
+built-pkcs11-helper: built-openssl
+	@echo "THIRD_PARTY: Expanding PKCS11-Helper..."
+	mkdir -p $(PKCS11_BUILD_DIR)
+	tar -x -f sources/$(PKCS11_NAME).tar.bz2 -C build
+	@echo "THIRD_PARTY: Building PKCS11-Helper..."
+	for a in $(TARGET_ARCHS); do \
+		cd $(PKCS11_BUILD_DIR) ; \
+		echo "Clean PKCS11-Helper for $$a" ; \
+		$(MAKE) clean; \
+		echo "Configure PKCS11-Helper for $$a" ; \
+		CC=$(CC) \
+		CFLAGS="$(CFLAGS) -arch $$a" \
+		OPENSSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
+		OPENSSL_LIBS="-L$(OPENSSL_STAGING_DIR)/lib \
+		              -lssl \
+		              -lcrypto \
+		              -lz" \
+		./configure --build=$$a-apple-darwin \
+		            --prefix=$(PKCS11_STAGING_DIR)_$$a \
+		            --includedir=$(PKCS11_STAGING_DIR)/include \
+		            --enable-static \
+		            --enable-shared=no \
+		            --enable-slotevent=no \
+		            --enable-threading=no \
+		            --disable-dependency-tracking ; \
+		echo "Build PKCS11-Helper for $$a" ; \
+		$(MAKE); \
+		echo "Install PKCS11-Helper to $(PKCS11_STAGING_DIR)_$$a" ; \
+		$(MAKE) install; \
+		cd $(TOPDIR); \
+	done
+	rm -r -f $(PKCS11_STAGING_DIR)/lib
+	mkdir -p $(PKCS11_STAGING_DIR)/lib
+	lipo $(PKCS11_STAGING_DIR)_*/lib/libpkcs11-helper.a -create -output $(PKCS11_STAGING_DIR)/lib/libpkcs11-helper.a
+	ranlib $(PKCS11_STAGING_DIR)/lib/libpkcs11-helper.a
+	touch built-pkcs11-helper
+	@echo "THIRD_PARTY: Built PKCS11-Helper"
+
+built-pkcs11-helper-clean:
+	@echo "THIRD_PARTY: Cleaning PKCS11-Helper..."
+	rm -f -R $(PKCS11_BUILD_DIR)
+	rm -f -R $(PKCS11_STAGING_DIR)
+	rm -f built-pkcs11-helper
+	@echo "THIRD_PARTY: Cleaned PKCS11-Helper"

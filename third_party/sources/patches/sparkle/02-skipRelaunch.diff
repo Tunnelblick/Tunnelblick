@@ -1,6 +1,6 @@
-diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasicUpdateDriver.m Sparkle-1.5b6-PATCHED/Extras/Source Code/SUBasicUpdateDriver.m
---- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasicUpdateDriver.m	2013-06-07 17:50:26.000000000 -0400
-+++ Sparkle-1.5b6-PATCHED/Extras/Source Code/SUBasicUpdateDriver.m	2014-07-14 21:24:04.000000000 -0400
+diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/SUBasicUpdateDriver.m Sparkle-1.5b6-PATCHED/SUBasicUpdateDriver.m
+--- Sparkle-1.5b6-ORIGINAL/SUBasicUpdateDriver.m	2013-06-07 17:50:26.000000000 -0400
++++ Sparkle-1.5b6-PATCHED/SUBasicUpdateDriver.m	2014-07-14 21:24:04.000000000 -0400
 @@ -238,6 +238,16 @@
  
  - (void)relaunchHostApp
@@ -18,9 +18,9 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
  	// Give the host app an opportunity to postpone the relaunch.
  	static BOOL postponedOnce = NO;
  	if (!postponedOnce && [[updater delegate] respondsToSelector:@selector(updater:shouldPostponeRelaunchForUpdate:untilInvoking:)])
-diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUUpdater.h Sparkle-1.5b6-PATCHED/Extras/Source Code/SUUpdater.h
---- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUUpdater.h	2013-06-07 17:50:26.000000000 -0400
-+++ Sparkle-1.5b6-PATCHED/Extras/Source Code/SUUpdater.h	2014-07-13 11:18:20.000000000 -0400
+diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/SUUpdater.h Sparkle-1.5b6-PATCHED/SUUpdater.h
+--- Sparkle-1.5b6-ORIGINAL/SUUpdater.h	2013-06-07 17:50:26.000000000 -0400
++++ Sparkle-1.5b6-PATCHED/SUUpdater.h	2014-07-13 11:18:20.000000000 -0400
 @@ -87,6 +87,9 @@
  // Sent immediately before installing the specified update.
  - (void)updater:(SUUpdater *)updater willInstallUpdate:(SUAppcastItem *)update;
@@ -31,9 +31,9 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUUpda
  // Return YES to delay the relaunch until you do some processing; invoke the given NSInvocation to continue.
  - (BOOL)updater:(SUUpdater *)updater shouldPostponeRelaunchForUpdate:(SUAppcastItem *)update untilInvoking:(NSInvocation *)invocation;
  
-diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUUpdater.m Sparkle-1.5b6-PATCHED/Extras/Source Code/SUUpdater.m
---- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUUpdater.m	2013-06-07 17:50:26.000000000 -0400
-+++ Sparkle-1.5b6-PATCHED/Extras/Source Code/SUUpdater.m	2014-07-13 20:43:28.000000000 -0400
+diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/SUUpdater.m Sparkle-1.5b6-PATCHED/SUUpdater.m
+--- Sparkle-1.5b6-ORIGINAL/SUUpdater.m	2013-06-07 17:50:26.000000000 -0400
++++ Sparkle-1.5b6-PATCHED/SUUpdater.m	2014-07-13 20:43:28.000000000 -0400
 @@ -365,6 +365,11 @@
  	[self unregisterAsObserver];
  	[host release];

@@ -1,0 +1,166 @@
+# Makefile to build openvpn for Tunnelblick
+#
+# Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
+# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
+#
+#  This file is part of Tunnelblick.
+#
+#  Tunnelblick is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2
+#  as published by the Free Software Foundation.
+#
+#  Tunnelblick is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program (see the file COPYING included with this
+#  distribution); if not, write to the Free Software Foundation, Inc.,
+
+built-openvpn-prepare:
+	@echo "THIRD_PARTY: Expanding and Patching OpenVPN..."
+	mkdir -p $(OPENVPN_BUILD_DIR)
+	cd $(TOPDIR)/sources ; \
+	for openvpn_folder_name in `ls openvpn` ; do \
+		cd "$(OPENVPN_SOURCE_DIR)/$$openvpn_folder_name" ; \
+		openvpn_tar_gz_name=`ls openvpn*.tar.gz` ; \
+		cd ../../ ; \
+		echo "THIRD_PARTY: Expanding $$openvpn_folder_name/$$openvpn_tar_gz_name..." ; \
+		mkdir -p $(OPENVPN_BUILD_DIR)/$$openvpn_folder_name ; \
+		tar -x -f $(OPENVPN_SOURCE_DIR)/$$openvpn_folder_name/$$openvpn_tar_gz_name -C $(OPENVPN_BUILD_DIR)/$$openvpn_folder_name ; \
+		cd $(OPENVPN_BUILD_DIR)/$$openvpn_folder_name ; \
+		openvpn_tar_name="$${openvpn_tar_gz_name%.*}" ; \
+		openvpn_name="$${openvpn_tar_name%.*}" ; \
+		mv $$openvpn_name   openvpn ; \
+		cd  openvpn ; \
+		if [ -d $(OPENVPN_SOURCE_DIR)/$$openvpn_folder_name/patches ]; then \
+			for patch_file in `ls $(OPENVPN_SOURCE_DIR)/$$openvpn_folder_name/patches/*.diff`; do \
+				patch_name=$$(basename "$${patch_file}") ; \
+				if [  $$patch_name != 01-enable-utun.diff \
+				   -o $(XCODE_VERSION_MAJOR) = 0300 ] ; then \
+					patch -p1 -N --dry-run -i $$patch_file > /dev/null; \
+					if [ $$? == 0 ]; then \
+						patch -p1 -N -i $$patch_file; \
+						if [ $$? == 0 ]; then \
+							echo "OpenVPN patch applied: $$openvpn_folder_name/$$patch_name" ; \
+						else \
+							echo "error: OpenVPN patch failed after a successful dry run: $$openvpn_folder_name/$$patch_name" ; \
+						fi \
+					else \
+						echo "error: OpenVPN patch could not be applied: $$openvpn_folder_name/$$patch_name" ; \
+					fi \
+				else \
+					echo "OpenVPN patch skipped because not building with Xcode 3: $$openvpn_folder_name/$$patch_name" ; \
+				fi \
+			done; \
+		else \
+			echo "No OpenVPN patches for $$openvpn_folder_name" ; \
+		fi; \
+	done
+	touch built-openvpn-prepare
+	@echo "THIRD_PARTY: Expanded and Patched OpenVPN"
+	
+built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper built-openssl
+	@echo "THIRD_PARTY: Building OpenVPN..."
+	cd $(OPENVPN_BUILD_DIR) ; \
+	cd ../ ; \
+	for openvpn_name in `ls openvpn`; do \
+		cd openvpn/$$openvpn_name/openvpn; \
+		if [ -f $(OPENVPN_SOURCE_DIR)/$$openvpn_name/configure-options.txt ] ; then \
+			configure_options=`cat $(OPENVPN_SOURCE_DIR)/$$openvpn_name/configure-options.txt` ; \
+		else \
+			configure_options=" --enable-static=yes \
+						 		--enable-shared \
+						 		--enable-pkcs11 \
+						 		--disable-debug \
+						 		--disable-plugin-auth-pam \
+						 		--disable-dependency-tracking \
+						 		--enable-crypto \
+						 		--enable-ssl" ; \
+		fi ; \
+		echo "Making $$openvpn_name from post-2.3-alpha1 build system"; \
+		for a in $(TARGET_ARCHS); do \
+			$(MAKE) clean; \
+			CC="$(CC)" \
+			CFLAGS="$(CFLAGS) \
+					-arch $$a \
+					$(OPENVPN_DEPRECATED_LLVN_OPTION) \
+					-D __APPLE_USE_RFC_3542" \
+			LZO_CFLAGS="-I$(LZO_STAGING_DIR)/include" \
+			LZO_LIBS="-L$(LZO_STAGING_DIR)/lib \
+					  -llzo2" \
+			LZ4_CFLAGS="-I$(LZ4_STAGING_DIR)/include" \
+			LZ4_LIBS="-L$(LZ4_STAGING_DIR)/lib \
+					  -llz4" \
+			OPENSSL_SSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
+			OPENSSL_SSL_LIBS="$(OPENSSL_STAGING_DIR)/lib/libssl.a" \
+			OPENSSL_CRYPTO_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
+			OPENSSL_CRYPTO_LIBS="$(OPENSSL_STAGING_DIR)/lib/libcrypto.a -lz" \
+			OPENSSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
+			OPENSSL_LIBS="$(OPENSSL_STAGING_DIR)/lib/libssl.a -lz $(OPENSSL_STAGING_DIR)/lib/libcrypto.a -lz" \
+			PKCS11_HELPER_CFLAGS="-I$(PKCS11_STAGING_DIR)/include/" \
+			PKCS11_HELPER_LIBS="-L$(PKCS11_STAGING_DIR)/lib \
+								-lpkcs11-helper" \
+			OS_VERSION=`uname -r` \
+				autoreconf -i -v; \
+			\
+			CC="$(CC)" \
+			CFLAGS="$(CFLAGS) \
+					-arch $$a \
+					$(OPENVPN_DEPRECATED_LLVN_OPTION) \
+					-D __APPLE_USE_RFC_3542" \
+			LZO_CFLAGS="-I$(LZO_STAGING_DIR)/include" \
+			LZO_LIBS="-L$(LZO_STAGING_DIR)/lib \
+					  -llzo2" \
+			LZ4_CFLAGS="-I$(LZ4_STAGING_DIR)/include" \
+			LZ4_LIBS="-L$(LZ4_STAGING_DIR)/lib \
+					  -llz4" \
+			OPENSSL_SSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
+			OPENSSL_SSL_LIBS="$(OPENSSL_STAGING_DIR)/lib/libssl.a" \
+			OPENSSL_CRYPTO_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
+			OPENSSL_CRYPTO_LIBS="$(OPENSSL_STAGING_DIR)/lib/libcrypto.a -lz" \
+			OPENSSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
+			OPENSSL_LIBS="$(OPENSSL_STAGING_DIR)/lib/libssl.a -lz $(OPENSSL_STAGING_DIR)/lib/libcrypto.a -lz" \
+			PKCS11_HELPER_CFLAGS="-I$(PKCS11_STAGING_DIR)/include/" \
+			PKCS11_HELPER_LIBS="-L$(PKCS11_STAGING_DIR)/lib \
+								-lpkcs11-helper" \
+			OS_VERSION=`uname -r` \
+			./configure \
+				 --build=$$a-apple-darwin \
+				 $$configure_options ; \
+			\
+			$(MAKE) LIBS="$(OPENSSL_TARGET_FILES) \
+						  -L$(PKCS11_STAGING_DIR)/lib \
+						  -L$(LZO_STAGING_DIR)/lib \
+						  -L$(LZ4_STAGING_DIR)/lib \
+						  -lpkcs11-helper \
+						  -llzo2 \
+						  -llz4" \
+						  $(OPENVPN_DEPRECATED_GCC_MAKE_OPTION) ; \
+			\
+			echo "Making down-root plugin" ; \
+			$(MAKE) -C src/plugins/down-root clean ; \
+			$(MAKE) LDFLAGS="-bundle \
+							 -Wl,-dylib_install_name,openvpn-down-root.so" \
+							 -C src/plugins/down-root ; \
+			cp -f -p -R src/openvpn/openvpn ../openvpn_tblk_$$a; \
+			cp -f -p -R src/plugins/down-root/.libs/openvpn-plugin-down-root.so ../openvpn-plugin-down-root.so_tblk_$$a; \
+		done; \
+		mkdir -p $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name ; \
+		lipo ../openvpn-plugin-down-root.so_tblk_* -create -output $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name/openvpn-down-root.so; \
+		rm ../openvpn-plugin-down-root.so_tblk_* ; \
+		cd ../; \
+		mkdir -p $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name ; \
+		lipo openvpn_tblk_* -create -output $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name/openvpn-executable; \
+		rm openvpn_tblk_* ; \
+		cd ../../; \
+	done
+	touch built-openvpn
+	@echo "THIRD_PARTY: Built OpenVPN"
+
+built-openvpn-clean:
+	@echo "THIRD_PARTY: Cleaning OpenVPN..."
+	rm -f -R $(OPENVPN_BUILD_DIR)
+	rm -f built-openvpn
+	@echo "THIRD_PARTY: Cleaned OpenVPN"

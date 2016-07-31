@@ -1,6 +1,6 @@
-diff -u -r Sparkle 1.5b6/Extras/Source Code/SUAppcast.m Sparkle 1.5b6_patch8/Extras/Source Code/SUAppcast.m
---- Sparkle 1.5b6/Extras/Source Code/SUAppcast.m	2008-09-13 23:55:00.000000000 -0400
-+++ Sparkle 1.5b6_patch8/Extras/Source Code/SUAppcast.m	2016-02-15 19:21:05.000000000 -0500
+diff -u -r Sparkle 1.5b6/SUAppcast.m Sparkle 1.5b6_patch8/SUAppcast.m
+--- Sparkle 1.5b6/SUAppcast.m	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle 1.5b6_patch8/SUAppcast.m	2016-02-15 19:21:05.000000000 -0500
 @@ -8,6 +8,8 @@
  
  #import "Sparkle.h"
@@ -22,9 +22,9 @@ diff -u -r Sparkle 1.5b6/Extras/Source Code/SUAppcast.m Sparkle 1.5b6_patch8/Ext
      
  	NSError *error = nil;
      NSXMLDocument *document = [[NSXMLDocument alloc] initWithData:incrementalData options:0 error:&error];
-diff -u -r Sparkle 1.5b6/Extras/Source Code/SUDSAVerifier.h Sparkle 1.5b6_patch8/Extras/Source Code/SUDSAVerifier.h
---- Sparkle 1.5b6/Extras/Source Code/SUDSAVerifier.h	2008-09-13 23:55:00.000000000 -0400
-+++ Sparkle 1.5b6_patch8/Extras/Source Code/SUDSAVerifier.h	2016-02-15 13:10:42.000000000 -0500
+diff -u -r Sparkle 1.5b6/SUDSAVerifier.h Sparkle 1.5b6_patch8/SUDSAVerifier.h
+--- Sparkle 1.5b6/SUDSAVerifier.h	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle 1.5b6_patch8/SUDSAVerifier.h	2016-02-15 13:10:42.000000000 -0500
 @@ -12,6 +12,7 @@
  // For the paranoid folks!
  @interface SUDSAVerifier : NSObject {}
@@ -33,9 +33,9 @@ diff -u -r Sparkle 1.5b6/Extras/Source Code/SUDSAVerifier.h Sparkle 1.5b6_patch8
  @end
  
  #endif
-diff -u -r Sparkle 1.5b6/Extras/Source Code/SUDSAVerifier.m Sparkle 1.5b6_patch8/Extras/Source Code/SUDSAVerifier.m
---- Sparkle 1.5b6/Extras/Source Code/SUDSAVerifier.m	2016-02-12 16:45:31.000000000 -0500
-+++ Sparkle 1.5b6_patch8/Extras/Source Code/SUDSAVerifier.m	2016-02-16 14:13:59.000000000 -0500
+diff -u -r Sparkle 1.5b6/SUDSAVerifier.m Sparkle 1.5b6_patch8/SUDSAVerifier.m
+--- Sparkle 1.5b6/SUDSAVerifier.m	2016-02-12 16:45:31.000000000 -0500
++++ Sparkle 1.5b6_patch8/SUDSAVerifier.m	2016-02-16 14:13:59.000000000 -0500
 @@ -103,48 +103,154 @@
  
  @implementation SUDSAVerifier
@@ -231,9 +231,9 @@ diff -u -r Sparkle 1.5b6/Extras/Source Code/SUDSAVerifier.m Sparkle 1.5b6_patch8
  }
  
  @end
-diff -u -r Sparkle 1.5b6/Extras/Source Code/SUUpdateDriver.h Sparkle 1.5b6_patch8/Extras/Source Code/SUUpdateDriver.h
---- Sparkle 1.5b6/Extras/Source Code/SUUpdateDriver.h	2008-09-13 23:55:00.000000000 -0400
-+++ Sparkle 1.5b6_patch8/Extras/Source Code/SUUpdateDriver.h	2016-02-15 16:16:00.000000000 -0500
+diff -u -r Sparkle 1.5b6/SUUpdateDriver.h Sparkle 1.5b6_patch8/SUUpdateDriver.h
+--- Sparkle 1.5b6/SUUpdateDriver.h	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle 1.5b6_patch8/SUUpdateDriver.h	2016-02-15 16:16:00.000000000 -0500
 @@ -27,6 +27,7 @@
  - (void)checkForUpdatesAtURL:(NSURL *)URL host:(SUHost *)host;
  - (void)abortUpdate;
@@ -242,9 +242,9 @@ diff -u -r Sparkle 1.5b6/Extras/Source Code/SUUpdateDriver.h Sparkle 1.5b6_patch
  
  @end
  
-diff -u -r Sparkle 1.5b6/Extras/Source Code/SUUpdateDriver.m Sparkle 1.5b6_patch8/Extras/Source Code/SUUpdateDriver.m
---- Sparkle 1.5b6/Extras/Source Code/SUUpdateDriver.m	2008-09-13 23:55:00.000000000 -0400
-+++ Sparkle 1.5b6_patch8/Extras/Source Code/SUUpdateDriver.m	2016-02-15 16:16:22.000000000 -0500
+diff -u -r Sparkle 1.5b6/SUUpdateDriver.m Sparkle 1.5b6_patch8/SUUpdateDriver.m
+--- Sparkle 1.5b6/SUUpdateDriver.m	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle 1.5b6_patch8/SUUpdateDriver.m	2016-02-15 16:16:22.000000000 -0500
 @@ -41,4 +41,9 @@
      [super dealloc];
  }

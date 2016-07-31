@@ -1,5 +1,5 @@
---- a/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj	2008-09-13 20:55:00.000000000 -0700
-+++ b/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj	2015-11-18 17:00:30.000000000 -0800
+--- a/Sparkle.xcodeproj/project.pbxproj	2008-09-13 20:55:00.000000000 -0700
++++ b/Sparkle.xcodeproj/project.pbxproj	2015-11-18 17:00:30.000000000 -0800
 @@ -976,6 +983,12 @@
  			isa = XCBuildConfiguration;
  			baseConfigurationReference = FA1941CA0D94A70100DD942E /* ConfigFrameworkDebug.xcconfig */;

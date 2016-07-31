@@ -1,6 +1,6 @@
-diff -u -r Sparkles/Sparkle 1.5b6/Extras/Source Code/SUSystemProfiler.m Sparkles/Sparkle 1.5b6_/Extras/Source Code/SUSystemProfiler.m
---- Sparkle 1.5b6/Extras/Source Code/SUSystemProfiler.m	2008-09-13 23:55:00.000000000 -0400
-+++ Sparkle 1.5b6_/Extras/Source Code/SUSystemProfiler.m	2016-02-24 20:11:22.000000000 -0500
+diff -u -r Sparkles/Sparkle 1.5b6/SUSystemProfiler.m Sparkles/Sparkle 1.5b6_/SUSystemProfiler.m
+--- Sparkle 1.5b6/SUSystemProfiler.m	2008-09-13 23:55:00.000000000 -0400
++++ Sparkle 1.5b6_/SUSystemProfiler.m	2016-02-24 20:11:22.000000000 -0500
 @@ -21,120 +21,17 @@
  	return sharedSystemProfiler;
  }
