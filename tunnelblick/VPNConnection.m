@@ -47,6 +47,7 @@
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
 #import "VPNConnection.h"
+#import "MF_Base64Additions.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gPrivatePath;
@@ -2620,6 +2621,34 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 }
 
+- (NSString *)getResponseFromChallenge: (NSString *)challenge echoResponse: (BOOL)echoResponse{
+    NSAlert *alert = [NSAlert alertWithMessageText: challenge
+                                     defaultButton:@"OK"
+                                   alternateButton:@"Cancel"
+                                       otherButton:nil
+                         informativeTextWithFormat:@""];
+
+    NSTextField *input;
+    if (echoResponse) {
+        input = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
+    } else {
+        input = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
+    }
+    [input autorelease];
+    [alert setAccessoryView:input];
+    [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
+    [[alert window] setInitialFirstResponder: input];
+    NSInteger button = [alert runModal];
+    if (button == NSAlertDefaultReturn) {
+        [input validateEditing];
+        return [input stringValue];
+    } else if (button == NSAlertAlternateReturn) {
+        return nil;
+    } else {
+        NSAssert1(NO, @"Invalid input dialog button %ld", (long)button);
+        return nil;
+    }
+}
 
 - (void) processLine: (NSString*) line
 {
@@ -2899,7 +2928,30 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     authFailed = FALSE;
     credentialsAskedFor = FALSE;
     userWantsState = userWantsUndecided;
-    
+
+    BOOL echoResponse = FALSE;
+    NSString * challengeText = nil;
+ 
+    if (   [line rangeOfString: @" SC:0,"].length
+        || [line rangeOfString: @" SC:1,"].length  ) {
+
+        NSRange rngStartChallenge = [line rangeOfString: @" SC:"];
+        NSAssert(rngStartChallenge.length != 0, @"rngStartChallenge.length should not be 0, we tested it before...");
+
+        TBLog(@"DB-AU", @"processLine: Server asking for Static Challenge");
+        if (  rngStartChallenge.length != 0  ) {
+            NSString * afterStartChallenge = [line substringFromIndex: rngStartChallenge.location + 4];
+            NSRange rngComma = [afterStartChallenge rangeOfString: @","];
+
+            NSString * echoResponseStr = [afterStartChallenge substringToIndex: rngComma.location];
+            echoResponse = [echoResponseStr isEqualToString:@"1"];
+
+            TBLog(@"DB-AU", @"echoResponse is '%d'", echoResponse);
+            challengeText = [afterStartChallenge substringFromIndex: rngComma.location + 1];
+            TBLog(@"DB-AU", @"challengeText is '%@'", challengeText);
+        }
+    }
+
     // Find out whether the server wants a private key or user/auth:
     NSRange pwrange_need = [parameterString rangeOfString: @"Need \'"];
     NSRange pwrange_password = [parameterString rangeOfString: @"\' password"];
@@ -2933,8 +2985,17 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         NSString *myPassword = [myAuthAgent password];
         NSString *myUsername = [myAuthAgent username];
         if(  (myUsername != nil) && (myPassword != nil)  ){
+            NSString * response = nil;
+            if (challengeText) {
+                response = [self getResponseFromChallenge: challengeText echoResponse: echoResponse];
+                TBLog(@"DB-AU", @"response is '%@'", response);
+            }
             [managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSUTF8StringEncoding];
-            [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUTF8StringEncoding];
+            if (!response) {
+                [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUTF8StringEncoding];
+            } else {
+                [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"SCRV1:%@:%@\"\r\n", [myPassword base64String], [response base64String]] encoding:NSUTF8StringEncoding];
+            }
         } else {
             [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
             [self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
