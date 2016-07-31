@@ -276,11 +276,11 @@ if [ "${CONFIGURATION}" != "Debug" ]; then
 
 	# Copy the background folder and its background.png file to the staging folder and make the background folder invisible in the Finder
 	cp -p -R "$DMG_FILES/background" "$TMPDMG"
-	setfile -a V "$TMPDMG/background"
+	SetFile -a V "$TMPDMG/background"
 
 	# Copy dotDS_Store to .DS_Store and make it invisible in the Finder
 	cp -p -R "$DMG_FILES/dotDS_Store" "$TMPDMG/.DS_Store"
-	setfile -a V "$TMPDMG/.DS_Store"
+	SetFile -a V "$TMPDMG/.DS_Store"
 
 	# Remove any existing .dmg and create a new one. Specify "-noscrub" so that .DS_Store is copied to the image
 	rm -r -f "build/${CONFIGURATION}/${PROJECT_NAME}.dmg"
