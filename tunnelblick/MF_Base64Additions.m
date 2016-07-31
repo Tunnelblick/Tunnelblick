@@ -224,7 +224,7 @@
 +(NSString *)stringFromBase64String:(NSString *)base64String
 {
     NSData *utf8encoding = [MF_Base64Codec dataFromBase64String:base64String];
-    return [[NSString alloc] initWithData:utf8encoding encoding:NSUTF8StringEncoding];
+    return [[[NSString alloc] initWithData:utf8encoding encoding:NSUTF8StringEncoding] autorelease];
 }
 +(NSString *)stringFromBase64UrlEncodedString:(NSString *)base64UrlEncodedString
 {
