@@ -211,6 +211,7 @@
 		63FFD6541D0E9C8B00D4FFD9 /* Lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 63FFD6521D0E9C8B00D4FFD9 /* Lock.png */; };
 		63FFD6551D0E9C8B00D4FFD9 /* Lock-open.png in Resources */ = {isa = PBXBuildFile; fileRef = 63FFD6531D0E9C8B00D4FFD9 /* Lock-open.png */; };
 		63FFD6581D0E9D9400D4FFD9 /* SystemAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FFD6571D0E9D9400D4FFD9 /* SystemAuth.m */; };
+		8413EE891D4EC03900B0E825 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8413EE871D4EC03900B0E825 /* MF_Base64Additions.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -592,6 +593,8 @@
 		63FFD6531D0E9C8B00D4FFD9 /* Lock-open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lock-open.png"; sourceTree = "<group>"; };
 		63FFD6561D0E9D8900D4FFD9 /* SystemAuth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemAuth.h; sourceTree = "<group>"; };
 		63FFD6571D0E9D9400D4FFD9 /* SystemAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemAuth.m; sourceTree = "<group>"; };
+		8413EE871D4EC03900B0E825 /* MF_Base64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Base64Additions.m; sourceTree = "<group>"; };
+		8413EE881D4EC03900B0E825 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Tunnelblick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tunnelblick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8045A07161EF26700609C98 /* sharedRoutines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sharedRoutines.h; sourceTree = "<group>"; };
@@ -729,6 +732,8 @@
 				61BC4B6A0E2F9EBC00F24255 /* MenuController.m */,
 				61BC4B6B0E2F9EBC00F24255 /* NetSocket.h */,
 				61BC4B6C0E2F9EBC00F24255 /* NetSocket.m */,
+				8413EE871D4EC03900B0E825 /* MF_Base64Additions.m */,
+				8413EE881D4EC03900B0E825 /* MF_Base64Additions.h */,
 				61BC4B650E2F9EBC00F24255 /* VPNConnection.h */,
 				61BC4B660E2F9EBC00F24255 /* VPNConnection.m */,
 			);
@@ -1768,6 +1773,7 @@
 				633DF4591312B13100B8606C /* ConfigurationManager.m in Sources */,
 				639A1100132AC9D800754C2A /* StatusWindowController.m in Sources */,
 				63ABFE9C1349E435003DEB64 /* LoginWindowController.m in Sources */,
+				8413EE891D4EC03900B0E825 /* MF_Base64Additions.m in Sources */,
 				6388563E134B7E1C008DF8C1 /* PassphraseWindowController.m in Sources */,
 				635ECCF51378885600F67F8D /* DBPrefsWindowController.m in Sources */,
 				635ECCFA137888A800F67F8D /* MyPrefsWindowController.m in Sources */,
