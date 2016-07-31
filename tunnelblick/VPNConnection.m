@@ -2742,7 +2742,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 [timer tbSetTolerance: -1.0];
             } else {
 				TBLog(@"DB-AU", @"processLine: PASSWORD request from server");
-                if (  authFailed  ) {
+                if ([parameterString hasPrefix:@"Auth-Token:"]) {
+                    TBLog(@"DB-AU", @"processLine: Ignoring Auth-Token from server");
+                } else if (  authFailed  ) {
                     if (  userWantsState == userWantsUndecided  ) {
                         // We don't know what to do yet: repeat this again later
 						TBLog(@"DB-AU", @"processLine: authFailed and userWantsUndecided, queuing credentialsHaveBeenAskedForHandler for execution in 0.5 seconds");
