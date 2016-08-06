@@ -17,6 +17,52 @@
 #  along with this program (see the file COPYING included with this
 #  distribution); if not, write to the Free Software Foundation, Inc.,
 
+built-pkcs11-helper-prepare-extract:
+	@echo "THIRD_PARTY: Expanding PKCS11-Helper..."
+	for ssldir in $(shell find -E $(BUILD_DIR) -depth 1 -type d -iregex ".*(libre|open|boring){1}ssl.*" ); do \
+		sslvariant=$${ssldir##*/}; \
+		sslvariant=$${sslvariant%-*}; \
+		echo $${sslvariant}
+		mkdir -p $(PKCS11_BUILD_DIR); \
+		find -E $(SOURCES_DIR) -depth 1 -type f -iregex ".*pkcs11-helper.*tar.(gz|bz2)$$" -exec tar -x -C $(BUILD_DIR) -f {} \; > /dev/null; \
+		find -dE $(BUILD_DIR) -depth 1 -type d -not -iregex ".*(open|libre|boring)ssl$$" -and -iregex ".*pkcs11-helper.*$$" -exec mv -f {} {}-$${sslvariant} \; > /dev/null; \
+	done
+
+built-pkcs11-helper-dobuild:
+	@echo "THIRD_PARTY: Building PKCS11-Helper..."
+	for pkcsdir in $(shell find -E $(BUILD_DIR) -depth 1 -type d -iregex ".*pkcs11-helper.*(open|libre|boring)ssl$$" ); do \
+		pkcsvariant=$${pkcsdir##*/}; \
+		pkcsvariant=$${pkcsvariant%-*}; \
+		sslvariant=$${ovpndir##*-}; \
+		for a in $(TARGET_ARCHS); do \
+			echo "Clean $${pkcsvariant} for $$a" ; \
+			$(MAKE) -C $${pkcsdir} clean; \
+			echo "Configure PKCS11-Helper for $$a" ; \
+			export OPENSSL_CFLAGS="-I$(STAGING_DIR)/$${sslvariant}*/*$${a}*/include"; \
+			export OPENSSL_LIBS="-L$(STAGING_DIR)/$${sslvariant}*/*$${a}*/lib -lssl -lcrypto -lz"; \
+			CC=$(CC) \
+			CFLAGS="$(CFLAGS) -arch $$a" \
+			$${pkcsdir}/configure --build=$$a-apple-darwin \
+			            --prefix=$(PKCS11_STAGING_DIR)_$$a \
+			            --includedir=$(PKCS11_STAGING_DIR)/include \
+			            --enable-static \
+			            --enable-shared=no \
+			            --enable-slotevent=no \
+			            --enable-threading=no \
+			            --disable-dependency-tracking ; \
+			echo "Build PKCS11-Helper for $$a" ; \
+			$(MAKE) -C $${pkcsdir}; \
+			echo "Install PKCS11-Helper to $(PKCS11_STAGING_DIR)_$$a" ; \
+			$(MAKE) -C $${pkcsdir} install; \
+		done; \
+	done
+	rm -r -f $(PKCS11_STAGING_DIR)/lib
+	mkdir -p $(PKCS11_STAGING_DIR)/lib
+	lipo $(PKCS11_STAGING_DIR)_*/lib/libpkcs11-helper.a -create -output $(PKCS11_STAGING_DIR)/lib/libpkcs11-helper.a
+	ranlib $(PKCS11_STAGING_DIR)/lib/libpkcs11-helper.a
+	touch built-pkcs11-helper
+	@echo "THIRD_PARTY: Built PKCS11-Helper"
+
 built-pkcs11-helper: built-openssl
 	@echo "THIRD_PARTY: Expanding PKCS11-Helper..."
 	mkdir -p $(PKCS11_BUILD_DIR)

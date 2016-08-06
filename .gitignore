@@ -6,3 +6,13 @@ xcuserdata/
 *.pbxuser
 
 build-log.txt
+third_party/build
+tunnelblick/build
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes

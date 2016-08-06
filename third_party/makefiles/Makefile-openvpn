@@ -18,7 +18,53 @@
 #  along with this program (see the file COPYING included with this
 #  distribution); if not, write to the Free Software Foundation, Inc.,
 
-built-openvpn-prepare:
+export openvpn_CONFIG_ARGS= --enable-static=yes \
+							--enable-shared \
+							--enable-pkcs11 \
+							--disable-debug \
+							--disable-plugin-auth-pam \
+							--disable-dependency-tracking \
+							--enable-crypto \
+							--enable-ssl
+export openvpn_BUILD_ARCH= $(TARGET_ARCHS)
+
+.PHONY: built-openvpn-prepare-extract built-openvpn-prepare-patch
+
+built-openvpn-prepare-extract:
+	@echo "THIRD_PARTY: Extracting all OpenVPN variants..."
+	for ssldir in $(shell find -E $(BUILD_DIR) -depth 1 -type d -iregex ".*(libre|open|boring){1}ssl.*" ); do \
+		sslvariant=$${ssldir##*/}; \
+		sslvariant=$${sslvariant%-*}; \
+		mkdir -p $(BUILD_DIR)/openvpn; \
+		find -E $(SOURCES_DIR)/openvpn -depth 2 -type f -iregex ".*openvpn.*tar.gz$$" -exec tar -x -C $(BUILD_DIR)/openvpn -f {} \; > /dev/null; \
+		find -dE $(BUILD_DIR)/openvpn -depth 1 -type d -iregex ".*openvpn.*$$" -not -iregex ".*(open|libre|boring)ssl$$" -exec mv -f {} {}-$${sslvariant} \; > /dev/null; \
+	done
+
+built-openvpn-prepare-patch:
+	@echo "THIRD_PARTY: Patching all OpenVPN variants..."
+	for ovpndir in $(shell find -E $(BUILD_DIR)/openvpn -depth 1 -type d -iregex ".*openvpn.*(open|libre|boring)ssl$$" ); do \
+		ovpnvariant=$${ovpndir##*/}; \
+		ovpnvariant=$${ovpnvariant%-*}; \
+		for patch_file in $(SOURCES_DIR)/openvpn/$${ovpnvariant}/patches/*.diff; do \
+			patch -p1 -N --dry-run -d $${ovpndir} -i $${patch_file} > /dev/null 2>&1; \
+			if [ $$? == 0 ]; then \
+				patch -p1 -N -d $${ovpndir} -i $${patch_file} > /dev/null 2>&1; \
+				if [ $$? == 0 ]; then \
+					echo "$${ovpndir##*/} patch applied: $${patch_file##*/}" ; \
+				else \
+					echo "error: $${ovpndir##*/} patch failed after a successful dry run: $${patch_file##*/}" ; \
+				fi \
+			else \
+				echo "error: $${ovpndir##*/} patch could not be applied: $${patch_file##*/}" ; \
+			fi; \
+		done; \
+	done
+
+built-openvpn-prepare: | built-openvpn-prepare-extract built-openvpn-prepare-patch
+	touch built-openvpn-prepare
+	@echo "THIRD_PARTY: Expanded and Patched OpenVPN"
+
+zzzbuilt-openvpn-prepare:
 	@echo "THIRD_PARTY: Expanding and Patching OpenVPN..."
 	mkdir -p $(OPENVPN_BUILD_DIR)
 	cd $(TOPDIR)/sources ; \
@@ -61,6 +107,72 @@ built-openvpn-prepare:
 	touch built-openvpn-prepare
 	@echo "THIRD_PARTY: Expanded and Patched OpenVPN"
 	
+built-openvpn-dobuild:
+	@echo "THIRD_PARTY: Building all OpenVPN variants..."
+	for ovpndir in $(shell find -E $(BUILD_DIR)/openvpn -depth 1 -type d -iregex ".*openvpn.*(open|libre|boring)ssl$$" ); do \
+		ovpnvariant=$${ovpndir##*/}; \
+		ovpnvariant=$${ovpnvariant%-*}; \
+		sslvariant=$${ovpndir##*-}; \
+		CONFIGARGS=$${ovpnvariant%-*}_CONFIG_ARGS; \
+		BUILDARCH=$${ovpnvariant%-*}_BUILD_ARCH; \
+		if [ -f $(SOURCES_DIR)/openvpn/$${ovpnvariant}/configure-options.txt ] ; then \
+			openvpn_CONFIG_ARGS=$$(cat $(SOURCES_DIR)/openvpn/$${ovpnvariant}/configure-options.txt); \
+		fi; \
+		cd $${ovpndir}; \
+		for a in $${!BUILDARCH}; do \
+			a=$${a#\"*}; \
+			a=$${a%*\"}; \
+			echo "Configure $${ovpndir##*/} for $${a}" ; \
+			echo "CONFIGARGS: $${!CONFIGARGS}"; \
+			echo "BUILDARCH: $${!BUILDARCH}"; \
+			export OPENSSL_CFLAGS="-I$(STAGING_DIR)/$${sslvariant}*/*$${a}*/include"; \
+			export OPENSSL_SSL_CFLAGS="-I$${OPENSSL_CFLAGS}"; \
+			export OPENSSL_CRYPTO_CFLAGS="-I$${OPENSSL_CFLAGS}"; \
+			export OPENSSL_LIBS="$(STAGING_DIR)/$${sslvariant}*/*$${a}*/libssl.a -lz $(STAGING_DIR)/$${sslvariant}*/*x86_64*/libcrypto.a -lz"; \
+			export OPENSSL_SSL_LIBS="$(STAGING_DIR)/$${sslvariant}*/*$${a}*/lib/libssl.a"; \
+			export OPENSSL_CRYPTO_LIBS="$(STAGING_DIR)/$${sslvariant}*/*$${a}*/libcrypto.a -lz"; \
+			CC="$(CC)" \
+			CFLAGS="$(CFLAGS) \
+					-arch $$a \
+					$(OPENVPN_DEPRECATED_LLVN_OPTION) \
+					-D __APPLE_USE_RFC_3542" \
+			LZO_CFLAGS="-I$(LZO_STAGING_DIR)/include" \
+			LZO_LIBS="-L$(LZO_STAGING_DIR)/lib \
+					  -llzo2" \
+			LZ4_CFLAGS="-I$(LZ4_STAGING_DIR)/include" \
+			LZ4_LIBS="-L$(LZ4_STAGING_DIR)/lib \
+					  -llz4" \
+			PKCS11_HELPER_CFLAGS="-I$(PKCS11_STAGING_DIR)/include/" \
+			PKCS11_HELPER_LIBS="-L$(PKCS11_STAGING_DIR)/lib \
+								-lpkcs11-helper" \
+			OS_VERSION=`uname -r` \
+				autoreconf -fi 2>/dev/null; \
+			\
+			CC="$(CC)" \
+			CFLAGS="$(CFLAGS) \
+					-arch $$a \
+					$(OPENVPN_DEPRECATED_LLVN_OPTION) \
+					-D __APPLE_USE_RFC_3542" \
+			LZO_CFLAGS="-I$(LZO_STAGING_DIR)/include" \
+			LZO_LIBS="-L$(LZO_STAGING_DIR)/lib \
+					  -llzo2" \
+			LZ4_CFLAGS="-I$(LZ4_STAGING_DIR)/include" \
+			LZ4_LIBS="-L$(LZ4_STAGING_DIR)/lib \
+					  -llz4" \
+			PKCS11_HELPER_CFLAGS="-I$(PKCS11_STAGING_DIR)/include/" \
+			PKCS11_HELPER_LIBS="-L$(PKCS11_STAGING_DIR)/lib \
+								-lpkcs11-helper" \
+			OS_VERSION=`uname -r` \
+			./configure \
+				 --build=$$a-apple-darwin \
+				 $${!CONFIGARGS} ; \
+			\
+			$(MAKE) clean; \
+		done; \
+	done
+
+
+
 built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper built-openssl
 	@echo "THIRD_PARTY: Building OpenVPN..."
 	cd $(OPENVPN_BUILD_DIR) ; \
