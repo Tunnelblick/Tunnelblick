@@ -1,0 +1,20 @@
+********************** PATCHING **********************
+Multiple versions of OpenVPN tar'ed sources (HEAD, RELEASE, etc.) are stored along with their patches inside the sources/openvpn/<VERSION> and sources/openvpn/<VERSION>/patches directories respectively. This allows different sets of patchs to run against that particular verison of OpenVPN.
+
+Contrast this to the new process of multiple variants of SSL (which follows the structure of the majority of other sources for the Tunnelblick project), where multiple tar'ed versions are stored in sources/ with patches located in sources/patches/ssl. The patching process applies any diff with the glob "<VERSION>*.diff" against the extracted souces in the matching build/<VERSION> directory.  e.g. ..third_party/sources/patches/ssl/libressl-01-donothing.diff is applied to the ..third_party/build/libressl-2.4.2 directory.
+
+********************** BoringSSL **********************
+BoringSSL-master source tar does not store the <VERSION> as a the initial relative path within the tar which is the defacto standard behavior for most sources.  All files inside its tar are located at the root of the tar.  This breaks the current extraction process for OpenSSL and LibreSSL.  A workaround will need to be implemented.
+
+********************** uTun Patch **********************
+The following is defined at the start of the primary Makefile which means the rules to patch uTun in OpenVPN will never be met.
+
+ifeq "$(XCODE_VERSION_MAJOR)" "0300"
+		$(error error: Tunnelblick must be built with Xcode 4 or higher)
+endif
+
+Removing this condition check and patch.
+
+********************** OPENSSL_TARGET_FILES **********************
+OPENSSL_TARGET_FILES uses OPENSSL_STAGING_DIR to construct the list of make targets for other dependencies.  Because OPENSSL_STAGING_DIR uses OPENSSL_NAME, which is now depricated in order to create a loop to find all available variants of (open|libre|boring)ssl, use of this variable needs to be refactored.
+

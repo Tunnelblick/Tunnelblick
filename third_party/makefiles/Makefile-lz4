@@ -19,24 +19,19 @@
 
 built-lz4:
 	@echo "THIRD_PARTY: Expanding LZ4..."
-	mkdir -p build
-	tar -x -f sources/$(LZ4_NAME).tar.gz -C build
+	mkdir -p $(BUILD_DIR)
+	tar -x -f sources/$(LZ4_NAME).tar.gz -C $(BUILD_DIR)
 	@echo "THIRD_PARTY: Building LZ4..."
 	for a in $(LZ4_TARGET_ARCHS); do \
-		cd $(LZ4_BUILD_DIR) ; \
 		echo "Clean LZ4 for $$a" ; \
-		$(MAKE) clean; \
-		echo "Build LZ4 for $$a" ; \
+		$(MAKE) -C $(LZ4_BUILD_DIR) clean; \
+		echo "Build and install LZ4 for $$a" ; \
 		CC=$(CC) \
-		CFLAGS="$(CFLAGS) -arch $$a" \
-		PREFIX=$(LZ4_STAGING_DIR)_$$a/ \
-		$(MAKE); \
-		echo "Install LZ4 to $(LZ4_STAGING_DIR)_$$a" ; \
-		PREFIX=$(LZ4_STAGING_DIR)_$$a/ \
-		$(MAKE) install; \
-		cd "$(TOPDIR)"; \
-		done
-	cp -a $(LZ4_STAGING_DIR)_*/include $(LZ4_STAGING_DIR)/
+			CFLAGS="$(CFLAGS) -arch $$a" \
+			PREFIX=$(LZ4_STAGING_DIR)_$$a/ \
+			$(MAKE) -e -C $(LZ4_BUILD_DIR) install; \
+	done
+	ditto $(LZ4_STAGING_DIR)_*/include $(LZ4_STAGING_DIR)/include
 	mkdir -p $(LZ4_STAGING_DIR)/lib
 	lipo $(LZ4_STAGING_DIR)_*/lib/liblz4.a -create -output $(LZ4_STAGING_DIR)/lib/liblz4.a
 	ranlib $(LZ4_STAGING_DIR)/lib/liblz4.a
@@ -47,5 +42,6 @@ built-lz4-clean:
 	@echo "THIRD_PARTY: Cleaning LZ4..."
 	rm -f -R $(LZ4_BUILD_DIR)
 	rm -f -R $(LZ4_STAGING_DIR)
+	rm -f -R $(LZ4_STAGING_DIR)_*
 	rm -f built-lz4
 	@echo "THIRD_PARTY: Cleaned LZ4"
