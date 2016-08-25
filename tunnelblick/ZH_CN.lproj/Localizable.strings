@@ -134,7 +134,7 @@
 "Monochrome icon" = "单色图标";
 
 /* Button */
-"More Info" = "More Info";
+"More Info" = "更多信息";
 
 /* Button */
 "Never load Tap driver" = "从不加载 Tap 驱动程序";
@@ -164,10 +164,10 @@
 "Open easy-rsa in Terminal" = "在终端打开 Tunnelblick 的 easy-rsa 目录";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "Place Icon Near the Spotlight Icon";
+"Place Icon Near the Spotlight Icon" = "图标置于搜索图标附近";
 
 /* Button */
-"Place Icon Normally" = "Place Icon Normally";
+"Place Icon Normally" = "图标置于正常的位置";
 
 /* Button */
 "Privacy info..." = "隐私信息...";
@@ -407,7 +407,7 @@
 "Monitor network settings" = "监控网络配置";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Place near Spotlight icon";
+"Place near Spotlight icon" = "置于搜索图标附近";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "准备用于搜索域名的域名后缀";
@@ -532,7 +532,7 @@
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ 已断开连接 - 高级设置%3$@";
 
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
 "%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
@@ -718,22 +718,22 @@
 /* Window title */
 "While Connected" = "已连接时";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • 安装了 %lu 个配置\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • 安装了 一个配置\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • 替换了%lu 个配置\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced one configuration\n\n" = "     • 替换了一个配置\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled %lu configurations\n\n" = "     • 移除了%lu 个配置\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled one configuration\n\n" = "     • 移除了一个配置\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
@@ -829,7 +829,7 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' 被忽略，它的值必须是一个绝对路径，或者以 '~' 开头";
 
-/* Window text -- apears in log display when logging is disabled\n */
+/* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(日志功能已禁用)";
 
 /* Window text */
@@ -863,7 +863,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "一个名为 '%@' 的私人配置已经存在.\n\n你想用一个共享配置来取代它吗?";
 
 /* Window text */
-"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "在检查此计算机的对外显示的 IP 的时候发生了一个问题\n\n详情请查看控制台日志.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "在检查此计算机的对外显示的 IP 的时候发生了一个问题\n\n详情请查看控制台日志.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "名为'%@' 的共享配置己存在\n要用私有配置替换它吗?";
@@ -902,7 +902,7 @@
 "All configurations use %@ credentials" = "所有的配置使用 %@ 认证信息";
 
 /* Window text */
-"An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "当尝试检查配置文件 %2$@ 的安全性时发生了一个错误(状态码 %1$ld) .\n\n请退出并重启 Tunnelblick, 如果问题仍然存在, 请重新安装 Tunnelblick.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "检查配置文件 %2$@ 的安全性时发生了一个错误，状态码为 %1$ld。\n\n请退出并重启 Tunnelblick，如果问题仍然存在，请重新安装 Tunnelblick。";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "启动 %@ 时发生错误";
@@ -998,7 +998,7 @@
 "Configuration changes:" = "配置文件更改";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar." = "配置己从网络管理员或者VPN 服务商提供的文件抽取并完成安装。\n配置文件的后缀可能为：.tblk, .ovpn 或者.conf.\n当其它后缀被关联时，请忽略它。\n将配置文件拖动至菜单栏的Tunnelblick 图标上来进行安装。\n选中多个配置文件，将它们拖动至菜单栏处的Tunnelblick 图标上可以一次性完成安装。";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "配置要从网络管理员或者 VPN 服务商提供的文件抽取并完成安装。\n配置文件的后缀可能为：.tblk，.ovpn 或者 .conf。\n配置文件的文件夹里可能存有其它后缀的文件，请忽略其他文件。\n将配置文件拖动至菜单栏的 Tunnelblick 图标上，或者拖动至 VPN 详情窗口的配置分页里的配置列单上，来进行安装。\n如果要同时安装多个配置文件，将它们拖动至 Tunnelblick 窗口上可以一次性完成安装。";
 
 /* Window text */
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "当你安装 Tunnelblick 时，并不是 Tunnelblick 的一部分的配置文件被设置为需要安装的。\n\n";
@@ -1472,7 +1472,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "这个私人配置从来没有生成过安全副本，所以你无法重置到安全副本.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar." = "示例配置文件目录已经在您的桌面上创建完成，且其中的 OpenVPN 的配置文件已经用“文本编辑”打开，您可以编辑这个文件以设置你的 VPN 。\n\n当您编辑完成完并保存 OpenVPN 的配置文件后，请\n\n1、移动或拷贝与这个配置文件相关的所有认证文件，到您桌面上的 '示例配置文件' 目录里。\n\n（这个文件夹已经用 Finder 打开，您可以将文件直接拖拽进去）\n\n2、为配置文件取一个你喜欢的名字（请不要改变文件的扩展名）。这个名字将会被 Tunnelblick 用来标识配置文件。\n\n3、将这个配置文件拖拽到菜单栏的 Tunnelblick 图标上，即可安装此配置文件。";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "示例配置文件文件夹已经在您的桌面上创建完成，且其中的 OpenVPN 的配置文件已经用“文本编辑”应用程序打开，您可以编辑这个文件以设置你的 VPN 。\n\n当您编辑完成完并保存 OpenVPN 的配置文件后，请\n\n1、移动或拷贝与这个配置文件相关的所有认证文件，到您桌面上的 '示例配置文件' 目录里。\n\n（这个文件夹已经用 Finder 打开，您可以将文件直接拖拽进去）\n\n2、为配置文件取一个你喜欢的名字（请不要改变文件的扩展名）。这个名字将会被 Tunnelblick 用来标识配置文件。\n\n3、将这个配置文件拖拽到菜单栏的 Tunnelblick 图标上，或者拖动到 VPN 详情窗口的配置分页里的配置列单上，即可安装此配置文件。";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "远程 VPN 服务器不接受该用户名和密码";
@@ -1646,7 +1646,7 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick 将要改变的设置需要管理员权限.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations.";
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick 需要把 OpenVPN 配置转换成 Tunnelblick VPN 配置。";
 
 /* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick 需要创建或更新一个配置文件的安全副本.";
@@ -1865,7 +1865,7 @@
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "更新 Tunnelblick 之后, 你必须提供计算机管理员的用户名和密码, 才能继续使用 Tunnelblick.\n\n你确定想要查找更新吗?";
 
 /* Window text */
-"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n";
+"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "您的计算机或许无法保证 Tunnelblick 图标能在搜索图标附近显示。\n\n该选项或许导致 Tunnelblick 图标有时从菜单栏消失。\n\n您确定要设定 Tunnelblick 图标置于搜索图标附近吗？\n\n";
 
 /* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "你的系统时钟可能不正确。\n\n你的某些或所有配置文件可能不能连接，除非系统时间具有正确的日期和时间。\n\n";
@@ -1909,6 +1909,9 @@
 /* Suffix for a duplicate of a file */
 " copy" = " 复制";
 
+/* An entry in the list of OpenVPN versions. First %@ is an OpenVPN version number, e.g. '2.3.10'. Second %@ is an SSL library name, e.g. 'LibreSSL' */
+"%@ - %@" = "%1$@－%2$@";
+
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d 天 %2$d:%3$02d:%4$02d";
 
@@ -1916,7 +1919,7 @@
 "64-bit enabling and testing" = "64位程序的实现和测试";
 
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%1$@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%2$@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>";
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>若打勾</strong>，Tunnelblick 图标位于搜索图标附近：</p>\n<p>%1$@</p>\n<p><strong>未打勾</strong>，Tunnelblick 图标位于正常的位置：</p>\n<p>%2$@</p>\n<p>该选项 macOS Sierra 并不需要，而且有的计算机已发现该选项导致故障，两者情况下<strong>该复选框已被禁用</strong>。</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">了解详情</a></p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "管理模式 %@ 继续";
@@ -1961,7 +1964,7 @@
 "Contributed to early code" = "早期代码";
 
 /* Credit description */
-"Croation localization" = "捷克语翻译";
+"Croatian localization" = "克罗地亚语翻译";
 
 /* Credit description */
 "Czech localization" = "捷克语翻译";
@@ -2062,7 +2065,7 @@
 "Program and documentation enhancements and maintenance after version 3.0b10" = "3.0b10 版本后对程序和文档的改进";
 
 /* Credit description */
-"Romanian localization" = "Romanian localization";
+"Romanian localization" = "罗马尼亚语翻译";
 
 /* Credit description */
 "Russian localization" = "俄罗斯语翻译";

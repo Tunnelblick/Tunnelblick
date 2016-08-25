@@ -407,7 +407,7 @@
 "Monitor network settings" = "Netzwerkeinstellungen überwachen";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Neben dem Spotlight-Icon platzieren";
+"Place near Spotlight icon" = "Neben Spotlight-Icon platzieren";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Domainname den Suchdomains voranstellen";
@@ -532,7 +532,7 @@
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Getrennt - Erweiterte Einstellungen%3$@";
 
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
 "%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
@@ -656,13 +656,13 @@
 "Settings" = "Einstellungen";
 
 /* Window title */
-"Sounds" = "Klänge";
+"Sounds" = "Töne";
 
 /* Window title */
 "System Requirements Not Met" = "Systemvoraussetzungen nicht erfüllt";
 
 /* Window title */
-"There are no OpenVPN processes running." = "Es sind keine laufenden OpenVPN-Prozesse.";
+"There are no OpenVPN processes running." = "Es laufen keine OpenVPN-Prozesse.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick-Konfigurationsproblem";
@@ -718,22 +718,22 @@
 /* Window title */
 "While Connected" = "Während der Verbindung";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu Konfigurationen  installiert\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Eine Konfiguration installiert\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • %lu Konfigurationen ersetzt\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced one configuration\n\n" = "     • Eine Konfiguration ersetzt\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled %lu configurations\n\n" = "     • %lu Konfigurationen deinstalliert\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled one configuration\n\n" = "     • Eine Konfiguration deinstalliert\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
@@ -829,7 +829,7 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' Einstellung ignoriert; Pfad muss absolut sein oder mit '~' beginnen";
 
-/* Window text -- apears in log display when logging is disabled\n */
+/* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Protokollierung ist ausgeschaltet)";
 
 /* Window text */
@@ -863,7 +863,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Es gibt bereits eine eigene Konfiguration „%@“\n\nMöchten Sie sie durch die Konfiguration für alle Benutzer ersetzen?";
 
 /* Window text */
-"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Fehler beim Überprüfen der Public IP dieser Maschine.\n\nDetails sind im Konsolen-Log zu finden.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Fehler beim Überprüfen der Public IP dieser Maschine.\n\nDetails sind im Konsolen-Log zu finden.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Es gibt bereits eine Konfiguration „%@“ für alle Benutzer.\n\nMöchten Sie sie durch eine eigene Konfiguration für diesen Benutzer ersetzen?";
@@ -902,7 +902,7 @@
 "All configurations use %@ credentials" = "Alle Konfigurationen nutzen %@ Zugangsdaten";
 
 /* Window text */
-"An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Beim Prüfen der Sicherheit der Konfiguration %2$@ ist ein Fehler (Status %1$ld) aufgetreten.\n\nBitte beenden Sie Tunnelblick und starten es dann erneut. Falls der Fehler weiterhin besteht, installieren Sie bitte Tunnelblick neu.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Beim Prüfen der Sicherheit der Konfiguration %2$@ ist ein Fehler (Status %1$ld) aufgetreten.\n\nBitte beenden Sie Tunnelblick und starten es dann erneut. Falls der Fehler weiterhin besteht, installieren Sie bitte Tunnelblick neu.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Beim Versuch, %@ zu starten, ist ein Fehler aufgetreten";
@@ -998,7 +998,7 @@
 "Configuration changes:" = "Änderungen an der Konfiguration:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar." = "Konfigurationen werden aus Dateien installiert, die Ihnen von Ihrem Netzwerkmanager oder VPN-Service-Provider bereitgestellt wurden.\n\nKonfigurationsdateien haben die Erweiterung .tblk, .ovpn oder. conf.\n\n(Möglicherweise werden andere Dateien, die andere Erweiterungen haben, der Konfiguration zugeordnet. Ignorieren Sie diese vorerst.) \n\nUm eine Konfigurationsdatei zu installieren, ziehen Sie sie mit der Maus auf das Tunnelblick Icon in der Menüleiste und lassen Sie sie dort fallen.\n\nUm mehrere Konfigurationsdateien gleichzeitig zu installieren, markieren Sie alle Dateien, ziehen Sie sie mit der Maus auf das Tunnelblick Icon in der Menüleiste und lassen Sie sie dort fallen.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfigurationen werden aus Dateien installiert, die Ihnen von Ihrem Netzwerkmanager oder VPN-Service-Provider bereitgestellt wurden.\n\nKonfigurationsdateien haben die Erweiterung .tblk, .ovpn oder. conf.\n\n(Möglicherweise werden andere Dateien, die andere Erweiterungen haben, der Konfiguration zugeordnet. Ignorieren Sie diese vorerst.) \n\nUm eine Konfigurationsdatei zu installieren, ziehen Sie sie mit der Maus auf das Tunnelblick Icon in der Menüleiste oder auf die Liste von Konfigurationen im \"Konfigurationen\" Reiter des \"VPN-Details\" Fensters und lassen Sie sie dort fallen.\n\nUm mehrere Konfigurationsdateien gleichzeitig zu installieren, markieren Sie alle Dateien, ziehen Sie sie mit der Maus und lassen Sie sie dann fallen.";
 
 /* Window text */
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Konfigurationen die kein Teil von Tunnelblick sind, sind so eingerichtet, dass sie installiert werden, wenn Sie Tunnelblick installieren.\n\n";
@@ -1274,7 +1274,7 @@
 "One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Eine oder mehrere VPN Konfigurationen, die Sie installieren, beinhalten OpenVPN Optionen, die nicht von Tunnelblick erkannt wurden. Das kann ein Fehler in der Konfiguration oder in Tunnelblick sein, oder die Konfigurationen können auch Programme beinhalten, welche als root ausgeführt werden, wenn Sie ein VPN verbinden. Solche Programme könnten DIE VOLLSTÄNDIGE KONTROLLE ÜBER IHREN COMPUTER ÜBERNEHMEN.\n\nSIE SOLLTEN DIESE KONFIGURATIONEN NICHT INSTALLIEREN, AUßER SIE VERTRAUEN IHREM ERSTELLER.\n\nVertrauen Sie dem Ersteller dieser Konfigurationen und möchten Sie sie installieren?\n\n";
 
 /* Window text */
-"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Eine oder mehrere VPN Konfigurationen welche Sie installieren, beinhalten Programme die beim herstellen der VPN-Verbindung mit Root-Rechten ausgeführt werden. Diese können die VOLLSTÄNDIGE KONTROLLE ÜBER IHREN COMPUTER ÜBERNEHMEN.\n\nSIE SOLLTEN DIESE KONFIGURATIONEN NICHT INSTALLIEREN, AUßER SIE VERTRAUEN IHREM ERSTELLER.\n\nVertrauen Sie dem Herausgeber und möchten die Konfiguration installieren?\n\n";
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Eine oder mehrere VPN Konfigurationen welche Sie installieren, beinhalten Programme die beim herstellen der VPN-Verbindung mit Root-Rechten ausgeführt werden. Diese können die VOLLSTÄNDIGE STEURUNG IHRES COMPUTER ÜBERNEHMEN.\n\nSIE SOLLTEN DIESE KONFIGURATIONEN NUR INSTALLIEREN WENN SIE DEM HERAUSGEBER VERTRAUEN.\n\nVertrauen Sie dem Herausgeber und möchten die Konfiguration installieren?\n\n";
 
 /* Window text */
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Eines oder mehrere VPNs sind zur Zeit verbunden. Bitte trennen Sie alle Verbindungen und beenden Sie Tunnelblick bevor Sie fortfahren.";
@@ -1472,7 +1472,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Die private Konfiguration wurde nie gesichert, daher können Sie sie nicht zu einer (Schatten-) Kopie zurücksetzen.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar." = "Der Beispiel-Konfigurationsordner ist auf dem Schreibtisch angelegt, und die OpenVPN-Konfigurationsdatei in TextEdit geöffnet, damit Sie sie bearbeiten können.\n\nSobald Sie die Bearbeitung der OpenVPN Konfiguration fertiggestellt und gespeichert haben,\n\n1. verschieben oder kopieren Sie alle damit verbundenen Zertifikats- und Schlüsseldateien in den 'Sample Tunnelblick VPN Configuration' Ordner auf Ihrem Schreibtisch.\n\n(Dieser Ordner wurde in einem Finder Fenster geöffnet, so dass Sie die Dateien hineinziehen können.)\n\n2. Benennen Sie die Konfigurationsdatei nach Ihrer Wahl um (ändern Sie nicht die Dateiendung). Dies wird der Name sein, den Tunnelblick für die Konfiguration verwendet.\n\n3. Um die Konfiguration zu installieren, ziehen Sie sie mit der Maus auf das Tunnelblick Icon in der Menüleiste und lassen Sie sie dort fallen.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "Der Beispiel-Konfigurationsordner ist auf dem Schreibtisch angelegt, und die OpenVPN-Konfigurationsdatei in TextEdit geöffnet, damit Sie sie bearbeiten können.\n\nSobald Sie die Bearbeitung der OpenVPN Konfiguration fertiggestellt und gespeichert haben,\n\n1. verschieben oder kopieren Sie bitte alle damit verbundenen Zertifikats- und Schlüsseldateien in den 'Sample Tunnelblick VPN Configuration' Ordner auf Ihrem Schreibtisch.\n\n(Dieser Ordner wurde in einem Finder Fenster geöffnet, so dass Sie die Dateien hineinziehen können.)\n\n2. Benennen Sie die Konfigurationsdatei nach Ihrer Wahl um (ändern Sie nicht die Dateiendung). Dies wird der Name sein, den Tunnelblick für die Konfiguration verwendet.\n\n3. Um die Konfiguration zu installieren, ziehen Sie sie mit der Maus auf das Tunnelblick Icon in der Menüleiste oder auf die Liste von Konfigurationen im \"Konfigurationen\" Reiter des \"VPN-Details\" Fensters und lassen Sie sie dort fallen.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "Der Benutzername und das Passwort wurden vom Remote VPN Server nicht akzeptiert.";
@@ -1577,7 +1577,7 @@
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick konnte keine IP-Adressinformationen holen, bevor die Verbindung mit %@ hergestellt wurde.\n\n";
 
 /* Window text */
-"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick konnte keine 'tun' oder 'tap' Angabe in der OpenVPN-Konfigurtionsdatei finden";
+"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick konnte keine 'tun' oder 'tap' Option in der OpenVPN-Konfigurationsdatei finden";
 
 /* Window text */
 "Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick konnte keinen freien Port für eine Kommunikation mit OpenVPN finden";
@@ -1820,7 +1820,7 @@
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "Sie können die \"%@\" Konfiguration nicht privat machen, da sie so eingerichtet ist, dass sie sich beim Start des Computers verbindet.";
 
 /* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Sie können die '%@' Konfiguration nicht privat machen oder für alle Nutzer freigeben, da sie eine updatbare Konfiguration ist.\n\nBeachten Sie bitte, dass eine Tunnelblick VPN Konfiguration, die in einer updatbaren Tunnelblick VPN Konfiguration ist, nicht privat oder für alle Nutzer freigeben sein kann; nur die Konfigurationen darin können privat gemacht oder für alle Nutzer freigegeben werden.";
+"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "Sie können die '%@' Konfiguration nicht privat machen oder für alle Nutzer freigeben, da sie eine updatbare Konfiguration ist.\n\nBeachten Sie bitte, dass eine Tunnelblick VPN Konfiguration, die updatebar ist, nicht privat oder für alle Nutzer freigeben sein kann; nur die Konfigurationen darin können privat gemacht oder für alle Nutzer freigegeben werden.";
 
 /* Window text */
 "You cannot rename a Deployed configuration." = "Eine Ausgelieferte Konfiguration kann nicht umbenannt werden.";
@@ -1909,6 +1909,9 @@
 /* Suffix for a duplicate of a file */
 " copy" = " Kopie";
 
+/* An entry in the list of OpenVPN versions. First %@ is an OpenVPN version number, e.g. '2.3.10'. Second %@ is an SSL library name, e.g. 'LibreSSL' */
+"%@ - %@" = "%1$@ - %2$@";
+
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d Tage %2$d:%3$02d:%4$02d";
 
@@ -1916,7 +1919,7 @@
 "64-bit enabling and testing" = "Ermöglichen und Testen der 64-Bit Version";
 
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Falls ausgewählt</strong>, wird das Tunnelblick-Icon neben dem Spotlight-Icon platziert:</p>\n<p>%1$@</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird das Tunnelblick-Icon normal platziert::</p>\n<p>%2$@</p>\n<p><strong>Das Kontrollkästchen ist deaktiviert</strong> weil es auf macOS Sierra nicht benötigt wird, oder auf Systemen Probleme verursachen könnte.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">weitere Informationen</a></p>";
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Falls ausgewählt</strong>, wird das Tunnelblick-Icon neben dem Spotlight-Icon platziert:</p>\n<p>%1$@</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird das Tunnelblick-Icon normal platziert::</p>\n<p>%2$@</p>\n<p><strong>Das Kontrollkästchen ist deaktiviert</strong> weil es auf macOS Sierra nicht benötigt wird, und auf Systemen, auf denen es Probleme verursachen könnte.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Weitere Informationen</a></p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Adminmodus %@ verbleibend";
@@ -1961,7 +1964,7 @@
 "Contributed to early code" = "Hat zum frühen Code beigetragen";
 
 /* Credit description */
-"Croation localization" = "Kroatische Lokalisierung";
+"Croatian localization" = "Kroatische Lokalisierung";
 
 /* Credit description */
 "Czech localization" = "Tschechische Lokalisierung";
@@ -2062,7 +2065,7 @@
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Erweiterungen im Programm und der Dokumentation ab Version 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "Ukrainische Lokalisierung";
+"Romanian localization" = "Rumänische Lokalisierung";
 
 /* Credit description */
 "Russian localization" = "Russische Lokalisierung";

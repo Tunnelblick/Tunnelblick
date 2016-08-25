@@ -532,7 +532,7 @@
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Szétkapcsolt - Speciális beállítások %3$@";
 
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
 "%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
@@ -718,22 +718,22 @@
 /* Window title */
 "While Connected" = "A kapcsolat ideje alatt";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu konfiguráció telepítve\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Egy konfiguráció telepítve\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Cserélt konfigurációk: %lu\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced one configuration\n\n" = "     • Egy konfiguráció cserélve\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled %lu configurations\n\n" = "     • %lu konfiguráció eltávolítva\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled one configuration\n\n" = "     • Egy konfiguráció eltávolítva\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
@@ -829,7 +829,7 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' beállítás figyelmen kívül hagyva; abszolút elérési útvonalat kell megadni vagy ezzel kezdeni \"~\"";
 
-/* Window text -- apears in log display when logging is disabled\n */
+/* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Naplózás kikapcsolva.)";
 
 /* Window text */
@@ -863,7 +863,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "A(z) '%@' személyes konfiguráció már létezik.\n\nSzeretné lecserélni a megosztott konfigurációval?";
 
 /* Window text */
-"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Egy probléma adódott a számítógép látszólagos nyilvános IP-címe ellenőrzése közben.\n\nLásd a konzol log-ot a részletekért.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Probléma adódott a számítógép látszólagos nyilvános IP-címének ellenőrzése közben.\n\nLásd a konzol log-ot a részletekért.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Egy '%@' nevű megosztott konfiguráció már létezik.\n\nSzeretné felülírni egy privát konfigurációval?";
@@ -902,7 +902,7 @@
 "All configurations use %@ credentials" = "Minden konfiguráció a(z) %@ hitelesítőadatot használja";
 
 /* Window text */
-"An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Hiba történt (státusz: %1$ld) a(z) %2$@ konfiguráció biztonsági ellenőrzése során.\n\nKérem indítsa újra a Tunnelblicket. Ha a probléma továbbra is fennáll kérem telepítse újra a Tunnelblicket.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Hiba történt (státusz: %1$ld) a(z) %2$@ konfiguráció biztonsági ellenőrzése során.\n\nKérem zárja be és indítsa újra a Tunnelblicket. Ha a probléma továbbra is fennáll kérem telepítse újra a Tunnelblicket.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Hiba történt az indítás során %@";
@@ -998,7 +998,7 @@
 "Configuration changes:" = "A konfiguráció változásai:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar." = "A konfigurációkat a hálózati rendszergazdája vagy a VPN szolgáltatója által adott fájlokból telepítjük.\n\nA konfigurációs fájlok kiterjesztése: .tblk, .ovpn, vagy .conf.\n\n(Előfordulhatnak egyéb fájlok, amik a konfigurációhoz rendeltek, hagyja őket figyelmen kívül.)\n\nA konfiguráció telepítéséhez jelölje ki és húzza őket a Tunnelblick ikonjára a felső menüsorban.\n\nTöbb konfiguráció egyidejű telepítéséhez jelölje ki az összes fájlt, és húzza az összeset a Tunnelblick ikonjára a felső menüsorban.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "A konfigurációkat a hálózati rendszergazdája vagy a VPN szolgáltatója által adott fájlokból telepítjük.\n\nA konfigurációs fájlok kiterjesztése: .tblk, .ovpn, vagy .conf.\n\n(Előfordulhatnak egyéb fájlok, amik a konfigurációhoz tartoznak, hagyja őket figyelmen kívül.)\n\nA konfiguráció telepítéséhez jelölje ki és húzza őket a Tunnelblick ikonjára a felső menüsorban, vagy a konfigurációk listájára a 'Konfigurációk' fülön a 'VPN részletek' ablakban.\n\nTöbb konfiguráció egyidejű telepítéséhez jelölje ki az összes fájlt, és húzza az összeset a Tunnelblick ikonjára a felső menüsorban.";
 
 /* Window text */
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "A jelen beállításokkal olyan konfigurációk is települnek a Tunnelblick telepítésével, amelyek nem részei a Tunnelblicknek.\n\n";
@@ -1472,7 +1472,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "A privát konfigurációról nem készült biztonsági másolat, ezért nem is állítható vissza.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar." = "A minta konfigurációs mappa létrejött az asztalán, és az OpenVPN konfigurációt megnyitottuk a szövegszerkesztőben, hogy módosíthassa a fájlt az Ön VPN beállításához.\n\nHa végzett az OpenVPN konfiguráció fájl szerkesztésével és elmentette a változásokat, kérjük:\n\n1. Helyezzen át vagy másoljon egy a konfigurációhoz társított kulcsot vagy tanúsítványt a 'Minta Tunnelblick VPN konfiguráció' mappába az asztalon.\n\n(Ezt a mappát egy Finder ablakban megnyitottuk, így behúzhatja oda a fájlokat.)\n\n2. Változtassa meg tetszőlegesen a konfigurációs fájl nevét (de ne változtassa meg a kiterjesztését). Ez lesz az a név, amit a Tunnelblick használni fog a konfigurációhoz.\n\n3. A konfiguráció telepítéséhez jelölje ki a konfigurációs fájlt és húzza a Tunnelblick ikonra a felső menüsorban.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "A minta konfigurációs mappa létrejött az asztalán, és az OpenVPN konfigurációt megnyitottuk a szövegszerkesztőben, hogy módosíthassa a fájlt az Ön VPN beállításához.\n\nHa végzett az OpenVPN konfiguráció fájl szerkesztésével és elmentette a változásokat, kérjük:\n\n1. Helyezzen át vagy másoljon egy a konfigurációhoz társított kulcsot vagy tanúsítványt a 'Minta Tunnelblick VPN konfiguráció' mappába az asztalon.\n\n(Ezt a mappát egy Finder ablakban megnyitottuk, így behúzhatja oda a fájlokat.)\n\n2. Változtassa meg tetszőlegesen a konfigurációs fájl nevét (de ne változtassa meg a kiterjesztését). Ez lesz az a név, amit a Tunnelblick használni fog a konfigurációhoz.\n\n3. A konfiguráció telepítéséhez jelölje ki a konfigurációs fájlt és húzza a Tunnelblick ikonra a felső menüsorban, vagy húzza a konfigurációk listájára a 'Konfigurációk' fülön a 'VPN részletek' ablakban.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "A távoli VPN szerver nem fogadta el a felhasználónevet és a jelszót.";
@@ -1909,6 +1909,9 @@
 /* Suffix for a duplicate of a file */
 " copy" = " másolat";
 
+/* An entry in the list of OpenVPN versions. First %@ is an OpenVPN version number, e.g. '2.3.10'. Second %@ is an SSL library name, e.g. 'LibreSSL' */
+"%@ - %@" = "%1$@ - %2$@";
+
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d nap %2$d:%3$02d:%4$02d";
 
@@ -1961,7 +1964,7 @@
 "Contributed to early code" = "A fejlesztés korai szakaszában résztvett";
 
 /* Credit description */
-"Croation localization" = "Horvát honosítás";
+"Croatian localization" = "Horvát honosítás";
 
 /* Credit description */
 "Czech localization" = "Cseh honosítás";

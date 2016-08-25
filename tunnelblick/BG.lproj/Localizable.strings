@@ -532,7 +532,7 @@
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Прекъсната - Разширени настройки%3$@";
 
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
 "%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
@@ -718,22 +718,22 @@
 /* Window title */
 "While Connected" = "Докато сте свързани";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Инсталирани %lu конфигурации\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Инсталирана една конфигурация  \n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Замени %lu конфигурация \n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced one configuration\n\n" = "     • Замени една конфигурация\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled %lu configurations\n\n" = "     • Деинсталира %lu конфигурация\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled one configuration\n\n" = "     • Деинсталира една конфигурация\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
@@ -829,7 +829,7 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "Свойството 'easy-rsaPath' игнорирано; трябва да е абсолютен път или да започва с '~'";
 
-/* Window text -- apears in log display when logging is disabled\n */
+/* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Логовете са спрени.)";
 
 /* Window text */
@@ -863,7 +863,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Лична конфигурация с име ' %@' вече съществува.  \n\nЖелаете ли да я замените със споделената конфигурация?";
 
 /* Window text */
-"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Възникна проблем при проверка публичния IP адрес на този компютър.  \n\nМоля проверете конзолния лог за подробности.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Възникна проблем при проверка на публичния IP адрес на този компютър. \n\nМоля проверете конзолния лог за подробности.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Има съществуваща споделена конфигурация с име '%@' \n\nИскате ли да я замените с ваша собствена \"лична\" конфигурация?";
@@ -902,7 +902,7 @@
 "All configurations use %@ credentials" = "Всички конфигурации използват %@ идентификационни данни";
 
 /* Window text */
-"An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Грешка (статус %1$ld) настъпили при опита за проверка на сигурността на %2$@ конфигурация.  \n\nМоля затворете и стартирайте наново Tunnelblick. Ако проблемът продължава, преинсталирайте Tunnelblick.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Грешка (статус %1$ld) настъпи при опит за проверка на сигурността на %2$@ конфигурацията. \n\nМоля, затворете и стартирайте наново Tunnelblick. Ако проблемът продължава, преинсталирайте Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Възникнала е грешка при опит да се стартира %@";
@@ -998,7 +998,7 @@
 "Configuration changes:" = "Промяна на настройките:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar." = "Конфигурациите се инсталират от файлове предоставени на вас от вашия мрежови администратор или VPN доставчик.\n\nКонфигурационните файлове имат разширения .tblk, .ovpn, или .conf.\n\n(Може да има други файлове свързани с конфигурацията с други разширения; игрнорирайте ги.)\n\nЗа да инсталирате конфигурационен файл, преместете го с мишката върху иконата на Tunnelblick горе в менюто.\n\nЗа да инсталирате повече от един конфигурационен файл, изберете ги и ги преместете с мишката върху иконата на Tunnelblick горе в менюто.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Конфигурациите се инсталират от файлове предоставени на вас от вашия мрежови администратор или VPN доставчик.\n\nКонфигурационните файлове имат разширения .tblk, .ovpn, или .conf.\n\n(Може да има други файлове свързани с конфигурацията с други разширения; игрнорирайте ги.)\n\nЗа да инсталирате конфигурационен файл, преместете го с мишката върху иконата на Tunnelblick горе в менюто.\n\nЗа да инсталирате повече от един конфигурационен файл, изберете ги и ги преместете с мишката върху иконата на Tunnelblick горе в менюто.";
 
 /* Window text */
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Конфигурации, които не са част от Tunnelblick, са избрани да бъдат инсталирани при инсталацията на Tunnelblick.\n\n";
@@ -1472,7 +1472,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Личната конфигурация никога не е била защитена, така че не можете да я върнете към подсигуреното (скрито) копие.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar." = "Когато приключите с редактирането на OpenVPN конфигурационен файл и запишете промените, моля:\n\n1. Преместете или копирайте ключовете и сертификатите свързани с конфигурацията в папка 'Sample Tunnelblick VPN Configuration' на вашия десктоп.\n\n(Тази папка е отворена в прозорец на програмата Finder, за по-лесно преместване (drag-drop) на файловете в нея.)\n\n2. Променете името на конфигурационния файл на име по ваш избор (не променяйте разширението на файла). Това ще бъде името, което Tunnelblick ще ползва за конфигурацията.\n\n3. За да инсталирате конфигурацията, преместете файла върху Tunnelblick иконата горе в менюто.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "Папка с примерна конфигурация беше създадена на вашия Десктоп и OpenVPN конфигурацията беше отворена в TextEdit, за да можете да направите промени за вашия VPN достъп.\n\nКогато приключите с редактирането на OpenVPN конфигурационен файл и запишете промените, моля:\n\n1. Преместете или копирайте ключовете и сертификатите свързани с конфигурацията в папка 'Sample Tunnelblick VPN Configuration' на вашия десктоп.\n\n(Тази папка е отворена в прозорец на програмата Finder, за по-лесно преместване (drag-drop) на файловете в нея.)\n\n2. Променете името на конфигурационния файл на име по ваш избор (не променяйте разширението на файла). Това ще бъде името, което Tunnelblick ще ползва за конфигурацията.\n\n3. За да инсталирате конфигурацията, преместете файла върху Tunnelblick иконата горе в менюто.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "Потребителското име и парола не бяха приети от отдалечения VPN сървър.";
@@ -1909,6 +1909,9 @@
 /* Suffix for a duplicate of a file */
 " copy" = " копие";
 
+/* An entry in the list of OpenVPN versions. First %@ is an OpenVPN version number, e.g. '2.3.10'. Second %@ is an SSL library name, e.g. 'LibreSSL' */
+"%@ - %@" = "%1$@ - %2$@";
+
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d дни %2$d:%3$02d:%4$02d";
 
@@ -1961,7 +1964,7 @@
 "Contributed to early code" = "Допринася за ранния код";
 
 /* Credit description */
-"Croation localization" = "Хърватска локализация";
+"Croatian localization" = "Хърватска локализация";
 
 /* Credit description */
 "Czech localization" = "Чешка локализация";

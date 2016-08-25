@@ -532,7 +532,7 @@
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ 연결 안됨 - 고급 설정%3$@";
 
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
 "%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
@@ -718,22 +718,22 @@
 /* Window title */
 "While Connected" = "연결되어 있는 동안";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • %lu 개 설정 설치\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • 1개 설정 설치\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • %lu개 설정 교체\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced one configuration\n\n" = "     • 1개 설정 교체\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled %lu configurations\n\n" = "     • %lu개 설정 삭제\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled one configuration\n\n" = "     • 1개 설정 삭제\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
@@ -829,7 +829,7 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' 설정 값 무시. 절대 경로 또는 '~' 로 시작해야 합니다";
 
-/* Window text -- apears in log display when logging is disabled\n */
+/* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(로그 기록 중단됨.)";
 
 /* Window text */
@@ -863,7 +863,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "'%@' 이름의 개인 설정이 이미 있습니다.\n\n이것을 공유 설정으로 교체하겠습니까?";
 
 /* Window text */
-"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "이 컴퓨터의 공용 IP 주소를 확인하는 도중 문제가 발생 했습니다.\n\n자세한 내용은 콘솔 로그를 참조 하십시오.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "이 컴퓨터의 공용 IP 주소를 확인하는 도중 문제가 발생 했습니다.\n\n자세한 내용은 콘솔 로그를 참조 하십시오.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "'%@' 이름의 공유 구성이 이미 있습니다.\n\n이것을 개인 구성으로 교체하겠습니까?";
@@ -902,7 +902,7 @@
 "All configurations use %@ credentials" = "모든 설정은 %@ 인증을 사용합니다";
 
 /* Window text */
-"An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "%2$@ 설정의 보안을 확인하는 동안 오류 (상태 %1$ld)가 발생했습니다.\n\n종료 후 Tunnelblick 다시 실행하십시오. 이 문제가 지속되면 Tunnelblick을 다시 설치하십시오.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "%2$@ 설정의 보안을 확인하는 동안 오류 (상태 %1$ld)가 발생했습니다.\n\n종료 후 Tunnelblick 다시 실행하십시오. 이 문제가 지속되면 Tunnelblick을 다시 설치하십시오.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "%@을 실행하는 동안 오류가 발생했습니다";
@@ -998,7 +998,7 @@
 "Configuration changes:" = "구성 변경:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar." = "구성은 네트워크 관리자 또는 VPN 서비스 공급자가 제공하는 파일로 설치할 수 있습니다.\n\n구성 파일은 .tblk, .ovpn 또는 .conf의 확장자를 가지고 있습니다.\n\n(다른 확장자를 가진 구성 파일도 있을 수 있으나 무시하십시오.)\n\n구성 파일을 설치하려면, 메뉴 막대의 Tunnelblick 아이콘에 끌어다 놓으십시오.\n\n복수의 구성을 한 번에 설치하려면, 모든 파일을 선택한 후 메뉴 막대의 Tunnelblick 아이콘에 끌어다 놓으십시오.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "구성은 네트워크 관리자 또는 VPN 서비스 공급자가 제공하는 파일로 설치할 수 있습니다.\n\n구성 파일은 .tblk, .ovpn 또는 .conf의 확장자를 가지고 있습니다.\n\n(다른 확장자를 가진 구성 파일도 있을 수 있으나 무시하십시오.)\n\n구성 파일을 설치하려면, 메뉴 막대의 Tunnelblick 아이콘에 끌어다 놓으십시오.\n\n복수의 구성을 한 번에 설치하려면, 모든 파일을 선택한 후 메뉴 막대의 Tunnelblick 아이콘이나 'VPN 상세' 창의 '구성' 탭의 구성 목록 위에 끌어다 놓으십시오.";
 
 /* Window text */
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "구성은 Tunnelblick의 일부가 아니며 Tunnelblick을 설치할 때 같이 설치됩니다.\n\n";
@@ -1472,7 +1472,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "개인 설정은 보호될 수 없어서 보안 (복제) 복사본으로 복원할 수 없습니다.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar." = "예제 구성 폴더가 데스크탑에 만들어졌으며, 텍스트 편집기로 열린 OpenVPN 구성 파일의 VPN 설정을 편집할 수 있습니다.\n\nOpenVPN 구성 파일 편집을 마치면 변경 사항을 저장하여 주십시오.\n\n1. 데스크탑의 '예제 Tunnelblick VPN 구성' 폴더에 구성과 결합된 키 또는 인증서 파일을 이동하거나 복사하십시오.\n\n(이 폴더는 파인더에서 열려있으며 파일을 끌어다 놓으면 됩니다.)\n\n2. 구성 파일의 이름을 변경하십시오.(파일의 확장자를 변경하지 않습니다) Tunnelblick이 구성의 이름으로 사용할 것입니다.\n\n3. 구성을 설치하려면, 구성 파일을 끌어서 메뉴 막대의 Tunnelblick 아이콘에 놓습니다.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "예제 구성 폴더가 데스크탑에 만들어졌으며, 텍스트 편집기로 열린 OpenVPN 구성 파일의 VPN 설정을 편집할 수 있습니다.\n\nOpenVPN 구성 파일 편집을 마치면 변경 사항을 저장하여 주십시오.\n\n1. 데스크탑의 '예제 Tunnelblick VPN 구성' 폴더에 구성과 결합된 키 또는 인증서 파일을 이동하거나 복사하십시오.\n\n(이 폴더는 파인더에서 열려있으며 파일을 끌어다 놓으면 됩니다.)\n\n2. 구성 파일의 이름을 변경하십시오.(파일의 확장자를 변경하지 않습니다) Tunnelblick이 구성의 이름으로 사용할 것입니다.\n\n3. 구성을 설치하려면, 구성 파일을 끌어서 메뉴 막대의 Tunnelblick 아이콘에 놓습니다.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "사용자 이름과 비밀번호가 원격 VPN 서버로부터 거부되었습니다.";
@@ -1909,6 +1909,9 @@
 /* Suffix for a duplicate of a file */
 " copy" = " 복사본";
 
+/* An entry in the list of OpenVPN versions. First %@ is an OpenVPN version number, e.g. '2.3.10'. Second %@ is an SSL library name, e.g. 'LibreSSL' */
+"%@ - %@" = "%1$@ - %2$@";
+
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d일 %2$d:%3$02d:%4$02d";
 
@@ -1961,7 +1964,7 @@
 "Contributed to early code" = "초기 코드 공헌";
 
 /* Credit description */
-"Croation localization" = "크로아티아어 지역화";
+"Croatian localization" = "크로아티아어 지역화";
 
 /* Credit description */
 "Czech localization" = "체코어 지역화";

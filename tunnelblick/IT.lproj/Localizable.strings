@@ -532,7 +532,7 @@
 /* Window title */
 "%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Disconnesso - Impostazioni Avanzate %3$@";
 
-/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be ommitted under certain circumstances */
+/* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
 "%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
@@ -718,22 +718,22 @@
 /* Window title */
 "While Connected" = "Durante la connessione";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Installed %lu configurations\n\n" = "     • Installato %lu configurazioni\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     • Installato una configurazione\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Sostituito %lu configurazioni\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced one configuration\n\n" = "     • Sostituito una configurazione\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled %lu configurations\n\n" = "     • Disinstallato %lu configurazioni\n\n";
 
-/* Window text: 'Tunnelblick succesfully: *' */
+/* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled one configuration\n\n" = "     • Disinstallato una configurazione  \n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
@@ -829,7 +829,7 @@
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "L'impostazione 'easy-rsaPath' è stata ignorata poiché deve essere un path assoluto o cominciare con '~'";
 
-/* Window text -- apears in log display when logging is disabled\n */
+/* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(scrittura del log disabilitata)";
 
 /* Window text */
@@ -863,7 +863,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Una configurazione privata chiamata '%@' esiste già.\n\nVuoi sostituirla con una configurazione condivisa?";
 
 /* Window text */
-"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Si è verificato un errore durante la verifica dell'indirizzo IP pubblico.\n\nDettagli disponibili attraverso l'applicazione 'Console'.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Si è verificato un errore durante la verifica dell'indirizzo IP pubblico di questo computer.\n\nUlteriori dettagli sono disponibili attraverso l'applicazione 'Console'.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Esiste già una configurazione condivisa col nome '%@'.\n\nVuoi veramente sostituirla con la configurazione privata?";
@@ -902,7 +902,7 @@
 "All configurations use %@ credentials" = "Tutte le configurazioni usano le credenziali %@";
 
 /* Window text */
-"An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Si è verificato un errore (stato %1$ld) durante la verifica della sicurezza della configurazione %2$@.\n\nÈ necessario terminare e riavviare Tunnelblick. Qualora il problema non fosse risolto, si consiglia di installare nuovamente Tunnelblick.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Si è verificato un errore (stato %1$ld) durante la verifica della sicurezza della configurazione %2$@.\n\nÈ necessario terminare e riavviare Tunnelblick. Qualora il problema non fosse risolto, si consiglia di installare nuovamente Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Un errore è avvenuto tentando di avviare %@";
@@ -998,7 +998,7 @@
 "Configuration changes:" = "Modifiche alla configurazione:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them on the Tunnelblick icon in the menu bar." = "Le Configurazioni sono installate a partire da documenti forniti dal proprio amministratore di rete o fornitore di accesso VPN.\n\nI documenti di configurazione possono avere come estensione .tblk, .ovpn, o .conf.\n\n(possono comunque esistere altri documenti associati alle Configurazioni che hanno altre estensioni e che possono essere ignorati)\n\nPer installare un documento di Configurazione è sufficiente trascinarlo sull'icona di Tunnelblick che si trova nella barra dei menu.\n\nPer installare più di un documento di Configurazione contemporaneamente è possibile trascinarli tutti sull'icona di Tunnelblick che si trova nella barra dei menu.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Le Configurazioni sono installate a partire da documenti forniti dal proprio amministratore di rete o fornitore di accesso VPN.\n\nI documenti di configurazione possono avere come estensione .tblk, .ovpn, o .conf.\n\n(possono comunque esistere altri documenti associati alle Configurazioni che hanno altre estensioni e che possono essere ignorati)\n\nPer installare un documento di Configurazione è sufficiente trascinarlo sull'icona di Tunnelblick che si trova nella barra dei menu o all'interno dell'elenco delle configurazioni nel pannello 'Configurazioni' della finestra 'Dettagli VPN'.\n\nÈ possibile installare più documenti di Configurazione contemporaneamente selezionandoli e trascinandoli in gruppo.";
 
 /* Window text */
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "I Documenti di Configurazione presenti che non fanno parte della distribuzione di Tunnelblick e sono stati prodotti da terzi verranno installati assieme a Tunnelblick.\n\n";
@@ -1472,7 +1472,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "La configurazione privata non è mai stata resa sicura, per cui non è possibile ripristinare la copia sicura.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar." = "La cartella contenente i documenti Configurazione di esempio è stata creata sulla Scrivania e il documento di configurazione OpenVPN è stato aperto con TextEdit cosicché possa essere modificato con i parametri necessari alla tua VPN.\n\nUna volta terminate e registrate le modifiche sarà necessario:\n\n1. spostare o copiare ogni Chiave o Certificato associato alla Configurazione all'interno della cartella 'Configurazione Tunnelblick VPN di esempio' che si trova sulla Scrivania\n\n(questa cartella è già stata aperta in una finestra in modo da rendere le operazioni di trascinamento più agevoli)\n\n2. cambiare il nome del documento di Configurazione con un nome a scelta (senza alterarne l'estensione). Il nome scelto epr il documento sarà quello che Tunnelblick userà per identificare la Connessione.\n\n3. per installare e rendere attiva la Configurazione trascinare il documento di Configurazione sull'icona di Tunnelblick nella barra dei menu.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "La cartella contenente i documenti Configurazione di esempio è stata creata sulla Scrivania e il documento di Configurazione OpenVPN è stato aperto con TextEdit cosicché possa essere modificato con i parametri necessari alla tua VPN.\n\nUna volta terminate e registrate le modifiche sarà necessario:\n\n1. spostare o copiare ogni Chiave o Certificato associato alla Configurazione all'interno della cartella 'Configurazione Tunnelblick VPN di esempio' che si trova sulla Scrivania\n\n(questa cartella è già stata aperta in una finestra del Finder in modo da rendere le operazioni di trascinamento più agevoli)\n\n2. cambiare il nome del documento di Configurazione con un nome a scelta (senza alterarne l'estensione). Il nome scelto per il documento sarà quello che Tunnelblick userà per identificare la Connessione.\n\n3. per installare e rendere attiva la Configurazione trascinare il documento di Configurazione sull'icona di Tunnelblick nella barra dei menu oppure all'interno della lista delle Configurazioni nel pannello 'Configurazioni' della finestra 'Dettagli VPN'.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "Lo username e la password non sono stati accettati dal server VPN remoto.";
@@ -1909,6 +1909,9 @@
 /* Suffix for a duplicate of a file */
 " copy" = " copia";
 
+/* An entry in the list of OpenVPN versions. First %@ is an OpenVPN version number, e.g. '2.3.10'. Second %@ is an SSL library name, e.g. 'LibreSSL' */
+"%@ - %@" = "%1$@ - %2$@";
+
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d giorni %2$d:%3$02d:%4$02d";
 
@@ -1961,7 +1964,7 @@
 "Contributed to early code" = "Contributi iniziali al codice";
 
 /* Credit description */
-"Croation localization" = "Traduzione in lingua Croata";
+"Croatian localization" = "Traduzione in lingua Croata";
 
 /* Credit description */
 "Czech localization" = "Traduzione in lingua Ceca";
