@@ -4,7 +4,7 @@
 //
 //  Created by Dirk Theisen on Thu Feb 26 2004.
 //  Copyright 2004 Objectpark Software. All rights reserved.
-//  Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015. All rights reserved.
+//  Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
 //
 //  Permission to use, copy, modify, and distribute this software for any
 //  purpose with or without fee is hereby granted, provided that the above
@@ -431,8 +431,7 @@ extern TBUserDefaults * gTbDefaults;
 #ifdef TBDebug
 	NSLog(@"DEBUG VERSION DOES NOT UPDATE LaunchAtLogin.plist.");
 #else
-    // The name of the LaunchAtLogin.plist file in Resources does not change when rebranded
-    NSString * ourPlistPath = @"/Applications/Tunnelblick.app/Contents/Resources/net.tunnelblick.tunnel" @"blick.LaunchAtLogin.plist";
+    NSString * ourPlistPath = @"/Applications/Tunnelblick.app/Contents/Resources/net.tunnelblick.tunnelblick.LaunchAtLogin.plist";
     NSString * launchAgentsPath = [[NSHomeDirectory() stringByAppendingPathComponent: @"Library"]
 								   stringByAppendingPathComponent: @"LaunchAgents"];
 	NSString * installedPlistPath = [launchAgentsPath stringByAppendingPathComponent: @"net.tunnelblick.tunnelblick.LaunchAtLogin.plist"];

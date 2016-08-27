@@ -923,8 +923,7 @@ int main(int argc, char *argv[])
         NSString *freePublicDnsServersPath  = [appResourcesPath stringByAppendingPathComponent:@"FreePublicDnsServersList.txt"                   ];
         NSString *iconSetsPath              = [appResourcesPath stringByAppendingPathComponent:@"IconSets"                                       ];
         
-        // The names of our launchd .plists file should not change when rebranded, so we break the strings so that global search/replace doesn't see them
-		NSString *launchAtLoginPlistPath    = [appResourcesPath stringByAppendingPathComponent:@"net.tunnelblick.tunnel" @"blick.LaunchAtLogin.plist"];
+        NSString *launchAtLoginPlistPath    = [appResourcesPath stringByAppendingPathComponent:@"net.tunnelblick.tunnelblick.LaunchAtLogin.plist"];
 		NSString *tunnelblickdPlistPath     = [appResourcesPath stringByAppendingPathComponent:[TUNNELBLICKD_PLIST_PATH lastPathComponent]];
         
         NSString *tunnelblickPath = [contentsPath stringByDeletingLastPathComponent];

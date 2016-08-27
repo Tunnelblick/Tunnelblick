@@ -187,6 +187,14 @@ if test ! -f "${app_path}/Contents/Resources/English.lproj/Localizable.strings" 
   cp -p -f "English.lproj/Localizable.strings" "${app_path}/Contents/Resources/English.lproj/Localizable.strings"
 fi
 
+# Rename the .plist files if this is a rebranded version of Tunnelblick
+ntt="net.tunnelblick"
+ntt="${ntt}.tunnelblick"
+if [ "${ntt}" != "net.tunnelblick.tunnelblick" ] ; then
+  mv "${app_path}/Contents/Resources/${ntt}.tunnelblickd.plist"  "${app_path}/Contents/Resources/net.tunnelblick.tunnelblick.tunnelblickd.plist"
+  mv "${app_path}/Contents/Resources/${ntt}.LaunchAtLogin.plist" "${app_path}/Contents/Resources/net.tunnelblick.tunnelblick.LaunchAtLogin.plist"
+fi
+
 # Remove extra files that are not needed
 
 rm -f "${app_path}/Contents/Resources/TBBuildNumber.txt"

@@ -6723,9 +6723,8 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     NSString *tunnelblickHelperPath     = [resourcesPath stringByAppendingPathComponent: @"tunnelblick-helper"                  ];
     NSString *leasewatchPlistPath       = [resourcesPath stringByAppendingPathComponent: @"LeaseWatch.plist"                    ];
     NSString *leasewatch3PlistPath      = [resourcesPath stringByAppendingPathComponent: @"LeaseWatch3.plist"                   ];
-    // The names of the plist files in Resources do not change when rebranded, so we break their strings into pieces so global search/replace doesn't find them
-    NSString *tunnelblickdPlistPath     = [resourcesPath stringByAppendingPathComponent: @"net.tunnel" @"blick.tunnelblick.tunnel" "blickd.plist"];
-    NSString *launchAtLoginPlistPath    = [resourcesPath stringByAppendingPathComponent: @"net.tunnel" @"blick.tunnelblick.LaunchAtLogin.plist"];
+    NSString *tunnelblickdPlistPath     = [resourcesPath stringByAppendingPathComponent: @"net.tunnelblick.tunnelblick.tunnelblickd.plist"];
+    NSString *launchAtLoginPlistPath    = [resourcesPath stringByAppendingPathComponent: @"net.tunnelblick.tunnelblick.LaunchAtLogin.plist"];
     NSString *launchAtLoginScriptPath   = [resourcesPath stringByAppendingPathComponent: @"launchAtLogin.sh"                    ];
 	NSString *clientUpPath              = [resourcesPath stringByAppendingPathComponent: @"client.up.osx.sh"                    ];
 	NSString *clientDownPath            = [resourcesPath stringByAppendingPathComponent: @"client.down.osx.sh"                  ];
