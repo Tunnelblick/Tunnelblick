@@ -98,7 +98,7 @@
 //     (11) If INSTALLER_DELETE is set and targetPath is given,
 //             deletes the .ovpn or .conf file or .tblk package at targetPath (also deletes the shadow copy if deleting a private configuration)
 //
-//     (12) Set up tunnelblickd
+//     (12) If not installing a configuration, set up tunnelblickd
 //
 // When finished (or if an error occurs), the file /tmp/tunnelblick-authorized-running is deleted to indicate the program has finished
 //
@@ -643,6 +643,8 @@ int main(int argc, char *argv[])
 	gDeployPath = [resourcesPath stringByAppendingPathComponent: @"Deploy"];
 #endif
     
+    BOOL installingAConfiguration = (argc == 4);
+
 	// Log the arguments installer was started with
 	unsigned long firstArg = strtoul(argv[1], NULL, 10);
 	NSMutableString * argString = [NSMutableString stringWithFormat: @" 0x%04lx", firstArg];
@@ -1351,9 +1353,11 @@ int main(int argc, char *argv[])
     // (12) Set up tunnelblickd to load when the computer starts
 	
     if (  ( ! forceLoadLaunchDaemon )  ) {
-        if (   needToReplaceLaunchDaemon()
-            || ( ! isLaunchDaemonLoaded() )  ) {
-            forceLoadLaunchDaemon = TRUE;
+        if (  ! installingAConfiguration  ) {
+            if (   needToReplaceLaunchDaemon()
+                || ( ! isLaunchDaemonLoaded() )  ) {
+                forceLoadLaunchDaemon = TRUE;
+            }
         }
     }
     
