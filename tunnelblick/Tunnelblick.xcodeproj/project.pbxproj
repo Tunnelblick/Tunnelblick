@@ -70,6 +70,7 @@
 		63432577140D7F6F00015CE0 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63432572140D7F5A00015CE0 /* CoreServices.framework */; };
 		6345F210120BB1DA009C6222 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6345F20F120BB1DA009C6222 /* Carbon.framework */; };
 		634616871A9B85C60049C16C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634616861A9B85C60049C16C /* SystemConfiguration.framework */; };
+		634827BB1D7DBFBB0046703C /* BuildThirdPartyItems.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634827BA1D7DBFBB0046703C /* BuildThirdPartyItems.sh */; };
 		634B02DF12553E5400A9D978 /* client.2.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */; };
 		634B02E012553E5400A9D978 /* client.2.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */; };
 		634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */; };
@@ -417,6 +418,7 @@
 		63432572140D7F5A00015CE0 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		6345F20F120BB1DA009C6222 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		634616861A9B85C60049C16C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
+		634827BA1D7DBFBB0046703C /* BuildThirdPartyItems.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = BuildThirdPartyItems.sh; sourceTree = "<group>"; };
 		63490251139F9C6B00025BD5 /* ConfigurationsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationsView.h; sourceTree = "<group>"; };
 		634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.down.tunnelblick.sh; sourceTree = "<group>"; };
 		634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.up.tunnelblick.sh; sourceTree = "<group>"; };
@@ -788,6 +790,7 @@
 			children = (
 				63F7497C1CB149820043C198 /* TBVersionString.txt */,
 				63379F8713F695D700F2554D /* TBBuildNumber.txt */,
+				634827BA1D7DBFBB0046703C /* BuildThirdPartyItems.sh */,
 				633E55621BB0F16600A6B8FB /* BuildAppsAndDmgs.sh */,
 				B891E52016F60E7000627008 /* Uninstaller */,
 				635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */,
@@ -1534,6 +1537,7 @@
 				6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */,
 				635971461C0673A10055FBC5 /* Preferences-RTL.xib in Resources */,
 				6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */,
+				634827BB1D7DBFBB0046703C /* BuildThirdPartyItems.sh in Resources */,
 				6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */,
 				639EC33E1C0E16A9001FE378 /* StatusWindow-RTL.xib in Resources */,
 				634B02DF12553E5400A9D978 /* client.2.down.tunnelblick.sh in Resources */,
@@ -1640,7 +1644,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# This build phase builds the third party items used by Tunnelblick.\n#\n# Because these items rarely change but take a lot of time to build, they are not\n# \"cleaned\" when the Tunnelblick project is cleaned using Xcode.\n#\n# However, there are times when it is convenient to clean them. This can be accomplished\n# by removing the third_party/do-not-clean file which was created when the third party\n# items were last built.\n#\n# So, to do a clean build of the third party items, make sure that the\n# third_party/do-not-clean file does not exist, and then build Tunnelblick normally.\n\n# Make sure we have the correct version of tunnelblick.xcodeproj for the version of Xcode that we are using\nif [ ${XCODE_VERSION_ACTUAL} -lt 0630 ] ; then\nouter_dir=\"${PWD%/*}\"\necho \"error: Tunnelblick must be built with Xcode 6.3 or higher, or 3.3.2. This version of Tunnelblick.xcodeproj is for Xcode 6.3 or higher on OS X 10.10.3 or higher. See ${outer_dir}/README.txt\"\nexit 1\nfi\n\ncd ../third_party/\n\n# The following line is needed so make openssl build without error\nCOMMAND_MODE=unix2003\n\n# The following line is needed so up-to-date autotools are used\nPATH=\"/usr/local/bin:$PATH\"\n\n# Test for version 2.69 of autoconf\nautoconf_version=\"$(autoconf --version | grep autoconf | sed -e 's/autoconf (GNU Autoconf) //')\"\nif [ \"${autoconf_version}\" != \"2.69\" ] ; then\necho \"warning: autoconf is version '${autoconf_version}'; expected version 2.69. Autotools may be out-of-date which can cause problems building some of the third_party programs\"\nfi\n\n# Test for version 1.9 of automake\nautomake_version=\"$(automake --version | grep automake | sed -e 's/automake (GNU automake) //')\"\nif [ \"${automake_version}\" != \"1.9\" ] ; then\necho \"warning: automake is version '${automake_version}'; expected version 1.9. Autotools may be out-of-date which can cause problems building some of the third_party programs\"\nfi\n\nif [ ! -e do-not-clean ]; then\nmake clean\nfi\n\nmake\n\ntouch do-not-clean\n";
+			shellScript = ./BuildThirdPartyItems.sh;
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
