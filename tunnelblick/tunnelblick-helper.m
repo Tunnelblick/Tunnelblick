@@ -1103,7 +1103,7 @@ int checkSignature(void) {
     }
     
     NSString * appPath =[[gResourcesPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]; // Remove /Contents/Resources
-    NSArray * arguments = [NSArray arrayWithObjects: @"-v", appPath, nil];
+    NSArray * arguments = [NSArray arrayWithObjects: @"-v", @"-v", @"--deep", appPath, nil];
     mode_t permissionsForCodesign = 0755;
     int returnValue = runAsRoot(TOOL_PATH_FOR_CODESIGN, arguments, permissionsForCodesign);
     exitOpenvpnstart(returnValue);

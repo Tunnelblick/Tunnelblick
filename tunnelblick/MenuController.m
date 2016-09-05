@@ -386,6 +386,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLangua
 								@"DB-AA",     // Extra logging for system authorization (for executeAuthorized)
                                 @"DB-AU",	  // Extra logging for VPN authorization
                                 @"DB-CD",     // Extra logging for connect/disconnect
+                                @"DB-CS",     // Extra logging for codesign checks
                                 @"DB-DD",     // Extra logging for drag/drop onto VPN Details window
                                 @"DB-HU",     // Extra logging for hookup,
                                 @"DB-IC",     // Extra logging for IP address checking
@@ -4128,75 +4129,82 @@ static void signal_handler(int signalNumber)
     return result;
 }
 
+-(BOOL) okToRunOpenvpnstart {
+    
+    NSString * tunnelblickdPath = @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd";
+    NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: tunnelblickdPath traverseLink: NO];
+    id obj = [attributes fileOwnerAccountID];
+    if (   ( ! obj)
+        || ( [obj unsignedLongValue] != 0)  ) {
+        TBLog(@"DB-CS", @"okToRunOpenvpnstart: tunnelblickd owner is not root; returning NO");
+        return NO;     // tunnelblickd is not owned by root:wheel, so it can't check the signature properly
+    }
+    obj = [attributes fileGroupOwnerAccountID];
+    if (   ( ! obj)
+        || ( [obj unsignedLongValue] != 0)  ) {
+        TBLog(@"DB-CS", @"okToRunOpenvpnstart: tunnelblickd group is not wheel; returning NO");
+        return NO;     // tunnelblickd is not owned by root:wheel, so it can't check the signature properly
+    }
+    
+    TBLog(@"DB-CS", @"okToRunOpenvpnstart: tunnelblickd is owned by root:wheel; returning YES");
+    return YES;
+}
+
 -(BOOL) hasValidSignature
 {
-    // Normal versions of Tunnelblick can be checked with codesign running as the user
-    //
-    // But Deployed versions need to run codesign as root, so codesign will "see" the .tblk contents that
-    // are owned by root and not accessible to other users (like keys and certificates). "openvpnstart checkSignature" runs codesign as
-    // root, but only if the Deployed Tunnelblick has been installed.
-    //
-    // So if a Deployed Tunnelblick hasn't been installed yet (e.g., it is running from .dmg), we don't check the signature here, and we assume it is valid.
-    //
-    // There could be a separate check for an invalid signature in installer, since installer could run codesign as root
-    // using the installer's authorization. However, installer runs without a UI, so it is complicated to provide the ability
-    // to report a failure and provide the option to continue. Considering that most Deployed Tunnelblick's are unsigned, this
-    // separate check has a low priority.
+    // If running in /Applications or have a Resources/Deploy folder, codesign must be run as root because some files and folders are
+    // not readable by the user.
+    // Otherwise (from a disk image or some other place), we can run codesign as the user.
     
-    if (  [gFileMgr fileExistsAtPath: gDeployPath]  ) {
-        NSString * tunnelblickdPath = [[NSBundle mainBundle] pathForResource: @"tunnelblickd" ofType: nil];
-        if (  [tunnelblickdPath isNotEqualTo: @"/Applications/Tunnelblick.app/Contents/Resources/tunnelblickd"]  ) {
-            return YES;
-        }
-        NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: tunnelblickdPath traverseLink: NO];
-        id obj = [attributes fileOwnerAccountID];
-        if (   ( ! obj)
-            || ( [obj unsignedLongValue] != 0)  ) {
-            return YES;     // tunnelblickd is not owned by root:wheel, so it can't check the signature properly
-        }
-        obj = [attributes fileGroupOwnerAccountID];
-        if (   ( ! obj)
-            || ( [obj unsignedLongValue] != 0)  ) {
-            return YES;     // tunnelblickd is not owned by root:wheel, so it can't check the signature properly
-        }
-        if (  needToReplaceLaunchDaemon()) {
-            return YES;     // tunnelblickd is not loaded
-        }
-
-        // Deployed and tunnelblickd has been installed, so we can run it to check the signature
-        OSStatus status = runOpenvpnstart([NSArray arrayWithObject: @"checkSignature"], nil, nil);
-        return (status == EXIT_SUCCESS);
-    }
-    
-	NSString * stdoutString = nil;
-	NSString * stderrString = nil;
-	
-    // Not a Deployed version of Tunnelblick, so we can run codesign as the user
-    if (  ! [gFileMgr fileExistsAtPath: TOOL_PATH_FOR_CODESIGN]  ) {  // If codesign binary doesn't exist, complain and assume it is NOT valid
-        NSLog(@"Assuming digital signature invalid because '%@' does not exist", TOOL_PATH_FOR_CODESIGN);
-        return FALSE;
-    }
-    
+    NSString * stdoutString = nil;
+    NSString * stderrString = nil;
     NSString * appPath = [[NSBundle mainBundle] bundlePath];
-    NSArray *arguments = (  runningOnLionOrNewer()
-                          ? [NSArray arrayWithObjects: @"-v", @"-v", @"--deep", appPath, nil]
-                          : [NSArray arrayWithObjects: @"-v", @"-v", appPath, nil]);
-    OSStatus status = runTool(TOOL_PATH_FOR_CODESIGN, arguments, &stdoutString, &stderrString);
-
-    if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"'codesign -v -v [--deep]' returned status = %ld; stdout = '%@'; stderr = '%@'", (long)status, stdoutString, stderrString);
-		return FALSE;
-	}
+    
+    if (   [gFileMgr fileExistsAtPath: gDeployPath]
+        || [[[NSBundle mainBundle] bundlePath] isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
+        if (  [self okToRunOpenvpnstart]  ) {
+            TBLog(@"DB-CS", @"Checking digital signature using openvpnstart");
+            OSStatus status = runOpenvpnstart([NSArray arrayWithObject: @"checkSignature"], nil, nil);
+            if (  status != EXIT_SUCCESS  ) {
+                TBLog(@"DB-CS", @"openvpnstart returned %ld", (long)status);
+                return FALSE;
+            }
+        } else {
+            NSLog(@"Not checking digital signature using openvpnstart because correct tunnelblickd is not running");
+            return FALSE;
+        }
+    } else {
+    
+        // Not a Deployed version of Tunnelblick and not in /Applications, so we can run codesign as the user
+        
+        TBLog(@"DB-CS", @"Checking digital signature as user");
+        if (  ! [gFileMgr fileExistsAtPath: TOOL_PATH_FOR_CODESIGN]  ) {  // If codesign binary doesn't exist, complain and assume it is NOT valid
+            NSLog(@"Assuming digital signature invalid because '%@' does not exist", TOOL_PATH_FOR_CODESIGN);
+            return FALSE;
+        }
+        
+        NSArray  * arguments = [NSArray arrayWithObjects: @"-v", @"-v", @"--deep", appPath, nil];
+        OSStatus status = runTool(TOOL_PATH_FOR_CODESIGN, arguments, &stdoutString, &stderrString);
+        
+        if (  status != EXIT_SUCCESS  ) {
+            NSLog(@"'codesign -v -v --deep' returned status = %ld; stdout = '%@'; stderr = '%@'", (long)status, stdoutString, stderrString);
+            return FALSE;
+        }
+    }
 	
-    arguments = [NSArray arrayWithObjects: @"-dvv", appPath, nil];
-    status = runTool(TOOL_PATH_FOR_CODESIGN, arguments, &stdoutString, &stderrString);
+    TBLog(@"DB-CS", @"signature is valid; checking that it is OUR signature");
+    // 'codesign -dvv' runs properly on Sierra even as a user
+    NSArray * arguments = [NSArray arrayWithObjects: @"-dvv", appPath, nil];
+    int status = runTool(TOOL_PATH_FOR_CODESIGN, arguments, &stdoutString, &stderrString);
     
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"'codesign -dvv' returned status = %ld; stdout = '%@'; stderr = '%@'", (long)status, stdoutString, stderrString);
         return FALSE;
     }
     
-    return [self checkSignatureIsOurs: stderrString];
+    BOOL ours = [self checkSignatureIsOurs: stderrString];
+    TBLog(@"DB-CS", @"signature is %@ours", (ours ? @"" : @"NOT "));
+    return ours;
 }
 
 - (NSURL *) getIPCheckURL
