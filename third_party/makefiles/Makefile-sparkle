@@ -47,11 +47,7 @@ built-sparkle-prepare:
 	@echo "THIRD_PARTY: Patching Sparkle.framework..."
 	if [ -d $(PATCHES_DIR)/sparkle ]; then \
 		cd "$(SPARKLE_BUILD_DIR)"; \
-		if [ $(XCODE_VERSION_MAJOR) -ge 0700 ] ; then \
-			patches="`ls $(PATCHES_DIR)/sparkle/*.diff`" ; \
-		else \
-			patches="`ls $(PATCHES_DIR)/sparkle/[0-9][0-9]*.diff`" ; \
-		fi ; \
+		patches="`ls $(PATCHES_DIR)/sparkle/*.diff`" ; \
 		for patch_file in $${patches}; do \
 			patch_name="$$(basename "$${patch_file}")" ; \
 			patch -p1 -N --dry-run -i $$patch_file > /dev/null; \
@@ -71,6 +67,13 @@ built-sparkle-prepare:
 			     "$(SPARKLE_BUILD_DIR)/Sparkle.xcodeproj/project.pbxproj" ; \
 		echo "Patched Sparkle.xcodeproj @OPENSSL_STAGING_DIR@ to $(OPENSSL_STAGING_DIR)" ; \
 		echo "Patched Sparkle.xcodeproj @TARGET_ARCH@ to $(CURRENT_ARCH)" ; \
+		if [ -e "$(PATCHES_DIR)/sparkle/de.lproj/Sparkle.strings" ] ; then \
+			cp -f -p -X "$(PATCHES_DIR)/sparkle/de.lproj/Sparkle.strings" "de.lproj/Sparkle.strings" ; \
+			cp -f -p -X "$(PATCHES_DIR)/sparkle/it.lproj/Sparkle.strings" "it.lproj/Sparkle.strings" ; \
+			cp -f -p -X "$(PATCHES_DIR)/sparkle/ru.lproj/Sparkle.strings" "ru.lproj/Sparkle.strings" ; \
+			cp -f -p -X "$(PATCHES_DIR)/sparkle/sv.lproj/Sparkle.strings" "sv.lproj/Sparkle.strings" ; \
+			echo "Sparkle de, it, ru, and sv UTF-16 .strings files replaced with UTF-8 .strings files." ; \
+		fi ; \
 		if [ ! -d "build/Release" ] ; then \
 			mkdir -p "build/Release" ; \
 		fi ; \
