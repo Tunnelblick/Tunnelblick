@@ -20,29 +20,37 @@
 #  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #  or see http://www.gnu.org/licenses/.
 
+TB_SPARKLE_DEPRECATED_HANDLING = GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS=NO
+SPARKLE_BUILD_DIR = $(TOPDIR)/build/sparkle
+SPARKLE_PRODUCTS_DIR = $(TOPDIR)/products/sparkle
+
 built-sparkle-prepare:
 	@echo "THIRD_PARTY: Expanding Sparkle.framework..."
 	cd "$(TOPDIR)/sources" ; \
 	sparkle_archive=`ls *parkle*` ; \
 	sparkle_archive_ext="$${sparkle_archive##*.}" ; \
+	rm -f -r "$(TOPDIR)/build/temp" ; \
+	mkdir "$(TOPDIR)/build/temp" ; \
+	cd "$(TOPDIR)/build/temp" ; \
 	if [ "zip" = "$${sparkle_archive_ext}" ] ; then \
-	    mkdir -p "$(SPARKLE_BUILD_DIR)" ; \
-	    cd "$(SPARKLE_BUILD_DIR)" ; \
-	    unzip -q "$(TOPDIR)/sources/$${sparkle_archive}" ; \
+		unzip -q "$(TOPDIR)/sources/$${sparkle_archive}" ; \
 	else \
-	    mkdir "$(TOPDIR)/build/temp" ; \
-	    cd "$(TOPDIR)/build/temp" ; \
-	    tar -x -f "$(TOPDIR)/sources/$${sparkle_archive}" ; \
-	    sparkle_expanded_name=`ls -d *parkle*` ; \
-	    mv "$(TOPDIR)/build/temp/$${sparkle_expanded_name}" "$(SPARKLE_BUILD_DIR)" ; \
-	    rm -f -r "$(TOPDIR)/build/temp" ; \
-	    cd "$(SPARKLE_BUILD_DIR)" ; \
+		tar -x -f "$(TOPDIR)/sources/$${sparkle_archive}" ; \
+	fi ; \
+	rm -f -r "$(SPARKLE_BUILD_DIR)" ; \
+	if [ -d "Extras" ] ; then \
+		mv "$(TOPDIR)/build/temp/Extras/Source Code" "$(SPARKLE_BUILD_DIR)" ; \
+	else \
+		if [ -d sparkle.xcodeproj ] ; then \
+			mv "$(TOPDIR)/build/temp"  "$(SPARKLE_BUILD_DIR)" ; \
+		else \
+			sparkle_expanded_name=`ls -d *parkle*` ; \
+			mv "$(TOPDIR)/build/temp/$${sparkle_expanded_name}" "$(SPARKLE_BUILD_DIR)" ; \
+		fi \
 	fi
-	cd "$(TOPDIR)/build" ; \
-	if [ -d  "$(SPARKLE_BUILD_DIR)/Extras/Source Code" ] ; then \
-		mv "$(SPARKLE_BUILD_DIR)/Extras/Source Code" "$(TOPDIR)/build/temp" ; \
-		rm -f -r "$(SPARKLE_BUILD_DIR)" ; \
-		mv "$(TOPDIR)/build/temp" "$(SPARKLE_BUILD_DIR)" ; \
+	cd "$(SPARKLE_BUILD_DIR)" ; \
+	if [ -d "$(TOPDIR)/build/temp" ] ; then \
+		rm -f -r "$(TOPDIR)/build/temp" ; \
 	fi
 	@echo "THIRD_PARTY: Patching Sparkle.framework..."
 	if [ -d $(PATCHES_DIR)/sparkle ]; then \

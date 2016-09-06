@@ -4034,7 +4034,7 @@ static void signal_handler(int signalNumber)
     // Do this even if we haven't set our preferences (see above), so Sparkle will include our data in the list
     // it presents to the user when asking the user for permission to send the data.
     if (  [updater respondsToSelector: @selector(setDelegate:)]  ) {
-        [updater setDelegate: self];
+        [updater setDelegate: (id)self];
     } else {
         NSLog(@"Cannot set Sparkle delegate because Sparkle Updater does not respond to setDelegate:");
     }

@@ -31,8 +31,7 @@ TOPDIR = $(PWD)
 
 #######################################################################################
 # Define names of folders in third_party/sources that contain programs to build:
-
-# The Sparkle archive is searched for using "*parkle* (to get "Sparkle..." and "sparkle..." and allow .zips or .tar.gz archives)
+# Names of OpenVPN folders are determined by examining third_party/sources/openvpn
 
 LZO_NAME         = lzo-2.09
 
@@ -50,12 +49,8 @@ TUNTAP_CURRENT_NAME   = tuntap-20141104
 TUNTAP_20111101_TARGZ = tuntap_20111101_src.tar.gz
 TUNTAP_CURRENT_TARGZ  = tuntap_20141104_src.tar.gz
 
-# Names of OpenVPN folders are determined by examining third_party/sources/openvpn
-
 #######################################################################################
-# Define treatment of deprecated functions, methods, etc. for Sparkle and OpenVPN
-
-TB_SPARKLE_DEPRECATED_HANDLING = GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS=NO
+# Define treatment of deprecated functions, methods, etc. for OpenVPN
 
 OPENVPN_DEPRECATED_LLVN_OPTION = -Wno-deprecated-declarations
 OPENVPN_DEPRECATED_GCC_MAKE_OPTION = GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS=NO
@@ -81,9 +76,6 @@ LZ4_STAGING_DIR = $(STAGING_DIR)/$(LZ4_NAME)
 
 PKCS11_BUILD_DIR = $(TOPDIR)/build/$(PKCS11_NAME)
 PKCS11_STAGING_DIR=$(STAGING_DIR)/$(PKCS11_NAME)
-
-SPARKLE_BUILD_DIR = $(TOPDIR)/build/sparkle
-SPARKLE_PRODUCTS_DIR = $(TOPDIR)/products/sparkle
 
 EASY_RSA_SOURCE_DIR = $(TOPDIR)/sources/easy-rsa
 EASY_RSA_PRODUCTS_DIR = $(TOPDIR)/products/easy-rsa-tunnelblick

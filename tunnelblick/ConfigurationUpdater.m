@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -117,7 +117,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgName)
             [cfgUpdater setAutomaticallyDownloadsUpdates: NO];      // MUST BE 'NO' because "Install" on Quit doesn't work properly
             [cfgUpdater setSendsSystemProfile:            NO];      // See https://answers.edge.launchpad.net/sparkle/+question/88790
             [cfgUpdater setUpdateCheckInterval:           interval];
-            [cfgUpdater setDelegate:                      self];
+            [cfgUpdater setDelegate:                      (id)self];
             [cfgUpdater setFeedURL:                       feedURL];
         } else {
             NSLog(@"Unable to create an updater for %@", path);
@@ -306,7 +306,7 @@ didFindValidUpdate:(SUAppcastItem *) update {
     TBLog(@"DB-UC", @"willInstallUpdate for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
 }
 
-- (void)installerFinishedForHost:(SUHost *)host {
+- (void)installerFinishedForHost:(id)host {
 	
 	(void) host;
 	

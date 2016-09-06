@@ -195,6 +195,12 @@ if [ "${ntt}" != "net.tunnelblick.tunnelblick" ] ; then
   mv "${app_path}/Contents/Resources/${ntt}.LaunchAtLogin.plist" "${app_path}/Contents/Resources/net.tunnelblick.tunnelblick.LaunchAtLogin.plist"
 fi
 
+# Copy the Tunnelblick icon over Sparkle's AutoUpdate.app icon (Our Sparkle patches create AutoUpdate.app as 'TunnelblickUpdater.app')
+readonly updaterIcons="${app_path}/Contents/Frameworks/Sparkle.framework/Resources/TunnelblickUpdater.app/Contents/Resources/AppIcon.icns"
+if [ -e "${updaterIcons}" ] ; then
+	cp -f -p -R "${app_path}/Contents/Resources/tunnelblick.icns" "${updaterIcons}"
+fi
+
 # Remove extra files that are not needed
 
 rm -f "${app_path}/Contents/Resources/TBBuildNumber.txt"
