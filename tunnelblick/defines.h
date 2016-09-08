@@ -136,11 +136,11 @@
 //*************************************************************************************************
 // Extensions that (for private configurations) require 640 permissions and ownership by Admin group
 // (Shared, Deploy, and alternate configurations are 0:0/600)
-#define KEY_AND_CRT_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", nil]
+#define KEY_AND_CRT_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", @"unknown", nil]
 
 //*************************************************************************************************
 // Extensions for files that should be copied when installing a .tblk
-#define TBLK_INSTALL_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", @"sh", @"lproj", nil]
+#define TBLK_INSTALL_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", @"sh", @"lproj", @"unknown", nil]
 
 //*************************************************************************************************
 // Extensions that indicate that a file is in non-binary format -- ASCII, not binary
