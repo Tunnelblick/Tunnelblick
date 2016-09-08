@@ -237,9 +237,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgName)
 
 - (BOOL)updaterShouldRelaunchApplication:(SUUpdater *)updater {
 	
-    // This is an additional delegate method for Tunnelblick.
-    // It allows Tunnelblick to return NO and update configurations without relaunching the application.
-	
     (void) updater;
 	
     TBLog(@"DB-UC", @"updaterShouldRelaunchApplication for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);

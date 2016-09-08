@@ -1,0 +1,174 @@
+--- Sparkle/Sparkle/SUAppcast.h	2016-08-07 06:39:07.000000000 -0400
++++ Sparkle_/Sparkle/SUAppcast.h	2016-09-07 11:52:42.000000000 -0400
+@@ -21,6 +21,7 @@
+ 
+ @property (copy) NSString *userAgentString;
+ @property (copy) NSDictionary *httpHeaders;
++@property (copy) NSString *publicDSAKey;
+ 
+ - (void)fetchAppcastFromURL:(NSURL *)url completionBlock:(void (^)(NSError *))err;
+ - (SUAppcast *)copyWithoutDeltaUpdates;
+--- Sparkle/Sparkle/SUAppcast.m	2016-08-07 06:39:07.000000000 -0400
++++ Sparkle_/Sparkle/SUAppcast.m	2016-09-07 16:20:56.000000000 -0400
+@@ -14,6 +14,7 @@
+ #import "SUAppcast.h"
+ #import "SUConstants.h"
+ #import "SULog.h"
++#import "SUDSAVerifier.h"
+ 
+ @interface NSXMLElement (SUAppcastExtensions)
+ @property (readonly, copy) NSDictionary *attributesAsDictionary;
+@@ -56,6 +57,7 @@
+ @synthesize httpHeaders;
+ @synthesize download;
+ @synthesize items;
++@synthesize publicDSAKey;
+ 
+ - (void)fetchAppcastFromURL:(NSURL *)url completionBlock:(void (^)(NSError *))block
+ {
+@@ -96,6 +98,15 @@
+ - (void)downloadDidFinish:(NSURLDownload *)__unused aDownload
+ {
+     NSError *error = nil;
++
++    NSString * pkeyString = self.publicDSAKey;
++    if (   pkeyString
++        && (![SUDSAVerifier validateSignedXMLFileAtPath:self.downloadFilename fromItemName:@"appcast" withPublicDSAKey:pkeyString]) ) {
++        error = [NSError errorWithDomain:SUSparkleErrorDomain code:SUAppcastParseError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:SULocalizedString(@"The update feed was not properly signed.", nil), NSLocalizedDescriptionKey, nil]];
++        [self reportError: error];
++        return;
++    }
++
+     NSArray *appcastItems = [self parseAppcastItemsFromXMLFile:[NSURL fileURLWithPath:self.downloadFilename] error:&error];
+ 
+     [[NSFileManager defaultManager] removeItemAtPath:self.downloadFilename error:nil];
+diff -u -r Sparkle/Sparkle/SUBasicUpdateDriver.m Sparkle_/Sparkle/SUBasicUpdateDriver.m
+--- Sparkle/Sparkle/SUBasicUpdateDriver.m	2016-09-04 08:25:24.000000000 -0400
++++ Sparkle_/Sparkle/SUBasicUpdateDriver.m	2016-09-07 16:20:59.000000000 -0400
+@@ -56,6 +56,7 @@
+ 
+     [appcast setUserAgentString:[self.updater userAgentString]];
+     [appcast setHttpHeaders:[self.updater httpHeaders]];
++    [appcast setPublicDSAKey: aHost.publicDSAKey];
+     [appcast fetchAppcastFromURL:URL completionBlock:^(NSError *error) {
+         if (error) {
+             [self abortUpdateWithError:error];
+diff -u -r Sparkle/Sparkle/SUDSAVerifier.h Sparkle_/Sparkle/SUDSAVerifier.h
+--- Sparkle/Sparkle/SUDSAVerifier.h	2016-07-26 05:39:44.000000000 -0400
++++ Sparkle_/Sparkle/SUDSAVerifier.h	2016-09-07 10:00:25.000000000 -0400
+@@ -27,6 +27,8 @@
+ 
+ + (BOOL)validatePath:(NSString *)path withEncodedDSASignature:(NSString *)encodedSignature withPublicDSAKey:(NSString *)pkeyString;
+ 
+++ (BOOL)validateSignedXMLFileAtPath:(NSString *)path fromItemName:(NSString *)itemName withPublicDSAKey:(NSString *)pkeyString;
++
+ - (instancetype)initWithPublicKeyData:(NSData *)data;
+ 
+ - (BOOL)verifyFileAtPath:(NSString *)path signature:(NSData *)signature;
+diff -u -r Sparkle/Sparkle/SUDSAVerifier.m Sparkle_/Sparkle/SUDSAVerifier.m
+--- Sparkle/Sparkle/SUDSAVerifier.m	2016-07-26 05:39:44.000000000 -0400
++++ Sparkle_/Sparkle/SUDSAVerifier.m	2016-09-07 15:53:35.000000000 -0400
+@@ -42,6 +42,103 @@
+     return [verifier verifyFileAtPath:path signature:signature];
+ }
+ 
+++ (BOOL)validateData:(NSData *)data withEncodedDSASignature:(NSString *)encodedSignature withPublicDSAKey:(NSString *)pkeyString
++{
++    if (  !data || !encodedSignature || !pkeyString  ) {
++        SULog(@"validateData:withEncodedDSASignature:withPublicDSAKey: data, encodedSignature, and/or publicDSAKey == nil");
++        return NO;
++    }
++    
++    SUDSAVerifier *verifier = [[self alloc] initWithPublicKeyData:[pkeyString dataUsingEncoding:NSUTF8StringEncoding]];
++    if (  !verifier  ) {
++        SULog(@"validateData:withEncodedDSASignature:withPublicDSAKey: Unable to obtain verifier with publicDSAKey '%@'",pkeyString);
++        return NO;
++    }
++    
++    NSString *strippedSignature = [encodedSignature stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
++    NSData *signature = [[NSData alloc] initWithBase64Encoding:strippedSignature];
++    
++    NSInputStream *dataInputStream = [NSInputStream inputStreamWithData:data];
++    return [verifier verifyStream:dataInputStream signature:signature];
++}
++
+++ (BOOL)validateSignedXMLFileAtPath:(NSString *)path fromItemName:(NSString *)itemName withPublicDSAKey:(NSString *)pkeyString
++{
++/* Verifies that the contents of an XML/HTML file were signed using a digital signature in an XML/HTML comment prepended to the contents.
++
++   "path" is the path to the file.
++   "itemName" is a name describing the data (examples: "appcast", "update notes")
++   "publicDSAKey" is used to verify the signature.
++
++   The file must start with an XML/HTML comment containing a digital signature of the remainder of the file. The comment is of the form:
++        <!-- Tunnelblick DSA Signature v1 SIGNATURE -->\n
++   where SIGNATURE is a 64-character encoded digital signature created by the Sparkle-provided "sign_update.rb" command using a private DSA key.
++
++   Notes:
++     1. The signature is calculated on a file, and then the comment with the signature is prepended to the file.
++     2. The signature comment is plain (7-bit) ASCII, but the remainder of the file can have any encoding.
++ */
++    
++    if (  !path || !itemName || !pkeyString  ) {
++        SULog(@"path, itemName, and/or PublicDSAKey == nil");
++        return NO;
++    }
++    
++    const char *comment_prefix = "<!-- Tunnelblick DSA Signature v1 ";
++    const char *comment_suffix = " -->\n";
++    const int encoded_signature_length = 64;
++    NSUInteger commentLength = strlen(comment_prefix) + encoded_signature_length + strlen(comment_suffix);
++
++    // Sanity check: the data can't be too small or too big
++    NSDictionary *infoDict = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
++    unsigned long long fileSize = [infoDict fileSize];
++    if (   fileSize < commentLength
++        || fileSize > 1000000  ) {
++        SULog(@"%@ is unreadable, too short, or too long at %@", itemName, path);
++        return NO;
++    }
++
++    NSData * data = [NSData dataWithContentsOfFile: path];
++    if (  ! data  ) {
++        SULog(@"Cannot load data for %@ from %@", itemName, path);
++        return NO;
++    }
++    
++    const char *comment_ptr     = [data bytes];
++    const char *signature_ptr   = comment_ptr + strlen(comment_prefix);
++    const char *comment_end_start_ptr = signature_ptr + encoded_signature_length;
++    
++    if (   (strncmp(comment_ptr,     comment_prefix, strlen(comment_prefix)) != 0)
++        || (strncmp(comment_end_start_ptr, comment_suffix, strlen(comment_suffix)) != 0)  ) {
++        SULog(@"The %@ signature at %@ was not present or was not formatted correctly", itemName, path);
++        return NO;
++    }
++
++    NSString *signature = [[NSString alloc] initWithBytes: signature_ptr length: encoded_signature_length encoding: NSASCIIStringEncoding];
++    if (  ! signature  ) {
++        SULog(@"The %@ signature at %@ was not 7-bit ASCII", itemName, path);
++        return NO;
++    }
++
++    // Remove the comment from the start of the data before verifying
++    const char *content_start_ptr = comment_ptr + commentLength;
++    NSData *signedContents = [NSData dataWithBytes: content_start_ptr length: fileSize - commentLength];
++    if (  ! signedContents  ) {
++        SULog(@"Cannot load signed contents of %@ at %@", itemName, path);
++        return NO;
++    }
++
++    // Verify the signature on the data
++    BOOL itemSignatureIsGood = [SUDSAVerifier validateData: signedContents withEncodedDSASignature: signature withPublicDSAKey: pkeyString];
++    if (  itemSignatureIsGood  ) {
++        SULog(@"Verified %@ signature", itemName);
++        return YES;
++    }
++    
++    SULog(@"Failed to verify %@ signature", itemName);
++    return NO;
++}
++
+ - (instancetype)initWithPublicKeyData:(NSData *)data
+ {
+     self = [super init];
