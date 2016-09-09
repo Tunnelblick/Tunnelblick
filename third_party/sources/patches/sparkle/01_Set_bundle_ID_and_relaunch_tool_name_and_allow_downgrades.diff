@@ -1,11 +1,10 @@
---- Sparkle/Configurations/ConfigCommon.xcconfig	2016-09-04 08:25:24.000000000 -0400
-+++ Sparkle_/Configurations/ConfigCommon.xcconfig	2016-09-04 10:45:50.000000000 -0400
+--- Sparkle/Configurations/ConfigCommon.xcconfig	2016-09-07 16:54:16.000000000 -0400
++++ Sparkle_/Configurations/ConfigCommon.xcconfig	2016-09-08 18:45:42.000000000 -0400
 @@ -1,14 +1,14 @@
  // Common
  
--SPARKLE_BUNDLE_IDENTIFIER = org.sparkle-project.Sparkle
+ SPARKLE_BUNDLE_IDENTIFIER = org.sparkle-project.Sparkle
 -SPARKLE_RELAUNCH_TOOL_NAME = Autoupdate
-+SPARKLE_BUNDLE_IDENTIFIER = net.tunnelblick.tunnelblick
 +SPARKLE_RELAUNCH_TOOL_NAME = TunnelblickUpdater
  SPARKLE_FILEOP_TOOL_NAME = fileop
  
