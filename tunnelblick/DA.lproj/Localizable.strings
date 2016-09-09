@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Tilføjede '.sh' filtypenavnet til %@ for at sikre det ordentligt";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "Tilføjede en '.key' endelse til %@ så den bliver sikret ordentligt";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
 
 /* Window text */
 "Additional contributions by" = "Yderligere bidrag fra";

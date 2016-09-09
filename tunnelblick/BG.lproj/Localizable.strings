@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Добавено е \".sh\" разширение към %@, с цел да бъде защитен правилно";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "Добавено е \".key\" разширение към %@, с цел да бъде защитен правилно";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
 
 /* Window text */
 "Additional contributions by" = "Допълнително съдействие от";

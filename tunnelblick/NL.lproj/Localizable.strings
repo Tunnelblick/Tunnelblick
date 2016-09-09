@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Er is een '.sh' extensie oegevoegd aan %@ zodat het goed beveiligd wordt";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "Extensie '.key' toegevoegd aan %@ zodat het goed zal worden beveiligd";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
 
 /* Window text */
 "Additional contributions by" = "Additionele bijdragen door";

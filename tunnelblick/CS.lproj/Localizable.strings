@@ -863,7 +863,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Soukromá konfigurace s názvem '%@' již existuje.\n\nPřejete si ji přepsat sdílenou konfigurací?";
 
 /* Window text */
-"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Vyskytl se problém při kontrole veřejné IP adresy tohoto počítače.\n\nVíce informací je v logu konzoly.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Sdílená konfigurace pojmenovaná '%@' již existuje.\n\nPřejete si ji pžepsat privátních konfigurací?";
@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Přidána přípona '.sh' k %@ , takže bude správně zabezpečen";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "Přidána přípona '.key' k %@ . Takže bude správně zabezpečeno";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
 
 /* Window text */
 "Additional contributions by" = "Další přispěvatelé";
@@ -902,7 +902,7 @@
 "All configurations use %@ credentials" = "Všechny konfigurace používají %@ přístupových údajů";
 
 /* Window text */
-"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Vyskytla se chyba (stav %1$ld) při pokusu o kontrolu bezpečnosti konfigurace %2$@.\n\nProsím ukončete a spusťte znovu Tunnelblick. Pokud problém přetrvává tak Tunnelblick přeinstalujte.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Nastala chyba při pokusu o spuštění %@";
@@ -998,7 +998,7 @@
 "Configuration changes:" = "Konfigurační změny:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfigurace jsou instalovány z souborů, které lze získat od Vašeho síťového administrátora, nebo poskytovatele služby VPN.\n\nKonfigurační soubory mají přípony .tblk, .ovpn, nebo .conf.\n\n(Mohou existovat i další soubory spojené s konfigurací, které mají jiné přípony; ty nyní ignorujte.)\n\nKonfigurační soubor nainstalujete přenesením na ikonu Tunnelblicku v menu, nebo na seznam konfigurací v záložce \"Konfigurace\" okna \"Detaily VPN\".\n\nVíce konfiguračních souborů najednou nainstalujete vybráním všech a přenesením všech na ikonu Tunnelblicku v menu.";
 
 /* Window text */
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Konfigurace které nejsou částí Tunnelblicku jsou nastaveny tak, že budou instalovány společně s Tunnelblickem.\n\n";
@@ -1472,7 +1472,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Privátní konfigurace nebyla nikdy zabezpečena, takže není možné se vrátit k bezpečné (stínové) kopii.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "Na Ploše byla vytvořena složka příkladů konfigurace a konfigurační soubor OpenVPN byl otevřen v TextEditu. V něm můžete modifikovat nastavení VPN.\n\nPo ukončení editace konfiguračního souboru jej nezapomeňte uložit.\n\n1. Přesuňte nebo zkopírujte klíč nebo certifikační soubory související s konfigurací do složky 'Sample Tunnelblick VPN Configuration' na Ploše.\n\n(Tato složka byla otevřena v okně Finderu a můžete soubory přesunout do ní.)\n\n2. Změňte jméno složky dle Vašeho přání (neměňte přípony souborů). Toto jméno použije Tunnelblick jako název konfigurace.\n\n3. Konfiguraci nainstalujete přenesením souboru konfigurace na ikonu Tunnelblicku v menu, nebo do seznamu konfigurací v záložce \"Konfigurace\" okna \"Detaily VPN\".";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "Jméno a heslo nebylo akceptováno vzdáleným VPN serverem.";
@@ -1964,7 +1964,7 @@
 "Contributed to early code" = "Podílník na původním kódu";
 
 /* Credit description */
-"Croatian localization" = "Croatian localization";
+"Croatian localization" = "Chorvatská lokalizace";
 
 /* Credit description */
 "Czech localization" = "Česká lokalizace";

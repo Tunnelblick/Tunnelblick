@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Priradená prípona \".sh\" k %@ , čím bude správne zabezpečená ";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "Priradená prípona \"key\" k %@ , čím bude tento správne zabezpečený";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
 
 /* Window text */
 "Additional contributions by" = "Ďalší prispievatelia";

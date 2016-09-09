@@ -863,7 +863,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "التثبيت الخاص المسمى '%@' موجود بالفعل.\nهل ترغب في استبدالها بالتثبيت المشترك؟";
 
 /* Window text */
-"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "حدثت مشكلة أثناء التحقق من عنوان IP الظاهر لهذا الكمبيوتر.\nراجع السجل للحصول على التفاصيل.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "التثبيت المشترك المسمى '%@' موجود بالفعل.\nهل ترغب في استبدالها بالتثبيت الخاص؟";
@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "تم اضافة 'sh.' إلى %@ ليتم تأمينها بشكل صحيح";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "تم اضافة تمديد 'key.' إلى %@ ليتم تأمينها بشكل صحيح";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
 
 /* Window text */
 "Additional contributions by" = "اسهامات إضافية من";
@@ -902,7 +902,7 @@
 "All configurations use %@ credentials" = "كافة التثبيتات تستخدم %@ أوراق اعتماد.";
 
 /* Window text */
-"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "حدث خطأ (الحالة %1$ld) أثناء محاولة التحقق من أمن %2$@ الإعدادات.\nيرجى إعادة تشغيل Tunnelblick. إذا استمرت المشكلة، الرجاء إعادة تثبيت Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "حدث خطأ أثناء محاولة تشغيل %@";
@@ -998,10 +998,10 @@
 "Configuration changes:" = "تغييرات في التضبيط:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "الاعدادات تثبت من الملفات المرسلة اليك من قبل مدير الشبكة او مقدم خدمة VPN.\n\nملفات الاعدادات لها النهايات .tblk \\ .ovpn \\ .conf.\n\n( ربما وجدت ملفات اخرى مع ملفات الاعدادات بنهايات اخرى ، لا تعر انتباهاً لها )\n\nلتثبيت ملف اعدادات ، اسحبه الى ايكونة البرنامج فى شريط القوائم، او قائمة الاعدادات فى شاشة الاعدادات بالبرنامج.\n\nلتثبيت اكثر من ملف اعدادات فى نفس الوقت ، اسحبهم جميعاً.";
 
 /* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n";
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "الاعدادات التى لا تتعلق بالبرنامج سيتم اعدادها بعد تثبيت البرنامج.\n\n";
 
 /* Window text */
 "Connect:" = "اتصل:";
@@ -1142,13 +1142,13 @@
 "Icon:" = "ايقونة:";
 
 /* Window text */
-"In %@:\n\nThere are no OpenVPN configurations to install." = "In %@:\n\nThere are no OpenVPN configurations to install.";
+"In %@:\n\nThere are no OpenVPN configurations to install." = "فى %@:\n\nلا توجد اعدادات OpenVPN لتثبيتها.";
 
 /* Window text */
-"In the OpenVPN configuration file for '%@' at line %lu: %@" = "In the OpenVPN configuration file for '%1$@' at line %2$lu: %3$@";
+"In the OpenVPN configuration file for '%@' at line %lu: %@" = "فى ملف اعداد OpenVPN لـ '%1$@' عند السطر %2$lu: %3$@";
 
 /* Window text */
-"In the OpenVPN configuration file for '%@': %@" = "In the OpenVPN configuration file for '%1$@': %2$@";
+"In the OpenVPN configuration file for '%@': %@" = "فى ملف اعداد OpenVPN لـ '%1$@': %2$@";
 
 /* Window text */
 "In:" = "في:";
@@ -1160,13 +1160,13 @@
 "Installation finished successfully." = "التثبيت انتهى بنجاح.";
 
 /* Window text */
-"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
+"Installing and securing Tunnelblick..." = "جارى تثبيت وتنصيب البرنامج…";
 
 /* Window text */
 "Installing configurations is not allowed" = "تثبيت الإعدادات غير مسموح";
 
 /* Window text */
-"Internal error: commentOutLines: line %lu does not exist" = "Internal error: commentOutLines: line %lu does not exist";
+"Internal error: commentOutLines: line %lu does not exist" = "خطأ داخلى: السطر %lu غير موجود";
 
 /* Window text */
 "Invalid value '%@' for '%@' in %@" = "قيمة غير صالحة %1$@ ل %2$@ في %3$@";
@@ -1184,7 +1184,7 @@
 "Last checked: %@" = "آخر تحقق: %@";
 
 /* Window text */
-"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Line %1$d of file '%2$@' contains a non-printable character (0x%3$X) which is not allowed.\n\n";
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "السطر %1$d من ملف %2$@ يحتوى على رمز لا يمكن طباعته (0x%3$X) وهو شئ غير مسموح به.\n\n";
 
 /* Window text */
 "Localization by" = "ترجم بواسطة";
@@ -1208,19 +1208,19 @@
 "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
 
 /* Window text */
-"Modified configuration file to remove path information" = "Modified configuration file to remove path information";
+"Modified configuration file to remove path information" = "تم تعديل ملف الاعدادات لإلغاء بيانات المسار";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "يمكن اعداد اكثر من اتصال متعدد ( %1$d مع اعداد Nameserver، %2$d بدون اعداد Nameserver).";
 
 /* Window text */
-"Named Credentials" = "Named Credentials";
+"Named Credentials" = "اعدادات الدخول";
 
 /* Window text */
-"Names may not include any of the following characters: %s" = "Names may not include any of the following characters: %s";
+"Names may not include any of the following characters: %s" = "الاسامى لا يمكن ان تحوى اي من الرموز التالية: %s";
 
 /* Window text */
-"Names may not include any of the following characters: %s\n\n%@" = "Names may not include any of the following characters: %1$s\n\n%2$@";
+"Names may not include any of the following characters: %s\n\n%@" = "الاسامى لا يمكن ان تحوى اي من الرموز التالية: %1$s\n\n%2$@";
 
 /* Window text */
 "NetBIOS name:" = "إسم NetBIOS:";
@@ -1229,55 +1229,55 @@
 "Network setting" = "إعدادات الشبكة";
 
 /* Window text */
-"No 'TBPackageVersion' in %@" = "No 'TBPackageVersion' in %@";
+"No 'TBPackageVersion' in %@" = "لا يوجد معرف TBPackageVersion فى %@";
 
 /* Window text */
-"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference";
+"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "لا يوجد مسار لـ easy-rsa. فى الغالب السبب هو مشكلة فى اعداد easy-rsaPath";
 
 /* Window text */
-"Non-array value for '%@' in %@" = "Non-array value for '%1$@' in %2$@";
+"Non-array value for '%@' in %@" = "اعداد خاطئ لـ %1$@ فى %2$@";
 
 /* Window text */
-"Non-boolean value for '%@' in %@" = "Non-boolean value for '%1$@' in %2$@";
+"Non-boolean value for '%@' in %@" = "اعداد خاطئ لـ %1$@ فى %2$@";
 
 /* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
-"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
+"Non-integer value for '%@' in %@" = "اعداد خاطئ لـ %1$@ فى %2$@";
 
 /* Window text */
-"Non-string value for '%@' in %@" = "Non-string value for '%1$@' in %2$@";
+"Non-string value for '%@' in %@" = "اعداد خاطئ لـ %1$@ فى %2$@";
 
 /* Window text */
-"Non-string value for an item in '%@' in %@" = "Non-string value for an item in '%1$@' in %2$@";
+"Non-string value for an item in '%@' in %@" = "اعداد خاطئ لـ %1$@ فى %2$@";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "لا تحوى اي من %ld اعدادات اي بيانات للدخول ( مفتاح خاص او اسم مستخدم وكلمة مرور) فى خزانة الدخول Keychain.";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "الملف ليس بامتداد ‎.ovpn أو ‎.conf:‏ %@";
 
 /* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "لن يتم تغيير الاعدادات الحالية ، لذلك لا يمكن لاعدادات %@ استخدام TBKeepExistingFilesList";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "هناك واحدة او اكثر من عمليات OpenVPN تعمل الآن ، ولكنها غير مرتبطة ب Tunnelblick. اذا كنت لا تستخدم OpenVPN دون استخدام Tunnelblick فهذا يعنى وجود نسخة قديمة من البرنامج لم يتم اغلاقها بعد ، ويجب اغلاقها لكي تعمل النسخة الجديدة. هل تريد اغلاق كل عمليات OpenVPN الآن ؟";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "هناك واحدة او اكثر من عمليات OpenVPN تعمل الآن ، ولكنها غير مرتبطة ب Tunnelblick. اذا كنت لا تستخدم OpenVPN دون استخدام Tunnelblick فهذا يعنى وجود نسخة قديمة من البرنامج لم يتم اغلاقها بعد ، ويجب اغلاقها لكي تعمل النسخة الجديدة. هل تريد اغلاق كل عمليات OpenVPN الآن ؟";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "هناك واحدة او اكثر من عمليات OpenVPN تعمل الآن ، ولكنها غير مرتبطة ب Tunnelblick. اذا كنت لا تستخدم OpenVPN دون استخدام Tunnelblick فهذا يعنى وجود نسخة قديمة من البرنامج لم يتم اغلاقها بعد ، ويجب اغلاقها لكي تعمل النسخة الجديدة.\n\nيمكن اغلاق هذه العمليات عن طريق منظم العمليات Activity Monitor.\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "هناك اعدادات VPN يتم تثبيتها تتضمن برامج لها احقية الحصول على تصريحات Root عند الاتصال، ويمكنها التحكم فى جهازك.\n\nلا يجب تثبيت تلك الاعدادات الا اذا كنت تثق تماماً فى مقدم الخدمة.\n\nهل تثق فى مقدم تلك الاعدادات وترغب فى تثبيتها ؟\n\n";
 
 /* Window text */
-"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "هناك اعدادات VPN يتم تثبيتها تتضمن اعدادات OpenVPN غير معرفة للبرنامج، ويمكن ان تسبب بعض المشاكل او تقوم بتشغيل بعض البرامج بصلاحيات متقدمة عند الاتصال.\n\nلا تقم بالتثبيت الا اذا كنت تثق فى مقدم تلك الاعدادات.\n\nهل تثق بمقدم تلك الاعدادات وتريد تثبيتها ؟\n\n";
 
 /* Window text */
-"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "هناك اعدادات VPN يتم تثبيتها تتضمن برامج لها احقية الحصول على تصريحات Root عند الاتصال، ويمكنها التحكم فى جهازك.\n\nلا يجب تثبيت تلك الاعدادات الا اذا كنت تثق تماماً فى مقدم الخدمة.\n\nهل تثق فى مقدم تلك الاعدادات وترغب فى تثبيتها ؟\n\n";
 
 /* Window text */
-"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding.";
+"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "هناك اتصال VPN جار الآن. برجاء اغلاق جميع اتصالات VPN واغلاق البرنامج قبل المواصلة.";
 
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "One or more configurations are being ignored. See the Console Log for details.";

@@ -761,7 +761,7 @@
 "  • Change ownership and permissions of the program to secure it\n" = "  • Canviar el propietari i els permisos de l'aplicació per fer-lo segur\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
-"  • Complete the update\n" = "  • Completa l'actualització\n";
+"  • Complete the update\n" = "  • Completar l'actualització\n";
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Convertir configuracions OpenVPN\n";
@@ -857,7 +857,7 @@
 "A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "A l'inici del sistema no es pot iniciar una configuració que requereix d'una paraula clau o d'un nom d'usuari i contrasenya.";
 
 /* Window text */
-"A passphrase is required to connect to\n  %@%@" = "És necessari una contrasenya per connectar a\n  %1$@%2$@";
+"A passphrase is required to connect to\n  %@%@" = "És necessaria una contrasenya per connectar a\n  %1$@%2$@";
 
 /* Window text */
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Una configuració privada amb nom '%@' ja existeix.\n\nDesitges substituir-la per la configuració compartida?";
@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "S'ha afegit l'extensió '.sh' a %@ per a poder-lo fer segur correctament";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "S'ha afegit l'extensió '.key a %@ per a poder-lo fer segur correctament";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
 
 /* Window text */
 "Additional contributions by" = "Amb contribucions addicionals de";

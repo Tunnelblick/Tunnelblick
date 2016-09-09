@@ -686,7 +686,7 @@
 "Unavailable" = "Onbeskikbaar";
 
 /* Window title */
-"Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
+"Use 'down-root' plugin for OpenVPN?" = "Gebruik 'down-root' prop vir OpenVPN?";
 
 /* Window title */
 "Utilities" = "Nut";
@@ -797,13 +797,13 @@
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick moet in Applications geinstalleer word.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick benodig rekenaar administrateur magtiging so dat dit kan verbind automaties '%@' waneer die rekenaar begin.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick benodig rekenaar administrateur magtiging so dat dit kan keer automatiese verbinding '%@' waneer die rekenaar begin.";
 
 /* Window text */
-" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WARNING: This copy of Tunnelblick has been tampered with.\n\n";
+" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WAARSKUWING: Hierdie Tunnelblick kopie is gepeuter mee.\n\n.\n\n";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ bestaan, maar is nie 'n gids";
@@ -818,16 +818,16 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' bestaan reeds op die lessenaar.\n\nWil jy dit vervang?";
 
 /* Window text */
-"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' does not have any credentials (private key or username and password) stored in the Keychain.";
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' het nie getuigskrifte (privaat sleutel of gebruikersnaam en paswoord) gebere in die Keychain.";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' is nie beëindig.";
 
 /* Window text */
-"'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' preference ignored; it does not specify a folder";
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' keuse geignoreer; dit spesifiseer nie 'n gids nie";
 
 /* Window text */
-"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'";
+"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' keuse geignoreer; dit moet 'n absolute lokasie wees of met '-' begin";
 
 /* Window text -- appears in log display when logging is disabled\n */
 "(Logging is disabled.)" = "(Melding is afgeskakel.)";
@@ -836,52 +836,52 @@
 "(Never checked)" = "(Nog nooit nagegaan)";
 
 /* Window text */
-"(The 'easy-rsaPath' preference is invalid.)" = "(The 'easy-rsaPath' preference is invalid.)";
+"(The 'easy-rsaPath' preference is invalid.)" = "(Die 'easy-rsaPath' keuse is ongeldig.)";
 
 /* Window text */
-"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+"(if connected when computer went to sleep)" = "(indien gekoppel wanner die rekenaar gaan slaap het)";
 
 /* Window text */
-"(if connected when user switched out)" = "(if connected when user switched out)";
+"(if connected when user switched out)" = "(indien gekoppel wanneer gebruiker uitskakel)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Gebaseer op Tunnelblick, verniet sagteware by<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is 'n geregistreerde handelsmerk van OpenVPN Technologies, Inc.";
 
 /* Window text */
-"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%1$@' in %2$@";
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "'n TBPreference of TBAlwaysSetPreference sleutel verwys na 'n onbekende keuse '%1$@' in %2$@\n \nContext | Request Context";
 
 /* Window text */
-"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "A Tunnelblick VPN Configuration is nested too deeply in '%@'";
+"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "'n Tunnelblick VPN Konfigurasie is geneste te diep in '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts.";
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "'n Konfigurasie wat 'n wagwoord (privaat sleutel) of 'n gebruikersnaam en paswoord kan nie begin wanner die rekenaar begin.";
 
 /* Window text */
-"A passphrase is required to connect to\n  %@%@" = "A passphrase is required to connect to\n  %1$@%2$@";
+"A passphrase is required to connect to\n  %@%@" = "'n Wagwoord is benodig om te koppel met\n  %1$@%2$@";
 
 /* Window text */
-"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?";
+"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "'n Privaat konfigurasie vernoem '%@' bestaan alreeds.\n\nWil jy dit vervang met die gedeelde opset?";
 
 /* Window text */
-"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "'n Probleem het voorgekom terwyl die rekenaar se public IP address was bevestig. \n\nSien die Konsool log vir besonderheerde.\n\n";
 
 /* Window text */
-"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?";
+"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "'n Gedeelde konfigurasie genoem '%@' bestaan.\n\nWil jy dit vergang met die privaat opset?";
 
 /* Window text */
-"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
+"A username and password are required to connect to\n  %@" = "'n Gebruikersnaam en paswoord is benodig om te koppel met\n  %@";
 
 /* Window text */
-"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "'n Gebruikersnaam en paswoord is benodig om te koppel met\n  %1$@\n(gebruik van '%2$@' getuigskrifte)";
 
 /* Window text */
 "Add Credentials" = "Voeg Intekenbesonderhede";
 
 /* Window text */
-"Added '.sh' extension to %@ so it will be secured properly" = "Added '.sh' extension to %@ so it will be secured properly";
+"Added '.sh' extension to %@ so it will be secured properly" = "Bygevoeg '.sh' verlenging by %@ om dit behoorlik te verseker";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "Added a '.key' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
 
 /* Window text */
 "Additional contributions by" = "Bykomende bydraes deur";

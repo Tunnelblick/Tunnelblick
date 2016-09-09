@@ -287,13 +287,13 @@
 "Make Configuration Shared..." = "将配置改为共享…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "没有 OpenVPN 或者 Tunnelblick VPN 日志";
+"No OpenVPN or Tunnelblick VPN logging" = "不记录 OpenVPN 或 Tunnelblick VPN 的日志";
 
 /* Menu item */
 "No VPN Configurations Available" = "无 VPN 配置";
 
 /* Menu Item */
-"OpenVPN level %lu" = "OpenVPN 等级 %lu";
+"OpenVPN level %lu" = "OpenVPN 日志等级 %lu";
 
 /* Menu Item */
 "OpenVPN level 0 - no output except fatal errors" = "OpenVPN 日志等级 0 - 除非致命错误否则没有输出";
@@ -305,16 +305,16 @@
 "OpenVPN level 3 - normal output" = "OpenVPN 日志等级 3 - 正常输出";
 
 /* Menu Item */
-"OpenVPN level 4 - also outputs values for all options" = "OpenVPN 日志等级 4 - 也输出所有选项的值";
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN 日志等级 4 - 同时输出所有选项的值";
 
 /* Menu Item */
-"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN 日志等级 5 - 也输出每一个包的 \"R\" or \"W\"";
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN 日志等级 5 - 同时输出每一个包的 \"R\" or \"W\"";
 
 /* Menu Item */
 "OpenVPN level 6 - very verbose output" = "OpenVPN 日志等级 6 - 非常详细的输出";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "有配置文件配置的 OpenVPN 日志等级";
+"OpenVPN logging level set by the configuration" = "由配置文件设置 OpenVPN 的日志等级";
 
 /* Menu item */
 "Quit Tunnelblick" = "退出 Tunnelblick";
@@ -407,7 +407,7 @@
 "Monitor network settings" = "监控网络配置";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "置于搜索图标附近";
+"Place near Spotlight icon" = "置于 Spotlight 的图标旁";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "准备用于搜索域名的域名后缀";
@@ -656,7 +656,7 @@
 "Settings" = "选项";
 
 /* Window title */
-"Sounds" = "声音";
+"Sounds" = "音效";
 
 /* Window title */
 "System Requirements Not Met" = "未满足对系统的要求";
@@ -797,7 +797,7 @@
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick 必须安装在应用程序里.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick 需要计算机管理员的授权, 这样它可以在计算机启动时自动连接到 '%@'.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick 需要计算机管理员的授权才可在计算机启动时自动连接到 '%@'.";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick 需要计算机管理员的授权, 这样它可以不再在计算机启动时自动连接到 '%@'.";
@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "把 '.sh' 加到 %@ 中作为扩展名，因此它将受到适当的保护";
 
 /* Window text */
-"Added a '.key' extension to %@ so it will be secured properly" = "把 '.key' 加到 %@ 中作为扩展名，因此它将受到适当的保护";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
 
 /* Window text */
 "Additional contributions by" = "其他有贡献的个人和机构";
