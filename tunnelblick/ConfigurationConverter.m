@@ -380,15 +380,15 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     
     NSString * ext = [path pathExtension];
     
-    // Get the contents of the file
+    // Get the contents of the file as raw bytes
     NSData * data = [[NSFileManager defaultManager] contentsAtPath: path];
 	if (  ! data  ) {
 		return [self logMessage: [NSString stringWithFormat: @"File '%@' is missing.", path]
                       localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' is missing", @"Window text"), [path lastPathComponent]]];
 	}
-	if (  [data length] == 0  ) {
-		return [self logMessage: [NSString stringWithFormat: @"File '%@' is empty.", path]
-                      localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' is empty", @"Window text"), [path lastPathComponent]]];
+	if (  [data length] < 2  ) {
+		return [self logMessage: [NSString stringWithFormat: @"File '%@' is too short (%lu bytes).", path, (unsigned long)[data length]]
+                      localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' is too short (%lu bytes)", @"Window text"), [path lastPathComponent], (unsigned long)[data length]]];
 	}
     
     // If it is a binary key/cert file, allow any characters
@@ -399,34 +399,36 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     }
     
     // Check for RTF files
-    const char * chars = [data bytes];
+    const unsigned char * chars = [data bytes];
     if (   chars[0] == '{'  ) {
         return [self logMessage: [NSString stringWithFormat: @"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.", path]
                       localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.", @"Window text"), [path lastPathComponent]]];
     }
     
-    // Set up variables that control what we look for
-    BOOL isConfigurationFile = FALSE;
-    BOOL isScriptFile        = FALSE;
-    
+    // OpenVPN configuration files can be UTF-8 or UTF-16, so don't test them
     if (   [ext isEqualToString: @"ovpn"]
         || [ext isEqualToString: @"conf"]  ) {
-        isConfigurationFile  = TRUE;
-    } else if (  [ext isEqualToString: @"sh"]  ) {
-        isScriptFile = TRUE;
-    } else if (  ! [KEY_AND_CRT_EXTENSIONS containsObject: ext]  ) {
+        return nil;
+    }
+    
+    // Check for UTF-16 files
+    if (   (   (chars[0] == 0xFF) && (chars[1] == 0xFE))
+        || (   (chars[0] == 0xFE) && (chars[1] == 0xFF))  ) {
+        return [self logMessage: [NSString stringWithFormat: @"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.", path]
+                      localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.", @"Window text"), [path lastPathComponent]]];
+    }
+    
+	// Don't test anything else in a script file because it is checked elsewhere for CR characters, which are the only characters that are not allowed
+    if (  [ext isEqualToString: @"sh"]  ) {
+        return nil;
+    }
+    
+    if (  ! [KEY_AND_CRT_EXTENSIONS containsObject: ext]  ) {
         return [self logMessage: [NSString stringWithFormat: @"File '%@' has an extension which is not known to Tunnelblick.", path]
                       localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' has an extension which is not known to Tunnelblick.", @"Window text"), [path lastPathComponent]]];
     }
     
-    // Don't test anything else in a configuration file because it can contain UTF8 characters pretty much anywhere
-	// Don't test anything else in script or configuration file because that is checked elsewhere for CR characters, which are the only characters that are not allowed
-    if (  isConfigurationFile
-		|| isScriptFile  ) {
-        return nil;
-    }
-    
-    // It is a key or certificate file
+    // It is a non-binary key or certificate file
     BOOL inBackslash = FALSE;
     unsigned i;
     unsigned lineNumber = 1;
@@ -1011,6 +1013,29 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 	}
 }
 
+-(NSMutableString *) mutableCopyOfStringWithContentsOfFileAtPath: (NSString *) path {
+    
+    // Try to read a file assuming UTF-8 encoding (from Mac/Linux or downloaded from Internet)
+    // If that fails, try assuming UTF-16 encoding (directly from Windows)
+    
+    if (  ! [gFileMgr fileExistsAtPath: path]  ) {
+        NSLog(@"mutableCopyOfStringWithContentsOfFileAtPath: No file exists at path %@", path);
+        return nil;
+    }
+    
+    NSMutableString * contents = [[NSString stringWithContentsOfFile: path encoding: NSUTF8StringEncoding error: NULL] mutableCopy];
+    
+    if (  ! contents  ) {
+        contents = [[NSString stringWithContentsOfFile: path encoding: NSUTF16StringEncoding error: NULL] mutableCopy];
+    }
+    
+    if (  ! contents  ) {
+        NSLog(@"mutableCopyOfStringWithContentsOfFileAtPath: Unknown encoding (not UTF-8 or UTF-16) of file at %@", path);
+    }
+    
+    return contents;
+}
+
 -(NSString *) convertConfigPath: (NSString *) theConfigPath
 					 outputPath: (NSString *) theOutputPath
               replacingTblkPath: (NSString *) theReplacingTblkPath
@@ -1073,7 +1098,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
         return errMsg;
     }
     
-    configString = [[[[NSString alloc] initWithContentsOfFile: configPath encoding: NSUTF8StringEncoding error: NULL] autorelease] mutableCopy];
+    configString = [self mutableCopyOfStringWithContentsOfFileAtPath: configPath];
+    if (  ! configString) {
+        return [self logMessage: [NSString stringWithFormat: @"Unreadable file at %@", configPath]
+                      localized: [NSString stringWithFormat: NSLocalizedString(@"Unreadable file at %@\n\nSee the Console log for details.", @"Window text"), configPath]];
+
+    }
     
     // Append newline to file if it doesn't aleady end in one (simplifies parsing)
     if (  ! [configString hasSuffix: @"\n"]  ) {
@@ -1722,10 +1752,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
         return CommandOptionsError; // Error already logged
     }
     
-    configString = [[[[NSString alloc] initWithContentsOfFile: configPath encoding: NSUTF8StringEncoding error: NULL] autorelease] mutableCopy];
-    if (  ! configString  ) {
-        NSLog(@"commandOptionsStatusForOpenvpnConfigurationAtPath: No file at path %@", configPath);
-        return CommandOptionsError;
+    configString = [self mutableCopyOfStringWithContentsOfFileAtPath: configPath];
+    if (  ! configString) {
+        return CommandOptionsError;  // Error was already logged to the Console
     }
     
     // Append newline to file if it doesn't aleady end in one (simplifies parsing)
