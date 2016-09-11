@@ -2982,6 +2982,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         return NO;
     }
     
+    if (  ! [connection isDisconnected]  ) {
+        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"You may not remove a configuration unless it is disconnected.", @"Window text"));
+        return NO;
+    }
+    
     NSString * configurationPath = [connection configPath];
 	
     if (  [ConfigurationManager isConfigurationSetToConnectWhenComputerStartsAtPath: configurationPath]  ) {
