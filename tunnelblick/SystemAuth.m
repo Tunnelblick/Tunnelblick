@@ -31,6 +31,7 @@
 #import "sharedRoutines.h"
 #import "TBUserDefaults.h"
 
+extern NSFileManager * gFileMgr;
 
 // This is the SystemAuth for the "lock" icon in the VPN Details window. It is set/cleared using +setLockSystemAuth:
 static SystemAuth * lockSystemAuth = nil;
@@ -45,17 +46,23 @@ extern TBUserDefaults  * gTbDefaults;
 
 TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
 
-+(void) createAuthorizationIcon {
++(NSString *) pathToAuthorizationIcon {
     
-    // Creates a small icon that appears as part of the padlock icon that OS X shows the user.
+    // One would think that we could always use an image in Resources, but that doesn't work if the path to it is
+    // too long because the icon doesn't get displayed.
     //
-    // One would think that we could use an icon in Resources, but that doesn't work. Apparently if the path is too long
-    // the icon won't be displayed. It works if the icon is in /tmp. (Not if it is in NSTemporaryDirectory() -- path too long.)
-    // In addition, it seems to require a 32x32 png.
+    // The path to the icon is short when running in /Applications or from a disk image, so this usually only happens
+    // when running a Tunnelblick.app in a deeply nested folder, for example while debugging.
     //
-    // We create the icon dynamically so that if the Tunnelblick app icon changes, the authorization dialog will show the new icon.
+    // So if this is a debug build we create the icon dynamically and store it in /tmp.
     //
-    // The image manipulation code was adapted from comment 7 on http://cocoadev.com/forums/comments.php?DiscussionID=1215
+    // (Storing the icon in /tmp works, but storing it in NSTemporaryDirectory() doesn't because that path is too long.)
+    //
+    // We can use this behavior to create the 32x32 .png icon when the regular Tunnelblick icon is updated.
+    
+#ifndef TBDebug
+    return [[NSBundle mainBundle] pathForResource: @"AuthIcon" ofType: @"png"];
+#else
     
     NSImage * saveIcon = [[NSWorkspace sharedWorkspace] iconForFile: [[NSBundle mainBundle] bundlePath]];
     
@@ -75,7 +82,9 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
                                       properties: [NSDictionary dictionary]];
     
     // Save PNG file
-    [data writeToFile: PADLOCK_ICON_PATH atomically: NO];
+    [data writeToFile: @"/tmp/TunnelblickAuthIcon.png" atomically: NO];
+    return @"/tmp/TunnelblickAuthIcon.png";
+#endif
 }
 
 +(AuthorizationRef) getAuthorizationRefWithPrompt: (NSString *) prompt {
@@ -87,8 +96,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     
     // Create the authorization environment, consisting of the icon and a prompt
     // Prefix the prompt with a space so it is indented, like the rest of the dialog, and follow it with two newlines
-    [SystemAuth createAuthorizationIcon];
-    const char * iconPathC      = [PADLOCK_ICON_PATH fileSystemRepresentation];
+    const char * iconPathC      = [[SystemAuth pathToAuthorizationIcon] fileSystemRepresentation];
     char *       promptC        = (char *) [[NSString stringWithFormat: @" %@\n\n", prompt] UTF8String];
     AuthorizationItem environmentItems[] = {
         {kAuthorizationEnvironmentPrompt, strlen(promptC),   (void*)promptC,   0},
@@ -123,8 +131,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, prompt, setPrompt)
     
     // Create the authorization environment, consisting of the icon and a prompt
     // Prefix the prompt with a space so it is indented, like the rest of the dialog, and follow it with two newlines
-    [SystemAuth createAuthorizationIcon];
-    const char * iconPathC      = [PADLOCK_ICON_PATH fileSystemRepresentation];
+    const char * iconPathC      = [[SystemAuth pathToAuthorizationIcon] fileSystemRepresentation];
     char *       promptC        = (char *) [[NSString stringWithFormat: @" %@\n\n", prompt] UTF8String];
     AuthorizationItem environmentItems[] = {
         {kAuthorizationEnvironmentPrompt, strlen(promptC),   (void*)promptC,   0},
