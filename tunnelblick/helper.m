@@ -130,6 +130,11 @@ BOOL runningOnYosemiteOrNewer(void)
     return runningOnNewerThan(10, 9);
 }
 
+BOOL runningOnElCapitanOrNewer(void)
+{
+    return runningOnNewerThan(10, 10);
+}
+
 BOOL runningOnSierraOrNewer(void)
 {
     return runningOnNewerThan(10, 11);
@@ -1269,4 +1274,59 @@ void localizableStrings(void)
 	NSLocalizedString(@"PASSWORD_WAIT",    @"Connection status");
 	NSLocalizedString(@"PRIVATE_KEY_WAIT", @"Connection status");
     NSLocalizedString(@"DISCONNECTING",    @"Connection status");
+}
+
+BOOL itemHasValidSignature(NSString * path, BOOL deepCheck) {
+    
+    NSURL * urlToCheck = [NSURL fileURLWithPath: path];
+    
+    CFErrorRef errorCF = NULL;
+    SecStaticCodeRef staticCode = NULL;
+    
+    OSStatus status = SecStaticCodeCreateWithPath((__bridge CFURLRef)urlToCheck, kSecCSDefaultFlags, &staticCode);
+    if (status != errSecSuccess) {
+        NSLog(@"SecStaticCodeCreateWithPath() failed with status = %d for path %@", status, path);
+        goto done;
+    }
+    
+    SecCSFlags flags = kSecCSDefaultFlags | kSecCSStrictValidate | kSecCSCheckAllArchitectures;
+    if ( deepCheck  ) {
+        flags = flags | kSecCSCheckNestedCode;
+    }
+    
+    status = SecStaticCodeCheckValidityWithErrors(staticCode, flags, NULL, &errorCF);
+    
+    if (status != errSecSuccess) {
+        if (status == errSecCSUnsigned) {
+            NSLog(@"Error: Item is not digitally signed at path = %@", path);
+        } else if (status == errSecCSReqFailed) {
+            NSLog(@"Error: The item failed the code requirements check at path = %@\nError = '%@'", path, (__bridge NSError *)errorCF);
+        } else {
+            NSLog(@"Error: The item failed the digital signature check (status = %ld) at path = %@\nError = '%@'", (long)status, path, (__bridge NSError *)errorCF);
+        }
+    }
+    
+done:
+    if (staticCode) {
+        CFRelease(staticCode);
+    }
+    if (errorCF) {
+        CFRelease(errorCF);
+    }
+    
+    return (status == errSecSuccess);
+}
+
+BOOL appHasValidSignature(void) {
+    
+    NSString * appPath = [[NSBundle mainBundle] bundlePath];
+    
+    if (   itemHasValidSignature(appPath, YES)
+        && itemHasValidSignature([appPath stringByAppendingPathComponent:
+                                  @"/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/TunnelblickUpdater.app/Contents/MacOS/fileop"], NO)
+        ) {
+        return YES;
+    }
+    
+    return NO;
 }

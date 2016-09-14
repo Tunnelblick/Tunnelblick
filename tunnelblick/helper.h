@@ -26,6 +26,8 @@ NSAttributedString * attributedStringFromHTML(NSString * html);
 
 void           appendLog				 (NSString * msg);
 
+BOOL           appHasValidSignature(void);
+
 uint64_t       nowAbsoluteNanoseconds    (void);
 
 NSString     * configPathFromTblkPath   (NSString * path);
@@ -123,6 +125,7 @@ BOOL           runningOnLionOrNewer(void);
 BOOL           runningOnMountainLionOrNewer(void);
 BOOL           runningOnMavericksOrNewer(void);
 BOOL           runningOnYosemiteOrNewer(void);
+BOOL           runningOnElCapitanOrNewer(void);
 BOOL           runningOnSierraOrNewer(void);
 BOOL           runningOnIntel(void);
 
