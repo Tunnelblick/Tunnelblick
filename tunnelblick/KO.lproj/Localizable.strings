@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "빠른 사용자 전환";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "'%@' 파일은 '{' 문자로 시작하기 때문에 '리치 텍스트' 인 것 같습니다. 모든 OpenVPN 관련 파일들은 '일반 텍스트' 또는 'UTF-8' 파일이어야합니다.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "'%@' 의 확장자를 알 수 없습니다.";
 
 /* Window text */
-"File '%@' is empty" = "'%@' 파일은 비었습니다";
+"File '%@' is missing" = "'%@' 파일이 없습니다";
 
 /* Window text */
-"File '%@' is missing" = "'%@' 파일이 없습니다";
+"File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "파일이 너무 큽니다: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "알 수 없는 값 '%1$@' for '%2$@' in %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "수정 가능한 설정 '%1$@' 은 %2$@ 을 찾을 수 없기 때문에 수정이 불가합니다\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "배포된 구성은 삭제할 수 없습니다.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "You may not remove a configuration unless it is disconnected.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "컴퓨터가 시작할 때 연결하도록 되어있는 구성은 삭제할 수 없습니다.";

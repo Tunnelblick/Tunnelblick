@@ -407,7 +407,7 @@
 "Monitor network settings" = "Netzwerkeinstellungen überwachen";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Neben Spotlight-Icon platzieren";
+"Place near Spotlight icon" = "Neben dem Spotlight-Icon platzieren";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Domainname den Suchdomains voranstellen";
@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "'.sh' Erweiterung zu %@ hinzugefügt, um Sicherung zu gewährleisten";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "'.unknown' Erweiterung zu %@ hinzugefügt, um Sicherheit zu gewährleisten";
 
 /* Window text */
 "Additional contributions by" = "Mit zusätzlichen Beiträgen von";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Schneller Benutzerwechsel";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Datei '%@' scheint UTF-16 codiert zu sein. Alle OpenVPN bezogenen Dateien müssen 'plain text' oder 'UTF-8' Dateien sein.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Die Datei '%@' scheint im 'rich text' Format zu sein, denn sie beginnt mit einem ' {' Zeichen. Alle Dateien mit Bezug zu OpenVPN müssen 'plain text' oder 'UTF-8' sein.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "Die Datei '%@' hat eine Erweiterung, die Tunnelblick nicht bekannt ist.";
 
 /* Window text */
-"File '%@' is empty" = "Datei '%@' ist leer";
+"File '%@' is missing" = "Datei '%@' fehlt";
 
 /* Window text */
-"File '%@' is missing" = "Datei '%@' fehlt";
+"File '%@' is too short (%lu bytes)" = "Datei '%1$@' ist zu klein (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "Datei ist zu groß: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Unbekannter Wert '%1$@' für '%2$@' in %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Nicht lesbare Datei bei %@\n\nSehen Sie in die Konsolen-Logs für Details.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Die updatebare Konfiguration '%1$@' wurde nicht als updatebar gespeichert, da %2$@ nicht gefunden werden konnte\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Eine Ausgelieferte Konfiguration kann nicht gelöscht werden.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Sie können eine Konfiguration nicht löschen, solange die Verbindung nicht getrennt wurde.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Eine Konfiguration, deren Verbindung mit dem Computer startet, kann nicht gelöscht werden.";

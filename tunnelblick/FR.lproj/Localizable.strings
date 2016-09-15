@@ -287,7 +287,7 @@
 "Make Configuration Shared..." = "Rendre la configuration partagée…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "Ne pas tracer les logs OpenVPN ou Tunnelblick";
+"No OpenVPN or Tunnelblick VPN logging" = "Ne pas créer de fichier journaux VPN pour OpenVPN ou Tunnelblick";
 
 /* Menu item */
 "No VPN Configurations Available" = "Pas de configuration VPN disponible";
@@ -299,7 +299,7 @@
 "OpenVPN level 0 - no output except fatal errors" = "OpenVPN niveau 0 - pas de sortie sauf pour les erreurs fatales";
 
 /* Menu Item */
-"OpenVPN level 11 - extremely verbose output" = "OpenVPN niveau 11 - sortie extrêmement verbeuse";
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN niveau 11 - sortie extrêmement détaillée";
 
 /* Menu Item */
 "OpenVPN level 3 - normal output" = "OpenVPN niveau 3 - sortie standard";
@@ -311,7 +311,7 @@
 "OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN niveau 5 - sortie aussi pour \"R\" or \"W\" pour chaque paquet";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "OpenVPN niveau 6 - sortie très verbeuse";
+"OpenVPN level 6 - very verbose output" = "OpenVPN niveau 6 - sortie très détaillée";
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "Niveau de log OpenVPN positionné par la configuration";
@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Ajouté l'extension '.sh' à %@ pour qu'il soit sécurisé correctement";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Ajouté l'extension '.unknown' à %@ pour qu'il soit sécurisé correctement";
 
 /* Window text */
 "Additional contributions by" = "Avec de contributions supplémentaires de";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Permutation rapide d’utilisateur";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Le fichier '%@' semble être encodé en UTF-16. Tout les fichiers lier au OpenVPN doivent être encodé en 'texte plein' ou 'UTF-8'.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Le fichier '%@' semble être au format 'texte enrichi' car il commence avec le caractère '{'. Les fichiers liés à OpenVPN doivent être au format 'texte brut' ou 'UTF-8'.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "Le fichier '%@' a une extension qui n'est pas gérée par Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "Le fichier '%@' est vide";
+"File '%@' is missing" = "Le fichier '%@' est manquant";
 
 /* Window text */
-"File '%@' is missing" = "Le fichier '%@' est manquant";
+"File '%@' is too short (%lu bytes)" = "Le fichier '%1$@' est trop court (%2$lu octets)";
 
 /* Window text */
 "File is too large: %@" = "Fichier trop gros : %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Valeur inconnue '%1$@' pour '%2$@' dans %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Fichier illisible a %@\n\nRegarder le fichier journal de la Console pour plus de détails.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "La configuration modifiable '%1$@' n'a pas été mémorisée comme modifiable car %2$@ est introuvable\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Il n'est pas permis de supprimer une configuration 'Déployée'.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Vous ne pouvez enlever un fichier de configuration que si il est déconnecté.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Il n'est pas permis de supprimer une configuration réglée pour être lancée au démarrage de l'ordinateur.";

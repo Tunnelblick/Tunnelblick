@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Γρήγορη αλλαγή χρηστών";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Το αρχείο '%@' φαίνεται να είναι σε μορφή \"εμπλουτισμένου κειμένου\" επειδή ξεκινά με τον χαρακτήρα \"{\". Όλα τα αρχεία που σχετίζονται με OpenVPN πρέπει να είναι σε \"απλό κείμενο\" ή αρχεία \"UTF-8\".";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "Το αρχείο '%@' έχει μια επέκταση που δεν είναι γνωστή στο Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "Το αρχείο '%@' είναι άδειο";
+"File '%@' is missing" = "Το αρχείο '%@' λείπει";
 
 /* Window text */
-"File '%@' is missing" = "Το αρχείο '%@' λείπει";
+"File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "Το αρχείο είναι πολύ μεγάλο: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Άγνωστη τιμή '%1$@' για '%2$@' στο %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Ενημερωμένες παράμετροι '%1$@' δεν αποθηκεύτηκαν ως ενημερωμένες, επειδή το %2$@ δεν μπόρεσε να βρεθεί\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Ίσως να μην μπορέσετε να αφαιρέσετε μια Παραταγμένη ρύθμιση.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "You may not remove a configuration unless it is disconnected.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Δεν μπορείτε να αφαιρέσετε μια ρύθμιση η οποία είναι ρυθμισμένη να ξεκινά με την έναρξη του υπολογιστή.";

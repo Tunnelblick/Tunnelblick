@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "S'ha afegit l'extensió '.sh' a %@ per a poder-lo fer segur correctament";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "S'ha afegit l'extensió '.unknown' a %@ per a poder-lo fer segur correctament";
 
 /* Window text */
 "Additional contributions by" = "Amb contribucions addicionals de";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Canvi ràpid d'usuari";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "L'arxiu '%@' sembla estar codificat en UTF-16. Tots els arxius relatius a OpenVPN han de ser 'text pla' o arxius 'UTF-8'.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "L'arxiu '%@' sembla tenir un format de 'text ric' perquè comença amb el caràcter '{'. Tots els arxius d'OpenVPN han de ser en format 'text pla' o bé en 'UTF-8'.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "L'arxiu '%@' té una extensió desconeguda per a Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "L'arxiu '%@' és buit";
+"File '%@' is missing" = "Falta l'arxiu '%@'";
 
 /* Window text */
-"File '%@' is missing" = "Falta l'arxiu '%@'";
+"File '%@' is too short (%lu bytes)" = "L'arxiu '%1$@' és massa curt (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "L'arxiu és massa gran: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Valor desconegut '%1$@' per a '%2$@' a %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "L'arxiu en %@ no es pot llegir\n\nVerifica el Registre de consola per a més detalls.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "La configuració actualitzable '%1$@' no s'ha desat com a actualitzable perquè %2$@ no s'ha pogut trobar\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Una configuració Desplegada no es pot eliminar.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "No es pot eliminar una configuració a menys que estigui desconnectada.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "No es pot eliminar una configuració configurada per connectar quan l'ordinador arrenca.";

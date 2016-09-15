@@ -881,40 +881,40 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Bygevoeg '.sh' verlenging by %@ om dit behoorlik te verseker";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Bygevoeg 'n '.onbekende' verlenging by %@ om dit behoorlik te verseker";
 
 /* Window text */
 "Additional contributions by" = "Bykomende bydraes deur";
 
 /* Window text */
-"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "After %1$.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %2$@ is connected.\n\n";
+"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "Na %1$.1f sekonde, opgehou probeer om IP adres informasie te kollekteer.\n\nTunnelblick sal nie kyk dat hierdie rekenaar se waarskynlike IP adres verander wanneer %2$@ is gekoppel.\n\n";
 
 /* Window text */
-"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n";
+"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Na verbinding met %@, DNS lyk nie asof dit werk nie.\n\nDit is moontlik dat jou VPN nie ordentlik ingestel is nie.\n\n";
 
 /* Window text */
-"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n";
+"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Na verbinding mee %@, die Internet lyk nie bereikbaar nie.\n\nDit is moontlik dat jou VPN nie ordentlik ingestel is nie.\n\n";
 
 /* Window text */
-"All configuration files have been removed. Tunnelblick must quit." = "All configuration files have been removed. Tunnelblick must quit.";
+"All configuration files have been removed. Tunnelblick must quit." = "Alle opstel lêers is verwyder. Tunnelblick moet afsluit.";
 
 /* Window text */
-"All configurations use %@ credentials" = "All configurations use %@ credentials";
+"All configurations use %@ credentials" = "Alle Konfigurasië gebruik %@ getuigskrifte";
 
 /* Window text */
-"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "'n Vout (status %1$ld) het plaasgevind terwyl 'n poging om die sekerheid van die %2$@ konfigurasie opgekyk is.\n\nSluit af en begin Tunnelblick oor, asseblief. Indien die probleem voortduur, herinstalleer Tunnelblick.";
 
 /* Window text */
-"An error occurred while trying to launch %@" = "An error occurred while trying to launch %@";
+"An error occurred while trying to launch %@" = "'n Fout het gebeur tydens die laai van %@";
 
 /* Window text */
-"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n";
+"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Daar was 'n fout tydens die terugkeuring na die veilige (skaduwee) kopie. Sien die Console Meld vir meer inligting. \n\n.\n\n";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "An error occurred. See the Console Log for details.";
+"An error occurred. See the Console Log for details." = "Daar was 'n fout. Sien die Console Meld vir meer inligting.";
 
 /* Window text */
-"An internal Tunnelblick error occurred%@%@" = "An internal Tunnelblick error occurred%1$@%2$@";
+"An internal Tunnelblick error occurred%@%@" = "n' Interne Tunnelblick fout het gebeur %1$@%2$@";
 
 /* Window text */
 "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Fast User Switching";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "File '%@' has an extension which is not known to Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "File '%@' is empty";
+"File '%@' is missing" = "File '%@' is missing";
 
 /* Window text */
-"File '%@' is missing" = "File '%@' is missing";
+"File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "File is too large: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Unknown value '%1$@' for '%2$@' in %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Updatable configuration '%1$@' was not stored as updatable because %2$@ could not be found\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "You may not remove a Deployed configuration.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "You may not remove a configuration unless it is disconnected.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "You may not remove a configuration which is set to start when the computer starts.";

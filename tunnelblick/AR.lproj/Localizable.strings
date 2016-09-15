@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "تم اضافة 'sh.' إلى %@ ليتم تأمينها بشكل صحيح";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "تم اضافة تمديد 'key.' إلى %@ ليتم تأمينها بشكل صحيح";
 
 /* Window text */
 "Additional contributions by" = "اسهامات إضافية من";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "تبديل مستخدم بسرعة";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "الملف %@ يبدو تحت ترميز UTF-16. جميع ملفات OpenVPN لابد وان تكون تحت ترميز UTF-8 او Plain text.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "الملف %@ يبدو في صيغة 'rich text' ";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "الملف '%@' له تمديد غيرمتعرف عليه من Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "الملف \"%@\" فارغ";
+"File '%@' is missing" = "الملف \"%@\"مفقود";
 
 /* Window text */
-"File '%@' is missing" = "الملف \"%@\"مفقود";
+"File '%@' is too short (%lu bytes)" = "الملف \"%1$@\" قصير جدا (%2$lu بايت)";
 
 /* Window text */
 "File is too large: %@" = "الملف جداً كبير :%@";
@@ -1316,7 +1319,7 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Path '%1$@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "Please enter VPN passphrase.";
+"Please enter VPN passphrase." = "الرجاء إدخال كلمة المرور لـ VPN.";
 
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "الرجاء أدخل الإسم المطلوب ثم إضغط \"موافق\" ،أو إضغط \"إلغاء\".\n\n";
@@ -1478,16 +1481,16 @@
 "The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
 
 /* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
+"The username must not be empty!\nPlease enter VPN username/password combination." = "إسم المستخدم يجب أن لا يكون فارغا!\nيرجى إدخال إسم المستخدم و كلمة المرور ل VPN.";
 
 /* Window text */
-"There are no OpenVPN configurations to install." = "There are no OpenVPN configurations to install.";
+"There are no OpenVPN configurations to install." = "لا يوجد أي إعدادات خاصة ب OpenVPN ليتم تحميلها.";
 
 /* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
 
 /* Window text */
-"There is not an OpenVPN configuration file in '%@'" = "There is not an OpenVPN configuration file in '%@'";
+"There is not an OpenVPN configuration file in '%@'" = "لا يوجد أي ملف إعدادات خاصة ب OpenVPN في '%@'";
 
 /* Window text */
 "There was a problem deleting one or more configurations. See the Console Log for details." = "There was a problem deleting one or more configurations. See the Console Log for details.";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Unknown value '%1$@' for '%2$@' in %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Updatable configuration '%1$@' was not stored as updatable because %2$@ could not be found\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "You may not remove a Deployed configuration.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "You may not remove a configuration unless it is disconnected.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "You may not remove a configuration which is set to start when the computer starts.";

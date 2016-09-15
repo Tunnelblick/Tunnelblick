@@ -863,7 +863,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Súkromná konfigurácia s názvom '%@' už existuje.\n\nPrajete si ju nahradiť zdieľanou konfiguráciou?";
 
 /* Window text */
-"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Vyskytol sa problém počas kontroly verejnej IP adresy tohto počítača.\n\nPre viac informácií si, prosím, pozrite záznam z konzoly.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Vyskytol sa problém počas kontroly verejnej IP adresy tohto počítača.\n\nPre viac informácií si, prosím, prezrite Záznam konzoly.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Zdieľaná konfigurácia s názvom '%@' už existuje.\n\nPrajete si ju nahradiť súkromnou konfiguráciou?";
@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Priradená prípona \".sh\" k %@ , čím bude správne zabezpečená ";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Prípona '.unknown' bola pridaná k súboru %@, aby mohol byť správne zabezpečený";
 
 /* Window text */
 "Additional contributions by" = "Ďalší prispievatelia";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Rýchle prepínanie aktívneho uživateľa";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Zdá sa, že súbor '%@' je kódovaný pomocou UTF-16. Všetky súbory súvisiace s OpenVPN musia byť uložené ako v 'plain text' alebo 'UTF-8'.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Vypadá to, že súbor '%@' je vo formáte 'rich text', pretože začína znakom '{'. Všetky súbory pre OpenVPN musia byť v obýčajnom texte 'plain text' alebo v 'UTF-8'.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "Súbor \"%@\" má príponu, ktorá nie je známa aplikácii Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "Súbor \"%@\" je prázdny";
+"File '%@' is missing" = "Súbor \"%@\" chýba";
 
 /* Window text */
-"File '%@' is missing" = "Súbor \"%@\" chýba";
+"File '%@' is too short (%lu bytes)" = "Súbor '%1$@' je príliš malý (%2$lu bytov)";
 
 /* Window text */
 "File is too large: %@" = "Súbor je príliš veľký: %@";
@@ -1334,7 +1337,7 @@
 "Received fatal signal %d." = "Bol obdržaný signál závažnej chyby %d.";
 
 /* Window text */
-"Rename failed; see the Console Log for details." = "Premenovanie sa nezdarilo. Viac detailov nájdete v Console Log.";
+"Rename failed; see the Console Log for details." = "Premenovanie bolo neúspešné; pre viac informácií si, prosím, prezrite Záznam konzoly.";
 
 /* Window text */
 "Resolved symbolic link at '%@' to '%@'" = "Symbolický odkaz z \"%1$@\" do \"%2$@\"";
@@ -1490,10 +1493,10 @@
 "There is not an OpenVPN configuration file in '%@'" = "Neexistuje OpenVPN konfiguračný súbor v \"%@\"";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "Vyskytol sa problém požas vymazávania jednej alebo viacerých konfigurácií. Viac detailov nájdete v Console Log.";
+"There was a problem deleting one or more configurations. See the Console Log for details." = "Vyskytol sa problém požas vymazávania jednej alebo viacerých konfigurácií. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
 
 /* Window text */
-"There was a problem with the OpenVPN configuration. See the Console Log for details." = "Vyskytol sa problém s konfiguráciou OpenVPN. Viac detailov nájdete v Console Log.";
+"There was a problem with the OpenVPN configuration. See the Console Log for details." = "Vyskytol sa problém s konfiguráciou OpenVPN. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
 
 /* Window text */
 "There was a problem with\n\n%@:\n\n%@" = "Vyskytol sa problém s \n\n%1$@: \n\n%2$@";
@@ -1589,7 +1592,7 @@
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Aplikácii Tunnelblick sa nepodarilo premiestniť konfiguráciu '%@'. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
 
 /* Window text */
-"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick nedokázal nahradiť konfiguráciu '%@'. Pre viac informácií, skontrolujte záznam konzoly.";
+"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick nedokázal nahradiť konfiguráciu '%@'. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Aplikácii Tunnelblick sa nepodarilo odinštalovať konfiguráciu '%@'. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
@@ -1682,7 +1685,7 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Aplikácii Tunnelblick sa nepodarilo nadviazať komunikáciu s existujúcim procesom OpenVPN pre '%1$@' počas %2$d sekúnd. Tunnelblick už nevykoná ďalšie pokusy o nadviazanie komunikácie s týmto procesom.";
 
 /* Window text */
-"Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblicku sa nepodarilo uskutočniť zmeny. Viac detailov nájdete v Console Log.";
+"Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblicku sa nepodarilo uskutočniť zmeny. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Aplikácii Tunnelblick sa nepodarilo spustiť OpenVPN pre pripojenie k %@. Pre viac informácií si, prosím, prezrite Záznam konzoly v okne Nastavenia VPN…";
@@ -1737,6 +1740,9 @@
 
 /* Window text */
 "Unknown value '%@' for '%@' in %@" = "Neznáma hodnota \"%1$@\" pre \"%2$@\" v %3$@";
+
+/* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Nečitateľný súbor s cestou %@\n\nPre viac informácií si, prosím, prezrite Záznam konzoly.";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Aktualizovatelná konfigurácia '%1$@' nebola uložená ako aktualizovatelná, pretože sa nepodarilo nájsť %2$@\n";
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Nie je možné odobrať aktuálne aplikovanú konfiguráciu.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Nie je možné odstrániť konfiguráciu, ak nie je odpojená.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Nie je možné odobrať konfiguráciu, ktorá je určená k spusteniu pri štarte počítača.";

@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Rychlé přepnutí uživatele";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Vypadá to, že soubor '%@' je ve formátu 'rich text', protože začíná znakem '{'. Všechny soubory pro OpenVPN musí být v prostém textu 'plain text' nebo v 'UTF-8'.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "Soubor '%@' má příponu, kterou Tunnelblick nezná.";
 
 /* Window text */
-"File '%@' is empty" = "Soubor '%@' je prázdný";
+"File '%@' is missing" = "Chybí soubor '%@'";
 
 /* Window text */
-"File '%@' is missing" = "Chybí soubor '%@'";
+"File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "Soubor %@ je příliš veliký";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Neznámá hodnota '%1$@' pro '%2$@' v %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Aktualizovatelná konfigurace '%1$@' nebyla uložena jako aktualizovatelná, protože nebylo nalezeno %2$@\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Není možné odstranit aktuálně instalovanou konfiguraci.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "You may not remove a configuration unless it is disconnected.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Není možné odstranit konfiguraci, která je určená ke spuštění při startu počítače.";

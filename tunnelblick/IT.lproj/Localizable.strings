@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "È stata aggiunta l'estensione '.sh' a %@ in modo da aumentarne la sicurezza";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "È stata aggiunta l'estensione '.unknown' a %@ in modo da aumentarne la sicurezza";
 
 /* Window text */
 "Additional contributions by" = "Con i contributi di";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Cambio utente rapido";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Il documento '%@' sembrerebbe essere stato registrato in formato 'UTF-16'. Per poter funzionare correttamente tutti i documenti di configurazione di OpenVPN devono essere registrati in formato 'testo semplice' o 'UTF-8'.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Il file '%@' sembrerebbe essere in formato 'rich text' poiché inizia col carattere '{'. Tutti i file utilizzati da OpenVPN devono essere in formato 'plain text' o 'UTF-8'.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "Il file '%@' ha un'estensione che Tunnelblick non è in grado di riconoscere.";
 
 /* Window text */
-"File '%@' is empty" = "Il file '%@' è vuoto";
+"File '%@' is missing" = "Il file '%@' non esiste";
 
 /* Window text */
-"File '%@' is missing" = "Il file '%@' non esiste";
+"File '%@' is too short (%lu bytes)" = "Il contenuto del documento '%1$@' è troppo corto (%2$lu byte)";
 
 /* Window text */
 "File is too large: %@" = "Il file %@ è troppo grande";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Il valore '%1$@' per '%2$@' è sconosciuto in %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Impossibile leggere il documento '%@'\n\nUlteriori dettagli sono disponibili nell'Applicazione Console.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Non è stato possibile impostare la configurazione '%1$@' come aggiornabile automaticamente poiché non è stato possibile trovare %2$@\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Non è possibile eliminare una configurazione Distribuita.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Non è possibile rimuovere una configurazione mentre è attiva la relativa connessione.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Non è possibile eliminare una configurazione impostata per connettersi all'avvio del computer.";

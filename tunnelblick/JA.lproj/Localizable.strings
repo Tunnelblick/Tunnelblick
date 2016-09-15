@@ -863,7 +863,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "「%@」という同名の個人用接続先が既に存在します。\n\n共有用接続先を作成して、それで置き換えますか？";
 
 /* Window text */
-"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "このコンピュータのパブリックIPアドレスをチェックする時に問題が発生しました。\n\n詳細はコンソールログを参照してください。\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "「%@」という同名の共有接続先が既に存在します。\n\n個人用接続先を作成して、それで置き換えますか？";
@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "%@ が保護されるように拡張しに.shを追加しました";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "%@ が保護されるように拡張子に.unkownを追加しました";
 
 /* Window text */
 "Additional contributions by" = "貢献した人々";
@@ -902,7 +902,7 @@
 "All configurations use %@ credentials" = "全ての接続先で認証「%@」を使用する";
 
 /* Window text */
-"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "接続先 %2$@ のセキュリティチェック時にエラー（ステータス %1$ld）がおきました。\n\nTunnelblick を終了して再度起動してください。再び問題が起きる時は、Tunnelblick を再インストールしてください。";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "%@ の起動中にエラーがおきました。";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "ファストユーザスイッチ";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "%@はUTF−16で符号化されていそうです。OpenVPNに関する全てのファイルの符号化方式は「プレーンテキスト」又は「UTF−8」じゃなければなりません。";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "ファイル '%@' はリッチテキストフォーマットと思われます。OpenVPNで使用するファイルはプレーンテキスト(ASCIIもしくはUTF-8)である必要があります。";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "ファイル '%@' には不明な拡張子が付けられています。";
 
 /* Window text */
-"File '%@' is empty" = "ファイルが空です: %@";
+"File '%@' is missing" = "ファイルが存在しません: %@";
 
 /* Window text */
-"File '%@' is missing" = "ファイルが存在しません: %@";
+"File '%@' is too short (%lu bytes)" = "ファイル '%1$@' は小さすぎます(%2$lu バイト)";
 
 /* Window text */
 "File is too large: %@" = "ファイルが大きすぎます: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "%3$@ に含まれる '%2$@' の値 '%1$@' は正しい値ではありません。";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "読み取れないファイルがありました：%@\n\n明細はコンソールをご覧ください。";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "自動更新可能な設定 '%1$@' は %2$@ が見つからなかったため、自動更新可能な設定として保存されませんでした\n";
 
 /* Window text */
@@ -1859,6 +1865,9 @@
 "You may not remove a Deployed configuration." = "配付用の接続先は削除できないことがあります。";
 
 /* Window text */
+"You may not remove a configuration unless it is disconnected." = "接続を切断するまで接続先は削除できないことがあります";
+
+/* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "コンピューター起動時に接続する設定は削除できません";
 
 /* Window text */
@@ -1964,7 +1973,7 @@
 "Contributed to early code" = "初期のコードへの貢献";
 
 /* Credit description */
-"Croatian localization" = "Croatian localization";
+"Croatian localization" = "クロアチア語翻訳";
 
 /* Credit description */
 "Czech localization" = "チェコ語翻訳";

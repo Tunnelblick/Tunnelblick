@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "%@ dosyasına doğru bir şekilde güvenli hale getirilmesi için '.sh' uzantısı eklendi";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "%@ dosyasına doğru bir şekilde güvenli hale getirilmesi için '.unknown' uzantısı eklendi";
 
 /* Window text */
 "Additional contributions by" = "Ayrıca katkı sağlayanlar";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Hızlı Kullanıcı Değiştirme";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "'%@' dosyası UTF-16 dil kodlamasinda görünüyor. Tüm OpenVPN ile ilişkili dosyalr düz metin ya da 'UTF-8' kodlamasında olmalı.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "'%@' dosyası, '{' karakteri ile başladığından 'zengin metin'  formatında görünüyor. OpenVPN ile ilgili tüm dosyalar, 'düz metin' ya da 'UTF-8' dosyaları olmalıdır.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "'%@' dosyası Tunnelblick tarafından tanınmayan bir uzantıya sahip.";
 
 /* Window text */
-"File '%@' is empty" = "'%@' dosyası boş";
+"File '%@' is missing" = "'%@' dosyası kayıp";
 
 /* Window text */
-"File '%@' is missing" = "'%@' dosyası kayıp";
+"File '%@' is too short (%lu bytes)" = "'%1$@' Dosyası çok kısa (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "%@ dosyası çok büyük";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "%3$@ te '%2$@' için olan '%1$@' değeri bilinmiyor";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "%@ okunamayan bir dosya\n\nDetaylar için konsol kayıt dosyasına bakın.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "%2$@ bulunamadığı için güncellenebilir yapılandırma '%1$@' güncellenebilir olarak saklanamadı\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Yüklenmiş yapılandırmayı kaldıramazsınız.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Bağlantısı kesilmeden yapılandırma silinemez.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Bilgisayar açıldığında çalışmak üzere ayarlanmış yapılandırmayı kaldıramayabilirsiniz.";

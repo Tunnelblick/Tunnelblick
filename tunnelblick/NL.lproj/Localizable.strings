@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Er is een '.sh' extensie oegevoegd aan %@ zodat het goed beveiligd wordt";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Een '.onbekend' Extensie toegevoegd aan %@ zodat het juist zal worden beveiligd";
 
 /* Window text */
 "Additional contributions by" = "Additionele bijdragen door";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Snel Wisselen van Gebruiker";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Bestand '%@' Lijkt UTF-16 gecodeerd zijn. Alle OpenVPN-gerelateerde bestanden moeten 'plain text' of 'UTF-8' bestanden zijn.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Bestand ' %@' lijkt te zijn gemaakt in 'rich text' formaat omdat het begint met een ' {' karakter. \n\nAlle OpenVPN gerelateerde bestanden moeten 'plain text' of 'UTF-8' bestanden zijn.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "Bestand ' %@' heeft een extensie die niet bekend is met Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "Bestand ' %@' is leeg";
+"File '%@' is missing" = "Bestand ' %@' ontbreekt";
 
 /* Window text */
-"File '%@' is missing" = "Bestand ' %@' ontbreekt";
+"File '%@' is too short (%lu bytes)" = "Bestand '%1$@' is te kort (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "Bestand is te groot: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Onbekende waarde ' %1$@' voor ' %2$@' in %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Onleesbaar bestand op %@.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Bijgewerkte configuratie '%1$@' kon niet worden opgeslagen als bijgewerkt, omdat %2$@ niet gevonden kon worden\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Het is niet toegestaan om een reeds ingezette configuratie te verwijderen.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Het is niet toegestaan een configuratie te verwijderen, tenzij deze is verbroken.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Het is niet toegestaan om een configuratie te verwijderen indien deze is ingesteld om te starten wanneer de computer start.";

@@ -164,10 +164,10 @@
 "Open easy-rsa in Terminal" = "在終端機中開啟 easy-rsa";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "圖標置於 Spotlight 圖標旁";
+"Place Icon Near the Spotlight Icon" = "圖示放在 Spotlight 圖示旁";
 
 /* Button */
-"Place Icon Normally" = "圖標置於正常位置";
+"Place Icon Normally" = "圖示放在一般的位置";
 
 /* Button */
 "Privacy info..." = "私隱資訊...";
@@ -845,7 +845,7 @@
 "(if connected when user switched out)" = "(假如當使用者切換時已連線)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>建構於 Tunnelblick 之上，自由軟體可以在<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a>取得<br><br>OpenVPN 是 OpenVPN Technologies, Inc. 的註冊商標";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "一個 TBPreference 或 TBAlwaysSetPreference 鍵參照了末知的偏好設定「%1$@」於 %2$@";
@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "已為 %@ 加上 .sh 副檔名以確保安全";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "已經幫 %@ 加上「.unknown」的副檔名來確保安全";
 
 /* Window text */
 "Additional contributions by" = "其他貢獻者";
@@ -902,7 +902,7 @@
 "All configurations use %@ credentials" = "所有設定使用 %@ 的認證訊息";
 
 /* Window text */
-"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "在嘗試檢查 %2$@ 的安全設定時發生了問題（狀態 %1$ld）。\n請退出並重新啟動 Tunnelblick。如果問題依舊會發生，請重新安裝 Tunnelblick。";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "當嘗試啟動 %@ 時發生錯誤";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "快速切換使用者";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "「%@」似乎是 UTF-16 編碼的檔案。所有 OpenVPN 相關的檔案都必須是「純文字」或是「UTF-8 編碼」的檔案。";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "因為它的第一個符號是 '{'，檔案 '%@' 看起來像是 RTF 格式的文件。所有 OpenVPN 的相關檔案都需是純文字或 UTF-8 文件。";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "檔案「%@」具有 Tunnelblick 不認識的副檔名";
 
 /* Window text */
-"File '%@' is empty" = "檔案 '%@' 是空的";
+"File '%@' is missing" = "檔案 '%@' 不存在";
 
 /* Window text */
-"File '%@' is missing" = "檔案 '%@' 不存在";
+"File '%@' is too short (%lu bytes)" = "「%1$@」的檔案長度太短了（%2$lu 位元）";
 
 /* Window text */
 "File is too large: %@" = "%@ 檔案太大";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "無法識別在 '%3$@' '%2$@' 的數值 '%1$@'";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "由於找不到 %2$@ 可被自動更新的設置 '%1$@' 無法被保存至可被自動更新的格式\n";
 
 /* Window text */
@@ -1859,13 +1865,16 @@
 "You may not remove a Deployed configuration." = "你不能刪除一個正在運行中的設定檔。";
 
 /* Window text */
+"You may not remove a configuration unless it is disconnected." = "在連線的狀態下，你沒有辦法把設定檔刪除。";
+
+/* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "你不能刪除電腦啟動時會自動執行的設定。";
 
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "更新後您將無法使用 Tunnelblick，直到您提供管理者用戶名稱及密碼。\n\n您確定要檢查更新？";
 
 /* Window text */
-"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n";
+"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "你的電腦可能沒有辦法有效的在 Spotlight 圖示旁邊顯示 Tunnelblick 圖示。\n這可能造成 Tunnelblick 在目錄列當中消失。\n你確定要把 Tunnelblick 的圖示放在 Spotlight 圖示旁邊嗎？\n\n";
 
 /* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "你的系統的時鐘可能沒有被正確的設置。\n\n除非你的系統的時鐘有正確的日期及時間，你的部分或全部的設置將無法被使用。\n\n";

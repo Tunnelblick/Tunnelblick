@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Lisättiin '.sh' tiedostopääte kohteeseen %@, jotta se suojataan kunnolla";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Lisättiin '.unknown' -tiedostopääte %@ jotta se on kunnolla suojattu";
 
 /* Window text */
 "Additional contributions by" = "Muut avustajat";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Nopea käyttäjien vaihto";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Tiedosto '%@' näyttää olevan 'rich text' -muodossa, koska se alkaa '{'-merkillä. Kaikkien OpenVPN:ään liittyvät tiedostojen on oltava 'pelkkä teksti'- tai 'UTF-8'-tiedostoja.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "Tiedostolla \"%@\" on pääte, jota Tunnelblick ei tunne.";
 
 /* Window text */
-"File '%@' is empty" = "Tiedosto \"%@\" on tyhjä";
+"File '%@' is missing" = "Tiedosto \"%@\" puuttuu";
 
 /* Window text */
-"File '%@' is missing" = "Tiedosto \"%@\" puuttuu";
+"File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "Tiedosto on liian suuri: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Tuntematon arvo '%1$@' objektille '%2$@' kohteessa %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Päivitettävissä olevaa konfiguraatiota '%1$@' ei tallennettu päivitettävissä olevana, koska kohdetta %2$@ ei löydetty\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Et voi poistaa käytössä olevaa konfiguraatiota.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Et voi poistaa konfiguraatiota ellei sitä ole poistettu käytöstä.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Et voi poistaa konfiguraatiota, joka on asetettu käynnistymään tietokoneen käynnistyessä.";

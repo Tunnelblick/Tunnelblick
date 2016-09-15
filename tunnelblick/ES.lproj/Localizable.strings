@@ -863,7 +863,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Una configuración privada llamada '%@' ya existe.\n\n¿Desea reemplazarla con la configuración compartida?";
 
 /* Window text */
-"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Ha ocurrido un problema mientras se inspeccionaba la dirección IP pública visible de esta computadora.\n\nVer el registro de de Consola para más detalles.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Ha ocurrido un problema mientras se inspeccionaba la dirección IP pública visible de esta computadora.\n\nVer el registro de Consola para más detalles.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Una configuración compartida llamada '%@' ya existe. \n¿Desea reemplazarla con la configuración privada?";
@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Se agregó la extensión '.sh' a %@ para que esté asegurado correctamente";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Se ha añadido una extensión '.unknown' a %@ por lo que será debidamente asegurado";
 
 /* Window text */
 "Additional contributions by" = "Con contribuciones adicionales por";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Cambio Rápido de Usuario";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "El archivo '%@' parece ser codificado en UTF-16. Todos los archivos relacionados con OpenVPN deben ser \"texto plano\" o archivos 'UTF-8'.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "El archivo '%@' aparenta estar en formato 'texto enriquecido' porque empieza con el caracter '{'. Todos los archivos relacionados con OpenVPN deben estar en formato de texto 'simple', también se permiten archivos en codificación 'UTF-8'.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "El archivo '%@' tiene una extensión desconocida para Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "El archivo '%@' está vacío";
+"File '%@' is missing" = "El archivo '%@' no existe";
 
 /* Window text */
-"File '%@' is missing" = "El archivo '%@' no existe";
+"File '%@' is too short (%lu bytes)" = "El archivo '%1$@' es demasiado corto (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "El archivo es muy grande: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Valor desconocido '%1$@' para '%2$@' en %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Archivo ilegible en %@\n\nVea el Registro de la Consola para más detalles.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "La configuración actualizable '%1$@' no se pudo guardar como actualizable porque %2$@ no fue encontrado\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "No puede eliminar una configuración ya Desplegada.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "No puede eliminar una configuración a menos que sea desconectada.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "No puede eliminar una configuración que está configurada para arrancar cuando se inicie el equipo.";

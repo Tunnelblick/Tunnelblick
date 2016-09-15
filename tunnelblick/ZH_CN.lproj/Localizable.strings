@@ -164,7 +164,7 @@
 "Open easy-rsa in Terminal" = "在终端打开 Tunnelblick 的 easy-rsa 目录";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "图标置于搜索图标附近";
+"Place Icon Near the Spotlight Icon" = "将图标置于Spotlight图标附近";
 
 /* Button */
 "Place Icon Normally" = "图标置于正常的位置";
@@ -302,7 +302,7 @@
 "OpenVPN level 11 - extremely verbose output" = "OpenVPN 日志等级 11 - 极其详细的输出";
 
 /* Menu Item */
-"OpenVPN level 3 - normal output" = "OpenVPN 日志等级 3 - 正常输出";
+"OpenVPN level 3 - normal output" = "OpenVPN 日志等级 3 - 一般输出";
 
 /* Menu Item */
 "OpenVPN level 4 - also outputs values for all options" = "OpenVPN 日志等级 4 - 同时输出所有选项的值";
@@ -383,7 +383,7 @@
 "Do not show again for any configuration" = "不再显示";
 
 /* Checkbox name */
-"Do not show this type of warning again" = "不要再显示这类型的警告信息";
+"Do not show this type of warning again" = "不再显示此类警告信息";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "不再对此配置发出此警告";
@@ -419,7 +419,7 @@
 "Reconnect when user switches in" = "用户转入时, 重新连接";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "变更密钥和证书需要管理员权限";
+"Require administrator authorization for key and certificate changes" = "变更密钥和证书时需要管理员权限";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "断开连接后重置计算机的主要网络接口";
@@ -800,7 +800,7 @@
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick 需要计算机管理员的授权才可在计算机启动时自动连接到 '%@'.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick 需要计算机管理员的授权, 这样它可以不再在计算机启动时自动连接到 '%@'.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick 需要计算机管理员的授权才可以不在在计算机启动时自动连接到 '%@'.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " 警告: 这个 Tunnelblick 的副本已经被篡改.\n\n";
@@ -812,7 +812,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ 被重置为它的上一个安全副本.\n\n";
 
 /* Window text */
-"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld 配置己经被重置为上一个安全(影子) 拷贝.";
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld 配置己经被重置为最后一次安全(影子) 拷贝.\n\n";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' 已经在桌面存在.\n\n你想要取得它吗?";
@@ -863,7 +863,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "一个名为 '%@' 的私人配置已经存在.\n\n你想用一个共享配置来取代它吗?";
 
 /* Window text */
-"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "在检查此计算机的对外显示的 IP 的时候发生了一个问题\n\n详情请查看控制台日志.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "在查询此计算机公网 IP 时发生了一个问题\n\n详情请查看控制台日志.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "名为'%@' 的共享配置己存在\n要用私有配置替换它吗?";
@@ -875,13 +875,13 @@
 "A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "建立连接需要用户名和密码\n  %1$@\n(使用 '%2$@' 的认证信息)";
 
 /* Window text */
-"Add Credentials" = "添加认证";
+"Add Credentials" = "添加授权(密码或密钥)";
 
 /* Window text */
 "Added '.sh' extension to %@ so it will be secured properly" = "把 '.sh' 加到 %@ 中作为扩展名，因此它将受到适当的保护";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "把 '. unknown' 作为 %@ 的扩展名以进行保护";
 
 /* Window text */
 "Additional contributions by" = "其他有贡献的个人和机构";
@@ -995,7 +995,7 @@
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "配置 '%1$@'将会被忽略，因为它的名字里含有禁止的字符.\n\n不合法的字符是: '%2$s'\n\n";
 
 /* Window text */
-"Configuration changes:" = "配置文件更改";
+"Configuration changes:" = "当修改配置文件时:";
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "配置要从网络管理员或者 VPN 服务商提供的文件抽取并完成安装。\n配置文件的后缀可能为：.tblk，.ovpn 或者 .conf。\n配置文件的文件夹里可能存有其它后缀的文件，请忽略其他文件。\n将配置文件拖动至菜单栏的 Tunnelblick 图标上，或者拖动至 VPN 详情窗口的配置分页里的配置列单上，来进行安装。\n如果要同时安装多个配置文件，将它们拖动至 Tunnelblick 窗口上可以一次性完成安装。";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "快速用户转换";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "'%@' 似乎是 UTF-16 编码的文件. 所有 OpenVPN 相关都必须是 '纯文本' 或 'UTF-8' 编码的文件.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "文件 '%@' 的开始字符是' {'，看起来是富文本格式。所有OpenVPN的相关文件必须是纯文本或 utf-8 文件。";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "文件 '%@' 的扩展名未知。";
 
 /* Window text */
-"File '%@' is empty" = "文件 '%@' 是空的";
+"File '%@' is missing" = "文件 '%@' 不存在";
 
 /* Window text */
-"File '%@' is missing" = "文件 '%@' 不存在";
+"File '%@' is too short (%lu bytes)" = "文件 '%1$@' 太短了 (%2$lu 字节)";
 
 /* Window text */
 "File is too large: %@" = "文件 %@ 太大了";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "在 %3$@ 的 '%2$@' 的值 '%1$@' 无法识别";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "文件 %@ 处不可读.\n\n详情请查看控制台日志.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "可自动更新的配置文件 '%1$@' 没有储存为可更新的配置，因为找不到 %2$@\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "你不能重命名一个已发布的配置文件";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "在断开连接之前, 你不能删除此配置.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "你不能移除一个被设置为开机自动启动的配置文件";

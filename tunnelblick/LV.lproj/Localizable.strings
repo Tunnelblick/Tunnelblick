@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Ātra lietotāju pārslēgšanās";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Šķiet, fails '%@' ir RTF formātā (Rich Text Format), jo tas sākas ar rakstzīmi '{'. Visiem OpenVPN failiem ir jābūt neformatēta teksta (Plain Text) vai 'UTF-8' formātā.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "Fails '%@' ir formātā, kuru Tunnelblick neatpazīst.";
 
 /* Window text */
-"File '%@' is empty" = "Datne '%@' ir tukša";
+"File '%@' is missing" = "Datne '%@' nav atrodama";
 
 /* Window text */
-"File '%@' is missing" = "Datne '%@' nav atrodama";
+"File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "Datne ir pārāk liela: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "'%2$@' nezināma vērtība '%1$@' %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Atjaunināmā konfigurācija '%1$@' netika saglabāta kā atjaunināma, jo %2$@ nav atrodams\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Nav iespējams dzēst 'Izvietoto' konfigurāciju.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "You may not remove a configuration unless it is disconnected.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Jūs nevarat dzēst konfigurāciju, kura ir nozīmēta startēšanai līdz ar datora ieslēgšanu.";

@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "'.sh' kiterjesztés a(z) %@ -hoz hozzáadva, így az megfelelő biztonságban van";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "'.unknown' kiterjesztés hozzáadva a %@ filehoz, így az megfelelő biztonságban van";
 
 /* Window text */
 "Additional contributions by" = "További segítők és fejlesztők";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Gyors felhasználó váltás";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "A '%@' file UTF-16 kódolásúnak tűnik. Minden OpenVPN-hez kapcsolódó fájlnak 'szövegfájlnak' vagy 'UTF-8' filenak kell lennie.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "A(z) '%@' fájl úgy tűnik, hogy 'rich text' formátumú, mert egy '{' karakterrel kezdődik.\nMinden OpenVPN-hez tartozó állománynak egyszerű szöveges vagy UTF-8 fájlnak kell lennie.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "A '%@' kiterjesztése ismeretlen a Tunnelblick számára.";
 
 /* Window text */
-"File '%@' is empty" = "A '%@' üres";
+"File '%@' is missing" = "A '%@' hiányzik";
 
 /* Window text */
-"File '%@' is missing" = "A '%@' hiányzik";
+"File '%@' is too short (%lu bytes)" = "A '%1$@' file túl kicsi (%2$lu byte)";
 
 /* Window text */
 "File is too large: %@" = "Fájl mérete túl nagy: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Ismeretlen érték ('%1$@') a(z) '%2$@' paraméterhez a(z) %3$@ fájlban";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Olvashatatlan fájl a következő helyen: %@\n\nLásd a Konzol-logot a részletekért.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "A(z) '%1$@' frissíthető konfiguráció nem lett elmentve frissíthetőként, mert a(z) %2$@ nem található\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Egy futó/aktív konfiguráció nem távolítható el.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Amíg nem választja le a kapcsolatot, nem távolíthatja el azt.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Olyan konfiguráció, ami a számítógéppel együtt indul, nem távolítható el.";

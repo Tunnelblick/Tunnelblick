@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "La till filtillägget \".sh\" till %@ för att säkerställa säkerheten";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Lade till filändelsen '.unknown' till %@ för att hålla den säker";
 
 /* Window text */
 "Additional contributions by" = "Med ytterligare bidrag från";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Snabbt användarbyte";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Filen '%@' verkar vara formaterad enligt UTF-16. Alla OpenVPN-relaterade filer måsta antingen vara oformaterade eller i 'UTF-8'.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Filen \"%@\" verkar vara i \"rich text\" format eftersom den börjar med \"'{\". Alla OpenVPN-relaterade filer måste vara i \"plain text\" eller \"UTF-8\" filer.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "\"%@\" har en filändelse som Tunnelblick inte känner till.";
 
 /* Window text */
-"File '%@' is empty" = "Filen \"%@\" är tom";
+"File '%@' is missing" = "Filen \"%@\" saknas";
 
 /* Window text */
-"File '%@' is missing" = "Filen \"%@\" saknas";
+"File '%@' is too short (%lu bytes)" = "Filen '%1$@' är för kort (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "Filen är för stor: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Okänt värde \"%1$@\" för \"%2$@\" i %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Oläslig fil %@\n\nSe konsolloggen för mer detaljer.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Uppdaterbara konfigurationen \"%1$@\" sparades inte som uppdaterbar eftersom %2$@ inte kunde hittas\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Du kan inte radera en konfiguration som används.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Du kan endast radera en konfiguration om den är frånkopplad.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Du kan inte radera en konfiguration som är inställd att starta när datorn startas.";

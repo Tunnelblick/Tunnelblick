@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Por motivos de segurança a extensão '.sh' foi adicionada a %@";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Foi adicionada uma extensão '.unknown' em %@ por isso vai ser protegido adequadamente";
 
 /* Window text */
 "Additional contributions by" = "Com contribuições adicionais de";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Troca Rápida de Utilizador";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "O ficheiro '%@' parece ser codificado em UTF-16. Todos os arquivos relacionados com o OpenVPN devem ser 'texto simples' ou ficheiros 'UTF-8'.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "O ficheiro '%@' aparenta estar no formato 'texto rico' porque começa com o carater '{'. Todos os ficheiros relacionados com OpenVPN devem estar em 'texto simples' ou em codificação 'UTF-8'.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "O ficheiro '%@' tem uma extensão que não é reconhecida pelo Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "O ficheiro '%@' está vazio";
+"File '%@' is missing" = "O ficheiro '%@' está em falta";
 
 /* Window text */
-"File '%@' is missing" = "O ficheiro '%@' está em falta";
+"File '%@' is too short (%lu bytes)" = "O ficheiro '%1$@' é muito pequeno (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "O ficheiro é demasiado grande: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Valor desconhecido '%1$@' para '%2$@' em %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Ficheiro ilegível em %@\n\nVeja o Registo da Consola para mais detalhes.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "A configuração atualizável '%1$@' não foi guardada como atualizável porque não foi possível encontrar %2$@\n";
 
 /* Window text */
@@ -1790,10 +1796,10 @@
 "Warning: '%@' is already a named credential." = "Aviso: '%@' já é uma credencial nomeada.";
 
 /* Window text */
-"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Aviso: Uma ou mais preferências não puderam ser duplicadas. Veja o Registo da Consola para mais informações.";
+"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Aviso: Uma ou mais preferências não puderam ser duplicadas. Veja o Registo da Consola para mais detalhes.";
 
 /* Window text */
-"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Aviso: Uma ou mais preferências não puderam ser renomeadas. Veja o Registo da Consola para mais informações.";
+"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Aviso: Uma ou mais preferências não puderam ser renomeadas. Veja o Registo da Consola para mais detalhes.";
 
 /* Window text */
 "Warnings:" = "Avisos:";
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Pode não conseguir apagar uma configuração Costumizada.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Não pode remover uma configuração a menos que seja desconetada.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Pode não conseguir remover uma configuração que está configurada para iniciar quando o computador iniciar.";

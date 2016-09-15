@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Tilføjede '.sh' filtypenavnet til %@ for at sikre det ordentligt";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Tilføjede en '.ukendt' endelse til %@ så den bliver sikret ordentligt";
 
 /* Window text */
 "Additional contributions by" = "Yderligere bidrag fra";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Hurtigt brugerskift";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Fil '%@' ser ud til at være UTF-16 formateret. Alle OpenVPN relaterede filer skal være 'ren tekst' eller 'UTF-8' filer.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Det ser ud som om filen '%@' er i et rich text-format, fordi det starter med et '{' tegn. Alle OpenVPN-relaterede filer skal være 'plain text' eller 'UTF-8' filer.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "Filen '%@ \"har et filtypenavn, der ikke er kendt for Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "Filen '%@' er tom";
+"File '%@' is missing" = "Filen '%@' mangler";
 
 /* Window text */
-"File '%@' is missing" = "Filen '%@' mangler";
+"File '%@' is too short (%lu bytes)" = "Fil '%1$@' er for lille (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "Filen er for stor: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Ukendt værdi '%1$@' for '%2$@' i %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Der er en ulæselig fil her %@\n\nSe konsol loggen for detaljer.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Den opdaterbare konfiguration '%1$@' blev ikke opbevaret som opdaterbar fordi %2$@ ikke kunne findes\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Du kan ikke slette en aktiv konfiguration.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Du kan ikke slette en konfiguration, medmindre forbindelsen er afbrudt.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Du kan ikke slette en konfiguration, som er sat til at starte, når computeren starter.";

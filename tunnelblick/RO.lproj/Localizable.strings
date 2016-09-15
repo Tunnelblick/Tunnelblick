@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Extensia \".sh\" adăugată la %@ astfel încât acesta va fi securizată corespunzător";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Extensia \". unknown\" adăugată la %@ astfel încât acesta va fi securizată corespunzător";
 
 /* Window text */
 "Additional contributions by" = "Contribuții suplimentare din partea";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Comutarea rapidă între utilizatori";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Fișierul %@ pare a fi encodat UTF-16. Toate fișierele OpenVPN asciate trebuie să fie \"text simplu\" sau fișiere \"UTF-8 '.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Fișierul %@ pare să fie în format 'rich text', pentru că începe cu un caracter '{'. Toate fișierele OpenVPN trebuie să fie 'plain text' sau fișiere \"UTF-8 '.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "Fișierul %@ are o extensie care nu este cunoscută pentru Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "Fișierul '%@' este gol";
+"File '%@' is missing" = "Fișierul '%@' lipsește";
 
 /* Window text */
-"File '%@' is missing" = "Fișierul '%@' lipsește";
+"File '%@' is too short (%lu bytes)" = "Fișierul %1$@ este prea scurt (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "Fișierul este prea mare: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Valoare necunoscută %1$@ pentru %2$@ în %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Fișier la calea %@ ilizibil\n\nA se vedea Console Log pentru mai multe detalii.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Configurație actualizabilă %1$@ nu a fost stocată ca actualizabilă, deoarece %2$@ nu a putut fi găsită\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Nu puteți şterge o configurație Distribuită.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Nu puteți şterge o configurație cu excepția cazului în care este deconectat.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Nu puteți şterge o configurație care este programată să înceapă la pornirea computerului.";

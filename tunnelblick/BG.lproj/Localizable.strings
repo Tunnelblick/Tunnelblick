@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Добавено е \".sh\" разширение към %@, с цел да бъде защитен правилно";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Добавено е \". unknown\" разширение към %@, с цел да бъде защитен правилно";
 
 /* Window text */
 "Additional contributions by" = "Допълнително съдействие от";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Бързо превключване на потребители";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Файлът '%@' изглежда като UTF-16 кодиран. Всички свързани с OpenVPN файлове трябва да са 'plain text' или 'UTF-8' файлове.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Файлът '%@' изглежда да е в 'rich text' формат, защото започва със следния символ '{'. \nВсички файлове, свързани с OpenVPN трябва да бъдат в \"plain text\" или \"UTF-8\" файлов формат.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "Файлът '%@' има разширение, което не е известно на Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "Файлът '%@' е празeн";
+"File '%@' is missing" = "Файлът '%@' липсва";
 
 /* Window text */
-"File '%@' is missing" = "Файлът '%@' липсва";
+"File '%@' is too short (%lu bytes)" = "Файлът '%1$@' е твърде малък (%2$lu байта)";
 
 /* Window text */
 "File is too large: %@" = "Файлът е твърде голям: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Непозната стойност '%1$@' за ' %2$@' в %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Нечетим файл на %@\n\nВиж конзонлния лог за повече детайли.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Обновяема конфигурация \"%1$@\" не е била съхранена като обновяема, защото %2$@ не е намерена\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Не може да премахвате \"Deployed\" конфигурация.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Не можете да премахнете конфигурация, освен ако не е спряна.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Не може да премахнете конфигурация, която е зададена да се изпълнява когато се стартира компютъра.";

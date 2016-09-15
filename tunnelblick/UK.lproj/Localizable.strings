@@ -881,7 +881,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Для підвищення безпеки, до %@ додано розширення '.sh'";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Додано \".unknown\" розширення до %@ для забезпечення належного захисту";
 
 /* Window text */
 "Additional contributions by" = "Додаткові внески";
@@ -1115,6 +1115,9 @@
 "Fast User Switching" = "Швидке перемикання користувачів";
 
 /* Window text */
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Файл '%@' має кодування UTF-16. Всі пов'язані з OpenVPN файли мають бути у форматі 'звичайний текст' або мати кодусання 'UTF-8'.";
+
+/* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Схоже, що файл '%@' -  у 'rich-text' форматі -  першим символом у файлі є  ' {'. Всі OpenVPN-файли, мауть бути у форматі 'звичайного тексту' або 'UTF-8'.";
 
 /* Window text */
@@ -1124,10 +1127,10 @@
 "File '%@' has an extension which is not known to Tunnelblick." = "Файл '%@' має розширення, яке не відомо Tunnelblick.";
 
 /* Window text */
-"File '%@' is empty" = "Файл '%@' порожній";
+"File '%@' is missing" = "Файл '%@' відсутній";
 
 /* Window text */
-"File '%@' is missing" = "Файл '%@' відсутній";
+"File '%@' is too short (%lu bytes)" = "Файл '%1$@' занадто короткий (%2$lu байтів)";
 
 /* Window text */
 "File is too large: %@" = "Файл занадто великий: %@";
@@ -1739,6 +1742,9 @@
 "Unknown value '%@' for '%@' in %@" = "Невідоме значення '%1$@' для '%2$@' в %3$@";
 
 /* Window text */
+"Unreadable file at %@\n\nSee the Console log for details." = "Нечитабельний файл у %@.";
+
+/* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Оновлювану конфігурацію '%1$@' не може бути збережено як оновлювану, оскільки не вдалося знайти %2$@\n";
 
 /* Window text */
@@ -1857,6 +1863,9 @@
 
 /* Window text */
 "You may not remove a Deployed configuration." = "Неможливо видалити запущену конфігурацію.";
+
+/* Window text */
+"You may not remove a configuration unless it is disconnected." = "Ви не можете видалити конфігурацію поки не від'єднаєтесь.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Неможливо видалити конфігурацію, яка завантажується при старті комп'ютера.";
