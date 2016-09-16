@@ -1330,6 +1330,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 {
 	(void) sender;
 	
+    [self invalidateConfigurationParse];
+    
     if (   ( ! [[self configPath] hasPrefix: @"/Library/"] )
         && ( ! [[[self configPath] pathExtension] isEqualToString: @"tblk"] )  ) {
         TBShowAlertWindow(NSLocalizedString(@"Unavailable", @"Window title"),
