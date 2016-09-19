@@ -2118,7 +2118,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     // Didn't find the submenu, so we have to create a new submenu and try again.
     
     // Create the new submenu
-    NSMenu * newSubmenu = [[[NSMenu alloc] initWithTitle:@"A Configuration SubMenu Title"] autorelease];
+    NSMenu * newSubmenu = [[[NSMenu alloc] initWithTitle: NSLocalizedString(@"Tunnelblick", @"Window title")] autorelease];
     
     // Create a new submenu item for the outer menu
     NSMenuItem * newMenuItem = [[[NSMenuItem alloc] init] autorelease];
