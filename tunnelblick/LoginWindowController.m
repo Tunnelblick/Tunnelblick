@@ -165,12 +165,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
 {
 	(void) sender;
 	
-    if (  [[[self username] stringValue] length] == 0  ){
-        TBRunAlertPanel(NSLocalizedString(@"Please enter a username and password.", @"Window title"),
-                        NSLocalizedString(@"The username must not be empty!\nPlease enter VPN username/password combination.", @"Window text"),
-                        nil, nil, nil);
-        
-        [NSApp activateIgnoringOtherApps: YES];
+    const char * usernameC = [[[self username] stringValue] UTF8String];
+    const char * passwordC = [[[self password] stringValue] UTF8String];
+    if (   (strlen(usernameC) == 0)
+        || (strlen(usernameC) > MAX_LENGTH_OF_MANGEMENT_INTERFACE_PARAMETER)
+        || (strlen(passwordC) > MAX_LENGTH_OF_MANGEMENT_INTERFACE_PARAMETER)) {
+        [UIHelper shakeWindow: self.window];
         return;
     }
     [cancelButton setEnabled: NO];

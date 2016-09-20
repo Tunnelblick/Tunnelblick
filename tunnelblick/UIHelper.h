@@ -50,6 +50,8 @@
 				  narrow: (BOOL)       narrow
 				  enable: (BOOL)       enabled;
 
++(void)         shakeWindow: (NSWindow *) w;
+
 +(void)         shiftControl: (id) theControl by: (CGFloat) amount reverse: (BOOL) reverse;
 
 +(void)         showAlertWindow: (NSDictionary *) dict;

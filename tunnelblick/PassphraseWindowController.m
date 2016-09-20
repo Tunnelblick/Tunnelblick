@@ -132,12 +132,10 @@ extern TBUserDefaults * gTbDefaults;
 {
 	(void) sender;
 	
-    if (  [[[self passphrase] stringValue] length] == 0  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Please enter VPN passphrase.", @"Window title"),
-                        NSLocalizedString(@"The passphrase must not be empty!\nPlease enter VPN passphrase.", @"Window text"),
-                        nil, nil, nil);
-        
-        [NSApp activateIgnoringOtherApps: YES];
+    const char * passphraseC = [[[self passphrase] stringValue] UTF8String];
+    if (   (strlen(passphraseC) == 0)
+        || (strlen(passphraseC) > MAX_LENGTH_OF_MANGEMENT_INTERFACE_PARAMETER)  ) {
+        [UIHelper shakeWindow: self.window];
         return;
     }
     [cancelButton setEnabled: NO];

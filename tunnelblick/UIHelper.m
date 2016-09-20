@@ -19,6 +19,8 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
+#import <Quartz/Quartz.h>
+
 #import "helper.h"
 #import "sharedRoutines.h"
 
@@ -243,6 +245,34 @@ extern TBUserDefaults * gTbDefaults;
 		TBShowAlertWindow(title, msg);
 		
 	}
+}
+
+// The following method is a modified version of the code at http://stackoverflow.com/questions/10517386/how-to-give-nswindow-a-shake-effect-as-saying-no-as-in-login-failure-window/23491643#23491643
+
++(void)shakeWindow: (NSWindow *) w {
+    
+    static int   numberOfShakes  = 3;
+    static float durationOfShake = 0.5f;
+    static float vigourOfShake   = 0.02f;
+    
+    CGRect frame=[w frame];
+    CAKeyframeAnimation * shakeAnimation = [CAKeyframeAnimation animation];
+    
+    CGMutablePathRef shakePath = CGPathCreateMutable();
+    
+    CGPathMoveToPoint(shakePath, NULL, NSMinX(frame), NSMinY(frame));
+    for (  NSInteger index = 0; index < numberOfShakes; index++  ){
+        CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) - frame.size.width * vigourOfShake, NSMinY(frame));
+        CGPathAddLineToPoint(shakePath, NULL, NSMinX(frame) + frame.size.width * vigourOfShake, NSMinY(frame));
+    }
+    CGPathCloseSubpath(shakePath);
+    shakeAnimation.path = shakePath;
+    shakeAnimation.duration = durationOfShake;
+    
+    [w setAnimations:[NSDictionary dictionaryWithObject: shakeAnimation forKey:@"frameOrigin"]];
+    [[w animator] setFrameOrigin:[w frame].origin];
+    
+    CGPathRelease(shakePath);
 }
 
 @end
