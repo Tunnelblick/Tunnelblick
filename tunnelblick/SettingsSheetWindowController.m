@@ -827,9 +827,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [allConfigurationsUseTheSameCredentialsCheckbox setEnabled: YES];
     [credentialsGroupButton                setEnabled: YES];
     [removeNamedCredentialsButton          setEnabled: YES];
-    [addNamedCredentialsButton             setEnabled: (   ( [[addNamedCredentialsTF stringValue] length] != 0 )
-														&& ( ! [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"] )	 
-														)];
+    [addNamedCredentialsButton             setEnabled: (   ([[addNamedCredentialsTF stringValue] length] != 0)
+                                                        && ([[addNamedCredentialsTF stringValue] length] <= MAX_LENGTH_OF_CREDENTIALS_NAME)
+                                                        && ( ! [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"] )
+                                                        )];
     
     // Sounds tab
     
@@ -993,7 +994,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 		[allConfigurationsUseTheSameCredentialsCheckbox setState: NSOffState];
 		[credentialsGroupButton       setEnabled: YES];
 		[addNamedCredentialsTF        setEnabled: YES];
-		[addNamedCredentialsButton    setEnabled: ([[addNamedCredentialsTF stringValue] length] != 0)];
+        [addNamedCredentialsButton    setEnabled: (   ([[addNamedCredentialsTF stringValue] length] != 0)
+                                                   && ([[addNamedCredentialsTF stringValue] length] <= MAX_LENGTH_OF_CREDENTIALS_NAME)  )];
 		[removeNamedCredentialsButton setEnabled: YES];
 	}
 	
@@ -1655,7 +1657,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	
 	(void) n;
 	
-	[addNamedCredentialsButton setEnabled: ([[addNamedCredentialsTF stringValue] length] != 0)];
+	[addNamedCredentialsButton setEnabled: (   ([[addNamedCredentialsTF stringValue] length] != 0)
+                                            && ([[addNamedCredentialsTF stringValue] length] <= MAX_LENGTH_OF_CREDENTIALS_NAME)  )];
 }
 
 -(IBAction) addNamedCredentialsButtonWasClicked: (id) sender {
