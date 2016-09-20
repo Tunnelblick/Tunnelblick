@@ -918,7 +918,8 @@ NSString * TBGetDisplayName(NSString * msg,
 								   PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING,
 								   msg],
 								  nameToPrefill);
-        } else if (  [newName length] == 0  ) {
+        } else if (   ([newName length] == 0)
+                   || ([newName length] > MAX_LENGTH_OF_DISPLAY_NAME)) {
             newName = TBGetString([NSLocalizedString(@"Please enter a name and click \"OK\" or click \"Cancel\".\n\n", @"Window text") stringByAppendingString: msg], nameToPrefill);
         } else {
             NSString * targetPath = [[[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: newName] stringByAppendingPathExtension: @"conf"]; // (Don't use the .conf, but may need it for lastPartOfPath)
