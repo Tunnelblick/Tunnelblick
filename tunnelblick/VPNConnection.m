@@ -2911,14 +2911,22 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [myAuthAgent setAuthMode:@"privateKey"];
         [myAuthAgent performAuthentication];
         if (  [myAuthAgent authenticationWasFromKeychain]  ) {
-            [self addToLog: @"*Tunnelblick: Obtained VPN passphrase from the Keychain"];
+            [self addToLog: @"*Tunnelblick: Obtained passphrase from the Keychain"];
         }
         NSString *myPassphrase = [myAuthAgent passphrase];
         NSRange tokenNameRange = NSMakeRange(pwrange_need.length, pwrange_password.location - 6 );
         NSString* tokenName = [parameterString substringWithRange: tokenNameRange];
         TBLog(@"DB-AU", @"tokenName is '%@'", tokenName);
         if(  myPassphrase != nil  ){
-            [managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, escaped(myPassphrase)] encoding:NSUTF8StringEncoding];
+            const char * tokenNameC  = [escaped(tokenName)    UTF8String];
+            const char * passphraseC = [escaped(myPassphrase) UTF8String];
+             if (  ( strlen(tokenNameC)  > MAX_LENGTH_OF_MANGEMENT_INTERFACE_PARAMETER )
+                || ( strlen(passphraseC) > MAX_LENGTH_OF_MANGEMENT_INTERFACE_PARAMETER )  ) {
+                [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting; token name is %ld bytes long; passphrase is %ld bytes long; each is limited to %ld bytes", (long)strlen(tokenNameC), (long)strlen(passphraseC), (long)MAX_LENGTH_OF_MANGEMENT_INTERFACE_PARAMETER]];
+                [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+            } else {
+                [managementSocket writeString: [NSString stringWithFormat: @"password \"%s\" \"%s\"\r\n", tokenNameC, passphraseC] encoding:NSUTF8StringEncoding];
+            }
         } else {
             [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
             [self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
@@ -2934,9 +2942,18 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         }
         NSString *myPassword = [myAuthAgent password];
         NSString *myUsername = [myAuthAgent username];
-        if(  (myUsername != nil) && (myPassword != nil)  ){
-            [managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSUTF8StringEncoding];
-            [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUTF8StringEncoding];
+        if(   (myUsername != nil)
+           && (myPassword != nil)  ){
+            const char * usernameC  = [escaped(myUsername) UTF8String];
+            const char * passwordC  = [escaped(myPassword) UTF8String];
+            if (   ( strlen(usernameC) > MAX_LENGTH_OF_MANGEMENT_INTERFACE_PARAMETER )
+                || ( strlen(passwordC) > MAX_LENGTH_OF_MANGEMENT_INTERFACE_PARAMETER )  ) {
+                [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting; username is %ld bytes long; password is %ld bytes long; each is limited to %ld bytes", (long)strlen(usernameC), (long)strlen(passwordC), (long)MAX_LENGTH_OF_MANGEMENT_INTERFACE_PARAMETER]];
+                [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+            } else {
+                [managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%s\"\r\n", usernameC] encoding:NSUTF8StringEncoding];
+                [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%s\"\r\n", passwordC] encoding:NSUTF8StringEncoding];
+            }
         } else {
             [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
             [self startDisconnectingUserKnows: [NSNumber numberWithBool: YES]];      // (User requested it by cancelling)
