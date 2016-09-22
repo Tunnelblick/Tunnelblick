@@ -1396,8 +1396,8 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
         goto error1;
     }
     
-    NSMutableString * output = [NSMutableString stringWithCapacity: 4096];
-    
+    // Build up output as NSMutableData and convert to a string when it is complete.
+    NSMutableData * data = [NSMutableData dataWithCapacity: 4096];
     BOOL foundZeroByte = FALSE;
     
     NSDate * timeoutDate = [NSDate dateWithTimeIntervalSinceNow: 30.0];
@@ -1416,18 +1416,22 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
             usleep(sleepTimeMicroseconds);
             continue;
         } else if (  n < 0  ) {
-            appendLog([NSString stringWithFormat: @"runTunnelblickd: Error reading from tunnelblickd socket; errno = %u; error was '%s'", errno, strerror(errno)]);
+            appendLog([NSString stringWithFormat: @"runTunnelblickd: Error reading from tunnelblickd socket; status = %d; errno = %u; error was '%s'", n, errno, strerror(errno)]);
             goto error1;
         }
-        buffer[n] = '\0';
-        [output appendString: [NSString stringWithUTF8String: buffer]];
-        if (  strchr(buffer, '\0') != (buffer + n)  ) {
-            if (  strchr(buffer, '\0') != (buffer + n - 1)  ) {
-                appendLog([NSString stringWithFormat: @"runTunnelblickd: Data from tunnelblickd after the zero byte that should terminate the data"]);
-                goto error1;
+        
+        if (  n > 0  ) {
+            NSData * newData = [NSData dataWithBytes: buffer length: n];
+            [data appendData: newData];
+            buffer[n] = '\0';
+            if (  strchr(buffer, '\0') != (buffer + n)  ) {
+                if (  strchr(buffer, '\0') != (buffer + n - 1)  ) {
+                    appendLog(@"runTunnelblickd: Data from tunnelblickd after the zero byte that should terminate the data");
+                    goto error1;
+                }
+                foundZeroByte = TRUE;
+                break;
             }
-            foundZeroByte = TRUE;
-            break;
         }
     }
     
@@ -1435,10 +1439,15 @@ OSStatus runTunnelblickd(NSString * command, NSString ** stdoutString, NSString 
     close(sockfd);
     
     if (  ! foundZeroByte  ) {
-        appendLog([NSString stringWithFormat: @"runTunnelblickd: tunnelblickd is not responding; received only %lu bytes", [output length]]);
+        appendLog([NSString stringWithFormat: @"runTunnelblickd: tunnelblickd is not responding; received %lu bytes", [data length]]);
         goto error2;
     }
     
+    NSString * output = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    if (  ! output  ) {
+        appendLog([NSString stringWithFormat: @"runTunnelblickd: Data from tunnelblickd was not valid UTF-8; data was '%@'", data]);
+        goto error2;
+    }
     NSRange rngNl = [output rangeOfString: @"\n"];
     if (  rngNl.length == 0  ) {
         appendLog([NSString stringWithFormat: @"Invalid output from tunnelblickd: no newline; full output = '%@'", output]);
