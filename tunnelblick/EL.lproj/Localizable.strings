@@ -635,9 +635,6 @@
 "OpenVPN is Not Responding" = "Το OpenVPN δεν ανταποκρίνεται";
 
 /* Window title */
-"Please enter a username and password." = "Παρακαλώ εισάγεται όνομα χρήστη και κωδικό.";
-
-/* Window title */
 "Please insert token" = "Παρακαλώ εισάγετε κουπόνι";
 
 /* Window title */
@@ -1319,9 +1316,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Η διαδρομή '%1$@' περιέχει χαρακτήρες που δεν επιτρέπονται.  \n\nΧαρακτήρες που δεν επιτρέπονται: '%2$s'\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "Παρακαλώ εισάγετε την φράση-κλειδί του VPN.";
-
-/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Παρακαλώ εισάγετε όνομα και πατήστε \"OK\" ή πατήστε \"Άκυρο\".\n\n";
 
 /* Window text */
@@ -1466,9 +1460,6 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Η εγκατάσταση, αφαίρεση, ανάκτηση ή επιδιόρθωση ενός ή περισσότερων στοιχείων του Tunnelblick απέτυχε. Δείτε το ιστορικό της Κονσόλας για λεπτομέρειες.";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "Η φράση-κλιδεί δεν πρέπει να είναι κενή!\nΠαρακαλώ εισάγετε την φράση-κλιδεί του VPN.";
-
-/* Window text */
 "The passphrase was not accepted." = "Το συνθηματικό δεν είναι αποδεκτό.";
 
 /* Window text */
@@ -1479,9 +1470,6 @@
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "Το όνομα χρήστη και ο κωδικός πρόσβασης δεν είναι αποδεκτά από τον απομακρυσμένο VPN διακομιστή.";
-
-/* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "Το όνομα χρήστη δεν πρέπει να είναι άδειο!\nΠαρακαλώ πληκτρολογίστε τον συνδυασμό όνομα χρήστη/κωδικο πρόσβασης για το VPN.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Δεν υπάρχουν παράμετροι OpenVPN για την εγκατάσταση.";

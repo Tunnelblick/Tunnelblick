@@ -635,9 +635,6 @@
 "OpenVPN is Not Responding" = "OpenVPN 응답 없음";
 
 /* Window title */
-"Please enter a username and password." = "사용자 계정과 비밀번호를 입력하십시오";
-
-/* Window title */
 "Please insert token" = "토큰을 입력하십시오";
 
 /* Window title */
@@ -881,7 +878,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "%@의 보안을 위해 '.sh' 확장자를 추가합니다";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "%@의 보안을 위해 '.unknown' 확장자를 추가합니다";
 
 /* Window text */
 "Additional contributions by" = "공헌한 사람들";
@@ -1115,7 +1112,7 @@
 "Fast User Switching" = "빠른 사용자 전환";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "파일 '%@' 은 UTF-16로 인코딩 되어 있습니다. OpenVPN 연관 파일은 반드시 '플레인 텍스트' 또는 'UTF-8' 파일이어야 합니다.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "'%@' 파일은 '{' 문자로 시작하기 때문에 '리치 텍스트' 인 것 같습니다. 모든 OpenVPN 관련 파일들은 '일반 텍스트' 또는 'UTF-8' 파일이어야합니다.";
@@ -1130,7 +1127,7 @@
 "File '%@' is missing" = "'%@' 파일이 없습니다";
 
 /* Window text */
-"File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
+"File '%@' is too short (%lu bytes)" = "파일 '%1$@' 은 너무 짧습니다 (%2$lu 바이트)";
 
 /* Window text */
 "File is too large: %@" = "파일이 너무 큽니다: %@";
@@ -1319,9 +1316,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "경로 '%1$@' 는 허용되지 않는 문자를 포함하고 있습니다.\n\n허용되지 않는 문자: '%2$s'\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "VPN 암호를 입력하십시오.";
-
-/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "이름을 입력하고 \"확인\" 또는 \"취소\"를 클릭하십시오.\n\n";
 
 /* Window text */
@@ -1466,9 +1460,6 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "설치, 삭제, 복원, 복구 중 1개 또는 이상의 Tunnelblick 컴포넌트가 실패했습니다. 자세한 것은 콘솔 로그를 보십시오.";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "암호가 필요합니다!\nVPN 암호를 입력하십시오.";
-
-/* Window text */
 "The passphrase was not accepted." = "암호가 거부되었습니다.";
 
 /* Window text */
@@ -1479,9 +1470,6 @@
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "사용자 이름과 비밀번호가 원격 VPN 서버로부터 거부되었습니다.";
-
-/* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "사용자 이름이 필요합니다!\nVPN 사용자 이름과 비밀번호를 입력하십시오.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "설치할 OpenVPN 설정이 없습니다.";
@@ -1742,7 +1730,7 @@
 "Unknown value '%@' for '%@' in %@" = "알 수 없는 값 '%1$@' for '%2$@' in %3$@";
 
 /* Window text */
-"Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
+"Unreadable file at %@\n\nSee the Console log for details." = "파일 %@ 을 읽을 수 없습니다.\n\n자세한 내용은 콘솔 로그를 참조 하십시오.";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "수정 가능한 설정 '%1$@' 은 %2$@ 을 찾을 수 없기 때문에 수정이 불가합니다\n";
@@ -1865,7 +1853,7 @@
 "You may not remove a Deployed configuration." = "배포된 구성은 삭제할 수 없습니다.";
 
 /* Window text */
-"You may not remove a configuration unless it is disconnected." = "You may not remove a configuration unless it is disconnected.";
+"You may not remove a configuration unless it is disconnected." = "연결이 해제되어 있지 않은 구성은 제거할 수 없습니다.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "컴퓨터가 시작할 때 연결하도록 되어있는 구성은 삭제할 수 없습니다.";

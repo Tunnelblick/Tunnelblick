@@ -635,9 +635,6 @@
 "OpenVPN is Not Responding" = "Az OpenVPN nem válaszol";
 
 /* Window title */
-"Please enter a username and password." = "Kérem adja meg a felhasználónevet és jelszót";
-
-/* Window title */
 "Please insert token" = "Kérem helyezze be a token-t";
 
 /* Window title */
@@ -1319,9 +1316,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Elérési út \"%1$@' nem engedélyezett karaktereket tartalmaz.  Nem megengedett karakterek: \"%2$s\"  \n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "Kérem adja meg VPN jelmondatát.";
-
-/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Kérem adjon meg egy nevet és kattintson az \"OK\" gombra vagy kattintson a \"Mégse\" gombra.\n\n";
 
 /* Window text */
@@ -1466,9 +1460,6 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "A telepítés, eltávolítás, visszaállítás, vagy javaítás egy vagy több Tunnelblick komponense sikertelenül ért véget. Részletek tekintse meg Konzol Log-ot.";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "A jelmondat nem lehet üres!\nKérem írjon be egy jelmondatot a VPN-hez.";
-
-/* Window text */
 "The passphrase was not accepted." = "A jelmondatot nem fogadtuk el.";
 
 /* Window text */
@@ -1479,9 +1470,6 @@
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "A távoli VPN szerver nem fogadta el a felhasználónevet és a jelszót.";
-
-/* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "A felhasználónév nem lehet üres!\nKérjük, írjon be egy felhasználónév/jelszó kombinációt!";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Nincsen telepíthető OpenVPN konfiguráció.";

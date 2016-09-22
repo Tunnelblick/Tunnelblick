@@ -635,9 +635,6 @@
 "OpenVPN is Not Responding" = "OpenVPN 没有响应";
 
 /* Window title */
-"Please enter a username and password." = "请输入一个用户名和密码.";
-
-/* Window title */
 "Please insert token" = "请输入代号";
 
 /* Window title */
@@ -1319,9 +1316,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "路径 '%1$@' 包含非法的字符。\n\n非法字符为：'%2$s'\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "请输入 VPN 口令.";
-
-/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "请输入一个名字, 然后点击\"确定\" 或者点击\"取消\".\n\n";
 
 /* Window text */
@@ -1466,9 +1460,6 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "安装,移除,复原或修复 Tunnelblick 模块失败. 详情请查看控制台日志.";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "口令不能空白!\n请输入 VPN 口令.";
-
-/* Window text */
 "The passphrase was not accepted." = "不接受此密码";
 
 /* Window text */
@@ -1479,9 +1470,6 @@
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "远程 VPN 服务器不接受该用户名和密码";
-
-/* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "用户名不能为空！\n请输入VPN 用户名与密码。";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "没有可安装的OpenVPN 配置";

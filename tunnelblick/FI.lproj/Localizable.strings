@@ -635,9 +635,6 @@
 "OpenVPN is Not Responding" = "OpenVPN ei vastaa";
 
 /* Window title */
-"Please enter a username and password." = "Kirjoita käyttäjänimi ja salasana.";
-
-/* Window title */
 "Please insert token" = "Aseta tunnus";
 
 /* Window title */
@@ -1319,9 +1316,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Polku '%1$@' sisältää merkkejä, joita ei sallita.\n\nEi-sallittuja merkkejä: '%2$s'\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "Kirjoita VPN-salasana.";
-
-/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Kirjoita nimi ja klikkaa \"OK\" tai klikkaa \"Cancel\".\n\n";
 
 /* Window text */
@@ -1466,9 +1460,6 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Yhden tai useamman Tunnelblick-komponentin asennus, poisto, palauttaminen tai korjaaminen epäonnistui. Katso lisätietoja päätelokista.";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "Salasana ei saa olle tyhjä!\nKirjoita VPN-salasana.";
-
-/* Window text */
 "The passphrase was not accepted." = "Salasanaa ei hyväksytty.";
 
 /* Window text */
@@ -1479,9 +1470,6 @@
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "VPN palvelin ei hyväksynyt käyttäjätunnusta ja salasanaa.";
-
-/* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "Käyttäjätunnus ei saa olla tyhjä!\nSyötä VPN käyttäjätunnus ja salasana.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Ei ole asennettavia OpenVPN-konfiguraatioita.";

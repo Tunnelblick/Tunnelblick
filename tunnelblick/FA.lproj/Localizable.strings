@@ -74,7 +74,7 @@
 "Copy Diagnostic Info to Clipboard" = "ذخیره اطلاعات عیب‌یابی";
 
 /* Button */
-"Create sample configuration and edit it" = "ایجاد نمونه ای تز تنظیمات و تغییر دادن آن";
+"Create sample configuration and edit it" = "ایجاد نمونه ای از تنظیمات و تغییر دادن آن";
 
 /* Button */
 "Default (%@)" = "پیش فرض (%@)";
@@ -293,7 +293,7 @@
 "No VPN Configurations Available" = "هیچ تنظیمات VPN موجود نیست";
 
 /* Menu Item */
-"OpenVPN level %lu" = "OpenVPN level %lu";
+"OpenVPN level %lu" = "OpenVPN سطح %lu";
 
 /* Menu Item */
 "OpenVPN level 0 - no output except fatal errors" = "OpenVPN level 0 - no output except fatal errors";
@@ -302,7 +302,7 @@
 "OpenVPN level 11 - extremely verbose output" = "OpenVPN level 11 - extremely verbose output";
 
 /* Menu Item */
-"OpenVPN level 3 - normal output" = "OpenVPN level 3 - normal output";
+"OpenVPN level 3 - normal output" = "OpenVPN سطح 3 - خروجی عادی";
 
 /* Menu Item */
 "OpenVPN level 4 - also outputs values for all options" = "OpenVPN level 4 - also outputs values for all options";
@@ -311,7 +311,7 @@
 "OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "OpenVPN level 6 - very verbose output";
+"OpenVPN level 6 - very verbose output" = "OpenVPN سطح  6 - خروجی بسیار طویل";
 
 /* Menu Item */
 "OpenVPN logging level set by the configuration" = "OpenVPN logging level set by the configuration";
@@ -626,16 +626,13 @@
 "No Credentials" = "No Credentials";
 
 /* Window title */
-"One or more OpenVPN processes could not be terminated." = "One or more OpenVPN processes could not be terminated.";
+"One or more OpenVPN processes could not be terminated." = "یک یا چند عملیات OpenVPN نمیتواند پایان بیابد.";
 
 /* Window title */
-"Only computer administrators should update Tunnelblick" = "Only computer administrators should update Tunnelblick";
+"Only computer administrators should update Tunnelblick" = "تنها مدیر کامپیوتر امکان بروزرسانی Tunnelblick را دارد";
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN پاسخگو نیست";
-
-/* Window title */
-"Please enter a username and password." = "لطفا نام کاربری و کلمه عبور خود را وارد نمائید.";
 
 /* Window title */
 "Please insert token" = "لطفا token را وارد کنید";
@@ -689,10 +686,10 @@
 "Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
 
 /* Window title */
-"Utilities" = "Utilities";
+"Utilities" = "خدمات";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "خطا در نصب پیکربندی VPN";
 
 /* Window title */
 "VPN Configuration Installation" = "VPN Configuration Installation";
@@ -782,13 +779,13 @@
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc.";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Do you wish to install %1$@ to %2$@%3$@?\n\n";
+" Do you wish to install %@ to %@%@?\n\n" = " آیا مایلید %1$@ را در %2$@%3$@ نصب کنید?\n\n";
 
 /* Window text */
 " Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " آیا میخواهید\n    %1$@\n    در %2$@\nبا%3$@%4$@ جایگزین شود؟";
 
 /* Window text */
-" Forced preferences will also be installed or replaced.\n\n" = " Forced preferences will also be installed or replaced.\n\n";
+" Forced preferences will also be installed or replaced.\n\n" = " تنظیمات اجباری هم نصب یا جایگزین میشوند.\n\n";
 
 /* Window text */
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n";
@@ -806,7 +803,7 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WARNING: This copy of Tunnelblick has been tampered with.\n\n";
 
 /* Window text */
-"%@ exists but is not a folder" = "%@ exists but is not a folder";
+"%@ exists but is not a folder" = "%@ موجود است اما پوشه نیست";
 
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ has been reverted to its last secured (shadow) copy.\n\n";
@@ -860,7 +857,7 @@
 "A passphrase is required to connect to\n  %@%@" = "A passphrase is required to connect to\n  %1$@%2$@";
 
 /* Window text */
-"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?";
+"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "یک پیکربندی اولیه با نام '%@' وجود دارد.\n\nآیا مایلید تا پیکربندی اشتراک گذاشته شده را جایگزین کنید?";
 
 /* Window text */
 "A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
@@ -1319,9 +1316,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Path '%1$@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "Please enter VPN passphrase.";
-
-/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Please enter a name and click \"OK\" or click \"Cancel\".\n\n";
 
 /* Window text */
@@ -1466,9 +1460,6 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";
-
-/* Window text */
 "The passphrase was not accepted." = "رمز مورد قبول نیست.";
 
 /* Window text */
@@ -1479,9 +1470,6 @@
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
-
-/* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "The username must not be empty!\nPlease enter VPN username/password combination.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "There are no OpenVPN configurations to install.";

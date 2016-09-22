@@ -635,9 +635,6 @@
 "OpenVPN is Not Responding" = "OpenVPN svarer ikke";
 
 /* Window title */
-"Please enter a username and password." = "Vennligst skriv inn brukernavn og passord.";
-
-/* Window title */
 "Please insert token" = "Vennligst tast inn kode";
 
 /* Window title */
@@ -1319,9 +1316,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Stien '%1$@' inneholder tegn som ikke er tillatt.\n\nTegn som ikke er tillatt: '%2$s'\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "Skriv in ditt passord.";
-
-/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Vennligst skriv inn et navn og klikk \"OK\" eller klikk \"Avbryt\".\n\n";
 
 /* Window text */
@@ -1466,9 +1460,6 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Installasjonen, fjerningen, gjenopprettingen, eller reparasjon av en eller flere Tunnelblick-komponenter feilet. Se konsolloggen for detaljer.";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "Passordet kan ikke være blankt!\nVennligst tast inn VPN passord.";
-
-/* Window text */
 "The passphrase was not accepted." = "Adgangskoden ble ikke akseptert.";
 
 /* Window text */
@@ -1479,9 +1470,6 @@
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "Brukernavnet og passordet ble ikke akseptert av VPN-serveren.";
-
-/* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "Brukernavn kan ikke være blankt! Vennligst tast inn riktig VPN brukernavn og passord kombinasjon.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Der er ingen OpenVPN-konfigurasjoner å installere.";

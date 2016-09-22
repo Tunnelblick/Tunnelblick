@@ -635,9 +635,6 @@
 "OpenVPN is Not Responding" = "OpenVPN nie odpowiada";
 
 /* Window title */
-"Please enter a username and password." = "Proszę podać nazwę użytkownika i hasło.";
-
-/* Window title */
 "Please insert token" = "Proszę wprowadzić identyfikator sesji";
 
 /* Window title */
@@ -1319,9 +1316,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Ścieżka '%1$@' zawiera znaki, które nie są dozwolone.  \n\nZnaki, które nie są dozwolone: '%2$s'\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "Wprowadź frazę VPN.";
-
-/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Wpisz nazwę użytkownika i kliknij \"OK\" bądź \"Anuluj\".\n\n";
 
 /* Window text */
@@ -1466,9 +1460,6 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Instalacja, usunięcie, przywrócenie lub naprawa jednego lub więcej składników Tunnelblick nie powiodła się. Przejrzyj log konsoli by znaleźć więcej informacji.";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "Fraza nie może być pustym ciągiem znaków!\nProszę wprowadzić frazę VPN.";
-
-/* Window text */
 "The passphrase was not accepted." = "Hasło nie zostało przyjęte.";
 
 /* Window text */
@@ -1479,9 +1470,6 @@
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "Nazwa użytkownika i hasło nie zostały przyjęte przez zdalny serwer VPN.";
-
-/* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "Nazwa użytkownika nie może być pusta!\nProszę wprowadzić nazwę użytkownika i hasło dla VPN.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Brak konfiguracji OpenVPN do zainstalowania.";

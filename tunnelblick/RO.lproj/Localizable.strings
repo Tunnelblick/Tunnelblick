@@ -635,9 +635,6 @@
 "OpenVPN is Not Responding" = "OpenVPN nu răspunde";
 
 /* Window title */
-"Please enter a username and password." = "Vă rugăm să introduceți un nume de utilizator și o parolă.";
-
-/* Window title */
 "Please insert token" = "Vă rugăm să introduceți un token";
 
 /* Window title */
@@ -1319,9 +1316,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Calea %1$@ conține caractere care nu sunt permise.\nCaracterele care nu sunt permise: %2$s\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "Vă rugăm să introduceți parola VPN.";
-
-/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Vă rugăm să introduceți un nume și faceți clic pe \"OK\" sau pe \"Anulați\".\n\n";
 
 /* Window text */
@@ -1466,9 +1460,6 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Instalarea, eliminarea, recuperarea sau repararea unuia sau a mai multor componente Tunnelblick nu a reușit. A se vedea Console Log pentru detalii.";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "Parola nu trebuie să fie goală!\nVă rugăm să introduceți parola VPN.";
-
-/* Window text */
 "The passphrase was not accepted." = "Parola nu a fost acceptata.";
 
 /* Window text */
@@ -1479,9 +1470,6 @@
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "Numele de utilizator și parola nu au fost acceptate de către serverul VPN la distanță.";
-
-/* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "Numele de utilizator nu trebuie să fie gol!\nVă rugăm să introduceți nume de utilizator / parolă VPN.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Nu exista configurații OpenVPN pentru instalare.";

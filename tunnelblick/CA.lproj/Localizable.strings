@@ -248,7 +248,7 @@
 "Tunnelblick 3.3 icon" = "Icona del Tunnelblick 3.3";
 
 /* Button */
-"When Tunnelblick launches" = "Quan Tunnelblick s'iniciï";
+"When Tunnelblick launches" = "Quan Tunnelblick iniciï";
 
 /* Button */
 "When computer starts" = "Quan s'iniciï l'ordinador";
@@ -347,7 +347,7 @@
 "Check for updates to beta versions" = "Cercar actualitzacions de versions de desenvolupament (beta)";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connecting" = "Comprovar si l'adreça pública IP aparent ha canviatdesprés de la connexió";
+"Check if the apparent public IP address changed after connecting" = "Comprovar si l'adreça pública IP aparent ha canviat després de la connexió";
 
 /* Checkbox name */
 "Disable IPv6 (tun only)" = "Deshabilitar IPv6 (només tun)";
@@ -633,9 +633,6 @@
 
 /* Window title */
 "OpenVPN is Not Responding" = "OpenVPN no respon";
-
-/* Window title */
-"Please enter a username and password." = "Si us plau entra un nom d'usuari i una contrasenya.";
 
 /* Window title */
 "Please insert token" = "Si us plau introdueix el token";
@@ -1319,9 +1316,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "El camí '%1$@' conté caràcters que no estan permesos.\n\nCaràcters no permesos: '%2$s'\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "Si us plau entra el mot clau de la connexió VPN.";
-
-/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Entra un nom i fes click a \"OK\" or a \"Cancel\", si us plau.\n\n";
 
 /* Window text */
@@ -1466,9 +1460,6 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "La instal·lació, esborrat, recuperació o reparació d'un o més dels component de Tunnelblick ha fallat. Mira la Consola per obtenir més detalls.";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "El mot clau no pot ser buit!\nSi us plau entra el mot clau de la connexió VPN.";
-
-/* Window text */
 "The passphrase was not accepted." = "La clau secreta no ha estat acceptada.";
 
 /* Window text */
@@ -1479,9 +1470,6 @@
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "El nom d'usuari i la contasenya no s'han acceptat pel servidor VPN remot.";
-
-/* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "El nom d'usuari no pot ser buit!\nSi us plau, entra el nom d'usuari i la contrasenya de la VPN.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "No hi ha Configuracions OpenVPN per a instal·lar.";

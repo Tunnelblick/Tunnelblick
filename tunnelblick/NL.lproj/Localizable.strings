@@ -635,9 +635,6 @@
 "OpenVPN is Not Responding" = "OpenVPN reageert niet";
 
 /* Window title */
-"Please enter a username and password." = "Een Gebruikersnaam en wachtwoord invullen a.u.b.";
-
-/* Window title */
 "Please insert token" = "Token aansluiten aub";
 
 /* Window title */
@@ -1319,9 +1316,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Pad ' %1$@ \"bevat tekens die niet zijn toegestaan.  \n\nDe tekens die niet worden toegestaan zijn: '%2$s'\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "Voer a.u.b. de VPN wachtzin in.";
-
-/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Voer a.u.b. een naam in en druk op \"OK\" of \"Annuleren\".\n\n";
 
 /* Window text */
@@ -1466,9 +1460,6 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "De installatie, verwijderen of herstel van een of meer Tunnelblick-onderdelen is mislukt. Zie het Console Log voor details.";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "De wachtzin mag niet leeg blijven!\nVoer a.u.b. de VPN-wachtzin in.";
-
-/* Window text */
 "The passphrase was not accepted." = "De wachtwoordzin is niet geaccepteerd.";
 
 /* Window text */
@@ -1479,9 +1470,6 @@
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "De gebruikersnaam en wachtwoord werden niet geaccepteerd door de remote VPN server.";
-
-/* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "De gebruikersnaam mag niet leeg zijn!\nVoer a.u.b. VPN gebruikersnaam/wachtwoord combinatie in.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Er zijn geen OpenVPN configuraties om te installeren.";

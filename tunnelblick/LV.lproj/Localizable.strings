@@ -635,9 +635,6 @@
 "OpenVPN is Not Responding" = "OpenVPN neatbild";
 
 /* Window title */
-"Please enter a username and password." = "Lūdzu ievadiet lietotāja vārdu un paroli.";
-
-/* Window title */
 "Please insert token" = "Lūdzu, ievietojiet marķieri";
 
 /* Window title */
@@ -1319,9 +1316,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Ceļš %1$@ satur simbolus, kas nav atļauti.\n\nŠie simboli ir: %2$s\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "Ievadiet VPN paroli.";
-
-/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Ievadiet vārdu un nospiediet \"OK\" vai nospiediet \"Cancel\".\n\n";
 
 /* Window text */
@@ -1466,9 +1460,6 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Viena vai vairāku Tunnelblick komponentu uzstādīšana, dzēšana, atgūšana vai labošana neizdevās. Vairāk informācijas notikumu žurnālā.";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "Ieejas frāze nedrīkst būt tukša!\nLūdzu ievadiet VPN ieejas frāzi.";
-
-/* Window text */
 "The passphrase was not accepted." = "Ieejas frāze netika pieņemta.";
 
 /* Window text */
@@ -1479,9 +1470,6 @@
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "Attālais VPN serveris nepieņēma lietotāja vārdu un paroli.";
-
-/* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "Lietotāja vārds nedrīkst būt tukšs!\nLūdzu ievadiet VPN lietotāja vārda/paroles kombināciju.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Nav OpenVPN konfigurāciju, kuras uzstādīt.";

@@ -635,9 +635,6 @@
 "OpenVPN is Not Responding" = "OpenVPN не отвечает";
 
 /* Window title */
-"Please enter a username and password." = "Пожалуйста введите имя пользователя и пароль.";
-
-/* Window title */
 "Please insert token" = "Пожалуйста вставьте токен";
 
 /* Window title */
@@ -1319,9 +1316,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Путь '%1$@' содержит символы, которые не допускаются.  Символы, которые не разрешены: '%2$s'\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "Пожалуйста введите секретную фразу VPN.";
-
-/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Пожалуйста, введите имя и нажмите \"OK\", либо нажмите \"Отмена\".\n\n";
 
 /* Window text */
@@ -1466,9 +1460,6 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Процесс установки, удаления или восстановления одного или нескольких компонентов Tunnelblick прошёл неудачно. Подробности в Журнале Событий.";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "Секретная фраза должна быть заполнена!\nПожалуйста, заполните секретную фразу VPN.";
-
-/* Window text */
 "The passphrase was not accepted." = "Ключевая фраза не была принята.";
 
 /* Window text */
@@ -1479,9 +1470,6 @@
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "Имя пользователя и пароль не были приняты удалённым сервером VPN.";
-
-/* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "Имя пользователя не может быть пустым!\nПожалуйста, введите комбинацию имя пользователя/пароль.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Конфигураций OpenVPN для установки нет.";

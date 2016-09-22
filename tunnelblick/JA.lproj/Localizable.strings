@@ -635,9 +635,6 @@
 "OpenVPN is Not Responding" = "OpenVPN が応答しません";
 
 /* Window title */
-"Please enter a username and password." = "ユーザー名とパスワードを入力してください";
-
-/* Window title */
 "Please insert token" = "トークンを挿してください";
 
 /* Window title */
@@ -1319,9 +1316,6 @@
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "パス '%1$@' に許可されていない文字が含まれています。\n\n以下の文字は許可されていません: '%2$s'\n\n";
 
 /* Window text */
-"Please enter VPN passphrase." = "VPNのパスフレーズを入力して下さい。";
-
-/* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "名前を入れて、「了解」または「キャンセル」をクリックしてください。\n\n";
 
 /* Window text */
@@ -1466,9 +1460,6 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Tunnelblickの一部について、インストールまたは削除、回復、修復ができませんでした。詳細はコンソールログを参照してください。";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "パスフレーズが必要です。\nVPN のパスフレーズを入力してください。";
-
-/* Window text */
 "The passphrase was not accepted." = "このパスフレーズは拒否されました";
 
 /* Window text */
@@ -1479,9 +1470,6 @@
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "このユーザーネームとパスワードはVPNサーバーに拒否されました";
-
-/* Window text */
-"The username must not be empty!\nPlease enter VPN username/password combination." = "ユーザー名が必要です。VPN ユーザー名とパスワードを入力してください。";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "インストールするOpenVPN設定が存在しません。";
