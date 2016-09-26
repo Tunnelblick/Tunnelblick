@@ -62,33 +62,37 @@ SDKROOT=$(SDK_DIR)
 
 CFLAGS=-isysroot $(SDKROOT) -Os -mmacosx-version-min=$(MACOSX_DEPLOYMENT_TARGET)
 
-STAGING_DIR = $(TOPDIR)/build/staging
+SOURCES_DIR = $(TOPDIR)/sources
+BUILD_DIR = $(TOPDIR)/build
+PRODUCTS_DIR = $(TOPDIR)/products
 
-OPENSSL_BUILD_DIR = $(TOPDIR)/build/$(OPENSSL_NAME)
+STAGING_DIR = $(BUILD_DIR)/staging
+
+OPENSSL_BUILD_DIR = $(BUILD_DIR)/$(OPENSSL_NAME)
 OPENSSL_STAGING_DIR = $(STAGING_DIR)/$(OPENSSL_NAME)
 OPENSSL_TARGET_FILES = $(foreach f, libcrypto.a libssl.a, $(OPENSSL_STAGING_DIR)/lib/$(f))
 
-LZO_BUILD_DIR = $(TOPDIR)/build/$(LZO_NAME)
+LZO_BUILD_DIR = $(BUILD_DIR)/$(LZO_NAME)
 LZO_STAGING_DIR = $(STAGING_DIR)/$(LZO_NAME)
 
-LZ4_BUILD_DIR = $(TOPDIR)/build/$(LZ4_NAME)/lib
+LZ4_BUILD_DIR = $(BUILD_DIR)/$(LZ4_NAME)/lib
 LZ4_STAGING_DIR = $(STAGING_DIR)/$(LZ4_NAME)
 
-PKCS11_BUILD_DIR = $(TOPDIR)/build/$(PKCS11_NAME)
+PKCS11_BUILD_DIR = $(BUILD_DIR)/$(PKCS11_NAME)
 PKCS11_STAGING_DIR=$(STAGING_DIR)/$(PKCS11_NAME)
 
-EASY_RSA_SOURCE_DIR = $(TOPDIR)/sources/easy-rsa
-EASY_RSA_PRODUCTS_DIR = $(TOPDIR)/products/easy-rsa-tunnelblick
+EASY_RSA_SOURCE_DIR = $(SOURCES_DIR)/easy-rsa
+EASY_RSA_PRODUCTS_DIR = $(PRODUCTS_DIR)/easy-rsa-tunnelblick
 
-TUNTAP_SOURCE_DIR = $(TOPDIR)/sources/tuntap
-TUNTAP_BUILD_DIR = $(TOPDIR)/build/tuntap
-TUNTAP_PRODUCTS_DIR = $(TOPDIR)/products/tuntap
+TUNTAP_SOURCE_DIR = $(SOURCES_DIR)/tuntap
+TUNTAP_BUILD_DIR = $(BUILD_DIR)/tuntap
+TUNTAP_PRODUCTS_DIR = $(PRODUCTS_DIR)/tuntap
 
-OPENVPN_SOURCE_DIR = $(TOPDIR)/sources/openvpn
-OPENVPN_BUILD_DIR = $(TOPDIR)/build/openvpn
-OPENVPN_PRODUCTS_DIR = $(TOPDIR)/products/openvpn
+OPENVPN_SOURCE_DIR = $(SOURCES_DIR)/openvpn
+OPENVPN_BUILD_DIR = $(BUILD_DIR)/openvpn
+OPENVPN_PRODUCTS_DIR = $(PRODUCTS_DIR)/openvpn
 
-PATCHES_DIR = $(TOPDIR)/sources/patches
+PATCHES_DIR = $(SOURCES_DIR)/patches
 
 DOWN_ROOT_ARCH_2_2=$(foreach f, $(TARGET_ARCHS), -arch $f)
 
@@ -102,9 +106,10 @@ all: built-easy-rsa-tunnelblick \
 	@echo "THIRD_PARTY: Made all third_party for Tunnelblick" ; \
 
 clean:
-	rm -f -R $(TOPDIR)/build
-	rm -f -R $(TOPDIR)/products
+	rm -f -R $(BUILD_DIR)
+	rm -f -R $(PRODUCTS_DIR)
 	rm -f    built-*
+	rm -f    do-not-clean
 	@echo "THIRD_PARTY: Cleaned all third_party for Tunnelblick"
 
 include makefiles/Makefile-*

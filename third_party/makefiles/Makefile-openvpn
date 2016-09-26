@@ -21,7 +21,7 @@
 built-openvpn-prepare:
 	@echo "THIRD_PARTY: Expanding and Patching OpenVPN..."
 	mkdir -p $(OPENVPN_BUILD_DIR)
-	cd $(TOPDIR)/sources ; \
+	cd $(SOURCES_DIR) ; \
 	for openvpn_folder_name in `ls openvpn` ; do \
 		cd "$(OPENVPN_SOURCE_DIR)/$$openvpn_folder_name" ; \
 		openvpn_tar_gz_name=`ls openvpn*.tar.gz` ; \
