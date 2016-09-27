@@ -17,7 +17,7 @@
 #  along with this program (see the file COPYING included with this
 #  distribution); if not, write to the Free Software Foundation, Inc.,
 
-built-pkcs11-helper: built-openssl
+built-pkcs11-helper: built-allssl
 	@echo "THIRD_PARTY: Expanding PKCS11-Helper..."
 	mkdir -p $(PKCS11_BUILD_DIR)
 	tar -x -f sources/$(PKCS11_NAME).tar.bz2 -C build

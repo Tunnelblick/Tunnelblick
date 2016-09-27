@@ -24,13 +24,16 @@ export openssl_BUILD_ARCH= $(OPENSSL_TARGET_ARCHS)
 export libressl_CONFIG_ARGS= 
 export libressl_BUILD_ARCH= $(TARGET_ARCHS)
 
+export boringssl_CONFIG_ARGS= 
+export boringssl_BUILD_ARCH= $(TARGET_ARCHS)
+
 
 .PHONY: built-ssl-prepare built-ssl-prepare-extract built-ssl-prepare-patch
 
 built-ssl-prepare-extract:
 	@echo "THIRD_PARTY: Extracting all SSL variants..."
 	mkdir -p $(BUILD_DIR)
-	find -xsE $(SOURCES_DIR) -depth 1 -type f -iregex ".*/(libre|open){1}ssl-.*tar.gz$$" -exec tar -x -C $(BUILD_DIR) -f {} \; > /dev/null
+	find -xsE $(SOURCES_DIR) -depth 1 -type f -iregex ".*/(libre|open|boring){1}ssl-.*tar.gz$$" -exec tar -x -C $(BUILD_DIR) -f {} \; > /dev/null
 
 built-ssl-prepare-patch:
 	@echo "THIRD_PARTY: Patching all SSL variants..."
@@ -63,37 +66,41 @@ built-ssl-dobuild:
 		sslvariant=$${sslversion%-*}; \
 		CONFIGARGS=$${sslvariant}_CONFIG_ARGS; \
 		BUILDARCH=$${sslvariant}_BUILD_ARCH; \
-		cd $${ssldir}; \
 		for a in $${!BUILDARCH}; do \
+			cd $${ssldir}; \
 			a=$${a#\"*}; \
 			a=$${a%*\"}; \
-			echo "Configure $${sslversion} for $$a" ; \
-			echo "PREFIX: $${STAGING_DIR}/$${sslversion}/$${a}"; \
+			echo "Clean $${sslversion} for $$a" ; \
+			$(MAKE) clean; \
+			echo "Make $${sslversion} for $$a" ; \
+			echo "PREFIX: $(STAGING_DIR)/$${sslversion}/$${a}"; \
 			echo "CONFIGARGS: $${!CONFIGARGS}"; \
 			echo "BUILDARCH: $${!BUILDARCH}"; \
 			echo "CC: $(CC)"; \
 			echo "CFLAGS: $(CFLAGS)"; \
-			autoreconf -fi 2>/dev/null; \
-			CC="$(CC)" CFLAGS="$(CFLAGS)" ./configure --prefix="$${STAGING_DIR}/$${sslversion}/$${a}" $${!CONFIGARGS} $$a; \
-			echo "Clean $${sslversion} for $$a" ; \
-			$(MAKE) -C $${ssldir} clean; \
-			echo "Build $${sslversion} for $$a" ; \
+			CC=$(CC) CFLAGS="$(CFLAGS)" ./Configure $${!CONFIGARGS} --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
 			$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
-			echo Install to $${STAGING_DIR}/$${sslversion}/$${a}; \
+			echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
 			$(MAKE) install_sw; \
-		done \
+			cd .. ; \
+		done ; \
+		if [ "$${sslvariant}" = "openssl" ] ; then \
+			ditto -v "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc/include" "$(STAGING_DIR)/$${sslversion}/include/x86_64" ; \
+			mkdir -p "$(STAGING_DIR)/$${sslversion}/lib" ; \
+			for t in $(OPENSSL_TARGET_FILES); do \
+				lipo $(STAGING_DIR)/$${sslversion}/darwin*/lib/$$(basename $$t) -create -output $$t; \
+				ranlib $$t; \
+			done ; \
+		fi ; \
 	done
 	cd $(TOPDIR)
 	touch built-allssl
 
 built-allssl: | built-ssl-prepare built-ssl-dobuild
 
-built-openssl: built-allssl
-
 built-allssl-clean:
 	@echo "THIRD_PARTY: Cleaning all SSL variants..."
-	find -xsdE $(BUILD_DIR) -depth 1 -type d -iregex ".*/(libre|open|boring){1}ssl-.*" -exec rm -f -R {} \;
+	find -xsdE $(BUILD_DIR)   -depth 1 -type d -iregex ".*/(libre|open|boring){1}ssl-.*" -exec rm -f -R {} \;
 	find -xsdE $(STAGING_DIR) -depth 1 -type d -iregex ".*/(libre|open|boring){1}ssl-.*" -exec rm -f -R {} \;
-#	rm -f -R $(OPENSSL_BUILD_DIR)
-#	rm -f -R $(OPENSSL_STAGING_DIR)
 	rm -f built-allssl
+	

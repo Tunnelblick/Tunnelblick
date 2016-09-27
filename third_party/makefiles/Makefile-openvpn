@@ -61,7 +61,7 @@ built-openvpn-prepare:
 	touch built-openvpn-prepare
 	@echo "THIRD_PARTY: Expanded and Patched OpenVPN"
 	
-built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper built-openssl
+built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper built-allssl
 	@echo "THIRD_PARTY: Building OpenVPN..."
 	cd $(OPENVPN_BUILD_DIR) ; \
 	cd ../ ; \
