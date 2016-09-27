@@ -1,0 +1,99 @@
+# Makefile to build (Open|Libre|Boring)SSL for Tunnelblick
+#
+# Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
+# Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
+#
+#  This file is part of Tunnelblick.
+#
+#  Tunnelblick is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2
+#  as published by the Free Software Foundation.
+#
+#  Tunnelblick is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program (see the file COPYING included with this
+#  distribution); if not, write to the Free Software Foundation, Inc.,
+
+export openssl_CONFIG_ARGS= no-shared zlib no-zlib-dynamic no-asm no-krb5
+export openssl_BUILD_ARCH= $(OPENSSL_TARGET_ARCHS)
+
+export libressl_CONFIG_ARGS= 
+export libressl_BUILD_ARCH= $(TARGET_ARCHS)
+
+
+.PHONY: built-ssl-prepare built-ssl-prepare-extract built-ssl-prepare-patch
+
+built-ssl-prepare-extract:
+	@echo "THIRD_PARTY: Extracting all SSL variants..."
+	mkdir -p $(BUILD_DIR)
+	find -xsE $(SOURCES_DIR) -depth 1 -type f -iregex ".*/(libre|open){1}ssl-.*tar.gz$$" -exec tar -x -C $(BUILD_DIR) -f {} \; > /dev/null
+
+built-ssl-prepare-patch:
+	@echo "THIRD_PARTY: Patching all SSL variants..."
+	if [ -d "$(PATCHES_DIR)/ssl" ]; then \
+		for ssldir in $(shell find -xsE $(BUILD_DIR) -depth 1 -type d -iregex ".*/(libre|open|boring){1}ssl-.*" ); do \
+			sslversion=$${ssldir##*/}; \
+			sslvariant=$${sslversion%-*}; \
+			for patch_file in $(PATCHES_DIR)/$${sslversion}/*.diff; do \
+				patch -p1 -N --dry-run -d $${ssldir} -i $${patch_file} > /dev/null 2>&1; \
+				if [ $$? == 0 ]; then \
+					patch -p1 -N -d $${ssldir} -i $${patch_file} > /dev/null 2>&1; \
+					if [ $$? == 0 ]; then \
+						echo "$${sslversion} patch applied: $${patch_file##*/}" ; \
+					else \
+						echo "error: $${sslversion} patch failed after a successful dry run: $${patch_file##*/}" ; \
+					fi \
+				else \
+					echo "error: $${sslversion} patch could not be applied: $${patch_file##*/}" ; \
+				fi \
+			done\
+		done \
+	fi
+
+built-ssl-prepare: | built-ssl-prepare-extract built-ssl-prepare-patch
+
+built-ssl-dobuild:
+	@echo "THIRD_PARTY: Building all SSL variants..."
+	for ssldir in $(shell find -xsE $(BUILD_DIR) -depth 1 -type d -iregex ".*/(libre|open|boring){1}ssl-.*" ); do \
+		sslversion=$${ssldir##*/}; \
+		sslvariant=$${sslversion%-*}; \
+		CONFIGARGS=$${sslvariant}_CONFIG_ARGS; \
+		BUILDARCH=$${sslvariant}_BUILD_ARCH; \
+		cd $${ssldir}; \
+		for a in $${!BUILDARCH}; do \
+			a=$${a#\"*}; \
+			a=$${a%*\"}; \
+			echo "Configure $${sslversion} for $$a" ; \
+			echo "PREFIX: $${STAGING_DIR}/$${sslversion}/$${a}"; \
+			echo "CONFIGARGS: $${!CONFIGARGS}"; \
+			echo "BUILDARCH: $${!BUILDARCH}"; \
+			echo "CC: $(CC)"; \
+			echo "CFLAGS: $(CFLAGS)"; \
+			autoreconf -fi 2>/dev/null; \
+			CC="$(CC)" CFLAGS="$(CFLAGS)" ./configure --prefix="$${STAGING_DIR}/$${sslversion}/$${a}" $${!CONFIGARGS} $$a; \
+			echo "Clean $${sslversion} for $$a" ; \
+			$(MAKE) -C $${ssldir} clean; \
+			echo "Build $${sslversion} for $$a" ; \
+			$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
+			echo Install to $${STAGING_DIR}/$${sslversion}/$${a}; \
+			$(MAKE) install_sw; \
+		done \
+	done
+	cd $(TOPDIR)
+	touch built-allssl
+
+built-allssl: | built-ssl-prepare built-ssl-dobuild
+
+built-openssl: built-allssl
+
+built-allssl-clean:
+	@echo "THIRD_PARTY: Cleaning all SSL variants..."
+	find -xsdE $(BUILD_DIR) -depth 1 -type d -iregex ".*/(libre|open|boring){1}ssl-.*" -exec rm -f -R {} \;
+	find -xsdE $(STAGING_DIR) -depth 1 -type d -iregex ".*/(libre|open|boring){1}ssl-.*" -exec rm -f -R {} \;
+#	rm -f -R $(OPENSSL_BUILD_DIR)
+#	rm -f -R $(OPENSSL_STAGING_DIR)
+	rm -f built-allssl
