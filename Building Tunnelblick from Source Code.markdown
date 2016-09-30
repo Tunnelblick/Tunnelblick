@@ -14,7 +14,7 @@ To build Tunnelblick from the source code:
 
 This document has a section about each of these requirements.
 
-Interspersed with these are sections on **Using a Virtual Machine**, **Beginning to Use Xcode to Build Tunnelblick**, and **Building OpenVPN and the Other Third-Party** Software.
+Interspersed with these are sections on **Using a Virtual Machine**, **Beginning to Use Xcode to Build Tunnelblick**, and **Building OpenVPN and the Other Third-Party Software**.
 
 
 **Using a Virtual Machine**
@@ -32,7 +32,9 @@ The rest of this document refers to the folder in which you have downloaded Tunn
 
 **2. Supported Versions of OS X and Xcode**
 
-Tunnelblick can be built using Xcode 7.0 and higher on OS X 10.10.7 or higher. Older versions of Tunnelblick can be built using Xcode 3.2.2 on OS X 10.6.8.
+As of 2016-09-30, Tunnelblick is built using Xcode 7.3.1 on OS X 10.11.6. (Xcode 8.0 creates binaries without complaint but they cause peculiar, unreproducible crashes.)
+
+Older versions (such as the 3.5 branch) of Tunnelblick can be built using Xcode 3.2.2 on OS X 10.6.8. (Do not use Xcode 3.2.3.)
 
 Other versions of Xcode and OS X may be used, but additional work may be required.
 
@@ -48,7 +50,9 @@ Which platform you build on determines what platforms can run the Tunnelblick ap
    ⁃ OpenVPN and the tun and tap kexts are 32/64-bit PowerPC/Intel programs.
 
 
-**3. Setting up Xcode to Build Tunnelblick**
+**3. Setting up Xcode to Build Tunnelblick** (
+
+(Not necessary with Xcode 3.2.2.)
 
 To build Tunnelblick using Xcode 7.0+, it needs to be set up to use "legacy" locations for build products:
 
@@ -73,12 +77,14 @@ Beginning to Use Xcode to Build Tunnelblick
 
 Double-click …TunnelblickSource/tunnelblick/Tunnelblick.xcodeproj to open the Tunnelblick source code in Xcode.
 
-After a few moments, Xcode will begin indexing files, indicated in the progress bar at the top of the Xcode window. Allow the indexing to complete, which usually takes a minute or two. Xcode does indexing at various times, and if you click a button while Xcode is indexing it will often crash. (This is an Xcode problem, not a Tunnelblick problem.) The safest way to proceed if Xcode crashes is to download the source code again, because Xcode creates caches which can be corrupted when Xcode crashes and cause even more crashes.
+After a few moments, recent versions of Xcode will begin indexing files, indicated in the progress bar at the top of the Xcode window. Allow the indexing to complete, which usually takes a minute or two. Xcode does indexing at various times, and if you click a button while Xcode is indexing it will often crash. (This is an Xcode problem, not a Tunnelblick problem.) The safest way to proceed if Xcode crashes is to download the source code again, because Xcode creates caches which can be corrupted when Xcode crashes and cause even more crashes.
 
 
 **5. Selecting  the Type of Build You Want to Create**
 
 There are two different types of builds. Unfortunately Xcode defaults to using the one you shouldn't use, "Debug". You should use the "Release" build instead.
+
+To select the type of build in Xcode 3.2.2, change it in the drop-down list to "Unsigned Release".
 
 To select the type of build in Xcode 7.0+:
  1. Click Product > Scheme > Edit Scheme…
