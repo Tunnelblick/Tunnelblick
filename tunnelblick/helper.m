@@ -287,9 +287,8 @@ NSString *condensedConfigFileContentsFromString(NSString * fullString) {
 
 NSAttributedString * attributedStringFromHTML(NSString * html) {
     
-    const char * bytes = [html UTF8String];
-    NSData * data = [[[NSData alloc] initWithBytes: bytes length: strlen(bytes)] autorelease];
-    NSAttributedString * as = [[[NSAttributedString alloc] initWithHTML: data documentAttributes: nil] autorelease];
+    NSData * htmlData = [html dataUsingEncoding: NSUTF8StringEncoding];
+    NSMutableAttributedString * as = [[NSMutableAttributedString alloc] initWithHTML: htmlData options: @{NSTextEncodingNameDocumentOption: @"UTF-8"} documentAttributes: nil];
     return as;
 }
 
