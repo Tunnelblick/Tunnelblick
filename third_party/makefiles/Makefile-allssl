@@ -27,15 +27,10 @@ export libressl_BUILD_ARCH= $(TARGET_ARCHS)
 export boringssl_CONFIG_ARGS= 
 export boringssl_BUILD_ARCH= $(TARGET_ARCHS)
 
-
-.PHONY: built-ssl-prepare built-ssl-prepare-extract built-ssl-prepare-patch
-
-built-ssl-prepare-extract:
+built-allssl-prepare:
 	@echo "THIRD_PARTY: Extracting all SSL variants..."
 	mkdir -p $(BUILD_DIR)
-	find -xsE $(SOURCES_DIR) -depth 1 -type f -iregex ".*/(libre|open|boring){1}ssl-.*tar.gz$$" -exec tar -x -C $(BUILD_DIR) -f {} \; > /dev/null
-
-built-ssl-prepare-patch:
+	find -xsE $(SOURCES_DIR) -depth 1 -type f -iregex ".*/(libre|open|boring){1}ssl-.*tar.gz$$" -exec tar -x -C $(BUILD_DIR) -f {} \; > /dev/null ;
 	@echo "THIRD_PARTY: Patching all SSL variants..."
 	if [ -d "$(PATCHES_DIR)/ssl" ]; then \
 		for ssldir in $(shell find -xsE $(BUILD_DIR) -depth 1 -type d -iregex ".*/(libre|open|boring){1}ssl-.*" ); do \
@@ -55,11 +50,10 @@ built-ssl-prepare-patch:
 				fi \
 			done\
 		done \
-	fi
+	fi ; \
+	touch built-allssl-prepare
 
-built-ssl-prepare: | built-ssl-prepare-extract built-ssl-prepare-patch
-
-built-ssl-dobuild:
+built-allssl: built-allssl-prepare
 	@echo "THIRD_PARTY: Building all SSL variants..."
 	for ssldir in $(shell find -xsE $(BUILD_DIR) -depth 1 -type d -iregex ".*/(libre|open|boring){1}ssl-.*" ); do \
 		sslversion=$${ssldir##*/}; \
@@ -96,11 +90,9 @@ built-ssl-dobuild:
 	cd $(TOPDIR)
 	touch built-allssl
 
-built-allssl: | built-ssl-prepare built-ssl-dobuild
-
 built-allssl-clean:
 	@echo "THIRD_PARTY: Cleaning all SSL variants..."
 	find -xsdE $(BUILD_DIR)   -depth 1 -type d -iregex ".*/(libre|open|boring){1}ssl-.*" -exec rm -f -R {} \;
 	find -xsdE $(STAGING_DIR) -depth 1 -type d -iregex ".*/(libre|open|boring){1}ssl-.*" -exec rm -f -R {} \;
-	rm -f built-allssl
+	rm -f built-allssl built-allssl-prepare
 	
