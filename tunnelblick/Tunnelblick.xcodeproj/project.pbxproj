@@ -563,6 +563,10 @@
 		63E56EE413848338007E39AB /* VPNServiceTermsOfServiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPNServiceTermsOfServiceController.m; sourceTree = "<group>"; };
 		63E56EE513848338007E39AB /* VPNServiceWelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPNServiceWelcomeController.h; sourceTree = "<group>"; };
 		63E56EE613848338007E39AB /* VPNServiceWelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPNServiceWelcomeController.m; sourceTree = "<group>"; };
+		63E6A8A01D9FBBBF006F1211 /* Building Tunnelblick from Source Code.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "Building Tunnelblick from Source Code.markdown"; path = "../Building Tunnelblick from Source Code.markdown"; sourceTree = "<group>"; };
+		63E6A8A11D9FBBBF006F1211 /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; name = COPYING; path = ../COPYING; sourceTree = "<group>"; };
+		63E6A8A21D9FBBBF006F1211 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		63E6A8A31D9FBBDB006F1211 /* third_party */ = {isa = PBXFileReference; lastKnownFileType = folder; name = third_party; path = ../third_party; sourceTree = "<group>"; };
 		63E8427A117A147500529DE2 /* ConfigurationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationManager.h; sourceTree = "<group>"; };
 		63EA2CA71C9EFCF0005F0872 /* FA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FA.lproj; sourceTree = "<group>"; };
 		63EA2CA81C9EFCF0005F0872 /* ID.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ID.lproj; sourceTree = "<group>"; };
@@ -797,6 +801,10 @@
 				63379F8713F695D700F2554D /* TBBuildNumber.txt */,
 				634827BA1D7DBFBB0046703C /* BuildThirdPartyItems.sh */,
 				633E55621BB0F16600A6B8FB /* BuildAppsAndDmgs.sh */,
+				63E6A8A31D9FBBDB006F1211 /* third_party */,
+				63E6A8A01D9FBBBF006F1211 /* Building Tunnelblick from Source Code.markdown */,
+				63E6A8A11D9FBBBF006F1211 /* COPYING */,
+				63E6A8A21D9FBBBF006F1211 /* README.md */,
 				B891E52016F60E7000627008 /* Uninstaller */,
 				635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */,
 				32CA4F630368D1EE00C91783 /* Tunnelblick_Prefix.pch */,
