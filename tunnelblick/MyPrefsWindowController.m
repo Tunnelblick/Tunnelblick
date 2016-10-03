@@ -2631,7 +2631,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         NSInteger status = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_INSTALL_FORCED_PREFERENCES
                                            extraArguments: [NSArray arrayWithObject: forcedPreferencesDictionaryPath]
                                           usingSystemAuth: auth
-                                        installTblksFirst: nil];
+                                             installTblks: nil];
         [auth release];
         
         [self performSelectorOnMainThread: @selector(finishGeneralAdminApprovalForKeyAndCertificateChanges:) withObject: [NSNumber numberWithLong: (long)status] waitUntilDone: NO];

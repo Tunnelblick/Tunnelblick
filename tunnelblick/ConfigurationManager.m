@@ -866,7 +866,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSInteger result = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE
                                                            extraArguments: arguments
                                                           usingSystemAuth: auth
-                                                        installTblksFirst: nil];
+                                                             installTblks: nil];
     if (  result != 0  ) {
         NSLog(@"Error while deleting %@", targetPath);
         return FALSE;
@@ -900,7 +900,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             result = [((MenuController *)[NSApp delegate]) runInstaller: INSTALLER_DELETE
                                                          extraArguments: arguments
                                                         usingSystemAuth: auth
-                                                      installTblksFirst: nil];
+                                                           installTblks: nil];
             if (  result != 0  ) {
                 NSLog(@"Error while uninstalling master \"stub\" .tblk for '%@' at path %@", bundleId, containerPath);
                 return FALSE;
@@ -2222,7 +2222,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: firstArg
                                                                     extraArguments: arguments
                                                                    usingSystemAuth: auth
-                                                                 installTblksFirst: nil];
+                                                                      installTblks: nil];
 	if (  installerResult == 0  ) {
         return TRUE;
     }
@@ -2595,7 +2595,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 		NSInteger installerResult = [((MenuController *)[NSApp delegate]) runInstaller: 0
                                                                         extraArguments: arguments
                                                                        usingSystemAuth: auth
-                                                                     installTblksFirst: nil];
+                                                                          installTblks: nil];
 		if (  installerResult == 0  ) {
  			[[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
             [[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] addUpdateCheckingForStubTblkAtPath: target];

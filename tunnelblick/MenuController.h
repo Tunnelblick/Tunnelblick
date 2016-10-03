@@ -289,7 +289,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(NSInteger)        runInstaller: (unsigned)           installFlags
                   extraArguments: (NSArray *)          extraArguments
                  usingSystemAuth: (SystemAuth *)       auth
-               installTblksFirst: (NSArray *)          tblksToInstallFirst;
+                    installTblks: (NSArray *)          tblksToInstall;
 -(void)             saveConnectionsToRestoreOnRelaunch;
 -(void)             setHotKeyIndex:                         (unsigned)          newIndex;
 -(void)             setState:                               (NSString *)        newState;

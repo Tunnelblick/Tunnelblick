@@ -3314,7 +3314,7 @@ BOOL anyNonTblkConfigs(void)
 			NSInteger installerResult = [self runInstaller: INSTALLER_CONVERT_NON_TBLKS
 											extraArguments: nil
                                            usingSystemAuth: startupInstallAuth
-                                         installTblksFirst: nil];
+                                              installTblks: nil];
             if (  installerResult != -1  ) {
                 // Installation succeeded or was cancelled
 				if (  installerResult == 0  ) {
@@ -6234,7 +6234,7 @@ BOOL warnAboutNonTblks(void)
                                                      ? [NSArray arrayWithObject: forcedPlistToInstallPath]
                                                      : nil)
 								   usingSystemAuth: [self startupInstallAuth]
-								 installTblksFirst: tblksToInstallPaths];
+								      installTblks: tblksToInstallPaths];
     if (  installerResult != 0  ) {
         // Error occurred or the user cancelled. An error dialog and a message in the console log have already been displayed if an error occurred
         [self terminateBecause: terminatingBecauseOfError];
@@ -6322,7 +6322,7 @@ BOOL warnAboutNonTblks(void)
 }
 
 -(NSString *) promptForInstaller: (unsigned)  installFlags
-               installTblksFirst: (NSArray *) tblksToInstallFirst {
+                    installTblks: (NSArray *) tblksToInstall {
     
     if (  installFlags & INSTALLER_COPY_APP  ) {
         installFlags = installFlags | INSTALLER_SECURE_TBLKS;
@@ -6333,13 +6333,13 @@ BOOL warnAboutNonTblks(void)
     if (    installFlags & INSTALLER_COPY_APP                   ) { [msg appendString: NSLocalizedString(@"  • Be installed in /Applications as Tunnelblick\n", @"Window text")]; appended = TRUE; }
     if (    installFlags & INSTALLER_SECURE_APP                 ) { [msg appendString: NSLocalizedString(@"  • Change ownership and permissions of the program to secure it\n", @"Window text")]; appended = TRUE; }
     if (    installFlags & INSTALLER_MOVE_LIBRARY_OPENVPN       ) { [msg appendString: NSLocalizedString(@"  • Move the private configurations folder\n", @"Window text")]; appended = TRUE; }
-    if (    tblksToInstallFirst                                 ) { [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n", @"Window text")]; appended = TRUE; }
+    if (    tblksToInstall                                 ) { [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n", @"Window text")]; appended = TRUE; }
     if (    installFlags & INSTALLER_CONVERT_NON_TBLKS          ) { [msg appendString: NSLocalizedString(@"  • Convert OpenVPN configurations\n", @"Window text")]; appended = TRUE; }
     if (    installFlags & INSTALLER_SECURE_TBLKS               ) { [msg appendString: NSLocalizedString(@"  • Secure configurations\n", @"Window text")]; appended = TRUE; }
     if (    installFlags & INSTALLER_INSTALL_FORCED_PREFERENCES ) { [msg appendString: NSLocalizedString(@"  • Install forced preferences\n", @"Window text")]; appended = TRUE; }
     
     if (   ( ! appended)
-        && ( ! tblksToInstallFirst)  ) {
+        && ( ! tblksToInstall)  ) {
         if (  installFlags & INSTALLER_REPLACE_DAEMON           ) { [msg appendString: NSLocalizedString(@"  • Complete the update\n", @"Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:'")]; appended = TRUE; }
     }
     
@@ -6372,7 +6372,7 @@ BOOL warnAboutNonTblks(void)
             [self terminateBecause: terminatingBecauseOfError];
         }
         
-        NSString * prompt = [self promptForInstaller: installFlags installTblksFirst: nil];
+        NSString * prompt = [self promptForInstaller: installFlags installTblks: nil];
         SystemAuth * auth = [SystemAuth newAuthWithoutReactivationWithPrompt: prompt];
  
         if (  auth  ) {
@@ -6387,7 +6387,7 @@ BOOL warnAboutNonTblks(void)
         NSInteger installerResult = [self runInstaller: installFlags
 										extraArguments: nil
                                        usingSystemAuth: [self startupInstallAuth]
-                                     installTblksFirst: nil];
+                                          installTblks: nil];
 		if (  installerResult != 0  ) {
             
 			// An error occurred or the user cancelled. An error dialog and a message in the console log have already been displayed if an error occurred
@@ -6401,7 +6401,7 @@ BOOL warnAboutNonTblks(void)
 -(NSInteger) runInstaller: (unsigned)           installFlags
 		   extraArguments: (NSArray *)          extraArguments
                  usingSystemAuth: (SystemAuth *)       auth
-               installTblksFirst: (NSArray *)          tblksToInstallFirst {
+                    installTblks: (NSArray *)          tblksToInstall {
     
     // Returns 1 if the user cancelled the installation
 	//         0 if installer ran successfully and does not need to be run again
@@ -6423,22 +6423,9 @@ BOOL warnAboutNonTblks(void)
         installFlags = installFlags | INSTALLER_SECURE_TBLKS;
     }
     
-    NSString * msg = [[self promptForInstaller: installFlags installTblksFirst: tblksToInstallFirst]
+    NSString * msg = [[self promptForInstaller: installFlags installTblks: tblksToInstall]
                       stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSLog(@"%@", msg);
-    
-    if (  [tblksToInstallFirst count] != 0  ) {
-        
-        // We install and wait for the installation to complete before we install Tunnelblick itself.
-        //
-        // We know we are installing Tunnelblick because that is the only situation in which we install Tblks first.
-        //
-        // We can install configurations on the main thread because we know that there are no VPNs connected. (If there were VPNs connected,
-        // they would need to be disconnected and reconnected after the installation, which means that the installation would have to
-        // be done on a secondary thread so the main thread could do the disconnections/reconnections.)
-        
-        [ConfigurationManager installConfigurationsInCurrentMainThreadDoNotShowMessagesDoNotNotifyDelegateWithPaths: tblksToInstallFirst];
-    }
     
     NSLog(@"Beginning installation or repair");
 
@@ -6535,6 +6522,10 @@ BOOL warnAboutNonTblks(void)
     if (  okNow  ) {
         NSLog(@"Installation or repair succeeded; Log:\n%@", installerLog);
         [installerLog release];
+        
+        if (  [tblksToInstall count] != 0  ) {
+            [ConfigurationManager installConfigurationsInCurrentMainThreadDoNotShowMessagesDoNotNotifyDelegateWithPaths: tblksToInstall];
+        }
         
         return 0;
     }
