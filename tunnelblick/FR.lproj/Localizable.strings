@@ -392,7 +392,7 @@
 "Do not warn about this again" = "Ne plus me prévenir";
 
 /* Checkbox name */
-"Enable IPv6 (tap only)" = "Activer IPv6 (tun uniquement)";
+"Enable IPv6 (tap only)" = "Activer IPv6 (connexion \"tap\" uniquement)";
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Vider le cache DNS après la connexion ou la déconnexion";

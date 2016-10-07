@@ -968,7 +968,7 @@
 "Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
 
 /* Window text */
-"Computer sleep/wake" = "Computer sleep/wake";
+"Computer sleep/wake" = "Rekenaar slaap/wakker word";
 
 /* Window text */
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' ('%2$@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%3$s'\n\n";
@@ -1016,7 +1016,7 @@
 "Converting %@: %@" = "Converting %1$@: %2$@";
 
 /* Window text */
-"Copied %@" = "Copied %@";
+"Copied %@" = "%@ is gekopieerd";
 
 /* Window text */
 "Copied %@, removing CR characters" = "Copied %@, removing CR characters";
@@ -1025,13 +1025,13 @@
 "Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
 
 /* Window text */
-"Could not copy %@ to %@" = "Could not copy %1$@ to %2$@";
+"Could not copy %@ to %@" = "%1$@ kon nie na %2$@ gekopieerd word nie";
 
 /* Window text */
-"Could not create %@" = "Could not create %@";
+"Could not create %@" = "%@ kon nie geskep word nie";
 
 /* Window text */
-"Could not delete %@" = "Could not delete %@";
+"Could not delete %@" = "%@ kon nie verwyder word nie";
 
 /* Window text */
 "Could not find easy-rsa in Tunnelblick.app" = "Could not find easy-rsa in Tunnelblick.app";
@@ -2164,7 +2164,7 @@
 "You Must Type the Characters" = "You Must Type the Characters";
 
 /* Window text VPNService */
-"Confirm password:" = "Confirm password:";
+"Confirm password:" = "Bevestig wagwoord:";
 
 /* Window text VPNService */
 "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'.";

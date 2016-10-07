@@ -86,7 +86,7 @@
 "Delete saved passphrase and try again" = "Ta bort sparat lösenord och försök igen";
 
 /* Button */
-"Delete saved password and try again" = "Radera lösenord och försök igen";
+"Delete saved password and try again" = "Radera sparat lösenord och försök igen";
 
 /* Button */
 "Delete" = "Radera";
@@ -296,7 +296,7 @@
 "OpenVPN level %lu" = "OpenVPN nivå %lu";
 
 /* Menu Item */
-"OpenVPN level 0 - no output except fatal errors" = "OpenVPN nivå 0 - ingen utskrift utöver fatala fel";
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN nivå 0 - ingen utskrift utöver kritiska fel";
 
 /* Menu Item */
 "OpenVPN level 11 - extremely verbose output" = "OpenVPN nivå 6 - extremt verbal";
@@ -305,7 +305,7 @@
 "OpenVPN level 3 - normal output" = "OpenVPN nivå 3 - normal";
 
 /* Menu Item */
-"OpenVPN level 4 - also outputs values for all options" = "OpenVPN nivå 4 - skriver även ut värden för optioner";
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN nivå 4 - skriver även ut värden för alla alternativ";
 
 /* Menu Item */
 "OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN nivå 5 - skriver även ut \"R\" or \"W\" för varje paket";
@@ -350,7 +350,7 @@
 "Check if the apparent public IP address changed after connecting" = "Kontrollera om den synliga IP-adressen har förändrats";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Avaktivera IPv6 (endast tun)";
+"Disable IPv6 (tun only)" = "Inaktivera IPv6 (endast tun-anslutningar)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Koppla bort när datorn försätts i vila";
@@ -419,7 +419,7 @@
 "Reconnect when user switches in" = "Återanslut när användare byter tillbaka";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Kräv administratörs-lösenord för att ändra nycklar och certifikat";
+"Require administrator authorization for key and certificate changes" = "Begär administratörs-lösenord för att ändra nycklar och certifikat";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Återställ det primära nätverket efter att ha kopplat ifrån";
@@ -797,7 +797,7 @@
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick behöver administratörsrättigheter för att automatiskt kunna ansluta till '%@' när datorn startas.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick behöver administratörsrättigheter för att stänga av att automatiskt ansluta till '%@' när datorn startas.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick behöver administratörsrättigheter för att stänga av automatisk anslutning till '%@' när datorn startas.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " VARNING: Denna kopia av Tunnelblick har manipulerats.\n\n";
@@ -809,7 +809,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ har återställts till sin senaste säkerhetskopia.\n\n";
 
 /* Window text */
-"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfiguration(er) har ersatts med senaste säkerhetskopierade versionen.\n\n";
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfiguration(er) har ersatts med senaste säkerhets-sparade versionen.\n\n";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' existerar redan på skrivbordet.\n\nVill du ersätta den?";
@@ -899,7 +899,7 @@
 "All configurations use %@ credentials" = "Alla konfigurationer använder %@ användaruppgifter";
 
 /* Window text */
-"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Ett fel (status %1$ld) inträffade under säkerhetskontrollen av konfiguration %2$@.\n\nVänligen starta om Tunnelblick. Om problemet kvarstår, pröva då att installera om Tunnelblick.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Ett fel (status %1$ld) uppstod under säkerhetskontrollen av konfiguration %2$@.\n\nVänligen starta om Tunnelblick. Om problemet kvarstår, prova att ominstallera Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Ett fel uppstod under försöket att starta %@";
@@ -938,7 +938,7 @@
 "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Är du säker på att du vill ta bort inloggningsuppgifterna (privat nyckel eller användarnamn/lösenord) för %@, som är lagrade i Nyckelhanteraren?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Är du säker på att du vill ta bort inloggningsuppgifterna (privat nyckel eller användarnamn/lösenord) lagrade i Nyckelhanterare för %@?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Är du säker på att du vill ta bort inloggningsuppgifterna (privat nyckel och/eller användarnamn samt lösenord) lagrade i Nyckelhanteraren för %@?";
 
 /* Window text */
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Är du säker på att du vill installera konfigurationer som kan TA FULL KONTROLL ÖVER DIN DATOR?\n\n";
@@ -980,7 +980,7 @@
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfigurationen \"%@\" innehåller ett eller flera skript som kan orsaka problem om du ersätter eller avinstallerar konfigurationen medan den är ansluten.\n\nVill du ersätta konfigurationen?";
 
 /* Window text */
-"Configuration '%@' is not secure. It should be reinstalled." = "Konfigurationen \"%@\" är inte säker. Den bör installeras om.";
+"Configuration '%@' is not secure. It should be reinstalled." = "Konfigurationen \"%@\" är inte säker. Den bör ominstalleras.";
 
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfigurationen \"%@\" är inte säker. Tunnelblick behöver installeras om.";
@@ -995,10 +995,10 @@
 "Configuration changes:" = "Konfigurationsändringar:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfigurationer kan installeras från filer som du får från din nätverksansvarige eller från din tjänteleverantör för VPN.\n\nKonfigurationsfilerna har filändelserna .tblk, .ovpn eller .conf.\n\n(Tillsammans med dina konfigurationsfiler kan det följa med andra filer relaterade till konfigurationer och som har andra filändelser. Dessa kan du ignorera.)\n\nFör att installera en konfigurationsfil, dra och släpp den på Tunnelblickikonen i menyn eller på listan med konfigurationer under tabben 'Konfigurationer' i fönstret för 'VPN-inställningar'.\n\nFör att installera flera konfigurationer samtidigt, markera alla filer och dra och släpp dem tillsammans.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfigurationer installerades från filer som tillhandahölls av din nätverksansvarige eller din tjänsteleverantör för VPN.\n\nKonfigurationsfilerna har filändelserna .tblk, .ovpn eller .conf.\n\n(Det kan finnas flera filer med andra filändelser i konfigurationen men ignorera dessa för tillfället).\n\nDubbelklicka på konfigurationsfilen för att installera den.\n\nDen nya konfigurationen kommer omedelbart att vara tillgänglig i Tunnelblick.";
 
 /* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Denna installation av Tunnelblick kommer att installera konfigurationer som inte är en del av Tunnelblick.\n\n";
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "När du installerar Tunnelblick kommer konfigurationer som inte är en del av Tunnelblick att installeras.\n\n";
 
 /* Window text */
 "Connect:" = "Anslut:";
@@ -1217,7 +1217,7 @@
 "Named Credentials" = "Namngivna uppgifter";
 
 /* Window text */
-"Names may not include any of the following characters: %s" = "Namn får inte innehålla något av dessa tecken: %s";
+"Names may not include any of the following characters: %s" = "Namn får inte innehålla något av följande tecken: %s";
 
 /* Window text */
 "Names may not include any of the following characters: %s\n\n%@" = "Namn får inte innehålla något av följande tecken: %1$s\n\n%2$@";
@@ -1250,7 +1250,7 @@
 "Non-string value for an item in '%@' in %@" = "Ett värde i objektet i \"%1$@\" i %2$@ är inte av typen string";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Ingen av de %ld valda konfigurationerna har några inloggningsuppgifter (privat nyckel eller användarnamn/lösenord) i Nyckelhanterare.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Ingen av de %ld valda konfigurationerna har några inloggningsuppgifter (privat nyckel eller användarnamn och lösenord) lagrade i Nyckelhanteraren.";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Inte en .ovpn eller .conf: %@";
@@ -1484,7 +1484,7 @@
 "There was a problem deleting one or more configurations. See the Console Log for details." = "En eller flera konfigurationer kunde inte tas bort. Se Konsol-loggen för fler detaljer.";
 
 /* Window text */
-"There was a problem with the OpenVPN configuration. See the Console Log for details." = "Ett problem uppstod med OpenVPN-konfigurationen. Se Konsol-loggen för fler detaljer.";
+"There was a problem with the OpenVPN configuration. See the Console Log for details." = "Ett problem uppstod med OpenVPN-konfigurationen. Se Konsol-loggen för detaljer.";
 
 /* Window text */
 "There was a problem with\n\n%@:\n\n%@" = "Det återfanns ett problem med\n\n%1$@:\n\n%2$@";
@@ -1511,16 +1511,16 @@
 "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Det här är en 64-bitars Intel-version av Tunnelblick som inte fungerar korrekt med tun- och tap-drivarna.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "Det här en 64-bitars Intel-version av Tunnelblick som inte kommer fungera korrekt med en konfiguration som använder tap. Använd den universella versionen av Tunnelblick istället.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "Det här en 64-bitars Intel-version av Tunnelblick som inte kommer fungera korrekt med en konfiguration som använder tap. Använd en universell version av Tunnelblick istället.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "Det här en 64-bitars Intel-version av Tunnelblick som inte kommer fungera korrekt med en konfiguration som använder tun. Använd den universella versionen av Tunnelblick istället.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "Detta är en 64-bit Intel version av Tunnelblick som inte kommer att fungera korrekt med en konfiguration som använder tun. Använd EN universell version av Tunnelblick istället.";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "Denna version av Tunnelblick är för Intel 64-bit och fungerar inte korrekt med en konfiguration som använder kext-filer för tun-anslutningar. Du kan istället använda den universella versionen av Tunnelblick eller använda OS X 'utun'-drivrutin genom att ta bort inställningen för 'dev-type' till OpenVPN - se dokumentationen för OpenVPN.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "Denna version av Tunnelblick är för Intel 64-bit och kan enbart köras på OS X med en 64-bitars kärna eller på OS X 10.6.8 eller högre om du inte använder kext-filer för tun eller tap.";
+"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "Det här är en 64-bitars intel-version av Tunnelblick som enbart kan köras på OS X med 64-bitars kärna, eller på OS X 10.6.8 eller högre om du inte använder tun- eller tap-drivrutinerna.";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Denna version av Tunnelblick kan inte startas eller installeras eftersom den har en ogiltig uppdaterings-URL.\n\n";
@@ -1562,7 +1562,7 @@
 "Tunnelblick could not create the sample configuration" = "Tunnelblick kunde inte skapa exempelkonfigurationen";
 
 /* Window text */
-"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick kunde inte visa ett fönster.\n\nCFUserNotificationCreate() avslutades med fel = %1$ld; meddelande = %2$@";
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick kunde inte visa ett fönster.\n\nCFUserNotificationCreate() rapporterade fel = %1$ld; meddelande = %2$@";
 
 /* Window text */
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick kunde inte hämta information gällande IP-adressen innan anslutning till %@ upprättades.\n\n";

@@ -860,7 +860,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "En privat konfigurasjon med navnet '%@' eksisterer allerede.\n\nØnsker du og erstatte den med den delte konfigurasjoner?";
 
 /* Window text */
-"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Det oppstod et problem under sjekk av datamaskinens offentlige IP adresse.\n\nSe konsoll-loggen for detaljer.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "En delt konfigurasjon ved navnet '%@' eksisterer allerede.\n\nØnsker du å erstatte den med den private konfigurasjonen?";
@@ -878,7 +878,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Lagt '.sh' filendelsen til %@ så den vil være sikret skikkelig";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "La til en '.unknown' -endelse til %@ slik at den blir sikret ordentlig";
 
 /* Window text */
 "Additional contributions by" = "Ytterligere bidrag av";
@@ -899,7 +899,7 @@
 "All configurations use %@ credentials" = "Alle konfigurasjoner bruker %@ brukeropplysninger";
 
 /* Window text */
-"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "En feil (status %1$ld) oppstod under forsøk på å sjekke sikkerheten til %2$@ konfigurasjonen.\n\nVennligst avslutt og start Tunnelblick på ny. Prøv å reinstallere Tunnelblick dersom problemet vedvarer.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "En feil oppstod ved forsøk på å starte %@";
@@ -1112,7 +1112,7 @@
 "Fast User Switching" = "Raskt brukerbytte";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Filen '%@' ser ut til å være UTF-16 formatert. Alle OpenVPN-relaterte filer må være lagret som 'plain text' eller 'UTF-8'.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Filen '%@' ser ut til å være i formatet 'rik tekst', siden den starter med tegnet '{'. Alle OpenVPN-relaterte filer må være i 'klartekst'- eller 'UTF-8'-format.";
@@ -1127,7 +1127,7 @@
 "File '%@' is missing" = "Filen '%@' mangler";
 
 /* Window text */
-"File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
+"File '%@' is too short (%lu bytes)" = "Fil '%1$@' er for kort (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "Filen er for stor: %@";
@@ -1730,7 +1730,7 @@
 "Unknown value '%@' for '%@' in %@" = "Ukjent verdi '%1$@' for '%2$@' i %3$@";
 
 /* Window text */
-"Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
+"Unreadable file at %@\n\nSee the Console log for details." = "Uleselig fil på %@\n\nSe konsoll-loggen for detaljer.";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Den oppdaterbare konfigurasjonen '%1$@' ble ikke lagret som oppdaterbar fordi %2$@ ikke kunne finnes\n";
@@ -1853,7 +1853,7 @@
 "You may not remove a Deployed configuration." = "Du kan ikke fjerne en konfigurasjon som er i bruk.";
 
 /* Window text */
-"You may not remove a configuration unless it is disconnected." = "You may not remove a configuration unless it is disconnected.";
+"You may not remove a configuration unless it is disconnected." = "Du kan ikke slette en konfigurasjon med mindre den er frakoblet.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Du kan ikke fjerne en konfigurasjon som er satt til å starte når maskinen starter.";
@@ -1961,7 +1961,7 @@
 "Contributed to early code" = "Bidratt til tidlig kode";
 
 /* Credit description */
-"Croatian localization" = "Croatian localization";
+"Croatian localization" = "Kroatisk oversettelse";
 
 /* Credit description */
 "Czech localization" = "Tsjekkisk oversettelse";
@@ -2062,7 +2062,7 @@
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program og dokumentasjons forbedringer og vedlikehold etter versjon 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "Romensk oversettelse";
+"Romanian localization" = "Rumensk oversettelse";
 
 /* Credit description */
 "Russian localization" = "Russisk oversettelse";

@@ -134,7 +134,7 @@
 "Monochrome icon" = "Ikona monochromatyczna";
 
 /* Button */
-"More Info" = "Więcej";
+"More Info" = "Więcej informacji";
 
 /* Button */
 "Never load Tap driver" = "Nigdy nie ładuj sterownika Tap";
@@ -164,7 +164,7 @@
 "Open easy-rsa in Terminal" = "Otwórz easy-rsa w Terminalu";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "Umieść ikonę a pasku menu w pobliżu Spotlight";
+"Place Icon Near the Spotlight Icon" = "Umieść ikonę w pobliżu ikony Spotlight";
 
 /* Button */
 "Place Icon Normally" = "Umieść ikonę normalnie";
@@ -296,7 +296,7 @@
 "OpenVPN level %lu" = "OpenVPN poziom %lu";
 
 /* Menu Item */
-"OpenVPN level 0 - no output except fatal errors" = "OpenVPN poziom 0 - brak wyjścia poza krytycznymi błędami";
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN poziom 0 - tylko krytyczne błędy";
 
 /* Menu Item */
 "OpenVPN level 11 - extremely verbose output" = "OpenVPN poziom 11 - ekstremalnie szczegółowe wyjście";
@@ -305,10 +305,10 @@
 "OpenVPN level 3 - normal output" = "OpenVPN poziom 3 - normalne wyjście";
 
 /* Menu Item */
-"OpenVPN level 4 - also outputs values for all options" = "OpenVPN poziom 4 - wysyła także wartości dla wszystkich opcji";
+"OpenVPN level 4 - also outputs values for all options" = "OpenVPN poziom 4 - wyświetla również wartości dla wszystkich opcji";
 
 /* Menu Item */
-"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN poziom 5 - wysyła także \"R\" lub \"W\" dla każdego pakietu";
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN poziom 5 - wyświetla również \"R\" lub \"W\" dla każdego pakietu";
 
 /* Menu Item */
 "OpenVPN level 6 - very verbose output" = "OpenVPN poziom 6 - bardzo szczegółowe wyjście";
@@ -758,13 +758,13 @@
 "  • Change ownership and permissions of the program to secure it\n" = "  • Aby zabezpieczyć program, zmień właściciela oraz prawa dostępu\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
-"  • Complete the update\n" = "  Ukończyć aktualizację";
+"  • Complete the update\n" = "  Ukończyć aktualizację\n";
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Konwertuj konfiguracje OpenVPN\n";
 
 /* Window text */
-"  • Install forced preferences\n" = "  Zastosuj narzucone ustawienia\n";
+"  • Install forced preferences\n" = "  Zastosuj wymuszone ustawienia\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Zainstaluj lub zmodyfukuj konfiguracje/ę \n";

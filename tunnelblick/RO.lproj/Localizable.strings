@@ -470,7 +470,7 @@
 "ASSIGN_IP" = "Asignez adresele IP"; // Please translate "Assigning IP address"
 
 /* Connection status */
-"AUTH" = "Autorizez"; // Please translate "Authorizing"
+"AUTH" = "În curs de autorizare"; // Please translate "Authorizing"
 
 /* Connection status */
 "CONNECTED" = "Conectat"; // Please translate "Connected"
@@ -479,7 +479,7 @@
 "CONNECTING" = "Se conectează"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "Deconectare"; // Please translate "Disconnecting"
+"DISCONNECTING" = "Se deconectează"; // Please translate "Disconnecting"
 
 /* Connection status */
 "EXITING" = "Deconectat"; // Please translate "Disconnected"
@@ -599,19 +599,19 @@
 "Install Configuration For All Users?" = "Instalează configurările pentru toţi utilizatorii?";
 
 /* Window title */
-"Installation failed" = "Instalare esuata";
+"Installation failed" = "Instalarea a esuat";
 
 /* Window title */
 "Installation or Repair Failed" = "Instalare sau reparare esuata";
 
 /* Window title */
-"Installation succeeded" = "Instalare a reușit";
+"Installation succeeded" = "Instalarea a reușit";
 
 /* Window title */
 "Log" = "Jurnal";
 
 /* Window title */
-"Name Required" = "Numele necesar";
+"Name Required" = "Nume necesar";
 
 /* Window title */
 "Name not allowed" = "Nume nepermis";
@@ -671,7 +671,7 @@
 "Tunnelblick" = "Tunnelblick";
 
 /* Window title */
-"Tunnelblick: Login Required" = "Tunnelblick: Trebuie să vă autentificati";
+"Tunnelblick: Login Required" = "Tunnelblick: Autentificare necesară";
 
 /* Window title */
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Trebuie să introduceți o parolă";
@@ -713,10 +713,10 @@
 "Welcome" = "Bine ați venit";
 
 /* Window title */
-"While Connected" = "Pe timpul conexiunii";
+"While Connected" = "În timpul conexiunii";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed %lu configurations\n\n" = "     %lu configurari instalate\n\n";
+"     • Installed %lu configurations\n\n" = "     %lu configurări instalate\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Installed one configuration\n\n" = "     O configurare instalata\n\n";

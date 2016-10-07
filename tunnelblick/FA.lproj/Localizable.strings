@@ -287,7 +287,7 @@
 "Make Configuration Shared..." = "همگانی کردن تنظیمات…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "No OpenVPN or Tunnelblick VPN logging";
+"No OpenVPN or Tunnelblick VPN logging" = "بدون واقع نگاری برای اپن وی‌پی‌ان یا تونل بلیکک وی‌پی‌ان";
 
 /* Menu item */
 "No VPN Configurations Available" = "هیچ تنظیمات VPN موجود نیست";
@@ -296,10 +296,10 @@
 "OpenVPN level %lu" = "OpenVPN سطح %lu";
 
 /* Menu Item */
-"OpenVPN level 0 - no output except fatal errors" = "OpenVPN level 0 - no output except fatal errors";
+"OpenVPN level 0 - no output except fatal errors" = "سطح ۰ اپن وی‌پی‌ان - بدون خروجی بجز خطاهای وخیم";
 
 /* Menu Item */
-"OpenVPN level 11 - extremely verbose output" = "OpenVPN level 11 - extremely verbose output";
+"OpenVPN level 11 - extremely verbose output" = "سطح ۱۱ اپن وی‌پی‌ان - خروجی بسیار با جزییات";
 
 /* Menu Item */
 "OpenVPN level 3 - normal output" = "OpenVPN سطح 3 - خروجی عادی";
@@ -623,7 +623,7 @@
 "No 'dev tun', 'dev utun', or 'dev tap' found" = "'dev tun'٬ 'dev utun' یا 'dev tap' یافت نشد";
 
 /* Window title */
-"No Credentials" = "No Credentials";
+"No Credentials" = "بدون هرگونه گواهینامه برای احضار هویت";
 
 /* Window title */
 "One or more OpenVPN processes could not be terminated." = "یک یا چند عملیات OpenVPN نمیتواند پایان بیابد.";
@@ -677,7 +677,7 @@
 "Tunnelblick: Passphrase Required" = "Tunnelblick: Passphrase Required";
 
 /* Window title */
-"Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
+"Unable to launch Tunnelblick" = "قادر به باز کردن تونل بلیکک وی‌پی‌ان نیستیم";
 
 /* Window title */
 "Unavailable" = "در دسترس نیست";
@@ -707,7 +707,7 @@
 "Warning: Unknown OpenVPN processes" = "Warning: Unknown OpenVPN processes";
 
 /* Window title */
-"Welcome to Tunnelblick" = "Welcome to Tunnelblick";
+"Welcome to Tunnelblick" = "به تونل بلیکک وی‌پی‌ان خوش آمدید";
 
 /* Window title */
 "Welcome" = "خوش آمدید";
@@ -716,16 +716,16 @@
 "While Connected" = "در حین اتصال";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed %lu configurations\n\n" = "     • Installed %lu configurations\n\n";
+"     • Installed %lu configurations\n\n" = "     تنظیمات %lu نصب شد\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed one configuration\n\n" = "     • Installed one configuration\n\n";
+"     • Installed one configuration\n\n" = "     یک سری تنظیمات نصب شد\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Replaced %lu configurations\n\n" = "     • Replaced %lu configurations\n\n";
+"     • Replaced %lu configurations\n\n" = "     تنظیمات %lu جایگزین شد\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Replaced one configuration\n\n" = "     • Replaced one configuration\n\n";
+"     • Replaced one configuration\n\n" = "     یک سری تنظیمات جایگزین شد\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Uninstalled %lu configurations\n\n" = "     • Uninstalled %lu configurations\n\n";
