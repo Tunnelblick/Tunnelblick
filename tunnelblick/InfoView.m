@@ -68,7 +68,7 @@ extern TBUserDefaults * gTbDefaults;
                     in: (NSMutableAttributedString *) target {
     
     // Create the new string with a link in it
-    NSMutableAttributedString* newAttrString = [[[NSMutableAttributedString alloc] initWithString: newString] autorelease];
+    NSMutableAttributedString* newAttrString = [[[NSMutableAttributedString alloc] initWithString: LocalizationNotNeeded(newString)] autorelease];
     
     NSURL * aURL = [NSURL URLWithString: urlString];
     if (  ! aURL  ) {

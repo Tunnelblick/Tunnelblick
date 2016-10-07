@@ -3218,10 +3218,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setNumber: &inTotal  andUnits: &inTotalUnits  from: (stats.totalInBytecount  + stats.totalInByteCountBeforeThisConnection ) unitsArray: gTotalUnits];
     [self setNumber: &outTotal andUnits: &outTotalUnits from: (stats.totalOutBytecount + stats.totalOutByteCountBeforeThisConnection) unitsArray: gTotalUnits];
 
-    [[statusScreen inTotalTFC]       setTitle: inTotal];
-    [[statusScreen inTotalUnitsTFC]  setTitle: inTotalUnits];
-    [[statusScreen outTotalTFC]      setTitle: outTotal];
-    [[statusScreen outTotalUnitsTFC] setTitle: outTotalUnits];
+    [[statusScreen inTotalTFC]       setTitle: LocalizationNotNeeded(inTotal)];
+    [[statusScreen inTotalUnitsTFC]  setTitle: LocalizationNotNeeded(inTotalUnits)];
+    [[statusScreen outTotalTFC]      setTitle: LocalizationNotNeeded(outTotal)];
+    [[statusScreen outTotalUnitsTFC] setTitle: LocalizationNotNeeded(outTotalUnits)];
     
     // Set the time interval we look at (the last xxx seconds)
     NSTimeInterval rateTimeInterval = [gTbDefaults timeIntervalForKey: @"statisticsRateTimeInterval"
@@ -3273,10 +3273,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [self setNumber: &inRate  andUnits: &inRateUnits  from: ((TBByteCount) ((double) tInBytes  / tTimeInt)) unitsArray: gRateUnits];
         [self setNumber: &outRate andUnits: &outRateUnits from: ((TBByteCount) ((double) tOutBytes / tTimeInt)) unitsArray: gRateUnits];
         
-        [[statusScreen inRateTFC]       setTitle: inRate];
-        [[statusScreen inRateUnitsTFC]  setTitle: inRateUnits];
-        [[statusScreen outRateTFC]      setTitle: outRate];
-        [[statusScreen outRateUnitsTFC] setTitle: outRateUnits];
+        [[statusScreen inRateTFC]       setTitle: LocalizationNotNeeded(inRate)];
+        [[statusScreen inRateUnitsTFC]  setTitle: LocalizationNotNeeded(inRateUnits)];
+        [[statusScreen outRateTFC]      setTitle: LocalizationNotNeeded(outRate)];
+        [[statusScreen outRateUnitsTFC] setTitle: LocalizationNotNeeded(outRateUnits)];
     }
 }
 
