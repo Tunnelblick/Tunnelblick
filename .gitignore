@@ -1,5 +1,6 @@
 # Xcode 7 user data
 xcuserdata/
+xcshareddata/
 
 # Xcode 3.2.2 user data
 *.mode1v3
