@@ -63,10 +63,9 @@ built-openvpn-prepare:
 	
 built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper built-allssl
 	@echo "THIRD_PARTY: Building OpenVPN..."
-	cd $(OPENVPN_BUILD_DIR) ; \
-	cd ../ ; \
+	cd $(BUILD_DIR) ; \
 	for openvpn_name in `ls openvpn`; do \
-		cd openvpn/$$openvpn_name/openvpn; \
+		cd $(BUILD_DIR)/openvpn/$$openvpn_name/openvpn ; \
 		if [ -f $(OPENVPN_SOURCE_DIR)/$$openvpn_name/configure-options.txt ] ; then \
 			configure_options=`cat $(OPENVPN_SOURCE_DIR)/$$openvpn_name/configure-options.txt` ; \
 		else \
@@ -79,84 +78,98 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 						 		--enable-crypto \
 						 		--enable-ssl" ; \
 		fi ; \
-		echo "Making $$openvpn_name from post-2.3-alpha1 build system"; \
-		for a in $(TARGET_ARCHS); do \
-			$(MAKE) clean; \
-			CC="$(CC)" \
-			CFLAGS="$(CFLAGS) \
-					-arch $$a \
-					$(OPENVPN_DEPRECATED_LLVN_OPTION) \
-					-D __APPLE_USE_RFC_3542" \
-			LZO_CFLAGS="-I$(LZO_STAGING_DIR)/include" \
-			LZO_LIBS="-L$(LZO_STAGING_DIR)/lib \
-					  -llzo2" \
-			LZ4_CFLAGS="-I$(LZ4_STAGING_DIR)/include" \
-			LZ4_LIBS="-L$(LZ4_STAGING_DIR)/lib \
-					  -llz4" \
-			OPENSSL_SSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
-			OPENSSL_SSL_LIBS="$(OPENSSL_STAGING_DIR)/lib/libssl.a" \
-			OPENSSL_CRYPTO_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
-			OPENSSL_CRYPTO_LIBS="$(OPENSSL_STAGING_DIR)/lib/libcrypto.a -lz" \
-			OPENSSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
-			OPENSSL_LIBS="$(OPENSSL_STAGING_DIR)/lib/libssl.a -lz $(OPENSSL_STAGING_DIR)/lib/libcrypto.a -lz" \
-			PKCS11_HELPER_CFLAGS="-I$(PKCS11_STAGING_DIR)/include/" \
-			PKCS11_HELPER_LIBS="-L$(PKCS11_STAGING_DIR)/lib \
-								-lpkcs11-helper" \
-			OS_VERSION=`uname -r` \
-				autoreconf -i -v; \
-			\
-			CC="$(CC)" \
-			CFLAGS="$(CFLAGS) \
-					-arch $$a \
-					$(OPENVPN_DEPRECATED_LLVN_OPTION) \
-					-D __APPLE_USE_RFC_3542" \
-			LZO_CFLAGS="-I$(LZO_STAGING_DIR)/include" \
-			LZO_LIBS="-L$(LZO_STAGING_DIR)/lib \
-					  -llzo2" \
-			LZ4_CFLAGS="-I$(LZ4_STAGING_DIR)/include" \
-			LZ4_LIBS="-L$(LZ4_STAGING_DIR)/lib \
-					  -llz4" \
-			OPENSSL_SSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
-			OPENSSL_SSL_LIBS="$(OPENSSL_STAGING_DIR)/lib/libssl.a" \
-			OPENSSL_CRYPTO_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
-			OPENSSL_CRYPTO_LIBS="$(OPENSSL_STAGING_DIR)/lib/libcrypto.a -lz" \
-			OPENSSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
-			OPENSSL_LIBS="$(OPENSSL_STAGING_DIR)/lib/libssl.a -lz $(OPENSSL_STAGING_DIR)/lib/libcrypto.a -lz" \
-			PKCS11_HELPER_CFLAGS="-I$(PKCS11_STAGING_DIR)/include/" \
-			PKCS11_HELPER_LIBS="-L$(PKCS11_STAGING_DIR)/lib \
-								-lpkcs11-helper" \
-			OS_VERSION=`uname -r` \
-			./configure \
-				 --build=$$a-apple-darwin \
-				 $$configure_options ; \
-			\
-			$(MAKE) LIBS="$(OPENSSL_TARGET_FILES) \
-						  -L$(PKCS11_STAGING_DIR)/lib \
-						  -L$(LZO_STAGING_DIR)/lib \
-						  -L$(LZ4_STAGING_DIR)/lib \
-						  -lpkcs11-helper \
-						  -llzo2 \
+		for ssl_name in $(LIBRESSL_NAME) $(OPENSSL_NAME) ; do \
+			echo "Making $$openvpn_name with $$ssl_name"; \
+			for a in $(TARGET_ARCHS); do \
+				echo "Making $$openvpn_name with $$ssl_name for $$a" ; \
+				mwd="$$(pwd)" ; \
+				if [ "$$ssl_name" = "$(OPENSSL_NAME)" ] ; then \
+					ssl_staging_dir="$(OPENSSL_STAGING_DIR)" ; \
+				else \
+					if [ "$$ssl_name" = "$(LIBRESSL_NAME)" ] ; then \
+						ssl_staging_dir="$(LIBRESSL_STAGING_DIR)" ; \
+					else \
+						echo "error: do not know how to build OpenVPN with '$$ssl_name'" ; \
+						exit -1 ; \
+					fi ; \
+				fi ; \
+				$(MAKE) clean; \
+				\
+				mwd="$$(pwd)" ; \
+					CC="$(CC)" \
+					CFLAGS="$(CFLAGS) \
+						-arch $$a \
+						$(OPENVPN_DEPRECATED_LLVN_OPTION) \
+						-D __APPLE_USE_RFC_3542" \
+					LZO_CFLAGS="-I$(LZO_STAGING_DIR)/include" \
+					LZO_LIBS="-L$(LZO_STAGING_DIR)/lib \
+						  -llzo2" \
+					LZ4_CFLAGS="-I$(LZ4_STAGING_DIR)/include" \
+					LZ4_LIBS="-L$(LZ4_STAGING_DIR)/lib \
 						  -llz4" \
-						  $(OPENVPN_DEPRECATED_GCC_MAKE_OPTION) ; \
-			\
-			echo "Making down-root plugin" ; \
-			$(MAKE) -C src/plugins/down-root clean ; \
-			$(MAKE) LDFLAGS="-bundle \
-							 -Wl,-dylib_install_name,openvpn-down-root.so" \
-							 -C src/plugins/down-root ; \
-			cp -f -p -R src/openvpn/openvpn ../openvpn_tblk_$$a; \
-			cp -f -p -R src/plugins/down-root/.libs/openvpn-plugin-down-root.so ../openvpn-plugin-down-root.so_tblk_$$a; \
+					OPENSSL_CFLAGS="-I$${ssl_staging_dir}/$$a/include" \
+					OPENSSL_SSL_CFLAGS="-I$${ssl_staging_dir}/$$a/include" \
+					OPENSSL_CRYPTO_CFLAGS="-I$${ssl_staging_dir}/$$a/include" \
+					OPENSSL_LIBS="$${ssl_staging_dir}/lib/libssl.a -lz $${ssl_staging_dir}/lib/libcrypto.a -lz" \
+					OPENSSL_SSL_LIBS="$${ssl_staging_dir}/lib/libssl.a" \
+					OPENSSL_CRYPTO_LIBS="$${ssl_staging_dir}/lib/libcrypto.a -lz" \
+					PKCS11_HELPER_CFLAGS="-I$(PKCS11_STAGING_DIR)/include/" \
+					PKCS11_HELPER_LIBS="-L$(PKCS11_STAGING_DIR)/lib \
+									-lpkcs11-helper" \
+					OS_VERSION=`uname -r` \
+				autoreconf -i -v; \
+				\
+				mwd="$$(pwd)" ; \
+					CC="$(CC)" \
+					CFLAGS="$(CFLAGS) \
+						-arch $$a \
+						$(OPENVPN_DEPRECATED_LLVN_OPTION) \
+						-D __APPLE_USE_RFC_3542" \
+					LZO_CFLAGS="-I$(LZO_STAGING_DIR)/include" \
+					LZO_LIBS="-L$(LZO_STAGING_DIR)/lib \
+						  -llzo2" \
+					LZ4_CFLAGS="-I$(LZ4_STAGING_DIR)/include" \
+					LZ4_LIBS="-L$(LZ4_STAGING_DIR)/lib \
+						  -llz4" \
+					OPENSSL_CFLAGS="-I$${ssl_staging_dir}/$$a/include" \
+					OPENSSL_SSL_CFLAGS="-I$${ssl_staging_dir}/$$a/include" \
+					OPENSSL_CRYPTO_CFLAGS="-I$${ssl_staging_dir}/$$a/include" \
+					OPENSSL_LIBS="$${ssl_staging_dir}/lib/libssl.a -lz $${ssl_staging_dir}/lib/libcrypto.a -lz" \
+					OPENSSL_SSL_LIBS="$${ssl_staging_dir}/lib/libssl.a" \
+					OPENSSL_CRYPTO_LIBS="$${ssl_staging_dir}/lib/libcrypto.a -lz" \
+					PKCS11_HELPER_CFLAGS="-I$(PKCS11_STAGING_DIR)/include/" \
+					PKCS11_HELPER_LIBS="-L$(PKCS11_STAGING_DIR)/lib \
+									-lpkcs11-helper" \
+					OS_VERSION=`uname -r` \
+				./configure \
+					 --build=$$a-apple-darwin \
+					 $$configure_options ; \
+				\
+				$(MAKE) LIBS="$(OPENSSL_TARGET_FILES) \
+							  -L$(PKCS11_STAGING_DIR)/lib \
+							  -L$(LZO_STAGING_DIR)/lib \
+							  -L$(LZ4_STAGING_DIR)/lib \
+							  -lpkcs11-helper \
+							  -llzo2 \
+							  -llz4" \
+							  $(OPENVPN_DEPRECATED_GCC_MAKE_OPTION) ; \
+				\
+				echo "Making down-root plugin" ; \
+				$(MAKE) -C src/plugins/down-root clean ; \
+				$(MAKE) LDFLAGS="-bundle \
+								 -Wl,-dylib_install_name,openvpn-down-root.so" \
+								 -C src/plugins/down-root ; \
+				cp -f -p -R src/openvpn/openvpn ../openvpn_tblk_$$a; \
+				cp -f -p -R src/plugins/down-root/.libs/openvpn-plugin-down-root.so ../openvpn-plugin-down-root.so_tblk_$$a; \
+			done; \
+			mkdir -p $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name ; \
+			lipo ../openvpn-plugin-down-root.so_tblk_* -create -output $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-down-root.so; \
+			cd ../; \
+			lipo openvpn_tblk_* -create -output $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-executable; \
+			cd openvpn ; \
 		done; \
-		mkdir -p $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name ; \
-		lipo ../openvpn-plugin-down-root.so_tblk_* -create -output $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name/openvpn-down-root.so; \
-		rm ../openvpn-plugin-down-root.so_tblk_* ; \
-		cd ../; \
-		mkdir -p $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name ; \
-		lipo openvpn_tblk_* -create -output $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name/openvpn-executable; \
-		rm openvpn_tblk_* ; \
-		cd ../../; \
 	done
-	touch built-openvpn
+	touch $(TOPDIR)/built-openvpn
 	@echo "THIRD_PARTY: Built OpenVPN"
 
 built-openvpn-clean:

@@ -29,7 +29,7 @@ built-pkcs11-helper: built-allssl
 		echo "Configure PKCS11-Helper for $$a" ; \
 		CC=$(CC) \
 		CFLAGS="$(CFLAGS) -arch $$a" \
-		OPENSSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/include/$$a" \
+		OPENSSL_CFLAGS="-I$(OPENSSL_STAGING_DIR)/$$a/include" \
 		OPENSSL_LIBS="-L$(OPENSSL_STAGING_DIR)/lib \
 		              -lssl \
 		              -lcrypto \

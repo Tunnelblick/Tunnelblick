@@ -4340,11 +4340,6 @@ static void signal_handler(int signalNumber)
         if (   ( [dirName hasPrefix: @"openvpn-"] )  ) {
 			NSString * versionWithSslSuffix = [dirName substringFromIndex: [@"openvpn-" length]];
             NSArray * parts = [versionWithSslSuffix componentsSeparatedByString: @"-"];
-            if (  [parts count] > 2  ) {
-                NSLog(@"OpenVPN folder name '%@' has more than two '-' characters", dirName);
-                [self terminateBecause: terminatingBecauseOfError];
-                return FALSE;
-            }
 			NSString * versionWithoutSslSuffix = [parts objectAtIndex: 0];
             
             // Use ./openvpn --version to get the version information
@@ -4386,8 +4381,23 @@ static void signal_handler(int signalNumber)
         [self terminateBecause: terminatingBecauseOfError];
         return FALSE;
     }
-    
-    [self setOpenvpnVersionNames: [NSArray arrayWithArray: nameArray]];
+	
+	// Sort the array so OpenSSL comes before LibreSSL
+	NSMutableArray * sortedNames = [[[NSMutableArray alloc] initWithCapacity: [nameArray count]] autorelease];
+	NSUInteger ix;
+	for (  ix=0; ix<[nameArray count]-1; ix++  ) {
+		if (   (ix != [nameArray count]-1)
+            && ([[nameArray objectAtIndex: ix]     rangeOfString: @"libressl"].length != 0)
+			&& ([[nameArray objectAtIndex: ix + 1] rangeOfString: @"openssl"].length  != 0)  ) {
+			[sortedNames addObject: [nameArray objectAtIndex: ix + 1]];
+			[sortedNames addObject: [nameArray objectAtIndex: ix]];
+			ix++;
+		} else {
+			[sortedNames addObject: [nameArray objectAtIndex: ix]];
+		}
+	}
+	
+    [self setOpenvpnVersionNames: [NSArray arrayWithArray: sortedNames]];
     
     return TRUE;
 }

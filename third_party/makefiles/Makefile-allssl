@@ -21,7 +21,7 @@
 export openssl_CONFIG_ARGS= no-shared zlib no-zlib-dynamic no-asm no-krb5
 export openssl_BUILD_ARCH= $(OPENSSL_TARGET_ARCHS)
 
-export libressl_CONFIG_ARGS= 
+export libressl_CONFIG_ARGS= --disable-shared --disable-asm
 export libressl_BUILD_ARCH= $(TARGET_ARCHS)
 
 export boringssl_CONFIG_ARGS= 
@@ -72,19 +72,42 @@ built-allssl: built-allssl-prepare
 			echo "BUILDARCH: $${!BUILDARCH}"; \
 			echo "CC: $(CC)"; \
 			echo "CFLAGS: $(CFLAGS)"; \
-			CC=$(CC) CFLAGS="$(CFLAGS)" ./Configure $${!CONFIGARGS} --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
-			$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
-			echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
-			$(MAKE) install_sw; \
+			if [ "$${sslvariant}" = "openssl" ] ; then \
+				CC=$(CC) CFLAGS="$(CFLAGS)" ./Configure $${!CONFIGARGS} --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
+				$(MAKE) build_libs build_apps openssl.pc libssl.pc libcrypto.pc; \
+				echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
+				$(MAKE) install_sw; \
+			else \
+				if [ "$${sslvariant}" = "libressl" ] ; then \
+					CC=$(CC) CFLAGS="$(CFLAGS)" ./Configure $${!CONFIGARGS} --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
+					$(MAKE) check; \
+					echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
+					$(MAKE) install; \
+				else \
+					echo "error: do not know how to build '$${sslvariant}' ($${sslversion})" ; \
+				fi ; \
+			fi ; \
 			cd .. ; \
 		done ; \
 		if [ "$${sslvariant}" = "openssl" ] ; then \
-			ditto -v "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc/include" "$(STAGING_DIR)/$${sslversion}/include/x86_64" ; \
+			if [ -e "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" ] ; then \
+				mv "$(STAGING_DIR)/$${sslversion}/darwin64-x86_64-cc" "$(STAGING_DIR)/$${sslversion}/x86_64" ; \
+			fi ; \
 			mkdir -p "$(STAGING_DIR)/$${sslversion}/lib" ; \
 			for t in $(OPENSSL_TARGET_FILES); do \
-				lipo $(STAGING_DIR)/$${sslversion}/darwin*/lib/$$(basename $$t) -create -output $$t; \
+				lipo $(STAGING_DIR)/$${sslversion}/x86_64/lib/$$(basename $$t) -create -output $$t; \
 				ranlib $$t; \
 			done ; \
+		else \
+			if [ "$${sslvariant}" = "libressl" ] ; then \
+				mkdir -p "$(STAGING_DIR)/$${sslversion}/lib" ; \
+				for t in $(LIBRESSL_TARGET_FILES); do \
+					lipo $(STAGING_DIR)/$${sslversion}/x86_64/lib/$$(basename $$t) -create -output $$t; \
+					ranlib $$t; \
+				done ; \
+			else \
+				echo "error: do not know how to lipo '$${sslvariant}' ($${sslversion})" ; \
+			fi ; \
 		fi ; \
 	done
 	cd $(TOPDIR)

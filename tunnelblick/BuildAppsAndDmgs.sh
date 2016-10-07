@@ -171,7 +171,9 @@ do
   cp "../third_party/products/openvpn/${d}/openvpn-down-root.so" "${app_path}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
   chmod 744 "${app_path}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
   if [ "${d}" \< "${default_openvpn}" ] ; then
-    default_openvpn="${d}"
+    if [ "${d}" != "${d/openssl/xx}" ] ; then
+      default_openvpn="${d}"
+    fi
   fi
 done
 

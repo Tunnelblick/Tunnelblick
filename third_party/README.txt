@@ -78,10 +78,11 @@ Two programs are used slightly differently:
                facility for updating the scripts when a new version of Tunnelblick is
                installed.
 
-Three programs are built as libraries and statically linked to OpenVPN:
+Four programs are built as libraries and statically linked to OpenVPN:
 
     LZO:           A compression/decompression library
     OpenSSL:       A TLS/SSL library
+    LibreSSL:	    A TLS/SSL library
     pkcs11-helper: A library for dealing with PKCS#11 devices
 
 
@@ -145,6 +146,10 @@ current Tunnelblick source code.
         This is an archive of the source code for OpenSSL 1.0.1k, as downloaded from
         http://www.openssl.org/source on 2014-03-26.
 
+    libressl-2.5.0.tar.gz
+        This is an archive of the source code for LibreSSL 2.5.0, as downloaded from
+        http://ftp.openbsd.org/pub/OpenBSD/LibreSSL on 2016-10-06.
+
     pkcs11-helper-1.11.tar.bz2
         This is an archive of the source code for pkcs11-helper 1.11, as downloaded from
         http://sourceforge.net/projects/opensc/files/pkcs11-helper on 2014-03-26.
@@ -159,7 +164,7 @@ current Tunnelblick source code.
         party programs expands the source code into the third_party/build folder, patches
         the source code, and then builds the patched source code. As of 2016-07-31, only
         Sparkle have patches. (If easy-rsa, LZO, LZ4, or pkcs11-helper need patches, it
-        will be necessary to modify their respecive makefiles to implement the patching process.)
+        will be necessary to modify their respective makefiles to implement the patching process.)
 
     tuntap
         This folder contains source code and patches to create the three versions of
@@ -222,7 +227,7 @@ CHANGING THIRD PARTY PROGRAMS
     When a new version of a third party program is released, it is usually appropriate
     to include the new version in Tunnelblick.
 
-To replace an older version of LZO, OpenSSL, or pkcs11-helper:
+To replace an older version of LZO, OpenSSL, LibreSSL, or pkcs11-helper:
 
     1. Download an archive containing the source code and copy it to the "sources"
        subfolder. Download the same type of archive (".tar.gz", ".tar.bz2", or ".zip") as
@@ -246,7 +251,7 @@ To add a new version of OpenVPN:
        subfolder.
 
 To remove a version of OpenVPN:
-    Remove the version's folders (normal and "tcp") from /third_party/openvpn.
+    Remove the version's folder from /third_party/openvpn.
     
 To add a new version of tuntap:
     1. Download an archive containing the source code and copy it to a new subfolder in
@@ -259,12 +264,10 @@ To add a new version of tuntap:
     5. Other changes may be needed in the Tunnelblick source code to use the new version
        (for example, if it is only for specific versions of OS X).
 
-To replace an older version of Sparkle:
+To replace Sparkle:
     
-    Note: Sparkle 1.5b6, an old version, is used in Tunnelblick because of the changes
-    that would need to be done to use a newer version. It is complicated because of the
-    extensive patches that are made to Sparkle to implement extensions used by
-    Tunnelblick. That said:
+    Note: Replacing Sparkle is complicated because of the extensive patches that are made
+    to Sparkle to implement extensions used by Tunnelblick. That said:
     
     1. Download an archive containing the source code and copy it to the "sources"
        subfolder. Download the archive as a ".zip" file or a ".tar.gz" file.
