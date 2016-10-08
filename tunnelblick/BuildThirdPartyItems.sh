@@ -53,7 +53,7 @@ if [ "${autoconf_version}" != "2.69" ] ; then
   echo "warning: autoconf is version '${autoconf_version}'; expected version 2.69. Autotools may be out-of-date which can cause problems building some of the third_party programs"
 fi
 
-# Test for version 1.9 of automake
+# Test for version 1.9 or 1.15 of automake
 automake_version="$(automake --version | grep automake | sed -e 's/automake (GNU automake) //')"
 if [ "${automake_version}" != "1.9" ]
 then
