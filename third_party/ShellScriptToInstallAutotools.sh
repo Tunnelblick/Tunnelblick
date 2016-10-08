@@ -13,7 +13,7 @@
 # Version of each tool to download and install:
 
 readonly autoconf_version="autoconf-2.69"
-readonly automake_version="automake-1.9"
+readonly automake_version="automake-1.15"
 readonly libtool_version="libtool-2.4.5"
 
 # You can check for the latest version of each tool by examining the following:
