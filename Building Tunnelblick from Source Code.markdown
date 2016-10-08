@@ -69,10 +69,11 @@ To build Tunnelblick using Xcode 7.0+, it needs to be set up to use "legacy" loc
 To build Tunnelblick, the build computer must have appropriate versions of the GNU "auto tools" installed in /usr/local/bin.  
 
   **Method 1. Homebrew Install**
+  
   Required packages are available from homebrew. If you have homebrew installed, open a Terminal window and execute
 
   brew install autoconf automake libtool
-  
+
   **Method 2. Shell Script Install**
 
   A shell script is provided that will download and install them. To use it, open a Terminal window and execute
