@@ -1906,8 +1906,8 @@
 /* Suffix for a duplicate of a file */
 " copy" = " copia";
 
-/* An entry in the list of OpenVPN versions. First %@ is an OpenVPN version number, e.g. '2.3.10'. Second %@ is an SSL library name, e.g. 'LibreSSL' */
-"%@ - %@" = "%1$@ - %2$@";
+/* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
+"%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
 
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d dies %2$d:%3$02d:%4$02d";

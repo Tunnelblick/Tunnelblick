@@ -1562,10 +1562,10 @@
 "Tunnelblick could not create the sample configuration" = "تعذر انشاء نموذج اعدادات اتصال";
 
 /* Window text */
-"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %1$ld; notification = %2$@";
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "تعذر على Tunnelblick انشاء نافذة.\n\nالروتين CFUserNotificationCreate() أعاد الخطأ = %1$ld؛ التنبيه = %2$@";
 
 /* Window text */
-"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n";
+"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "تعذر على Tunnelblick معرفة عنوان الشبكة الظاهر IP قبل انشاء الاتصال %@.\n\n";
 
 /* Window text */
 "Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "تعذر ايجاد خيار ‘tun‘ أو خيار ‘tap‘ في اعدادات اتصال OpenVPN";
@@ -1586,7 +1586,7 @@
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "تعذر ازالة تثبيت اعدادات الاتصال ‘%@‘. راجع السجل للتفاصيل.";
 
 /* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@";
+"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "حصل خطأ فادح اثناء عمل Tunnelblick.\n\nالرجاء التواصل مع مطور البرنامج على البريد الالكتروني developers@tunnelblick.net للمساعدة.\n\nالمشكلة هي:\n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "واجه Tunnelblick اخطاء في اعدادات اتصال %1$lu:\n\n%2$@%3$@%4$@%5$@";
@@ -1637,7 +1637,7 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "تونلبليك يحتاج لتنفيذ عملية لا تتم إلا بصلاحيات مدير النظام.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations.";
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "يستلزم Tunnelblick تحويل اعدادات اتصال OpenVPN الى اعدادات اتصال Tunnelblick VPN.";
 
 /* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.";
@@ -1664,7 +1664,7 @@
 "Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
 
 /* Window text */
-"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "تم استبدال Tunnelblick بنجاح وتنزيل أو استبدال أحد الإعدادات.";
 
 /* Window text */
 "Tunnelblick was successfully replaced." = "تم استبدال Tunnelblick بنجاح.";
@@ -1865,7 +1865,7 @@
 "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n";
 
 /* Window text */
-"Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n";
+"Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "قد تكون ساعة نظام حاسوبك لم تضبط بالشكل الصحيح. \n\nبعض أو كل إعداداتك قد لا تتصل في حال عدم ضبطك تاريخ ووقت ساعة النظام بشكل صحيح. \n\n";
 
 /* Window text */
 "ZB" = "زيتابايت";
@@ -1906,8 +1906,8 @@
 /* Suffix for a duplicate of a file */
 " copy" = " نسخ";
 
-/* An entry in the list of OpenVPN versions. First %@ is an OpenVPN version number, e.g. '2.3.10'. Second %@ is an SSL library name, e.g. 'LibreSSL' */
-"%@ - %@" = "%1$@ - %2$@";
+/* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
+"%@ - %@ v%@" = "%1$@ ‏- %2$@ إصدار %3$@";
 
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d يوم %2$d:%3$02d:%4$02d";

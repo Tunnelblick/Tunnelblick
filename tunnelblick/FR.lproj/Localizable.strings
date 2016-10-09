@@ -797,7 +797,7 @@
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick doit avoir les droits d'administration de l’ordinateur pour se connecter automatiquement à « %@ » quand l’ordinateur démarre.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick doit avoir les droits d'administration de l’ordinateur pour se déconnecter automatiquement de « %@ » quand l’ordinateur démarre.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick doit avoir les droits d'administration de l’ordinateur pour cesser de se connecter automatiquement de « %@ » quand l’ordinateur démarre.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " ATTENTION: Cette copie de Tunnelblick a été falsifiée.\n\n";
@@ -842,7 +842,7 @@
 "(if connected when user switched out)" = "(si connecté lors de la permutation de comptes)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Tunnelblick, logiciel libre disponible sur<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><br><br>Utilise OpenVPN qui est une marque déposée de OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Basé surTunnelblick, logiciel livre disponible sur<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN est une marque déposée de OpenVPN Technologies, Inc.";
 
 /* Window text */
 "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "Une clé TBPreference ou TBAlwaysSetPreference fait référence à une préférence inconnue '%1$@' dans %2$@";
@@ -1112,7 +1112,7 @@
 "Fast User Switching" = "Permutation rapide d’utilisateur";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Le fichier '%@' semble être encodé en UTF-16. Tout les fichiers lier au OpenVPN doivent être encodé en 'texte plein' ou 'UTF-8'.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Le fichier '%@' semble être encodé en UTF-16. Tout les fichiers lier au OpenVPN doivent être encodé en 'texte brut' ou 'UTF-8'.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Le fichier '%@' semble être au format 'texte enrichi' car il commence avec le caractère '{'. Les fichiers liés à OpenVPN doivent être au format 'texte brut' ou 'UTF-8'.";
@@ -1469,7 +1469,7 @@
 "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "Le dossier de configuration d'exemple a été créé sur votre bureau, et le fichier de configuration OpenVPN a été ouvert dans TextEdit afin que vous puissiez le modifier selon votre configuration VPN.\n\nLorsque vous aurez fini de modifier le fichier de configuration OpenVPN et enregistré vos changements, veuillez :\n\n1. Déplacer ou copier les fichiers des clés ou des certificats associés à la configuration dans le dossier « Exemple de configuration VPN Tunnelblick » sur votre bureau.\n\n(Ce dossier a été ouvert dans une fenêtre Finder afin que vous puissiez glisser les fichiers dedans.)\n\n2. Changer le nom du fichier de configuration en un nom de votre choix (ne pas changer l'extension). Ce sera le nom que Tunnelblick utilisera pour la configuration.\n\n3. Pour installer la configuration, glisser et déposer le fichier de configuration sur l'icône Tunnelblick dans la barre de menu ou sur la liste des configurations dans l'onglet \"Configurations\" de la fenêtre \"Détails du VPN\".";
 
 /* Window text */
-"The username and password were not accepted by the remote VPN server." = "Le nom d'utilisateur et le mot de passe n'ont pas été accepté par le serveur distant VPN.";
+"The username and password were not accepted by the remote VPN server." = "Le nom d'utilisateur et le mot de passe n'ont pas été accepté par le serveur VPN distant.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Il n'y a aucune configuration OpenVPN à installer.";
@@ -1493,10 +1493,10 @@
 "There was a problem:\n\n%@" = "Il y a eu un problème :\n\n%@";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Cette version 'Déployée' de Tunnelblick ne peut être lancée ou installée car elle n’a pas été rebaptisée, ou updateFeedURL ou SUFeedURL sont manquants ou contient 'tunnelblick.net', ou CFBundleIdentifier manque ou contient 'net.tunnelblick'.\n\n";
+"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Cette version 'Déployée' de Tunnelblick ne peut être lancée ou installée car elle n’a pas été rebaptisée, ou updateFeedURL ou SUFeedURL sont manquants ou contienent 'tunnelblick.net', ou CFBundleIdentifier manque ou contient 'net.tunnelblick'.\n\n";
 
 /* Window text */
-"This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Cette version 'Déployée' de Tunnelblick ne peut être lancée ou installée car elle n’a pas de Info.plist.\n\n";
+"This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Cette version 'Déployée' de Tunnelblick ne peut être lancée ou installée car elle n’a pas de fichier Info.plist.\n\n";
 
 /* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "L’adresse IP publique apparente n’était pas différente après la connexion à %1$@. Elle est toujours %2$@.\n\nCela signifie probablement que votre VPN n’est pas configuré correctement.\n\n";
@@ -1906,8 +1906,8 @@
 /* Suffix for a duplicate of a file */
 " copy" = " - copie";
 
-/* An entry in the list of OpenVPN versions. First %@ is an OpenVPN version number, e.g. '2.3.10'. Second %@ is an SSL library name, e.g. 'LibreSSL' */
-"%@ - %@" = "%1$@ - %2$@";
+/* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
+"%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
 
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d jours %2$d:%3$02d:%4$02d";

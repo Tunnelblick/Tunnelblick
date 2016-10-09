@@ -197,7 +197,7 @@
 "Restore" = "Восстановить";
 
 /* Button */
-"Retry" = "Повторить";
+"Retry" = "Повтор";
 
 /* Button */
 "Revert" = "Откатить";
@@ -269,7 +269,7 @@
 "Disconnect %@%@" = "Отключить %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Не Показывать в Меню Tunnelblick";
+"Do Not Show on Tunnelblick Menu" = "Не показывать в меню Tunnelblick";
 
 /* Menu Item */
 "Duplicate Configuration..." = "Дублировать конфигурацию…";
@@ -1906,8 +1906,8 @@
 /* Suffix for a duplicate of a file */
 " copy" = " копия";
 
-/* An entry in the list of OpenVPN versions. First %@ is an OpenVPN version number, e.g. '2.3.10'. Second %@ is an SSL library name, e.g. 'LibreSSL' */
-"%@ - %@" = "%1$@ - %2$@";
+/* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
+"%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
 
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d дн. %2$d:%3$02d:%4$02d";
@@ -1922,7 +1922,7 @@
 "Admin mode %@ remaining" = "Для режима администратора остаётся %@";
 
 /* Credit description */
-"Afrikaans localization" = "Африкаанс локализация";
+"Afrikaans localization" = "Перевод на африкаанс";
 
 /* Credit description */
 "Animation and icon sets code" = "Анимация и наборы иконок";
@@ -2005,13 +2005,13 @@
 "Hungarian localization" = "Перевод на венгерский";
 
 /* Credit description */
-"Icelandic localization" = "Исландская локализация";
+"Icelandic localization" = "Перевод на исландский";
 
 /* Credit description */
 "Icon set including Retina images" = "Набор иконок, включая изображения для экрана Retina";
 
 /* Credit description */
-"Indonesian localization" = "Индонезийская локализация";
+"Indonesian localization" = "Перевод на индонезийский";
 
 /* Credit description */
 "Italian localization" = "Перевод на итальянский";
@@ -2029,7 +2029,7 @@
 "LEAD_TRANSLATORS" = "Eugene Trufanov, Dennis Ukhanov, Nail Gilmanov, & Victor Ptichkin";
 
 /* Credit description */
-"Latvian localization" = "Латышская локализация";
+"Latvian localization" = "Перевод на латышский";
 
 /* Credit description */
 "Localization code tweaks" = "Оптимизация кода локализации";
@@ -2047,7 +2047,7 @@
 "PKCS#11 support" = "Поддержка PKCS#11";
 
 /* Credit description */
-"Persian localization" = "Персидская локализация";
+"Persian localization" = "Перевод на персидский";
 
 /* Credit description */
 "Polish localization" = "Перевод на польский";
@@ -2056,7 +2056,7 @@
 "Portuguese (Brazilian) localization" = "Перевод на португальский (бразильский)";
 
 /* Credit description */
-"Portuguese localization" = "Португальская локализация";
+"Portuguese localization" = "Перевод на португальский";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Поддержка и улучшение программы и документации после версии 3.0b10";
@@ -2068,7 +2068,7 @@
 "Russian localization" = "Перевод на русский";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Сербская (латиницей) локализация";
+"Serbian (Latin) localization" = "Перевод на сербский (латиницей)";
 
 /* Credit description */
 "Slovak localization" = "Перевод на словакский";
@@ -2083,7 +2083,7 @@
 "Tunnelblick icon" = "Значок Tunnelblick";
 
 /* Credit description */
-"Turkish localization" = "Турецкая локализация";
+"Turkish localization" = "Перевод на турецкий";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue и UKLoginItemRegistry";

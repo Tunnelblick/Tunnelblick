@@ -863,7 +863,7 @@
 "A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Ett problem uppstod när datorns upplevda publika IP adress undersöktes.\n\nKolla i konsolloggen för mer info.\n\n";
 
 /* Window text */
-"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Det finns redan en delad konfiguration vid namn \"%@\".\n\nVill du ersätta den med en privat konfiguration?";
+"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "En delad konfiguration med namnet '%@' existerar redan.\n\n\nVill du ersätta den med en privat konfiguration?";
 
 /* Window text */
 "A username and password are required to connect to\n  %@" = "Ett användarnamn och lösenord krävs för att ansluta till\n  %@";
@@ -980,7 +980,7 @@
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Konfigurationen \"%@\" innehåller ett eller flera skript som kan orsaka problem om du ersätter eller avinstallerar konfigurationen medan den är ansluten.\n\nVill du ersätta konfigurationen?";
 
 /* Window text */
-"Configuration '%@' is not secure. It should be reinstalled." = "Konfigurationen \"%@\" är inte säker. Den bör ominstalleras.";
+"Configuration '%@' is not secure. It should be reinstalled." = "Konfigurationen \"%@\" är inte säker. Den bör installeras om.";
 
 /* Window text */
 "Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Konfigurationen \"%@\" är inte säker. Tunnelblick behöver installeras om.";
@@ -1586,7 +1586,7 @@
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick kunde inte avinstallera konfigurationen '%@' . Se konsolloggen för detaljer.";
 
 /* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick har drabbats av ett kritiskt fel.\n\nKontakta utvecklarna via developers@tunnelblick.net för att få hjälp.\n\nProblemet var:\n\n%@";
+"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick har drabbats av ett kritiskt fel.\n\nVänligen kontakta utvecklarna på developers@tunnelblick.net för hjälp.\n\nProblemet var:\n\n%@";
 
 /* Window text */
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick stötte på problem med %1$lu konfigurationer:\n\n%2$@%3$@%4$@%5$@";
@@ -1906,8 +1906,8 @@
 /* Suffix for a duplicate of a file */
 " copy" = " kopiera";
 
-/* An entry in the list of OpenVPN versions. First %@ is an OpenVPN version number, e.g. '2.3.10'. Second %@ is an SSL library name, e.g. 'LibreSSL' */
-"%@ - %@" = "%1$@ - %2$@";
+/* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
+"%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
 
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d dagar %2$d:%3$02d:%4$02d";
@@ -2095,7 +2095,7 @@
 "Up and Down scripts" = "Uppåt/nedåt-script";
 
 /* Notification text */
-"Updated to %@." = "Uppdaterade till %@.";
+"Updated to %@." = "Uppdaterad till %@.";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode-hjälp & OpenSSL-integrering";

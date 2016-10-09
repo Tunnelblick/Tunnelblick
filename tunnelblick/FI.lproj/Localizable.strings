@@ -995,7 +995,7 @@
 "Configuration changes:" = "Konfiguraatio muutokset:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Verkon haltia tai VPN palvelun tarjoaja toimittaa Konfiguraatio tiedostot.\n\nKonfiguraatiotiedostot päättyvät joko .tblk, .ovpn tai .conf.\n\n(Myös muunlaisia tiedostopäätteitä omaavat tiedostot saattavat liittyä konfiguraatioon, älä kuitenkaan välitä niistä.)\n\nAsentaaksesi konfiguraation, raahaa se Tunnekblick ikonin päälle menuriville tai konfiguraatiot listaan konfiguraatiot välilehdellä 'VPN Details' ikkunaan.\n\nVoit myös asentaa useita konfiguraatioita kerralla valitsemalla ja raahaamalla kaikki kerralla.";
 
 /* Window text */
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Konfiguraatiot, jotka eivät ole osa Tunnelblickiä, määritetään asennettavaksi, kun asennat Tunnelblickin.\n\n";
@@ -1112,7 +1112,7 @@
 "Fast User Switching" = "Nopea käyttäjien vaihto";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Tiedosto '%@' vaikuttaa olevan UTF-16 enkoodattu. Kaikki Open-VPN tiedostot tulee olla joko 'plain text' tai UTF-8 tiedostoja.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Tiedosto '%@' näyttää olevan 'rich text' -muodossa, koska se alkaa '{'-merkillä. Kaikkien OpenVPN:ään liittyvät tiedostojen on oltava 'pelkkä teksti'- tai 'UTF-8'-tiedostoja.";
@@ -1127,7 +1127,7 @@
 "File '%@' is missing" = "Tiedosto \"%@\" puuttuu";
 
 /* Window text */
-"File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
+"File '%@' is too short (%lu bytes)" = "Tiedosto '%1$@' on liian lyhyt (%2$lu tavua)";
 
 /* Window text */
 "File is too large: %@" = "Tiedosto on liian suuri: %@";
@@ -1730,7 +1730,7 @@
 "Unknown value '%@' for '%@' in %@" = "Tuntematon arvo '%1$@' objektille '%2$@' kohteessa %3$@";
 
 /* Window text */
-"Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
+"Unreadable file at %@\n\nSee the Console log for details." = "Lukukelvoton tiedosto: %@\n\nKatso lisätietoja konsoli logista.";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Päivitettävissä olevaa konfiguraatiota '%1$@' ei tallennettu päivitettävissä olevana, koska kohdetta %2$@ ei löydetty\n";
@@ -1906,8 +1906,8 @@
 /* Suffix for a duplicate of a file */
 " copy" = " kopio";
 
-/* An entry in the list of OpenVPN versions. First %@ is an OpenVPN version number, e.g. '2.3.10'. Second %@ is an SSL library name, e.g. 'LibreSSL' */
-"%@ - %@" = "%1$@ - %2$@";
+/* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
+"%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
 
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d päivää %2$d:%3$02d:%4$02d";
