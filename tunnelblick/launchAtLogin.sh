@@ -16,6 +16,7 @@ export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 launch_at_login_preference="$( defaults read net.tunnelblick.tunnelblick launchAtNextLogin 2> /dev/null )"
 if [ "${launch_at_login_preference}" = "1" ] ; then
   open /Applications/Tunnelblick.app
+  exit
 fi
 
 processes="$(ps -ef)"
@@ -23,9 +24,11 @@ processes="$(ps -ef)"
 openvpn_is_running="$( echo "${processes}" | grep -w openvpn | grep -v grep )"
 if [ "${openvpn_is_running}" != "" ] ; then
   open /Applications/Tunnelblick.app
+  exit
 fi
 
 helper_is_running="$( echo "${processes}" | grep -w tunnelblick-helper | grep -v grep )"
 if [ "${helper_is_running}" != "" ] ; then
-open /Applications/Tunnelblick.app
+  open /Applications/Tunnelblick.app
+  exit
 fi
