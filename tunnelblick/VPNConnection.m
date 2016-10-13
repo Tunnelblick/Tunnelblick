@@ -2925,7 +2925,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting; token name is %ld bytes long; passphrase is %ld bytes long; each is limited to %ld bytes", (long)strlen(tokenNameC), (long)strlen(passphraseC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
                 [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
             } else {
-                [managementSocket writeString: [NSString stringWithFormat: @"password \"%s\" \"%s\"\r\n", tokenNameC, passphraseC] encoding:NSUTF8StringEncoding];
+                [managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", escaped(tokenName), escaped(myPassphrase)] encoding:NSUTF8StringEncoding];
             }
         } else {
             [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
@@ -2951,8 +2951,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting; username is %ld bytes long; password is %ld bytes long; each is limited to %ld bytes", (long)strlen(usernameC), (long)strlen(passwordC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
                 [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
             } else {
-                [managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%s\"\r\n", usernameC] encoding:NSUTF8StringEncoding];
-                [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%s\"\r\n", passwordC] encoding:NSUTF8StringEncoding];
+                [managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSUTF8StringEncoding];
+                [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUTF8StringEncoding];
             }
         } else {
             [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
