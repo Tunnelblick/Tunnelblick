@@ -165,11 +165,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
 {
 	(void) sender;
 	
-    const char * usernameC = [[[self username] stringValue] UTF8String];
-    const char * passwordC = [[[self password] stringValue] UTF8String];
+    const char * usernameC = [escaped(  [[self username] stringValue]  ) UTF8String];
+    const char * passwordC = [escaped(  [[self password] stringValue]  ) UTF8String];
     if (   (strlen(usernameC) == 0)
-        || (strlen(usernameC) > MAX_LENGTH_OF_MANGEMENT_INTERFACE_PARAMETER)
-        || (strlen(passwordC) > MAX_LENGTH_OF_MANGEMENT_INTERFACE_PARAMETER)) {
+        || (strlen(usernameC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)
+        || (strlen(passwordC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)) {
         [UIHelper shakeWindow: self.window];
         return;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -132,9 +132,9 @@ extern TBUserDefaults * gTbDefaults;
 {
 	(void) sender;
 	
-    const char * passphraseC = [[[self passphrase] stringValue] UTF8String];
+    const char * passphraseC = [escaped(  [[self passphrase] stringValue]  ) UTF8String];
     if (   (strlen(passphraseC) == 0)
-        || (strlen(passphraseC) > MAX_LENGTH_OF_MANGEMENT_INTERFACE_PARAMETER)  ) {
+        || (strlen(passphraseC) > MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER)  ) {
         [UIHelper shakeWindow: self.window];
         return;
     }
