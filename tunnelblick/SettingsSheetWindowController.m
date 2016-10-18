@@ -300,20 +300,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         return;
     }
     
-    NSString * key = [configurationName stringByAppendingString: @"useDNS"];
-    unsigned ix = [gTbDefaults unsignedIntForKey: key
-                                         default: 1
-                                             min: 0
-                                             max: MAX_SET_DNS_WINS_INDEX];
-    
-    if (  ix == 1  ) {
-        [self setupCheckbox: useRouteUpInsteadOfUpCheckbox
-                        key: @"-useRouteUpInsteadOfUp"
-                   inverted: NO];
-    } else {
-        [useRouteUpInsteadOfUpCheckbox setState:   NSOffState];
-        [useRouteUpInsteadOfUpCheckbox setEnabled: NO];
-    }
+	[self setupCheckbox: useRouteUpInsteadOfUpCheckbox
+					key: @"-useRouteUpInsteadOfUp"
+			   inverted: NO];
 }
 
 - (void) setupDisconnectOnSleepCheckbox {
