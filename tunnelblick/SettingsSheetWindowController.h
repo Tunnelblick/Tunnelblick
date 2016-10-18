@@ -30,6 +30,7 @@ typedef enum {
 
 
 @class VPNConnection;
+@class TBInfoButton;
 
 
 @interface SettingsSheetWindowController : NSWindowController <NSWindowDelegate, NSTextFieldDelegate>
@@ -64,6 +65,7 @@ typedef enum {
     IBOutlet NSButton            * keepConnectedCheckbox;
     IBOutlet NSButton            * enableIpv6OnTapCheckbox;
     IBOutlet NSButton            * useRouteUpInsteadOfUpCheckbox;
+	IBOutlet TBInfoButton        * infoButtonForUseRouteUpInsteadOfUpCheckbox;
     IBOutlet NSButton            * prependDomainNameCheckbox;
     IBOutlet NSButton            * disconnectOnSleepCheckbox;
     IBOutlet NSButton            * reconnectOnWakeFromSleepCheckbox;
@@ -294,6 +296,8 @@ typedef enum {
 
 
 // Getters & Setters
+
+TBPROPERTY_READONLY(TBInfoButton *, infoButtonForUseRouteUpInsteadOfUpCheckbox)
 
 TBPROPERTY_READONLY(BOOL, showingSettingsSheet)
 

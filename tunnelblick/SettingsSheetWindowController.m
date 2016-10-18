@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -72,6 +72,8 @@ extern TBUserDefaults       * gTbDefaults;
 TBSYNTHESIZE_NONOBJECT_GET(BOOL, showingSettingsSheet)
 
 TBSYNTHESIZE_OBJECT(retain, VPNConnection *, connection,                setConnection)
+
+TBSYNTHESIZE_OBJECT_GET(retain, TBInfoButton *,    infoButtonForUseRouteUpInsteadOfUpCheckbox)
 
 TBSYNTHESIZE_OBJECT(retain, NSArray *,  removeNamedCredentialsNames,    setRemoveNamedCredentialsNames)
 
@@ -577,14 +579,30 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
     // For Connecting tab
 	
+	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+	
     [connectingAndDisconnectingTabViewItem setLabel: NSLocalizedString(@"Connecting & Disconnecting", @"Window title")];
     
     [self initializeCheckbox: flushDnsCacheCheckbox                  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting",                                   @"Checkbox name")];
     [self initializeCheckbox: prependDomainNameCheckbox              setTitle: NSLocalizedString(@"Prepend domain name to search domains",                                               @"Checkbox name")];
-    [self initializeCheckbox: useRouteUpInsteadOfUpCheckbox          setTitle: NSLocalizedString(@"Set DNS after routes are set instead of before routes are set",                       @"Checkbox name")];
     [self initializeCheckbox: enableIpv6OnTapCheckbox                setTitle: NSLocalizedString(@"Enable IPv6 (tap only)",                                                              @"Checkbox name")];
     [self initializeCheckbox: keepConnectedCheckbox                  setTitle: NSLocalizedString(@"Keep connected",                                                                      @"Checkbox name")];
      
+	CGFloat change = [UIHelper setTitle: NSLocalizedString(@"Set DNS after routes are set", @"Checkbox name")
+							  ofControl: useRouteUpInsteadOfUpCheckbox
+								  shift: rtl
+								 narrow: YES
+								 enable: YES];
+	[UIHelper shiftControl: infoButtonForUseRouteUpInsteadOfUpCheckbox by: change reverse: ! rtl];
+	NSAttributedString * infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings <em>after</em>"
+																				@" it sets up routing for the VPN instead of <em>before</em> setting up the routing.</p>\n"
+																				@"<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings <em>before</em> it sets up"
+																				@" routing for the VPN, instead of <em>after</em> setting up the routing. This can cause DNS failures"
+																				@" or delays if the routes take a long time to set up (for example, if there are many routes to set up).</p>\n",
+																				@"HTML info for the 'Set DNS after routes are set' checkbox."));
+	[infoButtonForUseRouteUpInsteadOfUpCheckbox setAttributedTitle: infoTitle];
+	[infoButtonForUseRouteUpInsteadOfUpCheckbox setMinimumWidth: 360.0];
+	
     [sleepWakeBox setTitle: NSLocalizedString(@"Computer sleep/wake",                        @"Window text")];
     [self initializeCheckbox: disconnectOnSleepCheckbox              setTitle: NSLocalizedString(@"Disconnect when computer goes to sleep",     @"Checkbox name")];
     [self initializeCheckbox: reconnectOnWakeFromSleepCheckbox       setTitle: NSLocalizedString(@"Reconnect when computer wakes up",           @"Checkbox name")];
@@ -632,8 +650,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
     [self initializeCheckbox: monitorNetworkForChangesCheckbox setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")];
     
-	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
-	
 	NSTextAlignment alignmentForNetworkSettingString = (  rtl
 														? NSLeftTextAlignment
 														: NSRightTextAlignment);
