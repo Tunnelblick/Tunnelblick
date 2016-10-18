@@ -37,9 +37,9 @@ extern BOOL             gShuttingDownWorkspace;
 
 @implementation TBInfoButton
 
-TBSYNTHESIZE_OBJECT(retain, NSAttributedString *, titleAS       , setTitleAS)
+TBSYNTHESIZE_OBJECT(retain, NSAttributedString *, titleAS,		  setTitleAS)
 TBSYNTHESIZE_OBJECT(retain, MAAttachedWindow   *, attachedWindow, setAttachedWindow)
-TBSYNTHESIZE_OBJECT(retain, Tracker            *, tracker, setTracker)
+TBSYNTHESIZE_OBJECT(retain, Tracker            *, tracker,        setTracker)
 
 TBSYNTHESIZE_NONOBJECT(CGFloat, startWidth,   setStartWidth)
 TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
@@ -219,17 +219,20 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
     if ( ! attachedWindow  ) {
         NSRect f = [self frame];
         
-        NSPoint p = NSMakePoint( f.origin.x + (f.size.width / 2.0), f.origin.y + (f.size.height / 2.0) );
+        NSPoint pointInViewCoordinates = NSMakePoint( f.origin.x + (f.size.width / 2.0), f.origin.y + (f.size.height / 2.0) );
+		
+		NSWindow * ourWindow = [self window];
+		NSPoint pointInWindowCoordinates = [[self superview] convertPoint: pointInViewCoordinates toView: [ourWindow contentView]];
         
         Tracker * t = [[[Tracker alloc] init] autorelease];
         [t setDelegate: self];
         [self setTracker: t];
         
         attachedWindow = [self createWindowWithContent: [self titleAS]
-                                             nearPoint: p
+                                             nearPoint: pointInWindowCoordinates
                                        firstTrialWidth: [self startWidth]
                                           minimumWidth: [self minimumWidth]
-                                           outerWindow: [self window]
+                                           outerWindow: ourWindow
                                              trackedBy: t];
         
     }
