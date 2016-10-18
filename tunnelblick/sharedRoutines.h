@@ -24,6 +24,8 @@
 
 NSString * sha256HexStringForData (NSData * data);
 
+BOOL isValidIPAdddress(NSString * ipAddress);
+
 NSDictionary * tunnelblickdPlistDictionaryToUse(void);
 
 BOOL needToReplaceLaunchDaemon(void);

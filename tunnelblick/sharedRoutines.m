@@ -48,6 +48,23 @@ extern NSString * gDeployPath;
 void appendLog(NSString * msg);	// Appends a string to the log
 
 
+BOOL isValidIPAdddress(NSString * ipAddress) {
+	
+	if (  [ipAddress containsOnlyCharactersInString: @"0123456789."]  ) {
+		NSArray * quads = [ipAddress componentsSeparatedByString: @"."];
+		if (   ( [quads count] == 4 )
+			&& ( [[quads objectAtIndex: 0] unsignedIntValue] < 256 )
+			&& ( [[quads objectAtIndex: 1] unsignedIntValue] < 256 )
+			&& ( [[quads objectAtIndex: 2] unsignedIntValue] < 256 )
+			&& ( [[quads objectAtIndex: 3] unsignedIntValue] < 256 )
+			) {
+			return TRUE;
+		}
+	}
+	
+	return FALSE;
+}
+
 // Returns YES if file doesn't exist, or has the specified ownership and permissions
 BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, mode_t permsShouldHave)
 {
