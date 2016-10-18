@@ -23,6 +23,7 @@
 #import "defines.h"
 
 @class MAAttachedWindow;
+@class Tracker;
 
 @interface TBInfoButton : NSButton {
     
