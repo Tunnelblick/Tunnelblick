@@ -24,7 +24,6 @@
 
 @class LeftNavViewController;
 @class LeftNavDataSource;
-@class TBInfoButton;
 
 @interface ConfigurationsView : NSView
 {    
@@ -98,17 +97,11 @@
     
     IBOutlet NSButton            * monitorNetworkForChangesCheckbox;
     IBOutlet NSButton            * routeAllTrafficThroughVpnCheckbox;
-	IBOutlet NSButton            * disableIpv6OnTunCheckbox;
     IBOutlet NSButton            * checkIPAddressAfterConnectOnAdvancedCheckbox;
     IBOutlet NSButton            * resetPrimaryInterfaceAfterDisconnectCheckbox;
-	
-	IBOutlet TBInfoButton        * infoButtonForMonitorNetworkForChangesCheckbox;
-	IBOutlet TBInfoButton        * infoButtonForRouteAllTrafficThroughVpnCheckbox;
-	IBOutlet TBInfoButton        * infoButtonForDisableIpv6OnTunCheckbox;
-	IBOutlet TBInfoButton        * infoButtonForCheckIPAddressAfterConnectOnAdvancedCheckbox;
-	IBOutlet TBInfoButton        * infoButtonForResetPrimaryInterfaceAfterDisconnectCheckbox;
+    IBOutlet NSButton            * disableIpv6OnTunCheckbox;
     
-    IBOutlet NSButton            * advancedButton;
+    IBOutlet NSButton            * advancedButton;    
 }
 
 // Getters
@@ -164,15 +157,9 @@ TBPROPERTY_READONLY(NSArrayController *,   setNameserverArrayController)
 
 TBPROPERTY_READONLY(NSButton *,            monitorNetworkForChangesCheckbox)
 TBPROPERTY_READONLY(NSButton *,            routeAllTrafficThroughVpnCheckbox)
-TBPROPERTY_READONLY(NSButton *,            disableIpv6OnTunCheckbox)
 TBPROPERTY_READONLY(NSButton *,            checkIPAddressAfterConnectOnAdvancedCheckbox)
 TBPROPERTY_READONLY(NSButton *,            resetPrimaryInterfaceAfterDisconnectCheckbox)
-
-TBPROPERTY_READONLY(TBInfoButton *,        infoButtonForMonitorNetworkForChangesCheckbox)
-TBPROPERTY_READONLY(TBInfoButton *,        infoButtonForRouteAllTrafficThroughVpnCheckbox)
-TBPROPERTY_READONLY(TBInfoButton *,        infoButtonForDisableIpv6OnTunCheckbox)
-TBPROPERTY_READONLY(TBInfoButton *,        infoButtonForCheckIPAddressAfterConnectOnAdvancedCheckbox)
-TBPROPERTY_READONLY(TBInfoButton *,        infoButtonForResetPrimaryInterfaceAfterDisconnectCheckbox)
+TBPROPERTY_READONLY(NSButton *,            disableIpv6OnTunCheckbox)
 
 TBPROPERTY_READONLY(NSArrayController *,   perConfigOpenvpnVersionArrayController)
 TBPROPERTY_READONLY(NSButton *,            perConfigOpenvpnVersionButton)
