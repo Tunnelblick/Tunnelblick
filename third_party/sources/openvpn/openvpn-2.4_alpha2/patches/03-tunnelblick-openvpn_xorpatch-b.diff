@@ -1,7 +1,6 @@
-diff -u -r -x .DS_Store openvpn-2.3_git_ec0c1dc/src/openvpn/options.c openvpn-2.3_git_ec0c1dc_/src/openvpn/options.c
---- openvpn-2.3_git_ec0c1dc/src/openvpn/options.c	2016-06-20 11:25:26.000000000 -0400
-+++ openvpn-2.3_git_ec0c1dc_/src/openvpn/options.c	2016-06-21 10:59:34.000000000 -0400
-@@ -786,6 +786,9 @@
+--- openvpn-unpatched/src/openvpn/options.c	2016-10-18 02:31:09.000000000 -0400
++++ openvpn-patched/src/openvpn/options.c	2016-10-22 07:47:27.000000000 -0400
+@@ -793,6 +793,9 @@
    o->resolve_retry_seconds = RESOLV_RETRY_INFINITE;
    o->resolve_in_advance = false;
    o->proto_force = -1;
@@ -11,7 +10,7 @@ diff -u -r -x .DS_Store openvpn-2.3_git_ec0c1dc/src/openvpn/options.c openvpn-2.
  #ifdef ENABLE_OCC
    o->occ = true;
  #endif
-@@ -930,6 +933,9 @@
+@@ -941,6 +944,9 @@
    setenv_str_i (es, "local_port", e->local_port, i);
    setenv_str_i (es, "remote", e->remote, i);
    setenv_str_i (es, "remote_port", e->remote_port, i);
@@ -21,7 +20,7 @@ diff -u -r -x .DS_Store openvpn-2.3_git_ec0c1dc/src/openvpn/options.c openvpn-2.
  
    if (e->http_proxy_options)
      {
-@@ -1392,6 +1398,9 @@
+@@ -1402,6 +1408,9 @@
    SHOW_BOOL (bind_ipv6_only);
    SHOW_INT (connect_retry_seconds);
    SHOW_INT (connect_timeout);
@@ -31,7 +30,7 @@ diff -u -r -x .DS_Store openvpn-2.3_git_ec0c1dc/src/openvpn/options.c openvpn-2.
  
    if (o->http_proxy_options)
      show_http_proxy_options (o->http_proxy_options);
-@@ -5170,6 +5179,46 @@
+@@ -5228,6 +5237,46 @@
  	}
        options->proto_force = proto_force;
      }

@@ -1,0 +1,12 @@
+--- openvpn-unpatched/src/openvpn/options.h	2016-10-18 02:31:09.000000000 -0400
++++ openvpn-patched/src/openvpn/options.h	2016-10-22 07:47:27.000000000 -0400
+@@ -98,6 +98,9 @@
+   int connect_retry_seconds;
+   int connect_retry_seconds_max;
+   int connect_timeout;
++  int xormethod;
++  const char *xormask;
++  int xormasklen;
+   struct http_proxy_options *http_proxy_options;
+   const char *socks_proxy_server;
+   const char *socks_proxy_port;
