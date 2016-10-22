@@ -165,6 +165,8 @@ void * _NSConcreteStackBlock __attribute__((weak));
     
     NSString                * lastState;                    // Most recent state of connection (EXITING, SLEEP, etc.)
     
+	NSString                * publicIPAddress;				// Apparent public IP address
+	
     TBUIUpdater             * uiUpdater;                    // Used to periodically update displays
 	
     NSTimer                 * hookupWatchdogTimer;          // Used to check for failures to hookup to openvpn processes, and deal with unknown OpenVPN processes 
@@ -378,5 +380,6 @@ TBPROPERTY(NSMutableArray *, connectionsToRestoreOnWakeup, setConnectionsToResto
 TBPROPERTY(NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
 TBPROPERTY(NSBundle       *, deployLocalizationBundle, setDeployLocalizationBundle)
 TBPROPERTY(NSString       *, languageAtLaunch,        setLanguageAtLaunch)
+TBPROPERTY(NSString       *, publicIPAddress,         setPublicIPAddress)
 
 @end
