@@ -311,7 +311,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(NSDictionary *)   tunnelblickInfoDictionary;
 -(void)             updateIconImage;
 -(void)             updateUI;
--(void)				updateUpdateFeedURLForceDowngrade:		(BOOL)				forceDowngrade;
+-(void)				updateUpdateFeedURL;
 -(void)             terminateBecause:                       (enum TerminationReason) reason;
 -(void) welcomeOKButtonWasClicked;
 
