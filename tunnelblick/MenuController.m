@@ -1105,6 +1105,15 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, publicIPAddress,           setPublic
         TBLog(@"DB-SU", @"init: 017")
 		
         updater = [[SUUpdater alloc] init];
+		
+		// Set updater's delegate, so we can add our own info to the system profile Sparkle sends to our website
+		// Do this even if we haven't set our preferences, so Sparkle will include our data in the list
+		// it presents to the user when asking the user for permission to send the data.
+		if (  [updater respondsToSelector: @selector(setDelegate:)]  ) {
+			[updater setDelegate: (id)self];
+		} else {
+			NSLog(@"Cannot set Sparkle delegate because Sparkle Updater does not respond to setDelegate:");
+		}
         TBLog(@"DB-SU", @"init: 018 - LAST")
     }
     
@@ -4056,15 +4065,6 @@ static void signal_handler(int signalNumber)
         }
     }
     
-    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 007")
-    // Set updater's delegate, so we can add our own info to the system profile Sparkle sends to our website
-    // Do this even if we haven't set our preferences (see above), so Sparkle will include our data in the list
-    // it presents to the user when asking the user for permission to send the data.
-    if (  [updater respondsToSelector: @selector(setDelegate:)]  ) {
-        [updater setDelegate: (id)self];
-    } else {
-        NSLog(@"Cannot set Sparkle delegate because Sparkle Updater does not respond to setDelegate:");
-    }
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 008 -- LAST")
 }
 
