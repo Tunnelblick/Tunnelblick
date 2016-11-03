@@ -1,5 +1,11 @@
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) - apparent public IP address %@" = "Koble fra alle (%1$@) - tilsynelatende offentlig IP addresse %2$@";
+
 /* Status message */
 "Disconnect All (%@)" = "Koble fra alle (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Koble fra alle (%1$d tilkoblinger) - tilsynelatende offentlig IP addresse %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Koble fra alle (%d tilkoblinger)";
@@ -167,7 +173,7 @@
 "Place Icon Near the Spotlight Icon" = "Plasser ved siden av Spotlight-ikonet";
 
 /* Button */
-"Place Icon Normally" = "Plasser normalt";
+"Place Icon Normally" = "Plassér ikon normalt";
 
 /* Button */
 "Privacy info..." = "Informasjon om personvern…";
@@ -287,7 +293,7 @@
 "Make Configuration Shared..." = "Gjør konfigurasjon delt…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "Ingen loggføring av OpenVPN eller Tunnelblick";
+"No OpenVPN or Tunnelblick VPN logging" = "Ingen logging av OpenVPN eller Tunnelblick";
 
 /* Menu item */
 "No VPN Configurations Available" = "Ingen VPN konfigurasjoner tilgjengelig";
@@ -437,7 +443,7 @@
 "Send anonymous profile information when checking" = "Inkluder anonym profilinformasjon når du sjekker";
 
 /* Checkbox name */
-"Set DNS after routes are set instead of before routes are set" = "Angi DNS etter implementering av ruter istedenfor før ruter er satt opp";
+"Set DNS after routes are set" = "Sett DNS etter at rutene er laget";
 
 /* Checkbox name */
 "Show when disconnected" = "Vis når det er nedkoblet";
@@ -1915,8 +1921,56 @@
 /* Credit description */
 "64-bit enabling and testing" = "64-bit tilgjengeliggjøring og testing";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Når merket av</strong>, vil IPv6 være deaktivert.</p>\n<p>Deaktivering IPv6 er ofte anbefalt fordi mange VPN-konfigurasjoner ikke gardere seg mot informasjonslekkasjer som skyldes bruk av IPv6. De fleste Internett fungerer fint uten IPv6.</p>\n<p><strong>Når ikke merket av</strong>, vil IPv6 ikke være deaktivert.</p>\n<p><strong>Denne boksen er deaktivert</strong> når du bruker en \"tap\" tilkobling fordi det ikke kan håndheves på en \"tap\" tilkobling.</p>";
+
+/* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Når merket av</strong>, vil IPv6 være aktivert.</p>\n<p><strong>Når ikke merket av</strong>, vil ikke IPv6 være aktivert.</p>\n<p>Deaktivering IPv6 er ofte anbefalt fordi mange VPN-konfigurasjoner ikke gardere seg mot informasjonslekkasjer som skyldes bruk av IPv6. De fleste Internett fungerer fint uten IPv6.</p>\n<p><strong>Denne boksen er deaktivert</strong> for Tun konfigurasjoner.</p>";
+
+/* HTML info for the 'Set DNS after routes are set' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong> Når merket av</strong>, vil OpenVPN endre DNS og andre innstillinger etter at den setter opp routing for VPN stedet for før du setter opp routing.</p>\n<p><strong> Når ikke merket av</strong>, vil OpenVPN endre DNS og andre innstillinger før den setter opp routing for VPN, i stedet for etter å sette opp routing. Dette kan føre til DNS-feil eller forsinkelser hvis rutene ta lang tid å sette opp -- For eksempel hvis det er mange ruter å sette opp.</p>\n";
+
+/* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong> Når merket av</strong>, vil Tunnelblick fastslå datamaskinens tilsynelatende offentlig IP-adresse før og etter VPN er tilkoblet og advare hvis IP-adressen ikke endres.</p>\n<p>Tunnelblick.net nettstedet vil bli vist for å utføre denne funksjonen. Tilgangen er vanligvis gjøres via https: og bruker tunnelblick.net navn, bortsett fra at hvis det tilgang svikter, er tilgangen forsøkt å bruke http: og IP-adressen til nettstedet.</p>\n<p><strong>Når ikke merket av</strong>, betyr Tunnelblick ikke etter IP-adressen endres og ikke advare om IP-adressen ikke endres etter at VPN er koblet til. </p>\n";
+
+/* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong> Når merket av</strong>, vil Tunnelblick instruere OpenVPN å rute alle IPv4 trafikk gjennom VPN-serveren. </p>\n<p><strong> Når ikke merket av</strong>, som standard OpenVPN vil bruke VPN bare for trafikk som er bestemt for VPN nettverk. All annen trafikk vil bruke vanlig Internett-tilkobling uten å gå gjennom VPN. OpenVPN standard oppførsel kan endres av OpenVPN konfigurasjon eller VPN-serveren og gi alle IPv4 trafikk skal rutes gjennom VPN-serveren som hvis dette alternativet hadde blitt sjekket. </p>\n";
+
+/* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>Når merket av</strong>, vil Tunnelblick nullstille primære nettverksgrensesnittet etter at VPN er frakoblet. Dette kan omgå problemene forårsaket av noen feilkonfigurert VPN-servere og etter noen OpenVPN konfigurasjonsfeil.</p>\n<p><strong>Når ikke merket av</strong>, vil Tunnelblick ikke nullstille primære nettverksgrensesnittet.</p>\n<p><strong>Denne boksen er deaktiver</strong> når 'Set DNS / WIN' er ikke satt til 'Set navnetjener'.</p>";
+
+/* HTML info for the 'Monitor network settings' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Når merket av</strong>, vil Tunnelblick se etter og reagere på endringer i nettverksinnstillingene (for eksempel endringer forårsaket av DHCP fornyelser eller bytte internettforbindelser) for å forsøke å holde VPN-tilkoblet. Tunnelblick standard handlinger når nettverksinnstillingene endres vanligvis fungerer godt, men du kan angi ulike handlinger på fanen \"Mens Tilkoblet\" av 'Avansert' innstillinger.</p>\n<p><strong>Når ikke merket av</strong>, Tunnelblick vil ignorere nettverks endringer.</p>\n<p><strong>Denne boksen er deaktivert</strong> når 'Set DNS / WINS' er ikke satt til 'Set nameserver' eller 'Set navnetjener (3.1) '.</p>";
+
+/* HTML info for the 'Keep connected' checkbox. */
+"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Når merket av</strong>, hvis VPN frakobles uventet, vil Tunnelblick forsøke å koble den til igjen.</p>\n<p><strong>Når ikke merket av</strong>, vil Tunnelblick ikke prøve å koble en VPN hvis den uventent frakobles.</p>\n";
+
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
 "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Når merket av</strong>, Tunnelblick ikonet er ved siden av Spotlight ikonet:</p><p>%1$@</p>\n<p><strong>Når ikke merket av</strong>, Tunnelblci ikonet er normalt plassert:</p><p>%2$@</p>\n<p><strong>Denne avkryssingsboksen er deaktivert</strong> i macOS Sierra, fordi den er ikke nødvendig, og på systemer hvor det skaper problemer.</p><p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Mer informasjon</a></p>";
+
+/* HTML info for the 'Disconnect when user switches out' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>Når merket av</strong>, vil VPN bli frakoblet når du bytter til en annen bruker.</p>\n<p><strong>Når ikke merket av</strong>, vil ikke VPN bli frakoblet når du bytter til en annen bruker.</p>";
+
+/* HTML info for the 'Disconnect when computer goes to sleep' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>Når merket av</strong>, vil VPN bli frakoblet når maskinen går i dvale.</p>\n<p><strong>Når ikke merket av</strong>, vil VPN holde kontakten når maskinen går i dvale.</p>";
+
+/* HTML info for the 'Reconnect when user switches in' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>Når sjekket</strong>, vil VPN kobles til igjen når du bytter tilbake til den aktuelle brukeren hvis den ble frakoblet når et bytte til en annen bruker ble gjort.</p>\n<p><strong>Når ikke sjekket</strong>, vil VPN ikke bli koblet til når du bytter tilbake til den aktuelle brukeren.</p>";
+
+/* HTML info for the 'Reconnect when computer wakes up' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>Når sjekket</strong>, vil VPN bli koblet til igjen når maskinen våkner opp hvis den ble frakoblet når maskinen gikk i dvale.</p>\n<p><strong>Når ikke sjekket</strong>, vil ikke VPN bli tilkoblet når datamaskinen våkner.</p>";
+
+/* HTML info for the 'Prepend domain name to search domains' checkbox. */
+"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Når sjekket</strong>, vil det VPN-spesifiserte domenenavnet vil bli lagt til starten av søkedomenelisten.</p>\n<p><strong>Når ikke sjekket</strong>, vil domenelisten erstattes av VPN-spesifiserte domenenavn.</p>";
+
+/* HTML info for the 'Load Tap driver' popdown list. */
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>En 'tap' enhetsdriver er nødvendig for Tap tilkoblinger. Tunnelblick har sin egen Tap driver fordi systemet ikke har en. Hvis du har installert en annen Tap driver, kan Tunnelblick ikke være i stand til å laste inn driveren.</p><p>Du kan velge om og når Tunnelblick laster driveren.</p>\n<p><strong>Last Tap driveren automatisk</strong>: Tunnelblick laster driveren hvis det er nødvendig, og losser det når det ikke lenger er nødvendig</p>.\n<p><strong>Alltid last inn Tap driver</strong>. Tunnelblick laster driveren når den kobler til denne konfigurasjonen, og losser det når det ikke lenger er nødvendig</p>\n<p><strong>Ikke last Tap driver</strong>: Tunnelblick laster aldri sin driver</p>.\n<p><strong>Denne boksen er deaktivert</strong> for Tun konfigurasjoner.</p>";
+
+/* HTML info for the 'Load Tun driver' popdown list. */
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>En \"tun\" enhetsdriver er nødvendig for Tun tilkoblinger. Vanligvis er systemets Tun driver brukt, men Tunnelblick har også sin egen Tun driver. Hvis du har installert en annen Tun driver, kan det hende at Tunnelblick ikke er i stand til å laste inn driveren.</p>\n<p>OpenVPN vil bruke systemets driver med mindre OpenVPN konfigurasjonen inkluderer 'dev-type tun' alternativet.</p>\n<p>Du kan velge om og når Tunnelblick laster sin Tun driver:</p>\n<p><strong>Last Tun driveren automatisk</strong>: Tunnelblick laster driveren hvis det er nødvendig, og losser det når det ikke lenger er nødvendig. (Tunnelblick vil bare laste inn driveren hvis OpenVPN konfigurasjonen inkluderer 'dev-type tun' alternativet.)</p>\n<p><strong>Legg alltid Tun driver</strong>. Tunnelblick laster driveren når den kobler denne konfigurasjonen, og losser det når det ikke lenger er nødvendig</p>\n<p><strong>Ikke legg Tun driver</strong>: Tunnelblick laster aldri sin sjåfør</p>.\n<p><strong>Denne boksen er deaktivert</strong> for Tap konfigurasjoner.</p>";
+
+/* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
+"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS cache inneholder kopier av DNS (Domain Name System) informasjon.</p>\n<p><strong>Når sjekket</strong>, vil DNS cache tømmes (fjernet) etter tilkobling eller frakobling. Alle DNS-oppslag vil bli utført av servernavnet angitt av VPN oppsettet.</p>\n<p><strong>Når ikke sjekket</strong>, DNS cache vil ikke tømmes. Dette kan føre til problemer hvis det finnes navnekonflikter mellom navn serveren angitt av VPN oppsett og pre-VPN servernavnet og hvis pre-VPN oppføringer som er lagret.</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Administrator modus %@ gjenstår";

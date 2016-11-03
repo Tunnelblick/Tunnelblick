@@ -1,8 +1,14 @@
-/* Status message */
-"Disconnect All (%@)" = "Skei Alles (%@)";
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) - apparent public IP address %@" = "Ontkoppel alles (%1$@) - %2$@ is blykbaar een publike IP adres";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "Skei Alles (%d Verbindings)";
+"Disconnect All (%@)" = "Ontkoppel Alles (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Ontkoppel alles (%1$d verbindings) - %2$@ is blykbaar een publike IP adres";
+
+/* Status message */
+"Disconnect All (%d Connections)" = "Ontkoppel Alles (%d Verbindings)";
 
 /* Status message */
 "No Active Connections" = "Geen Aktiewe Verbindings";
@@ -14,7 +20,7 @@
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* Button */
-"(None available)" = "(Niks beskikbaar)";
+"(None available)" = "(Niks is beskikbaar)";
 
 /* Button */
 "1 MB" = "1 MB";
@@ -50,22 +56,22 @@
 "Cancel" = "Kanselleer";
 
 /* Menu item */ /* Button */
-"Check For Updates Now" = "Kyk Vir Opdaterings Nou";
+"Check For Updates Now" = "Kyk Dadelik Vir Opgradering";
 
 /* Button */
-"Check Now" = "Kyk Nou";
+"Check Now" = "Kontroleer nou";
 
 /* Button */
 "Check for a change" = "Kyk vir 'n verandering";
 
 /* Button */
-"Connect" = "Verbind";
+"Connect" = "Konnekteer";
 
 /* Button */
 "Continue" = "Gaan Voort";
 
 /* Button */
-"Convert Configurations" = "Skakel Konfigurasies";
+"Convert Configurations" = "Skakel Konfigurasies om";
 
 /* Button */
 "Copy Console Log to Clipboard" = "Kopieër Konsole Log na Knipbord";
@@ -200,7 +206,7 @@
 "Retry" = "Probeer Weer";
 
 /* Button */
-"Revert" = "Laai Terug";
+"Revert" = "Hertel vorige instelling";
 
 /* Button */
 "Show on default screen (%u x %u)" = "Wys op verstek skerm (%1$u x %2$u)";
@@ -335,7 +341,7 @@
 "Suggestion or Bug Report..." = "Voorstel of Foutverslag…";
 
 /* Menu item */
-"VPN Details..." = "Skynprivaatnetwerk Besonderhede…";
+"VPN Details..." = "VPN Besonderhede…";
 
 /* Checkbox name */
 "Apply to all" = "Pas toe op alles";
@@ -437,7 +443,7 @@
 "Send anonymous profile information when checking" = "Stuur anonieme profiel inligting tydens die kontrolering";
 
 /* Checkbox name */
-"Set DNS after routes are set instead of before routes are set" = "Stel DNS ná roetes is ingestel in plaas van voor roetes is ingestel";
+"Set DNS after routes are set" = "Spesifiseer DNS na dat routes op gestel is";
 
 /* Checkbox name */
 "Show when disconnected" = "Wys wanneer gediskonnekteer";
@@ -548,7 +554,7 @@
 "Alert sounds" = "Berig klanke";
 
 /* Window title */
-"Alert" = "Berig";
+"Alert" = "Waarskuwing";
 
 /* Window title */
 "All OpenVPN process were terminated." = "Alle OpenVPN prosesse is beëindig.";
@@ -914,28 +920,28 @@
 "An internal Tunnelblick error occurred%@%@" = "n' Interne Tunnelblick fout het gebeur %1$@%2$@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "'n Interne Tunnelblick fout het plaasgevind: fileIsReasonableSize: Eienskappe kan nie gevind word nie. %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "'n Interne Tunnelblick fout het plaasgevind: fileIsReasonableSize: Groote kon nie bepaal word nie: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "'n Interne Tunnelblick fout het plaasgevind: fileIsReasonableSize: Tipe kan nie gevind word nie. %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "'n Interne Tunnelblick fout het plaasgevind: fileIsReasonableSize: Lêer tipe in ongeldige. %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "'n Interne Tunnelblick fout het plaasgevind: fileIsReasonableSize: Lêer pad is gelyk aan nul. %@";
 
 /* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n";
+"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Is u seker dat u, u OpenVPN konfigurasies na Tunnelblick se VPN konfigurasies wil omskep.\n\nNEEM KENNIS: KONFIGURASIES SAL NIE BESKIKBAAR WEES NIE, INDIEN U DIT NIE OMSKEP NIE! \n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Is u seker dat u, u toegangsgegevens (privaat sleutel en/of gebruikersnaam en wagwoord) wil verwyder vir %ld? Let wel: Die konfigurasies is in \"Keychain\" gestoor.";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Is u seker dat u, u toegangsgegevens (privaat sleutel en/of gebruikersnaam en wagwoord) wil verwyder vir '%@'? Let wel: Die konfigurasies is in \"Keychain\" gestoor.";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?";
@@ -956,10 +962,10 @@
 "B/s" = "B/s";
 
 /* Window text */
-"Backslash at end of line %u is not allowed" = "Backslash at end of line %u is not allowed";
+"Backslash at end of line %u is not allowed" = "Agteroorskuinsstrepie is nie toegelaat in die eind van die lyntjie %u";
 
 /* Window text */
-"Cannot find configuration file at %@" = "Cannot find configuration file at %@";
+"Cannot find configuration file at %@" = "Konfigurasie lêer kon nie in %@ gevind word nie";
 
 /* Window text */
 "Cannot install configurations to either shared or private locations" = "Cannot install configurations to either shared or private locations";
@@ -974,7 +980,7 @@
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' ('%2$@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%3$s'\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "Configuration '%@' already exists.";
+"Configuration '%@' already exists." = "Konfigurasie '%@' bestaan alreeds.";
 
 /* Window text */
 "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
@@ -992,7 +998,7 @@
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
 
 /* Window text */
-"Configuration changes:" = "Configuration changes:";
+"Configuration changes:" = "Konfigurasie veranderings:";
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them.";
@@ -1019,10 +1025,10 @@
 "Copied %@" = "%@ is gekopieerd";
 
 /* Window text */
-"Copied %@, removing CR characters" = "Copied %@, removing CR characters";
+"Copied %@, removing CR characters" = "%@ is gekopieerd, CR karakters word op die oomblik verwyderd";
 
 /* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
+"Copyright © 2004-%@ Angelo Laub and others." = "Kopiereg © 2004-%@ Angelo Laub en andere.";
 
 /* Window text */
 "Could not copy %@ to %@" = "%1$@ kon nie na %2$@ gekopieerd word nie";
@@ -1034,28 +1040,28 @@
 "Could not delete %@" = "%@ kon nie verwyder word nie";
 
 /* Window text */
-"Could not find easy-rsa in Tunnelblick.app" = "Could not find easy-rsa in Tunnelblick.app";
+"Could not find easy-rsa in Tunnelblick.app" = "Easy-rsa kon nie in Tunnelblick.app gevind word nie";
 
 /* Window text */
-"Could not find easy-rsa version information in Tunnelblick.app" = "Could not find easy-rsa version information in Tunnelblick.app";
+"Could not find easy-rsa version information in Tunnelblick.app" = "Easy-rsa se weergawe inligting kon nie in Tunnelblick.app gevind word nie";
 
 /* Window text */
-"Could not get attributes of %@" = "Could not get attributes of %@";
+"Could not get attributes of %@" = "%@ se einskappe kon nie gevind word nie";
 
 /* Window text */
-"Could not get modification date of %@" = "Could not get modification date of %@";
+"Could not get modification date of %@" = "%@ se datum kon nie verander word nie";
 
 /* Window text */
-"Could not resolve symbolic link at %@" = "Could not resolve symbolic link at %@";
+"Could not resolve symbolic link at %@" = "Die simbolieseskakel by %@ kon nie opgelos word nie";
 
 /* Window text */
-"Could not set modification date of %@ to %@" = "Could not set modification date of %1$@ to %2$@";
+"Could not set modification date of %@ to %@" = "Wysigingdatum kon nie van %1$@ na %2$@ verander word nie";
 
 /* Window text */
-"DNS servers:" = "DNS servers:";
+"DNS servers:" = "DNS bedieners:";
 
 /* Window text */
-"Did not need to modify configuration file; no path information to remove" = "Did not need to modify configuration file; no path information to remove";
+"Did not need to modify configuration file; no path information to remove" = "Die konfigurasie lêer hoef nie verander te word nie, aangsien daar geen bestemming inligting vir die lêer bestaan";
 
 /* Window text */
 "Do you wish to delete the %@ credentials?" = "Do you wish to delete the %@ credentials?";
@@ -1094,7 +1100,7 @@
 "Expected command not found for '%@'" = "Expected command not found for '%@'";
 
 /* Window text */
-"Expected path not found for '%@'" = "Expected path not found for '%@'";
+"Expected path not found for '%@'" = "'%@' pad was nie vervang ";
 
 /* Window text */
 "Failed to copy %@ to %@" = "Failed to copy %1$@ to %2$@";
@@ -1109,7 +1115,7 @@
 "Failed to set permissions on %@\n" = "Failed to set permissions on %@\n";
 
 /* Window text */
-"Fast User Switching" = "Fast User Switching";
+"Fast User Switching" = "Vinnige gebruiker omskakeling";
 
 /* Window text */
 "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
@@ -1121,16 +1127,16 @@
 "File '%@' ends with a backslash, which is not allowed." = "File '%@' ends with a backslash, which is not allowed.";
 
 /* Window text */
-"File '%@' has an extension which is not known to Tunnelblick." = "File '%@' has an extension which is not known to Tunnelblick.";
+"File '%@' has an extension which is not known to Tunnelblick." = "Lêer '%@' het 'n onbekende agtervoegsel wat nie deur Tunnelblick ondersteun word nie.";
 
 /* Window text */
-"File '%@' is missing" = "File '%@' is missing";
+"File '%@' is missing" = "Leêr '%@' kon nie gevind word nie";
 
 /* Window text */
-"File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
+"File '%@' is too short (%lu bytes)" = "Lêer '%1$@' het te min inhoud (%2$lu grepe)";
 
 /* Window text */
-"File is too large: %@" = "File is too large: %@";
+"File is too large: %@" = "Die Lêer is te groot: %@";
 
 /* Window text */
 "GB" = "GB";
@@ -1139,7 +1145,7 @@
 "GB/s" = "GB/s";
 
 /* Window text */
-"Icon:" = "Icon:";
+"Icon:" = "Ikoon:";
 
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "In %@:\n\nThere are no OpenVPN configurations to install.";
@@ -1154,7 +1160,7 @@
 "In:" = "In:";
 
 /* Window text */
-"Installation failed:\n\n%@" = "Installation failed:\n\n%@";
+"Installation failed:\n\n%@" = "Installatsie mislukt:\n\n%@";
 
 /* Window text */
 "Installation finished successfully." = "Installation finished successfully.";
@@ -1181,7 +1187,7 @@
 "Keyboard shortcut:" = "Sleutel kombenasie:";
 
 /* Window text */
-"Last checked: %@" = "Last checked: %@";
+"Last checked: %@" = "Laaste keer nagegaan op: %@";
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Line %1$d of file '%2$@' contains a non-printable character (0x%3$X) which is not allowed.\n\n";
@@ -1199,7 +1205,7 @@
 "Maximum log display size:" = "Maksimum grootte log vertoon:";
 
 /* Window text */
-"Menu:" = "Menu:";
+"Menu:" = "Spyskaart:";
 
 /* Window text */
 "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion.";
@@ -1214,7 +1220,7 @@
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
 
 /* Window text */
-"Named Credentials" = "Named Credentials";
+"Named Credentials" = "Genaamde geloofsbriewe";
 
 /* Window text */
 "Names may not include any of the following characters: %s" = "Names may not include any of the following characters: %s";
@@ -1223,16 +1229,16 @@
 "Names may not include any of the following characters: %s\n\n%@" = "Names may not include any of the following characters: %1$s\n\n%2$@";
 
 /* Window text */
-"NetBIOS name:" = "NetBIOS name:";
+"NetBIOS name:" = "NetBIOS naam:";
 
 /* Window text */
-"Network setting" = "Network setting";
+"Network setting" = "Netwerk omgewing";
 
 /* Window text */
-"No 'TBPackageVersion' in %@" = "No 'TBPackageVersion' in %@";
+"No 'TBPackageVersion' in %@" = "Geen 'TBPagkageVersion' in %@";
 
 /* Window text */
-"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference";
+"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Daar is geen pad na easy-rsa. Mag wees dat die rede van die probleem met die 'easy-rsaPath' verwysing kan wees";
 
 /* Window text */
 "Non-array value for '%@' in %@" = "Non-array value for '%1$@' in %2$@";
@@ -1301,7 +1307,7 @@
 "OpenVPN version:" = "OpenVPN version:";
 
 /* Window text */
-"Out:" = "Out:";
+"Out:" = "Uit:";
 
 /* Window text */
 "PB" = "PB";
@@ -1310,7 +1316,7 @@
 "PB/s" = "PB/s";
 
 /* Window text */
-"Password:" = "Password:";
+"Password:" = "Wagwoord:";
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Path '%1$@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
@@ -1337,16 +1343,16 @@
 "Resolved symbolic link at '%@' to '%@'" = "Resolved symbolic link at '%1$@' to '%2$@'";
 
 /* Window text */
-"Search domain:" = "Search domain:";
+"Search domain:" = "Soek in domein:";
 
 /* Window text */
 "Securing Tunnelblick..." = "Securing Tunnelblick…";
 
 /* Window text */
-"Set DNS/WINS:" = "Set DNS/WINS:";
+"Set DNS/WINS:" = "Stel DNS/WINS:";
 
 /* Window text */
-"Single-quote missing in line %u" = "Single-quote missing in line %u";
+"Single-quote missing in line %u" = "Enkele aanhalingsteken ontbreek in lyn %u";
 
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Skipped copying %@ because a file with that name and contents has already been copied.";
@@ -1448,7 +1454,7 @@
 "The credentials named %@ could not be removed:\n\n%@" = "The credentials named %1$@ could not be removed:\n\n%2$@";
 
 /* Window text */
-"The file %@ is empty" = "The file %@ is empty";
+"The file %@ is empty" = "Die leër %@ het geen data";
 
 /* Window text */
 "The file %@ is missing" = "The file %@ is missing";
@@ -1460,7 +1466,7 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.";
 
 /* Window text */
-"The passphrase was not accepted." = "The passphrase was not accepted.";
+"The passphrase was not accepted." = "Die wagwoord was nie aanvaar nie.";
 
 /* Window text */
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy.";
@@ -1490,7 +1496,7 @@
 "There was a problem with\n\n%@:\n\n%@" = "There was a problem with\n\n%1$@:\n\n%2$@";
 
 /* Window text */
-"There was a problem:\n\n%@" = "There was a problem:\n\n%@";
+"There was a problem:\n\n%@" = "Daar was 'n probleem:\n\n%@";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n";
@@ -1538,10 +1544,10 @@
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.";
 
 /* Window text */
-"Tunnelblick Internet Use:" = "Tunnelblick Internet Use:";
+"Tunnelblick Internet Use:" = "Tunnelblick Internet gebruik:";
 
 /* Window text */
-"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n";
+"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick kan monitor wat die publieke IP adres van u rekenaar is. Indien u IP adres nie verander wanneer u 'n VPN probeer verbinding maak, sal u gewaarsku word.\n\nDie konfigurasie kan Tunnelblick help om u verbinding probleem op te spoor. \n\nHierdie proses probeer om toegang te verkry\n%@\n\nWil u kontroleer of u IP adres verander?\n";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details.";
@@ -1607,7 +1613,7 @@
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick is currently running. It will be shut down before proceeding.";
 
 /* Window text */
-"Tunnelblick is ready." = "Tunnelblick is ready.";
+"Tunnelblick is ready." = "Tunnelblick is nou gereed.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick needs authorization to duplicate the '%@' configuration.";
@@ -1646,10 +1652,10 @@
 "Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick needs to perform an action that requires administrator authorization.\n";
 
 /* Window text */
-"Tunnelblick needs to:\n" = "Tunnelblick needs to:\n";
+"Tunnelblick needs to:\n" = "Tunnelblick will graag:\n";
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
-"Tunnelblick successfully:\n\n" = "Tunnelblick successfully:\n\n";
+"Tunnelblick successfully:\n\n" = "Tunnelblick was suksesvol:\n\n";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
@@ -1790,7 +1796,7 @@
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Warning: One or more preferences could not be renamed. See the Console Log for details.";
 
 /* Window text */
-"Warnings:" = "Warnings:";
+"Warnings:" = "Waarskywings:";
 
 /* Window text */
 "When changes to anything else" = "When changes to anything else";
@@ -1799,10 +1805,10 @@
 "When changes to pre-VPN value" = "When changes to pre-VPN value";
 
 /* Window text */
-"Workgroup:" = "Workgroup:";
+"Workgroup:" = "Werk groep:";
 
 /* Window text */
-"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n";
+"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Will jy graag\n\n'n voorbeeld konfigurasie lêer op jou Desktop skep\n          en\ndie OpenVPN konfigurasie lêer oopmaak in TextEdit sodat jy die inhoud kan verander vir die verbinding na jou VPN?\n\n";
 
 /* Window text */
 "You are not allowed to replace a private configuration" = "You are not allowed to replace a private configuration";
@@ -1915,8 +1921,56 @@
 /* Credit description */
 "64-bit enabling and testing" = "64-bit enabling and testing";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>";
+
+/* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>";
+
+/* HTML info for the 'Set DNS after routes are set' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n";
+
+/* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n";
+
+/* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n";
+
+/* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>";
+
+/* HTML info for the 'Monitor network settings' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>";
+
+/* HTML info for the 'Keep connected' checkbox. */
+"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n";
+
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
 "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%1$@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%2$@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>";
+
+/* HTML info for the 'Disconnect when user switches out' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>";
+
+/* HTML info for the 'Disconnect when computer goes to sleep' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>";
+
+/* HTML info for the 'Reconnect when user switches in' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>";
+
+/* HTML info for the 'Reconnect when computer wakes up' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>";
+
+/* HTML info for the 'Prepend domain name to search domains' checkbox. */
+"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>";
+
+/* HTML info for the 'Load Tap driver' popdown list. */
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>";
+
+/* HTML info for the 'Load Tun driver' popdown list. */
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>";
+
+/* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
+"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Admin mode %@ remaining";
@@ -2065,76 +2119,76 @@
 "Romanian localization" = "Romanian localization";
 
 /* Credit description */
-"Russian localization" = "Russian localization";
+"Russian localization" = "Russiese vertaling";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Serbian (Latin) localization";
+"Serbian (Latin) localization" = "Serwies (Latin) vertaling";
 
 /* Credit description */
 "Slovak localization" = "Slovak localization";
 
 /* Credit description */
-"Spanish localization" = "Spanish localization";
+"Spanish localization" = "Spaanse vertaling";
 
 /* Credit description */
 "Swedish localization" = "Swedish localization";
 
 /* Credit description */
-"Tunnelblick icon" = "Tunnelblick icon";
+"Tunnelblick icon" = "Tunnelblick ikoon";
 
 /* Credit description */
-"Turkish localization" = "Turkish localization";
+"Turkish localization" = "Turkse vertaling";
 
 /* Credit description */
-"UKKQueue and UKLoginItemRegistry" = "UKKQueue and UKLoginItemRegistry";
+"UKKQueue and UKLoginItemRegistry" = "UKKQueue en UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Ukrainian localization";
+"Ukrainian localization" = "Oekraïense vertaling";
 
 /* Credit description */
 "Up and Down scripts" = "Up and Down scripts";
 
 /* Notification text */
-"Updated to %@." = "Updated to %@.";
+"Updated to %@." = "Opgedateer na %@.";
 
 /* Credit description */
-"Xcode help and OpenSSL integration" = "Xcode help and OpenSSL integration";
+"Xcode help and OpenSSL integration" = "Xcode hulp en OpenSSL integrasie";
 
 /* Button VPNService */
-"Accept" = "Accept";
+"Accept" = "Aanvaar";
 
 /* Button VPNService */
-"Create a Free Account" = "Create a Free Account";
+"Create a Free Account" = "Skep 'n Gratis Rekening";
 
 /* Button VPNService */
-"Get Different Image" = "Get Different Image";
+"Get Different Image" = "Kry 'n ander prentjie";
 
 /* Button VPNService *//* Window title VPNService */
-"Login" = "Login";
+"Login" = "Teken In";
 
 /* Button VPNService */
-"Next" = "Next";
+"Next" = "Volgende";
 
 /* Button VPNService */
-"Reject" = "Reject";
+"Reject" = "Verwerp";
 
 /* Menu item VPNService */
-"Register for Tunnelblick..." = "Register for Tunnelblick…";
+"Register for Tunnelblick..." = "Registreer vir Tunnelblick…";
 
 /* Window title  VPNService */
-"Cannot obtain image" = "Cannot obtain image";
+"Cannot obtain image" = "Prentjie kan nie verkry word nie";
 
 /* Window title  VPNService */
 "Cannot register" = "Cannot register";
 
 /* Window title  VPNService */
-"Email not verified" = "Email not verified";
+"Email not verified" = "Epos adres kan nie bevestig word nie";
 
 /* Window title  VPNService */
-"Entries required" = "Entries required";
+"Entries required" = "'n Aantal inskrywings word nog vereis";
 
 /* Window title  VPNService */
-"Failed to load Terms of Service" = "Failed to load Terms of Service";
+"Failed to load Terms of Service" = "Voorwaardes om diens kon nie opgehaal word nie";
 
 /* Window title VPNService */
 "No configuration available" = "No configuration available";

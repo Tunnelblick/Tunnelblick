@@ -1,5 +1,11 @@
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) - apparent public IP address %@" = "Disconnect All (%1$@) - apparent public IP address %2$@";
+
 /* Status message */
 "Disconnect All (%@)" = "Putuskan Semua (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Disconnect All (%1$d Connections) - apparent public IP address %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Putuskan Semua (%d Koneksi)";
@@ -437,7 +443,7 @@
 "Send anonymous profile information when checking" = "Kirim informasi profil anonim ketika memerika";
 
 /* Checkbox name */
-"Set DNS after routes are set instead of before routes are set" = "Atur DNS setelah route ditata bukan sebelumnya";
+"Set DNS after routes are set" = "Set DNS after routes are set";
 
 /* Checkbox name */
 "Show when disconnected" = "Tampilkan ketika terputus";
@@ -878,7 +884,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Menambahkan ekstensi '.sh' ke %@ sehingga akan diamankan secara patut";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Menambahkan ekstensi '.unknown' ke %@ untuk keamanan";
 
 /* Window text */
 "Additional contributions by" = "Kontribusi tambahan oleh";
@@ -995,7 +1001,7 @@
 "Configuration changes:" = "Perubahan konfigurasi:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfigurasi bersumber dari file yang diberikan untuk Anda dari network administrator atau VPN provider.\n\nFile konfigurasi memiliki ekstensi .tblk, .ovpn, atas .conf.\n\n(Mungkin juga ada file lain yang terasosiasi dengan konfigurasi tapi memiliki ekstensi yang berbeda; jangan hiraukan file-file tersebut.)\n\nUntuk menginstall file konfigurasi, drag dan drop file tersebut ke ikon Tunnelblick padi menu bar, atau pada daftar konfigurasi di bagian \"Konfigurasi\" pada jendela \"Detil VPN\".\n\nUntuk menginstall beberapa konfigurasi sekaligus, pilih semua file, kemudian drag dan drop semuanya.";
 
 /* Window text */
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Konfigurasi yang bukan menjadi bagian dari Tunnelblick disiapkan untuk dipasang ketika Anda memasang Tunnelblick.\n\n";
@@ -1112,7 +1118,7 @@
 "Fast User Switching" = "Penggantian User Cepat";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' sepertinya memiliki format UTF-16. Semua file terkait OpenVPN harus berformat \"plain text\" atau \"UTF-8\".";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Berkas '%@' tampaknya berformat 'rich text' karena dimulai dengan karakter '{'. Semua berkas terkait OpenVPN mesti berupa berkas 'plain text' atau 'UTF-8'.";
@@ -1127,7 +1133,7 @@
 "File '%@' is missing" = "File '%@' tidak dapat ditemukan";
 
 /* Window text */
-"File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
+"File '%@' is too short (%lu bytes)" = "File '%1$@' terlalu kecil (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "File terlalu besar: %@";
@@ -1202,7 +1208,7 @@
 "Menu:" = "Menu:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "CFBundleIdentified atau CFBundleVersion tidak ditemukan di Info.plist untuk\n\n%@\n\nKonfigurasi VPN ini tersimpan di dalam konfigurasi VPN luar yang bisa diperbaharui, jadi ia harus mencakup CFBundleIdentified dan CFBundleVersion sendiri.";
 
 /* Window text */
 "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Kurang Info.plist untuk\n\n%@\n\nKonfigurasi VPN ini dilampirkan dalam suatu Konfigurasi VPN luar yang dapat dimutakhirkan, maka itu mesti memuat suatu Info.plist.";
@@ -1250,7 +1256,7 @@
 "Non-string value for an item in '%@' in %@" = "Nilai bukan string bagi butir dalam '%1$@' dalam %2$@";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Konfigurasi %ld yang terpilih tidak memiliki mandat (kunci pribadi atau username dan kata sandi) tersimpan di dalam Keychain.";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Bukan sebuah .ovpn atau .conf: %@";
@@ -1259,43 +1265,43 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Tidak menggantikan konfigurasi yang ada, sehingga konfigurasi '%@' tidak bisa memakai 'TBKeepExistingFilesList'";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Satu atau beberapa proses OpenVPN sedang berjalan, tetapi tidak dikenali oleh Tunnelblick. Jika anda tidak menjalankan OpenVPN terpisah dari Tunnelblick, ini biasanya karena peluncuran Tunnelblick yang lalu tidak terhenti dengan benar dan Anda harus menghentukannya. Proses-proses tersebut bisa mencampuri jalannya Tunnelblick. Apakah Anda mau menghentikan semua proses OpenVPN?";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Satu atau beberapa proses OpenVPN sedang berjalan, tetapi tidak dikenali oleh Tunnelblick. Jika anda tidak menjalankan OpenVPN terpisah dari Tunnelblick, ini biasanya karena peluncuran Tunnelblick yang lalu tidak terhenti dengan benar dan Anda harus menghentukannya. Proses-proses tersebut bisa mencampuri jalannya Tunnelblick. Apakah Anda mau menghentikan semua proses tersebut?";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Satu atau beberapa proses OpenVPN sedang berjalan, tetapi tidak dikenali oleh Tunnelblick. Jika anda tidak menjalankan OpenVPN terpisah dari Tunnelblick, ini biasanya karena peluncuran Tunnelblick yang lalu tidak terhenti dengan benar dan Anda harus menghentukannya. Proses-proses tersebut bisa mencampuri jalannya Tunnelblick.\n\nMereka bisa dihentikan melalui aplikasi \"Activity Monitor\".\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Satu atau beberapa konfigurasi OpenVPN yang sedang diperbaharui mengandung program yang akan dijalankan sebagai \"root\" saat Anda tersambung ke VPN. Hal ini BERESIKO MENGAMBIL TOTAL KONTROL KOMPUTER ANDA.\n\nANDA SEBAIKNYA TIDAK MENGINSTALL KONFIGURASI INI, KECUALI ANDA MEMPERCAYAI SUMBERNYA.\n\nApakah Anda mempercayai sumber konfigurasi ini dan mau menginstall-nya?\n\n";
 
 /* Window text */
-"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Satu atau beberapa konfigurasi OpenVPN yang sedang Anda pasang mencakup opsi OpenVPN yang tidak dikenali oleh Tunnelblick. Ini mungkin karena suatu masalah konfigurasi, atau masalah di Tunnelblick, atau konfigurasi tersebut mungkin mencakup program yang akan dijalankan sebagai root\" saat Anda tersambung ke VPN. Program semacam itu bisa MENGAMBIL ALIH KONTROL KOMPUTER ANDA.\n\nANDA SEBAIKNYA TIDAK MEMASANG KONFIGURASI TERSEBUT KECUALI ANDA MEMPERCAYAI PENULISNYA.\n\nApakah Anda mempercayai penulis konfigurasi tersebut dan mau memasangnya?\n\n";
 
 /* Window text */
-"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Satu atau lebih konfigurasi VPN yang sedang Anda pasang termasuk program yang akan berjalan sebagai root ketika Anda menyambung ke sebuah VPN. Mereka dapat MENGAMBIL ALIH KENDALI SEPENUHNYA ATAS KOMPUTER ANDA.\n\nANDA JANGAN MEMASANG KONFIGURASI INI KECUALI ANDA PERCAYA KE PEMBUATNYA.\n\nApakah Anda mempercayai pembuat konfigurasi dan hendak memasang mereka?\n\n";
 
 /* Window text */
-"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding.";
+"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Satu atau lebih VPN saat ini sedang tersambung. Harap putuskan semua VPN dan keluar Tunnelblick sebelum melanjutkan.";
 
 /* Window text */
-"One or more configurations are being ignored. See the Console Log for details." = "One or more configurations are being ignored. See the Console Log for details.";
+"One or more configurations are being ignored. See the Console Log for details." = "Satu atau lebih konfigurasi sedang diabaikan. Lihat Log Konsol untuk rincian.";
 
 /* Window text */
-"One or more problems were detected:\n\n%@" = "One or more problems were detected:\n\n%@";
+"One or more problems were detected:\n\n%@" = "Ada satu atau beberapa masalah terdeteksi:\n\n%@";
 
 /* Window text */
-"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.";
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Hanya suatu Konfigurasi VPN Tunnelblick (.tblk) yang dapat dimulai saat komputer mulai berjalan.";
 
 /* Window text */
-"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected.";
+"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN tidak merespon permintaan memutus %@.\n\nTunnelblick akan memutus ketika OpenVPN mulai merespon ke permintaan pemutusan.\n\nINI MUNGKIN MAKAN WAKTU SAMPAI DUA MENIT dalam keadaan tertentu yang tidak biasa.\n\nKoneksi akan tidak tersedia sampai diputus.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN version %1$@ is not available. Changing this configuration to use the latest version (%2$@) that is included in this version of Tunnelblick.";
+"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN versi %1$@ tidak tersedia. Mengubah konfigurasi ini untuk memakai versi terbaru (%2$@) yang termasuk dalam versi Tunnelblick ini.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN version %1$@ is not available. Using the latest version (%2$@) as the default.";
+"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN versi %1$@ tidak tersedia. Memakai versi terakhir (%2$@) sebagai baku.";
 
 /* Window text */
 "OpenVPN version:" = "Versi OpenVPN:";
@@ -1352,10 +1358,10 @@
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Skipped copying %@ because a file with that name and contents has already been copied.";
 
 /* Window text */
-"Starting Tunnelblick..." = "Starting Tunnelblick…";
+"Starting Tunnelblick..." = "Memulai Tunnelblick…";
 
 /* Window text */
-"Startup window:" = "Startup window:";
+"Startup window:" = "Jendela permulaan:";
 
 /* Window text */
 "Symbolic links nested too deeply. Gave up at %@" = "Symbolic links nested too deeply. Gave up at %@";
@@ -1367,37 +1373,37 @@
 "TB/s" = "TB/s";
 
 /* Window text */
-"TBRunAlertPanel returned an error" = "TBRunAlertPanel returned an error";
+"TBRunAlertPanel returned an error" = "TBRunAlertPanel melaporkan masalah";
 
 /* Window text */
-"TUNNELBLICK is brought to you by" = "TUNNELBLICK is brought to you by";
+"TUNNELBLICK is brought to you by" = "TUNNELBLICK dipersembahkan untuk Anda oleh";
 
 /* Window text */
-"Thank you very much for your donation to the TunnelblickProject." = "Thank you very much for your donation to the TunnelblickProject.";
+"Thank you very much for your donation to the TunnelblickProject." = "Terima kasih banyak atas donasi Anda untuk proyek Tunnelblick.";
 
 /* Window text */
-"Thanks for your Tunnelblick donation" = "Thanks for your Tunnelblick donation";
+"Thanks for your Tunnelblick donation" = "Terima kasih atas donasi Anda untuk Tunnelblick";
 
 /* Window text */
-"That name is being used.\n\n" = "That name is being used.\n\n";
+"That name is being used.\n\n" = "Nama tersebut sedang digunakan.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "The %1$@ system folder (%2$@) does not exist.";
+"The %@ system folder (%@) does not exist." = "Folder sistem %1$@ (%2$@) tidak ditemukan.";
 
 /* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "The %1$@ system folder (%2$@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem.";
+"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "Folder sistem %1$@ (%2$@) tidak aman.\n\nTunnelblick mungkin tidak bisa berjalan dengan benar kecuali masalah ini diperbaiki.\n\nFungsi \"Repair Disk Permissions\" pada Disk Utility mungkin bisa memperbaiki masalah ini.";
 
 /* Window text */
-"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option.";
+"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "Opsi '%@' di OpenVPN tidak diperbolehkan untuk OS X. Opsi ini hanya untuk Windows.";
 
 /* Window text */
-"The '%@' OpenVPN option is not allowed when using Tunnelblick." = "The '%@' OpenVPN option is not allowed when using Tunnelblick.";
+"The '%@' OpenVPN option is not allowed when using Tunnelblick." = "Opsi OpenVPN '%@' tidak diperbolehkan saat menggunakan Tunnelblick.";
 
 /* Window text */
-"The '%@' credentials may not be added because the list of named credentials is being forced." = "The '%@' credentials may not be added because the list of named credentials is being forced.";
+"The '%@' credentials may not be added because the list of named credentials is being forced." = "Akun '%@' tidak bisa ditambahkan karena daftar akun bernama sedang dipaksakan.";
 
 /* Window text */
-"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "The '%@' credentials may not be deleted because one or more configurations are being forced to use them.";
+"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "Akun '%@' tidak bisa dihapus karena satu atau beberapa konfigurasi sedang dipaksa untuk menggunakannya.";
 
 /* Window text */
 "The '%@' credentials may not be deleted because the list of named credentials is being forced." = "The '%@' credentials may not be deleted because the list of named credentials is being forced.";
@@ -1448,22 +1454,22 @@
 "The credentials named %@ could not be removed:\n\n%@" = "The credentials named %1$@ could not be removed:\n\n%2$@";
 
 /* Window text */
-"The file %@ is empty" = "The file %@ is empty";
+"The file %@ is empty" = "File %@ isinya kosong";
 
 /* Window text */
-"The file %@ is missing" = "The file %@ is missing";
+"The file %@ is missing" = "File %@ tidak ditemukan";
 
 /* Window text */
-"The installation or repair took too long or failed. Try again?" = "The installation or repair took too long or failed. Try again?";
+"The installation or repair took too long or failed. Try again?" = "Proses instalasi atau perbaikan telah memakan waktu terlalu lama atau telah gagal. Coba lagi?";
 
 /* Window text */
-"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.";
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Instalasi, penghapusan, penyembuhan, atau perbaikan satu atau beberapa komponen Tunnelblick telah gagal. Lihat \"Console Log\" untuk lebih detil.";
 
 /* Window text */
-"The passphrase was not accepted." = "The passphrase was not accepted.";
+"The passphrase was not accepted." = "Kata sandi tidak diterima.";
 
 /* Window text */
-"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy.";
+"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Konfigurasi pribadi belum diamankan, jadi Anda tidak dapat kembali ke duplikat (bayangan) yang aman.";
 
 /* Window text */
 "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.";
@@ -1487,10 +1493,10 @@
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "There was a problem with the OpenVPN configuration. See the Console Log for details.";
 
 /* Window text */
-"There was a problem with\n\n%@:\n\n%@" = "There was a problem with\n\n%1$@:\n\n%2$@";
+"There was a problem with\n\n%@:\n\n%@" = "Ada masalah dengan\n\n%1$@:\n\n%2$@";
 
 /* Window text */
-"There was a problem:\n\n%@" = "There was a problem:\n\n%@";
+"There was a problem:\n\n%@" = "Ada masalah:\n\n%@";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n";
@@ -1508,88 +1514,88 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Ini ialah Tunnelblick versi Intel 64-bit yang mana tidak akan berjalan dengan benar jika menggunakan tun atau tap kexts.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "Ini ialah Tunnelblick versi Intel 64-bit yang mana tidak akan berjalan dengan benar dengan konfigurasi yang menggunakan koneksi tap. Silakan gunakan Tunnelblick versi universal.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "Ini ialah Tunnelblick versi Intel 64-bit yang mana tidak akan berjalan dengan benar dengan konfigurasi yang menggunakan tun kexts. Silakan gunakan Tunnelblick versi universal.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "Ini ialah Tunnelblick versi Intel 64-bit yang mana tidak akan berjalan dengan benar dengan konfigurasi yang menggunakan tun kexts. Anda bisa menggunakan Tunnelblick versi universal atau gunakan driver OS X 'utun', dengan cara menghapus opsi OpenVPN 'dev-type - silakan lihat dokumentasi OpenVPN.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.";
+"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "Ini ialah Tunnelblick versi Intel 64-bit yang hanya bisa dijalankan pada OS X dengan kernel 64-bit, atau pada OS X 10.6.8 atau lebih tinggi jika tun atau tap kexts tidak dipergunakan.";
 
 /* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n";
+"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Versi Tunnelblick yang ini tidak bisa dijalankan atau dipasang karena ia memiliki URL update yang tidak valid.\n\n";
 
 /* Window text */
-"This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n";
+"This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Versi Tunnelblick ini tidak bisa dijalankan atau dipasang karena ini bukan versi yang dirilis, dan satu atau beberapa versi Tunnelblick yang dirilis telah dipasang sebelumnya.\n\n";
 
 /* Window text */
-"Too many configuration files in '%@'" = "Too many configuration files in '%@'";
+"Too many configuration files in '%@'" = "Terlalu banyak file konfigurasi di dalam '%@'";
 
 /* Window text */
-"Too many duplicate configurations already exist." = "Too many duplicate configurations already exist.";
+"Too many duplicate configurations already exist." = "Terlalu banyak duplikat konfigurasi yang sudah ada.";
 
 /* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.";
+"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Modus Admin Tunnelblick\n\nMemperbolehkan perubahan yang memerlukan sandi administrator untuk sementara.\n\nSesi akan berakhir setelah lima menit atau saat jendela 'Detil VPN' ditutup.";
 
 /* Window text */
-"Tunnelblick Internet Use:" = "Tunnelblick Internet Use:";
+"Tunnelblick Internet Use:" = "Penggunaan internet oleh Tunnelblick:";
 
 /* Window text */
-"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n";
+"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick bisa memeriksa bahwa alamat IP publik komputer Anda berubah saat Anda terkoneksi ke VPN, dan memperingatkan Anda jika sebaliknya.\n\nIni bisa membantu Tunnelblick untuk mendiagnosa masalah koneksi Anda.\n\nProses ini mencoba untuk mengakses\n%@\n\nApakah Anda mau memeriksa perubahan alamat IP?\n";
 
 /* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details.";
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick tidak dapat dikonfigurasi untuk memulai secara otomatis setelah Anda log in.\n\nLihat Console Log untuk lebih detil.";
 
 /* Window text */
-"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
+"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick tidak bisa memulai karena ada masalah konfigurasi. Silakan periksa Console Log untuk lebih detil.";
 
 /* Window text */
-"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details.";
+"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak bisa menghapus konfigurasi '%@' secara tuntas. Silakan lihat Console Log untuk lebih detil.";
 
 /* Window text */
-"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration. See the Console Log for details.";
+"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak dapat meniru konfigurasi '%@'. Silakan lihat Console Log untuk lebih detil.";
 
 /* Window text */
-"Tunnelblick could not create the empty configuration folder" = "Tunnelblick could not create the empty configuration folder";
+"Tunnelblick could not create the empty configuration folder" = "Tunnelblick tidak dapat membuat folder konfigurasi kosong";
 
 /* Window text */
-"Tunnelblick could not create the sample configuration" = "Tunnelblick could not create the sample configuration";
+"Tunnelblick could not create the sample configuration" = "Tunnelblick tidak dapat membuat contoh konfigurasi";
 
 /* Window text */
-"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %1$ld; notification = %2$@";
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick tidak dapat memperlihatkan satu jendela.\n\nCFUserNotificationCreate() memberikan kode masalah = %1$ld; peringatan = %2$@";
 
 /* Window text */
-"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n";
+"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick tidak bisa memperoleh informasi alamat IP sebelum koneksi ke %@ terbuat.\n\n";
 
 /* Window text */
-"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file";
+"Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick tidak dapat menemukan opsi 'tun' atau 'tap' di file konfigurasi OpenVPN";
 
 /* Window text */
-"Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick could not find a free port to use for communication with OpenVPN";
+"Tunnelblick could not find a free port to use for communication with OpenVPN" = "Tunnelblick tidak dapat menemukan port yang bebas untuk berkomunikasi dengan OpenVPN";
 
 /* Window text */
-"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details.";
+"Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick tidak dapat menemukan file konfigurasi atau file konfigurasi tidak dapat dibersihkan. Lihat Console Log untuk lebih detil.";
 
 /* Window text */
-"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick could not move the '%@' configuration. See the Console Log for details.";
+"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak dapat memindahkan konfigurasi '%@'. Lihat Console Log untuk lebih detil.";
 
 /* Window text */
-"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick could not replace the '%@' configuration. See the Console Log for details.";
+"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak dapat merubah konfigurasi '%@'. Silakan lihat Console Log untuk lebih detil.";
 
 /* Window text */
-"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details.";
+"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick tidak dapat menghapus konfigurasi '%@'. Lihat Console Log untuk lebih detil.";
 
 /* Window text */
-"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@";
+"Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick terkendala masalah yang fatal.\n\nSilakan hubungi pengembang melalui developers@tunnelblick.net untuk bantuan.\n\nMasalah tersebut adalah:\n\n%@";
 
 /* Window text */
-"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick encountered errors with %1$lu configurations:\n\n%2$@%3$@%4$@%5$@";
+"Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick terkendala masalah dengan konfigurasi %1$lu:\n\n%2$@%3$@%4$@%5$@";
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log";
@@ -1915,8 +1921,56 @@
 /* Credit description */
 "64-bit enabling and testing" = "64-bit enabling and testing";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>";
+
+/* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>";
+
+/* HTML info for the 'Set DNS after routes are set' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n";
+
+/* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n";
+
+/* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n";
+
+/* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>";
+
+/* HTML info for the 'Monitor network settings' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>";
+
+/* HTML info for the 'Keep connected' checkbox. */
+"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n";
+
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
 "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%1$@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%2$@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>";
+
+/* HTML info for the 'Disconnect when user switches out' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>";
+
+/* HTML info for the 'Disconnect when computer goes to sleep' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>";
+
+/* HTML info for the 'Reconnect when user switches in' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>";
+
+/* HTML info for the 'Reconnect when computer wakes up' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>";
+
+/* HTML info for the 'Prepend domain name to search domains' checkbox. */
+"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>";
+
+/* HTML info for the 'Load Tap driver' popdown list. */
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>";
+
+/* HTML info for the 'Load Tun driver' popdown list. */
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>";
+
+/* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
+"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Admin mode %@ remaining";

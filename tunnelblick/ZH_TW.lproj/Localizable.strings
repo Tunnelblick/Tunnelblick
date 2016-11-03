@@ -1,5 +1,11 @@
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) - apparent public IP address %@" = "中斷所有連線 (%1$@) - 對外的 IP 位址 %2$@";
+
 /* Status message */
 "Disconnect All (%@)" = "中斷所有連線 (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) - apparent public IP address %@" = "中斷所有連線 (%1$d 連線) - 對外的 IP 位址 %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "中斷所有連線 (%d 個連線)";
@@ -437,7 +443,7 @@
 "Send anonymous profile information when checking" = "檢查時傳送匿名資料";
 
 /* Checkbox name */
-"Set DNS after routes are set instead of before routes are set" = "在設定好路由之後才設定 DNS";
+"Set DNS after routes are set" = "在路由設定後，設定 DNS";
 
 /* Checkbox name */
 "Show when disconnected" = "斷線時顯示";
@@ -770,13 +776,13 @@
 "  • Install or update configuration(s)\n" = "  • 安裝或更新設定檔\n";
 
 /* Window text */
-"  • Move the private configurations folder\n" = "  • 移動私密設定資料夾\n";
+"  • Move the private configurations folder\n" = "  • 移動私密設定檔案夾\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • 保護設定檔\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ 是開源軟件：你可以在 %3$@ 的 %2$@ 許可證條款下重新發佈及／或修改它。\n\n%4$@ 是 OpenVPN Technologies, Inc. 的註冊商標。";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ 是自由軟體：你可以在 %3$@ 的 %2$@ 許可證條款下重新發佈與修改它。\n\n%4$@ 是 OpenVPN Technologies, Inc. 的註冊商標。";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " 您是否想安裝 %1$@ 到 %2$@%3$@?\n\n";
@@ -821,7 +827,7 @@
 "'%@' was not terminated." = "'%@' 沒有結束。";
 
 /* Window text */
-"'easy-rsaPath' preference ignored; it does not specify a folder" = "「easy-rsaPath」偏好設定被略過；它沒有指定一個資料夾。";
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "「easy-rsaPath」偏好設定被略過；它沒有指定一個檔案夾。";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "「easy-rsaPath」偏好設定被略過；它必須是絕對路徑或以（ ~ ）開頭";
@@ -968,7 +974,7 @@
 "Cannot uninstall configuration '%@' because it is not installed." = "由於它未被安裝，無法移除「%@」配置";
 
 /* Window text */
-"Computer sleep/wake" = "電腦 睡眠/喚醒";
+"Computer sleep/wake" = "電腦睡眠/喚醒";
 
 /* Window text */
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "名為「%1$@」 (「%2$@」) 的設定檔因為含有不被允許的字符將被忽略。\n\n被禁止的字符：「%3$s」\n\n";
@@ -995,10 +1001,10 @@
 "Configuration changes:" = "改變的設定：";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "安裝的設定由網路管理員或 VPN 服務供應商提供。\n\n設定檔的副檔名是 .tblk, .ovpn 或 .conf。\n\n(與設定相關的檔案可能有其他的副檔名；請忽略那些檔案。)\n\n安裝設定檔，請拖曳設定檔到選單列上的 Tunnelblick 圖示，也可以拖曳位在「VPN 詳請」視窗設定分頁裡的設定清單。\n\n如果一次要安裝多個設定檔案，請選取並拖曳所有檔案。";
 
 /* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n";
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "當你安裝 Tunnelblick 時，設定檔案不是安裝程式的一部分。\n\n";
 
 /* Window text */
 "Connect:" = "連接：";
@@ -1100,7 +1106,7 @@
 "Failed to copy %@ to %@" = "未能將 %1$@ 複製到 %2$@";
 
 /* Window text */
-"Failed to create folder at %@" = "在 %@ 建立新資料夾失敗";
+"Failed to create folder at %@" = "在 %@ 建立新檔案夾失敗";
 
 /* Window text */
 "Failed to create symlink\n  to %@\n  at %@" = "無法在 %2$@ 建立連往 %1$@ 的符號連結";
@@ -1271,7 +1277,7 @@
 "One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "你正在升級的一個或多個 VPN 設定檔包含了在連接時會以 root 身份運行的程序。他們可以完全地控制你的電腦。\n\n除非你信任它們的作者，否則你不應該安裝這些設定檔。\n\n你信任這些設定檔的作者，並且願意安裝這些設定檔嗎？\n\n";
 
 /* Window text */
-"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "正在安裝的一個或多個 VPN 設定，包含了 Tunnelblick 無法辨別的 OpenVPN 選項。這可能是設定或 Tunnelblick 中的錯誤，或者是設定中包含的程式，會在連線到 VPN 時，以 root 身份執行。而這類型的程式可能會完全控制你的電腦。\n\n除非，你信任這個設定的作者，否則，你不應該安裝這個設定。\n\n你是否信任這個設定的作者，並且安裝這些設定？\n\n";
 
 /* Window text */
 "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "你正在安裝的一個或多個 VPN 設定檔包含了在連接時會以 root 身份運行的程序。他們可以完全地控制你的電腦。\n\n除非你信任它們的作者，否則你不應該安裝這些設定檔。\n\n你信任這些設定檔的作者，並且願意安裝這些設定檔嗎？\n\n";
@@ -1382,10 +1388,10 @@
 "That name is being used.\n\n" = "此名稱已被使用。\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "%1$@ 系統資料夾 (%2$@) 不存在。";
+"The %@ system folder (%@) does not exist." = "%1$@ 系統檔案夾 (%2$@) 不存在。";
 
 /* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "%1$@ 系統資料夾 (%2$@) 不安全。\n\n除非修正這個問題，Tunnelblick 可能不會正常運作。\n\n磁碟工具程式中 '修復權限' 的功能也許可以修復這個問題。";
+"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "%1$@ 系統檔案夾 (%2$@) 不安全。\n\n除非修正這個問題，Tunnelblick 可能不會正常運作。\n\n磁碟工具程式中 '修復權限' 的功能也許可以修復這個問題。";
 
 /* Window text */
 "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "「%@」OpenVPN 選項在 OS X 上不被允許。這是一個「僅適用於 Windows」的選項。";
@@ -1466,7 +1472,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "這個私人的設定檔從來沒有被保護，所以您無法恢復到被保護的副本。";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "範本設定資料夾已經建立在你的桌面，而且 OpenVPN 設定檔已經以文字編輯應用程式中打開，你可以修改這個檔案來設定 VPN。\n\n完成編輯及儲存變更 OpenVPN 設定檔後，請\n\n1. 移動或複製與設定相關的金鑰、憑證檔案到桌上面的「Tunnelblick VPN 設定檔範本」檔案夾中。\n\n(這個檔案夾已經在 Finder 視窗中打開，你可以直接把檔案拖曳進去)\n\n2. 你可以變更設定檔案的名字 (不要更改檔案的副檔名)。這個名字會用在 Tunnelblick 設定。\n\n3. 如要安裝設定，請拖曳設定檔到選單列上的 Tunnelblick 圖示，也可以拖曳位在「VPN 詳請」視窗設定分頁裡的設定清單。";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "對方的VPN伺服器不接受這個用戶名和密碼。";
@@ -1535,13 +1541,13 @@
 "Too many duplicate configurations already exist." = "已有太多設定檔拷貝。";
 
 /* Window text */
-"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.";
+"Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick 管理模式\n\n 臨時的授權變更需要輸入管理員的密碼。\n\n 本會話會在五分鐘後或當「VPN 詳情」視窗關閉時過期。";
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick 網路使用";
 
 /* Window text */
-"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick 可以檢查在你連接到 VPN 時你的公眾 IP 地址是否有更動，並會在它沒有更動時通知你。\n\n這可以幫助 Tunnelblick 診斷你連接方面的問題。\n\n這個進程會嘗試訪問\n%@\n\n您是否想檢查 IP 地址的更動？\n";
+"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick 可以檢查在你連線到 VPN 時，你電腦的外部 IP 位址是否有變更，並會在沒有變更時通知你。\n\n這也許可以幫助 Tunnelblick 診斷你連線方面的問題。\n\n這個流程會嘗試存取\n%@\n\n你是否想檢查 IP 位址的更動？\n";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "無法將 Tunnelblick 設置至在你登入後自動啟用。\n\n詳情請查看控制台日誌。";
@@ -1556,13 +1562,13 @@
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick 無法複製 '%@' 設定檔。詳情請參見控制台日誌。";
 
 /* Window text */
-"Tunnelblick could not create the empty configuration folder" = "Tunnelblick 無法創建空白設定檔資料夾";
+"Tunnelblick could not create the empty configuration folder" = "Tunnelblick 無法建立空白設定檔檔案夾";
 
 /* Window text */
 "Tunnelblick could not create the sample configuration" = "Tunnelblick 無法建立範本設定檔";
 
 /* Window text */
-"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %1$ld; notification = %2$@";
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "Tunnelblick 無法顯示視窗。\n\nCFUserNotificationCreate() 返回錯誤 = %1$ld；通知 = %2$@";
 
 /* Window text */
 "Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick 無法在連結到 %@ 之前獲取IP地址訊息。\n\n";
@@ -1637,13 +1643,13 @@
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick 將要改變的設置需要管理員權限。";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations.";
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick需要將OpenVPN配置轉換為Tunnelblick VPN配置。";
 
 /* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick需要創建或更新 a secure (shadow) 複製設定檔.";
 
 /* Window text */
-"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick needs to perform an action that requires administrator authorization.\n";
+"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick需要執行必需管理員授權的操作。\n";
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick需要:\n";
@@ -1730,7 +1736,7 @@
 "Unknown value '%@' for '%@' in %@" = "無法識別在 '%3$@' '%2$@' 的數值 '%1$@'";
 
 /* Window text */
-"Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
+"Unreadable file at %@\n\nSee the Console log for details." = "檔案 %@ 不可讀取\n\n有關詳情，請參閱控制台日誌。";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "由於找不到 %2$@ 可被自動更新的設置 '%1$@' 無法被保存至可被自動更新的格式\n";
@@ -1814,7 +1820,7 @@
 "You cannot make the '%@' configuration private because it is set to start when the computer starts." = "無法將名為 「%@」的設定設為共享，因為它被設定為在電腦啟動時自動啟用。";
 
 /* Window text */
-"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared.";
+"You cannot make the '%@' configuration private or shared because it is an updatable configuration.\n\nNote that a Tunnelblick VPN Configuration that is updatable cannot be made private or shared; only the configurations within it can be made private or shared." = "無法將名為 「%@」的設定作為私密或共享的，因為它是一個可更新的設定檔。\n\n注意：可更新的 Tunnelblick VPN 設定檔，無法是私密或共享的。只有內部的設定檔能設為私密或共享。";
 
 /* Window text */
 "You cannot rename a Deployed configuration." = "你不能重新命名一個正在運行中的設定檔。";
@@ -1915,8 +1921,56 @@
 /* Credit description */
 "64-bit enabling and testing" = "64位元測試與支援";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>若勾選</strong>，IPv6 將會啟用。</p>\n<p>通常不建議啟用 IPv6，因為許多的 VPN 設定不會防止使用 IPv6 造成的資訊洩露，而且不使用 IPv6 大部分還是能正常連線網路。</p>\n<p><strong>若未勾選</strong>，IPv6 將不會啟用。</p>\n<p>因為在 「tap」 連線中無法強不啟用 IPv6，所以，使用 「tap」 連線時，<strong>這個核取方塊會被停用</strong>。</p>";
+
+/* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>若勾選</strong>，將會啟用 IPv6。</p>\n<p><strong>若未勾選</strong>，將不會啟用 IPv6。</p>\n<p>通常不建議啟用 IPv6，因為許多的 VPN 設定不會防止使用 IPv6 造成的資訊洩露，而且不使用 IPv6 大部分還是能正常連線網路。</p>\n<p>對於 Tap 設定會<strong>停用這個核取方塊</strong></p>";
+
+/* HTML info for the 'Set DNS after routes are set' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>若勾選</strong>，OpenVPN 將會在設定好 VPN 路由之後，修改 DNS</p>\n<p><strong>若未勾選</strong>，OpenVPN 將會在設定好 VPN 路由之前，就修改 DNS。如果，花了較長的時間設定好路由，像是有許多路由需要設定，這就會造成 DNS 失敗。</p>\n";
+
+/* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>若勾選</strong>，在 VPN 建立連線前後，Tunnelblick 會決定這台電腦的對外 IP 位址，如果 IP 位址沒改變，將會警告你。</p> <p>為了實現這個功能，將會以 tunnelblick.net 名稱，透過 https: 存取 tunnelblick.net 網站。除了，存取失敗時，會嘗試用 http: 及網站的 IP 位址存取。</p> <p><strong>當未勾選</strong>, 在 VPN 連線後，Tunnelblick 不會檢查、警告 IP 位址是否變更。</p>\n";
+
+/* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>若勾選</strong>，Tunnelblick 會指示 OpenVPN 路由所有 IPv4 的流量通過 VPN 伺服器。</p>\n<p><strong>若未勾選</strong>，OpenVPN 預設只對於指定 VPN 網路的流量使用 VPN。其他沒有經過 VPN 的所有流量會使用一般網際網路的流線。也許可以透過 OpenVPN 設定或 VPN 伺服器修改 OpenVPN 的預設行為，而且，如果有勾選核取方塊，會路由所有 IPv4 流量通過 VPN 伺服器。</p>\n";
+
+/* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>";
+
+/* HTML info for the 'Monitor network settings' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>";
+
+/* HTML info for the 'Keep connected' checkbox. */
+"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>若勾選</strong>，如果 VPN 無預期斷線，Tunnelblick 會試著重新連線。</p>\n<p><strong>若未勾選</strong>，如果 VPN 無預期斷線，Tunnelblick 將不會試著重新連線。</p>\n";
+
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%1$@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%2$@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>";
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>若勾選</strong>，Tunnelblick圖標會放在搜索圖標附近：</p>\n<p>%1$@</p>\n<p><strong>若未勾選</strong>，Tunnelblick圖標會放在正常位置：</p>\n<p>%2$@</p>\n<p><strong>此檢驗盒已被禁用</strong> 因為在Mac Os Sierra和在已知會導致問題的系統上是不必要的。</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">了解詳情</a></p>";
+
+/* HTML info for the 'Disconnect when user switches out' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>若勾選</strong>，切換到另一個使用者時，VPN 將會中斷連線。</p>\n<p><strong>若未勾選</strong>，切換到另一個使用者時，VPN 不會中斷連線。</p>";
+
+/* HTML info for the 'Disconnect when computer goes to sleep' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>若勾選</strong>，電腦進入睡眠時，VPN 將會中斷連線。</p>\n<p><strong>若未勾選</strong>，電腦進入睡眠時，VPN 不會中斷連線。</p>";
+
+/* HTML info for the 'Reconnect when user switches in' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>若勾選</strong>，如果切換到其他使用者時，被切斷連線。當回到目前使用者，VPN 將會重新連線。</p>\n<p><strong>若未勾選</strong>，當回到目前使用者，VPN 不會重新連線。</p>";
+
+/* HTML info for the 'Reconnect when computer wakes up' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>若勾選</strong>，如果當電腦睡眠時斷線，會在喚醒時，VPN 會重新連線。</p>\n<p><strong>若未勾選</strong>，電腦喚醒時，VPN 不會重新連線。</p>";
+
+/* HTML info for the 'Prepend domain name to search domains' checkbox. */
+"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>若勾選</strong>，VPN 指定的網域名稱會被加入到搜尋域名清單中的開頭中。</p>\n<p><strong>若未勾選</strong>，搜尋域名將會被 VPN 指定的域名替代</p>";
+
+/* HTML info for the 'Load Tap driver' popdown list. */
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>";
+
+/* HTML info for the 'Load Tun driver' popdown list. */
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>Tun 連線需要 「tun」裝置驅動程式。通常會使用系統的 Tun 驅動程式，但是 Tunnelblick 本身也會包含 Tun 驅動程式。如果你要安裝不同的 Tun 驅動程式，Tunnelblick 可能無法載入你所安裝的驅動程式。</p>\n<p>除非 OpenVPN 設定包含了 「dev-type」選項，不然，OpenVPN 會使用系統的驅動程式。</p>\n<p>你可以選擇 Tunnelblock 是否及何時載入 Tun 驅動程式</p>\n<p><strong>自動載入 Tun 驅動程式</strong>：Tunnelblick 會在需要的時候載入驅動程式，並在不再使用時卸載它。(如果 OpenVPN 設定包含了 「dev-type tun」選項，Tunnelblick 將只載入本身的驅動程式)</p>\n<p><strong>總是載入 Tun 驅動程式</strong>：Tunnelblick 會在連線到設定時，載入驅動程式，並在不再使用時卸載它。</p>\n<p><strong>永不載入 Tun 驅動程式</strong>：Tunnelblick 永遠不載入此驅動程式。</p>\n<p>對於 Tap 設定會<strong>停用這個核取方塊</strong></p>";
+
+/* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
+"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS 快取包含 DNS (網域名稱系統) 副本的資訊。</p>\n<p><strong>當勾選</strong>，DNS 快取將會在連線或中斷連線時清除。所有的 DNS 查詢將使用以 VPN 設定中指定的名稱伺服器。</p>\n<p><strong>當未勾選</strong>，DNS 快取將不會被清除。如果有網域名稱在 VPN 指定的名稱伺服器與 VPN 連線前的名稱伺服器快取衝突，這會造成一些問題。</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "管理模式還剩 %@";
@@ -1955,10 +2009,10 @@
 "Connected to %@" = "已連接至 %@";
 
 /* Credit description */
-"Contributed much to the early code" = "為早期的編程提供了主要的貢獻";
+"Contributed much to the early code" = "對早期程式主要的貢獻";
 
 /* Credit description */
-"Contributed to early code" = "為早期的編程提供了貢獻";
+"Contributed to early code" = "對早期程式的貢獻";
 
 /* Credit description */
 "Croatian localization" = "克羅地亞語翻譯";
@@ -2035,7 +2089,7 @@
 "Localization code tweaks" = "翻譯程式碼調整";
 
 /* Credit description */
-"Multiple configuration folders" = "多重設定資料夾";
+"Multiple configuration folders" = "多重設定檔案夾";
 
 /* Credit description */
 "Norwegian localization" = "挪威語翻譯";
