@@ -150,6 +150,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, savePasswordInKeychainCheckbox)
     [self showWindow: self];
     [NSApp activateIgnoringOtherApps: YES];
     [[self window] makeKeyAndOrderFront: self];
+	
+	NSTextField * itemToSelect = (  ([usernameLocal length] == 0)
+								  ? [self username]
+								  : [self password]);
+	[itemToSelect selectText: self];
+	[[self window] setInitialFirstResponder: itemToSelect];
 }
 
 - (IBAction) cancelButtonWasClicked: sender
