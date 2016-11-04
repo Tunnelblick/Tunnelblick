@@ -2313,7 +2313,6 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  ! s  ) {
 		NSLog(@"MenuController: feedURL has not been set up; stack trace: %@", callStack());
 	}
-	else NSLog(@"JKB: returning feedURLString '%@'", s);
 	return s;
 }
 
