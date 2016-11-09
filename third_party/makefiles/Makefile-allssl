@@ -79,7 +79,7 @@ built-allssl: built-allssl-prepare
 				$(MAKE) install_sw; \
 			else \
 				if [ "$${sslvariant}" = "libressl" ] ; then \
-					CC=$(CC) CFLAGS="$(CFLAGS)" ./Configure $${!CONFIGARGS} --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
+					CC=$(CC) CFLAGS="$(CFLAGS)" ./configure $${!CONFIGARGS} --prefix="$(STAGING_DIR)/$${sslversion}/$$a" $$a; \
 					$(MAKE) check; \
 					echo "Install to $(STAGING_DIR)/$${sslversion}/$$a" ; \
 					$(MAKE) install; \
