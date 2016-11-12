@@ -20,5 +20,5 @@ FreeDNS	37.235.1.174	37.235.1.177
 censurfridns.dk	89.233.43.71	91.239.100.100
 Hurricane Electric	74.82.42.42	 
 puntCAT	109.69.8.51	 
-
+Yandex 77.88.8.8  77.88.8.1
 
