@@ -1,9 +1,8 @@
-diff -u -r original/src/openvpn/options.c patched/src/openvpn/options.c
---- original/src/openvpn/options.c	2016-08-23 10:16:22.000000000 -0400
-+++ patched/src/openvpn/options.c	2016-08-24 08:11:33.000000000 -0400
-@@ -792,6 +792,9 @@
-   o->max_routes = MAX_ROUTES_DEFAULT;
+--- openvpn-unpatched/src/openvpn/options.c	2016-10-18 02:31:09.000000000 -0400
++++ openvpn-patched/src/openvpn/options.c	2016-10-22 07:47:27.000000000 -0400
+@@ -793,6 +793,9 @@
    o->resolve_retry_seconds = RESOLV_RETRY_INFINITE;
+   o->resolve_in_advance = false;
    o->proto_force = -1;
 +  o->ce.xormethod = 0;
 +  o->ce.xormask = "\0";
@@ -11,30 +10,29 @@ diff -u -r original/src/openvpn/options.c patched/src/openvpn/options.c
  #ifdef ENABLE_OCC
    o->occ = true;
  #endif
-@@ -907,6 +910,10 @@
-   setenv_int_i (es, "local_port", e->local_port, i);
+@@ -941,6 +944,9 @@
+   setenv_str_i (es, "local_port", e->local_port, i);
    setenv_str_i (es, "remote", e->remote, i);
-   setenv_int_i (es, "remote_port", e->remote_port, i);
+   setenv_str_i (es, "remote_port", e->remote_port, i);
 +  setenv_int_i (es, "xormethod", e->xormethod, i);
 +  setenv_str_i (es, "xormask", e->xormask, i);
 +  setenv_int_i (es, "xormasklen", e->xormasklen, i);
-+
  
- #ifdef ENABLE_HTTP_PROXY
    if (e->http_proxy_options)
-@@ -1366,6 +1373,9 @@
+     {
+@@ -1402,6 +1408,9 @@
+   SHOW_BOOL (bind_ipv6_only);
    SHOW_INT (connect_retry_seconds);
    SHOW_INT (connect_timeout);
-   SHOW_INT (connect_retry_max);
 +  SHOW_INT (xormethod);
 +  SHOW_STR (xormask);
 +  SHOW_INT (xormasklen);
  
- #ifdef ENABLE_HTTP_PROXY
    if (o->http_proxy_options)
-@@ -5131,6 +5141,46 @@
+     show_http_proxy_options (o->http_proxy_options);
+@@ -5228,6 +5237,46 @@
+ 	}
        options->proto_force = proto_force;
-       options->force_connection_list = true;
      }
 +  else if (streq (p[0], "scramble") && p[1])
 +    {
@@ -76,6 +74,6 @@ diff -u -r original/src/openvpn/options.c patched/src/openvpn/options.c
 +	  goto err;
 +	}
 +    }
- #ifdef ENABLE_HTTP_PROXY
-   else if (streq (p[0], "http-proxy") && p[1])
+   else if (streq (p[0], "http-proxy") && p[1] && !p[5])
      {
+       struct http_proxy_options *ho;

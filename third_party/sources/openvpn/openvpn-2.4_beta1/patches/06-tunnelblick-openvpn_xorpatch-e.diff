@@ -27,7 +27,7 @@ diff -u -r -x .DS_Store openvpn-2.3_git_ec0c1dc/src/openvpn/socket.h openvpn-2.3
      {
 -      int res;
  
- #ifdef WIN32
+ #ifdef _WIN32
        res = link_socket_read_udp_win32 (sock, buf, from);
  #else
        res = link_socket_read_udp_posix (sock, buf, from);
