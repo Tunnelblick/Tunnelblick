@@ -28,6 +28,7 @@
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
 #import "NSString+TB.h"
+#import "TBInfoButton.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 
@@ -288,12 +289,6 @@ extern TBUserDefaults * gTbDefaults;
 		[UIHelper setTitle: nil ofControl: loggingLevelPopUpButton shift: rtl narrow: YES enable: YES];
 	}
 	
-    [monitorNetworkForChangesCheckbox             setTitle: NSLocalizedString(@"Monitor network settings",                                         @"Checkbox name")];
-    [routeAllTrafficThroughVpnCheckbox            setTitle: NSLocalizedString(@"Route all IPv4 traffic through the VPN",                           @"Checkbox name")];
-    [checkIPAddressAfterConnectOnAdvancedCheckbox setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connecting", @"Checkbox name")];
-    [resetPrimaryInterfaceAfterDisconnectCheckbox setTitle: NSLocalizedString(@"Reset the primary interface after disconnecting" ,                 @"Checkbox name")];
-    [disableIpv6OnTunCheckbox                     setTitle: NSLocalizedString(@"Disable IPv6 (tun only)",                                          @"Checkbox name")];
-    
     // OpenVPN Version popup. Default depends on version of OS X
     
     CGFloat pcovWidthChange = [UIHelper setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text") ofControl: perConfigOpenvpnVersionTFC frameHolder: perConfigOpenvpnVersionTF shift: ( !rtl ) narrow: YES enable: YES];
@@ -330,6 +325,84 @@ extern TBUserDefaults * gTbDefaults;
 	[self shiftLabelsAndButtonsWtc: wtcWidthChange sdns: sdnsWidthChange pcov: pcovWidthChange loggingLevelWidthChange: loggingLevelWidthChange];
 	
 	[self normalizeWidthOfConfigurationsButtons];
+	
+	CGFloat change = [UIHelper setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")
+							  ofControl: monitorNetworkForChangesCheckbox
+								  shift: rtl
+								 narrow: YES
+								 enable: YES];
+	[UIHelper shiftControl: infoButtonForMonitorNetworkForChangesCheckbox by: change reverse: ! rtl];
+	NSAttributedString * infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network"
+																				@" settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network"
+																				@" settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n"
+																				@"<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n"
+																				@"<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>",
+																				@"HTML info for the 'Monitor network settings' checkbox."));
+	[infoButtonForMonitorNetworkForChangesCheckbox setAttributedTitle: infoTitle];
+	[infoButtonForMonitorNetworkForChangesCheckbox setMinimumWidth:    360.0];
+	
+	change = [UIHelper setTitle: NSLocalizedString(@"Route all IPv4 traffic through the VPN", @"Checkbox name")
+					  ofControl: routeAllTrafficThroughVpnCheckbox
+						  shift: rtl
+						 narrow: YES
+						 enable: YES];
+	[UIHelper shiftControl: infoButtonForRouteAllTrafficThroughVpnCheckbox by: change reverse: ! rtl];
+	infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n"
+														   @"<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that"
+														   @" is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN."
+														   @" OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4"
+														   @" traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n",
+														   @"HTML info for the 'Route all IPv4 traffic through the VPN' checkbox."));
+	[infoButtonForRouteAllTrafficThroughVpnCheckbox setAttributedTitle: infoTitle];
+	[infoButtonForRouteAllTrafficThroughVpnCheckbox setMinimumWidth: 360.0];
+	
+	change = [UIHelper setTitle: NSLocalizedString(@"Disable IPv6 (tun only)", @"Checkbox name")
+					  ofControl: disableIpv6OnTunCheckbox
+						  shift: rtl
+						 narrow: YES
+						 enable: YES];
+	[UIHelper shiftControl: infoButtonForDisableIpv6OnTunCheckbox by: change reverse: ! rtl];
+	infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n"
+														   @"<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use"
+														   @" of IPv6. Most Internet access works fine without IPv6.</p>\n"
+														   @"<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n"
+														   @"<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it"
+														   @" cannot be enforced on a 'tap' connection .</p>",
+														   @"HTML info for the 'Disable IPv6 (tun only)' checkbox."));
+	[infoButtonForDisableIpv6OnTunCheckbox setAttributedTitle: infoTitle];
+	[infoButtonForDisableIpv6OnTunCheckbox setMinimumWidth: 360.0];
+	
+	change = [UIHelper setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connecting", @"Checkbox name")
+					  ofControl: checkIPAddressAfterConnectOnAdvancedCheckbox
+						  shift: rtl
+						 narrow: YES
+						 enable: YES];
+	[UIHelper shiftControl: infoButtonForCheckIPAddressAfterConnectOnAdvancedCheckbox by: change reverse: ! rtl];
+	infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP"
+														   @" address before and after the VPN is connected and warn if the IP address does not change.</p>\n"
+														   @"<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https:"
+														   @" using the tunnelblick.net name, except that if that access fails, access is attempted using http:"
+														   @" and the IP address of the website.</p>\n"
+														   @"<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and"
+														   @" does not warn if the IP address does not change after the VPN is connected.</p>\n",
+														   @"HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox."));
+	[infoButtonForCheckIPAddressAfterConnectOnAdvancedCheckbox setAttributedTitle: infoTitle];
+	[infoButtonForCheckIPAddressAfterConnectOnAdvancedCheckbox setMinimumWidth: 360.0];
+	
+	change = [UIHelper setTitle: NSLocalizedString(@"Reset the primary interface after disconnecting", @"Checkbox name")
+					  ofControl: resetPrimaryInterfaceAfterDisconnectCheckbox
+						  shift: rtl
+						 narrow: YES
+						 enable: YES];
+	[UIHelper shiftControl: infoButtonForResetPrimaryInterfaceAfterDisconnectCheckbox by: change reverse: ! rtl];
+	infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the"
+														   @" VPN is disconnected. This can work around problems caused by some misconfigured VPN servers"
+														   @" and by some OpenVPN configuration errors.</p>\n"
+														   @"<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n"
+														   @"<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>",
+														   @"HTML info for the 'Reset the primary interface after disconnecting' checkbox."));
+	[infoButtonForResetPrimaryInterfaceAfterDisconnectCheckbox setAttributedTitle: infoTitle];
+	[infoButtonForResetPrimaryInterfaceAfterDisconnectCheckbox setMinimumWidth: 360.0];
 	
 	[UIHelper setTitle: NSLocalizedString(@"Advanced..." , @"Button") ofControl: advancedButton shift: rtl narrow: YES enable: ( ! [gTbDefaults boolForKey: @"disableAdvancedButton"])];
 	
@@ -392,9 +465,15 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   setNameserverArrayControl
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            monitorNetworkForChangesCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            routeAllTrafficThroughVpnCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            disableIpv6OnTunCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            checkIPAddressAfterConnectOnAdvancedCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            resetPrimaryInterfaceAfterDisconnectCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            disableIpv6OnTunCheckbox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, TBInfoButton *,        infoButtonForMonitorNetworkForChangesCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBInfoButton *,        infoButtonForRouteAllTrafficThroughVpnCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBInfoButton *,        infoButtonForDisableIpv6OnTunCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBInfoButton *,        infoButtonForCheckIPAddressAfterConnectOnAdvancedCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBInfoButton *,        infoButtonForResetPrimaryInterfaceAfterDisconnectCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   perConfigOpenvpnVersionArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            perConfigOpenvpnVersionButton)

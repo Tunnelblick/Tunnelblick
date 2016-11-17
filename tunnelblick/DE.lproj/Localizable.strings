@@ -1,5 +1,11 @@
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) - apparent public IP address %@" = "Alle trennen (%1$@) - scheinbare öffentliche IP-Adresse %2$@";
+
 /* Status message */
 "Disconnect All (%@)" = "Alle trennen (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Trenne alle (%1$d Verbindungen) - scheinbare öffentliche IP-Adresse %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Alle trennen (%d Verbindungen)";
@@ -347,7 +353,7 @@
 "Check for updates to beta versions" = "Bei Updates auch Beta Versionen berücksichtigen";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connecting" = "Prüfen ob die scheinbare öffentliche IP Adresse sich nach Verbindungsherstellung geändert hat";
+"Check if the apparent public IP address changed after connecting" = "Prüfen ob die scheinbare öffentliche IP-Adresse sich nach Verbindungsherstellung geändert hat";
 
 /* Checkbox name */
 "Disable IPv6 (tun only)" = "IPv6 deaktivieren (nur Tun)";
@@ -437,7 +443,7 @@
 "Send anonymous profile information when checking" = "Anonyme Profil-Informationen bei der Überprüfung senden";
 
 /* Checkbox name */
-"Set DNS after routes are set instead of before routes are set" = "DNS nach dem Routen statt vor dem Routen festlegen";
+"Set DNS after routes are set" = "DNS setzen, nachdem Routen gesetzt wurden";
 
 /* Checkbox name */
 "Show when disconnected" = "Bei getrennter Verbindung anzeigen";
@@ -860,7 +866,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Es gibt bereits eine eigene Konfiguration „%@“\n\nMöchten Sie sie durch die Konfiguration für alle Benutzer ersetzen?";
 
 /* Window text */
-"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Fehler beim Überprüfen der Public IP dieser Maschine.\n\nDetails sind im Konsolen-Log zu finden.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Fehler beim Überprüfen der scheinbaren öffentlichen IP-Adresse dieses Computers.\n\nDetails sind im Konsolen-Log zu finden.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Es gibt bereits eine Konfiguration „%@“ für alle Benutzer.\n\nMöchten Sie sie durch eine eigene Konfiguration für diesen Benutzer ersetzen?";
@@ -1337,7 +1343,7 @@
 "Resolved symbolic link at '%@' to '%@'" = "Symbolische Verknüpfung nach '%1$@' zu '%2$@' aufgelöst";
 
 /* Window text */
-"Search domain:" = "Domain suchen:";
+"Search domain:" = "Suchdomain:";
 
 /* Window text */
 "Securing Tunnelblick..." = "Absichern von Tunnelblick…";
@@ -1499,7 +1505,7 @@
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Diese 'Ausgelieferte' Version von Tunnelblick kann nicht gestartet oder installiert werden, da sie keine Info.plist besitzt.\n\n";
 
 /* Window text */
-"This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Die scheinbare öffentliche IP Adresse dieses Computers hat sich nach der Verbindung von %1$@ nicht geändert. Sie ist weiterhin %2$@.\n\nDies könnte bedeuten, dass ihr VPN nicht korrekt konfiguriert ist.\n\n";
+"This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Die scheinbare öffentliche IP-Adresse dieses Computers hat sich nach der Verbindung von %1$@ nicht geändert. Sie ist weiterhin %2$@.\n\nDies könnte bedeuten, dass ihr VPN nicht korrekt konfiguriert ist.\n\n";
 
 /* Window text */
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Diese Kopie von Tunnelblick wurde verändert (die digitale Signatur ist ungültig).\n\nBitte fragen Sie bei dem Anbieter dieser Tunnelblick Kopie nach, bevor Sie sie benutzen.\n\n";
@@ -1541,7 +1547,7 @@
 "Tunnelblick Internet Use:" = "Tunnelblick Internet-Nutzung:";
 
 /* Window text */
-"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick kann prüfen, ob sich die scheinbare öffentliche IP Ihres Computers bei der Verbindungsherstellung zu einem VPN ändert und Sie warnen, falls dies nicht geschieht.\n\nDies kann Tunnelblick dabei helfen, Probleme mit Ihrer Verbindung zu diagnostizieren.\n\nDieser Prozess versucht auf \n%@ zuzugreifen\n\nMöchten Sie solche IP Adresswechsel überwachen lassen?\n";
+"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick kann prüfen, ob sich die scheinbare öffentliche IP-Adresse Ihres Computers bei der Verbindungsherstellung zu einem VPN ändert und Sie warnen, falls dies nicht geschieht.\n\nDies kann Tunnelblick dabei helfen, Probleme mit Ihrer Verbindung zu diagnostizieren.\n\nDieser Prozess versucht auf \n%@ zuzugreifen\n\nMöchten Sie solche IP-Adresswechsel überwachen lassen?\n";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick konnte nicht so konfiguriert werden, dass es sich automatisch nach dem Einloggen start.\n\nDetails sind im Konsolen-Log zu finden.";
@@ -1915,8 +1921,56 @@
 /* Credit description */
 "64-bit enabling and testing" = "Ermöglichen und Testen der 64-Bit Version";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Falls ausgewählt</strong>, wird IPv6 deaktiviert.</p>\n<p>Das Deaktivieren von IPv6 wird häufig empfohlen, da viele VPN Konfigurationen nicht gegen Informationslecks schützen, die durch die Verwendung von IPv6 entstehen. Der überwiegende Internetzugang funktioniert problemlos ohne die Verwendung von IPv6.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird IPv6 nicht deaktiviert.</p>\n<p><strong>Diese Checkbox ist deaktiviert</strong> wenn eine 'tap' Verbindung genutzt wird, da sie bei einer 'tap' Verbindung nicht erzwungen werden kann.</p>";
+
+/* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Falls ausgewählt</strong>, wird IPv6 aktiviert.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird IPv6 deaktiviert.</p>\n<p>Das Deaktivieren von IPv6 wird häufig empfohlen, da viele VPN Konfigurationen nicht gegen Informationslecks schützen, die durch die Verwendung von IPv6 entstehen. Der überwiegende Internetzugang funktioniert problemlos ohne die Verwendung von IPv6.</p>\n<p><strong>Diese Checkbox ist deaktiviert</strong> für Tun Verbindungen.</p>";
+
+/* HTML info for the 'Set DNS after routes are set' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Falls ausgewählt</strong>, wird OpenVPN den DNS und andere Einstellungen nach dem Einrichten des Routings für den VPN statt vor dem Einrichten des Routings für den VPN verändern.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird OpenVPN den DNS und andere Einstellungen vor dem Einrichten des Routings für den VPN statt nach dem Einrichten des Routings für den VPN verändern. Das kann DNS Fehler oder Verzögerungen verursachen, wenn die Einrichtung des Routings lange dauert, zum Beispiel wenn viele Routen festzulegen sind.</p>\n";
+
+/* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick die scheinbare öffentliche IP-Adresse des Computers vor und nach der Verbindung des VPNs feststellen und warnen, falls sich diese nicht ändert.</p>\n<p>Die tunnelblick.net Webseite wird aufgerufen, um diese Funktion durchzuführen. Der Aufruf erfolgt üblicherweise über https: und dem tunnelblick.net Domainnamen, außer wenn dieser Aufruf fehlschlägt, dann wird ein Aufruf über http: und die IP-Adresse der Webseite versucht.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird Tunnelblick nicht prüfen ob die IP-Adresse sich ändert und nicht warnen, falls die öffentliche IP-Adresse sich nach der Verbindung des VPNs nicht ändert.</p>\n";
+
+/* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick OpenVPN anweisen, allen Datenverkehr durch IPv4 zu routen.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird OpenVPN standardmäßig das VPN nur für den Verkehr nutzen, dessen Ziel das VPN-Netzwerk ist. Anderer Datenverkehr wird das normale Internet benutzen, ohne durch das VPN zu gehen. Das Standardverhalten von OpenVPN kann durch die OpenVPN-Konfiguration oder den VPN-Server beeinflusst werden, so dass aller IPv4-Traffic durch den VPN-Server geroutet wird, als wäre diese Checkbox ausgewählt worden. </p>\n \nContext | Request Context\n";
+
+/* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick das primäre Netzwerkinterface nach Beendigung der VPN Verbindung zurücksetzen. Das kann Probleme, die durch manche falsch konfigurierte VPN Server and manche falsch konfigurierte OpenVPN Konfigurationen entstehen, umgehen.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird Tunnelblick das primäre Netzwerkinterface nicht zurücksetzen.</p>\n<p><strong>Diese Checkbox ist deaktiviert</strong> wenn 'DNS/WINS einstellen' nicht auf 'Nameserver festlegen' gesetzt ist.</p>";
+
+/* HTML info for the 'Monitor network settings' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick auf Veränderungen in den Netzwerkeinstellungen achten und darauf reagieren (beispielsweise Veränderungen durch DHCP Erneuerungen oder Wechsel der Internetverbindungen), um zu versuchen, die VPN-Verbindung aufrecht zu erhalten. Die Standardaktionen von Tunnelblick bei solchen Veränderungen der Netzwerkeinstellungen funktionieren üblicherweise gut, Sie können aber andere Aktionen über den \n'Während der Verbindung' Reiter des 'Erweiterte Einstellungen' Fensters wählen.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird Tunnelblick Veränderungen des Netzwerks ignorieren.</p>\n<p><strong>Diese Checkbox ist deaktiviert</strong> wenn 'DNS/WINS einstellen' nicht auf 'Nameserver festlegen' oder 'Nameserver festlegen (3.1)' gesetzt ist.</p>";
+
+/* HTML info for the 'Keep connected' checkbox. */
+"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick automatisch neu verbinden, falls die VPN-Verbindung unerwartet getrennt wird.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird Tunnelblick nicht versuchen, die Verbindung wiederherzustellen, nachdem sie unerwartet getrennt wurde.</p>\n";
+
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
 "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Falls ausgewählt</strong>, wird das Tunnelblick-Icon neben dem Spotlight-Icon platziert:</p>\n<p>%1$@</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird das Tunnelblick-Icon normal platziert::</p>\n<p>%2$@</p>\n<p><strong>Das Kontrollkästchen ist deaktiviert</strong> weil es auf macOS Sierra nicht benötigt wird, und auf Systemen, auf denen es Probleme verursachen könnte.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Weitere Informationen</a></p>";
+
+/* HTML info for the 'Disconnect when user switches out' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>Falls ausgewählt</strong>, wird die VPN-Verbindung beim Benutzerwechsel getrennt.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird die VPN-Verbindung beim Benutzerwechsel nicht getrennt.</p>";
+
+/* HTML info for the 'Disconnect when computer goes to sleep' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>Falls ausgewählt</strong>, wird die VPN-Verbindung getrennt, wenn der Computer in den Schlafmodus geht.</p>\n<p><strong>Falls nicht ausgewählt</strong>, bleibt die VPN-Verbindung verbunden, wenn der Computer in den Schlafmodus geht.</p>";
+
+/* HTML info for the 'Reconnect when user switches in' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>Falls ausgewählt</strong>, wird die VPN-Verbindung wiederhergestellt, wenn zum aktuellen Benutzer zurückgewechselt wird und das VPN beim Benutzerwechsel getrennt wurde.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird die VPN-Verbindung beim Wechsel zurück zum aktuellen Benutzer nicht wiederhergestellt.</p>";
+
+/* HTML info for the 'Reconnect when computer wakes up' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>Falls ausgewählt</strong>, wird die VPN-Verbindung wiederhergestellt, wenn der Computer aufwacht und das VPN beim Wechsel in den Ruhezustand getrennt wurde.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird die VPN-Verbindung nicht wiederhergestellt, wenn der Computer aufwacht.</p>";
+
+/* HTML info for the 'Prepend domain name to search domains' checkbox. */
+"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Falls ausgewählt</strong>, wird der vom VPN festgelegte Domainname an den Anfang der Suchdomainliste gesetzt.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird die Suchdomainliste durch den vom VPN festgelegten Domainnamen ersetzt.</p>";
+
+/* HTML info for the 'Load Tap driver' popdown list. */
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>Ein 'tap' Gerätetreiber wird für Tap-Verbindungen benötigt. Tunnelblick beinhaltet seinen eigenen Tap-Treiber, da das System keinen beinhaltet. Falls Sie einen anderen Tap-Treiber installiert haben, kann Tunnelblick möglicherweise nicht seinen Treiber laden.</p><p>Sie können auswählen, ob und wann Tunnelblick seinen Treiber lädt:</p>\n<p><strong>Tap-Treiber automatisch laden</strong>: Tunnelblick lädt seinen Treiber, wenn er benötigt wird und entfernt ihn aus dem Speicher, wenn er nicht mehr benötigt wird.</p>\n<p><strong>Immer Tap-Treiber laden</strong>: Tunnelblick lädt seinen Treiber, wenn es eine Verbindung aufbaut und entfernt ihn aus dem Speicher, wenn er nicht mehr benötigt wird.</p>\n<p><strong>Niemals Tap-Treiber laden</strong>: Tunnelblick lädt niemals seinen Treiber.</p>\n<p><strong>Diese Checkbox ist deaktiviert</strong> für Tun-Konfigurationen.</p>";
+
+/* HTML info for the 'Load Tun driver' popdown list. */
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>Ein 'tun' Gerätetreiber wird für Tun-Verbindungen benötigt. Üblicherweise wird der Tun-Treiber des Systems genutzt, aber Tunnelblick beinhaltet auch seinen eigenen Tun-Treiber. Falls Sie einen anderen Tun-Treiber installiert haben, kann Tunnelblick möglicherweise nicht seinen Treiber laden.</p><p>Sie können auswählen, ob und wann Tunnelblick seinen Tun-Treiber lädt:</p>\n<p><strong>Tun-Treiber automatisch laden</strong>: Tunnelblick lädt seinen Treiber, wenn er benötigt wird und entfernt ihn aus dem Speicher, wenn er nicht mehr benötigt wird. (Tunnelblick wird seinen Treiber nur laden, wenn die OpenVPN Konfiguration die 'dev-type tun' Option beinhaltet.) </p>\n<p><strong>Immer Tun-Treiber laden</strong>: Tunnelblick lädt seinen Treiber, wenn es eine Verbindung aufbaut und entfernt ihn aus dem Speicher, wenn er nicht mehr benötigt wird.</p>\n<p><strong>Niemals Tun-Treiber laden</strong>: Tunnelblick lädt niemals seinen Treiber.</p>\n<p><strong>Diese Checkbox ist deaktiviert</strong> für Tap-Konfigurationen.</p>";
+
+/* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
+"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Der DNS-Cache enthält Kopien der DNS (Domain Name System) Informationen.</p>\n<p><strong>Falls ausgewählt</strong>, wird der DNS-Cache nach dem Verbinden oder Trennen zurückgesetzt (geleert). Alle DNS-Anfragen werden an den Nameserver gerichtet, welcher im VPN Setup eingetragen ist.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird der DNS-Cache nicht zurückgesetzt. Dies kann zu Problemen führen falls Namenskonflikte zwischen dem im Setup aktuell eingetragenem und dem vorherigen eingetragenem Nameserver bestehen und die vorherigen Einträge gecached wurden.</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Adminmodus %@ verbleibend";

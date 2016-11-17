@@ -1,5 +1,11 @@
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) - apparent public IP address %@" = "Disconnect All (%1$@) - apparent public IP address %2$@";
+
 /* Status message */
 "Disconnect All (%@)" = "Αποσύνδεση όλων (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Disconnect All (%1$d Connections) - apparent public IP address %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Αποσύνδεση όλων (%d Συνδέσεις)";
@@ -437,7 +443,7 @@
 "Send anonymous profile information when checking" = "Αποστολή ανώνυμα πληροφορίες προφίλ κατά τον έλεγχο";
 
 /* Checkbox name */
-"Set DNS after routes are set instead of before routes are set" = "Ορισμός DNS μετά τον ορισμό των διαδρομών και όχι πριν";
+"Set DNS after routes are set" = "Set DNS after routes are set";
 
 /* Checkbox name */
 "Show when disconnected" = "Εμφάνισε όταν αποσυνδεθεί";
@@ -878,7 +884,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "Προσθέστε την κατάληξη '.sh' στο %@ για να είναι σωστά ασφαλισμένο";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "Προσθέστε την κατάληξη '.unknown' στο %@ για να είναι σωστά ασφαλισμένο";
 
 /* Window text */
 "Additional contributions by" = "Επιπρόσθετη συνεισφορά από";
@@ -1112,7 +1118,7 @@
 "Fast User Switching" = "Γρήγορη αλλαγή χρηστών";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Το αρχείο '%@' φαίνεται να είναι κωδικοποιημένο με UTF-16. Όλα τα αρχεία που συσχετίζονται με το OpenVPN πρέπει να ειναι 'απλό κείμενο' ή αρχεία 'UTF-8'.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Το αρχείο '%@' φαίνεται να είναι σε μορφή \"εμπλουτισμένου κειμένου\" επειδή ξεκινά με τον χαρακτήρα \"{\". Όλα τα αρχεία που σχετίζονται με OpenVPN πρέπει να είναι σε \"απλό κείμενο\" ή αρχεία \"UTF-8\".";
@@ -1127,7 +1133,7 @@
 "File '%@' is missing" = "Το αρχείο '%@' λείπει";
 
 /* Window text */
-"File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
+"File '%@' is too short (%lu bytes)" = "Το αρχείο '%1$@' είναι πολύ μικρό (%2$lu bytes)";
 
 /* Window text */
 "File is too large: %@" = "Το αρχείο είναι πολύ μεγάλο: %@";
@@ -1730,7 +1736,7 @@
 "Unknown value '%@' for '%@' in %@" = "Άγνωστη τιμή '%1$@' για '%2$@' στο %3$@";
 
 /* Window text */
-"Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
+"Unreadable file at %@\n\nSee the Console log for details." = "Μη αναγνώσιμο αρχείο στην τοποθεσία %@\n\nΔείτε το αρχείο Κονσόλας για λεπτομέρειες.";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Ενημερωμένες παράμετροι '%1$@' δεν αποθηκεύτηκαν ως ενημερωμένες, επειδή το %2$@ δεν μπόρεσε να βρεθεί\n";
@@ -1853,7 +1859,7 @@
 "You may not remove a Deployed configuration." = "Ίσως να μην μπορέσετε να αφαιρέσετε μια Παραταγμένη ρύθμιση.";
 
 /* Window text */
-"You may not remove a configuration unless it is disconnected." = "You may not remove a configuration unless it is disconnected.";
+"You may not remove a configuration unless it is disconnected." = "Δεν μπορείτε να αφαιρέσετε μια παράμετρο εκτός αν είναι αποσυνδεδεμένη.";
 
 /* Window text */
 "You may not remove a configuration which is set to start when the computer starts." = "Δεν μπορείτε να αφαιρέσετε μια ρύθμιση η οποία είναι ρυθμισμένη να ξεκινά με την έναρξη του υπολογιστή.";
@@ -1915,8 +1921,56 @@
 /* Credit description */
 "64-bit enabling and testing" = "64-bit ενεργοποιημένο και δοκιμασμένο";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>";
+
+/* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>";
+
+/* HTML info for the 'Set DNS after routes are set' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n";
+
+/* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n";
+
+/* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n";
+
+/* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>";
+
+/* HTML info for the 'Monitor network settings' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>";
+
+/* HTML info for the 'Keep connected' checkbox. */
+"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n";
+
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
 "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Όταν είναι επιλεγμένο</strong>, το εικονίδιο του Tunnelblick τοποθετείτε κοντά στο εικονίδιο του Spotlight:</p>\n<p>%1$@</p>\n<p><strong>Όταν δεν είναι επιλεγμένο</strong>, το εικονίδιο του Tunnelblick είναι τοποθετείτε κανονικά:\n</p>\n<p>%2$@</p>\n<p><strong>Αυτό το κουτάκι είναι απενεργοποιημένο</strong> στο macOS Sierra διότι δεν χρειάζεται και σε συστήματα που είναι γνωστό οτι δημιουργεί προβλήματα.</p>\n<p><a href=\"https://tunnelblick.net<a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Περισσότερες πληροφορίες</a></p>";
+
+/* HTML info for the 'Disconnect when user switches out' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>";
+
+/* HTML info for the 'Disconnect when computer goes to sleep' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>";
+
+/* HTML info for the 'Reconnect when user switches in' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>";
+
+/* HTML info for the 'Reconnect when computer wakes up' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>";
+
+/* HTML info for the 'Prepend domain name to search domains' checkbox. */
+"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>";
+
+/* HTML info for the 'Load Tap driver' popdown list. */
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>";
+
+/* HTML info for the 'Load Tun driver' popdown list. */
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>";
+
+/* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
+"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Η προσωρινή μνήμη DNS περιέχει αντίγραφα πληροφοριών DNS (Σύστημα Ονομάτων Τομέων).</p>\n<p><strong>Όταν είναι ενεργή η επιλογή</strong>, η προσωρινή μνήμη DNS θα εκκαθαρίζεται μετά από κάθε σύνδεση ή αποσύνδεση. Όλες οι επιλύσεις διευθύνσεων DNS θα εκτελούνται από τον εξυπηρετητή ονομάτων που έχει δηλωθεί στις ρυθμίσεις του VPN.</p>\n<p><strong>Όταν είναι ανενεργή η επιλογή</strong>, η προσωρινή μνήμη DNS δεν θα εκκαθαρίζεται. Αυτό μπορεί να δημιουργήσει προβλήματα αν υπάρχουν διενέξεις ονομάτων μεταξύ του εξυπηρετητή ονομάτων που έχει δηλωθεί στις ρυθμίσεις του προ-VPN και του εξυπηρετητή ονοματών και αν οι προ-VPN καταχωρήσεις ονομάτων έχουν αποθηκευτεί στην προσωρινή μνήμη.</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Κατάσταση διαχειριστή %@ απομένει";

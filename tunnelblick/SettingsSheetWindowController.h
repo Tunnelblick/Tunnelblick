@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -30,6 +30,7 @@ typedef enum {
 
 
 @class VPNConnection;
+@class TBInfoButton;
 
 
 @interface SettingsSheetWindowController : NSWindowController <NSWindowDelegate, NSTextFieldDelegate>
@@ -61,27 +62,11 @@ typedef enum {
     // For Connecting & Disconnecting tab
     
     IBOutlet NSButton            * flushDnsCacheCheckbox;
-    IBOutlet NSButton            * keepConnectedCheckbox;
+	IBOutlet NSButton            * prependDomainNameCheckbox;
+	IBOutlet NSButton            * useRouteUpInsteadOfUpCheckbox;
     IBOutlet NSButton            * enableIpv6OnTapCheckbox;
-    IBOutlet NSButton            * useRouteUpInsteadOfUpCheckbox;
-    IBOutlet NSButton            * prependDomainNameCheckbox;
-    IBOutlet NSButton            * disconnectOnSleepCheckbox;
-    IBOutlet NSButton            * reconnectOnWakeFromSleepCheckbox;
-    
-    IBOutlet NSButton            * connectingHelpButton;
-    
-    IBOutlet NSButton            * disconnectWhenUserSwitchesOutCheckbox;
-    IBOutlet NSButton            * reconnectWhenUserSwitchesInCheckbox;
-    
-    IBOutlet NSTextFieldCell     * ifConnectedWhenUserSwitchedOutTFC;
-    IBOutlet NSTextField         * ifConnectedWhenUserSwitchedOutTF;
-    
-    IBOutlet NSTextFieldCell     * ifConnectedWhenComputerWentToSleepTFC;
-    IBOutlet NSTextField         * ifConnectedWhenComputerWentToSleepTF;
-
-    IBOutlet NSBox               * fastUserSwitchingBox;
-    IBOutlet NSBox               * sleepWakeBox;
-    
+	IBOutlet NSButton            * keepConnectedCheckbox;
+	
 	IBOutlet NSPopUpButton	     * loadTunPopUpButton;
 	IBOutlet NSMenuItem          * loadTunAutomaticallyMenuItem;
 	IBOutlet NSMenuItem          * loadTunAlwaysMenuItem;
@@ -91,6 +76,38 @@ typedef enum {
 	IBOutlet NSMenuItem          * loadTapAutomaticallyMenuItem;
 	IBOutlet NSMenuItem          * loadTapAlwaysMenuItem;
 	IBOutlet NSMenuItem          * loadTapNeverMenuItem;
+	
+    IBOutlet NSButton            * disconnectOnSleepCheckbox;
+    IBOutlet NSButton            * reconnectOnWakeFromSleepCheckbox;
+	
+	IBOutlet NSButton            * disconnectWhenUserSwitchesOutCheckbox;
+	IBOutlet NSButton            * reconnectWhenUserSwitchesInCheckbox;
+	
+	IBOutlet TBInfoButton        * infoButtonForFlushDnsCacheCheckbox;
+	IBOutlet TBInfoButton        * infoButtonForPrependDomainNameCheckbox;
+	IBOutlet TBInfoButton        * infoButtonForUseRouteUpInsteadOfUpCheckbox;
+	IBOutlet TBInfoButton        * infoButtonForEnableIpv6OnTapCheckbox;
+	IBOutlet TBInfoButton        * infoButtonForKeepConnectedCheckbox;
+	
+	IBOutlet TBInfoButton        * infoButtonForLoadTunPopUpButton;
+	IBOutlet TBInfoButton        * infoButtonForLoadTapPopUpButton;
+	
+	IBOutlet TBInfoButton        * infoButtonForDisconnectOnSleepCheckbox;
+	IBOutlet TBInfoButton        * infoButtonForReconnectOnWakeFromSleepCheckbox;
+
+	IBOutlet TBInfoButton        * infoButtonForDisconnectWhenUserSwitchesOutCheckbox;
+	IBOutlet TBInfoButton        * infoButtonForReconnectWhenUserSwitchesInCheckbox;
+
+    IBOutlet NSButton            * connectingHelpButton;
+    
+    IBOutlet NSTextFieldCell     * ifConnectedWhenUserSwitchedOutTFC;
+    IBOutlet NSTextField         * ifConnectedWhenUserSwitchedOutTF;
+    
+    IBOutlet NSTextFieldCell     * ifConnectedWhenComputerWentToSleepTFC;
+    IBOutlet NSTextField         * ifConnectedWhenComputerWentToSleepTF;
+
+    IBOutlet NSBox               * fastUserSwitchingBox;
+    IBOutlet NSBox               * sleepWakeBox;
     
     // For WhileConnected tab
     
@@ -294,6 +311,12 @@ typedef enum {
 
 
 // Getters & Setters
+
+TBPROPERTY_READONLY(TBInfoButton *, infoButtonForFlushDnsCacheCheckbox)
+TBPROPERTY_READONLY(TBInfoButton *, infoButtonForPrependDomainNameCheckbox)
+TBPROPERTY_READONLY(TBInfoButton *, infoButtonForUseRouteUpInsteadOfUpCheckbox)
+TBPROPERTY_READONLY(TBInfoButton *, infoButtonForEnableIpv6OnTapCheckbox)
+TBPROPERTY_READONLY(TBInfoButton *, infoButtonForKeepConnectedCheckbox)
 
 TBPROPERTY_READONLY(BOOL, showingSettingsSheet)
 

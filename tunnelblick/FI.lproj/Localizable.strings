@@ -1,5 +1,11 @@
+/* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
+"Disconnect All (%@) - apparent public IP address %@" = "Katkaise kaikki (%1$@) - näkyvä julkinen IP osoite %2$@";
+
 /* Status message */
 "Disconnect All (%@)" = "Katkaise kaikki (%@)";
+
+/* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Katkaise kaikki (%1$d Yhteyttä) - näkyvä julkinen IP osoite %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Katkaise kaikki (%d yhteyttä)";
@@ -197,7 +203,7 @@
 "Restore" = "Palauta";
 
 /* Button */
-"Retry" = "Yritä uudestaan";
+"Retry" = "Yritä uudelleen";
 
 /* Button */
 "Revert" = "Palauta aiempi";
@@ -269,7 +275,7 @@
 "Disconnect %@%@" = "Sulje yhteys %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Älä näytä Tunnelblickin valikoissa";
+"Do Not Show on Tunnelblick Menu" = "Älä näytä Tunnelblickin valikossa";
 
 /* Menu Item */
 "Duplicate Configuration..." = "Kopioi asetukset…";
@@ -287,7 +293,7 @@
 "Make Configuration Shared..." = "Jaa asetukset…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "Ei OpenVPN- tai Tunnelblick VPN-lokikirjoitusta";
+"No OpenVPN or Tunnelblick VPN logging" = "Ei OpenVPN tai Tunnelblick VPN lokikirjoitusta";
 
 /* Menu item */
 "No VPN Configurations Available" = "Ei VPN-asetuksia saatavilla";
@@ -299,7 +305,7 @@
 "OpenVPN level 0 - no output except fatal errors" = "OpenVPN taso 0 - ei tulostusta, paitsi vakavat virheet";
 
 /* Menu Item */
-"OpenVPN level 11 - extremely verbose output" = "OpenVPN taso 11 - erittäin runsassanainen tulostus";
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN taso 11 - erittäin monisanainen tulostus";
 
 /* Menu Item */
 "OpenVPN level 3 - normal output" = "OpenVPN taso 3 - normaali tulostus";
@@ -311,10 +317,10 @@
 "OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN taso 5 - tulostaa myös \"R\" tai \"W\" joka paketille";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "OpenVPN taso 6 - hyvin runsassanainen tulostus";
+"OpenVPN level 6 - very verbose output" = "OpenVPN taso 6 - hyvin monisanainen tulostus";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "OpenVPN-lokikirjoituksen taso on konfiguraation määrittämä";
+"OpenVPN logging level set by the configuration" = "OpenVPN konfiguraation määrittämä lokitaso";
 
 /* Menu item */
 "Quit Tunnelblick" = "Lopeta Tunnelblick";
@@ -329,7 +335,7 @@
 "Show OpenVPN Log in Finder" = "Näytä OpenVPN-loki Finderissa";
 
 /* Menu Item */
-"Show on Tunnelblick Menu" = "Näytä Tunnelblickin valikoissa";
+"Show on Tunnelblick Menu" = "Näytä Tunnelblickin valikossa";
 
 /* Menu item */
 "Suggestion or Bug Report..." = "Kehitysehdotukset ja virheraportit…";
@@ -350,7 +356,7 @@
 "Check if the apparent public IP address changed after connecting" = "Tarkista, vaihtuiko julkinen IP-osoite yhteydenmuodostuksen jälkeen";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Disabloi IPV6 (vain tun)";
+"Disable IPv6 (tun only)" = "Poista IPV6 käytöstä (vain tun)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Katkaise yhteys, kun tietokone menee unitilaan";
@@ -392,7 +398,7 @@
 "Do not warn about this again" = "Älä varoita tästä enää";
 
 /* Checkbox name */
-"Enable IPv6 (tap only)" = "Enabloi IPV6 (vain tun)";
+"Enable IPv6 (tap only)" = "Ota IPv6 käyttöön (vain tun)";
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Tyhjennä DNS-välimuisti ennen yhteyden muodostamista tai katkaisemista";
@@ -413,7 +419,7 @@
 "Prepend domain name to search domains" = "Liitä domain-nimi etsittyihin";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Yhdistä uudestaan kun tietokone herää";
+"Reconnect when computer wakes up" = "Yhdistä uudelleen kun tietokone herää";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Yhdistä uudelleen sisäänkirjautuessa";
@@ -437,7 +443,7 @@
 "Send anonymous profile information when checking" = "Lähetä anonyymi profilitieto tarkistettaessa päivityksiä";
 
 /* Checkbox name */
-"Set DNS after routes are set instead of before routes are set" = "Aseta DNS sen jälkeen, kun reitit on asetettu, sen sijaan, että se asetettaisiin ennen reittien asetusta";
+"Set DNS after routes are set" = "Aseta DNS reititysten määrityksen jälkeen";
 
 /* Checkbox name */
 "Show when disconnected" = "Näytä yhteyden ollessa poikki";
@@ -659,7 +665,7 @@
 "System Requirements Not Met" = "Järjestelmävaatimukset eivät täyty";
 
 /* Window title */
-"There are no OpenVPN processes running." = "Ei OpenVPN prosesseja.";
+"There are no OpenVPN processes running." = "Ei käynnissä olevia OpenVPN prosesseja.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick-konfiguraatio-ongelma";
@@ -785,7 +791,7 @@
 " Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Haluatko korvata\n    %1$@:n\n     %2$@:ssa\n  %3$@%4$@:lla?\n\n";
 
 /* Window text */
-" Forced preferences will also be installed or replaced.\n\n" = " Oletusasetukset asennetaan tai korvataan.\n\n";
+" Forced preferences will also be installed or replaced.\n\n" = " Myös pakotetut asetukset asennetaan tai korvataan.\n\n";
 
 /* Window text */
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Huomaa: OpenVPN-konfiguraatiot muunnetaan Tunnelblick VPN-konfiguraatioiksi.\n\n";
@@ -797,7 +803,7 @@
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick tarvitsee tietokoneen pääkäyttäjän oikeudet, jotta se voi muodostaa automaattisesti yhteyden '%@', kun tietokone käynnistyy.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick tarvitsee tietokoneen pääkäyttäjän oikeudet, jotta se voi lopettaa automaattisesti yhteyden '%@', kun tietokone käynnistyy.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick tarvitsee tietokoneen pääkäyttäjän oikeudet, jotta se voi lopettaa automaattisen yhteyden luomisen '%@', kun tietokone käynnistyy.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " VAROITUS: Tätä on Tunnelblickin kopiota on peukaloitu.\n\n";
@@ -809,7 +815,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ on palautettu viimeisimpään tallennettuun (varjo)kopioon.\n\n";
 
 /* Window text */
-"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfigutaatiota on palautettu edelliseen varmistettuun kopioon.\n\n";
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfiguraatio on palautettu edelliseen varmistettuun (shadow) kopioon.\n\n";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' on jo olemassa Työpöydällä.\n\nHaluatko korvata sen?";
@@ -851,7 +857,7 @@
 "A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblickin VPN-konfiguraatio on upotettu liian syvällte kohteeseen '%@'";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Konfiguraatiota, joka tarvitsee salasanan (yksytyinen avain) tai käyttäjätunnuksen ja salasanan, ei voida käynnistää automaattisesti tietokoneen käynnistyksen yhteydessä.";
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Konfiguraatiota, joka tarvitsee salasanan (yksityinen avain) tai käyttäjätunnuksen ja salasanan, ei voida käynnistää automaattisesti tietokoneen käynnistyksen yhteydessä.";
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "Salasana vaaditaan yhteyden muodostamiseen kohteeseen \n  %1$@%2$@";
@@ -944,7 +950,7 @@
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Haluatko varmasti asentaa konfiguraatiot JOTKA VOIVAT OTTAA KONEESI HALTUUNSA?\n\n";
 
 /* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Oletko varma, että haluat asentaa konfiguraatoita, jotka voivat KAAPATA KONEESI HALLINNAN?\n\n";
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Oletko varma, että haluat asentaa konfiguraation, joka voi OTTAA KONEESI TÄYTEEN HALLINTAAN?\n\n";
 
 /* Window text */
 "At line %lu of the OpenVPN configuration file: %@" = "Rivillä %1$lu OpenVPN-konfiguraatiotiedostossa: %2$@";
@@ -968,7 +974,7 @@
 "Cannot uninstall configuration '%@' because it is not installed." = "Konfiguraation '%@' poistaminen ei onnistu, koska sitä ei ole asennettu.";
 
 /* Window text */
-"Computer sleep/wake" = "Tietokone nukkuu/avoinna";
+"Computer sleep/wake" = "Tietokone unitilassa/päällä";
 
 /* Window text */
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguraatio '%1$@' ('%2$@') jätetään huomioimatta, koska sen nimi sisältää merkkejä, jotka eivät ole sallittuja.\n\nMerkit, jotka eivät ole sallittuja: '%3$s'\n\n";
@@ -992,10 +998,10 @@
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfiguraatio '%1$@' jätetään huomiotta, koska sen nimi sisältää ei-sallittuja merkkejä.\n\nEi-sallitut merkit: '%2$s'\n\n";
 
 /* Window text */
-"Configuration changes:" = "Konfiguraatio muutokset:";
+"Configuration changes:" = "Konfiguraation muutokset:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Verkon haltia tai VPN palvelun tarjoaja toimittaa Konfiguraatio tiedostot.\n\nKonfiguraatiotiedostot päättyvät joko .tblk, .ovpn tai .conf.\n\n(Myös muunlaisia tiedostopäätteitä omaavat tiedostot saattavat liittyä konfiguraatioon, älä kuitenkaan välitä niistä.)\n\nAsentaaksesi konfiguraation, raahaa se Tunnekblick ikonin päälle menuriville tai konfiguraatiot listaan konfiguraatiot välilehdellä 'VPN Details' ikkunaan.\n\nVoit myös asentaa useita konfiguraatioita kerralla valitsemalla ja raahaamalla kaikki kerralla.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Konfiguraatiot asennetaan tiedostoista jotka yleensä toimittaa sinulle verkon ylläpitäjä tai VPN palveluntarjoaja.\n\nKonfiguraatiotiedoston pääte on yleensä joko .tblk, .ovpn tai .conf.\n\n(Myös muunlaisia tiedostopäätteitä omaavat tiedostot saattavat liittyä konfiguraatioon, älä kuitenkaan välitä niistä.)\n\nAsentaaksesi konfiguraation, raahaa se Tunnelblick ikonin päälle valikkopalkkiin tai konfiguraatiot listaan konfiguraatiot välilehdellä 'VPN Details' ikkunaan.\n\nVoit myös asentaa useita konfiguraatioita kerralla valitsemalla ja raahaamalla kaikki kerralla.";
 
 /* Window text */
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Konfiguraatiot, jotka eivät ole osa Tunnelblickiä, määritetään asennettavaksi, kun asennat Tunnelblickin.\n\n";
@@ -1466,7 +1472,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Yksityistä konfiguraatiota ei ole varmistettu koskaan, joten et voi palauttaa varmistettua (varjo)kopiota.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "Työpöydällesi on luotu hakemisto konfiguraatiotiedostoja varten, ja OpenVPN asetukset on avattu TextEdit -ohjelmaan jotta voit muokata tietoja VPN yhteyttäsi varten.\n\nKun olet saanut OpenVPN konfiguraatiotiedoston muokkauksen valmiiksi ja tallentanut muutokset, huolehdithan vielä seuraavat asiat kiitos.\n\n1. Siirrä tai kopioi asetuksiisi liittyvät avaimet tai sertifikaatit yhdessä konfiguraatiotiedoston kanssa työpöydällesi jo valmiiksi luotuun 'Sample Tunnelblick VPN Configuration' hakemistoon.\n\n(Tämä hakemisto on avattu Finder ikkunaan jotta voit raahata tiedostot siihen.)\n\n2. Vaihda konfiguraatiotiedoston nimi haluamaksesi (älä vaihda tiedostopäätettä). Tunnelblick käyttää tiedoston nimeä asetuksiinsa.\n\n3. Asetustesi käyttöönottoa varten raahaa konfiguraatiotiedosto ja pudota se Tunnelblick ikonin päälle menurivillä tai konfiguraatiolistaan 'VPN-yksityiskohdat' ikkunan 'Konfiguraatiot' välilehdellä.";
 
 /* Window text */
 "The username and password were not accepted by the remote VPN server." = "VPN palvelin ei hyväksynyt käyttäjätunnusta ja salasanaa.";
@@ -1769,7 +1775,7 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN-konfiguraatiota %@ EI asenneta, koska konfiguraatio on jo olemassa ja sitä ei pitäisi korvata.";
 
 /* Window text */
-"VPN log level:" = "VPN-lokikirjoituksen taso:";
+"VPN log level:" = "VPN lokikirjoituksen taso:";
 
 /* Window text */
 "VPN status windows:" = "VPN status ikkunat:";
@@ -1862,7 +1868,7 @@
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Et pysty käyttämään Tunnelblickiä päivittämisen jälkeen ellet anna pääkäyttäjän käyttäjätunnusta ja salasanaa.\n\nOletko varma, että haluat tarkistaa päivitykset?";
 
 /* Window text */
-"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Tietokoneesi ei välttämättä pysty näyttämään luotettavasti Tunnelblick-ikonia Spotlight-ikonin lähellä. \n\nTämä voi aiheuttaa, että Tunnelblick-ikoni toisinaan KATOAA valikkopalkista.\n\nOletko varma, että haluat sijoittaa Tunnelblick-ikonin lähelle Spotlight-ikonia?\n\n";
+"Your computer may not be able to reliably show the Tunnelblick icon near the Spotlight icon.\n\nThis may cause the Tunnelblick icon to sometimes DISAPPEAR from the menu bar.\n\nAre you sure you want to place the Tunnelblick icon near the Spotlight icon?\n\n" = "Tietokoneesi ei välttämättä pysty näyttämään luotettavasti Tunnelblick-ikonia Spotlight-ikonin lähellä. \n\nTämä voi aiheuttaa Tunnelblick-ikonin satunnaista KATOAMISTA valikkopalkista.\n\nOletko varma, että haluat sijoittaa Tunnelblick-ikonin lähelle Spotlight-ikonia?\n\n";
 
 /* Window text */
 "Your system clock may not be set correctly.\n\nSome or all of your configurations may not connect unless the system clock has the correct date and time.\n\n" = "Järjestelmäsi kello ei ehkä ole oikein asetettu.\n\nJotkin konfiguraatioistasi tai kaikki eivät välttämättä mahdollista yhteyden muodostamista ellei järjestelmän kellolla ole oikea päivämäärä ja aika.\n\n";
@@ -1915,8 +1921,56 @@
 /* Credit description */
 "64-bit enabling and testing" = "64-bit tuki ja testaus";
 
+/* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Kun valittu</strong>, IPv6 on pois käytöstä.</p>\n<p>IPv6 poistaminen käytöstä on usein suositeltavaa koska monet VPN asetukset eivät torju IPv6 aiheuttamaa informaatiovuotoa. Monet Internet yhteydet toimivat hyvin ilman IPv6:sta.</p>\n<p><strong>Kun ei valittu</strong>, IPv6 on käytössä.</p>\n<p><strong>Tämä valinta on pois käytöstä</strong> kun käytetään 'tap' yhteyttä, koska sitä ei voida pakottaa käyttöön 'tap' yhteydellä.</p>";
+
+/* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
+"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Kun valittu</strong>, IPv6 otetaan käyttöön.</p>\n<p><strong>Kun ei valittu</strong>, IPv6:ta ei oteta käyttöön.</p>\n<p>IPv6:n ottaminen pois käytöstä on usein suositeltavaa, koska monet VPN-konfiguraatiot eivät suojaa IPv6:n käytön aiheuttamilta informaatiovuodoilta. Useimmat Internet-yhteydet toimivat hyvin ilman IPv6:ta.</p>\n<p><strong>Tämä valinta on pois käytöstä</strong> Tun-konfiguraatioilla.</p>";
+
+/* HTML info for the 'Set DNS after routes are set' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Kun valittu</strong>, OpenVPN muokkaa DNS- ja muita asetuksia sen jälkeen, kun se on asettanut reitityksen VPN:lle sen sijaan, että tekisi sen ennen reitityksen asettamista.</p>\n<p><strong>Kun ei valittu</strong>, OpenVPN muokkaa DNS- ja muita asetuksia ennen kuin se asettaa reitityksen VPN:lle, sen sijaan, että tekisi sen reitityksen asettamisen jälkeen. Tämä voi aiheuttaa DNS-vikoja tai viipeitä, jos reittien asettaminen vie kauan aikaa -- esimerkiksi, jos on monia reittiä asetettavana.</p>\n";
+
+/* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Kun valittu</strong>, Tunnelblick määrittää tietokoneen julkisen IP-osoitteen sitä ennen ja sen jälkeen, kun VPN on kytkeytynyt ja varoittaa, mikäli IP-osoite ei muutu.</p>\n<p>The tunnelblick.net-sivustoon muodostetaan yhteys tämän toiminnon suorittamiseksi. Yhteys tehdään tavallisesti protokollalla https: käyttäen tunnelblick.net-nimeä, sen sijaan, että jos yhteydenmuodostus epäonnistuu, yhteydenottoa yritetään käyttäen protokollaa http: ja web-sivuston IP-osoitetta.</p>\n<p><strong>Kun ei valittu</strong>, Tunnelblick ei tarkista IP-osoitteen muutoksia eikä varoita, mikäli IP-osoite ei muutu sen jälkeen, kun VPN-yhteys on muodostettu.</p>\n";
+
+/* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Kun valittu</strong>, Tunnelblick ohjeistaa OpenVPN:ää reitittämään kaiken IPv4-liikenteen VPN-palvelimen kautta.</p>\n<p><strong>Kun ei valittu</strong>, OpenVPN käyttää oletuksena VPN:ää ainoastaan liikenteelle, joka on suunnattu VPN:n verkkoon. Kaikki muu liikenne käyttää normaalia Internet-yhteyttä kulkematta VPN:n läpi. OpenVPN:n oletuskäytöstä voi muuttaa OpenVPN-konfiguraatio tai VPN-palvelin ja aiheuttaa kaiken IPv4-liikenteen reititettävän VPN-palvelimen kautta, ikään kuin tämä valintalaatikko olisi valittu.</p>\n";
+
+/* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>Kun valittu</strong>, Tunnelblick nollaa ensisijaisen verkkoliittymän sen jälkeen, kun VPN-yhteys on katkaistu. Tämä voi poistaa joidenkin väärinkonfiguroitujen VPN-palvelimien ja joidenkin OpenVPN-konfiguraatioiden aiheuttamia ongelmia.</p>\n<p><strong>Kun ei valittu</strong>, Tunnelblick ei nollaa ensisijaista verkkoliittymää.</p>\n<p><strong>Tämä valintalaatikko on poistettu käytöstä</strong> kun 'Aseta DNS/WINS' ei ole asetettu 'Aseta nimipalvelin'.</p>";
+
+/* HTML info for the 'Monitor network settings' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Kun valittu</strong>, Tunnelblick vahtii muutoksia verkkoasetuksissa ja reagoi niihin (esimerkiksi, DHCP-uudistamisten tai Internet-yhteyksien vaihtamisen aiheuttamat muutokset) pitääkseen VPN-yhteyden kytkettynä. Tunnelblickin oletustoiminnat, kun verkkoasetukset muuttuvat, toimivat yleensä hyvin, mutta voit määrittää eri toimintoja välilehdellä 'Kun kytketty' 'Lisäasetukset'-ikkunassa.</p>\n<p><strong>Kun ei valittu</strong>, Tunnelblick will jättää verkkomuutokset huomiotta.</p>\n<p><strong>Tämä valintalaatikko on poistettu käytöstä</strong> kun 'Aseta DNS/WINS'-asetus on 'Aseta nimipalvelin' or 'Aseta nimipalvelin (3.1)'.</p>";
+
+/* HTML info for the 'Keep connected' checkbox. */
+"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Kun valittu</strong>, jos VPN katkaisee yhteyden odottamatta, Tunnelblick yrittää muodostaa yhteyden uudestaan.</p>\n<p><strong>Kun ei valittu</strong>, Tunnelblick ei yritä muodostaa yhteyttä uudestaan, mikäli se katkeaa odottamattomasti.</p>\n";
+
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
-"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Kun valittu</strong>, Tunnelblick-ikoni sijoitetaan lähelle Spotlight-ikonia icon:</p>\n<p>%1$@</p>\n<p><strong>Kun ei valittu</strong>, Tunnelblick-ikoni sijoitetaan normaalisti:</p>\n<p>%2$@</p>\n<p><strong>Tämä checkbox on pois käytöstä</strong> on macOS Sierrassa, koska sitä ei tarvita, ja järjestelmissä, joissa sen tiedetään aiheuttavan ongelmia.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Lisätietoa</a></p>";
+"<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Kun valittu</strong>, Tunnelblick-ikoni sijoitetaan lähelle Spotlight-ikonia:</p>\n<p>%1$@</p>\n<p><strong>Kun ei valittu</strong>, Tunnelblick-ikoni sijoitetaan normaalisti:</p>\n<p>%2$@</p>\n<p><strong>Tämä checkbox on pois käytöstä</strong> macOS Sierrassa, koska sitä ei tarvita, ja järjestelmissä, joissa sen tiedetään aiheuttavan ongelmia.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Lisätietoa</a></p>";
+
+/* HTML info for the 'Disconnect when user switches out' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>Kun valittu</strong>, VPN-yhteys katkaistaan, kun käyttäjä vaihtuu.</p>\n<p><strong>Kun ei valittu</strong>, VPN-yhteyttä ei katkaista, kun käyttäjä vaihtuu.</p>";
+
+/* HTML info for the 'Disconnect when computer goes to sleep' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>Kun valittu</strong>, VPN-yhteys katkaistaan, kun tietokone menee nukkumaan.</p>\n<p><strong>Kun ei valittu</strong>, VPN-yhteys pysyy kytkettynä, kun tietokone menee nukkumaan.</p>";
+
+/* HTML info for the 'Reconnect when user switches in' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>Kun valittu</strong>, VPN-yhteys luodaan uudestaan, kun käyttäjä vaihtuu takaisin nykyiseksi käyttäjäksi, mikäli se oli katkaistu, kun käyttäjän vaihto toiseen tehtiin.</p>\n<p><strong>Kun ei valittu</strong>, VPN-yhteyttä ei luoda uudestaan, kun käyttäjä vaihtuu takaisin nykyiseksi käyttäjäksi.</p>";
+
+/* HTML info for the 'Reconnect when computer wakes up' checkbox. */
+"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>Kun valittu</strong>, VPN-yhteys luodaan uudestaan, kun tietokone herää, jos se oli katkaistu, kun tietokone meni nukkumaan.</p>\n<p><strong>Kun ei valittu</strong>, VPN-yhteyttä ei luoda uudestaan, kun tietokone herää.</p>";
+
+/* HTML info for the 'Prepend domain name to search domains' checkbox. */
+"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Kun valittu</strong>, VPN: n määrittämä domain-nimi lisätään haettavien domainien listan alkuun.</p>\n<p><strong>Kun ei valittu</strong>, hakudomainlista korvataan VPN: n määrittämällä domainnimellä.</p>";
+
+/* HTML info for the 'Load Tap driver' popdown list. */
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>'tap'-laiteajuri tarvitaan Tap-yhteyksille. Tunnelblick sisältää oman Tap-ajurin, koska järjestelmässä ei ole sellaista. Jos olet asentanut toisen Tap-ajurin, Tunnelblick ei välttämättä pysty lataamaan sen ajuria.</p><p>Voit valita, lataako Tunnelblick ajurinsa ja milloin:</p>\n<p><strong>Lataa Tap-ajuri automaattisesti</strong>: Tunnelblick lataa ajurinsa, jos sitä tarvitaan ja poistaa sen pois käytöstä, kun sitä ei enää tarvita.</p>\n<p><strong>Lataa aina Tap-ajuri</strong>: Tunnelblick lataa ajurinsa, kun se luo tälle konfiguraatiolle määritetyn yhteyden ja poistaa sen pois käytöstä, kun sitä ei enää tarvita.</p>\n<p><strong>Älä koskaan lataa Tap-ajuria</strong>: Tunnelblick ei koskaan lataa ajuriaan.</p>\n<p><strong>Tämä valintalaatikko on poistettu käytöstä</strong> Tun-konfiguraatioilta.</p>";
+
+/* HTML info for the 'Load Tun driver' popdown list. */
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>'tun'-laiteajuri tarvitaan Tun-yhteyksille. Tavallisesti järjestelmän käytetään Tun-ajuria, mutta Tunnelblickiin sisältyy oma Tun-ajuri. Jos olet asentanut eri Tun-ajurin, Tunnelblick ei välttämättä pysty lataamaan sen ajuria.</p>\n<p>OpenVPN käyttää järjestelmän ajuria, ellei OpenVPN-konfiguraatioon sisälly 'dev-type tun'-optio.</p>\n<p>Voit valita, lataako Tunnelblick Tun-ajurinsa ja milloin:</p>\n<p><strong>Lataa Tun-ajuri automaattisesti</strong>: Tunnelblick lataa ajurinsa, jos sitä tarvitaan ja poistaa sen käytöstä, kun sitä ei enää tarvita. (Tunnelblick lataa ajurinsa vain, jos OpenVPN-konfiguraatioon sisältyy optio 'dev-type tun'.)</p>\n<p><strong>Lataa aina Tun-ajuri</strong>: Tunnelblick lataa ajurinsa, kun se muodostaa yhteyden tätä konfiguraatiota käyttäen ja poistaa sen käytöstä, kun sitä ei enää tarvita.</p>\n<p><strong>Älä koskaan lataa Tun-ajuria</strong>: Tunnelblick ei koskaan lataa ajuriaan.</p>\n<p><strong>Tämä valintalaatikko on poistettu käytöstä</strong> Tap-konfiguraatioilta.</p>";
+
+/* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
+"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS-välimuisti sisältää kopiot DNS-tiedoista (Domain Name System).</p>\n<p><strong>Kun valittu</strong>, DNS-välimuisti poistetaan (tyhjennetään) yhteyden muodostuksen tai katkaisemisen jälkeen. Kaikki DNS-kyselyt suorittaa nimipalvelin, joka on määritetty VPN-asennuksessa.</p>\n<p><strong>Kun ei valittu</strong>, DNS-välimuistia ei tyhjennetä. Time voi aiheuttaa ongelmia, jos on nimikonflikteja VPN-asennuksessa määritetyn nimipalvelimen ja esi-VPN-nimipalvelimen kanssa, ja jos esi-VPN-tiedot ovat välimuistissa. </p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Pääkäyttäjän tilaa %@ jäljellä";

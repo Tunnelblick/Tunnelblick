@@ -225,6 +225,7 @@ TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToWaitForDisconnectOnWa
 TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedURL)
 TBSYNTHESIZE_OBJECT(retain, NSBundle     *, deployLocalizationBundle,  setDeployLocalizationBundle)
 TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLanguageAtLaunch)
+TBSYNTHESIZE_OBJECT(retain, NSString     *, publicIPAddress,           setPublicIPAddress)
 
 
 -(NSString *) localizedString: (NSString *) key
@@ -1104,6 +1105,15 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLangua
         TBLog(@"DB-SU", @"init: 017")
 		
         updater = [[SUUpdater alloc] init];
+		
+		// Set updater's delegate, so we can add our own info to the system profile Sparkle sends to our website
+		// Do this even if we haven't set our preferences, so Sparkle will include our data in the list
+		// it presents to the user when asking the user for permission to send the data.
+		if (  [updater respondsToSelector: @selector(setDelegate:)]  ) {
+			[updater setDelegate: (id)self];
+		} else {
+			NSLog(@"Cannot set Sparkle delegate because Sparkle Updater does not respond to setDelegate:");
+		}
         TBLog(@"DB-SU", @"init: 018 - LAST")
     }
     
@@ -2290,8 +2300,67 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 }
 
--(void) updateUpdateFeedURLForceDowngrade: (BOOL) forceDowngrade {
-    
+// Sparkle delegate:
+- (NSString *)feedURLStringForUpdater:(SUUpdater *) theUpdater {
+	
+	// This delegate method is implemented because of reports of crashes on macOS Sierra if it is not used (https://github.com/sparkle-project/Sparkle/issues/898).
+	// No Tunnelblick crashes have been reported as of 2016-11-02, but better safe than sorry!
+	
+	(void) theUpdater;
+	
+	[self setupFeedURL];
+	NSString * s = [self feedURL];
+	if (  ! s  ) {
+		NSLog(@"MenuController: feedURL has not been set up; stack trace: %@", callStack());
+	}
+	return s;
+}
+
+-(void) setupFeedURL {
+	
+	// Add "-s", "-b", or "-d" to the URL, so it is:
+	// .../appcast-s.rss --> update to latest Stable version
+	// .../appcast-b.rss --> update to latest Beta version
+	// .../appcast-d.rss --> Downgrade to latest stable version from a later beta version
+	
+	// Get the URL without the .rss (or whatever) extension.
+	// Can't use stringByDeletingPathExtension because it changes double-slashes to single slashes (e.g., changes "https://www" to "https:/www")
+	NSString * withoutExt = [self feedURL];
+	NSRange dotRange = [feedURL rangeOfString: @"." options: NSBackwardsSearch range: NSMakeRange(0, [feedURL length])];
+	if (  dotRange.location != NSNotFound  ) {
+		NSRange slashRange = [feedURL rangeOfString: @"/" options: NSBackwardsSearch range: NSMakeRange(0, [feedURL length])];
+		if (   (slashRange.location == NSNotFound)
+			|| (slashRange.location < dotRange.location)  ) {
+			withoutExt = [feedURL substringToIndex: dotRange.location];
+		}
+	}
+	if (   [withoutExt hasSuffix: @"-b"]
+		|| [withoutExt hasSuffix: @"-d"]
+		|| [withoutExt hasSuffix: @"-s"]  ) {
+		withoutExt = [withoutExt substringToIndex: [withoutExt length] - 2];
+	}
+	
+	NSString * newSuffix;
+	id obj = [gTbDefaults objectForKey: @"updateCheckBetas"];
+	BOOL checkBeta = (  [obj respondsToSelector: @selector(boolValue)]
+					  ? [obj boolValue]
+					  : runningABetaVersion());
+	newSuffix = (  checkBeta
+				 ? @"-b"
+				 : (  runningABetaVersion()
+					? @"-d"
+					: @"-s"));
+	NSString * ext = [feedURL pathExtension];
+	// Can't use stringByAppendingPathExtension because it changes double-slashes to single slashes (e.g., changes "https://www" to "https:/www")
+	if (  [ext length] == 0  ) {
+		[self setFeedURL: [withoutExt stringByAppendingString: newSuffix]];
+	} else {
+		[self setFeedURL: [NSString stringWithFormat: @"%@%@.%@", withoutExt, newSuffix, ext]];
+	}
+}
+
+-(void) updateUpdateFeedURL {
+	
     // If the 'updateFeedURL' preference is being forced, set the program update FeedURL from it
     if (  ! [gTbDefaults canChangeValueForKey: @"updateFeedURL"]  ) {
         [self setFeedURL: [gTbDefaults stringForKey: @"updateFeedURL"]];
@@ -2317,52 +2386,10 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     
     if (  feedURL  ) {
         if (  [updater respondsToSelector: @selector(setFeedURL:)]  ) {
-            
-            // Add "-s", "-b", or "-d" to the URL, so it is:
-			// .../appcast-s.rss --> update to latest Stable version
-			// .../appcast-b.rss --> update to latest Beta version
-			// .../appcast-d.rss --> Downgrade to latest stable version from a later beta version
 			
-            // Get the URL without the .rss (or whatever) extension.
-            // Can't use stringByDeletingPathExtension because it changes double-slashes to single slashes (e.g., changes "https://www" to "https:/www")
-            NSString * withoutExt = [self feedURL];
-            NSRange dotRange = [feedURL rangeOfString: @"." options: NSBackwardsSearch range: NSMakeRange(0, [feedURL length])];
-            if (  dotRange.location != NSNotFound  ) {
-                NSRange slashRange = [feedURL rangeOfString: @"/" options: NSBackwardsSearch range: NSMakeRange(0, [feedURL length])];
-                if (   (slashRange.location == NSNotFound)
-                    || (slashRange.location < dotRange.location)  ) {
-                    withoutExt = [feedURL substringToIndex: dotRange.location];
-                }
-            }
-			if (   [withoutExt hasSuffix: @"-b"]
-				|| [withoutExt hasSuffix: @"-d"]
-				|| [withoutExt hasSuffix: @"-s"]  ) {
-				withoutExt = [withoutExt substringToIndex: [withoutExt length] - 2];
-			}
-            
-			NSString * newSuffix;
-			if (  forceDowngrade  ) {
-				newSuffix = @"-d";
-			} else {
-				id obj = [gTbDefaults objectForKey: @"updateCheckBetas"];
-				BOOL checkBeta = (  [obj respondsToSelector: @selector(boolValue)]
-								  ? [obj boolValue]
-								  : runningABetaVersion());
-				newSuffix = (  checkBeta
-							 ? @"-b"
-							 : (  runningABetaVersion()
-                                ? @"-d"
-                                : @"-s"));
-			}
-			NSString * ext = [feedURL pathExtension];
-			// Can't use stringByAppendingPathExtension because it changes double-slashes to single slashes (e.g., changes "https://www" to "https:/www")
-			if (  [ext length] == 0  ) {
-				[self setFeedURL: [withoutExt stringByAppendingString: newSuffix]];
-			} else {
-				[self setFeedURL: [NSString stringWithFormat: @"%@%@.%@", withoutExt, newSuffix, ext]];
-			}
+			[self setupFeedURL];
 
-            NSURL * url = [NSURL URLWithString: feedURL];
+            NSURL * url = [NSURL URLWithString: [self feedURL]];
             if ( url  ) {
                 [updater setFeedURL: url];
                 NSLog(@"Set program update feedURL to %@", feedURL);
@@ -2374,11 +2401,15 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             NSLog(@"Not setting program update feedURL because Sparkle Updater does not respond to setFeedURL:");
             [self setFeedURL: nil];
         }
-    }
+	} else {
+		NSLog(@"Not setting program update feedURL because it cannot be found");
+		[self setFeedURL: nil];
+	}
 }
 
 -(void) changedCheckForBetaUpdatesSettings {
-	[self updateUpdateFeedURLForceDowngrade: NO];
+	
+	[self setupFeedURL];
 }
 
 -(void) changedDisplayConnectionSubmenusSettings
@@ -2473,10 +2504,15 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             if (  ! name  ) {
                 name = @"1 connection";
             }
-            myState = [NSString stringWithFormat: NSLocalizedString(@"Disconnect All (%@)", @"Status message"), name];
-            [statusMenuItem setTitle: myState];
+            myState = (  ! publicIPAddress
+					   ? [NSString stringWithFormat: NSLocalizedString(@"Disconnect All (%@)", @"Status message"), name]
+					   : [NSString stringWithFormat: NSLocalizedString(@"Disconnect All (%@) - apparent public IP address %@", @"Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4')"), name, [self publicIPAddress]]);
+			[statusMenuItem setTitle: myState];
+			[statusMenuItem setTitle: myState];
         } else {
-            myState = [NSString stringWithFormat:NSLocalizedString(@"Disconnect All (%d Connections)", @"Status message"),nConnections];
+            myState = (  ! publicIPAddress
+					   ? [NSString stringWithFormat:NSLocalizedString(@"Disconnect All (%d Connections)", @"Status message"),nConnections]
+					   : [NSString stringWithFormat:NSLocalizedString(@"Disconnect All (%d Connections) - apparent public IP address %@", @"Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4')"),nConnections, [self publicIPAddress]]);
             [statusMenuItem setTitle: myState];
         }
         return YES;
@@ -3980,7 +4016,7 @@ static void signal_handler(int signalNumber)
     
     // We set the Feed URL, even if we haven't run Sparkle yet (and thus haven't set our Sparkle preferences) because
     // the user may do a 'Check for Updates Now' on the first run, and we need to check with the correct Feed URL
-    [self updateUpdateFeedURLForceDowngrade: NO];
+    [self updateUpdateFeedURL];
     
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 003")
     
@@ -4028,15 +4064,6 @@ static void signal_handler(int signalNumber)
         }
     }
     
-    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 007")
-    // Set updater's delegate, so we can add our own info to the system profile Sparkle sends to our website
-    // Do this even if we haven't set our preferences (see above), so Sparkle will include our data in the list
-    // it presents to the user when asking the user for permission to send the data.
-    if (  [updater respondsToSelector: @selector(setDelegate:)]  ) {
-        [updater setDelegate: (id)self];
-    } else {
-        NSLog(@"Cannot set Sparkle delegate because Sparkle Updater does not respond to setDelegate:");
-    }
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 008 -- LAST")
 }
 

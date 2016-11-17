@@ -1152,8 +1152,11 @@ extern volatile int32_t       gActiveInactiveState;
 
 -(void) checkIPAddressGoodResult: (NSDictionary *) dict
 {
-    [self checkForChangedIPAddress: [dict objectForKey: @"before"]
-                      andIPAddress: [dict objectForKey: @"after"]];
+    NSString * before = [dict objectForKey: @"before"];
+	NSString * after  = [dict objectForKey: @"after"];
+	[[NSApp delegate] setPublicIPAddress: after];
+    [self checkForChangedIPAddress: before
+                      andIPAddress: after];
 }
 
 -(void) checkIPAddressBadResultLogMessage: (NSString *) msg
@@ -1304,7 +1307,11 @@ extern volatile int32_t       gActiveInactiveState;
     }
     
     // Got IP address, even though DNS isn't working
-    TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: fetched IP address %@ using the ipInfo host's IP address", [ipInfo objectAtIndex:0])
+	NSString * address = [ipInfo objectAtIndex:0];
+    TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: fetched IP address %@ using the ipInfo host's IP address", address)
+	[[NSApp delegate] performSelectorOnMainThread: @selector(setPublicIPAddress:)
+									   withObject: address
+									waitUntilDone: NO];
     [self performSelectorOnMainThread: @selector(checkIPAddressNoDNSLogMessage:)
                            withObject: [NSString stringWithFormat: @"*Tunnelblick: fetched IP address information using the ipInfo host's IP address after connecting."]
                         waitUntilDone: NO];
@@ -2389,6 +2396,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     
     [((MenuController *)[NSApp delegate]) cancelAllIPCheckThreadsForConnection: self];
 
+	[((MenuController *)[NSApp delegate]) setPublicIPAddress: nil];
+	
     [self clearStatisticsRatesDisplay];
     
     pthread_mutex_lock( &lastStateMutex );
