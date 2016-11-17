@@ -1,11 +1,11 @@
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Disconnect All (%1$@) - apparent public IP address %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "모든 (%1$@) 연결 해제 - 대외 공용 IP 주소 %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "모든 (%@) 연결 해제";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Disconnect All (%1$d Connections) - apparent public IP address %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "모든 (%1$d 연결들) 연결 해제 - 대외 공용 IP 주소 %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "모든 (%d개) 연결 해제";

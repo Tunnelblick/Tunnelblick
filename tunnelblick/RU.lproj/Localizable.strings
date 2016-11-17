@@ -1,11 +1,11 @@
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Отсоеденить все (%1$@) - очевидный публичный ИП адрес %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Отсоединить все (%1$@) - видимый снаружи публичный IP-адрес %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Отключить всё (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Отсоеденить все (%1$d Соединения) - очевидный публичный ИП адрес %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Отсоединить все (%1$d Соединения) - видимый снаружи публичный IP-адрес %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Отключить всё (соединений %d)";
@@ -203,7 +203,7 @@
 "Restore" = "Восстановить";
 
 /* Button */
-"Retry" = "Повтор";
+"Retry" = "Попробовать снова";
 
 /* Button */
 "Revert" = "Откатить";
@@ -293,7 +293,7 @@
 "Make Configuration Shared..." = "Сделать конфигурацию общей…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "Журналирования OpenVPN или Tunnelblick нет";
+"No OpenVPN or Tunnelblick VPN logging" = "Логгирование не ведется средствами OpenVPN или Tunnelblick";
 
 /* Menu item */
 "No VPN Configurations Available" = "Конфигурации VPN недоступны";
@@ -305,10 +305,10 @@
 "OpenVPN level 0 - no output except fatal errors" = "OpenVPN уровень 0 - не выводить ничего, кроме фатальных ошибок";
 
 /* Menu Item */
-"OpenVPN level 11 - extremely verbose output" = "OpenVPN уровень 11 - экстремально подробное журналирование";
+"OpenVPN level 11 - extremely verbose output" = "OpenVPN уровень 11 - максимально подробный вывод";
 
 /* Menu Item */
-"OpenVPN level 3 - normal output" = "OpenVPN уровень 3 - нормальный уровень журналирования";
+"OpenVPN level 3 - normal output" = "OpenVPN уровень 3 - нормальный вывод";
 
 /* Menu Item */
 "OpenVPN level 4 - also outputs values for all options" = "OpenVPN уровень 4 - также выводит значения для всех параметров";
@@ -317,10 +317,10 @@
 "OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN уровень 5 - также выводит \"R\" или \"W\" для каждого пакета";
 
 /* Menu Item */
-"OpenVPN level 6 - very verbose output" = "OpenVPN уровень 6 - очень подробное журналирование";
+"OpenVPN level 6 - very verbose output" = "OpenVPN уровень 6 - очень подробный вывод";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "Уровень журналирования OpenVPN задаётся конфигурацией";
+"OpenVPN logging level set by the configuration" = "Уровень логгирования OpenVPN задаётся конфигурацией";
 
 /* Menu item */
 "Quit Tunnelblick" = "Выйти из Tunnelblick";
@@ -425,7 +425,7 @@
 "Reconnect when user switches in" = "Переподключаться при входе пользователя";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Требовать разрешения администраторя для изменения ключа и сертификата";
+"Require administrator authorization for key and certificate changes" = "Требовать разрешения администратора для изменения ключа и сертификата";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Сбрасывать основной интерфейс после разъединения";
@@ -443,7 +443,7 @@
 "Send anonymous profile information when checking" = "При проверке отправлять анонимную информацию о профиле";
 
 /* Checkbox name */
-"Set DNS after routes are set" = "Установить DNS после устоновления маршрутов";
+"Set DNS after routes are set" = "Установить DNS после установления маршрутов";
 
 /* Checkbox name */
 "Show when disconnected" = "Показывать, когда разъединено";
@@ -1034,7 +1034,7 @@
 "Could not copy %@ to %@" = "Не могу скопировать %1$@ в %2$@";
 
 /* Window text */
-"Could not create %@" = "Невозможно создать %@";
+"Could not create %@" = "Не удалось создать %@";
 
 /* Window text */
 "Could not delete %@" = "Не могу удалить %@";
@@ -1922,7 +1922,7 @@
 "64-bit enabling and testing" = "64-битный функционал и тестирование";
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Когда отмечено</strong>, IPv6 будет выключен.</p>\n<p>Выключение IPv6 часто рекомендуется так как многие конфигурации VPN не предостерегают от информационных утечек вызванных использованием IPv6. Большая часть Интернета и так доступна без IPv6.</p>\n<p><strong>Когда не отмечено</strong>, IPv6 не будет выключен.</p>\n<p><strong>Это поле недоступно</strong> при использование соеденения 'tap' по скольку его невозможно принудить.</p>";
+"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Если выбрать этот вариант</strong>, IPv6 будет недоступен.</p>\n<p>Часто рекомендуется отключить IPv6, так как многие конфигурации VPN не защищают от информационных утечек, вызванных использованием IPv6. Большая часть Интернета прекрасно работает без IPv6.</p>\n<p><strong>Если не выбрать этот вариант</strong>, IPv6 не будет недоступен.</p>\n<p><strong>Этот вариант недоступен</strong>, так как неприменим при использовании соединения 'tap'.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Когда отмечено</strong>, IPv6 будет выключен.</p>\n<p><strong>Когда не отмечено</strong>, IPv6 не будет выключен.</p>\n<p>Выключение IPv6 часто рекомендуется так как многие конфигурации VPN не предостерегают от информационных утечек вызванных использованием IPv6. Большая часть Интернета и так доступна без IPv6.</p>\n<p><strong>Это поле недоступно</strong> для Tun конфигураций</p>";
@@ -1964,10 +1964,10 @@
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Когда отмечено</strong>, VPN указанное доменное имя будет добавлено к началу списка поисковых доменов.</p>\n<p><strong>Когда не отмечено</strong>, список поисковых доменов будет заменен VPN указанным доменным именем.</p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
-"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>";
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>Драйвер 'tap' требуется для Tap-соединений. Tunnelblick включает в себя собственный Tap-драйвер, так как он не входит в состав операционной системы. Если у вас установлен иной Tap-драйвер, возможно, что Tunnelblick не сможет загрузить свой.</p><p>Вы можете выбрать, при каких условиях Tunnelblick будет загружать свой драйвер:</p>\n<p><strong>Загружать Tap-драйвер автоматически</strong>: Tunnelblick загрузит свой драйвер при необходимости и выгрузит его, как только необходимость в нем исчезнет.</p>\n<p><strong>Всегда загружать Tap-драйвер</strong>: Tunnelblick загрузит свой драйвер при подключении с использованием этой конфигурации и выгрузит его, как только необходимость в нем исчезнет.</p>\n<p><strong>Никогда не загружать Tap-драйвер</strong>: Tunnelblick никогда не будет загружать свой драйвер.</p>\n<p><strong>Этот вариант недоступен</strong> для настроек Tun.</p>";
 
 /* HTML info for the 'Load Tun driver' popdown list. */
-"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>";
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>Драйвер 'tun' требуется для Tun-соединений. Обычно используется системный Tun-драйвер, но в состав Tunnelblick также входит собственный Tun-драйвер.Если у вас установлен иной Tun-драйвер, возможно, что Tunnelblick не сможет загрузить свой.</p>\n<p>OpenVPN будет использовать системный драйвер кроме случаев, когда в конфигурацию OpenVPN входит 'dev-type tun'.</p>\n<p>Вы можете выбрать, при каких условиях Tunnelblick будет загружать свой Tun-драйвер:</p>\n<p><strong>Загружать Tun-драйвер автоматически</strong>: Tunnelblick загрузит свой драйвер при необходимости и выгрузит его, как только необходимость в нем исчезнет. (Tunnelblick будет загружать свой драйвер только при условии, что в конфигурацию OpenVPN входит 'dev-type tun'.)</p>\n<p><strong>Всегда загружать Tun-драйвер</strong>: Tunnelblick загрузит свой драйвер при подключении с использованием этой конфигурации и выгрузит его, как только необходимость в нем исчезнет.</p>\n<p><strong>Никогда не загружать Tun-драйвер</strong>: Tunnelblick никогда не будет загружать свой драйвер.</p>\n<p><strong>Этот вариант недоступен</strong> для настроек Tap.</p>";
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS кэш содержит коппи DNS (система доменных имён) информации.</p>\n<p><strong>Когда отмечено</strong>, DNS кэш будет очищен (удален) после соединения и отключения. Все поиски DNS будут сделаны используя сервер доменных имен указанный в настройке VPN.</p>\n<p><strong>Когда не отмечено</strong>, DNS кэш не будет очищен. Это может вызвать проблемы если есть конфликты между сервером доменных имен указанным в настройке VPN и до-VPN указанным сервером, если до-VPN записи были кэшированы.</p>";

@@ -20,7 +20,7 @@
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* Button */
-"(None available)" = "(Niks is beskikbaar)";
+"(None available)" = "(Niks beskikbaar)";
 
 /* Button */
 "1 MB" = "1 MB";
@@ -80,16 +80,16 @@
 "Copy Diagnostic Info to Clipboard" = "Kopieër Diagnostiese Inligting na Knipbord";
 
 /* Button */
-"Create sample configuration and edit it" = "Skep konfigurasie voorbeeld en wysig dit";
+"Create sample configuration and edit it" = "Skep voorbeeld konfigurasie en wysig dit";
 
 /* Button */
-"Default (%@)" = "Verstek (%@)";
+"Default (%@)" = "Standaard (%@)";
 
 /* Button */
-"Delete Credentials" = "Vee Intekenbesonderhede Uit";
+"Delete Credentials" = "Verwyder Intekenbesonderhede";
 
 /* Button */
-"Delete saved passphrase and try again" = "Vee gestoorde wagfrase uit en probeer weer";
+"Delete saved passphrase and try again" = "Verwyder gestoorde wagwoordfrase en probeer weer";
 
 /* Button */
 "Delete saved password and try again" = "Vee gestoorde wagwoord uit en probeer weer";
@@ -1607,7 +1607,7 @@
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
 
 /* Window text */
-"Tunnelblick is based on %@." = "Tunnelblick is based on %@.";
+"Tunnelblick is based on %@." = "Tunnelblick is gebaseerd op %@.";
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick is currently running. It will be shut down before proceeding.";
@@ -1919,7 +1919,7 @@
 "%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
 
 /* Credit description */
-"64-bit enabling and testing" = "64-bit enabling and testing";
+"64-bit enabling and testing" = "64-bit toets en instaat stel";
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>";
@@ -1991,16 +1991,16 @@
 "Bulgarian localization" = "Bulgarian localization";
 
 /* Credit description */
-"Button images" = "Button images";
+"Button images" = "Knoppie afbeeldinge";
 
 /* Credit description */
-"Catalan localization" = "Catalan localization";
+"Catalan localization" = "Katalaanse vertaling";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Chinese (simplified) localization";
+"Chinese (simplified) localization" = "Sjinees (vereenvoudig) vertaling";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Chinese (traditional) localization";
+"Chinese (traditional) localization" = "Sjinees (tradisioneel) vertaling";
 
 /* Credentials name */
 "Common" = "Common";
