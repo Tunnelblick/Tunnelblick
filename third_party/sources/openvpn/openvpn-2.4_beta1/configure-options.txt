@@ -1,1 +1,0 @@
---enable-pkcs11 --enable-static=yes --enable-shared=yes --enable-crypto --disable-debug --disable-plugin-auth-pam --disable-dependency-tracking
