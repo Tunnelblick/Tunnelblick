@@ -140,7 +140,7 @@
 "Monochrome icon" = "Gråtoneikon";
 
 /* Button */
-"More Info" = "Mer Info";
+"More Info" = "Mer informasjon";
 
 /* Button */
 "Never load Tap driver" = "Last aldri inn Tap-driver";
@@ -170,7 +170,7 @@
 "Open easy-rsa in Terminal" = "Åpne enkel-rsa i Terminal";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "Plasser ved siden av Spotlight-ikonet";
+"Place Icon Near the Spotlight Icon" = "Plasser ikon nær Spotlight-ikonet";
 
 /* Button */
 "Place Icon Normally" = "Plassér ikon normalt";
@@ -413,7 +413,7 @@
 "Monitor network settings" = "Overvåk nettverksinnstillinger";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Plasser ved siden av Spotlight-ikonet";
+"Place near Spotlight icon" = "Plasser nær Spotlight-ikonet";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Legg til domenenavn i starten av søkedomene";
@@ -764,13 +764,13 @@
 "  • Change ownership and permissions of the program to secure it\n" = "  • Endre eierskap og rettigheter på programmet for å sikre det\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
-"  • Complete the update\n" = "  Fullfør oppdatering\n";
+"  • Complete the update\n" = "  • Fullføre oppdateringen\n";
 
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Endre OpenVPN konfigurasjoner\n";
 
 /* Window text */
-"  • Install forced preferences\n" = "  • Installer tvunget preferanser\n";
+"  • Install forced preferences\n" = "  • Installer tvungne preferanser\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Installer eller oppdater konfigurasjon(er)\n";
@@ -800,7 +800,7 @@
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick må innstalleres i programmappen.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick trenger administratortilgang så den kan automatisk koble til '%@' når datamaskinen starter.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick trenger administratortilgang slik at den kan koble '%@' automatisk når datamaskinen starter.";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick trenger administratortilgang så den kan slå av autamatisk oppkobling '%@' når datamaskinen starter.";

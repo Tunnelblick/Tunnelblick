@@ -1358,7 +1358,7 @@
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Ignoré la copie de %@ car un fichier avec ce nom et ce contenu a déjà été copié.";
 
 /* Window text */
-"Starting Tunnelblick..." = "Tunnelblick se lance…";
+"Starting Tunnelblick..." = "Tunnelblick démarre…";
 
 /* Window text */
 "Startup window:" = "Fenêtre de lancement :";
