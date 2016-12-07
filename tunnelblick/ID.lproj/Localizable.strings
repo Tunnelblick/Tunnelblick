@@ -1,11 +1,11 @@
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Disconnect All (%1$@) - apparent public IP address %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Putuskan Semua (%1$@) - alamat IP publik yang muncul %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Putuskan Semua (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Disconnect All (%1$d Connections) - apparent public IP address %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Putuskan Semua (%1$d Koneksi) - alamat IP publik yang muncul %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Putuskan Semua (%d Koneksi)";
@@ -443,7 +443,7 @@
 "Send anonymous profile information when checking" = "Kirim informasi profil anonim ketika memerika";
 
 /* Checkbox name */
-"Set DNS after routes are set" = "Set DNS after routes are set";
+"Set DNS after routes are set" = "Atur DNS setelah route ditata";
 
 /* Checkbox name */
 "Show when disconnected" = "Tampilkan ketika terputus";
@@ -524,7 +524,7 @@
 "Configurations" = "Konfigurasi";
 
 /* Window title */
-" (Deployed)" = " (Deployed)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+" (Deployed)" = " (Di-deploy)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
 
 /* Window title */
 " (Private)" = " (Privat)";
@@ -1355,7 +1355,7 @@
 "Single-quote missing in line %u" = "Kurang kutip tunggal pada baris %u";
 
 /* Window text */
-"Skipped copying %@ because a file with that name and contents has already been copied." = "Skipped copying %@ because a file with that name and contents has already been copied.";
+"Skipped copying %@ because a file with that name and contents has already been copied." = "Melewati menyalin %@ karena suatu berkas dengan nama itu beserta isinya telah disalin.";
 
 /* Window text */
 "Starting Tunnelblick..." = "Memulai Tunnelblick…";
@@ -1364,7 +1364,7 @@
 "Startup window:" = "Jendela permulaan:";
 
 /* Window text */
-"Symbolic links nested too deeply. Gave up at %@" = "Symbolic links nested too deeply. Gave up at %@";
+"Symbolic links nested too deeply. Gave up at %@" = "Taut simbolik bersarang terlalu dalam. Menyerah pada %@";
 
 /* Window text */
 "TB" = "TB";
@@ -1406,52 +1406,52 @@
 "The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "Akun '%@' tidak bisa dihapus karena satu atau beberapa konfigurasi sedang dipaksa untuk menggunakannya.";
 
 /* Window text */
-"The '%@' credentials may not be deleted because the list of named credentials is being forced." = "The '%@' credentials may not be deleted because the list of named credentials is being forced.";
+"The '%@' credentials may not be deleted because the list of named credentials is being forced." = "Kredensial '%@' tidak boleh dihapus karena daftar kredensial tersebut sedang dipaksakan.";
 
 /* Window text */
-"The 'credentialsNames' preference must be an array of strings." = "The 'credentialsNames' preference must be an array of strings.";
+"The 'credentialsNames' preference must be an array of strings." = "Preferensi 'credentialsNames' mesti berupa larik kalimat.";
 
 /* Window text */
-"The 'namedCredentialsNames' preference must be an array of strings" = "The 'namedCredentialsNames' preference must be an array of strings";
+"The 'namedCredentialsNames' preference must be an array of strings" = "Preferensi 'namedCredentialsNames' mesti berupa larik kalimat";
 
 /* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "The OpenVPN configuration file in %1$@ contains a '%2$@' option, which is a Windows-only option. It cannot be used on OS X.";
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "Berkas konfigurasi OpenVPN dalam %1$@ memuat suatu opsi '%2$@', yang merupakan opsi khusus Windows. Itu tidak bisa dipakai pada OS X.";
 
 /* Window text */
-"The OpenVPN log does not yet exist or has been deleted." = "The OpenVPN log does not yet exist or has been deleted.";
+"The OpenVPN log does not yet exist or has been deleted." = "Log OpenVPN belum ada atau telah dihapus.";
 
 /* Window text */
-"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details.";
+"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "Preferensi Tunnelblick rusak dan telah dibersihkan. (Preferensi lama diubah namanya).\n\nLihat Log Konsol untuk rincian.";
 
 /* Window text */
-"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "The attempt to connect %1$@ has been cancelled: the runOnConnect script returned status: %2$ld.";
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "Upaya untuk menyambung %1$@ telah dibatalkan: skrip runOnConnect mengembalikan status: %2$ld.";
 
 /* Window text */
-"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?";
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Berkas konfigurasi untuk '%@' tampaknya memakai opsi 'user' dan/atau 'group' dan memakai suatu skrip down ('Do not set nameserver' tidak dipilih, atau ada opsi 'down' dalam berkas konfigurasi).\n\nBoleh jadi bahwa memulai ulang koneksi (dilakukan secara otomatis ketika koneksi putus) akan gagal kecuali plugin 'openvpn-down-root.so' bagi OpenVPN dipakai.\n\nApakah Anda hendak memakai plugin tersebut?";
 
 /* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.";
+"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Berkas konfigurasi untuk '%@' tampaknya tak memuat opsi 'dev tun', 'dev utun', atau 'dev tap'. Opsi ini mungkin diperlukan bagi operasi Tunnelblick yang wajar. Konsultasikan dengan administrator jaringan Anda atau dokumentasi OpenVPN.";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced).";
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "Berkas konfigurasi mengacu ke suatu berkas\n\n%@\n\nyang tidak ada (bahkan dalam konfigurasi yang sedang digantikan).";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used.";
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "Berkas konfigurasi mengacu ke suatu berkas\n\n%@\n\nyang tidak ada dalam konfigurasi baru, sehingga berkas tak aman yang ada dipakai.";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "The configuration file refers to a file\n\n%@\n\nwhich does not exist.";
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "Berkas konfigurasi mengacu ke suatu berkas\n\n%@\n\nyang tidak ada.";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced)." = "The configuration file refers to a file\n\n%1$@\n\nwhich should be located at\n\n%2$@\n\nbut the file does not exist (even in the configuration being replaced).";
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced)." = "Berkas konfigurasi mengacu ke suatu berkas\n\n%1$@\n\nyang mestinya berada pada\n\n%2$@\n\ntapi berkas tidak ada (bahkan dalam konfigurasi yang sedang digantikan).";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "The configuration file refers to a file\n\n%1$@\n\nwhich should be located at\n\n%2$@\n\nbut the file does not exist.";
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "Berkas konfigurasi mengacu ke suatu berkas\n\n%1$@\n\nyang mestinya berada pada\n\n%2$@\n\ntapi berkas tersebut tidak ada.";
 
 /* Window text */
-"The credentials named %@ could not be added:\n\n%@" = "The credentials named %1$@ could not be added:\n\n%2$@";
+"The credentials named %@ could not be added:\n\n%@" = "Kredensial bernama %1$@ tidak dapat ditambahkan:\n\n%2$@";
 
 /* Window text */
-"The credentials named %@ could not be removed:\n\n%@" = "The credentials named %1$@ could not be removed:\n\n%2$@";
+"The credentials named %@ could not be removed:\n\n%@" = "Kredensial bernama %1$@ tidak dapat dibuang:\n\n%2$@";
 
 /* Window text */
 "The file %@ is empty" = "File %@ isinya kosong";
@@ -1472,25 +1472,25 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Konfigurasi pribadi belum diamankan, jadi Anda tidak dapat kembali ke duplikat (bayangan) yang aman.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "Folder konfigurasi contoh telah dibuat pada Desktop Anda, dan berkas konfigurasi OpenVPN telah dibuka dalam TextEdit sehingga Anda dapat mengubah berkas untuk pengaturan VPN Anda.\n\nKetika Anda telah selesai menyunting berkas konfigurasi OpenVPN dan menyimpan perubahan, harap\n\n1. Memindah atau menyalin sebarang berkas kunci atau sertifikat yang terkait dengan konfigurasi ke dalam folder 'Sample Tunnelblick VPN Configuration' pada Desktop Anda.\n\n(Folder ini telah dibuka dalam suatu jendela Finder sehingga Anda dapat menyeret berkas ke dalamnya.)\n\n2. Mengubah nama berkas konfigurasi ke suatu nama pilihan Anda (jangan mengubah ekstensi berkas). Ini akan menjadi nama yang dipakai Tunnelblick bagi konfigurasi tersebut.\n\n3. Untuk memasang konfigurasi, seret berkas konfigurasi dan jatuhkan pada ikon Tunnelblick pada bilah menu atau pada daftar konfigurasi dalam tab 'Konfigurasi' dari jendela 'Rincian VPN'.";
 
 /* Window text */
-"The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
+"The username and password were not accepted by the remote VPN server." = "Nama pengguna dan kata sandi tak diterima oleh server VPN remote.";
 
 /* Window text */
-"There are no OpenVPN configurations to install." = "There are no OpenVPN configurations to install.";
+"There are no OpenVPN configurations to install." = "Tidak ada konfigurasi OpenVPN yang akan dipasang.";
 
 /* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
 
 /* Window text */
-"There is not an OpenVPN configuration file in '%@'" = "There is not an OpenVPN configuration file in '%@'";
+"There is not an OpenVPN configuration file in '%@'" = "Tidak ada berkas konfigurasi OpenVPN dalam '%@'";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "There was a problem deleting one or more configurations. See the Console Log for details.";
+"There was a problem deleting one or more configurations. See the Console Log for details." = "Ada masalah saat menghapus satu konfigurasi atau lebih. Lihat Log Konsol untuk rincian.";
 
 /* Window text */
-"There was a problem with the OpenVPN configuration. See the Console Log for details." = "There was a problem with the OpenVPN configuration. See the Console Log for details.";
+"There was a problem with the OpenVPN configuration. See the Console Log for details." = "Ada masalah dengan konfigurasi OpenVPN. Lihat Log Konsol untuk rincian.";
 
 /* Window text */
 "There was a problem with\n\n%@:\n\n%@" = "Ada masalah dengan\n\n%1$@:\n\n%2$@";
@@ -1508,10 +1508,10 @@
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "This computer's apparent public IP address was not different after connecting to %1$@. It is still %2$@.\n\nThis may mean that your VPN is not configured correctly.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n";
+"This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Salinan Tunnelblick ini telah dirusak (tanda tangan digital tidak valid).\n\nHarap periksa dengan penyedia salinan Tunnelblick ini sebelum memakainya.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n";
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Salinan Tunnelblick ini tidak ditandatangani secara digital.\n\nTidak ada cara untuk memastikan bahwa salinan ini belum dirusak.\n\nPeriksalah dengan penyedia salinan Tunnelblick ini sebelum memakainya.\n\n";
 
 /* Window text */
 "This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Ini ialah Tunnelblick versi Intel 64-bit yang mana tidak akan berjalan dengan benar jika menggunakan tun atau tap kexts.";
@@ -1598,145 +1598,145 @@
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick terkendala masalah dengan konfigurasi %1$lu:\n\n%2$@%3$@%4$@%5$@";
 
 /* Window text */
-"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log";
+"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick gagal memperbaiki masalah dengan preferensi untuk '%@'. Rincian ada dalam Log Konsol";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick has been secured successfully.";
+"Tunnelblick has been secured successfully." = "Tunnelblick telah sukses diamankan.";
 
 /* Window text */
-"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
+"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick telah memutus '%@' karena berkas konfigurasinya telah dihapus.";
 
 /* Window text */
-"Tunnelblick is based on %@." = "Tunnelblick is based on %@.";
+"Tunnelblick is based on %@." = "Tunnelblick berlandaskan pada %@.";
 
 /* Window text */
-"Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick is currently running. It will be shut down before proceeding.";
+"Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick sedang berjalan. Ini akan dimatikan sebelum melanjutkan.";
 
 /* Window text */
-"Tunnelblick is ready." = "Tunnelblick is ready.";
+"Tunnelblick is ready." = "Tunnelblick siap.";
 
 /* Window text */
-"Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick needs authorization to duplicate the '%@' configuration.";
+"Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick perlu otorisasi untuk menduplikasi konfigurasi '%@'.";
 
 /* Window text */
-"Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick needs authorization to make %ld configurations private.";
+"Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick perlu otorisasi untuk membuat %ld konfigurasi privat.";
 
 /* Window text */
-"Tunnelblick needs authorization to make %ld configurations shared." = "Tunnelblick needs authorization to make %ld configurations shared.";
+"Tunnelblick needs authorization to make %ld configurations shared." = "Tunnelblick perlu otorisasi untuk membuat %ld konfigurasi dipakai bersama.";
 
 /* Window text */
-"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick needs authorization to make the '%@' configuration private.";
+"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick perlu otorisasi untuk membuat konfigurasi '%@' privat.";
 
 /* Window text */
-"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick needs authorization to make the '%@' configuration shared.";
+"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick perlu otorisasi untuk membuat konfigurasi '%@' dipakai bersama.";
 
 /* Window text */
-"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently.";
+"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick perlu otorisasi untuk menghapus %ld konfigurasi.";
 
 /* Window text */
-"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently.";
+"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick perlu otorisasi untuk menghapus konfigurasi '%@'.";
 
 /* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick needs authorization to rename the '%1$@' configuration to '%2$@'.";
+"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick perlu otorisasi untuk mengubah nama konfigurasi '%1$@' menjadi '%2$@'.";
 
 /* Window text */
-"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick needs to change a setting that may only be changed by a computer administrator.";
+"Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick perlu mengubah suatu pengaturan yang hanya dapat diubah oleh administrator komputer.";
 
 /* Window text */
-"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations.";
+"Tunnelblick needs to convert OpenVPN configurations to Tunnelblick VPN Configurations." = "Tunnelblick perlu mengonversi konfigurasi OpenVPN ke Konfigurasi VPN Tunnelblick.";
 
 /* Window text */
-"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.";
+"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick perlu membuat atau memutakhirkan suatu salinan aman (bayangan) dari berkas konfigurasi.";
 
 /* Window text */
-"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick needs to perform an action that requires administrator authorization.\n";
+"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick perlu melakukan suatu aksi yang membutuhkan otorisasi administrator.\n";
 
 /* Window text */
-"Tunnelblick needs to:\n" = "Tunnelblick needs to:\n";
+"Tunnelblick needs to:\n" = "Tunnelblick perlu:\n";
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
-"Tunnelblick successfully:\n\n" = "Tunnelblick successfully:\n\n";
+"Tunnelblick successfully:\n\n" = "Tunnelblick telah sukses:\n\n";
 
 /* Window text */
-"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick sukses dipasang dan %ld konfigurasi dipasang atau diganti.";
 
 /* Window text */
-"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick was successfully installed and one configuration was installed or replaced.";
+"Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick sukses dipasang dan satu konfigurasi dipasang atau diganti.";
 
 /* Window text */
-"Tunnelblick was successfully installed." = "Tunnelblick was successfully installed.";
+"Tunnelblick was successfully installed." = "Tunnelblick sukses dipasang.";
 
 /* Window text */
-"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick was successfully replaced and %ld configurations were installed or replaced.";
+"Tunnelblick was successfully replaced and %ld configurations were installed or replaced." = "Tunnelblick sukses diganti dan %ld konfigurasi dipasang atau diganti.";
 
 /* Window text */
-"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
+"Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick sukses diganti dan satu konfigurasi dipasang atau diganti.";
 
 /* Window text */
-"Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
+"Tunnelblick was successfully replaced." = "Tunnelblick sukses diganti.";
 
 /* Window text */
-"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%1$@' within %2$d seconds. The attempt to establish communications has been abandoned.";
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick tidak berhasil menjalin komunikasi dengan proses OpenVPN yang telah ada untuk '%1$@' dalam %2$d detik. Percobaan untuk menjalin komunikasi dibatalkan.";
 
 /* Window text */
-"Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick was unable to make the change. See the Console Log for details.";
+"Tunnelblick was unable to make the change. See the Console Log for details." = "Tunnelblick tidak bisa membuat perubahan. Lihat Log Konsol untuk rincian.";
 
 /* Window text */
-"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details… window";
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick tidak bisa memulai OpenVPN untuk menyambung ke %@. Untuk rincian, lihat log dalam jendela Rincian VPN...";
 
 /* Window text */
-"Unable to Establish Communication" = "Unable to Establish Communication";
+"Unable to Establish Communication" = "Tidak Bisa Menjalin Komunikasi";
 
 /* Window text */
-"Unable to convert OpenVPN configuration" = "Unable to convert OpenVPN configuration";
+"Unable to convert OpenVPN configuration" = "Tidak bisa mengonversi konfigurasi OpenVPN";
 
 /* Window text */
-"Unable to copy file at '%@' to '%@' because the same name is used for different contents" = "Unable to copy file at '%1$@' to '%2$@' because the same name is used for different contents";
+"Unable to copy file at '%@' to '%@' because the same name is used for different contents" = "Tidak bisa menyalin berkas di '%1$@' ke '%2$@' karena nama yang sama dipakai untuk isi berbeda";
 
 /* Window text */
-"Unable to create %@ owned by %ld:%ld with %lo permissions" = "Unable to create %1$@ owned by %2$ld:%3$ld with %4$lo permissions";
+"Unable to create %@ owned by %ld:%ld with %lo permissions" = "Tidak bisa membuat %1$@ dengan pemilik %2$ld:%3$ld dengan hak %4$lo";
 
 /* Window text */
-"Unable to install the '%@' configuration\n" = "Unable to install the '%@' configuration\n";
+"Unable to install the '%@' configuration\n" = "Tidak bisa memasang konfigurasi '%@'\n";
 
 /* Window text */
-"Unable to open configuration file for modification" = "Unable to open configuration file for modification";
+"Unable to open configuration file for modification" = "Tidak bisa membuka berkas konfigurasi untuk perubahan";
 
 /* Window text */
-"Unable to replace the '%@' configuration\n" = "Unable to replace the '%@' configuration\n";
+"Unable to replace the '%@' configuration\n" = "Tidak bisa menimpa konfigurasi '%@'\n";
 
 /* Window text */
-"Unable to secure %@ because it is owned by %@" = "Unable to secure %1$@ because it is owned by %2$@";
+"Unable to secure %@ because it is owned by %@" = "Tidak bisa mengamankan %1$@ karena dimiliki oleh %2$@";
 
 /* Window text */
-"Unable to secure %@" = "Unable to secure %@";
+"Unable to secure %@" = "Tidak bisa mengamankan %@";
 
 /* Window text */
-"Unable to set permissions on '%@'" = "Unable to set permissions on '%@'";
+"Unable to set permissions on '%@'" = "Tidak bisa menata hak '%@'";
 
 /* Window text */
 "Unable to store updatable configuration stub at %@\n" = "Unable to store updatable configuration stub at %@\n";
 
 /* Window text */
-"Unable to uninstall the '%@' configuration\n" = "Unable to uninstall the '%@' configuration\n";
+"Unable to uninstall the '%@' configuration\n" = "Tidak bisa membongkar konfigurasi '%@'\n";
 
 /* Window text */
-"Unable to write to configuration file for modification" = "Unable to write to configuration file for modification";
+"Unable to write to configuration file for modification" = "Tidak bisa menulis ke berkas konfigurasi untuk perubahan";
 
 /* Window text */
-"Unexpected disconnection:" = "Unexpected disconnection:";
+"Unexpected disconnection:" = "Pemutusan yang tak diduga:";
 
 /* Window text */
-"Unknown extension '%@' for %@" = "Unknown extension '%1$@' for %2$@";
+"Unknown extension '%@' for %@" = "Ekstensi tak dikenal '%1$@' untuk %2$@";
 
 /* Window text */
-"Unknown key '%@' in %@" = "Unknown key '%1$@' in %2$@";
+"Unknown key '%@' in %@" = "Kunci tak dikenal '%1$@' dalam %2$@";
 
 /* Window text */
-"Unknown value '%@' for '%@' in %@" = "Unknown value '%1$@' for '%2$@' in %3$@";
+"Unknown value '%@' for '%@' in %@" = "Nilai tak dikenal '%1$@' untuk '%2$@' dalam %3$@";
 
 /* Window text */
-"Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
+"Unreadable file at %@\n\nSee the Console log for details." = "Berkas tak dapat dibaca pada %@\n\nLihat Log konsol untuk rincian.";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Updatable configuration '%1$@' was not stored as updatable because %2$@ could not be found\n";
@@ -1775,16 +1775,16 @@
 "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced." = "VPN Configuration %@ will NOT be installed because the configuration already exists and should not be replaced.";
 
 /* Window text */
-"VPN log level:" = "VPN log level:";
+"VPN log level:" = "Tingkat log VPN:";
 
 /* Window text */
-"VPN status windows:" = "VPN status windows:";
+"VPN status windows:" = "Jendela status VPN:";
 
 /* Window text - First %@ is the value of a key, second %@ is the name of the key, third %@ is the path to the Info.plist file containing the key/value pair */
 "Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
 
 /* Window text */
-"WINS servers:" = "WINS servers:";
+"WINS servers:" = "Server WINS:";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "Warning: '%@' is already a named credential.";
@@ -1796,7 +1796,7 @@
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Warning: One or more preferences could not be renamed. See the Console Log for details.";
 
 /* Window text */
-"Warnings:" = "Warnings:";
+"Warnings:" = "Peringatan:";
 
 /* Window text */
 "When changes to anything else" = "When changes to anything else";
@@ -1976,7 +1976,7 @@
 "Admin mode %@ remaining" = "Admin mode %@ remaining";
 
 /* Credit description */
-"Afrikaans localization" = "Afrikaans localization";
+"Afrikaans localization" = "Lokalisasi Afrikaans";
 
 /* Credit description */
 "Animation and icon sets code" = "Animation and icon sets code";
@@ -2015,7 +2015,7 @@
 "Contributed to early code" = "Contributed to early code";
 
 /* Credit description */
-"Croatian localization" = "Croatian localization";
+"Croatian localization" = "Lokalisasi Kroasia";
 
 /* Credit description */
 "Czech localization" = "Lokalisasi Ceko";
@@ -2059,13 +2059,13 @@
 "Hungarian localization" = "Lokalisasi Hungaria";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic localization" = "Lokalisasi Islandia";
 
 /* Credit description */
 "Icon set including Retina images" = "Icon set including Retina images";
 
 /* Credit description */
-"Indonesian localization" = "Indonesian localization";
+"Indonesian localization" = "Lokalisasi Indonesia";
 
 /* Credit description */
 "Italian localization" = "Lokalisasi Italia";
@@ -2098,16 +2098,16 @@
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
 
 /* Credit description */
-"PKCS#11 support" = "PKCS#11 support";
+"PKCS#11 support" = "Dukungan PKCS#11";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian localization" = "Lokalisasi Persia";
 
 /* Credit description */
 "Polish localization" = "Lokalisasi Polandia";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Portuguese (Brazilian) localization";
+"Portuguese (Brazilian) localization" = "Lokalisasi Portugis (Brasilia)";
 
 /* Credit description */
 "Portuguese localization" = "Lokalisasi Portugis";
@@ -2116,13 +2116,13 @@
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program and documentation enhancements and maintenance after version 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "Romanian localization";
+"Romanian localization" = "Lokalisasi Rumania";
 
 /* Credit description */
 "Russian localization" = "Lokalisasi Rusia";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Serbian (Latin) localization";
+"Serbian (Latin) localization" = "Lokalisasi Serbia (Latin)";
 
 /* Credit description */
 "Slovak localization" = "Lokalisasi Slovakia";
@@ -2155,22 +2155,22 @@
 "Xcode help and OpenSSL integration" = "Xcode help and OpenSSL integration";
 
 /* Button VPNService */
-"Accept" = "Accept";
+"Accept" = "Setuju";
 
 /* Button VPNService */
-"Create a Free Account" = "Create a Free Account";
+"Create a Free Account" = "Buat Akun Gratis";
 
 /* Button VPNService */
 "Get Different Image" = "Get Different Image";
 
 /* Button VPNService *//* Window title VPNService */
-"Login" = "Login";
+"Login" = "Log Masuk";
 
 /* Button VPNService */
-"Next" = "Next";
+"Next" = "Selanjutnya";
 
 /* Button VPNService */
-"Reject" = "Reject";
+"Reject" = "Tolak";
 
 /* Menu item VPNService */
 "Register for Tunnelblick..." = "Register for Tunnelblick…";
@@ -2182,43 +2182,43 @@
 "Cannot register" = "Cannot register";
 
 /* Window title  VPNService */
-"Email not verified" = "Email not verified";
+"Email not verified" = "Surel tidak terverifikasi";
 
 /* Window title  VPNService */
-"Entries required" = "Entries required";
+"Entries required" = "Entri diperlukan";
 
 /* Window title  VPNService */
-"Failed to load Terms of Service" = "Failed to load Terms of Service";
+"Failed to load Terms of Service" = "Gagal memuat Ketentuan Layanan";
 
 /* Window title VPNService */
-"No configuration available" = "No configuration available";
+"No configuration available" = "Tidak ada konfigurasi yang tersedia";
 
 /* Window title  VPNService */
-"Password entries must match" = "Password entries must match";
+"Password entries must match" = "Entri kata sandi mesti sama";
 
 /* Window title  VPNService */
-"Prove You are Human" = "Prove You are Human";
+"Prove You are Human" = "Buktikan Bahwa Anda Manusia";
 
 /* Window title  VPNService */
 "Register with Tunnelblick" = "Register with Tunnelblick";
 
 /* Window title  VPNService */
-"Sorry" = "Sorry";
+"Sorry" = "Maaf";
 
 /* Window title  VPNService */
-"Terms of Service" = "Terms of Service";
+"Terms of Service" = "Persyaratan Layanan";
 
 /* Window title  VPNService */
-"Tunnelblick - Free VPN" = "Tunnelblick - Free VPN";
+"Tunnelblick - Free VPN" = "Tunnelblick - VPN Gratis";
 
 /* Window title  VPNService */
-"Welcome!" = "Welcome!";
+"Welcome!" = "Selamat Datang!";
 
 /* Window title  VPNService */
 "You Must Type the Characters" = "You Must Type the Characters";
 
 /* Window text VPNService */
-"Confirm password:" = "Confirm password:";
+"Confirm password:" = "Konfirmasi kata sandi:";
 
 /* Window text VPNService */
 "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'.";
@@ -2236,7 +2236,7 @@
 "Email address %@ is already registered for an account" = "Email address %@ is already registered for an account";
 
 /* Window text VPNService */
-"Email address:" = "Email address:";
+"Email address:" = "Alamat surel:";
 
 /* Window text VPNService */
 "Invalid URL: %@" = "Invalid URL: %@";

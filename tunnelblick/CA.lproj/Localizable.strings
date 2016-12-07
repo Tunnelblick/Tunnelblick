@@ -1,11 +1,11 @@
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Disconnect All (%1$@) - apparent public IP address %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Desconectar la configuració (%1$@) - l'adreça IP pública aparent és %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Desconnectar tot (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Disconnect All (%1$d Connections) - apparent public IP address %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Desconectar tot (%1$d Conexions) - l'adreça pública aparent és %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Desconnectar tot (%d connexions)";
@@ -443,7 +443,7 @@
 "Send anonymous profile information when checking" = "Enviar informació del perfil anònima en comprovar";
 
 /* Checkbox name */
-"Set DNS after routes are set" = "Set DNS after routes are set";
+"Set DNS after routes are set" = "Afegir DNS un cop les rutes hagin estat afegides";
 
 /* Checkbox name */
 "Show when disconnected" = "Mostra quan estigui desconnectat";

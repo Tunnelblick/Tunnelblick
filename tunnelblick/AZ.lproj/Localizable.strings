@@ -35,244 +35,244 @@
 "100 KB" = "100 KB";
 
 /* Button */
-"Advanced..." = "Advanced…";
+"Advanced..." = "Bundan əlavə…";
 
 /* Button */
 "All Users" = "Bütün İstifadəçilər";
 
 /* Button */
-"Always load Tap driver" = "Always load Tap driver";
+"Always load Tap driver" = "Həmişə Tap drayveri yüklə";
 
 /* Button */
-"Always load Tun driver" = "Always load Tun driver";
+"Always load Tun driver" = "Həmişə Tun drayveri yüklə";
 
 /* Button */
-"Always use the plugin" = "Always use the plugin";
+"Always use the plugin" = "Həmişə plugindən istifade et";
 
 /* Button */
-"Back" = "Back";
+"Back" = "Geri";
 
 /* Button */
-"Cancel" = "Cancel";
+"Cancel" = "Ləğv et";
 
 /* Menu item */ /* Button */
-"Check For Updates Now" = "Check For Updates Now";
+"Check For Updates Now" = "Yenilənmələri indi yoxla";
 
 /* Button */
-"Check Now" = "Check Now";
+"Check Now" = "İndi yoxla";
 
 /* Button */
-"Check for a change" = "Check for a change";
+"Check for a change" = "Dəyişiklik olmasını yoxla";
 
 /* Button */
-"Connect" = "Connect";
+"Connect" = "Qoşul";
 
 /* Button */
-"Continue" = "Continue";
+"Continue" = "Davam et";
 
 /* Button */
-"Convert Configurations" = "Convert Configurations";
+"Convert Configurations" = "Konfigurasiyaları çevir";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Copy Console Log to Clipboard";
+"Copy Console Log to Clipboard" = "Parametr jurnalının surətini Buferə keçir";
 
 /* Button */
-"Copy Diagnostic Info to Clipboard" = "Copy Diagnostic Info to Clipboard";
+"Copy Diagnostic Info to Clipboard" = "Diaqnostika məlumatının surətini Buferə keçir";
 
 /* Button */
-"Create sample configuration and edit it" = "Create sample configuration and edit it";
+"Create sample configuration and edit it" = "Nümunə konfiqurasiyanı yarat və redaktə et";
 
 /* Button */
-"Default (%@)" = "Default (%@)";
+"Default (%@)" = "Standart (%@)";
 
 /* Button */
-"Delete Credentials" = "Delete Credentials";
+"Delete Credentials" = "Etimadnamələri silmək";
 
 /* Button */
-"Delete saved passphrase and try again" = "Delete saved passphrase and try again";
+"Delete saved passphrase and try again" = "Saxlanılmış şifrə frazanı sil və yenidən sına";
 
 /* Button */
-"Delete saved password and try again" = "Delete saved password and try again";
+"Delete saved password and try again" = "Saxlanılmış şifrəni sil və yenidən sına";
 
 /* Button */
-"Delete" = "Delete";
+"Delete" = "Sil";
 
 /* Button */
-"Disconnect" = "Disconnect";
+"Disconnect" = "Bağlantını bitir";
 
 /* Button */
-"Do not check for a change" = "Do not check for a change";
+"Do not check for a change" = "Dəyişikliyi yoxlama";
 
 /* Button */
-"Do not use the plugin" = "Do not use the plugin";
+"Do not use the plugin" = "Plugini istifadə etmə";
 
 /* Button */
-"Download" = "Download";
+"Download" = "Yüklə";
 
 /* Button */
-"Help" = "Help";
+"Help" = "Yardım";
 
 /* Button */
-"I DO NOT have configuration files" = "I DO NOT have configuration files";
+"I DO NOT have configuration files" = "Konfiqurasiya fayllarım YOXDUR";
 
 /* Button */
-"I have configuration files" = "I have configuration files";
+"I have configuration files" = "Konfiqurasiya fayllarım var";
 
 /* Button */
-"Ignore" = "Ignore";
+"Ignore" = "Nəzərə alma";
 
 /* Button */
-"Install" = "Install";
+"Install" = "Yüklə";
 
 /* Button */
-"Latest (%@)" = "Latest (%@)";
+"Latest (%@)" = "Sonuncu (%@)";
 
 /* Button */
-"Load Tap driver automatically" = "Load Tap driver automatically";
+"Load Tap driver automatically" = "Tap drayveri avtomatik yüklə";
 
 /* Button */
-"Load Tun driver automatically" = "Load Tun driver automatically";
+"Load Tun driver automatically" = "Tun drayveri avtomatik yüklə";
 
 /* Button */
-"Manually" = "Manually";
+"Manually" = "Özünüz";
 
 /* Button */
-"Monochrome icon" = "Monochrome icon";
+"Monochrome icon" = "Monoxromatik ikona";
 
 /* Button */
-"More Info" = "More Info";
+"More Info" = "Daha artıq məlumat";
 
 /* Button */
-"Never load Tap driver" = "Never load Tap driver";
+"Never load Tap driver" = "Heç vaxt Tap drayveri yükləmə";
 
 /* Button */
-"Never load Tun driver" = "Never load Tun driver";
+"Never load Tun driver" = "Heç vaxt Tun drayveri yükləmə";
 
 /* Button */
-"Never show" = "Never show";
+"Never show" = "Heç zaman göstərmə";
 
 /* Button */
-"No keyboard shortcut" = "No keyboard shortcut";
+"No keyboard shortcut" = "Klaviatura qısa yol olmasın";
 
 /* Button */
-"No sound" = "No sound";
+"No sound" = "Səssiz";
 
 /* Button */
-"OK" = "OK";
+"OK" = "Qoşul";
 
 /* Button */
-"Only Me" = "Only Me";
+"Only Me" = "Ancaq mən";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Open Uninstall Instructions in Browser";
+"Open Uninstall Instructions in Browser" = "Silmə təlimatını brauzerdə aç";
 
 /* Button */
-"Open easy-rsa in Terminal" = "Open easy-rsa in Terminal";
+"Open easy-rsa in Terminal" = "Terminalda easy-rsa aç";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "Place Icon Near the Spotlight Icon";
+"Place Icon Near the Spotlight Icon" = "İkonanı Spotlight İkonasının yanında yerləşdir";
 
 /* Button */
-"Place Icon Normally" = "Place Icon Normally";
+"Place Icon Normally" = "İknonanı həmişəki yerinə qoy";
 
 /* Button */
-"Privacy info..." = "Privacy info…";
+"Privacy info..." = "Gizlilik məlumatı…";
 
 /* Button */
-"Quit All OpenVPN Processes" = "Quit All OpenVPN Processes";
+"Quit All OpenVPN Processes" = "Bütün OpenVPN proseslərini dayandır";
 
 /* Button */
-"Quit" = "Quit";
+"Quit" = "Bağla";
 
 /* Button */
-"Reinstall" = "Reinstall";
+"Reinstall" = "Təkrar quraşdır";
 
 /* Button */
-"Remove Credentials" = "Remove Credentials";
+"Remove Credentials" = "Etimadnamələri sil";
 
 /* Button */
-"Replace" = "Replace";
+"Replace" = "Əvəz et";
 
 /* Button */
-"Reset Disabled Warnings" = "Reset Disabled Warnings";
+"Reset Disabled Warnings" = "Söndürülmüş Xəbərdarlıqları sıfırla";
 
 /* Button */
-"Restart connection" = "Restart connection";
+"Restart connection" = "Bağlantıları yenilə";
 
 /* Button */
-"Restore" = "Restore";
+"Restore" = "Bərpa et";
 
 /* Button */
-"Retry" = "Retry";
+"Retry" = "Yenidən cəhd edin";
 
 /* Button */
-"Revert" = "Revert";
+"Revert" = "Geri döndər";
 
 /* Button */
-"Show on default screen (%u x %u)" = "Show on default screen (%1$u x %2$u)";
+"Show on default screen (%u x %u)" = "Cari ekranda göstər (%1$u x %2$u)";
 
 /* Button */
-"Show on screen %u (%u x %u)" = "Show on screen %1$u (%2$u x %3$u)";
+"Show on screen %u (%u x %u)" = "%1$u ekranında göstər (%2$u x %3$u)";
 
 /* Button */
-"Show when connection status changes" = "Show when connection status changes";
+"Show when connection status changes" = "Bağlantı statusunda olan dəyişiklikləri bildir";
 
 /* Button */
-"Show while connecting" = "Show while connecting";
+"Show while connecting" = "Bağlantı zamanı göstər";
 
 /* Button */
-"Skip" = "Skip";
+"Skip" = "Buraxmaq";
 
 /* Button */
-"Speak" = "Speak";
+"Speak" = "Söylə";
 
 /* Button */
-"Standard icon" = "Standard icon";
+"Standard icon" = "Standart ikona";
 
 /* Button */
-"Terminate All OpenVPN processes" = "Terminate All OpenVPN processes";
+"Terminate All OpenVPN processes" = "Bütün OpenVPN proseslərini dayandır";
 
 /* Button */
-"Terminate" = "Terminate";
+"Terminate" = "Dayandır";
 
 /* Button */
-"This configuration has its own separate credentials" = "This configuration has its own separate credentials";
+"This configuration has its own separate credentials" = "Bu konfigurasiyanın ayrıca etimadnaməsi vardır";
 
 /* Button */
-"This configuration uses %@ credentials" = "This configuration uses %@ credentials";
+"This configuration uses %@ credentials" = "Bu konfigurasiya %@ etimadnamələrindən istifade edir";
 
 /* Button */
-"Try again with saved passphrase" = "Try again with saved passphrase";
+"Try again with saved passphrase" = "Saxlanılmış şifrə-sözlə təkrar sına";
 
 /* Button */
-"Try again with saved username and password" = "Try again with saved username and password";
+"Try again with saved username and password" = "Saxlanılmış istifadəçi adı və şifrəsi ilə təkrar sına";
 
 /* Button */
-"Try again" = "Try again";
+"Try again" = "Bir daha sına";
 
 /* Button */
-"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 icon";
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 işarəsi";
 
 /* Button */
-"When Tunnelblick launches" = "When Tunnelblick launches";
+"When Tunnelblick launches" = "Tunnelblick başlayanda";
 
 /* Button */
-"When computer starts" = "When computer starts";
+"When computer starts" = "Kompyuteri başlayanda";
 
 /* Menu item */
-"Add a VPN..." = "Add a VPN…";
+"Add a VPN..." = "VPN əlavə et…";
 
 /* Menu item */
-"Connect %@%@" = "Connect %@%@";
+"Connect %@%@" = "%@%@-a qoşul";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "Delete Configuration's Credentials in Keychain…";
+"Delete Configuration's Credentials in Keychain..." = "Konfiqurasiya Etimadnamələrini Açarlıqdan sil…";
 
 /* Menu item tooltip */
-"Disabled because this setting is being forced" = "Disabled because this setting is being forced";
+"Disabled because this setting is being forced" = "Söndürülüb, çünki bu parametrlər məcburidir";
 
 /* Menu item */
-"Disconnect %@%@" = "Disconnect %@%@";
+"Disconnect %@%@" = "%@%@ bağlantısını kəs";
 
 /* Menu Item */
 "Do Not Show on Tunnelblick Menu" = "Do Not Show on Tunnelblick Menu";
