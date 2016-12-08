@@ -150,7 +150,7 @@ BOOL needToConvertNonTblks(void);
                                     IntoMenu:               (NSMenu *)          theMenu
                                   afterIndex:               (int)               theIndex
                                     withName:               (NSString *)        displayName;
--(void)             makeSymbolicLink;
+-(void)             checkSymbolicLink;
 -(NSString *)       menuNameFromFilename:                   (NSString *)        inString;
 -(void)             removeConnectionWithDisplayName:        (NSString *)        theName
                                            fromMenu:        (NSMenu *)          theMenu
@@ -856,9 +856,9 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, publicIPAddress,           setPublic
         [gTbDefaults scanForUnknownPreferencesInDictionary: userDefaultsDict              displayName: @"preferences"];
         
         TBLog(@"DB-SU", @"init: 008")
-        // Create a symbolic link to the private configurations folder, after having run the installer (which may have moved the
+        // Check any symbolic link to the private configurations folder, after having run the installer (which may have moved the
         // configuration folder contents to the new place)
-        [self makeSymbolicLink];
+        [self checkSymbolicLink];
         
         TBLog(@"DB-SU", @"init: 009")
         // Check that we can run Tunnelblick from this volume, that it is in /Applications, and that it is secured
@@ -1172,65 +1172,58 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, publicIPAddress,           setPublic
     }
 }
 
-// Attempts to make a symbolic link from the old configurations folder to the new configurations folder
-- (void) makeSymbolicLink
+// Check that the old configurations folder (if it exists) has been replaced with a symbolic link to the new configurations folder
+- (void) checkSymbolicLink
 {
-    BOOL isDir;
-    NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
-    NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: oldConfigDirPath traverseLink: NO];
-    if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-        // A symbolic link exists
-        if (  ! [[gFileMgr tbPathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: gPrivatePath]  ) {
-            NSLog(@"Warning: %@ exists and is a symbolic link but does not reference %@. Attempting repair...", oldConfigDirPath, gPrivatePath);
-            if (  ! [gFileMgr tbRemoveFileAtPath:oldConfigDirPath handler: nil]  ) {
-                NSLog(@"Warning: Unable to remove %@", oldConfigDirPath);
-            }
-            if (  ! [gFileMgr tbCreateSymbolicLinkAtPath: oldConfigDirPath
-                                           pathContent: gPrivatePath]  ) {
-                NSLog(@"Warning: Unable to change symbolic link %@ to point to %@", oldConfigDirPath, gPrivatePath);
-            }
-        }
-        
-    } else {
-        // Not a symbolic link
-        if (  [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
-            if (  isDir  ) {
-                // If empty (i.e., only has invisible files), delete it and create the symlink
-                BOOL isEmpty = TRUE;
-                NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: oldConfigDirPath];
-                NSString * file;
-                while (  (file = [dirEnum nextObject])  ) {
-                    if (  itemIsVisible([oldConfigDirPath stringByAppendingPathComponent: file])  ) {
-                        isEmpty = FALSE;
-                        break;
-                    }
-                }
-                if (  isEmpty  ) {
-                    if (  [gFileMgr tbRemoveFileAtPath:oldConfigDirPath handler: nil]  ) {
-                        if (  [gFileMgr tbCreateSymbolicLinkAtPath: oldConfigDirPath
-                                                     pathContent: gPrivatePath]  ) {
-                            NSLog(@"Replaceed %@ with a symbolic link to %@", oldConfigDirPath, gPrivatePath);
-                        } else {
-                            NSLog(@"Warning: Unable to create a symbolic link to %@ at %@", gPrivatePath, oldConfigDirPath);
-                        }
-                    } else {
-                        NSLog(@"Warning: unable to remove %@ folder to replace it with a symbolic link", oldConfigDirPath);
-                    }
-                } else {
-                    NSLog(@"Warning: %@ is a folder which is not empty.", oldConfigDirPath);
-                }
-            } else {
-                NSLog(@"Warning: %@ exists but is not a symbolic link or a folder.", oldConfigDirPath);
-            }
-        } else {
-            if (  [gFileMgr tbCreateSymbolicLinkAtPath: oldConfigDirPath
-                                         pathContent: gPrivatePath]  ) {
-                NSLog(@"Created a symbolic link to %@ at %@", gPrivatePath, oldConfigDirPath);
-            } else {
-                NSLog(@"Warning: Unable to create a symbolic link to %@ at %@", gPrivatePath, oldConfigDirPath);
-            }
-        }
-    }
+	BOOL isDir;
+	NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
+	if (  [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
+		NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: oldConfigDirPath traverseLink: NO];
+		if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+			// A symbolic link exists
+			if (  ! [[gFileMgr tbPathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: gPrivatePath]  ) {
+				NSLog(@"Warning: %@ exists and is a symbolic link but does not reference %@. Attempting repair...", oldConfigDirPath, gPrivatePath);
+				if (  ! [gFileMgr tbRemoveFileAtPath:oldConfigDirPath handler: nil]  ) {
+					NSLog(@"Warning: Unable to remove %@", oldConfigDirPath);
+				}
+				if (  ! [gFileMgr tbCreateSymbolicLinkAtPath: oldConfigDirPath
+												 pathContent: gPrivatePath]  ) {
+					NSLog(@"Warning: Unable to change symbolic link %@ to point to %@", oldConfigDirPath, gPrivatePath);
+				}
+			}
+			
+		} else {
+			// Not a symbolic link
+			if (  isDir  ) {
+				// If empty (i.e., only has invisible files), delete it and create the symlink
+				BOOL isEmpty = TRUE;
+				NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: oldConfigDirPath];
+				NSString * file;
+				while (  (file = [dirEnum nextObject])  ) {
+					if (  itemIsVisible([oldConfigDirPath stringByAppendingPathComponent: file])  ) {
+						isEmpty = FALSE;
+						break;
+					}
+				}
+				if (  isEmpty  ) {
+					if (  [gFileMgr tbRemoveFileAtPath:oldConfigDirPath handler: nil]  ) {
+						if (  [gFileMgr tbCreateSymbolicLinkAtPath: oldConfigDirPath
+													   pathContent: gPrivatePath]  ) {
+							NSLog(@"Replaceed %@ with a symbolic link to %@", oldConfigDirPath, gPrivatePath);
+						} else {
+							NSLog(@"Warning: Unable to create a symbolic link to %@ at %@", gPrivatePath, oldConfigDirPath);
+						}
+					} else {
+						NSLog(@"Warning: unable to remove %@ folder to replace it with a symbolic link", oldConfigDirPath);
+					}
+				} else {
+					NSLog(@"Warning: %@ is a folder which is not empty.", oldConfigDirPath);
+				}
+			} else {
+				NSLog(@"Warning: %@ exists but is not a symbolic link or a folder.", oldConfigDirPath);
+			}
+		}
+	}
 }
 
 - (void) dealloc
@@ -1242,9 +1235,9 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, publicIPAddress,           setPublic
     [highlightedAnimImages release];
     [highlightedConnectedImage release];
     [highlightedMainImage release];
-    
+	
     [gConfigDirs release];
-    
+	
     [gTbDefaults release];
     [connectionArray release];
     [nondisconnectedConnections release];
