@@ -3490,38 +3490,38 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         NSString * stdErrString = @"";
         OSStatus status = runOpenvpnstart(arguments, &stdOutString, &stdErrString);
         
-        if (  status == EXIT_SUCCESS  ) {
-            if ( [stdOutString hasPrefix: @"No such script exists: "]  ) {
-                [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: No '%@.sh' script to execute", scriptName]];
-            } else {
-                [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: The '%@.sh' script executed successfully", scriptName]];
-            }
-        } else {
-            if (  [stdOutString hasSuffix: @"\n"]  ) {
-                stdOutString = [stdOutString substringToIndex: [stdOutString length] - 1];
-            }
-            if (  [stdErrString hasSuffix: @"\n"]  ) {
-                stdErrString = [stdErrString substringToIndex: [stdErrString length] - 1];
-            }
-            
-            NSMutableString * msg = [NSMutableString stringWithCapacity: 1000];
-            [msg appendString: [NSString stringWithFormat: @"*Tunnelblick: The '%@.sh' script failed; 'openvpnstart %@' returned error %ld\n",
-                                scriptName, command, (long) status]];
-            
-            if (  [stdOutString length] == 0  ) {
-                [msg appendString: @"There was no stdout output"];
-            } else {
-                [msg appendString: [NSString stringWithFormat: @"Output from stdout:\n%@\n", stdOutString]];
-            }
-            
-            if (  [stdErrString length] == 0  ) {
-                [msg appendString: @"There was no stderr output"];
-            } else {
-                [msg appendString: [NSString stringWithFormat: @"Output from stderr:\n%@\n", stdErrString]];
-            }
-            
-            [self addToLog: msg];
-            
+		if (   (status == EXIT_SUCCESS)
+			&& [stdOutString hasPrefix: @"No such script exists: "]  ) {
+			[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: No '%@.sh' script to execute", scriptName]];
+			return;
+		}
+		
+		if (  [stdOutString hasSuffix: @"\n"]  ) {
+			stdOutString = [stdOutString substringToIndex: [stdOutString length] - 1];
+		}
+		if (  [stdErrString hasSuffix: @"\n"]  ) {
+			stdErrString = [stdErrString substringToIndex: [stdErrString length] - 1];
+		}
+		
+		NSMutableString * msg = [NSMutableString stringWithCapacity: 1000];
+		if (  status == EXIT_SUCCESS  ) {
+			[msg appendString: [NSString stringWithFormat: @"*Tunnelblick: The '%@.sh' script succeeded\n", scriptName]];
+		} else {
+			[msg appendString: [NSString stringWithFormat: @"*Tunnelblick: The '%@.sh' script failed; 'openvpnstart %@' returned error %ld\n",
+								scriptName, command, (long) status]];
+		}
+		
+		if (  [stdOutString length] != 0  ) {
+			[msg appendString: [NSString stringWithFormat: @"%@\n", stdOutString]];
+		}
+		
+		if (  [stdErrString length] != 0  ) {
+			[msg appendString: [NSString stringWithFormat: @"%@\n", stdErrString]];
+		}
+		
+		[self addToLog: msg];
+		
+        if (  status != EXIT_SUCCESS  ) {
             if (   ( ! [scriptName isEqualToString: @"post-disconnect"])
 				&& ( ! [scriptName isEqualToString: @"pre-disconnect"])  ) {
                 [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting because the '%@.sh' script failed", scriptName]];
