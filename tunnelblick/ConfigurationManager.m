@@ -2598,7 +2598,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                                                           installTblks: nil];
 		if (  installerResult == 0  ) {
  			[[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] stopUpdateCheckingForAllStubTblksWithBundleIdentifier: bundleId];
-            [[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] addUpdateCheckingForStubTblkAtPath: target];
+            [[((MenuController *)[NSApp delegate]) myConfigMultiUpdater] performSelectorOnMainThread:@selector(addUpdateCheckingForStubTblkAtPath:) withObject: target waitUntilDone: YES];
         } else {
             nUpdateErrors++;
             [installerErrorMessages appendString: [NSString stringWithFormat: NSLocalizedString(@"Unable to store updatable configuration stub at %@\n", @"Window text"), target]];
