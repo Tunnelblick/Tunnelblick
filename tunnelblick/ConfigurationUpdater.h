@@ -29,6 +29,7 @@
     SUUpdater * cfgUpdater;
     NSString  * cfgBundleId;
     NSString  * cfgName;
+	NSString  * feedUrlStringForConfigurationUpdater;
 }
 
 -(ConfigurationUpdater *) initWithPath: (NSString *) path;
@@ -40,5 +41,5 @@
 -(NSString *) cfgBundlePath;
 
 TBPROPERTY_READONLY(NSString *, cfgBundleId)
-
+TBPROPERTY(NSString *, feedUrlStringForConfigurationUpdater, setFeedUrlStringForConfigurationUpdater)
 @end

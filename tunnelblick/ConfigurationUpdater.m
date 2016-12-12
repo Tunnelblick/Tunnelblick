@@ -45,6 +45,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, SUUpdater *, cfgUpdater)
 TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgBundlePath)
 TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgBundleId)
 TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgName)
+TBSYNTHESIZE_OBJECT(    retain, NSString *,  feedUrlStringForConfigurationUpdater, setFeedUrlStringForConfigurationUpdater)
 
 -(NSString *) edition {
 	
@@ -89,7 +90,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgName)
         NSLog(@"SUFeedURL in Info.plist for .tblk at %@ is not a valid URL", path);
         return nil;
     }
-    
+	
+	[self setFeedUrlStringForConfigurationUpdater: feedURLString];
+	
     NSTimeInterval interval = 60*60; // One hour (1 hour in seconds = 60 minutes * 60 seconds/minute)
     id checkInterval = [infoPlist objectForKey: @"SUScheduledCheckInterval"];
     if (  checkInterval  ) {
@@ -234,6 +237,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString  *, cfgName)
     TBLog(@"DB-UC", @"updaterShouldPromptForPermissionToCheckForUpdates for '%@' (%@ %@)", [self cfgName], [self cfgBundleId], [self edition]);
     return NO;
 }
+
+- (NSString *)feedURLStringForUpdater:(SUUpdater *)updater {
+	
+	(void)updater;
+	
+	return [self feedUrlStringForConfigurationUpdater];
+}
+
 
 - (BOOL)updaterShouldRelaunchApplication:(SUUpdater *)updater {
 	
