@@ -1,0 +1,85 @@
+#! /bin/bash
+#
+# updates_generate_keys
+#
+# This file is a modified version of "generate_keys" distributed with Sparkle Updater (https://sparkle-project.org/).
+#
+# Modifications copyright © 2016 by Jonathan K. Bullard. All rights reserved.
+#
+#  This file is part of Tunnelblick.
+#
+#  Tunnelblick is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2
+#  as published by the Free Software Foundation.
+#
+#  Tunnelblick is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program (see the file COPYING included with this
+#  distribution); if not, write to the Free Software Foundation, Inc.,
+#  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#  or see http://www.gnu.org/licenses/.
+
+##########################################################################################
+# Generates public and private keys for signing Tunnelblick so that Sparkle Updater can
+# verify updates and appcasts.
+#
+# Usage:
+#
+#	updates_generate_keys    target_folder_path
+#
+#		"target_folder_path" is the path of a folder in which the keys are to be stored
+
+##########################################################################################
+
+# Set up
+
+set -e
+
+readonly openssl="/usr/bin/openssl"
+
+##########################################################################################
+
+# Do sanity checks
+
+if [ "$#" == "0" ]; then
+	echo "Usage:  $0  target_folder_path"
+	exit 1
+fi
+
+# Process argument
+
+if [ ! -d "$1" ] ; then
+	echo "No private key file at $1"
+	exit 1
+fi
+
+readonly target_folder_path="$1"
+
+##########################################################################################
+
+# Make sure the keys do not already exist
+for file in "dsaparam.pem" "dsa_priv.pem" "dsa_pub.pem"; do
+  if [ -e "$target_folder_path/$file" ]; then
+    echo "There's already a $file in $target_folder_path"
+    exit 1
+  fi
+done
+
+$openssl gendsa <($openssl dsaparam 4096) -out "$target_folder_path/dsa_priv.pem"
+chmod 0400 "$target_folder_path/dsa_priv.pem"
+$openssl dsa -in "$target_folder_path/dsa_priv.pem" -pubout -out "$target_folder_path/dsa_pub.pem"
+
+echo "
+Generated two files in $target_folder_path:
+    dsa_priv.pem: your private key. Keep it secret and don't share it!
+    dsa_pub.pem:  public counterpart to include in the app bundle.
+
+BACK UP YOUR PRIVATE KEY AND KEEP IT SAFE AND PRIVATE!
+If you lose it, your users will be unable to upgrade!
+"
+
+open -R "$target_folder_path/dsa_priv.pem"
