@@ -1739,22 +1739,22 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "Berkas tak dapat dibaca pada %@\n\nLihat Log konsol untuk rincian.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Updatable configuration '%1$@' was not stored as updatable because %2$@ could not be found\n";
+"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Konfigurasi '%1$@' yang dapat dimutakhirkan tidak disimpan sebagai dapat dimutakhirkan karena %2$@ tidak dapat ditemukan\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Updatable configuration '%1$@' was not stored as updatable because '%2$@' could not be copied to '%3$@'\n";
+"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Konfigurasi '%1$@' yang dapat dimutakhirkan tidak disimpan sebagai dapat dimutakhirkan karena '%2$@' tidak dapat disalin ke '%3$@'\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n";
+"Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Konfigurasi '%@' yang dapat dimutakhirkan tidak disimpan sebagai dapat dimutakhirkan karena 'Contents' dalam .tblk stub tidak dapat dibuat\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n";
+"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Konfigurasi '%@' yang dapat dimutakhirkan tidak disimpan sebagai dapat dimutakhirkan karena 'Contents/Resources' dalam .tblk stub tidak dapat dibuat\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n";
+"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Konfigurasi '%@' yang dapat dimutakhirkan tidak disimpan sebagai dapat dimutakhirkan karena 'SUPublicDSAKeyFile' bukan suatu nama berkas dengan ekstensi opsional\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n";
+"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Konfigurasi '%@' yang dapat dimutakhirkan tidak disimpan sebagai dapat dimutakhirkan karena 'SUPublicDSAKeyFile' bukan suatu string\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n";
@@ -1799,16 +1799,16 @@
 "Warnings:" = "Peringatan:";
 
 /* Window text */
-"When changes to anything else" = "When changes to anything else";
+"When changes to anything else" = "Ketika berubah ke selain itu";
 
 /* Window text */
-"When changes to pre-VPN value" = "When changes to pre-VPN value";
+"When changes to pre-VPN value" = "Ketika berubah ke nilai pra VPN";
 
 /* Window text */
 "Workgroup:" = "Workgroup:";
 
 /* Window text */
-"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n";
+"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Apakah Anda hendak\n \n  • Membuat suatu konfigurasi contoh pada Desktop\n             dan\n  • Membuka berkas konfigurasi OpenVPNnya dalam TextEdit sehingga Anda dapat mengubahnya untuk menyambung ke VPN Anda?\n\n";
 
 /* Window text */
 "You are not allowed to replace a private configuration" = "You are not allowed to replace a private configuration";
@@ -1898,10 +1898,10 @@
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nand install %ld Tunnelblick VPN Configurations";
 
 /* Window text */
-"\nusing %@ credentials." = "\nusing %@ credentials.";
+"\nusing %@ credentials." = "\nmemakai kredensial %@.";
 
 /* Window text */
-"easy-rsa installation failed: %@" = "easy-rsa installation failed: %@";
+"easy-rsa installation failed: %@" = "pemasangan easy-rsa gagal: %@";
 
 /* Window text */
 "targetPathToReplaceForDisplayName: %@ was found to replace the configuration with CFBundleIdentifer %@, but earlier, %@ was found to replace it." = "targetPathToReplaceForDisplayName: %1$@ was found to replace the configuration with CFBundleIdentifer %2$@, but earlier, %3$@ was found to replace it.";
@@ -1916,7 +1916,7 @@
 "%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
 
 /* Tooltip */
-"%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
+"%d days %d:%02d:%02d" = "%1$d hari %2$d:%3$02d:%4$02d";
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bit enabling and testing";
@@ -1991,7 +1991,7 @@
 "Bulgarian localization" = "Lokalisasi Bulgaria";
 
 /* Credit description */
-"Button images" = "Button images";
+"Button images" = "Gambar tombol";
 
 /* Credit description */
 "Catalan localization" = "Lokalisasi Katala";
@@ -2003,16 +2003,16 @@
 "Chinese (traditional) localization" = "Lokalisasi Cina (tradisional)";
 
 /* Credentials name */
-"Common" = "Common";
+"Common" = "Umum";
 
 /* Speak string */
-"Connected to %@" = "Connected to %@";
+"Connected to %@" = "Tersambung ke %@";
 
 /* Credit description */
-"Contributed much to the early code" = "Contributed much to the early code";
+"Contributed much to the early code" = "Banyak menyumbang ke kode awal";
 
 /* Credit description */
-"Contributed to early code" = "Contributed to early code";
+"Contributed to early code" = "Menyumbang ke kode awal";
 
 /* Credit description */
 "Croatian localization" = "Lokalisasi Kroasia";
@@ -2024,10 +2024,10 @@
 "Danish localization" = "Lokalisasi Denmark";
 
 /* Speak string */
-"Disconnected from %@" = "Disconnected from %@";
+"Disconnected from %@" = "Terputus dari %@";
 
 /* Checkbox */
-"Do not show this again" = "Do not show this again";
+"Do not show this again" = "Jangan tampilkan ini lagi";
 
 /* Credit description */
 "Dutch localization" = "Lokalisasi Belanda";
@@ -2035,7 +2035,7 @@
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
 */
-"Enter admin mode" = "Enter admin mode";
+"Enter admin mode" = "Memasuki mode admin";
 
 /* Credit description */
 "Estonian localization" = "Lokalisasi Estonia";
@@ -2095,7 +2095,7 @@
 "Norwegian localization" = "Lokalisasi Norwegia";
 
 /* Credit description */
-"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
+"OpenVPN 2.3 and 64-bit integration" = "Integrasi OpenVPN 2.3 dan 64 bit";
 
 /* Credit description */
 "PKCS#11 support" = "Dukungan PKCS#11";
@@ -2113,7 +2113,7 @@
 "Portuguese localization" = "Lokalisasi Portugis";
 
 /* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "Program and documentation enhancements and maintenance after version 3.0b10";
+"Program and documentation enhancements and maintenance after version 3.0b10" = "Perbaikan dan pemeliharaan program dan dokumentasi setelah versi 3.0b10";
 
 /* Credit description */
 "Romanian localization" = "Lokalisasi Rumania";
@@ -2140,19 +2140,19 @@
 "Turkish localization" = "Lokalisasi Turki";
 
 /* Credit description */
-"UKKQueue and UKLoginItemRegistry" = "UKKQueue and UKLoginItemRegistry";
+"UKKQueue and UKLoginItemRegistry" = "UKKQueue dan UKLoginItemRegistry";
 
 /* Credit description */
 "Ukrainian localization" = "Lokalisasi Ukraina";
 
 /* Credit description */
-"Up and Down scripts" = "Up and Down scripts";
+"Up and Down scripts" = "Skrip Up dan Down";
 
 /* Notification text */
-"Updated to %@." = "Updated to %@.";
+"Updated to %@." = "Dimutakhirkan ke %@.";
 
 /* Credit description */
-"Xcode help and OpenSSL integration" = "Xcode help and OpenSSL integration";
+"Xcode help and OpenSSL integration" = "Integrasi bantuan Xcode dan OpenSSL";
 
 /* Button VPNService */
 "Accept" = "Setuju";
@@ -2161,7 +2161,7 @@
 "Create a Free Account" = "Buat Akun Gratis";
 
 /* Button VPNService */
-"Get Different Image" = "Get Different Image";
+"Get Different Image" = "Ambil Gambar Lain";
 
 /* Button VPNService *//* Window title VPNService */
 "Login" = "Log Masuk";
@@ -2173,13 +2173,13 @@
 "Reject" = "Tolak";
 
 /* Menu item VPNService */
-"Register for Tunnelblick..." = "Register for Tunnelblick…";
+"Register for Tunnelblick..." = "Mendaftar Tunnelblick…";
 
 /* Window title  VPNService */
-"Cannot obtain image" = "Cannot obtain image";
+"Cannot obtain image" = "Tidak bisa memperoleh gambar";
 
 /* Window title  VPNService */
-"Cannot register" = "Cannot register";
+"Cannot register" = "Tidak bisa mendaftar";
 
 /* Window title  VPNService */
 "Email not verified" = "Surel tidak terverifikasi";
@@ -2200,7 +2200,7 @@
 "Prove You are Human" = "Buktikan Bahwa Anda Manusia";
 
 /* Window title  VPNService */
-"Register with Tunnelblick" = "Register with Tunnelblick";
+"Register with Tunnelblick" = "Mendaftar Tunnelblick";
 
 /* Window title  VPNService */
 "Sorry" = "Maaf";
@@ -2215,16 +2215,16 @@
 "Welcome!" = "Selamat Datang!";
 
 /* Window title  VPNService */
-"You Must Type the Characters" = "You Must Type the Characters";
+"You Must Type the Characters" = "Anda Mesti Mengetikkan Karakter";
 
 /* Window text VPNService */
 "Confirm password:" = "Konfirmasi kata sandi:";
 
 /* Window text VPNService */
-"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'.";
+"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Selamat! Akun Anda telah dibuat. Anda mestinya segera menerima suatu surel dari Tunnelblick. Ikutilah petunjuk dalam surel untuk verifikasi alamat surel Anda lalu klik 'Lanjut'.";
 
 /* Window text VPNService */
-"Could not check registration" = "Could not check registration";
+"Could not check registration" = "Tidak bisa memeriksa pendaftaran";
 
 /* Window text VPNService */
 "Could not get a captcha image" = "Could not get a captcha image";
@@ -2296,22 +2296,22 @@
 "Unable to check registration for empty email address" = "Unable to check registration for empty email address";
 
 /* Window text VPNService */
-"Unable to connect to server" = "Unable to connect to server";
+"Unable to connect to server" = "Tidak bisa menyambung ke server";
 
 /* Window text VPNService */
-"You have already registered but not yet confirmed your email address." = "You have already registered but not yet confirmed your email address.";
+"You have already registered but not yet confirmed your email address." = "Anda telah mendaftar tapi belum mengkonfirmasi alamat surel Anda.";
 
 /* Window text VPNService */
-"You have already registered." = "You have already registered.";
+"You have already registered." = "Anda telah terdaftar.";
 
 /* Window text VPNService */
-"You must enter an email address and password to login." = "You must enter an email address and password to login.";
+"You must enter an email address and password to login." = "Anda mesti memasukkan suatu alamat surel dan kata sandi untuk log masuk.";
 
 /* Window text VPNService */
-"You must enter an email address, password, and password confirmation to proceed." = "You must enter an email address, password, and password confirmation to proceed.";
+"You must enter an email address, password, and password confirmation to proceed." = "Anda mesti memasukkan suatu alamat surel, kata sandi, dan konfirmasi kata sandi untuk melanjutkan.";
 
 /* Window text VPNService */
-"You must type the characters in the image to proceed." = "You must type the characters in the image to proceed.";
+"You must type the characters in the image to proceed." = "Anda mesti mengetikkan karakter dalam gambar untuk melanjutkan.";
 
 /* Window text VPNService */
-"Your account status could not be verified:\n     %@." = "Your account status could not be verified:\n     %@.";
+"Your account status could not be verified:\n     %@." = "Status akun Anda tidak bisa diverifikasi:\n     %@.";
