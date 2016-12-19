@@ -81,7 +81,6 @@
 		634EE8391191F89800DF4E43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		634F1B9A1D23DA4A00B1E929 /* TBInfoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 634F1B991D23DA4A00B1E929 /* TBInfoButton.m */; };
 		634F1B9D1D23FD9D00B1E929 /* Tracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 634F1B9C1D23FD9D00B1E929 /* Tracker.m */; };
-		6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6353818E1116031F00D68E83 /* dsa_pub.pem */; };
 		635713A61A6709D800709670 /* AR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635713A31A6709D800709670 /* AR.lproj */; };
 		635971421C06736B0055FBC5 /* UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 635971411C06736B0055FBC5 /* UIHelper.m */; };
 		635971461C0673A10055FBC5 /* Preferences-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635971431C0673A10055FBC5 /* Preferences-RTL.xib */; };
@@ -437,7 +436,6 @@
 		634F1B991D23DA4A00B1E929 /* TBInfoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBInfoButton.m; sourceTree = "<group>"; };
 		634F1B9B1D23FD9D00B1E929 /* Tracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracker.h; sourceTree = "<group>"; };
 		634F1B9C1D23FD9D00B1E929 /* Tracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tracker.m; sourceTree = "<group>"; };
-		6353818E1116031F00D68E83 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		635713A31A6709D800709670 /* AR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AR.lproj; sourceTree = "<group>"; };
 		635971401C06736B0055FBC5 /* UIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIHelper.h; sourceTree = "<group>"; };
 		635971411C06736B0055FBC5 /* UIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIHelper.m; sourceTree = "<group>"; };
@@ -843,7 +841,6 @@
 				63EEBD8C137EF4C3001BFFD8 /* help */,
 				63C043DC1023660900E6C1D0 /* IconSets */,
 				6387F0F4135604240021E41B /* tunnelblick.sdef */,
-				6353818E1116031F00D68E83 /* dsa_pub.pem */,
 				61F294A50ED389520097DE94 /* openvpn.conf */,
 				635CA45212F8285D00287298 /* COPYING */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -1564,7 +1561,6 @@
 				635CBBE310F3B3E700BF529B /* ZH_TW.lproj in Resources */,
 				63E372680FEB3FF00012DDE7 /* leasewatch in Resources */,
 				63C043E61023660900E6C1D0 /* IconSets in Resources */,
-				6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */,
 				635971461C0673A10055FBC5 /* Preferences-RTL.xib in Resources */,
 				6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */,
 				634827BB1D7DBFBB0046703C /* BuildThirdPartyItems.sh in Resources */,
