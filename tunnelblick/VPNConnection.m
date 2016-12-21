@@ -2795,10 +2795,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                                        nil);
                 if (needButtonReturn == NSAlertDefaultReturn) {
                     TBLog(@"DB-AU", @"Write need ok.");
-                    [managementSocket writeString: @"needok 'token-insertion-request' ok\r\n" encoding: NSASCIIStringEncoding];
+                    [managementSocket writeString: @"needok token-insertion-request ok\r\n" encoding: NSASCIIStringEncoding];
                 } else {
                     TBLog(@"DB-AU", @"Write need cancel.");
-                    [managementSocket writeString: @"needok 'token-insertion-request' cancel\r\n" encoding: NSASCIIStringEncoding];
+                    [managementSocket writeString: @"needok token-insertion-request cancel\r\n" encoding: NSASCIIStringEncoding];
                 }
             }
         }
