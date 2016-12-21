@@ -183,7 +183,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                    @"TBReplaceIdentical",
                                    @"TBSharePackage",
                                    @"SUFeedURL",
-                                   @"SUPublicDSAKeyFile",
+                                   @"SUPublicDSAKey",
                                    nil];
 		
 		NSArray * booleanKeys   = [NSArray arrayWithObjects:
@@ -1961,46 +1961,14 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
             return [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n", @"Window text"), cfBI];
 		}
 		
-        // If there is a DSA key file, copy that, too, but into "Contents/Resources", and set its permissions
-        id obj = [outerUpdatablePlist objectForKey: @"SUPublicDSAKeyFile"];
-        if (  obj  ) {
-			if (  ! [[obj class] isSubclassOfClass: [NSString class]]  ) {
-                return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n", @"Window text"), cfBI];
-			}
-            NSString * suDSAKeyFileName = (NSString *)obj;
-            if (  ! [suDSAKeyFileName isEqualToString: [suDSAKeyFileName lastPathComponent]]  ) {
-                return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n", @"Window text"), cfBI];
-            }
-            // Look for the key file first in the outer .tblk, then in the outer .tblk's Contents/Resources folder
-            NSString * dsaKeyFilePath = [outerTblkPath stringByAppendingPathComponent: suDSAKeyFileName];
-            if (  ! [gFileMgr fileExistsAtPath: dsaKeyFilePath]  ) {
-                dsaKeyFilePath = [[[outerTblkPath stringByAppendingPathComponent: @"Contents"]
-                                   stringByAppendingPathComponent: @"Resources"]
-                                  stringByAppendingPathComponent: suDSAKeyFileName];
-                if (  ! [gFileMgr fileExistsAtPath: dsaKeyFilePath]  ) {
-                    return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n", @"Window text"), cfBI, suDSAKeyFileName];
-                }
-            }
-            
-            NSString * resourcesPath = [contentsPath stringByAppendingPathComponent: @"Resources"];
-            if (  createDir(resourcesPath, PERMS_SECURED_FOLDER) == -1 ) {
-                return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n", @"Window text"), cfBI];
-            }
-            NSString * targetDSAKeyPath = [resourcesPath stringByAppendingPathComponent: suDSAKeyFileName];
-            if (  ! [gFileMgr tbCopyPath: dsaKeyFilePath toPath: targetDSAKeyPath handler: nil]  ) {
-                return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n", @"Window text"), cfBI, dsaKeyFilePath, targetDSAKeyPath];
-            }
-            if (  ! [gFileMgr tbChangeFileAttributes: attributes atPath: targetDSAKeyPath]  ) {
-                return [NSString stringWithFormat: NSLocalizedString(@"Failed to set permissions on %@\n", @"Window text"), targetDSAKeyPath];
-            }
-        } else {
-            // No DSA key file. SUFeedURL must be https://
-            id obj = [outerUpdatablePlist objectForKey: @"SUFeedURL"];
-            if (   ( ! obj)
-                || ( ! [[obj class] isSubclassOfClass: [NSString class]] )
-                || ( ! [(NSString *)obj hasPrefix: @"https://"]  )  ) {
-                return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n", @"Window text"), cfBI];
-            }
+        // Make sure that the update will be done via https: and that it will be digitally signed
+		id obj = [outerUpdatablePlist objectForKey: @"SUFeedURL"];
+		BOOL doesNotUseHttps = (  ! (   [[obj class] isSubclassOfClass: [NSString class]]
+									 && [(NSString *)obj hasPrefix: @"https://"]  )  );
+		BOOL willNotBeSigned = ! [outerUpdatablePlist objectForKey: @"SUPublicDSAKey"];
+		if (   doesNotUseHttps
+			|| willNotBeSigned  ) {
+			return [NSString stringWithFormat: NSLocalizedString(@"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n", @"Window text"), cfBI];
         }
 
 		NSString * targetPath = [[L_AS_T_TBLKS stringByAppendingPathComponent: cfBI]
