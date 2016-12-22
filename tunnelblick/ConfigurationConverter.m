@@ -414,8 +414,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     // Check for UTF-16 files
     if (   (   (chars[0] == 0xFF) && (chars[1] == 0xFE))
         || (   (chars[0] == 0xFE) && (chars[1] == 0xFF))  ) {
-        return [self logMessage: [NSString stringWithFormat: @"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.", path]
-                      localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.", @"Window text"), [path lastPathComponent]]];
+        return [self logMessage: [NSString stringWithFormat: @"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.", path]
+                      localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.", @"Window text"), [path lastPathComponent]]];
     }
     
 	// Don't test anything else in a script file because it is checked elsewhere for CR characters, which are the only characters that are not allowed

@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Fast User Switching";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
