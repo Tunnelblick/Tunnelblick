@@ -1193,9 +1193,6 @@
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Line %1$d of file '%2$@' contains a non-printable character (0x%3$X) which is not allowed.\n\n";
 
 /* Window text */
-"Localization by" = "Localization by";
-
-/* Window text */
 "MB" = "MB";
 
 /* Window text */
@@ -1541,6 +1538,9 @@
 "Too many duplicate configurations already exist." = "Too many duplicate configurations already exist.";
 
 /* Window text */
+"Translation by" = "Translation by";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.";
 
 /* Window text */
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Updatable configuration '%1$@' was not stored as updatable because %2$@ could not be found\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Updatable configuration '%1$@' was not stored as updatable because '%2$@' could not be copied to '%3$@'\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n";
 
 /* Window text */
 "Updates:" = "Updates:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "Admin mode %@ remaining";
 
 /* Credit description */
-"Afrikaans localization" = "Afrikaans localization";
+"Afrikaans translation" = "Afrikaans translation";
 
 /* Credit description */
 "Animation and icon sets code" = "Animation and icon sets code";
 
 /* Credit description */
-"Arabic localization" = "Arabic localization";
+"Arabic translation" = "Arabic translation";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Authenticating…";
 
 /* Credit description */
-"Bulgarian localization" = "Bulgarian localization";
+"Azerbaijani translation" = "Azerbaijani translation";
+
+/* Credit description */
+"Bulgarian translation" = "Bulgarian translation";
 
 /* Credit description */
 "Button images" = "Button images";
 
 /* Credit description */
-"Catalan localization" = "Catalan localization";
+"Catalan translation" = "Catalan translation";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Chinese (simplified) localization";
+"Chinese (simplified) translation" = "Chinese (simplified) translation";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Chinese (traditional) localization";
+"Chinese (traditional) translation" = "Chinese (traditional) translation";
 
 /* Credentials name */
 "Common" = "Common";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "Contributed to early code";
 
 /* Credit description */
-"Croatian localization" = "Croatian localization";
+"Croatian translation" = "Croatian translation";
 
 /* Credit description */
-"Czech localization" = "Czech localization";
+"Czech translation" = "Czech translation";
 
 /* Credit description */
-"Danish localization" = "Danish localization";
+"Danish translation" = "Danish translation";
 
 /* Speak string */
 "Disconnected from %@" = "Disconnected from %@";
@@ -2030,59 +2018,59 @@
 "Do not show this again" = "Do not show this again";
 
 /* Credit description */
-"Dutch localization" = "Dutch localization";
+"Dutch translation" = "Dutch translation";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item */
 "Enter admin mode" = "Enter admin mode";
 
 /* Credit description */
-"Estonian localization" = "Estonian localization";
+"Estonian translation" = "Estonian translation";
 
 /* Credit description */
-"Finnish localization" = "Finnish localization";
+"Finnish translation" = "Finnish translation";
 
 /* Credit description */
 "Founder, original program and documentation" = "Founder, original program and documentation";
 
 /* Credit description */
-"French localization" = "French localization";
+"French translation" = "French translation";
 
 /* Credit description */
-"German localization" = "German localization";
+"German translation" = "German translation";
 
 /* Credit description */
-"Greek localization" = "Greek localization";
+"Greek translation" = "Greek translation";
 
 /* Credit description */
-"Hungarian localization" = "Hungarian localization";
+"Hungarian translation" = "Hungarian translation";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic translation" = "Icelandic translation";
 
 /* Credit description */
 "Icon set including Retina images" = "Icon set including Retina images";
 
 /* Credit description */
-"Indonesian localization" = "Indonesian localization";
+"Indonesian translation" = "Indonesian translation";
 
 /* Credit description */
-"Italian localization" = "Italian localization";
+"Italian translation" = "Italian translation";
 
 /* Credit description */
-"Japanese localization" = "Japanese localization";
+"Japanese translation" = "Japanese translation";
 
 /* Credit description */
-"Korean localization" = "Korean localization";
+"Korean translation" = "Korean translation";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "LANGUAGE_LOCALIZATION";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";
 
 /* Credit description */
-"Latvian localization" = "Latvian localization";
+"Latvian translation" = "Latvian translation";
 
 /* Credit description */
 "Localization code tweaks" = "Localization code tweaks";
@@ -2091,7 +2079,7 @@
 "Multiple configuration folders" = "Multiple configuration folders";
 
 /* Credit description */
-"Norwegian localization" = "Norwegian localization";
+"Norwegian translation" = "Norwegian translation";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
@@ -2100,49 +2088,49 @@
 "PKCS#11 support" = "PKCS#11 support";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian translation" = "Persian translation";
 
 /* Credit description */
-"Polish localization" = "Polish localization";
+"Polish translation" = "Polish translation";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Portuguese (Brazilian) localization";
+"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
 
 /* Credit description */
-"Portuguese localization" = "Portuguese localization";
+"Portuguese translation" = "Portuguese translation";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program and documentation enhancements and maintenance after version 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "Romanian localization";
+"Romanian translation" = "Romanian translation";
 
 /* Credit description */
-"Russian localization" = "Russian localization";
+"Russian translation" = "Russian translation";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Serbian (Latin) localization";
+"Serbian (Latin) translation" = "Serbian (Latin) translation";
 
 /* Credit description */
-"Slovak localization" = "Slovak localization";
+"Slovak translation" = "Slovak translation";
 
 /* Credit description */
-"Spanish localization" = "Spanish localization";
+"Spanish translation" = "Spanish translation";
 
 /* Credit description */
-"Swedish localization" = "Swedish localization";
+"Swedish translation" = "Swedish translation";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick icon";
 
 /* Credit description */
-"Turkish localization" = "Turkish localization";
+"Turkish translation" = "Turkish translation";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue and UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Ukrainian localization";
+"Ukrainian translation" = "Ukrainian translation";
 
 /* Credit description */
 "Up and Down scripts" = "Up and Down scripts";
