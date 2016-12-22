@@ -226,6 +226,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedUR
 TBSYNTHESIZE_OBJECT(retain, NSBundle     *, deployLocalizationBundle,  setDeployLocalizationBundle)
 TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLanguageAtLaunch)
 TBSYNTHESIZE_OBJECT(retain, NSString     *, publicIPAddress,           setPublicIPAddress)
+TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnelblickVersionString)
 
 
 -(NSString *) localizedString: (NSString *) key
@@ -752,9 +753,12 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, publicIPAddress,           setPublic
         
         TBLog(@"DB-SU", @"init: 001")
         
+		NSDictionary * infoPlist = [self tunnelblickInfoDictionary];
+		[self setTunnelblickVersionString: [infoPlist objectForKey: @"CFBundleShortVersionString"]];
+		
         if (  ! [gTbDefaults boolForKey: @"doNotShowSplashScreen"]  ) {
             splashScreen = [[SplashWindowController alloc] init];
-            NSString * text = NSLocalizedString(@"Starting Tunnelblick...", @"Window text");
+			NSString * text = [NSString stringWithFormat: NSLocalizedString(@"Starting Tunnelblick %@...", @"Window text; '%@' will be replaced with a version number such as '3.6.10'"), [self tunnelblickVersionString]];
             [splashScreen setMessage: text];
             [splashScreen showWindow: self];
         }
@@ -4866,9 +4870,7 @@ static void signal_handler(int signalNumber)
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 016")
     // Add this Tunnelblick version to the start of the tunnelblickVersionHistory preference array if it isn't already the first entry
-    NSDictionary * infoPlist = [self tunnelblickInfoDictionary];
-    NSString * thisVersion = [infoPlist objectForKey: @"CFBundleShortVersionString"];
-    if (  thisVersion  ) {
+    if (  tunnelblickVersionString  ) {
         BOOL dirty = FALSE;
         NSMutableArray * versions = [[[gTbDefaults arrayForKey: @"tunnelblickVersionHistory"] mutableCopy] autorelease];
         if (  ! versions  ) {
@@ -4877,8 +4879,8 @@ static void signal_handler(int signalNumber)
         }
         
         if (   (  [versions count] == 0  )
-            || (! [[versions objectAtIndex: 0] isEqualToString: thisVersion])  ) {
-            [versions insertObject: thisVersion atIndex: 0];
+            || (! [[versions objectAtIndex: 0] isEqualToString: tunnelblickVersionString])  ) {
+            [versions insertObject: tunnelblickVersionString atIndex: 0];
             dirty = TRUE;
         }
 
@@ -4993,8 +4995,8 @@ static void signal_handler(int signalNumber)
     }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 021")
-    NSString * text = NSLocalizedString(@"Tunnelblick is ready.", @"Window text");
-    [splashScreen setMessage: text];
+	NSString * text = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick %@ is ready.", @"Window text; '%@' will be replaced with a version number such as '3.6.10'"), [self tunnelblickVersionString]];
+	[splashScreen setMessage: text];
     [splashScreen fadeOutAndClose];
  
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 022 -- LAST")
@@ -6238,8 +6240,8 @@ BOOL warnAboutNonTblks(void)
     }
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 006")
-    [splashScreen setMessage: NSLocalizedString(@"Installing and securing Tunnelblick...", @"Window text")];
-    
+	NSString * text = [NSString stringWithFormat: NSLocalizedString(@"Installing and securing Tunnelblick %@...", @"Window text; '%@' will be replaced with a version number such as '3.6.10'"), [self tunnelblickVersionString]];
+	[splashScreen setMessage: text];
 	[gTbDefaults removeObjectForKey: @"skipWarningAboutInvalidSignature"];
 	[gTbDefaults removeObjectForKey: @"skipWarningAboutNoSignature"];
     
@@ -6395,8 +6397,8 @@ BOOL warnAboutNonTblks(void)
     unsigned installFlags;
     if (  (installFlags = needToRunInstaller(FALSE)) != 0  ) {
         
-        [splashScreen setMessage: NSLocalizedString(@"Securing Tunnelblick...", @"Window text")];
-        
+		NSString * text = [NSString stringWithFormat: NSLocalizedString(@"Securing Tunnelblick %@...", @"Window text; '%@' will be replaced with a version number such as '3.6.10'"), [self tunnelblickVersionString]];
+		[splashScreen setMessage: text];
         if (  startupInstallAuth  ) {
             NSLog(@"secureIfNecessary: startupInstallAuth is already set");
             [self terminateBecause: terminatingBecauseOfError];
@@ -6424,7 +6426,8 @@ BOOL warnAboutNonTblks(void)
             [self terminateBecause: terminatingBecauseOfError];
         }
 		
-        [splashScreen setMessage: NSLocalizedString(@"Tunnelblick has been secured successfully.", @"Window text")];
+		text = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick %@ has been secured successfully.", @"Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)'"), [self tunnelblickVersionString]];
+		[splashScreen setMessage: text];
     }
 }
 

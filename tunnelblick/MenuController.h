@@ -181,6 +181,8 @@ void * _NSConcreteStackBlock __attribute__((weak));
 	
 	NSString                * languageAtLaunch;				// Lower-case version of the language we are using. Passed on to runOnConnect, runOnLaunch, and Menu command scripts
     
+	NSString                * tunnelblickVersionString;		// Copy of CFBundleShortVersionString
+	
     NSTrackingRectTag         iconTrackingRectTag;          // Used to track mouseEntered and mouseExited events for statusItemButton
     
 	BOOL					  languageAtLaunchWasRTL;		// Used to load RTL xibs and adjust spacing of controls as needed
@@ -381,5 +383,6 @@ TBPROPERTY(NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnecti
 TBPROPERTY(NSBundle       *, deployLocalizationBundle, setDeployLocalizationBundle)
 TBPROPERTY(NSString       *, languageAtLaunch,        setLanguageAtLaunch)
 TBPROPERTY(NSString       *, publicIPAddress,         setPublicIPAddress)
+TBPROPERTY(NSString       *, tunnelblickVersionString, setTunnelblickVersionString)
 
 @end

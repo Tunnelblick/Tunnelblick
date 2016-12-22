@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "Installation finished successfully.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Installing configurations is not allowed";
@@ -1342,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "Search domain:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Securing Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "Set DNS/WINS:";
@@ -1354,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Skipped copying %@ because a file with that name and contents has already been copied.";
 
-/* Window text */
-"Starting Tunnelblick..." = "Starting Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Startup window:";
@@ -1540,6 +1540,12 @@
 /* Window text */
 "Translation by" = "Translation by";
 
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+
 /* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.";
 
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick has been secured successfully.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick is currently running. It will be shut down before proceeding.";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick is ready.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick needs authorization to duplicate the '%@' configuration.";
