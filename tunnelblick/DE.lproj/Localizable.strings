@@ -383,7 +383,7 @@
 "Do not ask again, always convert" = "Nicht erneut fragen, immer umwandeln";
 
 /* Checkbox name */
-"Do not check for IP address changes" = "IP-Adresse überwachen";
+"Do not check for IP address changes" = "Änderung der IP-Adresse nicht überwachen";
 
 /* Checkbox name on a warning dialog */
 "Do not show again for any configuration" = "Für keine Konfiguration mehr anzeigen";
