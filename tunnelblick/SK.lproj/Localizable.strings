@@ -443,7 +443,7 @@
 "Send anonymous profile information when checking" = "Poslať anonymný informácie o profil pri kontrole";
 
 /* Checkbox name */
-"Set DNS after routes are set" = "Set DNS after routes are set";
+"Set DNS after routes are set" = "Nastav DNS záznam po nastavení routovania";
 
 /* Checkbox name */
 "Show when disconnected" = "Zobraziť po odpojení";
@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Rýchle prepínanie aktívneho uživateľa";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Zdá sa, že súbor '%@' je kódovaný pomocou UTF-16. Všetky súbory súvisiace s OpenVPN musia byť uložené ako v 'plain text' alebo 'UTF-8'.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Zdá sa, že súbor '%@' je kódovaný pomocou UTF-16. Všetky súbory súvisiace s OpenVPN musia byť uložené ako vo formáte 'plain text' alebo ako 'UTF-8'.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Vypadá to, že súbor '%@' je vo formáte 'rich text', pretože začína znakom '{'. Všetky súbory pre OpenVPN musia byť v obýčajnom texte 'plain text' alebo v 'UTF-8'.";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "Inštalácia prebehla úspešne.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "Inštalovanie a zabezpečovanie aplikácie Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Inštaluje a zabezpečuje sa Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Inštalácia konfigurácií nie je povolená";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Riadok %1$d súboru \"%2$@\" obsahuje netlačiteľné znaky (0 x %3$X) , čo nie je povolené.  ";
-
-/* Window text */
-"Localization by" = "Preklady spracovali";
 
 /* Window text */
 "MB" = "MB";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "Doména vyhľadávania:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Zabezpečovanie Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Zabezpečuje sa Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "Nastaviť DNS/WINS:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Kopírovanie %@ zrušené, pretože súbor s rovnakým názvom a obsah už bol skopírovaný.";
 
-/* Window text */
-"Starting Tunnelblick..." = "Spúšťanie Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Spúšťa sa Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Úvodné okno:";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "Existuje príliš veľa duplikátov konfigurácie.";
 
 /* Window text */
+"Translation by" = "Preložil";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ bol úspešne zabezpečený.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ je pripravený.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick - Režim správcu\n\nDočasne povolí zmeny ktoré vyžadujú heslo správcu počítača.\n\nTento režím sa automaticky ukončí po piatich minútach alebo po zavretí okna 'Nastavenie VPN'.";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Aplikácii Tunnelblick sa nepodarilo opraviť problémy s nastavením pre '%@'. Pre viac informácií si, prosím, prezrite Záznam konzoly";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick bol úspešne zabezpečený.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick odpojil '%@' z dôvodu odstránenia konfiguračného súboru spojenia.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick je momentálne aktívny. Než bude možné pokračovať, dôjde k jeho vypnutiu.";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick je pripravený.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick vyžaduje povolenie na vytvorenie kópie %@ konfigurácie.";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "Nečitateľný súbor s cestou %@\n\nPre viac informácií si, prosím, prezrite Záznam konzoly.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Aktualizovatelná konfigurácia '%1$@' nebola uložená ako aktualizovatelná, pretože sa nepodarilo nájsť %2$@\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Aktualizovatelná konfigurácia '%1$@' nebola uložená ako aktualizovatelná, pretože \"%2$@\" nebolo možné skopírovať do \"%3$@\" ";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Aktualizovatelná konfigurácia '%@' nebola uložená ako aktualizovatelná, pretože sa nebolo možné vytvoriť 'Contents' v časti .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Aktualizovateľná konfigurácia  '%@' nebola uložená ako aktualizovateľná, pretože nebolo možné vytvoriť \n'Contents/Resources' v časti .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Aktualizovateľná konfigurácia  '%@' nebola uložená ako aktualizovateľná, pretože 'SUPublicDSAKeyFile' nebolo meno súboru s voliteľnou príponou";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Aktualizovateľná konfigurácia  '%@' nebola uložená ako aktualizovateľná, pretože 'SUPublicDSAKeyFile' nebol reťazec";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Aktualizovateľná konfigurácia  '%@' nebola uložená ako aktualizovateľná, pretože Info.plist 'SUFeedURL'  nezačínal adresou  'https://' a nebola ani nájdená položka 'SUPublicDSAKeyFile'";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Aktualizovateľná konfigurácia  '%@' nebola uložená ako aktualizovateľná, pretože Info.plist nebolo možné uložiť v časti .tblk";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Aktualizovateľná konfigurácia  '%@' nebola uložená ako aktualizovateľná, pretože CFBundleIdentifier už bol spracovaný\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n";
 
 /* Window text */
 "Updates:" = "Aktualizácie:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "Režim správcu zostáva %@";
 
 /* Credit description */
-"Afrikaans localization" = "Preklad do afrikánčiny";
+"Afrikaans translation" = "Afrikánsky preklad";
 
 /* Credit description */
 "Animation and icon sets code" = "Animácia a skupina ikon";
 
 /* Credit description */
-"Arabic localization" = "Preklad do arabčiny";
+"Arabic translation" = "Arabský preklad";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Prebieha autentifikácia…";
 
 /* Credit description */
-"Bulgarian localization" = "Preklad do bulharčiny";
+"Azerbaijani translation" = "Azerbajdžanský preklad";
+
+/* Credit description */
+"Bulgarian translation" = "Bulharský preklad";
 
 /* Credit description */
 "Button images" = "Obrázky tlačidiel";
 
 /* Credit description */
-"Catalan localization" = "Preklad do katalánčiny";
+"Catalan translation" = "Katalánsky preklad";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Preklad čínštiny (zjednodušená)";
+"Chinese (simplified) translation" = "Čínsky (zjednod.) preklad";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Preklad čínštiny (tradičná)";
+"Chinese (traditional) translation" = "Čínsky (trad.) preklad";
 
 /* Credentials name */
 "Common" = "Spoločný";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "Prispel k pôvodnému kódu";
 
 /* Credit description */
-"Croatian localization" = "Preklad do chorvátčiny";
+"Croatian translation" = "Chorvátsky preklad";
 
 /* Credit description */
-"Czech localization" = "Preklad češtiny";
+"Czech translation" = "Český preklad";
 
 /* Credit description */
-"Danish localization" = "Dánska lokalizácia";
+"Danish translation" = "Dánsky preklad";
 
 /* Speak string */
 "Disconnected from %@" = "Odpojené od %@";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "Už nezobrazovať";
 
 /* Credit description */
-"Dutch localization" = "Preklad do holandčiny";
+"Dutch translation" = "Holandský preklad";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "Vstúpiť do režimu správcu";
 
 /* Credit description */
-"Estonian localization" = "Preklad do estónčiny";
+"Estonian translation" = "Estónsky preklad";
 
 /* Credit description */
-"Finnish localization" = "Preklad fínčiny";
+"Finnish translation" = "Fínsky preklad";
 
 /* Credit description */
 "Founder, original program and documentation" = "Zakladateľ, pôvodný program a dokumentácia";
 
 /* Credit description */
-"French localization" = "Preklad francúzštiny";
+"French translation" = "Francúzsky preklad";
 
 /* Credit description */
-"German localization" = "Preklad nemčiny";
+"German translation" = "Nemecký preklad";
 
 /* Credit description */
-"Greek localization" = "Preklad do gréčtiny";
+"Greek translation" = "Grécky preklad";
 
 /* Credit description */
-"Hungarian localization" = "Preklad do maďarčiny";
+"Hungarian translation" = "Maďarský preklad";
 
 /* Credit description */
-"Icelandic localization" = "Preklad do islandštiny";
+"Icelandic translation" = "Islandský preklad";
 
 /* Credit description */
 "Icon set including Retina images" = "Zbierka ikon obsahuje obsahuje obrázky v Retina rozlíšení";
 
 /* Credit description */
-"Indonesian localization" = "Preklad do indonézštiny";
+"Indonesian translation" = "Indonézsky preklad";
 
 /* Credit description */
-"Italian localization" = "Preklad taliančiny";
+"Italian translation" = "Taliansky preklad";
 
 /* Credit description */
-"Japanese localization" = "Preklad japončiny";
+"Japanese translation" = "Japonský preklad";
 
 /* Credit description */
-"Korean localization" = "Preklad do kórejčiny";
+"Korean translation" = "Kórejský preklad";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "Preklad do slovenčiny";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Matej Bačík";
 
 /* Credit description */
-"Latvian localization" = "Preklad do lotyštiny";
+"Latvian translation" = "Lotyšský preklad";
 
 /* Credit description */
 "Localization code tweaks" = "Vychytávky kódovania prekladov";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "Viacero konfiguračných súborov";
 
 /* Credit description */
-"Norwegian localization" = "Preklad do nórčiny";
+"Norwegian translation" = "Nórsky preklad";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "Integrácia OpenVPN 2.3 a 64-bit";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "Podpora PKCS#11";
 
 /* Credit description */
-"Persian localization" = "Preklad do perzštiny";
+"Persian translation" = "Perský preklad";
 
 /* Credit description */
-"Polish localization" = "Preklad do poľštiny";
+"Polish translation" = "Poľský preklad";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Portugalská (brazílska) lokalizácia";
+"Portuguese (Brazilian) translation" = "Portugalský (brazílsky) preklad";
 
 /* Credit description */
-"Portuguese localization" = "Preklad do portugalčiny";
+"Portuguese translation" = "Portugalský preklad";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Vylepšenia programu a dokumentácie a obsluha od verzie 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "Preklad do rumunčiny";
+"Romanian translation" = "Rumunský preklad";
 
 /* Credit description */
-"Russian localization" = "Preklad do ruštiny";
+"Russian translation" = "Ruský preklad";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Preklad do srbčiny (latinka)";
+"Serbian (Latin) translation" = "Srbský preklad (latinkou)";
 
 /* Credit description */
-"Slovak localization" = "Preklad do slovenčiny";
+"Slovak translation" = "Slovenský preklad";
 
 /* Credit description */
-"Spanish localization" = "Preklad do španielčiny";
+"Spanish translation" = "Španielsky preklad";
 
 /* Credit description */
-"Swedish localization" = "Preklad do švédčiny";
+"Swedish translation" = "Švédsky preklad";
 
 /* Credit description */
 "Tunnelblick icon" = "Ikona aplikácie Tunnelblick";
 
 /* Credit description */
-"Turkish localization" = "Preklad do turečtiny";
+"Turkish translation" = "Turecký preklad";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue a UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Preklad do ukrajinčiny";
+"Ukrainian translation" = "Ukrajinský preklad";
 
 /* Credit description */
 "Up and Down scripts" = "Pripájacie a odpájacie skripty";

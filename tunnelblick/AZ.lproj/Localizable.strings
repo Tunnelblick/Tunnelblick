@@ -533,247 +533,247 @@
 " (Shared)" = " (Paylaşdırılmış)"; // Indicates a shared configuration
 
 /* Window title */
-"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Configuration - Tunnelblick";
+"%@ OpenVPN Configuration - Tunnelblick" = "%@ OpenVPN Konfiqurasiyası - Tunnelblick";
 
 /* Window title */
-"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Disconnected - Advanced Settings%3$@";
+"%@%@ Disconnected - Advanced Settings%@" = "%1$@%2$@ Xətdə deyil - Əlavə Parametrlər%3$@";
 
 /* Window title for the VPN Details window when showing the 'Configurations' panel. The 1st %@ is name of the configuration, 2nd is either ' (Private)' or ' (Shared)', 3rd is the status of the connection, 4th is the amount of time the configuration has been connected, 5th is the name of the application (usually 'Tunnelblick'). Some of these may be omitted under certain circumstances */
 "%@%@: %@%@ - %@" = "%1$@%2$@: %3$@%4$@ - %5$@";
 
 /* Window title */
-"'%@' has been disconnected" = "'%@' has been disconnected";
+"'%@' has been disconnected" = "'%@' bağlantısı kəsilib";
 
 /* Window title */
-"Active connection" = "Active connection";
+"Active connection" = "Aktiv bağlantı";
 
 /* Window title */
-"Add a Configuration" = "Add a Configuration";
+"Add a Configuration" = "Konfiqurasiya əlavə et";
 
 /* Window title */
-"Alert sounds" = "Alert sounds";
+"Alert sounds" = "Bildiriş siqnalları";
 
 /* Window title */
-"Alert" = "Alert";
+"Alert" = "Bildiriş";
 
 /* Window title */
-"All OpenVPN process were terminated." = "All OpenVPN process were terminated.";
+"All OpenVPN process were terminated." = "Bütün OpenVPN prosesləri dayandırılmışdı.";
 
 /* Window title */
-"All configuration files removed" = "All configuration files removed";
+"All configuration files removed" = "Bütün konfiqurasiya faylları silinmişdir";
 
 /* Window title */
-"Appearance" = "Appearance";
+"Appearance" = "Görünüş";
 
 /* Window title */
-"Authentication failed" = "Authentication failed";
+"Authentication failed" = "Autentifikasiya uğursuz keçdi";
 
 /* Window title */
-"Configuration(s) Ignored" = "Configuration(s) Ignored";
+"Configuration(s) Ignored" = "Konfiqurasiya(lar) nəzərə alınmadı";
 
 /* Window title */
-"Connecting & Disconnecting" = "Connecting & Disconnecting";
+"Connecting & Disconnecting" = "Qoşulmaq və Çıxmaq";
 
 /* Window title */
-"Could Not Copy Configuration" = "Could Not Copy Configuration";
+"Could Not Copy Configuration" = "Konfiqurasiya surəti çıxarıla bilinmədi";
 
 /* Window title */
-"Could Not Move Configuration" = "Could Not Move Configuration";
+"Could Not Move Configuration" = "Konfiqurasiya köçürülə bilinmədi";
 
 /* Window title */
-"Could Not Replace Configuration" = "Could Not Replace Configuration";
+"Could Not Replace Configuration" = "Konfiqurasiya əvəz olunmur";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "Could Not Uninstall Configuration";
+"Could Not Uninstall Configuration" = "Konfiqurasiya silinmədi";
 
 /* Window title */
-"Create and Edit a Sample Configuration?" = "Create and Edit a Sample Configuration?";
+"Create and Edit a Sample Configuration?" = "Nümunə Konfiqurasiya yarat və redaktə et?";
 
 /* Window title */
-"Details - Tunnelblick" = "Details - Tunnelblick";
+"Details - Tunnelblick" = "Təfərrüatlar - Tunnelblick";
 
 /* Window title */
-"Do you wish to connect?" = "Do you wish to connect?";
+"Do you wish to connect?" = "Qoşulmaq istəyirsiniz?";
 
 /* Window title */
-"File not found" = "File not found";
+"File not found" = "Fayl tapılmadı";
 
 /* Window title */
-"Info" = "Info";
+"Info" = "Məlumat";
 
 /* Window title */
-"Install Configuration For All Users?" = "Install Configuration For All Users?";
+"Install Configuration For All Users?" = "Konfiqurasiyalar bütün İstifadəçilər üçün yüklənilsin?";
 
 /* Window title */
-"Installation failed" = "Installation failed";
+"Installation failed" = "Yükləmə uğursuz keçdi";
 
 /* Window title */
-"Installation or Repair Failed" = "Installation or Repair Failed";
+"Installation or Repair Failed" = "Yükləmə və ya Bərpa uğursuz keçdi";
 
 /* Window title */
-"Installation succeeded" = "Installation succeeded";
+"Installation succeeded" = "Yükləmə uğurlu keçdi";
 
 /* Window title */
-"Log" = "Log";
+"Log" = "Loq";
 
 /* Window title */
-"Name Required" = "Name Required";
+"Name Required" = "Ad tələb olunur";
 
 /* Window title */
-"Name not allowed" = "Name not allowed";
+"Name not allowed" = "Bu ad istifadə oluna bilməz";
 
 /* Window title */
-"New Feature" = "New Feature";
+"New Feature" = "Yeni Xüsusiyyət";
 
 /* Window title */
-"No 'dev tun', 'dev utun', or 'dev tap' found" = "No 'dev tun', 'dev utun', or 'dev tap' found";
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "Heç bir 'dev tun', 'dev utun', və ya 'dev tap' tapılmadı";
 
 /* Window title */
-"No Credentials" = "No Credentials";
+"No Credentials" = "Etimadnamələr yoxdur";
 
 /* Window title */
-"One or more OpenVPN processes could not be terminated." = "One or more OpenVPN processes could not be terminated.";
+"One or more OpenVPN processes could not be terminated." = "Bir və ya daha artıq OpenVPN prosesləri dayandırıla bilmədi.";
 
 /* Window title */
-"Only computer administrators should update Tunnelblick" = "Only computer administrators should update Tunnelblick";
+"Only computer administrators should update Tunnelblick" = "Yalnız kompyuter administratorları Tunnelblick-i yeniləməlidir";
 
 /* Window title */
-"OpenVPN is Not Responding" = "OpenVPN is Not Responding";
+"OpenVPN is Not Responding" = "OpenVPN cavab vermir";
 
 /* Window title */
-"Please insert token" = "Please insert token";
+"Please insert token" = "Lütfən tokeni daxil edin";
 
 /* Window title */
-"Preferences" = "Preferences";
+"Preferences" = "Üstünlüklər";
 
 /* Window title */
-"Replace Existing File?" = "Replace Existing File?";
+"Replace Existing File?" = "Mövcud faylı əvəz etmək?";
 
 /* Window title */
-"Replace VPN Configuration?" = "Replace VPN Configuration?";
+"Replace VPN Configuration?" = "VPN Konfiqurasiyasını əvəz etmək?";
 
 /* Window title */
-"Sample Configuration Created" = "Sample Configuration Created";
+"Sample Configuration Created" = "Nümunə Konfiqurasiya yaradıldı";
 
 /* Window title */
-"Settings" = "Settings";
+"Settings" = "Parametrlər";
 
 /* Window title */
-"Sounds" = "Sounds";
+"Sounds" = "Siqnallar";
 
 /* Window title */
-"System Requirements Not Met" = "System Requirements Not Met";
+"System Requirements Not Met" = "Sistem Tələbləri yerinə yetirilməyib";
 
 /* Window title */
-"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
+"There are no OpenVPN processes running." = "Hal hazırda heç bir OpenVPN prosesləri işləmir.";
 
 /* Window title */
-"Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
+"Tunnelblick Configuration Problem" = "Tunnelblick Konfiqurasiyasında Problem peyda olub";
 
 /* Window title */
-"Tunnelblick Error" = "Tunnelblick Error";
+"Tunnelblick Error" = "Tunnelblick Səhvi";
 
 /* Window title */
 "Tunnelblick" = "Tunnelblick";
 
 /* Window title */
-"Tunnelblick: Login Required" = "Tunnelblick: Login Required";
+"Tunnelblick: Login Required" = "Tunnelblick: Login tələb olunur";
 
 /* Window title */
-"Tunnelblick: Passphrase Required" = "Tunnelblick: Passphrase Required";
+"Tunnelblick: Passphrase Required" = "Tunnelblick: Şifrə-söz tələb olunur";
 
 /* Window title */
-"Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
+"Unable to launch Tunnelblick" = "Tunnelblick açılmır";
 
 /* Window title */
-"Unavailable" = "Unavailable";
+"Unavailable" = "Mövcud deyil";
 
 /* Window title */
-"Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
+"Use 'down-root' plugin for OpenVPN?" = "'down-root' plugini OpenVPN üçün istifadə etmək?";
 
 /* Window title */
-"Utilities" = "Utilities";
+"Utilities" = "Alətlər";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "VPN Konfiqurasiya quraşdırılmasında səhv var";
 
 /* Window title */
-"VPN Configuration Installation" = "VPN Configuration Installation";
+"VPN Configuration Installation" = "VPN Konfiqurasiya Quraşdırılması";
 
 /* Window title */
-"VPN Credentials" = "VPN Credentials";
+"VPN Credentials" = "VPN Etimadnamələri";
 
 /* Window title */
-"Warning!" = "Warning!";
+"Warning!" = "Xəbərdarlıq!";
 
 /* Window title */
-"Warning" = "Warning";
+"Warning" = "Xəbərdarlıq";
 
 /* Window title */
-"Warning: Unknown OpenVPN processes" = "Warning: Unknown OpenVPN processes";
+"Warning: Unknown OpenVPN processes" = "Xəbərdarlıq: Naməlum OpenVPN prosesləri";
 
 /* Window title */
-"Welcome to Tunnelblick" = "Welcome to Tunnelblick";
+"Welcome to Tunnelblick" = "Tunnelblick-ə Xoş Gəlmisiniz";
 
 /* Window title */
-"Welcome" = "Welcome";
+"Welcome" = "Xoş Gəlmisiniz";
 
 /* Window title */
-"While Connected" = "While Connected";
+"While Connected" = "Bağlantı zamanı";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed %lu configurations\n\n" = "     • Installed %lu configurations\n\n";
+"     • Installed %lu configurations\n\n" = "     • %lu konfiqurasiya quraşdırıb\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed one configuration\n\n" = "     • Installed one configuration\n\n";
+"     • Installed one configuration\n\n" = "     • Bir konfiqurasiya quraşdırıb\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Replaced %lu configurations\n\n" = "     • Replaced %lu configurations\n\n";
+"     • Replaced %lu configurations\n\n" = "     • %lu konfiqurasiya əvəz edib\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Replaced one configuration\n\n" = "     • Replaced one configuration\n\n";
+"     • Replaced one configuration\n\n" = "     • Bir konfiqurasiya əvəz edib\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Uninstalled %lu configurations\n\n" = "     • Uninstalled %lu configurations\n\n";
+"     • Uninstalled %lu configurations\n\n" = "     • %lu konfiqurasiya sildi\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Uninstalled one configuration\n\n" = "     • Uninstalled one configuration\n\n";
+"     • Uninstalled one configuration\n\n" = "     • Bir konfiqurasiya sildi\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install %lu configurations\n\n" = "    • Install %lu configurations\n\n";
+"    • Install %lu configurations\n\n" = "    • %lu konfiqurasiya quraşdırmalıdır\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install one configuration\n" = "    • Install one configuration\n";
+"    • Install one configuration\n" = "    • Bir konfiqurasiya quraşdırmalıdır\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Replace %lu configurations\n\n" = "    • Replace %lu configurations\n\n";
+"    • Replace %lu configurations\n\n" = "    • %lu konfiqurasiya əvəz etməlidir\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Replace one configuration\n" = "    • Replace one configuration\n";
+"    • Replace one configuration\n" = "    • Bir konfiqurasiya əvəz etməlidir\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall %lu configurations\n\n" = "    • Uninstall %lu configurations\n\n";
+"    • Uninstall %lu configurations\n\n" = "    • %lu konfiqurasiya silməlidir\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall one configuration\n" = "    • Uninstall one configuration\n";
+"    • Uninstall one configuration\n" = "    • Bir konfiqurasiya silməlidir\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Be installed in /Applications as Tunnelblick\n";
+"  • Be installed in /Applications as Tunnelblick\n" = "  • /Proqramlar -da Tunnelblick adı altında quraşdırımalıdır\n";
 
 /* Window text */
-"  • Change ownership and permissions of the program to secure it\n" = "  • Change ownership and permissions of the program to secure it\n";
+"  • Change ownership and permissions of the program to secure it\n" = "  • Proqramın təhlükəsizliyini təmin etmək üçün sahiblik və icazəni dəyişməlidi\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
-"  • Complete the update\n" = "  • Complete the update\n";
+"  • Complete the update\n" = "  Yenilənməni bitirməlidir\n";
 
 /* Window text */
-"  • Convert OpenVPN configurations\n" = "  • Convert OpenVPN configurations\n";
+"  • Convert OpenVPN configurations\n" = "  • OpenVPN konfiqurasiyalarını çevirməlidi\n";
 
 /* Window text */
-"  • Install forced preferences\n" = "  • Install forced preferences\n";
+"  • Install forced preferences\n" = "  • Məcburi üstünlükləri quraşdırmalıdır\n";
 
 /* Window text */
-"  • Install or update configuration(s)\n" = "  • Install or update configuration(s)\n";
+"  • Install or update configuration(s)\n" = "  • Konfiqurasiya(ları) yeniləməli və ya quraşdırmalıdır\n";
 
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Move the private configurations folder\n";
@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Fast User Switching";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "Installation finished successfully.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Installing configurations is not allowed";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Line %1$d of file '%2$@' contains a non-printable character (0x%3$X) which is not allowed.\n\n";
-
-/* Window text */
-"Localization by" = "Localization by";
 
 /* Window text */
 "MB" = "MB";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "Search domain:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Securing Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "Set DNS/WINS:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Skipped copying %@ because a file with that name and contents has already been copied.";
 
-/* Window text */
-"Starting Tunnelblick..." = "Starting Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Startup window:";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "Too many duplicate configurations already exist.";
 
 /* Window text */
+"Translation by" = "Translation by";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick has been secured successfully.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick is currently running. It will be shut down before proceeding.";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick is ready.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick needs authorization to duplicate the '%@' configuration.";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "Unreadable file at %@\n\nSee the Console log for details.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Updatable configuration '%1$@' was not stored as updatable because %2$@ could not be found\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Updatable configuration '%1$@' was not stored as updatable because '%2$@' could not be copied to '%3$@'\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n";
 
 /* Window text */
 "Updates:" = "Updates:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "Admin mode %@ remaining";
 
 /* Credit description */
-"Afrikaans localization" = "Afrikaans localization";
+"Afrikaans translation" = "Afrikaans translation";
 
 /* Credit description */
 "Animation and icon sets code" = "Animation and icon sets code";
 
 /* Credit description */
-"Arabic localization" = "Arabic localization";
+"Arabic translation" = "Arabic translation";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Authenticating…";
 
 /* Credit description */
-"Bulgarian localization" = "Bulgarian localization";
+"Azerbaijani translation" = "Azerbaijani translation";
+
+/* Credit description */
+"Bulgarian translation" = "Bulgarian translation";
 
 /* Credit description */
 "Button images" = "Button images";
 
 /* Credit description */
-"Catalan localization" = "Catalan localization";
+"Catalan translation" = "Catalan translation";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Chinese (simplified) localization";
+"Chinese (simplified) translation" = "Chinese (simplified) translation";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Chinese (traditional) localization";
+"Chinese (traditional) translation" = "Chinese (traditional) translation";
 
 /* Credentials name */
 "Common" = "Common";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "Contributed to early code";
 
 /* Credit description */
-"Croatian localization" = "Croatian localization";
+"Croatian translation" = "Croatian translation";
 
 /* Credit description */
-"Czech localization" = "Czech localization";
+"Czech translation" = "Czech translation";
 
 /* Credit description */
-"Danish localization" = "Danish localization";
+"Danish translation" = "Danish translation";
 
 /* Speak string */
 "Disconnected from %@" = "Disconnected from %@";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "Do not show this again";
 
 /* Credit description */
-"Dutch localization" = "Dutch localization";
+"Dutch translation" = "Dutch translation";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "Enter admin mode";
 
 /* Credit description */
-"Estonian localization" = "Estonian localization";
+"Estonian translation" = "Estonian translation";
 
 /* Credit description */
-"Finnish localization" = "Finnish localization";
+"Finnish translation" = "Finnish translation";
 
 /* Credit description */
 "Founder, original program and documentation" = "Founder, original program and documentation";
 
 /* Credit description */
-"French localization" = "French localization";
+"French translation" = "French translation";
 
 /* Credit description */
-"German localization" = "German localization";
+"German translation" = "German translation";
 
 /* Credit description */
-"Greek localization" = "Greek localization";
+"Greek translation" = "Greek translation";
 
 /* Credit description */
-"Hungarian localization" = "Hungarian localization";
+"Hungarian translation" = "Hungarian translation";
 
 /* Credit description */
-"Icelandic localization" = "Icelandic localization";
+"Icelandic translation" = "Icelandic translation";
 
 /* Credit description */
 "Icon set including Retina images" = "Icon set including Retina images";
 
 /* Credit description */
-"Indonesian localization" = "Indonesian localization";
+"Indonesian translation" = "Indonesian translation";
 
 /* Credit description */
-"Italian localization" = "Italian localization";
+"Italian translation" = "Italian translation";
 
 /* Credit description */
-"Japanese localization" = "Japanese localization";
+"Japanese translation" = "Japanese translation";
 
 /* Credit description */
-"Korean localization" = "Korean localization";
+"Korean translation" = "Korean translation";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "LANGUAGE_LOCALIZATION";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";
 
 /* Credit description */
-"Latvian localization" = "Latvian localization";
+"Latvian translation" = "Latvian translation";
 
 /* Credit description */
 "Localization code tweaks" = "Localization code tweaks";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "Multiple configuration folders";
 
 /* Credit description */
-"Norwegian localization" = "Norwegian localization";
+"Norwegian translation" = "Norwegian translation";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "PKCS#11 support";
 
 /* Credit description */
-"Persian localization" = "Persian localization";
+"Persian translation" = "Persian translation";
 
 /* Credit description */
-"Polish localization" = "Polish localization";
+"Polish translation" = "Polish translation";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Portuguese (Brazilian) localization";
+"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
 
 /* Credit description */
-"Portuguese localization" = "Portuguese localization";
+"Portuguese translation" = "Portuguese translation";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program and documentation enhancements and maintenance after version 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "Romanian localization";
+"Romanian translation" = "Romanian translation";
 
 /* Credit description */
-"Russian localization" = "Russian localization";
+"Russian translation" = "Russian translation";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Serbian (Latin) localization";
+"Serbian (Latin) translation" = "Serbian (Latin) translation";
 
 /* Credit description */
-"Slovak localization" = "Slovak localization";
+"Slovak translation" = "Slovak translation";
 
 /* Credit description */
-"Spanish localization" = "Spanish localization";
+"Spanish translation" = "Spanish translation";
 
 /* Credit description */
-"Swedish localization" = "Swedish localization";
+"Swedish translation" = "Swedish translation";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick icon";
 
 /* Credit description */
-"Turkish localization" = "Turkish localization";
+"Turkish translation" = "Turkish translation";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue and UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Ukrainian localization";
+"Ukrainian translation" = "Ukrainian translation";
 
 /* Credit description */
 "Up and Down scripts" = "Up and Down scripts";

@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Snel Wisselen van Gebruiker";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Bestand '%@' Lijkt UTF-16 gecodeerd zijn. Alle OpenVPN-gerelateerde bestanden moeten 'plain text' of 'UTF-8' bestanden zijn.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Bestand '%@' lijkt UTF-16 gecodeerd te zijn. Alle OpenVPN-gerelateerde bestanden moeten platte tekst of UTF-8 bestanden zijn.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Bestand ' %@' lijkt te zijn gemaakt in 'rich text' formaat omdat het begint met een ' {' karakter. \n\nAlle OpenVPN gerelateerde bestanden moeten 'plain text' of 'UTF-8' bestanden zijn.";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "Installatie succesvol afgerond.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "Tunnelblick installeren en beveiligen…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Tunnelblick %@ installeren en beveiligen…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Installeren van configuraties is niet toegestaan";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Lijn %1$d van bestand \"%2$@\" bevat een niet afdrukbaar teken (0 x %3$X) deze is niet toegestaan.\n\n";
-
-/* Window text */
-"Localization by" = "Vertaling door";
 
 /* Window text */
 "MB" = "MB";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "Zoeken in domein:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Tunnelblick beveiligen…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Tunnelblick %@ beveiligen…";
 
 /* Window text */
 "Set DNS/WINS:" = "Instellen van DNS/WINS:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "%@ is niet gekopieerd, omdat een bestand met die naam en inhoud al gekopieerd is.";
 
-/* Window text */
-"Starting Tunnelblick..." = "Tunnelblick opstarten…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Tunnelblick %@ starten…";
 
 /* Window text */
 "Startup window:" = "Opstartvenster:";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "Er zijn al te veel dubbele configuraties.";
 
 /* Window text */
+"Translation by" = "Vertaald door";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ is successvol beveiligd.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ is gereed.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Beheer Modus\n\n Sta tijdelijk wijzigingen toe die een beheerder wachtwoord vereisen.\n\n De sessie verloopt na vijf minuten of wanneer het 'VPN Details' venster wordt gesloten.";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick slaagde er niet in om problemen op te lossen met voorkeuren voor '%@'. Details staan in het Console Log";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick is succesvol beveiligd.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick heeft '%@' verbroken omdat het bijbehorende configuratiebestand is verwijderd.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick is momenteel actief. Het zal worden afgesloten voordat u verder gaat.";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick is gereed.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick heeft autorisatie nodig om de configuratie '%@' te dupliceren.";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "Onleesbaar bestand op %@.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Bijgewerkte configuratie '%1$@' kon niet worden opgeslagen als bijgewerkt, omdat %2$@ niet gevonden kon worden\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Bijgewerkte configuratie '%1$@' kon niet worden opgeslagen als bijgewerkt, omdat %2$@ niet gekopieerd kon worden naar '%3$@'\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Bijgewerkte configuratie ' %@' is niet opgeslagen als bijgewerkt omdat 'Inhoud', in de stub .tblk niet kon worden aangemaakt\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Bijgewerkte configuratie ' %@' is niet opgeslagen als bijgewerkt omdat 'Inhoud', in de stub .tblk niet kon worden aangemaakt\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Bijgewerkte configuratie ' %@' is niet opgeslagen als bijgewerkt , omdat 'SUPublicDSAKeyFile' geen bestandsnaam is met optionele extensies\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Bijgewerkte configuratie ' %@' was niet opgeslagen als bijgewerkt, omdat 'SUPublicDSAKeyFile' geen string is\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Bijgewerkte configuratie ' %@' was niet zijn opgeslagen als bijgewerkt omdat de Info.plist 'SUFeedURL' niet begint met 'https:// er er geen 'SUPublicDSAKeyFile'  aanwezig was\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Bijgewerkte configuratie ' %@' was niet zijn opgeslagen als bijgewerkt omdat de Info.plist kon worden opgeslagen in de stub .tblk\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Bijgewerkte configuratie ' %@' is niet opgeslagen als bijgewerkt, omdat de CFBundleIdentifier al reeds verwerkt is\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Aanpasbare configuratie '%@' werd niet opgeslagen als aanpasbaar omdat de Info.plist geen 'SUPublicDSAKey' waarde bevatte of omdat de 'SUFeedURL' waarde het gebruik van https: niet specificeerde\n";
 
 /* Window text */
 "Updates:" = "Updates:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "Beheer modus %@ resterend";
 
 /* Credit description */
-"Afrikaans localization" = "Afrikaanse lokalisatie";
+"Afrikaans translation" = "Afrikaanse vertaling";
 
 /* Credit description */
 "Animation and icon sets code" = "Animatie, pictogrammen sets code";
 
 /* Credit description */
-"Arabic localization" = "Arabische vertaling";
+"Arabic translation" = "Arabische vertaling";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Verifiëren…";
 
 /* Credit description */
-"Bulgarian localization" = "Bulgaarse vertaling";
+"Azerbaijani translation" = "Azerbeidzjaanse vertaling";
+
+/* Credit description */
+"Bulgarian translation" = "Bulgaarse vertaling";
 
 /* Credit description */
 "Button images" = "Afbeeldingen voor knoppen";
 
 /* Credit description */
-"Catalan localization" = "Catalaanse vertaling";
+"Catalan translation" = "Catalaanse vertaling";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Chinese (vereenvoudigd) vertaling";
+"Chinese (simplified) translation" = "Chinese (vereenvoudigd) vertaling";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Chinese (traditioneel) vertaling";
+"Chinese (traditional) translation" = "Chinese (traditioneel) vertaling";
 
 /* Credentials name */
 "Common" = "Algemeen";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "Bijgedragen aan eerste code";
 
 /* Credit description */
-"Croatian localization" = "Kroatische lokalisatie";
+"Croatian translation" = "Kroatische vertaling";
 
 /* Credit description */
-"Czech localization" = "Tsjechische vertaling";
+"Czech translation" = "Tsjechische vertaling";
 
 /* Credit description */
-"Danish localization" = "Deense vertaling";
+"Danish translation" = "Deense vertaling";
 
 /* Speak string */
 "Disconnected from %@" = "Verbroken met %@";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "Toon dit de volgende keer niet";
 
 /* Credit description */
-"Dutch localization" = "Nederlandse vertaling";
+"Dutch translation" = "Nederlandse vertaling";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "Ga naar beheer modus";
 
 /* Credit description */
-"Estonian localization" = "Estlandse vertaling";
+"Estonian translation" = "Estlandse vertaling";
 
 /* Credit description */
-"Finnish localization" = "Finse vertaling";
+"Finnish translation" = "Finse vertaling";
 
 /* Credit description */
 "Founder, original program and documentation" = "Oorspronkelijke auteur, originele programmatuur en documentatie";
 
 /* Credit description */
-"French localization" = "Franse vertaling";
+"French translation" = "Franse vertaling";
 
 /* Credit description */
-"German localization" = "Duitse vertaling";
+"German translation" = "Duitse vertaling";
 
 /* Credit description */
-"Greek localization" = "Griekse vertaling";
+"Greek translation" = "Griekse vertaling";
 
 /* Credit description */
-"Hungarian localization" = "Hongaarse vertaling";
+"Hungarian translation" = "Hongaarse vertaling";
 
 /* Credit description */
-"Icelandic localization" = "IJslandse vertaling";
+"Icelandic translation" = "IJslandse vertaling";
 
 /* Credit description */
 "Icon set including Retina images" = "Pictogrammenset bevat Retina afbeeldingen";
 
 /* Credit description */
-"Indonesian localization" = "Indonesische vertaling";
+"Indonesian translation" = "Indonesische vertaling";
 
 /* Credit description */
-"Italian localization" = "Italiaanse vertaling";
+"Italian translation" = "Italiaanse vertaling";
 
 /* Credit description */
-"Japanese localization" = "Japanse vertaling";
+"Japanese translation" = "Japanse vertaling";
 
 /* Credit description */
-"Korean localization" = "Koreaanse vertaling";
+"Korean translation" = "Koreaanse vertaling";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "Nederlandse vertaling";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "Nederlandse vertaling";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Emma Segev, Tjalling Soldaat en Ricardo Guijt";
 
 /* Credit description */
-"Latvian localization" = "Letse vertaling";
+"Latvian translation" = "Letse vertaling";
 
 /* Credit description */
 "Localization code tweaks" = "Vertaling code tweaks";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "Meerdere configuratiemappen";
 
 /* Credit description */
-"Norwegian localization" = "Noorse vertaling";
+"Norwegian translation" = "Noorse vertaling";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 en 64-bit integratie";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "PKCS#11 ondersteuning";
 
 /* Credit description */
-"Persian localization" = "Perzische vertaling";
+"Persian translation" = "Persische vertaling";
 
 /* Credit description */
-"Polish localization" = "Poolse vertaling";
+"Polish translation" = "Poolse vertaling";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Portugese (Braziliaans) vertaling";
+"Portuguese (Brazilian) translation" = "Portugese (Braziliaans) vertaling";
 
 /* Credit description */
-"Portuguese localization" = "Portugese vertaling";
+"Portuguese translation" = "Portugese vertaling";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Programmatuur en documentatie verbeteringen sinds versie 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "Roemeense vertaling";
+"Romanian translation" = "Roemeense vertaling";
 
 /* Credit description */
-"Russian localization" = "Russische vertaling";
+"Russian translation" = "Russische vertaling";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Servische (Latijns alfabet) lokalisatie";
+"Serbian (Latin) translation" = "Servische (Latijns alfabet) vertaling";
 
 /* Credit description */
-"Slovak localization" = "Slowaakse vertaling";
+"Slovak translation" = "Slowaakse vertaling";
 
 /* Credit description */
-"Spanish localization" = "Spaanse vertaling";
+"Spanish translation" = "Spaanse vertaling";
 
 /* Credit description */
-"Swedish localization" = "Zweedse vertaling";
+"Swedish translation" = "Zweedse vertaling";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick pictogram";
 
 /* Credit description */
-"Turkish localization" = "Turkse vertaling";
+"Turkish translation" = "Turkse vertaling";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue & UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Oekraïnse vertaling";
+"Ukrainian translation" = "Oekraïense vertaling";
 
 /* Credit description */
 "Up and Down scripts" = "Up/Down scripts";

@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Hızlı Kullanıcı Değiştirme";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "'%@' dosyası UTF-16 dil kodlamasinda görünüyor. Tüm OpenVPN ile ilişkili dosyalr düz metin ya da 'UTF-8' kodlamasında olmalı.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "'%@' dosyası, '{' karakteri ile başladığından 'zengin metin'  formatında görünüyor. OpenVPN ile ilgili tüm dosyalar, 'düz metin' ya da 'UTF-8' dosyaları olmalıdır.";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "Kurulum başarı ile tamamlandı.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "Tunnelblick kuruluyor…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Konfigürasyon kurulumuna izin verilmiyor";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "'%2$@' dosyasının %1$d. satırı gösterilemeyen (0x%3$X) karakterini içeriyor. Buna izin verilmez.\n\n";
-
-/* Window text */
-"Localization by" = "Çevirenler";
 
 /* Window text */
 "MB" = "MB";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "Etki alanı:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Tunnelblick'i güvenli hale getirme…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "DNS/WINS Ayarla:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "%@ kopyalanması atlandı, zaten aynı isimli ve içerikli bir dosya kopyalanmış.";
 
-/* Window text */
-"Starting Tunnelblick..." = "Tunnelblick başlatılıyor…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Başlangıç penceresi:";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "Çok fazla çift yapılandırma mevcut.";
 
 /* Window text */
+"Translation by" = "Translation by";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Yönetici Modu\n\n Geçici yetkilendirme için yönetici parolasına ihtiyaç duyuyor.\n\n Oturum beş dakika sonra ya da 'VPN Detayları' penceresi kapatıldığında sonlanır.";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick '%@' için ayarları onarma işlemini tamamlayamadı. Detaylar Konsol Log 'da görülebilir";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick güvenliği başarıyla sağladı.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick '%@' ile yapılandırma dosyası kaldırıldığı için bağlantıyı kesti.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick şu anda çalışıyor. İlerlemeden önce kapatılmalı.";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick kullanıma hazır.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick '%@' yapılandırmasını çoklamak için yetkiye ihtiyaç duyuyor.";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "%@ okunamayan bir dosya\n\nDetaylar için konsol kayıt dosyasına bakın.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "%2$@ bulunamadığı için güncellenebilir yapılandırma '%1$@' güncellenebilir olarak saklanamadı\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "'%2$@' '%3$@' olarak kopyalamadığı için güncellenebilir yapılandırma '%1$@' güncellenebilir olarak saklanamadı\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "stub .tblk da bulunan 'Contents' yaratılamadığı için güncellenebilir yapılandırma '%@' güncellenebilir olarak saklanamadı\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "stub .tblk da bulunan 'Contents/Resources' yaratılamadığı için güncellenebilir yapılandırma '%@' güncellenebilir olarak saklanamadı\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "'SUPublicDSAKeyFile' seçime bağlı uzantısı olmayan bir dosya olmadığı için güncellenebilir yapılandırma '%@' güncellenebilir olarak saklanamadı\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "'SUPublicDSAKeyFile' metin olmadığı için güncellenebilir yapılandırma '%@' güncellenebilir olarak saklanamadı\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Info.plist 'SUFeedURL' 'https://' ile başlamadığı için ve 'SUPublicDSAKeyFile' girdisi olmadığı için güncellenebilir yapılandırma '%@' güncellenebilir olarak saklanamadı\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Info.plist stub .tblk içerisinde saklanamadığı için güncellenebilir yapılandırma '%@' güncellenebilir olarak saklanamadı\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "CFBundleIdentifier zaten işlendiği için güncellenebilir yapılandırma '%@' güncellenebilir olarak saklanamadı\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n";
 
 /* Window text */
 "Updates:" = "Güncellemeler:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "Yönetici modu %@ kaldı";
 
 /* Credit description */
-"Afrikaans localization" = "Afrikaans yerelleştirme";
+"Afrikaans translation" = "Afrikaans translation";
 
 /* Credit description */
 "Animation and icon sets code" = "Animasyon ve simge kümesi kodu";
 
 /* Credit description */
-"Arabic localization" = "Arapça çeviri";
+"Arabic translation" = "Arabic translation";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Kimlik doğrulanıyor…";
 
 /* Credit description */
-"Bulgarian localization" = "Bulgarca çeviri";
+"Azerbaijani translation" = "Azerbaijani translation";
+
+/* Credit description */
+"Bulgarian translation" = "Bulgarian translation";
 
 /* Credit description */
 "Button images" = "Buton renkleri";
 
 /* Credit description */
-"Catalan localization" = "Katalonya çevirisi";
+"Catalan translation" = "Catalan translation";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Basitleştirilmiş Çince çevirisi";
+"Chinese (simplified) translation" = "Chinese (simplified) translation";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Geleneksel Çince çevirisi";
+"Chinese (traditional) translation" = "Chinese (traditional) translation";
 
 /* Credentials name */
 "Common" = "Ortak";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "İlk koda katkıda bulunanlar";
 
 /* Credit description */
-"Croatian localization" = "Hırvatça Yerelleştirme";
+"Croatian translation" = "Croatian translation";
 
 /* Credit description */
-"Czech localization" = "Çekçe çeviri";
+"Czech translation" = "Czech translation";
 
 /* Credit description */
-"Danish localization" = "İspanyolca çeviri";
+"Danish translation" = "Danish translation";
 
 /* Speak string */
 "Disconnected from %@" = "%@ bağlantısı kesildi";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "Bunu bir daha gösterme";
 
 /* Credit description */
-"Dutch localization" = "Felemenkçe çeviri";
+"Dutch translation" = "Dutch translation";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "Yönetici moduna gir";
 
 /* Credit description */
-"Estonian localization" = "Estonyaca yerelleştirme";
+"Estonian translation" = "Estonian translation";
 
 /* Credit description */
-"Finnish localization" = "Fince çeviri";
+"Finnish translation" = "Finnish translation";
 
 /* Credit description */
 "Founder, original program and documentation" = "Kurucu, asıl program ve belgelendirme";
 
 /* Credit description */
-"French localization" = "Fransızca çeviri";
+"French translation" = "French translation";
 
 /* Credit description */
-"German localization" = "Almanca çeviri";
+"German translation" = "German translation";
 
 /* Credit description */
-"Greek localization" = "Yunanca çeviri";
+"Greek translation" = "Greek translation";
 
 /* Credit description */
-"Hungarian localization" = "Macarca yerelleştirme";
+"Hungarian translation" = "Hungarian translation";
 
 /* Credit description */
-"Icelandic localization" = "İzlandaca yerelleştirme";
+"Icelandic translation" = "Icelandic translation";
 
 /* Credit description */
 "Icon set including Retina images" = "Retina resimleri de içeren simge kümesi";
 
 /* Credit description */
-"Indonesian localization" = "Endonezyaca yerelleştirme";
+"Indonesian translation" = "Indonesian translation";
 
 /* Credit description */
-"Italian localization" = "İtalyanca çeviri";
+"Italian translation" = "Italian translation";
 
 /* Credit description */
-"Japanese localization" = "Japonca çeviri";
+"Japanese translation" = "Japanese translation";
 
 /* Credit description */
-"Korean localization" = "Korece çeviri";
+"Korean translation" = "Korean translation";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "Türkçe";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Alican Cakil, Iris Coeligena, Emin Kura ve Caglar Ulkuderner";
 
 /* Credit description */
-"Latvian localization" = "Letonca çeviri";
+"Latvian translation" = "Latvian translation";
 
 /* Credit description */
 "Localization code tweaks" = "Yerelleştirme kodu ince ayarları";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "Çoklu yapılandırma dizinleri";
 
 /* Credit description */
-"Norwegian localization" = "Norveççe yerelleştirme";
+"Norwegian translation" = "Norwegian translation";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 ve 64-bit bütünleştirmesi";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "PKCS#11 desteği";
 
 /* Credit description */
-"Persian localization" = "Farsça yerelleştirme";
+"Persian translation" = "Persian translation";
 
 /* Credit description */
-"Polish localization" = "Lehçe çeviri";
+"Polish translation" = "Polish translation";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Portekizce çeviri";
+"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
 
 /* Credit description */
-"Portuguese localization" = "Portekizce yerelleştirme";
+"Portuguese translation" = "Portuguese translation";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "3.0b10 versiyonundan sonraki program ve doküman iyileştirme ve bakım çalışmaları";
 
 /* Credit description */
-"Romanian localization" = "Romence Yerelleştirme";
+"Romanian translation" = "Romanian translation";
 
 /* Credit description */
-"Russian localization" = "Rusça çeviri";
+"Russian translation" = "Russian translation";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Sırpça (latin) yerelleştirme";
+"Serbian (Latin) translation" = "Serbian (Latin) translation";
 
 /* Credit description */
-"Slovak localization" = "Slovakça çeviri";
+"Slovak translation" = "Slovak translation";
 
 /* Credit description */
-"Spanish localization" = "İspanyolca yerelleştirme";
+"Spanish translation" = "Spanish translation";
 
 /* Credit description */
-"Swedish localization" = "İsveççe çeviri";
+"Swedish translation" = "Swedish translation";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick simgesi";
 
 /* Credit description */
-"Turkish localization" = "Türkçe yerelleştirme";
+"Turkish translation" = "Turkish translation";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue ve UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Ukraynaca çeviri";
+"Ukrainian translation" = "Ukrainian translation";
 
 /* Credit description */
 "Up and Down scripts" = "Bağlantı ve kesilme betikleri";

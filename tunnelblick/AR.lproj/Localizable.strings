@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "تبديل مستخدم بسرعة";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "الملف %@ يبدو تحت ترميز UTF-16. جميع ملفات OpenVPN لابد وان تكون تحت ترميز UTF-8 او Plain text.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "الملف %@ يبدو تحت ترميز UTF-16. جميع ملفات OpenVPN لابد وان تكون تحت ترميز UTF-8 او ملفات نصوص عادية.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "الملف %@ يبدو في صيغة 'rich text' ";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "التثبيت انتهى بنجاح.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "جارى تثبيت وتنصيب البرنامج...";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "جارى تثبيت و تأمين حماية Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "تثبيت الإعدادات غير مسموح";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "السطر %1$d من ملف %2$@ يحتوى على رمز لا يمكن طباعته (0x%3$X) وهو شئ غير مسموح به.\n\n";
-
-/* Window text */
-"Localization by" = "ترجم بواسطة";
 
 /* Window text */
 "MB" = "ميغابايت";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "نطاق البحث :";
 
-/* Window text */
-"Securing Tunnelblick..." = "تأمين حماية تُنلـبليك...";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "تأمين حماية تُنلـبليك %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "ضبط DNS/WINS:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "تخطي نسخ %@ بسبب نسخة مسبقة للملف تحمل نفس الاسم والمحتوى.";
 
-/* Window text */
-"Starting Tunnelblick..." = "البرنامج يبدأ...";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "بدء تشغيل تنلبلك %@…";
 
 /* Window text */
 "Startup window:" = "نافذة البداية :";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "وجود عدد كبير جدا من الإعدادات المكررة.";
 
 /* Window text */
+"Translation by" = "تمت الترجمة من قبل ";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "تم تأمين %@ تُنلـبليك بنجاح.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "تنلبليك %@ جاهز.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "وضع ألأدمن\nالتغيرات المؤقتة الخاصة بالصلاحيات تتطلب كلمة مرور ألأدمن\nتنتهي صلاحيه الجلسة خلال خمس دقائق أو بعد إغلاق تفاصيل نافذة في بي ان.";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "تعذر اصلاح خطأ في الخيارات لـ ‘%@‘. راجع السجل للتفاصيل";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "تم تأمين تُنلـبليك بنجاح.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "قام تُنلـبليك بقطع الاتصال عن ‎'%@'‎ لأن ملف الاعدادات الخاص به قد تمت إزالته.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "تُنلـبليك قيد التشغيل. سيتم إغلاقه قبل الإستمرار.";
-
-/* Window text */
-"Tunnelblick is ready." = "تنلبليك جاهز.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "تُنلـبليك بحاجة لإذن لكي يتمكن من نسخ الإعداد ‎'%@'‎.";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "الملف غير قابل للقراءه عند %@\n\nراجع السجل للتفاصيل.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "لم يتم تخزين الإعدادات'%1$@' بسبب %2$@ من الإعدادات مفقود\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "لم يتم تخزين الإعدادات'%1$@' بسبب %2$@ لم ينسخ '%3$@'\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "لم يتم خزن ألإعدادات '%@' لان المحتوى في stub .tblk لم يتم إنشاءه\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "لم يتم خزن ألإعدادات '%@' لان المحتوى في stub .tblk لم يتم إنشاءه\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "لم يتم خزن الاعدادات '%@' لان الملف 'SUPublicDSAKeyFile' لم يكن نص\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "لم يتم خزن الاعدادات '%@' لان الملف 'SUPublicDSAKeyFile' لم يكن نص\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "لم يتم الإعدادات المحدثة '%@' لان Info.plist 'SUFeedURL' لم تبدأ ب 'https://' ولم يكن هناك قيمة ل 'SUPublicDSAKeyFile'\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "لم يتم تخزين الإعدادات '%@' بسبب Info.plist لم يتم خزنها في stub .tblk\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "لم يتم خزن الاعدادات '%@' لان الملف 'CFBundleIdentifier ' قد تم تفعيله مسبقا\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "لم تخزن التكوين للتحديث '%@' كما قابلة للتحديث لأن Info.plist لم يكن لديك دخول إلى \"SUPublicDSAKey\" أو دخولها \"SUFeedURL\" لم يحدد استخدام من https:\n";
 
 /* Window text */
 "Updates:" = "التحديثات :";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "وضع المدير: باقي من الزمن %@";
 
 /* Credit description */
-"Afrikaans localization" = "النسخة الأفريقانية";
+"Afrikaans translation" = "الترجمة الأفريقانية";
 
 /* Credit description */
 "Animation and icon sets code" = "تحريك وبرمجة الايقونات";
 
 /* Credit description */
-"Arabic localization" = "الترجمة العربية";
+"Arabic translation" = "الترجمة العربية";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "جاري المصادقة...";
 
 /* Credit description */
-"Bulgarian localization" = "النسخة البلغارية";
+"Azerbaijani translation" = "الترجمة الأذربيجانية";
+
+/* Credit description */
+"Bulgarian translation" = "الترجمة البلغارية";
 
 /* Credit description */
 "Button images" = "صور الازرار";
 
 /* Credit description */
-"Catalan localization" = "الترجمة للكتالونية";
+"Catalan translation" = "الترجمة الكتالونية";
 
 /* Credit description */
-"Chinese (simplified) localization" = "الترجمة للصينية (المبسطة)";
+"Chinese (simplified) translation" = "الترجمة الصينية (المبسطة)";
 
 /* Credit description */
-"Chinese (traditional) localization" = "الترجمة للصينية (التقليدية)";
+"Chinese (traditional) translation" = "الترجمة الصينية (التقليدية)";
 
 /* Credentials name */
 "Common" = "مشترك";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "شارك في بدايات الكود";
 
 /* Credit description */
-"Croatian localization" = "الترجمة الكرواتية";
+"Croatian translation" = "الترجمة الكرواتية";
 
 /* Credit description */
-"Czech localization" = "الترجمة للتشيكية";
+"Czech translation" = "الترجمة التشيكية";
 
 /* Credit description */
-"Danish localization" = "الترجمة للدنماركية";
+"Danish translation" = "الترجمة الدنماركية";
 
 /* Speak string */
 "Disconnected from %@" = "قطع الاتصال من %@";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = " عدم إظهار هذا مرة أخرى";
 
 /* Credit description */
-"Dutch localization" = "الترجمة للهولندية";
+"Dutch translation" = "الترجمة الهولندية";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "ادخل وضع المدير";
 
 /* Credit description */
-"Estonian localization" = "الترجمة للإستونية";
+"Estonian translation" = "الترجمة الاستونية";
 
 /* Credit description */
-"Finnish localization" = "الترجمة للفنلندية";
+"Finnish translation" = "الترجمة الفنلندية";
 
 /* Credit description */
 "Founder, original program and documentation" = "المؤسس. البرنامج الأصلي وتوثيقه";
 
 /* Credit description */
-"French localization" = "الترجمة للفرنسية";
+"French translation" = "الترجمة الفرنسية";
 
 /* Credit description */
-"German localization" = "الترجمة للألمانية";
+"German translation" = "الترجمة الألمانية";
 
 /* Credit description */
-"Greek localization" = "الترجمة لليونانية";
+"Greek translation" = "الترجمة اليونانية";
 
 /* Credit description */
-"Hungarian localization" = "الترجمة للهنقارية";
+"Hungarian translation" = "الترجمة الهنجارية";
 
 /* Credit description */
-"Icelandic localization" = "النسخة الآيسلندية";
+"Icelandic translation" = "الترجمة الآيسلندية";
 
 /* Credit description */
 "Icon set including Retina images" = "حزمة الأيقونات والصور الـريتينا";
 
 /* Credit description */
-"Indonesian localization" = "النسخة الإندونسية";
+"Indonesian translation" = "الترجمة الاندونيسية";
 
 /* Credit description */
-"Italian localization" = "الترجمة للإيطالية";
+"Italian translation" = "الترجمة الايطالية";
 
 /* Credit description */
-"Japanese localization" = "الترجمة لليابانية";
+"Japanese translation" = "الترجمة اليابانية";
 
 /* Credit description */
-"Korean localization" = "الترجمة للكورية";
+"Korean translation" = "الترجمة الكورية";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "الترجمة العربية";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "الترجمة العربية";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Khalid Alhumud";
 
 /* Credit description */
-"Latvian localization" = "الترجمة للاتفية";
+"Latvian translation" = "الترجمة اللاتفية";
 
 /* Credit description */
 "Localization code tweaks" = "تعديلات الترجمة للبرنامج";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "مجلدات متعددة الإعدادات";
 
 /* Credit description */
-"Norwegian localization" = "الترجمة للنرويجية";
+"Norwegian translation" = "الترجمة النرويجية";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 وتكامل 64-bit";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "دعم PKCS#11";
 
 /* Credit description */
-"Persian localization" = "التوضيع الفارسي";
+"Persian translation" = "الترجمة الفارسية";
 
 /* Credit description */
-"Polish localization" = "الترجمة للبولندية";
+"Polish translation" = "الترجمة البولندية";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "الترجمة للبرتغالية (برازيلية)";
+"Portuguese (Brazilian) translation" = "الترجمة البرتغالية (برازيلية)";
 
 /* Credit description */
-"Portuguese localization" = "الترجمة للبرتغالية";
+"Portuguese translation" = "الترجمة البرتغالية";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "التحسينات والصيانة التي تمت للبرنامج ومستند التوثيق بعد الإصدار 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "النسخة الرومانية";
+"Romanian translation" = "الترجمة الرومانية";
 
 /* Credit description */
-"Russian localization" = "الترجمة للروسية";
+"Russian translation" = "الترجمة الروسية";
 
 /* Credit description */
-"Serbian (Latin) localization" = "التوضيع الصربي (اللاتيني)";
+"Serbian (Latin) translation" = "الترجمة الصربية (اللاتينية)";
 
 /* Credit description */
-"Slovak localization" = "الترجمة للسلوفاكية";
+"Slovak translation" = "الترجمة السلوفكية";
 
 /* Credit description */
-"Spanish localization" = "الترجمة للاسبانية";
+"Spanish translation" = "الترجمة الاسبانية";
 
 /* Credit description */
-"Swedish localization" = "الترجمة للسويدية";
+"Swedish translation" = "الترجمة السويدية";
 
 /* Credit description */
 "Tunnelblick icon" = "ايقونة تُنلـبليك";
 
 /* Credit description */
-"Turkish localization" = "الترجمة للتركية";
+"Turkish translation" = "الترجمة التركية";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue و UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "الترجمة للاوكرانية";
+"Ukrainian translation" = "الترجمة الاوكرانية";
 
 /* Credit description */
 "Up and Down scripts" = "سكربت انشاء وقطع الاتصال";
@@ -2215,7 +2203,7 @@
 "Welcome!" = "مرحباً!";
 
 /* Window title  VPNService */
-"You Must Type the Characters" = "يجب عليك كتابة أحرف";
+"You Must Type the Characters" = "عليك كتابة أحرف";
 
 /* Window text VPNService */
 "Confirm password:" = "تأكيد كلمة المرور:";

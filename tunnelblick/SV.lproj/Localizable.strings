@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Snabbt användarbyte";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Filen '%@' verkar vara formaterad enligt UTF-16. Alla OpenVPN-relaterade filer måsta antingen vara oformaterade eller i 'UTF-8'.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Filen \"%@\" verkar vara i \"rich text\" format eftersom den börjar med \"'{\". Alla OpenVPN-relaterade filer måste vara i \"plain text\" eller \"UTF-8\" filer.";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "Installationen lyckades.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "Installerar och säkrar Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Installation av konfigurationer är inte tillåtet";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Rad %1$d i filen ' %2$@' innehåller ett otillåtet icke-utskrivbart tecken (0x%3$X).\n\n";
-
-/* Window text */
-"Localization by" = "Översättning av";
 
 /* Window text */
 "MB" = "MB";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "Sök domän:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Säkrar Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "Ställ in DNS/WINS:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Kopierade inte %@ eftersom det redan finns en fil med det namnet som redan har kopierats.";
 
-/* Window text */
-"Starting Tunnelblick..." = "Startar Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Uppstartsfönster:";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "För många duplicerade konfigurationer finns redan.";
 
 /* Window text */
+"Translation by" = "Translation by";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Administratörsläge\n\n Tillåt att temporärt göra ändringar som kräver ett administratörslösenord.\n\n Administratörsläget avslutas efter fem minuter eller när fönstret 'VPN-inställningar' stängs.";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick misslyckades med att åtgärda problemen med inställningarna för '%@'. Detaljer finns i konsolloggen";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick har säkrats framgångsrikt.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick har kopplat från '%@' på grund av att dess konfigurationsfil har tagits bort.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick är aktivt. Det kommer att stängas för att kunna fortsätta.";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick är redo.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick behöver tillåtelse för att kopiera konfigurationen \"%@\".";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "Oläslig fil %@\n\nSe konsolloggen för mer detaljer.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Uppdaterbara konfigurationen \"%1$@\" sparades inte som uppdaterbar eftersom %2$@ inte kunde hittas\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Uppdaterbara konfigurationen \"%1$@\" sparades inte som uppdaterbar eftersom \"%2$@\" inte kunde kopieras till \"%3$@\"\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Uppdaterbara konfigurationen \"%@\" sparades inte som uppdaterbar eftersom innehållet i delen .tblk kunde kunde skapas\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Uppdaterbara konfigurationen \"%@\" sparades inte som uppdaterbar eftersom \"Contents/Resources\" i delen .tblk kunde kunde skapas\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Uppdaterbara konfigurationen \"%@\" sparades inte som uppdaterbar eftersom \"SUPublicDSAKeyFile\" inte var ett filnamn med en valfri filändelse\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Uppdaterbara konfigurationen \"%@\" sparades inte som uppdaterbar eftersom \"SUPublicDSAKeyFile\" inte är av datatypen string\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Uppdaterbara konfigurationen \"%@\" sparades inte som uppdaterbar eftersom värdet av  \"SUFeedURL\" i Info.plist inte startar med \"https://\" och det finns ingen \"SUPublicDSAKeyFile\" ingång\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Uppdaterbara konfigurationen \"%@\" sparades inte som uppdaterbar dess Info.plist inte sparades i delen .tblk\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Uppdaterbara konfigurationen \"%@\" sparades inte som uppdaterbar eftersom CFBundleIdentifier redan har behandlats\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n";
 
 /* Window text */
 "Updates:" = "Uppdateringar:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "Administratörsläge %@ kvarstår";
 
 /* Credit description */
-"Afrikaans localization" = "Afrikansk översättning";
+"Afrikaans translation" = "Afrikaans translation";
 
 /* Credit description */
 "Animation and icon sets code" = "Animation, ikonuppsättningskod";
 
 /* Credit description */
-"Arabic localization" = "Arabisk lokalanpassning";
+"Arabic translation" = "Arabic translation";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Autentisierar…";
 
 /* Credit description */
-"Bulgarian localization" = "Bulgarisk lokalanpassning";
+"Azerbaijani translation" = "Azerbaijani translation";
+
+/* Credit description */
+"Bulgarian translation" = "Bulgarian translation";
 
 /* Credit description */
 "Button images" = "Knappgrafik";
 
 /* Credit description */
-"Catalan localization" = "Katalansk lokalanpassning";
+"Catalan translation" = "Catalan translation";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Kinesiska (förenklad) lokalanpassning";
+"Chinese (simplified) translation" = "Chinese (simplified) translation";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Kinesisk (traditionell) översättning";
+"Chinese (traditional) translation" = "Chinese (traditional) translation";
 
 /* Credentials name */
 "Common" = "Gemensam";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "Bidrog till den tidiga koden";
 
 /* Credit description */
-"Croatian localization" = "Kroatisk översättning";
+"Croatian translation" = "Croatian translation";
 
 /* Credit description */
-"Czech localization" = "Tjeckien lokalanpassning";
+"Czech translation" = "Czech translation";
 
 /* Credit description */
-"Danish localization" = "Dansk lokalisering";
+"Danish translation" = "Danish translation";
 
 /* Speak string */
 "Disconnected from %@" = "Nedkopplad från %@";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "Visa inte detta igen";
 
 /* Credit description */
-"Dutch localization" = "Holländsk lokalanpassning";
+"Dutch translation" = "Dutch translation";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "Starta administratörsläget";
 
 /* Credit description */
-"Estonian localization" = "Estnisk översättning";
+"Estonian translation" = "Estonian translation";
 
 /* Credit description */
-"Finnish localization" = "Finsk lokalanpassning";
+"Finnish translation" = "Finnish translation";
 
 /* Credit description */
 "Founder, original program and documentation" = "Grundare, originalprogram och dokumentation";
 
 /* Credit description */
-"French localization" = "Fransk lokalanpassning";
+"French translation" = "French translation";
 
 /* Credit description */
-"German localization" = "Tysk lokalanpassning";
+"German translation" = "German translation";
 
 /* Credit description */
-"Greek localization" = "Grekisk lokalanpassning";
+"Greek translation" = "Greek translation";
 
 /* Credit description */
-"Hungarian localization" = "Ungerska lokalanpassning";
+"Hungarian translation" = "Hungarian translation";
 
 /* Credit description */
-"Icelandic localization" = "Isländsk översättning";
+"Icelandic translation" = "Icelandic translation";
 
 /* Credit description */
 "Icon set including Retina images" = "Uppsättning ikon, inklusive Retina bilder";
 
 /* Credit description */
-"Indonesian localization" = "Indonesisk översättning";
+"Indonesian translation" = "Indonesian translation";
 
 /* Credit description */
-"Italian localization" = "Italiensk lokalanpassning";
+"Italian translation" = "Italian translation";
 
 /* Credit description */
-"Japanese localization" = "Japansk lokalanpassning";
+"Japanese translation" = "Japanese translation";
 
 /* Credit description */
-"Korean localization" = "Koreansk lokalanpassning";
+"Korean translation" = "Korean translation";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "Svensk lokalanpassning";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Daniel Kvist, Mats Cronqvist, och Stjepan Siljac";
 
 /* Credit description */
-"Latvian localization" = "Lettisk översättning";
+"Latvian translation" = "Latvian translation";
 
 /* Credit description */
 "Localization code tweaks" = "Fixar för översättningskod";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "Flera konfigurationsmappar";
 
 /* Credit description */
-"Norwegian localization" = "Norsk lokalanpassning";
+"Norwegian translation" = "Norwegian translation";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 och 64-bitars integration";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "PKCS#11-support";
 
 /* Credit description */
-"Persian localization" = "Persisk översättning";
+"Persian translation" = "Persian translation";
 
 /* Credit description */
-"Polish localization" = "Polsk lokalanpassning";
+"Polish translation" = "Polish translation";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Portugisiska (brasiliansk) lokalanpassning";
+"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
 
 /* Credit description */
-"Portuguese localization" = "Portugisisk översättning";
+"Portuguese translation" = "Portuguese translation";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program- och dokumentationsförbättringar efter version 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "Rumänsk översättning";
+"Romanian translation" = "Romanian translation";
 
 /* Credit description */
-"Russian localization" = "Rysk lokalanpassning";
+"Russian translation" = "Russian translation";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Serbisk översättning";
+"Serbian (Latin) translation" = "Serbian (Latin) translation";
 
 /* Credit description */
-"Slovak localization" = "Slovakisk översättning";
+"Slovak translation" = "Slovak translation";
 
 /* Credit description */
-"Spanish localization" = "Spansk lokalanpassning";
+"Spanish translation" = "Spanish translation";
 
 /* Credit description */
-"Swedish localization" = "Svensk lokalanpassning";
+"Swedish translation" = "Swedish translation";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblickikon";
 
 /* Credit description */
-"Turkish localization" = "Turkisk översättning";
+"Turkish translation" = "Turkish translation";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue & UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Ukrainisk lokalanpassning";
+"Ukrainian translation" = "Ukrainian translation";
 
 /* Credit description */
 "Up and Down scripts" = "Uppåt/nedåt-script";

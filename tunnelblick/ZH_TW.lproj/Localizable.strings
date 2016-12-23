@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "快速切換使用者";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "「%@」似乎是 UTF-16 編碼的檔案。所有 OpenVPN 相關的檔案都必須是「純文字」或是「UTF-8 編碼」的檔案。";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "因為它的第一個符號是 '{'，檔案 '%@' 看起來像是 RTF 格式的文件。所有 OpenVPN 的相關檔案都需是純文字或 UTF-8 文件。";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "安裝已經成功完成。";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "正在安裝及保護 Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "禁止安裝設定";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "在檔案 '%2$@' 的第 %1$d 中不能含有不能顯示的符號 (0x%3$X)。\n\n";
-
-/* Window text */
-"Localization by" = "翻譯人員";
 
 /* Window text */
 "MB" = "MB";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "搜索域名：";
 
-/* Window text */
-"Securing Tunnelblick..." = "正在對 Tunnelblick 進行安全配置…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "設置 DNS/WINS：";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "略過複製%@，因為一個相同名稱及內容的檔案已被複製。";
 
-/* Window text */
-"Starting Tunnelblick..." = "正在啟動 Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "啟動視窗：";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "已有太多設定檔拷貝。";
 
 /* Window text */
+"Translation by" = "Translation by";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick 管理模式\n\n 臨時的授權變更需要輸入管理員的密碼。\n\n 本會話會在五分鐘後或當「VPN 詳情」視窗關閉時過期。";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. 詳情請參見控制台日誌";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick has been secured 成功.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "因設定檔被移除 '%@' 將被設定為離線.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick 正在運行中。在繼續進行前將會被關閉。";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick己準備就緒";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick 需要認證來複製「%@」設定檔。";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "檔案 %@ 不可讀取\n\n有關詳情，請參閱控制台日誌。";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "由於找不到 %2$@ 可被自動更新的設置 '%1$@' 無法被保存至可被自動更新的格式\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "由於找不到無法把 '%2$@' 複製至 '%3$@' 可被自動更新的設置 '%1$@' 無法被保存至可被自動更新的格式\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "由於無法在 .tblk 的拷貝建立 'Contents' 可被自動更新的設置 '%@' 無法被保存至可被自動更新的格式\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "由於無法在 .tblk 的拷貝建立 'Contents/Resources' 可被自動更新的設置 '%@' 無法被保存至可被自動更新的格式\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "由於 'SUPublicDSAKeyFile' 並非一個擴展名可有可無的文件名，可被自動更新的設置 '%@' 無法被保存至可被自動更新的格式\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "由於 'SUPublicDSAKeyFile' 並非一個字串陣列，可被自動更新的設置 '%@' 無法被保存至可被自動更新的格式\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "由於在它的Info.plist 內 'SUFeedURL' 並非並非以 'https://' 開頭而且沒有 'SUPublicDSAKeyFile' 的條目，可被自動更新的設置 '%@' 無法被保存至可被自動更新的格式\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "由於在它的 Info.plist 無法保存在 .tblk 的拷貝，可被自動更新的設置 '%@' 無法被保存至可被自動更新的格式\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "由於 CFBundleIdentifier 已被處理，可被自動更新的設置 '%@' 無法被保存至可被自動更新的格式\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n";
 
 /* Window text */
 "Updates:" = "更新:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "管理模式還剩 %@";
 
 /* Credit description */
-"Afrikaans localization" = "南非語翻譯";
+"Afrikaans translation" = "Afrikaans translation";
 
 /* Credit description */
 "Animation and icon sets code" = "動畫及圖標的編程";
 
 /* Credit description */
-"Arabic localization" = "阿拉伯語翻譯";
+"Arabic translation" = "Arabic translation";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "正在驗證…";
 
 /* Credit description */
-"Bulgarian localization" = "保加利亞語翻譯";
+"Azerbaijani translation" = "Azerbaijani translation";
+
+/* Credit description */
+"Bulgarian translation" = "Bulgarian translation";
 
 /* Credit description */
 "Button images" = "按鈕圖片";
 
 /* Credit description */
-"Catalan localization" = "加泰羅尼亞語翻譯";
+"Catalan translation" = "Catalan translation";
 
 /* Credit description */
-"Chinese (simplified) localization" = "中文 (簡體) 翻譯";
+"Chinese (simplified) translation" = "Chinese (simplified) translation";
 
 /* Credit description */
-"Chinese (traditional) localization" = "中文 (繁體) 翻譯";
+"Chinese (traditional) translation" = "Chinese (traditional) translation";
 
 /* Credentials name */
 "Common" = "通用";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "對早期程式的貢獻";
 
 /* Credit description */
-"Croatian localization" = "克羅地亞語翻譯";
+"Croatian translation" = "Croatian translation";
 
 /* Credit description */
-"Czech localization" = "捷克語翻譯";
+"Czech translation" = "Czech translation";
 
 /* Credit description */
-"Danish localization" = "丹麥語翻譯";
+"Danish translation" = "Danish translation";
 
 /* Speak string */
 "Disconnected from %@" = "由 %@ 中斷連接";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "不要再顯示";
 
 /* Credit description */
-"Dutch localization" = "荷蘭語翻譯";
+"Dutch translation" = "Dutch translation";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "進入管理模式";
 
 /* Credit description */
-"Estonian localization" = "愛沙尼亞文翻譯";
+"Estonian translation" = "Estonian translation";
 
 /* Credit description */
-"Finnish localization" = "芬蘭語翻譯";
+"Finnish translation" = "Finnish translation";
 
 /* Credit description */
 "Founder, original program and documentation" = "創始人，原先的程式及參考文件";
 
 /* Credit description */
-"French localization" = "法語翻譯";
+"French translation" = "French translation";
 
 /* Credit description */
-"German localization" = "德語翻譯";
+"German translation" = "German translation";
 
 /* Credit description */
-"Greek localization" = "希臘語翻譯";
+"Greek translation" = "Greek translation";
 
 /* Credit description */
-"Hungarian localization" = "匈牙利語翻譯";
+"Hungarian translation" = "Hungarian translation";
 
 /* Credit description */
-"Icelandic localization" = "冰島語本地化";
+"Icelandic translation" = "Icelandic translation";
 
 /* Credit description */
 "Icon set including Retina images" = "圖標集，包括 Retina 圖片";
 
 /* Credit description */
-"Indonesian localization" = "印尼文翻譯";
+"Indonesian translation" = "Indonesian translation";
 
 /* Credit description */
-"Italian localization" = "義大利語翻譯";
+"Italian translation" = "Italian translation";
 
 /* Credit description */
-"Japanese localization" = "日語翻譯";
+"Japanese translation" = "Japanese translation";
 
 /* Credit description */
-"Korean localization" = "韓語翻譯";
+"Korean translation" = "Korean translation";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "繁體中文翻譯";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Aming Lau，Pomin Wu 及 Andrew Ying";
 
 /* Credit description */
-"Latvian localization" = "拉脫維亞語翻譯";
+"Latvian translation" = "Latvian translation";
 
 /* Credit description */
 "Localization code tweaks" = "翻譯程式碼調整";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "多重設定檔案夾";
 
 /* Credit description */
-"Norwegian localization" = "挪威語翻譯";
+"Norwegian translation" = "Norwegian translation";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 及 64 位元程式碼統合";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "PKCS#11 支援";
 
 /* Credit description */
-"Persian localization" = "波斯語本地化";
+"Persian translation" = "Persian translation";
 
 /* Credit description */
-"Polish localization" = "波蘭語翻譯";
+"Polish translation" = "Polish translation";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "葡萄牙語 (巴西語) 翻譯";
+"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
 
 /* Credit description */
-"Portuguese localization" = "葡萄牙文翻譯";
+"Portuguese translation" = "Portuguese translation";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "3.0b10 版本後對程式及說明文件的改進";
 
 /* Credit description */
-"Romanian localization" = "羅馬尼亞語翻譯";
+"Romanian translation" = "Romanian translation";
 
 /* Credit description */
-"Russian localization" = "俄語翻譯";
+"Russian translation" = "Russian translation";
 
 /* Credit description */
-"Serbian (Latin) localization" = "塞爾維亞語拉丁字母翻譯";
+"Serbian (Latin) translation" = "Serbian (Latin) translation";
 
 /* Credit description */
-"Slovak localization" = "斯洛伐克語翻譯";
+"Slovak translation" = "Slovak translation";
 
 /* Credit description */
-"Spanish localization" = "西班牙語翻譯";
+"Spanish translation" = "Spanish translation";
 
 /* Credit description */
-"Swedish localization" = "瑞典語翻譯";
+"Swedish translation" = "Swedish translation";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick 圖示";
 
 /* Credit description */
-"Turkish localization" = "土耳其文翻譯";
+"Turkish translation" = "Turkish translation";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue 和 UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "烏克蘭語翻譯";
+"Ukrainian translation" = "Ukrainian translation";
 
 /* Credit description */
 "Up and Down scripts" = "啟動後/關閉後程式碼";

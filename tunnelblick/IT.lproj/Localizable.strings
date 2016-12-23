@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Cambio utente rapido";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Il documento '%@' sembrerebbe essere stato registrato in formato 'UTF-16'. Per poter funzionare correttamente tutti i documenti di configurazione di OpenVPN devono essere registrati in formato 'testo semplice' o 'UTF-8'.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Il documento '%@' sembrerebbe essere stato registrato in formato 'UTF-16'. Per poter funzionare correttamente tutti i documenti di configurazione di OpenVPN devono essere registrati in formato 'testo semplice' o 'UTF-8'.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Il file '%@' sembrerebbe essere in formato 'rich text' poiché inizia col carattere '{'. Tutti i file utilizzati da OpenVPN devono essere in formato 'plain text' o 'UTF-8'.";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "Installazione conclusa correttamente.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "Installazione e configurazione sicurezza di Tunnelblick …";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Installazione e configurazione sicurezza di Tunnelblick %@ in corso …";
 
 /* Window text */
 "Installing configurations is not allowed" = "Non è permesso installare configurazioni";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "La linea %1$d del file '%2$@' contiene un carattere non visualizzabile (0x%3$X) che non è ammesso.\n\n";
-
-/* Window text */
-"Localization by" = "Traduzioni di";
 
 /* Window text */
 "MB" = "MB";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "Domini di ricerca:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Configrazione sicurezza di Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Configrazione sicurezza di Tunnelblick %@ …";
 
 /* Window text */
 "Set DNS/WINS:" = "Configura DNS/WINS:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Non è stato possibile copiare il file %@ poiché un file con lo stesso nome e contenuto è già stato copiato.";
 
-/* Window text */
-"Starting Tunnelblick..." = "Avvio Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Avvio Tunnelblick %@ …";
 
 /* Window text */
 "Startup window:" = "Finestra d'avvio:";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "Esistono già troppi duplicati della configurazione.";
 
 /* Window text */
+"Translation by" = "Traduzione a cura di";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "La sicurezza di Tunnelblick %@ è stata aumentata correttamente.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ è pronto.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick - Modalità Amministrativa\n\n Consente di eseguire temporaneamente operazioni che richiedono la password di un utente amministratore.\n\n Questa autorizzazione rimane valida per un massimo di cinque minuti oppure fintantoché non venga chiusa la finestra 'Dettagli VPN'.";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick non è riuscito a risolvere dei problemi con le preferenze di '%@'. Dai un occhio alla Console per i dettagli";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "La sicurezza di Tunnelblick è stata aumentata correttamente.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick ha disconnesso '%@' poiché il file di configurazione è stato rimosso.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "L'applicazione Tunnelblick è al momento in esecuzione e sarà terminata prima che sia possibile proseguire.";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick è pronto.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick necessita dell'autorizzazione per poter duplicare la configurazione '%@'.";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "Impossibile leggere il documento '%@'\n\nUlteriori dettagli sono disponibili nell'Applicazione Console.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Non è stato possibile impostare la configurazione '%1$@' come aggiornabile automaticamente poiché non è stato possibile trovare %2$@\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Non è stato possibile impostare la configurazione '%1$@' come aggiornabile automaticamente poiché non è stato possibile copiare '%2$@' in '%3$@'\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Non è stato possibile impostare la configurazione '%@' come aggiornabile automaticamente poiché non è stato possibile creare 'Contents' nello stub .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Non è stato possibile impostare la configurazione '%@' come aggiornabile automaticamente poiché non è stato possibile creare 'Contents/Resources' nello stub .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Non è stato possibile impostare la configurazione '%@' come aggiornabile automaticamente poiché il file 'SUPublicDSAKeyFile' non ha la possibilità di avere un'estensione opzionale\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Non è stato possibile impostare la configurazione '%@' come aggiornabile automaticamente poiché 'SUPublicDSAKeyFile' non è una stringa\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Non è stato possibile impostare la configurazione '%@' come aggiornabile automaticamente poiché il valore 'SUFeedURL', presente all'interno del suo file info.plist ,non inizia con 'https://' e non è presente alcun valore per 'SUPublicDSAKeyFile'\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Non è stato possibile impostare la configurazione '%@' come aggiornabile automaticamente poiché non è possibile memorizzare il corrispondente file info.plist all'interno dello stub .tblk\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "La configurazione aggiornabile '%@' non è stata memorizzata come aggiornabile poiché il corrispondente CFBundleIdentifier è già stato processato\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "La configurazione aggiornabile '%@' non è stata memorizzata come aggiornabile poiché il file Info.plist non contiene una chiave 'SUPublicDSAKey' oppure la sua chiave 'SUFeedURL' non specifica l'uso del protocollo https:\n";
 
 /* Window text */
 "Updates:" = "Aggiornamenti:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "Modalità Amministrativa disattivata in %@";
 
 /* Credit description */
-"Afrikaans localization" = "Traduzione in lingua Afrikaans";
+"Afrikaans translation" = "Traduzione in lingua Afrikaans";
 
 /* Credit description */
 "Animation and icon sets code" = "Animazioni, codice del set di icone";
 
 /* Credit description */
-"Arabic localization" = "Traduzione in lingua Araba";
+"Arabic translation" = "Traduzione in lingua Araba";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Autenticazione in corso …";
 
 /* Credit description */
-"Bulgarian localization" = "Traduzione in lingua Bulgara";
+"Azerbaijani translation" = "Traduzione in lingua Azera";
+
+/* Credit description */
+"Bulgarian translation" = "Traduzione in lingua Bulgara";
 
 /* Credit description */
 "Button images" = "Immagini dei pulsanti";
 
 /* Credit description */
-"Catalan localization" = "Traduzione in lingua Catalana";
+"Catalan translation" = "Traduzione in lingua Catalana";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Traduzione in lingua Cinese (semplificata)";
+"Chinese (simplified) translation" = "Traduzione in lingua Cinese (caratteri semplificati)";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Traduzione in lingua Cinese (tradizionale)";
+"Chinese (traditional) translation" = "Traduzione in lingua Cinese (caratteri tradizionali)";
 
 /* Credentials name */
 "Common" = "Comuni";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "Contributi iniziali al codice";
 
 /* Credit description */
-"Croatian localization" = "Traduzione in lingua Croata";
+"Croatian translation" = "Traduzione in lingua Croata";
 
 /* Credit description */
-"Czech localization" = "Traduzione in lingua Ceca";
+"Czech translation" = "Traduzione in lingua Ceca";
 
 /* Credit description */
-"Danish localization" = "Traduzione in lingua Danese";
+"Danish translation" = "Traduzione in lingua Danese";
 
 /* Speak string */
 "Disconnected from %@" = "Disconnesso da %@";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "Non mostrare nuovamente";
 
 /* Credit description */
-"Dutch localization" = "Traduzione in lingua Olandese";
+"Dutch translation" = "Traduzione in lingua Olandese";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "Abilita Modalità Amministrativa";
 
 /* Credit description */
-"Estonian localization" = "Traduzione in lingua Estone";
+"Estonian translation" = "Traduzione in lingua Estone";
 
 /* Credit description */
-"Finnish localization" = "Traduzione in lingua Finlandese";
+"Finnish translation" = "Traduzione in lingua Finlandese";
 
 /* Credit description */
 "Founder, original program and documentation" = "Fondatore, programma originale e documentazione";
 
 /* Credit description */
-"French localization" = "Traduzione in lingua Francese";
+"French translation" = "Traduzione in lingua Francese";
 
 /* Credit description */
-"German localization" = "Traduzione in lingua Tedesca";
+"German translation" = "Traduzione in lingua Tedesca";
 
 /* Credit description */
-"Greek localization" = "Traduzione in lingua Greca";
+"Greek translation" = "Traduzione in lingua Greca";
 
 /* Credit description */
-"Hungarian localization" = "Traduzione in lingua Ungherese";
+"Hungarian translation" = "Traduzione in lingua Ungherese";
 
 /* Credit description */
-"Icelandic localization" = "Traduzione in lingua Islandese";
+"Icelandic translation" = "Traduzione in lingua Islandese";
 
 /* Credit description */
 "Icon set including Retina images" = "Icone ed Immagini (incluse Retina)";
 
 /* Credit description */
-"Indonesian localization" = "Traduzione in lingua Indonesiana";
+"Indonesian translation" = "Traduzione in lingua Indonesiana";
 
 /* Credit description */
-"Italian localization" = "Traduzione in lingua Italiana";
+"Italian translation" = "Traduzione in lingua Italiana";
 
 /* Credit description */
-"Japanese localization" = "Traduzione in lingua Giapponese";
+"Japanese translation" = "Traduzione in lingua Giapponese";
 
 /* Credit description */
-"Korean localization" = "Traduzione in lingua Coreana";
+"Korean translation" = "Traduzione in lingua Koreana";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "Traduzione in lingua Italiana";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "Italian";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Pierpaolo Gulla, Cristiano Verondini, Massimo Grassi";
 
 /* Credit description */
-"Latvian localization" = "Traduzione in lingua Lettone";
+"Latvian translation" = "Traduzione in lingua Lettone";
 
 /* Credit description */
 "Localization code tweaks" = "Aggiustamenti al codice di localizzazione";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "Cartelle di configurazione multiple";
 
 /* Credit description */
-"Norwegian localization" = "Traduzione in lingua Norvegese";
+"Norwegian translation" = "Traduzione in lingua Norvegese";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 ed integrazione 64-bit";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "Supporto al PKCS#11";
 
 /* Credit description */
-"Persian localization" = "Traduzione in lingua persiana";
+"Persian translation" = "Traduzione in lingua Persiana";
 
 /* Credit description */
-"Polish localization" = "Traduzione in lingua Polacca";
+"Polish translation" = "Traduzione in lingua Polacca";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Traduzione in lingua Portoghese (Brasiliana)";
+"Portuguese (Brazilian) translation" = "Traduzione in lingua Portoghese (Brasiliana)";
 
 /* Credit description */
-"Portuguese localization" = "Traduzione in lingua Portoghese";
+"Portuguese translation" = "Traduzione in lingua Portoghese";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Migliorie al programma ed alla documentazione dopo la versione 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "Traduzione in lingua Romena";
+"Romanian translation" = "Traduzione in lingua Romena";
 
 /* Credit description */
-"Russian localization" = "Traduzione in lingua Russa";
+"Russian translation" = "Traduzione in lingua Russa";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Traduzione in lingua Serba (alfabeto latino)";
+"Serbian (Latin) translation" = "Traduzione in lingua Serba";
 
 /* Credit description */
-"Slovak localization" = "Traduzione in lingua Slovacca";
+"Slovak translation" = "Traduzione in lingua Slovacca";
 
 /* Credit description */
-"Spanish localization" = "Traduzione in lingua Spagnola";
+"Spanish translation" = "Traduzione in lingua Spagnola";
 
 /* Credit description */
-"Swedish localization" = "Traduzione in lingua Svedese";
+"Swedish translation" = "Traduzione in lingua Svedese";
 
 /* Credit description */
 "Tunnelblick icon" = "Icona di Tunnelblick";
 
 /* Credit description */
-"Turkish localization" = "Traduzione in lingua Turca";
+"Turkish translation" = "Traduzione in lingua Turca";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue e UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Traduzione in lingua Ucraina";
+"Ukrainian translation" = "Traduzione in lingua Ucraina";
 
 /* Credit description */
 "Up and Down scripts" = "Script di Connessione e Disconnessione";

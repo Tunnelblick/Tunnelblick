@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Быстрое переключение пользователей";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Похоже, что файл '%@' имеет кодировку UTF-16. Все файлы, относящиеся к OpenVPN должны иметь кодировку 'plain text', либо UTF-8.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Файл '%@' скорее всего является RTF-файлом, так как начинается с символа '{'. Все текстовые файлы, с которыми работает OpenVPN должны быть сохранены в форматах наподобие 'простой текст' или 'текст UTF-8'.";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "Установка завершена успешно.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "Установка и защита Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Устанавливаемые конфигурации не разрешены";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Строка %1$d файла '%2$@' содержит непечатный символ (0x%3$X), который не разрешён.\n\n";
-
-/* Window text */
-"Localization by" = "Локализовано";
 
 /* Window text */
 "MB" = "МБ";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "Домен поиска:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Защита Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "Установите DNS/WINS:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Пропущено копирование %@, потому что файл с таким именем и содержимым уже был скопирован.";
 
-/* Window text */
-"Starting Tunnelblick..." = "Запуск Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Заставка:";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "Дублирующихся конфигураций уже и так слишком много.";
 
 /* Window text */
+"Translation by" = "Translation by";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Режим администратора Tunnelblick\n\nВременно разрешить все изменения, требующие пароля администратора.\n\nСессия завершится через пять минут, либо при закрытии окна 'Детали VPN'.";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick не смог разрешить проблемы с предпочтениями '%@'. Подробности в Журнале Событий";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick был успешно защищён";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick отключил '%@' потому что его конфигурационный файл был удалён.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick запущен в настоящий момент. Он будет закрыт перед продолжением операции.";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick готов.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick требуется авторизация для дублирования конфигурации '%@'.";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "Невозможно прочесть файл в %@\n\nПодробности в журнале Консоли.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Обновляемая конфигурация '%1$@' не была сохранена как обновляемая, потому что не удалось найти %2$@\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Обновляемая конфигурация '%1$@' не была сохранена как обновляемая, потому что не удалось скопировать '%2$@' в '%3$@'\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Обновляемая конфигурация '%@' не была сохранена как обновляемая, потому, что не удалось создать 'Содержимое' в .tblk папке\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Обновляемая конфигурация '%@' не была сохранена как обновляемая, потому, что не удалось создать 'Содержимое/Ресурсы' в .tblk папке\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Обновляемая конфигурация '%@' не была сохранена как обновляемая, потому что 'SUPublicDSAKeyFile' это не имя файла (можно с расширением)\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Обновляемая конфигурация '%@' не была сохранена как обновляемая, так как 'SUPublicDSAKeyFile' не был строкой\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Обновляемая конфигурация '%@' не была сохранена как обновляемая, так как параметр 'SUFeedURL' в её Info.plist не начинался с 'https://', и отсутствовал параметр 'SUPublicDSAKeyFile'\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Обновляемая конфигурация '%@' не была сохранена как обновляемая, так как её Info.plist не может храниться в элементе .tblk\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Обновляемая конфигурация '%@' не была сохранена как обновляемая, так CFBundleIdentifier уже был обработан\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n";
 
 /* Window text */
 "Updates:" = "Обновления:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "Для режима администратора остаётся %@";
 
 /* Credit description */
-"Afrikaans localization" = "Перевод на африкаанс";
+"Afrikaans translation" = "Afrikaans translation";
 
 /* Credit description */
 "Animation and icon sets code" = "Анимация и наборы иконок";
 
 /* Credit description */
-"Arabic localization" = "Перевод на арабский";
+"Arabic translation" = "Arabic translation";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Аутентификация…";
 
 /* Credit description */
-"Bulgarian localization" = "Перевод на болгарский";
+"Azerbaijani translation" = "Azerbaijani translation";
+
+/* Credit description */
+"Bulgarian translation" = "Bulgarian translation";
 
 /* Credit description */
 "Button images" = "Изображения на кнопках";
 
 /* Credit description */
-"Catalan localization" = "Перевод на каталанский";
+"Catalan translation" = "Catalan translation";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Перевод на китайский (упрощённый)";
+"Chinese (simplified) translation" = "Chinese (simplified) translation";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Перевод на китайский (традиционный)";
+"Chinese (traditional) translation" = "Chinese (traditional) translation";
 
 /* Credentials name */
 "Common" = "Общие";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "Вклад в ранний код";
 
 /* Credit description */
-"Croatian localization" = "Перевод на хорватский";
+"Croatian translation" = "Croatian translation";
 
 /* Credit description */
-"Czech localization" = "Перевод на чешский";
+"Czech translation" = "Czech translation";
 
 /* Credit description */
-"Danish localization" = "Перевод на датский";
+"Danish translation" = "Danish translation";
 
 /* Speak string */
 "Disconnected from %@" = "Отключено от %@";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "Не показывать это в будущем";
 
 /* Credit description */
-"Dutch localization" = "Перевод на датский";
+"Dutch translation" = "Dutch translation";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "Войти в режим администратора";
 
 /* Credit description */
-"Estonian localization" = "Перевод на эстонский";
+"Estonian translation" = "Estonian translation";
 
 /* Credit description */
-"Finnish localization" = "Перевод на финский";
+"Finnish translation" = "Finnish translation";
 
 /* Credit description */
 "Founder, original program and documentation" = "Основатель, изначальный программист и автор документации";
 
 /* Credit description */
-"French localization" = "Перевод на французский";
+"French translation" = "French translation";
 
 /* Credit description */
-"German localization" = "Перевод на немецкий";
+"German translation" = "German translation";
 
 /* Credit description */
-"Greek localization" = "Перевод на греческий";
+"Greek translation" = "Greek translation";
 
 /* Credit description */
-"Hungarian localization" = "Перевод на венгерский";
+"Hungarian translation" = "Hungarian translation";
 
 /* Credit description */
-"Icelandic localization" = "Перевод на исландский";
+"Icelandic translation" = "Icelandic translation";
 
 /* Credit description */
 "Icon set including Retina images" = "Набор иконок, включая изображения для экрана Retina";
 
 /* Credit description */
-"Indonesian localization" = "Перевод на индонезийский";
+"Indonesian translation" = "Indonesian translation";
 
 /* Credit description */
-"Italian localization" = "Перевод на итальянский";
+"Italian translation" = "Italian translation";
 
 /* Credit description */
-"Japanese localization" = "Перевод на японский";
+"Japanese translation" = "Japanese translation";
 
 /* Credit description */
-"Korean localization" = "Перевод на корейский";
+"Korean translation" = "Korean translation";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "Перевод на русский";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Eugene Trufanov, Dennis Ukhanov, Nail Gilmanov, & Victor Ptichkin";
 
 /* Credit description */
-"Latvian localization" = "Перевод на латышский";
+"Latvian translation" = "Latvian translation";
 
 /* Credit description */
 "Localization code tweaks" = "Оптимизация кода локализации";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "Различные каталоги конфигураций";
 
 /* Credit description */
-"Norwegian localization" = "Перевод на норвежский";
+"Norwegian translation" = "Norwegian translation";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 и 64-битная интеграция";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "Поддержка PKCS#11";
 
 /* Credit description */
-"Persian localization" = "Перевод на персидский";
+"Persian translation" = "Persian translation";
 
 /* Credit description */
-"Polish localization" = "Перевод на польский";
+"Polish translation" = "Polish translation";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Перевод на португальский (бразильский)";
+"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
 
 /* Credit description */
-"Portuguese localization" = "Перевод на португальский";
+"Portuguese translation" = "Portuguese translation";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Поддержка и улучшение программы и документации после версии 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "Перевод на румынский";
+"Romanian translation" = "Romanian translation";
 
 /* Credit description */
-"Russian localization" = "Перевод на русский";
+"Russian translation" = "Russian translation";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Перевод на сербский (латиницей)";
+"Serbian (Latin) translation" = "Serbian (Latin) translation";
 
 /* Credit description */
-"Slovak localization" = "Перевод на словакский";
+"Slovak translation" = "Slovak translation";
 
 /* Credit description */
-"Spanish localization" = "Перевод на испанский";
+"Spanish translation" = "Spanish translation";
 
 /* Credit description */
-"Swedish localization" = "Перевод на шведский";
+"Swedish translation" = "Swedish translation";
 
 /* Credit description */
 "Tunnelblick icon" = "Значок Tunnelblick";
 
 /* Credit description */
-"Turkish localization" = "Перевод на турецкий";
+"Turkish translation" = "Turkish translation";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue и UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Перевод на украинский";
+"Ukrainian translation" = "Ukrainian translation";
 
 /* Credit description */
 "Up and Down scripts" = "Скрипты подключения и разъединения";

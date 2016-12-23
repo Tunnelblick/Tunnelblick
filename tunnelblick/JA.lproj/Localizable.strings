@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "ファストユーザスイッチ";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "%@はUTF−16で符号化されていそうです。OpenVPNに関する全てのファイルの符号化方式は「プレーンテキスト」又は「UTF−8」じゃなければなりません。";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "%@はUTF−16で符号化されていそうです。OpenVPNに関する全てのファイルの符号化方式は「プレーンテキスト」又は「UTF−8」じゃなければなりません。";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "ファイル '%@' はリッチテキストフォーマットと思われます。OpenVPNで使用するファイルはプレーンテキスト(ASCIIもしくはUTF-8)である必要があります。";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "インストールは正しく終了しました。";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "Tunnelblick をインストール中…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Tunnelblick をインストール中%@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "設定のインストールが許可されていません";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "ファイル '%2$@' の%1$d行目に含まれている非表示文字(0x%3$X)は使用できません。\n\n";
-
-/* Window text */
-"Localization by" = "翻訳者";
 
 /* Window text */
 "MB" = "MB";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "検索ドメイン:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Tunnelblick の安全を確保しています…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "DNS/WINS 設定:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "%@ は既にコピーされているためスキップします。";
 
-/* Window text */
-"Starting Tunnelblick..." = "Tunnelblickを起動しています…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Tunnelblick を起動中%@…";
 
 /* Window text */
 "Startup window:" = "スタートアップウィンドウ:";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "接続先の複製が多すぎます。";
 
 /* Window text */
+"Translation by" = "翻訳者";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ の安全を確保しました。";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ の準備ができました。";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick 管理者モード\n\n 一時的な権限の変更には管理者パスワードが必要です。\n\n 5分経過するか'VPNの詳細'を閉じると無効になります。";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "「%@」の設定の問題を解決できませんでした。詳細はコンソールログにあります";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick の安全を確保しました。";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "設定ファイルが削除されたため、「%@」の接続を切断しました。";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick は実行中です。処理を続行する前に、終了します。";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick の準備ができました。";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblickは'%@'を複製するのに認証が必要です";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "読み取れないファイルがありました：%@\n\n明細はコンソールをご覧ください。";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "自動更新可能な設定 '%1$@' は %2$@ が見つからなかったため、自動更新可能な設定として保存されませんでした\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "「%2$@」を「%3$@」へコピーできなかったため、更新可能な設定「%1$@」は保存されませんでした。\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "「stub .tblk」の内の「Contents」が作成できなかったため、更新可能な設定「%@」はアップデートとして保存されませんでした。\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "「stub .tblk」内の「Contents/Resources」が作成できなかったため、更新可能な設定「%@」はアップデートとして保存されませんでした。";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "「SUPublicDSAKeyFile」は選択可能な拡張子でなかったため、「%@」は更新可能な設定として保存されませんでした。";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "「SUPublicDSAKeyFile」が文字列ではないので、「%@」は更新可能な設定として保存されませんでした。\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Info.plistの「SUFeedURL」が「https://」で開始されず「SUPublicDSAKeyFile」が無いため、「%@」は更新可能な設定として保存されませんでした。\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "「stub .tblk」の内の「Contents/Resources」が作成できなかったため、、更新可能な設定「%@」は保存されませんでした。";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "「CFBundleIdentifier」が既に処理されたため、「%@」は更新可能な設定として保存されませんでした。\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n";
 
 /* Window text */
 "Updates:" = "更新:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "管理者モードはあと %@ です";
 
 /* Credit description */
-"Afrikaans localization" = "アフリカーンス語翻訳";
+"Afrikaans translation" = "アフリカーンス語翻訳";
 
 /* Credit description */
 "Animation and icon sets code" = "アニメーションとアイコンセットコード";
 
 /* Credit description */
-"Arabic localization" = "アラビア語翻訳";
+"Arabic translation" = "アラビア語翻訳";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "認証中…";
 
 /* Credit description */
-"Bulgarian localization" = "ブルガリア語翻訳";
+"Azerbaijani translation" = "アゼルバイジャン語翻訳";
+
+/* Credit description */
+"Bulgarian translation" = "ブルガリア語翻訳";
 
 /* Credit description */
 "Button images" = "ボタン画像";
 
 /* Credit description */
-"Catalan localization" = "カタロニア語翻訳";
+"Catalan translation" = "カタロニア語翻訳";
 
 /* Credit description */
-"Chinese (simplified) localization" = "中国語(簡体字)翻訳";
+"Chinese (simplified) translation" = "中国語 (簡体字) 翻訳";
 
 /* Credit description */
-"Chinese (traditional) localization" = "中国語(繁体字)翻訳";
+"Chinese (traditional) translation" = "中国語 (繁体字) 翻訳";
 
 /* Credentials name */
 "Common" = "共通";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "初期のコードへの貢献";
 
 /* Credit description */
-"Croatian localization" = "クロアチア語翻訳";
+"Croatian translation" = "クロアチア語翻訳";
 
 /* Credit description */
-"Czech localization" = "チェコ語翻訳";
+"Czech translation" = "チェコ語翻訳";
 
 /* Credit description */
-"Danish localization" = "デンマーク語翻訳";
+"Danish translation" = "デンマーク語翻訳";
 
 /* Speak string */
 "Disconnected from %@" = "%@ を切断しました";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "次回から表示しない";
 
 /* Credit description */
-"Dutch localization" = "オランダ語翻訳";
+"Dutch translation" = "オランダ語翻訳";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "管理者モードへ移行";
 
 /* Credit description */
-"Estonian localization" = "エストニア語翻訳";
+"Estonian translation" = "エストニア語翻訳";
 
 /* Credit description */
-"Finnish localization" = "フィンランド語翻訳";
+"Finnish translation" = "フィンランド語翻訳";
 
 /* Credit description */
 "Founder, original program and documentation" = "創始者、オリジナルプログラムとドキュメント";
 
 /* Credit description */
-"French localization" = "フランス語翻訳";
+"French translation" = "フランス語翻訳";
 
 /* Credit description */
-"German localization" = "ドイツ語翻訳";
+"German translation" = "ドイツ語翻訳";
 
 /* Credit description */
-"Greek localization" = "ギリシャ語翻訳";
+"Greek translation" = "ギリシア語翻訳";
 
 /* Credit description */
-"Hungarian localization" = "ハンガリー語翻訳";
+"Hungarian translation" = "ハンガリー語翻訳";
 
 /* Credit description */
-"Icelandic localization" = "アイスランド語翻訳";
+"Icelandic translation" = "アイスランドの翻訳";
 
 /* Credit description */
 "Icon set including Retina images" = "Retina用画像を含むアイコンセット";
 
 /* Credit description */
-"Indonesian localization" = "インドネシア語翻訳";
+"Indonesian translation" = "インドネシア語翻訳";
 
 /* Credit description */
-"Italian localization" = "イタリア語翻訳";
+"Italian translation" = "イタリア語翻訳";
 
 /* Credit description */
-"Japanese localization" = "日本語翻訳";
+"Japanese translation" = "日本語翻訳";
 
 /* Credit description */
-"Korean localization" = "韓国語翻訳";
+"Korean translation" = "韓国語翻訳";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "日本語翻訳";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "川本芳久";
 
 /* Credit description */
-"Latvian localization" = "ラトビア語翻訳";
+"Latvian translation" = "ラトビア語翻訳";
 
 /* Credit description */
 "Localization code tweaks" = "ローカライゼーションコード変更";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "複数設定フォルダー";
 
 /* Credit description */
-"Norwegian localization" = "ノルウェー語翻訳";
+"Norwegian translation" = "ノルウェー語翻訳";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 と 64 ビット統合";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "PKCS#11のサポート";
 
 /* Credit description */
-"Persian localization" = "ペルシャ語翻訳";
+"Persian translation" = "ペルシャ語翻訳";
 
 /* Credit description */
-"Polish localization" = "ポーランド語翻訳";
+"Polish translation" = "ポーランド語翻訳";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "ポルトガル語(ブラジル)翻訳";
+"Portuguese (Brazilian) translation" = "ポルトガル語 (ブラジル) 翻訳";
 
 /* Credit description */
-"Portuguese localization" = "ポルトガル語地域化";
+"Portuguese translation" = "ポルトガル語翻訳";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "バージョン3.0b10以降のプログラムとドキュメントの拡張";
 
 /* Credit description */
-"Romanian localization" = "ルーマニア語翻訳";
+"Romanian translation" = "ルーマニア語翻訳";
 
 /* Credit description */
-"Russian localization" = "ロシア語翻訳";
+"Russian translation" = "ロシア語翻訳";
 
 /* Credit description */
-"Serbian (Latin) localization" = "セルビア語（ラテン文字）翻訳";
+"Serbian (Latin) translation" = "セルビア (ラテン語) 翻訳";
 
 /* Credit description */
-"Slovak localization" = "スロヴァキア語翻訳";
+"Slovak translation" = "スロバキア語翻訳";
 
 /* Credit description */
-"Spanish localization" = "スペイン語翻訳";
+"Spanish translation" = "スペイン語翻訳";
 
 /* Credit description */
-"Swedish localization" = "スウェーデン語翻訳";
+"Swedish translation" = "スウェーデン語翻訳";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblickアイコン";
 
 /* Credit description */
-"Turkish localization" = "トルコ語翻訳";
+"Turkish translation" = "トルコ語翻訳";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueueとUKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "ウクライナ語翻訳";
+"Ukrainian translation" = "ウクライナ語翻訳";
 
 /* Credit description */
 "Up and Down scripts" = "up/downスクリプト";

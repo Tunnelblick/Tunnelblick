@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Швидке перемикання користувачів";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Файл '%@' має кодування UTF-16. Всі пов'язані з OpenVPN файли мають бути у форматі 'звичайний текст' або мати кодусання 'UTF-8'.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Файл '%@' має кодування UTF-16. Всі файли, пов'язані з OpenVPN мають бути у форматі звичайного тексту або UTF-8.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Схоже, що файл '%@' -  у 'rich-text' форматі -  першим символом у файлі є  ' {'. Всі OpenVPN-файли, мауть бути у форматі 'звичайного тексту' або 'UTF-8'.";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "Інсталяцію успішно завершено.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "Встановлення та убезпечення Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Встановлюю та забезпечую Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Встановлення конфігурацій заборонено";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Рядок %1$d файлу '%2$@' містить недрукований символ (0x%3$X), що є неприпустимим.\n\n";
-
-/* Window text */
-"Localization by" = "Переклад";
 
 /* Window text */
 "MB" = "Мб";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "Домен пошуку:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Убезпечення Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Забезпечую Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "Добавити DNS/WINS:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Копіювання %@ не виконано, оскільки файл з цією назвою та змістом вже був скопійований.";
 
-/* Window text */
-"Starting Tunnelblick..." = "Запуск Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Запускаю Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Вікно запуску:";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "Вже існують занадто багато дублюючих конфігурацій.";
 
 /* Window text */
+"Translation by" = "Переклад виконано";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ успішно забезпечено.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Режим адміністратора Tunnelblick\n\n Тимчасово дозволити зміни, що вимагають пароль адміністратора.\n\n Сесія перестає бути дійсною через п'ять хвилин або коли вікно \"Деталі VPN...\" закривається.";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick не вдалося виправити проблеми із застосуванням вибраних параметрів для '%@'. Докладна інформація є в журналі консолі";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick успішно захищений.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick здійснив відключення '%@', тому що його конфігураційний файл було видалено.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick активний. Його буде закрито, перед тим як продовжити.";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick готовий.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick вимагає авторизації для створення дублікату конфігурації '%@'.";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "Нечитабельний файл у %@.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Оновлювану конфігурацію '%1$@' не може бути збережено як оновлювану, оскільки не вдалося знайти %2$@\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Оновлювану конфігурацію '%1$@' не було збережено як оновлювану, оскільки '%2$@' не вдалося скопіювати до '%3$@'\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Оновлювану конфігурацію '%@' не було збережено як оновлювану, оскільки не вдалося створити 'Contents' у корні .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Оновлювану конфігурацію '%@' не було збережено як оновлювану, оскільки не вдалося створити 'Contents/Resources' у корні .tblk\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Оновлювану конфігурацію '%@' не було збережено як оновлювану, оскільки 'SUPublicDSAKeyFile' не було ім'ям файлу з опціональним розширенням\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Оновлювану конфігурацію '%@' не було збережено як оновлювану, оскільки 'SUPublicDSAKeyFile' не був рядком\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Оновлювану конфігурацію '%@' не було збережено як оновлювану, оскільки її info.plist 'SUFeedURL' не починається з 'https://' та не було опції 'SUPublicDSAKeyFile'\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Оновлювану конфігурацію '%@' не було збережено як оновлювану, оскільки не вдалося зберегти Info.plist у корні .tblk\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Оновлювану конфігурацію '%@' не було збережено як оновлювану, оскільки CFBundleIdentifier вже був оброблений\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Конфігурація з можливістю оновлення '%@' не була збережена як така через те, що Info.plist не включає пункт 'SUPublicDSAKey' або його пункт 'SUFeedURL' не вказує на використання https:\n";
 
 /* Window text */
 "Updates:" = "Оновлення:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "Режим адміністратора %@ залишається";
 
 /* Credit description */
-"Afrikaans localization" = "Переклад Африкаанс";
+"Afrikaans translation" = "Африканський переклад";
 
 /* Credit description */
 "Animation and icon sets code" = "Анімація та набори значків";
 
 /* Credit description */
-"Arabic localization" = "Арабський переклад";
+"Arabic translation" = "Арабський переклад";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Авторизація…";
 
 /* Credit description */
-"Bulgarian localization" = "Болгарський переклад";
+"Azerbaijani translation" = "Азербайджанський переклад";
+
+/* Credit description */
+"Bulgarian translation" = "Болгарський переклад";
 
 /* Credit description */
 "Button images" = "Зображення кнопок";
 
 /* Credit description */
-"Catalan localization" = "Каталонський переклад";
+"Catalan translation" = "Каталанський переклад";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Китайський (спрощений) переклад";
+"Chinese (simplified) translation" = "Китайський (спрощений) переклад";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Китайський (традиційний) переклад";
+"Chinese (traditional) translation" = "Китайський (традиційний) переклад";
 
 /* Credentials name */
 "Common" = "Загальне";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "Внески до раннього коду";
 
 /* Credit description */
-"Croatian localization" = "Локалізація Хорватською";
+"Croatian translation" = "Хорватський переклад";
 
 /* Credit description */
-"Czech localization" = "Чеський переклад";
+"Czech translation" = "Чеський переклад";
 
 /* Credit description */
-"Danish localization" = "Датський переклад";
+"Danish translation" = "Датський переклад";
 
 /* Speak string */
 "Disconnected from %@" = "Від'єднано від %@";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "Не відображати це знову";
 
 /* Credit description */
-"Dutch localization" = "Голландський переклад";
+"Dutch translation" = "Голандський переклад";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "Увійти до режиму адміністратора";
 
 /* Credit description */
-"Estonian localization" = "Естонська локалізація";
+"Estonian translation" = "Естонський переклад";
 
 /* Credit description */
-"Finnish localization" = "Фінський переклад";
+"Finnish translation" = "Фінський переклад";
 
 /* Credit description */
 "Founder, original program and documentation" = "Засновник, оригінальна програма та документація";
 
 /* Credit description */
-"French localization" = "Французький переклад";
+"French translation" = "Французький переклад";
 
 /* Credit description */
-"German localization" = "Німецький переклад";
+"German translation" = "Німецький переклад";
 
 /* Credit description */
-"Greek localization" = "Грецький переклад";
+"Greek translation" = "Грецький переклад";
 
 /* Credit description */
-"Hungarian localization" = "Угорський переклад";
+"Hungarian translation" = "Угорський переклад";
 
 /* Credit description */
-"Icelandic localization" = "Ісландська локалізація";
+"Icelandic translation" = "Ісландський переклад";
 
 /* Credit description */
 "Icon set including Retina images" = "Набори значків, включаючи зображення Retina";
 
 /* Credit description */
-"Indonesian localization" = "Локалізація інденозійською";
+"Indonesian translation" = "Індонейзійський переклад";
 
 /* Credit description */
-"Italian localization" = "Італійський переклад";
+"Italian translation" = "Італійський переклад";
 
 /* Credit description */
-"Japanese localization" = "Японський переклад";
+"Japanese translation" = "Японський переклад";
 
 /* Credit description */
-"Korean localization" = "Корейський переклад";
+"Korean translation" = "Корейський переклад";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "Переклад українською";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Aleksey Likholob i Vadim Chumachenko";
 
 /* Credit description */
-"Latvian localization" = "Локалізація латвійською";
+"Latvian translation" = "Латвійський переклад";
 
 /* Credit description */
 "Localization code tweaks" = "Тонкі налаштування коду локалізації";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "Декілька конфігураційних папок";
 
 /* Credit description */
-"Norwegian localization" = "Норвезький переклад";
+"Norwegian translation" = "Норвезький переклад";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 та 64-розрядна інтеграція";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "Підтримка PKCS #11";
 
 /* Credit description */
-"Persian localization" = "Персидська локалізація";
+"Persian translation" = "Персидський переклад";
 
 /* Credit description */
-"Polish localization" = "Польський переклад";
+"Polish translation" = "Польський переклад";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Португальський (бразильський) переклад";
+"Portuguese (Brazilian) translation" = "Португальський (Бразильський) переклад";
 
 /* Credit description */
-"Portuguese localization" = "Локалізація португальскою";
+"Portuguese translation" = "Португальський переклад";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Поліпшення програми та документації з версії 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "Румунська локалізація";
+"Romanian translation" = "Румунський переклад";
 
 /* Credit description */
-"Russian localization" = "Російський переклад";
+"Russian translation" = "Російський переклад";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Переклад Сербською (латинка)";
+"Serbian (Latin) translation" = "Сербський (Латинський) переклад";
 
 /* Credit description */
-"Slovak localization" = "Словацький переклад";
+"Slovak translation" = "Словацький переклад";
 
 /* Credit description */
-"Spanish localization" = "Іспанський переклад";
+"Spanish translation" = "Іспанський переклад";
 
 /* Credit description */
-"Swedish localization" = "Шведський переклад";
+"Swedish translation" = "Шведський переклад";
 
 /* Credit description */
 "Tunnelblick icon" = "Значок Tunnelblick";
 
 /* Credit description */
-"Turkish localization" = "Локалізація турецькою";
+"Turkish translation" = "Турецький переклад";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue та UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Український переклад";
+"Ukrainian translation" = "Український переклад";
 
 /* Credit description */
 "Up and Down scripts" = "Сценарії запуску та завершення";

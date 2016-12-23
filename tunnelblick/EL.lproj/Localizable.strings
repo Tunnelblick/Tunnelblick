@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Γρήγορη αλλαγή χρηστών";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Το αρχείο '%@' φαίνεται να είναι κωδικοποιημένο με UTF-16. Όλα τα αρχεία που συσχετίζονται με το OpenVPN πρέπει να ειναι 'απλό κείμενο' ή αρχεία 'UTF-8'.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Το αρχείο '%@' φαίνεται να είναι σε μορφή \"εμπλουτισμένου κειμένου\" επειδή ξεκινά με τον χαρακτήρα \"{\". Όλα τα αρχεία που σχετίζονται με OpenVPN πρέπει να είναι σε \"απλό κείμενο\" ή αρχεία \"UTF-8\".";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "Η εγκατάσταση ολοκληρώθηκε επιτυχώς.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = " Εγκατάσταση και ασφάλεια του Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Οι ρυθμίσεις εγκατάστασης δεν επιτρέπονται";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Η γραμμή %1$d του αρχείου '%2$@' περιέχει ένα μη εκτυπώσιμο χαρακτήρα (0x%3$X), κάτι που δεν επιτρέπεται.\n\n";
-
-/* Window text */
-"Localization by" = "Προσαρμογή από";
 
 /* Window text */
 "MB" = "ΜΒ";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "Αναζήτηση πάροχου:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Ασφάλεια Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "Ορισμός DNS/WINS:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Παράβλεψη αντιγραφής %@ επειδή ένα αρχείο με ίδιο όνομα και περιεχόμενο έχει αντιγραφεί ήδη.";
 
-/* Window text */
-"Starting Tunnelblick..." = "Εκκίνηση Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Αρχικό παράθυρο:";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "Υπάρχουν πάρα πολλά διπλότυπα των παραμέτρων.";
 
 /* Window text */
+"Translation by" = "Translation by";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Κατάσταση Διαχειριστή Tunnelblick\n\nΠροσωρινά εξουσιοδότησε τις αλλαγές οι οποίες απαιτούν των κωδικό του διαχειριστή.\n\nΗ συνεδρία λήγει μετά από 5 λεπτά ή όταν το παράθυρο 'Λεπτομέρειες VPN' κλείσει.";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Το Tunnelblick απέτυχε να επιδιορθώσει προβλήματα με επιλογές για '%@'. Λεπτομέρειες στο ημερολόγιο Κονσόλας.";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Το Tunnelblick έχει με ασφάλεια προστατευτεί.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Το Tunnelblick έχει αποσυνδεθεί από το '%@' επειδή το αρχείο παραμέτρων του έχει αφαιρεθεί.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Το Tunnelblick εκτελείτε αυτή τη στιγμή. Θα τερματιστεί η λειτουργία πριν προχωρήσετε.";
-
-/* Window text */
-"Tunnelblick is ready." = "Το Tunnelblick είναι έτοιμο.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Το Tunnelblick χρειάζεται εξουσιοδότηση για να δημιουργήσει τη διπλότυπη ρύθμιση '%@'.";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "Μη αναγνώσιμο αρχείο στην τοποθεσία %@\n\nΔείτε το αρχείο Κονσόλας για λεπτομέρειες.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Ενημερωμένες παράμετροι '%1$@' δεν αποθηκεύτηκαν ως ενημερωμένες, επειδή το %2$@ δεν μπόρεσε να βρεθεί\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Ενημερωμένες παράμετροι '%1$@' δεν αποθηκεύτηκαν ως ενημερωμένες επειδή το '%2$@' δεν μπόρεσε να αντιγραφεί στο '%3$@'\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Ενημερωμένες παράμετροι '%@' δεν αποθηκεύτηκαν ως ενημερωμένες επειδή ο φάκελος \"Contents\" στο .tblk δεν μπορούσε να δημιουργηθεί\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Ενημερωμένες παράμετροι '%@' δεν αποθηκεύτηκαν ως ενημερωμένες επειδή ο φάκελος \"Contents/Resources\" στο .tblk δεν μπορούσε να δημιουργηθεί\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Ενημερωμένες παράμετροι '%@' δεν αποθηκεύτηκαν ως ενημερωμένες επειδή το 'SUPublicDSAKeyFile' δεν είναι όνομα φακέλου με επιλογή επέκτασης\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Ενημερωμένες παράμετροι '%@' δεν αποθηκεύτηκαν ως ενημερωμένες επειδή το 'SUPublicDSAKeyFile' δεν είναι συμβολοσειράς\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Ενημερωμένες παράμετροι '%@' δεν αποθηκεύτηκαν ως ενημερωμένες επειδή το Info.plist 'SUFeedURL' δεν ξεκινά με 'https://' και δεν υπάρχει εισαγωγή του 'SUPublicDSAKeyFile'\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Ενημερωμένες παράμετροι '%@' δεν αποθηκεύτηκαν ως ενημερωμένες επειδή το Info.plist δεν αποθηκεύτηκε στο στέλεχος του .tblk\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Ενημερώσιμες παράμετροι '%@' δεν αποθηκεύτηκαν ως ενημερώσιμες επειδή το CFBundleIdentifier ήταν σε λειτουργία\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n";
 
 /* Window text */
 "Updates:" = "Ενημερώσεις:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "Κατάσταση διαχειριστή %@ απομένει";
 
 /* Credit description */
-"Afrikaans localization" = "Προσαρμογή στα Αφρικάνικα";
+"Afrikaans translation" = "Afrikaans translation";
 
 /* Credit description */
 "Animation and icon sets code" = "Κωδικός ομάδων εικονιδίων και κινήσεων";
 
 /* Credit description */
-"Arabic localization" = "Μετάφραση Αραβικά";
+"Arabic translation" = "Arabic translation";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Αυθεντικοποίηση…";
 
 /* Credit description */
-"Bulgarian localization" = "Μετάφραση στα Βουλγάρικα";
+"Azerbaijani translation" = "Azerbaijani translation";
+
+/* Credit description */
+"Bulgarian translation" = "Bulgarian translation";
 
 /* Credit description */
 "Button images" = "Εικόνες κουμπιών";
 
 /* Credit description */
-"Catalan localization" = "Προσαρμογή Καταλανικά";
+"Catalan translation" = "Catalan translation";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Προσαρμογή Κινέζικα (απλοποιημένα)";
+"Chinese (simplified) translation" = "Chinese (simplified) translation";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Προσαρμογή Κινέζικα (παραδοσιακά)";
+"Chinese (traditional) translation" = "Chinese (traditional) translation";
 
 /* Credentials name */
 "Common" = "Κοινά";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "Συνεισφορά σε νεότερο κώδικα";
 
 /* Credit description */
-"Croatian localization" = "Προσαρμογή στα Κροάτικα";
+"Croatian translation" = "Croatian translation";
 
 /* Credit description */
-"Czech localization" = "Προσαρμογή Τσέχικα";
+"Czech translation" = "Czech translation";
 
 /* Credit description */
-"Danish localization" = "Μετάφραση στα Δανέζικα";
+"Danish translation" = "Danish translation";
 
 /* Speak string */
 "Disconnected from %@" = "Αποσύνδεση από %@";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "Μην εμφανιστεί ξανά";
 
 /* Credit description */
-"Dutch localization" = "Προσαρμογή Δανέζικα";
+"Dutch translation" = "Dutch translation";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "Είσοδος σε κατάσταση διαχειριστή";
 
 /* Credit description */
-"Estonian localization" = "Προσαρμογή στα Εσθονικά";
+"Estonian translation" = "Estonian translation";
 
 /* Credit description */
-"Finnish localization" = "Προσαρμογή Φιλανδικά";
+"Finnish translation" = "Finnish translation";
 
 /* Credit description */
 "Founder, original program and documentation" = "Ιδρυτής, αυθεντικό πρόγραμμα και εγχειρίδια";
 
 /* Credit description */
-"French localization" = "Προσαρμογή Γαλλικά";
+"French translation" = "French translation";
 
 /* Credit description */
-"German localization" = "Προσαρμογή Γερμανικά";
+"German translation" = "German translation";
 
 /* Credit description */
-"Greek localization" = "Ελληνική μετάφραση";
+"Greek translation" = "Greek translation";
 
 /* Credit description */
-"Hungarian localization" = "Προσαρμογή Ουγγρικά";
+"Hungarian translation" = "Hungarian translation";
 
 /* Credit description */
-"Icelandic localization" = "Ισλανδικές τοπικές ρυθμίσεις";
+"Icelandic translation" = "Icelandic translation";
 
 /* Credit description */
 "Icon set including Retina images" = "Πακέτο εικονιδίων, συμπεριλαμβανομένου εικόνων Retina";
 
 /* Credit description */
-"Indonesian localization" = "Ινδονησιακές τοπικές ρυθμίσεις";
+"Indonesian translation" = "Indonesian translation";
 
 /* Credit description */
-"Italian localization" = "Προσαρμογή Ιταλικά";
+"Italian translation" = "Italian translation";
 
 /* Credit description */
-"Japanese localization" = "Προσαρμογή Ιαπωνικά";
+"Japanese translation" = "Japanese translation";
 
 /* Credit description */
-"Korean localization" = "Προσαρμογή Κορεάτικα";
+"Korean translation" = "Korean translation";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "Προσαρμογή Ελληνικά";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Τζάνος Παναγιώτης";
 
 /* Credit description */
-"Latvian localization" = "Λετονικές τοπικές ρυθμίσεις";
+"Latvian translation" = "Latvian translation";
 
 /* Credit description */
 "Localization code tweaks" = "Κώδικας γλωσσικής προσαρμογής";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "Πολλαπλοί φάκελοι παραμέτρων";
 
 /* Credit description */
-"Norwegian localization" = "Προσαρμογή Νορβηγικά";
+"Norwegian translation" = "Norwegian translation";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 και προσαρμογή 64-bit";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "PKCS#11 υποστήριξη";
 
 /* Credit description */
-"Persian localization" = "Περσικές τοπικές ρυθμίσεις";
+"Persian translation" = "Persian translation";
 
 /* Credit description */
-"Polish localization" = "Προσαρμογή Πολωνικά";
+"Polish translation" = "Polish translation";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Πορτογαλικά (Βραζιλίας) μετάφραση";
+"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
 
 /* Credit description */
-"Portuguese localization" = "Προσαρμογή στα Πορτογαλικά";
+"Portuguese translation" = "Portuguese translation";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Βελτιωμένο πρόγραμμα και εγχειρίδια όπως και συντήρηση μετά την έκδοση 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "Προσαρμογή στα Ρουμάνικα";
+"Romanian translation" = "Romanian translation";
 
 /* Credit description */
-"Russian localization" = "Προσαρμογή Ρώσικα ";
+"Russian translation" = "Russian translation";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Προσαρμογή στα Σέρβικα (Λατινικά)";
+"Serbian (Latin) translation" = "Serbian (Latin) translation";
 
 /* Credit description */
-"Slovak localization" = " Προσαρμογή Σλοβάκικα";
+"Slovak translation" = "Slovak translation";
 
 /* Credit description */
-"Spanish localization" = "Προσαρμογή Ισπανικά";
+"Spanish translation" = "Spanish translation";
 
 /* Credit description */
-"Swedish localization" = "Προσαρμογή Σουηδικά";
+"Swedish translation" = "Swedish translation";
 
 /* Credit description */
 "Tunnelblick icon" = "Εικονίδιο Tunnelblick";
 
 /* Credit description */
-"Turkish localization" = "Προσαρμογή στα Τούρκικα";
+"Turkish translation" = "Turkish translation";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue και UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Προσαρμογή Ουκρανικά";
+"Ukrainian translation" = "Ukrainian translation";
 
 /* Credit description */
 "Up and Down scripts" = "Πάνω και Κάτω σκρίπτ";

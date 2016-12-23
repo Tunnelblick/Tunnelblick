@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Nopea käyttäjien vaihto";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Tiedosto '%@' vaikuttaa olevan UTF-16 enkoodattu. Kaikki Open-VPN tiedostot tulee olla joko 'plain text' tai UTF-8 tiedostoja.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Tiedosto '%@' vaikuttaa olevan UTF-16-enkoodattu. Kaikki Open-VPN tiedostot tulee olla joko normaaleja teksti- tai UTF-8-tiedostoja.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Tiedosto '%@' näyttää olevan 'rich text' -muodossa, koska se alkaa '{'-merkillä. Kaikkien OpenVPN:ään liittyvät tiedostojen on oltava 'pelkkä teksti'- tai 'UTF-8'-tiedostoja.";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "Asennus onnistui.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "Asentaa ja suojaa Tunnelblickiä…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Asentaa ja suojaa Tunnelblickiä %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Konfiguraatioiden asentaminen ei ole sallittua";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Rivillä %1$d tiedostossa '%2$@' on ei-tulostuva merkki (0 x %3$X), mikä ei ole sallittua.\n\n";
-
-/* Window text */
-"Localization by" = "Kääntäjät";
 
 /* Window text */
 "MB" = "Mt";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "Haku-domain:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Varmistetaan Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Varmistetaan Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "Aseta DNS/WINS:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Ohitettiin kohteen %@ kopiointi, koska sen niminen ja sisältöinen tiedosto on jo kopioitu.";
 
-/* Window text */
-"Starting Tunnelblick..." = "Käynnistetään Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Käynnistetään Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Käynnistysikkuna:";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "Liian monta kopiokonfiguraatiota on jo olemassa.";
 
 /* Window text */
+"Translation by" = "Kääntäjä";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ on varmistettu onnistuneesti.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ on valmis.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Pääkäyttäjän Tila\n\n Salli väliaikaisesti muutokset, jotka vaativat pääkäyttäjän salasanan.\n\n Session vanhenee viiden minutia jälkeen, tai run 'VPN-tiedot' -ikkuna on suljettu.";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick ei onnistunut korjaamaan ongelmia %@':n asetuksissa. Lisätiedot ovat päätelokissa";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick on turvattu onnistuneesti.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick on katkaissut yhteyden '%@', koska sen konfiguraatiotiedosto on poistettu.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick on tällä hetkellä käynnissä. Se sammutetaan ennen jatkamista.";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick is valmis.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick tarvitsee valtuutuksen konfiguraation '%@' monistamiseksi.";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "Lukukelvoton tiedosto: %@\n\nKatso lisätietoja konsoli logista.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Päivitettävissä olevaa konfiguraatiota '%1$@' ei tallennettu päivitettävissä olevana, koska kohdetta %2$@ ei löydetty\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Päivitettävissä olevaa konfiguraatiota '%1$@' ei tallennettu päivitettävissä olevana, koska kohdetta %2$@ ei pystytty kopioimaan kohteeseen '%3$@'\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska 'Contents' tynkätiedostossa .tblk ei pystytty luomaan\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska 'Contents/Resources' tynkätiedostossa .tblk ei pystytty luomaan\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska 'SUPublicDSAKeyFile' ei ollut tiedostonimi, jolla on valinnainen pääte\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu, koska 'SUPublicDSAKeyFile' ei ole merkkijono\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska sen tiedosto info.plist 'SUFeedURL' ei alkanut 'https://', ja koska siinä ei ollut kohtaa 'SUPublicDSAKeyFile'\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska sen info.plist-tiedostoa ei voitu tallentaa tynkätiedostoon .tblk\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävissä olevana, koska CFBundleIdentifier on jo käsitelty\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Päivitettävissä olevaa konfiguraatiota '%@' ei tallennettu päivitettävänä, koska tiedostossa Info.plist ei ollut kohtaa 'SUPublicDSAKey' tai sen kohta 'SUFeedURL' ei määrittänyt käyttöön protokollaa https:\n";
 
 /* Window text */
 "Updates:" = "Päivitykset:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "Pääkäyttäjän tilaa %@ jäljellä";
 
 /* Credit description */
-"Afrikaans localization" = "Afrikaans käännös";
+"Afrikaans translation" = "Afrikaansin käännös";
 
 /* Credit description */
 "Animation and icon sets code" = "Animaatiot ja ikoniryhmien koodi";
 
 /* Credit description */
-"Arabic localization" = "Arabialainen käännös";
+"Arabic translation" = "Arabialainen käännös";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Autentikoidaan…";
 
 /* Credit description */
-"Bulgarian localization" = "Bulgarialainen käännös";
+"Azerbaijani translation" = "Azerbaidžanialainen käännös";
+
+/* Credit description */
+"Bulgarian translation" = "Bulgarialainen käännös";
 
 /* Credit description */
 "Button images" = "Painikkeiden kuvat";
 
 /* Credit description */
-"Catalan localization" = "Katalonialainen käännös";
+"Catalan translation" = "Katalonialainen käännös";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Kiinalainen (yksinkertaistettu) käännös";
+"Chinese (simplified) translation" = "Kiinalainen (yksinkertaistettu) käännös";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Kiinalainen (perinteinen) käännös";
+"Chinese (traditional) translation" = "Kiinalainen (perinteinen) käännös";
 
 /* Credentials name */
 "Common" = "Yhteinen";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "Tuottanut koodia alkuaikoina";
 
 /* Credit description */
-"Croatian localization" = "Kroatialainen käännös";
+"Croatian translation" = "Kroatialainen käännös";
 
 /* Credit description */
-"Czech localization" = "Tshekkiläinen käännös";
+"Czech translation" = "Tsekkiläinen käännös";
 
 /* Credit description */
-"Danish localization" = "Tanskalainen käännös";
+"Danish translation" = "Tanskalainen käännös";
 
 /* Speak string */
 "Disconnected from %@" = "Yhteys katkaistu kohteesta %@";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "Älä näytä tätä enää uudestaan";
 
 /* Credit description */
-"Dutch localization" = "Hollantilainen käännös";
+"Dutch translation" = "Hollantilainen käännös";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "Siirry pääkäyttäjän tilaan";
 
 /* Credit description */
-"Estonian localization" = "Virolainen lokalisaatio";
+"Estonian translation" = "Virolainen käännös";
 
 /* Credit description */
-"Finnish localization" = "Suomalainen käännös";
+"Finnish translation" = "Suomalainen käännös";
 
 /* Credit description */
 "Founder, original program and documentation" = "Perustaja, alkuperäinen ohjelma ja dokumentaatio";
 
 /* Credit description */
-"French localization" = "Ranskalainen käännös";
+"French translation" = "Ranskalainen käännös";
 
 /* Credit description */
-"German localization" = "Saksalainen käännös";
+"German translation" = "Saksalainen käännös";
 
 /* Credit description */
-"Greek localization" = "Kreikkalainen käännös";
+"Greek translation" = "Kreikkalainen käännös";
 
 /* Credit description */
-"Hungarian localization" = "Unkarilainen käännös";
+"Hungarian translation" = "Unkarilainen käännös";
 
 /* Credit description */
-"Icelandic localization" = "Islantilainen käännös";
+"Icelandic translation" = "Islantilainen käännös";
 
 /* Credit description */
 "Icon set including Retina images" = "Ikonikokoelma, joka sisältää Retina-kuvat";
 
 /* Credit description */
-"Indonesian localization" = "Indonesialainen lokalisaatio";
+"Indonesian translation" = "Indonesialainen käännös";
 
 /* Credit description */
-"Italian localization" = "Italialainen käännös";
+"Italian translation" = "Italialainen käännös";
 
 /* Credit description */
-"Japanese localization" = "Japanilainen käännös";
+"Japanese translation" = "Japanilainen käännös";
 
 /* Credit description */
-"Korean localization" = "Korealainen käännös";
+"Korean translation" = "Korealainen käännös";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "Suomalainen käännös";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Jesse Hulkko, Jarmo Isotalo, Kalle Kärkkäinen, Feetu Nyrhinen, Petra Penttila, Mikko Toivola";
 
 /* Credit description */
-"Latvian localization" = "Latvialainen lokalisaatio";
+"Latvian translation" = "Latvialainen käännös";
 
 /* Credit description */
 "Localization code tweaks" = "Lokalisaatiokoodin muokkaukset";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "Useat konfiguraatiokansiot";
 
 /* Credit description */
-"Norwegian localization" = "Norjalainen käännös";
+"Norwegian translation" = "Norjalainen käännös";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 ja 64-bit integraatio";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "PKCS#11 tuki";
 
 /* Credit description */
-"Persian localization" = "Persialainen käännös";
+"Persian translation" = "Persialainen käännös";
 
 /* Credit description */
-"Polish localization" = "Puolalainen käännös";
+"Polish translation" = "Puolalainen käännös";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Portugalilainen (Brasilia) käännös";
+"Portuguese (Brazilian) translation" = "Portugalilainen (Brasilia) käännös";
 
 /* Credit description */
-"Portuguese localization" = "Portugalilainen lokalisaatio";
+"Portuguese translation" = "Portugalilainen käännös";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Ohjelman ja dokumentaation kehitys ja ylläpito version 3.0b10 jälkeen";
 
 /* Credit description */
-"Romanian localization" = "Romanialainen käännös";
+"Romanian translation" = "Romanialainen käännös";
 
 /* Credit description */
-"Russian localization" = "Venäläinen käännös";
+"Russian translation" = "Venäläinen käännös";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Serbialainen (Latin) käännös";
+"Serbian (Latin) translation" = "Serbialainen (Latin) käännös";
 
 /* Credit description */
-"Slovak localization" = "Slovakialainen käännös";
+"Slovak translation" = "Slovakialainen käännös";
 
 /* Credit description */
-"Spanish localization" = "Espanjalainen käännös";
+"Spanish translation" = "Espanjalainen käännös";
 
 /* Credit description */
-"Swedish localization" = "Ruotsalainen käännös";
+"Swedish translation" = "Ruotsalainen käännös";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick-kuvake";
 
 /* Credit description */
-"Turkish localization" = "Turkkilainen lokalisaatio";
+"Turkish translation" = "Turkkilainen käännös";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue ja UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Ukrainalainen käännös";
+"Ukrainian translation" = "Ukrainalainen käännös";
 
 /* Credit description */
 "Up and Down scripts" = "Yhteydenmuodostus- ja katkaisuskriptit";

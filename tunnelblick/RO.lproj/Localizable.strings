@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Comutarea rapidă între utilizatori";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Fișierul %@ pare a fi encodat UTF-16. Toate fișierele OpenVPN asciate trebuie să fie \"text simplu\" sau fișiere \"UTF-8 '.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Fișierul %@ pare a fi encodat UTF-16. Toate fișierele OpenVPN asociate trebuie să fie \"text simplu\" sau fișiere \"UTF-8 '.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Fișierul %@ pare să fie în format 'rich text', pentru că începe cu un caracter '{'. Toate fișierele OpenVPN trebuie să fie 'plain text' sau fișiere \"UTF-8 '.";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "Instalare terminată cu succes.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "Instalare și securizare Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Instalare și securizare Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Instalarea de configurații nu este permisă";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Linia %1$d din fișierul %2$@ conține un caracter non-imprimabil (0x%3$X), care nu este permis.\n\n";
-
-/* Window text */
-"Localization by" = "Traducerea de";
 
 /* Window text */
 "MB" = "MB";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "Domenii de căutare:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Securizare Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Securizare Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "Setat DNS/WINS:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Omit copierea %@ deoarece un fișier cu acest nume și conținutul a fost deja copiat.";
 
-/* Window text */
-"Starting Tunnelblick..." = "Pornire Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Pornire Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Fereastră de pornire:";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "Există deja prea multe configurații duplicat.";
 
 /* Window text */
+"Translation by" = "Tradus de";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ a fost securizat cu succes.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ este gata.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Modul Administrator \nAutorizează temporar modificările care necesită o parolă de administrator. \nSesiunea de expiră după cinci minute sau când fereastra \"VPN Detalii\" este închisă.";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick nu a reușit să repare problemele cu preferințele pentru %@. Detalii sunt în Console Log";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick a fost securizat cu succes.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick a deconectat %@, deoarece fișierul de configurare a fost eliminat.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick rulează. Acesta va fi oprit înainte de a continua.";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick este gata.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick are nevoie de autorizație pentru a copia configurația %@.";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "Fișier la calea %@ ilizibil\n\nA se vedea Console Log pentru mai multe detalii.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Configurație actualizabilă %1$@ nu a fost stocată ca actualizabilă, deoarece %2$@ nu a putut fi găsită\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Configurație actualizabilă %1$@ nu a fost stocată ca actualizabilă, deoarece %2$@ nu a putut fi copiată la %3$@\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Configurație actualizabilă %@ nu a fost stocată ca actualizabilă, deoarece 'Contents' în ciot .tblk nu a putut fi creat\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Configurație actualizabilă %@ nu a fost stocată ca actualizabilă, deoarece 'Contents/Resources' în ciot .tblk nu a putut fi creat\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Configurație actualizabilă %@ nu a fost stocată ca actualizabilă, deoarece 'SUPublicDSAKeyFile' nu e un nume de fișier cu extensia opțională\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Configurație actualizabilă %@ nu a fost stocată ca actualizabilă, deoarece 'SUPublicDSAKeyFile' nu e un șir de caractere\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Configurația actualizabilă %@ nu a fost stocată ca actualizabilă, deoarece în Info.plist-ul său 'SUFeedURL' nu a început cu' https://\" și nu a existat nici o intrare \"SUPublicDSAKeyFile\"\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Configurația actualizabilă %@ nu a fost stocată ca actualizabilă, deoarece în Info.plist-ul său nu a putut fi stocat în .tblk\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Configurația actualizabilă %@ nu a fost stocată ca actualizabilă pentru că CFBundleIdentifier a fost deja procesată\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Configurația actualizabilă %@ nu a fost stocată ca actualizabilă deoarece Info.plist nu a avut o intrare \"SUPublicDSAKey\" sau intrarea sa \"SUFeedURL\" nu a specificat utilizarea https:\n";
 
 /* Window text */
 "Updates:" = "Actualizări:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "Mod de admin %@ rămas";
 
 /* Credit description */
-"Afrikaans localization" = "Traducere în Afrikaans";
+"Afrikaans translation" = "Traducere în limba Afrikaans";
 
 /* Credit description */
 "Animation and icon sets code" = "Animație și coduri pentru seturi de pictograme";
 
 /* Credit description */
-"Arabic localization" = "Traducere în limba Arabă";
+"Arabic translation" = "Traducere în limba Arabă";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "În curs de autentificare…";
 
 /* Credit description */
-"Bulgarian localization" = "Traducere în limba Bulgară";
+"Azerbaijani translation" = "Traducere în limba Azeră";
+
+/* Credit description */
+"Bulgarian translation" = "Traducere în limba Bulgară";
 
 /* Credit description */
 "Button images" = "Imaginile butoanelor";
 
 /* Credit description */
-"Catalan localization" = "Traducere în limba Catalană";
+"Catalan translation" = "Traducere în limba Catalană";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Traducere în limba Chineză (simplificată)";
+"Chinese (simplified) translation" = "Traducere în limba Chineză (simplificată)";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Traducere în limba Chineză (tradițională)";
+"Chinese (traditional) translation" = "Traducere în limba Chineză (tradițională)";
 
 /* Credentials name */
 "Common" = "Comun";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "A contribuit la codul incipient";
 
 /* Credit description */
-"Croatian localization" = "Traducere în limba Croată";
+"Croatian translation" = "Traducere în limba Croată";
 
 /* Credit description */
-"Czech localization" = "Traducere în limba Cehă";
+"Czech translation" = "Traducere în limba Cehă";
 
 /* Credit description */
-"Danish localization" = "Traducere în limba Daneză";
+"Danish translation" = "Traducere în limba Daneză";
 
 /* Speak string */
 "Disconnected from %@" = "Deconectat de la %@";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "Nu mai afişa asta";
 
 /* Credit description */
-"Dutch localization" = "Traducere în limba Olandeză";
+"Dutch translation" = "Traducere în limba Olandeză";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "Intra în modul admin";
 
 /* Credit description */
-"Estonian localization" = "Traducere în limba Estonă";
+"Estonian translation" = "Traducere în limba Estonă";
 
 /* Credit description */
-"Finnish localization" = "Traducere în limba Finlandeză";
+"Finnish translation" = "Traducere în limba Finlandeză";
 
 /* Credit description */
 "Founder, original program and documentation" = "Fondator, programul original și documentare";
 
 /* Credit description */
-"French localization" = "Traducere în limba Franceză";
+"French translation" = "Traducere în limba Franceză";
 
 /* Credit description */
-"German localization" = "Traducere în limba Germană";
+"German translation" = "Traducere în limba Germană";
 
 /* Credit description */
-"Greek localization" = "Traducere în limba Greacă";
+"Greek translation" = "Traducere în limba Greacă";
 
 /* Credit description */
-"Hungarian localization" = "Traducere în limba Maghiară";
+"Hungarian translation" = "Traducere în limba Maghiară";
 
 /* Credit description */
-"Icelandic localization" = "Traducere în limba Islandeză";
+"Icelandic translation" = "Traducere în limba Islandeză";
 
 /* Credit description */
 "Icon set including Retina images" = "Setul de pictograme inclusiv imagini Retina";
 
 /* Credit description */
-"Indonesian localization" = "Traducere în limba Indoneziană";
+"Indonesian translation" = "Traducere în limba Indoneziană";
 
 /* Credit description */
-"Italian localization" = "Traducere în limba Italiană";
+"Italian translation" = "Traducere în limba Italiană";
 
 /* Credit description */
-"Japanese localization" = "Traducere în limba Japoneză";
+"Japanese translation" = "Traducere în limba Japoneză";
 
 /* Credit description */
-"Korean localization" = "Traducere în limba Coreeană";
+"Korean translation" = "Traducere în limba Coreeană";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "LOCALIZARE LIMBA";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "Română";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "ZaTi & Catalin Comanici";
 
 /* Credit description */
-"Latvian localization" = "Traducere în limba Letonă";
+"Latvian translation" = "Traducere în limba Letonă";
 
 /* Credit description */
 "Localization code tweaks" = "Ajustări de cod pentru localizare";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "Foldere de configurare multiple";
 
 /* Credit description */
-"Norwegian localization" = "Traducere în limba Norvegiană";
+"Norwegian translation" = "Traducere în limba Norvegiană";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 si integrare 64-bit";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "Suport PKCS#11";
 
 /* Credit description */
-"Persian localization" = "Traducere în limba Persană";
+"Persian translation" = "Traducere în limba Persană";
 
 /* Credit description */
-"Polish localization" = "Traducere în limba Poloneză";
+"Polish translation" = "Traducere în limba Poloneză";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Traducere în limba Portugheză (Braziliană)";
+"Portuguese (Brazilian) translation" = "Traducere în limba Portugheză (Braziliană)";
 
 /* Credit description */
-"Portuguese localization" = "Traducere în limba Portugheză";
+"Portuguese translation" = "Traducere în limba Portugheză";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program și îmbunătățiri și întreținere documentație după versiunea 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "Traducere în limba Română";
+"Romanian translation" = "Traducere în limba Română";
 
 /* Credit description */
-"Russian localization" = "Traducere în limba Rusă";
+"Russian translation" = "Traducere în limba Rusă";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Traducere în limba Sârbă (alfabet latin)";
+"Serbian (Latin) translation" = "Traducere în limba Sârbă (alfabet latin)";
 
 /* Credit description */
-"Slovak localization" = "Traducere în limba Slovacă";
+"Slovak translation" = "Traducere în limba Slovacă";
 
 /* Credit description */
-"Spanish localization" = "Traducere în limba Spaniolă";
+"Spanish translation" = "Traducere în limba Spaniolă";
 
 /* Credit description */
-"Swedish localization" = "Traducere în limba Suedeză";
+"Swedish translation" = "Traducere în limba Suedeză";
 
 /* Credit description */
 "Tunnelblick icon" = "Iconița Tunnelblick";
 
 /* Credit description */
-"Turkish localization" = "Traducere în limba Turcă";
+"Turkish translation" = "Traducere în limba Turcă";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue și UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Traducere în limba Ucraineană";
+"Ukrainian translation" = "Traducere în limba Ucraineană";
 
 /* Credit description */
 "Up and Down scripts" = "Sus și jos script-uri";

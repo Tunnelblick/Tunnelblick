@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "빠른 사용자 전환";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "파일 '%@' 은 UTF-16로 인코딩 되어 있습니다. OpenVPN 연관 파일은 반드시 '플레인 텍스트' 또는 'UTF-8' 파일이어야 합니다.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "'%@' 파일은 '{' 문자로 시작하기 때문에 '리치 텍스트' 인 것 같습니다. 모든 OpenVPN 관련 파일들은 '일반 텍스트' 또는 'UTF-8' 파일이어야합니다.";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "설치가 올바르게 완료되었습니다.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "Tunnelblick 설치 및 보호 중…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "설정 설치는 허용되지 않습니다";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "'%2$@' 의 %1$d 줄의 인쇄할 수 없는 문자 (0x%3$X) 는 허용되지 않습니다.\n\n";
-
-/* Window text */
-"Localization by" = "지역화한 사람들";
 
 /* Window text */
 "MB" = "MB";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "도메인 검색:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Tunnelblick 보호 중…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "DNS/WINS 설정:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "같은 이름과 내용의 파일이 이미 복사되어 %@ 의 복사를 건너뛰었습니다.";
 
-/* Window text */
-"Starting Tunnelblick..." = "Tunnelblick 시작 중…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "시동 창:";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "너무 많은 중복된 설정이 이미 있습니다.";
 
 /* Window text */
+"Translation by" = "Translation by";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick 관리자 모드\n\n 관리자 비밀번호를 요구하는 변경사항들을 한시적으로 인증합니다.\n\n 이 세션은 오 분 후 또는 'VPN 상세'창이 닫히면 만료됩니다.";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick이 '%@'의 환경설정과 관련된 문제를 복구하는 것에 실패했습니다. 자세한 것은 콘솔 로그에 있습니다.";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick이 올바르게 보호되었습니다.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "'%@'의 설정 파일이 삭제되어 Tunnelblick이 연결을 해제했습니다.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick이 현재 실행 중입니다. 처리 전에 종료될 것입니다.";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick이 준비되었습니다.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "'%@' 구성을 복사하기 위해서 인증이 필요합니다.";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "파일 %@ 을 읽을 수 없습니다.\n\n자세한 내용은 콘솔 로그를 참조 하십시오.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "수정 가능한 설정 '%1$@' 은 %2$@ 을 찾을 수 없기 때문에 수정이 불가합니다\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "수정 가능한 설정 '%1$@' 은 %2$@ 을 '%3$@' 로 복사할 수 없기 때문에 수정이 불가합니다\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "수정 가능한 설정 '%@' 은 stub .tblk의 'Contents'를 생성할 수 없기 때문에 수정이 불가합니다\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "수정 가능한 설정 '%@' 은 stub .tblk의 'Contents/Resources'를 생성할 수 없기 때문에 수정이 불가합니다\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "자동 업데이트 구성 '%@'은 'SUPublicDSAKeyFile'이 선택 가능한 확장자가 아니기 때문에 업데이트 가능하게 저장되지 않았습니다\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "수정 가능한 설정 '%@' 은 'SUPublicDSAKeyFile'이 String 배열이 아니기 때문에 수정이 불가합니다\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "수정 가능한 설정 '%@' 은 Info.plist의 'SUFeedURL'이 'https://'로 시작 하지 않고 'SUPublicDSAKeyFile'의 값이 지정되지 않았기 때문에 수정이 불가합니다\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "수정 가능한 설정 '%@' 은 Info.plist을 stub .tblk로 저장을 실패했기 때문에 수정이 불가합니다\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "수정 가능한 설정 '%@' 은 CFBundleIdentifier이 이미 처리되었기 때문에 수정이 불가합니다\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n";
 
 /* Window text */
 "Updates:" = "업데이트:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "관리자 모드가 %@ 남았습니다";
 
 /* Credit description */
-"Afrikaans localization" = "아프리칸스어 지역화";
+"Afrikaans translation" = "Afrikaans translation";
 
 /* Credit description */
 "Animation and icon sets code" = "애니메이션, 아이콘 세트 코드";
 
 /* Credit description */
-"Arabic localization" = "아랍어 지역화";
+"Arabic translation" = "Arabic translation";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "인증 중...";
 
 /* Credit description */
-"Bulgarian localization" = "불가리아어 지역화";
+"Azerbaijani translation" = "Azerbaijani translation";
+
+/* Credit description */
+"Bulgarian translation" = "Bulgarian translation";
 
 /* Credit description */
 "Button images" = "버튼 이미지";
 
 /* Credit description */
-"Catalan localization" = "카탈로이나어 지역화";
+"Catalan translation" = "Catalan translation";
 
 /* Credit description */
-"Chinese (simplified) localization" = "중국어 (간체) 지역화";
+"Chinese (simplified) translation" = "Chinese (simplified) translation";
 
 /* Credit description */
-"Chinese (traditional) localization" = "중국어 (번체) 지역화";
+"Chinese (traditional) translation" = "Chinese (traditional) translation";
 
 /* Credentials name */
 "Common" = "일반";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "초기 코드 공헌";
 
 /* Credit description */
-"Croatian localization" = "크로아티아어 지역화";
+"Croatian translation" = "Croatian translation";
 
 /* Credit description */
-"Czech localization" = "체코어 지역화";
+"Czech translation" = "Czech translation";
 
 /* Credit description */
-"Danish localization" = "덴마크어 지역화";
+"Danish translation" = "Danish translation";
 
 /* Speak string */
 "Disconnected from %@" = "%@가 연결 해제되었습니다";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "다시 보이지 않기";
 
 /* Credit description */
-"Dutch localization" = "네덜란드 지역화";
+"Dutch translation" = "Dutch translation";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "관리자 모드로 진입";
 
 /* Credit description */
-"Estonian localization" = "에스토니아어 지역화";
+"Estonian translation" = "Estonian translation";
 
 /* Credit description */
-"Finnish localization" = "핀란드어 지역화";
+"Finnish translation" = "Finnish translation";
 
 /* Credit description */
 "Founder, original program and documentation" = "발기인, 초기 프로그램과 문서";
 
 /* Credit description */
-"French localization" = "프랑스어 지역화";
+"French translation" = "French translation";
 
 /* Credit description */
-"German localization" = "독일어 지역화";
+"German translation" = "German translation";
 
 /* Credit description */
-"Greek localization" = "그리스어 지역화";
+"Greek translation" = "Greek translation";
 
 /* Credit description */
-"Hungarian localization" = "헝가리어 지역화";
+"Hungarian translation" = "Hungarian translation";
 
 /* Credit description */
-"Icelandic localization" = "아이슬란드어 지역화";
+"Icelandic translation" = "Icelandic translation";
 
 /* Credit description */
 "Icon set including Retina images" = "레티나 이미지를 포함한 아이콘 세트";
 
 /* Credit description */
-"Indonesian localization" = "인도네시아어 지역화";
+"Indonesian translation" = "Indonesian translation";
 
 /* Credit description */
-"Italian localization" = "이탈리아어 지역화";
+"Italian translation" = "Italian translation";
 
 /* Credit description */
-"Japanese localization" = "일본어 지역화";
+"Japanese translation" = "Japanese translation";
 
 /* Credit description */
-"Korean localization" = "한국어 지역화";
+"Korean translation" = "Korean translation";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "한국어 지역화";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "김 경민";
 
 /* Credit description */
-"Latvian localization" = "라트비아어 지역화";
+"Latvian translation" = "Latvian translation";
 
 /* Credit description */
 "Localization code tweaks" = "지역화 코드 수정";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "다중 설정 폴더";
 
 /* Credit description */
-"Norwegian localization" = "노르웨이어 지역화";
+"Norwegian translation" = "Norwegian translation";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 및 64-bit 통합";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "PKCS#11 지원";
 
 /* Credit description */
-"Persian localization" = "페르시아어 지역화";
+"Persian translation" = "Persian translation";
 
 /* Credit description */
-"Polish localization" = "폴란드어 지역화";
+"Polish translation" = "Polish translation";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "포르투갈어 (브라질어) 지역화";
+"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
 
 /* Credit description */
-"Portuguese localization" = "포르투갈어 지역화";
+"Portuguese translation" = "Portuguese translation";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "버전 3.0b10 이후 프로그램과 문서 강화";
 
 /* Credit description */
-"Romanian localization" = "루마니아어 지역화";
+"Romanian translation" = "Romanian translation";
 
 /* Credit description */
-"Russian localization" = "러시아어 지역화";
+"Russian translation" = "Russian translation";
 
 /* Credit description */
-"Serbian (Latin) localization" = "세르비아어 (로마 문자) 지역화";
+"Serbian (Latin) translation" = "Serbian (Latin) translation";
 
 /* Credit description */
-"Slovak localization" = "슬로바키아어 지역화";
+"Slovak translation" = "Slovak translation";
 
 /* Credit description */
-"Spanish localization" = "스페인어 지역화";
+"Spanish translation" = "Spanish translation";
 
 /* Credit description */
-"Swedish localization" = "스웨덴어 지역화";
+"Swedish translation" = "Swedish translation";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick 아이콘";
 
 /* Credit description */
-"Turkish localization" = "터키어 지역화";
+"Turkish translation" = "Turkish translation";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue &UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "우크라이나어 지역화";
+"Ukrainian translation" = "Ukrainian translation";
 
 /* Credit description */
 "Up and Down scripts" = "Up/down 스크립트";

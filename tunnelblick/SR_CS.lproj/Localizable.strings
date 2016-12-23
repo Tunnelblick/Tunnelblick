@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Brza promena korisnika";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Fajl '%@' deluje kao da je UTF-16 tipa. Svi fajlovi koji se tiču OpenVPN-a moraju biti ili 'plain text' ili 'UTF-8' tipa.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Fajl '%@' deluje kao da je u 'rich text' formatu jer počinje '{' znakom. Svi fajlovi koji se tiču OpenVPN-a moraju biti ili 'plain text' ili 'UTF-8' tipa.";
@@ -1165,8 +1165,8 @@
 /* Window text */
 "Installation finished successfully." = "Instalacija uspešno završena.";
 
-/* Window text */
-"Installing and securing Tunnelblick..." = "Instaliram i obezbeđujem Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Instaliranje konfiguracija nije dozvoljeno";
@@ -1191,9 +1191,6 @@
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Linija %1$d fajla '%2$@' sadrži znakove koje je nemoguće prikazati (0x%3$X) a koji nisu dozvoljeni.\n\n";
-
-/* Window text */
-"Localization by" = "Preveo";
 
 /* Window text */
 "MB" = "MB";
@@ -1345,8 +1342,8 @@
 /* Window text */
 "Search domain:" = "Domen za pretragu:";
 
-/* Window text */
-"Securing Tunnelblick..." = "Obezbeđujem Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "Podesi DNS/WINS:";
@@ -1357,8 +1354,8 @@
 /* Window text */
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Preskočeno kopiranje %@ jer je fajl sa tim imenom i sadržajem već kopiran.";
 
-/* Window text */
-"Starting Tunnelblick..." = "Pokrećem Tunnelblick…";
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Prozor tokom pokretanja:";
@@ -1541,6 +1538,15 @@
 "Too many duplicate configurations already exist." = "Previše duplih konfiguracija već postoji.";
 
 /* Window text */
+"Translation by" = "Translation by";
+
+/* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
+
+/* Window text; '%@' will be replaced with a version number such as '3.6.10' */
+"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+
+/* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick admin režim\n\n Privremeno dozvoljava izmene koje zahtevaju administratorsku lozinku.\n\nSesija ističe nakon 5 minuta ili nakon što se zatvori 'VPN detalji' prozor.";
 
 /* Window text */
@@ -1601,9 +1607,6 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick nije uspeo da popravi probleme sa podešavanjima za '%@'. Detalji su u logu konzole";
 
 /* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick je uspešno obezbeđen.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick je prekinuo vezu '%@' jer je njen konfiguracioni fajl uklonjen.";
 
 /* Window text */
@@ -1611,9 +1614,6 @@
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick je trenutno pokrenut. Biće ugašen pre nastavka.";
-
-/* Window text */
-"Tunnelblick is ready." = "Tunnelblick je spreman.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblicku je neophodna autorizacija za dupliranje '%@' konfiguracije.";
@@ -1739,31 +1739,16 @@
 "Unreadable file at %@\n\nSee the Console log for details." = "Nečitljiv fajl na %@\n\nPogledajte log konzole za detalje.";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because %@ could not be found\n" = "Konfiguracija koju je moguće osvežiti '%1$@' nije sačuvana kao konfiguracija koju je moguće osvežiti jer %2$@ nije pronađen\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because '%@' could not be copied to '%@'\n" = "Konfiguracija koju je moguće osvežiti '%1$@' nije sačuvana kao konfiguracija koju je moguće osvežiti jer '%2$@' nije moguće iskopirati u '%3$@'\n";
-
-/* Window text */
 "Updatable configuration '%@' was not stored as updatable because 'Contents' in the stub .tblk could not be created\n" = "Konfiguracija koju je moguće osvežiti '%@' nije sačuvana kao konfiguracija koju je moguće osvežiti jer 'Contents' u stub.tblk nije moguće kreirati\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'Contents/Resources' in the stub .tblk could not be created\n" = "Konfiguracija koju je moguće osvežiti '%@' nije sačuvana kao konfiguracija koju je moguće osvežiti jer 'Contents/Resources' u stub.tblk nije moguće kreirati\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a file name with optional extension\n" = "Konfiguracija koju je moguće osvežiti '%@' nije sačuvana kao konfiguracija koju je moguće osvežiti jer 'SUPublicDSAKeyFile' nije ime fajla sa mogućom ekstenzijom\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because 'SUPublicDSAKeyFile' was not a string\n" = "Konfiguracija koju je moguće osvežiti '%@' nije sačuvana kao konfiguracija koju je moguće osvežiti jer 'SUPublicDSAKeyFile' nije string\n";
-
-/* Window text */
-"Updatable configuration '%@' was not stored as updatable because its Info.plist 'SUFeedURL' did not start with 'https://' and there was no 'SUPublicDSAKeyFile' entry\n" = "Konfiguracija koju je moguće osvežiti '%@' nije sačuvana kao konfiguracija koju je moguće osvežiti jer njegov Info.plst 'SUFeedURL' ne počinje sa 'https://' ili ne postoji odgovarajući 'SUPublicDSAKeyFile' unos\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because its Info.plist could not be stored in the stub .tblk\n" = "Konfiguracija koju je moguće osvežiti '%@' nije sačuvana kao konfiguracija koju je moguće osvežiti jer njegov Info.plst nije moguće sačuvati u stub.tblk\n";
 
 /* Window text */
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Konfiguracija koju je moguće osvežiti '%@' nije sačuvana kao konfiguracija koju je moguće osvežiti jer je \nCFBundleIdentifier već procesiran\n";
+
+/* Window text */
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n";
 
 /* Window text */
 "Updates:" = "Nove verzije:";
@@ -1976,31 +1961,34 @@
 "Admin mode %@ remaining" = "Admin režim još %@";
 
 /* Credit description */
-"Afrikaans localization" = "Afrikans prevod";
+"Afrikaans translation" = "Afrikaans translation";
 
 /* Credit description */
 "Animation and icon sets code" = "Kod za animacije i ikonice";
 
 /* Credit description */
-"Arabic localization" = "Arapski prevod";
+"Arabic translation" = "Arabic translation";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Autentifikacija…";
 
 /* Credit description */
-"Bulgarian localization" = "Bugarski prevod";
+"Azerbaijani translation" = "Azerbaijani translation";
+
+/* Credit description */
+"Bulgarian translation" = "Bulgarian translation";
 
 /* Credit description */
 "Button images" = "Slike dugmića";
 
 /* Credit description */
-"Catalan localization" = "Katalonski prevod";
+"Catalan translation" = "Catalan translation";
 
 /* Credit description */
-"Chinese (simplified) localization" = "Kineski (pojednostavljeni) prevod";
+"Chinese (simplified) translation" = "Chinese (simplified) translation";
 
 /* Credit description */
-"Chinese (traditional) localization" = "Kineski (tradicionalni) prevod";
+"Chinese (traditional) translation" = "Chinese (traditional) translation";
 
 /* Credentials name */
 "Common" = "Zajedničko";
@@ -2015,13 +2003,13 @@
 "Contributed to early code" = "Doprineo ranijim verzijama koda";
 
 /* Credit description */
-"Croatian localization" = "Hrvatski prevod";
+"Croatian translation" = "Croatian translation";
 
 /* Credit description */
-"Czech localization" = "Češki prevod";
+"Czech translation" = "Czech translation";
 
 /* Credit description */
-"Danish localization" = "Danski prevod";
+"Danish translation" = "Danish translation";
 
 /* Speak string */
 "Disconnected from %@" = "Prekinuta veza ka %@";
@@ -2030,7 +2018,7 @@
 "Do not show this again" = "Ne prikazuj ovo opet";
 
 /* Credit description */
-"Dutch localization" = "Holandski prevod";
+"Dutch translation" = "Dutch translation";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2038,52 +2026,52 @@
 "Enter admin mode" = "Uključi admin režim";
 
 /* Credit description */
-"Estonian localization" = "Estonski prevod";
+"Estonian translation" = "Estonian translation";
 
 /* Credit description */
-"Finnish localization" = "Finski prevod";
+"Finnish translation" = "Finnish translation";
 
 /* Credit description */
 "Founder, original program and documentation" = "Osnivač, originalni program i dokumentacija";
 
 /* Credit description */
-"French localization" = "Francuski prevod";
+"French translation" = "French translation";
 
 /* Credit description */
-"German localization" = "Nemački prevod";
+"German translation" = "German translation";
 
 /* Credit description */
-"Greek localization" = "Grčki prevod";
+"Greek translation" = "Greek translation";
 
 /* Credit description */
-"Hungarian localization" = "Mađarski prevod";
+"Hungarian translation" = "Hungarian translation";
 
 /* Credit description */
-"Icelandic localization" = "Islandski prevod";
+"Icelandic translation" = "Icelandic translation";
 
 /* Credit description */
 "Icon set including Retina images" = "Set ikonica uključujući i Retina slike";
 
 /* Credit description */
-"Indonesian localization" = "Indonežanski prevod";
+"Indonesian translation" = "Indonesian translation";
 
 /* Credit description */
-"Italian localization" = "Italijanski prevod";
+"Italian translation" = "Italian translation";
 
 /* Credit description */
-"Japanese localization" = "Japanski prevod";
+"Japanese translation" = "Japanese translation";
 
 /* Credit description */
-"Korean localization" = "Korejski prevod";
+"Korean translation" = "Korean translation";
 
-/* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "Srpski prevod";
+/* [name of your language] translation */
+"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Dušan Marjanović";
 
 /* Credit description */
-"Latvian localization" = "Letonski prevod";
+"Latvian translation" = "Latvian translation";
 
 /* Credit description */
 "Localization code tweaks" = "Dorade lokalizacijskog koda";
@@ -2092,7 +2080,7 @@
 "Multiple configuration folders" = "Više konfiguracijskih foldera";
 
 /* Credit description */
-"Norwegian localization" = "Norveški prevod";
+"Norwegian translation" = "Norwegian translation";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 i 64-bitna integracija";
@@ -2101,49 +2089,49 @@
 "PKCS#11 support" = "Podrška za PKCS#11";
 
 /* Credit description */
-"Persian localization" = "Persijski prevod";
+"Persian translation" = "Persian translation";
 
 /* Credit description */
-"Polish localization" = "Poljski prevod";
+"Polish translation" = "Polish translation";
 
 /* Credit description */
-"Portuguese (Brazilian) localization" = "Portugalski (Brazilski) prevod";
+"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
 
 /* Credit description */
-"Portuguese localization" = "Portugalski prevod";
+"Portuguese translation" = "Portuguese translation";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Unapređenja i održavanje aplikacije i dokumentacije nakon verzije 3.0b10";
 
 /* Credit description */
-"Romanian localization" = "Rumunski prevod";
+"Romanian translation" = "Romanian translation";
 
 /* Credit description */
-"Russian localization" = "Ruski prevod";
+"Russian translation" = "Russian translation";
 
 /* Credit description */
-"Serbian (Latin) localization" = "Srpski (latinični) prevod";
+"Serbian (Latin) translation" = "Serbian (Latin) translation";
 
 /* Credit description */
-"Slovak localization" = "Slovački prevod";
+"Slovak translation" = "Slovak translation";
 
 /* Credit description */
-"Spanish localization" = "Španski prevod";
+"Spanish translation" = "Spanish translation";
 
 /* Credit description */
-"Swedish localization" = "Švedski prevod";
+"Swedish translation" = "Swedish translation";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick ikonica";
 
 /* Credit description */
-"Turkish localization" = "Turski prevod";
+"Turkish translation" = "Turkish translation";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue i UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian localization" = "Ukrajinski prevod";
+"Ukrainian translation" = "Ukrainian translation";
 
 /* Credit description */
 "Up and Down scripts" = "Skripte za uspostavljanje i prekid veze";
