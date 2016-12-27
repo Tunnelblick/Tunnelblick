@@ -310,6 +310,7 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"Stjepan Siljac",                NSLocalizedString(@"Swedish translation",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Emīls Skujiņš",                 NSLocalizedString(@"Latvian translation",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Tjalling Soldaat",              NSLocalizedString(@"Dutch translation",                   @"Credit description"), nil],
+							[NSArray arrayWithObjects: @"Arne Solheim",                  NSLocalizedString(@"Norwegian translation",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Petr Šrajer",                   NSLocalizedString(@"Czech translation",                   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Wojciech Sromek",               NSLocalizedString(@"Polish translation",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Mihail Stoynov",                NSLocalizedString(@"Bulgarian translation",               @"Credit description"), nil],
@@ -324,6 +325,7 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"Eugene Trufanov",               NSLocalizedString(@"Russian translation",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Dennis Ukhanov",                NSLocalizedString(@"Russian translation",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Caglar Ulkuderner",             NSLocalizedString(@"Turkish translation",                 @"Credit description"), nil],
+							[NSArray arrayWithObjects: @"Levi Ustinov",                  NSLocalizedString(@"Russian translation",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"François Varas",                NSLocalizedString(@"French translation",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Jorge Daniel Sampayo Vargas",   NSLocalizedString(@"Spanish translation",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Cristiano Verondini",           NSLocalizedString(@"Italian translation",                 @"Credit description"), nil],
@@ -337,6 +339,7 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"Magdelena Zajac",               NSLocalizedString(@"Polish translation",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"ZaTi",                          NSLocalizedString(@"Romanian translation",                @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Nikolay Zhelev",                NSLocalizedString(@"Bulgarian translation",               @"Credit description"), nil],
+							[NSArray arrayWithObjects: @"Peter Zozzi Zozulak",           NSLocalizedString(@"Slovak translation",                  @"Credit description"), nil],
                             nil];
 	
     BOOL rtl = [UIHelper languageAtLaunchWasRTL];
