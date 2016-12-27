@@ -2065,7 +2065,7 @@
 "Korean translation" = "Korealainen käännös";
 
 /* [name of your language] translation */
-"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
+"LANGUAGE_TRANSLATION" = "Suomenkielinen käännös";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Jesse Hulkko, Jarmo Isotalo, Kalle Kärkkäinen, Feetu Nyrhinen, Petra Penttila, Mikko Toivola";

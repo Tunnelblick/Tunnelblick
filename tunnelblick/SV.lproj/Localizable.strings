@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Snabbt användarbyte";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Filen '%@' verkar vara formaterad enligt formatet 'UTF-16'. Alla OpenVPN-relaterade filer måste antingen vara o-formaterade eller i 'UTF-8'-format.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Filen \"%@\" verkar vara i \"rich text\" format eftersom den börjar med \"'{\". Alla OpenVPN-relaterade filer måste vara i \"plain text\" eller \"UTF-8\" filer.";
@@ -1166,7 +1166,7 @@
 "Installation finished successfully." = "Installationen lyckades.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
+"Installing and securing Tunnelblick %@..." = "Installerar och säkrar Tunnelblick %@..";
 
 /* Window text */
 "Installing configurations is not allowed" = "Installation av konfigurationer är inte tillåtet";
@@ -1343,7 +1343,7 @@
 "Search domain:" = "Sök domän:";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
+"Securing Tunnelblick %@..." = "Säkrar Tunnelblick %@..";
 
 /* Window text */
 "Set DNS/WINS:" = "Ställ in DNS/WINS:";
@@ -1355,7 +1355,7 @@
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Kopierade inte %@ eftersom det redan finns en fil med det namnet som redan har kopierats.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
+"Starting Tunnelblick %@..." = "Startar Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Uppstartsfönster:";
@@ -1538,13 +1538,13 @@
 "Too many duplicate configurations already exist." = "För många duplicerade konfigurationer finns redan.";
 
 /* Window text */
-"Translation by" = "Translation by";
+"Translation by" = "Översättningar av";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ har säkrats utan problem.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+"Tunnelblick %@ is ready." = "Tunnelblick %@ är klar.";
 
 /* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Administratörsläge\n\n Tillåt att temporärt göra ändringar som kräver ett administratörslösenord.\n\n Administratörsläget avslutas efter fem minuter eller när fönstret 'VPN-inställningar' stängs.";
@@ -1748,7 +1748,7 @@
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "Uppdaterbara konfigurationen \"%@\" sparades inte som uppdaterbar eftersom CFBundleIdentifier redan har behandlats\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n";
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Den uppdateringsbara konfigurationen '%@' kunde inte sparas som uppdateringsbar, eftersom Info.plist saknar en 'SUPublicDSAKey', eller så är dess 'SUFeedURL' inte angiven med https:\n";
 
 /* Window text */
 "Updates:" = "Uppdateringar:";
@@ -1955,40 +1955,40 @@
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>En 'tun' drivrutin är nödvändig för Tun anslutningar. Systemets Tun drivturin används vanligtvis, men Tunnelblick indkluderar också sin egen Tun drivrutin. Om du har installerat en annan Tun drivrutin, kommer Tunnelblick eventuellt inte kunna ladda dess drivrutin.</p>\n<p>OpenVPN kommer att använda systemets drivrutin om inte OpenVPN konfigurationen inkluderar 'dev-type tun' alternativet.</p>\n<p>Du kan välja om och när Tunnelblick laddar sin Tun drivrutin:</p>\n<p><strong>Ladda Tun drivrutin automatiskt</strong>: Tunnelblick laddar sin drivrutin om den behövs och laddar av den när den inte längre behövs. (Tunnelblick kommer bara att ladda sin drivrutin om OpenVPN konfigurationen inkluderar 'dev-type tun' alternativet.)</p>\n<p><strong>Ladda alltid Tun drivrutin</strong>: Tunnelblick laddar sin drivrutin när den ansluter den här konfigurationen, och laddar av den när den inte längre behövs.</p>\n<p><strong>Ladda aldrig Tun drivrutin</strong>: Tunnelblick laddar aldrig sin drivrutin.</p>\n<p><strong>Denna ruta är inaktiverad</strong> för Tap konfigurationer.</p>";
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
-"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>";
+"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS cache innehåller kopior av svar från DNS (Domain Name System) servrar.</p>\n<p><strong>Om markerad</strong>, kommer DNS cache att rensas vid anslutning och nedkoppling. Alla DNS förfrågningar sker med den server som anges av VPN-konfigurationen..</p>\n<p><strong>Om ej markerad</strong> rensas INTE cache vid anslutning och nerkoppling. Detta kan orsaka problem om det finns namnkonflikter mellan olika DNS servrar, när ett svar från den ena servern finns i cache. Om du normalt använder publika DNS servrar både när du är och inte är ansluten till VPN orsakar detta oftast inga problem, och undviker att göra onödiga uppslagningar för namn som redan finns i cache.</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Administratörsläge %@ kvarstår";
 
 /* Credit description */
-"Afrikaans translation" = "Afrikaans translation";
+"Afrikaans translation" = "Afrikaansk översättning";
 
 /* Credit description */
 "Animation and icon sets code" = "Animation, ikonuppsättningskod";
 
 /* Credit description */
-"Arabic translation" = "Arabic translation";
+"Arabic translation" = "Arabisk översättning";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Autentisierar…";
 
 /* Credit description */
-"Azerbaijani translation" = "Azerbaijani translation";
+"Azerbaijani translation" = "Azerbaijansk översättning";
 
 /* Credit description */
-"Bulgarian translation" = "Bulgarian translation";
+"Bulgarian translation" = "Bulgarisk översättning";
 
 /* Credit description */
 "Button images" = "Knappgrafik";
 
 /* Credit description */
-"Catalan translation" = "Catalan translation";
+"Catalan translation" = "Katalansk översättning";
 
 /* Credit description */
-"Chinese (simplified) translation" = "Chinese (simplified) translation";
+"Chinese (simplified) translation" = "Kinesiska (förenklad) översättning";
 
 /* Credit description */
-"Chinese (traditional) translation" = "Chinese (traditional) translation";
+"Chinese (traditional) translation" = "Kinesisk (traditionell) översättning";
 
 /* Credentials name */
 "Common" = "Gemensam";
@@ -2003,13 +2003,13 @@
 "Contributed to early code" = "Bidrog till den tidiga koden";
 
 /* Credit description */
-"Croatian translation" = "Croatian translation";
+"Croatian translation" = "Kroatisk översättning";
 
 /* Credit description */
-"Czech translation" = "Czech translation";
+"Czech translation" = "Tjeckisk översättning";
 
 /* Credit description */
-"Danish translation" = "Danish translation";
+"Danish translation" = "Dansk översättning";
 
 /* Speak string */
 "Disconnected from %@" = "Nedkopplad från %@";
@@ -2018,7 +2018,7 @@
 "Do not show this again" = "Visa inte detta igen";
 
 /* Credit description */
-"Dutch translation" = "Dutch translation";
+"Dutch translation" = "Holländsk översättning";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2026,52 +2026,52 @@
 "Enter admin mode" = "Starta administratörsläget";
 
 /* Credit description */
-"Estonian translation" = "Estonian translation";
+"Estonian translation" = "Estnisk översättning";
 
 /* Credit description */
-"Finnish translation" = "Finnish translation";
+"Finnish translation" = "Finsk översättning";
 
 /* Credit description */
 "Founder, original program and documentation" = "Grundare, originalprogram och dokumentation";
 
 /* Credit description */
-"French translation" = "French translation";
+"French translation" = "Fransk översättning";
 
 /* Credit description */
-"German translation" = "German translation";
+"German translation" = "Tysk översättning";
 
 /* Credit description */
-"Greek translation" = "Greek translation";
+"Greek translation" = "Grekisk översättning";
 
 /* Credit description */
-"Hungarian translation" = "Hungarian translation";
+"Hungarian translation" = "Ungersk översättning";
 
 /* Credit description */
-"Icelandic translation" = "Icelandic translation";
+"Icelandic translation" = "Isländsk översättning";
 
 /* Credit description */
 "Icon set including Retina images" = "Uppsättning ikon, inklusive Retina bilder";
 
 /* Credit description */
-"Indonesian translation" = "Indonesian translation";
+"Indonesian translation" = "Indonesisk översättning";
 
 /* Credit description */
-"Italian translation" = "Italian translation";
+"Italian translation" = "Italiensk översättning";
 
 /* Credit description */
-"Japanese translation" = "Japanese translation";
+"Japanese translation" = "Japansk översättning";
 
 /* Credit description */
-"Korean translation" = "Korean translation";
+"Korean translation" = "Koreansk översättning";
 
 /* [name of your language] translation */
-"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
+"LANGUAGE_TRANSLATION" = "Svenska";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Daniel Kvist, Mats Cronqvist, och Stjepan Siljac";
 
 /* Credit description */
-"Latvian translation" = "Latvian translation";
+"Latvian translation" = "Lettisk översättning";
 
 /* Credit description */
 "Localization code tweaks" = "Fixar för översättningskod";
@@ -2080,7 +2080,7 @@
 "Multiple configuration folders" = "Flera konfigurationsmappar";
 
 /* Credit description */
-"Norwegian translation" = "Norwegian translation";
+"Norwegian translation" = "Norsk översättning";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 och 64-bitars integration";
@@ -2089,49 +2089,49 @@
 "PKCS#11 support" = "PKCS#11-support";
 
 /* Credit description */
-"Persian translation" = "Persian translation";
+"Persian translation" = "Persisk översättning";
 
 /* Credit description */
-"Polish translation" = "Polish translation";
+"Polish translation" = "Polsk översättning";
 
 /* Credit description */
-"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
+"Portuguese (Brazilian) translation" = "Portugisiska (brasiliansk) översättning";
 
 /* Credit description */
-"Portuguese translation" = "Portuguese translation";
+"Portuguese translation" = "Portugisisk översättning";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program- och dokumentationsförbättringar efter version 3.0b10";
 
 /* Credit description */
-"Romanian translation" = "Romanian translation";
+"Romanian translation" = "Rumänsk översättning";
 
 /* Credit description */
-"Russian translation" = "Russian translation";
+"Russian translation" = "Rysk översättning";
 
 /* Credit description */
-"Serbian (Latin) translation" = "Serbian (Latin) translation";
+"Serbian (Latin) translation" = "Serbisk översättning";
 
 /* Credit description */
-"Slovak translation" = "Slovak translation";
+"Slovak translation" = "Slovakisk översättning";
 
 /* Credit description */
-"Spanish translation" = "Spanish translation";
+"Spanish translation" = "Spansk översättning";
 
 /* Credit description */
-"Swedish translation" = "Swedish translation";
+"Swedish translation" = "Svensk översättning";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblickikon";
 
 /* Credit description */
-"Turkish translation" = "Turkish translation";
+"Turkish translation" = "Turkisk översättning";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue & UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian translation" = "Ukrainian translation";
+"Ukrainian translation" = "Ukrainsk översättning";
 
 /* Credit description */
 "Up and Down scripts" = "Uppåt/nedåt-script";

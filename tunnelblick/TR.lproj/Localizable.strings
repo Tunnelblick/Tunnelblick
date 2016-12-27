@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Hızlı Kullanıcı Değiştirme";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "'%@' dosyası UTF-16 dil kodlamasinda görünüyor. Tüm OpenVPN ile ilişkili dosyalr düz metin ya da UTF-8 kodlamasında olmalı.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "'%@' dosyası, '{' karakteri ile başladığından 'zengin metin'  formatında görünüyor. OpenVPN ile ilgili tüm dosyalar, 'düz metin' ya da 'UTF-8' dosyaları olmalıdır.";
@@ -1166,7 +1166,7 @@
 "Installation finished successfully." = "Kurulum başarı ile tamamlandı.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
+"Installing and securing Tunnelblick %@..." = "Tunnelblick %@ kurulup güvenli hale getiriliyor…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Konfigürasyon kurulumuna izin verilmiyor";
@@ -1343,7 +1343,7 @@
 "Search domain:" = "Etki alanı:";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
+"Securing Tunnelblick %@..." = "Tunnelblick %@ güvenli hale getiriliyor…";
 
 /* Window text */
 "Set DNS/WINS:" = "DNS/WINS Ayarla:";
@@ -1355,7 +1355,7 @@
 "Skipped copying %@ because a file with that name and contents has already been copied." = "%@ kopyalanması atlandı, zaten aynı isimli ve içerikli bir dosya kopyalanmış.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
+"Starting Tunnelblick %@..." = "Tunnelblick %@ başlatılıyor…";
 
 /* Window text */
 "Startup window:" = "Başlangıç penceresi:";
@@ -1538,13 +1538,13 @@
 "Too many duplicate configurations already exist." = "Çok fazla çift yapılandırma mevcut.";
 
 /* Window text */
-"Translation by" = "Translation by";
+"Translation by" = "Tercümeyi yapan";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ güvenliği başarıyla sağladı.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+"Tunnelblick %@ is ready." = "Tunnelblick %@ kullanıma hazır.";
 
 /* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Yönetici Modu\n\n Geçici yetkilendirme için yönetici parolasına ihtiyaç duyuyor.\n\n Oturum beş dakika sonra ya da 'VPN Detayları' penceresi kapatıldığında sonlanır.";

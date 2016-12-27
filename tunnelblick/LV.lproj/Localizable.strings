@@ -362,7 +362,7 @@
 "Disconnect when computer goes to sleep" = "Pārtraukt savienojumu, kad dators iemieg";
 
 /* Checkbox name */
-"Disconnect when user switches out" = "Pārtraukt savienojumu, kad lietotājs atvienojas";
+"Disconnect when user switches out" = "Pārtraukt savienojumu, pārslēdzoties uz citu lietotāja kontu";
 
 /* Checkbox name */
 "Display connection submenus" = "Rādīt savienojumu apakšizvēlnes";
@@ -419,13 +419,13 @@
 "Prepend domain name to search domains" = "Pievienot domēna vārdu datora vārdam, veicot tīkla meklēšanu";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Izveidot atkārtotu savienojumu, datoram pamostoties";
+"Reconnect when computer wakes up" = "Atjaunot savienojumu, datoram pamostoties";
 
 /* Checkbox name */
-"Reconnect when user switches in" = "Pievienoties atpakaļ, kad lietotājs pieslēdzas";
+"Reconnect when user switches in" = "Atjaunot savienojumu, atgriežoties lietotāja kontā";
 
 /* Checkbox name */
-"Require administrator authorization for key and certificate changes" = "Pieprasīt administratora atļauju atslēgu un sertifikātu izmaiņām";
+"Require administrator authorization for key and certificate changes" = "Pieprasīt administratora autorizāciju atslēgu un sertifikātu izmaiņām";
 
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Atiestatīt primāro interfeisu pēc savienojuma pārtraukšanas";
@@ -443,7 +443,7 @@
 "Send anonymous profile information when checking" = "Pārbaudes laikā sūtīt anonimizētu profila informāciju";
 
 /* Checkbox name */
-"Set DNS after routes are set" = "Set DNS after routes are set";
+"Set DNS after routes are set" = "Iestatīt DNS pēc maršrutēšanas uzsākšanas";
 
 /* Checkbox name */
 "Show when disconnected" = "Rādīt, kad pazūd savienojums";
@@ -452,19 +452,19 @@
 "Show when the pointer is over the Tunnelblick icon" = "Rādīt, ja peles kursors šķērso Tunnelblick ikonu";
 
 /* PopUpButton */
-"Do not set nameserver" = "Nekonfigurēt DNS serveri";
+"Do not set nameserver" = "Neiestatīt DNS serveri";
 
 /* PopUpButton */
-"Set nameserver (3.0b10)" = "Konfigurēt DNS serveri (3.0b10)";
+"Set nameserver (3.0b10)" = "Iestatīt DNS serveri (3.0b10)";
 
 /* PopUpButton */
-"Set nameserver (3.1)" = "Konfigurēt DNS serveri (3.1)";
+"Set nameserver (3.1)" = "Iestatīt DNS serveri (3.1)";
 
 /* PopUpButton */
-"Set nameserver (alternate 1)" = "Konfigurēt DNS serveri (alternatīva 1)";
+"Set nameserver (alternate 1)" = "Iestatīt DNS serveri (alternatīva 1)";
 
 /* PopUpButton *//* System profile item */
-"Set nameserver" = "Konfigurēt DNS serveri";
+"Set nameserver" = "Iestatīt DNS serveri";
 
 /* Text on disk image */
 "Double-click to begin" = "Veiciet dubultklikšķi, lai sāktu";
@@ -617,10 +617,10 @@
 "Log" = "Žurnāls";
 
 /* Window title */
-"Name Required" = "Norādiet vārdu";
+"Name Required" = "Norādiet nosaukumu";
 
 /* Window title */
-"Name not allowed" = "Vārds nav atļauts";
+"Name not allowed" = "Nosaukums nav atļauts";
 
 /* Window title */
 "New Feature" = "Jauna iespēja";
@@ -800,10 +800,10 @@
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick ir jāuzstāda Lietotnēs.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick nepieciešama administratora atļauja, lai varētu automātiski pieslēgties '%@', kad dators uzsāk darbu.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick nepieciešama administratora autorizācija, lai varētu automātiski pieslēgties '%@', kad dators uzsāk darbu.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick nepieciešama administratora atļauja, lai varētu pārstāt automātiski pieslēgties '%@', kad dators uzsāk darbu.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick nepieciešama administratora autorizācija, lai varētu pārstāt automātiski pieslēgties '%@', kad dators uzsāk darbu.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " UZMANĪBU: Šī Tunnelblick versija ir neautorizēti izmainīta.\n\n";
@@ -845,7 +845,7 @@
 "(if connected when computer went to sleep)" = "(ja ir aktīvs savienojums pirms datora iemigšanas)";
 
 /* Window text */
-"(if connected when user switched out)" = "(ja ir aktīvs savienojums, kad lietotājs atslēdzas no sistēmas)";
+"(if connected when user switched out)" = "(ja ir aktīvs savienojums, kad lietotājs pārslēdzas uz citu kontu)";
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Bāzēts uz Tunnelblick, bezmaksas programmatūra pieejama:<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN ir reģistrēta OpenVPN Technologies, Inc. preču zīme.";
@@ -974,7 +974,7 @@
 "Cannot uninstall configuration '%@' because it is not installed." = "Nevar dzēst konfigurāciju '%@', jo tā nav uzinstalēta.";
 
 /* Window text */
-"Computer sleep/wake" = "Dators aizmieg/pamostas";
+"Computer sleep/wake" = "Datora miega režīms";
 
 /* Window text */
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurācija '%1$@' ('%2$@') tiks ignorēta, jo tās nosaukumā ir neatļautas rakstzīmes.\n\nNeatļautās rakstzīmes: '%3$s'\n\n";
@@ -1115,7 +1115,7 @@
 "Failed to set permissions on %@\n" = "Neizdevās uzstādīt atļaujas %@\n";
 
 /* Window text */
-"Fast User Switching" = "Ātra lietotāju pārslēgšanās";
+"Fast User Switching" = "Ātrā lietotāju pārslēgšanās";
 
 /* Window text */
 "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Šķiet, ka datne '%@' ir UTF-16 kodējumā. Visām OpenVPN datnēm ir jābūt neformatēta teksta (Plain Text) formātā vai UTF-8 kodējumā.";
@@ -1214,7 +1214,7 @@
 "Modified configuration file to remove path information" = "Pārveidojusi konfigurācijas failu, lai izņemtu ceļa informāciju";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Vienlaicīgi tiks izveidoti vairāki savienojumi (%1$d ar 'Set nameserver', %2$d bez 'Set nameserver').";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Vienlaicīgi tiks izveidoti vairāki savienojumi (%1$d ar 'Iestatīt DNS serveri', %2$d bez 'Iestatīt DNS serveri').";
 
 /* Window text */
 "Named Credentials" = "Norādītie piekļuves dati";
@@ -1322,7 +1322,7 @@
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Ievadiet vārdu un nospiediet \"OK\" vai nospiediet \"Cancel\".\n\n";
 
 /* Window text */
-"Please enter a new name for '%@'." = "Ievadiet jaunu vārdu priekš %@.";
+"Please enter a new name for '%@'." = "Ievadiet jaunu nosaukumu priekš %@.";
 
 /* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Lūdzu, ievietojiet marķieri %@ un nospiediet OK";
@@ -1346,7 +1346,7 @@
 "Securing Tunnelblick %@..." = "Nodrošina aizsardzību Tunnelblick %@…";
 
 /* Window text */
-"Set DNS/WINS:" = "Iestatīt DNS/WINS:";
+"Set DNS/WINS:" = "DNS/WINS:";
 
 /* Window text */
 "Single-quote missing in line %u" = "%u. rindā trūkst vienpēdiņas";
@@ -1382,7 +1382,7 @@
 "Thanks for your Tunnelblick donation" = "Paldies par ziedojumu Tunnelblick";
 
 /* Window text */
-"That name is being used.\n\n" = "Šis vārds jau tiek lietots.\n\n";
+"That name is being used.\n\n" = "Šāds nosaukums jau eksistē.\n\n";
 
 /* Window text */
 "The %@ system folder (%@) does not exist." = "Sistēmas mape %1$@(%2$@) nav pieejama.";
@@ -1424,7 +1424,7 @@
 "The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "Mēģinājums pieslēgties %1$@ ir atcelts: runOnConnect skripts atgrieza statusu: %2$ld.";
 
 /* Window text */
-"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Šķiet, ka konfigurācijas datne priekš '%@' izmanto opcijas 'user' un/vai 'group' un izmanto 'down' skriptu ('Nelikt DNS serveri' nav izvēlēts, vai arī konfigurācijas datnē ir 'down' opcija).\n\nDroši vien savienojuma pārstartēšana (automātiska, kad savienojums pazūd) neizdosies, ja vien nav pieslēgts OpenVPN spraudnis 'openvpn-down-root.so'.\n\nVai vēlaties izmantot šo spraudni?";
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Šķiet, ka konfigurācijas datne priekš '%@' izmanto opcijas 'user' un/vai 'group', kā arī 'down' skriptu ('Neiestatīt DNS serveri' nav izvēlēts, vai arī konfigurācijas datnē ir 'down' opcija).\n\nDroši vien savienojuma pārstartēšana (automātiska, kad savienojums pazūd) neizdosies, ja vien nav pieslēgts OpenVPN spraudnis 'openvpn-down-root.so'.\n\nVai vēlaties izmantot šo spraudni?";
 
 /* Window text */
 "The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Šķiet, ka konfigurācijas datnē priekš '%@' nav opciju 'dev tun', 'dev utun' vai 'dev tap'. Kāda no šīm opcijām ir nepieciešama korektai Tunnelblick darbībai. Lūdzu, sazinieties ar sava tīkla administratoru vai ieskatieties OpenVPN dokumentācijā.";
@@ -1469,10 +1469,10 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Nav veikta privāto iestatījumu saglabāšana, līdz ar to nav iespējams atjaunot iestatījumus no drošas (ēnas) kopijas.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "Parauga konfigurācijas mape tika izveidota uz darbvirsmas, kā arī OpenVPN konfigurācijas datne tika atvērta TextEdit aplikācijā, lai jūs to varētu pielāgot savam VPN.\n\nPēc jūsu veikto izmaiņu saglabāšanas OpenVPN konfigurācijas datnē, lūdzu:\n\n1. Pārnesiet vai kopējiet visas ar konfigurāciju saistītās atslēgas vai sertifikātu datnes darbvirsmas mapē 'Tunnelblick VPN parauga konfigurācija'.\n\n(Šī mape tika atvērta Finder aplikācijas logā, lai jūs varētu ievilkt tajā datnes.)\n\n2. Pārdēvējiet konfigurācijas datni pēc savas izvēles (nemainot datnes paplašinājumu) - tas būs nosaukums, ko Tunnelblick izmantos konfigurācijas nosaukumu.\n\n3. Lai instalētu konfigurāciju, velciet konfigurācijas datni virs Tunnelblick ikonas izvēlnes joslā vai virs konfigurāciju saraksta VPN iestatījumu loga 'Konfigurācijas' cilnē un atlaidiet.";
 
 /* Window text */
-"The username and password were not accepted by the remote VPN server." = "Attālais VPN serveris nepieņēma lietotāja vārdu un paroli.";
+"The username and password were not accepted by the remote VPN server." = "Attālais VPN serveris nepieņem lietotājvārdu un paroli.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "Nav OpenVPN konfigurāciju, kuras uzstādīt.";
@@ -1616,28 +1616,28 @@
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick process pašreiz ir darbībā. Tas tiks apstādināts pirms turpmākas darbības uzsākšanas.";
 
 /* Window text */
-"Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick nepieciešama atļauja dublēt '%@' konfigurāciju.";
+"Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick nepieciešama autorizācija, lai dublētu '%@' konfigurāciju.";
 
 /* Window text */
-"Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick nepieciešama atļauja pārveidot %ld konfigurācijas par privātām.";
+"Tunnelblick needs authorization to make %ld configurations private." = "Tunnelblick nepieciešama autorizācija, lai pārveidotu %ld konfigurācijas par privātām.";
 
 /* Window text */
-"Tunnelblick needs authorization to make %ld configurations shared." = "Tunnelblick nepieciešama atļauja pārveidot %ld konfigurācijas par koplietojamām.";
+"Tunnelblick needs authorization to make %ld configurations shared." = "Tunnelblick nepieciešama autorizācija, lai pārveidotu %ld konfigurācijas par koplietojamām.";
 
 /* Window text */
-"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick nepieciešama atļauja pārveidot '%@' konfigurāciju par privātu.";
+"Tunnelblick needs authorization to make the '%@' configuration private." = "Tunnelblick nepieciešama autorizācija, lai pārveidotu '%@' konfigurāciju par privātu.";
 
 /* Window text */
-"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick nepieciešama atļauja pārveidot '%@' konfigurāciju par koplietojamu.";
+"Tunnelblick needs authorization to make the '%@' configuration shared." = "Tunnelblick nepieciešama autorizācija, lai pārveidotu '%@' konfigurāciju par koplietojamu.";
 
 /* Window text */
-"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick nepieciešama atļauja dzēst %ld konfigurācijas.\n\nKonfigurāciju dzēšana ir neatgriezeniska un nevar tikt atsaukta. Visi konfigurāciju iestatījumi arī tiks neatgriezeniski dzēsti.";
+"Tunnelblick needs authorization to remove %ld configurations.\n\n Removing configurations is permanent and cannot be undone. All settings for the configurations will also be removed permanently." = "Tunnelblick nepieciešama autorizācija, lai dzēstu %ld konfigurācijas.\n\nKonfigurāciju dzēšana ir neatgriezeniska un nevar tikt atsaukta. Visi konfigurāciju iestatījumi arī tiks neatgriezeniski dzēsti.";
 
 /* Window text */
-"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick nepieciešama atļauja dzēst '%@' konfigurāciju.\n\nKonfigurācijas dzēšana ir neatgriezeniska un nevar tikt atsaukta. Visi konfigurācijas iestatījumi arī tiks neatgriezeniski dzēsti.";
+"Tunnelblick needs authorization to remove the '%@' configuration.\n\n Removing a configuration is permanent and cannot be undone. All settings for the configuration will also be removed permanently." = "Tunnelblick nepieciešama autorizācija, lai dzēstu '%@' konfigurāciju.\n\nKonfigurācijas dzēšana ir neatgriezeniska un nevar tikt atsaukta. Visi konfigurācijas iestatījumi arī tiks neatgriezeniski dzēsti.";
 
 /* Window text */
-"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick nepieciešama atļauja pārsaukt '%1$@' konfigurāciju par '%2$@'.";
+"Tunnelblick needs authorization to rename the '%@' configuration to '%@'." = "Tunnelblick nepieciešama autorizācija, lai pārsauktu '%1$@' konfigurāciju par '%2$@'.";
 
 /* Window text */
 "Tunnelblick needs to change a setting that may only be changed by a computer administrator." = "Tunnelblick nepieciešams mainīt iestatījumu, kuru var izmainīt tikai datora administrators.";
@@ -1649,7 +1649,7 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick nepieciešams izveidot vai atjaunot drošu (ēnas) konfigurācijas datnes kopiju.";
 
 /* Window text */
-"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick nepieciešams veikt darbību, kurai nepieciešama administratora atļauja.\n";
+"Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick nepieciešams veikt darbību, kurai nepieciešama administratora autorizācija.\n";
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick nepieciešams:\n";
@@ -1907,55 +1907,55 @@
 "64-bit enabling and testing" = "64-bit pievienošana un testēšana";
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>";
+"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Kad atzīmēta</strong>, IPv6 tiks atspējots.</p>\n<p>IPv6 atspējošana bieži tiek ieteikta, jo daudzas VPN konfigurācijas nepasargā no informācijas noplūdes lietojot IPv6. Vairumā gadījumu piekļuve Internetam ir iespējama bez IPv6.</p>\n<p><strong>Kad neatzīmēta</strong>, IPv6 netiks atspējots.</p>\n<p><strong>Šī izvēles rūtiņa ir atslēgta</strong> 'tap' savienojumiem, jo šādās situācijās nav konfigurējams.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>";
+"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Kad atzīmēta</strong>, IPv6 tiks iespējots.</p>\n<p><strong>Kad neatzīmēta</strong>, IPv6 netiks iespējots.</p>\n<p>IPv6 atspējošana bieži tiek ieteikta, jo daudzas VPN konfigurācijas nepasargā no informācijas noplūdes lietojot IPv6. Vairumā gadījumu piekļuve Internetam ir iespējama bez IPv6.</p>\n<p><strong>Šī izvēles rūtiņa ir atslēgta</strong> 'tun' savienojumiem.</p>";
 
 /* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n";
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Kad atzīmēta</strong>, OpenVPN pielāgos DNS un citus iestatījumus tikai pēc VPN maršrutēšanas uzsākšanas, nevis pirms tam.</p>\n<p><strong>Kad neatzīmēta</strong>, OpenVPN pielāgos DNS un citus iestatījumus pirms VPN maršrutēšanas uzsākšanas, nevis pēc tam. Tas var izraisīt DNS kļūdas un kavējumus, ja maršrutēšana uzsākšana prasa ilgu laiku, piemēram, gadījumos, kad ir daudz maršrutu.</p>\n";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n";
+"<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Kad atzīmēta</strong>, Tunnelblick noteiks datora ārējo IP adresi pirms un pēc savienojuma ar VPN un brīdinās, ja IP adrese nav mainījusies.</p>\n<p>Lai to nodrošinātu, tiks veikti pieprasījumi uz tunnelblick.net tīmekļa vietni. Pieprasījumi parasti tiek veikti ar https: izmantojot tunnelblick.net nosaukumu, bet gadījumos, kad tas neizdodas, tiek mēģināts sasniegt http: un tīmekļa vietnes IP adresi.</p>\n<p><strong>Kad neatzīmēta</strong>, Tunnelblick nepārbauda IP adreses izmaiņas un nebrīdina, ja IP adrese nav mainījusies pēc savienojuma ar VPN.</p>\n";
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n";
+"<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Kad atzīmēta</strong>, Tunnelblick liks OpenVPN maršrutēt visu IPv4 datplūsmu caur VPN serveri.</p>\n<p><strong>Kad neatzīmēta</strong>, pēc noklusējuma OpenVPN izmantos VPN tikai datplūsmai, kas paredzēta tieši VPN tīklam. Visa pārējā datplūsma ies caur parasto Interneta pieslēgumu, nevis VPN. OpenVPN's noklusētā uzvedība var būt mainīta OpenVPN konfigurācijā vai VPN serverī un var nodrošināt to, ka visa IPv4 datplūsma tiek maršrutēta caur VPN serveri līdzīgi kā gadījumā, kad šī izvēles rūtiņa ir atzīmēta.</p>\n";
 
 /* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>";
+"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>Kad atzīmēta</strong>, Tunnelblick atiestatīs primāro tīkla interfeisu pēc savienojuma pārtraukšanas. Tas ļauj apiet problēmas, kuras var rasties dēļ kļūdaini konfigurētiem VPN serveriem un atsevišķām OpenVPN konfigurācijas kļūdām.</p>\n<p><strong>Kad neatzīmēta</strong>, Tunnelblick neveiks primārā tīkla interfeisa atiestatīšanu.</p>\n<p><strong>Šī izvēles rūtiņa ir atslēgta</strong>, kad 'DNS/WINS' iestatījumam nav izvēlēts 'Iestatīt DNS serveri'.</p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>";
+"<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Kad atzīmēta</strong>, Tunnelblick monitorēs un reaģēs uz izmaiņām tīkla iestatījumos (piemēram, DHCP atjaunošanās vai Interneta savienojuma izmaiņu gadījumos) ar mērķi nodrošināt savienojumu ar VPN. Tunnelblick noklusējuma darbības tīkla iestatījumu izmaiņu gadījumos parasti strādā stabili, tomēr VPN papildus iestatījumu loga cilnē 'Kamēr ir savienots' ir iespējams norādīt citas darbības.</p>\n<p><strong>Kad neatzīmēta</strong>, Tunnelblick ignorēs tīkla izmaiņas.</p>\n<p><strong>Šī izvēles rūtiņa ir atslēgta</strong>, kad 'DNS/WINS' iestatījumam nav izvēlēts 'Iestatīt DNS serveri' vai 'Iestatīt DNS serveri (3.1)'.</p>";
 
 /* HTML info for the 'Keep connected' checkbox. */
-"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n";
+"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Kad atzīmēta</strong>, Tunnelblick mēģinās atkārtoti pieslēgties VPN neparedzētas atvienošanās gadījumā.</p>\n<p><strong>Kad neatzīmēta</strong>, Tunnelblick nemēģinās atkārtoti pieslēgties VPN, ja notikusi neparedzētas atvienošanās.</p>\n";
 
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
 "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Kad atzīmēta</strong>, Tunnelblick ikona tiks novietota blakus Spotlight ikonai:</p>\n<p>%1$@</p>\n<p><strong>Kad neatzīmēta</strong>, Tunnelblick ikona tiks novietota normāli:</p>\n<p>%2$@</p>\n<p><strong>Šī izvēles rūtiņa ir atslēgta</strong> macOS Sierra versijā, kurā lietotājs var pārkārtot ikonu secību pēc savām vēlmēm, kā arī sistēmās, kurās tas var radīt problēmas.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\"></strong>Vairāk Informācijas</a></p>";
 
 /* HTML info for the 'Disconnect when user switches out' checkbox. */
-"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>";
+"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>Kad atzīmēta</strong>, VPN savienojums tiks pārtraukts, kad notiek pārslēgšanās uz citu lietotāja kontu.</p>\n<p><strong>Kad neatzīmēta</strong>, VPN savienojums netiks pārtraukts, pārslēdzoties uz citu lietotāja kontu.</p>";
 
 /* HTML info for the 'Disconnect when computer goes to sleep' checkbox. */
-"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>";
+"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>Kad atzīmēta</strong>, VPN savienojums tiks pārtraukts, kad dators pāriet miega režīmā.</p>\n<p><strong>Kad neatzīmēta</strong>, VPN savienojums netiks pārtraukts, kad dators pāriet miega režīmā.</p>";
 
 /* HTML info for the 'Reconnect when user switches in' checkbox. */
-"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>";
+"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>Kad atzīmēta</strong>, iepriekšējais VPN savienojums tiks atjaunots, pārslēdzoties atpakaļ uz lietotāja kontu, ja tas iepriekš tika pārtraukts.</p>\n<p><strong>Kad neatzīmēta</strong>, iepriekšējais VPN savienojums netiks atjaunots, pārslēdzoties atpakaļ uz lietotāja kontu.</p>";
 
 /* HTML info for the 'Reconnect when computer wakes up' checkbox. */
-"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>";
+"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>Kad atzīmēta</strong>, iepriekšējais VPN savienojums tiks atjaunots, kad dators pamostas, ja tas iepriekš, dators iemigšanas laikā, tika pārtraukts.</p>\n<p><strong>Kad neatzīmēta</strong>, iepriekšējais VPN savienojums netiks atjaunots, kad dators pamostas.</p>";
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
-"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>";
+"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Kad atzīmēta</strong>, VPN noteiktais domēna vārds tiks pievienots meklēšanas domēnu saraksta sākumā.</p>\n<p><strong>Kad neatzīmēta</strong>, meklēšanas domēnu saraksts tiks aizstāts ar VPN noteikto domēna vārdu.</p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
-"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>";
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>'tap' dzinējs ir nepieciešams Tap savienojumiem. Tunnelblick satur savu Tap dzinēja versiju, jo tas nav pieejams sistēmā. Ja jūs esat uzstādījis citu Tap dzinēju, Tunnelblick var nespēt ielādēt savu dzinēja versiju.</p><p>Jūs varat izvēlēties veidu, kā Tunneblick ielādē savu dzinēja versiju:</p>\n<p><strong>Ielādēt Tap dzinēju automātiski</strong>: Tunnelblick ielādē savu dzinēja versiju, kad tas ir nepieciešams un deaktivizē to, kad tas vairs nav nepieciešams.</p>\n<p><strong>Vienmēr ielādēt Tap dzinēju</strong>: Tunnelblick ielādē savu dzinēja versiju, savienojoties ar konfigurācijā norādīto VPN un deaktivizē to, kad tas vairs nav nepieciešams.</p>\n<p><strong>Nekad neielādēt Tap dzinēju</strong>: Tunnelblick nekad neielādē savu dzinēja versiju.</p>\n<p><strong>Šī izvēles rūtiņa ir atslēgta</strong> Tun konfigurācijām.</p>";
 
 /* HTML info for the 'Load Tun driver' popdown list. */
-"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>";
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>'tun' dzinējs ir nepieciešams Tun savienojumiem. Parasti tiek izmantots sistēmas Tun dzinējs, bet Tunnelblick satur arī savu Tun dzinēja versiju. Ja jūs esat uzstādījis citu Tun dzinēju, Tunnelblick var nespēt ielādēt savu dzinēja versiju.</p>\n<p>OpenVPN izmantos sistēmas dzinēju, ja vien OpenVPN konfigurācija nesatur 'dev-type tun' opciju.</p>\n<p>Jūs varat izvēlēties veidu, kā Tunneblick ielādē savu Tun dzinēja versiju:</p>\n<p><strong>Ielādēt Tun dzinēju automātiski</strong>: Tunnelblick ielādē savu dzinēja versiju, ja tas ir nepieciešams un deaktivizē to, kad tas vairs nav nepieciešams.\n(Tunnelblick ielādē savu dzinēja versiju tikai tad, ja OpenVPN konfigurācija satur 'dev-type tun' opciju.)</p>\n<p><strong>Vienmēr ielādēt Tun dzinēju</strong>: Tunnelblick ielādē savu dzinēja versiju, savienojoties ar konfigurācijā norādīto VPN un deaktivizē to, kad tas vairs nav nepieciešams.</p>\n<p><strong>Nekad neielādēt Tun dzinēju</strong>: Tunnelblick nekad neielādē savu dzinēja versiju.</p>\n<p><strong>Šī izvēles rūtiņa ir atslēgta</strong> Tap konfigurācijām.</p>";
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
-"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>";
+"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS kešatmiņa satur DNS (Domain Name System) informācijas kopijas.</p>\n<p><strong>Kad atzīmēta</strong>, DNS kešatmiņa tiks dzēsta pēc savienojuma vai atvienojuma. Visi DNS meklējumi tiks veikti caur DNS serveri, kurš norādīt VPN konfigurācijā.</p>\n<p><strong>Kad neatzīmēta</strong>, DNS kešatmiņa netiks dzēsta. Tas var izraisīt problēmas, ja ir vārdu konflikts VPN konfigurācijā norādītajā DNS serverī un DNS serverī, kas tika izmantots pirms pieslēgšanās VPN.</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Adminstratora režīms beigsies pēc %@";
@@ -2068,7 +2068,7 @@
 "LANGUAGE_TRANSLATION" = "Tulkojums latviešu valodā";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Emīls Skujiņš";
+"LEAD_TRANSLATORS" = "Emīls Skujiņš, Andrejs Kotovs";
 
 /* Credit description */
 "Latvian translation" = "Tulkojums latviešu valodā";
@@ -2266,7 +2266,7 @@
 "The text you entered did not match the text in the Captcha image." = "Jūsu ievadītais teksts nesakrīt ar Captcha tekstu.";
 
 /* Window text VPNService */
-"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "Nav konfigurācijas ar nosaukumu %@.\n\nMēģiniet pārstādīt Tunnelblick no diska attēla.";
+"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "Nav konfigurācijas ar nosaukumu %@.\n\nMēģiniet pārinstalēt Tunnelblick no diska attēla.";
 
 /* Window text VPNService */
 "To create your free Tunnelblick account we need your email address and a password of your choosing." = "Lai izveidotu bezmaksas Tunnelblick kontu, mums ir nepieciešams jūsu epasts un jūsu izvēlēta parole.";

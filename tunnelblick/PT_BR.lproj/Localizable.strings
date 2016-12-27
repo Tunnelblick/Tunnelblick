@@ -1118,10 +1118,10 @@
 "Fast User Switching" = "Troca Rápida de Usuário";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "O arquivo '%@' parece estar codificado em UTF-16. Todos os arquivos relacionados ao OpenVPN devem ser 'texto puro' ou arquivos 'UTF-8'.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "O arquivo '%@' parece estar codificado em UTF-16. Todos os arquivos relacionados com OpenVPN devem ser em texto sem formatação ou arquivos UTF-8.";
 
 /* Window text */
-"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "O arquivo '%@' aparenta ter formato 'texto rico' porque inicia com um caratere '{'. Todos os arquivos relacionados ao OpenVPN devem ser do tipo 'texto plano' ou 'UTF-8'.";
+"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "O arquivo '%@' aparenta ter formato texto formatado porque inicia com um caratere '{'. Todos os arquivos relacionados ao OpenVPN devem ser do tipo texto sem formatação ou UTF-8.";
 
 /* Window text */
 "File '%@' ends with a backslash, which is not allowed." = "O arquivo '%@' termina com uma contrabarra, o que não é permitido.";
@@ -1748,7 +1748,7 @@
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "A configuração atualizável '%@' não foi armazenada como atualizável porque esse CFBundleIdentifier já foi processado\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Configuração atualizável '%@' não foi armazenada como atualizável porque o Info.plist não tinha uma entrada 'SUPublicDSAKey' or sua entrada 'SUFeedURL' não especificou o uso de https:\n";
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "A configuração atualizável '%@' não foi armazenada como atualizável porque o Info.plist não tinha uma entrada 'SUPublicDSAKey' ou a sua entrada 'SUFeedURL' não especificou o uso de https:\n";
 
 /* Window text */
 "Updates:" = "Atualizações:";

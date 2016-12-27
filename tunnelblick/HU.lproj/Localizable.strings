@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Gyors felhasználó váltás";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "A '%@' fájl UTF-16 kódolásúnak tűnik. Minden OpenVPN-hez kapcsolódó fájlnak szövegfájlnak vagy UTF-8 kódolásúnak kell lennie.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "A(z) '%@' fájl úgy tűnik, hogy 'rich text' formátumú, mert egy '{' karakterrel kezdődik.\nMinden OpenVPN-hez tartozó állománynak egyszerű szöveges vagy UTF-8 fájlnak kell lennie.";
@@ -1166,7 +1166,7 @@
 "Installation finished successfully." = "A telepítés sikeresen véget ért.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
+"Installing and securing Tunnelblick %@..." = "Tunnelblick %@ telepítése és biztosítása…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Konfigurációk telepítése nem engedélyezett";
@@ -1343,7 +1343,7 @@
 "Search domain:" = "Keresési domain:";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
+"Securing Tunnelblick %@..." = "Tunnelblick %@ biztosítása…";
 
 /* Window text */
 "Set DNS/WINS:" = "DNS/WINS beállítás:";
@@ -1355,7 +1355,7 @@
 "Skipped copying %@ because a file with that name and contents has already been copied." = "%@ másolása kihagyva, mert az állomány azonos tartalommal már létezik.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
+"Starting Tunnelblick %@..." = "Tunnelblick %@ indítása…";
 
 /* Window text */
 "Startup window:" = "Induló képernyő:";
@@ -1538,13 +1538,13 @@
 "Too many duplicate configurations already exist." = "Túl sok duplikált konfiguráció található.";
 
 /* Window text */
-"Translation by" = "Translation by";
+"Translation by" = "Fordítás:";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
+"Tunnelblick %@ has been secured successfully." = "A Tunnelblick %@ sikeresen biztonságossá vált.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+"Tunnelblick %@ is ready." = "A Tunnelblick %@ készen áll a munkára.";
 
 /* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Rendszergazdai mód\n\nIdeiglenes engedély azon változtatásokhoz, melyekhez rendszergazdai jelszó szükséges.\n\nA munkamenet 5 perc után lejár, illetve ha a 'VPN részletek' ablak bezárásra kerül.";
@@ -1748,7 +1748,7 @@
 "Updatable configuration '%@' was not stored as updatable because that CFBundleIdentifier has already been processed\n" = "A(z) '%@' frissíthető konfiguráció nem lett elmentve frissíthetőként, mert a hozzá tartozó CFBundleIdentifier már fel lett dolgozva\n";
 
 /* Window text */
-"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n";
+"Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "A '%@' frissíthető konfigurációt nem frissíthetőként tároltuk, mert az Info.plist nem tartalmaz 'SUPublicDSAKey' bejegyzést vagy a 'SUFeedURL' bejegyzés nem specifikálta a https: használatát\n";
 
 /* Window text */
 "Updates:" = "Frissítések:";
@@ -1961,34 +1961,34 @@
 "Admin mode %@ remaining" = "Adminisztrátori módból hátralevő idő: %@";
 
 /* Credit description */
-"Afrikaans translation" = "Afrikaans translation";
+"Afrikaans translation" = "Afrikaans fordítás";
 
 /* Credit description */
 "Animation and icon sets code" = "Animáció, ikon készlet kód";
 
 /* Credit description */
-"Arabic translation" = "Arabic translation";
+"Arabic translation" = "Arab fordítás";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Hitelesítés…";
 
 /* Credit description */
-"Azerbaijani translation" = "Azerbaijani translation";
+"Azerbaijani translation" = "Azerbajdzsáni fordítás";
 
 /* Credit description */
-"Bulgarian translation" = "Bulgarian translation";
+"Bulgarian translation" = "Bolgár fordítás";
 
 /* Credit description */
 "Button images" = "Gombok képei";
 
 /* Credit description */
-"Catalan translation" = "Catalan translation";
+"Catalan translation" = "Katalán fordítás";
 
 /* Credit description */
-"Chinese (simplified) translation" = "Chinese (simplified) translation";
+"Chinese (simplified) translation" = "Kínai (egyszerűsített) fordítás";
 
 /* Credit description */
-"Chinese (traditional) translation" = "Chinese (traditional) translation";
+"Chinese (traditional) translation" = "Kínai (hagyományos) fordítás";
 
 /* Credentials name */
 "Common" = "Általánosan";
@@ -2003,13 +2003,13 @@
 "Contributed to early code" = "A fejlesztés korai szakaszában résztvett";
 
 /* Credit description */
-"Croatian translation" = "Croatian translation";
+"Croatian translation" = "Horvát fordítás";
 
 /* Credit description */
-"Czech translation" = "Czech translation";
+"Czech translation" = "Cseh fordítás";
 
 /* Credit description */
-"Danish translation" = "Danish translation";
+"Danish translation" = "Dán fordítás";
 
 /* Speak string */
 "Disconnected from %@" = "%@ leválasztva";
@@ -2018,7 +2018,7 @@
 "Do not show this again" = "Ne mutassa ismét";
 
 /* Credit description */
-"Dutch translation" = "Dutch translation";
+"Dutch translation" = "Holland fordítás";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2026,52 +2026,52 @@
 "Enter admin mode" = "Belépés adminisztrátori módba";
 
 /* Credit description */
-"Estonian translation" = "Estonian translation";
+"Estonian translation" = "Észt fordítás";
 
 /* Credit description */
-"Finnish translation" = "Finnish translation";
+"Finnish translation" = "Finn fordítás";
 
 /* Credit description */
 "Founder, original program and documentation" = "Alapító, eredeti program, dokumentáció";
 
 /* Credit description */
-"French translation" = "French translation";
+"French translation" = "Francia fordítás";
 
 /* Credit description */
-"German translation" = "German translation";
+"German translation" = "Német fordítás";
 
 /* Credit description */
-"Greek translation" = "Greek translation";
+"Greek translation" = "Görög fordítás";
 
 /* Credit description */
-"Hungarian translation" = "Hungarian translation";
+"Hungarian translation" = "Magyar fordítás";
 
 /* Credit description */
-"Icelandic translation" = "Icelandic translation";
+"Icelandic translation" = "Izlandi fordítás";
 
 /* Credit description */
 "Icon set including Retina images" = "Ikon csomag Retina képekkel együtt";
 
 /* Credit description */
-"Indonesian translation" = "Indonesian translation";
+"Indonesian translation" = "Indonéz fordítás";
 
 /* Credit description */
-"Italian translation" = "Italian translation";
+"Italian translation" = "Olasz fordítás";
 
 /* Credit description */
-"Japanese translation" = "Japanese translation";
+"Japanese translation" = "Japán fordítás";
 
 /* Credit description */
-"Korean translation" = "Korean translation";
+"Korean translation" = "Koreai fordítás";
 
 /* [name of your language] translation */
-"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
+"LANGUAGE_TRANSLATION" = "Magyar fordítás";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Marcell Szabo";
 
 /* Credit description */
-"Latvian translation" = "Latvian translation";
+"Latvian translation" = "Lett fordítás";
 
 /* Credit description */
 "Localization code tweaks" = "Honosító kód hangolása";
@@ -2080,7 +2080,7 @@
 "Multiple configuration folders" = "Több konfigurációs mappa";
 
 /* Credit description */
-"Norwegian translation" = "Norwegian translation";
+"Norwegian translation" = "Norvég fordítás";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 és 64-bit integráció";
@@ -2089,49 +2089,49 @@
 "PKCS#11 support" = "PKCS#11 támogatás";
 
 /* Credit description */
-"Persian translation" = "Persian translation";
+"Persian translation" = "Perzsa fordítás";
 
 /* Credit description */
-"Polish translation" = "Polish translation";
+"Polish translation" = "Lengyel fordítás";
 
 /* Credit description */
-"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
+"Portuguese (Brazilian) translation" = "Portugál (brazil) fordítás";
 
 /* Credit description */
-"Portuguese translation" = "Portuguese translation";
+"Portuguese translation" = "Portugál fordítás";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program fejlesztések és dokumentáció a 3.0b10 verzió után";
 
 /* Credit description */
-"Romanian translation" = "Romanian translation";
+"Romanian translation" = "Román fordítás";
 
 /* Credit description */
-"Russian translation" = "Russian translation";
+"Russian translation" = "Orosz fordítás";
 
 /* Credit description */
-"Serbian (Latin) translation" = "Serbian (Latin) translation";
+"Serbian (Latin) translation" = "Szerb (latin) fordítás";
 
 /* Credit description */
-"Slovak translation" = "Slovak translation";
+"Slovak translation" = "Szlovák fordítás";
 
 /* Credit description */
-"Spanish translation" = "Spanish translation";
+"Spanish translation" = "Spanyol fordítás";
 
 /* Credit description */
-"Swedish translation" = "Swedish translation";
+"Swedish translation" = "Svéd fordítás";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick ikon";
 
 /* Credit description */
-"Turkish translation" = "Turkish translation";
+"Turkish translation" = "Török fordítás";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue és UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian translation" = "Ukrainian translation";
+"Ukrainian translation" = "Ukrán fordítás";
 
 /* Credit description */
 "Up and Down scripts" = "fel és lecsatoló scriptek";

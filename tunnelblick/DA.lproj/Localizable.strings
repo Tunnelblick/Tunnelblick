@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Hurtigt brugerskift";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Fil '%@' ser ud til at være UTF-16 formateret. Alle OpenVPN relaterede filer skal være 'ren tekst' eller 'UTF-8' filer.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Det ser ud som om filen '%@' er i et rich text-format, fordi det starter med et '{' tegn. Alle OpenVPN-relaterede filer skal være 'plain text' eller 'UTF-8' filer.";
@@ -1166,7 +1166,7 @@
 "Installation finished successfully." = "Installationen sluttede successfuldt.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
+"Installing and securing Tunnelblick %@..." = "Installerer og sikrer Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Installering af konfigurationer er ikke tilladt";
@@ -1343,7 +1343,7 @@
 "Search domain:" = "Søgedomæne:";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
+"Securing Tunnelblick %@..." = "Sikrer Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "Indstil DNS/WINS:";
@@ -1355,7 +1355,7 @@
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Sprunget over kopiering %@, fordi en fil med samme navn og indhold allerede er blevet kopieret.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
+"Starting Tunnelblick %@..." = "Starter Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Opstarts vindue:";
@@ -1538,13 +1538,13 @@
 "Too many duplicate configurations already exist." = "For mange identiske konfigurationer findes allerede.";
 
 /* Window text */
-"Translation by" = "Translation by";
+"Translation by" = "Oversat af";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ er blevet sikret.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+"Tunnelblick %@ is ready." = "Tunnelblick %@ er klar.";
 
 /* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Tilstand\n\n Godkend ændringer midlertidigt, der kræver en administrator adgangskode. \n\n Sessionen udløber efter fem minuter eller når \"VPN Detaljer\"-vinduet lukkes.";
@@ -1961,34 +1961,34 @@
 "Admin mode %@ remaining" = "Admin tilstand %@ resterer";
 
 /* Credit description */
-"Afrikaans translation" = "Afrikaans translation";
+"Afrikaans translation" = "Afrikaans oversættelse";
 
 /* Credit description */
 "Animation and icon sets code" = "Animation og ikonsætskode";
 
 /* Credit description */
-"Arabic translation" = "Arabic translation";
+"Arabic translation" = "Arabisk oversættelse";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Godkender…";
 
 /* Credit description */
-"Azerbaijani translation" = "Azerbaijani translation";
+"Azerbaijani translation" = "Aserbajdsjansk oversættelse";
 
 /* Credit description */
-"Bulgarian translation" = "Bulgarian translation";
+"Bulgarian translation" = "Bulgarsk oversættelse";
 
 /* Credit description */
 "Button images" = "Knap billeder";
 
 /* Credit description */
-"Catalan translation" = "Catalan translation";
+"Catalan translation" = "Catalansk oversættelse";
 
 /* Credit description */
-"Chinese (simplified) translation" = "Chinese (simplified) translation";
+"Chinese (simplified) translation" = "Kinesisk (forenklet) oversættelse";
 
 /* Credit description */
-"Chinese (traditional) translation" = "Chinese (traditional) translation";
+"Chinese (traditional) translation" = "Kinesisk (traditionelt) oversættelse";
 
 /* Credentials name */
 "Common" = "Fælles";
@@ -2003,13 +2003,13 @@
 "Contributed to early code" = "Bidragede til tidlig kode";
 
 /* Credit description */
-"Croatian translation" = "Croatian translation";
+"Croatian translation" = "Kroatisk oversættelse";
 
 /* Credit description */
-"Czech translation" = "Czech translation";
+"Czech translation" = "Tjekkisk oversættelse";
 
 /* Credit description */
-"Danish translation" = "Danish translation";
+"Danish translation" = "Dansk oversættelse";
 
 /* Speak string */
 "Disconnected from %@" = "Afbrudt fra %@";
@@ -2018,7 +2018,7 @@
 "Do not show this again" = "Vis ikke dette igen";
 
 /* Credit description */
-"Dutch translation" = "Dutch translation";
+"Dutch translation" = "Hollandsk oversættelse";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2026,43 +2026,43 @@
 "Enter admin mode" = "Start admin tilstand";
 
 /* Credit description */
-"Estonian translation" = "Estonian translation";
+"Estonian translation" = "Estisk oversættelse";
 
 /* Credit description */
-"Finnish translation" = "Finnish translation";
+"Finnish translation" = "Finsk oversættelse";
 
 /* Credit description */
 "Founder, original program and documentation" = "Grundlægger, oprindelige program og dokumentation";
 
 /* Credit description */
-"French translation" = "French translation";
+"French translation" = "Fransk oversættelse";
 
 /* Credit description */
-"German translation" = "German translation";
+"German translation" = "Tysk oversættelse";
 
 /* Credit description */
-"Greek translation" = "Greek translation";
+"Greek translation" = "Græsk oversættelse";
 
 /* Credit description */
-"Hungarian translation" = "Hungarian translation";
+"Hungarian translation" = "Ungarsk oversættelse";
 
 /* Credit description */
-"Icelandic translation" = "Icelandic translation";
+"Icelandic translation" = "Islandsk oversættelse";
 
 /* Credit description */
 "Icon set including Retina images" = "Ikon sæt, inklusiv Retina billeder";
 
 /* Credit description */
-"Indonesian translation" = "Indonesian translation";
+"Indonesian translation" = "Indonesisk oversættelse";
 
 /* Credit description */
-"Italian translation" = "Italian translation";
+"Italian translation" = "Italiensk oversættelse";
 
 /* Credit description */
-"Japanese translation" = "Japanese translation";
+"Japanese translation" = "Japansk oversættelse";
 
 /* Credit description */
-"Korean translation" = "Korean translation";
+"Korean translation" = "Koreansk oversættelse";
 
 /* [name of your language] translation */
 "LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
@@ -2071,7 +2071,7 @@
 "LEAD_TRANSLATORS" = "Jakob Bo Søndergaard Madsen";
 
 /* Credit description */
-"Latvian translation" = "Latvian translation";
+"Latvian translation" = "Lettisk oversættelse";
 
 /* Credit description */
 "Localization code tweaks" = "Oversættelses kode justeringer";
@@ -2080,7 +2080,7 @@
 "Multiple configuration folders" = "Flere konfigurationsmapper";
 
 /* Credit description */
-"Norwegian translation" = "Norwegian translation";
+"Norwegian translation" = "Norsk oversættelse";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 og 64-bit integration";
@@ -2089,49 +2089,49 @@
 "PKCS#11 support" = "PKCS#11 understøttelse";
 
 /* Credit description */
-"Persian translation" = "Persian translation";
+"Persian translation" = "Persisk oversættelse";
 
 /* Credit description */
-"Polish translation" = "Polish translation";
+"Polish translation" = "Polsk oversættelse";
 
 /* Credit description */
-"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
+"Portuguese (Brazilian) translation" = "Portugisisk (brasiliansk) oversættelse";
 
 /* Credit description */
-"Portuguese translation" = "Portuguese translation";
+"Portuguese translation" = "Portugisisk oversættelse";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Forbedringer af programmet, dokumentation og vedligeholdelse efter version 3.0b10";
 
 /* Credit description */
-"Romanian translation" = "Romanian translation";
+"Romanian translation" = "Rumænsk oversættelse";
 
 /* Credit description */
-"Russian translation" = "Russian translation";
+"Russian translation" = "Russisk oversættelse";
 
 /* Credit description */
-"Serbian (Latin) translation" = "Serbian (Latin) translation";
+"Serbian (Latin) translation" = "Serbisk (Latin) oversættelse";
 
 /* Credit description */
-"Slovak translation" = "Slovak translation";
+"Slovak translation" = "Slovensk oversættelse";
 
 /* Credit description */
-"Spanish translation" = "Spanish translation";
+"Spanish translation" = "Spansk oversættelse";
 
 /* Credit description */
-"Swedish translation" = "Swedish translation";
+"Swedish translation" = "Svensk oversættelse";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick ikon";
 
 /* Credit description */
-"Turkish translation" = "Turkish translation";
+"Turkish translation" = "Tyrkisk oversættelse";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue og UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian translation" = "Ukrainian translation";
+"Ukrainian translation" = "Ukrainsk oversættelse";
 
 /* Credit description */
 "Up and Down scripts" = "Start og lukke scripts";
