@@ -339,7 +339,7 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"Magdelena Zajac",               NSLocalizedString(@"Polish translation",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"ZaTi",                          NSLocalizedString(@"Romanian translation",                @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Nikolay Zhelev",                NSLocalizedString(@"Bulgarian translation",               @"Credit description"), nil],
-							[NSArray arrayWithObjects: @"Peter Zozzi Zozulak",           NSLocalizedString(@"Slovak translation",                  @"Credit description"), nil],
+							[NSArray arrayWithObjects: @"Zozzi",                         NSLocalizedString(@"Slovak translation",                  @"Credit description"), nil],
                             nil];
 	
     BOOL rtl = [UIHelper languageAtLaunchWasRTL];
