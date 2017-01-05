@@ -28,6 +28,7 @@
 #import "LoginWindowController.h"
 #import "PassphraseWindowController.h"
 #import "TBUserDefaults.h"
+#import "VPNConnection.h"
 
 extern TBUserDefaults  * gTbDefaults;
 
@@ -225,12 +226,21 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
         usernameLocal = [usernameKeychain password];
 		if (  ! usernameLocal  ) {
 			NSLog(@"User did not allow access to the Keychain to get VPN username");
+		} else if (  [usernameLocal isEqualToString: @""]  ) {
+			[gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
+			[gTbDefaults removeObjectForKey: usernamePreferenceKey];
+			NSLog(@"Keychain did not contain VPN username as expected; removed %@ and %@ preferences", usernamePreferenceKey, usernameAndPasswordPreferenceKey);
+			usernameLocal = nil;
 		}
     }
     if (  [self passwordIsInKeychain]  ) {
         passwordLocal = [passwordKeychain password];
         if (  ! passwordLocal  ) {
             NSLog(@"User did not allow access to the Keychain to get VPN password");
+        } else if (  [passwordLocal isEqualToString: @""]  ) {
+			[gTbDefaults removeObjectForKey: usernameAndPasswordPreferenceKey];
+			NSLog(@"Keychain did not contain VPN password as expected; removed %@ preference", usernameAndPasswordPreferenceKey);
+			passwordLocal = nil;
         }
     }
     
