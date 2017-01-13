@@ -1,0 +1,129 @@
+#! /bin/bash -e
+#
+# Signs or re-signs an appcast or release notes file with a Tunnelblick version 2 signature.
+#
+# The arguments are the path to the private key, the path to the file to be signed, and the
+# number of days the signature should be valid.
+#
+# The signature will be valid beginning as soon as it is created, and ending the specified
+# number of days in the future.
+#
+# A file with a Tunnelblick version 2 signature comes in three parts:
+#
+#		An HTML comment with the signature        terminated by an LF character
+#		An HTML comment with validity information terminated by an LF character
+#		The contents of the file itself
+#
+# The signature is calculated on the validity comment concatenated with the file, so the
+# signature protects the validity information and the file. The validity information consists
+# of the length of the file **without** the signature line, and the dates for
+# which the file is valid. (The dates are used to detect replay attacks that cause
+# Tunnelblick to report that no update is available. They will only detect such attacks that
+# use versions of the appcast that are outside of the validity dates, but that will prevent
+# an attacker from "permanently" misleading someone.)
+#
+# The length is expressed as a zero-padded, seven digit number of bytes.
+# The dates are expressed as YYYY-MM-DDTHH:MM:SS
+#
+# Example signature and validity lines:
+#
+#		<!-- Tunnelblick_Signature v2 MC0CFHn3dYIiqbtE632sbloBdX1Qz1euAhUApaUq32CoyfgWGlAR66vgFyJ2TgI= -->
+#		<!-- 00009972 2017-01-05T00:22:09 2017-05-06T00:22:09 -->
+#
+#
+# Copyright © 2016, 2017 by Jonathan K. Bullard. All rights reserved.
+
+readonly temp_file1="/tmp/net.tunnelblick.tunnelblick-tmp1.txt"
+readonly temp_file2="/tmp/net.tunnelblick.tunnelblick-tmp2.txt"
+
+readonly name="$(  basename "$0"  )"
+readonly usage_message="Usage: $name   private-key-path   file-path   number-of-days-signature-should-be-valid"
+
+if [ "$#" != "3" ]; then
+	echo "Wrong number of arguments"
+	echo "$usage_message"
+	exit 1
+fi
+
+readonly private_key_path="$1";
+readonly private_key_extension="${private_key_path:(-4)}"
+if [ "${private_key_extension}" != ".pem" ] ; then
+	echo "$usage_message"
+	echo "The private-key is a '$private_key_extension' file. It must be a \".pem\" file"
+	exit 1
+fi
+
+readonly file_path="$2"
+
+# Make sure the private key and the file are available
+if [ ! -e "$private_key_path"  ] ; then
+	echo "Private key does not exist at $private_key_path"
+	echo "$usage_message"
+	exit 1
+fi
+
+if [ ! -e "$file_path" ]; then
+	echo "File to be signed does not exist: $file_path"
+	echo "$usage_message"
+	exit 1
+fi
+
+# Make sure $duration_arg is a number
+readonly duration_arg="$3"
+if [ -n "$(  printf '%s' "$duration_arg" | sed 's/[0-9]//g'  )" ]; then
+	echo "The third argument must be an integer between 1 and 36500 (100 years)"
+	echo "$usage_message"
+	exit 1
+fi
+
+# Get the contents of the file after removing existing signature and validity lines (if any)
+readonly first_line="$(head -n 1 "$file_path")"
+readonly first_34_chars="${first_line:0:34}"
+if [ "$first_34_chars" == "<!-- Tunnelblick DSA Signature v1 " ] ; then
+	echo "$(tail -n +2 "$file_path")" > "$temp_file1"
+else
+	readonly first_30_chars="${first_line:0:30}"
+	if [ "$first_30_chars" == "<!-- Tunnelblick_Signature v2 " ] ; then
+		echo "$(tail -n +3 "$file_path")" > "$temp_file1"
+	else
+		cat "$file_path" > "$temp_file1"
+	fi
+fi
+
+# Make signature valid starting now and ending $duration_arg days from now
+# (Get the date/time once and work from that to avoid race conditions)
+readonly current_utc="$( date -j -u +"%m%d%H%M%Y.%S" )"
+readonly valid_start="$( date -j                      +"%Y-%m-%dT%H:%M:%S" "$current_utc"  )"
+readonly valid_end="$(   date -j -v +${duration_arg}d +"%Y-%m-%dT%H:%M:%S" "$current_utc"  )"
+
+# Set the length of the file (without the signature or validity lines)
+readonly file_length="$(  stat -f %z "$temp_file1"  )"
+if [ -n "$(  printf '%s' "$file_length" | sed 's/[0-9]//g'  )" ]; then
+	echo "An error occurred; the length was not a number for file $temp_file1"
+	exit 1
+fi
+if [ "$file_length" -gt 9999999 ] ; then
+	echo "File length $file_length is too large! It must be smaller than 10,000,000 bytes"
+	exit 1
+fi
+
+readonly file_length_7_digits="$(  printf %07d $file_length  )"
+
+readonly validity_comment="<!-- $file_length_7_digits $valid_start $valid_end -->"
+
+echo "$validity_comment" > "$temp_file2"
+cat  "$temp_file1"  >> "$temp_file2"
+
+# Get the new signature of (the file prepended with the validity line)
+readonly new_sig="$(  openssl dgst -sha1 -binary < "$temp_file2" | openssl dgst -dss1 -sign "$private_key_path" | openssl enc -base64 )"
+
+# Replace the input file: First line of the new contents is the new signature comment
+readonly new_line="<!-- Tunnelblick_Signature v2 $new_sig -->"
+echo "$new_line" > "$file_path"
+
+# Rest of new contents is the validity line followed by the original file (stripped of signature and validity lines if it had any)
+cat "$temp_file2" >> "$file_path"
+
+# Remove temporary files
+rm -f "$temp_file1"
+rm -f "$temp_file2"

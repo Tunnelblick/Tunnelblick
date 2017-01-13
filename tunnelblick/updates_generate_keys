@@ -45,19 +45,18 @@ readonly openssl="/usr/bin/openssl"
 
 # Do sanity checks
 
-if [ "$#" == "0" ]; then
+if [ "$#" != 1 ]; then
 	echo "Usage:  $0  target_folder_path"
 	exit 1
 fi
 
 # Process argument
 
-if [ ! -d "$1" ] ; then
-	echo "No private key file at $1"
+readonly target_folder_path="$1"
+if [ ! -d "$target_folder_path" ] ; then
+	echo "No folder at $target_folder_path"
 	exit 1
 fi
-
-readonly target_folder_path="$1"
 
 ##########################################################################################
 
@@ -70,13 +69,17 @@ for file in "dsaparam.pem" "dsa_priv.pem" "dsa_pub.pem"; do
 done
 
 $openssl gendsa <($openssl dsaparam 4096) -out "$target_folder_path/dsa_priv.pem"
-chmod 0400 "$target_folder_path/dsa_priv.pem"
+chmod 0400   "$target_folder_path/dsa_priv.pem"
+chflags uchg "$target_folder_path/dsa_priv.pem"
 $openssl dsa -in "$target_folder_path/dsa_priv.pem" -pubout -out "$target_folder_path/dsa_pub.pem"
+chflags uchg "$target_folder_path/dsa_pub.pem"
 
 echo "
 Generated two files in $target_folder_path:
     dsa_priv.pem: your private key. Keep it secret and don't share it!
     dsa_pub.pem:  public counterpart to include in the app bundle.
+
+Both files have been locked and cannot be modified or deleted. Use \"Get Info\" in Finder to unlock them.
 
 BACK UP YOUR PRIVATE KEY AND KEEP IT SAFE AND PRIVATE!
 If you lose it, your users will be unable to upgrade!

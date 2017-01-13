@@ -1,5 +1,5 @@
 --- Sparkle/Sparkle/SUAppcast.h	2016-08-07 06:39:07.000000000 -0400
-+++ Sparkle_/Sparkle/SUAppcast.h	2016-09-07 11:52:42.000000000 -0400
++++ Sparkle_/Sparkle/SUAppcast.h	2017-01-11 06:06:47.000000000 -0500
 @@ -21,6 +21,7 @@
  
  @property (copy) NSString *userAgentString;
@@ -9,7 +9,7 @@
  - (void)fetchAppcastFromURL:(NSURL *)url completionBlock:(void (^)(NSError *))err;
  - (SUAppcast *)copyWithoutDeltaUpdates;
 --- Sparkle/Sparkle/SUAppcast.m	2016-08-07 06:39:07.000000000 -0400
-+++ Sparkle_/Sparkle/SUAppcast.m	2016-09-07 16:20:56.000000000 -0400
++++ Sparkle_/Sparkle/SUAppcast.m	2017-01-11 06:06:38.000000000 -0500
 @@ -14,6 +14,7 @@
  #import "SUAppcast.h"
  #import "SUConstants.h"
@@ -44,12 +44,16 @@
      [[NSFileManager defaultManager] removeItemAtPath:self.downloadFilename error:nil];
 diff -u -r Sparkle/Sparkle/SUBasicUpdateDriver.m Sparkle_/Sparkle/SUBasicUpdateDriver.m
 --- Sparkle/Sparkle/SUBasicUpdateDriver.m	2016-09-04 08:25:24.000000000 -0400
-+++ Sparkle_/Sparkle/SUBasicUpdateDriver.m	2016-09-07 16:20:59.000000000 -0400
-@@ -56,6 +56,7 @@
++++ Sparkle_/Sparkle/SUBasicUpdateDriver.m	2017-01-11 06:22:49.000000000 -0500
+@@ -56,6 +56,11 @@
  
      [appcast setUserAgentString:[self.updater userAgentString]];
      [appcast setHttpHeaders:[self.updater httpHeaders]];
-+    [appcast setPublicDSAKey: aHost.publicDSAKey];
++    if (   [aHost boolForInfoDictionaryKey: @"TBAppcastRequiresDSASignature"]  ) {
++	    [appcast setPublicDSAKey: aHost.publicDSAKey];
++	} else {
++	    [appcast setPublicDSAKey: nil];
++	}
      [appcast fetchAppcastFromURL:URL completionBlock:^(NSError *error) {
          if (error) {
              [self abortUpdateWithError:error];
@@ -67,8 +71,8 @@ diff -u -r Sparkle/Sparkle/SUDSAVerifier.h Sparkle_/Sparkle/SUDSAVerifier.h
  - (BOOL)verifyFileAtPath:(NSString *)path signature:(NSData *)signature;
 diff -u -r Sparkle/Sparkle/SUDSAVerifier.m Sparkle_/Sparkle/SUDSAVerifier.m
 --- Sparkle/Sparkle/SUDSAVerifier.m	2016-07-26 05:39:44.000000000 -0400
-+++ Sparkle_/Sparkle/SUDSAVerifier.m	2016-09-07 15:53:35.000000000 -0400
-@@ -42,6 +42,103 @@
++++ Sparkle_/Sparkle/SUDSAVerifier.m	2017-01-10 17:04:26.000000000 -0500
+@@ -42,6 +42,212 @@
      return [verifier verifyFileAtPath:path signature:signature];
  }
  
@@ -92,6 +96,44 @@ diff -u -r Sparkle/Sparkle/SUDSAVerifier.m Sparkle_/Sparkle/SUDSAVerifier.m
 +    return [verifier verifyStream:dataInputStream signature:signature];
 +}
 +
+++ (BOOL) isItem: (NSString *) itemName before: (NSString *) beforeDateTime orAfter: (NSString *) afterDateTime
++{
++	// Returns TRUE if the current date is before or after the specified date/times
++	// Each date/time should be a string of the form YYYY-MM-DDTHH:MM:SS
++	
++	// Get current date and time
++	NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
++	[formatter setDateFormat: @"yyyy-MM-dd'T'HH:mm:ss"];
++	[formatter setTimeZone: [NSTimeZone timeZoneForSecondsFromGMT: 0]];
++	[formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
++	NSString * currentDateTime = [formatter stringFromDate: [NSDate date]];
++	
++	if (  NSOrderedDescending == [beforeDateTime compare: currentDateTime]  ) {
++		SULog(@"Failed to verify %@ signature; signature not yet valid; it will be valid starting %@ (now = %@)", itemName, beforeDateTime, currentDateTime);
++		return YES;
++	}
++	if (  NSOrderedAscending == [afterDateTime compare: currentDateTime]  ) {
++		SULog(@"Failed to verify %@ signature; signature no longer valid; it was valid until %@ (now = %@)", itemName, afterDateTime, currentDateTime);
++		return YES;
++	}
++
++	return NO;
++}
++
+++ (void)dumpArray: (NSArray *) array
++{
++	NSMutableString * message = [[NSMutableString alloc] initWithCapacity: 1000];
++	[message appendString: @"Fields found in signature and validation comments:\n"];
++	unsigned i;
++	for (  i=0; i<[array count]; i++  ) {
++		NSString * oneField = [NSString stringWithFormat: @"     [%d]: '%@'\n", i, [array objectAtIndex: i]];
++		[message appendString: oneField];
++	}
++	
++	SULog(@"%@", message);
++}
++
++
 ++ (BOOL)validateSignedXMLFileAtPath:(NSString *)path fromItemName:(NSString *)itemName withPublicDSAKey:(NSString *)pkeyString
 +{
 +/* Verifies that the contents of an XML/HTML file were signed using a digital signature in an XML/HTML comment prepended to the contents.
@@ -100,30 +142,54 @@ diff -u -r Sparkle/Sparkle/SUDSAVerifier.m Sparkle_/Sparkle/SUDSAVerifier.m
 +   "itemName" is a name describing the data (examples: "appcast", "update notes")
 +   "publicDSAKey" is used to verify the signature.
 +
-+   The file must start with an XML/HTML comment containing a digital signature of the remainder of the file. The comment is of the form:
-+        <!-- Tunnelblick DSA Signature v1 SIGNATURE -->\n
-+   where SIGNATURE is a 64-character encoded digital signature created by the Sparkle-provided "sign_update.rb" command using a private DSA key.
++   The file must start with two fixed-length XML/HTML comments:
++		
++		The "signature comment" contains a digital signature of the remainder of the file.
++			The comment 103 bytes long and is of the form:
++				<!-- Tunnelblick_DSA_Signature v2 SIGNATURE -->\n
++			where SIGNATURE is a 64-character base-64 encoded digital signature created by the Sparkle-provided "sign_update.rb"
++			      command using a private DSA key.
++			
++		The "validation comment" contains information about the validity of the file.
++			The comment is of the form:
++				<!--LENGTH BEFORE_DATE AFTER_DATE -->\n
++			where LENGTH (7 digits with leading zeroes) is the length in bytes of the remainder of the file after the validation comment and its terminating LF;
++			and BEFORE_DATE (YYYY-MM-DDTHH:MM:SS) is the date before which the signature is NOT valid;
++			and AFTER_DATE (YYYY-MM-DDTHH:MM:SS)  is the date after which the signature is NOT valid.
 +
++		In both comments, there must be exactly one space character between each part of the comment.
++
++   Example:
++   
++		<!-- Tunnelblick_Signature v2 MC4CFQCt61RNh0xUU9AtTI/7yoXqDURxQAIVAJGrfk+pD1iRy8ggGtV2meEK6qxD ->
++		<!-- 0000833 2017-01-15T22:59:02 2017-03-15T22:59:02 ->
++		
++   	
 +   Notes:
-+     1. The signature is calculated on a file, and then the comment with the signature is prepended to the file.
-+     2. The signature comment is plain (7-bit) ASCII, but the remainder of the file can have any encoding.
++     1. The validity comment and LF is prepended to the file, the signature is calculated on the result, and then the signature
++		comment and LF is prepended to the file, so the signature protects the validity information.
++     2. The comments are plain (7-bit) ASCII, but the remainder of the file can have any encoding.
 + */
-+    
++
++// Lengths of fields in the comments are fixed as follows (all must fit in an unsigned integer:
++#define TB_SIGNATURE_COMMENT_LENGTH       99
++#define TB_VALIDATION_COMMENT_LENGTH      57
++#define TB_NUMBER_OF_PARSED_FIELDS         9
++#define TB_ENCODED_SIGNATURE_LENGTH       64
++#define TB_LENGTH_LENGTH                   7
++//  if  TB_LENGTH_LENGTH changes, the format string used to create payloadLengthString must be modified correspondingly 
++#define TB_DATE_LENGTH                    19
++#define TB_MAX_FILE_SIZE		     9999999
++
 +    if (  !path || !itemName || !pkeyString  ) {
 +        SULog(@"path, itemName, and/or PublicDSAKey == nil");
 +        return NO;
 +    }
 +    
-+    const char *comment_prefix = "<!-- Tunnelblick DSA Signature v1 ";
-+    const char *comment_suffix = " -->\n";
-+    const int encoded_signature_length = 64;
-+    NSUInteger commentLength = strlen(comment_prefix) + encoded_signature_length + strlen(comment_suffix);
-+
-+    // Sanity check: the data can't be too small or too big
 +    NSDictionary *infoDict = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
 +    unsigned long long fileSize = [infoDict fileSize];
-+    if (   fileSize < commentLength
-+        || fileSize > 1000000  ) {
++    if (   (fileSize <= TB_SIGNATURE_COMMENT_LENGTH + TB_VALIDATION_COMMENT_LENGTH)
++        || fileSize > TB_MAX_FILE_SIZE  ) {
 +        SULog(@"%@ is unreadable, too short, or too long at %@", itemName, path);
 +        return NO;
 +    }
@@ -134,39 +200,86 @@ diff -u -r Sparkle/Sparkle/SUDSAVerifier.m Sparkle_/Sparkle/SUDSAVerifier.m
 +        return NO;
 +    }
 +    
-+    const char *comment_ptr     = [data bytes];
-+    const char *signature_ptr   = comment_ptr + strlen(comment_prefix);
-+    const char *comment_end_start_ptr = signature_ptr + encoded_signature_length;
-+    
-+    if (   (strncmp(comment_ptr,     comment_prefix, strlen(comment_prefix)) != 0)
-+        || (strncmp(comment_end_start_ptr, comment_suffix, strlen(comment_suffix)) != 0)  ) {
-+        SULog(@"The %@ signature at %@ was not present or was not formatted correctly", itemName, path);
-+        return NO;
-+    }
++	// Isolate the comments and "parse" them into fields separated by a single space character
++	NSString * comments = [[NSString alloc] initWithBytes: [data bytes] length: (TB_SIGNATURE_COMMENT_LENGTH + TB_VALIDATION_COMMENT_LENGTH) encoding: NSASCIIStringEncoding];
++	if (  ! comments  ) {
++			SULog(@"Failed to verify %@ signature; the signature and validation comments are not 7-bit ASCII", itemName);
++		return NO;
++	}
++	NSArray * parsed = [comments componentsSeparatedByString: @" "];
++	if (  [parsed count] != TB_NUMBER_OF_PARSED_FIELDS  ) {
++		SULog(@"Failed to verify %@ signature; the signature and validation comments had %lu fields; they should have %u fields", itemName, (unsigned long)[parsed count], TB_NUMBER_OF_PARSED_FIELDS);
++		[SUDSAVerifier dumpArray: parsed];
++		return NO;
++	}
++	
++	// Check the fixed components of the comments
++	if (   [[parsed objectAtIndex: 0] isNotEqualTo: @"<!--"]
++		|| [[parsed objectAtIndex: 1] isNotEqualTo: @"Tunnelblick_Signature"]
++		|| [[parsed objectAtIndex: 2] isNotEqualTo: @"v2"]
++		|| [[parsed objectAtIndex: 4] isNotEqualTo: @"-->\n<!--"]
++		|| [[parsed objectAtIndex: 8] isNotEqualTo: @"-->\n"]
++		) {
++			SULog(@"Failed to verify %@ signature; one or more fixed fields were not correct", itemName);
++		[SUDSAVerifier dumpArray: parsed];
++		return NO;
++	}
++	
++	// Extract and check the variable components of the comments
++	NSString * signature  = [parsed objectAtIndex: 3];
++	NSString * length     = [parsed objectAtIndex: 5];
++	NSString * beforeDate = [parsed objectAtIndex: 6];
++	NSString * afterDate  = [parsed objectAtIndex: 7];
++	
++	if (   ([signature  length] != TB_ENCODED_SIGNATURE_LENGTH)
++		|| ([length     length] != TB_LENGTH_LENGTH)
++		|| ([beforeDate length] != TB_DATE_LENGTH)
++		|| ([afterDate  length] != TB_DATE_LENGTH)
++		) {
++		SULog(@"Failed to verify %@ signature; one or more variable fields was not the correct length", itemName);
++		[SUDSAVerifier dumpArray: parsed];
++		return NO;
++	}
++	
++	// The "payloadLength" is the length of the file before the comments were prepended to it.
++    unsigned long payloadLength = ((unsigned long)fileSize) - TB_SIGNATURE_COMMENT_LENGTH - TB_VALIDATION_COMMENT_LENGTH;
++    NSString * payloadLengthString = [NSString stringWithFormat: @"%07lu", payloadLength];
++	if (   [length isNotEqualTo: payloadLengthString]  ) {
++		SULog(@"Failed to verify %@ signature; expected payload length was '%@' but the actual payload length was '%@'; ", itemName, length, payloadLengthString);
++		return NO;
++	}
 +
-+    NSString *signature = [[NSString alloc] initWithBytes: signature_ptr length: encoded_signature_length encoding: NSASCIIStringEncoding];
-+    if (  ! signature  ) {
-+        SULog(@"The %@ signature at %@ was not 7-bit ASCII", itemName, path);
-+        return NO;
-+    }
-+
-+    // Remove the comment from the start of the data before verifying
-+    const char *content_start_ptr = comment_ptr + commentLength;
-+    NSData *signedContents = [NSData dataWithBytes: content_start_ptr length: fileSize - commentLength];
-+    if (  ! signedContents  ) {
-+        SULog(@"Cannot load signed contents of %@ at %@", itemName, path);
-+        return NO;
-+    }
-+
-+    // Verify the signature on the data
++	if (   [[beforeDate substringWithRange: NSMakeRange(4,  1)] isNotEqualTo: @"-"]
++		|| [[beforeDate substringWithRange: NSMakeRange(7,  1)] isNotEqualTo: @"-"]
++		|| [[beforeDate substringWithRange: NSMakeRange(10, 1)] isNotEqualTo: @"T"]
++		|| [[beforeDate substringWithRange: NSMakeRange(13, 1)] isNotEqualTo: @":"]
++		|| [[beforeDate substringWithRange: NSMakeRange(16, 1)] isNotEqualTo: @":"]
++		|| [[afterDate  substringWithRange: NSMakeRange(4,  1)] isNotEqualTo: @"-"]
++		|| [[afterDate  substringWithRange: NSMakeRange(7,  1)] isNotEqualTo: @"-"]
++		|| [[afterDate  substringWithRange: NSMakeRange(10, 1)] isNotEqualTo: @"T"]
++		|| [[afterDate  substringWithRange: NSMakeRange(13, 1)] isNotEqualTo: @":"]
++		|| [[afterDate  substringWithRange: NSMakeRange(16, 1)] isNotEqualTo: @":"]  ) {
++		SULog(@"Failed to verify %@ signature; one or more date fields was not formatted properly (must be YYYY-MM-DDTHH:MM:SS)", itemName);
++		[SUDSAVerifier dumpArray: parsed];
++		return NO;
++	}
++	
++	// Verify the signature on the data
++	unsigned long signedLength = TB_VALIDATION_COMMENT_LENGTH + payloadLength;
++	const void * signedStart = (const void *)(((const char *)[data bytes]) + TB_SIGNATURE_COMMENT_LENGTH);
++	NSData * signedContents = [NSData dataWithBytes: signedStart length: signedLength];
 +    BOOL itemSignatureIsGood = [SUDSAVerifier validateData: signedContents withEncodedDSASignature: signature withPublicDSAKey: pkeyString];
-+    if (  itemSignatureIsGood  ) {
-+        SULog(@"Verified %@ signature", itemName);
-+        return YES;
-+    }
-+    
-+    SULog(@"Failed to verify %@ signature", itemName);
-+    return NO;
++    if (  ! itemSignatureIsGood  ) {
++		SULog(@"Failed to verify %@ signature", itemName);
++		return NO;
++	}
++
++	if (  [SUDSAVerifier isItem: itemName before: beforeDate orAfter: afterDate]  ) {
++		return NO;	// (Error message has been logged)
++	}
++	
++	SULog(@"Verified %@ signature", itemName);
++	return YES;
 +}
 +
  - (instancetype)initWithPublicKeyData:(NSData *)data

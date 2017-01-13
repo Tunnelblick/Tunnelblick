@@ -1,0 +1,74 @@
+#! /bin/bash -e
+#
+# Signs or re-signs an appcast or release notes file with a Tunnelblick v1 signature.
+#
+# The arguments are the path to the private key and the path to the file.
+#
+# A file with a Tunnelblick version 1 signature comes in two parts:
+#
+#		An HTML comment with the signature terminated by an LF character
+#		The contents of the file itself
+#
+# Copyright © 2016, 2017 by Jonathan K. Bullard. All rights reserved.
+
+
+readonly temp_file="/tmp/net.tunnelblick.tunnelblick-tmp.txt"
+
+readonly name="$(  basename "$0"  )"
+readonly usage_message="Usage: $name   private-key-path   file-path"
+
+if [ "$#" != "2" ]; then
+	echo "Wrong number of arguments"
+	echo "$usage_message"
+	exit 1
+fi
+
+readonly private_key_path="$1";
+readonly private_key_extension="${private_key_path:(-4)}"
+if [ "${private_key_extension}" != ".pem" ] ; then
+	echo "$usage_message"
+	echo "The private-key is a '$private_key_extension' file. It must be a \".pem\" file"
+	exit 1
+fi
+
+readonly file_path="$2";
+
+# Make sure the private key and the file are available
+if [ ! -e "$private_key_path"  ] ; then
+	echo "Private key does not exist at $private_key_path"
+	echo "$usage_message"
+	exit 1
+fi
+
+if [ ! -e "$file_path" ]; then
+	echo "File to be signed does not exist: $file_path"
+	echo "$usage_message"
+	exit 1
+fi
+
+# Get the contents of the file after removing existing signature and validity lines (if any)
+readonly first_line="$(head -n 1 "$file_path")"
+readonly first_34_chars="${first_line:0:34}"
+if [ "$first_34_chars" == "<!-- Tunnelblick DSA Signature v1 " ] ; then
+	echo "$(tail -n +2 "$file_path")" > "$temp_file"
+else
+	readonly first_30_chars="${first_line:0:30}"
+	if [ "$first_30_chars" == "<!-- Tunnelblick_Signature v2 " ] ; then
+		echo "$(tail -n +3 "$file_path")" > "$temp_file"
+	else
+		cat "$file_path" > "$temp_file"
+	fi
+fi
+
+# Get the new signature
+readonly new_sig="$(  openssl dgst -sha1 -binary < "$temp_file" | openssl dgst -dss1 -sign "$private_key_path" | openssl enc -base64 )"
+
+# Replace the input file: First line is the new signature comment
+new_line="<!-- Tunnelblick DSA Signature v1 $new_sig -->"
+echo "$new_line" > "$file_path"
+
+# Rest of new contents is the old file (without the signature line)
+cat "$temp_file" >> "$file_path"
+
+# Remove temporary file
+rm -f "$temp_file"
