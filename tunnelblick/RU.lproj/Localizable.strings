@@ -1355,7 +1355,7 @@
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Пропущено копирование %@, потому что файл с таким именем и содержимым уже был скопирован.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Запускаем Tunnelblick %@…";
+"Starting Tunnelblick %@..." = "Запуск Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Заставка:";
@@ -1961,34 +1961,34 @@
 "Admin mode %@ remaining" = "Для режима администратора остаётся %@";
 
 /* Credit description */
-"Afrikaans translation" = "Локализация африкаанс";
+"Afrikaans translation" = "Афринанский перевод";
 
 /* Credit description */
 "Animation and icon sets code" = "Анимация и наборы иконок";
 
 /* Credit description */
-"Arabic translation" = "Арабская локализация";
+"Arabic translation" = "Арабский перевод";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Аутентификация…";
 
 /* Credit description */
-"Azerbaijani translation" = "Азербайджанская локализация";
+"Azerbaijani translation" = "Азербайджанский перевод";
 
 /* Credit description */
-"Bulgarian translation" = "Болгарская локализация";
+"Bulgarian translation" = "Болгарский перевод";
 
 /* Credit description */
 "Button images" = "Изображения на кнопках";
 
 /* Credit description */
-"Catalan translation" = "Каталанская локализация";
+"Catalan translation" = "Каталанский перевод";
 
 /* Credit description */
-"Chinese (simplified) translation" = "Перевод на китайский (упрощенный)";
+"Chinese (simplified) translation" = "Китайский (упрощенный) перевод";
 
 /* Credit description */
-"Chinese (traditional) translation" = "Перевод на китайский (традиционный)";
+"Chinese (traditional) translation" = "Китайский (традиционный) перевод";
 
 /* Credentials name */
 "Common" = "Общие";
@@ -2003,13 +2003,13 @@
 "Contributed to early code" = "Вклад в ранний код";
 
 /* Credit description */
-"Croatian translation" = "Хорватская локализация";
+"Croatian translation" = "Хорватский перевод";
 
 /* Credit description */
-"Czech translation" = "Чешская локализация";
+"Czech translation" = "Чешский перевод";
 
 /* Credit description */
-"Danish translation" = "Датская локализация";
+"Danish translation" = "Датский перевод";
 
 /* Speak string */
 "Disconnected from %@" = "Отключено от %@";
@@ -2018,7 +2018,7 @@
 "Do not show this again" = "Не показывать это в будущем";
 
 /* Credit description */
-"Dutch translation" = "Нидерландская локализация";
+"Dutch translation" = "Нидерландский перевод";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2026,52 +2026,52 @@
 "Enter admin mode" = "Войти в режим администратора";
 
 /* Credit description */
-"Estonian translation" = "Эстонская локализация";
+"Estonian translation" = "Эстонский перевод";
 
 /* Credit description */
-"Finnish translation" = "Финская локализация";
+"Finnish translation" = "Финский перевод";
 
 /* Credit description */
 "Founder, original program and documentation" = "Основатель, изначальный программист и автор документации";
 
 /* Credit description */
-"French translation" = "Французская локализация";
+"French translation" = "Французский перевод";
 
 /* Credit description */
-"German translation" = "Немецкая локализация";
+"German translation" = "Немецкий перевод";
 
 /* Credit description */
-"Greek translation" = "Греческая локализация";
+"Greek translation" = "Греческий перевод";
 
 /* Credit description */
-"Hungarian translation" = "Венгерская локализация";
+"Hungarian translation" = "Венгерский перевод";
 
 /* Credit description */
-"Icelandic translation" = "Исландская локализация";
+"Icelandic translation" = "Исландский перевод";
 
 /* Credit description */
 "Icon set including Retina images" = "Набор иконок, включая изображения для экрана Retina";
 
 /* Credit description */
-"Indonesian translation" = "Индонезийская локализация";
+"Indonesian translation" = "Индонезийский перевод";
 
 /* Credit description */
-"Italian translation" = "Итальянская локализация";
+"Italian translation" = "Итальянский перевод";
 
 /* Credit description */
-"Japanese translation" = "Японская локализация";
+"Japanese translation" = "Японский перевод";
 
 /* Credit description */
-"Korean translation" = "Корейская локализация";
+"Korean translation" = "Корейский перевод";
 
 /* [name of your language] translation */
-"LANGUAGE_TRANSLATION" = "Русская локализация";
+"LANGUAGE_TRANSLATION" = "Русский перевод";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Eugene Trufanov, Dennis Ukhanov, Nail Gilmanov, & Victor Ptichkin";
 
 /* Credit description */
-"Latvian translation" = "Латвийская локализация";
+"Latvian translation" = "Латышский перевод";
 
 /* Credit description */
 "Localization code tweaks" = "Оптимизация кода локализации";
@@ -2080,7 +2080,7 @@
 "Multiple configuration folders" = "Различные каталоги конфигураций";
 
 /* Credit description */
-"Norwegian translation" = "Норвежская локализация";
+"Norwegian translation" = "Норвежский перевод";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 и 64-битная интеграция";
@@ -2089,49 +2089,49 @@
 "PKCS#11 support" = "Поддержка PKCS#11";
 
 /* Credit description */
-"Persian translation" = "Персидская локализация";
+"Persian translation" = "Персидский перевод";
 
 /* Credit description */
-"Polish translation" = "Польская локализация";
+"Polish translation" = "Польский перевод";
 
 /* Credit description */
-"Portuguese (Brazilian) translation" = "Португальская (бразильская) локализация";
+"Portuguese (Brazilian) translation" = "Португальский (бразильский) перевод";
 
 /* Credit description */
-"Portuguese translation" = "Португальская локализация";
+"Portuguese translation" = "Португальский перевод";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Поддержка и улучшение программы и документации после версии 3.0b10";
 
 /* Credit description */
-"Romanian translation" = "Румынская локализация";
+"Romanian translation" = "Румынский перевод";
 
 /* Credit description */
-"Russian translation" = "Русская локализация";
+"Russian translation" = "Русский перевод";
 
 /* Credit description */
-"Serbian (Latin) translation" = "Сербская (с латиницей) локализация";
+"Serbian (Latin) translation" = "Сербский (с латиницей) перевод";
 
 /* Credit description */
-"Slovak translation" = "Словацкая локализация";
+"Slovak translation" = "Словацкий перевод";
 
 /* Credit description */
-"Spanish translation" = "Испанская локализация";
+"Spanish translation" = "Испанский перевод";
 
 /* Credit description */
-"Swedish translation" = "Шведская локализация";
+"Swedish translation" = "Шведский перевод";
 
 /* Credit description */
 "Tunnelblick icon" = "Значок Tunnelblick";
 
 /* Credit description */
-"Turkish translation" = "Турецкая локализация";
+"Turkish translation" = "Турецкий перевод";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue и UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian translation" = "Украинская локализация";
+"Ukrainian translation" = "Украинский перевод";
 
 /* Credit description */
 "Up and Down scripts" = "Скрипты подключения и разъединения";

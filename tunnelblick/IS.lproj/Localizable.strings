@@ -71,10 +71,10 @@
 "Continue" = "Halda áfram";
 
 /* Button */
-"Convert Configurations" = "Umbreyta uppsetningum";
+"Convert Configurations" = "Umbreyta prófílum";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Afrita atvikaskrá yfir á klippiborðið";
+"Copy Console Log to Clipboard" = "Afrita atburðaskrá yfir á klippiborðið";
 
 /* Button */
 "Copy Diagnostic Info to Clipboard" = "Afrita greiningarupplýsingar á klippiborðið";
@@ -98,7 +98,7 @@
 "Delete" = "Eyða";
 
 /* Button */
-"Disconnect" = "Aftengja";
+"Disconnect" = "Aftengjast";
 
 /* Button */
 "Do not check for a change" = "Ekki gá að breytingu";
@@ -170,7 +170,7 @@
 "Open easy-rsa in Terminal" = "Opna easy-rsa í Terminal";
 
 /* Button */
-"Place Icon Near the Spotlight Icon" = "Place Icon Near the Spotlight Icon";
+"Place Icon Near the Spotlight Icon" = "Setja táknmynd við Spotlight-táknmyndina";
 
 /* Button */
 "Place Icon Normally" = "Place Icon Normally";
@@ -182,7 +182,7 @@
 "Quit All OpenVPN Processes" = "Enda alla OpenVPN ferla";
 
 /* Button */
-"Quit" = "Hætta";
+"Quit" = "Hætta í";
 
 /* Button */
 "Reinstall" = "Endurinnsetja";
@@ -200,7 +200,7 @@
 "Restart connection" = "Endurræsa tengingu";
 
 /* Button */
-"Restore" = "Restore";
+"Restore" = "Endurstilla";
 
 /* Button */
 "Retry" = "Reyna aftur";
@@ -218,85 +218,85 @@
 "Show when connection status changes" = "Show when connection status changes";
 
 /* Button */
-"Show while connecting" = "Show while connecting";
+"Show while connecting" = "Sýna meðan á tengingu stendur";
 
 /* Button */
-"Skip" = "Skip";
+"Skip" = "Sleppa";
 
 /* Button */
-"Speak" = "Speak";
+"Speak" = "Tala";
 
 /* Button */
-"Standard icon" = "Standard icon";
+"Standard icon" = "Sjálfgefin táknmynd";
 
 /* Button */
-"Terminate All OpenVPN processes" = "Terminate All OpenVPN processes";
+"Terminate All OpenVPN processes" = "Hætta í öllum OpenVPN-þráðum";
 
 /* Button */
-"Terminate" = "Terminate";
+"Terminate" = "Hætta";
 
 /* Button */
-"This configuration has its own separate credentials" = "This configuration has its own separate credentials";
+"This configuration has its own separate credentials" = "Þessi prófíll hefur sín eigin auðkennisgögn";
 
 /* Button */
-"This configuration uses %@ credentials" = "This configuration uses %@ credentials";
+"This configuration uses %@ credentials" = "Þessi prófíll notar auðkennisgögn %@";
 
 /* Button */
-"Try again with saved passphrase" = "Try again with saved passphrase";
+"Try again with saved passphrase" = "Reyna aftur með vistuðu aðgangsorði";
 
 /* Button */
-"Try again with saved username and password" = "Try again with saved username and password";
+"Try again with saved username and password" = "Reyna aftur með vistuðu notandanafni og lykilorði";
 
 /* Button */
-"Try again" = "Try again";
+"Try again" = "Reyna aftur";
 
 /* Button */
-"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 icon";
+"Tunnelblick 3.3 icon" = "Táknmynd Tunnelblick 3.3";
 
 /* Button */
-"When Tunnelblick launches" = "When Tunnelblick launches";
+"When Tunnelblick launches" = "Þegar Tunnelblick opnast";
 
 /* Button */
-"When computer starts" = "When computer starts";
+"When computer starts" = "Þegar tölvan ræsist upp";
 
 /* Menu item */
-"Add a VPN..." = "Add a VPN…";
+"Add a VPN..." = "Bæta við VPN…";
 
 /* Menu item */
-"Connect %@%@" = "Connect %@%@";
+"Connect %@%@" = "Tengjast (%@%@)";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "Delete Configuration's Credentials in Keychain…";
+"Delete Configuration's Credentials in Keychain..." = "Eyða auðkennisgögnum úr Keychain…";
 
 /* Menu item tooltip */
 "Disabled because this setting is being forced" = "Disabled because this setting is being forced";
 
 /* Menu item */
-"Disconnect %@%@" = "Disconnect %@%@";
+"Disconnect %@%@" = "Aftengjast (%@%@)";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Do Not Show on Tunnelblick Menu";
+"Do Not Show on Tunnelblick Menu" = "Ekki sýna í valmynd Tunnelblick";
 
 /* Menu Item */
-"Duplicate Configuration..." = "Duplicate Configuration…";
+"Duplicate Configuration..." = "Tvírita prófíl…";
 
 /* Menu Item */
-"Edit OpenVPN Configuration File..." = "Edit OpenVPN Configuration File…";
+"Edit OpenVPN Configuration File..." = "Breyta OpenVPN-prófílskrá…";
 
 /* Menu Item */
-"Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File…";
+"Examine OpenVPN Configuration File..." = "Skoða OpenVPN-prófílskrá…";
 
 /* Menu Item */
-"Make Configuration Private..." = "Make Configuration Private…";
+"Make Configuration Private..." = "Gera prófíl leynilegan…";
 
 /* Menu Item */
-"Make Configuration Shared..." = "Make Configuration Shared…";
+"Make Configuration Shared..." = "Gera prófíl opinberan…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "No OpenVPN or Tunnelblick VPN logging";
+"No OpenVPN or Tunnelblick VPN logging" = "Engin atburðaskráning með OpenVPN né Tunnelblick";
 
 /* Menu item */
-"No VPN Configurations Available" = "No VPN Configurations Available";
+"No VPN Configurations Available" = "Enginn VPN-prófíll uppsettur";
 
 /* Menu Item */
 "OpenVPN level %lu" = "OpenVPN level %lu";
@@ -323,13 +323,13 @@
 "OpenVPN logging level set by the configuration" = "OpenVPN logging level set by the configuration";
 
 /* Menu item */
-"Quit Tunnelblick" = "Quit Tunnelblick";
+"Quit Tunnelblick" = "Hætta í Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Rename Configuration…";
+"Rename Configuration..." = "Endurskíra prófil…";
 
 /* Menu Item */
-"Revert Configuration..." = "Revert Configuration…";
+"Revert Configuration..." = "Endurstilla prófíl…";
 
 /* Menu Item */
 "Show OpenVPN Log in Finder" = "Sýna OpenVPN atburðaskrána í Finder";
@@ -344,10 +344,10 @@
 "VPN Details..." = "VPN upplýsingar...";
 
 /* Checkbox name */
-"Apply to all" = "Apply to all";
+"Apply to all" = "Stilla á allt";
 
 /* Checkbox name */
-"Check for updates automatically" = "Check for updates automatically";
+"Check for updates automatically" = "Athuga sjálfkrafa með uppfærslur";
 
 /* Checkbox name */
 "Check for updates to beta versions" = "Check for updates to beta versions";
@@ -356,13 +356,13 @@
 "Check if the apparent public IP address changed after connecting" = "Check if the apparent public IP address changed after connecting";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "Disable IPv6 (tun only)";
+"Disable IPv6 (tun only)" = "Afvirkja IPv6 (bara „tun“)";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "Disconnect when computer goes to sleep";
+"Disconnect when computer goes to sleep" = "Aftengjast þegar tölvan sofnar";
 
 /* Checkbox name */
-"Disconnect when user switches out" = "Disconnect when user switches out";
+"Disconnect when user switches out" = "Aftengjast þegar skipt er um notanda";
 
 /* Checkbox name */
 "Display connection submenus" = "Display connection submenus";
@@ -374,7 +374,7 @@
 "Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
 
 /* Checkbox name */
-"Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
+"Do not ask again, always 'Ignore'" = "Ekki spyrja aftur, hunsa alltaf";
 
 /* Checkbox name */
 "Do not ask again, always Continue" = "Do not ask again, always Continue";
@@ -383,22 +383,22 @@
 "Do not ask again, always convert" = "Do not ask again, always convert";
 
 /* Checkbox name */
-"Do not check for IP address changes" = "Do not check for IP address changes";
+"Do not check for IP address changes" = "Ekki athuga með breytingar við IP-tölur";
 
 /* Checkbox name on a warning dialog */
-"Do not show again for any configuration" = "Do not show again for any configuration";
+"Do not show again for any configuration" = "Ekki sýna aftur fyrir neinn prófíl";
 
 /* Checkbox name */
-"Do not show this type of warning again" = "Do not show this type of warning again";
+"Do not show this type of warning again" = "Ekki sýna þess konar viðvörun aftur";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Do not warn about this again for this configuration";
 
 /* Checkbox name */
-"Do not warn about this again" = "Do not warn about this again";
+"Do not warn about this again" = "Ekki vara við þessu aftur";
 
 /* Checkbox name */
-"Enable IPv6 (tap only)" = "Enable IPv6 (tap only)";
+"Enable IPv6 (tap only)" = "Virkja IPv6 (bara „tap“)";
 
 /* Checkbox name */
 "Flush DNS cache after connecting or disconnecting" = "Flush DNS cache after connecting or disconnecting";
@@ -407,19 +407,19 @@
 "Inhibit automatic update checking and IP Address checking" = "Inhibit automatic update checking and IP Address checking";
 
 /* Checkbox name */
-"Keep connected" = "Keep connected";
+"Keep connected" = "Halda tengingu";
 
 /* Checkbox name */
-"Monitor network settings" = "Monitor network settings";
+"Monitor network settings" = "Fylgjast með netstillingum";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Place near Spotlight icon";
+"Place near Spotlight icon" = "Setja við Spotlight-táknmyndina";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Prepend domain name to search domains";
 
 /* Checkbox name */
-"Reconnect when computer wakes up" = "Reconnect when computer wakes up";
+"Reconnect when computer wakes up" = "Tengjast aftur þegar tölvan vaknar";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Reconnect when user switches in";
@@ -437,7 +437,7 @@
 "Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
 
 /* Checkbox name */
-"Save in Keychain" = "Save in Keychain";
+"Save in Keychain" = "Vista í Keychain";
 
 /* Checkbox name */
 "Send anonymous profile information when checking" = "Send anonymous profile information when checking";
@@ -446,82 +446,82 @@
 "Set DNS after routes are set" = "Set DNS after routes are set";
 
 /* Checkbox name */
-"Show when disconnected" = "Show when disconnected";
+"Show when disconnected" = "Sýna þótt engin tenging sé";
 
 /* Checkbox name */
-"Show when the pointer is over the Tunnelblick icon" = "Show when the pointer is over the Tunnelblick icon";
+"Show when the pointer is over the Tunnelblick icon" = "Sýna þegar bendillinn er yfir Tunnelblick-táknmyndinni";
 
 /* PopUpButton */
-"Do not set nameserver" = "Do not set nameserver";
+"Do not set nameserver" = "Ekki stilla nafnþjón";
 
 /* PopUpButton */
-"Set nameserver (3.0b10)" = "Set nameserver (3.0b10)";
+"Set nameserver (3.0b10)" = "Stilla nafnþjón (3.0b10)";
 
 /* PopUpButton */
-"Set nameserver (3.1)" = "Set nameserver (3.1)";
+"Set nameserver (3.1)" = "Stilla nafnþjón (3.1)";
 
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Set nameserver (alternate 1)";
 
 /* PopUpButton *//* System profile item */
-"Set nameserver" = "Set nameserver";
+"Set nameserver" = "Stilla nafnþjón";
 
 /* Text on disk image */
-"Double-click to begin" = "Double-click to begin";
+"Double-click to begin" = "Tvísmelltu til að byrja";
 
 /* Connection status */
-"ADD_ROUTES" = "Adding routes"; // Please translate "Adding routes"
+"ADD_ROUTES" = "Bætir leiðum við"; // Please translate "Adding routes"
 
 /* Connection status */
-"ASSIGN_IP" = "Assigning IP address"; // Please translate "Assigning IP address"
+"ASSIGN_IP" = "Úthlutar IP-tölu"; // Please translate "Assigning IP address"
 
 /* Connection status */
-"AUTH" = "Authorizing"; // Please translate "Authorizing"
+"AUTH" = "Unnið úr auðkenningu"; // Please translate "Authorizing"
 
 /* Connection status */
-"CONNECTED" = "Connected"; // Please translate "Connected"
+"CONNECTED" = "Tengt"; // Please translate "Connected"
 
 /* Connection status */
-"CONNECTING" = "Connecting"; // Please translate "Connecting"
+"CONNECTING" = "Tengist"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "Disconnecting"; // Please translate "Disconnecting"
+"DISCONNECTING" = "Aftengist"; // Please translate "Disconnecting"
 
 /* Connection status */
-"EXITING" = "Disconnected"; // Please translate "Disconnected"
+"EXITING" = "Aftengt"; // Please translate "Disconnected"
 
 /* Connection status */
-"GET_CONFIG" = "Getting configuration"; // Please translate ""
+"GET_CONFIG" = "Sækir stillingar"; // Please translate ""
 
 /* Connection status */
-"PASSWORD_WAIT" = "Waiting for password"; // Please translate "Waiting for password"
+"PASSWORD_WAIT" = "Bíður eftir lykilorði"; // Please translate "Waiting for password"
 
 /* Connection status */
-"PRIVATE_KEY_WAIT" = "Waiting for passphrase"; // Please translate "Waiting for password"
+"PRIVATE_KEY_WAIT" = "Bíður eftir aðgangsorði"; // Please translate "Waiting for password"
 
 /* Connection status */
-"RECONNECTING" = "Reconnecting"; // Please translate ""
+"RECONNECTING" = "Tengist aftur"; // Please translate ""
 
 /* Connection status */
-"RESOLVE" = "Resolving domain name"; // Please translate ""
+"RESOLVE" = "Unnið úr svæðisnafni"; // Please translate ""
 
 /* Connection status */
-"SLEEP" = "Waiting for Daemon process"; // Please translate "Waiting for daemon process"
+"SLEEP" = "Bíður eftir Daemon-ferlinu"; // Please translate "Waiting for daemon process"
 
 /* Connection status */
-"TCP_CONNECT" = "Making TCP connection"; // Please translate "Making TCP connection"
+"TCP_CONNECT" = "Setur upp TCP-tengingu"; // Please translate "Making TCP connection"
 
 /* Connection status */
-"UDP_CONNECT" = "Making UDP connection"; // Please translate "Making UDP connection"
+"UDP_CONNECT" = "Setur upp UDP-tengingu"; // Please translate "Making UDP connection"
 
 /* Connection status */
-"WAIT" = "Waiting for server response"; // Please translate "Waiting for Server Response"
+"WAIT" = "Bíður eftir svari frá netþjóni"; // Please translate "Waiting for Server Response"
 
 /* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
 
 /* System profile item */
-"Configurations" = "Configurations";
+"Configurations" = "Prófílar";
 
 /* Window title */
 " (Deployed)" = " (Deployed)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
@@ -545,91 +545,91 @@
 "'%@' has been disconnected" = "'%@' has been disconnected";
 
 /* Window title */
-"Active connection" = "Active connection";
+"Active connection" = "Virk tenging";
 
 /* Window title */
-"Add a Configuration" = "Add a Configuration";
+"Add a Configuration" = "Bæta við prófíl";
 
 /* Window title */
-"Alert sounds" = "Alert sounds";
+"Alert sounds" = "Viðvörunarhljóð";
 
 /* Window title */
-"Alert" = "Alert";
+"Alert" = "Viðvörun";
 
 /* Window title */
 "All OpenVPN process were terminated." = "All OpenVPN process were terminated.";
 
 /* Window title */
-"All configuration files removed" = "All configuration files removed";
+"All configuration files removed" = "Allar prófílskrár voru fjarlægðar";
 
 /* Window title */
-"Appearance" = "Appearance";
+"Appearance" = "Útlit";
 
 /* Window title */
-"Authentication failed" = "Authentication failed";
+"Authentication failed" = "Auðkenning mistókst";
 
 /* Window title */
 "Configuration(s) Ignored" = "Configuration(s) Ignored";
 
 /* Window title */
-"Connecting & Disconnecting" = "Connecting & Disconnecting";
+"Connecting & Disconnecting" = "Tenging og aftenging";
 
 /* Window title */
-"Could Not Copy Configuration" = "Could Not Copy Configuration";
+"Could Not Copy Configuration" = "Tókst ekki að afrita prófíl";
 
 /* Window title */
-"Could Not Move Configuration" = "Could Not Move Configuration";
+"Could Not Move Configuration" = "Tókst ekki að færa prófíl";
 
 /* Window title */
-"Could Not Replace Configuration" = "Could Not Replace Configuration";
+"Could Not Replace Configuration" = "Tókst ekki að skipta prófíl út";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "Could Not Uninstall Configuration";
+"Could Not Uninstall Configuration" = "Tókst ekki að eyða prófíl út";
 
 /* Window title */
-"Create and Edit a Sample Configuration?" = "Create and Edit a Sample Configuration?";
+"Create and Edit a Sample Configuration?" = "Búa til og breyta sýnisprófíl?";
 
 /* Window title */
 "Details - Tunnelblick" = "Details - Tunnelblick";
 
 /* Window title */
-"Do you wish to connect?" = "Do you wish to connect?";
+"Do you wish to connect?" = "Viltu aftengjast?";
 
 /* Window title */
-"File not found" = "File not found";
+"File not found" = "Skrá finnst ekki";
 
 /* Window title */
-"Info" = "Info";
+"Info" = "Upplýsingar";
 
 /* Window title */
-"Install Configuration For All Users?" = "Install Configuration For All Users?";
+"Install Configuration For All Users?" = "Setja prófíl upp fyrir alla notendur?";
 
 /* Window title */
-"Installation failed" = "Installation failed";
+"Installation failed" = "Uppsetning mistókst";
 
 /* Window title */
-"Installation or Repair Failed" = "Installation or Repair Failed";
+"Installation or Repair Failed" = "Uppsetning eða enduruppsetning mistókst";
 
 /* Window title */
-"Installation succeeded" = "Installation succeeded";
+"Installation succeeded" = "Uppsetning tókst";
 
 /* Window title */
-"Log" = "Log";
+"Log" = "Atburðaskrá";
 
 /* Window title */
-"Name Required" = "Name Required";
+"Name Required" = "Nafn vantar";
 
 /* Window title */
-"Name not allowed" = "Name not allowed";
+"Name not allowed" = "Nafn ekki heimilað";
 
 /* Window title */
-"New Feature" = "New Feature";
+"New Feature" = "Nýjung";
 
 /* Window title */
 "No 'dev tun', 'dev utun', or 'dev tap' found" = "No 'dev tun', 'dev utun', or 'dev tap' found";
 
 /* Window title */
-"No Credentials" = "No Credentials";
+"No Credentials" = "Engin auðkennisgögn";
 
 /* Window title */
 "One or more OpenVPN processes could not be terminated." = "One or more OpenVPN processes could not be terminated.";
@@ -638,28 +638,28 @@
 "Only computer administrators should update Tunnelblick" = "Only computer administrators should update Tunnelblick";
 
 /* Window title */
-"OpenVPN is Not Responding" = "OpenVPN is Not Responding";
+"OpenVPN is Not Responding" = "OpenVPN svarar ekki";
 
 /* Window title */
 "Please insert token" = "Please insert token";
 
 /* Window title */
-"Preferences" = "Preferences";
+"Preferences" = "Stillingar";
 
 /* Window title */
-"Replace Existing File?" = "Replace Existing File?";
+"Replace Existing File?" = "Skipta núverandi skrá út?";
 
 /* Window title */
-"Replace VPN Configuration?" = "Replace VPN Configuration?";
+"Replace VPN Configuration?" = "Skipta VPN-prófíl út?";
 
 /* Window title */
-"Sample Configuration Created" = "Sample Configuration Created";
+"Sample Configuration Created" = "Sýnisprófíll búinn til";
 
 /* Window title */
-"Settings" = "Settings";
+"Settings" = "Stillingar";
 
 /* Window title */
-"Sounds" = "Sounds";
+"Sounds" = "Hljóð";
 
 /* Window title */
 "System Requirements Not Met" = "System Requirements Not Met";
@@ -668,7 +668,7 @@
 "There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
 
 /* Window title */
-"Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
+"Tunnelblick Configuration Problem" = "Uppsetningarvilla í Tunnelblick";
 
 /* Window title */
 "Tunnelblick Error" = "Tunnelblick Error";
@@ -677,13 +677,13 @@
 "Tunnelblick" = "Tunnelblick";
 
 /* Window title */
-"Tunnelblick: Login Required" = "Tunnelblick: Login Required";
+"Tunnelblick: Login Required" = "Tunnelblick: innskráningar krefst";
 
 /* Window title */
-"Tunnelblick: Passphrase Required" = "Tunnelblick: Passphrase Required";
+"Tunnelblick: Passphrase Required" = "Tunnelblick: aðgangsorðs krefst";
 
 /* Window title */
-"Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
+"Unable to launch Tunnelblick" = "Tunnelblick getur ekki opnast";
 
 /* Window title */
 "Unavailable" = "Unavailable";
@@ -692,64 +692,64 @@
 "Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
 
 /* Window title */
-"Utilities" = "Utilities";
+"Utilities" = "Verkfæri";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "Villa í að setja upp VPN-prófíl";
 
 /* Window title */
 "VPN Configuration Installation" = "VPN Configuration Installation";
 
 /* Window title */
-"VPN Credentials" = "VPN Credentials";
+"VPN Credentials" = "VPN-auðkennisgögn";
 
 /* Window title */
-"Warning!" = "Warning!";
+"Warning!" = "Viðvörun!";
 
 /* Window title */
-"Warning" = "Warning";
+"Warning" = "Viðvörun";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "Warning: Unknown OpenVPN processes";
 
 /* Window title */
-"Welcome to Tunnelblick" = "Welcome to Tunnelblick";
+"Welcome to Tunnelblick" = "Velkomin í Tunnelblick";
 
 /* Window title */
-"Welcome" = "Welcome";
+"Welcome" = "Velkomin";
 
 /* Window title */
-"While Connected" = "While Connected";
+"While Connected" = "Þegar tengt er";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed %lu configurations\n\n" = "     • Installed %lu configurations\n\n";
+"     • Installed %lu configurations\n\n" = "     • Setti upp %lu prófíla\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed one configuration\n\n" = "     • Installed one configuration\n\n";
+"     • Installed one configuration\n\n" = "     • Setti upp einn prófíl\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Replaced %lu configurations\n\n" = "     • Replaced %lu configurations\n\n";
+"     • Replaced %lu configurations\n\n" = "     • Skipti %lu prófílum út\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Replaced one configuration\n\n" = "     • Replaced one configuration\n\n";
+"     • Replaced one configuration\n\n" = "     • Skipti einum prófíl út\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Uninstalled %lu configurations\n\n" = "     • Uninstalled %lu configurations\n\n";
+"     • Uninstalled %lu configurations\n\n" = "     • Fjarlægði %lu prófíla\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Uninstalled one configuration\n\n" = "     • Uninstalled one configuration\n\n";
+"     • Uninstalled one configuration\n\n" = "     • Fjarlægði einn prófíl\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install %lu configurations\n\n" = "    • Install %lu configurations\n\n";
+"    • Install %lu configurations\n\n" = "    • Setja upp %lu prófíla\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install one configuration\n" = "    • Install one configuration\n";
+"    • Install one configuration\n" = "    • Setja upp einn prófíl\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Replace %lu configurations\n\n" = "    • Replace %lu configurations\n\n";
+"    • Replace %lu configurations\n\n" = "    • Skipta %lu prófílum út\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Replace one configuration\n" = "    • Replace one configuration\n";
+"    • Replace one configuration\n" = "    • Skipta einum prófíl út\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall %lu configurations\n\n" = "    • Uninstall %lu configurations\n\n";
@@ -773,10 +773,10 @@
 "  • Install forced preferences\n" = "  • Install forced preferences\n";
 
 /* Window text */
-"  • Install or update configuration(s)\n" = "  • Install or update configuration(s)\n";
+"  • Install or update configuration(s)\n" = "  • Sejta upp eða uppfæra prófíl(a)\n";
 
 /* Window text */
-"  • Move the private configurations folder\n" = "  • Move the private configurations folder\n";
+"  • Move the private configurations folder\n" = "  • Færa möppu einkaprófíla\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Secure configurations\n";
@@ -785,10 +785,10 @@
 " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc.";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Do you wish to install %1$@ to %2$@%3$@?\n\n";
+" Do you wish to install %@ to %@%@?\n\n" = " Viltu setja upp %1$@ í %2$@%3$@?\n\n";
 
 /* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Do you wish to replace\n    %1$@\n    in %2$@\nwith %3$@%4$@?\n\n";
+" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = "Viltu skipta \n%1$@ í \n%2$@ \nút fyrir %3$@%4$@?\n\n";
 
 /* Window text */
 " Forced preferences will also be installed or replaced.\n\n" = " Forced preferences will also be installed or replaced.\n\n";
@@ -797,7 +797,7 @@
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick must be installed in Applications.\n\n";
+" Tunnelblick must be installed in Applications.\n\n" = " Það verður að setja Tunnelblick upp í Applications-möppunni.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts.";
@@ -806,10 +806,10 @@
 " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts.";
 
 /* Window text */
-" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WARNING: This copy of Tunnelblick has been tampered with.\n\n";
+" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " VIÐVÖRUN: Það er búið að fikta við þetta eintak af Tunnelblick.\n\n";
 
 /* Window text */
-"%@ exists but is not a folder" = "%@ exists but is not a folder";
+"%@ exists but is not a folder" = "%@ er til en er ekki mappa";
 
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ has been reverted to its last secured (shadow) copy.\n\n";
@@ -821,7 +821,7 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
 
 /* Window text */
-"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' does not have any credentials (private key or username and password) stored in the Keychain.";
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "„%@“ hefur engin auðkennisgögn (einkalykil eða notandanafn og lykilorð) vistuð í Keychain.";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' was not terminated.";
@@ -833,7 +833,7 @@
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'";
 
 /* Window text -- appears in log display when logging is disabled\n */
-"(Logging is disabled.)" = "(Logging is disabled.)";
+"(Logging is disabled.)" = "(Slökkt er á atburðaskráningu)";
 
 /* Window text */
 "(Never checked)" = "(Never checked)";
@@ -878,7 +878,7 @@
 "A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
 
 /* Window text */
-"Add Credentials" = "Add Credentials";
+"Add Credentials" = "Bæta við auðkennisgögnum";
 
 /* Window text */
 "Added '.sh' extension to %@ so it will be secured properly" = "Added '.sh' extension to %@ so it will be secured properly";
@@ -887,7 +887,7 @@
 "Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
 
 /* Window text */
-"Additional contributions by" = "Additional contributions by";
+"Additional contributions by" = "Einnig lögðu sitt að mörkum";
 
 /* Window text */
 "After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "After %1$.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %2$@ is connected.\n\n";
@@ -962,10 +962,10 @@
 "B/s" = "B/s";
 
 /* Window text */
-"Backslash at end of line %u is not allowed" = "Backslash at end of line %u is not allowed";
+"Backslash at end of line %u is not allowed" = "Bakstrik í lok línu %u er ekki heimilað";
 
 /* Window text */
-"Cannot find configuration file at %@" = "Cannot find configuration file at %@";
+"Cannot find configuration file at %@" = "Prófílskrá finnst ekki í %@";
 
 /* Window text */
 "Cannot install configurations to either shared or private locations" = "Cannot install configurations to either shared or private locations";
@@ -974,7 +974,7 @@
 "Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
 
 /* Window text */
-"Computer sleep/wake" = "Computer sleep/wake";
+"Computer sleep/wake" = "Þegar tölvan sofnar/vaknar";
 
 /* Window text */
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' ('%2$@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%3$s'\n\n";
@@ -998,7 +998,7 @@
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
 
 /* Window text */
-"Configuration changes:" = "Configuration changes:";
+"Configuration changes:" = "Breytingar við prófíla:";
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them.";
@@ -1007,37 +1007,37 @@
 "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n";
 
 /* Window text */
-"Connect:" = "Connect:";
+"Connect:" = "Tengjast:";
 
 /* Window text */
-"Connection:" = "Connection:";
+"Connection:" = "Við tengingu:";
 
 /* Window text */
-"Converted OpenVPN configuration" = "Converted OpenVPN configuration";
+"Converted OpenVPN configuration" = "Umbreyttur OpenVPN-prófíll";
 
 /* Window text */
 "Converting %@ at line %lu: %@" = "Converting %1$@ at line %2$lu: %3$@";
 
 /* Window text */
-"Converting %@: %@" = "Converting %1$@: %2$@";
+"Converting %@: %@" = "Umbreytir %1$@: %2$@";
 
 /* Window text */
-"Copied %@" = "Copied %@";
+"Copied %@" = "%@ afritað";
 
 /* Window text */
-"Copied %@, removing CR characters" = "Copied %@, removing CR characters";
+"Copied %@, removing CR characters" = "Afritaði %@ og fjarlægði CR-stafi";
 
 /* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
+"Copyright © 2004-%@ Angelo Laub and others." = "Höfundarréttur © 2004-%@ Angelo Laub og fleiri.";
 
 /* Window text */
-"Could not copy %@ to %@" = "Could not copy %1$@ to %2$@";
+"Could not copy %@ to %@" = "Tókst ekki að afrita %1$@ í %2$@";
 
 /* Window text */
-"Could not create %@" = "Could not create %@";
+"Could not create %@" = "Tókst ekki að búa til %@";
 
 /* Window text */
-"Could not delete %@" = "Could not delete %@";
+"Could not delete %@" = "Tókst ekki að eyða %@";
 
 /* Window text */
 "Could not find easy-rsa in Tunnelblick.app" = "Could not find easy-rsa in Tunnelblick.app";
@@ -1046,10 +1046,10 @@
 "Could not find easy-rsa version information in Tunnelblick.app" = "Could not find easy-rsa version information in Tunnelblick.app";
 
 /* Window text */
-"Could not get attributes of %@" = "Could not get attributes of %@";
+"Could not get attributes of %@" = "Tókst ekki að sækja auðkennisgögn í %@";
 
 /* Window text */
-"Could not get modification date of %@" = "Could not get modification date of %@";
+"Could not get modification date of %@" = "Tókst ekki að sækja „síðast breytt” dagsetningu skrárinnar %@";
 
 /* Window text */
 "Could not resolve symbolic link at %@" = "Could not resolve symbolic link at %@";
@@ -1058,7 +1058,7 @@
 "Could not set modification date of %@ to %@" = "Could not set modification date of %1$@ to %2$@";
 
 /* Window text */
-"DNS servers:" = "DNS servers:";
+"DNS servers:" = "DNS-þjónar:";
 
 /* Window text */
 "Did not need to modify configuration file; no path information to remove" = "Did not need to modify configuration file; no path information to remove";
@@ -1085,10 +1085,10 @@
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n";
 
 /* Window text */
-"Domain:" = "Domain:";
+"Domain:" = "Lén:";
 
 /* Window text */
-"Double-quote missing in line %u" = "Double-quote missing in line %u";
+"Double-quote missing in line %u" = "Gæsalappir vanta á línu %u";
 
 /* Window text */
 "EB" = "EB";
@@ -1115,7 +1115,7 @@
 "Failed to set permissions on %@\n" = "Failed to set permissions on %@\n";
 
 /* Window text */
-"Fast User Switching" = "Fast User Switching";
+"Fast User Switching" = "Skipt um notanda";
 
 /* Window text */
 "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
@@ -1136,7 +1136,7 @@
 "File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
 
 /* Window text */
-"File is too large: %@" = "File is too large: %@";
+"File is too large: %@" = "Skráin er of stór: %@";
 
 /* Window text */
 "GB" = "GB";
@@ -1145,7 +1145,7 @@
 "GB/s" = "GB/s";
 
 /* Window text */
-"Icon:" = "Icon:";
+"Icon:" = "Táknmynd:";
 
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "In %@:\n\nThere are no OpenVPN configurations to install.";
@@ -1157,25 +1157,25 @@
 "In the OpenVPN configuration file for '%@': %@" = "In the OpenVPN configuration file for '%1$@': %2$@";
 
 /* Window text */
-"In:" = "In:";
+"In:" = "Inn:";
 
 /* Window text */
-"Installation failed:\n\n%@" = "Installation failed:\n\n%@";
+"Installation failed:\n\n%@" = "Uppsetning mistókst:\n\n%@";
 
 /* Window text */
-"Installation finished successfully." = "Installation finished successfully.";
+"Installation finished successfully." = "Uppsetning tókst.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
+"Installing and securing Tunnelblick %@..." = "Setur upp og gengur frá Tunnelblick%@…";
 
 /* Window text */
-"Installing configurations is not allowed" = "Installing configurations is not allowed";
+"Installing configurations is not allowed" = "Uppsetning prófíla ekki heimiluð";
 
 /* Window text */
 "Internal error: commentOutLines: line %lu does not exist" = "Internal error: commentOutLines: line %lu does not exist";
 
 /* Window text */
-"Invalid value '%@' for '%@' in %@" = "Invalid value '%1$@' for '%2$@' in %3$@";
+"Invalid value '%@' for '%@' in %@" = "Ógilt gildi „%1$@“ fyrir „%2$@“ í %3$@";
 
 /* Window text */
 "KB" = "KB";
@@ -1184,10 +1184,10 @@
 "KB/s" = "KB/s";
 
 /* Window text */
-"Keyboard shortcut:" = "Keyboard shortcut:";
+"Keyboard shortcut:" = "Flýtihnappur:";
 
 /* Window text */
-"Last checked: %@" = "Last checked: %@";
+"Last checked: %@" = "Síðast athugað: %@";
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Line %1$d of file '%2$@' contains a non-printable character (0x%3$X) which is not allowed.\n\n";
@@ -1199,10 +1199,10 @@
 "MB/s" = "MB/s";
 
 /* Window text */
-"Maximum log display size:" = "Maximum log display size:";
+"Maximum log display size:" = "Hámarkslengd atburðaskrár:";
 
 /* Window text */
-"Menu:" = "Menu:";
+"Menu:" = "Valmynd:";
 
 /* Window text */
 "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion.";
@@ -1217,7 +1217,7 @@
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
 
 /* Window text */
-"Named Credentials" = "Named Credentials";
+"Named Credentials" = "Skipuð auðkennisgögn";
 
 /* Window text */
 "Names may not include any of the following characters: %s" = "Names may not include any of the following characters: %s";
@@ -1226,10 +1226,10 @@
 "Names may not include any of the following characters: %s\n\n%@" = "Names may not include any of the following characters: %1$s\n\n%2$@";
 
 /* Window text */
-"NetBIOS name:" = "NetBIOS name:";
+"NetBIOS name:" = "NetBios-nafn:";
 
 /* Window text */
-"Network setting" = "Network setting";
+"Network setting" = "Netstilling";
 
 /* Window text */
 "No 'TBPackageVersion' in %@" = "No 'TBPackageVersion' in %@";
@@ -1301,10 +1301,10 @@
 "OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN version %1$@ is not available. Using the latest version (%2$@) as the default.";
 
 /* Window text */
-"OpenVPN version:" = "OpenVPN version:";
+"OpenVPN version:" = "OpenVPN-útgáfa:";
 
 /* Window text */
-"Out:" = "Out:";
+"Out:" = "Út:";
 
 /* Window text */
 "PB" = "PB";
@@ -1313,7 +1313,7 @@
 "PB/s" = "PB/s";
 
 /* Window text */
-"Password:" = "Password:";
+"Password:" = "Lykilorð:";
 
 /* Window text */
 "Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Path '%1$@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
@@ -1340,13 +1340,13 @@
 "Resolved symbolic link at '%@' to '%@'" = "Resolved symbolic link at '%1$@' to '%2$@'";
 
 /* Window text */
-"Search domain:" = "Search domain:";
+"Search domain:" = "Leitarlén:";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
 
 /* Window text */
-"Set DNS/WINS:" = "Set DNS/WINS:";
+"Set DNS/WINS:" = "Stilla DNS/WINS:";
 
 /* Window text */
 "Single-quote missing in line %u" = "Single-quote missing in line %u";
@@ -1355,10 +1355,10 @@
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Skipped copying %@ because a file with that name and contents has already been copied.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
+"Starting Tunnelblick %@..." = "Tunnelblick %@ ræsist…";
 
 /* Window text */
-"Startup window:" = "Startup window:";
+"Startup window:" = "Ræsingargluggi:";
 
 /* Window text */
 "Symbolic links nested too deeply. Gave up at %@" = "Symbolic links nested too deeply. Gave up at %@";
@@ -1382,10 +1382,10 @@
 "Thanks for your Tunnelblick donation" = "Thanks for your Tunnelblick donation";
 
 /* Window text */
-"That name is being used.\n\n" = "That name is being used.\n\n";
+"That name is being used.\n\n" = "Þetta nafn er nú þegar í notkun.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "The %1$@ system folder (%2$@) does not exist.";
+"The %@ system folder (%@) does not exist." = "Kerfismappan %1$@ (%2$@) er ekki til.";
 
 /* Window text */
 "The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "The %1$@ system folder (%2$@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem.";
@@ -1451,10 +1451,10 @@
 "The credentials named %@ could not be removed:\n\n%@" = "The credentials named %1$@ could not be removed:\n\n%2$@";
 
 /* Window text */
-"The file %@ is empty" = "The file %@ is empty";
+"The file %@ is empty" = "Skráin %@ er tóm";
 
 /* Window text */
-"The file %@ is missing" = "The file %@ is missing";
+"The file %@ is missing" = "Skráin %@ er ekki til";
 
 /* Window text */
 "The installation or repair took too long or failed. Try again?" = "The installation or repair took too long or failed. Try again?";
@@ -1463,7 +1463,7 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.";
 
 /* Window text */
-"The passphrase was not accepted." = "The passphrase was not accepted.";
+"The passphrase was not accepted." = "Aðgangsorðinu var hafnað.";
 
 /* Window text */
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy.";
@@ -1493,7 +1493,7 @@
 "There was a problem with\n\n%@:\n\n%@" = "There was a problem with\n\n%1$@:\n\n%2$@";
 
 /* Window text */
-"There was a problem:\n\n%@" = "There was a problem:\n\n%@";
+"There was a problem:\n\n%@" = "Vandamál kom upp:\n\n%@";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n";
@@ -1532,19 +1532,19 @@
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n";
 
 /* Window text */
-"Too many configuration files in '%@'" = "Too many configuration files in '%@'";
+"Too many configuration files in '%@'" = "Of margar prófílskrár í „%@“";
 
 /* Window text */
 "Too many duplicate configurations already exist." = "Too many duplicate configurations already exist.";
 
 /* Window text */
-"Translation by" = "Translation by";
+"Translation by" = "Þýtt af";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
 "Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+"Tunnelblick %@ is ready." = "Tunnelblick %@ er tilbúið.";
 
 /* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.";
@@ -1610,7 +1610,7 @@
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
 
 /* Window text */
-"Tunnelblick is based on %@." = "Tunnelblick is based on %@.";
+"Tunnelblick is based on %@." = "Tunnelblick byggist á %@.";
 
 /* Window text */
 "Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick is currently running. It will be shut down before proceeding.";
@@ -1652,10 +1652,10 @@
 "Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick needs to perform an action that requires administrator authorization.\n";
 
 /* Window text */
-"Tunnelblick needs to:\n" = "Tunnelblick needs to:\n";
+"Tunnelblick needs to:\n" = "Tunnelblick þarf að:\n";
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
-"Tunnelblick successfully:\n\n" = "Tunnelblick successfully:\n\n";
+"Tunnelblick successfully:\n\n" = "Tunnelblick tókst að:\n\n";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
@@ -1712,7 +1712,7 @@
 "Unable to secure %@" = "Unable to secure %@";
 
 /* Window text */
-"Unable to set permissions on '%@'" = "Unable to set permissions on '%@'";
+"Unable to set permissions on '%@'" = "Tókst ekki að breyta eignastjórn á „%@“";
 
 /* Window text */
 "Unable to store updatable configuration stub at %@\n" = "Unable to store updatable configuration stub at %@\n";
@@ -1724,7 +1724,7 @@
 "Unable to write to configuration file for modification" = "Unable to write to configuration file for modification";
 
 /* Window text */
-"Unexpected disconnection:" = "Unexpected disconnection:";
+"Unexpected disconnection:" = "Óvænt aftenging:";
 
 /* Window text */
 "Unknown extension '%@' for %@" = "Unknown extension '%1$@' for %2$@";
@@ -1751,7 +1751,7 @@
 "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n" = "Updatable configuration '%@' was not stored as updatable because the Info.plist did not have an 'SUPublicDSAKey' entry or its 'SUFeedURL' entry did not specify the use of https:\n";
 
 /* Window text */
-"Updates:" = "Updates:";
+"Updates:" = "Uppfærslur:";
 
 /* Window text */
 "VPN Configuration %@ will NOT be installed because it has a lower version number." = "VPN Configuration %@ will NOT be installed because it has a lower version number.";
@@ -1769,7 +1769,7 @@
 "Value '%@' for '%@' is not a valid URL in %@" = "Value '%1$@' for '%2$@' is not a valid URL in %3$@";
 
 /* Window text */
-"WINS servers:" = "WINS servers:";
+"WINS servers:" = "WINS-þjónar:";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "Warning: '%@' is already a named credential.";
@@ -1781,16 +1781,16 @@
 "Warning: One or more preferences could not be renamed. See the Console Log for details." = "Warning: One or more preferences could not be renamed. See the Console Log for details.";
 
 /* Window text */
-"Warnings:" = "Warnings:";
+"Warnings:" = "Viðvaranir:";
 
 /* Window text */
-"When changes to anything else" = "When changes to anything else";
+"When changes to anything else" = "Þegar breytist í hvað annað sem er";
 
 /* Window text */
-"When changes to pre-VPN value" = "When changes to pre-VPN value";
+"When changes to pre-VPN value" = "Þegar breytist í „fyrir-VPN“ gildi";
 
 /* Window text */
-"Workgroup:" = "Workgroup:";
+"Workgroup:" = "Vinnuhópur:";
 
 /* Window text */
 "Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n";
@@ -1895,7 +1895,7 @@
 " copy %d" = " copy %d";
 
 /* Suffix for a duplicate of a file */
-" copy" = " copy";
+" copy" = " afrit";
 
 /* An entry in the drop-down list of OpenVPN versions that are available on the 'Settings' tab. The first %@ is an OpenVPN version number, e.g. '2.3.10'. The second %@ is an SSL library name, e.g. 'LibreSSL'. The third %@ is the SSL library version, e.g. 1.0.1a */
 "%@ - %@ v%@" = "%1$@ - %2$@ v%3$@";
@@ -1961,28 +1961,28 @@
 "Admin mode %@ remaining" = "Admin mode %@ remaining";
 
 /* Credit description */
-"Afrikaans translation" = "Afrikaans translation";
+"Afrikaans translation" = "Afríkönsk þýðing";
 
 /* Credit description */
 "Animation and icon sets code" = "Animation and icon sets code";
 
 /* Credit description */
-"Arabic translation" = "Arabic translation";
+"Arabic translation" = "Arabísk þýðing";
 
 /* Toolbar text for 'Lock' item */
-"Authenticating..." = "Authenticating…";
+"Authenticating..." = "Unnið er auðkenningu…";
 
 /* Credit description */
-"Azerbaijani translation" = "Azerbaijani translation";
+"Azerbaijani translation" = "Asersk þýðing";
 
 /* Credit description */
-"Bulgarian translation" = "Bulgarian translation";
+"Bulgarian translation" = "Búlgarsk þýðing";
 
 /* Credit description */
-"Button images" = "Button images";
+"Button images" = "Hnappamyndir";
 
 /* Credit description */
-"Catalan translation" = "Catalan translation";
+"Catalan translation" = "Katalónsk þýðing";
 
 /* Credit description */
 "Chinese (simplified) translation" = "Chinese (simplified) translation";
@@ -1994,7 +1994,7 @@
 "Common" = "Common";
 
 /* Speak string */
-"Connected to %@" = "Connected to %@";
+"Connected to %@" = "Tengt við %@";
 
 /* Credit description */
 "Contributed much to the early code" = "Contributed much to the early code";
@@ -2003,22 +2003,22 @@
 "Contributed to early code" = "Contributed to early code";
 
 /* Credit description */
-"Croatian translation" = "Croatian translation";
+"Croatian translation" = "Króatísk þýðing";
 
 /* Credit description */
-"Czech translation" = "Czech translation";
+"Czech translation" = "Tékknesk þýðing";
 
 /* Credit description */
-"Danish translation" = "Danish translation";
+"Danish translation" = "Dönsk þýðing";
 
 /* Speak string */
-"Disconnected from %@" = "Disconnected from %@";
+"Disconnected from %@" = "Aftengdist %@";
 
 /* Checkbox */
-"Do not show this again" = "Do not show this again";
+"Do not show this again" = "Ekki sýna þetta aftur";
 
 /* Credit description */
-"Dutch translation" = "Dutch translation";
+"Dutch translation" = "Hollensk þýðing";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2026,52 +2026,52 @@
 "Enter admin mode" = "Enter admin mode";
 
 /* Credit description */
-"Estonian translation" = "Estonian translation";
+"Estonian translation" = "Eistnesk þýðing";
 
 /* Credit description */
-"Finnish translation" = "Finnish translation";
+"Finnish translation" = "Finnsk þýðing";
 
 /* Credit description */
-"Founder, original program and documentation" = "Founder, original program and documentation";
+"Founder, original program and documentation" = "Stofnandi, upprunalegt forrit og hjálpargögn";
 
 /* Credit description */
-"French translation" = "French translation";
+"French translation" = "Frönsk þýðing";
 
 /* Credit description */
-"German translation" = "German translation";
+"German translation" = "Þýsk þýðing";
 
 /* Credit description */
-"Greek translation" = "Greek translation";
+"Greek translation" = "Grísk þýðing";
 
 /* Credit description */
-"Hungarian translation" = "Hungarian translation";
+"Hungarian translation" = "Ungversk þýðing";
 
 /* Credit description */
-"Icelandic translation" = "Icelandic translation";
+"Icelandic translation" = "Íslensk þýðing";
 
 /* Credit description */
-"Icon set including Retina images" = "Icon set including Retina images";
+"Icon set including Retina images" = "Táknmyndapakki og Retina-myndir";
 
 /* Credit description */
-"Indonesian translation" = "Indonesian translation";
+"Indonesian translation" = "Indónesísk þýðing";
 
 /* Credit description */
-"Italian translation" = "Italian translation";
+"Italian translation" = "Ítölsk þýðing";
 
 /* Credit description */
-"Japanese translation" = "Japanese translation";
+"Japanese translation" = "Japönsk þýðing";
 
 /* Credit description */
-"Korean translation" = "Korean translation";
+"Korean translation" = "Kóresk þýðing";
 
 /* [name of your language] translation */
 "LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";
+"LEAD_TRANSLATORS" = "Max Naylor";
 
 /* Credit description */
-"Latvian translation" = "Latvian translation";
+"Latvian translation" = "Lettnesk þýðing";
 
 /* Credit description */
 "Localization code tweaks" = "Localization code tweaks";
@@ -2080,7 +2080,7 @@
 "Multiple configuration folders" = "Multiple configuration folders";
 
 /* Credit description */
-"Norwegian translation" = "Norwegian translation";
+"Norwegian translation" = "Norsk þýðing";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
@@ -2089,88 +2089,88 @@
 "PKCS#11 support" = "PKCS#11 support";
 
 /* Credit description */
-"Persian translation" = "Persian translation";
+"Persian translation" = "Persnesk þýðing";
 
 /* Credit description */
-"Polish translation" = "Polish translation";
+"Polish translation" = "Pólsk þýðing";
 
 /* Credit description */
-"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
+"Portuguese (Brazilian) translation" = "Portúgölsk (Brasilía) þýðing";
 
 /* Credit description */
-"Portuguese translation" = "Portuguese translation";
+"Portuguese translation" = "Portúgölsk þýðing";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Program and documentation enhancements and maintenance after version 3.0b10";
 
 /* Credit description */
-"Romanian translation" = "Romanian translation";
+"Romanian translation" = "Rúmensk þýðing";
 
 /* Credit description */
-"Russian translation" = "Russian translation";
+"Russian translation" = "Rússnesk þýðing";
 
 /* Credit description */
-"Serbian (Latin) translation" = "Serbian (Latin) translation";
+"Serbian (Latin) translation" = "Serbnesk (latneskt stafróf) þýðing";
 
 /* Credit description */
-"Slovak translation" = "Slovak translation";
+"Slovak translation" = "Slóvakísk þýðing";
 
 /* Credit description */
-"Spanish translation" = "Spanish translation";
+"Spanish translation" = "Spænsk þýðing";
 
 /* Credit description */
-"Swedish translation" = "Swedish translation";
+"Swedish translation" = "Sænsk þýðing";
 
 /* Credit description */
-"Tunnelblick icon" = "Tunnelblick icon";
+"Tunnelblick icon" = "Táknmynd Tunnelblick";
 
 /* Credit description */
-"Turkish translation" = "Turkish translation";
+"Turkish translation" = "Tyrknesk þýðing";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue and UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian translation" = "Ukrainian translation";
+"Ukrainian translation" = "Úkraínsk þýðing";
 
 /* Credit description */
-"Up and Down scripts" = "Up and Down scripts";
+"Up and Down scripts" = "„Upp og niður” skriftir";
 
 /* Notification text */
-"Updated to %@." = "Updated to %@.";
+"Updated to %@." = "Uppfært í %@.";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode help and OpenSSL integration";
 
 /* Button VPNService */
-"Accept" = "Accept";
+"Accept" = "Samþykkja";
 
 /* Button VPNService */
-"Create a Free Account" = "Create a Free Account";
+"Create a Free Account" = "Stofna aðgang ókeypis";
 
 /* Button VPNService */
-"Get Different Image" = "Get Different Image";
+"Get Different Image" = "Sækja aðra mynd";
 
 /* Button VPNService *//* Window title VPNService */
-"Login" = "Login";
+"Login" = "Innskrá";
 
 /* Button VPNService */
-"Next" = "Next";
+"Next" = "Áfram";
 
 /* Button VPNService */
-"Reject" = "Reject";
+"Reject" = "Hafna";
 
 /* Menu item VPNService */
-"Register for Tunnelblick..." = "Register for Tunnelblick…";
+"Register for Tunnelblick..." = "Nýskráning hjá Tunnelblick…";
 
 /* Window title  VPNService */
-"Cannot obtain image" = "Cannot obtain image";
+"Cannot obtain image" = "Getur ekki sótt mynd";
 
 /* Window title  VPNService */
-"Cannot register" = "Cannot register";
+"Cannot register" = "Nýskráning tókst ekki";
 
 /* Window title  VPNService */
-"Email not verified" = "Email not verified";
+"Email not verified" = "Netfang staðfest ekki";
 
 /* Window title  VPNService */
 "Entries required" = "Entries required";
@@ -2179,37 +2179,37 @@
 "Failed to load Terms of Service" = "Failed to load Terms of Service";
 
 /* Window title VPNService */
-"No configuration available" = "No configuration available";
+"No configuration available" = "Enginn prófíll uppsettur";
 
 /* Window title  VPNService */
-"Password entries must match" = "Password entries must match";
+"Password entries must match" = "Lykilorðin verða að vera eins";
 
 /* Window title  VPNService */
-"Prove You are Human" = "Prove You are Human";
+"Prove You are Human" = "Sannaðu að þú sért mannvera";
 
 /* Window title  VPNService */
-"Register with Tunnelblick" = "Register with Tunnelblick";
+"Register with Tunnelblick" = "Nýskráning hjá Tunnelblick";
 
 /* Window title  VPNService */
 "Sorry" = "Sorry";
 
 /* Window title  VPNService */
-"Terms of Service" = "Terms of Service";
+"Terms of Service" = "Notkunarskilmálar";
 
 /* Window title  VPNService */
 "Tunnelblick - Free VPN" = "Tunnelblick - Free VPN";
 
 /* Window title  VPNService */
-"Welcome!" = "Welcome!";
+"Welcome!" = "Velkomin!";
 
 /* Window title  VPNService */
-"You Must Type the Characters" = "You Must Type the Characters";
+"You Must Type the Characters" = "Þú verður að slá inn stafina";
 
 /* Window text VPNService */
-"Confirm password:" = "Confirm password:";
+"Confirm password:" = "Staðfesta lykilorð:";
 
 /* Window text VPNService */
-"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'.";
+"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Til hamingju! Reikningurinn þinn hefur verið stofnaður! Þú átt að fá tölvupóst frá Tunnelblick eftir smá. Fylgdu leiðbeiningunum í póstinum til að staðfesta netfangið þitt og smelltu svo á „Áfram”.";
 
 /* Window text VPNService */
 "Could not check registration" = "Could not check registration";
@@ -2224,10 +2224,10 @@
 "Email address %@ is already registered for an account" = "Email address %@ is already registered for an account";
 
 /* Window text VPNService */
-"Email address:" = "Email address:";
+"Email address:" = "Netfang:";
 
 /* Window text VPNService */
-"Invalid URL: %@" = "Invalid URL: %@";
+"Invalid URL: %@" = "Ógild vefslóð: %@";
 
 /* Window text VPNService */
 "No valid session token." = "No valid session token.";
@@ -2239,31 +2239,31 @@
 "Please type the characters in the image and click next." = "Please type the characters in the image and click next.";
 
 /* Window text VPNService */
-"Session token requires encoding" = "Session token requires encoding";
+"Session token requires encoding" = "Innlitslykil þarf að dulkóða";
 
 /* Window text VPNService */
-"Session token too long" = "Session token too long";
+"Session token too long" = "Innlitslykill of langur";
 
 /* Window text VPNService */
 "Sorry, but your request for an account could not be processed:\n     %@" = "Sorry, but your request for an account could not be processed:\n     %@";
 
 /* Window text VPNService */
-"Terms of service are unavailable." = "Terms of service are unavailable.";
+"Terms of service are unavailable." = "Notkunarskilmálar eru ekki aðgengilegir.";
 
 /* Window text VPNService */
 "The Terms of Service could not be loaded:" = "The Terms of Service could not be loaded:";
 
 /* Window text VPNService */
-"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service.";
+"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "Netfangið þitt hefur ekki verið staðfest.\n\nÞú getur ekki skráð þig inn og notað VPN-ið þangað til það er búið að staðfesta netfangið þitt samkvæmt leiðbeiningunum sem Tunnelblick sendu til þín í tölvupósti þegar þú nýskráðir þig.";
 
 /* Window text VPNService */
-"The email address you entered was not a valid email address." = "The email address you entered was not a valid email address.";
+"The email address you entered was not a valid email address." = "Netfangið sem þú gafst upp er ekki gilt netfang.";
 
 /* Window text VPNService */
-"The password entries must match to proceed." = "The password entries must match to proceed.";
+"The password entries must match to proceed." = "Lykilorðin verða að vera eins til þess að halda megi áfram.";
 
 /* Window text VPNService */
-"The text you entered did not match the text in the Captcha image." = "The text you entered did not match the text in the Captcha image.";
+"The text you entered did not match the text in the Captcha image." = "Textinn sem þú slóst inn passar ekki við textann á captcha-myndinni.";
 
 /* Window text VPNService */
 "There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image.";
@@ -2275,31 +2275,31 @@
 "Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection.";
 
 /* Window text VPNService */
-"Type the characters above:" = "Type the characters above:";
+"Type the characters above:" = "Sláðu inn stafina fyrir ofan:";
 
 /* Window text VPNService */
-"Unable to check account status:\n     %@" = "Unable to check account status:\n     %@";
+"Unable to check account status:\n     %@" = "Tókst ekki að athuga með stöðu reiknings:\n%@";
 
 /* Window text VPNService */
 "Unable to check registration for empty email address" = "Unable to check registration for empty email address";
 
 /* Window text VPNService */
-"Unable to connect to server" = "Unable to connect to server";
+"Unable to connect to server" = "Tókst ekki að tengjast netþjóni";
 
 /* Window text VPNService */
-"You have already registered but not yet confirmed your email address." = "You have already registered but not yet confirmed your email address.";
+"You have already registered but not yet confirmed your email address." = "Þú ert þegar búin(n) að skrá þig en þú hefur ekki staðfest netfangið þitt.";
 
 /* Window text VPNService */
-"You have already registered." = "You have already registered.";
+"You have already registered." = "Þú ert þegar búin(n) að skrá þig.";
 
 /* Window text VPNService */
-"You must enter an email address and password to login." = "You must enter an email address and password to login.";
+"You must enter an email address and password to login." = "Þú verður að slá inn netfang og lykilorð til að skrá þig inn.";
 
 /* Window text VPNService */
-"You must enter an email address, password, and password confirmation to proceed." = "You must enter an email address, password, and password confirmation to proceed.";
+"You must enter an email address, password, and password confirmation to proceed." = "Þú verður að slá inn netfang og lykilorð og staðfesta lykilorðið til að halda áfram.";
 
 /* Window text VPNService */
-"You must type the characters in the image to proceed." = "You must type the characters in the image to proceed.";
+"You must type the characters in the image to proceed." = "Þú verður að slá inn stafina á myndinni til að halda áfram.";
 
 /* Window text VPNService */
-"Your account status could not be verified:\n     %@." = "Your account status could not be verified:\n     %@.";
+"Your account status could not be verified:\n     %@." = "Ekki tókst að staðfesta stöðu reikningsins þíns:\n%@.";

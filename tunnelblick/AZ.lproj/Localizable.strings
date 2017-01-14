@@ -776,184 +776,184 @@
 "  • Install or update configuration(s)\n" = "  • Konfiqurasiya(ları) yeniləməli və ya quraşdırmalıdır\n";
 
 /* Window text */
-"  • Move the private configurations folder\n" = "  • Move the private configurations folder\n";
+"  • Move the private configurations folder\n" = "  Özəl konfiqurasiya qovluğunu köçürməlidir\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  • Secure configurations\n";
+"  • Secure configurations\n" = "  Konfiqurasiyanın təhlükəsizliyini təmin etməlidir\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ pulsuz proqramdır: Siz onu %3$@-da nümayiş olunduğu kimi, %2$@ şərtlərinə uyğun olaraq paylaya və/və ya dəyişdirə bilərsiniz.\n\n%4$@ OpenVPN Technologies, Inc-in qeydə alınmış əmtəə nişanıdır.";
 
 /* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Do you wish to install %1$@ to %2$@%3$@?\n\n";
+" Do you wish to install %@ to %@%@?\n\n" = " Siz %2$@%3$@-i %1$@-ə quraşdırmaq istəyirsiniz?\n\n";
 
 /* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Do you wish to replace\n    %1$@\n    in %2$@\nwith %3$@%4$@?\n\n";
+" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Siz\n    %2$@-da olan\n    %1$@-i\n%3$@%4$@-ə əvəz etmək istəyirsiniz?\n\n";
 
 /* Window text */
-" Forced preferences will also be installed or replaced.\n\n" = " Forced preferences will also be installed or replaced.\n\n";
+" Forced preferences will also be installed or replaced.\n\n" = " Məcburi üstünlüklər də ya əlavə olunacaq ya da əvəz ediləcək.\n\n";
 
 /* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n";
+" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Qeyd: OpenVPN konfiqurasiyaları Tunnelblick VPN Konfiqurasiyalarına çevriləcək.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick must be installed in Applications.\n\n";
+" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick Proqramlarda quraşdırılmalıdır.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick kompyuter başlayanda '%@'-i avtomatik qoşmaq üçün kompyuter administratorunun icazəsini tələb edir.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick kompyuter başlayanda avtomatik olaraq '%@'-a bağlantını saxlamaq üçün kompyuter administratorunun icazəsini tələb edir.";
 
 /* Window text */
-" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WARNING: This copy of Tunnelblick has been tampered with.\n\n";
+" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " XƏBƏRDARLIQ: Tunnelblick-in bu surətində nasaz dəyişiklək var.\n\n";
 
 /* Window text */
-"%@ exists but is not a folder" = "%@ exists but is not a folder";
+"%@ exists but is not a folder" = "%@ mövcuddur, amma qovluq deyil";
 
 /* Window text */
-"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ has been reverted to its last secured (shadow) copy.\n\n";
+"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ öz son təhlükəsiz (kölgə) halına döndərilib.\n\n";
 
 /* Window text */
-"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configurations have been reverted to their last secured (shadow) copy.\n\n";
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfiqurasiyaları öz son təhlükəsiz (kölgə) halına döndərilib.\n\n";
 
 /* Window text */
-"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
+"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' artıq Əsas ekranda mövcuddur.";
 
 /* Window text */
-"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' does not have any credentials (private key or username and password) stored in the Keychain.";
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' Açarlıqda heç bir etimadnamələri (özəl açar və ya istifadəçi adı və şifrəsi) yoxdur.";
 
 /* Window text */
-"'%@' was not terminated." = "'%@' was not terminated.";
+"'%@' was not terminated." = "'%@' ləğv edilməmişdir.";
 
 /* Window text */
-"'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' preference ignored; it does not specify a folder";
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' üstünlüyü nəzərə alınmamışdır; qovluq yəqinləşdırılməyib";
 
 /* Window text */
-"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'";
+"'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' üstünlüyü nəzərə alınmamışdır; ona mütləq bir yol olmalıdır və ya '~' ilə başlamalıdır";
 
 /* Window text -- appears in log display when logging is disabled\n */
-"(Logging is disabled.)" = "(Logging is disabled.)";
+"(Logging is disabled.)" = "(Loqlaşdırma söndürülüb.)";
 
 /* Window text */
-"(Never checked)" = "(Never checked)";
+"(Never checked)" = "(Heç vaxt yoxlanılmayıb)";
 
 /* Window text */
-"(The 'easy-rsaPath' preference is invalid.)" = "(The 'easy-rsaPath' preference is invalid.)";
+"(The 'easy-rsaPath' preference is invalid.)" = "('easy-rsaPath' üstünlüyü etibarsızdır.)";
 
 /* Window text */
-"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+"(if connected when computer went to sleep)" = "( əgər kompyuter yuxu rejimində olanda qoşuludur)";
 
 /* Window text */
-"(if connected when user switched out)" = "(if connected when user switched out)";
+"(if connected when user switched out)" = "(əgər istifadəçi çıxanda qoşuludursa)";
 
 /* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc.";
+"<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br> Tunnelbickə əsasən, pulsuz proqram <br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br> mövcuddur<br>OpenVPN OpenVPN Technologies, Inc-in qeydə alınmış əmtəə nişanıdır.";
 
 /* Window text */
-"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%1$@' in %2$@";
+"A TBPreference or TBAlwaysSetPreference key refers to an unknown preference '%@' in %@" = "TBPreference və ya TBAlwaysSetPreference açarları %2$@ yerləşən '%1$@' naməlum üstünlüyə istinad edirlər";
 
 /* Window text */
-"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "A Tunnelblick VPN Configuration is nested too deeply in '%@'";
+"A Tunnelblick VPN Configuration is nested too deeply in '%@'" = "Tunnelblick VPN Konfiqurasiyası '%@'-ın dərinliklərində yerləşib";
 
 /* Window text */
-"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts.";
+"A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Şifrə-söz (özəl açar) və ya istifadəçi və şifrə tələb edən konfiqurasiya kompyuter başlayanda işə salına bilməz.";
 
 /* Window text */
-"A passphrase is required to connect to\n  %@%@" = "A passphrase is required to connect to\n  %1$@%2$@";
+"A passphrase is required to connect to\n  %@%@" = "%1$@%2$@\nbağlanmaq üçün şifrə-söz lazımdır";
 
 /* Window text */
-"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?";
+"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "'%@' adlı özəl konfiqurasiya artıq mövcuddur.\n\nOnu paylaşdırılan konfiqurasiya ilə əvəz etmək istəyirsiniz?";
 
 /* Window text */
-"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "Kompyuterin məlum olan rəsmi İP ünvanını yoxlayanda problem baş verdi.\n\nTəfərrüatlar üçün parametr jurnalına baxın.\n\n";
 
 /* Window text */
-"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?";
+"A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "'%@' adlı paylaşdırılan konfiqurasiya artıq mövcuddur.\n\nOnu özəl konfiqurasiya ilə əvəz etmək istəyirsiniz?";
 
 /* Window text */
-"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
+"A username and password are required to connect to\n  %@" = "  %@\nqoşulmaq üçün istifadəçi adı və şifrə tələb olunur";
 
 /* Window text */
-"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "A username and password are required to connect to\n  %1$@\n(using '%2$@' credentials)";
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "  %1$@\nqoşulmaq üçün istifadəçi adı və şifrə tələb olunur\n('%2$@' etimadnamələrindən istifadə edərək)";
 
 /* Window text */
-"Add Credentials" = "Add Credentials";
+"Add Credentials" = "Etimadnamələri əlavə et";
 
 /* Window text */
-"Added '.sh' extension to %@ so it will be secured properly" = "Added '.sh' extension to %@ so it will be secured properly";
+"Added '.sh' extension to %@ so it will be secured properly" = "%@ təhlükəsizliyini lazımınca təmin etmək üçün onun sonuna '.sh' artırması əlavə edilmişdir";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "Added a '.unknown' extension to %@ so it will be secured properly";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "%@ təhlükəsizliyini lazımınca təmin etmək üçün onun sonuna '.unknown' artırması əlavə edilmişdir";
 
 /* Window text */
-"Additional contributions by" = "Additional contributions by";
+"Additional contributions by" = "Əlavə köməklik edənlər";
 
 /* Window text */
-"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "After %1$.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %2$@ is connected.\n\n";
+"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "%1$.1f saniyədən sonra, İP ünvan məlumatının alınması dayandırılmışdı.\n\nTunnelblick %2$@ bağlandıqda kompyuterin məlum olan İP ünvanının dəyişməsini yoxlamayacaq.\n\n";
 
 /* Window text */
-"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n";
+"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "%@ bağlandıqdan sonra DNS işləmir.\n\nDeməli Sizin VPN-ininiz düzgün quraşdırılmayıb.\n\n";
 
 /* Window text */
-"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n";
+"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "%@ bağlandıqdan sonra İnternetə qoşulma müvəffəqiyyətsizdir.\n\nDeməli Sizin VPN-ininiz düzgün quraşdırılmayıb.\n\n";
 
 /* Window text */
-"All configuration files have been removed. Tunnelblick must quit." = "All configuration files have been removed. Tunnelblick must quit.";
+"All configuration files have been removed. Tunnelblick must quit." = "Bütün faylların konfiqurasiyaları silinib. Tunnelblick bağlanmalıdı.";
 
 /* Window text */
-"All configurations use %@ credentials" = "All configurations use %@ credentials";
+"All configurations use %@ credentials" = "Bütün konfiqurasiyalar %@ etimadnamələrindən istifadə edirlər";
 
 /* Window text */
-"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
+"An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "%2$@ konfiqurasiyasının təhlükəsizliyinin yoxlaması zamanı səhv (%1$ld status) baş vermişdi.\n\nLütfən Tunnelblicki bağlayıb yenidən başlayın. Əgər problem davam edərsə Tunnelblicki yenidən yükləyib quraşdırın.";
 
 /* Window text */
-"An error occurred while trying to launch %@" = "An error occurred while trying to launch %@";
+"An error occurred while trying to launch %@" = "%@ başlayanda səhv baş verdi";
 
 /* Window text */
-"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n";
+"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Təhlükəsiz (kölgə) surətə döndermək cəhdi zamanı səhv baş verdi. Təfərrüatlar üçün parametr jurnalına baxın.\n\n";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "An error occurred. See the Console Log for details.";
+"An error occurred. See the Console Log for details." = "Səhv baş verdi. Təfərrüatlar üçün parametr jurnalına baxın.";
 
 /* Window text */
-"An internal Tunnelblick error occurred%@%@" = "An internal Tunnelblick error occurred%1$@%2$@";
+"An internal Tunnelblick error occurred%@%@" = "Daxili Tunnelblick səhvi baş verdi%1$@%2$@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get attributes: %@" = "Daxili Tunnelblick səhvi baş verdi: fileIsReasonableSize: Atributlar alına bilmir: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get size: %@" = "Daxili Tunnelblick səhvi baş verdi: fileIsReasonableSize: Həcmi bilinmir: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: Cannot get type: %@" = "Daxili Tunnelblick səhvi baş verdi: fileIsReasonableSize: Növü bilinmir: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: invalid file type: %@" = "Daxili Tunnelblick səhvi baş verdi: fileIsReasonableSize: Etibarsız fayl növü: %@";
 
 /* Window text */
-"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil";
+"An internal Tunnelblick error occurred: fileIsReasonableSize: path is nil" = "Daxili Tunnelblick səhvi baş verdi: fileIsReasonableSize: keçid boşdur";
 
 /* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n";
+"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Siz əminsiniz ki, OpenVPN konfiqurasiyalarını Tunnelblick VPN Konfiqurasiyalarına çevirmək istəmirsiniz?\n\nƏGƏR ÇEVİRMƏSƏNİZ SONRA KONFİQURASİYALAR MÖVCUD OLMAYACAQ!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Siz əminsiniz ki, Açarlıqda olan %ld konfiqurasiyaların etimadnamələrini (özəl açar və/və ya istifadəçi adı və şifrəsi) silmək istəyirsiniz?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Siz əminsiniz ki, Açarlıqda olan '%@' etimadnamələrini (özəl açar və/və ya istifadəçi adı və şifrəsi) silmək istəyirsiniz?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Siz əminsiniz ki, Açarlıqda '%@' etimadnamələri üçün saxlanan etimadnamələri (özəl açar və/və ya istifadəçi adı və şifrəsi) silmək istəyirsiniz?";
 
 /* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n";
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Siz əminsiniz ki, KOMPYUTERƏ TAM İDARƏ GÖTÜRƏN konfiqurasiyaları quraşdırmaq istəyirsiniz?\n\n";
 
 /* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n";
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Siz əminsiniz ki, bəlkə KOMPYUTERƏ TAM İDARƏ GÖTÜRƏ biləcək konfiqurasiyaları quraşdırmaq istəyirsiniz?\n\n";
 
 /* Window text */
-"At line %lu of the OpenVPN configuration file: %@" = "At line %1$lu of the OpenVPN configuration file: %2$@";
+"At line %lu of the OpenVPN configuration file: %@" = "OpenVPN konfiqurasiya faylının %1$lu xəttində: %2$@";
 
 /* Window text */
 "B" = "B";
@@ -962,133 +962,133 @@
 "B/s" = "B/s";
 
 /* Window text */
-"Backslash at end of line %u is not allowed" = "Backslash at end of line %u is not allowed";
+"Backslash at end of line %u is not allowed" = "%u xəttinin sonunda '/' işarəsi istifadə oluna bilməz";
 
 /* Window text */
-"Cannot find configuration file at %@" = "Cannot find configuration file at %@";
+"Cannot find configuration file at %@" = "%@-da konfiqurasiya faylı tapılmayıb";
 
 /* Window text */
-"Cannot install configurations to either shared or private locations" = "Cannot install configurations to either shared or private locations";
+"Cannot install configurations to either shared or private locations" = "Konfiqurasiyalar nə paylaşdırılan nə də özəl yerdə quraşdırıla bilmir";
 
 /* Window text */
-"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+"Cannot uninstall configuration '%@' because it is not installed." = "'%@' konfiqurasiyası silinə bilməz, çünki o quraşdırılmamışdır.";
 
 /* Window text */
-"Computer sleep/wake" = "Computer sleep/wake";
+"Computer sleep/wake" = "Kompyuter rejimi yuxu/oyaq";
 
 /* Window text */
-"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' ('%2$@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%3$s'\n\n";
+"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "'%1$@' ('%2$@') konfiqurasiyası nəzərə alınmayacaq, çünki onun adında olan simvolları istifadə etmək icazəsizdir.\n\nİcazəsiz simvollar: '%3$s'\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "Configuration '%@' already exists.";
+"Configuration '%@' already exists." = "%@ konfiqurasiyası artıq mövcuddur.";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "%@ konfiqurasiyası bir və ya daha artıq skriptdən ibarətdir, hansı ki, Siz qoşulu olduqda konfiqurasiyaları silmək və ya əvəz etmək istədikdə problemlər yarada bilərlər.\n\nKonfiqurasiyanı əvəz etmək istərdiniz?";
 
 /* Window text */
-"Configuration '%@' is not secure. It should be reinstalled." = "Configuration '%@' is not secure. It should be reinstalled.";
+"Configuration '%@' is not secure. It should be reinstalled." = "%@ konfiqurasiyası təhlükədədir. O təkrar quraşdırılmalıdır.";
 
 /* Window text */
-"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Configuration '%@' is not secure. Please reinstall Tunnelblick.";
+"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "%@ konfiqurasiyası təhlükədədir. Lütfən Tunnelblicki təkrar quraşdırın.";
 
 /* Window text */
-"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
+"Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "%@ konfiqurasiyası yenilənə bilməz, çünki o 'yenilənməz' kimi işarələnmışdir.\n";
 
 /* Window text */
-"Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
+"Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "'%1$@' konfiqurasiyası nəzərə alınmayacaq, çünki onun adında olan simvolları istifadə etmək icazəsizdir.\n\nİcazəsiz simvollar: %2$s\n\n";
 
 /* Window text */
-"Configuration changes:" = "Configuration changes:";
+"Configuration changes:" = "Konfiqurasiya dəyişiklikləri:";
 
 /* Window text */
-"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them.";
+"Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Quraşdırılan konfiqurasiyaların faylları Sizə sizin şəbəkə administratoru və ya VPN servis provayderi tərəfindən təchiz olunmuşdur.\n\nKonfiqurasiya fayllarının sonluqları bunlardır: .tblk, .ovpn, və ya .conf.\n\n(Konfiqurasiya ilə bağlı başqa sonluqlu digər fayllar da vardır; onları nəzərə almayın.)\n\nKonfiqurasiya faylını quraşdırmaq üçün onu Menyuda olan Tunnelblick ikonasının üstünə və ya onu 'VPN Təfərrüatları' pəncərəsində 'Konfiqurasiyalar' altında olan konfiqurasiya siyahısına dartıb atın.\n\nBir neçə konfiqurasiya faylını eyni zamanda quraşdırmaq üçün bütün faylları seçin və dartıb atın.";
 
 /* Window text */
-"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n";
+"Configurations that are not part of Tunnelblick are set up to be installed when you install Tunnelblick.\n\n" = "Tunnelblickə aid olmayan Konfiqurasiyalar Siz Tunnelblicki quraşdırdığınız zaman quraşdırılmaq üçün saxlanılıb.\n\n";
 
 /* Window text */
-"Connect:" = "Connect:";
+"Connect:" = "Qoşulmaq:";
 
 /* Window text */
-"Connection:" = "Connection:";
+"Connection:" = "Bağlantı:";
 
 /* Window text */
-"Converted OpenVPN configuration" = "Converted OpenVPN configuration";
+"Converted OpenVPN configuration" = "OpenVPN konfiqurasiyası çevrildi";
 
 /* Window text */
-"Converting %@ at line %lu: %@" = "Converting %1$@ at line %2$lu: %3$@";
+"Converting %@ at line %lu: %@" = "%2$lu xəttində %1$@ çevrilməsi: %3$@";
 
 /* Window text */
-"Converting %@: %@" = "Converting %1$@: %2$@";
+"Converting %@: %@" = "%1$@ çevrilir: %2$@";
 
 /* Window text */
-"Copied %@" = "Copied %@";
+"Copied %@" = "%@ surəti çıxarıldı";
 
 /* Window text */
-"Copied %@, removing CR characters" = "Copied %@, removing CR characters";
+"Copied %@, removing CR characters" = "%@ surəti çıxarıldı, CR simvolları silinir";
 
 /* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
+"Copyright © 2004-%@ Angelo Laub and others." = "Müəlliflik Hüququ © 2004-%@ Angelo Laub və başqaları.";
 
 /* Window text */
-"Could not copy %@ to %@" = "Could not copy %1$@ to %2$@";
+"Could not copy %@ to %@" = "%1$@ %2$@ köçürülmədi";
 
 /* Window text */
-"Could not create %@" = "Could not create %@";
+"Could not create %@" = "%@ yaradılmadı";
 
 /* Window text */
-"Could not delete %@" = "Could not delete %@";
+"Could not delete %@" = "%@ silinmədi";
 
 /* Window text */
-"Could not find easy-rsa in Tunnelblick.app" = "Could not find easy-rsa in Tunnelblick.app";
+"Could not find easy-rsa in Tunnelblick.app" = "easy-rsa Tunnelblick.app-də tapılmadı";
 
 /* Window text */
-"Could not find easy-rsa version information in Tunnelblick.app" = "Could not find easy-rsa version information in Tunnelblick.app";
+"Could not find easy-rsa version information in Tunnelblick.app" = "easy-rsa versiyası ilə bağlı məlumat Tunnelblick.app-də tapılmadı";
 
 /* Window text */
-"Could not get attributes of %@" = "Could not get attributes of %@";
+"Could not get attributes of %@" = "%@ atributları alına bilmir";
 
 /* Window text */
-"Could not get modification date of %@" = "Could not get modification date of %@";
+"Could not get modification date of %@" = "%@ modifikasiya tarixi alına bilmir";
 
 /* Window text */
-"Could not resolve symbolic link at %@" = "Could not resolve symbolic link at %@";
+"Could not resolve symbolic link at %@" = "%@ olan simvolik link qərarlaşdırılmadı";
 
 /* Window text */
-"Could not set modification date of %@ to %@" = "Could not set modification date of %1$@ to %2$@";
+"Could not set modification date of %@ to %@" = "%1$@ modifikasiya tarixi %2$@ təyin edilmədi";
 
 /* Window text */
-"DNS servers:" = "DNS servers:";
+"DNS servers:" = "DNS serverləri:";
 
 /* Window text */
-"Did not need to modify configuration file; no path information to remove" = "Did not need to modify configuration file; no path information to remove";
+"Did not need to modify configuration file; no path information to remove" = "konfiqurasiya faylına dəyişiklik etməyə ehtiyac yox idi; siliniləsi keçid informasiyası yoxdur";
 
 /* Window text */
-"Do you wish to delete the %@ credentials?" = "Do you wish to delete the %@ credentials?";
+"Do you wish to delete the %@ credentials?" = "%@ etimadnamələrini silmək istəyirsiniz?";
 
 /* Window text */
-"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n";
+"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Siz %@ konfiqurasiyasını şəxsi istifadə (yalnız özünüz üçün) yoxsa bütün istifadəçilər üçün quraşdırırsınız?\n\n";
 
 /* Window text */
-"Do you wish to reinstall '%@' version %@?" = "Do you wish to reinstall '%1$@' version %2$@?";
+"Do you wish to reinstall '%@' version %@?" = "Siz %1$@ (%2$@ versiyası) təkrar quraşdırmaq istəyirsiniz?";
 
 /* Window text */
-"Do you wish to replace '%@' version %@ with version %@?" = "Do you wish to replace '%1$@' version %2$@ with version %3$@?";
+"Do you wish to replace '%@' version %@ with version %@?" = "Siz %1$@ (%2$@versiyasını) %3$@ versiyası ilə əvəz etmək istəyirsiniz?";
 
 /* Window text */
-"Do you wish to replace the '%@' configuration?\n\n" = "Do you wish to replace the '%@' configuration?\n\n";
+"Do you wish to replace the '%@' configuration?\n\n" = "Siz %@ konfiqurasiyasını əvəz etmək istəyirsiniz?\n\n";
 
 /* Window text */
-"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n";
+"Do you wish to revert %ld configurations to their last secured (shadow) copy?\n\n" = "Siz %ld konfiqurasiyalarını öz son təhlükəsiz (kölgə) halına döndərmək istəyirsiniz?\n\n";
 
 /* Window text */
-"Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n";
+"Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Siz %@ konfiqurasiyasını öz son təhlükəsiz (kölgə) halına döndərmək istəyirsiniz?\n\n";
 
 /* Window text */
-"Domain:" = "Domain:";
+"Domain:" = "Domen:";
 
 /* Window text */
-"Double-quote missing in line %u" = "Double-quote missing in line %u";
+"Double-quote missing in line %u" = "%u xəttində iki dırnaq açılmayıb";
 
 /* Window text */
 "EB" = "EB";
@@ -1097,46 +1097,46 @@
 "EB/s" = "EB/s";
 
 /* Window text */
-"Expected command not found for '%@'" = "Expected command not found for '%@'";
+"Expected command not found for '%@'" = "%@ üçün gözlənilən əmr tapılmayıb";
 
 /* Window text */
-"Expected path not found for '%@'" = "Expected path not found for '%@'";
+"Expected path not found for '%@'" = "%@ üçün gözlənilən keçid tapılmayıb";
 
 /* Window text */
-"Failed to copy %@ to %@" = "Failed to copy %1$@ to %2$@";
+"Failed to copy %@ to %@" = "%1$@ %2$@ köçürülməsi uğursuzdur";
 
 /* Window text */
-"Failed to create folder at %@" = "Failed to create folder at %@";
+"Failed to create folder at %@" = "%@ qovluq yaradıla bilmədi";
 
 /* Window text */
-"Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
+"Failed to create symlink\n  to %@\n  at %@" = "  %1$@ üçün \n  %2$@-də\nSimvolik link yaradılışı uğursuz keçdi";
 
 /* Window text */
-"Failed to set permissions on %@\n" = "Failed to set permissions on %@\n";
+"Failed to set permissions on %@\n" = "%@ üçün icazələrin quraşdırılması uğursuz keçdi\n";
 
 /* Window text */
-"Fast User Switching" = "Fast User Switching";
+"Fast User Switching" = "Sürətli İstifadəçi Dəyişməsi";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "%@ faylı UTF-16 kodlaşmasını keçib. Bütün OpenVPN ilə bağlı faylları ancaq adi mətn və ya UTF-8 faylları ola bilərlər.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
 
 /* Window text */
-"File '%@' ends with a backslash, which is not allowed." = "File '%@' ends with a backslash, which is not allowed.";
+"File '%@' ends with a backslash, which is not allowed." = "%@ faylı \"/\" işarəsi ilə bitir, bu icazəli deyil.";
 
 /* Window text */
-"File '%@' has an extension which is not known to Tunnelblick." = "File '%@' has an extension which is not known to Tunnelblick.";
+"File '%@' has an extension which is not known to Tunnelblick." = "%@ faylının sonluğu Tunnelblickə tanış deyil.";
 
 /* Window text */
-"File '%@' is missing" = "File '%@' is missing";
+"File '%@' is missing" = "%@ faylı tapılmır";
 
 /* Window text */
-"File '%@' is too short (%lu bytes)" = "File '%1$@' is too short (%2$lu bytes)";
+"File '%@' is too short (%lu bytes)" = "%1$@ faylı çox qısadır (%2$lu bayt)";
 
 /* Window text */
-"File is too large: %@" = "File is too large: %@";
+"File is too large: %@" = "Fayl çox böyükdür: %@";
 
 /* Window text */
 "GB" = "GB";
@@ -1145,37 +1145,37 @@
 "GB/s" = "GB/s";
 
 /* Window text */
-"Icon:" = "Icon:";
+"Icon:" = "İkona:";
 
 /* Window text */
-"In %@:\n\nThere are no OpenVPN configurations to install." = "In %@:\n\nThere are no OpenVPN configurations to install.";
+"In %@:\n\nThere are no OpenVPN configurations to install." = "%@ içində:\n\nHeç bir quraşdırılası OpenVPN konfiqursiyaları yoxdur.";
 
 /* Window text */
-"In the OpenVPN configuration file for '%@' at line %lu: %@" = "In the OpenVPN configuration file for '%1$@' at line %2$lu: %3$@";
+"In the OpenVPN configuration file for '%@' at line %lu: %@" = "%2$lu xəttində %1$@ üçün OpenVPN konfiqurasiya faylında: %3$@";
 
 /* Window text */
-"In the OpenVPN configuration file for '%@': %@" = "In the OpenVPN configuration file for '%1$@': %2$@";
+"In the OpenVPN configuration file for '%@': %@" = "%1$@ üçün OpenVPN konfiqurasiya faylında: %2$@";
 
 /* Window text */
-"In:" = "In:";
+"In:" = "Girir:";
 
 /* Window text */
-"Installation failed:\n\n%@" = "Installation failed:\n\n%@";
+"Installation failed:\n\n%@" = "Quraşdırma uğursuz keçdi:\n\n%@";
 
 /* Window text */
-"Installation finished successfully." = "Installation finished successfully.";
+"Installation finished successfully." = "Quraşdırma uğurlu keçdi.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
+"Installing and securing Tunnelblick %@..." = "Tunnelblick %@ quraşdırılır və təhlükəsizliyi təmin olunur...";
 
 /* Window text */
-"Installing configurations is not allowed" = "Installing configurations is not allowed";
+"Installing configurations is not allowed" = "konfiqurasiyaların quraşdırılması icazəli deyil";
 
 /* Window text */
-"Internal error: commentOutLines: line %lu does not exist" = "Internal error: commentOutLines: line %lu does not exist";
+"Internal error: commentOutLines: line %lu does not exist" = "Daxili səhv: commentOutLines: %lu xətti mövcud deyil";
 
 /* Window text */
-"Invalid value '%@' for '%@' in %@" = "Invalid value '%1$@' for '%2$@' in %3$@";
+"Invalid value '%@' for '%@' in %@" = "%3$@-da %2$@ üçün %1$@ etibarsız dəyər";
 
 /* Window text */
 "KB" = "KB";
@@ -1184,13 +1184,13 @@
 "KB/s" = "KB/s";
 
 /* Window text */
-"Keyboard shortcut:" = "Keyboard shortcut:";
+"Keyboard shortcut:" = "Klaviatura qısa yol:";
 
 /* Window text */
-"Last checked: %@" = "Last checked: %@";
+"Last checked: %@" = "Son dəfə yoxlanılıb: %@";
 
 /* Window text */
-"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Line %1$d of file '%2$@' contains a non-printable character (0x%3$X) which is not allowed.\n\n";
+"Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "%2$@ faylının %1$d xəttində çap-olunmaz simvollar (0x%3$X) vardır, onlar icazəli deyil.\n\n";
 
 /* Window text */
 "MB" = "MB";
@@ -1199,112 +1199,112 @@
 "MB/s" = "MB/s";
 
 /* Window text */
-"Maximum log display size:" = "Maximum log display size:";
+"Maximum log display size:" = "Maksimal göstərilə bilən loq həcmi:";
 
 /* Window text */
-"Menu:" = "Menu:";
+"Menu:" = "Menyu:";
 
 /* Window text */
-"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion.";
+"Missing CFBundleIdentifier or CFBundleVersion in Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include its own CFBundleIdentifier and CFBundleVersion." = "%@\nüçün tapılmayan CFBundleIdentifier və ya Info.plist-də yerləşən CFBundleVersion.\n\nBu VPN Konfiqurasiyası yenilənə bilən zahiri VPN Konfiqurasiyasına daxil edilmişdir, buna görə də onun özəl CFBundleIdentifier və CFBundleVersion-u olmalıdır.";
 
 /* Window text */
-"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist.";
+"Missing Info.plist for\n\n%@\n\nThis VPN Configuration is enclosed in an updatable outer VPN Configuration, so it must include an Info.plist." = "%@\ntapılmayan Info.plist.\n\nBu VPN Konfiqurasiyası yenilənə bilən zahiri VPN Konfiqurasiyasına daxil edilmişdir, buna görə də onun içində Info.plist olmalıdır.";
 
 /* Window text */
-"Modified configuration file to remove path information" = "Modified configuration file to remove path information";
+"Modified configuration file to remove path information" = "Keçid məlumatını silmək üçün konfiqurasiya fayləna dəyişiklik edilmişdir";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Eyni vaxtda bir neçə bağlantı yaradılacaq (%1$d təyin olunmuş server adı ilə, %2$d isə təyin olunmamış server adı ilə).";
 
 /* Window text */
-"Named Credentials" = "Named Credentials";
+"Named Credentials" = "Adı çəkilən Etimadnamələr";
 
 /* Window text */
-"Names may not include any of the following characters: %s" = "Names may not include any of the following characters: %s";
+"Names may not include any of the following characters: %s" = "Aşağda göstərilən simvollar adlarda istifadə oluna bilməz: %s";
 
 /* Window text */
-"Names may not include any of the following characters: %s\n\n%@" = "Names may not include any of the following characters: %1$s\n\n%2$@";
+"Names may not include any of the following characters: %s\n\n%@" = "Aşağda göstərilən simvollar adlarda istifadə oluna bilməz: %1$s\n\n%2$@";
 
 /* Window text */
-"NetBIOS name:" = "NetBIOS name:";
+"NetBIOS name:" = "NetBIOS adı:";
 
 /* Window text */
-"Network setting" = "Network setting";
+"Network setting" = "Şəbəkə parametrləri";
 
 /* Window text */
-"No 'TBPackageVersion' in %@" = "No 'TBPackageVersion' in %@";
+"No 'TBPackageVersion' in %@" = "%@ içində heç bir TBPackageVersion yoxdur";
 
 /* Window text */
-"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference";
+"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Easy-rsa-ə keçid yoxdur. Ən çox ehtimal olunan səbəb easy-rsaPath üstünlükləri olar bilər";
 
 /* Window text */
-"Non-array value for '%@' in %@" = "Non-array value for '%1$@' in %2$@";
+"Non-array value for '%@' in %@" = "%2$@ içində %1$@ üçün qeyri-şərtli dəyər";
 
 /* Window text */
-"Non-boolean value for '%@' in %@" = "Non-boolean value for '%1$@' in %2$@";
+"Non-boolean value for '%@' in %@" = "%2$@ içində %1$@ üçün qeyri-boolean dəyər";
 
 /* Window text - First %@ is the name of a Key, second %@ is the path to an Info.plist file */
-"Non-integer value for '%@' in %@" = "Non-integer value for '%1$@' in %2$@";
+"Non-integer value for '%@' in %@" = "%2$@ içində %1$@ üçün natamam dəyər";
 
 /* Window text */
-"Non-string value for '%@' in %@" = "Non-string value for '%1$@' in %2$@";
+"Non-string value for '%@' in %@" = "%2$@ içində %1$@ üçün qeyri-sıra dəyər";
 
 /* Window text */
-"Non-string value for an item in '%@' in %@" = "Non-string value for an item in '%1$@' in %2$@";
+"Non-string value for an item in '%@' in %@" = "%2$@ içində %1$@ içində olan element üçün qeyri-sıra dəyər";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Açarlıqda %ld seçdiyi konfiqurasiyaların heç birində etimadnamələr (özəl açar və ya istifadəçi adı və şifrəsi) yoxdur.";
 
 /* Window text */
-"Not a .ovpn or .conf: %@" = "Not a .ovpn or .conf: %@";
+"Not a .ovpn or .conf: %@" = "Nə .ovpn nə də .conf: %@";
 
 /* Window text */
-"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'";
+"Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Mövcud konfiqurasiya əvəz edilmir, beləcə %@ konfiqurasiyası TBKeepExistingFilesList-i istifadə edə bilmir";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Bir və ya daha çox OpenVPN prosesləri aktivdir amma Tunnelblickə məlum deyil. Əgər Siz OpenVPN-i Tunnelblickdən ayrı işlətmirsinizsə, deməli əvvəlki Tunnelblick başlanması zamanı bu prosesləri lazımi qaydada bağlaya bilməyib və siz onları dayandırmalısınız. Onlar çox güman ki, Tunnelblick operasiyalarına maneyə törədcəklər. Siz bütün OpenVPN proseslərini dayandırmaq istəyirsiniz?";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Bir və ya daha çox OpenVPN prosesləri aktivdir amma Tunnelblickə məlum deyil. Əgər Siz OpenVPN-i Tunnelblickdən ayrı işlətmirsinizsə, deməli əvvəlki Tunnelblick başlanması zamanı bu prosesləri lazımi qaydada bağlaya bilməyib və siz onları dayandırmalısınız. Onlar çox güman ki, Tunnelblick operasiyalarına maneyə törədcəklər. Siz bütün OpenVPN proseslərini dayandırmaq istəyirsiniz?";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "Bir və ya daha çox OpenVPN prosesləri aktivdir amma Tunnelblickə məlum deyil. Əgər Siz OpenVPN-i Tunnelblickdən ayrı işlətmirsinizsə, deməli əvvəlki Tunnelblick başlanması zamanı bu prosesləri lazımi qaydada bağlaya bilməyib və siz onları dayandırmalısınız. Onlar çox güman ki, Tunnelblick operasiyalarına maneyə törədcəklər.\n\nOnlar Manitor Aktivliyi proqramında dayandırıla bilərlər.\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Bir və ya daha artıq yenilənən VPN konfiqurasiyaları Siz VPN-ə qoşulan zaman özündə super istifadəçi proqramlar ehtiva edir. Onlar KOMPYUTERDƏN TAM İDARƏ GÖTÜRƏ BİLMƏ QABİLİYYƏTİNƏ MALİKDİR.\n\nSİZ BU KONFİQURASİYALARIN MÜƏLLİFLƏRİNƏ ETİBAR ETMİRSİNİZSƏ ONLARI QURAŞDIRMAYIN.\n\nSiz konfiqurasiyaların müəllifinə etibar edir və onları quraşdırmaq istəyirsiniz?\n\n";
 
 /* Window text */
-"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+"One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Sizin quraşdırdığınız bir və ya daha artıq VPN konfiqurasiyalarının içində Tunnelblickə məlum olmayan OpenVPN seçimləri vardır. Bu ya konfiqurasiya ya da Tunnelblickin səhvi ola bilər, və ya konfiqurasiyalar Siz VPN-ə qoşulan zaman özündə super istifadəçi proqramlar ehtiva edir. Bu cür proqramlar KOMPYUTERDƏN TAM İDARƏ GÖTÜRƏ BİLMƏ QABİLİYYƏTİNƏ MALİKDİR.\n\nSİZ BU KONFİQURASİYALARIN MÜƏLLİFLƏRİNƏ ETİBAR ETMİRSİNİZSƏ ONLARI QURAŞDIRMAYIN.\n\nSiz konfiqurasiyaların müəllifinə etibar edir və onları quraşdırmaq istəyirsiniz?\n\n";
 
 /* Window text */
-"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
+"One or more VPN configurations you are installing include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Bir və ya daha artıq VPN konfiqurasiyaları Siz VPN-ə qoşulan zaman özündə super istifadəçi proqramlar ehtiva edir. Onlar KOMPYUTERDƏN TAM İDARƏ GÖTÜRƏ BİLMƏ QABİLİYYƏTİNƏ MALİKDİR.\n\nSİZ BU KONFİQURASİYALARIN MÜƏLLİFLƏRİNƏ ETİBAR ETMİRSİNİZSƏ ONLARI QURAŞDIRMAYIN.\n\nSiz konfiqurasiyaların müəllifinə etibar edir və onları quraşdırmaq istəyirsiniz?\n\n";
 
 /* Window text */
-"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding.";
+"One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Hal hazırda bir və ya daha artıq VPN-lər qoşulu haldadır. Lütfən davam etməmişdən əvvəl bütün VPN bağlantılarını bitirin və Tunnelblickdən çıxın.";
 
 /* Window text */
-"One or more configurations are being ignored. See the Console Log for details." = "One or more configurations are being ignored. See the Console Log for details.";
+"One or more configurations are being ignored. See the Console Log for details." = "Bir və ya daha artıq konfiqurasiyalar nəzərə alınmır. Təfərrüatlar üçün parametr jurnalına baxın.";
 
 /* Window text */
-"One or more problems were detected:\n\n%@" = "One or more problems were detected:\n\n%@";
+"One or more problems were detected:\n\n%@" = "Bir və ya daha artıq problem aşkar edilmişdir:\n\n%@";
 
 /* Window text */
-"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.";
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Kompyuter başlayanda yalnız Tunnelblick VPN Konfiqurasiyası (.tblk) başlaya bilər.";
 
 /* Window text */
-"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected.";
+"OpenVPN is not responding to requests to disconnect %@.\n\nTunnelblick will disconnect when OpenVPN starts responding to disconnection requests.\n\nTHIS MAY TAKE UP TO TWO MINUTES in certain unusual circumstances.\n\nThe connection will be unavailable until it is disconnected." = "OpenVPN %@ dayandırılması sorğusuna cavab vermir.\n\nTunnelblick OpenVPN bağlantını bitirmə sorğusuna cavab verməyə başlayanda bağlantını bitirəcək.\n\nBu bəzi qeyri- adi hallarda İKİ DƏQİQƏDƏN ÇOX VAXT ALA BİLƏR.\n\nBağlantı bitənə kimi bağlantı işlək olmayacaq.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN version %1$@ is not available. Changing this configuration to use the latest version (%2$@) that is included in this version of Tunnelblick.";
+"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick." = "OpenVPN %1$@ versiyası yoxdur. konfiqurasiyanı ən son, Tunnelblickin hazırki versiyasında ehtiva olunan versiyaya (%2$@) dəyişilir.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN version %1$@ is not available. Using the latest version (%2$@) as the default.";
+"OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN %1$@ versiyası yoxdur. Ən son versiya (%2$@) standart kimi istifadə olunur.";
 
 /* Window text */
-"OpenVPN version:" = "OpenVPN version:";
+"OpenVPN version:" = "OpenVPN versiyası:";
 
 /* Window text */
-"Out:" = "Out:";
+"Out:" = "Çıxır:";
 
 /* Window text */
 "PB" = "PB";
@@ -1313,55 +1313,55 @@
 "PB/s" = "PB/s";
 
 /* Window text */
-"Password:" = "Password:";
+"Password:" = "Şifrə:";
 
 /* Window text */
-"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Path '%1$@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
+"Path '%@' contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "%1$@ keçiddə icazəsiz simvollar vardır.\n\nİcazəsiz simvollar: %2$s\n\n";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Please enter a name and click \"OK\" or click \"Cancel\".\n\n";
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Lütfən ad daxil edib \"OK\" və ya \"Ləğv et\" düyməsini basın.\n\n";
 
 /* Window text */
-"Please enter a new name for '%@'." = "Please enter a new name for '%@'.";
+"Please enter a new name for '%@'." = "Lütfən %@ üçün yeni ad daxil edin.";
 
 /* Window text */
-"Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
+"Please insert token \"%@\", then click \"OK\"" = "Lütfən %@ tokeni daxil edin və sonra \"OK\" düyməsini basın";
 
 /* Window text */
-"Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting.";
+"Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Özəl konfiqurasiyalar kompyuter başlayanda qoşula bilməz.\n\nİlk növbədə bu konfiqurasiyanı paylaşdırılan edin, daha sonra bu parametrləri dayişin.";
 
 /* Window text */
-"Received fatal signal %d." = "Received fatal signal %d.";
+"Received fatal signal %d." = "Ölümcül siqnal %d qəbul olundu.";
 
 /* Window text */
-"Rename failed; see the Console Log for details." = "Rename failed; see the Console Log for details.";
+"Rename failed; see the Console Log for details." = "Ad dəyişmə uğursuz keçdi. Təfərrüatlar üçün parametr jurnalına baxın.";
 
 /* Window text */
-"Resolved symbolic link at '%@' to '%@'" = "Resolved symbolic link at '%1$@' to '%2$@'";
+"Resolved symbolic link at '%@' to '%@'" = "%1$@ içində simvolik link %2$@ qərarlaşdırıldı";
 
 /* Window text */
-"Search domain:" = "Search domain:";
+"Search domain:" = "Domeni axtar:";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
+"Securing Tunnelblick %@..." = "%@ Tunnelblickin təhlükəsizliyi təmin olunur...";
 
 /* Window text */
-"Set DNS/WINS:" = "Set DNS/WINS:";
+"Set DNS/WINS:" = "DNS/WINS-i quraşdır:";
 
 /* Window text */
-"Single-quote missing in line %u" = "Single-quote missing in line %u";
+"Single-quote missing in line %u" = "%u xəttində tək dırnaq açılmayıb";
 
 /* Window text */
-"Skipped copying %@ because a file with that name and contents has already been copied." = "Skipped copying %@ because a file with that name and contents has already been copied.";
+"Skipped copying %@ because a file with that name and contents has already been copied." = "%@ surətinin çıxarılması buraxıldı, çünki belə adlı fayl və məzmun artıq köçürülmüşdü.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
+"Starting Tunnelblick %@..." = "Tunnelblick %@ başlayır...";
 
 /* Window text */
-"Startup window:" = "Startup window:";
+"Startup window:" = "Başlama pəncərəsi:";
 
 /* Window text */
-"Symbolic links nested too deeply. Gave up at %@" = "Symbolic links nested too deeply. Gave up at %@";
+"Symbolic links nested too deeply. Gave up at %@" = "Simvolik linklər çox dərində yerləşib. %@ axtarış dayandırıldı";
 
 /* Window text */
 "TB" = "TB";
@@ -1370,103 +1370,103 @@
 "TB/s" = "TB/s";
 
 /* Window text */
-"TBRunAlertPanel returned an error" = "TBRunAlertPanel returned an error";
+"TBRunAlertPanel returned an error" = "TBRunAlertPanel səhv ilə qayıtdı";
 
 /* Window text */
-"TUNNELBLICK is brought to you by" = "TUNNELBLICK is brought to you by";
+"TUNNELBLICK is brought to you by" = "TUNNELBLİCK sizə bunlar tərəfindən gətirilib";
 
 /* Window text */
-"Thank you very much for your donation to the TunnelblickProject." = "Thank you very much for your donation to the TunnelblickProject.";
+"Thank you very much for your donation to the TunnelblickProject." = "TunnelblickProject-ə verdiyiniz ianəyə görə Sizə təşəkkürümüzü bildiririk.";
 
 /* Window text */
-"Thanks for your Tunnelblick donation" = "Thanks for your Tunnelblick donation";
+"Thanks for your Tunnelblick donation" = "Tunnelblick-ə verdiyiniz ianəyə görə təşəkkürlər";
 
 /* Window text */
-"That name is being used.\n\n" = "That name is being used.\n\n";
+"That name is being used.\n\n" = "Bu ad istifadə olunur.\n\n";
 
 /* Window text */
-"The %@ system folder (%@) does not exist." = "The %1$@ system folder (%2$@) does not exist.";
+"The %@ system folder (%@) does not exist." = "%1$@ sistem qovluğu (%2$@) mövcud deyil.";
 
 /* Window text */
-"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "The %1$@ system folder (%2$@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem.";
+"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "%1$@ sistem qovluğu (%2$@) təhlükədədir.\n\nƏgər bu problem həll olunmasa Tunnelblick lazımınca işləməyəcək.\n\nDisk Alətlərin 'Disk İcazələrinin Bərpası' funksiyası bəlkədə bu problemi aradan qaldıra biləcək.";
 
 /* Window text */
-"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option.";
+"The '%@' OpenVPN option is not allowed on OS X. It is a 'Windows only' option." = "%@ OpenVPN seçimi OS X-də istifadə oluna bilməz. Bu yalnız 'Windows'-da istifadə olunan seçimdir.";
 
 /* Window text */
-"The '%@' OpenVPN option is not allowed when using Tunnelblick." = "The '%@' OpenVPN option is not allowed when using Tunnelblick.";
+"The '%@' OpenVPN option is not allowed when using Tunnelblick." = "%@ OpenVPN seçimi Tunnelblicki istifadə etdikdə icazəli deyil.";
 
 /* Window text */
-"The '%@' credentials may not be added because the list of named credentials is being forced." = "The '%@' credentials may not be added because the list of named credentials is being forced.";
+"The '%@' credentials may not be added because the list of named credentials is being forced." = "%@ etimadnamələri əlavə oluna bilməz, çünki adı çəkilmiş etimadnamələrin siyahısı məcburidir.";
 
 /* Window text */
-"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "The '%@' credentials may not be deleted because one or more configurations are being forced to use them.";
+"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "%@ etimadnamələr silinmir, çünki bir və ya daha artıq konfiqurasiyanların istifadəsi məcburidir.";
 
 /* Window text */
-"The '%@' credentials may not be deleted because the list of named credentials is being forced." = "The '%@' credentials may not be deleted because the list of named credentials is being forced.";
+"The '%@' credentials may not be deleted because the list of named credentials is being forced." = "%@ etimadnamələr silinmir, çünki adı çəkilmiş etimadnamələrin siyahısı məcburidir.";
 
 /* Window text */
-"The 'credentialsNames' preference must be an array of strings." = "The 'credentialsNames' preference must be an array of strings.";
+"The 'credentialsNames' preference must be an array of strings." = "'credentialsNames' üstünlüyü çox şərtli siralardan ibarət olmalıdır.";
 
 /* Window text */
-"The 'namedCredentialsNames' preference must be an array of strings" = "The 'namedCredentialsNames' preference must be an array of strings";
+"The 'namedCredentialsNames' preference must be an array of strings" = "'namedCredentialsNames' üstünlüyü çox şərtli siralardan ibarət olmalıdır";
 
 /* Window text */
-"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "The OpenVPN configuration file in %1$@ contains a '%2$@' option, which is a Windows-only option. It cannot be used on OS X.";
+"The OpenVPN configuration file in %@ contains a '%@' option, which is a Windows-only option. It cannot be used on OS X." = "%1$@ yerləşən OpenVPN konfiqurasiya faylın içində %2$@ seçimi vardır, hansı ki, yalnız Windows-a aid seçimdir. O OS X-də istifadə oluna bilməz.";
 
 /* Window text */
-"The OpenVPN log does not yet exist or has been deleted." = "The OpenVPN log does not yet exist or has been deleted.";
+"The OpenVPN log does not yet exist or has been deleted." = "OpenVPN loqu mövcud deyil və ya silinib.";
 
 /* Window text */
-"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details.";
+"The Tunnelblick preferences were corrupted and have been cleared. (The old preferences were renamed.)\n\nSee the Console Log for details." = "Tunnelblick üstünlükləri korlanıb və təmizlənib. (Köhnə üstünlüklərin adları dəyişdirilib.)\n\nTəfərrüatlar üçün parametr jurnalına baxın.";
 
 /* Window text */
-"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "The attempt to connect %1$@ has been cancelled: the runOnConnect script returned status: %2$ld.";
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %ld." = "%1$@ qoşulma cəhdi ləğv edildi: runOnConnect skriptinin qayıdış statusu: %2$ld.";
 
 /* Window text */
-"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?";
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "%@ üçün olan konfiqurasiya faylı 'isitifadəçi' və/və ya 'qrup' seçimlərindən, və həmçinin skriptdən istifadə edir ( 'Server adını quraşdırma' seçilməmişdir, və ya konfiqurasiya faylında 'aşağı' seçimi vardir).\n\nBağlantını yeniləmək ( bağlantı kəsiləndə avtomatik olaraq edilir) çox ehtimal ki, uğursuz keçəcək, əgər OpenVPN üçün 'openvpn-down-root.so' plagini istifadə olunmasa.\n\nSiz bu plagini istifadə etmek istərdiniz?";
 
 /* Window text */
-"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.";
+"The configuration file for '%@' does not appear to contain a 'dev tun', 'dev utun', or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "%@ üçün olan konfiqurasiya faylında göründüyü kimi 'dev tun', 'dev utun', və ya 'dev tap' seçimləri yoxdur. Bu seçim Tunnelblickin problemsiz işləməsi üçün lazımdır. Şəbəkə administratorunuz və ya OpenVPN sənədlərində məsləhət alın.";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced).";
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist (even in the configuration being replaced)." = "konfiqurasiya faylı bu fayla istinad edir\n\n%@\n\nhansı ki, mövcud deyil (hətta konfiqurasiya əvəz edildikdə).";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used.";
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist in the new configuration, so the existing unsecured file has been used." = "konfiqurasiya faylı bu fayla istinad edir\n\n%@\n\nhansı ki, yeni konfiqurasiyada mövcud deyil, ona görə də təhlükədə olan fayl istifadə olundu.";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "The configuration file refers to a file\n\n%@\n\nwhich does not exist.";
+"The configuration file refers to a file\n\n%@\n\nwhich does not exist." = "konfiqurasiya faylı bu fayla istinad edir\n\n%@\n\nhansı ki, mövcud deyil.";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced)." = "The configuration file refers to a file\n\n%1$@\n\nwhich should be located at\n\n%2$@\n\nbut the file does not exist (even in the configuration being replaced).";
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist (even in the configuration being replaced)." = "konfiqurasiya faylı bu fayla istinad edir\n\n%1$@\n\nyerləşdiyi yer\n\n%2$@\n\namma fayl mövcud deyil (hətta konfiqurasiya əvəz edildikdə).";
 
 /* Window text */
-"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "The configuration file refers to a file\n\n%1$@\n\nwhich should be located at\n\n%2$@\n\nbut the file does not exist.";
+"The configuration file refers to a file\n\n%@\n\nwhich should be located at\n\n%@\n\nbut the file does not exist." = "konfiqurasiya faylı bu fayla istinad edir\n\n%1$@\n\nyerləşdiyi yer\n\n%2$@\n\namma fayl mövcud deyil.";
 
 /* Window text */
-"The credentials named %@ could not be added:\n\n%@" = "The credentials named %1$@ could not be added:\n\n%2$@";
+"The credentials named %@ could not be added:\n\n%@" = "%1$@ adlı etimadnamələr əlavə oluna bilməz:\n\n%2$@\n";
 
 /* Window text */
-"The credentials named %@ could not be removed:\n\n%@" = "The credentials named %1$@ could not be removed:\n\n%2$@";
+"The credentials named %@ could not be removed:\n\n%@" = "%1$@ adı çəkilən etimadnamələr silinə bilməz:\n\n%2$@";
 
 /* Window text */
-"The file %@ is empty" = "The file %@ is empty";
+"The file %@ is empty" = "%@ adlı fayl boşdur";
 
 /* Window text */
-"The file %@ is missing" = "The file %@ is missing";
+"The file %@ is missing" = "%@ faylı tapılmır";
 
 /* Window text */
-"The installation or repair took too long or failed. Try again?" = "The installation or repair took too long or failed. Try again?";
+"The installation or repair took too long or failed. Try again?" = "Quraşdırma və ya sazlama çox uzun vaxt çəkdi və ya uğursuz keçdi. Bir daha sınamaq?";
 
 /* Window text */
-"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.";
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Bir və ya daha artıq Tunnelblick komponentlərinin quraşdırılma, silinmə, bərpa etmə və ya sazlaması uğursuz keçdi.\nTəfərrüatlar üçün parametr jurnalına baxın.";
 
 /* Window text */
-"The passphrase was not accepted." = "The passphrase was not accepted.";
+"The passphrase was not accepted." = "Şifrə-söz qəbul edilmədi.";
 
 /* Window text */
-"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy.";
+"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Özəl konfiqurasiyasının təhlükəsizliyi heç vaxt təmin olunmamışdı, buna görə də Siz təhlükəsiz (kölgə) surətinə qayıda bilməzsiniz.";
 
 /* Window text */
 "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.";
@@ -1493,7 +1493,7 @@
 "There was a problem with\n\n%@:\n\n%@" = "There was a problem with\n\n%1$@:\n\n%2$@";
 
 /* Window text */
-"There was a problem:\n\n%@" = "There was a problem:\n\n%@";
+"There was a problem:\n\n%@" = "Problem var:\n\n%@";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n";
@@ -1532,10 +1532,10 @@
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n";
 
 /* Window text */
-"Too many configuration files in '%@'" = "Too many configuration files in '%@'";
+"Too many configuration files in '%@'" = "%@ içində həddindən artıq konfiqurasiya faylları vardır";
 
 /* Window text */
-"Too many duplicate configurations already exist." = "Too many duplicate configurations already exist.";
+"Too many duplicate configurations already exist." = "Həddindən artıq çox dublikat konfiqurasiyalar mövcuddur.";
 
 /* Window text */
 "Translation by" = "Translation by";

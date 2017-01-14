@@ -245,7 +245,7 @@
 "Try again with saved passphrase" = "Mēģināt vēlreiz ar saglabāto frāzveida paroli";
 
 /* Button */
-"Try again with saved username and password" = "Mēģināt vēlreiz ar saglabāto lietotāja vārdu un paroli";
+"Try again with saved username and password" = "Mēģināt vēlreiz ar saglabāto lietotājvārdu un paroli";
 
 /* Button */
 "Try again" = "Mēģināt vēlreiz";
@@ -503,7 +503,7 @@
 "RECONNECTING" = "Savienojuma atsākšana"; // Please translate ""
 
 /* Connection status */
-"RESOLVE" = "Meklēju domēna vārda adresi"; // Please translate ""
+"RESOLVE" = "Meklē domēna vārda adresi"; // Please translate ""
 
 /* Connection status */
 "SLEEP" = "Gaida uz fona programmas procesu"; // Please translate "Waiting for daemon process"
@@ -821,7 +821,7 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "%@ jau atodas uz darbavirsmas.\n\nVai vēlaties to aizstāt?";
 
 /* Window text */
-"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "%@ nesatur piekļuves datus (privātās atslēgas vai lietotāja vārds un parole), kas saglabāti Keychain.";
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "%@ nesatur piekļuves datus (privātās atslēgas vai lietotājvārds un parole), kas saglabāti Keychain.";
 
 /* Window text */
 "'%@' was not terminated." = "tags %@ netika pabeigts.";
@@ -875,7 +875,7 @@
 "A username and password are required to connect to\n  %@" = "Lai pieslēgtos pie %@, ir nepieciešams lietotājvārds un parole";
 
 /* Window text */
-"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Ir nepieciešams lietotāja vārds un parole, lai pieslēgtos\n  %1$@\n(izmantojot '%2$@' piekļuves datus)";
+"A username and password are required to connect to\n  %@\n(using '%@' credentials)" = "Ir nepieciešams lietotājvārds un parole, lai pieslēgtos\n  %1$@\n(izmantojot '%2$@' piekļuves datus)";
 
 /* Window text */
 "Add Credentials" = "Pievienot nosaukumu";
@@ -938,13 +938,13 @@
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Vai esat pārliecināts, ka vēlies konvertēt OpenVPN konfigurāciju uz Tunnelblick VPN?\nKONFIGURĀCIJAS NEBŪS PIEEJAMAS, JA NEPĀRKONVERTĒSIET!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Vai tiešām vēlaties dzēst %ld konfigurācijās izmantotos piekļuves datus (privāto atslēgu un/vai lietotāja vārdu un paroli), kuri saglabāti Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Vai tiešām vēlaties dzēst %ld konfigurācijās izmantotos piekļuves datus (privāto atslēgu un/vai lietotājvārdu un paroli), kuri saglabāti Keychain?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Vai tiešām vēlaties dzēst %@ izmantotos piekļuves datus (privāto atslēgu un/vai lietotāja vārdu un paroli), kuri saglabāti Keychain?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Vai tiešām vēlaties dzēst %@ izmantotos piekļuves datus (privāto atslēgu un/vai lietotājvārdu un paroli), kuri saglabāti Keychain?";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Vai tiešām vēlaties dzēst piekļuves datus (privāto atslēgu un/vai lietotāja vārdu un paroli), kas saglabāti Keychain priekš '%@'?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Vai tiešām vēlaties dzēst piekļuves datus (privāto atslēgu un/vai lietotājvārdu un paroli), kas saglabāti Keychain priekš '%@'?";
 
 /* Window text */
 "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Vai tiešām vēlaties uzstādīt konfigurācijas, kas var PILNĪBĀ KONTROLĒT JŪSU DATORU?\n\n";
@@ -1253,7 +1253,7 @@
 "Non-string value for an item in '%@' in %@" = "Ne virknes vērtība vienumam '%1$@', kas atrodas %2$@";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Neviena no %ld izvēlētajām konfigurācijām nesatur piekļuves datus (privāto atslēgu vai lietotāja vārdu un paroli), kas glabājas Keychain.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Neviena no %ld izvēlētajām konfigurācijām nesatur piekļuves datus (privāto atslēgu vai lietotājvārdu un paroli), kas glabājas Keychain.";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Nav .opvn vai .conf: %@";
