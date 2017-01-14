@@ -1,11 +1,11 @@
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Disconnect All (%1$@) - apparent public IP address %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Rozłącz wszystkie (%1$@) - widoczne publicznie adresy IP %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Rozłącz wszystkie (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Disconnect All (%1$d Connections) - apparent public IP address %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Rozłącz wszystkie (%1$d połączenia) - widoczne publicznie adresy IP %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Rozłącz wszystkie (%d połączenia)";
@@ -242,7 +242,7 @@
 "This configuration uses %@ credentials" = "Ta konfiguracja korzysta z danych %@";
 
 /* Button */
-"Try again with saved passphrase" = "Spróbuj ponownie przy użyciu zachowanego klucza prywatnego";
+"Try again with saved passphrase" = "Spróbuj ponownie przy użyciu zachowanego hasła";
 
 /* Button */
 "Try again with saved username and password" = "Spróbuj ponownie przy użyciu zachowanych nazwy użytkownika i hasła";
@@ -443,7 +443,7 @@
 "Send anonymous profile information when checking" = "Sprawdzając wyślij anonimowe informacje o profilu";
 
 /* Checkbox name */
-"Set DNS after routes are set" = "Set DNS after routes are set";
+"Set DNS after routes are set" = "Ustaw DNS po ustawieniu routingu";
 
 /* Checkbox name */
 "Show when disconnected" = "Pokaż gdy rozłączony";
@@ -1118,7 +1118,7 @@
 "Fast User Switching" = "Szybkie przełączanie użytkownika";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Plik '%@' wygląda na zakodowany w UTF-16. Wszystkie pliki związane z OpenVPN muszą być w zwykłym tekście lub zakodowane w UTF-8.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Plik \"%@' wydaje się być w formacie\"RTF\" (Ponieważ zaczyna się od znaku \"{\"). Wszystkie pliki związane z OpenVPN muszą być czystymi plikami tekstowymi lub plikami z kodowaniem UTF-8.";
@@ -1166,7 +1166,7 @@
 "Installation finished successfully." = "Instalacja została zakończona pomyślnie.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
+"Installing and securing Tunnelblick %@..." = "Instalowanie i zabezpieczanie Tunnelblick %@…";
 
 /* Window text */
 "Installing configurations is not allowed" = "Instalowanie konfiguracji jest niedozwolone";
@@ -1343,7 +1343,7 @@
 "Search domain:" = "Szukaj domeny:";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Securing Tunnelblick %@..." = "Securing Tunnelblick %@…";
+"Securing Tunnelblick %@..." = "Zabezpieczam Tunnelblick %@…";
 
 /* Window text */
 "Set DNS/WINS:" = "Ustaw DNS/WINS:";
@@ -1355,7 +1355,7 @@
 "Skipped copying %@ because a file with that name and contents has already been copied." = "Pominięto kopiowanie %@ ponieważ plik z tą nazwą i zawartością został już skopiowany.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Starting Tunnelblick %@..." = "Starting Tunnelblick %@…";
+"Starting Tunnelblick %@..." = "Uruchamiam Tunnelblick %@…";
 
 /* Window text */
 "Startup window:" = "Okno startowe:";
@@ -1538,13 +1538,13 @@
 "Too many duplicate configurations already exist." = "Istnieje już za dużo skopiownych konfiguracji.";
 
 /* Window text */
-"Translation by" = "Translation by";
+"Translation by" = "Tłumaczenie przez";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
-"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
+"Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ został pomyślnie zabezpieczony.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+"Tunnelblick %@ is ready." = "Tunnelblick %@ jest gotowy.";
 
 /* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tryb admina Tunnelblick\n\nTymczasowo zatwierdzaj zmiany wymagające hasła administratora.\n\nSesja wygasa po pięciu minutach lub gdy okno 'Właściwości VPN' zostanie zamknięte.";
@@ -1907,13 +1907,13 @@
 "64-bit enabling and testing" = "implementacja i testowanie wersji 64-bitowej";
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>";
+"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Jeśli zaznaczone</strong>, IPv6 zostanie wyłączony.</p>\n<p>Wyłączenie IPv6 jest często zalecane ponieważ wiele konfiguracji VPN nie strzeże wycieków informacji spowodowanych używaniem protokołu IPv6. Większość Internetu działa prawidłowo bez IPv6</p>\n<p><strong>Jeśli nie zaznaczone</strong>, IPv6 nie zostanie wyłączony.</p>\n<p><strong>Jeśli niedostępne</strong>, jeśli używasz połączenia 'tap' ponieważ nie może zostać wymuszone na połączeniu 'tap' .</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>";
+"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Jeśli zaznaczone</strong>, IPv6 będzie włączone.</p>\n<p><strong>Jeśli nie zaznaczone</strong>, IPv6 nie będzie włączone.</p>\n<p>Wyłączenie IPv6 jest często zalecane ponieważ wiele konfiguracji VPN nie strzeże wycieków informacji spowodowanych używaniem protokołu IPv6. Większość Internetu działa prawidłowo bez IPv6</p>\n<p><strong>Jeśli niedostępne</strong> dla konfiguracji 'tun'.</p>";
 
 /* HTML info for the 'Set DNS after routes are set' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n";
+"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Jeśli zaznaczone</strong>, OpenVPN zmieni ustawienia DNS i inne po tym jak ustawi routing dla VPN zamiast przed ustawieniem routingu.</p>\n<p><strong>Jeśli nie zaznaczone</strong>, OpenVPN zmieni ustawienia DNS i inne zanim ustawi routing dla VPN zamiast po ustawieniu routingu. Może to prowadzić do problemów lub opóźnień w działaniu DNS jeśli dla przykładu ustawianie routingu trwa zbyt długo ponieważ jest dużo tras do ustawienia.</p>\n";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n";
@@ -1940,55 +1940,55 @@
 "<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>" = "<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>";
 
 /* HTML info for the 'Reconnect when user switches in' checkbox. */
-"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>";
+"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>" = "<p><strong>Jeśli zaznaczone</strong>, VPN zostanie połączony ponownie po przełączeniu się z powrotem na bieżącego użytkownika jeżeli został rozłączony kiedy przełączano na innego użytkownika.</p>\n<p><strong>Jeśli nie zaznaczone</strong>, VPN nie połączy się ponownie po przełączeniu się z powrotem na bieżącego użytkownika.</p>";
 
 /* HTML info for the 'Reconnect when computer wakes up' checkbox. */
-"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>";
+"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>" = "<p><strong>Jeśli zaznaczone</strong>, VPN zostanie połączony ponownie po tym jak komputer zostanie obudzony jeżeli został rozłączony kiedy komputer był usypiany.</p>\n<p><strong>Jeśli nie zaznaczone</strong>, VPN nie połączy się ponownie po tym jak komputer zostanie obudzony.</p>";
 
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
-"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>";
+"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Jeśli zaznaczone</strong>, konfiguracja wyszukiwania domeny VPN zostanie dodana do listy wyszukiwania domen.</p>\n<p><strong>Jeśli nie zaznaczone</strong>, konfiguracja wyszukiwania domen zostanie zastąpiona przez domenę z VPN.</p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
-"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>";
+"<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>Sterownik urządzenia 'tap' jest wymagany przez połączenia typu Tap. Tunnelblick zawiera swój własny sterownik Tap ponieważ system operacyjny nie zawiera takiego. Jeśli zainstalowałeś inny sterownik Tap, Tunnelblick może nie być w stanie załadować swojego sterownika.</p><p>Możesz wybrać kiedy Tunnelblick ma załadować własny sterownik:</p>\n<p><strong>Załaduj sterownik Tap automatycznie</strong>: Tunnelblick załaduje swój sterownik kiedy jest potrzebny i wyładuje go kiedy nie będzie go już potrzebować.</p>\n<p><strong>Zawsze ładuj sterownik Tap</strong>: Tunnelblick załaduje swój sterownik w momencie łączenia się tej konfiguracji i wyładuje go kiedy nie będzie go już potrzebować.</p>\n<p><strong>Nigdy nie ładuj sterownika Tap</strong>: Tunnelblick nigdy nie załaduje swojego sterownika.</p>\n<p><strong>To pole jest zablokowane.</strong> dla konfiguracji Tun.</p>";
 
 /* HTML info for the 'Load Tun driver' popdown list. */
-"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>";
+"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>Sterownik urządzenia 'tun' jest wymagany przez połączenia typu Tun. Zazwyczaj używany jest systemowy sterownik Tun, Tunnelblick zawiera także swój własny sterownik Tun. Jeśli zainstalowałeś inny sterownik Tun, Tunnelblick może nie być w stanie załadować swojego sterownika.</p>\n<p>OpenVPN będzie używać sterownika systemowego chyba że konfiguracja OpenVPN będzie zawierać opcję 'dev-type tun'.</p>\n<p>Możesz wybrać kiedy Tunnelblick ma załadować własny sterownik Tun:</p>\n<p><strong>Załaduj sterownik Tun automatycznie</strong>: Tunnelblick załaduje swój sterownik kiedy jest potrzebny i wyładuje go kiedy nie będzie go już potrzebować. (Tunnelblick załaduje swój sterownik tylko wtedy jeśli w konfiguracji OpenVPN zawarta jest opcja 'dev-type tun'.)</p>\n<p><strong>Zawsze ładuj sterownik Tun</strong>: Tunnelblick załaduje swój sterownik w momencie łączenia się tej konfiguracji i wyładuje go kiedy nie będzie go już potrzebować.</p>\n<p><strong>Nigdy nie ładuj sterownika Tun</strong>: Tunnelblick nigdy nie załaduje swojego sterownika.</p>\n<p><strong>To pole jest zablokowane.</strong> dla konfiguracji Tap.</p>";
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
-"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>";
+"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>Pamięć podręczna DNS zawiera kopie informacji DNS (Domain Name System).</p>\n<p><strong>Jeśli zaznaczone</strong>, pamięć podręczna DNS zostanie wyczyszczona po połączeniu się lub rozłączeniu. Wszystkie zapytania DNS zostaną przeprowadzone przez serwer nazw określony przez konfigurację VPN.</p>\n<p><strong>Jeśli nie zaznaczone</strong>, pamięć podręczna DNS nie zostanie wyczyszczona. Może to prowadzić do problemów jeśli występują konflikty nazw pomiędzy serwerem nazw określonym w konfiguracji VPN i serwerem nazw z konfiguracji przed-VPNem oraz jeśli wpisy przed-VPNem zostały w pamięci podręcznej.</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Tryb admina. Pozostało %@";
 
 /* Credit description */
-"Afrikaans translation" = "Afrikaans translation";
+"Afrikaans translation" = "Afrykańskie tłumaczenie";
 
 /* Credit description */
 "Animation and icon sets code" = "animacja, kod implementacji zestawów ikon";
 
 /* Credit description */
-"Arabic translation" = "Arabic translation";
+"Arabic translation" = "Arabskie tłumaczenie";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Uwierzytelnianie…";
 
 /* Credit description */
-"Azerbaijani translation" = "Azerbaijani translation";
+"Azerbaijani translation" = "Azerbejdżańskie tłumaczenie";
 
 /* Credit description */
-"Bulgarian translation" = "Bulgarian translation";
+"Bulgarian translation" = "Bułgarskie tłumaczenie";
 
 /* Credit description */
 "Button images" = "projekt przycisków (buttons)";
 
 /* Credit description */
-"Catalan translation" = "Catalan translation";
+"Catalan translation" = "Katalońskie tłumaczenie";
 
 /* Credit description */
-"Chinese (simplified) translation" = "Chinese (simplified) translation";
+"Chinese (simplified) translation" = "Chińskie (uproszczony) tłumaczenie";
 
 /* Credit description */
-"Chinese (traditional) translation" = "Chinese (traditional) translation";
+"Chinese (traditional) translation" = "Chińskie (tradycyjny) tłumaczenie";
 
 /* Credentials name */
 "Common" = "Wspólne";
@@ -2003,13 +2003,13 @@
 "Contributed to early code" = "współudział w tworzeniu wcześniejszej wersji kodu";
 
 /* Credit description */
-"Croatian translation" = "Croatian translation";
+"Croatian translation" = "Chorwackie tłumaczenie";
 
 /* Credit description */
-"Czech translation" = "Czech translation";
+"Czech translation" = "Czeskie tłumaczenie";
 
 /* Credit description */
-"Danish translation" = "Danish translation";
+"Danish translation" = "Duńskie tłumaczenie";
 
 /* Speak string */
 "Disconnected from %@" = "Rozłączono z %@";
@@ -2018,7 +2018,7 @@
 "Do not show this again" = "Nie pokazuj tej informacji ponownie";
 
 /* Credit description */
-"Dutch translation" = "Dutch translation";
+"Dutch translation" = "Holenderskie tłumaczenie";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2026,52 +2026,52 @@
 "Enter admin mode" = "Tryb admina";
 
 /* Credit description */
-"Estonian translation" = "Estonian translation";
+"Estonian translation" = "Estońskie tłumaczenie";
 
 /* Credit description */
-"Finnish translation" = "Finnish translation";
+"Finnish translation" = "Fińskie tłumaczenie";
 
 /* Credit description */
 "Founder, original program and documentation" = "twórca programu i dokumentacji";
 
 /* Credit description */
-"French translation" = "French translation";
+"French translation" = "Francuskie tłumaczenie";
 
 /* Credit description */
-"German translation" = "German translation";
+"German translation" = "Niemieckie tłumaczenie";
 
 /* Credit description */
-"Greek translation" = "Greek translation";
+"Greek translation" = "Greckie tłumaczenie";
 
 /* Credit description */
-"Hungarian translation" = "Hungarian translation";
+"Hungarian translation" = "Węgierskie tłumaczenie";
 
 /* Credit description */
-"Icelandic translation" = "Icelandic translation";
+"Icelandic translation" = "Islandzkie tłumaczenie";
 
 /* Credit description */
 "Icon set including Retina images" = "Zestaw ikon zawierający obrazy dla Retiny";
 
 /* Credit description */
-"Indonesian translation" = "Indonesian translation";
+"Indonesian translation" = "Indonezyjskie tłumaczenie";
 
 /* Credit description */
-"Italian translation" = "Italian translation";
+"Italian translation" = "Włoskie tłumaczenie";
 
 /* Credit description */
-"Japanese translation" = "Japanese translation";
+"Japanese translation" = "Japońskie tłumaczenie";
 
 /* Credit description */
-"Korean translation" = "Korean translation";
+"Korean translation" = "Koreańskie tłumaczenie";
 
 /* [name of your language] translation */
-"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
+"LANGUAGE_TRANSLATION" = "Polskie tłumaczenie";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Magdalena Zając i Łukasz M., i Wojciech Sromek";
 
 /* Credit description */
-"Latvian translation" = "Latvian translation";
+"Latvian translation" = "Łotewskie tłumaczenie";
 
 /* Credit description */
 "Localization code tweaks" = "modyifkacje kodu tłumaczeń";
@@ -2080,7 +2080,7 @@
 "Multiple configuration folders" = "możliwość używania wielu katalogów konfiguracji";
 
 /* Credit description */
-"Norwegian translation" = "Norwegian translation";
+"Norwegian translation" = "Norweskie tłumaczenie";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 i integracja 64-bit ";
@@ -2089,49 +2089,49 @@
 "PKCS#11 support" = "wsparcie PKCS#11";
 
 /* Credit description */
-"Persian translation" = "Persian translation";
+"Persian translation" = "Perskie tłumaczenie";
 
 /* Credit description */
-"Polish translation" = "Polish translation";
+"Polish translation" = "Polskie tłumaczenie";
 
 /* Credit description */
-"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
+"Portuguese (Brazilian) translation" = "Portugalskie (Brazylijski) tłumaczenie";
 
 /* Credit description */
-"Portuguese translation" = "Portuguese translation";
+"Portuguese translation" = "Portugalskie tłumaczenie";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "ulepszenia w programie i dokumentacji po wersji 3.0b10";
 
 /* Credit description */
-"Romanian translation" = "Romanian translation";
+"Romanian translation" = "Rumuńskie tłumaczenie";
 
 /* Credit description */
-"Russian translation" = "Russian translation";
+"Russian translation" = "Rosyjskie tłumaczenie";
 
 /* Credit description */
-"Serbian (Latin) translation" = "Serbian (Latin) translation";
+"Serbian (Latin) translation" = "Serbskie (Łaciński) tłumaczenie";
 
 /* Credit description */
-"Slovak translation" = "Slovak translation";
+"Slovak translation" = "Słowackie tłumaczenie";
 
 /* Credit description */
-"Spanish translation" = "Spanish translation";
+"Spanish translation" = "Hiszpańskie tłumaczenie";
 
 /* Credit description */
-"Swedish translation" = "Swedish translation";
+"Swedish translation" = "Szwedzkie tłumaczenie";
 
 /* Credit description */
 "Tunnelblick icon" = "ikona Tunnelblick";
 
 /* Credit description */
-"Turkish translation" = "Turkish translation";
+"Turkish translation" = "Tureckie tłumaczenie";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue i UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian translation" = "Ukrainian translation";
+"Ukrainian translation" = "Ukraińskie tłumaczenie";
 
 /* Credit description */
 "Up and Down scripts" = "skrypty połączenia/rozłączenia dla VPN";
