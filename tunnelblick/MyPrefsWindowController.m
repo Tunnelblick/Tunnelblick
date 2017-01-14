@@ -2446,6 +2446,20 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 //***************************************************************************************************************
 
+-(void) setupCheckForBetasCheckbox {
+
+	BOOL forceBeta = runningABetaVersion();
+	BOOL beta = ( forceBeta
+				 ? YES
+				 : [gTbDefaults boolForKey: @"updateCheckBetas"]);
+	
+	NSButton * checkbox = [generalPrefsView updatesCheckForBetaUpdatesCheckbox];
+	[checkbox setState: (  beta
+						 ? NSOnState
+						 : NSOffState)];
+	[checkbox setEnabled: ! forceBeta];
+}
+
 -(void) setupUpdatesCheckboxes {
 	
     // Set values for the update checkboxes
@@ -2462,10 +2476,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 					   defaultsTo: FALSE];
     }
 	
-	[self setValueForCheckbox: [generalPrefsView updatesCheckForBetaUpdatesCheckbox]
-				preferenceKey: @"updateCheckBetas"
-					 inverted: NO
-				   defaultsTo: runningABetaVersion()];
+	[self setupCheckForBetasCheckbox];
 	
 	[self setValueForCheckbox: [generalPrefsView updatesSendProfileInfoCheckbox]
 				preferenceKey: @"updateSendProfileInfo"
@@ -2697,8 +2708,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked: (NSButton *) sender
 {
     [gTbDefaults setBool: [sender state] forKey: @"updateCheckBetas"];
-    
-    [((MenuController *)[NSApp delegate]) changedCheckForBetaUpdatesSettings];
 }
 
 

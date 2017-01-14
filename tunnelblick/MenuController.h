@@ -175,8 +175,6 @@ void * _NSConcreteStackBlock __attribute__((weak));
     
     SUUpdater               * updater;                      // Sparkle Updater item used to check for updates to the program
 
-    NSString                * feedURL;                      // URL to send program update requests to
-    
     ConfigurationMultiUpdater * myConfigMultiUpdater;       // Checks for configuration updates
 	
 	NSString                * languageAtLaunch;				// Lower-case version of the language we are using. Passed on to runOnConnect, runOnLaunch, and Menu command scripts
@@ -252,7 +250,6 @@ void * _NSConcreteStackBlock __attribute__((weak));
 																   to: (BOOL)       newValue
 															 inverted: (BOOL)		inverted;
 -(void)             showConfirmIconNearSpotlightIconDialog;
--(void)             changedCheckForBetaUpdatesSettings;
 -(void)             changedDisplayConnectionSubmenusSettings;
 -(void)             changedDisplayConnectionTimersSettings;
 -(void)             checkForUpdates:                        (id)                sender;
@@ -313,7 +310,6 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(NSDictionary *)   tunnelblickInfoDictionary;
 -(void)             updateIconImage;
 -(void)             updateUI;
--(void)				updateUpdateFeedURL;
 -(void)             terminateBecause:                       (enum TerminationReason) reason;
 -(void) welcomeOKButtonWasClicked;
 

@@ -171,8 +171,6 @@ BOOL needToConvertNonTblks(void);
 -(void) relaunchIfNecessary;
 -(void) secureIfNecessary;
 
-TBPROPERTY(NSString *, feedURL, setFeedURL)
-
 @end
 
 @implementation MenuController
@@ -222,7 +220,6 @@ TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedMainImage,      setHighli
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnUserActive, setConnectionsToRestoreOnUserActive)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToRestoreOnWakeup,     setConnectionsToRestoreOnWakeup)
 TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, connectionsToWaitForDisconnectOnWakeup, setConnectionsToWaitForDisconnectOnWakeup)
-TBSYNTHESIZE_OBJECT(retain, NSString     *, feedURL,                   setFeedURL)
 TBSYNTHESIZE_OBJECT(retain, NSBundle     *, deployLocalizationBundle,  setDeployLocalizationBundle)
 TBSYNTHESIZE_OBJECT(retain, NSString     *, languageAtLaunch,          setLanguageAtLaunch)
 TBSYNTHESIZE_OBJECT(retain, NSString     *, publicIPAddress,           setPublicIPAddress)
@@ -2300,113 +2297,86 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 // Sparkle delegate:
 - (NSString *)feedURLStringForUpdater:(SUUpdater *) theUpdater {
 	
-	// This delegate method is implemented because of reports of crashes on macOS Sierra if it is not used (https://github.com/sparkle-project/Sparkle/issues/898).
-	// No Tunnelblick crashes have been reported as of 2016-11-02, but better safe than sorry!
+	// This delegate method is implemented so Sparkle always uses the correct URL:
+	//		* If we are running a beta version of Tunnelblick, we must check for a beta update.
+	//		* Otherwise, we check for a beta update only if the user has requested it.
 	
 	(void) theUpdater;
 	
-	[self setupFeedURL];
-	NSString * s = [self feedURL];
+	NSString * s = [self feedURLToUse];
 	if (  ! s  ) {
 		NSLog(@"MenuController: feedURL has not been set up; stack trace: %@", callStack());
 	}
 	return s;
 }
 
--(void) setupFeedURL {
+-(NSString *) feedURLToUse {
 	
-	// Add "-s", "-b", or "-d" to the URL, so it is:
-	// .../appcast-s.rss --> update to latest Stable version
-	// .../appcast-b.rss --> update to latest Beta version
-	// .../appcast-d.rss --> Downgrade to latest stable version from a later beta version
+	NSString * urlString = nil;
 	
-	// Get the URL without the .rss (or whatever) extension.
-	// Can't use stringByDeletingPathExtension because it changes double-slashes to single slashes (e.g., changes "https://www" to "https:/www")
-	NSString * withoutExt = [self feedURL];
-	NSRange dotRange = [feedURL rangeOfString: @"." options: NSBackwardsSearch range: NSMakeRange(0, [feedURL length])];
-	if (  dotRange.location != NSNotFound  ) {
-		NSRange slashRange = [feedURL rangeOfString: @"/" options: NSBackwardsSearch range: NSMakeRange(0, [feedURL length])];
-		if (   (slashRange.location == NSNotFound)
-			|| (slashRange.location < dotRange.location)  ) {
-			withoutExt = [feedURL substringToIndex: dotRange.location];
+	// If the 'updateFeedURL' preference is being forced, use it
+	if (  ! [gTbDefaults canChangeValueForKey: @"updateFeedURL"]  ) {
+		urlString = [gTbDefaults stringForKey: @"updateFeedURL"];
+		if (  ! [NSURL URLWithString: urlString]  ) {
+			NSLog(@"Ignoring 'updateFeedURL' preference '%@' from 'forced-preferences.plist' because it could not be converted to a URL", urlString);
+			urlString = nil;
+		}
+	
+	// Otherwise, use the entry in Info.plist
+	} else {
+		urlString = [[self tunnelblickInfoDictionary] objectForKey: @"SUFeedURL"];
+		if (  urlString ) {
+			if (  ! [[urlString class] isSubclassOfClass: [NSString class]]  ) {
+				NSLog(@"Ignoring 'SUFeedURL' item in Info.plist because it is not a string");
+				urlString = nil;
+			}
+			if (  ! [NSURL URLWithString: urlString]  ) {
+				NSLog(@"Ignoring 'SUFeedURL' item '%@' in Info.plist because it could not be converted to a URL", urlString);
+				urlString = nil;
+			}
+		} else {
+			NSLog(@"Missing 'SUFeedURL' item in Info.plist");
 		}
 	}
-	if (   [withoutExt hasSuffix: @"-b"]
-		|| [withoutExt hasSuffix: @"-d"]
-		|| [withoutExt hasSuffix: @"-s"]  ) {
-		withoutExt = [withoutExt substringToIndex: [withoutExt length] - 2];
+	
+	if (  urlString  ) {
+	
+		// Add "-s" or "-b" to the URL, so it is:
+		// .../appcast-s.rss --> update to latest Stable version
+		// .../appcast-b.rss --> update to latest Beta version
+		
+		// Remove any existing extension.
+		// Can't use stringByDeletingPathExtension because it changes double-slashes to single slashes (e.g., changes "https://www" to "https:/www")
+		NSString * ext = [urlString pathExtension];
+		NSString * withoutExt = ( ( 0 == [ext length])
+								 ? [[urlString copy] autorelease]
+								 : [urlString substringToIndex: [urlString length] - [ext length] - 1]);
+		
+		// Remove any existing -b or -d suffix
+		if (   [withoutExt hasSuffix: @"-b"]
+			|| [withoutExt hasSuffix: @"-d"]  ) {
+			withoutExt = [withoutExt substringToIndex: [withoutExt length] - 2];
+		}
+		
+		// Decide what suffix to add
+		BOOL checkBeta = runningABetaVersion();
+		if (  ! checkBeta  ) {
+			id obj = [gTbDefaults objectForKey: @"updateCheckBetas"];
+			checkBeta = (   [obj respondsToSelector: @selector(boolValue)]
+						 && [obj boolValue]);
+		}
+		NSString * newSuffix = (  checkBeta
+								? @"-b"
+								: @"-s");
+		
+		urlString = (  (0 == [ext length])
+					 ? [withoutExt stringByAppendingString: newSuffix]
+					 : [NSString stringWithFormat: @"%@%@.%@", withoutExt, newSuffix, ext]  );
 	}
 	
-	NSString * newSuffix;
-	id obj = [gTbDefaults objectForKey: @"updateCheckBetas"];
-	BOOL checkBeta = (  [obj respondsToSelector: @selector(boolValue)]
-					  ? [obj boolValue]
-					  : runningABetaVersion());
-	newSuffix = (  checkBeta
-				 ? @"-b"
-				 : (  runningABetaVersion()
-					? @"-d"
-					: @"-s"));
-	NSString * ext = [feedURL pathExtension];
-	// Can't use stringByAppendingPathExtension because it changes double-slashes to single slashes (e.g., changes "https://www" to "https:/www")
-	if (  [ext length] == 0  ) {
-		[self setFeedURL: [withoutExt stringByAppendingString: newSuffix]];
-	} else {
-		[self setFeedURL: [NSString stringWithFormat: @"%@%@.%@", withoutExt, newSuffix, ext]];
-	}
-}
-
--(void) updateUpdateFeedURL {
+	TBLog(@"DB-ALL", "Application update feed = %@", urlString);
 	
-    // If the 'updateFeedURL' preference is being forced, set the program update FeedURL from it
-    if (  ! [gTbDefaults canChangeValueForKey: @"updateFeedURL"]  ) {
-        [self setFeedURL: [gTbDefaults stringForKey: @"updateFeedURL"]];
-        if (  ! [NSURL URLWithString: feedURL]  ) {
-            NSLog(@"Ignoring 'updateFeedURL' preference '%@' from 'forced-preferences.plist' because it could not be converted to a URL", feedURL);
-            [self setFeedURL: nil];
-        }
-    }
-
-    // Otherwise, use the Info.plist 'SUFeedURL' entry. We don't check the normal preferences because an unprivileged user can set them and thus
-    // could send the update check somewhere it shouldn't go.
-    if (  feedURL == nil  ) {
-        [self setFeedURL: [[self tunnelblickInfoDictionary] objectForKey: @"SUFeedURL"]];
-        if (  feedURL ) {
-            if (  ! [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
-                NSLog(@"Ignoring 'SUFeedURL' item in Info.plist because it is not a string");
-                [self setFeedURL: nil];
-            }
-        } else {
-            NSLog(@"Missing 'SUFeedURL' item in Info.plist");
-        }
-    }
-    
-    if (  feedURL  ) {
-        if (  [updater respondsToSelector: @selector(setFeedURL:)]  ) {
-			
-			[self setupFeedURL];
-
-            NSURL * url = [NSURL URLWithString: [self feedURL]];
-            if ( url  ) {
-                [updater setFeedURL: url];
-                NSLog(@"Set program update feedURL to %@", feedURL);
-            } else {
-                NSLog(@"Not setting program update feedURL because the string '%@' could not be converted to a URL", feedURL);
-                [self setFeedURL: nil];
-            }
-        } else {
-            NSLog(@"Not setting program update feedURL because Sparkle Updater does not respond to setFeedURL:");
-            [self setFeedURL: nil];
-        }
-	} else {
-		NSLog(@"Not setting program update feedURL because it cannot be found");
-		[self setFeedURL: nil];
-	}
-}
-
--(void) changedCheckForBetaUpdatesSettings {
-	
-	[self setupFeedURL];
+	return urlString;
 }
 
 -(void) changedDisplayConnectionSubmenusSettings
@@ -2913,30 +2883,25 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         && ( ! userIsAnAdmin )  ) {
         NSLog(@"Check for updates was not performed because user is not allowed to administer this computer and 'onlyAdminCanUpdate' preference is set");
     } else {
-        if (  [updater respondsToSelector: @selector(checkForUpdates:)]  ) {
-            if (  feedURL != nil  ) {
-                if (  ! userIsAnAdmin  ) {
-                    int response = TBRunAlertPanelExtended(NSLocalizedString(@"Only computer administrators should update Tunnelblick", @"Window title"),
-                                                           NSLocalizedString(@"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?", @"Window text"),
-                                                           NSLocalizedString(@"Check For Updates Now", @"Button"),  // Default button
-                                                           NSLocalizedString(@"Cancel", @"Button"),                 // Alternate button
-                                                           nil,                                                     // Other button
-                                                           @"skipWarningAboutNonAdminUpdatingTunnelblick",          // Preference about seeing this message again
-                                                           NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                                           nil,
-														   NSAlertDefaultReturn);
-                    if (  response != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
-                        return;
-                    }
-                }
-                
-                [updater checkForUpdates: self];
-            } else {
-                NSLog(@"'Check for Updates Now' ignored because no FeedURL has been set");
-            }
-            
+		if (  [updater respondsToSelector: @selector(checkForUpdates:)]  ) {
+			if (  ! userIsAnAdmin  ) {
+				int response = TBRunAlertPanelExtended(NSLocalizedString(@"Only computer administrators should update Tunnelblick", @"Window title"),
+													   NSLocalizedString(@"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?", @"Window text"),
+													   NSLocalizedString(@"Check For Updates Now", @"Button"),  // Default button
+													   NSLocalizedString(@"Cancel", @"Button"),                 // Alternate button
+													   nil,                                                     // Other button
+													   @"skipWarningAboutNonAdminUpdatingTunnelblick",          // Preference about seeing this message again
+													   NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+													   nil,
+													   NSAlertDefaultReturn);
+				if (  response != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
+					return;
+				}
+			}
+			
+			[updater checkForUpdates: self];
         } else {
-            NSLog(@"'Check for Updates Now' ignored because Sparkle Updater does not respond to checkForUpdates:");
+            NSLog(@"Check for updates was not performed because Sparkle Updater does not respond to checkForUpdates:");
         }
         
         [myConfigMultiUpdater startAllUpdateCheckingWithUI: YES]; // Display the UI
@@ -4011,10 +3976,6 @@ static void signal_handler(int signalNumber)
     
     // Set Sparkle's behavior from our preferences using Sparkle's approved methods
     
-    // We set the Feed URL, even if we haven't run Sparkle yet (and thus haven't set our Sparkle preferences) because
-    // the user may do a 'Check for Updates Now' on the first run, and we need to check with the correct Feed URL
-    [self updateUpdateFeedURL];
-    
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 003")
     
     [self setupUpdaterAutomaticChecks];
@@ -4573,7 +4534,7 @@ static void signal_handler(int signalNumber)
     // will ask the user whether to check or not, then we set our preferences from that.)
     if (   [gTbDefaults boolWithDefaultYesForKey: @"updateCheckAutomatically"]  ) {
         if (  [updater respondsToSelector: @selector(checkForUpdatesInBackground)]  ) {
-            if (  feedURL != nil  ) {
+            if (  [self feedURLToUse]  ) {
                 [updater checkForUpdatesInBackground];
             } else {
                 NSLog(@"Not checking for updates because no FeedURL has been set");
@@ -5769,12 +5730,7 @@ BOOL warnAboutNonTblks(void)
 		
 		NSString * ourBundleIdentifier = [bundleInfoDict objectForKey: @"CFBundleIdentifier"];
 		
-		NSString * ourUpdateFeedURLString;
-		if (  ! [gTbDefaults canChangeValueForKey: @"updateFeedURL"]  ) {
-			ourUpdateFeedURLString = [gTbDefaults stringForKey: @"updateFeedURL"];
-		} else {
-			ourUpdateFeedURLString = [bundleInfoDict objectForKey: @"SUFeedURL"];
-		}
+		NSString * ourUpdateFeedURLString = [self feedURLToUse];
 		
 		NSString * ourExecutable = [bundleInfoDict objectForKey: @"CFBundleExecutable"];
 		
