@@ -3,10 +3,9 @@
 # Signs or re-signs an appcast or release notes file with a Tunnelblick version 2 signature.
 #
 # The arguments are the path to the private key, the path to the file to be signed, and the
-# number of days the signature should be valid.
-#
-# The signature will be valid beginning as soon as it is created, and ending the specified
-# number of days in the future.
+# number of days the signature should be valid. An optional fourth argument specifies the date
+# and time that the signature should begin being valid; if not provided the signature will
+# begin being valid immediately.
 #
 # A file with a Tunnelblick version 2 signature comes in three parts:
 #
@@ -37,9 +36,11 @@ readonly temp_file1="/tmp/net.tunnelblick.tunnelblick-tmp1.txt"
 readonly temp_file2="/tmp/net.tunnelblick.tunnelblick-tmp2.txt"
 
 readonly name="$(  basename "$0"  )"
-readonly usage_message="Usage: $name   private-key-path   file-path   number-of-days-signature-should-be-valid"
+readonly usage_message="Usage:
+    $name   private-key-path   file-path   number-of-days-signature-should-be-valid  [begin-date   [begin-time] ]
+Note: begin-date should be formatted as YYYY-MM-DD; begin-time as HH:MM:SS. Both are UTC (Universal Coordinated Time)"
 
-if [ "$#" != "3" ]; then
+if [ $# -ne 3 -a $# -ne 4 -a $# -ne 5 ] ; then
 	echo "Wrong number of arguments"
 	echo "$usage_message"
 	exit 1
@@ -76,6 +77,25 @@ if [ -n "$(  printf '%s' "$duration_arg" | sed 's/[0-9]//g'  )" ]; then
 	exit 1
 fi
 
+# Process optional start date and time
+if [ $# -gt 4 ] ; then
+	readonly start_time="$5"
+else
+	readonly start_time="00:00:00"
+fi
+if [ $# -gt 3 ] ; then
+	readonly start_date="$4"
+	readonly start_date_time_yyyy_format="${start_date}T$start_time"
+	readonly start_date_time_utc="$( date -j -u -f "%Y-%m-%dT%H:%M:%S" +"%m%d%H%M%Y.%S" "$start_date_time_yyyy_format" 2>&1  )"
+	if [ "$start_date_time_utc" == "" \
+	  -o "${start_date_time_utc/usage//}" != "$start_date_time_utc" ] ; then
+		echo "Invalid date and/or time. $usage_message"
+		exit 1
+	fi
+else
+	readonly start_date_time_utc="$( date -j -u +"%m%d%H%M%Y.%S" )"
+fi
+
 # Get the contents of the file after removing existing signature and validity lines (if any)
 readonly first_line="$(head -n 1 "$file_path")"
 readonly first_34_chars="${first_line:0:34}"
@@ -91,10 +111,8 @@ else
 fi
 
 # Make signature valid starting now and ending $duration_arg days from now
-# (Get the date/time once and work from that to avoid race conditions)
-readonly current_utc="$( date -j -u +"%m%d%H%M%Y.%S" )"
-readonly valid_start="$( date -j                      +"%Y-%m-%dT%H:%M:%S" "$current_utc"  )"
-readonly valid_end="$(   date -j -v +${duration_arg}d +"%Y-%m-%dT%H:%M:%S" "$current_utc"  )"
+readonly valid_start="$( date -j                      +"%Y-%m-%dT%H:%M:%S" "$start_date_time_utc"  )"
+readonly valid_end="$(   date -j -v +${duration_arg}d +"%Y-%m-%dT%H:%M:%S" "$start_date_time_utc"  )"
 
 # Set the length of the file (without the signature or validity lines)
 readonly file_length="$(  stat -f %z "$temp_file1"  )"
