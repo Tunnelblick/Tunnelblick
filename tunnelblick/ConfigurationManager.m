@@ -191,6 +191,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                    @"SUEnableAutomaticChecks",
                                    @"SUEnableSystemProfiling",
                                    @"SUShowReleaseNotes",
+								   @"TBAppcastRequiresDSASignature",
                                    nil];
 		
 		NSArray * numberKeys    = [NSArray arrayWithObjects:
