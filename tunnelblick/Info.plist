@@ -90,7 +90,7 @@
 	<key>TBAppcastRequiresDSASignature</key>
 	<true/>
 	<key>SUFeedURL</key>
-		<string>https://www.tunnelblick.net/appcastV2.rss</string>
+		<string>https://www.tunnelblick.net/appcast-v2.rss</string>
 	<key>SUPublicDSAKey</key>
 	<string>-----BEGIN PUBLIC KEY-----
 MIIDOzCCAi0GByqGSM44BAEwggIgAoIBAQDZrbatW0npHNOW3JKIKWK6/MLWhYEo
