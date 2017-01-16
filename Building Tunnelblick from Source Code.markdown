@@ -63,6 +63,7 @@ To build Tunnelblick using Xcode 7.0+, it needs to be set up to use "legacy" loc
  5. Click on the "Legacy" radio button
  6. Click the "Done" button
 
+Xcode 7.0+ also need to have the command line tools installed. You can do that in Terminal with the following command: ```xcode-select&nbsp;--install```
 
 **4. Installing the GNU autotools**
 
