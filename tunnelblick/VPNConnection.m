@@ -2916,6 +2916,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSRange pwrange_password = [parameterString rangeOfString: @"\' password"];
     if (pwrange_need.length && pwrange_password.length) {
         TBLog(@"DB-AU", @"Server wants user private key.");
+		if (  ![self isConnected]  ) {
+			[self setState: @"PRIVATE_KEY_WAIT"];
+		}
         [myAuthAgent setAuthMode:@"privateKey"];
         [myAuthAgent performAuthentication];
         if (  [myAuthAgent authenticationWasFromKeychain]  ) {
@@ -2942,6 +2945,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         
     } else if ([line rangeOfString: @"Auth"].length) {
         TBLog(@"DB-AU", @"Server wants user auth/pass.");
+		if (  ![self isConnected]  ) {
+			[self setState: @"PASSWORD_WAIT"];
+		}
         [myAuthAgent setAuthMode:@"password"];
         [myAuthAgent performAuthentication];
         if (  [myAuthAgent authenticationWasFromKeychain]  ) {
