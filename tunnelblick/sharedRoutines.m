@@ -213,6 +213,7 @@ BOOL needToReplaceLaunchDaemon(void) {
 							  (plistHashesMatch	  ? @"YES" : @"NO"),
 							  (activePlistMatches ? @"YES" : @"NO")];
 			appendLog(msg);
+			return TRUE;
 		}
 	}
 	
