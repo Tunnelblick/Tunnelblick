@@ -325,8 +325,8 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     [self setUpUnits: inRateUnitsTF  cell: inRateUnitsTFC  and: outRateUnitsTF  cell: outRateUnitsTFC  array: gRateUnits];
     [self setUpUnits: inTotalUnitsTF cell: inTotalUnitsTFC and: outTotalUnitsTF cell: outTotalUnitsTFC array: gTotalUnits];
     
-	[connectButton    setTitle: localizeNonLiteral(@"Connect",   @"Button")];
-	[disconnectButton setTitle: localizeNonLiteral(@"Disconnect", @"Button")];
+	[connectButton    setTitle: NSLocalizedString(@"Connect",    @"Button")];
+	[disconnectButton setTitle: NSLocalizedString(@"Disconnect", @"Button")];
 	
 	// Remember frame of disconnect button so we can shift it left or right
 	CGFloat oldDisconnectWidth = [disconnectButton frame].size.width;

@@ -1034,18 +1034,22 @@ configureOpenVpnDns()
 	while vForOptions=foreign_option_$nOptionIndex; [ -n "${!vForOptions}" ]; do
 		vOptions[nOptionIndex-1]=${!vForOptions}
 		case ${vOptions[nOptionIndex-1]} in
-			*DOMAIN-SEARCH*    )
+			"dhcp-option DOMAIN-SEARCH "*   )
 				aSearchDomains[nSearchDomainIndex-1]="$( trim "${vOptions[nOptionIndex-1]//dhcp-option DOMAIN-SEARCH /}" )"
 				let nSearchDomainIndex++
 				;;
-			*DOMAIN* )
+			"dhcp-option SEARCH-DOMAIN "*   )
+				aSearchDomains[nSearchDomainIndex-1]="$( trim "${vOptions[nOptionIndex-1]//dhcp-option SEARCH-DOMAIN /}" )"
+				let nSearchDomainIndex++
+				;;
+			"dhcp-option DOMAIN "* )
 				sDomainName="$( trim "${vOptions[nOptionIndex-1]//dhcp-option DOMAIN /}" )"
 				;;
-			*DNS*    )
+			"dhcp-option DNS "*    )
 				aNameServers[nNameServerIndex-1]="$( trim "${vOptions[nOptionIndex-1]//dhcp-option DNS /}" )"
 				let nNameServerIndex++
 				;;
-			*WINS*   )
+			"dhcp-option WINS "*   )
 				aWinsServers[nWinsServerIndex-1]="$( trim "${vOptions[nOptionIndex-1]//dhcp-option WINS /}" )"
 				let nWinsServerIndex++
 				;;
