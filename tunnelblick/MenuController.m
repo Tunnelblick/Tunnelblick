@@ -3,7 +3,7 @@
  * Contributions by Dirk Theisen <dirk@objectpark.org>,
  *                  Jens Ohlig, 
  *                  Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -399,6 +399,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"DB-UC",     // Extra logging for updating configurations
                                 @"DB-UP",     // Extra logging for the up script
 								@"DB-UU",	  // Extra logging for UI updates
+								
+								@"useRtlLayout",	// Use RTL language layout, regardless of language (for debugging RTL layout issues)
                                 
                                 @"allowNonAdminSafeConfigurationReplacement",  // Must be forced; regular preference is ignored
                                 
@@ -436,6 +438,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"delayBeforeReconnectingAfterSleepAndIpaFetchError",
                                 @"delayBeforeIPAddressCheckAfterConnection",
 								@"delayBeforeSlowDisconnectDialog",
+								@"delayBeforePopupHelp",
                                 @"hookupTimeout",
                                 @"displayUpdateInterval",
                                 @"managementPortStartingPortNumber",
@@ -528,6 +531,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"NSWindow Frame SettingsSheetWindow",
                                 @"NSWindow Frame ConnectingWindow",
                                 @"NSWindow Frame SUStatusFrame",
+								@"NSWindow Frame SUUpdateAlert",
                                 @"NSWindow Frame ListingWindow",
                                 @"detailsWindowFrameVersion",
                                 @"detailsWindowFrame",
@@ -4661,7 +4665,8 @@ static void signal_handler(int signalNumber)
 	}
     
     NSArray * rtlLanguages = [NSArray arrayWithObjects: @"ar", @"fa", nil]; // Arabic, Farsi (Persian)
-	languageAtLaunchWasRTL = [rtlLanguages containsObject: [self languageAtLaunch]];
+	languageAtLaunchWasRTL = (   [rtlLanguages containsObject: [self languageAtLaunch]]
+							  || [gTbDefaults boolForKey: @"useRtlLayout"]);
 	
 	CFRelease(allLocalizationsCF);
 	CFRelease(languagesCF);

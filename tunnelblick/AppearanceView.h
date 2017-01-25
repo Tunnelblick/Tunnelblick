@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2016, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -22,22 +22,21 @@
 
 #import "defines.h"
 
-@class TBInfoButton;
+@class TBButton;
 
 @interface AppearanceView : NSView {
     
     IBOutlet NSTextFieldCell    * appearanceIconTFC;
     IBOutlet NSArrayController  * appearanceIconSetArrayController;
     IBOutlet NSButton           * appearanceIconSetButton;
-    IBOutlet NSButton           * appearancePlaceIconNearSpotlightCheckbox;
-    IBOutlet TBInfoButton       * infoButtonForAppearancePlaceIconNearSpotlightCheckbox;
+    IBOutlet TBButton           * appearancePlaceIconNearSpotlightCheckbox;
     
     IBOutlet NSTextFieldCell    * appearanceMenuTFC;
-    IBOutlet NSButton           * appearanceDisplayConnectionSubmenusCheckbox;
-    IBOutlet NSButton           * appearanceDisplayConnectionTimersCheckbox;
+    IBOutlet TBButton           * appearanceDisplayConnectionSubmenusCheckbox;
+    IBOutlet TBButton           * appearanceDisplayConnectionTimersCheckbox;
     
     IBOutlet NSTextFieldCell    * appearanceSplashTFC;
-    IBOutlet NSButton           * appearanceDisplaySplashScreenCheckbox;
+    IBOutlet TBButton           * appearanceDisplaySplashScreenCheckbox;
 
     IBOutlet NSTextFieldCell    * appearanceConnectionWindowDisplayCriteriaTFC;
     IBOutlet NSArrayController  * appearanceConnectionWindowDisplayCriteriaArrayController;
@@ -46,21 +45,20 @@
     IBOutlet NSArrayController  * appearanceConnectionWindowScreenArrayController;
     IBOutlet NSButton           * appearanceConnectionWindowScreenButton;
     
-    IBOutlet NSButton           * appearanceDisplayStatisticsWindowsCheckbox;
-    IBOutlet NSButton           * appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox;
+    IBOutlet TBButton           * appearanceDisplayStatisticsWindowsCheckbox;
+    IBOutlet TBButton           * appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox;
     
     IBOutlet NSButton           * appearanceHelpButton;
 }
 
 TBPROPERTY_READONLY(NSArrayController *, appearanceIconSetArrayController)
 TBPROPERTY_READONLY(NSButton *,          appearanceIconSetButton)
-TBPROPERTY_READONLY(NSButton *,          appearancePlaceIconNearSpotlightCheckbox)
-TBPROPERTY_READONLY(TBInfoButton *,      infoButtonForAppearancePlaceIconNearSpotlightCheckbox)
+TBPROPERTY_READONLY(TBButton *,          appearancePlaceIconNearSpotlightCheckbox)
 
-TBPROPERTY_READONLY(NSButton *,          appearanceDisplayConnectionSubmenusCheckbox)
-TBPROPERTY_READONLY(NSButton *,          appearanceDisplayConnectionTimersCheckbox)
+TBPROPERTY_READONLY(TBButton *,          appearanceDisplayConnectionSubmenusCheckbox)
+TBPROPERTY_READONLY(TBButton *,          appearanceDisplayConnectionTimersCheckbox)
 
-TBPROPERTY_READONLY(NSButton *,          appearanceDisplaySplashScreenCheckbox)
+TBPROPERTY_READONLY(TBButton *,          appearanceDisplaySplashScreenCheckbox)
 
 TBPROPERTY_READONLY(NSArrayController *, appearanceConnectionWindowDisplayCriteriaArrayController)
 TBPROPERTY_READONLY(NSButton *,          appearanceConnectionWindowDisplayCriteriaButton)
@@ -68,7 +66,7 @@ TBPROPERTY_READONLY(NSButton *,          appearanceConnectionWindowDisplayCriter
 TBPROPERTY_READONLY(NSArrayController *, appearanceConnectionWindowScreenArrayController)
 TBPROPERTY_READONLY(NSButton *,          appearanceConnectionWindowScreenButton)
 
-TBPROPERTY_READONLY(NSButton *,          appearanceDisplayStatisticsWindowsCheckbox)
-TBPROPERTY_READONLY(NSButton *,          appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox)
+TBPROPERTY_READONLY(TBButton *,          appearanceDisplayStatisticsWindowsCheckbox)
+TBPROPERTY_READONLY(TBButton *,          appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox)
 
 @end

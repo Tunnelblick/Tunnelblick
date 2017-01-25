@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1212" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
@@ -38,17 +37,8 @@
                 <outlet property="ifConnectedWhenComputerWentToSleepTFC" destination="1037" id="1044"/>
                 <outlet property="ifConnectedWhenUserSwitchedOutTF" destination="365" id="751"/>
                 <outlet property="ifConnectedWhenUserSwitchedOutTFC" destination="370" id="452"/>
-                <outlet property="infoButtonForDisconnectOnSleepCheckbox" destination="xW6-8L-kgS" id="1ea-Zr-fhg"/>
-                <outlet property="infoButtonForDisconnectWhenUserSwitchesOutCheckbox" destination="nVz-Ne-HGQ" id="qEY-pi-llF"/>
-                <outlet property="infoButtonForEnableIpv6OnTapCheckbox" destination="3Ms-6B-ePw" id="wzm-Dv-eHQ"/>
-                <outlet property="infoButtonForFlushDnsCacheCheckbox" destination="TTf-va-r0a" id="NQM-SS-q2U"/>
-                <outlet property="infoButtonForKeepConnectedCheckbox" destination="AzT-ZD-V3d" id="X4y-Cq-9wZ"/>
                 <outlet property="infoButtonForLoadTapPopUpButton" destination="OP1-wa-Cag" id="C0a-aN-OsC"/>
                 <outlet property="infoButtonForLoadTunPopUpButton" destination="FsW-vp-E9y" id="Km0-ll-4Fp"/>
-                <outlet property="infoButtonForPrependDomainNameCheckbox" destination="NHl-4w-sFP" id="ETT-1f-2Sf"/>
-                <outlet property="infoButtonForReconnectOnWakeFromSleepCheckbox" destination="dBW-5I-fzn" id="58h-yp-EJl"/>
-                <outlet property="infoButtonForReconnectWhenUserSwitchesInCheckbox" destination="NIW-4a-hRg" id="41f-cs-yYm"/>
-                <outlet property="infoButtonForUseRouteUpInsteadOfUpCheckbox" destination="g4J-QV-eQp" id="Znn-tl-H5k"/>
                 <outlet property="keepConnectedCheckbox" destination="1029" id="1031"/>
                 <outlet property="loadTapAlwaysMenuItem" destination="720" id="760"/>
                 <outlet property="loadTapAutomaticallyMenuItem" destination="719" id="761"/>
@@ -137,9 +127,9 @@
                                     <rect key="frame" x="10" y="33" width="783" height="440"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button id="784">
-                                            <rect key="frame" x="15" y="363" width="739" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <button id="784" customClass="TBButton">
+                                            <rect key="frame" x="15" y="363" width="761" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Set DNS after setting routes$" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="785">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -148,9 +138,9 @@
                                                 <action selector="useRouteUpInsteadOfUpCheckboxWasClicked:" target="-2" id="787"/>
                                             </connections>
                                         </button>
-                                        <button id="17">
-                                            <rect key="frame" x="15" y="403" width="739" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <button id="17" customClass="TBButton">
+                                            <rect key="frame" x="15" y="403" width="761" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Flush DNS cache after connecting or disconnecting$" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="42">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -159,9 +149,9 @@
                                                 <action selector="flushDnsCacheCheckboxWasClicked:" target="-2" id="571"/>
                                             </connections>
                                         </button>
-                                        <button id="572">
-                                            <rect key="frame" x="15" y="383" width="739" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <button id="572" customClass="TBButton">
+                                            <rect key="frame" x="15" y="383" width="761" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Prepend domain name to search domains$" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="573">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -186,9 +176,9 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <button id="367">
-                                                        <rect key="frame" x="16" y="46" width="722" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <button id="367" customClass="TBButton">
+                                                        <rect key="frame" x="16" y="46" width="738" height="18"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Disconnect when user switches out$" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="368">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -198,9 +188,9 @@
                                                             <outlet property="nextKeyView" destination="366" id="371"/>
                                                         </connections>
                                                     </button>
-                                                    <button id="366">
-                                                        <rect key="frame" x="16" y="26" width="722" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <button id="366" customClass="TBButton">
+                                                        <rect key="frame" x="16" y="26" width="738" height="18"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Reconnect when user switches in$" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="369">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -208,22 +198,6 @@
                                                         <connections>
                                                             <action selector="reconnectWhenUserSwitchesInCheckboxWasClicked:" target="-2" id="373"/>
                                                         </connections>
-                                                    </button>
-                                                    <button id="nVz-Ne-HGQ" customClass="TBInfoButton">
-                                                        <rect key="frame" x="742" y="47" width="16" height="16"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="fEy-yL-bIW">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                    </button>
-                                                    <button id="NIW-4a-hRg" customClass="TBInfoButton">
-                                                        <rect key="frame" x="742" y="27" width="16" height="16"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="ch0-sr-4PA">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
                                                     </button>
                                                 </subviews>
                                             </view>
@@ -301,19 +275,8 @@
                                                 <outlet property="nextKeyView" destination="53" id="736"/>
                                             </connections>
                                         </popUpButton>
-                                        <button id="1029">
-                                            <rect key="frame" x="15" y="323" width="739" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Keep connected$" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="1030">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="keepConnectedCheckboxWasClicked:" target="-2" id="1032"/>
-                                            </connections>
-                                        </button>
-                                        <button id="1046">
-                                            <rect key="frame" x="15" y="343" width="739" height="18"/>
+                                        <button id="1046" customClass="TBButton">
+                                            <rect key="frame" x="15" y="343" width="761" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="EnableIPv6 for tap$" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="1047">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -323,47 +286,7 @@
                                                 <action selector="enableIpv6OnTapCheckboxWasClicked:" target="-2" id="1049"/>
                                             </connections>
                                         </button>
-                                        <button id="g4J-QV-eQp" customClass="TBInfoButton">
-                                            <rect key="frame" x="758" y="363" width="16" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="9PO-NY-ofB">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
-                                        <button id="NHl-4w-sFP" customClass="TBInfoButton">
-                                            <rect key="frame" x="758" y="383" width="16" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="ig7-Lp-e3v">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
-                                        <button id="TTf-va-r0a" customClass="TBInfoButton">
-                                            <rect key="frame" x="758" y="403" width="16" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="zKZ-zP-vds">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
-                                        <button id="3Ms-6B-ePw" customClass="TBInfoButton">
-                                            <rect key="frame" x="758" y="343" width="16" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="jPd-7I-yWu">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
-                                        <button id="AzT-ZD-V3d" customClass="TBInfoButton">
-                                            <rect key="frame" x="758" y="323" width="16" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="Iaj-FN-2GK">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
-                                        <button id="FsW-vp-E9y" customClass="TBInfoButton">
+                                        <button id="FsW-vp-E9y" customClass="TBButton">
                                             <rect key="frame" x="325" y="279" width="16" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="xvy-Q5-chg">
@@ -371,7 +294,7 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                         </button>
-                                        <button id="OP1-wa-Cag" customClass="TBInfoButton">
+                                        <button id="OP1-wa-Cag" customClass="TBButton">
                                             <rect key="frame" x="325" y="249" width="16" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="4NB-kL-vSv">
@@ -395,9 +318,9 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <button id="779">
-                                                        <rect key="frame" x="16" y="47" width="722" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                    <button id="779" customClass="TBButton">
+                                                        <rect key="frame" x="16" y="47" width="738" height="18"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Disconnect when computer goes to sleep$" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="780">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -406,9 +329,9 @@
                                                             <action selector="disconnectOnSleepCheckboxWasClicked:" target="-2" id="783"/>
                                                         </connections>
                                                     </button>
-                                                    <button id="577">
-                                                        <rect key="frame" x="16" y="27" width="722" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                    <button id="577" customClass="TBButton">
+                                                        <rect key="frame" x="16" y="27" width="738" height="18"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Reconnect when computer wakes from sleep$" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="578">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -417,27 +340,22 @@
                                                             <action selector="reconnectOnWakeFromSleepCheckboxWasClicked:" target="-2" id="583"/>
                                                         </connections>
                                                     </button>
-                                                    <button id="xW6-8L-kgS" customClass="TBInfoButton">
-                                                        <rect key="frame" x="742" y="47" width="16" height="16"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="pmO-gL-h9d">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                    </button>
-                                                    <button id="dBW-5I-fzn" customClass="TBInfoButton">
-                                                        <rect key="frame" x="742" y="27" width="16" height="16"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="te2-1w-Xfw">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                    </button>
                                                 </subviews>
                                             </view>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
+                                        <button id="1029" customClass="TBButton">
+                                            <rect key="frame" x="15" y="323" width="761" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Keep connected$" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="1030">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="keepConnectedCheckboxWasClicked:" target="-2" id="1032"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -446,9 +364,9 @@
                                     <rect key="frame" x="10" y="33" width="783" height="440"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button id="45">
+                                        <button id="45" customClass="TBButton">
                                             <rect key="frame" x="15" y="349" width="761" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Monitor network settings$" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="96">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -484,7 +402,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <popUpButton verticalHuggingPriority="750" id="50">
-                                                        <rect key="frame" x="127" y="88" width="284.09399999999999" height="26"/>
+                                                        <rect key="frame" x="127" y="88" width="284" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" title="Restore$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="68" id="65">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -506,7 +424,7 @@
                                                         </connections>
                                                     </popUpButton>
                                                     <popUpButton verticalHuggingPriority="750" id="51">
-                                                        <rect key="frame" x="127" y="140" width="284.09399999999999" height="26"/>
+                                                        <rect key="frame" x="127" y="140" width="284" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" title="Restore$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="63" id="60">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -537,7 +455,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <popUpButton verticalHuggingPriority="750" id="53">
-                                                        <rect key="frame" x="127" y="114" width="284.09399999999999" height="26"/>
+                                                        <rect key="frame" x="127" y="114" width="284" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" title="Restore$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="57" id="54">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -568,7 +486,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <popUpButton verticalHuggingPriority="750" id="73">
-                                                        <rect key="frame" x="127" y="10" width="284.09399999999999" height="26"/>
+                                                        <rect key="frame" x="127" y="10" width="284" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" title="Restore$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="93" id="90">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -607,7 +525,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <popUpButton verticalHuggingPriority="750" id="76">
-                                                        <rect key="frame" x="127" y="62" width="284.09399999999999" height="26"/>
+                                                        <rect key="frame" x="127" y="62" width="284" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" title="Restore$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="86" id="83">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -629,7 +547,7 @@
                                                         </connections>
                                                     </popUpButton>
                                                     <popUpButton verticalHuggingPriority="750" id="77">
-                                                        <rect key="frame" x="127" y="36" width="284.09399999999999" height="26"/>
+                                                        <rect key="frame" x="127" y="36" width="284" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" title="Restore$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="81" id="78">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -782,7 +700,7 @@
                                                         </connections>
                                                     </popUpButton>
                                                     <textField verticalHuggingPriority="750" id="547">
-                                                        <rect key="frame" x="131" y="172" width="280.09399999999999" height="14"/>
+                                                        <rect key="frame" x="131" y="172" width="280" height="14"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="When changes to pre-VPN value" id="548">
                                                             <font key="font" metaFont="smallSystem"/>
@@ -824,9 +742,9 @@
                                                 <action selector="whileConnectedHelpButtonWasClicked:" target="-2" id="659"/>
                                             </connections>
                                         </button>
-                                        <button id="774">
+                                        <button id="774" customClass="TBButton">
                                             <rect key="frame" x="15" y="403" width="761" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Run MTU test$" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="775">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -841,9 +759,9 @@
                             <tabViewItem label="VPN Credentials$" identifier="vpnCredentials" id="584">
                                 <view key="view" id="585">
                                     <rect key="frame" x="10" y="33" width="783" height="440"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button id="596">
+                                        <button id="596" customClass="TBButton">
                                             <rect key="frame" x="14" y="414" width="744" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="All configurations$" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="597">
@@ -941,7 +859,7 @@
                             <tabViewItem label="Sounds$" identifier="sounds" id="789">
                                 <view key="view" id="790">
                                     <rect key="frame" x="10" y="33" width="783" height="440"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <box autoresizesSubviews="NO" title="Alert Sounds$" borderType="line" id="791">
                                             <rect key="frame" x="6" y="335" width="771" height="90"/>
@@ -1038,7 +956,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="302"/>
             </connections>
-            <point key="canvasLocation" x="-29.5" y="211"/>
+            <point key="canvasLocation" x="750.5" y="478"/>
         </window>
         <arrayController id="740" userLabel="loadTun Array Controller">
             <declaredKeys>

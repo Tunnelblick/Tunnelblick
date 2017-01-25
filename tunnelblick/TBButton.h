@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2016, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -25,7 +25,7 @@
 @class MAAttachedWindow;
 @class Tracker;
 
-@interface TBInfoButton : NSButton {
+@interface TBButton : NSButton {
     
     BOOL                 mouseIsInButtonView;
     
@@ -37,6 +37,15 @@
     CGFloat              minimumWidth;
     CGFloat              startWidth;
 }
+
+-(void) setTitle: (NSString *)           label
+	   infoTitle: (NSAttributedString *) infoTitle
+		disabled: (BOOL)                 disabled;
+
+-(void) setTitle: (NSString *)           label
+	   infoTitle: (NSAttributedString *) infoTitle;
+
+-(void) setState:           (NSCellStateValue) newState;
 
 -(void) setAttributedTitle: (NSAttributedString *) newTitle;
 

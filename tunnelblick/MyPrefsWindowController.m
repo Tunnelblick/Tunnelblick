@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -42,6 +42,7 @@
 #import "SettingsSheetWindowController.h"
 #import "Sparkle/SUUpdater.h"
 #import "SystemAuth.h"
+#import "TBButton.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
@@ -73,7 +74,7 @@ extern NSArray        * gConfigurationPreferences;
 
 -(void) setSelectedWhenToConnectIndex: (NSUInteger) newValue;
 
--(void) setupPerConfigurationCheckbox: (NSButton *) checkbox
+-(void) setupPerConfigurationCheckbox: (TBButton *) checkbox
                                   key: (NSString *) key
                              inverted: (BOOL)       inverted
                             defaultTo: (BOOL)       defaultsTo;
@@ -87,7 +88,7 @@ extern NSArray        * gConfigurationPreferences;
 -(void) setupPerConfigOpenvpnVersion: (VPNConnection *) connection;
 -(void) setupNetworkMonitoring:       (VPNConnection *) connection;
 
--(void) setValueForCheckbox: (NSButton *) checkbox
+-(void) setValueForCheckbox: (TBButton *) checkbox
               preferenceKey: (NSString *) preferenceKey
                    inverted: (BOOL)       inverted
                  defaultsTo: (BOOL)       defaultsTo;
@@ -1094,7 +1095,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 // Set a checkbox from preferences
--(void) setupPerConfigurationCheckbox: (NSButton *) checkbox
+-(void) setupPerConfigurationCheckbox: (TBButton *) checkbox
                                   key: (NSString *) key
                              inverted: (BOOL)       inverted
                             defaultTo: (BOOL)       defaultsTo
@@ -2453,7 +2454,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 				 ? YES
 				 : [gTbDefaults boolForKey: @"updateCheckBetas"]);
 	
-	NSButton * checkbox = [generalPrefsView updatesCheckForBetaUpdatesCheckbox];
+	TBButton * checkbox = [generalPrefsView updatesCheckForBetaUpdatesCheckbox];
 	[checkbox setState: (  beta
 						 ? NSOnState
 						 : NSOffState)];
@@ -2465,7 +2466,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     // Set values for the update checkboxes
 	
 	if (  [gTbDefaults boolForKey:@"inhibitOutboundTunneblickTraffic"]  ) {
-		NSButton * checkbox = [generalPrefsView updatesCheckAutomaticallyCheckbox];
+		TBButton * checkbox = [generalPrefsView updatesCheckAutomaticallyCheckbox];
 		[checkbox setState:   NSOffState];
 		[checkbox setEnabled: NO];
 		
@@ -2490,7 +2491,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox {
 	
-    NSButton * checkbox = [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox];
+    TBButton * checkbox = [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox];
     [checkbox setState: (  okToUpdateConfigurationsWithoutAdminApproval()
                          ? NSOffState
                          : NSOnState)];
@@ -2626,7 +2627,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     [self setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox];
-    NSButton * checkbox = [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox];
+    TBButton * checkbox = [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox];
     [checkbox setEnabled: YES];
 }
 
@@ -2658,7 +2659,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(IBAction) generalAdminApprovalForKeyAndCertificateChangesCheckboxWasClicked: (NSButton *) sender
 {
-    NSButton * checkbox = [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox];
+    TBButton * checkbox = [generalPrefsView generalAdminApprovalForKeyAndCertificateChangesCheckbox];
     if (  [checkbox isEnabled]  ) {
         [checkbox setEnabled: NO];
     } else {
@@ -2966,7 +2967,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(void) setupAppearancePlaceIconNearSpotlightCheckbox {
     
     if (   mustPlaceIconInStandardPositionInStatusBar()  ) {
-        NSButton * checkbox = [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox];
+        TBButton * checkbox = [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox];
         [checkbox setState:   NO];
         [checkbox setEnabled: NO];
     } else {
@@ -3207,7 +3208,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 //***************************************************************************************************************
 
--(void) setValueForCheckbox: (NSButton *) checkbox
+-(void) setValueForCheckbox: (TBButton *) checkbox
               preferenceKey: (NSString *) preferenceKey
                    inverted: (BOOL)       inverted
                  defaultsTo: (BOOL)       defaultsTo

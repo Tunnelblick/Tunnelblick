@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2015, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -22,31 +22,33 @@
 
 #import "defines.h"
 
+@class TBButton;
+
 @interface UtilitiesView : NSView {
 
-    IBOutlet NSButton            * utilitiesKillAllOpenVpnButton;
+    IBOutlet TBButton            * utilitiesKillAllOpenVpnButton;
 	IBOutlet NSProgressIndicator * killAllOpenVPNProgressIndicator;
     
-    IBOutlet NSButton            * consoleLogToClipboardButton;
+    IBOutlet TBButton            * consoleLogToClipboardButton;
 	IBOutlet NSProgressIndicator * consoleLogToClipboardProgressIndicator;
 
-    IBOutlet NSButton           * utilitiesOpenUninstallInstructionsButton;
+    IBOutlet TBButton           * utilitiesOpenUninstallInstructionsButton;
 	
-    IBOutlet NSButton           * utilitiesRunEasyRsaButton;
+    IBOutlet TBButton           * utilitiesRunEasyRsaButton;
     IBOutlet NSTextFieldCell    * utilitiesEasyRsaPathTFC;
  
     IBOutlet NSButton           * utilitiesHelpButton;
 }
 
-TBPROPERTY_READONLY(NSButton *,            utilitiesKillAllOpenVpnButton)
+TBPROPERTY_READONLY(TBButton *,            utilitiesKillAllOpenVpnButton)
 TBPROPERTY_READONLY(NSProgressIndicator *, killAllOpenVPNProgressIndicator)
 
-TBPROPERTY_READONLY(NSButton *,            consoleLogToClipboardButton)
+TBPROPERTY_READONLY(TBButton *,            consoleLogToClipboardButton)
 TBPROPERTY_READONLY(NSProgressIndicator *, consoleLogToClipboardProgressIndicator)
 
-TBPROPERTY_READONLY(NSButton *,        utilitiesOpenUninstallInstructionsButton)
+TBPROPERTY_READONLY(TBButton *,        utilitiesOpenUninstallInstructionsButton)
 
-TBPROPERTY_READONLY(NSButton *,        utilitiesRunEasyRsaButton)
+TBPROPERTY_READONLY(TBButton *,        utilitiesRunEasyRsaButton)
 
 TBPROPERTY_READONLY(NSButton *,        utilitiesHelpButton)
 

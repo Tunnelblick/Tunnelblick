@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -26,6 +26,7 @@
 
 #import "MenuController.h"
 #import "NSFileManager+TB.h"
+#import "TBButton.h"
 #import "UIHelper.h"
 
 
@@ -57,13 +58,12 @@ extern NSString       * gDeployPath;
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceIconSetArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceIconSetButton)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearancePlaceIconNearSpotlightCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, TBInfoButton *,    infoButtonForAppearancePlaceIconNearSpotlightCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearancePlaceIconNearSpotlightCheckbox)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayConnectionSubmenusCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayConnectionTimersCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectionSubmenusCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayConnectionTimersCheckbox)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplaySplashScreenCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplaySplashScreenCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceConnectionWindowDisplayCriteriaArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceConnectionWindowDisplayCriteriaButton)
@@ -71,8 +71,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceConnectionWindowDis
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceConnectionWindowScreenArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          appearanceConnectionWindowScreenButton)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWindowsCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayStatisticsWindowsCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox)
 
 - (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
@@ -121,10 +121,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWi
     [UIHelper setTitle: nil ofControl: appearanceIconSetButton shift: rtl narrow: YES enable: YES];
     
     // Icon placement checkbox
-    CGFloat change = [UIHelper setTitle: NSLocalizedString(@"Place near Spotlight icon", @"Checkbox name")
-                              ofControl: appearancePlaceIconNearSpotlightCheckbox shift: rtl narrow: YES enable: YES];
-    
-    [UIHelper shiftControl: infoButtonForAppearancePlaceIconNearSpotlightCheckbox by: change reverse: ! rtl];
     NSString * onRightImageTag = [UIHelper imgTagForImageName: @"info-icon-on-right-360x40" width: 360 height: 40];
     NSString * onLeftImageTag  = [UIHelper imgTagForImageName: @"info-icon-on-left-360x40"  width: 360 height: 40];
     NSAttributedString * infoTitle = attributedStringFromHTML([NSString stringWithFormat:
@@ -136,19 +132,31 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWi
                                                                                             @"<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>",
                                                                                             @"HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon."),
                                                                onRightImageTag, onLeftImageTag]);
-    [infoButtonForAppearancePlaceIconNearSpotlightCheckbox setAttributedTitle: infoTitle];
-    [infoButtonForAppearancePlaceIconNearSpotlightCheckbox setMinimumWidth: 360.0];
-    
-    // Menu checkboxes
-    [appearanceMenuTFC setTitle: NSLocalizedString(@"Menu:", @"Window text")];
-    [appearanceDisplayConnectionSubmenusCheckbox setTitle: NSLocalizedString(@"Display connection submenus",       @"Checkbox name")];
-    [appearanceDisplayConnectionTimersCheckbox   setTitle: NSLocalizedString(@"Display connection timers",         @"Checkbox name")];
-    
-    // Splash screen checkboxes
-    [appearanceSplashTFC setTitle: NSLocalizedString(@"Startup window:", @"Window text")];
-    [appearanceDisplaySplashScreenCheckbox setTitle: NSLocalizedString(@"Display window while Tunnelblick is starting up", @"Checkbox name")];
-    
-    
+	[appearancePlaceIconNearSpotlightCheckbox
+	 setTitle: NSLocalizedString(@"Place near Spotlight icon", @"Checkbox name")
+	 infoTitle: infoTitle];
+	
+	// Menu checkboxes
+	[appearanceMenuTFC setTitle: NSLocalizedString(@"Menu:", @"Window text")];
+	[appearanceDisplayConnectionSubmenusCheckbox
+	 setTitle: NSLocalizedString(@"Display connection submenus", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n"
+														   @"<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>",
+														   @"HTML info for the 'Display connection submenus' checkbox."))];
+	
+	[appearanceDisplayConnectionTimersCheckbox
+	  setTitle: NSLocalizedString(@"Display connection timers", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>",
+														   @"HTML info for the 'Display connection timers' checkbox."))];
+	
+	// Splash screen checkboxes
+	[appearanceSplashTFC setTitle: NSLocalizedString(@"Startup window:", @"Window text")];
+ 
+	[appearanceDisplaySplashScreenCheckbox
+	  setTitle: NSLocalizedString(@"Display window while Tunnelblick is starting up", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>",
+														   @"HTML info for the 'Display window while Tunnelblick is starting up' checkbox."))];
+
     // VPN status windows display criteria
     [appearanceConnectionWindowDisplayCriteriaTFC setTitle: NSLocalizedString(@"VPN status windows:", @"Window text")];
     NSArray * cwContent = [NSArray arrayWithObjects:
@@ -186,10 +194,19 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWi
     [appearanceConnectionWindowScreenArrayController setContent: cwsContent];
     [UIHelper setTitle: nil ofControl: appearanceConnectionWindowScreenButton shift: rtl narrow: YES enable: YES];
     
-    [appearanceDisplayStatisticsWindowsCheckbox
-     setTitle: NSLocalizedString(@"Show when the pointer is over the Tunnelblick icon", @"Checkbox name")];
-    [appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox
-     setTitle: NSLocalizedString(@"Show when disconnected", @"Checkbox name")];
+	[appearanceDisplayStatisticsWindowsCheckbox
+	 setTitle: NSLocalizedString(@"Show when the pointer is over the Tunnelblick icon", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p>"
+														   @"<p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p>"
+														   @"<p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.",
+														   @"HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox."))];
+	
+	
+	[appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox
+	 setTitle: NSLocalizedString(@"Show when disconnected", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p>"
+														   @"<p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.",
+														   @"HTML info for the 'Show the VPN status window when disconnected' checkbox."))];
 }
 
 -(NSArray *) getIconSets

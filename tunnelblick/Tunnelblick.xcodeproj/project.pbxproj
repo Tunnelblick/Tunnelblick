@@ -79,7 +79,6 @@
 		634E02071CAD9776008637FF /* HR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 634E02061CAD9776008637FF /* HR.lproj */; };
 		634E02091CAD9783008637FF /* SR_CS.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 634E02081CAD9783008637FF /* SR_CS.lproj */; };
 		634EE8391191F89800DF4E43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
-		634F1B9A1D23DA4A00B1E929 /* TBInfoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 634F1B991D23DA4A00B1E929 /* TBInfoButton.m */; };
 		634F1B9D1D23FD9D00B1E929 /* Tracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 634F1B9C1D23FD9D00B1E929 /* Tracker.m */; };
 		635713A61A6709D800709670 /* AR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635713A31A6709D800709670 /* AR.lproj */; };
 		635971421C06736B0055FBC5 /* UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 635971411C06736B0055FBC5 /* UIHelper.m */; };
@@ -128,6 +127,7 @@
 		638E69611097725500587933 /* TBUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 638E69601097725500587933 /* TBUserDefaults.m */; };
 		63903D18145EAD49006627C9 /* HU.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63903D12145EAD49006627C9 /* HU.lproj */; };
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
+		6395C2321E37B90000E3C176 /* TBButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6395C2311E37B90000E3C176 /* TBButton.m */; };
 		6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */; };
 		6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */; };
 		639A10EB132AC74B00754C2A /* StatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639A10EA132AC74B00754C2A /* StatusWindow.xib */; };
@@ -433,8 +433,6 @@
 		634E02041CAD9764008637FF /* AF.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AF.lproj; sourceTree = "<group>"; };
 		634E02061CAD9776008637FF /* HR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HR.lproj; sourceTree = "<group>"; };
 		634E02081CAD9783008637FF /* SR_CS.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SR_CS.lproj; sourceTree = "<group>"; };
-		634F1B981D23DA3E00B1E929 /* TBInfoButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBInfoButton.h; sourceTree = "<group>"; };
-		634F1B991D23DA4A00B1E929 /* TBInfoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBInfoButton.m; sourceTree = "<group>"; };
 		634F1B9B1D23FD9D00B1E929 /* Tracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracker.h; sourceTree = "<group>"; };
 		634F1B9C1D23FD9D00B1E929 /* Tracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tracker.m; sourceTree = "<group>"; };
 		635713A31A6709D800709670 /* AR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AR.lproj; sourceTree = "<group>"; };
@@ -492,6 +490,8 @@
 		638E69601097725500587933 /* TBUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUserDefaults.m; sourceTree = "<group>"; };
 		63903D12145EAD49006627C9 /* HU.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HU.lproj; sourceTree = "<group>"; };
 		6391992210449804001FA1BC /* ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ES.lproj; sourceTree = "<group>"; };
+		6395C2301E37B90000E3C176 /* TBButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBButton.h; sourceTree = "<group>"; };
+		6395C2311E37B90000E3C176 /* TBButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBButton.m; sourceTree = "<group>"; };
 		6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.down.tunnelblick.sh; sourceTree = "<group>"; };
 		6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.up.tunnelblick.sh; sourceTree = "<group>"; };
 		639A10EA132AC74B00754C2A /* StatusWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusWindow.xib; sourceTree = "<group>"; };
@@ -937,8 +937,8 @@
 		63C374521D281EBD004758A3 /* InfoButton */ = {
 			isa = PBXGroup;
 			children = (
-				634F1B981D23DA3E00B1E929 /* TBInfoButton.h */,
-				634F1B991D23DA4A00B1E929 /* TBInfoButton.m */,
+				6395C2301E37B90000E3C176 /* TBButton.h */,
+				6395C2311E37B90000E3C176 /* TBButton.m */,
 				634F1B9B1D23FD9D00B1E929 /* Tracker.h */,
 				634F1B9C1D23FD9D00B1E929 /* Tracker.m */,
 				63FA093F1D25E68500859556 /* MAAttachedWindow.h */,
@@ -1759,6 +1759,7 @@
 				61BC4B780E2F9EBC00F24255 /* VPNConnection.m in Sources */,
 				61BC4B7A0E2F9EBC00F24255 /* NSArray+cArray.m in Sources */,
 				61BC4B7B0E2F9EBC00F24255 /* MenuController.m in Sources */,
+				6395C2321E37B90000E3C176 /* TBButton.m in Sources */,
 				61BC4B7C0E2F9EBC00F24255 /* NetSocket.m in Sources */,
 				61BC4B7D0E2F9EBC00F24255 /* NetSocket+Text.m in Sources */,
 				61BC4B7E0E2F9EBC00F24255 /* NSApplication+LoginItem.m in Sources */,
@@ -1793,7 +1794,6 @@
 				63E56EE713848338007E39AB /* VPNService.m in Sources */,
 				63E56EE813848338007E39AB /* VPNServiceCreateAccountController.m in Sources */,
 				63E56EE913848338007E39AB /* VPNServiceIntroController.m in Sources */,
-				634F1B9A1D23DA4A00B1E929 /* TBInfoButton.m in Sources */,
 				63E56EEA13848338007E39AB /* VPNServiceLoginController.m in Sources */,
 				63E56EEB13848338007E39AB /* VPNServiceProveController.m in Sources */,
 				63E56EEC13848338007E39AB /* VPNServiceSorryController.m in Sources */,

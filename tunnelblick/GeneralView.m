@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -25,6 +25,7 @@
 #import "helper.h"
 
 #import "MenuController.h"
+#import "TBButton.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 
@@ -90,22 +91,63 @@ extern TBUserDefaults * gTbDefaults;
     [UIHelper setTitle: nil ofControl: maximumLogSizeButton shift: rtl narrow: YES enable: YES];
     
     [warningsTFC setTitle: NSLocalizedString(@"Warnings:", @"Window text")];
-    [UIHelper setTitle: NSLocalizedString(@"Reset Disabled Warnings", @"Button")                                   ofControl: resetDisabledWarningsButton        shift: rtl narrow: YES enable: ! [gTbDefaults boolForKey: @"disableResetDisabledWarningsButton"]];
 
-    [tbInternetAccessTFC setTitle: NSLocalizedString(@"Tunnelblick Internet Use:", @"Window text")];
-    [UIHelper setTitle: NSLocalizedString(@"Inhibit automatic update checking and IP Address checking", @"Button") ofControl: inhibitOutboundTBTrafficCheckbox   shift: rtl narrow: YES enable: YES];
-
-    [generalConfigurationChangesTFC setTitle: NSLocalizedString(@"Configuration changes:", @"Window text")];
-    [UIHelper setTitle: NSLocalizedString(@"Require administrator authorization for key and certificate changes", @"Checkbox name")                    ofControl: generalAdminApprovalForKeyAndCertificateChangesCheckbox shift: rtl narrow: YES enable: YES];
-    
-    [updatesUpdatesTFC setTitle: NSLocalizedString(@"Updates:", @"Window text")];
-    [UIHelper setTitle: NSLocalizedString(@"Check for updates automatically", @"Checkbox name")                    ofControl: updatesCheckAutomaticallyCheckbox  shift: rtl narrow: YES enable: YES];
-    
-    [UIHelper setTitle: NSLocalizedString(@"Check for updates to beta versions", @"Checkbox name")                 ofControl: updatesCheckForBetaUpdatesCheckbox shift: rtl narrow: YES enable: YES];
-    
-    [UIHelper setTitle: NSLocalizedString(@"Send anonymous profile information when checking", @"Checkbox name")   ofControl: updatesSendProfileInfoCheckbox     shift: rtl narrow: YES enable: YES];
-    
-    [UIHelper setTitle: NSLocalizedString(@"Check Now", @"Button")                                                 ofControl: updatesCheckNowButton              shift: rtl narrow: YES enable: ! [gTbDefaults boolForKey: @"disableCheckNowButton"]];
+	[resetDisabledWarningsButton
+	 setTitle: NSLocalizedString(@"Reset Disabled Warnings", @"Button")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>",
+														   @"HTML info for the 'Reset Disabled Warnings' button."))
+	 disabled: [gTbDefaults boolForKey: @"disableResetDisabledWarningsButton"]];
+	
+	[tbInternetAccessTFC setTitle: NSLocalizedString(@"Tunnelblick Internet Use:", @"Window text")];
+	
+	[inhibitOutboundTBTrafficCheckbox
+	 setTitle: NSLocalizedString(@"Inhibit automatic update checking and IP Address checking", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings."
+														   @" Note: both of these activities access the Tunnelblick website.</p>\n"
+														   @"<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done"
+														   @" when connecting a configuration if the configuration's setting to do so is enabled.</p>"
+														   @"<p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>"
+														   @"<p>&nbsp;</p>",
+														   @"HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox."))];
+	
+	[generalConfigurationChangesTFC setTitle: NSLocalizedString(@"Configuration changes:", @"Window text")];
+	
+	[generalAdminApprovalForKeyAndCertificateChangesCheckbox
+	 setTitle: NSLocalizedString(@"Require administrator authorization for key and certificate changes", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n"
+														   @"<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p>"
+														   @"<p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>",
+														   @"HTML info for the 'Require administrator authorization for key and certificate changes' checkbox."))];
+	
+	[updatesUpdatesTFC setTitle: NSLocalizedString(@"Updates:", @"Window text")];
+	
+	[updatesCheckAutomaticallyCheckbox
+	 setTitle: NSLocalizedString(@"Check for updates automatically", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p>"
+														   @"<p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>",
+														   @"HTML info for the 'Check for updates automatically' checkbox."))];
+	
+	[updatesCheckForBetaUpdatesCheckbox
+	 setTitle: NSLocalizedString(@"Check for updates to beta versions", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n"
+														   @"<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p>"
+														   @"<p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>",
+														   @"HTML info for the 'Check for updates to beta versions' checkbox."))];
+	
+	[updatesSendProfileInfoCheckbox
+	 setTitle: NSLocalizedString(@"Send anonymous profile information when checking", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n"
+														   @"<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p>"
+														   @"<p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>",
+														   @"HTML info for the 'Send anonymous profile information when checking' checkbox."))];
+	
+	[updatesCheckNowButton
+	 setTitle: NSLocalizedString(@"Check Now", @"Button")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Checks for updates to the Tunnelblick application.</p>"
+														   @"<p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p>"
+														   @"<p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>",
+														   @"HTML info for the 'Check Now' button."))
+	 disabled: [gTbDefaults boolForKey: @"disableCheckNowButton"]];
 }
 
 
@@ -120,18 +162,18 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          maximumLogSizeButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   tbInternetAccessTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       tbInternetAccessTF)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          inhibitOutboundTBTrafficCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          inhibitOutboundTBTrafficCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   generalConfigurationChangesTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       generalConfigurationChangesTF)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          generalAdminApprovalForKeyAndCertificateChangesCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          generalAdminApprovalForKeyAndCertificateChangesCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesUpdatesTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       updatesUpdatesTF)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesCheckAutomaticallyCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesCheckForBetaUpdatesCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesSendProfileInfoCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesCheckNowButton)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          updatesCheckAutomaticallyCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          updatesCheckForBetaUpdatesCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          updatesSendProfileInfoCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          updatesCheckNowButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesLastCheckedTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       updatesLastCheckedTF)
 

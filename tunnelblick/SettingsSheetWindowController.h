@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -30,7 +30,7 @@ typedef enum {
 
 
 @class VPNConnection;
-@class TBInfoButton;
+@class TBButton;
 
 
 @interface SettingsSheetWindowController : NSWindowController <NSWindowDelegate, NSTextFieldDelegate>
@@ -61,11 +61,11 @@ typedef enum {
     
     // For Connecting & Disconnecting tab
     
-    IBOutlet NSButton            * flushDnsCacheCheckbox;
-	IBOutlet NSButton            * prependDomainNameCheckbox;
-	IBOutlet NSButton            * useRouteUpInsteadOfUpCheckbox;
-    IBOutlet NSButton            * enableIpv6OnTapCheckbox;
-	IBOutlet NSButton            * keepConnectedCheckbox;
+    IBOutlet TBButton        * flushDnsCacheCheckbox;
+	IBOutlet TBButton        * prependDomainNameCheckbox;
+	IBOutlet TBButton        * useRouteUpInsteadOfUpCheckbox;
+    IBOutlet TBButton        * enableIpv6OnTapCheckbox;
+	IBOutlet TBButton        * keepConnectedCheckbox;
 	
 	IBOutlet NSPopUpButton	     * loadTunPopUpButton;
 	IBOutlet NSMenuItem          * loadTunAutomaticallyMenuItem;
@@ -77,27 +77,15 @@ typedef enum {
 	IBOutlet NSMenuItem          * loadTapAlwaysMenuItem;
 	IBOutlet NSMenuItem          * loadTapNeverMenuItem;
 	
-    IBOutlet NSButton            * disconnectOnSleepCheckbox;
-    IBOutlet NSButton            * reconnectOnWakeFromSleepCheckbox;
+    IBOutlet TBButton        * disconnectOnSleepCheckbox;
+    IBOutlet TBButton        * reconnectOnWakeFromSleepCheckbox;
 	
-	IBOutlet NSButton            * disconnectWhenUserSwitchesOutCheckbox;
-	IBOutlet NSButton            * reconnectWhenUserSwitchesInCheckbox;
+	IBOutlet TBButton        * disconnectWhenUserSwitchesOutCheckbox;
+	IBOutlet TBButton        * reconnectWhenUserSwitchesInCheckbox;
 	
-	IBOutlet TBInfoButton        * infoButtonForFlushDnsCacheCheckbox;
-	IBOutlet TBInfoButton        * infoButtonForPrependDomainNameCheckbox;
-	IBOutlet TBInfoButton        * infoButtonForUseRouteUpInsteadOfUpCheckbox;
-	IBOutlet TBInfoButton        * infoButtonForEnableIpv6OnTapCheckbox;
-	IBOutlet TBInfoButton        * infoButtonForKeepConnectedCheckbox;
+	IBOutlet TBButton        * infoButtonForLoadTunPopUpButton;
+	IBOutlet TBButton        * infoButtonForLoadTapPopUpButton;
 	
-	IBOutlet TBInfoButton        * infoButtonForLoadTunPopUpButton;
-	IBOutlet TBInfoButton        * infoButtonForLoadTapPopUpButton;
-	
-	IBOutlet TBInfoButton        * infoButtonForDisconnectOnSleepCheckbox;
-	IBOutlet TBInfoButton        * infoButtonForReconnectOnWakeFromSleepCheckbox;
-
-	IBOutlet TBInfoButton        * infoButtonForDisconnectWhenUserSwitchesOutCheckbox;
-	IBOutlet TBInfoButton        * infoButtonForReconnectWhenUserSwitchesInCheckbox;
-
     IBOutlet NSButton            * connectingHelpButton;
     
     IBOutlet NSTextFieldCell     * ifConnectedWhenUserSwitchedOutTFC;
@@ -111,8 +99,8 @@ typedef enum {
     
     // For WhileConnected tab
     
-    IBOutlet NSButton            * runMtuTestCheckbox;
-    IBOutlet NSButton            * monitorNetworkForChangesCheckbox;
+    IBOutlet TBButton        * runMtuTestCheckbox;
+    IBOutlet TBButton        * monitorNetworkForChangesCheckbox;
     
     IBOutlet NSBox               * DnsWinsBox;
     
@@ -186,7 +174,7 @@ typedef enum {
     
     // For Credentials tab
 	
-    IBOutlet NSButton            * allConfigurationsUseTheSameCredentialsCheckbox;
+    IBOutlet TBButton        * allConfigurationsUseTheSameCredentialsCheckbox;
 	
 	IBOutlet NSBox               * namedCredentialsBox;
     
@@ -312,15 +300,9 @@ typedef enum {
 
 // Getters & Setters
 
-TBPROPERTY_READONLY(TBInfoButton *, infoButtonForFlushDnsCacheCheckbox)
-TBPROPERTY_READONLY(TBInfoButton *, infoButtonForPrependDomainNameCheckbox)
-TBPROPERTY_READONLY(TBInfoButton *, infoButtonForUseRouteUpInsteadOfUpCheckbox)
-TBPROPERTY_READONLY(TBInfoButton *, infoButtonForEnableIpv6OnTapCheckbox)
-TBPROPERTY_READONLY(TBInfoButton *, infoButtonForKeepConnectedCheckbox)
-
 TBPROPERTY_READONLY(BOOL, showingSettingsSheet)
 
-TBPROPERTY_READONLY(NSButton *, allConfigurationsUseTheSameCredentialsCheckbox)
+TBPROPERTY_READONLY(TBButton *, allConfigurationsUseTheSameCredentialsCheckbox)
 
 TBPROPERTY_READONLY(NSBox *, namedCredentialsBox)
 

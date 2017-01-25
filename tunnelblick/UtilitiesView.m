@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -26,6 +26,7 @@
 #import "helper.h"
 
 #import "NSFileManager+TB.h"
+#import "TBButton.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
 
@@ -55,13 +56,41 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) awakeFromNib
 {
-    BOOL rtl = [UIHelper languageAtLaunchWasRTL];
-    
-    [UIHelper setTitle: NSLocalizedString(@"Quit All OpenVPN Processes"            , @"Button") ofControl: utilitiesKillAllOpenVpnButton            shift: rtl narrow: YES enable: YES];
-    [UIHelper setTitle: NSLocalizedString(@"Copy Console Log to Clipboard"         , @"Button") ofControl: consoleLogToClipboardButton              shift: rtl narrow: YES enable: ALLOW_OPENVPNSTART_KILLALL];
-    [UIHelper setTitle: NSLocalizedString(@"Open Uninstall Instructions in Browser", @"Button") ofControl: utilitiesOpenUninstallInstructionsButton shift: rtl narrow: YES enable: YES];
-    [UIHelper setTitle: NSLocalizedString(@"Open easy-rsa in Terminal"             , @"Button") ofControl: utilitiesRunEasyRsaButton                shift: rtl narrow: YES enable: YES];
-    
+	[utilitiesKillAllOpenVpnButton
+	  setTitle: NSLocalizedString(@"Quit All OpenVPN Processes", @"Button")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Quits all OpenVPN processes, including those which were not"
+														   @" started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect"
+														   @" configurations which were connected using Tunnelblick.</p>"
+														   @"<p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all"
+														   @" connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor"
+														   @" application to 'Force Quit' the process.</p>",
+														   @"HTML info for the 'Quit All OpenVPN Processes' button."))
+	 disabled: ! ALLOW_OPENVPNSTART_KILLALL];
+	
+	[consoleLogToClipboardButton
+	  setTitle: NSLocalizedString(@"Copy Console Log to Clipboard", @"Button")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p>"
+														   @"<p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages"
+														   @" and detailed error messages that are too long to present to the user in a normal dialog window.</p>",
+														   @"HTML info for the 'Copy Console Log to Clipboard' button."))];
+	
+	[utilitiesOpenUninstallInstructionsButton
+	  setTitle: NSLocalizedString(@"Open Uninstall Instructions in Browser", @"Button")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>",
+														   @"HTML info for the 'Open Uninstall Instructions in Browser' button."))];
+	
+	[utilitiesRunEasyRsaButton
+	  setTitle: NSLocalizedString(@"Open easy-rsa in Terminal", @"Button")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p>"
+														   @"<p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p>"
+														   @"<p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead."
+														   @" 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used;"
+														   @" if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p>"
+														   @"<p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting"
+														   @" up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p>"
+														   @"<p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>",
+														   @"HTML info for the 'Open easy-rsa in Terminal' button."))];
+	
     NSString * easyRsaPathMessage;
     if (  [gTbDefaults stringForKey: @"easy-rsaPath"]  ) {
         easyRsaPathMessage = easyRsaPathToUse(YES);

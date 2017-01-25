@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -29,6 +29,7 @@
 #import "ConfigurationManager.h"
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
+#import "TBButton.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
 #import "UIHelper.h"
@@ -54,9 +55,9 @@ extern TBUserDefaults       * gTbDefaults;
 
 // Methods for setting up specific types of information
 
--(void) setupCheckbox: (NSButton *) checkbox
-                  key: (NSString *) key
-             inverted: (BOOL) inverted;
+-(void) setupCheckbox: (TBButton *) checkbox
+                  key: (NSString *)     key
+             inverted: (BOOL)           inverted;
 
 -(void) setupMonitoringOptions;
 
@@ -72,12 +73,6 @@ extern TBUserDefaults       * gTbDefaults;
 TBSYNTHESIZE_NONOBJECT_GET(BOOL, showingSettingsSheet)
 
 TBSYNTHESIZE_OBJECT(retain, VPNConnection *, connection,                setConnection)
-
-TBSYNTHESIZE_OBJECT_GET(retain, TBInfoButton *, infoButtonForFlushDnsCacheCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, TBInfoButton *, infoButtonForPrependDomainNameCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, TBInfoButton *, infoButtonForUseRouteUpInsteadOfUpCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, TBInfoButton *, infoButtonForEnableIpv6OnTapCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, TBInfoButton *, infoButtonForKeepConnectedCheckbox)
 
 TBSYNTHESIZE_OBJECT(retain, NSArray *,  removeNamedCredentialsNames,    setRemoveNamedCredentialsNames)
 
@@ -105,7 +100,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,     whileConnectedTabViewItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,     credentialsTabViewItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,     soundTabViewItem)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          allConfigurationsUseTheSameCredentialsCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,      allConfigurationsUseTheSameCredentialsCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSBox *,             namedCredentialsBox)
 
@@ -559,15 +554,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	[UIHelper makeAllAsWideAsWidest: list shift: rtl];
 }
 
--(void) initializeCheckbox: (id) checkbox setTitle: (NSString *) label {
-	
-	[UIHelper setTitle: label
-							ofControl: checkbox
-								shift: [UIHelper languageAtLaunchWasRTL]
-							   narrow: YES
-							   enable: YES];
-}
-
 -(void) initializeStaticContent {
     
     // For Connecting tab
@@ -576,74 +562,44 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	
     [connectingAndDisconnectingTabViewItem setLabel: NSLocalizedString(@"Connecting & Disconnecting", @"Window title")];
     
-	CGFloat change = [UIHelper setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting", @"Checkbox name")
-							  ofControl: flushDnsCacheCheckbox
-								  shift: rtl
-								 narrow: YES
-								 enable: YES];
-	[UIHelper shiftControl: infoButtonForFlushDnsCacheCheckbox by: change reverse: ! rtl];
-	NSAttributedString * infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n"
-																				@"<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after"
-																				@" connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n"
-																				@"<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if"
-																				@" there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>",
-																				@"HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox."));
-	[infoButtonForFlushDnsCacheCheckbox setAttributedTitle: infoTitle];
-	[infoButtonForFlushDnsCacheCheckbox setMinimumWidth: 360.0];
+	[flushDnsCacheCheckbox
+	  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n"
+														   @"<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after"
+														   @" connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n"
+														   @"<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if"
+														   @" there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>",
+														   @"HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox."))];
 	
-	change = [UIHelper setTitle: NSLocalizedString(@"Prepend domain name to search domains", @"Checkbox name")
-					  ofControl: prependDomainNameCheckbox
-						  shift: rtl
-						 narrow: YES
-						 enable: YES];
-	[UIHelper shiftControl: infoButtonForPrependDomainNameCheckbox by: change reverse: ! rtl];
-	infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n"
+	[prependDomainNameCheckbox
+	  setTitle: NSLocalizedString(@"Prepend domain name to search domains", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n"
 														   @"<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>",
-														   @"HTML info for the 'Prepend domain name to search domains' checkbox."));
-	[infoButtonForPrependDomainNameCheckbox setAttributedTitle: infoTitle];
-	[infoButtonForPrependDomainNameCheckbox setMinimumWidth: 360.0];
+														   @"HTML info for the 'Prepend domain name to search domains' checkbox."))];
 	
-	change = [UIHelper setTitle: NSLocalizedString(@"Set DNS after routes are set", @"Checkbox name")
-					  ofControl: useRouteUpInsteadOfUpCheckbox
-						  shift: rtl
-						 narrow: YES
-						 enable: YES];
-	[UIHelper shiftControl: infoButtonForUseRouteUpInsteadOfUpCheckbox by: change reverse: ! rtl];
-	infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after"
+	[useRouteUpInsteadOfUpCheckbox
+	  setTitle: NSLocalizedString(@"Set DNS after routes are set", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after"
 														   @" it sets up routing for the VPN instead of before setting up the routing.</p>\n"
 														   @"<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up"
 														   @" routing for the VPN, instead of after setting up the routing. This can cause DNS failures"
 														   @" or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n",
-														   @"HTML info for the 'Set DNS after routes are set' checkbox."));
-	[infoButtonForUseRouteUpInsteadOfUpCheckbox setAttributedTitle: infoTitle];
-	[infoButtonForUseRouteUpInsteadOfUpCheckbox setMinimumWidth: 360.0];
+														   @"HTML info for the 'Set DNS after routes are set' checkbox."))];
 	
-	change = [UIHelper setTitle: NSLocalizedString(@"Enable IPv6 (tap only)", @"Checkbox name")
-					  ofControl: enableIpv6OnTapCheckbox
-						  shift: rtl
-						 narrow: YES
-						 enable: YES];
-	[UIHelper shiftControl: infoButtonForEnableIpv6OnTapCheckbox by: change reverse: ! rtl];
-	infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n"
+	[enableIpv6OnTapCheckbox
+	  setTitle: NSLocalizedString(@"Enable IPv6 (tap only)", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n"
 														   @"<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n"
 														   @"<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use"
 														   @" of IPv6. Most Internet access works fine without IPv6.</p>\n"
 														   @"<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>",
-														   @"HTML info for the 'Enable IPv6 (tap only)' checkbox."));
-	[infoButtonForEnableIpv6OnTapCheckbox setAttributedTitle: infoTitle];
-	[infoButtonForEnableIpv6OnTapCheckbox setMinimumWidth: 360.0];
+														   @"HTML info for the 'Enable IPv6 (tap only)' checkbox."))];
 	
-	change = [UIHelper setTitle: NSLocalizedString(@"Keep connected", @"Checkbox name")
-					  ofControl: keepConnectedCheckbox
-						  shift: rtl
-						 narrow: YES
-						 enable: YES];
-	[UIHelper shiftControl: infoButtonForKeepConnectedCheckbox by: change reverse: ! rtl];
-	infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n"
+	[keepConnectedCheckbox
+	  setTitle: NSLocalizedString(@"Keep connected", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n"
 														   @"<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n",
-														   @"HTML info for the 'Keep connected' checkbox."));
-	[infoButtonForKeepConnectedCheckbox setAttributedTitle: infoTitle];
-	[infoButtonForKeepConnectedCheckbox setMinimumWidth: 360.0];
+														   @"HTML info for the 'Keep connected' checkbox."))];
 	
 	// Set both the tun and tap buttons to the width of the wider one
 	NSRect oldTuntap = [loadTapPopUpButton frame];
@@ -662,16 +618,16 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 				 shift: [UIHelper languageAtLaunchWasRTL]
 				narrow: YES
 				enable: YES];
-	infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used,"
-														   @" but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n"
-														   @"<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n"
-														   @"<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n"
-														   @"<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed."
-														   @" (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n"
-														   @"<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n"
-														   @"<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n"
-														   @"<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>",
-														   @"HTML info for the 'Load Tun driver' popdown list."));
+	NSAttributedString * infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used,"
+																				@" but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n"
+																				@"<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n"
+																				@"<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n"
+																				@"<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed."
+																				@" (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n"
+																				@"<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n"
+																				@"<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n"
+																				@"<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>",
+																				@"HTML info for the 'Load Tun driver' popdown list."));
 	[infoButtonForLoadTunPopUpButton setAttributedTitle: infoTitle];
 	[infoButtonForLoadTunPopUpButton setMinimumWidth: 360.0];
 	
@@ -693,6 +649,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	
 	NSRect newTun = [loadTunPopUpButton frame];
 	NSRect newTap = [loadTapPopUpButton frame];
+	CGFloat change;
 	if (  newTun.size.width > newTap.size.width  ) {
 		change = newTun.size.width - oldTuntap.size.width;
 		newTap.size.width = newTun.size.width;
@@ -706,67 +663,55 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	[loadTapPopUpButton setFrame: newTap];
 	
 	[sleepWakeBox setTitle: NSLocalizedString(@"Computer sleep/wake",                        @"Window text")];
-	[ifConnectedWhenComputerWentToSleepTFC  setTitle: NSLocalizedString(@"(if connected when computer went to sleep)", @"Window text")];
+	[ifConnectedWhenComputerWentToSleepTFC setTitle: NSLocalizedString(@"(if connected when computer went to sleep)", @"Window text")];
 	
 	[fastUserSwitchingBox setTitle: NSLocalizedString(@"Fast User Switching",                   @"Window text")];
-	[ifConnectedWhenUserSwitchedOutTFC      setTitle: NSLocalizedString(@"(if connected when user switched out)", @"Window text")];
+	[ifConnectedWhenUserSwitchedOutTFC setTitle: NSLocalizedString(@"(if connected when user switched out)", @"Window text")];
 	
-	change = [UIHelper setTitle: NSLocalizedString(@"Disconnect when computer goes to sleep", @"Checkbox name")
-					  ofControl: disconnectOnSleepCheckbox
-						  shift: rtl
-						 narrow: YES
-						 enable: YES];
-	[UIHelper shiftControl: infoButtonForDisconnectOnSleepCheckbox by: change reverse: ! rtl];
-	infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n"
+	[disconnectOnSleepCheckbox
+	  setTitle: NSLocalizedString(@"Disconnect when computer goes to sleep", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN will be disconnected when the computer goes to sleep.</p>\n"
 														   @"<p><strong>When not checked</strong>, the VPN will stay connected when the computer goes to sleep.</p>",
-														   @"HTML info for the 'Disconnect when computer goes to sleep' checkbox."));
-	[infoButtonForDisconnectOnSleepCheckbox setAttributedTitle: infoTitle];
-	[infoButtonForDisconnectOnSleepCheckbox setMinimumWidth: 360.0];
+														   @"HTML info for the 'Disconnect when computer goes to sleep' checkbox."))];
 	
-	change = [UIHelper setTitle: NSLocalizedString(@"Reconnect when computer wakes up", @"Checkbox name")
-					  ofControl: reconnectOnWakeFromSleepCheckbox
-						  shift: rtl
-						 narrow: YES
-						 enable: YES];
-	[UIHelper shiftControl: infoButtonForReconnectOnWakeFromSleepCheckbox by: change reverse: ! rtl];
-	infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n"
+	[reconnectOnWakeFromSleepCheckbox
+	  setTitle: NSLocalizedString(@"Reconnect when computer wakes up", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN will be reconnected when the computer wakes up if it was disconnected when the computer went to sleep.</p>\n"
 														   @"<p><strong>When not checked</strong>, the VPN will not be reconnected when the computer wakes up.</p>",
-														   @"HTML info for the 'Reconnect when computer wakes up' checkbox."));
-	[infoButtonForReconnectOnWakeFromSleepCheckbox setAttributedTitle: infoTitle];
-	[infoButtonForReconnectOnWakeFromSleepCheckbox setMinimumWidth: 360.0];
+														   @"HTML info for the 'Reconnect when computer wakes up' checkbox."))];
 	
-	change = [UIHelper setTitle: NSLocalizedString(@"Disconnect when user switches out", @"Checkbox name")
-					  ofControl: disconnectWhenUserSwitchesOutCheckbox
-						  shift: rtl
-						 narrow: YES
-						 enable: YES];
-	[UIHelper shiftControl: infoButtonForDisconnectWhenUserSwitchesOutCheckbox by: change reverse: ! rtl];
-	infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n"
+	[disconnectWhenUserSwitchesOutCheckbox
+	  setTitle: NSLocalizedString(@"Disconnect when user switches out", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n"
 														   @"<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>",
-														   @"HTML info for the 'Disconnect when user switches out' checkbox."));
-	[infoButtonForDisconnectWhenUserSwitchesOutCheckbox setAttributedTitle: infoTitle];
-	[infoButtonForDisconnectWhenUserSwitchesOutCheckbox setMinimumWidth: 360.0];
+														   @"HTML info for the 'Disconnect when user switches out' checkbox."))];
 	
-	change = [UIHelper setTitle: NSLocalizedString(@"Reconnect when user switches in", @"Checkbox name")
-					  ofControl: reconnectWhenUserSwitchesInCheckbox
-						  shift: rtl
-						 narrow: YES
-						 enable: YES];
-	[UIHelper shiftControl: infoButtonForReconnectWhenUserSwitchesInCheckbox by: change reverse: ! rtl];
-	infoTitle = attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n"
+	[reconnectWhenUserSwitchesInCheckbox
+	  setTitle: NSLocalizedString(@"Reconnect when user switches in", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN will be reconnected when switching back to the current user if it was disconnected when a switch to another user was done.</p>\n"
 														   @"<p><strong>When not checked</strong>, the VPN will not be reconnected when switching back to the current user.</p>",
-														   @"HTML info for the 'Reconnect when user switches in' checkbox."));
-	[infoButtonForReconnectWhenUserSwitchesInCheckbox setAttributedTitle: infoTitle];
-	[infoButtonForReconnectWhenUserSwitchesInCheckbox setMinimumWidth: 360.0];
+														   @"HTML info for the 'Reconnect when user switches in' checkbox."))];
 	
-    // For WhileConnected tab
+	// For WhileConnected tab
 	
-    [self initializeCheckbox: runMtuTestCheckbox setTitle: NSLocalizedString(@"Run MTU maximum size test after connecting", @"Checkbox name")];
+	[runMtuTestCheckbox
+	  setTitle: NSLocalizedString(@"Run MTU maximum size test after connecting", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, OpenVPN will run a test to determine the"
+														   @" maximum MTU size for the connection. The test starts each time a connection is made,"
+														   @" and can take several minutes. Test results appear in the Tunnelblick log.</p>\n",
+														   @"HTML info for the 'Run MTU maximum size test after connecting' checkbox."))];
 	
-    [whileConnectedTabViewItem        setLabel: NSLocalizedString(@"While Connected", @"Window title")];
-
-    [self initializeCheckbox: monitorNetworkForChangesCheckbox setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")];
-    
+	[whileConnectedTabViewItem setLabel: NSLocalizedString(@"While Connected", @"Window title")];
+	
+	[monitorNetworkForChangesCheckbox
+	  setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network"
+														   @" settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network"
+														   @" settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n"
+														   @"<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n"
+														   @"<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>",
+														   @"HTML info for the 'Monitor network settings' checkbox."))];
+	
 	NSTextAlignment alignmentForNetworkSettingString = (  rtl
 														? NSLeftTextAlignment
 														: NSRightTextAlignment);
@@ -849,7 +794,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [self initializeDnsWinsPopUp: otherworkgroupPopUpButton    arrayController: otherworkgroupArrayController   ];
     
 	
-	// For Credentials tab, everything depends on preferences; there is nothing static
+	//
+	// ***** For Credentials tab, everything depends on preferences; there is nothing static
+	//
 	
     // For Sound tab
     
@@ -1132,16 +1079,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 		[removeNamedCredentialsButton setEnabled: YES];
 	}
 	
-	[UIHelper setTitle: [NSString stringWithFormat:
-										NSLocalizedString(@"All configurations use %@ credentials", @"Window text"),
-										groupAllConfigurationsUse]
-							ofControl: allConfigurationsUseTheSameCredentialsCheckbox
-								shift: [UIHelper languageAtLaunchWasRTL]
-							   narrow: YES
-							   enable: YES];
-    
+	[allConfigurationsUseTheSameCredentialsCheckbox
+	  setTitle: [NSString stringWithFormat: NSLocalizedString(@"All configurations use %@ credentials", @"Window text"), groupAllConfigurationsUse]
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n",
+														   @"HTML info for the 'All configurations use ___ credentials' checkbox."))];
+	
     // Sounds tab
-    
+	
     doNotPlaySounds = FALSE;
     
 	[soundTabViewItem setLabel: NSLocalizedString(@"Sounds", @"Window title")];
@@ -1847,9 +1791,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 // General methods
 
 // Set a checkbox from preferences
--(void) setupCheckbox: (NSButton *) checkbox
-                  key: (NSString *) key
-             inverted: (BOOL)       inverted {
+-(void) setupCheckbox: (TBButton *) checkbox
+                  key: (NSString *)     key
+             inverted: (BOOL)           inverted {
     
     if (  checkbox  ) {
         NSString * actualKey = [configurationName stringByAppendingString: key];

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -24,7 +24,7 @@
 
 @class LeftNavViewController;
 @class LeftNavDataSource;
-@class TBInfoButton;
+@class TBButton;
 
 @interface ConfigurationsView : NSView
 {    
@@ -96,19 +96,13 @@
     IBOutlet NSPopUpButton       * loggingLevelPopUpButton;
     IBOutlet NSArrayController   * loggingLevelArrayController;
     
-    IBOutlet NSButton            * monitorNetworkForChangesCheckbox;
-    IBOutlet NSButton            * routeAllTrafficThroughVpnCheckbox;
-	IBOutlet NSButton            * disableIpv6OnTunCheckbox;
-    IBOutlet NSButton            * checkIPAddressAfterConnectOnAdvancedCheckbox;
-    IBOutlet NSButton            * resetPrimaryInterfaceAfterDisconnectCheckbox;
+    IBOutlet TBButton            * monitorNetworkForChangesCheckbox;
+    IBOutlet TBButton            * routeAllTrafficThroughVpnCheckbox;
+	IBOutlet TBButton            * disableIpv6OnTunCheckbox;
+    IBOutlet TBButton            * checkIPAddressAfterConnectOnAdvancedCheckbox;
+    IBOutlet TBButton            * resetPrimaryInterfaceAfterDisconnectCheckbox;
 	
-	IBOutlet TBInfoButton        * infoButtonForMonitorNetworkForChangesCheckbox;
-	IBOutlet TBInfoButton        * infoButtonForRouteAllTrafficThroughVpnCheckbox;
-	IBOutlet TBInfoButton        * infoButtonForDisableIpv6OnTunCheckbox;
-	IBOutlet TBInfoButton        * infoButtonForCheckIPAddressAfterConnectOnAdvancedCheckbox;
-	IBOutlet TBInfoButton        * infoButtonForResetPrimaryInterfaceAfterDisconnectCheckbox;
-
-    IBOutlet NSButton            * advancedButton;
+    IBOutlet TBButton            * advancedButton;
 }
 
 // Getters
@@ -162,17 +156,11 @@ TBPROPERTY_READONLY(NSTextFieldCell *,     setNameserverTFC)
 TBPROPERTY_READONLY(NSPopUpButton *,       setNameserverPopUpButton)
 TBPROPERTY_READONLY(NSArrayController *,   setNameserverArrayController)
 
-TBPROPERTY_READONLY(NSButton *,            monitorNetworkForChangesCheckbox)
-TBPROPERTY_READONLY(NSButton *,            routeAllTrafficThroughVpnCheckbox)
-TBPROPERTY_READONLY(NSButton *,            disableIpv6OnTunCheckbox)
-TBPROPERTY_READONLY(NSButton *,            checkIPAddressAfterConnectOnAdvancedCheckbox)
-TBPROPERTY_READONLY(NSButton *,            resetPrimaryInterfaceAfterDisconnectCheckbox)
-
-TBPROPERTY_READONLY(TBInfoButton *,        infoButtonForMonitorNetworkForChangesCheckbox)
-TBPROPERTY_READONLY(TBInfoButton *,        infoButtonForRouteAllTrafficThroughVpnCheckbox)
-TBPROPERTY_READONLY(TBInfoButton *,        infoButtonForDisableIpv6OnTunCheckbox)
-TBPROPERTY_READONLY(TBInfoButton *,        infoButtonForCheckIPAddressAfterConnectOnAdvancedCheckbox)
-TBPROPERTY_READONLY(TBInfoButton *,        infoButtonForResetPrimaryInterfaceAfterDisconnectCheckbox)
+TBPROPERTY_READONLY(TBButton *,            monitorNetworkForChangesCheckbox)
+TBPROPERTY_READONLY(TBButton *,            routeAllTrafficThroughVpnCheckbox)
+TBPROPERTY_READONLY(TBButton *,            disableIpv6OnTunCheckbox)
+TBPROPERTY_READONLY(TBButton *,            checkIPAddressAfterConnectOnAdvancedCheckbox)
+TBPROPERTY_READONLY(TBButton *,            resetPrimaryInterfaceAfterDisconnectCheckbox)
 
 TBPROPERTY_READONLY(NSArrayController *,   perConfigOpenvpnVersionArrayController)
 TBPROPERTY_READONLY(NSButton *,            perConfigOpenvpnVersionButton)
@@ -182,6 +170,6 @@ TBPROPERTY_READONLY(NSTextFieldCell *,     loggingLevelTFC)
 TBPROPERTY_READONLY(NSPopUpButton *,       loggingLevelPopUpButton)
 TBPROPERTY_READONLY(NSArrayController *,   loggingLevelArrayController)
 
-TBPROPERTY_READONLY(NSButton *,            advancedButton)
+TBPROPERTY_READONLY(TBButton *,            advancedButton)
 
 @end

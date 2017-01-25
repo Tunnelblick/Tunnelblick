@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2015, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -22,7 +22,7 @@
 #import "defines.h"
 
 #import "Tracker.h"
-#import "TBInfoButton.h"
+#import "TBButton.h"
 
 
 @class TBUserDefaults;

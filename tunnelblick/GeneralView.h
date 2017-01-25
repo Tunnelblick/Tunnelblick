@@ -1,5 +1,5 @@
 /*
- * Copyright 2011, 2012, 2013 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2011, 2012, 2013, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -22,6 +22,8 @@
 
 #import "defines.h"
 
+@class TBButton;
+
 @interface GeneralView : NSView {
     
     IBOutlet NSTextFieldCell    * keyboardShortcutTFC;
@@ -36,22 +38,22 @@
     
     IBOutlet NSTextFieldCell    * warningsTFC;
     IBOutlet NSTextField        * warningsTF;
-    IBOutlet NSButton           * resetDisabledWarningsButton;
+    IBOutlet TBButton           * resetDisabledWarningsButton;
     
     IBOutlet NSTextFieldCell    * tbInternetAccessTFC;
     IBOutlet NSTextField        * tbInternetAccessTF;
-	IBOutlet NSButton           * inhibitOutboundTBTrafficCheckbox;
+	IBOutlet TBButton           * inhibitOutboundTBTrafficCheckbox;
 	
     IBOutlet NSTextFieldCell    * generalConfigurationChangesTFC;
     IBOutlet NSTextField        * generalConfigurationChangesTF;
-    IBOutlet NSButton           * generalAdminApprovalForKeyAndCertificateChangesCheckbox;
+    IBOutlet TBButton           * generalAdminApprovalForKeyAndCertificateChangesCheckbox;
     
     IBOutlet NSTextFieldCell    * updatesUpdatesTFC;
     IBOutlet NSTextField        * updatesUpdatesTF;
-    IBOutlet NSButton           * updatesCheckAutomaticallyCheckbox;
-    IBOutlet NSButton           * updatesCheckForBetaUpdatesCheckbox;
-    IBOutlet NSButton           * updatesSendProfileInfoCheckbox;
-    IBOutlet NSButton           * updatesCheckNowButton;
+    IBOutlet TBButton           * updatesCheckAutomaticallyCheckbox;
+    IBOutlet TBButton           * updatesCheckForBetaUpdatesCheckbox;
+    IBOutlet TBButton           * updatesSendProfileInfoCheckbox;
+    IBOutlet TBButton           * updatesCheckNowButton;
     IBOutlet NSTextFieldCell    * updatesLastCheckedTFC;
     IBOutlet NSTextField        * updatesLastCheckedTF;
     
@@ -60,17 +62,17 @@
 
 TBPROPERTY_READONLY(NSTextFieldCell *,   tbInternetAccessTFC)
 TBPROPERTY_READONLY(NSTextField *,       tbInternetAccessTF)
-TBPROPERTY_READONLY(NSButton *,          inhibitOutboundTBTrafficCheckbox)
+TBPROPERTY_READONLY(TBButton *,          inhibitOutboundTBTrafficCheckbox)
 
 TBPROPERTY_READONLY(NSTextFieldCell *,   generalConfigurationChangesTFC)
 TBPROPERTY_READONLY(NSTextField *,       generalConfigurationChangesTF)
-TBPROPERTY_READONLY(NSButton *,          generalAdminApprovalForKeyAndCertificateChangesCheckbox)
+TBPROPERTY_READONLY(TBButton *,          generalAdminApprovalForKeyAndCertificateChangesCheckbox)
 
 TBPROPERTY_READONLY(NSTextFieldCell *,   updatesUpdatesTFC)
 TBPROPERTY_READONLY(NSTextField *,       updatesUpdatesTF)
-TBPROPERTY_READONLY(NSButton *,          updatesCheckAutomaticallyCheckbox)
-TBPROPERTY_READONLY(NSButton *,          updatesCheckForBetaUpdatesCheckbox)
-TBPROPERTY_READONLY(NSButton *,          updatesSendProfileInfoCheckbox)
+TBPROPERTY_READONLY(TBButton *,          updatesCheckAutomaticallyCheckbox)
+TBPROPERTY_READONLY(TBButton *,          updatesCheckForBetaUpdatesCheckbox)
+TBPROPERTY_READONLY(TBButton *,          updatesSendProfileInfoCheckbox)
 TBPROPERTY_READONLY(NSTextFieldCell *,   updatesLastCheckedTFC)
 TBPROPERTY_READONLY(NSTextField *,       updatesLastCheckedTF)
 

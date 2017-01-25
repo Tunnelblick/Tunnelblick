@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1212" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
@@ -107,9 +107,9 @@
                                                                                 <outlet property="nextKeyView" destination="543" id="xeE-cY-aHI"/>
                                                                             </connections>
                                                                         </popUpButton>
-                                                                        <button id="1239">
-                                                                            <rect key="frame" x="20" y="82" width="629" height="18"/>
-                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                        <button id="1239" customClass="TBButton">
+                                                                            <rect key="frame" x="10" y="82" width="639" height="18"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="check" title="DisableIPv6 for tun$" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1240">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -176,7 +176,7 @@
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <button verticalHuggingPriority="750" id="536">
+                                                                        <button verticalHuggingPriority="750" id="536" customClass="TBButton">
                                                                             <rect key="frame" x="527" y="-4" width="122" height="32"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="push" title="Advanced$..." bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="575">
@@ -188,9 +188,9 @@
                                                                                 <outlet property="nextKeyView" destination="1253" id="csE-tY-cLp"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button id="1249">
-                                                                            <rect key="frame" x="20" y="62" width="629" height="18"/>
-                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                        <button id="1249" customClass="TBButton">
+                                                                            <rect key="frame" x="10" y="62" width="639" height="18"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="check" title="Check apparent public IP address changed$" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1250">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -200,9 +200,9 @@
                                                                                 <outlet property="nextKeyView" destination="1239" id="ZDX-Xu-x1U"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button id="1251">
-                                                                            <rect key="frame" x="20" y="102" width="629" height="18"/>
-                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                        <button id="1251" customClass="TBButton">
+                                                                            <rect key="frame" x="10" y="102" width="639" height="18"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="check" title="Route all traffic through the VPN$" bezelStyle="regularSquare" imagePosition="right" alignment="right" inset="2" id="1252">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -212,9 +212,9 @@
                                                                                 <outlet property="nextKeyView" destination="539" id="pb3-EW-JXb"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button id="1253">
-                                                                            <rect key="frame" x="20" y="42" width="629" height="18"/>
-                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                        <button id="1253" customClass="TBButton">
+                                                                            <rect key="frame" x="10" y="42" width="639" height="18"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="check" title="Reset the primary service interface after disconnecting$" bezelStyle="regularSquare" imagePosition="right" alignment="right" inset="2" id="1254">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -246,49 +246,9 @@
                                                                                 <outlet property="nextKeyView" destination="1113" id="aJD-Hb-KOV"/>
                                                                             </connections>
                                                                         </popUpButton>
-                                                                        <button id="NfW-6t-nXH" customClass="TBInfoButton">
-                                                                            <rect key="frame" x="8" y="123" width="16" height="16"/>
+                                                                        <button id="539" customClass="TBButton">
+                                                                            <rect key="frame" x="10" y="122" width="639" height="18"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                                            <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="kfR-si-eUY">
-                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                        </button>
-                                                                        <button id="Wed-18-4wa" customClass="TBInfoButton">
-                                                                            <rect key="frame" x="8" y="103" width="16" height="16"/>
-                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                                            <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="QkD-Go-b5Y">
-                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                        </button>
-                                                                        <button id="hTU-VK-IXn" customClass="TBInfoButton">
-                                                                            <rect key="frame" x="8" y="83" width="16" height="16"/>
-                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                                            <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="BJ3-y1-qCv">
-                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                        </button>
-                                                                        <button id="Nxd-k8-Czy" customClass="TBInfoButton">
-                                                                            <rect key="frame" x="8" y="63" width="16" height="16"/>
-                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                                            <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="edD-jw-m4i">
-                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                        </button>
-                                                                        <button id="j1y-C4-9Cb" customClass="TBInfoButton">
-                                                                            <rect key="frame" x="8" y="43" width="16" height="16"/>
-                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                                            <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="NAB-J2-yso">
-                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                        </button>
-                                                                        <button id="539">
-                                                                            <rect key="frame" x="20" y="122" width="629" height="18"/>
-                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="check" title="Monitor network settings$" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="558">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -582,11 +542,6 @@
                 <outlet property="doNotShowOnTbMenuMenuItem" destination="1277" id="1281"/>
                 <outlet property="duplicateConfigurationMenuItem" destination="1270" id="1275"/>
                 <outlet property="editOpenVPNConfigurationFileMenuItem" destination="604" id="626"/>
-                <outlet property="infoButtonForCheckIPAddressAfterConnectOnAdvancedCheckbox" destination="Nxd-k8-Czy" id="dx9-pb-77j"/>
-                <outlet property="infoButtonForDisableIpv6OnTunCheckbox" destination="hTU-VK-IXn" id="9Cv-Jf-JMK"/>
-                <outlet property="infoButtonForMonitorNetworkForChangesCheckbox" destination="NfW-6t-nXH" id="Neh-6f-GY8"/>
-                <outlet property="infoButtonForResetPrimaryInterfaceAfterDisconnectCheckbox" destination="j1y-C4-9Cb" id="q92-uH-vVT"/>
-                <outlet property="infoButtonForRouteAllTrafficThroughVpnCheckbox" destination="Wed-18-4wa" id="AAR-Ym-Bws"/>
                 <outlet property="leftNavDataSrc" destination="1069" id="1076"/>
                 <outlet property="leftNavTableTFC" destination="1067" id="1764"/>
                 <outlet property="leftSplitView" destination="519" id="680"/>
@@ -707,7 +662,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" id="13">
-                    <rect key="frame" x="625.15599999999995" y="333" width="271" height="17"/>
+                    <rect key="frame" x="625" y="333" width="271" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" alignment="left" title="Keyboard..." id="26">
                         <font key="font" metaFont="system"/>
@@ -715,7 +670,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button id="1209">
+                <button id="1209" customClass="TBButton">
                     <rect key="frame" x="18" y="205" width="596" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Inhibit outbound TB Internet access..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1210">
@@ -727,9 +682,9 @@
                         <outlet property="nextKeyView" destination="126" id="1211"/>
                     </connections>
                 </button>
-                <button id="11">
+                <button id="11" customClass="TBButton">
                     <rect key="frame" x="18" y="101" width="596" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Check for beta..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="28">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -739,7 +694,7 @@
                         <outlet property="nextKeyView" destination="127" id="742"/>
                     </connections>
                 </button>
-                <button id="1153">
+                <button id="1153" customClass="TBButton">
                     <rect key="frame" x="18" y="81" width="596" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Send anonymous profile..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1154">
@@ -752,7 +707,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="6">
-                    <rect key="frame" x="625.15599999999995" y="291" width="271" height="17"/>
+                    <rect key="frame" x="625" y="291" width="271" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" alignment="left" title="Maximum log..." id="33">
                         <font key="font" metaFont="system"/>
@@ -761,7 +716,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="9">
-                    <rect key="frame" x="624.36300000000006" y="249" width="271.79300000000001" height="17"/>
+                    <rect key="frame" x="624" y="249" width="272" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" alignment="left" title="W..." id="30">
                         <font key="font" metaFont="system"/>
@@ -769,7 +724,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" id="8">
+                <button verticalHuggingPriority="750" id="8" customClass="TBButton">
                     <rect key="frame" x="531" y="239" width="87" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Reset..." bezelStyle="rounded" alignment="right" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="31">
@@ -781,7 +736,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="128">
-                    <rect key="frame" x="625.15599999999995" y="123" width="277.84399999999999" height="17"/>
+                    <rect key="frame" x="625" y="123" width="278" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" alignment="left" title="U..." id="131">
                         <font key="font" metaFont="system"/>
@@ -789,7 +744,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button id="127">
+                <button id="127" customClass="TBButton">
                     <rect key="frame" x="18" y="121" width="596" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Check for updates..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="132">
@@ -801,7 +756,7 @@
                         <outlet property="nextKeyView" destination="126" id="745"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" id="126">
+                <button verticalHuggingPriority="750" id="126" customClass="TBButton">
                     <rect key="frame" x="527" y="44" width="91" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Check..." bezelStyle="rounded" alignment="right" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="133">
@@ -814,7 +769,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="125">
-                    <rect key="frame" x="52.816400000000002" y="30" width="562.18399999999997" height="14"/>
+                    <rect key="frame" x="53" y="30" width="562" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Last checked... " id="134">
                         <font key="font" metaFont="smallSystem"/>
@@ -843,7 +798,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button id="1765">
+                <button id="1765" customClass="TBButton">
                     <rect key="frame" x="18" y="163" width="596" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Require admin approval..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1768">
@@ -927,8 +882,8 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" id="46">
-                    <rect key="frame" x="530" y="328" width="137" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
+                    <rect key="frame" x="280" y="328" width="387" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Default..." bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="65" id="63">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -948,7 +903,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" id="366">
-                    <rect key="frame" x="680" y="334" width="214.00399999999999" height="17"/>
+                    <rect key="frame" x="680" y="334" width="214" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" alignment="left" title="I..." id="367">
                         <font key="font" metaFont="system"/>
@@ -974,33 +929,10 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button id="50">
-                    <rect key="frame" x="38" y="310" width="628" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Place..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" inset="2" id="59">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="appearancePlaceIconNearSpotlightCheckboxWasClicked:" target="-2" id="685"/>
-                        <outlet property="nextKeyView" destination="1863" id="1870"/>
-                    </connections>
-                </button>
-                <button id="1863" customClass="TBInfoButton">
-                    <rect key="frame" x="18" y="310" width="16" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="1864">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <outlet property="nextKeyView" destination="54" id="1868"/>
-                    </connections>
-                </button>
-                <button id="54">
+                <button id="54" customClass="TBButton">
                     <rect key="frame" x="18" y="266" width="648" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" inset="2" id="55">
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="55">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -1018,10 +950,10 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button id="812">
+                <button id="812" customClass="TBButton">
                     <rect key="frame" x="18" y="202" width="648" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" inset="2" id="813">
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="813">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -1030,10 +962,10 @@
                         <outlet property="nextKeyView" destination="52" id="816"/>
                     </connections>
                 </button>
-                <button id="1026">
+                <button id="1026" customClass="TBButton">
                     <rect key="frame" x="18" y="99" width="648" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" inset="2" id="1027">
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1027">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -1042,10 +974,10 @@
                         <outlet property="nextKeyView" destination="52" id="1028"/>
                     </connections>
                 </button>
-                <button id="1032">
+                <button id="1032" customClass="TBButton">
                     <rect key="frame" x="18" y="79" width="648" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" inset="2" id="1033">
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1033">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -1054,10 +986,10 @@
                         <outlet property="nextKeyView" destination="52" id="1035"/>
                     </connections>
                 </button>
-                <button id="52">
+                <button id="52" customClass="TBButton">
                     <rect key="frame" x="18" y="246" width="648" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" inset="2" id="57">
+                    <buttonCell key="cell" type="check" title="Display..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="57">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -1067,7 +999,7 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" id="396">
-                    <rect key="frame" x="568" y="152" width="99" height="26"/>
+                    <rect key="frame" x="280" y="152" width="387" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Never..." bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="399" id="397">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1089,7 +1021,7 @@
                     </connections>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" id="1177">
-                    <rect key="frame" x="527" y="122" width="140" height="26"/>
+                    <rect key="frame" x="280" y="122" width="387" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Default screen" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="1180" id="1178">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1108,6 +1040,17 @@
                         <binding destination="-2" name="selectedIndex" keyPath="selectedAppearanceConnectionWindowScreenIndex" previousBinding="1196" id="1202"/>
                     </connections>
                 </popUpButton>
+                <button id="50" customClass="TBButton">
+                    <rect key="frame" x="18" y="310" width="648" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Place..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="59">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="appearancePlaceIconNearSpotlightCheckboxWasClicked:" target="-2" id="685"/>
+                    </connections>
+                </button>
             </subviews>
             <connections>
                 <outlet property="appearanceConnectionWindowDisplayCriteriaArrayController" destination="409" id="414"/>
@@ -1127,7 +1070,6 @@
                 <outlet property="appearanceMenuTFC" destination="389" id="405"/>
                 <outlet property="appearancePlaceIconNearSpotlightCheckbox" destination="50" id="684"/>
                 <outlet property="appearanceSplashTFC" destination="814" id="819"/>
-                <outlet property="infoButtonForAppearancePlaceIconNearSpotlightCheckbox" destination="1863" id="1865"/>
             </connections>
         </customView>
         <arrayController id="409" userLabel="ConnectionWindowDisplayCriteria Array Controller">
@@ -1164,7 +1106,7 @@
                 <userLayoutGuide location="610.11328125" affinity="minX"/>
             </userGuides>
             <subviews>
-                <button verticalHuggingPriority="750" id="1009">
+                <button verticalHuggingPriority="750" id="1009" customClass="TBButton">
                     <rect key="frame" x="380" y="144" width="236" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Open easy-rsa in Terminal$" bezelStyle="rounded" alignment="right" borderStyle="border" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" id="1010">
@@ -1176,7 +1118,7 @@
                         <outlet property="nextKeyView" destination="861" id="1148"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" id="981">
+                <button verticalHuggingPriority="750" id="981" customClass="TBButton">
                     <rect key="frame" x="468" y="324" width="148" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="KillAllOpenVPN$" bezelStyle="rounded" alignment="right" borderStyle="border" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" id="982">
@@ -1188,7 +1130,7 @@
                         <outlet property="nextKeyView" destination="1085" id="1146"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" id="1085">
+                <button verticalHuggingPriority="750" id="1085" customClass="TBButton">
                     <rect key="frame" x="449" y="264" width="167" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Copy Console Log$" bezelStyle="rounded" alignment="right" state="on" borderStyle="border" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" id="1086">
@@ -1200,7 +1142,7 @@
                         <outlet property="nextKeyView" destination="1137" id="1147"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" id="1137">
+                <button verticalHuggingPriority="750" id="1137" customClass="TBButton">
                     <rect key="frame" x="326" y="204" width="290" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Open Uninstall Instructions in Browser$" bezelStyle="rounded" alignment="right" state="on" borderStyle="border" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" id="1138">
@@ -1225,7 +1167,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="1023">
-                    <rect key="frame" x="17" y="130" width="588.90200000000004" height="14"/>
+                    <rect key="frame" x="17" y="130" width="589" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" title="Path to easy-rsa" id="1024">
                         <font key="font" metaFont="smallSystem"/>
@@ -1369,7 +1311,6 @@
     <resources>
         <image name="ActionMenuButtonImage" width="12" height="12"/>
         <image name="AddButtonImage" width="22" height="22"/>
-        <image name="Info" width="32" height="32"/>
         <image name="RemoveButtonImage" width="22" height="22"/>
     </resources>
 </document>

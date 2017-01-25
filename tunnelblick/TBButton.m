@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2015, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -29,13 +29,13 @@
 #import "Tracker.h"
 #import "UIHelper.h"
 
-#import "TBInfoButton.h"
+#import "TBButton.h"
 
 extern TBUserDefaults * gTbDefaults;
 extern BOOL             gShuttingDownWorkspace;
 
 
-@implementation TBInfoButton
+@implementation TBButton
 
 TBSYNTHESIZE_OBJECT(retain, NSAttributedString *, titleAS,		  setTitleAS)
 TBSYNTHESIZE_OBJECT(retain, MAAttachedWindow   *, attachedWindow, setAttachedWindow)
@@ -44,19 +44,45 @@ TBSYNTHESIZE_OBJECT(retain, Tracker            *, tracker,        setTracker)
 TBSYNTHESIZE_NONOBJECT(CGFloat, startWidth,   setStartWidth)
 TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
 
+-(void) setState: (NSCellStateValue) newState {
+	
+	[super setState: newState];
+}
+
 -(void) awakeFromNib {
-    
-    // Set up tracking ourself (that is, the info button)
-    NSTrackingArea * trackingArea = [[[NSTrackingArea alloc] initWithRect: [self bounds]
-                                                                  options: NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways
-                                                                    owner: self
-                                                                 userInfo: nil]
-                                     autorelease];
-    [self addTrackingArea: trackingArea];
+	
+	// Do nothing
+}
+
+-(void) setTitle: (NSString *)           label
+	   infoTitle: (NSAttributedString *) infoTitle
+		disabled: (BOOL)                 disabled {
+	
+	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
+	[UIHelper setTitle: label ofControl: self frameHolder: self shift: rtl narrow: YES enable: YES];
+	
+	[self setAttributedTitle: infoTitle];
+	[self setMinimumWidth: 360.0];
+	[self setEnabled: ! disabled];
+}
+
+-(void) setTitle: (NSString *)           label
+	   infoTitle: (NSAttributedString *) infoTitle {
+	
+	[self setTitle: label
+		 infoTitle: infoTitle
+		  disabled: NO];
 }
 
 -(void) setAttributedTitle: (NSAttributedString *) newTitle {
     
+	// Set up tracking ourself (that is, the info button)
+	NSTrackingArea * trackingArea = [[[NSTrackingArea alloc] initWithRect: [self bounds]
+																  options: NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways
+																	owner: self
+																 userInfo: nil]
+									 autorelease];
+	[self addTrackingArea: trackingArea];
     [self setTitleAS: newTitle];
 }
 
@@ -213,7 +239,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
     TBLog(@"DB-PU", @">>>>> SHOWING window");
     
     if (  ! titleAS  ) {
-        NSLog(@"TBInfoButton|showWindow invoked but content has not been set");
+        NSLog(@"TBButton|showWindow invoked but content has not been set");
     }
     
     if ( ! attachedWindow  ) {
@@ -348,11 +374,11 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
         return;
     }
     
-    TBLog(@"DB-PU", @"Mouse entered TBInfoButton tracking rectangle");
+    TBLog(@"DB-PU", @"Mouse entered TBButton tracking rectangle");
     
     mouseIsInButtonView = TRUE;
     
-    [self showOrHideWindowAfterDelay: 0.3
+    [self showOrHideWindowAfterDelay: [gTbDefaults floatForKey: @"delayBeforePopupHelp" default: 1.0 min: 0.0 max: 10.0]
                        fromTimestamp: ( theEvent ? [theEvent timestamp] : 0.0)
                             selector: @selector(showWindowTimerHandler:)];
     
@@ -363,7 +389,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
 {
     // Event handler; NOT on MainThread
     
-    TBLog(@"DB-PU", @"Mouse exited TBInfoButton tracking rectangle");
+    TBLog(@"DB-PU", @"Mouse exited TBButton tracking rectangle");
     
     mouseIsInButtonView = FALSE;
     
@@ -376,20 +402,18 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
 {
     // Event handler; NOT on MainThread
     
-    TBLog(@"DB-PU", @"Mouse down in  TBInfoButton tracking rectangle");
+    TBLog(@"DB-PU", @"Mouse down in  TBButton tracking rectangle");
 
-    // NOT passing to super to suppress any action
-    (void)theEvent;
+	[super mouseDown: theEvent];
 }
 
 -(void) mouseUp: (NSEvent *) theEvent
 {
     // Event handler; NOT on MainThread
     
-    TBLog(@"DB-PU", @"Mouse up in TBInfoButton tracking rectangle");
+    TBLog(@"DB-PU", @"Mouse up in TBButton tracking rectangle");
     
-    // NOT passing to super to suppress any action
-    (void)theEvent;
+	[super mouseUp: theEvent];
 }
 
 /*
@@ -402,7 +426,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
         return;
     }
     
-    TBLog(@"DB-PU", @"Mouse moved in  TBInfoButton tracking rectangle");
+    TBLog(@"DB-PU", @"Mouse moved in  TBButton tracking rectangle");
     
     [super mouseMoved: theEvent];
 }
@@ -411,7 +435,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
 {
     // Event handler; NOT on MainThread
     
-    TBLog(@"DB-PU", @"Cursor update in TBInfoButton tracking rectangle");
+    TBLog(@"DB-PU", @"Cursor update in TBButton tracking rectangle");
     
     [super cursorUpdate: theEvent];
 }
