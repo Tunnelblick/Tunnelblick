@@ -198,14 +198,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayStatisticsWi
 	 setTitle: NSLocalizedString(@"Show when the pointer is over the Tunnelblick icon", @"Checkbox name")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p>"
 														   @"<p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p>"
-														   @"<p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.",
+														   @"<p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>",
 														   @"HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox."))];
 	
 	
 	[appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox
 	 setTitle: NSLocalizedString(@"Show when disconnected", @"Checkbox name")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p>"
-														   @"<p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.",
+														   @"<p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>",
 														   @"HTML info for the 'Show the VPN status window when disconnected' checkbox."))];
 }
 
