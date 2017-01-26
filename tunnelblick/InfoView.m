@@ -220,6 +220,7 @@ extern TBUserDefaults * gTbDefaults;
     NSArray * locCredits = [NSArray arrayWithObjects:
 							[NSArray arrayWithObjects: @"Sobhi Abufool",                 NSLocalizedString(@"Arabic translation",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Khalid Alhumud",                NSLocalizedString(@"Arabic translation",                  @"Credit description"), nil],
+							[NSArray arrayWithObjects: @"Alejandro Azadte",              NSLocalizedString(@"Spanish translation",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"b123400",                       NSLocalizedString(@"Chinese (traditional) translation",   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Matej Bačík",                   NSLocalizedString(@"Slovak translation",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Stefan Bethke",                 NSLocalizedString(@"German translation",                  @"Credit description"), nil],
@@ -312,6 +313,7 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"Emīls Skujiņš",                 NSLocalizedString(@"Latvian translation",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Tjalling Soldaat",              NSLocalizedString(@"Dutch translation",                   @"Credit description"), nil],
 							[NSArray arrayWithObjects: @"Arne Solheim",                  NSLocalizedString(@"Norwegian translation",               @"Credit description"), nil],
+							[NSArray arrayWithObjects: @"Xavier Spirlet (Petitpoisson)", NSLocalizedString(@"French translation",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Petr Šrajer",                   NSLocalizedString(@"Czech translation",                   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Wojciech Sromek",               NSLocalizedString(@"Polish translation",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Mihail Stoynov",                NSLocalizedString(@"Bulgarian translation",               @"Credit description"), nil],
