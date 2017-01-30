@@ -173,7 +173,7 @@
 "Place Icon Near the Spotlight Icon" = "Posa-la al costat de la icona de l'Spotlight";
 
 /* Button */
-"Place Icon Normally" = "Posa l'icona de manera normal";
+"Place Icon Normally" = "Posa la icona de manera normal";
 
 /* Button */
 "Privacy info..." = "Informació de privacitat…";
@@ -275,7 +275,7 @@
 "Disconnect %@%@" = "Desconnectar %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "No mostrar al menú de Tunnelblick";
+"Do Not Show on Tunnelblick Menu" = "No mostrar en el menú de Tunnelblick";
 
 /* Menu Item */
 "Duplicate Configuration..." = "Duplicar la configuració…";
@@ -293,7 +293,7 @@
 "Make Configuration Shared..." = "Fer la configuració compartida…";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "No guardar registre per OpenVPN o Tunnelblick VPN";
+"No OpenVPN or Tunnelblick VPN logging" = "No desar registre d'OpenVPN o Tunnelblick VPN";
 
 /* Menu item */
 "No VPN Configurations Available" = "No hi ha configuracions VPN disponibles";
@@ -413,7 +413,7 @@
 "Monitor network settings" = "Controlar la configuració de xarxa";
 
 /* Checkbox name */
-"Place near Spotlight icon" = "Posa-la al costat de l'icona de l'Spotlight";
+"Place near Spotlight icon" = "Posa-la propera a la icona de l'Spotlight";
 
 /* Checkbox name */
 "Prepend domain name to search domains" = "Afegeix el nom de domini als dominis de cerca";
@@ -800,10 +800,10 @@
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick s'ha d'instal·lar a Aplicacions.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick necessita permisos d'administració per connectar automàticament '%@' quan la màquina iniciï.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick necessita permisos d'administració per connectar '%@' automàticament quan la màquina s'iniciï.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick necessita permisos d'administració per aturar la connexió automàtica de '%@' quan la màquina iniciï.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick necessita permisos d'administració per aturar la connexió '%@' automàticament quan la màquina s'iniciï.";
 
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " AVÍS: Aquesta copia de Tunnelblick ha estat alterada.\n\n";
@@ -815,7 +815,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ ha estat revertida a la seva darrera còpia (shadow).\n\n";
 
 /* Window text */
-"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configuracions s'han restaurat a la darrera còpia segura (shadow).\n\n";
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configuracions s'han restaurat a la darrera còpia shadow.\n\n";
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' ja existeix a l'Escriptori.\n\nDesitges substituir-la?";
@@ -833,7 +833,7 @@
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "La preferència 'easy-rsaPath' no s'ha tingut en compte; ha de ser un camí absolut o començar amb '~'";
 
 /* Window text -- appears in log display when logging is disabled\n */
-"(Logging is disabled.)" = "(Registre deshabilitat)";
+"(Logging is disabled.)" = "(Registre de missatges deshabilitat.)";
 
 /* Window text */
 "(Never checked)" = "(No s'ha comprovat mai)";
@@ -866,7 +866,7 @@
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Una configuració privada amb nom '%@' ja existeix.\n\nDesitges substituir-la per la configuració compartida?";
 
 /* Window text */
-"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "S'ha produït un problema mentre es comprovava l'adreça pública IP aparent d'aquest ordinador.\n\nVegeu el registre de la consola per a més detalls.\n\n";
+"A problem occurred while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "S'ha produït un problema mentre es comprovava l'adreça pública IP aparent d'aquest ordinador.\n\nVegeu el Registre de missatges per a més detalls.\n\n";
 
 /* Window text */
 "A shared configuration named '%@' already exists.\n\nDo you wish to replace it with the private configuration?" = "Ja existeis una configuració anomenada '%@'.\n\nVols substituir-la per la configuració privada?";
@@ -884,7 +884,7 @@
 "Added '.sh' extension to %@ so it will be secured properly" = "S'ha afegit l'extensió '.sh' a %@ per a poder-lo fer segur correctament";
 
 /* Window text */
-"Added a '.unknown' extension to %@ so it will be secured properly" = "S'ha afegit l'extensió '.unknown' a %@ per a poder-lo fer segur correctament";
+"Added a '.unknown' extension to %@ so it will be secured properly" = "S'ha afegit l'extensió '.unknown' a %@ per a poder-la fer segura correctament";
 
 /* Window text */
 "Additional contributions by" = "Amb contribucions addicionals de";
@@ -1915,23 +1915,56 @@
 /* HTML info for the 'Set DNS after routes are set' checkbox. */
 "<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Quan se selecciona</strong>, OpenVPN modificarà els DNS i altres ajustos després d'especificar les rutes per la VPN en comptes de fer-ho abans.</p>\n<p><strong>Quan no se selecciona</strong>, OpenVPN modificarà els DNS i altres ajustos abans d'especificar les rutes per la VPN, en comptes de fer-ho després. Això pot ocasionar errors en el DNS o demores si les rutes prenen molt de temps per ajustar-se -- per exemple, si hi ha moltes rutes per establir.</p>\n";
 
+/* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
+"<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Quan estigui seleccionat</strong>, OpenVPN executarà un test per determinar la mida MTU màxima per a la connexió. El test s'executa cada vegada que la connexió es dugui a terme, i podria trigar diversos minuts. El resultat del test apareixerà al registre de missatges de Tunnelblick.</p>\n";
+
+/* HTML info for the 'Check for updates to beta versions' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>Quan estigui seleccionat</strong>, Tunnelblick comprovarà les actualitzacions de versions beta.</p>\n<p><strong>Quan no estigui seleccionat</strong>, Tunnelblick comprovarà les actualitzacions de les versions estables..</p><p><strong>Aquesta opció està deshabilitada</strong> i seleccionada quan s'està utilitzant una versió beta.</p>";
+
+/* HTML info for the 'Check for updates automatically' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>Quan estigui seleccionat</strong>, Tunnelblick comprovarà les actualitzacions quan s'executi i periòdicament posteriorment.</p><p><strong>Aquesta opció està deshabilitada</strong> i no seleccionada quan 'Evita actualitzacions automàtiques i comprovació d'adreça IP' està seleccionat.</p>";
+
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Quan se selecciona</strong>, Tunnelblick determinarà l'adreça IP pública aparent abans i després que la VPN es connecti i avisarà si l'adreça IP no canvia.</p>\n<p>El lloc web Tunnelblick.net serà accedit per executar aquesta funció. L'accés és realitzat usualment via https: utilitzant el nom tunnelblick.net, amb l'excepció que si aquest accés falla, s'intenta un accés utilitzant http: i l'adreça IP del lloc web.</p>\n<p><strong>Quan no se selecciona</strong>, Tunnelblick no verifica que hi hagi canvis en l'adreça IP i no adverteix si la mateixa canvia després que la VPN es connecta.</p>\n";
 
 /* HTML info for the 'Route all IPv4 traffic through the VPN' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>Quan se selecciona</strong>, Tunnelblick notificarà a OpenVPN perquè encamini tot el tràfic a través del servidor VPN.</p>\n<p><strong>Quan no se selecciona</strong>, per defecte OpenVPN utilitzarà la VPN únicament per al tràfic destinat a la xarxa de VPN. Tota la resta del tràfic utilitzarà la connexió normal d'Internet sense passar a través de la VPN.\nEl comportament per defecte d'OpenVPN pot ser modificat per la configuració d'OpenVPN o pel servidor VPN i fer que tot el tràfic sigui encaminat a través del servidor VPN com si aquest checkbox hagués estat seleccionat.</p>\n";
 
+/* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Quan estigui seleccionat</strong>, Tunnelblick necessitarà l'autorització d'un administrador de la màquina per fer canvis als arxius de claus i certificats.</p>\n<p><strong>Quan no estigui marcat</strong>, un usuari estàndard podrà fer canvis als arxius de claus i certificats.</p><p><strong>Nota: És necessari un usuari administrador per canviar aquesta configuració.</strong></p>";
+
 /* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>Quan se selecciona</strong>, Tunnelblick restablirà la interfície de xarxa primària després que la VPN sigui desconnectada. Aquesta pot ser una solució alternativa per a problemes causats per alguns servidors VPN mal configurats i per alguns errors de configuració d'OpenVPN.</p>\n<p><strong>Quan no se selecciona</strong>, Tunnelblick no restablirà la interfície de xarxa primària.</p>\n<p><strong>Aquest checkbox és deshabilitat</strong> quan 'Especificar DNS/WINS' no està marcat com a 'Especificar servidor de noms'.</p>";
+
+/* HTML info for the 'Send anonymous profile information when checking' checkbox. */
+"<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>" = "<p><strong>Quan estigui seleccionat</strong>, Tunnelblick enviarà informació de la teva màquina (la versió del teu sistema operatiu) a la pàgina web de Tunnelblick quan cerqui actualitzacions.</p>\n<p><strong>Quan no estigui seleccionat</strong>, Tunnelblick no enviarà aquesta informació quan cerqui actualitzacions.</p><p>Consulta <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] per a més detalls.</p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Quan se selecciona</strong>, Tunnelblick estarà atent als canvis en els ajustos de xarxa i reaccionarà als mateixos (per exemple, canvis causats per renovacions de DHCP o commutació de connexions d'Internet) per intentar mantenir la VPN connectada. Les accions per omissió de Tunnelblick quan canvien els ajustos de xarxa en general funcionen bé, però vostè pot especificar accions diferents en la solapa 'Mentre està Connectat' de la finestra d'ajustos 'Avançats'.</p>\n<p><strong>Quan no se selecciona</strong>, Tunnelblick ignorarà els canvis de xarxa.</p>\n<p><strong>Aquest checkbox és deshabilitat</strong> quan 'Especificar DNS/WINS' no està marcat com a 'Especificar servidor de noms (3.1)'.</p>";
 
+/* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
+"<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Quan estigui seleccionat</strong>, la finestra d'estat de la VPN per a totes les configuracions actives es mostrarà quan el ratolí sigui a sobre la icona de Tunnelblick.</p><p>Les connexions 'Actives' són aquelles que han intentat connectar des de que Tunnelblick ha estat executat.</p><p><strong>Aquesta opció està deshabilitada</strong> quan la opció 'No mostrar mai' està seleccionada, més amunt.</p>";
+
+/* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
+"<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Quan està seleccionada</strong>, una finestra mostrarà el progrés durant l'arrencada de Tunnelblick.</p>";
+
+/* HTML info for the 'All configurations use ___ credentials' checkbox. */
+"<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Quan està seleccionada</strong>, totes les configuracions compartiran el mateix nom d'usuari, contrasenya, i/o clau privada.</p>\n";
+
+/* HTML info for the 'Display connection submenus' checkbox. */
+"<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Quan està seleccionada</strong>, les configuracions que estan en carpetes es mostren en sub-menús del menú de Tunnelblick.</p>\n<p><strong>Quan no està seleccionada</strong>, les configuracions que estan carpetes es mostren al menú de Tunnelblick.</p>";
+
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Quan se selecciona</strong>, si la VPN es desconnecta inesperadament, Tunnelblick intentarà reconectarla.</p>\n<p><strong>Quan no se selecciona</strong>, Tunnelblick no intentarà reconectar una VPN si aquesta es desconnecta inesperadament.</p>\n";
 
+/* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
+"<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Quan estigui seleccionat</strong>, no s'efectuaran comprovacions de noves versions ni comprovacions de canvis en l'adreça IP, independentment d'altres opcions marcades. Nota: aquestes dues activitats accedeixen a la web de Tunnelblick.</p>\n<p><strong>Quan no estigui seleccionat</strong>, les comprovacions de noves versions es duran a terme si està habilitat més avall, i la comprovació de canvis en l'adreça IP quan es connecta una configuració també es durà a terme si està habilitada aquesta opció.</p><p>Consulta <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacitat i seguretat</a> [tunnelblick.net] per a més detalls.</p><p>&nbsp;</p>";
+
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
 "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Quan està seleccionat</strong>, la icona de Tunnelblick es posa propera a la icona d'Spotlight:</p>\n<p>%1$@</p>\n<p><strong>Quan no està seleccionat</strong>, la icona de Tunnelblick es posiciona normalment:</p>\n<p>%2$@</p>\n<p><strong>Aquesta opció està deshabilitada</strong> a macOS Sierra perquè no és necessària, i en sistemes on se sap que dóna problemes.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Més informació</a></p>";
+
+/* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
+"<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Quan estigui seleccionat</strong>, la finestra d'estat de la VPN es mostra fins i tot quan una configuració està desconnectada.</p><p><strong>Aquesta opció està deshabilitada</strong> quan 'No mostris mai' està seleccionada, més amunt.</p>";
 
 /* HTML info for the 'Disconnect when user switches out' checkbox. */
 "<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>Quan se selecciona</strong>, la VPN serà desconnectada quan es canvia d'usuari.</p>\n<p><strong>Quan no se selecciona</strong>, la VPN no serà desconnectada quan es canvia d'usuari.</p>";
@@ -1948,14 +1981,38 @@
 /* HTML info for the 'Prepend domain name to search domains' checkbox. */
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>Quan se selecciona</strong>, el nom de domini especificat per la VPN serà agregat al començament de la llista de recerca de dominis.</p>\n<p><strong>Quan no se selecciona</strong>, la llista de recerca de dominis serà reemplaçada pel nom de domini especificat per la VPN.</p>";
 
+/* HTML info for the 'Display connection timers' checkbox. */
+"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Quan estigui seleccionada</strong>, es mostrarà el temps que una connexió ha estat establerta al menú de Tunnelblick i al títol de la finestra de detalls de la VPN.</p>";
+
 /* HTML info for the 'Load Tap driver' popdown list. */
 "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>Es necessita un controlador de dispositiu 'tap' per a connexions Tap. Tunnelblick inclou el seu propi controlador Tap perquè el sistema no inclou cap. Si vostè ha instal·lat un controlador Tap diferent, Tunnelblick pot no ser capaç de carregar el seu propi controlador.</p><p>Vostè pot triar si Tunnelblick carrega el seu propi controlador, i quan ho fa.</p>\n<p><strong>Carregar controlador Tap automàticament</strong>: Tunnelblick carrega el seu propi controlador si és necessari, i el descarrega quan no el necessita més.</p>\n<p><strong>Sempre carregar el controlador Tap</strong>: Tunnelblick carrega el seu propi controlador quan es connecta amb aquesta configuració i el descarrega quan no el necessita més.</p>\n<p><strong>Mai carregar controlador Tap</strong>: Tunnelblick mai carrega el seu propi controlador.</p>\n<p><strong>Aquest checkbox està deshabilitat</strong> per a configuracions Tun.</p>";
 
 /* HTML info for the 'Load Tun driver' popdown list. */
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>Es necessita un controlador 'tun' per a connexions Tun. Usualment s'utilitza el controlador Tun del sistema, però Tunnelblick també inclou el seu propi controlador Tun. Si vostè ha instal·lat un controlador Tun diferent, Tunnelblick pot no ser capaç de carregar el seu propi controlador.</p>\n<p>OpenVPN utilitzarà el controlador del sistema tret que la configuració d'OpenVPN inclogui l'opció 'dev-type tun'.</p>\n<p>Vostè pot triar si Tunnelblick carrega el seu propi controlador, i quan ho fa.</p>\n<p><strong>Carregar controlador Tunnelblick automàticament</strong>: Tunnelblick carrega el seu propi controlador si cal i el descarrega quan no el necessita més. (Tunnelblick únicament carregarà el seu propi controlador si la configuració OpenVPN inclou l'opció 'dev-type tun'.)</p>\n<p><strong>Sempre carregar controlador Tun</strong>: Tunnelblick carrega el seu propi controlador quan es connecta amb aquesta configuració, i el descarrega quan no el necessita més.</p>\n<p><strong>Mai carregar controlador Tun</strong>: Tunnelblick mai carrega el seu propi controlador.</p>\n<p><strong>Aquest checkbox està deshabilitat</strong> per a configuracions Tap.</p>";
 
+/* HTML info for the 'Check Now' button. */
+"<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Comprov si hi ha actualitzacions de l'aplicació Tunnelblick.</p><p>Accedeix a la pàgina de Tunnelblick; per a més detalls consulta <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacitat i seguretat</a> [tunnelblick.net].</p><p>També comprova actualitzacions de les configuracions VPN si el teu proveïdor té aquesta característica habilitada.</p>";
+
+/* HTML info for the 'Copy Console Log to Clipboard' button. */
+"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Copia la part final del registre de missatges al porta-retalls per poder-lo enganxar en un missatge de correu o en qualsevol altre document.</p><p>El registre conté detalls de les operacions de Tunnelblick i d'OpenVPN. Inclou missatges d'estat normal i missatges d'error detallats que són massa llargs per mostrar en una finestra de diàleg de l'aplicació.</p>";
+
+/* HTML info for the 'Open Uninstall Instructions in Browser' button. */
+"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Obre una finestra del navegador que conté informació sobre com desinstal·lar Tunnelblick.</p>";
+
+/* HTML info for the 'Advanced...' button. */
+"<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Obre una finestra amb configuracions addicionals.</p><p>Qualsevol canvi s'aplicarà a totes les configuracions que estan seleccionades a la finestra de 'Detalls de la VPN'.</p>";
+
+/* HTML info for the 'Quit All OpenVPN Processes' button. */
+"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Surt de tots els processos OpenVPN, incloent aquells que no ha iniciat Tunnelblick. Hauries d'utilitzar els botons 'Desconnectar' o 'Desconnectar tot' i les opcions del menú per desconnectar les configuracions connectades mitjançant Tunnelblick.</p><p>Si prems aquest botó la senyal 'SIGTERM' s'enviarà a tots els processos anomenats 'openvpn'. Això causarà que totes les connexions OpenVPN es tanquin i surtin. Si aquest botó no tanca tots els processos OpenVPN, hauràs d'utilitzar l'aplicació Monitor d'activitat de OS X per forçar la sortida del procés.</p>";
+
+/* HTML info for the 'Reset Disabled Warnings' button. */
+"<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Restaura els avisos que havien estat cancel·lats amb l'opció 'No tornis a avisar sobre això un altre cop'.</p>";
+
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>La memòria cau de DNS conté còpies de la informació de DNS (Domain Name System).</p>\n<p><strong>Quan se selecciona</strong>, la memòria cau de DNS serà descarregada (netejada) després de connectar-se o desconnectar-se. Totes les recerques de DNS seran executades pel servidor de noms especificat pels ajustos de la VPN.</p>\n<p><strong>Quan no se selecciona</strong>, la memòria cau de DNS no serà esborrada. Això pot ocasionar problemes si hi ha conflictes entre el servidor de noms especificat pels ajustos de la VPN i el servidor de noms pre-VPN, i si les entrades de noms pre-VPN han estat emmagatzemades a la memòria cau.</p>";
+
+/* HTML info for the 'Open easy-rsa in Terminal' button. */
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick inclou una versió adaptada de 'easy-rsa', que són una sèrie de comandes desenvolupades per la gent d'OpenVPN per crear i mantenir certificats i claus.</p><p>Prement aquest botó s'inicia l'aplicació Terminal d'OS X en el directori de treball on hi ha aquests scripts.</p><p>Aquests scripts estan ubicats, normalment, a ~/Library/Application Support/Tunnelblick/easy-rsa. L'opció 'easy-rsaPath' pot contindre la ruta a una carpeta que Tunnelblick pot utilitzar en comptes de la de per defecte. 'easy-rsaPath' ha de ser una ruta absoluta o començar per '~', i la carpeta de nivell superior també ha d'existir. Si una carpeta existeix en la ruta, s'utilitzarà; si no existeix, es crearà i s'hi instal·laran els scripts easy-rsa quan Tunnelblick s'iniciï.</p><p>Per a més informació sobre l'ús d'easy-rsa, consulta <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Creant la teva pròpia Autoritat de Certificació (CA) i generant certificats i claus per a un servidor OpenVPN i per a múltiples clients</a> [openvpn.net].</p><p>Per a més detalls sobre la versió d'easy-rsa adaptada de Tunnelblick, consulta l'arxiu README que hi ha en aquesta carpeta.</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Mode Admin %@ restant";
