@@ -466,28 +466,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 
 -(BOOL) removeOrReplaceCRs: (NSMutableString *) contents {
 	
-	BOOL crCharactersRemoved = FALSE;
+	NSUInteger oldLength = [contents length];
+	[contents replaceOccurrencesOfString: @"\r\n" withString: @"\n" options: 0 range: NSMakeRange(0, oldLength)];
+	[contents replaceOccurrencesOfString: @"\r"   withString: @"\n" options: 0 range: NSMakeRange(0, [contents length])];
 	
-	NSUInteger ix;
-	for ( ix=0; ix<[contents length]; ix++  ) {
-		unichar ch = [contents characterAtIndex: ix];
-		if (  ch == '\r'  ) {
-			crCharactersRemoved = TRUE;
-			unichar nextCh = (  (ix == [contents length])
-							  ? 'x'
-							  : [contents characterAtIndex: ix + 1]);
-			if (  nextCh == '\n'  ) {
-				// CR followed by LF: remove the CR
-				[contents deleteCharactersInRange: NSMakeRange(ix, 1)];
-				ix--;
-			} else {
-				// CR not followed by LF: replace it with a LF
-				[contents replaceCharactersInRange:NSMakeRange(ix, 1) withString: @"\n"];
-			}
-		}
-	}
-	
-	return crCharactersRemoved;
+	return ( oldLength != [contents length] );
 }
 
 -(NSString *) duplicateFileFrom: (NSString *) source
