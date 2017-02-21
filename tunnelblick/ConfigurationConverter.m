@@ -1114,8 +1114,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     
     // List of OpenVPN options that take a file path
     NSArray * optionsWithPath = [NSArray arrayWithObjects:
-//					             @"askpass",                       // askpass        'file' not supported since we don't compile with --enable-password-save
-//								 @"auth-user-pass",				   // auth-user-pass 'file' not supported since we don't compile with --enable-password-save
+					             @"askpass",
+								 @"auth-user-pass",
 								 @"ca",
 								 @"cert",
 								 @"dh",
@@ -1142,7 +1142,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 									nil];
 	
 	NSArray * optionsWithArgsThatAreOptional = [NSArray arrayWithObjects:
-									            @"auth-user-pass",                // Optional 'file' argument not supported since we don't compile with --enable-password-save
+									            @"auth-user-pass",
 												@"crl-verify",                    // Optional 'direction' argument
 												@"secret",                        // Optional 'direction' argument
 												@"tls-auth",                      // Optional 'direction' argument after 'file' argument
@@ -1173,8 +1173,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     // List of OpenVPN options that cannot appear in a Tunnelblick VPN Configuration unless the file they reference has an absolute path
     NSArray * optionsThatRequireAnAbsolutePath = [NSArray arrayWithObjects:
                                                   @"status",
-                                                  @"write-pid",
+                                                  @"writepid",
                                                   @"replay-persist",
+												  @"ifconfig-pool-persist",
+												  @"tls-export-cert",
+												  @"tmp-dir",
                                                   nil];
     
     // Create the .tblk/Contents/Resources folder
