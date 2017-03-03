@@ -220,10 +220,12 @@ extern TBUserDefaults * gTbDefaults;
     NSArray * locCredits = [NSArray arrayWithObjects:
 							[NSArray arrayWithObjects: @"Sobhi Abufool",                 NSLocalizedString(@"Arabic translation",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Khalid Alhumud",                NSLocalizedString(@"Arabic translation",                  @"Credit description"), nil],
+							[NSArray arrayWithObjects: @"Felin Arch",					 NSLocalizedString(@"Hungarian translation",               @"Credit description"), nil],
 							[NSArray arrayWithObjects: @"Alejandro Azadte",              NSLocalizedString(@"Spanish translation",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"b123400",                       NSLocalizedString(@"Chinese (traditional) translation",   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Matej Bačík",                   NSLocalizedString(@"Slovak translation",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Stefan Bethke",                 NSLocalizedString(@"German translation",                  @"Credit description"), nil],
+							[NSArray arrayWithObjects: @"Dariusz Bogdanski",             NSLocalizedString(@"Polish translation",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Olivier Borowski",              NSLocalizedString(@"French translation",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Martin Bratteng",               NSLocalizedString(@"Norwegian translation",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Alican Cakil",                  NSLocalizedString(@"Turkish translation",                 @"Credit description"), nil],
