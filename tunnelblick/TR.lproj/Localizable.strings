@@ -221,7 +221,7 @@
 "Show while connecting" = "Bağlanırken göster";
 
 /* Button */
-"Skip" = "Geç";
+"Skip" = "Atla";
 
 /* Button */
 "Speak" = "Dikte";
@@ -1937,7 +1937,7 @@
 "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>Seçildiğinde</strong>, Tunnelblick, VPN bağlantısı kesildikten sonra cihazinizin birincil network baglantısını sıfırlar. Bu özelliğin seçilmesi yanliş konfigüre edilmis VPN sunucularında ve OpenVPN konfigürasyon hatalarinda faydalı olur. </p>\n<p><strong>Seçilmediğinde</strong>, Tunnelblick, cihazınızın birincil network bağlantisını sıfırlamaz.\n<p><strong>Bu seçenek engellenmiştir.</strong> 'Set DNS/WINS', 'Set nameserver' olarak seçilmediğinde,</p>";
 
 /* HTML info for the 'Send anonymous profile information when checking' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>" = "<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>";
+"<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>" = "<p><strong>İşaretlendiğinde</strong>, Güncellemeler kontrol ediliyorken; Tunnelblick, Tunnelblick websitesine bilgisayarınız hakkında bilgi gönderecek (işletim sistemi versiyonu)</p>\n<p><strong>İşaretlenmediğinde</strong>, Güncellemeler kontrol ediliyorken, Tunnelblick bilgi göndermeyecek.</p><p>Detay için bakınız: <a href=\"https://tunnelblick.net/cPrivacy.html\">Gizlilik ve Güvenlik</a>[tunnelblick.net]</p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Seçildiğinde</strong>, Tunnelblick, VPN bağlantınızın kopmamasını sağlamak icin, network bağlantısını izler ve örneğin DHCP yenilemeleri veya internet bağlantısı değişikliklerinde geri bildirim sağlar. Tunnelblick'in varsayilan seçenekleri genellikle iyi sonuç verir fakat \"Bağlanti Sağlandiktan Sonra\" sekmesindeki \"İleri düzey Seçenekleri\" ayarlarindan farkli opsiyonlar belirleyebilirsiniz. </p>\n<p><strong>Seçilmediğinde</strong>, Tunnelblick network değişikliklerini dikkate almaz..</p>\n<p><strong>Bu seçenek geçerli degildir</strong> when 'Set DNS/WINS', 'Set nameserver' veya 'Set nameserver (3.1 olarak secilmemistir.</p>";
@@ -1991,7 +1991,7 @@
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>";
 
 /* HTML info for the 'Check Now' button. */
-"<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>";
+"<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Tunnelblick uygulamasının güncellemelerini kontrol eder.</p><p>Daha fazla detayı görmek için Tunnelblick websitesine erişir<a href=\"https://tunnelblick.net/cPrivacy.html\">Gizlilik ve Güvenlik</a>[tunnelblick.net]</p><p>Ayrıca eğer VPN servis sağlayıcınız bu özelliği uygularsa; konfigürasyon güncellemelerini kontrol eder.</p>";
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
 "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>";
@@ -2024,22 +2024,22 @@
 "Animation and icon sets code" = "Animasyon ve simge kümesi kodu";
 
 /* Credit description */
-"Arabic translation" = "Arabic translation";
+"Arabic translation" = "Arapça çeviri";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Kimlik doğrulanıyor…";
 
 /* Credit description */
-"Azerbaijani translation" = "Azerbaijani translation";
+"Azerbaijani translation" = "Azerice çeviri";
 
 /* Credit description */
-"Bulgarian translation" = "Bulgarian translation";
+"Bulgarian translation" = "Bulgarca çeviri";
 
 /* Credit description */
 "Button images" = "Buton renkleri";
 
 /* Credit description */
-"Catalan translation" = "Catalan translation";
+"Catalan translation" = "Katalanca çeviri";
 
 /* Credit description */
 "Chinese (simplified) translation" = "Chinese (simplified) translation";
@@ -2060,10 +2060,10 @@
 "Contributed to early code" = "İlk koda katkıda bulunanlar";
 
 /* Credit description */
-"Croatian translation" = "Croatian translation";
+"Croatian translation" = "Hırvatça çeviri";
 
 /* Credit description */
-"Czech translation" = "Czech translation";
+"Czech translation" = "Çekçe çeviri";
 
 /* Credit description */
 "Danish translation" = "Danish translation";
@@ -2075,7 +2075,7 @@
 "Do not show this again" = "Bunu bir daha gösterme";
 
 /* Credit description */
-"Dutch translation" = "Dutch translation";
+"Dutch translation" = "Flemenkçe çeviri";
 
 /* Toolbar text for 'Lock' icon
    Toolbar text for 'Lock' item
@@ -2086,22 +2086,22 @@
 "Estonian translation" = "Estonian translation";
 
 /* Credit description */
-"Finnish translation" = "Finnish translation";
+"Finnish translation" = "Fince çeviri";
 
 /* Credit description */
 "Founder, original program and documentation" = "Kurucu, asıl program ve belgelendirme";
 
 /* Credit description */
-"French translation" = "French translation";
+"French translation" = "Fransızca çeviri";
 
 /* Credit description */
-"German translation" = "German translation";
+"German translation" = "Almanca çeviri";
 
 /* Credit description */
 "Greek translation" = "Greek translation";
 
 /* Credit description */
-"Hungarian translation" = "Hungarian translation";
+"Hungarian translation" = "Macarca çeviri";
 
 /* Credit description */
 "Icelandic translation" = "Icelandic translation";
@@ -2113,13 +2113,13 @@
 "Indonesian translation" = "Indonesian translation";
 
 /* Credit description */
-"Italian translation" = "Italian translation";
+"Italian translation" = "İtalyanca çeviri";
 
 /* Credit description */
-"Japanese translation" = "Japanese translation";
+"Japanese translation" = "Japonca çeviri";
 
 /* Credit description */
-"Korean translation" = "Korean translation";
+"Korean translation" = "Korece çeviri";
 
 /* [name of your language] translation */
 "LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
@@ -2146,49 +2146,49 @@
 "PKCS#11 support" = "PKCS#11 desteği";
 
 /* Credit description */
-"Persian translation" = "Persian translation";
+"Persian translation" = "Farsça çeviri";
 
 /* Credit description */
-"Polish translation" = "Polish translation";
+"Polish translation" = "Lehçe çeviri";
 
 /* Credit description */
 "Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
 
 /* Credit description */
-"Portuguese translation" = "Portuguese translation";
+"Portuguese translation" = "Portekizce çeviri";
 
 /* Credit description */
 "Program and documentation enhancements and maintenance after version 3.0b10" = "3.0b10 versiyonundan sonraki program ve doküman iyileştirme ve bakım çalışmaları";
 
 /* Credit description */
-"Romanian translation" = "Romanian translation";
+"Romanian translation" = "Romence çeviri";
 
 /* Credit description */
-"Russian translation" = "Russian translation";
+"Russian translation" = "Rusça çeviri";
 
 /* Credit description */
-"Serbian (Latin) translation" = "Serbian (Latin) translation";
+"Serbian (Latin) translation" = "Sırpça (Latin) çeviri";
 
 /* Credit description */
-"Slovak translation" = "Slovak translation";
+"Slovak translation" = "Slovakça çeviri";
 
 /* Credit description */
-"Spanish translation" = "Spanish translation";
+"Spanish translation" = "İspanyolca çeviri";
 
 /* Credit description */
-"Swedish translation" = "Swedish translation";
+"Swedish translation" = "İspanyolca çeviri";
 
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick simgesi";
 
 /* Credit description */
-"Turkish translation" = "Turkish translation";
+"Turkish translation" = "Türkçe çeviri";
 
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue ve UKLoginItemRegistry";
 
 /* Credit description */
-"Ukrainian translation" = "Ukrainian translation";
+"Ukrainian translation" = "Hırvatça çeviri";
 
 /* Credit description */
 "Up and Down scripts" = "Bağlantı ve kesilme betikleri";

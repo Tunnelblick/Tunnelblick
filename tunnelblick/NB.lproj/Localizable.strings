@@ -176,7 +176,7 @@
 "Place Icon Normally" = "Plassér ikon normalt";
 
 /* Button */
-"Privacy info..." = "Informasjon om personvern…";
+"Privacy info..." = "Personvernerklæring…";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Avslutt alle OpenVPN prosesser";
@@ -1658,7 +1658,7 @@
 "Tunnelblick successfully:\n\n" = "Det lyktes Tunnelblick å:\n\n";
 
 /* Window text */
-"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick ble vellykket installert og %ld konfigurasjoner ble installert eller erstattet.";
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Installeringen av Tunnelblick var vellykket og %ld konfigurasjonene ble installert eller erstattet.";
 
 /* Window text */
 "Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick ble vellykket installert og én konfigurasjon ble installert eller erstattet.";

@@ -89,10 +89,10 @@
 "Delete Credentials" = "Eliminar credenciales";
 
 /* Button */
-"Delete saved passphrase and try again" = "Borrar frase clave guardada y reintentar";
+"Delete saved passphrase and try again" = "Borrar clave guardada y reintentar";
 
 /* Button */
-"Delete saved password and try again" = "Borrar contraseña guardada y reintentar";
+"Delete saved password and try again" = "Eliminar la contraseña guardada y reintentar";
 
 /* Button */
 "Delete" = "Eliminar";
@@ -242,10 +242,10 @@
 "This configuration uses %@ credentials" = "Esta configuración usa %@ credenciales";
 
 /* Button */
-"Try again with saved passphrase" = "Reintentar con una frase clave guardada";
+"Try again with saved passphrase" = "Reintentar con la clave guardada";
 
 /* Button */
-"Try again with saved username and password" = "Reintentar con usuario y contraseña guardados";
+"Try again with saved username and password" = "Reintentar con el usuario y la contraseña guardada";
 
 /* Button */
 "Try again" = "Intentar de nuevo";
@@ -1943,7 +1943,7 @@
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Cuando se selecciona</strong>, Tunnelblick estará atento a los cambios en los ajustes de red y reaccionará a los mismos (por ejemplo, cambios causados por renovaciones de DHCP ó conmutación de conexiones de Internet) para intentar mantener la VPN conectada. Las acciones por omisión de Tunnelblick cuando cambian los ajustes de red por lo general funcionan bien, pero Ud. puede especificar acciones diferentes en la solapa 'Mientras está Conectado' de la ventana de ajustes 'Avanzados'.</p>\n<p><strong>Cuando no se selecciona</strong>, Tunnelblick ignorará los cambios de red.</p>\n<p><strong>Este checkbox es deshabilitado</strong> cuando 'Especificar DNS/WINS' no está puesto en 'Especificar servidor de nombres (3.1)'.</p>";
 
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
-"<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>";
+"<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Cuando esté marcada</strong>, la ventana del estado del VPN para todas las configuraciones 'activas' serán mostradas cuando el puntero esté por encima del ícono de Tunnelblick.</p><p>Las configuraciones 'activas' son aquellas configuraciones que ha intentado conectar desde que Tunnelblick se ejecutó.</p><p><strong>Ésta casilla de verificación se desactiva</strong> cuando 'Nunca Mostrar' sea seleccionado en la parte superior.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Cuando está marcado</strong>, una ventana mostrará el progreso de Tunnelblick mientras se inicia.</p>";
@@ -1964,7 +1964,7 @@
 "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>Cuando se selecciona</strong>, el ícono de Tunnelblick es posicionado cerca del de Spotlight:</p>\n<p>%1$@</p>\n<p><strong>Cuando no se selecciona</strong>, el ícono de Tunnelblick es posicionado normalmente:</p>\n<p>%2$@</p>\n<p><strong>Este checkbox está deshabilitado</strong> en macOS Sierra debido a que no es necesario y también en sistemas en los cuales se sabe que ocasiona problemas.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">Más información</a></p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
-"<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>";
+"<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Cuando esté marcada</strong>, la ventana del estado del VPN aparecerá incluso cuando la configuración esté desconectada.</p><p><strong>Ésta casilla de verificación se desactiva</strong> cuando 'Nunca Mostrar' sea seleccionado en la parte superior.</p>";
 
 /* HTML info for the 'Disconnect when user switches out' checkbox. */
 "<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>Cuando se selecciona</strong>, la VPN será desconectada cuando se cambia de usuario.</p>\n<p><strong>Cuando no se selecciona</strong>, la VPN no será desconectada cuando se cambia de usuario.</p>";
