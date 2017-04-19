@@ -1,17 +1,17 @@
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Bütün (%1$@) bağlantısını bitir - məlum olan ümumi İP ünvan %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Bütün (%1$@) bağlantıları bitir - məlum olan ictimai İP ünvanı %2$@";
 
 /* Status message */
-"Disconnect All (%@)" = "Bütün (%@) bağlantılarını bitirmək";
+"Disconnect All (%@)" = "Bütün (%@) bağlantıları bitir";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Bütün (%1$d Connections) bağlantıları bitirmək - məlum olan rəsmi İP ünvan %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Bütün (%1$d) bağlantıları bitir - məlum olan ictimai İP ünvanı %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Bütün (%d Connections) bağlantıları bitirmək";
 
 /* Status message */
-"No Active Connections" = "Aktiv bağlantı yoxdur";
+"No Active Connections" = "Aktiv bağlantılar yoxdur";
 
 /* Textbox name */
 "Username:" = "İstifadəçi adı:";
@@ -35,7 +35,7 @@
 "100 KB" = "100 KB";
 
 /* Button */
-"Advanced..." = "Bundan əlavə…";
+"Advanced..." = "Ətraflı…";
 
 /* Button */
 "All Users" = "Bütün İstifadəçilər";
@@ -56,7 +56,7 @@
 "Cancel" = "Ləğv et";
 
 /* Menu item */ /* Button */
-"Check For Updates Now" = "Yenilənmələri indi yoxla";
+"Check For Updates Now" = "Yenilənmələr olmasını indi yoxla";
 
 /* Button */
 "Check Now" = "İndi yoxla";
@@ -74,10 +74,10 @@
 "Convert Configurations" = "Konfigurasiyaları çevir";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Parametr jurnalının surətini Buferə keçir";
+"Copy Console Log to Clipboard" = "Parametr jurnalının surətini buferə keçird";
 
 /* Button */
-"Copy Diagnostic Info to Clipboard" = "Diaqnostika məlumatının surətini Buferə keçir";
+"Copy Diagnostic Info to Clipboard" = "Diaqnostika məlumatının surətini buferə keçird";
 
 /* Button */
 "Create sample configuration and edit it" = "Nümunə konfiqurasiyanı yarat və redaktə et";
@@ -86,7 +86,7 @@
 "Default (%@)" = "Standart (%@)";
 
 /* Button */
-"Delete Credentials" = "Etimadnamələri silmək";
+"Delete Credentials" = "Etimadnamələri sil";
 
 /* Button */
 "Delete saved passphrase and try again" = "Saxlanılmış şifrə frazanı sil və yenidən sına";
@@ -101,7 +101,7 @@
 "Disconnect" = "Bağlantını bitir";
 
 /* Button */
-"Do not check for a change" = "Dəyişikliyi yoxlama";
+"Do not check for a change" = "Dəyişiklərin baş verdiyini yoxlama";
 
 /* Button */
 "Do not use the plugin" = "Plugini istifadə etmə";
@@ -152,7 +152,7 @@
 "Never show" = "Heç zaman göstərmə";
 
 /* Button */
-"No keyboard shortcut" = "Klaviatura qısa yol olmasın";
+"No keyboard shortcut" = "Klaviatura qısa yolu yoxdur";
 
 /* Button */
 "No sound" = "Səssiz";
@@ -173,7 +173,7 @@
 "Place Icon Near the Spotlight Icon" = "İkonanı Spotlight İkonasının yanında yerləşdir";
 
 /* Button */
-"Place Icon Normally" = "İknonanı həmişəki yerinə qoy";
+"Place Icon Normally" = "İknonanı həmişəki yerinə yerləşdir";
 
 /* Button */
 "Privacy info..." = "Gizlilik məlumatı…";
@@ -194,10 +194,10 @@
 "Replace" = "Əvəz et";
 
 /* Button */
-"Reset Disabled Warnings" = "Söndürülmüş Xəbərdarlıqları sıfırla";
+"Reset Disabled Warnings" = "Söndürülmüş xəbərdarlıqları sıfırla";
 
 /* Button */
-"Restart connection" = "Bağlantıları yenilə";
+"Restart connection" = "Bağlantını yenilə";
 
 /* Button */
 "Restore" = "Bərpa et";
@@ -221,7 +221,7 @@
 "Show while connecting" = "Bağlantı zamanı göstər";
 
 /* Button */
-"Skip" = "Buraxmaq";
+"Skip" = "Burax";
 
 /* Button */
 "Speak" = "Söylə";
@@ -251,7 +251,7 @@
 "Try again" = "Bir daha sına";
 
 /* Button */
-"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 işarəsi";
+"Tunnelblick 3.3 icon" = "Tunnelblick 3.3 ikonasi";
 
 /* Button */
 "When Tunnelblick launches" = "Tunnelblick başlayanda";
@@ -914,7 +914,7 @@
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Təhlükəsiz (kölgə) surətə döndermək cəhdi zamanı səhv baş verdi. Təfərrüatlar üçün parametr jurnalına baxın.\n\n";
 
 /* Window text */
-"An error occurred. See the Console Log for details." = "Səhv baş verdi. Təfərrüatlar üçün parametr jurnalına baxın.";
+"An error occurred. See the Console Log for details." = "Səhv baş verdi. Təfərrüatlar üçün konsol jurnalına baxın.";
 
 /* Window text */
 "An internal Tunnelblick error occurred%@%@" = "Daxili Tunnelblick səhvi baş verdi%1$@%2$@";
@@ -1283,7 +1283,7 @@
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Hal hazırda bir və ya daha artıq VPN-lər qoşulu haldadır. Lütfən davam etməmişdən əvvəl bütün VPN bağlantılarını bitirin və Tunnelblickdən çıxın.";
 
 /* Window text */
-"One or more configurations are being ignored. See the Console Log for details." = "Bir və ya daha artıq konfiqurasiyalar nəzərə alınmır. Təfərrüatlar üçün parametr jurnalına baxın.";
+"One or more configurations are being ignored. See the Console Log for details." = "Bir və ya daha artıq konfiqurasiyalar nəzərə alınmır. Təfərrüatlar üçün konsol jurnalına baxın.";
 
 /* Window text */
 "One or more problems were detected:\n\n%@" = "Bir və ya daha artıq problem aşkar edilmişdir:\n\n%@";
@@ -1472,7 +1472,7 @@
 "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window." = "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the name of the configuration file to a name of your choice (do not change the file's extension). This will be the name that Tunnelblick uses for the configuration.\n\n3. To install the configuration, drag the configuration file and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.";
 
 /* Window text */
-"The username and password were not accepted by the remote VPN server." = "The username and password were not accepted by the remote VPN server.";
+"The username and password were not accepted by the remote VPN server." = "Istifadəçi adı və parol uzaq VPN server tərəfindən qəbul edilməyib.";
 
 /* Window text */
 "There are no OpenVPN configurations to install." = "There are no OpenVPN configurations to install.";
@@ -1481,13 +1481,13 @@
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
 
 /* Window text */
-"There is not an OpenVPN configuration file in '%@'" = "There is not an OpenVPN configuration file in '%@'";
+"There is not an OpenVPN configuration file in '%@'" = "Bir OpenVPN konfiqurasiya faylı burada yoxdur: '%@'";
 
 /* Window text */
-"There was a problem deleting one or more configurations. See the Console Log for details." = "There was a problem deleting one or more configurations. See the Console Log for details.";
+"There was a problem deleting one or more configurations. See the Console Log for details." = "Bir və ya bəzi konfiqurasiyaların silinməsi ilə bağlı bir problem var idi. Təfərrüatlar üçün konsol jurnalına baxın.";
 
 /* Window text */
-"There was a problem with the OpenVPN configuration. See the Console Log for details." = "There was a problem with the OpenVPN configuration. See the Console Log for details.";
+"There was a problem with the OpenVPN configuration. See the Console Log for details." = "OpenVPN konfiqurasiya ilə bir problem var idi. Təfərrüatlar üçün konsol jurnalına baxın.";
 
 /* Window text */
 "There was a problem with\n\n%@:\n\n%@" = "There was a problem with\n\n%1$@:\n\n%2$@";
@@ -1538,31 +1538,31 @@
 "Too many duplicate configurations already exist." = "Həddindən artıq çox dublikat konfiqurasiyalar mövcuddur.";
 
 /* Window text */
-"Translation by" = "Translation by";
+"Translation by" = "Tərcüməçilər";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
 "Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
-"Tunnelblick %@ is ready." = "Tunnelblick %@ is ready.";
+"Tunnelblick %@ is ready." = "Tunnelblick %@ istifadəyə hazırdır.";
 
 /* Window text */
 "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed." = "Tunnelblick Admin Mode\n\n Temporarily authorize changes that require an administrator password.\n\n The session expires after five minutes or when the 'VPN Details' window is closed.";
 
 /* Window text */
-"Tunnelblick Internet Use:" = "Tunnelblick Internet Use:";
+"Tunnelblick Internet Use:" = "Tunnelblick'in internet istifadəsi:";
 
 /* Window text */
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n";
 
 /* Window text */
-"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details.";
+"Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick daxil olmaqdan sonra avtomatik başlamaq üçün konfiqurasiya edilə bilməz.\n\nTəfərrüatlar üçün konsol jurnalına baxın.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
 
 /* Window text */
-"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details.";
+"Tunnelblick could not completely uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick tamamilə '%@' konfiqurasiyanı silə bilmədi. Təfərrüatlar üçün konsol jurnalına baxın.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration. See the Console Log for details.";
@@ -1610,10 +1610,10 @@
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
 
 /* Window text */
-"Tunnelblick is based on %@." = "Tunnelblick is based on %@.";
+"Tunnelblick is based on %@." = "Tunnelblick %@ əsaslanır.";
 
 /* Window text */
-"Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick is currently running. It will be shut down before proceeding.";
+"Tunnelblick is currently running. It will be shut down before proceeding." = "Tunnelblick hazırda çalışır. O davam etməkdən əvvəl bağlanılacaq.";
 
 /* Window text */
 "Tunnelblick needs authorization to duplicate the '%@' configuration." = "Tunnelblick needs authorization to duplicate the '%@' configuration.";

@@ -17,7 +17,7 @@
 "Username:" = "Nume utilizator:";
 
 /* Button */
-"%@ F%d (Command-Option-F%d)" = "%1$@ F %2$d (Comandă + Opțiune + F %3$d)";
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Comandă + Opțiune + F%3$d)";
 
 /* Button */
 "(None available)" = "(Indisponibil)";
@@ -35,16 +35,16 @@
 "100 KB" = "100 KB";
 
 /* Button */
-"Advanced..." = "Avansat…";
+"Advanced..." = "Opțiuni avansate…";
 
 /* Button */
-"All Users" = "Listă utilizatori";
+"All Users" = "Toţi utilizatorii";
 
 /* Button */
-"Always load Tap driver" = "Întotdeauna incarcă driver-ul Tap";
+"Always load Tap driver" = "Încarcă întotdeauna driver-ul Tap";
 
 /* Button */
-"Always load Tun driver" = "Întotdeauna incarcă driver-ul Tun";
+"Always load Tun driver" = "Încarcă întotdeauna driver-ul Tun";
 
 /* Button */
 "Always use the plugin" = "Folosește întotdeauna plugin-ul";
@@ -53,7 +53,7 @@
 "Back" = "Înapoi";
 
 /* Button */
-"Cancel" = "Anulare";
+"Cancel" = "Anulați";
 
 /* Menu item */ /* Button */
 "Check For Updates Now" = "Verifică actualizări disponibile acum";
@@ -62,7 +62,7 @@
 "Check Now" = "Verifică acum";
 
 /* Button */
-"Check for a change" = "Verifică modificările";
+"Check for a change" = "Verifică";
 
 /* Button */
 "Connect" = "Conectare";
@@ -74,19 +74,19 @@
 "Convert Configurations" = "Convertește configurările";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Copiază Log-ul din consolă în Clipboard";
+"Copy Console Log to Clipboard" = "Copiază jurnalul din consolă în Clipboard";
 
 /* Button */
-"Copy Diagnostic Info to Clipboard" = "Copiază diagnosticarea în Clipboard";
+"Copy Diagnostic Info to Clipboard" = "Copiază diagnoza în Clipboard";
 
 /* Button */
-"Create sample configuration and edit it" = "Crează și editează o configurare exemplu";
+"Create sample configuration and edit it" = "Crează și editează un exemplu de configurare";
 
 /* Button */
-"Default (%@)" = "Implicit (%@)";
+"Default (%@)" = "Versiunea implicită (%@)";
 
 /* Button */
-"Delete Credentials" = "Șterge credențialele";
+"Delete Credentials" = "Șterge datele de autentificare";
 
 /* Button */
 "Delete saved passphrase and try again" = "Șterge parola salvată și încearcă din nou";
@@ -161,10 +161,10 @@
 "OK" = "OK";
 
 /* Button */
-"Only Me" = "Doar eu";
+"Only Me" = "Doar pentru mine";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Deschide instrucțiunile de dezinstalare in Browser";
+"Open Uninstall Instructions in Browser" = "Deschide instrucțiunile de dezinstalare în browser";
 
 /* Button */
 "Open easy-rsa in Terminal" = "Deschide easy-rsa în Terminal";
@@ -203,7 +203,7 @@
 "Restore" = "Restaurează";
 
 /* Button */
-"Retry" = "Încearcă din nou";
+"Retry" = "Încercați din nou";
 
 /* Button */
 "Revert" = "Restaurează la valorile precedente";
@@ -221,7 +221,7 @@
 "Show while connecting" = "Arată în timp ce se conectează";
 
 /* Button */
-"Skip" = "Ignoră";
+"Skip" = "Treci peste";
 
 /* Button */
 "Speak" = "Vorbire";
@@ -236,10 +236,10 @@
 "Terminate" = "Terminare";
 
 /* Button */
-"This configuration has its own separate credentials" = "Această configurare are propriile credențiale";
+"This configuration has its own separate credentials" = "Această configurare folosește propria autentificare";
 
 /* Button */
-"This configuration uses %@ credentials" = "Această configurare folosește %@ credențiale";
+"This configuration uses %@ credentials" = "Această configurare folosește autentificarea %@";
 
 /* Button */
 "Try again with saved passphrase" = "Încearcă din nou cu parola salvată";
@@ -254,31 +254,31 @@
 "Tunnelblick 3.3 icon" = "Iconița Tunnelblick 3.3";
 
 /* Button */
-"When Tunnelblick launches" = "Când Tunnelblick se pornește";
+"When Tunnelblick launches" = "Când Tunnelblick pornește";
 
 /* Button */
-"When computer starts" = "Când se pornește computerul";
+"When computer starts" = "Când pornește computerul";
 
 /* Menu item */
-"Add a VPN..." = "Adaugă un VPN…";
+"Add a VPN..." = "Adaugă configurație VPN…";
 
 /* Menu item */
 "Connect %@%@" = "Conexiune %@%@";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "Șterge credențialele de configurare din Keychain…";
+"Delete Configuration's Credentials in Keychain..." = "Șterge datele de autentificare din Keychain…";
 
 /* Menu item tooltip */
-"Disabled because this setting is being forced" = "Dezactivat, pentru că această setare este forțată";
+"Disabled because this setting is being forced" = "Inactiv deoarece această setare este forțată";
 
 /* Menu item */
 "Disconnect %@%@" = "Deconectează %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Nu arăta în meniul Tunnelblick";
+"Do Not Show on Tunnelblick Menu" = "Nu arăta conexiunea în meniul Tunnelblick";
 
 /* Menu Item */
-"Duplicate Configuration..." = "Configurație duplicată…";
+"Duplicate Configuration..." = "Clonează configurația...";
 
 /* Menu Item */
 "Edit OpenVPN Configuration File..." = "Editează fișierul de configurare OpenVPN…";
@@ -287,10 +287,10 @@
 "Examine OpenVPN Configuration File..." = "Examinează fișierul de configurare OpenVPN…";
 
 /* Menu Item */
-"Make Configuration Private..." = "Fă conexiunea privată…";
+"Make Configuration Private..." = "Faceți conexiunea privată…";
 
 /* Menu Item */
-"Make Configuration Shared..." = "Fă conexiunea partajată…";
+"Make Configuration Shared..." = "Faceți conexiunea partajată…";
 
 /* Menu Item */
 "No OpenVPN or Tunnelblick VPN logging" = "Nu există loguri VPN pentru OpenVPN sau Tunnelblick";
@@ -692,7 +692,7 @@
 "Use 'down-root' plugin for OpenVPN?" = "Utilizați modulul 'down-root' pentru OpenVPN?";
 
 /* Window title */
-"Utilities" = "Utilități";
+"Utilities" = "Utilitare";
 
 /* Window title */
 "VPN Configuration Installation Error" = "Eroare la instalarea configurării VPN";
@@ -725,7 +725,7 @@
 "     • Installed %lu configurations\n\n" = "     %lu configurări instalate\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed one configuration\n\n" = "     O configurare instalata\n\n";
+"     • Installed one configuration\n\n" = "     O configurare instalată\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
 "     • Replaced %lu configurations\n\n" = "     • Configurările %lu înlocuite\n\n";
@@ -1922,7 +1922,7 @@
 "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p> <strong> Când este bifată </strong>, Tunnelblick va verifica pentru actualizări la versiunile beta. </p>\n<p> <strong> Atunci când nu au fost bifate </strong>, Tunnelblick va verifica pentru actualizări la versiuni stabile. </p> <p> <strong> Această casetă este dezactivată </strong> și bifată atunci când se utilizează o versiune beta. </p>";
 
 /* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>";
+"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>Când este bifată</strong>, Tunnelblick verifică versiuni noi când este pornit și apoi periodic.</p><p><strong>Această căsuță este inactivă</strong> și debifată când opțiunea 'Oprește verificarea automată de versiuni noi și schimbări de adresă IP' este bifată.</p>";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong> Când e bifat </strong>, Tunnelblick va determina adresa IP aparent publică a computerului înainte și după ce VPN-ul este conectat și vă va avertiza dacă adresa IP nu se schimbă. </p>\n<p> Site-ul tunnelblick.net va fi accesat pentru a efectua această funcție. Accesul se face de obicei prin intermediul https: folosind numele tunnelblick.net, cu excepția faptului că în cazul în care aceasta eșuează, accesul se încearcă utilizând http:. și adresa IP a site-ului </p>\n<p><strong> Atunci când nu au fost bifat </strong>, Tunnelblick nu verifică modificările adresei IP și nu avertizează în cazul în care adresa IP nu se schimbă după ce VPN-ul este conectat. </p>\n";
@@ -1931,40 +1931,40 @@
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong> Când bifată </strong>, Tunnelblick va instrui OpenVPN pentru a dirija traficul IPv4 prin intermediul serverului VPN. </p>\n<p><strong> Atunci când nu este bifată </strong>, implicit OpenVPN va utiliza VPN numai pentru traficul care este destinat pentru rețeaua VPN. Pentru celelalte tipuri de trafic se va folosi conexiunea la Internet normala fara a trece prin VPN. Comportamentul implicit OpenVPN poate fi modificat prin configurația OpenVPN sau serverul VPN și poate determina tot traficul IPv4 să fie dirijat prin serverul VPN ca și în cazul în care această casetă a fost bifată. </p>\n";
 
 /* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>";
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>Când este bifată</strong>, Tunnelblick va cere autorizarea unui administrator al acestui sistem pentru a modifica cheile și certificatele.</p>\n<p><strong>Cănd nu este bifată</strong>, un utilizator standard va putea modifica cheile și certificatele.</p><p><strong>Notă: Modifcarea acestei opțiuni necesită autorizarea unui administrator al acestui sistem.</strong></p>";
 
 /* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong> Când bifată </strong>, Tunnelblick va reseta interfața de rețea primară după ce VPN-ul este deconectat. Acest lucru poate rezolva unele problemele cauzate de unele servere VPN configurate greșit sau de unele erori de configurare OpenVPN.</p>\n<p><strong> Atunci când nu este bifată </strong>, Tunnelblick nu va reseta interfața de rețea primară. </p>\n<p><strong> Această casetă este dezactivată </strong> când 'Set DNS / WINS' nu este setat la 'Set nameserver'. </p>\n ";
 
 /* HTML info for the 'Send anonymous profile information when checking' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>" = "<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>";
+"<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>" = "<p><strong>Când este bifată</strong>, Tunnelblick va trimite informații despre computerul dumneavoastră (versiunea sistemului de operare) către site-ul Tunnelblick atunci când caută versiuni actualizate.</p>\n<p><strong>Când nu este bifată</strong>, Tunnelblick nu va trimite informația când caută versiuni actualizate.</p><p>Consultați pagina <a href=\"https://tunnelblick.net/cPrivacy.html\">Securitate și Intimitate</a> [tunnelblick.net] pentru mai multe detalii.</p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong> Când e bifată </strong>, Tunnelblick va urmări și va reacționa la modificări în setările de rețea (de exemplu, schimbări cauzate de reînnoire DHCP sau de comutarea conexiunii la Internet) pentru a încerca să păstreze rețeaua VPN conectată. Acțiunile implicite ale Tunnelblick atunci când setările de rețea se schimbă de obicei funcționează bine, dar puteți specifica acțiuni diferite în pagina \"În timp ce sunt conectat\" din fereastra de setări 'Advanced'. </p>\n<p><strong> Atunci când nu este bifată </strong>, Tunnelblick va ignora modificările de rețea. </p>\n<p><strong> Această casetă este dezactivată </strong> când 'Set DNS / WINS' nu este setat la 'Set nameserver' sau 'Set nameserver (3.1) \". </p>";
 
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
-"<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>";
+"<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Când este bifată</strong>, fereastra de stare VPN pentru toate conexiunile 'active' este afișată când pointer-ul se află peste iconița Tunnelblick.</p><p>Configurațiile 'Active' sunt acelea pe care ați încercat să le deschideți de când a fost lansat Tunnelblick.</p><p><strong>Această căsuță este inactivă</strong> când opțiunea 'Nu afișa niciodată' este activă mai sus.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
-"<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>";
+"<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>Când este bifată</strong>, o fereastră va afișa progresul Tunnelblick când acesta pornește.</p>";
 
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
-"<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n";
+"<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>Când este bifată</strong>, toate configurațiile vor folosi același nume de utilizator, parolă și/sau cheie privată.</p>\n";
 
 /* HTML info for the 'Display connection submenus' checkbox. */
-"<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>";
+"<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>Când este bifată</strong>, configurațiile din interiorul directoarelor sunt afișate în sub-meniuri alre meniului Tunnelblick.</p>\n<p><strong>Când nu este bifată</strong>, configurațiile din interiorul directoarelor sunt afișate în meniul Tunnelblick.</p>";
 
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong> Când e bifată </strong>, în cazul în care în mod neașteptat VPN-ul se deconectează, Tunnelblick va încerca să-l reconecteze. </p>\n<p><strong> Atunci când nu este bifată </strong>, Tunnelblick nu va încerca să se reconecteze la VPN în cazul în care se deconectează în mod neașteptat. </p>\n";
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
-"<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>";
+"<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Când este bifată</strong> nu se face verificare automată a versiunilor noi, nici a schimbării adresei de IP - indiferent alte setări. Notă: aceste două funcționalități contactează site-ul Tunnelblick.</p>\n<p><strong>Când nu este bifată</strong>, verificarea automată a versiunilor noi face dacă este bifată mai jos, iar verificarea schimbării adresei de IP se face în momentul conectării la VPN, dacă configurația selectată are activă această opțiune.</p><p>Vizitați secțiunea <a href=\"https://tunnelblick.net/cPrivacy.html\">Securitate și Intimitate</a> [tunnelblick.net] pentru mai multe detalii.</p><p>&nbsp;</p>";
 
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
 "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<P> <strong> Când este bifată </ strong>, icoana Tunnelblick este poziționată vecinatatea simbolului Spotlight: </ p>\n<P>%1$@ </ p>\n<P> <strong> Când nu este bifată </ strong>, icoana Tunnelblick este poziționată normal: </ p>\n<P>%2$@ </ p>\n<P> <strong> Această casetă de selectare este dezactivată </ strong> pe macOS Sierra, deoarece nu este necesară, și pe sistemele pentru care este cunoscut de a provoca probleme. </ P>\n<P> <a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\"> Mai multe informații </a> </ p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
-"<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>";
+"<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Când este bifată</strong>, fereastra de stare a conexiunii VPN este afișată chiar când aplicația nu are o conexiune activă.</p><p><strong>Această bifă este inactivă</strong> când setarea ferestrei de stare de mai sus are selectată opțiunea 'Nu afișa niciodată'.</p>";
 
 /* HTML info for the 'Disconnect when user switches out' checkbox. */
 "<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong> Când est bifată </strong>, VPN-ul va fi deconectat atunci când se trece la un alt utilizator. </p>\n<p><strong>Atunci când nu este bifată</strong>, rețeaua VPN nu va fi deconectată atunci când se trece la un alt utilizator. </p>";
@@ -1982,7 +1982,7 @@
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong> Când este bifată </strong>, numele domeniului VPN specificat va fi adăugat la începutul listei de căutare a domeniului. </p>\n<p><strong> Atunci când nu este bifată </strong>, lista de căutare de domeniu va fi înlocuită cu numele de domeniu specificat de VPN. </p>";
 
 /* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>";
+"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>Când este bifată</strong>, în meniul Tunnelblick și în titlul ferestrei de detalii a conexiunii VPN va fi afișat timpul de când a fost stabilită conexiunea.</p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
 "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p> Un driver \"Tap\" este necesar pentru conexiuni Tap. Tunnelblick include propriul său driver \"Tap\", deoarece sistemul nu include unul. Dacă ați instalat un driver \"Tap\" diferit, Tunnelblick poate să nu fie în măsură să utilizeze acest driver </p><p> Puteți alege dacă și când Tunnelblick încarcă driverul său:. </p>\n<p><strong> Încărcare driver \"Tap\" automat </strong>: Tunnelblick încarca driverul în cazul în care este necesar și îl evacuează atunci când nu mai este nevoie de el </p>\n<p><strong> Întotdeauna încărcati driverul Tap </strong>:. Tunnelblick încarca driverul atunci când se conectează la această configurație, și-l descarcă atunci când nu mai este nevoie de </p>\n<p><strong> Nu încărcați niciodată driverul </strong>: Tunnelblick nu încarcă niciodată driverul său </p>.\n<p><strong> Această casetă de selectare este dezactivată </strong> pentru configurații Tun. </p>";
@@ -1991,28 +1991,28 @@
 "<p>A 'tun' device driver is needed for Tun connections. Usually the system's Tun driver is used, but Tunnelblick also includes its own Tun driver. If you have installed a different Tun driver, Tunnelblick may not be able to load its driver.</p>\n<p>OpenVPN will use the system's driver unless the OpenVPN configuration includes the 'dev-type tun' option.</p>\n<p>You can choose if and when Tunnelblick loads its Tun driver:</p>\n<p><strong>Load Tun driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed. (Tunnelblick will only load its driver if the OpenVPN configuration includes the 'dev-type tun' option.)</p>\n<p><strong>Always load Tun driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tun driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tap configurations.</p>" = "<p> Un driver de dispozitiv \"Tun\" este necesară pentru conexiuni Tun. De obicei, driverul Tun al sistemului este utilizat, dar Tunnelblick include, de asemenea propriul driver Tun. Dacă ați instalat un alt driver Tun, Tunnelblick poate să nu fie în măsură să încarce acest driver. </p>\n<p> OpenVPN va utiliza driverul sistemului cu excepția cazului în configurația OpenVPN include opțiunea 'dev-type tun'. </p>\n<p> Puteți alege dacă și când Tunnelblick încarcă driverul său Tun: </p>\n<p> <strong> Încarcă driverul Tun automat </strong>: Tunnelblick incarca driverul sãu în cazul în care este necesar și îl evacueazã atunci când acesta nu mai este necesar. (Tunnelblick va încărca driverul său numai în cazul în care configurația OpenVPN include opțiunea 'dev-type tun'.) </p>\n<p> <strong> Încărcați întotdeauna driverul Tun </strong>:. Tunnelblick incarca driverul atunci când se conectează această configurație, și-l descarcă atunci când nu mai este nevoie de el</p>\n<p> <strong> Nu încărcați niciodată driverul Tun </strong>: Tunnelblick nu încarcă niciodată driverul său </p>.\n<p> <strong> Această casetă de selectare este dezactivată </strong> pentru configurații Tap. </p>";
 
 /* HTML info for the 'Check Now' button. */
-"<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>";
+"<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Caută versiuni actualizate a aplicației Tunnelblick.</p><p>Se conectează la site-ul Tunnelblick; pentru mai multe detalii vizitați <a href=\"https://tunnelblick.net/cPrivacy.html\">Securitate și Intimitate</a> [tunnelblick.net].</p><p>De asemenea caută actualizări a configurațiilor, dacă furnizorul de servicii VPN suportă această funcționalitate.</p>";
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
-"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>";
+"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Copiază în clipboard ultima parte din consola cu jurnalul de mesaje, pentru a putea fi pusă într-un email sau alt document.</p><p>Jurnalul conține detaliile operațiilor Tunnelblick și OpenVPN atât cu mesaje normale și mesajele de eroare detaliate, prea lungi pentru a fi afișate într-un dialog normal.</p>";
 
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
-"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>";
+"<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Deschide în browser pagina din site-ul Tunnelblick care conține instrucțiuni pentru dezinstalarea aplicației.</p>";
 
 /* HTML info for the 'Advanced...' button. */
-"<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>";
+"<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Deschide o fereastră nouă cu mai multe configurații.</p><p>Modificările vor fi aplicate tuturor configurațiilor selectate în fereastra 'Detalii VPN'.</p>";
 
 /* HTML info for the 'Quit All OpenVPN Processes' button. */
-"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor application to 'Force Quit' the process.</p>";
+"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Oprește toate procesele OpenVPN, inclusiv pe cele care nu au fost pornite de Tunnelblick. Pentru a opri conexiunile pornite de Tunnelblick vă recomandăm să folosiți opțiunile 'Deconectați' sau 'Deconectați tot' din meniu.</p><p>\nApăsând pe acest buton veți trimite un semnal 'SIGTERM' tututor proceselor numite 'openvpn'. Acest lucru va închide procesul OpenVPN și toate conexiunile sale. Dacă nici acest buton nu închide toate procesele OpenVPN, folosiți aplicația OS X Activity Monitor pentru a închide procesele.</p>";
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
-"<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>";
+"<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Restaurează toate atenționările care au fost oprite folosind opțiunea 'Nu avertiza despre asta din nou'.</p>";
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p> Memoria cache DNS conține copii ale informațiilor DNS (Domain Name System). </p>\n<p> <strong> Când e bifată </strong>, cache-ul DNS va fi eliminat (șters) după conectare sau deconectare. Toate căutarile în DNS vor fi efectuate după numele de server specificat de configurarea VPN. </p>\n<p> <strong> Atunci când nu au fost bifată </strong>, cache-ul DNS nu va fi eliminat. Acest lucru poate cauza probleme în cazul în care există un conflict de nume între serverul de nume specificat de configurare VPN și serverul de nume de pre-VPN și dacă intrările de pre-VPN au fost memorate în cache. </p>";
 
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
-"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>";
+"<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick include o versiune personalizată a librăriei 'easy-rsa', care este un set de script-uri din linia de comandă scrise de dezvoltatorii OpenVPN pentru a creea și menține certificate și chei.</p><p>Apăsând acest buton lansează aplicația OS X Terminal cu directorul curent configurat în locația acestor script-uri.</p><p>Acestea sunt în mod normal găsite în ~/Library/Application Support/Tunnelblick/easy-rsa. Opțiunea 'easy-rsaPath' poate conține calea către un director pe care Tunnelblick să îl folosească alternativ. 'easy-rsaPath' trebuie să fie o cale absolută sau să înceapă cu '~', iar directorul părinte trebuie să existe. Dacă un director există în locația specificată, va fi folosit; dacă nu există va fi creeat, iar script-urile easy-rsa vor fi instalate în acea locație când Tunnelblick pornește.</p><p>Pentru mai multe informații despre utilizarea easy-rsa, vizitați <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Configurarea propriei Autorități de Certificare (CA) și generarea de certificate și chei pentru server-ul OpenVPN și mai mulți clienți</a> [openvpn.net].</p><p>Pentru detalii despre personalizările Tunnelblick's a easy-rsa, citiți fișierul README găsit în acel director.</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Mod de admin %@ rămas";
