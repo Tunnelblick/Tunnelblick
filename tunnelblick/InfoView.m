@@ -494,8 +494,14 @@ extern TBUserDefaults * gTbDefaults;
     [self substitute: NSLocalizedString(@"Translation by", @"Window text") in: creditsString];
     
     e = [locCredits objectEnumerator];
+	NSString * previousName = nil;
     while (  (row = [e nextObject])  ) {
         NSString * name = [row objectAtIndex: 0];
+		if (  [previousName isEqualToString: name]  ) {
+			name = @" ";
+		} else {
+			previousName = name;
+		}
         NSString * role = [row objectAtIndex: 1];
 		if (  [UIHelper languageAtLaunchWasRTL]  ) {
 			[self substitute: role in: creditsString];
