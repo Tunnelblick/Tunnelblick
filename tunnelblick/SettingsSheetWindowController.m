@@ -577,7 +577,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 	
 	[allowManualNetworkSettingsOverrideCheckbox
 	 setTitle: NSLocalizedString(@"Allow changes to manually-set network settings", @"Checkbox name")
-	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n"
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n"
 														   @"<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>",
 														   @"HTML info for the 'Allow changes to manually-set network settings' checkbox."))];
 	
