@@ -497,7 +497,7 @@
 "PASSWORD_WAIT" = "Очікування на ввод паролю"; // Please translate "Waiting for password"
 
 /* Connection status */
-"PRIVATE_KEY_WAIT" = "Очікування на ввод паролю"; // Please translate "Waiting for password"
+"PRIVATE_KEY_WAIT" = "Очікування вводу фрази-паролю"; // Please translate "Waiting for password"
 
 /* Connection status */
 "RECONNECTING" = "Перепідключення"; // Please translate ""
@@ -860,7 +860,7 @@
 "A configuration which requires a passphrase (private key) or a username and password cannot start when the computer starts." = "Налаштування яке потребує секретну фразу (приватний ключ) або логін та пароль не може стартувати автоматично разом з компьютером.";
 
 /* Window text */
-"A passphrase is required to connect to\n  %@%@" = "Фраза пароль необхідна для з'єднання з\n  %1$@%2$@";
+"A passphrase is required to connect to\n  %@%@" = "Ключова фраза необхідна для з'єднання з\n  %1$@%2$@";
 
 /* Window text */
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Приватна конфігурація '%@' вже існує.\n\nЗамінити її спільною конфігурацією?";
@@ -1511,19 +1511,19 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Ця копія Tunnelblick не має цифрового підпису.\n\nНемає ніякого способу, щоб переконатися, що цю копію не підроблено.\n\nЗверніться до постачальника цієї копії Tunnelblick перед її використанням.\n\n";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Ця 64х бітна версія Tunnelblick не буде нормально працювати при використанні драйверів tun чи tap.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Ця 64-бітна (Intel) версія Tunnelblick не буде нормально працювати при використанні драйверів tun чи tap.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "Це 64-бітна версія Tunnelblick, що не буде коректно працювати через tap з'єднання. Використовуйте універсальну версію Tunnelblick.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "Це 64-бітна (Intel) версія Tunnelblick не буде коректно працювати, якщо конфігурація використовує з'єднання tap. Використовуйте універсальну версію Tunnelblick.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "Ця 64х бітна версія Tunnelblick не буде нормально працювати якщо налаштування використовує  tun kexts. Використовуйте 'universal' версию Tunnelblick.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "Ця 64-бітна (Intel) версія Tunnelblick не буде коректно працювати, якщо конфігурація використовує драйвери tun. Використовуйте універсальну версію Tunnelblick.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "Це 64-бітна версія Tunnelblick, що не буде нормально працювати з драйверами tun. Ви можете використовувати універсальну версію Tunnelblick або OS X 'utun' драйвер шляхом видалення OpenVPN опції 'dev-type' - деталі в документації OpenVPN.";
+"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "Ця 64-бітна (Intel) версія Tunnelblick не буде коректно працювати, якщо конфігурація використовує драйвери tun. Ви можете використовувати універсальну версію Tunnelblick або OS X 'utun' драйвер шляхом видалення OpenVPN опції 'dev-type' - деталі в документації OpenVPN.";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "Це 64-бітна версія Tunnelblick, яка працює лише на OS X з 64-бітним ядром, або OS X 10.6.8 та вище якщо не використовувати драйвери tun чи tap.";
+"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "Це 64-бітна (Intel) версія Tunnelblick, яка працює лише на OS X з 64-бітним ядром, або на OS X 10.6.8 та вище якщо не використовувати драйвери tun чи tap.";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Цю версію Tunnelblick не може бути запущено або встановлено, оскільки вона має хибний URL оновлення.\n\n";
