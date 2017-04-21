@@ -226,18 +226,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         return;
     }
     
-    NSString * key = [configurationName stringByAppendingString: @"useDNS"];
-    unsigned ix = [gTbDefaults unsignedIntForKey: key
-                                         default: 1
-                                             min: 0
-                                             max: MAX_SET_DNS_WINS_INDEX];
-    
-    if (  ix == 1  ) {
+    if (  [self usingSetNameserver]  ) {
         [self setupCheckbox: prependDomainNameCheckbox
                         key: @"-prependDomainNameToSearchDomains"
                    inverted: NO];
     } else {
-        [prependDomainNameCheckbox setState: NSOffState];
+        [prependDomainNameCheckbox setState:   NSOffState];
         [prependDomainNameCheckbox setEnabled: NO];
     }
 }
@@ -248,13 +242,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         return;
     }
     
-    NSString * key = [configurationName stringByAppendingString: @"useDNS"];
-    unsigned ix = [gTbDefaults unsignedIntForKey: key
-                                         default: 1
-                                             min: 0
-                                             max: MAX_SET_DNS_WINS_INDEX];
-    
-    if (  ix == 1  ) {
+    if (  [self usingSetNameserver]  ) {
         [self setupCheckbox: flushDnsCacheCheckbox
                         key: @"-doNotFlushCache"
                    inverted: YES];
@@ -262,6 +250,22 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
         [flushDnsCacheCheckbox setState:   NSOffState];
         [flushDnsCacheCheckbox setEnabled: NO];
     }
+}
+
+-(void) setupAllowManualNetworkSettingsOverrideCheckbox {
+	
+	if (  ! configurationName  ) {
+		return;
+	}
+	
+	if (  [self usingSetNameserver]  ) {
+		[self setupCheckbox: allowManualNetworkSettingsOverrideCheckbox
+						key: @"-allowChangesToManuallySetNetworkSettings"
+				   inverted: NO];
+	} else {
+		[allowManualNetworkSettingsOverrideCheckbox setState:   NSOffState];
+		[allowManualNetworkSettingsOverrideCheckbox setEnabled: NO];
+	}
 }
 
 -(void) setupKeepConnectedCheckbox {
@@ -571,6 +575,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 														   @" there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>",
 														   @"HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox."))];
 	
+	[allowManualNetworkSettingsOverrideCheckbox
+	 setTitle: NSLocalizedString(@"Allow changes to manually-set network settings", @"Checkbox name")
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n"
+														   @"<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>",
+														   @"HTML info for the 'Allow changes to manually-set network settings' checkbox."))];
+	
 	[prependDomainNameCheckbox
 	  setTitle: NSLocalizedString(@"Prepend domain name to search domains", @"Checkbox name")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n"
@@ -814,8 +824,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
     // Connecting & Disconnecting tab
     
-    [flushDnsCacheCheckbox                 setEnabled: NO];
-    [prependDomainNameCheckbox             setEnabled: NO];
+    [flushDnsCacheCheckbox						setEnabled: NO];
+	[allowManualNetworkSettingsOverrideCheckbox	setEnabled: NO];
+    [prependDomainNameCheckbox					setEnabled: NO];
+	
     [useRouteUpInsteadOfUpCheckbox         setEnabled: NO];
     [enableIpv6OnTapCheckbox               setEnabled: NO];
     [keepConnectedCheckbox                 setEnabled: NO];
@@ -867,11 +879,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     
     // Connecting & Disconnecting tab
     
-    [flushDnsCacheCheckbox                 setEnabled: YES];
-    [prependDomainNameCheckbox             setEnabled: YES];
-    [useRouteUpInsteadOfUpCheckbox         setEnabled: YES];
-    [enableIpv6OnTapCheckbox               setEnabled: YES];
-    [keepConnectedCheckbox                 setEnabled: YES];
+    [flushDnsCacheCheckbox						setEnabled: YES];
+	[allowManualNetworkSettingsOverrideCheckbox	setEnabled: YES];
+    [prependDomainNameCheckbox					setEnabled: YES];
+    [useRouteUpInsteadOfUpCheckbox				setEnabled: YES];
+    [enableIpv6OnTapCheckbox					setEnabled: YES];
+    [keepConnectedCheckbox						setEnabled: YES];
     
     [loadTunPopUpButton                    setEnabled: YES];
     [loadTapPopUpButton                    setEnabled: YES];
@@ -948,6 +961,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     // For Connecting tab
     
     [self setupFlushDNSCheckbox];
+	[self setupAllowManualNetworkSettingsOverrideCheckbox];
     [self setupKeepConnectedCheckbox];
     [self setupEnableIpv6OnTapCheckbox];
     [self setupPrependDomainNameCheckbox];
@@ -1313,6 +1327,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
     [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotFlushCache"
 																	 to: ([sender state] == NSOnState)
                                                                inverted: YES];
+}
+
+
+-(IBAction) allowManualNetworkSettingsOverrideCheckboxWasClicked: (NSButton *) sender {
+	[((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-allowChangesToManuallySetNetworkSettings"
+																						 to: ([sender state] == NSOnState)
+																				   inverted: NO];
 }
 
 
@@ -1792,8 +1813,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, soundOnDisconnectArrayContr
 
 // Set a checkbox from preferences
 -(void) setupCheckbox: (TBButton *) checkbox
-                  key: (NSString *)     key
-             inverted: (BOOL)           inverted {
+                  key: (NSString *) key
+             inverted: (BOOL)       inverted {
     
     if (  checkbox  ) {
         NSString * actualKey = [configurationName stringByAppendingString: key];

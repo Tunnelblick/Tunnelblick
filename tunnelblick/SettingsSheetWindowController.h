@@ -62,6 +62,7 @@ typedef enum {
     // For Connecting & Disconnecting tab
     
     IBOutlet TBButton        * flushDnsCacheCheckbox;
+	IBOutlet TBButton        * allowManualNetworkSettingsOverrideCheckbox;
 	IBOutlet TBButton        * prependDomainNameCheckbox;
 	IBOutlet TBButton        * useRouteUpInsteadOfUpCheckbox;
     IBOutlet TBButton        * enableIpv6OnTapCheckbox;
@@ -222,6 +223,7 @@ typedef enum {
 // Methods for Connecting tab
 
 -(IBAction) flushDnsCacheCheckboxWasClicked:                        (NSButton *) sender;
+-(IBAction) allowManualNetworkSettingsOverrideCheckboxWasClicked:   (NSButton *) sender;
 -(IBAction) keepConnectedCheckboxWasClicked:                        (NSButton *) sender;
 -(IBAction) enableIpv6OnTapCheckboxWasClicked:                      (NSButton *) sender;
 -(IBAction) useRouteUpInsteadOfUpCheckboxWasClicked:                (NSButton *) sender;

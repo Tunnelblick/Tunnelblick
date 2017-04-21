@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1212" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1421" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
@@ -13,6 +14,7 @@
                 <outlet property="addNamedCredentialsTFC" destination="1051" id="1053"/>
                 <outlet property="alertSoundsBox" destination="791" id="826"/>
                 <outlet property="allConfigurationsUseTheSameCredentialsCheckbox" destination="596" id="612"/>
+                <outlet property="allowManualNetworkSettingsOverrideCheckbox" destination="rtB-7g-s5S" id="6QB-8L-yRT"/>
                 <outlet property="connectingAndDisconnectingTabViewItem" destination="14" id="566"/>
                 <outlet property="connectingHelpButton" destination="352" id="354"/>
                 <outlet property="connectionAlertSoundTFC" destination="807" id="810"/>
@@ -125,7 +127,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button id="784" customClass="TBButton">
-                                            <rect key="frame" x="2" y="356" width="779" height="18"/>
+                                            <rect key="frame" x="2" y="336" width="779" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Set DNS after routes$" bezelStyle="regularSquare" imagePosition="right" alignment="right" inset="2" id="785">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -147,7 +149,7 @@
                                             </connections>
                                         </button>
                                         <button id="572" customClass="TBButton">
-                                            <rect key="frame" x="2" y="376" width="779" height="18"/>
+                                            <rect key="frame" x="2" y="356" width="779" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Prepend domain name to search domains$" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="573">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -157,8 +159,19 @@
                                                 <action selector="prependDomainNameCheckboxWasClicked:" target="-2" id="575"/>
                                             </connections>
                                         </button>
+                                        <button id="rtB-7g-s5S" customClass="TBButton">
+                                            <rect key="frame" x="4" y="376" width="779" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Allow changes to manually-set network settings$" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="dz4-St-aOj">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="allowManualNetworkSettingsOverrideCheckboxWasClicked:" target="-2" id="bCx-hA-77y"/>
+                                            </connections>
+                                        </button>
                                         <box autoresizesSubviews="NO" title="Fast User Switching$" borderType="line" id="364">
-                                            <rect key="frame" x="6" y="38" width="778" height="81"/>
+                                            <rect key="frame" x="6" y="28" width="778" height="81"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <view key="contentView" id="6hC-hl-3RM">
                                                 <rect key="frame" x="1" y="1" width="776" height="65"/>
@@ -202,7 +215,7 @@
                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
                                         <box autoresizesSubviews="NO" title="Sleep-Wake$" borderType="line" id="1033">
-                                            <rect key="frame" x="6" y="130" width="778" height="82"/>
+                                            <rect key="frame" x="6" y="120" width="778" height="82"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <view key="contentView" id="abj-0O-lEX">
                                                 <rect key="frame" x="1" y="1" width="776" height="66"/>
@@ -256,7 +269,7 @@
                                             </connections>
                                         </button>
                                         <popUpButton verticalHuggingPriority="750" id="715">
-                                            <rect key="frame" x="471" y="267" width="313" height="26"/>
+                                            <rect key="frame" x="471" y="247" width="313" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Load Tun automatically$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="726" id="722">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -286,7 +299,7 @@
                                             </connections>
                                         </popUpButton>
                                         <popUpButton verticalHuggingPriority="750" id="716">
-                                            <rect key="frame" x="471" y="236" width="313" height="26"/>
+                                            <rect key="frame" x="471" y="216" width="313" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Load Tap automatically$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="719" id="717">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -316,7 +329,7 @@
                                             </connections>
                                         </popUpButton>
                                         <button id="1029" customClass="TBButton">
-                                            <rect key="frame" x="2" y="316" width="779" height="18"/>
+                                            <rect key="frame" x="2" y="296" width="779" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Keep connected$" bezelStyle="regularSquare" imagePosition="right" alignment="right" inset="2" id="1030">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -327,7 +340,7 @@
                                             </connections>
                                         </button>
                                         <button id="1046" customClass="TBButton">
-                                            <rect key="frame" x="2" y="336" width="779" height="18"/>
+                                            <rect key="frame" x="2" y="316" width="779" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="EnableIPv6 for tap$" bezelStyle="regularSquare" imagePosition="right" alignment="right" inset="2" id="1047">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -338,7 +351,7 @@
                                             </connections>
                                         </button>
                                         <button id="t2C-Ei-Pwp" customClass="TBButton">
-                                            <rect key="frame" x="449" y="273" width="16" height="16"/>
+                                            <rect key="frame" x="449" y="253" width="16" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="59h-cr-Er6">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -346,7 +359,7 @@
                                             </buttonCell>
                                         </button>
                                         <button id="0vO-RA-v0F" customClass="TBButton">
-                                            <rect key="frame" x="449" y="243" width="16" height="16"/>
+                                            <rect key="frame" x="449" y="223" width="16" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="bevel" bezelStyle="circular" image="Info" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="EK2-2d-9te">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
