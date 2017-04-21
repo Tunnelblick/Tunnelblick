@@ -2313,6 +2313,10 @@ int startVPN(NSString * configFile,
             [scriptOptions appendString: @" -n"];
         }
         
+		if (  (bitMask & OPENVPNSTART_OVERRIDE_MANUAL_NETWORK_SETTINGS) != 0  ) {
+			[scriptOptions appendString: @" -o"];
+		}
+		
         if (  (bitMask & OPENVPNSTART_PREPEND_DOMAIN_NAME) != 0  ) {
             [scriptOptions appendString: @" -p"];
         }

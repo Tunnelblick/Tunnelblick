@@ -292,8 +292,13 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	if [ "${DYN_DNS_DN}" != "" ] ; then
 		if [ "${MAN_DNS_DN}" != "" ] ; then
-			logMessage "WARNING: Ignoring DomainName '$DYN_DNS_DN' because DomainName was set manually"
-			readonly FIN_DNS_DN="${MAN_DNS_DN}"
+			if ${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS} ; then
+				logMessage "Will allow changes to manually-set DomainName '${MAN_DNS_DN}'"
+				readonly FIN_DNS_DN="${DYN_DNS_DN}"
+			else
+				logMessage "WARNING: Ignoring DomainName '$DYN_DNS_DN' because DomainName was set manually and '-allowChangesToManuallySetNetworkSettings' was not specified"
+				readonly FIN_DNS_DN="${MAN_DNS_DN}"
+			fi
 		else
 			readonly FIN_DNS_DN="${DYN_DNS_DN}"
 		fi
@@ -303,8 +308,13 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	if [ "${DYN_SMB_NN}" != "" ] ; then
 		if [ "${MAN_SMB_NN}" != "" ] ; then
-			logMessage "WARNING: Ignoring NetBIOSName '$DYN_SMB_NN' because NetBIOSName was set manually"
-			readonly FIN_SMB_NN="${MAN_SMB_NN}"
+			if ${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS} ; then
+				logMessage "Will allow changes to manually-set NetBIOSName '${MAN_SMB_NN}'"
+				readonly FIN_SMB_NN="${DYN_SMB_NN}"
+			else
+				logMessage "WARNING: Ignoring NetBIOSName '$DYN_SMB_NN' because NetBIOSName was set manually and '-allowChangesToManuallySetNetworkSettings' was not specified"
+				readonly FIN_SMB_NN="${MAN_SMB_NN}"
+			fi
 		else
 			readonly FIN_SMB_NN="${DYN_SMB_NN}"
 		fi
@@ -314,8 +324,13 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	if [ "${DYN_SMB_WG}" != "" ] ; then
 		if [ "${MAN_SMB_WG}" != "" ] ; then
-			logMessage "WARNING: Ignoring Workgroup '$DYN_SMB_WG' because Workgroup was set manually"
-			readonly FIN_SMB_WG="${MAN_SMB_WG}"
+			if ${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS} ; then
+				logMessage "Will allow changes to manually-set Workgroup '${MAN_SMB_WG}'"
+				readonly FIN_SMB_WG="${DYN_SMB_WG}"
+			else
+				logMessage "WARNING: Ignoring Workgroup '$DYN_SMB_WG' because Workgroup was set manually and '-allowChangesToManuallySetNetworkSettings' was not specified"
+				readonly FIN_SMB_WG="${MAN_SMB_WG}"
+			fi
 		else
 			readonly FIN_SMB_WG="${DYN_SMB_WG}"
 		fi
@@ -328,8 +343,14 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		readonly FIN_DNS_SA="${CUR_DNS_SA}"
 	else
 		if [ "${MAN_DNS_SA}" != "" ] ; then
-			logMessage "WARNING: Ignoring ServerAddresses '$DYN_DNS_SA' because ServerAddresses was set manually"
-			readonly FIN_DNS_SA="${CUR_DNS_SA}"
+			if ${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS} ; then
+				logMessage "Will allow changes to manually-set ServerAddresses '${MAN_DNS_SA}'"
+				# (Don't include 10.4 or 10.5 code since we now support only 10.7 and higher)
+				readonly FIN_DNS_SA="${DYN_DNS_SA}"
+			else
+				logMessage "WARNING: Ignoring ServerAddresses '$DYN_DNS_SA' because ServerAddresses was set manually and '-allowChangesToManuallySetNetworkSettings' was not specified"
+				readonly FIN_DNS_SA="${CUR_DNS_SA}"
+			fi
 		else
 			case "${OSVER}" in
 				10.4 | 10.5 )
@@ -363,8 +384,14 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		readonly FIN_SMB_WA="${CUR_SMB_WA}"
 	else
 		if [ "${MAN_SMB_WA}" != "" ] ; then
-			logMessage "WARNING: Ignoring WINSAddresses '$DYN_SMB_WA' because WINSAddresses was set manually"
-			readonly FIN_SMB_WA="${MAN_SMB_WA}"
+			if ${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS} ; then
+				logMessage "Will allow changes to manually-set WINSAddresses '${MAN_SMB_WA}'"
+				# (Don't include 10.4 or 10.5 code since we now support only 10.7 and higher)
+				readonly FIN_SMB_WA="${DYN_SMB_WA}"
+			else
+				logMessage "WARNING: Ignoring WINSAddresses '$DYN_SMB_WA' because WINSAddresses was set manually and '-allowChangesToManuallySetNetworkSettings' was not specified"
+				readonly FIN_SMB_WA="${MAN_SMB_WA}"
+			fi
 		else
 		case "${OSVER}" in
 			10.4 | 10.5 )
@@ -404,22 +431,25 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	#
 	# NEW BEHAVIOR (done if ARG_PREPEND_DOMAIN_NAME is "true"):
 	#
-	#     if SearchDomains was entered manually, we do nothing
+	#     if SearchDomains was entered manually and ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS is false, we do nothing
 	#     else we  PREpend new SearchDomains (if any) to the existing SearchDomains (NOT replacing them)
 	#          and PREpend DomainName to that
 	#
 	#              (done if ARG_PREPEND_DOMAIN_NAME is "false" and there are new SearchDomains from DOMAIN-SEARCH):
 	#
-	#     if SearchDomains was entered manually, we do nothing
+	#     if SearchDomains was entered manually and ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS is false, we do nothing
 	#     else we  PREpend any new SearchDomains to the existing SearchDomains (NOT replacing them)
 	#
 	#     This behavior is meant to behave like Linux with Network Manager and Windows
 
 	if "${ARG_PREPEND_DOMAIN_NAME}" ; then
-		if [ "${MAN_DNS_SD}" = "" ] ; then
+		if [ "${MAN_DNS_SD}" = "" -o "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "true" ] ; then
+			if [ "${MAN_DNS_SD}" != "" ] ; then
+				logMessage "Will allow changes to manually-set search domains '${MAN_DNS_SD}'"
+			fi
 			if [ "${DYN_DNS_SD}" != "" ] ; then
                 if ! echo "${CUR_DNS_SD}" | tr ' ' '\n' | grep -q "${DYN_DNS_SD}" ; then
-                    logMessage "Prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
+                    logMessage "Prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually (or are allowed to be changed) and 'Prepend domain name to search domains' was selected"
                     readonly TMP_DNS_SD="$( trim "${DYN_DNS_SD}" "${CUR_DNS_SD}" )"
                 else
                     logMessage "Not prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because it is already there"
@@ -430,7 +460,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 			fi
 			if [ "${FIN_DNS_DN}" != "" -a  "${FIN_DNS_DN}" != "localdomain" ] ; then
                 if ! echo "${TMP_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
-                    logMessage "Prepending '${FIN_DNS_DN}' to search domains '${TMP_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
+                    logMessage "Prepending '${FIN_DNS_DN}' to search domains '${TMP_DNS_SD}' because the search domains were not set manually (or are allowed to be changed) and 'Prepend domain name to search domains' was selected"
                     readonly FIN_DNS_SD="$( trim "${FIN_DNS_DN}" "${TMP_DNS_SD}" )"
                 else
                     logMessage "Not prepending '${FIN_DNS_DN}' to search domains '${TMP_DNS_SD}' because it is already there"
@@ -441,17 +471,20 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 			fi
 		else
 			if [ "${DYN_DNS_SD}" != "" ] ; then
-				logMessage "WARNING: Not prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
+				logMessage "WARNING: Not prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were set manually and '-allowChangesToManuallySetNetworkSettings' was not specified"
 			fi
             if [ "${FIN_DNS_DN}" != "" ] ; then
-                logMessage "WARNING: Not prepending domain '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
+                logMessage "WARNING: Not prepending domain '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were set manually and '-allowChangesToManuallySetNetworkSettings' was not specified"
             fi
 			readonly FIN_DNS_SD="${CUR_DNS_SD}"
 		fi
 	else
 		if [ "${DYN_DNS_SD}" != "" ] ; then
-			if [ "${MAN_DNS_SD}" = "" ] ; then
-				logMessage "Prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually but were set via OpenVPN and 'Prepend domain name to search domains' was not selected"
+			if [ "${MAN_DNS_SD}" = "" -o "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "true" ] ; then
+				if [ "${MAN_DNS_SD}" != "" ] ; then
+					logMessage "Will allow changes to manually-set search domains '${MAN_DNS_SD}'"
+				fi
+				logMessage "Prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually (or are allowed to be changed) but were set via OpenVPN and 'Prepend domain name to search domains' was not selected"
 				readonly FIN_DNS_SD="$( trim "${DYN_DNS_SD}" "${CUR_DNS_SD}" )"
             else
                 logMessage "WARNING: Not prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
@@ -470,11 +503,11 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
                         fi
                         ;;
                     * )
-                        if [ "${MAN_DNS_SD}" = "" ] ; then
-                            logMessage "Setting search domains to '${FIN_DNS_DN}' because running under OS X 10.6 or higher and the search domains were not set manually and 'Prepend domain name to search domains' was not selected"
+                        if [ "${MAN_DNS_SD}" = "" -o "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "true" ] ; then
+                            logMessage "Setting search domains to '${FIN_DNS_DN}' because running under OS X 10.6 or higher and the search domains were not set manually (or are allowed to be changed) and 'Prepend domain name to search domains' was not selected"
                             readonly FIN_DNS_SD="${FIN_DNS_DN}"
                         else
-                            logMessage "Not replacing search domains '${CUR_DNS_SD}' with '${FIN_DNS_DN}' because the search domains were set manually and 'Prepend domain name to search domains' was not selected"
+                            logMessage "Not replacing search domains '${CUR_DNS_SD}' with '${FIN_DNS_DN}' because the search domains were set manually, '-allowChangesToManuallySetNetworkSettings' was not selected, and 'Prepend domain name to search domains' was not selected"
                             readonly FIN_DNS_SD="${CUR_DNS_SD}"
                         fi
                         ;;
@@ -1164,10 +1197,11 @@ logDnsInfo() {
 
 	log_dns_info_manual_dns_sa="$1"
 	log_dns_info_new_dns_sa="$2"
-	if [ "${log_dns_info_manual_dns_sa}" != "" ] ; then
+
+	if [ "${log_dns_info_manual_dns_sa}" != "" -a "${ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS}" = "false"  ] ; then
         logMessage "DNS servers '${log_dns_info_manual_dns_sa}' were set manually"
         if [ "${log_dns_info_manual_dns_sa}" != "${log_dns_info_new_dns_sa}" ] ; then
-            logMessage "WARNING: that setting is being ignored by OS X; '${log_dns_info_new_dns_sa}' is being used."
+            logMessage "WARNING: that setting is being ignored; '${log_dns_info_new_dns_sa}' is being used."
         fi
     fi
 
@@ -1278,6 +1312,8 @@ logMessage "Start of output from ${OUR_NAME}"
 # They come from Tunnelblick, and come first, before the OpenVPN arguments
 # So we set ARG_ script variables to their values and shift them out of the argument list
 # When we're done, only the OpenVPN arguments remain for the rest of the script to use
+ARG_ENABLE_IPV6_ON_TAP="false"
+ARG_DISABLE_IPV6_ON_TUN="false"
 ARG_TAP="false"
 ARG_WAIT_FOR_DHCP_IF_TAP="false"
 ARG_RESTORE_ON_DNS_RESET="false"
@@ -1286,12 +1322,11 @@ ARG_IGNORE_OPTION_FLAGS=""
 ARG_EXTRA_LOGGING="false"
 ARG_MONITOR_NETWORK_CONFIGURATION="false"
 ARG_DO_NO_USE_DEFAULT_DOMAIN="false"
+ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS="false"
 ARG_PREPEND_DOMAIN_NAME="false"
 ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="false"
 ARG_TB_PATH="/Applications/Tunnelblick.app"
 ARG_RESTORE_ON_WINS_RESET="false"
-ARG_DISABLE_IPV6_ON_TUN="false"
-ARG_ENABLE_IPV6_ON_TAP="false"
 
 # Handle the arguments we know about by setting ARG_ script variables to their values, then shift them out
 while [ {$#} ] ; do
@@ -1324,6 +1359,9 @@ while [ {$#} ] ; do
 		shift
     elif [ "$1" = "-n" ] ; then                     # -n = ARG_DO_NO_USE_DEFAULT_DOMAIN
         ARG_DO_NO_USE_DEFAULT_DOMAIN="true"
+        shift
+    elif [ "$1" = "-o" ] ; then                     # -o = ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS
+        ARG_OVERRIDE_MANUAL_NETWORK_SETTINGS="true"
         shift
     elif [ "$1" = "-p" ] ; then                     # -p = ARG_PREPEND_DOMAIN_NAME
 		ARG_PREPEND_DOMAIN_NAME="true"
