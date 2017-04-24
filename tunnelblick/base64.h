@@ -55,8 +55,8 @@
 #ifndef _BASE64_H_
 #define _BASE64_H_
 
-int openvpn_base64_encode(const void *data, int size, char **str);
+int base64_encode(const void *data, int size, char **str);
 
-int openvpn_base64_decode(const char *str, void *data, int size);
+int base64_decode(const char *str, void *data, int size);
 
 #endif

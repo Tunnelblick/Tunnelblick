@@ -52,17 +52,11 @@
  * SUCH DAMAGE.
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#elif defined(_MSC_VER)
-#include "config-msvc.h"
-#endif
-
-#include "syshead.h"
-
 #include "base64.h"
 
-#include "memdbg.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 static char base64_chars[] =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
@@ -72,10 +66,9 @@ static char base64_chars[] =
  * length of *str.
  */
 int
-openvpn_base64_encode(const void *data, int size, char **str)
+base64_encode(const void *data, int size, char **str)
 {
     char *s, *p;
-    int i;
     int c;
     const unsigned char *q;
 
@@ -89,7 +82,7 @@ openvpn_base64_encode(const void *data, int size, char **str)
         return -1;
     }
     q = (const unsigned char *) data;
-    i = 0;
+    int i = 0;
     for (i = 0; i < size; )
     {
         c = q[i++];
@@ -178,7 +171,7 @@ token_decode(const char *token)
  * decoded data written or -1 on error or overflow.
  */
 int
-openvpn_base64_decode(const char *str, void *data, int size)
+base64_decode(const char *str, void *data, int size)
 {
     const char *p;
     unsigned char *q;

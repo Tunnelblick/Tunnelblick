@@ -47,7 +47,7 @@
 
 #include "cert_data.h"
 #include <CommonCrypto/CommonDigest.h>
-#include <openssl/ssl.h>
+#include <stdio.h>
 
 #include "common_osx.h"
 #include "crypto_osx.h"
@@ -258,6 +258,7 @@ createCertDataFromCertificate(SecCertificateRef certificate)
     CFDataRef serial = SecCertificateCopySerialNumber(certificate, NULL);
     pCertData->serial = createHexString((unsigned char *)CFDataGetBytePtr(serial), CFDataGetLength(serial));
     CFRelease(serial);
+    CFRelease(data);
 
     return pCertData;
 }
@@ -384,6 +385,7 @@ parseNameComponent(CFStringRef dn, CFStringRef *pName, CFStringRef *pValue)
 
     if (CFArrayGetCount(nameStrings) != 2)
     {
+        CFRelease(nameStrings);
         return 0;
     }
 
@@ -432,7 +434,7 @@ appendCertField(CertNameRef pCert, CFStringRef name, CFStringRef value)
     int i;
     int ret = 0;
 
-    for (i = 0; i<sizeof(fields)/sizeof(fields[0]); i++)
+    for (i = 0; (unsigned long) i < sizeof(fields)/sizeof(fields[0]); i++)
         ret += tryAppendSingleCertField(pCert, fields[i].field, fields[i].key, name, value);
     return ret;
 }
@@ -789,9 +791,9 @@ certExpired(SecCertificateRef certificate)
         }
     }
 
-    CFRelease(notAfter);
-    CFRelease(notBefore);
-    CFRelease(now);
+    if (notAfter) CFRelease(notAfter);
+    if (notBefore) CFRelease(notBefore);
+    if (now) CFRelease(now);
     return result;
 }
 

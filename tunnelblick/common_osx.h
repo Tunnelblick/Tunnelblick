@@ -47,6 +47,7 @@
 #ifndef __common_osx_h__
 #define __common_osx_h__
 
+#include <stdio.h>
 #include <CoreFoundation/CoreFoundation.h>
 
 void printCFString(CFStringRef str);

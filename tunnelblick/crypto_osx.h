@@ -49,6 +49,7 @@
 
 #include <CoreFoundation/CoreFoundation.h>
 #include <Security/Security.h>
+#include <stdio.h>
 
 extern OSStatus SecKeyRawSign(
     SecKeyRef key,
