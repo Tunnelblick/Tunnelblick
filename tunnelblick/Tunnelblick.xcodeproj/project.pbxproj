@@ -241,6 +241,11 @@
 		B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9FB46170C77A400BCA243 /* LeftNavViewController.m */; };
 		B8D807031832EEC400A0B937 /* NSTimer+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D807021832EEC400A0B937 /* NSTimer+TB.m */; };
 		B8F6264C1641C8C700943C59 /* easyRsa.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6264B1641C8C700943C59 /* easyRsa.m */; };
+		C09E285C1EAE86C700F07A74 /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = C09E28521EAE86C700F07A74 /* base64.c */; };
+		C09E285D1EAE86C700F07A74 /* cert_data.c in Sources */ = {isa = PBXBuildFile; fileRef = C09E28541EAE86C700F07A74 /* cert_data.c */; };
+		C09E285E1EAE86C700F07A74 /* common_osx.c in Sources */ = {isa = PBXBuildFile; fileRef = C09E28561EAE86C700F07A74 /* common_osx.c */; };
+		C09E285F1EAE86C700F07A74 /* crypto_osx.c in Sources */ = {isa = PBXBuildFile; fileRef = C09E28581EAE86C700F07A74 /* crypto_osx.c */; };
+		C09E28601EAE86C700F07A74 /* keychain_mcd.c in Sources */ = {isa = PBXBuildFile; fileRef = C09E285A1EAE86C700F07A74 /* keychain_mcd.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -638,6 +643,16 @@
 		B8D807021832EEC400A0B937 /* NSTimer+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+TB.m"; sourceTree = "<group>"; };
 		B8F6264A1641C8C700943C59 /* easyRsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easyRsa.h; sourceTree = "<group>"; };
 		B8F6264B1641C8C700943C59 /* easyRsa.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = easyRsa.m; sourceTree = "<group>"; };
+		C09E28521EAE86C700F07A74 /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
+		C09E28531EAE86C700F07A74 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
+		C09E28541EAE86C700F07A74 /* cert_data.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cert_data.c; sourceTree = "<group>"; };
+		C09E28551EAE86C700F07A74 /* cert_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cert_data.h; sourceTree = "<group>"; };
+		C09E28561EAE86C700F07A74 /* common_osx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = common_osx.c; sourceTree = "<group>"; };
+		C09E28571EAE86C700F07A74 /* common_osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common_osx.h; sourceTree = "<group>"; };
+		C09E28581EAE86C700F07A74 /* crypto_osx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crypto_osx.c; sourceTree = "<group>"; };
+		C09E28591EAE86C700F07A74 /* crypto_osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypto_osx.h; sourceTree = "<group>"; };
+		C09E285A1EAE86C700F07A74 /* keychain_mcd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = keychain_mcd.c; sourceTree = "<group>"; };
+		C09E285B1EAE86C700F07A74 /* keychain_mcd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keychain_mcd.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -728,6 +743,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C09E28511EAE869A00F07A74 /* Keychain-mcd */,
 				B8407882170CE4E10002B941 /* Authorization & Keychain */,
 				B840787F170CE4130002B941 /* Common */,
 				B8407881170CE4B00002B941 /* Class Extensions & Subclasses */,
@@ -1333,6 +1349,23 @@
 			name = Uninstaller;
 			sourceTree = "<group>";
 		};
+		C09E28511EAE869A00F07A74 /* Keychain-mcd */ = {
+			isa = PBXGroup;
+			children = (
+				C09E28521EAE86C700F07A74 /* base64.c */,
+				C09E28531EAE86C700F07A74 /* base64.h */,
+				C09E28541EAE86C700F07A74 /* cert_data.c */,
+				C09E28551EAE86C700F07A74 /* cert_data.h */,
+				C09E28561EAE86C700F07A74 /* common_osx.c */,
+				C09E28571EAE86C700F07A74 /* common_osx.h */,
+				C09E28581EAE86C700F07A74 /* crypto_osx.c */,
+				C09E28591EAE86C700F07A74 /* crypto_osx.h */,
+				C09E285A1EAE86C700F07A74 /* keychain_mcd.c */,
+				C09E285B1EAE86C700F07A74 /* keychain_mcd.h */,
+			);
+			name = "Keychain-mcd";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
@@ -1793,6 +1826,7 @@
 				633DF4591312B13100B8606C /* ConfigurationManager.m in Sources */,
 				639A1100132AC9D800754C2A /* StatusWindowController.m in Sources */,
 				63ABFE9C1349E435003DEB64 /* LoginWindowController.m in Sources */,
+				C09E285C1EAE86C700F07A74 /* base64.c in Sources */,
 				6388563E134B7E1C008DF8C1 /* PassphraseWindowController.m in Sources */,
 				635ECCF51378885600F67F8D /* DBPrefsWindowController.m in Sources */,
 				635ECCFA137888A800F67F8D /* MyPrefsWindowController.m in Sources */,
@@ -1800,14 +1834,18 @@
 				635ECE631378EA4000F67F8D /* AppearanceView.m in Sources */,
 				635ECE6C1378EA7000F67F8D /* InfoView.m in Sources */,
 				63E56EE713848338007E39AB /* VPNService.m in Sources */,
+				C09E28601EAE86C700F07A74 /* keychain_mcd.c in Sources */,
 				63E56EE813848338007E39AB /* VPNServiceCreateAccountController.m in Sources */,
 				63E56EE913848338007E39AB /* VPNServiceIntroController.m in Sources */,
 				63E56EEA13848338007E39AB /* VPNServiceLoginController.m in Sources */,
 				63E56EEB13848338007E39AB /* VPNServiceProveController.m in Sources */,
+				C09E285D1EAE86C700F07A74 /* cert_data.c in Sources */,
 				63E56EEC13848338007E39AB /* VPNServiceSorryController.m in Sources */,
 				63E56EED13848338007E39AB /* VPNServiceTermsOfServiceController.m in Sources */,
 				63E56EEE13848338007E39AB /* VPNServiceWelcomeController.m in Sources */,
+				C09E285F1EAE86C700F07A74 /* crypto_osx.c in Sources */,
 				634F1B9D1D23FD9D00B1E929 /* Tracker.m in Sources */,
+				C09E285E1EAE86C700F07A74 /* common_osx.c in Sources */,
 				6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */,
 				635971421C06736B0055FBC5 /* UIHelper.m in Sources */,
 				634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */,

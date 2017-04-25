@@ -142,6 +142,7 @@ struct Statistics {
 	BOOL volatile	connectAfterDisconnect; // True if need to connect again after the disconnect completes
 	BOOL volatile	connectAfterDisconnectUserKnows; // Argument for the reconnect
     BOOL volatile   completelyDisconnected; // True only after GUI has caught up to disconnect request
+    SecIdentityRef  identityRef;         // Identity reference for keychain support
 }
 
 // PUBLIC METHODS:

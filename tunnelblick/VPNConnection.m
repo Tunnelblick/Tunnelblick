@@ -28,6 +28,7 @@
 #import "helper.h"
 #import "defines.h"
 #import "sharedRoutines.h"
+#import "keychain_mcd.h"
 
 #import "AlertWindowController.h"
 #import "AuthAgent.h"
@@ -231,6 +232,8 @@ extern volatile int32_t       gActiveInactiveState;
         logFilesMayExist = ([[gTbDefaults stringForKey: @"lastConnectedDisplayName"] isEqualToString: displayName]);
 
         userWantsState   = userWantsUndecided;
+
+        identityRef = NULL;  // identity reference for keychain support
         
         bytecountMutexOK = FALSE;
         OSStatus status = pthread_mutex_init( &bytecountMutex, NULL);
@@ -2801,6 +2804,89 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     TBLog(@"DB-AU", @"Write need cancel.");
                     [managementSocket writeString: @"needok token-insertion-request cancel\r\n" encoding: NSASCIIStringEncoding];
                 }
+            }
+
+        } else if ([command isEqualToString:@"NEED-CERTIFICATE"]) {
+
+            if ([parameterString rangeOfString:@"macosx-keychain:"].location != NSNotFound) {
+                NSRange identityTemplateSeparatorRange = [parameterString rangeOfString: @":"];
+                NSString *identityTemplateString = [parameterString substringFromIndex: identityTemplateSeparatorRange.location+1];
+
+                keychainMcdTemplateSearchResult templateSearchResult = templateSearchResultSuccess;
+                keychainMcdGetCertificateResult getCertResult;
+
+                identityRef = template_to_identity([identityTemplateString cStringUsingEncoding:NSASCIIStringEncoding], &templateSearchResult);
+
+                if (templateSearchResult != templateSearchResultSuccess) {
+
+                    NSString *message = [NSString stringWithFormat:@"No valid identity found for template: %@", identityTemplateString];
+                    identityRef = NULL;
+
+                    [self addToLog:[NSString stringWithFormat:@"*Tunnelblick: Disconnecting; Error: %@", message]];
+                    [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+
+
+                }else{
+
+                    char *cert_b64 = get_certificate(identityRef, &getCertResult);
+
+                    if (getCertResult != getCertificateResultSuccess) {
+
+                        NSString *message = [NSString stringWithFormat:@"Failed to retrieve certificate: %@", identityTemplateString];
+                        if (getCertResult == getCertificateResultError) {
+                            message = [NSString stringWithFormat:@"Failed to retrieve certificate %@: %s", identityTemplateString, cert_b64];
+                        }
+
+                        [self addToLog:[NSString stringWithFormat:@"*Tunnelblick: Disconnecting; Error: %@", message]];
+                        [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+                    }else{
+
+                        [managementSocket writeString:@"certificate\n" encoding:NSASCIIStringEncoding];
+                        [managementSocket writeString:@"-----BEGIN CERTIFICATE-----\n" encoding:NSASCIIStringEncoding];
+
+                        NSMutableString *certString = [NSMutableString new];
+
+                        while (strlen(cert_b64) > 64) {
+                            [certString appendFormat:@"%.64s\n", cert_b64];
+
+                            cert_b64 += 64;
+                        }
+                        if (*cert_b64)
+                        {
+                            [certString appendFormat:@"%s\n", cert_b64];
+                        }
+
+                        [managementSocket writeString:certString encoding:NSASCIIStringEncoding];
+                        [certString release];
+                        [managementSocket writeString:@"-----END CERTIFICATE-----\n" encoding:NSASCIIStringEncoding];
+                        [managementSocket writeString:@"END\n" encoding:NSASCIIStringEncoding];
+
+                    }
+                }
+
+            }else{
+
+                NSString *message = [NSString stringWithFormat: @"No valid identity template from openvpn passed: %@", parameterString];
+
+                [self addToLog:[NSString stringWithFormat:@"*Tunnelblick: Disconnecting; Error: %@", message]];
+                [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+            }
+
+        } else if ([command isEqualToString:@"RSA_SIGN"]) {
+
+            keychainMcdRsasignResult rsasignResult;
+
+            char *rsa_sig_b64 = rsasign(identityRef, [line cStringUsingEncoding:NSASCIIStringEncoding], &rsasignResult);
+
+            if (rsasignResult != rsasignResultSuccess) {
+                NSString *message = @"Failed to sign data";
+
+                [self addToLog:[NSString stringWithFormat:@"*Tunnelblick: Disconnecting; Error: %@", message]];
+                [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
+
+            }else{
+                NSString *rsasig = [NSString stringWithFormat:@"rsa-sig\n%s\nEND\n", rsa_sig_b64];
+                [managementSocket writeString:rsasig encoding:NSASCIIStringEncoding];
             }
         }
     }
