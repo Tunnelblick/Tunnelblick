@@ -126,6 +126,7 @@
 		638A2003135CC3CF00FB932C /* standardize-scutil-output.m in Sources */ = {isa = PBXBuildFile; fileRef = 638A1FE0135CB82500FB932C /* standardize-scutil-output.m */; };
 		638A2005135CC41C00FB932C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
 		638A2029135CC6A300FB932C /* standardize-scutil-output in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 638A1FFC135CC35100FB932C /* standardize-scutil-output */; };
+		638C64181EC3946900E56000 /* NN_NO.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 638C64171EC3946900E56000 /* NN_NO.lproj */; };
 		638E69611097725500587933 /* TBUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 638E69601097725500587933 /* TBUserDefaults.m */; };
 		63903D18145EAD49006627C9 /* HU.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63903D12145EAD49006627C9 /* HU.lproj */; };
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
@@ -490,6 +491,7 @@
 		638A1FE0135CB82500FB932C /* standardize-scutil-output.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "standardize-scutil-output.m"; sourceTree = "<group>"; };
 		638A1FFC135CC35100FB932C /* standardize-scutil-output */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "standardize-scutil-output"; sourceTree = BUILT_PRODUCTS_DIR; };
 		638A2004135CC41C00FB932C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		638C64171EC3946900E56000 /* NN_NO.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NN_NO.lproj; sourceTree = "<group>"; };
 		638E695F1097725500587933 /* TBUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUserDefaults.h; sourceTree = "<group>"; };
 		638E69601097725500587933 /* TBUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUserDefaults.m; sourceTree = "<group>"; };
 		63903D12145EAD49006627C9 /* HU.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HU.lproj; sourceTree = "<group>"; };
@@ -1076,6 +1078,7 @@
 				636A16711B0242490005DD0A /* LV.lproj */,
 				61C03B960ED4E42A00175F22 /* NB.lproj */,
 				631310D513CA18870071C110 /* NL.lproj */,
+				638C64171EC3946900E56000 /* NN_NO.lproj */,
 				63AE8596116CCF7A00D36CB1 /* PL.lproj */,
 				63DC244C19FA7379006B1BDF /* PT_BR.lproj */,
 				631494A219FA7B9E009057D1 /* PT_PT.lproj */,
@@ -1569,6 +1572,7 @@
 				635CBBDF10F3B3D600BF529B /* ZH_CN.lproj in Resources */,
 				635CBBE310F3B3E700BF529B /* ZH_TW.lproj in Resources */,
 				63E372680FEB3FF00012DDE7 /* leasewatch in Resources */,
+				638C64181EC3946900E56000 /* NN_NO.lproj in Resources */,
 				63C043E61023660900E6C1D0 /* IconSets in Resources */,
 				635971461C0673A10055FBC5 /* Preferences-RTL.xib in Resources */,
 				6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */,
