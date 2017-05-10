@@ -344,6 +344,9 @@
 "VPN Details..." = "Detalles de VPN…";
 
 /* Checkbox name */
+"Allow changes to manually-set network settings" = "Permitir cambios para modificar manualmente los ajustes de red";
+
+/* Checkbox name */
 "Apply to all" = "Aplicar a todas";
 
 /* Checkbox name */
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Cuando se selecciona</strong>, si la VPN se desconecta inesperadamente, Tunnelblick intentará reconectarla.</p>\n<p><strong>Cuando no se selecciona</strong>, Tunnelblick no intentará reconectar una VPN si ésta se desconecta inesperadamente.</p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Cuando está marcado</strong>, los ajustes de red que fueron modificados manualmente pueden ser cambiados cuando la VPN se conecte. Esto únicamente ocurre si se especificaron cambios por medio de las opciones en el archivo de configuración de OpenVPN ó desde el servidor de OpenVPN.</p>\n<p><strong>Cuando no está marcado</strong>, los ajustes de red que fueron modificados manualmente no serán cambiados cuando la VPN se conecte.</p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Cuando está marcado</strong>, no se ejecutará la búsqueda automática de actualizaciones o cambios de dirección IP, sin tener en cuenta otros ajustes. Nota: ambas actividades acceden al sitio web de Tunnelblick.</p>\n<p><strong>Cuando no está marcado</strong>, se ejecutará la búsqueda automática de actualizaciones si está habilitada debajo y la detección de cambios de dirección IP se realizará cuando se conecte una configuración, siempre que el ajuste correspondiente de la misma esté habilitado..</p><p>Ver <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] para más detalles.</p><p>&nbsp;</p>";
 
@@ -2087,6 +2093,9 @@
 
 /* Credit description */
 "Finnish translation" = "Traducción al Finés";
+
+/* Credit description */
+"Flemish translation" = "Traducción al Flamenco";
 
 /* Credit description */
 "Founder, original program and documentation" = "Fundador, programa original y documentación";

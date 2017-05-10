@@ -2,16 +2,16 @@
 "Disconnect All (%@) - apparent public IP address %@" = "Verbreek alle (%1$@) - publiek IP adres is waarschijnlijk %2$@";
 
 /* Status message */
-"Disconnect All (%@)" = "Verbreek Alle (%@)";
+"Disconnect All (%@)" = "Verbreek alle (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
 "Disconnect All (%d Connections) - apparent public IP address %@" = "Verbreek Alle (%1$d Verbindingen) - publiek IP adres is waarschijnlijk %2$@";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "Verbreek Alle (%d Verbindingen)";
+"Disconnect All (%d Connections)" = "Verbreek alle (%d Verbindingen)";
 
 /* Status message */
-"No Active Connections" = "Geen Actieve Verbindingen";
+"No Active Connections" = "Geen actieve verbindingen";
 
 /* Textbox name */
 "Username:" = "Gebruikersnaam:";
@@ -74,7 +74,7 @@
 "Convert Configurations" = "Converteer Configuraties";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Kopiëer Console Log naar Klembord";
+"Copy Console Log to Clipboard" = "Kopiëer console log naar klembord";
 
 /* Button */
 "Copy Diagnostic Info to Clipboard" = "Kopiëer diagnostische informatie naar klembord";
@@ -86,7 +86,7 @@
 "Default (%@)" = "Standaard (%@)";
 
 /* Button */
-"Delete Credentials" = "Aanmeldgegevens Verwijderen";
+"Delete Credentials" = "Aanmeldgegevens verwijderen";
 
 /* Button */
 "Delete saved passphrase and try again" = "Verwijder het opgeslagen wachtwoord en probeer opnieuw";
@@ -266,7 +266,7 @@
 "Connect %@%@" = "Verbinden %@%@";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "Aanmeldgegevens van Configuratie Wissen in Sleutelhanger…";
+"Delete Configuration's Credentials in Keychain..." = "Aanmeldgegevens van configuratie wissen in sleutelhanger…";
 
 /* Menu item tooltip */
 "Disabled because this setting is being forced" = "Uitgeschakeld omdat deze instelling verplicht wordt opgelegd";
@@ -287,7 +287,7 @@
 "Examine OpenVPN Configuration File..." = "OpenVPN configuratiebestand onderzoeken…";
 
 /* Menu Item */
-"Make Configuration Private..." = "Configuratie Persoonlijk Maken…";
+"Make Configuration Private..." = "Configuratie persoonlijk maken…";
 
 /* Menu Item */
 "Make Configuration Shared..." = "Configuratie gedeeld maken…";
@@ -323,7 +323,7 @@
 "OpenVPN logging level set by the configuration" = "OpenVPN log niveau is ingesteld door de configuratie";
 
 /* Menu item */
-"Quit Tunnelblick" = "Afsluiten Tunnelblick";
+"Quit Tunnelblick" = "Tunnelblick Afsluiten";
 
 /* Menu Item */
 "Rename Configuration..." = "Configuratie hernoemen…";
@@ -342,6 +342,9 @@
 
 /* Menu item */
 "VPN Details..." = "VPN Details…";
+
+/* Checkbox name */
+"Allow changes to manually-set network settings" = "Sta wijzigingen voor handmatige ingestelde netwerk instellingen toe";
 
 /* Checkbox name */
 "Apply to all" = "Toepassen op alles";
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Wanneer aangevinkt</strong>, indien de VPN onverwacht onderbreekt, zal Tunnelblick proberen opnieuw te verbinden.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, zal Tunnelblick niet opnieuw proberen om met een VPN te verbinden indien de verbinding onverwachts verbreekt.</p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Wanneer aangevinkt</strong>, kunnen netwerkinstellingen welke handmatig waren ingesteld wijzigen wanneer de VPN verbindt. Dit zal alleen gebeuren indien wijzigingen gemaakt waren bij opties in het OpenVPN configuratiebestand of op de OpenVPN server.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, zullen netwerkinstellingen welke handmatig waren ingesteld niet wijzigen wanneer de VPN verbindt.</p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Wanneer aangevinkt</strong>, zal, afhankelijk van andere instellingen niet automatisch worden gecontroleerd of er nieuwe versies zijn of op wijzigingen van het IP adres. Let op: voor deze acties wordt er informatie gestuurd naar de Tunnelblick website.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, zal er alleen automatisch worden gecontroleerd op nieuwe versies als dit hieronder is ingesteld. Op wijzigingen van het IP adres wordt gecontroleerd als er een verbinding wordt gemaakt met een configuratie waarvoor deze optie aan staat.</p><p>Zie <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy en veiligheid</a> [tunnelblick.net] voor meer informatie..</p><p>&nbsp;</p>";
 
@@ -2089,6 +2095,9 @@
 "Finnish translation" = "Finse vertaling";
 
 /* Credit description */
+"Flemish translation" = "Vlaamse vertaling";
+
+/* Credit description */
 "Founder, original program and documentation" = "Oorspronkelijke auteur, originele programmatuur en documentatie";
 
 /* Credit description */
@@ -2125,7 +2134,7 @@
 "LANGUAGE_TRANSLATION" = "Nederlandse vertaling";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Emma Segev, Tjalling Soldaat, Ricardo Guijt en Robbert Hamburg";
+"LEAD_TRANSLATORS" = "Emma Segev, Tjalling Soldaat, Ricardo Guijt, WalterB en Robbert Hamburg";
 
 /* Credit description */
 "Latvian translation" = "Letse vertaling";

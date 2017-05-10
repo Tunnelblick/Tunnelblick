@@ -344,6 +344,9 @@
 "VPN Details..." = "VPN детайли…";
 
 /* Checkbox name */
+"Allow changes to manually-set network settings" = "Разреши промени на ръчно зададени мрежови настройки";
+
+/* Checkbox name */
 "Apply to all" = "Приложи към всички";
 
 /* Checkbox name */
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Когато е маркиран</strong>, ако неочаквано се прекъсне VPN връзката, Tunnelblick ще се опита да се свърже отново.</p>\n<p><strong>Когато не е маркиран</strong>, Tunnelblick няма да се опита да се свърже отново ако неочаквано се прекъсне VPN връзката.</p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Маркирана</strong>, означава, че мрежовите настройки направени ръчно могат да бъдат променени при свързване с VPN. Това може да се случи само ако са направени такива настройки в конфигурацията на OpenVPN или на OpenVPN сървъра.</p>\n<p><strong>Немаркирана</strong>, означава, че мрежовите настройки направени ръчно няма да бъдат променени при свързване с VPN. </p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Маркирано</strong>, не се правят автоматични проверки за актуализации или промяна на IP адреса, независимо от другите настройки. Забележка: и двете дейности ползват сайта на Tunnelblick.</p>\n<p><strong>Немаркирано</strong>, правят се автоматични проверки за актуализации или промяна на IP адреса при свързване ако тази настройка е маркирана.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Лични данни и поверителност</a> [tunnelblick.net] за подробности.</p><p>&nbsp;</p>";
 
@@ -2087,6 +2093,9 @@
 
 /* Credit description */
 "Finnish translation" = "Финландска локализация";
+
+/* Credit description */
+"Flemish translation" = "Фламандска локализация";
 
 /* Credit description */
 "Founder, original program and documentation" = "Основател, оригинална програма и документация";

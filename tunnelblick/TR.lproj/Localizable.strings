@@ -221,7 +221,7 @@
 "Show while connecting" = "Bağlanırken göster";
 
 /* Button */
-"Skip" = "Atla";
+"Skip" = "Geç";
 
 /* Button */
 "Speak" = "Dikte";
@@ -342,6 +342,9 @@
 
 /* Menu item */
 "VPN Details..." = "VPN Detayları...";
+
+/* Checkbox name */
+"Allow changes to manually-set network settings" = "Allow changes to manually-set network settings";
 
 /* Checkbox name */
 "Apply to all" = "Tümüne uygula";
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>İşaretlendiğinde</strong>, eğer VPN bağlantısı beklenmedik sekilde koparsa, Tunnelblick tekrar bağlanmayı deneyecektir.</p>\n<p><strong>İşaretlenmediğinde</strong>, VPN bağlantısı beklenmedik sekilde kopsa bile, Tunnelblick tekrar bağlanmayı denemeyecektir.</p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>";
 
@@ -2018,7 +2024,7 @@
 "Admin mode %@ remaining" = "Yönetici modu %@ kaldı";
 
 /* Credit description */
-"Afrikaans translation" = "Afrikaans translation";
+"Afrikaans translation" = "Afrikaansca çeviri";
 
 /* Credit description */
 "Animation and icon sets code" = "Animasyon ve simge kümesi kodu";
@@ -2042,10 +2048,10 @@
 "Catalan translation" = "Katalanca çeviri";
 
 /* Credit description */
-"Chinese (simplified) translation" = "Chinese (simplified) translation";
+"Chinese (simplified) translation" = "Basitleştirilmiş Çince çevirisi";
 
 /* Credit description */
-"Chinese (traditional) translation" = "Chinese (traditional) translation";
+"Chinese (traditional) translation" = "Geleneksel Çince çeviri";
 
 /* Credentials name */
 "Common" = "Ortak";
@@ -2066,7 +2072,7 @@
 "Czech translation" = "Çekçe çeviri";
 
 /* Credit description */
-"Danish translation" = "Danish translation";
+"Danish translation" = "Danca çeviri";
 
 /* Speak string */
 "Disconnected from %@" = "%@ bağlantısı kesildi";
@@ -2083,10 +2089,13 @@
 "Enter admin mode" = "Yönetici moduna gir";
 
 /* Credit description */
-"Estonian translation" = "Estonian translation";
+"Estonian translation" = "Estonyaca çeviri";
 
 /* Credit description */
 "Finnish translation" = "Fince çeviri";
+
+/* Credit description */
+"Flemish translation" = "Flamanca çeviri";
 
 /* Credit description */
 "Founder, original program and documentation" = "Kurucu, asıl program ve belgelendirme";
@@ -2098,19 +2107,19 @@
 "German translation" = "Almanca çeviri";
 
 /* Credit description */
-"Greek translation" = "Greek translation";
+"Greek translation" = "Yunanca çeviri";
 
 /* Credit description */
 "Hungarian translation" = "Macarca çeviri";
 
 /* Credit description */
-"Icelandic translation" = "Icelandic translation";
+"Icelandic translation" = "İzlandaca çeviri";
 
 /* Credit description */
 "Icon set including Retina images" = "Retina resimleri de içeren simge kümesi";
 
 /* Credit description */
-"Indonesian translation" = "Indonesian translation";
+"Indonesian translation" = "Endonezyaca çeviri";
 
 /* Credit description */
 "Italian translation" = "İtalyanca çeviri";
@@ -2122,13 +2131,13 @@
 "Korean translation" = "Korece çeviri";
 
 /* [name of your language] translation */
-"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
+"LANGUAGE_TRANSLATION" = "DİL_CEVİRİSİ";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Alican Cakil, Iris Coeligena, Emin Kura ve Caglar Ulkuderner";
 
 /* Credit description */
-"Latvian translation" = "Latvian translation";
+"Latvian translation" = "Letonca çeviri";
 
 /* Credit description */
 "Localization code tweaks" = "Yerelleştirme kodu ince ayarları";
@@ -2137,7 +2146,7 @@
 "Multiple configuration folders" = "Çoklu yapılandırma dizinleri";
 
 /* Credit description */
-"Norwegian translation" = "Norwegian translation";
+"Norwegian translation" = "Norveççe çeviri";
 
 /* Credit description */
 "OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 ve 64-bit bütünleştirmesi";
@@ -2152,7 +2161,7 @@
 "Polish translation" = "Lehçe çeviri";
 
 /* Credit description */
-"Portuguese (Brazilian) translation" = "Portuguese (Brazilian) translation";
+"Portuguese (Brazilian) translation" = "Portekizce (Brezilya) çeviri";
 
 /* Credit description */
 "Portuguese translation" = "Portekizce çeviri";

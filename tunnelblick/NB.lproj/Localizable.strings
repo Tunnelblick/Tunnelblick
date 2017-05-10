@@ -344,6 +344,9 @@
 "VPN Details..." = "VPN Detaljer…";
 
 /* Checkbox name */
+"Allow changes to manually-set network settings" = "Tillat endringer for nettverksinnstillinger som har blitt angitt manuelt";
+
+/* Checkbox name */
 "Apply to all" = "Utfør på alle";
 
 /* Checkbox name */
@@ -1658,7 +1661,7 @@
 "Tunnelblick successfully:\n\n" = "Det lyktes Tunnelblick å:\n\n";
 
 /* Window text */
-"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Installeringen av Tunnelblick var vellykket og %ld konfigurasjonene ble installert eller erstattet.";
+"Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Installeringen av Tunnelblick var vellykket og %ld konfigurasjonsinnstillingene ble installert eller erstattet.";
 
 /* Window text */
 "Tunnelblick was successfully installed and one configuration was installed or replaced." = "Tunnelblick ble vellykket installert og én konfigurasjon ble installert eller erstattet.";
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Når merket av</strong>, hvis VPN frakobles uventet, vil Tunnelblick forsøke å koble den til igjen.</p>\n<p><strong>Når ikke merket av</strong>, vil Tunnelblick ikke prøve å koble en VPN hvis den uventent frakobles.</p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Når valgt</strong>, kan nettverksinnstillingene som ble angitt manuelt, endres når VPN-tilkoblingen opprettes. Dette vil kun skje dersom endringer er spesifisert av alternativer i OpenVPN-konfigurasjonsfilen, eller på OpenVPN-serveren.</p>\n<p><strong>Når ikke valgt</strong>, blir nettverksinnstillingene som ble satt manuelt ikke endret ved en VPN-tilkobling.</p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>";
 
@@ -2083,10 +2089,13 @@
 "Enter admin mode" = "Aktiver admin-modus";
 
 /* Credit description */
-"Estonian translation" = "Estonisk oversettelse";
+"Estonian translation" = "Estisk oversettelse";
 
 /* Credit description */
 "Finnish translation" = "Finsk oversettelse";
+
+/* Credit description */
+"Flemish translation" = "Flamsk oversettelse";
 
 /* Credit description */
 "Founder, original program and documentation" = "Grunnlegger, originalprogram og dokumentasjon";

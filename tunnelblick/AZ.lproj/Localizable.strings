@@ -344,6 +344,9 @@
 "VPN Details..." = "VPN Təfərrüatları…";
 
 /* Checkbox name */
+"Allow changes to manually-set network settings" = "Allow changes to manually-set network settings";
+
+/* Checkbox name */
 "Apply to all" = "Hamısına tətbiq et";
 
 /* Checkbox name */
@@ -1475,7 +1478,7 @@
 "The username and password were not accepted by the remote VPN server." = "Istifadəçi adı və parol uzaq VPN server tərəfindən qəbul edilməyib.";
 
 /* Window text */
-"There are no OpenVPN configurations to install." = "There are no OpenVPN configurations to install.";
+"There are no OpenVPN configurations to install." = "Heç bir quraşdırılası OpenVPN konfiqursiyalar yoxdur.";
 
 /* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
@@ -1490,7 +1493,7 @@
 "There was a problem with the OpenVPN configuration. See the Console Log for details." = "OpenVPN konfiqurasiya ilə bir problem var idi. Təfərrüatlar üçün konsol jurnalına baxın.";
 
 /* Window text */
-"There was a problem with\n\n%@:\n\n%@" = "There was a problem with\n\n%1$@:\n\n%2$@";
+"There was a problem with\n\n%@:\n\n%@" = "%1$@ ilə bir problem var idi:\n\n%2$@";
 
 /* Window text */
 "There was a problem:\n\n%@" = "Problem var:\n\n%@";
@@ -1652,10 +1655,10 @@
 "Tunnelblick needs to perform an action that requires administrator authorization.\n" = "Tunnelblick needs to perform an action that requires administrator authorization.\n";
 
 /* Window text */
-"Tunnelblick needs to:\n" = "Tunnelblick needs to:\n";
+"Tunnelblick needs to:\n" = "Tunnelblick aşağıdakı hərəkətləri etməlidir:\n";
 
 /* Window text: '* Installed/Replaced/Uninstalled' */
-"Tunnelblick successfully:\n\n" = "Tunnelblick successfully:\n\n";
+"Tunnelblick successfully:\n\n" = "Tunnelblick uğurla:\n\n";
 
 /* Window text */
 "Tunnelblick was successfully installed and %ld configurations were installed or replaced." = "Tunnelblick was successfully installed and %ld configurations were installed or replaced.";
@@ -1673,7 +1676,7 @@
 "Tunnelblick was successfully replaced and one configuration was installed or replaced." = "Tunnelblick was successfully replaced and one configuration was installed or replaced.";
 
 /* Window text */
-"Tunnelblick was successfully replaced." = "Tunnelblick was successfully replaced.";
+"Tunnelblick was successfully replaced." = "Tunnelblick uğurla əvəz edilib.";
 
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%1$@' within %2$d seconds. The attempt to establish communications has been abandoned.";
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>";
 
@@ -2018,19 +2024,19 @@
 "Admin mode %@ remaining" = "Admin mode %@ remaining";
 
 /* Credit description */
-"Afrikaans translation" = "Afrikaans translation";
+"Afrikaans translation" = "Afrikaans tərcüməsi";
 
 /* Credit description */
 "Animation and icon sets code" = "Animation and icon sets code";
 
 /* Credit description */
-"Arabic translation" = "Arabic translation";
+"Arabic translation" = "Ərəb tərcüməsi";
 
 /* Toolbar text for 'Lock' item */
 "Authenticating..." = "Authenticating…";
 
 /* Credit description */
-"Azerbaijani translation" = "Azerbaijani translation";
+"Azerbaijani translation" = "Azərbaycan tərcüməsi";
 
 /* Credit description */
 "Bulgarian translation" = "Bulgarian translation";
@@ -2048,7 +2054,7 @@
 "Chinese (traditional) translation" = "Chinese (traditional) translation";
 
 /* Credentials name */
-"Common" = "Common";
+"Common" = "Ümumi";
 
 /* Speak string */
 "Connected to %@" = "Connected to %@";
@@ -2089,6 +2095,9 @@
 "Finnish translation" = "Finnish translation";
 
 /* Credit description */
+"Flemish translation" = "Flemish translation";
+
+/* Credit description */
 "Founder, original program and documentation" = "Founder, original program and documentation";
 
 /* Credit description */
@@ -2122,7 +2131,7 @@
 "Korean translation" = "Korean translation";
 
 /* [name of your language] translation */
-"LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
+"LANGUAGE_TRANSLATION" = "Azərbaycan tərcüməsi";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";

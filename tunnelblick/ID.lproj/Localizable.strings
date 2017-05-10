@@ -344,6 +344,9 @@
 "VPN Details..." = "Rincian VPN…";
 
 /* Checkbox name */
+"Allow changes to manually-set network settings" = "Izinkan perubahan ke pengaturan jaringan yang ditata secara manual";
+
+/* Checkbox name */
 "Apply to all" = "Terapkan ke semua";
 
 /* Checkbox name */
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Ketika dicentang</strong>, bila VPN terputus tak terduga, Tunnelblick akan mencoba menyambung ulang.</p>\n<p><strong>Ketika tidak dicentang</strong>, Tunnelblick tidak akan mencoba menyambung ulang suatu VPN bila terputus tak terduga.</p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Ketika dicentang</strong>, pengaturan jaringan yang ditata secara manual boleh diubah ketika VPN menyambung. Ini hanya akan terjadi bila perubahan dinyatakan oleh opsi dalam berkas konfigurasi OpenVPN atau dari server OpenVPN.</p>\n<p><strong>Ketika tidak dicentang</strong>, pengaturan jaringan yang ditata secara manual tidak akan diubah ketak VPN menyambung.</p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Ketika dicentang</strong>, pemeriksaan otomatis untuk pemutakhiran atau pemeriksaan perubahan alamat IP tidak dilakukan, tanpa peduli pengaturan lain. Catatan: kedia aktivitas ini mengakses situs web Tunnelblick.</p>\n<p><strong>Ketika tidak dicentang</strong>, pemeriksaan otomatis untuk pemutakhiran akan dilakukan bila difungsikan di bawah, dan pemeriksaan perubahan alamat IP akan dilakukan ketika menyambungkan suatu konfigurasi bila pengaturan konfigurasi untuk melakukan hal itu difungsikan.</p><p>Lihat <a href=\"https://tunnelblick.net/cPrivacy.html\">Privasi dan Keamanan</a>[tunnelblick.net] untuk rincian.</p><p>&nbsp;</p>";
 
@@ -2087,6 +2093,9 @@
 
 /* Credit description */
 "Finnish translation" = "Terjemahan bahasa Finlandia";
+
+/* Credit description */
+"Flemish translation" = "Terjemahan bahasa Vlaams";
 
 /* Credit description */
 "Founder, original program and documentation" = "Pendiri, program asli, dan dokumentasi";

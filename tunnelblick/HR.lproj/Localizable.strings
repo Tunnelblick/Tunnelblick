@@ -173,7 +173,7 @@
 "Place Icon Near the Spotlight Icon" = "Place Icon Near the Spotlight Icon";
 
 /* Button */
-"Place Icon Normally" = "Place Icon Normally";
+"Place Icon Normally" = "Postavi ikonu";
 
 /* Button */
 "Privacy info..." = "Informacije o privatnosti…";
@@ -320,7 +320,7 @@
 "OpenVPN level 6 - very verbose output" = "OpenVPN razina 6 - jako opširn ispis";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "OpenVPN logging level set by the configuration";
+"OpenVPN logging level set by the configuration" = "OpenVPN razina prijave postavljena";
 
 /* Menu item */
 "Quit Tunnelblick" = "Zatvori Tunnelblick";
@@ -342,6 +342,9 @@
 
 /* Menu item */
 "VPN Details..." = "VPN detalji…";
+
+/* Checkbox name */
+"Allow changes to manually-set network settings" = "Allow changes to manually-set network settings";
 
 /* Checkbox name */
 "Apply to all" = "Primjeni na sve";
@@ -407,10 +410,10 @@
 "Inhibit automatic update checking and IP Address checking" = "Inhibit automatic update checking and IP Address checking";
 
 /* Checkbox name */
-"Keep connected" = "Keep connected";
+"Keep connected" = "Drži spojenim";
 
 /* Checkbox name */
-"Monitor network settings" = "Monitor network settings";
+"Monitor network settings" = "Postavke mobilne mreže";
 
 /* Checkbox name */
 "Place near Spotlight icon" = "Place near Spotlight icon";
@@ -479,16 +482,16 @@
 "AUTH" = "Authorizing"; // Please translate "Authorizing"
 
 /* Connection status */
-"CONNECTED" = "Connected"; // Please translate "Connected"
+"CONNECTED" = "Povezano"; // Please translate "Connected"
 
 /* Connection status */
-"CONNECTING" = "Connecting"; // Please translate "Connecting"
+"CONNECTING" = "Povezivanje"; // Please translate "Connecting"
 
 /* Connection status */
-"DISCONNECTING" = "Disconnecting"; // Please translate "Disconnecting"
+"DISCONNECTING" = "Odspajanje"; // Please translate "Disconnecting"
 
 /* Connection status */
-"EXITING" = "Disconnected"; // Please translate "Disconnected"
+"EXITING" = "Odspojen"; // Please translate "Disconnected"
 
 /* Connection status */
 "GET_CONFIG" = "Getting configuration"; // Please translate ""
@@ -500,7 +503,7 @@
 "PRIVATE_KEY_WAIT" = "Waiting for passphrase"; // Please translate "Waiting for password"
 
 /* Connection status */
-"RECONNECTING" = "Reconnecting"; // Please translate ""
+"RECONNECTING" = "Ponovno povezivanje"; // Please translate ""
 
 /* Connection status */
 "RESOLVE" = "Resolving domain name"; // Please translate ""
@@ -509,22 +512,22 @@
 "SLEEP" = "Waiting for Daemon process"; // Please translate "Waiting for daemon process"
 
 /* Connection status */
-"TCP_CONNECT" = "Making TCP connection"; // Please translate "Making TCP connection"
+"TCP_CONNECT" = "Ostvarivanje TCP konekcije"; // Please translate "Making TCP connection"
 
 /* Connection status */
-"UDP_CONNECT" = "Making UDP connection"; // Please translate "Making UDP connection"
+"UDP_CONNECT" = "Ostvarivanje UDP konekcije"; // Please translate "Making UDP connection"
 
 /* Connection status */
-"WAIT" = "Waiting for server response"; // Please translate "Waiting for Server Response"
+"WAIT" = "Čekanje na odgovor poslužitelja"; // Please translate "Waiting for Server Response"
 
 /* Folder name */
-"Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
+"Sample Tunnelblick VPN Configuration" = "Primjer Tunnelblick VPN konfiguracije";
 
 /* System profile item */
-"Configurations" = "Configurations";
+"Configurations" = "Konfiguracija";
 
 /* Window title */
-" (Deployed)" = " (Deployed)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
+" (Deployed)" = " (postavljeno)"; // Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick
 
 /* Window title */
 " (Private)" = " (Private)";
@@ -551,205 +554,205 @@
 "Add a Configuration" = "Add a Configuration";
 
 /* Window title */
-"Alert sounds" = "Alert sounds";
+"Alert sounds" = "Zvukovi upozorenja";
 
 /* Window title */
-"Alert" = "Alert";
+"Alert" = "Upozorenje";
 
 /* Window title */
-"All OpenVPN process were terminated." = "All OpenVPN process were terminated.";
+"All OpenVPN process were terminated." = "Svi OpenVPN procesi su terminirani.";
 
 /* Window title */
-"All configuration files removed" = "All configuration files removed";
+"All configuration files removed" = "Svi konfiguracijski fajlovi uklonjeni";
 
 /* Window title */
-"Appearance" = "Appearance";
+"Appearance" = "Izgled";
 
 /* Window title */
-"Authentication failed" = "Authentication failed";
+"Authentication failed" = "Autentifikacija nije uspjela";
 
 /* Window title */
-"Configuration(s) Ignored" = "Configuration(s) Ignored";
+"Configuration(s) Ignored" = "Konfiguracija zanemarena";
 
 /* Window title */
-"Connecting & Disconnecting" = "Connecting & Disconnecting";
+"Connecting & Disconnecting" = "Povezivanje i odspajanje";
 
 /* Window title */
-"Could Not Copy Configuration" = "Could Not Copy Configuration";
+"Could Not Copy Configuration" = "Nije moguće kopirati konfiguraciju";
 
 /* Window title */
-"Could Not Move Configuration" = "Could Not Move Configuration";
+"Could Not Move Configuration" = "Nije moguće premjestiti konfiguraciju";
 
 /* Window title */
-"Could Not Replace Configuration" = "Could Not Replace Configuration";
+"Could Not Replace Configuration" = "Nije moguće zamijeniti konfiguraciju";
 
 /* Window title */
-"Could Not Uninstall Configuration" = "Could Not Uninstall Configuration";
+"Could Not Uninstall Configuration" = "Nije moguće ukloniti konfiguraciju";
 
 /* Window title */
-"Create and Edit a Sample Configuration?" = "Create and Edit a Sample Configuration?";
+"Create and Edit a Sample Configuration?" = "Kreiraj i uredi probnu konfiguraciju?";
 
 /* Window title */
-"Details - Tunnelblick" = "Details - Tunnelblick";
+"Details - Tunnelblick" = "Detalji - Tunnelblick";
 
 /* Window title */
-"Do you wish to connect?" = "Do you wish to connect?";
+"Do you wish to connect?" = "Želite li se ponovno spojiti?";
 
 /* Window title */
-"File not found" = "File not found";
+"File not found" = "Datoteka nije pronađena";
 
 /* Window title */
-"Info" = "Info";
+"Info" = "Informacije";
 
 /* Window title */
-"Install Configuration For All Users?" = "Install Configuration For All Users?";
+"Install Configuration For All Users?" = "Instaliraj konfiguraciju za sve korisnike?";
 
 /* Window title */
-"Installation failed" = "Installation failed";
+"Installation failed" = "Instalacija nije uspjela";
 
 /* Window title */
-"Installation or Repair Failed" = "Installation or Repair Failed";
+"Installation or Repair Failed" = "Instalacija ili popravak nije uspio";
 
 /* Window title */
-"Installation succeeded" = "Installation succeeded";
+"Installation succeeded" = "Instalacija uspješna!";
 
 /* Window title */
-"Log" = "Log";
+"Log" = "Logovi";
 
 /* Window title */
-"Name Required" = "Name Required";
+"Name Required" = "Potrebno je ime";
 
 /* Window title */
-"Name not allowed" = "Name not allowed";
+"Name not allowed" = "Ime nije dozvoljeno";
 
 /* Window title */
-"New Feature" = "New Feature";
+"New Feature" = "Nova mogućnost";
 
 /* Window title */
-"No 'dev tun', 'dev utun', or 'dev tap' found" = "No 'dev tun', 'dev utun', or 'dev tap' found";
+"No 'dev tun', 'dev utun', or 'dev tap' found" = "Nije moguće pronaći 'dev tun', 'dev utun' ili 'dev tap'";
 
 /* Window title */
-"No Credentials" = "No Credentials";
+"No Credentials" = "Nema korisničkog imena i/ili lozinke";
 
 /* Window title */
-"One or more OpenVPN processes could not be terminated." = "One or more OpenVPN processes could not be terminated.";
+"One or more OpenVPN processes could not be terminated." = "Jedan ili više OpneVPN procesa nije moguće prekinuti.";
 
 /* Window title */
-"Only computer administrators should update Tunnelblick" = "Only computer administrators should update Tunnelblick";
+"Only computer administrators should update Tunnelblick" = "Samo administrator bi trebao ažurirati Tunnelblick";
 
 /* Window title */
-"OpenVPN is Not Responding" = "OpenVPN is Not Responding";
+"OpenVPN is Not Responding" = "OpenVPN ne reagira";
 
 /* Window title */
-"Please insert token" = "Please insert token";
+"Please insert token" = "Molimo unesite token";
 
 /* Window title */
-"Preferences" = "Preferences";
+"Preferences" = "Postavke";
 
 /* Window title */
-"Replace Existing File?" = "Replace Existing File?";
+"Replace Existing File?" = "Zamijeni postojeći fajl?";
 
 /* Window title */
-"Replace VPN Configuration?" = "Replace VPN Configuration?";
+"Replace VPN Configuration?" = "Zamijeni VPN konfiguraciju?";
 
 /* Window title */
-"Sample Configuration Created" = "Sample Configuration Created";
+"Sample Configuration Created" = "Predložak konfiguracije kreiran";
 
 /* Window title */
-"Settings" = "Settings";
+"Settings" = "Postavke";
 
 /* Window title */
-"Sounds" = "Sounds";
+"Sounds" = "Zvukovi";
 
 /* Window title */
-"System Requirements Not Met" = "System Requirements Not Met";
+"System Requirements Not Met" = "Sistemski zahtjevi nisu ispunjeni";
 
 /* Window title */
-"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
+"There are no OpenVPN processes running." = "Nema pokrenutih OpenVPN procesa.";
 
 /* Window title */
-"Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
+"Tunnelblick Configuration Problem" = "Problem Tunnelblick konfiguracije";
 
 /* Window title */
-"Tunnelblick Error" = "Tunnelblick Error";
+"Tunnelblick Error" = "Tunnelblick error";
 
 /* Window title */
-"Tunnelblick" = "Tunnelblick";
+"Tunnelblick" = "Tunneblick";
 
 /* Window title */
-"Tunnelblick: Login Required" = "Tunnelblick: Login Required";
+"Tunnelblick: Login Required" = "Tunneblick: potrebna je prijava";
 
 /* Window title */
-"Tunnelblick: Passphrase Required" = "Tunnelblick: Passphrase Required";
+"Tunnelblick: Passphrase Required" = "Tunnelblick: potrebna je sigurnosna riječ";
 
 /* Window title */
-"Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
+"Unable to launch Tunnelblick" = "Nije moguće pokrenuti Tunnelblick";
 
 /* Window title */
-"Unavailable" = "Unavailable";
+"Unavailable" = "Nedostupno";
 
 /* Window title */
-"Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
+"Use 'down-root' plugin for OpenVPN?" = "Koristiti 'down-root' plugin za OpenVPN?";
 
 /* Window title */
-"Utilities" = "Utilities";
+"Utilities" = "Korisni programi";
 
 /* Window title */
-"VPN Configuration Installation Error" = "VPN Configuration Installation Error";
+"VPN Configuration Installation Error" = "Greška instalacije VPN konfiguratora";
 
 /* Window title */
-"VPN Configuration Installation" = "VPN Configuration Installation";
+"VPN Configuration Installation" = "Instalacija VPN konfiguratora";
 
 /* Window title */
-"VPN Credentials" = "VPN Credentials";
+"VPN Credentials" = "VPN vjerodajnice";
 
 /* Window title */
-"Warning!" = "Warning!";
+"Warning!" = "Upozorenje!";
 
 /* Window title */
-"Warning" = "Warning";
+"Warning" = "Upozorenje";
 
 /* Window title */
-"Warning: Unknown OpenVPN processes" = "Warning: Unknown OpenVPN processes";
+"Warning: Unknown OpenVPN processes" = "Upozorenje: nepoznati OpenVPN proces";
 
 /* Window title */
-"Welcome to Tunnelblick" = "Welcome to Tunnelblick";
+"Welcome to Tunnelblick" = "Dobrodošli u Tunnelblick";
 
 /* Window title */
-"Welcome" = "Welcome";
+"Welcome" = "Dobrodošli";
 
 /* Window title */
-"While Connected" = "While Connected";
+"While Connected" = "Konekcija";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed %lu configurations\n\n" = "     • Installed %lu configurations\n\n";
+"     • Installed %lu configurations\n\n" = "     Instalirana %lu konfiguracija\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Installed one configuration\n\n" = "     • Installed one configuration\n\n";
+"     • Installed one configuration\n\n" = "     Konfiguracija instalirana\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Replaced %lu configurations\n\n" = "     • Replaced %lu configurations\n\n";
+"     • Replaced %lu configurations\n\n" = "     %lu konfiguracije zamijenjene\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Replaced one configuration\n\n" = "     • Replaced one configuration\n\n";
+"     • Replaced one configuration\n\n" = "     Konfiguracija zamijenjena\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Uninstalled %lu configurations\n\n" = "     • Uninstalled %lu configurations\n\n";
+"     • Uninstalled %lu configurations\n\n" = "     %lu konfiguracije denistalirane\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Uninstalled one configuration\n\n" = "     • Uninstalled one configuration\n\n";
+"     • Uninstalled one configuration\n\n" = "     Konfiguracija deinstalirana\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install %lu configurations\n\n" = "    • Install %lu configurations\n\n";
+"    • Install %lu configurations\n\n" = "    Instaliralirati %lu konfiguraciju \n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install one configuration\n" = "    • Install one configuration\n";
+"    • Install one configuration\n" = "    Instalirati konfiguraciju \n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Replace %lu configurations\n\n" = "    • Replace %lu configurations\n\n";
+"    • Replace %lu configurations\n\n" = "    Zamijeniti %lu konfiguracije\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Replace one configuration\n" = "    • Replace one configuration\n";
+"    • Replace one configuration\n" = "    Zamijeniti konfiguraciju\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Uninstall %lu configurations\n\n" = "    • Uninstall %lu configurations\n\n";
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>";
 
@@ -2087,6 +2093,9 @@
 
 /* Credit description */
 "Finnish translation" = "Finnish translation";
+
+/* Credit description */
+"Flemish translation" = "Flemish translation";
 
 /* Credit description */
 "Founder, original program and documentation" = "Founder, original program and documentation";

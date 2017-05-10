@@ -8,7 +8,7 @@
 "Disconnect All (%d Connections) - apparent public IP address %@" = "Trenne alle (%1$d Verbindungen) - scheinbare öffentliche IP-Adresse %2$@";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "Alle trennen (%d Verbindungen)";
+"Disconnect All (%d Connections)" = "Alle %d Verbindungen trennen";
 
 /* Status message */
 "No Active Connections" = "Keine aktiven Verbindungen";
@@ -302,7 +302,7 @@
 "OpenVPN level %lu" = "OpenVPN Level %lu";
 
 /* Menu Item */
-"OpenVPN level 0 - no output except fatal errors" = "OpenvVPN Level 0 - keine Ausgabe außer kritischer Fehler";
+"OpenVPN level 0 - no output except fatal errors" = "OpenVPN Level 0 - keine Ausgabe außer kritischer Fehler";
 
 /* Menu Item */
 "OpenVPN level 11 - extremely verbose output" = "OpenVPN Level 11 - extrem ausführliche Ausgabe";
@@ -344,6 +344,9 @@
 "VPN Details..." = "VPN-Details…";
 
 /* Checkbox name */
+"Allow changes to manually-set network settings" = "Änderungen erlauben, um die Netzwerkeinstellungen manuell zu verändern";
+
+/* Checkbox name */
 "Apply to all" = "Auf alle anwenden";
 
 /* Checkbox name */
@@ -356,7 +359,7 @@
 "Check if the apparent public IP address changed after connecting" = "Prüfen ob die scheinbare öffentliche IP-Adresse sich nach Verbindungsherstellung geändert hat";
 
 /* Checkbox name */
-"Disable IPv6 (tun only)" = "IPv6 deaktivieren (nur Tun)";
+"Disable IPv6 (tun only)" = "IPv6 deaktivieren (nur tun)";
 
 /* Checkbox name */
 "Disconnect when computer goes to sleep" = "Trennen, wenn der Computer in den Ruhezustand geht";
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Falls ausgewählt</strong>, wird Tunnelblick automatisch neu verbinden, falls die VPN-Verbindung unerwartet getrennt wird.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird Tunnelblick nicht versuchen, die Verbindung wiederherzustellen, nachdem sie unerwartet getrennt wurde.</p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Falls ausgewählt</strong>, können Netzwerkeinstellungen, die manuell gesetzt wurden, geändert werden, wenn die VPN-Verbindung hergestellt wird. Dies wird nur geschehen, wenn die Änderungen durch Optionen der OpenVPN Konfiguration oder vom OpenVPN Server festgelegt werden.</p>\n<p><strong>Falls nicht ausgewählt</strong>, werden Netzwerkeinstellungen die manuell gesetzt wurden nicht geändert, wenn die VPN-Verbindung hergestellt wird.</p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Falls ausgewählt</strong>, wird, unabhängig von anderen Einstellungen, keine automatische Überprüfung auf Updates oder Änderungen der IP-Adresse durchgeführt. Achtung: Beide dieser Aktivitäten greifen auf die Tunnelblick Webseite zu.</p>\n<p><strong>Falls nicht ausgewählt</strong>, wird automatisch auf Updates geprüft, falls dies unten ausgewählt ist, und die IP-Adresse auf Änderungen überprüft, falls eine Verbindung aufgebaut wird und dies in den Einstellungen dieser Konfiguration aktiviert ist.</p><p>Besuchen Sie <a href=\"https://tunnelblick.net/cPrivacy.html\">Privatsphäre und Sicherheit</a> [tunnelblick.net] für Details.</p><p>&nbsp;</p>";
 
@@ -2003,7 +2009,7 @@
 "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Öffnet ein Fenster mit weiteren Einstellungen.</p><p>Alle Änderungen werden auf alle Konfigurationen angewendet, die im \"VPN-Details\" Fenster ausgewählt sind.</p>";
 
 /* HTML info for the 'Quit All OpenVPN Processes' button. */
-"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor application to 'Force Quit' the process.</p>" = "<p> Beendet alle OpenVPN Prozesse, auch die, die nicht von Tunnelblick gestartet wurden. Verwenden Sie die Schaltfläche Tunnelblick 'Verbindung trennen' oder 'alle Verbindungen trennen' und die Menübefehle, um die mit Tunnelblick verbundenen Konfigurationen zu trennen. </p> <p> Durch Klicken auf diese Schaltfläche wird ein 'SIGTERM' Befehl an alle Prozesse mit dem Namen 'openvpn' gesendet. Normalerweise werden dadurch alle OpenVPN Verbindungen geschlossen und beendet. Wenn diese Schaltfläche nicht alle OpenVPN Prozesse beendet, versuchen Sie mit Hilfe der MacOS Aktivitätsanzeige und der Funktion 'Sofort beenden' die OpenVPN Prozesse zu beenden. </p>";
+"<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor application to 'Force Quit' the process.</p>" = "<p> Beendet alle OpenVPN Prozesse, auch die, die nicht von Tunnelblick gestartet wurden. Verwenden Sie die Schaltfläche Tunnelblick 'Verbindung trennen' oder 'alle Verbindungen trennen' und die Menübefehle, um die mit Tunnelblick verbundenen Konfigurationen zu trennen. </p> <p> Durch Klicken auf diese Schaltfläche wird ein 'SIGTERM' Befehl an alle Prozesse mit dem Namen 'openvpn' gesendet. Normalerweise werden dadurch alle OpenVPN Verbindungen geschlossen und beendet. Wenn diese Schaltfläche nicht alle OpenVPN Prozesse beendet, versuchen Sie mit Hilfe der macOS Aktivitätsanzeige und der Funktion 'Sofort beenden' die OpenVPN Prozesse zu beenden. </p>";
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
 "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Setzt Warnungen zurück, die durch eine \"Nicht mehr darauf hinweisen\" Checkbox verhindert wurden.</p>";
@@ -2089,6 +2095,9 @@
 "Finnish translation" = "Finnische Übersetzung";
 
 /* Credit description */
+"Flemish translation" = "Flämische Übersetzung";
+
+/* Credit description */
 "Founder, original program and documentation" = "Gründer, Erschaffer des ursprünglichen Programms und der Dokumentation";
 
 /* Credit description */
@@ -2125,7 +2134,7 @@
 "LANGUAGE_TRANSLATION" = "DEUTSCHE_ÜBERSETZUNG";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Markus Schneider, Andreas Finke und Janek Schwarz";
+"LEAD_TRANSLATORS" = "Markus Schneider, Andreas Finke Janek Schwarz und Robbert Hamburg";
 
 /* Credit description */
 "Latvian translation" = "Lettische Übersetzung";

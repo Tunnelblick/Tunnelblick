@@ -344,6 +344,9 @@
 "VPN Details..." = "VPN Részletek…";
 
 /* Checkbox name */
+"Allow changes to manually-set network settings" = "Változások engedélyezése a hálózati beállítások kézi változtatásához";
+
+/* Checkbox name */
 "Apply to all" = "Alkalmazás mindre";
 
 /* Checkbox name */
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Kiválasztás esetén</strong>, ha a VPN kapcsolat váratlanul megszakad, a Tunnelblick megpróbál újracsatlakozni.</p>\n<p><strong>Ha nincs kiválasztva</strong>, a Tunnelblick nem próbál meg újracsatlakozni, ha a VPN kapcsolat váratlanul megszakad.</p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Kiválasztás esetén</strong> a kézzel változtatott hálózati beállítások módosulhatnak, amikor a VPN csatlakozik. Ez csak akkor történik meg, ha ezek a beállítások az OpenVPN konfigurációs fájlban vagy az OpenVPN szerveren adottak.</p>\n<p><strong>Ha nincs kiválasztva</strong>, a kézzel változtatott hálózati beállítások nem módosulnak, amikor a VPN csatalkozik.</p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Ha </strong> van bejelölve, akkor az automatikus frissítések keresésére vagy IP cím megváltozásának ellenőrzésére nem kerül sor, függetlenül attól, hogy mi a többi beállítás. Megjegyzés: mindkét tevékenység eléri a Tunnelblick honlapját. </p>\n<p> <strong> Ha a nincs kiválasztva </strong>, automatikus frissítések keresésére kerül sor, ha engedélyezve van alul, és az IP-cím változások ellenőrzésére akkor kerül sor, amikor csatlakoztatja a konfigurációt, ha a konfigurációs beállításása erre engedélyezett. </p><p> Lásd <a href=\"https://tunnelblick.net/cPrivacy.html\"> adatvédelem és biztonság </a> [tunnelblick.net] a részletekért. </p> <p>&nbsp; </p>";
 
@@ -2087,6 +2093,9 @@
 
 /* Credit description */
 "Finnish translation" = "Finn fordítás";
+
+/* Credit description */
+"Flemish translation" = "Flamand fordítás";
 
 /* Credit description */
 "Founder, original program and documentation" = "Alapító, eredeti program, dokumentáció";

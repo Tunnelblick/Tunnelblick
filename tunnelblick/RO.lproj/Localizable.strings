@@ -11,7 +11,7 @@
 "Disconnect All (%d Connections)" = "Deconectează tot (%d conexiuni)";
 
 /* Status message */
-"No Active Connections" = "Nicio o conexiune activă";
+"No Active Connections" = "Nicio conexiune activă";
 
 /* Textbox name */
 "Username:" = "Nume utilizator:";
@@ -56,13 +56,13 @@
 "Cancel" = "Anulați";
 
 /* Menu item */ /* Button */
-"Check For Updates Now" = "Verifică actualizări disponibile acum";
+"Check For Updates Now" = "Verifică acum actualizările disponibile";
 
 /* Button */
 "Check Now" = "Verifică acum";
 
 /* Button */
-"Check for a change" = "Verifică";
+"Check for a change" = "Verifică modificările";
 
 /* Button */
 "Connect" = "Conectare";
@@ -71,10 +71,10 @@
 "Continue" = "Continuă";
 
 /* Button */
-"Convert Configurations" = "Convertește configurările";
+"Convert Configurations" = "Convertește configurațiile";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Copiază jurnalul din consolă în Clipboard";
+"Copy Console Log to Clipboard" = "Copiază Log-ul din consolă în Clipboard";
 
 /* Button */
 "Copy Diagnostic Info to Clipboard" = "Copiază diagnoza în Clipboard";
@@ -86,7 +86,7 @@
 "Default (%@)" = "Versiunea implicită (%@)";
 
 /* Button */
-"Delete Credentials" = "Șterge datele de autentificare";
+"Delete Credentials" = "Șterge credențialele";
 
 /* Button */
 "Delete saved passphrase and try again" = "Șterge parola salvată și încearcă din nou";
@@ -125,13 +125,13 @@
 "Install" = "Instalează";
 
 /* Button */
-"Latest (%@)" = "Ultima versiune (%@)";
+"Latest (%@)" = "Cea mai recentă (%@)";
 
 /* Button */
-"Load Tap driver automatically" = "Încarcă driver-ul Tap automat";
+"Load Tap driver automatically" = "Încarcă automat driver-ul Tap";
 
 /* Button */
-"Load Tun driver automatically" = "Încarcă driver-ul Tun automat";
+"Load Tun driver automatically" = "Încarcă automat driver-ul Tap";
 
 /* Button */
 "Manually" = "Manual";
@@ -143,19 +143,19 @@
 "More Info" = "Informații suplimentare";
 
 /* Button */
-"Never load Tap driver" = "Nu încărca niciodată driver-ul Tap";
+"Never load Tap driver" = "Nu încărca vreodată driver-ul Tap";
 
 /* Button */
-"Never load Tun driver" = "Nu încărca niciodată driver-ul Tun";
+"Never load Tun driver" = "Nu încărca vreodată driver-ul Tun";
 
 /* Button */
 "Never show" = "Ascunde întotdeauna";
 
 /* Button */
-"No keyboard shortcut" = "Nu există scurtătură";
+"No keyboard shortcut" = "Fără scurtătură";
 
 /* Button */
-"No sound" = "Lipsă sunet";
+"No sound" = "Niciun sunet";
 
 /* Button */
 "OK" = "OK";
@@ -164,7 +164,7 @@
 "Only Me" = "Doar pentru mine";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Deschide instrucțiunile de dezinstalare în browser";
+"Open Uninstall Instructions in Browser" = "Deschide în browser instrucțiunile de dezinstalare";
 
 /* Button */
 "Open easy-rsa in Terminal" = "Deschide easy-rsa în Terminal";
@@ -342,6 +342,9 @@
 
 /* Menu item */
 "VPN Details..." = "Detalii VPN…";
+
+/* Checkbox name */
+"Allow changes to manually-set network settings" = "Permiteți modificări pentru setarea manuală a setărilor de rețea";
 
 /* Checkbox name */
 "Apply to all" = "Aplică la toate";
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong> Când e bifată </strong>, în cazul în care în mod neașteptat VPN-ul se deconectează, Tunnelblick va încerca să-l reconecteze. </p>\n<p><strong> Atunci când nu este bifată </strong>, Tunnelblick nu va încerca să se reconecteze la VPN în cazul în care se deconectează în mod neașteptat. </p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong> Când este bifată </strong>, setările de rețea setate manual pot fi modificate atunci când VPN se conectează. Acest lucru se va întâmpla numai dacă modificările sunt specificate de opțiunile din fișierul de configurare OpenVPN sau de pe serverul OpenVPN.</p>\n<p><strong> Dacă nu este bifată </strong> setările de rețea setate manual nu vor fi modificate atunci când VPN-ul se conectează. </p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Când este bifată</strong> nu se face verificare automată a versiunilor noi, nici a schimbării adresei de IP - indiferent alte setări. Notă: aceste două funcționalități contactează site-ul Tunnelblick.</p>\n<p><strong>Când nu este bifată</strong>, verificarea automată a versiunilor noi face dacă este bifată mai jos, iar verificarea schimbării adresei de IP se face în momentul conectării la VPN, dacă configurația selectată are activă această opțiune.</p><p>Vizitați secțiunea <a href=\"https://tunnelblick.net/cPrivacy.html\">Securitate și Intimitate</a> [tunnelblick.net] pentru mai multe detalii.</p><p>&nbsp;</p>";
 
@@ -2087,6 +2093,9 @@
 
 /* Credit description */
 "Finnish translation" = "Traducere în limba Finlandeză";
+
+/* Credit description */
+"Flemish translation" = "Traducere în limba Flamandă";
 
 /* Credit description */
 "Founder, original program and documentation" = "Fondator, programul original și documentare";

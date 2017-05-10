@@ -344,6 +344,9 @@
 "VPN Details..." = "VPN 详情…";
 
 /* Checkbox name */
+"Allow changes to manually-set network settings" = "允许对网络设置的手动变更";
+
+/* Checkbox name */
 "Apply to all" = "应用于全部";
 
 /* Checkbox name */
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>当勾选时</strong>，如果 VPN 发生异常断开时，Tunnelblick 会尝试重连。</p>\n<p><strong>当没有勾选是</strong>，Tunnelblick 不会尝试重连即使 VPN 发生异常断开。</p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>当勾选时</strong>, 当 VPN 连接时, 手动变更的网络设置将会生效. 这只会发生在 OpenVPN 配置文件里的选项变更, 或者 OpenVPN 服务器的选项变更.</p>\n<p><strong>当不勾选时</strong>, 当 VPN 连接时, 手动变更的网络设置将不会生效.</p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>选中时</strong>，自动检测更新和IP地址检查的相关修改都不会生效，无视其他相关设置。提示：这两项修改都会访问Tunnelblick网站。</p>\n<p><strong>不选中时</strong>，如果下面开启了，会开启自动更新，并且如果配置中开启了检查IP地址的设置，在连接配置的时候会进行IP地址检查。</p><p>参见 <a href=\"https://tunnelblick.net/cPrivacy.html\">隐私和安全</a> [tunnelblick.net] 获取详细说明。</p><p>&nbsp;</p>";
 
@@ -2087,6 +2093,9 @@
 
 /* Credit description */
 "Finnish translation" = "芬兰语翻译";
+
+/* Credit description */
+"Flemish translation" = "佛兰芒语翻译";
 
 /* Credit description */
 "Founder, original program and documentation" = "创始人, 原始程序和文档";

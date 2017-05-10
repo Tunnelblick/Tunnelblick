@@ -344,6 +344,9 @@
 "VPN Details..." = "Detalls de l'VPN…";
 
 /* Checkbox name */
+"Allow changes to manually-set network settings" = "Permetre canvis als paràmetres de xarxa establerts manualment";
+
+/* Checkbox name */
 "Apply to all" = "Aplicar a tot";
 
 /* Checkbox name */
@@ -1253,7 +1256,7 @@
 "Non-string value for an item in '%@' in %@" = "Valor diferent de cadena d'un element a '%1$@' a %2$@";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Cap de les %ld configuracions tenen credencials (clau privada o nom d'usuari i contrasenya) desades al Clauer.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Cap de les %ld configuracions seleccionades tenen credencials (clau privada o nom d'usuari i contrasenya) desades al Clauer.";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "No es tracta d'un .ovpn o d'un .conf: %@";
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Quan se selecciona</strong>, si la VPN es desconnecta inesperadament, Tunnelblick intentarà reconectarla.</p>\n<p><strong>Quan no se selecciona</strong>, Tunnelblick no intentarà reconectar una VPN si aquesta es desconnecta inesperadament.</p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Quan està seleccionat</strong>, les configuracions de xarxa establertes manualment podran ser canviades quan la VPN connecti. Això només succeirà si hi ha canvis especificats en la configuració del client d'OpenVPN o en la configuració del servidor.</p>\n<p><strong>Quan no està seleccionat</strong>, les configuracions de xarxa establertes manualment no es canviaran quan la VPN connecti.</p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Quan estigui seleccionat</strong>, no s'efectuaran comprovacions de noves versions ni comprovacions de canvis en l'adreça IP, independentment d'altres opcions marcades. Nota: aquestes dues activitats accedeixen a la web de Tunnelblick.</p>\n<p><strong>Quan no estigui seleccionat</strong>, les comprovacions de noves versions es duran a terme si està habilitat més avall, i la comprovació de canvis en l'adreça IP quan es connecta una configuració també es durà a terme si està habilitada aquesta opció.</p><p>Consulta <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacitat i seguretat</a> [tunnelblick.net] per a més detalls.</p><p>&nbsp;</p>";
 
@@ -2087,6 +2093,9 @@
 
 /* Credit description */
 "Finnish translation" = "Traducció al Finès";
+
+/* Credit description */
+"Flemish translation" = "Traducció al Flamenc";
 
 /* Credit description */
 "Founder, original program and documentation" = "Fundador, aplicació i documentació original";

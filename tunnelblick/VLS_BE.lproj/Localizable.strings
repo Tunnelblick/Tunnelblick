@@ -74,10 +74,10 @@
 "Convert Configurations" = "Converteer Configuraties";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Kopiëer Console Log naar Klembord";
+"Copy Console Log to Clipboard" = "Kopiëer console log naar het klembord";
 
 /* Button */
-"Copy Diagnostic Info to Clipboard" = "Kopiëer diagnostische informatie naar klembord";
+"Copy Diagnostic Info to Clipboard" = "Kopiëer diagnostische informatie naar het klembord";
 
 /* Button */
 "Create sample configuration and edit it" = "Voorbeeld-configuratie aanmaken en bewerken";
@@ -86,13 +86,13 @@
 "Default (%@)" = "Standaard (%@)";
 
 /* Button */
-"Delete Credentials" = "Aanmeldgegevens Verwijderen";
+"Delete Credentials" = "Aanmeldgegevens verwijderen";
 
 /* Button */
 "Delete saved passphrase and try again" = "Verwijder het opgeslagen wachtwoord en probeer opnieuw";
 
 /* Button */
-"Delete saved password and try again" = "Verwijder opgeslagen wachtwoord en probeer opnieuw";
+"Delete saved password and try again" = "Verwijder opgeslagen wachtwoord en probeer het opnieuw";
 
 /* Button */
 "Delete" = "Verwijderen";
@@ -101,7 +101,7 @@
 "Disconnect" = "Verbreken";
 
 /* Button */
-"Do not check for a change" = "Controleer niet op een wijziging";
+"Do not check for a change" = "Controleer niet op wijzigingen";
 
 /* Button */
 "Do not use the plugin" = "De plugin niet gebruiken";
@@ -143,10 +143,10 @@
 "More Info" = "Meer informatie";
 
 /* Button */
-"Never load Tap driver" = "Nooit Tap stuurprogramma laden";
+"Never load Tap driver" = "Nooit het Tap stuurprogramma laden";
 
 /* Button */
-"Never load Tun driver" = "Nooit Tun stuurprogramma laden";
+"Never load Tun driver" = "Nooit het Tun stuurprogramma laden";
 
 /* Button */
 "Never show" = "Nooit tonen";
@@ -161,7 +161,7 @@
 "OK" = "Ok";
 
 /* Button */
-"Only Me" = "Alleen Ik";
+"Only Me" = "Alleen ik";
 
 /* Button */
 "Open Uninstall Instructions in Browser" = "Open Verwijder Instructies in Browser";
@@ -176,7 +176,7 @@
 "Place Icon Normally" = "Plaats icoon normaal";
 
 /* Button */
-"Privacy info..." = "Informatie over privacy…";
+"Privacy info..." = "Informatie over Privacy…";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Stop alle OpenVPN processen";
@@ -188,7 +188,7 @@
 "Reinstall" = "Opnieuw installeren";
 
 /* Button */
-"Remove Credentials" = "Verwijder Aanmeldgegevens";
+"Remove Credentials" = "Verwijder aanmeldgegevens";
 
 /* Button */
 "Replace" = "Vervangen";
@@ -206,7 +206,7 @@
 "Retry" = "Probeer opnieuw";
 
 /* Button */
-"Revert" = "Draai terug";
+"Revert" = "Terugstellen";
 
 /* Button */
 "Show on default screen (%u x %u)" = "Toon op standaardscherm (%1$u x %2$u)";
@@ -344,6 +344,9 @@
 "VPN Details..." = "VPN Details…";
 
 /* Checkbox name */
+"Allow changes to manually-set network settings" = "Sta veranderingen toe aan handmatige netwerk instellingen";
+
+/* Checkbox name */
 "Apply to all" = "Toepassen op alles";
 
 /* Checkbox name */
@@ -404,7 +407,7 @@
 "Flush DNS cache after connecting or disconnecting" = "DNS cache leegmaken na verbinding maken of verbinding verbreken";
 
 /* Checkbox name */
-"Inhibit automatic update checking and IP Address checking" = "Geen automatische update controle en IP-adres controle";
+"Inhibit automatic update checking and IP Address checking" = "Geen automatische update en IP-adres controle doen";
 
 /* Checkbox name */
 "Keep connected" = "Verbonden blijven";
@@ -437,7 +440,7 @@
 "Run MTU maximum size test after connecting" = "Voer MTU maximale grootte test uit na verbinden";
 
 /* Checkbox name */
-"Save in Keychain" = "In Sleutelhanger opslaan";
+"Save in Keychain" = "In sleutelhanger opslaan";
 
 /* Checkbox name */
 "Send anonymous profile information when checking" = "Stuur anonieme profielinformatie op";
@@ -452,7 +455,7 @@
 "Show when the pointer is over the Tunnelblick icon" = "Laat zien wanneer de aanwijzer over het Tunnelblick pictogram beweegt";
 
 /* PopUpButton */
-"Do not set nameserver" = "Nameserver niet configureren";
+"Do not set nameserver" = "Nameserver niet instellen";
 
 /* PopUpButton */
 "Set nameserver (3.0b10)" = "Nameserver configureren (3.0b10)";
@@ -797,7 +800,7 @@
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Let op: OpenVPN configuraties zullen geconverteerd worden naar Tunnelblick VPN configuraties.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick moet geïnstalleerd worden in Programma's.\n\n";
+" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick moet geïnstalleerd worden in programma's.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
 " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick vereist computer beheerder toestemming om automatisch '%@' te kunnen verbinden wanneer de computer opstart.";
@@ -908,10 +911,10 @@
 "An error (status %ld) occurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Er is een fout opgetreden (status %1$ld) tijdens de controle van de beveiliging van de %2$@ configuratie.\n\nHerstart Tunnelblick. Indien het probleem aanhoudt, herinstalleer dan Tunnelblick.";
 
 /* Window text */
-"An error occurred while trying to launch %@" = "Er trad een fout op bij het opstarten van %@";
+"An error occurred while trying to launch %@" = "Er is een fout opgetreden bij het opstarten van %@";
 
 /* Window text */
-"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Er deed zich een probleem voor tijdens het herstellen van de beveiligde (schaduw) kopie. Bekijk het Console Log voor details.\n\n";
+"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Er deed zich een probleem voor tijdens het herstellen van de beveiligde (schaduw) kopie. Bekijk het console Log voor details.\n\n";
 
 /* Window text */
 "An error occurred. See the Console Log for details." = "Er is een fout opgetreden. Bekijk de Console Log voor meer informatie.";
@@ -998,7 +1001,7 @@
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuratie '%1$@' zal genegeerd worden, omdat de naam karakters bevat die niet zijn toegestaan.\n\nKarakters die niet zijn toegestaan: '%2$s'\n\n";
 
 /* Window text */
-"Configuration changes:" = "Configuratiewijzigingen:";
+"Configuration changes:" = "Configuratie wijzigingen:";
 
 /* Window text */
 "Configurations are installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them.)\n\nTo install a configuration file, drag and drop it on the Tunnelblick icon in the menu bar or on the list of configurations in the 'Configurations' tab of the 'VPN Details' window.\n\nTo install multiple configuration files at one time, select all the files and then drag and drop all of them." = "Configuraties worden geïnstalleerd uit bestanden die aan u zijn geleverd door uw netwerkbeheerder of VPN-service provider.\n\nDe extensies van de configuratiebestanden zijn van het type .tblk, .ovpn of .conf.\n\n(Er kunnen andere bestanden in verband gebracht worden met de configuratie die andere extensies hebben; negeer ze.) \n\nOm een configuratiebestand te installeren, sleep en zet het bestand neer op het Tunnelblick-icoon in de menubalk of op de lijst van configuraties in het tabblad 'Instellingen' van de 'VPN Details' venster.\n\nOm meerdere configuratie bestanden tegelijk te installeren, selecteert, sleept en zet men alle bestanden neer.";
@@ -1262,7 +1265,7 @@
 "Not replacing an existing configuration, so configuration '%@' cannot use 'TBKeepExistingFilesList'" = "Niet ter vervanging van een bestaande configuratie, de configuratie '%@' kan 'TBKeepExistingFilesList' niet gebruiken.";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Eén of meerdere OpenVPN processen zijn actief, maar niet bekend bij Tunnelblick. Indien u geen OpenVPN actief heeft buiten Tunnelblick, betekent dit doorgaans dat een eerdere instantie van Tunnelblick niet in staat was om ze netjes te stoppen en u ze dus moet beëindigen. Ze zullen waarschijnlijk de werking van Tunnelblick negatief beïnvloeden. Wilt u alle OpenVPN processen beëindigen?";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "Eén of meerdere OpenVPN processen zijn actief, maar niet bekend bij Tunnelblick. Indien u geen OpenVPN actief heeft buiten Tunnelblick, betekent dit doorgaans dat een eerdere instantie van Tunnelblick niet in staat was om ze netjes te stoppen en u ze dus zelf moet beëindigen. Ze zullen waarschijnlijk de werking van Tunnelblick negatief beïnvloeden. Wilt u alle OpenVPN processen beëindigen?";
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Er zijn een of meer OpenVPN-processen actief die niet gekend zijn door Tunnelblick. Indien u OpenVPN niet afzonderlijk van Tunnelblick heeft geactiveerd, betekent dit meestal dat Tunnelblick voordien reeds werd opgestart maar het deze processen niet heeft kunnen beëindigen. U dient deze processen zelf te beëindigen. Ze kunnen de werking van Tunnelblick verstoren. Wilt u ze beëindigen?";
@@ -1283,7 +1286,7 @@
 "One or more VPNs are currently connected. Please disconnect all VPNs and quit Tunnelblick before proceeding." = "Eén of meer VPN's zijn momenteel verbonden. Verbreek alle VPN's en stop Tunnelblick alvorens verder te gaan.";
 
 /* Window text */
-"One or more configurations are being ignored. See the Console Log for details." = "Een of meer configuraties worden momenteel genegeerd. Zie het console log voor details.";
+"One or more configurations are being ignored. See the Console Log for details." = "Een of meer configuraties worden momenteel genegeerd. Bekijk het console log voor details.";
 
 /* Window text */
 "One or more problems were detected:\n\n%@" = "Er zijn één of meer problemen geconstateerd: \n\n%@";
@@ -1340,7 +1343,7 @@
 "Resolved symbolic link at '%@' to '%@'" = "Symbolische link op '%1$@' naar '%2$@'";
 
 /* Window text */
-"Search domain:" = "Zoeken in domein:";
+"Search domain:" = "Zoekdomein:";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Securing Tunnelblick %@..." = "Tunnelblick %@ beveiligen…";
@@ -1505,7 +1508,7 @@
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Het publieke IP adres van deze computer is niet veranderd na het verbinden met %1$@. Het is nog steeds: %2$@.\n\nDit houdt in dat het VPN niet correct geconfigureerd is.\n\n";
 
 /* Window text */
-"This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Deze kopie van Tunnelblick is veranderd (de digitale handtekening is ongeldig).\n\nNeem contact op met de maker van Tunnelblick, voordat u het gaat gebruiken.\n\n";
+"This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Deze kopie van Tunnelblick is gewijzigd (de digitale handtekening is ongeldig).\n\nNeem contact op met de maker van Tunnelblick, voordat u het gaat gebruiken.\n\n";
 
 /* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Deze kopie van Tunnelblick is niet digitaal ondertekend.\n\nEr kan niet achterhaald worden of deze kopie buiten uw weten om veranderd is.\n\n Neem contact op met de maker van Tunnelblick, voordat u het gaat gebruiken.\n\n";
@@ -1589,13 +1592,13 @@
 "Tunnelblick could not find the configuration file or the configuration file could not be sanitized. See the Console Log for details." = "Tunnelblick kon het configuratiebestand niet vinden of het configuratiebestand kon niet worden uitgelezen. Zie het logboek van de console voor meer informatie.";
 
 /* Window text */
-"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de configuratie '%@' niet verplaatsen. Zie het Console Log voor details.";
+"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de configuratie '%@' niet verplaatsen. Zie het console log voor details.";
 
 /* Window text */
-"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de configuratie '%@' niet vervangen. Zie de console log voor meer details.";
+"Tunnelblick could not replace the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de configuratie '%@' niet vervangen. Zie het console log voor meer details.";
 
 /* Window text */
-"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de configuratie '%@' niet verwijderen. Zie het Console Log voor details.";
+"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick kon de configuratie '%@' niet verwijderen. Zie het console log voor details.";
 
 /* Window text */
 "Tunnelblick encountered a fatal error.\n\nPlease contact the developers at developers@tunnelblick.net for help.\n\nThe problem was:\n\n%@" = "Tunnelblick ondervond een fatale fout.\n\nNeem contact op met de ontwikkelaars op developers@tunnelblick.net voor hulp.\n\nHet probleem was:\n\n%@";
@@ -1604,7 +1607,7 @@
 "Tunnelblick encountered errors with %lu configurations:\n\n%@%@%@%@" = "Tunnelblick heeft fouten geconstateerd met %1$lu configurations:\n\n%2$@%3$@%4$@%5$@";
 
 /* Window text */
-"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick slaagde er niet in om problemen op te lossen met voorkeuren voor '%@'. Details staan in het Console Log";
+"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick slaagde er niet in om problemen op te lossen met voorkeuren voor '%@'. Details staan in het console log";
 
 /* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick heeft '%@' verbroken omdat het bijbehorende configuratiebestand is verwijderd.";
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Wanneer aangevinkt</strong>, indien de VPN onverwacht onderbreekt, zal Tunnelblick proberen opnieuw te verbinden.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, zal Tunnelblick niet opnieuw proberen om met een VPN te verbinden indien de verbinding onverwachts verbreekt.</p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Wanneer aangevinkt</strong>, network settings welke handmatig werden ingesteld kunnen gewijzigd zijn als de VPN connecter. Dit gebeurt alleen als wijzigingen zijn gespecificeerd door opties in het OpenVPN configuratie bestand of door de OpenVPN server.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, network settings welke handmatig werden ingesteld zullen niet gewijzigd worden als de VPN connecteert.</p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Wanneer aangevinkt</strong>, zal, afhankelijk van andere instellingen niet automatisch worden gecontroleerd of er nieuwe versies zijn of op wijzigingen van het IP adres. Let op: voor deze acties wordt er informatie gestuurd naar de Tunnelblick website.</p>\n<p><strong>Wanneer niet aangevinkt</strong>, zal er alleen automatisch worden gecontroleerd op nieuwe versies als dit hieronder is ingesteld. Op wijzigingen van het IP adres wordt gecontroleerd als er een verbinding wordt gemaakt met een configuratie waarvoor deze optie aan staat.</p><p>Zie <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy en veiligheid</a> [tunnelblick.net] voor meer informatie..</p><p>&nbsp;</p>";
 
@@ -2089,6 +2095,9 @@
 "Finnish translation" = "Finse vertaling";
 
 /* Credit description */
+"Flemish translation" = "Belgische vertaling";
+
+/* Credit description */
 "Founder, original program and documentation" = "Oorspronkelijke auteur, originele programmatuur en documentatie";
 
 /* Credit description */
@@ -2122,10 +2131,10 @@
 "Korean translation" = "Koreaanse vertaling";
 
 /* [name of your language] translation */
-"LANGUAGE_TRANSLATION" = "Nederlandse vertaling";
+"LANGUAGE_TRANSLATION" = "Vlaamse vertaling";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Emma Segev, Tjalling Soldaat, Ricardo Guijt en Robbert Hamburg";
+"LEAD_TRANSLATORS" = "Robbert Hamburg";
 
 /* Credit description */
 "Latvian translation" = "Letse vertaling";
@@ -2233,7 +2242,7 @@
 "Entries required" = "Vereiste velden";
 
 /* Window title  VPNService */
-"Failed to load Terms of Service" = "Kon Gebruiksvoorwaarden niet laden";
+"Failed to load Terms of Service" = "Kon gebruiksvoorwaarden niet laden";
 
 /* Window title VPNService */
 "No configuration available" = "Geen configuratie beschikbaar";
@@ -2242,7 +2251,7 @@
 "Password entries must match" = "Opgegeven wachtwoorden moeten hetzelfde zijn";
 
 /* Window title  VPNService */
-"Prove You are Human" = "Bewijs dat u een Mens bent";
+"Prove You are Human" = "Bewijs dat u een mens bent";
 
 /* Window title  VPNService */
 "Register with Tunnelblick" = "Registreer met Tunnelblick";

@@ -344,6 +344,9 @@
 "VPN Details..." = "Detaily VPN…";
 
 /* Checkbox name */
+"Allow changes to manually-set network settings" = "Povolit změny ručně nastavených předvoleb sítě";
+
+/* Checkbox name */
 "Apply to all" = "Aplikovat na vše";
 
 /* Checkbox name */
@@ -938,7 +941,7 @@
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Opravdu nechcete zkonvertovat konfigurace OpenVPN do konfigurací VPN Tunnelblicku?\n\nKONFIGURACE NEBUDE DOSTUPNÁ, POKUD JE NEPŘEVEDETE!\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Opravdu si přejete smazat přihlašovací údaje (privátní klíč a/nebo jméno a heslo) pro konfiguraci %ld, která je uložena v klíčence?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) for %ld configurations that are stored in the Keychain?" = "Opravdu si přejete smazat přihlašovací údaje (privátní klíč a/nebo jméno a heslo) pro konfigurace %ld, která jsou uloženy v Klíčence?";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Opravdu si přejete smazat identifikační údaje (privátní klíč a/nebo jméno a heslo) pro '%@', která je uložena v klíčence?";
@@ -1957,6 +1960,9 @@
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>Když zaškrtnuto</strong>, pokud dojde k neočekávanému rozpojení VPN, tak se Tunnelblick pokusí obnovit spojení.</p>\n<p><strong>Když není zaškrtnuto</strong>, Tunnelblick se nebude pokoušet znovunavázat spojení VPN, pokud dojde k neočekávanému rozpojení.</p>\n";
 
+/* HTML info for the 'Allow changes to manually-set network settings' checkbox. */
+"<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>Při zatržení</strong> může dojít během zpracování VPN spojení ke změnám v ručně zadaných předvolbách sítě. K tomu může dojít jen tehdy, když jsou změny určeny nastavením v konfiguračním souboru OpenVPN nebo z OpenVPN serveru.</p>\n<p><strong>Zůstane-li zatržení neaktivní</strong>, nebudou během připojení VPN změněny žádné ručně uložené předvolby sítě.</p>";
+
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
 "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>Je-li zaškrtnuto</strong>, nebudou provedeny žádné kontroly aktualizací nebo změn IP adres, bez ohledu na jiná nastavení. Pozn.: obě tyto aktivity přistupují na web Tunnelblicku.</p>\n<p><strong>Není-li zaškrtnuto</strong>, budou se při povolení níže provádět automatické kontroly aktualizací a kontrola změn IP adres se bude provádět při připojení konfigurace, je-li tato volba v nastavení konfigurace povolena.</p><p>Pro více detailů viz <a href=\"https://tunnelblick.net/cPrivacy.html\">Soukromí a zabezpečení</a> [tunnelblick.net]</p><p>&nbsp;</p>";
 
@@ -2087,6 +2093,9 @@
 
 /* Credit description */
 "Finnish translation" = "Finský překlad";
+
+/* Credit description */
+"Flemish translation" = "Vlámský překlad";
 
 /* Credit description */
 "Founder, original program and documentation" = "Zakladatel a tvůrce původního programu a dokumentace";
