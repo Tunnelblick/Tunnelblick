@@ -344,7 +344,7 @@
 "VPN Details..." = "VPN Detayları...";
 
 /* Checkbox name */
-"Allow changes to manually-set network settings" = "Allow changes to manually-set network settings";
+"Allow changes to manually-set network settings" = "Manuel ayarlanmış seçeneklerin değiştirilmesine izin ver";
 
 /* Checkbox name */
 "Apply to all" = "Tümüne uygula";
@@ -1946,7 +1946,7 @@
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Seçildiğinde</strong>, Tunnelblick, VPN bağlantınızın kopmamasını sağlamak icin, network bağlantısını izler ve örneğin DHCP yenilemeleri veya internet bağlantısı değişikliklerinde geri bildirim sağlar. Tunnelblick'in varsayilan seçenekleri genellikle iyi sonuç verir fakat \"Bağlanti Sağlandiktan Sonra\" sekmesindeki \"İleri düzey Seçenekleri\" ayarlarindan farkli opsiyonlar belirleyebilirsiniz. </p>\n<p><strong>Seçilmediğinde</strong>, Tunnelblick network değişikliklerini dikkate almaz..</p>\n<p><strong>Bu seçenek geçerli degildir</strong> when 'Set DNS/WINS', 'Set nameserver' veya 'Set nameserver (3.1 olarak secilmemistir.</p>";
 
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
-"<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>";
+"<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>Seçildiğinde</strong>, fare imleci Tunnelblick ikonu üzerine geldiğinde 'aktif' olan tüm Tunnelblick bağlantıları için durum penceresi gösterilir.</p><p>'Aktif' bağlantılar, Tunnelblick çalışmaya başladıktan sonra bağlanmayı denediğiniz tüm bağlantılardır.</p><p>Üstteki 'Asla gösterme' seçeneği seçiliyse <strong>bu kutu seçilemez</strong>.</p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
 "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>İşaretlendiğinde</strong>, bir pencerede Tunnelblick'in ilerleme durumunu gösterilecektir.</p>";
