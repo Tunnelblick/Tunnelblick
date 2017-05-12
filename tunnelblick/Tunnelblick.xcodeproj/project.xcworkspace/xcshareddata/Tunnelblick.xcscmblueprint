@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9CF6E881B04835742E7F8DF96691D99964B87DA5",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "EF1CF5E1F342919DE309B5C9DAEDDCF1D12D0402" : 0,
+    "9CF6E881B04835742E7F8DF96691D99964B87DA5" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F700F567-ED15-46FA-B2E4-EE4EA485D93C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "EF1CF5E1F342919DE309B5C9DAEDDCF1D12D0402" : "TB-00-norsk\/third_party\/build\/sparkle\/",
+    "9CF6E881B04835742E7F8DF96691D99964B87DA5" : "TB-00-norsk\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Tunnelblick",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "tunnelblick\/Tunnelblick.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Tunnelblick\/Tunnelblick.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9CF6E881B04835742E7F8DF96691D99964B87DA5"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/sparkle-project\/Sparkle.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EF1CF5E1F342919DE309B5C9DAEDDCF1D12D0402"
+    }
+  ]
+}
