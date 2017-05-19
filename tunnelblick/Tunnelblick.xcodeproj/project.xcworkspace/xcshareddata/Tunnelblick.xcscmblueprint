@@ -7,10 +7,17 @@
     "EF1CF5E1F342919DE309B5C9DAEDDCF1D12D0402" : 0,
     "9CF6E881B04835742E7F8DF96691D99964B87DA5" : 0
   },
+<<<<<<< Updated upstream
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F700F567-ED15-46FA-B2E4-EE4EA485D93C",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "EF1CF5E1F342919DE309B5C9DAEDDCF1D12D0402" : "TB-00-norsk\/third_party\/build\/sparkle\/",
     "9CF6E881B04835742E7F8DF96691D99964B87DA5" : "TB-00-norsk\/"
+=======
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "2ED17CFC-BD4B-4D7F-9309-45240DBB8486",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "EF1CF5E1F342919DE309B5C9DAEDDCF1D12D0402" : "TB-00-3.7.1beta01\/third_party\/build\/sparkle\/",
+    "9CF6E881B04835742E7F8DF96691D99964B87DA5" : "TB-00-3.7.1beta01\/"
+>>>>>>> Stashed changes
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Tunnelblick",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
