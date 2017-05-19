@@ -1544,6 +1544,7 @@ NSString * sanitizedConfigurationContents(NSString * cfgContents) {
                                  @"<pkcs12>",
                                  @"<secret>",
                                  @"<tls-auth>",
+                                 @"<tls-crypt>",
                                  nil];
     
     NSArray * endInlineKeys = [NSArray arrayWithObjects:
@@ -1556,6 +1557,7 @@ NSString * sanitizedConfigurationContents(NSString * cfgContents) {
                                @"</pkcs12>",
                                @"</secret>",
                                @"</tls-auth>",
+                               @"</tls-crypt>",
                                nil];
     
     unsigned i;

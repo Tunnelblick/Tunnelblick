@@ -1125,6 +1125,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 								 @"crl-verify",                    // Optional 'direction' argument
 								 @"secret",                        // Optional 'direction' argument
 								 @"tls-auth",                      // Optional 'direction' argument
+								 @"tls-crypt",
 								 nil];
     
     // List of OpenVPN options that take a command
@@ -1157,6 +1158,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                                  @"<pkcs12>",
                                  @"<secret>",
                                  @"<tls-auth>",
+                                 @"<tls-crypt>",
                                  nil];
     
     NSArray * endInlineKeys = [NSArray arrayWithObjects:
@@ -1168,6 +1170,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                                @"</pkcs12>",
                                @"</secret>",
                                @"</tls-auth>",
+                               @"</tls-crypt>",
                                nil];
     
     // List of OpenVPN options that cannot appear in a Tunnelblick VPN Configuration unless the file they reference has an absolute path
@@ -1653,6 +1656,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"tls-auth|"
     @"tls-cipher|"
     @"tls-client|"
+    @"tls-crypt|"
     @"tls-exit|"
     @"tls-export-cert|"
     @"tls-remote|"
