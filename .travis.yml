@@ -1,0 +1,14 @@
+osx_image: xcode7
+language: objective-c
+
+xcode_project: tunnelblick/Tunnelblick.xcodeproj
+
+script:
+    - third_party/ShellScriptToInstallAutotools.sh
+    - cp -r tunnelblick/xcodeproj-versions/xcode\ 7.0/Tunnelblick.xcodeproj/* tunnelblick/Tunnelblick.xcodeproj
+#    - xcodebuild -project tunnelblick/Tunnelblick.xcodeproj -target Tunnelblick -configuration "Unsigned Release" | tee xcodebuild.log
+    - xcodebuild -project tunnelblick/Tunnelblick.xcodeproj -target Tunnelblick -configuration Debug | tee xcodebuild.log
+
+after_success:
+    - oclint-xcodebuild -output compile_commands.json xcodebuild.log
+    - oclint-json-compilation-database -enable-clang-static-analyzer -- -max-priority-2=20 -max-priority-3=100 -rc LONG_LINE=150 -rc=CYCLOMATIC_COMPLEXITY=1 -report-type json -o report.json && cat report.json
