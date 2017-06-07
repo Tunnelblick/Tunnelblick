@@ -875,6 +875,7 @@ BOOL invalidConfigurationName(NSString * name, const char badCharsC[])
 	
 	return (   ( [name length] == 0)
             || ( [name hasPrefix: @"."] )
+			|| ( [name hasSuffix: @"."] )
             || ( [name rangeOfString: @".."].length != 0)
             || ( NULL != strpbrk(nameC, badCharsC) )
             );
