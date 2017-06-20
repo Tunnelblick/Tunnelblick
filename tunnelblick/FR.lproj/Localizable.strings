@@ -1580,7 +1580,7 @@
 "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = %@" = "CFUserNotificationCreate() a retourné l'erreur %1$ld; notification = %2$@";
 
 /* Window text */
-"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick n'a plus obtenir une adresse IP avant que la connexion à %@ ait été effectuée.\n\n";
+"Tunnelblick could not fetch IP address information before the connection to %@ was made.\n\n" = "Tunnelblick n'a pas pu obtenir une adresse IP avant que la connexion à %@ ait été effectuée.\n\n";
 
 /* Window text */
 "Tunnelblick could not find a 'tun' or 'tap' option in the OpenVPN configuration file" = "Tunnelblick n'a pas trouvé d'option 'tun' ou 'tap' dans le fichier de configuration OpenVPN";

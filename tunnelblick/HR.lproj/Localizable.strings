@@ -1,11 +1,11 @@
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Disconnect All (%1$@) - apparent public IP address %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Odspoji Sve (%1$@) - vidljiva javna IP adresa %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Prekini sve veze (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Disconnect All (%1$d Connections) - apparent public IP address %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "Odspoji Sve (%1$d veze) - vidljiva javna IP adresa %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Prekini sve veze (%d veza)";
@@ -362,7 +362,7 @@
 "Disable IPv6 (tun only)" = "Onemogući IPv6 (samo za Tun)";
 
 /* Checkbox name */
-"Disconnect when computer goes to sleep" = "Disconnect when computer goes to sleep";
+"Disconnect when computer goes to sleep" = "Odspoji pri odlasku u stanje mirovanja računala";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Disconnect when user switches out";
@@ -440,7 +440,7 @@
 "Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
 
 /* Checkbox name */
-"Save in Keychain" = "Save in Keychain";
+"Save in Keychain" = "Pohrani u Privjesak ključeva";
 
 /* Checkbox name */
 "Send anonymous profile information when checking" = "Send anonymous profile information when checking";
@@ -449,7 +449,7 @@
 "Set DNS after routes are set" = "Set DNS after routes are set";
 
 /* Checkbox name */
-"Show when disconnected" = "Show when disconnected";
+"Show when disconnected" = "Prikaži kad odspojen";
 
 /* Checkbox name */
 "Show when the pointer is over the Tunnelblick icon" = "Show when the pointer is over the Tunnelblick icon";
@@ -458,10 +458,10 @@
 "Do not set nameserver" = "Do not set nameserver";
 
 /* PopUpButton */
-"Set nameserver (3.0b10)" = "Set nameserver (3.0b10)";
+"Set nameserver (3.0b10)" = "Postavi imenskog poslužitelja (3.0b10)";
 
 /* PopUpButton */
-"Set nameserver (3.1)" = "Set nameserver (3.1)";
+"Set nameserver (3.1)" = "Postavi imenskog poslužitelja (3.1)";
 
 /* PopUpButton */
 "Set nameserver (alternate 1)" = "Set nameserver (alternate 1)";

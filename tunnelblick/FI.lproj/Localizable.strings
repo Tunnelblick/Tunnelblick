@@ -344,7 +344,7 @@
 "VPN Details..." = "VPN-yksityiskohdat…";
 
 /* Checkbox name */
-"Allow changes to manually-set network settings" = "Allow changes to manually-set network settings";
+"Allow changes to manually-set network settings" = "Salli käsintehdyt muutokset verkkoasetuksiin";
 
 /* Checkbox name */
 "Apply to all" = "Käytä kaikille";
@@ -1919,13 +1919,13 @@
 "<p><strong>When checked</strong>, OpenVPN will modify DNS and other settings after it sets up routing for the VPN instead of before setting up the routing.</p>\n<p><strong>When not checked</strong>, OpenVPN will modify DNS and other settings before it sets up routing for the VPN, instead of after setting up the routing. This can cause DNS failures or delays if the routes take a long time to set up -- for example, if there are many routes to set up.</p>\n" = "<p><strong>Kun valittu</strong>, OpenVPN muokkaa DNS- ja muita asetuksia sen jälkeen, kun se on asettanut reitityksen VPN:lle sen sijaan, että tekisi sen ennen reitityksen asettamista.</p>\n<p><strong>Kun ei valittu</strong>, OpenVPN muokkaa DNS- ja muita asetuksia ennen kuin se asettaa reitityksen VPN:lle, sen sijaan, että tekisi sen reitityksen asettamisen jälkeen. Tämä voi aiheuttaa DNS-vikoja tai viipeitä, jos reittien asettaminen vie kauan aikaa -- esimerkiksi, jos on monia reittiä asetettavana.</p>\n";
 
 /* HTML info for the 'Run MTU maximum size test after connecting' checkbox. */
-"<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n";
+"<p><strong>When checked</strong>, OpenVPN will run a test to determine the maximum MTU size for the connection. The test starts each time a connection is made, and can take several minutes. Test results appear in the Tunnelblick log.</p>\n" = "<p><strong>Kun valittu</strong>, OpenVPN suorittaa yhteyden MTU:n maksimikoon tarkistuksen. Testi suoritetaan jokaisen uuden yhteyden alkaessa. Se voi kestää useita minuutteja. Testin tulokset ilmestyvät Tunnelblickin lokiin.</p>\n";
 
 /* HTML info for the 'Check for updates to beta versions' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>";
+"<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>Kun valintaruutu on valittu</strong>, Tunnelblick ottaa myös beta-versiot huomioon päivityksiä tarkistaessaan..</p>\n<p><strong>Kun valintaruutu ei ole valittu</strong>, Tunnelblick ottaa vain julkaisuversiot huomioon päivityksiä tarkistaessaan.</p><p><strong>Valintaruutu on poissa käytöstä</strong> ja valittu, kun käytät beta-versiota.</p>";
 
 /* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>";
+"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>Jos valittu</strong>, Tunnelblick tarkistaa päivitykset käynnistyessä ja säännöllisesti sen jälkeen.</p><p><strong>Tämä valintaruutu on estetty</strong> ja valinta poistettu, kun 'Estä automaattisten päivitysten tarkistus ja IP Osoitteen tarkistus' on käytössä.</p>\n \nContext | Request Context";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>Kun valittu</strong>, Tunnelblick määrittää tietokoneen julkisen IP-osoitteen sitä ennen ja sen jälkeen, kun VPN on kytkeytynyt ja varoittaa, mikäli IP-osoite ei muutu.</p>\n<p>The tunnelblick.net-sivustoon muodostetaan yhteys tämän toiminnon suorittamiseksi. Yhteys tehdään tavallisesti protokollalla https: käyttäen tunnelblick.net-nimeä, sen sijaan, että jos yhteydenmuodostus epäonnistuu, yhteydenottoa yritetään käyttäen protokollaa http: ja web-sivuston IP-osoitetta.</p>\n<p><strong>Kun ei valittu</strong>, Tunnelblick ei tarkista IP-osoitteen muutoksia eikä varoita, mikäli IP-osoite ei muutu sen jälkeen, kun VPN-yhteys on muodostettu.</p>\n";
@@ -2095,7 +2095,7 @@
 "Finnish translation" = "Suomalainen käännös";
 
 /* Credit description */
-"Flemish translation" = "Flemish translation";
+"Flemish translation" = "Flaaminkielinen käännös";
 
 /* Credit description */
 "Founder, original program and documentation" = "Perustaja, alkuperäinen ohjelma ja dokumentaatio";

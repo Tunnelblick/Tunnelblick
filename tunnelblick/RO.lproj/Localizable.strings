@@ -53,7 +53,7 @@
 "Back" = "Înapoi";
 
 /* Button */
-"Cancel" = "Anulați";
+"Cancel" = "Anulare";
 
 /* Menu item */ /* Button */
 "Check For Updates Now" = "Verifică acum actualizările disponibile";
@@ -86,7 +86,7 @@
 "Default (%@)" = "Versiunea implicită (%@)";
 
 /* Button */
-"Delete Credentials" = "Șterge credențialele";
+"Delete Credentials" = "Șterge datele de autentificare";
 
 /* Button */
 "Delete saved passphrase and try again" = "Șterge parola salvată și încearcă din nou";
