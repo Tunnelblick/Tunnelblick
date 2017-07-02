@@ -50,7 +50,7 @@ Which platform you build on determines what platforms can run the Tunnelblick ap
    ⁃ OpenVPN and the tun and tap kexts are 32/64-bit PowerPC/Intel programs.
 
 
-**3. Setting up Xcode to Build Tunnelblick** (
+**3. Setting up Xcode to Build Tunnelblick**
 
 (Not necessary with Xcode 3.2.2.)
 
@@ -67,10 +67,10 @@ Xcode 7.0+ also need to have the command line tools installed. You can do that i
 
 **4. Installing the GNU autotools**
 
-To build Tunnelblick, the build computer must have appropriate versions of the GNU "auto tools" installed in /usr/local/bin.  
+To build Tunnelblick, the build computer must have appropriate versions of the GNU "auto tools" installed in /usr/local/bin.
 
   **Method 1. Homebrew Install**
-  
+
   Required packages are available from homebrew. If you have homebrew installed, open a Terminal window and execute
 
   brew install autoconf automake libtool
@@ -122,7 +122,7 @@ Your .dmg file is at **TunnelblickSource**/tunnelblick/build/Release/Tunnelblick
 
 Good luck!
 
-If you have problems, please post to the Tunnelblick Discussion Group.
+If you have problems, please post to the [Tunnelblick Discussion Group](https://groups.google.com/forum/#!forum/tunnelblick-discuss).
 
 
 Building OpenVPN and the Other Third-Party Software
