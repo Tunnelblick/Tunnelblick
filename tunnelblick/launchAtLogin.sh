@@ -4,14 +4,10 @@ trap "" HUP
 trap "" INT
 export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
-# Launch Tunnelblick if the 'launchAtNextLogin' preference is "1" or OpenVPN is running.
+# Launch Tunnelblick if the 'launchAtNextLogin' preference is "1" or OpenVPN is running or is about to be run.
 #
-# The preference is set to "1" when you launch Tunnelblick and is set to "0" when you
-# quit Tunnelblick and you are not logging out.
-# So Tunnelblick is launched only if it was running when you logged out or shut down
-# or restarted the computer or a process whose name contains 'openvpn' or 'tunnelblick-helper'
-# is running. (This includes 'openvpnstart' and 'tunnelblick-helper' to handle the case where
-# OpenVPN is about to be started but has not yet been started.)
+# The preference is set to "1" when you launch Tunnelblick if the 'doNotLaunchOnLogin' preference is not "1".
+# The preference is set to "0" when you quit Tunnelblick and you are not logging out.
 
 launch_at_login_preference="$( defaults read net.tunnelblick.tunnelblick launchAtNextLogin 2> /dev/null )"
 if [ "${launch_at_login_preference}" = "1" ] ; then
