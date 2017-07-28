@@ -87,7 +87,7 @@ BOOL itemIsVisible(NSString * path);
 
 BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser);
 
-NSDictionary * getSafeEnvironment(bool includeIV_GUI_VER);
+NSDictionary * getSafeEnvironment(void);
 
 OSStatus runTool(NSString * launchPath,
                  NSArray  * arguments,

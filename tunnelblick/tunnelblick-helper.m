@@ -912,7 +912,7 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
     
     [task setCurrentDirectoryPath: @"/private/tmp"];
     
-    [task setEnvironment: getSafeEnvironment([[thePath lastPathComponent] isEqualToString: @"openvpn"])];
+    [task setEnvironment: getSafeEnvironment()];
     
 	becomeRoot([NSString stringWithFormat: @"launch %@", [thePath lastPathComponent]]);
     
@@ -2101,6 +2101,22 @@ int startVPN(NSString * configFile,
 								 @"--cd",         cdFolderPath,
                                  nil];
     
+	// Set IV_GUI_VER using the "--setenv" option
+	// We get the Info.plist contents as follows because NSBundle's objectForInfoDictionaryKey: method returns the object as it was at
+	// compile time, before the TBBUILDNUMBER is replaced by the actual build number (which is done in the final run-script that builds Tunnelblick)
+	// By constructing the path, we force the objects to be loaded with their values at run time.
+	NSString * plistPath    = [[[[NSBundle mainBundle] bundlePath]
+								stringByDeletingLastPathComponent] // Remove /Resources
+							   stringByAppendingPathComponent: @"Info.plist"];
+	NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
+	NSString * bundleId     = [infoDict objectForKey: @"CFBundleIdentifier"];
+	NSString * buildNumber  = [infoDict objectForKey: @"CFBundleVersion"];
+	NSString * fullVersion  = [infoDict objectForKey: @"CFBundleShortVersionString"];
+	NSString * guiVersion   = [NSString stringWithFormat: @"\"%@ %@ %@\"", bundleId, buildNumber, fullVersion];
+	[arguments addObject: @"--setenv"];
+	[arguments addObject: @"IV_GUI_VER"];
+	[arguments addObject: guiVersion];
+	
     // Optionally specify verb level before the configuration file, so the configuration file can override it while it is being processed
     if (  verbString  ) {
         [arguments addObject: @"--verb"];
