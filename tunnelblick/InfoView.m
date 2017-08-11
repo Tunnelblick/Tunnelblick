@@ -567,6 +567,14 @@ extern TBUserDefaults * gTbDefaults;
 - (void)scrollCredits:(NSTimer *)timer
 {
 	(void) timer;
+    
+    if (  lastPosition != [[infoCreditSV contentView] bounds].origin.y  ) {
+        // Manual scroll has occurred. Pause the auto-scroll for at least a second.
+        startTime = [NSDate timeIntervalSinceReferenceDate] + 1.0;
+        
+        requestedPosition = lastPosition;
+        restartAtTop = NO;
+    }
 	
     if ([NSDate timeIntervalSinceReferenceDate] >= startTime) {
         if (  restartAtTop  ) {
@@ -581,12 +589,7 @@ extern TBUserDefaults * gTbDefaults;
             }
             // Set the position
             [infoCreditTV scrollPoint:NSMakePoint( 0.0, 0.0 )];
-            
-            return;
-        }
-        
-        CGFloat actualPosition = [[infoCreditSV contentView] bounds].origin.y;
-        if (  requestedPosition > actualPosition + 200.0  ) {
+        } else if (  requestedPosition > [infoCreditTV bounds].size.height + 200.0  ) {
             // Reset the startTime
             startTime = [NSDate timeIntervalSinceReferenceDate] + 1.0;  // Time from fading out at end to fade in at top
             
@@ -607,6 +610,8 @@ extern TBUserDefaults * gTbDefaults;
             requestedPosition += 1.0;
         }
     }
+    
+    lastPosition = [[infoCreditSV contentView] bounds].origin.y;
 }
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, infoHelpButton)

@@ -41,6 +41,7 @@
     NSTimer                     * scrollTimer;
     NSTimeInterval                startTime;
     CGFloat                       requestedPosition;
+    CGFloat                       lastPosition;
     BOOL                          restartAtTop;
     
     IBOutlet NSButton           * infoHelpButton;
