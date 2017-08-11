@@ -2529,11 +2529,11 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSUInteger logSizeIx = NSNotFound;
     NSArrayController * ac = [generalPrefsView maximumLogSizeArrayController];
     NSArray * list = [ac content];
-    unsigned i;
+    NSUInteger i;
     for (  i=0; i<[list count]; i++  ) {
         NSDictionary * dict = [list objectAtIndex: i];
         NSString * listValue = [dict objectForKey: @"value"];
-        unsigned listValueSize;
+        NSUInteger listValueSize;
         if (  [listValue respondsToSelector:@selector(intValue)]  ) {
             listValueSize = [listValue unsignedIntValue];
         } else {
@@ -2811,9 +2811,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     // Search popup list for the specified filename and the default
     NSArray * icsContent = [[appearancePrefsView appearanceIconSetArrayController] content];
-    unsigned i;
+    NSUInteger i;
     NSUInteger iconSetIx = NSNotFound;
-    unsigned defaultIconSetIx = NSNotFound;
+    NSUInteger defaultIconSetIx = NSNotFound;
     for (  i=0; i< [icsContent count]; i++  ) {
         NSDictionary * dict = [icsContent objectAtIndex: i];
         NSString * fileName = [dict objectForKey: @"value"];

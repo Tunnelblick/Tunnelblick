@@ -19,7 +19,7 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-#import "leftNavViewController.h"
+#import "LeftNavViewController.h"
 
 @implementation LeftNavViewController
 
