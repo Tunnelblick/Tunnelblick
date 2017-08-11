@@ -1630,25 +1630,19 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 	}
 }
 
--(BOOL) loadHighlightedIconSet: (NSString *) menuIconSet {
+-(void) loadHighlightedIconSet: (NSString *) menuIconSet {
     // Attempts to load a highlighted image set
     // Assumes regular and large image sets have already loaded successfully
-    // Returns YES if loaded or not present (in which case it uses the normal images as highlighted images)
-    // Returns NO if present but has a different number of images than 'animImages'
     
-    NSString * requestedHighlightedIconSet = [NSString stringWithFormat: @"highlighted-%@", menuIconSet];
-    if (  [self loadMenuIconSet: requestedHighlightedIconSet
-                           main: &highlightedMainImage
-                     connecting: &highlightedConnectedImage
-                           anim: &highlightedAnimImages]  ) {
-        if (  [animImages count] != [highlightedAnimImages count]  ) {
-            NSLog(@"Icon set '%@' has a different number of images and highlighted images", menuIconSet);
-            return NO;
-        } else {
-			if (  ! [menuIconSet isEqualToString: @"TunnelBlick.TBMenuIcons" ]  ) { 
-				NSLog(@"Using icon set '%@' with Retina images", menuIconSet);
-			}
-            return YES;
+    if (  [mainImage isTemplate]  ) {
+        [self setHighlightedMainImage:      [self tintTemplateImage: mainImage]];
+        [self setHighlightedConnectedImage: [self tintTemplateImage: connectedImage]];
+        
+        [self setHighlightedAnimImages: [NSMutableArray arrayWithCapacity: [animImages count]]];
+        NSUInteger i;
+        for (  i=0; i<[animImages count] - 1; i++  ) {
+            NSImage * animImage = [animImages objectAtIndex: i];
+            [highlightedAnimImages addObject: [self tintTemplateImage: animImage]];
         }
     } else {
         // Default to the non-highlighted versions if there are not any highlighted versions
@@ -1656,7 +1650,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
         [self setHighlightedConnectedImage: connectedImage];
         [self setHighlightedAnimImages:     animImages];
         NSLog(@"Using icon set '%@' without Retina images", menuIconSet);
-        return YES;
     }
 }
 -(BOOL) loadMenuIconSet
@@ -1673,10 +1666,9 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                    main: &largeMainImage
                              connecting: &largeConnectedImage
                                    anim: &largeAnimImages]  ) {
-				if (  [self loadHighlightedIconSet: requestedMenuIconSet]  ) {
-                    [self updateIconImage];
-                    return YES;
-                }
+                [self loadHighlightedIconSet: requestedMenuIconSet];
+                [self updateIconImage];
+                return YES;
             } else {
                 NSLog(@"Icon set '%@' not found", requestedLargeIconSet);
             }
@@ -1704,10 +1696,9 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                           connecting: &largeConnectedImage
                                 anim: &largeAnimImages]  )
         {
-            if (  [self loadHighlightedIconSet: menuIconSet]  ) {
-                [self updateIconImage];
-                return YES;
-            }
+            [self loadHighlightedIconSet: menuIconSet];
+            [self updateIconImage];
+            return YES;
         } else {
             NSLog(@"Icon set '%@' not found", menuIconSet);
         }
@@ -1724,10 +1715,9 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                       connecting: &largeConnectedImage
                             anim: &largeAnimImages]  )
     {
-        if (  [self loadHighlightedIconSet: menuIconSet]  ) {
-            [self updateIconImage];
-            return YES;
-        }
+        [self loadHighlightedIconSet: menuIconSet];
+        [self updateIconImage];
+        return YES;
     }
     
     return NO;
@@ -1739,6 +1729,16 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
         && [image respondsToSelector: @selector(setTemplate:)]  ) {
         [image setTemplate: TRUE];
     }
+}
+-(NSImage *) tintTemplateImage: (NSImage *) image
+{
+    NSImage *tintedImage = [[image copy] autorelease];
+    [tintedImage lockFocus];
+    [[NSColor whiteColor] set];
+    NSRectFillUsingOperation(NSMakeRect(0, 0, tintedImage.size.width, tintedImage.size.height), NSCompositeSourceAtop);
+    [tintedImage unlockFocus];
+    [tintedImage setTemplate: NO];
+    return tintedImage;
 }
 -(BOOL) loadMenuIconSet: (NSString *)        iconSetName
                    main: (NSImage **)        ptrMainImage
