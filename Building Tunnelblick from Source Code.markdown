@@ -50,22 +50,7 @@ Which platform you build on determines what platforms can run the Tunnelblick ap
    ⁃ OpenVPN and the tun and tap kexts are 32/64-bit PowerPC/Intel programs.
 
 
-**3. Setting up Xcode to Build Tunnelblick**
-
-(Not necessary with Xcode 3.2.2.)
-
-To build Tunnelblick using Xcode 7.0+, it needs to be set up to use "legacy" locations for build products:
-
- 1. Launch Xcode
- 2. Click "Xcode" > "Preferences…"
- 3. Click the "Locations" button on the top right
- 4. Click the "Advanced" button
- 5. Click on the "Legacy" radio button
- 6. Click the "Done" button
-
-Xcode 7.0+ also need to have the command line tools installed. You can do that in Terminal with the following command: ```xcode-select&nbsp;--install```
-
-**4. Installing the GNU autotools**
+**3. Installing the GNU autotools**
 
 To build Tunnelblick, the build computer must have appropriate versions of the GNU "auto tools" installed in /usr/local/bin.
 
@@ -83,11 +68,22 @@ To build Tunnelblick, the build computer must have appropriate versions of the G
 
   The script downloads appropriate versions of the tools and installs them. Because it installs to a protected folder, you will be asked for your password at one point in the process. (You must install as an "administrator" user, not as a "standard" user.)
 
-Beginning to Use Xcode to Build Tunnelblick
+
+**4. Setting up Xcode to Build Tunnelblick**
 
 Double-click …TunnelblickSource/tunnelblick/Tunnelblick.xcodeproj to open the Tunnelblick source code in Xcode.
 
 After a few moments, recent versions of Xcode will begin indexing files, indicated in the progress bar at the top of the Xcode window. Allow the indexing to complete, which usually takes a minute or two. Xcode does indexing at various times, and if you click a button while Xcode is indexing it will often crash. (This is an Xcode problem, not a Tunnelblick problem.) The safest way to proceed if Xcode crashes is to download the source code again, because Xcode creates caches which can be corrupted when Xcode crashes and cause even more crashes.
+
+To build Tunnelblick using Xcode 7.0+, it needs to be set up to use "legacy" locations for build products:
+
+1. Launch Xcode
+2. Click "File" > "Project Settings..."
+3. Click the "Advanced" button
+4. Click on the "Legacy" radio button
+5. Click the "Done" button
+
+Xcode 7.0+ also need to have the command line tools installed. You can do that in Terminal with the following command: ```xcode-select&nbsp;--install```
 
 
 **5. Selecting  the Type of Build You Want to Create**
