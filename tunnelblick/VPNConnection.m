@@ -1154,7 +1154,7 @@ extern volatile int32_t       gActiveInactiveState;
 {
     NSString * before = [dict objectForKey: @"before"];
 	NSString * after  = [dict objectForKey: @"after"];
-	[[NSApp delegate] setPublicIPAddress: after];
+	[((MenuController *)[NSApp delegate]) setPublicIPAddress: after];
     [self checkForChangedIPAddress: before
                       andIPAddress: after];
 }
@@ -1309,9 +1309,9 @@ extern volatile int32_t       gActiveInactiveState;
     // Got IP address, even though DNS isn't working
 	NSString * address = [ipInfo objectAtIndex:0];
     TBLog(@"DB-IC", @"checkIPAddressAfterConnectedThread: fetched IP address %@ using the ipInfo host's IP address", address)
-	[[NSApp delegate] performSelectorOnMainThread: @selector(setPublicIPAddress:)
-									   withObject: address
-									waitUntilDone: NO];
+	[((MenuController *)[NSApp delegate]) performSelectorOnMainThread: @selector(setPublicIPAddress:)
+                                                           withObject: address
+                                                        waitUntilDone: NO];
     [self performSelectorOnMainThread: @selector(checkIPAddressNoDNSLogMessage:)
                            withObject: [NSString stringWithFormat: @"*Tunnelblick: fetched IP address information using the ipInfo host's IP address after connecting."]
                         waitUntilDone: NO];

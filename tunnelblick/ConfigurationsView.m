@@ -22,7 +22,7 @@
 
 #import "ConfigurationsView.h"
 
-#import "Helper.h"
+#import "helper.h"
 
 #import "LeftNavDataSource.h"
 #import "MenuController.h"
