@@ -871,9 +871,10 @@ BOOL invalidConfigurationName(NSString * name, const char badCharsC[])
 		}
 	}
 	
-	const char * nameC          = [name UTF8String];
+	const char * nameC = [name UTF8String];
 	
-	return (   ( [name length] == 0)
+	return (   ( nameC == NULL)
+			|| ( [name length] == 0)
             || ( [name hasPrefix: @"."] )
 			|| ( [name hasSuffix: @"."] )
             || ( [name rangeOfString: @".."].length != 0)
