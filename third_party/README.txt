@@ -139,29 +139,29 @@ The "sources" folder contains the source code for each of the third party progra
 that the version numbers in this document may not match the versions included in the
 current Tunnelblick source code.
 
-    lz4-r131.tar.gz
-        This is an archive of the source code for LZ4 131, as downloaded from
+    lz4-1.7.5.tar.gz
+        This is an archive of the source code for LZ4 1.7.5, as downloaded from
         https://github.com/lz4/lz4/releases.
 
-    lzo-2.08.tar.gz
-        This is an archive of the source code for LZO 2.08, as downloaded from
-        http://www.oberhumer.com/opensource/lzo on 2014-03-26.
+    lzo-2.10.tar.gz
+        This is an archive of the source code for LZO 2.10, as downloaded from
+        http://www.oberhumer.com/opensource/lzo on 2017-08-11.
 
-    openssl-1.0.1k.tar.gz
-        This is an archive of the source code for OpenSSL 1.0.1k, as downloaded from
-        http://www.openssl.org/source on 2014-03-26.
+    openssl-1.0.2l.tar.gz
+        This is an archive of the source code for OpenSSL 1.0.2l, as downloaded from
+        http://www.openssl.org/source on 2017-08-11.
 
-    libressl-2.5.0.tar.gz
-        This is an archive of the source code for LibreSSL 2.5.0, as downloaded from
-        http://ftp.openbsd.org/pub/OpenBSD/LibreSSL on 2016-10-06.
+    libressl-2.5.5.tar.gz
+        This is an archive of the source code for LibreSSL 2.5.5, as downloaded from
+        http://ftp.openbsd.org/pub/OpenBSD/LibreSSL on 2017-08-11.
 
-    pkcs11-helper-1.11.tar.bz2
-        This is an archive of the source code for pkcs11-helper 1.11, as downloaded from
-        http://sourceforge.net/projects/opensc/files/pkcs11-helper on 2014-03-26.
+    pkcs11-helper-1.22.tar.bz2
+        This is an archive of the source code for pkcs11-helper 1.22, as downloaded from
+        http://sourceforge.net/projects/opensc/files/pkcs11-helper on 2017-08-11.
 
-    Sparkle 1.5b6.zip
-        This is an archive of the source code for Sparkle 1.5b6, as downloaded from
-        http://sparkle-project.org in 2010.
+    Sparkle-077c64419f9460263bad99ab24dff962a103b1e2.zip
+        This is an archive of the source code for Sparkle 077c644, as downloaded from
+        https://github.com/sparkle-project/Sparkle in 2016.
 
     patches
         This folder contains patches for OpenSSL and Sparkle. tuntap and OpenVPN each have
@@ -217,8 +217,8 @@ current Tunnelblick source code.
         This folder contains three folders that are used to create the final
         "easy-rsa-tunnelblick" folder that is contained within Tunnelblick.app.
 
-        easy-rsa-3.0.0-rc2
-            This is the source code for easy-rsa-3.0.0-rc2.
+        easy-rsa-3.0.1
+            This is the source code for easy-rsa-3.0.1.
 
         easy-rsa-from-openvpn-2.2.1
             This is the source code for easy-rsa 2 taken from the OpenVPN 2.2.1 source

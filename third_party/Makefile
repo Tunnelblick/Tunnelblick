@@ -33,17 +33,17 @@ TOPDIR = $(PWD)
 # Define names of folders in third_party/sources that contain programs to build:
 # Names of OpenVPN folders are determined by examining third_party/sources/openvpn
 
-LZO_NAME         = lzo-2.09
+LZO_NAME         = lzo-2.10
 
-LZ4_NAME         = lz4-r131
+LZ4_NAME         = lz4-1.7.5
 LZ4_TARGET_ARCHS = x86_64
 
-OPENSSL_NAME     = openssl-1.0.2k
-LIBRESSL_NAME	 = libressl-2.5.0
+OPENSSL_NAME     = openssl-1.0.2l
+LIBRESSL_NAME	 = libressl-2.5.5
 
-PKCS11_NAME      = pkcs11-helper-1.11
+PKCS11_NAME      = pkcs11-helper-1.22
 
-EASY_RSA_3_NAME  = easy-rsa-3.0.0-rc2
+EASY_RSA_3_NAME  = easy-rsa-3.0.1
 
 TUNTAP_20111101_NAME  = tuntap-20111101
 TUNTAP_CURRENT_NAME   = tuntap-20141104
