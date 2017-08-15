@@ -145,19 +145,19 @@ current Tunnelblick source code.
 
     lzo-2.10.tar.gz
         This is an archive of the source code for LZO 2.10, as downloaded from
-        http://www.oberhumer.com/opensource/lzo on 2017-08-11.
+        https://www.oberhumer.com/opensource/lzo on 2017-08-11.
 
     openssl-1.0.2l.tar.gz
         This is an archive of the source code for OpenSSL 1.0.2l, as downloaded from
-        http://www.openssl.org/source on 2017-08-11.
+        https://www.openssl.org/source on 2017-08-11.
 
     libressl-2.5.5.tar.gz
         This is an archive of the source code for LibreSSL 2.5.5, as downloaded from
-        http://ftp.openbsd.org/pub/OpenBSD/LibreSSL on 2017-08-11.
+        https://ftp.openbsd.org/pub/OpenBSD/LibreSSL on 2017-08-11.
 
     pkcs11-helper-1.22.tar.bz2
         This is an archive of the source code for pkcs11-helper 1.22, as downloaded from
-        http://sourceforge.net/projects/opensc/files/pkcs11-helper on 2017-08-11.
+        https://sourceforge.net/projects/opensc/files/pkcs11-helper on 2017-08-11.
 
     Sparkle-077c64419f9460263bad99ab24dff962a103b1e2.zip
         This is an archive of the source code for Sparkle 077c644, as downloaded from
