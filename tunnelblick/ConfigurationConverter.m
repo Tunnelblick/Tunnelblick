@@ -375,6 +375,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     //
     //      Other files
     //            * Cannot start with "{" (which indicates a "rich text format" file
+	//			  * Must be in UTF-8 format
     //            * Script and configuration files (.sh, .conf, .ovpn) cannot contain CR characters but that problem is fixed when copying the files
     //            * Key/certificate files cannot contain non-ASCII characters
     
@@ -405,9 +406,13 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                       localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.", @"Window text"), [path lastPathComponent]]];
     }
     
-    // OpenVPN configuration files can be UTF-8 or UTF-16, so don't test them
+    // OpenVPN configuration files must be UTF-8
     if (   [ext isEqualToString: @"ovpn"]
         || [ext isEqualToString: @"conf"]  ) {
+		if (  [NSString stringWithUTF8String: (const char *)chars] == NULL  ) {
+			return [self logMessage: [NSString stringWithFormat: @"File '%@' is not a plain text or UTF-8 file.", path]
+						  localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' is not a plain text or UTF-8 file.", @"Window text"), [path lastPathComponent]]];
+		}
         return nil;
     }
     
