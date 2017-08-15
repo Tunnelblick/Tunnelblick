@@ -139,6 +139,10 @@ The "sources" folder contains the source code for each of the third party progra
 that the version numbers in this document may not match the versions included in the
 current Tunnelblick source code.
 
+    libressl-2.5.5.tar.gz
+        This is an archive of the source code for LibreSSL 2.5.5, as downloaded from
+        https://ftp.openbsd.org/pub/OpenBSD/LibreSSL on 2017-08-11.
+
     lz4-1.7.5.tar.gz
         This is an archive of the source code for LZ4 1.7.5, as downloaded from
         https://github.com/lz4/lz4/releases.
@@ -150,10 +154,6 @@ current Tunnelblick source code.
     openssl-1.0.2l.tar.gz
         This is an archive of the source code for OpenSSL 1.0.2l, as downloaded from
         https://www.openssl.org/source on 2017-08-11.
-
-    libressl-2.5.5.tar.gz
-        This is an archive of the source code for LibreSSL 2.5.5, as downloaded from
-        https://ftp.openbsd.org/pub/OpenBSD/LibreSSL on 2017-08-11.
 
     pkcs11-helper-1.22.tar.bz2
         This is an archive of the source code for pkcs11-helper 1.22, as downloaded from
@@ -195,7 +195,7 @@ current Tunnelblick source code.
             or
             openvpn-x.y.z.tar.xz
                 This archive contains the source code for this version of OpenVPN, as
-                downloaded from http://openvpn.net/index.php/open-source/downloads.html.
+                downloaded from https://openvpn.net/index.php/open-source/downloads.html.
 
             patches
                 This folder contains patches for this version of OpenVPN. All versions
@@ -234,7 +234,7 @@ CHANGING THIRD PARTY PROGRAMS
     When a new version of a third party program is released, it is usually appropriate
     to include the new version in Tunnelblick.
 
-To replace an older version of LZO, OpenSSL, LibreSSL, or pkcs11-helper:
+To replace an older version of LibreSSL, LZ4, LZO, OpenSSL, or pkcs11-helper:
 
     1. Download an archive containing the source code and copy it to the "sources"
        subfolder. Download the same type of archive (".tar.gz", ".tar.bz2", or ".zip") as
