@@ -230,10 +230,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayStatisticsWi
             if (  [[file pathExtension] isEqualToString: @"TBMenuIcons"]  ) {
                 NSString * iconName = [file stringByDeletingPathExtension];
                 if (  ! [iconName hasPrefix: @"large-"]  ) {
-					if (  ! [iconName hasPrefix: @"highlighted-"]  ) {
-						if (  ! [iconNames containsObject: iconName]  ) {
-							[paths addObject: [folder stringByAppendingPathComponent: file]];
-						}
+                    if (  ! [iconNames containsObject: iconName]  ) {
+                        [paths addObject: [folder stringByAppendingPathComponent: file]];
                     }
                 }
             }

@@ -81,6 +81,15 @@ extern BOOL              gShuttingDownWorkspace;
           trackingRect.origin.x, trackingRect.origin.y, trackingRect.size.width, trackingRect.size.height)
 }
 
+-(void) drawRect: (NSRect) rect
+{
+    NSStatusItem * statusI = [((MenuController *)[NSApp delegate]) statusItem];
+    BOOL menuIsOpen = [((MenuController *)[NSApp delegate]) menuIsOpen];
+    [statusI drawStatusBarBackgroundInRect: rect withHighlight: menuIsOpen];
+    
+    [super drawRect: rect];
+}
+
 
 // *******************************************************************************************
 // init and dealloc
