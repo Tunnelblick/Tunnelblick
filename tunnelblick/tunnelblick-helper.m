@@ -66,7 +66,7 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
-    // returnValue: have used 172-247, plus the values in define.h (248-254)
+    // returnValue: have used 171-247, plus the values in define.h (248-254)
 void exitOpenvpnstart(OSStatus returnValue) {
     [pool drain];
     exit(returnValue);
@@ -2876,7 +2876,18 @@ int main(int argc, char * argv[]) {
     
     BOOL	syntaxError	= TRUE;
     int     retCode = 0;
-    
+
+	// Verify that all arguments are valid UTF-8 strings
+	int ix;
+	for (  ix=0; ix<argc; ix++  ) {
+		const char * arg = argv[ix];
+		if (   (arg == NULL)
+			|| ([NSString stringWithUTF8String: arg] == NULL)  ) {
+			fprintf(stderr, "Invalid argument #%d (0 = command; 1 = first actual argument)\n", ix);
+			exitOpenvpnstart(171);
+		}
+	}
+
     if (  argc > 1  ) {
 		char * command = argv[1];
 		
