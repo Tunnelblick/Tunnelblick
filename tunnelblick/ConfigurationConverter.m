@@ -1369,6 +1369,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
                                      [NSNumber numberWithUnsignedLong: permissions],              NSFilePosixPermissions,
                                      nil];
         const char * bytes = [configString UTF8String];
+		if (  bytes == NULL) {
+			return [self logMessage: @"Unable to parse configuration file as UTF-8 (#1)"
+						  localized: NSLocalizedString(@"Unable to parse configuration file as UTF-8", @"Window text")];
+		}
+
         if (  [gFileMgr createFileAtPath: outputConfigPath
                                 contents: [NSData dataWithBytes: bytes
                                                          length: strlen(bytes)]
@@ -1383,6 +1388,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
         FILE * outFile = fopen([configPath fileSystemRepresentation], "w");
         if (  outFile  ) {
             const char * bytes = [configString UTF8String];
+			if (  bytes == NULL) {
+				return [self logMessage: @"Unable to parse configuration file as UTF-8 (#2)"
+							  localized: NSLocalizedString(@"Unable to parse configuration file as UTF-8", @"Window text")];
+			}
 			if (  fwrite(bytes, strlen(bytes), 1, outFile) != 1  ) {
 				return [self logMessage: @"Unable to write to configuration file for modification"
                               localized: NSLocalizedString(@"Unable to write to configuration file for modification", @"Window text")];
