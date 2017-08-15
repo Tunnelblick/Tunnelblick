@@ -469,6 +469,12 @@ int main(void) {
 		// Remove the LF at the end of the request
 		buffer[nbytes - 1] = '\0';
 
+		// Make sure the string is a valid UTF-8 string
+		if (  [NSString stringWithUTF8String: buffer] == NULL  ) {
+			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Received %lu bytes from client but they were not a valid UTF-8 string", (unsigned long)nbytes);
+			goto done;
+		}
+		
 		
 //		asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Received %lu bytes from client including a terminating NL: '%s'", (unsigned long)nbytes, buffer);
 		
