@@ -74,7 +74,7 @@ cd "${downloads_folder_path}"
 curl -OL "${libtool_url}"
 tar xzf "${libtool_version}.tar.gz"
 cd "${libtool_version}"
-./configure
+./configure --program-prefix=g
 make
 sudo make install
 
