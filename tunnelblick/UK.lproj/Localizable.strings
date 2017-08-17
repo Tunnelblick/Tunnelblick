@@ -1136,6 +1136,9 @@
 "File '%@' is missing" = "Файл '%@' відсутній";
 
 /* Window text */
+"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+
+/* Window text */
 "File '%@' is too short (%lu bytes)" = "Файл '%1$@' занадто короткий (%2$lu байтів)";
 
 /* Window text */
@@ -1706,6 +1709,9 @@
 "Unable to open configuration file for modification" = "Не вдалося відкрити конфігураційний файл для модифікації";
 
 /* Window text */
+"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+
+/* Window text */
 "Unable to replace the '%@' configuration\n" = "Не вдалося замінити конфігурацію '%@'\n";
 
 /* Window text */
@@ -2084,8 +2090,7 @@
 "Dutch translation" = "Голандський переклад";
 
 /* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item
-*/
+   Toolbar text for 'Lock' item */
 "Enter admin mode" = "Увійти до режиму адміністратора";
 
 /* Credit description */

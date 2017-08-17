@@ -1136,6 +1136,9 @@
 "File '%@' is missing" = "Datne '%@' nav atrodama";
 
 /* Window text */
+"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+
+/* Window text */
 "File '%@' is too short (%lu bytes)" = "Datne '%1$@' ir pārāk maza (%2$lu baiti)";
 
 /* Window text */
@@ -1706,6 +1709,9 @@
 "Unable to open configuration file for modification" = "Nav iespējams atvērt konfigurācijas datni, lai veiktu izmaiņas";
 
 /* Window text */
+"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+
+/* Window text */
 "Unable to replace the '%@' configuration\n" = "Nav iespējams aizvietot %@ konfigurāciju\n";
 
 /* Window text */
@@ -2084,8 +2090,7 @@
 "Dutch translation" = "Tulkojums holandiešu valodā";
 
 /* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item
-*/
+   Toolbar text for 'Lock' item */
 "Enter admin mode" = "Atvērt administratora režīmā";
 
 /* Credit description */

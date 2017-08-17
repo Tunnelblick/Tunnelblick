@@ -1136,6 +1136,9 @@
 "File '%@' is missing" = "Fajl '%@' ne postoji";
 
 /* Window text */
+"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+
+/* Window text */
 "File '%@' is too short (%lu bytes)" = "Fajl '%1$@' je prekratak (%2$lu bajtova)";
 
 /* Window text */
@@ -1706,6 +1709,9 @@
 "Unable to open configuration file for modification" = "Neuspešno otvaranje konfiguracionog fajla radi izmene";
 
 /* Window text */
+"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+
+/* Window text */
 "Unable to replace the '%@' configuration\n" = "Neuspešna zamena '%@' konfiguracije\n";
 
 /* Window text */
@@ -2084,8 +2090,7 @@
 "Dutch translation" = "Dutch translation";
 
 /* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item
-*/
+   Toolbar text for 'Lock' item */
 "Enter admin mode" = "Uključi admin režim";
 
 /* Credit description */

@@ -1136,6 +1136,9 @@
 "File '%@' is missing" = "檔案 '%@' 不存在";
 
 /* Window text */
+"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+
+/* Window text */
 "File '%@' is too short (%lu bytes)" = "「%1$@」的檔案長度太短了（%2$lu 位元）";
 
 /* Window text */
@@ -1706,6 +1709,9 @@
 "Unable to open configuration file for modification" = "無法打開設置文件以進行修改";
 
 /* Window text */
+"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+
+/* Window text */
 "Unable to replace the '%@' configuration\n" = "無法取代 '%@' 設置\n";
 
 /* Window text */
@@ -1925,7 +1931,7 @@
 "<p><strong>When checked</strong>, Tunnelblick will check for updates to beta versions.</p>\n<p><strong>When not checked</strong>, Tunnelblick will check for updates to stable versions.</p><p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>" = "<p><strong>若勾選</strong>，Tunnelblick 將檢查測試版的更新。</p>\n<p><strong>若未勾選</strong>，Tunnelblick 將只會檢查穩定版的更新。</p><p>在使用測試版時，<strong>此核取方塊會被禁用</strong>以及被勾選。";
 
 /* HTML info for the 'Check for updates automatically' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>";
+"<p><strong>When checked</strong>, Tunnelblick will check for updates when launched and periodically thereafter.</p><p><strong>This checkbox is disabled</strong> and un-checked when 'Inhibit automatic update checking and IP Address checking' is checked.</p>" = "<p><strong>勾選時</strong>, Tunnelblick 就會在啟動的時候自動檢查更新, 同時會在日後進行週期性檢查.</p><p>當您設置了'禁止自動更新及檢查 IP 地址'後, <strong>則此核取方框會無效</strong>和取消勾選.</p>";
 
 /* HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will determine the computer's apparent public IP address before and after the VPN is connected and warn if the IP address does not change.</p>\n<p>The tunnelblick.net website will be accessed to perform this function. The access is usually done via https: using the tunnelblick.net name, except that if that access fails, access is attempted using http: and the IP address of the website.</p>\n<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and does not warn if the IP address does not change after the VPN is connected.</p>\n" = "<p><strong>若勾選</strong>，在 VPN 建立連線前後，Tunnelblick 會決定這台電腦的對外 IP 位址，如果 IP 位址沒改變，將會警告你。</p> <p>為了實現這個功能，將會以 tunnelblick.net 名稱，透過 https: 存取 tunnelblick.net 網站。除了，存取失敗時，會嘗試用 http: 及網站的 IP 位址存取。</p> <p><strong>當未勾選</strong>, 在 VPN 連線後，Tunnelblick 不會檢查、警告 IP 位址是否變更。</p>\n";
@@ -1934,7 +1940,7 @@
 "<p><strong>When checked</strong>, Tunnelblick will instruct OpenVPN to route all IPv4 traffic through the VPN server.</p>\n<p><strong>When not checked</strong>, by default OpenVPN will use the VPN only for traffic that is destined for the VPN's network. All other traffic will use the normal Internet connection without going through the VPN. OpenVPN's default behavior may be changed by the OpenVPN configuration or the VPN server and cause all IPv4 traffic to be routed through the VPN server as if this checkbox had been checked. </p>\n" = "<p><strong>若勾選</strong>，Tunnelblick 會指示 OpenVPN 路由所有 IPv4 的流量通過 VPN 伺服器。</p>\n<p><strong>若未勾選</strong>，OpenVPN 預設只對於指定 VPN 網路的流量使用 VPN。其他沒有經過 VPN 的所有流量會使用一般網際網路的流線。也許可以透過 OpenVPN 設定或 VPN 伺服器修改 OpenVPN 的預設行為，而且，如果有勾選核取方塊，會路由所有 IPv4 流量通過 VPN 伺服器。</p>\n";
 
 /* HTML info for the 'Require administrator authorization for key and certificate changes' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>";
+"<p><strong>When checked</strong>, Tunnelblick will require a computer administrator's authorization to make changes to key and certificate files.</p>\n<p><strong>When not checked</strong>, a standard user will allowed to make changes to key and certificate files.</p><p><strong>Note: A computer administrator's authorization is required to change this setting.</strong></p>" = "<p><strong>若勾選</strong>，Tunnelblick 將要求以系統管理員的身份來以更新金鑰憑證。</p>>\n<p><strong>若未勾選</strong>，以標準使用者的身份來以更新金鑰憑證。</p><p><strong>提示: 需要系統管理員的身份授權才能修改此設定</strong></p>";
 
 /* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>若勾選</strong>，Tunnelblick 會在 VPN 斷線後，重設主要的網路介面。</p>\n<p><strong>若未勾選</strong>，Tunnelblick 不會重設主要的網路介面。</p>\n<p><strong>這個核取方塊會被停用</strong>，當「設置 DNS/WINS」不是設定為「設定域名解析器」。</p>";
@@ -1946,16 +1952,16 @@
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>若勾選</strong>，Tunnelblick 會監看網路設定的變更 (例如：當 DHCP 重新申請和切換網路連線)，試圖保持 VPN 連線。</p>\n<p><strong>若未勾選</strong>，Tunnelblick 會忽略網路變更。</p>\n<p><strong>這個核取方塊會停用</strong>，當「設置 DNS/WINS」不是設定為「設定域名解析器」或「設定域名解析器 (3.1)」。</p>";
 
 /* HTML info for the 'Show the VPN status window when the pointer is over the Tunnelblick icon' checkbox. */
-"<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>";
+"<p><strong>When checked</strong>, VPN status windows for all 'active' configurations are displayed when the pointer is over the Tunnelblick icon.</p><p>'Active' configurations are configurations that you have attempted to connect since Tunnelblick was launched.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>若勾選</strong>, </p>VPN狀態視窗會在滑鼠移到Tunnelblick圖示上時顯示目前的所有'活躍'的連線<p></p>'活躍'是指你在啟動Tunnelblick後所有嘗試過的連線<p>若上述選取了'永不顯示'<strong>此勾選框會自動停用</strong></p>";
 
 /* HTML info for the 'Display window while Tunnelblick is starting up' checkbox. */
-"<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>";
+"<p><strong>When checked</strong>, a window will display Tunnelblick's progress while starting up.</p>" = "<p><strong>若勾選</strong>, 將會顯示一個帶有進度條的Tunnelblick啟動界面.</p>";
 
 /* HTML info for the 'All configurations use ___ credentials' checkbox. */
 "<p><strong>When checked</strong>, all configurations will share the same username, password, and/or private key.</p>\n" = "<p><strong>若勾選</strong>，所有配置會共享同樣的用戶名，密碼和（如適用）密鑰。</p>\n";
 
 /* HTML info for the 'Display connection submenus' checkbox. */
-"<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>";
+"<p><strong>When checked</strong>, configurations that are inside folders are shown in submenus of the Tunnelblick menu.</p>\n<p><strong>When not checked</strong>, configurations that are inside folders are shown in the Tunnelblick menu.</p>" = "<p><strong>若勾選</strong>, 對子資料夾中的設定將顯示在Tunnelblick 選單列的子選單上.</p><p><strong>若未勾選</strong>，對子資料夾中的設定則顯示在Tunnelblick 選單列.</p>";
 
 /* HTML info for the 'Keep connected' checkbox. */
 "<p><strong>When checked</strong>, if the VPN disconnects unexpectedly, Tunnelblick will attempt to reconnect it.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not try to reconnect a VPN if it disconnects unexpectedly.</p>\n" = "<p><strong>若勾選</strong>，如果 VPN 無預期斷線，Tunnelblick 會試著重新連線。</p>\n<p><strong>若未勾選</strong>，如果 VPN 無預期斷線，Tunnelblick 將不會試著重新連線。</p>\n";
@@ -1964,7 +1970,7 @@
 "<p><strong>When checked</strong>, network settings which were set manually may be changed when the VPN connects. This will only happen if changes are specified by options in the OpenVPN configuration file or from the OpenVPN server.</p>\n<p><strong>When not checked</strong>, network settings which were set manually will not be changed when the VPN connects.</p>" = "<p><strong>已勾選</strong>，當VPN連線時，手動設定的網路設定可能會被更改。這只會發生在OpenVPN設定檔或OpenVPN伺服器的選項更改時。</p>\n<p><strong>未勾選</strong>，當VPN連線時，手動設定的網路設定不會被更改</p>";
 
 /* HTML info for the 'Inhibit automatic update checking and IP Address checking' checkbox. */
-"<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>";
+"<p><strong>When checked</strong>, no automatic checking for updates or checking for IP address changes will be done, regardless of other settings. Note: both of these activities access the Tunnelblick website.</p>\n<p><strong>When not checked</strong>, automatic checking for updates will be done if enabled below, and checking for IP address changes will be done when connecting a configuration if the configuration's setting to do so is enabled.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p><p>&nbsp;</p>" = "<p><strong>已勾選</strong>，自動檢查更新和IP地址稽核的功能將會自動失效，並無視功能相關的其他設定。提示：這兩項功能都會存取Tunnelblick 的網絡服務。</p>\n<p><strong>若未勾選</strong>，則依照下面的用戶設定進行自動更新，及在應用配置文件時對IP地址進行稽核。</p><p>詳情可參閱 <a href=\"https://tunnelblick.net/cPrivacy.html\">隱私與安全性設定</a> [tunnelblick.net] 文件。</p><p>&nbsp;</p>";
 
 /* HTML info for the 'Place near Spotlight icon' checkbox. The two '%@' are replaced by images of the menu bar showing the position of the Tunnelblick icon. */
 "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>若勾選</strong>，Tunnelblick圖標會放在搜索圖標附近：</p>\n<p>%1$@</p>\n<p><strong>若未勾選</strong>，Tunnelblick圖標會放在正常位置：</p>\n<p>%2$@</p>\n<p><strong>此檢驗盒已被禁用</strong> 因為在Mac Os Sierra和在已知會導致問題的系統上是不必要的。</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">了解詳情</a></p>";
@@ -1988,7 +1994,7 @@
 "<p><strong>When checked</strong>, the VPN-specified domain name will be added to the start of the search domain list.</p>\n<p><strong>When not checked</strong>, the search domain list will be replaced by the VPN-specified domain name.</p>" = "<p><strong>若勾選</strong>，VPN 指定的網域名稱會被加入到搜尋域名清單中的開頭中。</p>\n<p><strong>若未勾選</strong>，搜尋域名將會被 VPN 指定的域名替代</p>";
 
 /* HTML info for the 'Display connection timers' checkbox. */
-"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>選中时</strong>，從鏈接創建開始的時間將被顯示在Tunnelblick選單和VPN詳細信息窗口的標題上。</p>";
+"<p><strong>When checked</strong>, the time since a connection was established is displayed in the Tunnelblick menu and in the title of the VPN Details window.</p>" = "<p><strong>若勾選</strong>，從鏈接創建開始的時間將被顯示在Tunnelblick選單和VPN詳細信息窗口的標題上。</p>";
 
 /* HTML info for the 'Load Tap driver' popdown list. */
 "<p>A 'tap' device driver is needed for Tap connections. Tunnelblick includes its own Tap driver because the system does not include one. If you have installed a different Tap driver, Tunnelblick may not be able to load its driver.</p><p>You can choose if and when Tunnelblick loads its driver:</p>\n<p><strong>Load Tap driver automatically</strong>: Tunnelblick loads its driver if it is needed and unloads it when it is no longer needed.</p>\n<p><strong>Always load Tap driver</strong>: Tunnelblick loads its driver when it connects this configuration, and unloads it when it is no longer needed.</p>\n<p><strong>Never load Tap driver</strong>: Tunnelblick never loads its driver.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p>由於 Tap 連線需要 「tap」裝置驅動程式。因為，系統不會包含 Tap 驅動程式，所以，Tunnelblick 會包含自身的 Tap 驅動程式。</p><p>如果當 Tunnelblick 載入本身的驅動程式，你可以選擇：</p>\n<p><strong>自動載入 Tap 驅動程式</strong>：Tunnelblick 會在需要的時候載入驅動程式，並在不再使用時卸載它。</p>\n<p><strong>總是載入 Tap 驅動程式</strong>：unnelblick 會在連線到設定時，載入驅動程式，並在不再使用時卸載它。</p>\n<p><strong>永不載入 Tun 驅動程式</strong>：Tunnelblick 會在連線到設定時，載入驅動程式，並在不再使用時卸載它。</p>\n<p>由於 Tun 設定，<strong>這個核取方塊會被停用</strong>。</p>";
@@ -2084,8 +2090,7 @@
 "Dutch translation" = "荷蘭語翻譯";
 
 /* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item
-*/
+   Toolbar text for 'Lock' item */
 "Enter admin mode" = "進入管理模式";
 
 /* Credit description */

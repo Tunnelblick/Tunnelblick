@@ -116,7 +116,7 @@
 "I DO NOT have configuration files" = "لا امتلك ملفات الإعدادات";
 
 /* Button */
-"I have configuration files" = "لدي ملفات الإعدادات";
+"I have configuration files" = "امتلك ملفات الإعدادات";
 
 /* Button */
 "Ignore" = "تجاهل";
@@ -1136,6 +1136,9 @@
 "File '%@' is missing" = "الملف \"%@\"مفقود";
 
 /* Window text */
+"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+
+/* Window text */
 "File '%@' is too short (%lu bytes)" = "الملف \"%1$@\" قصير جدا (%2$lu بايت)";
 
 /* Window text */
@@ -1706,6 +1709,9 @@
 "Unable to open configuration file for modification" = "غير قادر على فتح ملف الإعدادات للتعديل";
 
 /* Window text */
+"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+
+/* Window text */
 "Unable to replace the '%@' configuration\n" = "غير قادر على استبدال %@ الاعدادات";
 
 /* Window text */
@@ -1970,7 +1976,7 @@
 "<p><strong>When checked</strong>, the Tunnelblick icon is positioned near the Spotlight icon:</p>\n<p>%@</p>\n<p><strong>When not checked</strong>, the Tunnelblick icon is positioned normally:</p>\n<p>%@</p>\n<p><strong>This checkbox is disabled</strong> on macOS Sierra because it is not needed, and on systems for which it is known to cause problems.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">More info</a></p>" = "<p><strong>عند التفعيل</strong>، توضع ايقونة تُنلـبليك بقرب ايقونة البحث:</p>\n<p>%1$@</p>\n<p><strong>عند ازالة التفعيل</strong> توصع ايقونة تُنلـبليك بطريقة اعتيادية:</p>\n<p>%2$@</p>\n<p><strong>غير قابل للتفعيل</strong> غير ضروري في نظام macOS Sierra، قد يسبب مشاكل في بعض الانظمة الاخرى.</p>\n<p><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\"><a href=\"https://tunnelblick.net/cAppInfoPlaceNearSpotLightIconCheckbox.html\">معلومات اضافية</a></p>";
 
 /* HTML info for the 'Show the VPN status window when disconnected' checkbox. */
-"<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>";
+"<p><strong>When checked</strong>, the VPN status window is displayed even when the configuration is disconnected.</p><p><strong>This checkbox is disabled</strong> when 'Never Show' is selected above.</p>" = "<p><strong>عند الإختيار</strong>، سوف تظهر نافذة حال الإتصال بشبكات ال-VPN حتى في حل عدم الإتصال.</p><p><strong> علبة الإختيار غير مفعلة</strong> عند إختيار 'عدم الإظهار' سابقاً. </p>";
 
 /* HTML info for the 'Disconnect when user switches out' checkbox. */
 "<p><strong>When checked</strong>, the VPN will be disconnected when switching to another user.</p>\n<p><strong>When not checked</strong>, the VPN will not be disconnected when switching to another user.</p>" = "<p><strong>عند التفعيل</strong>, سوف ينقطع اتصال ال VPN عند التحويل لمستخدم اخر.</p>\n<p><strong>عند عدم التفعيل</strong> لن ينقطع اتصال ال VPN عند التحويل لمستخدم اخر.</p>";
@@ -2084,8 +2090,7 @@
 "Dutch translation" = "الترجمة الهولندية";
 
 /* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item
-*/
+   Toolbar text for 'Lock' item */
 "Enter admin mode" = "ادخل وضع المدير";
 
 /* Credit description */

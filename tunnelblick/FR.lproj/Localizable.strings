@@ -1136,6 +1136,9 @@
 "File '%@' is missing" = "Le fichier '%@' est manquant";
 
 /* Window text */
+"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+
+/* Window text */
 "File '%@' is too short (%lu bytes)" = "Le fichier '%1$@' est trop court (%2$lu octets)";
 
 /* Window text */
@@ -1256,7 +1259,7 @@
 "Non-string value for an item in '%@' in %@" = "Une des valeurs de '%1$@' dans %2$@ n'est pas une chaîne";
 
 /* Window text */
-"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Aucune des %ld configurations sélectionnées n'ont d'informations d'authentification (clé privée ou nom d'utilisateur et mot de passe) mémorisée dans le trousseau d'accès.";
+"None of the %ld selected configurations have any credentials (private key or username and password) stored in the Keychain." = "Aucune des %ld configurations sélectionnées n'a d'informations d'authentification (clé privée ou nom d'utilisateur et mot de passe) mémorisées dans le trousseau d'accès.";
 
 /* Window text */
 "Not a .ovpn or .conf: %@" = "Le fichier %@ n'est ni un .ovpn, ni un .conf";
@@ -1376,7 +1379,7 @@
 "TBRunAlertPanel returned an error" = "TBRunAlertPanel a retourné une erreur";
 
 /* Window text */
-"TUNNELBLICK is brought to you by" = "TUNNELBLICK  vous est apporté par";
+"TUNNELBLICK is brought to you by" = "TUNNELBLICK vous est offert par";
 
 /* Window text */
 "Thank you very much for your donation to the TunnelblickProject." = "Merci beaucoup pour votre don au projet Tunnelblick.";
@@ -1704,6 +1707,9 @@
 
 /* Window text */
 "Unable to open configuration file for modification" = "Impossible d'ouvrir le fichier de configuration pour modification";
+
+/* Window text */
+"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
 
 /* Window text */
 "Unable to replace the '%@' configuration\n" = "Impossible de remplacer la configuration '%@'\n";
@@ -2084,8 +2090,7 @@
 "Dutch translation" = "Traduction néerlandaise";
 
 /* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item
-*/
+   Toolbar text for 'Lock' item */
 "Enter admin mode" = "Entrer en mode admin";
 
 /* Credit description */

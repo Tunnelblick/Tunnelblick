@@ -503,7 +503,7 @@
 "PRIVATE_KEY_WAIT" = "Parola için bekleniyor"; // Please translate "Waiting for password"
 
 /* Connection status */
-"RECONNECTING" = "Tekrar Bağlanıyor"; // Please translate ""
+"RECONNECTING" = "Yeniden bağlanıyor"; // Please translate ""
 
 /* Connection status */
 "RESOLVE" = "Alan adı çözümleniyor"; // Please translate ""
@@ -1136,6 +1136,9 @@
 "File '%@' is missing" = "'%@' dosyası kayıp";
 
 /* Window text */
+"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+
+/* Window text */
 "File '%@' is too short (%lu bytes)" = "'%1$@' Dosyası çok kısa (%2$lu bytes)";
 
 /* Window text */
@@ -1706,6 +1709,9 @@
 "Unable to open configuration file for modification" = "Değiştirmek için yapılandırma dosya açılamaz";
 
 /* Window text */
+"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+
+/* Window text */
 "Unable to replace the '%@' configuration\n" = "'%@' konfigürasyon dosyası değiştirilemiyor\n";
 
 /* Window text */
@@ -2084,8 +2090,7 @@
 "Dutch translation" = "Flemenkçe çeviri";
 
 /* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item
-*/
+   Toolbar text for 'Lock' item */
 "Enter admin mode" = "Yönetici moduna gir";
 
 /* Credit description */

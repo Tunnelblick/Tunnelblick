@@ -1136,6 +1136,9 @@
 "File '%@' is missing" = "El archivo '%@' no existe";
 
 /* Window text */
+"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+
+/* Window text */
 "File '%@' is too short (%lu bytes)" = "El archivo '%1$@' es demasiado corto (%2$lu bytes)";
 
 /* Window text */
@@ -1706,6 +1709,9 @@
 "Unable to open configuration file for modification" = "imposible abrir el archivo de configuración para modificarlo";
 
 /* Window text */
+"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+
+/* Window text */
 "Unable to replace the '%@' configuration\n" = "Imposible remplazar la configuración '%@'\n";
 
 /* Window text */
@@ -2084,8 +2090,7 @@
 "Dutch translation" = "Traducción al Holandés";
 
 /* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item
-*/
+   Toolbar text for 'Lock' item */
 "Enter admin mode" = "Entrar en modo admin";
 
 /* Credit description */
@@ -2287,10 +2292,10 @@
 "Could not get a session token" = "No se pudo obtener un token de sesión";
 
 /* Window text VPNService */
-"Email address %@ is already registered for an account" = "La dirección de correo electrónico %@ ya está registrada bajo otra cuenta";
+"Email address %@ is already registered for an account" = "Su correo electrónico %@ ya se encuentra registrado bajo otra cuenta";
 
 /* Window text VPNService */
-"Email address:" = "Dirección de correo electrónico:";
+"Email address:" = "Correo electrónico:";
 
 /* Window text VPNService */
 "Invalid URL: %@" = "URL inválido: %@";

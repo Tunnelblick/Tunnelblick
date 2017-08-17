@@ -1136,6 +1136,9 @@
 "File '%@' is missing" = "Il file '%@' non esiste";
 
 /* Window text */
+"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+
+/* Window text */
 "File '%@' is too short (%lu bytes)" = "Il contenuto del documento '%1$@' è troppo corto (%2$lu byte)";
 
 /* Window text */
@@ -1706,6 +1709,9 @@
 "Unable to open configuration file for modification" = "Impossibile aprire il file di configurazione per apportare modifiche";
 
 /* Window text */
+"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+
+/* Window text */
 "Unable to replace the '%@' configuration\n" = "Impossibile sostituire la configurazione '%@'\n";
 
 /* Window text */
@@ -2084,8 +2090,7 @@
 "Dutch translation" = "Traduzione in lingua Olandese";
 
 /* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item
-*/
+   Toolbar text for 'Lock' item */
 "Enter admin mode" = "Abilita Modalità Amministrativa";
 
 /* Credit description */

@@ -1136,6 +1136,9 @@
 "File '%@' is missing" = "Filen '%@' mangler";
 
 /* Window text */
+"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+
+/* Window text */
 "File '%@' is too short (%lu bytes)" = "Fil '%1$@' er for kort (%2$lu bytes)";
 
 /* Window text */
@@ -1706,6 +1709,9 @@
 "Unable to open configuration file for modification" = "Kan ikke åpne konfigurasjonsfilen for modifikasjon";
 
 /* Window text */
+"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+
+/* Window text */
 "Unable to replace the '%@' configuration\n" = "Kan ikke erstatte '%@'-konfigurasjonen\n";
 
 /* Window text */
@@ -2000,7 +2006,7 @@
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Sjekk for oppdateringer av Tunnelblick-applikasjonen.</p><p>Besøk nettsidene til Tunnelblick; for mer informasjon, se <a href=\"https://tunnelblick.net/cPrivacy.html\">Personvern og sikkerhet</a> [tunnelblick.net].</p><p>Sjekk også for konfigurasjonsoppdateringer hvis din VPN-serviceleverandør har implementert denne funksjonaliteten.</p>";
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
-"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>";
+"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Kopierer den siste delen av konsoll-loggen til utklippstavlen slik at den kan bli limt inn i en epost eller andre dokument.</p><p>Loggen inneholder detaljer om operasjonene til Tunnelblick og OpenVPN. Den inkluderer normale statusmeldinger og detaljerte feilmeldinger som er for lange til å bli presentert til brukeren i et normalt dialogvindu.</p>";
 
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
 "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Åpner et nettleservindu som inneholder informasjon på Tunnelblick nettsiden om avinstallering av Tunnelblick.</p>";
@@ -2084,8 +2090,7 @@
 "Dutch translation" = "Nederlandsk oversettelse";
 
 /* Toolbar text for 'Lock' icon
-   Toolbar text for 'Lock' item
-*/
+   Toolbar text for 'Lock' item */
 "Enter admin mode" = "Aktiver admin-modus";
 
 /* Credit description */
