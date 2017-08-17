@@ -1,0 +1,12 @@
+--- openvpn-2.3_git_1f004b2/src/openvpn/options.h	2016-12-15 07:49:06.000000000 -0500
++++ openvpn-2.3_git_1f004b2_/src/openvpn/options.h	2016-12-15 17:33:28.000000000 -0500
+@@ -98,6 +98,9 @@
+     int connect_retry_seconds;
+     int connect_retry_seconds_max;
+     int connect_timeout;
++    int xormethod;
++    const char *xormask;
++    int xormasklen;
+     struct http_proxy_options *http_proxy_options;
+     const char *socks_proxy_server;
+     const char *socks_proxy_port;
