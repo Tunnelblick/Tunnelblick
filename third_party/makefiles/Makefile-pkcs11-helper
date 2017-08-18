@@ -41,6 +41,9 @@ built-pkcs11-helper: built-allssl
 		            --enable-shared=no \
 		            --enable-slotevent=no \
 		            --enable-threading=no \
+		            --disable-crypto-engine-gnutls \
+		            --disable-crypto-engine-nss \
+		            --disable-crypto-engine-mbedtls \
 		            --disable-dependency-tracking ; \
 		echo "Build PKCS11-Helper for $$a" ; \
 		$(MAKE); \
