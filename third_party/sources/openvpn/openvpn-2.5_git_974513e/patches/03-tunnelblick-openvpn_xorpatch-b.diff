@@ -1,6 +1,6 @@
---- openvpn-2.3_git_1f004b2/src/openvpn/options.c	2016-12-15 07:49:06.000000000 -0500
-+++ openvpn-2.3_git_1f004b2_/src/openvpn/options.c	2016-12-15 17:30:08.000000000 -0500
-@@ -811,6 +811,9 @@
+--- openvpn-2.5_git_974513e/src/openvpn/options.c	2017-08-17 11:27:23.000000000 -0400
++++ openvpn-2.5_git_974513e_patched/src/openvpn/options.c	2017-08-18 18:37:11.000000000 -0400
+@@ -810,6 +810,9 @@
      o->resolve_retry_seconds = RESOLV_RETRY_INFINITE;
      o->resolve_in_advance = false;
      o->proto_force = -1;
@@ -10,27 +10,27 @@
  #ifdef ENABLE_OCC
      o->occ = true;
  #endif
-@@ -972,6 +975,9 @@
+@@ -970,6 +973,9 @@
      setenv_str_i(es, "local_port", e->local_port, i);
      setenv_str_i(es, "remote", e->remote, i);
      setenv_str_i(es, "remote_port", e->remote_port, i);
 +    setenv_int_i(es, "xormethod", e->xormethod, i);
 +    setenv_str_i(es, "xormask", e->xormask, i);
 +    setenv_int_i(es, "xormasklen", e->xormasklen, i);
- 
+
      if (e->http_proxy_options)
      {
-@@ -1474,6 +1480,9 @@
+@@ -1473,6 +1479,9 @@
      SHOW_BOOL(bind_ipv6_only);
      SHOW_INT(connect_retry_seconds);
      SHOW_INT(connect_timeout);
 +    SHOW_INT (xormethod);
 +    SHOW_STR (xormask);
 +    SHOW_INT (xormasklen);
- 
+
      if (o->http_proxy_options)
      {
-@@ -5915,6 +5924,46 @@
+@@ -5932,6 +5941,46 @@
          }
          options->proto_force = proto_force;
      }
