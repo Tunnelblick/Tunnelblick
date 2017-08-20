@@ -58,6 +58,10 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
 	   infoTitle: (NSAttributedString *) infoTitle
 		disabled: (BOOL)                 disabled {
 	
+	if (  infoTitle == nil  ) {
+		NSLog(@"setTitle:%@ infoTitle:nil; call stack = %@", label, callStack());
+	}
+	
 	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
 	[UIHelper setTitle: label ofControl: self frameHolder: self shift: rtl narrow: YES enable: YES];
 	

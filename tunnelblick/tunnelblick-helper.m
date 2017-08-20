@@ -940,12 +940,18 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
 	NSCharacterSet * trimCharacterSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 
 	NSString * stdOutput = [[[NSString alloc] initWithData: stdData encoding: NSUTF8StringEncoding] autorelease];
+	if (  stdOutput == nil  ) {
+		stdOutput = @"Unable to interpret stdout as UTF-8";
+	}
     stdOutput = [stdOutput stringByTrimmingCharactersInSet: trimCharacterSet];
 	if (  [stdOutput length] != 0  ) {
 		fprintf(stderr, "stdout from %s: %s\n", [[thePath lastPathComponent] UTF8String], [stdOutput UTF8String]);
 	}
 	
 	NSString * errOutput = [[[NSString alloc] initWithData: errData encoding: NSUTF8StringEncoding] autorelease];
+	if (  errOutput == nil  ) {
+		errOutput = @"Unable to interpret stderr as UTF-8";
+	}
     errOutput = [errOutput stringByTrimmingCharactersInSet: trimCharacterSet];
 	if (  [errOutput length] != 0  ) {
 		fprintf(stderr, "stderr from %s: %s\n", [[thePath lastPathComponent] UTF8String], [errOutput UTF8String]);
@@ -1722,7 +1728,11 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
     }
     
     NSString * cfgContents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-    
+	if (  ! cfgContents  ) {
+		fprintf(stderr, "Could not interpret the configuration file at %s as UTF-8\n", [actualConfigPath UTF8String]);
+		exit(EXIT_FAILURE);
+	}
+	
     NSString * sanitizedCfgContents = sanitizedConfigurationContents(cfgContents);
     if (  ! sanitizedCfgContents  ) {
         fprintf(stderr, "There was a problem in the configuration file at %s\n", [actualConfigPath UTF8String]);

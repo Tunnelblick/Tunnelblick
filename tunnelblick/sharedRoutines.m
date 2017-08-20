@@ -195,7 +195,13 @@ BOOL needToReplaceLaunchDaemon(void) {
 		&& tunnelblickdPlistOK
 		&& socketOK  ) {
 		NSString * previousDaemonHash = [[[NSString alloc] initWithData: previousDaemonHashData encoding: NSUTF8StringEncoding] autorelease];
+		if (  previousDaemonHash == nil  ) {
+			previousDaemonHash = @"yyy";
+		}
         NSString * previousPlistHash  = [[[NSString alloc] initWithData: previousPlistHashData  encoding: NSUTF8StringEncoding] autorelease];
+		if (  previousDaemonHash == nil  ) {
+			previousDaemonHash = @"zzz";
+		}
         NSDictionary * activePlist    = [NSDictionary dictionaryWithContentsOfFile: TUNNELBLICKD_PLIST_PATH];
 		BOOL daemonHashesMatch  = [previousDaemonHash isEqual: hashForTunnelblickdProgramInApp()];
 		BOOL plistHashesMatch   = [previousPlistHash  isEqual: hashForTunnelblickdPlistToUse()];
@@ -1143,8 +1149,14 @@ OSStatus runTool(NSString * launchPath,
     [errFile closeFile];
     
     NSString * stdOutString = [NSString stringWithContentsOfFile: stdOutPath encoding: NSUTF8StringEncoding error: nil];
+	if (  stdOutString == nil  ) {
+		stdOutString = @"Could not interpret stdout as UTF-8";
+	}
     NSString * stdErrString = [NSString stringWithContentsOfFile: stdErrPath encoding: NSUTF8StringEncoding error: nil];
-    
+	if (  stdErrString == nil  ) {
+		stdErrString = @"Could not interpret stderr as UTF-8";
+	}
+	
     [[NSFileManager defaultManager] tbRemoveFileAtPath: tempDir handler: nil]; // Ignore errors; there is nothing we can do about them
     
     NSString * message = nil;

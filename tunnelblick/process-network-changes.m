@@ -467,10 +467,14 @@ NSString * getScKey(NSString * key)
         NSData * data = [file readDataToEndOfFile];
         [file closeFile];
         NSString * scutilOutput = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-        value = standardizedString(scutilOutput, NSMakeRange(0, [scutilOutput length]));
-        if (  [value isEqualToString: @"No such key\n"]  ) {
-            value = @"<dictionary> {\nTunnelblickNoSuchKey : true\n}\n";
-        }
+		if (  scutilOutput == nil  ) {
+			value = @"<dictionary> {\nTunnelblickKeyIsNotUTF-8 : true\n}\n";
+		} else {
+			value = standardizedString(scutilOutput, NSMakeRange(0, [scutilOutput length]));
+			if (  [value isEqualToString: @"No such key\n"]  ) {
+				value = @"<dictionary> {\nTunnelblickNoSuchKey : true\n}\n";
+			}
+		}
     }
     
     [errPipe release];
@@ -517,7 +521,11 @@ void scCommand(NSString * command)
         NSData * data = [file readDataToEndOfFile];
         [file closeFile];
         NSString * errmsg = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-        appendLog(errmsg);
+		if (  errmsg == nil  ) {
+			appendLog(@"Could not interpret error message as UTF-8");
+		} else {
+			appendLog(errmsg);
+		}
         [errPipe release];
         [stdPipe release];
         [inPipe  release];

@@ -288,6 +288,10 @@ NSString *condensedConfigFileContentsFromString(NSString * fullString) {
 NSAttributedString * attributedStringFromHTML(NSString * html) {
     
     NSData * htmlData = [html dataUsingEncoding: NSUTF8StringEncoding];
+	if ( htmlData == nil  ) {
+		return nil;
+	}
+	
     NSMutableAttributedString * as = [[NSMutableAttributedString alloc] initWithHTML: htmlData options: @{NSTextEncodingNameDocumentOption: @"UTF-8"} documentAttributes: nil];
     return as;
 }

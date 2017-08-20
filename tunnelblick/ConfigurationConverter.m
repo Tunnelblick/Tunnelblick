@@ -507,6 +507,10 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
 		}
 		
 		NSMutableString * contents = [[[NSMutableString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+		if (  contents == nil  ) {
+			return [self logMessage: [NSString stringWithFormat: @"Unable to load contents of %@ as UTF-8", source]
+						  localized: [NSString stringWithFormat: NSLocalizedString(@"Unable to load contents of %@ as UTF-8", @"Window text"), source]];
+		}
 		
 		if (  [self removeOrReplaceCRs: contents]  ) {
 			if (  [contents writeToFile: target atomically: YES encoding: NSUTF8StringEncoding error: NULL]  ) {

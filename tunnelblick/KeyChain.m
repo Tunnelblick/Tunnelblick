@@ -87,6 +87,10 @@
         if (  passLength != 0) {
             NSString *returnPassword = [[[NSString alloc] initWithBytes:passData length:passLength encoding:NSUTF8StringEncoding] autorelease];
             SecKeychainItemFreeContent(NULL,passData);
+			if (  returnPassword == nil  ) {
+				NSLog(@"Non-UTF-8 Keychain item retrieved for service = '%@' account = '%@'", serviceName, accountName);
+				return @"";
+			}
             NSLog(@"Keychain item retrieved successfully for service = '%@' account = '%@'", serviceName, accountName);
             return returnPassword;            
         } else {

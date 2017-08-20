@@ -227,8 +227,16 @@ OSStatus runTool(NSString * userName,
     [errFile closeFile];
     
     NSString * stdOutString = [NSString stringWithContentsOfFile: stdOutPath encoding: NSUTF8StringEncoding error: nil];
+	if (  stdOutString == nil  ) {
+		stdOutString = @"Could not interpret stdout as UTF-8";
+		asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret stdout as UTF-8");
+	}
     NSString * stdErrString = [NSString stringWithContentsOfFile: stdErrPath encoding: NSUTF8StringEncoding error: nil];
-    
+	if (  stdErrString == nil  ) {
+		stdErrString = @"Could not interpret stdout as UTF-8";
+		asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret stderr as UTF-8");
+	}
+	
     if (  0 != unlink([stdOutPath fileSystemRepresentation])  ) {
         asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not unlink %s; errno = %ld; error was '%s'", [stdOutPath UTF8String], (long)errno, strerror(errno));
     }
@@ -245,14 +253,14 @@ OSStatus runTool(NSString * userName,
         *stdOutStringPtr = [[stdOutString retain] autorelease];
     } else if (   (status != EXIT_SUCCESS)
                && (0 != [stdOutString length])  )  {
-        message = [NSString stringWithFormat: @"stdout = '%@'", stdOutString];
+        message = [NSString stringWithFormat: @"stdout = '%@'\n", stdOutString];
     }
     
     if (  stdErrStringPtr  ) {
         *stdErrStringPtr = [[stdErrString retain] autorelease];
     } else if (   (status != EXIT_SUCCESS)
                && (0 != [stdErrString length])  )  {
-        message = [NSString stringWithFormat: @"%@stderr = '%@'", (message ? @"\n" : @""), stdErrString];
+        message = [NSString stringWithFormat: @"%@stderr = '%@'", (message ? message : @""), stdErrString];
     }
     
     if (  message  ) {
@@ -487,7 +495,19 @@ int main(void) {
         // Get the client's username from the client's euid
         struct passwd *ss = getpwuid(client_euid);
         NSString * userName = [NSString stringWithCString: ss->pw_name encoding: NSUTF8StringEncoding];
+		if (  userName == nil  ) {
+			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret username as UTF-8");
+			retval = EXIT_FAILURE;
+			[pool drain];
+			goto done;
+		}
         NSString * userHome = [NSString stringWithCString: ss->pw_dir  encoding: NSUTF8StringEncoding];
+		if (  userHome == nil  ) {
+			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret userhome as UTF-8");
+			retval = EXIT_FAILURE;
+			[pool drain];
+			goto done;
+		}
 		
 		// Set up to have tunnelblick-helper to do the work
 		NSString * tunnelblickHelperPath;

@@ -108,6 +108,9 @@ int main (int argc, const char * argv[])
     NSFileHandle * input = [NSFileHandle fileHandleWithStandardInput];
     NSData *   inputData = [NSData dataWithData:[input readDataToEndOfFile]];
     NSString * tmpString = [[[NSString alloc] initWithData:inputData encoding: NSUTF8StringEncoding] autorelease];
+	if (  tmpString == nil  ) {
+		tmpString = @"Unable to interpret input data as UTF-8";
+	}
     NSString * inString  = standardizedString(tmpString, NSMakeRange(0, [tmpString length]));
 
 // For testing
