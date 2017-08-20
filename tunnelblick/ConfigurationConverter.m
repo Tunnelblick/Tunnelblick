@@ -399,8 +399,16 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
         }
     }
     
-    // Check for RTF files
-    const unsigned char * chars = [data bytes];
+	// Get file contents as a NUL-terminated string and make sure it contains no NUL characters
+	NSMutableData * mData = [[data mutableCopy] autorelease];
+	[mData appendBytes: "\0" length: 1];
+	const unsigned char * chars = [mData bytes];
+	if (  strlen( (char *)chars ) != [mData length] - 1  ) {
+		return [self logMessage: [NSString stringWithFormat: @"File '%@' contains one or more NUL characters.", path]
+					  localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' contains one or more NUL characters.", @"Window text"), [path lastPathComponent]]];
+	}
+
+	// Check for RTF files
     if (   chars[0] == '{'  ) {
         return [self logMessage: [NSString stringWithFormat: @"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.", path]
                       localized: [NSString stringWithFormat: NSLocalizedString(@"File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.", @"Window text"), [path lastPathComponent]]];
