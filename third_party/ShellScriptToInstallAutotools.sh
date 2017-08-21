@@ -46,6 +46,14 @@ if [ ! -d "${downloads_folder_path}" ] ; then
     exit 1
 fi
 
+for buildtool in automake autoconf libtool glibtool; do
+  if [ -L /usr/local/bin/$buildtool ]; then
+    echo "/usr/local/bin/$buildtool exists & appears to be a symlink."
+    echo "Presuming $buildtool is from a package manager & refusing to overwrite."
+    exit 1
+  fi
+done
+
 echo "INSTALLING AUTOCONF:"
 cd "${downloads_folder_path}"
 curl -OL "${autoconf_url}"
@@ -74,7 +82,7 @@ cd "${downloads_folder_path}"
 curl -OL "${libtool_url}"
 tar xzf "${libtool_version}.tar.gz"
 cd "${libtool_version}"
-./configure
+./configure --program-prefix=g
 make
 sudo make install
 
