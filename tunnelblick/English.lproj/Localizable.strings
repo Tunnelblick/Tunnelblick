@@ -1127,6 +1127,9 @@
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
 
 /* Window text */
+"File '%@' contains one or more NUL characters." = "File '%@' contains one or more NUL characters.";
+
+/* Window text */
 "File '%@' ends with a backslash, which is not allowed." = "File '%@' ends with a backslash, which is not allowed.";
 
 /* Window text */
@@ -1704,6 +1707,9 @@
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "Unable to install the '%@' configuration\n";
+
+/* Window text */
+"Unable to load contents of %@ as UTF-8" = "Unable to load contents of %@ as UTF-8";
 
 /* Window text */
 "Unable to open configuration file for modification" = "Unable to open configuration file for modification";
