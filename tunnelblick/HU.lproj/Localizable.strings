@@ -1127,6 +1127,9 @@
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "A(z) '%@' fájl úgy tűnik, hogy 'rich text' formátumú, mert egy '{' karakterrel kezdődik.\nMinden OpenVPN-hez tartozó állománynak egyszerű szöveges vagy UTF-8 fájlnak kell lennie.";
 
 /* Window text */
+"File '%@' contains one or more NUL characters." = "A(z) '%@' fájl egy vagy több NUL karaktert tartalmaz.";
+
+/* Window text */
 "File '%@' ends with a backslash, which is not allowed." = "A(z) '%@' fájl egy fordított perjelre (backslash) végződik, ami nem engedélyezett.";
 
 /* Window text */
@@ -1136,7 +1139,7 @@
 "File '%@' is missing" = "A '%@' hiányzik";
 
 /* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+"File '%@' is not a plain text or UTF-8 file." = "A(z) '%@' fájl nem szövegfájl vagy UTF-8 fájl.";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "A '%1$@' file túl kicsi (%2$lu byte)";
@@ -1706,10 +1709,13 @@
 "Unable to install the '%@' configuration\n" = "Nem telepíthető a(z) '%@' konfiguráció\n";
 
 /* Window text */
+"Unable to load contents of %@ as UTF-8" = "Nem lehet betölteni a(z) %@ tartalmát UTF-8-ként";
+
+/* Window text */
 "Unable to open configuration file for modification" = "Nem sikerült megnyitni a konfigurációs fájlt módosításra";
 
 /* Window text */
-"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+"Unable to parse configuration file as UTF-8" = "A konfigurációs fájl nem elemezhető UTF-8-ként";
 
 /* Window text */
 "Unable to replace the '%@' configuration\n" = "Nem lehet lecserélni a(z) '%@' konfigurációt\n";
@@ -1946,7 +1952,7 @@
 "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>Kiválasztás esetén</strong> a Tunnelblick visszaállítja az elsődleges hálózati felületet a VPN lecsatlakozása után. Ez problémákat okozhat néhány rosszul beállított VPN szerver és néhány OpenVPN beállítási hiba esetén.</p>\n<p><strong>Ha nincs kiválasztva</strong>, a Tunnelblick nem állítja vissza az elsődleges hálózati felületet.</p>\n<p><strong>A jelölőnégyzet inaktív</strong>, ha a 'DNS/WINS beállítása' nem a 'Névszerver beállítása'-ra van állítva.</p>";
 
 /* HTML info for the 'Send anonymous profile information when checking' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>" = "<p><strong>Ha </strong>van bejelölve, Tunnelblick adatokat küld a számítógépedről (operációs rendszer verziója) a Tunnelblick honlapon amikor frissítéseket keresel. </p><p><strong>Ha nincs </strong> bejelölve, akkor Tunnelblick nem küld információt a frissítéseknél. </p><p>Kattincs <a href = \"https://tunnelblick.net/cPrivacy.html\" > Adatvédelem és biztonságra </a> [tunnelblick.net] a részletekért. </p>";
+"<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>" = "<p><strong>Ha be van jelölve</strong>, a Tunnelblick adatokat küld a számítógépedről (operációs rendszer verziója) a Tunnelblick honlapjára amikor frissítéseket keres. </p><p><strong>Ha nincs bejelölve</strong>, akkor a Tunnelblick nem küld információt a frissítéseknél. </p><p>Kattints az<a href = \"https://tunnelblick.net/cPrivacy.html\" > Adatvédelem és biztonságra </a> [tunnelblick.net] a részletekért. </p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Kiválasztás esetén</strong> a Tunnelblick figyelemmel kíséri és reagál a hálózati beállítások változásaira (például internetkapcsolat váltás vagy DHCP megújítás miatti változások) hogy megpróbálja a VPN-t kapcsolatban tartani. A Tunnelblick alapértelmezett beállításai általában jól működnek a hálózati beállítások változásánál, de beállítható más lehetőség is a 'Kapcsolat alatt' fülön a 'Speciális' beállítások ablakban.</p>\n<p><strong>Ha nincs kiválasztva</strong> figyelmen kívül hagyja a hálózati változásokat.</p>\n<p><strong>A jelölőnégyzet inaktív</strong> ha a 'DNS/WINS beállítás' nem 'Névszerver beállítása' vagy 'Névszerver beállítása (3.1)'.</p>";
@@ -2139,7 +2145,7 @@
 "LANGUAGE_TRANSLATION" = "Magyar fordítás";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Szabó Marcell és Keszthelyi Kornél";
+"LEAD_TRANSLATORS" = "Keszthelyi Kornél és Szabó Marcell";
 
 /* Credit description */
 "Latvian translation" = "Lett fordítás";

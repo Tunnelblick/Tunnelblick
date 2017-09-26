@@ -1,11 +1,11 @@
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Disconnect All (%1$@) - apparent public IP address %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "قطع کلیه ارتباط ها (%1$@) - آدرس آیپی فعلی %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "قطع کردن همه (%@)";
 
 /* Status message. First '%@' is a number greater than 1 (e.g., '3'). Second '%@' is an IP address (e.g., '8.8.4.4') */
-"Disconnect All (%d Connections) - apparent public IP address %@" = "Disconnect All (%1$d Connections) - apparent public IP address %2$@";
+"Disconnect All (%d Connections) - apparent public IP address %@" = "قطع کلیه (%1$d ارتباط) - آدرس آیپی فعلی %2$@";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "قطع کردن همه (%d اتصال)";
@@ -311,16 +311,16 @@
 "OpenVPN level 3 - normal output" = "OpenVPN سطح 3 - خروجی عادی";
 
 /* Menu Item */
-"OpenVPN level 4 - also outputs values for all options" = "OpenVPN level 4 - also outputs values for all options";
+"OpenVPN level 4 - also outputs values for all options" = "سطح ۴ وی پی ان - این سطح همچنین کلیه مقادیر انتخاب شده را نشان می دهد";
 
 /* Menu Item */
-"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet";
+"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet" = "سطح ۵ وی پی ان - این سطح مد هر بسته ارسال شده را به تفکیک \"R\" و \"W\" نشان می دهد";
 
 /* Menu Item */
 "OpenVPN level 6 - very verbose output" = "OpenVPN سطح  6 - خروجی بسیار طویل";
 
 /* Menu Item */
-"OpenVPN logging level set by the configuration" = "OpenVPN logging level set by the configuration";
+"OpenVPN logging level set by the configuration" = "سطح گزارش گیری وی پی ان با توجه به فایل تنظیمات";
 
 /* Menu item */
 "Quit Tunnelblick" = "بستن Tunnelblick";
@@ -344,7 +344,7 @@
 "VPN Details..." = "جزییات VPN…";
 
 /* Checkbox name */
-"Allow changes to manually-set network settings" = "Allow changes to manually-set network settings";
+"Allow changes to manually-set network settings" = "پذیرفتن تغییرات جدید به تنظیمات دستی شبکه";
 
 /* Checkbox name */
 "Apply to all" = "برای همه اعمال کن";
@@ -431,22 +431,22 @@
 "Require administrator authorization for key and certificate changes" = "نیاز به اعتبارسنجی توسط مدیریت برای تغییر کلید و گواهی‌ها";
 
 /* Checkbox name */
-"Reset the primary interface after disconnecting" = "Reset the primary interface after disconnecting";
+"Reset the primary interface after disconnecting" = "استارت دوباره رابط اصلی شبکه پس از قطع ارتباط";
 
 /* Checkbox name */
 "Route all IPv4 traffic through the VPN" = "تمامی ترافیک IPv4 را از طریق VPN انتقال بده";
 
 /* Checkbox name */
-"Run MTU maximum size test after connecting" = "Run MTU maximum size test after connecting";
+"Run MTU maximum size test after connecting" = "انجام تست سایز انتقال بسته (MTU) در شبکه پس از برقراری ارتباط";
 
 /* Checkbox name */
 "Save in Keychain" = "ذخیره کردن در Keychain";
 
 /* Checkbox name */
-"Send anonymous profile information when checking" = "Send anonymous profile information when checking";
+"Send anonymous profile information when checking" = "ارسال ناشناس اطلاعات شخصی در زمان جستجو برای نسخه جدید";
 
 /* Checkbox name */
-"Set DNS after routes are set" = "Set DNS after routes are set";
+"Set DNS after routes are set" = "تنظیم سامانه نام دامنه (DNS) پس از تثبیت مسیریابی";
 
 /* Checkbox name */
 "Show when disconnected" = "در زمان قطع اتصال نمایش بده";
@@ -665,13 +665,13 @@
 "Sounds" = "صداها";
 
 /* Window title */
-"System Requirements Not Met" = "System Requirements Not Met";
+"System Requirements Not Met" = "پیش نیاز سیستمی یافت نشد";
 
 /* Window title */
-"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
+"There are no OpenVPN processes running." = "هیچ پردازش وی پی انی در حال اجرا نیست.";
 
 /* Window title */
-"Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
+"Tunnelblick Configuration Problem" = "خطا در تنظیمات برنامه تانل بلیک";
 
 /* Window title */
 "Tunnelblick Error" = "خطا در Tunnelblick";
@@ -680,10 +680,10 @@
 "Tunnelblick" = "Tunnelblick";
 
 /* Window title */
-"Tunnelblick: Login Required" = "Tunnelblick: Login Required";
+"Tunnelblick: Login Required" = "تانل بلیک: ورود به سیستم";
 
 /* Window title */
-"Tunnelblick: Passphrase Required" = "Tunnelblick: Passphrase Required";
+"Tunnelblick: Passphrase Required" = "تانل بلیک: ورود گذرواژه";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "قادر به باز کردن تونل بلیکک وی‌پی‌ان نیستیم";
@@ -692,7 +692,7 @@
 "Unavailable" = "در دسترس نیست";
 
 /* Window title */
-"Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
+"Use 'down-root' plugin for OpenVPN?" = "استفاده از افزایه نگه داشتن اختیارات ادمین 'down-root' در ارتباطات وی پی ان?";
 
 /* Window title */
 "Utilities" = "خدمات";
@@ -701,10 +701,10 @@
 "VPN Configuration Installation Error" = "خطا در نصب پیکربندی VPN";
 
 /* Window title */
-"VPN Configuration Installation" = "VPN Configuration Installation";
+"VPN Configuration Installation" = "نصب تنظیمات وی پی ان";
 
 /* Window title */
-"VPN Credentials" = "VPN Credentials";
+"VPN Credentials" = "تنظیمات اضافی اعتبار وی پی ان";
 
 /* Window title */
 "Warning!" = "هشدار!";
@@ -713,7 +713,7 @@
 "Warning" = "هشدار";
 
 /* Window title */
-"Warning: Unknown OpenVPN processes" = "Warning: Unknown OpenVPN processes";
+"Warning: Unknown OpenVPN processes" = "توجه: روند وی پی ان ناشناخته";
 
 /* Window title */
 "Welcome to Tunnelblick" = "به تونل بلیکک وی‌پی‌ان خوش آمدید";
@@ -737,16 +737,16 @@
 "     • Replaced one configuration\n\n" = "     یک سری تنظیمات جایگزین شد\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Uninstalled %lu configurations\n\n" = "     • Uninstalled %lu configurations\n\n";
+"     • Uninstalled %lu configurations\n\n" = "     حذف تنظیمات %lu انجام شد\n\n";
 
 /* Window text: 'Tunnelblick successfully: *' */
-"     • Uninstalled one configuration\n\n" = "     • Uninstalled one configuration\n\n";
+"     • Uninstalled one configuration\n\n" = "     فایل تنظیمات حذف شد\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Install %lu configurations\n\n" = "    • نصب تنظیمات %lu\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Install one configuration\n" = "    • Install one configuration\n";
+"    • Install one configuration\n" = "    نصب فایل تنظیمات\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
 "    • Replace %lu configurations\n\n" = "    • جایگزینی تنظیمات %lu\n\n";
@@ -755,16 +755,16 @@
 "    • Replace one configuration\n" = "    • جایگزینی یک تنظیم\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall %lu configurations\n\n" = "    • Uninstall %lu configurations\n\n";
+"    • Uninstall %lu configurations\n\n" = "    حذف %lu فایل تنظیمات\n\n";
 
 /* Window text: 'Tunnelblick needs to: *' */
-"    • Uninstall one configuration\n" = "    • Uninstall one configuration\n";
+"    • Uninstall one configuration\n" = "    حذف فایل تنظیمات\n";
 
 /* Window text */
-"  • Be installed in /Applications as Tunnelblick\n" = "  • Be installed in /Applications as Tunnelblick\n";
+"  • Be installed in /Applications as Tunnelblick\n" = "  در فولدر /برنامه ها با نام تانل بلیک نصب شود\n";
 
 /* Window text */
-"  • Change ownership and permissions of the program to secure it\n" = "  • Change ownership and permissions of the program to secure it\n";
+"  • Change ownership and permissions of the program to secure it\n" = "  مالکیت و دسترسی برنامه را تغییر دهید تا با اطمینان از آن استفاده کنید\n";
 
 /* Window text; appears after an update and will be prefixed by 'Tunnelblick needs to:' */
 "  • Complete the update\n" = "  • کامل کردن بروز رسانی\n";
@@ -773,7 +773,7 @@
 "  • Convert OpenVPN configurations\n" = "  تبدیل تنظیمات OpenVPN\n";
 
 /* Window text */
-"  • Install forced preferences\n" = "  • Install forced preferences\n";
+"  • Install forced preferences\n" = "  نصب تنظیمات پیش فرض اجباری\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  نصب یا به روز رسانی تنظیمات\n";
@@ -785,7 +785,7 @@
 "  • Secure configurations\n" = "  • ایمن سازی تنظیمات\n";
 
 /* Window text */
-" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc.";
+" %1$@ is free software: you can redistribute it and/or modify it under the terms of the %2$@ as published by the %3$@.\n\n%4$@ is a registered trademark of OpenVPN Technologies, Inc." = " %1$@ یک نرم افزار مجانی است: شما می توانید آن را با دوستان خود شیر کنید و یا حتی کد سورس آن با توجه به مقررات %2$@ منتشر شده در %3$@ تغییر دهید. \n\n%4$@ نام ثبت شده تجاری شرکت OpenVPN Technologies می باشد.";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " آیا مایلید %1$@ را در %2$@%3$@ نصب کنید?\n\n";
@@ -797,58 +797,58 @@
 " Forced preferences will also be installed or replaced.\n\n" = " تنظیمات اجباری هم نصب یا جایگزین میشوند.\n\n";
 
 /* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n";
+" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " توجه: تنظیمات وی پی ان به تنظیمات تانل بلیک تبدیل خواهد شد.\n\n";
 
 /* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick must be installed in Applications.\n\n";
+" Tunnelblick must be installed in Applications.\n\n" = " برنامه تانل بلیک باید در فولدر برنامه ها نصب شود.\n\n";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts.";
+" Tunnelblick needs computer administrator authorization so it can automatically connect '%@' when the computer starts." = " برنامه تانل بلیک نیاز به دسترسی ادمین دارد تا هر دفعه بالا آمدن کامپیوتر به صورت خودکار به '%@' متصل شود.";
 
 /* Window text; '%@' is the name of a configuration */
-" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts.";
+" Tunnelblick needs computer administrator authorization so it can stop automatically connecting '%@' when the computer starts." = " برنامه تانل بلیک نیاز به دسترسی ادمین دارد تا هر دفعه بالا آمدن کامپیوتر به صورت خودکار اتصال خود را به '%@' قطع کند.";
 
 /* Window text */
-" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WARNING: This copy of Tunnelblick has been tampered with.\n\n";
+" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " اخطار: این کپی از برنامه تانل بلیک دستکاری شده و قابل اجرا نیست.\n\n";
 
 /* Window text */
 "%@ exists but is not a folder" = "%@ موجود است اما پوشه نیست";
 
 /* Window text */
-"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ has been reverted to its last secured (shadow) copy.\n\n";
+"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ به اولین نسخه پشتیبان خود باز گشت.\n\n";
 
 /* Window text */
-"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configurations have been reverted to their last secured (shadow) copy.\n\n";
+"%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "تنضیمات %ld به آخرین نسخه پشتیبان خود بازگشت.\n\n";
 
 /* Window text */
-"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
+"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' قبلا روی دستگاه موجود است. \n\nآیا مایل به تغییر آن هستید?";
 
 /* Window text */
-"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' does not have any credentials (private key or username and password) stored in the Keychain.";
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "هیچگونه اطلاعاتی (کلید خصوصی یا نام کاربری و گذرواژه) از '%@' در صندوق کلید ها پیدا نشد.";
 
 /* Window text */
 "'%@' was not terminated." = "'%@' پایان نیافته.";
 
 /* Window text */
-"'easy-rsaPath' preference ignored; it does not specify a folder" = "'easy-rsaPath' preference ignored; it does not specify a folder";
+"'easy-rsaPath' preference ignored; it does not specify a folder" = "تنظیمات شخصی 'easy-rsaPath' رد شد؛ آدرس پرونده مشخص نشده است";
 
 /* Window text */
 "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'" = "'easy-rsaPath' preference ignored; it must be an absolute path or start with '~'";
 
 /* Window text -- appears in log display when logging is disabled\n */
-"(Logging is disabled.)" = "(Logging is disabled.)";
+"(Logging is disabled.)" = "(لاگ کردن غیر فعال است)";
 
 /* Window text */
 "(Never checked)" = "(هرگز بررسی نشده)";
 
 /* Window text */
-"(The 'easy-rsaPath' preference is invalid.)" = "(The 'easy-rsaPath' preference is invalid.)";
+"(The 'easy-rsaPath' preference is invalid.)" = "(تنظیمات 'easy-rsaPath' صحیح نیست)";
 
 /* Window text */
-"(if connected when computer went to sleep)" = "(if connected when computer went to sleep)";
+"(if connected when computer went to sleep)" = "(اگر متصل بود زمانی که کامپیوتر به حالت استراحت میرفت)";
 
 /* Window text */
-"(if connected when user switched out)" = "(if connected when user switched out)";
+"(if connected when user switched out)" = "(اگر متصل بود زمانی که کاربر از حساب کاربری خارج شد)";
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc." = "<br>Based on Tunnelblick, free software available at<br><a href=\"https://tunnelblick.net\">https://tunnelblick.net</a><br><br>OpenVPN is a registered trademark of OpenVPN Technologies, Inc.";
@@ -968,7 +968,7 @@
 "Backslash at end of line %u is not allowed" = "Backslash at end of line %u is not allowed";
 
 /* Window text */
-"Cannot find configuration file at %@" = "Cannot find configuration file at %@";
+"Cannot find configuration file at %@" = "فایل تنظیمات در %@ یافت نشد";
 
 /* Window text */
 "Cannot install configurations to either shared or private locations" = "Cannot install configurations to either shared or private locations";
@@ -977,22 +977,22 @@
 "Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
 
 /* Window text */
-"Computer sleep/wake" = "Computer sleep/wake";
+"Computer sleep/wake" = "استراحت/فعال شدن کامپیوتر";
 
 /* Window text */
 "Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' ('%2$@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%3$s'\n\n";
 
 /* Window text */
-"Configuration '%@' already exists." = "Configuration '%@' already exists.";
+"Configuration '%@' already exists." = "تنظیمات «%@» در حال حاظر وجود دارد.";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "تنظیمات «%@» شامل یک یا چند کد است که ممکن است اشکالاتی ایجاد کند اگر شما تنظیمات را جایگزین یا حذف کنید زمانی که اتصال برقرار است.\n\nآیا همچنان میخواهید تنظیمات را جایگزین کنید؟";
 
 /* Window text */
-"Configuration '%@' is not secure. It should be reinstalled." = "Configuration '%@' is not secure. It should be reinstalled.";
+"Configuration '%@' is not secure. It should be reinstalled." = "تنظیمات «%@» امن نیست. باید مجدد نصب شود.";
 
 /* Window text */
-"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "Configuration '%@' is not secure. Please reinstall Tunnelblick.";
+"Configuration '%@' is not secure. Please reinstall Tunnelblick." = "تنظیمات «%@» امن نیست. لطفا Tunnelblick را مجدد نصب کنید.";
 
 /* Window text */
 "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n" = "Configuration '%@' is not updatable because it could not be marked as 'updatable'.\n";
@@ -1037,16 +1037,16 @@
 "Could not copy %@ to %@" = "Could not copy %1$@ to %2$@";
 
 /* Window text */
-"Could not create %@" = "Could not create %@";
+"Could not create %@" = "ایجاد %@ امکان پذیر نبود";
 
 /* Window text */
-"Could not delete %@" = "Could not delete %@";
+"Could not delete %@" = "حذف %@ امکان پذیر نبود";
 
 /* Window text */
-"Could not find easy-rsa in Tunnelblick.app" = "Could not find easy-rsa in Tunnelblick.app";
+"Could not find easy-rsa in Tunnelblick.app" = "easy-rsa در Tunnelblick.app یافت نشد.";
 
 /* Window text */
-"Could not find easy-rsa version information in Tunnelblick.app" = "Could not find easy-rsa version information in Tunnelblick.app";
+"Could not find easy-rsa version information in Tunnelblick.app" = "اطلاعات نسخه ی easy-rsa در Tunnelblick.app یافت نشد.";
 
 /* Window text */
 "Could not get attributes of %@" = "Could not get attributes of %@";
@@ -1061,7 +1061,7 @@
 "Could not set modification date of %@ to %@" = "Could not set modification date of %1$@ to %2$@";
 
 /* Window text */
-"DNS servers:" = "DNS servers:";
+"DNS servers:" = "سرور های DNS:";
 
 /* Window text */
 "Did not need to modify configuration file; no path information to remove" = "Did not need to modify configuration file; no path information to remove";
@@ -1125,6 +1125,9 @@
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+
+/* Window text */
+"File '%@' contains one or more NUL characters." = "File '%@' contains one or more NUL characters.";
 
 /* Window text */
 "File '%@' ends with a backslash, which is not allowed." = "File '%@' ends with a backslash, which is not allowed.";
@@ -1704,6 +1707,9 @@
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "Unable to install the '%@' configuration\n";
+
+/* Window text */
+"Unable to load contents of %@ as UTF-8" = "Unable to load contents of %@ as UTF-8";
 
 /* Window text */
 "Unable to open configuration file for modification" = "Unable to open configuration file for modification";

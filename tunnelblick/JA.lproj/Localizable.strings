@@ -1127,6 +1127,9 @@
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "ファイル '%@' はリッチテキストフォーマットと思われます。OpenVPNで使用するファイルはプレーンテキスト(ASCIIもしくはUTF-8)である必要があります。";
 
 /* Window text */
+"File '%@' contains one or more NUL characters." = "'%@'のファイルの中身でNULLカラクターがあります";
+
+/* Window text */
 "File '%@' ends with a backslash, which is not allowed." = "ファイル'%@' はバックスラッシュで終わってます、これは対応できないです。";
 
 /* Window text */
@@ -1136,7 +1139,7 @@
 "File '%@' is missing" = "ファイルが存在しません: %@";
 
 /* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+"File '%@' is not a plain text or UTF-8 file." = "'%@'のファイルはプラインテクストかUTF-8でわない";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "ファイル '%1$@' は小さすぎます(%2$lu バイト)";
@@ -1704,6 +1707,9 @@
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "%@の設定をインストールできませんでした\n";
+
+/* Window text */
+"Unable to load contents of %@ as UTF-8" = "Unable to load contents of %@ as UTF-8";
 
 /* Window text */
 "Unable to open configuration file for modification" = "設定ファイルを編集用にオープンできません";

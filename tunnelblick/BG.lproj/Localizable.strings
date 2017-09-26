@@ -1127,6 +1127,9 @@
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Файлът '%@' изглежда да е в 'rich text' формат, защото започва със следния символ '{'. \nВсички файлове, свързани с OpenVPN трябва да бъдат в \"plain text\" или \"UTF-8\" файлов формат.";
 
 /* Window text */
+"File '%@' contains one or more NUL characters." = "Файлът '%@' съдържа един или повече NUL символа.";
+
+/* Window text */
 "File '%@' ends with a backslash, which is not allowed." = "Файлът '%@' завършва с наклонена черта наляво, което не е позволено.";
 
 /* Window text */
@@ -1136,7 +1139,7 @@
 "File '%@' is missing" = "Файлът '%@' липсва";
 
 /* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+"File '%@' is not a plain text or UTF-8 file." = "Файлът '%@' не е текстов файл или UTF-8 файл.";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "Файлът '%1$@' е твърде малък (%2$lu байта)";
@@ -1706,10 +1709,13 @@
 "Unable to install the '%@' configuration\n" = "Не може да инсталира '%@' конфигурацията\n";
 
 /* Window text */
+"Unable to load contents of %@ as UTF-8" = "Неуспешно зареждане на съдържанието на %@ като UTF-8";
+
+/* Window text */
 "Unable to open configuration file for modification" = "Не може да отвори конфигурационния файл за промяна";
 
 /* Window text */
-"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+"Unable to parse configuration file as UTF-8" = "Неуспешно зареждане на конфигурационен файл като UTF-8";
 
 /* Window text */
 "Unable to replace the '%@' configuration\n" = "Не може да замени '%@' конфигурацията\n";

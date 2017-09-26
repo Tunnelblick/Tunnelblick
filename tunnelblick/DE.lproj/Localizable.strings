@@ -1127,6 +1127,9 @@
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Die Datei '%@' scheint im 'rich text' Format zu sein, denn sie beginnt mit einem ' {' Zeichen. Alle Dateien mit Bezug zu OpenVPN müssen 'plain text' oder 'UTF-8' sein.";
 
 /* Window text */
+"File '%@' contains one or more NUL characters." = "Die Datei '%@' enthält ein oder mehr NUL-Zeichen.";
+
+/* Window text */
 "File '%@' ends with a backslash, which is not allowed." = "Die Datei '%@' endet mit einem Backslash, was nicht zulässig ist.";
 
 /* Window text */
@@ -1136,7 +1139,7 @@
 "File '%@' is missing" = "Datei '%@' fehlt";
 
 /* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+"File '%@' is not a plain text or UTF-8 file." = "Die Datei '%@' ist keine 'plain text' oder UTF-8 Datei.";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "Datei '%1$@' ist zu klein (%2$lu bytes)";
@@ -1706,10 +1709,13 @@
 "Unable to install the '%@' configuration\n" = "Nicht in der Lage, die '%@' Konfiguration zu installieren\n";
 
 /* Window text */
+"Unable to load contents of %@ as UTF-8" = "Die Inhalte von '%@' können nicht als UTF-8 geladen werden";
+
+/* Window text */
 "Unable to open configuration file for modification" = "Nicht in der Lage, die Konfigurationsdatei zur Bearbeitung zu öffnen";
 
 /* Window text */
-"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+"Unable to parse configuration file as UTF-8" = "Die Konfigurationsdateien kann nicht als UFT-8 geparst werden";
 
 /* Window text */
 "Unable to replace the '%@' configuration\n" = "Nicht in der Lage, '%@' in der Konfiguration zu ersetzen\n";

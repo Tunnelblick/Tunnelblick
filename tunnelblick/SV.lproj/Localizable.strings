@@ -1127,6 +1127,9 @@
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Filen \"%@\" verkar vara i \"rich text\" format eftersom den börjar med \"'{\". Alla OpenVPN-relaterade filer måste vara i \"plain text\" eller \"UTF-8\" filer.";
 
 /* Window text */
+"File '%@' contains one or more NUL characters." = "Filen '%@' innehåller en eller fler NUL-tecken.";
+
+/* Window text */
 "File '%@' ends with a backslash, which is not allowed." = "Filnamnet \"%@\" slutar med ett omvänt snedstreck, vilket inte är tillåtet.";
 
 /* Window text */
@@ -1136,7 +1139,7 @@
 "File '%@' is missing" = "Filen \"%@\" saknas";
 
 /* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+"File '%@' is not a plain text or UTF-8 file." = "Filen '%@' är inte i klartext eller UTF-8.";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "Filen '%1$@' är för kort (%2$lu bytes)";
@@ -1277,7 +1280,7 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "En eller fler OpenVPN processer körs men är okända för Tunnelblick. Om du inte kör OpenVPN separat från Tunnelblick, betyder detta oftast att Tunneblick fortfarande körs och Tunnelblick kunde inte avsluta processerna korrekt, du bör avsluta dem. De kommer troligtvis att störa Tunnelblick.\n\nDe kan stängas av i 'Aktivitetshanteraren'.\n\n";
 
 /* Window text */
-"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "En eller flera VPN-konfigurationer som kommer att uppdateras innehåller program som kommer att köras som Administratör när du kopplar upp dig mot ett VPN. De kommer att kunna TA FULL KONTROLL ÖVER DIN DATOR.\n \nINSTALLERA INTE KONFIGURATIONERNA OM DU INTE LITAR PÅ FÖRFATTAREN.\n\nLitar du på konfigurationernas författare och vill installera dem?\n\n";
+"One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "En eller flera VPN-konfigurationer som kommer att uppdateras innehåller program som kommer att köras som Administratör när du kopplar upp dig mot ett VPN. De kommer att kunna TA FULL KONTROLL ÖVER DIN DATOR.\n \nINSTALLERA INTE KONFIGURATIONERNA OM DU INTE LITAR PÅ FÖRFATTAREN.\n\nLitar du på konfigurationernas författare och vill installeradem?\n\n";
 
 /* Window text */
 "One or more VPN configurations you are installing include OpenVPN options that were not recognized by Tunnelblick. That may be an error in the configuration or an error in Tunnelblick, or the configurations might include programs which will run as root when you connect to a VPN. Such programs would be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "Du försöker installera en eller flera VPN-konfigurationer som innehåller för Tunnelblick okända OpenVPN-inställningar. Detta kan bero på fel i Tunnelblick eller konfigurationen, men alternativt på att konfigurationen innehåller program som kommer att köras med Administratörs-privilegier när datorn kopplar upp mot ett VPN.\n\nINSTALLERA INTE DESSA KONFIGURATIONER OM DU INTE LITAR PÅ FÖRFATTAREN.\n\nLitar du på konfigurationernas författare och vill installera dem?\n\n";
@@ -1706,10 +1709,13 @@
 "Unable to install the '%@' configuration\n" = "Det gick inte att installera \"%@\" konfigurationen\n";
 
 /* Window text */
+"Unable to load contents of %@ as UTF-8" = "Det är inte möjligt att ladda innehållet i %@ som UTF-8";
+
+/* Window text */
 "Unable to open configuration file for modification" = "Det gick inte att öppna konfigurationsfilen för ändringar";
 
 /* Window text */
-"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+"Unable to parse configuration file as UTF-8" = "Det är inte möjligt att tolka konfigurationsfilen som UTF-8";
 
 /* Window text */
 "Unable to replace the '%@' configuration\n" = "Det gick inte att ersätta \"%@\" konfigurationen\n";

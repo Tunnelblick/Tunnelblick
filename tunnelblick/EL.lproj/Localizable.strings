@@ -1121,10 +1121,13 @@
 "Fast User Switching" = "Γρήγορη αλλαγή χρηστών";
 
 /* Window text */
-"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Το αρχείο '%@' φαίνεται να είναι κωδικοποιημένο με UTF-16. Όλα τα αρχεία που συσχετίζονται με το OpenVPN πρέπει να ειναι 'απλό κείμενο' ή αρχεία 'UTF-8'.";
+"File '%@' appears to be UTF-16 encoded. All OpenVPN-related files must be plain text or UTF-8 files." = "Το αρχείο '%@' φαίνεται να είναι κωδικοποιημένο σε UTF-16. Όλα τα αρχεία που συσχετίζονται με το OpenVPN πρέπει να ειναι 'απλό κείμενο' ή αρχεία 'UTF-8'.";
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Το αρχείο '%@' φαίνεται να είναι σε μορφή \"εμπλουτισμένου κειμένου\" επειδή ξεκινά με τον χαρακτήρα \"{\". Όλα τα αρχεία που σχετίζονται με OpenVPN πρέπει να είναι σε \"απλό κείμενο\" ή αρχεία \"UTF-8\".";
+
+/* Window text */
+"File '%@' contains one or more NUL characters." = "Το αρχείο '%@' περιέχει ένα ή περισσότερους NULL χαρακτήρες.";
 
 /* Window text */
 "File '%@' ends with a backslash, which is not allowed." = "Το αρχείο '%@' τελειώνει με το σύμβολο \"/\", το οποίο δεν επιτρέπεται.";
@@ -1136,7 +1139,7 @@
 "File '%@' is missing" = "Το αρχείο '%@' λείπει";
 
 /* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+"File '%@' is not a plain text or UTF-8 file." = "Το αρχείο '%@' δεν είναι απλό αρχείο κειμένου ούτε αρχείο UTF-8.";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "Το αρχείο '%1$@' είναι πολύ μικρό (%2$lu bytes)";
@@ -1706,10 +1709,13 @@
 "Unable to install the '%@' configuration\n" = "Αδυναμία εγκατάστασης παραμέτρων '%@'\n";
 
 /* Window text */
+"Unable to load contents of %@ as UTF-8" = "Αδυναμία φόρτωσης περιεχομένου του αρχείου %@ ως UTF-8";
+
+/* Window text */
 "Unable to open configuration file for modification" = "Αδυναμία ανοίγματος αρχείου παραμέτρων για την τροποποίηση";
 
 /* Window text */
-"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+"Unable to parse configuration file as UTF-8" = "Αδυναμία ανάγνωσης του αρχείου ρυθμίσεων ως UTF-8";
 
 /* Window text */
 "Unable to replace the '%@' configuration\n" = "Αδυναμία αντικατάστασης παραμέτρων '%@'\n";

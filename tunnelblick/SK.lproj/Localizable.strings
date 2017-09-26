@@ -344,7 +344,7 @@
 "VPN Details..." = "Nastavenie VPN…";
 
 /* Checkbox name */
-"Allow changes to manually-set network settings" = "Allow changes to manually-set network settings";
+"Allow changes to manually-set network settings" = "Povoliť zmeny ručne nastaviteľnej siete";
 
 /* Checkbox name */
 "Apply to all" = "Uplatniť na všetko";
@@ -1127,6 +1127,9 @@
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Vypadá to, že súbor '%@' je vo formáte 'rich text', pretože začína znakom '{'. Všetky súbory pre OpenVPN musia byť v obýčajnom texte 'plain text' alebo v 'UTF-8'.";
 
 /* Window text */
+"File '%@' contains one or more NUL characters." = "Súbor '%@' obsahuje jeden alebo viac NUL znakov.";
+
+/* Window text */
 "File '%@' ends with a backslash, which is not allowed." = "Súbor \"%@\" končí lomítkom, čo nie je povolené.";
 
 /* Window text */
@@ -1136,7 +1139,7 @@
 "File '%@' is missing" = "Súbor \"%@\" chýba";
 
 /* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+"File '%@' is not a plain text or UTF-8 file." = "Súbor '%@' neobsahuje text alebo UTF-8 súbor.";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "Súbor '%1$@' je príliš malý (%2$lu bytov)";
@@ -1704,6 +1707,9 @@
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "Nie je možné nainštalovať \"%@\" konfiguráciu ";
+
+/* Window text */
+"Unable to load contents of %@ as UTF-8" = "Unable to load contents of %@ as UTF-8";
 
 /* Window text */
 "Unable to open configuration file for modification" = "Nepodarilo sa otvoriť konfiguračný súbor pre úpravy";

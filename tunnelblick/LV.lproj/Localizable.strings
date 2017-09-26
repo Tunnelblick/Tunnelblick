@@ -1127,6 +1127,9 @@
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "Šķiet, fails '%@' ir RTF formātā (Rich Text Format), jo tā sākas ar rakstzīmi '{'. Visiem OpenVPN failiem ir jābūt neformatēta teksta (Plain Text) formātā vai UTF-8 kodējumā.";
 
 /* Window text */
+"File '%@' contains one or more NUL characters." = "Fails '%@' satur vienu vai vairākus NUL simbolus.";
+
+/* Window text */
 "File '%@' ends with a backslash, which is not allowed." = "Datne '%@' beidzas ar reverso slīpsvītru (backslash), kas nav atļauts.";
 
 /* Window text */
@@ -1136,7 +1139,7 @@
 "File '%@' is missing" = "Datne '%@' nav atrodama";
 
 /* Window text */
-"File '%@' is not a plain text or UTF-8 file." = "File '%@' is not a plain text or UTF-8 file.";
+"File '%@' is not a plain text or UTF-8 file." = "Fails '%@' nav kā teksta vai UTF-8 kodējuma fails.";
 
 /* Window text */
 "File '%@' is too short (%lu bytes)" = "Datne '%1$@' ir pārāk maza (%2$lu baiti)";
@@ -1706,10 +1709,13 @@
 "Unable to install the '%@' configuration\n" = "Nav iespējams uzstādīt %@ konfigurāciju\n";
 
 /* Window text */
+"Unable to load contents of %@ as UTF-8" = "Nav iespējams nolasīt %@ saturu kā UTF-8";
+
+/* Window text */
 "Unable to open configuration file for modification" = "Nav iespējams atvērt konfigurācijas datni, lai veiktu izmaiņas";
 
 /* Window text */
-"Unable to parse configuration file as UTF-8" = "Unable to parse configuration file as UTF-8";
+"Unable to parse configuration file as UTF-8" = "Nav iespējams nolasīt konfigurāciajs failu kā UTF-8 kodētu failu";
 
 /* Window text */
 "Unable to replace the '%@' configuration\n" = "Nav iespējams aizvietot %@ konfigurāciju\n";
@@ -2006,19 +2012,19 @@
 "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>" = "<p>Checks for updates to the Tunnelblick application.</p><p>Accesses the Tunnelblick website; for more details see <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net].</p><p>Also checks for updates to configurations if your VPN service provider implements that feature.</p>";
 
 /* HTML info for the 'Copy Console Log to Clipboard' button. */
-"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>";
+"<p>Copies the last part of the Console Log to the Clipboard so it may be pasted into an email or other document.</p><p>The log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>" = "<p> Nokopē pēdējo sadaļu no konsoles log faila, lai pēc tam to varētu ielīmēt epstā vai jebkurā citā dokumentā. </p>\n<p> Log fails satur detaļas par Tunnelblick un OpenVPN darbību. Tas sevī iekļauj statusa ziņas un kļūdu paziņojumus, kas ir par garu lai attēlotu lietotāja interfeisā. </p>";
 
 /* HTML info for the 'Open Uninstall Instructions in Browser' button. */
 "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>" = "<p>Opens a browser window containing information on the Tunnelblick website about uninstalling Tunnelblick.</p>";
 
 /* HTML info for the 'Advanced...' button. */
-"<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>";
+"<p>Opens a window with additional settings.</p><p>Any changes will be applied to all configurations that are selected in the 'VPN Details' window.</p>" = "<p>Atvērs logu, ar papildus iestatījumiem.</p><p> Jebkuras izmaiņas tiks piemērotas visām konfigurācijām, kuras atzīmētas 'VPN Detaļas ' logā.</p>";
 
 /* HTML info for the 'Quit All OpenVPN Processes' button. */
 "<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor application to 'Force Quit' the process.</p>" = "<p>Quits all OpenVPN processes, including those which were not started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect configurations which were connected using Tunnelblick.</p><p>Clicking this button sends a 'SIGTERM' signal to all processes named 'openvpn'. Normally this will cause OpenVPN to close all connections and quit. If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor application to 'Force Quit' the process.</p>";
 
 /* HTML info for the 'Reset Disabled Warnings' button. */
-"<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>";
+"<p>Restores warnings that have been inhibited by a 'Do not warn about this again' checkbox.</p>" = "<p> Atjauno brīdinājumus, kas iepriekš atzīmēti kā \"Šos brīdinājumus vairāk nerādīt.\"</p>";
 
 /* HTML info for the 'Flush DNS cache after connecting or disconnecting' checkbox. */
 "<p>The DNS cache contains copies of DNS (Domain Name System) information.</p>\n<p><strong>When checked</strong>, the DNS cache will be flushed (cleared) after connecting or disconnecting. All DNS lookups will be performed by the name server specified by the VPN setup.</p>\n<p><strong>When not checked</strong>, the DNS cache will not be flushed. This can cause problems if there are name conflicts between the name server specified by the VPN setup and the pre-VPN name server and if pre-VPN entries have been cached.</p>" = "<p>DNS kešatmiņa satur DNS (Domain Name System) informācijas kopijas.</p>\n<p><strong>Kad atzīmēta</strong>, DNS kešatmiņa tiks dzēsta pēc savienojuma vai atvienojuma. Visi DNS meklējumi tiks veikti caur DNS serveri, kurš norādīt VPN konfigurācijā.</p>\n<p><strong>Kad neatzīmēta</strong>, DNS kešatmiņa netiks dzēsta. Tas var izraisīt problēmas, ja ir vārdu konflikts VPN konfigurācijā norādītajā DNS serverī un DNS serverī, kas tika izmantots pirms pieslēgšanās VPN.</p>";

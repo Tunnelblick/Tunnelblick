@@ -344,7 +344,7 @@
 "VPN Details..." = "VPN Besonderhede…";
 
 /* Checkbox name */
-"Allow changes to manually-set network settings" = "Allow changes to manually-set network settings";
+"Allow changes to manually-set network settings" = "Laat veranderinge toe in handgestelde netwerkstellings";
 
 /* Checkbox name */
 "Apply to all" = "Pas toe op alles";
@@ -947,16 +947,16 @@
 "Are you sure you wish to delete the credentials (private key and/or username and password) for '%@' that are stored in the Keychain?" = "Is u seker dat u, u toegangsgegevens (privaat sleutel en/of gebruikersnaam en wagwoord) wil verwyder vir '%@'? Let wel: Die konfigurasies is in \"Keychain\" gestoor.";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?";
+"Are you sure you wish to delete the credentials (private key and/or username and password) stored in the Keychain for '%@' credentials?" = "Is jy seker jy wil die sekerheidsbewyse (privaat sleutel en/of gebruikersnaam en wagwoord) wat in die \"Keychain\" gestoor word vir '%@' -bewyse, uitvee?";
 
 /* Window text */
-"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n";
+"Are you sure you wish to install configurations which can TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Is jy seker jy wil konfigurasies installeer wat VOLLEDIGE BEHEER VAN JOU REKENAAR kan neem?\n\n";
 
 /* Window text */
-"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n";
+"Are you sure you wish to install configurations which might be able to TAKE COMPLETE CONTROL OF YOUR COMPUTER?\n\n" = "Is jy seker jy wil konfigurasies installeer wat VOLLEDIGE BEHEER VAN JOU REKENAAR kan neem?\n\n";
 
 /* Window text */
-"At line %lu of the OpenVPN configuration file: %@" = "At line %1$lu of the OpenVPN configuration file: %2$@";
+"At line %lu of the OpenVPN configuration file: %@" = "Op lyn %1$lu van die \"OpenVPN\" konfigurasie lêer: %2$@";
 
 /* Window text */
 "B" = "B";
@@ -971,22 +971,22 @@
 "Cannot find configuration file at %@" = "Konfigurasie lêer kon nie in %@ gevind word nie";
 
 /* Window text */
-"Cannot install configurations to either shared or private locations" = "Cannot install configurations to either shared or private locations";
+"Cannot install configurations to either shared or private locations" = "Kan konfigurasies nie op gedeelde of privaat liggings installeer nie";
 
 /* Window text */
-"Cannot uninstall configuration '%@' because it is not installed." = "Cannot uninstall configuration '%@' because it is not installed.";
+"Cannot uninstall configuration '%@' because it is not installed." = "Kon die konfigurasie '%@' nie deïnstalleer nie, want dit is nie geïnstalleer nie.";
 
 /* Window text */
 "Computer sleep/wake" = "Rekenaar slaap/wakker word";
 
 /* Window text */
-"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' ('%2$@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%3$s'\n\n";
+"Configuration '%@' ('%@') will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurasie '%1$@' ('%2$@') was geignoreer omdat letters in die naam was nie toegelaat nie.\n\nDie volgende letters word nie toegelaat nie\" '%3$s'";
 
 /* Window text */
 "Configuration '%@' already exists." = "Konfigurasie '%@' bestaan alreeds.";
 
 /* Window text */
-"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?";
+"Configuration '%@' contains one or more scripts which may cause problems if you replace or uninstall the configuration while it is connected.\n\nDo you wish to replace the configuration?" = "Een of meer skrifte in die konfigurasie '%@' mag probleme veroorsaak wanneer jy dit verander of verwuider die konfigurasie terwyl die konneksie is  opgestel.\n\nWill jy die konfigurasie vervang?";
 
 /* Window text */
 "Configuration '%@' is not secure. It should be reinstalled." = "Configuration '%@' is not secure. It should be reinstalled.";
@@ -1106,10 +1106,10 @@
 "Expected path not found for '%@'" = "'%@' pad was nie vervang ";
 
 /* Window text */
-"Failed to copy %@ to %@" = "Failed to copy %1$@ to %2$@";
+"Failed to copy %@ to %@" = "Misluk om %1$@ na %2$@ te kopy";
 
 /* Window text */
-"Failed to create folder at %@" = "Failed to create folder at %@";
+"Failed to create folder at %@" = "Omslag by %@ het misluk om geskep te word";
 
 /* Window text */
 "Failed to create symlink\n  to %@\n  at %@" = "Failed to create symlink\n  to %1$@\n  at %2$@";
@@ -1125,6 +1125,9 @@
 
 /* Window text */
 "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files." = "File '%@' appears to be in 'rich text' format because it starts with a '{' character. All OpenVPN-related files must be 'plain text' or 'UTF-8' files.";
+
+/* Window text */
+"File '%@' contains one or more NUL characters." = "File '%@' contains one or more NUL characters.";
 
 /* Window text */
 "File '%@' ends with a backslash, which is not allowed." = "File '%@' ends with a backslash, which is not allowed.";
@@ -1169,7 +1172,7 @@
 "Installation failed:\n\n%@" = "Installatsie mislukt:\n\n%@";
 
 /* Window text */
-"Installation finished successfully." = "Installation finished successfully.";
+"Installation finished successfully." = "Instalasie was suksesfol klaar gemaak.";
 
 /* Window text; '%@' will be replaced with a version number such as '3.6.10' */
 "Installing and securing Tunnelblick %@..." = "Installing and securing Tunnelblick %@…";
@@ -1307,7 +1310,7 @@
 "OpenVPN version %@ is not available. Using the latest version (%@) as the default." = "OpenVPN version %1$@ is not available. Using the latest version (%2$@) as the default.";
 
 /* Window text */
-"OpenVPN version:" = "OpenVPN version:";
+"OpenVPN version:" = "OpenVPN weergawe:";
 
 /* Window text */
 "Out:" = "Uit:";
@@ -1388,7 +1391,7 @@
 "Thanks for your Tunnelblick donation" = "Thanks for your Tunnelblick donation";
 
 /* Window text */
-"That name is being used.\n\n" = "That name is being used.\n\n";
+"That name is being used.\n\n" = "Die naam is alreeds gebruik.";
 
 /* Window text */
 "The %@ system folder (%@) does not exist." = "The %1$@ system folder (%2$@) does not exist.";
@@ -1704,6 +1707,9 @@
 
 /* Window text */
 "Unable to install the '%@' configuration\n" = "Unable to install the '%@' configuration\n";
+
+/* Window text */
+"Unable to load contents of %@ as UTF-8" = "Unable to load contents of %@ as UTF-8";
 
 /* Window text */
 "Unable to open configuration file for modification" = "Unable to open configuration file for modification";
