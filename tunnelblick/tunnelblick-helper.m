@@ -66,7 +66,7 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
-    // returnValue: have used 171-247, plus the values in define.h (248-254)
+    // returnValue: have used 171-246, plus the values in define.h (247-254)
 void exitOpenvpnstart(OSStatus returnValue) {
     [pool drain];
     exit(returnValue);
@@ -1675,7 +1675,7 @@ void revertToShadow (NSString * fileName) {
             }
 		} else {
 			fprintf(stderr, "Unable to copy %s to %s\n", [shadowPath UTF8String], [privatePath UTF8String]);
-			exitOpenvpnstart(247);
+			exitOpenvpnstart(226);
 		}
 	} else {
 		fprintf(stderr, "No secured (shadow) copy of a .tblk at %s\n", [shadowPath UTF8String]);
@@ -1789,7 +1789,7 @@ void loadKexts(unsigned int bitMask) {
     }
     if (  status != 0  ) {
         fprintf(stderr, "Unable to load net.tunnelblick.tun and/or net.tunnelblick.tap kexts in 5 tries. Status = %d\n", status);
-        exitOpenvpnstart(226);
+        exitOpenvpnstart(OPENVPNSTART_COULD_NOT_LOAD_KEXT);
     }
 }
 
