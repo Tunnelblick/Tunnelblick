@@ -140,6 +140,11 @@ BOOL runningOnSierraOrNewer(void)
     return runningOnNewerThan(10, 11);
 }
 
+BOOL runningOnHighSierraOrNewer(void)
+{
+	return runningOnNewerThan(10, 12);
+}
+
 BOOL runningOnIntel(void) {
     
     // Returns NO if it can be determined that this is a PowerPC, YES otherwise
