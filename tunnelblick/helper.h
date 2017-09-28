@@ -82,7 +82,7 @@ NSString     * TBGetDisplayName         (NSString * msg,
                                          NSString * sourcePath);
 
 AlertWindowController * TBShowAlertWindow(NSString * title,
-                                          NSString * msg);
+                                          id         msg); // NSString or NSAttributedString only
 
 int            TBRunAlertPanel          (NSString * title,
                                          NSString * msg,

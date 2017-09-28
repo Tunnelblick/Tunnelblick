@@ -451,10 +451,12 @@ NSString * tunnelblickVersion(NSBundle * bundle)
 }
 
 AlertWindowController * TBShowAlertWindow (NSString * title,
-                                           NSString * msg) {
+                                           id         msg) {
 	
 	// Displays an alert window and returns the window controller immediately, so it doesn't block the main thread.
 	// Used for informational messages that do not return a choice or have any side effects.
+	//
+	// The "msg" argument can be an NSString or an NSAttributedString only
     //
     // The window controller is returned so that it can be closed programmatically if the conditions that caused
     // the window to be opened change.
@@ -467,7 +469,16 @@ AlertWindowController * TBShowAlertWindow (NSString * title,
     
 	AlertWindowController * awc = [[[AlertWindowController alloc] init] autorelease];
 	[awc setHeadline: title];
-	[awc setMessage:  msg];
+	
+	if (  [[msg class] isSubclassOfClass: [NSString class]]  ) {
+		[awc setMessage: msg];
+	} else if (  [[msg class] isSubclassOfClass: [NSAttributedString class]]  ) {
+		[awc setMessageAS: msg];
+	} else {
+		NSLog(@"TBShowAlertWindow invoked with invalid message type %@; stack trace: %@", [msg className], callStack());
+		[awc setMessageAS: [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Program error, please see the Console log.", @"Window text")] autorelease]];
+	}
+	
 	NSWindow * win = [awc window];
     [win center];
 	[awc showWindow:  nil];
