@@ -25,6 +25,7 @@
     
     NSString                    * headline;
     NSString                    * message;
+	NSAttributedString			* messageAS;
     
 	IBOutlet NSImageView        * iconIV;
 	
@@ -41,6 +42,7 @@
 
 TBPROPERTY(NSString *, headline, setHeadline)
 TBPROPERTY(NSString *, message,  setMessage)
+TBPROPERTY(NSAttributedString *, messageAS,  setMessageAS)
 
 TBPROPERTY_READONLY(NSImageView     *, iconIV)
 

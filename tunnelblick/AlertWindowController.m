@@ -23,6 +23,7 @@
 
 #import "defines.h"
 #import "helper.h"
+#import "sharedRoutines.h"
 
 #import "MenuController.h"
 #import "UIHelper.h"
@@ -44,9 +45,10 @@ extern BOOL gShuttingDownWorkspace;
 
 - (void) dealloc {
     
-    [headline release]; headline = nil;
-    [message  release]; message = nil;
-    
+    [headline  release]; headline = nil;
+    [message   release]; message = nil;
+	[messageAS release]; message = nil;
+	
 	[super dealloc];
 }
 
@@ -103,9 +105,12 @@ float heightForStringDrawing(NSString *myString,
 	// Calculate the change in height required to fit the text
 	NSRect tvFrame = [tv frame];
 	NSFont * font = [NSFont systemFontOfSize: 11.9];
-    NSString * msgWithLfLfX = (  [message hasSuffix: @"\n\n"]
-                               ? [self message]
-                               : [[self message] stringByAppendingString: @"\n\nX"]);
+	NSString * messageS = (  message
+						   ? [[message copy] autorelease]
+						   : [messageAS string]);
+    NSString * msgWithLfLfX = (  [messageS hasSuffix: @"\n\n"]
+                               ? messageS
+                               : [messageS stringByAppendingString: @"\n\nX"]);
     CGFloat newHeight = heightForStringDrawing(msgWithLfLfX, font, tvFrame.size.width);
 	
 	CGFloat heightChange = newHeight - tvFrame.size.height;
@@ -134,8 +139,14 @@ float heightForStringDrawing(NSString *myString,
 	
 	// Set the string
 	NSString * msg = [self message];
-	NSAttributedString * msgAs = [[[NSAttributedString alloc] initWithString: msg] autorelease];
-	[[tv textStorage] setAttributedString: msgAs];
+	NSAttributedString * msgAS = (   msg
+								  ? [[[NSAttributedString alloc] initWithString: msg] autorelease]
+								  : [self messageAS]);
+	if (  ! msgAS  ) {
+		msgAS = [[[NSAttributedString alloc] initWithString: NSLocalizedString(@"Program error, please see the Console log.", @"Window text")] autorelease];
+		NSLog(@"AlertWindowController: no message or messageAS; stack trace: %@", callStack());
+	}
+	[[tv textStorage] setAttributedString: msgAS];
 	
 	// Make the cursor disappear
 	[tv setSelectedRange: NSMakeRange([msg length] + 1, 0)];
@@ -171,6 +182,7 @@ float heightForStringDrawing(NSString *myString,
 
 TBSYNTHESIZE_OBJECT(retain, NSString *, headline, setHeadline)
 TBSYNTHESIZE_OBJECT(retain, NSString *, message,  setMessage)
+TBSYNTHESIZE_OBJECT(retain, NSAttributedString *, messageAS,  setMessageAS)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSImageView     *, iconIV)
 
