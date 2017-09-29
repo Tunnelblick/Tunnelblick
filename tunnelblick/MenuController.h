@@ -76,31 +76,12 @@ enum StatusIconPosition {
     iconNormal          = 2
 };
 
-// The following line is needed to avoid a crash on load on 10.4 and 10.5. The crash is caused by the use of "block" structures in the code,
-// even though the block structures are not used when running under 10.4 or 10.5.
-// The code that uses blocks is the line
-//      [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-// which appears in the setPreferenceForSelectedConfigurationsWithKey:to:isBOOL: method.
-// This fix was found at http://lists.apple.com/archives/xcode-users/2009/Oct/msg00608.html
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
-void * _NSConcreteStackBlock __attribute__((weak));
-#endif
-
 @interface NSStatusBar (NSStatusBar_Private)
 - (id)_statusItemWithLength:(CGFloat)l withPriority:(long long)p;
 - (id)_insertStatusItem:(NSStatusItem *)i withPriority:(long long)p;
 @end
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
-@class NSStatusBarButton;
-#endif
-
-// The following conditional is needed because the SDK in Xcode 3.2.2 does not include NSUserNotificationCenterDelegate, which was introduced in 10.8
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
-@interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate>
-#else
 @interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate,NSUserNotificationCenterDelegate>
-#endif
 
 {
     IBOutlet NSMenu         * myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar

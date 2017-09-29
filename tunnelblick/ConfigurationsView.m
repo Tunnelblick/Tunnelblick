@@ -217,31 +217,7 @@ extern TBUserDefaults * gTbDefaults;
         
         // Put the outlineView's disclosure triangle on the right instead of on the left
         if (  [outlineView respondsToSelector: @selector(setUserInterfaceLayoutDirection:)]  ) {
-            
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
-            
-            // NSUserInterfaceLayoutDirection is not available in Xcode 3.2.2
-            
-            enum {
-                NSUserInterfaceLayoutDirectionLeftToRight = 0,
-                NSUserInterfaceLayoutDirectionRightToLeft = 1
-            };
-            typedef NSInteger NSUserInterfaceLayoutDirection;
-            
-            NSUserInterfaceLayoutDirection rightToLeftLayoutDirection = NSUserInterfaceLayoutDirectionRightToLeft;
-            
-            NSMethodSignature* signature = [[outlineView class] instanceMethodSignatureForSelector: @selector(setUserInterfaceLayoutDirection:)];
-            NSInvocation* invocation = [NSInvocation invocationWithMethodSignature: signature];
-            [invocation setTarget: outlineView];
-            [invocation setSelector: @selector(setUserInterfaceLayoutDirection:)];
-            [invocation setArgument: &rightToLeftLayoutDirection atIndex: 2];
-            [invocation invoke];
-            
-#else
-            
             [outlineView setUserInterfaceLayoutDirection: NSUserInterfaceLayoutDirectionRightToLeft];
-            
-#endif
         }
     }
     

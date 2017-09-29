@@ -24,11 +24,7 @@
 
 #import "defines.h"
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
-@interface WelcomeController : NSWindowController
-#else
 @interface WelcomeController : NSWindowController <WebFrameLoadDelegate,WebPolicyDelegate>
-#endif
 {
     IBOutlet NSButton			 * okButton;
     IBOutlet NSButton			 * doNotShowAgainCheckbox;
