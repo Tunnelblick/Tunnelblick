@@ -328,25 +328,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
         
         reasonForTermination = terminatingForUnknownReason;
         
-#if MAC_OS_X_VERSION_MIN_REQUIRED != MAC_OS_X_VERSION_10_4
-        if (  ! runningOn64BitKernel()  ) {
-            if (  runningOnSnowLeopardPointEightOrNewer()  ) {
-                TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window title"),
-                                        NSLocalizedString(@"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts.", @"Window text"),
-                                        nil, nil, nil,
-                                        @"skipWarningAbout64BitVersionOnSnowLeopardPointEight", // Preference about seeing this message again
-                                        NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                        nil,
-                                        NSAlertDefaultReturn);
-            } else {
-                TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
-                                NSLocalizedString(@"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts.", @"Window text"),
-                                nil, nil, nil);
-                [self terminateBecause: terminatingBecauseOfError];
-            }
-        }
-#endif //MACOSX_DEPLOYMENT_TARGET > MAC_OS_X_VERSION_10_4
-        
 		doingSetupOfUI = FALSE;
         launchFinished = FALSE;
         hotKeyEventHandlerIsInstalled = FALSE;
@@ -1378,11 +1359,9 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
         ) {
         
         // Force icon to the right in Status Bar
-        long long priority = (  runningOnMountainLionOrNewer() // Established by experimenting by Dirk as an "int" = 2147483646 (0x7FFFFFFE) in OS X 10.3
-							  ? 0x000000007FFFFFFDll		   // But on 10.4+ it is "long long" and Yosemite complains unless it is 2147483645 (0x7FFFFFFD)
-							  : (  runningOnIntel()			   // Lion and lower won't work with what works on Yosemite!
-								 ? 0x000000007FFFFFFEll
-								 : 0x7FFFFFFE7FFFFFFEll));
+        long long priority = (  runningOnMountainLionOrNewer()
+							  ? 0x000000007FFFFFFDll			// Mountain Lion will accept, and Yosemite and higher need, 2147483645 (0x7FFFFFFD)
+							  : 0x000000007FFFFFFEll);			// Lion won't work with that, though
         
         if (  ! ( statusItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain] )  ) {
             NSLog(@"Can't obtain status item near Spotlight icon");

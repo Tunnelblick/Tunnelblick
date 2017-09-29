@@ -1848,43 +1848,6 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
     }
     
-#if MAC_OS_X_VERSION_MIN_REQUIRED != MAC_OS_X_VERSION_10_4
-    if (  ! runningOn64BitKernel()  ) {
-        BOOL loadOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0;
-        if (   loadOurTap  ) {
-            TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window title"),
-                                    NSLocalizedString(@"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead.", @"Window text"),
-                                    nil, nil, nil,
-                                    @"skipWarningAbout64BitVersionWithTap", // Preference about seeing this message again
-                                    NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                    nil,
-                                    NSAlertDefaultReturn);
-            return nil;
-        }
-        BOOL loadOurTun = (bitMask & OPENVPNSTART_OUR_TUN_KEXT) != 0;
-        if (   loadOurTun  ) {
-            if (  runningOnSnowLeopardPointEightOrNewer()  ) {
-                TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window title"),
-                                        NSLocalizedString(@"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation.", @"Window text"),
-                                        nil, nil, nil,
-                                        @"skipWarningAbout64BitVersionWithTunOnSnowLeopardPointEight", // Preference about seeing this message again
-                                        NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                        nil,
-                                        NSAlertDefaultReturn);
-            } else {
-                TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window title"),
-                                        NSLocalizedString(@"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead.", @"Window text"),
-                                        nil, nil, nil,
-                                        @"skipWarningAbout64BitVersionOnNonSnowLeopardPointEight", // Preference about seeing this message again
-                                        NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                        nil,
-                                        NSAlertDefaultReturn);
-            }
-            return nil;
-        }
-    }
-#endif // MAC_OS_X_VERSION_MIN_REQUIRED != MAC_OS_X_VERSION_10_4
-
     NSString * runMtuTestKey = [displayName stringByAppendingString: @"-runMtuTest"];
     if (  [gTbDefaults boolForKey: runMtuTestKey]  ) {
         bitMask = bitMask | OPENVPNSTART_TEST_MTU;

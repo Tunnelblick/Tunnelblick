@@ -145,59 +145,6 @@ BOOL runningOnHighSierraOrNewer(void)
 	return runningOnNewerThan(10, 12);
 }
 
-BOOL runningOnIntel(void) {
-    
-    // Returns NO if it can be determined that this is a PowerPC, YES otherwise
-    
-	unsigned value = 0;
-	unsigned long length = sizeof(value);
-	
-	int error = sysctlbyname("hw.cputype", &value, &length, NULL, 0);
-	if (  error == 0 ) {
-		switch(value) {
-			case 7:
-                return YES; // Intel
-                break;
-                
-			case 18:
-                return NO;  // PPC
-                break;
-                
-			default:
-                NSLog(@"Unknown CPU type %u; assuming Intel", value);
-                return YES;
-		}
-	}
-    
-    NSLog(@"An error occured trying to detect CPU type with sysctlbyname; assuming Intel; error was %lu: %s", (long)errno, strerror(errno));
-    return YES;
-}
-
-#if MAC_OS_X_VERSION_MIN_REQUIRED != MAC_OS_X_VERSION_10_4
-BOOL runningOn64BitKernel(void) {
-    
-    // Returns NO if it can be determined that this is a 32-bit kernel, YES otherwise
-    
-    struct utsname name;
-    
-    int error = uname(&name);
-    
-	if (  error == 0 ) {
-        NSString * version = [NSString stringWithUTF8String: name.version];
-        if (  [version rangeOfString: @"i386"].length != 0  ) {
-            return NO;
-        }
-        if (  [version rangeOfString: @"X86_64"].length == 0  ) {
-            NSLog(@"Unable to determine  32- or 64-bit kernel with uname(), assuming 64-bit kernel; version was '%@'", version);
-        }
-	} else {
-        NSLog(@"An error occured trying to determine 32- or 64-bit kernel with uname(), assuming 64-bit kernel; error was %lu: %s", (long)errno, strerror(errno));
-    }
-    
-    return YES;
-}
-#endif // MAC_OS_X_VERSION_MIN_REQUIRED != MAC_OS_X_VERSION_10_4
-
 BOOL okToUpdateConfigurationsWithoutAdminApproval(void) {
     BOOL answer = (   [gTbDefaults boolForKey: @"allowNonAdminSafeConfigurationReplacement"]
 				   && ( ! [gTbDefaults canChangeValueForKey: @"allowNonAdminSafeConfigurationReplacement"] )

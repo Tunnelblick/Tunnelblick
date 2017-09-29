@@ -134,11 +134,6 @@ BOOL           runningOnYosemiteOrNewer(void);
 BOOL           runningOnElCapitanOrNewer(void);
 BOOL           runningOnSierraOrNewer(void);
 BOOL           runningOnHighSierraOrNewer(void);
-BOOL           runningOnIntel(void);
-
-#if MAC_OS_X_VERSION_MIN_REQUIRED != MAC_OS_X_VERSION_10_4
-BOOL           runningOn64BitKernel(void);
-#endif
 
 BOOL           tunnelblickTestPrivateOnlyHasTblks(void);
 BOOL           tunnelblickTestAppInApplications(void);
