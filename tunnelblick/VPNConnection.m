@@ -1562,6 +1562,25 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 			areConnecting = FALSE;
 			completelyDisconnected = TRUE;
 			return;
+		} else if (  status == OPENVPNSTART_COULD_NOT_LOAD_KEXT  ) {
+			
+			NSString * link = (  runningOnHighSierraOrNewer()
+							   ? @"<a href=\"https://tunnelblick.net/cKextLoadErrorHighSierra\">"
+							   : @"<a href=\"https://tunnelblick.net/cKextLoadError\">");
+			
+			NSAttributedString * msg = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>Tunnelblick was not able to load a device driver (kext) that is needed to connect to %@.</p>"
+																											  @"<p>%@More information</a> [tunnelblick.net]</p>",
+																											  
+																											  @"HTML error message. The first %@ is a configuration name; the second %@ is an HTML <a> tag"
+																											  @" that links to tunnelblick.net -- translators should ignore it (but keep it in their translation)."
+																											  @" DO NOT TRANSLATE 'tunnelblick.net' (if you wish, you can replace the square brackets with symbols"
+																											  @" appropriate for your language)."),
+																 [self displayName], link, "</a>"]);
+
+			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), msg);
+			areConnecting = FALSE;
+			completelyDisconnected = TRUE;
+			return;
 		}
         
 		if (  userKnows  ) {
