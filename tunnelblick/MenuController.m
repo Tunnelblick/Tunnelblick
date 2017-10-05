@@ -645,10 +645,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                       : @"version is unknown");
         NSLog(@"Tunnelblick: OS X %@; %@", osVersionString, tunnelblickVersion([NSBundle mainBundle]));
         
-        // Check that the preferences are OK or don't exist
-        [self checkPlist: @"/Library/Preferences/net.tunnelblick.tunnelblick.plist" renameIfBad: NO];
-        [self checkPlist: [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Preferences/net.tunnelblick.tunnelblick.plist"] renameIfBad: YES];
-        
 		// Create private configurations folder if necessary
         gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
         if (  createDir(gPrivatePath, privateFolderPermissions(gPrivatePath)) == -1  ) {
@@ -711,6 +707,10 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
             }
         }
         
+        // Check that the preferences are OK or don't exist
+        [self checkPlist: @"/Library/Preferences/net.tunnelblick.tunnelblick.plist" renameIfBad: NO];
+        [self checkPlist: [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Preferences/net.tunnelblick.tunnelblick.plist"] renameIfBad: YES];
+		
         // Set up to override user preferences with preferences from L_AS_T_PRIMARY_FORCED_PREFERENCES_PATH and Deploy/forced-permissions.plist
         NSDictionary * primaryForcedPreferencesDict = nil;
         NSDictionary * deployedForcedPreferencesDict = nil;
