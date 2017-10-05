@@ -85,6 +85,8 @@ unsigned int getFreePort(unsigned int startingPort);
 
 BOOL itemIsVisible(NSString * path);
 
+BOOL makeUnlockedAtPath(NSString * path);
+
 BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser);
 
 NSDictionary * getSafeEnvironment(void);

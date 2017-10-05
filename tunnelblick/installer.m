@@ -115,7 +115,6 @@ uid_t           gRealUserID;                  // User ID & Group ID for the real
 gid_t           gRealGroupID;
 NSAutoreleasePool * pool;
 
-BOOL makeUnlockedAtPath(NSString * path);
 BOOL moveContents(NSString * fromPath, NSString * toPath);
 NSString * firstPartOfPath(NSString * path);
 NSString * lastPartOfPath(NSString * path);
@@ -1547,55 +1546,6 @@ BOOL moveContents(NSString * fromPath, NSString * toPath)
     }
     
     return YES;
-}
-
-//**************************************************************************************************************************
-BOOL makeOneItemUnlockedAtPath(NSString * path)
-{
-    NSDictionary * curAttributes;
-    NSDictionary * newAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt:0] forKey: NSFileImmutable];
-    
-    unsigned i;
-    unsigned maxTries = 5;
-    for (i=0; i <= maxTries; i++) {
-        curAttributes = [gFileMgr tbFileAttributesAtPath: path traverseLink:YES];
-        if (  ! [curAttributes fileIsImmutable]  ) {
-            break;
-        }
-        [gFileMgr tbChangeFileAttributes: newAttributes atPath: path];
-        appendLog([NSString stringWithFormat: @"Unlocked %@", path]);
-		if (  i != 0  ) {
-			sleep(1);
-		}
-	}
-    
-    if (  [curAttributes fileIsImmutable]  ) {
-        appendLog([NSString stringWithFormat: @"Failed to unlock %@ in %d attempts", path, maxTries]);
-        return FALSE;
-    }
-	
-    return TRUE;
-}
-
-//**************************************************************************************************************************
-BOOL makeUnlockedAtPath(NSString * path)
-{
-	// To make a file hierarchy unlocked, we have to first unlock everything inside the hierarchy
-	
-	BOOL isDir;
-	if (   [gFileMgr fileExistsAtPath: path isDirectory: &isDir]  ) {
-		if (  isDir  ) {
-			NSString * file;
-			NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
-			while (  (file = [dirEnum nextObject])  ) {
-				makeUnlockedAtPath([path stringByAppendingPathComponent: file]);
-			}
-		}
-		
-		return makeOneItemUnlockedAtPath(path);
-	}
-	
-	return TRUE;
 }
 
 //**************************************************************************************************************************

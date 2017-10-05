@@ -895,6 +895,53 @@ BOOL itemIsVisible(NSString * path)
     return ! [[path lastPathComponent] hasPrefix: @"."];
 }
 
+BOOL makeOneItemUnlockedAtPath(NSString * path)
+{
+	NSDictionary * curAttributes;
+	NSDictionary * newAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt:0] forKey: NSFileImmutable];
+	
+	unsigned i;
+	unsigned maxTries = 5;
+	for (i=0; i <= maxTries; i++) {
+		curAttributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink:YES];
+		if (  ! [curAttributes fileIsImmutable]  ) {
+			break;
+		}
+		[[NSFileManager defaultManager] tbChangeFileAttributes: newAttributes atPath: path];
+		appendLog([NSString stringWithFormat: @"Unlocked %@", path]);
+		if (  i != 0  ) {
+			sleep(1);
+		}
+	}
+	
+	if (  [curAttributes fileIsImmutable]  ) {
+		appendLog([NSString stringWithFormat: @"Failed to unlock %@ in %d attempts", path, maxTries]);
+		return FALSE;
+	}
+	
+	return TRUE;
+}
+
+BOOL makeUnlockedAtPath(NSString * path)
+{
+	// To make a file hierarchy unlocked, we have to first unlock everything inside the hierarchy
+	
+	BOOL isDir;
+	if (   [[NSFileManager defaultManager] fileExistsAtPath: path isDirectory: &isDir]  ) {
+		if (  isDir  ) {
+			NSString * file;
+			NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: path];
+			while (  (file = [dirEnum nextObject])  ) {
+				makeUnlockedAtPath([path stringByAppendingPathComponent: file]);
+			}
+		}
+		
+		return makeOneItemUnlockedAtPath(path);
+	}
+	
+	return TRUE;
+}
+
 BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
 {
     // Makes sure that ownership/permissions of a FOLDER AND ITS CONTENTS are secure (a .tblk, or the shared, Deploy, private, or alternate config folder)
