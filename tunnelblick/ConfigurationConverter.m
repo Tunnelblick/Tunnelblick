@@ -1428,13 +1428,15 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     
     // String with a list of options that are "safe" in that they do not invoke a command or script.
     
-    // Option list was last updated from options.c in git master 0e591a2 (2015-12-27)
+    // Option list was last updated from options.c in Openvpn 2.4.4 (2017-09-26)
     
     static NSString * allowedOptions =
     @"|"
     @"allow-nonadmin|"
     @"allow-pull-fqdn|"
+	@"allow-recursive-routing|"
     @"askpass|"
+	@"auth-gen-token|"
     @"auth-nocache|"
     @"auth-retry|"
     @"auth-token|"
@@ -1506,6 +1508,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"http-proxy-override|"
     @"http-proxy-retry|"
     @"http-proxy-timeout|"
+	@"http-proxy-user-pass|"
     @"http-proxy|"
     @"ifconfig-ipv6-pool|"
     @"ifconfig-ipv6-push|"
@@ -1565,6 +1568,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"mktun|"
     @"mlock|"
     @"mode|"
+	@"msg-channel|"
     @"mssfix|"
     @"mtu-disc|"
     @"mtu-dynamic|"
@@ -1572,6 +1576,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"multihome|"
     @"mute-replay-warnings|"
     @"mute|"
+	@"ncp-ciphers|"
+	@"ncp-disable|"
     @"nice|"
     @"no-iv|"
     @"no-name-remapping|"
@@ -1608,7 +1614,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSString *, nameForErrorMessages)
     @"proto|"
     @"pull|"
     @"push-continuation|"
+	@"pull-filter|"
     @"push-peer-info|"
+	@"push-remove|"
     @"push-reset|"
     @"push|"
     @"rcvbuf|"
