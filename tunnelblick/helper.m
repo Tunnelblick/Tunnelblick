@@ -537,13 +537,28 @@ int TBRunAlertPanelExtended(NSString * title,
                             BOOL     * checkboxResult,
 							int		   notShownReturnValue)
 {
-    return TBRunAlertPanelExtendedPlus(title, msg, defaultButtonLabel, alternateButtonLabel, otherButtonLabel, doNotShowAgainPreferenceKey, checkboxLabel, checkboxResult, notShownReturnValue, nil, nil);
+	NSArray * checkboxLabels = (  checkboxLabel
+								 ? [NSArray arrayWithObject: checkboxLabel]
+								 : nil);
+	NSArray * checkboxResults = (  checkboxResult
+								 ? [NSArray arrayWithObject: [NSNumber numberWithBool: *checkboxResult]]
+								 : nil);
+	int result = TBRunAlertPanelExtendedPlus(title, msg, defaultButtonLabel, alternateButtonLabel, otherButtonLabel,
+									   doNotShowAgainPreferenceKey,
+									   checkboxLabels,
+									   &checkboxResults, notShownReturnValue, nil, nil);
+	if (  checkboxResult  ) {
+		*checkboxResult = [[checkboxResults firstObject] boolValue];
+	}
+	
+	return result;
 }
+
 // Like TBRunAlertPanel but allows a "do not show again" preference key and checkbox, or a checkbox for some other function, and a target/selector which is polled to cancel the panel.
-// If the "do not show again"preference is set, the panel is not shown and "notShownReturnValue" is returned.
-// If the preference can be changed by the user, and the checkboxResult pointer is not nil, the panel will include a checkbox with the specified label.
+// If the "do not show again" preference has been set, the panel is not shown and "notShownReturnValue" is returned.
+// If the preference can be changed by the user, and the checkboxResults pointer is not nil, the panel will include checkboxes with the specified labels.
 // If the preference can be changed by the user, the preference is set if the user checks the box and the button that is clicked corresponds to the notShownReturnValue.
-// If the checkboxResult pointer is not nil, the initial value of the checkbox will be set from it, and the value of the checkbox is returned to it.
+// If the checkboxResults pointer is not nil, the initial value of the checkbox(es) will be set from it, and the values of the checkboxes is returned to it.
 // Every 0.2 seconds while the panel is being shown, this routine invokes [shouldCancelTarget performSelector: shouldCancelSelector] and cancels the dialog if it returns [NSNumber numberWithBool: TRUE].
 
 int TBRunAlertPanelExtendedPlus (NSString * title,
@@ -552,8 +567,8 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
                                  NSString * alternateButtonLabel,
                                  NSString * otherButtonLabel,
                                  NSString * doNotShowAgainPreferenceKey,
-                                 NSString * checkboxLabel,
-                                 BOOL     * checkboxResult,
+								 NSArray  * checkboxLabels,
+								 NSArray  * * checkboxResults,
                                  int		notShownReturnValue,
                                  id         shouldCancelTarget,
                                  SEL        shouldCancelSelector)
@@ -601,27 +616,30 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
                  forKey: (NSString *)kCFUserNotificationOtherButtonTitleKey];
     }
     
-    if (  checkboxLabel  ) {
-        if (   checkboxResult
+    if (  checkboxLabels  ) {
+        if (   checkboxResults
             || ( doNotShowAgainPreferenceKey && [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey] )
             ) {
-            [dict setObject: checkboxLabel forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+            [dict setObject: checkboxLabels forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
         }
     }
     
     SInt32 error = 0;
     CFOptionFlags response = 0;
 
-    CFOptionFlags checkboxChecked = 0;
-    if (  checkboxResult  ) {
-        if (  * checkboxResult  ) {
-            checkboxChecked = CFUserNotificationCheckBoxChecked(0);
-        }
+    CFOptionFlags checkboxesChecked = 0;
+    if (  checkboxResults  ) {
+		NSUInteger i;
+		for (  i=0; (  (i<[checkboxLabels count]) && (i < 8)  ); i++  ) {
+			if (  [[*checkboxResults objectAtIndex: i] boolValue]  ) {
+				checkboxesChecked |= CFUserNotificationCheckBoxChecked(i);
+			}
+		}
     }
     
     [NSApp activateIgnoringOtherApps:YES];
     
-    CFUserNotificationRef panelRef = CFUserNotificationCreate(NULL, 0.0, checkboxChecked, &error, (CFDictionaryRef) dict);
+    CFUserNotificationRef panelRef = CFUserNotificationCreate(NULL, 0.0, checkboxesChecked, &error, (CFDictionaryRef) dict);
 
     if (   error
         || (panelRef == NULL)
@@ -712,13 +730,16 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
     
     IfShuttingDownAndNotMainThreadSleepForeverAndNeverReturn();
     
-    if (  checkboxResult  ) {
-        if (  response & CFUserNotificationCheckBoxChecked(0)  ) {
-            * checkboxResult = TRUE;
-        } else {
-            * checkboxResult = FALSE;
+    if (  checkboxResults  ) {
+        NSMutableArray * cbResults = [[NSMutableArray alloc] initWithCapacity:8];
+        NSUInteger i;
+		for (  i=0; (  (i<[checkboxLabels count]) && (i < 8)  ); i++  ) {
+			[cbResults addObject: (  ((response & CFUserNotificationCheckBoxChecked(i)) != 0)
+								   ? [NSNumber numberWithBool: TRUE]
+								   : [NSNumber numberWithBool: FALSE])];
         }
-    } 
+		*checkboxResults = [[cbResults copy] autorelease];
+    }
 
     // If we are shutting down Tunnelblick, force the response to be "Cancel"
     if (   gShuttingDownTunnelblick
@@ -730,7 +751,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
     switch (response & 0x3) {
         case kCFUserNotificationDefaultResponse:
 			if (  notShownReturnValue == NSAlertDefaultReturn  ) {
-				if (  checkboxLabel  ) {
+				if (  checkboxLabels  ) {
 					if (   doNotShowAgainPreferenceKey
 						&& [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey]
 						&& ( response & CFUserNotificationCheckBoxChecked(0) )  ) {
@@ -743,7 +764,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
             
         case kCFUserNotificationAlternateResponse:
 			if (  notShownReturnValue == NSAlertAlternateReturn  ) {
-				if (  checkboxLabel  ) {
+				if (  checkboxLabels  ) {
 					if (   doNotShowAgainPreferenceKey
 						&& [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey]
 						&& ( response & CFUserNotificationCheckBoxChecked(0) )  ) {
@@ -756,7 +777,7 @@ int TBRunAlertPanelExtendedPlus (NSString * title,
             
         case kCFUserNotificationOtherResponse:
 			if (  notShownReturnValue == NSAlertOtherReturn  ) {
-				if (  checkboxLabel  ) {
+				if (  checkboxLabels  ) {
 					if (   doNotShowAgainPreferenceKey
 						&& [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey]
 						&& ( response & CFUserNotificationCheckBoxChecked(0) )  ) {
