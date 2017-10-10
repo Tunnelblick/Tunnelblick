@@ -1085,7 +1085,7 @@ extern volatile int32_t       gActiveInactiveState;
                             msg,
                             nil, nil, nil,
                             @"skipWarningThatIPAddressDidNotChangeAfterConnection",
-                            NSLocalizedString(@"Do not check for IP address changes", @"Checkbox name"),
+                            NSLocalizedString(@"Do not warn about this again for any configuration", @"Checkbox name"),
                             nil,
 							NSAlertDefaultReturn);
 }
