@@ -5840,6 +5840,239 @@ BOOL warnAboutNonTblks(void)
 	}
 }
 
+-(BOOL) userAcceptedUserAgreement {
+	
+	// Returns YES if user agreed to this version of the User Agreement or has already agreed to it
+	// Returns NO if user does not agree
+	
+	// if a fresh install, ask the user if Tunnelblick should check for updates and check for IP address changes, and sets preferences accordingly
+
+	BOOL askCheckForQuestions = (  ! [gTbDefaults preferenceExistsForKey: @"tunnelblickVersionHistory"]  );
+
+	NSString * userAgreementVersionAgreedTo = [gTbDefaults stringForKey: @"userAgreementVersionAgreedTo"];
+	NSString * thisUserAgreementVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"UserAgreementVersion"];
+	BOOL userAgreementChanged = ! [thisUserAgreementVersion isEqualTo: userAgreementVersionAgreedTo];
+	
+	if (   ( ! askCheckForQuestions )
+		&& ( ! userAgreementChanged )  ) {
+		return YES;
+	}
+	
+	BOOL rebranded = (  ! [@"Tunnelblick" isEqualToString: @"Tu" @"nne" @"lb" @"li" @"ck"]  );
+	
+	NSString *acceptString = NSLocalizedString(@"I accept and agree to the above", @"Checkbox text");
+	NSArray * checkboxLabels = (  askCheckForQuestions
+								? [NSArray arrayWithObjects:
+								   NSLocalizedString(@"Check for updates",				  @"Checkbox text"),
+								   NSLocalizedString(@"Check for IP address changes",     @"Checkbox text"),
+								   acceptString,
+								   nil]
+								: [NSArray arrayWithObject: acceptString]);
+	
+	NSArray * checkboxResults = (  askCheckForQuestions
+								 ? [NSArray arrayWithObjects:
+									[NSNumber numberWithBool: YES],
+									[NSNumber numberWithBool: YES],
+									[NSNumber numberWithBool: NO],
+									nil]
+								 : [NSArray arrayWithObject: [NSNumber numberWithBool: NO]]);
+	
+	NSString * windowTitle = (  askCheckForQuestions
+							  ? NSLocalizedString(@"Welcome to Tunnelblick", @"Window title")
+							  : NSLocalizedString(@"Tunnelblick Update", @"Window title"));
+	
+	NSString * rebrandingSentence = (  rebranded
+									 ? @"Tunnelblick is based on Tu" @"nn" @"elbl" @"ick.\n\n"
+									 : @"");
+	
+	NSURL * registerURL = [NSURL URLWithString: [[NSBundle mainBundle] objectForInfoDictionaryKey: @"RegistrationURL"]];
+	NSString * registrationHost = [registerURL host];
+	
+	NSString * message = [NSString stringWithFormat: NSLocalizedString(@"%@Tu" @"nn" @"elbl" @"ick is free software: you can use it, redistribute it, and/or modify"
+																	   @" it under the terms of the GNU General Public License version 2 as published"
+																	   @" by the Free Software Foundation.\n\n"
+																	   
+																	   @"Tu" @"nn" @"elbl" @"ick is provided for free, as is, and without warranty of any kind."
+																	   @" Tu" @"nn" @"elbl" @"ick and it's authors assume no liability or responsibility for damages"
+																	   @" resulting from the use of Tu" @"nn" @"elbl" @"ick, or of any third-party modifications to"
+																	   @" Tu" @"nn" @"elbl" @"ick. See the GNU General Public License version 2 for details.\n\n"
+																	   
+																	   @"If you accept and agree to these terms, your response will be sent to %@ anonymously and"
+																	   @" you will be asked for authorization so Tunnelblick can be securely installed or updated.",
+																	   
+																	   @"Window text. The first %@ may be replaced by a sentence. The second %@ will be replaced by an"
+																	   @" Internet address like 'tunnelblick .net'."),
+						  rebrandingSentence,registrationHost];
+	
+	NSMutableString * moreInfo = [[[NSMutableString alloc] initWithString:
+								   [NSString stringWithFormat: NSLocalizedString(@"To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting"
+																				 @" a check in the \"I accept and agree to the above\" checkbox.\n\n"
+																				 
+																				 @"If you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the"
+																				 @" Tu" @"nn" @"elbl" @"ick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\n"
+																				 
+																				 @"If you do not, you cannot install, update, or use Tunnelblick.\n\n\n",
+																				 
+																				 @"Window text. The %@ is an Internet address like 'tunnelblick .net'"),
+									registrationHost]]
+								  autorelease];
+	
+	if (  askCheckForQuestions  ) {
+		NSString * updateCheckHost = (  rebranded
+									  ? [[NSURL URLWithString: [[NSBundle mainBundle] objectForInfoDictionaryKey: @"SUFeedURL"]] host]
+									  : @"tu" @"nne" @"lbli" @"ck." @"net");
+		NSString * ipCheckHost     = (  rebranded
+									  ? [[NSURL URLWithString: [[NSBundle mainBundle] objectForInfoDictionaryKey: @"IPCheckURL"]] host]
+									  : @"tu" @"nne" @"lbli" @"ck." @"net");
+		
+		[moreInfo appendString: [NSString stringWithFormat: NSLocalizedString(@"If \"Check for updates\" is checked, Tunnelblick will access %@"
+																			  @" to check for updates when it is launched and periodically while running. You may change"
+																			  @" this setting later.\n\n"
+																			  
+																			  @"If \"Check for IP address changes\" is checked, Tunnelblick will access %@"
+																			  @" to determine the computer's apparent public IP address before and after a VPN is connected"
+																			  @" and warn if the IP address does not change. You may change this setting later.\n\n\n",
+																			  @"Window text. The two %@ are Internet addresses like 'tunnelblick .net'"),
+								 updateCheckHost, ipCheckHost]];
+	}
+	
+	[moreInfo appendString: NSLocalizedString(@"License:\n     https://www.gnu.org/licenses/gpl-2.0.html\n"
+											  @"Free Software Foundation:\n     https://fsf.org\n"
+											  @"Tu" @"nn" @"elbl" @"ick Privacy Policy:\n     https://tu" @"nne" @"lbli" @"ck." @"net/privacy.html\n\n",
+											  @"Window text")];
+	
+	// Ask if user agrees to terms
+	int button;
+	BOOL keepAsking = YES;
+	while (  keepAsking  ) {
+
+		button = TBRunAlertPanelExtendedPlus(windowTitle,
+											 message,
+											 NSLocalizedString(@"Continue",		@"Button"), // Default button
+											 NSLocalizedString(@"More Info...", @"Button"),	// Alternate button
+											 NSLocalizedString(@"Cancel",		@"Button"), // Other button
+											 nil, checkboxLabels, &checkboxResults, FALSE, nil, nil);
+		
+		
+		if (  button == NSAlertAlternateReturn) {	// More Info button; show more info then repeat asking for agreement
+			TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Installation or Update", @"Window title"), moreInfo, nil, nil, nil); // Only an "OK" button
+		} else {
+			keepAsking = NO;
+		}
+	}
+	
+	// If didn't agree to the User Agreement, return NO
+	NSInteger agreeIndex = (  askCheckForQuestions
+							? 2
+							: 0);
+	if (  [[checkboxResults objectAtIndex: agreeIndex] isEqualTo: [NSNumber numberWithBool: NO]]  ) {
+		return NO;
+	}
+	
+	// If cancelled, return NO
+	if (  button != NSAlertDefaultReturn  ) {
+		return NO;
+	}
+	
+	NSLog(@"The user agreed to the terms and conditions version %@", thisUserAgreementVersion);
+	
+	// Set up preferences if the user answered questions about them
+	
+	BOOL checkForUpdates = (  askCheckForQuestions
+							? [[checkboxResults objectAtIndex: 0] boolValue]
+							: [gTbDefaults boolForKey: @"updateCheckAutomatically"]);
+	
+	BOOL checkIpAddress  = (  askCheckForQuestions
+							? [[checkboxResults objectAtIndex: 1] boolValue]
+							: ! [gTbDefaults boolForKey: @"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"]);
+	
+	if (  askCheckForQuestions  ) {
+		[gTbDefaults setBool: checkForUpdates  forKey: @"updateCheckAutomatically"];
+		
+		[gTbDefaults setBool: ! checkIpAddress forKey: @"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+		[gTbDefaults setBool: TRUE             forKey: @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+	}
+	
+	if (  userAgreementChanged  ) {
+		[gTbDefaults setObject: thisUserAgreementVersion forKey:@"userAgreementVersionAgreedTo"];
+	}
+	
+	// "Register" this copy of Tunnelblick. q=asked_questions; c=check_for_updates; a=check_ip_address; r=rebranded, all y/n
+	NSString * urlString = [NSString stringWithFormat: @"%@?q=%c&c=%c&a=%c&r=n",
+							[registerURL absoluteString],
+							askCheckForQuestions ? 'y' : 'n',
+							checkForUpdates      ? 'y' : 'n',
+							checkIpAddress       ? 'y' : 'n'];
+
+	[NSThread detachNewThreadSelector: @selector(registerInstallationWithURLString:) toTarget: self withObject: urlString];
+	
+	return YES;
+}
+
+-(void) registerInstallationWithURLString: (NSString *) urlString {
+	
+	// Registers an installation or update by accessing a URL with a query string containing info about the installation or update
+	// The website's log will include the query string, so the information can be extracted
+	//
+	// Logs errors but continues so users can block access to tunnelblick.net if they want (presumably few people will do this)
+	//
+	// RUNS IN ITS OWN THREAD because it does Internet access synchronously
+	
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	NSURL * url = [NSURL URLWithString: urlString];
+	if ( ! url  ) {
+		NSLog(@"registerInstallationWithURL: Unable to create url from %@", urlString);
+		[pool drain];
+		return;
+	}
+	
+	NSMutableURLRequest * req = [[[NSMutableURLRequest alloc] initWithURL: url] autorelease];
+	if ( ! req  ) {
+		NSLog(@"registerInstallationWithURL: Unable to create URLRequest");
+		[pool drain];
+		return;
+	}
+	
+	NSString * tbVersion = [[self tunnelblickInfoDictionary] objectForKey: @"CFBundleShortVersionString"];
+	NSString * userAgent = [NSString stringWithFormat: @"Tunnelblick installer/updater: %@", tbVersion];
+	NSString * hostName = [url host];
+	
+	[req setValue: userAgent forHTTPHeaderField: @"User-Agent"];
+	[req setValue: hostName  forHTTPHeaderField: @"Host"];
+	[req setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
+	
+	[req setTimeoutInterval: 60.0]; // Request a long timeout so it still works if tunnelblick.net is very busy
+	
+	// Perform the actual request
+	NSError * requestError = nil;
+	NSHTTPURLResponse * urlResponse  = nil;
+	NSData * data =  [NSURLConnection sendSynchronousRequest: req
+										   returningResponse: &urlResponse
+													   error: &requestError];
+	
+	// Log errors, but don't do anything else about them. We let the request be blocked by firewalls, for example.
+	
+	if (  requestError  ) {
+		NSLog(@"registerInstallationWithURL: Returned error was %@", requestError);
+	}
+	
+	if (  ! data  ) {
+		NSLog(@"registerInstallationWithURL: Returned data was nil");
+	} else if (  [data length] > 40  ) {
+		NSLog(@"registerInstallationWithURL:  Response data was too long (%ld bytes)", (long) [data length]);
+	} else {
+		NSString * content = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+		if ( ! content  ) {
+			NSLog(@"registerInstallationWithURL: Content as string == nil");
+		} else if (  ! [content isEqualToString: @"OK"]  ) {
+			NSLog(@"registerInstallationWithURL: Content was not 'OK'. content = '%@'; response = %@", content, urlResponse);
+		}
+	}
+	
+	[pool drain];
+}
+
 -(int) countConfigurations: (NSArray *) tblksToInstallPaths {
     
     // Given an array of paths to .tblks, .ovpns, and/or .confs to be installed
@@ -6037,6 +6270,12 @@ BOOL warnAboutNonTblks(void)
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 003")
 	[self warnIfInvalidOrNoSignatureAllowCheckbox: NO];
+	
+	if (  ! [self userAcceptedUserAgreement]  ) {
+		NSLog(@"The user did not agree to the terms for an installation");
+		[self terminateBecause: terminatingBecauseOfQuit];
+		return;
+	}
 	
     //Install into /Applications
 	
@@ -6337,6 +6576,12 @@ BOOL warnAboutNonTblks(void)
     unsigned installFlags;
     if (  (installFlags = needToRunInstaller(FALSE)) != 0  ) {
         
+		if (  ! [self userAcceptedUserAgreement]  ) {
+			NSLog(@"The user did not agree to the terms for an update");
+			[self terminateBecause: terminatingBecauseOfQuit];
+			return;
+		}
+		
 		NSString * text = [NSString stringWithFormat: NSLocalizedString(@"Securing Tunnelblick %@...", @"Window text; '%@' will be replaced with a version number such as '3.6.10'"), [self tunnelblickVersionString]];
 		[splashScreen setMessage: text];
         if (  startupInstallAuth  ) {
