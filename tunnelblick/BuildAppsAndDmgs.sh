@@ -301,6 +301,11 @@ if [ "${CONFIGURATION}" != "Debug" ]; then
 	# Remove any existing .dmg and create a new one. Specify "-noscrub" so that .DS_Store is copied to the image
 	rm -r -f "build/${CONFIGURATION}/${PROJECT_NAME}.dmg"
 	hdiutil create -noscrub -srcfolder "$TMPDMG" "build/${CONFIGURATION}/${PROJECT_NAME}.dmg"
+    status=$?
+    if [ "${status}" -ne "0" ]; then
+        echo "ERROR creating .dmg"
+		exit ${status}
+    fi
 
 	# Leave the staging folder so customized .dmgs can be easily created
 
@@ -321,6 +326,11 @@ if [ "${CONFIGURATION}" != "Debug" ]; then
 	# Remove any existing .dmg and create a new one. Specify "-noscrub" so that .DS_Store is copied to the image
 	rm -r -f "build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.dmg"
 	hdiutil create -noscrub -srcfolder "$TMPDMG" "build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.dmg"
+    status=$?
+    if [ "${status}" -ne "0" ]; then
+        echo "ERROR creating uninstaller .dmg"
+		exit ${status}
+    fi
 
 	# Leave the staging folder so customized .dmgs can be easily created
 
