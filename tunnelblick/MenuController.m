@@ -437,7 +437,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"easy-rsaPath",
                                 @"IPAddressCheckURL",
                                 @"notOKToCheckThatIPAddressDidNotChangeAfterConnection",
-                                @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection",
                                 @"tunnelblickVersionHistory",
 								@"statusDisplayNumber",
                                 @"lastLaunchTime",
@@ -543,6 +542,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"ApplicationCrashedAfterRelaunch",
                                 
                                 // No longer used
+								@"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection",
                                 @"doNotShowCheckForUpdatesNowMenuItem",
                                 @"doNotShowForcedPreferenceMenuItems",
                                 @"doNotShowKeyboardShortcutSubmenu",
@@ -4531,46 +4531,6 @@ static void signal_handler(int signalNumber)
     }
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 009")
-    // Make sure we have asked the user if we can check the IP info
-    if (  ! [gTbDefaults boolForKey: @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection"]  ) {
-        if (  [gTbDefaults canChangeValueForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"]  ) {
-            NSURL * url = [self getIPCheckURL];
-            if (  url  ) {
-				NSString * host = [url host];
-				if (  host  ) {
-					int result;
-                    do {
-                        result = TBRunAlertPanel(NSLocalizedString(@"New Feature", @"Window title"),
-                                                 [NSString stringWithFormat:
-                                                  NSLocalizedString(@"Tunnelblick can check that the apparent public IP address of your computer"
-                                                                    @" changes when you connect to a VPN, and warn you if it doesn't.\n\n"
-                                                                    @"This may help Tunnelblick diagnose problems with your connection.\n\n"
-                                                                    @"This process attempts to access\n"
-                                                                    @"%@\n\n"
-                                                                    @"Do you wish to check for this IP address change?\n", @"Window text"), host],
-                                                 NSLocalizedString(@"Check for a change", @"Button"),           // Default
-                                                 NSLocalizedString(@"Privacy info...", @"Button"),              // Alternate
-												 NSLocalizedString(@"Do not check for a change", @"Button"));   // Other
-                        if (  result == NSAlertAlternateReturn  ) {
-                            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.tunnelblick.net/privacy.html"]];
-                        } else if (   (result == NSAlertDefaultReturn)
-                                   || (result == NSAlertOtherReturn)  ) {
-                            // Only check for change if requested
-                            [gTbDefaults setBool: (result == NSAlertOtherReturn)
-                                          forKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-                            [gTbDefaults setBool: YES
-                                          forKey: @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-                        } else {
-                            return; // Cancelled or error
-                        }
-                    } while (  result == NSAlertAlternateReturn);
-				} else {
-					NSLog(@"Could not extract host from URL: %@", url);
-				}
-            }
-        }
-    }
-    
     activeIPCheckThreads = [[NSMutableArray alloc] initWithCapacity: 4];
     cancellingIPCheckThreads = [[NSMutableArray alloc] initWithCapacity: 4];
     
@@ -5944,7 +5904,6 @@ BOOL warnAboutNonTblks(void)
 		[gTbDefaults setBool: checkForUpdates  forKey: @"updateCheckAutomatically"];
 		
 		[gTbDefaults setBool: ! checkIpAddress forKey: @"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-		[gTbDefaults setBool: TRUE             forKey: @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection"];
 	}
 	
 	if (  userAgreementChanged  ) {
