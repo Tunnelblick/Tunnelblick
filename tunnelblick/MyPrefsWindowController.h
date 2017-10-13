@@ -151,7 +151,6 @@
 -(IBAction) generalAdminApprovalForKeyAndCertificateChangesCheckboxWasClicked: (NSButton *) sender;
 -(IBAction) updatesCheckAutomaticallyCheckboxWasClicked:         (NSButton *) sender;
 -(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked:        (NSButton *) sender;
--(IBAction) updatesSendProfileInfoCheckboxWasClicked:            (NSButton *) sender;
 -(IBAction) updatesCheckNowButtonWasClicked:                     (id) sender;
 
 -(IBAction) resetDisabledWarningsButtonWasClicked:        (id) sender;

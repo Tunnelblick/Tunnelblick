@@ -134,13 +134,6 @@ extern TBUserDefaults * gTbDefaults;
 														   @"<p><strong>This checkbox is disabled</strong> and checked when using a beta version.</p>",
 														   @"HTML info for the 'Check for updates to beta versions' checkbox."))];
 	
-	[updatesSendProfileInfoCheckbox
-	 setTitle: NSLocalizedString(@"Send anonymous profile information when checking", @"Checkbox name")
-	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n"
-														   @"<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p>"
-														   @"<p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>",
-														   @"HTML info for the 'Send anonymous profile information when checking' checkbox."))];
-	
 	[updatesCheckNowButton
 	 setTitle: NSLocalizedString(@"Check Now", @"Button")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Checks for updates to the Tunnelblick application.</p>"
@@ -172,7 +165,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesUpdatesTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       updatesUpdatesTF)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          updatesCheckAutomaticallyCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          updatesCheckForBetaUpdatesCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          updatesSendProfileInfoCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,          updatesCheckNowButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesLastCheckedTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       updatesLastCheckedTF)

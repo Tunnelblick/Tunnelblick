@@ -505,7 +505,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"updateCheckBetas",
                                 @"updateCheckInterval",
                                 @"updateFeedURL",
-                                @"updateSendProfileInfo",
                                 @"updateSigned",
                                 @"updateUnsigned",
                                 
@@ -523,7 +522,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 								@"leftNavSelectedDisplayName",
 								@"AdvancedWindowTabIdentifier",
                                 
-                                @"haveDealtWithSparkle1dot5b6",
                                 @"haveDealtWithOldTunTapPreferences",
                                 @"haveDealtWithOldLoginItem",
                                 @"haveStartedAnUpdateOfTheApp",
@@ -549,6 +547,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"doNotShowForcedPreferenceMenuItems",
                                 @"doNotShowKeyboardShortcutSubmenu",
                                 @"doNotShowOptionsSubmenu",
+								@"haveDealtWithSparkle1dot5b6",
                                 @"keyboardShortcutKeyCode",
                                 @"keyboardShortcutModifiers",
                                 @"maximumLogSize",
@@ -558,6 +557,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"skipWarningAboutOnlyOpenvpnTxpVersion",
                                 @"tunnelblickdHash",
                                 @"tunnelblickdPlistHash",
+								@"updateSendProfileInfo",
                                 
                                 nil] retain];
         
@@ -1092,9 +1092,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
 		
         updater = [[SUUpdater alloc] init];
 		
-		// Set updater's delegate, so we can add our own info to the system profile Sparkle sends to our website
-		// Do this even if we haven't set our preferences, so Sparkle will include our data in the list
-		// it presents to the user when asking the user for permission to send the data.
 		if (  [updater respondsToSelector: @selector(setDelegate:)]  ) {
 			[updater setDelegate: (id)self];
 		} else {
@@ -3889,54 +3886,18 @@ static void signal_handler(int signalNumber)
 
 - (void) applicationWillFinishLaunching: (NSNotification *)notification
 {
-    // Sparkle Updater 1.5b6 allows system profiles to be sent to Tunnelblick's website.
-    // However, a user who has already used Tunnelblick will not be asked permission to send them.
-    // So we force Sparkle to ask the user again (i.e., ask again about checking for updates automatically) in order to allow
-    // the user to respond as they see fit, after (if they wish) viewing the exact data that will be sent.
-    //
-    // We do this by clearing Sparkle's preferences. We use our own preference that indicates that we've done this so we only
-    // do it once (and so we can override that preference with a forced-preferences.plist entry). The _value_ of that
-    // preference doesn't matter; if it exists we assume this issue has been dealt with. The user will not be asked if
-    // both the "updateCheckAutomatically" and "updateSendProfileInfo" preferences are forced (to any value).
-    //
-    // We do this check each time Tunnelblick is launched, to allow deployers to "un-force" this at some later time and have
-    // the user asked for his/her preference.
-    
 	(void) notification;
 	
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 001")
     
-    BOOL forcingAutoChecksAndSendProfile = (  ! [gTbDefaults canChangeValueForKey: @"updateCheckAutomatically" ]  )
-    && ( ! [gTbDefaults canChangeValueForKey: @"updateSendProfileInfo"]  );
     BOOL userIsAdminOrNonAdminsCanUpdate = ( userIsAnAdmin ) || ( ! [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] );
-    NSUserDefaults * stdDefaults = [NSUserDefaults standardUserDefaults];
-    
+	
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 002")
-    if (  ! [gTbDefaults preferenceExistsForKey: @"haveDealtWithSparkle1dot5b6"]  ) {
-        if (  ! forcingAutoChecksAndSendProfile  ) {
-            // Haven't done this already and aren't forcing the user's answers, so ask the user (perhaps again) by clearing Sparkle's preferences
-            // EXCEPT we SET "SUHasLaunchedBefore", so the user will be asked right away about checking for updates automatically and sending profile info
-            [stdDefaults removeObjectForKey: @"SUEnableAutomaticChecks"];
-            [stdDefaults removeObjectForKey: @"SUAutomaticallyUpdate"];
-            [stdDefaults removeObjectForKey: @"SUSendProfileInfo"];
-            [stdDefaults removeObjectForKey: @"SULastCheckTime"];                       
-            [stdDefaults removeObjectForKey: @"SULastProfileSubmissionDate"];
-            
-            [stdDefaults setBool: TRUE forKey: @"SUHasLaunchedBefore"];
-            
-            // We clear _our_ preferences, too, so they will be updated when the Sparkle preferences are set by Sparkle
-            [stdDefaults removeObjectForKey: @"updateCheckAutomatically"];
-            [stdDefaults removeObjectForKey: @"updateSendProfileInfo"];
-            [stdDefaults synchronize];
-            
-            [gTbDefaults setBool: YES forKey: @"haveDealtWithSparkle1dot5b6"];
-        }
-    }
-    
+	
     // We aren't supposed to use Sparkle Updater's preferences directly. However, we need to be able to, in effect,
-    // override three of them via forced-preferences.plist. So we have three of our own preferences which mirror Sparkle's. Our
-    // preferences are "updateCheckAutomatically", "updateSendProfileInfo", and "updateAutomatically", which mirror
-    // Sparkle's "SUEnableAutomaticChecks", "SUSendProfileInfo", and "SUAutomaticallyUpdate". We use our preferences to
+    // override two of them via forced-preferences.plist. So we have two of our own preferences which mirror Sparkle's. Our
+    // preferences are "updateCheckAutomatically" and "updateAutomatically", which mirror
+    // Sparkle's "SUEnableAutomaticChecks" and "SUAutomaticallyUpdate". We use our preferences to
     // set Sparkle's behavior by invoking methods of the updater instance.
     //
     // We also have two other preferences which affect Sparkle's behavior. Sparkle doesn't use preferences for them; they are set in
@@ -3948,7 +3909,7 @@ static void signal_handler(int signalNumber)
     // We access Sparkle's preferences only on a read-only basis, and only for the inital setup of our preferences (here).
     // We do the initial setup of our preferences from Sparkle's preferences because it is Sparkle that asks the user.
     // Until the user has been asked by Sparkle (and thus Sparkle has set its preferences), we assume we are not
-    // checking, and not sending system profiles.
+    // checking.
     
     // Initialize our preferences from Sparkle's if ours have not been set yet (and thus are not being forced), and Sparkle's _have_ been set
     // (We have to access Sparkle's prefs directly because we need to wait until they have actually been set one way or the other)
@@ -3957,8 +3918,8 @@ static void signal_handler(int signalNumber)
     
     [self setOurPreferencesFromSparkles];
     
-    // Set Sparkle's behavior from our preferences using Sparkle's approved methods
-    
+	[[NSUserDefaults standardUserDefaults] setBool: TRUE forKey: @"SUHasLaunchedBefore"];
+	
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 003")
     
     [self setupUpdaterAutomaticChecks];
@@ -3983,13 +3944,9 @@ static void signal_handler(int signalNumber)
     
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 005")
     if (  [updater respondsToSelector: @selector(setSendsSystemProfile:)]  ) {
-        if (  [gTbDefaults preferenceExistsForKey: @"updateSendProfileInfo"]  ) {
-            [updater setSendsSystemProfile: [gTbDefaults boolForKey:@"updateSendProfileInfo"]];
-        }
+        [updater setSendsSystemProfile: NO];
     } else {
-        if (  [gTbDefaults preferenceExistsForKey: @"updateSendProfileInfo"]  ) {
-            NSLog(@"Ignoring 'updateSendProfileInfo' preference because Sparkle Updater Updater does not respond to setSendsSystemProfile:");
-        }
+        NSLog(@"Sparkle Updater Updater does not respond to setSendsSystemProfile:");
     }
     
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 006")
@@ -4008,7 +3965,7 @@ static void signal_handler(int signalNumber)
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 008 -- LAST")
 }
 
-// If we haven't set up the updateCheckAutomatically, updateSendProfileInfo, and updateAutomatically preferences,
+// If we haven't set up the updateCheckAutomatically and updateAutomatically preferences,
 // and the corresponding Sparkle preferences have been set, copy Sparkle's settings to ours
 -(void) setOurPreferencesFromSparkles
 {
@@ -4021,17 +3978,6 @@ static void signal_handler(int signalNumber)
                 [gTbDefaults setBool: [obj boolValue] forKey: @"updateCheckAutomatically"];
             } else {
                 NSLog(@"Preference 'SUEnableAutomaticChecks' is not a boolean and is being ignored by Tunnelblick");
-            }
-        }
-    }
-    
-    if (  ! [gTbDefaults preferenceExistsForKey: @"updateSendProfileInfo"]  ) {
-        id obj = [stdDefaults objectForKey: @"SUSendProfileInfo"];
-        if (  obj  ) {
-            if (  [obj respondsToSelector:@selector(boolValue)]  ) {
-                [gTbDefaults setBool: [obj boolValue] forKey: @"updateSendProfileInfo"];
-            } else {
-                NSLog(@"Preference 'SUSendProfileInfo' is not a boolean and is being ignored by Tunnelblick");
             }
         }
     }
@@ -5246,6 +5192,14 @@ static void signal_handler(int signalNumber)
 }
 
 // Sparkle delegate:
+
+- (BOOL)updaterShouldPromptForPermissionToCheckForUpdates:(SUAppcastItem *) theUpdater {
+	
+	(void) theUpdater;
+	
+	return NO;
+}
+
 - (void)updater:(SUUpdater *)theUpdater willInstallUpdate:(SUAppcastItem *)update
 {
 	(void) theUpdater;

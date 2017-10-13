@@ -84,7 +84,7 @@
 	<key>NSUIElement</key>
 		<string>1</string>
 	<key>SUEnableSystemProfiling</key>
-		<true/>
+		<false/>
 	<key>NSHighResolutionCapable</key>
 		<true/>
 	<key>TBAppcastRequiresDSASignature</key>

@@ -2479,11 +2479,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
 	[self setupCheckForBetasCheckbox];
 	
-	[self setValueForCheckbox: [generalPrefsView updatesSendProfileInfoCheckbox]
-				preferenceKey: @"updateSendProfileInfo"
-					 inverted: NO
-				   defaultsTo: FALSE];
-    
     // Set the last update date/time
     [self updateLastCheckedDate];
 
@@ -2576,20 +2571,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     [[generalPrefsView updatesLastCheckedTFC] setTitle: [NSString stringWithFormat:
                                                          NSLocalizedString(@"Last checked: %@", @"Window text"),
                                                          lastChecked]];
-}
-
-
--(IBAction) updatesSendProfileInfoCheckboxWasClicked: (NSButton *) sender
-{
-    SUUpdater * updater = [((MenuController *)[NSApp delegate]) updater];
-    if (  [updater respondsToSelector: @selector(setSendsSystemProfile:)]  ) {
-        [((MenuController *)[NSApp delegate]) setOurPreferencesFromSparkles]; // Sparkle may have changed it's preferences so we update ours
-        BOOL newValue = [sender state] == NSOnState;
-        [gTbDefaults setBool: newValue forKey: @"updateSendProfileInfo"];
-        [updater setSendsSystemProfile: newValue];
-    } else {
-        NSLog(@"'Send anonymous profile information when checking' change ignored because Sparkle Updater does not respond to setSendsSystemProfile:");
-    }
 }
 
 

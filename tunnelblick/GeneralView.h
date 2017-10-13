@@ -52,7 +52,6 @@
     IBOutlet NSTextField        * updatesUpdatesTF;
     IBOutlet TBButton           * updatesCheckAutomaticallyCheckbox;
     IBOutlet TBButton           * updatesCheckForBetaUpdatesCheckbox;
-    IBOutlet TBButton           * updatesSendProfileInfoCheckbox;
     IBOutlet TBButton           * updatesCheckNowButton;
     IBOutlet NSTextFieldCell    * updatesLastCheckedTFC;
     IBOutlet NSTextField        * updatesLastCheckedTF;
@@ -72,7 +71,6 @@ TBPROPERTY_READONLY(NSTextFieldCell *,   updatesUpdatesTFC)
 TBPROPERTY_READONLY(NSTextField *,       updatesUpdatesTF)
 TBPROPERTY_READONLY(TBButton *,          updatesCheckAutomaticallyCheckbox)
 TBPROPERTY_READONLY(TBButton *,          updatesCheckForBetaUpdatesCheckbox)
-TBPROPERTY_READONLY(TBButton *,          updatesSendProfileInfoCheckbox)
 TBPROPERTY_READONLY(NSTextFieldCell *,   updatesLastCheckedTFC)
 TBPROPERTY_READONLY(NSTextField *,       updatesLastCheckedTF)
 

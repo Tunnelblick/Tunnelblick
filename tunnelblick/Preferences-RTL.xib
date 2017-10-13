@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1510" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1611" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
@@ -282,6 +282,8 @@
                                                                                 <size key="minSize" width="670" height="284"/>
                                                                                 <size key="maxSize" width="687" height="10000000"/>
                                                                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <size key="minSize" width="670" height="284"/>
+                                                                                <size key="maxSize" width="687" height="10000000"/>
                                                                             </textView>
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -580,6 +582,7 @@
                 <outlet property="workOnConfigurationArrayController" destination="653" id="657"/>
                 <outlet property="workOnConfigurationPopUpButton" destination="585" id="621"/>
             </connections>
+            <point key="canvasLocation" x="879" y="896"/>
         </customView>
         <viewController id="1068" userLabel="LeftNavViewController" customClass="LeftNavViewController">
             <connections>
@@ -692,18 +695,6 @@
                         <outlet property="nextKeyView" destination="127" id="742"/>
                     </connections>
                 </button>
-                <button id="1153" customClass="TBButton">
-                    <rect key="frame" x="18" y="81" width="596" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Send anonymous profile..." bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1154">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="updatesSendProfileInfoCheckboxWasClicked:" target="-2" id="1157"/>
-                        <outlet property="nextKeyView" destination="127" id="1155"/>
-                    </connections>
-                </button>
                 <textField verticalHuggingPriority="750" id="6">
                     <rect key="frame" x="625" y="291" width="271" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
@@ -755,7 +746,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" id="126" customClass="TBButton">
-                    <rect key="frame" x="527" y="44" width="91" height="32"/>
+                    <rect key="frame" x="527" y="55" width="91" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Check..." bezelStyle="rounded" alignment="right" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="133">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -767,7 +758,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="125">
-                    <rect key="frame" x="53" y="30" width="562" height="14"/>
+                    <rect key="frame" x="53" y="41" width="562" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Last checked... " id="134">
                         <font key="font" metaFont="smallSystem"/>
@@ -840,7 +831,6 @@
                 <outlet property="updatesCheckNowButton" destination="126" id="381"/>
                 <outlet property="updatesLastCheckedTF" destination="125" id="1105"/>
                 <outlet property="updatesLastCheckedTFC" destination="134" id="382"/>
-                <outlet property="updatesSendProfileInfoCheckbox" destination="1153" id="1158"/>
                 <outlet property="updatesUpdatesTF" destination="128" id="1106"/>
                 <outlet property="updatesUpdatesTFC" destination="131" id="383"/>
                 <outlet property="warningsTF" destination="9" id="855"/>
@@ -1228,6 +1218,8 @@
                                 <size key="minSize" width="740" height="87"/>
                                 <size key="maxSize" width="923" height="10000000"/>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <size key="minSize" width="740" height="87"/>
+                                <size key="maxSize" width="923" height="10000000"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1255,6 +1247,8 @@
                                 <size key="minSize" width="878" height="182"/>
                                 <size key="maxSize" width="892" height="10000000"/>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <size key="minSize" width="878" height="182"/>
+                                <size key="maxSize" width="892" height="10000000"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
