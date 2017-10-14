@@ -2274,7 +2274,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 }
 
-// Sparkle delegate:
+// Sparkle delegates:
 - (NSString *)feedURLStringForUpdater:(SUUpdater *) theUpdater {
 	
 	// This delegate method is implemented so Sparkle always uses the correct URL:
@@ -2357,6 +2357,40 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 	TBLog(@"DB-ALL", "Application update feed = %@", urlString);
 	
 	return urlString;
+}
+
+- (BOOL)updaterShouldPromptForPermissionToCheckForUpdates:(SUAppcastItem *) theUpdater {
+	
+	(void) theUpdater;
+	
+	return NO;
+}
+
+- (void)updater:(SUUpdater *)theUpdater willInstallUpdate:(SUAppcastItem *)update
+{
+	(void) theUpdater;
+	(void) update;
+	
+	[gTbDefaults removeObjectForKey: @"skipWarningAboutInvalidSignature"];
+	[gTbDefaults removeObjectForKey: @"skipWarningAboutNoSignature"];
+	[gTbDefaults setBool: TRUE forKey: @"haveStartedAnUpdateOfTheApp"];
+	
+	reasonForTermination = terminatingBecauseOfQuit;
+	
+	[gTbDefaults setBool: NO forKey: @"launchAtNextLogin"];
+	terminatingAtUserRequest = TRUE;
+	
+	NSLog(@"updater:willInstallUpdate: Starting cleanup.");
+	if (  [self cleanup]  ) {
+		NSLog(@"updater:willInstallUpdate: Cleanup finished.");
+	} else {
+		NSLog(@"updater:willInstallUpdate: Cleanup already being done.");
+	}
+	
+	// DO NOT UNLOCK cleanupMutex --
+	// We do not want to execute cleanup a second time, because:
+	//     (1) We've already just run it and thus cleaned up everything, and
+	//     (2) The newly-installed openvpnstart won't be secured and thus will fail
 }
 
 -(void) changedDisplayConnectionSubmenusSettings
@@ -5149,42 +5183,6 @@ static void signal_handler(int signalNumber)
     id         value = [dict objectForKey: @"NewValue"];
     
 	[self setPreferenceForSelectedConfigurationsWithKey: key to: value isBOOL: NO];
-}
-
-// Sparkle delegate:
-
-- (BOOL)updaterShouldPromptForPermissionToCheckForUpdates:(SUAppcastItem *) theUpdater {
-	
-	(void) theUpdater;
-	
-	return NO;
-}
-
-- (void)updater:(SUUpdater *)theUpdater willInstallUpdate:(SUAppcastItem *)update
-{
-	(void) theUpdater;
-	(void) update;
-	
-	[gTbDefaults removeObjectForKey: @"skipWarningAboutInvalidSignature"];
-	[gTbDefaults removeObjectForKey: @"skipWarningAboutNoSignature"];
-    [gTbDefaults setBool: TRUE forKey: @"haveStartedAnUpdateOfTheApp"];
-	
-	reasonForTermination = terminatingBecauseOfQuit;
-    
-    [gTbDefaults setBool: NO forKey: @"launchAtNextLogin"];
-    terminatingAtUserRequest = TRUE;
-
-    NSLog(@"updater:willInstallUpdate: Starting cleanup.");
-    if (  [self cleanup]  ) {
-        NSLog(@"updater:willInstallUpdate: Cleanup finished.");
-    } else {
-        NSLog(@"updater:willInstallUpdate: Cleanup already being done.");
-    }
-    
-    // DO NOT UNLOCK cleanupMutex --
-    // We do not want to execute cleanup a second time, because:
-    //     (1) We've already just run it and thus cleaned up everything, and
-    //     (2) The newly-installed openvpnstart won't be secured and thus will fail
 }
 
 -(void) setPIDsWeAreTryingToHookUpTo: (NSArray *) newValue
