@@ -5734,7 +5734,7 @@ BOOL warnAboutNonTblks(void)
 	BOOL askCheckForQuestions = (  ! [gTbDefaults preferenceExistsForKey: @"tunnelblickVersionHistory"]  );
 
 	NSString * userAgreementVersionAgreedTo = [gTbDefaults stringForKey: @"userAgreementVersionAgreedTo"];
-	NSString * thisUserAgreementVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"UserAgreementVersion"];
+	NSString * thisUserAgreementVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"TBUserAgreementVersion"];
 	BOOL userAgreementChanged = ! [thisUserAgreementVersion isEqualTo: userAgreementVersionAgreedTo];
 	
 	if (   ( ! askCheckForQuestions )
