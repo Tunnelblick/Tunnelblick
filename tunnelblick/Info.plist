@@ -83,12 +83,12 @@
 		<string>NSApplication</string>
 	<key>NSUIElement</key>
 		<string>1</string>
-	<key>SUEnableSystemProfiling</key>
-		<false/>
 	<key>NSHighResolutionCapable</key>
 		<true/>
 	<key>TBAppcastRequiresDSASignature</key>
-	<true/>
+		<true/>
+	<key>SUEnableSystemProfiling</key>
+		<false/>
 	<key>SUFeedURL</key>
 		<string>https://tunnelblick.net/appcast-v2.rss</string>
 	<key>SUPublicDSAKey</key>
