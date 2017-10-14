@@ -87,7 +87,11 @@
 		<true/>
 	<key>TBAppcastRequiresDSASignature</key>
 		<true/>
+	<key>TBUserAgreementVersion</key>
+		<string>1</string>
 	<key>SUEnableSystemProfiling</key>
+		<false/>
+	<key>SUAllowsAutomaticUpdates</key>
 		<false/>
 	<key>SUFeedURL</key>
 		<string>https://tunnelblick.net/appcast-v2.rss</string>

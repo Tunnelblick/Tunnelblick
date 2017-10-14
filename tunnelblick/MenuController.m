@@ -499,13 +499,10 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"delayToHideStatistics",
                                 @"statisticsRateTimeInterval",
                                 
-                                @"updateAutomatically",
                                 @"updateCheckAutomatically",
                                 @"updateCheckBetas",
                                 @"updateCheckInterval",
                                 @"updateFeedURL",
-                                @"updateSigned",
-                                @"updateUnsigned",
                                 
                                 @"NSWindow Frame SettingsSheetWindow",
                                 @"NSWindow Frame ConnectingWindow",
@@ -557,7 +554,10 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"skipWarningAboutOnlyOpenvpnTxpVersion",
                                 @"tunnelblickdHash",
                                 @"tunnelblickdPlistHash",
+								@"updateAutomatically",
 								@"updateSendProfileInfo",
+                                @"updateSigned",
+                                @"updateUnsigned",
                                 
                                 nil] retain];
         
@@ -1090,13 +1090,6 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
         
         TBLog(@"DB-SU", @"init: 017")
 		
-        updater = [[SUUpdater alloc] init];
-		
-		if (  [updater respondsToSelector: @selector(setDelegate:)]  ) {
-			[updater setDelegate: (id)self];
-		} else {
-			NSLog(@"Cannot set Sparkle delegate because Sparkle Updater does not respond to setDelegate:");
-		}
         TBLog(@"DB-SU", @"init: 018 - LAST")
     }
     
@@ -3924,66 +3917,70 @@ static void signal_handler(int signalNumber)
 	
     TBLog(@"DB-SU", @"applicationWillFinishLaunching: 001")
     
-    BOOL userIsAdminOrNonAdminsCanUpdate = ( userIsAnAdmin ) || ( ! [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] );
-	
-    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 002")
-	
-    // We aren't supposed to use Sparkle Updater's preferences directly. However, we need to be able to, in effect,
-    // override two of them via forced-preferences.plist. So we have two of our own preferences which mirror Sparkle's. Our
-    // preferences are "updateCheckAutomatically" and "updateAutomatically", which mirror
-    // Sparkle's "SUEnableAutomaticChecks" and "SUAutomaticallyUpdate". We use our preferences to
-    // set Sparkle's behavior by invoking methods of the updater instance.
-    //
-    // We also have two other preferences which affect Sparkle's behavior. Sparkle doesn't use preferences for them; they are set in
-    // Info.plist or have default values. These two preferences are "updateCheckInterval", and "updateFeedURL".
-    // Note that "updateFeedURL" may only be forced -- any normal, user-modifiable value will be ignored.
-    //
-    // Everywhere we change our preferences, we notify Sparkle via the appropriate updater methods.
-    //
-    // We access Sparkle's preferences only on a read-only basis, and only for the inital setup of our preferences (here).
-    // We do the initial setup of our preferences from Sparkle's preferences because it is Sparkle that asks the user.
-    // Until the user has been asked by Sparkle (and thus Sparkle has set its preferences), we assume we are not
-    // checking.
-    
-    // Initialize our preferences from Sparkle's if ours have not been set yet (and thus are not being forced), and Sparkle's _have_ been set
-    // (We have to access Sparkle's prefs directly because we need to wait until they have actually been set one way or the other)
-    // Note that we access Sparkle's preferences via stdDefaults, so they can't be forced (Sparkle would ignore the forcing, anyway)
-    // However, when we try to set out preferences from Sparkle's, if they are forced then they won't be changed.
-    
-    [self setOurPreferencesFromSparkles];
-    
+	// Set up Sparkle. This must be done now, before applicationDidFinishLaunching, to make sure that it is set up **before** Sparkle starts operating
+	//
+	// Four Tunnelblick preferences are used to control Sparkle Updater, and may be forced:
+	//		updateCheckAutomatically
+	//		updateCheckInterval
+	//		updateFeedURL
+	//		updateCheckBetas
+	//
+	// Tunnelblick uses ALL FOUR WAYS that Sparkle's behavior can be controlled:
+	//
+	//		Info.plist entries:
+	//
+	//			Three Info.plist entries are included and are never overridden:
+	//				SUEnableSystemProfiling  is set FALSE (this disables sending system profile info in the appcast query string)
+	//				SUAllowsAutomaticUpdates is set FALSE (this disables automatic downloading and installation of updates, and
+	//													   also disables asking the user if they want to do that)
+	//				SUPublicDSAKey contains the Tunnelblick public DSA key
+	//
+	//			One Info.plist entry is included but is overridden by a delegate method:
+	//				SUFeedURL is set, but it is overridden by the feedURLStringForUpdater: delegate method so that either a stable or beta update is checked
+	//
+	//		Setting updater instance variables:
+	//
+	//				automaticallyChecksForUpdates is set according to our "updateCheckAutomatically"
+	//				updateCheckInterval           is set according to our "updateCheckInterval"
+	//
+	//		Delegate methods:
+	//
+	//				updaterShouldPromptForPermissionToCheckForUpdates: always returns NO (this sort of duplicates SUEnableSystemProfiling in the Info.plist)
+	//
+	//				feedURLStringForUpdater: returns a string to get either a stable or beta version of the appcast
+	//
+	//				updater:willInstallUpdate:
+	//
+	//		Preferences:
+	//
+	//				SUHasLaunchedBefore		    is set TRUE (so updates are presented to the user even the first time Tunnelblick is run)
+	//
+	//				SUFeedURL                   the feedURLStringForUpdater: delegate method is used to manipulate this
+	//
+	//				SUEnableAutomaticChecks     is modified by setting the automaticallyChecksForUpdates instance variable
+	//				SUScheduledCheckInterval    is modified by setting the updateCheckInterval instance variable (which sets the preference)
+	//
+	//				SUSendProfileInfo           is OVERRIDDEN by the SUEnableSystemProfiling Info.plist entry
+	//				SUAutomaticallyUpdate       is OVERRIDDEN by the SUAllowsAutomaticUpdates Info.plist entry
+	//
+	//				SULastCheckTime			    is handled internally by Sparkle; Tunnelblick does not access or set it
+	//				SULastProfileSubmissionDate is handled internally by Sparkle; Tunnelblick does not access or set it
+	//				SUSkippedVersion            is handled internally by Sparkle; Tunnelblick does not access or set it
+	//
+
+	// This is THE ONLY Sparkle preference that we set directly. That's because we ask the user whether or not to check for updates automatically
+	// and we don't want Sparkle to repeat the question. Because Sparkle isn't operating yet, it doesn't need to be notified directly that the preference changed.
 	[[NSUserDefaults standardUserDefaults] setBool: TRUE forKey: @"SUHasLaunchedBefore"];
 	
-    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 003")
-    
-    [self setupUpdaterAutomaticChecks];
+	// Create and initialize the Sparkle Updater instance that updates the application:
+	updater = [[SUUpdater alloc] init];
 	
-    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 004")
-    if (  [updater respondsToSelector: @selector(setAutomaticallyDownloadsUpdates:)]  ) {
-        if (  userIsAdminOrNonAdminsCanUpdate  ) {
-            if (  [gTbDefaults preferenceExistsForKey: @"updateAutomatically"]  ) {
-                [updater setAutomaticallyDownloadsUpdates: [gTbDefaults boolForKey: @"updateAutomatically"]];
-            }
-        } else {
-            if (  [gTbDefaults boolForKey: @"updateAutomatically"]  ) {
-                NSLog(@"Automatic updates will not be performed because user is not allowed to administer this computer and 'onlyAdminCanUpdate' preference is set");
-            }
-            [updater setAutomaticallyDownloadsUpdates: NO];
-        }
-    } else {
-        if (  [gTbDefaults preferenceExistsForKey: @"updateAutomatically"]  ) {
-            NSLog(@"Ignoring 'updateAutomatically' preference because Sparkle Updater does not respond to setAutomaticallyDownloadsUpdates:");
-        }
-    }
-    
-    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 005")
-    if (  [updater respondsToSelector: @selector(setSendsSystemProfile:)]  ) {
-        [updater setSendsSystemProfile: NO];
-    } else {
-        NSLog(@"Sparkle Updater Updater does not respond to setSendsSystemProfile:");
-    }
-    
-    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 006")
+	if (  [updater respondsToSelector: @selector(setDelegate:)]  ) {
+		[updater setDelegate: (id)self];
+	} else {
+		NSLog(@"Cannot set Sparkle delegate because Sparkle Updater does not respond to setDelegate:");
+	}
+
     if (  [updater respondsToSelector: @selector(setUpdateCheckInterval:)]  ) {
         NSTimeInterval checkInterval = [gTbDefaults timeIntervalForKey: @"updateCheckInterval"
                                                                default: 60.0 * 60.0 * 24.0          // Default = 24 hours
@@ -3996,32 +3993,9 @@ static void signal_handler(int signalNumber)
         }
     }
     
-    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 008 -- LAST")
-}
-
-// If we haven't set up the updateCheckAutomatically and updateAutomatically preferences,
-// and the corresponding Sparkle preferences have been set, copy Sparkle's settings to ours
--(void) setOurPreferencesFromSparkles
-{
-    NSUserDefaults * stdDefaults = [NSUserDefaults standardUserDefaults];
-    
-    if (  ! [gTbDefaults preferenceExistsForKey: @"updateCheckAutomatically"]  ) {
-        id obj = [stdDefaults objectForKey: @"SUEnableAutomaticChecks"];
-        if (  obj  ) {
-            if (  [obj respondsToSelector:@selector(boolValue)]) {
-                [gTbDefaults setBool: [obj boolValue] forKey: @"updateCheckAutomatically"];
-            } else {
-                NSLog(@"Preference 'SUEnableAutomaticChecks' is not a boolean and is being ignored by Tunnelblick");
-            }
-        }
-    }
-    
-    // SUAutomaticallyUpdate may be changed at any time by a checkbox in Sparkle's update window, so we always use Sparkle's version
-    if (  [stdDefaults objectForKey: @"SUAutomaticallyUpdate"]  ) {
-        [gTbDefaults setBool: [updater automaticallyDownloadsUpdates]       // But if it is forced, this setBool will be ignored
-                      forKey: @"updateAutomatically"];
-    }
-    
+    [self setupUpdaterAutomaticChecks];
+	
+    TBLog(@"DB-SU", @"applicationWillFinishLaunching: 002 -- LAST")
 }
 
 -(BOOL) checkSignatureIsOurs: (NSString *) codesignDvvOutput {
@@ -4493,8 +4467,6 @@ static void signal_handler(int signalNumber)
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 002")
     // If checking for updates is enabled, we do a check every time Tunnelblick is launched (i.e., now)
-    // We also check for updates if we haven't set our preferences yet. (We have to do that so that Sparkle
-    // will ask the user whether to check or not, then we set our preferences from that.)
     if (   [gTbDefaults boolWithDefaultYesForKey: @"updateCheckAutomatically"]  ) {
         if (  [updater respondsToSelector: @selector(checkForUpdatesInBackground)]  ) {
             if (  [self feedURLToUse]  ) {

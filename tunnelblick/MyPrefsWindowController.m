@@ -547,9 +547,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     if (  view == generalPrefsView  ) {
-		// Update our preferences from Sparkle's whenever we show the view
-		// (Would be better if Sparkle told us when they changed, but it doesn't)
-		[((MenuController *)[NSApp delegate]) setOurPreferencesFromSparkles];
 		[self setupGeneralView];
 	}
     
@@ -2494,8 +2491,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) setupGeneralView
 {
-	[((MenuController *)[NSApp delegate]) setOurPreferencesFromSparkles]; // Sparkle may have changed it's preferences so we update ours
-    
 	[self setupUpdatesAdminApprovalForKeyAndCertificateChangesCheckbox];
 	
 	[self setValueForCheckbox: [generalPrefsView inhibitOutboundTBTrafficCheckbox]
@@ -2583,7 +2578,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
     SUUpdater * updater = [((MenuController *)[NSApp delegate]) updater];
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
-        [((MenuController *)[NSApp delegate]) setOurPreferencesFromSparkles]; // Sparkle may have changed it's preferences so we update ours
  		[((MenuController *)[NSApp delegate]) setupUpdaterAutomaticChecks];
     } else {
         NSLog(@"'Inhibit automatic update checking and IP address checking' change ignored because the updater does not respond to setAutomaticallyChecksForUpdates:");
@@ -2677,8 +2671,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     SUUpdater * updater = [((MenuController *)[NSApp delegate]) updater];
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
-        [((MenuController *)[NSApp delegate]) setOurPreferencesFromSparkles]; // Sparkle may have changed it's preferences so we update ours
-		
         [gTbDefaults setBool: [sender state] forKey: @"updateCheckAutomatically"];
 		[((MenuController *)[NSApp delegate]) setupUpdaterAutomaticChecks];
     } else {

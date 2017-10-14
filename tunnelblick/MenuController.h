@@ -275,7 +275,6 @@ enum StatusIconPosition {
 -(void)             saveConnectionsToRestoreOnRelaunch;
 -(void)             setHotKeyIndex:                         (unsigned)          newIndex;
 -(void)             setState:                               (NSString *)        newState;
--(void)             setOurPreferencesFromSparkles;
 -(void)             setPreferenceForSelectedConfigurationsWithDict: (NSDictionary * ) dict;
 -(void)             setupUpdaterAutomaticChecks;
 -(NSArray *)        sortedSounds;
