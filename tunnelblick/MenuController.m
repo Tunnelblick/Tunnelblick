@@ -5781,7 +5781,7 @@ BOOL warnAboutNonTblks(void)
 																	   @" by the Free Software Foundation.\n\n"
 																	   
 																	   @"Tu" @"nn" @"elbl" @"ick is provided for free, as is, and without warranty of any kind."
-																	   @" Tu" @"nn" @"elbl" @"ick and it's authors assume no liability or responsibility for damages"
+																	   @" Tu" @"nn" @"elbl" @"ick and its authors assume no liability or responsibility for damages"
 																	   @" resulting from the use of Tu" @"nn" @"elbl" @"ick, or of any third-party modifications to"
 																	   @" Tu" @"nn" @"elbl" @"ick. See the GNU General Public License version 2 for details.\n\n"
 																	   
