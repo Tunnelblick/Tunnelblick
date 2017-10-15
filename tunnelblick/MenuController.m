@@ -5824,10 +5824,13 @@ BOOL warnAboutNonTblks(void)
 								 updateCheckHost, ipCheckHost]];
 	}
 	
-	[moreInfo appendString: NSLocalizedString(@"License:\n     https://www.gnu.org/licenses/gpl-2.0.html\n"
-											  @"Free Software Foundation:\n     https://fsf.org\n"
-											  @"Tu" @"nn" @"elbl" @"ick Privacy Policy:\n     https://tu" @"nne" @"lbli" @"ck." @"net/privacy.html\n\n",
-											  @"Window text")];
+	[moreInfo appendString: [NSString stringWithFormat: NSLocalizedString(@"License:\n     %@\n"
+																		  @"Free Software Foundation:\n     %@\n"
+																		  @"Tu" @"nn" @"elbl" @"ick Privacy Policy:\n     %@\n\n",
+																		  @"Window text. The three %@ are each replaced by a URL (e.g. https://fsf.org)"),
+							 @"https://www.gnu.org/licenses/gpl-2.0.html",
+							 @"https://fsf.org",
+							 @"https://tu" @"nne" @"lbli" @"ck." @"net/privacy.html"]];
 	
 	// Ask if user agrees to terms
 	int button;
