@@ -17,13 +17,13 @@ fi
 
 processes="$(ps -ef)"
 
-openvpn_is_running="$( echo "${processes}" | grep -w openvpn | grep -v grep )"
+openvpn_is_running="$( echo "${processes}" | grep -w /openvpn | grep -v grep )"
 if [ "${openvpn_is_running}" != "" ] ; then
   open /Applications/Tunnelblick.app
   exit
 fi
 
-helper_is_running="$( echo "${processes}" | grep -w tunnelblick-helper | grep -v grep )"
+helper_is_running="$( echo "${processes}" | grep -w /tunnelblick-helper | grep -v grep )"
 if [ "${helper_is_running}" != "" ] ; then
   open /Applications/Tunnelblick.app
   exit
