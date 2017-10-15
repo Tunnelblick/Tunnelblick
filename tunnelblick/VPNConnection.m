@@ -1568,14 +1568,14 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 							   ? @"<a href=\"https://tunnelblick.net/cKextLoadErrorHighSierra\">"
 							   : @"<a href=\"https://tunnelblick.net/cKextLoadError\">");
 			
-			NSAttributedString * msg = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>Tunnelblick was not able to load a device driver (kext) that is needed to connect to %@.</p>"
-																											  @"<p>%@More information</a> [tunnelblick.net]</p>",
+			NSAttributedString * msg = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>"
+																											  @"<p>%@More information%@ [%@]</p>",
 																											  
-																											  @"HTML error message. The first %@ is a configuration name; the second %@ is an HTML <a> tag"
-																											  @" that links to tunnelblick.net -- translators should ignore it (but keep it in their translation)."
-																											  @" DO NOT TRANSLATE 'tunnelblick.net' (if you wish, you can replace the square brackets with symbols"
-																											  @" appropriate for your language)."),
-																 [self displayName], link, "</a>"]);
+																											  @"HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags"
+																											  @" that link to tunnelblick.net -- translators should ignore them but keep them in their translation."
+																											  @" The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to"
+																											  @" (you may replace the square brackets with symbols appropriate for your language)."),
+																 [self displayName], link, @"</a>", @"tun" @"nelb" @"lick." @"net"]);
 
 			TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), msg);
 			areConnecting = FALSE;

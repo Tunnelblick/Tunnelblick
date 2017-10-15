@@ -5839,9 +5839,9 @@ BOOL warnAboutNonTblks(void)
 
 		button = TBRunAlertPanelExtendedPlus(windowTitle,
 											 message,
-											 NSLocalizedString(@"Continue",		@"Button"), // Default button
-											 NSLocalizedString(@"More Info...", @"Button"),	// Alternate button
-											 NSLocalizedString(@"Cancel",		@"Button"), // Other button
+											 NSLocalizedString(@"Continue",  @"Button"), // Default button
+											 NSLocalizedString(@"More Info", @"Button"), // Alternate button
+											 NSLocalizedString(@"Cancel",	 @"Button"), // Other button
 											 nil, checkboxLabels, &checkboxResults, FALSE, nil, nil);
 		
 		
