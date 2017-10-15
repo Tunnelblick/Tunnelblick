@@ -2354,6 +2354,9 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (BOOL)updaterShouldPromptForPermissionToCheckForUpdates:(SUAppcastItem *) theUpdater {
 	
+	// We never want Sparkle to ask for permission to check for updates.
+	// Tunnelblick asks for permission to check for updates when it asks for agreement to the use terms.
+	
 	(void) theUpdater;
 	
 	return NO;
@@ -3945,7 +3948,8 @@ static void signal_handler(int signalNumber)
 	//
 	//		Delegate methods:
 	//
-	//				updaterShouldPromptForPermissionToCheckForUpdates: always returns NO (this sort of duplicates SUEnableSystemProfiling in the Info.plist)
+	//				updaterShouldPromptForPermissionToCheckForUpdates: always returns NO (this sort of duplicates SUEnableSystemProfiling
+	//																					  in the Info.plist because it also asks about profiling)
 	//
 	//				feedURLStringForUpdater: returns a string to get either a stable or beta version of the appcast
 	//
