@@ -5888,11 +5888,12 @@ BOOL warnAboutNonTblks(void)
 	}
 	
 	// "Register" this copy of Tunnelblick. q=asked_questions; c=check_for_updates; a=check_ip_address; r=rebranded, all y/n
-	NSString * urlString = [NSString stringWithFormat: @"%@?q=%c&c=%c&a=%c&r=n",
+	NSString * urlString = [NSString stringWithFormat: @"%@?q=%c&c=%c&a=%c&r=%c",
 							[registerURL absoluteString],
 							askCheckForQuestions ? 'y' : 'n',
 							checkForUpdates      ? 'y' : 'n',
-							checkIpAddress       ? 'y' : 'n'];
+							checkIpAddress       ? 'y' : 'n',
+							rebranded			 ? 'y' : 'n'];
 
 	[NSThread detachNewThreadSelector: @selector(registerInstallationWithURLString:) toTarget: self withObject: urlString];
 	
