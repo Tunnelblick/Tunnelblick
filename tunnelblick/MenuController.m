@@ -5773,7 +5773,7 @@ BOOL warnAboutNonTblks(void)
 									 ? @"Tunnelblick is based on Tu" @"nn" @"elbl" @"ick.\n\n"
 									 : @"");
 	
-	NSURL * registerURL = [NSURL URLWithString: [[NSBundle mainBundle] objectForInfoDictionaryKey: @"RegistrationURL"]];
+	NSURL * registerURL = [NSURL URLWithString: [[NSBundle mainBundle] objectForInfoDictionaryKey: @"TBRegistrationURL"]];
 	NSString * registrationHost = [registerURL host];
 	
 	NSString * message = [NSString stringWithFormat: NSLocalizedString(@"%@Tu" @"nn" @"elbl" @"ick is free software: you can use it, redistribute it, and/or modify"
