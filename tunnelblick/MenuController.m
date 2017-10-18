@@ -5887,14 +5887,23 @@ BOOL warnAboutNonTblks(void)
 		[gTbDefaults setObject: thisUserAgreementVersion forKey:@"userAgreementVersionAgreedTo"];
 	}
 	
-	// "Register" this copy of Tunnelblick. q=asked_questions; c=check_for_updates; a=check_ip_address; r=rebranded, all y/n
-	NSString * urlString = [NSString stringWithFormat: @"%@?q=%c&c=%c&a=%c&r=%c",
+	// "Register" this copy of Tunnelblick. Query string:
+	//										b=build-number (integer)
+	//										q=asked_questions; c=check_for_updates; a=check_ip_address; r=rebranded (all y/n)
+	id build = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"];
+	int buildNumber = (  [build respondsToSelector:@selector(intValue)]
+							  ? (  [build intValue] > 0
+								 ? [build intValue]
+								 : 0)
+							  : 0);
+	
+	NSString * urlString = [NSString stringWithFormat: @"%@?b=%u&q=%c&c=%c&a=%c&r=%c",
 							[registerURL absoluteString],
+							buildNumber,
 							askCheckForQuestions ? 'y' : 'n',
 							checkForUpdates      ? 'y' : 'n',
 							checkIpAddress       ? 'y' : 'n',
 							rebranded			 ? 'y' : 'n'];
-
 	[NSThread detachNewThreadSelector: @selector(registerInstallationWithURLString:) toTarget: self withObject: urlString];
 	
 	return YES;
