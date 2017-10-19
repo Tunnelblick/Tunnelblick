@@ -5730,10 +5730,15 @@ BOOL warnAboutNonTblks(void)
 
 -(BOOL) userAcceptedUserAgreement {
 	
-	// Returns YES if user agreed to this version of the User Agreement or has already agreed to it
-	// Returns NO if user does not agree
+	// Returns YES if user agreed to this version of the User Agreement or has already agreed to it.
+	// Returns NO if user does not agree.
 	
-	// if a fresh install, ask the user if Tunnelblick should check for updates and check for IP address changes, and sets preferences accordingly
+	// If a fresh install, ask the user if Tunnelblick should check for updates, check for IP address changes, and if the user
+	//    agrees to this version of the user agreement and set preferences accordingly
+	//
+	// If an update and the user agreeement has changed, get the user's agreement to the new agreement
+	//
+	// In any case, register the install/update
 
 	BOOL askCheckForQuestions = (  ! [gTbDefaults preferenceExistsForKey: @"tunnelblickVersionHistory"]  );
 
@@ -5741,12 +5746,19 @@ BOOL warnAboutNonTblks(void)
 	NSString * thisUserAgreementVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"TBUserAgreementVersion"];
 	BOOL userAgreementChanged = ! [thisUserAgreementVersion isEqualTo: userAgreementVersionAgreedTo];
 	
+	BOOL rebranded = (  ! [@"Tunnelblick" isEqualToString: @"Tu" @"nne" @"lb" @"li" @"ck"]  );
+	
 	if (   ( ! askCheckForQuestions )
 		&& ( ! userAgreementChanged )  ) {
+		[self registerInstallation: NO
+				   checkForUpdates: NO
+					checkIpAddress: NO
+						 rebranded: rebranded];
 		return YES;
 	}
 	
-	BOOL rebranded = (  ! [@"Tunnelblick" isEqualToString: @"Tu" @"nne" @"lb" @"li" @"ck"]  );
+	NSURL * registerURL = [NSURL URLWithString: [[NSBundle mainBundle] objectForInfoDictionaryKey: @"TBRegistrationURL"]];
+	NSString * registrationHost = [registerURL host];
 	
 	NSString *acceptString = NSLocalizedString(@"I accept and agree to the above", @"Checkbox text");
 	NSArray * checkboxLabels = (  askCheckForQuestions
@@ -5772,9 +5784,6 @@ BOOL warnAboutNonTblks(void)
 	NSString * rebrandingSentence = (  rebranded
 									 ? @"Tunnelblick is based on Tu" @"nn" @"elbl" @"ick.\n\n"
 									 : @"");
-	
-	NSURL * registerURL = [NSURL URLWithString: [[NSBundle mainBundle] objectForInfoDictionaryKey: @"TBRegistrationURL"]];
-	NSString * registrationHost = [registerURL host];
 	
 	NSString * message = [NSString stringWithFormat: NSLocalizedString(@"%@Tu" @"nn" @"elbl" @"ick is free software: you can use it, redistribute it, and/or modify"
 																	   @" it under the terms of the GNU General Public License version 2 as published"
@@ -5887,26 +5896,75 @@ BOOL warnAboutNonTblks(void)
 		[gTbDefaults setObject: thisUserAgreementVersion forKey:@"userAgreementVersionAgreedTo"];
 	}
 	
-	// "Register" this copy of Tunnelblick. Query string:
-	//										b=build-number (integer)
-	//										q=asked_questions; c=check_for_updates; a=check_ip_address; r=rebranded (all y/n)
-	id build = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"];
-	int buildNumber = (  [build respondsToSelector:@selector(intValue)]
-							  ? (  [build intValue] > 0
-								 ? [build intValue]
-								 : 0)
-							  : 0);
+	[self registerInstallation: askCheckForQuestions
+			   checkForUpdates: checkForUpdates
+				checkIpAddress: checkIpAddress
+					 rebranded: rebranded];
+	return YES;
+}
+
+-(void) registerInstallation: (BOOL) askCheckForQuestions
+			 checkForUpdates: (BOOL) checkForUpdates
+			  checkIpAddress: (BOOL) checkIpAddress
+				   rebranded: (BOOL) rebranded {
 	
-	NSString * urlString = [NSString stringWithFormat: @"%@?b=%u&q=%c&c=%c&a=%c&r=%c",
-							[registerURL absoluteString],
-							buildNumber,
+	
+	// "Register" this copy of Tunnelblick by accessing tunnelblick.net.
+	//
+	// Query string:
+	//		o = old build number (# or #.# or #.#.#)
+	//		n = new build number (# or #.# or #.#.#)
+	//		i = install (y/n)
+	//		u = check_for_updates (y/n)
+	//		a = check_ip_address (y/n)
+	//		r = rebranded (y/n)
+	
+	// We get the Info.plist contents as follows because NSBundle's objectForInfoDictionaryKey: method returns the object as it was at
+	// compile time, before the TBBUILDNUMBER is replaced by the actual build number (which is done in the final run-script that builds Tunnelblick)
+	// By constructing the path, we force the objects to be loaded with their values at run time.
+	NSString * plistPath    = [[[[NSBundle mainBundle] bundlePath]
+								stringByAppendingPathComponent: @"Contents"]
+							   stringByAppendingPathComponent: @"Info.plist"];
+	NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
+	id newBuild = [infoDict objectForKey: @"CFBundleVersion"];
+	NSString * newBuildNumber = (  [[newBuild class] isSubclassOfClass: [NSString class]]
+								 ? (NSString *)newBuild
+								 : @"0");
+	if (  ! [newBuildNumber containsOnlyCharactersInString: @"0123456789."]  ) {
+		newBuildNumber = @"0";
+	}
+
+	NSString * oldBuildNumber = @"0";
+	NSArray * versionHistory = [gTbDefaults arrayForKey: @"tunnelblickVersionHistory"];
+	if (  [versionHistory count] > 0  ) {
+		id oldVersion = [versionHistory firstObject];
+		if (  [[oldVersion class] isSubclassOfClass: [NSString class]]  ) {
+			NSRange build = [(NSString *)oldVersion rangeOfString: @"(build "];
+			if (  build.length != 0  ) {
+				NSUInteger start  = build.location + [@"(build " length];
+				NSUInteger length = [oldVersion length] - start;
+				NSRange restOfString = NSMakeRange(start, length);
+				NSRange close = [(NSString *)oldVersion rangeOfString: @")" options: 0 range: restOfString];
+				if (  close.length != 0  ) {
+					oldBuildNumber = [(NSString *)oldVersion substringWithRange: NSMakeRange(start, close.location - start)];
+					if (  ! [oldBuildNumber containsOnlyCharactersInString: @"0123456789."]  ) {
+						oldBuildNumber = @"0";
+					}
+				}
+			}
+		}
+	}
+	
+	NSString * registerString = [[NSURL URLWithString: [[NSBundle mainBundle] objectForInfoDictionaryKey: @"TBRegistrationURL"]] absoluteString];
+	NSString * urlString = [NSString stringWithFormat: @"%@?o=%@&n=%@&i=%c&u=%c&a=%c&r=%c",
+							registerString,
+							oldBuildNumber,
+							newBuildNumber,
 							askCheckForQuestions ? 'y' : 'n',
 							checkForUpdates      ? 'y' : 'n',
 							checkIpAddress       ? 'y' : 'n',
 							rebranded			 ? 'y' : 'n'];
 	[NSThread detachNewThreadSelector: @selector(registerInstallationWithURLString:) toTarget: self withObject: urlString];
-	
-	return YES;
 }
 
 -(void) registerInstallationWithURLString: (NSString *) urlString {
