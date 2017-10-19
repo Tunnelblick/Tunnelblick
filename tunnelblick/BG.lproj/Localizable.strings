@@ -2142,7 +2142,7 @@
 "LANGUAGE_TRANSLATION" = "LANGUAGE_TRANSLATION";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Boian Mihailov, Nikolay Zhelev, и Mihail Stoynov";
+"LEAD_TRANSLATORS" = "Boian Mihailov, Nikolay Zhelev, Mihail Stoynov, и Alexander Strashilov";
 
 /* Credit description */
 "Latvian translation" = "Латвийска локализация";
