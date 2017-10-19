@@ -62,9 +62,6 @@
 "Check Now" = "Vyhledat";
 
 /* Button */
-"Check for a change" = "Zkontrolovat změny";
-
-/* Button */
 "Connect" = "Připojit";
 
 /* Button */
@@ -99,9 +96,6 @@
 
 /* Button */
 "Disconnect" = "Odpojit";
-
-/* Button */
-"Do not check for a change" = "Nekontrolovat na změny";
 
 /* Button */
 "Do not use the plugin" = "Nepoužívat zásuvný modul";
@@ -174,9 +168,6 @@
 
 /* Button */
 "Place Icon Normally" = "Umístit ikonu normálně";
-
-/* Button */
-"Privacy info..." = "Informace o ochraně soukromí…";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Ukončit všechny procesy OpenVPN";
@@ -385,14 +376,14 @@
 /* Checkbox name */
 "Do not ask again, always convert" = "Opět nedotazovat, vždy konvertovat";
 
-/* Checkbox name */
-"Do not check for IP address changes" = "Nekontrolovat změny IP adresy";
-
 /* Checkbox name on a warning dialog */
 "Do not show again for any configuration" = "Nezobrazovat znovu v žádné konfiguraci";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Tento typ varování znovu nezobrazovat";
+
+/* Checkbox name */
+"Do not warn about this again for any configuration" = "Pro jakoukoliv konfiguraci už znovu nezobrazovat toto varování";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Pro tuto konfiguraci nezobrazovat znovu toto varování";
@@ -441,9 +432,6 @@
 
 /* Checkbox name */
 "Save in Keychain" = "Uložit do Klíčenky";
-
-/* Checkbox name */
-"Send anonymous profile information when checking" = "Při kontrole odeslat informace o anonymním profilu";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Nastav DNS po nastavení směrování";
@@ -626,9 +614,6 @@
 "Name not allowed" = "Jméno není povoleno";
 
 /* Window title */
-"New Feature" = "Nová vlastnost";
-
-/* Window title */
 "No 'dev tun', 'dev utun', or 'dev tap' found" = "Nenalezeno žádné zařízení 'dev tun', 'dev utun', ani 'dev tap'";
 
 /* Window title */
@@ -675,6 +660,12 @@
 
 /* Window title */
 "Tunnelblick Error" = "Chyba Tunnelblicku";
+
+/* Window title */
+"Tunnelblick Installation or Update" = "Tunnelblick Instalace nebo Aktualizace";
+
+/* Window title */
+"Tunnelblick Update" = "Aktualizace Tunnelblick";
 
 /* Window title */
 "Tunnelblick" = "Tunnelblick";
@@ -816,6 +807,9 @@
 
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ byla navrácena do poslední bezpečné (stínové) kopie.\n\n";
+
+/* Window text. The first %@ may be replaced by a sentence. The second %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"%@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated." = "%1$@Tunnelblick je svobodný software: můžete jej používat, dále distribuovat, a/nebo modifikovat jej pod licenčními podmínkami GNU General Public Licence, verze 2, ve znění publikovaném Nadací pro svobodný software.\n\nTunnelblick je poskytován zdarma, tak jak je, a bez záruk jakéhokoliv druhu. Tunnelblick a jeho autoři nepřebírají jakoukoliv odpovědnost nebo závazky za škody vzniklé používáním Tunnelblicku, nebo jakýmikoliv modifikacemi Tunneblicku třetími stranami. Další informace viz GNU General Public Licence.\n\nPokud přijímáte a souhlasíte s těmito podmínkami, bude vaše odpověď anonymně zaslána na %2$@ a budete požádání o autorizaci, aby mohl být Tunnelblick bezpečně instalován nebo aktulizován.";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfigurací bylo vráceno ke svým posledním bezpečným (stínovým) kopiím.\n\n";
@@ -1156,6 +1150,9 @@
 /* Window text */
 "Icon:" = "Ikona:";
 
+/* Window text. The two %@ are Internet addresses like 'tunnelblick .net' */
+"If \"Check for updates\" is checked, Tunnelblick will access %@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n" = "Je-li povoleno \"Kontrolovat aktualizace\", Tunelblick bude přistupovat během spouštění a opakovaně během aktivity na %1$@ a kontrolovat aktualizace. Toto nastavení můžete později změnit.\n\nJe-li povoleno \"Zkontrolovat změny IP adresy\" Tunnelblick bude přistupovat na %2$@, aby určil viditelnou věřejnou IP adresu před a po připojení VPN a upozornil v případě, že se IP adresa nezmění. Toto nastavení můžete později změnit.\n\n\n";
+
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "V %@:\n\nNejsou k instalaci žádné konfigurace OpenVPN.";
 
@@ -1197,6 +1194,9 @@
 
 /* Window text */
 "Last checked: %@" = "Naposledy zkontrolováno: %@";
+
+/* Window text. The three %@ are each replaced by a URL (e.g. https://fsf.org) */
+"License:\n     %@\nFree Software Foundation:\n     %@\nTunnelblick Privacy Policy:\n     %@\n\n" = "Licence\n     %1$@\nNadace pro svobodný software:\n     %2$@\nZásady ochrany soukromí Tunnelblick:\n     %3$@\n\n";
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Soubor  '%2$@' na řádku %1$d obsahuje netisknutelný znak (0x%3$X), který není povolen.\n\n";
@@ -1338,6 +1338,9 @@
 
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Soukromé konfigurace nelze použít na spojení navazovaná při startu počítače.\n\nNejprve změňte konfiguraci na sdílenou a teprve potom změňte toto nastavení.";
+
+/* Window text */
+"Program error, please see the Console log." = "Chyba programu, prohlédněte si záznam Konzole prosím.";
 
 /* Window text */
 "Received fatal signal %d." = "Přijat fatální signál %d.";
@@ -1520,25 +1523,13 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Tato kopie Tunnelblick není digitálně podepsána.\n\nNení způsob jak ověřit, že tato kopie nebyla zmanipulována.\n\n Před použitím ji prosím zkontrolujte s dodavatelem této kopie Tunnelblicku.\n\n";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "To je 64 bitová verze Tunnelblicku, která nebude správně pracovat, pokud jsou použity tun nebo tap rozšíření jádra - kext.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "To je 64 bitová verze Tunnelblicku, která nebude správně pracovat s konfigurací, která používá tap spojení. Použij univerzální verzi Tunnelblicku.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "To je 64 bitová verze Tunnelblicku, která nebude správně pracovat s konfigurací, která používá tun kext. Použij univerzální verzi Tunnelblicku.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "To je 64 bitová verze Tunnelblicku, která nebude správně pracovat s konfigurací, která používá tun rozšíření jádra. Použijte univerzální verzi Tunnelblicku nebo použijte OS X 'utun' ovladač odstraněním OpenVPN 'dev-type' nastavení - více v dokumentaci OpenVPN.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "To je 64 bitová verze Tunnelblicku, která pracuje jen s OS X s 64 bitových jádrem, nebo na OS X 10.6.8 nebo vyšší, pokud nejsou použity tun nebo tap rozšíření jádra.";
-
-/* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Tuto verzi Tunnelblicku nelze spustit ani instalovat, protože má neplatný aktualizační URL.\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Tuto verzi Tunnelblicku nelze spustit ani instalovat, protože to není 'Deployed' verze, a jedna nebo více 'Deployed' verzí Tunnelblick bylo předtím instalováno.\n\n";
+
+/* Window text. The %@ is an Internet address like 'tunnelblick .net' */
+"To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n" = "Pro používání Tunnelblicku je nezbytné vyjádřit vaše přijetí a souhlas se specifikovanými podmínkami tím, že zaškrtnete volbu \"Přijímám a souhlasím s výše uvedeným\".\n\nPokud to uděláte a klepnete na \"Pokračovat\", bude v souladu se Zásadami soukromí Tunnelblick anonymně navštívena webová adresa %@ a budete moct instalovat, aktualizovat a používat Tunnelblick.\n\nPokud volbu nezaškrtnete, nebudete moct instalovat, aktualizovat nebo používat Tunnelblick.\n\n\n";
 
 /* Window text */
 "Too many configuration files in '%@'" = "V '%@' je příliš mnoho konfiguračních souborů";
@@ -1560,9 +1551,6 @@
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Využití internetu Tunnelblickem:";
-
-/* Window text */
-"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick může zkontrolovat, zda zdánlivá veřejná IP adresa vašeho počítače se změní po připojení k VPN, a bude varovat pokud tak nenastane.\n\nTo může pomoci Tunnelblicku detekovat problémy se spojením.\n\nTento proces se pokouší přistupovat\n%@\n\nPřejete si provádět tuto kontrolu?\n";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick nebylo možné nakonfigurovat tak, aby se automaticky spustil po přihlášení.\n\nDetaily jsou v logu konzole.";
@@ -1951,9 +1939,6 @@
 /* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>Pokud je zaškrtnuto</strong>, Tunnelblick resetuje nastavení primárního síťového rozhraní po odpojení od VPN. Toto může být pomocné řešení při řešení problémů s chybně nastaveným VPN serverem, nebo některými chybami OpenVPN.</p>\n<p><strong>Pokud není zaškrtnuto</strong>, Tunnelblick nebude resetovat primární síťové rozhraní.</p>\n<p><strong>Tato volba není dostupná</strong> pokud 'Nastavit DNS/WINS' není nastaveno na 'Nastavit nameserver'.</p>";
 
-/* HTML info for the 'Send anonymous profile information when checking' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>" = "<p><strong>Pokud zaškrtnuto</strong>, Tunnelblick odešle při kontrole aktualizací na stránky Tunnelblicku informaci o počítači (verzi operačního systému).</p>\n<p><strong>Pokud není zaškrtnuto</strong>, Tunnelblick nebude odesílat informace při kontrole aktualizací.</p><p>Viz detaily o <a href=\"https://tunnelblick.net/cPrivacy.html\">Soukromí a bezpečnosti</a> [tunnelblick.net].</p>";
-
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Pokud zaškrtnuto</strong>, Tunnelblick bude sledovat a reagovat na změny v síťovém nastavení (na příklad změny způsobené obnovením DHCP nebo přepnutím internetového spojení), aby udrželo VPN připojené. Defaultní akce Tunnelblicku spouštěné při změně síťového nastavení jsou obvykle dostatečné. Je ale možné nastavit jiné akce na záložce 'Po připojení' okna 'Rozšířené nastavení'.</p>\n<p><strong>Když není zaškrtnuto</strong>, Tunnelblick bude ignorovat síťové změny.</p>\n<p><strong>Tento checkbox je zakázán</strong> Pokud 'Nastavit DNS/WINS' není nastaveno na 'Nastavit nameserver' nebo 'Nastavit nameserver (3.1)'.</p>";
 
@@ -2032,6 +2017,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick obsahuje upravenou verzi 'easy-rsa', která je sadou skriptů příkazové řádky, napsaných vývojáři OpenVPN pro vytvoření a údržbu certifikátů a klíčů.</p><p>Klikem na toto tlačítko se spustí macOS Terminál s přednastavenou složkou, obsahující tyto skripty.</p><p>Skripty jsou běžně umístěny ve složce ~/Knihovna/Application Support/Tunnelblick/easy-rsa. Předvolba 'easy-rsaPath' může obsahovat cestu ke složce, kterou bude Tunnelblick používat namísto výchozí. Cesta 'easy-rsaPath' musí být úplný odkaz nebo cesta začínající '~', a nadřazená složka takové cesty musí existovat. Když u dané cesty existuje složka, bude použita; když neexistuje, bude vytvořena a easy-rsa skripty do ní budou nainstalovány při spuštění Tunnelblicku.</p><p>Pro informace o užívání easy-rsa viz <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Nastavení vlastního Certifikátu autority (CA) a generování certifikátů a klíčů pro OpenVPN server a vícero klientů</a> [openvpn.net].</p><p>Informace o přizpůsobení easy-rsa v Tunnelblick najdete v README souboru umístěném ve složce.</p>";
 
+/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblicku se nepodařilo nahrát systémovou příponu, jež je vyžadována pro připojení k %1$@.</p><p>%2$@Více informací%3$@[%4$@]</p>";
+
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Zbývá %@ administračního režimu";
 
@@ -2058,6 +2046,12 @@
 
 /* Credit description */
 "Catalan translation" = "Katalánský překlad";
+
+/* Checkbox text */
+"Check for IP address changes" = "Kontrolovat změny IP adresy";
+
+/* Checkbox text */
+"Check for updates" = "Kontrolovat aktualizace";
 
 /* Credit description */
 "Chinese (simplified) translation" = "Čínský překlad (zjednodušený)";
@@ -2122,6 +2116,9 @@
 
 /* Credit description */
 "Hungarian translation" = "Maďarský překlad";
+
+/* Checkbox text */
+"I accept and agree to the above" = "Přijímám a souhlasím s výše uvedeným";
 
 /* Credit description */
 "Icelandic translation" = "Islandský překlad";

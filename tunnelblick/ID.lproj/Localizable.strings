@@ -62,9 +62,6 @@
 "Check Now" = "Periksa Sekarang";
 
 /* Button */
-"Check for a change" = "Memeriksa adanya perubahan";
-
-/* Button */
 "Connect" = "Sambungkan";
 
 /* Button */
@@ -99,9 +96,6 @@
 
 /* Button */
 "Disconnect" = "Putuskan";
-
-/* Button */
-"Do not check for a change" = "Jangan periksa perubahan";
 
 /* Button */
 "Do not use the plugin" = "Jangan pakai plugin";
@@ -174,9 +168,6 @@
 
 /* Button */
 "Place Icon Normally" = "Tempatkan Ikon Secara Normal";
-
-/* Button */
-"Privacy info..." = "Info privasi…";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Keluar Semua Proses OpenVPN";
@@ -385,14 +376,14 @@
 /* Checkbox name */
 "Do not ask again, always convert" = "Jangan tanya lagi, selalu konversikan";
 
-/* Checkbox name */
-"Do not check for IP address changes" = "Jangan periksa perubahan alamat IP";
-
 /* Checkbox name on a warning dialog */
 "Do not show again for any configuration" = "Jangan tampilkan lagi untuk sebarang konfigurasi";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Jangan tampilkan peringatan tipe ini lagi";
+
+/* Checkbox name */
+"Do not warn about this again for any configuration" = "Jangan peringatkan hal ini lagi untuk sebarang konfigurasi";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Jangan peringatkan hal ini lagi bagi konfigurasi ini";
@@ -441,9 +432,6 @@
 
 /* Checkbox name */
 "Save in Keychain" = "Simpan dalam Ring Kunci";
-
-/* Checkbox name */
-"Send anonymous profile information when checking" = "Kirim informasi profil anonim ketika memerika";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Atur DNS setelah route ditata";
@@ -626,9 +614,6 @@
 "Name not allowed" = "Nama tidak diperbolehkan";
 
 /* Window title */
-"New Feature" = "Fitur Baru";
-
-/* Window title */
 "No 'dev tun', 'dev utun', or 'dev tap' found" = "'dev tun', 'dev utun', atau 'dev tap' tidak ditemukan";
 
 /* Window title */
@@ -675,6 +660,12 @@
 
 /* Window title */
 "Tunnelblick Error" = "Tunnelblick Error";
+
+/* Window title */
+"Tunnelblick Installation or Update" = "Instalasi atau Pemutakhiran Tunnelblick";
+
+/* Window title */
+"Tunnelblick Update" = "Pemutakhiran Tunnelblick";
 
 /* Window title */
 "Tunnelblick" = "Tunnelblick";
@@ -816,6 +807,9 @@
 
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ telah dikembalikan kepada simpanan terakhir(bayangan).\n\n";
+
+/* Window text. The first %@ may be replaced by a sentence. The second %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"%@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated." = "%1$@Tunnelblick adalah perangkat lunak bebas: Anda dapat memakainya, mendistribusikan ulang, dan/atau mengubahnya di bawah persyaratan GNU General Public License versi 2 sebagaimana dipublikasikan oleh Free Software Foundation.\n\nTunnelblick disediakan secara bebas, apa adanya, dan tanpa jaminan apapun. Tunnelblick dan para penulisnya tidak punya kewajiban atau tanggung jawab atas kerusakan yang disebabkan oleh penggunaan Tunnelblick, atau perubahan pihak ketiga apapun ke Tunnelblick. Lihat GNU General Public Licensi versi 2 untuk rinciannya.\n\nBila Anda menerima dan setuju dengan persyaratan ini, respons Anda akan dikirim ke %2$@ secara anonim dan Anda akan diminta mengotorisasi sehingga Tunnelblick dapat dipasang atau dimutakhirkan secara aman.";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfigurasi telah dipulihkan ke salinan terakhir mereka yang diamankan (bayangan).\n\n";
@@ -1156,6 +1150,9 @@
 /* Window text */
 "Icon:" = "Ikon:";
 
+/* Window text. The two %@ are Internet addresses like 'tunnelblick .net' */
+"If \"Check for updates\" is checked, Tunnelblick will access %@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n" = "Bila \"Periksa pemutakhiran\" dicentak, Tunnelblick akan mengakses %1$@ untuk memeriksa pemutakhiran ketika diluncurkan dan secara berkala ketika sedang berjalan. Anda dapat mengubah setelan ini nanti.\n\nBila \"Periksa perubahan alamat IP\" dicentang, Tunnelblick akan mengakses %2$@ untuk menentukan alamat IP publik yang muncul sebelum dan setelah VPN tersambung dan memperingatkan bila alamat IP tidak berubah. Anda dapat mengubah setelan ini nanti.\n\n\n";
+
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "Dalam %@:\n\nTidak ada konfigurasi OpenVPN yang akan dipasang.";
 
@@ -1197,6 +1194,9 @@
 
 /* Window text */
 "Last checked: %@" = "Terakhir diperiksa: %@";
+
+/* Window text. The three %@ are each replaced by a URL (e.g. https://fsf.org) */
+"License:\n     %@\nFree Software Foundation:\n     %@\nTunnelblick Privacy Policy:\n     %@\n\n" = "Lisensi:\n     %1$@\nFree Software Foundation:\n     %2$@\nKebijakan Privasi Tunnelblick:\n     %3$@\n\n";
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Baris %1$d dari berkas '%2$@' memuat suatu karakter tak dapat dicetak (0x%3$X) yang tidak diijinkan.\n\n";
@@ -1338,6 +1338,9 @@
 
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Konfigurasi pribadi tidak bisa menyambung saat komputer dimulai.\n\nPertama buatlah jadi konfigurasi bersama, lalu ubah setelah ini.";
+
+/* Window text */
+"Program error, please see the Console log." = "Kesalahan program, harap lihat log Konsol.";
 
 /* Window text */
 "Received fatal signal %d." = "Menerima sinyal %d fatal.";
@@ -1520,25 +1523,13 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Salinan Tunnelblick ini tidak ditandatangani secara digital.\n\nTidak ada cara untuk memastikan bahwa salinan ini belum dirusak.\n\nPeriksalah dengan penyedia salinan Tunnelblick ini sebelum memakainya.\n\n";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Ini ialah Tunnelblick versi Intel 64-bit yang mana tidak akan berjalan dengan benar jika menggunakan tun atau tap kexts.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "Ini ialah Tunnelblick versi Intel 64-bit yang mana tidak akan berjalan dengan benar dengan konfigurasi yang menggunakan koneksi tap. Silakan gunakan Tunnelblick versi universal.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "Ini ialah Tunnelblick versi Intel 64-bit yang mana tidak akan berjalan dengan benar dengan konfigurasi yang menggunakan tun kexts. Silakan gunakan Tunnelblick versi universal.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "Ini ialah Tunnelblick versi Intel 64-bit yang mana tidak akan berjalan dengan benar dengan konfigurasi yang menggunakan tun kexts. Anda bisa menggunakan Tunnelblick versi universal atau gunakan driver OS X 'utun', dengan cara menghapus opsi OpenVPN 'dev-type - silakan lihat dokumentasi OpenVPN.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "Ini ialah Tunnelblick versi Intel 64-bit yang hanya bisa dijalankan pada OS X dengan kernel 64-bit, atau pada OS X 10.6.8 atau lebih tinggi jika tun atau tap kexts tidak dipergunakan.";
-
-/* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Versi Tunnelblick yang ini tidak bisa dijalankan atau dipasang karena ia memiliki URL update yang tidak valid.\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Versi Tunnelblick ini tidak bisa dijalankan atau dipasang karena ini bukan versi yang dirilis, dan satu atau beberapa versi Tunnelblick yang dirilis telah dipasang sebelumnya.\n\n";
+
+/* Window text. The %@ is an Internet address like 'tunnelblick .net' */
+"To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n" = "Untuk menggunakan Tunnelblick, Anda mesti mengindikasikan penerimaan Anda atas dan persetujuan ke persyaratan yang dinyatakan dengan mengisi centang dalam kotak centang \"Saya menerima dan setuju ke yang di atas\".\n\nBila Anda melakukan itu dan mengeklik \"Lanjutkan\", %@ akan diakses secara anonim sesuai dengan Kebijakan Privasi Tunnelblick dan Anda akan bisa memasang, memutakhirkan, dan memakai Tunnelblick.\n\n\n";
 
 /* Window text */
 "Too many configuration files in '%@'" = "Terlalu banyak file konfigurasi di dalam '%@'";
@@ -1560,9 +1551,6 @@
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Penggunaan internet oleh Tunnelblick:";
-
-/* Window text */
-"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick bisa memeriksa bahwa alamat IP publik komputer Anda berubah saat Anda terkoneksi ke VPN, dan memperingatkan Anda jika sebaliknya.\n\nIni bisa membantu Tunnelblick untuk mendiagnosa masalah koneksi Anda.\n\nProses ini mencoba untuk mengakses\n%@\n\nApakah Anda mau memeriksa perubahan alamat IP?\n";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick tidak dapat dikonfigurasi untuk memulai secara otomatis setelah Anda log in.\n\nLihat Console Log untuk lebih detil.";
@@ -1951,9 +1939,6 @@
 /* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan mereset antarmuka jaringan primer setelah VPN terputus. Ini bisa mengatasi masalah yang disebabkan oleh beberapa server VPN yang salah konfigurasi dan oleh beberapa kesalahan konfigurasi OpenVPN.</p>\n<p><strong>Ketika tidak dicentang</strong>, Tunnelblick tidak akan mereset antarmuka jaringan primer.</p>\n<p><strong>Kotak centang ini dimatikan</strong> ketika 'Atur DNS/WINS' tidak ditata ke 'Atur nameserver'.</p>";
 
-/* HTML info for the 'Send anonymous profile information when checking' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan mengirim informasi tentang komputer Anda (versi sistem operasi) ke situs web Tunnelblick ketika memeriksa pemutakhiran.</p>\n<p><strong>Ketika tidak dicentang</strong>, Tunnelblick tidak akan mengirim informasi itu ketika memeriksa pemutakhiran.</p><p>Lihat <a href=\"https://tunnelblick.net/cPrivacy.html\">Privasi dan Keamanan</a>[tunnelblick.net] untuk rincian.</p>";
-
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Ketika dicentang</strong>, Tunnelblick akan mengamati dan berreaksi atas perubahan dalam pengaturan jaringan (sebagai contoh, perubahan yang disebabkan oleh pembaruan DHCP atau berpindah koneksi Internet) untuk mencoba menjaga VPN tersambung. Aksi baku Tunnelblick ketika pengaturan jaringan berubah biasanya bekerja dengan baik, tapi Anda boleh menyatakan aksi yang berbeda pada tab 'Ketika Tersambung' dari jendela pengaturan 'Tingkat Lanjut'.</p>\n<p><strong>Ketika tidak dicentang</strong>, Tunnelblick akan mengabaikan perubahan jaringan.</p>\n<p><strong>Kotak centang ini dimatikan</strong> ketika 'Atur DNS/WINS' ditata ke 'Atur nameserver' atau 'Atur nameserver (3.1)'.</p>";
 
@@ -2032,6 +2017,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick termasuk suatu versi ubahan dari 'easy-rsa', yang merupakan suatu kumpulan skrip baris perintah yang ditulis oleh para pengembang OpenVPN untuk membuat dan memelihara sertifikat dan kunci.</p><p>Mengklik tombol ini meluncurkan aplikasi Terminal OS X dengan direktori kerja ditata ke folder yang memuat skrip.</p><p>Skrip biasanya terletak dalam folder ~/Library/Application Support/Tunnelblick/easy-rsa. Suatu preferensi 'easy-rsaPath' mesti merupakan suatu path absolut atau diawali dengan '~', dan folder induk dari path mesti ada. Bila suatu folder ada pada path, itu akan dipakai; bila tidak ada, itu akan dibuat dan skrip easy-rsa akan dipasang ke dalamnya ketika Tunnelblick diluncurkan.</p><p>Untuk informasi tentang memakai easy-rsa, lihat <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Menyiapkan Certificate Authority (CA) Anda sendiri dan membuat sertifikan dan kunci bagi suatu server OpenVPN dan banyak klien.</a>[openvpn.net].</p><p>Untuk rincian dari pengubahan Tunnelblick atas easy-rsa, lihat berkas README yang terletak dalam folder.</p>";
 
+/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick tidak bisa memuat suatu ekstensi sistem yang diperlukan untuk menyambung ke %1$@.</p><p>%2$@Informasi lebih lanjut%3$@ [%4$@]</p>";
+
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Mode admin tersisa %@";
 
@@ -2058,6 +2046,12 @@
 
 /* Credit description */
 "Catalan translation" = "Terjemahan bahasa Katala";
+
+/* Checkbox text */
+"Check for IP address changes" = "Periksa perubahan alamat IP";
+
+/* Checkbox text */
+"Check for updates" = "Periksa pemutakhiran";
 
 /* Credit description */
 "Chinese (simplified) translation" = "Terjemahan bahasa Cina (disederhanakan)";
@@ -2122,6 +2116,9 @@
 
 /* Credit description */
 "Hungarian translation" = "Terjemahan bahasa Hungaria";
+
+/* Checkbox text */
+"I accept and agree to the above" = "Saya menerima dan setuju dengan yang di atas";
 
 /* Credit description */
 "Icelandic translation" = "Terjemahan bahasa Islandia";

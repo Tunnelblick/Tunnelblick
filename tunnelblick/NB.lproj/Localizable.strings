@@ -62,9 +62,6 @@
 "Check Now" = "Sjekk nå";
 
 /* Button */
-"Check for a change" = "Se etter endringer";
-
-/* Button */
 "Connect" = "Koble til";
 
 /* Button */
@@ -99,9 +96,6 @@
 
 /* Button */
 "Disconnect" = "Koble fra";
-
-/* Button */
-"Do not check for a change" = "Ikke sjekk for endringer";
 
 /* Button */
 "Do not use the plugin" = "Ikke bruk plugin";
@@ -174,9 +168,6 @@
 
 /* Button */
 "Place Icon Normally" = "Plassér ikon normalt";
-
-/* Button */
-"Privacy info..." = "Personvernerklæring…";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Avslutt alle OpenVPN prosesser";
@@ -385,14 +376,14 @@
 /* Checkbox name */
 "Do not ask again, always convert" = "Ikke spør igjen, gjør alltid om";
 
-/* Checkbox name */
-"Do not check for IP address changes" = "Ikke sjekk for endring i ip-adresse";
-
 /* Checkbox name on a warning dialog */
 "Do not show again for any configuration" = "Ikke vis igjen for noen konfigurasjon";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Ikke vis denne typen adversel igjen";
+
+/* Checkbox name */
+"Do not warn about this again for any configuration" = "Ikke advar meg igjen om dette for hvilken som helst konfigurasjon";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Ikke advar meg igjen om dette for denne konfigurasjonen";
@@ -441,9 +432,6 @@
 
 /* Checkbox name */
 "Save in Keychain" = "Lagre på nøkkelring";
-
-/* Checkbox name */
-"Send anonymous profile information when checking" = "Inkluder anonym profilinformasjon når du sjekker";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Sett DNS etter at rutene er laget";
@@ -626,9 +614,6 @@
 "Name not allowed" = "Navnet er ikke tillatt";
 
 /* Window title */
-"New Feature" = "Ny egenskap";
-
-/* Window title */
 "No 'dev tun', 'dev utun', or 'dev tap' found" = "Ingen 'dev tun', 'dev utun' eller 'dev tap' funnet";
 
 /* Window title */
@@ -675,6 +660,12 @@
 
 /* Window title */
 "Tunnelblick Error" = "Tunnelblick Feil";
+
+/* Window title */
+"Tunnelblick Installation or Update" = "Installasjon eller oppdatering av Tunnelblick";
+
+/* Window title */
+"Tunnelblick Update" = "Oppdatering av Tunnelblick";
 
 /* Window title */
 "Tunnelblick" = "Tunnelblick";
@@ -816,6 +807,9 @@
 
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ har blitt tilbakestilt til siste sikre (skygge) kopi.\n\n";
+
+/* Window text. The first %@ may be replaced by a sentence. The second %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"%@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated." = "%1$@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %2$@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated.";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld konfigurasjoner har blitt tilbakestilt til sin siste sikre (skygge-) kopi.\n\n";
@@ -1156,6 +1150,9 @@
 /* Window text */
 "Icon:" = "Ikon:";
 
+/* Window text. The two %@ are Internet addresses like 'tunnelblick .net' */
+"If \"Check for updates\" is checked, Tunnelblick will access %@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n" = "If \"Check for updates\" is checked, Tunnelblick will access %1$@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %2$@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n";
+
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "I %@:\n\nfinnes det ingen OpenVPN-konfigurasjoner å installere.";
 
@@ -1197,6 +1194,9 @@
 
 /* Window text */
 "Last checked: %@" = "Sist sjekket: %@";
+
+/* Window text. The three %@ are each replaced by a URL (e.g. https://fsf.org) */
+"License:\n     %@\nFree Software Foundation:\n     %@\nTunnelblick Privacy Policy:\n     %@\n\n" = "Lisens:\n     %1$@\nFree Software Foundation:\n     %2$@\nTunnelblick personvernerklæring:\n     %3$@\n\n";
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "Linje %1$d i filen ' %2$@' inneholder et ikke-utskrivbart tegn (0 x %3$X) som ikke er tillatt.  ";
@@ -1338,6 +1338,9 @@
 
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private konfigurasjoner kan ikke koble til automatisk når datamaskinen starter.\n\nGjør først konfigurasjonen delt, deretter kan du endre denne instillingen.";
+
+/* Window text */
+"Program error, please see the Console log." = "Programfeil. Se konsoll-loggen for detaljer.";
 
 /* Window text */
 "Received fatal signal %d." = "Mottok fatalt signal %d.";
@@ -1520,25 +1523,13 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Denne kopien av Tunnelblick er ikke signert digitalt.\n\nDet er ingen måte å finne ut om den har blitt tuklet med.\n\n Vennligst sjekk med utgiver av denne versjonen av Tunnelblick før du benytter den.\n\n";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Dette er en 64-bit Intel-versjon av Tunnelblick, som ikke vil fungere riktig hvis den benytter kjerneutvidelser (kext) for tun eller tap.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "Dette er en 64-bit Intel-versjon av Tunnelblick, som ikke vil fungere riktig med en konfigurasjon som benytter en tap-tilkobling. Bruk heller en universell versjon av Tunnelblick.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "Dette er en 64-bit Intel-versjon av Tunnelblick, som ikke vil fungere riktig med en konfigurasjon som benytter kjerneutvidelser (kext) for tun. Bruk heller en universell versjon av Tunnelblick.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "Dette er en 64-bit Intel-versjon av Tunnelblick, som ikke vil fungere riktig med en konfigurasjon som benytter kjerneutvidelser (kext) for tun. Du kan bruke en universell versjon av Tunnelblick, eller benytte 'utun'-driveren for OS X ved å fjerne OpenVPNs 'dev-type'-alternativer - se OpenVPN-dokumentasjonen.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "Dette er en 64-bit Intel-versjon av Tunnelblick, som kun vil kjøre på OS X med en 64-biters kjerne, eller på OS X 10.6.8 eller høyere om det ikke benyttes kjerneutvidelser (kext) for tun eller tap.";
-
-/* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Denne versjonen av Tunnelblick kan ikke startes eller installeres, da den har en ugyldig oppdatering URL.\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Denne versjonen av Tunnelblick kan ikke startes eller installeres, da det ikke er en 'utrullet' versjon, og en eller fler 'utrullede' versjoner av Tunnelblick er tidligere installert.\n\n";
+
+/* Window text. The %@ is an Internet address like 'tunnelblick .net' */
+"To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n" = "To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n";
 
 /* Window text */
 "Too many configuration files in '%@'" = "For mange konfigurasjonsfiler i '%@'";
@@ -1560,9 +1551,6 @@
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblicks internettbruk:";
-
-/* Window text */
-"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick kan sjekke at den offentlige IP adressen endres når du kobler til VPN, og advare deg hvis den ikke endres.\n\nDette kan hjelpe Tunnelblick å diagnostisere problemer med din oppkobling.\n\nDenne prosessen prøver å bruke\n%@\n\nVil du kontrollere denne IP adresse endringen?\n";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick kunne ikke konfigureres til å automatisk starte seg selv etter du logger inn.\n\nSe konsolloggen for detaljer.";
@@ -1922,7 +1910,7 @@
 "64-bit enabling and testing" = "64-bit tilgjengeliggjøring og testing";
 
 /* HTML info for the 'Disable IPv6 (tun only)' checkbox. */
-"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Når merket av</strong>, vil IPv6 være deaktivert.</p>\n<p>Deaktivering IPv6 er ofte anbefalt fordi mange VPN-konfigurasjoner ikke gardere seg mot informasjonslekkasjer som skyldes bruk av IPv6. De fleste Internett fungerer fint uten IPv6.</p>\n<p><strong>Når ikke merket av</strong>, vil IPv6 ikke være deaktivert.</p>\n<p><strong>Denne boksen er deaktivert</strong> når du bruker en \"tap\" tilkobling fordi det ikke kan håndheves på en \"tap\" tilkobling.</p>";
+"<p><strong>When checked</strong>, IPv6 will be disabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>When not checked</strong>, IPv6 will not be disabled.</p>\n<p><strong>This checkbox is disabled</strong> when using a 'tap' connection because it cannot be enforced on a 'tap' connection .</p>" = "<p><strong>Når merket av</strong>, vil IPv6 være deaktivert.</p>\n<p>Deaktivering IPv6 er ofte anbefalt fordi mange VPN-konfigurasjoner ikke kan gardere seg mot informasjonslekkasjer som skyldes bruk av IPv6. De fleste Internettilkoblinger fungerer fint uten IPv6.</p>\n<p><strong>Når ikke avkrysset</strong>, vil IPv6 ikke være deaktivert.</p>\n<p><strong>Denne avkryssingsruten er deaktivert</strong> når du bruker en \"tap\"-tilkobling fordi det ikke kan håndheves på en \"tap\"-tilkobling.</p>";
 
 /* HTML info for the 'Enable IPv6 (tap only)' checkbox. */
 "<p><strong>When checked</strong>, IPv6 will be enabled.</p>\n<p><strong>When not checked</strong>, IPv6 will not be enabled.</p>\n<p>Disabling IPv6 is often recommended because many VPN configurations do not guard against information leaks caused by the use of IPv6. Most Internet access works fine without IPv6.</p>\n<p><strong>This checkbox is disabled</strong> for Tun configurations.</p>" = "<p><strong>Når merket av</strong>, vil IPv6 være aktivert.</p>\n<p><strong>Når ikke merket av</strong>, vil ikke IPv6 være aktivert.</p>\n<p>Deaktivering IPv6 er ofte anbefalt fordi mange VPN-konfigurasjoner ikke gardere seg mot informasjonslekkasjer som skyldes bruk av IPv6. De fleste Internett fungerer fint uten IPv6.</p>\n<p><strong>Denne boksen er deaktivert</strong> for Tun konfigurasjoner.</p>";
@@ -1950,9 +1938,6 @@
 
 /* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>Når merket av</strong>, vil Tunnelblick nullstille primære nettverksgrensesnittet etter at VPN er frakoblet. Dette kan omgå problemene forårsaket av noen feilkonfigurert VPN-servere og etter noen OpenVPN konfigurasjonsfeil.</p>\n<p><strong>Når ikke merket av</strong>, vil Tunnelblick ikke nullstille primære nettverksgrensesnittet.</p>\n<p><strong>Denne boksen er deaktiver</strong> når 'Set DNS / WIN' er ikke satt til 'Set navnetjener'.</p>";
-
-/* HTML info for the 'Send anonymous profile information when checking' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>" = "<p><strong>Når skrudd på</strong>, vil Tunnelblick sende informasjon om datamaskinen (operativsystemversjonen) til Tunnelblick-nettsiden når du sjekker etter oppdateringer. </p>\n<p><strong>Når skrudd av</strong>, vil Tunnelblick ikke sende informasjonen når du sjekker etter oppdateringer.</p><p>Se <a href = \"https://tunnelblick.net/cPrivacy.html\">Personvern og sikkerhet</a> [tunnelblick.net] for detaljer.</p>";
 
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Når merket av</strong>, vil Tunnelblick se etter og reagere på endringer i nettverksinnstillingene (for eksempel endringer forårsaket av DHCP fornyelser eller bytte internettforbindelser) for å forsøke å holde VPN-tilkoblet. Tunnelblick standard handlinger når nettverksinnstillingene endres vanligvis fungerer godt, men du kan angi ulike handlinger på fanen \"Mens Tilkoblet\" av 'Avansert' innstillinger.</p>\n<p><strong>Når ikke merket av</strong>, Tunnelblick vil ignorere nettverks endringer.</p>\n<p><strong>Denne boksen er deaktivert</strong> når 'Set DNS / WINS' er ikke satt til 'Set nameserver' eller 'Set navnetjener (3.1) '.</p>";
@@ -2032,6 +2017,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick har en tilpasset versjon av 'easy-rsa', som består av et sett med kommandolinjeskript skrevet av OpenVPN-utviklere for å opprette og vedlikeholde sertifikater og nøkler.</p><p>Hvis du klikker på denne knappen, startes det en terminalapplikasjon i MacOS, med arbeidskatalogen satt til mappen som inneholder skriptene.</p><p>De skriptene er vanligvis plassert i mappen under følgende sti: ~/Library/Application Support/Tunnelblick/easy-rsa. En 'easy-rsaPath'-settingen kan inneholde stien til en mappe som Tunnelblick vil bruke i stedet. 'easy-rsaPath' må være en absolutt sti eller starte med en '~', og den overordnede mappen av stien må eksistere. Hvis en mappe finnes på denne stien, vil det bli brukt; hvis den ikke eksisterer, vil det bli opprettet og easy-rsa-skript vil bli installert i den mappen når Tunnelblick startes</p><p>For informasjon om bruk av easy-rsa, se <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Oppsett av din egen Certificate Authority (CA) og generering av sertifikater og nøkler for en OpenVPN-server og andre klienter</a> [openvpn.net].</p><p>For detaljer rundt Tunnelblick sine tilpasninger av easy-rsa, se README-filen i mappen.</p>";
 
+/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick var ikke i stand til å laste et systemtillegg som er nødvendig for å kunne koble til %1$@.</p><p>%2$@Mer informasjon%3$@ [%4$@]</p>";
+
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Administrator-modus %@ gjenstår";
 
@@ -2058,6 +2046,12 @@
 
 /* Credit description */
 "Catalan translation" = "Katalansk oversettelse";
+
+/* Checkbox text */
+"Check for IP address changes" = "Sjekk for endringer i IP-adresse";
+
+/* Checkbox text */
+"Check for updates" = "Se etter oppdateringer";
 
 /* Credit description */
 "Chinese (simplified) translation" = "Kinesisk (forenklet) oversettelse";
@@ -2122,6 +2116,9 @@
 
 /* Credit description */
 "Hungarian translation" = "Ungarsk oversettelse";
+
+/* Checkbox text */
+"I accept and agree to the above" = "Jeg godtar og samtykker til det ovenstående";
 
 /* Credit description */
 "Icelandic translation" = "Islandsk oversettelse";

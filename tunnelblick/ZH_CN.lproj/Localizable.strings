@@ -62,9 +62,6 @@
 "Check Now" = "现在检查";
 
 /* Button */
-"Check for a change" = "检查更新";
-
-/* Button */
 "Connect" = "连接";
 
 /* Button */
@@ -99,9 +96,6 @@
 
 /* Button */
 "Disconnect" = "断开连接";
-
-/* Button */
-"Do not check for a change" = "不要检查更新";
 
 /* Button */
 "Do not use the plugin" = "不使用此插件";
@@ -174,9 +168,6 @@
 
 /* Button */
 "Place Icon Normally" = "图标置于正常的位置";
-
-/* Button */
-"Privacy info..." = "隐私信息...";
 
 /* Button */
 "Quit All OpenVPN Processes" = "退出所有 OpenVPN 进程";
@@ -385,14 +376,14 @@
 /* Checkbox name */
 "Do not ask again, always convert" = "不再询问, 总是 ‘转换’ ";
 
-/* Checkbox name */
-"Do not check for IP address changes" = "不要检查 IP 地址的变更";
-
 /* Checkbox name on a warning dialog */
 "Do not show again for any configuration" = "不再显示";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "不再显示此类警告信息";
+
+/* Checkbox name */
+"Do not warn about this again for any configuration" = "对任何配置都不再发出此警告";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "不再对此配置发出此警告";
@@ -441,9 +432,6 @@
 
 /* Checkbox name */
 "Save in Keychain" = "储存于 Keychain";
-
-/* Checkbox name */
-"Send anonymous profile information when checking" = "当勾选时发送匿名个人信息";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "在设置路由后设置 DNS";
@@ -626,9 +614,6 @@
 "Name not allowed" = "不允许使用这个名字";
 
 /* Window title */
-"New Feature" = "新的特性";
-
-/* Window title */
 "No 'dev tun', 'dev utun', or 'dev tap' found" = "没有找到 tun 设备，utun 设备，或 tap 设备";
 
 /* Window title */
@@ -675,6 +660,12 @@
 
 /* Window title */
 "Tunnelblick Error" = "Tunnelblick 错误";
+
+/* Window title */
+"Tunnelblick Installation or Update" = "Tunnelblick 安装或更新";
+
+/* Window title */
+"Tunnelblick Update" = "Tunnelblick 更新";
 
 /* Window title */
 "Tunnelblick" = "Tunnelblick";
@@ -816,6 +807,9 @@
 
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ 被重置为它的上一个安全副本.\n\n";
+
+/* Window text. The first %@ may be replaced by a sentence. The second %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"%@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated." = "%1$@Tunnelblick 是自由软件：你可以使用它，重新分发它，和/或在由自由软件基金会颁布的 GPL v2 的条款规定下修改它。\n\nTunnelblick 免费提供使用，不提供没有任何形式的保障。Tunnelblick 和它的作者们不承担在使用 Tunnelblick 或任何第三方修改过后的 Tunnelblick 时带来的损害的责任。详情请参阅 GPLv2。\n\n如果你同意这些条款，那么你的回复将会被匿名地发送到 %2$@，并且你会被请求授权，这样 Tunnelblick 可以安全地安装或更新。";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld 配置己经被重置为最后一次安全(影子) 拷贝.\n\n";
@@ -1156,6 +1150,9 @@
 /* Window text */
 "Icon:" = "图标:";
 
+/* Window text. The two %@ are Internet addresses like 'tunnelblick .net' */
+"If \"Check for updates\" is checked, Tunnelblick will access %@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n" = "如果勾选了 \"检查更新\"，当 Tunnelblick 运行时，将会定期访问 %1$@ 以获得更新的信息。你可以稍后去变更改设置。\n\n如果勾选了 \"检查 IP 地址的变更\" ，在连接 VPN 之前或之后，Tunnelblick 将会访问 %2$@ 以获取此电脑的对外显示 IP ，如果对外的 IP 没有变动将会发出警告。你可以稍后去变更改设置。\n\n\n";
+
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "在 %@ 中:\n\n没有 OpenVPN 配置可以安装";
 
@@ -1197,6 +1194,9 @@
 
 /* Window text */
 "Last checked: %@" = "上一次查看: %@";
+
+/* Window text. The three %@ are each replaced by a URL (e.g. https://fsf.org) */
+"License:\n     %@\nFree Software Foundation:\n     %@\nTunnelblick Privacy Policy:\n     %@\n\n" = "许可证：\n     %1$@\n自由软件基金会：\n     %2$@\nTunnelblick 隐私协议：\n     %3$@\n\n";
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "文件 '%2$@' 中的 %1$d 行不能含有一个非打印字符 (0x%3$X)\n\n";
@@ -1338,6 +1338,9 @@
 
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "私人配置不能在计算机启动时连接.\n\n请先将此配置设为共享, 然后更改此选项.";
+
+/* Window text */
+"Program error, please see the Console log." = "程序错误，请查看控制台日志.";
 
 /* Window text */
 "Received fatal signal %d." = "收到致命的信号 %d.";
@@ -1520,25 +1523,13 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "这个版本的 Tunnelblick 没有数字签名.\n\n所以没有办法判断它是否被篡改过.\n\n请在使用前检查一下这个版本的提供者.\n\n";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "这是 Tunnelblick 的 64 位 Intel 版本。如果它使用 Tun 或 Tap 驱动，将无法正常工作。";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "这是 Tunnelblick 的 64 位 Intel 版本。它将无法与使用 Tap 连接的配置一起正常工作。请改为使用 Tunnelblick 的通用版本。";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "这是 Tunnelblick 的 64 位 Intel 版本。它无法与使用 Tun 驱动的配置一起正常工作。请改为使用 Tunnelblick 的通用版本。";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "这是 Tunnelblick 的 64 位 Intel 版本。它无法与使用 Tun 驱动的配置一起正常工作。你可以改用 Tunnelblick 的通用版本，或者可以通过移除 OpenVPN 的“开发型”选项来使用 OS X 的 utun 驱动。请参阅 OpenVPN 的文档。";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "这是 Tunnelblick 的 64 位 Intel 版本。它只能运行在具有 64 位内核的 OS X 上，或者在 OS X 10.6.8 或更高版本上，如果没有使用 Tun 或 Tap 驱动。";
-
-/* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "因为这个版本的 Tunnelblick 拥有一个不合法的更新 URL ，所以不能正常启动或安装.\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "因为你安装了旧版本的部署版 Tunnelblick, 而这个版本的 Tunnelblick 并不是’部署版’, 所以 Tunnelblick 无法启动或安装 .\n\n";
+
+/* Window text. The %@ is an Internet address like 'tunnelblick .net' */
+"To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n" = "如果需要使用 Tunnelblick，你必须标明你已经接受和同意指定的条款，请勾选以下复选框 \"我接受并同意上述\"。\n\n如果你已勾选了，并且按了 \"继续\"，%@ 将会遵循 Tunnelblick 的隐私协议去匿名访问，并且你也可以安装、更新和使用 Tunnelblick 。\n\n如果你没有勾选，那么你无法安装、更新和使用 Tunnelblick。\n\n\n";
 
 /* Window text */
 "Too many configuration files in '%@'" = "在 '%@' 里有太多配置文件了";
@@ -1560,9 +1551,6 @@
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Tunnelblick 的互联网行为:";
-
-/* Window text */
-"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick 可以检查到当你连接上 VPN 后对外显示的 IP 地址的变动, 如果没有改动将会通知你.\n\n这有助于 Tunnelblick 诊断你的连接问题.\n\n这个进程尝试访问\n%@\n\n你确定要检查这个 IP 地址的变动吗?\n";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick 不能被配置为在你登陆系统后自动启动";
@@ -1951,9 +1939,6 @@
 /* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>当勾选时</strong>，断开 VPN 连接时，Tunnelblick 将会重置主要的网络接口。当发生一些 VPN 服务器或者 OpenVPN 配置错误是，这是一个不错的应急解决办法。</p>\n<p><strong>当没有勾选是</strong>，Tunnelblick 不会重置主要的网络接口。</p>\n当 'Set DNS/WINS' 没有被设置为 'Set nameserver' 时，<p><strong>该复选框不可用</strong></p>。";
 
-/* HTML info for the 'Send anonymous profile information when checking' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>" = "<p><strong>选中时</strong>，Tunnelblick将在检查更新的时候发送有关电脑的信息 (操作系统版本) 到Tunnelblick网站。</p>\n<p><strong>不选中时</strong>，Tunnelblick将在检查更新的时候不发送信息。</p><p>参见<a href=\"https://tunnelblick.net/cPrivacy.html\">隐私和安全</a> [tunnelblick.net]获取详细说明。</p>";
-
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>当勾选时</strong>，Tunnelblick 将会监视并在网络发生变化时 （例如，由 DHCP 续租发生的网络变化，或者切换网络连接时）重新连接，以保持与 VPN 服务器的连接。当网络发生变化是，Tunnelblick 的默认行为通常会正常工作，但你可以在 '高级'设置窗口中的 '当连接时' 选项卡中指定不同的行为。</p>\n<p><strong>当没有勾选是</strong>，Tunnelblick 会负略掉网络的改变。</p>\n<p>当 'Set DNS/WINS' 没有被设置为 'Set nameserver' 或 'Set nameserver(3.1)' 时，<strong>该复选框不可用</strong></p>。";
 
@@ -2032,6 +2017,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick包含了一个自定义版本的'easy-rsa'，它是一组OpenVPN开发者编写的用来创建和维护证书和秘钥的命令行脚本。</p><p>点击此按钮将启动OS X的命令行程序并将包含这些脚本的目录设置为工作目录。</p><p>这组脚本一般放置在 ~/Library/Application Support/Tunnelblick/easy-rsa 文件夹中。如果有'easy-rsaPath' 设置，Tunnelblick会使用这个设置中的目录查找这些脚本。'easy-rsaPath' 设置必须是绝对路径或者以 '~' 开头的路径， 并且此文件夹的父级必须存在。Tunnelblick启动的时候如果设置包含的路径中的文件夹已经存在，它会被直接使用，如果不存在，它会被创建并将 easy-rsa 脚本安装到其中。</p><p>关于easy-rsa 的详细信息请参见 <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">设置你的身份认证机构 (CA) 并给OpenVPN服务器和客户端生成证书和秘钥</a> [openvpn.net]。</p><p>关于Tunnelblick 的自定义easy-rsa信息请参见文件夹中的README文件。</p>";
 
+/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>连接到 %1$@ 需要加载一个系统扩展，但当前 Tunnelblick 无法加载该系统扩展</p><p>%2$@更多信息%3$@[%4$@]</p>";
+
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "管理模式 %@ 继续";
 
@@ -2058,6 +2046,12 @@
 
 /* Credit description */
 "Catalan translation" = "加泰罗尼亚语翻译";
+
+/* Checkbox text */
+"Check for IP address changes" = "检查 IP 地址的变更";
+
+/* Checkbox text */
+"Check for updates" = "检查更新";
 
 /* Credit description */
 "Chinese (simplified) translation" = "中文 (简体) 翻译";
@@ -2122,6 +2116,9 @@
 
 /* Credit description */
 "Hungarian translation" = "匈牙利语翻译";
+
+/* Checkbox text */
+"I accept and agree to the above" = "我接受并同意上述";
 
 /* Credit description */
 "Icelandic translation" = "冰岛语翻译";

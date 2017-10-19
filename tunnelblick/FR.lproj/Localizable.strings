@@ -62,9 +62,6 @@
 "Check Now" = "Rechercher maintenant";
 
 /* Button */
-"Check for a change" = "Vérifier les changements";
-
-/* Button */
 "Connect" = "Connecter";
 
 /* Button */
@@ -99,9 +96,6 @@
 
 /* Button */
 "Disconnect" = "Déconnecter";
-
-/* Button */
-"Do not check for a change" = "Ne pas vérifier les changements";
 
 /* Button */
 "Do not use the plugin" = "Ne pas utiliser l’extension";
@@ -174,9 +168,6 @@
 
 /* Button */
 "Place Icon Normally" = "Placer l'icône normalement";
-
-/* Button */
-"Privacy info..." = "Informations sur la vie privée…";
 
 /* Button */
 "Quit All OpenVPN Processes" = "Quitter toutes les tâches OpenVPN";
@@ -385,14 +376,14 @@
 /* Checkbox name */
 "Do not ask again, always convert" = "Ne plus demander, toujours convertir";
 
-/* Checkbox name */
-"Do not check for IP address changes" = "Ne pas vérifier les changements d’adresse IP";
-
 /* Checkbox name on a warning dialog */
 "Do not show again for any configuration" = "Ne plus montrer pour aucune configuration";
 
 /* Checkbox name */
 "Do not show this type of warning again" = "Ne plus montrer ce types d'alertes";
+
+/* Checkbox name */
+"Do not warn about this again for any configuration" = "Ne plus avertir pour aucune configuration";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Ne plus me prévenir pour cette configuration";
@@ -441,9 +432,6 @@
 
 /* Checkbox name */
 "Save in Keychain" = "Enregistrer dans le Trousseau d’accès";
-
-/* Checkbox name */
-"Send anonymous profile information when checking" = "Envoyer des informations anonymes de profil lors de la vérification";
 
 /* Checkbox name */
 "Set DNS after routes are set" = "Régler le DNS après l'établissement des routes";
@@ -626,9 +614,6 @@
 "Name not allowed" = "Ce nom n’est pas autorisé";
 
 /* Window title */
-"New Feature" = "Nouvelle fonctionnalité";
-
-/* Window title */
 "No 'dev tun', 'dev utun', or 'dev tap' found" = "Pas de 'dev tun', 'dev utun', ou 'dev tap' trouvé";
 
 /* Window title */
@@ -675,6 +660,12 @@
 
 /* Window title */
 "Tunnelblick Error" = "Erreur Tunnelblick";
+
+/* Window title */
+"Tunnelblick Installation or Update" = "Installation ou mise à jour de Tunnelblick";
+
+/* Window title */
+"Tunnelblick Update" = "Mise à jour de Tunnelblick";
 
 /* Window title */
 "Tunnelblick" = "Tunnelblick";
@@ -816,6 +807,9 @@
 
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ a été repris à sa dernière copie sécurisée./n/n";
+
+/* Window text. The first %@ may be replaced by a sentence. The second %@ will be replaced by an Internet address like 'tunnelblick .net'. */
+"%@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated." = "%1$@Tunnelblick est un logiciel gratuit: vous pouvez l'utiliser, le redistribuer et/ou le modifier selon les termes de la licence GNU General Public License v2 publiée par la Free Software Foundation. \n\nTunnelblick est fourni à titre gratuit, en l'état, sans garantie d'aucune sorte. Tunnelblick et ses auteurs n'acceptent aucune responsabilité pour les dommages résultant de l'utilisation de Tunnelblick ou toute modification de Tunnelblick par une tierce partie. Voyez le texte de la licence GNU GPL v2 pour les détails. \n\nSi vous acceptez ces conditions, votre réponse sera envoyée de manière anonyme vers %2$@ et vous devrez autoriser l'application pour poursuivre l'installation ou la mise à jour de manière sécurisée.";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "Les configurations %ld ont été remplacées par leur dernière copie (auto-sauvegardée) sécurisée.\n\n";
@@ -1156,6 +1150,9 @@
 /* Window text */
 "Icon:" = "Icône :";
 
+/* Window text. The two %@ are Internet addresses like 'tunnelblick .net' */
+"If \"Check for updates\" is checked, Tunnelblick will access %@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n" = "Si \"Vérifier les mises à jour\" est coché, Tunnelblick accèdera à %1$@ pour vérifier les mises à jour lorsqu'il est lancé et périodiquement pendant qu'il fonctionne. Vous pourrez modifier ce réglage ultérieurement. \n\nSi \"Vérifier les changements d'adresse IP\" est coché, Tunnelblick accèdera à %2$@ pour vérifier l'adresse IP publique apparente avant et après qu'un VPN soit connecté et avertira si l'adresse IP n'a pas changé. Vous pourrez modifier ce réglage ultérieurement.\n\n\n";
+
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "Dans %@ :\n\nIl n'y a pas de configuration OpenVPN à installer.";
 
@@ -1197,6 +1194,9 @@
 
 /* Window text */
 "Last checked: %@" = "Dernière recherche : %@";
+
+/* Window text. The three %@ are each replaced by a URL (e.g. https://fsf.org) */
+"License:\n     %@\nFree Software Foundation:\n     %@\nTunnelblick Privacy Policy:\n     %@\n\n" = "Licence:\n     %1$@\nFree Software Foundation:\n     %2$@\nPolitique de confidentialité de Tunnelblick:\n     %3$@\n\n";
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "La ligne %1$d du fichier '%2$@' contient un caractère non imprimable (0x%3$X) qui n'est pas autorisé.\n\n";
@@ -1338,6 +1338,9 @@
 
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Les configurations privées ne peuvent pas se lancer lors du démarrage d’ordinateur.\n\nVeuillez rendre la configuration partagée et changer ensuite ce réglage.";
+
+/* Window text */
+"Program error, please see the Console log." = "Erreur du programme, veuillez vérifier le journal de la console.";
 
 /* Window text */
 "Received fatal signal %d." = "Reçu le signal fatal %d.";
@@ -1520,25 +1523,13 @@
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the provider of this copy of Tunnelblick before using it.\n\n" = "Cette copie de Tunnelblick n’est pas signée numériquement.\n\nIl n’y a aucun moyen de vérifier que cette copie n’a pas été altérée.\n\n Vérifiez avec le fournisseur de cette copie de Tunnelblick avant de l’utiliser.\n\n";
 
 /* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly if it uses tun or tap kexts." = "Ceci est une version Intel 64-bit de Tunnelblick qui ne fonctionnera pas correctement si elle utilise les kexts tun ou tap.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses a tap connection. Use a universal version of Tunnelblick instead." = "Ceci est une version Intel 64-bit de Tunnelblick qui ne fonctionnera pas correctement avec une configuration qui utilise une connexion tap. Utilisez une version universelle de Tunnelblick à la place.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. Use a universal version of Tunnelblick instead." = "Ceci est une version Intel 64-bit de Tunnelblick qui ne fonctionnera pas correctement avec une configuration qui utilise le kext tun. Utilisez une version universelle de Tunnelblick à la place.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will not work properly with a configuration that uses tun kexts. You can use a universal version of Tunnelblick or use the OS X 'utun' driver by removing OpenVPN 'dev-type' options - see the OpenVPN documentation." = "Ceci est une version Intel 64-bit de Tunnelblick qui ne fonctionnera pas correctement avec une configuration qui utilise le kext tun. Vous pouvez utiliser une version universelle de Tunnelblick ou utiliser le pilote OS X 'utun' en supprimant l'option 'dev-type' de OpenVPN - voir la documentation de OpenVPN.";
-
-/* Window text */
-"This is a 64-bit Intel version of Tunnelblick which will only run on OS X with a 64-bit kernel, or on OS X 10.6.8 or higher if there is no use of tun or tap kexts." = "Ceci est une version Intel 64-bit de Tunnelblick qui ne fonctionnera que sur OS X avec un noyau 64-bit, ou sur OS X 10.6.8 ou supérieur s'il n'y a pas de kext tun ou tap.";
-
-/* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Cette version de Tunnelblick ne peut être lancée ou installée car elle a une adresse URL non valide.\n\n";
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Cette version de Tunnelblick ne peut être lancée ou installée car ce n’est pas une version 'Déployée', et une ou plusieurs versions 'Déployée' de Tunnelblick ont été installées précédemment.\n\n";
+
+/* Window text. The %@ is an Internet address like 'tunnelblick .net' */
+"To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n" = "Pour utiliser Tunnelblick, vous devez explicitement accepter et marquer votre accord avec les termes de la licence en cochant la case en regard de \"Je marque mon accord quant à ce qui précède\". \n\nSi vous le faites et cliquez \"Continuer\", l'application accèdera à %@ de manière anonyme, en accord avec la politique de confidentialité de Tunnelblick, et vous pourrez installer, mettre à jour et utiliser Tunnelblick. \n\nSi vous ne le faites pas, vous ne pourrez pas installer, mettre à jour ou utiliser Tunnelblick.\n\n\n";
 
 /* Window text */
 "Too many configuration files in '%@'" = "Trop de fichiers de configuration dans '%@'";
@@ -1560,9 +1551,6 @@
 
 /* Window text */
 "Tunnelblick Internet Use:" = "Utilisation d'internet de Tunnelblick :";
-
-/* Window text */
-"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick peut vérifier que l’adresse IP publique apparente de votre ordinateur change lorsque vous vous connectez à un VPN, et vous alerte si ce n’est pas le cas.\n\nCela peut aider Tunnelblick à diagnostiquer des problèmes avec votre connexion.\n\nCe processus essaye d’accéder à\n%@\n\nVoulez vous vérifier le changement d’adresse IP ?\n";
 
 /* Window text */
 "Tunnelblick could not be configured to automatically launch itself after you log in.\n\nSee the Console log for details." = "Tunnelblick n'a pas pu être configuré pour se lancer automatiquement après la connexion.\n\nConsultez le journal des erreurs pour plus de détails.";
@@ -1951,9 +1939,6 @@
 /* HTML info for the 'Reset the primary interface after disconnecting' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the VPN is disconnected. This can work around problems caused by some misconfigured VPN servers and by some OpenVPN configuration errors.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>" = "<p><strong>Si cette option est cochée</strong>, Tunnelblick réinitialisera l'interface réseau principale après la déconnexion du VPN. Ceci peut résoudre des problèmes causés par des serveurs VPN mal configurés et par certaines erreurs de configuration OpenVPN.</p>\n<p><strong>Si cette option n'est pas cochée</strong>, Tunnelblick ne réinitialisera pas l'interface réseau principale.</p>\n<p><strong>Cette option est indisponible</strong> lorsque 'Changer DNS/WINS' n'est pas réglé sur 'Changer le serveur de nom'.</p>";
 
-/* HTML info for the 'Send anonymous profile information when checking' checkbox. */
-"<p><strong>When checked</strong>, Tunnelblick will send information about your computer (the operating system version) to the Tunnelblick website when checking for updates.</p>\n<p><strong>When not checked</strong>, Tunnelblick will not send the information when checking for updates.</p><p>See <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] for details.</p>" = "<p><strong>Si cette option est cochée</strong>, Tunnelblick enverra des informations à propos de votre ordinateur (version de l'OS) au site Tunnelblick lorsque vous cherchez les mises à jour. </p>\n<p><strong>Si elle n'est pas cochée</strong>, Tunnelblick n'enverra aucune information lors de la recherche de mise à jour.</p><p>Voir <a href=\"https://tunnelblick.net/cPrivacy.html\">Privacy and Security</a> [tunnelblick.net] pour les détails.</p>";
-
 /* HTML info for the 'Monitor network settings' checkbox. */
 "<p><strong>When checked</strong>, Tunnelblick will watch for and react to changes in network settings (for example, changes caused by DHCP renewals or switching Internet connections) to attempt to keep the VPN connected. Tunnelblick's default actions when network settings change usually work well, but you may specify different actions on the 'While Connected' tab of the 'Advanced' settings window.</p>\n<p><strong>When not checked</strong>, Tunnelblick will ignore network changes.</p>\n<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver' or 'Set nameserver (3.1)'.</p>" = "<p><strong>Si cette option est cochée</strong>, Tunnelblick va surveiller le réseau et réagir aux changements de réglages réseau (par exemple, des changements causés par un renouvellement de bail DHCP ou un changement de connexion internet) afin d'essayer de conserver la connexion au VPN. Les actions par défaut de Tunnelblick lorsque les configurations réseau changent fonctionnent bien en général, mais vous pouvez spécifier des actions différentes sur l'onglet 'Une fois connecté' de la fenêtre de réglages 'Avancé'.</p>\n<p><strong>Si cette option n'est pas cochée</strong>, Tunnelblick will ignorera les changements de configuration réseau.</p>\n<p><strong>Cette option est indisponible</strong> lorsque 'Changer DNS/WINS' n'est pas réglé sur 'Changer serveur de noms' or 'Changer serveur de noms (3.1)'.</p>";
 
@@ -2032,6 +2017,9 @@
 /* HTML info for the 'Open easy-rsa in Terminal' button. */
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick inclut une version customisée de 'easy-rsa' qui est un ensemble de scripts en ligne de commande écrits par les développeurs OpenVPN permettant de créer et maintenir les certificats et les clefs.</p><p>Cliquer ce bouton lance le Terminal de macOS et règle le répertoire courant sur le répertoire contenant les scripts.</p><p>Les scripts sont normalement situés dans le dossier ~/Library/Application Support/Tunnelblick/easy-rsa. Une préférence 'easy-rsaPath' peut contenir le chemin vers un dossier que Tunnelblick utilisera au lieu du chemin par défaut. 'easy-rsaPath' doit être un chemin absolu ou commencer par '~', et le dossier parent du chemin doit exister. Si un dossier existe dans le chemin spécifié, il sera utilisé; s'il n'existe pas, il sera créé et les scripts easy-rsa seront installés dedans lorsque Tunnelblick démarrera.</p><p> Pour plus d'information sur l'utilisation de easy-rsa, voir <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>Pour des détails sur la customisation de easy-rsa pour Tunnelblick, voir le fichier README situé dans le dossier de l'application.</p>";
 
+/* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick n'a pas pu charger une extension système qui est nécessaire pour accéder à %1$@.</p><p>%2$@Plus d'information%3$@ [%4$@]</p>";
+
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Mode admin, temps restant %@";
 
@@ -2058,6 +2046,12 @@
 
 /* Credit description */
 "Catalan translation" = "Traduction catalane";
+
+/* Checkbox text */
+"Check for IP address changes" = "Vérifier les changements d'adresse IP";
+
+/* Checkbox text */
+"Check for updates" = "Vérifier les mises à jour";
 
 /* Credit description */
 "Chinese (simplified) translation" = "Traduction chinoise (simplifié)";
@@ -2122,6 +2116,9 @@
 
 /* Credit description */
 "Hungarian translation" = "Traduction hongroise";
+
+/* Checkbox text */
+"I accept and agree to the above" = "Je marque mon accord quant à ce qui précède";
 
 /* Credit description */
 "Icelandic translation" = "Traduction islandaise";
