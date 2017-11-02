@@ -5934,10 +5934,12 @@ BOOL warnAboutNonTblks(void)
 		newBuildNumber = @"0";
 	}
 
+	// Look for the most recent old version that is not the same as the new version
 	NSString * oldBuildNumber = @"0";
 	NSArray * versionHistory = [gTbDefaults arrayForKey: @"tunnelblickVersionHistory"];
-	if (  [versionHistory count] > 0  ) {
-		id oldVersion = [versionHistory firstObject];
+	NSUInteger ix;
+	for (  ix=0; ix<[versionHistory count]; ix++  ) {
+		id oldVersion = [versionHistory objectAtIndex: ix];
 		if (  [[oldVersion class] isSubclassOfClass: [NSString class]]  ) {
 			NSRange build = [(NSString *)oldVersion rangeOfString: @"(build "];
 			if (  build.length != 0  ) {
@@ -5947,8 +5949,12 @@ BOOL warnAboutNonTblks(void)
 				NSRange close = [(NSString *)oldVersion rangeOfString: @")" options: 0 range: restOfString];
 				if (  close.length != 0  ) {
 					oldBuildNumber = [(NSString *)oldVersion substringWithRange: NSMakeRange(start, close.location - start)];
-					if (  ! [oldBuildNumber containsOnlyCharactersInString: @"0123456789."]  ) {
+					if (   [oldBuildNumber isEqualToString: newBuildNumber]
+						|| ( ! [oldBuildNumber containsOnlyCharactersInString: @"0123456789."] )  ) {
 						oldBuildNumber = @"0";
+					}
+					if (  [oldBuildNumber isNotEqualTo: @"0"]  ) {
+						break;
 					}
 				}
 			}
