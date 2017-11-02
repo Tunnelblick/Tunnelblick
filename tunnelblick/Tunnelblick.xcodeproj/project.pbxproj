@@ -78,6 +78,7 @@
 		634E02091CAD9783008637FF /* SR_CS.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 634E02081CAD9783008637FF /* SR_CS.lproj */; };
 		634EE8391191F89800DF4E43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		634F1B9D1D23FD9D00B1E929 /* Tracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 634F1B9C1D23FD9D00B1E929 /* Tracker.m */; };
+		635497FF1FABD9E10009E149 /* SQ.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635497FE1FABD9E10009E149 /* SQ.lproj */; };
 		635713A61A6709D800709670 /* AR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635713A31A6709D800709670 /* AR.lproj */; };
 		635971421C06736B0055FBC5 /* UIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 635971411C06736B0055FBC5 /* UIHelper.m */; };
 		635971461C0673A10055FBC5 /* Preferences-RTL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635971431C0673A10055FBC5 /* Preferences-RTL.xib */; };
@@ -428,6 +429,7 @@
 		634E02081CAD9783008637FF /* SR_CS.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SR_CS.lproj; sourceTree = "<group>"; };
 		634F1B9B1D23FD9D00B1E929 /* Tracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracker.h; sourceTree = "<group>"; };
 		634F1B9C1D23FD9D00B1E929 /* Tracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tracker.m; sourceTree = "<group>"; };
+		635497FE1FABD9E10009E149 /* SQ.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SQ.lproj; sourceTree = "<group>"; };
 		635713A31A6709D800709670 /* AR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AR.lproj; sourceTree = "<group>"; };
 		635971401C06736B0055FBC5 /* UIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIHelper.h; sourceTree = "<group>"; };
 		635971411C06736B0055FBC5 /* UIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIHelper.m; sourceTree = "<group>"; };
@@ -1061,6 +1063,7 @@
 				639BCE5A1D07894C00A9111D /* RO.lproj */,
 				63611FCD13CE2A8B000240F0 /* RU.lproj */,
 				B8051F4C1754DA630024841C /* SK.lproj */,
+				635497FE1FABD9E10009E149 /* SQ.lproj */,
 				634E02081CAD9783008637FF /* SR_CS.lproj */,
 				63EA676913DF326600E77443 /* SV.lproj */,
 				6389ADBC1AE4265100E2FAD8 /* TR.lproj */,
@@ -1593,6 +1596,7 @@
 				63EA2CAA1C9EFCF0005F0872 /* FA.lproj in Resources */,
 				63E56EC913848194007E39AB /* VPNServiceTermsOfService.xib in Resources */,
 				63E56ECA13848194007E39AB /* VPNServiceWelcome.xib in Resources */,
+				635497FF1FABD9E10009E149 /* SQ.lproj in Resources */,
 				636A16721B0242490005DD0A /* LV.lproj in Resources */,
 				633E55631BB0F16600A6B8FB /* BuildAppsAndDmgs.sh in Resources */,
 				6375FB4B1387F0E20034CB78 /* SettingsSheet.xib in Resources */,

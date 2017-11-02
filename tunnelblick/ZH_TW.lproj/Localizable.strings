@@ -809,7 +809,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ 已被重置為它的上一個被保護的 (陰影) 副本。\n\n";
 
 /* Window text. The first %@ may be replaced by a sentence. The second %@ will be replaced by an Internet address like 'tunnelblick .net'. */
-"%@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated." = "%1$@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %2$@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated.";
+"%@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated." = "%1$@ Tunnelblick 是個免費軟體：您可以在使用，散發以及/或更改這個軟體。本軟體以 GNU General Public License version 2 經由 Free Software Foundation 發布。\nTunnelblick 為免費提供，且不提供任何保證。Tunnelblick 以及相關作者對於使用相關軟體或第三方軟體所造成的任何傷害並沒有任何責任，詳細資料參見 GNU General Public License version 2 。\n如果您同意本政策，您的回答將會匿名回傳至%2$@且我們將會向您要求進一步的權限以便讓 Tunnelblick可以被安全的安裝或升級。";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld 個設定檔已被復原為最近的安全 (影子) 複本\n\n";
@@ -1151,7 +1151,7 @@
 "Icon:" = "圖示：";
 
 /* Window text. The two %@ are Internet addresses like 'tunnelblick .net' */
-"If \"Check for updates\" is checked, Tunnelblick will access %@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n" = "If \"Check for updates\" is checked, Tunnelblick will access %1$@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %2$@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n";
+"If \"Check for updates\" is checked, Tunnelblick will access %@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n" = "如果「自動檢查更新」被選取，在開啟與執行的過程中，Tunnelblick 將會存取 %1$@ 以檢查更新。您稍候可以變更此設定。\n\n如果「檢查 IP 位址更動」被選取，Tunnelblick 將會存取 %2$@ 以取得在連線到 VPN 主機前後的電腦的外部公開 IP 位址，並在 IP 位址沒有變更時發出警告。您稍候可以變更此設定。\n\n\n";
 
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "在 %@ 中：\n\n沒有可安裝的 OpenVPN 設定值。";
@@ -1196,7 +1196,7 @@
 "Last checked: %@" = "最後檢查：%@";
 
 /* Window text. The three %@ are each replaced by a URL (e.g. https://fsf.org) */
-"License:\n     %@\nFree Software Foundation:\n     %@\nTunnelblick Privacy Policy:\n     %@\n\n" = "License:\n     %1$@\nFree Software Foundation:\n     %2$@\nTunnelblick Privacy Policy:\n     %3$@\n\n";
+"License:\n     %@\nFree Software Foundation:\n     %@\nTunnelblick Privacy Policy:\n     %@\n\n" = "軟體授權條款：\n     %1$@\n自由軟體基金會：\n     %2$@\nTunnelblick 隱私權政策：\n     %3$@\n\n";
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "在檔案 '%2$@' 的第 %1$d 中不能含有不能顯示的符號 (0x%3$X)。\n\n";
@@ -1340,7 +1340,7 @@
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "私密配置不能在電腦啟動時自動連線。\n\n請先將此配置設為共享，然後更改此選項。";
 
 /* Window text */
-"Program error, please see the Console log." = "Program error, please see the Console log.";
+"Program error, please see the Console log." = "程式發生錯誤，詳請參見終端記錄。";
 
 /* Window text */
 "Received fatal signal %d." = "收到致命訊息 %d 。";
@@ -1529,7 +1529,7 @@
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "由於這並不是一個 '已部署' 的版本及一個或多個 '已部署' 的版本已在以前被安裝，所以無法啟動或安裝這個版本的 Tunnelblick。\n\n";
 
 /* Window text. The %@ is an Internet address like 'tunnelblick .net' */
-"To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n" = "To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n";
+"To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n" = "如果要繼續使用 Tunnelblick，您必須勾選「我同意並且接受上述條款」以示同意本軟體協議。\n\n如果您點選了「繼續」，依據 Tunnelblick 隱私權條款，您將會匿名地存取 %@ 並安裝、更新、或使用 Tunnelblick。\n\n如果您不這麼做，您將無法安裝、更新、或使用 Tunnelblick。\n\n\n";
 
 /* Window text */
 "Too many configuration files in '%@'" = "在 '%@' 中有太多設定檔案了";
@@ -2018,7 +2018,7 @@
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick包含了一个自定義版本的'easy-rsa'，它是一組OpenVPN開發者編寫的用來創建和維護認證和密鑰的命令列指令碼。</p><p>點擊此按鈕將驅動macOS的終端應用程式並將包含這些脚本的目錄設置為工作目錄。</p><p>這組脚本一般放置在 ~/Library/Application Support/Tunnelblick/easy-rsa 資料夾中。如果有'easy-rsaPath' 設置，Tunnelblick會使用這個設置中的目錄查找這些脚本。'easy-rsaPath' 設置必须是絕對路徑或者以 '~' 開頭的路徑， 並且此資料夾的父級必须存在。Tunnelblick驅動的時候如果設置包含的路徑中的資料夾已经存在，它會被直接使用，如果不存在，它會被創建並將 easy-rsa 指令碼安裝到其中。</p><p>關於 easy-rsa 的詳細信息請參見 <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">設置你的數位憑證認證機構 (CA) 並給OpenVPN伺服器和用戶端生成認證和密鑰</a> [openvpn.net]。</p><p>關於 Tunnelblick 的自定義easy-rsa信息請參見資料夾中的README檔案。</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick was not able to load a system extension that is needed to connect to %1$@.</p><p>%2$@More information%3$@ [%4$@]</p>";
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick 無法讀取連線至 %1$@ 所需的系統擴充元件</p><p>%2$@更多資訊%3$@ [%4$@]</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "管理模式還剩 %@";

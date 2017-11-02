@@ -383,7 +383,7 @@
 "Do not show this type of warning again" = "No mostris més aquest tipus d'advertència";
 
 /* Checkbox name */
-"Do not warn about this again for any configuration" = "Do not warn about this again for any configuration";
+"Do not warn about this again for any configuration" = "No ho aviseu de nou per a cap configuració";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "No m'avisis més sobre això per a aquesta configuració";
@@ -662,10 +662,10 @@
 "Tunnelblick Error" = "Error del Tunnelblick";
 
 /* Window title */
-"Tunnelblick Installation or Update" = "Tunnelblick Installation or Update";
+"Tunnelblick Installation or Update" = "Instal·lació o actualització de Tunnelblick";
 
 /* Window title */
-"Tunnelblick Update" = "Tunnelblick Update";
+"Tunnelblick Update" = "Actualització de Tunnelblick";
 
 /* Window title */
 "Tunnelblick" = "Tunnelblick";
@@ -809,7 +809,7 @@
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ ha estat revertida a la seva darrera còpia (shadow).\n\n";
 
 /* Window text. The first %@ may be replaced by a sentence. The second %@ will be replaced by an Internet address like 'tunnelblick .net'. */
-"%@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated." = "%1$@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %2$@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated.";
+"%@Tunnelblick is free software: you can use it, redistribute it, and/or modify it under the terms of the GNU General Public License version 2 as published by the Free Software Foundation.\n\nTunnelblick is provided for free, as is, and without warranty of any kind. Tunnelblick and its authors assume no liability or responsibility for damages resulting from the use of Tunnelblick, or of any third-party modifications to Tunnelblick. See the GNU General Public License version 2 for details.\n\nIf you accept and agree to these terms, your response will be sent to %@ anonymously and you will be asked for authorization so Tunnelblick can be securely installed or updated." = "%1$@ Tunnelblick és programari lliure: podeu utilitzar-lo, redistribuir-lo o modificar-lo sota els termes de la versió 2 de la Llicència pública general de GNU tal i com la publica la Free Software Foundation.\n\nTunnelblick es proporciona gratuïtament, com és, i sense garantia de cap tipus. Tunnelblick i els seus autors no es responsabilitzen dels danys i perjudicis derivats de l'ús de Tunnelblick o de qualsevol modificació de tercers a Tunnelblick. Vegeu la versió 2 de la llicència pública general de GNU per obtenir més informació.\n\nSi accepteu i esteu d'acord amb aquests termes, la vostra resposta s'enviarà a %2$@ de forma anònima i se us demanarà una autorització perquè Tunnelblick es pugui instal·lar o actualitzar de manera segura.";
 
 /* Window text */
 "%ld configurations have been reverted to their last secured (shadow) copy.\n\n" = "%ld configuracions s'han restaurat a la darrera còpia shadow.\n\n";
@@ -1151,7 +1151,7 @@
 "Icon:" = "Icona:";
 
 /* Window text. The two %@ are Internet addresses like 'tunnelblick .net' */
-"If \"Check for updates\" is checked, Tunnelblick will access %@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n" = "If \"Check for updates\" is checked, Tunnelblick will access %1$@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %2$@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n";
+"If \"Check for updates\" is checked, Tunnelblick will access %@ to check for updates when it is launched and periodically while running. You may change this setting later.\n\nIf \"Check for IP address changes\" is checked, Tunnelblick will access %@ to determine the computer's apparent public IP address before and after a VPN is connected and warn if the IP address does not change. You may change this setting later.\n\n\n" = "Si es marca \"Comprova si hi ha actualitzacions\", Tunnelblick accedirà a %1$@ per comprovar si hi ha actualitzacions quan es llança i periòdicament mentre s'executa. Podeu canviar aquesta configuració més endavant.\n\nSi es marca \"Comprovar si hi ha canvis d'adreça IP\", Tunnelblick accedirà a %2$@ per determinar l'adreça IP pública aparent de l'ordinador abans i després de que es connecte la VPN i avisi si l'adreça IP no canvia. Podeu canviar aquesta configuració més endavant.\n\n\n";
 
 /* Window text */
 "In %@:\n\nThere are no OpenVPN configurations to install." = "A %@:\n\nNo hi ha configuracions OpenVPN per a instal·lar.";
@@ -1196,7 +1196,7 @@
 "Last checked: %@" = "Última comprovació: %@";
 
 /* Window text. The three %@ are each replaced by a URL (e.g. https://fsf.org) */
-"License:\n     %@\nFree Software Foundation:\n     %@\nTunnelblick Privacy Policy:\n     %@\n\n" = "License:\n     %1$@\nFree Software Foundation:\n     %2$@\nTunnelblick Privacy Policy:\n     %3$@\n\n";
+"License:\n     %@\nFree Software Foundation:\n     %@\nTunnelblick Privacy Policy:\n     %@\n\n" = "Llicència:\n      %1$@\nFree Software Foundation:\n      %2$@\nPolítica de privadesa de Tunnelblick:\n      %3$@\n\n";
 
 /* Window text */
 "Line %d of file '%@' contains a non-printable character (0x%02X) which is not allowed.\n\n" = "La línia %1$d de l'arxiu '%2$@' conté un caràcter no imprimible (0x%3$X) que no està permès.\n\n";
@@ -1340,7 +1340,7 @@
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "No es poden connectar les connexions privades quan l'ordinador arrenca.\n\nFes la configuració compartida primer, i canvia aquest paràmetre després.";
 
 /* Window text */
-"Program error, please see the Console log." = "Program error, please see the Console log.";
+"Program error, please see the Console log." = "Error del programa, consulteu el registre de la Consola.";
 
 /* Window text */
 "Received fatal signal %d." = "S'ha rebut la senyal fatal %d.";
@@ -1529,7 +1529,7 @@
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Aquesta versió de Tunnelblick no es pot iniciar o instal·lar ja que no és una versió 'Desplegada', i una o més versions 'Desplegades' de Tunnelblick ja s'havien instal·lat.\n\n";
 
 /* Window text. The %@ is an Internet address like 'tunnelblick .net' */
-"To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n" = "To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n";
+"To use Tunnelblick, you must indicate your acceptance of and agreement to the specified terms by putting a check in the \"I accept and agree to the above\" checkbox.\n\nIf you do that and click \"Continue\", %@ will be accessed anonymously in accordance with the Tunnelblick Privacy Policy and you will be able to install, update and use Tunnelblick.\n\nIf you do not, you cannot install, update, or use Tunnelblick.\n\n\n" = "Per utilitzar Tunnelblick, heu d'indicar la vostra acceptació i acord amb els termes especificats marcant la casella \"Accepto i estic d'acord amb el de dalt\".\n\nSi feu això i feu clic a \"Continuar\", es tindrà accés a %@ anònimament d'acord amb la Política de privadesa de Tunnelblick i podreu instal·lar, actualitzar i utilitzar Tunnelblick.\n\nSi no ho feu, no podeu instal·lar, actualitzar ni usar Tunnelblick.\n\n\n";
 
 /* Window text */
 "Too many configuration files in '%@'" = "Massa arxius de configuració a '%@'";
@@ -2018,7 +2018,7 @@
 "<p>Tunnelblick includes a customized version of 'easy-rsa', which is a set of command line scripts written by the OpenVPN developers for creating and maintaining certificates and keys.</p><p>Clicking this button launches the OS X Terminal application with the working directory set to the folder containing the scripts.</p><p>The scripts are normally located in the folder at ~/Library/Application Support/Tunnelblick/easy-rsa. An 'easy-rsaPath' preference can contain the path to a folder that Tunnelblick will use instead. 'easy-rsaPath' must be an absolute path or start with a '~', and the parent folder of the path must exist. If a folder exists at the path, it will be used; if it does not exist, it will be created and the easy-rsa scripts will be installed into it when Tunnelblick is launched.</p><p>For information about using easy-rsa, see <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Setting up your own Certificate Authority (CA) and generating certificates and keys for an OpenVPN server and multiple clients</a> [openvpn.net].</p><p>For details of Tunnelblick's customizations of easy-rsa, see the README file located in the folder.</p>" = "<p>Tunnelblick inclou una versió adaptada de 'easy-rsa', que són una sèrie de comandes desenvolupades per la gent d'OpenVPN per crear i mantenir certificats i claus.</p><p>Prement aquest botó s'inicia l'aplicació Terminal d'OS X en el directori de treball on hi ha aquests scripts.</p><p>Aquests scripts estan ubicats, normalment, a ~/Library/Application Support/Tunnelblick/easy-rsa. L'opció 'easy-rsaPath' pot contindre la ruta a una carpeta que Tunnelblick pot utilitzar en comptes de la de per defecte. 'easy-rsaPath' ha de ser una ruta absoluta o començar per '~', i la carpeta de nivell superior també ha d'existir. Si una carpeta existeix en la ruta, s'utilitzarà; si no existeix, es crearà i s'hi instal·laran els scripts easy-rsa quan Tunnelblick s'iniciï.</p><p>Per a més informació sobre l'ús d'easy-rsa, consulta <a href=\"https://openvpn.net/index.php/open-source/documentation/howto.html#pki\">Creant la teva pròpia Autoritat de Certificació (CA) i generant certificats i claus per a un servidor OpenVPN i per a múltiples clients</a> [openvpn.net].</p><p>Per a més detalls sobre la versió d'easy-rsa adaptada de Tunnelblick, consulta l'arxiu README que hi ha en aquesta carpeta.</p>";
 
 /* HTML error message. The first %@ is a configuration name. The second %@ and third %@ are HTML <a> and </a> tags that link to tunnelblick.net -- translators should ignore them but keep them in their translation. The fourth %@ is a domain name such as 'tunnelblick.net' to show the user where the link goes to (you may replace the square brackets with symbols appropriate for your language). */
-"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick was not able to load a system extension that is needed to connect to %1$@.</p><p>%2$@More information%3$@ [%4$@]</p>";
+"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p><p>%@More information%@ [%@]</p>" = "<p>Tunnelblick no ha pogut carregar una extensió del sistema necessària per connectar-se a %1$@.</p><p>%2$@Més informació%3$@ [%4$@]</p>";
 
 /* Toolbar text for 'Lock' item */
 "Admin mode %@ remaining" = "Mode Admin %@ restant";
@@ -2048,10 +2048,10 @@
 "Catalan translation" = "Traducció al Català";
 
 /* Checkbox text */
-"Check for IP address changes" = "Check for IP address changes";
+"Check for IP address changes" = "Comprovar si hi ha canvis a l'adreça IP";
 
 /* Checkbox text */
-"Check for updates" = "Check for updates";
+"Check for updates" = "Buscar actualitzacions";
 
 /* Credit description */
 "Chinese (simplified) translation" = "Traducció al Xinès (simplificat)";
@@ -2118,7 +2118,7 @@
 "Hungarian translation" = "Traducció a l'Hongarès";
 
 /* Checkbox text */
-"I accept and agree to the above" = "I accept and agree to the above";
+"I accept and agree to the above" = "Accepto i estic d'acord amb l'anterior";
 
 /* Credit description */
 "Icelandic translation" = "Traducció a l'Islandès";

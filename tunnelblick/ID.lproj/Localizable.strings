@@ -1,5 +1,5 @@
 /* Status message. First '%@' is the name of a configuration. Second '%@' is an IP address (e.g. '8.8.4.4') */
-"Disconnect All (%@) - apparent public IP address %@" = "Putuskan Semua (%1$@) - alamat IP publik yang muncul %2$@";
+"Disconnect All (%@) - apparent public IP address %@" = "Putuskan Semua (%1$@) - $d Koneksi) - alamat IP publik yang muncul %2$@";
 
 /* Status message */
 "Disconnect All (%@)" = "Putuskan Semua (%@)";
@@ -11,7 +11,7 @@
 "Disconnect All (%d Connections)" = "Putuskan Semua (%d Koneksi)";
 
 /* Status message */
-"No Active Connections" = "Tidak Ada Koneksi Aktif";
+"No Active Connections" = "Koneksi Tidak Aktif";
 
 /* Textbox name */
 "Username:" = "Nama Pengguna:";
@@ -20,7 +20,7 @@
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* Button */
-"(None available)" = "(Tidak ada yang tersedia)";
+"(None available)" = "(Tidak tersedia)";
 
 /* Button */
 "1 MB" = "1 MB";
@@ -146,22 +146,22 @@
 "Never show" = "Jangan pernah tampilkan";
 
 /* Button */
-"No keyboard shortcut" = "Tak ada pintasan papan ketik";
+"No keyboard shortcut" = "Tidak ada shortcut keyboard";
 
 /* Button */
-"No sound" = "Tanpa suara";
+"No sound" = "Hening";
 
 /* Button */
-"OK" = "OK";
+"OK" = "OKE";
 
 /* Button */
-"Only Me" = "Hanya Saya";
+"Only Me" = "Saya Saja";
 
 /* Button */
-"Open Uninstall Instructions in Browser" = "Buka Instruksi Pembongkaran dalam Peramban";
+"Open Uninstall Instructions in Browser" = "Buka Instruksi Pencopotan dalam Peramban";
 
 /* Button */
-"Open easy-rsa in Terminal" = "Buka easy-rsa dalam Terminal";
+"Open easy-rsa in Terminal" = "Buka easy-rsa pada Terminal";
 
 /* Button */
 "Place Icon Near the Spotlight Icon" = "Tempatkan Ikon Dekat Ikon Spotlight";
@@ -170,7 +170,7 @@
 "Place Icon Normally" = "Tempatkan Ikon Secara Normal";
 
 /* Button */
-"Quit All OpenVPN Processes" = "Keluar Semua Proses OpenVPN";
+"Quit All OpenVPN Processes" = "Hentikan Semua Proses OpenVPN";
 
 /* Button */
 "Quit" = "Keluar";
@@ -179,7 +179,7 @@
 "Reinstall" = "Install ulang";
 
 /* Button */
-"Remove Credentials" = "Hapus Kredensial";
+"Remove Credentials" = "Hapus Data";
 
 /* Button */
 "Replace" = "Ganti";
@@ -188,7 +188,7 @@
 "Reset Disabled Warnings" = "Reset Peringatan Yang Dinonaktifkan";
 
 /* Button */
-"Restart connection" = "Start ulang koneksi";
+"Restart connection" = "Menghubungi Ulang";
 
 /* Button */
 "Restore" = "Pulihkan";
@@ -209,7 +209,7 @@
 "Show when connection status changes" = "Tampilkan ketika status koneksi berubah";
 
 /* Button */
-"Show while connecting" = "Tampilkan ketika menyambung";
+"Show while connecting" = "Tampilkan saat Menghubungkan";
 
 /* Button */
 "Skip" = "Lewati";
@@ -266,25 +266,25 @@
 "Disconnect %@%@" = "Putuskan %@%@";
 
 /* Menu Item */
-"Do Not Show on Tunnelblick Menu" = "Jangan Tampilkan pada Menu Tunnelblick";
+"Do Not Show on Tunnelblick Menu" = "Jangan Tampilkan Menu Tunnelblick";
 
 /* Menu Item */
-"Duplicate Configuration..." = "Gandakan Konfigurasi…";
+"Duplicate Configuration..." = "Duplikasi Konfigurasi…";
 
 /* Menu Item */
-"Edit OpenVPN Configuration File..." = "Sunting Berkas Konfigurasi OpenVPN…";
+"Edit OpenVPN Configuration File..." = "Sesuaikan Berkas Konfigurasi OpenVPN…";
 
 /* Menu Item */
 "Examine OpenVPN Configuration File..." = "Periksa Berkas Konfigurasi OpenVPN…";
 
 /* Menu Item */
-"Make Configuration Private..." = "Jadikan Konfigurasi Privat…";
+"Make Configuration Private..." = "Membuat Konfigurasi Pribadi...";
 
 /* Menu Item */
-"Make Configuration Shared..." = "Jadikan Konfigurasi Bersama…";
+"Make Configuration Shared..." = "Membuat konfigurasi Bersama...";
 
 /* Menu Item */
-"No OpenVPN or Tunnelblick VPN logging" = "Tidak ada log VPN Tunnelblick atau OpenVPN";
+"No OpenVPN or Tunnelblick VPN logging" = "Tidak ada log OpenVPN atau Tunnelblick VPN";
 
 /* Menu item */
 "No VPN Configurations Available" = "Tidak Ada Konfigurasi VPN yang Tersedia";
