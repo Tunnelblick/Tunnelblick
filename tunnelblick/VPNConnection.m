@@ -1565,8 +1565,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		} else if (  status == OPENVPNSTART_COULD_NOT_LOAD_KEXT  ) {
 			
 			NSString * link = (  runningOnHighSierraOrNewer()
-							   ? @"<a href=\"https://tunnelblick.net/cKextLoadErrorHighSierra\">"
-							   : @"<a href=\"https://tunnelblick.net/cKextLoadError\">");
+							   ? @"<a href=\"https://tunnelblick.net/cKextLoadErrorHighSierra.html\">"
+							   : @"<a href=\"https://tunnelblick.net/cKextLoadError.html\">");
 			
 			NSAttributedString * msg = attributedStringFromHTML([NSString stringWithFormat: NSLocalizedString(@"<p>Tunnelblick was not able to load a system extension that is needed to connect to %@.</p>"
 																											  @"<p>%@More information%@ [%@]</p>",
