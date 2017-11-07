@@ -129,8 +129,8 @@ oc6bOLFBXyEyrd3DpOjF
 		<true/>
 	<key>IPCheckURL</key>
 		<string>https://tunnelblick.net/ipinfo</string>
-	<key>TBRegistrationURL</key>
-	    <string>https://tunnelblick.net/register</string>
+	<key>TBPrivacyURL</key>
+		<string>https://tunnelblick.net/cPrivacy.html#tunnelblick-privacy</string>
 	<key>NSAppTransportSecurity</key>  
     	<dict>  
 			<key>NSAllowsArbitraryLoads</key><true/>
