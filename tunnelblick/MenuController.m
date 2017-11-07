@@ -7852,7 +7852,8 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
                     showingAny = TRUE;
                 }
             } else {
-                if (   [connection isConnected]
+                if (   (   [connection isConnected]
+						&& [[gTbDefaults stringForKey: @"connectionWindowDisplayCriteria"] isNotEqualTo: @"showWhenConnectingAndConnected"]  )
                     || [connection isDisconnected]  ) {
                     [connection fadeAway];
 					TBLog(@"DB-MO", @"statisticsWindowsShow: requested fade of status window for %@ because it is connected or disconnected", [connection displayName]);

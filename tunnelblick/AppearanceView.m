@@ -160,10 +160,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,        appearanceDisplayStatisticsWi
     // VPN status windows display criteria
     [appearanceConnectionWindowDisplayCriteriaTFC setTitle: NSLocalizedString(@"VPN status windows:", @"Window text")];
     NSArray * cwContent = [NSArray arrayWithObjects:
-                            [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Never show",                          @"Button"), @"name", @"neverShow", @"value", nil],
-                            [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Show while connecting",               @"Button"), @"name", @"showWhenConnecting", @"value", nil],
-                            [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Show when connection status changes", @"Button"), @"name", @"showWhenChanges", @"value", nil],
-                            nil];
+						   [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Never show",                          @"Button"), @"name", @"neverShow",          @"value", nil],
+						   [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Show while connecting",               @"Button"), @"name", @"showWhenConnecting", @"value", nil],
+						   [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Show while connecting and connected", @"Button"), @"name", @"showWhenConnectingAndConnected" , @"value", nil],
+						   [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Show when connection status changes", @"Button"), @"name", @"showWhenChanges",    @"value", nil],
+						   nil];
     [appearanceConnectionWindowDisplayCriteriaArrayController setContent: cwContent];
     [UIHelper setTitle: nil ofControl: appearanceConnectionWindowDisplayCriteriaButton shift: rtl narrow: YES enable: YES];
 
