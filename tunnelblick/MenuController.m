@@ -5801,14 +5801,17 @@ BOOL warnAboutNonTblks(void)
 	
 	NSString * windowTitle = NSLocalizedString(@"Welcome to Tunnelblick", @"Window title");
 	
-	NSString * privacyURLString = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"TBPrivacyURL"];
-	NSString * privacyHostString = [[NSURL URLWithString: privacyURLString] host];
-
 	BOOL rebranded = (  ! [@"Tunnelblick" isEqualToString: @"Tu" @"nne" @"lb" @"li" @"ck"]  );
 	
+	NSString * privacyURLString = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"TBPrivacyURL"];
+	NSString * privacyHostString = (  privacyURLString
+									? [[NSURL URLWithString: privacyURLString] host]
+									: @"");
+
 	// Show "More Info" button if not rebranded, or if it goes to somewhere other than tunnelblick.net
-	BOOL showMoreInfoButton = (   ( ! rebranded )
-							  || [privacyHostString isNotEqualTo: @"tu" @"nne" @"lb" @"li" @"ck" @".n" @"et"]);
+	BOOL showMoreInfoButton = (   privacyURLString
+							   && (   ( ! rebranded )
+								   || [privacyHostString isNotEqualTo: @"tu" @"nne" @"lb" @"li" @"ck" @".n" @"et"]));
 	
 	NSString * privacyButton = [NSString stringWithFormat: NSLocalizedString(@"More Info [%@]", @"Button. The %@ will be replaced by an Internet address like 'tunnelblick .net'."),
 								privacyHostString];
