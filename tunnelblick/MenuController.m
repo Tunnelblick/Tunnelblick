@@ -539,6 +539,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"ApplicationCrashedAfterRelaunch",
                                 
                                 // No longer used
+								@"userAgreementVersionAgreedTow",
 								@"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection",
                                 @"doNotShowCheckForUpdatesNowMenuItem",
                                 @"doNotShowForcedPreferenceMenuItems",
