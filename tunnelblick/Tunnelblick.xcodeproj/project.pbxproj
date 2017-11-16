@@ -203,6 +203,7 @@
 		63F2AD9C12AD5F1600826724 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
 		63F2AD9D12AD5F1600826724 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
 		63F2AD9E12AD5F1600826724 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
+		63F39E961FBDBE1900C18FDE /* re-enable-network-services.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63F39E951FBDBE1900C18FDE /* re-enable-network-services.sh */; };
 		63F3C25A1A22A45C00CF0FFB /* tunnelblickd.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F3C2581A22A45C00CF0FFB /* tunnelblickd.m */; };
 		63F7497D1CB149820043C198 /* TBVersionString.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F7497C1CB149820043C198 /* TBVersionString.txt */; };
 		63FA09411D25E68500859556 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FA09401D25E68500859556 /* MAAttachedWindow.m */; };
@@ -580,6 +581,7 @@
 		63F0A8B21507D24800526AF9 /* MainIcon.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainIcon.xib; sourceTree = "<group>"; };
 		63F2AD9912AD5F1600826724 /* NSFileManager+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+TB.h"; sourceTree = "<group>"; };
 		63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+TB.m"; sourceTree = "<group>"; };
+		63F39E951FBDBE1900C18FDE /* re-enable-network-services.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "re-enable-network-services.sh"; sourceTree = "<group>"; };
 		63F3C2581A22A45C00CF0FFB /* tunnelblickd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tunnelblickd.m; sourceTree = "<group>"; };
 		63F7497C1CB149820043C198 /* TBVersionString.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TBVersionString.txt; sourceTree = "<group>"; };
 		63FA093F1D25E68500859556 /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAttachedWindow.h; sourceTree = "<group>"; };
@@ -1007,6 +1009,7 @@
 				6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */,
 				6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */,
 				63AF2CAD15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh */,
+				63F39E951FBDBE1900C18FDE /* re-enable-network-services.sh */,
 				63EED3041E0466A40068D328 /* updates_generate_keys */,
 				638222201E287C0500A2BD87 /* updates_create_signature */,
 				63B16B501E204D37002958D0 /* updates_sign_with_v1_signature */,
@@ -1593,6 +1596,7 @@
 				63E56EC813848194007E39AB /* VPNServiceSorry.xib in Resources */,
 				633888F61C00F2FC0076032D /* AlertWindow-RTL.xib in Resources */,
 				63118D0D1EA77A6900F20EC1 /* VLS_BE.lproj in Resources */,
+				63F39E961FBDBE1900C18FDE /* re-enable-network-services.sh in Resources */,
 				63EA2CAA1C9EFCF0005F0872 /* FA.lproj in Resources */,
 				63E56EC913848194007E39AB /* VPNServiceTermsOfService.xib in Resources */,
 				63E56ECA13848194007E39AB /* VPNServiceWelcome.xib in Resources */,

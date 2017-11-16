@@ -272,6 +272,7 @@ chmod 744 "${app_path}/Contents/Resources/client.2.up.tunnelblick.sh"
 chmod 744 "${app_path}/Contents/Resources/client.2.down.tunnelblick.sh"
 chmod 744 "${app_path}/Contents/Resources/client.3.up.tunnelblick.sh"
 chmod 744 "${app_path}/Contents/Resources/client.3.down.tunnelblick.sh"
+chmod 744 "${app_path}/Contents/Resources/re-enable-network-services.sh"
 
 # Create the Tunnelblick .dmg and the Uninstaller .dmg except if Debug
 if [ "${CONFIGURATION}" != "Debug" ]; then
