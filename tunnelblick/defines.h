@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -84,10 +84,14 @@
 #define L_AS_T_TUNNELBLICKD_HASH_PATH                 @"/Library/Application Support/Tunnelblick/tunnelblickd-hash.txt"
 #define L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH @"/Library/Application Support/Tunnelblick/tunnelblickd-launchctl-plist-hash.txt"
 
+// NOTE: some scripts refer to the following path without using this header file
+#define L_AS_T_DISABLED_NETWORK_SERVICES_PATH         @"/Library/Application Support/Tunnelblick/disabled-network-services.txt"
+
+// NOTE: some scripts refer to the following path without using this header file
 #define AUTHORIZED_RUNNING_PATH @"/tmp/tunnelblick-authorized-running"
 #define AUTHORIZED_ERROR_PATH   @"/tmp/tunnelblick-authorized-error"
 
-// NOTE: some up and down scripts refer to the following path without using this header file
+// NOTE: some scripts refer to the following path without using this header file
 #define DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH @"/tmp/tunnelblick-downscript-needs-to-be-run.txt"
 
 // NOTE: tunnelblick-uninstaller.sh refers to the installer log path without using this header file

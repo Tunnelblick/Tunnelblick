@@ -1,5 +1,5 @@
 /*
- * Copyright 2012, 2013, 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2012, 2013, 2015, 2016, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -40,6 +40,8 @@ extern BOOL              gShuttingDownWorkspace;
     if (  gShuttingDownWorkspace  ) {
         return;
     }
+	
+	[[NSApp delegate] recreateMainMenu];
     
 	// Detect a triple-click:
 	//        First click comes here and pops up the menu

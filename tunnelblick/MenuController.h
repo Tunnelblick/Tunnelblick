@@ -1,7 +1,7 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
  * Contributions by Dirk Theisen, Jens Ohlig, Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -90,9 +90,10 @@ enum StatusIconPosition {
     MainIconView            * ourMainIconView;              // View for the main icon
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
-    NSMenuItem              * vpnDetailsItem;               //    "VPN Details..." item for menu
-    NSMenuItem              * addConfigurationItem;         //    "Add a VPN..." menu item
-    NSMenuItem              * contactTunnelblickItem;       //    "Contact Tunnelblick..." menu item (if beta version)
+	NSMenuItem              * reenableInternetItem;         // "Re-enable Internet Access" item for menu
+    NSMenuItem              * vpnDetailsItem;               // "VPN Details..." item for menu
+    NSMenuItem              * addConfigurationItem;         // "Add a VPN..." menu item
+    NSMenuItem              * contactTunnelblickItem;       // "Contact Tunnelblick..." menu item (if beta version)
     
 #ifdef INCLUDE_VPNSERVICE
     NSMenuItem              * registerForTunnelblickItem;//    "Register for Tunnelblick..." menu item
@@ -231,7 +232,7 @@ enum StatusIconPosition {
 																   to: (BOOL)       newValue
 															 inverted: (BOOL)		inverted;
 -(void)             showConfirmIconNearSpotlightIconDialog;
--(void)             changedDisplayConnectionSubmenusSettings;
+-(void)             recreateMainMenu;
 -(void)             changedDisplayConnectionTimersSettings;
 -(void)             checkForUpdates:                        (id)                sender;
 -(BOOL)             cleanup;

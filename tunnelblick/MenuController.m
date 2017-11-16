@@ -1235,6 +1235,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
     [customRunOnLaunchPath release];
     [customRunOnConnectPath release];
     
+    [reenableInternetItem release];
     [vpnDetailsItem release];
     [quitItem release];
     [statusMenuItem release];
@@ -1863,6 +1864,12 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
         [addConfigurationItem setAction: @selector(addConfigurationWasClicked:)];
     }
     
+    [reenableInternetItem release];
+	reenableInternetItem = [[NSMenuItem alloc] init];
+	[reenableInternetItem setTitle: NSLocalizedString(@"Re-enable Internet Access", @"Menu item")];
+	[reenableInternetItem setTarget: self];
+	[reenableInternetItem setAction: @selector(reEnableInternetAccess:)];
+
     [vpnDetailsItem release];
     vpnDetailsItem = [[NSMenuItem alloc] init];
     [vpnDetailsItem setTitle: NSLocalizedString(@"VPN Details...", @"Menu item")];
@@ -1909,6 +1916,11 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [myVPNMenu setDelegate:self];
 
 	[myVPNMenu addItem:statusMenuItem];
+	
+	if (  [gFileMgr fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH]  ) {
+		[myVPNMenu addItem: reenableInternetItem];
+	}
+	
     [myVPNMenu addItem:[NSMenuItem separatorItem]];
     
 	BOOL showVpnDetailsAtTop = (   ( ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"] )
@@ -2390,7 +2402,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 	//     (2) The newly-installed openvpnstart won't be secured and thus will fail
 }
 
--(void) changedDisplayConnectionSubmenusSettings
+-(void) recreateMainMenu
 {
     [self recreateMenu];
 }
@@ -2494,6 +2506,10 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             [statusMenuItem setTitle: myState];
         }
         return YES;
+		
+	} else if (  act == @selector(reEnableInternetAccess:)  ) {
+		return [gFileMgr fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH];
+		
     } else {
         if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
             [anItem setToolTip: @""];
@@ -3397,6 +3413,16 @@ BOOL anyNonTblkConfigs(void)
 
 	[logScreen showWindow: nil];
 	[NSApp activateIgnoringOtherApps:YES];
+}
+
+-(IBAction) reEnableInternetAccess:(id)sender {
+	
+	(void) sender;
+	
+	runOpenvpnstart([NSArray arrayWithObject: @"re-enable-network-services"], nil, nil);
+	
+	// Remove the "Re-enable Internet Access" menu item
+	[self recreateMenu];
 }
 
 static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;

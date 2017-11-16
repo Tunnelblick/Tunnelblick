@@ -1,7 +1,7 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Angelo Laub
  * Contributions by Dirk Theisen
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2017. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -103,9 +103,15 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "./openvpnstart test\n"
             "               always returns success\n\n"
             
+			"./openvpnstart re-enable-network-services\n"
+			"               to run Tunnelblick's client.route-pre-down.tunnelblick script\n\n"
+			
             "./openvpnstart route-pre-down\n"
             "               to run Tunnelblick's client.route-pre-down.tunnelblick script\n\n"
             
+			"./openvpnstart route-pre-down-k\n"
+			"               to run Tunnelblick's client.route-pre-down.tunnelblick script with the '-k' option\n\n"
+			
             "./openvpnstart checkSignature\n"
             "               to verify the application's signature using codesign\n\n"
             
@@ -763,6 +769,7 @@ void exitIfPathShouldNotBeRunAsRoot(NSString * path) {
                                 || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.2.down.tunnelblick.sh"]
                                 || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.3.down.tunnelblick.sh"]
                                 || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.route-pre-down.tunnelblick.sh"]
+                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"re-enable-network-services.sh"]
                                 )
                             )
                         )
@@ -1072,6 +1079,35 @@ int runDownScript(unsigned scriptNumber) {
     
     exitOpenvpnstart(returnValue);
     return returnValue; // Avoid analyzer warnings
+}
+
+//**************************************************************************************************************************
+int runReenableNetworkServices(void) {
+    
+	int returnValue = 0;
+	
+	NSString * scriptPath = [gResourcesPath stringByAppendingPathComponent: @"re-enable-network-services.sh"];
+	
+	becomeRootToAccessPath(scriptPath, @"Check if script exists");
+	BOOL scriptExists = [[NSFileManager defaultManager] fileExistsAtPath: scriptPath];
+	stopBeingRootToAccessPath(scriptPath);
+	
+	if (  scriptExists  ) {
+		
+		exitIfNotRootWithPermissions(scriptPath, 0744);
+		
+		fprintf(stdout, "Executing %s in %s...\n", [[scriptPath lastPathComponent] UTF8String], [[scriptPath stringByDeletingLastPathComponent] UTF8String]);
+		returnValue = runAsRoot(scriptPath, [NSArray array], 0744);
+		fprintf(stdout, "%s returned with status %d\n", [[scriptPath lastPathComponent] UTF8String], returnValue);
+		
+	} else {
+		
+		fprintf(stdout, "No such script exists: %s\n", [scriptPath UTF8String]);
+		returnValue = 184;
+	}
+	
+	exitOpenvpnstart(returnValue);
+	return returnValue; // Avoid analyzer warnings
 }
 
 //**************************************************************************************************************************
@@ -2929,6 +2965,12 @@ int main(int argc, char * argv[]) {
 		
         } else if (  strcmp(command, "test") == 0  ) {
             if (  argc == 2  ) {
+				syntaxError = FALSE;
+			}
+            
+        } else if (  strcmp(command, "re-enable-network-services") == 0  ) {
+            if (  argc == 2  ) {
+				runReenableNetworkServices();
 				syntaxError = FALSE;
 			}
             

@@ -1748,7 +1748,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		[gTbDefaults removeObjectForKey: key];
 	}
 	
-	[((MenuController *)[NSApp delegate]) changedDisplayConnectionSubmenusSettings];
+	[((MenuController *)[NSApp delegate]) recreateMainMenu];
 }
 
 -(IBAction) doNotShowOnTbMenuMenuItemWasClicked: (id) sender
@@ -1763,7 +1763,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		[gTbDefaults setBool: YES forKey: key];
 	}
 	
-	[((MenuController *)[NSApp delegate]) changedDisplayConnectionSubmenusSettings];
+	[((MenuController *)[NSApp delegate]) recreateMainMenu];
 }
 
 -(IBAction) editOpenVPNConfigurationFileMenuItemWasClicked: (id) sender
@@ -2985,7 +2985,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (NSButton *) sender
 {
     [gTbDefaults setBool: ! [sender state] forKey:@"doNotShowConnectionSubmenus"];
-    [((MenuController *)[NSApp delegate]) changedDisplayConnectionSubmenusSettings];
+    [((MenuController *)[NSApp delegate]) recreateMainMenu];
 }
 
 -(IBAction) appearanceDisplayConnectionTimersCheckboxWasClicked: (NSButton *) sender
