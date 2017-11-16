@@ -410,6 +410,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"skipWarningAboutInstallsWithCommands",
                                 @"skipWarningAboutPreAuthorizedActivity",
                                 @"skipWarningAboutPlacingIconNearTheSpotlightIcon",
+								@"skipWarningAboutReenablingInternetAccessAtExit",
                                 
                                 @"timeoutForOpenvpnToTerminateAfterDisconnectBeforeAssumingItIsReconnecting",
                                 @"timeoutForIPAddressCheckBeforeConnection",
@@ -3425,6 +3426,32 @@ BOOL anyNonTblkConfigs(void)
 	[self recreateMenu];
 }
 
+-(void) askAndMaybeReenableInternetAccess {
+	
+	if (   [gFileMgr fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH]
+		&& ( ! gShuttingDownWorkspace)
+		&& ( ! gShuttingDownOrRestartingComputer)  ) {
+		
+		// Wrap in "not shutting down Tunnelblick" so TBRunAlertPanel doesn't abort
+		BOOL saved = gShuttingDownTunnelblick;
+		gShuttingDownTunnelblick = FALSE;
+		int result = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+											 NSLocalizedString(@"Internet access was disabled when a VPN disconnected.\n\n"
+															   @"Do you wish to re-enable Internet access?\n\n", @"Window text"),
+											 NSLocalizedString(@"Re-enable Internet Access", @"Button"),
+											 NSLocalizedString(@"Do Not Re-enable", @"Button"),
+											 nil,
+											 @"skipWarningAboutReenablingInternetAccessAtExit",
+											 NSLocalizedString(@"Do not warn about this again, never re-enable", @"Checkbox text"),
+											 nil,
+											 NSAlertAlternateReturn);
+		gShuttingDownTunnelblick = saved;
+		
+		if (  result == NSAlertDefaultReturn  ) {
+			[self reEnableInternetAccess: self];
+		}
+	}
+}
 static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 
 // Returns TRUE if cleaned up, or FALSE if a cleanup is already taking place
@@ -3456,6 +3483,8 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     [self doDisconnectionsForQuittingTunnelblick];
+	
+	[self askAndMaybeReenableInternetAccess];
 	
     TBCloseAllAlertPanels();
     
@@ -4882,6 +4911,8 @@ static void signal_handler(int signalNumber)
         [self showConfirmIconNearSpotlightIconDialog];
     }
     
+	[self askAndMaybeReenableInternetAccess];
+	
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 021")
 	NSString * text = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick %@ is ready.", @"Window text; '%@' will be replaced with a version number such as '3.6.10'"), [self tunnelblickVersionString]];
 	[splashScreen setMessage: text];
