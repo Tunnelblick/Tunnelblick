@@ -66,7 +66,7 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
-    // returnValue: have used 171-246, plus the values in define.h (247-254)
+    // returnValue: have used 170-246, plus the values in define.h (247-254)
 void exitOpenvpnstart(OSStatus returnValue) {
     [pool drain];
     exit(returnValue);
@@ -215,10 +215,13 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "                            bit 13 is 1 to indicate that the default domain ('openvpn') should not be used\n"
             "                            bit 14 is 1 to indicate that the program is not being started when the computer starts\n"
             "                            bit 15 is 1 to indicate that the up script should be started with --route-up instead of --up\n"
-            "                            bit 16 is 1 to indicate that the i386 version of the OpenVPN universal binary should be used\n"
+            "                            bit 16 is 1 to indicate that the up script should override manual network settings\n"
             "                            bit 17 is 1 to indicate that return from the 'up' script should be delayed until DHCP information has been received in a tap connection\n"
-            "                            bit 18 is 1 to indicate that IPv6 should be enabled on TAP devices using DHCP\n"
-            "                            bit 19 is 1 to indicate that IPv6 should be disabled in all enabled (active) network services for TUN connections\n"
+			"                            bit 18 is 1 to indicate that Internet access should not be waited for\n"
+			"                            bit 19 is 1 to indicate that IPv6 should be enabled on TAP devices using DHCP\n"
+            "                            bit 20 is 1 to indicate that IPv6 should be disabled in all enabled (active) network services for TUN connections\n"
+			"                            bit 21 is 1 to indicate that logging should be disabled\n"
+			"                            bit 22 is 1 to indicate that Internet access should be disabled after disconnecting\n"
             "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
 
             "leasewatchOptions is a string containing characters indicating options for leasewatch.\n\n"
@@ -1072,8 +1075,10 @@ int runDownScript(unsigned scriptNumber) {
 }
 
 //**************************************************************************************************************************
-int runRoutePreDownScript(void) {
+int runRoutePreDownScript(BOOL kOption) {
     
+	// Runs the route-pre-down script; includes a "-k" argument to disable Internet access if kOption is true.
+	
     int returnValue = 0;
     
     NSString * scriptPath = [gResourcesPath stringByAppendingPathComponent: @"client.route-pre-down.tunnelblick.sh"];
@@ -1086,8 +1091,11 @@ int runRoutePreDownScript(void) {
         
         exitIfNotRootWithPermissions(scriptPath, 0744);
         
-        fprintf(stdout, "Executing %s in %s...\n", [[scriptPath lastPathComponent] UTF8String], [[scriptPath stringByDeletingLastPathComponent] UTF8String]);
-        returnValue = runAsRoot(scriptPath, [NSArray array], 0744);
+        fprintf(stdout, "Executing %s%s in %s...\n", [[scriptPath lastPathComponent] UTF8String], (kOption ? " -k" : ""), [[scriptPath stringByDeletingLastPathComponent] UTF8String]);
+		NSArray * arguments = (  kOption
+							   ? [NSArray arrayWithObject: @"-k"]
+							   : [NSArray array]);
+        returnValue = runAsRoot(scriptPath, arguments, 0744);
         fprintf(stdout, "%s returned with status %d\n", [[scriptPath lastPathComponent] UTF8String], returnValue);
         
     } else {
@@ -2327,6 +2335,10 @@ int startVPN(NSString * configFile,
             [scriptOptions appendString: @" -f"];
         }
         
+        if (  (bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS) != 0  ) {
+            [scriptOptions appendString: @" -k"];
+        }
+        
         if (  ((bitMask & OPENVPNSTART_EXTRA_LOGGING) != 0) && ((bitMask & OPENVPNSTART_DISABLE_LOGGING) == 0)  ) {
             [scriptOptions appendString: @" -l"];
         }
@@ -2436,15 +2448,23 @@ int startVPN(NSString * configFile,
                         fprintf(stderr, "Warning: Tunnelblick is using 'openvpn-down-root.so', so the custom route-pre-down script will not"
                                 " be executed as root unless the 'user' and 'group' options are removed from the OpenVPN configuration file.");
                     } else {
-                        fprintf(stderr, "Warning: Tunnelblick is using 'openvpn-down-root.so', so the route-pre-down script will not be used."
-                                " You can override this by providing a custom route-pre-down script (which may be a copy of Tunnelblick's standard"
-                                " route-pre-down script) in a Tunnelblick VPN Configuration. However, that script will not be executed as root"
-                                " unless the 'user' and 'group' options are removed from the OpenVPN configuration file. If the 'user' and 'group'"
-                                " options are removed, then you don't need to use a custom route-pre-down script.");
-                    }
+						if (  (bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS) != 0  ) {
+							fprintf(stderr, "Error: Tunnelblick is using 'openvpn-down-root.so', so 'Disable Internet access after disconnecting'"
+									" will not work because the 'route-pre-down script' will not be executed as root. Remove the 'user' and 'group' options"
+									" from the OpenVPN configuration file to allow 'Disable Internet access after disconnecting' to work.");
+							exitOpenvpnstart(170);
+						} else {
+							fprintf(stderr, "Warning: Tunnelblick is using 'openvpn-down-root.so', so the route-pre-down script will not be used."
+									" You can override this by providing a custom route-pre-down script (which may be a copy of Tunnelblick's standard"
+									" route-pre-down script) in a Tunnelblick VPN Configuration. However, that script will not be executed as root"
+									" unless the 'user' and 'group' options are removed from the OpenVPN configuration file. If the 'user' and 'group'"
+									" options are removed, then you don't need to use a custom route-pre-down script.");
+						}
+					}
                 } else {
                     if (   customRoutePreDownScript
-						|| ((bitMask & OPENVPNSTART_USE_TAP) != 0)) {
+						|| ((bitMask & OPENVPNSTART_USE_TAP) != 0)
+						|| ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS) != 0)  ) {
 						[arguments addObjectsFromArray: [NSArray arrayWithObjects:
 														 @"--route-pre-down", routePreDownscriptCommand,
 														 nil
@@ -2914,10 +2934,16 @@ int main(int argc, char * argv[]) {
             
         } else if (  strcmp(command, "route-pre-down") == 0  ) {
             if (  argc == 2  ) {
-				runRoutePreDownScript();
+				runRoutePreDownScript(false);
 				syntaxError = FALSE;
 			}
             
+		} else if (  strcmp(command, "route-pre-down-k") == 0  ) {
+			if (  argc == 2  ) {
+				runRoutePreDownScript(true);
+				syntaxError = FALSE;
+			}
+			
         } else if (  strcmp(command, "checkSignature") == 0  ) {
             if (  argc == 2  ) {
 				checkSignature();
