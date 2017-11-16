@@ -68,17 +68,17 @@
         encoding = [encoding stringByReplacingOccurrencesOfString:@"=" withString:@""];
         NSData *encodedData = [encoding dataUsingEncoding:NSASCIIStringEncoding];
         unsigned char *encodedBytes = (unsigned char *)[encodedData bytes];
-        
+
         NSUInteger encodedLength = [encodedData length];
         if( encodedLength >= (NSUIntegerMax - 3) ) return nil; // NSUInteger overflow check
         NSUInteger encodedBlocks = (encodedLength+3) >> 2;
         NSUInteger expectedDataLength = encodedBlocks * 3;
-        
+
         unsigned char decodingBlock[4];
-        
+
         decodedBytes = malloc(expectedDataLength);
         if( decodedBytes != NULL ) {
-            
+
             NSUInteger i = 0;
             NSUInteger j = 0;
             NSUInteger k = 0;
@@ -90,7 +90,7 @@
                     decodingBlock[j] = c;
                     j++;
                     if( j == 4 ) {
-                        decodedBytes[k] = (decodingBlock[0] << 2) | (decodingBlock[1] >> 4);                
+                        decodedBytes[k] = (decodingBlock[0] << 2) | (decodingBlock[1] >> 4);
                         decodedBytes[k+1] = (decodingBlock[1] << 4) | (decodingBlock[2] >> 2);
                         decodedBytes[k+2] = (decodingBlock[2] << 6) | (decodingBlock[3]);
                         j = 0;
@@ -98,14 +98,14 @@
                     }
                 }
             }
-            
+
             // Process left over bytes, if any
             if( j == 3 ) {
-                decodedBytes[k] = (decodingBlock[0] << 2) | (decodingBlock[1] >> 4);                
+                decodedBytes[k] = (decodingBlock[0] << 2) | (decodingBlock[1] >> 4);
                 decodedBytes[k+1] = (decodingBlock[1] << 4) | (decodingBlock[2] >> 2);
                 k += 2;
             } else if( j == 2 ) {
-                decodedBytes[k] = (decodingBlock[0] << 2) | (decodingBlock[1] >> 4);                
+                decodedBytes[k] = (decodingBlock[0] << 2) | (decodingBlock[1] >> 4);
                 k += 1;
             }
             data = [[NSData alloc] initWithBytes:decodedBytes length:k];
@@ -130,7 +130,7 @@
         static char encodingTable[64] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
         static NSUInteger paddingTable[] = {0,2,1};
         //                 Table 1: The Base 64 Alphabet
-        //        
+        //
         //    Value Encoding  Value Encoding  Value Encoding  Value Encoding
         //        0 A            17 R            34 i            51 z
         //        1 B            18 S            35 j            52 0
@@ -149,14 +149,14 @@
         //       14 O            31 f            48 w         (pad) =
         //       15 P            32 g            49 x
         //       16 Q            33 h            50 y
-        
+
         NSUInteger dataLength = [data length];
         NSUInteger encodedBlocks = dataLength / 3;
         if( (encodedBlocks + 1) >= (NSUIntegerMax / 4) ) return nil; // NSUInteger overflow check
         NSUInteger padding = paddingTable[dataLength % 3];
         if( padding > 0 ) encodedBlocks++;
         NSUInteger encodedLength = encodedBlocks * 4;
-        
+
         encodingBytes = malloc(encodedLength);
         if( encodingBytes != NULL ) {
             NSUInteger rawBytesToProcess = dataLength;
@@ -172,7 +172,7 @@
                 encodingBytes[encodingBaseIndex+1] = encodingTable[((rawByte1 << 4) & 0x30) | ((rawByte2 >> 4) & 0x0F) ];
                 encodingBytes[encodingBaseIndex+2] = encodingTable[((rawByte2 << 2) & 0x3C) | ((rawByte3 >> 6) & 0x03) ];
                 encodingBytes[encodingBaseIndex+3] = encodingTable[(rawByte3 & 0x3F)];
-                
+
                 rawBaseIndex += 3;
                 encodingBaseIndex += 4;
                 rawBytesToProcess -= 3;

@@ -2942,7 +2942,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     BOOL echoResponse = FALSE;
     NSString * challengeText = nil;
- 
+
     if (   [line rangeOfString: @" SC:0,"].length
         || [line rangeOfString: @" SC:1,"].length  ) {
 
