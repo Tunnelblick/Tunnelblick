@@ -26,7 +26,7 @@
 -(NSString *)base64UrlEncodedString;
 @end
 
-@interface MF_Base64Codec : NSObject 
+@interface MF_Base64Codec : NSObject
 +(NSData *)dataFromBase64String:(NSString *)base64String;
 +(NSString *)base64StringFromData:(NSData *)data;
 +(NSString *)base64UrlEncodedStringFromBase64String:(NSString *)base64String;
