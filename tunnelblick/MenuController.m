@@ -5173,11 +5173,6 @@ static void signal_handler(int signalNumber)
         
         if  (  [idxSet count] != 0  ) {
             
-            // The Xcode 3.2 analyzer cannot deal with blocks, so to analyze (the rest of) MenuController, we don't compile the one section of code that has a block
-#ifdef TBAnalyzeONLY
-#warning "NOT AN EXECUTABLE -- ANALYZE ONLY but does not fully analyze code in setPreferenceForSelectedConfigurationsWithKey:to:isBool:"
-            (void) idxSet;
-#else
             [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
                 (void) stop;
                 
@@ -5188,7 +5183,6 @@ static void signal_handler(int signalNumber)
                     [gTbDefaults setObject: newValue forKey: actualKey];
                 }
             }];
-#endif
         } else {
             NSLog(@"setPreferenceForSelectedConfigurationsWithKey: No configuration is selected so cannot change the '%@' preference", key);
         }
