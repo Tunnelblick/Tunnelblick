@@ -541,7 +541,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"ApplicationCrashedAfterRelaunch",
                                 
                                 // No longer used
-								@"userAgreementVersionAgreedTow",
+								@"userAgreementVersionAgreedTo",
 								@"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection",
                                 @"doNotShowCheckForUpdatesNowMenuItem",
                                 @"doNotShowForcedPreferenceMenuItems",
@@ -608,6 +608,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                       @"-enableIpv6OnTap",
                                       @"-doNotDisableIpv6onTun",
                                       @"-loggingLevel",
+									  @"-allowChangesToManuallySetNetworkSettings",
+									  @"-disableNetworkAccessAfterDisconnect",
 									  
                                       @"-changeDNSServersAction",
                                       @"-changeDomainAction",
