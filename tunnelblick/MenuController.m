@@ -342,7 +342,8 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
         gShuttingDownTunnelblick = FALSE;
         gShuttingDownOrRestartingComputer = FALSE;
         gShuttingDownWorkspace = FALSE;
-        
+		quittingAfterAnInstall = FALSE;
+		
         noUnknownOpenVPNsRunning = NO;   // We assume there are unattached processes until we've had time to hook up to them
 		
 		menuIsOpen = FALSE;
@@ -3430,7 +3431,8 @@ BOOL anyNonTblkConfigs(void)
 	
 	if (   [gFileMgr fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH]
 		&& ( ! gShuttingDownWorkspace)
-		&& ( ! gShuttingDownOrRestartingComputer)  ) {
+		&& ( ! gShuttingDownOrRestartingComputer)
+		&& ( ! quittingAfterAnInstall)  ) {
 		
 		// Wrap in "not shutting down Tunnelblick" so TBRunAlertPanel doesn't abort
 		BOOL saved = gShuttingDownTunnelblick;
@@ -6312,7 +6314,8 @@ BOOL warnAboutNonTblks(void)
 	}
     
     TBLog(@"DB-SU", @"relaunchIfNecessary: 012")
-    [self terminateBecause: terminatingBecauseOfQuit];
+	quittingAfterAnInstall = TRUE;
+	[self terminateBecause: terminatingBecauseOfQuit];
     TBLog(@"DB-SU", @"relaunchIfNecessary: 013 - LAST after terminateBecause")
 }
 

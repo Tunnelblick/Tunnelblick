@@ -188,6 +188,8 @@ enum StatusIconPosition {
 	BOOL volatile             doingSetupOfUI;				// Indicates we are setting up the UI, and not making changes to preferences
 	
 	BOOL volatile             menuIsOpen;					// Indicates the main Tunnelblick menu is open
+
+	BOOL					  quittingAfterAnInstall;		// Used to control cleanup: after an install
 	
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
