@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1611" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G17023" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
@@ -108,7 +108,7 @@
                                                                             </connections>
                                                                         </popUpButton>
                                                                         <button id="1239" customClass="TBButton">
-                                                                            <rect key="frame" x="10" y="82" width="639" height="18"/>
+                                                                            <rect key="frame" x="10" y="59" width="639" height="18"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="check" title="DisableIPv6 for tun$" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1240">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -185,11 +185,10 @@
                                                                             </buttonCell>
                                                                             <connections>
                                                                                 <action selector="advancedButtonWasClicked:" target="-2" id="661"/>
-                                                                                <outlet property="nextKeyView" destination="1253" id="csE-tY-cLp"/>
                                                                             </connections>
                                                                         </button>
                                                                         <button id="1249" customClass="TBButton">
-                                                                            <rect key="frame" x="10" y="62" width="639" height="18"/>
+                                                                            <rect key="frame" x="10" y="39" width="639" height="18"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="check" title="Check apparent public IP address changed$" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1250">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -201,7 +200,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button id="1251" customClass="TBButton">
-                                                                            <rect key="frame" x="10" y="102" width="639" height="18"/>
+                                                                            <rect key="frame" x="10" y="79" width="639" height="18"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="check" title="Route all traffic through the VPN$" bezelStyle="regularSquare" imagePosition="right" alignment="right" inset="2" id="1252">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -210,18 +209,6 @@
                                                                             <connections>
                                                                                 <action selector="routeAllTrafficThroughVpnCheckboxWasClicked:" target="-2" id="1255"/>
                                                                                 <outlet property="nextKeyView" destination="539" id="pb3-EW-JXb"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                        <button id="1253" customClass="TBButton">
-                                                                            <rect key="frame" x="10" y="42" width="639" height="18"/>
-                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                                            <buttonCell key="cell" type="check" title="Reset the primary service interface after disconnecting$" bezelStyle="regularSquare" imagePosition="right" alignment="right" inset="2" id="1254">
-                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <action selector="resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked:" target="-2" id="1257"/>
-                                                                                <outlet property="nextKeyView" destination="1249" id="M8D-K1-5Wj"/>
                                                                             </connections>
                                                                         </button>
                                                                         <popUpButton verticalHuggingPriority="750" id="1836">
@@ -247,7 +234,7 @@
                                                                             </connections>
                                                                         </popUpButton>
                                                                         <button id="539" customClass="TBButton">
-                                                                            <rect key="frame" x="10" y="122" width="639" height="18"/>
+                                                                            <rect key="frame" x="10" y="99" width="639" height="18"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="check" title="Monitor network settings$" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="558">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -258,6 +245,45 @@
                                                                                 <outlet property="nextKeyView" destination="1836" id="Rsx-zw-7Du"/>
                                                                             </connections>
                                                                         </button>
+                                                                        <popUpButton verticalHuggingPriority="750" id="ZvX-GN-mVj">
+                                                                            <rect key="frame" x="22" y="134" width="448" height="26"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" id="fxN-Hb-lNz">
+                                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                                <font key="font" metaFont="menu"/>
+                                                                                <menu key="menu" title="OtherViews" id="RUO-IB-XlY">
+                                                                                    <items>
+                                                                                        <menuItem title="Do nothing$" id="qbj-7g-ZV3">
+                                                                                            <connections>
+                                                                                                <action selector="uponDisconnectDoNothingMenuItemWasClicked:" target="-2" id="iKY-kV-jWK"/>
+                                                                                            </connections>
+                                                                                        </menuItem>
+                                                                                        <menuItem title="Reset the primary interface$" id="o4M-AV-ycQ">
+                                                                                            <connections>
+                                                                                                <action selector="uponDisconnectResetPrimaryInterfaceMenuItemWasClicked:" target="-2" id="5Cr-g2-cS2"/>
+                                                                                            </connections>
+                                                                                        </menuItem>
+                                                                                        <menuItem title="Disable network access$" id="yoF-Y0-iys">
+                                                                                            <connections>
+                                                                                                <action selector="uponDisconnectDisableNetworkAccessMenuItemWasClicked:" target="-2" id="AWI-Bw-Wxr"/>
+                                                                                            </connections>
+                                                                                        </menuItem>
+                                                                                    </items>
+                                                                                </menu>
+                                                                            </popUpButtonCell>
+                                                                            <connections>
+                                                                                <outlet property="nextKeyView" destination="536" id="BeB-Mb-m47"/>
+                                                                            </connections>
+                                                                        </popUpButton>
+                                                                        <textField verticalHuggingPriority="750" id="VQ3-Ba-8qQ">
+                                                                            <rect key="frame" x="476" y="140" width="174" height="17"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Connect$:" id="PTl-XV-0hb">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
                                                                     </subviews>
                                                                 </customView>
                                                             </subviews>
@@ -563,7 +589,6 @@
                 <outlet property="removeConfigurationButton" destination="587" id="629"/>
                 <outlet property="removeCredentialsMenuItem" destination="606" id="628"/>
                 <outlet property="renameConfigurationMenuItem" destination="605" id="1276"/>
-                <outlet property="resetPrimaryInterfaceAfterDisconnectCheckbox" destination="1253" id="1258"/>
                 <outlet property="revertToShadowMenuItem" destination="1038" id="1040"/>
                 <outlet property="routeAllTrafficThroughVpnCheckbox" destination="1251" id="1259"/>
                 <outlet property="setNameserverArrayController" destination="650" id="654"/>
@@ -573,6 +598,12 @@
                 <outlet property="settingsTabViewItem" destination="534" id="635"/>
                 <outlet property="showOnTbMenuMenuItem" destination="1261" id="1282"/>
                 <outlet property="showOpenvpnLogMenuItem" destination="599" id="627"/>
+                <outlet property="uponDisconnectDisableNetworkAccessMenuItem" destination="yoF-Y0-iys" id="uNb-PD-hHs"/>
+                <outlet property="uponDisconnectDoNothingMenuItem" destination="qbj-7g-ZV3" id="fxd-PL-bDZ"/>
+                <outlet property="uponDisconnectPopUpButton" destination="ZvX-GN-mVj" id="1hq-YF-8yu"/>
+                <outlet property="uponDisconnectResetPrimaryInterfaceMenuItem" destination="o4M-AV-ycQ" id="cAd-Pc-KGX"/>
+                <outlet property="uponDisconnectTF" destination="VQ3-Ba-8qQ" id="mNF-Hf-7Yc"/>
+                <outlet property="uponDisconnectTFC" destination="PTl-XV-0hb" id="8Fm-7W-quO"/>
                 <outlet property="whenToConnectManuallyMenuItem" destination="546" id="642"/>
                 <outlet property="whenToConnectOnComputerStartMenuItem" destination="548" id="643"/>
                 <outlet property="whenToConnectPopUpButton" destination="543" id="645"/>
@@ -582,7 +613,7 @@
                 <outlet property="workOnConfigurationArrayController" destination="653" id="657"/>
                 <outlet property="workOnConfigurationPopUpButton" destination="585" id="621"/>
             </connections>
-            <point key="canvasLocation" x="879" y="896"/>
+            <point key="canvasLocation" x="943" y="502"/>
         </customView>
         <viewController id="1068" userLabel="LeftNavViewController" customClass="LeftNavViewController">
             <connections>

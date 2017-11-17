@@ -60,7 +60,8 @@ extern TBUserDefaults * gTbDefaults;
 -(void) shiftLabelsAndButtonsWtc: (CGFloat) wtcWidthChange
                             sdns: (CGFloat) sdnsWidthChange
                             pcov: (CGFloat) pcovWidthChange
-         loggingLevelWidthChange: (CGFloat) loggingLevelWidthChange {
+         loggingLevelWidthChange: (CGFloat) loggingLevelWidthChange
+	   uponDisconnectWidthChange: (CGFloat) udWidthChange {
 	
 	// Shift all the labels and buttons by the largest width change, so the widest is flush left/right
 	
@@ -74,6 +75,9 @@ extern TBUserDefaults * gTbDefaults;
 	if (  largestWidthChange < loggingLevelWidthChange  ) {
 		largestWidthChange = loggingLevelWidthChange;
 	}
+	if (  largestWidthChange < udWidthChange  ) {
+		largestWidthChange = udWidthChange;
+	}
 	
 	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
 	[UIHelper shiftControl: whenToConnectTF               by: largestWidthChange reverse: ! rtl];
@@ -86,11 +90,13 @@ extern TBUserDefaults * gTbDefaults;
 		[UIHelper shiftControl: loggingLevelTF            by: largestWidthChange reverse: ! rtl];
 		[UIHelper shiftControl: loggingLevelPopUpButton   by: largestWidthChange reverse: ! rtl];
 	}
+	[UIHelper shiftControl: uponDisconnectTF              by: largestWidthChange reverse: ! rtl];
+	[UIHelper shiftControl: uponDisconnectPopUpButton     by: largestWidthChange reverse: ! rtl];
 }
 
 -(void) normalizeWidthOfConfigurationsButtons {
 	
-	NSArray * list = [NSArray arrayWithObjects: whenToConnectPopUpButton, setNameserverPopUpButton, perConfigOpenvpnVersionButton, loggingLevelPopUpButton, nil];
+	NSArray * list = [NSArray arrayWithObjects: whenToConnectPopUpButton, setNameserverPopUpButton, perConfigOpenvpnVersionButton, loggingLevelPopUpButton, uponDisconnectPopUpButton, nil];
 	if (  [list count] > 0  ) {
 		[UIHelper makeAllAsWideAsWidest: list shift: [UIHelper languageAtLaunchWasRTL]];
 	}
@@ -265,6 +271,12 @@ extern TBUserDefaults * gTbDefaults;
 		[UIHelper setTitle: nil ofControl: loggingLevelPopUpButton shift: rtl narrow: YES enable: YES];
 	}
 	
+	CGFloat udWidthChange = [UIHelper setTitle: NSLocalizedString(@"On disconnect:", @"Window text") ofControl: uponDisconnectTFC frameHolder: uponDisconnectTF shift: ( !rtl  ) narrow: YES enable: YES];
+	[uponDisconnectDoNothingMenuItem             setTitle: NSLocalizedString(@"Do nothing"             , @"Button")];
+	[uponDisconnectResetPrimaryInterfaceMenuItem setTitle: NSLocalizedString(@"Reset Primary Interface", @"Button")];
+	[uponDisconnectDisableNetworkAccessMenuItem  setTitle: NSLocalizedString(@"Disable Network Access", @"Button")];
+	[UIHelper setTitle: nil ofControl: uponDisconnectPopUpButton shift: rtl narrow: YES enable: YES];
+	
     // OpenVPN Version popup. Default depends on version of OS X
     
     CGFloat pcovWidthChange = [UIHelper setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text") ofControl: perConfigOpenvpnVersionTFC frameHolder: perConfigOpenvpnVersionTF shift: ( !rtl ) narrow: YES enable: YES];
@@ -298,7 +310,7 @@ extern TBUserDefaults * gTbDefaults;
     [perConfigOpenvpnVersionArrayController setContent: ovContent];
 	[UIHelper setTitle: nil ofControl: perConfigOpenvpnVersionButton shift: rtl narrow: YES enable: YES];
 	
-	[self shiftLabelsAndButtonsWtc: wtcWidthChange sdns: sdnsWidthChange pcov: pcovWidthChange loggingLevelWidthChange: loggingLevelWidthChange];
+	[self shiftLabelsAndButtonsWtc: wtcWidthChange sdns: sdnsWidthChange pcov: pcovWidthChange loggingLevelWidthChange: loggingLevelWidthChange uponDisconnectWidthChange: udWidthChange];
 	
 	[self normalizeWidthOfConfigurationsButtons];
 	
@@ -340,15 +352,6 @@ extern TBUserDefaults * gTbDefaults;
 														   @"<p><strong>When not checked</strong>, Tunnelblick does not check for IP address changes and"
 														   @" does not warn if the IP address does not change after the VPN is connected.</p>\n",
 														   @"HTML info for the 'Check if the apparent public IP address changed after connecting' checkbox."))];
-	
-	[resetPrimaryInterfaceAfterDisconnectCheckbox
-	 setTitle: NSLocalizedString(@"Reset the primary interface after disconnecting", @"Checkbox name")
-	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>When checked</strong>, Tunnelblick will reset the primary network interface after the"
-														   @" VPN is disconnected. This can work around problems caused by some misconfigured VPN servers"
-														   @" and by some OpenVPN configuration errors.</p>\n"
-														   @"<p><strong>When not checked</strong>, Tunnelblick will not reset the primary network interface.</p>\n"
-														   @"<p><strong>This checkbox is disabled</strong> when 'Set DNS/WINS' is not set to 'Set nameserver'.</p>",
-														   @"HTML info for the 'Reset the primary interface after disconnecting' checkbox."))];
 	
 	[advancedButton
 	 setTitle: NSLocalizedString(@"Advanced...", @"Button")
@@ -418,7 +421,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            monitorNetworkForChangesC
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            routeAllTrafficThroughVpnCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            disableIpv6OnTunCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            checkIPAddressAfterConnectOnAdvancedCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            resetPrimaryInterfaceAfterDisconnectCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   perConfigOpenvpnVersionArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            perConfigOpenvpnVersionButton)
@@ -427,6 +429,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,         loggingLevelTF)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     loggingLevelTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       loggingLevelPopUpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   loggingLevelArrayController)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     uponDisconnectTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       uponDisconnectPopUpButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponDisconnectDoNothingMenuItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponDisconnectResetPrimaryInterfaceMenuItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponDisconnectDisableNetworkAccessMenuItem)
 
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            advancedButton)
 

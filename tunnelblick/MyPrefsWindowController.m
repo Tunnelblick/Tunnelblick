@@ -83,7 +83,6 @@ extern NSArray        * gConfigurationPreferences;
 -(void) setupLoggingLevel:            (VPNConnection *) connection;
 -(void) setupRouteAllTraffic:         (VPNConnection *) connection;
 -(void) setupCheckIPAddress:          (VPNConnection *) connection;
--(void) setupResetPrimaryInterface:   (VPNConnection *) connection;
 -(void) setupDisableIpv6OnTun:                    (VPNConnection *) connection;
 -(void) setupPerConfigOpenvpnVersion: (VPNConnection *) connection;
 -(void) setupNetworkMonitoring:       (VPNConnection *) connection;
@@ -661,14 +660,14 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self indicateNotWaitingForLogDisplay: [self selectedConnection]];
         [self validateWhenToConnect: [self selectedConnection]];
         
-        [self setupSetNameserver:           [self selectedConnection]];
-        [self setupLoggingLevel:            [self selectedConnection]];
-        [self setupRouteAllTraffic:         [self selectedConnection]];
-        [self setupCheckIPAddress:          [self selectedConnection]];
-        [self setupResetPrimaryInterface:   [self selectedConnection]];
-        [self setupDisableIpv6OnTun:                    [self selectedConnection]];
-        [self setupNetworkMonitoring:       [self selectedConnection]];
-        [self setupPerConfigOpenvpnVersion: [self selectedConnection]];
+        [self setupSetNameserver:				[self selectedConnection]];
+        [self setupLoggingLevel:				[self selectedConnection]];
+        [self setupRouteAllTraffic:				[self selectedConnection]];
+        [self setupUponDisconnectPopUpButton:	[self selectedConnection]];
+        [self setupCheckIPAddress:				[self selectedConnection]];
+        [self setupDisableIpv6OnTun:			[self selectedConnection]];
+        [self setupNetworkMonitoring:			[self selectedConnection]];
+        [self setupPerConfigOpenvpnVersion:		[self selectedConnection]];
         
         // Set up a timer to update connection times
         [((MenuController *)[NSApp delegate]) startOrStopUiUpdater];
@@ -782,6 +781,39 @@ static BOOL firstTimeShowingWindow = TRUE;
                               defaultTo: NO];
 }
 
+-(void) setupUponDisconnectPopUpButton: (VPNConnection *) connection
+{
+	
+	if (  ! connection  ) {
+		return;
+	}
+	
+	if (  ! configurationsPrefsView  ) {
+		return;
+	}
+	
+	NSString * resetKey   = [[connection displayName] stringByAppendingString: @"-resetPrimaryInterfaceAfterDisconnect"];
+	NSString * disableKey = [[connection displayName] stringByAppendingString: @"-disableNetworkAccessAfterDisconnect"];
+	BOOL reset   = [gTbDefaults boolForKey: resetKey];
+	BOOL disable = [gTbDefaults boolForKey: disableKey];
+	
+	NSInteger ix = 0;
+	if (  reset  ) {
+		if (  disable  ) {
+			[gTbDefaults setBool: FALSE forKey: disableKey];
+		}
+		ix = 1;
+	} else {
+		if (  disable  ) {
+			ix = 2;
+		}
+	}
+
+	[[configurationsPrefsView uponDisconnectPopUpButton] selectItemAtIndex: ix];
+	[[configurationsPrefsView uponDisconnectPopUpButton] setEnabled: (   [gTbDefaults canChangeValueForKey: resetKey]
+																	  && [gTbDefaults canChangeValueForKey: disableKey])];
+}
+
 -(void) setupCheckIPAddress: (VPNConnection *) connection
 {
     (void) connection;
@@ -794,21 +826,6 @@ static BOOL firstTimeShowingWindow = TRUE;
                                         key: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
                                    inverted: YES
                                   defaultTo: NO];
-    }
-}
-
--(void) setupResetPrimaryInterface: (VPNConnection *) connection
-{
-    (void) connection;
-    
-    if (  [self usingSetNameserver]  ) {
-        [self setupPerConfigurationCheckbox: [configurationsPrefsView resetPrimaryInterfaceAfterDisconnectCheckbox]
-                                        key: @"-resetPrimaryInterfaceAfterDisconnect"
-                                   inverted: NO
-                                  defaultTo: NO];
-    } else {
-        [[configurationsPrefsView resetPrimaryInterfaceAfterDisconnectCheckbox] setState:   NSOffState];
-        [[configurationsPrefsView resetPrimaryInterfaceAfterDisconnectCheckbox] setEnabled: NO];
     }
 }
 
@@ -995,8 +1012,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self setupSetNameserver:            nil];
         [self setupLoggingLevel:             nil];
         [self setupRouteAllTraffic:          nil];
+		[self setupUponDisconnectPopUpButton:nil];
         [self setupCheckIPAddress:           nil];
-        [self setupResetPrimaryInterface:    nil];
         [self setupDisableIpv6OnTun:                     nil];
         [self setupNetworkMonitoring:        nil];
 		[self setupPerConfigOpenvpnVersion:  nil];
@@ -1159,19 +1176,19 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         // Right split view - settings tab
         
-        [self validateWhenToConnect:        connection];
+        [self validateWhenToConnect:			connection];
 		
-		[self setupPerConfigOpenvpnVersion: connection];
+		[self setupPerConfigOpenvpnVersion:		connection];
 		
-		[self setupSetNameserver:           connection];
-		[self setupLoggingLevel:            connection];
+		[self setupSetNameserver:				connection];
+		[self setupLoggingLevel:				connection];
         
-		[self setupNetworkMonitoring:       connection];
-		[self setupRouteAllTraffic:         connection];
-        [self setupDisableIpv6OnTun:        connection];
-        [self setupCheckIPAddress:          connection];
-        [self setupResetPrimaryInterface:   connection];
- 		
+		[self setupNetworkMonitoring:			connection];
+		[self setupRouteAllTraffic:				connection];
+		[self setupUponDisconnectPopUpButton:	connection];
+        [self setupDisableIpv6OnTun:			connection];
+        [self setupCheckIPAddress:				connection];
+		
         [[configurationsPrefsView advancedButton] setEnabled: YES];
         [settingsSheetWindowController            setupSettingsFromPreferences];
         
@@ -1199,10 +1216,11 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         [[configurationsPrefsView loggingLevelPopUpButton]          setEnabled: NO];
         
+		[[configurationsPrefsView uponDisconnectPopUpButton]        setEnabled: NO];
+
         [[configurationsPrefsView monitorNetworkForChangesCheckbox]             setEnabled: NO];
         [[configurationsPrefsView routeAllTrafficThroughVpnCheckbox]            setEnabled: NO];
         [[configurationsPrefsView checkIPAddressAfterConnectOnAdvancedCheckbox] setEnabled: NO];
-        [[configurationsPrefsView resetPrimaryInterfaceAfterDisconnectCheckbox] setEnabled: NO];
         [[configurationsPrefsView disableIpv6OnTunCheckbox]                     setEnabled: NO];
         
         [[configurationsPrefsView perConfigOpenvpnVersionButton]    setEnabled: NO];
@@ -1423,6 +1441,12 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
 	if (  [anItem action] == @selector(whenToConnectOnComputerStartMenuItemWasClicked:)  ) {
 		return [[self selectedConnection] mayConnectWhenComputerStarts];
+	}
+	
+	if (   ( [anItem action] == @selector(uponDisconnectDoNothingMenuItemWasClicked:) )
+		|| ( [anItem action] == @selector(uponDisconnectResetPrimaryInterfaceMenuItemWasClicked:) )
+		|| ( [anItem action] == @selector(uponDisconnectDisableNetworkAccessMenuItemWasClicked:) )  ) {
+		return YES;
 	}
 	
 	NSLog(@"MyPrefsWindowController:validateMenuItem: Unknown menuItem %@", [anItem description]);
@@ -1911,6 +1935,34 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
+-(void) uponDisconnectReset: (BOOL) reset disable: (BOOL) disable {
+	
+	[((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-resetPrimaryInterfaceAfterDisconnect" to: reset inverted: NO];
+	[((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-disableNetworkAccessAfterDisconnect" to: disable inverted: NO];
+
+}
+
+-(IBAction) uponDisconnectDoNothingMenuItemWasClicked: (id) sender
+{
+	(void) sender;
+	
+	[self uponDisconnectReset: NO disable: NO];
+}
+
+-(IBAction) uponDisconnectResetPrimaryInterfaceMenuItemWasClicked: (id) sender
+{
+	(void) sender;
+	
+	[self uponDisconnectReset: YES disable: NO];
+}
+
+-(IBAction) uponDisconnectDisableNetworkAccessMenuItemWasClicked: (id) sender
+{
+	(void) sender;
+	
+	[self uponDisconnectReset: NO disable: YES];
+}
+
 // Checkbox was changed by another window
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection
 {
@@ -1945,12 +1997,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
                                                                                          to: ([sender state] == NSOnState)
                                                                                    inverted: YES];
-}
-
--(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked: (NSButton *) sender {
-    [((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-resetPrimaryInterfaceAfterDisconnect"
-                                                                                         to: ([sender state] == NSOnState)
-                                                                                   inverted: NO];
 }
 
 -(IBAction) disableIpv6OnTunCheckboxWasClicked: (NSButton *) sender
@@ -2307,7 +2353,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 		
 		// Set up IPv6 and reset of primary interface
 		[self setupDisableIpv6OnTun: [self selectedConnection]];
-		[self setupResetPrimaryInterface: [self selectedConnection]];
 		
         [settingsSheetWindowController monitorNetworkForChangesCheckboxChangedForConnection: [self selectedConnection]];
         [settingsSheetWindowController setupSettingsFromPreferences];
@@ -2411,14 +2456,14 @@ static BOOL firstTimeShowingWindow = TRUE;
 		BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
 		[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
 		
-        [self setupSetNameserver:           newConnection];
-        [self setupLoggingLevel:            newConnection];
-        [self setupRouteAllTraffic:         newConnection];
-        [self setupCheckIPAddress:          newConnection];
-        [self setupResetPrimaryInterface:   newConnection];
-        [self setupDisableIpv6OnTun:        newConnection];
-        [self setupNetworkMonitoring:       newConnection];
-		[self setupPerConfigOpenvpnVersion: newConnection];
+        [self setupSetNameserver:				newConnection];
+        [self setupLoggingLevel:				newConnection];
+        [self setupRouteAllTraffic:				newConnection];
+		[self setupUponDisconnectPopUpButton:	newConnection];
+        [self setupCheckIPAddress:				newConnection];
+        [self setupDisableIpv6OnTun:			newConnection];
+        [self setupNetworkMonitoring:			newConnection];
+		[self setupPerConfigOpenvpnVersion:		newConnection];
         
         [self validateDetailsWindowControls];
 		

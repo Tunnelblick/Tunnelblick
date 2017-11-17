@@ -135,7 +135,6 @@
 -(IBAction) monitorNetworkForChangesCheckboxWasClicked:             (NSButton *) sender;
 -(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:            (NSButton *) sender;
 -(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (NSButton *) sender;
--(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked: (NSButton *) sender;
 -(IBAction) disableIpv6OnTunCheckboxWasClicked:                     (NSButton *) sender;
 
 -(IBAction) whenToConnectManuallyMenuItemWasClicked:          (id) sender;

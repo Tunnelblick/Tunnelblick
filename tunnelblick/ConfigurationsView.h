@@ -96,11 +96,17 @@
     IBOutlet NSPopUpButton       * loggingLevelPopUpButton;
     IBOutlet NSArrayController   * loggingLevelArrayController;
     
+	IBOutlet NSTextField		 * uponDisconnectTF;
+	IBOutlet NSTextFieldCell     * uponDisconnectTFC;
+	IBOutlet NSPopUpButton       * uponDisconnectPopUpButton;
+	IBOutlet NSMenuItem          * uponDisconnectDoNothingMenuItem;
+	IBOutlet NSMenuItem          * uponDisconnectResetPrimaryInterfaceMenuItem;
+	IBOutlet NSMenuItem          * uponDisconnectDisableNetworkAccessMenuItem;
+	
     IBOutlet TBButton            * monitorNetworkForChangesCheckbox;
     IBOutlet TBButton            * routeAllTrafficThroughVpnCheckbox;
 	IBOutlet TBButton            * disableIpv6OnTunCheckbox;
     IBOutlet TBButton            * checkIPAddressAfterConnectOnAdvancedCheckbox;
-    IBOutlet TBButton            * resetPrimaryInterfaceAfterDisconnectCheckbox;
 	
     IBOutlet TBButton            * advancedButton;
 }
@@ -156,11 +162,16 @@ TBPROPERTY_READONLY(NSTextFieldCell *,     setNameserverTFC)
 TBPROPERTY_READONLY(NSPopUpButton *,       setNameserverPopUpButton)
 TBPROPERTY_READONLY(NSArrayController *,   setNameserverArrayController)
 
+TBPROPERTY_READONLY(NSTextFieldCell *,     uponDisconnectTFC)
+TBPROPERTY_READONLY(NSPopUpButton *,       uponDisconnectPopUpButton)
+TBPROPERTY_READONLY(NSMenuItem *,          uponDisconnectDoNothingMenuItem)
+TBPROPERTY_READONLY(NSMenuItem *,          uponDisconnectResetPrimaryInterfaceMenuItem)
+TBPROPERTY_READONLY(NSMenuItem *,          uponDisconnectDisableNetworkAccessMenuItem)
+
 TBPROPERTY_READONLY(TBButton *,            monitorNetworkForChangesCheckbox)
 TBPROPERTY_READONLY(TBButton *,            routeAllTrafficThroughVpnCheckbox)
 TBPROPERTY_READONLY(TBButton *,            disableIpv6OnTunCheckbox)
 TBPROPERTY_READONLY(TBButton *,            checkIPAddressAfterConnectOnAdvancedCheckbox)
-TBPROPERTY_READONLY(TBButton *,            resetPrimaryInterfaceAfterDisconnectCheckbox)
 
 TBPROPERTY_READONLY(NSArrayController *,   perConfigOpenvpnVersionArrayController)
 TBPROPERTY_READONLY(NSButton *,            perConfigOpenvpnVersionButton)
