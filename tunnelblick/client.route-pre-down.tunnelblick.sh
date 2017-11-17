@@ -21,10 +21,10 @@ logMessage()
 }
 
 ##########################################################################################
-disableInternetAccess()
+disableNetworkAccess()
 {
 
-# Disables Internet access by powering off Wi-Fi and disabling all other network services.
+# Disables network access by powering off Wi-Fi and disabling all other network services.
 #
 # Appends list of services that were disabled (including Wi-Fi) to a file which is used by
 # re-enable-network-services.sh to re-enable network services that were disabled by this script.
@@ -73,7 +73,7 @@ readonly OUR_NAME=$(basename "${0}")
 logMessage "**********************************************"
 logMessage "Start of output from ${OUR_NAME}"
 
-# Test for the "-k" Tunnelbick option (Disable Internet access after disconnecting).
+# Test for the "-k" Tunnelbick option (Disable network access after disconnecting).
 # Usually we get the value for that option (and the other options) from State:/Network/OpenVPN,
 # but that key may not exist (because, for example, there were no DNS changes).
 # So we get the value from the Tunnelblick options passed to this script by OpenVPN.
@@ -101,7 +101,7 @@ if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
 	logMessage "WARNING: Not restoring DNS settings because no saved Tunnelblick DNS information was found."
 
 	if ${ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING} ; then
-		disableInternetAccess
+		disableNetworkAccess
 	fi
 
     logMessage "End of output from ${OUR_NAME}"
@@ -203,7 +203,7 @@ else
 fi
 
 if ${ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING} ; then
-	disableInternetAccess
+	disableNetworkAccess
 fi
 
 logMessage "End of output from ${OUR_NAME}"

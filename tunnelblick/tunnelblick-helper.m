@@ -227,7 +227,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
 			"                            bit 19 is 1 to indicate that IPv6 should be enabled on TAP devices using DHCP\n"
             "                            bit 20 is 1 to indicate that IPv6 should be disabled in all enabled (active) network services for TUN connections\n"
 			"                            bit 21 is 1 to indicate that logging should be disabled\n"
-			"                            bit 22 is 1 to indicate that Internet access should be disabled after disconnecting\n"
+			"                            bit 22 is 1 to indicate that network access should be disabled after disconnecting\n"
             "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
 
             "leasewatchOptions is a string containing characters indicating options for leasewatch.\n\n"
@@ -1113,7 +1113,7 @@ int runReenableNetworkServices(void) {
 //**************************************************************************************************************************
 int runRoutePreDownScript(BOOL kOption) {
     
-	// Runs the route-pre-down script; includes a "-k" argument to disable Internet access if kOption is true.
+	// Runs the route-pre-down script; includes a "-k" argument to disable network access if kOption is true.
 	
     int returnValue = 0;
     
@@ -2485,9 +2485,9 @@ int startVPN(NSString * configFile,
                                 " be executed as root unless the 'user' and 'group' options are removed from the OpenVPN configuration file.");
                     } else {
 						if (  (bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS) != 0  ) {
-							fprintf(stderr, "Error: Tunnelblick is using 'openvpn-down-root.so', so 'Disable Internet access after disconnecting'"
+							fprintf(stderr, "Error: Tunnelblick is using 'openvpn-down-root.so', so 'Disable network access after disconnecting'"
 									" will not work because the 'route-pre-down script' will not be executed as root. Remove the 'user' and 'group' options"
-									" from the OpenVPN configuration file to allow 'Disable Internet access after disconnecting' to work.");
+									" from the OpenVPN configuration file to allow 'Disable network access after disconnecting' to work.");
 							exitOpenvpnstart(170);
 						} else {
 							fprintf(stderr, "Warning: Tunnelblick is using 'openvpn-down-root.so', so the route-pre-down script will not be used."

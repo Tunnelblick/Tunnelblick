@@ -1887,7 +1887,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setBit: OPENVPNSTART_FLUSH_DNS_CACHE					inMask: &bitMask ifConnectionPreference: @"-doNotFlushCache"							inverted: YES defaultTo: NO];
     [self setBit: OPENVPNSTART_USE_ROUTE_UP_NOT_UP				inMask: &bitMask ifConnectionPreference: @"-useRouteUpInsteadOfUp"						inverted: NO  defaultTo: NO];
     [self setBit: OPENVPNSTART_RESET_PRIMARY_INTERFACE			inMask: &bitMask ifConnectionPreference: @"-resetPrimaryInterfaceAfterDisconnect"		inverted: NO  defaultTo: NO];
-	[self setBit: OPENVPNSTART_DISABLE_INTERNET_ACCESS			inMask: &bitMask ifConnectionPreference: @"-disableInternetAccessAfterDisconnect"		inverted: NO  defaultTo: NO];
+	[self setBit: OPENVPNSTART_DISABLE_INTERNET_ACCESS			inMask: &bitMask ifConnectionPreference: @"-disableNetworkAccessAfterDisconnect"		inverted: NO  defaultTo: NO];
     [self setBit: OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1		inMask: &bitMask ifConnectionPreference: @"-routeAllTrafficThroughVpn"					inverted: NO  defaultTo: NO];
     [self setBit: OPENVPNSTART_NO_DEFAULT_DOMAIN				inMask: &bitMask ifConnectionPreference: @"-doNotUseDefaultDomain"						inverted: NO  defaultTo: NO];
 	[self setBit: OPENVPNSTART_OVERRIDE_MANUAL_NETWORK_SETTINGS	inMask: &bitMask ifConnectionPreference: @"-allowChangesToManuallySetNetworkSettings"	inverted: NO  defaultTo: NO];
@@ -3372,7 +3372,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: OpenVPN appears to have crashed -- the OpenVPN process has terminated without running a 'down' script, even though it ran an 'up' script. Tunnelblick will run the 'down' script #%@ to attempt to clean up network settings.", scriptNumberString]];
                 if (  [scriptNumberString isEqualToString: @"0"]  ) {
                     [self addToLog: @"*Tunnelblick: Running the 'route-pre-down' script first."];
-					if (  [gTbDefaults boolForKey: [[self displayName] stringByAppendingString: @"-disableInternetAccessAfterDisconnect"]]  ) {
+					if (  [gTbDefaults boolForKey: [[self displayName] stringByAppendingString: @"-disableNetworkAccessAfterDisconnect"]]  ) {
 						runOpenvpnstart([NSArray arrayWithObject: @"route-pre-down-k"], nil, nil);
 					} else {
 						runOpenvpnstart([NSArray arrayWithObject: @"route-pre-down"], nil, nil);

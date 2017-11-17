@@ -1868,7 +1868,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     
     [reenableInternetItem release];
 	reenableInternetItem = [[NSMenuItem alloc] init];
-	[reenableInternetItem setTitle: NSLocalizedString(@"Re-enable Internet Access", @"Menu item")];
+	[reenableInternetItem setTitle: NSLocalizedString(@"Re-enable Network Access", @"Menu item")];
 	[reenableInternetItem setTarget: self];
 	[reenableInternetItem setAction: @selector(reEnableInternetAccess:)];
 
@@ -3423,7 +3423,7 @@ BOOL anyNonTblkConfigs(void)
 	
 	runOpenvpnstart([NSArray arrayWithObject: @"re-enable-network-services"], nil, nil);
 	
-	// Remove the "Re-enable Internet Access" menu item
+	// Remove the "Re-enable Network Access" menu item
 	[self recreateMenu];
 }
 
@@ -3438,10 +3438,10 @@ BOOL anyNonTblkConfigs(void)
 		BOOL saved = gShuttingDownTunnelblick;
 		gShuttingDownTunnelblick = FALSE;
 		int result = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-											 NSLocalizedString(@"Internet access was disabled when a VPN disconnected.\n\n"
-															   @"Do you wish to re-enable Internet access?\n\n", @"Window text"),
-											 NSLocalizedString(@"Re-enable Internet Access", @"Button"),
-											 NSLocalizedString(@"Do Not Re-enable", @"Button"),
+											 NSLocalizedString(@"Network access was disabled when a VPN disconnected.\n\n"
+															   @"Do you wish to re-enable network access?\n\n", @"Window text"),
+											 NSLocalizedString(@"Re-enable Network Access", @"Button"),
+											 NSLocalizedString(@"Do Not Re-enable Network Access", @"Button"),
 											 nil,
 											 @"skipWarningAboutReenablingInternetAccessAtExit",
 											 NSLocalizedString(@"Do not warn about this again, never re-enable", @"Checkbox text"),

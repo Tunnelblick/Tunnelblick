@@ -90,7 +90,7 @@ enum StatusIconPosition {
     MainIconView            * ourMainIconView;              // View for the main icon
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
-	NSMenuItem              * reenableInternetItem;         // "Re-enable Internet Access" item for menu
+	NSMenuItem              * reenableInternetItem;         // "Re-enable Network Access" item for menu
     NSMenuItem              * vpnDetailsItem;               // "VPN Details..." item for menu
     NSMenuItem              * addConfigurationItem;         // "Add a VPN..." menu item
     NSMenuItem              * contactTunnelblickItem;       // "Contact Tunnelblick..." menu item (if beta version)
