@@ -80,6 +80,9 @@ typedef enum
 
 +(NSMutableDictionary *)    getConfigurations;
 
++(NSString *) parseString: (NSString *) cfgContents
+				forOption: (NSString *) option;
+
 +(NSString *)               parseConfigurationPath:     (NSString *)        cfgPath
                                      forConnection:     (VPNConnection *)   connection
                                    hasAuthUserPass:     (BOOL *)            hasAuthUserPass;
