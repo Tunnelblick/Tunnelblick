@@ -1956,10 +1956,76 @@ static BOOL firstTimeShowingWindow = TRUE;
 	[self uponDisconnectReset: YES disable: NO];
 }
 
+-(void) restoreUponDisconnectCheckboxState {
+	
+	[self performSelectorOnMainThread: @selector(setupUponDisconnectPopUpButton:) withObject: [self selectedConnection] waitUntilDone: YES];
+}
+
 -(IBAction) uponDisconnectDisableNetworkAccessMenuItemWasClicked: (id) sender
 {
 	(void) sender;
 	
+	// Do not do this if any of the selected configurations include the 'user' or 'group' options.
+	
+	// Create a list of the selected connections (if any) that have 'user' and/or 'group' options
+	NSMutableString * listString = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
+
+	NSMutableString * cancelled = [[[NSMutableString alloc] initWithCapacity:100] autorelease]; // Empty unless operation has been cancelled by user
+								   
+	LeftNavViewController   * ovc    = [configurationsPrefsView outlineViewController];
+	NSOutlineView           * ov     = [ovc outlineView];
+	NSIndexSet              * idxSet = [ov selectedRowIndexes];
+	if  (  [idxSet count] != 0  ) {
+		[idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+			(void) stop;
+			
+			LeftNavItem * item = [ov itemAtRow: idx];
+			NSString * displayName = [item displayName];
+			if (  [displayName length] != 0  ) {	// Ignore folders; just process configurations
+
+				VPNConnection * connection = [[(MenuController*)[NSApp delegate] myVPNConnectionDictionary] objectForKey: displayName];
+				if (  ! connection  ) {
+					NSLog(@"Error: no connection for displayName '%@'", displayName);
+					[[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+					[cancelled appendString: @"X"];
+				} else {
+
+					if (   [connection configurationIsSecureOrMatchesShadowCopy]
+						|| [connection makeShadowCopyMatchConfiguration]  ) {
+						if (  [connection userOrGroupOptionExistsInConfiguration]  ) {
+							[listString appendFormat: @"          %@\n", displayName];
+						}
+					} else {
+						[cancelled appendString: @"X"];
+					}
+				}
+			}
+		}];
+	} else {
+		NSLog(@"uponDisconnectDisableNetworkAccessMenuItemWasClicked: No configuration is selected");
+	}
+
+	if (  [cancelled length] != 0  ) {
+		// Revert to the prior state because we canceled changing it to 'Disable network access on disconnect'
+		[self performSelector: @selector(restoreUponDisconnectCheckboxState) withObject: nil afterDelay: 0.2];
+		return;
+	}
+	
+	// If any of the selected configurations have a 'user' and/or 'group' option, complain and restore the original setting.
+	if (  [listString length] != 0  ) {
+		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						  [NSString stringWithFormat: NSLocalizedString(@"Network access cannot be disabled after disconnecting for some or all"
+																		@" of the selected configurations because they include 'user'"
+																		@" and/or 'group' options. Those options will cause OpenVPN"
+																		@" to not be running as root during disconnection, so it will"
+																		@" not be able to disable network access.\n\n"
+																		@"The configurations that contain 'user' and/or 'group' are:\n\n%@\n\n", @"Window text; the %@ will be replaced by a list of configuration names."),
+						   listString]);
+		[self performSelector: @selector(restoreUponDisconnectCheckboxState) withObject: nil afterDelay: 0.2];
+		return;
+	}
+	
+	// OK to process the change
 	[self uponDisconnectReset: NO disable: YES];
 }
 

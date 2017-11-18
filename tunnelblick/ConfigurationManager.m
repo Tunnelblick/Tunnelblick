@@ -3488,12 +3488,12 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     return [NSArray arrayWithArray: displayNames];
 }
 
-+(void) createShadowThenConnectWithDisplayName: (NSString *) displayName userKnows: (BOOL) userKnows {
++(BOOL) createShadowCopyWithDisplayName: (NSString *) displayName {
     
     NSString * prompt = NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text");
-    SystemAuth * auth = [SystemAuth newAuthWithPrompt: prompt];
+    SystemAuth * auth = [[SystemAuth newAuthWithPrompt: prompt] autorelease];
     if (   ! auth  ) {
-        return;
+        return NO;
     }
     
     NSString * cfgPath = [[((MenuController *)[NSApp delegate]) myConfigDictionary] objectForKey: displayName];
@@ -3508,13 +3508,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                                       moveNotCopy: NO
                                           noAdmin: NO] ) {    // Copy the config to the alt config
             NSLog(@"Created or updated secure (shadow) copy of configuration file %@", cfgPath);
-            
-            VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
-            if (  connection  ) {
-                [connection performSelectorOnMainThread: @selector(connectUserKnows:) withObject: [NSNumber numberWithBool: userKnows] waitUntilDone: NO];
-            } else {
-                NSLog(@"createShadowThenConnectWithDisplayName: No connection object for '%@'", displayName);
-            }
+			return YES;
         } else {
             NSLog(@"Unable to create or update secure (shadow) copy of configuration file %@", cfgPath);
         }
@@ -3522,7 +3516,22 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
         NSLog(@"createShadowThenConnectWithDisplayName: No configuration path for '%@'", displayName);
     }
     
-    [auth release];
+	return NO;
+}
+
++(void) createShadowThenConnectWithDisplayName: (NSString *) displayName userKnows: (BOOL) userKnows {
+	
+	if (  ! [ConfigurationManager createShadowCopyWithDisplayName: displayName]  ) {
+		NSLog(@"Unable to create or update secure (shadow) copy of configuration file for %@", displayName);
+		return;
+	}
+	
+	VPNConnection * connection = [[((MenuController *)[NSApp delegate]) myVPNConnectionDictionary] objectForKey: displayName];
+	if (  connection  ) {
+		[connection performSelectorOnMainThread: @selector(connectUserKnows:) withObject: [NSNumber numberWithBool: userKnows] waitUntilDone: NO];
+	} else {
+		NSLog(@"createShadowThenConnectWithDisplayName: No connection object for '%@'", displayName);
+	}
 }
 
 +(NSString *) listOfFilesInTblkForConnection: (VPNConnection *) connection {

@@ -303,6 +303,59 @@ extern volatile int32_t       gActiveInactiveState;
     serverNotClient  = FALSE;
 }
 
+-(BOOL) makeShadowCopyMatchConfiguration {
+	
+	int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								 [NSString stringWithFormat: NSLocalizedString(@"The OpenVPN configuration file for '%@' was modified after it was last secured.\n\n"
+																			   @"Do you wish to secure the modified configuration or revert to the last secured configuration?\n\n",
+																			   @"Window text; the %@ will be replaced by the name of a configuration."), [self displayName]],
+								 NSLocalizedString(@"Secure the Configuration",		   @"Button"),  // Default
+								 NSLocalizedString(@"Cancel",						   @"Button"),  // Alternate
+								 NSLocalizedString(@"Revert to the Last Secured Copy", @"Button")); // Other
+	switch (  result  ) {
+			
+		case NSAlertAlternateReturn:
+			return NO;
+			break;
+			
+		case NSAlertDefaultReturn:
+			return [ConfigurationManager createShadowCopyWithDisplayName: [self displayName]];
+			break;
+			
+		case NSAlertOtherReturn:
+			return [ConfigurationManager revertOneConfigurationToShadowWithDisplayName: [self displayName]];
+			break;
+			
+		default:
+			NSLog(@"Unexpected result from TBRunAlertPanel: %d", result);
+			return NO;
+	}
+}
+
+
+-(BOOL) configurationIsSecureOrMatchesShadowCopy {
+
+	NSString * path = [self configPath];
+	return (   [path hasPrefix: L_AS_T_SHARED]
+			|| [path hasPrefix: gDeployPath]
+			|| [self shadowCopyIsIdentical]);
+}
+
+-(BOOL) userOrGroupOptionExistsInConfiguration {
+	
+	NSString * cfgContents = [self sanitizedConfigurationFileContents];
+	if (  cfgContents  ) {
+		if (   [ConfigurationManager parseString: cfgContents forOption: @"user"]
+			|| [ConfigurationManager parseString: cfgContents forOption: @"group"]  ) {
+			return YES;
+		}
+	} else {
+		NSLog(@"Unable to obtain configuration file for %@", [self displayName]);
+	}
+	
+	return NO;
+}
+
 -(void) tryToHookup: (NSDictionary *) dict {
     
     // Call on main thread only

@@ -95,6 +95,8 @@ typedef enum
 
 +(void) removeConfigurationsInNewThreadWithDisplayNames: (NSArray *) displayNames;
 
++(BOOL) revertOneConfigurationToShadowWithDisplayName: (NSString *) displayName;
+
 +(void) revertToShadowInNewThreadWithDisplayNames: (NSArray *) displayNames;
 
 +(void) removeCredentialsInNewThreadWithDisplayNames: (NSArray *) displayNames;
@@ -102,6 +104,8 @@ typedef enum
 +(void) removeCredentialsGroupInNewThreadWithName: (NSString *) name;
 
 +(void) renameConfigurationInNewThreadWithDisplayName: (NSString *) displayName;
+
++(BOOL) createShadowCopyWithDisplayName: (NSString *) displayName;
 
 +(void) createShadowConfigurationInNewThreadWithDisplayName: (NSString *) displayName thenConnectUserKnows: (BOOL) userKnows;
 

@@ -159,6 +159,8 @@ struct Statistics {
 
 -(NSString *)       configPath;
 
+-(BOOL)				configurationIsSecureOrMatchesShadowCopy;
+
 -(NSDate *)         connectedSinceDate;
 
 -(NSString *)       connectTimeString;
@@ -212,6 +214,8 @@ struct Statistics {
 
 -(BOOL)             launchdPlistWillConnectOnSystemStart;
 
+-(BOOL)				makeShadowCopyMatchConfiguration;
+
 -(BOOL)             mayConnectWhenComputerStarts;
 
 -(NSArray *)        modifyNameserverOptionList;
@@ -259,6 +263,8 @@ struct Statistics {
 -(int)              useDNSStatus;
 
 -(BOOL)             usedModifyNameserver;
+
+-(BOOL)				userOrGroupOptionExistsInConfiguration;
 
 TBPROPERTY_READONLY(StatusWindowController *,  statusScreen)
 TBPROPERTY_READONLY(NSString *,                tapOrTun)
