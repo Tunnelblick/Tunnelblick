@@ -157,7 +157,7 @@ current Tunnelblick source code.
 
     pkcs11-helper-1.22.tar.bz2
         This is an archive of the source code for pkcs11-helper 1.22, as downloaded from
-        https://sourceforge.net/projects/opensc/files/pkcs11-helper on 2017-08-11.
+        https://github.com/OpenSC/pkcs11-helper on 2017-08-11.
 
     Sparkle-077c64419f9460263bad99ab24dff962a103b1e2.zip
         This is an archive of the source code for Sparkle 077c644, as downloaded from
