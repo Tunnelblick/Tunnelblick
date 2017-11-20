@@ -164,6 +164,10 @@ fi
 # Each "openvpn-x.x.x"folder contains the openvpn binary and the openvpn-down-root.so binary
 mkdir -p "${app_path}/Contents/Resources/openvpn"
 default_openvpn="z"
+
+# DEFAULT OpenVPN will be the lowest version linked to OpenSSL with the following prefix:
+default_openvpn_version_prefix="openvpn-2.4"
+
 for d in `ls "../third_party/products/openvpn"`
 do
   mkdir -p "${app_path}/Contents/Resources/openvpn/${d}"
@@ -172,7 +176,11 @@ do
   chmod 744 "${app_path}/Contents/Resources/openvpn/${d}/openvpn-down-root.so"
   if [ "${d}" \< "${default_openvpn}" ] ; then
     if [ "${d}" != "${d/openssl/xx}" ] ; then
-      default_openvpn="${d}"
+	  dovp_len=${#default_openvpn_version_prefix}
+	  if [ "${d:0:$dovp_len}" = "$default_openvpn_version_prefix" ] ; then
+		echo "Setting default OpenVPN version to $d"
+		default_openvpn="${d}"
+	  fi
     fi
   fi
 done
@@ -181,7 +189,7 @@ if [ "${default_openvpn}" != "z" ] ; then
   rm -f "${app_path}/Contents/Resources/openvpn/default"
   ln -s "${default_openvpn}/openvpn" "${app_path}/Contents/Resources/openvpn/default"
 else
-  echo "warning: Could not find a version of OpenVPN to use by default"
+  echo "error: Could not find a version of OpenVPN to use by default; default_openvpn_version_prefix = '$default_openvpn_version_prefix'"
 fi
 
 # Copy English.lproj/Localizable.strings (It isn't copied in Debug builds using recent versions of Xcode, probably because it is the primary language)
