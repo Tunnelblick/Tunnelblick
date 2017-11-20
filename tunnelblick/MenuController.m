@@ -522,6 +522,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 
                                 @"haveDealtWithOldTunTapPreferences",
                                 @"haveDealtWithOldLoginItem",
+								@"haveDealtWithAfterDisconnect",
                                 @"haveStartedAnUpdateOfTheApp",
                                 
                                 @"SUEnableAutomaticChecks",
@@ -842,7 +843,34 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
             [gTbDefaults setBool: TRUE forKey: @"haveDealtWithOldTunTapPreferences"];
         }
         
-        TBLog(@"DB-SU", @"init: 007")
+		TBLog(@"DB-SU", @"init: 006.1")
+		if (  ! [gTbDefaults boolForKey: @"haveDealtWithAfterDisconnect"]  ) {
+
+			// Copy any -resetPrimaryInterfaceAfterDisconnect preferences that are TRUE to -resetPrimaryInterfaceAfterUnexpectedDisconnect
+
+			NSLog(@"Propagating '-resetPrimaryInterfaceAfterDisconnect' preferences that are TRUE to '-resetPrimaryInterfaceAfterUnexpectedDisconnect'");
+			NSString * key;
+			NSEnumerator * e = [userDefaultsDict keyEnumerator];
+			while (  (key = [e nextObject])  ) {
+				NSRange r = [key rangeOfString: @"-" options: NSBackwardsSearch];
+				if (  r.length != 0  ) {
+					if (  [key hasSuffix: @"-resetPrimaryInterfaceAfterDisconnect"]  ) {
+						id value = [userDefaultsDict objectForKey: key];
+						if (   [value respondsToSelector: @selector(boolValue)]
+							&& [value boolValue]  ) {
+							NSString * configName = [key substringWithRange: NSMakeRange(0, r.location)];
+							NSString * newKey = [configName stringByAppendingString: @"-resetPrimaryInterfaceAfterUnexpectedDisconnect"];
+							[gTbDefaults setBool: TRUE forKey: newKey];
+							NSLog(@"Set preference TRUE: %@", newKey);
+						}
+					}
+				}
+			}
+			
+			[gTbDefaults setBool: TRUE forKey: @"haveDealtWithAfterDisconnect"];
+		}
+		
+		TBLog(@"DB-SU", @"init: 007")
 		// Scan for unknown preferences
         [gTbDefaults scanForUnknownPreferencesInDictionary: primaryForcedPreferencesDict  displayName: @"Primary forced preferences"];
         [gTbDefaults scanForUnknownPreferencesInDictionary: deployedForcedPreferencesDict displayName: @"Deployed forced preferences"];
