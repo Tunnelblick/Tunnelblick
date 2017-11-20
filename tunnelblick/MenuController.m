@@ -580,6 +580,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                       @"-doNotReconnectOnFastUserSwitch",
                                       @"-doNotReconnectOnWakeFromSleep",
                                       @"-resetPrimaryInterfaceAfterDisconnect",
+									  @"-resetPrimaryInterfaceAfterUnexpectedDisconnect",
                                       @"-routeAllTrafficThroughVpn",
                                       @"-runMtuTest",
                                       @"-doNotFlushCache",
@@ -610,6 +611,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                       @"-loggingLevel",
 									  @"-allowChangesToManuallySetNetworkSettings",
 									  @"-disableNetworkAccessAfterDisconnect",
+									  @"-disableNetworkAccessAfterUnexpectedDisconnect",
 									  
                                       @"-changeDNSServersAction",
                                       @"-changeDomainAction",
@@ -4586,6 +4588,13 @@ static void signal_handler(int signalNumber)
         }
     }
     
+	TBLog(@"DB-SU", @"applicationDidFinishLaunching: 06.1")
+	
+	if (  [gFileMgr fileExistsAtPath: L_AS_T_EXPECT_DISCONNECT_PATH]  ) {
+		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", "0", nil], nil, nil);
+		NSLog(@"Removed file: %@", L_AS_T_EXPECT_DISCONNECT_PATH);
+	}
+
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 007")
     [self hookupToRunningOpenVPNs];
     [self setupHookupWatchdogTimer];

@@ -660,14 +660,15 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self indicateNotWaitingForLogDisplay: [self selectedConnection]];
         [self validateWhenToConnect: [self selectedConnection]];
         
-        [self setupSetNameserver:				[self selectedConnection]];
-        [self setupLoggingLevel:				[self selectedConnection]];
-        [self setupRouteAllTraffic:				[self selectedConnection]];
-        [self setupUponDisconnectPopUpButton:	[self selectedConnection]];
-        [self setupCheckIPAddress:				[self selectedConnection]];
-        [self setupDisableIpv6OnTun:			[self selectedConnection]];
-        [self setupNetworkMonitoring:			[self selectedConnection]];
-        [self setupPerConfigOpenvpnVersion:		[self selectedConnection]];
+        [self setupSetNameserver:						[self selectedConnection]];
+        [self setupLoggingLevel:						[self selectedConnection]];
+        [self setupRouteAllTraffic:						[self selectedConnection]];
+        [self setupUponDisconnectPopUpButton:			[self selectedConnection]];
+		[self setupUponUnexpectedDisconnectPopUpButton:	[self selectedConnection]];
+        [self setupCheckIPAddress:						[self selectedConnection]];
+        [self setupDisableIpv6OnTun:					[self selectedConnection]];
+        [self setupNetworkMonitoring:					[self selectedConnection]];
+        [self setupPerConfigOpenvpnVersion:				[self selectedConnection]];
         
         // Set up a timer to update connection times
         [((MenuController *)[NSApp delegate]) startOrStopUiUpdater];
@@ -781,8 +782,18 @@ static BOOL firstTimeShowingWindow = TRUE;
                               defaultTo: NO];
 }
 
--(void) setupUponDisconnectPopUpButton: (VPNConnection *) connection
+-(void) setupAnUponDisconnectPopUpButton: (NSPopUpButton *) button
+							  connection: (VPNConnection *) connection
+							  unexpected: (BOOL)            unexpected
 {
+	
+// Two boolean preferences are used to create three settings:
+	//
+	//
+	// ! reset & ! disable => Do nothing
+	//   reset & ! disable => Reset
+	// ! reset &   disable => Disable on disconnect
+	//   reset &   disable => (should not happen; if it does, the reset preference will be removed)
 	
 	if (  ! connection  ) {
 		return;
@@ -792,26 +803,35 @@ static BOOL firstTimeShowingWindow = TRUE;
 		return;
 	}
 	
-	NSString * resetKey   = [[connection displayName] stringByAppendingString: @"-resetPrimaryInterfaceAfterDisconnect"];
-	NSString * disableKey = [[connection displayName] stringByAppendingString: @"-disableNetworkAccessAfterDisconnect"];
-	BOOL reset   = [gTbDefaults boolForKey: resetKey];
-	BOOL disable = [gTbDefaults boolForKey: disableKey];
-	
-	NSInteger ix = 0;
-	if (  reset  ) {
-		if (  disable  ) {
-			[gTbDefaults setBool: FALSE forKey: disableKey];
-		}
-		ix = 1;
-	} else {
-		if (  disable  ) {
-			ix = 2;
-		}
-	}
+	NSString * displayName = [connection displayName];
+	NSString * resetKey    = (  unexpected
+							  ? [displayName stringByAppendingString: @"-resetPrimaryInterfaceAfterUnexpectedDisconnect"]
+							  : [displayName stringByAppendingString: @"-resetPrimaryInterfaceAfterDisconnect"]);
+	NSString * disableKey = (  unexpected
+							 ? [displayName stringByAppendingString: @"-disableNetworkAccessAfterUnexpectedDisconnect"]
+							 : [displayName stringByAppendingString: @"-disableNetworkAccessAfterDisconnect"]);
+	NSInteger reset   = ( [gTbDefaults boolForKey: resetKey]   ? 1 : 0);
+	NSInteger disable = ( [gTbDefaults boolForKey: disableKey] ? 1 : 0);
 
-	[[configurationsPrefsView uponDisconnectPopUpButton] selectItemAtIndex: ix];
-	[[configurationsPrefsView uponDisconnectPopUpButton] setEnabled: (   [gTbDefaults canChangeValueForKey: resetKey]
-																	  && [gTbDefaults canChangeValueForKey: disableKey])];
+	if (  (reset + disable) > 2  ) {
+		reset = 0;
+		[gTbDefaults setBool: FALSE forKey: resetKey];
+	}
+	
+	NSInteger ix = reset + (disable * 2);
+	[button selectItemAtIndex: ix];
+	[button setEnabled: (   [gTbDefaults canChangeValueForKey: resetKey]
+						 && [gTbDefaults canChangeValueForKey: disableKey])];
+}
+
+-(void) setupUponUnexpectedDisconnectPopUpButton: (VPNConnection *) connection
+{
+	[self setupAnUponDisconnectPopUpButton: [configurationsPrefsView uponUnexpectedDisconnectPopUpButton] connection: connection unexpected: YES];
+}
+
+-(void) setupUponDisconnectPopUpButton: (VPNConnection *) connection
+{
+	[self setupAnUponDisconnectPopUpButton: [configurationsPrefsView uponDisconnectPopUpButton] connection: connection unexpected: NO];
 }
 
 -(void) setupCheckIPAddress: (VPNConnection *) connection
@@ -1009,14 +1029,15 @@ static BOOL firstTimeShowingWindow = TRUE;
             [self setSelectedLeftNavListIndex: (unsigned)leftNavIndexToSelect];
         }
     } else {
-        [self setupSetNameserver:            nil];
-        [self setupLoggingLevel:             nil];
-        [self setupRouteAllTraffic:          nil];
-		[self setupUponDisconnectPopUpButton:nil];
-        [self setupCheckIPAddress:           nil];
-        [self setupDisableIpv6OnTun:                     nil];
-        [self setupNetworkMonitoring:        nil];
-		[self setupPerConfigOpenvpnVersion:  nil];
+        [self setupSetNameserver:						nil];
+        [self setupLoggingLevel:						nil];
+        [self setupRouteAllTraffic:						nil];
+		[self setupUponDisconnectPopUpButton:			nil];
+		[self setupUponUnexpectedDisconnectPopUpButton:	nil];
+        [self setupCheckIPAddress:						nil];
+        [self setupDisableIpv6OnTun:					nil];
+        [self setupNetworkMonitoring:					nil];
+		[self setupPerConfigOpenvpnVersion:				nil];
         [self validateDetailsWindowControls];
         [settingsSheetWindowController setConfigurationName: nil];
         
@@ -1176,18 +1197,19 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         // Right split view - settings tab
         
-        [self validateWhenToConnect:			connection];
+        [self validateWhenToConnect:					connection];
 		
-		[self setupPerConfigOpenvpnVersion:		connection];
+		[self setupPerConfigOpenvpnVersion:				connection];
 		
-		[self setupSetNameserver:				connection];
-		[self setupLoggingLevel:				connection];
+		[self setupSetNameserver:						connection];
+		[self setupLoggingLevel:						connection];
         
-		[self setupNetworkMonitoring:			connection];
-		[self setupRouteAllTraffic:				connection];
-		[self setupUponDisconnectPopUpButton:	connection];
-        [self setupDisableIpv6OnTun:			connection];
-        [self setupCheckIPAddress:				connection];
+		[self setupNetworkMonitoring:					connection];
+		[self setupRouteAllTraffic:						connection];
+		[self setupUponDisconnectPopUpButton:			connection];
+		[self setupUponUnexpectedDisconnectPopUpButton:	connection];
+        [self setupDisableIpv6OnTun:					connection];
+        [self setupCheckIPAddress:						connection];
 		
         [[configurationsPrefsView advancedButton] setEnabled: YES];
         [settingsSheetWindowController            setupSettingsFromPreferences];
@@ -1445,7 +1467,11 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
 	if (   ( [anItem action] == @selector(uponDisconnectDoNothingMenuItemWasClicked:) )
 		|| ( [anItem action] == @selector(uponDisconnectResetPrimaryInterfaceMenuItemWasClicked:) )
-		|| ( [anItem action] == @selector(uponDisconnectDisableNetworkAccessMenuItemWasClicked:) )  ) {
+		|| ( [anItem action] == @selector(uponDisconnectDisableNetworkAccessMenuItemWasClicked:) )
+		|| ( [anItem action] == @selector(uponUnexpectedDisconnectDoNothingMenuItemWasClicked:) )
+		|| ( [anItem action] == @selector(uponUnexpectedDisconnectResetPrimaryInterfaceMenuItemWasClicked:) )
+		|| ( [anItem action] == @selector(uponUnexpectedDisconnectDisableNetworkAccessMenuItemWasClicked:) )
+	   ) {
 		return YES;
 	}
 	
@@ -1935,35 +1961,31 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
--(void) uponDisconnectReset: (BOOL) reset disable: (BOOL) disable {
+-(void) uponADisconnectReset: (BOOL) reset
+					 disable: (BOOL) disable
+				  unexpected: (BOOL) unexpected {
 	
-	[((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-resetPrimaryInterfaceAfterDisconnect" to: reset inverted: NO];
-	[((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: @"-disableNetworkAccessAfterDisconnect" to: disable inverted: NO];
+	NSString * resetKey   = (  unexpected
+							 ? @"-resetPrimaryInterfaceAfterUnexpectedDisconnect"
+							 : @"-resetPrimaryInterfaceAfterDisconnect");
+	NSString * disableKey = (  unexpected
+							 ? @"-disableNetworkAccessAfterUnexpectedDisconnect"
+							 : @"-disableNetworkAccessAfterDisconnect");
+	
+	[((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: resetKey   to: reset   inverted: NO];
+	[((MenuController *)[NSApp delegate]) setBooleanPreferenceForSelectedConnectionsWithKey: disableKey to: disable inverted: NO];
 
 }
 
--(IBAction) uponDisconnectDoNothingMenuItemWasClicked: (id) sender
-{
-	(void) sender;
+-(void) restoreAnUponDisconnectCheckboxState: (NSNumber *) unexpected {
 	
-	[self uponDisconnectReset: NO disable: NO];
+	SEL selector = (  [unexpected boolValue]
+					? @selector(setupUponUnexpectedDisconnectPopUpButton:)
+					: @selector(setupUponDisconnectPopUpButton:));
+	[self performSelectorOnMainThread: selector withObject: [self selectedConnection] waitUntilDone: YES];
 }
 
--(IBAction) uponDisconnectResetPrimaryInterfaceMenuItemWasClicked: (id) sender
-{
-	(void) sender;
-	
-	[self uponDisconnectReset: YES disable: NO];
-}
-
--(void) restoreUponDisconnectCheckboxState {
-	
-	[self performSelectorOnMainThread: @selector(setupUponDisconnectPopUpButton:) withObject: [self selectedConnection] waitUntilDone: YES];
-}
-
--(IBAction) uponDisconnectDisableNetworkAccessMenuItemWasClicked: (id) sender
-{
-	(void) sender;
+-(BOOL) okToDisableNetworkAccessOnDisconnectForUnexpected: (BOOL) unexpected {
 	
 	// Do not do this if any of the selected configurations include the 'user' or 'group' options.
 	
@@ -2002,13 +2024,13 @@ static BOOL firstTimeShowingWindow = TRUE;
 			}
 		}];
 	} else {
-		NSLog(@"uponDisconnectDisableNetworkAccessMenuItemWasClicked: No configuration is selected");
+		NSLog(@"okToDisableNetworkAccessOnDisconnectForUnexpected: No configuration is selected");
 	}
 
 	if (  [cancelled length] != 0  ) {
 		// Revert to the prior state because we canceled changing it to 'Disable network access on disconnect'
-		[self performSelector: @selector(restoreUponDisconnectCheckboxState) withObject: nil afterDelay: 0.2];
-		return;
+		[self performSelector: @selector(restoreAnUponDisconnectCheckboxState:) withObject: [NSNumber numberWithBool: unexpected] afterDelay: 0.2];
+		return NO;
 	}
 	
 	// If any of the selected configurations have a 'user' and/or 'group' option, complain and restore the original setting.
@@ -2021,13 +2043,60 @@ static BOOL firstTimeShowingWindow = TRUE;
 																		@" not be able to disable network access.\n\n"
 																		@"The configurations that contain 'user' and/or 'group' are:\n\n%@\n\n", @"Window text; the %@ will be replaced by a list of configuration names."),
 						   listString]);
-		[self performSelector: @selector(restoreUponDisconnectCheckboxState) withObject: nil afterDelay: 0.2];
-		return;
+		[self performSelector: @selector(restoreAnUponDisconnectCheckboxState:) withObject: [NSNumber numberWithBool: unexpected] afterDelay: 0.2];
+		return NO;
 	}
 	
-	// OK to process the change
-	[self uponDisconnectReset: NO disable: YES];
+	return YES;
 }
+
+-(IBAction) uponDisconnectDoNothingMenuItemWasClicked: (id) sender
+{
+	(void) sender;
+	
+	[self uponADisconnectReset: NO disable: NO unexpected: NO];
+}
+
+-(IBAction) uponDisconnectResetPrimaryInterfaceMenuItemWasClicked: (id) sender
+{
+	(void) sender;
+	
+	[self uponADisconnectReset: YES disable: NO unexpected: NO];
+}
+
+-(IBAction) uponDisconnectDisableNetworkAccessMenuItemWasClicked: (id) sender
+{
+	(void) sender;
+	
+	if (  [self okToDisableNetworkAccessOnDisconnectForUnexpected: NO]  ) {
+		[self uponADisconnectReset: NO disable: YES unexpected: NO];
+	}
+}
+
+-(IBAction) uponUnexpectedDisconnectDoNothingMenuItemWasClicked: (id) sender
+{
+	(void) sender;
+	
+	[self uponADisconnectReset: NO disable: NO unexpected: YES];
+}
+
+-(IBAction) uponUnexpectedDisconnectResetPrimaryInterfaceMenuItemWasClicked: (id) sender
+{
+	(void) sender;
+	
+	[self uponADisconnectReset: YES disable: NO unexpected: YES];
+}
+
+-(IBAction) uponUnexpectedDisconnectDisableNetworkAccessMenuItemWasClicked: (id) sender
+{
+	(void) sender;
+	
+	if (  [self okToDisableNetworkAccessOnDisconnectForUnexpected: YES]  ) {
+		[self uponADisconnectReset: NO disable: YES unexpected: YES];
+	}
+	
+}
+
 
 // Checkbox was changed by another window
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection
@@ -2522,14 +2591,15 @@ static BOOL firstTimeShowingWindow = TRUE;
 		BOOL savedDoingSetupOfUI = [((MenuController *)[NSApp delegate]) doingSetupOfUI];
 		[((MenuController *)[NSApp delegate]) setDoingSetupOfUI: TRUE];
 		
-        [self setupSetNameserver:				newConnection];
-        [self setupLoggingLevel:				newConnection];
-        [self setupRouteAllTraffic:				newConnection];
-		[self setupUponDisconnectPopUpButton:	newConnection];
-        [self setupCheckIPAddress:				newConnection];
-        [self setupDisableIpv6OnTun:			newConnection];
-        [self setupNetworkMonitoring:			newConnection];
-		[self setupPerConfigOpenvpnVersion:		newConnection];
+        [self setupSetNameserver:						newConnection];
+        [self setupLoggingLevel:						newConnection];
+        [self setupRouteAllTraffic:						newConnection];
+		[self setupUponDisconnectPopUpButton:			newConnection];
+		[self setupUponUnexpectedDisconnectPopUpButton:	newConnection];
+        [self setupCheckIPAddress:						newConnection];
+        [self setupDisableIpv6OnTun:					newConnection];
+        [self setupNetworkMonitoring:					newConnection];
+		[self setupPerConfigOpenvpnVersion:				newConnection];
         
         [self validateDetailsWindowControls];
 		

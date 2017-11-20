@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -1432,6 +1432,11 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         requestedState = @"CONNECTED";
     }
     
+	if (  [gFileMgr fileExistsAtPath: L_AS_T_EXPECT_DISCONNECT_PATH]  ) {
+		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", "0", nil], nil, nil);
+		appendLog(@"Cleared 'expect disconnect' flag");
+	}
+
     if (  ! [gTbDefaults boolForKey:@"skipWarningAboutSimultaneousConnections"]  ) {
         // Count the total number of connections and what their "Set nameserver" status was at the time of connection
         int numConnections = 1;
@@ -1934,20 +1939,22 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         bitMask = bitMask | OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS;
     }
     
-    [self setBit: OPENVPNSTART_RESTORE_ON_WINS_RESET			inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnWinsReset"					inverted: YES defaultTo: NO];
-    [self setBit: OPENVPNSTART_RESTORE_ON_DNS_RESET				inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnDnsReset"						inverted: YES defaultTo: NO];
-    [self setBit: OPENVPNSTART_PREPEND_DOMAIN_NAME				inMask: &bitMask ifConnectionPreference: @"-prependDomainNameToSearchDomains"			inverted: NO  defaultTo: NO];
-    [self setBit: OPENVPNSTART_FLUSH_DNS_CACHE					inMask: &bitMask ifConnectionPreference: @"-doNotFlushCache"							inverted: YES defaultTo: NO];
-    [self setBit: OPENVPNSTART_USE_ROUTE_UP_NOT_UP				inMask: &bitMask ifConnectionPreference: @"-useRouteUpInsteadOfUp"						inverted: NO  defaultTo: NO];
-    [self setBit: OPENVPNSTART_RESET_PRIMARY_INTERFACE			inMask: &bitMask ifConnectionPreference: @"-resetPrimaryInterfaceAfterDisconnect"		inverted: NO  defaultTo: NO];
-	[self setBit: OPENVPNSTART_DISABLE_INTERNET_ACCESS			inMask: &bitMask ifConnectionPreference: @"-disableNetworkAccessAfterDisconnect"		inverted: NO  defaultTo: NO];
-    [self setBit: OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1		inMask: &bitMask ifConnectionPreference: @"-routeAllTrafficThroughVpn"					inverted: NO  defaultTo: NO];
-    [self setBit: OPENVPNSTART_NO_DEFAULT_DOMAIN				inMask: &bitMask ifConnectionPreference: @"-doNotUseDefaultDomain"						inverted: NO  defaultTo: NO];
-	[self setBit: OPENVPNSTART_OVERRIDE_MANUAL_NETWORK_SETTINGS	inMask: &bitMask ifConnectionPreference: @"-allowChangesToManuallySetNetworkSettings"	inverted: NO  defaultTo: NO];
-    [self setBit: OPENVPNSTART_WAIT_FOR_DHCP_IF_TAP				inMask: &bitMask ifConnectionPreference: @"-waitForDHCPInfoIfTap"						inverted: NO  defaultTo: NO];
-    [self setBit: OPENVPNSTART_DO_NOT_WAIT_FOR_INTERNET			inMask: &bitMask ifConnectionPreference: @"-doNotWaitForInternetAtBoot"					inverted: NO  defaultTo: NO];
-    [self setBit: OPENVPNSTART_ENABLE_IPV6_ON_TAP				inMask: &bitMask ifConnectionPreference: @"-enableIpv6OnTap"							inverted: NO  defaultTo: NO];
-    [self setBit: OPENVPNSTART_DISABLE_IPV6_ON_TUN				inMask: &bitMask ifConnectionPreference: @"-doNotDisableIpv6onTun"						inverted: YES defaultTo: NO];
+    [self setBit: OPENVPNSTART_RESTORE_ON_WINS_RESET				inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnWinsReset"						inverted: YES defaultTo: NO];
+    [self setBit: OPENVPNSTART_RESTORE_ON_DNS_RESET					inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnDnsReset"							inverted: YES defaultTo: NO];
+    [self setBit: OPENVPNSTART_PREPEND_DOMAIN_NAME					inMask: &bitMask ifConnectionPreference: @"-prependDomainNameToSearchDomains"				inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_FLUSH_DNS_CACHE						inMask: &bitMask ifConnectionPreference: @"-doNotFlushCache"								inverted: YES defaultTo: NO];
+    [self setBit: OPENVPNSTART_USE_ROUTE_UP_NOT_UP					inMask: &bitMask ifConnectionPreference: @"-useRouteUpInsteadOfUp"							inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_RESET_PRIMARY_INTERFACE				inMask: &bitMask ifConnectionPreference: @"-resetPrimaryInterfaceAfterDisconnect"			inverted: NO  defaultTo: NO];
+	[self setBit: OPENVPNSTART_DISABLE_INTERNET_ACCESS				inMask: &bitMask ifConnectionPreference: @"-disableNetworkAccessAfterDisconnect"			inverted: NO  defaultTo: NO];
+	[self setBit: OPENVPNSTART_RESET_PRIMARY_INTERFACE_UNEXPECTED	inMask: &bitMask ifConnectionPreference: @"-resetPrimaryInterfaceAfterUnexpectedDisconnect"	inverted: NO  defaultTo: NO];
+	[self setBit: OPENVPNSTART_DISABLE_INTERNET_ACCESS_UNEXPECTED	inMask: &bitMask ifConnectionPreference: @"-disableNetworkAccessAfterUnexpectedDisconnect"	inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1			inMask: &bitMask ifConnectionPreference: @"-routeAllTrafficThroughVpn"						inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_NO_DEFAULT_DOMAIN					inMask: &bitMask ifConnectionPreference: @"-doNotUseDefaultDomain"							inverted: NO  defaultTo: NO];
+	[self setBit: OPENVPNSTART_OVERRIDE_MANUAL_NETWORK_SETTINGS		inMask: &bitMask ifConnectionPreference: @"-allowChangesToManuallySetNetworkSettings"		inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_WAIT_FOR_DHCP_IF_TAP					inMask: &bitMask ifConnectionPreference: @"-waitForDHCPInfoIfTap"							inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_DO_NOT_WAIT_FOR_INTERNET				inMask: &bitMask ifConnectionPreference: @"-doNotWaitForInternetAtBoot"						inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_ENABLE_IPV6_ON_TAP					inMask: &bitMask ifConnectionPreference: @"-enableIpv6OnTap"								inverted: NO  defaultTo: NO];
+    [self setBit: OPENVPNSTART_DISABLE_IPV6_ON_TUN					inMask: &bitMask ifConnectionPreference: @"-doNotDisableIpv6onTun"							inverted: YES defaultTo: NO];
     
     if (  loggingLevelPreference == TUNNELBLICK_NO_LOGGING_LEVEL  ) {
         bitMask = bitMask | OPENVPNSTART_DISABLE_LOGGING;
@@ -2248,6 +2255,14 @@ ifConnectionPreference: (NSString *)     keySuffix
     }
 }
 
+-(void) expectDisconnect: (NSNumber *) userKnows {
+	if (   [userKnows boolValue]
+		&& ( ! [gFileMgr fileExistsAtPath: L_AS_T_EXPECT_DISCONNECT_PATH] )  ) {
+		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"1", nil], nil, nil);
+		appendLog(@"Set 'expect disconnect' flag");
+	}
+}
+
 static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (BOOL) startDisconnectingUserKnows: (NSNumber *) userKnows {
@@ -2300,6 +2315,7 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		&& (thePid > 0)  ) {
 		[self addToLog: @"*Tunnelblick: Disconnecting using 'kill'"];
         TBLog(@"DB-CD", @"Disconnecting '%@' using 'kill'", [self displayName]);
+		[self expectDisconnect: userKnows];
         [self killProcess];
     } else if (   ALLOW_OPENVPNSTART_KILLALL
                && (  [(connectedList = [((MenuController *)[NSApp delegate]) connectionsNotDisconnected]) count] == 1  )
@@ -2307,11 +2323,13 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                && notConnectWhenComputerStarts  ) {
 		[self addToLog: @"*Tunnelblick: Disconnecting using 'killall'"];
         TBLog(@"DB-CD", @"Disconnecting '%@' using 'killall'", [self displayName]);
+		[self expectDisconnect: userKnows];
         runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
         TBLog(@"DB-CD", @"Using 'killall' to disconnect %@", [self displayName])
     } else if (  [managementSocket isConnected]  ) {
 		[self addToLog: @"*Tunnelblick: Disconnecting using management interface"];
         TBLog(@"DB-CD", @"Disconnecting '%@' using management interface", [self displayName]);
+		[self expectDisconnect: userKnows];
         [managementSocket writeString: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
     } else {
         NSLog(@"No way to disconnect '%@': pid = %lu; connectedList = %@; notConnectWhenComputerStarts = %s; [managementSocket isConnected] = %s",

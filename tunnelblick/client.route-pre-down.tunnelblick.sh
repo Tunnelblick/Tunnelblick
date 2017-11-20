@@ -21,13 +21,28 @@ logMessage()
 }
 
 ##########################################################################################
+# @param Bool TRUE if should reset if disconnect was expected
+# @param Bool TRUE if should reset if disconnect was not expected
 disableNetworkAccess()
 {
 
-# Disables network access by powering off Wi-Fi and disabling all other network services.
-#
-# Appends list of services that were disabled (including Wi-Fi) to a file which is used by
-# re-enable-network-services.sh to re-enable network services that were disabled by this script.
+	# Disables network access by powering off Wi-Fi and disabling all other network services.
+	#
+	# Appends list of services that were disabled (including Wi-Fi) to a file which is used by
+	# re-enable-network-services.sh to re-enable network services that were disabled by this script.
+
+	expected_path="/Library/Application Support/Tunnelblick/expect-disconnect.txt"
+
+	if [ -e "$expected_path" ] ; then
+		# Don't remove the file here; the down script will remove the file after testing it
+		should_disable="$1"
+	else
+		should_disable="$2"
+	fi
+
+	if [ "$should_disable" != "true" ] ; then
+		return
+	fi
 
 	list_path="/Library/Application Support/Tunnelblick/disabled-network-services.txt"
 
@@ -73,11 +88,12 @@ readonly OUR_NAME=$(basename "${0}")
 logMessage "**********************************************"
 logMessage "Start of output from ${OUR_NAME}"
 
-# Test for the "-k" Tunnelbick option (Disable network access after disconnecting).
+# Test for the "-k" and "-ku" Tunnelbick options (Disable network access after disconnecting).
 # Usually we get the value for that option (and the other options) from State:/Network/OpenVPN,
 # but that key may not exist (because, for example, there were no DNS changes).
 # So we get the value from the Tunnelblick options passed to this script by OpenVPN.
 ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING="false"
+ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING_UNEXPECTED="false"
 while [ {$#} ] ; do
 
 	if [ "${1:0:1}" != "-" ] ; then				# Tunnelblick arguments start with "-" and come first
@@ -86,13 +102,15 @@ while [ {$#} ] ; do
 
 	if [ "$1" = "-k" ] ; then
 		ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING="true"
-	fi
 
+	elif [ "$1" = "-ku" ] ; then
+		ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING_UNEXPECTED="true"
+	fi
 
 	shift                                       # Shift arguments to examine the next option (if there is one)
 done
 
-readonly ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING
+readonly ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING_UNEXPECTED
 
 # Quick check - is the configuration there?
 if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
@@ -100,9 +118,7 @@ if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
 	# Configuration isn't there
 	logMessage "WARNING: Not restoring DNS settings because no saved Tunnelblick DNS information was found."
 
-	if ${ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING} ; then
-		disableNetworkAccess
-	fi
+	disableNetworkAccess $ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING $ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING_UNEXPECTED
 
     logMessage "End of output from ${OUR_NAME}"
     logMessage "**********************************************"
@@ -202,9 +218,7 @@ else
     logMessage "No DHCP release by ${OUR_NAME} is needed because this is not a TAP connection."
 fi
 
-if ${ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING} ; then
-	disableNetworkAccess
-fi
+disableNetworkAccess $ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING $ARG_DISABLE_INTERNET_ACCESS_AFTER_DISCONNECTING_UNEXPECTED
 
 logMessage "End of output from ${OUR_NAME}"
 logMessage "**********************************************"

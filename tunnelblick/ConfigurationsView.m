@@ -57,11 +57,12 @@ extern TBUserDefaults * gTbDefaults;
 	(void) dirtyRect;
 }
 
--(void) shiftLabelsAndButtonsWtc: (CGFloat) wtcWidthChange
-                            sdns: (CGFloat) sdnsWidthChange
-                            pcov: (CGFloat) pcovWidthChange
-         loggingLevelWidthChange: (CGFloat) loggingLevelWidthChange
-	   uponDisconnectWidthChange: (CGFloat) udWidthChange {
+-(void)    shiftLabelsAndButtonsWtc: (CGFloat) wtcWidthChange
+							   sdns: (CGFloat) sdnsWidthChange
+							   pcov: (CGFloat) pcovWidthChange
+		    loggingLevelWidthChange: (CGFloat) loggingLevelWidthChange
+	      uponDisconnectWidthChange: (CGFloat) udWidthChange
+uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 	
 	// Shift all the labels and buttons by the largest width change, so the widest is flush left/right
 	
@@ -78,6 +79,9 @@ extern TBUserDefaults * gTbDefaults;
 	if (  largestWidthChange < udWidthChange  ) {
 		largestWidthChange = udWidthChange;
 	}
+	if (  largestWidthChange < uudWidthChange  ) {
+		largestWidthChange = uudWidthChange;
+	}
 	
 	BOOL rtl = [UIHelper languageAtLaunchWasRTL];
 	[UIHelper shiftControl: whenToConnectTF               by: largestWidthChange reverse: ! rtl];
@@ -86,17 +90,22 @@ extern TBUserDefaults * gTbDefaults;
 	[UIHelper shiftControl: setNameserverPopUpButton      by: largestWidthChange reverse: ! rtl];
 	[UIHelper shiftControl: perConfigOpenvpnVersionTF     by: largestWidthChange reverse: ! rtl];
 	[UIHelper shiftControl: perConfigOpenvpnVersionButton by: largestWidthChange reverse: ! rtl];
+	
 	if (  loggingLevelPopUpButton  ) {
 		[UIHelper shiftControl: loggingLevelTF            by: largestWidthChange reverse: ! rtl];
 		[UIHelper shiftControl: loggingLevelPopUpButton   by: largestWidthChange reverse: ! rtl];
 	}
-	[UIHelper shiftControl: uponDisconnectTF              by: largestWidthChange reverse: ! rtl];
-	[UIHelper shiftControl: uponDisconnectPopUpButton     by: largestWidthChange reverse: ! rtl];
+	
+	[UIHelper shiftControl: uponDisconnectTF                    by: largestWidthChange reverse: ! rtl];
+	[UIHelper shiftControl: uponDisconnectPopUpButton           by: largestWidthChange reverse: ! rtl];
+
+	[UIHelper shiftControl: uponUnexpectedDisconnectTF          by: largestWidthChange reverse: ! rtl];
+	[UIHelper shiftControl: uponUnexpectedDisconnectPopUpButton by: largestWidthChange reverse: ! rtl];
 }
 
 -(void) normalizeWidthOfConfigurationsButtons {
 	
-	NSArray * list = [NSArray arrayWithObjects: whenToConnectPopUpButton, setNameserverPopUpButton, perConfigOpenvpnVersionButton, loggingLevelPopUpButton, uponDisconnectPopUpButton, nil];
+	NSArray * list = [NSArray arrayWithObjects: whenToConnectPopUpButton, setNameserverPopUpButton, perConfigOpenvpnVersionButton, loggingLevelPopUpButton, uponDisconnectPopUpButton, uponUnexpectedDisconnectPopUpButton, nil];
 	if (  [list count] > 0  ) {
 		[UIHelper makeAllAsWideAsWidest: list shift: [UIHelper languageAtLaunchWasRTL]];
 	}
@@ -271,11 +280,18 @@ extern TBUserDefaults * gTbDefaults;
 		[UIHelper setTitle: nil ofControl: loggingLevelPopUpButton shift: rtl narrow: YES enable: YES];
 	}
 	
-	CGFloat udWidthChange = [UIHelper setTitle: NSLocalizedString(@"On disconnect:", @"Window text") ofControl: uponDisconnectTFC frameHolder: uponDisconnectTF shift: ( !rtl  ) narrow: YES enable: YES];
-	[uponDisconnectDoNothingMenuItem             setTitle: NSLocalizedString(@"Do nothing"             , @"Button")];
+	CGFloat udWidthChange = [UIHelper setTitle: NSLocalizedString(@"On expected disconnect:", @"Window text") ofControl: uponDisconnectTFC frameHolder: uponDisconnectTF shift: ( !rtl  ) narrow: YES enable: YES];
+	[uponDisconnectDoNothingMenuItem setTitle:             NSLocalizedString(@"Do nothing",			     @"Button")];
 	[uponDisconnectResetPrimaryInterfaceMenuItem setTitle: NSLocalizedString(@"Reset Primary Interface", @"Button")];
-	[uponDisconnectDisableNetworkAccessMenuItem  setTitle: NSLocalizedString(@"Disable Network Access", @"Button")];
+	[uponDisconnectDisableNetworkAccessMenuItem  setTitle: NSLocalizedString(@"Disable Network Access",  @"Button")];
 	[UIHelper setTitle: nil ofControl: uponDisconnectPopUpButton shift: rtl narrow: YES enable: YES];
+
+	CGFloat uudWidthChange = [UIHelper setTitle: NSLocalizedString(@"On unexpected disconnect:", @"Window text") ofControl: uponUnexpectedDisconnectTFC frameHolder: uponUnexpectedDisconnectTF shift: ( !rtl  ) narrow: YES enable: YES];
+	[uponUnexpectedDisconnectDoNothingMenuItem             setTitle: NSLocalizedString(@"Do nothing",			   @"Button")];
+	[uponUnexpectedDisconnectResetPrimaryInterfaceMenuItem setTitle: NSLocalizedString(@"Reset Primary Interface", @"Button")];
+	[uponUnexpectedDisconnectDisableNetworkAccessMenuItem  setTitle: NSLocalizedString(@"Disable Network Access",  @"Button")];
+	[UIHelper setTitle: nil ofControl: uponUnexpectedDisconnectPopUpButton shift: rtl narrow: YES enable: YES];
+
 	
     // OpenVPN Version popup. Default depends on version of OS X
     
@@ -310,7 +326,7 @@ extern TBUserDefaults * gTbDefaults;
     [perConfigOpenvpnVersionArrayController setContent: ovContent];
 	[UIHelper setTitle: nil ofControl: perConfigOpenvpnVersionButton shift: rtl narrow: YES enable: YES];
 	
-	[self shiftLabelsAndButtonsWtc: wtcWidthChange sdns: sdnsWidthChange pcov: pcovWidthChange loggingLevelWidthChange: loggingLevelWidthChange uponDisconnectWidthChange: udWidthChange];
+	[self shiftLabelsAndButtonsWtc: wtcWidthChange sdns: sdnsWidthChange pcov: pcovWidthChange loggingLevelWidthChange: loggingLevelWidthChange uponDisconnectWidthChange: udWidthChange uponUnexpectedDisconnectWidthChange: uudWidthChange];
 	
 	[self normalizeWidthOfConfigurationsButtons];
 	
@@ -435,6 +451,12 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       uponDisconnectPopUpButton
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponDisconnectDoNothingMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponDisconnectResetPrimaryInterfaceMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponDisconnectDisableNetworkAccessMenuItem)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     uponUnexpectedDisconnectTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       uponUnexpectedDisconnectPopUpButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponUnexpectedDisconnectDoNothingMenuItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponUnexpectedDisconnectResetPrimaryInterfaceMenuItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponUnexpectedDisconnectDisableNetworkAccessMenuItem)
 
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            advancedButton)
 

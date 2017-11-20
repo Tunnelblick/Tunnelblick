@@ -84,8 +84,9 @@
 #define L_AS_T_TUNNELBLICKD_HASH_PATH                 @"/Library/Application Support/Tunnelblick/tunnelblickd-hash.txt"
 #define L_AS_T_TUNNELBLICKD_LAUNCHCTL_PLIST_HASH_PATH @"/Library/Application Support/Tunnelblick/tunnelblickd-launchctl-plist-hash.txt"
 
-// NOTE: some scripts refer to the following path without using this header file
+// NOTE: some scripts refer to the following two paths without using this header file
 #define L_AS_T_DISABLED_NETWORK_SERVICES_PATH         @"/Library/Application Support/Tunnelblick/disabled-network-services.txt"
+#define L_AS_T_EXPECT_DISCONNECT_PATH                 @"/Library/Application Support/Tunnelblick/expect-disconnect.txt"
 
 // NOTE: some scripts refer to the following path without using this header file
 #define AUTHORIZED_RUNNING_PATH @"/tmp/tunnelblick-authorized-running"
@@ -261,7 +262,7 @@
 #define OPENVPNSTART_PREPEND_DOMAIN_NAME				0x00000080u
 #define OPENVPNSTART_FLUSH_DNS_CACHE					0x00000100u
 #define OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1			0x00000200u
-#define OPENVPNSTART_RESET_PRIMARY_INTERFACE			0x00000400u
+#define OPENVPNSTART_DISABLE_LOGGING					0x00000400u
 #define OPENVPNSTART_TEST_MTU							0x00000800u
 #define OPENVPNSTART_EXTRA_LOGGING						0x00001000u
 #define OPENVPNSTART_NO_DEFAULT_DOMAIN					0x00002000u
@@ -272,10 +273,12 @@
 #define OPENVPNSTART_DO_NOT_WAIT_FOR_INTERNET			0x00040000u
 #define OPENVPNSTART_ENABLE_IPV6_ON_TAP					0x00080000u
 #define OPENVPNSTART_DISABLE_IPV6_ON_TUN				0x00100000u
-#define OPENVPNSTART_DISABLE_LOGGING					0x00200000u
+#define OPENVPNSTART_RESET_PRIMARY_INTERFACE			0x00200000u
 #define OPENVPNSTART_DISABLE_INTERNET_ACCESS			0x00400000u
+#define OPENVPNSTART_RESET_PRIMARY_INTERFACE_UNEXPECTED	0x00800000u
+#define OPENVPNSTART_DISABLE_INTERNET_ACCESS_UNEXPECTED	0x01000000u
 // DUPLICATE THE HIGHEST VALUE BELOW					vvvvvvvvvvv
-#define OPENVPNSTART_HIGHEST_BITMASK_BIT				0x00400000u
+#define OPENVPNSTART_HIGHEST_BITMASK_BIT				0x01000000u
 
 
 //*************************************************************************************************

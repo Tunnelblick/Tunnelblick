@@ -104,7 +104,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "               always returns success\n\n"
             
 			"./openvpnstart re-enable-network-services\n"
-			"               to run Tunnelblick's client.route-pre-down.tunnelblick script\n\n"
+			"               to run Tunnelblick's re-enable-network-services.sh script\n\n"
 			
             "./openvpnstart route-pre-down\n"
             "               to run Tunnelblick's client.route-pre-down.tunnelblick script\n\n"
@@ -118,6 +118,9 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "./openvpnstart deleteLogs\n"
             "               to delete all log files that have the OPENVPNSTART_NOT_WHEN_COMPUTER_STARTS bit set in the bitmask encoded in their filenames.\n\n"
             
+			"./openvpnstart expectDisconnect flag\n"
+			"               creates (flag = 1) or removes (flag = 0) the file /Library/Application Support/Tunnelblick/expect-disconnect.txt\n\n"
+			
             "./openvpnstart loadKexts     [bitMask]\n"
             "               to load .tun and .tap kexts\n\n"
             
@@ -1638,6 +1641,22 @@ void deleteLogFiles(NSString * configurationFile, unsigned cfgLocCode) {
 	stopBeingRoot();
 }
 
+void expectDisconnect(unsigned int flag) {
+	
+	if (  flag == 0  ) {
+		becomeRoot(@"Delete expect-disconnect.txt");
+		[[NSFileManager defaultManager] tbRemovePathIfItExists: L_AS_T_EXPECT_DISCONNECT_PATH];
+		stopBeingRoot();
+	} else if (  flag == 1  ) {
+		becomeRoot(@"Create expect-disconnect.txt");
+		if (  ! [[NSFileManager defaultManager] fileExistsAtPath:L_AS_T_EXPECT_DISCONNECT_PATH]  ) {
+			[[NSFileManager defaultManager] createFileAtPath: L_AS_T_EXPECT_DISCONNECT_PATH contents: nil attributes: nil];
+		}
+
+		stopBeingRoot();
+	}
+}
+
 //**************************************************************************************************************************
 
 void compareShadowCopy (NSString * fileName) {
@@ -2375,6 +2394,10 @@ int startVPN(NSString * configFile,
             [scriptOptions appendString: @" -k"];
         }
         
+		if (  (bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS_UNEXPECTED) != 0  ) {
+			[scriptOptions appendString: @" -ku"];
+		}
+		
         if (  ((bitMask & OPENVPNSTART_EXTRA_LOGGING) != 0) && ((bitMask & OPENVPNSTART_DISABLE_LOGGING) == 0)  ) {
             [scriptOptions appendString: @" -l"];
         }
@@ -2399,6 +2422,10 @@ int startVPN(NSString * configFile,
             [scriptOptions appendString: @" -r"];
         }
         
+		if (  (bitMask & OPENVPNSTART_RESET_PRIMARY_INTERFACE_UNEXPECTED) != 0  ) {
+			[scriptOptions appendString: @" -ru"];
+		}
+		
         if (  (bitMask & OPENVPNSTART_RESTORE_ON_WINS_RESET) != 0  ) {
             [scriptOptions appendString: @" -w"];
         }
@@ -2484,7 +2511,8 @@ int startVPN(NSString * configFile,
                         fprintf(stderr, "Warning: Tunnelblick is using 'openvpn-down-root.so', so the custom route-pre-down script will not"
                                 " be executed as root unless the 'user' and 'group' options are removed from the OpenVPN configuration file.");
                     } else {
-						if (  (bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS) != 0  ) {
+						if (   ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS) != 0)
+							|| ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS_UNEXPECTED) != 0)  ) {
 							fprintf(stderr, "Error: Tunnelblick is using 'openvpn-down-root.so', so 'Disable network access after disconnecting'"
 									" will not work because the 'route-pre-down script' will not be executed as root. Remove the 'user' and 'group' options"
 									" from the OpenVPN configuration file to allow 'Disable network access after disconnecting' to work.");
@@ -2500,7 +2528,9 @@ int startVPN(NSString * configFile,
                 } else {
                     if (   customRoutePreDownScript
 						|| ((bitMask & OPENVPNSTART_USE_TAP) != 0)
-						|| ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS) != 0)  ) {
+						|| ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS) != 0)
+						|| ((bitMask & OPENVPNSTART_DISABLE_INTERNET_ACCESS_UNEXPECTED) != 0)
+					   ) {
 						[arguments addObjectsFromArray: [NSArray arrayWithObjects:
 														 @"--route-pre-down", routePreDownscriptCommand,
 														 nil
@@ -2998,7 +3028,16 @@ int main(int argc, char * argv[]) {
                 syntaxError = FALSE;
             }
             
-        } else if (  strcmp(command, "loadKexts") == 0  ) {
+		} else if (  strcmp(command, "expectDisconnect") == 0  ) {
+			if (  argc == 3  ) {
+				unsigned int flag = cvt_atou(argv[2], @"flag");
+				if (   (flag == 0)
+					|| (flag == 1)  ) {
+					expectDisconnect(flag);
+					syntaxError = FALSE;
+				}
+			}
+		} else if (  strcmp(command, "loadKexts") == 0  ) {
 			if (  argc == 2  ) {
                 loadKexts(OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT);
 				syntaxError = FALSE;

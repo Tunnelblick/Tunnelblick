@@ -103,6 +103,13 @@
 	IBOutlet NSMenuItem          * uponDisconnectResetPrimaryInterfaceMenuItem;
 	IBOutlet NSMenuItem          * uponDisconnectDisableNetworkAccessMenuItem;
 	
+	IBOutlet NSTextField		 * uponUnexpectedDisconnectTF;
+	IBOutlet NSTextFieldCell     * uponUnexpectedDisconnectTFC;
+	IBOutlet NSPopUpButton       * uponUnexpectedDisconnectPopUpButton;
+	IBOutlet NSMenuItem          * uponUnexpectedDisconnectDoNothingMenuItem;
+	IBOutlet NSMenuItem          * uponUnexpectedDisconnectResetPrimaryInterfaceMenuItem;
+	IBOutlet NSMenuItem          * uponUnexpectedDisconnectDisableNetworkAccessMenuItem;
+	
     IBOutlet TBButton            * monitorNetworkForChangesCheckbox;
     IBOutlet TBButton            * routeAllTrafficThroughVpnCheckbox;
 	IBOutlet TBButton            * disableIpv6OnTunCheckbox;
@@ -167,6 +174,12 @@ TBPROPERTY_READONLY(NSPopUpButton *,       uponDisconnectPopUpButton)
 TBPROPERTY_READONLY(NSMenuItem *,          uponDisconnectDoNothingMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          uponDisconnectResetPrimaryInterfaceMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          uponDisconnectDisableNetworkAccessMenuItem)
+
+TBPROPERTY_READONLY(NSTextFieldCell *,     uponUnexpectedDisconnectTFC)
+TBPROPERTY_READONLY(NSPopUpButton *,       uponUnexpectedDisconnectPopUpButton)
+TBPROPERTY_READONLY(NSMenuItem *,          uponUnexpectedDisconnectDoNothingMenuItem)
+TBPROPERTY_READONLY(NSMenuItem *,          uponUnexpectedDisconnectResetPrimaryInterfaceMenuItem)
+TBPROPERTY_READONLY(NSMenuItem *,          uponUnexpectedDisconnectDisableNetworkAccessMenuItem)
 
 TBPROPERTY_READONLY(TBButton *,            monitorNetworkForChangesCheckbox)
 TBPROPERTY_READONLY(TBButton *,            routeAllTrafficThroughVpnCheckbox)

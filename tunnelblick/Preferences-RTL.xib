@@ -54,19 +54,19 @@
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <subviews>
                                                                         <popUpButton verticalHuggingPriority="750" id="543">
-                                                                            <rect key="frame" x="22" y="238" width="448" height="26"/>
+                                                                            <rect key="frame" x="10" y="238" width="272" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                                            <popUpButtonCell key="cell" type="push" title="When TB launches$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="547" id="544">
+                                                                            <popUpButtonCell key="cell" type="push" title="Manually$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="546" id="544">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="menu"/>
                                                                                 <menu key="menu" title="OtherViews" id="545">
                                                                                     <items>
-                                                                                        <menuItem title="Manually$" id="546">
+                                                                                        <menuItem title="Manually$" state="on" id="546">
                                                                                             <connections>
                                                                                                 <action selector="whenToConnectManuallyMenuItemWasClicked:" target="-2" id="674"/>
                                                                                             </connections>
                                                                                         </menuItem>
-                                                                                        <menuItem title="When TB launches$" state="on" id="547">
+                                                                                        <menuItem title="When TB launches$" id="547">
                                                                                             <connections>
                                                                                                 <action selector="whenToConnectTunnelBlickLaunchMenuItemWasClicked:" target="-2" id="809"/>
                                                                                             </connections>
@@ -84,7 +84,7 @@
                                                                             </connections>
                                                                         </popUpButton>
                                                                         <popUpButton verticalHuggingPriority="750" id="540">
-                                                                            <rect key="frame" x="22" y="212" width="448" height="26"/>
+                                                                            <rect key="frame" x="10" y="212" width="272" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="Never$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="555" id="551">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -108,7 +108,7 @@
                                                                             </connections>
                                                                         </popUpButton>
                                                                         <button id="1239" customClass="TBButton">
-                                                                            <rect key="frame" x="10" y="59" width="639" height="18"/>
+                                                                            <rect key="frame" x="10" y="48" width="639" height="18"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="check" title="DisableIPv6 for tun$" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1240">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -120,7 +120,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <textField verticalHuggingPriority="750" id="542">
-                                                                            <rect key="frame" x="476" y="218" width="174" height="17"/>
+                                                                            <rect key="frame" x="285" y="218" width="364" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Set DNS/WINS$:" id="549">
                                                                                 <font key="font" metaFont="system"/>
@@ -129,7 +129,7 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <textField verticalHuggingPriority="750" id="1809">
-                                                                            <rect key="frame" x="476" y="166" width="174" height="17"/>
+                                                                            <rect key="frame" x="285" y="166" width="364" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="VPN Logging Level$" id="1810">
                                                                                 <font key="font" metaFont="system"/>
@@ -137,25 +137,16 @@
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <textField verticalHuggingPriority="750" id="541">
-                                                                            <rect key="frame" x="476" y="244" width="174" height="17"/>
-                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Connect$:" id="550">
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                        </textField>
                                                                         <popUpButton verticalHuggingPriority="750" id="1113">
-                                                                            <rect key="frame" x="22" y="186" width="448" height="26"/>
+                                                                            <rect key="frame" x="10" y="186" width="272" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                                            <popUpButtonCell key="cell" type="push" title="4.5.6$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="1120" id="1118">
+                                                                            <popUpButtonCell key="cell" type="push" title="1.2.3$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="1121" id="1118">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="menu"/>
                                                                                 <menu key="menu" title="OtherViews" id="1119">
                                                                                     <items>
-                                                                                        <menuItem title="1.2.3$" id="1121"/>
-                                                                                        <menuItem title="4.5.6$" state="on" id="1120"/>
+                                                                                        <menuItem title="1.2.3$" state="on" id="1121"/>
+                                                                                        <menuItem title="4.5.6$" id="1120"/>
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
@@ -168,7 +159,7 @@
                                                                             </connections>
                                                                         </popUpButton>
                                                                         <textField verticalHuggingPriority="750" id="1114">
-                                                                            <rect key="frame" x="476" y="192" width="174" height="17"/>
+                                                                            <rect key="frame" x="285" y="192" width="364" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="OpenVPN Version$:" id="1117">
                                                                                 <font key="font" metaFont="system"/>
@@ -177,7 +168,7 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <button verticalHuggingPriority="750" id="536" customClass="TBButton">
-                                                                            <rect key="frame" x="527" y="-4" width="122" height="32"/>
+                                                                            <rect key="frame" x="531" y="-4" width="122" height="32"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="push" title="Advanced$..." bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="575">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -187,20 +178,8 @@
                                                                                 <action selector="advancedButtonWasClicked:" target="-2" id="661"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button id="1249" customClass="TBButton">
-                                                                            <rect key="frame" x="10" y="39" width="639" height="18"/>
-                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                                            <buttonCell key="cell" type="check" title="Check apparent public IP address changed$" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1250">
-                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <action selector="checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked:" target="-2" id="1256"/>
-                                                                                <outlet property="nextKeyView" destination="1239" id="ZDX-Xu-x1U"/>
-                                                                            </connections>
-                                                                        </button>
                                                                         <button id="1251" customClass="TBButton">
-                                                                            <rect key="frame" x="10" y="79" width="639" height="18"/>
+                                                                            <rect key="frame" x="10" y="68" width="639" height="18"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="check" title="Route all traffic through the VPN$" bezelStyle="regularSquare" imagePosition="right" alignment="right" inset="2" id="1252">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -212,7 +191,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <popUpButton verticalHuggingPriority="750" id="1836">
-                                                                            <rect key="frame" x="22" y="160" width="448" height="26"/>
+                                                                            <rect key="frame" x="10" y="160" width="272" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="No logging$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="1839" id="1837">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -234,7 +213,7 @@
                                                                             </connections>
                                                                         </popUpButton>
                                                                         <button id="539" customClass="TBButton">
-                                                                            <rect key="frame" x="10" y="99" width="639" height="18"/>
+                                                                            <rect key="frame" x="10" y="88" width="639" height="18"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="check" title="Monitor network settings$" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="558">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -246,14 +225,14 @@
                                                                             </connections>
                                                                         </button>
                                                                         <popUpButton verticalHuggingPriority="750" id="ZvX-GN-mVj">
-                                                                            <rect key="frame" x="22" y="134" width="448" height="26"/>
+                                                                            <rect key="frame" x="10" y="134" width="272" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" id="fxN-Hb-lNz">
+                                                                            <popUpButtonCell key="cell" type="push" title="Do nothing$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="qbj-7g-ZV3" id="fxN-Hb-lNz">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="menu"/>
                                                                                 <menu key="menu" title="OtherViews" id="RUO-IB-XlY">
                                                                                     <items>
-                                                                                        <menuItem title="Do nothing$" id="qbj-7g-ZV3">
+                                                                                        <menuItem title="Do nothing$" state="on" id="qbj-7g-ZV3">
                                                                                             <connections>
                                                                                                 <action selector="uponDisconnectDoNothingMenuItemWasClicked:" target="-2" id="iKY-kV-jWK"/>
                                                                                             </connections>
@@ -265,7 +244,7 @@
                                                                                         </menuItem>
                                                                                         <menuItem title="Disable network access$" id="yoF-Y0-iys">
                                                                                             <connections>
-                                                                                                <action selector="uponDisconnectDisableNetworkAccessMenuItemWasClicked:" target="-2" id="AWI-Bw-Wxr"/>
+                                                                                                <action selector="uponDisconnectDisableNetworkAccessMenuItemWasClicked:" target="-2" id="LpL-Bm-s6t"/>
                                                                                             </connections>
                                                                                         </menuItem>
                                                                                     </items>
@@ -276,14 +255,74 @@
                                                                             </connections>
                                                                         </popUpButton>
                                                                         <textField verticalHuggingPriority="750" id="VQ3-Ba-8qQ">
-                                                                            <rect key="frame" x="476" y="140" width="174" height="17"/>
+                                                                            <rect key="frame" x="285" y="140" width="364" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Connect$:" id="PTl-XV-0hb">
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="On expected disconnect$:" id="PTl-XV-0hb">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
+                                                                        <popUpButton verticalHuggingPriority="750" id="cnH-Rv-ePh">
+                                                                            <rect key="frame" x="10" y="108" width="272" height="26"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                                            <popUpButtonCell key="cell" type="push" title="Do nothing$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="z0s-yn-DaU" id="t8Z-Et-eBb">
+                                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                                <font key="font" metaFont="menu"/>
+                                                                                <menu key="menu" title="OtherViews" id="zjh-UP-xRG">
+                                                                                    <items>
+                                                                                        <menuItem title="Do nothing$" state="on" id="z0s-yn-DaU">
+                                                                                            <connections>
+                                                                                                <action selector="uponUnexpectedDisconnectDoNothingMenuItemWasClicked:" target="-2" id="Wr2-3J-Gdo"/>
+                                                                                            </connections>
+                                                                                        </menuItem>
+                                                                                        <menuItem title="Reset the primary interface$" id="OTA-dq-FYI">
+                                                                                            <connections>
+                                                                                                <action selector="uponUnexpectedDisconnectResetPrimaryInterfaceMenuItemWasClicked:" target="-2" id="nrV-M6-tL9"/>
+                                                                                            </connections>
+                                                                                        </menuItem>
+                                                                                        <menuItem title="Disable network access$" id="DRk-QH-FyE">
+                                                                                            <connections>
+                                                                                                <action selector="uponUnexpectedDisconnectDisableNetworkAccessMenuItemWasClicked:" target="-2" id="7jP-Mm-7jh"/>
+                                                                                            </connections>
+                                                                                        </menuItem>
+                                                                                    </items>
+                                                                                </menu>
+                                                                            </popUpButtonCell>
+                                                                            <connections>
+                                                                                <outlet property="nextKeyView" destination="536" id="M7P-lF-PlB"/>
+                                                                            </connections>
+                                                                        </popUpButton>
+                                                                        <textField verticalHuggingPriority="750" id="yg9-8K-8zt">
+                                                                            <rect key="frame" x="285" y="114" width="364" height="17"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="On unexpected disconnect$:" id="OJT-HU-vK4">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                        <textField verticalHuggingPriority="750" id="541">
+                                                                            <rect key="frame" x="285" y="244" width="364" height="17"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Connect$:" id="550">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                        <button id="1249" customClass="TBButton">
+                                                                            <rect key="frame" x="10" y="28" width="639" height="18"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                                            <buttonCell key="cell" type="check" title="Check apparent public IP address changed$" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="1250">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <action selector="checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked:" target="-2" id="1256"/>
+                                                                                <outlet property="nextKeyView" destination="1239" id="ZDX-Xu-x1U"/>
+                                                                            </connections>
+                                                                        </button>
                                                                     </subviews>
                                                                 </customView>
                                                             </subviews>
@@ -400,11 +439,11 @@
                                     <rect key="frame" x="0.0" y="22" width="137" height="328"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" id="DMN-lE-Qdt">
-                                        <rect key="frame" x="1" y="1" width="135" height="326"/>
+                                        <rect key="frame" x="1" y="1" width="135" height="311"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="1064" id="1062">
-                                                <rect key="frame" x="0.0" y="0.0" width="135" height="19"/>
+                                                <rect key="frame" x="-6" y="-4" width="136" height="311"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -432,11 +471,11 @@
                                         </subviews>
                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </clipView>
-                                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="1061">
-                                        <rect key="frame" x="1" y="312" width="362" height="15"/>
+                                    <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.5" horizontal="YES" id="1061">
+                                        <rect key="frame" x="1" y="312" width="135" height="15"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
-                                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="1060">
+                                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.03125" horizontal="NO" id="1060">
                                         <rect key="frame" x="121" y="1" width="15" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
@@ -598,12 +637,19 @@
                 <outlet property="settingsTabViewItem" destination="534" id="635"/>
                 <outlet property="showOnTbMenuMenuItem" destination="1261" id="1282"/>
                 <outlet property="showOpenvpnLogMenuItem" destination="599" id="627"/>
-                <outlet property="uponDisconnectDisableNetworkAccessMenuItem" destination="yoF-Y0-iys" id="uNb-PD-hHs"/>
+                <outlet property="uponDisconnectDisableNetworkAccessMenuItem" destination="yoF-Y0-iys" id="ou0-On-kGh"/>
                 <outlet property="uponDisconnectDoNothingMenuItem" destination="qbj-7g-ZV3" id="fxd-PL-bDZ"/>
                 <outlet property="uponDisconnectPopUpButton" destination="ZvX-GN-mVj" id="1hq-YF-8yu"/>
                 <outlet property="uponDisconnectResetPrimaryInterfaceMenuItem" destination="o4M-AV-ycQ" id="cAd-Pc-KGX"/>
                 <outlet property="uponDisconnectTF" destination="VQ3-Ba-8qQ" id="mNF-Hf-7Yc"/>
                 <outlet property="uponDisconnectTFC" destination="PTl-XV-0hb" id="8Fm-7W-quO"/>
+                <outlet property="uponDisconnectUnexpectedDisableNetworkAccessMenuItem" destination="yoF-Y0-iys" id="g4O-VZ-tx6"/>
+                <outlet property="uponUnexpectedDisconnectDisableNetworkAccessMenuItem" destination="DRk-QH-FyE" id="3jl-bX-rcr"/>
+                <outlet property="uponUnexpectedDisconnectDoNothingMenuItem" destination="z0s-yn-DaU" id="SxM-6V-I8f"/>
+                <outlet property="uponUnexpectedDisconnectPopUpButton" destination="cnH-Rv-ePh" id="jkt-jD-Ill"/>
+                <outlet property="uponUnexpectedDisconnectResetPrimaryInterfaceMenuItem" destination="OTA-dq-FYI" id="R3h-jw-HAr"/>
+                <outlet property="uponUnexpectedDisconnectTF" destination="yg9-8K-8zt" id="TgU-Hs-UQi"/>
+                <outlet property="uponUnexpectedDisconnectTFC" destination="OJT-HU-vK4" id="SrA-Mo-NSR"/>
                 <outlet property="whenToConnectManuallyMenuItem" destination="546" id="642"/>
                 <outlet property="whenToConnectOnComputerStartMenuItem" destination="548" id="643"/>
                 <outlet property="whenToConnectPopUpButton" destination="543" id="645"/>
@@ -613,7 +659,7 @@
                 <outlet property="workOnConfigurationArrayController" destination="653" id="657"/>
                 <outlet property="workOnConfigurationPopUpButton" destination="585" id="621"/>
             </connections>
-            <point key="canvasLocation" x="943" y="502"/>
+            <point key="canvasLocation" x="564" y="471"/>
         </customView>
         <viewController id="1068" userLabel="LeftNavViewController" customClass="LeftNavViewController">
             <connections>
