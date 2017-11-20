@@ -813,7 +813,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	NSInteger reset   = ( [gTbDefaults boolForKey: resetKey]   ? 1 : 0);
 	NSInteger disable = ( [gTbDefaults boolForKey: disableKey] ? 1 : 0);
 
-	if (  (reset + disable) > 2  ) {
+	if (  ( reset + (disable * 2) ) > 2  ) {
 		reset = 0;
 		[gTbDefaults setBool: FALSE forKey: resetKey];
 	}
