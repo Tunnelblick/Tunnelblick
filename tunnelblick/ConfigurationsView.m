@@ -293,7 +293,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 	[UIHelper setTitle: nil ofControl: uponUnexpectedDisconnectPopUpButton shift: rtl narrow: YES enable: YES];
 
 	
-    // OpenVPN Version popup. Default depends on version of OS X
+    // OpenVPN Version popup.
     
     CGFloat pcovWidthChange = [UIHelper setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text") ofControl: perConfigOpenvpnVersionTFC frameHolder: perConfigOpenvpnVersionTF shift: ( !rtl ) narrow: YES enable: YES];
     
@@ -301,15 +301,25 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
     
     NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: [versionNames count] + 2];
     
-    NSString * ver = [versionNames objectAtIndex: 0];
-    [ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSString stringWithFormat: NSLocalizedString(@"Default (%@)", @"Button"), [self displayNameForOpenvpnName: ver]], @"name",
+	NSString * folderName = defaultOpenVpnFolderName();
+	if (  [folderName hasPrefix: @"openvpn-"]  ) {
+		folderName = [folderName substringFromIndex: [@"openvpn-" length]];
+	} else {
+		NSLog(@"defaultOpenVpnFolderName() result '%@' did not start with 'openvpn-", folderName);
+	}
+	NSString * displayedVersion = [self displayNameForOpenvpnName: folderName];
+	if (  ! displayedVersion  ) {
+		displayedVersion = @"?";
+
+	}
+	[ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                          [NSString stringWithFormat: NSLocalizedString(@"Default (%@)", @"Button"), displayedVersion], @"name",
                           @"", @"value",    // Empty name means default
                           nil]];
     
     NSUInteger ix;
     for (  ix=0; ix<[versionNames count]; ix++  ) {
-        ver = [versionNames objectAtIndex: ix];
+        NSString * ver = [versionNames objectAtIndex: ix];
         NSString * name = [self displayNameForOpenvpnName: ver];
         if (  name  ) {
             [ovContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:

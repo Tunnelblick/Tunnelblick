@@ -397,6 +397,19 @@ NSString * tunnelblickVersion(NSBundle * bundle)
     return (version);
 }
 
+NSString * defaultOpenVpnFolderName (void) {
+	
+	// Returns the name of the folder in Resources/openvpn that contains the version of OpenVPN to use as a default.
+	// The name will be of the form openvpn-A.B.C-openssl-D.E.F
+	//
+	// Use the default version of OpenVPN, from the "default" link
+	NSString * defaultLinkPath = [[[NSBundle mainBundle] bundlePath]
+								  stringByAppendingPathComponent: @"/Contents/Resources/openvpn/default"];
+	NSString * defaultLinkTarget = [[gFileMgr tbPathContentOfSymbolicLinkAtPath: defaultLinkPath]
+									stringByDeletingLastPathComponent];
+	return defaultLinkTarget;
+}
+
 AlertWindowController * TBShowAlertWindow (NSString * title,
                                            id         msg) {
 	
