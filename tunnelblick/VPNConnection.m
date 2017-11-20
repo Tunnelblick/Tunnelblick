@@ -1763,8 +1763,24 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * prefVersion = [gTbDefaults stringForKey: prefKey];
     NSUInteger useVersionIx = 0;
     
-    if (  [prefVersion length] != 0  ) {
-        NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
+	NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
+
+	if (  [prefVersion length] == 0  ) {
+		
+		// Use the default version of OpenVPN, from the "default" link
+		NSString * folderName = defaultOpenVpnFolderName();
+		if (  [folderName hasPrefix: @"openvpn-"]  ) {
+			NSString * versionName = [folderName substringFromIndex: [@"openvpn-" length]];
+			useVersionIx = [versionNames indexOfObject: versionName];
+			if (  useVersionIx == NSNotFound  ) {
+				useVersionIx = 0;
+				NSLog(@"Default OpenVPN '%@' not found. Using '%@'", versionName, [versionNames firstObject]);
+			}
+		} else {
+			NSLog(@"Default OpenVPN '%@' not prefixed by '-openvpn'. Using '%@'", folderName, [versionNames firstObject]);
+		}
+		
+	} else {
         if (  [prefVersion isEqualToString: @"-"]  ) {
             // "-" means use lastest version
             useVersionIx = [versionNames count] - 1;

@@ -881,32 +881,30 @@ static BOOL firstTimeShowingWindow = TRUE;
         return; // Have not set up the list yet
     }
     
-    NSUInteger versionIx    = [connection getOpenVPNVersionIxToUse];
-    
     NSString * key = [[connection displayName] stringByAppendingString: @"-openvpnVersion"];
     NSString * prefVersion = [gTbDefaults stringForKey: key];
-    NSUInteger listIx = 0;                              // Default to the first entry -- "Default (x.y.z)"
+    NSUInteger listIx;                              // Default to the first entry -- "Default (x.y.z)"
 
     if (  [prefVersion length] == 0  ) {
-        // Use default; if actually using it, show we are using default (1st entry), otherwise show what we are using
-        if (  versionIx == 0  ) {
-            listIx = 0;
-        } else {
-            listIx = versionIx + 1; // + 1 to skip over the 1st entry (default)
-        }
-    } else if (  [prefVersion isEqualToString: @"-"]  ) {
-        // Use latest. If we are actually using it, show we are using latest (last entry), otherwise show what we are using
-        NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
-        if (  versionIx == [versionNames count] - 1  ) {
-            listIx = versionIx + 2; // + 2 to skip over the 1st entry (default) and the specific entry, to get to "Latest (version)"
-        } else {
-            listIx = versionIx + 1; // + 1 to skip over the 1st entry (default)
-        }
-    } else {
-        // Using a specific version, but show what we are actually using instead
-        listIx = versionIx + 1; // + 1 to skip over the 1st entry (default)
-    }
-    
+        // Use default
+		listIx = 0;
+	} else {
+		NSUInteger versionIx    = [connection getOpenVPNVersionIxToUse];
+		
+		if (  [prefVersion isEqualToString: @"-"]  ) {
+			// Use latest. If we are actually using it, show we are using latest (last entry), otherwise show what we are using
+			NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
+			if (  versionIx == [versionNames count] - 1  ) {
+				listIx = versionIx + 2; // + 2 to skip over the 1st entry (default) and the specific entry, to get to "Latest (version)"
+			} else {
+				listIx = versionIx + 1; // + 1 to skip over the 1st entry (default)
+			}
+		} else {
+			// Using a specific version, but show what we are actually using instead
+			listIx = versionIx + 1; // + 1 to skip over the 1st entry (default)
+		}
+	}
+	
     [self setSelectedPerConfigOpenvpnVersionIndex: [NSNumber numberWithInteger: listIx]];
     
     [[configurationsPrefsView perConfigOpenvpnVersionButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
