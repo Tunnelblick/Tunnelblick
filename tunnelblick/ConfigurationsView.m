@@ -143,11 +143,11 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
                 break;
                 
             case 4:
-                label = NSLocalizedString(@"OpenVPN level 4 - also outputs values for all options", @"Menu Item");
+                label = NSLocalizedString(@"OpenVPN level 4 - values for all options", @"Menu Item");
                 break;
                 
             case 5:
-                label = NSLocalizedString(@"OpenVPN level 5 - also outputs \"R\" or \"W\" for each packet", @"Menu Item");
+                label = NSLocalizedString(@"OpenVPN level 5 - \"R\" or \"W\" for each packet", @"Menu Item");
                 break;
                 
             case 6:
