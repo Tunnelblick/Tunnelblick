@@ -96,11 +96,28 @@
         </ul>
 </ul>
 <ul class="ul1">
+	<li class="li3"><b>On <em>expected</em> disconnect</b> specifies what Tunnelblick does when the VPN is disconnected normally (by a menu command or button):
+		<ul>
+			<li class="li3"><b>Do nothing</b></li>
+			<li class="li3"><b>Reset Primary Interface</b>: Tunnelblick resets the primary network service by issuing 'ipconfig down; ipconfig up' on its interface. This can be helpful when certain configuration problems cause a failure to restore network routing properly after a disconnection.</li>
+			<li class="li3"><b>Disable Network Access ("Kill Switch")</b>: Tunnelblick cuts off all network access (local and Internet) by powering down Wi-Fi and disabling all other network services. This can insure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <b>This setting may not work properly</b> when more than one VPN is connected simultaneously.</li>
+		</ul>
+	</li>
+</ul>
+<ul class="ul1">
+	<li class="li3"><b>On <em>unexpected</em> disconnect</b> specifies what Tunnelblick does when the VPN is disconnected unexpectedly (for example, if OpenVPN crashes or is unable to connect to the VPN and is set up to stop if that happens):
+		<ul>
+			<li class="li3"><b>Do nothing</b></li>
+			<li class="li3"><b>Reset Primary Interface</b>: Tunnelblick reset the primary network interface, done by issuing 'ipconfig down; ipconfig up' on the interface. This can be helpful when certain configuration problems fail to restore network routing properly after a disconnection.</li>
+			<li class="li3"><b>Disable Network Access ("Kill Switch")</b>: Tunnelblick cuts off all network access (local and Internet) by powering down Wi-Fi and disabling all other network services. This can insure that nothing leaks out of the computer except through the VPN. If Tunnelblick has disabled network access a menu command to re-enable all access that was disabled will be available from the Tunnelblick icon in the menu bar. You can also re-enable Wi-Fi by turning it on, or re-enable other network services in System Preferences : Network. <b>This setting may not work properly</b> when more than one VPN is connected simultaneously.</li>
+		</ul>
+	</li>
+</ul>
+<ul class="ul1">
   <li class="li3"><b>Monitor network settings</b> determines whether or not Tunnelblick will monitor network settings for changes while the selected configuration is connected. This may be done to react to DHCP renewals or other network changes.<br><br></li>
   <li class="li3"><b>Route all IPv4 traffic through the VPN</b>. When checked, a '--redirect-gateway def1' option is sent to OpenVPN, causing routing to be set up to route all IPv4 traffic through the VPN. If this is not checked, all IPv4 traffic may still be sent through the VPN because the OpenVPN configuration file may contain the option, or the option may be "pushed" from the VPN server.<br><br></li>
   <li class="li3"><b>Disable IPv6 (tun only)</b>. When checked, Tunnelblick will disable IPv6 traffic on all active interfaces (those set to use IPv6 "automatically") while the selected configuration is connected and restore it when the configuration is disconnected. This may only be done on "Tun" connections, not "Tap" connections.<br><br></li>
   <li class="li3"><b>Check if the apparent public IP address changed after connecting</b>. Usually when connected to a VPN all IPv4 traffic is routed through the VPN server and the computer's apparent public IP address changes. When connected from home to an office VPN, for example, the IP address would change from your home network's public IP address to a public IP address from your office network. Some configurations of VPNs do not route all VPN traffic through the VPN server, however, so Tunnelblick can make an independent check of whether or not the address changed. If it did not change, and you want it to, contact your VPN service provider and ask them to change their configuration files, or check the "Route all IPv4 traffic through the VPN".<br><br></li>
-  <li class="li3"><b>Reset the primary interface after disconnecting</b>: This checkbox causes Tunnelblick to reset the primary network interface after the selected configuration is disconnected. This is done by 'ipconfig down; ipconfig up' on the interface.</li>
 </ul>
 <p class="p2"><br></p>
 <p class="p2">The <b>Advanced…</b> button opens a window with settings that are less commonly used for the selected configuration or configurations.</p>
