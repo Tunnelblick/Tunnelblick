@@ -37,7 +37,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="1064" id="1062">
-                                                <rect key="frame" x="-3" y="-3" width="163" height="326"/>
+                                                <rect key="frame" x="-3" y="-3" width="163" height="19"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -249,7 +249,7 @@
                                                                     <rect key="frame" x="9" y="8" width="663" height="275"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <subviews>
-                                                                        <popUpButton verticalHuggingPriority="750" id="543">
+                                                                        <popUpButton verticalHuggingPriority="750" id="543" customClass="TBPopUpButton">
                                                                             <rect key="frame" x="242" y="238" width="286" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="When TB launches$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="547" id="544">
@@ -276,7 +276,7 @@
                                                                                 </menu>
                                                                             </popUpButtonCell>
                                                                         </popUpButton>
-                                                                        <popUpButton verticalHuggingPriority="750" id="540">
+                                                                        <popUpButton verticalHuggingPriority="750" id="540" customClass="TBPopUpButton">
                                                                             <rect key="frame" x="242" y="212" width="286" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="Automatically$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="554" id="551">
@@ -309,7 +309,7 @@
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <popUpButton verticalHuggingPriority="750" id="1358">
+                                                                        <popUpButton verticalHuggingPriority="750" id="1358" customClass="TBPopUpButton">
                                                                             <rect key="frame" x="242" y="160" width="286" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="No logging$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1365" id="1361">
@@ -349,7 +349,7 @@
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <popUpButton verticalHuggingPriority="750" id="Qci-0o-1RH">
+                                                                        <popUpButton verticalHuggingPriority="750" id="Qci-0o-1RH" customClass="TBPopUpButton">
                                                                             <rect key="frame" x="243" y="134" width="286" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="Do nothing$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="NeE-bm-ZpY" id="j02-Ff-EzS">
@@ -385,7 +385,7 @@
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <popUpButton verticalHuggingPriority="750" id="feg-1i-aRG">
+                                                                        <popUpButton verticalHuggingPriority="750" id="feg-1i-aRG" customClass="TBPopUpButton">
                                                                             <rect key="frame" x="243" y="108" width="286" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="Do nothing$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="KuK-84-3eb" id="lZZ-KV-st7">
@@ -421,7 +421,7 @@
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <popUpButton verticalHuggingPriority="750" id="1113">
+                                                                        <popUpButton verticalHuggingPriority="750" id="1113" customClass="TBPopUpButton">
                                                                             <rect key="frame" x="242" y="186" width="286" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="push" title="4.5.6$" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1120" id="1118">

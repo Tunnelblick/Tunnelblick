@@ -782,7 +782,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                               defaultTo: NO];
 }
 
--(void) setupAnUponDisconnectPopUpButton: (NSPopUpButton *) button
+-(void) setupAnUponDisconnectPopUpButton: (id)              button // Can be NSPopUpButton or TBPopUpButton
 							  connection: (VPNConnection *) connection
 							  unexpected: (BOOL)            unexpected
 {

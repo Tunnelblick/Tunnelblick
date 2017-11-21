@@ -267,9 +267,41 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
     [whenToConnectManuallyMenuItem          setTitle: NSLocalizedString(@"Manually"                 , @"Button")];
     [whenToConnectTunnelBlickLaunchMenuItem setTitle: NSLocalizedString(@"When Tunnelblick launches", @"Button")];
     [whenToConnectOnComputerStartMenuItem   setTitle: NSLocalizedString(@"When computer starts"     , @"Button")];
+	[whenToConnectPopUpButton
+	 setTitle: nil
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>Specifies when Tunnelblick should connect to the VPN.</strong></p>"
+														   @"<p>\"When computer starts\" may only be used with \"Shared\" configurations.</p>",
+														   @"HTML info for the 'Connect' button."))];
     [UIHelper setTitle: nil ofControl: whenToConnectPopUpButton shift: rtl narrow: YES enable: YES];
     
 	CGFloat sdnsWidthChange = [UIHelper setTitle: NSLocalizedString(@"Set DNS/WINS:", @"Window text") ofControl: setNameserverTFC frameHolder: setNameserverTF shift: ( !rtl ) narrow: YES enable: YES];
+	[setNameserverPopUpButton
+	 setTitle: nil
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>Specifies what (if anything) Tunnelblick does to modify DNS settings while the"
+														   @" VPN is connected.</strong> The choices are:"
+														   
+														   @"<ul>"
+														   
+														   @"<li><strong>Do not set nameserver</strong>: Nothing is done.<br></li>"
+														   
+														   @"<li><strong>Set nameserver</strong>: Tunnelblick uses its standard script to handle DNS"
+														   @" and WINS settings. This is usually the best choice. It changes DNS and WINS settings"
+														   @" according to instructions provided by OpenVPN. DNS and WINS settings that have been"
+														   @" set manually will not be changed unless \"Allow changes to manually-set network"
+														   @" settings\" has been selected in the \"Advanced\" settings window<br></li>"
+														   
+														   @"<li><strong>Set nameserver (3.1)</strong>: Tunnelblick uses the script from Tunnelblick 3.1"
+														   @" to handle DNS and WINS settings.<br></li>"
+														   
+														   @"<li><strong>Set nameserver (3.0b10)</strong>: Tunnelblick uses the script from Tunnelblick"
+														   @" 3.0b10 to handle DNS and WINS settings.<br></li>"
+														   
+														   @"<li><strong>Set nameserver (alternate 1)</strong>: Tunnelblick uses an alternate script to"
+														   @" handle DNS and WINS settings.<br></li>"
+														   
+														   @"</ul>",
+														   
+														   @"HTML info for the 'Set DNS/WINS' button."))];
 	[UIHelper setTitle: nil ofControl: setNameserverPopUpButton shift: rtl narrow: YES enable: YES];
     // setNameserverPopUpButton is modified in setupSetNameserver to reflect per-configuration settings
 	
@@ -277,6 +309,10 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 	if (  loggingLevelPopUpButton  ) {
 		loggingLevelWidthChange = [UIHelper setTitle: NSLocalizedString(@"VPN log level:", @"Window text") ofControl: loggingLevelTFC frameHolder: loggingLevelTF shift: ( !rtl ) narrow: YES enable: YES];
 		[self setupLoggingLevelPopUpButton];
+		[loggingLevelPopUpButton
+		 setTitle: nil
+		 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.",
+															   @"HTML info for the 'VPN log level' button."))];
 		[UIHelper setTitle: nil ofControl: loggingLevelPopUpButton shift: rtl narrow: YES enable: YES];
 	}
 	
@@ -284,12 +320,68 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 	[uponDisconnectDoNothingMenuItem setTitle:             NSLocalizedString(@"Do nothing",			     @"Button")];
 	[uponDisconnectResetPrimaryInterfaceMenuItem setTitle: NSLocalizedString(@"Reset Primary Interface", @"Button")];
 	[uponDisconnectDisableNetworkAccessMenuItem  setTitle: NSLocalizedString(@"Disable Network Access",  @"Button")];
+	[uponDisconnectPopUpButton
+	 setTitle: nil
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as"
+														   @" expected</em></strong> (for example, a \"Disconnect\" menu item or button is clicked). The"
+														   @" choices are:</p>"
+														   
+														   @"<ul>"
+														   
+														   @"<li><strong>Do nothing</strong><br></li>"
+														   
+														   @"<li><strong>Reset Primary Interface</strong>: Tunnelblick resets the primary network interface"
+														   @" by issuing 'ipconfig down; ipconfig up' commands to the interface. This can"
+														   @" be helpful when a configuration fails to restore network settings properly after a"
+														   @" disconnection.<br></li>"
+														   
+														   @"<li><strong>Disable Network Access (\"Kill Switch\")</strong>: Tunnelblick"
+														   @" cuts off all network access (local and Internet) by powering down Wi-Fi and"
+														   @" disabling all other network services. This can help ensure that nothing leaks out"
+														   @" of the computer except through the VPN. If Tunnelblick has disabled network"
+														   @" access a menu command to re-enable all access that was disabled will be"
+														   @" available from the Tunnelblick icon in the menu bar. You can also re-enable"
+														   @" Wi-Fi by turning it on, or re-enable other network services in System"
+														   @" Preferences : Network. <strong>This setting may not work properly when more"
+														   @" than one VPN is connected simultaneously.</li>"
+														   
+														   @"</ul>",
+														   
+														   @"HTML info for the 'On expected disconnect' button."))];
 	[UIHelper setTitle: nil ofControl: uponDisconnectPopUpButton shift: rtl narrow: YES enable: YES];
 
 	CGFloat uudWidthChange = [UIHelper setTitle: NSLocalizedString(@"On unexpected disconnect:", @"Window text") ofControl: uponUnexpectedDisconnectTFC frameHolder: uponUnexpectedDisconnectTF shift: ( !rtl  ) narrow: YES enable: YES];
 	[uponUnexpectedDisconnectDoNothingMenuItem             setTitle: NSLocalizedString(@"Do nothing",			   @"Button")];
 	[uponUnexpectedDisconnectResetPrimaryInterfaceMenuItem setTitle: NSLocalizedString(@"Reset Primary Interface", @"Button")];
 	[uponUnexpectedDisconnectDisableNetworkAccessMenuItem  setTitle: NSLocalizedString(@"Disable Network Access",  @"Button")];
+	[uponUnexpectedDisconnectPopUpButton
+	 setTitle: nil
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em>"
+														   @" disconnects</strong> (for example, if OpenVPN crashes or loses its connection"
+														   @" to the VPN and is set up to stop when that happens). The choices are:</p>"
+														   
+														   @"<ul>"
+														   
+														   @"<li><strong>Do nothing</strong><br></li>"
+														   
+														   @"<li><strong>Reset Primary Interface</strong>: Tunnelblick resets the primary network interface"
+														   @" by issuing 'ipconfig down; ipconfig up' commands to the interface. This can"
+														   @" be helpful when a configuration fails to restore network settings properly after a"
+														   @" disconnection.<br></li>"
+														   
+														   @"<li><strong>Disable Network Access (\"Kill Switch\")</strong>: Tunnelblick"
+														   @" cuts off all network access (local and Internet) by powering down Wi-Fi and"
+														   @" disabling all other network services. This can help ensure that nothing leaks out"
+														   @" of the computer except through the VPN. If Tunnelblick has disabled network"
+														   @" access a menu command to re-enable all access that was disabled will be"
+														   @" available from the Tunnelblick icon in the menu bar. You can also re-enable"
+														   @" Wi-Fi by turning it on, or re-enable other network services in System"
+														   @" Preferences : Network. <strong>This setting may not work properly when more"
+														   @" than one VPN is connected simultaneously.</li>"
+														   
+														   @"</ul>",
+														   
+														   @"HTML info for the 'On unexpected disconnect' button."))];
 	[UIHelper setTitle: nil ofControl: uponUnexpectedDisconnectPopUpButton shift: rtl narrow: YES enable: YES];
 
 	
@@ -334,6 +426,26 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
                           nil]];
     
     [perConfigOpenvpnVersionArrayController setContent: ovContent];
+	[perConfigOpenvpnVersionButton
+	 setTitle: nil
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>Specifies the version of OpenVPN and the SSL software that should be used to"
+														   @" connect the VPN.</strong>"
+														   
+														   @"<ul>"
+														   
+														   @"<li><strong>The \"Default\" setting</strong> will use the default version of OpenVPN with OpenSSL that is"
+														   @" included in this version of Tunnelblick. The default may be different in different versions of Tunnelblick.<br></li>"
+
+														   @"<li><strong>The \"Latest\" setting</strong> will use the latest version of OpenVPN with LibreSSL that is"
+														   @" included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li>"
+														   
+														   @"<li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are"
+														   @" available in this version of Tunnelblick. If not available, the latest version of OpenVPN"
+														   @" with LibreSSL will be used.<br></li>"
+														   
+														   @"</ul>",
+
+														   @"HTML info for the 'OpenVPN version' button."))];
 	[UIHelper setTitle: nil ofControl: perConfigOpenvpnVersionButton shift: rtl narrow: YES enable: YES];
 	
 	[self shiftLabelsAndButtonsWtc: wtcWidthChange sdns: sdnsWidthChange pcov: pcovWidthChange loggingLevelWidthChange: loggingLevelWidthChange uponDisconnectWidthChange: udWidthChange uponUnexpectedDisconnectWidthChange: uudWidthChange];
@@ -433,14 +545,14 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, logDisplayProgressIndicat
 TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,       settingsTabViewItem)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     whenToConnectTFC)
-TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       whenToConnectPopUpButton)
+TBSYNTHESIZE_OBJECT_GET(retain, TBPopUpButton *,       whenToConnectPopUpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          whenToConnectManuallyMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          whenToConnectTunnelBlickLaunchMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          whenToConnectOnComputerStartMenuItem)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,         setNameserverTF)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     setNameserverTFC)
-TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       setNameserverPopUpButton)
+TBSYNTHESIZE_OBJECT_GET(retain, TBPopUpButton *,       setNameserverPopUpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   setNameserverArrayController)
 
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            monitorNetworkForChangesCheckbox)
@@ -449,21 +561,21 @@ TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            disableIpv6OnTunCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            checkIPAddressAfterConnectOnAdvancedCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   perConfigOpenvpnVersionArrayController)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            perConfigOpenvpnVersionButton)
+TBSYNTHESIZE_OBJECT_GET(retain, TBPopUpButton *,       perConfigOpenvpnVersionButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,         loggingLevelTF)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     loggingLevelTFC)
-TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       loggingLevelPopUpButton)
+TBSYNTHESIZE_OBJECT_GET(retain, TBPopUpButton *,       loggingLevelPopUpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   loggingLevelArrayController)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     uponDisconnectTFC)
-TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       uponDisconnectPopUpButton)
+TBSYNTHESIZE_OBJECT_GET(retain, TBPopUpButton *,       uponDisconnectPopUpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponDisconnectDoNothingMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponDisconnectResetPrimaryInterfaceMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponDisconnectDisableNetworkAccessMenuItem)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     uponUnexpectedDisconnectTFC)
-TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       uponUnexpectedDisconnectPopUpButton)
+TBSYNTHESIZE_OBJECT_GET(retain, TBPopUpButton *,       uponUnexpectedDisconnectPopUpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponUnexpectedDisconnectDoNothingMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponUnexpectedDisconnectResetPrimaryInterfaceMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          uponUnexpectedDisconnectDisableNetworkAccessMenuItem)
