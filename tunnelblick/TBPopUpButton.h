@@ -19,14 +19,14 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-// THIS FILE IS IDENTICAL TO TBPopUpButton.h except for the class and base class
+// THIS FILE IS IDENTICAL TO TBButton.h except for the class and base class
 
 #import "defines.h"
 
 @class MAAttachedWindow;
 @class Tracker;
 
-@interface TBButton : NSButton {
+@interface TBPopUpButton : NSPopUpButton {
     
     BOOL                 mouseIsInButtonView;
     

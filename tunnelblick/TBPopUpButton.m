@@ -31,13 +31,13 @@
 #import "Tracker.h"
 #import "UIHelper.h"
 
-#import "TBButton.h"
+#import "TBPopUpButton.h"
 
 extern TBUserDefaults * gTbDefaults;
 extern BOOL             gShuttingDownWorkspace;
 
 
-@implementation TBButton
+@implementation TBPopUpButton
 
 TBSYNTHESIZE_OBJECT(retain, NSAttributedString *, titleAS,		  setTitleAS)
 TBSYNTHESIZE_OBJECT(retain, MAAttachedWindow   *, attachedWindow, setAttachedWindow)
@@ -245,7 +245,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
     TBLog(@"DB-PU", @">>>>> SHOWING window");
     
     if (  ! titleAS  ) {
-        NSLog(@"TBButton|showWindow invoked but content has not been set");
+        NSLog(@"TBPopUpButton|showWindow invoked but content has not been set");
     }
     
     if ( ! attachedWindow  ) {
@@ -380,7 +380,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
         return;
     }
     
-    TBLog(@"DB-PU", @"Mouse entered TBButton tracking rectangle");
+    TBLog(@"DB-PU", @"Mouse entered TBPopUpButton tracking rectangle");
     
     mouseIsInButtonView = TRUE;
     
@@ -395,7 +395,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
 {
     // Event handler; NOT on MainThread
     
-    TBLog(@"DB-PU", @"Mouse exited TBButton tracking rectangle");
+    TBLog(@"DB-PU", @"Mouse exited TBPopUpButton tracking rectangle");
     
     mouseIsInButtonView = FALSE;
     
@@ -408,7 +408,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
 {
     // Event handler; NOT on MainThread
     
-    TBLog(@"DB-PU", @"Mouse down in  TBButton tracking rectangle");
+    TBLog(@"DB-PU", @"Mouse down in  TBPopUpButton tracking rectangle");
 
 	[super mouseDown: theEvent];
 }
@@ -417,7 +417,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
 {
     // Event handler; NOT on MainThread
     
-    TBLog(@"DB-PU", @"Mouse up in TBButton tracking rectangle");
+    TBLog(@"DB-PU", @"Mouse up in TBPopUpButton tracking rectangle");
     
 	[super mouseUp: theEvent];
 }
@@ -432,7 +432,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
         return;
     }
     
-    TBLog(@"DB-PU", @"Mouse moved in  TBButton tracking rectangle");
+    TBLog(@"DB-PU", @"Mouse moved in  TBPopUpButton tracking rectangle");
     
     [super mouseMoved: theEvent];
 }
@@ -441,7 +441,7 @@ TBSYNTHESIZE_NONOBJECT(CGFloat, minimumWidth, setMinimumWidth)
 {
     // Event handler; NOT on MainThread
     
-    TBLog(@"DB-PU", @"Cursor update in TBButton tracking rectangle");
+    TBLog(@"DB-PU", @"Cursor update in TBPopUpButton tracking rectangle");
     
     [super cursorUpdate: theEvent];
 }

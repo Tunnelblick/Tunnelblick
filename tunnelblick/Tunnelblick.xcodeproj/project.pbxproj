@@ -47,6 +47,7 @@
 		63179444118D7EC20057ACAF /* atsystemstart.m in Sources */ = {isa = PBXBuildFile; fileRef = 63179443118D7EC20057ACAF /* atsystemstart.m */; };
 		6317955C118DC5620057ACAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		631795FC118DC79B0057ACAF /* atsystemstart in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 6317943E118D7E820057ACAF /* atsystemstart */; };
+		631BC4311FC4496300730786 /* TBPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 631BC42F1FC4496300730786 /* TBPopUpButton.m */; };
 		631C2F211DF1A74B00DB1AE4 /* AZ.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631C2F201DF1A74B00DB1AE4 /* AZ.lproj */; };
 		63206BC31D273CBD00019DFB /* info-icon-on-left-360x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 63206BC11D273CBD00019DFB /* info-icon-on-left-360x40.png */; };
 		63206BC41D273CBD00019DFB /* info-icon-on-right-360x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 63206BC21D273CBD00019DFB /* info-icon-on-right-360x40.png */; };
@@ -397,6 +398,8 @@
 		631494A219FA7B9E009057D1 /* PT_PT.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PT_PT.lproj; sourceTree = "<group>"; };
 		6317943E118D7E820057ACAF /* atsystemstart */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = atsystemstart; sourceTree = BUILT_PRODUCTS_DIR; };
 		63179443118D7EC20057ACAF /* atsystemstart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = atsystemstart.m; sourceTree = "<group>"; };
+		631BC42F1FC4496300730786 /* TBPopUpButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPopUpButton.m; sourceTree = "<group>"; };
+		631BC4301FC4496300730786 /* TBPopUpButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPopUpButton.h; sourceTree = "<group>"; };
 		631C2F201DF1A74B00DB1AE4 /* AZ.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AZ.lproj; sourceTree = "<group>"; };
 		63206BC11D273CBD00019DFB /* info-icon-on-left-360x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-icon-on-left-360x40.png"; sourceTree = "<group>"; };
 		63206BC21D273CBD00019DFB /* info-icon-on-right-360x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-icon-on-right-360x40.png"; sourceTree = "<group>"; };
@@ -931,6 +934,8 @@
 		63C374521D281EBD004758A3 /* InfoButton */ = {
 			isa = PBXGroup;
 			children = (
+				631BC4301FC4496300730786 /* TBPopUpButton.h */,
+				631BC42F1FC4496300730786 /* TBPopUpButton.m */,
 				6395C2301E37B90000E3C176 /* TBButton.h */,
 				6395C2311E37B90000E3C176 /* TBButton.m */,
 				634F1B9B1D23FD9D00B1E929 /* Tracker.h */,
@@ -1759,6 +1764,7 @@
 				61BC4B940E2F9EDA00F24255 /* UKMainThreadProxy.m in Sources */,
 				6185E7400E76045D0009C2FD /* helper.m in Sources */,
 				6165CC8C0E9072A5007312DC /* RouteManager.m in Sources */,
+				631BC4311FC4496300730786 /* TBPopUpButton.m in Sources */,
 				6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */,
 				63FFC3D91D3FDF5A00CBB289 /* DropConfigsView.m in Sources */,
 				637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */,
