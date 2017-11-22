@@ -217,6 +217,15 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 	
 	[UIHelper setTitle: NSLocalizedString(@"Disconnect", @"Button") ofControl: disconnectButton shift: ( !rtl) narrow: YES enable: YES];
     
+	[diagnosticInfoToClipboardButton
+	 setTitle: nil
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Copies information to the Clipboard to help diagnose problems.</p>"
+														   @"<p>The information includes software versions and settings, the OpenVPN configuration file,"
+														   @" network settings and more.</p>"
+														   @"<p>Sensitive certificate information is not included, but data such as IP addreses and URLS"
+														   @" which <em>may</em> be confidential are included. You should examine the information and"
+														   @" remove anything you want kept secret before sending it in an email or posting it publicly.</p>",
+														   @"HTML info for the 'Copy Diagnostic Info to Clipboard' button."))];
 	[UIHelper setTitle: NSLocalizedString(@"Copy Diagnostic Info to Clipboard", @"Button") ofControl: diagnosticInfoToClipboardButton shift: rtl narrow: YES enable: YES];
     
 	
@@ -311,7 +320,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 		[self setupLoggingLevelPopUpButton];
 		[loggingLevelPopUpButton
 		 setTitle: nil
-		 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.",
+		 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.<p>",
 															   @"HTML info for the 'VPN log level' button."))];
 		[UIHelper setTitle: nil ofControl: loggingLevelPopUpButton shift: rtl narrow: YES enable: YES];
 	}
@@ -529,7 +538,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          showOpenvpnLogMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          removeCredentialsMenuItem)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            configurationsHelpButton)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            diagnosticInfoToClipboardButton)
+TBSYNTHESIZE_OBJECT_GET(retain, TBButton *,            diagnosticInfoToClipboardButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, diagnosticInfoToClipboardProgressIndicator)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            disconnectButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            connectButton)

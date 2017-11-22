@@ -406,7 +406,7 @@
                                                     <outlet property="nextKeyView" destination="527" id="768"/>
                                                 </connections>
                                             </button>
-                                            <button verticalHuggingPriority="750" id="1203">
+                                            <button verticalHuggingPriority="750" id="1203" customClass="TBButton">
                                                 <rect key="frame" x="490" y="5" width="190" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                 <buttonCell key="cell" type="push" title="Copy Log to Clipboard$" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1204">
@@ -439,11 +439,11 @@
                                     <rect key="frame" x="0.0" y="22" width="137" height="328"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" id="DMN-lE-Qdt">
-                                        <rect key="frame" x="1" y="1" width="135" height="311"/>
+                                        <rect key="frame" x="1" y="1" width="135" height="326"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="1064" id="1062">
-                                                <rect key="frame" x="-6" y="-4" width="135" height="19"/>
+                                                <rect key="frame" x="-7" y="-5" width="135" height="326"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -471,7 +471,7 @@
                                         </subviews>
                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </clipView>
-                                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.5" horizontal="YES" id="1061">
+                                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="1061">
                                         <rect key="frame" x="1" y="312" width="135" height="15"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
@@ -697,7 +697,7 @@
                 <userLayoutGuide location="351.75390625" affinity="minY"/>
             </userGuides>
             <subviews>
-                <popUpButton verticalHuggingPriority="750" id="15">
+                <popUpButton verticalHuggingPriority="750" id="15" customClass="TBPopUpButton">
                     <rect key="frame" x="506" y="326" width="109" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="C..." bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="20" id="18">
@@ -718,7 +718,7 @@
                         <outlet property="nextKeyView" destination="14" id="739"/>
                     </connections>
                 </popUpButton>
-                <popUpButton verticalHuggingPriority="750" id="14">
+                <popUpButton verticalHuggingPriority="750" id="14" customClass="TBPopUpButton">
                     <rect key="frame" x="524" y="285" width="91" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="1..." bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="25" id="22">
@@ -946,7 +946,7 @@
                         <outlet property="nextKeyView" destination="46" id="766"/>
                     </connections>
                 </button>
-                <popUpButton verticalHuggingPriority="750" id="46">
+                <popUpButton verticalHuggingPriority="750" id="46" customClass="TBPopUpButton">
                     <rect key="frame" x="280" y="328" width="387" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Default..." bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="65" id="63">
@@ -1063,7 +1063,7 @@
                         <outlet property="nextKeyView" destination="396" id="754"/>
                     </connections>
                 </button>
-                <popUpButton verticalHuggingPriority="750" id="396">
+                <popUpButton verticalHuggingPriority="750" id="396" customClass="TBPopUpButton">
                     <rect key="frame" x="280" y="152" width="387" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Never..." bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="399" id="397">
@@ -1085,7 +1085,7 @@
                         <outlet property="nextKeyView" destination="48" id="765"/>
                     </connections>
                 </popUpButton>
-                <popUpButton verticalHuggingPriority="750" id="1177">
+                <popUpButton verticalHuggingPriority="750" id="1177" customClass="TBPopUpButton">
                     <rect key="frame" x="280" y="122" width="387" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Default screen" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="1180" id="1178">

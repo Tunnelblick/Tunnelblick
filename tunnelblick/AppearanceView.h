@@ -23,12 +23,13 @@
 #import "defines.h"
 
 @class TBButton;
+@class TBPopUpButton;
 
 @interface AppearanceView : NSView {
     
     IBOutlet NSTextFieldCell    * appearanceIconTFC;
     IBOutlet NSArrayController  * appearanceIconSetArrayController;
-    IBOutlet NSButton           * appearanceIconSetButton;
+    IBOutlet TBPopUpButton      * appearanceIconSetButton;
     IBOutlet TBButton           * appearancePlaceIconNearSpotlightCheckbox;
     
     IBOutlet NSTextFieldCell    * appearanceMenuTFC;
@@ -40,10 +41,10 @@
 
     IBOutlet NSTextFieldCell    * appearanceConnectionWindowDisplayCriteriaTFC;
     IBOutlet NSArrayController  * appearanceConnectionWindowDisplayCriteriaArrayController;
-    IBOutlet NSButton           * appearanceConnectionWindowDisplayCriteriaButton;
+    IBOutlet TBPopUpButton      * appearanceConnectionWindowDisplayCriteriaButton;
     
     IBOutlet NSArrayController  * appearanceConnectionWindowScreenArrayController;
-    IBOutlet NSButton           * appearanceConnectionWindowScreenButton;
+    IBOutlet TBPopUpButton      * appearanceConnectionWindowScreenButton;
     
     IBOutlet TBButton           * appearanceDisplayStatisticsWindowsCheckbox;
     IBOutlet TBButton           * appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox;
@@ -52,7 +53,7 @@
 }
 
 TBPROPERTY_READONLY(NSArrayController *, appearanceIconSetArrayController)
-TBPROPERTY_READONLY(NSButton *,          appearanceIconSetButton)
+TBPROPERTY_READONLY(TBPopUpButton *,     appearanceIconSetButton)
 TBPROPERTY_READONLY(TBButton *,          appearancePlaceIconNearSpotlightCheckbox)
 
 TBPROPERTY_READONLY(TBButton *,          appearanceDisplayConnectionSubmenusCheckbox)
@@ -61,10 +62,10 @@ TBPROPERTY_READONLY(TBButton *,          appearanceDisplayConnectionTimersCheckb
 TBPROPERTY_READONLY(TBButton *,          appearanceDisplaySplashScreenCheckbox)
 
 TBPROPERTY_READONLY(NSArrayController *, appearanceConnectionWindowDisplayCriteriaArrayController)
-TBPROPERTY_READONLY(NSButton *,          appearanceConnectionWindowDisplayCriteriaButton)
+TBPROPERTY_READONLY(TBPopUpButton *,     appearanceConnectionWindowDisplayCriteriaButton)
 
 TBPROPERTY_READONLY(NSArrayController *, appearanceConnectionWindowScreenArrayController)
-TBPROPERTY_READONLY(NSButton *,          appearanceConnectionWindowScreenButton)
+TBPROPERTY_READONLY(TBPopUpButton *,     appearanceConnectionWindowScreenButton)
 
 TBPROPERTY_READONLY(TBButton *,          appearanceDisplayStatisticsWindowsCheckbox)
 TBPROPERTY_READONLY(TBButton *,          appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox)

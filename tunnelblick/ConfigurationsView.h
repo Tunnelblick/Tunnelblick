@@ -56,7 +56,7 @@
     
     IBOutlet NSButton            * configurationsHelpButton;
 	
-    IBOutlet NSButton            * diagnosticInfoToClipboardButton;
+    IBOutlet TBButton            * diagnosticInfoToClipboardButton;
     IBOutlet NSProgressIndicator * diagnosticInfoToClipboardProgressIndicator;
     
     IBOutlet NSButton            * disconnectButton;
@@ -146,7 +146,7 @@ TBPROPERTY_READONLY(NSMenuItem *,          removeCredentialsMenuItem)
 
 TBPROPERTY_READONLY(NSButton *,            configurationsHelpButton)
 TBPROPERTY_READONLY(NSButton *,            disconnectButton)
-TBPROPERTY_READONLY(NSButton *,            diagnosticInfoToClipboardButton)
+TBPROPERTY_READONLY(TBButton *,            diagnosticInfoToClipboardButton)
 TBPROPERTY_READONLY(NSProgressIndicator *, diagnosticInfoToClipboardProgressIndicator)
 TBPROPERTY_READONLY(NSButton *,            connectButton)
 

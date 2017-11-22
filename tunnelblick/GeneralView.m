@@ -76,6 +76,10 @@ extern TBUserDefaults * gTbDefaults;
     BOOL rtl = [UIHelper languageAtLaunchWasRTL];
     
     [keyboardShortcutArrayController setContent: kbsContent];
+	[keyboardShortcutButton
+	 setTitle: nil
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Specifies the keys to press to invoke Tunneblick's main menu.</p>",
+														   @"HTML info for the 'Keyboard shortcut' button."))];
     [UIHelper setTitle: nil ofControl: keyboardShortcutButton shift: rtl narrow: YES enable: YES];
     
     // Log display size popup
@@ -88,6 +92,10 @@ extern TBUserDefaults * gTbDefaults;
                             [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString( @"10 MB", @"Button"), @"name", [NSNumber numberWithUnsignedInt:  10*1024*1024], @"value", nil],
                             nil];
     [maximumLogSizeArrayController setContent: mlsContent];
+	[maximumLogSizeButton
+	 setTitle: nil
+	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Specifies the maximum amount of storage to use to display the VPN log.</p>",
+														   @"HTML info for the 'Maximum log display size' button."))];
     [UIHelper setTitle: nil ofControl: maximumLogSizeButton shift: rtl narrow: YES enable: YES];
     
     [warningsTFC setTitle: NSLocalizedString(@"Warnings:", @"Window text")];
@@ -148,10 +156,10 @@ extern TBUserDefaults * gTbDefaults;
 // Getters
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, keyboardShortcutArrayController)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          keyboardShortcutButton)
+TBSYNTHESIZE_OBJECT_GET(retain, TBPopUpButton *,     keyboardShortcutButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, maximumLogSizeArrayController)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          maximumLogSizeButton)
+TBSYNTHESIZE_OBJECT_GET(retain, TBPopUpButton *,     maximumLogSizeButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   tbInternetAccessTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       tbInternetAccessTF)
