@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -59,6 +59,8 @@ NSMutableString * encodeSlashesAndPeriods(NSString * s);
 
 NSString     * stringForLog             (NSString * outputString,
                                          NSString * header);
+
+NSString     * messageIfProblemInLogLine(NSString * line);
 
 NSString     * firstPartOfPath          (NSString * thePath);
 NSString     * lastPartOfPath           (NSString * thePath);

@@ -228,6 +228,7 @@ extern volatile int32_t       gActiveInactiveState;
         serverNotClient = FALSE;
         ipCheckLastHostWasIPAddress = FALSE;
 		connectAfterDisconnect = FALSE;
+		logEntriesWereExplained = FALSE;
         logFilesMayExist = ([[gTbDefaults stringForKey: @"lastConnectedDisplayName"] isEqualToString: displayName]);
 
         userWantsState   = userWantsUndecided;
@@ -300,6 +301,7 @@ extern volatile int32_t       gActiveInactiveState;
     loadedOurTap     = FALSE;
     loadedOurTun     = FALSE;
     logFilesMayExist = FALSE;
+	logEntriesWereExplained = FALSE;
     serverNotClient  = FALSE;
 }
 
@@ -1477,6 +1479,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     logFilesMayExist = TRUE;
+	logEntriesWereExplained = FALSE;
     authFailed = FALSE;
     credentialsAskedFor = FALSE;
     userWantsState = userWantsUndecided;
@@ -1642,10 +1645,12 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
         
 		if (  userKnows  ) {
-            TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
-							  [NSString stringWithFormat:
-							   NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window", @"Window text"),
-							   [self localizedName]]);
+			if (  ! [self logEntriesWereExplained]  ) {
+				TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
+								  [NSString stringWithFormat:
+								   NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window", @"Window text"),
+								   [self localizedName]]);
+			}
         }
 
     } else {
@@ -2694,6 +2699,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
 		
 		logFilesMayExist = TRUE;
+		logEntriesWereExplained = FALSE;
+
 	} else if (   isHookedup
 			   && ( ! tryingToHookup )  ) {
 		TBLog(@"DB-HU", @"['%@'] indicateWeAreHookedUp invoked but are already hooked up (OK to see this message a few times)", displayName)
@@ -3813,6 +3820,7 @@ TBSYNTHESIZE_OBJECT(retain,     NSString *,               localizedName,        
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     ipCheckLastHostWasIPAddress,      setIpCheckLastHostWasIPAddress)
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     haveConnectedSince,               setHaveConnectedSince)
 TBSYNTHESIZE_NONOBJECT(         BOOL,                     logFilesMayExist,                 setLogFilesMayExist)
+TBSYNTHESIZE_NONOBJECT(         BOOL,                     logEntriesWereExplained,          setLogEntriesWereExplained)
 
 
 //*********************************************************************************************************

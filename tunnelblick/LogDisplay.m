@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -33,6 +33,7 @@
 #import "NSTimer+TB.h"
 #import "TBUserDefaults.h"
 #import "UKKQueue/UKKQueue.h"
+#import "VPNConnection.h"
 
 #define NUMBER_OF_LINES_TO_KEEP_AT_START_OF_LOG 10
 #define NUMBER_OF_LINES_TO_KEEP_AS_TUNNELBLICK_ENTRIES_AT_START_OF_LOG 3
@@ -180,6 +181,15 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     return string;
 }
 
+-(void) popupAWarningForProblemSeenInLogLine: (NSString *) line {
+	
+	NSString * message = messageIfProblemInLogLine(line);
+	if (  message  ) {
+		TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"), message);
+		[(VPNConnection *)[self connection] setLogEntriesWereExplained: TRUE];
+	}
+}
+
 -(BOOL) loggingIsDisabled {
     
     NSString * key = [[[self connection] displayName] stringByAppendingString: @"-loggingLevel"];
@@ -241,6 +251,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
     for (  i=0; i < lineCount; i++) {
         NSString * singleLine = [[lines objectAtIndex: i] stringByAppendingString: @"\n"];
         [ts beginEditing];
+		[self popupAWarningForProblemSeenInLogLine: singleLine];
 		NSMutableAttributedString * string = [self attributedStringFromLine: singleLine];
 		[ts insertAttributedString: string atIndex: ix];
         [ts endEditing];
@@ -987,6 +998,7 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer *,              watchdogTimer,          setW
         NSUInteger i;
         for (  i=0; i < lineCount; i++) {
             NSString * singleLine = [[lines objectAtIndex: i] stringByAppendingString: @"\n"];
+			[self popupAWarningForProblemSeenInLogLine: singleLine];
             NSMutableAttributedString * string = [self attributedStringFromLine: singleLine];
             [logStore appendAttributedString: string];
         }

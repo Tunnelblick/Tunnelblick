@@ -1,6 +1,6 @@
 /*
  * Copyright 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -1330,4 +1330,72 @@ BOOL appHasValidSignature(void) {
     }
     
     return NO;
+}
+
+NSString * messageIfProblemInLogLine(NSString * line) {
+	
+	NSArray * messagesToWarnAbout = [NSArray arrayWithObjects:
+									 @"WARNING: Your certificate is not yet valid!",
+									 @"WARNING: Your certificate has expired!",
+									 @"Unrecognized option or missing parameter(s)",
+									 @"Unrecognized option or missing or extra parameter(s)",
+									 nil];
+	
+	NSArray * correspondingInfo = [NSArray arrayWithObjects:
+								   @"",
+								   @"",
+								   NSLocalizedString(@"\n\n"
+													 @"This error means that an option that is contained in the OpenVPN configuration file or was"
+													 @" \"pushed\" by the OpenVPN server:\n\n"
+													 @"     • has been misspelled\n\n"
+													 @"     • has missing or extra arguments, or\n\n"
+													 @"     • is not implemented by the version of OpenVPN which is being used for this configuration."
+													 @" It may be a new option that is not implemented in an old version of OpenVPN, or an old option"
+													 @" that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use"
+													 @" with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's"
+													 @" \"VPN Details\" window.\n\n"
+													 @"See the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's"
+													 @" \"VPN Details\" window for details.",
+													 
+													 @"Window text"),
+								   NSLocalizedString(@"\n\n"
+													 @"This error means that an option that is contained in the OpenVPN configuration file or was"
+													 @" \"pushed\" by the OpenVPN server:\n\n"
+													 @"     • has been misspelled\n\n"
+													 @"     • has missing or extra arguments, or\n\n"
+													 @"     • is not implemented by the version of OpenVPN which is being used for this configuration."
+													 @" It may be a new option that is not implemented in an old version of OpenVPN, or an old option"
+													 @" that has been removed in a new version of OpenVPN. You can choose what version of OpenVPN to use"
+													 @" with this configuration in the \"Settings\" tab of the \"Configurations\" panel of Tunnelblick's"
+													 @" \"VPN Details\" window.\n\n"
+													 @"See the VPN log in the \"Log\" tab of the \"Configurations\" panel of Tunnelblick's"
+													 @" \"VPN Details\" window for details.",
+													 
+													 @"Window text"),
+								   nil];
+	
+	if (  [messagesToWarnAbout count] != [correspondingInfo count]  ) {
+		NSLog(@"messageForProblemsSeenInLogLine: messagesToWarnAbout and correspondingInfo do not have the same number of entries");
+		[(MenuController *)[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+		return nil;
+	}
+	
+	NSUInteger ix;
+	for (  ix=0; ix<[messagesToWarnAbout count]; ix++  ) {
+		
+		NSString * message = [messagesToWarnAbout objectAtIndex: ix];
+		if (  [line rangeOfString: message].length != 0  ) {
+			
+			NSString * moreInfo = (  ([correspondingInfo count] >= ix)
+								   ? [correspondingInfo objectAtIndex: ix]
+								   : @"");
+			
+			return [NSString stringWithFormat:
+					NSLocalizedString(@"The OpenVPN log contains the following message: \n\n\"%@\".%@",
+									  @"Window text. The first '%@' will be replaced by an OpenVPN warning or error message (in English) such as 'WARNING: Your certificate is not yet valid!'. The second '%@' will be replaced with an empty string or an already-translated comment that explains the warning or error in more detail."),
+					message, moreInfo];
+		}
+	}
+	
+	return nil;
 }

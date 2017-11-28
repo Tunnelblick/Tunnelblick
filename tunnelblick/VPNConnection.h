@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -132,6 +132,7 @@ struct Statistics {
     BOOL            loadedOurTap;       // True iff last connection loaded our tap kext
     BOOL            loadedOurTun;       // True iff last connection loaded our tun kext
     BOOL            logFilesMayExist;   // True iff have tried to connect (thus may have created log files) or if hooked up to existing OpenVPN process
+	BOOL			logEntriesWereExplained; // True if LogDisplay popped up one or more warnings about entries in the OpenVPN log for this connection try
     BOOL            showingStatusWindow; // True iff displaying statusScreen
     BOOL            ipCheckLastHostWasIPAddress; // Host part of server's URL that was last used to check IP info was an IP address, not a name
 	BOOL            speakWhenConnected; // True iff should speak that we are connected
@@ -282,6 +283,7 @@ TBPROPERTY(          NSString *,               connectedCfgLocCodeString,       
 TBPROPERTY(          BOOL,                     ipCheckLastHostWasIPAddress,      setIpCheckLastHostWasIPAddress)
 TBPROPERTY(          BOOL,                     haveConnectedSince,               setHaveConnectedSince)
 TBPROPERTY(          BOOL,                     logFilesMayExist,                 setLogFilesMayExist)
+TBPROPERTY(          BOOL,                     logEntriesWereExplained,          setLogEntriesWereExplained)
 TBPROPERTY(          NSString *,               localizedName,                    setLocalizedName)
 
 //*********************************************************************************************************
