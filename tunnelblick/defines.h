@@ -42,6 +42,11 @@
 // Maximum port number
 #define MAX_PORT_NUMBER 65536
 
+// Maximum length of a response from https://tunnelblick.net/ipinfo
+// Will be IP,port#,IP. An IPv6 addresses takes up to 39 bytes, port# up to five, and two commas separating the three items, so 78 + 5 + 2 = 85 bytes.
+// So we use 90 to give ourself some breathing room (to allow CR-LF at the end, for example, although ipinfo currently doesn't return one).
+#define TUNNELBLICK_DOT_NET_IPINFO_RESPONSE_MAX_LENGTH 90
+
 // Maximum hotKey index
 #define MAX_HOTKEY_IX 12
 

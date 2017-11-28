@@ -1044,7 +1044,7 @@ extern volatile int32_t       gActiveInactiveState;
         return [NSArray arrayWithObjects: @"0.0.0.0", @"0", @"0.0.0.0", nil];
     }
     
-    if (  [data length] > 40  ) {
+    if (  [data length] > TUNNELBLICK_DOT_NET_IPINFO_RESPONSE_MAX_LENGTH  ) {
         NSLog(@"%@:  Response data was too long (%ld bytes)", logHeader, (long) [data length]);
         return nil;
     }
@@ -1055,7 +1055,7 @@ extern volatile int32_t       gActiveInactiveState;
         return nil;
     }
     
-    if (  ! [response containsOnlyCharactersInString: @"0123456789.,"]  ) {
+    if (  ! [response containsOnlyCharactersInString: @"0123456789ABCDEFabcdef:.,"]  ) {
         NSLog(@"%@: Response had invalid characters. response = %@", logHeader, response);
 		return nil;
     }
