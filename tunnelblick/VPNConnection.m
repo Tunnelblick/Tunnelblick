@@ -3526,10 +3526,15 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     [statusScreen setStatus: newState forName: [self displayName] connectedSince: [self timeString]];
     
     if (  showingStatusWindow  ) {
-        if (   (   ! [statusPref isEqualToString: @"showWhenConnectingAndConnected"]
-				&& [newState isEqualToString: @"CONNECTED"])
-			|| (   [statusPref isEqualToString: @"showWhenConnectingAndConnected"]
-				&& [newState isEqualToString: @"EXITING"])  ) {
+
+        if (   (   [newState isEqualToString: @"EXITING"]
+                && [gTbDefaults boolForKey: @"doNotShowDisconnectedNotificationWindows"]
+                )
+
+            || (   [newState isEqualToString: @"CONNECTED"]
+                && (  ! [statusPref isEqualToString: @"showWhenConnectingAndConnected"] )
+               )
+            ) {
             // Wait one second, then fade away
             NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: 1.0
                                                                target: self
