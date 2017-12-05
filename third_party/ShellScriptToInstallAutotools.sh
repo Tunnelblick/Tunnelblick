@@ -86,4 +86,17 @@ cd "${libtool_version}"
 make
 sudo make install
 
+old_wd="$( pwd )"
+  cd /usr/local/bin/
+  if [  -e glibtool -a ! -e libtool ] ; then
+      sudo ln -s glibtool libtool
+      echo "CREATED SYMLINK: /usr/local/bin/libtool -> /usr/local/bin/glibtool"
+  fi
+
+  if [  -e glibtoolize -a ! -e libtoolize ] ; then
+      sudo ln -s glibtoolize libtoolize
+      echo "CREATED SYMLINK: /usr/local/bin/libtoolize -> /usr/local/bin/glibtoolize"
+  fi
+cd "$old_wd"
+
 echo "Installation of autotools completed successfully"
