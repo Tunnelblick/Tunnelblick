@@ -4616,10 +4616,10 @@ static void signal_handler(int signalNumber)
         }
     }
     
-	TBLog(@"DB-SU", @"applicationDidFinishLaunching: 06.1")
+	TBLog(@"DB-SU", @"applicationDidFinishLaunching: 06.2")
 	
 	if (  [gFileMgr fileExistsAtPath: L_AS_T_EXPECT_DISCONNECT_PATH]  ) {
-		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", "0", nil], nil, nil);
+		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"0", nil], nil, nil);
 		NSLog(@"Removed file: %@", L_AS_T_EXPECT_DISCONNECT_PATH);
 	}
 
