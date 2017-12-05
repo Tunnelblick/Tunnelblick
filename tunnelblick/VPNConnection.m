@@ -1435,7 +1435,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
 	if (  [gFileMgr fileExistsAtPath: L_AS_T_EXPECT_DISCONNECT_PATH]  ) {
-		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", "0", nil], nil, nil);
+		runOpenvpnstart([NSArray arrayWithObjects: @"expectDisconnect", @"0", nil], nil, nil);
 		appendLog(@"Cleared 'expect disconnect' flag");
 	}
 
