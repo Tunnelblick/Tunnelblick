@@ -8,7 +8,7 @@ TOPDIR = $(PWD)
 
 LZO_NAME         = lzo-2.08
 
-OPENSSL_NAME     = openssl-1.0.2m
+OPENSSL_NAME     = openssl-1.0.2n
 
 PKCS11_NAME      = pkcs11-helper-1.11
 
@@ -236,14 +236,14 @@ built-lzo:
 	ranlib $(LZO_STAGING_DIR)/lib/liblzo2.a
 	touch built-lzo
 	@echo "THIRD_PARTY: Built LZO"
-	
+
 built-lzo-clean:
 	@echo "THIRD_PARTY: Cleaning LZO..."
 	rm -f -R $(LZO_BUILD_DIR)
 	rm -f -R $(LZO_STAGING_DIR)
 	rm -f built-lzo
 	@echo "THIRD_PARTY: Cleaned LZO"
-	
+
 #######################################################################################
 # OPENVPN
 #######################################################################################
@@ -285,7 +285,7 @@ built-openvpn-prepare:
 	done
 	touch built-openvpn-prepare
 	@echo "THIRD_PARTY: Expanded and Patched OpenVPN"
-	
+
 built-openvpn: built-openvpn-prepare built-lzo built-pkcs11-helper built-openssl
 	@echo "THIRD_PARTY: Building OpenVPN..."
 	cd $(OPENVPN_BUILD_DIR) ; \
