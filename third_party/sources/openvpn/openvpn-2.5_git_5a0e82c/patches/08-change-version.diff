@@ -1,0 +1,11 @@
+--- openvpn/version.m4	2015-11-13 07:28:40.000000000 -0500
++++ openvpn_/version.m4	2015-11-18 14:05:17.000000000 -0500
+@@ -3,7 +3,7 @@
+ define([PRODUCT_TARNAME], [openvpn])
+ define([PRODUCT_VERSION_MAJOR], [2])
+ define([PRODUCT_VERSION_MINOR], [5])
+-define([PRODUCT_VERSION_PATCH], [_git])
++define([PRODUCT_VERSION_PATCH], [_git_5a0e82c])
+ m4_append([PRODUCT_VERSION], [PRODUCT_VERSION_MAJOR])
+ m4_append([PRODUCT_VERSION], [PRODUCT_VERSION_MINOR], [[.]])
+ m4_append([PRODUCT_VERSION], [PRODUCT_VERSION_PATCH], [[]])
