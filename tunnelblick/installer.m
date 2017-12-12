@@ -429,8 +429,8 @@ void loadLaunchDaemonUsingLaunchctl(void) {
 		&& [stderrString isEqualToString: @""]  ) {
 		appendLog(@"Used launchctl to load tunnelblickd");
 	} else {
-		appendLog([NSString stringWithFormat: @"'%@ load' failed; error was %d: '%s'\nstdout = '%@'\nstderr='%@'",
-                   TOOL_PATH_FOR_LAUNCHCTL, errno, strerror(errno), stdoutString, stderrString]);
+		appendLog([NSString stringWithFormat: @"'%@ load -w %@' failed; status = %d; errno = %d: '%s'\nstdout = '%@'\nstderr='%@'",
+                   TOOL_PATH_FOR_LAUNCHCTL, TUNNELBLICKD_PLIST_PATH, status, errno, strerror(errno), stdoutString, stderrString]);
 		errorExit();
 	}
 }
