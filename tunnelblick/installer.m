@@ -424,7 +424,9 @@ void loadLaunchDaemonUsingLaunchctl(void) {
 	
 	NSArray * arguments = [NSArray arrayWithObjects: @"load", TUNNELBLICKD_PLIST_PATH, nil];
 	OSStatus status = runTool(TOOL_PATH_FOR_LAUNCHCTL, arguments, &stdoutString, &stderrString);
-	if (  status == EXIT_SUCCESS  ) {
+	if (   (status == EXIT_SUCCESS)
+		&& [stdoutString isEqualToString: @""]
+		&& [stderrString isEqualToString: @""]  ) {
 		appendLog(@"Used launchctl to load tunnelblickd");
 	} else {
 		appendLog([NSString stringWithFormat: @"'%@ load' failed; error was %d: '%s'\nstdout = '%@'\nstderr='%@'",
