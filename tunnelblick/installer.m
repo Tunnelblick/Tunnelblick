@@ -422,7 +422,7 @@ void loadLaunchDaemonUsingLaunchctl(void) {
 		stderrString = @"";
 	}
 	
-	NSArray * arguments = [NSArray arrayWithObjects: @"load", TUNNELBLICKD_PLIST_PATH, nil];
+	NSArray * arguments = [NSArray arrayWithObjects: @"load", @"-w", TUNNELBLICKD_PLIST_PATH, nil];
 	OSStatus status = runTool(TOOL_PATH_FOR_LAUNCHCTL, arguments, &stdoutString, &stderrString);
 	if (   (status == EXIT_SUCCESS)
 		&& [stdoutString isEqualToString: @""]
