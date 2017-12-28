@@ -3915,6 +3915,12 @@ static void signal_handler(int signalNumber)
         if (   ( [dirName hasPrefix: @"openvpn-"] )  ) {
 			NSString * versionFromDirName = [dirName substringFromIndex: [@"openvpn-" length]];
             
+			// Include non-2.3 versions of OpenVPN only if OS X 10.6.8 or higher
+			if (   ( ! [versionFromDirName hasPrefix: @"2.3"]  )
+				&& ( ! runningOnSnowLeopardPointEightOrNewer() )  ) {
+				continue;
+			}
+			
             // Use ./openvpn --version to get the version information
             NSString * openvpnPath = [[openvpnDirPath stringByAppendingPathComponent: dirName ]
                                       stringByAppendingPathComponent: @"openvpn"];
