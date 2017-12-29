@@ -3459,7 +3459,9 @@ BOOL anyNonTblkConfigs(void)
 	[self recreateMenu];
 }
 
--(void) askAndMaybeReenableInternetAccess {
+-(BOOL) askAndMaybeReenableNetworkAccessAllowCancel: (BOOL) allowCancel {
+	
+	// Returns NO if the user cancelled
 	
 	if (   [gFileMgr fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH]
 		&& ( ! gShuttingDownWorkspace)
@@ -3469,12 +3471,15 @@ BOOL anyNonTblkConfigs(void)
 		// Wrap in "not shutting down Tunnelblick" so TBRunAlertPanel doesn't abort
 		BOOL saved = gShuttingDownTunnelblick;
 		gShuttingDownTunnelblick = FALSE;
+		NSString * cancelButton = (  allowCancel
+								   ? NSLocalizedString(@"Cancel", @"Button")
+								   : nil);
 		int result = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
 											 NSLocalizedString(@"Network access was disabled when a VPN disconnected.\n\n"
 															   @"Do you wish to re-enable network access?\n\n", @"Window text"),
 											 NSLocalizedString(@"Re-enable Network Access", @"Button"),
 											 NSLocalizedString(@"Do Not Re-enable Network Access", @"Button"),
-											 nil,
+											 cancelButton,
 											 @"skipWarningAboutReenablingInternetAccessAtExit",
 											 NSLocalizedString(@"Do not warn about this again, never re-enable", @"Checkbox text"),
 											 nil,
@@ -3483,8 +3488,13 @@ BOOL anyNonTblkConfigs(void)
 		
 		if (  result == NSAlertDefaultReturn  ) {
 			[self reEnableInternetAccess: self];
+			return YES;
 		}
+		
+		return (  result != NSAlertOtherReturn  );
 	}
+
+	return YES;
 }
 static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 
@@ -3518,7 +3528,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     
     [self doDisconnectionsForQuittingTunnelblick];
 	
-	[self askAndMaybeReenableInternetAccess];
+	[self askAndMaybeReenableNetworkAccessAllowCancel: NO];
 	
     TBCloseAllAlertPanels();
     
@@ -4952,7 +4962,7 @@ static void signal_handler(int signalNumber)
         [self showConfirmIconNearSpotlightIconDialog];
     }
     
-	[self askAndMaybeReenableInternetAccess];
+	[self askAndMaybeReenableNetworkAccessAllowCancel: NO];
 	
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 021")
 	NSString * text = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick %@ is ready.", @"Window text; '%@' will be replaced with a version number such as '3.6.10'"), [self tunnelblickVersionString]];

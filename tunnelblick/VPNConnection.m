@@ -1415,7 +1415,12 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         NSLog(@"connect: but %@ is not disconnected", [self displayName]);
         return;
     }
-    
+	
+	if (  ! [(MenuController *)[NSApp delegate] askAndMaybeReenableNetworkAccessAllowCancel: YES]  ) {
+		NSLog(@"connect: cancelled when asked to re-enabling network access");
+		return;
+	}
+	
     pthread_mutex_lock( &areConnectingMutex );
     if (  areConnecting  ) {
         pthread_mutex_unlock( &areConnectingMutex );
