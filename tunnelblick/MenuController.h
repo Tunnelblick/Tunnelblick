@@ -269,6 +269,7 @@ enum StatusIconPosition {
                                       event:                (NSEvent *)         theEvent;
 -(BOOL)             mouseIsInsideAnyView;
 -(NSString *)       openVPNLogHeader;
+-(NSString *)		openvpnVersionToUseInsteadOfVersion: (NSString *) prefVersion;
 -(void)             reactivateTunnelblick;
 -(void)             reconnectAfterBecomeActiveUser;
 -(void)             removeConnection:                       (VPNConnection *)   connection;

@@ -4537,6 +4537,86 @@ static void signal_handler(int signalNumber)
     }
 }
 
+-(NSString *) openvpnVersionToUseInsteadOfVersion: (NSString *) desiredVersion {
+
+	// Returns a string with an OpenVPN version that is the "closest match" to desiredVersion and is included in Tunnelblick:
+	//
+	// If can find the same major.minor version with the same SSL, return that.
+	// Else if can find the same major.minor version with different SSL, return that.
+	//      Else if desired version is earlier than all our versions, return our earliest version with the same SSL
+	//           Else return our latest version with the same SSL
+	//
+	// Assumes that openvpnVersionNames is sorted from earliest to latest.
+	
+	NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
+
+	BOOL wantLibressl = ([desiredVersion rangeOfString: @"libressl"].length != 0 );
+	NSString * majorMinor = [desiredVersion substringToIndex: 3];
+	NSString * bestSoFar = nil;
+	NSUInteger ix;
+	for (  ix=0; ix<[versionNames count]; ix++) {
+		NSString * versionName = [versionNames objectAtIndex: ix];
+		if (  [versionName hasPrefix: majorMinor]  ) {
+			BOOL hasLibressl = ([versionName rangeOfString: @"libressl"].length != 0 );
+			if (  wantLibressl == hasLibressl  ) {
+				return versionName;
+			}
+			bestSoFar = [[versionName copy] autorelease];
+		} else if (  ! bestSoFar  ) {
+		}
+	}
+	
+	if (  bestSoFar  ) {
+		return bestSoFar;
+	}
+	
+	// Couldn't find the same major.minor OpenVPN; will use either the earliest or latest
+	NSString * earliestVersion = [versionNames firstObject];
+	if (  [desiredVersion compare: earliestVersion] == NSOrderedAscending  ) {
+		
+		// Want a version of OpenVPN before our earliest version. Return our earliest version
+		// that has a matching SSL library (if possible).
+		// Assumes that versions come in pairs (an OpenSSL version and a LibreSSL version)
+		BOOL hasLibressl = ([earliestVersion rangeOfString: @"libressl"].length != 0 );
+		if (   (  [versionNames count] == 1  )
+			|| (  wantLibressl == hasLibressl  )  ) {
+			
+			// Only one version of OpenVPN, or has the correct SSL library
+			return earliestVersion;
+		}
+		
+		// Earliest with matching SSL library
+		NSString * secondVersion = [versionNames objectAtIndex: 1];
+		hasLibressl = ([secondVersion rangeOfString: @"libressl"].length != 0 );
+		if (  wantLibressl == hasLibressl  ) {
+			return secondVersion;
+		}
+		
+		// No matching SSL library, just return the earliest
+		return earliestVersion;
+	}
+	
+	// Don't want a version earlier than our earliest, so assume want one later than our latest and return our latest
+	NSString * latestVersion = [versionNames lastObject];
+	BOOL hasLibressl = ([latestVersion rangeOfString: @"libressl"].length != 0 );
+	if (   (  [versionNames count] == 1  )
+		|| (  wantLibressl == hasLibressl  )  ) {
+		
+		// Only one version of OpenVPN, or has the correct SSL library
+		return latestVersion;
+	}
+	
+	// Latest with matching SSL library
+	NSString * secondLatestVersion = [versionNames objectAtIndex: [versionNames count] - 2];
+	hasLibressl = ([secondLatestVersion rangeOfString: @"libressl"].length != 0 );
+	if (  wantLibressl == hasLibressl  ) {
+		return secondLatestVersion;
+	}
+	
+	// No matching SSL library, just return the latest
+	return latestVersion;
+}
+
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
 	(void) notification;
@@ -4784,12 +4864,12 @@ static void signal_handler(int signalNumber)
     if (   prefVersion
         && ( ! [prefVersion isEqualToString: @"-"] )
         && ( ! [[self openvpnVersionNames] containsObject: prefVersion] )  ) {
-		NSString * useVersion = [[self openvpnVersionNames] lastObject];
+		NSString * useVersion = [self openvpnVersionToUseInsteadOfVersion: prefVersion];
         if (  [gTbDefaults canChangeValueForKey: @"*-openvpnVersion"]  ) {
             TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-							 [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest version (%@) as the default.", @"Window text"),
+							 [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using %@ as the default.", @"Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3')"),
 							  prefVersion, useVersion]);
-            NSLog(@"OpenVPN version %@ is not available. Using the latest version (%@) as the default", prefVersion, useVersion);
+            NSLog(@"OpenVPN version %@ is not available. Using version %@ as the default", prefVersion, useVersion);
             [gTbDefaults setObject: @"-" forKey: @"*-openvpnVersion"];
         } else {
             NSLog(@"'*-openvpnVersion' is being forced to '%@'. That version is not available in this version of Tunnelblick", prefVersion);

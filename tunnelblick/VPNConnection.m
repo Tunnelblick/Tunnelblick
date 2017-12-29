@@ -1797,11 +1797,18 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         } else {
             useVersionIx = [versionNames indexOfObject: prefVersion];
             if (  useVersionIx == NSNotFound  ) {
-                useVersionIx = [versionNames count] - 1;
+				NSString * useVersion = [(MenuController *)[NSApp delegate] openvpnVersionToUseInsteadOfVersion: prefVersion];
+				useVersionIx = [versionNames indexOfObject: useVersion];
+				if (  useVersionIx == NSNotFound  ) {
+					NSLog(@"Cannot find OpenVPN version '%@'", useVersion);
+					useVersionIx = 0;
+				}
                 NSString * useVersionName = [versionNames objectAtIndex: useVersionIx];
                 
-                TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                        [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Changing this configuration to use the latest version (%@) that is included in this version of Tunnelblick.", @"Window text"),
+				TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick", @"Window title"),
+										[NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Changing this configuration to use version %@.",
+																					  @"Window text. Each '%@' will be replaced by OpenVPN and SLL version information"
+																					  @" (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3')"),
                                          prefVersion, useVersionName],
                                         nil, nil, nil,
                                         @"skipWarningAboutUnavailableOpenvpnVersions",
@@ -1809,7 +1816,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                                         nil,
                                         NSAlertDefaultReturn);
                 
-                [gTbDefaults setObject: @"-" forKey: prefKey];
+                [gTbDefaults setObject: useVersionName forKey: prefKey];
                 NSLog(@"OpenVPN version %@ is not available; using version %@", prefVersion, useVersionName);
             }
         }

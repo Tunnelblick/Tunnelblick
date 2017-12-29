@@ -449,8 +449,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 														   @" included in this version of Tunnelblick. The latest version may be different in different versions of Tunnelblick.<br></li>"
 														   
 														   @"<li><strong>Any other setting</strong> will use the specified version of OpenVPN and SSL software if they are"
-														   @" available in this version of Tunnelblick. If not available, the latest version of OpenVPN"
-														   @" with LibreSSL will be used.<br></li>"
+														   @" available in this version of Tunnelblick. If not available, the closest match will be used.<br></li>"
 														   
 														   @"</ul>",
 
