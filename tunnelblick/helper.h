@@ -107,6 +107,7 @@ BOOL           runningOnMainThread      (void);
 
 BOOL           runningOnTigerOrNewer    (void);
 BOOL           runningOnLeopardOrNewer  (void);
+BOOL		   runningOnLionPointFiveOrNewer(void);
 BOOL           runningOnSnowLeopardOrNewer(void);
 BOOL           runningOnSnowLeopardPointEightOrNewer(void);
 BOOL           runningOnLionOrNewer(void);

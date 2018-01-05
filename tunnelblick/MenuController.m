@@ -2073,10 +2073,9 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  feedURL  ) {
         if (  [updater respondsToSelector: @selector(setFeedURL:)]  ) {
             
-            // Add "-s", "-b", or "-d" to the URL, so it is:
-			// .../appcast-s.rss --> update to latest Stable version
-			// .../appcast-b.rss --> update to latest Beta version
-			// .../appcast-d.rss --> Downgrade to latest stable version from a later beta version
+            // Add "-s" or "-o" to the URL, so
+			// .../appcast-s.rss --> update to latest stable version for OS X 10.7.5 or later
+			// .../appcast-o.rss --> update to latest stable version for an earlier version of OS X
 			
             // Get the URL without the .rss (or whatever) extension.
             // Can't use stringByDeletingPathExtension because it changes double-slashes to single slashes (e.g., changes "https://www" to "https:/www")
@@ -2095,20 +2094,11 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 				withoutExt = [withoutExt substringToIndex: [withoutExt length] - 2];
 			}
             
-			NSString * newSuffix;
-			if (  forceDowngrade  ) {
-				newSuffix = @"-d";
-			} else {
-				id obj = [gTbDefaults objectForKey: @"updateCheckBetas"];
-				BOOL checkBeta = (  [obj respondsToSelector: @selector(boolValue)]
-								  ? [obj boolValue]
-								  : runningABetaVersion());
-				newSuffix = (  checkBeta
-							 ? @"-b"
-							 : (  runningABetaVersion()
-                                ? @"-d"
-                                : @"-s"));
-			}
+			(void)forceDowngrade;
+			NSString * newSuffix = (  runningOnLionPointFiveOrNewer()
+									? @"-s"
+									: @"-o");
+
 			NSString * ext = [feedURL pathExtension];
 			// Can't use stringByAppendingPathExtension because it changes double-slashes to single slashes (e.g., changes "https://www" to "https:/www")
 			if (  [ext length] == 0  ) {

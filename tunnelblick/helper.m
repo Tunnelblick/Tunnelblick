@@ -157,6 +157,27 @@ BOOL runningOnSnowLeopardPointEightOrNewer(void) {
     return (  (minor == 6) && (bugFix > 7)  );
 }
 
+BOOL runningOnLionPointFiveOrNewer(void) {
+    
+    unsigned major, minor, bugFix;
+    OSStatus status = getSystemVersion(&major, &minor, &bugFix);
+    if (  status != 0) {
+        NSLog(@"getSystemVersion() failed");
+        [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];
+        return FALSE;
+    }
+    
+    if (  major < 10  ) {
+        return FALSE;
+    }
+    
+    if (  (major > 10) || (minor > 7)  ) {
+        return TRUE;
+    }
+    
+    return (  (minor == 7) && (bugFix > 4)  );
+}
+
 BOOL runningOnLionOrNewer(void)
 {
     return runningOnNewerThan(10, 6);
