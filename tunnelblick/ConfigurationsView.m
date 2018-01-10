@@ -320,7 +320,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 		[self setupLoggingLevelPopUpButton];
 		[loggingLevelPopUpButton
 		 setTitle: nil
-		 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.<p>",
+		 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Specifies the amount of logging that is done by Tunnelblick and OpenVPN.</p>",
 															   @"HTML info for the 'VPN log level' button."))];
 		[UIHelper setTitle: nil ofControl: loggingLevelPopUpButton shift: rtl narrow: YES enable: YES];
 	}
@@ -352,7 +352,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 														   @" available from the Tunnelblick icon in the menu bar. You can also re-enable"
 														   @" Wi-Fi by turning it on, or re-enable other network services in System"
 														   @" Preferences : Network. <strong>This setting may not work properly when more"
-														   @" than one VPN is connected simultaneously.</li>"
+														   @" than one VPN is connected simultaneously.</strong></li>"
 														   
 														   @"</ul>",
 														   
@@ -386,7 +386,7 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 														   @" available from the Tunnelblick icon in the menu bar. You can also re-enable"
 														   @" Wi-Fi by turning it on, or re-enable other network services in System"
 														   @" Preferences : Network. <strong>This setting may not work properly when more"
-														   @" than one VPN is connected simultaneously.</li>"
+														   @" than one VPN is connected simultaneously.</strong></li>"
 														   
 														   @"</ul>",
 														   
