@@ -4871,7 +4871,7 @@ static void signal_handler(int signalNumber)
 							  prefVersion, useVersion]);
             NSLog(@"OpenVPN version %@ is not available. Using version %@ as the default", prefVersion, useVersion);
         } else {
-            NSLog(@"'*-openvpnVersion' is being forced to '%@'. That version is not available in this version of Tunnelblick", prefVersion);
+            NSLog(@"'*-openvpnVersion' is being forced to '%@'. That version is not available in this version of Tunnelblick; '%@' will be used instead", prefVersion, useVersion);
         }
 		
 		[gTbDefaults setObject: useVersion forKey: @"*-openvpnVersion"];
