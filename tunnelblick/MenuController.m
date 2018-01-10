@@ -4861,7 +4861,7 @@ static void signal_handler(int signalNumber)
     
     TBLog(@"DB-SU", @"applicationDidFinishLaunching: 015")
     NSString * prefVersion = [gTbDefaults stringForKey: @"*-openvpnVersion"];
-    if (   prefVersion
+    if (   [prefVersion length]
         && ( ! [prefVersion isEqualToString: @"-"] )
         && ( ! [[self openvpnVersionNames] containsObject: prefVersion] )  ) {
 		NSString * useVersion = [self openvpnVersionToUseInsteadOfVersion: prefVersion];
@@ -4870,10 +4870,11 @@ static void signal_handler(int signalNumber)
 							 [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using %@ as the default.", @"Window text. Each '%@' will be replaced by OpenVPN and SLL version information (e.g., '2.3.18-openssl-1.0.2n' or '2.3.18-libressl-2.6.3')"),
 							  prefVersion, useVersion]);
             NSLog(@"OpenVPN version %@ is not available. Using version %@ as the default", prefVersion, useVersion);
-            [gTbDefaults setObject: @"-" forKey: @"*-openvpnVersion"];
         } else {
             NSLog(@"'*-openvpnVersion' is being forced to '%@'. That version is not available in this version of Tunnelblick", prefVersion);
         }
+		
+		[gTbDefaults setObject: useVersion forKey: @"*-openvpnVersion"];
     }
     
     // Register this application with Launch Services
