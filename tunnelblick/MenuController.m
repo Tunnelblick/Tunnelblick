@@ -3718,6 +3718,10 @@ static void signal_handler(int signalNumber)
     if (  ! runningOnLeopardOrNewer()  ) {              // If on Tiger, we can't check the signature, so pretend it is valid
         return TRUE;
     }
+	
+	if (  runningOnMavericksOrNewer()  ) {				// If on Mavericks or higher, version 1 signatures are invalid, so we
+		return TRUE;									// pretend it is valid so user won't be spooked when running this version.
+	}													// They should run this version only once, to update to a later version.
     
     // Normal versions of Tunnelblick can be checked with codesign running as the user
     //
