@@ -5966,7 +5966,7 @@ BOOL warnAboutNonTblks(void)
 		[checkboxResults addObject: [NSNumber numberWithBool: YES]];
 		ipAddressChecksCheckboxIx = [checkboxResults count] - 1;
 		[message appendFormat: NSLocalizedString(@"Tunnelblick can access %@ to check that your computer's apparent public"
-												 @" IP address changes each time you connect to to a VPN.\n\n",
+												 @" IP address changes each time you connect to a VPN.\n\n",
 												 @"Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'."),
 		 ipAddressCheckHost];
 	} // else checking for IP address changes is being forced off, so don't need to ask or inform about it
