@@ -295,7 +295,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
                     }
                     [passwordKeychain deletePassword];
                     if (  [passwordKeychain setPassword: passwordLocal] != 0  ) {
-                        NSLog(@"Could not save password in Keychain '%@'", [usernameKeychain description]);
+                        NSLog(@"Could not save password in Keychain '%@'", [passwordKeychain description]);
                     }
                     [gTbDefaults setBool: YES forKey: usernameAndPasswordPreferenceKey];
                     [gTbDefaults removeObjectForKey:  usernamePreferenceKey];
