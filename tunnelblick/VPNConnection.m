@@ -2640,11 +2640,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                          informativeTextWithFormat:@""];
 
     NSTextField *input;
-    if (echoResponse) {
-        input = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
-    } else {
-        input = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
-    }
+    input = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
     [input autorelease];
     [alert setAccessoryView:input];
     [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];

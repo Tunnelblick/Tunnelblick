@@ -241,6 +241,11 @@
 		B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9FB46170C77A400BCA243 /* LeftNavViewController.m */; };
 		B8D807031832EEC400A0B937 /* NSTimer+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D807021832EEC400A0B937 /* NSTimer+TB.m */; };
 		B8F6264C1641C8C700943C59 /* easyRsa.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6264B1641C8C700943C59 /* easyRsa.m */; };
+		E55B668C2012BDF800F64F5B /* AGClock.m in Sources */ = {isa = PBXBuildFile; fileRef = E55B66812012BDF800F64F5B /* AGClock.m */; };
+		E55B668D2012BDF800F64F5B /* AGOtp.m in Sources */ = {isa = PBXBuildFile; fileRef = E55B66822012BDF800F64F5B /* AGOtp.m */; };
+		E55B668E2012BDF800F64F5B /* AGStringEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = E55B66862012BDF800F64F5B /* AGStringEncoding.m */; };
+		E55B668F2012BDF800F64F5B /* AGTotp.m in Sources */ = {isa = PBXBuildFile; fileRef = E55B66892012BDF800F64F5B /* AGTotp.m */; };
+		E55B66902012BDF800F64F5B /* AGBase32.m in Sources */ = {isa = PBXBuildFile; fileRef = E55B668A2012BDF800F64F5B /* AGBase32.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -639,6 +644,17 @@
 		B8D807021832EEC400A0B937 /* NSTimer+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+TB.m"; sourceTree = "<group>"; };
 		B8F6264A1641C8C700943C59 /* easyRsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easyRsa.h; sourceTree = "<group>"; };
 		B8F6264B1641C8C700943C59 /* easyRsa.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = easyRsa.m; sourceTree = "<group>"; };
+		E55B66812012BDF800F64F5B /* AGClock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGClock.m; sourceTree = "<group>"; };
+		E55B66822012BDF800F64F5B /* AGOtp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGOtp.m; sourceTree = "<group>"; };
+		E55B66832012BDF800F64F5B /* AGTotp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTotp.h; sourceTree = "<group>"; };
+		E55B66842012BDF800F64F5B /* AGBase32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGBase32.h; sourceTree = "<group>"; };
+		E55B66852012BDF800F64F5B /* AeroGearOTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AeroGearOTP.h; sourceTree = "<group>"; };
+		E55B66862012BDF800F64F5B /* AGStringEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGStringEncoding.m; sourceTree = "<group>"; };
+		E55B66872012BDF800F64F5B /* AGOtp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGOtp.h; sourceTree = "<group>"; };
+		E55B66882012BDF800F64F5B /* AGClock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGClock.h; sourceTree = "<group>"; };
+		E55B66892012BDF800F64F5B /* AGTotp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTotp.m; sourceTree = "<group>"; };
+		E55B668A2012BDF800F64F5B /* AGBase32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGBase32.m; sourceTree = "<group>"; };
+		E55B668B2012BDF800F64F5B /* AGStringEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGStringEncoding.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -812,6 +828,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				E55B66802012BDF700F64F5B /* aerogear */,
 				63F7497C1CB149820043C198 /* TBVersionString.txt */,
 				63379F8713F695D700F2554D /* TBBuildNumber.txt */,
 				634827BA1D7DBFBB0046703C /* BuildThirdPartyItems.sh */,
@@ -1335,6 +1352,24 @@
 			name = Uninstaller;
 			sourceTree = "<group>";
 		};
+		E55B66802012BDF700F64F5B /* aerogear */ = {
+			isa = PBXGroup;
+			children = (
+				E55B66812012BDF800F64F5B /* AGClock.m */,
+				E55B66822012BDF800F64F5B /* AGOtp.m */,
+				E55B66832012BDF800F64F5B /* AGTotp.h */,
+				E55B66842012BDF800F64F5B /* AGBase32.h */,
+				E55B66852012BDF800F64F5B /* AeroGearOTP.h */,
+				E55B66862012BDF800F64F5B /* AGStringEncoding.m */,
+				E55B66872012BDF800F64F5B /* AGOtp.h */,
+				E55B66882012BDF800F64F5B /* AGClock.h */,
+				E55B66892012BDF800F64F5B /* AGTotp.m */,
+				E55B668A2012BDF800F64F5B /* AGBase32.m */,
+				E55B668B2012BDF800F64F5B /* AGStringEncoding.h */,
+			);
+			path = aerogear;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
@@ -1781,6 +1816,7 @@
 				6185E7400E76045D0009C2FD /* helper.m in Sources */,
 				6165CC8C0E9072A5007312DC /* RouteManager.m in Sources */,
 				6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */,
+				E55B668D2012BDF800F64F5B /* AGOtp.m in Sources */,
 				63FFC3D91D3FDF5A00CBB289 /* DropConfigsView.m in Sources */,
 				637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */,
 				638E69611097725500587933 /* TBUserDefaults.m in Sources */,
@@ -1791,6 +1827,7 @@
 				63F2AD9B12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
 				635C80461300353000DB27AE /* ApplescriptCommands.m in Sources */,
 				63FB74EE1311D4BC002F4E7F /* ConfigurationUpdater.m in Sources */,
+				E55B668E2012BDF800F64F5B /* AGStringEncoding.m in Sources */,
 				633DF4591312B13100B8606C /* ConfigurationManager.m in Sources */,
 				639A1100132AC9D800754C2A /* StatusWindowController.m in Sources */,
 				63ABFE9C1349E435003DEB64 /* LoginWindowController.m in Sources */,
@@ -1804,6 +1841,7 @@
 				63E56EE713848338007E39AB /* VPNService.m in Sources */,
 				63E56EE813848338007E39AB /* VPNServiceCreateAccountController.m in Sources */,
 				63E56EE913848338007E39AB /* VPNServiceIntroController.m in Sources */,
+				E55B668F2012BDF800F64F5B /* AGTotp.m in Sources */,
 				63E56EEA13848338007E39AB /* VPNServiceLoginController.m in Sources */,
 				63E56EEB13848338007E39AB /* VPNServiceProveController.m in Sources */,
 				63E56EEC13848338007E39AB /* VPNServiceSorryController.m in Sources */,
@@ -1816,6 +1854,7 @@
 				637A871913B74B81003C1871 /* SplashWindowController.m in Sources */,
 				63DEC29013B890F70063CE11 /* NSString+TB.m in Sources */,
 				63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */,
+				E55B668C2012BDF800F64F5B /* AGClock.m in Sources */,
 				63F0A8B11507D13700526AF9 /* MainIconView.m in Sources */,
 				B85B5DBD15F2430900EDCF95 /* WelcomeController.m in Sources */,
 				B81C3479161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
@@ -1823,6 +1862,7 @@
 				B8045A09161EF26700609C98 /* sharedRoutines.m in Sources */,
 				B8F6264C1641C8C700943C59 /* easyRsa.m in Sources */,
 				B8C9FB47170C77A400BCA243 /* LeftNavDataSource.m in Sources */,
+				E55B66902012BDF800F64F5B /* AGBase32.m in Sources */,
 				B8C9FB48170C77A400BCA243 /* LeftNavItem.m in Sources */,
 				B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */,
 				B86D13091811859000FDFB3B /* ListingWindowController.m in Sources */,
