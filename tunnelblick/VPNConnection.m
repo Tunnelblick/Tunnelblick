@@ -48,6 +48,7 @@
 #import "TBUserDefaults.h"
 #import "VPNConnection.h"
 #import "MF_Base64Additions.h"
+#import "AeroGearOTP.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gPrivatePath;
@@ -2632,15 +2633,27 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 }
 
+- (NSString *)generateOTPWithSecret:(NSString *)secret {
+    NSData *secretData = [AGBase32 base32Decode:secret];
+    AGTotp *otp = [[AGTotp alloc] initWithSecret:secretData];
+    [otp autorelease];
+    return [otp generateOTP];
+}
+
 - (NSString *)getResponseFromChallenge: (NSString *)challenge echoResponse: (BOOL)echoResponse{
+    if ([myAuthAgent keychainHasChallengeSecret]){
+        return [self generateOTPWithSecret:[myAuthAgent challengeSecretFromKeychain]];
+    }
     NSAlert *alert = [NSAlert alertWithMessageText: challenge
                                      defaultButton:@"OK"
                                    alternateButton:@"Cancel"
                                        otherButton:nil
                          informativeTextWithFormat:@""];
-
+    [alert setShowsSuppressionButton:YES];
+    [[alert suppressionButton] setTitle:NSLocalizedString(@"Input secret and save it in keychain","Challenge secret checkbox")];
+    
     NSTextField *input;
-    input = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
+    input = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 235, 24)];
     [input autorelease];
     [alert setAccessoryView:input];
     [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
@@ -2648,6 +2661,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSInteger button = [alert runModal];
     if (button == NSAlertDefaultReturn) {
         [input validateEditing];
+        if ((BOOL)[[alert suppressionButton] state]) {
+            [myAuthAgent saveChallengeSecretToKeychain:[input stringValue]];
+            return [self generateOTPWithSecret:[input stringValue]];
+        }
         return [input stringValue];
     } else if (button == NSAlertAlternateReturn) {
         return nil;
