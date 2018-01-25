@@ -3,7 +3,7 @@
  * Contributions by Dirk Theisen <dirk@objectpark.org>,
  *                  Jens Ohlig, 
  *                  Waldemar Brodkorb
- * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017. All rights reserved.
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -3088,12 +3088,6 @@ static pthread_mutex_t doDisconnectionsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) doDisconnectionsForQuittingTunnelblick {
     
-    // DO NOT put this code inside the mutex: we want to return immediately if computer is shutting down or restarting
-    if (  gShuttingDownOrRestartingComputer  ) {
-        NSLog(@"Computer is shutting down or restarting; OS X will kill OpenVPN instances");
-        return;
-    }
-    
     OSStatus status = pthread_mutex_lock( &doDisconnectionsMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"doDisconnectionsForQuittingTunnelblick: pthread_mutex_lock( &doDisconnectionsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
@@ -3523,13 +3517,13 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    if ( gShuttingDownOrRestartingComputer ) {
-        TBLog(@"DB-SD", @"cleanup: Skipping cleanup because computer is shutting down or restarting")
-        // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
-        return TRUE;
-    }
-    
-    [self doDisconnectionsForQuittingTunnelblick];
+	[self doDisconnectionsForQuittingTunnelblick];
+	
+	if ( gShuttingDownOrRestartingComputer ) {
+		TBLog(@"DB-SD", @"cleanup: Skipping cleanup because computer is shutting down or restarting")
+		// DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
+		return TRUE;
+	}
 	
 	[self askAndMaybeReenableNetworkAccessAllowCancel: NO];
 	
