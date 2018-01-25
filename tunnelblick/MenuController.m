@@ -5957,7 +5957,7 @@ BOOL warnAboutNonTblks(void)
 	
 	if (  ipAddressChecksForced  ) {
 		[message appendFormat: NSLocalizedString(@"Tunnelblick will access %@ to check that your computer's apparent public"
-												 @" IP address changes each time you connect to to a VPN. Contact the distributor"
+												 @" IP address changes each time you connect to a VPN. Contact the distributor"
 												 @" of this copy of Tunnelblick for details.\n\n",
 												 @"Window text. The %@ will be replaced by an Internet address like 'tunnelblick .net'."),
 		 ipAddressCheckHost];
