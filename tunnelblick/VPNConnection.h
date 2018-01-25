@@ -189,7 +189,7 @@ struct Statistics {
 
 -(void)             fadeAway;
 
--(NSUInteger)       getOpenVPNVersionIxToUse;
+-(NSUInteger)       getOpenVPNVersionIxToUseConnecting: (BOOL) connecting;
 
 -(void)             hasDisconnected;
 

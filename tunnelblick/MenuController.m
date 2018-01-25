@@ -569,7 +569,10 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                       @"-skipWarningAboutDownroot",
                                       @"-skipWarningAboutNoTunOrTap",
                                       @"-skipWarningUnableToToEstablishOpenVPNLink",
-                                      
+									  @"-skipWarningThatCannotConnectBecauseOfOpenVPNOptions",
+									  @"-skipWarningThatMayNotConnectInFutureBecauseOfOpenVPNOptions",
+									  @"-skipWarningThatNotUsingSpecifiedOpenVPN",
+									  @"-skipWarningThatCannotConnectBecauseOfOpenVPNOptionConflicts",
                                       @"autoConnect",
                                       @"-onSystemStart",
                                       @"useDNS",
