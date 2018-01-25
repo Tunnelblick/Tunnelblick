@@ -2957,7 +2957,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 [self connect: self userKnows: YES];
                 
             } else if (  userWantsState == userWantsAbandon  ) {
-                NSLog(@"Warning: User asked to to abandon connection and OpenVPN has already disconnected; ignoring OpenVPN request for credentials for %@", displayName);
+                NSLog(@"Warning: User asked to abandon connection and OpenVPN has already disconnected; ignoring OpenVPN request for credentials for %@", displayName);
                 authFailed = FALSE;
                 credentialsAskedFor = FALSE;
                 userWantsState = userWantsUndecided;
