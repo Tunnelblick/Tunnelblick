@@ -32,7 +32,7 @@ printf %s "$dia_services
 " | \
 while IFS= read -r dia_service ; do
 
-	# If first character of a line is an asterisk, the service is ensabled, so we skip it
+	# If first character of a line is not an asterisk, the service is enabled, so we skip it (but we don't skip Wi-Fi no matter what)
 	if [  "${dia_service:0:1}" == "*" -o "$dia_service" = "Wi-Fi"  ] ; then
 
 		if [  "${dia_service:0:1}" == "*"  ] ; then
