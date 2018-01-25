@@ -890,9 +890,10 @@ static BOOL firstTimeShowingWindow = TRUE;
         // Use default
 		listIx = 0;
 	} else {
-		NSUInteger versionIx    = [connection getOpenVPNVersionIxToUse];
-		
-		if (  [prefVersion isEqualToString: @"-"]  ) {
+		NSUInteger versionIx    = [connection getOpenVPNVersionIxToUseConnecting: NO];
+		if (  versionIx == NSNotFound  ) {
+			listIx = 0; // Don't have a version of OpenVPN that will work with this configuration, so display it as using the default version of OpenVPN
+		} else if (  [prefVersion isEqualToString: @"-"]  ) {
 			// Use latest. If we are actually using it, show we are using latest (last entry), otherwise show what we are using
 			NSArray  * versionNames = [((MenuController *)[NSApp delegate]) openvpnVersionNames];
 			if (  versionIx == [versionNames count] - 1  ) {
