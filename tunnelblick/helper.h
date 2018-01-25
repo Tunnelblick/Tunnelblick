@@ -60,6 +60,8 @@ NSMutableString * encodeSlashesAndPeriods(NSString * s);
 NSString     * stringForLog             (NSString * outputString,
                                          NSString * header);
 
+NSString     * displayNameForOpenvpnName(NSString * openvpnName);
+
 NSString     * messageIfProblemInLogLine(NSString * line);
 
 NSString     * firstPartOfPath          (NSString * thePath);
