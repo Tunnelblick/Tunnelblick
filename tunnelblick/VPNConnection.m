@@ -1855,7 +1855,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		for (  ix=1; ix<[addedList count]; ix++  ) {
 			NSString * option = [addedList objectAtIndex: ix];
 			if (  [ConfigurationManager parseString: configString forOption: option]  ) {
-				[optionsThatAreProblematic appendFormat: NSLocalizedString(@"'%@' -- added in OpenVPN %@\n",
+				[optionsThatAreProblematic appendFormat: NSLocalizedString(@"'%@' was added in OpenVPN %@\n",
 																		   @"The first '%@' is the name of an OpenVPN option. The second '%@' is an OpenVPN version string such as '2.3' or '2.5'"),
 				 option, addedInOpenvpnVersion];
 				if (   ( ! highestAddedInOpenvpnVersion )
