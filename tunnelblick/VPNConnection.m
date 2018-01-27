@@ -46,6 +46,7 @@
 #import "SystemAuth.h"
 #import "TBOperationQueue.h"
 #import "TBUserDefaults.h"
+#import "UIHelper.h"
 #import "VPNConnection.h"
 
 extern NSMutableArray       * gConfigDirs;
@@ -2990,6 +2991,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         discardSocketInput = TRUE;
         [((MenuController *)[NSApp delegate]) cancelAllIPCheckThreadsForConnection: self];
         [self hasDisconnected];                     // Sets lastState and does processing only once
+		if (  [gFileMgr fileExistsAtPath: L_AS_T_DISABLED_NETWORK_SERVICES_PATH]  ) {
+			[UIHelper showSuccessNotificationTitle: NSLocalizedString(@"Tunnelblick", @"Window title") msg: NSLocalizedString(@"Network access was disabled when a VPN disconnected.", @"Window text")];
+		}
     } else {
         
         if (  disconnectWhenStateChanges  ) {
