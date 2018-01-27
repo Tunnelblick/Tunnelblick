@@ -35,7 +35,7 @@ TOPDIR = $(PWD)
 
 LZO_NAME         = lzo-2.10
 
-LZ4_NAME         = lz4-1.7.5
+LZ4_NAME         = lz4-1.8.1.2
 LZ4_TARGET_ARCHS = x86_64
 
 OPENSSL_NAME     = openssl-1.0.2n
