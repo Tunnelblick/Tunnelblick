@@ -293,8 +293,8 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 	
 	CGFloat udWidthChange = [UIHelper setTitle: NSLocalizedString(@"On expected disconnect:", @"Window text") ofControl: uponDisconnectTFC frameHolder: uponDisconnectTF shift: ( !rtl  ) narrow: YES enable: YES];
 	[uponDisconnectDoNothingMenuItem setTitle:             NSLocalizedString(@"Do nothing",			     @"Button")];
-	[uponDisconnectResetPrimaryInterfaceMenuItem setTitle: NSLocalizedString(@"Reset Primary Interface", @"Button")];
-	[uponDisconnectDisableNetworkAccessMenuItem  setTitle: NSLocalizedString(@"Disable Network Access",  @"Button")];
+	[uponDisconnectResetPrimaryInterfaceMenuItem setTitle: NSLocalizedString(@"Reset primary interface", @"Button")];
+	[uponDisconnectDisableNetworkAccessMenuItem  setTitle: NSLocalizedString(@"Disable network access",  @"Button")];
 	[uponDisconnectPopUpButton
 	 setTitle: nil
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>Specifies what Tunnelblick does when the VPN disconnects <em>as"
@@ -305,12 +305,12 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 														   
 														   @"<li><strong>Do nothing</strong><br></li>"
 														   
-														   @"<li><strong>Reset Primary Interface</strong>: Tunnelblick resets the primary network interface"
+														   @"<li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface"
 														   @" by issuing 'ipconfig down; ipconfig up' commands to the interface. This can"
 														   @" be helpful when a configuration fails to restore network settings properly after a"
 														   @" disconnection.<br></li>"
 														   
-														   @"<li><strong>Disable Network Access (\"Kill Switch\")</strong>: Tunnelblick"
+														   @"<li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick"
 														   @" cuts off all network access (local and Internet) by turning off Wi-Fi and"
 														   @" disabling all other network services. This can help ensure that nothing leaks out"
 														   @" of the computer except through the VPN. If Tunnelblick has disabled network"
@@ -327,8 +327,8 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 
 	CGFloat uudWidthChange = [UIHelper setTitle: NSLocalizedString(@"On unexpected disconnect:", @"Window text") ofControl: uponUnexpectedDisconnectTFC frameHolder: uponUnexpectedDisconnectTF shift: ( !rtl  ) narrow: YES enable: YES];
 	[uponUnexpectedDisconnectDoNothingMenuItem             setTitle: NSLocalizedString(@"Do nothing",			   @"Button")];
-	[uponUnexpectedDisconnectResetPrimaryInterfaceMenuItem setTitle: NSLocalizedString(@"Reset Primary Interface", @"Button")];
-	[uponUnexpectedDisconnectDisableNetworkAccessMenuItem  setTitle: NSLocalizedString(@"Disable Network Access",  @"Button")];
+	[uponUnexpectedDisconnectResetPrimaryInterfaceMenuItem setTitle: NSLocalizedString(@"Reset primary interface", @"Button")];
+	[uponUnexpectedDisconnectDisableNetworkAccessMenuItem  setTitle: NSLocalizedString(@"Disable network access",  @"Button")];
 	[uponUnexpectedDisconnectPopUpButton
 	 setTitle: nil
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p><strong>Specifies what Tunnelblick does when the VPN <em>unexpectedly</em>"
@@ -339,12 +339,12 @@ uponUnexpectedDisconnectWidthChange: (CGFloat) uudWidthChange {
 														   
 														   @"<li><strong>Do nothing</strong><br></li>"
 														   
-														   @"<li><strong>Reset Primary Interface</strong>: Tunnelblick resets the primary network interface"
+														   @"<li><strong>Reset primary interface</strong>: Tunnelblick resets the primary network interface"
 														   @" by issuing 'ipconfig down; ipconfig up' commands to the interface. This can"
 														   @" be helpful when a configuration fails to restore network settings properly after a"
 														   @" disconnection.<br></li>"
 														   
-														   @"<li><strong>Disable Network Access (\"Kill Switch\")</strong>: Tunnelblick"
+														   @"<li><strong>Disable network access (\"Kill Switch\")</strong>: Tunnelblick"
 														   @" cuts off all network access (local and Internet) by turning off Wi-Fi and"
 														   @" disabling all other network services. This can help ensure that nothing leaks out"
 														   @" of the computer except through the VPN. If Tunnelblick has disabled network"
