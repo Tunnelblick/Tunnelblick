@@ -2006,7 +2006,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
 								  [NSString stringWithFormat:
 								   NSLocalizedString(@"This VPN cannot be connected.\n\n"
-													 @"The OpenVPN configuration file for '%@' contains these Openvpn options:\n\n"
+													 @"The OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n"
 													 @"%@\n"
 													 @"None of the versions of OpenVPN included in this version of Tunnelblick include the option(s).\n\n"
 													 @"You should update the configuration so it can be used with modern versions of OpenVPN.",
@@ -2087,7 +2087,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 				TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
 								  [NSString stringWithFormat:
 								   NSLocalizedString(@"This VPN cannot be connected.\n\n"
-													 @"The OpenVPN configuration file for '%@' contains these Openvpn options:\n\n"
+													 @"The OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n"
 													 @"%@\n"
 													 @"None of the versions of OpenVPN included in this version of Tunnelblick include the option(s).",
 													 
@@ -2119,7 +2119,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 								  [NSString stringWithFormat:
 								   NSLocalizedString(@"Warning: This VPN may not connect in the future.\n\n"
 													 
-													 @"The OpenVPN configuration file for '%@' contains these Openvpn options:\n\n"
+													 @"The OpenVPN configuration file for '%@' contains these OpenVPN options:\n\n"
 													 
 													 @"%@\n"
 													 
