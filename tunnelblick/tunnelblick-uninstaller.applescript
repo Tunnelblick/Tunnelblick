@@ -2,7 +2,7 @@
 --
 --     This is the Uninstaller for Tunnelblick. It is compiled into an application.
 --
---     Copyright © 2013, 2015 Jonathan K. Bullard. All rights reserved
+--     Copyright © 2013, 2015, 2018 Jonathan K. Bullard. All rights reserved
 --
 --     This AppleScript is compiled into an application. The application includes the
 --     'tunnelblick-uninstaller.sh' bash script. This AppleScript acts as a "front end" for that
@@ -389,6 +389,46 @@ on QuitOpenVPN(TBName) -- (String) as Boolean
 end QuitOpenVPN
 
 ------------------------------------------------------------------------------------------------------------------
+--ClearDefaultsCache: function returns a message if the defaults cache for the user was cleared, otherwise returns an empty string.
+--
+-- After deleting the preferences file, the "defaults cache" still holds it's old values. Performing a 'defaults read'
+-- will clear that cache, so we do this after the main uninstall script has deleted the file.
+--
+-- 'sudo -n -u <username> defaults read' in the main uninstall script doesn't seem to work, so there isn't a way to do this
+-- in that script. Instead, we do it in this script which is running as the current logged-in user.
+--
+-- This really only matters when the user uninstalls Tunnelblick and then reinstalls it. The user would probably do the reinstall
+-- as the same logged-in user that did the uninstall and this is sufficent for that situation. Otherwise, the user should restart
+-- the computer.
+------------------------------------------------------------------------------------------------------------------
+on ClearDefaultsCache(theBundleId, testFlag) -- (String) as String
+
+	if theBundleId = "" then
+		return ""
+	end if
+	
+	if testFlag then
+		return ""
+	end if
+	
+	try
+		set clearDefaultsOutput to do shell script "defaults read " & theBundleId
+	on error
+		set clearDefaultsOutput to "***"
+	end try
+
+	if clearDefaultsOutput = "***" then
+		return "An error occurred while trying to clear the defaults cache."
+	else
+		return LocalizedFormattedString("
+			
+Cleared %s defaults cache for current user
+", {theBundleId})
+	end if
+	
+end ClearDefaultsCache
+
+------------------------------------------------------------------------------------------------------------------
 -- UserConfirmation: function asks user what action to take and returns "cancel", "test", or "uninstall".
 ------------------------------------------------------------------------------------------------------------------
 on UserConfirmation(fullPath, TBName, TBIdentifier) -- (String, String, String) as String
@@ -456,62 +496,88 @@ end UserConfirmation
 ------------------------------------------------------------------------------------------------------------------
 on DoProcessing(theName, theBundleId, thePath, testFlag, myScriptPath) -- (String, String, String, Boolean, String)
 	
+	set diskutilOutput to do shell script "diskutil info $(  bless --info --getboot ) | grep 'Solid State:' | grep 'Yes'"
+	if diskutilOutput = "" then
+		set secureEraseOption to "-s"
+	else
+		set secureEraseOption to "-i"
+	end if
+	
 	if testFlag then
-		display dialog LocalizedFormattedString("Although the next window will ask for a computer administrator username and password and say \"Tunnelblick Uninstaller wants to make changes\",
+
+		display dialog LocalizedFormattedString("Although the next window will ask for authorization from a computer administrator and say \"Tunnelblick Uninstaller wants to make changes\",
 
 NO CHANGES WILL BE MADE.
 
-The uninstaller needs administrator access so it can read the %s preferences of other users.", {theName})
+The uninstaller needs administrator authorization so it can read the %s preferences of other users.", {theName})
+
 	else
-		display dialog LocalizedFormattedString("The next window will ask for a computer administrator username and password.
+		if secureEraseOption = "-s" then
 
-The uninstaller needs administrator access so it can make the changes required to uninstall %s.
+			display dialog LocalizedFormattedString("The next window will ask for authorization from a computer administrator.
 
-Uninstalling may take SEVERAL MINUTES because it uses a secure erase process. During that time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.", {theName})
+The uninstaller needs the authorization so it can make the changes required to uninstall %s.
+
+Uninstalling may take SEVERAL MINUTES because the uninstall is being done on a hard drive and a secure erase process is used.
+
+While the uninstall is being done there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.", {theName})
+
+		else
+			display dialog LocalizedFormattedString("The next window will ask for authorization from a computer administrator.
+		
+The uninstaller needs the authorization so it can make the changes required to uninstall %s.
+
+While the uninstall is being done there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall is complete.", {theName})
+		
+		end if
 	end if
 	
 	-- Start the uninstaller script, using the -t or -u option as directed by the user
 	if testFlag then
-		set argumentString to " -t " & quoted form of theName & " " & quoted form of theBundleId
+		set argumentString to " " & secureEraseOption & " -t " & quoted form of theName & " " & quoted form of theBundleId
 	else
-		set argumentString to " -u " & quoted form of theName & " " & quoted form of theBundleId
+		set argumentString to " " & secureEraseOption & " -u " & quoted form of theName & " " & quoted form of theBundleId
 	end if
 	if FileOrFolderExists(thePath) then
 		set argumentString to argumentString & " " & quoted form of thePath
 	end if
 	set scriptOutput to do shell script (quoted form of myScriptPath) & argumentString with administrator privileges
 	
+	set clearDefaultsCacheOutput to ClearDefaultsCache(theBundleId, testFlag)
+	
 	-- Inform the user about errors (indicated by "Error: " or "Problem: " anywhere in the shell script's stdout)
 	-- and successful tests or uninstalls
-	if (scriptOutput contains "Problem: ") Â
-		or (scriptOutput contains "Error: ") then
-		if testFlag then
-			set alertResult to display alert (localized string of "Tunnelblick Uninstaller TEST FAILED") Â
-				message LocalizedFormattedString("One or more errors occurred during the %s uninstall test.", {theName}) Â
-				as critical Â
-				buttons {localized string of "OK", localized string of "Details"}
-		else
-			set alertResult to display alert (localized string of "Tunnelblick Uninstaller FAILED") Â
+	with timeout of 360000 seconds
+		if (scriptOutput contains "Problem: ") Â
+			or (scriptOutput contains "Error: ") then
+			if testFlag then
+				set alertResult to display alert (localized string of "Tunnelblick Uninstaller TEST FAILED") Â
+					message LocalizedFormattedString("One or more errors occurred during the %s uninstall test.", {theName}) Â
+					as critical Â
+					buttons {localized string of "OK", localized string of "Details"}
+			else
+				set alertResult to display alert (localized string of "Tunnelblick Uninstaller FAILED") Â
 				message LocalizedFormattedString("One or more errors occurred while uninstalling %s.", {theName}) Â
 				as critical Â
 				buttons {localized string of "OK", localized string of "Details"}
-		end if
+			end if
 		
-	else
-		if testFlag then
-			set alertResult to display dialog LocalizedFormattedString("The %s uninstall test succeeded.", {theName}) Â
-				buttons {localized string of "Details", localized string of "OK"}
 		else
-			set alertResult to display dialog LocalizedFormattedString("%s was uninstalled successfully", {theName}) Â
-				buttons {localized string of "Details", localized string of "OK"}
+			if testFlag then
+				set alertResult to display dialog LocalizedFormattedString("The %s uninstall test succeeded.", {theName}) Â
+					buttons {localized string of "Details", localized string of "OK"}
+			else
+				set alertResult to display dialog LocalizedFormattedString("%s was uninstalled successfully", {theName}) Â
+					buttons {localized string of "Details", localized string of "OK"}
+			end if
 		end if
-	end if
-	
+	end timeout
+
 	-- If the user asked for details, store the log in /tmp and open the log in TextEdit
 	if alertResult = {button returned:localized string of "Details"} then
 		tell application "TextEdit"
 			activate
-			set the clipboard to scriptOutput
+			set the clipboard to scriptOutput & clearDefaultsCacheOutput
 			make new document
 			tell front document to set its text to the clipboard
 		end tell
@@ -558,10 +624,12 @@ on ProcessFile(fullPath) -- (POSIX path)
 		if confirmString = "uninstall" then
 			set testFlag to false
 		else
-			display alert (localized string of "Tunnelblick Uninstaller TEST FAILED") Â
-				message LocalizedFormattedString("An internal error occurred: UserConfirmation('%s','%s','%s') returned '%s'", {fullPath, TBName, TBIdentifier, confirmString}) Â
-				as critical Â
-				buttons {localized string of "OK"}
+			with timeout of 360000 seconds
+				display alert (localized string of "Tunnelblick Uninstaller TEST FAILED") Â
+					message LocalizedFormattedString("An internal error occurred: UserConfirmation('%s','%s','%s') returned '%s'", {fullPath, TBName, TBIdentifier, confirmString}) Â
+					as critical Â
+					buttons {localized string of "OK"}
+			end timeout
 			return
 		end if
 	end if

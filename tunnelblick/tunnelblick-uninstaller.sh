@@ -2,7 +2,7 @@
 #
 # tunnelblick-uninstaller.sh
 #
-# Copyright © 2013, 2015 Jonathan K. Bullard. All rights reserved
+# Copyright © 2013, 2015, 2018 Jonathan K. Bullard. All rights reserved
 
 ####################################################################################
 #
@@ -69,16 +69,26 @@ uninstall_tb_remove_item_at_path()
     else
       recursive=""
     fi
+
+    if [ "${uninstall_use_insecure_rm}" = "true" ] ; then
+	  secure=""
+	  secure_note=""
+	else
+	  secure="-P"
+	  secure_note=" (using 'rm -P')"
+    fi
+
     if [ "${uninstall_remove_data}" = "true" ] ; then
-      rm -f -P ${recursive} "$1"
+      rm -f ${secure} ${recursive} "$1"
       status=$?
     else
       status="0"
     fi
+
     if [ "${status}" = "0" ]; then
-      echo "Removed $1"
+      echo "Removed${secure_note} ${1}"
     else
-      echo "Problem: an error was returned by 'rm -f -P ${recursive} \"$1\"'"
+      echo "Problem: an error was returned by 'rm -f ${secure} ${recursive} \"$1\"'"
       echo "Output from 'ls ${recursive} -@ -A -b -e -l -O "$1"':"
       echo "$(ls ${recursive} -@ -A -b -e -l -O "$1")"
       if [ "${$1:0:7}" = "/Users/" ] ; then
@@ -206,13 +216,17 @@ uninstall_tb_user_keychain_items()
 
 usage_message="Usage:
 
-      tunnelblick-uninstaller.sh  [ -u | -t ]   app-name bundle-id [app-path]
+      tunnelblick-uninstaller.sh  [ -u | -t ]   [ -s | -i ]   app-name bundle-id [app-path]
 
            -t:        Causes the script to perform a TEST, or \"dry run\": the program logs to
                       stdout what it would do if run with the -u option, but NO DATA IS REMOVED.
 
            -u:        Causes the script to perform an UNINSTALL, REMOVING DATA; the program logs
                       to stdout what it has done.
+
+		   -i:        Forces the script to use normal \"rm\" command (normal deletion of files).
+
+           -s:        Forces the script to use the \"-P\" option to the \"rm\" command (secure deletion of non-SSD files).
 
            app-name:  The name of the application (e.g., \"Tunnelblick\").
 
@@ -221,6 +235,8 @@ usage_message="Usage:
            app-path:  The path to the application. If specified, the item at that path will be deleted.
 
      If neither the -u option nor the -t option is specified, this usage message is displayed.
+
+     If neither the -i option nor the -s option is specified, -i is assumed if the boot volume is an SSD, -s is assumed otherwise.
 
      Note: This command returns indicating success even if there were errors; errors are indicated in
            the stdout output.
@@ -276,22 +292,38 @@ if [ $# != 0 ] ; then
         echo "Only one -t or -u option may be specified"
         show_usage_message="true"
       fi
-    else
-      if [ "$1" = "-t" ] ; then
-        if [ "${uninstall_remove_data}" = "" ] ; then
-          readonly uninstall_remove_data="false"
-        else
-        echo "Only one -t or -u option may be specified"
-          show_usage_message="true"
-        fi
-      else
-        echo "Unknown option: ${1}"
-        show_usage_message="true"
-      fi
+
+	elif [ "$1" = "-t" ] ; then
+	  if [ "${uninstall_remove_data}" = "" ] ; then
+		readonly uninstall_remove_data="false"
+	  else
+		echo "Only one -t or -u option may be specified"
+		show_usage_message="true"
+	  fi
+
+	elif [ "$1" = "-i" ] ; then
+	  if [ "${uninstall_secure_or_insecure}" = "" ] ; then
+		readonly uninstall_secure_or_insecure="i"
+	  else
+		echo "Only one -i or -s option may be specified"
+		show_usage_message="true"
+	  fi
+
+	elif [ "$1" = "-s" ] ; then
+	  if [ "${uninstall_secure_or_insecure}" = "" ] ; then
+		readonly uninstall_secure_or_insecure="s"
+	  else
+		echo "Only one -i or -s option may be specified"
+		show_usage_message="true"
+	  fi
+
+	else
+	  echo "Unknown option: ${1}"
+	  show_usage_message="true"
     fi
-  
+
     shift
-    
+
   done
 
 fi
@@ -322,6 +354,22 @@ fi
 readonly uninstall_tb_app_name="${1}"
 readonly uninstall_tb_bundle_identifier="${2}"
 readonly uninstall_tb_app_path="${3}"
+
+if [ "$uninstall_secure_or_insecure" == "s" ] ; then
+  readonly uninstall_use_insecure_rm="false"
+
+elif [ "$uninstall_secure_or_insecure" == "i" ] ; then
+  readonly uninstall_use_insecure_rm="true"
+
+else
+  readonly boot_drive_id="$(  bless --info --getboot )"
+  readonly have_ssd="$(  diskutil info $boot_drive_id | grep 'Solid State:' | grep 'Yes' )"
+  if [ "${have_ssd}" = "" ] ; then
+	readonly uninstall_use_insecure_rm="false"
+  else
+    readonly uninstall_use_insecure_rm="true"
+  fi
+fi
 
 # The path can be empty (e.g., if the application has already been Trashed, for example),
 # but the name and bundle ID must be provided
@@ -372,6 +420,16 @@ fi
 if [ "${uninstall_remove_data}" != "true" ] ; then
   echo ""
   echo "Testing only -- NOT removing or unloading anything"
+  echo ""
+fi
+
+if [ "${uninstall_use_insecure_rm}" = "true" ] ; then
+  echo ""
+  echo "Secure erase ('rm -P') will not be used to delete files because you are uninstalling from an SSD, and secure erase is not effective on SSDs."
+  echo ""
+else
+  echo ""
+  echo "Secure erase ('rm -P') will be used to delete files because you are not uninstalling from an SSD."
   echo ""
 fi
 
