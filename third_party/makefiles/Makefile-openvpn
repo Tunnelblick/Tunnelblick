@@ -166,6 +166,11 @@ built-openvpn: built-openvpn-prepare built-lzo built-lz4 built-pkcs11-helper bui
 			lipo ../openvpn-plugin-down-root.so_tblk_* -create -output $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-down-root.so; \
 			cd ../; \
 			lipo openvpn_tblk_* -create -output $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-executable; \
+			if [   ! -e $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-executable \
+			    -o ! -e $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name/openvpn-down-root.so ] ; then \
+    			cd openvpn ; \
+			    rm -f -R $(OPENVPN_PRODUCTS_DIR)/$$openvpn_name-$$ssl_name ; \
+			fi ; \
 			cd openvpn ; \
 		done; \
 	done
