@@ -22,4 +22,7 @@ Hurricane Electric	74.82.42.42
 puntCAT	109.69.8.51	 
 Yandex 77.88.8.8  77.88.8.1
 Global Cyber Alliance	9.9.9.9
-
+114dns	114.114.114.114	114.114.115.115
+alidns	223.5.5.5	223.6.6.6
+dnspod	119.29.29.29
+baiduDNS	180.76.76.76
