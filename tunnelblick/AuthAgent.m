@@ -55,6 +55,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, authMode,        setAuthMode)
 TBSYNTHESIZE_OBJECT(retain, NSString *, username,        setUsername)
 TBSYNTHESIZE_OBJECT(retain, NSString *, password,        setPassword)
 TBSYNTHESIZE_OBJECT(retain, NSString *, passphrase,      setPassphrase)
+TBSYNTHESIZE_OBJECT(retain, NSString *, challengeSecret, setChallengeSecret)
 TBSYNTHESIZE_OBJECT(retain, NSString *, displayName,     setDisplayName)
 TBSYNTHESIZE_OBJECT(retain, NSString *, group,           setGroup)
 TBSYNTHESIZE_OBJECT(retain, NSString *, credentialsName, setCredentialsName)
@@ -70,9 +71,10 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 	
     if (  (self = [super init])  ) {
 		
-        passphrase = nil;
-        username   = nil;
-        password   = nil;
+        passphrase      = nil;
+        username        = nil;
+        password        = nil;
+        challengeSecret = nil;
         
 		NSString * allUseGroup = [gTbDefaults stringForKey: @"namedCredentialsThatAllConfigurationsUse"];
 		if (  allUseGroup  ) {
@@ -91,13 +93,15 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
             credentialsName = [displayName copy];
         }
 		
-        passphraseKeychain      = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"privateKey" ];
-        usernameKeychain        = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"username"   ];
-        passwordKeychain        = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"password"   ];
+        passphraseKeychain      = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"privateKey"     ];
+        usernameKeychain        = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"username"       ];
+        passwordKeychain        = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"password"       ];
+        challengeSecretKeychain = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"challengeSecret"];
 
 		passphrasePreferenceKey            = [[NSString alloc] initWithFormat: @"%@-keychainHasPrivateKey",          [self credentialsName]];
         usernamePreferenceKey              = [[NSString alloc] initWithFormat: @"%@-keychainHasUsername",            [self credentialsName]];
         usernameAndPasswordPreferenceKey   = [[NSString alloc] initWithFormat: @"%@-keychainHasUsernameAndPassword", [self credentialsName]];
+        challengeSecretPreferenceKey       = [[NSString alloc] initWithFormat: @"%@-keychainHasChallengeSecret",     [self credentialsName]];
 		
 		showingLoginWindow      = FALSE;
 		showingPassphraseWindow = FALSE;
@@ -120,14 +124,17 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     [passphrase                 release]; passphrase              = nil;
     [username                   release]; username                = nil;
     [password                   release]; password                = nil;
+    [challengeSecret            release]; challengeSecret         = nil;
     
     [passphraseKeychain         release]; passphraseKeychain      = nil;
     [usernameKeychain           release]; usernameKeychain        = nil;
     [passwordKeychain           release]; passwordKeychain        = nil;
+    [challengeSecretKeychain    release]; challengeSecretKeychain = nil;
 
-    [passphrasePreferenceKey    release]; passphrasePreferenceKey = nil;
-    [usernamePreferenceKey      release]; usernameAndPasswordPreferenceKey   = nil;
-    [usernameAndPasswordPreferenceKey release]; usernameAndPasswordPreferenceKey   = nil;
+    [passphrasePreferenceKey    release]; passphrasePreferenceKey                = nil;
+    [usernamePreferenceKey      release]; usernameAndPasswordPreferenceKey       = nil;
+    [usernameAndPasswordPreferenceKey release]; usernameAndPasswordPreferenceKey = nil;
+    [challengeSecretPreferenceKey release]; challengeSecretPreferenceKey         = nil;
 
     [super dealloc];
 }
@@ -199,6 +206,12 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
             && [gTbDefaults canChangeValueForKey:usernameAndPasswordPreferenceKey] );
 }
 
+-(BOOL) challengeSecretIsInKeychain {
+    
+    return (   [gTbDefaults boolForKey:challengeSecretPreferenceKey]
+            && [gTbDefaults canChangeValueForKey:challengeSecretPreferenceKey] );
+}
+
 -(NSString *) usernameFromKeychain {
     
     if (  [self usernameIsInKeychain]  ) {
@@ -206,6 +219,25 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     }
     
     return nil;
+}
+
+-(NSString *) challengeSecretFromKeychain {
+    
+    if (  [self challengeSecretIsInKeychain]  ) {
+        return [challengeSecretKeychain password];
+    }
+    
+    return nil;
+}
+
+-(void) saveChallengeSecretToKeychain:(NSString *)_challengeSecret {
+    if (  [gTbDefaults canChangeValueForKey: challengeSecretPreferenceKey]  ) {
+        [challengeSecretKeychain deletePassword];
+        if (  [challengeSecretKeychain setPassword: _challengeSecret] != 0  ) {
+            NSLog(@"Could not save challengeSecret in Keychain '%@'", [challengeSecretKeychain description]);
+        }
+        [gTbDefaults setBool: YES forKey: challengeSecretPreferenceKey];
+    }
 }
 
 // Returns an array with a username and password obtained from the Keychain or by asking the user
@@ -295,7 +327,7 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
                     }
                     [passwordKeychain deletePassword];
                     if (  [passwordKeychain setPassword: passwordLocal] != 0  ) {
-                        NSLog(@"Could not save password in Keychain '%@'", [usernameKeychain description]);
+                        NSLog(@"Could not save password in Keychain '%@'", [passwordKeychain description]);
                     }
                     [gTbDefaults setBool: YES forKey: usernameAndPasswordPreferenceKey];
                     [gTbDefaults removeObjectForKey:  usernamePreferenceKey];
@@ -408,6 +440,10 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     else {
         NSLog(@"Invalid authMode '%@' in deleteCredentialsFromKeychainIncludingUsername:", [self authMode]);
     }
+    if (  [gTbDefaults boolForKey:challengeSecretPreferenceKey]  ) { // Delete saved challenge secret from Keychain if it has been saved
+        [challengeSecretKeychain deletePassword];
+        [gTbDefaults removeObjectForKey: challengeSecretPreferenceKey];
+    }
 }
 
 -(void) deletePassphrase {
@@ -415,6 +451,14 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
     if (  [gTbDefaults boolForKey:passphrasePreferenceKey]  ) {                 // Delete saved privateKey from Keychain if it has been saved
         [passphraseKeychain deletePassword];
         [gTbDefaults removeObjectForKey: passphrasePreferenceKey];
+    }
+}
+
+-(void) deleteChallengeSecret {
+    
+    if (  [gTbDefaults boolForKey:challengeSecretPreferenceKey]  ) {                 // Delete saved challengeSecret from Keychain if it has been saved
+        [challengeSecretKeychain deletePassword];
+        [gTbDefaults removeObjectForKey: challengeSecretPreferenceKey];
     }
 }
 
@@ -440,6 +484,11 @@ TBSYNTHESIZE_NONOBJECT_GET( BOOL,       showingPassphraseWindow)
 -(BOOL) keychainHasUsernameAndPassword
 {
 	return [gTbDefaults boolForKey: usernameAndPasswordPreferenceKey];
+}
+
+-(BOOL) keychainHasChallengeSecret
+{
+    return [gTbDefaults boolForKey: challengeSecretPreferenceKey];
 }
 
 -(BOOL) keychainHasAnyCredentials

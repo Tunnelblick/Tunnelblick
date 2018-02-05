@@ -51,12 +51,14 @@
 	NSString * passphrase;
 	NSString * password;
 	NSString * username;
+    NSString * challengeSecret;
 
     // Keychains to access passphrase, username, and password, respectively, if they are stored in the Keychain
     // We create these at initialization of each AuthAgent, and keep them around for efficiency and to make the code easier
     KeyChain * passphraseKeychain;
     KeyChain * usernameKeychain;
     KeyChain * passwordKeychain;
+    KeyChain * challengeSecretKeychain;
     
     // These preferences have two functions:
     //      * If not forced, they are used by Tunnelblick to indicate that the corresponding item is stored in the Keychain. This allows Tunnelblick
@@ -66,6 +68,7 @@
     // These are keys for the preferences.
     NSString * passphrasePreferenceKey;
     NSString * usernameAndPasswordPreferenceKey;
+    NSString * challengeSecretPreferenceKey;
     NSString * usernamePreferenceKey;
     
     BOOL authenticationWasFromKeychain;     // Last performAuthentication data came from the Keychain
@@ -82,20 +85,26 @@
 -(void)         deleteCredentialsFromKeychainIncludingUsername: (BOOL) includeUsername;
 -(void)         deletePassphrase;
 -(void)         deletePassword;
+-(void)         deleteChallengeSecret;
 
 -(BOOL)         keychainHasPassphrase;
 -(BOOL)         keychainHasUsername;
 -(BOOL)         keychainHasUsernameAndPassword;
+-(BOOL)         keychainHasChallengeSecret;
 -(BOOL)         keychainHasAnyCredentials;
 
 -(void)         performAuthentication;
 
 -(NSString *)   usernameFromKeychain;
+-(NSString *)   challengeSecretFromKeychain;
+
+-(void)         saveChallengeSecretToKeychain:(NSString *)_challengeSecret;
 
 TBPROPERTY(NSString *, authMode,        setAuthMode)
 TBPROPERTY(NSString *, username,        setUsername)
 TBPROPERTY(NSString *, password,        setPassword)
 TBPROPERTY(NSString *, passphrase,      setPassphrase)
+TBPROPERTY(NSString *, challengeSecret, setChallengeSecret)
 
 TBPROPERTY_READONLY(NSString *, displayName)
 TBPROPERTY_READONLY(BOOL,       authenticationWasFromKeychain)
