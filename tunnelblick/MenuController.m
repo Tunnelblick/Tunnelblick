@@ -4210,9 +4210,7 @@ static void signal_handler(int signalNumber)
     }
     
     NSString * appPath = [[NSBundle mainBundle] bundlePath];
-    NSArray *arguments = (  runningOnLionOrNewer()
-                          ? [NSArray arrayWithObjects: @"-v", @"-v", @"--deep", appPath, nil]
-                          : [NSArray arrayWithObjects: @"-v", @"-v", appPath, nil]);
+    NSArray *arguments = [NSArray arrayWithObjects: @"-v", @"-v", @"--deep", appPath, nil];
     OSStatus status = runTool(TOOL_PATH_FOR_CODESIGN, arguments, &stdoutString, &stderrString);
 
     if (  status != EXIT_SUCCESS  ) {

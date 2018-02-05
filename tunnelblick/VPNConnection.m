@@ -2285,18 +2285,12 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
 	} else if (   (! preference)
                || ( [preference length] == 0)  ) {
+		// "automatic", so if an "dev-type tun" OpenVPN option was seen we must load our tun kext, otherwise we let OpenVPN use the utun device
         if (  [tunOrTap isEqualToString: @"tun"]  ) {
             bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
-        } else if (   ( ! tunOrTap )
-                   || [tunOrTap isEqualToString: @"tunOrUtun"]  ) {
-            // automatic. Use utun -- and don't load the tun kext -- if OS X 10.6.8 or higher
-            if (  ! runningOnSnowLeopardPointEightOrNewer()  ) {
-                bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
-            }
         }
     } else if (  ! [preference isEqualToString: @"never"]  ) {
-        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Cannot recognize the %@ preference value of '%@', so Tunnelblick will load the tun kext", preferenceKey, preference]];
-        bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
+        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Cannot recognize the %@ preference value of '%@', so Tunnelblick will not load the tun kext", preferenceKey, preference]];
     }
     
     NSString * runMtuTestKey = [displayName stringByAppendingString: @"-runMtuTest"];

@@ -131,8 +131,6 @@ BOOL           displaysHaveDifferentSpaces(void);
 BOOL           mustPlaceIconInStandardPositionInStatusBar(void);
 BOOL           shouldPlaceIconInStandardPositionInStatusBar(void);
 
-BOOL           runningOnSnowLeopardPointEightOrNewer(void);
-BOOL           runningOnLionOrNewer(void);
 BOOL           runningOnMountainLionOrNewer(void);
 BOOL           runningOnMavericksOrNewer(void);
 BOOL           runningOnYosemiteOrNewer(void);
