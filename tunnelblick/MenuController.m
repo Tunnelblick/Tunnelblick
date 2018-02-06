@@ -4992,23 +4992,7 @@ static void signal_handler(int signalNumber)
 
 	if (  runningOnMountainLionOrNewer()) {
 		
-		// The following lines are the equivalent of
-		//
-		//     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate: self];
-		//
-		// but they build without error on Xcode 3.2.2, whose SDK does not define NSNotificationCenter. They also
-		// implement some addional error checking.
-		
-		id nsuncClass = NSClassFromString(@"NSUserNotificationCenter");
-		if (  ! nsuncClass) {
-			NSLog(@"No result from 'NSClassFromString(@\"NSUserNotificationCenter\")'");
-			[self terminateBecause: terminatingBecauseOfError];
-		}
-		if (  ! [nsuncClass respondsToSelector: @selector(defaultUserNotificationCenter)]  ) {
-			NSLog(@"NSUserNotificationCenter does not respond to 'defaultUserNotificationCenter'");
-			[self terminateBecause: terminatingBecauseOfError];
-		}
-		id center = [nsuncClass performSelector: @selector(defaultUserNotificationCenter)];
+		NSUserNotificationCenter * center = [NSUserNotificationCenter defaultUserNotificationCenter];
 		if (  ! center) {
 			NSLog(@"No result from [NSUserNotificationCenter defaultUserNotificationCenter]");
 			[self terminateBecause: terminatingBecauseOfError];
@@ -5017,7 +5001,7 @@ static void signal_handler(int signalNumber)
 			NSLog(@"[NSUserNotificationCenter defaultUserNotificationCenter] does not respond to 'setDelegate:'");
 			[self terminateBecause: terminatingBecauseOfError];
 		}
-		[center performSelector: @selector(setDelegate:) withObject: self];
+		[center setDelegate: self];
 	}
     
     if (  [gTbDefaults boolForKey: @"haveStartedAnUpdateOfTheApp"]  ) {
@@ -5237,8 +5221,7 @@ static void signal_handler(int signalNumber)
 												nil,
 												NSAlertDefaultReturn);
 		   if (  result == NSAlertAlternateReturn  ) {
-               NSArray  * arguments = [NSArray arrayWithObject:@"killall"];
-               runOpenvpnstart(arguments, nil, nil);
+               [ConfigurationManager killAllOpenVPNInNewThread];
                noUnknownOpenVPNsRunning = YES;
 		   } else if (result == NSAlertErrorReturn  ) {
                NSLog(@"Ignoring error/cancel return from TBRunAlertPanelExtended; not killing unknown OpenVPN processes");

@@ -218,27 +218,25 @@ extern TBUserDefaults * gTbDefaults;
     
 	if (  runningOnMountainLionOrNewer()  ) {
 		
-        // NSUserNotification and NSUserNotificationCenter are not defined in the Xcode 3.2.2 SDK, so we use NSClassFromString() to access them
-        
-		id notification = [[[NSClassFromString(@"NSUserNotification") alloc] init] autorelease];
+        NSUserNotification * notification = [[[NSUserNotification alloc] init] autorelease];
         if (  ! notification  ) {
-            NSLog(@"No result from '[[[NSClassFromString(@\"NSUserNotification\") alloc] init] autorelease]'");
+            NSLog(@"Cannot create NSUserNotification");
             TBShowAlertWindow(title, msg);
             return;
         }
         
-		[notification performSelector: @selector(setTitle:)           withObject: title];
-		[notification performSelector: @selector(setInformativeText:) withObject: msg];
-		[notification performSelector: @selector(setSoundName:)       withObject: @"NSUserNotificationDefaultSoundName"];
+		[notification setTitle:           title];
+		[notification setInformativeText: msg];
+		[notification setSoundName:       @"NSUserNotificationDefaultSoundName"];
 		
-		id center = [NSClassFromString(@"NSUserNotificationCenter") performSelector: @selector(defaultUserNotificationCenter)];
+		NSUserNotificationCenter * center = [NSUserNotificationCenter defaultUserNotificationCenter];
         if (  ! center  ) {
-            NSLog(@"No result from '[NSClassFromString(@\"NSUserNotificationCenter\") performSelector: @selector(defaultUserNotificationCenter)]'");
+            NSLog(@"Cannot create NSUserNotificationCenter");
             TBShowAlertWindow(title, msg);
             return;
         }
         
-		[center performSelector: @selector(deliverNotification:) withObject: notification];
+		[center deliverNotification: notification];
 		
 	} else {
 		
