@@ -238,6 +238,8 @@ struct Statistics {
 
 -(NSString *)       sanitizedConfigurationFileContents;
 
+-(void)				sendSigtermToManagementSocket;
+
 -(void)             setConnectedSinceDate:      (NSDate *)          value;
 
 -(void)             setState:                   (NSString *)    newState;

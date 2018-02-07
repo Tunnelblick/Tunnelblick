@@ -2924,6 +2924,21 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+-(void) sendStringToManagementSocket: (NSString *) string encoding: (NSStringEncoding) encoding {
+	
+	NS_DURING {
+		[managementSocket writeString: string  encoding: encoding];
+	} NS_HANDLER {
+		NSLog(@"Exception caught while writing '%@' to socket: %@", string, localException);
+	}
+	NS_ENDHANDLER
+}
+
+-(void) sendSigtermToManagementSocket {
+	
+	[self sendStringToManagementSocket: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
+}
+
 - (void) netsocketConnected: (NetSocket*) socket
 {
 
