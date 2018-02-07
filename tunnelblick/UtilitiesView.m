@@ -25,6 +25,7 @@
 #import "easyRsa.h"
 #import "helper.h"
 
+#import "MenuController.h"
 #import "NSFileManager+TB.h"
 #import "TBButton.h"
 #import "TBUserDefaults.h"
@@ -54,9 +55,39 @@ extern TBUserDefaults * gTbDefaults;
 	(void) dirtyRect;
 }
 
+-(void) setUtilitiesKillAllOpenVpnButtonTitle: (NSString *) title {
+	
+	// Set the button's title and adjust the size of the button.
+	// If its width changes, shift the button and/or the status text next to it appropriately
+	
+	CGFloat oldWidth = [utilitiesQuitAllOpenVpnButton frame].size.width;
+	[utilitiesQuitAllOpenVpnButton setTitle: title];
+	[utilitiesQuitAllOpenVpnButton sizeToFit];
+	CGFloat newWidth = [utilitiesQuitAllOpenVpnButton frame].size.width;
+	CGFloat widthChange = oldWidth - newWidth;
+	
+	if (  [(MenuController *)[NSApp delegate] languageAtLaunchWasRTL]  ) {
+		widthChange = -widthChange;
+
+		NSRect f = [utilitiesQuitAllOpenVpnButton frame];	// Shift the button itself
+		f.origin.x -= widthChange;
+		[utilitiesQuitAllOpenVpnButton setFrame: f];
+	}
+	
+	NSRect f = [utilitiesQuitAllOpenVpnStatusTF frame];		// Shift the status text next to the button
+	f.origin.x -= widthChange;
+	[utilitiesQuitAllOpenVpnStatusTF setFrame: f];
+}
+
 -(void) awakeFromNib
 {
-	[utilitiesKillAllOpenVpnButton
+	[utilitiesQuitAllOpenVpnStatusTFC setTitle: @""];
+	
+	// Set the title here so it adjusts the position of the status text, too.
+	// Then when we set it to the same thing (a couple of lines down), it doesn't change its width
+	[self setUtilitiesKillAllOpenVpnButtonTitle: NSLocalizedString(@"Quit All OpenVPN Processes", @"Button")];
+
+	[utilitiesQuitAllOpenVpnButton
 	  setTitle: NSLocalizedString(@"Quit All OpenVPN Processes", @"Button")
 	 infoTitle: attributedStringFromHTML(NSLocalizedString(@"<p>Quits all OpenVPN processes, including those which were not"
 														   @" started by Tunnelblick. You should use the Tunnelblick 'Disconnect' or 'Disconnect All' buttons and menu commands to disconnect"
@@ -107,8 +138,9 @@ extern TBUserDefaults * gTbDefaults;
 //***************************************************************************************************************
 // Getters
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            utilitiesKillAllOpenVpnButton)
-TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, killAllOpenVPNProgressIndicator)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            utilitiesQuitAllOpenVpnButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,	   utilitiesQuitAllOpenVpnStatusTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,		   utilitiesQuitAllOpenVpnStatusTF)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            consoleLogToClipboardButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSProgressIndicator *, consoleLogToClipboardProgressIndicator)

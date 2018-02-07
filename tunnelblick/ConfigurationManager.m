@@ -3871,26 +3871,150 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
 	
 }
 
-+(void) killAllOpenVPN {
++(void) terminateAllOpenVPN {
     
-    NSArray * volatile pIds = [NSApp pIdsForOpenVPNProcessesOnlyMain: NO];
+	// Sends SIGTERM to all OpenVPN processes every second until all have terminated.
+	// Aborts and returns after about 60 seconds even if they have not terminated.
+	
+	TBLog(@"DB-TO", @"terminateAllOpenVPN invoked");
+	
+	if (  ! ALLOW_OPENVPNSTART_KILLALL  ) {
+		NSLog(@"terminateAllOpenVPN returning immediately because ALLOW_OPENVPNSTART_KILLALL is FALSE");
+		return;
+	}
+	
+	NSUInteger numberOfOpenvpnProcesses = [[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] count];
+	
+	if (  numberOfOpenvpnProcesses == 0  ) {
+		TBLog(@"DB-TO", @"terminateAllOpenVPN returning immediately because there are no OpenVPN processes");
+		return;
+	}
+
+	NSUInteger i;
+	for (  i=0; i<600; i++  ) { // 600 loops @ 0.1 seconds each = 60 seconds (approximately)
+		
+		numberOfOpenvpnProcesses = [[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] count];
+		if (  numberOfOpenvpnProcesses == 0  ) {
+			TBLog(@"DB-TO", @"terminateAllOpenVPN detected no OpenVPN processes");
+			break;
+		}
+		
+		// The first time through, and about every second thereafter, try to kill all "openvpn" processes
+		if (  (i % 10)  == 0  ) {
+			TBLog(@"DB-TO", @"terminateAllOpenVPN will run openvpnstart to 'killall'");
+			runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
+		}
+		
+		usleep(100000);	// 0.1 seconds
+	}
+	
+	if (  numberOfOpenvpnProcesses == 0  ) {
+		TBLog(@"DB-TO", @"terminateAllOpenVPN succeeded; there are no OpenVPN processes");
+	} else {
+		NSLog(@"Could not kill %ld OpenVPN processes within 60 seconds", (long)numberOfOpenvpnProcesses);
+	}
+}
+
++(void) terminateOpenVPNWithProcessId: (NSNumber *) processIDAsNumber {
     
-    if (  [pIds count] == 0  ) {
-        TBShowAlertWindow(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                          NSLocalizedString(@"There are no OpenVPN processes running.", @"Window title"));
-        return;
-    }
+	// Sends SIGTERM to the specified OpenVPN process every second until it has terminated.
+	// Aborts and returns after about 60 seconds even if the process has not terminated.
+	
+	TBLog(@"DB-TO", @"terminateOpenVPNWithProcessId: %@ invoked'", processIDAsNumber);
+	
+	if (  ! ALLOW_OPENVPNSTART_KILL  ) {
+		NSLog(@"killOneOpenVPN returning immediately because ALLOW_OPENVPNSTART_KILL is FALSE. Cannot kill OpenVPN process with ID %@", processIDAsNumber);
+		return;
+	}
+	
+	BOOL processExists = [[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] containsObject: processIDAsNumber];
+	
+	if (  ! processExists  ) {
+		TBLog(@"DB-TO", @"killOneOpenVPN returning immediately because there is no OpenVPN process with ID %@", processIDAsNumber);
+		return;
+	}
+	
+	NSUInteger i;
+	for (  i=0; i<600; i++  ) { // 600 loops @ 0.1 seconds each = 60 seconds (approximately)
+		
+		processExists = [[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] containsObject: processIDAsNumber];
+		if (  ! processExists  ) {
+			TBLog(@"DB-TO", @"killOneOpenVPN detected no OpenVPN process with ID %@", processIDAsNumber);
+			break;
+		}
+		
+		// The first time, and about every second thereafter, try to kill all "openvpn" processes
+		if (  (i % 10)  == 0  ) {
+			TBLog(@"DB-TO", @"killOneOpenVPN will run openvpnstart to 'kill' %@", processIDAsNumber);
+			NSArray * arguments = [NSArray arrayWithObjects: @"kill", [NSString stringWithFormat: @"%@", processIDAsNumber], nil];
+			runOpenvpnstart(arguments, nil, nil);
+		}
+		
+		usleep(100000);	// 0.1 seconds
+	}
+	
+	if (  ! processExists  ) {
+		TBLog(@"DB-TO", @"killOneOpenVPN succeeded; there is no OpenVPN process with ID %@", processIDAsNumber);
+	} else {
+		NSLog(@"Could not kill OpenVPN process %@ within 60 seconds", processIDAsNumber);
+	}
+}
+
+
++(void) terminateOpenVPNWithManagmentSocketForConnection: (VPNConnection *) connection {
     
-    runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
-    
-    pIds = [NSApp pIdsForOpenVPNProcessesOnlyMain: NO];
-    if (  [pIds count] == 0  ) {
-        [UIHelper showSuccessNotificationTitle: NSLocalizedString(@"Tunnelblick", @"Window title")
-                                           msg: NSLocalizedString(@"All OpenVPN processes were terminated.", @"Window title")];
-    } else {
-        TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
-                          NSLocalizedString(@"One or more OpenVPN processes could not be terminated.", @"Window title"));
-    }
+	// Sends 'signal SIGTERM' through the management socket for a connection every second until the process has terminated.
+	// Aborts and returns after about 60 seconds even if the process has not terminated.
+	
+	TBLog(@"DB-TO", @"terminateOpenVPNWithManagmentSocketForConnection for '%@' invoked'", [connection displayName]);
+	
+	if (  ! ALLOW_OPENVPNSTART_KILL  ) {
+		NSLog(@"terminateOpenVPNWithManagmentSocketForConnection for '%@' returning immediately because ALLOW_OPENVPNSTART_KILL is FALSE. Cannot kill OpenVPN process.", [connection displayName]);
+		return;
+	}
+	
+	if (  sizeof(pid_t) != 4  ) {
+		NSLog(@"sizeof(pid_t) is %lu, not 4!", sizeof(pid_t));
+		[[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+		return;
+	}
+	pid_t pid = [connection pid];
+	NSNumber * processIDAsNumber = [NSNumber numberWithInt: pid];
+	if (  pid  <= 0  ) {
+		NSLog(@"terminateOpenVPNWithManagmentSocketForConnection for '%@' returning immediately because the configuration's process ID, %@, is <= 0", [connection displayName], processIDAsNumber);
+		return;
+	}
+
+	BOOL processExists = [[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] containsObject: processIDAsNumber];
+	
+	if (  ! processExists  ) {
+		TBLog(@"DB-TO", @"terminateOpenVPNWithManagmentSocketForConnection for '%@' returning immediately because there is no OpenVPN process %@", [connection displayName], processIDAsNumber);
+		return;
+	}
+	
+	NSUInteger i;
+	for (  i=0; i<600; i++  ) { // 600 loops @ 0.1 seconds each = 60 seconds (approximately)
+		
+		processExists = [[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] containsObject: processIDAsNumber];
+		if (  ! processExists  ) {
+			TBLog(@"DB-TO", @"terminateOpenVPNWithManagmentSocketForConnection for '%@' detected no OpenVPN process with ID %@", [connection displayName], processIDAsNumber);
+			break;
+		}
+		
+		// The first time, and about every second thereafter, write 'signal SIGTERM' to the connection's management socket
+		if (  (i % 10)  == 0  ) {
+			TBLog(@"DB-TO", @"terminateOpenVPNWithManagmentSocketForConnection for '%@': will write 'signal SIGTERM' to the management socket", [connection displayName]);
+			[connection performSelectorOnMainThread: @selector(sendSigtermToManagementSocket) withObject: nil waitUntilDone: NO];
+		}
+		
+		usleep(100000);	// 0.1 seconds
+	}
+	
+	if (  ! processExists  ) {
+		TBLog(@"DB-TO", @"terminateOpenVPNWithManagmentSocketForConnection for '%@'  succeeded; there is no OpenVPN process %@", [connection displayName], processIDAsNumber);
+	} else {
+		NSLog(@"terminateOpenVPNWithManagmentSocketForConnection for '%@': OpenVPN process %@ did not terminate within 60 seconds", [connection displayName], processIDAsNumber);
+	}
 }
 
 +(void) putConsoleLogOnClipboard {
@@ -4180,15 +4304,39 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     [pool drain];
 }
 
-+(void) killAllOpenVPNOperation {
++(void) terminateAllOpenVPNOperation {
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
-    [ConfigurationManager killAllOpenVPN];
+    [ConfigurationManager terminateAllOpenVPN];
     
     [TBOperationQueue removeDisableList];
     
-    [[((MenuController *)[NSApp delegate]) logScreen] performSelectorOnMainThread: @selector(indicateNotWaitingForKillAllOpenVPN) withObject: nil waitUntilDone: NO];
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) terminateOpenVPNWithProcessIdOperation: (NSNumber *) processIDAsNumber {
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+	[ConfigurationManager terminateOpenVPNWithProcessId: processIDAsNumber];
+	
+    [TBOperationQueue removeDisableList];
+    
+    [TBOperationQueue operationIsComplete];
+    
+    [pool drain];
+}
+
++(void) terminateOpenVPNWithManagmentSocketInNewThreadOperation: (VPNConnection *) connection {
+    
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+	[ConfigurationManager terminateOpenVPNWithManagmentSocketForConnection: connection];
+	
+    [TBOperationQueue removeDisableList];
     
     [TBOperationQueue operationIsComplete];
     
@@ -4383,12 +4531,35 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
                              disableList: [NSArray arrayWithObject: displayName]];
 }
 
-+(void) killAllOpenVPNInNewThread {
++(void) terminateAllOpenVPNInNewThread {
     
-    [TBOperationQueue addToQueueSelector: @selector(killAllOpenVPNOperation)
+	TBLog(@"DB-TO", @"terminateAllOpenVPNInNewThread invoked; stack trace: %@", callStack());
+	
+    [TBOperationQueue addToQueueSelector: @selector(terminateAllOpenVPNOperation)
                                   target: [ConfigurationManager class]
                                   object: nil
                              disableList: [NSArray array]];
+}
+
++(void) terminateOpenVPNWithProcessIdInNewThread: (NSNumber *) processIdAsNumber {
+	
+	TBLog(@"DB-TO", @"terminateOpenVPNWithProcessIdInNewThread: %@ invoked; stack trace: %@", processIdAsNumber, callStack());
+	
+	[TBOperationQueue addToQueueSelector: @selector(terminateOpenVPNWithProcessIdOperation:)
+								  target: [ConfigurationManager class]
+								  object: processIdAsNumber
+							 disableList: [NSArray array]];
+}
+
+
++(void) terminateOpenVPNWithManagmentSocketInNewThread: (VPNConnection *) connection {
+	
+	TBLog(@"DB-TO", @"terminateOpenVPNWithManagmentSocketInNewThread '%@' invoked; stack trace: %@", [connection displayName], callStack());
+	
+	[TBOperationQueue addToQueueSelector: @selector(terminateOpenVPNWithManagmentSocketInNewThreadOperation:)
+								  target: [ConfigurationManager class]
+								  object: connection
+							 disableList: [NSArray array]];
 }
 
 +(void) putConsoleLogOnClipboardInNewThread {

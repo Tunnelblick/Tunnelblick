@@ -1097,21 +1097,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     [[utilitiesPrefsView consoleLogToClipboardButton] setEnabled: YES];
 }
 
--(void) indicateWaitingForKillAllOpenVPN
-{
-    [[utilitiesPrefsView killAllOpenVPNProgressIndicator] startAnimation: self];
-    [[utilitiesPrefsView killAllOpenVPNProgressIndicator] setHidden: NO];
-    [[utilitiesPrefsView utilitiesKillAllOpenVpnButton]   setEnabled: NO];
-}
-
-
--(void) indicateNotWaitingForKillAllOpenVPN
-{
-    [[utilitiesPrefsView killAllOpenVPNProgressIndicator] stopAnimation: self];
-    [[utilitiesPrefsView killAllOpenVPNProgressIndicator] setHidden: YES];
-    [[utilitiesPrefsView utilitiesKillAllOpenVpnButton]   setEnabled: YES];
-}
-
 -(void) indicateWaitingForLogDisplay: (VPNConnection *) theConnection
 {
     if (  theConnection == [self selectedConnection]  ) {
@@ -3331,7 +3316,99 @@ static BOOL firstTimeShowingWindow = TRUE;
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.tunnelblick.net/uninstall.html"]];
 }
 
--(IBAction) utilitiesKillAllOpenVpnButtonWasClicked: (id) sender
+-(void) destroyUtilitiesKillAllOpenvpnStatusMessageTimer {
+	
+	[hideUtilitiesKillAllOpenvpnStatuMessageTimer invalidate];
+	[hideUtilitiesKillAllOpenvpnStatuMessageTimer release];
+	hideUtilitiesKillAllOpenvpnStatuMessageTimer = nil;
+}
+
+-(void) clearUtilitiesKillAllOpenvpnStatus: (NSTimer *) timer
+{
+	(void)timer;
+	
+	[self destroyUtilitiesKillAllOpenvpnStatusMessageTimer];
+	[[utilitiesPrefsView utilitiesQuitAllOpenVpnStatusTFC] setTitle: @""];
+}
+
+-(void) notifyAboutOpenvpnProcessesKilled: (NSString *) message {
+	
+	[[utilitiesPrefsView utilitiesQuitAllOpenVpnStatusTFC] setTitle: message];
+	
+	// Restore the button to normal
+	NSButton * button = [utilitiesPrefsView utilitiesQuitAllOpenVpnButton];
+	[button setAction: @selector(utilitiesQuitAllOpenVpnButtonWasClicked:)];
+	[button setEnabled: YES];
+	[utilitiesPrefsView setUtilitiesKillAllOpenVpnButtonTitle: NSLocalizedString(@"Quit All OpenVPN Processes", @"Button")];
+
+	// Erase the status message after five seconds
+	[self destroyUtilitiesKillAllOpenvpnStatusMessageTimer];
+	hideUtilitiesKillAllOpenvpnStatuMessageTimer = [[NSTimer scheduledTimerWithTimeInterval: 5.0
+																					 target: self
+																				   selector: @selector(clearUtilitiesKillAllOpenvpnStatus:)
+																				   userInfo: nil
+																		   repeats: NO] retain];
+}
+
+-(void) terminateAllOpenvpnProcessesThread {
+	
+	// Attempts to terminate all processes named "openvpn". Uses "killall" to try to terminate the processes every second.
+	// Waits up to 60 seconds for there to be no processes named "openvpn".
+	// Notifies user of result.
+	
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	NSString * message;
+	
+	NSUInteger numberOfOpenvpnProcesses = [[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] count];
+	
+	if (  numberOfOpenvpnProcesses == 0  ) {
+
+		message = NSLocalizedString(@"There are no OpenVPN processes running", @"Window text");
+	
+	} else {
+		
+		NSUInteger i;
+		for (  i=0; i<600; i++  ) { // 600 loops @ 0.1 seconds each = 60 seconds (approximately)
+
+			if (   ( ( numberOfOpenvpnProcesses = [[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] count] ) == 0 )
+				|| cancelUtilitiesKillAllOpenVpn ) {
+				break;
+			}
+			
+			// The first time through, and about every second thereafter, try to terminate all "openvpn" processes
+			if (  (i % 10)  == 0  ) {
+				TBLog(@"DB-TO", @"terminateAllOpenvpnProcessesThread: will run openvpnstart to 'killall'; stack trace: %@", callStack());
+				runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
+			}
+			
+			usleep(100000);	// 0.1 seconds
+		}
+		
+		message = (  cancelUtilitiesKillAllOpenVpn
+				   ? NSLocalizedString(@"Cancelled trying to quit all OpenVPN processes", @"Window text")
+				   : (   ( numberOfOpenvpnProcesses == 0 )
+					  || ( [[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] count] == 0 )
+					  ? NSLocalizedString(@"All OpenVPN processes have quit", @"Window text")
+				      : NSLocalizedString(@"One or more OpenVPN processes would not quit", @"Window text")));
+		TBLog(@"DB-TO", @"%@", message);
+	}
+	
+	[self performSelectorOnMainThread: @selector(notifyAboutOpenvpnProcessesKilled:) withObject: message waitUntilDone: NO];
+		
+	[pool drain];
+}
+
+-(IBAction) utilitiesQuitAllOpenVpnCancelButtonWasClicked: (id) sender
+{
+	(void) sender;
+	
+	cancelUtilitiesKillAllOpenVpn = YES;
+	[self destroyUtilitiesKillAllOpenvpnStatusMessageTimer];
+	[[utilitiesPrefsView utilitiesQuitAllOpenVpnButton] setEnabled: NO];
+}
+
+-(IBAction) utilitiesQuitAllOpenVpnButtonWasClicked: (id) sender
 {
 	(void) sender;
 	
@@ -3339,9 +3416,23 @@ static BOOL firstTimeShowingWindow = TRUE;
 		return;
 	}
 	
-    [self indicateWaitingForKillAllOpenVPN];
-    
-    [ConfigurationManager killAllOpenVPNInNewThread];
+	if ( [[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] count] == 0  ) {
+		[[utilitiesPrefsView utilitiesQuitAllOpenVpnStatusTFC] setTitle: NSLocalizedString(@"There are no OpenVPN processes running", @"Window text")];
+		[self destroyUtilitiesKillAllOpenvpnStatusMessageTimer];
+		hideUtilitiesKillAllOpenvpnStatuMessageTimer = [[NSTimer scheduledTimerWithTimeInterval: 5.0
+																						 target: self
+																					   selector: @selector(clearUtilitiesKillAllOpenvpnStatus:)
+																					   userInfo: nil
+																						repeats: NO] retain];
+	} else {
+		[utilitiesPrefsView setUtilitiesKillAllOpenVpnButtonTitle: NSLocalizedString(@"Cancel", @"Button")];
+		[[utilitiesPrefsView utilitiesQuitAllOpenVpnButton] setAction: @selector(utilitiesQuitAllOpenVpnCancelButtonWasClicked:)];
+		[[utilitiesPrefsView utilitiesQuitAllOpenVpnStatusTFC] setTitle: NSLocalizedString(@"Trying to quit all OpenVPN processes...", @"Window text")];
+		cancelUtilitiesKillAllOpenVpn = NO;
+		[self destroyUtilitiesKillAllOpenvpnStatusMessageTimer];
+		
+		[NSThread detachNewThreadSelector: @selector(terminateAllOpenvpnProcessesThread) toTarget: self withObject: nil];
+	}
 }
 
 -(IBAction) consoleLogToClipboardButtonWasClicked: (id) sender {

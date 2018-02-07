@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G17023" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G19009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
@@ -266,12 +265,12 @@
                                                                         <popUpButton verticalHuggingPriority="750" id="cnH-Rv-ePh" customClass="TBPopUpButton">
                                                                             <rect key="frame" x="10" y="108" width="272" height="26"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                                            <popUpButtonCell key="cell" type="push" title="Do nothing$" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" selectedItem="z0s-yn-DaU" id="t8Z-Et-eBb">
+                                                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" id="t8Z-Et-eBb">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="menu"/>
                                                                                 <menu key="menu" title="OtherViews" id="zjh-UP-xRG">
                                                                                     <items>
-                                                                                        <menuItem title="Do nothing$" state="on" id="z0s-yn-DaU">
+                                                                                        <menuItem title="Do nothing$" id="z0s-yn-DaU">
                                                                                             <connections>
                                                                                                 <action selector="uponUnexpectedDisconnectDoNothingMenuItemWasClicked:" target="-2" id="Wr2-3J-Gdo"/>
                                                                                             </connections>
@@ -443,7 +442,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="1064" id="1062">
-                                                <rect key="frame" x="-7" y="-5" width="135" height="326"/>
+                                                <rect key="frame" x="-7" y="-5" width="135" height="19"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1185,12 +1184,12 @@
                 <button verticalHuggingPriority="750" id="981" customClass="TBButton">
                     <rect key="frame" x="468" y="324" width="148" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="push" title="KillAllOpenVPN$" bezelStyle="rounded" alignment="right" borderStyle="border" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" id="982">
+                    <buttonCell key="cell" type="push" title="QuitAllOpenVPN$" bezelStyle="rounded" alignment="right" borderStyle="border" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" imageScaling="proportionallyDown" inset="2" id="982">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="utilitiesKillAllOpenVpnButtonWasClicked:" target="-2" id="987"/>
+                        <action selector="utilitiesQuitAllOpenVpnButtonWasClicked:" target="-2" id="987"/>
                         <outlet property="nextKeyView" destination="1085" id="1146"/>
                     </connections>
                 </button>
@@ -1246,19 +1245,25 @@
                     <rect key="frame" x="591" y="274" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </progressIndicator>
-                <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="1762">
-                    <rect key="frame" x="591" y="334" width="16" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                </progressIndicator>
+                <textField verticalHuggingPriority="750" id="MiO-Uz-UGb">
+                    <rect key="frame" x="15" y="335" width="453" height="14"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="status message" id="ta7-Sm-szR">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" red="0.38586956519999999" green="0.38586956519999999" blue="0.38586956519999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <connections>
                 <outlet property="consoleLogToClipboardButton" destination="1085" id="1291"/>
                 <outlet property="consoleLogToClipboardProgressIndicator" destination="1288" id="1289"/>
-                <outlet property="killAllOpenVPNProgressIndicator" destination="1762" id="1763"/>
                 <outlet property="utilitiesEasyRsaPathTFC" destination="1024" id="1025"/>
                 <outlet property="utilitiesHelpButton" destination="861" id="996"/>
-                <outlet property="utilitiesKillAllOpenVpnButton" destination="981" id="997"/>
                 <outlet property="utilitiesOpenUninstallInstructionsButton" destination="1137" id="1152"/>
+                <outlet property="utilitiesQuitAllOpenVpnButton" destination="981" id="997"/>
+                <outlet property="utilitiesQuitAllOpenVpnStatusTF" destination="MiO-Uz-UGb" id="dt5-M8-zyI"/>
+                <outlet property="utilitiesQuitAllOpenVpnStatusTFC" destination="ta7-Sm-szR" id="7Wr-fU-7Ua"/>
                 <outlet property="utilitiesRunEasyRsaButton" destination="1009" id="1016"/>
             </connections>
         </customView>

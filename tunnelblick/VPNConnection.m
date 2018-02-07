@@ -2697,13 +2697,13 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 		[self addToLog: @"*Tunnelblick: Disconnecting using 'killall'"];
         TBLog(@"DB-CD", @"Disconnecting '%@' using 'killall'", [self displayName]);
 		[self expectDisconnect: userKnows];
-        runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
+		[ConfigurationManager terminateAllOpenVPNInNewThread];
         TBLog(@"DB-CD", @"Using 'killall' to disconnect %@", [self displayName])
     } else if (  [managementSocket isConnected]  ) {
 		[self addToLog: @"*Tunnelblick: Disconnecting using management interface"];
         TBLog(@"DB-CD", @"Disconnecting '%@' using management interface", [self displayName]);
 		[self expectDisconnect: userKnows];
-        [managementSocket writeString: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
+		[ConfigurationManager terminateOpenVPNWithManagmentSocketInNewThread: self];
     } else {
         NSLog(@"No way to disconnect '%@': pid = %lu; connectedList = %@; notConnectWhenComputerStarts = %s; [managementSocket isConnected] = %s",
               [self displayName], (unsigned long) thePid, connectedList,
@@ -2757,9 +2757,7 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 {
 	if (   ALLOW_OPENVPNSTART_KILL
         && (pid > 0)  ) {
-		NSString *pidString = [NSString stringWithFormat:@"%d", pid];
-		NSArray * arguments = [NSArray arrayWithObjects:@"kill", pidString, nil];
-		runOpenvpnstart(arguments, nil, nil);
+		[ConfigurationManager terminateOpenVPNWithProcessIdInNewThread: [NSNumber numberWithLong: (long) pid]];
 	} else {
         NSLog(@"killProcess invoked but ALLOW_OPENVPNSTART_KILL = %@ and pid = %lu", (ALLOW_OPENVPNSTART_KILL ? @"TRUE" : @"FALSE"), (unsigned long) pid);
         [((MenuController *)[NSApp delegate]) terminateBecause: terminatingBecauseOfError];

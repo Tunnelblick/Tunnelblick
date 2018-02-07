@@ -121,7 +121,11 @@ typedef enum
 
 +(void) putDiagnosticInfoOnClipboardInNewThreadForDisplayName: (NSString *) displayName;
 
-+(void) killAllOpenVPNInNewThread;
++(void) terminateAllOpenVPNInNewThread;
+
++(void) terminateOpenVPNWithProcessIdInNewThread: (NSNumber *) processIdAsNumber;
+
++(void) terminateOpenVPNWithManagmentSocketInNewThread: (VPNConnection *) connection;
 
 +(void) putConsoleLogOnClipboardInNewThread;
 

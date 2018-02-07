@@ -1289,50 +1289,6 @@ int getProcesses(struct kinfo_proc** procs, unsigned * number) {
     return 0;
 }
 
-void waitUntilAllOpenVPNProcessesAreGone(void) {
-    
-	//Waits until all OpenVPN processes are gone or fifteen seconds, whichever comes first
-	
-    BOOL     found   = FALSE;
-    unsigned count   = 0;
-    unsigned i       = 0;
-    unsigned j       = 0;
-    
-	struct kinfo_proc*	info	= NULL;
-        
-    for (j=0; j<16; j++) {   // Try up to sixteen times, with one second _between_ each try -- max fifteen seconds total
-        
-		found = FALSE;
-		
-        if (j != 0) {       // Don't sleep the first time through
-            sleep(1);
-        }
-        
-        if (  getProcesses(&info, &count) == 0 ) {
-            for (i = 0; i < count; i++) {
-                char* process_name = info[i].kp_proc.p_comm;
-                if (  strcmp(process_name, "openvpn") == 0  ) {
-                    found = TRUE;
-                    break;
-                }
-            }
-            
-            free(info);
-            
-            if (  ! found  ) {
-                break;
-            }
-        } else {
-            fprintf(stderr, "waitUntilAllOpenVPNProcessesAreGone(): Unable to get process information via getProcesses()");
-            exitOpenvpnstart(217);
-        }
-    }
-    
-    if (  found  ) {
-        fprintf(stderr, "Timeout (15 seconds) waiting for process(es) named 'openvpn' to terminate\n");
-    }
-}
-
 void secureUpdate(NSString * name) {
     
     // Secures an update in L_AS_T_TBLKS
@@ -1423,8 +1379,6 @@ void killAllOpenvpn(void) {
     
     NSArray  * arguments = [NSArray arrayWithObject: @"openvpn"];
     runAsRoot(TOOL_PATH_FOR_KILLALL, arguments, 0755);
-	
-    waitUntilAllOpenVPNProcessesAreGone();
 }
 
 //**************************************************************************************************************************

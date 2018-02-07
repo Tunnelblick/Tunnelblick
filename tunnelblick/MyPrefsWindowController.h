@@ -79,6 +79,10 @@
     IBOutlet NSNumber            * selectedAppearanceIconSetIndex;
     IBOutlet NSNumber            * selectedAppearanceConnectionWindowDisplayCriteriaIndex;
     IBOutlet NSNumber            * selectedAppearanceConnectionWindowScreenIndex;
+	
+	// For UtilitiesView
+	NSTimer                      * hideUtilitiesKillAllOpenvpnStatuMessageTimer;
+	BOOL						   cancelUtilitiesKillAllOpenVpn;
 }
 
 
@@ -92,7 +96,6 @@
 -(void) indicateWaitingForLogDisplay:                         (VPNConnection *) theConnection;
 -(void) indicateNotWaitingForConsoleLogToClipboard;
 -(void) indicateNotWaitingForDiagnosticInfoToClipboard;
--(void) indicateNotWaitingForKillAllOpenVPN;
 -(void) indicateNotWaitingForLogDisplay:                      (VPNConnection *) theConnection;
 -(void) hookedUpOrStartedConnection:                          (VPNConnection *) theConnection;
 -(void) lockTheLockIcon;
@@ -179,7 +182,7 @@
 
 // Methods for UtiltiesView
 
--(IBAction) utilitiesKillAllOpenVpnButtonWasClicked:      (id) sender;
+-(IBAction) utilitiesQuitAllOpenVpnButtonWasClicked:      (id) sender;
 
 -(IBAction) utilitiesRunEasyRsaButtonWasClicked:          (id) sender;
 

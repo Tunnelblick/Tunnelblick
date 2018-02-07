@@ -378,6 +378,7 @@ TBSYNTHESIZE_OBJECT(retain, NSString     *, tunnelblickVersionString,  setTunnel
                                 @"DB-SU",     // Extra logging for startup
                                 @"DB-SW",     // Extra logging for sleep/wake and inactive user/active user
                                 @"DB-TD",     // Extra logging for tunnelblickd interactions,
+								@"DB-TO",     // Extra logging for terminating OpenVPN processes (via kill, killall, or socket)
                                 @"DB-UC",     // Extra logging for updating configurations
                                 @"DB-UP",     // Extra logging for the up script
 								@"DB-UU",	  // Extra logging for UI updates
@@ -3021,7 +3022,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         // Use killall if not killing individually
 		if (   useKillAll  ) {
 			TBLog(@"DB-SD", @"startDisconnecting:disconnectingAll:logMessage: starting killAll")
-			runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
+			[ConfigurationManager terminateAllOpenVPNInNewThread];
 			TBLog(@"DB-SD", @"startDisconnecting:disconnectingAll:logMessage: finished killAll")
 		}
         
@@ -5202,9 +5203,7 @@ static void signal_handler(int signalNumber)
 			   NSNumber * pidNumber;
 			   NSEnumerator * pidsEnum = [pIDsWeAreTryingToHookUpTo objectEnumerator];
 			   while (  (pidNumber = [pidsEnum nextObject])  ) {
-				   NSString * pidString = [NSString stringWithFormat: @"%d", [pidNumber intValue]];
-				   NSArray  * arguments = [NSArray arrayWithObjects:@"kill", pidString, nil];
-				   runOpenvpnstart(arguments, nil, nil);
+				   [ConfigurationManager terminateOpenVPNWithProcessIdInNewThread: pidNumber];
 				   noUnknownOpenVPNsRunning = YES;
 			   }
 		   } else if (result == NSAlertErrorReturn  ) {
@@ -5221,7 +5220,7 @@ static void signal_handler(int signalNumber)
 												nil,
 												NSAlertDefaultReturn);
 		   if (  result == NSAlertAlternateReturn  ) {
-               [ConfigurationManager killAllOpenVPNInNewThread];
+               [ConfigurationManager terminateAllOpenVPNInNewThread];
                noUnknownOpenVPNsRunning = YES;
 		   } else if (result == NSAlertErrorReturn  ) {
                NSLog(@"Ignoring error/cancel return from TBRunAlertPanelExtended; not killing unknown OpenVPN processes");
