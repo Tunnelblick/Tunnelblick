@@ -3030,7 +3030,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         } else {
             [((MenuController *)[NSApp delegate]) addNonconnection: self];
             if([newState isEqualToString: @"RECONNECTING"]) {
-                [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
+                [self sendStringToManagementSocket: @"hold release\r\n" encoding: NSASCIIStringEncoding];
             }
         }
     }
@@ -3241,10 +3241,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                                        nil);
                 if (needButtonReturn == NSAlertDefaultReturn) {
                     TBLog(@"DB-AU", @"Write need ok.");
-                    [managementSocket writeString: @"needok token-insertion-request ok\r\n" encoding: NSASCIIStringEncoding];
+                    [self sendStringToManagementSocket: @"needok token-insertion-request ok\r\n" encoding: NSASCIIStringEncoding];
                 } else {
                     TBLog(@"DB-AU", @"Write need cancel.");
-                    [managementSocket writeString: @"needok token-insertion-request cancel\r\n" encoding: NSASCIIStringEncoding];
+                    [self sendStringToManagementSocket: @"needok token-insertion-request cancel\r\n" encoding: NSASCIIStringEncoding];
                 }
             }
         }
@@ -3382,7 +3382,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting; token name is %ld bytes long; passphrase is %ld bytes long; each is limited to %ld bytes", (long)strlen(tokenNameC), (long)strlen(passphraseC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
                 [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
             } else {
-                [managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", escaped(tokenName), escaped(myPassphrase)] encoding:NSUTF8StringEncoding];
+                [self sendStringToManagementSocket: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", escaped(tokenName), escaped(myPassphrase)] encoding:NSUTF8StringEncoding];
             }
         } else {
             [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
@@ -3410,8 +3410,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Disconnecting; username is %ld bytes long; password is %ld bytes long; each is limited to %ld bytes", (long)strlen(usernameC), (long)strlen(passwordC), (long)MAX_LENGTH_OF_QUOTED_MANGEMENT_INTERFACE_PARAMETER]];
                 [self startDisconnectingUserKnows: [NSNumber numberWithBool: NO]];
             } else {
-                [managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSUTF8StringEncoding];
-                [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUTF8StringEncoding];
+                [self sendStringToManagementSocket:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSUTF8StringEncoding];
+                [self sendStringToManagementSocket:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUTF8StringEncoding];
             }
         } else {
             [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
