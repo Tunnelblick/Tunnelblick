@@ -643,7 +643,6 @@
                 <outlet property="uponDisconnectResetPrimaryInterfaceMenuItem" destination="o4M-AV-ycQ" id="cAd-Pc-KGX"/>
                 <outlet property="uponDisconnectTF" destination="VQ3-Ba-8qQ" id="mNF-Hf-7Yc"/>
                 <outlet property="uponDisconnectTFC" destination="PTl-XV-0hb" id="8Fm-7W-quO"/>
-                <outlet property="uponDisconnectUnexpectedDisableNetworkAccessMenuItem" destination="yoF-Y0-iys" id="g4O-VZ-tx6"/>
                 <outlet property="uponUnexpectedDisconnectDisableNetworkAccessMenuItem" destination="DRk-QH-FyE" id="3jl-bX-rcr"/>
                 <outlet property="uponUnexpectedDisconnectDoNothingMenuItem" destination="z0s-yn-DaU" id="SxM-6V-I8f"/>
                 <outlet property="uponUnexpectedDisconnectPopUpButton" destination="cnH-Rv-ePh" id="jkt-jD-Ill"/>
