@@ -3886,7 +3886,7 @@ TBSYNTHESIZE_NONOBJECT(BOOL, multipleConfigurations, setMultipleConfigurations)
     pIds = [NSApp pIdsForOpenVPNProcessesOnlyMain: NO];
     if (  [pIds count] == 0  ) {
         [UIHelper showSuccessNotificationTitle: NSLocalizedString(@"Tunnelblick", @"Window title")
-                                           msg: NSLocalizedString(@"All OpenVPN process were terminated.", @"Window title")];
+                                           msg: NSLocalizedString(@"All OpenVPN processes were terminated.", @"Window title")];
     } else {
         TBShowAlertWindow(NSLocalizedString(@"Warning!", @"Window title"),
                           NSLocalizedString(@"One or more OpenVPN processes could not be terminated.", @"Window title"));
