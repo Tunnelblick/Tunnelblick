@@ -570,9 +570,6 @@
 "Alert" = "Alert";
 
 /* Window title */
-"All OpenVPN process were terminated." = "All OpenVPN process were terminated.";
-
-/* Window title */
 "All configuration files removed" = "All configuration files removed";
 
 /* Window title */
@@ -642,9 +639,6 @@
 "No Credentials" = "No Credentials";
 
 /* Window title */
-"One or more OpenVPN processes could not be terminated." = "One or more OpenVPN processes could not be terminated.";
-
-/* Window title */
 "Only computer administrators should update Tunnelblick" = "Only computer administrators should update Tunnelblick";
 
 /* Window title */
@@ -673,9 +667,6 @@
 
 /* Window title */
 "System Requirements Not Met" = "System Requirements Not Met";
-
-/* Window title */
-"There are no OpenVPN processes running." = "There are no OpenVPN processes running.";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
@@ -912,6 +903,9 @@
 "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n";
 
 /* Window text */
+"All OpenVPN processes have quit" = "All OpenVPN processes have quit";
+
+/* Window text */
 "All configuration files have been removed. Tunnelblick must quit." = "All configuration files have been removed. Tunnelblick must quit.";
 
 /* Window text */
@@ -976,6 +970,9 @@
 
 /* Window text */
 "Backslash at end of line %u is not allowed" = "Backslash at end of line %u is not allowed";
+
+/* Window text */
+"Cancelled trying to quit all OpenVPN processes" = "Cancelled trying to quit all OpenVPN processes";
 
 /* Window text */
 "Cannot find configuration file at %@" = "Cannot find configuration file at %@";
@@ -1305,6 +1302,9 @@
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n";
 
 /* Window text */
+"One or more OpenVPN processes would not quit" = "One or more OpenVPN processes would not quit";
+
+/* Window text */
 "One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n" = "One or more VPN configurations that are being updated include programs which will run as root when you connect to a VPN. They are able to TAKE COMPLETE CONTROL OF YOUR COMPUTER.\n\nYOU SHOULD NOT INSTALL THESE CONFIGURATIONS UNLESS YOU TRUST THEIR AUTHOR.\n\nDo you trust the author of the configurations and wish to install them?\n\n";
 
 /* Window text */
@@ -1518,6 +1518,9 @@
 "There are no OpenVPN configurations to install." = "There are no OpenVPN configurations to install.";
 
 /* Window text */
+"There are no OpenVPN processes running" = "There are no OpenVPN processes running";
+
+/* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
 
 /* Window text */
@@ -1573,6 +1576,9 @@
 
 /* Window text */
 "Translation by" = "Translation by";
+
+/* Window text */
+"Trying to quit all OpenVPN processes..." = "Trying to quit all OpenVPN processes…";
 
 /* Window text; '%@' will be replaced with a version number such as '3.2.1 (build 1234)' */
 "Tunnelblick %@ has been secured successfully." = "Tunnelblick %@ has been secured successfully.";
