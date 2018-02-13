@@ -3344,8 +3344,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
 	} else {
 		
-		NSUInteger i;
-		for (  i=0; i<600; i++  ) { // 600 loops @ 0.1 seconds each = 60 seconds (approximately)
+		NSUInteger i = 0;
+		while (  ! cancelUtilitiesQuitAllOpenVpn  ) {
 
 			if (  [[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] count] == 0  ) {
  				break;
@@ -3361,6 +3361,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 			}
 			
 			usleep(100000);	// 0.1 seconds
+
+			i++;
 		}
 		
 		message = (  ( [[NSApp pIdsForOpenVPNProcessesOnlyMain: YES] count] == 0 )
