@@ -3358,6 +3358,9 @@ static BOOL firstTimeShowingWindow = TRUE;
 			if (  (i % 10)  == 0  ) {
 				TBLog(@"DB-TO", @"terminateAllOpenvpnProcessesThread: will run 'openvpnstart killall'; stack trace: %@", callStack());
 				runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
+				
+				[pool drain];
+				pool = [[NSAutoreleasePool alloc] init];
 			}
 			
 			usleep(100000);	// 0.1 seconds
