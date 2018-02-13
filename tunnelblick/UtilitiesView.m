@@ -55,7 +55,7 @@ extern TBUserDefaults * gTbDefaults;
 	(void) dirtyRect;
 }
 
--(void) setUtilitiesKillAllOpenVpnButtonTitle: (NSString *) title {
+-(void) setUtilitiesQuitAllOpenVpnButtonTitle: (NSString *) title {
 	
 	// Set the button's title and adjust the size of the button.
 	// If its width changes, shift the button and/or the status text next to it appropriately
@@ -83,9 +83,9 @@ extern TBUserDefaults * gTbDefaults;
 {
 	[utilitiesQuitAllOpenVpnStatusTFC setTitle: @""];
 	
-	// Set the title here so it adjusts the position of the status text, too.
+	// SET ONE BUTTON TITLE HERE **FIRST** so it adjusts the position of the status text, too.
 	// Then when we set it to the same thing (a couple of lines down), it doesn't change its width
-	[self setUtilitiesKillAllOpenVpnButtonTitle: NSLocalizedString(@"Quit All OpenVPN Processes", @"Button")];
+	[self setUtilitiesQuitAllOpenVpnButtonTitle: NSLocalizedString(@"Quit All OpenVPN Processes", @"Button")];
 
 	[utilitiesQuitAllOpenVpnButton
 	  setTitle: NSLocalizedString(@"Quit All OpenVPN Processes", @"Button")
@@ -133,6 +133,33 @@ extern TBUserDefaults * gTbDefaults;
         easyRsaPathMessage = @"";
     }
     [utilitiesEasyRsaPathTFC setTitle: easyRsaPathMessage];
+}
+
+-(void) clearUtilitiesQuitAllOpenvpnStatusText: (NSTimer *) timer {
+
+	(void) timer;
+	
+	[utilitiesQuitAllOpenvpnStatusTextTimer release];
+	utilitiesQuitAllOpenvpnStatusTextTimer = nil;
+
+	[[self utilitiesQuitAllOpenVpnStatusTFC] setTitle: @""];
+}
+
+-(void) setUtilitiesQuitAllOpenvpnStatusText: (NSString *) text {
+	
+	// Sets the status text, then (if it is not empty) clears it fives seconds later.
+	
+	[utilitiesQuitAllOpenVpnStatusTFC setTitle: text];
+	
+	[utilitiesQuitAllOpenvpnStatusTextTimer invalidate];
+	[utilitiesQuitAllOpenvpnStatusTextTimer release];
+	utilitiesQuitAllOpenvpnStatusTextTimer = nil;
+	utilitiesQuitAllOpenvpnStatusTextTimer = [[NSTimer scheduledTimerWithTimeInterval: 5.0
+																			   target: self
+																			 selector: @selector(clearUtilitiesQuitAllOpenvpnStatusText:)
+																			 userInfo: nil
+																			  repeats: NO]
+											  retain];
 }
 
 //***************************************************************************************************************

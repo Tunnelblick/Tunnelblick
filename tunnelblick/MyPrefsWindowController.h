@@ -81,8 +81,7 @@
     IBOutlet NSNumber            * selectedAppearanceConnectionWindowScreenIndex;
 	
 	// For UtilitiesView
-	NSTimer                      * hideUtilitiesKillAllOpenvpnStatuMessageTimer;
-	BOOL						   cancelUtilitiesKillAllOpenVpn;
+	BOOL						   cancelUtilitiesQuitAllOpenVpn;
 }
 
 

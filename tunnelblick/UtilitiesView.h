@@ -39,9 +39,13 @@
     IBOutlet NSTextFieldCell    * utilitiesEasyRsaPathTFC;
  
     IBOutlet NSButton           * utilitiesHelpButton;
+
+	NSTimer                     * utilitiesQuitAllOpenvpnStatusTextTimer; // Used to erase status text after 5 seconds
 }
 
--(void) setUtilitiesKillAllOpenVpnButtonTitle: (NSString *) title;
+-(void) setUtilitiesQuitAllOpenVpnButtonTitle: (NSString *) title;
+
+-(void) setUtilitiesQuitAllOpenvpnStatusText: (NSString *) text;
 
 TBPROPERTY_READONLY(TBButton *,            utilitiesQuitAllOpenVpnButton)
 TBPROPERTY_READONLY(NSTextFieldCell *,	   utilitiesQuitAllOpenVpnStatusTFC)
