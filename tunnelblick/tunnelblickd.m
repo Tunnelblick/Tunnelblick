@@ -403,6 +403,12 @@ int main(void) {
 	
 	// Loop processing kernel events.
     for (;;) {
+
+		if (  event_count++ > 100  ) {
+			// After processing 100 events, force a new tunnelblickd process to avoid problems caused by memory leaks
+			retval = EXIT_SUCCESS;
+			goto done;
+		}
 		
 		[pool drain];
 		pool = [NSAutoreleasePool new];
