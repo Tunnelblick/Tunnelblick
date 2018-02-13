@@ -272,6 +272,10 @@ OSStatus runTool(NSString * userName,
 
 int main(void) {
 	
+	NSAutoreleasePool * pool = [NSAutoreleasePool new];
+	
+    unsigned int event_count = 0;
+	
 	struct sigaction action;
     
     struct sockaddr_storage ss;
@@ -284,9 +288,9 @@ int main(void) {
     struct kevent   kev_init;
     struct kevent   kev_listener;
     launch_data_t   sockets_dict,
-	checkin_response,
-	checkin_request,
-	listening_fd_array;
+					checkin_response,
+					checkin_request,
+					listening_fd_array;
     size_t          i;
     int             kq;
     
@@ -399,6 +403,10 @@ int main(void) {
 	
 	// Loop processing kernel events.
     for (;;) {
+		
+		[pool drain];
+		pool = [NSAutoreleasePool new];
+		
         FILE *the_stream;
         int  filedesc;
 		int nbytes;
@@ -430,7 +438,8 @@ int main(void) {
 					rename(TUNNELBLICKD_LOG_PATH_C, TUNNELBLICKD_PREVIOUS_LOG_PATH_C);
 				}
 			}
-            return EXIT_SUCCESS;
+            retval = EXIT_SUCCESS;
+			goto done;
         }
 //        asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "Received file descriptor %d", filedesc);
 		
@@ -498,22 +507,16 @@ int main(void) {
 		//***************************************************************************************
 		// Process the request by calling tunnelblick-helper and sending its status and output to the client
 		
-		NSAutoreleasePool * pool = [NSAutoreleasePool new];
-		
         // Get the client's username from the client's euid
         struct passwd *ss = getpwuid(client_euid);
         NSString * userName = [NSString stringWithCString: ss->pw_name encoding: NSUTF8StringEncoding];
 		if (  userName == nil  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret username as UTF-8");
-			retval = EXIT_FAILURE;
-			[pool drain];
 			goto done;
 		}
         NSString * userHome = [NSString stringWithCString: ss->pw_dir  encoding: NSUTF8StringEncoding];
 		if (  userHome == nil  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Could not interpret userhome as UTF-8");
-			retval = EXIT_FAILURE;
-			[pool drain];
 			goto done;
 		}
 		
@@ -528,8 +531,6 @@ int main(void) {
 									 stringByAppendingPathComponent: @"tunnelblick-helper"];
 		} else {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "Invalid bundlePath = '%s'", [bundlePath UTF8String]);
-			retval = EXIT_FAILURE;
-			[pool drain];
 			goto done;
 		}
 		NSString * command      = [NSString stringWithUTF8String: buffer + strlen(command_header)];		// Skip over the header
@@ -577,8 +578,6 @@ int main(void) {
 		} else if (  seteuid(0)  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "After running tunnelblick-helper with command '%s', seteuid(0) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
 					[commandToDisplay UTF8String], (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-			retval = EXIT_FAILURE;
-			[pool drain];
 			goto done;
 		} else {
 //			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "After running tunnelblick-helper, seteuid(0) succeeded; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
@@ -592,8 +591,6 @@ int main(void) {
 		} else if (  setegid(0)  ) {
 			asl_log(asl, log_msg, ASL_LEVEL_ERR, "After running tunnelblick-helper with command '%s', setegid(0) failed; uid = %lu; euid = %lu; gid = %lu; egid = %lu; error = %m",
 					[commandToDisplay UTF8String], (unsigned long)getuid(), (unsigned long)geteuid(), (unsigned long)getgid(), (unsigned long)getegid());
-			retval = EXIT_FAILURE;
-			[pool drain];
 			goto done;
 //		} else {
 //			asl_log(asl, log_msg, ASL_LEVEL_DEBUG, "After running tunnelblick-helper, setegid(0) succeeded; uid = %lu; euid = %lu; gid = %lu; egid = %lu",
@@ -625,14 +622,16 @@ int main(void) {
 			close(filedesc);  // This isn't fatal
 		}
 		
-		[pool drain];
-		pool = nil;
-		
 		//***************************************************************************************
 		//***************************************************************************************
 	}
 	
 done:
-    asl_close(asl);
+	if (  asl != NULL ) {
+		asl_close(asl);
+	}
+
+	[pool drain];
+	
 	return retval;
 }
