@@ -1,5 +1,5 @@
 /*
- * Copyright 2014, 2015, 2016 by Jonathan K. Bullard. All rights reserved.
+ * Copyright 2014, 2015, 2016, 2018 by Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -294,9 +294,17 @@ int main(void) {
 	
     // Create a new ASL log
     asl = asl_open("tunnelblickd", "Daemon", ASL_OPT_STDERR);
+	if (  asl == NULL  ) {
+		return EXIT_FAILURE;
+	}
     log_msg = asl_new(ASL_TYPE_MSG);
-    asl_set(log_msg, ASL_KEY_SENDER, "tunnelblickd");
-    
+	if (  log_msg == NULL  ) {
+		return EXIT_FAILURE;
+	}
+	if (  asl_set(log_msg, ASL_KEY_SENDER, "tunnelblickd") != 0  ) {
+		return EXIT_FAILURE;
+	}
+		
     // Create a new kernel event queue that we'll use for our notification.
     // Note the use of the '%m' formatting character.
 	// ASL will replace %m with the error string associated with the current value of errno.
