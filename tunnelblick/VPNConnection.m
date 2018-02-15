@@ -1780,8 +1780,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 	//		OpenVPN version the option(s) were removed in,
 	//		Option name...
 	NSArray * removedOptions = [NSArray arrayWithObjects:
-								[NSArray arrayWithObjects: @"2.3", @"2.4", @"tls-remote", @"tun-ipv6", nil],
-								[NSArray arrayWithObjects: @"2.4", @"2.5", @"comp-lzo", @"key-method", @"compat-names", @"no-name-remapping", @"no-iv", @"no-replay", @"ifconfig-pool-linear", @"client-cert-not-required", @"ns-cert-type", nil],
+								[NSArray arrayWithObjects: @"2.3", @"2.4", @"remote-ip-hint", @"tls-remote", nil],
+								[NSArray arrayWithObjects: @"2.4", @"2.5", @"client-cert-not-required", @"comp-lzo", @"compat-names", @"ifconfig-pool-linear", @"key-method", @"no-iv", @"no-name-remapping", @"no-replay", @"ns-cert-type", nil],
 								[NSArray arrayWithObjects: @"2.5", @"2.6", @"keysize", nil],
 								nil];
 	
@@ -1841,7 +1841,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 								 @"verify-client-cert",
 								 nil],
 								[NSArray arrayWithObjects:
-								 @"2.5",
+								 @"2.5", @"tls-cert-profile",
 								 nil],
 								nil];
 	
